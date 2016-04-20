@@ -3,5 +3,9 @@
   apt: name=git update_cache=yes state=present
   sudo: yes
 
+- name: Update npm
+  npm: name=npm state=latest global=yes
+  sudo: yes
+
 - name: Install npm packages
   npm: path=/code
