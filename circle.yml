@@ -10,6 +10,7 @@ machine:
 dependencies:
   override:
     - npm install -g eslint@2.8.0
+    - npm install -g eslint-plugin-react@5.0.1
     - npm install
   cache_directories:
     - "node_modules"
