@@ -115,28 +115,6 @@
             "experimentalObjectRestSpread": true
         }
     },
-    "globals": {
-        "ga": false,
-        "toastr": false,
-        "PAGE": false,
-        "PK": false,
-        "QUERY": false,
-        "STATE": false,
-        "vis": false,
-        "Highcharts": false,
-        "SHOW_DISCLAIMER": false,
-        "L": false,
-        "HIGHLIGHT_STYLE": false,
-        "NORMAL_STYLE": false,
-        "MapShowCommand": false,
-        "prettyLabels": false,
-        "HEATMAP_OVERRIDES": false,
-        "ZeroClipboard": false,
-        "INTERFACE_TEXTS": false,
-        "DEFAULT_SITE_TITLE": false,
-        "STORY_TYPES_ORDER": false,
-        "c3": false
-    },
     "plugins": [
         "react"
     ],
