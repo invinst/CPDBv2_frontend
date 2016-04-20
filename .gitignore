@@ -39,3 +39,6 @@ jspm_packages
 
 ### Ansible ###
 *.retry
+
+### coverage ###
+lcov.info
