@@ -10,3 +10,7 @@
 
 - `npm test` to run tests.
 - `npm run cover` will run tests and output coverage statistics to `./lcov.info`
+
+## Development
+
+- `npm start` to run `webpack-dev-server` (with `react-hot-loader`)

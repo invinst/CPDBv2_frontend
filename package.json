@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node server",
-    "test": "NODE_PATH=src mochify --recursive test --transform [ babelify --presets [ es2015 react ] ]",
-    "cover": "NODE_PATH=src mochify --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]"
+    "test": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ]",
+    "cover": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]"
   },
   "repository": {
     "type": "git",
