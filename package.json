@@ -37,8 +37,10 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "lodash": "^4.11.1",
     "react": "^0.14.8",
     "react-addons-test-utils": "^0.14.8",
-    "react-dom": "^0.14.8"
+    "react-dom": "^0.14.8",
+    "react-responsive": "^1.1.2"
   }
 }

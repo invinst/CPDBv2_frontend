@@ -3,6 +3,7 @@
 ## Getting Started
 
 - `vagrant up`
+- `vagrant rsync-auto` (put this on another console this required for live reload)
 - `vagrant ssh`
 - `cd /code`
 
