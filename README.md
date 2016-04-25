@@ -2,6 +2,8 @@
 
 ## Getting Started
 
+- `sudo ansible-galaxy install Heroqu.nodejs4x`
+- `sudo ansible-galaxy install nicolai86.phantomjs`
 - `vagrant up`
 - `vagrant rsync-auto` (put this on another console this required for live reload)
 - `vagrant ssh`
