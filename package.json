@@ -7,7 +7,8 @@
     "build": "NODE_PATH=src/js browserify src/js/index.js -o dist/bundle.js --transform [ babelify --presets [ es2015 react ] ]",
     "start": "NODE_PATH=src/js budo src/js/index.js:static/bundle.js --host 0.0.0.0 --live -- --transform [ babelify --presets [ es2015 react ] ]",
     "test": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ]",
-    "cover": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]"
+    "cover": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]",
+    "cover-artifact": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report text ]"
   },
   "repository": {
     "type": "git",
