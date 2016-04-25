@@ -7,5 +7,13 @@
   npm: name=npm version=3.8.7 global=yes
   sudo: yes
 
+- name: Install Browserify
+  npm: name=browserify version=13.0.0 global=yes
+  sudo: yes
+
+- name: Install Budo
+  npm: name=budo version=8.2.1 global=yes
+  sudo: yes
+
 - name: Install npm packages
   npm: path=/code

@@ -14,8 +14,8 @@
 
 ## Development
 
-- `npm start` to run `webpack-dev-server` (with `react-hot-loader`)
-- visit `localhost:3000` to see live changes.
+- `npm start` to run development server (powered by [budo](https://github.com/mattdesl/budo))
+- visit `localhost:9966` to see live changes.
 
 ## Responsive layout Strategy
 
