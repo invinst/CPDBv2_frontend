@@ -15,6 +15,7 @@
 ## Development
 
 - `npm start` to run `webpack-dev-server` (with `react-hot-loader`)
+- visit `localhost:3000` to see live changes.
 
 ## Responsive layout Strategy
 
