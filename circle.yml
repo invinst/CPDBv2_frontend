@@ -18,6 +18,5 @@ test:
   override:
     - eslint .
     - npm run cover
-    - npm run cover-artifact > $CIRCLE_ARTIFACTS/coverage
   post:
     - cat lcov.info | ./node_modules/coveralls/bin/coveralls.js

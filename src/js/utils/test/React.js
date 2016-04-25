@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 import should from 'should';
+import _ from 'lodash';
 
 
 should.Assertion.add('renderable', function () {
@@ -15,11 +16,10 @@ should.Assertion.add('renderable', function () {
 
 should.Assertion.add('responsiveRenderable', function () {
   let devices = ['mobile', 'tablet', 'desktop'];
-  let device;
 
-  for (device in devices) {
+  _.each(devices, (device) => {
     let element = ReactTestUtils.renderIntoDocument(React.createElement(this.obj, { device: device }));
     element.should.be.ok();
     ReactDOM.unmountComponentAtNode(ReactDOM.findDOMNode(element).parentNode);
-  }
+  });
 });
