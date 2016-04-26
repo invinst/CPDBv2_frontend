@@ -1,15 +1,15 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import MediaQuery from 'react-responsive';
-
-let PropTypes = React.PropTypes;
 
 
 let MOBILE_BREAK_POINT = 768;
 let TABLET_BREAK_POINT = 992;
 
-let MOBILE_DEVICE = 'mobile';
-let TABLET_DEVICE = 'tablet';
-let DESKTOP_DEVICE = 'desktop';
+let DEVICE_RENDERERS = {
+  mobile: 'renderMobile',
+  tablet: 'renderTablet',
+  desktop: 'renderDesktop'
+};
 
 
 export default class ResponsiveComponent extends React.Component {
@@ -26,14 +26,10 @@ export default class ResponsiveComponent extends React.Component {
   }
 
   render() {
-    if (this.props.device === MOBILE_DEVICE) {
-      return this.renderMobile();
-    } else if (this.props.device === TABLET_DEVICE ) {
-      return this.renderTablet();
-    } else if (this.props.device === DESKTOP_DEVICE ) {
-      return this.renderDesktop();
+    let renderer = DEVICE_RENDERERS[this.props.device];
+    if (renderer) {
+      return this[renderer]();
     } else {
-
       return (
         <div>
           <MediaQuery maxWidth={ MOBILE_BREAK_POINT - 1 }>

@@ -1,3 +1,5 @@
+==>
+
 # CPDB v2 Frontend
 
 ## Getting Started
@@ -18,6 +20,10 @@
 
 - `npm start` to run development server (powered by [budo](https://github.com/mattdesl/budo))
 - visit `localhost:9966` to see live changes.
+
+## Browser supports
+
+Chrome 45+, Firefox 45+, IE 11, Safari 9+ and iOS 8+ Safari
 
 ## Responsive layout Strategy
 
