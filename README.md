@@ -24,7 +24,7 @@
 
 ## Deployment
 
-- Deploy to staging: `ansible-playbook ansible/site.yml -i ansible/staging --ask-pass --ask-sudo-pass` (password is the same as deploy user's on v1)
+- `make deploy-staging`: deploy to staging. (password is the same as deploy user's on v1)
 
 ## Browser supports
 
