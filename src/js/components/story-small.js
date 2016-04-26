@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 
 export default class StorySmall extends React.Component {
   render() {
@@ -9,5 +9,5 @@ export default class StorySmall extends React.Component {
 }
 
 StorySmall.propTypes = {
-  style: React.PropTypes.object
+  style: PropTypes.object
 };

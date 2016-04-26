@@ -1,3 +1,5 @@
+==>
+
 # CPDB v2 Frontend
 
 ## Getting Started
@@ -23,6 +25,10 @@
 ## Deployment
 
 - Deploy to staging: `ansible-playbook ansible/site.yml -i ansible/staging --ask-pass --ask-sudo-pass` (password is the same as deploy user's on v1)
+
+## Browser supports
+
+Chrome 45+, Firefox 45+, IE 11, Safari 9+ and iOS 8+ Safari
 
 ## Responsive layout Strategy
 
