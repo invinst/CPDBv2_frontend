@@ -1,0 +1,8 @@
+---
+- name: Copy nginx config
+  sudo: yes
+  command: cp /CPDB/nginx/staging /etc/nginx/conf.d/cpdb.conf
+
+- name: Restart nginx service
+  sudo: yes
+  command: service nginx restart
