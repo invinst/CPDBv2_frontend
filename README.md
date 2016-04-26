@@ -24,7 +24,7 @@
 
 ## Deployment
 
-- `make deploy-staging`: deploy to staging. (password is the same as deploy user's on v1)
+- `bin/deploy-staging`: deploy to staging. (password is the same as deploy user's on v1)
 
 ## Browser supports
 
