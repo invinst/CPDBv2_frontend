@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import HelloWord from 'app';
+import LandingPage from 'components/landing-page';
 
 
-render(<HelloWord name='World'/>, document.getElementById('root'));
+render(<LandingPage/>, document.getElementById('root'));
