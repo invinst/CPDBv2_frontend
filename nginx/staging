@@ -1,6 +1,4 @@
-http {
-    server {
-        listen 80;
-        root /www/static;
-    }
+server {
+    listen 80;
+    root /www/static;
 }
