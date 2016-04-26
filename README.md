@@ -4,6 +4,7 @@
 
 - `sudo ansible-galaxy install Heroqu.nodejs4x`
 - `sudo ansible-galaxy install nicolai86.phantomjs`
+- `sudo ansible-galaxy install jeqo.nginx`
 - `vagrant up`
 - `vagrant rsync-auto` (put this on another console this required for live reload)
 - `vagrant ssh`
@@ -18,6 +19,10 @@
 
 - `npm start` to run development server (powered by [budo](https://github.com/mattdesl/budo))
 - visit `localhost:9966` to see live changes.
+
+## Deployment
+
+- Deploy to staging: `ansible-playbook ansible/site.yml -i ansible/staging --ask-pass --ask-sudo-pass` (password is the same as deploy user's on v1)
 
 ## Responsive layout Strategy
 

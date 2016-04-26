@@ -1,0 +1,14 @@
+---
+- name: Creates CPDB directory for deployment
+  sudo: yes
+  file: path=/CPDB state=directory owner=ansible
+
+- name: Pull code from frontend repo
+  git: repo= dest=/CPDB/ key_file=/home/ansible/.ssh/github accept_hostkey=True version=master
+
+- name: Install npm packages
+  npm: path=/CPDB
+
+- name: Create dist directory
+  command: npm run build
+    chdir=/CPDB/

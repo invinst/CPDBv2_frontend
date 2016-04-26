@@ -4,8 +4,8 @@
   "description": "Frontend for cpdb v2",
   "main": "index.js",
   "scripts": {
-    "build": "NODE_PATH=src/js browserify src/js/index.js -o dist/bundle.js --transform [ babelify --presets [ es2015 react ] ]",
-    "start": "NODE_PATH=src/js budo src/js/index.js:static/bundle.js --host 0.0.0.0 --live -- --transform [ babelify --presets [ es2015 react ] ]",
+    "build": "NODE_PATH=src/js browserify src/js/index.js -o bundle.js --transform [ babelify --presets [ es2015 react ] ]",
+    "start": "NODE_PATH=src/js budo src/js/index.js:dist/bundle.js --host 0.0.0.0 --live -- --transform [ babelify --presets [ es2015 react ] ]",
     "test": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ]",
     "cover": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]"
   },
