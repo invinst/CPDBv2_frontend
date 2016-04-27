@@ -24,6 +24,10 @@
 
 ## Deployment
 
+We use 2 droplets from DigitalOceans for deployment. Ask Giang in case you need access to DigitalOcean control panel.
+
+- Staging IP address: [107.170.42.226](http://107.170.42.226)
+- Production IP address: [107.170.51.220](http://107.170.51.220)
 - `bin/deploy-staging`: deploy to staging. (password is the same as deploy user's on v1)
 
 ## Browser supports
