@@ -2,8 +2,8 @@ import React, {PropTypes} from 'react';
 import MediaQuery from 'react-responsive';
 
 
-let MOBILE_BREAK_POINT = 768;
-let TABLET_BREAK_POINT = 992;
+const MOBILE_BREAK_POINT = 768;
+const TABLET_BREAK_POINT = 992;
 
 let DEVICE_RENDERERS = {
   mobile: 'renderMobile',

@@ -1,14 +1,31 @@
 import React, {PropTypes} from 'react';
-import _ from 'lodash';
+import Radium from 'radium';
 
-import {paperStyle, wrapperStyle} from 'components/story-small.style';
+import ArticleHeader from 'components/common/article-header';
+import Paragraph from 'components/common/paragraph';
+import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive-style-component';
+import {wrapperStyle, tabletWrapperStyle, mobileWrapperStyle} from 'components/story-small.style';
 
 
-export default class StorySmall extends React.Component {
-  render() {
-    return (<div style={ _.assign({}, wrapperStyle, this.props.style) }>
-      <h6 style={ paperStyle }>{ this.props.story.paper }</h6>
-      <p>{ this.props.story.title }</p>
+class StorySmall extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [DESKTOP]: {
+        wrapper: [wrapperStyle, this.props.style]
+      },
+      [TABLET]: {
+        wrapper: [wrapperStyle, tabletWrapperStyle, this.props.style]
+      },
+      [MOBILE]: {
+        wrapper: [wrapperStyle, mobileWrapperStyle, this.props.style]
+      }
+    };
+  }
+
+  renderWithResponsiveStyle(style) {
+    return (<div style={ style.wrapper }>
+      <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
+      <Paragraph>{ this.props.story.title }</Paragraph>
     </div>);
   }
 }
@@ -27,3 +44,5 @@ StorySmall.defaultProps = {
     title: 'Complaints against Chicago Police rarely result in discipline data shows.'
   }
 };
+
+export default Radium(StorySmall);

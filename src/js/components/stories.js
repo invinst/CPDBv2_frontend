@@ -1,4 +1,7 @@
 import React, {PropTypes} from 'react';
+import Radium from 'radium';
+
+import MoreLink from 'components/common/more-link';
 import StoryMedium from 'components/story-medium';
 import StorySmall from 'components/story-small';
 import ResponsiveComponent from 'components/responsive-component';
@@ -7,7 +10,7 @@ import {
 } from 'components/stories.style';
 
 
-export default class Stories extends ResponsiveComponent {
+class Stories extends ResponsiveComponent {
   renderMobile() {
     return (<div>
       <StoryMedium story={ this.props.stories[0] }/>
@@ -20,7 +23,7 @@ export default class Stories extends ResponsiveComponent {
         </div>
       </div>
       <div style={ storiesLinkWrapperStyle }>
-        <a>More Stories</a>
+        <MoreLink>More Stories</MoreLink>
       </div>
     </div>);
   }
@@ -34,8 +37,10 @@ export default class Stories extends ResponsiveComponent {
         <StorySmall style={ firstSmallStoryStyleTablet } story={ this.props.stories[1] }/>
         <StorySmall story={ this.props.stories[2] }/>
       </div>
-      <div className='pure-u-1-1' style={ storiesLinkWrapperStyle }>
-        <a>More Stories</a>
+      <div className='pure-u-1-1'>
+        <div style={ storiesLinkWrapperStyle }>
+          <MoreLink>More Stories</MoreLink>
+        </div>
       </div>
     </div>);
   }
@@ -53,8 +58,10 @@ export default class Stories extends ResponsiveComponent {
           <StorySmall story={ this.props.stories[2] }/>
         </div>
       </div>
-      <div className='pure-u-1-1' style={ storiesLinkWrapperStyle }>
-        <a>More Stories</a>
+      <div className='pure-u-1-1'>
+        <div style={ storiesLinkWrapperStyle }>
+          <MoreLink>More Stories</MoreLink>
+        </div>
       </div>
     </div>);
   }
@@ -81,3 +88,5 @@ Stories.defaultProps = {
     }
   ]
 };
+
+export default Radium(Stories);

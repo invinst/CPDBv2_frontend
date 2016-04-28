@@ -1,8 +1,4 @@
 export const storiesLinkWrapperStyle = {
-  color: '#005ef4',
-  fontSize: '14px',
-  fontFamily: '"San Francisco Text Web", sans-serif',
-  fontWeight: 'bold',
   textAlign: 'right',
   padding: '36px 36px',
   height: '88px',
@@ -10,16 +6,13 @@ export const storiesLinkWrapperStyle = {
 };
 
 export const firstSmallStoryStyleMobile = {
-  borderRight: '1px solid rgba(0, 0, 0, .1)',
-  height: '50vw'
+  borderRight: '1px solid rgba(0, 0, 0, .1)'
 };
 
 export const firstSmallStoryStyleTablet = {
-  borderBottom: '1px solid rgba(0, 0, 0, .1)',
-  height: '16.666666667vw'
+  borderBottom: '1px solid rgba(0, 0, 0, .1)'
 };
 
 export const firstSmallStoryStyleDesktop = {
-  borderRight: '1px solid rgba(0, 0, 0, .1)',
-  height: '26.666666667vw'
+  borderRight: '1px solid rgba(0, 0, 0, .1)'
 };

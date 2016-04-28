@@ -1,4 +1,8 @@
 import React, {PropTypes} from 'react';
+import Radium from 'radium';
+
+import ArticleHeader from 'components/common/article-header';
+import Paragraph from 'components/common/paragraph';
 import ResponsiveComponent from 'components/responsive-component';
 import FeaturedStoryImage from 'components/featured-story-image';
 import {
@@ -9,15 +13,15 @@ import {
 
 
 
-export default class StoryMedium extends ResponsiveComponent {
+class StoryMedium extends ResponsiveComponent {
   renderMobile() {
     return (<div>
       <FeaturedStoryImage
         style={ storyImageStyleMobile } src={ this.props.story.url }/>
       <div>
         <div style={ storyWrapperStyleMobile }>
-          <h6 style={ paperStyleDesktop }>{ this.props.story.paper }</h6>
-          <p>{ this.props.story.title }</p>
+          <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
+          <Paragraph>{ this.props.story.title }</Paragraph>
         </div>
       </div>
     </div>);
@@ -30,8 +34,8 @@ export default class StoryMedium extends ResponsiveComponent {
       </div>
       <div className='pure-u-1-3'>
         <div style={ storyWrapperStyleTablet }>
-          <h6 style={ paperStyleDesktop }>{ this.props.story.paper }</h6>
-          <p>{ this.props.story.title }</p>
+          <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
+          <Paragraph>{ this.props.story.title }</Paragraph>
         </div>
       </div>
     </div>);
@@ -44,8 +48,8 @@ export default class StoryMedium extends ResponsiveComponent {
       </div>
       <div className='pure-u-1-3'>
         <div style={ storyWrapperStyleDesktop }>
-          <h6 style={ paperStyleDesktop }>{ this.props.story.paper }</h6>
-          <p>{ this.props.story.title }</p>
+          <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
+          <Paragraph>{ this.props.story.title }</Paragraph>
         </div>
       </div>
     </div>);
@@ -67,3 +71,5 @@ StoryMedium.defaultProps = {
     url: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
   }
 };
+
+export default Radium(StoryMedium);
