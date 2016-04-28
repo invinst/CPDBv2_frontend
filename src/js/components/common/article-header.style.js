@@ -6,3 +6,7 @@ export const articleHeaderStyle = {
   marginTop: '0',
   marginBottom: '9px'
 };
+
+export const headerTabletStyle = {
+  marginBottom: '11px'
+};

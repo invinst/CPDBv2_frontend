@@ -1,12 +1,21 @@
 import React, {PropTypes} from 'react';
 import Radium from 'radium';
 
-import { articleHeaderStyle } from 'components/common/article-header.style';
+import { articleHeaderStyle, headerTabletStyle } from 'components/common/article-header.style';
+import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive-style-component';
 
 
-class ArticleHeader extends React.Component {
-  render() {
-    return (<h6 style={ articleHeaderStyle }>
+class ArticleHeader extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [DESKTOP]: { header: [articleHeaderStyle] },
+      [TABLET]: { header: [articleHeaderStyle, headerTabletStyle] },
+      [MOBILE]: { header: [articleHeaderStyle, headerTabletStyle] }
+    };
+  }
+
+  renderWithResponsiveStyle(style) {
+    return (<h6 style={ style.header }>
       { this.props.children }
     </h6>);
   }

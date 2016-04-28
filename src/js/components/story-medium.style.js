@@ -4,6 +4,7 @@ export const storyWrapperStyleMobile = {
   paddingRight: '16px',
   paddingLeft: '16px',
   paddingTop: '20px',
+  overflow: 'hidden',
   boxSizing: 'border-box'
 };
 
@@ -13,6 +14,7 @@ export const storyWrapperStyleTablet = {
   paddingLeft: '16px',
   paddingTop: '20px',
   borderRight: '1px solid rgba(0, 0, 0, .1)',
+  overflow: 'hidden',
   boxSizing: 'border-box'
 };
 
@@ -22,6 +24,7 @@ export const storyWrapperStyleDesktop = {
   paddingRight: '16px',
   paddingLeft: '16px',
   paddingTop: '34px',
+  overflow: 'hidden',
   boxSizing: 'border-box'
 };
 

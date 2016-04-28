@@ -13,5 +13,6 @@ export const tabletWrapperStyle = {
 };
 
 export const mobileWrapperStyle = {
+  paddingTop: '20px',
   height: '50vw'
 };
