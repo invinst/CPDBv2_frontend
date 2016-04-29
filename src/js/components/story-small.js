@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
-import ArticleTitle from 'components/common/article-title';
+import ArticleContent from 'components/common/article-content';
 import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive-style-component';
 import {wrapperStyle, tabletWrapperStyle, mobileWrapperStyle} from 'components/story-small.style';
 
@@ -25,7 +25,7 @@ class StorySmall extends ResponsiveStyleComponent {
   renderWithResponsiveStyle(style) {
     return (<div style={ style.wrapper }>
       <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
-      <ArticleTitle>{ this.props.story.title }</ArticleTitle>
+      <ArticleContent>{ this.props.story.title }</ArticleContent>
     </div>);
   }
 }
