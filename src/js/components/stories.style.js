@@ -1,20 +1,18 @@
 export const storiesLinkWrapperStyle = {
-  color: 'red',
   textAlign: 'right',
-  padding: '10px 0'
+  padding: '36px 36px',
+  height: '88px',
+  boxSizing: 'border-box'
 };
 
 export const firstSmallStoryStyleMobile = {
-  borderRight: '1px solid rgba(0, 0, 0, .1)',
-  height: '50vw'
+  borderRight: '1px solid rgba(0, 0, 0, .1)'
 };
 
 export const firstSmallStoryStyleTablet = {
-  borderBottom: '1px solid rgba(0, 0, 0, .1)',
-  height: '16vw'
+  borderBottom: '1px solid rgba(0, 0, 0, .1)'
 };
 
 export const firstSmallStoryStyleDesktop = {
-  borderRight: '1px solid rgba(0, 0, 0, .1)',
-  height: '28vw'
+  borderRight: '1px solid rgba(0, 0, 0, .1)'
 };
