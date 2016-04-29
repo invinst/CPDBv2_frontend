@@ -20,15 +20,15 @@ export default class ResponsiveStyleComponent extends ResponsiveComponent {
     };
   }
 
-  renderMobile() {
-    return this.renderWithResponsiveStyle(this.responsiveStyle()[MOBILE]);
+  renderDesktop() {
+    return this.renderWithResponsiveStyle(this.responsiveStyle()[DESKTOP]);
   }
 
   renderTablet() {
     return this.renderWithResponsiveStyle(this.responsiveStyle()[TABLET]);
   }
 
-  renderDesktop() {
-    return this.renderWithResponsiveStyle(this.responsiveStyle()[DESKTOP]);
+  renderMobile() {
+    return this.renderWithResponsiveStyle(this.responsiveStyle()[MOBILE]);
   }
 }

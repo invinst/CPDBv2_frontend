@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
-import Paragraph from 'components/common/paragraph';
+import ArticleTitle from 'components/common/article-title';
 import ResponsiveComponent from 'components/responsive-component';
 import FeaturedStoryImage from 'components/featured-story-image';
 import {
@@ -21,7 +21,7 @@ class StoryMedium extends ResponsiveComponent {
       <div>
         <div style={ storyWrapperStyleMobile }>
           <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
-          <Paragraph>{ this.props.story.title }</Paragraph>
+          <ArticleTitle>{ this.props.story.title }</ArticleTitle>
         </div>
       </div>
     </div>);
@@ -35,7 +35,7 @@ class StoryMedium extends ResponsiveComponent {
       <div className='pure-u-1-3'>
         <div style={ storyWrapperStyleTablet }>
           <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
-          <Paragraph>{ this.props.story.title }</Paragraph>
+          <ArticleTitle>{ this.props.story.title }</ArticleTitle>
         </div>
       </div>
     </div>);
@@ -49,7 +49,7 @@ class StoryMedium extends ResponsiveComponent {
       <div className='pure-u-1-3'>
         <div style={ storyWrapperStyleDesktop }>
           <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
-          <Paragraph>{ this.props.story.title }</Paragraph>
+          <ArticleTitle>{ this.props.story.title }</ArticleTitle>
         </div>
       </div>
     </div>);
