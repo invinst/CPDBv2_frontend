@@ -1,2 +1,2 @@
 [webservers]
-23.96.180.229 ansible_user=ansible branch=develop
+23.96.180.229 ansible_user=ansible branch=staging
