@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { StyleRoot } from 'radium';
 import LandingPage from 'components/landing-page';
 
 
-render(<LandingPage/>, document.getElementById('root'));
+render(<StyleRoot><LandingPage/></StyleRoot>, document.getElementById('root'));
