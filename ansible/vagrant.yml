@@ -1,3 +1,4 @@
+---
 - hosts: default
   vars:
     phantomjs_version: "2.1.1"
