@@ -1,2 +1,2 @@
 [webservers]
-107.170.51.220 ansible_user=ansible
+107.170.51.220 ansible_user=ansible branch=master
