@@ -72,6 +72,10 @@ export const styleActive = {
 };
 ```
 
+## Layout
+
+we use PureCSS grid system for layout: [http://purecss.io/grids/](http://purecss.io/grids/). For most cases, stick with non-responsive grid classes (e.g. `pure-u-1-1`, `pure-u-2-3`). Read **Responsive** section to know how to use responsive grid classes.
+
 ## Responsive
 
 There are 3 patterns that you could use to make a component responsive. All of which are discussed below. Whatever pattern that you choose, make sure to use only 1 of them on a component.
@@ -125,7 +129,7 @@ class Component extends ResponsiveStyleComponent {
 
 ### Use PureCSS Responsive Grids
 
-When only layout change and you never have to touch media queries you can use this pattern. Just use class names such as `pure-u-mo-*`, `pure-u-ta-*`, `pure-u-de-*` (Note that it's different from PureCSS's default responsive grid classes) to specify device specific column width.
+When only layout change and you never have to touch media queries you can use this pattern. Just use class names such as `pure-u-mo-*`, `pure-u-ta-*`, `pure-u-de-*` (custom created classes to support our own screen size break points) to specify device specific column width.
 
 ```javascript
 import React from 'react';
