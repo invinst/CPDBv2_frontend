@@ -9,7 +9,7 @@ export const storyWrapperStyleMobile = {
 };
 
 export const storyWrapperStyleTablet = {
-  height: '33.333333333vw',
+  height: 'calc(100vw / 3)',
   paddingRight: '16px',
   paddingLeft: '16px',
   paddingTop: '20px',
@@ -19,7 +19,7 @@ export const storyWrapperStyleTablet = {
 };
 
 export const storyWrapperStyleDesktop = {
-  height: '26.666666667vw',
+  height: 'calc(80vw / 3)',
   borderRight: '1px solid rgba(0, 0, 0, .1)',
   paddingRight: '16px',
   paddingLeft: '16px',
@@ -34,13 +34,13 @@ export const paperStyleDesktop = {
 };
 
 export const storyImageStyleMobile = {
-  height: '66.666666667vw'
+  height: 'calc(200vw / 3)'
 };
 
 export const storyImageStyleTablet = {
-  height: '33.333333333vw'
+  height: 'calc(100vw / 3)'
 };
 
 export const storyImageStyleDesktop = {
-  height: '26.666666667vw'
+  height: 'calc(80vw / 3)'
 };

@@ -4,12 +4,12 @@ export const wrapperStyle = {
   paddingTop: '34px',
   boxSizing: 'border-box',
   overflow: 'hidden',
-  height: '26.666666667vw'
+  height: 'calc(80vw / 3)'
 };
 
 export const tabletWrapperStyle = {
   paddingTop: '20px',
-  height: '16.666666667vw'
+  height: 'calc(50vw / 3)'
 };
 
 export const mobileWrapperStyle = {
