@@ -23,10 +23,12 @@ class StorySmall extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    return (<div style={ style.wrapper }>
-      <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
-      <ArticleContent>{ this.props.story.title }</ArticleContent>
-    </div>);
+    return (
+      <div style={ style.wrapper }>
+        <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
+        <ArticleContent>{ this.props.story.title }</ArticleContent>
+      </div>
+    );
   }
 }
 

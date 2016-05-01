@@ -15,44 +15,50 @@ import {
 
 class StoryMedium extends ResponsiveComponent {
   renderMobile() {
-    return (<div>
-      <FeaturedStoryImage
-        style={ storyImageStyleMobile } src={ this.props.story.url }/>
+    return (
       <div>
-        <div style={ storyWrapperStyleMobile }>
-          <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
-          <ArticleContent>{ this.props.story.title }</ArticleContent>
+        <FeaturedStoryImage
+          style={ storyImageStyleMobile } src={ this.props.story.url }/>
+        <div>
+          <div style={ storyWrapperStyleMobile }>
+            <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
+            <ArticleContent>{ this.props.story.title }</ArticleContent>
+          </div>
         </div>
       </div>
-    </div>);
+    );
   }
 
   renderTablet() {
-    return (<div className='pure-g'>
-      <div className='pure-u-2-3'>
-        <FeaturedStoryImage style={ storyImageStyleTablet } src={ this.props.story.url }/>
-      </div>
-      <div className='pure-u-1-3'>
-        <div style={ storyWrapperStyleTablet }>
-          <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
-          <ArticleContent>{ this.props.story.title }</ArticleContent>
+    return (
+      <div className='pure-g'>
+        <div className='pure-u-2-3'>
+          <FeaturedStoryImage style={ storyImageStyleTablet } src={ this.props.story.url }/>
+        </div>
+        <div className='pure-u-1-3'>
+          <div style={ storyWrapperStyleTablet }>
+            <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
+            <ArticleContent>{ this.props.story.title }</ArticleContent>
+          </div>
         </div>
       </div>
-    </div>);
+    );
   }
 
   renderDesktop() {
-    return (<div className='pure-g'>
-      <div className='pure-u-2-3'>
-        <FeaturedStoryImage style={ storyImageStyleDesktop } src={ this.props.story.url }/>
-      </div>
-      <div className='pure-u-1-3'>
-        <div style={ storyWrapperStyleDesktop }>
-          <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
-          <ArticleContent>{ this.props.story.title }</ArticleContent>
+    return (
+      <div className='pure-g'>
+        <div className='pure-u-2-3'>
+          <FeaturedStoryImage style={ storyImageStyleDesktop } src={ this.props.story.url }/>
+        </div>
+        <div className='pure-u-1-3'>
+          <div style={ storyWrapperStyleDesktop }>
+            <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
+            <ArticleContent>{ this.props.story.title }</ArticleContent>
+          </div>
         </div>
       </div>
-    </div>);
+    );
   }
 }
 

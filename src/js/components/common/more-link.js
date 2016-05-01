@@ -6,9 +6,11 @@ import { linkStyle } from 'components/common/more-link.style';
 
 class MoreLink extends React.Component {
   render() {
-    return (<a href={ this.props.href } style={ linkStyle }>
-      { this.props.children }
-    </a>);
+    return (
+      <a href={ this.props.href } style={ linkStyle }>
+        { this.props.children }
+      </a>
+    );
   }
 }
 

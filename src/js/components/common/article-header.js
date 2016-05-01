@@ -15,9 +15,11 @@ class ArticleHeader extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    return (<h6 style={ style.header }>
-      { this.props.children }
-    </h6>);
+    return (
+      <h6 style={ style.header }>
+        { this.props.children }
+      </h6>
+    );
   }
 }
 

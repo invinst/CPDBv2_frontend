@@ -12,58 +12,64 @@ import {
 
 class Stories extends ResponsiveComponent {
   renderMobile() {
-    return (<div>
-      <StoryMedium story={ this.props.stories[0] }/>
-      <div className='pure-g'>
-        <div className='pure-u-1-2'>
-          <StorySmall style={ firstSmallStoryStyleMobile } story={ this.props.stories[1] }/>
+    return (
+      <div>
+        <StoryMedium story={ this.props.stories[0] }/>
+        <div className='pure-g'>
+          <div className='pure-u-1-2'>
+            <StorySmall style={ firstSmallStoryStyleMobile } story={ this.props.stories[1] }/>
+          </div>
+          <div className='pure-u-1-2'>
+            <StorySmall story={ this.props.stories[2] }/>
+          </div>
         </div>
-        <div className='pure-u-1-2'>
-          <StorySmall story={ this.props.stories[2] }/>
+        <div style={ storiesLinkWrapperStyle }>
+          <MoreLink>More Stories</MoreLink>
         </div>
       </div>
-      <div style={ storiesLinkWrapperStyle }>
-        <MoreLink>More Stories</MoreLink>
-      </div>
-    </div>);
+    );
   }
 
   renderTablet() {
-    return (<div className='pure-g'>
-      <div className='pure-u-3-4'>
-        <StoryMedium story={ this.props.stories[0] }/>
-      </div>
-      <div className='pure-u-1-4'>
-        <StorySmall style={ firstSmallStoryStyleTablet } story={ this.props.stories[1] }/>
-        <StorySmall story={ this.props.stories[2] }/>
-      </div>
-      <div className='pure-u-1-1'>
-        <div style={ storiesLinkWrapperStyle }>
-          <MoreLink>More Stories</MoreLink>
+    return (
+      <div className='pure-g'>
+        <div className='pure-u-3-4'>
+          <StoryMedium story={ this.props.stories[0] }/>
+        </div>
+        <div className='pure-u-1-4'>
+          <StorySmall style={ firstSmallStoryStyleTablet } story={ this.props.stories[1] }/>
+          <StorySmall story={ this.props.stories[2] }/>
+        </div>
+        <div className='pure-u-1-1'>
+          <div style={ storiesLinkWrapperStyle }>
+            <MoreLink>More Stories</MoreLink>
+          </div>
         </div>
       </div>
-    </div>);
+    );
   }
 
   renderDesktop() {
-    return (<div className='pure-g'>
-      <div className='pure-u-3-5'>
-        <StoryMedium story={ this.props.stories[0] }/>
-      </div>
-      <div className='pure-g pure-u-2-5'>
-        <div className='pure-u-1-2'>
-          <StorySmall style={ firstSmallStoryStyleDesktop } story={ this.props.stories[1] }/>
+    return (
+      <div className='pure-g'>
+        <div className='pure-u-3-5'>
+          <StoryMedium story={ this.props.stories[0] }/>
         </div>
-        <div className='pure-u-1-2'>
-          <StorySmall story={ this.props.stories[2] }/>
+        <div className='pure-g pure-u-2-5'>
+          <div className='pure-u-1-2'>
+            <StorySmall style={ firstSmallStoryStyleDesktop } story={ this.props.stories[1] }/>
+          </div>
+          <div className='pure-u-1-2'>
+            <StorySmall story={ this.props.stories[2] }/>
+          </div>
+        </div>
+        <div className='pure-u-1-1'>
+          <div style={ storiesLinkWrapperStyle }>
+            <MoreLink>More Stories</MoreLink>
+          </div>
         </div>
       </div>
-      <div className='pure-u-1-1'>
-        <div style={ storiesLinkWrapperStyle }>
-          <MoreLink>More Stories</MoreLink>
-        </div>
-      </div>
-    </div>);
+    );
   }
 }
 
