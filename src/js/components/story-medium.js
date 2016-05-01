@@ -6,7 +6,7 @@ import ArticleContent from 'components/common/article-content';
 import ResponsiveComponent from 'components/responsive-component';
 import FeaturedStoryImage from 'components/featured-story-image';
 import {
-  storyWrapperStyleDesktop, storyWrapperStyleTablet, storyWrapperStyleMobile,
+  storyWrapperStyle, storyWrapperStyleTablet, storyWrapperStyleMobile,
   storyImageStyleMobile, storyImageStyleTablet, storyImageStyleDesktop,
   paperStyleDesktop
 } from 'components/story-medium.style';
@@ -20,7 +20,7 @@ class StoryMedium extends ResponsiveComponent {
         <FeaturedStoryImage
           style={ storyImageStyleMobile } src={ this.props.story.url }/>
         <div>
-          <div style={ storyWrapperStyleMobile }>
+          <div style={ [storyWrapperStyle, storyWrapperStyleMobile] }>
             <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
             <ArticleContent>{ this.props.story.title }</ArticleContent>
           </div>
@@ -36,7 +36,7 @@ class StoryMedium extends ResponsiveComponent {
           <FeaturedStoryImage style={ storyImageStyleTablet } src={ this.props.story.url }/>
         </div>
         <div className='pure-u-1-3'>
-          <div style={ storyWrapperStyleTablet }>
+          <div style={ [storyWrapperStyle, storyWrapperStyleTablet] }>
             <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
             <ArticleContent>{ this.props.story.title }</ArticleContent>
           </div>
@@ -52,7 +52,7 @@ class StoryMedium extends ResponsiveComponent {
           <FeaturedStoryImage style={ storyImageStyleDesktop } src={ this.props.story.url }/>
         </div>
         <div className='pure-u-1-3'>
-          <div style={ storyWrapperStyleDesktop }>
+          <div style={ storyWrapperStyle }>
             <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
             <ArticleContent>{ this.props.story.title }</ArticleContent>
           </div>

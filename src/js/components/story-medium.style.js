@@ -1,24 +1,16 @@
 export const storyWrapperStyleMobile = {
   height: '50vw',
   borderBottom: '1px solid rgba(0, 0, 0, .1)',
-  paddingRight: '16px',
-  paddingLeft: '16px',
-  paddingTop: '20px',
-  overflow: 'hidden',
-  boxSizing: 'border-box'
+  paddingTop: '20px'
 };
 
 export const storyWrapperStyleTablet = {
   height: 'calc(100vw / 3)',
-  paddingRight: '16px',
-  paddingLeft: '16px',
-  paddingTop: '20px',
   borderRight: '1px solid rgba(0, 0, 0, .1)',
-  overflow: 'hidden',
-  boxSizing: 'border-box'
+  paddingTop: '20px'
 };
 
-export const storyWrapperStyleDesktop = {
+export const storyWrapperStyle = {
   height: 'calc(80vw / 3)',
   borderRight: '1px solid rgba(0, 0, 0, .1)',
   paddingRight: '16px',
