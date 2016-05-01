@@ -2,6 +2,3 @@
 - name: Install Budo
   npm: name=budo version=8.2.1 global=yes
   sudo: yes
-
-- name: Install npm packages
-  npm: path=/code
