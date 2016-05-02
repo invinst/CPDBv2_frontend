@@ -7,9 +7,10 @@
   git: repo= dest=/CPDB/ key_file=/home/ansible/.ssh/github accept_hostkey=True version={{ branch }}
 
 - name: Install npm packages
-  npm: path=/CPDB
+  command: npm install
+    chdir=/CPDB/
 
-- name: Install Gulp cli
+- name: Install gulp cli
   npm: name=gulp-cli version=1.2.1 global=yes
   sudo: yes
 
