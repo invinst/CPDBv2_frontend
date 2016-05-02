@@ -9,16 +9,14 @@
 - name: Install npm packages
   npm: path=/CPDB
 
-- name: Build js bundle
-  command: npm run build
-    chdir=/CPDB/
+- name: Install Gulp cli
+  npm: name=gulp-cli version=1.2.1 global=yes
+  sudo: yes
 
 - name: Create static root
   sudo: yes
   file: path=/www/static/dist state=directory owner=ansible
 
-- name: Copy index.html to static root
-  command: cp /CPDB/index.html /www/static/index.html
-
-- name: Copy bundle.js to static root
-  command: cp /CPDB/bundle.js /www/static/dist/bundle.js
+- name: Build everything
+  command: npm run build
+    chdir=/CPDB/
