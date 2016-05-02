@@ -14,6 +14,8 @@
 - `vagrant ssh`
 - `cd /code`
 
+Almost everything dev related should be done inside vagrant box. Exceptions are when you have to install a new npm package, `npm shrinkwrap` and push/pull code. This is because currently we don't have a way for host machine to see file changes made within vagrant.
+
 ## Run Tests
 
 - `npm test` to run tests.
@@ -26,7 +28,7 @@
 
 ## Deployment
 
-We use 2 droplets from DigitalOceans for deployment. Ask Giang in case you need access to DigitalOcean control panel.
+We use instances from Azure for now.
 
 - Staging IP address: [23.96.180.229](http://23.96.180.229)
 - `bin/deploy-staging`: deploy to staging. (password is the same as deploy user's on v1)
