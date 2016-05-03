@@ -1,16 +1,41 @@
 import React, {PropTypes} from 'react';
 import Radium from 'radium';
+import _ from 'lodash';
 
-import MoreLink from 'components/common/more-link';
+import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from 'components/story-medium';
 import StorySmall from 'components/story-small';
+import StoryExpanded from 'components/story-expanded';
 import ResponsiveComponent from 'components/responsive-component';
 import {
-  storiesLinkWrapperStyle, firstSmallStoryStyleMobile, firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
+  firstSmallStoryStyleMobile, firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
 } from 'components/stories.style';
 
 
 class Stories extends ResponsiveComponent {
+  constructor(props) {
+    super(props);
+    this.state = {selectedStoryKey: null};
+    this.onStoryOpen = this.onStoryOpen.bind(this);
+    this.onStoryClose = this.onStoryClose.bind(this);
+  }
+
+  onStoryOpen(story) {
+    this.setState({selectedStoryKey: story.id});
+  }
+
+  onStoryClose(story) {
+    this.setState({selectedStoryKey: null});
+  }
+
+  getFeaturedStory() {
+    let restStories = this.props.stories.slice(0);
+    let featuredStory = _.remove(restStories, (story) => {
+      return story.id === this.props.featuredStoryId;
+    })[0];
+    return [featuredStory, restStories];
+  }
+
   renderMobile() {
     return (
       <div>
@@ -23,9 +48,7 @@ class Stories extends ResponsiveComponent {
             <StorySmall story={ this.props.stories[2] }/>
           </div>
         </div>
-        <div style={ storiesLinkWrapperStyle }>
-          <MoreLink>More Stories</MoreLink>
-        </div>
+        <ArticleFooter>More Stories</ArticleFooter>
       </div>
     );
   }
@@ -41,32 +64,38 @@ class Stories extends ResponsiveComponent {
           <StorySmall story={ this.props.stories[2] }/>
         </div>
         <div className='pure-u-1-1'>
-          <div style={ storiesLinkWrapperStyle }>
-            <MoreLink>More Stories</MoreLink>
-          </div>
+          <ArticleFooter>More Stories</ArticleFooter>
         </div>
       </div>
     );
   }
 
+  renderSmallStories(stories) {
+    return stories.map((story, ind) => {
+      return (
+        <div key={ story.id } className='pure-u-1-2'>
+          <StorySmall
+            style={ ind === 0 ? firstSmallStoryStyleDesktop : null }
+            story={ story } onOpen={ this.onStoryOpen } onClose={ this.onStoryClose }
+            expanded={ story.id === this.state.selectedStoryKey }/>
+        </div>
+      );
+    });
+  }
+
   renderDesktop() {
+    let [featuredStory, restStories] = this.getFeaturedStory();
     return (
       <div className='pure-g'>
         <div className='pure-u-3-5'>
-          <StoryMedium story={ this.props.stories[0] }/>
+          <StoryMedium story={ featuredStory }/>
         </div>
         <div className='pure-g pure-u-2-5'>
-          <div className='pure-u-1-2'>
-            <StorySmall style={ firstSmallStoryStyleDesktop } story={ this.props.stories[1] }/>
-          </div>
-          <div className='pure-u-1-2'>
-            <StorySmall story={ this.props.stories[2] }/>
-          </div>
+          { this.renderSmallStories(restStories) }
         </div>
+        { this.state.selectedStoryKey ? <StoryExpanded className='pure-u-1-1'/> : null }
         <div className='pure-u-1-1'>
-          <div style={ storiesLinkWrapperStyle }>
-            <MoreLink>More Stories</MoreLink>
-          </div>
+          <ArticleFooter>More Stories</ArticleFooter>
         </div>
       </div>
     );
@@ -74,21 +103,30 @@ class Stories extends ResponsiveComponent {
 }
 
 Stories.propTypes = {
-  stories: PropTypes.array
+  featuredStoryId: PropTypes.number,
+  stories: (props, propName, componentName) => {
+    if ( props[propName].length !== 3 ) {
+      return new Error(`${propName} must be an array of exactly 3 elements.`);
+    }
+  }
 };
 
 Stories.defaultProps = {
+  featuredStoryId: 1,
   stories: [
     {
+      id: 1,
       paper: 'New York Times',
       title: 'Complaints against Chicago Police rarely result in discipline data shows.',
-      url: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
+      imageUrl: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
     },
     {
+      id: 2,
       paper: 'FiveThirtyEight',
       title: 'How to predict bad cops in Chicago.'
     },
     {
+      id: 3,
       paper: 'Chicago Magazine',
       title: 'The Laquan McDonald Video Didn\'t "Rip" Chicago Apart, but Now Its Leaders Face a Reckoning.'
     }

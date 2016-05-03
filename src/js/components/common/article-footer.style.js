@@ -4,3 +4,10 @@ export const linkStyle = {
   fontFamily: '"San Francisco Text Web", sans-serif',
   fontWeight: 'bold'
 };
+
+export const footerStyle = {
+  textAlign: 'right',
+  padding: '36px 36px',
+  height: '88px',
+  boxSizing: 'border-box'
+};

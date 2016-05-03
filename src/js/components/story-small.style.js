@@ -4,7 +4,8 @@ export const wrapperStyle = {
   paddingTop: '34px',
   boxSizing: 'border-box',
   overflow: 'hidden',
-  height: 'calc(80vw / 3)'
+  height: 'calc(80vw / 3)',
+  position: 'relative'
 };
 
 export const tabletWrapperStyle = {
@@ -15,4 +16,11 @@ export const tabletWrapperStyle = {
 export const mobileWrapperStyle = {
   paddingTop: '20px',
   height: '50vw'
+};
+
+export const closeButtonWrapperStyle = {
+  position: 'absolute',
+  width: '100%',
+  left: '0',
+  bottom: '0'
 };
