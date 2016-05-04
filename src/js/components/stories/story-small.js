@@ -40,11 +40,13 @@ class StorySmall extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ style.wrapper } onClick={ this.onOpen }>
+      <div className='story-small' style={ style.wrapper } onClick={ this.onOpen }>
         <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
         <ArticleContent>{ this.props.story.title }</ArticleContent>
         { this.props.expanded ?
-          <div style={ style.closeButtonWrapper }><button onClick={ this.props.onClose }>X</button></div>
+          <div style={ style.closeButtonWrapper }>
+            <button className='story-small__close-button' onClick={ this.props.onClose }>X</button>
+          </div>
           : null
         }
       </div>

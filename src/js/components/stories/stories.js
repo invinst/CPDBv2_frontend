@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import Radium from 'radium';
 import _ from 'lodash';
 
+import {arrayOfN} from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from 'components/stories/story-medium';
 import StorySmall from 'components/stories/story-small';
@@ -109,11 +110,7 @@ class Stories extends ResponsiveComponent {
 
 Stories.propTypes = {
   featuredStoryId: PropTypes.number,
-  stories: (props, propName, componentName) => {
-    if ( props[propName].length !== 3 ) {
-      return new Error(`${propName} must be an array of exactly 3 elements.`);
-    }
-  }
+  stories: arrayOfN(3)
 };
 
 Stories.defaultProps = {
