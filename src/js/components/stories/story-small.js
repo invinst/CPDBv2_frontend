@@ -3,10 +3,10 @@ import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
-import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive-style-component';
+import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive/responsive-style-component';
 import {
   wrapperStyle, tabletWrapperStyle, mobileWrapperStyle, closeButtonWrapperStyle
-} from 'components/story-small.style';
+} from 'components/stories/story-small.style';
 
 
 class StorySmall extends ResponsiveStyleComponent {
@@ -62,6 +62,14 @@ StorySmall.propTypes = {
   expanded: PropTypes.bool,
   onOpen: PropTypes.func,
   onClose: PropTypes.func
+};
+
+StorySmall.defaultProps = {
+  story: {
+    id: 2,
+    paper: 'FiveThirtyEight',
+    title: 'How to predict bad cops in Chicago.'
+  }
 };
 
 export default Radium(StorySmall);

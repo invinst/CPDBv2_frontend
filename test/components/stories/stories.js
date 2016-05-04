@@ -1,7 +1,7 @@
 import 'should';
 import React from 'react';
 
-import Stories from 'components/stories';
+import Stories from 'components/stories/stories';
 import 'utils/test/React';
 
 

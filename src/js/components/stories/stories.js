@@ -3,14 +3,14 @@ import Radium from 'radium';
 import _ from 'lodash';
 
 import ArticleFooter from 'components/common/article-footer';
-import StoryMedium from 'components/story-medium';
-import StorySmall from 'components/story-small';
-import StoryExpanded from 'components/story-expanded';
-import ResponsiveComponent from 'components/responsive-component';
-import VariableHeightTransition from 'components/variable-height-transition';
+import StoryMedium from 'components/stories/story-medium';
+import StorySmall from 'components/stories/story-small';
+import StoryExpanded from 'components/stories/story-expanded';
+import ResponsiveComponent from 'components/responsive/responsive-component';
+import ExpandTransition from 'components/animation/expand-transition';
 import {
   firstSmallStoryStyleMobile, firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
-} from 'components/stories.style';
+} from 'components/stories/stories.style';
 
 
 class Stories extends ResponsiveComponent {
@@ -86,14 +86,6 @@ class Stories extends ResponsiveComponent {
     });
   }
 
-  renderStoryExpanded() {
-    return (
-      <VariableHeightTransition childKey={ this.state.selectedStoryKey }>
-        <StoryExpanded className='pure-u-1-1'/>
-      </VariableHeightTransition>
-    );
-  }
-
   renderDesktop() {
     let [featuredStory, restStories] = this.getFeaturedStory();
     return (
@@ -104,7 +96,9 @@ class Stories extends ResponsiveComponent {
         <div className='pure-g pure-u-2-5'>
           { this.renderSmallStories(restStories) }
         </div>
-        { this.renderStoryExpanded() }
+        <ExpandTransition childKey={ this.state.selectedStoryKey }>
+          <StoryExpanded className='pure-u-1-1'/>
+        </ExpandTransition>
         <div className='pure-u-1-1'>
           <ArticleFooter>More Stories</ArticleFooter>
         </div>

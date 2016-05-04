@@ -4,7 +4,7 @@ import Radium from 'radium';
 import ArticleContent from 'components/common/article-content';
 import ArticleHeader from 'components/common/article-header';
 import ArticleFooter from 'components/common/article-footer';
-import {outerWrapperStyle, storyWrapperStyle} from 'components/story-expanded.style';
+import {outerWrapperStyle, storyWrapperStyle} from 'components/stories/story-expanded.style';
 
 
 class StoryExpanded extends React.Component {

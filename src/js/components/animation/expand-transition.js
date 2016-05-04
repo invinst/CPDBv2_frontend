@@ -5,7 +5,7 @@ import {innerHeight} from 'utils/dom';
 import {TransitionMotion, spring} from 'react-motion';
 
 
-export default class VariableHeightTransition extends React.Component {
+export default class ExpandTransition extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,8 +33,7 @@ export default class VariableHeightTransition extends React.Component {
         <TransitionMotion
           willEnter={ () => ({height: 0}) }
           willLeave={ () => ({height: spring(0)}) }
-          defaultStyles={ this.props.childKey ?
-            [{key: this.props.childKey + '', style: {height: 0}}] : [] }
+          defaultStyles={ this.props.childKey ? [{key: this.props.childKey + '', style: {height: 0}}] : [] }
           styles={ this.props.childKey ?
             [{key: this.props.childKey + '', style: {height: spring(this.state.childHeight)}}]
             : [] }>
@@ -51,7 +50,7 @@ export default class VariableHeightTransition extends React.Component {
   }
 }
 
-VariableHeightTransition.propTypes = {
+ExpandTransition.propTypes = {
   // children must be one element only and must merge props.style that is passed down to it
   children: PropTypes.element.isRequired,
 

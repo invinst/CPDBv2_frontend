@@ -1,7 +1,7 @@
 import 'should';
 import React from 'react';
 
-import StorySmall from 'components/story-small';
+import StorySmall from 'components/stories/story-small';
 import 'utils/test/React';
 
 
