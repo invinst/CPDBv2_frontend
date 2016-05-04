@@ -1,15 +1,13 @@
 import React, {PropTypes} from 'react';
-import ReactDOM from 'react-dom';
 import Radium from 'radium';
 import _ from 'lodash';
-import {TransitionMotion, spring} from 'react-motion';
 
-import {innerHeight} from 'utils/dom';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from 'components/story-medium';
 import StorySmall from 'components/story-small';
 import StoryExpanded from 'components/story-expanded';
 import ResponsiveComponent from 'components/responsive-component';
+import VariableHeightTransition from 'components/variable-height-transition';
 import {
   firstSmallStoryStyleMobile, firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
 } from 'components/stories.style';
@@ -19,8 +17,7 @@ class Stories extends ResponsiveComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedStoryKey: null,
-      expandedStoryHeight: 1000
+      selectedStoryKey: null
     };
     this.onStoryOpen = this.onStoryOpen.bind(this);
     this.onStoryClose = this.onStoryClose.bind(this);
@@ -90,43 +87,11 @@ class Stories extends ResponsiveComponent {
   }
 
   renderStoryExpanded() {
-    if (this.state.selectedStoryKey && this.state.selectedStoryKey !== this.state.prevSelectedStoryKey) {
-      return (
-        <StoryExpanded
-          className='pure-u-1-1' style={ {height: 0} }
-          ref={ component => {
-            if (component) {
-              this.setState({
-                expandedStoryHeight: innerHeight(ReactDOM.findDOMNode(component)),
-                prevSelectedStoryKey: this.state.selectedStoryKey
-              });
-            }
-          } }/>
-      );
-    } else {
-      return (
-        <TransitionMotion
-          willEnter={ () => ({height: 0}) }
-          willLeave={ () => ({height: spring(0)}) }
-          defaultStyles={ this.state.selectedStoryKey ?
-            [{key: '1', style: {height: 0}}] : [] }
-          styles={ this.state.selectedStoryKey ?
-            [{key: '1', style: {height: spring(this.state.expandedStoryHeight)}}]
-            : [] }>
-          { (interpolatedStyles) => {
-            let config = interpolatedStyles[0];
-            if (config) {
-              return (
-                <StoryExpanded
-                  className='pure-u-1-1'
-                  style={ config.style }/>
-              );
-            }
-            return null;
-          } }
-        </TransitionMotion>
-      );
-    }
+    return (
+      <VariableHeightTransition childKey={ this.state.selectedStoryKey }>
+        <StoryExpanded className='pure-u-1-1'/>
+      </VariableHeightTransition>
+    );
   }
 
   renderDesktop() {
