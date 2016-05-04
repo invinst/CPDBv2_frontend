@@ -7,10 +7,14 @@
 - `sudo ansible-galaxy install Heroqu.nodejs4x`
 - `sudo ansible-galaxy install nicolai86.phantomjs`
 - `sudo ansible-galaxy install jeqo.nginx`
+- Make sure your node and npm version match vagrant's: (node v4.4.3 and npm v3.8.7)
+- `npm install`
 - `vagrant up`
 - `vagrant rsync-auto` (put this on another console this required for live reload)
 - `vagrant ssh`
 - `cd /code`
+
+Almost everything dev related should be done inside vagrant box. Exceptions are when you have to install a new npm package, `npm shrinkwrap` and push/pull code. This is because currently we don't have a way for host machine to see file changes made within vagrant.
 
 ## Run Tests
 
@@ -24,38 +28,11 @@
 
 ## Deployment
 
-We use 2 droplets from DigitalOceans for deployment. Ask Giang in case you need access to DigitalOcean control panel.
+We use instances from Azure for now.
 
 - Staging IP address: [23.96.180.229](http://23.96.180.229)
 - `bin/deploy-staging`: deploy to staging. (password is the same as deploy user's on v1)
 
 ## Browser supports
 
-Chrome 45+, Firefox 45+, IE 11, Safari 9+ and iOS 8+ Safari
-
-## Responsive layout Strategy
-
-We use [React-responsive](https://github.com/contra/react-responsive) and [PureCSS](http://purecss.io/) to facilitate a most simple and flexible layout strategy. In brief if a component display/layout differently on different screen sizes, you only need to extends from `ResponsiveComponent` and override 3 of it's method: `renderMobile`, `renderTablet`, `renderDesktop`. e.g.
-
-```javascript
-import ResponsiveComponent from 'components/responsive-component';
-
-export class default Component extends ResponsiveComponent {
-    renderMobile() {
-        return (...);
-    }
-    renderTablet() {
-        return (...);
-    }
-    renderDesktop() {
-        return (...);
-    }
-}
-```
-
-The layout system use PureCSS. This is how we use it:
-- a div with `pure-g` class wrap layout column elments.
-- a div with `pure-u-{digit1}-{digit2}` class specify column width: digit1/digit2 of total width. [digit2 could be divisibles of 5 or 24.](http://purecss.io/grids/#grids-units-sizes)
-- layout elements with PureCSS classes above must always be a div and must not contain any other class or style.
-
-You can look at `components/stories` module or `components/story-medium` module for example.
+Chrome 45+, Firefox 45+, IE 11, Safari 9+ and iOS 8+ Safari.

@@ -6,9 +6,11 @@ import { navStyle } from 'components/common/nav-link.style';
 
 class NavigationLink extends React.Component {
   render() {
-    return (<a href={ this.props.href } style={ navStyle }>
-      { this.props.children }
-    </a>);
+    return (
+      <a href={ this.props.href } style={ navStyle }>
+        { this.props.children }
+      </a>
+    );
   }
 }
 
