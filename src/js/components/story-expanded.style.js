@@ -8,5 +8,6 @@ export const storyWrapperStyle = {
 
 export const outerWrapperStyle = {
   borderTop: '1px solid rgba(0, 0, 0, .1)',
-  borderBottom: '1px solid rgba(0, 0, 0, .1)'
+  borderBottom: '1px solid rgba(0, 0, 0, .1)',
+  overflow: 'hidden'
 };

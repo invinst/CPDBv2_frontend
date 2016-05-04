@@ -51,6 +51,7 @@
     "react": "^0.14.8",
     "react-addons-test-utils": "^0.14.8",
     "react-dom": "^0.14.8",
+    "react-motion": "^0.4.3",
     "react-responsive": "^1.1.2"
   }
 }

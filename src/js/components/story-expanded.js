@@ -10,7 +10,7 @@ import {outerWrapperStyle, storyWrapperStyle} from 'components/story-expanded.st
 class StoryExpanded extends React.Component {
   render() {
     return (
-      <div className={ this.props.className } style={ outerWrapperStyle }>
+      <div className={ this.props.className } style={ [outerWrapperStyle, this.props.style] }>
         <div style={ storyWrapperStyle }>
           <ArticleHeader>{ this.props.story.date }</ArticleHeader>
           {
@@ -33,6 +33,7 @@ StoryExpanded.propTypes = {
     paragraphs: PropTypes.arrayOf(PropTypes.string),
     paper: PropTypes.string
   }),
+  style: PropTypes.object,
   className: PropTypes.string
 };
 
