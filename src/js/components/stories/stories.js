@@ -19,18 +19,8 @@ class Stories extends ResponsiveComponent {
     super(props);
     this.state = {
       selectedStoryKey: null,
-      expanded: {}
+      storyExpanded: {}
     };
-    this.onStoryOpen = this.onStoryOpen.bind(this);
-    this.onStoryClose = this.onStoryClose.bind(this);
-  }
-
-  onStoryOpen(story) {
-    this.setState({selectedStoryKey: story.id});
-  }
-
-  onStoryClose(story) {
-    this.setState({selectedStoryKey: null});
   }
 
   getFeaturedStory() {
@@ -80,9 +70,10 @@ class Stories extends ResponsiveComponent {
       return (
         <div key={ story.id } className='pure-u-1-2'>
           <StorySmall
-            style={ ind === 0 ? firstSmallStoryStyleDesktop : null }
-            story={ story } onOpen={ this.onStoryOpen } onClose={ this.onStoryClose }
-            expanded={ this.state.expanded[story.id] }
+            style={ ind === 0 ? firstSmallStoryStyleDesktop : null } story={ story }
+            onOpen={ (story) => {this.setState({selectedStoryKey: story.id});} }
+            onClose={ () => {this.setState({selectedStoryKey: null});} }
+            expanded={ this.state.storyExpanded[story.id] }
             active={ story.id === this.state.selectedStoryKey }/>
         </div>
       );
@@ -101,8 +92,8 @@ class Stories extends ResponsiveComponent {
         </div>
         <ExpandTransition
           childKey={ this.state.selectedStoryKey }
-          onFullyClosed={ (key) => {this.setState({expanded: {[key]: false}});} }
-          onExpandingBegin={ (key) => {this.setState({expanded: {[key]: true}});} }>
+          onFullyClosed={ (key) => {this.setState({storyExpanded: {[key]: false}});} }
+          onExpandingBegin={ (key) => {this.setState({storyExpanded: {[key]: true}});} }>
           <StoryExpanded className='pure-u-1-1'/>
         </ExpandTransition>
         <div className='pure-u-1-1'>

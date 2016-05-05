@@ -52,7 +52,7 @@ class StorySmall extends ResponsiveStyleComponent {
         { this.props.expanded ?
           <div style={ style.closeButtonWrapper }>
             { this.props.active ?
-              <CloseButton onClick={ this.props.onClose } className='story-small__close-btn'/>
+              <CloseButton onClick={ this.props.onClose } className='story-small__close-button'/>
               : null
             }
           </div>

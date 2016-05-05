@@ -24,14 +24,12 @@ describe('Stories component', function () {
   });
 
   it('should update selectedStoryKey depending on which story is expanded', function () {
+    global.disableAnimation = true;
     element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
 
     let smallStory = findDOMNode(scryRenderedDOMComponentsWithClass(element, 'story-small')[0]);
     Simulate.click(smallStory);
     element.state.selectedStoryKey.should.equal(2);
-
-    let closeButton = findDOMNode(scryRenderedDOMComponentsWithClass(element, 'story-small__close-button')[0]);
-    Simulate.click(closeButton);
-    (element.state.selectedStoryKey === null).should.be.true();
+    global.disableAnimation = false;
   });
 });

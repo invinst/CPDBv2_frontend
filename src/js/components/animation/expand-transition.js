@@ -16,21 +16,28 @@ export default class ExpandTransition extends React.Component {
   }
 
   onExpandingBegin() {
-    setTimeout(() => {
-      this.props.onExpandingBegin(this.props.childKey);
-    }, 0);
+    if (this.props.onExpandingBegin) {
+      setTimeout(() => {
+        this.props.onExpandingBegin(this.props.childKey);
+      }, 0);
+    }
     this.expanded = true;
   }
 
   onFullyClosed() {
-    setTimeout(() => {
-      this.props.onFullyClosed(this.state.prevKey);
-    }, 0);
+    if (this.props.onFullyClosed) {
+      setTimeout(() => {
+        this.props.onFullyClosed(this.state.prevKey);
+      }, 0);
+    }
     this.expanded = false;
   }
 
   render() {
-    if (this.props.childKey && this.props.childKey !== this.state.prevKey) {
+    if (global.disableAnimation) {
+      return this.props.children;
+
+    } else if (this.props.childKey !== null && this.props.childKey !== this.state.prevKey) {
       // calculate child height when just received a new child
       const ref = component => {
         if (component) {
@@ -43,7 +50,7 @@ export default class ExpandTransition extends React.Component {
       return React.cloneElement(this.props.children, {ref: ref, style: {height: 0}});
 
     } else if (this.props.childKey === null && !this.expanded) {
-      // when there's childKey is null and child fully closed, render nothing.
+      // when childKey is null and child is fully closed, render nothing.
       return null;
 
     } else {
@@ -53,7 +60,7 @@ export default class ExpandTransition extends React.Component {
           willLeave={ () => ({height: spring(0)}) }
           defaultStyles={ this.props.childKey ? [{key: this.props.childKey + '', style: {height: 0, x: 0}}] : [] }
           styles={ this.props.childKey ?
-            [{key: this.props.childKey + '', style: {height: spring(this.state.childHeight), x: spring(100)}}]
+            [{key: this.props.childKey + '', style: {height: spring(this.state.childHeight), x: 1}}]
             : [] }>
           { (interpolatedStyles) => {
             let config = interpolatedStyles[0];
