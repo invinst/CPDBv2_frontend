@@ -1,7 +1,6 @@
 import 'should';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {unmountComponentAtNode, findDOMNode} from 'react-dom';
+import {unmountComponentAtNode, findDOMNode, render} from 'react-dom';
 import {renderIntoDocument} from 'react-addons-test-utils';
 
 import ExpandTransition from 'components/animation/expand-transition';
@@ -31,11 +30,10 @@ describe('ExpandTransition component', function () {
 
   it('should eventually render nothing as childKey becomes null', function (cb) {
     let rootEl = document.createElement('div');
-    rootEl.setAttribute('id', 'root');
 
-    element = ReactDOM.render(<ExpandTransition childKey={ 1 }><p/></ExpandTransition>, rootEl);
+    element = render(<ExpandTransition childKey={ 1 }><p/></ExpandTransition>, rootEl);
 
-    ReactDOM.render(<ExpandTransition childKey={ null }><p/></ExpandTransition>, rootEl, () => {
+    render(<ExpandTransition childKey={ null }><p/></ExpandTransition>, rootEl, () => {
       rootEl.children.length.should.equal(1);
       setTimeout(() => {
         rootEl.children[0].nodeName.should.equal('NOSCRIPT');
