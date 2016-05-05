@@ -3,9 +3,10 @@ import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
+import CloseButton from 'components/common/close-btn';
 import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive/responsive-style-component';
 import {
-  wrapperStyle, tabletWrapperStyle, mobileWrapperStyle, closeButtonWrapperStyle
+  wrapperStyle, tabletWrapperStyle, mobileWrapperStyle, closeButtonWrapperStyle, contentStyle
 } from 'components/stories/story-small.style';
 
 
@@ -19,21 +20,24 @@ class StorySmall extends ResponsiveStyleComponent {
     return {
       [DESKTOP]: {
         wrapper: [wrapperStyle, this.props.style],
-        closeButtonWrapper: [closeButtonWrapperStyle]
+        closeButtonWrapper: [closeButtonWrapperStyle],
+        content: [contentStyle]
       },
       [TABLET]: {
         wrapper: [wrapperStyle, tabletWrapperStyle, this.props.style],
-        closeButtonWrapper: [closeButtonWrapperStyle]
+        closeButtonWrapper: [closeButtonWrapperStyle],
+        content: [contentStyle]
       },
       [MOBILE]: {
         wrapper: [wrapperStyle, mobileWrapperStyle, this.props.style],
-        closeButtonWrapper: [closeButtonWrapperStyle]
+        closeButtonWrapper: [closeButtonWrapperStyle],
+        content: [contentStyle]
       }
     };
   }
 
   onOpen() {
-    if (!this.props.expanded) {
+    if (!this.props.active) {
       this.props.onOpen(this.props.story);
     }
   }
@@ -41,11 +45,16 @@ class StorySmall extends ResponsiveStyleComponent {
   renderWithResponsiveStyle(style) {
     return (
       <div className='story-small' style={ style.wrapper } onClick={ this.onOpen }>
-        <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
-        <ArticleContent>{ this.props.story.title }</ArticleContent>
+        <div style={ style.content }>
+          <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
+          <ArticleContent>{ this.props.story.title }</ArticleContent>
+        </div>
         { this.props.expanded ?
           <div style={ style.closeButtonWrapper }>
-            <button className='story-small__close-button' onClick={ this.props.onClose }>X</button>
+            { this.props.active ?
+              <CloseButton onClick={ this.props.onClose } className='story-small__close-btn'/>
+              : null
+            }
           </div>
           : null
         }
@@ -61,6 +70,7 @@ StorySmall.propTypes = {
     paper: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
   }),
+  active: PropTypes.bool,
   expanded: PropTypes.bool,
   onOpen: PropTypes.func,
   onClose: PropTypes.func

@@ -12,6 +12,21 @@ export default class ExpandTransition extends React.Component {
       childHeight: null,
       prevKey: null
     };
+    this.expanded = false;
+  }
+
+  onExpandingBegin() {
+    setTimeout(() => {
+      this.props.onExpandingBegin(this.props.childKey);
+    }, 0);
+    this.expanded = true;
+  }
+
+  onFullyClosed() {
+    setTimeout(() => {
+      this.props.onFullyClosed(this.state.prevKey);
+    }, 0);
+    this.expanded = false;
   }
 
   render() {
@@ -26,21 +41,32 @@ export default class ExpandTransition extends React.Component {
         }
       };
       return React.cloneElement(this.props.children, {ref: ref, style: {height: 0}});
-    } else {
 
+    } else if (this.props.childKey === null && !this.expanded) {
+      // when there's childKey is null and child fully closed, render nothing.
+      return null;
+
+    } else {
       // interpolate height on subsequent renders
       return (
         <TransitionMotion
           willLeave={ () => ({height: spring(0)}) }
-          defaultStyles={ this.props.childKey ? [{key: this.props.childKey + '', style: {height: 0}}] : [] }
+          defaultStyles={ this.props.childKey ? [{key: this.props.childKey + '', style: {height: 0, x: 0}}] : [] }
           styles={ this.props.childKey ?
-            [{key: this.props.childKey + '', style: {height: spring(this.state.childHeight)}}]
+            [{key: this.props.childKey + '', style: {height: spring(this.state.childHeight), x: spring(100)}}]
             : [] }>
           { (interpolatedStyles) => {
             let config = interpolatedStyles[0];
+
             if (config) {
-              return React.cloneElement(this.props.children, {style: config.style});
+              if (config.style.x === 0) {
+                this.onExpandingBegin();
+              }
+
+              return React.cloneElement(this.props.children, {style: {height: config.style.height}});
             }
+
+            this.onFullyClosed();
             return null;
           } }
         </TransitionMotion>
@@ -54,5 +80,11 @@ ExpandTransition.propTypes = {
   children: PropTypes.element.isRequired,
 
   // childKey must be unique to children, childKey is null mean nothing will be rendered.
-  childKey: PropTypes.number
+  childKey: PropTypes.number,
+
+  // called when expansion just begun with a new child (new childKey as well)
+  onExpandingBegin: PropTypes.func,
+
+  // called when child is fully closed (it's height is 0 and childKey is null)
+  onFullyClosed: PropTypes.func
 };

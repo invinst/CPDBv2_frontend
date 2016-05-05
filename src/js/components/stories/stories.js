@@ -18,7 +18,8 @@ class Stories extends ResponsiveComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedStoryKey: null
+      selectedStoryKey: null,
+      expanded: {}
     };
     this.onStoryOpen = this.onStoryOpen.bind(this);
     this.onStoryClose = this.onStoryClose.bind(this);
@@ -81,7 +82,8 @@ class Stories extends ResponsiveComponent {
           <StorySmall
             style={ ind === 0 ? firstSmallStoryStyleDesktop : null }
             story={ story } onOpen={ this.onStoryOpen } onClose={ this.onStoryClose }
-            expanded={ story.id === this.state.selectedStoryKey }/>
+            expanded={ this.state.expanded[story.id] }
+            active={ story.id === this.state.selectedStoryKey }/>
         </div>
       );
     });
@@ -97,7 +99,10 @@ class Stories extends ResponsiveComponent {
         <div className='pure-g pure-u-2-5'>
           { this.renderSmallStories(restStories) }
         </div>
-        <ExpandTransition childKey={ this.state.selectedStoryKey }>
+        <ExpandTransition
+          childKey={ this.state.selectedStoryKey }
+          onFullyClosed={ (key) => {this.setState({expanded: {[key]: false}});} }
+          onExpandingBegin={ (key) => {this.setState({expanded: {[key]: true}});} }>
           <StoryExpanded className='pure-u-1-1'/>
         </ExpandTransition>
         <div className='pure-u-1-1'>
