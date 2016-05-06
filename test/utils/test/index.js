@@ -1,9 +1,9 @@
 import 'should';
 import React from 'react';
-import {findDOMNode} from 'react-dom';
-import {renderIntoDocument} from 'react-addons-test-utils';
+import { findDOMNode } from 'react-dom';
+import { renderIntoDocument } from 'react-addons-test-utils';
 
-import {unmountComponentSuppressError} from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('utils/test', function () {

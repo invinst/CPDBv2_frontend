@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
@@ -9,7 +9,7 @@ import {
   storyWrapperStyle, storyWrapperStyleTablet, storyWrapperStyleMobile,
   storyImageStyleMobile, storyImageStyleTablet, storyImageStyleDesktop,
   paperStyleDesktop
-} from 'components/stories/story-medium.style';
+} from './story-medium.style';
 
 
 

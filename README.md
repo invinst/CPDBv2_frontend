@@ -36,3 +36,15 @@ We use instances from Azure for now.
 ## Browser supports
 
 Chrome 45+, Firefox 45+, IE 11, Safari 9+ and iOS 8+ Safari.
+
+## CSS Development Guide
+
+[Read here](docs/css-development-guide.md)
+
+## Animation Development Guide
+
+[Read here](docs/animation-development-guide.md)
+
+## Miscellaneous Frontend Best Practices
+
+[Read here](docs/miscellaneous-frontend-best-practices.md)

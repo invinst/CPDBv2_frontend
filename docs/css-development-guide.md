@@ -1,15 +1,21 @@
 # CSS Development Guide
 
+## Common guidelines
+
+- As we use inline-style `className` prop will only serve 2 purposes: help with testing or if those classes come from 3rd party libraries such as PureCSS. Note that it's not encouraged to use another 3rd party library for CSS as we already have PureCSS.
+
+- CSS class name must follow BEM convention and have this format: `{{block}}__{{element}}—{{modifier}}`. Block, element and modifier all must only contain lowercase alphanumeric characters and hyphen.
+
 ## Basic Use Case
 
-We use a variant of inline style called [Radium](https://github.com/FormidableLabs/radium). To use Radium, simply wrap it in `Radium()` before export it. A component module `{component-name}.js` will import it's style from a style module `{component-name}.style.js`.
+We use a variant of inline style called [Radium](https://github.com/FormidableLabs/radium). To use Radium, simply wrap it in `Radium()` before export it. A component module `{component-name}.js` will import it's style from a style module `{component-name}.style.js` in the same folder. Also it will only use relative import to import style.
 
 ```javascript
 // components/component.js
 
 import React from 'react';
 import Radium from 'radium';
-import { style } from 'components/component.style';
+import { style } from './component.style';
 
 
 class Component extends React.Component {
@@ -41,7 +47,7 @@ To merge styles, simply put them in array. Style will be merged from right to le
 
 import React, {PropTypes} from 'react';
 import Radium from 'radium';
-import { style, styleActive } from 'components/component.style';
+import { style, styleActive } from './component.style';
 
 
 class Component extends React.Component {
@@ -78,14 +84,14 @@ we use PureCSS grid system for layout: [http://purecss.io/grids/](http://purecss
 
 ## Responsive
 
-There are 3 patterns that you could use to make a component responsive. All of which are discussed below. Whatever pattern that you choose, make sure to use only 1 of them on a component.
+There are 3 patterns that you could use to make a component responsive. All of which are discussed below. Whatever pattern that you choose, make sure to use only 1 of them on a component. When your component does not need to be responsive, do not extend from any responsive component.
 
 ### Extends From `ResponsiveComponent`
 
 This pattern fit those components that change layout significantly between devices. Just extends from `ResponsiveComponent` and provide 3 methods: `renderMobile`, `renderTablet`, `renderDesktop`.
 
 ```javascript
-import ResponsiveComponent from 'components/responsive-component';
+import ResponsiveComponent from 'components/responsive/responsive-component';
 
 class Component extends ResponsiveComponent {
   renderMobile() {...}
@@ -99,8 +105,8 @@ class Component extends ResponsiveComponent {
 This pattern fit those that have zero markup changes but has to change style on different screen sizes. Just extends from `ResponsiveStyleComponent` and provide 2 methods: `responsiveStyle` and `renderWithResponsiveStyle`. `responsiveStyle` should return a mapping of `style` object for each device type. The appropriate `style` object will be passed to `renderWithResponsiveStyle` depending on screen size.
 
 ```javascript
-import ResponsiveStyleComponent, {MOBILE, TABLET, DESKTOP} from 'components/responsive-style-component';
-import {wrapperStyle, mobileStyle, tabletStyle} from 'components/component.style.js';
+import ResponsiveStyleComponent, {MOBILE, TABLET, DESKTOP} from 'components/responsive/responsive-style-component';
+import {wrapperStyle, mobileStyle, tabletStyle} from './component.style.js';
 
 class Component extends ResponsiveStyleComponent {
   responsiveStyle() {
@@ -134,7 +140,7 @@ When only layout change and you never have to touch media queries you can use th
 ```javascript
 import React from 'react';
 import Radium from 'radium';
-import { style } from 'components/component.style';
+import { style } from './component.style';
 
 
 class Component extends React.Component {

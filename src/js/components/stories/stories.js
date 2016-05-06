@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Radium from 'radium';
 import _ from 'lodash';
 
-import {arrayOfN} from 'utils/prop-validators';
+import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from 'components/stories/story-medium';
 import StorySmall from 'components/stories/story-small';
@@ -11,7 +11,7 @@ import ResponsiveComponent from 'components/responsive/responsive-component';
 import ExpandTransition from 'components/animation/expand-transition';
 import {
   firstSmallStoryStyleMobile, firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
-} from 'components/stories/stories.style';
+} from './stories.style';
 
 
 class Stories extends ResponsiveComponent {
@@ -71,8 +71,8 @@ class Stories extends ResponsiveComponent {
         <div key={ story.id } className='pure-u-1-2'>
           <StorySmall
             style={ ind === 0 ? firstSmallStoryStyleDesktop : null } story={ story }
-            onOpen={ (story) => {this.setState({selectedStoryKey: story.id});} }
-            onClose={ () => {this.setState({selectedStoryKey: null});} }
+            onOpen={ (story) => {this.setState({ selectedStoryKey: story.id });} }
+            onClose={ () => {this.setState({ selectedStoryKey: null });} }
             expanded={ this.state.storyExpanded[story.id] }
             active={ story.id === this.state.selectedStoryKey }/>
         </div>
@@ -92,8 +92,8 @@ class Stories extends ResponsiveComponent {
         </div>
         <ExpandTransition
           childKey={ this.state.selectedStoryKey }
-          onFullyClosed={ (key) => {this.setState({storyExpanded: {[key]: false}});} }
-          onExpandingBegin={ (key) => {this.setState({storyExpanded: {[key]: true}});} }>
+          onFullyClosed={ (key) => {this.setState({ storyExpanded: { [key]: false } });} }
+          onExpandingBegin={ (key) => {this.setState({ storyExpanded: { [key]: true } });} }>
           <StoryExpanded className='pure-u-1-1'/>
         </ExpandTransition>
         <div className='pure-u-1-1'>

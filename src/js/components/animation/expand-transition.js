@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
-import {innerHeight} from 'utils/dom';
-import {TransitionMotion, spring} from 'react-motion';
+import { innerHeight } from 'utils/dom';
+import { TransitionMotion, spring } from 'react-motion';
 
 
 export default class ExpandTransition extends React.Component {
@@ -51,16 +51,17 @@ export default class ExpandTransition extends React.Component {
           });
         }
       };
-      return React.cloneElement(this.props.children, {ref: ref, style: {height: 0}});
+      return React.cloneElement(this.props.children, { ref: ref, style: { height: 0 } });
 
     } else {
       // interpolate height on subsequent renders
       return (
         <TransitionMotion
-          willLeave={ () => ({height: spring(0)}) }
-          defaultStyles={ this.props.childKey ? [{key: String(this.props.childKey), style: {height: 0, x: 0}}] : [] }
+          willLeave={ () => ({ height: spring(0) }) }
+          defaultStyles={ this.props.childKey ?
+            [{ key: String(this.props.childKey), style: { height: 0, x: 0 } }] : [] }
           styles={ this.props.childKey ?
-            [{key: String(this.props.childKey), style: {height: spring(this.state.childHeight), x: 1}}]
+            [{ key: String(this.props.childKey), style: { height: spring(this.state.childHeight), x: 1 } }]
             : [] }>
           { (interpolatedStyles) => {
             let config = interpolatedStyles[0];
@@ -70,7 +71,7 @@ export default class ExpandTransition extends React.Component {
                 this.onExpandingBegin();
               }
 
-              return React.cloneElement(this.props.children, {style: {height: config.style.height}});
+              return React.cloneElement(this.props.children, { style: { height: config.style.height } });
             }
 
             this.onFullyClosed();

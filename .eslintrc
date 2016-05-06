@@ -98,7 +98,10 @@
             }
 
         ],
-        "react/wrap-multilines": 1
+        "react/wrap-multilines": 1,
+        "object-curly-spacing": [2, "always"],
+        "computed-property-spacing": [2, "never"],
+        "array-bracket-spacing": [2, "never"]
     },
     "env": {
         "browser": true,

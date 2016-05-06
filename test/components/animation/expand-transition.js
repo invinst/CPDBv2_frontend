@@ -1,10 +1,10 @@
 import 'should';
 import React from 'react';
-import {findDOMNode, render} from 'react-dom';
-import {unmountComponentSuppressError} from 'utils/test';
-import {renderIntoDocument} from 'react-addons-test-utils';
+import { findDOMNode, render } from 'react-dom';
+import { unmountComponentSuppressError } from 'utils/test';
+import { renderIntoDocument } from 'react-addons-test-utils';
 
-import {withAnimationDisabled} from 'utils/test';
+import { withAnimationDisabled } from 'utils/test';
 import ExpandTransition from 'components/animation/expand-transition';
 
 

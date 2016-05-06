@@ -1,13 +1,13 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
 import CloseButton from 'components/common/close-btn';
-import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive/responsive-style-component';
+import ResponsiveStyleComponent, { DESKTOP, TABLET, MOBILE } from 'components/responsive/responsive-style-component';
 import {
   wrapperStyle, tabletWrapperStyle, mobileWrapperStyle, closeButtonWrapperStyle, contentStyle
-} from 'components/stories/story-small.style';
+} from './story-small.style';
 
 
 class StorySmall extends ResponsiveStyleComponent {

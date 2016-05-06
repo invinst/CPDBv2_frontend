@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 
 export default class CoverImage extends React.Component {

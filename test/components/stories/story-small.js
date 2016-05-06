@@ -1,5 +1,5 @@
 import 'should';
-import {spy} from 'sinon';
+import { spy } from 'sinon';
 import React from 'react';
 import {
   renderIntoDocument, findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass, Simulate
@@ -7,7 +7,7 @@ import {
 
 import StorySmall from 'components/stories/story-small';
 import 'utils/test/React';
-import {unmountComponentSuppressError} from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 import StoryFactory from 'utils/test/factories/story';
 
 
