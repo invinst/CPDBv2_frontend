@@ -1,10 +1,17 @@
 import 'should';
 import React from 'react';
-import {unmountComponentAtNode, findDOMNode} from 'react-dom';
-import {Simulate, renderIntoDocument, scryRenderedDOMComponentsWithClass} from 'react-addons-test-utils';
+import {findDOMNode} from 'react-dom';
+import {
+  Simulate, renderIntoDocument, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType,
+  scryRenderedComponentsWithType
+} from 'react-addons-test-utils';
 
 import 'utils/test/React';
+import {unmountComponentSuppressError} from 'utils/test';
+import {withAnimationDisabled} from 'utils/test';
 import Stories from 'components/stories/stories';
+import StorySmall from 'components/stories/story-small';
+import ExpandTransition from 'components/animation/expand-transition';
 import StoryFactory from 'utils/test/factories/story';
 
 
@@ -13,9 +20,7 @@ describe('Stories component', function () {
   const stories = [1, 2, 3].map((id) => (StoryFactory.build({id: id})));
 
   afterEach(function () {
-    if (element) {
-      unmountComponentAtNode(findDOMNode(element).parentNode);
-    }
+    unmountComponentSuppressError(element);
   });
 
   it('should render in all screen size', function () {
@@ -24,12 +29,32 @@ describe('Stories component', function () {
   });
 
   it('should update selectedStoryKey depending on which story is expanded', function () {
-    global.disableAnimation = true;
-    element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
+    withAnimationDisabled(() => {
+      element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
+      let smallStory = scryRenderedDOMComponentsWithClass(element, 'story-small')[0];
+      Simulate.click(smallStory);
+      element.state.selectedStoryKey.should.equal(2);
+    });
+  });
 
-    let smallStory = findDOMNode(scryRenderedDOMComponentsWithClass(element, 'story-small')[0]);
-    Simulate.click(smallStory);
-    element.state.selectedStoryKey.should.equal(2);
-    global.disableAnimation = false;
+  it('should set selectedStoryKey to null when story is closed', function () {
+    element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
+    let smallStory = scryRenderedComponentsWithType(element, StorySmall)[0];
+    Simulate.click(findDOMNode(smallStory));
+    smallStory.props.onClose();
+    (element.state.selectedStoryKey === null).should.be.true();
+  });
+
+  it('should change storyExpanded state when ExpandTransition begin expanding or fully closed', function () {
+    withAnimationDisabled(() => {
+      element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
+      let transition = findRenderedComponentWithType(element, ExpandTransition);
+
+      transition.props.onFullyClosed(1);
+      element.state.storyExpanded.should.deepEqual({1: false});
+
+      transition.props.onExpandingBegin(2);
+      element.state.storyExpanded.should.deepEqual({2: true});
+    });
   });
 });

@@ -34,8 +34,12 @@ export default class ExpandTransition extends React.Component {
   }
 
   render() {
-    if (global.disableAnimation) {
+    if (global.disableAnimation && this.props.childKey) {
       return this.props.children;
+
+    } else if (this.props.childKey === null && (!this.expanded || global.disableAnimation)) {
+      // when childKey is null and child is fully closed, render nothing.
+      return null;
 
     } else if (this.props.childKey !== null && this.props.childKey !== this.state.prevKey) {
       // calculate child height when just received a new child
@@ -48,10 +52,6 @@ export default class ExpandTransition extends React.Component {
         }
       };
       return React.cloneElement(this.props.children, {ref: ref, style: {height: 0}});
-
-    } else if (this.props.childKey === null && !this.expanded) {
-      // when childKey is null and child is fully closed, render nothing.
-      return null;
 
     } else {
       // interpolate height on subsequent renders
@@ -87,7 +87,7 @@ ExpandTransition.propTypes = {
   children: PropTypes.element.isRequired,
 
   // childKey must be unique to children, childKey is null mean nothing will be rendered.
-  childKey: PropTypes.number,
+  childKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   // called when expansion just begun with a new child (new childKey as well)
   onExpandingBegin: PropTypes.func,

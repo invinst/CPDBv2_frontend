@@ -11,7 +11,7 @@ describe('PropValidators module', function () {
 
     it('should throw when prop is not an array of n elements', function () {
       let error = arrayOfN(2)({b: [1, 2, 3]}, 'b', 'Component');
-      error.constructor.should.equal(Error);
+      error.should.be.instanceOf(Error);
       error.message.should.equal('b must be an array of exactly 2 elements.');
     });
   });
