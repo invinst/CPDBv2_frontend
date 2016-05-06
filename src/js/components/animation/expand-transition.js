@@ -58,9 +58,9 @@ export default class ExpandTransition extends React.Component {
       return (
         <TransitionMotion
           willLeave={ () => ({height: spring(0)}) }
-          defaultStyles={ this.props.childKey ? [{key: this.props.childKey + '', style: {height: 0, x: 0}}] : [] }
+          defaultStyles={ this.props.childKey ? [{key: String(this.props.childKey), style: {height: 0, x: 0}}] : [] }
           styles={ this.props.childKey ?
-            [{key: this.props.childKey + '', style: {height: spring(this.state.childHeight), x: 1}}]
+            [{key: String(this.props.childKey), style: {height: spring(this.state.childHeight), x: 1}}]
             : [] }>
           { (interpolatedStyles) => {
             let config = interpolatedStyles[0];
