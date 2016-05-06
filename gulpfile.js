@@ -16,7 +16,7 @@ const ROOT = '/www/static/';
 
 gulp.task('build-html', () => {
   gulp.src('index.html')
-    .pipe(htmlreplace({css: '/dist/grid.css'}))
+    .pipe(htmlreplace({ css: '/dist/grid.css' }))
     .pipe(gulp.dest(ROOT));
 });
 
@@ -28,7 +28,7 @@ gulp.task('build-js', () => {
   const b = browserify({
     entries: 'src/js/index.js',
     transform: [
-      babelify.configure({presets: ['es2015', 'react']})
+      babelify.configure({ presets: ['es2015', 'react'] })
     ]
   });
 
