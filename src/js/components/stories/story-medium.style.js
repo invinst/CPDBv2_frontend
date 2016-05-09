@@ -10,8 +10,12 @@ export const storyWrapperStyle = {
   paddingRight: '16px',
   paddingLeft: '16px',
   paddingTop: '34px',
-  overflow: 'hidden',
   boxSizing: 'border-box'
+};
+
+export const contentStyle = {
+  overflow: 'hidden',
+  height: 'calc(100% - 9px)'
 };
 
 export const paperStyleDesktop = {

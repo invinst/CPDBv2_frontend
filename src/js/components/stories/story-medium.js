@@ -3,47 +3,47 @@ import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
-import ResponsiveComponent from 'components/responsive/responsive-component';
+import ResponsiveStyleComponent, { MOBILE, TABLET, DESKTOP } from 'components/responsive/responsive-style-component';
 import CoverImage from 'components/common/cover-image';
 import {
   storyWrapperStyle, storyWrapperStyleTablet,
   storyImageStyleTablet, storyImageStyleDesktop,
-  paperStyleDesktop
+  paperStyleDesktop, contentStyle
 } from './story-medium.style';
 
 
 
-class StoryMedium extends ResponsiveComponent {
-  renderMobile() {
-    return this.renderTablet();
+class StoryMedium extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [MOBILE]: TABLET,
+      [TABLET]: {
+        image: storyImageStyleTablet,
+        content: contentStyle,
+        wrapper: [storyWrapperStyle, storyWrapperStyleTablet],
+        paper: [paperStyleDesktop]
+      },
+      [DESKTOP]: {
+        image: storyImageStyleDesktop,
+        content: contentStyle,
+        wrapper: [storyWrapperStyle],
+        paper: [paperStyleDesktop]
+      }
+    };
   }
 
-  renderTablet() {
+  renderWithResponsiveStyle(style) {
     return (
       <div className='pure-g'>
         <div className='pure-u-2-3'>
-          <CoverImage style={ storyImageStyleTablet } src={ this.props.story.imageUrl }/>
+          <CoverImage style={ style.image } src={ this.props.story.imageUrl }/>
         </div>
         <div className='pure-u-1-3'>
-          <div style={ [storyWrapperStyle, storyWrapperStyleTablet] }>
-            <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
-            <ArticleContent>{ this.props.story.title }</ArticleContent>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  renderDesktop() {
-    return (
-      <div className='pure-g'>
-        <div className='pure-u-2-3'>
-          <CoverImage style={ storyImageStyleDesktop } src={ this.props.story.imageUrl }/>
-        </div>
-        <div className='pure-u-1-3'>
-          <div style={ storyWrapperStyle }>
-            <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
-            <ArticleContent>{ this.props.story.title }</ArticleContent>
+          <div style={ style.wrapper }>
+            <div style={ style.content }>
+              <ArticleHeader style={ style.paper }>{ this.props.story.paper }</ArticleHeader>
+              <ArticleContent>{ this.props.story.title }</ArticleContent>
+            </div>
           </div>
         </div>
       </div>
