@@ -38,11 +38,13 @@ describe('Stories component', function () {
   });
 
   it('should set selectedStoryKey to null when story is closed', function () {
-    element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
-    let smallStory = scryRenderedComponentsWithType(element, StorySmall)[0];
-    Simulate.click(findDOMNode(smallStory));
-    smallStory.props.onClose();
-    (element.state.selectedStoryKey === null).should.be.true();
+    withAnimationDisabled(() => {
+      element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
+      let smallStory = scryRenderedComponentsWithType(element, StorySmall)[0];
+      Simulate.click(findDOMNode(smallStory));
+      smallStory.props.onClose();
+      (element.state.selectedStoryKey === null).should.be.true();
+    });
   });
 
   it('should change storyExpanded state when ExpandTransition begin expanding or fully closed', function () {

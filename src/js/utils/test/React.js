@@ -23,3 +23,11 @@ should.Assertion.add('responsiveRenderable', function () {
     unmountComponentAtNode(findDOMNode(element).parentNode);
   });
 });
+
+should.Assertion.add('displayNothing', function () {
+  (findDOMNode(this.obj) === null).should.be.true();
+});
+
+should.Assertion.add('displaySomething', function () {
+  (findDOMNode(this.obj) === null).should.be.false();
+});

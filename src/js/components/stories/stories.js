@@ -21,6 +21,8 @@ class Stories extends ResponsiveComponent {
       selectedStoryKey: null,
       storyExpanded: {}
     };
+    this.onStoryOpen = id => { this.setState({ selectedStoryKey: id }); };
+    this.onStoryClose = id => { this.setState({ selectedStoryKey: null }); };
   }
 
   getFeaturedStory() {
@@ -58,9 +60,9 @@ class Stories extends ResponsiveComponent {
         <div key={ story.id } className='pure-u-1-2'>
           <StorySmall
             style={ ind === 0 ? firstSmallStoryStyleDesktop : null } story={ story }
-            onOpen={ (obj) => {this.setState({ selectedStoryKey: obj.id });} }
-            onClose={ () => {this.setState({ selectedStoryKey: null });} }
-            expanded={ this.state.storyExpanded[story.id] }
+            onOpen={ this.onStoryOpen }
+            onClose={ this.onStoryClose }
+            expanded={ this.state.storyExpanded[story.id] } identifier={ story.id }
             active={ story.id === this.state.selectedStoryKey }/>
         </div>
       );
@@ -74,9 +76,9 @@ class Stories extends ResponsiveComponent {
         <div className='pure-u-3-5'>
           <StoryMedium
             story={ featuredStory }
-            onOpen={ (obj) => {this.setState({ selectedStoryKey: obj.id });} }
-            onClose={ () => {this.setState({ selectedStoryKey: null });} }
-            expanded={ this.state.storyExpanded[featuredStory.id] }
+            onOpen={ this.onStoryOpen }
+            onClose={ this.onStoryClose }
+            expanded={ this.state.storyExpanded[featuredStory.id] } identifier={ featuredStory.id }
             active={ featuredStory.id === this.state.selectedStoryKey }/>
         </div>
         <div className='pure-g pure-u-2-5'>

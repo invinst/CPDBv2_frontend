@@ -26,3 +26,8 @@ CloseButtonWrapper.propTypes = {
   showButton: PropTypes.bool,
   buttonClassName: PropTypes.string
 };
+
+CloseButtonWrapper.defaultProps = {
+  expanded: true,
+  showButton: true
+};
