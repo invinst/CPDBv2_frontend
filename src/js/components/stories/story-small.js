@@ -13,7 +13,7 @@ import {
 class StorySmall extends ResponsiveStyleComponent {
   constructor(props) {
     super(props);
-    this.onOpen = this.onOpen.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
   responsiveStyle() {
@@ -32,15 +32,17 @@ class StorySmall extends ResponsiveStyleComponent {
     };
   }
 
-  onOpen() {
+  onClick() {
     if (!this.props.active) {
       this.props.onOpen(this.props.story);
+    } else {
+      this.props.onClose();
     }
   }
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='story-small' style={ style.wrapper } onClick={ this.onOpen }>
+      <div className='story-small' style={ style.wrapper } onClick={ this.onClick }>
         <div style={ style.content }>
           <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
           <ArticleContent>{ this.props.story.title }</ArticleContent>
@@ -48,7 +50,7 @@ class StorySmall extends ResponsiveStyleComponent {
         { this.props.expanded || this.props.active ?
           <div style={ style.closeButtonWrapper }>
             { this.props.active ?
-              <CloseButton onClick={ this.props.onClose } className='story-small__close-button'/>
+              <CloseButton className='story-small__close-button'/>
               : null
             }
           </div>

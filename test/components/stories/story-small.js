@@ -32,25 +32,18 @@ describe('StorySmall component', function () {
     scryRenderedDOMComponentsWithClass(element, 'story-small__close-button').length.should.equal(0);
   });
 
-  it('should trigger callback when CloseButton is clicked', function () {
+  it('should trigger onClose when clicked while active', function () {
     let onClose = spy();
-    let closeButton;
-
     element = renderIntoDocument(<StorySmall active={ true } onClose={ onClose }/>);
-    closeButton = findRenderedDOMComponentWithClass(element, 'story-small__close-button');
-
-    Simulate.click(closeButton);
+    Simulate.click(findRenderedDOMComponentWithClass(element, 'story-small'));
     onClose.called.should.be.true();
   });
 
   it('should trigger onOpen with right story onClick', function () {
     let story = StoryFactory.build();
     let onOpen = spy();
-    let storySmall;
-
     element = renderIntoDocument(<StorySmall active={ false } onOpen={ onOpen } story={ story }/>);
-    storySmall = findRenderedDOMComponentWithClass(element, 'story-small');
-    Simulate.click(storySmall);
+    Simulate.click(findRenderedDOMComponentWithClass(element, 'story-small'));
     onOpen.calledWith(story).should.be.true();
   });
 });
