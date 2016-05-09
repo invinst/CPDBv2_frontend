@@ -6,8 +6,8 @@ import ArticleContent from 'components/common/article-content';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import CoverImage from 'components/common/cover-image';
 import {
-  storyWrapperStyle, storyWrapperStyleTablet, storyWrapperStyleMobile,
-  storyImageStyleMobile, storyImageStyleTablet, storyImageStyleDesktop,
+  storyWrapperStyle, storyWrapperStyleTablet,
+  storyImageStyleTablet, storyImageStyleDesktop,
   paperStyleDesktop
 } from './story-medium.style';
 
@@ -15,18 +15,7 @@ import {
 
 class StoryMedium extends ResponsiveComponent {
   renderMobile() {
-    return (
-      <div>
-        <CoverImage
-          style={ storyImageStyleMobile } src={ this.props.story.imageUrl }/>
-        <div>
-          <div style={ [storyWrapperStyle, storyWrapperStyleMobile] }>
-            <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
-            <ArticleContent>{ this.props.story.title }</ArticleContent>
-          </div>
-        </div>
-      </div>
-    );
+    return this.renderTablet();
   }
 
   renderTablet() {

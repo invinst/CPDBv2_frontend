@@ -16,11 +16,6 @@ export const tabletWrapperStyle = {
   height: 'calc(50vw / 3)'
 };
 
-export const mobileWrapperStyle = {
-  paddingTop: '20px',
-  height: '50vw'
-};
-
 export const closeButtonWrapperStyle = {
   position: 'absolute',
   width: '100%',

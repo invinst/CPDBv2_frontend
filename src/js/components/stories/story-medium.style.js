@@ -1,9 +1,3 @@
-export const storyWrapperStyleMobile = {
-  height: '50vw',
-  borderBottom: '1px solid rgba(0, 0, 0, .1)',
-  paddingTop: '20px'
-};
-
 export const storyWrapperStyleTablet = {
   height: 'calc(100vw / 3)',
   borderRight: '1px solid rgba(0, 0, 0, .1)',
@@ -23,10 +17,6 @@ export const storyWrapperStyle = {
 export const paperStyleDesktop = {
   marginTop: '0',
   marginBottom: '9px'
-};
-
-export const storyImageStyleMobile = {
-  height: 'calc(200vw / 3)'
 };
 
 export const storyImageStyleTablet = {

@@ -6,7 +6,7 @@ import ArticleContent from 'components/common/article-content';
 import CloseButton from 'components/common/close-btn';
 import ResponsiveStyleComponent, { DESKTOP, TABLET, MOBILE } from 'components/responsive/responsive-style-component';
 import {
-  wrapperStyle, tabletWrapperStyle, mobileWrapperStyle, closeButtonWrapperStyle, contentStyle
+  wrapperStyle, tabletWrapperStyle, closeButtonWrapperStyle, contentStyle
 } from './story-small.style';
 
 
@@ -28,11 +28,7 @@ class StorySmall extends ResponsiveStyleComponent {
         closeButtonWrapper: [closeButtonWrapperStyle],
         content: [contentStyle]
       },
-      [MOBILE]: {
-        wrapper: [wrapperStyle, mobileWrapperStyle, this.props.style],
-        closeButtonWrapper: [closeButtonWrapperStyle],
-        content: [contentStyle]
-      }
+      [MOBILE]: TABLET
     };
   }
 

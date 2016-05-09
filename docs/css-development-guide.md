@@ -84,6 +84,8 @@ we use PureCSS grid system for layout: [http://purecss.io/grids/](http://purecss
 
 ## Responsive
 
+**Important Note:** Mobile layout is disabled for now. That means mobile layout will copy tablet layout for most patterns below.
+
 There are 3 patterns that you could use to make a component responsive. All of which are discussed below. Whatever pattern that you choose, make sure to use only 1 of them on a component. When your component does not need to be responsive, do not extend from any responsive component.
 
 ### Extends From `ResponsiveComponent`
@@ -102,7 +104,7 @@ class Component extends ResponsiveComponent {
 
 ### Extends from `ResponsiveStyleComponent`
 
-This pattern fit those that have zero markup changes but has to change style on different screen sizes. Just extends from `ResponsiveStyleComponent` and provide 2 methods: `responsiveStyle` and `renderWithResponsiveStyle`. `responsiveStyle` should return a mapping of `style` object for each device type. The appropriate `style` object will be passed to `renderWithResponsiveStyle` depending on screen size.
+This pattern fit those that have zero markup changes but has to change style on different screen sizes. Just extends from `ResponsiveStyleComponent` and provide 2 methods: `responsiveStyle` and `renderWithResponsiveStyle`. `responsiveStyle` should return a mapping of `style` object for each device type. The appropriate `style` object will be passed to `renderWithResponsiveStyle` depending on screen size. You can also pass in key of other screen size (e.g. `[MOBILE]: TABLET`) if the 2 screen sizes display the same.
 
 ```javascript
 import ResponsiveStyleComponent, {MOBILE, TABLET, DESKTOP} from 'components/responsive/responsive-style-component';
@@ -114,9 +116,7 @@ class Component extends ResponsiveStyleComponent {
       [MOBILE]: {
         wrapper: [wrapperStyle, mobileStyle, this.props.style]
       },
-      [TABLET]: {
-        wrapper: [wrapperStyle, tabletStyle, this.props.style]
-      },
+      [TABLET]: MOBILE,
       [DESKTOP]: {
         wrapper: [wrapperStyle, this.props.style]
       }

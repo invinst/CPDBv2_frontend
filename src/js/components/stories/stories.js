@@ -10,7 +10,7 @@ import StoryExpanded from 'components/stories/story-expanded';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import ExpandTransition from 'components/animation/expand-transition';
 import {
-  firstSmallStoryStyleMobile, firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
+  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
 } from './stories.style';
 
 
@@ -32,20 +32,7 @@ class Stories extends ResponsiveComponent {
   }
 
   renderMobile() {
-    return (
-      <div>
-        <StoryMedium story={ this.props.stories[0] }/>
-        <div className='pure-g'>
-          <div className='pure-u-1-2'>
-            <StorySmall style={ firstSmallStoryStyleMobile } story={ this.props.stories[1] }/>
-          </div>
-          <div className='pure-u-1-2'>
-            <StorySmall story={ this.props.stories[2] }/>
-          </div>
-        </div>
-        <ArticleFooter>More Stories</ArticleFooter>
-      </div>
-    );
+    return this.renderTablet();
   }
 
   renderTablet() {

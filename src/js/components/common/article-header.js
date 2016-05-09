@@ -10,7 +10,7 @@ class ArticleHeader extends ResponsiveStyleComponent {
     return {
       [DESKTOP]: { header: [articleHeaderStyle] },
       [TABLET]: { header: [articleHeaderStyle, headerTabletStyle] },
-      [MOBILE]: { header: [articleHeaderStyle, headerTabletStyle] }
+      [MOBILE]: TABLET
     };
   }
 
