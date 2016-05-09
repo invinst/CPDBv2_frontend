@@ -58,7 +58,7 @@ class Stories extends ResponsiveComponent {
         <div key={ story.id } className='pure-u-1-2'>
           <StorySmall
             style={ ind === 0 ? firstSmallStoryStyleDesktop : null } story={ story }
-            onOpen={ (story) => {this.setState({ selectedStoryKey: story.id });} }
+            onOpen={ (obj) => {this.setState({ selectedStoryKey: obj.id });} }
             onClose={ () => {this.setState({ selectedStoryKey: null });} }
             expanded={ this.state.storyExpanded[story.id] }
             active={ story.id === this.state.selectedStoryKey }/>
@@ -72,7 +72,12 @@ class Stories extends ResponsiveComponent {
     return (
       <div className='pure-g'>
         <div className='pure-u-3-5'>
-          <StoryMedium story={ featuredStory }/>
+          <StoryMedium
+            story={ featuredStory }
+            onOpen={ (obj) => {this.setState({ selectedStoryKey: obj.id });} }
+            onClose={ () => {this.setState({ selectedStoryKey: null });} }
+            expanded={ this.state.storyExpanded[featuredStory.id] }
+            active={ featuredStory.id === this.state.selectedStoryKey }/>
         </div>
         <div className='pure-g pure-u-2-5'>
           { this.renderSmallStories(restStories) }

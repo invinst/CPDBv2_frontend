@@ -1,16 +1,17 @@
-export const storyWrapperStyleTablet = {
-  height: 'calc(100vw / 3)',
-  borderRight: '1px solid rgba(0, 0, 0, .1)',
-  paddingTop: '20px'
-};
-
 export const storyWrapperStyle = {
   height: 'calc(80vw / 3)',
   borderRight: '1px solid rgba(0, 0, 0, .1)',
   paddingRight: '16px',
   paddingLeft: '16px',
   paddingTop: '34px',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  position: 'relative'
+};
+
+export const storyWrapperStyleTablet = {
+  height: 'calc(100vw / 3)',
+  borderRight: '1px solid rgba(0, 0, 0, .1)',
+  paddingTop: '20px'
 };
 
 export const contentStyle = {

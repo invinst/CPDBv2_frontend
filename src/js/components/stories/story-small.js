@@ -3,10 +3,10 @@ import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
-import CloseButton from 'components/common/close-btn';
+import CloseButtonWrapper from 'components/stories/close-btn-wrapper';
 import ResponsiveStyleComponent, { DESKTOP, TABLET, MOBILE } from 'components/responsive/responsive-style-component';
 import {
-  wrapperStyle, tabletWrapperStyle, closeButtonWrapperStyle, contentStyle
+  wrapperStyle, tabletWrapperStyle, contentStyle
 } from './story-small.style';
 
 
@@ -18,17 +18,15 @@ class StorySmall extends ResponsiveStyleComponent {
 
   responsiveStyle() {
     return {
-      [DESKTOP]: {
-        wrapper: [wrapperStyle, this.props.style],
-        closeButtonWrapper: [closeButtonWrapperStyle],
-        content: [contentStyle]
-      },
+      [MOBILE]: TABLET,
       [TABLET]: {
         wrapper: [wrapperStyle, tabletWrapperStyle, this.props.style],
-        closeButtonWrapper: [closeButtonWrapperStyle],
         content: [contentStyle]
       },
-      [MOBILE]: TABLET
+      [DESKTOP]: {
+        wrapper: [wrapperStyle, this.props.style],
+        content: [contentStyle]
+      }
     };
   }
 
@@ -47,15 +45,9 @@ class StorySmall extends ResponsiveStyleComponent {
           <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
           <ArticleContent>{ this.props.story.title }</ArticleContent>
         </div>
-        { this.props.expanded || this.props.active ?
-          <div style={ style.closeButtonWrapper }>
-            { this.props.active ?
-              <CloseButton className='story-small__close-button'/>
-              : null
-            }
-          </div>
-          : null
-        }
+        <CloseButtonWrapper
+          expanded={ this.props.expanded } showButton={ this.props.active }
+          buttonClassName='story-small__close-button'/>
       </div>
     );
   }
