@@ -16,10 +16,6 @@ describe('CloseButtonWrapper component', function () {
     unmountComponentSuppressError(element);
   });
 
-  it('should render', function () {
-    CloseButtonWrapper.should.be.renderable();
-  });
-
   it('should show CloseButton when showButton is true', function () {
     element = renderIntoDocument(<CloseButtonWrapper showButton={ true } buttonClassName='abc'/>);
     findRenderedDOMComponentWithClass(element, 'abc');
