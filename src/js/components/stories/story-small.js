@@ -4,6 +4,7 @@ import Radium from 'radium';
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
 import CloseButtonWrapper from 'components/stories/close-btn-wrapper';
+import Toggleable from 'components/common/toggleable';
 import ResponsiveStyleComponent, { DESKTOP, TABLET, MOBILE } from 'components/responsive/responsive-style-component';
 import {
   wrapperStyle, tabletWrapperStyle, contentStyle
@@ -11,11 +12,6 @@ import {
 
 
 class StorySmall extends ResponsiveStyleComponent {
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-  }
-
   responsiveStyle() {
     return {
       [MOBILE]: TABLET,
@@ -30,17 +26,9 @@ class StorySmall extends ResponsiveStyleComponent {
     };
   }
 
-  onClick() {
-    if (!this.props.active) {
-      this.props.onOpen(this.props.story);
-    } else {
-      this.props.onClose();
-    }
-  }
-
   renderWithResponsiveStyle(style) {
     return (
-      <div className='story-small' style={ style.wrapper } onClick={ this.onClick }>
+      <div className='story-small' style={ style.wrapper }>
         <div style={ style.content }>
           <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
           <ArticleContent>{ this.props.story.title }</ArticleContent>
@@ -60,10 +48,8 @@ StorySmall.propTypes = {
     paper: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
   }),
-  active: PropTypes.bool,
   expanded: PropTypes.bool,
-  onOpen: PropTypes.func,
-  onClose: PropTypes.func
+  active: PropTypes.bool
 };
 
 StorySmall.defaultProps = {
@@ -74,4 +60,4 @@ StorySmall.defaultProps = {
   }
 };
 
-export default Radium(StorySmall);
+export default Toggleable(Radium(StorySmall));

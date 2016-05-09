@@ -17,7 +17,7 @@ describe('ExpandTransition component', function () {
 
   it('should not render anything when childKey is null initially', function () {
     element = renderIntoDocument(<ExpandTransition childKey={ null }><p/></ExpandTransition>);
-    (findDOMNode(element) === null).should.be.true();
+    element.should.displayNothing();
   });
 
   it('should render children immediately when animation is disabled', function () {
