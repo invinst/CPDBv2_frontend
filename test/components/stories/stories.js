@@ -9,7 +9,7 @@ import 'utils/test/React';
 import { unmountComponentSuppressError } from 'utils/test';
 import { withAnimationDisabled } from 'utils/test';
 import Stories from 'components/stories/stories';
-import StorySmall from 'components/stories/story-small';
+import ArticleSmall from 'components/common/article-small';
 import ExpandTransition from 'components/animation/expand-transition';
 import StoryFactory from 'utils/test/factories/story';
 
@@ -30,7 +30,7 @@ describe('Stories component', function () {
   it('should update selectedStoryKey depending on which story is expanded', function () {
     withAnimationDisabled(() => {
       element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
-      let smallStory = scryRenderedDOMComponentsWithClass(element, 'story-small')[0];
+      let smallStory = scryRenderedDOMComponentsWithClass(element, 'article-small')[0];
       Simulate.click(smallStory);
       element.state.selectedStoryKey.should.equal(2);
     });
@@ -39,7 +39,7 @@ describe('Stories component', function () {
   it('should set selectedStoryKey to null when story is closed', function () {
     withAnimationDisabled(() => {
       element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
-      let smallStory = scryRenderedComponentsWithType(element, StorySmall)[0];
+      let smallStory = scryRenderedComponentsWithType(element, ArticleSmall)[0];
       Simulate.click(smallStory);
       smallStory.props.onClose([null, null]);
       (element.state.selectedStoryKey === null).should.be.true();

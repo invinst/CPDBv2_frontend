@@ -8,10 +8,10 @@ import Toggleable from 'components/common/toggleable';
 import ResponsiveStyleComponent, { DESKTOP, TABLET, MOBILE } from 'components/responsive/responsive-style-component';
 import {
   wrapperStyle, tabletWrapperStyle, contentStyle
-} from './story-small.style';
+} from './article-small.style';
 
 
-class StorySmall extends ResponsiveStyleComponent {
+class ArticleSmall extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [MOBILE]: TABLET,
@@ -28,7 +28,7 @@ class StorySmall extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='story-small' style={ style.wrapper }>
+      <div className='article-small' style={ style.wrapper }>
         <div style={ style.content }>
           <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
           <ArticleContent>{ this.props.story.title }</ArticleContent>
@@ -36,13 +36,13 @@ class StorySmall extends ResponsiveStyleComponent {
         <CloseButtonWrapper
           expanded={ this.props.expanded } showButton={ this.props.active }
           position={ this.props.expandDirection }
-          buttonClassName='story-small__close-button'/>
+          buttonClassName='article-small__close-button'/>
       </div>
     );
   }
 }
 
-StorySmall.propTypes = {
+ArticleSmall.propTypes = {
   style: PropTypes.object,
   story: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -54,7 +54,7 @@ StorySmall.propTypes = {
   active: PropTypes.bool
 };
 
-StorySmall.defaultProps = {
+ArticleSmall.defaultProps = {
   story: {
     id: 2,
     paper: 'FiveThirtyEight',
@@ -62,4 +62,4 @@ StorySmall.defaultProps = {
   }
 };
 
-export default Toggleable(Radium(StorySmall));
+export default Toggleable(Radium(ArticleSmall));

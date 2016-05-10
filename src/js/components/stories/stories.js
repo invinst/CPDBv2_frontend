@@ -5,7 +5,7 @@ import _ from 'lodash';
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from 'components/stories/story-medium';
-import StorySmall from 'components/stories/story-small';
+import ArticleSmall from 'components/common/article-small';
 import StoryExpandable from 'components/stories/story-expandable';
 import { TOP, BOTTOM } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
@@ -39,7 +39,7 @@ class Stories extends ResponsiveComponent {
   renderSmallStoriesTablet(stories) {
     return stories.map((story, ind) => {
       return (
-        <StorySmall
+        <ArticleSmall
           style={ ind === 0 ? firstSmallStoryStyleTablet : null } story={ story }
           onOpen={ this.onStoryOpen } key={ story.id }
           onClose={ this.onStoryClose }
@@ -55,7 +55,7 @@ class Stories extends ResponsiveComponent {
     return stories.map((story, ind) => {
       return (
         <div key={ story.id } className='pure-u-1-2'>
-          <StorySmall
+          <ArticleSmall
             style={ ind === 0 ? firstSmallStoryStyleDesktop : null } story={ story }
             onOpen={ this.onStoryOpen }
             onClose={ this.onStoryClose }
