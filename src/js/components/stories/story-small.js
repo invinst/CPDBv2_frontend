@@ -35,6 +35,7 @@ class StorySmall extends ResponsiveStyleComponent {
         </div>
         <CloseButtonWrapper
           expanded={ this.props.expanded } showButton={ this.props.active }
+          position={ this.props.expandDirection }
           buttonClassName='story-small__close-button'/>
       </div>
     );
@@ -49,6 +50,7 @@ StorySmall.propTypes = {
     title: PropTypes.string.isRequired
   }),
   expanded: PropTypes.bool,
+  expandDirection: PropTypes.string,
   active: PropTypes.bool
 };
 

@@ -1,16 +1,18 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
+import classNames from 'classnames';
 
 import ArticleContent from 'components/common/article-content';
 import ArticleHeader from 'components/common/article-header';
 import ArticleFooter from 'components/common/article-footer';
-import { outerWrapperStyle, storyWrapperStyle } from './story-expanded.style';
+import { outerWrapperStyle, storyWrapperStyle } from './story-full.style';
 
 
-class StoryExpanded extends React.Component {
+class StoryFull extends React.Component {
   render() {
+    let className = classNames('story-full', this.props.className);
     return (
-      <div className={ this.props.className } style={ [outerWrapperStyle, this.props.style] }>
+      <div className={ className } style={ [outerWrapperStyle, this.props.style] }>
         <div style={ storyWrapperStyle }>
           <ArticleHeader>{ this.props.story.date }</ArticleHeader>
           {
@@ -27,7 +29,7 @@ class StoryExpanded extends React.Component {
   }
 }
 
-StoryExpanded.propTypes = {
+StoryFull.propTypes = {
   story: PropTypes.shape({
     date: PropTypes.string,
     paragraphs: PropTypes.arrayOf(PropTypes.string),
@@ -37,7 +39,7 @@ StoryExpanded.propTypes = {
   className: PropTypes.string
 };
 
-StoryExpanded.defaultProps = {
+StoryFull.defaultProps = {
   story: {
     date: 'November 17, 2016',
     paragraphs: [
@@ -61,4 +63,4 @@ StoryExpanded.defaultProps = {
   }
 };
 
-export default Radium(StoryExpanded);
+export default Radium(StoryFull);

@@ -6,9 +6,9 @@ import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from 'components/stories/story-medium';
 import StorySmall from 'components/stories/story-small';
-import StoryExpanded from 'components/stories/story-expanded';
+import StoryExpandable from 'components/stories/story-expandable';
+import { TOP, BOTTOM } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
-import ExpandTransition from 'components/animation/expand-transition';
 import {
   firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
 } from './stories.style';
@@ -19,10 +19,13 @@ class Stories extends ResponsiveComponent {
     super(props);
     this.state = {
       selectedStoryKey: null,
-      storyExpanded: {}
+      StoryFull: {},
+      expandDirection: BOTTOM
     };
-    this.onStoryOpen = id => { this.setState({ selectedStoryKey: id }); };
-    this.onStoryClose = id => { this.setState({ selectedStoryKey: null }); };
+    this.onStoryOpen = ([id, dir]) => { this.setState({ selectedStoryKey: id, expandDirection: dir }); };
+    this.onStoryClose = ([id, dir]) => { this.setState({ selectedStoryKey: null }); };
+    this.onStoryFullyClosed = key => { this.setState({ StoryFull: { [key]: false } }); };
+    this.onStoryExpandingBegin = key => { this.setState({ StoryFull: { [key]: true } }); };
   }
 
   getFeaturedStory() {
@@ -33,28 +36,22 @@ class Stories extends ResponsiveComponent {
     return [featuredStory, restStories];
   }
 
-  renderMobile() {
-    return this.renderTablet();
+  renderSmallStoriesTablet(stories) {
+    return stories.map((story, ind) => {
+      return (
+        <StorySmall
+          style={ ind === 0 ? firstSmallStoryStyleTablet : null } story={ story }
+          onOpen={ this.onStoryOpen } key={ story.id }
+          onClose={ this.onStoryClose }
+          expanded={ this.state.StoryFull[story.id] }
+          identifier={ [story.id, ind === 0 ? TOP : BOTTOM] }
+          expandDirection={ ind === 0 ? TOP : BOTTOM }
+          active={ story.id === this.state.selectedStoryKey }/>
+      );
+    });
   }
 
-  renderTablet() {
-    return (
-      <div className='pure-g'>
-        <div className='pure-u-3-4'>
-          <StoryMedium story={ this.props.stories[0] }/>
-        </div>
-        <div className='pure-u-1-4'>
-          <StorySmall style={ firstSmallStoryStyleTablet } story={ this.props.stories[1] }/>
-          <StorySmall story={ this.props.stories[2] }/>
-        </div>
-        <div className='pure-u-1-1'>
-          <ArticleFooter>More Stories</ArticleFooter>
-        </div>
-      </div>
-    );
-  }
-
-  renderSmallStories(stories) {
+  renderSmallStoriesDesktop(stories) {
     return stories.map((story, ind) => {
       return (
         <div key={ story.id } className='pure-u-1-2'>
@@ -62,34 +59,70 @@ class Stories extends ResponsiveComponent {
             style={ ind === 0 ? firstSmallStoryStyleDesktop : null } story={ story }
             onOpen={ this.onStoryOpen }
             onClose={ this.onStoryClose }
-            expanded={ this.state.storyExpanded[story.id] } identifier={ story.id }
+            expanded={ this.state.StoryFull[story.id] }
+            identifier={ [story.id, BOTTOM] }
+            expandDirection={ BOTTOM }
             active={ story.id === this.state.selectedStoryKey }/>
         </div>
       );
     });
   }
 
+  renderMobile() {
+    return this.renderTablet();
+  }
+
+  renderTablet() {
+    let [featuredStory, restStories] = this.getFeaturedStory();
+    return (
+      <div className='pure-g'>
+        <StoryExpandable
+          childKey={ this.state.selectedStoryKey }
+          onFullyClosed={ this.onStoryFullyClosed }
+          onExpandingBegin={ this.onStoryExpandingBegin }
+          expandDirection={ this.state.expandDirection }>
+          <div className='pure-u-3-4'>
+            <StoryMedium
+              story={ featuredStory }
+              onOpen={ this.onStoryOpen }
+              onClose={ this.onStoryClose }
+              expanded={ this.state.StoryFull[featuredStory.id] }
+              identifier={ [featuredStory.id, BOTTOM] }
+              active={ featuredStory.id === this.state.selectedStoryKey }/>
+          </div>
+          <div className='pure-u-1-4'>
+            { this.renderSmallStoriesTablet(restStories) }
+          </div>
+        </StoryExpandable>
+        <div className='pure-u-1-1'>
+          <ArticleFooter>More Stories</ArticleFooter>
+        </div>
+      </div>
+    );
+  }
+
   renderDesktop() {
     let [featuredStory, restStories] = this.getFeaturedStory();
     return (
       <div className='pure-g'>
-        <div className='pure-u-3-5'>
-          <StoryMedium
-            story={ featuredStory }
-            onOpen={ this.onStoryOpen }
-            onClose={ this.onStoryClose }
-            expanded={ this.state.storyExpanded[featuredStory.id] } identifier={ featuredStory.id }
-            active={ featuredStory.id === this.state.selectedStoryKey }/>
-        </div>
-        <div className='pure-g pure-u-2-5'>
-          { this.renderSmallStories(restStories) }
-        </div>
-        <ExpandTransition
+        <StoryExpandable
           childKey={ this.state.selectedStoryKey }
-          onFullyClosed={ (key) => {this.setState({ storyExpanded: { [key]: false } });} }
-          onExpandingBegin={ (key) => {this.setState({ storyExpanded: { [key]: true } });} }>
-          <StoryExpanded className='pure-u-1-1'/>
-        </ExpandTransition>
+          onFullyClosed={ this.onStoryFullyClosed }
+          onExpandingBegin={ this.onStoryExpandingBegin }
+          expandDirection={ this.state.expandDirection }>
+          <div className='pure-u-3-5'>
+            <StoryMedium
+              story={ featuredStory }
+              onOpen={ this.onStoryOpen }
+              onClose={ this.onStoryClose }
+              expanded={ this.state.StoryFull[featuredStory.id] }
+              identifier={ [featuredStory.id, BOTTOM] }
+              active={ featuredStory.id === this.state.selectedStoryKey }/>
+          </div>
+          <div className='pure-g pure-u-2-5'>
+            { this.renderSmallStoriesDesktop(restStories) }
+          </div>
+        </StoryExpandable>
         <div className='pure-u-1-1'>
           <ArticleFooter>More Stories</ArticleFooter>
         </div>

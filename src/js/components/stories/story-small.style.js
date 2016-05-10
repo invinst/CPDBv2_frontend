@@ -9,7 +9,7 @@ export const wrapperStyle = {
 
 export const contentStyle = {
   overflow: 'hidden',
-  height: 'calc(100% - 9px)'
+  height: 'calc(100% - 17.5px)'
 };
 
 export const tabletWrapperStyle = {
