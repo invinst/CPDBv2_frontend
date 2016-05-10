@@ -46,6 +46,7 @@ class Stories extends ResponsiveComponent {
           expanded={ this.state.StoryFull[story.id] }
           identifier={ [story.id, ind === 0 ? TOP : BOTTOM] }
           expandDirection={ ind === 0 ? TOP : BOTTOM }
+          header={ story.paper } content={ story.title }
           active={ story.id === this.state.selectedStoryKey }/>
       );
     });
@@ -62,6 +63,7 @@ class Stories extends ResponsiveComponent {
             expanded={ this.state.StoryFull[story.id] }
             identifier={ [story.id, BOTTOM] }
             expandDirection={ BOTTOM }
+            header={ story.paper } content={ story.title }
             active={ story.id === this.state.selectedStoryKey }/>
         </div>
       );

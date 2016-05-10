@@ -30,8 +30,8 @@ class ArticleSmall extends ResponsiveStyleComponent {
     return (
       <div className='article-small' style={ style.wrapper }>
         <div style={ style.content }>
-          <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
-          <ArticleContent>{ this.props.story.title }</ArticleContent>
+          <ArticleHeader>{ this.props.header }</ArticleHeader>
+          <ArticleContent>{ this.props.content }</ArticleContent>
         </div>
         <CloseButtonWrapper
           expanded={ this.props.expanded } showButton={ this.props.active }
@@ -44,22 +44,16 @@ class ArticleSmall extends ResponsiveStyleComponent {
 
 ArticleSmall.propTypes = {
   style: PropTypes.object,
-  story: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    paper: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
-  }),
+  header: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
   expanded: PropTypes.bool,
   expandDirection: PropTypes.string,
   active: PropTypes.bool
 };
 
 ArticleSmall.defaultProps = {
-  story: {
-    id: 2,
-    paper: 'FiveThirtyEight',
-    title: 'How to predict bad cops in Chicago.'
-  }
+  header: 'FiveThirtyEight',
+  content: 'How to predict bad cops in Chicago.'
 };
 
 export default Toggleable(Radium(ArticleSmall));
