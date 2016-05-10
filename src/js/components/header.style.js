@@ -1,13 +1,23 @@
+import { imgRootFolder } from 'utils/static-assets';
+
+
+let imgRoot = imgRootFolder();
+
 export const navStyle = {
   display: 'inline-block',
-  marginLeft: '50px',
-  float: 'right'
+  marginLeft: '50px'
 };
 
-export const wrapperStyle = {
+export const navWrapperStyle = {
   padding: '36px 36px 32px 0',
   height: '88px',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  textAlign: 'right'
+};
+
+export const navWrapperFixedStyle = {
+  float: 'right',
+  display: 'inline-block'
 };
 
 export const fixedWrapperStyle = {
@@ -17,5 +27,27 @@ export const fixedWrapperStyle = {
   width: '100%',
   background: '#fff',
   zIndex: '2',
+  height: '88px',
+  boxSizing: 'border-box',
   borderBottom: '1px solid #000'
+};
+
+export const logoStyle = {
+  height: '25px',
+  width: '90px',
+  background: `url("${imgRoot}CPDB-logo.svg") no-repeat scroll 0 0 transparent`,
+  display: 'inline-block'
+};
+
+export const logoWrapperStyle = {
+  height: '62px',
+  paddingLeft: '36px',
+  paddingTop: '18px',
+  boxSizing: 'border-box'
+};
+
+export const logoWrapperFixedStyle = {
+  float: 'left',
+  paddingTop: '31px',
+  display: 'inline-block'
 };

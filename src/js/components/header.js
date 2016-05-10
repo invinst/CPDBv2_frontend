@@ -2,7 +2,10 @@ import React from 'react';
 import Radium from 'radium';
 
 import NavLink from 'components/common/nav-link';
-import { wrapperStyle, navStyle, fixedWrapperStyle } from './header.style';
+import {
+  navWrapperStyle, navStyle, fixedWrapperStyle, logoWrapperStyle, logoStyle,
+  navWrapperFixedStyle, logoWrapperFixedStyle
+} from './header.style';
 
 
 function toFixed() {
@@ -33,11 +36,15 @@ class Header extends React.Component {
   render() {
     let links = ['Database', 'Stories', 'FAQ', 'Collaboration'];
     return (
-      <div style={ [wrapperStyle, this.state.fixed ? fixedWrapperStyle : null] }>
-        { links.map((txt, ind) => (
-          <NavLink key={ ind } style={ navStyle }>{ txt }</NavLink>
-        )) }
-
+      <div style={ this.state.fixed ? fixedWrapperStyle : null }>
+        <div style={ [navWrapperStyle, this.state.fixed ? navWrapperFixedStyle : null] }>
+          { links.map((txt, ind) => (
+            <NavLink key={ ind } style={ navStyle }>{ txt }</NavLink>
+          )) }
+        </div>
+        <div style={ [logoWrapperStyle, this.state.fixed ? logoWrapperFixedStyle : null] }>
+          <span style={ logoStyle }/>
+        </div>
       </div>
     );
   }
