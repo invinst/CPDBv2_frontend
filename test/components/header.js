@@ -18,12 +18,6 @@ describe('Header component', function () {
         callback = cb;
       }
     });
-
-    // stub(window, 'removeEventListener', (evt, cb) => {
-    //   if (evt === 'scroll') {
-    //     cbs.pop();
-    //   }
-    // });
   });
 
   afterEach(function () {
