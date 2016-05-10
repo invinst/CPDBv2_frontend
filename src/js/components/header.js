@@ -37,6 +37,7 @@ class Header extends React.Component {
         { links.map((txt, ind) => (
           <NavLink key={ ind } style={ navStyle }>{ txt }</NavLink>
         )) }
+
       </div>
     );
   }
