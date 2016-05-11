@@ -33,16 +33,28 @@ class Header extends React.Component {
     }
   }
 
+  wrapperStyle() {
+    return this.state.fixed ? fixedWrapperStyle : null;
+  }
+
+  navWrapperStyle() {
+    return [navWrapperStyle, this.state.fixed ? navWrapperFixedStyle : null];
+  }
+
+  logoWrapperStyle() {
+    return [logoWrapperStyle, this.state.fixed ? logoWrapperFixedStyle : null];
+  }
+
   render() {
     let links = ['Database', 'Stories', 'FAQ', 'Collaboration'];
     return (
-      <div style={ this.state.fixed ? fixedWrapperStyle : null }>
-        <div style={ [navWrapperStyle, this.state.fixed ? navWrapperFixedStyle : null] }>
+      <div style={ this.wrapperStyle() }>
+        <div style={ this.navWrapperStyle() }>
           { links.map((txt, ind) => (
             <NavLink key={ ind } style={ navStyle }>{ txt }</NavLink>
           )) }
         </div>
-        <div style={ [logoWrapperStyle, this.state.fixed ? logoWrapperFixedStyle : null] }>
+        <div style={ this.logoWrapperStyle() }>
           <span style={ logoStyle }/>
         </div>
       </div>
