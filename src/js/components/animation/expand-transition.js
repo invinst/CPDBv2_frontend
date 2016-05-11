@@ -15,10 +15,10 @@ export default class ExpandTransition extends React.Component {
     this.expanded = false;
   }
 
-  onExpandingBegin() {
-    if (this.props.onExpandingBegin) {
+  onExpansionBegin() {
+    if (this.props.onExpansionBegin) {
       setTimeout(() => {
-        this.props.onExpandingBegin(this.props.childKey);
+        this.props.onExpansionBegin(this.props.childKey);
       }, 0);
     }
     this.expanded = true;
@@ -68,7 +68,7 @@ export default class ExpandTransition extends React.Component {
 
             if (config) {
               if (config.style.x === 0) {
-                this.onExpandingBegin();
+                this.onExpansionBegin();
               }
 
               return React.cloneElement(this.props.children, { style: { height: config.style.height } });
@@ -91,7 +91,7 @@ ExpandTransition.propTypes = {
   childKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   // called when expansion just begun with a new child (new childKey as well)
-  onExpandingBegin: PropTypes.func,
+  onExpansionBegin: PropTypes.func,
 
   // called when child is fully closed (it's height is 0 and childKey is null)
   onFullyClosed: PropTypes.func

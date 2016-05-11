@@ -54,7 +54,7 @@ describe('Stories component', function () {
       transition.props.onFullyClosed(1);
       element.state.StoryFull.should.deepEqual({ 1: false });
 
-      transition.props.onExpandingBegin(2);
+      transition.props.onExpansionBegin(2);
       element.state.StoryFull.should.deepEqual({ 2: true });
     });
   });
