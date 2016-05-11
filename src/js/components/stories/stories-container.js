@@ -6,7 +6,8 @@ import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from 'components/stories/story-medium';
 import ArticleSmall from 'components/common/article-small';
-import StoryExpandable from 'components/stories/story-expandable';
+import Expandable from 'components/common/expandable';
+import StoryFull from 'components/stories/story-full';
 import { TOP, BOTTOM } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
@@ -14,18 +15,20 @@ import {
 } from './stories-container.style';
 
 
+const StoryExpandable = Expandable(StoryFull, { className: 'pure-u-1-1' });
+
 class StoriesContainer extends ResponsiveComponent {
   constructor(props) {
     super(props);
     this.state = {
       selectedStoryKey: null,
-      StoryExpanded: {},
+      storyExpanded: {},
       expandDirection: BOTTOM
     };
     this.onStoryOpen = ([id, dir]) => { this.setState({ selectedStoryKey: id, expandDirection: dir }); };
     this.onStoryClose = ([id, dir]) => { this.setState({ selectedStoryKey: null }); };
-    this.onStoryFullyClosed = key => { this.setState({ StoryExpanded: { [key]: false } }); };
-    this.onStoryExpandingBegin = key => { this.setState({ StoryExpanded: { [key]: true } }); };
+    this.onStoryFullyClosed = key => { this.setState({ storyExpanded: { [key]: false } }); };
+    this.onStoryExpandingBegin = key => { this.setState({ storyExpanded: { [key]: true } }); };
   }
 
   getFeaturedStory() {
@@ -43,7 +46,7 @@ class StoriesContainer extends ResponsiveComponent {
           style={ ind === 0 ? firstSmallStoryStyleTablet : null }
           onOpen={ this.onStoryOpen } key={ story.id }
           onClose={ this.onStoryClose }
-          expanded={ this.state.StoryExpanded[story.id] }
+          expanded={ this.state.storyExpanded[story.id] }
           identifier={ [story.id, ind === 0 ? TOP : BOTTOM] }
           expandDirection={ ind === 0 ? TOP : BOTTOM }
           header={ story.paper } content={ story.title }
@@ -60,7 +63,7 @@ class StoriesContainer extends ResponsiveComponent {
             style={ ind === 0 ? firstSmallStoryStyleDesktop : null }
             onOpen={ this.onStoryOpen }
             onClose={ this.onStoryClose }
-            expanded={ this.state.StoryExpanded[story.id] }
+            expanded={ this.state.storyExpanded[story.id] }
             identifier={ [story.id, BOTTOM] }
             expandDirection={ BOTTOM }
             header={ story.paper } content={ story.title }
@@ -88,7 +91,7 @@ class StoriesContainer extends ResponsiveComponent {
               story={ featuredStory }
               onOpen={ this.onStoryOpen }
               onClose={ this.onStoryClose }
-              expanded={ this.state.StoryExpanded[featuredStory.id] }
+              expanded={ this.state.storyExpanded[featuredStory.id] }
               identifier={ [featuredStory.id, BOTTOM] }
               active={ featuredStory.id === this.state.selectedStoryKey }/>
           </div>
@@ -117,7 +120,7 @@ class StoriesContainer extends ResponsiveComponent {
               story={ featuredStory }
               onOpen={ this.onStoryOpen }
               onClose={ this.onStoryClose }
-              expanded={ this.state.StoryExpanded[featuredStory.id] }
+              expanded={ this.state.storyExpanded[featuredStory.id] }
               identifier={ [featuredStory.id, BOTTOM] }
               active={ featuredStory.id === this.state.selectedStoryKey }/>
           </div>

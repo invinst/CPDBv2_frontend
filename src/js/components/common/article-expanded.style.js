@@ -9,5 +9,6 @@ export const innerWrapperStyle = {
 export const outerWrapperStyle = {
   borderTop: '1px solid #D0D2D3',
   borderBottom: '1px solid #D0D2D3',
-  overflow: 'hidden'
+  overflow: 'hidden',
+  display: 'block'
 };

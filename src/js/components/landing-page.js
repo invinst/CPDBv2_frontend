@@ -16,10 +16,10 @@ export default class LandingPage extends React.Component {
           <StoriesContainer/>
         </div>
         <div className='pure-g' style={ borderTop }>
-          <div className='pure-u-3-5' style={ borderRight }>
+          <div className='pure-u-de-3-5 pure-u-ta-1-2 pure-u-mo-1-2' style={ borderRight }>
             <FAQContainer/>
           </div>
-          <div className='pure-u-2-5'>
+          <div className='pure-u-de-2-5 pure-u-ta-1-2 pure-u-mo-1-2'>
             <TweetContainer/>
           </div>
         </div>

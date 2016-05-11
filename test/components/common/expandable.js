@@ -4,14 +4,16 @@ import {
   renderIntoDocument, findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
-import StoryExpandable from 'components/stories/story-expandable';
+import Expandable from 'components/common/expandable';
+import StoryFull from 'components/stories/story-full';
 import { withAnimationDisabled } from 'utils/test';
 import { unmountComponentSuppressError } from 'utils/test';
 import { TOP, BOTTOM } from 'utils/constants';
 
 
-describe('StoryExpandable component', function () {
+describe('Expandable higher order component', function () {
   let element;
+  const ExpandableCompoent = Expandable(StoryFull, {});
 
   afterEach(function () {
     unmountComponentSuppressError(element);
@@ -21,7 +23,7 @@ describe('StoryExpandable component', function () {
     withAnimationDisabled(() => {
       let siblingText = 'sibling';
       element = renderIntoDocument(
-        <StoryExpandable expandDirection={ TOP } childKey='1'><p>{ siblingText }</p></StoryExpandable>
+        <ExpandableCompoent expandDirection={ TOP } childKey='1'><p>{ siblingText }</p></ExpandableCompoent>
       );
       findRenderedDOMComponentWithClass(element, 'story-full').nextSibling.textContent.should.equal(siblingText);
     });
@@ -31,7 +33,7 @@ describe('StoryExpandable component', function () {
     withAnimationDisabled(() => {
       let siblingText = 'sibling';
       element = renderIntoDocument(
-        <StoryExpandable expandDirection={ BOTTOM } childKey='1'><p>{ siblingText }</p></StoryExpandable>
+        <ExpandableCompoent expandDirection={ BOTTOM } childKey='1'><p>{ siblingText }</p></ExpandableCompoent>
       );
       findRenderedDOMComponentWithClass(element, 'story-full').previousSibling.textContent.should.equal(siblingText);
     });

@@ -46,16 +46,16 @@ describe('StoriesContainer component', function () {
     });
   });
 
-  it('should change StoryExpanded state when ExpandTransition begin expanding or fully closed', function () {
+  it('should change storyExpanded state when ExpandTransition begin expanding or fully closed', function () {
     withAnimationDisabled(() => {
       element = renderIntoDocument(<StoriesContainer stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
       let transition = findRenderedComponentWithType(element, ExpandTransition);
 
       transition.props.onFullyClosed(1);
-      element.state.StoryExpanded.should.deepEqual({ 1: false });
+      element.state.storyExpanded.should.deepEqual({ 1: false });
 
       transition.props.onExpansionBegin(2);
-      element.state.StoryExpanded.should.deepEqual({ 2: true });
+      element.state.storyExpanded.should.deepEqual({ 2: true });
     });
   });
 });
