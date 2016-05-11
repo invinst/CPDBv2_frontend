@@ -1,4 +1,3 @@
-import 'should';
 import React from 'react';
 
 import ArticleContent from 'components/common/article-content';

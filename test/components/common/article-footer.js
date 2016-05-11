@@ -1,4 +1,3 @@
-import 'should';
 import React from 'react';
 
 import ArticleFooter from 'components/common/article-footer';

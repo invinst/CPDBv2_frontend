@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import StoriesContainer from 'components/stories/stories-container';
 import Header from 'components/header';
@@ -6,8 +6,7 @@ import FAQContainer from 'components/faq/faq-container';
 import TweetContainer from 'components/tweet-container';
 import { borderTop, borderRight } from './landing-page.style';
 
-
-export default class LandingPage extends React.Component {
+export default class LandingPage extends Component {
   render() {
     return (
       <div>

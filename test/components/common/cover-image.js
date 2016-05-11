@@ -1,4 +1,3 @@
-import 'should';
 import React from 'react';
 
 import CoverImage from 'components/common/cover-image';

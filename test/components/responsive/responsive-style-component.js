@@ -1,4 +1,3 @@
-import 'should';
 import React from 'react';
 
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';

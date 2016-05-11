@@ -5,8 +5,8 @@ import should from 'should';
 import _ from 'lodash';
 
 
-should.Assertion.add('renderable', function () {
-  let element = renderIntoDocument(createElement(this.obj));
+should.Assertion.add('renderable', function (props) {
+  let element = renderIntoDocument(createElement(this.obj, props));
 
   element.should.be.ok();
 
@@ -14,11 +14,11 @@ should.Assertion.add('renderable', function () {
 });
 
 
-should.Assertion.add('responsiveRenderable', function () {
+should.Assertion.add('responsiveRenderable', function (props) {
   let devices = ['mobile', 'tablet', 'desktop'];
 
   _.each(devices, (device) => {
-    let element = renderIntoDocument(createElement(this.obj, { device: device }));
+    let element = renderIntoDocument(createElement(this.obj, _.assign({}, props, { device: device })));
     element.should.be.ok();
     unmountComponentAtNode(findDOMNode(element).parentNode);
   });
