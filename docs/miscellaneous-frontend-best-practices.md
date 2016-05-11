@@ -6,7 +6,7 @@
 
 - Separate your imports into 2 sections: 3rd party libraries and our own code.
 
-- If a module contain many things, import exactly those things that you require, not the whole module. i.e. `import {findDOMNode, unmountComponentAtNode} from 'react-dom';` is good, `import ReactDOM from 'react-dom';` is less nice.
+- If a module contain many things, import exactly those things that you require, not the whole module. i.e. `import { findDOMNode, unmountComponentAtNode } from 'react-dom';` is good, `import ReactDOM from 'react-dom';` is less nice.
 
 ## Testing
 

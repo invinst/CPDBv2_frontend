@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import _ from 'lodash';
+import { remove } from 'lodash';
 
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
@@ -27,7 +27,7 @@ class Stories extends ResponsiveComponent {
 
   getFeaturedStory() {
     let restStories = this.props.stories.slice(0);
-    let featuredStory = _.remove(restStories, (story) => {
+    let featuredStory = remove(restStories, (story) => {
       return story.id === this.props.featuredStoryId;
     })[0];
     return [featuredStory, restStories];
@@ -87,7 +87,7 @@ class Stories extends ResponsiveComponent {
         <ExpandTransition
           childKey={ this.state.selectedStoryKey }
           onFullyClosed={ (key) => {this.setState({ storyExpanded: { [key]: false } });} }
-          onExpandingBegin={ (key) => {this.setState({ storyExpanded: { [key]: true } });} }>
+          onExpansionBegin={ (key) => {this.setState({ storyExpanded: { [key]: true } });} }>
           <StoryExpanded className='pure-u-1-1'/>
         </ExpandTransition>
         <div className='pure-u-1-1'>
