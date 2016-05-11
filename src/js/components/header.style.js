@@ -29,7 +29,7 @@ export const fixedWrapperStyle = {
   zIndex: '2',
   height: '88px',
   boxSizing: 'border-box',
-  borderBottom: '1px solid #000'
+  borderBottom: '1px solid #666666'
 };
 
 export const logoStyle = {

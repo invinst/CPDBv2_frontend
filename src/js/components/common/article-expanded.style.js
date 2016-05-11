@@ -1,4 +1,4 @@
-export const storyWrapperStyle = {
+export const innerWrapperStyle = {
   width: '600px',
   paddingTop: '88px',
   paddingLeft: '16px',

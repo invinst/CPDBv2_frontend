@@ -9,7 +9,7 @@ import {
 class CloseButton extends React.Component {
   render() {
     return (
-      <button style={ closeButtonStyle } className={ this.props.className }
+      <button style={ [closeButtonStyle, this.props.style] } className={ this.props.className }
         onClick={ this.props.onClick }/>
     );
   }
@@ -17,7 +17,8 @@ class CloseButton extends React.Component {
 
 CloseButton.propTypes = {
   onClick: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default Radium(CloseButton);

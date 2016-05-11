@@ -3,7 +3,7 @@ import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
-import CloseButtonWrapper from 'components/stories/close-btn-wrapper';
+import CloseButtonWrapper from 'components/common/close-btn-wrapper';
 import Toggleable from 'components/common/toggleable';
 import ResponsiveStyleComponent, { DESKTOP, TABLET, MOBILE } from 'components/responsive/responsive-style-component';
 import {

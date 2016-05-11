@@ -8,13 +8,13 @@ import {
 import 'utils/test/React';
 import { unmountComponentSuppressError } from 'utils/test';
 import { withAnimationDisabled } from 'utils/test';
-import Stories from 'components/stories/stories';
+import StoriesContainer from 'components/stories/stories-container';
 import ArticleSmall from 'components/common/article-small';
 import ExpandTransition from 'components/animation/expand-transition';
 import StoryFactory from 'utils/test/factories/story';
 
 
-describe('Stories component', function () {
+describe('StoriesContainer component', function () {
   let element;
   const stories = [1, 2, 3].map((id) => (StoryFactory.build({ id: id })));
 
@@ -23,13 +23,13 @@ describe('Stories component', function () {
   });
 
   it('should render in all screen size', function () {
-    Stories.should.be.renderable();
-    Stories.should.be.responsiveRenderable();
+    StoriesContainer.should.be.renderable();
+    StoriesContainer.should.be.responsiveRenderable();
   });
 
   it('should update selectedStoryKey depending on which story is expanded', function () {
     withAnimationDisabled(() => {
-      element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
+      element = renderIntoDocument(<StoriesContainer stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
       let smallStory = scryRenderedDOMComponentsWithClass(element, 'article-small')[0];
       Simulate.click(smallStory);
       element.state.selectedStoryKey.should.equal(2);
@@ -38,7 +38,7 @@ describe('Stories component', function () {
 
   it('should set selectedStoryKey to null when story is closed', function () {
     withAnimationDisabled(() => {
-      element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
+      element = renderIntoDocument(<StoriesContainer stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
       let smallStory = scryRenderedComponentsWithType(element, ArticleSmall)[0];
       Simulate.click(smallStory);
       smallStory.props.onClose([null, null]);
@@ -46,16 +46,16 @@ describe('Stories component', function () {
     });
   });
 
-  it('should change StoryFull state when ExpandTransition begin expanding or fully closed', function () {
+  it('should change StoryExpanded state when ExpandTransition begin expanding or fully closed', function () {
     withAnimationDisabled(() => {
-      element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
+      element = renderIntoDocument(<StoriesContainer stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
       let transition = findRenderedComponentWithType(element, ExpandTransition);
 
       transition.props.onFullyClosed(1);
-      element.state.StoryFull.should.deepEqual({ 1: false });
+      element.state.StoryExpanded.should.deepEqual({ 1: false });
 
       transition.props.onExpandingBegin(2);
-      element.state.StoryFull.should.deepEqual({ 2: true });
+      element.state.StoryExpanded.should.deepEqual({ 2: true });
     });
   });
 });

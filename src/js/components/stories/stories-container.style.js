@@ -1,7 +1,7 @@
 export const firstSmallStoryStyleTablet = {
-  borderBottom: '1px solid rgba(0, 0, 0, .1)'
+  borderBottom: '1px solid #D0D2D3'
 };
 
 export const firstSmallStoryStyleDesktop = {
-  borderRight: '1px solid rgba(0, 0, 0, .1)'
+  borderRight: '1px solid #D0D2D3'
 };

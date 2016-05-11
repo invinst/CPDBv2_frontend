@@ -1,6 +1,6 @@
 export const storyWrapperStyle = {
   height: 'calc(80vw / 3)',
-  borderRight: '1px solid rgba(0, 0, 0, .1)',
+  borderRight: '1px solid #D0D2D3',
   paddingRight: '16px',
   paddingLeft: '16px',
   paddingTop: '34px',
@@ -10,7 +10,7 @@ export const storyWrapperStyle = {
 
 export const storyWrapperStyleTablet = {
   height: 'calc(100vw / 3)',
-  borderRight: '1px solid rgba(0, 0, 0, .1)',
+  borderRight: '1px solid #D0D2D3',
   paddingTop: '20px'
 };
 
