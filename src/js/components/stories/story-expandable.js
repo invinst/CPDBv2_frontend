@@ -11,7 +11,7 @@ export default class StoryExpandable extends React.Component {
       <ExpandTransition
         childKey={ this.props.childKey }
         onFullyClosed={ this.props.onFullyClosed }
-        onExpandingBegin={ this.props.onExpandingBegin }>
+        onExpansionBegin={ this.props.onExpansionBegin }>
         <StoryFull className='pure-u-1-1'/>
       </ExpandTransition>
     );
@@ -40,7 +40,7 @@ StoryExpandable.propTypes = {
   children: PropTypes.node,
   expandDirection: PropTypes.string,
   childKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onExpandingBegin: PropTypes.func,
+  onExpansionBegin: PropTypes.func,
   onFullyClosed: PropTypes.func
 };
 

@@ -38,11 +38,11 @@ describe('ExpandTransition component', function () {
     let cb1 = () => {}, cb2 = () => {};
 
     element = render(
-      <ExpandTransition childKey={ 1 } onFullyClosed={ cb1 } onExpandingBegin={ cb2 }><p/></ExpandTransition>,
+      <ExpandTransition childKey={ 1 } onFullyClosed={ cb1 } onExpansionBegin={ cb2 }><p/></ExpandTransition>,
       rootEl);
 
     render(
-      <ExpandTransition childKey={ null } onFullyClosed={ cb1 } onExpandingBegin={ cb2 }><p/></ExpandTransition>,
+      <ExpandTransition childKey={ null } onFullyClosed={ cb1 } onExpansionBegin={ cb2 }><p/></ExpandTransition>,
       rootEl, () => {
         rootEl.children.length.should.equal(1);
         setTimeout(() => {

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import _ from 'lodash';
+import { remove } from 'lodash';
 
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
@@ -30,7 +30,7 @@ class StoriesContainer extends ResponsiveComponent {
 
   getFeaturedStory() {
     let restStories = this.props.stories.slice(0);
-    let featuredStory = _.remove(restStories, (story) => {
+    let featuredStory = remove(restStories, (story) => {
       return story.id === this.props.featuredStoryId;
     })[0];
     return [featuredStory, restStories];
@@ -81,7 +81,7 @@ class StoriesContainer extends ResponsiveComponent {
         <StoryExpandable
           childKey={ this.state.selectedStoryKey }
           onFullyClosed={ this.onStoryFullyClosed }
-          onExpandingBegin={ this.onStoryExpandingBegin }
+          onExpansionBegin={ this.onStoryExpandingBegin }
           expandDirection={ this.state.expandDirection }>
           <div className='pure-u-3-4'>
             <StoryMedium
@@ -110,7 +110,7 @@ class StoriesContainer extends ResponsiveComponent {
         <StoryExpandable
           childKey={ this.state.selectedStoryKey }
           onFullyClosed={ this.onStoryFullyClosed }
-          onExpandingBegin={ this.onStoryExpandingBegin }
+          onExpansionBegin={ this.onStoryExpandingBegin }
           expandDirection={ this.state.expandDirection }>
           <div className='pure-u-3-5'>
             <StoryMedium

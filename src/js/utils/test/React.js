@@ -25,9 +25,9 @@ should.Assertion.add('responsiveRenderable', function () {
 });
 
 should.Assertion.add('displayNothing', function () {
-  (findDOMNode(this.obj) === null).should.be.true();
+  should(findDOMNode(this.obj)).be.null();
 });
 
 should.Assertion.add('displaySomething', function () {
-  (findDOMNode(this.obj) === null).should.be.false();
+  should(findDOMNode(this.obj)).not.be.null();
 });
