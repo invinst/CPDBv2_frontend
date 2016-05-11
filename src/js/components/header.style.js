@@ -51,3 +51,7 @@ export const logoWrapperFixedStyle = {
   paddingTop: '31px',
   display: 'inline-block'
 };
+
+export const spaceHolderStyle = {
+  height: '150px'
+};
