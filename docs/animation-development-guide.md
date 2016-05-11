@@ -1,8 +1,8 @@
 # Animation Development Guide
 
-We mainly use [React Motion](https://github.com/chenglou/react-motion) but animation is tricky business. You can use css animation or css transition, as long as you write inline-style and document the new pattern here. Usage of `ReactCSSTransitionGroup` is strictly forbidden as it use class name to drive animation.
+We mainly use [React Motion](https://github.com/chenglou/react-motion) but animation is tricky business. You can use css animation or css transition, as long as you write inline-style and document the new pattern here. Usage of `ReactCSSTransitionGroup` is strictly forbidden as it uses class name to drive animation.
 
-So far the most relevant component of React Motion to our project is `TransitionMotion` as our usecase is mainly about what animate when something render differently.
+So far the most relevant component of React Motion to our project is `TransitionMotion` as our usecase is mainly about what animates when something render differently.
 
 ## ExpandTransition
 
@@ -18,7 +18,7 @@ import ExpandTransition from 'components/animation/expand-transition';
 <ExpandTransition
   childKey={ 'my-div' }
   onFullyClosed={ (leavingChildKey) => {...} }
-  onExpandingBegin={ (enteringChildKey) => {...} }>
+  onExpansionBegin={ (enteringChildKey) => {...} }>
   <div>Static markup here!</div>
 </ExpandTransition>
 ```
@@ -33,12 +33,12 @@ import ExpandTransition from 'components/animation/expand-transition';
 
 `children` must be one React element only. Further more it's inner height should be calculatable as `ExpandTransition` will calculate a child's full height when it just received a new child for height interpolation. So only static markup is recommended within `children`, nothing magical please. `children` should also merge `style` prop that is passed down to it. Specifically `height` style will be animated.
 
-- **onExpandingBegin: (enteringChildKey) => {}**
+- **onExpansionBegin: (enteringChildKey) => {}**
 
-`onExpandingBegin` will be called exactly at the moment when animation begin when `ExpandTransition` just received a child and it's height begin at 0. The `childKey` associated with this child will be passed to callback.
+`onExpansionBegin` will be called exactly at the moment when animation begin when `ExpandTransition` just received a child and it's height begin at 0. The `childKey` associated with this child will be passed to callback.
 
 - **onFullyClosed: (leavingChildKey) => {}**
 
-`onFullyClosed` will be called when a child has fully leaved and it's height is back to 0. The `childKey` associated with this child is passed to callback.
+`onFullyClosed` will be called when a child has fully left and it's height is back to 0. The `childKey` associated with this child is passed to callback.
 
 See an example of how to use it [here](../src/js/components/animation/expand-transition.js)
