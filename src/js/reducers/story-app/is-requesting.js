@@ -4,9 +4,9 @@ import { STORIES_REQUEST, STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE } fro
 
 
 const isRequesting = handleActions({
-  [STORIES_REQUEST]:(state, action) => (true),
-  [STORIES_REQUEST_SUCCESS]:(state, action) => (false),
-  [STORIES_REQUEST_FAILURE]:(state, action) => (false)
+  [STORIES_REQUEST]: (state, action) => (true),
+  [STORIES_REQUEST_SUCCESS]: (state, action) => (false),
+  [STORIES_REQUEST_FAILURE]: (state, action) => (false)
 }, false);
 
 export default isRequesting;
