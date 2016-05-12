@@ -3,7 +3,7 @@ export const wrapperStyle = {
   width: '100%',
   left: '0',
   bottom: '-1px',
-  background: '#fff',
+  background: 'white',
   height: '18px'
 };
 

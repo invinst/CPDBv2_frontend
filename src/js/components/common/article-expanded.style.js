@@ -1,3 +1,6 @@
+import { lightGreyColor } from 'utils/styles';
+
+
 export const innerWrapperStyle = {
   width: '600px',
   paddingTop: '88px',
@@ -7,8 +10,8 @@ export const innerWrapperStyle = {
 };
 
 export const outerWrapperStyle = {
-  borderTop: '1px solid #D0D2D3',
-  borderBottom: '1px solid #D0D2D3',
+  borderTop: `1px solid ${lightGreyColor}`,
+  borderBottom: `1px solid ${lightGreyColor}`,
   overflow: 'hidden',
   display: 'block'
 };

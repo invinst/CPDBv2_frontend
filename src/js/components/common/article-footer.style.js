@@ -1,5 +1,8 @@
+import { accentColor } from 'utils/styles';
+
+
 export const linkStyle = {
-  color: '#005EF4',
+  color: accentColor,
   fontSize: '14px',
   fontFamily: '"San Francisco Text Web", sans-serif',
   fontWeight: 'bold'

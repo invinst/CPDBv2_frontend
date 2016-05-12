@@ -1,6 +1,9 @@
+import { lightGreyColor } from 'utils/styles';
+
+
 export const storyWrapperStyle = {
   height: 'calc(80vw / 3)',
-  borderRight: '1px solid #D0D2D3',
+  borderRight: `1px solid ${lightGreyColor}`,
   paddingRight: '16px',
   paddingLeft: '16px',
   paddingTop: '34px',
@@ -10,7 +13,7 @@ export const storyWrapperStyle = {
 
 export const storyWrapperStyleTablet = {
   height: 'calc(100vw / 3)',
-  borderRight: '1px solid #D0D2D3',
+  borderRight: `1px solid ${lightGreyColor}`,
   paddingTop: '20px'
 };
 

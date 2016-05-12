@@ -1,7 +1,10 @@
+import { lightGreyColor } from 'utils/styles';
+
+
 export const firstSmallStoryStyleTablet = {
-  borderBottom: '1px solid #D0D2D3'
+  borderBottom: `1px solid ${lightGreyColor}`
 };
 
 export const firstSmallStoryStyleDesktop = {
-  borderRight: '1px solid #D0D2D3'
+  borderRight: `1px solid ${lightGreyColor}`
 };

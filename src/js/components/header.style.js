@@ -1,4 +1,5 @@
 import { imgRootFolder } from 'utils/static-assets';
+import { darkGreyColor } from 'utils/styles';
 
 
 let imgRoot = imgRootFolder();
@@ -25,11 +26,11 @@ export const fixedWrapperStyle = {
   top: '0',
   left: '0',
   width: '100%',
-  background: '#fff',
+  background: 'white',
   zIndex: '2',
   height: '88px',
   boxSizing: 'border-box',
-  borderBottom: '1px solid #666666'
+  borderBottom: `1px solid ${darkGreyColor}`
 };
 
 export const logoStyle = {
