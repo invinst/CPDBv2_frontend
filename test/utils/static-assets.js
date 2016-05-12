@@ -1,22 +1,22 @@
 import 'should';
 
-import { imgRootFolder } from 'utils/static-assets';
+import { imgUrl } from 'utils/static-assets';
 
 
 describe('Static assets module', function () {
-  describe('imgRootFolder function', function () {
+  describe('imgUrl function', function () {
     afterEach(function () {
       global.DEVELOPMENT = true;
     });
 
-    it('should return /src/img/ when DEVELOPMENT is true', function () {
+    it('should prepend /src/img/ to path when DEVELOPMENT is true', function () {
       global.DEVELOPMENT = true;
-      imgRootFolder().should.equal('/src/img/');
+      imgUrl('abc').should.equal('/src/img/abc');
     });
 
-    it('should return /dist/ when DEVELOPMENT is false', function () {
+    it('should prepend /dist/ to path when DEVELOPMENT is false', function () {
       global.DEVELOPMENT = false;
-      imgRootFolder().should.equal('/dist/');
+      imgUrl('def').should.equal('/dist/def');
     });
   });
 });

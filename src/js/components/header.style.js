@@ -1,8 +1,6 @@
-import { imgRootFolder } from 'utils/static-assets';
+import { imgUrl } from 'utils/static-assets';
 import { darkGreyColor } from 'utils/styles';
 
-
-let imgRoot = imgRootFolder();
 
 export const navStyle = {
   display: 'inline-block',
@@ -36,7 +34,7 @@ export const fixedWrapperStyle = {
 export const logoStyle = {
   height: '25px',
   width: '90px',
-  background: `url("${imgRoot}CPDB-logo.svg") no-repeat scroll 0 0 transparent`,
+  background: `url("${imgUrl('CPDB-logo.svg')}") no-repeat scroll 0 0 transparent`,
   display: 'inline-block'
 };
 

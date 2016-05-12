@@ -1,7 +1,7 @@
-export function imgRootFolder() {
+export function imgUrl(path) {
   if (global.DEVELOPMENT) {
-    return '/src/img/';
+    return `/src/img/${path}`;
   } else {
-    return '/dist/';
+    return `/dist/${path}`;
   }
 }
