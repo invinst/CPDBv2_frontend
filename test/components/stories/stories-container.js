@@ -1,11 +1,11 @@
-import 'should';
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import {
   Simulate, renderIntoDocument, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType,
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
+import { List } from 'immutable';
 
-import 'utils/test/React';
 import { unmountComponentSuppressError } from 'utils/test';
 import { withAnimationDisabled } from 'utils/test';
 import StoriesContainer from 'components/stories/stories-container';

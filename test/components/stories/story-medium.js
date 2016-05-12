@@ -1,7 +1,6 @@
 import React from 'react';
 
 import StoryMedium from 'components/stories/story-medium';
-import 'utils/test/React';
 
 
 describe('StoryMedium component', function () {

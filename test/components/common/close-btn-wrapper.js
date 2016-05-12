@@ -1,11 +1,9 @@
-import 'should';
 import React from 'react';
 import {
   renderIntoDocument, findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 
 import CloseButtonWrapper from 'components/common/close-btn-wrapper';
-import 'utils/test/React';
 import { unmountComponentSuppressError } from 'utils/test';
 
 

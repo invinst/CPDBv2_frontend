@@ -1,4 +1,4 @@
-import { STORIES_REQUEST, STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE } from 'actions/story-app';
+import { STORIES_REQUEST_START, STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE } from 'actions/story-app';
 import isRequesting from 'reducers/story-app/is-requesting';
 
 
@@ -7,9 +7,9 @@ describe('isRequesting reducer', function () {
     isRequesting(undefined, {}).should.be.false();
   });
 
-  it('should handle STORIES_REQUEST', function () {
+  it('should handle STORIES_REQUEST_START', function () {
     isRequesting(undefined, {
-      type: STORIES_REQUEST
+      type: STORIES_REQUEST_START
     }).should.be.true();
   });
 

@@ -2,7 +2,6 @@ import React from 'react';
 import { List } from 'immutable';
 
 import LandingPage from 'components/landing-page';
-import 'utils/test/React';
 import configureStore from 'redux-mock-store';
 import { stories } from 'mock-data';
 

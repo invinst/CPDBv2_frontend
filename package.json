@@ -7,7 +7,7 @@
     "build": "gulp build",
     "start": "NODE_PATH=src/js budo src/js/index.js:dist/bundle.js --host 0.0.0.0 --live -- --transform [ babelify --presets [ es2015 react ] ]",
     "test": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ]",
-    "test:watch": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --watch",
+    "test-watch": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --watch",
     "cover": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]",
     "cover-human-readable": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report text ]"
   },
@@ -68,7 +68,6 @@
     "react-responsive": "^1.1.2",
     "redux": "^3.5.2",
     "redux-actions": "^0.9.1",
-    "redux-axios-middleware": "^0.4.1",
     "redux-immutable": "^3.0.6",
     "redux-thunk": "^2.0.1"
   }

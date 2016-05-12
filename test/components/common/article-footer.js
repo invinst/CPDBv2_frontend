@@ -1,7 +1,6 @@
 import React from 'react';
 
 import ArticleFooter from 'components/common/article-footer';
-import 'utils/test/React';
 
 
 describe('ArticleFooter component', function () {

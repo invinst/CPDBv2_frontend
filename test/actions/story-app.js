@@ -4,8 +4,8 @@ import MockAdapter from 'axios-mock-adapter';
 
 import axiosClient from 'utils/axios-client';
 
-import { loadStories, selectStory,
-  SELECT_STORY, STORIES_REQUEST, STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE
+import {
+  loadStories, STORIES_REQUEST_START, STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE
 } from 'actions/story-app';
 
 
@@ -19,21 +19,14 @@ describe('stories actions', function () {
       mock.reset();
     });
 
-    it('should create SELECT_STORY', function () {
-      selectStory(1).should.eql({
-        type: SELECT_STORY,
-        payload: 1
-      });
-    });
-
-    it('should create STORIES_REQUEST and STORIES_SUCCESS when success', function () {
+    it('should create STORIES_REQUEST_START and STORIES_SUCCESS when success', function () {
       mock
         .onGet('/stories')
-        .reply(200, { stories: [1,2,3] });
+        .reply(200, { stories: [1, 2, 3] });
 
       const expectedActions = [
         {
-          type: STORIES_REQUEST,
+          type: STORIES_REQUEST_START,
           payload: undefined
         },
         {
@@ -49,14 +42,14 @@ describe('stories actions', function () {
         });
     });
 
-    it('should create STORIES_REQUEST and STORIES_FAILURE when failed', function () {
+    it('should create STORIES_REQUEST_START and STORIES_FAILURE when failed', function () {
       mock
         .onGet('/stories')
         .reply(404);
 
       const expectedActions = [
         {
-          type: STORIES_REQUEST,
+          type: STORIES_REQUEST_START,
           payload: undefined
         },
         {
