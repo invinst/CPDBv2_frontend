@@ -17,7 +17,7 @@ describe('stories reducer', function () {
     }).should.eql(expectStories);
   });
   it('should handle STORIES_REQUEST_FAILURE', function () {
-    stories(List([1,2,3]), {
+    stories(List([1, 2, 3]), {
       type: STORIES_REQUEST_FAILURE
     }).should.eql(List([]));
   });
