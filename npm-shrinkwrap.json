@@ -753,6 +753,11 @@
       "from": "cipher-base@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/cipher-base/-/cipher-base-1.0.2.tgz"
     },
+    "classnames": {
+      "version": "2.2.5",
+      "from": "classnames@>=2.2.5 <3.0.0",
+      "resolved": "https://registry.npmjs.org/classnames/-/classnames-2.2.5.tgz"
+    },
     "cli-cursor": {
       "version": "1.0.2",
       "from": "cli-cursor@>=1.0.1 <2.0.0",
@@ -2392,6 +2397,11 @@
       "from": "hoek@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/hoek/-/hoek-2.16.3.tgz"
     },
+    "hoist-non-react-statics": {
+      "version": "1.0.6",
+      "from": "hoist-non-react-statics@>=1.0.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-1.0.6.tgz"
+    },
     "home-or-tmp": {
       "version": "1.0.0",
       "from": "home-or-tmp@>=1.0.0 <2.0.0",
@@ -3719,6 +3729,11 @@
       "from": "react-motion@latest",
       "resolved": "https://registry.npmjs.org/react-motion/-/react-motion-0.4.3.tgz"
     },
+    "react-redux": {
+      "version": "4.4.5",
+      "from": "react-redux@>=4.4.5 <5.0.0",
+      "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.4.5.tgz"
+    },
     "react-responsive": {
       "version": "1.1.2",
       "from": "react-responsive@latest",
@@ -3784,20 +3799,10 @@
       "from": "redux-actions@>=0.9.1 <0.10.0",
       "resolved": "https://registry.npmjs.org/redux-actions/-/redux-actions-0.9.1.tgz"
     },
-    "redux-axios-middleware": {
-      "version": "0.4.1",
-      "from": "redux-axios-middleware@>=0.4.1 <0.5.0",
-      "resolved": "https://registry.npmjs.org/redux-axios-middleware/-/redux-axios-middleware-0.4.1.tgz"
-    },
     "redux-immutable": {
       "version": "3.0.6",
       "from": "redux-immutable@latest",
       "resolved": "https://registry.npmjs.org/redux-immutable/-/redux-immutable-3.0.6.tgz"
-    },
-    "redux-mock-store": {
-      "version": "1.0.2",
-      "from": "redux-mock-store@>=1.0.2 <2.0.0",
-      "resolved": "https://registry.npmjs.org/redux-mock-store/-/redux-mock-store-1.0.2.tgz"
     },
     "redux-thunk": {
       "version": "2.0.1",
