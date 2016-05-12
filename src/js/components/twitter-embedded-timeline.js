@@ -4,10 +4,9 @@ import { wrapperStyle } from './twitter-embedded-timeline.style';
 import { getTwitterWidgets } from 'utils/vendors';
 
 
-const widgets = getTwitterWidgets();
-
 export default class TwitterEmbeddedTimeline extends React.Component {
   componentDidMount() {
+    const widgets = getTwitterWidgets();
     widgets.createTimeline(
       '600720083413962752',
       this._wrapper,
