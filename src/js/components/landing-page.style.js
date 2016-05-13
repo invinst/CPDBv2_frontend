@@ -5,6 +5,7 @@ export const borderTop = {
   borderTop: `1px solid ${darkGreyColor}`
 };
 
-export const borderRight = {
-  borderRight: `1px solid ${darkGreyColor}`
+export const leftColumnStyle = {
+  borderRight: `1px solid ${darkGreyColor}`,
+  minHeight: '938px'
 };

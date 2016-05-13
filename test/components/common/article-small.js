@@ -15,9 +15,9 @@ describe('ArticleSmall component', function () {
     unmountComponentSuppressError(element);
   });
 
-  it('should render it\' children', function () {
+  it('should render it\'s children', function () {
     const testText = 'this should render';
     element = renderIntoDocument(<ArticleSmall>{ testText }</ArticleSmall>);
-    findDOMNode(element).innerHTML.should.contain(testText);
+    findDOMNode(element).innerHTML.should.containEql(testText);
   });
 });
