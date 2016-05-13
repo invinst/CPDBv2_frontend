@@ -9,9 +9,12 @@ export const innerWrapperStyle = {
   margin: '0 auto'
 };
 
-export const outerWrapperStyle = {
+export const borderStyle = {
   borderTop: `1px solid ${lightGreyColor}`,
-  borderBottom: `1px solid ${lightGreyColor}`,
+  borderBottom: `1px solid ${lightGreyColor}`
+};
+
+export const outerWrapperStyle = {
   overflow: 'hidden',
   display: 'block'
 };

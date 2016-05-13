@@ -8,3 +8,7 @@ export const firstSmallStoryStyleTablet = {
 export const firstSmallStoryStyleDesktop = {
   borderRight: `1px solid ${lightGreyColor}`
 };
+
+export const wrapperStyle = {
+  overflow: 'hidden'
+};

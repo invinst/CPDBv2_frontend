@@ -11,7 +11,7 @@ import StoryFull from 'components/stories/story-full';
 import { TOP, BOTTOM } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
-  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
+  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop, wrapperStyle
 } from './stories-container.style';
 
 
@@ -80,7 +80,7 @@ class StoriesContainer extends ResponsiveComponent {
   renderTablet() {
     let [featuredStory, restStories] = this.getFeaturedStory();
     return (
-      <div className='pure-g'>
+      <div className='pure-g' style={ wrapperStyle }>
         <StoryExpandable
           childKey={ this.state.selectedStoryKey }
           onFullyClosed={ this.onStoryFullyClosed }
@@ -109,7 +109,7 @@ class StoriesContainer extends ResponsiveComponent {
   renderDesktop() {
     let [featuredStory, restStories] = this.getFeaturedStory();
     return (
-      <div className='pure-g'>
+      <div className='pure-g' style={ wrapperStyle }>
         <StoryExpandable
           childKey={ this.state.selectedStoryKey }
           onFullyClosed={ this.onStoryFullyClosed }

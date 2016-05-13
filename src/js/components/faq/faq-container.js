@@ -10,7 +10,7 @@ import { TOP, BOTTOM } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
   desktopStyle, desktopBorderRightStyle, tabletBorderRightStyle,
-  tabletBorderBottomStyle, tabletStyle
+  tabletBorderBottomStyle, tabletStyle, wrapperStyle
 } from './faq-container.style';
 
 
@@ -52,7 +52,7 @@ export default class FAQContainer extends ResponsiveComponent {
     const className = classNames('pure-g', this.props.className);
 
     return (
-      <div className={ className }>
+      <div className={ className } style={ wrapperStyle }>
         <FAQExpandable
           childKey={ this.state.selectedFAQKey }
           expandDirection={ this.state.expandDirection }
@@ -84,7 +84,7 @@ export default class FAQContainer extends ResponsiveComponent {
     const className = classNames('pure-g', this.props.className);
 
     return (
-      <div className={ className }>
+      <div className={ className } style={ wrapperStyle }>
         <FAQExpandable
           childKey={ this.state.selectedFAQKey }
           expandDirection={ this.state.expandDirection }
