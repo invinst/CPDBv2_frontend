@@ -1,5 +1,3 @@
-import { List } from 'immutable';
-
 import configureStore from 'store';
 
 
@@ -29,8 +27,11 @@ describe('store', function () {
   it('should have initial state', function () {
     const { getCurrentState } = setUp();
     getCurrentState().should.eql({
-      stories: List([]),
-      isRequesting: false
+      storyApp: {
+        stories: [],
+        isRequesting: false,
+        featuredStoryId: 0
+      }
     });
   });
 });

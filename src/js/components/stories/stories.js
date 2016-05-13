@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import Radium from 'radium';
 import { remove } from 'lodash';
 
-import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from 'components/stories/story-medium';
 import ArticleSmall from 'components/common/article-small';
@@ -12,12 +11,13 @@ import { TOP, BOTTOM } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
   firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
-} from './stories-container.style';
+} from './stories.style';
+import { arrayOfN } from 'utils/prop-validators';
 
 
 const StoryExpandable = Expandable(StoryFull, { className: 'pure-u-1-1' });
 
-class StoriesContainer extends ResponsiveComponent {
+class Stories extends ResponsiveComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -136,31 +136,9 @@ class StoriesContainer extends ResponsiveComponent {
   }
 }
 
-StoriesContainer.propTypes = {
+Stories.propTypes = {
   featuredStoryId: PropTypes.number,
   stories: arrayOfN(3)
 };
 
-StoriesContainer.defaultProps = {
-  featuredStoryId: 1,
-  stories: [
-    {
-      id: 1,
-      paper: 'New York Times',
-      title: 'Complaints against Chicago Police rarely result in discipline data shows.',
-      imageUrl: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
-    },
-    {
-      id: 2,
-      paper: 'FiveThirtyEight',
-      title: 'How to predict bad cops in Chicago.'
-    },
-    {
-      id: 3,
-      paper: 'Chicago Magazine',
-      title: 'The Laquan McDonald Video Didn\'t "Rip" Chicago Apart, but Now Its Leaders Face a Reckoning.'
-    }
-  ]
-};
-
-export default Radium(StoriesContainer);
+export default Radium(Stories);

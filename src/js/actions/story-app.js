@@ -7,7 +7,7 @@ export const STORIES_REQUEST_SUCCESS = 'STORIES_REQUEST_SUCCESS';
 export const STORIES_REQUEST_FAILURE = 'STORIES_REQUEST_FAILURE';
 
 const storiesRequest = createAction(STORIES_REQUEST_START);
-const storiesSuccess = createAction(STORIES_REQUEST_SUCCESS, data => data.stories);
+const storiesSuccess = createAction(STORIES_REQUEST_SUCCESS);
 const storiesFailure = createAction(STORIES_REQUEST_FAILURE);
 
 export function loadStories() {

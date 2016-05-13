@@ -5,11 +5,3 @@ export function arrayOfN(n) {
     }
   };
 }
-
-export function listOfN(n) {
-  return (props, propName, componentName) => {
-    if ( props[propName].size !== n ) {
-      return new Error(`${propName} must be an list of exactly ${n} elements.`);
-    }
-  };
-}

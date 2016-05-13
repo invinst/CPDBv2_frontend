@@ -1,8 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import MockAdapter from 'axios-mock-adapter';
 
-import axiosClient from 'utils/axios-client';
+import axiosMockClient from 'utils/axios-mock-client';
 
 import {
   loadStories, STORIES_REQUEST_START, STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE
@@ -10,17 +9,20 @@ import {
 
 
 const middlewares = [thunk];
-const mock = new MockAdapter(axiosClient);
 const mockStore = configureMockStore(middlewares);
 
 describe('stories actions', function () {
   describe('storiesRequest', function () {
     afterEach(function () {
-      mock.reset();
+      axiosMockClient.reset();
+    });
+
+    after(function () {
+      axiosMockClient.restore();
     });
 
     it('should create STORIES_REQUEST_START and STORIES_SUCCESS when success', function () {
-      mock
+      axiosMockClient
         .onGet('/stories')
         .reply(200, { stories: [1, 2, 3] });
 
@@ -31,10 +33,12 @@ describe('stories actions', function () {
         },
         {
           type: STORIES_REQUEST_SUCCESS,
-          payload: [1, 2, 3]
+          payload: {
+            stories: [1, 2, 3]
+          }
         }
       ];
-      const store = mockStore({ stories: [] });
+      const store = mockStore();
 
       return store.dispatch(loadStories())
         .then(() => {
@@ -43,7 +47,7 @@ describe('stories actions', function () {
     });
 
     it('should create STORIES_REQUEST_START and STORIES_FAILURE when failed', function () {
-      mock
+      axiosMockClient
         .onGet('/stories')
         .reply(404);
 
@@ -58,7 +62,7 @@ describe('stories actions', function () {
           error: true
         }
       ];
-      const store = mockStore({ stories: [] });
+      const store = mockStore();
 
       return store.dispatch(loadStories())
         .then(() => {

@@ -4,13 +4,15 @@ import { renderIntoDocument } from 'react-addons-test-utils';
 import should from 'should';
 import { each, assign } from 'lodash';
 
+import { unmountComponentSuppressError } from 'utils/test';
+
 
 should.Assertion.add('renderable', function (props) {
+  this.params = { operator: 'to be rendered' };
   let element = renderIntoDocument(createElement(this.obj, props));
 
   element.should.be.ok();
-
-  unmountComponentAtNode(findDOMNode(element).parentNode);
+  unmountComponentSuppressError(element);
 });
 
 

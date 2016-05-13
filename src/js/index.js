@@ -2,22 +2,20 @@ import React from 'react';
 import { render } from 'react-dom';
 import { StyleRoot } from 'radium';
 import { Provider } from 'react-redux';
-import MockAdapter from 'axios-mock-adapter';
 
-import axiosClient from 'utils/axios-client';
 import configureStore from 'store';
 import LandingPage from 'components/landing-page';
 import 'polyfill';
 import { stories } from 'mock-data';
+import axiosMockClient from 'utils/axios-mock-client';
 
 
 const store = configureStore();
 
 // TODO: remove when have real api
-const mock = new MockAdapter(axiosClient);
-mock
+axiosMockClient
   .onGet('/stories')
-  .reply(200, { stories: stories });
+  .reply(200, stories);
 
 render(
   <Provider store={ store }>
