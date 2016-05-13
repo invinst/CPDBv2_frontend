@@ -2,6 +2,7 @@ import React from 'react';
 
 import StoriesContainer from 'components/stories/stories-container';
 import Header from 'components/header';
+import Footer from 'components/footer';
 import FAQContainer from 'components/faq/faq-container';
 import TweetContainer from 'components/tweet-container';
 import { borderTop, borderRight } from './landing-page.style';
@@ -23,6 +24,7 @@ export default class LandingPage extends React.Component {
             <TweetContainer/>
           </div>
         </div>
+        <Footer/>
       </div>
     );
   }
