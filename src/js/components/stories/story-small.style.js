@@ -3,8 +3,12 @@ export const wrapperStyle = {
   paddingLeft: '16px',
   paddingTop: '34px',
   boxSizing: 'border-box',
-  overflow: 'hidden',
-  height: 'calc(80vw / 3)'
+  height: 'calc(80vw / 3)',
+  position: 'relative'
+};
+
+export const contentStyle = {
+  overflow: 'hidden'
 };
 
 export const tabletWrapperStyle = {
@@ -15,4 +19,13 @@ export const tabletWrapperStyle = {
 export const mobileWrapperStyle = {
   paddingTop: '20px',
   height: '50vw'
+};
+
+export const closeButtonWrapperStyle = {
+  position: 'absolute',
+  width: '100%',
+  left: '0',
+  bottom: '-17.5px',
+  background: '#fff',
+  height: '35px'
 };

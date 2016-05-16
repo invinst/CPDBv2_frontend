@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ResponsiveComponent from 'components/responsive-component';
+import ResponsiveComponent from 'components/responsive/responsive-component';
 
 
 export const DESKTOP = 'desktop';

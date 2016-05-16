@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, {PropTypes} from 'react';
 
 
-export default class FeaturedStoryImage extends React.Component {
+export default class CoverImage extends React.Component {
   render() {
     let url = this.props.src;
     let style = _.assign({},
@@ -14,7 +14,7 @@ export default class FeaturedStoryImage extends React.Component {
   }
 }
 
-FeaturedStoryImage.propTypes = {
+CoverImage.propTypes = {
   style: PropTypes.object,
   src: PropTypes.string
 };

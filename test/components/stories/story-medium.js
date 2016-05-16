@@ -1,7 +1,7 @@
 import 'should';
 import React from 'react';
 
-import StoryMedium from 'components/story-medium';
+import StoryMedium from 'components/stories/story-medium';
 import 'utils/test/React';
 
 

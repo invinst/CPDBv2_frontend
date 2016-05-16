@@ -1,7 +1,7 @@
 import 'should';
 import React from 'react';
 
-import ResponsiveStyleComponent from 'components/responsive-style-component';
+import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import 'utils/test/React';
 
 

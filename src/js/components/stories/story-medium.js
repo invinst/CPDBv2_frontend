@@ -3,13 +3,13 @@ import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
-import ResponsiveComponent from 'components/responsive-component';
-import FeaturedStoryImage from 'components/featured-story-image';
+import ResponsiveComponent from 'components/responsive/responsive-component';
+import CoverImage from 'components/common/cover-image';
 import {
   storyWrapperStyle, storyWrapperStyleTablet, storyWrapperStyleMobile,
   storyImageStyleMobile, storyImageStyleTablet, storyImageStyleDesktop,
   paperStyleDesktop
-} from 'components/story-medium.style';
+} from 'components/stories/story-medium.style';
 
 
 
@@ -17,8 +17,8 @@ class StoryMedium extends ResponsiveComponent {
   renderMobile() {
     return (
       <div>
-        <FeaturedStoryImage
-          style={ storyImageStyleMobile } src={ this.props.story.url }/>
+        <CoverImage
+          style={ storyImageStyleMobile } src={ this.props.story.imageUrl }/>
         <div>
           <div style={ [storyWrapperStyle, storyWrapperStyleMobile] }>
             <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
@@ -33,7 +33,7 @@ class StoryMedium extends ResponsiveComponent {
     return (
       <div className='pure-g'>
         <div className='pure-u-2-3'>
-          <FeaturedStoryImage style={ storyImageStyleTablet } src={ this.props.story.url }/>
+          <CoverImage style={ storyImageStyleTablet } src={ this.props.story.imageUrl }/>
         </div>
         <div className='pure-u-1-3'>
           <div style={ [storyWrapperStyle, storyWrapperStyleTablet] }>
@@ -49,7 +49,7 @@ class StoryMedium extends ResponsiveComponent {
     return (
       <div className='pure-g'>
         <div className='pure-u-2-3'>
-          <FeaturedStoryImage style={ storyImageStyleDesktop } src={ this.props.story.url }/>
+          <CoverImage style={ storyImageStyleDesktop } src={ this.props.story.imageUrl }/>
         </div>
         <div className='pure-u-1-3'>
           <div style={ storyWrapperStyle }>
@@ -64,17 +64,19 @@ class StoryMedium extends ResponsiveComponent {
 
 StoryMedium.propTypes = {
   story: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     paper: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired
+    imageUrl: PropTypes.string.isRequired
   })
 };
 
 StoryMedium.defaultProps = {
   story: {
+    id: 1,
     paper: 'New York Times',
     title: 'Complaints against Chicago Police rarely result in discipline data shows.',
-    url: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
+    imageUrl: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
   }
 };
 

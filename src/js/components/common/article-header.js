@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import Radium from 'radium';
 
 import { articleHeaderStyle, headerTabletStyle } from 'components/common/article-header.style';
-import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive-style-component';
+import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive/responsive-style-component';
 
 
 class ArticleHeader extends ResponsiveStyleComponent {
