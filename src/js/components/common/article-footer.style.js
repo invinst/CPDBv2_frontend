@@ -3,9 +3,9 @@ import { accentColor } from 'utils/styles';
 
 export const linkStyle = {
   color: accentColor,
-  fontSize: '14px',
+  fontSize: '13px',
   fontFamily: '"San Francisco Text Web", sans-serif',
-  fontWeight: 'bold'
+  fontWeight: '600'
 };
 
 export const footerStyle = {

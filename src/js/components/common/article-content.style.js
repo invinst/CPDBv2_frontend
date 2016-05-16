@@ -2,9 +2,9 @@ import { softBlackColor } from 'utils/styles';
 
 
 export const contentStyle = {
-  fontFamily: 'nljb-n4,sans-serif',
+  fontFamily: '"Minion Pro Regular",sans-serif',
   fontWeight: 'normal',
-  fontSize: '21px',
+  fontSize: '19px',
   margin: '0 0 9px 0',
   color: softBlackColor
 };
