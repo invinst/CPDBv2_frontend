@@ -1,6 +1,7 @@
 export const closeButtonStyle = {
   width: '35px',
   height: '35px',
+  paddingLeft: '6px',
   borderRadius: '50%',
   border: '1px solid #efefef',
   background: '#efefef',

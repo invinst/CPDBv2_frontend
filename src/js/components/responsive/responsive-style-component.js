@@ -20,15 +20,24 @@ export default class ResponsiveStyleComponent extends ResponsiveComponent {
     };
   }
 
+  extractStyle(key) {
+    let styleMap = this.responsiveStyle();
+    let style = styleMap[key];
+    if (typeof style === 'string') {
+      style = styleMap[style];
+    }
+    return style;
+  }
+
   renderDesktop() {
-    return this.renderWithResponsiveStyle(this.responsiveStyle()[DESKTOP]);
+    return this.renderWithResponsiveStyle(this.extractStyle(DESKTOP));
   }
 
   renderTablet() {
-    return this.renderWithResponsiveStyle(this.responsiveStyle()[TABLET]);
+    return this.renderWithResponsiveStyle(this.extractStyle(TABLET));
   }
 
   renderMobile() {
-    return this.renderWithResponsiveStyle(this.responsiveStyle()[MOBILE]);
+    return this.renderWithResponsiveStyle(this.extractStyle(MOBILE));
   }
 }

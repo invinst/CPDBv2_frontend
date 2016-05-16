@@ -1,10 +1,10 @@
 import 'should';
 import React from 'react';
-import {findDOMNode, render} from 'react-dom';
-import {unmountComponentSuppressError} from 'utils/test';
-import {renderIntoDocument} from 'react-addons-test-utils';
+import { findDOMNode, render } from 'react-dom';
+import { unmountComponentSuppressError } from 'utils/test';
+import { renderIntoDocument } from 'react-addons-test-utils';
 
-import {withAnimationDisabled} from 'utils/test';
+import { withAnimationDisabled } from 'utils/test';
 import ExpandTransition from 'components/animation/expand-transition';
 
 
@@ -17,7 +17,7 @@ describe('ExpandTransition component', function () {
 
   it('should not render anything when childKey is null initially', function () {
     element = renderIntoDocument(<ExpandTransition childKey={ null }><p/></ExpandTransition>);
-    (findDOMNode(element) === null).should.be.true();
+    element.should.displayNothing();
   });
 
   it('should render children immediately when animation is disabled', function () {
@@ -38,11 +38,11 @@ describe('ExpandTransition component', function () {
     let cb1 = () => {}, cb2 = () => {};
 
     element = render(
-      <ExpandTransition childKey={ 1 } onFullyClosed={ cb1 } onExpandingBegin={ cb2 }><p/></ExpandTransition>,
+      <ExpandTransition childKey={ 1 } onFullyClosed={ cb1 } onExpansionBegin={ cb2 }><p/></ExpandTransition>,
       rootEl);
 
     render(
-      <ExpandTransition childKey={ null } onFullyClosed={ cb1 } onExpandingBegin={ cb2 }><p/></ExpandTransition>,
+      <ExpandTransition childKey={ null } onFullyClosed={ cb1 } onExpansionBegin={ cb2 }><p/></ExpandTransition>,
       rootEl, () => {
         rootEl.children.length.should.equal(1);
         setTimeout(() => {

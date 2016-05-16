@@ -1,4 +1,4 @@
-import {innerHeight} from 'utils/dom';
+import { innerHeight } from 'utils/dom';
 
 describe('dom utils', function () {
   describe('innerHeight function', function () {
@@ -7,7 +7,7 @@ describe('dom utils', function () {
         children: [
           {
             getBoundingClientRect() {
-              return {height: 10};
+              return { height: 10 };
             }
           }
         ]

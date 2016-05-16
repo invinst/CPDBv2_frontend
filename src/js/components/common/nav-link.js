@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
-import { navStyle } from 'components/common/nav-link.style';
+import { navStyle } from './nav-link.style';
 
 
 class NavigationLink extends React.Component {

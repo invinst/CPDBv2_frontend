@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
-import {footerStyle, linkStyle} from 'components/common/article-footer.style';
+import { footerStyle, linkStyle } from './article-footer.style';
 
 
 class ArticleFooter extends React.Component {

@@ -1,4 +1,4 @@
-import {unmountComponentAtNode, findDOMNode} from 'react-dom';
+import { unmountComponentAtNode, findDOMNode } from 'react-dom';
 
 
 export function unmountComponentSuppressError(element) {

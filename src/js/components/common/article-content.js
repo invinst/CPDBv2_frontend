@@ -1,7 +1,7 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
-import { contentStyle } from 'components/common/article-content.style';
+import { contentStyle } from './article-content.style';
 
 
 class ArticleContent extends React.Component {

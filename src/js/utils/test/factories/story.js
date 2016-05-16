@@ -1,5 +1,5 @@
-import {Factory} from 'rosie';
-import {lorem, internet, date} from 'faker';
+import { Factory } from 'rosie';
+import { lorem, internet, date } from 'faker';
 
 
 export default new Factory()

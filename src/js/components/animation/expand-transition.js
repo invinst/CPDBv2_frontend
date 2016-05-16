@@ -1,8 +1,8 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 
-import {innerHeight} from 'utils/dom';
-import {TransitionMotion, spring} from 'react-motion';
+import { innerHeight } from 'utils/dom';
+import { TransitionMotion, spring } from 'react-motion';
 
 
 export default class ExpandTransition extends React.Component {
@@ -15,10 +15,10 @@ export default class ExpandTransition extends React.Component {
     this.expanded = false;
   }
 
-  onExpandingBegin() {
-    if (this.props.onExpandingBegin) {
+  onExpansionBegin() {
+    if (this.props.onExpansionBegin) {
       setTimeout(() => {
-        this.props.onExpandingBegin(this.props.childKey);
+        this.props.onExpansionBegin(this.props.childKey);
       }, 0);
     }
     this.expanded = true;
@@ -51,26 +51,27 @@ export default class ExpandTransition extends React.Component {
           });
         }
       };
-      return React.cloneElement(this.props.children, {ref: ref, style: {height: 0}});
+      return React.cloneElement(this.props.children, { ref: ref, style: { height: 0 } });
 
     } else {
       // interpolate height on subsequent renders
       return (
         <TransitionMotion
-          willLeave={ () => ({height: spring(0)}) }
-          defaultStyles={ this.props.childKey ? [{key: String(this.props.childKey), style: {height: 0, x: 0}}] : [] }
+          willLeave={ () => ({ height: spring(0) }) }
+          defaultStyles={ this.props.childKey ?
+            [{ key: String(this.props.childKey), style: { height: 0, x: 0 } }] : [] }
           styles={ this.props.childKey ?
-            [{key: String(this.props.childKey), style: {height: spring(this.state.childHeight), x: 1}}]
+            [{ key: String(this.props.childKey), style: { height: spring(this.state.childHeight), x: 1 } }]
             : [] }>
           { (interpolatedStyles) => {
             let config = interpolatedStyles[0];
 
             if (config) {
               if (config.style.x === 0) {
-                this.onExpandingBegin();
+                this.onExpansionBegin();
               }
 
-              return React.cloneElement(this.props.children, {style: {height: config.style.height}});
+              return React.cloneElement(this.props.children, { style: { height: config.style.height } });
             }
 
             this.onFullyClosed();
@@ -90,7 +91,7 @@ ExpandTransition.propTypes = {
   childKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   // called when expansion just begun with a new child (new childKey as well)
-  onExpandingBegin: PropTypes.func,
+  onExpansionBegin: PropTypes.func,
 
   // called when child is fully closed (it's height is 0 and childKey is null)
   onFullyClosed: PropTypes.func

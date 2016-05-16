@@ -8,24 +8,11 @@ export const wrapperStyle = {
 };
 
 export const contentStyle = {
-  overflow: 'hidden'
+  overflow: 'hidden',
+  height: 'calc(100% - 9px)'
 };
 
 export const tabletWrapperStyle = {
   paddingTop: '20px',
   height: 'calc(50vw / 3)'
-};
-
-export const mobileWrapperStyle = {
-  paddingTop: '20px',
-  height: '50vw'
-};
-
-export const closeButtonWrapperStyle = {
-  position: 'absolute',
-  width: '100%',
-  left: '0',
-  bottom: '-17.5px',
-  background: '#fff',
-  height: '35px'
 };

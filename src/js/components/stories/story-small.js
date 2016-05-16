@@ -1,63 +1,41 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
-import CloseButton from 'components/common/close-btn';
-import ResponsiveStyleComponent, {DESKTOP, TABLET, MOBILE} from 'components/responsive/responsive-style-component';
+import CloseButtonWrapper from 'components/stories/close-btn-wrapper';
+import Toggleable from 'components/common/toggleable';
+import ResponsiveStyleComponent, { DESKTOP, TABLET, MOBILE } from 'components/responsive/responsive-style-component';
 import {
-  wrapperStyle, tabletWrapperStyle, mobileWrapperStyle, closeButtonWrapperStyle, contentStyle
-} from 'components/stories/story-small.style';
+  wrapperStyle, tabletWrapperStyle, contentStyle
+} from './story-small.style';
 
 
 class StorySmall extends ResponsiveStyleComponent {
-  constructor(props) {
-    super(props);
-    this.onOpen = this.onOpen.bind(this);
-  }
-
   responsiveStyle() {
     return {
-      [DESKTOP]: {
-        wrapper: [wrapperStyle, this.props.style],
-        closeButtonWrapper: [closeButtonWrapperStyle],
-        content: [contentStyle]
-      },
+      [MOBILE]: TABLET,
       [TABLET]: {
         wrapper: [wrapperStyle, tabletWrapperStyle, this.props.style],
-        closeButtonWrapper: [closeButtonWrapperStyle],
         content: [contentStyle]
       },
-      [MOBILE]: {
-        wrapper: [wrapperStyle, mobileWrapperStyle, this.props.style],
-        closeButtonWrapper: [closeButtonWrapperStyle],
+      [DESKTOP]: {
+        wrapper: [wrapperStyle, this.props.style],
         content: [contentStyle]
       }
     };
   }
 
-  onOpen() {
-    if (!this.props.active) {
-      this.props.onOpen(this.props.story);
-    }
-  }
-
   renderWithResponsiveStyle(style) {
     return (
-      <div className='story-small' style={ style.wrapper } onClick={ this.onOpen }>
+      <div className='story-small' style={ style.wrapper }>
         <div style={ style.content }>
           <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
           <ArticleContent>{ this.props.story.title }</ArticleContent>
         </div>
-        { this.props.expanded || this.props.active ?
-          <div style={ style.closeButtonWrapper }>
-            { this.props.active ?
-              <CloseButton onClick={ this.props.onClose } className='story-small__close-button'/>
-              : null
-            }
-          </div>
-          : null
-        }
+        <CloseButtonWrapper
+          expanded={ this.props.expanded } showButton={ this.props.active }
+          buttonClassName='story-small__close-button'/>
       </div>
     );
   }
@@ -70,10 +48,8 @@ StorySmall.propTypes = {
     paper: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
   }),
-  active: PropTypes.bool,
   expanded: PropTypes.bool,
-  onOpen: PropTypes.func,
-  onClose: PropTypes.func
+  active: PropTypes.bool
 };
 
 StorySmall.defaultProps = {
@@ -84,4 +60,4 @@ StorySmall.defaultProps = {
   }
 };
 
-export default Radium(StorySmall);
+export default Toggleable(Radium(StorySmall));

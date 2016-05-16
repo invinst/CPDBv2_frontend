@@ -1,6 +1,6 @@
-import {createElement} from 'react';
-import {unmountComponentAtNode, findDOMNode} from 'react-dom';
-import {renderIntoDocument} from 'react-addons-test-utils';
+import { createElement } from 'react';
+import { unmountComponentAtNode, findDOMNode } from 'react-dom';
+import { renderIntoDocument } from 'react-addons-test-utils';
 import should from 'should';
 import _ from 'lodash';
 
@@ -22,4 +22,12 @@ should.Assertion.add('responsiveRenderable', function () {
     element.should.be.ok();
     unmountComponentAtNode(findDOMNode(element).parentNode);
   });
+});
+
+should.Assertion.add('displayNothing', function () {
+  should(findDOMNode(this.obj)).be.null();
+});
+
+should.Assertion.add('displaySomething', function () {
+  should(findDOMNode(this.obj)).not.be.null();
 });
