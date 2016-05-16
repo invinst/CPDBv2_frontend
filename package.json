@@ -57,6 +57,7 @@
     "react-addons-test-utils": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-motion": "^0.4.3",
-    "react-responsive": "^1.1.2"
+    "react-responsive": "^1.1.2",
+    "twitter-widgets": "^1.0.0"
   }
 }
