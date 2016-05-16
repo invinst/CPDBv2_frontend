@@ -50,4 +50,4 @@ gulp.task('copy-static', () => {
     .pipe(gulp.dest(`${ROOT}dist/`));
 });
 
-gulp.task('build', ['build-html', 'build-js', 'build-images']);
+gulp.task('build', ['build-html', 'build-js', 'copy-static']);
