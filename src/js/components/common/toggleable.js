@@ -6,7 +6,6 @@ export default function Toggleable(ComposedComponent) {
     constructor(props) {
       super(props);
       this.onClick = this.onClick.bind(this);
-      this.displayName = 'ToggleableComponent';
     }
 
     onClick() {

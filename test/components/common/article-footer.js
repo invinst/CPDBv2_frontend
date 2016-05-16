@@ -5,7 +5,7 @@ import ArticleFooter from 'components/common/article-footer';
 import 'utils/test/React';
 
 
-describe('MoreLink component', function () {
+describe('ArticleFooter component', function () {
   it('should render', function () {
     ArticleFooter.should.be.renderable();
   });

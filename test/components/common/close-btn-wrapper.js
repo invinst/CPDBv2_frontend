@@ -4,7 +4,7 @@ import {
   renderIntoDocument, findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 
-import CloseButtonWrapper from 'components/stories/close-btn-wrapper';
+import CloseButtonWrapper from 'components/common/close-btn-wrapper';
 import 'utils/test/React';
 import { unmountComponentSuppressError } from 'utils/test';
 

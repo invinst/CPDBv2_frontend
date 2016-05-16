@@ -5,26 +5,22 @@ import classNames from 'classnames';
 import ArticleContent from 'components/common/article-content';
 import ArticleHeader from 'components/common/article-header';
 import ArticleFooter from 'components/common/article-footer';
-import { outerWrapperStyle, storyWrapperStyle } from './story-full.style';
+import ArticleExpanded from 'components/common/article-expanded';
 
 
 class StoryFull extends React.Component {
   render() {
     let className = classNames('story-full', this.props.className);
     return (
-      <div className={ className } style={ [outerWrapperStyle, this.props.style] }>
-        <div style={ storyWrapperStyle }>
-          <ArticleHeader>{ this.props.story.date }</ArticleHeader>
-          {
-            this.props.story.paragraphs.map((paragraph, ind) => {
-              return (
-                <ArticleContent key={ ind }>{ paragraph }</ArticleContent>
-              );
-            })
-          }
-          <ArticleFooter>{ this.props.story.paper }</ArticleFooter>
-        </div>
-      </div>
+      <ArticleExpanded className={ className } style={ { outer: this.props.style } }>
+        <ArticleHeader>{ this.props.story.date }</ArticleHeader>
+        {
+          this.props.story.paragraphs.map((paragraph, ind) => (
+            <ArticleContent key={ ind }>{ paragraph }</ArticleContent>
+          ))
+        }
+        <ArticleFooter>{ this.props.story.paper }</ArticleFooter>
+      </ArticleExpanded>
     );
   }
 }

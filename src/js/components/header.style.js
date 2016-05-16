@@ -1,7 +1,6 @@
-import { imgRootFolder } from 'utils/static-assets';
+import { imgUrl } from 'utils/static-assets';
+import { darkGreyColor } from 'utils/styles';
 
-
-let imgRoot = imgRootFolder();
 
 export const navStyle = {
   display: 'inline-block',
@@ -25,17 +24,17 @@ export const fixedWrapperStyle = {
   top: '0',
   left: '0',
   width: '100%',
-  background: '#fff',
+  background: 'white',
   zIndex: '2',
   height: '88px',
   boxSizing: 'border-box',
-  borderBottom: '1px solid #000'
+  borderBottom: `1px solid ${darkGreyColor}`
 };
 
 export const logoStyle = {
   height: '25px',
   width: '90px',
-  background: `url("${imgRoot}CPDB-logo.svg") no-repeat scroll 0 0 transparent`,
+  background: `url("${imgUrl('CPDB-logo.svg')}") no-repeat scroll 0 0 transparent`,
   display: 'inline-block'
 };
 

@@ -3,15 +3,15 @@ import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
-import CloseButtonWrapper from 'components/stories/close-btn-wrapper';
+import CloseButtonWrapper from 'components/common/close-btn-wrapper';
 import Toggleable from 'components/common/toggleable';
 import ResponsiveStyleComponent, { DESKTOP, TABLET, MOBILE } from 'components/responsive/responsive-style-component';
 import {
   wrapperStyle, tabletWrapperStyle, contentStyle
-} from './story-small.style';
+} from './article-small.style';
 
 
-class StorySmall extends ResponsiveStyleComponent {
+class ArticleSmall extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [MOBILE]: TABLET,
@@ -28,38 +28,32 @@ class StorySmall extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='story-small' style={ style.wrapper }>
+      <div className='article-small' style={ style.wrapper }>
         <div style={ style.content }>
-          <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
-          <ArticleContent>{ this.props.story.title }</ArticleContent>
+          <ArticleHeader>{ this.props.header }</ArticleHeader>
+          <ArticleContent>{ this.props.content }</ArticleContent>
         </div>
         <CloseButtonWrapper
           expanded={ this.props.expanded } showButton={ this.props.active }
           position={ this.props.expandDirection }
-          buttonClassName='story-small__close-button'/>
+          buttonClassName='article-small__close-button'/>
       </div>
     );
   }
 }
 
-StorySmall.propTypes = {
+ArticleSmall.propTypes = {
   style: PropTypes.object,
-  story: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    paper: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
-  }),
+  header: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
   expanded: PropTypes.bool,
   expandDirection: PropTypes.string,
   active: PropTypes.bool
 };
 
-StorySmall.defaultProps = {
-  story: {
-    id: 2,
-    paper: 'FiveThirtyEight',
-    title: 'How to predict bad cops in Chicago.'
-  }
+ArticleSmall.defaultProps = {
+  header: 'FiveThirtyEight',
+  content: 'How to predict bad cops in Chicago.'
 };
 
-export default Toggleable(Radium(StorySmall));
+export default Toggleable(Radium(ArticleSmall));

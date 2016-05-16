@@ -1,7 +1,5 @@
-import { imgRootFolder } from 'utils/static-assets';
+import { imgUrl } from 'utils/static-assets';
 
-
-let imgRoot = imgRootFolder();
 
 export const closeButtonStyle = {
   width: '35px',
@@ -10,5 +8,5 @@ export const closeButtonStyle = {
   left: 'calc(50% - 17.5px)',
   appearance: 'none',
   border: '0',
-  background: `url("${imgRoot}X-04.svg") no-repeat scroll 0 0 transparent`
+  background: `url("${imgUrl('X-04.svg')}") no-repeat scroll 0 0 transparent`
 };

@@ -5,27 +5,30 @@ import { remove } from 'lodash';
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from 'components/stories/story-medium';
-import StorySmall from 'components/stories/story-small';
-import StoryExpandable from 'components/stories/story-expandable';
+import ArticleSmall from 'components/common/article-small';
+import Expandable from 'components/common/expandable';
+import StoryFull from 'components/stories/story-full';
 import { TOP, BOTTOM } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
-  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop
-} from './stories.style';
+  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop, wrapperStyle
+} from './stories-container.style';
 
 
-class Stories extends ResponsiveComponent {
+const StoryExpandable = Expandable(StoryFull, { className: 'pure-u-1-1' });
+
+class StoriesContainer extends ResponsiveComponent {
   constructor(props) {
     super(props);
     this.state = {
       selectedStoryKey: null,
-      StoryFull: {},
+      storyExpanded: {},
       expandDirection: BOTTOM
     };
     this.onStoryOpen = ([id, dir]) => { this.setState({ selectedStoryKey: id, expandDirection: dir }); };
     this.onStoryClose = ([id, dir]) => { this.setState({ selectedStoryKey: null }); };
-    this.onStoryFullyClosed = key => { this.setState({ StoryFull: { [key]: false } }); };
-    this.onStoryExpandingBegin = key => { this.setState({ StoryFull: { [key]: true } }); };
+    this.onStoryFullyClosed = key => { this.setState({ storyExpanded: { [key]: false } }); };
+    this.onStoryExpandingBegin = key => { this.setState({ storyExpanded: { [key]: true } }); };
   }
 
   getFeaturedStory() {
@@ -39,13 +42,14 @@ class Stories extends ResponsiveComponent {
   renderSmallStoriesTablet(stories) {
     return stories.map((story, ind) => {
       return (
-        <StorySmall
-          style={ ind === 0 ? firstSmallStoryStyleTablet : null } story={ story }
+        <ArticleSmall
+          style={ ind === 0 ? firstSmallStoryStyleTablet : null }
           onOpen={ this.onStoryOpen } key={ story.id }
           onClose={ this.onStoryClose }
-          expanded={ this.state.StoryFull[story.id] }
+          expanded={ this.state.storyExpanded[story.id] }
           identifier={ [story.id, ind === 0 ? TOP : BOTTOM] }
           expandDirection={ ind === 0 ? TOP : BOTTOM }
+          header={ story.paper } content={ story.title }
           active={ story.id === this.state.selectedStoryKey }/>
       );
     });
@@ -55,13 +59,14 @@ class Stories extends ResponsiveComponent {
     return stories.map((story, ind) => {
       return (
         <div key={ story.id } className='pure-u-1-2'>
-          <StorySmall
-            style={ ind === 0 ? firstSmallStoryStyleDesktop : null } story={ story }
+          <ArticleSmall
+            style={ ind === 0 ? firstSmallStoryStyleDesktop : null }
             onOpen={ this.onStoryOpen }
             onClose={ this.onStoryClose }
-            expanded={ this.state.StoryFull[story.id] }
+            expanded={ this.state.storyExpanded[story.id] }
             identifier={ [story.id, BOTTOM] }
             expandDirection={ BOTTOM }
+            header={ story.paper } content={ story.title }
             active={ story.id === this.state.selectedStoryKey }/>
         </div>
       );
@@ -75,7 +80,7 @@ class Stories extends ResponsiveComponent {
   renderTablet() {
     let [featuredStory, restStories] = this.getFeaturedStory();
     return (
-      <div className='pure-g'>
+      <div className='pure-g' style={ wrapperStyle }>
         <StoryExpandable
           childKey={ this.state.selectedStoryKey }
           onFullyClosed={ this.onStoryFullyClosed }
@@ -86,7 +91,7 @@ class Stories extends ResponsiveComponent {
               story={ featuredStory }
               onOpen={ this.onStoryOpen }
               onClose={ this.onStoryClose }
-              expanded={ this.state.StoryFull[featuredStory.id] }
+              expanded={ this.state.storyExpanded[featuredStory.id] }
               identifier={ [featuredStory.id, BOTTOM] }
               active={ featuredStory.id === this.state.selectedStoryKey }/>
           </div>
@@ -104,7 +109,7 @@ class Stories extends ResponsiveComponent {
   renderDesktop() {
     let [featuredStory, restStories] = this.getFeaturedStory();
     return (
-      <div className='pure-g'>
+      <div className='pure-g' style={ wrapperStyle }>
         <StoryExpandable
           childKey={ this.state.selectedStoryKey }
           onFullyClosed={ this.onStoryFullyClosed }
@@ -115,7 +120,7 @@ class Stories extends ResponsiveComponent {
               story={ featuredStory }
               onOpen={ this.onStoryOpen }
               onClose={ this.onStoryClose }
-              expanded={ this.state.StoryFull[featuredStory.id] }
+              expanded={ this.state.storyExpanded[featuredStory.id] }
               identifier={ [featuredStory.id, BOTTOM] }
               active={ featuredStory.id === this.state.selectedStoryKey }/>
           </div>
@@ -131,12 +136,12 @@ class Stories extends ResponsiveComponent {
   }
 }
 
-Stories.propTypes = {
+StoriesContainer.propTypes = {
   featuredStoryId: PropTypes.number,
   stories: arrayOfN(3)
 };
 
-Stories.defaultProps = {
+StoriesContainer.defaultProps = {
   featuredStoryId: 1,
   stories: [
     {
@@ -158,4 +163,4 @@ Stories.defaultProps = {
   ]
 };
 
-export default Radium(Stories);
+export default Radium(StoriesContainer);
