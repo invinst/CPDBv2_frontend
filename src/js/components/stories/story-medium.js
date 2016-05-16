@@ -5,7 +5,7 @@ import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
 import CloseButtonWrapper from 'components/common/close-btn-wrapper';
 import Toggleable from 'components/common/toggleable';
-import ResponsiveStyleComponent, { MOBILE, TABLET, DESKTOP } from 'components/responsive/responsive-style-component';
+import ResponsiveStyleComponent, { TABLET, DESKTOP } from 'components/responsive/responsive-style-component';
 import CoverImage from 'components/common/cover-image';
 import {
   storyWrapperStyle, storyWrapperStyleTablet,
@@ -18,7 +18,6 @@ import {
 class StoryMedium extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
-      [MOBILE]: TABLET,
       [TABLET]: {
         image: storyImageStyleTablet,
         content: contentStyle,

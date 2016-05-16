@@ -78,10 +78,6 @@ class StoriesContainer extends ResponsiveComponent {
     });
   }
 
-  renderMobile() {
-    return this.renderTablet();
-  }
-
   renderTablet() {
     let [featuredStory, restStories] = this.getFeaturedStory();
     return (

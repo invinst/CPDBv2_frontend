@@ -2,15 +2,14 @@ import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
 import { articleHeaderStyle, headerTabletStyle } from './article-header.style';
-import ResponsiveStyleComponent, { DESKTOP, TABLET, MOBILE } from 'components/responsive/responsive-style-component';
+import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 
 
 class ArticleHeader extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [DESKTOP]: { header: [articleHeaderStyle] },
-      [TABLET]: { header: [articleHeaderStyle, headerTabletStyle] },
-      [MOBILE]: TABLET
+      [TABLET]: { header: [articleHeaderStyle, headerTabletStyle] }
     };
   }
 

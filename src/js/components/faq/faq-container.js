@@ -47,10 +47,6 @@ export default class FAQContainer extends ResponsiveComponent {
     );
   }
 
-  renderMobile() {
-    return this.renderTablet();
-  }
-
   renderTablet() {
     const className = classNames('pure-g', this.props.className);
 

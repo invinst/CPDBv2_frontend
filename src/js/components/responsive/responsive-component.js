@@ -1,9 +1,8 @@
 import React, { PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
 
+import { MOBILE_BREAK_POINT, TABLET_BREAK_POINT, DESKTOP_BREAK_POINT } from 'utils/constants';
 
-const MOBILE_BREAK_POINT = 768;
-const TABLET_BREAK_POINT = 992;
 
 let DEVICE_RENDERERS = {
   mobile: 'renderMobile',
@@ -14,7 +13,7 @@ let DEVICE_RENDERERS = {
 
 export default class ResponsiveComponent extends React.Component {
   renderMobile() {
-    return <div/>;
+    return this.renderTablet();
   }
 
   renderTablet() {
@@ -23,6 +22,10 @@ export default class ResponsiveComponent extends React.Component {
 
   renderDesktop() {
     return <div/>;
+  }
+
+  renderExtraWide() {
+    return this.renderDesktop();
   }
 
   render() {
@@ -38,8 +41,11 @@ export default class ResponsiveComponent extends React.Component {
           <MediaQuery minWidth={ MOBILE_BREAK_POINT } maxWidth={ TABLET_BREAK_POINT - 1 }>
             { this.renderTablet() }
           </MediaQuery>
-          <MediaQuery minWidth={ TABLET_BREAK_POINT }>
+          <MediaQuery minWidth={ TABLET_BREAK_POINT } maxWidth={ DESKTOP_BREAK_POINT - 1 }>
             { this.renderDesktop() }
+          </MediaQuery>
+          <MediaQuery minWidth={ DESKTOP_BREAK_POINT }>
+            { this.renderExtraWide() }
           </MediaQuery>
         </div>
       );
