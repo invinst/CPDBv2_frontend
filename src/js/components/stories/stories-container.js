@@ -4,6 +4,7 @@ import { remove } from 'lodash';
 
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
+import ArticleContent from 'components/common/article-content';
 import StoryMedium from 'components/stories/story-medium';
 import ArticleSmall from 'components/common/article-small';
 import Expandable from 'components/common/expandable';
@@ -49,8 +50,10 @@ class StoriesContainer extends ResponsiveComponent {
           expanded={ this.state.storyExpanded[story.id] }
           identifier={ [story.id, ind === 0 ? TOP : BOTTOM] }
           expandDirection={ ind === 0 ? TOP : BOTTOM }
-          header={ story.paper } content={ story.title }
-          active={ story.id === this.state.selectedStoryKey }/>
+          header={ story.paper }
+          active={ story.id === this.state.selectedStoryKey }>
+          <ArticleContent>{ story.title }</ArticleContent>
+        </ArticleSmall>
       );
     });
   }
@@ -66,8 +69,10 @@ class StoriesContainer extends ResponsiveComponent {
             expanded={ this.state.storyExpanded[story.id] }
             identifier={ [story.id, BOTTOM] }
             expandDirection={ BOTTOM }
-            header={ story.paper } content={ story.title }
-            active={ story.id === this.state.selectedStoryKey }/>
+            header={ story.paper }
+            active={ story.id === this.state.selectedStoryKey }>
+            <ArticleContent>{ story.title }</ArticleContent>
+          </ArticleSmall>
         </div>
       );
     });
