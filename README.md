@@ -48,3 +48,23 @@ Chrome 45+, Firefox 45+, IE 11, Safari 9+ and iOS 8+ Safari.
 ## Miscellaneous Frontend Best Practices
 
 [Read here](docs/miscellaneous-frontend-best-practices.md)
+
+## Redux Testing Guide
+
+Redux has well-documented testing guideline, please read it [here](http://redux.js.org/docs/recipes/WritingTests.html).
+
+## Reducers
+
+We use [redux-actions](https://github.com/acdlite/redux-actions) to create action. The simplest way to create a reducer is using `handleActions` from redux-actions. You can read it [here](https://github.com/acdlite/redux-actions#handleactionsreducermap-defaultstate).
+
+## Axios Mock Client(`utils/axios-mock-client`)
+
+[Read here](docs/axios-mock-client-development-guide)
+
+## Configured Axios Middleware(`middleware/configured-axios-middleware`)
+
+[Read here](docs/configured-axios-middleware-development-guide)
+
+## Async Action Creators
+
+[Read here](docs/async-action-creators-development-guide)

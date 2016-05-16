@@ -3794,6 +3794,11 @@
       "from": "redux-actions@>=0.9.1 <0.10.0",
       "resolved": "https://registry.npmjs.org/redux-actions/-/redux-actions-0.9.1.tgz"
     },
+    "redux-axios-middleware": {
+      "version": "1.0.0-rc.0",
+      "from": "redux-axios-middleware@latest",
+      "resolved": "https://registry.npmjs.org/redux-axios-middleware/-/redux-axios-middleware-1.0.0-rc.0.tgz"
+    },
     "redux-thunk": {
       "version": "2.0.1",
       "from": "redux-thunk@latest",

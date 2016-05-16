@@ -1,20 +1,21 @@
-import { createAction } from 'redux-actions';
-import axiosClient from 'utils/axios-client';
+import axiosMockClient from 'utils/axios-mock-client';
 
+// TODO: remove when have real api
+const mockAdapter = axiosMockClient.adapter();
 
 export const STORIES_REQUEST_START = 'STORIES_REQUEST_START';
 export const STORIES_REQUEST_SUCCESS = 'STORIES_REQUEST_SUCCESS';
 export const STORIES_REQUEST_FAILURE = 'STORIES_REQUEST_FAILURE';
 
-const storiesRequest = createAction(STORIES_REQUEST_START);
-const storiesSuccess = createAction(STORIES_REQUEST_SUCCESS);
-const storiesFailure = createAction(STORIES_REQUEST_FAILURE);
+export const STORIES_API_URL = '/stories';
 
-export function loadStories() {
-  return dispatch => {
-    dispatch(storiesRequest());
-    return axiosClient.get('/stories')
-      .then(res => dispatch(storiesSuccess(res.data)))
-      .catch(err => dispatch(storiesFailure(new Error('Load failed'))));
-  };
-}
+export const requestStories = (params, adapter=mockAdapter) => ({
+  types: [STORIES_REQUEST_START, STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE],
+  payload: {
+    request: {
+      url: STORIES_API_URL,
+      params,
+      adapter
+    }
+  }
+});

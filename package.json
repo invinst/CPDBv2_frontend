@@ -67,6 +67,7 @@
     "react-responsive": "^1.1.2",
     "redux": "^3.5.2",
     "redux-actions": "^0.9.1",
+    "redux-axios-middleware": "^1.0.0-rc.0",
     "redux-thunk": "^2.0.1"
   }
 }

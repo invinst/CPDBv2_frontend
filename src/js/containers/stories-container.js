@@ -3,13 +3,13 @@ import React, { Component, PropTypes } from 'react';
 
 
 import Stories from 'components/stories/stories';
-import { loadStories } from 'actions/story-app';
+import { requestStories } from 'actions/story-app';
 
 
 export class StoriesContainer extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(loadStories());
+    dispatch(requestStories());
   }
 
   shouldNotRender() {
