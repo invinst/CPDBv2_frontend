@@ -50,6 +50,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "lodash": "^4.11.1",
     "radium": "^0.17.1",
     "react": "^0.14.8",

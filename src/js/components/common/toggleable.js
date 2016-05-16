@@ -30,7 +30,7 @@ export default function Toggleable(ComposedComponent) {
     active: PropTypes.bool,
     onOpen: PropTypes.func,
     onClose: PropTypes.func,
-    identifier: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    identifier: PropTypes.node
   };
 
   return ToggleableComponent;

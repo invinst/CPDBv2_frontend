@@ -1,6 +1,5 @@
 import 'should';
 import React from 'react';
-import { findDOMNode } from 'react-dom';
 import {
   Simulate, renderIntoDocument, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType,
   scryRenderedComponentsWithType
@@ -41,22 +40,22 @@ describe('Stories component', function () {
     withAnimationDisabled(() => {
       element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
       let smallStory = scryRenderedComponentsWithType(element, StorySmall)[0];
-      Simulate.click(findDOMNode(smallStory));
-      smallStory.props.onClose();
+      Simulate.click(smallStory);
+      smallStory.props.onClose([null, null]);
       (element.state.selectedStoryKey === null).should.be.true();
     });
   });
 
-  it('should change storyExpanded state when ExpandTransition begin expanding or fully closed', function () {
+  it('should change StoryFull state when ExpandTransition begin expanding or fully closed', function () {
     withAnimationDisabled(() => {
       element = renderIntoDocument(<Stories stories={ stories } featuredStoryId={ 1 } device='desktop'/>);
       let transition = findRenderedComponentWithType(element, ExpandTransition);
 
       transition.props.onFullyClosed(1);
-      element.state.storyExpanded.should.deepEqual({ 1: false });
+      element.state.StoryFull.should.deepEqual({ 1: false });
 
       transition.props.onExpansionBegin(2);
-      element.state.storyExpanded.should.deepEqual({ 2: true });
+      element.state.StoryFull.should.deepEqual({ 2: true });
     });
   });
 });

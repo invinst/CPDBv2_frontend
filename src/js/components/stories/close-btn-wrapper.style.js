@@ -6,3 +6,8 @@ export const wrapperStyle = {
   background: '#fff',
   height: '35px'
 };
+
+export const topWrapperStyle = {
+  top: '-17.5px',
+  bottom: 'default'
+};
