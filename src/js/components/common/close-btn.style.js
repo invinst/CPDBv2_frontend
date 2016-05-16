@@ -1,39 +1,14 @@
+import { imgRootFolder } from 'utils/static-assets';
+
+
+let imgRoot = imgRootFolder();
+
 export const closeButtonStyle = {
   width: '35px',
   height: '35px',
-  paddingLeft: '6px',
-  borderRadius: '50%',
-  border: '1px solid #efefef',
-  background: '#efefef',
   position: 'relative',
+  left: 'calc(50% - 17.5px)',
   appearance: 'none',
-  left: 'calc(50% - 17.5px)'
-};
-
-export const closeButtonIconWrapperStyle = {
-  position: 'relative',
-  display: 'inline-block',
-  width: '19px',
-  height: '19px',
-  overflow: 'hidden',
-  top: '3px'
-};
-
-export const closeButtonIconStyle = {
-  pseudo: {
-    height: '1px',
-    transform: 'rotate(45deg)',
-    position: 'absolute',
-    width: '100%',
-    top: '50%',
-    left: 0,
-    marginTop: '-1px',
-    background: '#000'
-  },
-  before: {
-    transform: 'rotate(45deg)'
-  },
-  after: {
-    transform: 'rotate(-45deg)'
-  }
+  border: '0',
+  background: `url("${imgRoot}X-04.svg") no-repeat scroll 0 0 transparent`
 };

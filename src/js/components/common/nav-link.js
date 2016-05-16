@@ -7,7 +7,7 @@ import { navStyle } from './nav-link.style';
 class NavigationLink extends React.Component {
   render() {
     return (
-      <a href={ this.props.href } style={ navStyle }>
+      <a href={ this.props.href } style={ [navStyle, this.props.style] }>
         { this.props.children }
       </a>
     );
@@ -15,8 +15,9 @@ class NavigationLink extends React.Component {
 }
 
 NavigationLink.propTypes = {
-  children: PropTypes.array,
-  href: PropTypes.string
+  children: PropTypes.node,
+  href: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default Radium(NavigationLink);

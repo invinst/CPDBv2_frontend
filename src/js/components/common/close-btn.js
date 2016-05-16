@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
 import {
-  closeButtonStyle, closeButtonIconStyle, closeButtonIconWrapperStyle
+  closeButtonStyle
 } from './close-btn.style';
 
 
@@ -10,12 +10,7 @@ class CloseButton extends React.Component {
   render() {
     return (
       <button style={ closeButtonStyle } className={ this.props.className }
-        onClick={ this.props.onClick }>
-        <span style={ closeButtonIconWrapperStyle }>
-          <span style={ [closeButtonIconStyle.pseudo, closeButtonIconStyle.before] }/>
-          <span style={ [closeButtonIconStyle.pseudo, closeButtonIconStyle.after] }/>
-        </span>
-      </button>
+        onClick={ this.props.onClick }/>
     );
   }
 }
