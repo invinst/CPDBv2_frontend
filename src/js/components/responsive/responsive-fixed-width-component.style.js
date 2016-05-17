@@ -1,10 +1,6 @@
 import { MOBILE_BREAK_POINT, TABLET_BREAK_POINT, DESKTOP_BREAK_POINT } from 'utils/constants';
 
 
-export const outerWrapperStyle = {
-  background: 'white'
-};
-
 export const extraWideInnerWrapperStyle = {
   width: `${DESKTOP_BREAK_POINT}px`,
   margin: '0 auto'

@@ -4,9 +4,11 @@ import Radium from 'radium';
 import ArticleHeader from 'components/common/article-header';
 import CloseButtonWrapper from 'components/common/close-btn-wrapper';
 import Toggleable from 'components/common/toggleable';
-import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
+import ResponsiveStyleComponent, {
+  DESKTOP, TABLET, EXTRA_WIDE
+} from 'components/responsive/responsive-style-component';
 import {
-  wrapperStyle, tabletWrapperStyle, contentStyle
+  wrapperStyle, tabletWrapperStyle, contentStyle, extraWideWrapperStyle
 } from './article-small.style';
 
 
@@ -14,12 +16,13 @@ class ArticleSmall extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [TABLET]: {
-        wrapper: [wrapperStyle, tabletWrapperStyle, this.props.style],
-        content: [contentStyle]
+        wrapper: [wrapperStyle, tabletWrapperStyle, this.props.style]
       },
       [DESKTOP]: {
-        wrapper: [wrapperStyle, this.props.style],
-        content: [contentStyle]
+        wrapper: [wrapperStyle, this.props.style]
+      },
+      [EXTRA_WIDE]: {
+        wrapper: [wrapperStyle, extraWideWrapperStyle, this.props.style]
       }
     };
   }
@@ -27,7 +30,7 @@ class ArticleSmall extends ResponsiveStyleComponent {
   renderWithResponsiveStyle(style) {
     return (
       <div className='article-small' style={ style.wrapper }>
-        <div style={ style.content }>
+        <div style={ contentStyle }>
           <ArticleHeader>{ this.props.header }</ArticleHeader>
           { this.props.children }
         </div>

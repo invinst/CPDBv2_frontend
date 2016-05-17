@@ -4,7 +4,7 @@ import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';
 import {
-  outerWrapperStyle, extraWideInnerWrapperStyle, desktopInnerWrapperStyle, tabletInnerWrapperStyle
+  extraWideInnerWrapperStyle, desktopInnerWrapperStyle, tabletInnerWrapperStyle
 } from './responsive-fixed-width-component.style';
 
 
@@ -25,7 +25,7 @@ export default class ResponsiveFixedWidthComponent extends ResponsiveStyleCompon
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ outerWrapperStyle }>
+      <div>
         <div style={ style.innerWrapper }>
           { this.props.children }
         </div>
