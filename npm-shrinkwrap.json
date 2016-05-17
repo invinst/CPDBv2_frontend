@@ -4330,6 +4330,11 @@
       "from": "tweetnacl@>=0.13.0 <1.0.0",
       "resolved": "https://registry.npmjs.org/tweetnacl/-/tweetnacl-0.14.3.tgz"
     },
+    "twitter-widgets": {
+      "version": "1.0.0",
+      "from": "twitter-widgets@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/twitter-widgets/-/twitter-widgets-1.0.0.tgz"
+    },
     "type-check": {
       "version": "0.3.2",
       "from": "type-check@>=0.3.2 <0.4.0",
