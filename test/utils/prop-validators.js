@@ -1,5 +1,3 @@
-import 'should';
-
 import { arrayOfN } from 'utils/prop-validators';
 
 

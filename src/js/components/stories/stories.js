@@ -11,10 +11,11 @@ import SectionHeader from 'components/common/section-header';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
   firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop, wrapperStyle
-} from './stories-container.style';
+} from './stories.style';
 
 
-class StoriesContainer extends ResponsiveComponent {
+
+class Stories extends ResponsiveComponent {
   constructor(props) {
     super(props);
   }
@@ -94,31 +95,9 @@ class StoriesContainer extends ResponsiveComponent {
   }
 }
 
-StoriesContainer.propTypes = {
+Stories.propTypes = {
   featuredStoryId: PropTypes.number,
   stories: arrayOfN(3)
 };
 
-StoriesContainer.defaultProps = {
-  featuredStoryId: 1,
-  stories: [
-    {
-      id: 1,
-      paper: 'New York Times',
-      title: 'Complaints against Chicago Police rarely result in discipline data shows.',
-      imageUrl: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
-    },
-    {
-      id: 2,
-      paper: 'FiveThirtyEight',
-      title: 'How to predict bad cops in Chicago.'
-    },
-    {
-      id: 3,
-      paper: 'Chicago Magazine',
-      title: 'The Laquan McDonald Video Didn\'t "Rip" Chicago Apart, but Now Its Leaders Face a Reckoning.'
-    }
-  ]
-};
-
-export default Radium(StoriesContainer);
+export default Radium(Stories);
