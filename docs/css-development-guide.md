@@ -90,7 +90,7 @@ There are 3 patterns that you could use to make a component responsive. All of w
 
 ### Extends From `ResponsiveComponent`
 
-This pattern fit those components that change layout significantly between devices. Just extends from `ResponsiveComponent` and provide 3 methods: `renderMobile`, `renderTablet`, `renderDesktop`.
+This pattern fit those components that change layout significantly between devices. Just extends from `ResponsiveComponent` and provide 4 methods: `renderMobile`, `renderTablet`, `renderDesktop`, `renderExtraWide`. If `renderMobile` is missing, it defaults to `renderTablet`. If `renderExtraWide` is missing, it defaults to `renderDesktop`.
 
 ```javascript
 import ResponsiveComponent from 'components/responsive/responsive-component';
@@ -99,6 +99,7 @@ class Component extends ResponsiveComponent {
   renderMobile() {...}
   renderTablet() {...}
   renderDesktop() {...}
+  renderExtraWide() {...}
 }
 ```
 
@@ -107,7 +108,9 @@ class Component extends ResponsiveComponent {
 This pattern fit those that have zero markup changes but has to change style on different screen sizes. Just extends from `ResponsiveStyleComponent` and provide 2 methods: `responsiveStyle` and `renderWithResponsiveStyle`. `responsiveStyle` should return a mapping of `style` object for each device type. The appropriate `style` object will be passed to `renderWithResponsiveStyle` depending on screen size. You can also pass in key of other screen size (e.g. `[MOBILE]: TABLET`) if the 2 screen sizes display the same.
 
 ```javascript
-import ResponsiveStyleComponent, {MOBILE, TABLET, DESKTOP} from 'components/responsive/responsive-style-component';
+import ResponsiveStyleComponent, {
+  MOBILE, TABLET, DESKTOP, EXTRA_WIDE
+} from 'components/responsive/responsive-style-component';
 import {wrapperStyle, mobileStyle, tabletStyle} from './component.style.js';
 
 class Component extends ResponsiveStyleComponent {
@@ -119,7 +122,8 @@ class Component extends ResponsiveStyleComponent {
       [TABLET]: MOBILE,
       [DESKTOP]: {
         wrapper: [wrapperStyle, this.props.style]
-      }
+      },
+      [EXTRA_WIDE]: DESKTOP
     };
   }
 
