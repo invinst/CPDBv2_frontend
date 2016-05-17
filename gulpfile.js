@@ -17,7 +17,7 @@ const ROOT = '/www/static/';
 gulp.task('build-html', () => {
   gulp.src('index.html')
     .pipe(htmlreplace({
-      css: '/dist/grid.css',
+      css: ['/dist/css/grid.css', '/dist/css/font.css'],
       var: ''
     }))
     .pipe(gulp.dest(ROOT));
@@ -45,14 +45,9 @@ gulp.task('build-js', () => {
     .pipe(gulp.dest(`${ROOT}dist/`));
 });
 
-gulp.task('build-css', () => {
-  gulp.src('src/css/*.css')
+gulp.task('copy-static', () => {
+  gulp.src('src/**/*')
     .pipe(gulp.dest(`${ROOT}dist/`));
 });
 
-gulp.task('build-images', () => {
-  gulp.src('src/img/*')
-    .pipe(gulp.dest(`${ROOT}dist/`));
-});
-
-gulp.task('build', ['build-html', 'build-js', 'build-css', 'build-images']);
+gulp.task('build', ['build-html', 'build-js', 'copy-static']);

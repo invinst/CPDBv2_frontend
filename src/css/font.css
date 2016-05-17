@@ -1,0 +1,80 @@
+/** San Francisco Compact Text */
+/** Light */
+@font-face {
+  font-family: "San Francisco Text Web";
+  font-weight: 300;
+  src: local("SF UI Text"), local(".SFNSText-Light"), url("../fonts/SF-Compact-Text-Light.otf"); }
+
+/** Regular */
+@font-face {
+  font-family: "San Francisco Text Web";
+  font-weight: 400;
+  src: local("SF UI Text"), local(".SFNSText-Regular"), url("../fonts/SF-Compact-Text-Regular.otf"); }
+
+/** Normal */
+@font-face {
+  font-family: "San Francisco Text Web";
+  font-weight: normal;
+  src: local("SF UI Text"), local(".SFNSText-Medium"), url("../fonts/SF-Compact-Text-Medium.otf"); }
+
+/** Semi Bold */
+@font-face {
+  font-family: "San Francisco Text Web";
+  font-weight: 500;
+  src: local("SF UI Text"), local(".SFNSText-Semibold"), url("../fonts/SF-Compact-Text-Semibold.otf"); }
+
+/** Bold */
+@font-face {
+  font-family: "San Francisco Text Web";
+  font-weight: 600;
+  src: local("SF UI Text"), local(".SFNSText-Bold"), url("../fonts/SF-Compact-Text-Bold.otf"); }
+
+/** Bold */
+@font-face {
+  font-family: "San Francisco Text Web";
+  font-weight: 700;
+  src: local("SF UI Text"), local(".SFNSText-Bold"), url("../fonts/SF-Compact-Text-Bold.otf"); }
+
+/** San Francisco Compact Display */
+/** Light */
+@font-face {
+  font-family: "San Francisco Display Web";
+  font-weight: 300;
+  src: local("SF UI Display"), local(".SFNSDisplay-Light"), url("../fonts/SF-Compact-Display-Light.otf"); }
+
+/** Regular */
+@font-face {
+  font-family: "San Francisco Display Web";
+  font-weight: 400;
+  src: local("SF UI Display"), local(".SFNSDisplay-Regular"), url("../fonts/SF-Compact-Display-Regular.otf"); }
+
+/** Normal */
+@font-face {
+  font-family: "San Francisco Display Web";
+  font-weight: normal;
+  src: local("SF UI Display"), local(".SFNSDisplay-Medium"), url("../fonts/SF-Compact-Display-Medium.otf"); }
+
+/** Semi Bold */
+@font-face {
+  font-family: "San Francisco Display Web";
+  font-weight: 500;
+  src: local("SF UI Display"), local(".SFNSDisplay-Semibold"), url("../fonts/SF-Compact-Display-Semibold.otf"); }
+
+/** Bold */
+@font-face {
+  font-family: "San Francisco Display Web";
+  font-weight: 600;
+  src: local("SF UI Display"), local(".SFNSDisplay-Bold"), url("../fonts/SF-Compact-Display-Bold.otf"); }
+
+/** Bold */
+@font-face {
+  font-family: "San Francisco Display Web";
+  font-weight: 700;
+  src: local("SF UI Display"), local(".SFNSDisplay-Bold"), url("../fonts/SF-Compact-Display-Bold.otf"); }
+
+/** Minion Pro */
+/** Regular */
+@font-face {
+  font-family: "Minion Pro Regular";
+  font-weight: 400;
+  src: url("../fonts/Minion_Pro_Regular.ttf"); }
