@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import StoriesContainer from 'containers/stories-container';
 import FAQContainer from 'components/faq/faq-container';
@@ -10,7 +10,7 @@ export default class LandingPage extends Component {
   render() {
     return (
       <div>
-        <StoriesContainer/>
+        <StoriesContainer store={ this.props.store }/>
         <div className='pure-g' style={ borderTop }>
           <div className='pure-u-de-3-5 pure-u-ta-1-2 pure-u-mo-1-2'>
             <div style={ leftColumnStyle }>
@@ -26,3 +26,7 @@ export default class LandingPage extends Component {
     );
   }
 }
+
+LandingPage.propTypes = {
+  store: PropTypes.object
+};
