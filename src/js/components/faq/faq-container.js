@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import ArticleSmall from 'components/common/article-small';
 import ArticleContent from 'components/common/article-content';
 import ArticleFooter from 'components/common/article-footer';
+import SectionHeader from 'components/common/section-header';
 import FAQFull from 'components/faq/faq-full';
 import Expandable from 'components/common/expandable';
 import { arrayOfN } from 'utils/prop-validators';
@@ -34,7 +35,6 @@ export default class FAQContainer extends ResponsiveComponent {
   renderFAQ(faq, style, dir) {
     return (
       <ArticleSmall
-        header='FAQ'
         style={ style }
         onOpen={ this.onStoryOpen }
         onClose={ this.onStoryClose }
@@ -52,6 +52,9 @@ export default class FAQContainer extends ResponsiveComponent {
 
     return (
       <div className={ className } style={ wrapperStyle }>
+        <div className='pure-u-1-1'>
+          <SectionHeader>FAQ</SectionHeader>
+        </div>
         <FAQExpandable
           childKey={ this.state.selectedFAQKey }
           expandDirection={ this.state.expandDirection }
@@ -84,6 +87,9 @@ export default class FAQContainer extends ResponsiveComponent {
 
     return (
       <div className={ className } style={ wrapperStyle }>
+        <div className='pure-u-1-1'>
+          <SectionHeader>FAQ</SectionHeader>
+        </div>
         <FAQExpandable
           childKey={ this.state.selectedFAQKey }
           expandDirection={ this.state.expandDirection }

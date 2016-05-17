@@ -7,6 +7,7 @@ import ArticleFooter from 'components/common/article-footer';
 import ArticleContent from 'components/common/article-content';
 import StoryMedium from 'components/stories/story-medium';
 import ArticleSmall from 'components/common/article-small';
+import SectionHeader from 'components/common/section-header';
 import Expandable from 'components/common/expandable';
 import StoryFull from 'components/stories/story-full';
 import { TOP, BOTTOM } from 'utils/constants';
@@ -82,6 +83,9 @@ class StoriesContainer extends ResponsiveComponent {
     let [featuredStory, restStories] = this.getFeaturedStory();
     return (
       <div className='pure-g' style={ wrapperStyle }>
+        <div className='pure-u-1-1'>
+          <SectionHeader>Featured Stories</SectionHeader>
+        </div>
         <StoryExpandable
           childKey={ this.state.selectedStoryKey }
           onFullyClosed={ this.onStoryFullyClosed }
@@ -111,6 +115,9 @@ class StoriesContainer extends ResponsiveComponent {
     let [featuredStory, restStories] = this.getFeaturedStory();
     return (
       <div className='pure-g' style={ wrapperStyle }>
+        <div className='pure-u-1-1'>
+          <SectionHeader>Featured Stories</SectionHeader>
+        </div>
         <StoryExpandable
           childKey={ this.state.selectedStoryKey }
           onFullyClosed={ this.onStoryFullyClosed }

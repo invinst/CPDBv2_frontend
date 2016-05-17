@@ -11,9 +11,7 @@ export default class LandingPage extends React.Component {
   render() {
     return (
       <div>
-        <div style={ borderTop }>
-          <StoriesContainer/>
-        </div>
+        <StoriesContainer/>
         <div className='pure-g' style={ borderTop }>
           <div className='pure-u-de-3-5 pure-u-ta-1-2 pure-u-mo-1-2'>
             <div style={ leftColumnStyle }>
