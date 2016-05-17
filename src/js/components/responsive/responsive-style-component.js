@@ -21,6 +21,10 @@ export default class ResponsiveStyleComponent extends ResponsiveComponent {
     return <div/>;
   }
 
+  responsiveStyle() {
+    return {};
+  }
+
   extractStyle(key) {
     let styleMap = assign({}, _responsiveStyle, this.responsiveStyle());
     let style = styleMap[key];

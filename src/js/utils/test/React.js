@@ -15,7 +15,7 @@ should.Assertion.add('renderable', function () {
 
 
 should.Assertion.add('responsiveRenderable', function () {
-  let devices = ['mobile', 'tablet', 'desktop'];
+  let devices = ['mobile', 'tablet', 'desktop', 'extra_wide'];
 
   _.each(devices, (device) => {
     let element = renderIntoDocument(createElement(this.obj, { device: device }));
