@@ -4,6 +4,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Stories from 'components/stories/stories';
 import { requestStories } from 'actions/story-app';
+import StoriesPlaceHolder from 'components/stories/stories-place-holder';
 
 
 export class StoriesContainer extends Component {
@@ -12,16 +13,16 @@ export class StoriesContainer extends Component {
     dispatch(requestStories());
   }
 
-  shouldNotRender() {
+  isRequesting() {
     const { isRequesting, stories } = this.props;
     return isRequesting || stories.length !== 3;
   }
 
   render() {
-    const { isRequesting, stories, featuredStoryId } = this.props;
+    const { stories, featuredStoryId } = this.props;
 
-    return this.shouldNotRender() ? null :
-      <Stories stories={ stories } featuredStoryId={ featuredStoryId } isRequesting={ isRequesting }/>;
+    return this.isRequesting() ? <StoriesPlaceHolder/> :
+      <Stories stories={ stories } featuredStoryId={ featuredStoryId }/>;
   }
 }
 

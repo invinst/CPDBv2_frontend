@@ -1,7 +1,10 @@
-import React from 'react';
-import placeHolderStyle from 'stories-place-holder.style';
+import React, { Component } from 'react';
+
+import placeHolderStyle from './stories-place-holder.style';
 
 
-export default function (props) {
-  return <div style={ placeHolderStyle }/>;
+export default class StoriesPlaceHolder extends Component {
+  render() {
+    return <div style={ placeHolderStyle }/>;
+  }
 }

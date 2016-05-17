@@ -64,7 +64,7 @@ describe('storyApp actions', function () {
       ];
 
       const store = mockStore();
-      store.dispatch(requestStories({}, adapter)).then(() => {
+      return store.dispatch(requestStories({}, adapter)).then(() => {
         store.getActions().should.eql(expectedActions);
       });
     });
@@ -96,7 +96,7 @@ describe('storyApp actions', function () {
       ];
 
       const store = mockStore();
-      store.dispatch(requestStories({}, adapter)).then(() => {
+      return store.dispatch(requestStories({}, adapter)).catch(() => {
         store.getActions().should.eql(expectedActions);
       });
     });
