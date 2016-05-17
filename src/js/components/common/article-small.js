@@ -2,8 +2,6 @@ import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
-import CloseButtonWrapper from 'components/common/close-btn-wrapper';
-import Toggleable from 'components/common/toggleable';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
@@ -43,10 +41,6 @@ class ArticleSmall extends ResponsiveStyleComponent {
           { this.renderHeader() }
           { this.props.children }
         </div>
-        <CloseButtonWrapper
-          expanded={ this.props.expanded } showButton={ this.props.active }
-          position={ this.props.expandDirection }
-          buttonClassName='article-small__close-button'/>
       </div>
     );
   }
@@ -55,14 +49,11 @@ class ArticleSmall extends ResponsiveStyleComponent {
 ArticleSmall.propTypes = {
   style: PropTypes.object,
   header: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  expanded: PropTypes.bool,
-  expandDirection: PropTypes.string,
-  active: PropTypes.bool
+  children: PropTypes.node.isRequired
 };
 
 ArticleSmall.defaultProps = {
   content: 'How to predict bad cops in Chicago.'
 };
 
-export default Toggleable(Radium(ArticleSmall));
+export default Radium(ArticleSmall);
