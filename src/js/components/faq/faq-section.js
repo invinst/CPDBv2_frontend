@@ -10,10 +10,10 @@ import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
   desktopStyle, desktopBorderRightStyle, tabletBorderRightStyle,
   tabletBorderBottomStyle, tabletStyle, wrapperStyle
-} from './faq-container.style';
+} from './faq-section.style';
 
 
-export default class FAQContainer extends ResponsiveComponent {
+export default class FAQSection extends ResponsiveComponent {
   constructor(props) {
     super(props);
   }
@@ -76,12 +76,12 @@ export default class FAQContainer extends ResponsiveComponent {
   }
 }
 
-FAQContainer.propTypes = {
+FAQSection.propTypes = {
   faqs: arrayOfN(3),
   className: PropTypes.string
 };
 
-FAQContainer.defaultProps = {
+FAQSection.defaultProps = {
   faqs: [
     {
       id: 1,
