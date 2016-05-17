@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import { remove } from 'lodash';
 
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
@@ -30,14 +29,6 @@ class Stories extends ResponsiveComponent {
     this.onStoryClose = ([id, dir]) => { this.setState({ selectedStoryKey: null }); };
     this.onStoryFullyClosed = key => { this.setState({ storyExpanded: { [key]: false } }); };
     this.onStoryExpandingBegin = key => { this.setState({ storyExpanded: { [key]: true } }); };
-  }
-
-  getFeaturedStory() {
-    let restStories = this.props.stories.slice(0);
-    let featuredStory = remove(restStories, (story) => {
-      return story.id === this.props.featuredStoryId;
-    })[0];
-    return [featuredStory, restStories];
   }
 
   renderSmallStoriesTablet(stories) {
@@ -83,7 +74,7 @@ class Stories extends ResponsiveComponent {
   }
 
   renderTablet() {
-    let [featuredStory, restStories] = this.getFeaturedStory();
+    const { featuredStory, smallStories } = this.props;
     return (
       <div className='pure-g' style={ wrapperStyle }>
         <StoryExpandable
@@ -101,7 +92,7 @@ class Stories extends ResponsiveComponent {
               active={ featuredStory.id === this.state.selectedStoryKey }/>
           </div>
           <div className='pure-u-1-4'>
-            { this.renderSmallStoriesTablet(restStories) }
+            { this.renderSmallStoriesTablet(smallStories) }
           </div>
         </StoryExpandable>
         <div className='pure-u-1-1'>
@@ -112,7 +103,7 @@ class Stories extends ResponsiveComponent {
   }
 
   renderDesktop() {
-    let [featuredStory, restStories] = this.getFeaturedStory();
+    const { featuredStory, smallStories } = this.props;
     return (
       <div className='pure-g' style={ wrapperStyle }>
         <StoryExpandable
@@ -130,7 +121,7 @@ class Stories extends ResponsiveComponent {
               active={ featuredStory.id === this.state.selectedStoryKey }/>
           </div>
           <div className='pure-g pure-u-2-5'>
-            { this.renderSmallStoriesDesktop(restStories) }
+            { this.renderSmallStoriesDesktop(smallStories) }
           </div>
         </StoryExpandable>
         <div className='pure-u-1-1'>
@@ -142,8 +133,8 @@ class Stories extends ResponsiveComponent {
 }
 
 Stories.propTypes = {
-  featuredStoryId: PropTypes.number,
-  stories: arrayOfN(3)
+  featuredStory: PropTypes.object,
+  smallStories: arrayOfN(2)
 };
 
 export default Radium(Stories);
