@@ -1,9 +1,6 @@
-import { softBlackColor } from 'utils/styles';
-
-
 export const navStyle = {
-  color: softBlackColor,
+  color: 'white',
   fontFamily: '"San Francisco Text Web", sans-serif',
-  fontWeight: '500',
+  fontWeight: '600',
   fontSize: '16px'
 };

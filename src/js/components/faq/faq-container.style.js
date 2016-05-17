@@ -23,3 +23,7 @@ export const tabletBorderBottomStyle = {
 export const tabletStyle = {
   height: '142px'
 };
+
+export const wrapperStyle = {
+  overflow: 'hidden'
+};

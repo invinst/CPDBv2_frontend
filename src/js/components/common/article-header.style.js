@@ -3,9 +3,9 @@ import { softBlackColor } from 'utils/styles';
 
 export const articleHeaderStyle = {
   color: softBlackColor,
-  fontSize: '14px',
+  fontSize: '13px',
   fontFamily: '"San Francisco Text Web", sans-serif',
-  fontWeight: 'bold',
+  fontWeight: '600',
   marginTop: '0',
   marginBottom: '9px'
 };

@@ -10,9 +10,13 @@ export default function Toggleable(ComposedComponent) {
 
     onClick() {
       if (!this.props.active) {
-        this.props.onOpen(this.props.identifier);
+        if (this.props.onOpen) {
+          this.props.onOpen(this.props.identifier);
+        }
       } else {
-        this.props.onClose(this.props.identifier);
+        if (this.props.onClose) {
+          this.props.onClose(this.props.identifier);
+        }
       }
     }
 

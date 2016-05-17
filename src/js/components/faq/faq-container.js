@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import classNames from 'classnames';
 
 import ArticleSmall from 'components/common/article-small';
+import ArticleContent from 'components/common/article-content';
 import ArticleFooter from 'components/common/article-footer';
 import FAQFull from 'components/faq/faq-full';
 import Expandable from 'components/common/expandable';
@@ -10,7 +11,7 @@ import { TOP, BOTTOM } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
   desktopStyle, desktopBorderRightStyle, tabletBorderRightStyle,
-  tabletBorderBottomStyle, tabletStyle
+  tabletBorderBottomStyle, tabletStyle, wrapperStyle
 } from './faq-container.style';
 
 
@@ -33,14 +34,16 @@ export default class FAQContainer extends ResponsiveComponent {
   renderFAQ(faq, style, dir) {
     return (
       <ArticleSmall
-        header='FAQ' content={ faq.question }
+        header='FAQ'
         style={ style }
         onOpen={ this.onStoryOpen }
         onClose={ this.onStoryClose }
         identifier={ [faq.id, dir] }
         expandDirection={ dir }
         expanded={ this.state.faqExpanded[faq.id] }
-        active={ faq.id === this.state.selectedFAQKey }/>
+        active={ faq.id === this.state.selectedFAQKey }>
+        <ArticleContent>{ faq.question }</ArticleContent>
+      </ArticleSmall>
     );
   }
 
@@ -52,7 +55,7 @@ export default class FAQContainer extends ResponsiveComponent {
     const className = classNames('pure-g', this.props.className);
 
     return (
-      <div className={ className }>
+      <div className={ className } style={ wrapperStyle }>
         <FAQExpandable
           childKey={ this.state.selectedFAQKey }
           expandDirection={ this.state.expandDirection }
@@ -84,7 +87,7 @@ export default class FAQContainer extends ResponsiveComponent {
     const className = classNames('pure-g', this.props.className);
 
     return (
-      <div className={ className }>
+      <div className={ className } style={ wrapperStyle }>
         <FAQExpandable
           childKey={ this.state.selectedFAQKey }
           expandDirection={ this.state.expandDirection }
