@@ -1,8 +1,6 @@
-import 'should';
 import React from 'react';
 
 import ResponsiveComponent from 'components/responsive/responsive-component';
-import 'utils/test/React';
 
 
 describe('ResponsiveComponent component', function () {

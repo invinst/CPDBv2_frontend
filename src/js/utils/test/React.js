@@ -2,23 +2,25 @@ import { createElement } from 'react';
 import { unmountComponentAtNode, findDOMNode } from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
 import should from 'should';
-import _ from 'lodash';
+import { each, assign } from 'lodash';
+
+import { unmountComponentSuppressError } from 'utils/test';
 
 
-should.Assertion.add('renderable', function () {
-  let element = renderIntoDocument(createElement(this.obj));
+should.Assertion.add('renderable', function (props) {
+  this.params = { operator: 'to be rendered' };
+  let element = renderIntoDocument(createElement(this.obj, props));
 
   element.should.be.ok();
-
-  unmountComponentAtNode(findDOMNode(element).parentNode);
+  unmountComponentSuppressError(element);
 });
 
 
-should.Assertion.add('responsiveRenderable', function () {
+should.Assertion.add('responsiveRenderable', function (props) {
   let devices = ['mobile', 'tablet', 'desktop'];
 
-  _.each(devices, (device) => {
-    let element = renderIntoDocument(createElement(this.obj, { device: device }));
+  each(devices, (device) => {
+    let element = renderIntoDocument(createElement(this.obj, assign({}, props, { device: device })));
     element.should.be.ok();
     unmountComponentAtNode(findDOMNode(element).parentNode);
   });

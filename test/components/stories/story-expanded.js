@@ -1,4 +1,3 @@
-import 'should';
 import React from 'react';
 
 import StoryFull from 'components/stories/story-full';
