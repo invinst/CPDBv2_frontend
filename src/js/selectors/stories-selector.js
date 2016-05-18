@@ -24,7 +24,7 @@ export const smallStoriesSelector = createSelector(
   }
 );
 
-export const shouldRenderSelector = createSelector(
+export const dataAvailableSelector = createSelector(
   getIsRequesting,
   getStories,
   (isRequesting, stories) => {

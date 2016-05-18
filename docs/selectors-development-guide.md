@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Using selectors to filter from store, should consider split another than UI logic out of Component. Must use [reselect](https://github.com/reactjs/reselect) to create selectors in order to optimize performance.
+Selectors serve 2 purposes: further remove non-UI logic from component and only induce re-render when relevant data change. You can only use [reselect](https://github.com/reactjs/reselect) to create selectors.
 
 ## Example
 

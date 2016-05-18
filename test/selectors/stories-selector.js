@@ -1,4 +1,4 @@
-import { featuredStorySelector, shouldRenderSelector, smallStoriesSelector } from 'selectors/stories-selector';
+import { featuredStorySelector, dataAvailableSelector, smallStoriesSelector } from 'selectors/stories-selector';
 import StoryFactory from 'utils/test/factories/story';
 
 
@@ -27,14 +27,14 @@ describe('storiesSelector', function () {
     });
   });
 
-  describe('shouldRenderSelector', function () {
+  describe('dataAvailableSelector', function () {
     it('should return false when isRequesting', function () {
       let state = {
         storyApp: {
           isRequesting: true
         }
       };
-      shouldRenderSelector(state).should.be.false();
+      dataAvailableSelector(state).should.be.false();
     });
 
     it('should return true if has more than 2 stories and requesting is false', function () {
@@ -44,7 +44,7 @@ describe('storiesSelector', function () {
           stories: [1, 2, 3]
         }
       };
-      shouldRenderSelector(state).should.be.true();
+      dataAvailableSelector(state).should.be.true();
     });
 
     it('should return false when stories has less than 3 stories', function () {
@@ -53,7 +53,7 @@ describe('storiesSelector', function () {
           stories: [1, 2]
         }
       };
-      shouldRenderSelector(state).should.be.false();
+      dataAvailableSelector(state).should.be.false();
     });
   });
 
