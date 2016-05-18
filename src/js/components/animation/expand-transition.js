@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { innerHeight } from 'utils/dom';
 import { TransitionMotion, spring } from 'react-motion';
+import { defaultConfig } from 'utils/spring-presets';
 
 
 export default class ExpandTransition extends React.Component {
@@ -57,11 +58,14 @@ export default class ExpandTransition extends React.Component {
       // interpolate height on subsequent renders
       return (
         <TransitionMotion
-          willLeave={ () => ({ height: spring(0) }) }
+          willLeave={ () => ({ height: spring(0, defaultConfig()) }) }
           defaultStyles={ this.props.childKey ?
             [{ key: String(this.props.childKey), style: { height: 0, x: 0 } }] : [] }
           styles={ this.props.childKey ?
-            [{ key: String(this.props.childKey), style: { height: spring(this.state.childHeight), x: 1 } }]
+            [{
+              key: String(this.props.childKey),
+              style: { height: spring(this.state.childHeight, defaultConfig()), x: 1 }
+            }]
             : [] }>
           { (interpolatedStyles) => {
             let config = interpolatedStyles[0];

@@ -36,7 +36,7 @@ class ArticleSmall extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='article-small' style={ style.wrapper }>
+      <div className='article-small' style={ style.wrapper } onClick={ this.props.onClick }>
         <div style={ contentStyle }>
           { this.renderHeader() }
           { this.props.children }
@@ -47,6 +47,7 @@ class ArticleSmall extends ResponsiveStyleComponent {
 }
 
 ArticleSmall.propTypes = {
+  onClick: PropTypes.func,
   style: PropTypes.object,
   header: PropTypes.string,
   children: PropTypes.node.isRequired

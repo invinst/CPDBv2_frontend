@@ -35,7 +35,7 @@ class StoryMedium extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='pure-g'>
+      <div className='story-medium pure-g' onClick={ this.props.onClick }>
         <div className='pure-u-2-3'>
           <CoverImage style={ style.image } src={ this.props.story.imageUrl }/>
         </div>
@@ -58,7 +58,8 @@ StoryMedium.propTypes = {
     paper: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     imageUrl: PropTypes.string.isRequired
-  })
+  }),
+  onClick: PropTypes.func
 };
 
 StoryMedium.defaultProps = {
