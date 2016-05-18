@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 
-
+import { featuredStorySelector, dataAvailableSelector, smallStoriesSelector } from 'selectors/stories-selector';
 import Stories from 'components/stories/stories';
 import { requestStories } from 'actions/story-app';
 import StoriesPlaceHolder from 'components/stories/stories-place-holder';
@@ -13,33 +13,29 @@ export class StoriesContainer extends Component {
     dispatch(requestStories());
   }
 
-  isRequesting() {
-    const { isRequesting, stories } = this.props;
-    return isRequesting || stories.length !== 3;
-  }
-
   render() {
-    const { stories, featuredStoryId } = this.props;
+    const { dataAvailable, smallStories, featuredStory } = this.props;
 
-    return this.isRequesting() ? <StoriesPlaceHolder/> :
-      <Stories stories={ stories } featuredStoryId={ featuredStoryId }/>;
+    return (
+      dataAvailable ?
+        <StoriesPlaceHolder/> :
+        <Stories smallStories={ smallStories } featuredStory={ featuredStory }/>
+    );
   }
 }
 
 StoriesContainer.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  isRequesting: PropTypes.bool,
-  stories: PropTypes.array,
-  featuredStoryId: PropTypes.number
+  dataAvailable: PropTypes.bool,
+  smallStories: PropTypes.array,
+  featuredStory: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
-  const { isRequesting, stories, featuredStoryId } = state.storyApp;
-
   return {
-    isRequesting,
-    stories,
-    featuredStoryId
+    dataAvailable: dataAvailableSelector(state),
+    smallStories: smallStoriesSelector(state),
+    featuredStory: featuredStorySelector(state)
   };
 }
 
