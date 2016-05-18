@@ -3864,6 +3864,11 @@
       "from": "requires-port@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/requires-port/-/requires-port-1.0.0.tgz"
     },
+    "reselect": {
+      "version": "2.5.1",
+      "from": "reselect@latest",
+      "resolved": "https://registry.npmjs.org/reselect/-/reselect-2.5.1.tgz"
+    },
     "resolve": {
       "version": "1.1.7",
       "from": "resolve@>=1.1.0 <1.2.0",

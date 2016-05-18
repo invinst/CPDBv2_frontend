@@ -68,3 +68,7 @@ We use [redux-actions](https://github.com/acdlite/redux-actions) to create actio
 ## Async Action Creators
 
 [Read here](docs/async-action-creators-development-guide)
+
+## Selectors
+
+[Read here](docs/selectors-development-guide)

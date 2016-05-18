@@ -69,6 +69,7 @@
     "redux-actions": "^0.9.1",
     "redux-axios-middleware": "^1.0.0-rc.0",
     "redux-thunk": "^2.0.1",
+    "reselect": "^2.5.1",
     "twitter-widgets": "^1.0.0"
   }
 }
