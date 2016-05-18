@@ -2,6 +2,7 @@ import React from 'react';
 import Radium from 'radium';
 
 import NavLink from 'components/common/nav-link';
+import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import {
   navWrapperStyle, navStyle, fixedWrapperStyle, logoWrapperStyle, logoStyle,
   navWrapperFixedStyle, logoWrapperFixedStyle, spaceHolderStyle
@@ -60,14 +61,16 @@ class Header extends React.Component {
       <div>
         { this.renderSpaceHolder() }
         <div style={ this.wrapperStyle() }>
-          <div style={ this.navWrapperStyle() }>
-            { links.map((txt, ind) => (
-              <NavLink key={ ind } style={ navStyle }>{ txt }</NavLink>
-            )) }
-          </div>
-          <div style={ this.logoWrapperStyle() }>
-            <span style={ logoStyle }/>
-          </div>
+          <ResponsiveFixedWidthComponent>
+            <div style={ this.navWrapperStyle() }>
+              { links.map((txt, ind) => (
+                <NavLink key={ ind } style={ navStyle }>{ txt }</NavLink>
+              )) }
+            </div>
+            <div style={ this.logoWrapperStyle() }>
+              <span style={ logoStyle }/>
+            </div>
+          </ResponsiveFixedWidthComponent>
         </div>
       </div>
     );

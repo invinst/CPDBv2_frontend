@@ -2,7 +2,7 @@ import { lightGreyColor } from 'utils/styles';
 
 
 export const storyWrapperStyle = {
-  height: 'calc(80vw / 3)',
+  height: '264.5px',
   borderRight: `1px solid ${lightGreyColor}`,
   paddingRight: '16px',
   paddingLeft: '16px',
@@ -12,9 +12,13 @@ export const storyWrapperStyle = {
 };
 
 export const storyWrapperStyleTablet = {
-  height: 'calc(100vw / 3)',
+  height: '256px',
   borderRight: `1px solid ${lightGreyColor}`,
   paddingTop: '20px'
+};
+
+export const storyWrapperStyleExtraWide = {
+  height: '320px'
 };
 
 export const contentStyle = {
@@ -28,9 +32,13 @@ export const paperStyleDesktop = {
 };
 
 export const storyImageStyleTablet = {
-  height: 'calc(100vw / 3)'
+  height: '256px'
 };
 
 export const storyImageStyleDesktop = {
-  height: 'calc(80vw / 3)'
+  height: '264.5px'
+};
+
+export const storyImageStyleExtraWide = {
+  height: '320px'
 };

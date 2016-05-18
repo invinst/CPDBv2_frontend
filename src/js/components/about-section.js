@@ -41,10 +41,6 @@ export default class AboutSection extends ResponsiveComponent {
     );
   }
 
-  renderMobile() {
-    return this.renderTablet();
-  }
-
   renderTablet() {
     return (
       <div className='pure-g' style={ this.props.style }>

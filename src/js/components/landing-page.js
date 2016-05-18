@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
 import StoriesContainer from 'containers/stories-container';
-import Header from 'components/header';
-import Footer from 'components/footer';
 import FAQContainer from 'components/faq/faq-container';
 import TwitterEmbeddedTimeline from 'components/twitter-embedded-timeline';
 import AboutSection from 'components/about-section';
@@ -12,7 +10,6 @@ export default class LandingPage extends Component {
   render() {
     return (
       <div>
-        <Header/>
         <div style={ borderTop }>
           <StoriesContainer {...this.props}/>
         </div>
@@ -27,7 +24,6 @@ export default class LandingPage extends Component {
             <TwitterEmbeddedTimeline/>
           </div>
         </div>
-        <Footer/>
       </div>
     );
   }

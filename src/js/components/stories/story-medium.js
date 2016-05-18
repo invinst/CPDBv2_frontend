@@ -5,12 +5,14 @@ import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
 import CloseButtonWrapper from 'components/common/close-btn-wrapper';
 import Toggleable from 'components/common/toggleable';
-import ResponsiveStyleComponent, { MOBILE, TABLET, DESKTOP } from 'components/responsive/responsive-style-component';
+import ResponsiveStyleComponent, {
+  TABLET, DESKTOP, EXTRA_WIDE
+} from 'components/responsive/responsive-style-component';
 import CoverImage from 'components/common/cover-image';
 import {
-  storyWrapperStyle, storyWrapperStyleTablet,
+  storyWrapperStyle, storyWrapperStyleTablet, storyWrapperStyleExtraWide,
   storyImageStyleTablet, storyImageStyleDesktop,
-  paperStyleDesktop, contentStyle
+  paperStyleDesktop, contentStyle, storyImageStyleExtraWide
 } from './story-medium.style';
 
 
@@ -18,18 +20,17 @@ import {
 class StoryMedium extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
-      [MOBILE]: TABLET,
       [TABLET]: {
         image: storyImageStyleTablet,
-        content: contentStyle,
-        wrapper: [storyWrapperStyle, storyWrapperStyleTablet],
-        paper: [paperStyleDesktop]
+        wrapper: [storyWrapperStyle, storyWrapperStyleTablet]
       },
       [DESKTOP]: {
         image: storyImageStyleDesktop,
-        content: contentStyle,
-        wrapper: [storyWrapperStyle],
-        paper: [paperStyleDesktop]
+        wrapper: [storyWrapperStyle]
+      },
+      [EXTRA_WIDE]: {
+        image: storyImageStyleExtraWide,
+        wrapper: [storyWrapperStyle, storyWrapperStyleExtraWide]
       }
     };
   }
@@ -42,8 +43,8 @@ class StoryMedium extends ResponsiveStyleComponent {
         </div>
         <div className='pure-u-1-3'>
           <div style={ style.wrapper }>
-            <div style={ style.content }>
-              <ArticleHeader style={ style.paper }>{ this.props.story.paper }</ArticleHeader>
+            <div style={ contentStyle }>
+              <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
               <ArticleContent>{ this.props.story.title }</ArticleContent>
             </div>
             <CloseButtonWrapper expanded={ this.props.expanded } showButton={ this.props.active }/>

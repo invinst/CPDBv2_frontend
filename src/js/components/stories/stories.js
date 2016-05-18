@@ -69,10 +69,6 @@ class Stories extends ResponsiveComponent {
     });
   }
 
-  renderMobile() {
-    return this.renderTablet();
-  }
-
   renderTablet() {
     const { featuredStory, smallStories } = this.props;
     return (
