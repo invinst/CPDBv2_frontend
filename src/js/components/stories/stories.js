@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import { remove } from 'lodash';
 
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
@@ -13,12 +12,12 @@ import { TOP, BOTTOM } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
   firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop, wrapperStyle
-} from './stories-container.style';
+} from './stories.style';
 
 
 const StoryExpandable = Expandable(StoryFull, { className: 'pure-u-1-1' });
 
-class StoriesContainer extends ResponsiveComponent {
+class Stories extends ResponsiveComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,14 +29,6 @@ class StoriesContainer extends ResponsiveComponent {
     this.onStoryClose = ([id, dir]) => { this.setState({ selectedStoryKey: null }); };
     this.onStoryFullyClosed = key => { this.setState({ storyExpanded: { [key]: false } }); };
     this.onStoryExpandingBegin = key => { this.setState({ storyExpanded: { [key]: true } }); };
-  }
-
-  getFeaturedStory() {
-    let restStories = this.props.stories.slice(0);
-    let featuredStory = remove(restStories, (story) => {
-      return story.id === this.props.featuredStoryId;
-    })[0];
-    return [featuredStory, restStories];
   }
 
   renderSmallStoriesTablet(stories) {
@@ -79,7 +70,7 @@ class StoriesContainer extends ResponsiveComponent {
   }
 
   renderTablet() {
-    let [featuredStory, restStories] = this.getFeaturedStory();
+    const { featuredStory, smallStories } = this.props;
     return (
       <div className='pure-g' style={ wrapperStyle }>
         <StoryExpandable
@@ -97,7 +88,7 @@ class StoriesContainer extends ResponsiveComponent {
               active={ featuredStory.id === this.state.selectedStoryKey }/>
           </div>
           <div className='pure-u-1-4'>
-            { this.renderSmallStoriesTablet(restStories) }
+            { this.renderSmallStoriesTablet(smallStories) }
           </div>
         </StoryExpandable>
         <div className='pure-u-1-1'>
@@ -108,7 +99,7 @@ class StoriesContainer extends ResponsiveComponent {
   }
 
   renderDesktop() {
-    let [featuredStory, restStories] = this.getFeaturedStory();
+    const { featuredStory, smallStories } = this.props;
     return (
       <div className='pure-g' style={ wrapperStyle }>
         <StoryExpandable
@@ -126,7 +117,7 @@ class StoriesContainer extends ResponsiveComponent {
               active={ featuredStory.id === this.state.selectedStoryKey }/>
           </div>
           <div className='pure-g pure-u-2-5'>
-            { this.renderSmallStoriesDesktop(restStories) }
+            { this.renderSmallStoriesDesktop(smallStories) }
           </div>
         </StoryExpandable>
         <div className='pure-u-1-1'>
@@ -137,31 +128,9 @@ class StoriesContainer extends ResponsiveComponent {
   }
 }
 
-StoriesContainer.propTypes = {
-  featuredStoryId: PropTypes.number,
-  stories: arrayOfN(3)
+Stories.propTypes = {
+  featuredStory: PropTypes.object,
+  smallStories: arrayOfN(2)
 };
 
-StoriesContainer.defaultProps = {
-  featuredStoryId: 1,
-  stories: [
-    {
-      id: 1,
-      paper: 'New York Times',
-      title: 'Complaints against Chicago Police rarely result in discipline data shows.',
-      imageUrl: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
-    },
-    {
-      id: 2,
-      paper: 'FiveThirtyEight',
-      title: 'How to predict bad cops in Chicago.'
-    },
-    {
-      id: 3,
-      paper: 'Chicago Magazine',
-      title: 'The Laquan McDonald Video Didn\'t "Rip" Chicago Apart, but Now Its Leaders Face a Reckoning.'
-    }
-  ]
-};
-
-export default Radium(StoriesContainer);
+export default Radium(Stories);

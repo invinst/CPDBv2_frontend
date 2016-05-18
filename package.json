@@ -6,9 +6,10 @@
   "scripts": {
     "build": "gulp build",
     "start": "NODE_PATH=src/js budo src/js/index.js:dist/bundle.js --host 0.0.0.0 --live -- --transform [ babelify --presets [ es2015 react ] ]",
-    "test": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ]",
-    "cover": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]",
-    "cover-human-readable": "NODE_PATH=src/js mochify --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report text ]"
+    "test": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ]",
+    "test-watch": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --watch",
+    "cover": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]",
+    "cover-human-readable": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report text ]"
   },
   "repository": {
     "type": "git",
@@ -41,6 +42,7 @@
     "mochify": "^2.17.0",
     "mochify-istanbul": "^2.4.1",
     "react-addons-test-utils": "^0.14.8",
+    "redux-mock-store": "^1.0.2",
     "rosie": "^1.3.0",
     "should": "^8.3.1",
     "sinon": "^1.17.4",
@@ -50,14 +52,24 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "array.prototype.find": "^2.0.0",
+    "axios": "^0.11.0",
+    "axios-mock-adapter": "^1.3.0",
     "classnames": "^2.2.5",
+    "es6-promise": "^3.1.2",
     "lodash": "^4.11.1",
     "radium": "^0.17.1",
     "react": "^0.14.8",
     "react-addons-test-utils": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-motion": "^0.4.3",
+    "react-redux": "^4.4.5",
     "react-responsive": "^1.1.2",
+    "redux": "^3.5.2",
+    "redux-actions": "^0.9.1",
+    "redux-axios-middleware": "^1.0.0-rc.0",
+    "redux-thunk": "^2.0.1",
+    "reselect": "^2.5.1",
     "twitter-widgets": "^1.0.0"
   }
 }
