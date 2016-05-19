@@ -10,7 +10,6 @@ const gutil = require('gulp-util');
 const htmlreplace = require('gulp-html-replace');
 const babelify = require('babelify');
 const rename = require('gulp-rename');
-const clean = require('gulp-clean');
 
 
 const ROOT = '/www/static/';
@@ -46,12 +45,7 @@ gulp.task('build-js', () => {
     .pipe(gulp.dest(`${ROOT}dist/`));
 });
 
-gulp.task('clean-static', () => {
-  gulp.src(`${ROOT}dist/**/*`, { read: false })
-    .pipe(clean());
-});
-
-gulp.task('copy-static', ['clean-static'], () => {
+gulp.task('copy-static', () => {
   gulp.src('src/**/*')
     .pipe(gulp.dest(`${ROOT}dist/`));
 });
