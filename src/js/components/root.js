@@ -4,7 +4,6 @@ import { StyleRoot } from 'radium';
 import LandingPage from 'components/landing-page';
 import Header from 'components/header';
 import Footer from 'components/footer';
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 
 
 export default class RootComponent extends React.Component {
@@ -12,9 +11,7 @@ export default class RootComponent extends React.Component {
     return (
       <StyleRoot>
         <Header/>
-        <ResponsiveFixedWidthComponent>
-          <LandingPage/>
-        </ResponsiveFixedWidthComponent>
+        <LandingPage/>
         <Footer/>
       </StyleRoot>
     );

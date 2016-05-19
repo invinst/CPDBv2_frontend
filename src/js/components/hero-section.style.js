@@ -2,6 +2,10 @@ import { accentColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
+  backgroundColor: 'white'
+};
+
+export const innerWrapperStyle = {
   padding: '33px 36px 88px 36px'
 };
 
