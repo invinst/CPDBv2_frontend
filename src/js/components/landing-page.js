@@ -4,12 +4,15 @@ import StoriesContainer from 'containers/stories-container';
 import FAQContainer from 'components/faq/faq-container';
 import TwitterEmbeddedTimeline from 'components/twitter-embedded-timeline';
 import AboutSection from 'components/about-section';
+import HeroSection from 'components/hero-section';
 import { borderTop, leftColumnStyle } from './landing-page.style';
+
 
 export default class LandingPage extends Component {
   render() {
     return (
       <div>
+        <HeroSection />
         <div style={ borderTop }>
           <StoriesContainer {...this.props}/>
         </div>
