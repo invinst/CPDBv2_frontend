@@ -6,7 +6,6 @@
 
 - `sudo ansible-galaxy install Heroqu.nodejs4x`
 - `sudo ansible-galaxy install nicolai86.phantomjs`
-- `sudo ansible-galaxy install jeqo.nginx`
 - Make sure your node and npm version match vagrant's: (node v4.4.3 and npm v3.8.7)
 - `npm install`
 - `vagrant up`
