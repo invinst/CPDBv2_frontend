@@ -7,5 +7,5 @@ export const borderTop = {
 
 export const leftColumnStyle = {
   borderRight: `1px solid ${darkGreyColor}`,
-  minHeight: '938px'
+  minHeight: '1008px'
 };

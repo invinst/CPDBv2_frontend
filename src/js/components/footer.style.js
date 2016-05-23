@@ -1,14 +1,23 @@
 import { softBlackColor } from 'utils/styles';
 
 
-export const wrapperStyle = {
-  height: '92px',
-  padding: '38px 16px',
+export const sectionStyle = {
   background: softBlackColor,
   boxSizing: 'border-box'
+};
+
+export const wrapperStyle = {
+  height: '88px',
+  display: 'table',
+  width: '100%'
 };
 
 export const linkStyle = {
   display: 'inline-block',
   marginRight: '50px'
+};
+
+export const linkWrapperStyle = {
+  display: 'table-cell',
+  verticalAlign: 'middle'
 };

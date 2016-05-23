@@ -25,5 +25,6 @@ export const tabletStyle = {
 };
 
 export const wrapperStyle = {
-  overflow: 'hidden'
+  overflow: 'hidden',
+  height: '336px'
 };

@@ -1,3 +1,3 @@
 export const wrapperStyle = {
-  height: '938px'
+  height: '1008px'
 };

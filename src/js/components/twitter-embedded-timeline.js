@@ -12,7 +12,7 @@ export default class TwitterEmbeddedTimeline extends React.Component {
       this._wrapper,
       {
         screenName: 'CPDPbot',
-        height: '938'
+        height: '1008'
       }
     );
   }

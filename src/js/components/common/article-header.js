@@ -15,7 +15,7 @@ class ArticleHeader extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <h6 style={ style.header }>
+      <h6 style={ [style.header, this.props.style] }>
         { this.props.children }
       </h6>
     );
@@ -23,7 +23,8 @@ class ArticleHeader extends ResponsiveStyleComponent {
 }
 
 ArticleHeader.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  style: PropTypes.object
 };
 
 export default Radium(ArticleHeader);
