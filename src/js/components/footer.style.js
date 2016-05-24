@@ -21,3 +21,7 @@ export const linkWrapperStyle = {
   display: 'table-cell',
   verticalAlign: 'middle'
 };
+
+export const responsiveFixedWidthInnerStyle = {
+  padding: '0 16px'
+};

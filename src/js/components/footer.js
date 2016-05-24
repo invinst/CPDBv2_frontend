@@ -1,7 +1,9 @@
 import React from 'react';
 
 import FooterNavLInk from 'components/common/footer-nav-link';
-import { wrapperStyle, linkStyle, linkWrapperStyle, sectionStyle } from './footer.style';
+import {
+  wrapperStyle, linkStyle, linkWrapperStyle, sectionStyle, responsiveFixedWidthInnerStyle
+} from './footer.style';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import CollaborateSection from 'components/collaborate-section';
 
@@ -14,7 +16,7 @@ export default class Footer extends React.Component {
         <CollaborateSection />
         <div style={ wrapperStyle }>
           <div style={ linkWrapperStyle }>
-            <ResponsiveFixedWidthComponent>
+            <ResponsiveFixedWidthComponent style={ responsiveFixedWidthInnerStyle }>
               { links.map( (link, ind) => (
                 <FooterNavLInk style={ linkStyle } key={ ind }>{ link }</FooterNavLInk>
               )) }

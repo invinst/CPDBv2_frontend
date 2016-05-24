@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 import ArticleHeader from 'components/common/article-header';
-import { articleHeaderStyle, sectionStyle, articleContentStyle } from './collaborate-section.style';
+import {
+  articleHeaderStyle, sectionStyle, articleContentStyle, underlinedLinkStyle
+} from './collaborate-section.style';
 import ArticleContent from 'components/common/article-content';
 import UnderlinedLink from 'components/common/underlined-link';
 
@@ -18,7 +20,10 @@ export default class CollaborateSection extends Component {
         </ArticleContent>
         <ArticleContent style={ articleContentStyle }>
           If you have documents or datasets you would like to publish,
-          please <UnderlinedLink href='mailto:records@invisibleinstitute.com'>email us.</UnderlinedLink>
+          please <UnderlinedLink style={ underlinedLinkStyle } href='mailto:records@invisibleinstitute.com'>
+          email us,</UnderlinedLink> or <UnderlinedLink href='#' style={ underlinedLinkStyle }>
+          read more.
+          </UnderlinedLink>
         </ArticleContent>
       </div>
     );

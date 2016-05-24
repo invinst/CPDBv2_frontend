@@ -25,8 +25,8 @@ export default class ResponsiveFixedWidthComponent extends ResponsiveStyleCompon
 
   renderWithResponsiveStyle(style) {
     return (
-      <div>
-        <div style={ style.innerWrapper }>
+      <div style={ style.innerWrapper }>
+        <div style={ this.props.style }>
           { this.props.children }
         </div>
       </div>
@@ -35,5 +35,6 @@ export default class ResponsiveFixedWidthComponent extends ResponsiveStyleCompon
 }
 
 ResponsiveFixedWidthComponent.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  style: PropTypes.object
 };
