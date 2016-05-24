@@ -4,7 +4,7 @@ import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';
 import {
-  extraWideInnerWrapperStyle, desktopInnerWrapperStyle, tabletInnerWrapperStyle
+  extraWideOuterWrapperStyle, desktopOuterWrapperStyle, tabletOuterWrapperStyle
 } from './responsive-fixed-width-component.style';
 
 
@@ -12,20 +12,20 @@ export default class ResponsiveFixedWidthComponent extends ResponsiveStyleCompon
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        innerWrapper: extraWideInnerWrapperStyle
+        outerWrapper: extraWideOuterWrapperStyle
       },
       [DESKTOP]: {
-        innerWrapper: desktopInnerWrapperStyle
+        outerWrapper: desktopOuterWrapperStyle
       },
       [TABLET]: {
-        innerWrapper: tabletInnerWrapperStyle
+        outerWrapper: tabletOuterWrapperStyle
       }
     };
   }
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ style.innerWrapper }>
+      <div style={ style.outerWrapper }>
         <div style={ this.props.style }>
           { this.props.children }
         </div>
