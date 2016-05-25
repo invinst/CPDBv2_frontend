@@ -5,23 +5,25 @@
 
 - name: Create sites-available folder
   become: yes
+  become_user: root
   file: path=/etc/nginx/sites-available state=directory owner={{ deploy_user }} group={{ deploy_group }}
   tags: setup
 
 - name: Create sites-enabled folder
   become: yes
+  become_user: root
   file: path=/etc/nginx/sites-enabled state=directory owner={{ deploy_user }} group={{ deploy_group }}
   tags: setup
 
 - name: Create the Nginx configuration file
   template: src=nginx.j2
-            dest=/etc/nginx/sites-available/cpdb-frontend.conf
+            dest=/etc/nginx/sites-available/{{ nginx_configuration_name }}.conf
             backup=yes
   tags: deploy
 
 - name: Ensure that the application site is enabled
-  file: src=/etc/nginx/sites-available/cpdb-frontend.conf
-        dest=/etc/nginx/sites-enabled/cpdb-frontend.conf
+  file: src=/etc/nginx/sites-available/{{ nginx_configuration_name }}.conf
+        dest=/etc/nginx/sites-enabled/{{ nginx_configuration_name }}.conf
         state=link
   notify: restart nginx service
   tags: deploy
