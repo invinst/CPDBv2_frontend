@@ -5,7 +5,7 @@ import NavLink from 'components/common/nav-link';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import {
   navWrapperStyle, navStyle, fixedWrapperStyle, logoWrapperStyle, logoStyle,
-  navWrapperFixedStyle, logoWrapperFixedStyle, spaceHolderStyle
+  navWrapperFixedStyle, logoWrapperFixedStyle, spaceHolderStyle, wrapperStyle
 } from './header.style';
 
 
@@ -35,7 +35,7 @@ class Header extends React.Component {
   }
 
   wrapperStyle() {
-    return this.state.fixed ? fixedWrapperStyle : null;
+    return this.state.fixed ? fixedWrapperStyle : wrapperStyle;
   }
 
   navWrapperStyle() {

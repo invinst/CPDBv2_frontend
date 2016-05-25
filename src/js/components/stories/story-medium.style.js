@@ -6,15 +6,13 @@ export const storyWrapperStyle = {
   borderRight: `1px solid ${lightGreyColor}`,
   paddingRight: '16px',
   paddingLeft: '16px',
-  paddingTop: '34px',
   boxSizing: 'border-box',
   position: 'relative'
 };
 
 export const storyWrapperStyleTablet = {
   height: '256px',
-  borderRight: `1px solid ${lightGreyColor}`,
-  paddingTop: '20px'
+  borderRight: `1px solid ${lightGreyColor}`
 };
 
 export const storyWrapperStyleExtraWide = {

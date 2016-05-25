@@ -1,6 +1,7 @@
 import 'should';
 import React from 'react';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { spy } from 'sinon';
+import { Simulate, renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
 import ArticleSmall from 'components/common/article-small';
@@ -19,5 +20,12 @@ describe('ArticleSmall component', function () {
     const testText = 'this should render';
     element = renderIntoDocument(<ArticleSmall>{ testText }</ArticleSmall>);
     findDOMNode(element).innerHTML.should.containEql(testText);
+  });
+
+  it('should trigger onClick', function () {
+    const callback = spy();
+    element = renderIntoDocument(<ArticleSmall onClick={ callback }>abc</ArticleSmall>);
+    Simulate.click(findRenderedDOMComponentWithClass(element, 'article-small'));
+    callback.called.should.be.true();
   });
 });
