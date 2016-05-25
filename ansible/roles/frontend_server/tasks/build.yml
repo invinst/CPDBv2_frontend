@@ -5,11 +5,11 @@
   tags: setup
 
 - name: Pull code from frontend repo
-  git: repo= dest=/CPDB/CPDBv2_frontend key_file=/home/vagrant/.ssh/github accept_hostkey=True version={{ branch }}
+  git: repo= dest={{ application_root_path }} key_file=/home/vagrant/.ssh/github accept_hostkey=True version={{ branch }}
   tags: deploy
 
 - name : Install packages based on package.json.
-  npm: path=/CPDB/CPDBv2_frontend
+  npm: path={{ application_root_path }}
   tags: deploy
 
 - name: Install gulp cli
@@ -24,5 +24,5 @@
 
 - name: Build everything
   command: npm run build
-    chdir=/CPDB/CPDBv2_frontend
+    chdir={{ application_root_path }}
   tags: deploy
