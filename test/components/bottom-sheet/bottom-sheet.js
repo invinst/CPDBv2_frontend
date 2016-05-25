@@ -12,7 +12,7 @@ describe('BottomSheet component', function () {
     unmountComponentSuppressError(element);
   });
 
-  it('should render nothing at first and eventually render bottom sheet when open become true', function (cb) {
+  it('should render nothing at first and eventually render bottom sheet when open become true', function (callback) {
     let rootEl = document.createElement('div');
 
     element = render(
@@ -25,12 +25,12 @@ describe('BottomSheet component', function () {
         rootEl.children[0].children[0].nodeName.should.equal('NOSCRIPT');
         setTimeout(() => {
           rootEl.children[0].children[0].nodeName.should.equal('DIV');
-          cb();
+          callback();
         }, 300);
       });
   });
 
-  it('should render bottom sheet at first and eventually render nothing when open become false', function (cb) {
+  it('should render bottom sheet at first and eventually render nothing when open become false', function (callback) {
     let rootEl = document.createElement('div');
 
     element = render(
@@ -43,7 +43,7 @@ describe('BottomSheet component', function () {
         rootEl.children[0].children[0].nodeName.should.equal('DIV');
         setTimeout(() => {
           rootEl.children[0].children[0].nodeName.should.equal('NOSCRIPT');
-          cb();
+          callback();
         }, 500);
       });
   });

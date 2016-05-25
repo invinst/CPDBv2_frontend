@@ -20,9 +20,9 @@ describe('StoryMedium component', function () {
   });
 
   it('should trigger onClick', function () {
-    const cb = spy();
-    element = renderIntoDocument(<StoryMedium onClick={ cb } story={ StoryFactory.build() }/>);
+    const callback = spy();
+    element = renderIntoDocument(<StoryMedium onClick={ callback } story={ StoryFactory.build() }/>);
     Simulate.click(findRenderedDOMComponentWithClass(element, 'story-medium'));
-    cb.called.should.be.true();
+    callback.called.should.be.true();
   });
 });

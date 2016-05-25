@@ -23,12 +23,12 @@ describe('Stories component', function () {
   });
 
   it('should trigger onStoryClick', function () {
-    const cb = spy();
+    const callback = spy();
     element = renderIntoDocument(
-      <Stories onStoryClick={ cb } smallStories={ smallStories } featuredStory={ featuredStory }/>
+      <Stories onStoryClick={ callback } smallStories={ smallStories } featuredStory={ featuredStory }/>
     );
     Simulate.click(scryRenderedDOMComponentsWithClass(element, 'story-medium')[0]);
     Simulate.click(scryRenderedDOMComponentsWithClass(element, 'article-small')[0]);
-    cb.callCount.should.equal(2);
+    callback.callCount.should.equal(2);
   });
 });

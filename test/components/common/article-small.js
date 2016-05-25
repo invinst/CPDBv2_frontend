@@ -23,9 +23,9 @@ describe('ArticleSmall component', function () {
   });
 
   it('should trigger onClick', function () {
-    const cb = spy();
-    element = renderIntoDocument(<ArticleSmall onClick={ cb }>abc</ArticleSmall>);
+    const callback = spy();
+    element = renderIntoDocument(<ArticleSmall onClick={ callback }>abc</ArticleSmall>);
     Simulate.click(findRenderedDOMComponentWithClass(element, 'article-small'));
-    cb.called.should.be.true();
+    callback.called.should.be.true();
   });
 });
