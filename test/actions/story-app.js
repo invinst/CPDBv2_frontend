@@ -1,6 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
+import { getAPIRoot } from 'utils/axios-client';
 import axiosMockClient from 'utils/axios-mock-client';
 import configuredAxiosMiddleware, { getErrorMessage } from 'middleware/configured-axios-middleware';
 
@@ -12,6 +13,7 @@ import {
 
 const middlewares = [thunk, configuredAxiosMiddleware];
 const mockStore = configureMockStore(middlewares);
+const API_ROOT = getAPIRoot();
 
 describe('storyApp actions', function () {
   describe('requestStories', function () {
@@ -30,7 +32,7 @@ describe('storyApp actions', function () {
           request: {
             url: STORIES_API_URL,
             params: undefined,
-            adapter: axiosMockClient.adapter()
+            adapter: undefined
           }
         }
       });
@@ -38,8 +40,8 @@ describe('storyApp actions', function () {
 
     it('should dispatch STORIES_REQUEST_SUCCESS', function () {
       axiosMockClient
-        .onGet('/stories')
-        .reply(200, { stories: [1, 2, 3] });
+        .onGet(`${API_ROOT}stories`)
+        .reply(200, [1, 2, 3]);
 
       const adapter = axiosMockClient.adapter();
 
@@ -57,9 +59,7 @@ describe('storyApp actions', function () {
         },
         {
           type: STORIES_REQUEST_SUCCESS,
-          payload: {
-            stories: [1, 2, 3]
-          }
+          payload: [1, 2, 3]
         }
       ];
 
@@ -71,7 +71,7 @@ describe('storyApp actions', function () {
 
     it('should dispatch STORIES_REQUEST_FAILURE', function () {
       axiosMockClient
-        .onGet('/stories')
+        .onGet(`${API_ROOT}stories`)
         .reply(400);
 
       const adapter = axiosMockClient.adapter();
@@ -90,7 +90,7 @@ describe('storyApp actions', function () {
         },
         {
           type: STORIES_REQUEST_FAILURE,
-          payload: new Error(getErrorMessage('/stories', 400)),
+          payload: new Error(getErrorMessage('stories', 400)),
           error: true
         }
       ];

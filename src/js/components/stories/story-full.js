@@ -19,7 +19,7 @@ class StoryFull extends React.Component {
             <ArticleContent key={ ind }>{ paragraph }</ArticleContent>
           ))
         }
-        <ArticleFooter>{ this.props.story.paper }</ArticleFooter>
+        <ArticleFooter>{ this.props.story.newspaperTitle }</ArticleFooter>
       </ArticleExpanded>
     );
   }
@@ -29,7 +29,7 @@ StoryFull.propTypes = {
   story: PropTypes.shape({
     date: PropTypes.string,
     paragraphs: PropTypes.arrayOf(PropTypes.string),
-    paper: PropTypes.string
+    newspaperTitle: PropTypes.string
   }),
   style: PropTypes.object,
   className: PropTypes.string
@@ -55,7 +55,7 @@ StoryFull.defaultProps = {
         'Emanuel said last week that the low rates of disciplinary action "defy credibility."'
       ].join('')
     ],
-    paper: 'View On New York Times Website'
+    newspaperTitle: 'View On New York Times Website'
   }
 };
 

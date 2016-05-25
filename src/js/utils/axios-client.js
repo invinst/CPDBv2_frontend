@@ -1,10 +1,18 @@
 import axios from 'axios';
 
 
-export const API_ROOT = 'https://api.cpdb.co/';
+let API_ROOT = '/api/v1/';
+if (global.DEVELOPMENT) {
+  /* istanbul ignore next */
+  API_ROOT = 'http://localhost:8000/api/v1/';
+}
+
+export function getAPIRoot() {
+  return API_ROOT;
+}
 
 export const clientConfig = {
-  baseUrl: API_ROOT,
+  baseURL: API_ROOT,
   responseType: 'json'
 };
 

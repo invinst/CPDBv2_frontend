@@ -17,7 +17,7 @@ export class StoriesContainer extends Component {
     const { dataAvailable, smallStories, featuredStory } = this.props;
 
     return (
-      dataAvailable ?
+      !dataAvailable ?
         <StoriesPlaceHolder/> :
         <Stories smallStories={ smallStories } featuredStory={ featuredStory }/>
     );

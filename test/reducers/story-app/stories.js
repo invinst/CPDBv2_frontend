@@ -11,9 +11,7 @@ describe('stories reducer', function () {
     const expectStories = [1, 2, 3];
     stories(undefined, {
       type: STORIES_REQUEST_SUCCESS,
-      payload: {
-        stories: [1, 2, 3]
-      }
+      payload: [1, 2, 3]
     }).should.eql(expectStories);
   });
   it('should handle STORIES_REQUEST_FAILURE', function () {
