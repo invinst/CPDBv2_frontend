@@ -6,9 +6,10 @@ import { footerStyle, linkStyle } from './article-footer.style';
 
 class ArticleFooter extends React.Component {
   render() {
+    const { style, className } = this.props;
     return (
-      <div style={ footerStyle }>
-        <a href={ this.props.href } style={ linkStyle }>
+      <div style={ [footerStyle, style.wrapper] } className={ className }>
+        <a href={ this.props.href } style={ [linkStyle, style.link] }>
           { this.props.children }
         </a>
       </div>
@@ -18,7 +19,16 @@ class ArticleFooter extends React.Component {
 
 ArticleFooter.propTypes = {
   children: PropTypes.node,
-  href: PropTypes.string
+  href: PropTypes.string,
+  className: PropTypes.string,
+  style: PropTypes.shape({
+    wrapper: PropTypes.object,
+    link: PropTypes.object
+  })
+};
+
+ArticleFooter.defaultProps = {
+  style: {}
 };
 
 export default Radium(ArticleFooter);

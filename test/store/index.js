@@ -31,6 +31,9 @@ describe('store', function () {
         stories: [],
         isRequesting: false,
         featuredStoryId: 0
+      },
+      bottomSheet: {
+        open: false
       }
     });
   });

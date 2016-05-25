@@ -3,8 +3,6 @@ import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
-import CloseButtonWrapper from 'components/common/close-btn-wrapper';
-import Toggleable from 'components/common/toggleable';
 import ResponsiveStyleComponent, {
   TABLET, DESKTOP, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
@@ -37,7 +35,7 @@ class StoryMedium extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='pure-g'>
+      <div className='story-medium pure-g' onClick={ this.props.onClick }>
         <div className='pure-u-2-3'>
           <CoverImage style={ style.image } src={ this.props.story.imageUrl }/>
         </div>
@@ -47,7 +45,6 @@ class StoryMedium extends ResponsiveStyleComponent {
               <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.paper }</ArticleHeader>
               <ArticleContent>{ this.props.story.title }</ArticleContent>
             </div>
-            <CloseButtonWrapper expanded={ this.props.expanded } showButton={ this.props.active }/>
           </div>
         </div>
       </div>
@@ -62,8 +59,7 @@ StoryMedium.propTypes = {
     title: PropTypes.string.isRequired,
     imageUrl: PropTypes.string.isRequired
   }),
-  active: PropTypes.bool,
-  expanded: PropTypes.bool
+  onClick: PropTypes.func
 };
 
 StoryMedium.defaultProps = {
@@ -75,4 +71,4 @@ StoryMedium.defaultProps = {
   }
 };
 
-export default Toggleable(Radium(StoryMedium));
+export default Radium(StoryMedium);

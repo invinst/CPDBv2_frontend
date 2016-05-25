@@ -59,16 +59,16 @@ We use [redux-actions](https://github.com/acdlite/redux-actions) to create actio
 
 ## Axios Mock Client(`utils/axios-mock-client`)
 
-[Read here](docs/axios-mock-client-development-guide)
+[Read here](docs/axios-mock-client-development-guide.md)
 
 ## Configured Axios Middleware(`middleware/configured-axios-middleware`)
 
-[Read here](docs/configured-axios-middleware-development-guide)
+[Read here](docs/configured-axios-middleware-development-guide.md)
 
 ## Async Action Creators
 
-[Read here](docs/async-action-creators-development-guide)
+[Read here](docs/async-action-creators-development-guide.md)
 
 ## Selectors
 
-[Read here](docs/selectors-development-guide)
+[Read here](docs/selectors-development-guide.md)
