@@ -4,28 +4,31 @@ import React, { Component, PropTypes } from 'react';
 import { featuredStorySelector, dataAvailableSelector, smallStoriesSelector } from 'selectors/stories-selector';
 import Stories from 'components/stories/stories';
 import { requestStories } from 'actions/story-app';
+import { openBottomSheet } from 'actions/bottom-sheet';
 import StoriesPlaceHolder from 'components/stories/stories-place-holder';
 
 
 export class StoriesContainer extends Component {
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(requestStories());
+    this.props.requestStories();
   }
 
   render() {
     const { dataAvailable, smallStories, featuredStory } = this.props;
 
     return (
-      dataAvailable ?
+      !dataAvailable ?
         <StoriesPlaceHolder/> :
-        <Stories smallStories={ smallStories } featuredStory={ featuredStory }/>
+        <Stories
+          smallStories={ smallStories } featuredStory={ featuredStory }
+          onStoryClick={ this.props.openBottomSheet }/>
     );
   }
 }
 
 StoriesContainer.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  requestStories: PropTypes.func.isRequired,
+  openBottomSheet: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
   smallStories: PropTypes.array,
   featuredStory: PropTypes.object
@@ -39,4 +42,9 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps)(StoriesContainer);
+const mapDispatchToProps = {
+  requestStories,
+  openBottomSheet
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StoriesContainer);

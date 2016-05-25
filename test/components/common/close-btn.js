@@ -19,11 +19,11 @@ describe('CloseButton component', function () {
   });
 
   it('should trigger onClick callback when clicked on', function () {
-    let cb = spy();
-    element = renderIntoDocument(<CloseButton onClick={ cb }/>);
-    cb.called.should.be.false();
+    let callback = spy();
+    element = renderIntoDocument(<CloseButton onClick={ callback }/>);
+    callback.called.should.be.false();
 
     Simulate.click(findDOMNode(element));
-    cb.called.should.be.true();
+    callback.called.should.be.true();
   });
 });
