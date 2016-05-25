@@ -13,7 +13,7 @@ export function rawStoryTransform(story) {
   return {
     id: story.id,
     title: story.title,
-    newspaperTitle: story.newspaper && story.newspaper.title,
+    newspaperName: story.newspaper && story.newspaper.name,
     date: story['post_date'],
     paragraphs: story.body && story.body.map(p => p.value),
     imageUrl: story['image_url'] && story['image_url'][DEFAULT_IMAGE_DIMENSION]

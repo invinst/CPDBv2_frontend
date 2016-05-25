@@ -41,7 +41,7 @@ class Stories extends ResponsiveComponent {
           expanded={ this.state.storyExpanded[story.id] }
           identifier={ [story.id, ind === 0 ? TOP : BOTTOM] }
           expandDirection={ ind === 0 ? TOP : BOTTOM }
-          header={ story.newspaperTitle }
+          header={ story.newspaperName }
           active={ story.id === this.state.selectedStoryKey }>
           <ArticleContent>{ story.title }</ArticleContent>
         </ArticleSmall>
@@ -60,7 +60,7 @@ class Stories extends ResponsiveComponent {
             expanded={ this.state.storyExpanded[story.id] }
             identifier={ [story.id, BOTTOM] }
             expandDirection={ BOTTOM }
-            header={ story.newspaperTitle }
+            header={ story.newspaperName }
             active={ story.id === this.state.selectedStoryKey }>
             <ArticleContent>{ story.title }</ArticleContent>
           </ArticleSmall>

@@ -12,8 +12,8 @@ describe('storiesSelector', function () {
       title: 'a',
       newspaper: {
         id: 1,
-        title: 'b',
-        'caronical_url': 'c.d'
+        name: 'b',
+        'short_name': 'c.d'
       },
       body: [
         { type: 'paragraph', value: 'e' },
@@ -26,7 +26,7 @@ describe('storiesSelector', function () {
     }).should.eql({
       id: 1,
       title: 'a',
-      newspaperTitle: 'b',
+      newspaperName: 'b',
       date: '1/2/3',
       paragraphs: ['e', 'f'],
       imageUrl: 'g.h'

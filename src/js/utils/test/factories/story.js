@@ -4,7 +4,7 @@ import { lorem, internet, date } from 'faker';
 
 export default new Factory()
   .sequence('id')
-  .attr('newspaperTitle', () => (lorem.sentence()))
+  .attr('newspaperName', () => (lorem.sentence()))
   .attr('title', () => (lorem.sentence()))
   .attr('date', () => (date.past()))
   .attr('paragraphs', () => ([lorem.sentences()]))

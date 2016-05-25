@@ -8,7 +8,7 @@ import RawStoryFactory from 'utils/test/factories/raw-story';
 const mockStore = configureStore();
 const store = mockStore({
   storyApp: {
-    stories: RawStoryFactory.buildList(3),
+    stories: [1, 2, 3].map(id => RawStoryFactory.build({ id: id })),
     featuredStoryId: 1
   }
 });

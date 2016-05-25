@@ -10,7 +10,7 @@ describe('StoriesContainer', function () {
   it('should be render correct', function () {
     let store = mockStore({
       storyApp: {
-        stories: RawStoryFactory.buildList(3),
+        stories: [1, 2, 3].map(id => RawStoryFactory.build({ id: id })),
         featuredStoryId: 1
       }
     });
