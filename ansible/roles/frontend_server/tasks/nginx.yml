@@ -4,13 +4,13 @@
   tags: packages
 
 - name: Create sites-available folder
-  sudo: yes
-  file: path=/etc/nginx/sites-available state=directory owner=ansible
+  become: yes
+  file: path=/etc/nginx/sites-available state=directory owner={{ deploy_user }} group={{ deploy_group }}
   tags: setup
 
 - name: Create sites-enabled folder
-  sudo: yes
-  file: path=/etc/nginx/sites-enabled state=directory owner=ansible
+  become: yes
+  file: path=/etc/nginx/sites-enabled state=directory owner={{ deploy_user }} group={{ deploy_group }}
   tags: setup
 
 - name: Create the Nginx configuration file

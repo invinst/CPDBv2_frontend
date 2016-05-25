@@ -1,3 +1,3 @@
 - name: restart nginx service
-  sudo: yes
+  become: yes
   command: service nginx restart

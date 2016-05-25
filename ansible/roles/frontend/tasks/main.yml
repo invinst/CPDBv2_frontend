@@ -1,15 +1,15 @@
 ---
 - name: Install Git
   apt: name=git update_cache=yes state=present
-  sudo: yes
+  become: yes
   tags: setup
 
 - name: Update npm
   npm: name=npm version=3.8.7 global=yes
-  sudo: yes
+  become: yes
   tags: setup
 
 - name: Install Browserify
   npm: name=browserify version=13.0.0 global=yes
-  sudo: yes
+  become: yes
   tags: setup
