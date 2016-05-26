@@ -33,7 +33,7 @@ describe('store', function () {
         featuredStoryId: 0
       },
       bottomSheet: {
-        open: false
+        content: null
       }
     });
   });

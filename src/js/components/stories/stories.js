@@ -3,9 +3,8 @@ import Radium from 'radium';
 
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
-import ArticleContent from 'components/common/article-content';
 import StoryMedium from 'components/stories/story-medium';
-import ArticleSmall from 'components/common/article-small';
+import StorySmall from 'components/stories/story-small';
 import SectionHeader from 'components/common/section-header';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
@@ -15,19 +14,13 @@ import {
 
 
 class Stories extends ResponsiveComponent {
-  constructor(props) {
-    super(props);
-  }
-
   renderSmallStoriesTablet(stories) {
     return stories.map((story, ind) => {
       return (
-        <ArticleSmall
+        <StorySmall
           onClick={ this.props.onStoryClick }
           style={ ind === 0 ? firstSmallStoryStyleTablet : null }
-          key={ story.id } header={ story.newspaperName }>
-          <ArticleContent>{ story.title }</ArticleContent>
-        </ArticleSmall>
+          key={ story.id } story={ story }/>
       );
     });
   }
@@ -36,12 +29,10 @@ class Stories extends ResponsiveComponent {
     return stories.map((story, ind) => {
       return (
         <div key={ story.id } className='pure-u-1-2'>
-          <ArticleSmall
+          <StorySmall
             onClick={ this.props.onStoryClick }
             style={ ind === 0 ? firstSmallStoryStyleDesktop : null }
-            header={ story.newspaperName }>
-            <ArticleContent>{ story.title }</ArticleContent>
-          </ArticleSmall>
+            story={ story }/>
         </div>
       );
     });

@@ -16,6 +16,13 @@ import {
 
 
 class StoryMedium extends ResponsiveStyleComponent {
+  constructor(props) {
+    super(props);
+    this.onClick = () => {
+      this.props.onClick(this.props.story);
+    };
+  }
+
   responsiveStyle() {
     return {
       [TABLET]: {
@@ -35,7 +42,7 @@ class StoryMedium extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='story-medium pure-g' onClick={ this.props.onClick }>
+      <div className='story-medium pure-g' onClick={ this.onClick }>
         <div className='pure-u-2-3'>
           <CoverImage style={ style.image } src={ this.props.story.imageUrl }/>
         </div>

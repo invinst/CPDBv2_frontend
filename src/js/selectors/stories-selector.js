@@ -14,6 +14,7 @@ export function rawStoryTransform(story) {
     id: story.id,
     title: story.title,
     newspaperName: story.newspaper && story.newspaper.name,
+    newspaperShortName: story.newspaper && story.newspaper['short_name'],
     date: story['post_date'],
     paragraphs: story.body && story.body.map(p => p.value),
     imageUrl: story['image_url'] && story['image_url'][DEFAULT_IMAGE_DIMENSION]

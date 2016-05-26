@@ -7,7 +7,7 @@ import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
 
 describe('storiesSelector', function () {
   describe('rawStoryTransform', function () {
-    rawStoryTransform({
+    const rawStory = {
       id: 1,
       title: 'a',
       newspaper: {
@@ -23,14 +23,18 @@ describe('storiesSelector', function () {
       'image_url': {
         [DEFAULT_IMAGE_DIMENSION]: 'g.h'
       }
-    }).should.eql({
+    };
+    const transformedStory = {
       id: 1,
       title: 'a',
       newspaperName: 'b',
+      newspaperShortName: 'c.d',
       date: '1/2/3',
       paragraphs: ['e', 'f'],
       imageUrl: 'g.h'
-    });
+    };
+
+    rawStoryTransform(rawStory).should.eql(transformedStory);
   });
 
   describe('getStoriesSelector', function () {
