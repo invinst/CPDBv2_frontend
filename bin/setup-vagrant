@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ansible-playbook ansible/vagrant.yml -i ansible/vagrant --ask-pass

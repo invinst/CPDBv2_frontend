@@ -32,7 +32,7 @@ describe('ExpandTransition component', function () {
     findDOMNode(element).innerHTML.should.containEql(testText);
   });
 
-  it('should eventually render nothing as childKey becomes null', function (cb) {
+  it('should eventually render nothing as childKey becomes null', function (callback) {
     let rootEl = document.createElement('div');
     let cb1 = () => {}, cb2 = () => {};
 
@@ -46,8 +46,8 @@ describe('ExpandTransition component', function () {
         rootEl.children.length.should.equal(1);
         setTimeout(() => {
           rootEl.children[0].nodeName.should.equal('NOSCRIPT');
-          cb();
-        }, 500);
+          callback();
+        }, 300);
       });
   });
 });

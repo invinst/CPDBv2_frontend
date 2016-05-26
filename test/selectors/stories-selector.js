@@ -1,29 +1,77 @@
-import { featuredStorySelector, dataAvailableSelector, smallStoriesSelector } from 'selectors/stories-selector';
-import StoryFactory from 'utils/test/factories/story';
+import {
+  featuredStorySelector, dataAvailableSelector, smallStoriesSelector, getStoriesSelector, rawStoryTransform
+} from 'selectors/stories-selector';
+import RawStoryFactory from 'utils/test/factories/raw-story';
+import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
 
 
 describe('storiesSelector', function () {
+  describe('rawStoryTransform', function () {
+    const rawStory = {
+      id: 1,
+      title: 'a',
+      newspaper: {
+        id: 1,
+        name: 'b',
+        'short_name': 'c.d'
+      },
+      body: [
+        { type: 'paragraph', value: 'e' },
+        { type: 'paragraph', value: 'f' }
+      ],
+      'post_date': '1/2/3',
+      'image_url': {
+        [DEFAULT_IMAGE_DIMENSION]: 'g.h'
+      }
+    };
+    const transformedStory = {
+      id: 1,
+      title: 'a',
+      newspaperName: 'b',
+      newspaperShortName: 'c.d',
+      date: '1/2/3',
+      paragraphs: ['e', 'f'],
+      imageUrl: 'g.h'
+    };
+
+    rawStoryTransform(rawStory).should.eql(transformedStory);
+  });
+
+  describe('getStoriesSelector', function () {
+    it('should return correct stories format', function () {
+      const rawStory = RawStoryFactory.build();
+      const state = {
+        storyApp: {
+          stories: [rawStory]
+        }
+      };
+
+      getStoriesSelector(state).should.eql([
+        rawStoryTransform(rawStory)
+      ]);
+    });
+  });
+
   describe('featuredStorySelector', function () {
     it('should return featureStory', function () {
-      const stories = [1, 2, 3].map(id => StoryFactory.build({ id: id }));
-
+      const rawStories = [1, 2, 3].map((id) => RawStoryFactory.build({ id: id }));
       let state = {
         storyApp: {
-          stories: stories,
+          stories: rawStories,
           featuredStoryId: 2
         }
       };
 
-      featuredStorySelector(state).should.eql(stories[1]);
+      featuredStorySelector(state).should.eql(rawStoryTransform(rawStories[1]));
 
       state = {
         storyApp: {
-          stories: stories,
+          stories: rawStories,
           featuredStoryId: 4
         }
       };
 
-      featuredStorySelector(state).should.eql(stories[0]);
+      featuredStorySelector(state).should.eql(rawStoryTransform(rawStories[0]));
     });
   });
 
@@ -31,6 +79,7 @@ describe('storiesSelector', function () {
     it('should return false when isRequesting', function () {
       let state = {
         storyApp: {
+          stories: RawStoryFactory.buildList(3),
           isRequesting: true
         }
       };
@@ -59,15 +108,19 @@ describe('storiesSelector', function () {
 
   describe('smallStoriesSelector', function () {
     it('should return 2 stories', function () {
-      let stories = [1, 2, 3].map(id => StoryFactory.build({ id: id }));
-      let state = {
+      const rawStories = RawStoryFactory.buildList(3);
+      const state = {
         storyApp: {
-          stories: stories
+          stories: rawStories
         }
       };
-      smallStoriesSelector(state).should.eql(stories.slice(1, 3));
-      stories.push(StoryFactory.build({ id: 4 }));
-      smallStoriesSelector(state).should.eql(stories.slice(1, 3));
+      smallStoriesSelector(state).should.eql(
+        rawStories.slice(1, 3).map((rawStory) => rawStoryTransform(rawStory))
+      );
+      rawStories.push(RawStoryFactory.build());
+      smallStoriesSelector(state).should.eql(
+        rawStories.slice(1, 3).map((rawStory) => rawStoryTransform(rawStory))
+      );
     });
   });
 });

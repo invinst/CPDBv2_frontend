@@ -19,6 +19,11 @@ export const navWrapperFixedStyle = {
   display: 'inline-block'
 };
 
+export const wrapperStyle = {
+  borderBottom: `1px solid ${darkGreyColor}`,
+  background: 'white'
+};
+
 export const fixedWrapperStyle = {
   position: 'fixed',
   top: '0',

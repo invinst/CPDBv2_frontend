@@ -17,7 +17,7 @@ const ROOT = '/www/static/';
 gulp.task('build-html', () => {
   gulp.src('index.html')
     .pipe(htmlreplace({
-      css: ['/dist/css/grid.css', '/dist/css/font.css'],
+      css: ['/dist/css/grid.css', '/dist/css/font.css', '/dist/css/base.css'],
       var: ''
     }))
     .pipe(gulp.dest(ROOT));

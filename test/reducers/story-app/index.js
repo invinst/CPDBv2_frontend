@@ -28,14 +28,11 @@ describe('storyApp reducer', function () {
 
     storyApp(nextState, {
       type: STORIES_REQUEST_SUCCESS,
-      payload: {
-        stories: [1, 2, 3],
-        'feature_story_id': 1
-      }
+      payload: [1, 2, 3]
     }).should.eql({
       stories: [1, 2, 3],
       isRequesting: false,
-      featuredStoryId: 1
+      featuredStoryId: 0
     });
   });
 

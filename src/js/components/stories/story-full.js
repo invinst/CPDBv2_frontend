@@ -5,31 +5,43 @@ import classNames from 'classnames';
 import ArticleContent from 'components/common/article-content';
 import ArticleHeader from 'components/common/article-header';
 import ArticleFooter from 'components/common/article-footer';
-import ArticleExpanded from 'components/common/article-expanded';
+import { footerStyle, articleLinkStyle, leftBarStyle, rightBarStyle } from './story-full.style';
 
 
 class StoryFull extends React.Component {
   render() {
-    let className = classNames('story-full', this.props.className);
+    let className = classNames('story-full pure-g', this.props.className);
     return (
-      <ArticleExpanded className={ className } style={ { outer: this.props.style } }>
-        <ArticleHeader>{ this.props.story.date }</ArticleHeader>
-        {
-          this.props.story.paragraphs.map((paragraph, ind) => (
-            <ArticleContent key={ ind }>{ paragraph }</ArticleContent>
-          ))
-        }
-        <ArticleFooter>{ this.props.story.paper }</ArticleFooter>
-      </ArticleExpanded>
+      <div className={ className } style={ { outer: this.props.style } }>
+        <div className='pure-u-1-4'>
+          <div style={ leftBarStyle }>
+            <ArticleHeader>{ this.props.story.newspaperName }</ArticleHeader>
+            <ArticleContent>{ this.props.story.title }</ArticleContent>
+          </div>
+        </div>
+        <div className='pure-u-3-4'>
+          <div style={ rightBarStyle }>
+            {
+              this.props.story.paragraphs.map((paragraph, ind) => (
+                <ArticleContent key={ ind }>{ paragraph }</ArticleContent>
+              ))
+            }
+          </div>
+        </div>
+        <ArticleFooter style={ { wrapper: footerStyle, link: articleLinkStyle } } className='pure-u-1-1'>
+          continued on { this.props.story.newspaperShortName }
+        </ArticleFooter>
+      </div>
     );
   }
 }
 
 StoryFull.propTypes = {
   story: PropTypes.shape({
-    date: PropTypes.string,
+    title: PropTypes.string,
     paragraphs: PropTypes.arrayOf(PropTypes.string),
-    paper: PropTypes.string
+    newspaperName: PropTypes.string,
+    newspaperShortName: PropTypes.string
   }),
   style: PropTypes.object,
   className: PropTypes.string
@@ -37,7 +49,7 @@ StoryFull.propTypes = {
 
 StoryFull.defaultProps = {
   story: {
-    date: 'November 17, 2016',
+    title: 'Complaints against Chicago Police rarely result in discipline data shows.',
     paragraphs: [
       [
         'By 2007, the department was engulfed in scandal over a surveillance video that showed',
@@ -55,7 +67,8 @@ StoryFull.defaultProps = {
         'Emanuel said last week that the low rates of disciplinary action "defy credibility."'
       ].join('')
     ],
-    paper: 'View On New York Times Website'
+    newspaperName: 'New York Times',
+    newspaperShortName: 'nyt.com'
   }
 };
 

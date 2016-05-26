@@ -20,4 +20,8 @@ describe('ArticleSmall component', function () {
     element = renderIntoDocument(<ArticleSmall>{ testText }</ArticleSmall>);
     findDOMNode(element).innerHTML.should.containEql(testText);
   });
+
+  it('should trigger onClick', function () {
+    ArticleSmall.should.triggerCallbackWhenClick('onClick', 'article-small', { children: 'abc' });
+  });
 });

@@ -1,7 +1,6 @@
 export const wrapperStyle = {
   paddingRight: '16px',
   paddingLeft: '16px',
-  paddingTop: '34px',
   boxSizing: 'border-box',
   height: '264.5px',
   position: 'relative'
@@ -13,7 +12,6 @@ export const contentStyle = {
 };
 
 export const tabletWrapperStyle = {
-  paddingTop: '20px',
   height: '128px'
 };
 
