@@ -1,27 +1,37 @@
 ---
 - name: Install Nginx
   apt: name=nginx state=installed
+  become: yes
+  become_user: root
   tags: packages
 
 - name: Create sites-available folder
-  sudo: yes
-  file: path=/etc/nginx/sites-available state=directory owner=ansible
+  become: yes
+  become_user: root
+  file: path=/etc/nginx/sites-available state=directory owner={{ deploy_user }} group={{ deploy_group }}
   tags: setup
 
 - name: Create sites-enabled folder
-  sudo: yes
-  file: path=/etc/nginx/sites-enabled state=directory owner=ansible
+  become: yes
+  become_user: root
+  file: path=/etc/nginx/sites-enabled state=directory owner={{ deploy_user }} group={{ deploy_group }}
   tags: setup
+
+- name: Ensure that the default site is disabled
+  file: path=/etc/nginx/sites-enabled/default
+        state=absent
+  notify: restart nginx service
 
 - name: Create the Nginx configuration file
   template: src=nginx.j2
-            dest=/etc/nginx/sites-available/cpdb-frontend.conf
+            dest=/etc/nginx/sites-available/{{ nginx_configuration_name }}.conf
             backup=yes
   tags: deploy
+  notify: restart nginx service
 
 - name: Ensure that the application site is enabled
-  file: src=/etc/nginx/sites-available/cpdb-frontend.conf
-        dest=/etc/nginx/sites-enabled/cpdb-frontend.conf
+  file: src=/etc/nginx/sites-available/{{ nginx_configuration_name }}.conf
+        dest=/etc/nginx/sites-enabled/{{ nginx_configuration_name }}.conf
         state=link
   notify: restart nginx service
   tags: deploy
