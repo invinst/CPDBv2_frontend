@@ -8,7 +8,7 @@ import { openBottomSheetWithStory } from 'actions/bottom-sheet';
 import StoriesPlaceHolder from 'components/stories/stories-place-holder';
 
 
-export class StoriesContainer extends Component {
+export class UnconnectedStoriesContainer extends Component {
   componentDidMount() {
     this.props.requestStories();
   }
@@ -26,7 +26,7 @@ export class StoriesContainer extends Component {
   }
 }
 
-StoriesContainer.propTypes = {
+UnconnectedStoriesContainer.propTypes = {
   requestStories: PropTypes.func.isRequired,
   openBottomSheetWithStory: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
@@ -47,4 +47,4 @@ const mapDispatchToProps = {
   openBottomSheetWithStory
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoriesContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedStoriesContainer);

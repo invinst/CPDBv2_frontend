@@ -1,3 +1,4 @@
+import 'should';
 import {
   featuredStorySelector, dataAvailableSelector, smallStoriesSelector, getStoriesSelector, rawStoryTransform
 } from 'selectors/stories-selector';
@@ -5,7 +6,7 @@ import RawStoryFactory from 'utils/test/factories/raw-story';
 import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
 
 
-describe('storiesSelector', function () {
+describe('stories selectors', function () {
   describe('rawStoryTransform', function () {
     const rawStory = {
       id: 1,

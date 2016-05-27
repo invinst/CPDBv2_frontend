@@ -34,6 +34,10 @@ describe('store', function () {
       },
       bottomSheet: {
         content: null
+      },
+      faqApp: {
+        faqs: [],
+        isRequesting: false
       }
     });
   });

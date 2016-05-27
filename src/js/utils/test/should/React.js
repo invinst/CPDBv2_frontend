@@ -26,13 +26,16 @@ should.Assertion.add('responsiveRenderable', function (props) {
   });
 });
 
+
 should.Assertion.add('displayNothing', function () {
   should(findDOMNode(this.obj)).be.null();
 });
 
+
 should.Assertion.add('displaySomething', function () {
   should(findDOMNode(this.obj)).not.be.null();
 });
+
 
 should.Assertion.add('triggerCallbackWhenClick', function (callbackProp, clickClass=null, props={}, expectedArg=null) {
   const callback = spy();

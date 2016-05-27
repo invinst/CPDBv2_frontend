@@ -7,10 +7,6 @@ if (global.DEVELOPMENT) {
   API_ROOT = 'http://localhost:8000/api/v1/';
 }
 
-export function getAPIRoot() {
-  return API_ROOT;
-}
-
 export const clientConfig = {
   baseURL: API_ROOT,
   responseType: 'json'
