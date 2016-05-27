@@ -6,11 +6,11 @@
   tags: setup
 
 - name: Pull code from frontend repo
-  git: repo= dest={{ application_root_path }} key_file=/home/vagrant/.ssh/github accept_hostkey=True version={{ branch }}
+  git: repo= dest={{ application_root_path }} accept_hostkey=True version={{ branch }}
   tags: deploy
 
 - name : Install packages based on package.json.
-  npm: path={{ application_root_path }}
+  npm: path={{ application_root_path }} production=yes
   tags: deploy
 
 - name: Install gulp cli
