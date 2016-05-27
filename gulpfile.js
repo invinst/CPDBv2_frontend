@@ -23,7 +23,7 @@ gulp.task('build-html', () => {
     .pipe(gulp.dest(ROOT));
 });
 
-gulp.task('build-js', () => {
+const buildJs = (output) => (() => {
   const envs = env.set({
     'NODE_PATH': 'src/js',
     'NODE_ENV': 'production'
@@ -42,8 +42,10 @@ gulp.task('build-js', () => {
     .on('error', gutil.log)
     .pipe(envs.reset)
     .pipe(rename('bundle.js'))
-    .pipe(gulp.dest(`${ROOT}dist/`));
+    .pipe(gulp.dest(output));
 });
+
+gulp.task('build-js', buildJs(`${ROOT}dist/`));
 
 gulp.task('copy-static', () => {
   gulp.src('src/**/*')
@@ -51,3 +53,5 @@ gulp.task('copy-static', () => {
 });
 
 gulp.task('build', ['build-html', 'build-js', 'copy-static']);
+
+gulp.task('build-js-live-test', buildJs('dist/'));

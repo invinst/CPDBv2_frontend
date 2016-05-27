@@ -11,7 +11,7 @@ import { defaultConfig } from 'utils/spring-presets';
 export default class BottomSheet extends Component {
   renderOverlay(style={}) {
     return (
-      <div onClick={ this.props.onClose } style={ assign({}, overlayStyle, style) }/>
+      <div onClick={ this.props.onClose } style={ assign({}, overlayStyle, style) } className='overlay'/>
     );
   }
 
