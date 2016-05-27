@@ -5,7 +5,7 @@ require('./gulpfile.js');
 
 module.exports = {
   before: function (done) {
-    gulp.start('build-js-test', function () {
+    gulp.start('build-js-live-test', function () {
       browserSync.init({
         notify: false,
         port: 9100,
