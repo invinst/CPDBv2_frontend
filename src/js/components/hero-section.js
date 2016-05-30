@@ -14,6 +14,10 @@ import CoverImage from 'components/common/cover-image';
 
 
 export default class HeroSection extends ResponsiveStyleComponent {
+  constructor(props) {
+    super(props);
+    this.dataLink = 'http://cpdb.co/data';
+  }
   responsiveStyle() {
     return {
       [TABLET]: DESKTOP,
@@ -39,13 +43,15 @@ export default class HeroSection extends ResponsiveStyleComponent {
                   <ArticleContent style={ paragraphStyle }>
                     In 2014, the court decision Kalven v. Chicago opened those files to the public.
                   </ArticleContent>
-                  <a href='http://cpdb.co/data' style={ linkStyle }>
+                  <a href={ this.dataLink } style={ linkStyle }>
                     Explore the data.
                   </a>
                 </div>
               </div>
               <div className='preview-image pure-u-2-3'>
-                <CoverImage src={ imgUrl('cpdb-v1-ss.png') } style={ style.image }/>
+                <a href={ this.dataLink }>
+                  <CoverImage src={ imgUrl('cpdb-v1-ss.png') } style={ style.image }/>
+                </a>
               </div>
             </div>
           </div>
