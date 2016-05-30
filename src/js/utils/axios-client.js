@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 
-let API_ROOT = 'http://23.96.180.229/api/v1/';
+let API_ROOT = '/api/v1/';
 if (global.DEVELOPMENT) {
   /* istanbul ignore next */
   API_ROOT = 'http://localhost:8000/api/v1/';
