@@ -7,7 +7,7 @@ import { contentStyle } from './article-content.style';
 class ArticleContent extends React.Component {
   render() {
     return (
-      <p style={ contentStyle }>
+      <p style={ [contentStyle, this.props.style] }>
         { this.props.children }
       </p>
     );
@@ -15,7 +15,8 @@ class ArticleContent extends React.Component {
 }
 
 ArticleContent.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  style: PropTypes.object
 };
 
 export default Radium(ArticleContent);
