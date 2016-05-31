@@ -9,7 +9,8 @@
     "test": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ]",
     "test-watch": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --watch",
     "cover": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]",
-    "cover-human-readable": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report text ]"
+    "cover-human-readable": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report text ]",
+    "live-test": "nightwatch"
   },
   "repository": {
     "type": "git",

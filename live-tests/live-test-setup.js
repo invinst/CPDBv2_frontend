@@ -9,7 +9,7 @@ function importTest(name, path) {
   });
 }
 
-describe('', function () {
+describe('CPDBv2_frontend', function () {
   after(function (client, done) {
     client.end(function () {
       done();

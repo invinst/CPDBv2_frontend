@@ -3,7 +3,7 @@ describe('bottom-sheet', function () {
   it('should open and close bottom-sheet', function (client) {
     // browse landing-page should see body
     client
-      .url('http://localhost:9100')
+      .url(client.launch_url)
       .expect.element('body').to.be.present.before(1000);
 
     // click on story-medium should open bottom-sheet and body element should has noscroll class
