@@ -14,7 +14,7 @@ describe('Static assets module', function () {
 
     it('should prepend /dist/ to path when DEVELOPMENT is false', function () {
       global.DEVELOPMENT = false;
-      imgUrl('def').should.equal('/dist/def');
+      imgUrl('def').should.equal('/dist/img/def');
     });
   });
 });

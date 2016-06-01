@@ -26,6 +26,10 @@
   become_user: root
   tags: setup
 
+- name: Clean static root
+  sudo: yes
+  file: path=/www/static/dist state=absent
+
 - name: Create static root
   become: yes
   become_user: root
