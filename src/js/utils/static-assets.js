@@ -2,6 +2,6 @@ export function imgUrl(path) {
   if (global.DEVELOPMENT) {
     return `/src/img/${path}`;
   } else {
-    return `/dist/${path}`;
+    return `/dist/img/${path}`;
   }
 }
