@@ -2,14 +2,18 @@ import React from 'react';
 
 import LandingPage from 'components/landing-page';
 import configureStore from 'redux-mock-store';
-import { stories } from 'mock-data';
+import RawStoryFactory from 'utils/test/factories/raw-story';
+import FAQFactory from 'utils/test/factories/faq';
 
 
 const mockStore = configureStore();
 const store = mockStore({
   storyApp: {
-    stories: stories.stories,
-    featuredStoryId: stories['feature_story_id']
+    stories: [1, 2, 3].map(id => RawStoryFactory.build({ id: id })),
+    featuredStoryId: 1
+  },
+  faqApp: {
+    faqs: FAQFactory.buildList(3)
   }
 });
 

@@ -1,3 +1,3 @@
 import 'polyfill';
 import 'should';
-import 'utils/test/React';
+import 'utils/test/should/React';

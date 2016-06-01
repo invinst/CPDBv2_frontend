@@ -5,7 +5,7 @@ import { STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE } from 'actions/story-
 
 const stories = handleActions({
   [STORIES_REQUEST_SUCCESS]: (state, action) => (
-    action.payload.stories
+    action.payload
   ),
   [STORIES_REQUEST_FAILURE]: (state, action) => (
     []

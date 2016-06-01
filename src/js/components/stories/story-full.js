@@ -15,7 +15,7 @@ class StoryFull extends React.Component {
       <div className={ className } style={ { outer: this.props.style } }>
         <div className='pure-u-1-4'>
           <div style={ leftBarStyle }>
-            <ArticleHeader>{ this.props.story.paper }</ArticleHeader>
+            <ArticleHeader>{ this.props.story.newspaperName }</ArticleHeader>
             <ArticleContent>{ this.props.story.title }</ArticleContent>
           </div>
         </div>
@@ -29,7 +29,7 @@ class StoryFull extends React.Component {
           </div>
         </div>
         <ArticleFooter style={ { wrapper: footerStyle, link: articleLinkStyle } } className='pure-u-1-1'>
-          continued on { this.props.story.paperLink }
+          continued on { this.props.story.newspaperShortName }
         </ArticleFooter>
       </div>
     );
@@ -40,8 +40,8 @@ StoryFull.propTypes = {
   story: PropTypes.shape({
     title: PropTypes.string,
     paragraphs: PropTypes.arrayOf(PropTypes.string),
-    paper: PropTypes.string,
-    paperLink: PropTypes.string
+    newspaperName: PropTypes.string,
+    newspaperShortName: PropTypes.string
   }),
   style: PropTypes.object,
   className: PropTypes.string
@@ -67,8 +67,8 @@ StoryFull.defaultProps = {
         'Emanuel said last week that the low rates of disciplinary action "defy credibility."'
       ].join('')
     ],
-    paper: 'New York Times',
-    paperLink: 'nyt.com'
+    newspaperName: 'New York Times',
+    newspaperShortName: 'nyt.com'
   }
 };
 

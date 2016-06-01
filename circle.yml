@@ -17,6 +17,6 @@ dependencies:
 test:
   override:
     - eslint .
-    - npm run cover
+    - npm run cover-circle
   post:
     - cat lcov.info | ./node_modules/coveralls/bin/coveralls.js

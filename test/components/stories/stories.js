@@ -1,6 +1,4 @@
 import React from 'react';
-import { spy } from 'sinon';
-import { Simulate, renderIntoDocument, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
 
 import Stories from 'components/stories/stories';
 import StoryFactory from 'utils/test/factories/story';
@@ -23,12 +21,11 @@ describe('Stories component', function () {
   });
 
   it('should trigger onStoryClick', function () {
-    const callback = spy();
-    element = renderIntoDocument(
-      <Stories onStoryClick={ callback } smallStories={ smallStories } featuredStory={ featuredStory }/>
+    Stories.should.triggerCallbackWhenClick(
+      'onStoryClick', 'story-medium', { featuredStory: featuredStory, smallStories: smallStories }, featuredStory
     );
-    Simulate.click(scryRenderedDOMComponentsWithClass(element, 'story-medium')[0]);
-    Simulate.click(scryRenderedDOMComponentsWithClass(element, 'article-small')[0]);
-    callback.callCount.should.equal(2);
+    Stories.should.triggerCallbackWhenClick(
+      'onStoryClick', 'article-small', { featuredStory: featuredStory, smallStories: smallStories }, smallStories[0]
+    );
   });
 });

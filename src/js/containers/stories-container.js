@@ -4,11 +4,11 @@ import React, { Component, PropTypes } from 'react';
 import { featuredStorySelector, dataAvailableSelector, smallStoriesSelector } from 'selectors/stories-selector';
 import Stories from 'components/stories/stories';
 import { requestStories } from 'actions/story-app';
-import { openBottomSheet } from 'actions/bottom-sheet';
+import { openBottomSheetWithStory } from 'actions/bottom-sheet';
 import StoriesPlaceHolder from 'components/stories/stories-place-holder';
 
 
-export class StoriesContainer extends Component {
+export class UnconnectedStoriesContainer extends Component {
   componentDidMount() {
     this.props.requestStories();
   }
@@ -21,14 +21,14 @@ export class StoriesContainer extends Component {
         <StoriesPlaceHolder/> :
         <Stories
           smallStories={ smallStories } featuredStory={ featuredStory }
-          onStoryClick={ this.props.openBottomSheet }/>
+          onStoryClick={ this.props.openBottomSheetWithStory }/>
     );
   }
 }
 
-StoriesContainer.propTypes = {
+UnconnectedStoriesContainer.propTypes = {
   requestStories: PropTypes.func.isRequired,
-  openBottomSheet: PropTypes.func.isRequired,
+  openBottomSheetWithStory: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
   smallStories: PropTypes.array,
   featuredStory: PropTypes.object
@@ -44,7 +44,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   requestStories,
-  openBottomSheet
+  openBottomSheetWithStory
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoriesContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedStoriesContainer);

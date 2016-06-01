@@ -1,4 +1,3 @@
 ---
 dependencies:
-  - { role: jeqo.nginx }
   - { role: frontend }

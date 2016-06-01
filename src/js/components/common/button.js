@@ -6,7 +6,7 @@ import { buttonStyle } from './button.style';
 export default class ButtonComponent extends Component {
   render() {
     return (
-      <button style={ buttonStyle } onClick={ this.props.onClick }>
+      <button className={ this.props.className } style={ buttonStyle } onClick={ this.props.onClick }>
         { this.props.children }
       </button>
     );
@@ -15,5 +15,6 @@ export default class ButtonComponent extends Component {
 
 ButtonComponent.propTypes = {
   onClick: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  className: PropTypes.string
 };

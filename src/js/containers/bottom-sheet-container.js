@@ -6,23 +6,23 @@ import BottomSheet from 'components/bottom-sheet/bottom-sheet';
 import { closeBottomSheet } from 'actions/bottom-sheet';
 
 
-export class BottomSheetContainer extends Component {
+export class UnconnectedBottomSheetContainer extends Component {
   render() {
-    const { closeBottomSheet, open } = this.props;
+    const { closeBottomSheet, content } = this.props;
     return (
-      <BottomSheet onClose={ closeBottomSheet } open={ open }/>
+      <BottomSheet onClose={ closeBottomSheet } open={ content !== null } content={ content }/>
     );
   }
 }
 
-BottomSheetContainer.propTypes = {
+UnconnectedBottomSheetContainer.propTypes = {
   closeBottomSheet: PropTypes.func.isRequired,
-  open: PropTypes.bool
+  content: PropTypes.object
 };
 
 function mapStateToProps(state, props) {
   return {
-    open: state.bottomSheet.open
+    content: state.bottomSheet.content
   };
 }
 
@@ -30,4 +30,4 @@ const mapDispatchToProps = {
   closeBottomSheet
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BottomSheetContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedBottomSheetContainer);

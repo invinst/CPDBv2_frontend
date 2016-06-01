@@ -1,27 +1,42 @@
 ---
 - name: Creates CPDB directory for deployment
-  sudo: yes
-  file: path=/CPDB state=directory owner=ansible
+  become: yes
+  become_user: root
+  file: path=/CPDB state=directory owner={{ deploy_user }} group={{ deploy_group }}
+  tags: setup
 
 - name: Pull code from frontend repo
-  git: repo= dest=/CPDB/ key_file=/home/ansible/.ssh/github accept_hostkey=True version={{ branch }}
+  git: repo= dest={{ application_root_path }} accept_hostkey=True version={{ branch }}
+  tags: deploy
 
-- name: Install npm packages
+- name : Install packages based on package.json.
   command: npm install
-    chdir=/CPDB/
+    chdir={{ application_root_path }}
+  tags: deploy
+
+- name: Install gulp
+  npm: name=gulp version=3.9.1 global=yes
+  become: yes
+  become_user: root
+  tags: setup
 
 - name: Install gulp cli
   npm: name=gulp-cli version=1.2.1 global=yes
-  sudo: yes
+  become: yes
+  become_user: root
+  tags: setup
 
 - name: Clean static root
   sudo: yes
   file: path=/www/static/dist state=absent
 
 - name: Create static root
-  sudo: yes
-  file: path=/www/static/dist state=directory owner=ansible
+  become: yes
+  become_user: root
+  file: path=/www/static/dist state=directory owner={{ deploy_user }} group={{ deploy_group }}
+  tags: setup
 
 - name: Build everything
   command: npm run build
-    chdir=/CPDB/
+    chdir={{ application_root_path }}
+  tags: deploy
