@@ -16,7 +16,7 @@ describe('CloseButtonWrapper component', function () {
 
   it('should show CloseButton when showButton is true', function () {
     element = renderIntoDocument(<CloseButtonWrapper showButton={ true } buttonClassName='abc'/>);
-    findRenderedDOMComponentWithClass(element, 'abc');
+    findRenderedDOMComponentWithClass(element, 'abc').should.displaySomething();
   });
 
   it('should hide CloseButton when showButton is false', function () {

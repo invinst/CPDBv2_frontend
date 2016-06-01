@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { StyleRoot } from 'radium';
 
 import LandingPage from 'components/landing-page';
@@ -8,6 +8,11 @@ import Footer from 'components/footer';
 
 
 export default class RootComponent extends React.Component {
+  getChildContext() {
+    const { adapter } = this.props;
+    return { adapter };
+  }
+
   render() {
     return (
       <StyleRoot>
@@ -19,3 +24,11 @@ export default class RootComponent extends React.Component {
     );
   }
 }
+
+RootComponent.childContextTypes = {
+  adapter: PropTypes.func
+};
+
+RootComponent.propTypes = {
+  adapter: PropTypes.func
+};

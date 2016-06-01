@@ -6,7 +6,7 @@ import { buttonStyle } from './button.style';
 export default class ButtonComponent extends Component {
   render() {
     return (
-      <button style={ buttonStyle } onClick={ this.props.onClick } className={ this.props.className }>
+      <button className={ this.props.className } style={ buttonStyle } onClick={ this.props.onClick }>
         { this.props.children }
       </button>
     );

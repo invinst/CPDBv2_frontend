@@ -1,5 +1,3 @@
-import 'should';
-
 import { imgUrl } from 'utils/static-assets';
 
 

@@ -1,4 +1,3 @@
-import 'should';
 import React from 'react';
 
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';

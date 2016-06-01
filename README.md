@@ -6,7 +6,6 @@
 
 - `sudo ansible-galaxy install Heroqu.nodejs4x`
 - `sudo ansible-galaxy install nicolai86.phantomjs`
-- `sudo ansible-galaxy install jeqo.nginx`
 - Make sure your node and npm version match vagrant's: (node v4.4.3 and npm v3.8.7)
 - `npm install`
 - `vagrant up`
@@ -31,7 +30,8 @@ Almost everything dev related should be done inside vagrant box. Exceptions are 
 We use instances from Azure for now.
 
 - Staging IP address: [23.96.180.229](http://23.96.180.229)
-- `bin/deploy-staging`: deploy to staging. (password is the same as deploy user's on v1)
+- `bin/setup-staging`: Setup the infrastructure of staging. (password is the same as deploy user's on v1). Before setting up with the recent scripts, please ensure that you have your ssh keys on the server.
+- `bin/deploy-staging`: Deploy the new updates to staging.
 
 ## Browser supports
 

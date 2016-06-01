@@ -12,16 +12,19 @@ const babelify = require('babelify');
 const rename = require('gulp-rename');
 
 
-const ROOT = '/www/static/';
-
-gulp.task('build-html', () => {
+const buildHTML = (varBlock, destination) => () => {
   gulp.src('index.html')
     .pipe(htmlreplace({
       css: ['/dist/css/grid.css', '/dist/css/font.css', '/dist/css/base.css'],
-      var: ''
+      var: varBlock
     }))
-    .pipe(gulp.dest(ROOT));
-});
+    .pipe(gulp.dest(destination));
+};
+
+const copyStatic = (destination) => () => {
+  gulp.src('src/**/*')
+    .pipe(gulp.dest(destination));
+};
 
 const buildJs = (output) => (() => {
   const envs = env.set({
@@ -45,13 +48,21 @@ const buildJs = (output) => (() => {
     .pipe(gulp.dest(output));
 });
 
-gulp.task('build-js', buildJs(`${ROOT}dist/`));
+const ROOT = '/www/static/';
 
+gulp.task('build-html', buildHTML('', ROOT));
+gulp.task('build-js', buildJs(`${ROOT}dist/`));
 gulp.task('copy-static', () => {
-  gulp.src('src/**/*')
-    .pipe(gulp.dest(`${ROOT}dist/`));
+  copyStatic(`${ROOT}dist/`);
 });
 
 gulp.task('build', ['build-html', 'build-js', 'copy-static']);
 
-gulp.task('build-js-live-test', buildJs('dist/'));
+const liveTestDir = 'live-test-build';
+const testBlock = '<script type="text/javascript">LIVE_TEST=true;</script>';
+
+gulp.task('build-html-live-test', buildHTML(testBlock, liveTestDir));
+gulp.task('build-js-live-test', buildJs(`${liveTestDir}/dist/`));
+gulp.task('copy-static-live-test', copyStatic(`${liveTestDir}/dist/`));
+
+gulp.task('build-live-test', ['build-html-live-test', 'build-js-live-test', 'copy-static-live-test']);

@@ -10,7 +10,7 @@ class BottomSheetHeader extends Component {
 
     return (
       <div style={ headerStyle }>
-        <ButtonComponent onClick={ onDismissClick } className='dismiss'>Dismiss</ButtonComponent>
+        <ButtonComponent className='bottom-sheet__dismiss-btn' onClick={ onDismissClick }>Dismiss</ButtonComponent>
       </div>
     );
   }

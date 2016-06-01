@@ -1,11 +1,9 @@
-import 'should';
 import React from 'react';
 import { stub } from 'sinon';
 import { renderIntoDocument } from 'react-addons-test-utils';
 
 import Header from 'components/header';
 import { unmountComponentSuppressError } from 'utils/test';
-import 'utils/test/React';
 
 
 describe('Header component', function () {
