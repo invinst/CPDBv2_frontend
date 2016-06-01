@@ -125,5 +125,8 @@
     ],
     "extends": [
         "eslint:recommended"
-    ]
+    ],
+    "globals": {
+        "LIVE_TEST": false
+    }
 }

@@ -10,7 +10,7 @@ import StoriesPlaceHolder from 'components/stories/stories-place-holder';
 
 export class UnconnectedStoriesContainer extends Component {
   componentDidMount() {
-    this.props.requestStories();
+    this.props.requestStories({}, this.context.adapter);
   }
 
   render() {
@@ -32,6 +32,10 @@ UnconnectedStoriesContainer.propTypes = {
   dataAvailable: PropTypes.bool,
   smallStories: PropTypes.array,
   featuredStory: PropTypes.object
+};
+
+UnconnectedStoriesContainer.contextTypes = {
+  adapter: PropTypes.func
 };
 
 function mapStateToProps(state, ownProps) {

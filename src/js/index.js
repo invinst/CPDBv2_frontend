@@ -9,13 +9,15 @@ import 'polyfill';
 import RootComponent from 'components/root';
 
 
+import { getMockAdapter } from './mock-data';
+
 const store = configureStore();
 
 TwitterWidgetsLoader.load(function (twttr) {
   global.twttr = twttr;
   render(
     <Provider store={ store }>
-      <RootComponent/>
+      <RootComponent adapter={ getMockAdapter() }/>
     </Provider>,
     document.getElementById('root'));
 });

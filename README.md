@@ -72,3 +72,7 @@ We use [redux-actions](https://github.com/acdlite/redux-actions) to create actio
 ## Selectors
 
 [Read here](docs/selectors-development-guide.md)
+
+## Nightwatch end-2-end testing
+
+[Read here](docs/nightwatch-testing-guide.md)
