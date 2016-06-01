@@ -1,3 +1,2 @@
 ---
 - include: build.yml
-- include: nginx.yml

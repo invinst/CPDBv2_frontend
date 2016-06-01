@@ -1,12 +1,9 @@
-import 'should';
 import React from 'react';
-import { spy } from 'sinon';
-import { Simulate, renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
+import { renderIntoDocument } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
 import ArticleSmall from 'components/common/article-small';
 import { unmountComponentSuppressError } from 'utils/test';
-import 'utils/test/React';
 
 
 describe('ArticleSmall component', function () {
@@ -23,9 +20,6 @@ describe('ArticleSmall component', function () {
   });
 
   it('should trigger onClick', function () {
-    const cb = spy();
-    element = renderIntoDocument(<ArticleSmall onClick={ cb }>abc</ArticleSmall>);
-    Simulate.click(findRenderedDOMComponentWithClass(element, 'article-small'));
-    cb.called.should.be.true();
+    ArticleSmall.should.triggerCallbackWhenClick('onClick', 'article-small', { children: 'abc' });
   });
 });

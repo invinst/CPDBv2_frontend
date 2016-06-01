@@ -26,8 +26,11 @@ export const bodyStyle = {
 
 export const contentStyle = {
   margin: '0 auto',
-  maxWidth: 4/5*992 + 'px',
+  maxWidth: `${4/5*992}px`
+};
+
+export const scrollStyle = {
   height: '500px',
-  overflowY: 'scroll',
+  overflowY: 'auto',
   overflowX: 'hidden'
 };

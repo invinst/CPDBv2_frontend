@@ -4,14 +4,33 @@ import { assign } from 'lodash';
 
 import BottomSheetHeader from './bottom-sheet-header';
 import StoryFull from 'components/stories/story-full';
-import { overlayStyle, sheetStyle, contentStyle, bodyStyle } from './bottom-sheet.style';
+import { overlayStyle, sheetStyle, contentStyle, bodyStyle, scrollStyle } from './bottom-sheet.style';
+import { STORY_TYPE } from 'actions/bottom-sheet';
 import { defaultConfig } from 'utils/spring-presets';
 
 
 export default class BottomSheet extends Component {
+  constructor(props) {
+    super(props);
+    this.contentMap = {
+      [STORY_TYPE]: StoryFull
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.prevContent = this.props.content;
+  }
+
+  getContent() {
+    if (this.props.content === null) {
+      return this.prevContent;
+    }
+    return this.props.content;
+  }
+
   renderOverlay(style={}) {
     return (
-      <div onClick={ this.props.onClose } style={ assign({}, overlayStyle, style) }/>
+      <div className='bottom-sheet__overlay' onClick={ this.props.onClose } style={ assign({}, overlayStyle, style) }/>
     );
   }
 
@@ -37,13 +56,27 @@ export default class BottomSheet extends Component {
     );
   }
 
+  renderContent() {
+    const content = this.getContent();
+
+    if (content) {
+      const contentClass = this.contentMap[content.type];
+      if (contentClass) {
+        return React.createElement(contentClass, content.props);
+      }
+    }
+    return null;
+  }
+
   renderBottomSheet(style={}) {
     return (
       <div style={ assign({}, sheetStyle, style) }>
         <div style={ bodyStyle }>
           <BottomSheetHeader onDismissClick={ this.props.onClose } />
+        </div>
+        <div style={ scrollStyle }>
           <div style={ contentStyle }>
-            <StoryFull />
+            { this.renderContent() }
           </div>
         </div>
       </div>
@@ -84,5 +117,9 @@ export default class BottomSheet extends Component {
 
 BottomSheet.propTypes = {
   open: PropTypes.bool,
+  content: PropTypes.shape({
+    type: PropTypes.string,
+    props: PropTypes.object
+  }),
   onClose: PropTypes.func
 };

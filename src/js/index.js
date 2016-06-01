@@ -6,23 +6,18 @@ import { Provider } from 'react-redux';
 
 import configureStore from 'store';
 import 'polyfill';
-import { stories } from 'mock-data';
-import axiosMockClient from 'utils/axios-mock-client';
 import RootComponent from 'components/root';
 
 
-const store = configureStore();
+import { getMockAdapter } from './mock-data';
 
-// TODO: remove when have real api
-axiosMockClient
-  .onGet('/stories')
-  .reply(200, stories);
+const store = configureStore();
 
 TwitterWidgetsLoader.load(function (twttr) {
   global.twttr = twttr;
   render(
     <Provider store={ store }>
-      <RootComponent/>
+      <RootComponent adapter={ getMockAdapter() }/>
     </Provider>,
     document.getElementById('root'));
 });

@@ -1,5 +1,4 @@
-import React, { PropTypes } from 'react';
-import classNames from 'classnames';
+import React from 'react';
 
 import ArticleSmall from 'components/common/article-small';
 import ArticleContent from 'components/common/article-content';
@@ -24,16 +23,14 @@ export default class FAQSection extends ResponsiveComponent {
     return (
       <ArticleSmall
         style={ style }>
-        <ArticleContent>{ faq.question }</ArticleContent>
+        <ArticleContent>{ faq.title }</ArticleContent>
       </ArticleSmall>
     );
   }
 
   renderTablet() {
-    const className = classNames('pure-g', this.props.className);
-
     return (
-      <div className={ className } style={ wrapperStyle }>
+      <div className='pure-g' style={ wrapperStyle }>
         <div className='pure-u-1-1'>
           <SectionHeader>FAQ</SectionHeader>
         </div>
@@ -58,10 +55,8 @@ export default class FAQSection extends ResponsiveComponent {
   }
 
   renderDesktop() {
-    const className = classNames('pure-g', this.props.className);
-
     return (
-      <div className={ className } style={ wrapperStyle }>
+      <div className='pure-g' style={ wrapperStyle }>
         <div className='pure-u-1-1'>
           <SectionHeader>FAQ</SectionHeader>
         </div>
@@ -79,23 +74,22 @@ export default class FAQSection extends ResponsiveComponent {
 }
 
 FAQSection.propTypes = {
-  faqs: arrayOfN(3),
-  className: PropTypes.string
+  faqs: arrayOfN(3)
 };
 
 FAQSection.defaultProps = {
   faqs: [
     {
       id: 1,
-      question: 'How accurate is the data?'
+      title: 'How accurate is the data?'
     },
     {
       id: 2,
-      question: 'Can I have access to the raw data set?'
+      title: 'Can I have access to the raw data set?'
     },
     {
       id: 3,
-      question: 'How do I file a complaint against a Chicago Police Officer?'
+      title: 'How do I file a complaint against a Chicago Police Officer?'
     }
   ]
 };

@@ -1,7 +1,5 @@
-import 'should';
 import React from 'react';
 
-import 'utils/test/React';
 import FAQSection from 'components/faq/faq-section';
 
 
