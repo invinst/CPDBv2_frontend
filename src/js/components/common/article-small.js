@@ -12,23 +12,29 @@ import {
 
 class ArticleSmall extends ResponsiveStyleComponent {
   responsiveStyle() {
+    const { style } = this.props;
+    const propWrapperStyle = style ? style.wrapper : null;
+
     return {
       [TABLET]: {
-        wrapper: [wrapperStyle, tabletWrapperStyle, this.props.style]
+        wrapper: [wrapperStyle, tabletWrapperStyle, propWrapperStyle]
       },
       [DESKTOP]: {
-        wrapper: [wrapperStyle, this.props.style]
+        wrapper: [wrapperStyle, propWrapperStyle]
       },
       [EXTRA_WIDE]: {
-        wrapper: [wrapperStyle, extraWideWrapperStyle, this.props.style]
+        wrapper: [wrapperStyle, extraWideWrapperStyle, propWrapperStyle]
       }
     };
   }
 
   renderHeader() {
+    const { style } = this.props;
+    const headerStyle = style ? style.header : null;
+
     if (this.props.header) {
       return (
-        <ArticleHeader>{ this.props.header }</ArticleHeader>
+        <ArticleHeader style={ headerStyle }>{ this.props.header }</ArticleHeader>
       );
     }
     return null;

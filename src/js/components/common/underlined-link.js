@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react';
+import Radium from 'radium';
 
 import { linkStyle } from './underlined-link.style';
 
 
-export default class UnderlinedLink extends React.Component {
+class UnderlinedLink extends React.Component {
   render() {
     return (
-      <a href={ this.props.href } style={ linkStyle }>
+      <a href={ this.props.href } style={ [linkStyle, this.props.style] }>
         { this.props.children }
       </a>
     );
@@ -15,5 +16,8 @@ export default class UnderlinedLink extends React.Component {
 
 UnderlinedLink.propTypes = {
   children: PropTypes.node,
-  href: PropTypes.string
+  href: PropTypes.string,
+  style: PropTypes.object
 };
+
+export default Radium(UnderlinedLink);

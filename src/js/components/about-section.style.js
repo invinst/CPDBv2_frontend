@@ -1,20 +1,18 @@
-import { lightGreyColor } from 'utils/styles';
-
-
 export const articleStyle = {
   height: '281px'
 };
 
-export const articleBorderRightStyle = {
-  borderRight: `1px solid ${lightGreyColor}`,
-  height: '369px'
+const articleHeaderStyle = {
+  height: '88px',
+  marginBottom: 0,
+  lineHeight: '88px'
 };
 
-export const articleBorderBottomStyle = {
-  borderBottom: `1px solid ${lightGreyColor}`,
-  height: '254px'
+export const articleDesktopStyle = {
+  wrapper: {
+    height: '336px'
+  },
+  header: articleHeaderStyle
 };
 
-export const articleTabletStyle = {
-  height: '166px'
-};
+export const articleTabletStyle = articleDesktopStyle;

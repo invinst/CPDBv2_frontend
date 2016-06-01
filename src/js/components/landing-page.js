@@ -6,6 +6,7 @@ import TwitterEmbeddedTimeline from 'components/twitter-embedded-timeline';
 import AboutSection from 'components/about-section';
 import HeroSection from 'components/hero-section';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import NewsHound from 'components/news-hound';
 import { borderTop, leftColumnStyle } from './landing-page.style';
 
 
@@ -20,7 +21,8 @@ export default class LandingPage extends Component {
             <div className='pure-u-de-3-5 pure-u-ta-1-2 pure-u-mo-1-2'>
               <div style={ leftColumnStyle }>
                 <FAQContainer store={ this.props.store }/>
-                <AboutSection style={ borderTop }/>
+                <NewsHound/>
+                <AboutSection/>
               </div>
             </div>
             <div className='pure-u-de-2-5 pure-u-ta-1-2 pure-u-mo-1-2'>

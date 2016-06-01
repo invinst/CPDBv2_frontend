@@ -60,7 +60,7 @@ const stories = [
 axiosMockClient.onGet(`${clientConfig.baseURL}stories/`).reply(200, stories);
 
 export function getMockAdapter() {
-  if (LIVE_TEST !== undefined) {
+  if (global.LIVE_TEST !== undefined) {
     return axiosMockClient.adapter();
   }
   return null;

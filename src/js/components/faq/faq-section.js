@@ -17,7 +17,9 @@ export default class FAQSection extends ResponsiveComponent {
     super(props);
   }
 
-  renderFAQ(faq, style) {
+  renderFAQ(faq, wrapperStyle) {
+    const style = { wrapper: wrapperStyle };
+
     return (
       <ArticleSmall
         style={ style }>
