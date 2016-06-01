@@ -1,4 +1,5 @@
 import React from 'react';
+import Radium from 'radium';
 
 import ArticleContent from 'components/common/article-content';
 import ResponsiveStyleComponent, {
@@ -7,25 +8,30 @@ import ResponsiveStyleComponent, {
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import {
   wrapperStyle, contentStyle, linkStyle, paragraphStyle, previewImageStyle,
-  previewImageExtraWideStyle, innerWrapperStyle
+  previewImageDesktopStyle, previewImageTabletStyle, innerWrapperStyle, desktopLinkStyle, tabletLinkStyle
 } from './hero-section.style';
 import { imgUrl } from 'utils/static-assets';
 import CoverImage from 'components/common/cover-image';
 
 
-export default class HeroSection extends ResponsiveStyleComponent {
+class HeroSection extends ResponsiveStyleComponent {
   constructor(props) {
     super(props);
     this.dataLink = 'http://cpdb.co/data';
   }
   responsiveStyle() {
     return {
-      [TABLET]: DESKTOP,
+      [TABLET]: {
+        image: previewImageTabletStyle,
+        link: [linkStyle, tabletLinkStyle]
+      },
       [DESKTOP]: {
-        image: previewImageStyle
+        image: previewImageDesktopStyle,
+        link: [linkStyle, desktopLinkStyle]
       },
       [EXTRA_WIDE]: {
-        image: previewImageExtraWideStyle
+        image: previewImageStyle,
+        link: linkStyle
       }
     };
   }
@@ -43,7 +49,7 @@ export default class HeroSection extends ResponsiveStyleComponent {
                   <ArticleContent style={ paragraphStyle }>
                     In 2014, the court decision Kalven v. Chicago opened those files to the public.
                   </ArticleContent>
-                  <a href={ this.dataLink } style={ linkStyle }>
+                  <a href={ this.dataLink } style={ style.link }>
                     Explore the data.
                   </a>
                 </div>
@@ -60,3 +66,5 @@ export default class HeroSection extends ResponsiveStyleComponent {
     );
   }
 }
+
+export default Radium(HeroSection);

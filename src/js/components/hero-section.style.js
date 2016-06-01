@@ -21,14 +21,26 @@ export const linkStyle = {
   textDecoration: 'none'
 };
 
+export const desktopLinkStyle = {
+  fontSize: '16px'
+};
+
+export const tabletLinkStyle = {
+  fontSize: '13px'
+};
+
 export const paragraphStyle = {
   WebkitMarginAfter: '1.5em'
 };
 
 export const previewImageStyle = {
+  height: '526px'
+};
+
+export const previewImageDesktopStyle = {
   height: '429px'
 };
 
-export const previewImageExtraWideStyle = {
-  height: '526px'
+export const previewImageTabletStyle = {
+  height: '325px'
 };

@@ -8,7 +8,7 @@ import StorySmall from 'components/stories/story-small';
 import SectionHeader from 'components/common/section-header';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
-  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop, wrapperStyle
+  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop, wrapperStyle, secondSmallStoryStyle
 } from './stories.style';
 
 
@@ -19,7 +19,7 @@ class Stories extends ResponsiveComponent {
       return (
         <StorySmall
           onClick={ this.props.onStoryClick }
-          style={ ind === 0 ? firstSmallStoryStyleTablet : null }
+          style={ ind === 0 ? firstSmallStoryStyleTablet : secondSmallStoryStyle }
           key={ story.id } story={ story }/>
       );
     });

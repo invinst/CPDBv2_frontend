@@ -1,13 +1,25 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
-import { contentStyle } from './article-content.style';
+import ResponsiveStyleComponent, { TABLET, DESKTOP } from 'components/responsive/responsive-style-component';
+import { contentStyle, contentTabletStyle } from './article-content.style';
 
 
-class ArticleContent extends React.Component {
-  render() {
+class ArticleContent extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [TABLET]: {
+        content: [contentStyle, contentTabletStyle, this.props.style]
+      },
+      [DESKTOP]: {
+        content: [contentStyle, this.props.style]
+      }
+    };
+  }
+
+  renderWithResponsiveStyle(style) {
     return (
-      <p style={ [contentStyle, this.props.style] }>
+      <p style={ style.content }>
         { this.props.children }
       </p>
     );
