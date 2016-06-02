@@ -12,7 +12,7 @@ describe('bottom-sheet', function () {
     client.expect.element('body').to.have.attribute('class').which.contains('noscroll');
 
     // click on dismiss should close bottom-sheet and body element shouldn't has noscroll class
-    client.click('button.bottom-sheet__dismiss-btn')
+    client.click('button.bottom-sheet__back-btn')
       .expect.element('.story-full').to.not.be.present.after(2000);
     client.expect.element('.bottom-sheet__overlay').to.not.be.present;
     client.expect.element('body').to.have.attribute('class').which.not.contains('noscroll');

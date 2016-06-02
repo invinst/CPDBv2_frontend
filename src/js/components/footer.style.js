@@ -14,7 +14,11 @@ export const wrapperStyle = {
 
 export const linkStyle = {
   display: 'inline-block',
-  marginRight: '50px'
+  marginLeft: '50px'
+};
+
+export const firstLinkStyle = {
+  display: 'inline-block'
 };
 
 export const linkWrapperStyle = {

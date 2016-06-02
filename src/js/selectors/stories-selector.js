@@ -14,6 +14,7 @@ export function rawStoryTransform(story) {
   return {
     id: story.id,
     title: story.title,
+    canonicalUrl: story['canonical_url'],
     newspaperName: story.newspaper && story.newspaper.name,
     newspaperShortName: story.newspaper && story.newspaper['short_name'],
     date: story['post_date'],

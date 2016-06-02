@@ -18,5 +18,7 @@ export const wrapperStyle = {
 };
 
 export const secondSmallStoryStyle = {
-  paddingTop: '16px'
+  wrapper: {
+    paddingTop: '16px'
+  }
 };

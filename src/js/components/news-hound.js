@@ -1,14 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Radium from 'radium';
 
-import { wrapperStyle } from './news-hound.style';
+import { extraWideStyle, desktopStyle, tabletStyle, backgroundColorStyle } from './news-hound.style';
+import ResponsiveStyleComponent, {
+  EXTRA_WIDE, DESKTOP, TABLET
+} from 'components/responsive/responsive-style-component';
 
 
-export default class NewsHound extends Component {
-  render() {
+class NewsHound extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [EXTRA_WIDE]: {
+        wrapper: [backgroundColorStyle, extraWideStyle]
+      },
+      [DESKTOP]: {
+        wrapper: [backgroundColorStyle, desktopStyle]
+      },
+      [TABLET]: {
+        wrapper: [backgroundColorStyle, tabletStyle]
+      }
+    };
+  }
+
+  renderWithResponsiveStyle(style) {
     return (
       <div>
-        <div style={ wrapperStyle }/>
+        <div style={ style.wrapper }/>
       </div>
     );
   }
 }
+
+export default Radium(NewsHound);

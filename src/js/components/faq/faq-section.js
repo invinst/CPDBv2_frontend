@@ -8,7 +8,8 @@ import { arrayOfN } from 'utils/prop-validators';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
   desktopStyle, desktopBorderRightStyle, tabletBorderRightStyle,
-  tabletBorderBottomStyle, tabletStyle, wrapperStyle
+  tabletBorderBottomStyle, tabletStyle, wrapperStyle,
+  extraWideBorderRightStyle, extraWideStyle
 } from './faq-section.style';
 
 
@@ -63,6 +64,24 @@ export default class FAQSection extends ResponsiveComponent {
         { this.props.faqs.map( (faq, ind) => (
           <div className='pure-u-1-3' key={ faq.id }>
             { this.renderFAQ(faq, ind < 2 ? desktopBorderRightStyle : desktopStyle) }
+          </div>
+        )) }
+        <div className='pure-u-1-1'>
+          <ArticleFooter>More FAQ</ArticleFooter>
+        </div>
+      </div>
+    );
+  }
+
+  renderExtraWide() {
+    return (
+      <div className='pure-g' style={ wrapperStyle }>
+        <div className='pure-u-1-1'>
+          <SectionHeader>FAQ</SectionHeader>
+        </div>
+        { this.props.faqs.map( (faq, ind) => (
+          <div className='pure-u-1-3' key={ faq.id }>
+            { this.renderFAQ(faq, ind < 2 ? extraWideBorderRightStyle : extraWideStyle) }
           </div>
         )) }
         <div className='pure-u-1-1'>
