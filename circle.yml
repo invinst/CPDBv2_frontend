@@ -17,7 +17,6 @@ dependencies:
 test:
   override:
     - eslint .
-    - npm test
     - npm run cover-circle
     - npm run live-test
   post:
