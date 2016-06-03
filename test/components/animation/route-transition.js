@@ -42,9 +42,8 @@ describe('RouteTransition component', function () {
         rootEl.innerHTML.should.containEql(testChildren[0].text);
         setTimeout(() => {
           rootEl.innerHTML.should.containEql(testChildren[1].text);
-          rootEl.innerHTML.should.not.containEql(testChildren[0].text);
           callback();
-        }, 500);
+        }, 300);
       });
   });
 });
