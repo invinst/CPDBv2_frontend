@@ -4,6 +4,7 @@ import classnames from 'classnames';
 
 import NavLink from 'components/common/nav-link';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import { COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 import {
   navWrapperStyle, navStyle, fixedWrapperStyle, logoWrapperStyle, logoStyle,
   navWrapperFixedStyle, logoWrapperFixedStyle, spaceHolderStyle, wrapperStyle
@@ -57,7 +58,24 @@ class Header extends React.Component {
   }
 
   render() {
-    let links = ['Database', 'Stories', 'FAQ', 'Collaboration'];
+    let links = [
+      {
+        name: 'Database',
+        href: DATA_PATH
+      },
+      {
+        name: 'Stories',
+        href: STORIES_PATH
+      },
+      {
+        name: 'FAQ',
+        href: FAQ_PATH
+      },
+      {
+        name: 'Collaboration',
+        href: COLLAB_PATH
+      }
+    ];
     let headerWrapperClass = classnames({
       'header-wrapper-fixed': this.state.fixed
     });
@@ -68,8 +86,8 @@ class Header extends React.Component {
         <div style={ this.wrapperStyle() } className={ headerWrapperClass }>
           <ResponsiveFixedWidthComponent>
             <div style={ this.navWrapperStyle() }>
-              { links.map((txt, ind) => (
-                <NavLink key={ ind } style={ navStyle }>{ txt }</NavLink>
+              { links.map((link, ind) => (
+                <NavLink key={ ind } style={ navStyle } href={ link.href }>{ link.name }</NavLink>
               )) }
             </div>
             <div style={ this.logoWrapperStyle() }>

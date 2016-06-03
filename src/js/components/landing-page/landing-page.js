@@ -2,11 +2,12 @@ import React, { Component, PropTypes } from 'react';
 
 import StoriesContainer from 'containers/stories-container';
 import FAQContainer from 'containers/faq-container';
-import TwitterEmbeddedTimeline from 'components/twitter-embedded-timeline';
-import AboutSection from 'components/about-section';
-import HeroSection from 'components/hero-section';
+import TwitterEmbeddedTimeline from 'components/landing-page/twitter-embedded-timeline';
+import AboutSection from 'components/landing-page/about-section';
+import HeroSection from 'components/landing-page/hero-section';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
-import NewsHound from 'components/news-hound';
+import NewsHound from 'components/landing-page/news-hound';
+import CollaborateSection from 'components/landing-page/collaborate-section';
 import { borderTop, leftColumnStyle } from './landing-page.style';
 
 
@@ -30,6 +31,7 @@ export default class LandingPage extends Component {
             </div>
           </div>
         </ResponsiveFixedWidthComponent>
+        <CollaborateSection />
       </div>
     );
   }

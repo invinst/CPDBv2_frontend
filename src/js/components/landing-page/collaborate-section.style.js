@@ -1,4 +1,5 @@
-import { whiteSmokeColor } from 'utils/styles';
+import { whiteSmokeColor, softBlackColor } from 'utils/styles';
+
 
 export const articleHeaderStyle = {
   height: '88px',
@@ -6,6 +7,10 @@ export const articleHeaderStyle = {
   lineHeight: '88px',
   color: 'white',
   fontSize: '16px'
+};
+
+export const wrapperStyle = {
+  background: softBlackColor
 };
 
 export const sectionStyle = {
