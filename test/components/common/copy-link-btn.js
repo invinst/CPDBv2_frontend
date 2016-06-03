@@ -14,8 +14,4 @@ describe('CopyLinkButton component', function () {
   it('should be renderable', function () {
     CopyLinkButton.should.be.renderable();
   });
-
-  it('should trigger onClick callback when clicked on', function () {
-    CopyLinkButton.should.triggerCallbackWhenClick('onClick');
-  });
 });

@@ -8,6 +8,9 @@ import {
 } from './collaboration-page.style';
 
 
+const foiaEmail = 'foia@chicagopolice.org';
+const loremEmail = 'loremipsum@cpdp.co';
+
 export default class CollaborationPage extends Component {
   render() {
     return (
@@ -31,8 +34,8 @@ export default class CollaborationPage extends Component {
                   missing information, and email the PDF to
                 </p>
                 <div style={ emailLinkWrapperStyle }>
-                  <a href='mailto:foia@chicagopolice.org' style={ emailLinkStyle }>foia@chicagopolice.org</a>
-                  <CopyLinkButton style={ copyLinkStyle }/>
+                  <a href={ `mailto:${foiaEmail}` } style={ emailLinkStyle }>{ foiaEmail }</a>
+                  <CopyLinkButton style={ copyLinkStyle } text={ foiaEmail }/>
                 </div>
                 <p style={ smallTextStyle }>
                   *Before being released, each Complaint Register file must have
@@ -63,8 +66,8 @@ export default class CollaborationPage extends Component {
                 If you'd like to add your documents to the database, e-mail us at
               </p>
               <div style={ emailLinkWrapperStyle }>
-                <a href='mailto:loremipsum@cpdp.co' style={ emailLinkStyle }>loremipsum@cpdp.co</a>
-                <CopyLinkButton style={ copyLinkStyle }/>
+                <a href={ `mailto:${loremEmail}` } style={ emailLinkStyle }>{ loremEmail }</a>
+                <CopyLinkButton style={ copyLinkStyle } text={ loremEmail }/>
               </div>
             </div>
           </div>
