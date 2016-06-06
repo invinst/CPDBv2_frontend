@@ -1,11 +1,12 @@
 import { STORIES_REQUEST_START, STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE } from 'actions/story-app';
 import storyApp from 'reducers/story-app';
+import { PAGINATION_DEFAULT } from 'utils/constants';
 
 
 describe('storyApp reducer', function () {
   it('should return initial state', function () {
     storyApp(undefined, {}).should.eql({
-      stories: [],
+      stories: PAGINATION_DEFAULT,
       isRequesting: false,
       featuredStoryId: 0
     });
@@ -15,7 +16,7 @@ describe('storyApp reducer', function () {
     storyApp(undefined, {
       type: STORIES_REQUEST_START
     }).should.eql({
-      stories: [],
+      stories: PAGINATION_DEFAULT,
       isRequesting: true,
       featuredStoryId: 0
     });
@@ -45,7 +46,7 @@ describe('storyApp reducer', function () {
       type: STORIES_REQUEST_FAILURE,
       payload: new Error('Load failed')
     }).should.eql({
-      stories: [],
+      stories: PAGINATION_DEFAULT,
       isRequesting: false,
       featuredStoryId: 0
     });

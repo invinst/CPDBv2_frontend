@@ -22,7 +22,12 @@ export function rawStoryTransform(story) {
 }
 
 export const getStoriesSelector = createSelector(getStories, (stories) => {
-  return stories.map(rawStoryTransform);
+  return stories.results.map(rawStoryTransform);
+});
+
+export const paginationSelector = createSelector(getStories, (stories) => {
+  const { count, next, previous } = stories;
+  return { count, next, previous };
 });
 
 export const featuredStorySelector = createSelector(

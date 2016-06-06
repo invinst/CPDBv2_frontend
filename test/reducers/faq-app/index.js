@@ -1,11 +1,12 @@
 import { FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE } from 'actions/faq-app';
 import faqApp from 'reducers/faq-app';
+import { PAGINATION_DEFAULT } from 'utils/constants';
 
 
 describe('faqApp reducer', function () {
   it('should return initial state', function () {
     faqApp(undefined, {}).should.eql({
-      faqs: [],
+      faqs: PAGINATION_DEFAULT,
       isRequesting: false
     });
   });
@@ -14,7 +15,7 @@ describe('faqApp reducer', function () {
     faqApp(undefined, {
       type: FAQS_REQUEST_START
     }).should.eql({
-      faqs: [],
+      faqs: PAGINATION_DEFAULT,
       isRequesting: true
     });
   });
@@ -42,7 +43,7 @@ describe('faqApp reducer', function () {
       type: FAQS_REQUEST_FAILURE,
       payload: new Error('Load failed')
     }).should.eql({
-      faqs: [],
+      faqs: PAGINATION_DEFAULT,
       isRequesting: false
     });
   });
