@@ -27,14 +27,16 @@
   tags: setup
 
 - name: Clean static root
-  sudo: yes
+  become: yes
+  become_user: root
   file: path=/www/static/dist state=absent
+  tags: deploy
 
 - name: Create static root
   become: yes
   become_user: root
   file: path=/www/static/dist state=directory owner={{ deploy_user }} group={{ deploy_group }}
-  tags: setup
+  tags: deploy
 
 - name: Build everything
   command: npm run build
