@@ -7,8 +7,8 @@ import { defaultConfig } from 'utils/spring-presets';
 export default class RouteTransition extends Component {
   willEnter() {
     return {
-      opacity: spring(0, defaultConfig()),
-      scale: spring(0.95, defaultConfig())
+      opacity: 0,
+      scale: 0.95
     };
   }
 
