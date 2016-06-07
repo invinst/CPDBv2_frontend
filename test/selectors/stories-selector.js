@@ -2,7 +2,7 @@ import 'should';
 
 import {
   featuredStorySelector, dataAvailableSelector, smallStoriesSelector,
-  getStoriesSelector, rawStoryTransform, paginationSelector
+  getStoriesSelector, rawStoryTransform, paginationSelector, getImageUrl
 } from 'selectors/stories-selector';
 import RawStoryFactory from 'utils/test/factories/raw-story';
 import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
@@ -39,6 +39,21 @@ describe('stories selectors', function () {
     };
 
     rawStoryTransform(rawStory).should.eql(transformedStory);
+  });
+
+  describe('getImageUrl', function () {
+    it('should return default dimension image url', function () {
+      const url = 'url';
+      const story = { 'image_url': { [DEFAULT_IMAGE_DIMENSION]: url } };
+
+      getImageUrl(story).should.eql(url);
+    });
+
+    it('should return empty string if story has no image', function () {
+      const story = {};
+
+      getImageUrl(story).should.eql('');
+    });
   });
 
   describe('getStoriesSelector', function () {

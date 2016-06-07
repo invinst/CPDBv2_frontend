@@ -9,6 +9,8 @@ const getStories = state => state.storyApp.stories;
 
 const getFeaturedStoryId = state => state.storyApp.featuredStoryId;
 
+export const getImageUrl = story => ((story['image_url'] && story['image_url'][DEFAULT_IMAGE_DIMENSION]) || '');
+
 export function rawStoryTransform(story) {
   return {
     id: story.id,
@@ -17,7 +19,7 @@ export function rawStoryTransform(story) {
     newspaperShortName: story.newspaper && story.newspaper['short_name'],
     date: story['post_date'],
     paragraphs: story.body && story.body.map(p => p.value),
-    imageUrl: story['image_url'] && story['image_url'][DEFAULT_IMAGE_DIMENSION]
+    imageUrl: getImageUrl(story)
   };
 }
 
