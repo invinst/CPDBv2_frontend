@@ -1,15 +1,15 @@
 import React from 'react';
 
 import ArticleSmall from 'components/common/article-small';
-import ArticleContent from 'components/common/article-content';
 import ArticleFooter from 'components/common/article-footer';
 import SectionHeader from 'components/common/section-header';
+import HoverStyleChange from 'components/common/hover-style-change';
 import { arrayOfN } from 'utils/prop-validators';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
   desktopStyle, desktopBorderRightStyle, tabletBorderRightStyle,
   tabletBorderBottomStyle, tabletStyle, wrapperStyle,
-  extraWideBorderRightStyle, extraWideStyle
+  extraWideBorderRightStyle, extraWideStyle, accentColorStyle
 } from './faq-section.style';
 
 
@@ -19,13 +19,15 @@ export default class FAQSection extends ResponsiveComponent {
   }
 
   renderFAQ(faq, wrapperStyle) {
-    const style = { wrapper: wrapperStyle };
-
     return (
-      <ArticleSmall
-        style={ style }>
-        <ArticleContent>{ faq.title }</ArticleContent>
-      </ArticleSmall>
+      <HoverStyleChange styleChange={ {
+        wrapper: wrapperStyle,
+        paragraph: accentColorStyle
+      } }>
+        <ArticleSmall
+          style={ { wrapper: wrapperStyle } }
+          paragraphs={ [faq.title] }/>
+      </HoverStyleChange>
     );
   }
 

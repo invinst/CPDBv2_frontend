@@ -1,4 +1,4 @@
-import { lightGreyColor } from 'utils/styles';
+import { lightGreyColor, accentColor } from 'utils/styles';
 
 
 export const desktopStyle = {
@@ -36,4 +36,8 @@ export const extraWideBorderRightStyle = {
 
 export const extraWideStyle = {
   height: '228px'
+};
+
+export const accentColorStyle = {
+  color: accentColor
 };

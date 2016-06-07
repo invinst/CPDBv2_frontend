@@ -24,18 +24,25 @@ class StoryMedium extends ResponsiveStyleComponent {
   }
 
   responsiveStyle() {
+    const { style } = this.props;
     return {
       [TABLET]: {
         image: storyImageStyleTablet,
-        wrapper: [storyWrapperStyle, storyWrapperStyleTablet]
+        wrapper: [storyWrapperStyle, storyWrapperStyleTablet],
+        header: [paperStyleDesktop, style.header],
+        paragraph: style.paragraph
       },
       [DESKTOP]: {
         image: storyImageStyleDesktop,
-        wrapper: [storyWrapperStyle]
+        wrapper: [storyWrapperStyle],
+        header: [paperStyleDesktop, style.header],
+        paragraph: style.paragraph
       },
       [EXTRA_WIDE]: {
         image: storyImageStyleExtraWide,
-        wrapper: [storyWrapperStyle, storyWrapperStyleExtraWide]
+        wrapper: [storyWrapperStyle, storyWrapperStyleExtraWide],
+        header: [paperStyleDesktop, style.header],
+        paragraph: style.paragraph
       }
     };
   }
@@ -49,8 +56,10 @@ class StoryMedium extends ResponsiveStyleComponent {
         <div className='pure-u-1-3'>
           <div style={ style.wrapper }>
             <div style={ contentStyle }>
-              <ArticleHeader style={ paperStyleDesktop }>{ this.props.story.newspaperName }</ArticleHeader>
-              <ArticleContent>{ this.props.story.title }</ArticleContent>
+              <ArticleHeader style={ style.header }>{ this.props.story.newspaperName }</ArticleHeader>
+              <ArticleContent style={ style.paragraph }>
+                { this.props.story.title }
+              </ArticleContent>
             </div>
           </div>
         </div>
@@ -66,6 +75,10 @@ StoryMedium.propTypes = {
     title: PropTypes.string.isRequired,
     imageUrl: PropTypes.string.isRequired
   }),
+  style: PropTypes.shape({
+    paragraph: PropTypes.object,
+    header: PropTypes.object
+  }),
   onClick: PropTypes.func
 };
 
@@ -75,7 +88,8 @@ StoryMedium.defaultProps = {
     newspaperName: 'New York Times',
     title: 'Complaints against Chicago Police rarely result in discipline data shows.',
     imageUrl: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
-  }
+  },
+  style: {}
 };
 
 export default Radium(StoryMedium);
