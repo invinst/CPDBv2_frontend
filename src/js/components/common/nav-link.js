@@ -8,10 +8,8 @@ import { navStyle } from './nav-link.style';
 class NavigationLink extends React.Component {
   render() {
     return (
-      <Link to={ this.props.href } style={ [navStyle, this.props.style] }>
-        <span style={ [navStyle, this.props.style] }>
-          { this.props.children }
-        </span>
+      <Link to={ this.props.href } style={ navStyle }>
+        { this.props.children }
       </Link>
     );
   }
@@ -19,8 +17,7 @@ class NavigationLink extends React.Component {
 
 NavigationLink.propTypes = {
   children: PropTypes.node,
-  href: PropTypes.string,
-  style: PropTypes.object
+  href: PropTypes.string
 };
 
 export default Radium(NavigationLink);

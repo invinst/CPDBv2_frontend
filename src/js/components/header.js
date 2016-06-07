@@ -1,15 +1,18 @@
 import React from 'react';
 import Radium from 'radium';
-import classnames from 'classnames';
+import { browserHistory } from 'react-router';
 
-import NavLink from 'components/common/nav-link';
+import ClosableNavLink from 'components/closable-nav-link';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import { COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 import {
   navWrapperStyle, navStyle, fixedWrapperStyle, logoWrapperStyle, logoStyle,
-  navWrapperFixedStyle, logoWrapperFixedStyle, spaceHolderStyle, wrapperStyle
+  navWrapperFixedStyle, logoWrapperFixedStyle, spacerStyle, spacerSmallStyle, wrapperStyle
 } from './header.style';
+import { getCurrentPathname } from 'utils/dom';
 
+
+const COMPACT_STYLE_PATHNAMES = [COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH];
 
 function toFixed() {
   return (window.scrollY > 88);
@@ -20,6 +23,10 @@ class Header extends React.Component {
     super(props);
     this.state = { fixed: toFixed() };
     this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  isCompact() {
+    return this.state.fixed || COMPACT_STYLE_PATHNAMES.indexOf(getCurrentPathname()) !== -1;
   }
 
   componentDidMount() {
@@ -37,28 +44,37 @@ class Header extends React.Component {
   }
 
   wrapperStyle() {
-    return this.state.fixed ? fixedWrapperStyle : wrapperStyle;
+    return this.isCompact() ? fixedWrapperStyle : wrapperStyle;
   }
 
   navWrapperStyle() {
-    return [navWrapperStyle, this.state.fixed ? navWrapperFixedStyle : null];
+    return [navWrapperStyle, this.isCompact() ? navWrapperFixedStyle : null];
   }
 
   logoWrapperStyle() {
-    return [logoWrapperStyle, this.state.fixed ? logoWrapperFixedStyle : null];
+    return [logoWrapperStyle, this.isCompact() ? logoWrapperFixedStyle : null];
   }
 
   renderSpaceHolder() {
+    if (COMPACT_STYLE_PATHNAMES.indexOf(getCurrentPathname()) !== -1) {
+      return (
+        <div style={ spacerSmallStyle }/>
+      );
+    }
     if (this.state.fixed) {
       return (
-        <div style={ spaceHolderStyle }/>
+        <div style={ spacerStyle }/>
       );
     }
     return null;
   }
 
+  goToBasePath() {
+    browserHistory.push('/');
+  }
+
   render() {
-    let links = [
+    const links = [
       {
         name: 'Database',
         href: DATA_PATH
@@ -76,18 +92,20 @@ class Header extends React.Component {
         href: COLLAB_PATH
       }
     ];
-    let headerWrapperClass = classnames({
-      'header-wrapper-fixed': this.state.fixed
-    });
+    const currentPath = getCurrentPathname();
 
     return (
       <div>
         { this.renderSpaceHolder() }
-        <div style={ this.wrapperStyle() } className={ headerWrapperClass }>
+        <div style={ this.wrapperStyle() }>
           <ResponsiveFixedWidthComponent>
             <div style={ this.navWrapperStyle() }>
               { links.map((link, ind) => (
-                <NavLink key={ ind } style={ navStyle } href={ link.href }>{ link.name }</NavLink>
+                <ClosableNavLink
+                  key={ ind } style={ navStyle } href={ link.href } showCloseBtn={ link.href === currentPath }
+                  onClickClose={ this.goToBasePath }>
+                  { link.name }
+                </ClosableNavLink>
               )) }
             </div>
             <div style={ this.logoWrapperStyle() }>
