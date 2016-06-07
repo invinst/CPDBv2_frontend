@@ -1,4 +1,5 @@
 import { unmountComponentAtNode, findDOMNode } from 'react-dom';
+import isMobile from 'ismobilejs';
 
 
 export function unmountComponentSuppressError(element) {
@@ -13,4 +14,10 @@ export function withAnimationDisabled(cb) {
   global.disableAnimation = true;
   cb();
   global.disableAnimation = false;
+}
+
+export function withMobileDevice(cb) {
+  isMobile.any = true;
+  cb();
+  isMobile.any = false;
 }

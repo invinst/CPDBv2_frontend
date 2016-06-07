@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
 import Clipboard from 'clipboard';
+import isMobile from 'ismobilejs';
 
-import { buttonStyle } from './copy-link-btn.style';
+import { buttonStyle, buttonHoverStyle } from './copy-link-btn.style';
 
 
 class CopyLinkButton extends React.Component {
@@ -20,8 +21,14 @@ class CopyLinkButton extends React.Component {
   }
 
   render() {
+    if (isMobile.any) {
+      return (
+        <button style={ [buttonStyle, this.props.style] } className={ this.props.className }
+          ref={ this.attachClipboardEvent.bind(this) }/>
+      );
+    }
     return (
-      <button style={ [buttonStyle, this.props.style] } className={ this.props.className }
+      <button style={ [buttonHoverStyle, this.props.style] } className={ this.props.className }
         ref={ this.attachClipboardEvent.bind(this) }/>
     );
   }

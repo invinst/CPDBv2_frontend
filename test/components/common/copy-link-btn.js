@@ -1,7 +1,7 @@
 import React from 'react';
 
 import CopyLinkButton from 'components/common/copy-link-btn';
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, withMobileDevice } from 'utils/test';
 
 
 describe('CopyLinkButton component', function () {
@@ -13,5 +13,8 @@ describe('CopyLinkButton component', function () {
 
   it('should be renderable', function () {
     CopyLinkButton.should.be.renderable();
+    withMobileDevice(() => {
+      CopyLinkButton.should.be.renderable();
+    });
   });
 });
