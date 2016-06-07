@@ -1,4 +1,5 @@
 import React, { Component, PropTypes, cloneElement } from 'react';
+import isMobile from 'ismobilejs';
 
 
 export default class HoverStyleChange extends Component {
@@ -9,6 +10,10 @@ export default class HoverStyleChange extends Component {
     };
     this.onMouseOut = () => { this.setState({ hover: false }); };
     this.onMouseOver = () => { this.setState({ hover: true }); };
+    if (isMobile.any) {
+      this.onMouseOver = null;
+      this.onMouseOut = null;
+    }
   }
 
   renderChildren() {
