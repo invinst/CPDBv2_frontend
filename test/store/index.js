@@ -1,4 +1,5 @@
 import configureStore from 'store';
+import { PAGINATION_DEFAULT } from 'utils/constants';
 
 
 function setUp() {
@@ -28,7 +29,7 @@ describe('store', function () {
     const { getCurrentState } = setUp();
     getCurrentState().should.eql({
       storyApp: {
-        stories: [],
+        stories: PAGINATION_DEFAULT,
         isRequesting: false,
         featuredStoryId: 0
       },
@@ -36,7 +37,7 @@ describe('store', function () {
         content: null
       },
       faqApp: {
-        faqs: [],
+        faqs: PAGINATION_DEFAULT,
         isRequesting: false
       }
     });
