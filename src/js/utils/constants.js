@@ -11,3 +11,6 @@ export const COLLAB_PATH = '/collaboration';
 export const DATA_PATH = '/data';
 export const FAQ_PATH = '/faq';
 export const STORIES_PATH = '/stories';
+
+// Reducer defaults
+export const PAGINATION_DEFAULT = { results: [], count: 0, next: null, previous: null };
