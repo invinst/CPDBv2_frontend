@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router';
+import { assign } from 'lodash';
 
 import { footerStyle, linkStyle } from './article-footer.style';
 
@@ -9,9 +11,9 @@ class ArticleFooter extends React.Component {
     const { style, className } = this.props;
     return (
       <div style={ [footerStyle, style.wrapper] } className={ className }>
-        <a href={ this.props.href } style={ [linkStyle, style.link] }>
+        <Link to={ this.props.href } style={ assign(linkStyle, style.link) }>
           { this.props.children }
-        </a>
+        </Link>
       </div>
     );
   }
@@ -28,7 +30,8 @@ ArticleFooter.propTypes = {
 };
 
 ArticleFooter.defaultProps = {
-  style: {}
+  style: {},
+  href: '#'
 };
 
 export default Radium(ArticleFooter);

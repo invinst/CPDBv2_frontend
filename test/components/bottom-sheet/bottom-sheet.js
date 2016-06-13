@@ -5,7 +5,7 @@ import { renderIntoDocument } from 'react-addons-test-utils';
 import BottomSheet from 'components/bottom-sheet/bottom-sheet';
 import { unmountComponentSuppressError } from 'utils/test';
 import StoryFactory from 'utils/test/factories/story';
-import { STORY_TYPE } from 'actions/bottom-sheet';
+import { STORY_TYPE } from 'actions/landing-page/bottom-sheet';
 
 
 describe('BottomSheet component', function () {

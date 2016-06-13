@@ -3,7 +3,8 @@ import React, { Component, PropTypes } from 'react';
 
 
 import BottomSheet from 'components/bottom-sheet/bottom-sheet';
-import { closeBottomSheet } from 'actions/bottom-sheet';
+import { closeBottomSheet } from 'actions/landing-page/bottom-sheet';
+import { contentSelector } from 'selectors/landing-page/bottom-sheet-selector';
 
 
 export class UnconnectedBottomSheetContainer extends Component {
@@ -22,7 +23,7 @@ UnconnectedBottomSheetContainer.propTypes = {
 
 function mapStateToProps(state, props) {
   return {
-    content: state.bottomSheet.content
+    content: contentSelector(state)
   };
 }
 

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 
-import { dataAvailableSelector, faqsSelector } from 'selectors/faqs-selector';
-import { requestFAQs } from 'actions/faq-app';
+import { dataAvailableSelector, faqsSelector } from 'selectors/landing-page/faqs-selector';
+import { requestFAQs } from 'actions/landing-page/faq-app';
 import FAQSection from 'components/faq/faq-section';
 import FAQSectionPlaceHolder from 'components/faq/faq-section-place-holder';
 

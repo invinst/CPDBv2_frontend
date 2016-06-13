@@ -5,7 +5,7 @@ import { assign } from 'lodash';
 import BottomSheetHeader from './bottom-sheet-header';
 import StoryFull from 'components/stories/story-full';
 import { overlayStyle, sheetStyle, contentStyle, bodyStyle, scrollStyle } from './bottom-sheet.style';
-import { STORY_TYPE } from 'actions/bottom-sheet';
+import { STORY_TYPE } from 'actions/landing-page/bottom-sheet';
 import { defaultConfig } from 'utils/spring-presets';
 
 

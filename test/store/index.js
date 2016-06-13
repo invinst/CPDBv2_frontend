@@ -28,15 +28,21 @@ describe('store', function () {
   it('should have initial state', function () {
     const { getCurrentState } = setUp();
     getCurrentState().should.eql({
-      storyApp: {
-        stories: PAGINATION_DEFAULT,
-        isRequesting: false,
-        featuredStoryId: 0
+      landingPage: {
+        storyApp: {
+          stories: PAGINATION_DEFAULT,
+          isRequesting: false,
+          featuredStoryId: 0
+        },
+        bottomSheet: {
+          content: null
+        },
+        faqApp: {
+          faqs: PAGINATION_DEFAULT,
+          isRequesting: false
+        }
       },
-      bottomSheet: {
-        content: null
-      },
-      faqApp: {
+      faqPage: {
         faqs: PAGINATION_DEFAULT,
         isRequesting: false
       }

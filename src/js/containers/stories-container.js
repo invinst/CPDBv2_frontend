@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 
-import { featuredStorySelector, dataAvailableSelector, smallStoriesSelector } from 'selectors/stories-selector';
+import {
+  featuredStorySelector, dataAvailableSelector, smallStoriesSelector
+} from 'selectors/landing-page/stories-selector';
 import Stories from 'components/stories/stories';
-import { requestStories } from 'actions/story-app';
-import { openBottomSheetWithStory } from 'actions/bottom-sheet';
+import { requestStories } from 'actions/landing-page/story-app';
+import { openBottomSheetWithStory } from 'actions/landing-page/bottom-sheet';
 import StoriesPlaceHolder from 'components/stories/stories-place-holder';
 
 

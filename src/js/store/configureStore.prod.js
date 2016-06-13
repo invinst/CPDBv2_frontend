@@ -1,18 +1,10 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 
-import storyApp from 'reducers/story-app';
-import faqApp from 'reducers/faq-app';
-import bottomSheet from 'reducers/bottom-sheet';
+import rootReducer from 'reducers/root-reducer';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
 
-
-const rootReducer = combineReducers({
-  storyApp,
-  faqApp,
-  bottomSheet
-});
 
 export default function configureStore(initialState) {
   return createStore(

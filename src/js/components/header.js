@@ -25,16 +25,16 @@ class Header extends React.Component {
     this.handleScroll = this.handleScroll.bind(this);
   }
 
-  isCompact() {
-    return this.state.fixed || COMPACT_STYLE_PATHNAMES.indexOf(getCurrentPathname()) !== -1;
-  }
-
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  isCompact() {
+    return this.state.fixed || COMPACT_STYLE_PATHNAMES.indexOf(getCurrentPathname()) !== -1;
   }
 
   handleScroll() {

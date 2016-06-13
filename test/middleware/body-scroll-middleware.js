@@ -1,5 +1,5 @@
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
-import { openBottomSheetWithStory, closeBottomSheet } from 'actions/bottom-sheet';
+import { openBottomSheetWithStory, closeBottomSheet } from 'actions/landing-page/bottom-sheet';
 
 
 describe('bodyScrollMiddleware', function () {
