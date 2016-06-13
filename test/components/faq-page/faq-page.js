@@ -1,12 +1,12 @@
 import FAQPage from 'components/faq-page/faq-page';
 import configureStore from 'redux-mock-store';
-import PaginationFactory from 'utils/test/factories/pagination';
+import { PAGINATION_DEFAULT } from 'utils/constants';
 
 
 const mockStore = configureStore();
 const store = mockStore({
   faqPage: {
-    faqs: PaginationFactory.buildList(5)
+    faqs: PAGINATION_DEFAULT
   }
 });
 

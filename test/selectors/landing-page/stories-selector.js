@@ -99,13 +99,13 @@ describe('stories selectors', function () {
   });
 
   describe('dataAvailableSelector', function () {
-    // it('should return false when isRequesting', function () {
-    //   state.landingPage.storyApp = {
-    //     stories: PaginationFactory.build({ results: RawStoryFactory.buildList(3) }),
-    //     isRequesting: true
-    //   };
-    //   dataAvailableSelector(state).should.be.false();
-    // });
+    it('should return false when isRequesting', function () {
+      state.landingPage.storyApp = {
+        stories: PaginationFactory.build({ results: RawStoryFactory.buildList(3) }),
+        isRequesting: true
+      };
+      dataAvailableSelector(state).should.be.false();
+    });
 
     it('should return true if has more than 2 stories and requesting is false', function () {
       state.landingPage.storyApp = {
@@ -115,12 +115,12 @@ describe('stories selectors', function () {
       dataAvailableSelector(state).should.be.true();
     });
 
-    // it('should return false when stories has less than 3 stories', function () {
-    //   state.landingPage.storyApp = {
-    //     stories: PaginationFactory.build({ results: [1, 2] })
-    //   };
-    //   dataAvailableSelector(state).should.be.false();
-    // });
+    it('should return false when stories has less than 3 stories', function () {
+      state.landingPage.storyApp = {
+        stories: PaginationFactory.build({ results: [1, 2] })
+      };
+      dataAvailableSelector(state).should.be.false();
+    });
   });
 
   describe('smallStoriesSelector', function () {
