@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+import { getPaginationInfo } from 'selectors/common/pagination-selector';
 import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
 
 
@@ -27,10 +28,7 @@ export const getStoriesSelector = createSelector(getStories, (stories) => {
   return stories.results.map(rawStoryTransform);
 });
 
-export const paginationSelector = createSelector(getStories, (stories) => {
-  const { count, next, previous } = stories;
-  return { count, next, previous };
-});
+export const paginationSelector = createSelector(getStories, getPaginationInfo);
 
 export const featuredStorySelector = createSelector(
   getStoriesSelector,

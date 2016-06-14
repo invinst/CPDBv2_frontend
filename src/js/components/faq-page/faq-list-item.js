@@ -45,7 +45,9 @@ export default class FAQListItem extends Component {
 
 FAQListItem.propTypes = {
   faq: PropTypes.shape({
-    title: PropTypes.string
+    id: PropTypes.number,
+    title: PropTypes.string,
+    body: PropTypes.array
   }),
   childKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };

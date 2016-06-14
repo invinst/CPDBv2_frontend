@@ -11,7 +11,7 @@ export const faqItemTitleStyle = {
   lineHeight: '72px',
   cursor: 'pointer',
   fontFamily: 'San Francisco Text Web',
-  fontSize: '13px',
+  fontSize: '15px',
   fontWeight: 500
 };
 
@@ -21,7 +21,7 @@ export const faqItemActiveTitleStyle = {
   lineHeight: '72px',
   cursor: 'pointer',
   fontFamily: 'San Francisco Text Web',
-  fontSize: '13px',
+  fontSize: '15px',
   fontWeight: 500,
   color: accentColor
 };

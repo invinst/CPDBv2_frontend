@@ -1,3 +1,4 @@
+import { includes } from 'lodash';
 import React from 'react';
 import Radium from 'radium';
 import { browserHistory } from 'react-router';
@@ -34,7 +35,7 @@ class Header extends React.Component {
   }
 
   isCompact() {
-    return this.state.fixed || COMPACT_STYLE_PATHNAMES.indexOf(getCurrentPathname()) !== -1;
+    return this.state.fixed || includes(COMPACT_STYLE_PATHNAMES, getCurrentPathname());
   }
 
   handleScroll() {

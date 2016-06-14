@@ -4,10 +4,10 @@ import React, { PropTypes } from 'react';
 
 export default class CoverImage extends React.Component {
   render() {
-    let style = this.props.style || {};
-    let url = this.props.src;
-    if (this.props.src) {
-      style = assign(style, { background: `url(${url}) center / cover` });
+    let { style, src } = this.props;
+
+    if (src) {
+      style = assign({}, style, { background: `url(${src}) center / cover` });
     }
 
     return (
