@@ -1,4 +1,4 @@
-import StoriesPlaceHolder from 'components/stories/stories-place-holder';
+import StoriesPlaceHolder from 'components/landing-page/stories/stories-place-holder';
 
 
 describe('StoriesPlaceHolder component', function () {

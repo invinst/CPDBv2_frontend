@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FAQSection from 'components/faq/faq-section';
+import FAQSection from 'components/landing-page/faq/faq-section';
 
 
 describe('FAQSection component', function () {

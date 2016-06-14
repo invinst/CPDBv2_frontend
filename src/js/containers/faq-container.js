@@ -3,8 +3,8 @@ import React, { Component, PropTypes } from 'react';
 
 import { dataAvailableSelector, faqsSelector } from 'selectors/landing-page/faqs-selector';
 import { requestFAQs } from 'actions/landing-page/faq-app';
-import FAQSection from 'components/faq/faq-section';
-import FAQSectionPlaceHolder from 'components/faq/faq-section-place-holder';
+import FAQSection from 'components/landing-page/faq/faq-section';
+import FAQSectionPlaceHolder from 'components/landing-page/faq/faq-section-place-holder';
 
 
 export class UnconnectedFAQContainer extends Component {

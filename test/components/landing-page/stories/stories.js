@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Stories from 'components/stories/stories';
+import Stories from 'components/landing-page/stories/stories';
 import StoryFactory from 'utils/test/factories/story';
 import { unmountComponentSuppressError } from 'utils/test';
 

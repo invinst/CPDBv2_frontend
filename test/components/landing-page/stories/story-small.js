@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StorySmall from 'components/stories/story-small';
+import StorySmall from 'components/landing-page/stories/story-small';
 import StoryFactory from 'utils/test/factories/story';
 
 

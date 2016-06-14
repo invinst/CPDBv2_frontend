@@ -3,8 +3,8 @@ import Radium from 'radium';
 
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
-import StoryMedium from 'components/stories/story-medium';
-import StorySmall from 'components/stories/story-small';
+import StoryMedium from './story-medium';
+import StorySmall from './story-small';
 import HoverStyleChange from 'components/common/hover-style-change';
 import SectionHeader from 'components/common/section-header';
 import ResponsiveComponent from 'components/responsive/responsive-component';

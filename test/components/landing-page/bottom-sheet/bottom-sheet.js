@@ -2,7 +2,7 @@ import React from 'react';
 import { render, findDOMNode } from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
 
-import BottomSheet from 'components/bottom-sheet/bottom-sheet';
+import BottomSheet from 'components/landing-page/bottom-sheet/bottom-sheet';
 import { unmountComponentSuppressError } from 'utils/test';
 import StoryFactory from 'utils/test/factories/story';
 import { STORY_TYPE } from 'actions/landing-page/bottom-sheet';

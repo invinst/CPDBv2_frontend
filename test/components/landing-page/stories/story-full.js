@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StoryFull from 'components/stories/story-full';
+import StoryFull from 'components/landing-page/stories/story-full';
 
 
 describe('StoryFull component', function () {

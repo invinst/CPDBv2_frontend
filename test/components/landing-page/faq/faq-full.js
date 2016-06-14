@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FAQFull from 'components/faq/faq-full';
+import FAQFull from 'components/landing-page/faq/faq-full';
 
 
 describe('FAQFull component', function () {
