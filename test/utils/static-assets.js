@@ -1,4 +1,4 @@
-import { imgUrl } from 'utils/static-assets';
+import { imgUrl, mediaUrl } from 'utils/static-assets';
 
 
 describe('Static assets module', function () {
@@ -15,6 +15,22 @@ describe('Static assets module', function () {
     it('should prepend /dist/ to path when DEVELOPMENT is false', function () {
       global.DEVELOPMENT = false;
       imgUrl('def').should.equal('/dist/img/def');
+    });
+  });
+
+  describe('mediaUrl function', function () {
+    afterEach(function () {
+      global.DEVELOPMENT = true;
+    });
+
+    it('should prepend /src/img/ to path when DEVELOPMENT is true', function () {
+      global.DEVELOPMENT = true;
+      mediaUrl('/abc').should.equal('http://localhost:8000/abc');
+    });
+
+    it('should prepend /dist/ to path when DEVELOPMENT is false', function () {
+      global.DEVELOPMENT = false;
+      mediaUrl('/def').should.equal('/def');
     });
   });
 });

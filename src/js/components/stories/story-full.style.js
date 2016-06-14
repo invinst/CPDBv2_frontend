@@ -1,12 +1,6 @@
 export const footerStyle = {
-  padding: '0 16px',
-  height: '88px',
-  display: 'table'
-};
-
-export const articleLinkStyle = {
-  display: 'table-cell',
-  verticalAlign: 'middle'
+  padding: '36px 16px',
+  height: '88px'
 };
 
 export const leftBarStyle = {

@@ -8,3 +8,7 @@ export const contentStyle = {
   margin: '0 0 9px 0',
   color: softBlackColor
 };
+
+export const contentTabletStyle = {
+  fontSize: '15px'
+};

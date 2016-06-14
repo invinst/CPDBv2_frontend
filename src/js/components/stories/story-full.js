@@ -5,31 +5,35 @@ import classNames from 'classnames';
 import ArticleContent from 'components/common/article-content';
 import ArticleHeader from 'components/common/article-header';
 import ArticleFooter from 'components/common/article-footer';
-import { footerStyle, articleLinkStyle, leftBarStyle, rightBarStyle } from './story-full.style';
+import { footerStyle, leftBarStyle, rightBarStyle } from './story-full.style';
+import { DESKTOP } from 'utils/constants';
 
 
 class StoryFull extends React.Component {
   render() {
-    let className = classNames('story-full pure-g', this.props.className);
+    let { story, style, className } = this.props;
+    className = classNames('story-full pure-g', className);
+
     return (
-      <div className={ className } style={ { outer: this.props.style } }>
+      <div className={ className } style={ { outer: style } }>
         <div className='pure-u-1-4'>
           <div style={ leftBarStyle }>
-            <ArticleHeader>{ this.props.story.newspaperName }</ArticleHeader>
-            <ArticleContent>{ this.props.story.title }</ArticleContent>
+            <ArticleHeader device={ DESKTOP }>{ story.newspaperName }</ArticleHeader>
+            <ArticleContent device={ DESKTOP }>{ story.title }</ArticleContent>
           </div>
         </div>
         <div className='pure-u-3-4'>
           <div style={ rightBarStyle }>
             {
-              this.props.story.paragraphs.map((paragraph, ind) => (
-                <ArticleContent key={ ind }>{ paragraph }</ArticleContent>
+              story.paragraphs.map((paragraph, ind) => (
+                <ArticleContent device={ DESKTOP } key={ ind }>{ paragraph }</ArticleContent>
               ))
             }
           </div>
         </div>
-        <ArticleFooter style={ { wrapper: footerStyle, link: articleLinkStyle } } className='pure-u-1-1'>
-          continued on { this.props.story.newspaperShortName }
+        <ArticleFooter device={ DESKTOP } className='pure-u-1-1' href={ story.canonicalUrl }
+          style={ { wrapper: footerStyle } }>
+          continued on { story.newspaperShortName }
         </ArticleFooter>
       </div>
     );
@@ -41,7 +45,8 @@ StoryFull.propTypes = {
     title: PropTypes.string,
     paragraphs: PropTypes.arrayOf(PropTypes.string),
     newspaperName: PropTypes.string,
-    newspaperShortName: PropTypes.string
+    newspaperShortName: PropTypes.string,
+    canonicalUrl: PropTypes.string
   }),
   style: PropTypes.object,
   className: PropTypes.string

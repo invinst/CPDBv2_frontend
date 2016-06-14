@@ -10,9 +10,21 @@ const articleHeaderStyle = {
 
 export const articleDesktopStyle = {
   wrapper: {
-    height: '336px'
+    height: '335px'
   },
   header: articleHeaderStyle
 };
 
-export const articleTabletStyle = articleDesktopStyle;
+export const articleTabletStyle = {
+  wrapper: {
+    height: '303px'
+  },
+  header: articleHeaderStyle
+};
+
+export const articleExtraWideStyle = {
+  wrapper: {
+    height: '404px'
+  },
+  header: articleHeaderStyle
+};

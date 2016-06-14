@@ -76,6 +76,6 @@ describe('BottomSheet component', function () {
   });
 
   it('should trigger onClose when click on dismiss button', function () {
-    BottomSheet.should.triggerCallbackWhenClick('onClose', 'bottom-sheet__dismiss-btn', { open: true });
+    BottomSheet.should.triggerCallbackWhenClick('onClose', 'bottom-sheet__back-btn', { open: true });
   });
 });

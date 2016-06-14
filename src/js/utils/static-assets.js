@@ -5,3 +5,11 @@ export function imgUrl(path) {
     return `/dist/img/${path}`;
   }
 }
+
+export function mediaUrl(path) {
+  if (global.DEVELOPMENT) {
+    return `http://localhost:8000${path}`;
+  } else {
+    return path;
+  }
+}
