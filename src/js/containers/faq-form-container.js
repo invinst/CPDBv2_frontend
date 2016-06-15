@@ -21,7 +21,9 @@ export class UnconnectedFAQFormContainer extends Component {
 
     const { target } = event;
 
-    this.props.askQuestion(data).then(function () { target.reset(); });
+    this.props.askQuestion(data).then(function () {
+      target.reset();
+    });
   }
 
   render() {

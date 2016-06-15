@@ -6,22 +6,20 @@ export const faqItemStyle = {
 };
 
 export const faqItemTitleStyle = {
-  height: '72px',
-  paddingLeft: '16px',
-  lineHeight: '72px',
-  cursor: 'pointer',
-  fontFamily: 'San Francisco Text Web',
-  fontSize: '15px',
-  fontWeight: 500
-};
+  base: {
+    height: '72px',
+    paddingLeft: '16px',
+    lineHeight: '72px',
+    cursor: 'pointer',
+    fontFamily: 'San Francisco Text Web',
+    fontSize: '13px',
+    fontWeight: 500,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
+  },
 
-export const faqItemActiveTitleStyle = {
-  height: '72px',
-  paddingLeft: '16px',
-  lineHeight: '72px',
-  cursor: 'pointer',
-  fontFamily: 'San Francisco Text Web',
-  fontSize: '15px',
-  fontWeight: 500,
-  color: accentColor
+  expanded: {
+    color: accentColor
+  }
 };
