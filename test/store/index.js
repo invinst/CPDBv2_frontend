@@ -43,6 +43,9 @@ describe('store', function () {
         }
       },
       faqPage: {
+        faqForm: {
+          isSubmitting: false
+        },
         faqs: PAGINATION_DEFAULT,
         isRequesting: false
       }

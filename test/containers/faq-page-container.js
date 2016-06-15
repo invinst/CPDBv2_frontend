@@ -1,4 +1,5 @@
 import React from 'react';
+import configureStore from 'redux-mock-store';
 import { spy } from 'sinon';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 
@@ -7,6 +8,17 @@ import { UnconnectedFAQPageContainer } from 'containers/faq-page-container';
 import FAQListSection from 'components/faq-page/faq-list-section';
 import FAQListSectionPlaceHolder from 'components/faq-page/faq-list-section-placeholder';
 import FAQFactory from 'utils/test/factories/faq';
+import PaginationFactory from 'utils/test/factories/pagination';
+
+const mockStore = configureStore();
+const store = mockStore({
+  faqPage: {
+    faqs: PaginationFactory.build({ results: FAQFactory.buildList(5) }),
+    faqForm: {
+
+    }
+  }
+});
 
 
 describe('UnconnectedFAQPageContainer', function () {
@@ -18,7 +30,8 @@ describe('UnconnectedFAQPageContainer', function () {
 
   it('should render FAQListSection when data is available', function () {
     instance = renderIntoDocument(
-      <UnconnectedFAQPageContainer requestFAQs={ () => {} } faqs={ FAQFactory.buildList(3) } dataAvailable={ true }/>
+      <UnconnectedFAQPageContainer requestFAQs={ () => {} } faqs={ FAQFactory.buildList(3) }
+        dataAvailable={ true } store={ store }/>
     );
     findRenderedComponentWithType(instance, FAQListSection);
   });

@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { requestFAQs } from 'actions/faq-page';
 import { dataAvailableSelector, faqsSelector } from 'selectors/faq-page/faqs-selector';
+import FAQFormContainer from 'containers/faq-form-container';
 import FAQListSection from 'components/faq-page/faq-list-section';
 import FAQListSectionPlaceHolder from 'components/faq-page/faq-list-section-placeholder';
 
@@ -13,11 +14,14 @@ export class UnconnectedFAQPageContainer extends Component {
   }
 
   render() {
-    const { dataAvailable, faqs } = this.props;
+    const { dataAvailable, faqs, store } = this.props;
 
     if (dataAvailable) {
       return (
-        <FAQListSection faqs={ faqs }/>
+        <div>
+          <FAQListSection faqs={ faqs }/>
+          <FAQFormContainer store={ store } />
+        </div>
       );
     } else {
       return (
@@ -30,7 +34,8 @@ export class UnconnectedFAQPageContainer extends Component {
 UnconnectedFAQPageContainer.propTypes = {
   requestFAQs: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
-  faqs: PropTypes.array
+  faqs: PropTypes.array,
+  store: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {

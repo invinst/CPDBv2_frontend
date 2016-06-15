@@ -9,10 +9,10 @@ export default class FAQListItem extends Component {
   constructor(props) {
     super(props);
     this.state = { expanded: false };
-    this.onClick = this.onClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  onClick() {
+  handleClick() {
     this.setState({
       expanded: !this.state.expanded
     });
@@ -28,7 +28,7 @@ export default class FAQListItem extends Component {
           <div
             className='faq-title'
             style={ expanded ? faqItemActiveTitleStyle : faqItemTitleStyle }
-            onClick={ this.onClick }>
+            onClick={ this.handleClick }>
             { faq.title }
           </div>
           <ExpandTransition

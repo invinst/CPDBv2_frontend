@@ -7,13 +7,13 @@ export default class FAQListSection extends Component {
   render() {
     return (
       <div>
-      {
-        this.props.faqs.map(faq => {
-          return (
-            <FAQListItem key={ faq.id } faq={ faq } childKey={ faq.id }/>
-          );
-        })
-      }
+        {
+          this.props.faqs.map(faq => {
+            return (
+              <FAQListItem key={ faq.id } faq={ faq } childKey={ faq.id }/>
+            );
+          })
+        }
       </div>
     );
   }
