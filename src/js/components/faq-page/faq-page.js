@@ -24,4 +24,3 @@ export default class FAQPage extends Component {
 FAQPage.propTypes = {
   store: PropTypes.object
 };
-

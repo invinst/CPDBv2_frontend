@@ -10,17 +10,16 @@ class FAQListItem extends Component {
   constructor(props) {
     super(props);
     this.state = { expanded: false };
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      expanded: !this.state.expanded
+      expanded: nextProps.expandedId === nextProps.faq.id
     });
   }
 
   render() {
-    const { faq } = this.props;
+    const { faq, handleClick } = this.props;
     const { expanded } = this.state;
 
     return (
@@ -28,7 +27,7 @@ class FAQListItem extends Component {
         <div
           className='faq-title'
           style={ [faqItemTitleStyle.base, expanded && faqItemTitleStyle.expanded] }
-          onClick={ this.handleClick }>
+          onClick={ handleClick }>
           { faq.title }
         </div>
         <ExpandTransition
@@ -48,7 +47,8 @@ FAQListItem.propTypes = {
     title: PropTypes.string,
     body: PropTypes.array
   }),
-  childKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  handleClick: PropTypes.func.isRequired,
+  expandedId: PropTypes.number
 };
 
 export default Radium(FAQListItem);

@@ -10,6 +10,7 @@ class FAQForm extends Component {
     this.state = { disabled: true };
     this.handleChange = this.handleChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
@@ -28,14 +29,27 @@ class FAQForm extends Component {
     });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const data = {
+      title: event.target.title.value
+    };
+
+    const { target } = event;
+
+    this.props.askQuestion(data).then(function () {
+      target.reset();
+    });
+  }
+
   render() {
-    const { handleSubmit } = this.props;
     const { disabled } = this.state;
 
     return (
       <div style={ faqFormStyle.outerWrapper }>
         <div style={ faqFormStyle.innerWrapper }>
-          <form onSubmit={ handleSubmit } onReset={ this.handleReset }>
+          <form onSubmit={ this.handleSubmit } onReset={ this.handleReset }>
             <span style={ [faqFormFontStyle, faqFormStyle.label] }>Have a question?</span>
             <div style={ inputGroupStyle.wrapper }>
               <input type='text' required='true' name='title' style={ [faqFormFontStyle, inputGroupStyle.titleInput] }
@@ -54,7 +68,7 @@ class FAQForm extends Component {
 }
 
 FAQForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
+  askQuestion: PropTypes.func.isRequired,
   isSubmitting: PropTypes.bool
 };
 
