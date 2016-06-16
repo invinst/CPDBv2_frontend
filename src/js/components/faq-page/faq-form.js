@@ -1,16 +1,33 @@
 import Radium from 'radium';
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-import { faqFormFontStyle, faqFormStyle, inputGroupStyle } from './faq-form.style';
+import { faqFormFontStyle, faqFormStyle, inputGroupStyle, responsiveTitleInput } from './faq-form.style';
+import ResponsiveStyleComponent, {
+  TABLET, DESKTOP, EXTRA_WIDE
+} from 'components/responsive/responsive-style-component';
 
 
-class FAQForm extends Component {
+class FAQForm extends ResponsiveStyleComponent {
   constructor(props) {
     super(props);
     this.state = { disabled: true };
     this.handleChange = this.handleChange.bind(this);
     this.handleReset = this.handleReset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  responsiveStyle() {
+    return {
+      [EXTRA_WIDE]: {
+        titleInput: responsiveTitleInput.extraWide
+      },
+      [DESKTOP]: {
+        titleInput: responsiveTitleInput.desktop
+      },
+      [TABLET]: {
+        titleInput: responsiveTitleInput.tablet
+      }
+    };
   }
 
   handleChange(event) {
@@ -43,7 +60,7 @@ class FAQForm extends Component {
     });
   }
 
-  render() {
+  renderWithResponsiveStyle(styles) {
     const { disabled } = this.state;
 
     return (
@@ -52,7 +69,8 @@ class FAQForm extends Component {
           <form onSubmit={ this.handleSubmit } onReset={ this.handleReset }>
             <span style={ [faqFormFontStyle, faqFormStyle.label] }>Have a question?</span>
             <div style={ inputGroupStyle.wrapper }>
-              <input type='text' required='true' name='title' style={ [faqFormFontStyle, inputGroupStyle.titleInput] }
+              <input type='text' required='true' name='title'
+                style={ [faqFormFontStyle, inputGroupStyle.titleInput, styles.titleInput] }
                 onChange={ this.handleChange } placeholder='What is your question?'/>
               <input
                 style={

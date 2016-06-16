@@ -28,8 +28,7 @@ export const inputGroupStyle = {
     paddingLeft: '15px',
     borderColor: '#d0d2d3',
     borderStyle: 'solid',
-    borderWidth: '1px 0 1px 1px',
-    width: '340px'
+    borderWidth: '1px 0 1px 1px'
   },
 
   button: {
@@ -49,5 +48,17 @@ export const inputGroupStyle = {
     enabled: {
       color: '#231f20'
     }
+  }
+};
+
+export const responsiveTitleInput = {
+  extraWide: {
+    width: '340px'
+  },
+  desktop: {
+    width: '235px'
+  },
+  tablet: {
+    width: '124px'
   }
 };
