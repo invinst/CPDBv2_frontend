@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
+import { Link } from 'react-router';
 
 import { navStyle } from './nav-link.style';
 
@@ -7,17 +8,16 @@ import { navStyle } from './nav-link.style';
 class NavigationLink extends React.Component {
   render() {
     return (
-      <a href={ this.props.href } style={ [navStyle, this.props.style] }>
+      <Link to={ this.props.href } style={ navStyle }>
         { this.props.children }
-      </a>
+      </Link>
     );
   }
 }
 
 NavigationLink.propTypes = {
   children: PropTypes.node,
-  href: PropTypes.string,
-  style: PropTypes.object
+  href: PropTypes.string
 };
 
 export default Radium(NavigationLink);

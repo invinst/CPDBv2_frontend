@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "gulp build",
-    "start": "NODE_PATH=src/js budo src/js/index.js:dist/bundle.js --host 0.0.0.0 --live -- --transform [ babelify --presets [ es2015 react ] ]",
+    "start": "NODE_PATH=src/js budo src/js/index.js:dist/bundle.js --pushstate --host 0.0.0.0 --live -- --transform [ babelify --presets [ es2015 react ] ]",
     "test": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ]",
     "test-debug": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --debug",
     "test-watch": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --watch",

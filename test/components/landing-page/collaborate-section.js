@@ -1,4 +1,4 @@
-import CollaborateSection from 'components/collaborate-section';
+import CollaborateSection from 'components/landing-page/collaborate-section';
 
 
 describe('CollaborateSection component', function () {

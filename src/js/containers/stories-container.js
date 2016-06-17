@@ -10,7 +10,7 @@ import StoriesPlaceHolder from 'components/stories/stories-place-holder';
 
 export class UnconnectedStoriesContainer extends Component {
   componentDidMount() {
-    this.props.requestStories({}, this.context.adapter);
+    this.props.requestStories({ limit: 3 }, this.context.adapter);
   }
 
   render() {

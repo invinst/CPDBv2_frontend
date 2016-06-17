@@ -1,9 +1,12 @@
 import 'should';
+
 import {
-  featuredStorySelector, dataAvailableSelector, smallStoriesSelector, getStoriesSelector, rawStoryTransform
+  featuredStorySelector, dataAvailableSelector, smallStoriesSelector,
+  getStoriesSelector, rawStoryTransform, paginationSelector, getImageUrl
 } from 'selectors/stories-selector';
 import RawStoryFactory from 'utils/test/factories/raw-story';
 import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
+import PaginationFactory from 'utils/test/factories/pagination';
 
 
 describe('stories selectors', function () {
@@ -40,12 +43,27 @@ describe('stories selectors', function () {
     rawStoryTransform(rawStory).should.eql(transformedStory);
   });
 
+  describe('getImageUrl', function () {
+    it('should return default dimension image url', function () {
+      const url = 'url';
+      const story = { 'image_url': { [DEFAULT_IMAGE_DIMENSION]: url } };
+
+      getImageUrl(story).should.eql(url);
+    });
+
+    it('should return empty string if story has no image', function () {
+      const story = {};
+
+      getImageUrl(story).should.eql('');
+    });
+  });
+
   describe('getStoriesSelector', function () {
     it('should return correct stories format', function () {
       const rawStory = RawStoryFactory.build();
       const state = {
         storyApp: {
-          stories: [rawStory]
+          stories: PaginationFactory.build({ results: [rawStory] })
         }
       };
 
@@ -60,7 +78,7 @@ describe('stories selectors', function () {
       const rawStories = [1, 2, 3].map((id) => RawStoryFactory.build({ id: id }));
       let state = {
         storyApp: {
-          stories: rawStories,
+          stories: PaginationFactory.build({ results: rawStories }),
           featuredStoryId: 2
         }
       };
@@ -69,7 +87,7 @@ describe('stories selectors', function () {
 
       state = {
         storyApp: {
-          stories: rawStories,
+          stories: PaginationFactory.build({ results: rawStories }),
           featuredStoryId: 4
         }
       };
@@ -82,7 +100,7 @@ describe('stories selectors', function () {
     it('should return false when isRequesting', function () {
       let state = {
         storyApp: {
-          stories: RawStoryFactory.buildList(3),
+          stories: PaginationFactory.build({ results: RawStoryFactory.buildList(3) }),
           isRequesting: true
         }
       };
@@ -93,7 +111,7 @@ describe('stories selectors', function () {
       let state = {
         storyApp: {
           isRequesting: false,
-          stories: [1, 2, 3]
+          stories: PaginationFactory.build({ results: [1, 2, 3] })
         }
       };
       dataAvailableSelector(state).should.be.true();
@@ -102,7 +120,7 @@ describe('stories selectors', function () {
     it('should return false when stories has less than 3 stories', function () {
       let state = {
         storyApp: {
-          stories: [1, 2]
+          stories: PaginationFactory.build({ results: [1, 2] })
         }
       };
       dataAvailableSelector(state).should.be.false();
@@ -114,7 +132,7 @@ describe('stories selectors', function () {
       const rawStories = RawStoryFactory.buildList(3);
       const state = {
         storyApp: {
-          stories: rawStories
+          stories: PaginationFactory.build({ results: rawStories })
         }
       };
       smallStoriesSelector(state).should.eql(
@@ -124,6 +142,22 @@ describe('stories selectors', function () {
       smallStoriesSelector(state).should.eql(
         rawStories.slice(1, 3).map((rawStory) => rawStoryTransform(rawStory))
       );
+    });
+  });
+
+  describe('paginationSelector', function () {
+    it('should return count, next and previous', function () {
+      const next = 'next';
+      const previous = 'previous';
+      const count = 'count';
+
+      const state = {
+        storyApp: {
+          stories: { next, previous, count }
+        }
+      };
+
+      paginationSelector(state).should.eql({ next, previous, count });
     });
   });
 });

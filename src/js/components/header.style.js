@@ -56,6 +56,10 @@ export const logoWrapperFixedStyle = {
   display: 'inline-block'
 };
 
-export const spaceHolderStyle = {
+export const spacerStyle = {
   height: '150px'
+};
+
+export const spacerSmallStyle = {
+  height: '88px'
 };

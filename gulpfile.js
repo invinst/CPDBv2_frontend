@@ -22,7 +22,7 @@ const buildHTML = (varBlock, destination) => () => {
 };
 
 const copyStatic = (destination) => () => {
-  gulp.src('src/**/*')
+  gulp.src(['src/**/*', '!src/js', '!src/js/**'])
     .pipe(gulp.dest(destination));
 };
 
@@ -52,9 +52,7 @@ const ROOT = '/www/static/';
 
 gulp.task('build-html', buildHTML('', ROOT));
 gulp.task('build-js', buildJs(`${ROOT}dist/`));
-gulp.task('copy-static', () => {
-  copyStatic(`${ROOT}dist/`);
-});
+gulp.task('copy-static', copyStatic(`${ROOT}dist/`));
 
 gulp.task('build', ['build-html', 'build-js', 'copy-static']);
 

@@ -12,3 +12,7 @@ export function disableBodyScroll() {
 export function enableBodyScroll() {
   document.body.className = document.body.className.replace(/noscroll/g, '');
 }
+
+export function getCurrentPathname() {
+  return window.location.pathname;
+}

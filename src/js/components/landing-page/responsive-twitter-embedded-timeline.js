@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TwitterEmbeddedTimeline from 'components/twitter-embedded-timeline';
+import TwitterEmbeddedTimeline from 'components/landing-page/twitter-embedded-timeline';
 import ResponsiveStyleComponent, {
   TABLET, DESKTOP, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';

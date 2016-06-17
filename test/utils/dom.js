@@ -1,4 +1,6 @@
-import { innerHeight, disableBodyScroll, enableBodyScroll } from 'utils/dom';
+import { browserHistory } from 'react-router';
+
+import { innerHeight, disableBodyScroll, enableBodyScroll, getCurrentPathname } from 'utils/dom';
 
 describe('dom utils', function () {
   describe('innerHeight function', function () {
@@ -19,7 +21,7 @@ describe('dom utils', function () {
     });
   });
 
-  describe('disableBodyScroll function', function () {
+  describe('disableBodyScroll + enableBodyScroll function', function () {
     afterEach(function () {
       document.body.className = '';
     });
@@ -33,6 +35,13 @@ describe('dom utils', function () {
       document.body.className += 'noscroll';
       enableBodyScroll();
       document.body.className.should.not.containEql('noscroll');
+    });
+  });
+
+  describe('getCurrentPathname function', function () {
+    it('should return current path', function () {
+      browserHistory.push('/abc');
+      getCurrentPathname().should.equal('/abc');
     });
   });
 });
