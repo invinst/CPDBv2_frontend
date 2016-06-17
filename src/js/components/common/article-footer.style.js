@@ -1,4 +1,4 @@
-import { accentColor } from 'utils/styles';
+import { accentColor, softBlackColor } from 'utils/styles';
 
 
 export const linkStyle = {
@@ -6,7 +6,10 @@ export const linkStyle = {
   fontSize: '13px',
   fontFamily: '"San Francisco Text Web", sans-serif',
   fontWeight: '600',
-  textDecoration: 'none'
+  textDecoration: 'none',
+  ':hover': {
+    color: softBlackColor
+  }
 };
 
 export const footerStyle = {

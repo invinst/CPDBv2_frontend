@@ -7,23 +7,23 @@ import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import {
-  wrapperStyle, tabletWrapperStyle, contentStyle, extraWideWrapperStyle
+  wrapperStyle, tabletWrapperStyle, contentStyle, extraWideWrapperStyle, wrapperHoverStyle
 } from './article-small.style';
 
 
 class ArticleSmall extends ResponsiveStyleComponent {
   responsiveStyle() {
-    const { style } = this.props;
+    const { style, hoverable } = this.props;
 
     return {
       [TABLET]: {
-        wrapper: [wrapperStyle, tabletWrapperStyle, style.wrapper]
+        wrapper: [wrapperStyle, tabletWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
       },
       [DESKTOP]: {
-        wrapper: [wrapperStyle, style.wrapper]
+        wrapper: [wrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
       },
       [EXTRA_WIDE]: {
-        wrapper: [wrapperStyle, extraWideWrapperStyle, style.wrapper]
+        wrapper: [wrapperStyle, extraWideWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
       }
     };
   }
@@ -52,7 +52,8 @@ class ArticleSmall extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='article-small' style={ style.wrapper } onClick={ this.props.onClick }>
+      <div key={ style.screen } className='article-small link--transition'
+        style={ style.wrapper } onClick={ this.props.onClick }>
         <div style={ contentStyle }>
           { this.renderHeader() }
           { this.renderParagraphs() }
@@ -70,7 +71,8 @@ ArticleSmall.propTypes = {
     paragraph: PropTypes.object
   }),
   header: PropTypes.string,
-  paragraphs: PropTypes.array.isRequired
+  paragraphs: PropTypes.array.isRequired,
+  hoverable: PropTypes.bool
 };
 
 ArticleSmall.defaultProps = {

@@ -25,7 +25,7 @@ class FAQListItem extends Component {
     return (
       <div style={ faqItemStyle }>
         <div
-          className='faq-title'
+          className='faq-title link--transition'
           style={ [faqItemTitleStyle.base, expanded && faqItemTitleStyle.expanded] }
           onClick={ handleClick }>
           { faq.title }

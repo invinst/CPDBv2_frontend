@@ -1,4 +1,4 @@
-import { lightGreyColor, accentColor } from 'utils/styles';
+import { lightGreyColor, accentColor, softBlackColor } from 'utils/styles';
 
 
 export const faqItemStyle = {
@@ -7,6 +7,7 @@ export const faqItemStyle = {
 
 export const faqItemTitleStyle = {
   base: {
+    color: softBlackColor,
     height: '72px',
     paddingLeft: '16px',
     lineHeight: '72px',
@@ -16,10 +17,16 @@ export const faqItemTitleStyle = {
     fontWeight: 500,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
+    whiteSpace: 'nowrap',
+    ':hover': {
+      color: accentColor
+    }
   },
 
   expanded: {
-    color: accentColor
+    color: accentColor,
+    ':hover': {
+      color: softBlackColor
+    }
   }
 };

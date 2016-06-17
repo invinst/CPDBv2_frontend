@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import Radium from 'radium';
-import { Link } from 'react-router';
-import { assign } from 'lodash';
+import Link from 'components/common/react-router-link';
 
 import { footerStyle, linkStyle } from './article-footer.style';
 
@@ -11,7 +10,7 @@ class ArticleFooter extends React.Component {
     const { style, className, href, children } = this.props;
     return (
       <div style={ [footerStyle, style.wrapper] } className={ className }>
-        <Link to={ href } style={ assign({}, linkStyle, style.link) }>
+        <Link className='link--transition' to={ href } style={ [linkStyle, style.link] }>
           { children }
         </Link>
       </div>

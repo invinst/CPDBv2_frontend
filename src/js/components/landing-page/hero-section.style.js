@@ -1,4 +1,4 @@
-import { accentColor } from 'utils/styles';
+import { accentColor, softBlackColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -14,11 +14,16 @@ export const contentStyle = {
 };
 
 export const linkStyle = {
-  color: accentColor,
-  fontSize: '18px',
-  fontFamily: '"San Francisco Text Web", sans-serif',
-  fontWeight: '500',
-  textDecoration: 'none'
+  base: {
+    color: accentColor,
+    fontSize: '18px',
+    fontFamily: '"San Francisco Text Web", sans-serif',
+    fontWeight: '500',
+    textDecoration: 'none',
+    ':hover': {
+      color: softBlackColor
+    }
+  }
 };
 
 export const desktopLinkStyle = {

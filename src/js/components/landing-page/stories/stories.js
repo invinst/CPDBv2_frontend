@@ -5,14 +5,10 @@ import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from './story-medium';
 import StorySmall from './story-small';
-import HoverStyleChange from 'components/common/hover-style-change';
 import SectionHeader from 'components/common/section-header';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
-  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop, wrapperStyle,
-  firstSmallStoryStyleTabletHover, firstSmallStoryStyleDesktopHover,
-  secondSmallStoryStyleHover, storyMediumHoverStyle, secondSmallStoryStyle,
-  secondSmallStoryDesktopStyleHover
+  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop, wrapperStyle, secondSmallStoryStyle
 } from './stories.style';
 
 
@@ -21,13 +17,10 @@ class Stories extends ResponsiveComponent {
   renderSmallStoriesTablet(stories) {
     return stories.map((story, ind) => {
       return (
-        <HoverStyleChange key={ story.id }
-          styleChange={ ind === 0 ? firstSmallStoryStyleTabletHover : secondSmallStoryStyleHover }>
-          <StorySmall
-            onClick={ this.props.onStoryClick }
-            style={ ind === 0 ? firstSmallStoryStyleTablet : secondSmallStoryStyle }
-            story={ story }/>
-        </HoverStyleChange>
+        <StorySmall key={ ind }
+          onClick={ this.props.onStoryClick }
+          style={ ind === 0 ? firstSmallStoryStyleTablet : secondSmallStoryStyle }
+          story={ story }/>
       );
     });
   }
@@ -36,13 +29,10 @@ class Stories extends ResponsiveComponent {
     return stories.map((story, ind) => {
       return (
         <div key={ story.id } className='pure-u-1-2'>
-          <HoverStyleChange
-            styleChange={ ind === 0 ? firstSmallStoryStyleDesktopHover : secondSmallStoryDesktopStyleHover }>
-            <StorySmall
-              onClick={ this.props.onStoryClick }
-              style={ ind === 0 ? firstSmallStoryStyleDesktop : {} }
-              story={ story }/>
-          </HoverStyleChange>
+          <StorySmall
+            onClick={ this.props.onStoryClick }
+            style={ ind === 0 ? firstSmallStoryStyleDesktop : {} }
+            story={ story }/>
         </div>
       );
     });
@@ -56,10 +46,7 @@ class Stories extends ResponsiveComponent {
           <SectionHeader>Featured Stories</SectionHeader>
         </div>
         <div className='pure-u-3-4'>
-          <HoverStyleChange
-            styleChange={ storyMediumHoverStyle }>
-            <StoryMedium story={ featuredStory } onClick={ onStoryClick }/>
-          </HoverStyleChange>
+          <StoryMedium story={ featuredStory } onClick={ onStoryClick }/>
         </div>
         <div className='pure-u-1-4'>
           { this.renderSmallStoriesTablet(smallStories) }
@@ -79,10 +66,7 @@ class Stories extends ResponsiveComponent {
           <SectionHeader>Featured Stories</SectionHeader>
         </div>
         <div className='pure-u-3-5'>
-          <HoverStyleChange
-            styleChange={ storyMediumHoverStyle }>
-            <StoryMedium story={ featuredStory } onClick={ onStoryClick }/>
-          </HoverStyleChange>
+          <StoryMedium story={ featuredStory } onClick={ onStoryClick }/>
         </div>
         <div className='pure-g pure-u-2-5'>
           { this.renderSmallStoriesDesktop(smallStories) }

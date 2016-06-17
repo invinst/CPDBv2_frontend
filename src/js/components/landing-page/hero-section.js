@@ -23,15 +23,15 @@ class HeroSection extends ResponsiveStyleComponent {
     return {
       [TABLET]: {
         image: previewImageTabletStyle,
-        link: [linkStyle, tabletLinkStyle]
+        link: [linkStyle.base, tabletLinkStyle]
       },
       [DESKTOP]: {
         image: previewImageDesktopStyle,
-        link: [linkStyle, desktopLinkStyle]
+        link: [linkStyle.base, desktopLinkStyle]
       },
       [EXTRA_WIDE]: {
         image: previewImageStyle,
-        link: linkStyle
+        link: linkStyle.base
       }
     };
   }
@@ -49,7 +49,7 @@ class HeroSection extends ResponsiveStyleComponent {
                   <ArticleContent style={ paragraphStyle }>
                     In 2014, the court decision Kalven v. Chicago opened those files to the public.
                   </ArticleContent>
-                  <a href={ this.dataLink } style={ style.link }>
+                  <a className='link--transition' key={ style.screen } href={ this.dataLink } style={ style.link }>
                     Explore the data.
                   </a>
                 </div>
