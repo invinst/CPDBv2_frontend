@@ -1,4 +1,4 @@
-import NewsHound from 'components/news-hound';
+import NewsHound from 'components/landing-page/news-hound';
 
 
 describe('NewsHound component', function () {

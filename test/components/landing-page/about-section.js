@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AboutSection from 'components/about-section';
+import AboutSection from 'components/landing-page/about-section';
 
 
 describe('AboutSection component', function () {

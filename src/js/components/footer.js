@@ -5,7 +5,6 @@ import {
   wrapperStyle, linkStyle, linkWrapperStyle, sectionStyle, responsiveFixedWidthInnerStyle
 } from './footer.style';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
-import CollaborateSection from 'components/collaborate-section';
 
 
 export default class Footer extends React.Component {
@@ -13,7 +12,6 @@ export default class Footer extends React.Component {
     const links = ['Complaints Process', 'Glossary', 'Legal Disclaimer', 'Get Updates', 'Collaborate'];
     return (
       <div style={ sectionStyle }>
-        <CollaborateSection />
         <div style={ wrapperStyle }>
           <div style={ linkWrapperStyle }>
             <ResponsiveFixedWidthComponent style={ responsiveFixedWidthInnerStyle }>

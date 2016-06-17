@@ -1,4 +1,4 @@
-import HeroSection from 'components/hero-section';
+import HeroSection from 'components/landing-page/hero-section';
 
 
 describe('HeroSection component', function () {
