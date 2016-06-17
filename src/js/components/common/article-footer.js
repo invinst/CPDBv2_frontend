@@ -8,10 +8,10 @@ import { footerStyle, linkStyle } from './article-footer.style';
 
 class ArticleFooter extends React.Component {
   render() {
-    const { style, className, href, children } = this.props;
+    const { style, className, href, children, onClick } = this.props;
     return (
       <div style={ [footerStyle, style.wrapper] } className={ className }>
-        <Link to={ href } style={ assign({}, linkStyle, style.link) }>
+        <Link to={ href } style={ assign({}, linkStyle, style.link) } onClick={ onClick }>
           { children }
         </Link>
       </div>
@@ -26,7 +26,8 @@ ArticleFooter.propTypes = {
   style: PropTypes.shape({
     wrapper: PropTypes.object,
     link: PropTypes.object
-  })
+  }),
+  onClick: PropTypes.func
 };
 
 ArticleFooter.defaultProps = {

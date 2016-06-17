@@ -33,8 +33,14 @@ export default class FAQListItem extends Component {
           </div>
           <ExpandTransition
             childKey={ expanded ? faq.id : null }
-            onFullyClosed={ (key) => {this.setState({ expanded: false });} }
-            onExpansionBegin={ (key) => {this.setState({ expanded: true });} }>
+            onFullyClosed={ (key) => {
+              /* istanbul ignore next */
+              this.setState({ expanded: false });
+            } }
+            onExpansionBegin={ (key) => {
+              /* istanbul ignore next */
+              this.setState({ expanded: true });
+            } }>
             <FAQItemContent faq={ faq } expanded={ expanded } />
           </ExpandTransition>
         </div>

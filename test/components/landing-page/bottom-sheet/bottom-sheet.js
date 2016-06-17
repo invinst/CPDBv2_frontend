@@ -1,16 +1,19 @@
 import React from 'react';
 import { render, findDOMNode } from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
+import { Link } from 'react-router';
 
 import BottomSheet from 'components/landing-page/bottom-sheet/bottom-sheet';
 import { unmountComponentSuppressError } from 'utils/test';
 import StoryFactory from 'utils/test/factories/story';
-import { STORY_TYPE } from 'actions/landing-page/bottom-sheet';
+import FAQFactory from 'utils/test/factories/faq';
+import { STORY_TYPE, FAQ_TYPE } from 'actions/landing-page/bottom-sheet';
 
 
 describe('BottomSheet component', function () {
   let element;
   const story = StoryFactory.build();
+  const faq = FAQFactory.build();
 
   afterEach(function () {
     unmountComponentSuppressError(element);
@@ -59,6 +62,13 @@ describe('BottomSheet component', function () {
     findDOMNode(element).innerHTML.should.containEql(story.title);
   });
 
+  it('should render faq when received faq content', function () {
+    element = renderIntoDocument(
+      <BottomSheet open={ true } content={ { type: FAQ_TYPE, props: { faq: faq } } }/>
+    );
+    findDOMNode(element).innerHTML.should.containEql(faq.title);
+  });
+
   it('should render previous content when receive null content', function () {
     let rootEl = document.createElement('div');
 
@@ -77,5 +87,11 @@ describe('BottomSheet component', function () {
 
   it('should trigger onClose when click on dismiss button', function () {
     BottomSheet.should.triggerCallbackWhenClick('onClose', 'bottom-sheet__back-btn', { open: true });
+  });
+
+  it('should trigger onClose when click on More FAQ', function () {
+    BottomSheet.should.triggerCallbackWhenClick(
+      'onClose', Link, { open: true, content: { type: FAQ_TYPE, props: { faq: faq } } }
+    );
   });
 });

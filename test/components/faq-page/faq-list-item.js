@@ -1,39 +1,35 @@
 import React from 'react';
 import {
   renderIntoDocument, Simulate,
-  findRenderedComponentWithType, findRenderedDOMComponentWithClass, scryRenderedComponentsWithType
+  findRenderedDOMComponentWithClass, scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 
 import FAQListItem from 'components/faq-page/faq-list-item';
-import FAQFactory from 'utils/test/factories/faq';
-import { unmountComponentSuppressError } from 'utils/test';
+import RawFAQFactory from 'utils/test/factories/raw-faq';
+import { unmountComponentSuppressError, withAnimationDisabled } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
 
 
 describe('FAQListItem component', function () {
-  let instance;
-  const faq = FAQFactory.build();
+  let element;
+  const faq = RawFAQFactory.build();
 
   afterEach(function () {
-    unmountComponentSuppressError(instance);
+    unmountComponentSuppressError(element);
   });
 
   it('should be renderable', function () {
     FAQListItem.should.be.renderable({ faq });
   });
 
-  it('should expand content onClick', function (cb) {
-    instance = renderIntoDocument(<FAQListItem faq={ faq }/>);
-
-    const titleElement = findRenderedDOMComponentWithClass(instance, 'faq-title');
-
-    Simulate.click(titleElement);
-    findRenderedComponentWithType(instance, FAQItemContent).should.be.ok();
-    Simulate.click(titleElement);
-
-    setTimeout(function () {
-      scryRenderedComponentsWithType(instance, FAQItemContent).length.should.equal(0);
-      cb();
-    }, 300);
+  it('should expand content onClick', function () {
+    withAnimationDisabled(() => {
+      element = renderIntoDocument(<FAQListItem faq={ faq }/>);
+      scryRenderedComponentsWithType(element, FAQItemContent).length.should.equal(0);
+      Simulate.click(findRenderedDOMComponentWithClass(element, 'faq-title'));
+      scryRenderedComponentsWithType(element, FAQItemContent).length.should.equal(1);
+      Simulate.click(findRenderedDOMComponentWithClass(element, 'faq-title'));
+      scryRenderedComponentsWithType(element, FAQItemContent).length.should.equal(0);
+    });
   });
 });

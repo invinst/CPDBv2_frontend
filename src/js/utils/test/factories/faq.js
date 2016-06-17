@@ -1,11 +1,8 @@
 import { Factory } from 'rosie';
-import { lorem, random } from 'faker';
-
-import ParagraphFactory from './paragraph';
+import { lorem } from 'faker';
 
 
 export default new Factory()
-  .option('numOfParagraph', random.number(5))
   .sequence('id')
   .attr('title', () => (lorem.sentence()))
-  .attr('body', ['numOfParagraph'], (numOfParagraph) => (ParagraphFactory.buildList(numOfParagraph)));
+  .attr('paragraphs', () => ([lorem.sentences()]));

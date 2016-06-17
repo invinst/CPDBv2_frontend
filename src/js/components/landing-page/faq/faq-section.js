@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import ArticleSmall from 'components/common/article-small';
 import ArticleFooter from 'components/common/article-footer';
@@ -27,7 +27,8 @@ export default class FAQSection extends ResponsiveComponent {
       } }>
         <ArticleSmall
           style={ { wrapper: wrapperStyle } }
-          paragraphs={ [faq.title] }/>
+          paragraphs={ [faq.title] }
+          onClick={ () => { this.props.onFAQClick(faq); } }/>
       </HoverStyleChange>
     );
   }
@@ -96,7 +97,8 @@ export default class FAQSection extends ResponsiveComponent {
 }
 
 FAQSection.propTypes = {
-  faqs: arrayOfN(3)
+  faqs: arrayOfN(3),
+  onFAQClick: PropTypes.func
 };
 
 FAQSection.defaultProps = {
