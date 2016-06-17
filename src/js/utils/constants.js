@@ -7,6 +7,9 @@ export const DESKTOP_BREAK_POINT = 1200;
 
 export const DEFAULT_IMAGE_DIMENSION = '480_320';
 
+// Reducer defaults
+export const PAGINATION_DEFAULT = { results: [], count: 0, next: null, previous: null };
+
 export const COLLAB_PATH = '/collaboration';
 export const DATA_PATH = '/data';
 export const FAQ_PATH = '/faq';

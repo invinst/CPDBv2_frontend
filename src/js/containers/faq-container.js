@@ -9,7 +9,7 @@ import FAQSectionPlaceHolder from 'components/faq/faq-section-place-holder';
 
 export class UnconnectedFAQContainer extends Component {
   componentDidMount() {
-    this.props.requestFAQs();
+    this.props.requestFAQs({ limit: 3 });
   }
 
   render() {
