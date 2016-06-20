@@ -6,13 +6,31 @@ import { footerStyle, linkStyle } from './article-footer.style';
 
 
 class ArticleFooter extends React.Component {
-  render() {
-    const { style, className, href, children } = this.props;
-    return (
-      <div style={ [footerStyle, style.wrapper] } className={ className }>
-        <Link className='link--transition' to={ href } style={ [linkStyle, style.link] }>
+  renderLink() {
+    const { style, href, children, onClick, to } = this.props;
+
+    if (to) {
+      return (
+        <Link className='link--transition' to={ to }
+          style={ [linkStyle, style.link] } onClick={ onClick }>
           { children }
         </Link>
+      );
+    }
+
+    return (
+      <a className='link--transition' href={ href }
+        style={ [linkStyle, style.link] } onClick={ onClick }>
+        { children }
+      </a>
+    );
+  }
+
+  render() {
+    const { style, className } = this.props;
+    return (
+      <div style={ [footerStyle, style.wrapper] } className={ className }>
+        { this.renderLink() }
       </div>
     );
   }
@@ -21,11 +39,13 @@ class ArticleFooter extends React.Component {
 ArticleFooter.propTypes = {
   children: PropTypes.node,
   href: PropTypes.string,
+  to: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.shape({
     wrapper: PropTypes.object,
     link: PropTypes.object
-  })
+  }),
+  onClick: PropTypes.func
 };
 
 ArticleFooter.defaultProps = {
