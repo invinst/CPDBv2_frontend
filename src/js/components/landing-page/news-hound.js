@@ -25,7 +25,9 @@ class NewsHound extends ResponsiveStyleComponent {
   renderWithResponsiveStyle(style) {
     return (
       <div>
-        <div style={ style.wrapper }/>
+        <iframe style={ style.wrapper } name='nb-stack' className='newsbound-embedded'
+          src='//view.stacker.cc/newsbound/cpdb_launch/index.html?embed=true'
+          frameBorder='0' allowFullScreen={ true }></iframe>
       </div>
     );
   }
