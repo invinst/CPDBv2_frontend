@@ -6,11 +6,11 @@ import { footerStyle, linkStyle } from './article-footer.style';
 
 class ArticleFooter extends React.Component {
   render() {
-    const { style, className } = this.props;
+    const { style, className, href, children } = this.props;
     return (
       <div style={ [footerStyle, style.wrapper] } className={ className }>
-        <a style={ linkStyle } href={ this.props.href }>
-          { this.props.children }
+        <a style={ linkStyle } href={ href }>
+          { children }
         </a>
       </div>
     );
