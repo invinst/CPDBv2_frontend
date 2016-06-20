@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
-import Link from 'components/common/react-router-link';
 
+import Link from 'components/common/react-router-link';
+import ConfiguredRadium from 'utils/configured-radium';
 import { footerStyle, linkStyle } from './article-footer.style';
 
 
@@ -33,4 +33,4 @@ ArticleFooter.defaultProps = {
   href: '#'
 };
 
-export default Radium(ArticleFooter);
+export default ConfiguredRadium(ArticleFooter);

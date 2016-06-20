@@ -1,6 +1,6 @@
 import React from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ArticleHeader from 'components/common/article-header';
 import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 import {
@@ -45,4 +45,4 @@ class CollaborateSection extends ResponsiveStyleComponent {
   }
 }
 
-export default Radium(CollaborateSection);
+export default ConfiguredRadium(CollaborateSection);

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
-import Link from 'components/common/react-router-link';
 
+import Link from 'components/common/react-router-link';
+import ConfiguredRadium from 'utils/configured-radium';
 import { navStyle } from './nav-link.style';
 
 
@@ -20,4 +20,4 @@ NavigationLink.propTypes = {
   href: PropTypes.string
 };
 
-export default Radium(NavigationLink);
+export default ConfiguredRadium(NavigationLink);

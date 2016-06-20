@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ArticleSmall from 'components/common/article-small';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
@@ -50,4 +50,4 @@ AboutSection.propTypes = {
   style: PropTypes.object
 };
 
-export default Radium(AboutSection);
+export default ConfiguredRadium(AboutSection);

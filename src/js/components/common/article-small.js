@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
 import ResponsiveStyleComponent, {
@@ -79,4 +79,4 @@ ArticleSmall.defaultProps = {
   style: {}
 };
 
-export default Radium(ArticleSmall);
+export default ConfiguredRadium(ArticleSmall);

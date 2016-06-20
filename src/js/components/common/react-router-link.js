@@ -1,5 +1,6 @@
-import Radium from 'radium';
 import { Link } from 'react-router';
 
+import ConfiguredRadium from 'utils/configured-radium';
 
-export default Radium(Link);
+
+export default ConfiguredRadium(Link);

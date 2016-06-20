@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import { linkStyle } from './underlined-link.style';
 
 
@@ -20,4 +20,4 @@ UnderlinedLink.propTypes = {
   style: PropTypes.object
 };
 
-export default Radium(UnderlinedLink);
+export default ConfiguredRadium(UnderlinedLink);

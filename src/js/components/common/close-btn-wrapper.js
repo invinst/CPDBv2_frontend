@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import CloseButton from 'components/common/close-btn';
 import { wrapperStyle, topWrapperStyle, topButtonStyle } from './close-btn-wrapper.style';
 import { TOP, BOTTOM } from 'utils/constants';
@@ -35,4 +35,4 @@ CloseButtonWrapper.defaultProps = {
   position: BOTTOM
 };
 
-export default Radium(CloseButtonWrapper);
+export default ConfiguredRadium(CloseButtonWrapper);

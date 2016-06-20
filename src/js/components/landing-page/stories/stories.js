@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import { arrayOfN } from 'utils/prop-validators';
 import ArticleFooter from 'components/common/article-footer';
 import StoryMedium from './story-medium';
@@ -85,4 +85,4 @@ Stories.propTypes = {
   onStoryClick: PropTypes.func
 };
 
-export default Radium(Stories);
+export default ConfiguredRadium(Stories);

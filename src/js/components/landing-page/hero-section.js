@@ -1,6 +1,6 @@
 import React from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ArticleContent from 'components/common/article-content';
 import ResponsiveStyleComponent, {
   TABLET, DESKTOP, EXTRA_WIDE
@@ -67,4 +67,4 @@ class HeroSection extends ResponsiveStyleComponent {
   }
 }
 
-export default Radium(HeroSection);
+export default ConfiguredRadium(HeroSection);
