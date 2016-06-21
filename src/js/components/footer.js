@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FooterNavLInk from 'components/common/footer-nav-link';
+import FooterNavLink from 'components/common/footer-nav-link';
 import {
   wrapperStyle, linkStyle, linkWrapperStyle, sectionStyle, responsiveFixedWidthInnerStyle, firstLinkStyle
 } from './footer.style';
@@ -16,9 +16,9 @@ export default class Footer extends React.Component {
           <div style={ linkWrapperStyle }>
             <ResponsiveFixedWidthComponent style={ responsiveFixedWidthInnerStyle }>
               { links.map( (link, ind) => (
-                <FooterNavLInk style={ ind === 0 ? firstLinkStyle : linkStyle } key={ ind }>
+                <FooterNavLink style={ ind === 0 ? firstLinkStyle : linkStyle } key={ ind }>
                 { link }
-                </FooterNavLInk>
+                </FooterNavLink>
               )) }
             </ResponsiveFixedWidthComponent>
           </div>
