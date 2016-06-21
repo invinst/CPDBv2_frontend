@@ -14,6 +14,7 @@ describe('stories selectors', function () {
     const rawStory = {
       id: 1,
       title: 'a',
+      'canonical_url': 'a.b.c',
       newspaper: {
         id: 1,
         name: 'b',
@@ -32,6 +33,7 @@ describe('stories selectors', function () {
       id: 1,
       title: 'a',
       newspaperName: 'b',
+      canonicalUrl: 'a.b.c',
       newspaperShortName: 'c.d',
       date: '1/2/3',
       paragraphs: ['e', 'f'],

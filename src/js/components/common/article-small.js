@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Radium from 'radium';
 
 import ArticleHeader from 'components/common/article-header';
+import ArticleContent from 'components/common/article-content';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
@@ -13,31 +14,40 @@ import {
 class ArticleSmall extends ResponsiveStyleComponent {
   responsiveStyle() {
     const { style } = this.props;
-    const propWrapperStyle = style ? style.wrapper : null;
 
     return {
       [TABLET]: {
-        wrapper: [wrapperStyle, tabletWrapperStyle, propWrapperStyle]
+        wrapper: [wrapperStyle, tabletWrapperStyle, style.wrapper]
       },
       [DESKTOP]: {
-        wrapper: [wrapperStyle, propWrapperStyle]
+        wrapper: [wrapperStyle, style.wrapper]
       },
       [EXTRA_WIDE]: {
-        wrapper: [wrapperStyle, extraWideWrapperStyle, propWrapperStyle]
+        wrapper: [wrapperStyle, extraWideWrapperStyle, style.wrapper]
       }
     };
   }
 
   renderHeader() {
     const { style } = this.props;
-    const headerStyle = style ? style.header : null;
 
     if (this.props.header) {
       return (
-        <ArticleHeader style={ headerStyle }>{ this.props.header }</ArticleHeader>
+        <ArticleHeader style={ style.header }>{ this.props.header }</ArticleHeader>
       );
     }
     return null;
+  }
+
+  renderParagraphs() {
+    const { style } = this.props;
+    return (
+      <div>
+        { this.props.paragraphs.map((text, ind) => (
+          <ArticleContent key={ ind } style={ style.paragraph }>{ text }</ArticleContent>
+        )) }
+      </div>
+    );
   }
 
   renderWithResponsiveStyle(style) {
@@ -45,7 +55,7 @@ class ArticleSmall extends ResponsiveStyleComponent {
       <div className='article-small' style={ style.wrapper } onClick={ this.props.onClick }>
         <div style={ contentStyle }>
           { this.renderHeader() }
-          { this.props.children }
+          { this.renderParagraphs() }
         </div>
       </div>
     );
@@ -54,13 +64,17 @@ class ArticleSmall extends ResponsiveStyleComponent {
 
 ArticleSmall.propTypes = {
   onClick: PropTypes.func,
-  style: PropTypes.object,
+  style: PropTypes.shape({
+    wrapper: PropTypes.object,
+    header: PropTypes.object,
+    paragraph: PropTypes.object
+  }),
   header: PropTypes.string,
-  children: PropTypes.node.isRequired
+  paragraphs: PropTypes.array.isRequired
 };
 
 ArticleSmall.defaultProps = {
-  content: 'How to predict bad cops in Chicago.'
+  style: {}
 };
 
 export default Radium(ArticleSmall);

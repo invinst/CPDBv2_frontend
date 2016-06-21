@@ -5,6 +5,8 @@ import should from 'should';
 import { each, assign } from 'lodash';
 import { spy } from 'sinon';
 
+import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
+
 
 should.Assertion.add('renderable', function (props) {
   this.params = { operator: 'to be rendered' };
@@ -17,7 +19,7 @@ should.Assertion.add('renderable', function (props) {
 
 
 should.Assertion.add('responsiveRenderable', function (props) {
-  let devices = ['mobile', 'tablet', 'desktop', 'extra_wide'];
+  let devices = [MOBILE, TABLET, DESKTOP, EXTRA_WIDE];
 
   each(devices, (device) => {
     let element = renderIntoDocument(createElement(this.obj, assign({}, props, { device: device })));

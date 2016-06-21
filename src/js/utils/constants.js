@@ -14,3 +14,8 @@ export const COLLAB_PATH = '/collaboration';
 export const DATA_PATH = '/data';
 export const FAQ_PATH = '/faq';
 export const STORIES_PATH = '/stories';
+
+export const EXTRA_WIDE = 'extra_wide';
+export const DESKTOP = 'desktop';
+export const MOBILE = 'mobile';
+export const TABLET = 'tablet';

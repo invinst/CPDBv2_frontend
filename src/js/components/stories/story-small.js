@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
 import ArticleSmall from 'components/common/article-small';
-import ArticleContent from 'components/common/article-content';
 
 
 export default class StorySmall extends Component {
@@ -17,9 +16,8 @@ export default class StorySmall extends Component {
       <ArticleSmall
         onClick={ this.onClick }
         style={ this.props.style }
-        header={ this.props.story.newspaperName }>
-        <ArticleContent>{ this.props.story.title }</ArticleContent>
-      </ArticleSmall>
+        header={ this.props.story.newspaperName }
+        paragraphs={ [this.props.story.title] }/>
     );
   }
 }
@@ -31,4 +29,8 @@ StorySmall.propTypes = {
     title: PropTypes.string.isRequired
   }).isRequired,
   style: PropTypes.object
+};
+
+StorySmall.defaultProps = {
+  style: {}
 };

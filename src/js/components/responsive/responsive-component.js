@@ -1,13 +1,17 @@
 import React, { PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
 
-import { MOBILE_BREAK_POINT, TABLET_BREAK_POINT, DESKTOP_BREAK_POINT } from 'utils/constants';
+import {
+  MOBILE_BREAK_POINT, TABLET_BREAK_POINT, DESKTOP_BREAK_POINT,
+  MOBILE, TABLET, DESKTOP, EXTRA_WIDE
+} from 'utils/constants';
 
 
 let DEVICE_RENDERERS = {
-  mobile: 'renderMobile',
-  tablet: 'renderTablet',
-  desktop: 'renderDesktop'
+  [MOBILE]: 'renderMobile',
+  [TABLET]: 'renderTablet',
+  [DESKTOP]: 'renderDesktop',
+  [EXTRA_WIDE]: 'renderExtraWide'
 };
 
 

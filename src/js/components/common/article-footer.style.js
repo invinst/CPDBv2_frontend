@@ -5,7 +5,8 @@ export const linkStyle = {
   color: accentColor,
   fontSize: '13px',
   fontFamily: '"San Francisco Text Web", sans-serif',
-  fontWeight: '600'
+  fontWeight: '600',
+  textDecoration: 'none'
 };
 
 export const footerStyle = {

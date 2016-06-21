@@ -16,6 +16,6 @@ describe('BottomSheetHeader component', function () {
   });
 
   it('should trigger onDismissClick when click on dismiss button', function () {
-    BottomSheetHeader.should.triggerCallbackWhenClick('onDismissClick', 'bottom-sheet__dismiss-btn');
+    BottomSheetHeader.should.triggerCallbackWhenClick('onDismissClick', 'bottom-sheet__back-btn');
   });
 });

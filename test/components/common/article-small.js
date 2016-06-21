@@ -15,11 +15,11 @@ describe('ArticleSmall component', function () {
 
   it('should render it\'s children', function () {
     const testText = 'this should render';
-    element = renderIntoDocument(<ArticleSmall>{ testText }</ArticleSmall>);
+    element = renderIntoDocument(<ArticleSmall paragraphs={ [testText] }/>);
     findDOMNode(element).innerHTML.should.containEql(testText);
   });
 
   it('should trigger onClick', function () {
-    ArticleSmall.should.triggerCallbackWhenClick('onClick', 'article-small', { children: 'abc' });
+    ArticleSmall.should.triggerCallbackWhenClick('onClick', 'article-small', { paragraphs: ['abc'] });
   });
 });

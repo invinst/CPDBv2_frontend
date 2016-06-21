@@ -2,12 +2,10 @@ import React from 'react';
 import { assign } from 'lodash';
 
 import ResponsiveComponent from 'components/responsive/responsive-component';
+import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
+export { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
-export const EXTRA_WIDE = 'extra_wide';
-export const DESKTOP = 'desktop';
-export const MOBILE = 'mobile';
-export const TABLET = 'tablet';
 
 const _responsiveStyle = {
   [EXTRA_WIDE]: DESKTOP,
