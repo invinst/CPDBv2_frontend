@@ -4,17 +4,15 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="36px"
 	 height="36px" viewBox="0 0 36 36" enable-background="new 0 0 36 36" xml:space="preserve">
 <g id="Layer_1">
-	<g id="Layer_1_2_">
+	<g id="Layer_1_8_">
 		<g>
-			<circle fill="#FFFFFF" stroke="#4D4D4D" stroke-miterlimit="10" cx="18" cy="18" r="16.5"/>
+			<circle fill="#FFFFFF" cx="18" cy="18" r="16.5"/>
 			<g>
 				<g>
-					<g>
-						
-							<rect x="9.442" y="17.5" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 18.0008 43.4562)" fill="none" stroke="#005EF4" stroke-miterlimit="10" width="17.117" height="1"/>
-						
-							<rect x="17.5" y="9.442" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 17.9992 43.4555)" fill="none" stroke="#005EF4" stroke-miterlimit="10" width="1" height="17.117"/>
-					</g>
+					
+						<rect x="9.442" y="17.5" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 18.0008 43.4562)" fill="#5D5D5D" width="17.117" height="1"/>
+					
+						<rect x="17.5" y="9.442" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 18 43.4558)" fill="#5D5D5D" width="1" height="17.117"/>
 				</g>
 			</g>
 		</g>

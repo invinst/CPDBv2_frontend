@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import { contentStyle, paragraphStyle, faqContentStyle } from './faq-item-content.style';
 
 
@@ -23,4 +23,4 @@ FAQItemContent.propTypes = {
   style: PropTypes.object
 };
 
-export default Radium(FAQItemContent);
+export default ConfiguredRadium(FAQItemContent);

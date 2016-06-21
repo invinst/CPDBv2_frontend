@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import {
   closeButtonStyle
 } from './close-btn.style';
@@ -21,4 +21,4 @@ CloseButton.propTypes = {
   style: PropTypes.object
 };
 
-export default Radium(CloseButton);
+export default ConfiguredRadium(CloseButton);

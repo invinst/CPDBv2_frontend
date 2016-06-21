@@ -14,6 +14,7 @@ export default class StorySmall extends Component {
   render() {
     return (
       <ArticleSmall
+        hoverable={ true }
         onClick={ this.onClick }
         style={ this.props.style }
         header={ this.props.story.newspaperName }

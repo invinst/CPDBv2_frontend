@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ExpandTransition from 'components/animation/expand-transition';
 import FAQItemContent from './faq-item-content';
 import { faqItemStyle, faqItemTitleStyle } from './faq-list-item.style';
@@ -25,7 +25,7 @@ class FAQListItem extends Component {
     return (
       <div style={ faqItemStyle }>
         <div
-          className='faq-title'
+          className='faq-title link--transition'
           style={ [faqItemTitleStyle.base, expanded && faqItemTitleStyle.expanded] }
           onClick={ handleClick }>
           { faq.title }
@@ -51,4 +51,4 @@ FAQListItem.propTypes = {
   expandedId: PropTypes.number
 };
 
-export default Radium(FAQListItem);
+export default ConfiguredRadium(FAQListItem);

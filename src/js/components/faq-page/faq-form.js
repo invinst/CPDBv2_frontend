@@ -1,6 +1,6 @@
-import Radium from 'radium';
 import React, { PropTypes } from 'react';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import { faqFormFontStyle, faqFormStyle, inputGroupStyle, responsiveTitleInput } from './faq-form.style';
 import ResponsiveStyleComponent, {
   TABLET, DESKTOP, EXTRA_WIDE
@@ -90,4 +90,4 @@ FAQForm.propTypes = {
   isSubmitting: PropTypes.bool
 };
 
-export default Radium(FAQForm);
+export default ConfiguredRadium(FAQForm);
