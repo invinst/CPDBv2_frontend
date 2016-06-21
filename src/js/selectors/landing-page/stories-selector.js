@@ -11,9 +11,9 @@ const getStories = state => state.landingPage.storyApp.stories;
 
 const getFeaturedStoryId = state => state.landingPage.storyApp.featuredStoryId;
 
-export function getImageUrl(story) {
-  return (story['image_url'] && mediaUrl(story['image_url'][DEFAULT_IMAGE_DIMENSION])) || '';
-}
+export const getImageUrl = story => (
+  (story['image_url'] && mediaUrl(story['image_url'][DEFAULT_IMAGE_DIMENSION])) || ''
+);
 
 export function rawStoryTransform(story) {
   return {

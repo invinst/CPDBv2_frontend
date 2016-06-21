@@ -4,7 +4,8 @@ import ConfiguredRadium from 'utils/configured-radium';
 import ArticleHeader from 'components/common/article-header';
 import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 import {
-  articleHeaderStyle, sectionStyle, articleContentStyle, underlinedLinkStyle, contentFontSizeTablet, wrapperStyle
+  articleHeaderStyle, sectionStyle, articleContentStyle, underlinedLinkStyle, contentFontSizeTablet, wrapperStyle,
+  sectionTabletStyle
 } from './collaborate-section.style';
 
 
@@ -13,11 +14,13 @@ class CollaborateSection extends ResponsiveStyleComponent {
     return {
       [DESKTOP]: {
         paragraph: [articleContentStyle],
-        underlineLink: [underlinedLinkStyle]
+        underlineLink: [underlinedLinkStyle],
+        section: sectionStyle
       },
       [TABLET]: {
         paragraph: [articleContentStyle, contentFontSizeTablet],
-        underlineLink: [underlinedLinkStyle, contentFontSizeTablet]
+        underlineLink: [underlinedLinkStyle, contentFontSizeTablet],
+        section: [sectionStyle, sectionTabletStyle]
       }
     };
   }
@@ -25,7 +28,7 @@ class CollaborateSection extends ResponsiveStyleComponent {
   renderWithResponsiveStyle(style) {
     return (
       <div style={ wrapperStyle }>
-        <div style={ sectionStyle }>
+        <div style={ style.section }>
           <ArticleHeader style={ articleHeaderStyle }>
             Collaborate with Us
           </ArticleHeader>

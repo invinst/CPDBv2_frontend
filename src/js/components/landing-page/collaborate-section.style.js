@@ -19,6 +19,11 @@ export const sectionStyle = {
   padding: '77px 0 80px'
 };
 
+export const sectionTabletStyle = {
+  width: '527px',
+  padding: '48px 0 60px'
+};
+
 export const articleContentStyle = {
   color: whiteSmokeColor,
   fontSize: '36px',
