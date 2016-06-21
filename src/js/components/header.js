@@ -1,7 +1,8 @@
+import { includes } from 'lodash';
 import React from 'react';
-import Radium from 'radium';
 import { browserHistory } from 'react-router';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ClosableNavLink from 'components/closable-nav-link';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import { COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
@@ -25,16 +26,16 @@ class Header extends React.Component {
     this.handleScroll = this.handleScroll.bind(this);
   }
 
-  isCompact() {
-    return this.state.fixed || COMPACT_STYLE_PATHNAMES.indexOf(getCurrentPathname()) !== -1;
-  }
-
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  isCompact() {
+    return this.state.fixed || includes(COMPACT_STYLE_PATHNAMES, getCurrentPathname());
   }
 
   handleScroll() {
@@ -118,4 +119,4 @@ class Header extends React.Component {
   }
 }
 
-export default Radium(Header);
+export default ConfiguredRadium(Header);

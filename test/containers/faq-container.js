@@ -5,8 +5,8 @@ import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import { UnconnectedFAQContainer } from 'containers/faq-container';
 import FAQFactory from 'utils/test/factories/faq';
-import FAQSection from 'components/faq/faq-section';
-import FAQSectionPlaceHolder from 'components/faq/faq-section-place-holder';
+import FAQSection from 'components/landing-page/faq/faq-section';
+import FAQSectionPlaceHolder from 'components/landing-page/faq/faq-section-place-holder';
 
 
 describe('UnconnectedFAQContainer', function () {

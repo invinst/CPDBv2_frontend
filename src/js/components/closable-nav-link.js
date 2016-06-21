@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import NavLink from 'components/common/nav-link';
 import CloseButton from 'components/common/close-btn';
 import { wrapperStyle, closeButtonStyle } from './closable-nav-link.style';
@@ -35,4 +35,4 @@ ClosableNavLink.propTypes = {
   onClickClose: PropTypes.func
 };
 
-export default Radium(ClosableNavLink);
+export default ConfiguredRadium(ClosableNavLink);

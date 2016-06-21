@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import { navStyle } from './footer-nav-link.style';
 
 
@@ -20,4 +20,4 @@ FooterNavLink.propTypes = {
   style: PropTypes.object
 };
 
-export default Radium(FooterNavLink);
+export default ConfiguredRadium(FooterNavLink);

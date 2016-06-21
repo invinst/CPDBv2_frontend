@@ -4,7 +4,7 @@ import {
 } from 'react-addons-test-utils';
 
 import Expandable from 'components/common/expandable';
-import StoryFull from 'components/stories/story-full';
+import StoryFull from 'components/landing-page/stories/story-full';
 import { withAnimationDisabled } from 'utils/test';
 import { unmountComponentSuppressError } from 'utils/test';
 import { TOP, BOTTOM } from 'utils/constants';

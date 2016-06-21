@@ -1,28 +1,26 @@
 import React from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ArticleHeader from 'components/common/article-header';
-import ResponsiveStyleComponent, { TABLET, DESKTOP } from 'components/responsive/responsive-style-component';
+import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 import {
-  articleHeaderStyle, sectionStyle, articleContentStyle, underlinedLinkStyle, wrapperStyle,
-  contentFontSizeTablet, sectionTabletStyle
+  articleHeaderStyle, sectionStyle, articleContentStyle, underlinedLinkStyle, contentFontSizeTablet, wrapperStyle,
+  sectionTabletStyle
 } from './collaborate-section.style';
-import ArticleContent from 'components/common/article-content';
-import UnderlinedLink from 'components/common/underlined-link';
 
 
 class CollaborateSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
-      [TABLET]: {
-        content: [articleContentStyle, contentFontSizeTablet],
-        underlined: [underlinedLinkStyle, contentFontSizeTablet],
-        section: [sectionStyle, sectionTabletStyle]
-      },
       [DESKTOP]: {
-        content: articleContentStyle,
-        underlined: underlinedLinkStyle,
+        paragraph: [articleContentStyle],
+        underlineLink: [underlinedLinkStyle],
         section: sectionStyle
+      },
+      [TABLET]: {
+        paragraph: [articleContentStyle, contentFontSizeTablet],
+        underlineLink: [underlinedLinkStyle, contentFontSizeTablet],
+        section: [sectionStyle, sectionTabletStyle]
       }
     };
   }
@@ -34,20 +32,20 @@ class CollaborateSection extends ResponsiveStyleComponent {
           <ArticleHeader style={ articleHeaderStyle }>
             Collaborate with Us
           </ArticleHeader>
-          <ArticleContent style={ style.content }>
+          <p style={ style.paragraph }>
             We are collecting and publishing information that sheds light on police misconduct.
-          </ArticleContent>
-          <ArticleContent style={ style.content }>
+          </p>
+          <p style={ style.paragraph }>
             If you have documents or datasets you would like to publish,
-            please <UnderlinedLink style={ style.underlined } href='mailto:records@invisibleinstitute.com'>
-            email us,</UnderlinedLink> or <UnderlinedLink href='#' style={ style.underlined }>
+            please <a style={ style.underlineLink } href='mailto:records@invisibleinstitute.com'>
+            email us,</a> or <a href='#' style={ style.underlineLink }>
             read more.
-            </UnderlinedLink>
-          </ArticleContent>
+            </a>
+          </p>
         </div>
       </div>
     );
   }
 }
 
-export default Radium(CollaborateSection);
+export default ConfiguredRadium(CollaborateSection);

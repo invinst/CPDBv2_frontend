@@ -8,5 +8,8 @@ export const closeButtonStyle = {
   left: 'calc(50% - 17.5px)',
   appearance: 'none',
   border: '0',
-  background: `url("${imgUrl('header-x.svg')}") no-repeat scroll 0 0 transparent`
+  background: `url("${imgUrl('header-x.svg')}") no-repeat scroll 0 0 transparent`,
+  ':hover': {
+    background: `url("${imgUrl('header-x-hover.svg')}") no-repeat scroll 0 0 transparent`
+  }
 };

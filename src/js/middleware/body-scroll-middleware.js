@@ -1,4 +1,4 @@
-import { OPEN_BOTTOM_SHEET_WITH_STORY, CLOSE_BOTTOM_SHEET } from 'actions/bottom-sheet';
+import { OPEN_BOTTOM_SHEET_WITH_STORY, CLOSE_BOTTOM_SHEET } from 'actions/landing-page/bottom-sheet';
 import { disableBodyScroll, enableBodyScroll } from 'utils/dom';
 
 
