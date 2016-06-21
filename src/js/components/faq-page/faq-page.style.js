@@ -1,3 +1,4 @@
 export const faqPageStyle = {
-  paddingTop: '88px'
+  paddingTop: '88px',
+  background: 'white'
 };

@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ResponsiveStyleComponent, { TABLET, DESKTOP } from 'components/responsive/responsive-style-component';
 import { contentStyle, contentTabletStyle } from './article-content.style';
 
@@ -31,4 +31,4 @@ ArticleContent.propTypes = {
   style: PropTypes.object
 };
 
-export default Radium(ArticleContent);
+export default ConfiguredRadium(ArticleContent);

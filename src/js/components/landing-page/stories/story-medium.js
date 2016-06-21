@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ArticleHeader from 'components/common/article-header';
 import ArticleContent from 'components/common/article-content';
 import ResponsiveStyleComponent, {
@@ -10,7 +10,7 @@ import CoverImage from 'components/common/cover-image';
 import {
   storyWrapperStyle, storyWrapperStyleTablet, storyWrapperStyleExtraWide,
   storyImageStyleTablet, storyImageStyleDesktop,
-  paperStyleDesktop, contentStyle, storyImageStyleExtraWide
+  paperStyleDesktop, contentStyle, storyImageStyleExtraWide, outerWrapperStyle
 } from './story-medium.style';
 
 
@@ -27,18 +27,21 @@ class StoryMedium extends ResponsiveStyleComponent {
     const { style } = this.props;
     return {
       [TABLET]: {
+        outerWrapper: outerWrapperStyle,
         image: storyImageStyleTablet,
         wrapper: [storyWrapperStyle, storyWrapperStyleTablet],
         header: [paperStyleDesktop, style.header],
         paragraph: style.paragraph
       },
       [DESKTOP]: {
+        outerWrapper: outerWrapperStyle,
         image: storyImageStyleDesktop,
         wrapper: [storyWrapperStyle],
         header: [paperStyleDesktop, style.header],
         paragraph: style.paragraph
       },
       [EXTRA_WIDE]: {
+        outerWrapper: outerWrapperStyle,
         image: storyImageStyleExtraWide,
         wrapper: [storyWrapperStyle, storyWrapperStyleExtraWide],
         header: [paperStyleDesktop, style.header],
@@ -49,7 +52,8 @@ class StoryMedium extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='story-medium pure-g' onClick={ this.onClick }>
+      <div key={ style.screen } style={ style.outerWrapper }
+        className='story-medium pure-g link--transition' onClick={ this.onClick }>
         <div className='pure-u-2-3'>
           <CoverImage style={ style.image } src={ this.props.story.imageUrl }/>
         </div>
@@ -92,4 +96,4 @@ StoryMedium.defaultProps = {
   style: {}
 };
 
-export default Radium(StoryMedium);
+export default ConfiguredRadium(StoryMedium);

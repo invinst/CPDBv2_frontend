@@ -4,16 +4,36 @@ import FAQListItem from './faq-list-item';
 
 
 export default class FAQListSection extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expandedId: null
+    };
+  }
+
+  handleClick(faqId) {
+    const { expandedId } = this.state;
+    const nextId = faqId === expandedId ? null : faqId;
+    if (nextId !== expandedId) {
+      this.setState({
+        expandedId: nextId
+      });
+    }
+  }
+
   render() {
+    const { expandedId } = this.state;
+
     return (
       <div>
-      {
-        this.props.faqs.map(faq => {
-          return (
-            <FAQListItem key={ faq.id } faq={ faq } childKey={ faq.id }/>
-          );
-        })
-      }
+        {
+          this.props.faqs.map(faq => {
+            return (
+              <FAQListItem key={ faq.id } faq={ faq } expandedId={ expandedId }
+                handleClick={ this.handleClick.bind(this, faq.id) }/>
+            );
+          })
+        }
       </div>
     );
   }

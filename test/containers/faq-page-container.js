@@ -18,7 +18,8 @@ describe('UnconnectedFAQPageContainer', function () {
 
   it('should render FAQListSection when data is available', function () {
     instance = renderIntoDocument(
-      <UnconnectedFAQPageContainer requestFAQs={ () => {} } faqs={ FAQFactory.buildList(3) } dataAvailable={ true }/>
+      <UnconnectedFAQPageContainer requestFAQs={ () => {} } faqs={ FAQFactory.buildList(3) }
+        dataAvailable={ true } askQuestion={ () => {} }/>
     );
     findRenderedComponentWithType(instance, FAQListSection);
   });

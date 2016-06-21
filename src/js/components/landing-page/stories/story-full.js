@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 import classNames from 'classnames';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ArticleContent from 'components/common/article-content';
 import ArticleHeader from 'components/common/article-header';
 import ArticleFooter from 'components/common/article-footer';
@@ -77,4 +77,4 @@ StoryFull.defaultProps = {
   }
 };
 
-export default Radium(StoryFull);
+export default ConfiguredRadium(StoryFull);

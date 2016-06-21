@@ -1,6 +1,6 @@
 import React from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import { extraWideStyle, desktopStyle, tabletStyle, backgroundColorStyle } from './news-hound.style';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
@@ -31,4 +31,4 @@ class NewsHound extends ResponsiveStyleComponent {
   }
 }
 
-export default Radium(NewsHound);
+export default ConfiguredRadium(NewsHound);

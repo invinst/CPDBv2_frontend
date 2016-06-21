@@ -1,5 +1,12 @@
-import { lightGreyColor } from 'utils/styles';
+import { lightGreyColor, accentColor } from 'utils/styles';
 
+
+export const outerWrapperStyle = {
+  cursor: 'pointer',
+  ':hover': {
+    color: accentColor
+  }
+};
 
 export const storyWrapperStyle = {
   height: '264.5px',

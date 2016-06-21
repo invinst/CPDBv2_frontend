@@ -3,13 +3,12 @@ import React from 'react';
 import ArticleSmall from 'components/common/article-small';
 import ArticleFooter from 'components/common/article-footer';
 import SectionHeader from 'components/common/section-header';
-import HoverStyleChange from 'components/common/hover-style-change';
 import { arrayOfN } from 'utils/prop-validators';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
   desktopStyle, desktopBorderRightStyle, tabletBorderRightStyle,
   tabletBorderBottomStyle, tabletStyle, wrapperStyle,
-  extraWideBorderRightStyle, extraWideStyle, accentColorStyle
+  extraWideBorderRightStyle, extraWideStyle
 } from './faq-section.style';
 import { FAQ_PATH } from 'utils/constants';
 
@@ -21,14 +20,10 @@ export default class FAQSection extends ResponsiveComponent {
 
   renderFAQ(faq, wrapperStyle) {
     return (
-      <HoverStyleChange styleChange={ {
-        wrapper: wrapperStyle,
-        paragraph: accentColorStyle
-      } }>
-        <ArticleSmall
-          style={ { wrapper: wrapperStyle } }
-          paragraphs={ [faq.title] }/>
-      </HoverStyleChange>
+      <ArticleSmall
+        hoverable={ true }
+        style={ { wrapper: wrapperStyle } }
+        paragraphs={ [faq.title] }/>
     );
   }
 
@@ -52,7 +47,7 @@ export default class FAQSection extends ResponsiveComponent {
           )) }
         </div>
         <div className='pure-u-1-1'>
-          <ArticleFooter href={ FAQ_PATH }>More FAQ</ArticleFooter>
+          <ArticleFooter to={ FAQ_PATH }>More FAQ</ArticleFooter>
         </div>
       </div>
     );
@@ -70,7 +65,7 @@ export default class FAQSection extends ResponsiveComponent {
           </div>
         )) }
         <div className='pure-u-1-1'>
-          <ArticleFooter href={ FAQ_PATH }>More FAQ</ArticleFooter>
+          <ArticleFooter to={ FAQ_PATH }>More FAQ</ArticleFooter>
         </div>
       </div>
     );
@@ -88,7 +83,7 @@ export default class FAQSection extends ResponsiveComponent {
           </div>
         )) }
         <div className='pure-u-1-1'>
-          <ArticleFooter href={ FAQ_PATH }>More FAQ</ArticleFooter>
+          <ArticleFooter to={ FAQ_PATH }>More FAQ</ArticleFooter>
         </div>
       </div>
     );

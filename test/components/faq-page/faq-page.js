@@ -6,7 +6,10 @@ import { PAGINATION_DEFAULT } from 'utils/constants';
 const mockStore = configureStore();
 const store = mockStore({
   faqPage: {
-    faqs: PAGINATION_DEFAULT
+    faqs: PAGINATION_DEFAULT,
+    faqForm: {
+      isSubmitting: false
+    }
   }
 });
 
