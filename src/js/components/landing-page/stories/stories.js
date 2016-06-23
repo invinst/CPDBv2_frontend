@@ -2,36 +2,33 @@ import React, { PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { arrayOfN } from 'utils/prop-validators';
-import ArticleFooter from 'components/common/article-footer';
-import StoryMedium from './story-medium';
-import StorySmall from './story-small';
-import SectionHeader from 'components/common/section-header';
+import StoryWithImage from './story-with-image';
+import StoryNoImage from './story-no-image';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import {
-  firstSmallStoryStyleTablet, firstSmallStoryStyleDesktop, wrapperStyle, secondSmallStoryStyle
+  firstNoImageStoryStyleTablet, firstNoImageStoryStyleDesktop, wrapperStyle, secondNoImageStoryStyle
 } from './stories.style';
 
 
-
 class Stories extends ResponsiveComponent {
-  renderSmallStoriesTablet(stories) {
+  renderNoImageStoriesTablet(stories) {
     return stories.map((story, ind) => {
       return (
-        <StorySmall key={ ind }
-          onClick={ this.props.onStoryClick }
-          style={ ind === 0 ? firstSmallStoryStyleTablet : secondSmallStoryStyle }
+        <StoryNoImage key={ ind }
+          handleClick={ this.props.handleStoryClick }
+          style={ ind === 0 ? firstNoImageStoryStyleTablet : secondNoImageStoryStyle }
           story={ story }/>
       );
     });
   }
 
-  renderSmallStoriesDesktop(stories) {
+  renderNoImageStoriesDesktop(stories) {
     return stories.map((story, ind) => {
       return (
         <div key={ story.id } className='pure-u-1-2'>
-          <StorySmall
-            onClick={ this.props.onStoryClick }
-            style={ ind === 0 ? firstSmallStoryStyleDesktop : {} }
+          <StoryNoImage
+            handleClick={ this.props.handleStoryClick }
+            style={ ind === 0 ? firstNoImageStoryStyleDesktop : {} }
             story={ story }/>
         </div>
       );
@@ -39,40 +36,30 @@ class Stories extends ResponsiveComponent {
   }
 
   renderTablet() {
-    const { featuredStory, smallStories, onStoryClick } = this.props;
+    const { imageStory, noImageStories, handleStoryClick } = this.props;
+
     return (
       <div className='pure-g' style={ wrapperStyle }>
-        <div className='pure-u-1-1'>
-          <SectionHeader>Featured Stories</SectionHeader>
-        </div>
         <div className='pure-u-3-4'>
-          <StoryMedium story={ featuredStory } onClick={ onStoryClick }/>
+          <StoryWithImage story={ imageStory } handleClick={ handleStoryClick }/>
         </div>
         <div className='pure-u-1-4'>
-          { this.renderSmallStoriesTablet(smallStories) }
-        </div>
-        <div className='pure-u-1-1'>
-          <ArticleFooter>More Stories</ArticleFooter>
+          { this.renderNoImageStoriesTablet(noImageStories) }
         </div>
       </div>
     );
   }
 
   renderDesktop() {
-    const { featuredStory, smallStories, onStoryClick } = this.props;
+    const { imageStory, noImageStories, handleStoryClick } = this.props;
+
     return (
-      <div className='pure-g' style={ wrapperStyle }>
-        <div className='pure-u-1-1'>
-          <SectionHeader>Featured Stories</SectionHeader>
-        </div>
+      <div className='pure-g'>
         <div className='pure-u-3-5'>
-          <StoryMedium story={ featuredStory } onClick={ onStoryClick }/>
+          <StoryWithImage story={ imageStory } handleClick={ handleStoryClick }/>
         </div>
         <div className='pure-g pure-u-2-5'>
-          { this.renderSmallStoriesDesktop(smallStories) }
-        </div>
-        <div className='pure-u-1-1'>
-          <ArticleFooter>More Stories</ArticleFooter>
+          { this.renderNoImageStoriesDesktop(noImageStories) }
         </div>
       </div>
     );
@@ -80,9 +67,9 @@ class Stories extends ResponsiveComponent {
 }
 
 Stories.propTypes = {
-  featuredStory: PropTypes.object,
-  smallStories: arrayOfN(2),
-  onStoryClick: PropTypes.func
+  imageStory: PropTypes.object,
+  noImageStories: arrayOfN(2),
+  handleStoryClick: PropTypes.func
 };
 
 export default ConfiguredRadium(Stories);

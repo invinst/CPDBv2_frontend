@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 
 import {
-  featuredStorySelector, dataAvailableSelector, smallStoriesSelector
+  imageStorySelector, dataAvailableSelector, noImageStoriesSelector
 } from 'selectors/landing-page/stories-selector';
-import Stories from 'components/landing-page/stories/stories';
+import StoriesSection from 'components/landing-page/stories/stories-section';
 import { requestStories } from 'actions/landing-page/story-app';
 import { openBottomSheetWithStory } from 'actions/landing-page/bottom-sheet';
 import StoriesPlaceHolder from 'components/landing-page/stories/stories-place-holder';
@@ -12,18 +12,19 @@ import StoriesPlaceHolder from 'components/landing-page/stories/stories-place-ho
 
 export class UnconnectedStoriesContainer extends Component {
   componentDidMount() {
-    this.props.requestStories({ limit: 3 }, this.context.adapter);
+    this.props.requestStories({ limit: 3, 'is_featured': 'True' }, this.context.adapter);
   }
 
   render() {
-    const { dataAvailable, smallStories, featuredStory } = this.props;
+    const { dataAvailable, imageStory, noImageStories } = this.props;
 
     return (
       !dataAvailable ?
         <StoriesPlaceHolder/> :
-        <Stories
-          smallStories={ smallStories } featuredStory={ featuredStory }
-          onStoryClick={ this.props.openBottomSheetWithStory }/>
+        <StoriesSection
+          handleStoryClick={ this.props.openBottomSheetWithStory }
+          imageStory={ imageStory }
+          noImageStories={ noImageStories }/>
     );
   }
 }
@@ -32,8 +33,8 @@ UnconnectedStoriesContainer.propTypes = {
   requestStories: PropTypes.func.isRequired,
   openBottomSheetWithStory: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
-  smallStories: PropTypes.array,
-  featuredStory: PropTypes.object
+  noImageStories: PropTypes.array,
+  imageStory: PropTypes.object
 };
 
 UnconnectedStoriesContainer.contextTypes = {
@@ -43,8 +44,8 @@ UnconnectedStoriesContainer.contextTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     dataAvailable: dataAvailableSelector(state),
-    smallStories: smallStoriesSelector(state),
-    featuredStory: featuredStorySelector(state)
+    imageStory: imageStorySelector(state),
+    noImageStories: noImageStoriesSelector(state)
   };
 }
 

@@ -11,15 +11,15 @@ import {
   storyWrapperStyle, storyWrapperStyleTablet, storyWrapperStyleExtraWide,
   storyImageStyleTablet, storyImageStyleDesktop,
   paperStyleDesktop, contentStyle, storyImageStyleExtraWide, outerWrapperStyle
-} from './story-medium.style';
+} from './story-with-image.style';
 
 
 
-class StoryMedium extends ResponsiveStyleComponent {
+class StoryWithImage extends ResponsiveStyleComponent {
   constructor(props) {
     super(props);
-    this.onClick = () => {
-      this.props.onClick(this.props.story);
+    this.handleClick = () => {
+      this.props.handleClick(this.props.story);
     };
   }
 
@@ -53,7 +53,7 @@ class StoryMedium extends ResponsiveStyleComponent {
   renderWithResponsiveStyle(style) {
     return (
       <div key={ style.screen } style={ style.outerWrapper }
-        className='story-medium pure-g link--transition' onClick={ this.onClick }>
+        className='story-with-image pure-g link--transition' onClick={ this.handleClick }>
         <div className='pure-u-2-3'>
           <CoverImage style={ style.image } src={ this.props.story.imageUrl }/>
         </div>
@@ -72,7 +72,7 @@ class StoryMedium extends ResponsiveStyleComponent {
   }
 }
 
-StoryMedium.propTypes = {
+StoryWithImage.propTypes = {
   story: PropTypes.shape({
     id: PropTypes.number.isRequired,
     newspaperName: PropTypes.string.isRequired,
@@ -83,10 +83,10 @@ StoryMedium.propTypes = {
     paragraph: PropTypes.object,
     header: PropTypes.object
   }),
-  onClick: PropTypes.func
+  handleClick: PropTypes.func
 };
 
-StoryMedium.defaultProps = {
+StoryWithImage.defaultProps = {
   story: {
     id: 1,
     newspaperName: 'New York Times',
@@ -96,4 +96,4 @@ StoryMedium.defaultProps = {
   style: {}
 };
 
-export default ConfiguredRadium(StoryMedium);
+export default ConfiguredRadium(StoryWithImage);
