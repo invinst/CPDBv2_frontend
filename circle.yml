@@ -1,14 +1,13 @@
 machine:
   node:
     version: 4.1.0
-  python:
-    version: 2.7.11
   environment:
     NODE_ENV: development
   post:
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get update && sudo apt-get install gcc-4.9 g++-4.9
 dependencies:
   override:
+    - npm install -g npm@3.8.7
     - npm install -g eslint@2.8.0
     - npm install -g eslint-plugin-react@5.0.1
     - npm install -g babel-eslint@6.0.3
@@ -18,6 +17,7 @@ dependencies:
 test:
   override:
     - eslint .
-    - npm run cover
+    - npm run cover-circle
+    - npm run live-test
   post:
     - cat lcov.info | ./node_modules/coveralls/bin/coveralls.js

@@ -1,11 +1,5 @@
 ---
-- name: Install Git
-  apt: name=git update_cache=yes state=present
-  sudo: yes
-
-- name: Update npm
-  npm: name=npm version=3.8.7 global=yes
-  sudo: yes
-
-- name: Install npm packages
-  npm: path=/code
+- name: Install Budo
+  npm: name=budo version=8.2.1 global=yes
+  become: yes
+  become_user: root

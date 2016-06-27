@@ -1,0 +1,44 @@
+---
+- name: Creates CPDB directory for deployment
+  become: yes
+  become_user: root
+  file: path=/CPDB state=directory owner={{ deploy_user }} group={{ deploy_group }}
+  tags: setup
+
+- name: Pull code from frontend repo
+  git: repo= dest={{ application_root_path }} accept_hostkey=True version={{ branch }}
+  tags: deploy
+
+- name : Install packages based on package.json.
+  command: npm install
+    chdir={{ application_root_path }}
+  tags: deploy
+
+- name: Install gulp
+  npm: name=gulp version=3.9.1 global=yes
+  become: yes
+  become_user: root
+  tags: setup
+
+- name: Install gulp cli
+  npm: name=gulp-cli version=1.2.1 global=yes
+  become: yes
+  become_user: root
+  tags: setup
+
+- name: Clean static root
+  become: yes
+  become_user: root
+  file: path=/www/static/dist state=absent
+  tags: deploy
+
+- name: Create static root
+  become: yes
+  become_user: root
+  file: path=/www/static/dist state=directory owner={{ deploy_user }} group={{ deploy_group }}
+  tags: deploy
+
+- name: Build everything
+  command: npm run build
+    chdir={{ application_root_path }}
+  tags: deploy

@@ -1,0 +1,11 @@
+body {
+    background-color: #F4F4F4;
+}
+
+.noscroll {
+    overflow: hidden;
+}
+
+.link--transition {
+    transition: color .25s ease-in-out;
+}

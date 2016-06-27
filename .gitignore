@@ -42,3 +42,9 @@ jspm_packages
 
 ### coverage ###
 lcov.info
+
+### build results ###
+bundle.js
+
+### live test package ###
+live-test-build/

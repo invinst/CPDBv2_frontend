@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: Heroqu.nodejs4x, tags: setup }
