@@ -1,9 +1,20 @@
+import { accentColor, softBlackColor } from 'utils/styles';
+
+
 export const wrapperStyle = {
   paddingRight: '16px',
   paddingLeft: '16px',
   boxSizing: 'border-box',
   height: '264.5px',
-  position: 'relative'
+  position: 'relative',
+  color: softBlackColor
+};
+
+export const wrapperHoverStyle = {
+  cursor: 'pointer',
+  ':hover': {
+    color: accentColor
+  }
 };
 
 export const contentStyle = {

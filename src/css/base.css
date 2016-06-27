@@ -5,3 +5,7 @@ body {
 .noscroll {
     overflow: hidden;
 }
+
+.link--transition {
+    transition: color .25s ease-in-out;
+}

@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 import Clipboard from 'clipboard';
 import isMobile from 'ismobilejs';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import { buttonStyle, buttonHoverStyle } from './copy-link-btn.style';
 
 
@@ -40,4 +40,4 @@ CopyLinkButton.propTypes = {
   text: PropTypes.string
 };
 
-export default Radium(CopyLinkButton);
+export default ConfiguredRadium(CopyLinkButton);

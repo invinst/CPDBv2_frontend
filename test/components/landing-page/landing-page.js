@@ -9,12 +9,17 @@ import PaginationFactory from 'utils/test/factories/pagination';
 
 const mockStore = configureStore();
 const store = mockStore({
-  storyApp: {
-    stories: PaginationFactory.build({ results: [1, 2, 3].map(id => RawStoryFactory.build({ id: id })) }),
-    featuredStoryId: 1
+  landingPage: {
+    storyApp: {
+      stories: PaginationFactory.build({ results: [1, 2, 3].map(id => RawStoryFactory.build({ id: id })) }),
+      featuredStoryId: 1
+    },
+    faqApp: {
+      faqs: PaginationFactory.build({ results: FAQFactory.buildList(3) })
+    }
   },
-  faqApp: {
-    faqs: PaginationFactory.build({ results: FAQFactory.buildList(3) })
+  faqPage: {
+    faqs: PaginationFactory.build({ results: FAQFactory.buildList(5) })
   }
 });
 

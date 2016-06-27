@@ -5,8 +5,8 @@ import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import { UnconnectedStoriesContainer } from 'containers/stories-container';
 import StoryFactory from 'utils/test/factories/story';
-import Stories from 'components/stories/stories';
-import StoriesPlaceHolder from 'components/stories/stories-place-holder';
+import Stories from 'components/landing-page/stories/stories';
+import StoriesPlaceHolder from 'components/landing-page/stories/stories-place-holder';
 
 
 describe('UnconnectedStoriesContainer', function () {

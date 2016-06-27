@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import Radium from 'radium';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import { outerWrapperStyle, innerWrapperStyle, borderStyle } from './article-expanded.style';
 
 
@@ -31,4 +31,4 @@ ArticleExpanded.defaultProps = {
   style: {}
 };
 
-export default Radium(ArticleExpanded);
+export default ConfiguredRadium(ArticleExpanded);
