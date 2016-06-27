@@ -27,11 +27,14 @@ Almost everything dev related should be done inside vagrant box. Exceptions are 
 
 ## Deployment
 
-We use instances from Azure for now.
+We use instances from Azure for now. Both can be ssh'ed into with "ansible" user and same password as v1 instance.
 
-- Staging IP address: [23.96.180.229](http://23.96.180.229)
+- Staging node: [23.96.180.229](http://23.96.180.229)
+- Production node: [13.92.132.7](http://13.92.132.7)
 - `bin/setup-staging`: Setup the infrastructure of staging. (password is the same as deploy user's on v1). Before setting up with the recent scripts, please ensure that you have your ssh keys on the server.
 - `bin/deploy-staging`: Deploy the new updates to staging.
+- `bin/setup-production`: Setup production instance.
+- `bin/deploy-production`: Deploy newest code to production instance.
 
 ## Browser supports
 
