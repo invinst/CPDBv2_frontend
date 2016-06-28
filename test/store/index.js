@@ -48,6 +48,10 @@ describe('store', function () {
         },
         faqs: PAGINATION_DEFAULT,
         isRequesting: false
+      },
+      storiesPage: {
+        isRequesting: false,
+        stories: PAGINATION_DEFAULT
       }
     });
   });

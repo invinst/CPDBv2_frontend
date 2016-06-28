@@ -37,7 +37,8 @@ describe('stories selectors', function () {
       'post_date': '1/2/3',
       'image_url': {
         [DEFAULT_IMAGE_DIMENSION]: 'g.h'
-      }
+      },
+      'is_featured': true
     };
     const transformedStory = {
       id: 1,
@@ -47,7 +48,8 @@ describe('stories selectors', function () {
       newspaperShortName: 'c.d',
       date: '1/2/3',
       paragraphs: ['e', 'f'],
-      imageUrl: 'g.h'
+      imageUrl: 'g.h',
+      isFeatured: true
     };
 
     rawStoryTransform(rawStory).should.eql(transformedStory);

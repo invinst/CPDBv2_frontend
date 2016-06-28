@@ -5,6 +5,7 @@ import ArticleFooter from 'components/common/article-footer';
 import Stories from './stories';
 import { wrapperStyle } from './stories-section.style';
 import { arrayOfN } from 'utils/prop-validators';
+import { STORIES_PATH } from 'utils/constants';
 
 
 export default class FeaturedStoriesSection extends Component {
@@ -18,7 +19,7 @@ export default class FeaturedStoriesSection extends Component {
         </div>
         <Stories imageStory={ imageStory } noImageStories={ noImageStories } handleStoryClick={ handleStoryClick }/>
         <div className='pure-u-1-1'>
-          <ArticleFooter>More Stories</ArticleFooter>
+          <ArticleFooter to={ STORIES_PATH }>More Stories</ArticleFooter>
         </div>
       </div>
     );

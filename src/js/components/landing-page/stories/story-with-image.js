@@ -8,11 +8,8 @@ import ResponsiveStyleComponent, {
 } from 'components/responsive/responsive-style-component';
 import CoverImage from 'components/common/cover-image';
 import {
-  storyWrapperStyle, storyWrapperStyleTablet, storyWrapperStyleExtraWide,
-  storyImageStyleTablet, storyImageStyleDesktop,
-  paperStyleDesktop, contentStyle, storyImageStyleExtraWide, outerWrapperStyle
+  storyWrapperStyle, storyImageStyle, paperStyle, contentStyle, outerWrapperStyle
 } from './story-with-image.style';
-
 
 
 class StoryWithImage extends ResponsiveStyleComponent {
@@ -24,27 +21,27 @@ class StoryWithImage extends ResponsiveStyleComponent {
   }
 
   responsiveStyle() {
-    const { style } = this.props;
+    const { style, leftAlign } = this.props;
     return {
       [TABLET]: {
-        outerWrapper: outerWrapperStyle,
-        image: storyImageStyleTablet,
-        wrapper: [storyWrapperStyle, storyWrapperStyleTablet],
-        header: [paperStyleDesktop, style.header],
+        outerWrapper: [outerWrapperStyle.base, !leftAlign && outerWrapperStyle.rightAlign],
+        image: storyImageStyle.tablet,
+        wrapper: [storyWrapperStyle.base, storyWrapperStyle.tablet, style.wrapper],
+        header: [paperStyle, style.header],
         paragraph: style.paragraph
       },
       [DESKTOP]: {
-        outerWrapper: outerWrapperStyle,
-        image: storyImageStyleDesktop,
-        wrapper: [storyWrapperStyle],
-        header: [paperStyleDesktop, style.header],
+        outerWrapper: [outerWrapperStyle.base, !leftAlign && outerWrapperStyle.rightAlign],
+        image: storyImageStyle,
+        wrapper: [storyWrapperStyle.base, style.wrapper],
+        header: [paperStyle, style.header],
         paragraph: style.paragraph
       },
       [EXTRA_WIDE]: {
-        outerWrapper: outerWrapperStyle,
-        image: storyImageStyleExtraWide,
-        wrapper: [storyWrapperStyle, storyWrapperStyleExtraWide],
-        header: [paperStyleDesktop, style.header],
+        outerWrapper: [outerWrapperStyle.base, !leftAlign && outerWrapperStyle.rightAlign],
+        image: storyImageStyle.extraWide,
+        wrapper: [storyWrapperStyle.base, storyWrapperStyle.extraWide, style.wrapper],
+        header: [paperStyle, style.header],
         paragraph: style.paragraph
       }
     };
@@ -80,10 +77,12 @@ StoryWithImage.propTypes = {
     imageUrl: PropTypes.string.isRequired
   }),
   style: PropTypes.shape({
+    wrapper: PropTypes.object,
     paragraph: PropTypes.object,
     header: PropTypes.object
   }),
-  handleClick: PropTypes.func
+  handleClick: PropTypes.func,
+  leftAlign: PropTypes.bool
 };
 
 StoryWithImage.defaultProps = {
@@ -93,7 +92,8 @@ StoryWithImage.defaultProps = {
     title: 'Complaints against Chicago Police rarely result in discipline data shows.',
     imageUrl: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
   },
-  style: {}
+  style: {},
+  leftAlign: true
 };
 
 export default ConfiguredRadium(StoryWithImage);

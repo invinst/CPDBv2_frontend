@@ -2,28 +2,34 @@ import { lightGreyColor, accentColor } from 'utils/styles';
 
 
 export const outerWrapperStyle = {
-  cursor: 'pointer',
-  ':hover': {
-    color: accentColor
+  base: {
+    cursor: 'pointer',
+    borderStyle: 'solid',
+    borderColor: lightGreyColor,
+    borderWidth: '0 1px 0 0',
+    ':hover': {
+      color: accentColor
+    }
+  },
+  rightAlign: {
+    borderWidth: '0 0 0 1px'
   }
 };
 
 export const storyWrapperStyle = {
-  height: '264.5px',
-  borderRight: `1px solid ${lightGreyColor}`,
-  paddingRight: '16px',
-  paddingLeft: '16px',
-  boxSizing: 'border-box',
-  position: 'relative'
-};
-
-export const storyWrapperStyleTablet = {
-  height: '256px',
-  borderRight: `1px solid ${lightGreyColor}`
-};
-
-export const storyWrapperStyleExtraWide = {
-  height: '320px'
+  base: {
+    height: '264.5px',
+    paddingRight: '16px',
+    paddingLeft: '16px',
+    boxSizing: 'border-box',
+    position: 'relative'
+  },
+  tablet: {
+    height: '256px'
+  },
+  extraWide: {
+    height: '320px'
+  }
 };
 
 export const contentStyle = {
@@ -36,14 +42,14 @@ export const paperStyleDesktop = {
   marginBottom: '9px'
 };
 
-export const storyImageStyleTablet = {
-  height: '256px'
-};
-
-export const storyImageStyleDesktop = {
-  height: '264.5px'
-};
-
-export const storyImageStyleExtraWide = {
-  height: '320px'
+export const storyImageStyle = {
+  base: {
+    height: '264.5px'
+  },
+  tablet: {
+    height: '256px'
+  },
+  extraWide: {
+    height: '320px'
+  }
 };

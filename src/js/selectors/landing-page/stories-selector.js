@@ -23,6 +23,7 @@ export function rawStoryTransform(story) {
     newspaperShortName: story.newspaper && story.newspaper['short_name'],
     date: story['post_date'],
     paragraphs: story.body && story.body.map(p => p.value),
+    isFeatured: story['is_featured'],
     imageUrl: getImageUrl(story)
   };
 }

@@ -21,4 +21,9 @@ describe('StoryWithImage component', function () {
     const story = StoryFactory.build();
     StoryWithImage.should.triggerCallbackWhenClick('handleClick', 'story-with-image', { story: story }, story);
   });
+
+  it('should use the correct style with', function () {
+    const story = StoryFactory.build();
+    StoryWithImage.should.triggerCallbackWhenClick('handleClick', 'story-with-image', { story: story }, story);
+  });
 });
