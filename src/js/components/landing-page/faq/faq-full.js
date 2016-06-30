@@ -10,7 +10,7 @@ import { DESKTOP, FAQ_PATH } from 'utils/constants';
 export default class FAQFull extends React.Component {
   render() {
     let { faq, className, style, closeBottomSheet } = this.props;
-    className = classNames('story-full pure-g', className);
+    className = classNames('faq-full pure-g', className);
 
     return (
       <div className={ className } style={ { outer: style } }>
@@ -29,7 +29,7 @@ export default class FAQFull extends React.Component {
           </div>
         </div>
         <ArticleFooter device={ DESKTOP } className='pure-u-1-1'
-          style={ { wrapper: footerStyle } } href={ FAQ_PATH }
+          style={ { wrapper: footerStyle } } to={ FAQ_PATH }
           onClick={ closeBottomSheet }>
           More FAQ
         </ArticleFooter>

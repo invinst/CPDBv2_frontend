@@ -15,7 +15,8 @@ export default class TwitterEmbeddedTimeline extends Component {
       this._wrapper,
       {
         screenName: 'CPDPbot',
-        height: String(this.props.height)
+        height: String(this.props.height),
+        showReplies: true
       }
     );
   }

@@ -1,7 +1,6 @@
 import React from 'react';
 import { render, findDOMNode } from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
-import { Link } from 'react-router';
 
 import BottomSheet from 'components/landing-page/bottom-sheet/bottom-sheet';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -91,7 +90,7 @@ describe('BottomSheet component', function () {
 
   it('should trigger onClose when click on More FAQ', function () {
     BottomSheet.should.triggerCallbackWhenClick(
-      'onClose', Link, { open: true, content: { type: FAQ_TYPE, props: { faq: faq } } }
+      'onClose', 'footer__link', { open: true, content: { type: FAQ_TYPE, props: { faq: faq } } }
     );
   });
 });

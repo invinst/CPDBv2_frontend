@@ -1,4 +1,4 @@
-import { lightGreyColor, accentColor } from 'utils/styles';
+import { lightGreyColor, accentColor, softBlackColor } from 'utils/styles';
 
 
 export const faqItemStyle = {
@@ -6,22 +6,27 @@ export const faqItemStyle = {
 };
 
 export const faqItemTitleStyle = {
-  height: '72px',
-  paddingLeft: '16px',
-  lineHeight: '72px',
-  cursor: 'pointer',
-  fontFamily: 'San Francisco Text Web',
-  fontSize: '15px',
-  fontWeight: 500
-};
+  base: {
+    color: softBlackColor,
+    height: '72px',
+    paddingLeft: '16px',
+    lineHeight: '72px',
+    cursor: 'pointer',
+    fontFamily: 'San Francisco Text Web',
+    fontSize: '13px',
+    fontWeight: 500,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    ':hover': {
+      color: accentColor
+    }
+  },
 
-export const faqItemActiveTitleStyle = {
-  height: '72px',
-  paddingLeft: '16px',
-  lineHeight: '72px',
-  cursor: 'pointer',
-  fontFamily: 'San Francisco Text Web',
-  fontSize: '15px',
-  fontWeight: 500,
-  color: accentColor
+  expanded: {
+    color: accentColor,
+    ':hover': {
+      color: softBlackColor
+    }
+  }
 };

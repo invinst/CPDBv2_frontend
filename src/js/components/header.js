@@ -1,8 +1,8 @@
 import { includes } from 'lodash';
 import React from 'react';
-import Radium from 'radium';
 import { browserHistory } from 'react-router';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ClosableNavLink from 'components/closable-nav-link';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import { COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
@@ -119,4 +119,4 @@ class Header extends React.Component {
   }
 }
 
-export default Radium(Header);
+export default ConfiguredRadium(Header);

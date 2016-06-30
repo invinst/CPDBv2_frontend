@@ -4,8 +4,6 @@ import { assign } from 'lodash';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
-export { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
-
 
 const _responsiveStyle = {
   [EXTRA_WIDE]: DESKTOP,
@@ -29,6 +27,10 @@ export default class ResponsiveStyleComponent extends ResponsiveComponent {
     if (typeof style === 'string') {
       style = styleMap[style];
     }
+    // TODO: passing screen attribute is a temporary solution here, we need to fix the responsive-component to call
+    // only one render for the screen size
+    style.screen = key;
+
     return style;
   }
 
@@ -48,3 +50,5 @@ export default class ResponsiveStyleComponent extends ResponsiveComponent {
     return this.renderWithResponsiveStyle(this.extractStyle(MOBILE));
   }
 }
+
+export { MOBILE, TABLET, DESKTOP, EXTRA_WIDE };

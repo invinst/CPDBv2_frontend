@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 
 import FAQFull from 'components/landing-page/faq/faq-full';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -17,6 +16,6 @@ describe('FAQFull component', function () {
   });
 
   it('should trigger closeBottomSheet when click on More FAQ', function () {
-    FAQFull.should.triggerCallbackWhenClick('closeBottomSheet', Link);
+    FAQFull.should.triggerCallbackWhenClick('closeBottomSheet', 'footer__link');
   });
 });

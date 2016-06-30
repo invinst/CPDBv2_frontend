@@ -1,49 +1,41 @@
 import React, { Component, PropTypes } from 'react';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import ExpandTransition from 'components/animation/expand-transition';
 import FAQItemContent from './faq-item-content';
-import { faqItemStyle, faqItemTitleStyle, faqItemActiveTitleStyle } from './faq-list-item.style';
+import { faqItemStyle, faqItemTitleStyle } from './faq-list-item.style';
 
 
-export default class FAQListItem extends Component {
+class FAQListItem extends Component {
   constructor(props) {
     super(props);
     this.state = { expanded: false };
-    this.onClick = this.onClick.bind(this);
   }
 
-  onClick() {
+  componentWillReceiveProps(nextProps) {
     this.setState({
-      expanded: !this.state.expanded
+      expanded: nextProps.expandedId === nextProps.faq.id
     });
   }
 
   render() {
-    const { faq } = this.props;
+    const { faq, handleClick } = this.props;
     const { expanded } = this.state;
 
     return (
-      <div className='pure-g'>
-        <div className='pure-u-1-2' style={ faqItemStyle }>
-          <div
-            className='faq-title'
-            style={ expanded ? faqItemActiveTitleStyle : faqItemTitleStyle }
-            onClick={ this.onClick }>
-            { faq.title }
-          </div>
-          <ExpandTransition
-            childKey={ expanded ? faq.id : null }
-            onFullyClosed={ (key) => {
-              /* istanbul ignore next */
-              this.setState({ expanded: false });
-            } }
-            onExpansionBegin={ (key) => {
-              /* istanbul ignore next */
-              this.setState({ expanded: true });
-            } }>
-            <FAQItemContent faq={ faq } expanded={ expanded } />
-          </ExpandTransition>
+      <div style={ faqItemStyle }>
+        <div
+          className='faq-title link--transition'
+          style={ [faqItemTitleStyle.base, expanded && faqItemTitleStyle.expanded] }
+          onClick={ handleClick }>
+          { faq.title }
         </div>
+        <ExpandTransition
+          childKey={ expanded ? faq.id : null }
+          onFullyClosed={ (key) => {this.setState({ expanded: false });} }
+          onExpansionBegin={ (key) => {this.setState({ expanded: true });} }>
+          <FAQItemContent faq={ faq } expanded={ expanded } />
+        </ExpandTransition>
       </div>
     );
   }
@@ -55,5 +47,8 @@ FAQListItem.propTypes = {
     title: PropTypes.string,
     body: PropTypes.array
   }),
-  childKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  handleClick: PropTypes.func.isRequired,
+  expandedId: PropTypes.number
 };
+
+export default ConfiguredRadium(FAQListItem);
