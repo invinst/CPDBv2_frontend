@@ -32,7 +32,7 @@ class StoryWithImage extends ResponsiveStyleComponent {
       },
       [DESKTOP]: {
         outerWrapper: [outerWrapperStyle.base, !leftAlign && outerWrapperStyle.rightAlign],
-        image: storyImageStyle,
+        image: storyImageStyle.base,
         wrapper: [storyWrapperStyle.base, style.wrapper],
         header: [paperStyle, style.header],
         paragraph: style.paragraph

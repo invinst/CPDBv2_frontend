@@ -12,7 +12,7 @@ export const outerWrapperStyle = {
     }
   },
   rightAlign: {
-    borderWidth: '0 0 0 1px'
+    borderWidth: '0'
   }
 };
 

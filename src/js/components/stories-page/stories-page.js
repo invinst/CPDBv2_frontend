@@ -11,10 +11,8 @@ export default class StoriesPage extends Component {
     return (
       <div style={ storiesPageStyle }>
         <ResponsiveFixedWidthComponent>
-          <div className='pure-g'>
-            <FeaturedStoriesContainer store={ this.props.store }/>
-            <NonFeaturedStoriesContainer store={ this.props.store }/>
-          </div>
+          <FeaturedStoriesContainer store={ this.props.store }/>
+          <NonFeaturedStoriesContainer store={ this.props.store }/>
         </ResponsiveFixedWidthComponent>
       </div>
     );
