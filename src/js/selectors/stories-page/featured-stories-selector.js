@@ -1,17 +1,13 @@
-import { chunk, includes } from 'lodash';
+import { chunk } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { getPaginationInfo } from 'selectors/common/pagination-selector';
 import { rawStoryTransform } from 'selectors/landing-page/stories-selector';
 
 
-const getStories = state => state.storiesPage.stories;
+const getStories = state => state.storiesPage.featuredStories.stories;
 
-const getIsRequesting = state => state.storiesPage.isRequesting;
-
-const storiesSelector = createSelector(getStories, (stories) => {
-  return stories.results.map(rawStoryTransform);
-});
+const getIsRequesting = state => state.storiesPage.featuredStories.isRequesting;
 
 export function groupFeaturedStories(stories) {
   let imageStory = stories.find(story => !!story.imageUrl) || stories[0];
@@ -24,9 +20,9 @@ export function groupFeaturedStories(stories) {
 }
 
 export const featuredStoriesSelector = createSelector(
-  storiesSelector,
+  getStories,
   (stories) => {
-    return stories.filter(story => story.isFeatured).slice(0, 6);
+    return stories.results.map(rawStoryTransform).slice(0, 6);
   }
 );
 
@@ -36,17 +32,6 @@ export const featuredStoryGroupsSelector = createSelector(
     let storyChunks = chunk(stories, 3);
 
     return storyChunks.map(groupFeaturedStories);
-  }
-);
-
-export const nonFeaturedStoriesSelector = createSelector(
-  storiesSelector,
-  featuredStoriesSelector,
-  (stories, featuredStories) => {
-    const featuredStoryIds = featuredStories.map(story => story.id);
-    const nonFeaturedStories = stories.filter(story => !includes(featuredStoryIds, story.id));
-
-    return nonFeaturedStories;
   }
 );
 

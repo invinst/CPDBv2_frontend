@@ -7,12 +7,23 @@ import StoriesPage from 'components/stories-page/stories-page';
 const mockStore = configureStore();
 const store = mockStore({
   storiesPage: {
-    isRequesting: false,
-    stories: {
-      count: 3,
-      next: null,
-      previous: null,
-      results: RawStoryFactory.buildList(3)
+    featuredStories: {
+      isRequesting: false,
+      stories: {
+        count: 3,
+        next: null,
+        previous: null,
+        results: RawStoryFactory.buildList(3)
+      }
+    },
+    nonFeaturedStories: {
+      isRequesting: false,
+      stories: {
+        count: 3,
+        next: null,
+        previous: null,
+        results: RawStoryFactory.buildList(3)
+      }
     }
   }
 });

@@ -3,20 +3,22 @@ import 'should';
 import { rawStoryTransform } from 'selectors/landing-page/stories-selector';
 import {
   groupFeaturedStories, featuredStoryGroupsSelector, featuredStoriesSelector,
-  nonFeaturedStoriesSelector, dataAvailableSelector, paginationSelector
-} from 'selectors/stories-page/stories-selector';
+  dataAvailableSelector, paginationSelector
+} from 'selectors/stories-page/featured-stories-selector';
 import StoryFactory from 'utils/test/factories/story';
 import RawStoryFactory from 'utils/test/factories/raw-story';
 import PaginationFactory from 'utils/test/factories/pagination';
 
 
-describe('stories selectors', function () {
+describe('featured stories selectors', function () {
   let state = {
-    storiesPage: {}
+    storiesPage: {
+      featuredStories: {}
+    }
   };
 
   beforeEach(function () {
-    state.storiesPage = {};
+    state.storiesPage.featuredStories = {};
   });
 
   describe('groupFeaturedStories', function () {
@@ -45,12 +47,11 @@ describe('stories selectors', function () {
     it('should return first 6 featured stories', function () {
       const featuredStories = RawStoryFactory.buildList(6, { 'is_featured': true });
       const stories = [
-        ...RawStoryFactory.buildList(3),
         ...featuredStories,
         RawStoryFactory.build({ 'is_featured': true })
       ];
 
-      state.storiesPage = {
+      state.storiesPage.featuredStories = {
         stories: PaginationFactory.build({ results: stories })
       };
       featuredStoriesSelector(state).should.deepEqual(featuredStories.map(rawStoryTransform));
@@ -60,7 +61,7 @@ describe('stories selectors', function () {
   describe('featuredStoryGroupsSelector', function () {
     it('should return 2 groups of featured stories', function () {
       const featuredStories = RawStoryFactory.buildList(6, { 'is_featured': true });
-      state.storiesPage = {
+      state.storiesPage.featuredStories = {
         stories: PaginationFactory.build({ results: featuredStories })
       };
       const expectedResults = [
@@ -78,22 +79,9 @@ describe('stories selectors', function () {
     });
   });
 
-  describe('nonFeaturedStoriesSelector', function () {
-    it('should return non featured stories', function () {
-      const featuredStories = RawStoryFactory.buildList(3, { 'is_featured': true });
-      const nonFeaturedStories = RawStoryFactory.buildList(3, { 'is_featured': false });
-
-      state.storiesPage = {
-        stories: PaginationFactory.build({ results: [...featuredStories, ...nonFeaturedStories] })
-      };
-
-      nonFeaturedStoriesSelector(state).should.deepEqual(nonFeaturedStories.map(rawStoryTransform));
-    });
-  });
-
   describe('dataAvailableSelector', function () {
     it('should return false when isRequesting', function () {
-      state.storiesPage = {
+      state.storiesPage.featuredStories = {
         stories: PaginationFactory.build({ results: RawStoryFactory.buildList(3) }),
         isRequesting: true
       };
@@ -101,7 +89,7 @@ describe('stories selectors', function () {
     });
 
     it('should return true if has more than 5 featured stories and requesting is false', function () {
-      state.storiesPage = {
+      state.storiesPage.featuredStories = {
         isRequesting: false,
         stories: PaginationFactory.build({ results: RawStoryFactory.buildList(6, { 'is_featured': true }) })
       };
@@ -109,7 +97,7 @@ describe('stories selectors', function () {
     });
 
     it('should return false when stories has less than 6 featured stories', function () {
-      state.storiesPage = {
+      state.storiesPage.featuredStories = {
         stories: PaginationFactory.build({ results: RawStoryFactory.buildList(5, { 'is_featured': true }) })
       };
       dataAvailableSelector(state).should.be.false();
@@ -122,7 +110,7 @@ describe('stories selectors', function () {
       const previous = 'previous';
       const count = 'count';
 
-      state.storiesPage = {
+      state.storiesPage.featuredStories = {
         stories: { next, previous, count }
       };
 

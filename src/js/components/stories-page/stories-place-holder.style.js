@@ -1,3 +1,3 @@
 export const placeholderStyle = {
-  height: '500px'
+  height: '250px'
 };

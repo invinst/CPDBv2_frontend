@@ -1,7 +1,7 @@
 import {
-  STORIES_PAGE_REQUEST_START, STORIES_PAGE_REQUEST_SUCCESS, STORIES_PAGE_REQUEST_FAILURE
-} from 'actions/stories-page';
-import storiesPage from 'reducers/stories-page';
+  NON_FEATURED_STORIES_REQUEST_START, NON_FEATURED_STORIES_REQUEST_SUCCESS, NON_FEATURED_STORIES_REQUEST_FAILURE
+} from 'actions/stories-page/non-featured-stories';
+import storiesPage from 'reducers/stories-page/non-featured-stories';
 import { PAGINATION_DEFAULT } from 'utils/constants';
 
 
@@ -13,22 +13,22 @@ describe('storiesPage reducer', function () {
     });
   });
 
-  it('should handle STORIES_PAGE_REQUEST_START', function () {
+  it('should handle NON_FEATURED_STORIES_REQUEST_START', function () {
     storiesPage(undefined, {
-      type: STORIES_PAGE_REQUEST_START
+      type: NON_FEATURED_STORIES_REQUEST_START
     }).should.eql({
       stories: PAGINATION_DEFAULT,
       isRequesting: true
     });
   });
 
-  it('should handle STORIES_PAGE_REQUEST_SUCCESS', function () {
+  it('should handle NON_FEATURED_STORIES_REQUEST_SUCCESS', function () {
     let nextState = storiesPage(undefined, {
-      type: STORIES_PAGE_REQUEST_START
+      type: NON_FEATURED_STORIES_REQUEST_START
     });
 
     storiesPage(nextState, {
-      type: STORIES_PAGE_REQUEST_SUCCESS,
+      type: NON_FEATURED_STORIES_REQUEST_SUCCESS,
       payload: [1, 2, 3]
     }).should.eql({
       stories: [1, 2, 3],
@@ -36,13 +36,13 @@ describe('storiesPage reducer', function () {
     });
   });
 
-  it('should handle STORIES_PAGE_REQUEST_FAILURE', function () {
+  it('should handle NON_FEATURED_STORIES_REQUEST_FAILURE', function () {
     let nextState = storiesPage(undefined, {
-      type: STORIES_PAGE_REQUEST_START
+      type: NON_FEATURED_STORIES_REQUEST_START
     });
 
     storiesPage(nextState, {
-      type: STORIES_PAGE_REQUEST_FAILURE,
+      type: NON_FEATURED_STORIES_REQUEST_FAILURE,
       payload: new Error('Load failed')
     }).should.eql({
       stories: PAGINATION_DEFAULT,

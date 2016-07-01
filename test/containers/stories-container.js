@@ -19,7 +19,7 @@ describe('UnconnectedStoriesContainer', function () {
   it('should render Stories when data is available', function () {
     instance = renderIntoDocument(
       <UnconnectedStoriesContainer
-        requestStories={ () => {} } noImageStories={ StoryFactory.buildList(2) }
+        requestStories={ () => {} } noImageStories={ StoryFactory.buildList(2, { imageUrl: '' }) }
         imageStory={ StoryFactory.build() } dataAvailable={ true }
         openBottomSheetWithStory={ () => {} }/>
     );
@@ -39,7 +39,7 @@ describe('UnconnectedStoriesContainer', function () {
     const callback = spy();
     instance = renderIntoDocument(
       <UnconnectedStoriesContainer
-        requestStories={ callback } noImageStories={ StoryFactory.buildList(2) }
+        requestStories={ callback } noImageStories={ StoryFactory.buildList(2, { imageUrl: '' }) }
         imageStory={ StoryFactory.build() } dataAvailable={ true }
         openBottomSheetWithStory={ () => {} }/>
     );
@@ -50,7 +50,7 @@ describe('UnconnectedStoriesContainer', function () {
     const callback = spy();
     instance = renderIntoDocument(
       <UnconnectedStoriesContainer
-        requestStories={ () => {} } noImageStories={ StoryFactory.buildList(2) }
+        requestStories={ () => {} } noImageStories={ StoryFactory.buildList(2, { imageUrl: '' }) }
         imageStory={ StoryFactory.build() } dataAvailable={ true }
         openBottomSheetWithStory={ callback }/>
     );

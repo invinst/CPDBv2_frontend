@@ -11,11 +11,11 @@ describe('FeaturedStories component', function () {
   const storyGroups = [
     {
       imageStory: StoryFactory.build(),
-      noImageStories: StoryFactory.buildList(2)
+      noImageStories: StoryFactory.buildList(2, { imageUrl: '' })
     },
     {
       imageStory: StoryFactory.build(),
-      noImageStories: StoryFactory.buildList(2)
+      noImageStories: StoryFactory.buildList(2, { imageUrl: '' })
     }
   ];
   let instance;
