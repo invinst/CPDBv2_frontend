@@ -1,4 +1,4 @@
-import { accentColor, lightGreyColor } from 'utils/styles';
+import { accentColor, softBlackColor, lightGreyColor } from 'utils/styles';
 
 
 export const storyStyle = {
@@ -20,7 +20,8 @@ export const edgeStoryStyle = {
     borderColor: lightGreyColor,
     borderWidth: '1px 0 0',
     height: '160px',
-    paddingTop: '16px'
+    paddingTop: '16px',
+    color: 'inherit'
   },
   paragraph: {
     fontSize: '16px'
@@ -33,6 +34,7 @@ export const imageStyle = {
 
 export const imageStoryWrapperStyle = {
   cursor: 'pointer',
+  color: softBlackColor,
   ':hover': {
     color: accentColor
   }

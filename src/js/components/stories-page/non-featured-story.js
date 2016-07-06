@@ -18,8 +18,6 @@ class NonFeaturedStory extends Component {
     const { story, layout: { isDisplayImage, position } } = this.props;
 
     if (isDisplayImage) {
-      // TODO: radium does not handle wrapper hover style when we render ArticleSmall, will move this into another
-      // component later
       return (
         <div className='pure-g' onClick={ this.handleClick } style={ imageStoryWrapperStyle }>
           <div className='pure-u-1-2'>
