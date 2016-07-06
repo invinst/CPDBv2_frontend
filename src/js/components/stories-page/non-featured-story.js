@@ -15,7 +15,7 @@ class NonFeaturedStory extends Component {
   }
 
   renderStory() {
-    const { story, position, isDisplayImage } = this.props;
+    const { story, layout: { isDisplayImage, position } } = this.props;
 
     if (isDisplayImage) {
       // TODO: radium does not handle wrapper hover style when we render ArticleSmall, will move this into another
@@ -47,7 +47,7 @@ class NonFeaturedStory extends Component {
   }
 
   getWrapperClass() {
-    const { grids, isDisplayImage } = this.props;
+    const { layout: { isDisplayImage, grids } } = this.props;
     if (isDisplayImage) {
       if (grids == 4) {
         return 'pure-u-1-2';
@@ -70,15 +70,19 @@ class NonFeaturedStory extends Component {
 NonFeaturedStory.propTypes = {
   story: PropTypes.object,
   handleClick: PropTypes.func,
-  grids: PropTypes.number,
-  position: PropTypes.number,
-  isDisplayImage: PropTypes.bool
+  layout: PropTypes.shape({
+    grids: PropTypes.number,
+    position: PropTypes.number,
+    isDisplayImage: PropTypes.bool
+  })
 };
 
 NonFeaturedStory.defaultProps = {
-  grids: 5,
-  position: 0,
-  isDisplayImage: false
+  layout: {
+    grids: 5,
+    position: 0,
+    isDisplayImage: false
+  }
 };
 
 export default ConfiguredRadium(NonFeaturedStory);

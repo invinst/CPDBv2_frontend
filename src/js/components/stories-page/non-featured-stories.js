@@ -2,32 +2,20 @@ import React, { PropTypes } from 'react';
 
 import NonFeaturedStory from './non-featured-story';
 import ResponsiveComponent from 'components/responsive/responsive-component';
+import { buildLayout } from 'utils/layouts/non-featured-stories/hide-image';
 
 
 export default class NonFeaturedStories extends ResponsiveComponent {
   renderStoryGrid(grids) {
-    const { stories } = this.props;
+    const { stories, handleStoryClick } = this.props;
+    const layouts = buildLayout(stories, grids);
 
-    let position = 0;
     return stories.map((story, ind) => {
-      let isDisplayImage = !!story.imageUrl;
-      let storyPosition = position;
-
-      position += isDisplayImage ? 2 : 1;
-      if (position > grids) {
-        isDisplayImage = false;
-      }
-      if (position > grids - 1) {
-        position = 0;
-      }
-
       return (
         <NonFeaturedStory key={ ind }
-          handleClick={ this.props.handleStoryClick }
+          handleClick={ handleStoryClick }
           story={ story }
-          grids={ grids }
-          position={ storyPosition }
-          isDisplayImage={ isDisplayImage }/>
+          layout={ layouts[story.id] }/>
       );
     });
   }

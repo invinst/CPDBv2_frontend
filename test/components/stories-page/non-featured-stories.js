@@ -24,7 +24,7 @@ describe('NonFeaturedStories component', function () {
     NonFeaturedStories.should.be.responsiveRenderable({ stories });
   });
 
-  it('should render image story and no image story', function () {
+  it('should render image story and no image story by default', function () {
     const stories = [imageStory, ...noImageStories];
 
     instance = renderIntoDocument(
@@ -32,18 +32,6 @@ describe('NonFeaturedStories component', function () {
     );
 
     scryRenderedComponentsWithType(instance, CoverImage).length.should.equal(1);
-    scryRenderedComponentsWithType(instance, ArticleSmall).length.should.equal(4);
-  });
-
-  it('should render image story as no image story if space is not enough', function () {
-    // Tablet screen, 3 no image story and 1 image story
-    let stories = [...noImageStories, imageStory];
-
-    instance = renderIntoDocument(
-      <NonFeaturedStories stories={ stories } handleStoryClick={ () => {} }/>
-    );
-
-    scryRenderedComponentsWithType(instance, CoverImage).length.should.equal(0);
     scryRenderedComponentsWithType(instance, ArticleSmall).length.should.equal(4);
   });
 });

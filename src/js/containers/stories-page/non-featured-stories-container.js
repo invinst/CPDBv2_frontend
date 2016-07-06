@@ -19,7 +19,7 @@ export class UnconnectedNonFeaturedStoriesContainer extends Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
 
-    this.props.requestStories({ 'is_featured': 'False' });
+    this.props.requestStories({ 'is_featured': 'False', 'ordering': '-first_published_at' });
   }
 
   componentWillUnmount() {
