@@ -7,6 +7,7 @@ import { UnconnectedNonFeaturedStoriesContainer } from 'containers/stories-page/
 import StoryFactory from 'utils/test/factories/story';
 import NonFeaturedStories from 'components/stories-page/non-featured-stories';
 import StoriesPlaceHolder from 'components/stories-page/stories-place-holder';
+import LoadingIndicator from 'components/stories-page/loading-indicator';
 
 
 describe('UnconnectedNonFeaturedStoriesContainer', function () {
@@ -44,6 +45,15 @@ describe('UnconnectedNonFeaturedStoriesContainer', function () {
     findRenderedComponentWithType(instance, StoriesPlaceHolder);
   });
 
+  it('should render LoadingIndicator when loading more data', function () {
+    instance = renderIntoDocument(
+      <UnconnectedNonFeaturedStoriesContainer requestStories={ () => {} } loadMoreStories={ () => {} }
+        nonFeaturedStories={ [] } dataAvailable={ true } openBottomSheetWithStory={ () => {} }
+        moreDataAvailable={ false }/>
+    );
+    findRenderedComponentWithType(instance, LoadingIndicator);
+  });
+
   it('should call requestStories when it just mount', function () {
     const callback = spy();
     instance = renderIntoDocument(
@@ -58,7 +68,7 @@ describe('UnconnectedNonFeaturedStoriesContainer', function () {
     instance = renderIntoDocument(
       <UnconnectedNonFeaturedStoriesContainer requestStories={ () => {} } loadMoreStories={ callback }
         nonFeaturedStories={ [] } dataAvailable={ true } openBottomSheetWithStory={ () => {} }
-        pagination={ { next: 'next' } }/>
+        pagination={ { next: 'next' } } moreDataAvailable={ true }/>
     );
 
     window.scrollY = 1000;
@@ -72,6 +82,19 @@ describe('UnconnectedNonFeaturedStoriesContainer', function () {
       <UnconnectedNonFeaturedStoriesContainer requestStories={ () => {} } loadMoreStories={ callback }
         nonFeaturedStories={ [] } dataAvailable={ true } openBottomSheetWithStory={ () => {} }
         pagination={ { next: '' } }/>
+    );
+
+    window.scrollY = 1000;
+    scrollCallback();
+    callback.called.should.be.false();
+  });
+
+  it('should not call loadMoreStories while loading more stories', function () {
+    const callback = spy();
+    instance = renderIntoDocument(
+      <UnconnectedNonFeaturedStoriesContainer requestStories={ () => {} } loadMoreStories={ callback }
+        nonFeaturedStories={ [] } dataAvailable={ true } openBottomSheetWithStory={ () => {} }
+        pagination={ { next: 'next' } } moreDataAvailable={ false }/>
     );
 
     window.scrollY = 1000;
