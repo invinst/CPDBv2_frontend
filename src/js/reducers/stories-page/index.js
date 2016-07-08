@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 
-import stories from './stories';
-import isRequesting from './is-requesting';
+import featuredStories from './featured-stories';
+import nonFeaturedStories from './non-featured-stories';
 
 
 export default combineReducers({
-  stories,
-  isRequesting
+  featuredStories,
+  nonFeaturedStories
 });

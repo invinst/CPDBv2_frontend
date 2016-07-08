@@ -13,14 +13,12 @@ export default class FeaturedStories extends Component {
       <div>
         <div>
           <FeaturedStoryGroup
-            key={ 0 }
             imageStory={ storyGroups[0].imageStory }
             noImageStories={ storyGroups[0].noImageStories }
             handleStoryClick={ handleStoryClick }/>
         </div>
         <div style={ rowStyle }>
           <FeaturedStoryGroup
-            key={ 1 }
             imageStory={ storyGroups[1].imageStory }
             noImageStories={ storyGroups[1].noImageStories }
             handleStoryClick={ handleStoryClick } leftAlign={ false }/>

@@ -50,8 +50,14 @@ describe('store', function () {
         isRequesting: false
       },
       storiesPage: {
-        isRequesting: false,
-        stories: PAGINATION_DEFAULT
+        featuredStories: {
+          isRequesting: false,
+          stories: PAGINATION_DEFAULT
+        },
+        nonFeaturedStories: {
+          isRequesting: false,
+          stories: PAGINATION_DEFAULT
+        }
       }
     });
   });

@@ -8,7 +8,7 @@ import StoryFactory from 'utils/test/factories/story';
 
 describe('FeaturedStoryGroup component', function () {
   const imageStory = StoryFactory.build();
-  const noImageStories = StoryFactory.buildList(2);
+  const noImageStories = StoryFactory.buildList(2, { imageUrl: '' });
   let instance;
 
   afterEach(function () {
