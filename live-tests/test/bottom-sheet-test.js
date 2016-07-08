@@ -7,7 +7,7 @@ describe('bottom-sheet', function () {
       .expect.element('body').to.be.present.before(1000);
 
     // click on story-medium should open bottom-sheet and body element should has noscroll class
-    client.click('.story-medium').expect.element('.story-full').to.be.present;
+    client.click('.story-with-image').expect.element('.story-full').to.be.present;
     client.expect.element('.bottom-sheet__overlay').to.be.present;
     client.expect.element('body').to.have.attribute('class').which.contains('noscroll');
 

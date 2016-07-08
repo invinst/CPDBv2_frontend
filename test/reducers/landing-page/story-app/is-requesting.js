@@ -22,7 +22,7 @@ describe('isRequesting reducer', function () {
     }).should.be.false();
   });
 
-  it('should handle STORIES_REQUEST_SUCCESS', function () {
+  it('should handle STORIES_REQUEST_FAILURE', function () {
     isRequesting(true, {
       type: STORIES_REQUEST_FAILURE,
       payload: new Error('Load failed')

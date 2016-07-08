@@ -16,4 +16,5 @@ export default new Factory()
   .attr('post_date', () => (date.past()))
   .attr('image_url', () => ({
     [DEFAULT_IMAGE_DIMENSION]: internet.url()
-  }));
+  }))
+  .attr('is_featured', () => (false));

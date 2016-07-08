@@ -8,4 +8,5 @@ export default new Factory()
   .attr('title', () => (lorem.sentence()))
   .attr('date', () => (date.past()))
   .attr('paragraphs', () => ([lorem.sentences()]))
-  .attr('imageUrl', () => (internet.url()));
+  .attr('imageUrl', () => (internet.url()))
+  .attr('isFeatured', () => (false));

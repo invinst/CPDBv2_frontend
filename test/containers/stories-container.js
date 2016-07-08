@@ -10,37 +10,37 @@ import StoriesPlaceHolder from 'components/landing-page/stories/stories-place-ho
 
 
 describe('UnconnectedStoriesContainer', function () {
-  let element;
+  let instance;
 
   afterEach(function () {
-    unmountComponentSuppressError(element);
+    unmountComponentSuppressError(instance);
   });
 
   it('should render Stories when data is available', function () {
-    element = renderIntoDocument(
+    instance = renderIntoDocument(
       <UnconnectedStoriesContainer
-        requestStories={ () => {} } smallStories={ StoryFactory.buildList(2) }
-        featuredStory={ StoryFactory.build() } dataAvailable={ true }
+        requestStories={ () => {} } noImageStories={ StoryFactory.buildList(2, { imageUrl: '' }) }
+        imageStory={ StoryFactory.build() } dataAvailable={ true }
         openBottomSheetWithStory={ () => {} }/>
     );
-    findRenderedComponentWithType(element, Stories);
+    findRenderedComponentWithType(instance, Stories);
   });
 
   it('should render StoriesPlaceHolder when data is not available', function () {
-    element = renderIntoDocument(
+    instance = renderIntoDocument(
       <UnconnectedStoriesContainer
         requestStories={ () => {} } dataAvailable={ false }
         openBottomSheetWithStory={ () => {} }/>
     );
-    findRenderedComponentWithType(element, StoriesPlaceHolder);
+    findRenderedComponentWithType(instance, StoriesPlaceHolder);
   });
 
   it('should call requestStories when it just mount', function () {
     const callback = spy();
-    element = renderIntoDocument(
+    instance = renderIntoDocument(
       <UnconnectedStoriesContainer
-        requestStories={ callback } smallStories={ StoryFactory.buildList(2) }
-        featuredStory={ StoryFactory.build() } dataAvailable={ true }
+        requestStories={ callback } noImageStories={ StoryFactory.buildList(2, { imageUrl: '' }) }
+        imageStory={ StoryFactory.build() } dataAvailable={ true }
         openBottomSheetWithStory={ () => {} }/>
     );
     callback.called.should.be.true();
@@ -48,15 +48,15 @@ describe('UnconnectedStoriesContainer', function () {
 
   it('should call openBottomSheetWithStory when a story is clicked', function () {
     const callback = spy();
-    element = renderIntoDocument(
+    instance = renderIntoDocument(
       <UnconnectedStoriesContainer
-        requestStories={ () => {} } smallStories={ StoryFactory.buildList(2) }
-        featuredStory={ StoryFactory.build() } dataAvailable={ true }
+        requestStories={ () => {} } noImageStories={ StoryFactory.buildList(2, { imageUrl: '' }) }
+        imageStory={ StoryFactory.build() } dataAvailable={ true }
         openBottomSheetWithStory={ callback }/>
     );
-    const storiesElement = findRenderedComponentWithType(element, Stories);
+    const storiesInstance = findRenderedComponentWithType(instance, Stories);
     const story = StoryFactory.build();
-    storiesElement.props.onStoryClick(story);
+    storiesInstance.props.handleStoryClick(story);
     callback.calledWith(story).should.be.true();
   });
 });

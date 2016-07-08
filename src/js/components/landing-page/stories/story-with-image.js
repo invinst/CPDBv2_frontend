@@ -8,43 +8,40 @@ import ResponsiveStyleComponent, {
 } from 'components/responsive/responsive-style-component';
 import CoverImage from 'components/common/cover-image';
 import {
-  storyWrapperStyle, storyWrapperStyleTablet, storyWrapperStyleExtraWide,
-  storyImageStyleTablet, storyImageStyleDesktop,
-  paperStyleDesktop, contentStyle, storyImageStyleExtraWide, outerWrapperStyle
-} from './story-medium.style';
+  storyWrapperStyle, storyImageStyle, paperStyle, contentStyle, outerWrapperStyle
+} from './story-with-image.style';
 
 
-
-class StoryMedium extends ResponsiveStyleComponent {
+class StoryWithImage extends ResponsiveStyleComponent {
   constructor(props) {
     super(props);
-    this.onClick = () => {
-      this.props.onClick(this.props.story);
+    this.handleClick = () => {
+      this.props.handleClick(this.props.story);
     };
   }
 
   responsiveStyle() {
-    const { style } = this.props;
+    const { style, leftAlign } = this.props;
     return {
       [TABLET]: {
-        outerWrapper: outerWrapperStyle,
-        image: storyImageStyleTablet,
-        wrapper: [storyWrapperStyle, storyWrapperStyleTablet],
-        header: [paperStyleDesktop, style.header],
+        outerWrapper: [outerWrapperStyle.base, !leftAlign && outerWrapperStyle.rightAlign],
+        image: storyImageStyle.tablet,
+        wrapper: [storyWrapperStyle.base, storyWrapperStyle.tablet, style.wrapper],
+        header: [paperStyle, style.header],
         paragraph: style.paragraph
       },
       [DESKTOP]: {
-        outerWrapper: outerWrapperStyle,
-        image: storyImageStyleDesktop,
-        wrapper: [storyWrapperStyle],
-        header: [paperStyleDesktop, style.header],
+        outerWrapper: [outerWrapperStyle.base, !leftAlign && outerWrapperStyle.rightAlign],
+        image: storyImageStyle.base,
+        wrapper: [storyWrapperStyle.base, style.wrapper],
+        header: [paperStyle, style.header],
         paragraph: style.paragraph
       },
       [EXTRA_WIDE]: {
-        outerWrapper: outerWrapperStyle,
-        image: storyImageStyleExtraWide,
-        wrapper: [storyWrapperStyle, storyWrapperStyleExtraWide],
-        header: [paperStyleDesktop, style.header],
+        outerWrapper: [outerWrapperStyle.base, !leftAlign && outerWrapperStyle.rightAlign],
+        image: storyImageStyle.extraWide,
+        wrapper: [storyWrapperStyle.base, storyWrapperStyle.extraWide, style.wrapper],
+        header: [paperStyle, style.header],
         paragraph: style.paragraph
       }
     };
@@ -53,7 +50,7 @@ class StoryMedium extends ResponsiveStyleComponent {
   renderWithResponsiveStyle(style) {
     return (
       <div key={ style.screen } style={ style.outerWrapper }
-        className='story-medium pure-g link--transition' onClick={ this.onClick }>
+        className='story-with-image pure-g link--transition' onClick={ this.handleClick }>
         <div className='pure-u-2-3'>
           <CoverImage style={ style.image } src={ this.props.story.imageUrl }/>
         </div>
@@ -72,7 +69,7 @@ class StoryMedium extends ResponsiveStyleComponent {
   }
 }
 
-StoryMedium.propTypes = {
+StoryWithImage.propTypes = {
   story: PropTypes.shape({
     id: PropTypes.number.isRequired,
     newspaperName: PropTypes.string.isRequired,
@@ -80,20 +77,23 @@ StoryMedium.propTypes = {
     imageUrl: PropTypes.string.isRequired
   }),
   style: PropTypes.shape({
+    wrapper: PropTypes.object,
     paragraph: PropTypes.object,
     header: PropTypes.object
   }),
-  onClick: PropTypes.func
+  handleClick: PropTypes.func,
+  leftAlign: PropTypes.bool
 };
 
-StoryMedium.defaultProps = {
+StoryWithImage.defaultProps = {
   story: {
     id: 1,
     newspaperName: 'New York Times',
     title: 'Complaints against Chicago Police rarely result in discipline data shows.',
     imageUrl: 'https://static01.nyt.com/images/2015/11/19/us/19police-web1/19police-web1-superJumbo.jpg'
   },
-  style: {}
+  style: {},
+  leftAlign: true
 };
 
-export default ConfiguredRadium(StoryMedium);
+export default ConfiguredRadium(StoryWithImage);

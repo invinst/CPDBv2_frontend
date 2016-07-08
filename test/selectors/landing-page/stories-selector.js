@@ -1,7 +1,7 @@
 import 'should';
 
 import {
-  featuredStorySelector, dataAvailableSelector, smallStoriesSelector,
+  imageStorySelector, dataAvailableSelector, noImageStoriesSelector,
   getStoriesSelector, rawStoryTransform, paginationSelector, getImageUrl
 } from 'selectors/landing-page/stories-selector';
 import RawStoryFactory from 'utils/test/factories/raw-story';
@@ -37,7 +37,8 @@ describe('stories selectors', function () {
       'post_date': '1/2/3',
       'image_url': {
         [DEFAULT_IMAGE_DIMENSION]: 'g.h'
-      }
+      },
+      'is_featured': true
     };
     const transformedStory = {
       id: 1,
@@ -47,7 +48,8 @@ describe('stories selectors', function () {
       newspaperShortName: 'c.d',
       date: '1/2/3',
       paragraphs: ['e', 'f'],
-      imageUrl: 'g.h'
+      imageUrl: 'g.h',
+      isFeatured: true
     };
 
     rawStoryTransform(rawStory).should.eql(transformedStory);
@@ -81,22 +83,23 @@ describe('stories selectors', function () {
     });
   });
 
-  describe('featuredStorySelector', function () {
-    it('should return featureStory', function () {
-      const rawStories = [1, 2, 3].map((id) => RawStoryFactory.build({ id: id }));
+  describe('imageStorySelector', function () {
+    it('should return imageStory', function () {
+      let rawStories = [1, 2, 3].map((id) => RawStoryFactory.build({ id: id, 'image_url': {} }));
       state.landingPage.storyApp = {
-        stories: PaginationFactory.build({ results: rawStories }),
-        featuredStoryId: 2
+        stories: PaginationFactory.build({ results: rawStories })
       };
 
-      featuredStorySelector(state).should.eql(rawStoryTransform(rawStories[1]));
+      imageStorySelector(state).should.eql(rawStoryTransform(rawStories[0]));
 
+      rawStories[1]['image_url'] = {
+        [DEFAULT_IMAGE_DIMENSION]: 'image'
+      };
       state.landingPage.storyApp = {
-        stories: PaginationFactory.build({ results: rawStories }),
-        featuredStoryId: 4
+        stories: PaginationFactory.build({ results: rawStories })
       };
 
-      featuredStorySelector(state).should.eql(rawStoryTransform(rawStories[0]));
+      imageStorySelector(state).should.eql(rawStoryTransform(rawStories[1]));
     });
   });
 
@@ -125,17 +128,17 @@ describe('stories selectors', function () {
     });
   });
 
-  describe('smallStoriesSelector', function () {
+  describe('noImageStoriesSelector', function () {
     it('should return 2 stories', function () {
       const rawStories = RawStoryFactory.buildList(3);
       state.landingPage.storyApp = {
         stories: PaginationFactory.build({ results: rawStories })
       };
-      smallStoriesSelector(state).should.eql(
+      noImageStoriesSelector(state).should.eql(
         rawStories.slice(1, 3).map((rawStory) => rawStoryTransform(rawStory))
       );
       rawStories.push(RawStoryFactory.build());
-      smallStoriesSelector(state).should.eql(
+      noImageStoriesSelector(state).should.eql(
         rawStories.slice(1, 3).map((rawStory) => rawStoryTransform(rawStory))
       );
     });

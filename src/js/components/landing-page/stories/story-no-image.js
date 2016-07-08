@@ -3,11 +3,11 @@ import React, { PropTypes, Component } from 'react';
 import ArticleSmall from 'components/common/article-small';
 
 
-export default class StorySmall extends Component {
+export default class StoryNoImage extends Component {
   constructor(props) {
     super(props);
-    this.onClick = () => {
-      this.props.onClick(this.props.story);
+    this.handleClick = () => {
+      this.props.handleClick(this.props.story);
     };
   }
 
@@ -15,7 +15,7 @@ export default class StorySmall extends Component {
     return (
       <ArticleSmall
         hoverable={ true }
-        onClick={ this.onClick }
+        onClick={ this.handleClick }
         style={ this.props.style }
         header={ this.props.story.newspaperName }
         paragraphs={ [this.props.story.title] }/>
@@ -23,8 +23,8 @@ export default class StorySmall extends Component {
   }
 }
 
-StorySmall.propTypes = {
-  onClick: PropTypes.func,
+StoryNoImage.propTypes = {
+  handleClick: PropTypes.func,
   story: PropTypes.shape({
     newspaperName: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
@@ -32,6 +32,6 @@ StorySmall.propTypes = {
   style: PropTypes.object
 };
 
-StorySmall.defaultProps = {
+StoryNoImage.defaultProps = {
   style: {}
 };
