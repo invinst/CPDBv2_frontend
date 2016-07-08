@@ -4,7 +4,7 @@ import {
 import isLoadingMore from 'reducers/stories-page/non-featured-stories/is-loading-more';
 
 
-describe('isRequesting reducer', function () {
+describe('isLoadingMore reducer', function () {
   it('should return initial state', function () {
     isLoadingMore(undefined, {}).should.be.false();
   });
