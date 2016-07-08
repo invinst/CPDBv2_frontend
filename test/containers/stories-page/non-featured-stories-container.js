@@ -7,7 +7,6 @@ import { UnconnectedNonFeaturedStoriesContainer } from 'containers/stories-page/
 import StoryFactory from 'utils/test/factories/story';
 import NonFeaturedStories from 'components/stories-page/non-featured-stories';
 import StoriesPlaceHolder from 'components/stories-page/stories-place-holder';
-import LoadingIndicator from 'components/stories-page/loading-indicator';
 
 
 describe('UnconnectedNonFeaturedStoriesContainer', function () {
@@ -43,15 +42,6 @@ describe('UnconnectedNonFeaturedStoriesContainer', function () {
         nonFeaturedStories={ [] } dataAvailable={ false } openBottomSheetWithStory={ () => {} }/>
     );
     findRenderedComponentWithType(instance, StoriesPlaceHolder);
-  });
-
-  it('should render LoadingIndicator when loading more data', function () {
-    instance = renderIntoDocument(
-      <UnconnectedNonFeaturedStoriesContainer requestStories={ () => {} } loadMoreStories={ () => {} }
-        nonFeaturedStories={ [] } dataAvailable={ true } openBottomSheetWithStory={ () => {} }
-        moreDataAvailable={ false }/>
-    );
-    findRenderedComponentWithType(instance, LoadingIndicator);
   });
 
   it('should call requestStories when it just mount', function () {

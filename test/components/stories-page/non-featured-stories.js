@@ -1,11 +1,14 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import {
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
+} from 'react-addons-test-utils';
 
 import NonFeaturedStories from 'components/stories-page/non-featured-stories';
 import StoryFactory from 'utils/test/factories/story';
 import { unmountComponentSuppressError } from 'utils/test';
 import CoverImage from 'components/common/cover-image';
 import ArticleSmall from 'components/common/article-small';
+import LoadingIndicator from 'components/stories-page/loading-indicator';
 
 
 describe('NonFeaturedStories component', function () {
@@ -33,5 +36,15 @@ describe('NonFeaturedStories component', function () {
 
     scryRenderedComponentsWithType(instance, CoverImage).length.should.equal(1);
     scryRenderedComponentsWithType(instance, ArticleSmall).length.should.equal(4);
+  });
+
+  it('should render LoadingIndicator when loading more data', function () {
+    const stories = [imageStory, ...noImageStories];
+
+    instance = renderIntoDocument(
+      <NonFeaturedStories stories={ stories } handleStoryClick={ () => {} } moreDataAvailable={ false }/>
+    );
+
+    findRenderedComponentWithType(instance, LoadingIndicator);
   });
 });

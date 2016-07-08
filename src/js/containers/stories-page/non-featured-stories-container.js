@@ -8,7 +8,6 @@ import {
 } from 'selectors/stories-page/non-featured-stories-selector';
 import NonFeaturedStories from 'components/stories-page/non-featured-stories';
 import StoriesPlaceHolder from 'components/stories-page/stories-place-holder';
-import LoadingIndicator from 'components/stories-page/loading-indicator';
 
 
 export class UnconnectedNonFeaturedStoriesContainer extends Component {
@@ -41,10 +40,8 @@ export class UnconnectedNonFeaturedStoriesContainer extends Component {
 
     if (dataAvailable) {
       return (
-        <div style={ { position: 'relative' } }>
-          <NonFeaturedStories stories={ nonFeaturedStories } handleStoryClick={ openBottomSheetWithStory }/>
-          { moreDataAvailable ? null : <LoadingIndicator /> }
-        </div>
+        <NonFeaturedStories stories={ nonFeaturedStories } handleStoryClick={ openBottomSheetWithStory }
+          moreDataAvailable={ moreDataAvailable }/>
       );
     } else {
       return (
