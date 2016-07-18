@@ -1,8 +1,5 @@
-import { softBlackColor } from 'utils/styles';
-
-
 export const sectionStyle = {
-  background: softBlackColor,
+  background: 'white',
   boxSizing: 'border-box'
 };
 

@@ -6,3 +6,4 @@ export const darkGreyColor = '#666666';
 export const midnightBlueColor = '#0B3168';
 export const darkGrayColor = '#A7A7A7';
 export const whiteSmokeColor = 'rgba(255,255,255, 0.7)';
+export const wildSandColor = '#f4f4f4';

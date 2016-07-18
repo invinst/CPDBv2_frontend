@@ -32,8 +32,14 @@ class FAQListItem extends Component {
         </div>
         <ExpandTransition
           childKey={ expanded ? faq.id : null }
-          onFullyClosed={ (key) => {this.setState({ expanded: false });} }
-          onExpansionBegin={ (key) => {this.setState({ expanded: true });} }>
+          onFullyClosed={
+            /* istanbul ignore next */
+            (key) => {this.setState({ expanded: false });}
+          }
+          onExpansionBegin={
+            /* istanbul ignore next */
+            (key) => {this.setState({ expanded: true });}
+          }>
           <FAQItemContent faq={ faq } expanded={ expanded } />
         </ExpandTransition>
       </div>

@@ -5,6 +5,7 @@ import { browserHistory } from 'react-router';
 import ConfiguredRadium from 'utils/configured-radium';
 import ClosableNavLink from 'components/closable-nav-link';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import BackgroundColorTransition from 'components/animation/background-color-transition';
 import { COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 import {
   navWrapperStyle, navStyle, fixedWrapperStyle, logoWrapperStyle, logoStyle,
@@ -98,7 +99,11 @@ class Header extends React.Component {
     return (
       <div>
         { this.renderSpaceHolder() }
-        <div style={ this.wrapperStyle() }>
+        <BackgroundColorTransition
+          transition={ this.isCompact() }
+          style={ this.wrapperStyle() }
+          colorIn={ wrapperStyle.backgroundColor }
+          colorOut={ fixedWrapperStyle.backgroundColor }>
           <ResponsiveFixedWidthComponent>
             <div style={ this.navWrapperStyle() }>
               { links.map((link, ind) => (
@@ -113,7 +118,7 @@ class Header extends React.Component {
               <span style={ logoStyle }/>
             </div>
           </ResponsiveFixedWidthComponent>
-        </div>
+        </BackgroundColorTransition>
       </div>
     );
   }

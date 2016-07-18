@@ -1,5 +1,5 @@
 import { imgUrl } from 'utils/static-assets';
-import { darkGreyColor } from 'utils/styles';
+import { wildSandColor } from 'utils/styles';
 
 
 export const navStyle = {
@@ -20,8 +20,7 @@ export const navWrapperFixedStyle = {
 };
 
 export const wrapperStyle = {
-  borderBottom: `1px solid ${darkGreyColor}`,
-  background: 'white'
+  backgroundColor: wildSandColor
 };
 
 export const fixedWrapperStyle = {
@@ -29,11 +28,11 @@ export const fixedWrapperStyle = {
   top: '0',
   left: '0',
   width: '100%',
-  background: 'white',
+  backgroundColor: 'white',
   zIndex: '2',
   height: '88px',
   boxSizing: 'border-box',
-  borderBottom: `1px solid ${darkGreyColor}`
+  boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.15)'
 };
 
 export const logoStyle = {

@@ -16,9 +16,11 @@ class ClosableNavLink extends React.Component {
   }
 
   render() {
+    const { showCloseBtn } = this.props;
+
     return (
       <div style={ [wrapperStyle, this.props.style] }>
-        <NavLink href={ this.props.href }>
+        <NavLink href={ this.props.href } isActive={ showCloseBtn }>
           { this.props.children }
         </NavLink>
         { this.renderCloseButton() }

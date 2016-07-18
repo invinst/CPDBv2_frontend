@@ -5,6 +5,7 @@ import {
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
+import { withAnimationDisabled } from 'utils/test';
 import FAQListItem from 'components/faq-page/faq-list-item';
 import FAQFactory from 'utils/test/factories/raw-faq';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -24,7 +25,7 @@ describe('FAQListItem component', function () {
     FAQListItem.should.be.renderable({ faq, handleClick });
   });
 
-  it('should expand content when receive newProps', function (done) {
+  it('should expand content when receive newProps', function () {
     const TestParent = React.createFactory(React.createClass({
       getInitialState() {
         return { expandedId: null };
@@ -36,15 +37,14 @@ describe('FAQListItem component', function () {
         );
       }
     }));
-
     instance = renderIntoDocument(TestParent());
     scryRenderedComponentsWithType(instance, FAQItemContent).length.should.equal(0);
-    instance.setState({ expandedId: faq.id });
 
-    setTimeout(function () {
+    withAnimationDisabled(function () {
+      instance.setState({ expandedId: faq.id });
+
       findRenderedComponentWithType(instance, FAQItemContent).should.be.ok();
-      done();
-    }, 300);
+    });
   });
 
   it('should trigger handleClick', function () {
