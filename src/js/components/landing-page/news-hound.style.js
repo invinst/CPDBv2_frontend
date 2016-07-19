@@ -1,17 +1,20 @@
-import { midnightBlueColor } from 'utils/styles';
+import { greyColor } from 'utils/styles';
 
 export const backgroundColorStyle = {
-  backgroundColor: midnightBlueColor
+  backgroundColor: greyColor
 };
 
 export const extraWideStyle = {
-  height: '404px'
+  height: '404px',
+  width: '100%'
 };
 
 export const desktopStyle = {
-  height: '335px'
+  height: '335px',
+  width: '100%'
 };
 
 export const tabletStyle = {
-  height: '215px'
+  height: '215px',
+  width: '100%'
 };
