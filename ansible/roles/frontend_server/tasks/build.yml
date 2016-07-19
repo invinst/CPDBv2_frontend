@@ -6,7 +6,11 @@
   tags: setup
 
 - name: Pull code from frontend repo
-  git: repo= dest={{ application_root_path }} accept_hostkey=True version={{ branch }}
+  git: repo=
+    dest={{ application_root_path }}
+    accept_hostkey=True
+    version={{ branch }}
+    key_file=***REMOVED***
   tags: deploy
 
 - name : Install packages based on package.json.
