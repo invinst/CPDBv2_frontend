@@ -4,8 +4,9 @@ import { assign } from 'lodash';
 
 import BottomSheetHeader from './bottom-sheet-header';
 import StoryFull from 'components/landing-page/stories/story-full';
+import FAQFull from 'components/landing-page/faq/faq-full';
 import { overlayStyle, sheetStyle, contentStyle, bodyStyle, scrollStyle } from './bottom-sheet.style';
-import { STORY_TYPE } from 'actions/landing-page/bottom-sheet';
+import { STORY_TYPE, FAQ_TYPE } from 'actions/landing-page/bottom-sheet';
 import { defaultConfig } from 'utils/spring-presets';
 
 
@@ -13,7 +14,8 @@ export default class BottomSheet extends Component {
   constructor(props) {
     super(props);
     this.contentMap = {
-      [STORY_TYPE]: StoryFull
+      [STORY_TYPE]: StoryFull,
+      [FAQ_TYPE]: FAQFull
     };
   }
 
@@ -62,7 +64,7 @@ export default class BottomSheet extends Component {
     if (content) {
       const contentClass = this.contentMap[content.type];
       if (contentClass) {
-        return React.createElement(contentClass, content.props);
+        return React.createElement(contentClass, assign({}, content.props, { closeBottomSheet: this.props.onClose }));
       }
     }
     return null;

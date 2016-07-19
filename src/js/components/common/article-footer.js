@@ -11,7 +11,7 @@ class ArticleFooter extends React.Component {
 
     if (to) {
       return (
-        <Link className='link--transition' to={ to }
+        <Link className='footer__link link--transition' to={ to }
           style={ [linkStyle, style.link] } onClick={ onClick }>
           { children }
         </Link>

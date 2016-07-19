@@ -18,14 +18,16 @@ describe('UnconnectedFAQContainer', function () {
 
   it('should render FAQSection when data is available', function () {
     element = renderIntoDocument(
-      <UnconnectedFAQContainer requestFAQs={ () => {} } faqs={ FAQFactory.buildList(3) } dataAvailable={ true }/>
+      <UnconnectedFAQContainer requestFAQs={ () => {} } faqs={ FAQFactory.buildList(3) } dataAvailable={ true }
+        openBottomSheetWithFAQ={ () => {} }/>
     );
     findRenderedComponentWithType(element, FAQSection);
   });
 
   it('should render FAQSectionPlaceHolder when data is not available', function () {
     element = renderIntoDocument(
-      <UnconnectedFAQContainer requestFAQs={ () => {} } faqs={ [] } dataAvailable={ false }/>
+      <UnconnectedFAQContainer requestFAQs={ () => {} } faqs={ [] } dataAvailable={ false }
+        openBottomSheetWithFAQ={ () => {} }/>
     );
     findRenderedComponentWithType(element, FAQSectionPlaceHolder);
   });
@@ -33,8 +35,17 @@ describe('UnconnectedFAQContainer', function () {
   it('should call requestFAQs when it just mount', function () {
     const callback = spy();
     element = renderIntoDocument(
-      <UnconnectedFAQContainer requestFAQs={ callback } faqs={ [] } dataAvailable={ false }/>
+      <UnconnectedFAQContainer requestFAQs={ callback } faqs={ [] } dataAvailable={ false }
+        openBottomSheetWithFAQ={ () => {} }/>
     );
     callback.called.should.be.true();
+  });
+
+  it('should call openBottomSheetWithFAQ when click on More FAQ', function () {
+    UnconnectedFAQContainer.should.triggerCallbackWhenClick('openBottomSheetWithFAQ', 'article-small', {
+      requestFAQs: () => {},
+      faqs: FAQFactory.buildList(3),
+      dataAvailable: true
+    });
   });
 });

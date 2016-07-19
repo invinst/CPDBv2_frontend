@@ -7,6 +7,7 @@ export const linkStyle = {
   fontFamily: '"San Francisco Text Web", sans-serif',
   fontWeight: '600',
   textDecoration: 'none',
+  cursor: 'pointer',
   ':hover': {
     color: softBlackColor
   }
