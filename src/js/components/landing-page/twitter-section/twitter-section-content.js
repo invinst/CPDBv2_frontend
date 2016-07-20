@@ -1,22 +1,22 @@
 import React from 'react';
 
-import TwitterEmbeddedTimeline from 'components/landing-page/twitter-embedded-timeline';
+import TwitterEmbeddedTimeline from './twitter-embedded-timeline';
 import ResponsiveStyleComponent, {
   TABLET, DESKTOP, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 
 
-export default class ResponsiveTwitterEmbeddedTimeline extends ResponsiveStyleComponent {
+export default class TwitterSectionContent extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [TABLET]: {
-        height: 950
+        height: 400
       },
       [DESKTOP]: {
-        height: 1005
+        height: 500
       },
       [EXTRA_WIDE]: {
-        height: 1212
+        height: 600
       }
     };
   }

@@ -1,37 +1,51 @@
 import React, { Component, PropTypes } from 'react';
 
-import StoriesContainer from 'containers/stories-container';
-import FAQContainer from 'containers/faq-container';
-import ResponsiveTwitterEmbeddedTimeline from 'components/landing-page/responsive-twitter-embedded-timeline';
-import AboutSection from 'components/landing-page/about-section';
-import HeroSection from 'components/landing-page/hero-section';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
-import NewsHound from 'components/landing-page/news-hound';
-import CollaborateSection from 'components/landing-page/collaborate-section';
-import { borderTop, leftColumnStyle } from './landing-page.style';
+import ConfiguredRadium from 'utils/configured-radium';
+import HeroSection from 'components/landing-page/hero-section';
+import CoverageSection from './coverage-section';
+import FAQSection from './faq-section';
+import VFTGSection from './vftg-section';
+import AboutSection from './about-section/about-section';
+import TwitterSection from './twitter-section/twitter-section';
+import CollaborateSection from './collaborate-section/collaborate-section';
+import {
+  bottomSectionsWrapperStyle, fullSectionStyle, leftSectionStyle, rightSectionStyle, lastSectionStyle,
+  twitterSectionHeightStyle, vftgSectionHeightStyle
+} from './landing-page.style';
 
 
-export default class LandingPage extends Component {
+class LandingPage extends Component {
   render() {
+    const { store } = this.props;
+
     return (
       <div>
         <HeroSection />
-        <ResponsiveFixedWidthComponent>
-          <StoriesContainer store={ this.props.store }/>
-          <div className='pure-g' style={ borderTop }>
-            <div className='pure-u-de-3-5 pure-u-ta-1-2 pure-u-mo-1-2'>
-              <div style={ leftColumnStyle }>
-                <FAQContainer store={ this.props.store }/>
-                <NewsHound/>
-                <AboutSection/>
+        <div style={ bottomSectionsWrapperStyle }>
+          <ResponsiveFixedWidthComponent>
+            <div className='pure-g'>
+              <div className='pure-u-1-1'>
+                <CoverageSection wrapperStyle={ fullSectionStyle } store={ store }/>
+              </div>
+              <div className='pure-u-3-5'>
+                <FAQSection wrapperStyle={ [leftSectionStyle, vftgSectionHeightStyle] } store={ store }/>
+              </div>
+              <div className='pure-u-2-5'>
+                <VFTGSection wrapperStyle={ [rightSectionStyle, vftgSectionHeightStyle] } template='solid'/>
+              </div>
+              <div className='pure-u-3-5'>
+                <AboutSection wrapperStyle={ [leftSectionStyle, twitterSectionHeightStyle] }/>
+              </div>
+              <div className='pure-u-2-5'>
+                <TwitterSection wrapperStyle={ [rightSectionStyle, twitterSectionHeightStyle] }/>
+              </div>
+              <div className='pure-u-1-1'>
+                <CollaborateSection wrapperStyle={ [fullSectionStyle, lastSectionStyle] }/>
               </div>
             </div>
-            <div className='pure-u-de-2-5 pure-u-ta-1-2 pure-u-mo-1-2'>
-              <ResponsiveTwitterEmbeddedTimeline/>
-            </div>
-          </div>
-        </ResponsiveFixedWidthComponent>
-        <CollaborateSection />
+          </ResponsiveFixedWidthComponent>
+        </div>
       </div>
     );
   }
@@ -40,3 +54,5 @@ export default class LandingPage extends Component {
 LandingPage.propTypes = {
   store: PropTypes.object
 };
+
+export default ConfiguredRadium(LandingPage);
