@@ -8,3 +8,6 @@ export const darkGrayColor = '#A7A7A7';
 export const whiteSmokeColor = 'rgba(255,255,255, 0.7)';
 export const wildSandColor = '#F4F4F4';
 export const altoColor = '#D8D8D8';
+
+export const sanFranciscoTextFamily = '"San Francisco Text Web", sans-serif';
+export const minionProFamily = '"Minion Pro Regular",sans-serif';

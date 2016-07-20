@@ -19,3 +19,7 @@ export const STORIES_PATH = '/stories';
 
 // Reducer defaults
 export const PAGINATION_DEFAULT = { results: [], count: 0, next: null, previous: null };
+
+// Section templates
+export const BASE_TEMPLATE = 'base';
+export const SOLID_TEMPLATE = 'solid';

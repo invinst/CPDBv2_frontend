@@ -1,5 +1,8 @@
+import { sanFranciscoTextFamily } from 'utils/styles';
+
+
 export const faqFormFontStyle = {
-  fontFamily: 'San Francisco Text Web',
+  fontFamily: sanFranciscoTextFamily,
   fontSize: '13px'
 };
 

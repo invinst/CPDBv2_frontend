@@ -13,6 +13,7 @@ import {
   bottomSectionsWrapperStyle, fullSectionStyle, leftSectionStyle, rightSectionStyle, lastSectionStyle,
   twitterSectionHeightStyle, vftgSectionHeightStyle
 } from './landing-page.style';
+import { SOLID_TEMPLATE } from 'utils/constants';
 
 
 class LandingPage extends Component {
@@ -32,7 +33,7 @@ class LandingPage extends Component {
                 <FAQSection wrapperStyle={ [leftSectionStyle, vftgSectionHeightStyle] } store={ store }/>
               </div>
               <div className='pure-u-2-5'>
-                <VFTGSection wrapperStyle={ [rightSectionStyle, vftgSectionHeightStyle] } template='solid'/>
+                <VFTGSection wrapperStyle={ [rightSectionStyle, vftgSectionHeightStyle] } template={ SOLID_TEMPLATE }/>
               </div>
               <div className='pure-u-3-5'>
                 <AboutSection wrapperStyle={ [leftSectionStyle, twitterSectionHeightStyle] }/>

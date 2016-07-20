@@ -1,15 +1,16 @@
-import { altoColor, wildSandColor } from 'utils/styles';
+import { altoColor, wildSandColor, sanFranciscoTextFamily } from 'utils/styles';
+import { BASE_TEMPLATE, SOLID_TEMPLATE } from 'utils/constants';
 
 
 export const sectionWrapperStyle = {
-  base: {
+  [BASE_TEMPLATE]: {
     boxSizing: 'border-box',
     backgroundColor: 'white',
     borderBottom: `1px solid ${altoColor}`,
     paddingBottom: '16px'
   },
 
-  solid: {
+  [SOLID_TEMPLATE]: {
     backgroundColor: wildSandColor,
     borderBottom: 0
   }
@@ -17,11 +18,11 @@ export const sectionWrapperStyle = {
 
 
 export const headerStyle = {
-  base: {
+  [BASE_TEMPLATE]: {
     backgroundColor: 'white',
     height: '26px',
     lineHeight: '26px',
-    fontFamily: '"San Francisco Text Web", sans-serif',
+    fontFamily: sanFranciscoTextFamily,
     fontSize: '15px',
     color: 'rgba(0, 0, 0, 0.5)',
     letterSpacing: '-0.2px',
@@ -30,7 +31,7 @@ export const headerStyle = {
     marginBottom: '16px'
   },
 
-  solid: {
+  [SOLID_TEMPLATE]: {
     backgroundColor: wildSandColor,
     height: '26px',
     lineHeight: '26px'
@@ -38,11 +39,11 @@ export const headerStyle = {
 };
 
 export const contentStyle = {
-  base: {
+  [BASE_TEMPLATE]: {
     backgroundColor: 'white'
   },
 
-  solid: {
+  [SOLID_TEMPLATE]: {
     backgroundColor: wildSandColor
   }
 };

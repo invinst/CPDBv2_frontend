@@ -1,10 +1,10 @@
-import { accentColor, softBlackColor } from 'utils/styles';
+import { accentColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const navStyle = {
   base: {
     color: softBlackColor,
-    fontFamily: '"San Francisco Text Web", sans-serif',
+    fontFamily: sanFranciscoTextFamily,
     fontSize: '15px',
     textDecoration: 'none',
     ':hover': {

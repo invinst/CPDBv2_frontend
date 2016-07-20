@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import ConfiguredRadium from 'utils/configured-radium';
 
+import { BASE_TEMPLATE } from 'utils/constants';
 import { sectionWrapperStyle, headerStyle, contentStyle } from './section.style';
 
 
@@ -50,7 +51,7 @@ Section.propTypes = {
 
 Section.defaultProps = {
   wrapperStyle: {},
-  template: 'base'
+  template: BASE_TEMPLATE
 };
 
 export default ConfiguredRadium(Section);

@@ -1,4 +1,4 @@
-import { lightGreyColor, accentColor, softBlackColor } from 'utils/styles';
+import { lightGreyColor, accentColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const faqItemStyle = {
@@ -12,7 +12,7 @@ export const faqItemTitleStyle = {
     paddingLeft: '16px',
     lineHeight: '72px',
     cursor: 'pointer',
-    fontFamily: 'San Francisco Text Web',
+    fontFamily: sanFranciscoTextFamily,
     fontSize: '13px',
     fontWeight: 500,
     overflow: 'hidden',

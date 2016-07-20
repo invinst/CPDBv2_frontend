@@ -1,4 +1,4 @@
-import { softBlackColor } from 'utils/styles';
+import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -8,7 +8,7 @@ export const wrapperStyle = {
 export const paragraphStyle = {
   base: {
     color: softBlackColor,
-    fontFamily: '"San Francisco Text Web", sans-serif',
+    fontFamily: sanFranciscoTextFamily,
     fontSize: '20px',
     margin: '0 0 30px 0'
   },
