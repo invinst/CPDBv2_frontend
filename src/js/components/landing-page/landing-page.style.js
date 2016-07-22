@@ -5,16 +5,8 @@ export const bottomSectionsWrapperStyle = {
   backgroundColor: 'white'
 };
 
-export const fullSectionStyle = {
+export const sectionStyle = {
   margin: '16px'
-};
-
-export const leftSectionStyle = {
-  margin: '16px 8px 16px 16px'
-};
-
-export const rightSectionStyle = {
-  margin: '16px 16px 16px 8px'
 };
 
 export const borderTop = {

@@ -1,5 +1,7 @@
 import React from 'react';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import {
+  renderIntoDocument, findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass
+} from 'react-addons-test-utils';
 
 import Section from 'components/common/section';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -19,20 +21,23 @@ describe('Section component', function () {
 
   it('should render with correct template', function () {
     instance = renderIntoDocument(<Section template={ BASE_TEMPLATE }/>);
-    instance.refs.wrapper.style.backgroundColor.should.equal('white');
-    instance.refs.header.style.backgroundColor.should.equal('white');
-    instance.refs.content.style.backgroundColor.should.equal('white');
+    findRenderedDOMComponentWithClass(instance, 'section-wrapper').style.backgroundColor.should.equal('white');
+    findRenderedDOMComponentWithClass(instance, 'section-header').style.backgroundColor.should.equal('white');
+    findRenderedDOMComponentWithClass(instance, 'section-content').style.backgroundColor.should.equal('white');
 
     instance = renderIntoDocument(<Section template={ SOLID_TEMPLATE }/>);
-    instance.refs.wrapper.style.backgroundColor.should.equal('rgb(244, 244, 244)');
-    instance.refs.header.style.backgroundColor.should.equal('rgb(244, 244, 244)');
-    instance.refs.content.style.backgroundColor.should.equal('rgb(244, 244, 244)');
+    findRenderedDOMComponentWithClass(instance, 'section-wrapper').style.backgroundColor.should.equal(
+      'rgb(244, 244, 244)');
+    findRenderedDOMComponentWithClass(instance, 'section-header').style.backgroundColor.should.equal(
+      'rgb(244, 244, 244)');
+    findRenderedDOMComponentWithClass(instance, 'section-content').style.backgroundColor.should.equal(
+      'rgb(244, 244, 244)');
   });
 
   it('should not render header if noHeader state is true', function () {
     instance = renderIntoDocument(<Section/>);
-    instance.refs.should.have.property('header');
+    findRenderedDOMComponentWithClass(instance, 'section-header').should.be.ok();
     instance.setState({ noHeader: true });
-    instance.refs.should.not.have.property('header');
+    scryRenderedDOMComponentsWithClass(instance, 'section-header').length.should.equal(0);
   });
 });

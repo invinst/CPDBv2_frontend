@@ -1,9 +1,8 @@
 import React from 'react';
 
-import CoverageSection from 'components/landing-page/coverage-section';
+import CoverageSection from 'components/landing-page/coverage-section/coverage-section';
 import configureStore from 'redux-mock-store';
 import RawStoryFactory from 'utils/test/factories/raw-story';
-import FAQFactory from 'utils/test/factories/faq';
 import PaginationFactory from 'utils/test/factories/pagination';
 
 
@@ -14,13 +13,7 @@ const store = mockStore({
     storyApp: {
       stories: PaginationFactory.build({ results: [1, 2, 3].map(id => RawStoryFactory.build({ id: id })) }),
       featuredStoryId: 1
-    },
-    faqApp: {
-      faqs: PaginationFactory.build({ results: FAQFactory.buildList(3) })
     }
-  },
-  faqPage: {
-    faqs: PaginationFactory.build({ results: FAQFactory.buildList(5) })
   }
 });
 

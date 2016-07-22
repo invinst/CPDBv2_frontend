@@ -4,7 +4,7 @@ import { assign } from 'lodash';
 import Section from 'components/common/section';
 import Link from 'components/common/react-router-link';
 import { STORIES_PATH } from 'utils/constants';
-import { linkStyle, alignLeftStyle, alignRightStyle } from './coverage-section.style';
+import { linkStyle, alignLeftStyle, alignRightStyle, contentWrapperStyle } from './coverage-section.style';
 import StoriesContainer from 'containers/stories-container';
 
 
@@ -20,7 +20,11 @@ export default class CoverageSection extends Section {
   }
 
   renderContent() {
-    return <StoriesContainer store={ this.props.store }/>;
+    return (
+      <div style={ contentWrapperStyle }>
+        <StoriesContainer store={ this.props.store }/>
+      </div>
+    );
   }
 }
 

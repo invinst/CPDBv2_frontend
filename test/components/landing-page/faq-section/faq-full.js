@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FAQFull from 'components/landing-page/faq/faq-full';
+import FAQFull from 'components/landing-page/faq-section/faq-full';
 import { unmountComponentSuppressError } from 'utils/test';
 
 

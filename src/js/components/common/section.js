@@ -29,14 +29,14 @@ class Section extends Component {
     const { template } = this.props;
 
     return (
-      <div ref='wrapper' style={ this.getWrapperStyle() }>
+      <div className='section-wrapper' style={ this.getWrapperStyle() }>
         { this.state.noHeader ?
           null :
-          <div ref='header' style={ headerStyle[template] }>
+          <div className='section-header' style={ headerStyle[template] }>
             { this.renderHeader() }
           </div>
         }
-        <div ref='content' style={ contentStyle[template] }>
+        <div className='section-content' style={ contentStyle[template] }>
           { this.renderContent() }
         </div>
       </div>
