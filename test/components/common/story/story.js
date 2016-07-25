@@ -44,8 +44,8 @@ describe('Story component', function () {
     Simulate.mouseOut(findDOMNode(instance));
     findRenderedDOMComponentWithClass(instance, 'story-title').style.color.should.equal('rgb(35, 31, 32)');
     findRenderedDOMComponentWithClass(instance, 'story-source').style.color.should.equal('rgb(29, 29, 29)');
-    findRenderedDOMComponentWithClass(instance, 'story-post-date').style.color.should.equal(
-      'rgba(38, 38, 38, 0.498039)');
+    // It should be rgba(38, 38, 38, 0.5) but for some reason, the alpha channel value is 0.49...
+    findRenderedDOMComponentWithClass(instance, 'story-post-date').style.color.should.containEql('rgba(38, 38, 38');
   });
 
   it('should render normal style on touch on touch devices', function () {
