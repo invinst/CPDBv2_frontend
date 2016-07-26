@@ -1,4 +1,4 @@
-import { altoColor, wildSandColor, sanFranciscoTextFamily } from 'utils/styles';
+import { altoColor, wildSandColor, mediumBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 import { BASE_TEMPLATE, SOLID_TEMPLATE } from 'utils/constants';
 
 
@@ -11,8 +11,9 @@ export const sectionWrapperStyle = {
   },
 
   [SOLID_TEMPLATE]: {
+    boxSizing: 'border-box',
     backgroundColor: wildSandColor,
-    borderBottom: 0
+    paddingBottom: '16px'
   }
 };
 
@@ -24,11 +25,11 @@ export const headerStyle = {
     lineHeight: '26px',
     fontFamily: sanFranciscoTextFamily,
     fontSize: '15px',
-    color: 'rgba(0, 0, 0, 0.5)',
+    color: mediumBlackColor,
     letterSpacing: '-0.2px',
     borderLeft: `8px solid ${altoColor}`,
     paddingLeft: '5px',
-    marginBottom: '16px'
+    marginBottom: '66px'
   },
 
   [SOLID_TEMPLATE]: {
@@ -40,7 +41,8 @@ export const headerStyle = {
 
 export const contentStyle = {
   [BASE_TEMPLATE]: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    paddingBottom: '16px'
   },
 
   [SOLID_TEMPLATE]: {

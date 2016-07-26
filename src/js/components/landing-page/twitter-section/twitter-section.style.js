@@ -1,4 +1,4 @@
-export const wrapperStyle = {
+export const extendWrapperStyle = {
   paddingTop: 0,
   paddingBottom: 0,
   borderBottom: 0

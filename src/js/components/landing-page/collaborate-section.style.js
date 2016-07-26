@@ -1,18 +1,6 @@
 import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
-export const wrapperStyle = {
-  base: {
-    width: '762px',
-    padding: '45px 13px'
-  },
-
-  tablet: {
-    width: '676px',
-    padding: '45px 13px'
-  }
-};
-
 export const paragraphStyle = {
   base: {
     color: softBlackColor,
@@ -23,6 +11,10 @@ export const paragraphStyle = {
 
   tablet: {
     fontSize: '26px'
+  },
+
+  extraWide: {
+    fontSize: '48px'
   }
 };
 
