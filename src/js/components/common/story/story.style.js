@@ -37,7 +37,7 @@ export const titleStyle = {
   base: {
     color: softBlackColor,
     fontFamily: sanFranciscoTextFamily,
-    padding: '0 16px 20px 13px'
+    padding: '0 16px 66px 13px'
   },
 
   small: {
@@ -50,7 +50,10 @@ export const titleStyle = {
     fontSize: '26px'
   },
   extraBig: {
-    fontSize: '36px'
+    fontSize: '32px'
+  },
+  ultraBig: {
+    fontSize: '48px'
   },
 
   underline: {

@@ -13,5 +13,5 @@ export const codGrayColor = '#1D1D1D'; // rgb(29, 29, 29) story source
 export const lightMineShaftColor = 'rgba(38, 38, 38, 0.5)'; // rgba(38, 38, 38, 0.498039) story post date
 export const mediumBlackColor = 'rgba(0, 0, 0, 0.5)';
 
-export const sanFranciscoTextFamily = '"San Francisco Text Web", sans-serif';
+export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';

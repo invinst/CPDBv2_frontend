@@ -1,37 +1,43 @@
 import React, { PropTypes } from 'react';
 
-import NonFeaturedStory from './non-featured-story';
-import ResponsiveComponent from 'components/responsive/responsive-component';
-import { buildLayout } from 'utils/layouts/non-featured-stories/hide-image';
+import ResponsiveStyleComponent, {
+  DESKTOP, TABLET, EXTRA_WIDE
+} from 'components/responsive/responsive-style-component';
+import Story, { SMALL_TITLE_STYLE, NORMAL_TITLE_STYLE } from 'components/common/story/story';
 
 
-export default class NonFeaturedStories extends ResponsiveComponent {
-  renderStoryGrid(grids) {
-    const { stories, handleStoryClick } = this.props;
-    const layouts = buildLayout(stories, grids);
-
-    return stories.map((story, ind) => {
-      return (
-        <NonFeaturedStory key={ ind }
-          handleClick={ handleStoryClick }
-          story={ story }
-          layout={ layouts[story.id] }/>
-      );
-    });
+export default class NonFeaturedStories extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [EXTRA_WIDE]: {
+        wrapperClassName: 'pure-u-1-4',
+        storyTitleSize: NORMAL_TITLE_STYLE
+      },
+      [DESKTOP]: {
+        wrapperClassName: 'pure-u-1-4',
+        storyTitleSize: SMALL_TITLE_STYLE
+      },
+      [TABLET]: {
+        wrapperClassName: 'pure-u-1-2',
+        storyTitleSize: SMALL_TITLE_STYLE
+      }
+    };
   }
 
-  renderTablet() {
-    return (
-      <div className='pure-g'>
-        { this.renderStoryGrid(4) }
-      </div>
-    );
-  }
+  renderWithResponsiveStyle(style) {
+    const { stories, onStoryClick } = this.props;
 
-  renderDesktop() {
     return (
       <div className='pure-g'>
-        { this.renderStoryGrid(5) }
+        {
+          stories.map((story, ind) => {
+            return (
+              <div key={ ind } className={ style.wrapperClassName }>
+                <Story story={ story } onClick={ onStoryClick } storyTitleSize={ style.storyTitleSize }/>
+              </div>
+            );
+          })
+        }
       </div>
     );
   }
@@ -39,5 +45,5 @@ export default class NonFeaturedStories extends ResponsiveComponent {
 
 NonFeaturedStories.propTypes = {
   stories: PropTypes.array,
-  handleStoryClick: PropTypes.func
+  onStoryClick: PropTypes.func
 };

@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 
-import { arrayOfN } from 'utils/prop-validators';
 import { requestStories } from 'actions/stories-page/featured-stories';
 import { openBottomSheetWithStory } from 'actions/landing-page/bottom-sheet';
 import {
-  dataAvailableSelector, featuredStoryGroupsSelector
+  dataAvailableSelector, featuredStoriesSelector
 } from 'selectors/stories-page/featured-stories-selector';
 import FeaturedStories from 'components/stories-page/featured-stories';
 import StoriesPlaceHolder from 'components/stories-page/stories-place-holder';
@@ -13,15 +12,15 @@ import StoriesPlaceHolder from 'components/stories-page/stories-place-holder';
 
 export class UnconnectedFeaturedStoriesContainer extends Component {
   componentDidMount() {
-    this.props.requestStories({ 'is_featured': 'True' });
+    this.props.requestStories({ 'limit': 15, 'ordering': '-is_featured,path' });
   }
 
   render() {
-    const { dataAvailable, featuredStoryGroups, openBottomSheetWithStory } = this.props;
+    const { dataAvailable, featuredStories, openBottomSheetWithStory } = this.props;
 
     if (dataAvailable) {
       return (
-        <FeaturedStories storyGroups={ featuredStoryGroups } handleStoryClick={ openBottomSheetWithStory }/>
+        <FeaturedStories stories={ featuredStories } onStoryClick={ openBottomSheetWithStory }/>
       );
     } else {
       return (
@@ -35,17 +34,14 @@ UnconnectedFeaturedStoriesContainer.propTypes = {
   requestStories: PropTypes.func.isRequired,
   openBottomSheetWithStory: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
-  featuredStoryGroups: PropTypes.arrayOf(PropTypes.shape({
-    imageStory: PropTypes.object,
-    noImageStories: arrayOfN(2)
-  })),
+  featuredStories: PropTypes.arrayOf(PropTypes.object),
   store: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     dataAvailable: dataAvailableSelector(state),
-    featuredStoryGroups: featuredStoryGroupsSelector(state)
+    featuredStories: featuredStoriesSelector(state)
   };
 }
 
