@@ -1,51 +1,53 @@
-import { accentColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
+import { accentColor, softBlackColor, wildSandColor, altoColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const wrapperStyle = {
-  backgroundColor: 'white'
+  backgroundColor: wildSandColor
+};
+
+export const leftColumnWrapper = {
+  paddingRight: '50px',
+  borderRight: `1px solid ${altoColor}`
+};
+
+export const rightColumnWrapper = {
+  paddingLeft: '50px'
 };
 
 export const innerWrapperStyle = {
-  padding: '33px 36px 88px 36px'
-};
-
-export const contentStyle = {
-  padding: '17px 24px 0 0'
+  backgroundColor: 'white',
+  margin: '5px 32px 60px',
+  padding: '50px',
+  boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.17)'
 };
 
 export const linkStyle = {
-  base: {
-    color: accentColor,
-    fontSize: '18px',
-    fontFamily: sanFranciscoTextFamily,
-    fontWeight: '500',
-    textDecoration: 'none',
-    ':hover': {
-      color: softBlackColor
-    }
+  color: softBlackColor,
+  fontSize: '13px',
+  fontFamily: sanFranciscoTextFamily,
+  fontWeight: '600',
+  textDecoration: 'none',
+  ':hover': {
+    color: accentColor
   }
 };
 
-export const desktopLinkStyle = {
-  fontSize: '16px'
-};
-
-export const tabletLinkStyle = {
-  fontSize: '13px'
-};
-
 export const paragraphStyle = {
-  WebkitMarginAfter: '1.5em'
+  fontFamily: sanFranciscoTextFamily,
+  marginTop: '18px',
+  fontSize: '15px'
 };
 
 export const previewImageStyle = {
-  height: '526px'
-};
+  base: {
+    height: '278px'
+  },
 
-export const previewImageDesktopStyle = {
-  height: '429px'
-};
+  extraWide: {
+    height: '358px'
+  },
 
-export const previewImageTabletStyle = {
-  height: '325px'
+  tablet: {
+    height: '192px'
+  }
 };
