@@ -4,6 +4,7 @@ import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import Story, { SMALL_TITLE_STYLE, NORMAL_TITLE_STYLE } from 'components/common/story/story';
+import LoadingIndicator from './loading-indicator';
 
 
 export default class NonFeaturedStories extends ResponsiveStyleComponent {
@@ -25,7 +26,7 @@ export default class NonFeaturedStories extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { stories, onStoryClick } = this.props;
+    const { stories, onStoryClick, moreDataAvailable } = this.props;
 
     return (
       <div className='pure-g'>
@@ -38,6 +39,9 @@ export default class NonFeaturedStories extends ResponsiveStyleComponent {
             );
           })
         }
+        <div className='pure-u-1-1'>
+          { moreDataAvailable ? null : <LoadingIndicator /> }
+        </div>
       </div>
     );
   }
@@ -45,5 +49,6 @@ export default class NonFeaturedStories extends ResponsiveStyleComponent {
 
 NonFeaturedStories.propTypes = {
   stories: PropTypes.array,
-  onStoryClick: PropTypes.func
+  onStoryClick: PropTypes.func,
+  moreDataAvailable: PropTypes.bool
 };
