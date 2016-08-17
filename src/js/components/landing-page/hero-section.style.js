@@ -35,6 +35,7 @@ export const linkStyle = {
 export const paragraphStyle = {
   fontFamily: sanFranciscoTextFamily,
   marginTop: '18px',
+  marginBottom: '5px',
   fontSize: '15px'
 };
 

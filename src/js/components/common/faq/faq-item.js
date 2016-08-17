@@ -17,18 +17,17 @@ class FAQItem extends ResponsiveStyleComponent {
         faqItemTitle: faqItemTitleStyle.base
       },
       [TABLET]: {
-        faqItemTitle: faqItemTitleStyle.base
+        faqItemTitle: [faqItemTitleStyle.base, faqItemTitleStyle.tablet]
       }
     };
   }
 
   renderWithResponsiveStyle(style) {
-    const { faq, onClick, underlineTitle } = this.props;
+    const { faq, onClick, wrapperStyle } = this.props;
 
     return (
-      <div style={ [underlineTitle && faqItemStyle] }>
+      <div key={ style.screen } style={ [faqItemStyle, wrapperStyle] }>
         <div
-          key={ style.screen }
           className='faq-title link--transition'
           style={ style.faqItemTitle }
           onClick={ () => { onClick(faq); } }>
@@ -46,11 +45,11 @@ FAQItem.propTypes = {
     body: PropTypes.array
   }),
   onClick: PropTypes.func,
-  underlineTitle: PropTypes.bool
+  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
 FAQItem.defaultProps = {
-  underlineTitle: true
+  wrapperStyle: {}
 };
 
 export default ConfiguredRadium(FAQItem);
