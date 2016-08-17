@@ -58,7 +58,7 @@ describe('UnconnectedNonFeaturedStoriesContainer', function () {
     instance = renderIntoDocument(
       <UnconnectedNonFeaturedStoriesContainer requestStories={ () => {} } loadMoreStories={ callback }
         nonFeaturedStories={ [] } dataAvailable={ true } openBottomSheetWithStory={ () => {} }
-        pagination={ { next: 'next' } }/>
+        pagination={ { next: 'next' } } moreDataAvailable={ true }/>
     );
 
     window.scrollY = 1000;
@@ -72,6 +72,19 @@ describe('UnconnectedNonFeaturedStoriesContainer', function () {
       <UnconnectedNonFeaturedStoriesContainer requestStories={ () => {} } loadMoreStories={ callback }
         nonFeaturedStories={ [] } dataAvailable={ true } openBottomSheetWithStory={ () => {} }
         pagination={ { next: '' } }/>
+    );
+
+    window.scrollY = 1000;
+    scrollCallback();
+    callback.called.should.be.false();
+  });
+
+  it('should not call loadMoreStories while loading more stories', function () {
+    const callback = spy();
+    instance = renderIntoDocument(
+      <UnconnectedNonFeaturedStoriesContainer requestStories={ () => {} } loadMoreStories={ callback }
+        nonFeaturedStories={ [] } dataAvailable={ true } openBottomSheetWithStory={ () => {} }
+        pagination={ { next: 'next' } } moreDataAvailable={ false }/>
     );
 
     window.scrollY = 1000;

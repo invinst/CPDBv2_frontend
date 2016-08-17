@@ -1,51 +1,65 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
+import { paragraphStyle, underlinedLinkStyle } from './collaborate-section.style';
+import ResponsiveStyleComponent, {
+  DESKTOP, TABLET, EXTRA_WIDE
+} from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
-import ArticleHeader from 'components/common/article-header';
-import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
-import {
-  articleHeaderStyle, sectionStyle, articleContentStyle, underlinedLinkStyle, contentFontSizeTablet, wrapperStyle,
-  sectionTabletStyle
-} from './collaborate-section.style';
+import SectionTemplate from 'utils/template/section';
+import { BASE_TEMPLATE } from 'utils/constants';
 
 
 class CollaborateSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
+      [EXTRA_WIDE]: {
+        paragraph: [paragraphStyle.base, paragraphStyle.extraWide],
+        underlineLink: [paragraphStyle.base, paragraphStyle.extraWide, underlinedLinkStyle]
+      },
       [DESKTOP]: {
-        paragraph: [articleContentStyle],
-        underlineLink: [underlinedLinkStyle],
-        section: sectionStyle
+        paragraph: [paragraphStyle.base],
+        underlineLink: [paragraphStyle.base, underlinedLinkStyle]
       },
       [TABLET]: {
-        paragraph: [articleContentStyle, contentFontSizeTablet],
-        underlineLink: [underlinedLinkStyle, contentFontSizeTablet],
-        section: [sectionStyle, sectionTabletStyle]
+        paragraph: [paragraphStyle.base, paragraphStyle.tablet],
+        underlineLink: [paragraphStyle.base, paragraphStyle.tablet, underlinedLinkStyle]
       }
     };
   }
 
   renderWithResponsiveStyle(style) {
+    const { template, wrapperStyle } = this.props;
+
     return (
-      <div style={ wrapperStyle }>
-        <div style={ style.section }>
-          <ArticleHeader style={ articleHeaderStyle }>
-            Collaborate with Us
-          </ArticleHeader>
-          <p style={ style.paragraph }>
-            We are collecting and publishing information that sheds light on police misconduct.
-          </p>
-          <p style={ style.paragraph }>
-            If you have documents or datasets you would like to publish,
-            please <a style={ style.underlineLink } href='mailto:records@invisibleinstitute.com'>
-            email us,</a> or <a href='#' style={ style.underlineLink }>
-            read more.
-            </a>
-          </p>
+      <div style={ [template.wrapper, wrapperStyle] }>
+        <div style={ template.header }>
+          Collaborate with us
+        </div>
+        <div style={ template.content }>
+          <div style={ style.wrapper }>
+            <p style={ style.paragraph }>
+              We are collecting and publishing information that sheds light on police misconduct.
+            </p>
+            <p style={ style.paragraph }>
+              If you have documents or datasets you would like to publish,
+              please <a style={ style.underlineLink } href='mailto:records@invisibleinstitute.com'>
+              email us</a>, or <a href='#' style={ style.underlineLink }>here</a>.
+            </p>
+          </div>
         </div>
       </div>
     );
   }
 }
+
+CollaborateSection.propTypes = {
+  template: PropTypes.object,
+  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+};
+
+CollaborateSection.defaultProps = {
+  template: SectionTemplate(BASE_TEMPLATE),
+  wrapperStyle: {}
+};
 
 export default ConfiguredRadium(CollaborateSection);

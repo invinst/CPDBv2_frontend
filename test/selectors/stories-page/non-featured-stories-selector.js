@@ -2,7 +2,7 @@ import 'should';
 
 import { rawStoryTransform } from 'selectors/landing-page/stories-selector';
 import {
-  nonFeaturedStoriesSelector, dataAvailableSelector, paginationSelector
+  nonFeaturedStoriesSelector, dataAvailableSelector, moreDataAvailableSelector, paginationSelector
 } from 'selectors/stories-page/non-featured-stories-selector';
 import RawStoryFactory from 'utils/test/factories/raw-story';
 import PaginationFactory from 'utils/test/factories/pagination';
@@ -54,6 +54,22 @@ describe('non featured stories selectors', function () {
         stories: PaginationFactory.build({ results: [] })
       };
       dataAvailableSelector(state).should.be.false();
+    });
+  });
+
+  describe('moreDataAvailableSelector', function () {
+    it('should return false when isLoadingMore', function () {
+      state.storiesPage.nonFeaturedStories = {
+        isLoadingMore: true
+      };
+      moreDataAvailableSelector(state).should.be.false();
+    });
+
+    it('should return true when not isLoadingMore', function () {
+      state.storiesPage.nonFeaturedStories = {
+        isLoadingMore: false
+      };
+      moreDataAvailableSelector(state).should.be.true();
     });
   });
 

@@ -3,8 +3,8 @@ import { TransitionMotion, spring } from 'react-motion';
 import { assign } from 'lodash';
 
 import BottomSheetHeader from './bottom-sheet-header';
-import StoryFull from 'components/landing-page/stories/story-full';
-import FAQFull from 'components/landing-page/faq/faq-full';
+import StoryFull from 'components/common/story/story-full';
+import FAQFull from 'components/landing-page/faq-section/faq-full';
 import { overlayStyle, sheetStyle, contentStyle, bodyStyle, scrollStyle } from './bottom-sheet.style';
 import { STORY_TYPE, FAQ_TYPE } from 'actions/landing-page/bottom-sheet';
 import { defaultConfig } from 'utils/spring-presets';

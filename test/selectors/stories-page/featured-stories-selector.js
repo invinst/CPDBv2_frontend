@@ -2,10 +2,8 @@ import 'should';
 
 import { rawStoryTransform } from 'selectors/landing-page/stories-selector';
 import {
-  groupFeaturedStories, featuredStoryGroupsSelector, featuredStoriesSelector,
-  dataAvailableSelector, paginationSelector
+  featuredStoriesSelector, dataAvailableSelector, paginationSelector
 } from 'selectors/stories-page/featured-stories-selector';
-import StoryFactory from 'utils/test/factories/story';
 import RawStoryFactory from 'utils/test/factories/raw-story';
 import PaginationFactory from 'utils/test/factories/pagination';
 
@@ -21,31 +19,9 @@ describe('featured stories selectors', function () {
     state.storiesPage.featuredStories = {};
   });
 
-  describe('groupFeaturedStories', function () {
-    it('should return imageStory and noImageStories', function () {
-      const imageStory = StoryFactory.build();
-      const noImageStories = StoryFactory.buildList(2, { imageUrl: '' });
-      const stories = [...noImageStories, imageStory];
-
-      groupFeaturedStories(stories).should.deepEqual({
-        imageStory,
-        noImageStories
-      });
-    });
-
-    it('should return first story as image story if no story has image', function () {
-      const stories = StoryFactory.buildList(3, { imageUrl: '' });
-
-      groupFeaturedStories(stories).should.deepEqual({
-        imageStory: stories[0],
-        noImageStories: stories.slice(1, 3)
-      });
-    });
-  });
-
   describe('featuredStoriesSelector', function () {
     it('should return first 6 featured stories', function () {
-      const featuredStories = RawStoryFactory.buildList(6, { 'is_featured': true });
+      const featuredStories = RawStoryFactory.buildList(15, { 'is_featured': true });
       const stories = [
         ...featuredStories,
         RawStoryFactory.build({ 'is_featured': true })
@@ -55,27 +31,6 @@ describe('featured stories selectors', function () {
         stories: PaginationFactory.build({ results: stories })
       };
       featuredStoriesSelector(state).should.deepEqual(featuredStories.map(rawStoryTransform));
-    });
-  });
-
-  describe('featuredStoryGroupsSelector', function () {
-    it('should return 2 groups of featured stories', function () {
-      const featuredStories = RawStoryFactory.buildList(6, { 'is_featured': true });
-      state.storiesPage.featuredStories = {
-        stories: PaginationFactory.build({ results: featuredStories })
-      };
-      const expectedResults = [
-        {
-          imageStory: rawStoryTransform(featuredStories[0]),
-          noImageStories: featuredStories.slice(1, 3).map(rawStoryTransform)
-        },
-        {
-          imageStory: rawStoryTransform(featuredStories[3]),
-          noImageStories: featuredStories.slice(4, 6).map(rawStoryTransform)
-        }
-      ];
-
-      featuredStoryGroupsSelector(state).should.deepEqual(expectedResults);
     });
   });
 

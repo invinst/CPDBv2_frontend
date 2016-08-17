@@ -1,44 +1,24 @@
-import { whiteSmokeColor, softBlackColor } from 'utils/styles';
+import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
-export const articleHeaderStyle = {
-  height: '88px',
-  marginBottom: 0,
-  lineHeight: '88px',
-  color: 'white',
-  fontSize: '16px'
-};
+export const paragraphStyle = {
+  base: {
+    color: softBlackColor,
+    fontFamily: sanFranciscoTextFamily,
+    fontSize: '36px',
+    margin: '0 0 30px 0'
+  },
 
-export const wrapperStyle = {
-  background: softBlackColor
-};
+  tablet: {
+    fontSize: '26px'
+  },
 
-export const sectionStyle = {
-  margin: '0 auto',
-  width: '652px',
-  padding: '77px 0 80px'
-};
-
-export const sectionTabletStyle = {
-  width: '527px',
-  padding: '48px 0 60px'
-};
-
-export const articleContentStyle = {
-  color: whiteSmokeColor,
-  fontSize: '36px',
-  margin: '0 0 30px 0',
-  fontFamily: '"Minion Pro Regular",sans-serif'
-};
-
-export const contentFontSizeTablet = {
-  fontSize: '28px'
+  extraWide: {
+    fontSize: '48px'
+  }
 };
 
 export const underlinedLinkStyle = {
-  color: 'white',
   textDecoration: 'none',
-  fontSize: '36px',
-  borderBottom: '7px solid',
-  fontFamily: '"Minion Pro Regular",sans-serif'
+  borderBottom: '4px solid rgba(35, 31, 32, 0.2)'
 };
