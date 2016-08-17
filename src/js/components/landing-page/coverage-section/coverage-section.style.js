@@ -18,7 +18,3 @@ export const alignRightStyle = {
   width: '50%',
   textAlign: 'right'
 };
-
-export const contentWrapperStyle = {
-  marginTop: '50px'
-};

@@ -11,16 +11,7 @@ import StoriesPlaceHolder from 'components/stories-page/stories-place-holder';
 
 describe('UnconnectedFeaturedStoriesContainer', function () {
   let instance;
-  const featuredStoryGroups = [
-    {
-      imageStory: StoryFactory.build(),
-      noImageStories: StoryFactory.buildList(2, { imageUrl: '' })
-    },
-    {
-      imageStory: StoryFactory.build(),
-      noImageStories: StoryFactory.buildList(2, { imageUrl: '' })
-    }
-  ];
+  const stories = StoryFactory.buildList(2);
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
@@ -29,7 +20,7 @@ describe('UnconnectedFeaturedStoriesContainer', function () {
   it('should render FeaturedStories when data is available', function () {
     instance = renderIntoDocument(
       <UnconnectedFeaturedStoriesContainer requestStories={ () => {} } dataAvailable={ true }
-        featuredStoryGroups={ featuredStoryGroups } openBottomSheetWithStory={ () => {} }/>
+        featuredStories={ stories } openBottomSheetWithStory={ () => {} }/>
     );
     findRenderedComponentWithType(instance, FeaturedStories);
   });
@@ -37,7 +28,7 @@ describe('UnconnectedFeaturedStoriesContainer', function () {
   it('should render StoriesPlaceHolder when data is not available', function () {
     instance = renderIntoDocument(
       <UnconnectedFeaturedStoriesContainer requestStories={ () => {} } dataAvailable={ false }
-        openBottomSheetWithStory={ () => {} }/>
+        featuredStories={ stories } openBottomSheetWithStory={ () => {} }/>
     );
     findRenderedComponentWithType(instance, StoriesPlaceHolder);
   });
@@ -46,7 +37,7 @@ describe('UnconnectedFeaturedStoriesContainer', function () {
     const callback = spy();
     instance = renderIntoDocument(
       <UnconnectedFeaturedStoriesContainer requestStories={ callback } dataAvailable={ false }
-        openBottomSheetWithStory={ () => {} }/>
+        featuredStories={ stories } openBottomSheetWithStory={ () => {} }/>
     );
     callback.called.should.be.true();
   });

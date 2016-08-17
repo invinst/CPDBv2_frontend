@@ -13,5 +13,5 @@ export const faqContentStyle = {
 export const paragraphStyle = {
   margin: '0 0 9px 0',
   fontFamily: minionProFamily,
-  fontSize: '15px'
+  fontSize: '18px'
 };

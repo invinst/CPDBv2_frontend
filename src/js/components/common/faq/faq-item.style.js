@@ -1,22 +1,30 @@
-import { lightGreyColor, accentColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
+import { accentColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const faqItemStyle = {
-  borderBottom: `1px solid ${lightGreyColor}`
+  color: softBlackColor,
+  ':hover': {
+    color: accentColor
+  }
 };
 
 export const faqItemTitleStyle = {
-  color: softBlackColor,
-  height: '72px',
-  paddingLeft: '16px',
-  lineHeight: '72px',
-  cursor: 'pointer',
-  fontFamily: sanFranciscoTextFamily,
-  fontSize: '16px',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-  whiteSpace: 'nowrap',
-  ':hover': {
-    color: accentColor
+  base: {
+    color: 'inherit',
+    paddingLeft: '16px',
+    cursor: 'pointer',
+    fontFamily: sanFranciscoTextFamily,
+    fontSize: '16px',
+    paddingTop: '32px',
+    paddingBottom: '32px'
+  },
+
+  tablet: {
+    paddingTop: '25px',
+    paddingBottom: '25px'
+  },
+
+  extraWide: {
+    fontSize: '20px'
   }
 };

@@ -1,18 +1,35 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
+import ResponsiveStyleComponent, {
+  DESKTOP, TABLET, EXTRA_WIDE
+} from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
 import { faqItemStyle, faqItemTitleStyle } from './faq-item.style';
 
 
-class FAQItem extends Component {
-  render() {
-    const { faq, onClick, underlineTitle } = this.props;
+class FAQItem extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [EXTRA_WIDE]: {
+        faqItemTitle: [faqItemTitleStyle.base, faqItemTitleStyle.extraWide]
+      },
+      [DESKTOP]: {
+        faqItemTitle: faqItemTitleStyle.base
+      },
+      [TABLET]: {
+        faqItemTitle: [faqItemTitleStyle.base, faqItemTitleStyle.tablet]
+      }
+    };
+  }
+
+  renderWithResponsiveStyle(style) {
+    const { faq, onClick, wrapperStyle } = this.props;
 
     return (
-      <div style={ [underlineTitle && faqItemStyle] }>
+      <div key={ style.screen } style={ [faqItemStyle, wrapperStyle] }>
         <div
           className='faq-title link--transition'
-          style={ faqItemTitleStyle }
+          style={ style.faqItemTitle }
           onClick={ () => { onClick(faq); } }>
           { faq.title }
         </div>
@@ -28,11 +45,11 @@ FAQItem.propTypes = {
     body: PropTypes.array
   }),
   onClick: PropTypes.func,
-  underlineTitle: PropTypes.bool
+  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 
 FAQItem.defaultProps = {
-  underlineTitle: true
+  wrapperStyle: {}
 };
 
 export default ConfiguredRadium(FAQItem);
