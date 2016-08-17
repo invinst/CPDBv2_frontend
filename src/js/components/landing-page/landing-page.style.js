@@ -2,7 +2,8 @@ import { darkGreyColor, altoColor } from 'utils/styles';
 
 
 export const bottomSectionsWrapperStyle = {
-  backgroundColor: 'white'
+  backgroundColor: 'white',
+  paddingTop: '14px'
 };
 
 export const sectionStyle = {
