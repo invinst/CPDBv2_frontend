@@ -1,6 +1,13 @@
 import BottomSheetReducer from 'reducers/landing-page/bottom-sheet';
-import { OPEN_BOTTOM_SHEET_WITH_STORY, CLOSE_BOTTOM_SHEET, STORY_TYPE } from 'actions/landing-page/bottom-sheet';
+import {
+  OPEN_BOTTOM_SHEET_WITH_STORY,
+  OPEN_BOTTOM_SHEET_WITH_FAQ,
+  CLOSE_BOTTOM_SHEET,
+  STORY_TYPE,
+  FAQ_TYPE
+ } from 'actions/landing-page/bottom-sheet';
 import StoryFactory from 'utils/test/factories/story';
+import FAQFactory from 'utils/test/factories/faq';
 
 
 describe('BottomSheetReducer', function () {
@@ -8,7 +15,7 @@ describe('BottomSheetReducer', function () {
     BottomSheetReducer(undefined, {}).should.eql({ content: null });
   });
 
-  it('should handle OPEN_BOTTOM_SHEET', function () {
+  it('should handle OPEN_BOTTOM_SHEET_WITH_STORY', function () {
     const story = StoryFactory.build();
     BottomSheetReducer(undefined, {
       type: OPEN_BOTTOM_SHEET_WITH_STORY,
@@ -18,6 +25,21 @@ describe('BottomSheetReducer', function () {
         type: STORY_TYPE,
         props: {
           story: story
+        }
+      }
+    });
+  });
+
+  it('should handle OPEN_BOTTOM_SHEET_WITH_FAQ', function () {
+    const faq = FAQFactory.build();
+    BottomSheetReducer(undefined, {
+      type: OPEN_BOTTOM_SHEET_WITH_FAQ,
+      payload: faq
+    }).should.eql({
+      content: {
+        type: FAQ_TYPE,
+        props: {
+          faq: faq
         }
       }
     });

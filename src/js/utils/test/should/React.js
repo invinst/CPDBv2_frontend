@@ -39,12 +39,12 @@ should.Assertion.add('displaySomething', function () {
 });
 
 
-should.Assertion.add('triggerCallbackWhenClick', function (callbackProp, clickClass=null, props={}, expectedArg=null) {
+should.Assertion.add('triggerCallbackWhenClick', function (callbackProp, target=null, props={}, expectedArg=null) {
   const callback = spy();
   let element = renderIntoDocument(createElement(this.obj, assign({}, props, { [callbackProp]: callback })));
 
-  if (clickClass !== null) {
-    Simulate.click(scryRenderedDOMComponentsWithClass(element, clickClass)[0]);
+  if (typeof target === 'string') {
+    Simulate.click(scryRenderedDOMComponentsWithClass(element, target)[0]);
   } else {
     Simulate.click(findDOMNode(element));
   }

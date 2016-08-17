@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { get } from 'lodash';
 
 import { getPaginationInfo } from 'selectors/common/pagination-selector';
 import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
@@ -9,10 +10,8 @@ const getIsRequesting = state => state.landingPage.storyApp.isRequesting;
 
 const getStories = state => state.landingPage.storyApp.stories;
 
-const getFeaturedStoryId = state => state.landingPage.storyApp.featuredStoryId;
-
 export const getImageUrl = story => (
-  (story['image_url'] && mediaUrl(story['image_url'][DEFAULT_IMAGE_DIMENSION])) || ''
+  (get(story, `image_url.${DEFAULT_IMAGE_DIMENSION}`) && mediaUrl(story['image_url'][DEFAULT_IMAGE_DIMENSION])) || ''
 );
 
 export function rawStoryTransform(story) {
@@ -24,6 +23,7 @@ export function rawStoryTransform(story) {
     newspaperShortName: story.newspaper && story.newspaper['short_name'],
     date: story['post_date'],
     paragraphs: story.body && story.body.map(p => p.value),
+    isFeatured: story['is_featured'],
     imageUrl: getImageUrl(story)
   };
 }
@@ -34,21 +34,20 @@ export const getStoriesSelector = createSelector(getStories, (stories) => {
 
 export const paginationSelector = createSelector(getStories, getPaginationInfo);
 
-export const featuredStorySelector = createSelector(
+export const imageStorySelector = createSelector(
   getStoriesSelector,
-  getFeaturedStoryId,
-  (stories, featuredStoryId) => {
-    let featuredStory = stories.find(story => story.id === featuredStoryId);
-    return featuredStory ? featuredStory : stories[0];
+  (stories) => {
+    let imageStory = stories.find(story => !!story['imageUrl']);
+    return imageStory ? imageStory : stories[0];
   }
 );
 
-export const smallStoriesSelector = createSelector(
+export const noImageStoriesSelector = createSelector(
   getStoriesSelector,
-  featuredStorySelector,
-  (stories, featureStory) => {
-    let smallStories = stories.filter(story => story.id !== featureStory.id);
-    return smallStories.slice(0, 2);
+  imageStorySelector,
+  (stories, imageStory) => {
+    let noImageStories = stories.filter(story => story.id !== imageStory.id);
+    return noImageStories.slice(0, 2);
   }
 );
 

@@ -7,25 +7,25 @@ import { unmountComponentSuppressError } from 'utils/test';
 
 describe('Stories component', function () {
   const stories = [1, 2, 3].map((id) => (StoryFactory.build({ id: id })));
-  const featuredStory = stories[0];
-  const smallStories = stories.slice(1, 3);
-  let element;
+  const imageStory = stories[0];
+  const noImageStories = stories.slice(1, 3);
+  let instance;
 
   afterEach(function () {
-    unmountComponentSuppressError(element);
+    unmountComponentSuppressError(instance);
   });
 
   it('should render in all screen size', function () {
-    Stories.should.be.renderable({ smallStories, featuredStory });
-    Stories.should.be.responsiveRenderable({ smallStories, featuredStory });
+    Stories.should.be.renderable({ noImageStories, imageStory });
+    Stories.should.be.responsiveRenderable({ noImageStories, imageStory });
   });
 
-  it('should trigger onStoryClick', function () {
+  it('should trigger handleStoryClick', function () {
     Stories.should.triggerCallbackWhenClick(
-      'onStoryClick', 'story-medium', { featuredStory: featuredStory, smallStories: smallStories }, featuredStory
+      'handleStoryClick', 'story-with-image', { imageStory: imageStory, noImageStories: noImageStories }, imageStory
     );
     Stories.should.triggerCallbackWhenClick(
-      'onStoryClick', 'article-small', { featuredStory: featuredStory, smallStories: smallStories }, smallStories[0]
+      'handleStoryClick', 'article-small', { imageStory: imageStory, noImageStories: noImageStories }, noImageStories[0]
     );
   });
 });

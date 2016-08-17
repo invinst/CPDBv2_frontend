@@ -6,7 +6,7 @@ import {
 import { spy } from 'sinon';
 
 import FAQListItem from 'components/faq-page/faq-list-item';
-import FAQFactory from 'utils/test/factories/faq';
+import FAQFactory from 'utils/test/factories/raw-faq';
 import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
 

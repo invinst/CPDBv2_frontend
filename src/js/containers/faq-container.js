@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { dataAvailableSelector, faqsSelector } from 'selectors/landing-page/faqs-selector';
 import { requestFAQs } from 'actions/landing-page/faq-app';
+import { openBottomSheetWithFAQ } from 'actions/landing-page/bottom-sheet';
 import FAQSection from 'components/landing-page/faq/faq-section';
 import FAQSectionPlaceHolder from 'components/landing-page/faq/faq-section-place-holder';
 
@@ -17,7 +18,7 @@ export class UnconnectedFAQContainer extends Component {
 
     if (dataAvailable) {
       return (
-        <FAQSection faqs={ faqs }/>
+        <FAQSection faqs={ faqs } onFAQClick={ this.props.openBottomSheetWithFAQ }/>
       );
     } else {
       return (
@@ -29,6 +30,7 @@ export class UnconnectedFAQContainer extends Component {
 
 UnconnectedFAQContainer.propTypes = {
   requestFAQs: PropTypes.func.isRequired,
+  openBottomSheetWithFAQ: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
   faqs: PropTypes.array
 };
@@ -41,7 +43,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  requestFAQs
+  requestFAQs,
+  openBottomSheetWithFAQ
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedFAQContainer);

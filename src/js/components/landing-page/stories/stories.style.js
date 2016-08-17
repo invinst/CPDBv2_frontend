@@ -5,13 +5,13 @@ export const accentColorStyle = {
   color: accentColor
 };
 
-export const firstSmallStoryStyleTablet = {
+export const firstNoImageStoryStyleTablet = {
   wrapper: {
     borderBottom: `1px solid ${lightGreyColor}`
   }
 };
 
-export const firstSmallStoryStyleTabletHover = {
+export const firstNoImageStoryStyleTabletHover = {
   wrapper: {
     borderBottom: `1px solid ${lightGreyColor}`
   },
@@ -20,13 +20,13 @@ export const firstSmallStoryStyleTabletHover = {
 };
 
 
-export const firstSmallStoryStyleDesktop = {
+export const firstNoImageStoryStyleDesktop = {
   wrapper: {
     borderRight: `1px solid ${lightGreyColor}`
   }
 };
 
-export const firstSmallStoryStyleDesktopHover = {
+export const firstNoImageStoryStyleDesktopHover = {
   wrapper: {
     borderRight: `1px solid ${lightGreyColor}`
   },
@@ -40,13 +40,13 @@ export const wrapperStyle = {
 };
 
 
-export const secondSmallStoryStyle = {
+export const secondNoImageStoryStyle = {
   wrapper: {
     paddingTop: '16px'
   }
 };
 
-export const secondSmallStoryStyleHover = {
+export const secondNoImageStoryStyleHover = {
   wrapper: {
     paddingTop: '16px'
   },
@@ -59,7 +59,7 @@ export const storyMediumHoverStyle = {
   paragraph: accentColorStyle
 };
 
-export const secondSmallStoryDesktopStyleHover = {
+export const secondNoImageStoryDesktopStyleHover = {
   header: accentColorStyle,
   paragraph: accentColorStyle
 };
