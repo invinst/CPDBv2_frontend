@@ -1,17 +1,51 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-import Section from 'components/common/section';
-import TwitterSectionContent from './twitter-section-content';
-import { wrapperStyle } from './twitter-section.style';
+import ConfiguredRadium from 'utils/configured-radium';
+import { extendWrapperStyle } from './twitter-section.style';
+import TwitterEmbeddedTimeline from './twitter-embedded-timeline';
+import ResponsiveStyleComponent, {
+  TABLET, DESKTOP, EXTRA_WIDE
+} from 'components/responsive/responsive-style-component';
+import SectionTemplate from 'utils/template/section';
+import { BASE_TEMPLATE } from 'utils/constants';
 
 
-export default class TwitterSection extends Section {
-  constructor(props) {
-    super(props);
-    this.state = { noHeader: true, wrapperStyle: wrapperStyle };
+class TwitterSection extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [TABLET]: {
+        height: 400
+      },
+      [DESKTOP]: {
+        height: 500
+      },
+      [EXTRA_WIDE]: {
+        height: 600
+      }
+    };
   }
 
-  renderContent() {
-    return <TwitterSectionContent/>;
+  renderWithResponsiveStyle(style) {
+    const { template, wrapperStyle } = this.props;
+
+    return (
+      <div style={ [template.wrapper, extendWrapperStyle, wrapperStyle] }>
+        <div style={ template.content }>
+          <TwitterEmbeddedTimeline height={ style.height }/>
+        </div>
+      </div>
+    );
   }
 }
+
+TwitterSection.propTypes = {
+  template: PropTypes.object,
+  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+};
+
+TwitterSection.defaultProps = {
+  template: SectionTemplate(BASE_TEMPLATE),
+  wrapperStyle: {}
+};
+
+export default ConfiguredRadium(TwitterSection);

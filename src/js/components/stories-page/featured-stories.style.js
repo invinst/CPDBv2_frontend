@@ -1,6 +1,3 @@
-import { lightGreyColor } from 'utils/styles';
-
-
-export const rowStyle = {
-  borderTop: `1px solid ${lightGreyColor}`
+export const wrapperStyle = {
+  marginBottom: '40px'
 };

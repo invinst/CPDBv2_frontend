@@ -1,14 +1,29 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 
-import Section from 'components/common/section';
+import ConfiguredRadium from 'utils/configured-radium';
+import SectionTemplate from 'utils/template/section';
+import { SOLID_TEMPLATE } from 'utils/constants';
 
 
-export default class VFTGSection extends Section {
-  renderHeader() {
-    return <div></div>;
-  }
+class VFTGSection extends Component {
+  render() {
+    const { template, wrapperStyle } = this.props;
 
-  renderContent() {
-    return <div></div>;
+    return (
+      <div style={ [template.wrapper, wrapperStyle] }>
+      </div>
+    );
   }
 }
+
+VFTGSection.propTypes = {
+  template: PropTypes.object,
+  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+};
+
+VFTGSection.defaultProps = {
+  template: SectionTemplate(SOLID_TEMPLATE),
+  wrapperStyle: {}
+};
+
+export default ConfiguredRadium(VFTGSection);

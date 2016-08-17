@@ -3,10 +3,8 @@ import React, { Component, PropTypes } from 'react';
 
 import { requestFAQs, askQuestion } from 'actions/faq-page';
 import { dataAvailableSelector, faqsSelector } from 'selectors/faq-page/faqs-selector';
-import { getIsSubmitting } from 'selectors/faq-page/faq-form-selector';
 import FAQListSection from 'components/faq-page/faq-list-section';
 import FAQListSectionPlaceHolder from 'components/faq-page/faq-list-section-placeholder';
-import FAQForm from 'components/faq-page/faq-form';
 
 
 export class UnconnectedFAQPageContainer extends Component {
@@ -15,13 +13,12 @@ export class UnconnectedFAQPageContainer extends Component {
   }
 
   render() {
-    const { dataAvailable, faqs, isSubmitting, askQuestion } = this.props;
+    const { dataAvailable, faqs } = this.props;
 
     if (dataAvailable) {
       return (
         <div>
           <FAQListSection faqs={ faqs }/>
-          <FAQForm askQuestion={ askQuestion } isSubmitting={ isSubmitting }/>
         </div>
       );
     } else {
@@ -34,18 +31,15 @@ export class UnconnectedFAQPageContainer extends Component {
 
 UnconnectedFAQPageContainer.propTypes = {
   requestFAQs: PropTypes.func.isRequired,
-  askQuestion: PropTypes.func,
   dataAvailable: PropTypes.bool,
   faqs: PropTypes.array,
-  store: PropTypes.object,
-  isSubmitting: PropTypes.bool
+  store: PropTypes.object
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     dataAvailable: dataAvailableSelector(state),
-    faqs: faqsSelector(state),
-    isSubmitting: getIsSubmitting(state)
+    faqs: faqsSelector(state)
   };
 }
 

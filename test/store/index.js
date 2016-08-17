@@ -55,6 +55,7 @@ describe('store', function () {
           stories: PAGINATION_DEFAULT
         },
         nonFeaturedStories: {
+          isLoadingMore: false,
           isRequesting: false,
           stories: PAGINATION_DEFAULT
         }
