@@ -1,13 +1,14 @@
-import { assign } from 'lodash';
 import React, { PropTypes } from 'react';
 
+import ConfiguredRadium from 'utils/configured-radium';
 
-export default class CoverImage extends React.Component {
+
+class CoverImage extends React.Component {
   render() {
     let { style, src } = this.props;
 
     if (src) {
-      style = assign({}, style, { background: `url(${src}) center / cover` });
+      style = [style, { background: `url(${src}) center / cover` }];
     }
 
     return (
@@ -17,6 +18,8 @@ export default class CoverImage extends React.Component {
 }
 
 CoverImage.propTypes = {
-  style: PropTypes.object,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   src: PropTypes.string
 };
+
+export default ConfiguredRadium(CoverImage);

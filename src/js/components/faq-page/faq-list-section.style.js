@@ -1,3 +1,3 @@
 export const wrapperStyle = {
-  overflow: 'hidden'
+  marginBottom: '200px'
 };

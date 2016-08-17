@@ -10,6 +10,7 @@ export const SMALL_TITLE_STYLE = 'small';
 export const NORMAL_TITLE_STYLE = 'normal';
 export const BIG_TITLE_STYLE = 'big';
 export const EXTRA_BIG_TITLE_STYLE = 'extraBig';
+export const ULTRA_BIG_TITLE_STYLE = 'ultraBig';
 
 
 class Story extends Component {

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import FAQListItem from './faq-list-item';
+import { wrapperStyle } from './faq-list-section.style';
 
 
 export default class FAQListSection extends Component {
@@ -25,7 +26,7 @@ export default class FAQListSection extends Component {
     const { expandedId } = this.state;
 
     return (
-      <div>
+      <div style={ wrapperStyle }>
         {
           this.props.faqs.map(faq => {
             return (
