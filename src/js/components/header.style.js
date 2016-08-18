@@ -1,5 +1,4 @@
-import { imgUrl } from 'utils/static-assets';
-import { wildSandColor } from 'utils/styles';
+import { wildSandColor, softBlackColor } from 'utils/styles';
 
 
 export const navStyle = {
@@ -8,8 +7,8 @@ export const navStyle = {
 };
 
 export const navWrapperStyle = {
-  padding: '36px 36px 32px 0',
-  height: '88px',
+  padding: '36px 32px 32px 0',
+  height: '83px',
   boxSizing: 'border-box',
   textAlign: 'right'
 };
@@ -30,28 +29,31 @@ export const fixedWrapperStyle = {
   width: '100%',
   backgroundColor: 'white',
   zIndex: '2',
-  height: '88px',
+  height: '83px',
   boxSizing: 'border-box',
   boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.15)'
 };
 
 export const logoStyle = {
-  height: '25px',
-  width: '90px',
-  background: `url("${imgUrl('CPDB-logo.svg')}") no-repeat scroll 0 0 transparent`,
+  height: '17px',
+  width: '77px',
+  fontWeight: 'bold',
+  fontSize: '30px',
+  color: softBlackColor,
+  fontFamily: '"San Francisco Text", sans-serif',
   display: 'inline-block'
 };
 
 export const logoWrapperStyle = {
   height: '62px',
-  paddingLeft: '36px',
+  paddingLeft: '32px',
   paddingTop: '18px',
   boxSizing: 'border-box'
 };
 
 export const logoWrapperFixedStyle = {
   float: 'left',
-  paddingTop: '31px',
+  paddingTop: '25px',
   display: 'inline-block'
 };
 
@@ -60,5 +62,5 @@ export const spacerStyle = {
 };
 
 export const spacerSmallStyle = {
-  height: '88px'
+  height: '83px'
 };

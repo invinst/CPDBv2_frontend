@@ -10,11 +10,7 @@ export default class FAQPage extends Component {
     return (
       <div style={ faqPageStyle }>
         <ResponsiveFixedWidthComponent>
-          <div className='pure-g'>
-            <div className='pure-u-3-5'>
-              <FAQPageContainer store={ this.props.store }/>
-            </div>
-          </div>
+          <FAQPageContainer store={ this.props.store }/>
         </ResponsiveFixedWidthComponent>
       </div>
     );

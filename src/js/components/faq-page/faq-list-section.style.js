@@ -1,3 +1,4 @@
 export const wrapperStyle = {
-  marginBottom: '200px'
+  marginBottom: '32px',
+  width: '568px'
 };

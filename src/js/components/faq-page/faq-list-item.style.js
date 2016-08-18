@@ -2,6 +2,7 @@ import { lightGreyColor, accentColor, softBlackColor } from 'utils/styles';
 
 
 export const faqItemWrapperStyle = {
+  marginLeft: '16px',
   borderBottom: `1px solid ${lightGreyColor}`
 };
 

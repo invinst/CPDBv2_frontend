@@ -78,11 +78,11 @@ class Header extends React.Component {
   render() {
     const links = [
       {
-        name: 'Database',
+        name: 'Data',
         href: DATA_PATH
       },
       {
-        name: 'Stories',
+        name: 'Reporting',
         href: STORIES_PATH
       },
       {
@@ -90,7 +90,7 @@ class Header extends React.Component {
         href: FAQ_PATH
       },
       {
-        name: 'Collaboration',
+        name: 'Collaborate',
         href: COLLAB_PATH
       }
     ];
@@ -115,7 +115,7 @@ class Header extends React.Component {
               )) }
             </div>
             <div style={ this.logoWrapperStyle() }>
-              <span style={ logoStyle }/>
+              <span style={ logoStyle }>CPDP</span>
             </div>
           </ResponsiveFixedWidthComponent>
         </BackgroundColorTransition>

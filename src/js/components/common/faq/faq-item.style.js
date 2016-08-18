@@ -15,13 +15,14 @@ export const faqItemTitleStyle = {
     cursor: 'pointer',
     fontFamily: sanFranciscoTextFamily,
     fontSize: '16px',
+    lineHeight: '20px',
     paddingTop: '32px',
     paddingBottom: '32px'
   },
 
   tablet: {
-    paddingTop: '25px',
-    paddingBottom: '25px'
+    paddingTop: '32px',
+    paddingBottom: '32px'
   },
 
   extraWide: {
