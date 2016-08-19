@@ -37,7 +37,7 @@ UnconnectedFAQPageContainer.propTypes = {
   dataAvailable: PropTypes.bool,
   faqs: PropTypes.array,
   store: PropTypes.object,
-  askQuestion: PropTypes.function,
+  askQuestion: PropTypes.func,
   isSubmitting: PropTypes.bool
 };
 

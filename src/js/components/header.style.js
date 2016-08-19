@@ -13,7 +13,11 @@ export const navWrapperStyle = {
   textAlign: 'right'
 };
 
-export const navWrapperFixedStyle = {
+export const navWrapperCompactStyle = {
+  padding: '31px 32px 32px 0',
+  height: '83px',
+  boxSizing: 'border-box',
+  textAlign: 'right',
   float: 'right',
   display: 'inline-block'
 };
@@ -22,7 +26,7 @@ export const wrapperStyle = {
   backgroundColor: wildSandColor
 };
 
-export const fixedWrapperStyle = {
+export const wrapperCompactStyle = {
   position: 'fixed',
   top: '0',
   left: '0',
@@ -51,16 +55,15 @@ export const logoWrapperStyle = {
   boxSizing: 'border-box'
 };
 
-export const logoWrapperFixedStyle = {
+export const logoWrapperCompactStyle = {
+  height: '62px',
+  paddingLeft: '32px',
+  boxSizing: 'border-box',
   float: 'left',
   paddingTop: '25px',
   display: 'inline-block'
 };
 
 export const spacerStyle = {
-  height: '150px'
-};
-
-export const spacerSmallStyle = {
   height: '88px'
 };

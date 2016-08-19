@@ -1,30 +1,51 @@
 import { includes } from 'lodash';
 import React from 'react';
 import { browserHistory } from 'react-router';
+import { Motion, spring } from 'react-motion';
+import { assign, throttle } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ClosableNavLink from 'components/closable-nav-link';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
-import BackgroundColorTransition from 'components/animation/background-color-transition';
 import { COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 import {
-  navWrapperStyle, navStyle, fixedWrapperStyle, logoWrapperStyle, logoStyle,
-  navWrapperFixedStyle, logoWrapperFixedStyle, spacerStyle, spacerSmallStyle, wrapperStyle
+  navWrapperStyle, navStyle, logoWrapperStyle, logoStyle, spacerStyle,
+  navWrapperCompactStyle, logoWrapperCompactStyle, wrapperCompactStyle
 } from './header.style';
 import { getCurrentPathname } from 'utils/dom';
+import { defaultConfig } from 'utils/spring-presets';
 
 
 const COMPACT_STYLE_PATHNAMES = [COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH];
+const links = [
+  {
+    name: 'Data',
+    href: DATA_PATH
+  },
+  {
+    name: 'Reporting',
+    href: STORIES_PATH
+  },
+  {
+    name: 'FAQ',
+    href: FAQ_PATH
+  },
+  {
+    name: 'Collaborate',
+    href: COLLAB_PATH
+  }
+];
 
-function toFixed() {
+function shouldShowCompact() {
   return (window.scrollY > 88);
 }
 
 class Header extends React.Component {
+
   constructor(props) {
     super(props);
-    this.state = { fixed: toFixed() };
-    this.handleScroll = this.handleScroll.bind(this);
+    this.state = { showCompact: shouldShowCompact() };
+    this.handleScroll = throttle(this.handleScroll.bind(this), 200);
   }
 
   componentDidMount() {
@@ -35,90 +56,63 @@ class Header extends React.Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  isCompact() {
-    return this.state.fixed || includes(COMPACT_STYLE_PATHNAMES, getCurrentPathname());
+  showCompact() {
+    return this.state.showCompact || includes(COMPACT_STYLE_PATHNAMES, getCurrentPathname());
   }
 
   handleScroll() {
-    if (this.state.fixed !== toFixed()) {
-      this.setState({ fixed: toFixed() });
+    if (this.state.showCompact !== shouldShowCompact()) {
+      this.setState({ showCompact: shouldShowCompact() });
     }
-  }
-
-  wrapperStyle() {
-    return this.isCompact() ? fixedWrapperStyle : wrapperStyle;
-  }
-
-  navWrapperStyle() {
-    return [navWrapperStyle, this.isCompact() ? navWrapperFixedStyle : null];
-  }
-
-  logoWrapperStyle() {
-    return [logoWrapperStyle, this.isCompact() ? logoWrapperFixedStyle : null];
-  }
-
-  renderSpaceHolder() {
-    if (COMPACT_STYLE_PATHNAMES.indexOf(getCurrentPathname()) !== -1) {
-      return (
-        <div style={ spacerSmallStyle }/>
-      );
-    }
-    if (this.state.fixed) {
-      return (
-        <div style={ spacerStyle }/>
-      );
-    }
-    return null;
   }
 
   goToBasePath() {
     browserHistory.push('/');
   }
 
-  render() {
-    const links = [
-      {
-        name: 'Data',
-        href: DATA_PATH
-      },
-      {
-        name: 'Reporting',
-        href: STORIES_PATH
-      },
-      {
-        name: 'FAQ',
-        href: FAQ_PATH
-      },
-      {
-        name: 'Collaborate',
-        href: COLLAB_PATH
-      }
-    ];
+  renderHeader(compact=false, style={}) {
     const currentPath = getCurrentPathname();
+    let wrapperStyle = compact ? wrapperCompactStyle : null;
+    wrapperStyle = assign({}, wrapperStyle, style);
+
+    if (!compact && currentPath !== '/') {
+      return (
+        <div style={ spacerStyle }/>
+      );
+    }
 
     return (
+      <div style={ wrapperStyle }>
+        <ResponsiveFixedWidthComponent>
+          <div style={ compact ? navWrapperCompactStyle : navWrapperStyle }>
+            { links.map((link, ind) => (
+              <ClosableNavLink
+                key={ ind } style={ navStyle } href={ link.href } showCloseBtn={ compact && link.href === currentPath }
+                onClickClose={ this.goToBasePath }>
+                { link.name }
+              </ClosableNavLink>
+            )) }
+          </div>
+          <div style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
+            <span style={ logoStyle }>CPDP</span>
+          </div>
+        </ResponsiveFixedWidthComponent>
+      </div>
+    );
+  }
+
+  render() {
+    return (
       <div>
-        { this.renderSpaceHolder() }
-        <BackgroundColorTransition
-          transition={ this.isCompact() }
-          style={ this.wrapperStyle() }
-          colorIn={ wrapperStyle.backgroundColor }
-          colorOut={ fixedWrapperStyle.backgroundColor }>
-          <ResponsiveFixedWidthComponent>
-            <div style={ this.navWrapperStyle() }>
-              { links.map((link, ind) => (
-                <ClosableNavLink
-                  key={ ind } style={ navStyle } href={ link.href } showCloseBtn={ link.href === currentPath }
-                  onClickClose={ this.goToBasePath }>
-                  { link.name }
-                </ClosableNavLink>
-              )) }
-            </div>
-            <div style={ this.logoWrapperStyle() }>
-              <span style={ logoStyle }>CPDP</span>
-            </div>
-          </ResponsiveFixedWidthComponent>
-        </BackgroundColorTransition>
+        <Motion defaultStyle={ this.showCompact() ? { top: 0 }: { top: 1 } }
+          style={ this.showCompact() ? { top: spring(0, defaultConfig()) }: { top: spring(1, defaultConfig()) } }>
+        { interpolatingStyle => (
+          <div>
+            { this.renderHeader(false) }
+            { this.renderHeader(true, { top: `${interpolatingStyle.top * -88}px` }) }
+          </div>
+        ) }
+        </Motion>
       </div>
     );
   }
