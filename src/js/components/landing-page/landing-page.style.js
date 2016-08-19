@@ -26,5 +26,5 @@ export const lastSectionStyle = {
 };
 
 export const vftgSectionHeightStyle = {
-  height: '300px'
+  height: '326px'
 };

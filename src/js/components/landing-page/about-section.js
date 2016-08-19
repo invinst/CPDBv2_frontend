@@ -5,7 +5,7 @@ import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import {
-  boldTextStyle, paragraphStyle, contentWrapperStyle
+  paragraphStyle, contentWrapperStyle
 } from './about-section.style';
 import SectionTemplate from 'utils/template/section';
 import { BASE_TEMPLATE } from 'utils/constants';
@@ -37,7 +37,7 @@ class AboutSection extends ResponsiveStyleComponent {
         <div style={ template.content }>
           <div style={ contentWrapperStyle }>
             <p style={ style.paragraph }>
-              The <span style={ boldTextStyle }>Citizens Police Data Project</span> houses police disciplinary
+              The Citizens Police Data Project houses police disciplinary
               information obtained from the City of Chicago.
             </p>
             <p style={ style.paragraph }>

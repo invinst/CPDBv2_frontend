@@ -1,10 +1,19 @@
-import { softBlackColor } from 'utils/styles';
+import { softBlackColor, silverSandColor } from 'utils/styles';
 
+
+export const headerStyle = {
+  marginBottom: '34px'
+};
+
+export const contentStyle = {
+  paddingBottom: '51px'
+};
 
 export const linkStyle = {
   color: softBlackColor,
   textDecoration: 'none',
-  paddingRight: '33px'
+  fontWeight: 300,
+  borderBottom: `4px solid ${ silverSandColor }`
 };
 
 export const alignLeftStyle = {

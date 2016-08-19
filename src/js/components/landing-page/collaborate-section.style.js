@@ -1,6 +1,11 @@
 import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
+export const contentStyle = {
+  paddingBottom: '39px',
+  paddingLeft: '12px'
+};
+
 export const paragraphStyle = {
   base: {
     color: softBlackColor,
@@ -19,6 +24,5 @@ export const paragraphStyle = {
 };
 
 export const underlinedLinkStyle = {
-  textDecoration: 'none',
-  borderBottom: '4px solid rgba(35, 31, 32, 0.2)'
+  fontWeight: 400
 };

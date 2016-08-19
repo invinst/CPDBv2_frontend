@@ -1,10 +1,18 @@
 import { softBlackColor } from 'utils/styles';
 
 
+export const headerStyle = {
+  marginBottom: '50px'
+};
+
+export const coverageWrapperStyle = {
+  borderBottom: `1px solid ${softBlackColor}`
+};
+
 export const linkStyle = {
   color: softBlackColor,
   textDecoration: 'none',
-  paddingRight: '33px'
+  fontWeight: 300
 };
 
 export const alignLeftStyle = {

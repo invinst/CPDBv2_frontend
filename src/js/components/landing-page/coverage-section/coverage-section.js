@@ -1,12 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
-import Link from 'components/common/react-router-link';
 import { STORIES_PATH } from 'utils/constants';
-import { linkStyle, alignLeftStyle, alignRightStyle } from './coverage-section.style';
+import {
+  alignLeftStyle, alignRightStyle, coverageWrapperStyle, headerStyle
+} from './coverage-section.style';
 import StoriesContainer from 'containers/stories-container';
 import SectionTemplate from 'utils/template/section';
 import { BASE_TEMPLATE } from 'utils/constants';
+import MoreLink from 'components/common/more-link';
 
 
 class CoverageSection extends Component {
@@ -14,11 +16,13 @@ class CoverageSection extends Component {
     const { template, wrapperStyle } = this.props;
 
     return (
-      <div style={ [template.wrapper, wrapperStyle] }>
-        <div style={ template.header }>
+      <div style={ [template.wrapper, wrapperStyle, coverageWrapperStyle] }>
+        <div style={ [template.header, headerStyle] }>
           <div>
             <span style={ alignLeftStyle }>Recent Coverage</span>
-            <span style={ alignRightStyle }><Link to={ STORIES_PATH } style={ linkStyle }>+ More Coverage</Link></span>
+            <span style={ alignRightStyle }>
+              <MoreLink to={ STORIES_PATH }>See more reporting</MoreLink>
+            </span>
           </div>
         </div>
         <div style={ template.content }>

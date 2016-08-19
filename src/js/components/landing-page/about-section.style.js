@@ -2,7 +2,7 @@ import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const contentWrapperStyle = {
-  padding: '0 13px 45px'
+  padding: '0 13px 5px'
 };
 
 export const paragraphStyle = {
@@ -11,10 +11,6 @@ export const paragraphStyle = {
     fontFamily: sanFranciscoTextFamily,
     fontSize: '20px',
     margin: '0 0 30px 0'
-  },
-
-  tablet: {
-    fontSize: '16px'
   },
 
   extraWide: {

@@ -24,13 +24,13 @@ export const sourceWrapperStyle = {
 
 export const sourceStyle = {
   color: codGrayColor,
-  fontWeight: 600
+  fontWeight: 400
 };
 
 export const postDateStyle = {
   marginLeft: '8px',
   color: lightMineShaftColor,
-  fontWeight: 'normal'
+  fontWeight: 100
 };
 
 export const titleStyle = {

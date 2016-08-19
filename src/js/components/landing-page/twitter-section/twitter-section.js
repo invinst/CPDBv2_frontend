@@ -14,7 +14,7 @@ class TwitterSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [TABLET]: {
-        height: 400
+        height: 484
       },
       [DESKTOP]: {
         height: 500

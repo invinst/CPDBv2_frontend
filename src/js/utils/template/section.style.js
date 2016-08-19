@@ -1,4 +1,4 @@
-import { altoColor, wildSandColor, mediumBlackColor, sanFranciscoTextFamily } from 'utils/styles';
+import { altoColor, wildSandColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 import { BASE_TEMPLATE, SOLID_TEMPLATE } from 'utils/constants';
 
 
@@ -24,11 +24,11 @@ export const headerStyle = {
     height: '26px',
     lineHeight: '26px',
     fontFamily: sanFranciscoTextFamily,
-    fontSize: '15px',
-    color: mediumBlackColor,
+    fontSize: '13px',
+    color: softBlackColor,
     letterSpacing: '-0.2px',
-    borderLeft: `8px solid ${altoColor}`,
-    paddingLeft: '5px',
+    borderLeft: `8px solid ${softBlackColor}`,
+    paddingLeft: '8px',
     marginBottom: '66px'
   },
 

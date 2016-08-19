@@ -1,12 +1,13 @@
 import React, { PropTypes } from 'react';
 
-import { paragraphStyle, underlinedLinkStyle } from './collaborate-section.style';
+import { paragraphStyle, underlinedLinkStyle, contentStyle } from './collaborate-section.style';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
 import SectionTemplate from 'utils/template/section';
 import { BASE_TEMPLATE } from 'utils/constants';
+import MoreLink from 'components/common/more-link';
 
 
 class CollaborateSection extends ResponsiveStyleComponent {
@@ -35,15 +36,15 @@ class CollaborateSection extends ResponsiveStyleComponent {
         <div style={ template.header }>
           Collaborate with us
         </div>
-        <div style={ template.content }>
+        <div style={ [template.content, contentStyle] }>
           <div style={ style.wrapper }>
             <p style={ style.paragraph }>
               We are collecting and publishing information that sheds light on police misconduct.
             </p>
             <p style={ style.paragraph }>
               If you have documents or datasets you would like to publish,
-              please <a style={ style.underlineLink } href='mailto:records@invisibleinstitute.com'>
-              email us</a>, or <a href='#' style={ style.underlineLink }>here</a>.
+              please <MoreLink style={ style.underlineLink } href='mailto:records@invisibleinstitute.com'>
+              email us</MoreLink>, or <MoreLink to='#' style={ style.underlineLink }>learn more</MoreLink>.
             </p>
           </div>
         </div>
