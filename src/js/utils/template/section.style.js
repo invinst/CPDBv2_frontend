@@ -1,4 +1,4 @@
-import { altoColor, wildSandColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
+import { wildSandColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 import { BASE_TEMPLATE, SOLID_TEMPLATE } from 'utils/constants';
 
 
@@ -6,7 +6,7 @@ export const sectionWrapperStyle = {
   [BASE_TEMPLATE]: {
     boxSizing: 'border-box',
     backgroundColor: 'white',
-    borderBottom: `1px solid ${altoColor}`,
+    borderBottom: `1px solid ${softBlackColor}`,
     paddingBottom: '16px'
   },
 

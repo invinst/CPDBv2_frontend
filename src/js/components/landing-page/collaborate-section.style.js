@@ -26,3 +26,15 @@ export const paragraphStyle = {
 export const underlinedLinkStyle = {
   fontWeight: 400
 };
+
+export const paragraphWrapperStyle = {
+  tablet: {
+    width: '620px'
+  },
+  desktop: {
+    width: '736px'
+  },
+  extraWide: {
+    width: '902px'
+  }
+};

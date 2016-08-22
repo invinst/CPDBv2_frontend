@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { paragraphStyle, underlinedLinkStyle, contentStyle } from './collaborate-section.style';
+import { paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle } from './collaborate-section.style';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
@@ -14,14 +14,17 @@ class CollaborateSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
+        wrapper: paragraphWrapperStyle.extraWide,
         paragraph: [paragraphStyle.base, paragraphStyle.extraWide],
         underlineLink: [paragraphStyle.base, paragraphStyle.extraWide, underlinedLinkStyle]
       },
       [DESKTOP]: {
+        wrapper: paragraphWrapperStyle.desktop,
         paragraph: [paragraphStyle.base],
         underlineLink: [paragraphStyle.base, underlinedLinkStyle]
       },
       [TABLET]: {
+        wrapper: paragraphWrapperStyle.tablet,
         paragraph: [paragraphStyle.base, paragraphStyle.tablet],
         underlineLink: [paragraphStyle.base, paragraphStyle.tablet, underlinedLinkStyle]
       }

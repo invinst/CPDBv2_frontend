@@ -1,4 +1,4 @@
-import { darkGreyColor, altoColor } from 'utils/styles';
+import { darkGreyColor, softBlackColor } from 'utils/styles';
 
 
 export const bottomSectionsWrapperStyle = {
@@ -12,7 +12,7 @@ export const sectionStyle = {
 
 export const divideLineStyle = {
   margin: '16px',
-  backgroundColor: altoColor,
+  backgroundColor: softBlackColor,
   width: 'calc(100% - 16px)',
   height: '1px'
 };
