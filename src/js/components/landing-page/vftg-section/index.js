@@ -1,18 +1,33 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import SectionTemplate from 'utils/template/section';
-import CoverImage from 'components/common/cover-image';
 import { SOLID_TEMPLATE } from 'utils/constants';
+import MostRecentEmailLink from './most-recent-email-link';
 import {
-  headerBlockStyle, headerStyle, dateStyle, textStyle, textInputStyle, subscribeBtnStyle, newsWrapperStyle,
-  formWrapperStyle, formHeaderBlockStyle, formHeaderStyle, formActionBlockStyle, vftgWrapperStyle, iconStyle
+  headerBlockStyle, headerStyle, dateStyle, textInputStyle, subscribeBtnStyle, newsWrapperStyle,
+  formActionBlockStyle, vftgWrapperStyle, textStyleDesktop, textStyleExtraWide
 } from './vftg-section.style';
-import { imgUrl } from 'utils/static-assets';
+import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
+import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
 
-class VFTGSection extends Component {
-  render() {
+class VFTGSection extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [EXTRA_WIDE]: {
+        textStyle: textStyleExtraWide
+      },
+      [DESKTOP]: {
+        textStyle: textStyleDesktop
+      },
+      [TABLET]: {
+        textStyle: textStyleDesktop
+      }
+    };
+  }
+
+  renderWithResponsiveStyle(style) {
     const { template, wrapperStyle } = this.props;
     var subscribeUrl =
       '//invisibleinstitute.us1.list-manage.com/subscribe/post?u=5c80c1740c24b198f0f284cd3&id=dee1a647b0';
@@ -22,20 +37,15 @@ class VFTGSection extends Component {
         <div style={ [template.content, vftgWrapperStyle] }>
           <div style={ newsWrapperStyle }>
             <div style={ headerBlockStyle }>
-              <span style={ headerStyle }>CPDP Weekly</span>
+              <span style={ headerStyle }>CPDP WEEKLY</span>
               <span style={ dateStyle }>Sep 23, 2016</span>
             </div>
-            <div style={ textStyle }>
+            <div style={ style.textStyle } key={ style.screen }>
               Complaints against Chicago Police rarely result in discipline data shows.
             </div>
           </div>
-          <div style={ formWrapperStyle }>
-            <div style={ formHeaderBlockStyle }>
-              <CoverImage src={ imgUrl('medium-icon.png') } style={ iconStyle }/>
-              <span style={ formHeaderStyle }>
-                Most Recent Email
-              </span>
-            </div>
+          <div>
+            <MostRecentEmailLink/>
             <form action={ subscribeUrl } method='post' id='mc-embedded-subscribe-form'
               name='mc-embedded-subscribe-form' className='validate' target='_blank' noValidate={ true }>
               <div id='mc_embed_signup_scroll'>

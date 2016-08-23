@@ -1,14 +1,17 @@
-import { softBlackColor, codGrayColor, lightMineShaftColor, sanFranciscoTextFamily } from 'utils/styles';
+import {
+  softBlackColor, codGrayColor, lightMineShaftColor, sanFranciscoTextFamily, wildSandColor, greyColor, accentColor
+} from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
 
 
 export const headerBlockStyle = {
-  marginBottom: '16px'
+  marginBottom: '26px'
 };
 
 export const headerStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '13px',
-  fontWeight: 600,
+  fontWeight: 400,
   color: codGrayColor
 };
 
@@ -22,18 +25,31 @@ export const dateStyle = {
 export const textStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '20px',
-  fontWeight: 400,
-  color: softBlackColor
+  fontWeight: 100,
+  color: softBlackColor,
+  cursor: 'pointer',
+  ':hover': {
+    color: accentColor
+  }
+};
+
+export const textStyleExtraWide = {
+  ...textStyle,
+  fontSize: '26px'
+};
+
+export const textStyleDesktop = {
+  ...textStyle
 };
 
 export const newsWrapperStyle = {
-  paddingLeft: '48px',
-  marginBottom: '16px'
+  marginBottom: '26px'
 };
 
 export const textInputStyle = {
   height: '38px',
   backgroundColor: 'white',
+  color: accentColor,
   fontFamily: sanFranciscoTextFamily,
   fontSize: '13px',
   border: 0,
@@ -44,7 +60,7 @@ export const textInputStyle = {
 };
 
 export const subscribeBtnStyle = {
-  backgroundColor: 'rgba(0, 94, 243, 0.23)',
+  backgroundColor: wildSandColor,
   width: '79px',
   height: '26px',
   fontWeight: 500,
@@ -52,15 +68,11 @@ export const subscribeBtnStyle = {
   lineHeight: '20px',
   verticalAlign: 'middle',
   borderRadius: '3px',
-  border: 'none'
-};
-
-export const formWrapperStyle = {
-  paddingLeft: '48px'
+  border: `1px solid ${greyColor}`
 };
 
 export const formHeaderBlockStyle = {
-  marginBottom: '22px',
+  marginBottom: '26px',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '13px',
   fontWeight: 700,
@@ -69,16 +81,23 @@ export const formHeaderBlockStyle = {
 };
 
 export const iconStyle = {
-  position: 'absolute',
   width: '26px',
   height: '22px',
-  left: '-48px'
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  marginLeft: '11px',
+  marginRight: '16px',
+  background: `url(${imgUrl('medium-icon.svg')}) center / cover`,
+  ':hover': {
+    background: `url(${imgUrl('medium-icon-colored.svg')}) center / cover`
+  }
 };
 
 export const formHeaderStyle = {
-  boxShadow: '0px 2px 0px 0px #adadad',
-  borderBottom: '4px solid rgba(35, 31, 32, 0.2)',
-  paddingBottom: '3px'
+  paddingBottom: '3px',
+  fontWeight: 100,
+  display: 'inline-block',
+  verticalAlign: 'middle'
 };
 
 export const formActionBlockStyle = {
@@ -87,5 +106,5 @@ export const formActionBlockStyle = {
 };
 
 export const vftgWrapperStyle = {
-  padding: '30px 32px 22px 25px'
+  padding: '30px 26px 32px'
 };

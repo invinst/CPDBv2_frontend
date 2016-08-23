@@ -8,7 +8,6 @@ export const contentStyle = {
 
 export const paragraphStyle = {
   base: {
-    color: softBlackColor,
     fontFamily: sanFranciscoTextFamily,
     fontSize: '36px',
     margin: '0 0 30px 0'
@@ -29,12 +28,15 @@ export const underlinedLinkStyle = {
 
 export const paragraphWrapperStyle = {
   tablet: {
+    color: softBlackColor,
     width: '620px'
   },
   desktop: {
+    color: softBlackColor,
     width: '736px'
   },
   extraWide: {
+    color: softBlackColor,
     width: '902px'
   }
 };

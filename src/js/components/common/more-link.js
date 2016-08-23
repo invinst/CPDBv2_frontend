@@ -1,30 +1,44 @@
 import React, { Component, PropTypes } from 'react';
+import { assign } from 'lodash';
 
+import Hoverable from 'components/common/higher-order/hoverable';
 import Link from 'components/common/react-router-link';
 import ConfiguredRadium from 'utils/configured-radium';
-import { baseStyle, underlineStyle, underlineWrapperStyle } from './more-link.style';
+import {
+  baseStyle, underlineStyle, underlineWrapperStyle, underlineHoverStyle, baseHoverStyle
+} from './more-link.style';
 
 
 class MoreLink extends Component {
   render() {
-    const { to, children, style, href } = this.props;
+    const { to, children, style, href, showAccentColor, hovering } = this.props;
 
     if (to) {
       return (
-        <Link to={ to } style={ [baseStyle, style] }>
+        <Link to={ to }
+          onMouseOver={ this.handleMouseOver }
+          onMouseOut={ this.handleMouseOut }
+          className='link--transition'
+          style={ [hovering ? baseHoverStyle : baseStyle, style] }>
           { children }
           <span style={ underlineWrapperStyle }>
-            <span style={ underlineStyle }/>
+            <span className='link--transition'
+              style={ [underlineStyle, (hovering || showAccentColor) && underlineHoverStyle] }/>
           </span>
         </Link>
       );
     }
 
     return (
-      <a href={ href } style={ [baseStyle, style] }>
+      <a href={ href }
+        onMouseOver={ this.handleMouseOver }
+        onMouseOut={ this.handleMouseOut }
+        className='link--transition'
+        style={ [hovering ? baseHoverStyle : baseStyle, style] }>
         { children }
         <span style={ underlineWrapperStyle }>
-          <span style={ underlineStyle }/>
+          <span className='link--transition'
+            style={ [underlineStyle, (hovering || showAccentColor) && underlineHoverStyle] }/>
         </span>
       </a>
     );
@@ -35,7 +49,9 @@ MoreLink.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
   children: PropTypes.node,
-  style: PropTypes.object
+  showAccentColor: PropTypes.bool,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  hovering: PropTypes.bool
 };
 
-export default ConfiguredRadium(MoreLink);
+export default Hoverable(ConfiguredRadium(MoreLink));

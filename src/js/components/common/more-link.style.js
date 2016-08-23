@@ -1,4 +1,4 @@
-import { softBlackColor, silverSandColor } from 'utils/styles';
+import { softBlackColor, silverSandColor, accentColor } from 'utils/styles';
 
 
 export const underlineWrapperStyle = {
@@ -9,12 +9,21 @@ export const underlineWrapperStyle = {
   bottom: 0
 };
 
-export const baseStyle = {
-  color: softBlackColor,
+export const baseCommonStyle = {
   textDecoration: 'none',
   fontWeight: 300,
   position: 'relative',
   lineHeight: 'initial'
+};
+
+export const baseStyle = {
+  ...baseCommonStyle,
+  color: softBlackColor
+};
+
+export const baseHoverStyle = {
+  ...baseCommonStyle,
+  color: accentColor
 };
 
 export const underlineStyle = {
@@ -25,4 +34,8 @@ export const underlineStyle = {
   bottom: '-4px',
   position: 'relative',
   verticalAlign: 'baseline'
+};
+
+export const underlineHoverStyle = {
+  backgroundColor: accentColor
 };
