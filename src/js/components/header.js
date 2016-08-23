@@ -37,7 +37,7 @@ const links = [
 ];
 
 function shouldShowCompact() {
-  return (window.scrollY > 88);
+  return (window.scrollY > 145);
 }
 
 class Header extends React.Component {
@@ -45,7 +45,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = { showCompact: shouldShowCompact() };
-    this.handleScroll = throttle(this.handleScroll.bind(this), 200);
+    this.handleScroll = throttle(this.handleScroll.bind(this), 100);
   }
 
   componentDidMount() {
