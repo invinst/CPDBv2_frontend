@@ -2,7 +2,7 @@ import { includes } from 'lodash';
 import React from 'react';
 import { browserHistory } from 'react-router';
 import { Motion, spring } from 'react-motion';
-import { assign, throttle } from 'lodash';
+import { assign } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ClosableNavLink from 'components/closable-nav-link';
@@ -13,7 +13,7 @@ import {
   navWrapperCompactStyle, logoWrapperCompactStyle, wrapperCompactStyle
 } from './header.style';
 import { getCurrentPathname } from 'utils/dom';
-import { defaultConfig } from 'utils/spring-presets';
+import { faster } from 'utils/spring-presets';
 
 
 const COMPACT_STYLE_PATHNAMES = [COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH];
@@ -45,7 +45,7 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     this.state = { showCompact: shouldShowCompact() };
-    this.handleScroll = throttle(this.handleScroll.bind(this), 100);
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -105,7 +105,7 @@ class Header extends React.Component {
     return (
       <div>
         <Motion defaultStyle={ this.showCompact() ? { top: 0 }: { top: 1 } }
-          style={ this.showCompact() ? { top: spring(0, defaultConfig()) }: { top: spring(1, defaultConfig()) } }>
+          style={ this.showCompact() ? { top: spring(0, faster()) }: { top: spring(1, faster()) } }>
         { interpolatingStyle => (
           <div>
             { this.renderHeader(false) }
