@@ -1,5 +1,5 @@
 import {
-  softBlackColor, codGrayColor, lightMineShaftColor, sanFranciscoTextFamily, wildSandColor, greyColor, accentColor
+  softBlackColor, codGrayColor, lightMineShaftColor, sanFranciscoTextFamily, accentColor
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
@@ -46,31 +46,6 @@ export const newsWrapperStyle = {
   marginBottom: '26px'
 };
 
-export const textInputStyle = {
-  height: '38px',
-  backgroundColor: 'white',
-  color: accentColor,
-  fontFamily: sanFranciscoTextFamily,
-  fontSize: '13px',
-  border: 0,
-  outline: 0,
-  paddingLeft: '8px',
-  paddingRight: 0,
-  width: 'calc(100% - 8px)'
-};
-
-export const subscribeBtnStyle = {
-  backgroundColor: wildSandColor,
-  width: '79px',
-  height: '26px',
-  fontWeight: 500,
-  fontSize: '13px',
-  lineHeight: '20px',
-  verticalAlign: 'middle',
-  borderRadius: '3px',
-  border: `1px solid ${greyColor}`
-};
-
 export const formHeaderBlockStyle = {
   marginBottom: '26px',
   fontFamily: sanFranciscoTextFamily,
@@ -98,11 +73,6 @@ export const formHeaderStyle = {
   fontWeight: 100,
   display: 'inline-block',
   verticalAlign: 'middle'
-};
-
-export const formActionBlockStyle = {
-  marginTop: '16px',
-  textAlign: 'right'
 };
 
 export const vftgWrapperStyle = {

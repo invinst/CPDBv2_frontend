@@ -27,3 +27,9 @@ export const SOLID_TEMPLATE = 'solid';
 // Date format
 export const DATE_FORMAT_IN = 'YYYY-MM-DD';
 export const DATE_FORMAT = 'MMM DD, YYYY';
+
+// Form state
+export const FORM_INITIAL = 'FORM_INITIAL';
+export const FORM_LOADING = 'FORM_LOADING';
+export const FORM_SUCCESS = 'FORM_SUCCESS';
+export const FORM_FAILURE = 'FORM_FAILURE';
