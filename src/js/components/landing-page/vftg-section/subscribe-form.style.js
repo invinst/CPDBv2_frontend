@@ -32,12 +32,6 @@ export const formActionBlockStyle = {
   marginTop: '16px'
 };
 
-export const errorTextWrapperStyle = {
-  height: '26px',
-  display: 'inline-block',
-  width: '100px'
-};
-
 export const subscribeButtonStyle = {
   float: 'right'
 };

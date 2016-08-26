@@ -1,4 +1,4 @@
-import { unmountComponentAtNode, findDOMNode } from 'react-dom';
+import { unmountComponentAtNode, findDOMNode, render } from 'react-dom';
 import isMobile from 'ismobilejs';
 
 
@@ -20,4 +20,9 @@ export function withMobileDevice(cb) {
   isMobile.any = true;
   cb();
   isMobile.any = false;
+}
+
+export function reRender(component, element, ...args) {
+  const rootEl = findDOMNode(element).parentNode;
+  return render(component, rootEl, ...args);
 }

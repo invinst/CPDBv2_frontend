@@ -19,6 +19,7 @@ export default class CheckmarkSpinnerButton extends Component {
   }
 
   renderContent() {
+    const { children } = this.props;
     switch (this.props.state) {
       case FORM_LOADING:
         return <Spinner key='spinner' />;
@@ -27,7 +28,7 @@ export default class CheckmarkSpinnerButton extends Component {
       case FORM_FAILURE:
         return <Crossmark key='crossmark'/>;
       case FORM_INITIAL:
-        return <span key='text'>Subscribe</span>;
+        return <span key='text'>{ children }</span>;
     }
   }
 
@@ -48,5 +49,6 @@ export default class CheckmarkSpinnerButton extends Component {
 CheckmarkSpinnerButton.propTypes = {
   onClick: PropTypes.func,
   state: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  children: PropTypes.node
 };

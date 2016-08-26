@@ -1,11 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  textInputStyle, formActionBlockStyle, errorTextWrapperStyle, subscribeButtonStyle
+  textInputStyle, formActionBlockStyle, subscribeButtonStyle
 } from './subscribe-form.style';
 import CheckmarkSpinnerButton from './checkmark-spinner-button';
-import ErrorText from './error-text';
-import FadeTransition from 'components/animation/fade-transition';
 import { FORM_INITIAL, FORM_LOADING, FORM_SUCCESS, FORM_FAILURE } from 'utils/constants';
 
 
@@ -13,6 +11,7 @@ export default class SubscribeForm extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
       state: FORM_INITIAL
     };
@@ -22,30 +21,21 @@ export default class SubscribeForm extends Component {
     this.setState({
       state: FORM_LOADING
     });
-    this.props.subscribeEmail(this.emailInput.value).then((action) => {
-      if (!action.error) {
-        this.setState({
-          state: FORM_SUCCESS
-        });
-      } else {
-        this.setState({
-          state: FORM_FAILURE
-        });
-      }
+    return this.props.subscribeEmail(this.emailInput.value).then((action) => {
+      this.setState({
+        state: FORM_SUCCESS
+      });
     }).catch((err) => {
       this.setState({
         state: FORM_FAILURE
       });
-    }).then(() => {
-      setTimeout(() => this.setState({ state: FORM_INITIAL }), 1000);
     });
   }
 
-  renderError() {
-    if (this.state.state === FORM_FAILURE) {
-      return <ErrorText key='errorText'>Invalid Email!</ErrorText>;
+  handleInputChange() {
+    if ([FORM_SUCCESS, FORM_FAILURE].indexOf(this.state.state) !== -1) {
+      this.setState({ state: FORM_INITIAL });
     }
-    return null;
   }
 
   render() {
@@ -55,15 +45,12 @@ export default class SubscribeForm extends Component {
       <div id='mc_embed_signup_scroll'>
         <div className='mc-field-group'>
           <input ref={ el => { this.emailInput = el; } }
-            placeholder='email@example.com' type='email' style={ textInputStyle }/>
+            placeholder='email@example.com' type='email' style={ textInputStyle } onChange={ this.handleInputChange }/>
         </div>
         <div style={ formActionBlockStyle }>
-          <div style={ errorTextWrapperStyle }>
-            <FadeTransition>
-              { this.renderError() }
-            </FadeTransition>
-          </div>
-          <CheckmarkSpinnerButton onClick={ this.handleClick } state={ state } style={ subscribeButtonStyle }/>
+          <CheckmarkSpinnerButton onClick={ this.handleClick } state={ state } style={ subscribeButtonStyle }>
+            Subscribe
+          </CheckmarkSpinnerButton>
         </div>
       </div>
     );
