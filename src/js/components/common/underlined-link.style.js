@@ -1,8 +1,8 @@
-import { accentColor } from 'utils/styles';
+import { accentColor, minionProFamily } from 'utils/styles';
 
 
 export const linkStyle = {
-  fontFamily: '"Minion Pro Regular",sans-serif',
+  fontFamily: minionProFamily,
   color: accentColor,
   fontSize: '21px'
 };

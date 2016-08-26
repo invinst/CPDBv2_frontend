@@ -1,5 +1,8 @@
+import { minionProFamily } from 'utils/styles';
+
+
 export const contentStyle = {
-  fontFamily: '"Minion Pro Regular",sans-serif',
+  fontFamily: minionProFamily,
   fontWeight: 'normal',
   fontSize: '19px',
   margin: '0 0 9px 0'

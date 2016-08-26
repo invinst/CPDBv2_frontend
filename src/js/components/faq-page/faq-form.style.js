@@ -1,20 +1,25 @@
+import { sanFranciscoTextFamily } from 'utils/styles';
+import { softBlackColor } from 'utils/styles';
+
+
 export const faqFormFontStyle = {
-  fontFamily: 'San Francisco Text Web',
+  fontFamily: sanFranciscoTextFamily,
   fontSize: '13px'
 };
 
 export const faqFormStyle = {
   outerWrapper: {
     height: '120px',
-    paddingLeft: '16px'
+    paddingLeft: '32px',
+    paddingBottom: '100px'
   },
   innerWrapper: {
     lineHeight: '120px'
   },
   label: {
     fontWeight: 'bold',
-    color: '#005ef4',
-    marginRight: '50px'
+    color: softBlackColor,
+    marginRight: '20px'
   }
 };
 
@@ -38,7 +43,7 @@ export const inputGroupStyle = {
       color: 'rgba(0,0,0,0.5)',
       appearance: 'none',
       backgroundColor: '#F4F4F4',
-      width: '65px',
+      width: '94px',
       padding: '1px 0 1px 0',
       borderColor: '#d0d2d3',
       borderStyle: 'solid',
@@ -53,12 +58,12 @@ export const inputGroupStyle = {
 
 export const responsiveTitleInput = {
   extraWide: {
-    width: '340px'
+    width: '333px'
   },
   desktop: {
-    width: '235px'
+    width: '333px'
   },
   tablet: {
-    width: '124px'
+    width: '333px'
   }
 };

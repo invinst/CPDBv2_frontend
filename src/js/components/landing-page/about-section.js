@@ -1,53 +1,65 @@
 import React, { PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
-import ArticleSmall from 'components/common/article-small';
 import ResponsiveStyleComponent, {
-  EXTRA_WIDE, DESKTOP, TABLET
+  DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import {
-  articleTabletStyle, articleDesktopStyle, articleExtraWideStyle
+  paragraphStyle, contentWrapperStyle
 } from './about-section.style';
+import SectionTemplate from 'utils/template/section';
+import { BASE_TEMPLATE } from 'utils/constants';
 
 
 class AboutSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        article: articleExtraWideStyle
+        paragraph: [paragraphStyle.base, paragraphStyle.extraWide]
       },
       [DESKTOP]: {
-        article: articleDesktopStyle
+        paragraph: [paragraphStyle.base]
       },
       [TABLET]: {
-        article: articleTabletStyle
+        paragraph: [paragraphStyle.base, paragraphStyle.tablet]
       }
     };
   }
 
   renderWithResponsiveStyle(style) {
-    const { header, wrapper } = style.article;
+    const { template, wrapperStyle } = this.props;
 
     return (
-      <ArticleSmall
-        style={ { header, wrapper } }
-        header='About CPDP' paragraphs={ [
-          [
-            'The Citizens Police Data Project houses police disciplinary ',
-            'information obtained from the City of Chicago.'
-          ].join(''),
-          [
-            'The information and stories we have collected here are intended ',
-            'as a resource for public oversight. Our aim is to create a new ',
-            'model of accountability between officers and citizens.'
-          ].join('')
-        ] }/>
+      <div style={ [template.wrapper, wrapperStyle] }>
+        <div style={ template.header }>
+          <div>About</div>
+        </div>
+        <div style={ template.content }>
+          <div style={ contentWrapperStyle }>
+            <p style={ style.paragraph }>
+              The Citizens Police Data Project houses police disciplinary
+              information obtained from the City of Chicago.
+            </p>
+            <p style={ style.paragraph }>
+              The information and stories we have collected here are intended
+              as a resource for public oversight. Our aim is to create a new
+              model of accountability between officers and citizens.
+            </p>
+          </div>
+        </div>
+      </div>
     );
   }
 }
 
 AboutSection.propTypes = {
-  style: PropTypes.object
+  template: PropTypes.object,
+  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+};
+
+AboutSection.defaultProps = {
+  template: SectionTemplate(BASE_TEMPLATE),
+  wrapperStyle: {}
 };
 
 export default ConfiguredRadium(AboutSection);

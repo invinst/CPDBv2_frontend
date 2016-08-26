@@ -5,7 +5,7 @@ import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import { UnconnectedFAQContainer } from 'containers/faq-container';
 import FAQFactory from 'utils/test/factories/faq';
-import FAQSection from 'components/landing-page/faq/faq-section';
+import FAQSectionContent from 'components/landing-page/faq-section/faq-section-content';
 import FAQSectionPlaceHolder from 'components/landing-page/faq/faq-section-place-holder';
 
 
@@ -16,12 +16,12 @@ describe('UnconnectedFAQContainer', function () {
     unmountComponentSuppressError(element);
   });
 
-  it('should render FAQSection when data is available', function () {
+  it('should render FAQSectionContent when data is available', function () {
     element = renderIntoDocument(
       <UnconnectedFAQContainer requestFAQs={ () => {} } faqs={ FAQFactory.buildList(3) } dataAvailable={ true }
         openBottomSheetWithFAQ={ () => {} }/>
     );
-    findRenderedComponentWithType(element, FAQSection);
+    findRenderedComponentWithType(element, FAQSectionContent);
   });
 
   it('should render FAQSectionPlaceHolder when data is not available', function () {
@@ -41,8 +41,8 @@ describe('UnconnectedFAQContainer', function () {
     callback.called.should.be.true();
   });
 
-  it('should call openBottomSheetWithFAQ when click on More FAQ', function () {
-    UnconnectedFAQContainer.should.triggerCallbackWhenClick('openBottomSheetWithFAQ', 'article-small', {
+  it('should call openBottomSheetWithFAQ when click on faq', function () {
+    UnconnectedFAQContainer.should.triggerCallbackWhenClick('openBottomSheetWithFAQ', 'faq-title', {
       requestFAQs: () => {},
       faqs: FAQFactory.buildList(3),
       dataAvailable: true

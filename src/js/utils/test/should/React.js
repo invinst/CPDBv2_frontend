@@ -1,4 +1,5 @@
-import { createElement } from 'react';
+import React, { createElement } from 'react';
+import { Provider } from 'react-redux';
 import { unmountComponentAtNode, findDOMNode } from 'react-dom';
 import { renderIntoDocument, Simulate, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
 import should from 'should';
@@ -10,7 +11,17 @@ import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
 should.Assertion.add('renderable', function (props) {
   this.params = { operator: 'to be rendered' };
-  let element = renderIntoDocument(createElement(this.obj, props));
+  let element;
+  if (props && props.store) {
+    const { store, ...otherProps } = props;
+    element = renderIntoDocument(
+      <Provider store={ store }>
+        { createElement(this.obj, otherProps) }
+      </Provider>
+    );
+  } else {
+    element = renderIntoDocument(createElement(this.obj, props));
+  }
 
   element.should.be.ok();
 

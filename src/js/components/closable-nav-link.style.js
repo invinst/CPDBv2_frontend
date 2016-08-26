@@ -4,5 +4,5 @@ export const wrapperStyle = {
 
 export const closeButtonStyle = {
   position: 'absolute',
-  top: '34px'
+  top: '42px'
 };

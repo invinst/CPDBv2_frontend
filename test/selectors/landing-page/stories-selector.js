@@ -1,8 +1,7 @@
 import 'should';
 
 import {
-  imageStorySelector, dataAvailableSelector, noImageStoriesSelector,
-  getStoriesSelector, rawStoryTransform, paginationSelector, getImageUrl
+  dataAvailableSelector, storiesSelector, rawStoryTransform, paginationSelector, getImageUrl
 } from 'selectors/landing-page/stories-selector';
 import RawStoryFactory from 'utils/test/factories/raw-story';
 import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
@@ -34,7 +33,7 @@ describe('stories selectors', function () {
         { type: 'paragraph', value: 'e' },
         { type: 'paragraph', value: 'f' }
       ],
-      'post_date': '1/2/3',
+      'post_date': '2003/12/11',
       'image_url': {
         [DEFAULT_IMAGE_DIMENSION]: 'g.h'
       },
@@ -46,7 +45,7 @@ describe('stories selectors', function () {
       newspaperName: 'b',
       canonicalUrl: 'a.b.c',
       newspaperShortName: 'c.d',
-      date: '1/2/3',
+      date: 'Dec 11, 2003',
       paragraphs: ['e', 'f'],
       imageUrl: 'g.h',
       isFeatured: true
@@ -70,36 +69,16 @@ describe('stories selectors', function () {
     });
   });
 
-  describe('getStoriesSelector', function () {
+  describe('storiesSelector', function () {
     it('should return correct stories format', function () {
       const rawStory = RawStoryFactory.build();
       state.landingPage.storyApp = {
         stories: PaginationFactory.build({ results: [rawStory] })
       };
 
-      getStoriesSelector(state).should.eql([
+      storiesSelector(state).should.eql([
         rawStoryTransform(rawStory)
       ]);
-    });
-  });
-
-  describe('imageStorySelector', function () {
-    it('should return imageStory', function () {
-      let rawStories = [1, 2, 3].map((id) => RawStoryFactory.build({ id: id, 'image_url': {} }));
-      state.landingPage.storyApp = {
-        stories: PaginationFactory.build({ results: rawStories })
-      };
-
-      imageStorySelector(state).should.eql(rawStoryTransform(rawStories[0]));
-
-      rawStories[1]['image_url'] = {
-        [DEFAULT_IMAGE_DIMENSION]: 'image'
-      };
-      state.landingPage.storyApp = {
-        stories: PaginationFactory.build({ results: rawStories })
-      };
-
-      imageStorySelector(state).should.eql(rawStoryTransform(rawStories[1]));
     });
   });
 
@@ -125,22 +104,6 @@ describe('stories selectors', function () {
         stories: PaginationFactory.build({ results: [1, 2] })
       };
       dataAvailableSelector(state).should.be.false();
-    });
-  });
-
-  describe('noImageStoriesSelector', function () {
-    it('should return 2 stories', function () {
-      const rawStories = RawStoryFactory.buildList(3);
-      state.landingPage.storyApp = {
-        stories: PaginationFactory.build({ results: rawStories })
-      };
-      noImageStoriesSelector(state).should.eql(
-        rawStories.slice(1, 3).map((rawStory) => rawStoryTransform(rawStory))
-      );
-      rawStories.push(RawStoryFactory.build());
-      noImageStoriesSelector(state).should.eql(
-        rawStories.slice(1, 3).map((rawStory) => rawStoryTransform(rawStory))
-      );
     });
   });
 

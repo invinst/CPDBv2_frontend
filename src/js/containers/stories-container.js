@@ -2,11 +2,11 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 
 import {
-  imageStorySelector, dataAvailableSelector, noImageStoriesSelector
+  storiesSelector, dataAvailableSelector
 } from 'selectors/landing-page/stories-selector';
-import StoriesSection from 'components/landing-page/stories/stories-section';
 import { requestStories } from 'actions/landing-page/story-app';
 import { openBottomSheetWithStory } from 'actions/landing-page/bottom-sheet';
+import CoverageSectionContent from 'components/landing-page/coverage-section/coverage-section-content';
 import StoriesPlaceHolder from 'components/landing-page/stories/stories-place-holder';
 
 
@@ -16,15 +16,14 @@ export class UnconnectedStoriesContainer extends Component {
   }
 
   render() {
-    const { dataAvailable, imageStory, noImageStories } = this.props;
+    const { dataAvailable, stories } = this.props;
 
     return (
       !dataAvailable ?
         <StoriesPlaceHolder/> :
-        <StoriesSection
-          handleStoryClick={ this.props.openBottomSheetWithStory }
-          imageStory={ imageStory }
-          noImageStories={ noImageStories }/>
+        <CoverageSectionContent
+          stories={ stories }
+          onStoryClick={ this.props.openBottomSheetWithStory }/>
     );
   }
 }
@@ -33,8 +32,7 @@ UnconnectedStoriesContainer.propTypes = {
   requestStories: PropTypes.func.isRequired,
   openBottomSheetWithStory: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
-  noImageStories: PropTypes.array,
-  imageStory: PropTypes.object
+  stories: PropTypes.array
 };
 
 UnconnectedStoriesContainer.contextTypes = {
@@ -44,8 +42,7 @@ UnconnectedStoriesContainer.contextTypes = {
 function mapStateToProps(state, ownProps) {
   return {
     dataAvailable: dataAvailableSelector(state),
-    imageStory: imageStorySelector(state),
-    noImageStories: noImageStoriesSelector(state)
+    stories: storiesSelector(state)
   };
 }
 

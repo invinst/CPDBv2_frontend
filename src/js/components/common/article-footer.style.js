@@ -1,10 +1,10 @@
-import { accentColor, softBlackColor } from 'utils/styles';
+import { accentColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const linkStyle = {
   color: accentColor,
   fontSize: '13px',
-  fontFamily: '"San Francisco Text Web", sans-serif',
+  fontFamily: sanFranciscoTextFamily,
   fontWeight: '600',
   textDecoration: 'none',
   cursor: 'pointer',

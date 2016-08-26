@@ -1,10 +1,10 @@
-import { accentColor } from 'utils/styles';
+import { accentColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const buttonStyle = {
   color: accentColor,
   fontSize: '13px',
-  fontFamily: '"San Francisco Text Web", sans-serif',
+  fontFamily: sanFranciscoTextFamily,
   fontWeight: '600',
   WebkitAppearance: 'none',
   borderRadius: '2px',

@@ -7,9 +7,13 @@ import { navStyle } from './nav-link.style';
 
 class NavigationLink extends React.Component {
   render() {
+    const { children, href, isActive } = this.props;
+
     return (
-      <Link className='link--transition' to={ this.props.href } style={ navStyle }>
-        { this.props.children }
+      <Link className='link--transition'
+        to={ href }
+        style={ isActive ? [navStyle.base, navStyle.active] : navStyle.base }>
+        { children }
       </Link>
     );
   }
@@ -17,7 +21,12 @@ class NavigationLink extends React.Component {
 
 NavigationLink.propTypes = {
   children: PropTypes.node,
-  href: PropTypes.string
+  href: PropTypes.string,
+  isActive: PropTypes.bool
+};
+
+NavigationLink.defaultProps = {
+  isActive: false
 };
 
 export default ConfiguredRadium(NavigationLink);
