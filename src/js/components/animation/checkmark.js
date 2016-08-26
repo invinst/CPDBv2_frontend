@@ -11,7 +11,7 @@ export default class CheckMark extends Component {
       strokeDashoffset: 30
     };
     const motionStyle = {
-      strokeDashoffset: spring(0, defaultConfig())
+      strokeDashoffset: spring(2, defaultConfig())
     };
     const { style } = this.props;
 

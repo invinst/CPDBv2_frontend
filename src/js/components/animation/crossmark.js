@@ -13,7 +13,7 @@ export default class Crossmark extends Component {
     };
 
     const motionStyle = {
-      strokeDashoffset: spring(0, defaultConfig())
+      strokeDashoffset: spring(2, defaultConfig())
     };
 
     return (
