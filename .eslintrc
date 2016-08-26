@@ -127,6 +127,7 @@
         "eslint:recommended"
     ],
     "globals": {
-        "LIVE_TEST": false
+        "LIVE_TEST": false,
+        "Promise": false
     }
 }

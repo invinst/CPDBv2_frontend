@@ -16,7 +16,6 @@ export const LOAD_MORE_STORIES_REQUEST_START = 'LOAD_MORE_STORIES_REQUEST_START'
 export const LOAD_MORE_STORIES_REQUEST_SUCCESS = 'LOAD_MORE_STORIES_REQUEST_SUCCESS';
 export const LOAD_MORE_STORIES_REQUEST_FAILURE = 'LOAD_MORE_STORIES_REQUEST_FAILURE';
 
-// TODO: should parse url params and pass them here instead of passing url directly
 export const loadMoreStories = (nextUrl) => {
   return get(
     nextUrl,

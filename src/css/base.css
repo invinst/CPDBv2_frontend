@@ -7,5 +7,5 @@ body {
 }
 
 .link--transition {
-    transition: color .25s ease-in-out;
+    transition: color .25s ease-in-out, background-color .25s ease-in-out, background-image .25s ease-in-out;
 }

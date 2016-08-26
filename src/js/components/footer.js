@@ -9,7 +9,7 @@ import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixe
 
 export default class Footer extends React.Component {
   render() {
-    const links = ['Complaints Process', 'Glossary', 'Legal Disclaimer', 'Get Updates', 'Collaborate'];
+    const links = ['Complaints Process', 'Glossary', 'Legal Disclaimer', 'Get Updates'];
     return (
       <div style={ sectionStyle }>
         <div style={ wrapperStyle }>

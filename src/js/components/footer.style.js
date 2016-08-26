@@ -1,8 +1,8 @@
-import { softBlackColor } from 'utils/styles';
+import { nickelColor } from 'utils/styles';
 
 
 export const sectionStyle = {
-  background: softBlackColor,
+  background: 'white',
   boxSizing: 'border-box'
 };
 
@@ -14,11 +14,15 @@ export const wrapperStyle = {
 
 export const linkStyle = {
   display: 'inline-block',
-  marginLeft: '50px'
+  marginLeft: '50px',
+  fontWeight: '100',
+  color: nickelColor
 };
 
 export const firstLinkStyle = {
-  display: 'inline-block'
+  display: 'inline-block',
+  fontWeight: '100',
+  color: nickelColor
 };
 
 export const linkWrapperStyle = {

@@ -34,18 +34,18 @@ describe('Header component', function () {
     Header.should.be.renderable();
   });
 
-  it('should set state fixed to true when scrollY > 88', function () {
+  it('should set state showCompact to true when scrollY > 145', function () {
     element = renderIntoDocument(<Header/>);
-    window.scrollY = 89;
+    window.scrollY = 146;
     callback();
-    element.state.fixed.should.be.true();
+    element.state.showCompact.should.be.true();
   });
 
-  it('should set state fixed to false when scrollY < 88', function () {
+  it('should set state showCompact to false when scrollY < 145', function () {
     element = renderIntoDocument(<Header/>);
-    window.scrollY = 80;
+    window.scrollY = 140;
     callback();
-    element.state.fixed.should.be.false();
+    element.state.showCompact.should.be.false();
   });
 
   it('should not show close button when at base path', function () {

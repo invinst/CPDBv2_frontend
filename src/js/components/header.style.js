@@ -1,5 +1,4 @@
-import { imgUrl } from 'utils/static-assets';
-import { darkGreyColor } from 'utils/styles';
+import { wildSandColor, softBlackColor } from 'utils/styles';
 
 
 export const navStyle = {
@@ -8,58 +7,63 @@ export const navStyle = {
 };
 
 export const navWrapperStyle = {
-  padding: '36px 36px 32px 0',
-  height: '88px',
+  padding: '36px 32px 32px 0',
+  height: '83px',
   boxSizing: 'border-box',
   textAlign: 'right'
 };
 
-export const navWrapperFixedStyle = {
+export const navWrapperCompactStyle = {
+  padding: '31px 32px 32px 0',
+  height: '83px',
+  boxSizing: 'border-box',
+  textAlign: 'right',
   float: 'right',
   display: 'inline-block'
 };
 
 export const wrapperStyle = {
-  borderBottom: `1px solid ${darkGreyColor}`,
-  background: 'white'
+  backgroundColor: wildSandColor
 };
 
-export const fixedWrapperStyle = {
+export const wrapperCompactStyle = {
   position: 'fixed',
   top: '0',
   left: '0',
   width: '100%',
-  background: 'white',
+  backgroundColor: 'white',
   zIndex: '2',
   height: '88px',
   boxSizing: 'border-box',
-  borderBottom: `1px solid ${darkGreyColor}`
+  boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.15)'
 };
 
 export const logoStyle = {
-  height: '25px',
-  width: '90px',
-  background: `url("${imgUrl('CPDB-logo.svg')}") no-repeat scroll 0 0 transparent`,
+  height: '17px',
+  width: '77px',
+  fontWeight: 'bold',
+  fontSize: '30px',
+  color: softBlackColor,
+  fontFamily: '"San Francisco Text", sans-serif',
   display: 'inline-block'
 };
 
 export const logoWrapperStyle = {
   height: '62px',
-  paddingLeft: '36px',
+  paddingLeft: '32px',
   paddingTop: '18px',
   boxSizing: 'border-box'
 };
 
-export const logoWrapperFixedStyle = {
+export const logoWrapperCompactStyle = {
+  height: '62px',
+  paddingLeft: '32px',
+  boxSizing: 'border-box',
   float: 'left',
-  paddingTop: '31px',
+  paddingTop: '25px',
   display: 'inline-block'
 };
 
 export const spacerStyle = {
-  height: '150px'
-};
-
-export const spacerSmallStyle = {
   height: '88px'
 };

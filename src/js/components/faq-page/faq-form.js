@@ -71,7 +71,7 @@ class FAQForm extends ResponsiveStyleComponent {
             <div style={ inputGroupStyle.wrapper }>
               <input type='text' required='true' name='title'
                 style={ [faqFormFontStyle, inputGroupStyle.titleInput, styles.titleInput] }
-                onChange={ this.handleChange } placeholder='What is your question?'/>
+                onChange={ this.handleChange }/>
               <input
                 style={
                   [faqFormFontStyle, inputGroupStyle.button.base, !disabled && inputGroupStyle.button.enabled]

@@ -1,6 +1,9 @@
+import { sanFranciscoTextFamily } from 'utils/styles';
+
+
 export const articleHeaderStyle = {
   fontSize: '13px',
-  fontFamily: '"San Francisco Text Web", sans-serif',
+  fontFamily: sanFranciscoTextFamily,
   fontWeight: '600',
   marginTop: '0',
   marginBottom: '9px'

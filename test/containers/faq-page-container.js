@@ -18,15 +18,16 @@ describe('UnconnectedFAQPageContainer', function () {
 
   it('should render FAQListSection when data is available', function () {
     instance = renderIntoDocument(
-      <UnconnectedFAQPageContainer requestFAQs={ () => {} } faqs={ FAQFactory.buildList(3) }
-        dataAvailable={ true } askQuestion={ () => {} }/>
+      <UnconnectedFAQPageContainer
+        requestFAQs={ () => {} } askQuestion={ () => {} } faqs={ FAQFactory.buildList(3) } dataAvailable={ true }/>
     );
     findRenderedComponentWithType(instance, FAQListSection);
   });
 
   it('should render FAQListSectionPlaceHolder when data is not available', function () {
     instance = renderIntoDocument(
-      <UnconnectedFAQPageContainer requestFAQs={ () => {} } faqs={ [] } dataAvailable={ false }/>
+      <UnconnectedFAQPageContainer
+        requestFAQs={ () => {} } askQuestion={ () => {} } faqs={ [] } dataAvailable={ false }/>
     );
     findRenderedComponentWithType(instance, FAQListSectionPlaceHolder);
   });
@@ -34,7 +35,8 @@ describe('UnconnectedFAQPageContainer', function () {
   it('should call requestFAQs when it just mount', function () {
     const callback = spy();
     instance = renderIntoDocument(
-      <UnconnectedFAQPageContainer requestFAQs={ callback } faqs={ [] } dataAvailable={ false }/>
+      <UnconnectedFAQPageContainer
+        requestFAQs={ callback } askQuestion={ () => {} } faqs={ [] } dataAvailable={ false }/>
     );
     callback.called.should.be.true();
   });

@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
 import { get } from 'lodash';
+import moment from 'moment';
 
 import { getPaginationInfo } from 'selectors/common/pagination-selector';
-import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
+import { DEFAULT_IMAGE_DIMENSION, DATE_FORMAT, DATE_FORMAT_IN } from 'utils/constants';
 import { mediaUrl } from 'utils/static-assets';
 
 
@@ -21,39 +22,22 @@ export function rawStoryTransform(story) {
     canonicalUrl: story['canonical_url'],
     newspaperName: story.newspaper && story.newspaper.name,
     newspaperShortName: story.newspaper && story.newspaper['short_name'],
-    date: story['post_date'],
+    date: moment(story['post_date'], DATE_FORMAT_IN).format(DATE_FORMAT),
     paragraphs: story.body && story.body.map(p => p.value),
     isFeatured: story['is_featured'],
     imageUrl: getImageUrl(story)
   };
 }
 
-export const getStoriesSelector = createSelector(getStories, (stories) => {
+export const storiesSelector = createSelector(getStories, (stories) => {
   return stories.results.map(rawStoryTransform);
 });
 
 export const paginationSelector = createSelector(getStories, getPaginationInfo);
 
-export const imageStorySelector = createSelector(
-  getStoriesSelector,
-  (stories) => {
-    let imageStory = stories.find(story => !!story['imageUrl']);
-    return imageStory ? imageStory : stories[0];
-  }
-);
-
-export const noImageStoriesSelector = createSelector(
-  getStoriesSelector,
-  imageStorySelector,
-  (stories, imageStory) => {
-    let noImageStories = stories.filter(story => story.id !== imageStory.id);
-    return noImageStories.slice(0, 2);
-  }
-);
-
 export const dataAvailableSelector = createSelector(
   getIsRequesting,
-  getStoriesSelector,
+  storiesSelector,
   (isRequesting, stories) => {
     return !isRequesting && stories.length >= 3;
   }
