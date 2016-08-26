@@ -1,21 +1,38 @@
-import React, { Component } from 'react';
+import React from 'react';
 
+import ConfiguredRadium from 'utils/configured-radium';
 import CopyLinkButton from 'components/common/copy-link-btn';
+import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import {
   wrapperStyle, headLineStyle, leftColumnStyle, rightColumnStyle,
   columnHeadLineStyle, emailLinkStyle, listElementStyle, paragraphStyle,
-  emailLinkWrapperStyle, smallTextStyle, copyLinkStyle
+  emailLinkWrapperStyle, smallTextStyle, copyLinkStyle, listStyle
 } from './collaboration-page.style';
+import { MOBILE, TABLET, DESKTOP } from 'utils/constants';
 
 
 const foiaEmail = 'foia@chicagopolice.org';
 const loremEmail = 'loremipsum@cpdp.co';
 
-export default class CollaborationPage extends Component {
-  render() {
+class CollaborationPage extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [MOBILE]: {
+        wrapper: [wrapperStyle.base, wrapperStyle.mobile]
+      },
+      [TABLET]: {
+        wrapper: [wrapperStyle.base, wrapperStyle.tablet]
+      },
+      [DESKTOP]: {
+        wrapper: [wrapperStyle.base, wrapperStyle.tablet]
+      }
+    };
+  }
+
+  renderWithResponsiveStyle(style) {
     return (
       <div>
-        <div style={ wrapperStyle }>
+        <div style={ style.wrapper }>
           <div className='pure-g'>
             <div className='pure-u-1-1'>
               <h2 style={ headLineStyle }>
@@ -57,7 +74,7 @@ export default class CollaborationPage extends Component {
               <p style={ smallTextStyle }>
                 We are currently looking for the following records:
               </p>
-              <ul>
+              <ul style={ listStyle }>
                 <li style={ listElementStyle }>Complaint register files</li>
                 <li style={ listElementStyle }>Civil claims against Chicago Police Officers</li>
                 <li style={ listElementStyle }>Settlement agreements</li>
@@ -76,3 +93,5 @@ export default class CollaborationPage extends Component {
     );
   }
 }
+
+export default ConfiguredRadium(CollaborationPage);
