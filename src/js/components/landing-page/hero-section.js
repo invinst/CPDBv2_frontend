@@ -61,7 +61,7 @@ class HeroSection extends ResponsiveStyleComponent {
                     <CoverImage src={ imgUrl('cpdb-v1-shooting-ss.png') } style={ style.image }/>
                   </a>
                   <p style={ paragraphStyle }>
-                    Instances where Chicago Police have “used force”.
+                    Instances where Chicago Police have "used force".
                   </p>
                   <a
                     key={ `shooting-data-tool-${style.screen}` } className='link--transition'

@@ -19,7 +19,7 @@ export const headLineStyle = {
   marginBottom: '79px',
   fontFamily: minionProFamily,
   fontWeight: 'normal',
-  fontSize: '30px',
+  fontSize: '36px',
   color: softBlackColor
 };
 
@@ -40,7 +40,7 @@ export const columnHeadLineStyle = {
   margin: '0',
   padding: '0 0 35px 0',
   color: softBlackColor,
-  fontSize: '13px',
+  fontSize: '16px',
   fontFamily: sanFranciscoTextFamily,
   fontWeight: '600',
   boxSizing: 'border-box'
@@ -54,7 +54,7 @@ export const emailLinkWrapperStyle = {
 
 export const emailLinkStyle = {
   color: accentColor,
-  fontSize: '14px',
+  fontSize: '16px',
   fontFamily: sanFranciscoTextFamily,
   fontWeight: '600',
   textDecoration: 'none',
@@ -68,21 +68,21 @@ export const copyLinkStyle = {
 
 export const listElementStyle = {
   color: softBlackColor,
-  fontSize: '11px',
+  fontSize: '13px',
   fontFamily: sanFranciscoTextFamily,
   fontWeight: '600'
 };
 
 export const smallTextStyle = {
   color: softBlackColor,
-  fontSize: '11px',
+  fontSize: '13px',
   fontFamily: sanFranciscoTextFamily
 };
 
 export const paragraphStyle = {
   fontFamily: minionProFamily,
   fontWeight: 'normal',
-  fontSize: '15px',
+  fontSize: '19px',
   margin: '0 0 9px 0',
   color: softBlackColor
 };
