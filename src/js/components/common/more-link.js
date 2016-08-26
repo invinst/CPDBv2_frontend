@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { assign } from 'lodash';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import Link from 'components/common/react-router-link';

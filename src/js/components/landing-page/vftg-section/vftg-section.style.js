@@ -76,5 +76,5 @@ export const formHeaderStyle = {
 };
 
 export const vftgWrapperStyle = {
-  padding: '30px 26px 32px',
+  padding: '30px 26px 32px'
 };
