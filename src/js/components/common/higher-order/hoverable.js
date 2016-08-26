@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import isMobile from 'ismobilejs';
 import ConfiguredRadium from 'utils/configured-radium';
 
 
@@ -14,12 +15,18 @@ export default function (ComponentClass) {
     }
 
     handleMouseOver(event) {
+      if (isMobile.any) {
+        return;
+      }
       this.setState({
         hovering: true
       });
     }
 
     handleMouseOut(event) {
+      if (isMobile.any) {
+        return;
+      }
       this.setState({
         hovering: false
       });

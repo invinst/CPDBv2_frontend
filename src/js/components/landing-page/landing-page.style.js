@@ -25,6 +25,6 @@ export const lastSectionStyle = {
   borderBottom: 0
 };
 
-export const vftgSectionHeightStyle = {
-  height: '326px'
+export const vftgSectionStyle = {
+  paddingBottom: 0
 };

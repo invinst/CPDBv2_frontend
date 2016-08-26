@@ -11,7 +11,7 @@ import AboutSection from './about-section';
 import TwitterSection from './twitter-section/twitter-section';
 import CollaborateSection from './collaborate-section';
 import {
-  bottomSectionsWrapperStyle, sectionStyle, lastSectionStyle, vftgSectionHeightStyle, divideLineStyle
+  bottomSectionsWrapperStyle, sectionStyle, lastSectionStyle, divideLineStyle, vftgSectionStyle
 } from './landing-page.style';
 
 
@@ -51,7 +51,7 @@ class LandingPage extends ResponsiveStyleComponent {
               </div>
               <div className={ style.rightColumnClassName }>
                 <div className='pure-u-1-1'>
-                  <VFTGSection wrapperStyle={ [sectionStyle, vftgSectionHeightStyle] }/>
+                  <VFTGSection wrapperStyle={ [sectionStyle, vftgSectionStyle] }/>
                 </div>
                 <div className='pure-u-1-1'>
                   <TwitterSection wrapperStyle={ sectionStyle }/>

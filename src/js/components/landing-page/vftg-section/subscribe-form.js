@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  textInputStyle, formActionBlockStyle, subscribeButtonStyle
+  textInputStyle, formActionBlockStyle
 } from './subscribe-form.style';
 import CheckmarkSpinnerButton from './checkmark-spinner-button';
 import { FORM_INITIAL, FORM_LOADING, FORM_SUCCESS, FORM_FAILURE } from 'utils/constants';
@@ -48,7 +48,7 @@ export default class SubscribeForm extends Component {
             placeholder='email@example.com' type='email' style={ textInputStyle } onChange={ this.handleInputChange }/>
         </div>
         <div style={ formActionBlockStyle }>
-          <CheckmarkSpinnerButton onClick={ this.handleClick } state={ state } style={ subscribeButtonStyle }>
+          <CheckmarkSpinnerButton onClick={ this.handleClick } state={ state }>
             Subscribe
           </CheckmarkSpinnerButton>
         </div>

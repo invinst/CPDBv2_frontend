@@ -29,9 +29,6 @@ export const subscribeBtnStyle = {
 };
 
 export const formActionBlockStyle = {
-  marginTop: '16px'
-};
-
-export const subscribeButtonStyle = {
-  float: 'right'
+  marginTop: '16px',
+  textAlign: 'right'
 };
