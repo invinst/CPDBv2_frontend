@@ -12,7 +12,7 @@ export const coverageWrapperStyle = {
 export const linkStyle = {
   color: softBlackColor,
   textDecoration: 'none',
-  fontWeight: 300
+  fontWeight: 100
 };
 
 export const alignLeftStyle = {

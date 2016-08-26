@@ -24,7 +24,7 @@ export const sourceWrapperStyle = {
 
 export const sourceStyle = {
   color: codGrayColor,
-  fontWeight: 400
+  fontWeight: 300
 };
 
 export const postDateStyle = {
