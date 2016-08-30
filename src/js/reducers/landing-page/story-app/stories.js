@@ -1,16 +1,15 @@
 import { handleActions } from 'redux-actions';
 
-import { STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE } from 'actions/landing-page/story-app';
-import { PAGINATION_DEFAULT } from 'utils/constants';
+import { LANDING_PAGE_REQUEST_SUCCESS, LANDING_PAGE_REQUEST_FAILURE } from 'actions/landing-page';
 
 
 const stories = handleActions({
-  [STORIES_REQUEST_SUCCESS]: (state, action) => (
-    action.payload
+  [LANDING_PAGE_REQUEST_SUCCESS]: (state, action) => (
+    action.payload.reports
   ),
-  [STORIES_REQUEST_FAILURE]: (state, action) => (
-    PAGINATION_DEFAULT
+  [LANDING_PAGE_REQUEST_FAILURE]: (state, action) => (
+    []
   )
-}, PAGINATION_DEFAULT);
+}, []);
 
 export default stories;

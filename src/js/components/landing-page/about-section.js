@@ -1,14 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import {
-  paragraphStyle, contentWrapperStyle
+  paragraphStyle, contentWrapperStyle, wrapperStyle, headerStyle, contentStyle
 } from './about-section.style';
-import SectionTemplate from 'utils/template/section';
-import { BASE_TEMPLATE } from 'utils/constants';
 
 
 class AboutSection extends ResponsiveStyleComponent {
@@ -27,14 +25,12 @@ class AboutSection extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { template, wrapperStyle } = this.props;
-
     return (
-      <div style={ [template.wrapper, wrapperStyle] }>
-        <div style={ template.header }>
+      <div style={ wrapperStyle }>
+        <div style={ headerStyle }>
           <div>About</div>
         </div>
-        <div style={ template.content }>
+        <div style={ contentStyle }>
           <div style={ contentWrapperStyle }>
             <p style={ style.paragraph }>
               The Citizens Police Data Project houses police disciplinary
@@ -51,15 +47,5 @@ class AboutSection extends ResponsiveStyleComponent {
     );
   }
 }
-
-AboutSection.propTypes = {
-  template: PropTypes.object,
-  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
-};
-
-AboutSection.defaultProps = {
-  template: SectionTemplate(BASE_TEMPLATE),
-  wrapperStyle: {}
-};
 
 export default ConfiguredRadium(AboutSection);

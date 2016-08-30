@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
-import { paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle } from './collaborate-section.style';
+import {
+  paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle, wrapperStyle, headerStyle
+} from './collaborate-section.style';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
-import SectionTemplate from 'utils/template/section';
-import { BASE_TEMPLATE } from 'utils/constants';
 import MoreLink from 'components/common/more-link';
 
 
@@ -32,14 +32,12 @@ class CollaborateSection extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { template, wrapperStyle } = this.props;
-
     return (
-      <div style={ [template.wrapper, wrapperStyle] }>
-        <div style={ template.header }>
+      <div style={ wrapperStyle }>
+        <div style={ headerStyle }>
           Collaborate with us
         </div>
-        <div style={ [template.content, contentStyle] }>
+        <div style={ contentStyle }>
           <div style={ style.wrapper }>
             <p style={ style.paragraph }>
               We are collecting and publishing information that sheds light on police misconduct.
@@ -55,15 +53,5 @@ class CollaborateSection extends ResponsiveStyleComponent {
     );
   }
 }
-
-CollaborateSection.propTypes = {
-  template: PropTypes.object,
-  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
-};
-
-CollaborateSection.defaultProps = {
-  template: SectionTemplate(BASE_TEMPLATE),
-  wrapperStyle: {}
-};
 
 export default ConfiguredRadium(CollaborateSection);
