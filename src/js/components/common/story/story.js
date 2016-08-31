@@ -27,6 +27,7 @@ class Story extends Component {
 
     return (
       <div
+        className='story'
         style={ [storyWrapperStyle, wrapperStyle] } onClick={ () => { onClick(story); } }
         onMouseOver={ () => this.setState({ hover: true }) }
         onMouseOut={ () => this.setState({ hover: false }) }>

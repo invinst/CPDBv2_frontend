@@ -5,7 +5,7 @@ import { LANDING_PAGE_REQUEST_SUCCESS, LANDING_PAGE_REQUEST_FAILURE } from 'acti
 
 const stories = handleActions({
   [LANDING_PAGE_REQUEST_SUCCESS]: (state, action) => (
-    action.payload.reports
+    action.payload.reports || []
   ),
   [LANDING_PAGE_REQUEST_FAILURE]: (state, action) => (
     []

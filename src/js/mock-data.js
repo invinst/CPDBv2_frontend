@@ -57,7 +57,7 @@ const stories = [
   }
 ];
 
-axiosMockClient.onGet(`${clientConfig.baseURL}stories/`).reply(200, { results: stories });
+axiosMockClient.onGet(`${clientConfig.baseURL}landing-page/`).reply(200, { reports: stories });
 
 export function getMockAdapter() {
   if (global.LIVE_TEST !== undefined) {

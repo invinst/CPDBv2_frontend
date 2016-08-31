@@ -15,7 +15,7 @@ import { bottomSectionsWrapperStyle, divideLineStyle } from './landing-page.styl
 
 class LandingPage extends ResponsiveStyleComponent {
   componentDidMount() {
-    this.props.requestLandingPage();
+    this.props.requestLandingPage(null, this.context.adapter);
   }
 
   responsiveStyle() {
@@ -74,6 +74,10 @@ class LandingPage extends ResponsiveStyleComponent {
 LandingPage.propTypes = {
   store: PropTypes.object,
   requestLandingPage: PropTypes.func
+};
+
+LandingPage.contextTypes = {
+  adapter: PropTypes.func
 };
 
 export default ConfiguredRadium(LandingPage);
