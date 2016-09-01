@@ -6,10 +6,10 @@ import ResponsiveComponent from 'components/responsive/responsive-component';
 import Story, {
   SMALL_TITLE_STYLE, NORMAL_TITLE_STYLE, BIG_TITLE_STYLE, EXTRA_BIG_TITLE_STYLE
 } from 'components/common/story/story';
-import { storyWrapperStyle, smallStoryStyle, divideLineStyle } from './coverage-section-content.style';
+import { storyWrapperStyle, smallStoryStyle, divideLineStyle } from './reporting-section-content.style';
 
 
-class CoverageSectionContent extends ResponsiveComponent {
+class ReportingSectionContent extends ResponsiveComponent {
   renderTablet() {
     const { stories, onStoryClick } = this.props;
 
@@ -108,9 +108,9 @@ class CoverageSectionContent extends ResponsiveComponent {
   }
 }
 
-CoverageSectionContent.propTypes = {
+ReportingSectionContent.propTypes = {
   stories: arrayOfN(3),
   onStoryClick: PropTypes.func
 };
 
-export default ConfiguredRadium(CoverageSectionContent);
+export default ConfiguredRadium(ReportingSectionContent);

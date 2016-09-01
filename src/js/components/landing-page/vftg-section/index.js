@@ -1,12 +1,10 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
-import SectionTemplate from 'utils/template/section';
-import { SOLID_TEMPLATE } from 'utils/constants';
 import MostRecentEmailLink from './most-recent-email-link';
 import {
   headerBlockStyle, headerStyle, dateStyle, newsWrapperStyle,
-  vftgWrapperStyle, textStyleDesktop, textStyleExtraWide
+  vftgWrapperStyle, textStyleDesktop, textStyleExtraWide, wrapperStyle
 } from './vftg-section.style';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
@@ -29,11 +27,9 @@ class VFTGSection extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { template, wrapperStyle } = this.props;
-
     return (
-      <div style={ [template.wrapper, wrapperStyle] }>
-        <div style={ [template.content, vftgWrapperStyle] }>
+      <div style={ wrapperStyle }>
+        <div style={ vftgWrapperStyle }>
           <div style={ newsWrapperStyle }>
             <div style={ headerBlockStyle }>
               <span style={ headerStyle }>CPDP WEEKLY</span>
@@ -52,15 +48,5 @@ class VFTGSection extends ResponsiveStyleComponent {
     );
   }
 }
-
-VFTGSection.propTypes = {
-  template: PropTypes.object,
-  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
-};
-
-VFTGSection.defaultProps = {
-  template: SectionTemplate(SOLID_TEMPLATE),
-  wrapperStyle: {}
-};
 
 export default ConfiguredRadium(VFTGSection);

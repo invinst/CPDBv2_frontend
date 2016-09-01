@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FAQSectionPlaceHolder from 'components/landing-page/faq/faq-section-place-holder';
+import FAQSectionPlaceHolder from 'components/landing-page/faq-section/faq-section-place-holder';
 
 
 describe('FAQSectionPlaceHolder component', function () {
