@@ -39,7 +39,9 @@ describe('store', function () {
         faqApp: {
           faqs: [],
           isRequesting: false
-        }
+        },
+        heroSection: {},
+        vftgSection: {}
       },
       faqPage: {
         faqForm: {

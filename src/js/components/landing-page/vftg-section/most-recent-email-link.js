@@ -7,11 +7,11 @@ import { wrapperStyle, iconStyle, linkStyle, iconHoverStyle, linkHoverStyle } fr
 
 class MostRecentEmailLink extends Component {
   render() {
-    const { hovering } = this.props;
+    const { hovering, href } = this.props;
     return (
       <div style={ wrapperStyle }>
         <i className='link--transition' style={ hovering ? iconHoverStyle : iconStyle }/>
-        <MoreLink style={ hovering ? linkHoverStyle : linkStyle } showAccentColor={ hovering }>
+        <MoreLink style={ hovering ? linkHoverStyle : linkStyle } showAccentColor={ hovering } href={ href }>
           Most Recent Email
         </MoreLink>
       </div>
@@ -20,7 +20,8 @@ class MostRecentEmailLink extends Component {
 }
 
 MostRecentEmailLink.propTypes = {
-  hovering: PropTypes.bool
+  hovering: PropTypes.bool,
+  href: PropTypes.string
 };
 
 export default Hoverable(MostRecentEmailLink);

@@ -28,6 +28,7 @@ export const textStyle = {
   fontWeight: 100,
   color: softBlackColor,
   cursor: 'pointer',
+  textDecoration: 'none',
   ':hover': {
     color: accentColor
   }
