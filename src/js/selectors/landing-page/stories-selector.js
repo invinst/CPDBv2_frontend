@@ -19,11 +19,10 @@ export function rawStoryTransform(story) {
     id: story.id,
     title: story.title,
     canonicalUrl: story['canonical_url'],
-    newspaperName: story.newspaper && story.newspaper.name,
-    newspaperShortName: story.newspaper && story.newspaper['short_name'],
+    publicationName: story['publication_name'],
+    publicationShortUrl: story['publication_short_url'],
     date: moment(story['post_date'], DATE_FORMAT_IN).format(DATE_FORMAT),
     paragraphs: story.body && story.body.map(p => p.value),
-    isFeatured: story['is_featured'],
     imageUrl: getImageUrl(story)
   };
 }
