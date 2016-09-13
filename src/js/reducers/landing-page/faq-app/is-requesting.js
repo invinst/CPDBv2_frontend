@@ -1,12 +1,14 @@
 import { handleActions } from 'redux-actions';
 
-import { FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE } from 'actions/landing-page/faq-app';
+import {
+  LANDING_PAGE_REQUEST_START, LANDING_PAGE_REQUEST_SUCCESS, LANDING_PAGE_REQUEST_FAILURE
+} from 'actions/landing-page';
 
 
 const isRequesting = handleActions({
-  [FAQS_REQUEST_START]: (state, action) => (true),
-  [FAQS_REQUEST_SUCCESS]: (state, action) => (false),
-  [FAQS_REQUEST_FAILURE]: (state, action) => (false)
+  [LANDING_PAGE_REQUEST_START]: (state, action) => (true),
+  [LANDING_PAGE_REQUEST_SUCCESS]: (state, action) => (false),
+  [LANDING_PAGE_REQUEST_FAILURE]: (state, action) => (false)
 }, false);
 
 export default isRequesting;

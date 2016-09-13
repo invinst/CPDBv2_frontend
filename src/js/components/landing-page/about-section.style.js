@@ -24,3 +24,29 @@ export const paragraphStyle = {
 export const boldTextStyle = {
   fontWeight: 'bold'
 };
+
+export const wrapperStyle = {
+  margin: '16px',
+  boxSizing: 'border-box',
+  backgroundColor: 'white',
+  paddingBottom: '16px',
+  borderBottom: 0
+};
+
+export const headerStyle = {
+  backgroundColor: 'white',
+  height: '26px',
+  lineHeight: '26px',
+  fontFamily: sanFranciscoTextFamily,
+  fontSize: '13px',
+  color: softBlackColor,
+  letterSpacing: '-0.2px',
+  borderLeft: `8px solid ${softBlackColor}`,
+  paddingLeft: '8px',
+  marginBottom: '66px'
+};
+
+export const contentStyle = {
+  backgroundColor: 'white',
+  paddingBottom: '16px'
+};

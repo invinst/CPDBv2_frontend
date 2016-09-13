@@ -4,6 +4,7 @@ import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 
 import rootReducer from 'reducers/root-reducer';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
+import seoMiddleware from 'middleware/seo';
 
 
 export default function configureStore(initialState) {
@@ -12,7 +13,7 @@ export default function configureStore(initialState) {
     rootReducer,
     initialState,
     compose(
-      applyMiddleware(thunk, configuredAxiosMiddleware, bodyScrollMiddleware),
+      applyMiddleware(thunk, configuredAxiosMiddleware, bodyScrollMiddleware, seoMiddleware),
       window.devToolsExtension ? window.devToolsExtension() : f => f
     )
   );

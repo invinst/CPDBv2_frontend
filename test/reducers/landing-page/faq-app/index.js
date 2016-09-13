@@ -1,49 +1,50 @@
-import { FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE } from 'actions/landing-page/faq-app';
+import {
+  LANDING_PAGE_REQUEST_START, LANDING_PAGE_REQUEST_SUCCESS, LANDING_PAGE_REQUEST_FAILURE
+} from 'actions/landing-page';
 import faqApp from 'reducers/landing-page/faq-app';
-import { PAGINATION_DEFAULT } from 'utils/constants';
 
 
 describe('faqApp reducer', function () {
   it('should return initial state', function () {
     faqApp(undefined, {}).should.eql({
-      faqs: PAGINATION_DEFAULT,
+      faqs: [],
       isRequesting: false
     });
   });
 
-  it('should handle FAQS_REQUEST_START', function () {
+  it('should handle LANDING_PAGE_REQUEST_START', function () {
     faqApp(undefined, {
-      type: FAQS_REQUEST_START
+      type: LANDING_PAGE_REQUEST_START
     }).should.eql({
-      faqs: PAGINATION_DEFAULT,
+      faqs: [],
       isRequesting: true
     });
   });
 
-  it('should handle FAQS_REQUEST_SUCCESS', function () {
+  it('should handle LANDING_PAGE_REQUEST_SUCCESS', function () {
     let nextState = faqApp(undefined, {
-      type: FAQS_REQUEST_START
+      type: LANDING_PAGE_REQUEST_START
     });
 
     faqApp(nextState, {
-      type: FAQS_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+      type: LANDING_PAGE_REQUEST_SUCCESS,
+      payload: { faqs: [1, 2, 3] }
     }).should.eql({
       faqs: [1, 2, 3],
       isRequesting: false
     });
   });
 
-  it('should handle FAQS_REQUEST_FAILURE', function () {
+  it('should handle LANDING_PAGE_REQUEST_FAILURE', function () {
     let nextState = faqApp(undefined, {
-      type: FAQS_REQUEST_START
+      type: LANDING_PAGE_REQUEST_START
     });
 
     faqApp(nextState, {
-      type: FAQS_REQUEST_FAILURE,
+      type: LANDING_PAGE_REQUEST_FAILURE,
       payload: new Error('Load failed')
     }).should.eql({
-      faqs: PAGINATION_DEFAULT,
+      faqs: [],
       isRequesting: false
     });
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FAQSection from 'components/landing-page/faq-section/faq-section';
+import FAQSection from 'components/landing-page/faq-section';
 import configureStore from 'redux-mock-store';
 import FAQFactory from 'utils/test/factories/faq';
 import PaginationFactory from 'utils/test/factories/pagination';
@@ -18,6 +18,6 @@ const store = mockStore({
 
 describe('FAQSection component', function () {
   it('should render', function () {
-    FAQSection.should.be.renderable({ store: store });
+    FAQSection.should.be.renderable({ store: store, openBottomSheetWithFAQ: () => {} });
   });
 });

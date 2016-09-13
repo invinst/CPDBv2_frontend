@@ -3,7 +3,8 @@ import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 export const contentStyle = {
   paddingBottom: '39px',
-  paddingLeft: '12px'
+  paddingLeft: '12px',
+  backgroundColor: 'white'
 };
 
 export const paragraphStyle = {
@@ -39,4 +40,25 @@ export const paragraphWrapperStyle = {
     color: softBlackColor,
     width: '902px'
   }
+};
+
+export const wrapperStyle = {
+  margin: '16px',
+  boxSizing: 'border-box',
+  backgroundColor: 'white',
+  paddingBottom: '16px',
+  borderBottom: 0
+};
+
+export const headerStyle = {
+  backgroundColor: 'white',
+  height: '26px',
+  lineHeight: '26px',
+  fontFamily: sanFranciscoTextFamily,
+  fontSize: '13px',
+  color: softBlackColor,
+  letterSpacing: '-0.2px',
+  borderLeft: `8px solid ${softBlackColor}`,
+  paddingLeft: '8px',
+  marginBottom: '66px'
 };

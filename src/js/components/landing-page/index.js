@@ -4,18 +4,20 @@ import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import ConfiguredRadium from 'utils/configured-radium';
 import HeroSection from 'components/landing-page/hero-section';
-import CoverageSection from './coverage-section/coverage-section';
-import FAQSection from './faq-section/faq-section';
+import FAQSectionContainer from 'containers/landing-page/faq-section-container';
+import ReportingSectionContainer from 'containers/landing-page/reporting-section-container';
 import VFTGSection from './vftg-section';
 import AboutSection from './about-section';
 import TwitterSection from './twitter-section/twitter-section';
 import CollaborateSection from './collaborate-section';
-import {
-  bottomSectionsWrapperStyle, sectionStyle, lastSectionStyle, divideLineStyle, vftgSectionStyle
-} from './landing-page.style';
+import { bottomSectionsWrapperStyle, divideLineStyle } from './landing-page.style';
 
 
 class LandingPage extends ResponsiveStyleComponent {
+  componentDidMount() {
+    this.props.requestLandingPage(null, this.context.adapter);
+  }
+
   responsiveStyle() {
     return {
       [DESKTOP]: {
@@ -30,36 +32,36 @@ class LandingPage extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { store } = this.props;
+    const { store, vftgSection, heroSection } = this.props;
 
     return (
       <div>
-        <HeroSection />
+        <HeroSection { ...heroSection } />
         <div style={ bottomSectionsWrapperStyle }>
           <ResponsiveFixedWidthComponent>
             <div className='pure-g'>
               <div className='pure-u-1-1'>
-                <CoverageSection wrapperStyle={ sectionStyle } store={ store }/>
+                <ReportingSectionContainer store={ store }/>
               </div>
               <div className={ style.leftColumnClassName }>
                 <div className='pure-u-1-1'>
-                  <FAQSection wrapperStyle={ sectionStyle } store={ store }/>
+                  <FAQSectionContainer store={ store }/>
                 </div>
                 <div className='pure-u-1-1'>
-                  <AboutSection wrapperStyle={ [sectionStyle, lastSectionStyle] }/>
+                  <AboutSection/>
                 </div>
               </div>
               <div className={ style.rightColumnClassName }>
                 <div className='pure-u-1-1'>
-                  <VFTGSection wrapperStyle={ [sectionStyle, vftgSectionStyle] }/>
+                  <VFTGSection { ...vftgSection }/>
                 </div>
                 <div className='pure-u-1-1'>
-                  <TwitterSection wrapperStyle={ sectionStyle }/>
+                  <TwitterSection/>
                 </div>
               </div>
               <div style={ divideLineStyle }/>
               <div className='pure-u-1-1'>
-                <CollaborateSection wrapperStyle={ [sectionStyle, lastSectionStyle] }/>
+                <CollaborateSection/>
               </div>
             </div>
           </ResponsiveFixedWidthComponent>
@@ -70,7 +72,14 @@ class LandingPage extends ResponsiveStyleComponent {
 }
 
 LandingPage.propTypes = {
-  store: PropTypes.object
+  store: PropTypes.object,
+  heroSection: PropTypes.object,
+  vftgSection: PropTypes.object,
+  requestLandingPage: PropTypes.func
+};
+
+LandingPage.contextTypes = {
+  adapter: PropTypes.func
 };
 
 export default ConfiguredRadium(LandingPage);
