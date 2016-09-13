@@ -5,3 +5,5 @@
   vars:
     - deploy_user: ansible
     - deploy_group: ansible
+  environment:
+    NODE_ENV: "{{ node_env }}"

@@ -10,9 +10,15 @@ import {
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 import SubscribeForm from 'containers/landing-page/vftg-section/subscribe-form-container';
+import createFunctionWithTimeout from 'utils/create-function-with-timeout';
 
 
 class VFTGSection extends ResponsiveStyleComponent {
+  constructor(props) {
+    super(props);
+    this.handleClickVftgLink = this.handleClickVftgLink.bind(this);
+  }
+
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
@@ -27,6 +33,14 @@ class VFTGSection extends ResponsiveStyleComponent {
     };
   }
 
+  handleClickVftgLink(event) {
+    event.preventDefault();
+
+    global.ga('send', 'event', 'VFTG section: news link', 'click', {
+      hitCallback: createFunctionWithTimeout(() => window.location = this.props.contentLink )
+    });
+  }
+
   renderWithResponsiveStyle(style) {
     const { headerText, date, contentText, contentLink } = this.props;
     const formattedDate = moment(date, 'YYYY-MM-DD').format('ll');
@@ -38,7 +52,9 @@ class VFTGSection extends ResponsiveStyleComponent {
               <span style={ headerStyle }>{ headerText }</span>
               <span style={ dateStyle }>{ formattedDate }</span>
             </div>
-            <a className='link--transition' style={ style.textStyle } key={ style.screen } href={ contentLink }>
+            <a
+              className='link--transition' style={ style.textStyle }
+              key={ style.screen } onClick={ this.handleClickVftgLink }>
               { contentText }
             </a>
           </div>

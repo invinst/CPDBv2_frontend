@@ -14,10 +14,14 @@ export default class RouterRoot extends Component {
     return (
       <Router history={ browserHistory }>
         <Route path='/' component={ App }>
-          <IndexRoute component={ LandingPageContainer }/>
-          <Route path={ STORIES_PATH } component={ StoriesPage }/>
-          <Route path={ COLLAB_PATH } component={ CollaborationPage }/>
-          <Route path={ FAQ_PATH } component={ FAQPage }/>
+          <IndexRoute component={ LandingPageContainer }
+            onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) }/>
+          <Route path={ STORIES_PATH } component={ StoriesPage }
+            onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }/>
+          <Route path={ COLLAB_PATH } component={ CollaborationPage }
+            onEnter={ () => global.ga('send', 'screenview', { screenName: 'Collaborate' }) }/>
+          <Route path={ FAQ_PATH } component={ FAQPage }
+            onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }/>
         </Route>
       </Router>
     );
