@@ -32,11 +32,11 @@ class LandingPage extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { store } = this.props;
+    const { store, vftgSection, heroSection } = this.props;
 
     return (
       <div>
-        <HeroSection />
+        <HeroSection { ...heroSection } />
         <div style={ bottomSectionsWrapperStyle }>
           <ResponsiveFixedWidthComponent>
             <div className='pure-g'>
@@ -53,7 +53,7 @@ class LandingPage extends ResponsiveStyleComponent {
               </div>
               <div className={ style.rightColumnClassName }>
                 <div className='pure-u-1-1'>
-                  <VFTGSection/>
+                  <VFTGSection { ...vftgSection }/>
                 </div>
                 <div className='pure-u-1-1'>
                   <TwitterSection/>
@@ -73,6 +73,8 @@ class LandingPage extends ResponsiveStyleComponent {
 
 LandingPage.propTypes = {
   store: PropTypes.object,
+  heroSection: PropTypes.object,
+  vftgSection: PropTypes.object,
   requestLandingPage: PropTypes.func
 };
 

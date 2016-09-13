@@ -17,7 +17,11 @@ describe('VFTGSection component', function () {
   });
 
   it('should be renderable', function () {
-    VFTGSection.should.be.renderable({ store });
+    VFTGSection.should.be.renderable({
+      store,
+      headerText: 'CPDP Weekly', date: '2016-09-26',
+      contentText: 'abc def', contentLink: 'http://example.com'
+    });
   });
 
   it('Click on link should call ga', function () {

@@ -13,7 +13,9 @@ describe('HeroSection component', function () {
   });
 
   it('should be renderable', function () {
-    HeroSection.should.be.responsiveRenderable();
+    HeroSection.should.be.responsiveRenderable({
+      complaintsText: 'complaint text', useOfForceText: 'use of force text'
+    });
   });
 
   it('should trigger gaSpy when click on dataLink', function () {
