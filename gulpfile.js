@@ -49,9 +49,15 @@ const buildJs = (output) => (() => {
 });
 
 const ROOT = '/www/static/';
-const globalVariableBlock = '<script type="text/javascript">'
-  + 'var GA_TRACKING_ID = "UA-63671047-2";'
-  + '</script>';
+
+let globalVariableBlock;
+if (process.env.NODE_ENV === 'production') {
+  globalVariableBlock = '<script type="text/javascript">'
+    + 'var GA_TRACKING_ID = "UA-63671047-2";'
+    + '</script>';
+} else if (process.env.NODE_ENV === 'staging') {
+  globalVariableBlock = '';
+}
 
 gulp.task('build-html', buildHTML(globalVariableBlock, ROOT));
 gulp.task('build-js', buildJs(`${ROOT}dist/`));
