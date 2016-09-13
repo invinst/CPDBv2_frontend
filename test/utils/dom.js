@@ -1,6 +1,9 @@
 import { browserHistory } from 'react-router';
 
-import { innerHeight, disableBodyScroll, enableBodyScroll, getCurrentPathname } from 'utils/dom';
+import {
+  innerHeight, disableBodyScroll, enableBodyScroll, getCurrentPathname,
+  changePageTitle, setMetaAttribute, changePageDescription
+} from 'utils/dom';
 
 describe('dom utils', function () {
   describe('innerHeight function', function () {
@@ -42,6 +45,50 @@ describe('dom utils', function () {
     it('should return current path', function () {
       browserHistory.push('/abc');
       getCurrentPathname().should.equal('/abc');
+    });
+  });
+
+  describe('changePageTitle', function () {
+    it('should change page title', function () {
+      changePageTitle('abc');
+      const el = document.getElementsByTagName('TITLE')[0];
+      el.textContent.should.equal('abc');
+    });
+  });
+
+  describe('setMetaAttribute', function () {
+    const headEl = document.getElementsByTagName('HEAD')[0];
+
+    it('should change existing meta attribute', function () {
+      const el = document.createElement('META');
+      el.setAttribute('name', 'description');
+      el.setAttribute('content', 'edf');
+      headEl.appendChild(el);
+      setMetaAttribute('description', 'abc');
+      el.getAttribute('content').should.equal('abc');
+      headEl.removeChild(el);
+    });
+
+    it('should create new meta element if none exist', function () {
+      setMetaAttribute('keywords', 'abc,edf');
+      const el = document.evaluate(
+        '//meta[@name="keywords"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
+      ).singleNodeValue;
+      el.getAttribute('content').should.equal('abc,edf');
+      headEl.removeChild(el);
+    });
+  });
+
+  describe('changePageDescription', function () {
+    const headEl = document.getElementsByTagName('HEAD')[0];
+
+    it('should change page meta description', function () {
+      changePageDescription('lorem ipsum');
+      const el = document.evaluate(
+        '//meta[@name="description"]', document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
+      ).singleNodeValue;
+      el.getAttribute('content').should.equal('lorem ipsum');
+      headEl.removeChild(el);
     });
   });
 });

@@ -5,9 +5,15 @@ import { requestLandingPage } from 'actions/landing-page';
 import LandingPage from 'components/landing-page';
 
 
+function mapStateToProps(state, ownProps) {
+  return {
+    vftgSection: state.landingPage.vftgSection,
+    heroSection: state.landingPage.heroSection
+  };
+}
+
 const mapDispatchToProps = {
   requestLandingPage
 };
 
-export default connect(null, mapDispatchToProps)(LandingPage);
-
+export default connect(mapStateToProps, mapDispatchToProps)(LandingPage);

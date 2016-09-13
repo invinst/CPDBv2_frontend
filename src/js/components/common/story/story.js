@@ -35,7 +35,7 @@ class Story extends Component {
           <span
             className='link--transition story-source'
             style={ [sourceStyle, this.getHoverState() && hoverColorStyle] }>
-            { story.newspaperName }
+            { story.publicationName }
           </span>
           <span
             className='link--transition story-post-date'

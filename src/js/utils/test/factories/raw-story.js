@@ -2,12 +2,12 @@ import { Factory } from 'rosie';
 import { lorem, internet, date } from 'faker';
 
 import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
-import NewspaperFactory from 'utils/test/factories/newspaper';
 
 
 export default new Factory()
   .sequence('id')
-  .attr('newspaper', () => (NewspaperFactory.build()))
+  .attr('publication_name', () => (lorem.sentences()))
+  .attr('publication_short_url', () => (internet.url()))
   .attr('canonical_url', () => (internet.url()))
   .attr('title', () => (lorem.sentence()))
   .attr('body', () => ([{
@@ -16,5 +16,4 @@ export default new Factory()
   .attr('post_date', () => (date.past()))
   .attr('image_url', () => ({
     [DEFAULT_IMAGE_DIMENSION]: internet.url()
-  }))
-  .attr('is_featured', () => (false));
+  }));

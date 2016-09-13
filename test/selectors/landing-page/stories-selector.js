@@ -23,11 +23,8 @@ describe('stories selectors', function () {
       id: 1,
       title: 'a',
       'canonical_url': 'a.b.c',
-      newspaper: {
-        id: 1,
-        name: 'b',
-        'short_name': 'c.d'
-      },
+      'publication_name': 'b',
+      'publication_short_url': 'c.d',
       body: [
         { type: 'paragraph', value: 'e' },
         { type: 'paragraph', value: 'f' }
@@ -35,19 +32,17 @@ describe('stories selectors', function () {
       'post_date': '2003/12/11',
       'image_url': {
         [DEFAULT_IMAGE_DIMENSION]: 'g.h'
-      },
-      'is_featured': true
+      }
     };
     const transformedStory = {
       id: 1,
       title: 'a',
-      newspaperName: 'b',
+      publicationName: 'b',
       canonicalUrl: 'a.b.c',
-      newspaperShortName: 'c.d',
+      publicationShortUrl: 'c.d',
       date: 'Dec 11, 2003',
       paragraphs: ['e', 'f'],
-      imageUrl: 'g.h',
-      isFeatured: true
+      imageUrl: 'g.h'
     };
 
     rawStoryTransform(rawStory).should.eql(transformedStory);

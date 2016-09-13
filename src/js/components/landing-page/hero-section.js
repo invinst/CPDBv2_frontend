@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ResponsiveStyleComponent, {
@@ -35,6 +35,7 @@ class HeroSection extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
+    const { complaintsText, useOfForceText } = this.props;
     return (
       <div style={ wrapperStyle }>
         <ResponsiveFixedWidthComponent>
@@ -46,7 +47,7 @@ class HeroSection extends ResponsiveStyleComponent {
                     <CoverImage src={ imgUrl('cpdb-v1-ss.png') } style={ style.image }/>
                   </a>
                   <p style={ paragraphStyle }>
-                    Complaints against the Chicago Police Department.
+                    { complaintsText }
                   </p>
                   <a
                     key={ `data-tool-${style.screen}` } className='link--transition'
@@ -61,7 +62,7 @@ class HeroSection extends ResponsiveStyleComponent {
                     <CoverImage src={ imgUrl('cpdb-v1-shooting-ss.png') } style={ style.image }/>
                   </a>
                   <p style={ paragraphStyle }>
-                    Instances where Chicago Police have "used force".
+                    { useOfForceText }
                   </p>
                   <a
                     key={ `shooting-data-tool-${style.screen}` } className='link--transition'
@@ -77,5 +78,10 @@ class HeroSection extends ResponsiveStyleComponent {
     );
   }
 }
+
+HeroSection.propTypes = {
+  complaintsText: PropTypes.string,
+  useOfForceText: PropTypes.string
+};
 
 export default ConfiguredRadium(HeroSection);

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import moment from 'moment';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import MostRecentEmailLink from './most-recent-email-link';
@@ -27,20 +28,22 @@ class VFTGSection extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
+    const { headerText, date, contentText, contentLink } = this.props;
+    const formattedDate = moment(date, 'YYYY-MM-DD').format('ll');
     return (
       <div style={ wrapperStyle }>
         <div style={ vftgWrapperStyle }>
           <div style={ newsWrapperStyle }>
             <div style={ headerBlockStyle }>
-              <span style={ headerStyle }>CPDP WEEKLY</span>
-              <span style={ dateStyle }>Sep 23, 2016</span>
+              <span style={ headerStyle }>{ headerText }</span>
+              <span style={ dateStyle }>{ formattedDate }</span>
             </div>
-            <div style={ style.textStyle } key={ style.screen }>
-              Complaints against Chicago Police rarely result in discipline data shows.
-            </div>
+            <a className='link--transition' style={ style.textStyle } key={ style.screen } href={ contentLink }>
+              { contentText }
+            </a>
           </div>
           <div>
-            <MostRecentEmailLink/>
+            <MostRecentEmailLink href={ contentLink }/>
             <SubscribeForm />
           </div>
         </div>
@@ -48,5 +51,12 @@ class VFTGSection extends ResponsiveStyleComponent {
     );
   }
 }
+
+VFTGSection.propTypes = {
+  headerText: PropTypes.string,
+  date: PropTypes.string,
+  contentText: PropTypes.string,
+  contentLink: PropTypes.string
+};
 
 export default ConfiguredRadium(VFTGSection);
