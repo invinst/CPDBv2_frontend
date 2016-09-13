@@ -1,5 +1,6 @@
 import { unmountComponentAtNode, findDOMNode, render } from 'react-dom';
 import isMobile from 'ismobilejs';
+import { spy } from 'sinon';
 
 
 export function unmountComponentSuppressError(element) {
@@ -25,4 +26,18 @@ export function withMobileDevice(cb) {
 export function reRender(component, element, ...args) {
   const rootEl = findDOMNode(element).parentNode;
   return render(component, rootEl, ...args);
+}
+
+global.ga = () => {};
+
+export function withMockGA(cb) {
+  const gaSpy = spy();
+  const oldGa = global.ga;
+  global.ga = (...args) => {
+    gaSpy();
+    const fields = args[args.length - 1];
+    fields.hitCallback && fields.hitCallback();
+  };
+  cb(gaSpy);
+  global.ga = oldGa;
 }
