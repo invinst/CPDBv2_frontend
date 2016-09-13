@@ -49,8 +49,11 @@ const buildJs = (output) => (() => {
 });
 
 const ROOT = '/www/static/';
+const globalVariableBlock = '<script type="text/javascript">'
+  + 'var GA_TRACKING_ID = "UA-63671047-2";'
+  + '</script>';
 
-gulp.task('build-html', buildHTML('', ROOT));
+gulp.task('build-html', buildHTML(globalVariableBlock, ROOT));
 gulp.task('build-js', buildJs(`${ROOT}dist/`));
 gulp.task('copy-static', copyStatic(`${ROOT}dist/`));
 
