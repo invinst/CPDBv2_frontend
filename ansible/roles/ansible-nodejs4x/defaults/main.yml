@@ -1,0 +1,5 @@
+---
+nodejs4x:
+  deploy_user: '{{ ansible_ssh_user }}'
+  deploy_group: '{{ ansible_ssh_user }}'
+  deploy_user_home: '/home/{{ ansible_ssh_user }}'
