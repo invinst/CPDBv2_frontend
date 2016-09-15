@@ -6,3 +6,4 @@
   roles:
     - ansible-nodejs4x
     - frontend_dev
+    - nicolai86.phantomjs
