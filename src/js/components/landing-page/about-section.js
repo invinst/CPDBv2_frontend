@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { map } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ResponsiveStyleComponent, {
@@ -24,28 +25,35 @@ class AboutSection extends ResponsiveStyleComponent {
     };
   }
 
+  renderBody(paragraphStyle) {
+    return map(this.props.body, (paragraph, key) => (
+      <p style={ paragraphStyle } key={ key }>
+        { paragraph.value }
+      </p>
+      ));
+  }
+
   renderWithResponsiveStyle(style) {
+    const { headerText } = this.props;
+
     return (
       <div style={ wrapperStyle }>
         <div style={ headerStyle }>
-          <div>About</div>
+          <div>{ headerText }</div>
         </div>
         <div style={ contentStyle }>
           <div style={ contentWrapperStyle }>
-            <p style={ style.paragraph }>
-              The Citizens Police Data Project houses police disciplinary
-              information obtained from the City of Chicago.
-            </p>
-            <p style={ style.paragraph }>
-              The information and stories we have collected here are intended
-              as a resource for public oversight. Our aim is to create a new
-              model of accountability between officers and citizens.
-            </p>
+            { this.renderBody(style.paragraph) }
           </div>
         </div>
       </div>
     );
   }
 }
+
+AboutSection.propTypes = {
+  headerText: PropTypes.string,
+  body: PropTypes.array
+};
 
 export default ConfiguredRadium(AboutSection);
