@@ -21,3 +21,9 @@ test:
     - npm run live-test
   post:
     - cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
+deployment:
+  staging:
+    branch: staging
+    commands:
+      - ./bin/circle-deploy-staging
