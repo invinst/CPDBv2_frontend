@@ -7,7 +7,7 @@ import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
 export default new Factory()
   .sequence('id')
   .attr('publication_name', () => (lorem.sentences()))
-  .attr('publication_short_url', () => (internet.url()))
+  .attr('publication_short_name', () => (internet.url()))
   .attr('canonical_url', () => (internet.url()))
   .attr('title', () => (lorem.sentence()))
   .attr('body', () => ([{

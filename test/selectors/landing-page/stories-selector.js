@@ -24,7 +24,7 @@ describe('stories selectors', function () {
       title: 'a',
       'canonical_url': 'a.b.c',
       'publication_name': 'b',
-      'publication_short_url': 'c.d',
+      'publication_short_name': 'c.d',
       body: [
         { type: 'paragraph', value: 'e' },
         { type: 'paragraph', value: 'f' }
@@ -39,7 +39,7 @@ describe('stories selectors', function () {
       title: 'a',
       publicationName: 'b',
       canonicalUrl: 'a.b.c',
-      publicationShortUrl: 'c.d',
+      publicationShortName: 'c.d',
       date: 'Dec 11, 2003',
       paragraphs: ['e', 'f'],
       imageUrl: 'g.h'
