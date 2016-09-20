@@ -4,6 +4,7 @@ import { storiesPageStyle } from './stories-page.style';
 import FeaturedStoriesContainer from 'containers/stories-page/featured-stories-container';
 import NonFeaturedStoriesContainer from 'containers/stories-page/non-featured-stories-container';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import Footer from 'components/footer';
 
 
 export default class StoriesPage extends Component {
@@ -14,6 +15,7 @@ export default class StoriesPage extends Component {
           <FeaturedStoriesContainer store={ this.props.store }/>
           <NonFeaturedStoriesContainer store={ this.props.store }/>
         </ResponsiveFixedWidthComponent>
+        <Footer/>
       </div>
     );
   }
