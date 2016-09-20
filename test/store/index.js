@@ -40,6 +40,8 @@ describe('store', function () {
           faqs: [],
           isRequesting: false
         },
+        aboutSection: {},
+        collaborateSection: {},
         heroSection: {},
         vftgSection: {}
       },

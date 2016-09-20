@@ -33,7 +33,7 @@ class StoryFull extends React.Component {
         </div>
         <ArticleFooter device={ DESKTOP } className='pure-u-1-1' href={ story.canonicalUrl }
           style={ { wrapper: footerStyle } }>
-          continued on { story.publicationShortUrl }
+          continued on { story.publicationShortName }
         </ArticleFooter>
       </div>
     );
@@ -45,7 +45,7 @@ StoryFull.propTypes = {
     title: PropTypes.string,
     paragraphs: PropTypes.arrayOf(PropTypes.string),
     publicationName: PropTypes.string,
-    publicationShortUrl: PropTypes.string,
+    publicationShortName: PropTypes.string,
     canonicalUrl: PropTypes.string
   }),
   style: PropTypes.object,
@@ -73,7 +73,7 @@ StoryFull.defaultProps = {
       ].join('')
     ],
     publicationName: 'New York Times',
-    publicationShortUrl: 'nyt.com'
+    publicationShortName: 'nyt.com'
   }
 };
 
