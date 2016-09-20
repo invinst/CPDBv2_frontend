@@ -1,17 +1,15 @@
 import { handleActions } from 'redux-actions';
 
-import { FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE } from 'actions/landing-page/faq-app';
-
-import { PAGINATION_DEFAULT } from 'utils/constants';
+import { LANDING_PAGE_REQUEST_SUCCESS, LANDING_PAGE_REQUEST_FAILURE } from 'actions/landing-page';
 
 
 const faqs = handleActions({
-  [FAQS_REQUEST_SUCCESS]: (state, action) => (
-    action.payload
+  [LANDING_PAGE_REQUEST_SUCCESS]: (state, action) => (
+    action.payload.faqs || []
   ),
-  [FAQS_REQUEST_FAILURE]: (state, action) => (
-    PAGINATION_DEFAULT
+  [LANDING_PAGE_REQUEST_FAILURE]: (state, action) => (
+    []
   )
-}, PAGINATION_DEFAULT);
+}, []);
 
 export default faqs;

@@ -1,14 +1,13 @@
 import React, { PropTypes } from 'react';
+import { map } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import {
-  paragraphStyle, contentWrapperStyle
+  paragraphStyle, contentWrapperStyle, wrapperStyle, headerStyle, contentStyle
 } from './about-section.style';
-import SectionTemplate from 'utils/template/section';
-import { BASE_TEMPLATE } from 'utils/constants';
 
 
 class AboutSection extends ResponsiveStyleComponent {
@@ -26,25 +25,25 @@ class AboutSection extends ResponsiveStyleComponent {
     };
   }
 
+  renderBody(paragraphStyle) {
+    return map(this.props.body, (paragraph, key) => (
+      <p style={ paragraphStyle } key={ key }>
+        { paragraph.value }
+      </p>
+      ));
+  }
+
   renderWithResponsiveStyle(style) {
-    const { template, wrapperStyle } = this.props;
+    const { headerText } = this.props;
 
     return (
-      <div style={ [template.wrapper, wrapperStyle] }>
-        <div style={ template.header }>
-          <div>About</div>
+      <div style={ wrapperStyle }>
+        <div style={ headerStyle }>
+          <div>{ headerText }</div>
         </div>
-        <div style={ template.content }>
+        <div style={ contentStyle }>
           <div style={ contentWrapperStyle }>
-            <p style={ style.paragraph }>
-              The Citizens Police Data Project houses police disciplinary
-              information obtained from the City of Chicago.
-            </p>
-            <p style={ style.paragraph }>
-              The information and stories we have collected here are intended
-              as a resource for public oversight. Our aim is to create a new
-              model of accountability between officers and citizens.
-            </p>
+            { this.renderBody(style.paragraph) }
           </div>
         </div>
       </div>
@@ -53,13 +52,8 @@ class AboutSection extends ResponsiveStyleComponent {
 }
 
 AboutSection.propTypes = {
-  template: PropTypes.object,
-  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
-};
-
-AboutSection.defaultProps = {
-  template: SectionTemplate(BASE_TEMPLATE),
-  wrapperStyle: {}
+  headerText: PropTypes.string,
+  body: PropTypes.array
 };
 
 export default ConfiguredRadium(AboutSection);

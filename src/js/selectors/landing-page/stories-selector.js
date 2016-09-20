@@ -2,7 +2,6 @@ import { createSelector } from 'reselect';
 import { get } from 'lodash';
 import moment from 'moment';
 
-import { getPaginationInfo } from 'selectors/common/pagination-selector';
 import { DEFAULT_IMAGE_DIMENSION, DATE_FORMAT, DATE_FORMAT_IN } from 'utils/constants';
 import { mediaUrl } from 'utils/static-assets';
 
@@ -20,20 +19,17 @@ export function rawStoryTransform(story) {
     id: story.id,
     title: story.title,
     canonicalUrl: story['canonical_url'],
-    newspaperName: story.newspaper && story.newspaper.name,
-    newspaperShortName: story.newspaper && story.newspaper['short_name'],
+    publicationName: story['publication_name'],
+    publicationShortName: story['publication_short_name'],
     date: moment(story['post_date'], DATE_FORMAT_IN).format(DATE_FORMAT),
     paragraphs: story.body && story.body.map(p => p.value),
-    isFeatured: story['is_featured'],
     imageUrl: getImageUrl(story)
   };
 }
 
 export const storiesSelector = createSelector(getStories, (stories) => {
-  return stories.results.map(rawStoryTransform);
+  return stories.map(rawStoryTransform);
 });
-
-export const paginationSelector = createSelector(getStories, getPaginationInfo);
 
 export const dataAvailableSelector = createSelector(
   getIsRequesting,

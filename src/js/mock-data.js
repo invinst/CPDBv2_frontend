@@ -7,11 +7,8 @@ const stories = [
   {
     id: 1,
     title: 'title 1',
-    newspaper: {
-      id: 1,
-      name: 'newspaper name 1',
-      'short_name': 'newspaper short name 1'
-    },
+    'publication_name': 'newspaper name 1',
+    'publication_short_name': 'newspaper short name 1',
     body: [
       { type: 'paragraph', value: 'body paragraph 1' },
       { type: 'paragraph', value: 'body paragraph 2' }
@@ -24,11 +21,8 @@ const stories = [
   {
     id: 2,
     title: 'title 2',
-    newspaper: {
-      id: 2,
-      name: 'newspaper name 2',
-      'short_name': 'newspaper short name 2'
-    },
+    'publication_name': 'newspaper name 2',
+    'publication_short_name': 'newspaper short name 2',
     body: [
       { type: 'paragraph', value: 'body paragraph 1' },
       { type: 'paragraph', value: 'body paragraph 2' }
@@ -41,11 +35,8 @@ const stories = [
   {
     id: 3,
     title: 'title 3',
-    newspaper: {
-      id: 3,
-      name: 'newspaper name 3',
-      'short_name': 'newspaper short name 3'
-    },
+    'publication_name': 'newspaper name 3',
+    'publication_short_name': 'newspaper short name 3',
     body: [
       { type: 'paragraph', value: 'body paragraph 1' },
       { type: 'paragraph', value: 'body paragraph 2' }
@@ -57,7 +48,7 @@ const stories = [
   }
 ];
 
-axiosMockClient.onGet(`${clientConfig.baseURL}stories/`).reply(200, { results: stories });
+axiosMockClient.onGet(`${clientConfig.baseURL}landing-page/`).reply(200, { reports: stories });
 
 export function getMockAdapter() {
   if (global.LIVE_TEST !== undefined) {

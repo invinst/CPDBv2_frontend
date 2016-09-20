@@ -1,5 +1,5 @@
 import {
-  softBlackColor, codGrayColor, lightMineShaftColor, sanFranciscoTextFamily, accentColor
+  softBlackColor, codGrayColor, lightMineShaftColor, sanFranciscoTextFamily, accentColor, wildSandColor
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
@@ -28,6 +28,7 @@ export const textStyle = {
   fontWeight: 100,
   color: softBlackColor,
   cursor: 'pointer',
+  textDecoration: 'none',
   ':hover': {
     color: accentColor
   }
@@ -76,5 +77,13 @@ export const formHeaderStyle = {
 };
 
 export const vftgWrapperStyle = {
-  padding: '30px 26px 32px'
+  padding: '30px 26px 32px',
+  backgroundColor: wildSandColor
+};
+
+export const wrapperStyle = {
+  boxSizing: 'border-box',
+  backgroundColor: wildSandColor,
+  paddingBottom: 0,
+  margin: '16px'
 };
