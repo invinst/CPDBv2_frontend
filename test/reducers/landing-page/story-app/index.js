@@ -1,56 +1,51 @@
 import {
-  STORIES_REQUEST_START, STORIES_REQUEST_SUCCESS, STORIES_REQUEST_FAILURE
-} from 'actions/landing-page/story-app';
+  LANDING_PAGE_REQUEST_START, LANDING_PAGE_REQUEST_SUCCESS, LANDING_PAGE_REQUEST_FAILURE
+} from 'actions/landing-page';
 import storyApp from 'reducers/landing-page/story-app';
-import { PAGINATION_DEFAULT } from 'utils/constants';
 
 
 describe('storyApp reducer', function () {
   it('should return initial state', function () {
     storyApp(undefined, {}).should.eql({
-      stories: PAGINATION_DEFAULT,
-      isRequesting: false,
-      featuredStoryId: 0
+      stories: [],
+      isRequesting: false
     });
   });
 
-  it('should handle STORIES_REQUEST_START', function () {
+  it('should handle LANDING_PAGE_REQUEST_START', function () {
     storyApp(undefined, {
-      type: STORIES_REQUEST_START
+      type: LANDING_PAGE_REQUEST_START
     }).should.eql({
-      stories: PAGINATION_DEFAULT,
-      isRequesting: true,
-      featuredStoryId: 0
+      stories: [],
+      isRequesting: true
     });
   });
 
-  it('should handle STORIES_REQUEST_SUCCESS', function () {
+  it('should handle LANDING_PAGE_REQUEST_SUCCESS', function () {
     let nextState = storyApp(undefined, {
-      type: STORIES_REQUEST_START
+      type: LANDING_PAGE_REQUEST_START
     });
 
     storyApp(nextState, {
-      type: STORIES_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+      type: LANDING_PAGE_REQUEST_SUCCESS,
+      payload: { reports: [1, 2, 3] }
     }).should.eql({
       stories: [1, 2, 3],
-      isRequesting: false,
-      featuredStoryId: 0
+      isRequesting: false
     });
   });
 
-  it('should handle STORIES_REQUEST_FAILURE', function () {
+  it('should handle LANDING_PAGE_REQUEST_FAILURE', function () {
     let nextState = storyApp(undefined, {
-      type: STORIES_REQUEST_START
+      type: LANDING_PAGE_REQUEST_START
     });
 
     storyApp(nextState, {
-      type: STORIES_REQUEST_FAILURE,
+      type: LANDING_PAGE_REQUEST_FAILURE,
       payload: new Error('Load failed')
     }).should.eql({
-      stories: PAGINATION_DEFAULT,
-      isRequesting: false,
-      featuredStoryId: 0
+      stories: [],
+      isRequesting: false
     });
   });
 });

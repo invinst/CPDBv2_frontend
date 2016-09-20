@@ -1,11 +1,10 @@
 import 'should';
 
 import {
-  dataAvailableSelector, storiesSelector, rawStoryTransform, paginationSelector, getImageUrl
+  dataAvailableSelector, storiesSelector, rawStoryTransform, getImageUrl
 } from 'selectors/landing-page/stories-selector';
 import RawStoryFactory from 'utils/test/factories/raw-story';
 import { DEFAULT_IMAGE_DIMENSION } from 'utils/constants';
-import PaginationFactory from 'utils/test/factories/pagination';
 
 
 describe('stories selectors', function () {
@@ -24,11 +23,8 @@ describe('stories selectors', function () {
       id: 1,
       title: 'a',
       'canonical_url': 'a.b.c',
-      newspaper: {
-        id: 1,
-        name: 'b',
-        'short_name': 'c.d'
-      },
+      'publication_name': 'b',
+      'publication_short_name': 'c.d',
       body: [
         { type: 'paragraph', value: 'e' },
         { type: 'paragraph', value: 'f' }
@@ -36,19 +32,17 @@ describe('stories selectors', function () {
       'post_date': '2003/12/11',
       'image_url': {
         [DEFAULT_IMAGE_DIMENSION]: 'g.h'
-      },
-      'is_featured': true
+      }
     };
     const transformedStory = {
       id: 1,
       title: 'a',
-      newspaperName: 'b',
+      publicationName: 'b',
       canonicalUrl: 'a.b.c',
-      newspaperShortName: 'c.d',
+      publicationShortName: 'c.d',
       date: 'Dec 11, 2003',
       paragraphs: ['e', 'f'],
-      imageUrl: 'g.h',
-      isFeatured: true
+      imageUrl: 'g.h'
     };
 
     rawStoryTransform(rawStory).should.eql(transformedStory);
@@ -73,7 +67,7 @@ describe('stories selectors', function () {
     it('should return correct stories format', function () {
       const rawStory = RawStoryFactory.build();
       state.landingPage.storyApp = {
-        stories: PaginationFactory.build({ results: [rawStory] })
+        stories: [rawStory]
       };
 
       storiesSelector(state).should.eql([
@@ -85,7 +79,7 @@ describe('stories selectors', function () {
   describe('dataAvailableSelector', function () {
     it('should return false when isRequesting', function () {
       state.landingPage.storyApp = {
-        stories: PaginationFactory.build({ results: RawStoryFactory.buildList(3) }),
+        stories: RawStoryFactory.buildList(3),
         isRequesting: true
       };
       dataAvailableSelector(state).should.be.false();
@@ -94,30 +88,16 @@ describe('stories selectors', function () {
     it('should return true if has more than 2 stories and requesting is false', function () {
       state.landingPage.storyApp = {
         isRequesting: false,
-        stories: PaginationFactory.build({ results: [1, 2, 3] })
+        stories: [1, 2, 3]
       };
       dataAvailableSelector(state).should.be.true();
     });
 
     it('should return false when stories has less than 3 stories', function () {
       state.landingPage.storyApp = {
-        stories: PaginationFactory.build({ results: [1, 2] })
+        stories: [1, 2]
       };
       dataAvailableSelector(state).should.be.false();
-    });
-  });
-
-  describe('paginationSelector', function () {
-    it('should return count, next and previous', function () {
-      const next = 'next';
-      const previous = 'previous';
-      const count = 'count';
-
-      state.landingPage.storyApp = {
-        stories: { next, previous, count }
-      };
-
-      paginationSelector(state).should.eql({ next, previous, count });
     });
   });
 });

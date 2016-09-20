@@ -27,6 +27,7 @@ export const linkStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontWeight: '600',
   textDecoration: 'none',
+  cursor: 'pointer',
   ':hover': {
     color: accentColor
   }
@@ -41,7 +42,8 @@ export const paragraphStyle = {
 
 export const previewImageStyle = {
   base: {
-    height: '278px'
+    height: '278px',
+    cursor: 'pointer'
   },
 
   extraWide: {

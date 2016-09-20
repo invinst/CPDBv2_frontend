@@ -1,0 +1,30 @@
+---
+- name: Install prerequisites
+  apt: name={{ item }} update_cache=yes state=present
+  with_items:
+    - build-essential
+    - python-apt
+    - python-pycurl
+    - apt-transport-https
+  sudo: yes
+
+- name: Add the Nodesource apt key
+  shell: wget -qO - https://deb.nodesource.com/gpgkey/nodesource.gpg.key | sudo apt-key add -
+  become: yes
+  become_user: root
+
+- name: Add Nodesource repository
+  apt_repository: >
+    repo='{{ item }} {{ ansible_distribution_release }} main'
+    state=present
+    update_cache=yes
+  with_items:
+    - 'deb https://deb.nodesource.com/node_4.x'
+    - 'deb-src https://deb.nodesource.com/node_4.x'
+  sudo: yes
+
+- name: Install Node.js
+  apt: name={{ item }} update_cache=yes state=present
+  with_items:
+    - nodejs
+  sudo: yes

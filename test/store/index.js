@@ -30,17 +30,20 @@ describe('store', function () {
     getCurrentState().should.eql({
       landingPage: {
         storyApp: {
-          stories: PAGINATION_DEFAULT,
-          isRequesting: false,
-          featuredStoryId: 0
+          stories: [],
+          isRequesting: false
         },
         bottomSheet: {
           content: null
         },
         faqApp: {
-          faqs: PAGINATION_DEFAULT,
+          faqs: [],
           isRequesting: false
-        }
+        },
+        aboutSection: {},
+        collaborateSection: {},
+        heroSection: {},
+        vftgSection: {}
       },
       faqPage: {
         faqForm: {

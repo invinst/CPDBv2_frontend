@@ -27,6 +27,7 @@ class Story extends Component {
 
     return (
       <div
+        className='story'
         style={ [storyWrapperStyle, wrapperStyle] } onClick={ () => { onClick(story); } }
         onMouseOver={ () => this.setState({ hover: true }) }
         onMouseOut={ () => this.setState({ hover: false }) }>
@@ -34,7 +35,7 @@ class Story extends Component {
           <span
             className='link--transition story-source'
             style={ [sourceStyle, this.getHoverState() && hoverColorStyle] }>
-            { story.newspaperName }
+            { story.publicationName }
           </span>
           <span
             className='link--transition story-post-date'

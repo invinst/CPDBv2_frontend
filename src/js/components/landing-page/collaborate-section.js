@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
+import { map } from 'lodash';
 
-import { paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle } from './collaborate-section.style';
+import {
+  paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle, wrapperStyle, headerStyle
+} from './collaborate-section.style';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
-import SectionTemplate from 'utils/template/section';
-import { BASE_TEMPLATE } from 'utils/constants';
-import MoreLink from 'components/common/more-link';
 
 
 class CollaborateSection extends ResponsiveStyleComponent {
@@ -31,24 +31,24 @@ class CollaborateSection extends ResponsiveStyleComponent {
     };
   }
 
-  renderWithResponsiveStyle(style) {
-    const { template, wrapperStyle } = this.props;
+  renderBody(paragraphStyle) {
+    return map(this.props.body, (paragraph, key) => (
+      <p style={ paragraphStyle } key={ key }>
+        { paragraph.value }
+      </p>
+      ));
+  }
 
+  renderWithResponsiveStyle(style) {
+    const { headerText } = this.props;
     return (
-      <div style={ [template.wrapper, wrapperStyle] }>
-        <div style={ template.header }>
-          Collaborate with us
+      <div style={ wrapperStyle }>
+        <div style={ headerStyle }>
+          { headerText }
         </div>
-        <div style={ [template.content, contentStyle] }>
+        <div style={ contentStyle }>
           <div style={ style.wrapper }>
-            <p style={ style.paragraph }>
-              We are collecting and publishing information that sheds light on police misconduct.
-            </p>
-            <p style={ style.paragraph }>
-              If you have documents or datasets you would like to publish,
-              please <MoreLink style={ style.underlineLink } href='mailto:records@invisibleinstitute.com'>
-              email us</MoreLink>, or <MoreLink to='#' style={ style.underlineLink }>learn more</MoreLink>.
-            </p>
+            { this.renderBody(style.paragraph) }
           </div>
         </div>
       </div>
@@ -57,13 +57,8 @@ class CollaborateSection extends ResponsiveStyleComponent {
 }
 
 CollaborateSection.propTypes = {
-  template: PropTypes.object,
-  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
-};
-
-CollaborateSection.defaultProps = {
-  template: SectionTemplate(BASE_TEMPLATE),
-  wrapperStyle: {}
+  headerText: PropTypes.string,
+  body: PropTypes.array
 };
 
 export default ConfiguredRadium(CollaborateSection);
