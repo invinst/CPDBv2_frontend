@@ -12,7 +12,6 @@ dependencies:
     - npm install -g eslint-plugin-react@5.0.1
     - npm install -g babel-eslint@6.0.3
     - npm install
-    - sudo pip install paramiko PyYAML Jinja2 httplib2 six
     - sudo pip install ansible
     - sudo ansible-galaxy install Heroqu.nodejs4x
     - sudo ansible-galaxy install nicolai86.phantomjs
@@ -30,4 +29,5 @@ deployment:
   staging:
     branch: staging
     commands:
-      - sudo bin/circle-deploy-staging
+      - sudo chown ubuntu ~/.ansible/ -R
+      - bin/circle-deploy-staging
