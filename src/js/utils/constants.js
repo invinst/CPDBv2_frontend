@@ -12,10 +12,10 @@ export const DESKTOP = 'desktop';
 export const MOBILE = 'mobile';
 export const TABLET = 'tablet';
 
-export const COLLAB_PATH = '/collaboration';
+export const COLLAB_PATH = '/collaborate';
 export const DATA_PATH = '/data';
 export const FAQ_PATH = '/faq';
-export const STORIES_PATH = '/stories';
+export const STORIES_PATH = '/reporting';
 
 // Reducer defaults
 export const PAGINATION_DEFAULT = { results: [], count: 0, next: null, previous: null };
