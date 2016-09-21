@@ -11,7 +11,7 @@ export const headerBlockStyle = {
 export const headerStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '13px',
-  fontWeight: 400,
+  fontWeight: 300,
   color: codGrayColor
 };
 

@@ -22,7 +22,7 @@ export const contentStyle = {
 export const linkStyle = {
   color: softBlackColor,
   textDecoration: 'none',
-  fontWeight: 300,
+  fontWeight: 100,
   borderBottom: `4px solid ${ silverSandColor }`
 };
 

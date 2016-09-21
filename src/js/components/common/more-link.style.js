@@ -11,7 +11,7 @@ export const underlineWrapperStyle = {
 
 export const baseCommonStyle = {
   textDecoration: 'none',
-  fontWeight: 300,
+  fontWeight: 100,
   position: 'relative',
   lineHeight: 'initial'
 };

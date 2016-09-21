@@ -21,3 +21,13 @@ test:
     - npm run live-test
   post:
     - cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
+
+deployment:
+  staging:
+    branch: staging
+    commands:
+      - sudo pip install ansible
+      - sudo ansible-galaxy install Heroqu.nodejs4x
+      - sudo ansible-galaxy install nicolai86.phantomjs
+      - sudo chown ubuntu ~/.ansible/ -R
+      - bin/circle-deploy-staging
