@@ -6,7 +6,6 @@ import { getMockAdapter } from 'mock-data';
 import configureStore from 'store';
 import BottomSheetContainer from 'containers/bottom-sheet-container';
 import Header from 'components/header';
-import Footer from 'components/footer';
 import RouteTransition from 'components/animation/route-transition';
 
 
@@ -27,7 +26,6 @@ export default class App extends React.Component {
           <RouteTransition pathname={ pathname }>
             { this.props.children }
           </RouteTransition>
-          <Footer/>
           <BottomSheetContainer/>
         </StyleRoot>
       </Provider>
