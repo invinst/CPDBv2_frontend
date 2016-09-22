@@ -15,13 +15,13 @@ export const wrapperStyle = {
 export const linkStyle = {
   display: 'inline-block',
   marginLeft: '50px',
-  fontWeight: '100',
+  fontWeight: '300',
   color: nickelColor
 };
 
 export const firstLinkStyle = {
   display: 'inline-block',
-  fontWeight: '100',
+  fontWeight: '300',
   color: nickelColor
 };
 

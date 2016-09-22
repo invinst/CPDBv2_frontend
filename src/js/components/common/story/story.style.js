@@ -24,19 +24,22 @@ export const sourceWrapperStyle = {
 
 export const sourceStyle = {
   color: codGrayColor,
-  fontWeight: 300
+  fontWeight: 500,
+  fontSize: '14px'
 };
 
 export const postDateStyle = {
   marginLeft: '8px',
   color: lightMineShaftColor,
-  fontWeight: 100
+  fontWeight: 300,
+  fontSize: '14px'
 };
 
 export const titleStyle = {
   base: {
     color: softBlackColor,
     fontFamily: sanFranciscoTextFamily,
+    fontWeight: 300,
     padding: '0 16px 66px 13px'
   },
 
@@ -47,7 +50,7 @@ export const titleStyle = {
     fontSize: '20px'
   },
   big: {
-    fontSize: '26px'
+    fontSize: '32px'
   },
   extraBig: {
     fontSize: '32px'

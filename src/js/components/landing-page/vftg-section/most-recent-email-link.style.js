@@ -29,7 +29,8 @@ export const iconHoverStyle = {
 
 export const linkStyle = {
   paddingBottom: '3px',
-  fontWeight: 100,
+  fontWeight: 300,
+  fontSize: '14px',
   display: 'inline-block',
   verticalAlign: 'middle'
 };

@@ -1,4 +1,4 @@
-import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
+import { softBlackColor, sanFranciscoTextFamily, silverSandColor } from 'utils/styles';
 
 
 export const contentStyle = {
@@ -11,6 +11,7 @@ export const paragraphStyle = {
   base: {
     fontFamily: sanFranciscoTextFamily,
     fontSize: '36px',
+    fontWeight: 300,
     margin: '0 0 30px 0'
   },
 
@@ -55,10 +56,11 @@ export const headerStyle = {
   height: '26px',
   lineHeight: '26px',
   fontFamily: sanFranciscoTextFamily,
-  fontSize: '13px',
+  fontWeight: 300,
+  fontSize: '14px',
+  borderLeft: `8px solid ${silverSandColor}`,
   color: softBlackColor,
   letterSpacing: '-0.2px',
-  borderLeft: `8px solid ${softBlackColor}`,
   paddingLeft: '8px',
   marginBottom: '66px'
 };

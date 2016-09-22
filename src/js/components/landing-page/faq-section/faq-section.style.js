@@ -7,10 +7,11 @@ export const headerStyle = {
   height: '26px',
   lineHeight: '26px',
   fontFamily: sanFranciscoTextFamily,
-  fontSize: '13px',
+  fontWeight: 300,
+  fontSize: '14px',
+  borderLeft: `8px solid ${silverSandColor}`,
   color: softBlackColor,
   letterSpacing: '-0.2px',
-  borderLeft: `8px solid ${softBlackColor}`,
   paddingLeft: '8px'
 };
 

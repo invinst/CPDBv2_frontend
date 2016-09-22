@@ -3,9 +3,10 @@ import React, { Component, PropTypes } from 'react';
 import { textInputStyle, subscribeBtnStyle } from './subscribe-form.style';
 import CheckmarkSpinnerButton from './checkmark-spinner-button';
 import { FORM_INITIAL, FORM_LOADING, FORM_SUCCESS, FORM_FAILURE } from 'utils/constants';
+import ConfiguredRadium from 'utils/configured-radium';
 
 
-export default class SubscribeForm extends Component {
+class SubscribeForm extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -41,7 +42,7 @@ export default class SubscribeForm extends Component {
 
     return (
       <div>
-        <input ref={ el => { this.emailInput = el; } }
+        <input ref={ el => { this.emailInput = el; } } className='subscribe-form__input'
           placeholder='email@example.com' type='email' style={ textInputStyle } onChange={ this.handleInputChange }/>
         <CheckmarkSpinnerButton onClick={ this.handleClick } state={ state } style={ subscribeBtnStyle }>
           Subscribe
@@ -54,3 +55,5 @@ export default class SubscribeForm extends Component {
 SubscribeForm.propTypes = {
   subscribeEmail: PropTypes.func
 };
+
+export default ConfiguredRadium(SubscribeForm);

@@ -1,14 +1,15 @@
 import {
-  sanFranciscoTextFamily, accentColor
+  sanFranciscoTextFamily, softBlackColor
 } from 'utils/styles';
 
 
 export const textInputStyle = {
   height: '38px',
   backgroundColor: 'white',
-  color: accentColor,
+  color: softBlackColor,
   fontFamily: sanFranciscoTextFamily,
-  fontSize: '13px',
+  fontSize: '14px',
+  fontWeight: 300,
   border: 0,
   outline: 0,
   paddingLeft: '8px',

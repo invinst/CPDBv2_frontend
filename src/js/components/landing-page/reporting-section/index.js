@@ -28,7 +28,7 @@ class ReportingSection extends Component {
       <div style={ [wrapperStyle, coverageWrapperStyle] }>
         <div style={ headerStyle }>
           <div>
-            <span style={ alignLeftStyle }>Recent Coverage</span>
+            <span style={ alignLeftStyle }>Recent Reports</span>
             <span style={ alignRightStyle }>
               <MoreLink to={ STORIES_PATH }>See more reporting</MoreLink>
             </span>

@@ -26,6 +26,7 @@ export const faqItemTitleStyle = {
   },
 
   extraWide: {
-    fontSize: '20px'
+    fontSize: '20px',
+    fontWeight: 300
   }
 };

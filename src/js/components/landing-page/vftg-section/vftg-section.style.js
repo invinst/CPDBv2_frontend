@@ -1,5 +1,5 @@
 import {
-  softBlackColor, codGrayColor, lightMineShaftColor, sanFranciscoTextFamily, accentColor, wildSandColor
+  softBlackColor, lightMineShaftColor, sanFranciscoTextFamily, accentColor, wildSandColor
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
@@ -10,9 +10,9 @@ export const headerBlockStyle = {
 
 export const headerStyle = {
   fontFamily: sanFranciscoTextFamily,
-  fontSize: '13px',
-  fontWeight: 300,
-  color: codGrayColor
+  fontSize: '14px',
+  fontWeight: 500,
+  color: softBlackColor
 };
 
 export const dateStyle = {
@@ -25,7 +25,7 @@ export const dateStyle = {
 export const textStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '20px',
-  fontWeight: 100,
+  fontWeight: 300,
   color: softBlackColor,
   cursor: 'pointer',
   textDecoration: 'none',
