@@ -17,7 +17,8 @@ export const faqItemTitleStyle = {
     fontSize: '16px',
     lineHeight: '20px',
     paddingTop: '32px',
-    paddingBottom: '32px'
+    paddingBottom: '32px',
+    fontWeight: 300
   },
 
   tablet: {
@@ -26,7 +27,6 @@ export const faqItemTitleStyle = {
   },
 
   extraWide: {
-    fontSize: '20px',
-    fontWeight: 300
+    fontSize: '20px'
   }
 };

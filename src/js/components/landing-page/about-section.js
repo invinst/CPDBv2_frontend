@@ -14,13 +14,16 @@ class AboutSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        paragraph: [paragraphStyle.base, paragraphStyle.extraWide]
+        paragraph: [paragraphStyle.base, paragraphStyle.extraWide],
+        header: [headerStyle.base, headerStyle.extraWide]
       },
       [DESKTOP]: {
-        paragraph: [paragraphStyle.base]
+        paragraph: [paragraphStyle.base],
+        header: [headerStyle.base, headerStyle.desktop]
       },
       [TABLET]: {
-        paragraph: [paragraphStyle.base, paragraphStyle.tablet]
+        paragraph: [paragraphStyle.base, paragraphStyle.tablet],
+        header: [headerStyle.base, headerStyle.tablet]
       }
     };
   }
@@ -38,7 +41,7 @@ class AboutSection extends ResponsiveStyleComponent {
 
     return (
       <div style={ wrapperStyle }>
-        <div style={ headerStyle }>
+        <div style={ style.header }>
           <div>{ headerText }</div>
         </div>
         <div style={ contentStyle }>

@@ -2,17 +2,27 @@ import { softBlackColor, sanFranciscoTextFamily, silverSandColor } from 'utils/s
 
 
 export const headerStyle = {
-  marginBottom: '50px',
-  backgroundColor: 'white',
-  height: '26px',
-  lineHeight: '26px',
-  fontFamily: sanFranciscoTextFamily,
-  fontWeight: 300,
-  fontSize: '14px',
-  borderLeft: `8px solid ${silverSandColor}`,
-  color: softBlackColor,
-  letterSpacing: '-0.2px',
-  paddingLeft: '8px'
+  base: {
+    marginBottom: '50px',
+    backgroundColor: 'white',
+    height: '26px',
+    lineHeight: '26px',
+    fontFamily: sanFranciscoTextFamily,
+    fontWeight: 300,
+    borderLeft: `8px solid ${silverSandColor}`,
+    color: softBlackColor,
+    letterSpacing: '-0.2px',
+    paddingLeft: '8px'
+  },
+  extraWide: {
+    fontSize: '14px'
+  },
+  desktop: {
+    fontSize: '13px'
+  },
+  tablet: {
+    fontSize: '12px'
+  }
 };
 
 export const coverageWrapperStyle = {

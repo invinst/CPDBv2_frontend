@@ -9,10 +9,21 @@ export const headerBlockStyle = {
 };
 
 export const headerStyle = {
-  fontFamily: sanFranciscoTextFamily,
-  fontSize: '14px',
-  fontWeight: 500,
-  color: softBlackColor
+  base: {
+    fontFamily: sanFranciscoTextFamily,
+    fontSize: '13px',
+    fontWeight: 500,
+    color: softBlackColor
+  },
+  extraWide: {
+    fontSize: '14px'
+  },
+  desktop: {
+    fontSize: '13px'
+  },
+  tablet: {
+    fontSize: '12px'
+  }
 };
 
 export const dateStyle = {
