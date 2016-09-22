@@ -6,10 +6,11 @@ import {
 export const subscribeBtnStyle = {
   backgroundColor: wildSandColor,
   width: '79px',
-  height: '26px',
+  height: '40px',
   fontWeight: 500,
   fontSize: '13px',
   lineHeight: '20px',
+  paddingTop: '9px',
   verticalAlign: 'middle',
   borderRadius: '3px',
   border: `1px solid ${greyColor}`,
