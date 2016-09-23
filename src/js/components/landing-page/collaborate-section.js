@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { map } from 'lodash';
+import { map, isEqual } from 'lodash';
 
 import {
   paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle, wrapperStyle, headerStyle
@@ -11,6 +11,10 @@ import ConfiguredRadium from 'utils/configured-radium';
 
 
 class CollaborateSection extends ResponsiveStyleComponent {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
+  }
+
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {

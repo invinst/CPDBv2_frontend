@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { isEqual } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { FAQ_PATH } from 'utils/constants';
@@ -11,6 +12,10 @@ import {
 
 
 class FAQSection extends Component {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
+  }
+
   renderContent() {
     const { dataAvailable, faqs, openBottomSheetWithFAQ } = this.props;
 

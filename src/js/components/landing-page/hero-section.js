@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { isEqual } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ResponsiveStyleComponent, {
@@ -15,6 +16,10 @@ import createFunctionWithTimeout from 'utils/create-function-with-timeout';
 
 
 class HeroSection extends ResponsiveStyleComponent {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
+  }
+
   constructor(props) {
     super(props);
     this.dataLink = 'http://cpdb.co/data';

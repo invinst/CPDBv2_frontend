@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
+import { isEqual } from 'lodash';
 
 
 import BottomSheet from 'components/landing-page/bottom-sheet/bottom-sheet';
@@ -8,6 +9,10 @@ import { contentSelector } from 'selectors/landing-page/bottom-sheet-selector';
 
 
 export class UnconnectedBottomSheetContainer extends Component {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
+  }
+
   render() {
     const { closeBottomSheet, content } = this.props;
     return (

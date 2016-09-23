@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { isEqual } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { STORIES_PATH } from 'utils/constants';
@@ -11,6 +12,10 @@ import MoreLink from 'components/common/more-link';
 
 
 class ReportingSection extends Component {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
+  }
+
   renderContent() {
     const { dataAvailable, stories } = this.props;
 

@@ -16,6 +16,10 @@ const foiaEmail = 'foia@chicagopolice.org';
 const loremEmail = 'loremipsum@cpdp.co';
 
 class CollaborationPage extends ResponsiveStyleComponent {
+  shouldComponentUpdate() {
+    return false;
+  }
+
   responsiveStyle() {
     return {
       [MOBILE]: {

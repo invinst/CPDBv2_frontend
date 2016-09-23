@@ -9,6 +9,10 @@ import ResponsiveStyleComponent, {
 
 
 class TwitterSection extends ResponsiveStyleComponent {
+  shouldComponentUpdate(nextProps) {
+    return false;
+  }
+
   responsiveStyle() {
     return {
       [TABLET]: {

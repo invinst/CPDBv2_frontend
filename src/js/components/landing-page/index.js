@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { isEqual } from 'lodash';
 
 import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
@@ -15,6 +16,10 @@ import { bottomSectionsWrapperStyle, divideLineStyle } from './landing-page.styl
 
 
 class LandingPage extends ResponsiveStyleComponent {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
+  }
+
   componentDidMount() {
     this.props.requestLandingPage(null, this.context.adapter);
   }

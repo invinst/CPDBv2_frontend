@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import moment from 'moment';
+import { isEqual } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import MostRecentEmailLink from './most-recent-email-link';
@@ -14,6 +15,10 @@ import createFunctionWithTimeout from 'utils/create-function-with-timeout';
 
 
 class VFTGSection extends ResponsiveStyleComponent {
+  shouldComponentUpdate(nextProps) {
+    return !isEqual(this.props, nextProps);
+  }
+
   constructor(props) {
     super(props);
     this.handleClickVftgLink = this.handleClickVftgLink.bind(this);
