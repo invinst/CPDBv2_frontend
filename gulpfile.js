@@ -59,7 +59,7 @@ if (process.env.NODE_ENV === 'production') {
   globalVariableBlock = '';
 }
 
-gulp.task('build-html', buildHTML(globalVariableBlock, ROOT));
+gulp.task('build-html', buildHTML(globalVariableBlock, `${ROOT}templates/`));
 gulp.task('build-js', buildJs(`${ROOT}dist/`));
 gulp.task('copy-static', copyStatic(`${ROOT}dist/`));
 

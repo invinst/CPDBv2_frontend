@@ -2,6 +2,7 @@ import React from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import CopyLinkButton from 'components/common/copy-link-btn';
+import Footer from 'components/footer';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import {
   wrapperStyle, headLineStyle, leftColumnStyle, rightColumnStyle,
@@ -89,6 +90,7 @@ class CollaborationPage extends ResponsiveStyleComponent {
             </div>
           </div>
         </div>
+        <Footer/>
       </div>
     );
   }
