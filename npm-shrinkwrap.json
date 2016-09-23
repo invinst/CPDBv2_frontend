@@ -4236,6 +4236,11 @@
       "from": "jodid25519@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/jodid25519/-/jodid25519-1.0.2.tgz"
     },
+    "js-cookie": {
+      "version": "2.1.3",
+      "from": "js-cookie@latest",
+      "resolved": "https://registry.npmjs.org/js-cookie/-/js-cookie-2.1.3.tgz"
+    },
     "js-tokens": {
       "version": "1.0.3",
       "from": "js-tokens@>=1.0.1 <2.0.0",
