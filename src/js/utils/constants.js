@@ -12,6 +12,7 @@ export const DESKTOP = 'desktop';
 export const MOBILE = 'mobile';
 export const TABLET = 'tablet';
 
+export const ROOT_PATH = '/';
 export const COLLAB_PATH = '/collaborate/';
 export const DATA_PATH = '/data/';
 export const FAQ_PATH = '/faq/';
