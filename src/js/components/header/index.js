@@ -5,7 +5,7 @@ import { assign } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import HeaderContent from 'components/header/header-content';
-import { COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
+import { ROOT_PATH, COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 import { spacerStyle, wrapperCompactStyle } from './header.style';
 import { faster } from 'utils/spring-presets';
 
@@ -51,7 +51,7 @@ class Header extends React.Component {
     let wrapperStyle = compact ? wrapperCompactStyle : null;
     wrapperStyle = assign({}, wrapperStyle, style);
 
-    if (!compact && pathname !== '/') {
+    if (!compact && pathname !== ROOT_PATH) {
       return (
         <div style={ spacerStyle }/>
       );

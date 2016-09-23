@@ -4,11 +4,12 @@ import { browserHistory } from 'react-router';
 
 import ClosableNavLink from 'components/closable-nav-link';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
-import { COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
+import { ROOT_PATH, COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 import {
   navWrapperStyle, navStyle, logoWrapperStyle, logoStyle,
   navWrapperCompactStyle, logoWrapperCompactStyle
 } from './header-content.style';
+import Link from 'components/common/react-router-link';
 
 
 const links = [
@@ -36,7 +37,7 @@ export default class HeaderContent extends React.Component {
   }
 
   goToBasePath() {
-    browserHistory.push('/');
+    browserHistory.push(ROOT_PATH);
   }
 
   render() {
@@ -52,9 +53,9 @@ export default class HeaderContent extends React.Component {
             </ClosableNavLink>
           )) }
         </div>
-        <div style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
+        <Link to={ ROOT_PATH } style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
           <span style={ logoStyle }>CPDP</span>
-        </div>
+        </Link>
       </ResponsiveFixedWidthComponent>
     );
   }
