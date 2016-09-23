@@ -8,6 +8,10 @@ import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixe
 
 
 export default class Footer extends React.Component {
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     const links = ['Complaints Process', 'Glossary', 'Legal Disclaimer', 'Get Updates'];
     return (
