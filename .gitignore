@@ -48,3 +48,6 @@ bundle.js
 
 ### live test package ###
 live-test-build/
+
+### pyCharm
+.idea

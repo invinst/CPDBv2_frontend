@@ -43,7 +43,11 @@ describe('store', function () {
         aboutSection: {},
         collaborateSection: {},
         heroSection: {},
-        vftgSection: {}
+        vftgSection: {},
+        suggestionApp: {
+          isRequesting: false,
+          suggestions: []
+        }
       },
       faqPage: {
         faqForm: {
