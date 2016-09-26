@@ -29,7 +29,7 @@ describe('stories selectors', function () {
         { type: 'paragraph', value: 'e' },
         { type: 'paragraph', value: 'f' }
       ],
-      'post_date': '2003/12/11',
+      'publication_date': '2003/12/11',
       'image_url': {
         [DEFAULT_IMAGE_DIMENSION]: 'g.h'
       }

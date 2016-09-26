@@ -13,7 +13,7 @@ export default new Factory()
   .attr('body', () => ([{
     type: 'paragraph', value: lorem.sentences()
   }]))
-  .attr('post_date', () => (date.past()))
+  .attr('publication_date', () => (date.past()))
   .attr('image_url', () => ({
     [DEFAULT_IMAGE_DIMENSION]: internet.url()
   }));
