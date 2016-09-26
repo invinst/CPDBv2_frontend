@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { FAQ_PATH } from 'utils/constants';
@@ -8,9 +8,26 @@ import FAQSectionPlaceHolder from 'components/landing-page/faq-section/faq-secti
 import {
   alignLeftStyle, alignRightStyle, headerStyle, contentStyle, underlineFAQStyle, wrapperStyle
 } from './faq-section.style';
+import ResponsiveStyleComponent, {
+  EXTRA_WIDE, DESKTOP, TABLET
+} from 'components/responsive/responsive-style-component';
 
 
-class FAQSection extends Component {
+class FAQSection extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [EXTRA_WIDE]: {
+        header: [headerStyle.base, headerStyle.extraWide]
+      },
+      [DESKTOP]: {
+        header: [headerStyle.base, headerStyle.desktop]
+      },
+      [TABLET]: {
+        header: [headerStyle.base, headerStyle.tablet]
+      }
+    };
+  }
+
   renderContent() {
     const { dataAvailable, faqs, openBottomSheetWithFAQ } = this.props;
 
@@ -35,13 +52,13 @@ class FAQSection extends Component {
     }
   }
 
-  render() {
+  renderWithResponsiveStyle(style) {
     return (
       <div style={ wrapperStyle }>
-        <div style={ headerStyle }>
+        <div style={ style.header }>
           <span style={ alignLeftStyle }>FAQ</span>
           <span style={ alignRightStyle }>
-            <MoreLink to={ FAQ_PATH }>See more FAQ</MoreLink>
+            <MoreLink style={ style.moreLink } to={ FAQ_PATH }>See more FAQ</MoreLink>
           </span>
         </div>
         <div style={ contentStyle }>

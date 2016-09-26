@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
-import { findDOMNode } from 'react-dom';
 import isMobile from 'ismobilejs';
 
 import Story from 'components/common/story/story';
@@ -28,8 +27,8 @@ describe('Story component', function () {
     instance = renderIntoDocument(
       <Story story={ story }/>
     );
-
-    Simulate.mouseOver(findDOMNode(instance));
+    const storyEl = findRenderedDOMComponentWithClass(instance, 'story');
+    Simulate.mouseOver(storyEl);
     findRenderedDOMComponentWithClass(instance, 'story-title').style.color.should.equal('rgb(0, 94, 244)');
     findRenderedDOMComponentWithClass(instance, 'story-source').style.color.should.equal('rgb(0, 94, 244)');
     findRenderedDOMComponentWithClass(instance, 'story-post-date').style.color.should.equal('rgb(0, 94, 244)');
@@ -40,12 +39,14 @@ describe('Story component', function () {
       <Story story={ story }/>
     );
 
-    Simulate.mouseOver(findDOMNode(instance));
-    Simulate.mouseOut(findDOMNode(instance));
+    const storyEl = findRenderedDOMComponentWithClass(instance, 'story');
+    Simulate.mouseOver(storyEl);
+    Simulate.mouseOut(storyEl);
     findRenderedDOMComponentWithClass(instance, 'story-title').style.color.should.equal('rgb(35, 31, 32)');
     findRenderedDOMComponentWithClass(instance, 'story-source').style.color.should.equal('rgb(29, 29, 29)');
-    // It should be rgba(38, 38, 38, 0.5) but for some reason, the alpha channel value is 0.49...
-    findRenderedDOMComponentWithClass(instance, 'story-post-date').style.color.should.containEql('rgba(38, 38, 38');
+    const postDateElStyle = findRenderedDOMComponentWithClass(instance, 'story-post-date').style;
+    postDateElStyle.color.should.equal('rgb(35, 31, 32)');
+    postDateElStyle.opacity.should.equal('0.5');
   });
 
   it('should render normal style on touch on touch devices', function () {
@@ -53,7 +54,9 @@ describe('Story component', function () {
     instance = renderIntoDocument(
       <Story story={ story }/>
     );
-    Simulate.mouseOver(findDOMNode(instance));
+
+    const storyEl = findRenderedDOMComponentWithClass(instance, 'story');
+    Simulate.mouseOver(storyEl);
     findRenderedDOMComponentWithClass(instance, 'story-title').style.color.should.equal('rgb(0, 94, 244)');
     findRenderedDOMComponentWithClass(instance, 'story-source').style.color.should.equal('rgb(0, 94, 244)');
     findRenderedDOMComponentWithClass(instance, 'story-post-date').style.color.should.equal('rgb(0, 94, 244)');
