@@ -2,11 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { Editor, EditorState, ContentState } from 'draft-js';
 
 
-export default class TextBox extends Component {
+export default class PlainTextEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: EditorState.createWithContent(ContentState.createFromText(props.text))
+      editorState: EditorState.createWithContent(ContentState.createFromText(props.children))
     };
     this.onChange = (editorState) => this.setState({ editorState });
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
@@ -28,6 +28,6 @@ export default class TextBox extends Component {
   }
 }
 
-TextBox.propTypes = {
-  text: PropTypes.string
+PlainTextEditor.propTypes = {
+  children: PropTypes.string
 };

@@ -8,6 +8,8 @@ import {
 import ReportingPlaceHolder from 'components/landing-page/reporting-section/place-holder';
 import ReportingSectionContent from 'components/landing-page/reporting-section/reporting-section-content';
 import MoreLink from 'components/common/more-link';
+import Editable from 'components/inline-editable/editable';
+import PlainTextEditor from 'components/inline-editable/plain-text-editor';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';
@@ -45,7 +47,7 @@ class ReportingSection extends ResponsiveStyleComponent {
       <div style={ [wrapperStyle, coverageWrapperStyle] }>
         <div style={ style.header }>
           <div>
-            <span style={ alignLeftStyle }>Recent Reports</span>
+            <span style={ alignLeftStyle }><Editable editor={ PlainTextEditor }>Recent Reports</Editable></span>
             <span style={ alignRightStyle }>
               <MoreLink to={ STORIES_PATH }>See more reporting</MoreLink>
             </span>

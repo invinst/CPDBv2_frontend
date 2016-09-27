@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
-import { StyleRoot } from 'radium';
 import { Provider } from 'react-redux';
+import { StyleRoot } from 'radium';
 
 import { getMockAdapter } from 'mock-data';
 import configureStore from 'store';
+import EditModeContainer from 'containers/inline-editable/edit-mode-container';
 import BottomSheetContainer from 'containers/bottom-sheet-container';
 import Header from 'components/header';
 import RouteTransition from 'components/animation/route-transition';
@@ -22,11 +23,13 @@ export default class App extends React.Component {
     return (
       <Provider store={ store }>
         <StyleRoot>
-          <Header/>
-          <RouteTransition pathname={ pathname }>
-            { this.props.children }
-          </RouteTransition>
-          <BottomSheetContainer/>
+          <EditModeContainer>
+            <Header/>
+            <RouteTransition pathname={ pathname }>
+              { this.props.children }
+            </RouteTransition>
+            <BottomSheetContainer/>
+          </EditModeContainer>
         </StyleRoot>
       </Provider>
     );

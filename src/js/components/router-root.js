@@ -10,18 +10,25 @@ import { COLLAB_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 
 
 export default class RouterRoot extends Component {
+
   render() {
+    const routes = [
+      <IndexRoute component={ LandingPageContainer } key='1'
+        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) }/>,
+      <Route path={ STORIES_PATH } component={ StoriesPage } key='2'
+        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }/>,
+      <Route path={ COLLAB_PATH } component={ CollaborationPage } key='3'
+        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Collaborate' }) }/>,
+      <Route path={ FAQ_PATH } component={ FAQPage } key='4'
+        onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }/>
+    ];
     return (
       <Router history={ browserHistory }>
         <Route path='/' component={ App }>
-          <IndexRoute component={ LandingPageContainer }
-            onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) }/>
-          <Route path={ STORIES_PATH } component={ StoriesPage }
-            onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }/>
-          <Route path={ COLLAB_PATH } component={ CollaborationPage }
-            onEnter={ () => global.ga('send', 'screenview', { screenName: 'Collaborate' }) }/>
-          <Route path={ FAQ_PATH } component={ FAQPage }
-            onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }/>
+          { routes }
+          <Route path='edit' component='div'>
+            { routes }
+          </Route>
         </Route>
       </Router>
     );
