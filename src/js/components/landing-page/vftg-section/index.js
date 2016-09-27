@@ -27,13 +27,16 @@ class VFTGSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        textStyle: textStyleExtraWide
+        textStyle: textStyleExtraWide,
+        header: [headerStyle.base, headerStyle.extraWide]
       },
       [DESKTOP]: {
-        textStyle: textStyleDesktop
+        textStyle: textStyleDesktop,
+        header: [headerStyle.base, headerStyle.desktop]
       },
       [TABLET]: {
-        textStyle: textStyleDesktop
+        textStyle: textStyleDesktop,
+        header: [headerStyle.base, headerStyle.tablet]
       }
     };
   }
@@ -54,7 +57,7 @@ class VFTGSection extends ResponsiveStyleComponent {
         <div style={ vftgWrapperStyle }>
           <div style={ newsWrapperStyle }>
             <div style={ headerBlockStyle }>
-              <span style={ headerStyle }>{ headerText }</span>
+              <span style={ style.header }>{ headerText }</span>
               <span style={ dateStyle }>{ formattedDate }</span>
             </div>
             <a

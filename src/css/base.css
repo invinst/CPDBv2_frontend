@@ -9,3 +9,13 @@ body {
 .link--transition {
     transition: color .25s ease-in-out, background-color .25s ease-in-out, background-image .25s ease-in-out;
 }
+
+.subscribe-form__input::-webkit-input-placeholder {
+    color: #005EF4;
+}
+.subscribe-form__input::-moz-placeholder {
+    color: #005EF4;
+}
+.subscribe-form__input:-ms-input-placeholder {
+    color: #005EF4;
+}

@@ -1,5 +1,5 @@
 import {
-  softBlackColor, codGrayColor, lightMineShaftColor, altoColor, accentColor, sanFranciscoTextFamily
+  softBlackColor, codGrayColor, altoColor, accentColor, sanFranciscoTextFamily
 } from 'utils/styles';
 
 
@@ -23,37 +23,99 @@ export const sourceWrapperStyle = {
 };
 
 export const sourceStyle = {
-  color: codGrayColor,
-  fontWeight: 300
+  base: {
+    color: codGrayColor,
+    fontWeight: 500
+  },
+  extraWide: {
+    fontSize: '14px'
+  },
+  desktop: {
+    fontSize: '13px'
+  },
+  tablet: {
+    fontSize: '12px'
+  }
 };
 
-export const postDateStyle = {
-  marginLeft: '8px',
-  color: lightMineShaftColor,
-  fontWeight: 100
+export const publicationDateStyle = {
+  base: {
+    marginLeft: '8px',
+    color: softBlackColor,
+    fontWeight: 300,
+    opacity: .5
+  },
+  extraWide: {
+    fontSize: '14px'
+  },
+  desktop: {
+    fontSize: '13px'
+  },
+  tablet: {
+    fontSize: '12px'
+  }
 };
 
 export const titleStyle = {
   base: {
     color: softBlackColor,
     fontFamily: sanFranciscoTextFamily,
+    fontWeight: 300,
     padding: '0 16px 66px 13px'
   },
 
-  small: {
-    fontSize: '16px'
+  extraWide: {
+    small: {
+      fontSize: '16px'
+    },
+    normal: {
+      fontSize: '20px'
+    },
+    big: {
+      fontSize: '32px'
+    },
+    extraBig: {
+      fontSize: '32px'
+    },
+    ultraBig: {
+      fontSize: '48px'
+    }
   },
-  normal: {
-    fontSize: '20px'
+
+  desktop: {
+    small: {
+      fontSize: '16px'
+    },
+    normal: {
+      fontSize: '16px'
+    },
+    big: {
+      fontSize: '26px'
+    },
+    extraBig: {
+      fontSize: '32px'
+    },
+    ultraBig: {
+      fontSize: '48px'
+    }
   },
-  big: {
-    fontSize: '26px'
-  },
-  extraBig: {
-    fontSize: '32px'
-  },
-  ultraBig: {
-    fontSize: '48px'
+
+  tablet: {
+    small: {
+      fontSize: '16px'
+    },
+    normal: {
+      fontSize: '16px'
+    },
+    big: {
+      fontSize: '26px'
+    },
+    extraBig: {
+      fontSize: '32px'
+    },
+    ultraBig: {
+      fontSize: '48px'
+    }
   },
 
   underline: {

@@ -2,16 +2,27 @@ import { softBlackColor, silverSandColor, lightGreyColor, sanFranciscoTextFamily
 
 
 export const headerStyle = {
-  marginBottom: '34px',
-  backgroundColor: 'white',
-  height: '26px',
-  lineHeight: '26px',
-  fontFamily: sanFranciscoTextFamily,
-  fontSize: '13px',
-  color: softBlackColor,
-  letterSpacing: '-0.2px',
-  borderLeft: `8px solid ${softBlackColor}`,
-  paddingLeft: '8px'
+  base: {
+    marginBottom: '34px',
+    backgroundColor: 'white',
+    height: '26px',
+    lineHeight: '26px',
+    fontFamily: sanFranciscoTextFamily,
+    fontWeight: 300,
+    borderLeft: `8px solid ${silverSandColor}`,
+    color: softBlackColor,
+    letterSpacing: '-0.2px',
+    paddingLeft: '8px'
+  },
+  extraWide: {
+    fontSize: '14px'
+  },
+  desktop: {
+    fontSize: '13px'
+  },
+  tablet: {
+    fontSize: '12px'
+  }
 };
 
 export const contentStyle = {

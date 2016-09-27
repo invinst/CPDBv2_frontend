@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
 import { isEqual } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
@@ -9,9 +9,26 @@ import {
 import ReportingPlaceHolder from 'components/landing-page/reporting-section/place-holder';
 import ReportingSectionContent from 'components/landing-page/reporting-section/reporting-section-content';
 import MoreLink from 'components/common/more-link';
+import ResponsiveStyleComponent, {
+  EXTRA_WIDE, DESKTOP, TABLET
+} from 'components/responsive/responsive-style-component';
 
 
-class ReportingSection extends Component {
+class ReportingSection extends ResponsiveStyleComponent {
+  responsiveStyle() {
+    return {
+      [EXTRA_WIDE]: {
+        header: [headerStyle.base, headerStyle.extraWide]
+      },
+      [DESKTOP]: {
+        header: [headerStyle.base, headerStyle.desktop]
+      },
+      [TABLET]: {
+        header: [headerStyle.base, headerStyle.tablet]
+      }
+    };
+  }
+
   shouldComponentUpdate(nextProps) {
     return !isEqual(this.props, nextProps);
   }
@@ -28,12 +45,12 @@ class ReportingSection extends Component {
     );
   }
 
-  render() {
+  renderWithResponsiveStyle(style) {
     return (
       <div style={ [wrapperStyle, coverageWrapperStyle] }>
-        <div style={ headerStyle }>
+        <div style={ style.header }>
           <div>
-            <span style={ alignLeftStyle }>Recent Coverage</span>
+            <span style={ alignLeftStyle }>Recent Reports</span>
             <span style={ alignRightStyle }>
               <MoreLink to={ STORIES_PATH }>See more reporting</MoreLink>
             </span>
