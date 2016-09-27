@@ -28,7 +28,7 @@ describe('BottomSheet component', function () {
     render(
       <BottomSheet open={ true }/>,
       rootEl, () => {
-        rootEl.children[0].children[0].nodeName.should.equal('NOSCRIPT');
+        rootEl.children[0].children.length.should.equal(0);
         setTimeout(() => {
           rootEl.children[0].children[0].nodeName.should.equal('DIV');
           callback();
@@ -48,9 +48,9 @@ describe('BottomSheet component', function () {
       rootEl, () => {
         rootEl.children[0].children[0].nodeName.should.equal('DIV');
         setTimeout(() => {
-          rootEl.children[0].children[0].nodeName.should.equal('NOSCRIPT');
+          rootEl.children[0].children.length.should.equal(0);
           callback();
-        }, 500);
+        }, 1000);
       });
   });
 
@@ -86,11 +86,5 @@ describe('BottomSheet component', function () {
 
   it('should trigger onClose when click on dismiss button', function () {
     BottomSheet.should.triggerCallbackWhenClick('onClose', 'bottom-sheet__back-btn', { open: true });
-  });
-
-  it('should trigger onClose when click on More FAQ', function () {
-    BottomSheet.should.triggerCallbackWhenClick(
-      'onClose', 'footer__link', { open: true, content: { type: FAQ_TYPE, props: { faq: faq } } }
-    );
   });
 });
