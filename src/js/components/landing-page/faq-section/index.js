@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { isEqual } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { FAQ_PATH } from 'utils/constants';
@@ -12,6 +11,7 @@ import {
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class FAQSection extends ResponsiveStyleComponent {
@@ -27,10 +27,6 @@ class FAQSection extends ResponsiveStyleComponent {
         header: [headerStyle.base, headerStyle.tablet]
       }
     };
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(this.props, nextProps);
   }
 
   renderContent() {
@@ -80,4 +76,4 @@ FAQSection.propTypes = {
   faqs: PropTypes.array
 };
 
-export default ConfiguredRadium(FAQSection);
+export default PropsRerender(ConfiguredRadium(FAQSection));

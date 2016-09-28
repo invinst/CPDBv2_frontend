@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { map, isEqual } from 'lodash';
+import { map } from 'lodash';
 
 import {
   paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle, wrapperStyle, headerStyle
@@ -8,13 +8,10 @@ import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class CollaborateSection extends ResponsiveStyleComponent {
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(this.props, nextProps);
-  }
-
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
@@ -68,4 +65,4 @@ CollaborateSection.propTypes = {
   body: PropTypes.array
 };
 
-export default ConfiguredRadium(CollaborateSection);
+export default PropsRerender(ConfiguredRadium(CollaborateSection));

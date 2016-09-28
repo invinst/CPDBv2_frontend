@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-import { isEqual } from 'lodash';
 
 import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
@@ -13,13 +12,10 @@ import AboutSection from './about-section';
 import TwitterSection from './twitter-section/twitter-section';
 import CollaborateSection from './collaborate-section';
 import { bottomSectionsWrapperStyle, divideLineStyle } from './landing-page.style';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class LandingPage extends ResponsiveStyleComponent {
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(this.props, nextProps);
-  }
-
   componentDidMount() {
     this.props.requestLandingPage(null, this.context.adapter);
   }
@@ -89,4 +85,4 @@ LandingPage.contextTypes = {
   adapter: PropTypes.func
 };
 
-export default ConfiguredRadium(LandingPage);
+export default PropsRerender(ConfiguredRadium(LandingPage));

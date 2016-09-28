@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { map, isEqual } from 'lodash';
+import { map } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ResponsiveStyleComponent, {
@@ -8,13 +8,10 @@ import ResponsiveStyleComponent, {
 import {
   paragraphStyle, contentWrapperStyle, wrapperStyle, headerStyle, contentStyle
 } from './about-section.style';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class AboutSection extends ResponsiveStyleComponent {
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(this.props, nextProps);
-  }
-
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
@@ -63,4 +60,4 @@ AboutSection.propTypes = {
   body: PropTypes.array
 };
 
-export default ConfiguredRadium(AboutSection);
+export default PropsRerender(ConfiguredRadium(AboutSection));

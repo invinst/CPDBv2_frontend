@@ -1,4 +1,4 @@
-import { includes, isEqual } from 'lodash';
+import { includes } from 'lodash';
 import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 import { assign } from 'lodash';
@@ -8,6 +8,7 @@ import HeaderContent from 'components/header/header-content';
 import { ROOT_PATH, COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 import { spacerStyle, wrapperCompactStyle } from './header.style';
 import { faster } from 'utils/spring-presets';
+import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 
 
 const COMPACT_STYLE_PATHNAMES = [COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH];
@@ -17,7 +18,6 @@ function shouldShowCompact() {
 }
 
 class Header extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = { showCompact: shouldShowCompact() };
@@ -26,10 +26,6 @@ class Header extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return !isEqual(this.state, nextState) || !isEqual(this.props, nextProps);
   }
 
   componentWillUnmount() {
@@ -85,4 +81,4 @@ Header.propTypes = {
   pathname: PropTypes.string
 };
 
-export default ConfiguredRadium(Header);
+export default PropsStateRerender(ConfiguredRadium(Header));
