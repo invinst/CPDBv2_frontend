@@ -1,48 +1,23 @@
 import { includes } from 'lodash';
-import React from 'react';
-import { browserHistory } from 'react-router';
+import React, { PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 import { assign } from 'lodash';
 
 import ConfiguredRadium from 'utils/configured-radium';
-import ClosableNavLink from 'components/closable-nav-link';
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import HeaderContent from 'components/header/header-content';
 import { ROOT_PATH, COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
-import {
-  navWrapperStyle, navStyle, logoWrapperStyle, logoStyle, spacerStyle,
-  navWrapperCompactStyle, logoWrapperCompactStyle, wrapperCompactStyle
-} from './header.style';
-import { getCurrentPathname } from 'utils/dom';
+import { spacerStyle, wrapperCompactStyle } from './header.style';
 import { faster } from 'utils/spring-presets';
-import Link from 'components/common/react-router-link';
+import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 
 
 const COMPACT_STYLE_PATHNAMES = [COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH];
-const links = [
-  {
-    name: 'Data',
-    href: DATA_PATH
-  },
-  {
-    name: 'Reporting',
-    href: STORIES_PATH
-  },
-  {
-    name: 'FAQ',
-    href: FAQ_PATH
-  },
-  {
-    name: 'Collaborate',
-    href: COLLAB_PATH
-  }
-];
 
 function shouldShowCompact() {
   return (window.scrollY > 145);
 }
 
 class Header extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = { showCompact: shouldShowCompact() };
@@ -58,7 +33,7 @@ class Header extends React.Component {
   }
 
   showCompact() {
-    return this.state.showCompact || includes(COMPACT_STYLE_PATHNAMES, getCurrentPathname());
+    return this.state.showCompact || includes(COMPACT_STYLE_PATHNAMES, this.props.pathname);
   }
 
   handleScroll() {
@@ -67,16 +42,12 @@ class Header extends React.Component {
     }
   }
 
-  goToBasePath() {
-    browserHistory.push(ROOT_PATH);
-  }
-
   renderHeader(compact=false, style={}) {
-    const currentPath = getCurrentPathname();
+    const { pathname } = this.props;
     let wrapperStyle = compact ? wrapperCompactStyle : null;
     wrapperStyle = assign({}, wrapperStyle, style);
 
-    if (!compact && currentPath !== ROOT_PATH) {
+    if (!compact && pathname !== ROOT_PATH) {
       return (
         <div style={ spacerStyle }/>
       );
@@ -84,20 +55,7 @@ class Header extends React.Component {
 
     return (
       <div style={ wrapperStyle }>
-        <ResponsiveFixedWidthComponent>
-          <div style={ compact ? navWrapperCompactStyle : navWrapperStyle }>
-            { links.map((link, ind) => (
-              <ClosableNavLink
-                key={ ind } style={ navStyle } href={ link.href } showCloseBtn={ compact && link.href === currentPath }
-                onClickClose={ this.goToBasePath }>
-                { link.name }
-              </ClosableNavLink>
-            )) }
-          </div>
-          <Link to={ ROOT_PATH } style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
-            <span style={ logoStyle }>CPDP</span>
-          </Link>
-        </ResponsiveFixedWidthComponent>
+        <HeaderContent compact={ compact } pathname={ pathname }/>
       </div>
     );
   }
@@ -119,4 +77,8 @@ class Header extends React.Component {
   }
 }
 
-export default ConfiguredRadium(Header);
+Header.propTypes = {
+  pathname: PropTypes.string
+};
+
+export default PropsStateRerender(ConfiguredRadium(Header));

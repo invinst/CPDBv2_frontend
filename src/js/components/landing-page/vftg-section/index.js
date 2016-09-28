@@ -11,6 +11,7 @@ import ResponsiveStyleComponent from 'components/responsive/responsive-style-com
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 import SubscribeForm from 'containers/landing-page/vftg-section/subscribe-form-container';
 import createFunctionWithTimeout from 'utils/create-function-with-timeout';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class VFTGSection extends ResponsiveStyleComponent {
@@ -78,4 +79,4 @@ VFTGSection.propTypes = {
   contentLink: PropTypes.string
 };
 
-export default ConfiguredRadium(VFTGSection);
+export default PropsRerender(ConfiguredRadium(VFTGSection));

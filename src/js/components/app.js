@@ -24,7 +24,7 @@ export default class App extends React.Component {
       <Provider store={ store }>
         <StyleRoot>
           <EditModeContainer>
-            <Header/>
+            <Header pathname={ pathname }/>
             <RouteTransition pathname={ pathname }>
               { this.props.children }
             </RouteTransition>

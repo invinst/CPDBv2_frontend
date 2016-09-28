@@ -12,6 +12,7 @@ import AboutSection from './about-section';
 import TwitterSection from './twitter-section/twitter-section';
 import CollaborateSection from './collaborate-section';
 import { bottomSectionsWrapperStyle, divideLineStyle } from './landing-page.style';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class LandingPage extends ResponsiveStyleComponent {
@@ -84,4 +85,4 @@ LandingPage.contextTypes = {
   adapter: PropTypes.func
 };
 
-export default ConfiguredRadium(LandingPage);
+export default PropsRerender(ConfiguredRadium(LandingPage));

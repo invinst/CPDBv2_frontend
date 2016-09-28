@@ -62,7 +62,8 @@ describe('store', function () {
           isRequesting: false,
           stories: PAGINATION_DEFAULT
         }
-      }
+      },
+      editModeOn: false
     });
   });
 });

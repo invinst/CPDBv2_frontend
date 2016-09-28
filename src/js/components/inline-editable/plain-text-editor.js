@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import React, { Component, PropTypes } from 'react';
 import { Editor, EditorState, ContentState } from 'draft-js';
 

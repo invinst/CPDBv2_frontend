@@ -8,6 +8,7 @@ import ResponsiveStyleComponent, {
 import {
   paragraphStyle, contentWrapperStyle, wrapperStyle, headerStyle, contentStyle
 } from './about-section.style';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class AboutSection extends ResponsiveStyleComponent {
@@ -59,4 +60,4 @@ AboutSection.propTypes = {
   body: PropTypes.array
 };
 
-export default ConfiguredRadium(AboutSection);
+export default PropsRerender(ConfiguredRadium(AboutSection));

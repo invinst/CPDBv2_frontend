@@ -8,6 +8,7 @@ import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class CollaborateSection extends ResponsiveStyleComponent {
@@ -64,4 +65,4 @@ CollaborateSection.propTypes = {
   body: PropTypes.array
 };
 
-export default ConfiguredRadium(CollaborateSection);
+export default PropsRerender(ConfiguredRadium(CollaborateSection));
