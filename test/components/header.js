@@ -4,7 +4,6 @@ import { stub } from 'sinon';
 import {
   renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType, Simulate
 } from 'react-addons-test-utils';
-import { browserHistory } from 'react-router';
 
 import Header from 'components/header';
 import CloseButton from 'components/common/close-btn';
@@ -49,23 +48,20 @@ describe('Header component', function () {
   });
 
   it('should not show close button when at base path', function () {
-    browserHistory.push('/');
-    element = renderIntoDocument(<Header/>);
+    element = renderIntoDocument(<Header pathname='/'/>);
     scryRenderedComponentsWithType(element, CloseButton).length.should.equal(0);
   });
 
   it('should show close button when at valid paths', function () {
     [COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH].forEach(path => {
-      browserHistory.push(path);
-      element = renderIntoDocument(<Header/>);
+      element = renderIntoDocument(<Header pathname={ path }/>);
       scryRenderedComponentsWithType(element, CloseButton).length.should.equal(1);
       unmountComponentSuppressError(element);
     });
   });
 
   it('should push base path when click on close button', function () {
-    browserHistory.push(COLLAB_PATH);
-    element = renderIntoDocument(<Header/>);
+    element = renderIntoDocument(<Header pathname={ COLLAB_PATH }/>);
     let button = findRenderedComponentWithType(element, CloseButton);
     Simulate.click(findDOMNode(button));
     getCurrentPathname().should.equal('/');

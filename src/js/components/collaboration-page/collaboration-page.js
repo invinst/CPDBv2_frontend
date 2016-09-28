@@ -10,6 +10,7 @@ import {
   emailLinkWrapperStyle, smallTextStyle, copyLinkStyle, listStyle
 } from './collaboration-page.style';
 import { MOBILE, TABLET, DESKTOP } from 'utils/constants';
+import NoRerender from 'components/common/higher-order/no-rerender';
 
 
 const foiaEmail = 'foia@chicagopolice.org';
@@ -96,4 +97,4 @@ class CollaborationPage extends ResponsiveStyleComponent {
   }
 }
 
-export default ConfiguredRadium(CollaborationPage);
+export default NoRerender(ConfiguredRadium(CollaborationPage));

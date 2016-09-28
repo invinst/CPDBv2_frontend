@@ -11,6 +11,7 @@ import MoreLink from 'components/common/more-link';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class ReportingSection extends ResponsiveStyleComponent {
@@ -65,4 +66,4 @@ ReportingSection.propTypes = {
   stories: PropTypes.array
 };
 
-export default ConfiguredRadium(ReportingSection);
+export default PropsRerender(ConfiguredRadium(ReportingSection));

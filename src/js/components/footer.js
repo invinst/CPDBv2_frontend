@@ -5,9 +5,10 @@ import {
   wrapperStyle, linkStyle, linkWrapperStyle, sectionStyle, responsiveFixedWidthInnerStyle, firstLinkStyle
 } from './footer.style';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import NoRerender from 'components/common/higher-order/no-rerender';
 
 
-export default class Footer extends React.Component {
+class Footer extends React.Component {
   render() {
     const links = ['Complaints Process', 'Glossary', 'Legal Disclaimer', 'Get Updates'];
     return (
@@ -27,3 +28,5 @@ export default class Footer extends React.Component {
     );
   }
 }
+
+export default NoRerender(Footer);

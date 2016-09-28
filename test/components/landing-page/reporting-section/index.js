@@ -17,6 +17,6 @@ const store = mockStore({
 
 describe('ReportingSection component', function () {
   it('should render', function () {
-    ReportingSection.should.be.renderable({ store: store, openBottomSheetWithStory: () => {} });
+    ReportingSection.should.be.responsiveRenderable({ store: store, openBottomSheetWithStory: () => {} });
   });
 });

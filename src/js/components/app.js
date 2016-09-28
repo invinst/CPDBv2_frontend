@@ -22,7 +22,7 @@ export default class App extends React.Component {
     return (
       <Provider store={ store }>
         <StyleRoot>
-          <Header/>
+          <Header pathname={ pathname }/>
           <RouteTransition pathname={ pathname }>
             { this.props.children }
           </RouteTransition>

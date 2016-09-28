@@ -11,6 +11,7 @@ import {
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class FAQSection extends ResponsiveStyleComponent {
@@ -75,4 +76,4 @@ FAQSection.propTypes = {
   faqs: PropTypes.array
 };
 
-export default ConfiguredRadium(FAQSection);
+export default PropsRerender(ConfiguredRadium(FAQSection));
