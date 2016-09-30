@@ -15,19 +15,19 @@ import PropsRerender from 'components/common/higher-order/props-rerender';
 const links = [
   {
     name: 'Data',
-    href: DATA_PATH
+    href: '/' + DATA_PATH
   },
   {
     name: 'Reporting',
-    href: STORIES_PATH
+    href: '/' + STORIES_PATH
   },
   {
     name: 'FAQ',
-    href: FAQ_PATH
+    href: '/' + FAQ_PATH
   },
   {
     name: 'Collaborate',
-    href: COLLAB_PATH
+    href: '/' + COLLAB_PATH
   }
 ];
 
