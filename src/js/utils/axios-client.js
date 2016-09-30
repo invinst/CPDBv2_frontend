@@ -3,9 +3,12 @@ import Cookies from 'js-cookie';
 
 
 let API_ROOT = '/api/v1/';
+let API_ROOT_V2 = '/api/v2/';
 if (global.DEVELOPMENT) {
   /* istanbul ignore next */
-  API_ROOT = 'http://localhost:8000/api/v1/';
+  const LOCAL_BASE_PATH = 'http://localhost:8000';
+  API_ROOT = `${LOCAL_BASE_PATH}/api/v1/`;
+  API_ROOT_V2 = `${LOCAL_BASE_PATH}/api/v2/`;
 }
 
 export const clientConfig = {
@@ -20,3 +23,5 @@ export const clientConfig = {
 
 const client = axios.create(clientConfig);
 export default client;
+
+export const V2_ROOT_PATH = API_ROOT_V2;
