@@ -14,6 +14,9 @@ export const lightMineShaftColor = 'rgba(38, 38, 38, 0.5)'; // rgba(38, 38, 38, 
 export const nickelColor = 'rgba(47, 41, 43, 0.7)';
 export const mediumBlackColor = 'rgba(0, 0, 0, 0.5)';
 export const silverSandColor = 'rgba(34, 31, 31, 0.2)';
+export const fashionPinkColor = '#CE1FCA';
+export const pinkishWhiteColor = '#FFE9FE';
+export const mistyRoseColor = '#F9D2E9';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';

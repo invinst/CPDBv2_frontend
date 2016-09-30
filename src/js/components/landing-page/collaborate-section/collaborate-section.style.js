@@ -1,10 +1,11 @@
-import { softBlackColor, sanFranciscoTextFamily, silverSandColor } from 'utils/styles';
+import {
+  softBlackColor, sanFranciscoTextFamily, silverSandColor, fashionPinkColor, pinkishWhiteColor, mistyRoseColor
+} from 'utils/styles';
 
 
 export const contentStyle = {
   paddingBottom: '39px',
-  paddingLeft: '12px',
-  backgroundColor: 'white'
+  paddingLeft: '12px'
 };
 
 export const paragraphStyle = {
@@ -48,16 +49,13 @@ export const paragraphWrapperStyle = {
 };
 
 export const wrapperStyle = {
-  margin: '16px',
   boxSizing: 'border-box',
-  backgroundColor: 'white',
-  paddingBottom: '16px',
+  padding: '32px 16px',
   borderBottom: 0
 };
 
 export const headerStyle = {
   base: {
-    backgroundColor: 'white',
     height: '26px',
     lineHeight: '26px',
     fontFamily: sanFranciscoTextFamily,
@@ -77,4 +75,39 @@ export const headerStyle = {
   tablet: {
     fontSize: '12px'
   }
+};
+
+export const editLinkBaseStyle = {
+  color: fashionPinkColor
+};
+
+export const editLinkHoverStyle = editLinkBaseStyle;
+
+export const editLinkUnderlineBaseStyle = {
+  backgroundColor: fashionPinkColor,
+  opacity: .2
+};
+
+export const editLinkUnderlineHoverStyle = {
+  backgroundColor: fashionPinkColor,
+  opacity: 1
+};
+
+export const moreLinkWrapperStyle = {
+  textAlign: 'right',
+  display: 'inline-block',
+  width: '125px'
+};
+
+export const editModeWrapperStyle = {
+  backgroundColor: pinkishWhiteColor
+};
+
+export const buttonStyle = {
+  backgroundColor: mistyRoseColor,
+  border: '1px solid white',
+  borderRadius: '3px',
+  marginRight: '10px',
+  padding: '5px 7px',
+  cursor: 'pointer'
 };

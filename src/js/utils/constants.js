@@ -18,6 +18,8 @@ export const DATA_PATH = 'data/';
 export const FAQ_PATH = 'faq/';
 export const STORIES_PATH = 'reporting/';
 
+export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
+
 // Reducer defaults
 export const PAGINATION_DEFAULT = { results: [], count: 0, next: null, previous: null };
 

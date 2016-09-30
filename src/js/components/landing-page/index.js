@@ -17,7 +17,7 @@ import PropsRerender from 'components/common/higher-order/props-rerender';
 
 class LandingPage extends ResponsiveStyleComponent {
   componentDidMount() {
-    this.props.requestLandingPage(null, this.context.adapter);
+    this.props.requestLandingPageContent(null, this.context.adapter);
   }
 
   responsiveStyle() {
@@ -34,7 +34,7 @@ class LandingPage extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { store, vftgSection, heroSection, collaborateSection, aboutSection } = this.props;
+    const { store, vftgSection, heroSection, collaborateSection, aboutSection, updateLandingPageContent } = this.props;
 
     return (
       <div>
@@ -63,7 +63,7 @@ class LandingPage extends ResponsiveStyleComponent {
               </div>
               <div style={ divideLineStyle }/>
               <div className='pure-u-1-1'>
-                <CollaborateSection { ...collaborateSection }/>
+                <CollaborateSection { ...collaborateSection } handleUpdate={ updateLandingPageContent }/>
               </div>
             </div>
           </ResponsiveFixedWidthComponent>
@@ -78,6 +78,7 @@ LandingPage.propTypes = {
   store: PropTypes.object,
   heroSection: PropTypes.object,
   vftgSection: PropTypes.object,
+  requestLandingPageContent: PropTypes.func,
   requestLandingPage: PropTypes.func
 };
 

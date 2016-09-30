@@ -1,29 +1,54 @@
 import 'babel-polyfill';
 
 import React, { Component, PropTypes } from 'react';
-import { Editor } from 'draft-js';
+import { Editor, DefaultDraftBlockRenderMap } from 'draft-js';
 
 import { textEditorStyle } from './editor.style';
+import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
+import WrapperBlockWithStyle from 'components/inline-editable/custom-block/wrapper-block-with-style';
 
 
 export default class MultilineTextEditor extends Component {
   render() {
-    const { editorState, onChange, blockRenderMap, blockRendererFn } = this.props;
+    const { editorState, onChange, style } = this.props;
+    const { wrapper, paragraph } = style;
+
+    const paragraphBlockRender = {
+      element: 'div',
+      wrapper: <WrapperBlockWithStyle style={ wrapper } element='div'/>
+    };
+
+    const blockRenderMap = DefaultDraftBlockRenderMap
+      .set('unstyled', paragraphBlockRender);
+
+    function blockRendererFn(contentBlock) {
+      if (contentBlock.getType() === 'unstyled') {
+        return {
+          component: EditorBlockWithStyle,
+          editable: true,
+          props: {
+            style: { ...paragraph, ...textEditorStyle },
+            element: 'div'
+          }
+        };
+      }
+    }
+
     return (
-      <div style={ textEditorStyle }>
-        <Editor
-          editorState={ editorState }
-          onChange={ onChange }
-          blockRenderMap={ blockRenderMap }
-          blockRendererFn={ blockRendererFn }/>
-      </div>
+      <Editor
+        editorState={ editorState }
+        onChange={ onChange }
+        blockRenderMap={ blockRenderMap }
+        blockRendererFn={ blockRendererFn }/>
     );
   }
 }
 
 MultilineTextEditor.propTypes = {
   onChange: PropTypes.func,
-  blockRenderMap: PropTypes.object,
-  editorState: PropTypes.object,
-  blockRendererFn: PropTypes.func
+  style: PropTypes.shape({
+    wrapper: PropTypes.object,
+    paragraph: PropTypes.object
+  }),
+  editorState: PropTypes.object
 };
