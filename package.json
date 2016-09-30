@@ -12,7 +12,8 @@
     "cover": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report text ]",
     "cover-human-readable": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report text ]",
     "cover-circle": "NODE_PATH=src/js mochify --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --plugin [ mochify-istanbul --report lcovonly ]",
-    "live-test": "nightwatch"
+    "live-test": "nightwatch",
+    "lint": "eslint ./src ./test"
   },
   "repository": {
     "type": "git",
@@ -90,6 +91,7 @@
     "redux-axios-middleware": "^1.0.0-rc.0",
     "redux-thunk": "^2.0.1",
     "reselect": "^2.5.1",
+    "string": "^3.3.1",
     "twitter-widgets": "^1.0.0"
   }
 }

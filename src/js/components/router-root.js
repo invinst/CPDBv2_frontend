@@ -24,11 +24,8 @@ export default class RouterRoot extends Component {
     ];
     return (
       <Router history={ browserHistory }>
-        <Route path='/' component={ App }>
+        <Route path='/(edit)' component={ App }>
           { routes }
-          <Route path='edit' component='div'>
-            { routes }
-          </Route>
         </Route>
       </Router>
     );

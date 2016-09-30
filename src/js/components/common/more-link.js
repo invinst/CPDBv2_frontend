@@ -10,7 +10,9 @@ import {
 
 class MoreLink extends Component {
   render() {
-    const { to, children, style, href, showAccentColor, hovering } = this.props;
+    const { to, children, style, href, hovering, onClick } = this.props;
+    const _baseStyle = style.base || {};
+    const _underlineStyle = style.underline || {};
 
     if (to) {
       return (
@@ -18,11 +20,13 @@ class MoreLink extends Component {
           onMouseOver={ this.handleMouseOver }
           onMouseOut={ this.handleMouseOut }
           className='link--transition'
-          style={ [hovering ? baseHoverStyle : baseStyle, style] }>
+          style={ hovering ? [baseHoverStyle, _baseStyle.hover] : [baseStyle, _baseStyle.base] }>
           { children }
           <span style={ underlineWrapperStyle }>
             <span className='link--transition'
-              style={ [underlineStyle, (hovering || showAccentColor) && underlineHoverStyle] }/>
+              style={ hovering ?
+                [underlineHoverStyle, _underlineStyle.hover] :
+                [underlineStyle, _underlineStyle.base] }/>
           </span>
         </Link>
       );
@@ -32,12 +36,15 @@ class MoreLink extends Component {
       <a href={ href }
         onMouseOver={ this.handleMouseOver }
         onMouseOut={ this.handleMouseOut }
+        onClick={ onClick }
         className='link--transition'
-        style={ [hovering ? baseHoverStyle : baseStyle, style] }>
+        style={ hovering ? [baseHoverStyle, _baseStyle.hover] : [baseStyle, _baseStyle.base] }>
         { children }
         <span style={ underlineWrapperStyle }>
           <span className='link--transition'
-            style={ [underlineStyle, (hovering || showAccentColor) && underlineHoverStyle] }/>
+            style={ hovering ?
+                [underlineHoverStyle, _underlineStyle.hover] :
+                [underlineStyle, _underlineStyle.base] }/>
         </span>
       </a>
     );
@@ -48,9 +55,22 @@ MoreLink.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
   children: PropTypes.node,
-  showAccentColor: PropTypes.bool,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-  hovering: PropTypes.bool
+  style: PropTypes.shape({
+    base: PropTypes.shape({
+      base: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+      hover: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+    }),
+    underline: PropTypes.shape({
+      base: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+      hover: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
+    })
+  }),
+  hovering: PropTypes.bool,
+  onClick: PropTypes.func
+};
+
+MoreLink.defaultProps = {
+  style: {}
 };
 
 export default Hoverable(ConfiguredRadium(MoreLink));

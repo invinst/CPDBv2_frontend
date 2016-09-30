@@ -26,8 +26,7 @@ export const baseHoverStyle = {
   color: accentColor
 };
 
-export const underlineStyle = {
-  backgroundColor: silverSandColor,
+export const underlineCommonStyle = {
   display: 'inline-block',
   width: '100%',
   height: '4px',
@@ -36,6 +35,12 @@ export const underlineStyle = {
   verticalAlign: 'baseline'
 };
 
+export const underlineStyle = {
+  ...underlineCommonStyle,
+  backgroundColor: silverSandColor
+};
+
 export const underlineHoverStyle = {
+  ...underlineCommonStyle,
   backgroundColor: accentColor
 };

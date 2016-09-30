@@ -28,7 +28,9 @@ class MostRecentEmailLink extends ResponsiveStyleComponent {
     return (
       <div style={ wrapperStyle }>
         <i className='link--transition' style={ hovering ? iconHoverStyle : iconStyle }/>
-        <MoreLink style={ [style.link, hovering ? linkHoverStyle : {}] } showAccentColor={ hovering } href={ href }>
+        <MoreLink
+          style={ { base: { base: style.link, hover: [style.link, linkHoverStyle] } } }
+          hovering={ hovering } href={ href }>
           Most Recent Email
         </MoreLink>
       </div>

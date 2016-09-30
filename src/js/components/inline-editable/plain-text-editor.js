@@ -31,11 +31,6 @@ export default class PlainTextEditor extends Component {
 }
 
 PlainTextEditor.propTypes = {
-  children: PropTypes.string,
   editorState: PropTypes.object,
   onChange: PropTypes.func
-};
-
-PlainTextEditor.defaultProps = {
-  children: ''
 };

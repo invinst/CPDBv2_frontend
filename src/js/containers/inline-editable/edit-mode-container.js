@@ -1,12 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import S from 'string';
 
 
 class EditModeComponent extends Component {
   getChildContext() {
     return {
-      editModeOn: this.props.editModeOn
+      editModeOn: this.props.editModeOn || this.onEditPath()
     };
+  }
+
+  onEditPath() {
+    return S(this.props.pathname).strip('/').s.split('/')[0] === 'edit';
   }
 
   render() {
@@ -17,6 +22,7 @@ class EditModeComponent extends Component {
 
 EditModeComponent.propTypes = {
   children: PropTypes.node,
+  pathname: PropTypes.string,
   editModeOn: PropTypes.bool
 };
 
