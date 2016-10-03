@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 
-
 import BottomSheet from 'components/landing-page/bottom-sheet/bottom-sheet';
 import { closeBottomSheet } from 'actions/landing-page/bottom-sheet';
 import { contentSelector } from 'selectors/landing-page/bottom-sheet-selector';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 export class UnconnectedBottomSheetContainer extends Component {
@@ -31,4 +31,4 @@ const mapDispatchToProps = {
   closeBottomSheet
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedBottomSheetContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(PropsRerender(UnconnectedBottomSheetContainer));

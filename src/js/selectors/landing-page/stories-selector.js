@@ -21,7 +21,7 @@ export function rawStoryTransform(story) {
     canonicalUrl: story['canonical_url'],
     publicationName: story['publication_name'],
     publicationShortName: story['publication_short_name'],
-    date: moment(story['post_date'], DATE_FORMAT_IN).format(DATE_FORMAT),
+    date: moment(story['publication_date'], DATE_FORMAT_IN).format(DATE_FORMAT),
     paragraphs: story.body && story.body.map(p => p.value),
     imageUrl: getImageUrl(story)
   };

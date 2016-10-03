@@ -1,7 +1,9 @@
-import React, { createElement } from 'react';
+import React, { Component, createElement } from 'react';
 import { Provider } from 'react-redux';
 import { unmountComponentAtNode, findDOMNode } from 'react-dom';
-import { renderIntoDocument, Simulate, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
+import {
+  renderIntoDocument, Simulate, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType
+} from 'react-addons-test-utils';
 import should from 'should';
 import { each, assign } from 'lodash';
 import { spy } from 'sinon';
@@ -9,33 +11,36 @@ import { spy } from 'sinon';
 import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
 
-should.Assertion.add('renderable', function (props) {
-  this.params = { operator: 'to be rendered' };
+function assertRender(obj, props) {
   let element;
   if (props && props.store) {
     const { store, ...otherProps } = props;
     element = renderIntoDocument(
       <Provider store={ store }>
-        { createElement(this.obj, otherProps) }
+        { createElement(obj, otherProps) }
       </Provider>
     );
   } else {
-    element = renderIntoDocument(createElement(this.obj, props));
+    element = renderIntoDocument(createElement(obj, props));
   }
 
   element.should.be.ok();
 
   unmountComponentAtNode(findDOMNode(element).parentNode);
+}
+
+should.Assertion.add('renderable', function (props) {
+  this.params = { operator: 'to be rendered' };
+  assertRender(this.obj, props);
 });
 
 
 should.Assertion.add('responsiveRenderable', function (props) {
+  this.params = { operator: 'to be responsive-rendered' };
   let devices = [MOBILE, TABLET, DESKTOP, EXTRA_WIDE];
 
   each(devices, (device) => {
-    let element = renderIntoDocument(createElement(this.obj, assign({}, props, { device: device })));
-    element.should.be.ok();
-    unmountComponentAtNode(findDOMNode(element).parentNode);
+    assertRender(this.obj, assign({}, props, { device: device }));
   });
 });
 
@@ -67,4 +72,17 @@ should.Assertion.add('triggerCallbackWhenClick', function (callbackProp, target=
   }
 
   unmountComponentAtNode(findDOMNode(element).parentNode);
+});
+
+should.Assertion.add('renderSubComponent', function () {
+  class Dummy extends Component {
+    render() {
+      return <div/>;
+    }
+  }
+  const DecoratedDummy = this.obj(Dummy);
+  const instance = renderIntoDocument(<DecoratedDummy a='b'/>);
+  const element = findRenderedComponentWithType(instance, Dummy);
+  element.props.a.should.equal('b');
+  unmountComponentAtNode(findDOMNode(instance).parentNode);
 });

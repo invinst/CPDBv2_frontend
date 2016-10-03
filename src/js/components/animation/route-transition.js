@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { TransitionMotion, spring } from 'react-motion';
 
 import { defaultConfig } from 'utils/spring-presets';
+import { outerWrapperStyle, innerWrapperStyle } from './route-transition.style';
 
 
 export default class RouteTransition extends Component {
@@ -44,13 +45,14 @@ export default class RouteTransition extends Component {
         willLeave={ this.willLeave }
       >
         { interpolated =>
-          <div>
+          <div style={ outerWrapperStyle }>
             { interpolated.map(config => {
               const { key, style, data } = config;
               return (
                 <div
                   key={ `${key}-transition` }
                   style={ {
+                    ...innerWrapperStyle,
                     opacity: style.opacity,
                     transform: `scale(${style.scale})`
                   } }

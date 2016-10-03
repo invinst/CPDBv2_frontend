@@ -6,6 +6,7 @@ import TwitterEmbeddedTimeline from './twitter-embedded-timeline';
 import ResponsiveStyleComponent, {
   TABLET, DESKTOP, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
+import NoRerender from 'components/common/higher-order/no-rerender';
 
 
 class TwitterSection extends ResponsiveStyleComponent {
@@ -34,4 +35,4 @@ class TwitterSection extends ResponsiveStyleComponent {
   }
 }
 
-export default ConfiguredRadium(TwitterSection);
+export default NoRerender(ConfiguredRadium(TwitterSection));

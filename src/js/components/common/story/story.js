@@ -1,9 +1,12 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import {
-  storyWrapperStyle, sourceStyle, postDateStyle, titleStyle, sourceWrapperStyle, hoverColorStyle
+  storyWrapperStyle, sourceStyle, publicationDateStyle, titleStyle, sourceWrapperStyle, hoverColorStyle
 } from './story.style';
+import ResponsiveStyleComponent, {
+  EXTRA_WIDE, DESKTOP, TABLET
+} from 'components/responsive/responsive-style-component';
 
 
 export const SMALL_TITLE_STYLE = 'small';
@@ -13,16 +16,36 @@ export const EXTRA_BIG_TITLE_STYLE = 'extraBig';
 export const ULTRA_BIG_TITLE_STYLE = 'ultraBig';
 
 
-class Story extends Component {
+class Story extends ResponsiveStyleComponent {
   constructor(props) {
     super(props);
+  }
+
+  responsiveStyle() {
+    return {
+      [EXTRA_WIDE]: {
+        source: [sourceStyle.base, sourceStyle.extraWide],
+        publicationDate: [publicationDateStyle.base, publicationDateStyle.extraWide],
+        title: titleStyle.extraWide
+      },
+      [DESKTOP]: {
+        source: [sourceStyle.base, sourceStyle.desktop],
+        publicationDate: [publicationDateStyle.base, publicationDateStyle.desktop],
+        title: titleStyle.desktop
+      },
+      [TABLET]: {
+        source: [sourceStyle.base, sourceStyle.tablet],
+        publicationDate: [publicationDateStyle.base, publicationDateStyle.tablet],
+        title: titleStyle.tablet
+      }
+    };
   }
 
   getHoverState() {
     return this.state.hover;
   }
 
-  render() {
+  renderWithResponsiveStyle(style) {
     const { story, wrapperStyle, storyTitleSize, underlineStoryTitle, onClick } = this.props;
 
     return (
@@ -34,19 +57,19 @@ class Story extends Component {
         <div style={ sourceWrapperStyle }>
           <span
             className='link--transition story-source'
-            style={ [sourceStyle, this.getHoverState() && hoverColorStyle] }>
+            style={ [style.source, this.getHoverState() && hoverColorStyle] }>
             { story.publicationName }
           </span>
           <span
             className='link--transition story-post-date'
-            style={ [postDateStyle, this.getHoverState() && hoverColorStyle] }>
+            style={ [style.publicationDate, this.getHoverState() && hoverColorStyle] }>
             { story.date }
           </span>
         </div>
         <div
           className='link--transition story-title'
           style={ [
-            titleStyle.base, titleStyle[storyTitleSize], underlineStoryTitle && titleStyle.underline,
+            titleStyle.base, style.title[storyTitleSize], underlineStoryTitle && titleStyle.underline,
             this.getHoverState() && hoverColorStyle] }>
           { story.title }
         </div>

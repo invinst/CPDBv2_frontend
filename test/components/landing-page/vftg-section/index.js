@@ -17,7 +17,7 @@ describe('VFTGSection component', function () {
   });
 
   it('should be renderable', function () {
-    VFTGSection.should.be.renderable({
+    VFTGSection.should.be.responsiveRenderable({
       store,
       headerText: 'CPDP Weekly', date: '2016-09-26',
       contentText: 'abc def', contentLink: 'http://example.com'

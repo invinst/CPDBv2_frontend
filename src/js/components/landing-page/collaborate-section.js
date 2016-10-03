@@ -8,6 +8,7 @@ import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class CollaborateSection extends ResponsiveStyleComponent {
@@ -16,17 +17,20 @@ class CollaborateSection extends ResponsiveStyleComponent {
       [EXTRA_WIDE]: {
         wrapper: paragraphWrapperStyle.extraWide,
         paragraph: [paragraphStyle.base, paragraphStyle.extraWide],
-        underlineLink: [paragraphStyle.base, paragraphStyle.extraWide, underlinedLinkStyle]
+        underlineLink: [paragraphStyle.base, paragraphStyle.extraWide, underlinedLinkStyle],
+        header: [headerStyle.base, headerStyle.extraWide]
       },
       [DESKTOP]: {
         wrapper: paragraphWrapperStyle.desktop,
-        paragraph: [paragraphStyle.base],
-        underlineLink: [paragraphStyle.base, underlinedLinkStyle]
+        paragraph: [paragraphStyle.base, paragraphStyle.desktop],
+        underlineLink: [paragraphStyle.base, underlinedLinkStyle],
+        header: [headerStyle.base, headerStyle.desktop]
       },
       [TABLET]: {
         wrapper: paragraphWrapperStyle.tablet,
         paragraph: [paragraphStyle.base, paragraphStyle.tablet],
-        underlineLink: [paragraphStyle.base, paragraphStyle.tablet, underlinedLinkStyle]
+        underlineLink: [paragraphStyle.base, paragraphStyle.tablet, underlinedLinkStyle],
+        header: [headerStyle.base, headerStyle.tablet]
       }
     };
   }
@@ -43,7 +47,7 @@ class CollaborateSection extends ResponsiveStyleComponent {
     const { headerText } = this.props;
     return (
       <div style={ wrapperStyle }>
-        <div style={ headerStyle }>
+        <div style={ style.header }>
           { headerText }
         </div>
         <div style={ contentStyle }>
@@ -61,4 +65,4 @@ CollaborateSection.propTypes = {
   body: PropTypes.array
 };
 
-export default ConfiguredRadium(CollaborateSection);
+export default PropsRerender(ConfiguredRadium(CollaborateSection));

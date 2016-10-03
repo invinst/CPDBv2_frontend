@@ -28,13 +28,23 @@ export const iconHoverStyle = {
 };
 
 export const linkStyle = {
-  paddingBottom: '3px',
-  fontWeight: 100,
-  display: 'inline-block',
-  verticalAlign: 'middle'
+  base: {
+    paddingBottom: '3px',
+    fontWeight: 300,
+    display: 'inline-block',
+    verticalAlign: 'middle'
+  },
+  extraWide: {
+    fontSize: '14px'
+  },
+  desktop: {
+    fontSize: '13px'
+  },
+  tablet: {
+    fontSize: '12px'
+  }
 };
 
 export const linkHoverStyle = {
-  ...linkStyle,
   color: accentColor
 };

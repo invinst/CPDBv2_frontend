@@ -1,19 +1,35 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
-import {
-  textInputStyle, formActionBlockStyle
-} from './subscribe-form.style';
+import { textInputStyle, subscribeBtnStyle } from './subscribe-form.style';
 import CheckmarkSpinnerButton from './checkmark-spinner-button';
 import { FORM_INITIAL, FORM_LOADING, FORM_SUCCESS, FORM_FAILURE } from 'utils/constants';
+import ConfiguredRadium from 'utils/configured-radium';
+import ResponsiveStyleComponent, {
+  EXTRA_WIDE, DESKTOP, TABLET
+} from 'components/responsive/responsive-style-component';
 
 
-export default class SubscribeForm extends Component {
+class SubscribeForm extends ResponsiveStyleComponent {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.state = {
       state: FORM_INITIAL
+    };
+  }
+
+  responsiveStyle() {
+    return {
+      [EXTRA_WIDE]: {
+        input: [textInputStyle.base, textInputStyle.extraWide]
+      },
+      [DESKTOP]: {
+        input: [textInputStyle.base, textInputStyle.desktop]
+      },
+      [TABLET]: {
+        input: [textInputStyle.base, textInputStyle.tablet]
+      }
     };
   }
 
@@ -38,20 +54,16 @@ export default class SubscribeForm extends Component {
     }
   }
 
-  render() {
+  renderWithResponsiveStyle(style) {
     const { state } = this.state;
 
     return (
-      <div id='mc_embed_signup_scroll'>
-        <div className='mc-field-group'>
-          <input ref={ el => { this.emailInput = el; } }
-            placeholder='email@example.com' type='email' style={ textInputStyle } onChange={ this.handleInputChange }/>
-        </div>
-        <div style={ formActionBlockStyle }>
-          <CheckmarkSpinnerButton onClick={ this.handleClick } state={ state }>
-            Subscribe
-          </CheckmarkSpinnerButton>
-        </div>
+      <div>
+        <input ref={ el => { this.emailInput = el; } } className='subscribe-form__input'
+          placeholder='email@example.com' type='email' style={ style.input } onChange={ this.handleInputChange }/>
+        <CheckmarkSpinnerButton onClick={ this.handleClick } state={ state } style={ subscribeBtnStyle }>
+          Subscribe
+        </CheckmarkSpinnerButton>
       </div>
     );
   }
@@ -60,3 +72,5 @@ export default class SubscribeForm extends Component {
 SubscribeForm.propTypes = {
   subscribeEmail: PropTypes.func
 };
+
+export default ConfiguredRadium(SubscribeForm);

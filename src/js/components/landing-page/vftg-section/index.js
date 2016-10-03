@@ -11,6 +11,7 @@ import ResponsiveStyleComponent from 'components/responsive/responsive-style-com
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 import SubscribeForm from 'containers/landing-page/vftg-section/subscribe-form-container';
 import createFunctionWithTimeout from 'utils/create-function-with-timeout';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class VFTGSection extends ResponsiveStyleComponent {
@@ -22,13 +23,16 @@ class VFTGSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        textStyle: textStyleExtraWide
+        textStyle: textStyleExtraWide,
+        header: [headerStyle.base, headerStyle.extraWide]
       },
       [DESKTOP]: {
-        textStyle: textStyleDesktop
+        textStyle: textStyleDesktop,
+        header: [headerStyle.base, headerStyle.desktop]
       },
       [TABLET]: {
-        textStyle: textStyleDesktop
+        textStyle: textStyleDesktop,
+        header: [headerStyle.base, headerStyle.tablet]
       }
     };
   }
@@ -49,7 +53,7 @@ class VFTGSection extends ResponsiveStyleComponent {
         <div style={ vftgWrapperStyle }>
           <div style={ newsWrapperStyle }>
             <div style={ headerBlockStyle }>
-              <span style={ headerStyle }>{ headerText }</span>
+              <span style={ style.header }>{ headerText }</span>
               <span style={ dateStyle }>{ formattedDate }</span>
             </div>
             <a
@@ -75,4 +79,4 @@ VFTGSection.propTypes = {
   contentLink: PropTypes.string
 };
 
-export default ConfiguredRadium(VFTGSection);
+export default PropsRerender(ConfiguredRadium(VFTGSection));

@@ -12,6 +12,7 @@ import {
 import { imgUrl } from 'utils/static-assets';
 import CoverImage from 'components/common/cover-image';
 import createFunctionWithTimeout from 'utils/create-function-with-timeout';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class HeroSection extends ResponsiveStyleComponent {
@@ -103,4 +104,4 @@ HeroSection.propTypes = {
   useOfForceText: PropTypes.string
 };
 
-export default ConfiguredRadium(HeroSection);
+export default PropsRerender(ConfiguredRadium(HeroSection));

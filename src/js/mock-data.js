@@ -13,7 +13,7 @@ const stories = [
       { type: 'paragraph', value: 'body paragraph 1' },
       { type: 'paragraph', value: 'body paragraph 2' }
     ],
-    'post_date': '1/1/1',
+    'publication_date': '1/1/1',
     'image_url': {
       [DEFAULT_IMAGE_DIMENSION]: 'image url 1'
     }
@@ -27,7 +27,7 @@ const stories = [
       { type: 'paragraph', value: 'body paragraph 1' },
       { type: 'paragraph', value: 'body paragraph 2' }
     ],
-    'post_date': '2/2/2',
+    'publication_date': '2/2/2',
     'image_url': {
       [DEFAULT_IMAGE_DIMENSION]: 'image url 2'
     }
@@ -41,7 +41,7 @@ const stories = [
       { type: 'paragraph', value: 'body paragraph 1' },
       { type: 'paragraph', value: 'body paragraph 2' }
     ],
-    'post_date': '3/3/3',
+    'publication_date': '3/3/3',
     'image_url': {
       [DEFAULT_IMAGE_DIMENSION]: 'image url 3'
     }

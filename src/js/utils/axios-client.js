@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 
 let API_ROOT = '/api/v1/';
@@ -9,7 +10,12 @@ if (global.DEVELOPMENT) {
 
 export const clientConfig = {
   baseURL: API_ROOT,
-  responseType: 'json'
+  responseType: 'json',
+  headers: {
+    common: {
+      'X-CSRFToken': Cookies.get('csrftoken')
+    }
+  }
 };
 
 const client = axios.create(clientConfig);
