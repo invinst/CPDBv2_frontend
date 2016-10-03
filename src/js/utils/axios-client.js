@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 
 let API_ROOT = '/api/v1/';
-let API_ROOT_V2 = '/api/v2/';
+let API_ROOT_V2 = `${global.location.origin}/api/v2/`;
 if (global.DEVELOPMENT) {
   /* istanbul ignore next */
   const LOCAL_BASE_PATH = 'http://localhost:8000';
