@@ -22,21 +22,15 @@ export const paragraphStyle = {
   }
 };
 
-export const boldTextStyle = {
-  fontWeight: 'bold'
-};
-
 export const wrapperStyle = {
   margin: '16px',
   boxSizing: 'border-box',
-  backgroundColor: 'white',
   paddingBottom: '16px',
   borderBottom: 0
 };
 
 export const headerStyle = {
   base: {
-    backgroundColor: 'white',
     height: '26px',
     lineHeight: '26px',
     fontFamily: sanFranciscoTextFamily,
@@ -59,6 +53,10 @@ export const headerStyle = {
 };
 
 export const contentStyle = {
-  backgroundColor: 'white',
   paddingBottom: '16px'
+};
+
+export const editBoxStyle = {
+  width: 'calc(100% - 130px)',
+  display: 'inline-block'
 };

@@ -96,7 +96,7 @@ export const editLinkUnderlineHoverStyle = {
 export const moreLinkWrapperStyle = {
   textAlign: 'right',
   display: 'inline-block',
-  width: '125px'
+  width: '130px'
 };
 
 export const editModeWrapperStyle = {
@@ -110,4 +110,9 @@ export const buttonStyle = {
   marginRight: '10px',
   padding: '5px 7px',
   cursor: 'pointer'
+};
+
+export const editBoxStyle = {
+  width: 'calc(100% - 130px)',
+  display: 'inline-block'
 };

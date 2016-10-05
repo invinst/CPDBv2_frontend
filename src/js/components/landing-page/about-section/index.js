@@ -1,36 +1,31 @@
 import React, { PropTypes } from 'react';
 
-import {
-  paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle,
-  wrapperStyle, headerStyle, editBoxStyle
-} from './collaborate-section.style';
-import ResponsiveStyleComponent, {
-  DESKTOP, TABLET, EXTRA_WIDE
-} from 'components/responsive/responsive-style-component';
 import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
 import MultilineTextEditable from 'components/inline-editable/editable-section/multiline-text-editable';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import EditableSection from 'components/inline-editable/editable-section';
+import ResponsiveStyleComponent, {
+  DESKTOP, TABLET, EXTRA_WIDE
+} from 'components/responsive/responsive-style-component';
+import {
+  paragraphStyle, contentWrapperStyle, wrapperStyle, headerStyle,
+  contentStyle, editBoxStyle
+} from './about-section.style';
 
-class CollaborateSection extends ResponsiveStyleComponent {
+
+class AboutSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        wrapper: paragraphWrapperStyle.extraWide,
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.extraWide },
-        underlineLink: { ...paragraphStyle.base, ...paragraphStyle.extraWide, ...underlinedLinkStyle },
         header: { ...headerStyle.base, ...headerStyle.extraWide }
       },
       [DESKTOP]: {
-        wrapper: paragraphWrapperStyle.desktop,
-        paragraph: { ...paragraphStyle.base, ...paragraphStyle.desktop },
-        underlineLink: { ...paragraphStyle.base, ...underlinedLinkStyle },
+        paragraph: paragraphStyle.base,
         header: { ...headerStyle.base, ...headerStyle.desktop }
       },
       [TABLET]: {
-        wrapper: paragraphWrapperStyle.tablet,
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.tablet },
-        underlineLink: { ...paragraphStyle.base, ...paragraphStyle.tablet, ...underlinedLinkStyle },
         header: { ...headerStyle.base, ...headerStyle.tablet }
       }
     };
@@ -43,13 +38,13 @@ class CollaborateSection extends ResponsiveStyleComponent {
       <div style={ wrapperStyle }>
         <div style={ style.header }>
           <div style={ editBoxStyle }>
-            <PlainTextEditable { ...fieldProps['collaborate_header'] }/>
+            <PlainTextEditable { ...fieldProps['about_header'] }/>
           </div>
           <EditToggle { ...editToggleProps }/>
         </div>
         <div style={ contentStyle }>
-          <MultilineTextEditable { ...fieldProps['collaborate_content'] } style={ {
-            wrapper: style.wrapper,
+          <MultilineTextEditable { ...fieldProps['about_content'] } style={ {
+            wrapper: contentWrapperStyle,
             paragraph: style.paragraph
           } }/>
         </div>
@@ -58,9 +53,9 @@ class CollaborateSection extends ResponsiveStyleComponent {
   }
 }
 
-CollaborateSection.propTypes = {
+AboutSection.propTypes = {
   editToggleProps: PropTypes.object,
   fieldProps: PropTypes.object
 };
 
-export default EditableSection(CollaborateSection);
+export default EditableSection(AboutSection);

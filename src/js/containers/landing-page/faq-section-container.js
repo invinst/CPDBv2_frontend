@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import React from 'react';
 
 import { dataAvailableSelector, faqsSelector } from 'selectors/landing-page/faqs-selector';
 import { openBottomSheetWithFAQ } from 'actions/landing-page/bottom-sheet';
