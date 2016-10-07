@@ -54,9 +54,8 @@ export const underlineFAQStyle = {
 };
 
 export const wrapperStyle = {
-  margin: '16px',
+  padding: '32px 16px',
   boxSizing: 'border-box',
   backgroundColor: 'white',
-  borderBottom: `1px solid ${softBlackColor}`,
-  paddingBottom: '16px'
+  borderBottom: `1px solid ${softBlackColor}`
 };

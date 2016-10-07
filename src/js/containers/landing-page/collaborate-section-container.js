@@ -11,9 +11,11 @@ const mapDispatchToProps = {
 };
 
 function mapStateToProps(state, ownProps) {
+  const { fields, editModeOn } = state.landingPage.collaborateSection;
+
   return {
-    fields: state.landingPage.collaborateSection.fields,
-    sectionEditModeOn: state.landingPage.collaborateSection.editModeOn
+    fields,
+    sectionEditModeOn: editModeOn
   };
 }
 

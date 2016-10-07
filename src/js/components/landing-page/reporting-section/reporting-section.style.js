@@ -48,14 +48,12 @@ export const alignRightStyle = {
 };
 
 export const wrapperStyle = {
-  margin: '16px',
+  padding: '30px 16px 32px',
   boxSizing: 'border-box',
   backgroundColor: 'white',
-  borderBottom: `1px solid ${softBlackColor}`,
-  paddingBottom: '16px'
+  borderBottom: `1px solid ${softBlackColor}`
 };
 
 export const contentStyle = {
-  backgroundColor: 'white',
-  paddingBottom: '16px'
+  backgroundColor: 'white'
 };
