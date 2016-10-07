@@ -20,3 +20,27 @@ export const post = (url, types) => ((data, adapter) => ({
     }
   }
 }));
+
+const patchWithConfig = (config={}) => (url, types) => ((data, adapter) => ({
+  types,
+  payload: {
+    request: {
+      method: 'PATCH',
+      url,
+      data,
+      adapter,
+      ...config
+    }
+  }
+}));
+
+const authorizationHeaders = {
+  headers: {
+    'Authorization': 'Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b'
+  }
+};
+
+export const patch = patchWithConfig();
+
+export const authenticatedPatch = patchWithConfig(authorizationHeaders);
+
