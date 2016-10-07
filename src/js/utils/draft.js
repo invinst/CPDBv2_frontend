@@ -1,5 +1,5 @@
 import { convertFromRaw, EditorState } from 'draft-js';
-import { isEmpty, map } from 'lodash';
+import { isEmpty, map, find } from 'lodash';
 
 
 export const contentStateToTextArray = contentState => (
@@ -13,3 +13,8 @@ export const convertContentStateToEditorState = contentState => (
     EditorState.createEmpty() :
     EditorState.createWithContent(convertFromRaw(contentState))
 );
+
+export const getContentStateFromFields = (fields, name) => {
+  const resultField = find(fields, (field) => (field.name===name));
+  return resultField || null;
+};

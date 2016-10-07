@@ -1,4 +1,4 @@
-import { softBlackColor, sanFranciscoTextFamily, accentColor } from 'utils/styles';
+import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
@@ -9,7 +9,9 @@ export const wrapperStyle = {
   fontWeight: 700,
   color: softBlackColor,
   position: 'relative',
-  cursor: 'pointer'
+  display: 'inline-block',
+  cursor: 'pointer',
+  textDecoration: 'none'
 };
 
 export const iconStyle = {
@@ -25,26 +27,4 @@ export const iconStyle = {
 export const iconHoverStyle = {
   ...iconStyle,
   background: `url(${imgUrl('medium-icon-colored.svg')}) center / cover`
-};
-
-export const linkStyle = {
-  base: {
-    paddingBottom: '3px',
-    fontWeight: 300,
-    display: 'inline-block',
-    verticalAlign: 'middle'
-  },
-  extraWide: {
-    fontSize: '14px'
-  },
-  desktop: {
-    fontSize: '13px'
-  },
-  tablet: {
-    fontSize: '12px'
-  }
-};
-
-export const linkHoverStyle = {
-  color: accentColor
 };

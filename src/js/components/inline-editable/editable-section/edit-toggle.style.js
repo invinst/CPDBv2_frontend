@@ -7,7 +7,8 @@ export const moreLinkWrapperStyle = {
 };
 
 export const editLinkBaseStyle = {
-  color: fashionPinkColor
+  color: fashionPinkColor,
+  cursor: 'pointer'
 };
 
 export const editLinkHoverStyle = editLinkBaseStyle;

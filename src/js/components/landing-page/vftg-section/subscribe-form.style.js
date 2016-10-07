@@ -31,3 +31,7 @@ export const textInputStyle = {
 export const subscribeBtnStyle = {
   marginLeft: '10px'
 };
+
+export const disabledStyle = {
+  opacity: .5
+};

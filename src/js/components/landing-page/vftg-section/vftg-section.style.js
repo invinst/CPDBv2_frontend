@@ -36,9 +36,11 @@ export const dateStyle = {
 export const textStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '20px',
-  fontWeight: 300,
+  fontWeight: 300
+};
+
+export const textHoverStyle = {
   color: softBlackColor,
-  cursor: 'pointer',
   textDecoration: 'none',
   ':hover': {
     color: accentColor
@@ -94,7 +96,37 @@ export const vftgWrapperStyle = {
 
 export const wrapperStyle = {
   boxSizing: 'border-box',
-  backgroundColor: wildSandColor,
-  paddingBottom: 0,
-  margin: '16px'
+  padding: '32px 16px 16px'
+};
+
+export const vftgWrapperEditModeStyle = {
+  ...vftgWrapperStyle,
+  backgroundColor: 'transparent'
+};
+
+export const editBoxStyle = {
+  width: 'calc(100% - 130px)',
+  display: 'inline-block'
+};
+
+export const editWrapperLinkStyle = {
+  fontSize: '13px'
+};
+
+export const linkStyle = {
+  base: {
+    paddingBottom: '3px',
+    fontWeight: 300,
+    display: 'inline-block',
+    verticalAlign: 'middle'
+  },
+  extraWide: {
+    fontSize: '14px'
+  },
+  desktop: {
+    fontSize: '13px'
+  },
+  tablet: {
+    fontSize: '12px'
+  }
 };

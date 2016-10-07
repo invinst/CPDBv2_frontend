@@ -11,7 +11,7 @@ export default function (SubComponent) {
     constructor(props) {
       super(props);
       this.state = {
-        fields: this.convertFields(props.fields)
+        fields: mapValues(props.fields, this.deserializeField)
       };
       this.handleUpdateFieldValue = this.handleUpdateFieldValue.bind(this);
       this.handleSaveForm = this.handleSaveForm.bind(this);
@@ -19,27 +19,55 @@ export default function (SubComponent) {
 
     componentWillReceiveProps(nextProps) {
       this.setState({
-        fields: this.convertFields(nextProps.fields)
+        fields: mapValues(nextProps.fields, this.deserializeField)
       });
     }
 
-    convertFields(fields) {
-      return mapValues(fields, (field) => (convertContentStateToEditorState(field)));
+    deserializeField(field) {
+      if (!field.value) {
+        return field;
+      }
+
+      switch (field.type) {
+        case 'plain_text':
+        case 'multiline_text':
+          return {
+            ...field,
+            value: convertContentStateToEditorState(field.value)
+          };
+      }
+      return field;
+    }
+
+    serializeField(field) {
+      switch (field.type) {
+        case 'plain_text':
+        case 'multiline_text':
+          return {
+            ...field,
+            value: convertToRaw(field.value.getCurrentContent())
+          };
+      }
+      return field;
     }
 
     handleSaveForm() {
-      const data = mapValues(this.state.fields, (field) => (
-        convertToRaw(field.getCurrentContent())
-        ));
+      const data = mapValues(this.state.fields, this.serializeField);
       this.props.onSaveForm(data)
       .then(() => this.props.turnOffSectionEditMode());
     }
 
     handleUpdateFieldValue(fieldName, fieldValue) {
+      const { fields } = this.state;
+      const field = fields[fieldName];
+
       this.setState({
         fields: {
-          ...this.state.fields,
-          [fieldName]: fieldValue
+          ...fields,
+          [fieldName]: {
+            ...field,
+            value: fieldValue
+          }
         }
       });
     }
@@ -51,6 +79,7 @@ export default function (SubComponent) {
       return (
         <div style={ sectionEditModeOn ? editModeWrapperStyle : null }>
           <SubComponent
+            sectionEditModeOn={ sectionEditModeOn }
             editToggleProps={ {
               sectionEditModeOn,
               turnOnSectionEditMode,
@@ -58,8 +87,8 @@ export default function (SubComponent) {
               onSaveForm: this.handleSaveForm
             } }
             fieldProps={
-              mapValues(fields, (editorState, fieldName) => ({
-                editorState: editorState,
+              mapValues(fields, (field, fieldName) => ({
+                value: field.value,
                 editModeOn: sectionEditModeOn,
                 onChange: val => this.handleUpdateFieldValue(fieldName, val)
               }))

@@ -1,17 +1,21 @@
 import React, { PropTypes } from 'react';
-import moment from 'moment';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import MostRecentEmailLink from './most-recent-email-link';
 import {
   headerBlockStyle, headerStyle, dateStyle, newsWrapperStyle,
-  vftgWrapperStyle, textStyleDesktop, textStyleExtraWide, wrapperStyle
+  vftgWrapperStyle, textStyleDesktop, textStyleExtraWide, wrapperStyle,
+  editBoxStyle, textHoverStyle, vftgWrapperEditModeStyle, editWrapperLinkStyle,
+  linkStyle
 } from './vftg-section.style';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 import SubscribeForm from 'containers/landing-page/vftg-section/subscribe-form-container';
 import createFunctionWithTimeout from 'utils/create-function-with-timeout';
-import PropsRerender from 'components/common/higher-order/props-rerender';
+import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
+import LinkPicker from 'components/inline-editable/link-picker';
+import EditableSection from 'components/inline-editable/editable-section';
+import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 
 
 class VFTGSection extends ResponsiveStyleComponent {
@@ -24,15 +28,18 @@ class VFTGSection extends ResponsiveStyleComponent {
     return {
       [EXTRA_WIDE]: {
         textStyle: textStyleExtraWide,
-        header: [headerStyle.base, headerStyle.extraWide]
+        link: { ...linkStyle.base, ...linkStyle.extraWide },
+        header: { ...headerStyle.base, ...headerStyle.extraWide }
       },
       [DESKTOP]: {
         textStyle: textStyleDesktop,
-        header: [headerStyle.base, headerStyle.desktop]
+        link: { ...linkStyle.base, ...linkStyle.desktop },
+        header: { ...headerStyle.base, ...headerStyle.desktop }
       },
       [TABLET]: {
         textStyle: textStyleDesktop,
-        header: [headerStyle.base, headerStyle.tablet]
+        link: { ...linkStyle.base, ...linkStyle.tablet },
+        header: { ...headerStyle.base, ...headerStyle.tablet }
       }
     };
   }
@@ -46,26 +53,33 @@ class VFTGSection extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { headerText, date, contentText, contentLink } = this.props;
-    const formattedDate = moment(date, 'YYYY-MM-DD').format('ll');
+    const { fieldProps, editToggleProps, sectionEditModeOn } = this.props;
+    const link = fieldProps['vftg_link'] ? fieldProps['vftg_link'].value : null;
+
     return (
       <div style={ wrapperStyle }>
-        <div style={ vftgWrapperStyle }>
+        <div style={ sectionEditModeOn ? vftgWrapperEditModeStyle : vftgWrapperStyle }>
           <div style={ newsWrapperStyle }>
             <div style={ headerBlockStyle }>
-              <span style={ style.header }>{ headerText }</span>
-              <span style={ dateStyle }>{ formattedDate }</span>
+              <div style={ editBoxStyle }>
+                <span style={ style.header }>CPDP WEEKLY</span>
+                <span style={ dateStyle }>Sep 23, 2016</span>
+              </div>
+              <EditToggle { ...editToggleProps } style={ editWrapperLinkStyle }/>
             </div>
-            <a
-              className='link--transition' style={ style.textStyle }
-              key={ style.screen } onClick={ this.handleClickVftgLink }>
-              { contentText }
-            </a>
+            <div style={ style.textStyle }>
+              <PlainTextEditable { ...fieldProps['vftg_content'] }
+                presenterElement={
+                  <a className='link--transition' style={ textHoverStyle }
+                    href={ link } key={ style.screen }/>
+                }/>
+            </div>
           </div>
           <div>
-            <MostRecentEmailLink href={ contentLink }/>
-            <SubscribeForm />
+            <MostRecentEmailLink href={ link } style={ style.link }/>
+            <LinkPicker { ...fieldProps['vftg_link'] }/>
           </div>
+          <SubscribeForm disabled={ sectionEditModeOn }/>
         </div>
       </div>
     );
@@ -73,10 +87,9 @@ class VFTGSection extends ResponsiveStyleComponent {
 }
 
 VFTGSection.propTypes = {
-  headerText: PropTypes.string,
-  date: PropTypes.string,
-  contentText: PropTypes.string,
-  contentLink: PropTypes.string
+  fieldProps: PropTypes.object,
+  editToggleProps: PropTypes.object,
+  sectionEditModeOn: PropTypes.bool
 };
 
-export default PropsRerender(ConfiguredRadium(VFTGSection));
+export default EditableSection(ConfiguredRadium(VFTGSection));

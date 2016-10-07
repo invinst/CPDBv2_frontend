@@ -6,7 +6,7 @@ import PlainTextEditor from 'components/inline-editable/plain-text-editor';
 
 class PlainTextEditable extends Component {
   render() {
-    const { editModeOn, editorState, onChange } = this.props;
+    const { editModeOn, value, onChange, presenterElement } = this.props;
 
     return (
       <Editable
@@ -14,10 +14,13 @@ class PlainTextEditable extends Component {
         editorElement={
           <PlainTextEditor
             onChange={ onChange }
-            editorState={ editorState }/>
+            editorState={ value }/>
         }
         presenterElement={
-          <span>{ editorState && editorState.getCurrentContent().getFirstBlock().getText() }</span>
+          React.cloneElement(
+            presenterElement,
+            null,
+            value && value.getCurrentContent().getFirstBlock().getText())
         }/>
     );
   }
@@ -25,8 +28,13 @@ class PlainTextEditable extends Component {
 
 PlainTextEditable.propTypes = {
   onChange: PropTypes.func,
-  editorState: PropTypes.object,
-  editModeOn: PropTypes.bool
+  value: PropTypes.object,
+  editModeOn: PropTypes.bool,
+  presenterElement: PropTypes.element
+};
+
+PlainTextEditable.defaultProps = {
+  presenterElement: <span/>
 };
 
 export default PlainTextEditable;

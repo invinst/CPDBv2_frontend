@@ -2,8 +2,7 @@ import { darkGreyColor, softBlackColor } from 'utils/styles';
 
 
 export const bottomSectionsWrapperStyle = {
-  backgroundColor: 'white',
-  paddingTop: '14px'
+  backgroundColor: 'white'
 };
 
 export const sectionStyle = {

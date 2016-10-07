@@ -9,7 +9,7 @@ import {
 
 class EditToggle extends Component {
   render() {
-    const { turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm, sectionEditModeOn } = this.props;
+    const { turnOnSectionEditMode, turnOffSectionEditMode, onSaveForm, sectionEditModeOn, style } = this.props;
     const { editModeOn } = this.context;
 
     if (!editModeOn) {
@@ -17,7 +17,7 @@ class EditToggle extends Component {
     }
 
     return (
-      <div style={ moreLinkWrapperStyle }>
+      <div style={ { ...moreLinkWrapperStyle, ...style } }>
         {
           !sectionEditModeOn ?
             <MoreLink
@@ -42,7 +42,8 @@ EditToggle.propTypes = {
   sectionEditModeOn: PropTypes.bool,
   turnOnSectionEditMode: PropTypes.func,
   turnOffSectionEditMode: PropTypes.func,
-  onSaveForm: PropTypes.func
+  onSaveForm: PropTypes.func,
+  style: PropTypes.object
 };
 
 EditToggle.contextTypes = {

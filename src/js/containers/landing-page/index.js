@@ -7,7 +7,6 @@ import LandingPage from 'components/landing-page';
 
 function mapStateToProps(state, ownProps) {
   return {
-    vftgSection: state.landingPage.vftgSection,
     heroSection: state.landingPage.heroSection
   };
 }

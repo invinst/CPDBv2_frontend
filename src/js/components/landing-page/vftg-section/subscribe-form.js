@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { textInputStyle, subscribeBtnStyle } from './subscribe-form.style';
+import { textInputStyle, subscribeBtnStyle, disabledStyle } from './subscribe-form.style';
 import CheckmarkSpinnerButton from './checkmark-spinner-button';
 import { FORM_INITIAL, FORM_LOADING, FORM_SUCCESS, FORM_FAILURE } from 'utils/constants';
 import ConfiguredRadium from 'utils/configured-radium';
@@ -56,12 +56,22 @@ class SubscribeForm extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     const { state } = this.state;
+    const { disabled } = this.props;
 
     return (
-      <div>
-        <input ref={ el => { this.emailInput = el; } } className='subscribe-form__input'
-          placeholder='email@example.com' type='email' style={ style.input } onChange={ this.handleInputChange }/>
-        <CheckmarkSpinnerButton onClick={ this.handleClick } state={ state } style={ subscribeBtnStyle }>
+      <div style={ disabled ? disabledStyle : null }>
+        <input ref={ el => { this.emailInput = el; } }
+          className='subscribe-form__input'
+          placeholder='email@example.com'
+          type='email'
+          style={ style.input }
+          onChange={ this.handleInputChange }
+          disabled={ disabled }/>
+        <CheckmarkSpinnerButton
+          disabled={ disabled }
+          onClick={ this.handleClick }
+          state={ state }
+          style={ subscribeBtnStyle }>
           Subscribe
         </CheckmarkSpinnerButton>
       </div>
@@ -70,7 +80,8 @@ class SubscribeForm extends ResponsiveStyleComponent {
 }
 
 SubscribeForm.propTypes = {
-  subscribeEmail: PropTypes.func
+  subscribeEmail: PropTypes.func,
+  disabled: PropTypes.bool
 };
 
 export default ConfiguredRadium(SubscribeForm);

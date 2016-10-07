@@ -1,46 +1,37 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 
-import MoreLink from 'components/common/more-link';
+import UnderlineText from 'components/common/underline-text';
 import Hoverable from 'components/common/higher-order/hoverable';
-import { wrapperStyle, iconStyle, linkStyle, iconHoverStyle, linkHoverStyle } from './most-recent-email-link.style';
-import ResponsiveStyleComponent, {
-  EXTRA_WIDE, DESKTOP, TABLET
-} from 'components/responsive/responsive-style-component';
+import {
+  wrapperStyle, iconStyle, iconHoverStyle
+} from './most-recent-email-link.style';
 
 
-class MostRecentEmailLink extends ResponsiveStyleComponent {
-  responsiveStyle() {
-    return {
-      [EXTRA_WIDE]: {
-        link: [linkStyle.base, linkStyle.extraWide]
-      },
-      [DESKTOP]: {
-        link: [linkStyle.base, linkStyle.desktop]
-      },
-      [TABLET]: {
-        link: [linkStyle.base, linkStyle.tablet]
-      }
-    };
-  }
+class MostRecentEmailLink extends Component {
 
-  renderWithResponsiveStyle(style) {
-    const { hovering, href } = this.props;
+  render() {
+    const { hovering, href, style } = this.props;
     return (
-      <div style={ wrapperStyle }>
-        <i className='link--transition' style={ hovering ? iconHoverStyle : iconStyle }/>
-        <MoreLink
-          style={ { base: { base: style.link, hover: [style.link, linkHoverStyle] } } }
-          hovering={ hovering } href={ href }>
+      <a style={ wrapperStyle } onClick={ this.visitLink } href={ href }>
+        <i
+          className='link--transition'
+          style={ hovering ? iconHoverStyle : iconStyle }/>
+        <UnderlineText
+          style={ {
+            base: { base: style, hover: style }
+          } }
+          hovering={ hovering }>
           Most Recent Email
-        </MoreLink>
-      </div>
+        </UnderlineText>
+      </a>
     );
   }
 }
 
 MostRecentEmailLink.propTypes = {
   hovering: PropTypes.bool,
-  href: PropTypes.string
+  href: PropTypes.string,
+  style: PropTypes.object
 };
 
 export default Hoverable(MostRecentEmailLink);

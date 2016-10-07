@@ -7,7 +7,7 @@ import Footer from 'components/footer';
 import HeroSection from 'components/landing-page/hero-section';
 import FAQSectionContainer from 'containers/landing-page/faq-section-container';
 import ReportingSectionContainer from 'containers/landing-page/reporting-section-container';
-import VFTGSection from './vftg-section';
+import VFTGSectionContainer from 'containers/landing-page/vftg-section';
 import TwitterSection from './twitter-section/twitter-section';
 import AboutSectionContainer from 'containers/landing-page/about-section-container';
 import CollaborateSectionContainer from 'containers/landing-page/collaborate-section-container';
@@ -34,7 +34,7 @@ class LandingPage extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { store, vftgSection, heroSection } = this.props;
+    const { store, heroSection } = this.props;
 
     return (
       <div>
@@ -55,7 +55,7 @@ class LandingPage extends ResponsiveStyleComponent {
               </div>
               <div className={ style.rightColumnClassName }>
                 <div className='pure-u-1-1'>
-                  <VFTGSection { ...vftgSection }/>
+                  <VFTGSectionContainer/>
                 </div>
                 <div className='pure-u-1-1'>
                   <TwitterSection/>

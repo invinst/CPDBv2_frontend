@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import isMobile from 'ismobilejs';
-import ConfiguredRadium from 'utils/configured-radium';
 
 
 export default function (ComponentClass) {
@@ -38,10 +37,11 @@ export default function (ComponentClass) {
         <span
           onMouseOver={ this.handleMouseOver }
           onMouseOut={ this.handleMouseOut }>
-          <ComponentClass { ...this.props } hovering={ hovering }/>
+          <ComponentClass hovering={ hovering } { ...this.props }/>
         </span>
       );
     }
   }
-  return ConfiguredRadium(Hoverable);
+
+  return Hoverable;
 }
