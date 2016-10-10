@@ -73,7 +73,10 @@ export default function (SubComponent) {
     }
 
     render() {
-      const { sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode } = this.props;
+      const {
+        sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode,
+        ...restProps
+      } = this.props;
       const { fields } = this.state;
 
       return (
@@ -92,7 +95,8 @@ export default function (SubComponent) {
                 editModeOn: sectionEditModeOn,
                 onChange: val => this.handleUpdateFieldValue(fieldName, val)
               }))
-            }/>
+            }
+            { ...restProps }/>
         </div>
       );
     }
