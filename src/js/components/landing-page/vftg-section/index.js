@@ -3,10 +3,9 @@ import React, { PropTypes } from 'react';
 import ConfiguredRadium from 'utils/configured-radium';
 import MostRecentEmailLink from './most-recent-email-link';
 import {
-  headerBlockStyle, headerStyle, dateStyle, newsWrapperStyle,
-  vftgWrapperStyle, textStyleDesktop, textStyleExtraWide, wrapperStyle,
-  editBoxStyle, textHoverStyle, vftgWrapperEditModeStyle, editWrapperLinkStyle,
-  linkStyle
+  headerBlockStyle, headerStyle, newsWrapperStyle, vftgWrapperStyle,
+  textStyleDesktop, textStyleExtraWide, wrapperStyle, editBoxStyle,
+  textHoverStyle, vftgWrapperEditModeStyle, editWrapperLinkStyle, linkStyle
 } from './vftg-section.style';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
@@ -16,6 +15,7 @@ import PlainTextEditable from 'components/inline-editable/editable-section/plain
 import LinkPicker from 'components/inline-editable/link-picker';
 import EditableSection from 'components/inline-editable/editable-section';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
+import DatePicker from 'components/inline-editable/date-picker';
 
 
 class VFTGSection extends ResponsiveStyleComponent {
@@ -63,7 +63,7 @@ class VFTGSection extends ResponsiveStyleComponent {
             <div style={ headerBlockStyle }>
               <div style={ editBoxStyle }>
                 <span style={ style.header }>CPDP WEEKLY</span>
-                <span style={ dateStyle }>Sep 23, 2016</span>
+                <DatePicker { ...fieldProps['vftg_date'] }/>
               </div>
               <EditToggle { ...editToggleProps } style={ editWrapperLinkStyle }/>
             </div>

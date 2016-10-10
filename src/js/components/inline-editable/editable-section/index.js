@@ -24,7 +24,7 @@ export default function (SubComponent) {
     }
 
     deserializeField(field) {
-      if (!field.value) {
+      if (!field) {
         return field;
       }
 
@@ -88,7 +88,7 @@ export default function (SubComponent) {
             } }
             fieldProps={
               mapValues(fields, (field, fieldName) => ({
-                value: field.value,
+                value: field && field.value,
                 editModeOn: sectionEditModeOn,
                 onChange: val => this.handleUpdateFieldValue(fieldName, val)
               }))

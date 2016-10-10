@@ -1,5 +1,5 @@
 import {
-  softBlackColor, lightMineShaftColor, sanFranciscoTextFamily, accentColor, wildSandColor
+  softBlackColor, sanFranciscoTextFamily, accentColor, wildSandColor
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
@@ -13,7 +13,9 @@ export const headerStyle = {
     fontFamily: sanFranciscoTextFamily,
     fontSize: '13px',
     fontWeight: 500,
-    color: softBlackColor
+    color: softBlackColor,
+    paddingTop: '4px',
+    display: 'inline-block'
   },
   extraWide: {
     fontSize: '14px'
@@ -24,13 +26,6 @@ export const headerStyle = {
   tablet: {
     fontSize: '12px'
   }
-};
-
-export const dateStyle = {
-  fontFamily: sanFranciscoTextFamily,
-  fontSize: '13px',
-  color: lightMineShaftColor,
-  marginLeft: '6px'
 };
 
 export const textStyle = {
@@ -106,11 +101,13 @@ export const vftgWrapperEditModeStyle = {
 
 export const editBoxStyle = {
   width: 'calc(100% - 130px)',
-  display: 'inline-block'
+  display: 'inline-block',
+  height: '26px'
 };
 
 export const editWrapperLinkStyle = {
-  fontSize: '13px'
+  fontSize: '13px',
+  fontFamily: sanFranciscoTextFamily
 };
 
 export const linkStyle = {
