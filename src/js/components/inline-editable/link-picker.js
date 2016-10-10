@@ -1,8 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 
 import {
-  wrapperStyle, linkButtonStyle, popupWrapperStyle, linkInputStyle
+  wrapperStyle, linkButtonStyle, popupWrapperStyle, linkInputStyle,
+  hoveredLinkButtonStyle
 } from './link-picker.style';
+import HoverableButton from 'components/common/hoverable-button';
 
 
 export default class LinkPicker extends Component {
@@ -34,9 +36,14 @@ export default class LinkPicker extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <div style={ linkButtonStyle } onClick={ this.handleTogglePopup }>
+        <HoverableButton
+          onClick={ this.handleTogglePopup }
+          style={ {
+            base: linkButtonStyle,
+            hover: hoveredLinkButtonStyle
+          } }>
           +
-        </div>
+        </HoverableButton>
         {
           open ?
             <div style={ { ...popupWrapperStyle, ...style } }>

@@ -1,5 +1,6 @@
 import {
-  softBlackColor, mistyRoseColor, fashionPinkColor, pinkishWhiteColor, softGreenColor
+  softBlackColor, mistyRoseColor, fashionPinkColor, pinkishWhiteColor,
+  softGreenColor, tomatoPinkColor
 } from 'utils/styles';
 
 
@@ -9,11 +10,18 @@ export const wrapperStyle = {
 };
 
 export const linkButtonStyle = {
-  width: '26px',
-  height: '26px',
+  width: '24px',
+  height: '24px',
   backgroundColor: mistyRoseColor,
   marginLeft: '8px',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  border: '1px solid white',
+  display: 'inline-block'
+};
+
+export const hoveredLinkButtonStyle = {
+  ...linkButtonStyle,
+  backgroundColor: tomatoPinkColor
 };
 
 export const popupWrapperStyle = {

@@ -65,7 +65,7 @@ class FAQSection extends ResponsiveStyleComponent {
         <div style={ style.header }>
           <span style={ alignLeftStyle }>FAQ</span>
           <span style={ alignRightStyle }>
-            <MoreLink style={ { base: { base: style.moreLink } } } to={ FAQ_PATH }>See more FAQ</MoreLink>
+            <MoreLink to={ FAQ_PATH }>See more FAQ</MoreLink>
           </span>
         </div>
       );

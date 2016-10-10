@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import ButtonComponent from 'components/common/button';
+import ButtonComponent from './button';
 import { headerStyle } from './bottom-sheet-header.style';
 
 

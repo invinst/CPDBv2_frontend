@@ -1,13 +1,21 @@
-import { sanFranciscoTextFamily, mistyRoseColor, lightMineShaftColor } from 'utils/styles';
+import {
+  sanFranciscoTextFamily, mistyRoseColor, lightMineShaftColor, tomatoPinkColor
+} from 'utils/styles';
 
 export const buttonStyle = {
-  width: '26px',
-  height: '26px',
+  width: '24px',
+  height: '24px',
   backgroundColor: mistyRoseColor,
   marginLeft: '8px',
   cursor: 'pointer',
   display: 'inline-block',
-  verticalAlign: 'middle'
+  verticalAlign: 'middle',
+  border: '1px solid white'
+};
+
+export const hoveredButtonStyle = {
+  ...buttonStyle,
+  backgroundColor: tomatoPinkColor
 };
 
 export const dateStyle = {

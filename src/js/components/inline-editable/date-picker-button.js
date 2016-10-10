@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
-import { buttonStyle, dateStyle } from './date-picker-button.style';
+import { buttonStyle, dateStyle, hoveredButtonStyle } from './date-picker-button.style';
+import HoverableButton from 'components/common/hoverable-button';
 
 
 export default class DatePickerButton extends Component {
@@ -12,9 +13,14 @@ export default class DatePickerButton extends Component {
         <span style={ dateStyle }>
           { value }
         </span>
-        <div style={ buttonStyle } onClick={ onClick }>
+        <HoverableButton
+          onClick={ onClick }
+          style={ {
+            base: buttonStyle,
+            hover: hoveredButtonStyle
+          } }>
           +
-        </div>
+        </HoverableButton>
       </div>
     );
   }

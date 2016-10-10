@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 
 import MoreLink from 'components/common/more-link';
+import CancelUpdateButtons from './cancel-update-buttons';
 import {
   moreLinkWrapperStyle, editLinkBaseStyle, editLinkHoverStyle,
-  editLinkUnderlineBaseStyle, editLinkUnderlineHoverStyle, buttonStyle
+  editLinkUnderlineBaseStyle, editLinkUnderlineHoverStyle
 } from './edit-toggle.style';
 
 
@@ -28,10 +29,9 @@ class EditToggle extends Component {
               onClick={ turnOnSectionEditMode }>
               Edit
             </MoreLink> :
-            <div>
-              <a onClick={ turnOffSectionEditMode } style={ buttonStyle }>Cancel</a>
-              <a style={ buttonStyle } onClick={ onSaveForm }>Update</a>
-            </div>
+            <CancelUpdateButtons
+              onUpdateClick={ onSaveForm }
+              onCancelClick={ turnOffSectionEditMode }/>
         }
       </div>
     );

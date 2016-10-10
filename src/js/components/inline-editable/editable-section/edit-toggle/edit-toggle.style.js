@@ -1,4 +1,4 @@
-import { fashionPinkColor, mistyRoseColor } from 'utils/styles';
+import { fashionPinkColor } from 'utils/styles';
 
 export const moreLinkWrapperStyle = {
   textAlign: 'right',
@@ -21,13 +21,4 @@ export const editLinkUnderlineBaseStyle = {
 export const editLinkUnderlineHoverStyle = {
   backgroundColor: fashionPinkColor,
   opacity: 1
-};
-
-export const buttonStyle = {
-  backgroundColor: mistyRoseColor,
-  border: '1px solid white',
-  borderRadius: '3px',
-  marginRight: '10px',
-  padding: '5px 7px',
-  cursor: 'pointer'
 };

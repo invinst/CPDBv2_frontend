@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
 
-import ConfiguredRadium from 'utils/configured-radium';
 import { STORIES_PATH } from 'utils/constants';
 import {
-  alignLeftStyle, alignRightStyle, coverageWrapperStyle, headerStyle, wrapperStyle, contentStyle
+  alignRightStyle, coverageWrapperStyle, headerStyle,
+  wrapperStyle, contentStyle, editBoxStyle
 } from './reporting-section.style';
 import ReportingPlaceHolder from 'components/landing-page/reporting-section/place-holder';
 import ReportingSectionContent from 'components/landing-page/reporting-section/reporting-section-content';
@@ -11,20 +11,23 @@ import MoreLink from 'components/common/more-link';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';
-import PropsRerender from 'components/common/higher-order/props-rerender';
+import EditableSection from 'components/inline-editable/editable-section';
+import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
+import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
+import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
 
 
 class ReportingSection extends ResponsiveStyleComponent {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        header: [headerStyle.base, headerStyle.extraWide]
+        header: { ...headerStyle.base, ...headerStyle.extraWide }
       },
       [DESKTOP]: {
-        header: [headerStyle.base, headerStyle.desktop]
+        header: { ...headerStyle.base, ...headerStyle.desktop }
       },
       [TABLET]: {
-        header: [headerStyle.base, headerStyle.tablet]
+        header: { ...headerStyle.base, ...headerStyle.tablet }
       }
     };
   }
@@ -41,17 +44,33 @@ class ReportingSection extends ResponsiveStyleComponent {
     );
   }
 
-  renderWithResponsiveStyle(style) {
+  renderHeader(style) {
+    const { editToggleProps, fieldProps } = this.props;
+    const { editModeOn } = this.context;
+
     return (
-      <div style={ [wrapperStyle, coverageWrapperStyle] }>
-        <div style={ style.header }>
-          <div>
-            <span style={ alignLeftStyle }>Recent Reports</span>
+      <div style={ style.header }>
+        <div style={ editBoxStyle }>
+          <PlainTextEditable { ...fieldProps['reporting_header'] }/>
+        </div>
+        {
+          editModeOn ?
+            <span style={ alignRightStyle }>
+              <StrategyForm { ...fieldProps['reporting_randomizer'] }/>
+              <EditToggle { ...editToggleProps }/>
+            </span> :
             <span style={ alignRightStyle }>
               <MoreLink to={ STORIES_PATH }>See more reporting</MoreLink>
             </span>
-          </div>
-        </div>
+        }
+      </div>
+    );
+  }
+
+  renderWithResponsiveStyle(style) {
+    return (
+      <div style={ { ...wrapperStyle, ...coverageWrapperStyle } }>
+        { this.renderHeader(style) }
         <div style={ contentStyle }>
           { this.renderContent() }
         </div>
@@ -66,4 +85,8 @@ ReportingSection.propTypes = {
   stories: PropTypes.array
 };
 
-export default PropsRerender(ConfiguredRadium(ReportingSection));
+ReportingSection.contextTypes = {
+  editModeOn: PropTypes.bool
+};
+
+export default EditableSection(ReportingSection);
