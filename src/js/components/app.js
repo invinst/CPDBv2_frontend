@@ -8,6 +8,9 @@ import EditModeContainer from 'containers/inline-editable/edit-mode-container';
 import BottomSheetContainer from 'containers/bottom-sheet-container';
 import Header from 'components/header';
 import RouteTransition from 'components/animation/route-transition';
+import LoginModalContainer from 'containers/login-modal-container';
+import { showLoginModal, hideLoginModal } from 'actions/authentication';
+import Mousetrap from 'mousetrap';
 
 
 const store = configureStore();
@@ -15,6 +18,17 @@ const store = configureStore();
 export default class App extends React.Component {
   getChildContext() {
     return { adapter: getMockAdapter() };
+  }
+
+  componentDidMount() {
+    Mousetrap.bind('esc', () => {
+      const show = store.getState().authentication.showLoginModal;
+      store.dispatch(show ? hideLoginModal() : showLoginModal());
+    });
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind('esc');
   }
 
   render() {
@@ -29,6 +43,7 @@ export default class App extends React.Component {
               { this.props.children }
             </RouteTransition>
             <BottomSheetContainer/>
+            <LoginModalContainer/>
           </EditModeContainer>
         </StyleRoot>
       </Provider>

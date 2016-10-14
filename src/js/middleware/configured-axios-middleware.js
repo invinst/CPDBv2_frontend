@@ -17,7 +17,7 @@ export const onError = ({ action, next, error }, options) => {
   if (error instanceof Error) {
     errorObject = error;
   } else {
-    errorObject = new Error(getErrorMessage(action.payload.request.url, error.status));
+    errorObject = new Error(error.data.message);
   }
 
   const nextAction = createAction(getActionTypes(action, options)[2])(errorObject);

@@ -19,6 +19,8 @@ export const pinkishWhiteColor = '#FFE8FF';
 export const mistyRoseColor = '#F9D2E9';
 export const softGreenColor = '#B8E986';
 export const tomatoPinkColor = '#F5BAD1';
+export const mediumGrayColor = '#9B9B9B';
+export const peruColor = '#BC5800';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';
