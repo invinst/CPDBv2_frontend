@@ -17,5 +17,21 @@ export const signIn = post(SIGNIN_URL, [
 export const OPEN_SIGNIN_MODAL = 'OPEN_SIGNIN_MODAL';
 export const CLOSE_SIGNIN_MODAL = 'CLOSE_SIGNIN_MODAL';
 
-export const showLoginModal = createAction(OPEN_SIGNIN_MODAL);
-export const hideLoginModal = createAction(CLOSE_SIGNIN_MODAL);
+export const openSignInModal = createAction(OPEN_SIGNIN_MODAL);
+export const closeSignInModal = createAction(CLOSE_SIGNIN_MODAL);
+
+export const RESET_PASSWORD_URL = `${V2_ROOT_PATH_LOCAL}users/forgot-password/`;
+
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
+
+export const resetPassword = post(RESET_PASSWORD_URL, [
+  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE
+]);
+
+export const OPEN_FORGOT_PASSWORD_MODAL = 'OPEN_FORGOT_PASSWORD_MODAL';
+export const CLOSE_FORGOT_PASSWORD_MODAL = 'CLOSE_FORGOT_PASSWORD_MODAL';
+
+export const openForgotPasswordModal = createAction(OPEN_FORGOT_PASSWORD_MODAL);
+export const closeForgotPasswordModal = createAction(CLOSE_FORGOT_PASSWORD_MODAL);

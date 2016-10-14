@@ -1,19 +1,27 @@
 import { connect } from 'react-redux';
-import { signIn } from 'actions/authentication';
+import { signIn, resetPassword, openForgotPasswordModal } from 'actions/authentication';
 
 import LoginModal from 'components/login-modal';
 
 const mapDispatchToProps = {
-  onSignIn: signIn
+  onSignIn: signIn,
+  onResetPassword: resetPassword,
+  onForgotPassword: openForgotPasswordModal
 };
 
 function mapStateToProps(state, ownProps) {
-  const { showLoginModal, errorMessage, apiAccessToken } = state.authentication;
+  const {
+    showLoginModal, loginErrorMessage, apiAccessToken, forgotPasswordErrorMessage,
+    loginSuccessMessage, showForgotPasswordModal
+  } = state.authentication;
 
   return {
     showLoginModal,
-    errorMessage,
-    apiAccessToken
+    loginErrorMessage,
+    apiAccessToken,
+    forgotPasswordErrorMessage,
+    loginSuccessMessage,
+    showForgotPasswordModal
   };
 }
 

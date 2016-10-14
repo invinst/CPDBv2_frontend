@@ -1,6 +1,6 @@
 import {
   softBlackColor, sanFranciscoTextFamily, mediumGrayColor,
-  accentColor, greyColor, peruColor
+  accentColor, greyColor, burntOrangeColor, trueGreenColor
 } from 'utils/styles';
 
 
@@ -85,6 +85,17 @@ export const passwordInputWrapperStyle = {
   paddingBottom: '24px'
 };
 
+const messageStyle = {
+  width: '305px',
+  display: 'inline-block'
+};
+
 export const errorMessageStyle = {
-  color: peruColor
+  ...messageStyle,
+  color: burntOrangeColor
+};
+
+export const successMessageStyle = {
+  ...messageStyle,
+  color: trueGreenColor
 };

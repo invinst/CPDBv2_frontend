@@ -1,12 +1,18 @@
 import { combineReducers } from 'redux';
 
 import showLoginModal from './show-login-modal';
-import errorMessage from './error-message';
+import showForgotPasswordModal from './show-forgot-password-modal';
+import loginErrorMessage from './login-error-message';
+import loginSuccessMessage from './login-success-message';
+import forgotPasswordErrorMessage from './forgot-password-error-message';
 import apiAccessToken from './api-access-token';
 
 
 export default combineReducers({
   showLoginModal,
-  errorMessage,
-  apiAccessToken
+  loginErrorMessage,
+  loginSuccessMessage,
+  forgotPasswordErrorMessage,
+  apiAccessToken,
+  showForgotPasswordModal
 });
