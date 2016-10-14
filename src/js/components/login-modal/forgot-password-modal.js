@@ -6,12 +6,14 @@ import {
   emailInputWrapperStyle, labelStyle, emailInputStyle,
   errorMessageStyle
 } from './forgot-password-modal.style';
+import FadeMotion from 'components/animation/fade-motion';
 
 class ForgotPasswordModal extends Component {
   constructor(props) {
     super(props);
     this.handleResetPassword = this.handleResetPassword.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.renderContent = this.renderContent.bind(this);
   }
 
   handleResetPassword() {
@@ -24,11 +26,11 @@ class ForgotPasswordModal extends Component {
     }
   }
 
-  render() {
+  renderContent(opacity) {
     const { errorMessage } = this.props;
 
     return (
-      <div style={ innerWrapperStyle }>
+      <div style={ { ...innerWrapperStyle, opacity: opacity } }>
         <div style={ headerStyle }>Forgot your password?</div>
         <div style={ subHeaderStyle }>We’ll email you instructions on how to reset it.</div>
         <div style={ emailInputWrapperStyle }>
@@ -47,11 +49,21 @@ class ForgotPasswordModal extends Component {
       </div>
     );
   }
+
+  render() {
+    const { show } = this.props;
+    return (
+      <FadeMotion show={ show }>
+        { this.renderContent }
+      </FadeMotion>
+    );
+  }
 }
 
 ForgotPasswordModal.propTypes = {
   onResetPassword: PropTypes.func,
-  errorMessage: PropTypes.string
+  errorMessage: PropTypes.string,
+  show: PropTypes.bool
 };
 
 export default ForgotPasswordModal;
