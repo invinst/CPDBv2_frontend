@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { mapValues } from 'lodash';
+import { map, values, mapValues } from 'lodash';
 import { convertToRaw } from 'draft-js';
 
 import { editModeWrapperStyle } from './editable-section.style';
@@ -52,8 +52,8 @@ export default function (SubComponent) {
     }
 
     handleSaveForm() {
-      const data = mapValues(this.state.fields, this.serializeField);
-      this.props.onSaveForm(data)
+      const data = map(values(this.state.fields), this.serializeField);
+      this.props.onSaveForm({ fields: data })
       .then(() => this.props.turnOffSectionEditMode());
     }
 

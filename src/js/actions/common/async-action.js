@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie';
+
 export const get = (url, types) => ((params, adapter) => ({
   types,
   payload: {
@@ -36,7 +38,9 @@ const patchWithConfig = (config={}) => (url, types) => ((data, adapter) => ({
 
 const authorizationHeaders = {
   headers: {
-    'Authorization': 'Token 9944b09199c62bcf9418ad846dd0e4bbdfc6ee4b'
+    'Authorization': Cookies.get('apiAccessToken') ?
+        `Token ${Cookies.get('apiAccessToken')}`
+        : null
   }
 };
 

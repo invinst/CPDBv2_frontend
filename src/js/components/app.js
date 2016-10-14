@@ -9,7 +9,9 @@ import BottomSheetContainer from 'containers/bottom-sheet-container';
 import Header from 'components/header';
 import RouteTransition from 'components/animation/route-transition';
 import LoginModalContainer from 'containers/login-modal-container';
-import { openSignInModal, closeSignInModal } from 'actions/authentication';
+import {
+  openSignInModal, closeSignInModal, receiveTokenFromCookie
+} from 'actions/authentication';
 import Mousetrap from 'mousetrap';
 
 
@@ -21,6 +23,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    store.dispatch(receiveTokenFromCookie());
     Mousetrap.bind('esc', () => {
       const show = store.getState().authentication.showLoginModal;
       store.dispatch(show ? closeSignInModal() : openSignInModal());
