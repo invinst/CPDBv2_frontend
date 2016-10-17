@@ -11,9 +11,21 @@ import FadeMotion from 'components/animation/fade-motion';
 class ForgotPasswordModal extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      disabled: true
+    };
     this.handleResetPassword = this.handleResetPassword.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.renderContent = this.renderContent.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (!newProps.show && this.props.show) {
+      this.setState({
+        disabled: true
+      });
+    }
   }
 
   handleResetPassword() {
@@ -26,8 +38,17 @@ class ForgotPasswordModal extends Component {
     }
   }
 
+  handleInputChange() {
+    if (!!this.emailInput.value === this.state.disabled) {
+      this.setState({
+        disabled: !this.emailInput.value
+      });
+    }
+  }
+
   renderContent(opacity) {
     const { errorMessage } = this.props;
+    const { disabled } = this.state;
 
     return (
       <div style={ { ...innerWrapperStyle, opacity: opacity } }>
@@ -37,12 +58,15 @@ class ForgotPasswordModal extends Component {
           <span style={ labelStyle }>Email</span>
           <input
             ref={ (el) => this.emailInput = el }
-            onKeyDown={ this.handleKeyDown }
+            onKeyDown={ !disabled ? this.handleKeyDown : null }
+            onChange={ this.handleInputChange }
             style={ emailInputStyle } type='email'/>
         </div>
         <div>
           <span style={ errorMessageStyle }>{ errorMessage }</span>
-          <LoginModalButton onClick={ this.handleResetPassword }>
+          <LoginModalButton
+            onClick={ this.handleResetPassword }
+            disabled={ disabled }>
             Reset Password
           </LoginModalButton>
         </div>

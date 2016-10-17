@@ -15,12 +15,22 @@ class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showForgotModal: false
+      showForgotModal: false,
+      disabled: true
     };
     this.handleSignIn = this.handleSignIn.bind(this);
     this.handlePasswordKeyDown = this.handlePasswordKeyDown.bind(this);
     this.handleForgotPassword = this.handleForgotPassword.bind(this);
     this.renderContent = this.renderContent.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (!newProps.showLoginModal && this.props.showLoginModal) {
+      this.setState({
+        disabled: true
+      });
+    }
   }
 
   handleSignIn() {
@@ -40,6 +50,14 @@ class LoginModal extends Component {
     this.props.onForgotPassword();
   }
 
+  handleInputChange() {
+    if (!!(this.nameInput.value && this.passwordInput.value) === this.state.disabled) {
+      this.setState({
+        disabled: !(this.nameInput.value && this.passwordInput.value)
+      });
+    }
+  }
+
   showLoginModal() {
     return this.props.showLoginModal
       || (this.context.editModeOn && !this.props.apiAccessToken);
@@ -50,6 +68,7 @@ class LoginModal extends Component {
       loginErrorMessage, onResetPassword, forgotPasswordErrorMessage,
       loginSuccessMessage, showForgotPasswordModal
     } = this.props;
+    const { disabled } = this.state;
 
     return (
       <div style={ { ...outerWrapperStyle, opacity } }>
@@ -58,13 +77,15 @@ class LoginModal extends Component {
             <span style={ labelStyle }>Name</span>
             <input
               ref={ el => this.nameInput = el }
+              onChange={ this.handleInputChange }
               style={ usernameInputStyle } />
           </div>
           <div style={ passwordInputWrapperStyle }>
             <span style={ labelStyle }>Password</span>
             <input
-              onKeyDown={ this.handlePasswordKeyDown }
+              onKeyDown={ !disabled ? this.handlePasswordKeyDown : null }
               ref={ el => this.passwordInput = el }
+              onChange={ this.handleInputChange }
               style={ passwordInputStyle }
               type='password'/>
             <HoverableButton
@@ -79,7 +100,8 @@ class LoginModal extends Component {
             <span style={ successMessageStyle }>{ loginSuccessMessage }</span>
             <LoginModalButton
               style={ signInButtonStyle }
-              onClick={ this.handleSignIn }>
+              onClick={ this.handleSignIn }
+              disabled={ disabled }>
               Sign In
             </LoginModalButton>
           </div>

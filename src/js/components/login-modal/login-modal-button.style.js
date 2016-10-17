@@ -11,11 +11,16 @@ const baseStyle = {
 export const buttonStyle = {
   base: {
     ...baseStyle,
-    color: mediumGrayColor
+    color: accentColor
   },
   hover: {
     ...baseStyle,
     color: accentColor,
     backgroundColor: wildSandColor
+  },
+  disabled: {
+    ...baseStyle,
+    color: mediumGrayColor,
+    cursor: 'default'
   }
 };
