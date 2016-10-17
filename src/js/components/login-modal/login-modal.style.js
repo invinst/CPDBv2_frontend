@@ -49,19 +49,6 @@ export const labelStyle = {
   width: '81px'
 };
 
-export const forgotPasswordLinkStyle = {
-  base: {
-    cursor: 'pointer',
-    color: mediumGrayColor,
-    marginLeft: '20px'
-  },
-  hover: {
-    cursor: 'pointer',
-    color: accentColor,
-    marginLeft: '20px'
-  }
-};
-
 export const signInButtonStyle = {
   base: {
     cursor: 'pointer',

@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 
 import LoginModalButton from './login-modal-button';
 import ForgotPasswordModal from './forgot-password-modal';
-import HoverableButton from 'components/common/hoverable-button';
+import ForgotPasswordLink from './forgot-password-link';
 import {
   outerWrapperStyle, innerWrapperStyle, usernameInputStyle, passwordInputStyle,
-  forgotPasswordLinkStyle, signInButtonStyle, labelStyle, nameWrapperStyle,
+  signInButtonStyle, labelStyle, nameWrapperStyle,
   passwordInputWrapperStyle, errorMessageStyle, successMessageStyle
 } from './login-modal.style';
 import FadeMotion from 'components/animation/fade-motion';
@@ -15,7 +15,6 @@ class LoginModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showForgotModal: false,
       disabled: true
     };
     this.handleSignIn = this.handleSignIn.bind(this);
@@ -23,14 +22,6 @@ class LoginModal extends Component {
     this.handleForgotPassword = this.handleForgotPassword.bind(this);
     this.renderContent = this.renderContent.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (!newProps.showLoginModal && this.props.showLoginModal) {
-      this.setState({
-        disabled: true
-      });
-    }
   }
 
   handleSignIn() {
@@ -58,11 +49,6 @@ class LoginModal extends Component {
     }
   }
 
-  showLoginModal() {
-    return this.props.showLoginModal
-      || (this.context.editModeOn && !this.props.apiAccessToken);
-  }
-
   renderContent(opacity) {
     const {
       loginErrorMessage, onResetPassword, forgotPasswordErrorMessage,
@@ -88,12 +74,7 @@ class LoginModal extends Component {
               onChange={ this.handleInputChange }
               style={ passwordInputStyle }
               type='password'/>
-            <HoverableButton
-              style={ forgotPasswordLinkStyle }
-              onClick={ this.handleForgotPassword }>
-              Forgot Password?
-            </HoverableButton>
-            <a style={ forgotPasswordLinkStyle }></a>
+            <ForgotPasswordLink onClick={ this.handleForgotPassword }/>
           </div>
           <div>
             <span style={ errorMessageStyle }>{ loginErrorMessage }</span>
@@ -116,7 +97,7 @@ class LoginModal extends Component {
 
   render() {
     return (
-      <FadeMotion show={ this.showLoginModal() }>
+      <FadeMotion show={ this.props.showLoginModal }>
         { this.renderContent }
       </FadeMotion>
     );
@@ -133,10 +114,6 @@ LoginModal.propTypes = {
   loginSuccessMessage: PropTypes.string,
   forgotPasswordErrorMessage: PropTypes.string,
   apiAccessToken: PropTypes.string
-};
-
-LoginModal.contextTypes = {
-  editModeOn: PropTypes.bool
 };
 
 export default LoginModal;

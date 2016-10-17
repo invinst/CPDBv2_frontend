@@ -1,7 +1,19 @@
-import { createAction } from 'redux-actions';
+import { push } from 'react-router-redux';
 
-export const TURN_ON_EDIT_MODE = 'TURN_ON_EDIT_MODE';
-export const TURN_OFF_EDIT_MODE = 'TURN_OFF_EDIT_MODE';
+import { editModeOn } from 'selectors/edit-mode-on';
 
-export const turnOnEditMode = createAction(TURN_ON_EDIT_MODE);
-export const turnOffEditMode = createAction(TURN_OFF_EDIT_MODE);
+
+export const TOGGLE_EDIT_MODE = 'TOGGLE_EDIT_MODE';
+
+export const toggleEditMode = pathName => {
+  let nextPathName;
+  const isEditModeOn = editModeOn(pathName);
+
+  if (isEditModeOn) {
+    nextPathName = pathName.substring(5);
+  } else {
+    nextPathName = '/edit' + pathName;
+  }
+
+  return push(nextPathName);
+};

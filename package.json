@@ -88,6 +88,7 @@
     "react-redux": "^4.4.5",
     "react-responsive": "^1.1.2",
     "react-router": "^2.4.1",
+    "react-router-redux": "^4.0.6",
     "redux": "^3.5.2",
     "redux-actions": "^0.9.1",
     "redux-axios-middleware": "^1.0.0-rc.0",

@@ -8,12 +8,12 @@ import {
 
 export default class UnderlineText extends Component {
   render() {
-    const { hovering, children, style } = this.props;
+    const { hovering, children, style, onClick } = this.props;
     const _baseStyle = style.base || {};
     const _underlineStyle = style.underline || {};
 
     return (
-      <span
+      <span onClick={ onClick }
         className='link--transition'
         style={ hovering ?
           { ...baseHoverStyle, ..._baseStyle.hover } :
@@ -44,5 +44,6 @@ UnderlineText.propTypes = {
       base: PropTypes.object,
       hover: PropTypes.object
     })
-  })
+  }),
+  onClick: PropTypes.func
 };

@@ -1,7 +1,12 @@
 import { connect } from 'react-redux';
-import { signIn, resetPassword, openForgotPasswordModal } from 'actions/authentication';
+import {
+  signIn, resetPassword, openForgotPasswordModal
+} from 'actions/authentication';
+import { withRouter } from 'react-router';
 
 import LoginModal from 'components/login-modal';
+import showLoginModalSelector from 'selectors/login-modal/show-login-modal';
+
 
 const mapDispatchToProps = {
   onSignIn: signIn,
@@ -11,12 +16,12 @@ const mapDispatchToProps = {
 
 function mapStateToProps(state, ownProps) {
   const {
-    showLoginModal, loginErrorMessage, apiAccessToken, forgotPasswordErrorMessage,
+    loginErrorMessage, apiAccessToken, forgotPasswordErrorMessage,
     loginSuccessMessage, showForgotPasswordModal
   } = state.authentication;
 
   return {
-    showLoginModal,
+    showLoginModal: showLoginModalSelector(state, ownProps),
     loginErrorMessage,
     apiAccessToken,
     forgotPasswordErrorMessage,
@@ -25,4 +30,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LoginModal));

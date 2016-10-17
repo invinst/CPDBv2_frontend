@@ -23,7 +23,7 @@ export const post = (url, types) => ((data, adapter) => ({
   }
 }));
 
-const patchWithConfig = (config={}) => (url, types) => ((data, adapter) => ({
+const patchWithConfig = (config=() => ({})) => (url, types) => ((data, adapter) => ({
   types,
   payload: {
     request: {
@@ -31,20 +31,19 @@ const patchWithConfig = (config={}) => (url, types) => ((data, adapter) => ({
       url,
       data,
       adapter,
-      ...config
+      ...config()
     }
   }
 }));
 
-const authorizationHeaders = {
+const authorizationHeaders = () => ({
   headers: {
     'Authorization': Cookies.get('apiAccessToken') ?
         `Token ${Cookies.get('apiAccessToken')}`
         : null
   }
-};
+});
 
 export const patch = patchWithConfig();
 
 export const authenticatedPatch = patchWithConfig(authorizationHeaders);
-

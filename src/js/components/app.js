@@ -1,21 +1,15 @@
 import React, { PropTypes } from 'react';
-import { Provider } from 'react-redux';
+import Mousetrap from 'mousetrap';
 import { StyleRoot } from 'radium';
+import { locationShape } from 'react-router/lib/PropTypes';
 
 import { getMockAdapter } from 'mock-data';
-import configureStore from 'store';
 import EditModeContainer from 'containers/inline-editable/edit-mode-container';
 import BottomSheetContainer from 'containers/bottom-sheet-container';
 import Header from 'components/header';
 import RouteTransition from 'components/animation/route-transition';
 import LoginModalContainer from 'containers/login-modal-container';
-import {
-  openSignInModal, closeSignInModal, receiveTokenFromCookie
-} from 'actions/authentication';
-import Mousetrap from 'mousetrap';
 
-
-const store = configureStore();
 
 export default class App extends React.Component {
   getChildContext() {
@@ -23,11 +17,10 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    store.dispatch(receiveTokenFromCookie());
-    Mousetrap.bind('esc', () => {
-      const show = store.getState().authentication.showLoginModal;
-      store.dispatch(show ? closeSignInModal() : openSignInModal());
-    });
+    const { receiveTokenFromCookie } = this.props;
+
+    receiveTokenFromCookie();
+    Mousetrap.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
   }
 
   componentWillUnmount() {
@@ -35,21 +28,20 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { pathname } = this.props.location;
+    const { location } = this.props;
+    const { pathname } = location;
 
     return (
-      <Provider store={ store }>
-        <StyleRoot>
-          <EditModeContainer pathname={ pathname }>
-            <Header pathname={ pathname }/>
-            <RouteTransition pathname={ pathname }>
-              { this.props.children }
-            </RouteTransition>
-            <BottomSheetContainer/>
-            <LoginModalContainer/>
-          </EditModeContainer>
-        </StyleRoot>
-      </Provider>
+      <StyleRoot>
+        <EditModeContainer location={ location }>
+          <Header pathname={ pathname }/>
+          <RouteTransition pathname={ pathname }>
+            { this.props.children }
+          </RouteTransition>
+          <BottomSheetContainer/>
+          <LoginModalContainer location={ location }/>
+        </EditModeContainer>
+      </StyleRoot>
     );
   }
 }
@@ -60,7 +52,8 @@ App.childContextTypes = {
 
 App.propTypes = {
   children: PropTypes.node,
-  location: PropTypes.shape({
-    pathname: PropTypes.string
-  })
+  receiveTokenFromCookie: PropTypes.func,
+  showLoginModal: PropTypes.bool,
+  location: locationShape,
+  toggleEditMode: PropTypes.func
 };

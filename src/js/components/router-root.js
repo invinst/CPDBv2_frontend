@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
+import { Provider } from 'react-redux';
 
-import App from 'components/app';
+import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import FAQPage from 'components/faq-page/faq-page';
 import StoriesPage from 'components/stories-page/stories-page';
 import { COLLAB_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
+import configureStore from 'store';
+import history from 'utils/history';
 
+
+const store = configureStore();
 
 export default class RouterRoot extends Component {
 
@@ -23,11 +28,13 @@ export default class RouterRoot extends Component {
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }/>
     ];
     return (
-      <Router history={ browserHistory }>
-        <Route path='/(edit)' component={ App }>
-          { routes }
-        </Route>
-      </Router>
+      <Provider store={ store }>
+        <Router history={ history }>
+          <Route path='/(edit)' component={ AppContainer }>
+            { routes }
+          </Route>
+        </Router>
+      </Provider>
     );
   }
 }
