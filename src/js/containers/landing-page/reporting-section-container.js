@@ -4,7 +4,7 @@ import React from 'react';
 import {
   storiesSelector, dataAvailableSelector
 } from 'selectors/landing-page/stories-selector';
-import { openBottomSheetWithStory } from 'actions/landing-page/bottom-sheet';
+import { openBottomSheetWithReport } from 'actions/bottom-sheet';
 import ReportingSection from 'components/landing-page/reporting-section';
 import {
   updateLandingPage, turnOnSectionEditMode, turnOffSectionEditMode, REPORTING
@@ -21,7 +21,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  openBottomSheetWithStory,
+  openBottomSheetWithReport,
   onSaveForm: updateLandingPage,
   turnOnSectionEditMode: turnOnSectionEditMode.bind(null, REPORTING),
   turnOffSectionEditMode: turnOffSectionEditMode.bind(null, REPORTING)

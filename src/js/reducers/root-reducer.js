@@ -5,6 +5,7 @@ import faqPage from './faq-page';
 import landingPage from './landing-page';
 import storiesPage from './stories-page';
 import authentication from './authentication';
+import bottomSheet from './bottom-sheet';
 
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   faqPage,
   storiesPage,
   authentication,
+  bottomSheet,
   routing: routerReducer
 });

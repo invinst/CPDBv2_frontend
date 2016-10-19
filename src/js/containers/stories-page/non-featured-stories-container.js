@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 
-import { requestStories, loadMoreStories } from 'actions/stories-page/non-featured-stories';
-import { openBottomSheetWithStory } from 'actions/landing-page/bottom-sheet';
+import { requestStories, loadMoreStories } from 'actions/stories-page';
+import { openBottomSheetWithReport } from 'actions/bottom-sheet';
 import {
-  dataAvailableSelector, moreDataAvailableSelector, nonFeaturedStoriesSelector, paginationSelector
-} from 'selectors/stories-page/non-featured-stories-selector';
+  dataAvailableSelector, moreDataAvailableSelector, storiesSelector, paginationSelector
+} from 'selectors/stories-page/stories-selector';
 import NonFeaturedStories from 'components/stories-page/non-featured-stories';
 import StoriesPlaceHolder from 'components/stories-page/stories-place-holder';
 
@@ -36,11 +36,11 @@ export class UnconnectedNonFeaturedStoriesContainer extends Component {
   }
 
   render() {
-    const { dataAvailable, moreDataAvailable, nonFeaturedStories, openBottomSheetWithStory } = this.props;
+    const { dataAvailable, moreDataAvailable, nonFeaturedStories, openBottomSheetWithReport } = this.props;
 
     if (dataAvailable) {
       return (
-        <NonFeaturedStories stories={ nonFeaturedStories } onStoryClick={ openBottomSheetWithStory }
+        <NonFeaturedStories stories={ nonFeaturedStories } onStoryClick={ openBottomSheetWithReport }
           moreDataAvailable={ moreDataAvailable }/>
       );
     } else {
@@ -54,7 +54,7 @@ export class UnconnectedNonFeaturedStoriesContainer extends Component {
 UnconnectedNonFeaturedStoriesContainer.propTypes = {
   requestStories: PropTypes.func.isRequired,
   loadMoreStories: PropTypes.func.isRequired,
-  openBottomSheetWithStory: PropTypes.func.isRequired,
+  openBottomSheetWithReport: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
   moreDataAvailable: PropTypes.bool,
   nonFeaturedStories: PropTypes.array,
@@ -66,7 +66,7 @@ function mapStateToProps(state, ownProps) {
   return {
     dataAvailable: dataAvailableSelector(state),
     moreDataAvailable: moreDataAvailableSelector(state),
-    nonFeaturedStories: nonFeaturedStoriesSelector(state),
+    nonFeaturedStories: storiesSelector(state),
     pagination: paginationSelector(state)
   };
 }
@@ -74,7 +74,7 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   requestStories,
   loadMoreStories,
-  openBottomSheetWithStory
+  openBottomSheetWithReport
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedNonFeaturedStoriesContainer);

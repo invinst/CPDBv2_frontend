@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { dataAvailableSelector, faqsSelector } from 'selectors/landing-page/faqs-selector';
-import { openBottomSheetWithFAQ } from 'actions/landing-page/bottom-sheet';
+import { openBottomSheetWithFAQ } from 'actions/bottom-sheet';
 import FAQSection from 'components/landing-page/faq-section';
 import { updateLandingPage, turnOnSectionEditMode, turnOffSectionEditMode, FAQ } from 'actions/landing-page';
 

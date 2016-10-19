@@ -51,7 +51,7 @@ class Story extends ResponsiveStyleComponent {
     return (
       <div
         className='story'
-        style={ [storyWrapperStyle, wrapperStyle] } onClick={ () => { onClick(story); } }
+        style={ [storyWrapperStyle, wrapperStyle] } onClick={ () => { onClick(story.id); } }
         onMouseOver={ () => this.setState({ hover: true }) }
         onMouseOut={ () => this.setState({ hover: false }) }>
         <div style={ sourceWrapperStyle }>
@@ -63,7 +63,7 @@ class Story extends ResponsiveStyleComponent {
           <span
             className='link--transition story-post-date'
             style={ [style.publicationDate, this.getHoverState() && hoverColorStyle] }>
-            { story.date }
+            { story.publishDate }
           </span>
         </div>
         <div

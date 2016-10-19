@@ -1,22 +1,20 @@
 import { handleActions } from 'redux-actions';
 
 import {
-  OPEN_BOTTOM_SHEET_WITH_STORY,
+  OPEN_BOTTOM_SHEET_WITH_REPORT,
   OPEN_BOTTOM_SHEET_WITH_FAQ,
   CLOSE_BOTTOM_SHEET,
-  STORY_TYPE,
+  REPORT_TYPE,
   FAQ_TYPE
-} from 'actions/landing-page/bottom-sheet';
+} from 'actions/bottom-sheet';
 
 
 export default handleActions({
-  [OPEN_BOTTOM_SHEET_WITH_STORY]: (state, action) => {
+  [OPEN_BOTTOM_SHEET_WITH_REPORT]: (state, action) => {
     return {
       content: {
-        type: STORY_TYPE,
-        props: {
-          story: action.payload
-        }
+        type: REPORT_TYPE,
+        id: action.payload
       }
     };
   },
@@ -24,9 +22,7 @@ export default handleActions({
     return {
       content: {
         type: FAQ_TYPE,
-        props: {
-          faq: action.payload
-        }
+        id: action.payload
       }
     };
   },

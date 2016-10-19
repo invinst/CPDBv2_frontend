@@ -40,7 +40,7 @@ class ReportingSection extends ResponsiveStyleComponent {
         <ReportingPlaceHolder/> :
         <ReportingSectionContent
           stories={ stories }
-          onStoryClick={ this.props.openBottomSheetWithStory }/>
+          onStoryClick={ this.props.openBottomSheetWithReport }/>
     );
   }
 
@@ -80,7 +80,7 @@ class ReportingSection extends ResponsiveStyleComponent {
 }
 
 ReportingSection.propTypes = {
-  openBottomSheetWithStory: PropTypes.func.isRequired,
+  openBottomSheetWithReport: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
   stories: PropTypes.array
 };

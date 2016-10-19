@@ -1,13 +1,13 @@
 import {
-  OPEN_BOTTOM_SHEET_WITH_STORY, CLOSE_BOTTOM_SHEET, OPEN_BOTTOM_SHEET_WITH_FAQ
-} from 'actions/landing-page/bottom-sheet';
+  OPEN_BOTTOM_SHEET_WITH_REPORT, CLOSE_BOTTOM_SHEET, OPEN_BOTTOM_SHEET_WITH_FAQ
+} from 'actions/bottom-sheet';
 import {
   OPEN_SIGNIN_MODAL, CLOSE_SIGNIN_MODAL
 } from 'actions/authentication';
 import { disableBodyScroll, enableBodyScroll } from 'utils/dom';
 
 const disableTypes = [
-  OPEN_BOTTOM_SHEET_WITH_STORY,
+  OPEN_BOTTOM_SHEET_WITH_REPORT,
   OPEN_BOTTOM_SHEET_WITH_FAQ,
   OPEN_SIGNIN_MODAL
 ];

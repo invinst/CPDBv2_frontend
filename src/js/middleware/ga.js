@@ -1,13 +1,13 @@
 import {
-  OPEN_BOTTOM_SHEET_WITH_STORY,
+  OPEN_BOTTOM_SHEET_WITH_REPORT,
   OPEN_BOTTOM_SHEET_WITH_FAQ
-} from 'actions/landing-page/bottom-sheet';
+} from 'actions/bottom-sheet';
 import { SUBSCRIBE_EMAIL_REQUEST } from 'actions/landing-page/vftg';
 
 
 export default store => next => action => {
   switch (action.type) {
-    case OPEN_BOTTOM_SHEET_WITH_STORY:
+    case OPEN_BOTTOM_SHEET_WITH_REPORT:
       global.ga('send', 'event', 'story', 'open', action.payload.title, action.payload.id);
       break;
     case OPEN_BOTTOM_SHEET_WITH_FAQ:

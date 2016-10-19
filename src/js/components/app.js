@@ -5,7 +5,7 @@ import { locationShape } from 'react-router/lib/PropTypes';
 
 import { getMockAdapter } from 'mock-data';
 import EditModeContainer from 'containers/inline-editable/edit-mode-container';
-import BottomSheetContainer from 'containers/bottom-sheet-container';
+import BottomSheetContainer from 'containers/bottom-sheet';
 import Header from 'components/header';
 import RouteTransition from 'components/animation/route-transition';
 import LoginModalContainer from 'containers/login-modal-container';
