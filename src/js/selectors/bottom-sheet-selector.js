@@ -5,7 +5,7 @@ import { REPORT_TYPE } from 'actions/bottom-sheet';
 import { getContentStateFromFields } from 'utils/draft';
 
 
-const getStories = state => state.storiesPage.stories;
+const getStories = state => state.reports;
 const getStoryId = state => state.bottomSheet.content.id;
 
 const storySelector = createSelector(

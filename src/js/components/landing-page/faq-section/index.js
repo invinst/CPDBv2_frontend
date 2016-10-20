@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import { FAQ_PATH } from 'utils/constants';
 import FAQItem from 'components/common/faq/faq-item';
@@ -17,7 +17,7 @@ import StrategyForm from 'components/inline-editable/editable-section/strategy-f
 import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
 
 
-class FAQSection extends ResponsiveStyleComponent {
+class FAQSection extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
@@ -92,13 +92,24 @@ class FAQSection extends ResponsiveStyleComponent {
       </div>
     );
   }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
+    );
+  }
 }
 
 FAQSection.propTypes = {
   openBottomSheetWithFAQ: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
   faqs: PropTypes.array,
-  sectionEditModeOn: PropTypes.bool
+  sectionEditModeOn: PropTypes.bool,
+  editToggleProps: PropTypes.object,
+  fieldProps: PropTypes.object
 };
 
 FAQSection.contextTypes = {

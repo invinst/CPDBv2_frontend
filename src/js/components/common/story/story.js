@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import {
@@ -16,31 +16,7 @@ export const EXTRA_BIG_TITLE_STYLE = 'extraBig';
 export const ULTRA_BIG_TITLE_STYLE = 'ultraBig';
 
 
-class Story extends ResponsiveStyleComponent {
-  constructor(props) {
-    super(props);
-  }
-
-  responsiveStyle() {
-    return {
-      [EXTRA_WIDE]: {
-        source: [sourceStyle.base, sourceStyle.extraWide],
-        publicationDate: [publicationDateStyle.base, publicationDateStyle.extraWide],
-        title: titleStyle.extraWide
-      },
-      [DESKTOP]: {
-        source: [sourceStyle.base, sourceStyle.desktop],
-        publicationDate: [publicationDateStyle.base, publicationDateStyle.desktop],
-        title: titleStyle.desktop
-      },
-      [TABLET]: {
-        source: [sourceStyle.base, sourceStyle.tablet],
-        publicationDate: [publicationDateStyle.base, publicationDateStyle.tablet],
-        title: titleStyle.tablet
-      }
-    };
-  }
-
+class Story extends Component {
   getHoverState() {
     return this.state.hover;
   }
@@ -74,6 +50,31 @@ class Story extends ResponsiveStyleComponent {
           { story.title }
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ {
+          [EXTRA_WIDE]: {
+            source: [sourceStyle.base, sourceStyle.extraWide],
+            publicationDate: [publicationDateStyle.base, publicationDateStyle.extraWide],
+            title: titleStyle.extraWide
+          },
+          [DESKTOP]: {
+            source: [sourceStyle.base, sourceStyle.desktop],
+            publicationDate: [publicationDateStyle.base, publicationDateStyle.desktop],
+            title: titleStyle.desktop
+          },
+          [TABLET]: {
+            source: [sourceStyle.base, sourceStyle.tablet],
+            publicationDate: [publicationDateStyle.base, publicationDateStyle.tablet],
+            title: titleStyle.tablet
+          }
+        } }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }

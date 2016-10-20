@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import {
   paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle,
@@ -12,7 +12,7 @@ import MultilineTextEditable from 'components/inline-editable/editable-section/m
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import EditableSection from 'components/inline-editable/editable-section';
 
-class CollaborateSection extends ResponsiveStyleComponent {
+class CollaborateSection extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
@@ -54,6 +54,15 @@ class CollaborateSection extends ResponsiveStyleComponent {
           } }/>
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }

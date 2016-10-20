@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Report from 'components/bottom-sheet/report';
-import { updateReport } from 'actions/stories-page';
+import { updateReport } from 'actions/reporting-page';
 
 
 function mapStateToProps(state, { fields, turnOffSectionEditMode }) {

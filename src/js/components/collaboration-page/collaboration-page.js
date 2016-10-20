@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import CopyLinkButton from 'components/common/copy-link-btn';
@@ -16,21 +16,7 @@ import NoRerender from 'components/common/higher-order/no-rerender';
 const foiaEmail = 'foia@chicagopolice.org';
 const loremEmail = 'loremipsum@cpdp.co';
 
-class CollaborationPage extends ResponsiveStyleComponent {
-  responsiveStyle() {
-    return {
-      [MOBILE]: {
-        wrapper: [wrapperStyle.base, wrapperStyle.mobile]
-      },
-      [TABLET]: {
-        wrapper: [wrapperStyle.base, wrapperStyle.tablet]
-      },
-      [DESKTOP]: {
-        wrapper: [wrapperStyle.base, wrapperStyle.tablet]
-      }
-    };
-  }
-
+class CollaborationPage extends Component {
   renderWithResponsiveStyle(style) {
     return (
       <div>
@@ -93,6 +79,25 @@ class CollaborationPage extends ResponsiveStyleComponent {
         </div>
         <Footer/>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ {
+          [MOBILE]: {
+            wrapper: [wrapperStyle.base, wrapperStyle.mobile]
+          },
+          [TABLET]: {
+            wrapper: [wrapperStyle.base, wrapperStyle.tablet]
+          },
+          [DESKTOP]: {
+            wrapper: [wrapperStyle.base, wrapperStyle.tablet]
+          }
+        } }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }

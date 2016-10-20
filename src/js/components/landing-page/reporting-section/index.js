@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import { STORIES_PATH } from 'utils/constants';
 import {
@@ -17,7 +17,7 @@ import StrategyForm from 'components/inline-editable/editable-section/strategy-f
 import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
 
 
-class ReportingSection extends ResponsiveStyleComponent {
+class ReportingSection extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
@@ -77,12 +77,23 @@ class ReportingSection extends ResponsiveStyleComponent {
       </div>
     );
   }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
+    );
+  }
 }
 
 ReportingSection.propTypes = {
   openBottomSheetWithReport: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
-  stories: PropTypes.array
+  stories: PropTypes.array,
+  fieldProps: PropTypes.object,
+  editToggleProps: PropTypes.object
 };
 
 ReportingSection.contextTypes = {

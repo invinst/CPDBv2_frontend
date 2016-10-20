@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
@@ -8,7 +8,7 @@ import {
 } from './responsive-fixed-width-component.style';
 
 
-export default class ResponsiveFixedWidthComponent extends ResponsiveStyleComponent {
+export default class ResponsiveFixedWidthComponent extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
@@ -30,6 +30,15 @@ export default class ResponsiveFixedWidthComponent extends ResponsiveStyleCompon
           { this.props.children }
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }

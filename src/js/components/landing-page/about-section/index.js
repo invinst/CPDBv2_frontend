@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
 import MultilineTextEditable from 'components/inline-editable/editable-section/multiline-text-editable';
@@ -13,7 +13,7 @@ import {
 } from './about-section.style';
 
 
-class AboutSection extends ResponsiveStyleComponent {
+class AboutSection extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
@@ -49,6 +49,15 @@ class AboutSection extends ResponsiveStyleComponent {
           } }/>
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }

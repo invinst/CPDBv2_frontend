@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import { textInputStyle, subscribeBtnStyle, disabledStyle } from './subscribe-form.style';
 import CheckmarkSpinnerButton from './checkmark-spinner-button';
@@ -9,7 +9,7 @@ import ResponsiveStyleComponent, {
 } from 'components/responsive/responsive-style-component';
 
 
-class SubscribeForm extends ResponsiveStyleComponent {
+class SubscribeForm extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -75,6 +75,15 @@ class SubscribeForm extends ResponsiveStyleComponent {
           Subscribe
         </CheckmarkSpinnerButton>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }

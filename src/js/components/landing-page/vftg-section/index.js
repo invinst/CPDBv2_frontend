@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import MostRecentEmailLink from './most-recent-email-link';
@@ -18,7 +18,7 @@ import EditToggle from 'components/inline-editable/editable-section/edit-toggle'
 import DatePicker from 'components/inline-editable/date-picker';
 
 
-class VFTGSection extends ResponsiveStyleComponent {
+class VFTGSection extends Component {
   constructor(props) {
     super(props);
     this.handleClickVftgLink = this.handleClickVftgLink.bind(this);
@@ -84,12 +84,22 @@ class VFTGSection extends ResponsiveStyleComponent {
       </div>
     );
   }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
+    );
+  }
 }
 
 VFTGSection.propTypes = {
   fieldProps: PropTypes.object,
   editToggleProps: PropTypes.object,
-  sectionEditModeOn: PropTypes.bool
+  sectionEditModeOn: PropTypes.bool,
+  contentLink: PropTypes.string
 };
 
 export default EditableSection(ConfiguredRadium(VFTGSection));

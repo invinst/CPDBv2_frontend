@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
@@ -15,7 +15,7 @@ import { bottomSectionsWrapperStyle, divideLineStyle } from './landing-page.styl
 import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
-class LandingPage extends ResponsiveStyleComponent {
+class LandingPage extends Component {
   componentDidMount() {
     this.props.requestLandingPage(null, this.context.adapter);
   }
@@ -70,6 +70,15 @@ class LandingPage extends ResponsiveStyleComponent {
         </div>
         <Footer/>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }
