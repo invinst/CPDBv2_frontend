@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import MasonryInfiniteScroller from 'react-masonry-infinite';
 
 import ReportGroup from './report-group';
+import { masonrySizes } from './group-types';
 import { wrapperStyle, borderSleeveStyle } from './reports-masonry.style';
 
 
@@ -20,22 +21,7 @@ export default class ReportsMasonry extends Component {
           <MasonryInfiniteScroller
             hasMore={ hasMore }
             loadMore={ loadMore.bind(null, nextParams) }
-            sizes={ [
-              {
-                columns: 2,
-                gutter: 30
-              },
-              {
-                mq: '992px',
-                columns: 2,
-                gutter: 30
-              },
-              {
-                mq: '1200px',
-                columns: 2,
-                gutter: 30
-              }
-            ] }>
+            sizes={ masonrySizes }>
             {
               reportGroups.map(group => (
                 <ReportGroup

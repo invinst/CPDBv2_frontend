@@ -6,6 +6,6 @@ export const groupStyle = {
   paddingBottom: '36px'
 };
 
-export const rightGutterStyle = {
-  marginRight: '30px'
+export const responsiveWrapperStyle = {
+  display: 'inline-block'
 };

@@ -1,72 +1,59 @@
+import {
+  TABLET, DESKTOP, EXTRA_WIDE
+} from 'utils/constants';
+
+
 export default [
   {
     reportsNo: 1,
-    reportStyle: {
-      title: {
-        fontSize: '26px'
-      },
-      base: {
-        width: '450px'
-      }
-    },
-    style: {
-      width: '450px'
-    }
-  },
-  {
-    reportsNo: 2,
-    reportStyle: {
-      title: {
-        fontSize: '16px'
-      },
-      base: {
-        width: '210px'
-      }
-    },
-    style: {
-      width: '450px'
-    }
+    type: 0,
+    reportType: 0
   },
   {
     reportsNo: 1,
-    reportStyle: {
-      title: {
-        fontSize: '20px'
-      },
-      base: {
-        width: '450px'
-      }
+    type: 1,
+    reportType: 1
+  }
+];
+
+export const groupStyles = [
+  {
+    [EXTRA_WIDE]: {
+      width: '280px'
     },
-    style: {
-      width: '450px'
+    [DESKTOP]: {
+      width: '228px'
+    },
+    [TABLET]: {
+      width: '172px'
     }
   },
   {
-    reportsNo: 4,
-    reportStyle: {
-      title: {
-        fontSize: '16px'
-      },
-      base: {
-        width: '210px'
-      }
+    [EXTRA_WIDE]: {
+      width: '280px'
     },
-    style: {
-      width: '450px'
+    [DESKTOP]: {
+      width: '228px'
+    },
+    [TABLET]: {
+      width: '172px'
     }
+  }
+];
+
+export const masonrySizes = [
+  {
+    columns: 4,
+    gutter: 15
   },
   {
-    reportsNo: 1,
-    reportStyle: {
-      title: {
-        fontSize: '36px'
-      },
-      base: {
-        width: '450px'
-      }
-    },
-    style: {
-      width: '450px'
-    }
+    mq: '992px',
+    columns: 4,
+    gutter: 16
+  },
+  {
+    mq: '1200px',
+    columns: 4,
+    gutter: 16
   }
 ];

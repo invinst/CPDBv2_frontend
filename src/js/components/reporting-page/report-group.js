@@ -1,37 +1,55 @@
 import React, { Component, PropTypes } from 'react';
 
 import Report from './report';
-import { groupStyle, rightGutterStyle } from './report-group.style';
+import ResponsiveStyleComponent, {
+  EXTRA_WIDE, DESKTOP, TABLET
+} from 'components/responsive/responsive-style-component';
+import { groupStyle, responsiveWrapperStyle } from './report-group.style';
+import { groupStyles } from './group-types';
 
-
-export const SINGLE_STORY_1 = 'SINGLE_STORY_1';
-export const SINGLE_STORY_2 = 'SINGLE_STORY_2';
-export const SINGLE_STORY_3 = 'SINGLE_STORY_3';
-export const TWO_STORY = 'TWO_STORY';
-export const FOUR_STORY = 'FOUR_STORY';
 
 export default class ReportGroup extends Component {
-  render() {
-    const { reports, reportStyle, style, onReportClick } = this.props;
+  responsiveStyle() {
+    const { type } = this.props;
+    const style = groupStyles[type];
+    return {
+      [EXTRA_WIDE]: {
+        base: style[EXTRA_WIDE]
+      },
+      [DESKTOP]: {
+        base: style[DESKTOP]
+      },
+      [TABLET]: {
+        base: style[TABLET]
+      }
+    };
+  }
+
+  renderWithResponsiveStyle(responsiveStyle) {
+    const { reports, reportType, onReportClick } = this.props;
 
     return (
-      <div style={ { ...groupStyle, ...style } }>
+      <div style={ { ...groupStyle, ...responsiveStyle.base } }>
       {
         reports.map((report, ind) => (
           <Report
             key={ ind }
             report={ report }
             onClick={ onReportClick }
-            style={ {
-              title: reportStyle.title,
-              base: {
-                ...reportStyle.base,
-                ...(ind % 2 ? {} : rightGutterStyle)
-              }
-            } }/>
+            type={ reportType }/>
         ))
       }
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        style={ responsiveWrapperStyle }
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 
@@ -40,6 +58,7 @@ export default class ReportGroup extends Component {
 ReportGroup.propTypes = {
   reports: PropTypes.array,
   onReportClick: PropTypes.func,
-  reportStyle: PropTypes.object,
-  style: PropTypes.object
+  type: PropTypes.number,
+  reportType: PropTypes.number,
+  reportStyle: PropTypes.object
 };

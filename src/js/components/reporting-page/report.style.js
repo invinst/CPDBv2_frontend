@@ -17,13 +17,13 @@ export const sourceWrapperStyle = {
   height: '16px',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '13px',
-  marginTop: '44px',
-  marginBottom: '30px'
+  marginTop: '43px',
+  marginBottom: '29px'
 };
 
 const basePublicationStyle = {
   color: codGrayColor,
-  fontWeight: 500
+  fontWeight: 300
 };
 
 const basePublishDateStyle = {
@@ -68,7 +68,7 @@ export const titleStyle = {
   base: {
     color: softBlackColor,
     fontFamily: sanFranciscoTextFamily,
-    fontWeight: 300
+    fontWeight: 500
   }
 };
 

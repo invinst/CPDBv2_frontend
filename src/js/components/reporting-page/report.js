@@ -8,34 +8,43 @@ import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';
 import Hoverable from 'components/common/higher-order/hoverable';
+import reportTypes from './report-types';
 
 
 class Report extends Component {
   responsiveStyle() {
+    const { type } = this.props;
+    const reportType = reportTypes[type];
     return {
       [EXTRA_WIDE]: {
         publication: publicationStyle.extraWide,
-        publishDate: publishDateStyle.extraWide
+        publishDate: publishDateStyle.extraWide,
+        base: reportType[EXTRA_WIDE].base,
+        title: reportType[EXTRA_WIDE].title
       },
       [DESKTOP]: {
         publication: publicationStyle.desktop,
-        publishDate: publishDateStyle.desktop
+        publishDate: publishDateStyle.desktop,
+        base: reportType[DESKTOP].base,
+        title: reportType[DESKTOP].title
       },
       [TABLET]: {
         publication: publicationStyle.tablet,
-        publishDate: publishDateStyle.tablet
+        publishDate: publishDateStyle.tablet,
+        base: reportType[TABLET].base,
+        title: reportType[TABLET].title
       }
     };
   }
 
   renderWithResponsiveStyle(responsiveStyle) {
     const {
-      report, onClick, style, hovering
+      report, onClick, hovering
     } = this.props;
 
     return (
       <div
-        style={ { ...reportWrapperStyle, ...style.base } }
+        style={ { ...reportWrapperStyle, ...responsiveStyle.base } }
         onClick={ () => { onClick(report.id); } }
         onMouseOver={ () => this.setState({ hover: true }) }
         onMouseOut={ () => this.setState({ hover: false }) }>
@@ -60,7 +69,7 @@ class Report extends Component {
         <div
           className='link--transition'
           style={ {
-            ...titleStyle.base, ...style.title,
+            ...titleStyle.base, ...responsiveStyle.title,
             ...(hovering ? hoverColorStyle : {})
           } }>
           { report.title }
@@ -83,12 +92,13 @@ class Report extends Component {
 Report.propTypes = {
   report: PropTypes.object,
   onClick: PropTypes.func,
-  style: PropTypes.object,
-  hovering: PropTypes.bool
+  hovering: PropTypes.bool,
+  type: PropTypes.number
 };
 
 Report.defaultProps = {
-  style: {}
+  style: {},
+  type: 0
 };
 
 export default Hoverable(Report);

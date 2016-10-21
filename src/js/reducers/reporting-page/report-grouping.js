@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { random } from 'lodash';
+import { random, filter } from 'lodash';
 
 import {
   REPORTS_REQUEST_SUCCESS
@@ -11,18 +11,25 @@ import { reportTransform } from 'selectors/reporting-page';
 
 export const STRATEGY_RANDOM = 'STRATEGY_RANDOM';
 
-function groupUp(reports, strategy) {
+function groupUp(reports, state) {
+  const strategy = state.groupingStrategy;
+  const existingReportIds = state.existingReportIds;
+  const groups = [...state.groups];
+
   if (strategy === STRATEGY_RANDOM) {
-    const groups = [];
-    const remainingReports = [...reports];
+    const newReports = filter(
+      reports,
+      report => existingReportIds.indexOf(report.id) === -1);
     let groupType = null;
-    while (remainingReports.length) {
-      while (!groupType || groupType.reportsNo > remainingReports.length) {
+    while (newReports.length) {
+      while (!groupType || groupType.reportsNo > newReports.length) {
         groupType = groupTypes[random(0, groupTypes.length - 1)];
       }
       const reports = [];
       for (let i = 0; i < groupType.reportsNo; i++) {
-        reports.push(reportTransform(remainingReports.shift()));
+        let report = newReports.shift();
+        reports.push(reportTransform(report));
+        existingReportIds.push(report.id);
       }
       groups.push({
         ...groupType,
@@ -31,17 +38,21 @@ function groupUp(reports, strategy) {
       });
       groupType = null;
     }
-    return groups;
+    return {
+      groups,
+      existingReportIds
+    };
   }
-  return [];
+  return state;
 }
 
 export default handleActions({
   [REPORTS_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
-    groups: [
-      ...state.groups,
-      ...groupUp(action.payload.results, state.groupingStrategy)
-    ]
+    ...groupUp(action.payload.results, state)
   })
-}, { groups: [], groupingStrategy: STRATEGY_RANDOM });
+}, {
+  groups: [],
+  groupingStrategy: STRATEGY_RANDOM,
+  existingReportIds: []
+});
