@@ -40,7 +40,7 @@ export const usernameInputStyle = {
 
 export const passwordInputStyle = {
   ...baseInputStyle,
-  width: '236px'
+  width: '232px'
 };
 
 export const labelStyle = {

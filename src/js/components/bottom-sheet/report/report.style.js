@@ -22,7 +22,7 @@ export const rightBarStyle = {
   display: 'inline-block',
   boxSizing: 'border-box',
   padding: '77px 32px 0',
-  width: '715px',
+  width: '704px',
   verticalAlign: 'top',
   borderLeft: `1px solid ${pinkishGreyColor}`,
   marginLeft: '-1px',
@@ -106,6 +106,6 @@ export const editWrapperLinkStyle = {
 };
 
 export const contentWrapperStyle = {
-  overflowY: 'scroll',
+  overflowY: 'auto',
   height: '663px'
 };

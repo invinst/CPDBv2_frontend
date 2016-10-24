@@ -6,7 +6,6 @@ import {
 } from 'actions/reporting-page';
 import groupTypes from 'components/reporting-page/group-types';
 import uuid from 'utils/uuid';
-import { reportTransform } from 'selectors/reporting-page';
 
 
 export const STRATEGY_RANDOM = 'STRATEGY_RANDOM';
@@ -28,7 +27,7 @@ function groupUp(reports, state) {
       const reports = [];
       for (let i = 0; i < groupType.reportsNo; i++) {
         let report = newReports.shift();
-        reports.push(reportTransform(report));
+        reports.push(report.id);
         existingReportIds.push(report.id);
       }
       groups.push({

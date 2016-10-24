@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import moment from 'moment';
+import { map } from 'lodash';
 
 import extractQuery from 'utils/extract-query';
 import { getContentStateFromFields } from 'utils/draft';
@@ -31,13 +32,24 @@ export const reportTransform = report => {
 };
 
 
-const getReports = state => state.reportingPage.reports.map(
-  state.reports, id => state.reports[id]
-);
+const getReports = state => state.reports;
 
 export const reportsSelector = createSelector(
   getReports,
   (reports) => {
     return reports.map(reportTransform).slice(0, 15);
   }
+);
+
+const getGroups = state => state.reportingPage.reportGrouping.groups;
+
+export const groupsSelector = createSelector(
+  getReports,
+  getGroups,
+  (reports, groups) => (
+    map(groups, group => ({
+      ...group,
+      reports: map(group.reports, id => reportTransform(reports[id]))
+    }))
+  )
 );
