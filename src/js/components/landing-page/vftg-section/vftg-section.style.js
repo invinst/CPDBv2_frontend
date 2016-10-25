@@ -100,7 +100,7 @@ export const vftgWrapperEditModeStyle = {
 };
 
 export const editBoxStyle = {
-  width: 'calc(100% - 130px)',
+  width: 'calc(100% - 125px)',
   display: 'inline-block',
   height: '26px'
 };

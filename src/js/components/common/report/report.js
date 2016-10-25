@@ -39,12 +39,12 @@ class Report extends Component {
 
   renderWithResponsiveStyle(responsiveStyle) {
     const {
-      report, onClick, hovering
+      report, onClick, hovering, wrapperStyle
     } = this.props;
 
     return (
       <div
-        style={ { ...reportWrapperStyle, ...responsiveStyle.base } }
+        style={ { ...reportWrapperStyle, ...responsiveStyle.base, ...wrapperStyle } }
         onClick={ () => { onClick(report.id); } }
         onMouseOver={ () => this.setState({ hover: true }) }
         onMouseOut={ () => this.setState({ hover: false }) }>
@@ -93,6 +93,7 @@ Report.propTypes = {
   report: PropTypes.object,
   onClick: PropTypes.func,
   hovering: PropTypes.bool,
+  wrapperStyle: PropTypes.object,
   type: PropTypes.number
 };
 

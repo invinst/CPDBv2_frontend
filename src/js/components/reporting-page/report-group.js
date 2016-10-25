@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import Report from './report';
+import Report from 'components/common/report/report';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';

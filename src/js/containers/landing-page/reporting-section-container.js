@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import {
-  storiesSelector, dataAvailableSelector
-} from 'selectors/landing-page/stories-selector';
+  reportsSelector, dataAvailableSelector
+} from 'selectors/landing-page/reports-selector';
 import { openBottomSheetWithReport } from 'actions/bottom-sheet';
 import ReportingSection from 'components/landing-page/reporting-section';
 import {
@@ -14,9 +14,9 @@ import {
 function mapStateToProps(state, ownProps) {
   return {
     dataAvailable: dataAvailableSelector(state),
-    stories: storiesSelector(state),
-    fields: state.landingPage.storyApp.fields,
-    sectionEditModeOn: state.landingPage.storyApp.editModeOn
+    reports: reportsSelector(state),
+    fields: state.landingPage.reportSection.fields,
+    sectionEditModeOn: state.landingPage.reportSection.editModeOn
   };
 }
 

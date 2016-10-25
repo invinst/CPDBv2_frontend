@@ -33,13 +33,13 @@ class ReportingSection extends Component {
   }
 
   renderContent() {
-    const { dataAvailable, stories } = this.props;
+    const { dataAvailable, reports, sectionEditModeOn } = this.props;
 
     return (
-      !dataAvailable ?
+      !dataAvailable || sectionEditModeOn ?
         <ReportingPlaceHolder/> :
         <ReportingSectionContent
-          stories={ stories }
+          reports={ reports }
           onStoryClick={ this.props.openBottomSheetWithReport }/>
     );
   }
@@ -91,8 +91,9 @@ class ReportingSection extends Component {
 ReportingSection.propTypes = {
   openBottomSheetWithReport: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
-  stories: PropTypes.array,
+  reports: PropTypes.array,
   fieldProps: PropTypes.object,
+  sectionEditModeOn: PropTypes.bool,
   editToggleProps: PropTypes.object
 };
 
