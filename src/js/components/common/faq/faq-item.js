@@ -16,8 +16,8 @@ class FAQItem extends Component {
         <div
           className='faq-title link--transition'
           style={ style.faqItemTitle }
-          onClick={ () => { onClick(faq); } }>
-          { faq.title }
+          onClick={ () => { onClick(faq.id); } }>
+          { faq.question }
         </div>
       </div>
     );
@@ -46,8 +46,7 @@ class FAQItem extends Component {
 FAQItem.propTypes = {
   faq: PropTypes.shape({
     id: PropTypes.number,
-    title: PropTypes.string,
-    body: PropTypes.array
+    question: PropTypes.string
   }),
   onClick: PropTypes.func,
   wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])

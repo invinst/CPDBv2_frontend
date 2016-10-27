@@ -1,14 +1,14 @@
 import { handleActions } from 'redux-actions';
 
 import { LANDING_PAGE_REQUEST_SUCCESS, LANDING_PAGE_REQUEST_FAILURE } from 'actions/landing-page';
-import { getContentStateFromFields } from 'utils/draft';
+import { getField } from 'utils/draft';
 
 
 const fields = handleActions({
   [LANDING_PAGE_REQUEST_SUCCESS]: (state, action) => ({
-    'vftg_content': getContentStateFromFields(action.payload.fields, 'vftg_content'),
-    'vftg_link': getContentStateFromFields(action.payload.fields, 'vftg_link'),
-    'vftg_date': getContentStateFromFields(action.payload.fields, 'vftg_date')
+    'vftg_content': getField(action.payload.fields, 'vftg_content'),
+    'vftg_link': getField(action.payload.fields, 'vftg_link'),
+    'vftg_date': getField(action.payload.fields, 'vftg_date')
   }),
   [LANDING_PAGE_REQUEST_FAILURE]: (state, action) => (state)
 }, {});

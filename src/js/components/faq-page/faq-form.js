@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { buildPlainTextField } from 'utils/draft';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { faqFormFontStyle, faqFormStyle, inputGroupStyle, responsiveTitleInput } from './faq-form.style';
@@ -50,7 +51,7 @@ class FAQForm extends Component {
     event.preventDefault();
 
     const data = {
-      title: event.target.title.value
+      fields: [buildPlainTextField('question', event.target.title.value)]
     };
 
     const { target } = event;

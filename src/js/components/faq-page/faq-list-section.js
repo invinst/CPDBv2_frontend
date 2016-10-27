@@ -13,12 +13,19 @@ export default class FAQListSection extends Component {
   }
 
   handleClick(faqId) {
+    const { editModeOn } = this.context;
     const { expandedId } = this.state;
-    const nextId = faqId === expandedId ? null : faqId;
-    if (nextId !== expandedId) {
-      this.setState({
-        expandedId: nextId
-      });
+    const { openBottomSheetWithFAQ } = this.props;
+
+    if (editModeOn) {
+      openBottomSheetWithFAQ(faqId);
+    } else {
+      const nextId = faqId === expandedId ? null : faqId;
+      if (nextId !== expandedId) {
+        this.setState({
+          expandedId: nextId
+        });
+      }
     }
   }
 
@@ -41,5 +48,10 @@ export default class FAQListSection extends Component {
 }
 
 FAQListSection.propTypes = {
-  faqs: PropTypes.array.isRequired
+  faqs: PropTypes.array.isRequired,
+  openBottomSheetWithFAQ: PropTypes.func
+};
+
+FAQListSection.contextTypes = {
+  editModeOn: PropTypes.bool
 };

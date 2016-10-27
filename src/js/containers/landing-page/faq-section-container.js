@@ -10,8 +10,8 @@ function mapStateToProps(state, ownProps) {
   return {
     dataAvailable: dataAvailableSelector(state),
     faqs: faqsSelector(state),
-    fields: state.landingPage.faqApp.fields,
-    sectionEditModeOn: state.landingPage.faqApp.editModeOn
+    fields: state.landingPage.faqSection.fields,
+    sectionEditModeOn: state.landingPage.faqSection.editModeOn
   };
 }
 

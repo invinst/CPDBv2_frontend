@@ -33,9 +33,9 @@ class FAQSection extends Component {
   }
 
   renderContent() {
-    const { dataAvailable, faqs, openBottomSheetWithFAQ } = this.props;
+    const { dataAvailable, faqs, openBottomSheetWithFAQ, sectionEditModeOn } = this.props;
 
-    if (dataAvailable) {
+    if (dataAvailable && !sectionEditModeOn) {
       return (
         <div>
         { faqs.map((faq, ind) => {

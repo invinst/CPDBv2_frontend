@@ -6,11 +6,11 @@ import fields from './fields';
 import editModeOn from './edit-mode-on';
 
 
-const faqApp = combineReducers({
+const faqSection = combineReducers({
   faqs,
   isRequesting,
   fields,
   editModeOn
 });
 
-export default faqApp;
+export default faqSection;

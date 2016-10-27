@@ -9,8 +9,8 @@ class FAQItemContent extends Component {
     return (
       <div style={ [contentStyle, this.props.style] }>
         <div style={ faqContentStyle }>
-        { this.props.faq.body.map((paragraph, key) => {
-          return <p style={ paragraphStyle } key={ key } >{ paragraph.value }</p>;
+        { this.props.faq.answer.map((paragraph, key) => {
+          return <p style={ paragraphStyle } key={ key } >{ paragraph }</p>;
         }) }
         </div>
       </div>

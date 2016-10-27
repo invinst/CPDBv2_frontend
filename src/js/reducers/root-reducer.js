@@ -7,6 +7,7 @@ import authentication from './authentication';
 import bottomSheet from './bottom-sheet';
 import reportingPage from './reporting-page';
 import reports from './reports';
+import faqs from './faqs';
 
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   bottomSheet,
   reportingPage,
   reports,
+  faqs,
   routing: routerReducer
 });

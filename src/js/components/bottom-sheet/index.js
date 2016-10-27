@@ -3,7 +3,7 @@ import { Motion, spring } from 'react-motion';
 import { assign } from 'lodash';
 
 import ReportContainer from 'containers/bottom-sheet/report';
-import FAQFull from 'components/landing-page/faq-section/faq-full';
+import FAQContainer from 'containers/bottom-sheet/faq';
 import { overlayStyle, sheetStyle } from './bottom-sheet.style';
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import { defaultConfig } from 'utils/spring-presets';
@@ -14,7 +14,7 @@ export default class BottomSheet extends Component {
     super(props);
     this.contentMap = {
       [REPORT_TYPE]: ReportContainer,
-      [FAQ_TYPE]: FAQFull
+      [FAQ_TYPE]: FAQContainer
     };
     this.childHeight = {
       [REPORT_TYPE]: -707,

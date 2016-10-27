@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import faqApp from './faq-app';
+import faqSection from './faq-section';
 import reportSection from './report-section';
 import heroSection from './hero-section';
 import vftgSection from './vftg-section';
@@ -9,7 +9,7 @@ import collaborateSection from './collaborate-section';
 
 
 export default combineReducers({
-  faqApp,
+  faqSection,
   reportSection,
   heroSection,
   vftgSection,
