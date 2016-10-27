@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import FAQ from 'components/bottom-sheet/faq';
-import { updateFAQ } from 'actions/faq-page';
+import { updateFAQ, askQuestion } from 'actions/faq-page';
 
 
 function mapStateToProps(state, { fields, turnOffSectionEditMode }) {
@@ -14,7 +14,7 @@ function mapStateToProps(state, { fields, turnOffSectionEditMode }) {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({
-    onSaveForm: updateFAQ.bind(null, ownProps.id)
+    onSaveForm: ownProps.id ? updateFAQ.bind(null, ownProps.id) : askQuestion
   }, dispatch);
 };
 

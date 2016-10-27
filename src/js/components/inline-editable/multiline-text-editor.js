@@ -10,7 +10,7 @@ import WrapperBlockWithStyle from 'components/inline-editable/custom-block/wrapp
 
 export default class MultilineTextEditor extends Component {
   render() {
-    const { editorState, onChange, style } = this.props;
+    const { editorState, onChange, style, placeholder } = this.props;
     const { wrapper, paragraph } = style;
 
     const paragraphBlockRender = {
@@ -39,7 +39,8 @@ export default class MultilineTextEditor extends Component {
         editorState={ editorState }
         onChange={ onChange }
         blockRenderMap={ blockRenderMap }
-        blockRendererFn={ blockRendererFn }/>
+        blockRendererFn={ blockRendererFn }
+        placeholder={ placeholder }/>
     );
   }
 }
@@ -50,5 +51,6 @@ MultilineTextEditor.propTypes = {
     wrapper: PropTypes.object,
     paragraph: PropTypes.object
   }),
-  editorState: PropTypes.object
+  editorState: PropTypes.object,
+  placeholder: PropTypes.string
 };

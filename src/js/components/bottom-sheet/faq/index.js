@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
-import { leftBarStyle, rightBarStyle, answerStyle, questionStyle } from './faq.style';
+import {
+  leftBarStyle, rightBarStyle, answerStyle, questionStyle, answerWrapperStyle
+} from './faq.style';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import EditableSection from 'components/inline-editable/editable-section';
@@ -18,13 +20,18 @@ class FAQ extends Component {
         <ResponsiveFixedWidthComponent>
           <div style={ leftBarStyle }>
             <div style={ questionStyle }>
-              <PlainTextEditable { ...fieldProps['question'] }/>
+              <PlainTextEditable
+                placeholder='Question'
+                { ...fieldProps['question'] }/>
             </div>
           </div>
           <div style={ rightBarStyle }>
-            <MultilineTextEditable
-              style={ answerStyle }
-              { ...fieldProps['answer'] }/>
+            <div style={ answerWrapperStyle }>
+              <MultilineTextEditable
+                style={ answerStyle }
+                placeholder='Answer'
+                { ...fieldProps['answer'] }/>
+            </div>
           </div>
         </ResponsiveFixedWidthComponent>
       </div>

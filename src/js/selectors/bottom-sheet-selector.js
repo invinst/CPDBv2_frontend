@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { find } from 'lodash';
 
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
-import { getField } from 'utils/draft';
+import { getField, createFieldWithEmptyEditorState } from 'utils/draft';
 
 
 const getStories = state => state.reports;
@@ -35,8 +35,12 @@ const faqSelector = createSelector(
     return {
       id,
       fields: {
-        'question': getField(faq.fields, 'question'),
-        'answer': getField(faq.fields, 'answer')
+        'question': faq ?
+          getField(faq.fields, 'question') :
+          createFieldWithEmptyEditorState('question', 'plain_text'),
+        'answer': faq ?
+          getField(faq.fields, 'answer') :
+          createFieldWithEmptyEditorState('answer', 'multiline_text')
       }
     };
   }

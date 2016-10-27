@@ -20,11 +20,14 @@ export default class PlainTextEditor extends Component {
   }
 
   render() {
-    const { editorState, onChange } = this.props;
+    const { editorState, onChange, placeholder } = this.props;
     return (
       <div style={ textEditorStyle }>
-        <Editor editorState={ editorState } onChange={ onChange }
-          handleKeyCommand={ this.handleKeyCommand }/>
+        <Editor
+          editorState={ editorState }
+          onChange={ onChange }
+          handleKeyCommand={ this.handleKeyCommand }
+          placeholder={ placeholder }/>
       </div>
     );
   }
@@ -32,5 +35,6 @@ export default class PlainTextEditor extends Component {
 
 PlainTextEditor.propTypes = {
   editorState: PropTypes.object,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string
 };

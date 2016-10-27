@@ -1,6 +1,7 @@
 import { handleActions } from 'redux-actions';
 
 import {
+  OPEN_BOTTOM_SHEET_TO_CREATE_FAQ,
   OPEN_BOTTOM_SHEET_WITH_REPORT,
   OPEN_BOTTOM_SHEET_WITH_FAQ,
   CLOSE_BOTTOM_SHEET,
@@ -10,23 +11,22 @@ import {
 
 
 export default handleActions({
-  [OPEN_BOTTOM_SHEET_WITH_REPORT]: (state, action) => {
-    return {
-      content: {
-        type: REPORT_TYPE,
-        id: action.payload
-      }
-    };
-  },
-  [OPEN_BOTTOM_SHEET_WITH_FAQ]: (state, action) => {
-    return {
-      content: {
-        type: FAQ_TYPE,
-        id: action.payload
-      }
-    };
-  },
-  [CLOSE_BOTTOM_SHEET]: (state, action) => {
-    return { content: null };
-  }
+  [OPEN_BOTTOM_SHEET_WITH_REPORT]: (state, action) => ({
+    content: {
+      type: REPORT_TYPE,
+      id: action.payload
+    }
+  }),
+  [OPEN_BOTTOM_SHEET_WITH_FAQ]: (state, action) => ({
+    content: {
+      type: FAQ_TYPE,
+      id: action.payload
+    }
+  }),
+  [OPEN_BOTTOM_SHEET_TO_CREATE_FAQ]: (state, action) => ({
+    content: {
+      type: FAQ_TYPE
+    }
+  }),
+  [CLOSE_BOTTOM_SHEET]: (state, action) => ({ content: null })
 }, { content: null });

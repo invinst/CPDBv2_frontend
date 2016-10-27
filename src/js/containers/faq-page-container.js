@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component, PropTypes } from 'react';
 
 import { requestFAQs, askQuestion } from 'actions/faq-page';
-import { openBottomSheetWithFAQ } from 'actions/bottom-sheet';
+import { openBottomSheetWithFAQ, openBottomSheetToCreateFAQ } from 'actions/bottom-sheet';
 import { dataAvailableSelector, faqsSelector } from 'selectors/faq-page/faqs-selector';
 import { getIsSubmitting } from 'selectors/faq-page/faq-form-selector';
 import FAQListSection from 'components/faq-page/faq-list-section';
@@ -16,13 +16,21 @@ export class UnconnectedFAQPageContainer extends Component {
   }
 
   render() {
-    const { dataAvailable, faqs, askQuestion, isSubmitting, openBottomSheetWithFAQ } = this.props;
+    const {
+      dataAvailable, faqs, askQuestion, isSubmitting,
+      openBottomSheetWithFAQ, openBottomSheetToCreateFAQ
+    } = this.props;
 
     if (dataAvailable) {
       return (
         <div>
-          <FAQListSection faqs={ faqs } openBottomSheetWithFAQ={ openBottomSheetWithFAQ }/>
-          <FAQForm askQuestion={ askQuestion } isSubmitting={ isSubmitting }/>
+          <FAQListSection
+            faqs={ faqs }
+            openBottomSheetToCreateFAQ={ openBottomSheetToCreateFAQ }
+            openBottomSheetWithFAQ={ openBottomSheetWithFAQ }/>
+          <FAQForm
+            askQuestion={ askQuestion }
+            isSubmitting={ isSubmitting }/>
         </div>
       );
     } else {
@@ -40,6 +48,7 @@ UnconnectedFAQPageContainer.propTypes = {
   store: PropTypes.object,
   askQuestion: PropTypes.func,
   openBottomSheetWithFAQ: PropTypes.func,
+  openBottomSheetToCreateFAQ: PropTypes.func,
   isSubmitting: PropTypes.bool
 };
 
@@ -54,7 +63,8 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   requestFAQs,
   openBottomSheetWithFAQ,
-  askQuestion
+  askQuestion,
+  openBottomSheetToCreateFAQ
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UnconnectedFAQPageContainer);

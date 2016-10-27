@@ -8,7 +8,7 @@ import { contentStateToTextArray } from 'utils/draft';
 
 class MultilineTextEditable extends Component {
   render() {
-    const { style, editModeOn, value, onChange } = this.props;
+    const { style, editModeOn, value, onChange, placeholder } = this.props;
 
     return (
       <Editable
@@ -17,7 +17,8 @@ class MultilineTextEditable extends Component {
           <MultilineTextEditor
             style={ style }
             onChange={ onChange }
-            editorState={ value }/>
+            editorState={ value }
+            placeholder={ placeholder }/>
         }
         presenterElement={
           <Paragraphs style={ style }>
@@ -32,7 +33,8 @@ MultilineTextEditable.propTypes = {
   value: PropTypes.object,
   style: PropTypes.object,
   onChange: PropTypes.func,
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
+  placeholder: PropTypes.string
 };
 
 export default MultilineTextEditable;
