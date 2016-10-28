@@ -1,4 +1,4 @@
-import { pinkishGreyColor, fashionPinkColor } from 'utils/styles';
+import { pinkishGreyColor } from 'utils/styles';
 
 
 export const leftBarStyle = {
@@ -43,6 +43,5 @@ export const questionStyle = {
 
 export const answerWrapperStyle = {
   fontSize: '18px',
-  fontWeight: '400',
-  color: fashionPinkColor
+  fontWeight: '400'
 };

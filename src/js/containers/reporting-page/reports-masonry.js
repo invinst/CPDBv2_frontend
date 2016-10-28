@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import ReportsMasonry from 'components/reporting-page/reports-masonry';
 import { requestReports } from 'actions/reporting-page';
-import { openBottomSheetWithReport } from 'actions/bottom-sheet';
+import { openBottomSheetWithReport, openBottomSheetToCreateReport } from 'actions/bottom-sheet';
 import { nextParamsSelector, groupsSelector } from 'selectors/reporting-page';
 
 
@@ -16,7 +16,8 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   loadMore: requestReports,
-  onReportClick: openBottomSheetWithReport
+  onReportClick: openBottomSheetWithReport,
+  onAddReportClick: openBottomSheetToCreateReport
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReportsMasonry);

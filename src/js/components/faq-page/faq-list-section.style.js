@@ -1,3 +1,6 @@
+import { fashionPinkColor, pinkishWhiteColor } from 'utils/styles';
+
+
 export const wrapperStyle = {
   marginBottom: '32px',
   width: '934px'
@@ -7,9 +10,9 @@ export const addFaqButtonStyle = {
   textAlign: 'center',
   height: '88px',
   fontSize: '36px',
-  color: '#d002cd',
+  color: fashionPinkColor,
   fontWeight: '600',
-  backgroundColor: '#ffe8ff',
+  backgroundColor: pinkishWhiteColor,
   padding: '22px',
   boxSizing: 'border-box',
   cursor: 'pointer',

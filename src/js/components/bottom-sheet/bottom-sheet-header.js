@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import {
   headerWrapperStyle, editWrapperLinkStyle
-} from './bottom-sheet.style';
+} from './bottom-sheet-header.style';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 
 

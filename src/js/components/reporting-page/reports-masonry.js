@@ -3,6 +3,7 @@ import MasonryInfiniteScroller from 'react-masonry-infinite';
 
 import ReportGroup from './report-group';
 import { masonrySizes } from './group-types';
+import ReportAddButton from './report-add-button';
 import { wrapperStyle, borderSleeveStyle } from './reports-masonry.style';
 
 
@@ -12,7 +13,15 @@ export default class ReportsMasonry extends Component {
   }
 
   render() {
-    const { hasMore, loadMore, reportGroups, onReportClick, nextParams } = this.props;
+    const {
+      hasMore, loadMore, reportGroups, onReportClick, nextParams, onAddReportClick
+    } = this.props;
+    const { editModeOn } = this.context;
+
+    let addButtonArray = [];
+    if (editModeOn) {
+      addButtonArray = [<ReportAddButton key='add' onClick={ onAddReportClick }/>];
+    }
 
     return (
       <div>
@@ -23,12 +32,14 @@ export default class ReportsMasonry extends Component {
             loadMore={ loadMore.bind(null, nextParams) }
             sizes={ masonrySizes }>
             {
-              reportGroups.map(group => (
-                <ReportGroup
-                  key={ group.key }
-                  onReportClick={ onReportClick }
-                  { ...group }/>
-              ))
+              addButtonArray.concat(
+                reportGroups.map(group => (
+                  <ReportGroup
+                    key={ group.key }
+                    onReportClick={ onReportClick }
+                    { ...group }/>
+                ))
+              )
             }
           </MasonryInfiniteScroller>
         </div>
@@ -42,5 +53,10 @@ ReportsMasonry.propTypes = {
   loadMore: PropTypes.func,
   reportGroups: PropTypes.array,
   onReportClick: PropTypes.func,
+  onAddReportClick: PropTypes.func,
   nextParams: PropTypes.object
+};
+
+ReportsMasonry.contextTypes = {
+  editModeOn: PropTypes.bool
 };

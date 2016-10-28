@@ -1,19 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
-import ArticleFooter from 'components/common/article-footer';
 import {
-  footerStyle, leftBarStyle, rightBarStyle, wrapperStyle, infoRowStyle, labelStyle,
+  leftBarStyle, rightBarStyle, wrapperStyle, infoRowStyle, labelStyle,
   headerTitleStyle, excerptStyle, contentWrapperStyle
 } from './report.style';
-import { DESKTOP } from 'utils/constants';
 import EditableSection from 'components/inline-editable/editable-section';
 import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
 import MultilineTextEditable from 'components/inline-editable/editable-section/multiline-text-editable';
 import ReportInfoRow from './report-info-row';
 import DatePickerInput from './date-picker-input';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
-import ReportHeader from './report-header';
+import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 
 
 class Report extends Component {
@@ -23,12 +21,11 @@ class Report extends Component {
 
     return (
       <div className={ className } style={ wrapperStyle }>
-        <ReportHeader
-          editToggleProps={ editToggleProps }/>
+        <BottomSheetHeader editToggleProps={ editToggleProps }/>
         <ResponsiveFixedWidthComponent style={ contentWrapperStyle }>
           <div style={ leftBarStyle }>
             <div style={ headerTitleStyle }>
-              <PlainTextEditable { ...fieldProps['title'] }/>
+              <PlainTextEditable { ...fieldProps['title'] } placeholder='Title'/>
             </div>
             <ReportInfoRow
               label='Publication'
@@ -45,11 +42,8 @@ class Report extends Component {
           <div style={ rightBarStyle }>
             <MultilineTextEditable
               style={ excerptStyle }
+              placeholder='Excerpt'
               { ...fieldProps['excerpt'] }/>
-            <ArticleFooter device={ DESKTOP } href='nyc.com'
-              style={ { wrapper: footerStyle } }>
-              continued on nyc.com
-            </ArticleFooter>
           </div>
         </ResponsiveFixedWidthComponent>
       </div>

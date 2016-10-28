@@ -52,6 +52,18 @@ export const createFieldWithEmptyEditorState = (name, type) => ({
   value: createEmptyEditorState()
 });
 
+export const createEmptyStringField = (name, type='string') => ({
+  name,
+  type,
+  value: ''
+});
+
+export const createEmptyDateField = (name) => ({
+  name,
+  type: 'date',
+  value: '1900-01-01'
+});
+
 export const getFieldOrCreateEmptyWithEditorState = (fields, name, type) => (
   getField(fields, name)
   || createFieldWithEmptyEditorState(name, type));

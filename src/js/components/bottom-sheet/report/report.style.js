@@ -1,12 +1,6 @@
 import {
-  pinkishGreyColor, black32Color, altoColor, mediumGrayColor, fashionPinkColor,
-  sanFranciscoTextFamily
+  pinkishGreyColor, altoColor, mediumGrayColor, fashionPinkColor
 } from 'utils/styles';
-
-export const footerStyle = {
-  height: 'auto',
-  padding: '0'
-};
 
 export const leftBarStyle = {
   display: 'inline-block',
@@ -26,32 +20,12 @@ export const rightBarStyle = {
   verticalAlign: 'top',
   borderLeft: `1px solid ${pinkishGreyColor}`,
   marginLeft: '-1px',
+  fontSize: '18px',
   minHeight: '663px'
 };
 
 export const wrapperStyle = {
   height: '707px'
-};
-
-export const leftHeaderStyle = {
-  boxSizing: 'border-box',
-  height: '44px',
-  width: '482px',
-  display: 'inline-block',
-  borderRight: `1px solid ${pinkishGreyColor}`
-};
-
-export const rightHeaderStyle = {
-  boxSizing: 'border-box',
-  height: '44px',
-  width: '715px',
-  display: 'inline-block',
-  verticalAlign: 'top'
-};
-
-export const headerWrapperStyle = {
-  boxShadow: `0 1px 2px 0 ${black32Color}`,
-  height: '44px'
 };
 
 export const excerptStyle = {
@@ -96,13 +70,6 @@ export const headerTitleStyle = {
   fontWeight: '600',
   marginBottom: '32px',
   paddingRight: '32px'
-};
-
-export const editWrapperLinkStyle = {
-  fontSize: '13px',
-  fontFamily: sanFranciscoTextFamily,
-  width: '100%',
-  paddingTop: '14px'
 };
 
 export const contentWrapperStyle = {

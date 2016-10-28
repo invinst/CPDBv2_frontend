@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import BottomSheet from 'components/bottom-sheet';
 import { closeBottomSheet } from 'actions/bottom-sheet';
-import contentSelector from 'selectors/bottom-sheet-selector';
+import { contentSelector } from 'selectors/bottom-sheet';
 
 
 function mapStateToProps(state, props) {
