@@ -118,6 +118,5 @@ export const contentWrapperStyle = {
 
 export const oneColumnStyle = {
   padding: '74px 32px 0 32px',
-  minHeight: '632px',
   boxSizing: 'border-box'
 };

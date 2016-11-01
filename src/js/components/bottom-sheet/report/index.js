@@ -83,22 +83,24 @@ class Report extends Component {
     return (
       <div className={ className } style={ wrapperStyle }>
         <BottomSheetHeader editToggleProps={ editToggleProps }/>
-        <ResponsiveFixedWidthComponent style={ contentWrapperStyle }>
-          <ResponsiveComponent
-            extraWideChildren={ this.renderTwoColumns({
-              leftBar: leftBarStyle[EXTRA_WIDE],
-              rightBar: rightBarStyle[EXTRA_WIDE],
-              label: labelStyle[EXTRA_WIDE],
-              headerTitle: headerTitleStyle[EXTRA_WIDE]
-            }) }
-            desktopChildren={ this.renderTwoColumns({
-              leftBar: leftBarStyle[DESKTOP],
-              rightBar: rightBarStyle[DESKTOP],
-              label: labelStyle[DESKTOP],
-              headerTitle: headerTitleStyle[DESKTOP]
-            }) }
-            tabletChildren={ this.renderOneColumn() }/>
-        </ResponsiveFixedWidthComponent>
+        <div style={ contentWrapperStyle }>
+          <ResponsiveFixedWidthComponent>
+            <ResponsiveComponent
+              extraWideChildren={ this.renderTwoColumns({
+                leftBar: leftBarStyle[EXTRA_WIDE],
+                rightBar: rightBarStyle[EXTRA_WIDE],
+                label: labelStyle[EXTRA_WIDE],
+                headerTitle: headerTitleStyle[EXTRA_WIDE]
+              }) }
+              desktopChildren={ this.renderTwoColumns({
+                leftBar: leftBarStyle[DESKTOP],
+                rightBar: rightBarStyle[DESKTOP],
+                label: labelStyle[DESKTOP],
+                headerTitle: headerTitleStyle[DESKTOP]
+              }) }
+              tabletChildren={ this.renderOneColumn() }/>
+          </ResponsiveFixedWidthComponent>
+        </div>
       </div>
     );
   }
