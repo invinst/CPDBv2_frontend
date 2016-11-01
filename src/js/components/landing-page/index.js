@@ -13,7 +13,6 @@ import AboutSectionContainer from 'containers/landing-page/about-section-contain
 import CollaborateSectionContainer from 'containers/landing-page/collaborate-section-container';
 import { bottomSectionsWrapperStyle, divideLineStyle } from './landing-page.style';
 import PropsRerender from 'components/common/higher-order/props-rerender';
-import CodeOfSilenceSection from './code-of-silence-section';
 
 
 class LandingPage extends Component {
@@ -45,9 +44,6 @@ class LandingPage extends Component {
             <div className='pure-g'>
               <div className='pure-u-1-1'>
                 <ReportingSectionContainer store={ store }/>
-              </div>
-              <div className='pure-u-1-1'>
-                <CodeOfSilenceSection/>
               </div>
               <div className={ style.leftColumnClassName }>
                 <div className='pure-u-1-1'>
