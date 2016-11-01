@@ -46,7 +46,9 @@ class LandingPage extends Component {
               <div className='pure-u-1-1'>
                 <ReportingSectionContainer store={ store }/>
               </div>
-              <CodeOfSilenceSection/>
+              <div className='pure-u-1-1'>
+                <CodeOfSilenceSection/>
+              </div>
               <div className={ style.leftColumnClassName }>
                 <div className='pure-u-1-1'>
                   <FAQSectionContainer store={ store }/>
