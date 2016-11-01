@@ -67,6 +67,8 @@ export const infoRowStyle = {
   boxSizing: 'border-box',
   borderTop: `1px solid ${altoColor}`,
   height: '40px',
+  fontSize: '14px',
+  fontWeight: 400,
   padding: '11px 0'
 };
 
@@ -83,14 +85,14 @@ export const labelStyle = {
     width: '160px'
   },
   [TABLET]: {
-    ..._labelStyle
+    ..._labelStyle,
+    width: '114px'
   }
 };
 
 const _headerTitleStyle = {
   fontSize: '32px',
   fontWeight: '600',
-  marginBottom: '32px',
   paddingRight: '32px'
 };
 
@@ -100,12 +102,22 @@ export const headerTitleStyle = {
     ..._headerTitleStyle,
     fontSize: '26px'
   },
-  [TABLET]: {
-    ..._headerTitleStyle
-  }
+  [TABLET]: _headerTitleStyle
+};
+
+export const infoRowsStyle = {
+  marginBottom: '32px',
+  marginTop: '32px',
+  borderBottom: `1px solid ${altoColor}`
 };
 
 export const contentWrapperStyle = {
   overflowY: 'auto',
   height: '663px'
+};
+
+export const oneColumnStyle = {
+  padding: '74px 32px 0 32px',
+  minHeight: '632px',
+  boxSizing: 'border-box'
 };
