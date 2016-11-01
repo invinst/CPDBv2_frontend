@@ -15,7 +15,9 @@ const rename = require('gulp-rename');
 const buildHTML = (varBlock, destination) => () => {
   gulp.src('index.html')
     .pipe(htmlreplace({
-      css: ['/dist/css/grid.css', '/dist/css/font.css', '/dist/css/base.css'],
+      css: [
+        '/dist/css/grid.css', '/dist/css/font.css', '/dist/css/base.css',
+        '/dist/css/react-datepicker.css', '/dist/css/draft.css'],
       var: varBlock
     }))
     .pipe(gulp.dest(destination));
