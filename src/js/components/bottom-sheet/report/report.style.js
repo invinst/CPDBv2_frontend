@@ -18,9 +18,6 @@ export const leftBarStyle = {
   [DESKTOP]: {
     ..._leftBarStyle,
     width: '400px'
-  },
-  [TABLET]: {
-    ..._leftBarStyle
   }
 };
 
@@ -41,9 +38,6 @@ export const rightBarStyle = {
   [DESKTOP]: {
     ..._rightBarStyle,
     width: '590px'
-  },
-  [TABLET]: {
-    ..._rightBarStyle
   }
 };
 

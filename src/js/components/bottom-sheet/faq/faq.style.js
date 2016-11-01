@@ -1,7 +1,8 @@
 import { pinkishGreyColor } from 'utils/styles';
+import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 
 
-export const leftBarStyle = {
+const _leftBarStyle = {
   display: 'inline-block',
   boxSizing: 'border-box',
   paddingLeft: '32px',
@@ -11,7 +12,15 @@ export const leftBarStyle = {
   minHeight: '663px'
 };
 
-export const rightBarStyle = {
+export const leftBarStyle = {
+  [EXTRA_WIDE]: _leftBarStyle,
+  [DESKTOP]: {
+    ..._leftBarStyle,
+    width: '400px'
+  }
+};
+
+const _rightBarStyle = {
   display: 'inline-block',
   boxSizing: 'border-box',
   padding: '77px 32px 0',
@@ -20,6 +29,14 @@ export const rightBarStyle = {
   borderLeft: `1px solid ${pinkishGreyColor}`,
   marginLeft: '-1px',
   minHeight: '663px'
+};
+
+export const rightBarStyle = {
+  [EXTRA_WIDE]: _rightBarStyle,
+  [DESKTOP]: {
+    ..._rightBarStyle,
+    width: '590px'
+  }
 };
 
 export const answerStyle = {
@@ -34,14 +51,33 @@ export const answerStyle = {
   }
 };
 
-export const questionStyle = {
+export const _questionStyle = {
   fontSize: '32px',
   fontWeight: '600',
   marginBottom: '32px',
   paddingRight: '32px'
 };
 
+export const questionStyle = {
+  [EXTRA_WIDE]: _questionStyle,
+  [DESKTOP]: {
+    ..._questionStyle,
+    fontSize: '26px'
+  },
+  [TABLET]: _questionStyle
+};
+
+export const contentWrapperStyle = {
+  overflowY: 'auto',
+  height: '663px'
+};
+
 export const answerWrapperStyle = {
   fontSize: '18px',
   fontWeight: '400'
+};
+
+export const oneColumnStyle = {
+  padding: '74px 32px 0 32px',
+  boxSizing: 'border-box'
 };
