@@ -8,43 +8,85 @@ import {
 import EditableSection from 'components/inline-editable/editable-section';
 import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
 import MultilineTextEditable from 'components/inline-editable/editable-section/multiline-text-editable';
-import ReportInfoRow from './report-info-row';
+import StringInput from './string-input';
 import DatePickerInput from './date-picker-input';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import
+  ResponsiveStyleComponent, { DESKTOP, TABLET, EXTRA_WIDE }
+from 'components/responsive/responsive-style-component';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 
 
 class Report extends Component {
+  constructor(props) {
+    super(props);
+    this.renderWithResponsiveStyle = this.renderWithResponsiveStyle.bind(this);
+  }
+
+  renderWithResponsiveStyle(style) {
+    const { fieldProps } = this.props;
+    return (
+      <div>
+        <div style={ style.leftBar }>
+          <div style={ style.headerTitle }>
+            <PlainTextEditable { ...fieldProps['title'] } placeholder='Title'/>
+          </div>
+          <div style={ infoRowStyle }>
+            <span style={ style.label }>Publication</span>
+            <StringInput
+              { ...fieldProps['publication'] }/>
+          </div>
+          <div style={ infoRowStyle }>
+            <span style={ style.label }>Publish Date</span>
+            <DatePickerInput
+              { ...fieldProps['publish_date'] }/>
+          </div>
+          <div style={ infoRowStyle }>
+            <span style={ style.label }>Author</span>
+            <StringInput
+              { ...fieldProps['author'] }/>
+          </div>
+        </div>
+        <div style={ style.rightBar }>
+          <MultilineTextEditable
+            style={ excerptStyle }
+            placeholder='Excerpt'
+            { ...fieldProps['excerpt'] }/>
+        </div>
+      </div>
+    );
+  }
+
   render() {
-    let { className, fieldProps, editToggleProps } = this.props;
+    let { className, editToggleProps } = this.props;
     className = classNames('story-full', className);
 
     return (
       <div className={ className } style={ wrapperStyle }>
         <BottomSheetHeader editToggleProps={ editToggleProps }/>
         <ResponsiveFixedWidthComponent style={ contentWrapperStyle }>
-          <div style={ leftBarStyle }>
-            <div style={ headerTitleStyle }>
-              <PlainTextEditable { ...fieldProps['title'] } placeholder='Title'/>
-            </div>
-            <ReportInfoRow
-              label='Publication'
-              { ...fieldProps['publication'] }/>
-            <div style={ infoRowStyle }>
-              <span style={ labelStyle }>Publish Date</span>
-              <DatePickerInput
-                { ...fieldProps['publish_date'] }/>
-            </div>
-            <ReportInfoRow
-              label='Author'
-              { ...fieldProps['author'] }/>
-          </div>
-          <div style={ rightBarStyle }>
-            <MultilineTextEditable
-              style={ excerptStyle }
-              placeholder='Excerpt'
-              { ...fieldProps['excerpt'] }/>
-          </div>
+          <ResponsiveStyleComponent responsiveStyle={ {
+            [EXTRA_WIDE]: {
+              leftBar: leftBarStyle[EXTRA_WIDE],
+              rightBar: rightBarStyle[EXTRA_WIDE],
+              label: labelStyle[EXTRA_WIDE],
+              headerTitle: headerTitleStyle[EXTRA_WIDE]
+            },
+            [DESKTOP]: {
+              leftBar: leftBarStyle[DESKTOP],
+              rightBar: rightBarStyle[DESKTOP],
+              label: labelStyle[DESKTOP],
+              headerTitle: headerTitleStyle[DESKTOP]
+            },
+            [TABLET]: {
+              leftBar: leftBarStyle[TABLET],
+              rightBar: rightBarStyle[TABLET],
+              label: labelStyle[TABLET],
+              headerTitle: headerTitleStyle[TABLET]
+            }
+          } }>
+          { this.renderWithResponsiveStyle }
+          </ResponsiveStyleComponent>
         </ResponsiveFixedWidthComponent>
       </div>
     );

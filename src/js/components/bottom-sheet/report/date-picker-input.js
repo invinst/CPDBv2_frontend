@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import DatePickerComponent from 'react-datepicker';
 import moment from 'moment';
 
-import { inputStyle, inputEditStyle } from './report.style';
+import { inputStyle, inputEditStyle } from './date-picker-input.style';
 
 export default class DatePickerInput extends Component {
   constructor(props) {
