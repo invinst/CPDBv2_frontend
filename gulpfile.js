@@ -58,7 +58,9 @@ if (process.env.NODE_ENV === 'production') {
     + 'var GA_TRACKING_ID = "UA-63671047-2";'
     + '</script>';
 } else if (process.env.NODE_ENV === 'staging') {
-  globalVariableBlock = '';
+  globalVariableBlock = '<script type="text/javascript">'
+    + 'var GA_TRACKING_ID = "UA-63671047-3";'
+    + '</script>';
 }
 
 gulp.task('build-html', buildHTML(globalVariableBlock, `${ROOT}templates/`));
