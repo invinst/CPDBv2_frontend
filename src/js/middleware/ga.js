@@ -3,9 +3,13 @@ import {
   OPEN_BOTTOM_SHEET_WITH_FAQ
 } from 'actions/bottom-sheet';
 import { SUBSCRIBE_EMAIL_REQUEST } from 'actions/landing-page/vftg';
+import { editModeOn } from 'selectors/edit-mode-on';
 
 
 export default store => next => action => {
+  if (editModeOn(window.location.pathname)) {
+    return next(action);
+  }
   switch (action.type) {
     case OPEN_BOTTOM_SHEET_WITH_REPORT:
       global.ga('send', 'event', 'story', 'open', action.payload.title, action.payload.id);
