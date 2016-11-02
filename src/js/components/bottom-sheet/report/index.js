@@ -78,7 +78,7 @@ class Report extends Component {
 
   render() {
     let { className, editToggleProps } = this.props;
-    className = classNames('story-full', className);
+    className = classNames('report-bottom-sheet', className);
 
     return (
       <div className={ className } style={ wrapperStyle }>

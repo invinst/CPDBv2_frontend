@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 import rootReducer from 'reducers/root-reducer';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
+import gaMiddleware from 'middleware/ga';
 
 
 export default function configureStore(initialState) {
@@ -15,7 +16,7 @@ export default function configureStore(initialState) {
     initialState,
     compose(
       applyMiddleware(
-        thunk, configuredAxiosMiddleware, bodyScrollMiddleware,
+        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, gaMiddleware,
         routerMiddleware(browserHistory)
         ),
       window.devToolsExtension ? window.devToolsExtension() : f => f

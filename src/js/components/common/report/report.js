@@ -44,10 +44,9 @@ class Report extends Component {
 
     return (
       <div
+        className='report'
         style={ { ...reportWrapperStyle, ...responsiveStyle.base, ...wrapperStyle } }
-        onClick={ () => { onClick(report.id); } }
-        onMouseOver={ () => this.setState({ hover: true }) }
-        onMouseOut={ () => this.setState({ hover: false }) }>
+        onClick={ () => { onClick(report.id); } }>
         <div style={ sourceWrapperStyle }>
           <span
             className='link--transition'

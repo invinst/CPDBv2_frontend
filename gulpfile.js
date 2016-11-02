@@ -70,7 +70,8 @@ gulp.task('copy-static', copyStatic(`${ROOT}dist/`));
 gulp.task('build', ['build-html', 'build-js', 'copy-static']);
 
 const liveTestDir = 'live-test-build';
-const testBlock = '<script type="text/javascript">LIVE_TEST=true;</script>';
+const testBlock = '<script type="text/javascript">' +
+  'var LIVE_TEST=true; var GA_TRACKING_ID = "UA-XXXXX-Y";</script>';
 
 gulp.task('build-html-live-test', buildHTML(testBlock, liveTestDir));
 gulp.task('build-js-live-test', buildJs(`${liveTestDir}/dist/`));
