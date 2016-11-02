@@ -6,7 +6,7 @@ import {
 } from 'actions/landing-page/suggestion-action';
 
 
-const SUGGESTION_MAP = ['neighborhood', 'officer badge', 'officer name'];
+const SUGGESTION_MAP = ['officer_name', 'officer_badge_number', 'neighborhoods'];
 
 export default handleActions({
   [SUGGESTION_REQUEST_START]: (state, action) => ([]),
