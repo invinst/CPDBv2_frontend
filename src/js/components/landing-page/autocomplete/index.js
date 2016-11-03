@@ -3,6 +3,8 @@ import { debounce } from 'lodash';
 
 import SuggestionResults from './suggestion-results';
 import SearchBox from './search-box';
+import SuggestionTags from './suggestion-tags';
+import { backButtonStyle, searchBoxStyle, helperTextStyle, resultWrapperStyle } from './autocomplete.style.js';
 
 
 export default class Autocomplete extends Component {
@@ -15,24 +17,54 @@ export default class Autocomplete extends Component {
     };
   }
 
-  handleChange(value) {
-    this.getSuggestion({
-      text: value
+  handleChange({ currentTarget: { value } }) {
+
+    this.setState({
+      value
     });
+
+    if (value) {
+      this.getSuggestion({
+        text: value
+      });
+    }
+  }
+
+  renderContent() {
+    const { suggestionGroups, isRequesting } = this.props;
+
+    if (this.state.value === '') {
+      return (
+        <div style={ resultWrapperStyle }>
+          <div style={ helperTextStyle }>
+            Type the name of a police officer, badge number, or CRID number.
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div style={ resultWrapperStyle }>
+        <SuggestionTags/>
+        <SuggestionResults
+          suggestionGroups={ suggestionGroups }
+          isRequesting={ isRequesting } />
+      </div>
+    );
   }
 
   render() {
-    const { suggestionGroups, isRequesting } = this.props;
-
     return (
       <div>
-        <div>
-          Search by officer Name, badge number or complaint CRID, OR <a href='#'>view the Data</a>
+        <div style={ searchBoxStyle }>
+          <span style={ backButtonStyle }/>
+          <SearchBox onChange={ this.handleChange } value={ this.state.value }/>
         </div>
-        <SearchBox handleChange={ this.handleChange }/>
-        <SuggestionResults suggestionGroups={ suggestionGroups } isRequesting={ isRequesting } />
+        <div style={ resultWrapperStyle }>
+          { this.renderContent() }
+        </div>
       </div>
-      );
+    );
   }
 }
 
@@ -41,3 +73,10 @@ Autocomplete.propTypes = {
   isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func
 };
+
+Autocomplete.defaultProps = {
+  suggestionGroups: {},
+  isRequesting: false,
+  getSuggestion: () => {}
+};
+
