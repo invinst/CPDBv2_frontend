@@ -3,37 +3,49 @@
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 100;
-  src: local("SF UI Text"), local(".SFNSText-Light"), url("../fonts/SF-Compact-Text-Light.otf"); }
+  src: url("../fonts/SF-Compact-Text-Light.woff2") format('woff2'),
+       url("../fonts/SF-Compact-Text-Light.woff") format('woff'),
+       url("../fonts/SF-Compact-Text-Light.otf") format('otf'); }
 
 /** Regular */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 300;
-  src: local("SF UI Text"), local(".SFNSText-Regular"), url("../fonts/SF-Compact-Text-Regular.otf"); }
+  src: url("../fonts/SF-Compact-Text-Regular.woff2") format('woff2'),
+       url("../fonts/SF-Compact-Text-Regular.woff") format('woff'),
+       url("../fonts/SF-Compact-Text-Regular.otf") format('otf'); }
 
 /** Normal */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 400;
-  src: local("SF UI Text"), local(".SFNSText-Medium"), url("../fonts/SF-Compact-Text-Medium.otf"); }
+  src: url("../fonts/SF-Compact-Text-Medium.woff2") format('woff2'),
+       url("../fonts/SF-Compact-Text-Medium.woff") format('woff'),
+       url("../fonts/SF-Compact-Text-Medium.otf") format('otf'); }
 
 /** Semi Bold */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 500;
-  src: local("SF UI Text"), local(".SFNSText-Semibold"), url("../fonts/SF-Compact-Text-Semibold.otf"); }
+  src: url("../fonts/SF-Compact-Text-Semibold.woff2") format('woff2'),
+       url("../fonts/SF-Compact-Text-Semibold.woff") format('woff'),
+       url("../fonts/SF-Compact-Text-Semibold.otf") format('otf'); }
 
 /** Bold */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 600;
-  src: local("SF UI Text"), local(".SFNSText-Bold"), url("../fonts/SF-Compact-Text-Bold.otf"); }
+  src: url("../fonts/SF-Compact-Text-Bold.woff2") format('woff2'),
+       url("../fonts/SF-Compact-Text-Bold.woff") format('woff'),
+       url("../fonts/SF-Compact-Text-Bold.otf") format('otf'); }
 
 /** Bold */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 700;
-  src: local("SF UI Text"), local(".SFNSText-Bold"), url("../fonts/SF-Compact-Text-Bold.otf"); }
+  src: url("../fonts/SF-Compact-Text-Heavy.woff2") format('woff2'),
+       url("../fonts/SF-Compact-Text-Heavy.woff") format('woff'),
+       url("../fonts/SF-Compact-Text-Heavy.otf") format('otf'); }
 
 /** San Francisco Compact Display */
 /** Light */
