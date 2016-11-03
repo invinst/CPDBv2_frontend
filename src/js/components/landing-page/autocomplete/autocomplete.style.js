@@ -1,8 +1,9 @@
 import { lightBlackColor, wildSandColor, lightMineShaftColor, whiteTwoColor } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
 
 
 export const backButtonStyle = {
-  background: `url(/src/img/arrow.svg) center no-repeat ${wildSandColor}`,
+  background: `url(${imgUrl('arrow.svg')}) center no-repeat ${wildSandColor}`,
   display: 'inline-block',
   width: '26px',
   height: '26px',
