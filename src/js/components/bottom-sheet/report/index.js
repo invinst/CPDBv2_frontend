@@ -81,20 +81,20 @@ class Report extends Component {
     className = classNames('report-bottom-sheet', className);
 
     return (
-      <div className={ className } style={ wrapperStyle }>
+      <div className={ className } style={ wrapperStyle() }>
         <BottomSheetHeader editToggleProps={ editToggleProps }/>
-        <div style={ contentWrapperStyle }>
+        <div style={ contentWrapperStyle() }>
           <ResponsiveFixedWidthComponent>
             <ResponsiveComponent
               extraWideChildren={ this.renderTwoColumns({
-                leftBar: leftBarStyle[EXTRA_WIDE],
-                rightBar: rightBarStyle[EXTRA_WIDE],
+                leftBar: leftBarStyle[EXTRA_WIDE](),
+                rightBar: rightBarStyle[EXTRA_WIDE](),
                 label: labelStyle[EXTRA_WIDE],
                 headerTitle: headerTitleStyle[EXTRA_WIDE]
               }) }
               desktopChildren={ this.renderTwoColumns({
-                leftBar: leftBarStyle[DESKTOP],
-                rightBar: rightBarStyle[DESKTOP],
+                leftBar: leftBarStyle[DESKTOP](),
+                rightBar: rightBarStyle[DESKTOP](),
                 label: labelStyle[DESKTOP],
                 headerTitle: headerTitleStyle[DESKTOP]
               }) }

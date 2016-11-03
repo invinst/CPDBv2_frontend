@@ -61,17 +61,17 @@ class FAQ extends Component {
     return (
       <div>
         <BottomSheetHeader editToggleProps={ editToggleProps }/>
-        <div style={ contentWrapperStyle }>
+        <div style={ contentWrapperStyle() }>
           <ResponsiveFixedWidthComponent>
             <ResponsiveComponent
               extraWideChildren={ this.renderTwoColumns({
-                leftBar: leftBarStyle[EXTRA_WIDE],
-                rightBar: rightBarStyle[EXTRA_WIDE],
+                leftBar: leftBarStyle[EXTRA_WIDE](),
+                rightBar: rightBarStyle[EXTRA_WIDE](),
                 question: questionStyle[EXTRA_WIDE]
               }) }
               desktopChildren={ this.renderTwoColumns({
-                leftBar: leftBarStyle[DESKTOP],
-                rightBar: rightBarStyle[DESKTOP],
+                leftBar: leftBarStyle[DESKTOP](),
+                rightBar: rightBarStyle[DESKTOP](),
                 question: questionStyle[DESKTOP]
               }) }
               tabletChildren={ this.renderOneColumn() }/>

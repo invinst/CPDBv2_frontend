@@ -2,25 +2,25 @@ import { pinkishGreyColor } from 'utils/styles';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 
 
-const _leftBarStyle = {
+const _leftBarStyle = () => ({
   display: 'inline-block',
   boxSizing: 'border-box',
   paddingLeft: '32px',
   paddingTop: '74px',
   width: '482px',
   borderRight: `1px solid ${pinkishGreyColor}`,
-  minHeight: '663px'
-};
+  minHeight: `${window.innerHeight - 88}px`
+});
 
 export const leftBarStyle = {
-  [EXTRA_WIDE]: _leftBarStyle,
-  [DESKTOP]: {
-    ..._leftBarStyle,
+  [EXTRA_WIDE]: () => _leftBarStyle(),
+  [DESKTOP]: () => ({
+    ..._leftBarStyle(),
     width: '400px'
-  }
+  })
 };
 
-const _rightBarStyle = {
+const _rightBarStyle = () => ({
   display: 'inline-block',
   boxSizing: 'border-box',
   padding: '77px 32px 0',
@@ -28,15 +28,15 @@ const _rightBarStyle = {
   verticalAlign: 'top',
   borderLeft: `1px solid ${pinkishGreyColor}`,
   marginLeft: '-1px',
-  minHeight: '663px'
-};
+  minHeight: `${window.innerHeight - 88}px`
+});
 
 export const rightBarStyle = {
-  [EXTRA_WIDE]: _rightBarStyle,
-  [DESKTOP]: {
-    ..._rightBarStyle,
+  [EXTRA_WIDE]: () => _rightBarStyle(),
+  [DESKTOP]: () => ({
+    ..._rightBarStyle(),
     width: '590px'
-  }
+  })
 };
 
 export const answerStyle = {
@@ -67,10 +67,10 @@ export const questionStyle = {
   [TABLET]: _questionStyle
 };
 
-export const contentWrapperStyle = {
+export const contentWrapperStyle = () => ({
   overflowY: 'auto',
-  height: '663px'
-};
+  height: `${window.innerHeight - 88}px`
+});
 
 export const answerWrapperStyle = {
   fontSize: '18px',

@@ -16,10 +16,6 @@ export default class BottomSheet extends Component {
       [REPORT_TYPE]: ReportContainer,
       [FAQ_TYPE]: FAQContainer
     };
-    this.childHeight = {
-      [REPORT_TYPE]: -707,
-      [FAQ_TYPE]: -707
-    };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -92,8 +88,7 @@ export default class BottomSheet extends Component {
 
   renderBottomSheetAnimation() {
     const { open } = this.props;
-    const content = this.getContent();
-    const height = content ? this.childHeight[content.type] : -1000;
+    const height = 44 - window.innerHeight;
 
     return (
       <Motion
