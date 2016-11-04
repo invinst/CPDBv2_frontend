@@ -1,3 +1,4 @@
-export const toolbarStyle = {
+export const wrapperStyle = {
+  position: 'absolute'
 
 };

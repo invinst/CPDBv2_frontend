@@ -1,16 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 
 import LinkButton from './link-button';
-import { toobarStyle } from './toolbar.style';
+import { wrapperStyle } from './toolbar.style';
 
 class Toolbar extends Component {
   render() {
-    const { linkActive, onLinkToggle } = this.props;
+    const { linkActive, onLinkToggle, style } = this.props;
 
     return (
-      <div>
+      <div style={ { ...wrapperStyle, ...style } }>
         <LinkButton
-          style={ toobarStyle }
           onLinkToggle={ onLinkToggle }
           active={ linkActive }>
           <span>L</span>
@@ -22,6 +21,7 @@ class Toolbar extends Component {
 
 Toolbar.propTypes = {
   linkActive: PropTypes.bool,
+  style: PropTypes.object,
   onLinkToggle: PropTypes.func
 };
 

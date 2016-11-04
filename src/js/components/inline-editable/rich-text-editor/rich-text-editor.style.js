@@ -4,5 +4,4 @@ export const wrapperStyle = {
 };
 
 export const toolbarStyle = {
-  position: 'absolute'
 };
