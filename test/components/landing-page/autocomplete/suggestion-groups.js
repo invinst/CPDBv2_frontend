@@ -16,7 +16,7 @@ describe('SuggestionGroup component', function () {
 
 
   it('should be renderable', function () {
-    SuggestionGroup.should.be.renderable({suggestions: [1]});
+    SuggestionGroup.should.be.renderable({ suggestions: [1] });
   });
 
   it('should render null', function () {

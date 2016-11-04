@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-import { map, reduce } from 'lodash';
 
 import {
   SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE

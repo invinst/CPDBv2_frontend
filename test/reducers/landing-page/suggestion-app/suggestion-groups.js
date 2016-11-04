@@ -30,9 +30,9 @@ describe('suggestionApp.suggestionGroups reducer', function () {
         'officer_name': [{ c: 3 }]
       }
     }).should.deepEqual({
-        'neighborhoods': [{ a: 1 }],
-        'officer_badge_number': [{ b: 2 }],
-        'officer_name': [{ c: 3 }]
-      });
+      'neighborhoods': [{ a: 1 }],
+      'officer_badge_number': [{ b: 2 }],
+      'officer_name': [{ c: 3 }]
+    });
   });
 });
