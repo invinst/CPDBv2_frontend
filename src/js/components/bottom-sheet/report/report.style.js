@@ -1,5 +1,5 @@
 import {
-  pinkishGreyColor, altoColor, mediumGrayColor
+  pinkishGreyColor, altoColor, mediumGrayColor, sanFranciscoTextFamily
 } from 'utils/styles';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 
@@ -53,6 +53,7 @@ export const excerptStyle = {
   },
   paragraph: {
     marginTop: 0,
+    fontFamily: sanFranciscoTextFamily,
     marginBottom: '31px'
   }
 };
@@ -62,6 +63,7 @@ export const infoRowStyle = {
   borderTop: `1px solid ${altoColor}`,
   height: '40px',
   fontSize: '14px',
+  fontFamily: sanFranciscoTextFamily,
   fontWeight: 400,
   padding: '11px 0'
 };
@@ -87,6 +89,7 @@ export const labelStyle = {
 const _headerTitleStyle = {
   fontSize: '32px',
   fontWeight: '600',
+  fontFamily: sanFranciscoTextFamily,
   paddingRight: '32px'
 };
 
