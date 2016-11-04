@@ -16,7 +16,12 @@ describe('SuggestionGroup component', function () {
 
 
   it('should be renderable', function () {
-    SuggestionGroup.should.be.renderable();
+    SuggestionGroup.should.be.renderable({suggestions: [1]});
+  });
+
+  it('should render null', function () {
+    instance = renderIntoDocument(<SuggestionGroup/>);
+    (findDOMNode(instance) === null).should.be.true();
   });
 
   it('should show `Show more results` if it had 10 suggestions', function () {

@@ -31,7 +31,7 @@ export default class Autocomplete extends Component {
   }
 
   renderContent() {
-    const { suggestionGroups, isRequesting } = this.props;
+    const { suggestionGroups, isRequesting, tags } = this.props;
 
     if (this.state.value === '') {
       return (
@@ -45,7 +45,7 @@ export default class Autocomplete extends Component {
 
     return (
       <div style={ resultWrapperStyle }>
-        <SuggestionTags/>
+        <SuggestionTags tags={ tags }/>
         <SuggestionResults
           suggestionGroups={ suggestionGroups }
           isRequesting={ isRequesting } />
@@ -70,6 +70,7 @@ export default class Autocomplete extends Component {
 
 Autocomplete.propTypes = {
   suggestionGroups: PropTypes.object,
+  tags: PropTypes.array,
   isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func
 };

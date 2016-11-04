@@ -46,7 +46,7 @@ describe('store', function () {
         vftgSection: {},
         suggestionApp: {
           isRequesting: false,
-          suggestions: []
+          suggestionGroups: {}
         }
       },
       faqPage: {

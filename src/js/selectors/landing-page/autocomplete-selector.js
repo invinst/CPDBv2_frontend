@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
 
-import { groupBy } from 'lodash';
+import { keys, omitBy, isEmpty } from 'lodash';
 
 
-const getSuggestions = state => state.landingPage.suggestionApp.suggestions;
+const getSuggestions = state => state.landingPage.suggestionApp.suggestionGroups;
 
-export const suggestionsSelector = createSelector(
+export const tagsSelector = createSelector(
   getSuggestions,
-  (suggestions) => (groupBy(suggestions, 'payload.type'))
+  suggestions => keys(omitBy(suggestions, isEmpty))
 );
