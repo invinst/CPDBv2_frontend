@@ -1,4 +1,4 @@
-import { pinkishGreyColor } from 'utils/styles';
+import { pinkishGreyColor, sanFranciscoTextFamily } from 'utils/styles';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 
 
@@ -47,6 +47,7 @@ export const answerStyle = {
   },
   paragraph: {
     marginTop: 0,
+    fontFamily: sanFranciscoTextFamily,
     marginBottom: '20px'
   }
 };
@@ -55,6 +56,7 @@ export const _questionStyle = {
   fontSize: '32px',
   fontWeight: '600',
   marginBottom: '32px',
+  fontFamily: sanFranciscoTextFamily,
   paddingRight: '32px'
 };
 
