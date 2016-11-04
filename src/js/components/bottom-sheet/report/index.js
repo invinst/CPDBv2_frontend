@@ -14,6 +14,7 @@ import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixe
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
+import RichTextEditor from 'components/inline-editable/rich-text-editor';
 
 
 class Report extends Component {
@@ -55,6 +56,7 @@ class Report extends Component {
             style={ excerptStyle }
             placeholder='Excerpt'
             { ...fieldProps['excerpt'] }/>
+          <RichTextEditor/>
         </div>
       </div>
     );

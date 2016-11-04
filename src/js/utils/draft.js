@@ -1,4 +1,4 @@
-import { convertFromRaw, EditorState, genKey } from 'draft-js';
+import { convertFromRaw, EditorState, genKey, Entity } from 'draft-js';
 import { isEmpty, map, find } from 'lodash';
 
 
@@ -67,3 +67,19 @@ export const createEmptyDateField = (name) => ({
 export const getFieldOrCreateEmptyWithEditorState = (fields, name, type) => (
   getField(fields, name)
   || createFieldWithEmptyEditorState(name, type));
+
+export const linkEntitySelected = (editorState) => {
+  const selectionState = editorState.getSelection();
+  const blockKey = selectionState.getAnchorKey();
+  const contentBlock = editorState.getCurrentContent().getBlockForKey(blockKey);
+
+  const entityKey = contentBlock.getEntityAt(selectionState.getAnchorOffset());
+
+  if (entityKey != null) {
+    const entity = Entity.get(entityKey);
+
+    return entity.getType() === 'LINK';
+  }
+
+  return false;
+};
