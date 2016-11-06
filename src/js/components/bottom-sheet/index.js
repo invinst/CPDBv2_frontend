@@ -33,7 +33,7 @@ export default class BottomSheet extends Component {
     return (
       <div
         className='bottom-sheet__overlay'
-        onClick={ this.props.onClose }
+        onClick={ () => this.props.onClose() }
         style={ assign({}, overlayStyle, style) }/>
     );
   }
@@ -44,7 +44,6 @@ export default class BottomSheet extends Component {
     const motionStyle = {
       opacity: spring( open ? .8 : 0, defaultConfig())
     };
-
 
     return (
       <Motion

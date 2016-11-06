@@ -39,7 +39,7 @@ const baseHiderStyle = {
   position: 'absolute',
   backgroundColor: pinkishWhiteColor,
   width: '100%',
-  zIndex: 1
+  zIndex: 50
 };
 
 export const hiderStyle = {

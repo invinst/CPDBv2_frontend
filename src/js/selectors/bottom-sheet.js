@@ -6,17 +6,21 @@ import {
   getField, createFieldWithEmptyEditorState, createEmptyStringField,
   createEmptyDateField
 } from 'utils/draft';
+import { replaceReportRichTextFields } from 'utils/rich-text';
 
 
 const getReports = state => state.reports;
 const getContentId = state => state.bottomSheet.content.id;
+const getContentStates = state => state.contentStates;
 const getFAQs = state => state.faqs;
 
 const reportSelector = createSelector(
   getReports,
   getContentId,
-  (stories, id) => {
-    const report = find(stories, report => report.id === id);
+  getContentStates,
+  (reports, id, contentStates) => {
+    const report = find(reports, report => report.id === id);
+    replaceReportRichTextFields(report, contentStates);
     return {
       id,
       fields: (
@@ -26,14 +30,16 @@ const reportSelector = createSelector(
           'publication': getField(report.fields, 'publication'),
           'publish_date': getField(report.fields, 'publish_date'),
           'author': getField(report.fields, 'author'),
-          'excerpt': getField(report.fields, 'excerpt')
+          'excerpt': getField(report.fields, 'excerpt'),
+          'article_link': getField(report.fields, 'article_link')
         } :
         {
           'title': createFieldWithEmptyEditorState('title', 'plain_text'),
           'publication': createEmptyStringField('publication'),
           'publish_date': createEmptyDateField('publish_date'),
           'author': createEmptyStringField('author'),
-          'excerpt': createFieldWithEmptyEditorState('excerpt', 'multiline_text')
+          'excerpt': createFieldWithEmptyEditorState('excerpt', 'multiline_text'),
+          'article_link': createFieldWithEmptyEditorState('article_link', 'rich_text')
         }
       )
     };

@@ -4,25 +4,25 @@ import { Entity } from 'draft-js';
 import { linkStyle } from './link.style';
 
 
-export default class Link extends Component {
+class Link extends Component {
   render() {
-    const { entityKey, children } = this.props;
-    const url = Entity.get(entityKey).getData();
+    const { children } = this.props;
 
     return (
-      <a
-        href={ url }
-        style={ linkStyle } >
+      <span style={ linkStyle }>
         { children }
-      </a>
+      </span>
     );
   }
 }
 
 Link.propTypes = {
   entityKey: PropTypes.string,
+  hovering: PropTypes.bool,
   children: PropTypes.node
 };
+
+export default Link;
 
 export function findLinkEntities(contentBlock, callback) {
   contentBlock.findEntityRanges(

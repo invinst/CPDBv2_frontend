@@ -115,7 +115,10 @@ export const contentWrapperStyle = () => ({
 });
 
 export const articleLinkStyle = {
-  fontSize: '14px'
+  paragraph: {
+    fontSize: '14px',
+    textAlign: 'right'
+  }
 };
 
 export const oneColumnStyle = {

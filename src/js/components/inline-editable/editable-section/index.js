@@ -15,6 +15,7 @@ export default function (SubComponent) {
       };
       this.handleUpdateFieldValue = this.handleUpdateFieldValue.bind(this);
       this.handleSaveForm = this.handleSaveForm.bind(this);
+      this.fieldProps = this.fieldProps.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
@@ -31,6 +32,7 @@ export default function (SubComponent) {
       switch (field.type) {
         case 'plain_text':
         case 'multiline_text':
+        case 'rich_text':
           return {
             ...field,
             value: convertContentStateToEditorState(field.value)
@@ -43,6 +45,7 @@ export default function (SubComponent) {
       switch (field.type) {
         case 'plain_text':
         case 'multiline_text':
+        case 'rich_text':
           return {
             ...field,
             value: convertToRaw(field.value.getCurrentContent())
@@ -72,6 +75,22 @@ export default function (SubComponent) {
       });
     }
 
+    fieldProps(field, fieldName) {
+      const { openRichTextToolbar, closeRichTextToolbar, sectionEditModeOn } = this.props;
+      return {
+        value: field && field.value,
+        editModeOn: sectionEditModeOn,
+        onChange: val => this.handleUpdateFieldValue(fieldName, val),
+        ...(field.type === 'rich_text' ?
+          {
+            openRichTextToolbar,
+            closeRichTextToolbar
+          } :
+          {}
+        )
+      };
+    }
+
     render() {
       const {
         sectionEditModeOn, turnOnSectionEditMode, turnOffSectionEditMode,
@@ -90,11 +109,7 @@ export default function (SubComponent) {
               onSaveForm: this.handleSaveForm
             } }
             fieldProps={
-              mapValues(fields, (field, fieldName) => ({
-                value: field && field.value,
-                editModeOn: sectionEditModeOn,
-                onChange: val => this.handleUpdateFieldValue(fieldName, val)
-              }))
+              mapValues(fields, this.fieldProps)
             }
             { ...restProps }/>
         </div>
@@ -106,6 +121,8 @@ export default function (SubComponent) {
     fields: PropTypes.object,
     onSaveForm: PropTypes.func,
     sectionEditModeOn: PropTypes.bool,
+    openRichTextToolbar: PropTypes.func,
+    closeRichTextToolbar: PropTypes.func,
     turnOnSectionEditMode: PropTypes.func,
     turnOffSectionEditMode: PropTypes.func
   };

@@ -14,7 +14,7 @@ import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixe
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
-import RichTextEditor from 'components/inline-editable/rich-text-editor';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 class Report extends Component {
@@ -42,7 +42,7 @@ class Report extends Component {
   }
 
   renderTwoColumns(style) {
-    const { fieldProps } = this.props;
+    const { fieldProps, reportId } = this.props;
     return (
       <div>
         <div style={ style.leftBar }>
@@ -56,9 +56,10 @@ class Report extends Component {
             style={ excerptStyle }
             placeholder='Excerpt'
             { ...fieldProps['excerpt'] }/>
-          <RichTextEditor
-            uniqueClassName='somethingUnique'
+          <RichTextEditable
             placeholder='link to article'
+            contentStateKey={ `reports.${reportId}.article_link` }
+            { ...fieldProps['article_link'] }
             style={ articleLinkStyle }/>
         </div>
       </div>
@@ -113,6 +114,7 @@ class Report extends Component {
 
 Report.propTypes = {
   style: PropTypes.object,
+  reportId: PropTypes.number,
   className: PropTypes.string,
   fieldProps: PropTypes.object,
   editToggleProps: PropTypes.object,

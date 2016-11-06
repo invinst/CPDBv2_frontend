@@ -47,3 +47,7 @@ UnderlineText.propTypes = {
   }),
   onClick: PropTypes.func
 };
+
+UnderlineText.defaultProps = {
+  style: {}
+};

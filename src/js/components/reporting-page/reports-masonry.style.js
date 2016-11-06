@@ -7,7 +7,7 @@ export const wrapperStyle = {
 export const borderSleeveStyle = {
   height: '1px',
   width: '100%',
-  zIndex: '1',
+  zIndex: 50,
   position: 'relative',
   background: 'white'
 };

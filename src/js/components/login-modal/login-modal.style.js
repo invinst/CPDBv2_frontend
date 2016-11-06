@@ -11,7 +11,7 @@ export const outerWrapperStyle = {
   width: '100%',
   height: '100%',
   backgroundColor: 'white',
-  zIndex: 2
+  zIndex: 300
 };
 
 export const innerWrapperStyle = {

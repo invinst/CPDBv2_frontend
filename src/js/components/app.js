@@ -9,6 +9,7 @@ import BottomSheetContainer from 'containers/bottom-sheet';
 import Header from 'components/header';
 import RouteTransition from 'components/animation/route-transition';
 import LoginModalContainer from 'containers/login-modal-container';
+import RichTextToolbarContainer from 'containers/rich-text-toolbar';
 
 
 export default class App extends React.Component {
@@ -39,6 +40,7 @@ export default class App extends React.Component {
             { this.props.children }
           </RouteTransition>
           <BottomSheetContainer/>
+          <RichTextToolbarContainer/>
           <LoginModalContainer location={ location }/>
         </EditModeContainer>
       </StyleRoot>

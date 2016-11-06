@@ -1,126 +1,78 @@
 import React, { Component, PropTypes } from 'react';
 
-import { EditorState, Editor, Entity, RichUtils, CompositeDecorator } from 'draft-js';
+import { Editor, DefaultDraftBlockRenderMap } from 'draft-js';
 
-import Toolbar from './toolbar';
-import { linkEntitySelected } from 'utils/draft';
-import Link, { findLinkEntities } from './entities/link';
-import { wrapperStyle, toolbarStyle } from './rich-text-editor.style';
+import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
+import WrapperBlockWithStyle from 'components/inline-editable/custom-block/wrapper-block-with-style';
 import { textEditorStyle } from 'components/inline-editable/editor.style';
 
 
-// TODO use editorState on props rather than state
-class RichTextEditor extends Component {
+export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
-
-    this.onLinkToggle = this.onLinkToggle.bind(this);
-
-    const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: Link
-      }
-    ]);
-
-    this.state = {
-      editorState: EditorState.createEmpty(decorator)
-    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  onLinkToggle(url) {
-    let newEditorState = null;
-    // editorState = this.props.editorState;
-    const editorState = this.state.editorState;
-    const linkActive = linkEntitySelected(editorState);
-
-    // set url to editor state if current active status is false; otherwise, remove link
-    if (!linkActive) {
-      const entityKey = Entity.create('LINK', 'MUTABLE', { url: url });
-      newEditorState = RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
-    } else {
-      // use entity key null to remove link from editor state
-      newEditorState = RichUtils.toggleLink(editorState, editorState.getSelection(), null);
-    }
-
-    // this.props.onChange(newEditorState);
-    this.setState({ editorState: newEditorState });
-  }
-
-  getToolbarPositionStyle() {
-    const editorState = this.state.editorState;
-
+  handleChange(editorState) {
+    const { onChange, contentStateKey, openRichTextToolbar, closeRichTextToolbar } = this.props;
     const selectionState = editorState.getSelection();
-    const isToolbarVisible = selectionState.getHasFocus() && (
-      selectionState.getStartOffset() != selectionState.getEndOffset());
+    if (selectionState.getStartOffset() != selectionState.getEndOffset()) {
+      openRichTextToolbar({
+        contentStateKey,
+        editorState
+      });
+    } else {
+      closeRichTextToolbar({ contentStateKey });
+    }
+    onChange(editorState);
+  }
 
-    if (isToolbarVisible) {
-      const { uniqueClassName } = this.props;
+  render() {
+    const { placeholder, style, editorState } = this.props;
+    const { wrapper, paragraph } = style;
 
-      const selectionElement = window.getSelection();
-      const richTextEditorElements = document.getElementsByClassName(uniqueClassName);
-      if (selectionElement.rangeCount && richTextEditorElements.length) {
-        const elementRange = selectionElement.getRangeAt(0); //get the text range
-        const selectionRect = elementRange.getBoundingClientRect();
-        const richTextEditorRect = richTextEditorElements[0].getBoundingClientRect();
+    const paragraphBlockRender = {
+      element: 'div',
+      wrapper: <WrapperBlockWithStyle style={ wrapper } element='div'/>
+    };
 
+    const blockRenderMap = DefaultDraftBlockRenderMap
+      .set('unstyled', paragraphBlockRender);
+
+    function blockRendererFn(contentBlock) {
+      if (contentBlock.getType() === 'unstyled') {
         return {
-          top: `${selectionRect.top - richTextEditorRect.top - 20}px`,
-          left: `${selectionRect.left - richTextEditorRect.left}px`
+          component: EditorBlockWithStyle,
+          editable: true,
+          props: {
+            style: { ...paragraph, ...textEditorStyle },
+            element: 'div'
+          }
         };
       }
     }
 
-    return {};
-  }
-
-  render() {
-    // const { onChange, editorState } = this.props;
-    const { placeholder, style, uniqueClassName } = this.props;
-    const editorState = this.state.editorState;
-
-    const toolbarPositionStyle = this.getToolbarPositionStyle();
-    const linkActive = linkEntitySelected(editorState);
-
-    const selectionState = editorState.getSelection();
-    const isToolbarVisible = selectionState.getHasFocus() && (
-      selectionState.getStartOffset() != selectionState.getEndOffset());
-
     return (
-      <div
-        className={ uniqueClassName }
-        style={ { ...textEditorStyle, ...wrapperStyle, ...style } }
-        >
-        { isToolbarVisible ?
-          <Toolbar
-            style={ { ...toolbarStyle, ...toolbarPositionStyle } }
-            linkActive={ linkActive }
-            onLinkToggle={ this.onLinkToggle }
-            />
-            : null
-        }
-        <Editor
-          onChange={ editorState => this.setState({ editorState }) }
-          editorState={ editorState }
-          placeholder={ placeholder }/>
-      </div>
+      <Editor
+        onChange={ this.handleChange }
+        blockRenderMap={ blockRenderMap }
+        blockRendererFn={ blockRendererFn }
+        editorState={ editorState }
+        placeholder={ placeholder }/>
     );
   }
 }
 
 RichTextEditor.propTypes = {
-  onChange: PropTypes.func,
   placeholder: PropTypes.string,
   style: PropTypes.object,
-  editorState: PropTypes.object,
-  uniqueClassName: PropTypes.string
+  openRichTextToolbar: PropTypes.func,
+  closeRichTextToolbar: PropTypes.func,
+  onChange: PropTypes.func,
+  contentStateKey: PropTypes.string,
+  editorState: PropTypes.object
 };
 
 RichTextEditor.defaultProps = {
-  onChange: function (editorState) {
-    // this.setState({ editorState });
-  },
-  editorState: EditorState.createEmpty()
+  style: {}
 };
-
-export default RichTextEditor;

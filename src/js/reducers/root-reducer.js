@@ -8,6 +8,8 @@ import bottomSheet from './bottom-sheet';
 import reportingPage from './reporting-page';
 import reports from './reports';
 import faqs from './faqs';
+import contentStates from './content-states';
+import richTextToolbar from './rich-text-toolbar';
 
 
 export default combineReducers({
@@ -18,5 +20,7 @@ export default combineReducers({
   reportingPage,
   reports,
   faqs,
+  contentStates,
+  richTextToolbar,
   routing: routerReducer
 });

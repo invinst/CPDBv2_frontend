@@ -29,7 +29,7 @@ export const popupWrapperStyle = {
   padding: '16px',
   backgroundColor: pinkishWhiteColor,
   boxShadow: `0 2px 4px 0 ${softGreenColor}`,
-  zIndex: 1,
+  zIndex: 25,
   top: '27px',
   right: '-190px'
 };

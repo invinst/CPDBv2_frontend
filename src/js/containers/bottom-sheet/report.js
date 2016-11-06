@@ -3,18 +3,22 @@ import { connect } from 'react-redux';
 
 import Report from 'components/bottom-sheet/report';
 import { updateReport, addReport } from 'actions/reporting-page';
+import { openRichTextToolbar, closeRichTextToolbar } from 'actions/rich-text-editor';
 
 
-function mapStateToProps(state, { fields, turnOffSectionEditMode }) {
+function mapStateToProps(state, { fields, turnOffSectionEditMode, id }) {
   return {
     fields,
+    reportId: id,
     turnOffSectionEditMode
   };
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({
-    onSaveForm: ownProps.id ? updateReport.bind(null, ownProps.id) : addReport
+    onSaveForm: ownProps.id ? updateReport.bind(null, ownProps.id) : addReport,
+    openRichTextToolbar,
+    closeRichTextToolbar
   }, dispatch);
 };
 
