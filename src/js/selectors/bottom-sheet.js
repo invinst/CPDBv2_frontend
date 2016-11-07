@@ -20,7 +20,9 @@ const reportSelector = createSelector(
   getContentStates,
   (reports, id, contentStates) => {
     const report = find(reports, report => report.id === id);
-    replaceReportRichTextFields(report, contentStates);
+    if (report) {
+      replaceReportRichTextFields(report, contentStates);
+    }
     return {
       id,
       fields: (

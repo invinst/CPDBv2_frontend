@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 
 import Editable from 'components/inline-editable/editable';
 import RichTextEditor from 'components/inline-editable/rich-text-editor';
-import Paragraphs from 'components/common/paragraphs';
-import { contentStateToTextArray } from 'utils/draft';
 
 
 class RichTextEditable extends Component {
@@ -27,9 +25,10 @@ class RichTextEditable extends Component {
             placeholder={ placeholder }/>
         }
         presenterElement={
-          <Paragraphs style={ style }>
-            { contentStateToTextArray(value && value.getCurrentContent()) }
-          </Paragraphs>
+          <RichTextEditor
+            style={ style }
+            editorState={ value }
+            readOnly={ true }/>
         }/>
     );
   }

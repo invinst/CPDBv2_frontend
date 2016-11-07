@@ -1,13 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import { Entity } from 'draft-js';
 
+import MoreLink from 'components/common/more-link';
 import { linkStyle } from './link.style';
 
 
 class Link extends Component {
   render() {
-    const { children } = this.props;
-
+    const { children, entityKey } = this.props;
+    const { editModeOn } = this.context;
+    const { url } = Entity.get(entityKey).getData();
+    if (!editModeOn) {
+      return (
+        <MoreLink href={ url }>
+        { children }
+        </MoreLink>
+      );
+    }
     return (
       <span style={ linkStyle }>
         { children }
@@ -20,6 +29,10 @@ Link.propTypes = {
   entityKey: PropTypes.string,
   hovering: PropTypes.bool,
   children: PropTypes.node
+};
+
+Link.contextTypes = {
+  editModeOn: PropTypes.bool
 };
 
 export default Link;
