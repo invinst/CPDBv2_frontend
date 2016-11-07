@@ -11,11 +11,18 @@ class Toolbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showUrlInput: false
+      showUrlInput: false,
+      linkActive: false
     };
     this.position = {};
     this.handleLinkButtonClick = this.handleLinkButtonClick.bind(this);
     this.handleUrlInputEntryFinished = this.handleUrlInputEntryFinished.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.editorState !== this.props.editorState) {
+      this.setState({ linkActive: false });
+    }
   }
 
   handleLinkButtonClick() {
@@ -23,22 +30,24 @@ class Toolbar extends Component {
     const { showUrlInput } = this.state;
     if (linkEntitySelected(editorState)) {
       removeLinkEntity({ key: contentStateKey, editorState });
-      this.setState({ showUrlInput: false });
+      this.setState({ showUrlInput: false, linkActive: false });
     } else {
-      this.setState({ showUrlInput: !showUrlInput });
+      this.setState({ showUrlInput: !showUrlInput, linkActive: !showUrlInput });
     }
   }
 
   handleUrlInputEntryFinished(url) {
     const { contentStateKey, createLinkEntity, editorState } = this.props;
+    let linkActive = false;
     if (url) {
       createLinkEntity({
         key: contentStateKey,
         data: { url },
         editorState
       });
+      linkActive = true;
     }
-    this.setState({ showUrlInput: false });
+    this.setState({ showUrlInput: false, linkActive });
   }
 
   currentSelectionRect() {
@@ -70,8 +79,8 @@ class Toolbar extends Component {
 
   render() {
     const { editorState, show } = this.props;
-    const { showUrlInput } = this.state;
-    const linkActive = editorState && (showUrlInput || linkEntitySelected(editorState));
+    const { showUrlInput, linkActive } = this.state;
+    let _linkActive = linkActive || (editorState && linkEntitySelected(editorState));
 
     if (!show) {
       return null;
@@ -84,7 +93,7 @@ class Toolbar extends Component {
             icon='link-blue.svg'
             activeIcon='link-white.svg'
             onClick={ this.handleLinkButtonClick }
-            active={ linkActive }/>
+            active={ _linkActive }/>
           { showUrlInput ?
             <UrlInput
               style={ urlInputStyle }
