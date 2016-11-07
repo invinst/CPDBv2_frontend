@@ -52,14 +52,12 @@ const buildJs = (output) => (() => {
 
 const ROOT = '/www/static/';
 
-let globalVariableBlock;
+let globalVariableBlock = '<script type="text/javascript">'
+  + 'var GA_TRACKING_ID = "UA-63671047-3";'
+  + '</script>';
 if (process.env.NODE_ENV === 'production') {
   globalVariableBlock = '<script type="text/javascript">'
     + 'var GA_TRACKING_ID = "UA-63671047-2";'
-    + '</script>';
-} else if (process.env.NODE_ENV === 'staging') {
-  globalVariableBlock = '<script type="text/javascript">'
-    + 'var GA_TRACKING_ID = "UA-63671047-3";'
     + '</script>';
 }
 

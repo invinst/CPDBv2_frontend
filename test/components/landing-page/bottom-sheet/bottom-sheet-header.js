@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BottomSheetHeader from 'components/landing-page/bottom-sheet/bottom-sheet-header';
+import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 import { unmountComponentSuppressError } from 'utils/test';
 
 

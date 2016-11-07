@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import { Editor, DefaultDraftBlockRenderMap } from 'draft-js';
 
 import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';

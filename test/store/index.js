@@ -1,5 +1,4 @@
 import configureStore from 'store';
-import { PAGINATION_DEFAULT } from 'utils/constants';
 
 
 function setUp() {
@@ -29,41 +28,74 @@ describe('store', function () {
     const { getCurrentState } = setUp();
     getCurrentState().should.eql({
       landingPage: {
-        storyApp: {
-          stories: [],
-          isRequesting: false
-        },
-        bottomSheet: {
-          content: null
-        },
-        faqApp: {
+        faqSection: {
           faqs: [],
-          isRequesting: false
+          isRequesting: false,
+          fields: {},
+          editModeOn: false
         },
-        aboutSection: {},
-        collaborateSection: {},
+        reportSection: {
+          isRequesting: false,
+          fields: {},
+          editModeOn: false,
+          reports: []
+        },
         heroSection: {},
-        vftgSection: {}
-      },
-      faqPage: {
-        faqForm: {
-          isSubmitting: false
+        vftgSection: {
+          fields: {},
+          editModeOn: false
         },
-        faqs: PAGINATION_DEFAULT,
-        isRequesting: false
-      },
-      storiesPage: {
-        featuredStories: {
-          isRequesting: false,
-          stories: PAGINATION_DEFAULT
+        aboutSection: {
+          fields: {},
+          editModeOn: false
         },
-        nonFeaturedStories: {
-          isLoadingMore: false,
-          isRequesting: false,
-          stories: PAGINATION_DEFAULT
+        collaborateSection: {
+          fields: {},
+          editModeOn: false
         }
       },
-      editModeOn: false
+      faqPage: {
+        faqs: {
+          results: [],
+          count: 0,
+          next: null,
+          previous: null
+        },
+        isRequesting: false,
+        faqForm: {
+          isSubmitting: false
+        }
+      },
+      authentication: {
+        loginErrorMessage: null,
+        loginSuccessMessage: null,
+        forgotPasswordErrorMessage: null,
+        apiAccessToken: null,
+        showForgotPasswordModal: false
+      },
+      bottomSheet: {
+        content: null
+      },
+      reportingPage: {
+        reportGrouping: {
+          groups: [],
+          groupingStrategy: 'STRATEGY_RANDOM',
+          existingReportIds: []
+        },
+        pagination: {
+          next: null,
+          previous: null,
+          count: 0
+        }
+      },
+      reports: {},
+      faqs: {},
+      contentStates: {},
+      richTextToolbar: {
+        show: false,
+        contentStateKey: null,
+        editorState: null
+      }
     });
   });
 });

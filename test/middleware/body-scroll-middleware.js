@@ -1,5 +1,5 @@
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
-import { openBottomSheetWithStory, closeBottomSheet, openBottomSheetWithFAQ } from 'actions/landing-page/bottom-sheet';
+import { openBottomSheetWithReport, closeBottomSheet, openBottomSheetWithFAQ } from 'actions/bottom-sheet';
 
 
 describe('bodyScrollMiddleware', function () {
@@ -7,9 +7,9 @@ describe('bodyScrollMiddleware', function () {
     document.body.className = '';
   });
 
-  it('should disable bodyscroll on OPEN_BOTTOM_SHEET_WITH_STORY', function () {
+  it('should disable bodyscroll on OPEN_BOTTOM_SHEET_WITH_REPORT', function () {
     let dispatched;
-    const dispatchAction = openBottomSheetWithStory({});
+    const dispatchAction = openBottomSheetWithReport({});
     bodyScrollMiddleware({})(action => dispatched = action)(dispatchAction);
     document.body.className.should.containEql('noscroll');
     dispatched.should.eql(dispatchAction);

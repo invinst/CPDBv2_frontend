@@ -2,11 +2,11 @@ import React from 'react';
 import { render, findDOMNode } from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
 
-import BottomSheet from 'components/landing-page/bottom-sheet/bottom-sheet';
+import BottomSheet from 'components/bottom-sheet';
 import { unmountComponentSuppressError } from 'utils/test';
 import StoryFactory from 'utils/test/factories/story';
 import FAQFactory from 'utils/test/factories/faq';
-import { STORY_TYPE, FAQ_TYPE } from 'actions/landing-page/bottom-sheet';
+import { STORY_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 
 
 describe('BottomSheet component', function () {

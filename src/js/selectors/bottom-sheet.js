@@ -14,7 +14,7 @@ const getContentId = state => state.bottomSheet.content.id;
 const getContentStates = state => state.contentStates;
 const getFAQs = state => state.faqs;
 
-const reportSelector = createSelector(
+export const reportSelector = createSelector(
   getReports,
   getContentId,
   getContentStates,
@@ -48,7 +48,7 @@ const reportSelector = createSelector(
   }
 );
 
-const faqSelector = createSelector(
+export const faqSelector = createSelector(
   getFAQs,
   getContentId,
   (faqs, id) => {

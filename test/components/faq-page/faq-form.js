@@ -2,6 +2,7 @@ import React from 'react';
 import { renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate } from 'react-addons-test-utils';
 import { stub, spy } from 'sinon';
 
+import 'polyfill';
 import FAQForm from 'components/faq-page/faq-form';
 import { unmountComponentSuppressError } from 'utils/test';
 

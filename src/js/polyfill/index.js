@@ -1,2 +1,3 @@
-import 'polyfill/es6-promise-polyfill';
-import 'polyfill/array-prototype-find';
+import './es6-promise-polyfill';
+import './array-prototype-find';
+import './string-prototype-startswith';
