@@ -10,12 +10,10 @@ const SUGGESTION_MAP = ['officer_name', 'officer_badge_number', 'neighborhoods']
 
 export default handleActions({
   [SUGGESTION_REQUEST_START]: (state, action) => ([]),
-  [SUGGESTION_REQUEST_SUCCESS]: (state, action) => {
-    return reduce(
+  [SUGGESTION_REQUEST_SUCCESS]: (state, action) => reduce(
       map(SUGGESTION_MAP, (contentType) => (action.payload[contentType])),
       (memo, suggestion) => (
         memo.concat(suggestion[0].options)
-      ), [])
-  },
+      ), []),
   [SUGGESTION_REQUEST_FAILURE]: (state, action) => ([])
 }, []);
