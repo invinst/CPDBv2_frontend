@@ -10,6 +10,7 @@ import reports from './reports';
 import faqs from './faqs';
 import contentStates from './content-states';
 import richTextToolbar from './rich-text-toolbar';
+import { routerReducer } from 'react-router-redux';
 
 
 export default combineReducers({
