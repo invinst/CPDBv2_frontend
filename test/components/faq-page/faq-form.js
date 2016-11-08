@@ -2,6 +2,7 @@ import React from 'react';
 import { renderIntoDocument, scryRenderedDOMComponentsWithTag, Simulate } from 'react-addons-test-utils';
 import { stub, spy } from 'sinon';
 
+import 'polyfill/string-prototype-startswith';
 import FAQForm from 'components/faq-page/faq-form';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -55,5 +56,14 @@ describe('FAQForm component', function () {
     instance.handleSubmit(event);
     askQuestionCallback.calledWith({ title: title });
     resetSpy.called.should.be.true();
+  });
+
+  it('should be disabled ask button when submitting', function () {
+    instance = renderIntoDocument(
+      <FAQForm askQuestion={ askQuestion } isSubmitting={ true }/>
+    );
+
+    const [, askBtn] = scryRenderedDOMComponentsWithTag(instance, 'input');
+    askBtn.disabled.should.be.true();
   });
 });

@@ -9,6 +9,7 @@ const getIsRequesting = state => state.faqPage.isRequesting;
 const getFAQs = state => state.faqs;
 
 export const faqTransform = faq => {
+  console.log(faq)
   return {
     id: faq.id,
     question: plainTextValueToString(getField(faq.fields, 'question').value),

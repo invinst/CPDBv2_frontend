@@ -35,7 +35,7 @@ export default class FAQListSection extends Component {
     if (!faqId) {
       return;
     }
-    const faq = find(this.props.faqs, obj => obj.id === faqId);
+    const faq = this.props.faqs.find(obj => obj.id == faqId);
     global.ga('send', 'event', 'faq', 'open', faq.title, faq.id);
   }
 
@@ -48,6 +48,7 @@ export default class FAQListSection extends Component {
 
     return (
       <div
+        className='add-faq-btn'
         onClick={ this.props.openBottomSheetToCreateFAQ }
         style={ addFaqButtonStyle }>
         [+]

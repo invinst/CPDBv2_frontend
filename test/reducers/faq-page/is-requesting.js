@@ -1,4 +1,4 @@
-import { FAQ_PAGE_REQUEST_START, FAQ_PAGE_REQUEST_SUCCESS, FAQ_PAGE_REQUEST_FAILURE } from 'actions/faq-page';
+import { FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE } from 'actions/faq-page';
 import isRequesting from 'reducers/faq-page/is-requesting';
 
 
@@ -7,22 +7,22 @@ describe('isRequesting reducer', function () {
     isRequesting(undefined, {}).should.be.false();
   });
 
-  it('should handle FAQ_PAGE_REQUEST_START', function () {
+  it('should handle FAQS_REQUEST_START', function () {
     isRequesting(undefined, {
-      type: FAQ_PAGE_REQUEST_START
+      type: FAQS_REQUEST_START
     }).should.be.true();
   });
 
-  it('should handle FAQ_PAGE_REQUEST_SUCCESS', function () {
+  it('should handle FAQS_REQUEST_SUCCESS', function () {
     isRequesting(true, {
-      type: FAQ_PAGE_REQUEST_SUCCESS,
+      type: FAQS_REQUEST_SUCCESS,
       payload: [1, 2, 3]
     }).should.be.false();
   });
 
-  it('should handle FAQ_PAGE_REQUEST_FAILURE', function () {
+  it('should handle FAQS_POST_FAILURE', function () {
     isRequesting(true, {
-      type: FAQ_PAGE_REQUEST_FAILURE,
+      type: FAQS_REQUEST_FAILURE,
       payload: new Error('Load failed')
     }).should.be.false();
   });
