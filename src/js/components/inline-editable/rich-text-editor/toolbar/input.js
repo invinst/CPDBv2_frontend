@@ -15,6 +15,13 @@ export default class TextInput extends Component {
     };
   }
 
+  componentDidMount() {
+    const { focusAfterMount } = this.props;
+    if (focusAfterMount) {
+      this.inputEl.focus();
+    }
+  }
+
   handleFocus(event) {
     const { onFocus } = this.props;
     this.setState({
@@ -47,12 +54,13 @@ export default class TextInput extends Component {
   render() {
     const {
       style, paddingVertical, paddingHorizontal, width, height,
-      focusAfterMount, placeholder, ...rest
+      placeholder, ...rest
     } = this.props;
     delete rest.value;
     delete rest.onChange;
     delete rest.onBlur;
     delete rest.onFocus;
+    delete rest.focusAfterMount;
     const { value, showPlaceholder } = this.state;
     const _showPlaceholder = showPlaceholder && !rest.value;
     const _wrapperStyle = { ...wrapperStyle(width, height), ...style.wrapper };
@@ -71,9 +79,6 @@ export default class TextInput extends Component {
           ref={ el => {
             if (el !== null) {
               this.inputEl = el;
-              if (focusAfterMount) {
-                this.inputEl.focus();
-              }
             }
           } }
           style={ _inputStyle }

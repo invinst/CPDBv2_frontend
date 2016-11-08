@@ -76,7 +76,7 @@ class Toolbar extends Component {
   }
 
   render() {
-    const { editorState, show } = this.props;
+    const { editorState, show, onMouseOver, onMouseOut } = this.props;
     const { showUrlInput, linkActive } = this.state;
     let _linkActive = linkActive || (editorState && linkEntitySelected(editorState));
 
@@ -88,6 +88,8 @@ class Toolbar extends Component {
       <Bubble style={ this.toolbarPosition() }>
         <div style={ { ...wrapperStyle } }>
           <ToolbarButton
+            onMouseOver={ onMouseOver }
+            onMouseOut={ onMouseOut }
             icon='link-blue.svg'
             activeIcon='link-white.svg'
             onClick={ this.handleLinkButtonClick }
@@ -109,7 +111,9 @@ Toolbar.propTypes = {
   show: PropTypes.bool,
   onChange: PropTypes.func,
   parentLeft: PropTypes.number,
-  parentTop: PropTypes.number
+  parentTop: PropTypes.number,
+  onMouseOut: PropTypes.func,
+  onMouseOver: PropTypes.func
 };
 
 export default Toolbar;

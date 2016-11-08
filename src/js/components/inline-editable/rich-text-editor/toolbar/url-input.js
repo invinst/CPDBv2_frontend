@@ -10,6 +10,7 @@ export default class UrlInput extends Component {
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleBlur = () => {};
   }
 
   componentDidMount() {
@@ -35,6 +36,7 @@ export default class UrlInput extends Component {
           focusAfterMount={ true }
           paddingVertical={ 15 }
           paddingHorizontal={ 15 }
+          onBlur={ this.handleBlur }
           width={ 300 }
           height={ 50 }
           placeholder='Type or paste a link'

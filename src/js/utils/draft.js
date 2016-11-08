@@ -98,3 +98,20 @@ export const getSelectionStartBlockKey = editorState => {
   const selectionState = editorState.getSelection();
   return selectionState.getStartKey();
 };
+
+export const removeSelection = (editorState) => {
+  let selectionState = editorState.getSelection();
+  const anchorKey = selectionState.getAnchorKey();
+  selectionState = selectionState
+    .set('anchorOffset', 0)
+    .set('focusOffset', 0)
+    .set('focusKey', anchorKey);
+  editorState = EditorState.acceptSelection(editorState, selectionState);
+  return editorState;
+};
+
+export const hasSelection = (editorState) => {
+  const selectionState = editorState.getSelection();
+  return (selectionState.getStartOffset() != selectionState.getEndOffset()) ||
+    (selectionState.getStartKey() != selectionState.getEndKey());
+};

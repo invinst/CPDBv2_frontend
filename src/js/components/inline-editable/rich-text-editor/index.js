@@ -3,6 +3,7 @@ import { Editor, DefaultDraftBlockRenderMap } from 'draft-js';
 
 import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
 import WrapperBlockWithStyle from 'components/inline-editable/custom-block/wrapper-block-with-style';
+import { removeSelection, hasSelection } from 'utils/draft';
 import Toolbar from './toolbar';
 import { textEditorStyle } from 'components/inline-editable/editor.style';
 import { wrapperStyle } from './rich-text-editor.style';
@@ -12,6 +13,8 @@ export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleToolbarMouseOver = () => this.setState({ toolbarHovered: true });
+    this.handleToolbarMouseOut = () => this.setState({ toolbarHovered: false });
     this.state = {
       showToolbar: false,
       editorTop: null,
@@ -21,8 +24,11 @@ export default class RichTextEditor extends Component {
 
   handleChange(editorState) {
     const { onChange } = this.props;
-    const selectionState = editorState.getSelection();
-    if (selectionState.getStartOffset() != selectionState.getEndOffset()) {
+    let selectionState = editorState.getSelection();
+    if (!selectionState.getHasFocus() && !this.state.toolbarHovered) {
+      editorState = removeSelection(editorState);
+    }
+    if (hasSelection(editorState)) {
       const rect = this.rootEl.getBoundingClientRect();
       this.setState({
         showToolbar: true,
@@ -80,6 +86,8 @@ export default class RichTextEditor extends Component {
           show={ showToolbar }
           parentLeft={ editorLeft }
           parentTop={ editorTop }
+          onMouseOver={ this.handleToolbarMouseOver }
+          onMouseOut={ this.handleToolbarMouseOut }
           editorState={ editorState }
           onChange={ this.handleChange }/>
       </div>
