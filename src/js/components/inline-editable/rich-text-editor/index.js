@@ -3,31 +3,43 @@ import { Editor, DefaultDraftBlockRenderMap } from 'draft-js';
 
 import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
 import WrapperBlockWithStyle from 'components/inline-editable/custom-block/wrapper-block-with-style';
+import Toolbar from './toolbar';
 import { textEditorStyle } from 'components/inline-editable/editor.style';
+import { wrapperStyle } from './rich-text-editor.style';
 
 
 export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      showToolbar: false,
+      editorTop: null,
+      editorLeft: null
+    };
   }
 
   handleChange(editorState) {
-    const { onChange, contentStateKey, openRichTextToolbar, closeRichTextToolbar } = this.props;
+    const { onChange } = this.props;
     const selectionState = editorState.getSelection();
     if (selectionState.getStartOffset() != selectionState.getEndOffset()) {
-      openRichTextToolbar({
-        contentStateKey,
-        editorState
+      const rect = this.rootEl.getBoundingClientRect();
+      this.setState({
+        showToolbar: true,
+        editorLeft: rect.left,
+        editorTop: rect.top
       });
     } else {
-      closeRichTextToolbar({ contentStateKey });
+      this.setState({
+        showToolbar: false
+      });
     }
     onChange(editorState);
   }
 
   render() {
-    const { placeholder, style, editorState, readOnly } = this.props;
+    const { placeholder, style, readOnly, editorState } = this.props;
+    const { showToolbar, editorLeft, editorTop } = this.state;
     const { wrapper, paragraph } = style;
 
     const paragraphBlockRender = {
@@ -52,13 +64,25 @@ export default class RichTextEditor extends Component {
     }
 
     return (
-      <Editor
-        onChange={ this.handleChange }
-        blockRenderMap={ blockRenderMap }
-        blockRendererFn={ blockRendererFn }
-        readOnly={ readOnly }
-        editorState={ editorState }
-        placeholder={ placeholder }/>
+      <div style={ wrapperStyle } ref={ el => {
+        if (el) {
+          this.rootEl = el;
+        }
+      } }>
+        <Editor
+          onChange={ this.handleChange }
+          blockRenderMap={ blockRenderMap }
+          blockRendererFn={ blockRendererFn }
+          readOnly={ readOnly }
+          editorState={ editorState }
+          placeholder={ placeholder }/>
+        <Toolbar
+          show={ showToolbar }
+          parentLeft={ editorLeft }
+          parentTop={ editorTop }
+          editorState={ editorState }
+          onChange={ this.handleChange }/>
+      </div>
     );
   }
 }
@@ -66,8 +90,6 @@ export default class RichTextEditor extends Component {
 RichTextEditor.propTypes = {
   placeholder: PropTypes.string,
   style: PropTypes.object,
-  openRichTextToolbar: PropTypes.func,
-  closeRichTextToolbar: PropTypes.func,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   contentStateKey: PropTypes.string,
@@ -76,6 +98,4 @@ RichTextEditor.propTypes = {
 
 RichTextEditor.defaultProps = {
   style: {},
-  openRichTextToolbar: () => {},
-  closeRichTextToolbar: () => {}
 };

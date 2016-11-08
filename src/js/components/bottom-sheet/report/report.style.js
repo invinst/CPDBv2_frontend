@@ -114,11 +114,10 @@ export const contentWrapperStyle = () => ({
   height: `${window.innerHeight - 88}px`
 });
 
-export const articleLinkStyle = {
-  paragraph: {
-    fontSize: '14px',
-    textAlign: 'right'
-  }
+export const articleLinkWrapperStyle = {
+  fontSize: '14px',
+  textAlign: 'right',
+  position: 'relative'
 };
 
 export const oneColumnStyle = {
