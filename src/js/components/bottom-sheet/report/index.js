@@ -59,7 +59,6 @@ class Report extends Component {
           <div style={ articleLinkWrapperStyle }>
             <RichTextEditable
               placeholder='link to article'
-              contentStateKey={ `reports.${reportId}.article_link` }
               { ...fieldProps['article_link'] }/>
           </div>
         </div>

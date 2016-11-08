@@ -92,10 +92,9 @@ RichTextEditor.propTypes = {
   style: PropTypes.object,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
-  contentStateKey: PropTypes.string,
   editorState: PropTypes.object
 };
 
 RichTextEditor.defaultProps = {
-  style: {},
+  style: {}
 };

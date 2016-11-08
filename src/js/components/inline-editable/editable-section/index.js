@@ -76,18 +76,11 @@ export default function (SubComponent) {
     }
 
     fieldProps(field, fieldName) {
-      const { openRichTextToolbar, closeRichTextToolbar, sectionEditModeOn } = this.props;
+      const { sectionEditModeOn } = this.props;
       return {
         value: field && field.value,
         editModeOn: sectionEditModeOn,
-        onChange: val => this.handleUpdateFieldValue(fieldName, val),
-        ...(field.type === 'rich_text' ?
-          {
-            openRichTextToolbar,
-            closeRichTextToolbar
-          } :
-          {}
-        )
+        onChange: val => this.handleUpdateFieldValue(fieldName, val)
       };
     }
 
@@ -121,8 +114,6 @@ export default function (SubComponent) {
     fields: PropTypes.object,
     onSaveForm: PropTypes.func,
     sectionEditModeOn: PropTypes.bool,
-    openRichTextToolbar: PropTypes.func,
-    closeRichTextToolbar: PropTypes.func,
     turnOnSectionEditMode: PropTypes.func,
     turnOffSectionEditMode: PropTypes.func
   };
