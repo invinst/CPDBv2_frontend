@@ -4,9 +4,9 @@ import fields from './fields';
 import editModeOn from './edit-mode-on';
 
 
-const aboutSection = combineReducers({
+const vftgSection = combineReducers({
   fields,
   editModeOn
 });
 
-export default aboutSection;
+export default vftgSection;

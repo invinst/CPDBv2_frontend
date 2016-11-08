@@ -22,7 +22,7 @@ export const paginationSelector = createSelector(getFAQs, getPaginationInfo);
 
 export const dataAvailableSelector = createSelector(
   getIsRequesting,
-  faqsSelector,
+  getFAQs,
   (isRequesting, faqs) => {
     return !isRequesting && faqs.length > 0;
   }

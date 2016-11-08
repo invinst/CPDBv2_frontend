@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux';
 
 import faqPage from './faq-page';
 import landingPage from './landing-page';
@@ -20,5 +21,6 @@ export default combineReducers({
   reports,
   faqs,
   contentStates,
-  richTextToolbar
+  richTextToolbar,
+  routing: routerReducer
 });

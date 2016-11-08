@@ -95,6 +95,9 @@ describe('store', function () {
         show: false,
         contentStateKey: null,
         editorState: null
+      },
+      routing: {
+        locationBeforeTransitions: null
       }
     });
   });

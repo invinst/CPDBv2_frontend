@@ -16,8 +16,8 @@ export const faqsSelector = createSelector(
 
 export const dataAvailableSelector = createSelector(
   getIsRequesting,
-  faqsSelector,
-  (isRequesting, faqs) => {
-    return !isRequesting && faqs.length > 0;
+  getFAQIds,
+  (isRequesting, faqIds) => {
+    return !isRequesting && faqIds.length > 0;
   }
 );

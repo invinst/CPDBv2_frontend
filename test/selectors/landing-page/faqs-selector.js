@@ -1,53 +1,65 @@
 import { faqsSelector, dataAvailableSelector } from 'selectors/landing-page/faqs-selector';
-import RawFAQFactory from 'utils/test/factories/raw-faq';
+import FAQFactory from 'utils/test/factories/faq';
 
 
 describe('faqs selectors', function () {
   let state = {
     landingPage: {
-      faqApp: {}
-    }
+      faqSection: {}
+    },
+    faqs: {}
   };
 
   beforeEach(function () {
-    state.landingPage.faqApp = {};
+    state.landingPage.faqSection = {};
   });
 
   describe('faqsSelector', function () {
     it('should return available faqs', function () {
-      const faq = RawFAQFactory.build();
-      state.landingPage.faqApp = {
-        faqs: [faq]
+      const question = 'question';
+      const answer = 'answer';
+      const faq = FAQFactory.build({}, { question, answer });
+      state = {
+        landingPage: {
+          faqSection: {
+            faqs: [faq.id]
+          }
+        },
+        faqs: {
+          [faq.id]: faq
+        }
       };
 
       faqsSelector(state).should.eql([{
         id: faq.id,
-        title: faq.title,
-        paragraphs: faq.body.map(p => p.value)
+        question: question,
+        answer: [answer]
       }]);
     });
   });
 
   describe('dataAvailableSelector', function () {
     it('should return false when isRequesting', function () {
-      state.landingPage.faqApp = {
-        faqs: RawFAQFactory.buildList(3),
+
+      state.landingPage.faqSection = {
+        faqs: [1, 2, 3],
         isRequesting: true
       };
+
       dataAvailableSelector(state).should.be.false();
     });
 
-    it('should return true if has more than 2 faqs and requesting is false', function () {
-      state.landingPage.faqApp = {
+    it('should return true if has faqs and requesting is false', function () {
+      state.landingPage.faqSection = {
         isRequesting: false,
-        faqs: RawFAQFactory.buildList(3)
+        faqs: [1, 2, 3]
       };
       dataAvailableSelector(state).should.be.true();
     });
 
-    it('should return false when stories has less than 3 faqs', function () {
-      state.landingPage.faqApp = {
-        faqs: RawFAQFactory.buildList(2)
+    it('should return false when there are no faqs', function () {
+      state.landingPage.faqSection = {
+        faqs: []
       };
       dataAvailableSelector(state).should.be.false();
     });

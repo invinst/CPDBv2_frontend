@@ -1,8 +1,13 @@
 import { Factory } from 'rosie';
-import { lorem } from 'faker';
+
+import { PlainTextFieldFactory, MultilineTextFieldFactory } from './field';
 
 
 export default new Factory()
   .sequence('id')
-  .attr('title', () => (lorem.sentence()))
-  .attr('paragraphs', () => ([lorem.sentences()]));
+  .option('question', '')
+  .option('answer', '')
+  .attr('fields', ['question', 'answer'], (question, answer) => [
+    PlainTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
+    MultilineTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
+  ]);
