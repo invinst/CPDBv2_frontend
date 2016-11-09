@@ -1,6 +1,11 @@
-import { lightBlackColor, wildSandColor, lightMineShaftColor, whiteTwoColor } from 'utils/styles';
+import { lightBlackColor, wildSandColor, lightMineShaftColor, whiteTwoColor, sanFranciscoTextFamily } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
+export const autocompleteWrapperStyle = {
+  minHeight: '100vh',
+  background: 'white',
+  fontFamily: sanFranciscoTextFamily
+};
 
 export const backButtonStyle = {
   background: `url(${imgUrl('arrow.svg')}) center no-repeat ${wildSandColor}`,

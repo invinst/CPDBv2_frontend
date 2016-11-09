@@ -1,4 +1,4 @@
-import { whiteTwoColor, warmGreyColor, sanFranciscoTextFamily } from 'utils/styles';
+import { whiteTwoColor, warmGreyColor, sanFranciscoTextFamily, eggPlantColor } from 'utils/styles';
 
 
 export const groupHeaderStyle = {
@@ -21,13 +21,15 @@ export const suggestionGroupStyle = {
 export const suggestionItemStyle = {
   padding: '12px 14px',
   borderBottom: `1px solid ${whiteTwoColor}`,
-  width: '415px'
+  width: '415px',
+  height: '32px'
 };
 
 export const metaTextStyle = {
   fontSize: '13px',
   fontWeight: 300,
-  fontFamily: sanFranciscoTextFamily
+  fontFamily: sanFranciscoTextFamily,
+  color: eggPlantColor
 };
 
 export const suggestionTextStyle = {

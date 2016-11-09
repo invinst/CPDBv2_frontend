@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import map from 'lodash/map';
+import S from 'string';
 
 import { tagStyle, tagsWrapperStyle } from './suggestion-tags.style';
 
@@ -10,7 +11,7 @@ class SuggestionTags extends Component {
       <div style={ tagsWrapperStyle }>
         {
           map(this.props.tags, (tag, key) => (
-            <span style={ tagStyle } key={ key }>{ tag }</span>
+            <span style={ tagStyle } key={ key }>{ S(tag).capitalize().s }</span>
           ))
         }
       </div>
