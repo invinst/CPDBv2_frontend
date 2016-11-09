@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { find } from 'lodash';
 
 import FAQListItem from './faq-list-item';
 import { wrapperStyle, addFaqButtonStyle } from './faq-list-section.style';
@@ -35,7 +36,7 @@ export default class FAQListSection extends Component {
     if (!faqId) {
       return;
     }
-    const faq = this.props.faqs.find(obj => obj.id == faqId);
+    const faq = find(this.props.faqs, obj => obj.id == faqId);
     global.ga('send', 'event', 'faq', 'open', faq.title, faq.id);
   }
 
