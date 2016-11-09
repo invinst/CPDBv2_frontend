@@ -22,7 +22,7 @@ export default handleActions({
   [LANDING_PAGE_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
     ...reduce(
-      find(action.payload.fields, ({ name }) => (name==='reports')).value,
+      find(action.payload.fields, ({ name }) => (name === 'reports')).value,
       (result, report) => {
         result[report.id] = report;
         return result;
