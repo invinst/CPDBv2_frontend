@@ -57,4 +57,13 @@ describe('FAQForm component', function () {
     askQuestionCallback.calledWith({ title: title });
     resetSpy.called.should.be.true();
   });
+
+  it('should be disabled ask button when submitting', function () {
+    instance = renderIntoDocument(
+      <FAQForm askQuestion={ askQuestion } isSubmitting={ true }/>
+    );
+
+    const [, askBtn] = scryRenderedDOMComponentsWithTag(instance, 'input');
+    askBtn.disabled.should.be.true();
+  });
 });

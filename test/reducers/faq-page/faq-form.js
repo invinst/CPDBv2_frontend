@@ -1,5 +1,5 @@
 import faqForm from 'reducers/faq-page/faq-form';
-import { FAQ_PAGE_POST_START, FAQ_PAGE_POST_SUCCESS, FAQ_PAGE_POST_FAILURE } from 'actions/faq-page';
+import { FAQS_POST_START, FAQS_POST_SUCCESS, FAQS_POST_FAILURE } from 'actions/faq-page';
 
 
 describe('faqForm reducer', function () {
@@ -7,15 +7,15 @@ describe('faqForm reducer', function () {
     faqForm(undefined, {}).should.eql({ isSubmitting: false });
   });
 
-  it('should handle FAQ_PAGE_POST_START', function () {
+  it('should handle FAQS_POST_START', function () {
     faqForm(undefined, {
-      type: FAQ_PAGE_POST_START
+      type: FAQS_POST_START
     }).should.eql({
       isSubmitting: true
     });
   });
 
-  it('should handle FAQ_PAGE_POST_SUCCESS', function () {
+  it('should handle FAQS_POST_SUCCESS', function () {
     const data = 'data';
     const expectedState = {
       isSubmitting: false,
@@ -23,12 +23,12 @@ describe('faqForm reducer', function () {
     };
 
     faqForm(undefined, {
-      type: FAQ_PAGE_POST_SUCCESS,
+      type: FAQS_POST_SUCCESS,
       payload: data
     }).should.eql(expectedState);
   });
 
-  it('should handle FAQ_PAGE_POST_FAILURE', function () {
+  it('should handle FAQS_POST_FAILURE', function () {
     const error = 'error';
     const expectedState = {
       isSubmitting: false,
@@ -36,7 +36,7 @@ describe('faqForm reducer', function () {
     };
 
     faqForm(undefined, {
-      type: FAQ_PAGE_POST_FAILURE,
+      type: FAQS_POST_FAILURE,
       payload: error
     }).should.eql(expectedState);
   });

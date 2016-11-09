@@ -1,4 +1,4 @@
-import { get, post } from 'actions/common/async-action';
+import { get, post, patch, authenticatedPost, authenticatedPatch } from 'actions/common/async-action';
 
 
 describe('async-action', function () {
@@ -34,6 +34,72 @@ describe('async-action', function () {
             method: 'POST',
             data,
             adapter: undefined
+          }
+        }
+      });
+    });
+  });
+
+  describe('authenticatedPost', function () {
+    it('should return the right action', function () {
+      const url = '/url';
+      const types = ['a', 'b', 'c'];
+      const data = { data: 'data' };
+
+      authenticatedPost(url, types)(data).should.eql({
+        types,
+        payload: {
+          request: {
+            url,
+            method: 'POST',
+            data,
+            adapter: undefined,
+            headers: {
+              Authorization: null
+            }
+          }
+        }
+      });
+    });
+  });
+
+  describe('patch', function () {
+    it('should return the right action', function () {
+      const url = '/url';
+      const types = ['a', 'b', 'c'];
+      const data = { data: 'data' };
+
+      patch(url, types)(data).should.eql({
+        types,
+        payload: {
+          request: {
+            url,
+            method: 'PATCH',
+            data,
+            adapter: undefined
+          }
+        }
+      });
+    });
+  });
+
+  describe('authenticatedPatch', function () {
+    it('should return the right action', function () {
+      const url = '/url';
+      const types = ['a', 'b', 'c'];
+      const data = { data: 'data' };
+
+      authenticatedPatch(url, types)(data).should.eql({
+        types,
+        payload: {
+          request: {
+            url,
+            method: 'PATCH',
+            data,
+            adapter: undefined,
+            headers: {
+              Authorization: null
+            }
           }
         }
       });
