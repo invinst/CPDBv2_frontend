@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import isMobile from 'ismobilejs';
 
 
@@ -20,6 +20,10 @@ export default function (ComponentClass) {
       this.setState({
         hovering: true
       });
+      const { onMouseOver } = this.props;
+      if (onMouseOver) {
+        onMouseOver(event);
+      }
     }
 
     handleMouseOut(event) {
@@ -29,6 +33,10 @@ export default function (ComponentClass) {
       this.setState({
         hovering: false
       });
+      const { onMouseOut } = this.props;
+      if (onMouseOut) {
+        onMouseOut(event);
+      }
     }
 
     render() {
@@ -42,6 +50,11 @@ export default function (ComponentClass) {
       );
     }
   }
+
+  Hoverable.propTypes = {
+    onMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func
+  };
 
   return Hoverable;
 }

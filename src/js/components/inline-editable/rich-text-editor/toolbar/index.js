@@ -5,6 +5,7 @@ import { getOffsetKey } from 'utils/rich-text';
 import ToolbarButton from './toolbar-button';
 import UrlInput from './url-input';
 import Bubble from './bubble';
+import { createLinkEntity, removeLinkEntity } from 'utils/draft';
 import { wrapperStyle, urlInputStyle } from './toolbar.style';
 
 class Toolbar extends Component {
@@ -26,10 +27,10 @@ class Toolbar extends Component {
   }
 
   handleLinkButtonClick() {
-    const { editorState, contentStateKey, removeLinkEntity } = this.props;
+    const { editorState, onChange } = this.props;
     const { showUrlInput } = this.state;
     if (linkEntitySelected(editorState)) {
-      removeLinkEntity({ key: contentStateKey, editorState });
+      onChange(removeLinkEntity(editorState));
       this.setState({ showUrlInput: false, linkActive: false });
     } else {
       this.setState({ showUrlInput: !showUrlInput, linkActive: !showUrlInput });
@@ -37,14 +38,10 @@ class Toolbar extends Component {
   }
 
   handleUrlInputEntryFinished(url) {
-    const { contentStateKey, createLinkEntity, editorState } = this.props;
+    const { editorState, onChange } = this.props;
     let linkActive = false;
     if (url) {
-      createLinkEntity({
-        key: contentStateKey,
-        data: { url },
-        editorState
-      });
+      onChange(createLinkEntity(editorState, { url }));
       linkActive = true;
     }
     this.setState({ showUrlInput: false, linkActive });
@@ -67,18 +64,19 @@ class Toolbar extends Component {
   }
 
   toolbarPosition() {
+    const { parentLeft, parentTop } = this.props;
     const rect = this.currentSelectionRect();
     if (rect !== null) {
       this.position = {
-        top: `${rect.top - 60}px`,
-        left: `${rect.left + (rect.width - 50) / 2}px`
+        top: `${rect.top - 60 - parentTop}px`,
+        left: `${rect.left - parentLeft + (rect.width - 50) / 2}px`
       };
     }
     return this.position;
   }
 
   render() {
-    const { editorState, show } = this.props;
+    const { editorState, show, onMouseOver, onMouseOut } = this.props;
     const { showUrlInput, linkActive } = this.state;
     let _linkActive = linkActive || (editorState && linkEntitySelected(editorState));
 
@@ -90,6 +88,8 @@ class Toolbar extends Component {
       <Bubble style={ this.toolbarPosition() }>
         <div style={ { ...wrapperStyle } }>
           <ToolbarButton
+            onMouseOver={ onMouseOver }
+            onMouseOut={ onMouseOut }
             icon='link-blue.svg'
             activeIcon='link-white.svg'
             onClick={ this.handleLinkButtonClick }
@@ -108,10 +108,12 @@ class Toolbar extends Component {
 
 Toolbar.propTypes = {
   editorState: PropTypes.object,
-  contentStateKey: PropTypes.string,
   show: PropTypes.bool,
-  createLinkEntity: PropTypes.func,
-  removeLinkEntity: PropTypes.func
+  onChange: PropTypes.func,
+  parentLeft: PropTypes.number,
+  parentTop: PropTypes.number,
+  onMouseOut: PropTypes.func,
+  onMouseOver: PropTypes.func
 };
 
 export default Toolbar;

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import {
   leftBarStyle, rightBarStyle, wrapperStyle, infoRowStyle, labelStyle, infoRowsStyle,
-  headerTitleStyle, excerptStyle, contentWrapperStyle, oneColumnStyle, articleLinkStyle
+  headerTitleStyle, excerptStyle, contentWrapperStyle, oneColumnStyle, articleLinkWrapperStyle
 } from './report.style';
 import EditableSection from 'components/inline-editable/editable-section';
 import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
@@ -56,11 +56,11 @@ class Report extends Component {
             style={ excerptStyle }
             placeholder='Excerpt'
             { ...fieldProps['excerpt'] }/>
-          <RichTextEditable
-            placeholder='link to article'
-            contentStateKey={ `reports.${reportId}.article_link` }
-            { ...fieldProps['article_link'] }
-            style={ articleLinkStyle }/>
+          <div style={ articleLinkWrapperStyle }>
+            <RichTextEditable
+              placeholder='link to article'
+              { ...fieldProps['article_link'] }/>
+          </div>
         </div>
       </div>
     );

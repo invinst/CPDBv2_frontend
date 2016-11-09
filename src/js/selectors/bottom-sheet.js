@@ -6,23 +6,17 @@ import {
   getField, createFieldWithEmptyEditorState, createEmptyStringField,
   createEmptyDateField
 } from 'utils/draft';
-import { replaceReportRichTextFields } from 'utils/rich-text';
 
 
 const getReports = state => state.reports;
 const getContentId = state => state.bottomSheet.content.id;
-const getContentStates = state => state.contentStates;
 const getFAQs = state => state.faqs;
 
 export const reportSelector = createSelector(
   getReports,
   getContentId,
-  getContentStates,
-  (reports, id, contentStates) => {
+  (reports, id) => {
     const report = find(reports, report => report.id === id);
-    if (report) {
-      replaceReportRichTextFields(report, contentStates);
-    }
     return {
       id,
       fields: (
