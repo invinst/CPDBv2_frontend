@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Hoverable from 'components/common/higher-order/hoverable';
 
 
-class HoverableButton extends Component {
+export class HoverableButton extends Component {
   render() {
     const { hovering, style, onClick, children, disabled } = this.props;
     const buttonStyle = disabled ?
