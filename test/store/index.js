@@ -90,12 +90,6 @@ describe('store', function () {
       },
       reports: {},
       faqs: {},
-      contentStates: {},
-      richTextToolbar: {
-        show: false,
-        contentStateKey: null,
-        editorState: null
-      },
       routing: {
         locationBeforeTransitions: null
       }

@@ -1,5 +1,5 @@
-import ReportFactory from 'utils/test/factories/report';
-import reports from 'reducers/reports';
+import FaqFactory from 'utils/test/factories/faq';
+import faqs from 'reducers/faqs';
 import {
   FAQS_REQUEST_SUCCESS, UPDATE_FAQ_REQUEST_SUCCESS
 } from 'actions/faq-page';
@@ -9,12 +9,12 @@ import { RandomizedListFieldFactory } from 'utils/test/factories/field';
 
 describe('faqs', function () {
   it('should return initial state', function () {
-    reports(undefined, {}).should.eql({});
+    faqs(undefined, {}).should.eql({});
   });
 
   it('should handle FAQS_REQUEST_SUCCESS', function () {
-    const results = ReportFactory.buildList(2);
-    reports(undefined, {
+    const results = FaqFactory.buildList(2);
+    faqs(undefined, {
       type: FAQS_REQUEST_SUCCESS,
       payload: { results }
     }).should.eql({
@@ -30,7 +30,7 @@ describe('faqs', function () {
         id: 1
       }
     };
-    reports(previousState, {
+    faqs(previousState, {
       type: UPDATE_FAQ_REQUEST_SUCCESS,
       payload: { id: 1, fields: 'newField' }
     }).should.eql({
@@ -42,17 +42,17 @@ describe('faqs', function () {
   });
 
   it('should handle LANDING_PAGE_REQUEST_SUCCESS', function () {
-    const currentReportFactoryId = ReportFactory.build().id;
-    const reportsField = RandomizedListFieldFactory.build({ name: 'faqs' }, { subFactory: ReportFactory });
-    reports(undefined, {
+    const currentFaqFactoryId = FaqFactory.build().id;
+    const faqsField = RandomizedListFieldFactory.build({ name: 'faqs' }, { subFactory: FaqFactory });
+    faqs(undefined, {
       type: LANDING_PAGE_REQUEST_SUCCESS,
       payload: {
-        fields: [reportsField]
+        fields: [faqsField]
       }
     }).should.eql({
-      [currentReportFactoryId + 1]: reportsField.value[0],
-      [currentReportFactoryId + 2]: reportsField.value[1],
-      [currentReportFactoryId + 3]: reportsField.value[2]
+      [currentFaqFactoryId + 1]: faqsField.value[0],
+      [currentFaqFactoryId + 2]: faqsField.value[1],
+      [currentFaqFactoryId + 3]: faqsField.value[2]
     });
   });
 });

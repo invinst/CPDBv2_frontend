@@ -21,6 +21,6 @@ export default new Factory()
       MultilineTextFieldFactory.build({ name: 'excerpt' }, { blockTexts: [excerpt] }),
       StringFieldFactory.build({ name: 'publication', value: publication }),
       DateFieldFactory.build({ name: 'publish_date', value: publishDate }),
-      StringFieldFactory.build({ name: 'author', value: 'author' }),
+      StringFieldFactory.build({ name: 'author', value: author }),
       RichTextFieldFactory.build({ name: 'article_link' }, { blockTexts: [articleLink] })
     ]);

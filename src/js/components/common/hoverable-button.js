@@ -12,7 +12,7 @@ class HoverableButton extends Component {
 
     return (
       <a
-        className='link--transition'
+        className='link--transition hoverable-button'
         onClick={ !disabled ? onClick : null }
         style={ buttonStyle }>
         { children }

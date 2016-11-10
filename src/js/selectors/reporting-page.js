@@ -28,14 +28,6 @@ export const reportTransform = report => {
 
 
 const getReports = state => state.reports;
-
-export const reportsSelector = createSelector(
-  getReports,
-  (reports) => {
-    return reports.map(reportTransform).slice(0, 15);
-  }
-);
-
 const getGroups = state => state.reportingPage.reportGrouping.groups;
 
 export const groupsSelector = createSelector(
