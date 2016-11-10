@@ -31,7 +31,7 @@ PlainTextEditable.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.object,
   editModeOn: PropTypes.bool,
-  presenterElement: PropTypes.element,
+  presenterElement: PropTypes.node,
   placeholder: PropTypes.string
 };
 

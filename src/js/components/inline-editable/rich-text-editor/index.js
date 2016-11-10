@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { Editor, DefaultDraftBlockRenderMap } from 'draft-js';
 
 import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
-import WrapperBlockWithStyle from 'components/inline-editable/custom-block/wrapper-block-with-style';
 import { removeSelection, hasSelection } from 'utils/draft';
 import Toolbar from './toolbar';
 import { textEditorStyle } from 'components/inline-editable/editor.style';
@@ -50,7 +49,7 @@ export default class RichTextEditor extends Component {
 
     const paragraphBlockRender = {
       element: 'div',
-      wrapper: <WrapperBlockWithStyle style={ wrapper } element='div'/>
+      wrapper: <div style={ wrapper }/>
     };
 
     const blockRenderMap = DefaultDraftBlockRenderMap

@@ -5,7 +5,6 @@ import { Editor, DefaultDraftBlockRenderMap } from 'draft-js';
 
 import { textEditorStyle } from './editor.style';
 import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
-import WrapperBlockWithStyle from 'components/inline-editable/custom-block/wrapper-block-with-style';
 
 
 export default class MultilineTextEditor extends Component {
@@ -15,7 +14,7 @@ export default class MultilineTextEditor extends Component {
 
     const paragraphBlockRender = {
       element: 'div',
-      wrapper: <WrapperBlockWithStyle style={ wrapper } element='div'/>
+      wrapper: <div style={ wrapper }/>
     };
 
     const blockRenderMap = DefaultDraftBlockRenderMap
