@@ -13,7 +13,7 @@ class Link extends Component {
     if (!editModeOn) {
       return (
         <MoreLink href={ url }>
-        { children }
+          { children }
         </MoreLink>
       );
     }
@@ -27,7 +27,6 @@ class Link extends Component {
 
 Link.propTypes = {
   entityKey: PropTypes.string,
-  hovering: PropTypes.bool,
   children: PropTypes.node
 };
 
