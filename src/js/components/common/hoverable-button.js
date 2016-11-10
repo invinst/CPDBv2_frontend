@@ -10,7 +10,7 @@ export class HoverableButton extends Component {
     const buttonStyle = disabled ?
       style.disabled :
       (hovering ? style.hover : style.base);
-    const _className = classNames('link--transition', className);
+    const _className = classNames('link--transition', 'hoverable-button', className);
 
     return (
       <a

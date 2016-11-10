@@ -2,7 +2,7 @@ import { faqsSelector, dataAvailableSelector } from 'selectors/landing-page/faqs
 import FAQFactory from 'utils/test/factories/faq';
 
 
-describe('faqs selectors', function () {
+describe('faqs selectors (landing page)', function () {
   let state = {
     landingPage: {
       faqSection: {}

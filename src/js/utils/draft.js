@@ -1,5 +1,6 @@
 import { convertFromRaw, EditorState, genKey, Entity, RichUtils } from 'draft-js';
 import { isEmpty, map, find } from 'lodash';
+import moment from 'moment';
 
 import defaultDecorator from 'decorators';
 
@@ -63,7 +64,7 @@ export const createEmptyStringField = (name, type='string') => ({
 export const createEmptyDateField = (name) => ({
   name,
   type: 'date',
-  value: '1900-01-01'
+  value: moment().format('YYYY-MM-DD')
 });
 
 export const getFieldOrCreateEmptyWithEditorState = (fields, name, type) => (

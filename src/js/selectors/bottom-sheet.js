@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { find } from 'lodash';
+import { find, get } from 'lodash';
 
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import {
@@ -18,7 +18,7 @@ export const reportSelector = createSelector(
   (reports, id) => {
     const report = find(reports, report => report.id === id);
     return {
-      id,
+      id: get(report, 'id', null),
       fields: (
         report ?
         {
@@ -48,7 +48,7 @@ export const faqSelector = createSelector(
   (faqs, id) => {
     const faq = find(faqs, faq => faq.id === id);
     return {
-      id,
+      id: get(faq, 'id', null),
       fields: {
         'question': faq ?
           getField(faq.fields, 'question') :

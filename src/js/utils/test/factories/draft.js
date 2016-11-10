@@ -1,7 +1,6 @@
 import 'polyfill';
 
 import { lorem } from 'faker';
-import { genKey } from 'draft-js';
 import { Factory } from 'rosie';
 
 
@@ -18,7 +17,7 @@ export const RawContentBlockFactory = new Factory()
   .attr('text', () => lorem.sentence())
   .attr('entityRanges', [])
   .attr('depth', 0)
-  .attr('key', genKey)
+  .attr('key', 'abc12')
   .attr('type', 'unstyled')
   .attr('inlineStyleRanges', [])
   .attr('data', {});
