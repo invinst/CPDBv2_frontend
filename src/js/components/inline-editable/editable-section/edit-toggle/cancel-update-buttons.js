@@ -15,11 +15,13 @@ class CancelUpdateButtons extends Component {
     return (
       <div>
         <HoverableButton
+          className='cancel-button'
           onClick={ onCancelClick }
           style={ style }>
           Cancel
         </HoverableButton>
         <HoverableButton
+          className='update-button'
           onClick={ onUpdateClick }
           style={ style }>
           Update
