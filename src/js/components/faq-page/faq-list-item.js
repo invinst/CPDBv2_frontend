@@ -46,7 +46,6 @@ class FAQListItem extends Component {
 FAQListItem.propTypes = {
   faq: PropTypes.shape({
     id: PropTypes.number,
-    title: PropTypes.string,
     question: PropTypes.string,
     answer: PropTypes.array
   }),

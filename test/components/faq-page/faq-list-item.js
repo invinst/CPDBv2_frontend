@@ -7,14 +7,14 @@ import { spy } from 'sinon';
 
 import { withAnimationDisabled } from 'utils/test';
 import FAQListItem from 'components/faq-page/faq-list-item';
-import FAQFactory from 'utils/test/factories/raw-faq';
+import { SimpleFAQFactory } from 'utils/test/factories/faq';
 import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
 
 
 describe('FAQListItem component', function () {
   let instance;
-  const faq = FAQFactory.build();
+  const faq = SimpleFAQFactory.build();
   const handleClick = spy();
 
   afterEach(function () {

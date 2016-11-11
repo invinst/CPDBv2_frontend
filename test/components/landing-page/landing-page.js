@@ -1,24 +1,40 @@
 import React from 'react';
+import 'should';
 
 import LandingPage from 'components/landing-page';
 import configureStore from 'redux-mock-store';
-import RawStoryFactory from 'utils/test/factories/raw-story';
+import ReportFactory from 'utils/test/factories/report';
 import FAQFactory from 'utils/test/factories/faq';
-import PaginationFactory from 'utils/test/factories/pagination';
 
 
 const mockStore = configureStore();
 const store = mockStore({
   landingPage: {
-    storyApp: {
-      stories: [1, 2, 3].map(id => RawStoryFactory.build({ id: id }))
+    reportSection: {
+      reports: [1, 2, 3]
     },
-    faqApp: {
-      faqs: FAQFactory.buildList(3)
+    faqSection: {
+      faqs: [1, 2, 3]
+    },
+    aboutSection: {
+      fields: {}
+    },
+    vftgSection: {
+      fields: {}
+    },
+    collaborateSection: {
+      fields: {}
     }
   },
-  faqPage: {
-    faqs: PaginationFactory.build({ results: FAQFactory.buildList(5) })
+  reports: {
+    1: ReportFactory.build({ id: 1 }),
+    2: ReportFactory.build({ id: 2 }),
+    3: ReportFactory.build({ id: 3 })
+  },
+  faqs: {
+    1: FAQFactory.build({ id: 1 }),
+    2: FAQFactory.build({ id: 2 }),
+    3: FAQFactory.build({ id: 3 })
   }
 });
 
