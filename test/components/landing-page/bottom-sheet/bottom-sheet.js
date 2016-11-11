@@ -1,18 +1,22 @@
 import React from 'react';
 import { render, findDOMNode } from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
+import { Provider } from 'react-redux';
+import MockStore from 'redux-mock-store';
 
 import BottomSheet from 'components/bottom-sheet';
 import { unmountComponentSuppressError } from 'utils/test';
-import StoryFactory from 'utils/test/factories/story';
-import FAQFactory from 'utils/test/factories/faq';
-import { STORY_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
+import { CuratedReportFactory } from 'utils/test/factories/report';
+import { CuratedFAQFactory } from 'utils/test/factories/faq';
+import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 
 
 describe('BottomSheet component', function () {
   let element;
-  const story = StoryFactory.build();
-  const faq = FAQFactory.build();
+  const mockStore = MockStore();
+  const store = mockStore({});
+  const report = CuratedReportFactory.build();
+  const faq = CuratedFAQFactory.build();
 
   afterEach(function () {
     unmountComponentSuppressError(element);
@@ -24,11 +28,11 @@ describe('BottomSheet component', function () {
     element = render(
       <BottomSheet open={ false }/>,
       rootEl);
+    rootEl.children[0].children.length.should.equal(0);
 
     render(
       <BottomSheet open={ true }/>,
       rootEl, () => {
-        rootEl.children[0].children.length.should.equal(0);
         setTimeout(() => {
           rootEl.children[0].children[0].nodeName.should.equal('DIV');
           callback();
@@ -54,37 +58,37 @@ describe('BottomSheet component', function () {
       });
   });
 
-  it('should render story when received story content', function () {
+  it('should render report when received report content', function () {
     element = renderIntoDocument(
-      <BottomSheet open={ true } content={ { type: STORY_TYPE, props: { story: story } } }/>
+      <Provider store={ store }>
+        <BottomSheet open={ true } content={ { type: REPORT_TYPE, props: { ...report } } }/>
+      </Provider>
     );
-    findDOMNode(element).innerHTML.should.containEql(story.title);
+    findDOMNode(element).innerHTML.should.containEql(report.fields.title.value.blocks[0].text);
   });
 
   it('should render faq when received faq content', function () {
     element = renderIntoDocument(
-      <BottomSheet open={ true } content={ { type: FAQ_TYPE, props: { faq: faq } } }/>
+      <Provider store={ store }>
+        <BottomSheet open={ true } content={ { type: FAQ_TYPE, props: { ...faq } } }/>
+      </Provider>
     );
-    findDOMNode(element).innerHTML.should.containEql(faq.title);
+    findDOMNode(element).innerHTML.should.containEql(faq.fields.question.value.blocks[0].text);
   });
 
   it('should render previous content when receive null content', function () {
     let rootEl = document.createElement('div');
 
     render(
-      <BottomSheet open={ true } content={ { type: STORY_TYPE, props: { story: story } } }/>,
+      <Provider store={ store }>
+        <BottomSheet open={ true } content={ { type: REPORT_TYPE, props: { ...report } } }/>
+      </Provider>,
       rootEl);
     element = render(
-      <BottomSheet open={ true } content={ null }/>,
+      <Provider store={ store }>
+        <BottomSheet open={ true } content={ null }/>
+      </Provider>,
       rootEl);
-    findDOMNode(element).innerHTML.should.containEql(story.title);
-  });
-
-  it('should trigger onClose when click on overlay', function () {
-    BottomSheet.should.triggerCallbackWhenClick('onClose', 'bottom-sheet__overlay', { open: true });
-  });
-
-  it('should trigger onClose when click on dismiss button', function () {
-    BottomSheet.should.triggerCallbackWhenClick('onClose', 'bottom-sheet__back-btn', { open: true });
+    findDOMNode(element).innerHTML.should.containEql(report.fields.title.value.blocks[0].text);
   });
 });

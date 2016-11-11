@@ -1,21 +1,23 @@
 import React from 'react';
+import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 
-import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 import { unmountComponentSuppressError } from 'utils/test';
-
+import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
+import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 
 describe('BottomSheetHeader component', function () {
-  let element;
+  let instance;
 
   afterEach(function () {
-    unmountComponentSuppressError(element);
+    unmountComponentSuppressError(instance);
   });
 
-  it('should render', function () {
-    BottomSheetHeader.should.be.renderable();
-  });
-
-  it('should trigger onDismissClick when click on dismiss button', function () {
-    BottomSheetHeader.should.triggerCallbackWhenClick('onDismissClick', 'bottom-sheet__back-btn');
+  it('should render EditToggle with editToggleProps', function () {
+    const props = {
+      a: 'b'
+    };
+    instance = renderIntoDocument(<BottomSheetHeader editToggleProps={ props }/>);
+    const element = findRenderedComponentWithType(instance, EditToggle);
+    element.props.a.should.eql('b');
   });
 });

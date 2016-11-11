@@ -18,7 +18,7 @@ import EditToggle from 'components/inline-editable/editable-section/edit-toggle'
 import DatePicker from 'components/inline-editable/date-picker';
 
 
-class VFTGSection extends Component {
+export class VFTGSection extends Component {
   constructor(props) {
     super(props);
     this.handleClickVftgLink = this.handleClickVftgLink.bind(this);
