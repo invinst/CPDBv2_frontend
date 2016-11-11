@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map } from 'lodash';
+import { map, values } from 'lodash';
 
 import { getField, plainTextValueToString, multilineTextValueToArray } from 'utils/draft';
 
@@ -21,6 +21,6 @@ export const dataAvailableSelector = createSelector(
   getIsRequesting,
   getFAQs,
   (isRequesting, faqs) => {
-    return !isRequesting && faqs.length > 0;
+    return !isRequesting && values(faqs).length > 0;
   }
 );

@@ -10,7 +10,7 @@ function shouldShow() {
   return (window.scrollY > 145);
 }
 
-export default class LandingPageHeader extends Component {
+export default class CompactHeader extends Component {
   constructor(props) {
     super(props);
     this.state = { show: shouldShow() };
@@ -39,7 +39,7 @@ export default class LandingPageHeader extends Component {
     const { pathname } = this.props;
     return (
       <Motion defaultStyle={ this.show() ? { top: 0 }: { top: 1 } }
-        style={ this.show() ? { top: spring(0, faster()) }: { top: spring(1, faster()) } }>
+        style={ this.show() ? { top: spring(0, faster()) } : { top: spring(1, faster()) } }>
       { interpolatingStyle => (
         <div style={ { top: `${interpolatingStyle.top * -88}px`, ...compactHeaderWrapperStyle } }>
           <HeaderContent compact={ true } pathname={ pathname }/>
@@ -50,7 +50,7 @@ export default class LandingPageHeader extends Component {
   }
 }
 
-LandingPageHeader.propTypes = {
+CompactHeader.propTypes = {
   pathname: PropTypes.string,
   show: PropTypes.bool
 };

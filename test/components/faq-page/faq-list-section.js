@@ -35,7 +35,19 @@ describe('FAQListSection', function () {
   });
 
   it('should expand children correctly without editModeOn', function () {
-    const faqs = FAQFactory.buildList(3);
+    const faqs = [{
+      id: 1,
+      question: 'a',
+      answer: ['b']
+    }, {
+      id: 2,
+      question: 'c',
+      answer: ['d']
+    }, {
+      id: 3,
+      question: 'e',
+      answer: ['f']
+    }];
 
     instance = renderIntoDocument(
       <FAQListSection faqs={ faqs }/>
@@ -56,21 +68,6 @@ describe('FAQListSection', function () {
       findRenderedComponentWithType(itemContents[0], FAQItemContent).should.be.ok();
       scryRenderedComponentsWithType(itemContents[1], FAQItemContent).length.should.equal(0);
       scryRenderedComponentsWithType(itemContents[2], FAQItemContent).length.should.equal(0);
-    });
-  });
-
-  it('should send ga when click on faq-title without editModeOn', function () {
-    const faqs = FAQFactory.buildList(1);
-    const ga = spy(global, 'ga');
-
-    instance = renderIntoDocument(
-      <FAQListSection faqs={ faqs }/>
-    );
-
-    withAnimationDisabled(function () {
-      const faq = findRenderedDOMComponentWithClass(instance, 'faq-title');
-      Simulate.click(faq);
-      ga.calledWith('send', 'event', 'faq', 'open', faqs[0].title, faqs[0].id).should.be.true();
     });
   });
 

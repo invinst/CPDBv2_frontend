@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { find } from 'lodash';
 
 import FAQListItem from './faq-list-item';
 import { wrapperStyle, addFaqButtonStyle } from './faq-list-section.style';
@@ -24,21 +23,12 @@ export default class FAQListSection extends Component {
     } else {
       const nextId = faqId === expandedId ? null : faqId;
       if (nextId !== expandedId) {
-        this.gaSendOpenFAQEvent(nextId);
         this.setState({
           expandedId: nextId
         });
       }
     }
-  }
-
-  gaSendOpenFAQEvent(faqId) {
-    if (!faqId) {
-      return;
-    }
-    const faq = find(this.props.faqs, obj => obj.id == faqId);
-    global.ga('send', 'event', 'faq', 'open', faq.title, faq.id);
-  }
+  }/**/
 
   renderAddFaqButton() {
     const { editModeOn } = this.context;

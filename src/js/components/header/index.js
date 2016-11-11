@@ -9,10 +9,6 @@ import CompactHeader from 'components/header/compact-header';
 
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { pathname } = this.props;
     const isAtLandingPage = ROOT_EDIT_REGEX.test(pathname);
