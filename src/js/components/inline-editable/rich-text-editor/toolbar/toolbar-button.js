@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 
 import Hoverable from 'components/common/higher-order/hoverable';
-import { wrapperStyle, iconStyle } from './toolbar-button.style';
+import * as toolbarButtonStyle from './toolbar-button.style';
 
 
-class ToolbarButton extends Component {
+export class ToolbarButton extends Component {
   render() {
+    const { wrapperStyle, iconStyle } = toolbarButtonStyle;
     const { hovering, icon, activeIcon, onClick, active } = this.props;
     const iconToUse = active ? activeIcon : icon;
 

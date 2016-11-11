@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { wrapperStyle, inputStyle, placeholderStyle } from './input.style';
+import * as inputStyles from './input.style';
 
 
 export default class TextInput extends Component {
@@ -15,18 +15,9 @@ export default class TextInput extends Component {
     };
   }
 
-  componentDidMount() {
-    const { focusAfterMount } = this.props;
-    if (focusAfterMount) {
-      this.inputEl.focus();
-    }
-  }
-
   handleFocus(event) {
     const { onFocus } = this.props;
-    this.setState({
-      showPlaceholder: !this.state.value
-    });
+    this.setState({ showPlaceholder: !this.state.value });
     if (onFocus) {
       onFocus(event);
     }
@@ -54,13 +45,13 @@ export default class TextInput extends Component {
   render() {
     const {
       style, paddingVertical, paddingHorizontal, width, height,
-      placeholder, ...rest
+      placeholder, focusAfterMount, ...rest
     } = this.props;
+    const { wrapperStyle, inputStyle, placeholderStyle } = inputStyles;
     delete rest.value;
     delete rest.onChange;
     delete rest.onBlur;
     delete rest.onFocus;
-    delete rest.focusAfterMount;
     const { value, showPlaceholder } = this.state;
     const _showPlaceholder = showPlaceholder && !rest.value;
     const _wrapperStyle = { ...wrapperStyle(width, height), ...style.wrapper };
@@ -76,11 +67,7 @@ export default class TextInput extends Component {
     return (
       <div style={ _wrapperStyle }>
         <input
-          ref={ el => {
-            if (el !== null) {
-              this.inputEl = el;
-            }
-          } }
+          autoFocus={ !!focusAfterMount }
           style={ _inputStyle }
           value={ value }
           onFocus={ this.handleFocus }
