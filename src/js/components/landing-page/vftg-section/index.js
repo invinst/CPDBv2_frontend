@@ -21,7 +21,6 @@ import DatePicker from 'components/inline-editable/date-picker';
 export class VFTGSection extends Component {
   constructor(props) {
     super(props);
-    this.handleClickVftgLink = this.handleClickVftgLink.bind(this);
   }
 
   responsiveStyle() {
@@ -42,14 +41,6 @@ export class VFTGSection extends Component {
         header: { ...headerStyle.base, ...headerStyle.tablet }
       }
     };
-  }
-
-  handleClickVftgLink(event) {
-    event.preventDefault();
-
-    global.ga('send', 'event', 'VFTG section: news link', 'click', {
-      hitCallback: createFunctionWithTimeout(() => window.location = this.props.contentLink )
-    });
   }
 
   renderWithResponsiveStyle(style) {

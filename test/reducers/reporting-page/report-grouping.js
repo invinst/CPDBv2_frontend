@@ -53,4 +53,27 @@ describe('reportingPageReportGrouping reducer', function () {
     const group = newState.groups[1];
     group.reports.should.deepEqual([2]);
   });
+
+  it('should not change state if grouping strategy is not recognized', function () {
+    const newState = reportingPageReportGrouping({
+      groups: [],
+      groupingStrategy: null,
+      existingReportIds: []
+    }, {
+      type: REPORTS_REQUEST_SUCCESS,
+      payload: { results: [
+        {
+          id: 1
+        },
+        {
+          id: 2
+        }
+      ] }
+    });
+    newState.should.eql({
+      groups: [],
+      groupingStrategy: null,
+      existingReportIds: []
+    });
+  });
 });

@@ -17,7 +17,7 @@ import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
-class Report extends Component {
+export class Report extends Component {
   renderInfoRows(style) {
     const { fieldProps } = this.props;
     return (
@@ -42,7 +42,7 @@ class Report extends Component {
   }
 
   renderTwoColumns(style) {
-    const { fieldProps, reportId } = this.props;
+    const { fieldProps } = this.props;
     return (
       <div>
         <div style={ style.leftBar }>
@@ -78,6 +78,11 @@ class Report extends Component {
           style={ excerptStyle }
           placeholder='Excerpt'
           { ...fieldProps['excerpt'] }/>
+        <div style={ articleLinkWrapperStyle }>
+          <RichTextEditable
+            placeholder='link to article'
+            { ...fieldProps['article_link'] }/>
+        </div>
       </div>
     );
   }
@@ -114,7 +119,6 @@ class Report extends Component {
 
 Report.propTypes = {
   style: PropTypes.object,
-  reportId: PropTypes.number,
   className: PropTypes.string,
   fieldProps: PropTypes.object,
   editToggleProps: PropTypes.object,

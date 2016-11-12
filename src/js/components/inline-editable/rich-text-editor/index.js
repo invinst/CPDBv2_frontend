@@ -17,7 +17,8 @@ export default class RichTextEditor extends Component {
     this.state = {
       showToolbar: false,
       editorTop: null,
-      editorLeft: null
+      editorLeft: null,
+      toolbarHovered: false
     };
   }
 
@@ -39,7 +40,9 @@ export default class RichTextEditor extends Component {
         showToolbar: false
       });
     }
-    onChange(editorState);
+    if (onChange) {
+      onChange(editorState);
+    }
   }
 
   render() {

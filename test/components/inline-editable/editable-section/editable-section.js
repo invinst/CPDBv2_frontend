@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { render } from 'react-dom';
+import should from 'should';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
@@ -85,5 +87,23 @@ describe('EditableSection component', function () {
     onSaveForm.args[0][0].fields[0].value.blocks[0].text.should.eql('Aa');
     then();
     turnOffSectionEditMode.calledOnce.should.be.true();
+  });
+
+  it('should deserialize fields it just receive', function () {
+    const rootEl = document.createElement('DIV');
+    instance = render(<WrappedComponent/>, rootEl);
+    instance = render(<WrappedComponent fields={ {
+      a: PlainTextFieldFactory.build({}, { blockTexts: ['b'] })
+    } }/>, rootEl);
+    instance.state.fields.a.value.getCurrentContent().getFirstBlock().getText().should.eql('b');
+  });
+
+  it('should not deserialze falsy field', function () {
+    const rootEl = document.createElement('DIV');
+    instance = render(<WrappedComponent/>, rootEl);
+    instance = render(<WrappedComponent fields={ {
+      a: null
+    } }/>, rootEl);
+    should.not.exist(instance.state.fields.a);
   });
 });

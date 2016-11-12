@@ -17,7 +17,7 @@ import StrategyForm from 'components/inline-editable/editable-section/strategy-f
 import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
 
 
-class FAQSection extends Component {
+export class FAQSection extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
@@ -104,7 +104,7 @@ class FAQSection extends Component {
 }
 
 FAQSection.propTypes = {
-  openBottomSheetWithFAQ: PropTypes.func.isRequired,
+  openBottomSheetWithFAQ: PropTypes.func,
   dataAvailable: PropTypes.bool,
   faqs: PropTypes.array,
   sectionEditModeOn: PropTypes.bool,

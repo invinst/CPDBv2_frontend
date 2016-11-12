@@ -14,7 +14,7 @@ export const RawContentStateFactory = new Factory()
   );
 
 export const RawContentBlockFactory = new Factory()
-  .attr('text', () => lorem.sentence())
+  .attr('text', '')
   .attr('entityRanges', [])
   .attr('depth', 0)
   .attr('key', 'abc12')

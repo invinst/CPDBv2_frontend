@@ -1,9 +1,11 @@
 import React from 'react';
 import { render, findDOMNode } from 'react-dom';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { renderIntoDocument, Simulate, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
+import { spy } from 'sinon';
 import MockStore from 'redux-mock-store';
 
+import 'polyfill';
 import BottomSheet from 'components/bottom-sheet';
 import { unmountComponentSuppressError } from 'utils/test';
 import { CuratedReportFactory } from 'utils/test/factories/report';
@@ -90,5 +92,17 @@ describe('BottomSheet component', function () {
       </Provider>,
       rootEl);
     findDOMNode(element).innerHTML.should.containEql(report.fields.title.value.blocks[0].text);
+  });
+
+  it('should trigger onClose when click on overlay', function () {
+    const onClose = spy();
+    element = renderIntoDocument(
+      <Provider store={ store }>
+        <BottomSheet open={ true } content={ { type: FAQ_TYPE, props: { ...faq } } } onClose={ onClose }/>
+      </Provider>
+    );
+    const overlay = findRenderedDOMComponentWithClass(element, 'bottom-sheet__overlay');
+    Simulate.click(overlay);
+    onClose.called.should.be.true();
   });
 });
