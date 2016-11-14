@@ -6,6 +6,8 @@ machine:
   post:
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get update && sudo apt-get install gcc-4.9 g++-4.9
 dependencies:
+  pre:
+    - bash ./bin/install_phantomjs.sh
   override:
     - npm install -g npm@3.8.7
     - npm install -g eslint@2.8.0
