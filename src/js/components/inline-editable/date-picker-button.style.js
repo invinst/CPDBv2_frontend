@@ -1,6 +1,8 @@
 import {
   sanFranciscoTextFamily, mistyRoseColor, lightMineShaftColor, tomatoPinkColor
 } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
+
 
 export const buttonStyle = {
   width: '24px',
@@ -11,6 +13,13 @@ export const buttonStyle = {
   display: 'inline-block',
   verticalAlign: 'middle',
   border: '1px solid white'
+};
+
+export const iconStyle = {
+  display: 'inline-block',
+  width: '24px',
+  height: '22px',
+  background: `url("${imgUrl('date-picker-pink.svg')}") no-repeat scroll center`
 };
 
 export const hoveredButtonStyle = {

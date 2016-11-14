@@ -2,6 +2,7 @@ import {
   softBlackColor, mistyRoseColor, fashionPinkColor, pinkishWhiteColor,
   softGreenColor, tomatoPinkColor
 } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
 
 
 export const wrapperStyle = {
@@ -14,6 +15,7 @@ export const linkButtonStyle = {
   height: '24px',
   backgroundColor: mistyRoseColor,
   marginLeft: '8px',
+  verticalAlign: 'middle',
   cursor: 'pointer',
   border: '1px solid white',
   display: 'inline-block'
@@ -22,6 +24,13 @@ export const linkButtonStyle = {
 export const hoveredLinkButtonStyle = {
   ...linkButtonStyle,
   backgroundColor: tomatoPinkColor
+};
+
+export const iconStyle = {
+  display: 'inline-block',
+  width: '24px',
+  height: '24px',
+  background: `url("${imgUrl('link-pink.svg')}") 5px 9px no-repeat scroll`
 };
 
 export const popupWrapperStyle = {

@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 
 import {
   wrapperStyle, linkButtonStyle, popupWrapperStyle, linkInputStyle,
-  hoveredLinkButtonStyle
+  hoveredLinkButtonStyle, iconStyle
 } from './link-picker.style';
 import HoverableButton from 'components/common/hoverable-button';
 
@@ -42,7 +42,7 @@ export default class LinkPicker extends Component {
             base: linkButtonStyle,
             hover: hoveredLinkButtonStyle
           } }>
-          +
+          <span style={ iconStyle } />
         </HoverableButton>
         {
           open ?
