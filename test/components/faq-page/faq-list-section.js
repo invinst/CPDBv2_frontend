@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import {
   renderIntoDocument, scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass, Simulate,
   findRenderedComponentWithType, findRenderedDOMComponentWithClass
@@ -6,12 +6,18 @@ import {
 import { spy } from 'sinon';
 
 import { withAnimationDisabled } from 'utils/test';
+import ContextWrapper from 'utils/test/components/context-wrapper';
 import FAQListSection from 'components/faq-page/faq-list-section';
 import FAQListItem from 'components/faq-page/faq-list-item';
 import FAQFactory from 'utils/test/factories/faq';
 import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
 
+
+class FAQListSectionContextWrapper extends ContextWrapper {}
+FAQListSectionContextWrapper.childContextTypes = {
+  editModeOn: PropTypes.bool
+};
 
 describe('FAQListSection', function () {
   let instance;
@@ -75,26 +81,16 @@ describe('FAQListSection', function () {
     const faqs = FAQFactory.buildList(1);
     const openBottom = spy();
 
-    const TestParent = React.createFactory(React.createClass({
-      childContextTypes: {
-        editModeOn: React.PropTypes.bool
-      },
-      getChildContext() {
-        return { editModeOn: true };
-      },
-      render() {
-        return (
-          <FAQListSection faqs={ faqs } openBottomSheetWithFAQ={ openBottom } />
-        );
-      }
-    }));
-    instance = renderIntoDocument(TestParent());
+    instance = renderIntoDocument(
+      <FAQListSectionContextWrapper context={ { editModeOn: true } }>
+        <FAQListSection faqs={ faqs } openBottomSheetWithFAQ={ openBottom } />
+      </FAQListSectionContextWrapper>
+    );
 
     withAnimationDisabled(function () {
       const faq = findRenderedDOMComponentWithClass(instance, 'faq-title');
 
       Simulate.click(faq);
-
       openBottom.calledWith(faqs[0].id).should.be.true();
     });
   });
@@ -112,20 +108,11 @@ describe('FAQListSection', function () {
   it('should render add-faq-btn button with editModeOn', function () {
     const faqs = [];
 
-    const TestParent = React.createFactory(React.createClass({
-      childContextTypes: {
-        editModeOn: React.PropTypes.bool
-      },
-      getChildContext() {
-        return { editModeOn: true };
-      },
-      render() {
-        return (
-          <FAQListSection faqs={ faqs } />
-        );
-      }
-    }));
-    instance = renderIntoDocument(TestParent());
+    instance = renderIntoDocument(
+      <FAQListSectionContextWrapper context={ { editModeOn: true } }>
+        <FAQListSection faqs={ faqs } />
+      </FAQListSectionContextWrapper>
+    );
 
     scryRenderedDOMComponentsWithClass(instance, 'add-faq-btn').length.should.equal(1);
   });
@@ -134,20 +121,11 @@ describe('FAQListSection', function () {
     const faqs = [];
     const openBottom = spy();
 
-    const TestParent = React.createFactory(React.createClass({
-      childContextTypes: {
-        editModeOn: React.PropTypes.bool
-      },
-      getChildContext() {
-        return { editModeOn: true };
-      },
-      render() {
-        return (
-          <FAQListSection faqs={ faqs } openBottomSheetToCreateFAQ={ openBottom } />
-        );
-      }
-    }));
-    instance = renderIntoDocument(TestParent());
+    instance = renderIntoDocument(
+      <FAQListSectionContextWrapper context={ { editModeOn: true } }>
+        <FAQListSection faqs={ faqs } openBottomSheetToCreateFAQ={ openBottom } />
+      </FAQListSectionContextWrapper>
+    );
 
     withAnimationDisabled(function () {
       const addFAQBtn = findRenderedDOMComponentWithClass(instance, 'add-faq-btn');

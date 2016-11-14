@@ -10,7 +10,6 @@ import {
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 import SubscribeForm from 'containers/landing-page/vftg-section/subscribe-form-container';
-import createFunctionWithTimeout from 'utils/create-function-with-timeout';
 import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
 import LinkPicker from 'components/inline-editable/link-picker';
 import EditableSection from 'components/inline-editable/editable-section';

@@ -26,6 +26,24 @@ export default {
               }
             },
             {
+              'name': 'article_link',
+              'type': 'plain_text',
+              'value': {
+                'blocks': [
+                  {
+                    'data': {},
+                    'depth': 0,
+                    'entityRanges': [],
+                    'inlineStyleRanges': [],
+                    'key': '5gia1',
+                    'text': 'Continue at nyt.com',
+                    'type': 'unstyled'
+                  }
+                ],
+                'entityMap': {}
+              }
+            },
+            {
               'name': 'excerpt',
               'type': 'multiline_text',
               'value': {
@@ -91,6 +109,24 @@ export default {
               }
             },
             {
+              'name': 'article_link',
+              'type': 'plain_text',
+              'value': {
+                'blocks': [
+                  {
+                    'data': {},
+                    'depth': 0,
+                    'entityRanges': [],
+                    'inlineStyleRanges': [],
+                    'key': '5gia1',
+                    'text': 'Continue at nyt.com',
+                    'type': 'unstyled'
+                  }
+                ],
+                'entityMap': {}
+              }
+            },
+            {
               'name': 'excerpt',
               'type': 'multiline_text',
               'value': {
@@ -149,6 +185,24 @@ export default {
                     'inlineStyleRanges': [],
                     'key': '5gia1',
                     'text': 'Commentary: Chicago\'s police crisis',
+                    'type': 'unstyled'
+                  }
+                ],
+                'entityMap': {}
+              }
+            },
+            {
+              'name': 'article_link',
+              'type': 'plain_text',
+              'value': {
+                'blocks': [
+                  {
+                    'data': {},
+                    'depth': 0,
+                    'entityRanges': [],
+                    'inlineStyleRanges': [],
+                    'key': '5gia1',
+                    'text': 'Continue at nyt.com',
                     'type': 'unstyled'
                   }
                 ],
