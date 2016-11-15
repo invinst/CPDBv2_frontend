@@ -4,7 +4,8 @@ import { debounce } from 'lodash';
 import SuggestionResults from './suggestion-results';
 import SearchBox from './search-box';
 import SuggestionTags from './suggestion-tags';
-import { backButtonStyle, autocompleteWrapperStyle, searchBoxStyle, helperTextStyle, resultWrapperStyle } from './autocomplete.style.js';
+import { backButtonStyle, autocompleteWrapperStyle, searchBoxStyle, helperTextStyle,
+  resultWrapperStyle } from './autocomplete.style.js';
 
 
 export default class Autocomplete extends Component {

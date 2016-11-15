@@ -1,4 +1,5 @@
-import { lightBlackColor, wildSandColor, lightMineShaftColor, whiteTwoColor, sanFranciscoTextFamily } from 'utils/styles';
+import { lightBlackColor, wildSandColor, lightMineShaftColor, whiteTwoColor,
+  sanFranciscoTextFamily } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 export const autocompleteWrapperStyle = {
