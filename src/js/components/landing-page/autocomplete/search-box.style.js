@@ -10,5 +10,5 @@ export const searchInputStyle = {
   display: 'inline-block',
   verticalAlign: 'top',
   fontWeight: 300,
-  width: 'calc(100% - 51px)'
+  width: 'calc(100% - 60px)'
 };
