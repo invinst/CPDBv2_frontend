@@ -16,15 +16,16 @@ describe('configured-axios-middleware', function () {
 
   describe('onSuccess', () => {
     const response = {
-      data: [1, 2, 3]
+      data: [1, 2, 3],
+      status: 200
     };
 
     it('should fire action with response as payload', () => {
       onSuccess({ action, next, response }).should.eql({
         type: getActionTypes(action)[1],
-        payload: response.data
+        payload: response.data,
+        statusCode: 200
       });
-
     });
   });
 
@@ -37,18 +38,19 @@ describe('configured-axios-middleware', function () {
       onError({ action, next, error }).should.eql({
         type: getActionTypes(action)[2],
         payload: new Error(getErrorMessage(requestUrl, error.status)),
-        error: true
+        statusCode: 400
       });
     });
 
     it('should fire action with error object', function () {
       const message = 'Axios error message';
       const error = new Error(message);
+      error.status = 400;
 
       onError({ action, next, error }).should.eql({
         type: getActionTypes(action)[2],
         payload: error,
-        error: true
+        statusCode: 400
       });
     });
   });

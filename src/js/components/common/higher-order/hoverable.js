@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import isMobile from 'ismobilejs';
-import ConfiguredRadium from 'utils/configured-radium';
 
 
 export default function (ComponentClass) {
@@ -21,6 +20,10 @@ export default function (ComponentClass) {
       this.setState({
         hovering: true
       });
+      const { onMouseOver } = this.props;
+      if (onMouseOver) {
+        onMouseOver(event);
+      }
     }
 
     handleMouseOut(event) {
@@ -30,6 +33,10 @@ export default function (ComponentClass) {
       this.setState({
         hovering: false
       });
+      const { onMouseOut } = this.props;
+      if (onMouseOut) {
+        onMouseOut(event);
+      }
     }
 
     render() {
@@ -38,10 +45,16 @@ export default function (ComponentClass) {
         <span
           onMouseOver={ this.handleMouseOver }
           onMouseOut={ this.handleMouseOut }>
-          <ComponentClass { ...this.props } hovering={ hovering }/>
+          <ComponentClass hovering={ hovering } { ...this.props }/>
         </span>
       );
     }
   }
-  return ConfiguredRadium(Hoverable);
+
+  Hoverable.propTypes = {
+    onMouseOut: PropTypes.func,
+    onMouseOver: PropTypes.func
+  };
+
+  return Hoverable;
 }

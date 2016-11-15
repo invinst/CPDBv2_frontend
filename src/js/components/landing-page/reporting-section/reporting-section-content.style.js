@@ -18,8 +18,7 @@ export const smallStoryStyle = {
 };
 
 export const divideLineStyle = {
-  marginLeft: '13px',
   backgroundColor: altoColor,
-  width: 'calc(100% - 13px)',
+  width: '100%',
   height: '1px'
 };

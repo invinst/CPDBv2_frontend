@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ArticleHeader from 'components/common/article-header';
@@ -11,23 +11,7 @@ import {
 } from './article-small.style';
 
 
-class ArticleSmall extends ResponsiveStyleComponent {
-  responsiveStyle() {
-    const { style, hoverable } = this.props;
-
-    return {
-      [TABLET]: {
-        wrapper: [wrapperStyle, tabletWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
-      },
-      [DESKTOP]: {
-        wrapper: [wrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
-      },
-      [EXTRA_WIDE]: {
-        wrapper: [wrapperStyle, extraWideWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
-      }
-    };
-  }
-
+class ArticleSmall extends Component {
   renderHeader() {
     const { style } = this.props;
 
@@ -59,6 +43,27 @@ class ArticleSmall extends ResponsiveStyleComponent {
           { this.renderParagraphs() }
         </div>
       </div>
+    );
+  }
+
+  render() {
+    const { style, hoverable } = this.props;
+
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ {
+          [TABLET]: {
+            wrapper: [wrapperStyle, tabletWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
+          },
+          [DESKTOP]: {
+            wrapper: [wrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
+          },
+          [EXTRA_WIDE]: {
+            wrapper: [wrapperStyle, extraWideWrapperStyle, style.wrapper, hoverable && wrapperHoverStyle]
+          }
+        } }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }

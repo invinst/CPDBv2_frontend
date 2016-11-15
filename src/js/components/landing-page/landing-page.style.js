@@ -2,8 +2,7 @@ import { darkGreyColor, softBlackColor } from 'utils/styles';
 
 
 export const bottomSectionsWrapperStyle = {
-  backgroundColor: 'white',
-  paddingTop: '14px'
+  backgroundColor: 'white'
 };
 
 export const sectionStyle = {
@@ -11,7 +10,7 @@ export const sectionStyle = {
 };
 
 export const divideLineStyle = {
-  margin: '16px',
+  margin: '0 16px',
   backgroundColor: softBlackColor,
   width: 'calc(100% - 16px)',
   height: '1px'

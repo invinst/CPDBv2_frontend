@@ -1,2 +1,2 @@
 [webservers]
-23.96.243.132 ansible_user=ansible branch=staging node_env=staging
+23.96.183.44 ansible_user=ansible branch=staging node_env=staging

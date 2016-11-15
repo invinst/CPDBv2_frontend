@@ -1,5 +1,5 @@
 import {
-  softBlackColor, lightMineShaftColor, sanFranciscoTextFamily, accentColor, wildSandColor
+  softBlackColor, sanFranciscoTextFamily, accentColor, wildSandColor
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
@@ -13,7 +13,9 @@ export const headerStyle = {
     fontFamily: sanFranciscoTextFamily,
     fontSize: '13px',
     fontWeight: 500,
-    color: softBlackColor
+    color: softBlackColor,
+    paddingTop: '4px',
+    display: 'inline-block'
   },
   extraWide: {
     fontSize: '14px'
@@ -26,19 +28,14 @@ export const headerStyle = {
   }
 };
 
-export const dateStyle = {
-  fontFamily: sanFranciscoTextFamily,
-  fontSize: '13px',
-  color: lightMineShaftColor,
-  marginLeft: '6px'
-};
-
 export const textStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '20px',
-  fontWeight: 300,
+  fontWeight: 300
+};
+
+export const textHoverStyle = {
   color: softBlackColor,
-  cursor: 'pointer',
   textDecoration: 'none',
   ':hover': {
     color: accentColor
@@ -94,7 +91,39 @@ export const vftgWrapperStyle = {
 
 export const wrapperStyle = {
   boxSizing: 'border-box',
-  backgroundColor: wildSandColor,
-  paddingBottom: 0,
-  margin: '16px'
+  padding: '32px 16px 16px'
+};
+
+export const vftgWrapperEditModeStyle = {
+  ...vftgWrapperStyle,
+  backgroundColor: 'transparent'
+};
+
+export const editBoxStyle = {
+  width: 'calc(100% - 125px)',
+  display: 'inline-block',
+  height: '26px'
+};
+
+export const editWrapperLinkStyle = {
+  fontSize: '13px',
+  fontFamily: sanFranciscoTextFamily
+};
+
+export const linkStyle = {
+  base: {
+    paddingBottom: '3px',
+    fontWeight: 300,
+    display: 'inline-block',
+    verticalAlign: 'middle'
+  },
+  extraWide: {
+    fontSize: '14px'
+  },
+  desktop: {
+    fontSize: '13px'
+  },
+  tablet: {
+    fontSize: '12px'
+  }
 };

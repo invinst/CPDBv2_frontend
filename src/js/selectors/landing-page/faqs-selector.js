@@ -1,22 +1,23 @@
 import { createSelector } from 'reselect';
+import { map } from 'lodash';
+
+import { faqTransform } from 'selectors/faq-page/faqs-selector';
 
 
-const getIsRequesting = state => state.landingPage.faqApp.isRequesting;
+const getIsRequesting = state => state.landingPage.faqSection.isRequesting;
+const getFAQIds = state => state.landingPage.faqSection.faqs;
+const getFAQs = state => state.faqs;
 
-const getFAQs = state => state.landingPage.faqApp.faqs;
-
-export const faqsSelector = createSelector(getFAQs, (faqs) => {
-  return faqs.slice(0).map((faq, ind) => ({
-    id: faq.id,
-    title: faq.title,
-    paragraphs: faq.body && faq.body.map(p => p.value)
-  }));
-});
+export const faqsSelector = createSelector(
+  getFAQs,
+  getFAQIds,
+  (faqs, ids) => (map(ids, id => (faqTransform(faqs[id]))))
+);
 
 export const dataAvailableSelector = createSelector(
   getIsRequesting,
-  faqsSelector,
-  (isRequesting, faqs) => {
-    return !isRequesting && faqs.length >= 3;
+  getFAQIds,
+  (isRequesting, faqIds) => {
+    return !isRequesting && faqIds.length > 0;
   }
 );

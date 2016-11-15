@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import ResponsiveStyleComponent, {
   DESKTOP, EXTRA_WIDE, TABLET
@@ -6,7 +6,7 @@ import ResponsiveStyleComponent, {
 import { desktopStyle, extraWideStyle } from './place-holder.style';
 
 
-export default class ReportingPlaceHolder extends ResponsiveStyleComponent {
+export default class ReportingPlaceHolder extends Component {
   responsiveStyle() {
     return {
       [TABLET]: { wrapper: desktopStyle },
@@ -17,5 +17,14 @@ export default class ReportingPlaceHolder extends ResponsiveStyleComponent {
 
   renderWithResponsiveStyle(style) {
     return <div style={ style.wrapper }/>;
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
+    );
   }
 }

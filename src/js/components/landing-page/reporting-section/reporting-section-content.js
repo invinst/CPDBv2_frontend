@@ -1,115 +1,106 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { arrayOfN } from 'utils/prop-validators';
 import ResponsiveComponent from 'components/responsive/responsive-component';
-import Story, {
-  SMALL_TITLE_STYLE, NORMAL_TITLE_STYLE, BIG_TITLE_STYLE, EXTRA_BIG_TITLE_STYLE
-} from 'components/common/story/story';
+import Report from 'components/common/report/report';
 import { storyWrapperStyle, smallStoryStyle, divideLineStyle } from './reporting-section-content.style';
 
 
-class ReportingSectionContent extends ResponsiveComponent {
-  renderTablet() {
-    const { stories, onStoryClick } = this.props;
+class ReportingSectionContent extends Component {
+  render() {
+    const { reports, onStoryClick } = this.props;
 
     return (
-      <div className='pure-g'>
-        <div className='pure-u-1-2'>
-          <Story
-            story={ stories[0] }
-            wrapperStyle={ storyWrapperStyle }
-            storyTitleSize={ BIG_TITLE_STYLE }
-            onClick={ onStoryClick }/>
-        </div>
-        <div className='pure-u-1-2'>
-          <div className='pure-u-1-1'>
-            <Story
-              story={ stories[1] }
-              wrapperStyle={ [storyWrapperStyle, smallStoryStyle.tablet] }
-              storyTitleSize={ NORMAL_TITLE_STYLE }
-              onClick={ onStoryClick }/>
+      <ResponsiveComponent
+        tabletChildren={
+          <div className='pure-g'>
+            <div className='pure-u-1-2'>
+              <Report
+                report={ reports[0] }
+                wrapperStyle={ storyWrapperStyle }
+                type={ 2 }
+                onClick={ onStoryClick }/>
+            </div>
+            <div className='pure-u-1-2'>
+              <div className='pure-u-1-1'>
+                <Report
+                  report={ reports[1] }
+                  wrapperStyle={ { ...storyWrapperStyle, ...smallStoryStyle.tablet } }
+                  type={ 3 }
+                  onClick={ onStoryClick }/>
+              </div>
+              <div style={ divideLineStyle }/>
+              <div className='pure-u-1-1'>
+                <Report
+                  report={ reports[2] }
+                  wrapperStyle={ { ...storyWrapperStyle, ...smallStoryStyle.tablet } }
+                  type={ 3 }
+                  onClick={ onStoryClick }/>
+              </div>
+            </div>
           </div>
-          <div style={ divideLineStyle }/>
-          <div className='pure-u-1-1'>
-            <Story
-              story={ stories[2] }
-              wrapperStyle={ [storyWrapperStyle, smallStoryStyle.tablet] }
-              storyTitleSize={ NORMAL_TITLE_STYLE }
-              onClick={ onStoryClick }/>
+        }
+        desktopChildren={
+          <div className='pure-g'>
+            <div className='pure-u-1-2'>
+              <Report
+                report={ reports[0] }
+                wrapperStyle={ storyWrapperStyle }
+                type={ 2 }
+                onClick={ onStoryClick }/>
+            </div>
+            <div className='pure-u-1-2'>
+              <div className='pure-u-1-2'>
+                <Report
+                  report={ reports[1] }
+                  wrapperStyle={ { ...storyWrapperStyle, ...smallStoryStyle.desktop } }
+                  type={ 3 }
+                  onClick={ onStoryClick }/>
+              </div>
+              <div className='pure-u-1-2'>
+                <Report
+                  report={ reports[2] }
+                  wrapperStyle={ { ...storyWrapperStyle, ...smallStoryStyle.desktop } }
+                  type={ 3 }
+                  onClick={ onStoryClick }/>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    );
-  }
-
-  renderDesktop() {
-    const { stories, onStoryClick } = this.props;
-
-    return (
-      <div className='pure-g'>
-        <div className='pure-u-1-2'>
-          <Story
-            story={ stories[0] }
-            wrapperStyle={ storyWrapperStyle }
-            storyTitleSize={ BIG_TITLE_STYLE }
-            onClick={ onStoryClick }/>
-        </div>
-        <div className='pure-u-1-2'>
-          <div className='pure-u-1-2'>
-            <Story
-              story={ stories[1] }
-              wrapperStyle={ [storyWrapperStyle, smallStoryStyle.desktop] }
-              storyTitleSize={ SMALL_TITLE_STYLE }
-              onClick={ onStoryClick }/>
+        }
+        extraWideChildren={
+          <div className='pure-g'>
+            <div className='pure-u-1-2'>
+              <Report
+                report={ reports[0] }
+                wrapperStyle={ storyWrapperStyle }
+                type={ 2 }
+                onClick={ onStoryClick }/>
+            </div>
+            <div className='pure-u-1-2'>
+              <div className='pure-u-1-2'>
+                <Report
+                  report={ reports[1] }
+                  wrapperStyle={ { ...storyWrapperStyle, ...smallStoryStyle.desktop } }
+                  type={ 3 }
+                  onClick={ onStoryClick }/>
+              </div>
+              <div className='pure-u-1-2'>
+                <Report
+                  report={ reports[2] }
+                  wrapperStyle={ { ...storyWrapperStyle, ...smallStoryStyle.desktop } }
+                  type={ 3 }
+                  onClick={ onStoryClick }/>
+              </div>
+            </div>
           </div>
-          <div className='pure-u-1-2'>
-            <Story
-              story={ stories[2] }
-              wrapperStyle={ [storyWrapperStyle, smallStoryStyle.desktop] }
-              storyTitleSize={ SMALL_TITLE_STYLE }
-              onClick={ onStoryClick }/>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  renderExtraWide() {
-    const { stories, onStoryClick } = this.props;
-
-    return (
-      <div className='pure-g'>
-        <div className='pure-u-1-2'>
-          <Story
-            story={ stories[0] }
-            wrapperStyle={ storyWrapperStyle }
-            storyTitleSize={ EXTRA_BIG_TITLE_STYLE }
-            onClick={ onStoryClick }/>
-        </div>
-        <div className='pure-u-1-2'>
-          <div className='pure-u-1-2'>
-            <Story
-              story={ stories[1] }
-              wrapperStyle={ [storyWrapperStyle, smallStoryStyle.desktop] }
-              storyTitleSize={ NORMAL_TITLE_STYLE }
-              onClick={ onStoryClick }/>
-          </div>
-          <div className='pure-u-1-2'>
-            <Story
-              story={ stories[2] }
-              wrapperStyle={ [storyWrapperStyle, smallStoryStyle.desktop] }
-              storyTitleSize={ NORMAL_TITLE_STYLE }
-              onClick={ onStoryClick }/>
-          </div>
-        </div>
-      </div>
+        }/>
     );
   }
 }
 
 ReportingSectionContent.propTypes = {
-  stories: arrayOfN(3),
+  reports: arrayOfN(3),
   onStoryClick: PropTypes.func
 };
 

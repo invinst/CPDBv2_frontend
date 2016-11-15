@@ -1,10 +1,11 @@
-import { softBlackColor, silverSandColor, lightGreyColor, sanFranciscoTextFamily } from 'utils/styles';
+import {
+  softBlackColor, silverSandColor, lightGreyColor, sanFranciscoTextFamily
+} from 'utils/styles';
 
 
 export const headerStyle = {
   base: {
     marginBottom: '34px',
-    backgroundColor: 'white',
     height: '26px',
     lineHeight: '26px',
     fontFamily: sanFranciscoTextFamily,
@@ -12,7 +13,8 @@ export const headerStyle = {
     borderLeft: `8px solid ${silverSandColor}`,
     color: softBlackColor,
     letterSpacing: '-0.2px',
-    paddingLeft: '8px'
+    paddingLeft: '8px',
+    position: 'relative'
   },
   extraWide: {
     fontSize: '14px'
@@ -26,8 +28,7 @@ export const headerStyle = {
 };
 
 export const contentStyle = {
-  paddingBottom: '51px',
-  backgroundColor: 'white'
+  paddingBottom: '51px'
 };
 
 export const linkStyle = {
@@ -54,9 +55,18 @@ export const underlineFAQStyle = {
 };
 
 export const wrapperStyle = {
-  margin: '16px',
+  padding: '32px 16px',
   boxSizing: 'border-box',
-  backgroundColor: 'white',
-  borderBottom: `1px solid ${softBlackColor}`,
-  paddingBottom: '16px'
+  borderBottom: `1px solid ${softBlackColor}`
+};
+
+export const editModeAlignLeftStyle = {
+  display: 'inline-block',
+  width: 'calc(100% - 125px)',
+  textAlign: 'left'
+};
+
+export const editBoxStyle = {
+  width: 'calc(100% - 130px)',
+  display: 'inline-block'
 };
