@@ -6,7 +6,6 @@ import { openBottomSheetWithFAQ, openBottomSheetToCreateFAQ } from 'actions/bott
 import { dataAvailableSelector, faqsSelector } from 'selectors/faq-page/faqs-selector';
 import { getIsSubmitting } from 'selectors/faq-page/faq-form-selector';
 import FAQListSection from 'components/faq-page/faq-list-section';
-import FAQForm from 'components/faq-page/faq-form';
 import FAQListSectionPlaceHolder from 'components/faq-page/faq-list-section-placeholder';
 
 
@@ -17,7 +16,7 @@ export class UnconnectedFAQPageContainer extends Component {
 
   render() {
     const {
-      dataAvailable, faqs, askQuestion, isSubmitting,
+      dataAvailable, faqs,
       openBottomSheetWithFAQ, openBottomSheetToCreateFAQ
     } = this.props;
 
@@ -28,9 +27,6 @@ export class UnconnectedFAQPageContainer extends Component {
             faqs={ faqs }
             openBottomSheetToCreateFAQ={ openBottomSheetToCreateFAQ }
             openBottomSheetWithFAQ={ openBottomSheetWithFAQ }/>
-          <FAQForm
-            askQuestion={ askQuestion }
-            isSubmitting={ isSubmitting }/>
         </div>
       );
     } else {
@@ -46,10 +42,8 @@ UnconnectedFAQPageContainer.propTypes = {
   dataAvailable: PropTypes.bool,
   faqs: PropTypes.array,
   store: PropTypes.object,
-  askQuestion: PropTypes.func,
   openBottomSheetWithFAQ: PropTypes.func,
-  openBottomSheetToCreateFAQ: PropTypes.func,
-  isSubmitting: PropTypes.bool
+  openBottomSheetToCreateFAQ: PropTypes.func
 };
 
 function mapStateToProps(state, ownProps) {

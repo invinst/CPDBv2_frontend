@@ -52,6 +52,10 @@ describe('store', function () {
         collaborateSection: {
           fields: {},
           editModeOn: false
+        },
+        suggestionApp: {
+          isRequesting: false,
+          suggestions: []
         }
       },
       faqPage: {
