@@ -5,6 +5,9 @@ import SuggestionResults from 'components/landing-page/autocomplete/suggestion-r
 
 describe('SuggestionResults component', function () {
   it('should be renderable', function () {
-    SuggestionResults.should.be.renderable();
+    const suggestionGroups = {
+      a: [1]
+    };
+    SuggestionResults.should.be.renderable({ suggestionGroups });
   });
 });

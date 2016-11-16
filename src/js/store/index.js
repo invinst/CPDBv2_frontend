@@ -8,4 +8,9 @@ if (global.DEVELOPMENT) {
   configureStore = configureDev;
 }
 
-export default configureStore;
+let store;
+
+export default (...args) => {
+  store = store || configureStore(...args);
+  return store;
+};

@@ -17,6 +17,7 @@ export const silverSandColor = 'rgba(34, 31, 31, 0.2)';
 export const warmGreyColor = '#9B9B9B';
 export const lightBlackColor = 'rgba(0, 0, 0, 0.15)';
 export const whiteTwoColor = '#DBDBDB';
+export const eggPlantColor = '#230D2A';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';

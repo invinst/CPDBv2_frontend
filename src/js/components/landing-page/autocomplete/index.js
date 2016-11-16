@@ -4,7 +4,8 @@ import { debounce } from 'lodash';
 import SuggestionResults from './suggestion-results';
 import SearchBox from './search-box';
 import SuggestionTags from './suggestion-tags';
-import { backButtonStyle, searchBoxStyle, helperTextStyle, resultWrapperStyle } from './autocomplete.style.js';
+import { backButtonStyle, autocompleteWrapperStyle, searchBoxStyle, helperTextStyle,
+  resultWrapperStyle } from './autocomplete.style.js';
 
 
 export default class Autocomplete extends Component {
@@ -31,7 +32,7 @@ export default class Autocomplete extends Component {
   }
 
   renderContent() {
-    const { suggestionGroups, isRequesting } = this.props;
+    const { suggestionGroups, isRequesting, tags } = this.props;
 
     if (this.state.value === '') {
       return (
@@ -45,7 +46,7 @@ export default class Autocomplete extends Component {
 
     return (
       <div style={ resultWrapperStyle }>
-        <SuggestionTags/>
+        <SuggestionTags tags={ tags }/>
         <SuggestionResults
           suggestionGroups={ suggestionGroups }
           isRequesting={ isRequesting } />
@@ -55,7 +56,7 @@ export default class Autocomplete extends Component {
 
   render() {
     return (
-      <div>
+      <div style={ autocompleteWrapperStyle }>
         <div style={ searchBoxStyle }>
           <span style={ backButtonStyle }/>
           <SearchBox onChange={ this.handleChange } value={ this.state.value }/>
@@ -70,6 +71,7 @@ export default class Autocomplete extends Component {
 
 Autocomplete.propTypes = {
   suggestionGroups: PropTypes.object,
+  tags: PropTypes.array,
   isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func
 };

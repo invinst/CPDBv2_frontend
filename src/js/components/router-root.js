@@ -6,7 +6,7 @@ import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import FAQPage from 'components/faq-page/faq-page';
 import StoriesPage from 'components/stories-page/stories-page';
-import AutoCompleteContainer from 'containers/landing-page/autocomplete-container';
+import AutocompletePage from 'components/landing-page/autocomplete/autocomplete-page';
 import { COLLAB_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 
 
@@ -23,9 +23,8 @@ export default class RouterRoot extends Component {
             onEnter={ () => global.ga('send', 'screenview', { screenName: 'Collaborate' }) }/>
           <Route path={ FAQ_PATH } component={ FAQPage }
             onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }/>
-          <Route path='search' component={ AutoCompleteContainer }
-            onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }/>
         </Route>
+        <Route path='/search' component={ AutocompletePage }/>
       </Router>
     );
   }
