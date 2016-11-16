@@ -42,18 +42,18 @@ describe('faqs selectors (landing page)', function () {
     it('should return false when isRequesting', function () {
 
       state.landingPage.faqSection = {
-        faqs: [1, 2, 3],
-        isRequesting: true
+        faqs: [1, 2, 3]
       };
+      state.landingPage.isRequesting = true;
 
       dataAvailableSelector(state).should.be.false();
     });
 
     it('should return true if has faqs and requesting is false', function () {
       state.landingPage.faqSection = {
-        isRequesting: false,
         faqs: [1, 2, 3]
       };
+      state.landingPage.isRequesting = false;
       dataAvailableSelector(state).should.be.true();
     });
 

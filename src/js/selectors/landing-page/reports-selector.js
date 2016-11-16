@@ -6,7 +6,7 @@ import { reportTransform } from 'selectors/reporting-page';
 
 const getReportIds = state => state.landingPage.reportSection.reports;
 const getReports = state => state.reports;
-const getIsRequesting = state => state.landingPage.reportSection.isRequesting;
+const getIsRequesting = state => state.landingPage.isRequesting;
 
 export const reportsSelector = createSelector(
   getReportIds,

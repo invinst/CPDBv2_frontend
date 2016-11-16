@@ -30,12 +30,10 @@ describe('store', function () {
       landingPage: {
         faqSection: {
           faqs: [],
-          isRequesting: false,
           fields: {},
           editModeOn: false
         },
         reportSection: {
-          isRequesting: false,
           fields: {},
           editModeOn: false,
           reports: []
@@ -56,7 +54,8 @@ describe('store', function () {
         suggestionApp: {
           isRequesting: false,
           suggestions: []
-        }
+        },
+        isRequesting: false
       },
       faqPage: {
         faqs: {
@@ -81,6 +80,7 @@ describe('store', function () {
         content: null
       },
       reportingPage: {
+        isRequesting: false,
         reportGrouping: {
           groups: [],
           groupingStrategy: 'STRATEGY_RANDOM',
