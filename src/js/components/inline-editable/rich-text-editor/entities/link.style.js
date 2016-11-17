@@ -1,15 +1,13 @@
-import { fashionPinkColor, fashionPinkFadedColor } from 'utils/styles';
+import { fashionPinkColor } from 'utils/styles';
 
+
+export const linkStyle = {
+  display: 'inline-block',
+  textDecoration: 'underline'
+};
 
 export const pinkLinkStyle = {
-  base: {
-    base: {
-      color: fashionPinkColor
-    }
-  },
-  underline: {
-    base: {
-      backgroundColor: fashionPinkFadedColor
-    }
-  }
+  display: 'inline-block',
+  textDecoration: 'underline',
+  color: fashionPinkColor
 };

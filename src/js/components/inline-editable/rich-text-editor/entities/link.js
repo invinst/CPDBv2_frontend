@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Entity } from 'draft-js';
 
 import MoreLink from 'components/common/more-link';
-import UnderlineText from 'components/common/underline-text';
-import { pinkLinkStyle } from './link.style';
+import { linkStyle, pinkLinkStyle } from './link.style';
 
 
 class Link extends Component {
@@ -19,9 +18,9 @@ class Link extends Component {
       );
     }
     return (
-      <UnderlineText style={ sectionEditModeOn ? pinkLinkStyle : {} }>
+      <span style={ sectionEditModeOn ? pinkLinkStyle : linkStyle }>
         { children }
-      </UnderlineText>
+      </span>
     );
   }
 }
