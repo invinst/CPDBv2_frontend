@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Editor, DefaultDraftBlockRenderMap } from 'draft-js';
+import { Editor, DefaultDraftBlockRenderMap, EditorState } from 'draft-js';
 
 import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
 import { removeSelection, hasSelection } from 'utils/draft';
@@ -106,5 +106,6 @@ RichTextEditor.propTypes = {
 };
 
 RichTextEditor.defaultProps = {
-  style: {}
+  style: {},
+  editorState: EditorState.createEmpty()
 };

@@ -14,7 +14,7 @@ import ResponsiveStyleComponent, {
 import EditableSection from 'components/inline-editable/editable-section';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
-import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 export class FAQSection extends Component {
@@ -74,7 +74,7 @@ export class FAQSection extends Component {
     return (
       <div style={ style.header }>
         <div style={ editBoxStyle }>
-          <PlainTextEditable { ...fieldProps['faq_header'] }/>
+          <RichTextEditable { ...fieldProps['faq_header'] }/>
         </div>
         <StrategyForm { ...fieldProps['faq_randomizer'] }/>
         <EditToggle { ...editToggleProps }/>
