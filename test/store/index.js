@@ -53,7 +53,7 @@ describe('store', function () {
         },
         suggestionApp: {
           isRequesting: false,
-          suggestions: []
+          suggestionGroups: {}
         },
         isRequesting: false
       },
