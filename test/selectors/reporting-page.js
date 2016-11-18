@@ -1,5 +1,5 @@
 import {
-  nextParamsSelector, reportTransform, groupsSelector
+  nextParamsSelector, reportTransform, groupsSelector, hasMoreSelector
 } from 'selectors/reporting-page';
 import ReportFactory from 'utils/test/factories/report';
 
@@ -21,7 +21,41 @@ describe('reportingPage selectors', function () {
         pagination: { next }
       };
 
-      nextParamsSelector(state).should.eql(search);
+      nextParamsSelector(state).should.eql({ search: 'search' });
+    });
+  });
+
+  describe('hasMoreSelector', function () {
+    it('should return true if has next url', function () {
+      state.reportingPage = {
+        pagination: { next: 'next', isRequesting: false }
+      };
+
+      hasMoreSelector(state).should.be.true();
+    });
+
+    it('should return false if next url is not presented', function () {
+      state.reportingPage = {
+        pagination: { next: '', isRequesting: false }
+      };
+
+      hasMoreSelector(state).should.be.false();
+    });
+
+    it('should return false if is requesting', function () {
+      state.reportingPage = {
+        pagination: { next: '', isRequesting: true }
+      };
+
+      hasMoreSelector(state).should.be.false();
+    });
+
+    it('should return true if is not requesting', function () {
+      state.reportingPage = {
+        pagination: { next: 'next', isRequesting: false }
+      };
+
+      hasMoreSelector(state).should.be.true();
     });
   });
 
