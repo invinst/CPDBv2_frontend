@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { RichUtils } from 'draft-js';
 
-import { linkEntitySelected, getSelectionStartBlockKey } from 'utils/draft';
+import { linkEntitySelected, getSelectionStartBlockKey, inlineStyleSelected } from 'utils/draft';
 import { getOffsetKey } from 'utils/rich-text';
 import ToolbarButton from './toolbar-button';
 import UrlInput from './url-input';
@@ -17,6 +18,8 @@ class Toolbar extends Component {
     };
     this.position = {};
     this.handleLinkButtonClick = this.handleLinkButtonClick.bind(this);
+    this.handleBoldButtonClick = this.handleBoldButtonClick.bind(this);
+    this.handleItalicButtonClick = this.handleItalicButtonClick.bind(this);
     this.handleUrlInputEntryFinished = this.handleUrlInputEntryFinished.bind(this);
   }
 
@@ -35,6 +38,16 @@ class Toolbar extends Component {
     } else {
       this.setState({ showUrlInput: !showUrlInput, linkActive: !showUrlInput });
     }
+  }
+
+  handleBoldButtonClick() {
+    const { editorState, onChange } = this.props;
+    onChange(RichUtils.toggleInlineStyle(editorState, 'BOLD'));
+  }
+
+  handleItalicButtonClick() {
+    const { editorState, onChange } = this.props;
+    onChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
   }
 
   handleUrlInputEntryFinished(url) {
@@ -69,7 +82,7 @@ class Toolbar extends Component {
     if (rect !== null) {
       this.position = {
         top: `${rect.top - 60 - parentTop}px`,
-        left: `${rect.left - parentLeft + (rect.width - 50) / 2}px`
+        left: `${rect.left - parentLeft + (rect.width - 150) / 2}px`
       };
     }
     return this.position;
@@ -79,6 +92,8 @@ class Toolbar extends Component {
     const { editorState, show, onMouseOver, onMouseOut } = this.props;
     const { showUrlInput, linkActive } = this.state;
     let _linkActive = linkActive || (editorState && linkEntitySelected(editorState));
+    let boldActive = editorState && inlineStyleSelected(editorState, 'BOLD');
+    let italicActive = editorState && inlineStyleSelected(editorState, 'ITALIC');
 
     if (!show) {
       return null;
@@ -87,6 +102,20 @@ class Toolbar extends Component {
     return (
       <Bubble style={ this.toolbarPosition() }>
         <div style={ { ...wrapperStyle } }>
+          <ToolbarButton
+            onMouseOver={ onMouseOver }
+            onMouseOut={ onMouseOut }
+            icon='bold-blue.svg'
+            activeIcon='bold-white.svg'
+            onClick={ this.handleBoldButtonClick }
+            active={ boldActive }/>
+          <ToolbarButton
+            onMouseOver={ onMouseOver }
+            onMouseOut={ onMouseOut }
+            icon='italic-blue.svg'
+            activeIcon='italic-white.svg'
+            onClick={ this.handleItalicButtonClick }
+            active={ italicActive }/>
           <ToolbarButton
             onMouseOver={ onMouseOver }
             onMouseOut={ onMouseOut }
