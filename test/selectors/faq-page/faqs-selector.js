@@ -1,6 +1,4 @@
-import {
-  faqsSelector, dataAvailableSelector
-} from 'selectors/faq-page/faqs-selector';
+import { faqsSelector } from 'selectors/faq-page/faqs-selector';
 import FAQFactory from 'utils/test/factories/faq';
 
 
@@ -25,28 +23,6 @@ describe('faqs selectors', function () {
         answer: [answer],
         question
       }]);
-    });
-  });
-
-  describe('dataAvailableSelector', function () {
-    it('should return false when isRequesting', function () {
-      state.faqPage = {
-        isRequesting: true
-      };
-      dataAvailableSelector(state).should.be.false();
-    });
-
-    it('should return true if has faqs and requesting is false', function () {
-      state.faqs = [1];
-      state.faqPage = {
-        isRequesting: false
-      };
-      dataAvailableSelector(state).should.be.true();
-    });
-
-    it('should return false when there are no faqs', function () {
-      state.faqs = [];
-      dataAvailableSelector(state).should.be.false();
     });
   });
 });
