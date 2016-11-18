@@ -14,8 +14,4 @@ describe('FAQFull component', function () {
   it('should be renderable', function () {
     FAQFull.should.be.renderable();
   });
-
-  it('should trigger closeBottomSheet when click on More FAQ', function () {
-    FAQFull.should.triggerCallbackWhenClick('closeBottomSheet', 'footer__link');
-  });
 });

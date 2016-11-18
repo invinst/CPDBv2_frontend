@@ -17,28 +17,31 @@ let DEVICE_RENDERERS = {
 
 export default class ResponsiveComponent extends React.Component {
   renderMobile() {
-    return this.renderTablet();
+    const { mobileChildren, tabletChildren } = this.props;
+    return mobileChildren ? mobileChildren : tabletChildren;
   }
 
   renderTablet() {
-    return <div/>;
+    return this.props.tabletChildren;
   }
 
   renderDesktop() {
-    return <div/>;
+    return this.props.desktopChildren;
   }
 
   renderExtraWide() {
-    return this.renderDesktop();
+    const { extraWideChildren, desktopChildren } = this.props;
+    return extraWideChildren ? extraWideChildren : desktopChildren;
   }
 
   render() {
+    const { style } = this.props;
     let renderer = DEVICE_RENDERERS[this.props.device];
     if (renderer) {
       return this[renderer]();
     } else {
       return (
-        <div>
+        <div style={ style }>
           <MediaQuery maxWidth={ MOBILE_BREAK_POINT - 1 }>
             { this.renderMobile() }
           </MediaQuery>
@@ -58,5 +61,10 @@ export default class ResponsiveComponent extends React.Component {
 }
 
 ResponsiveComponent.propTypes = {
+  mobileChildren: PropTypes.node,
+  tabletChildren: PropTypes.node,
+  desktopChildren: PropTypes.node,
+  extraWideChildren: PropTypes.node,
+  style: PropTypes.object,
   device: PropTypes.string // this allow setting screen size for testing purpose
 };

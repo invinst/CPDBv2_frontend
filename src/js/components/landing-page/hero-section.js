@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import ResponsiveStyleComponent, {
@@ -12,9 +12,10 @@ import {
 import { imgUrl } from 'utils/static-assets';
 import CoverImage from 'components/common/cover-image';
 import createFunctionWithTimeout from 'utils/create-function-with-timeout';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
-class HeroSection extends ResponsiveStyleComponent {
+class HeroSection extends Component {
   constructor(props) {
     super(props);
     this.dataLink = 'http://cpdb.co/data';
@@ -96,6 +97,15 @@ class HeroSection extends ResponsiveStyleComponent {
       </div>
     );
   }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
+    );
+  }
 }
 
 HeroSection.propTypes = {
@@ -103,4 +113,4 @@ HeroSection.propTypes = {
   useOfForceText: PropTypes.string
 };
 
-export default ConfiguredRadium(HeroSection);
+export default PropsRerender(ConfiguredRadium(HeroSection));

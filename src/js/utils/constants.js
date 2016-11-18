@@ -13,13 +13,21 @@ export const MOBILE = 'mobile';
 export const TABLET = 'tablet';
 
 export const ROOT_PATH = '/';
-export const COLLAB_PATH = '/collaborate/';
-export const DATA_PATH = '/data/';
-export const FAQ_PATH = '/faq/';
-export const STORIES_PATH = '/reporting/';
+export const COLLAB_PATH = 'collaborate/';
+export const DATA_PATH = 'data/';
+export const FAQ_PATH = 'faq/';
+export const STORIES_PATH = 'reporting/';
+export const SEARCH_PATH = 'search/';
+
+export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
 // Reducer defaults
-export const PAGINATION_DEFAULT = { results: [], count: 0, next: null, previous: null };
+export const PAGINATION_DEFAULT = {
+  results: [],
+  count: 0,
+  next: null,
+  previous: null
+};
 
 // Date format
 export const DATE_FORMAT_IN = 'YYYY-MM-DD';

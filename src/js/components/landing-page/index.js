@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
@@ -7,14 +7,15 @@ import Footer from 'components/footer';
 import HeroSection from 'components/landing-page/hero-section';
 import FAQSectionContainer from 'containers/landing-page/faq-section-container';
 import ReportingSectionContainer from 'containers/landing-page/reporting-section-container';
-import VFTGSection from './vftg-section';
-import AboutSection from './about-section';
+import VFTGSectionContainer from 'containers/landing-page/vftg-section';
 import TwitterSection from './twitter-section/twitter-section';
-import CollaborateSection from './collaborate-section';
+import AboutSectionContainer from 'containers/landing-page/about-section-container';
+import CollaborateSectionContainer from 'containers/landing-page/collaborate-section-container';
 import { bottomSectionsWrapperStyle, divideLineStyle } from './landing-page.style';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
-class LandingPage extends ResponsiveStyleComponent {
+class LandingPage extends Component {
   componentDidMount() {
     this.props.requestLandingPage(null, this.context.adapter);
   }
@@ -33,7 +34,7 @@ class LandingPage extends ResponsiveStyleComponent {
   }
 
   renderWithResponsiveStyle(style) {
-    const { store, vftgSection, heroSection, collaborateSection, aboutSection } = this.props;
+    const { store, heroSection } = this.props;
 
     return (
       <div>
@@ -49,12 +50,12 @@ class LandingPage extends ResponsiveStyleComponent {
                   <FAQSectionContainer store={ store }/>
                 </div>
                 <div className='pure-u-1-1'>
-                  <AboutSection { ...aboutSection }/>
+                  <AboutSectionContainer />
                 </div>
               </div>
               <div className={ style.rightColumnClassName }>
                 <div className='pure-u-1-1'>
-                  <VFTGSection { ...vftgSection }/>
+                  <VFTGSectionContainer/>
                 </div>
                 <div className='pure-u-1-1'>
                   <TwitterSection/>
@@ -62,13 +63,22 @@ class LandingPage extends ResponsiveStyleComponent {
               </div>
               <div style={ divideLineStyle }/>
               <div className='pure-u-1-1'>
-                <CollaborateSection { ...collaborateSection }/>
+                <CollaborateSectionContainer/>
               </div>
             </div>
           </ResponsiveFixedWidthComponent>
         </div>
         <Footer/>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }
@@ -84,4 +94,4 @@ LandingPage.contextTypes = {
   adapter: PropTypes.func
 };
 
-export default ConfiguredRadium(LandingPage);
+export default PropsRerender(ConfiguredRadium(LandingPage));

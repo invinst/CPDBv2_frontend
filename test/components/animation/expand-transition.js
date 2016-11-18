@@ -45,7 +45,7 @@ describe('ExpandTransition component', function () {
       rootEl, () => {
         rootEl.children.length.should.equal(1);
         setTimeout(() => {
-          rootEl.children[0].nodeName.should.equal('NOSCRIPT');
+          rootEl.children.length.should.equal(0);
           callback();
         }, 300);
       });

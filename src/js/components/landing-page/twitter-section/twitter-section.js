@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { contentStyle, wrapperStyle } from './twitter-section.style';
@@ -6,9 +6,10 @@ import TwitterEmbeddedTimeline from './twitter-embedded-timeline';
 import ResponsiveStyleComponent, {
   TABLET, DESKTOP, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
+import NoRerender from 'components/common/higher-order/no-rerender';
 
 
-class TwitterSection extends ResponsiveStyleComponent {
+class TwitterSection extends Component {
   responsiveStyle() {
     return {
       [TABLET]: {
@@ -32,6 +33,15 @@ class TwitterSection extends ResponsiveStyleComponent {
       </div>
     );
   }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
+    );
+  }
 }
 
-export default ConfiguredRadium(TwitterSection);
+export default NoRerender(ConfiguredRadium(TwitterSection));

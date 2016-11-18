@@ -33,11 +33,11 @@ export default class CheckmarkSpinnerButton extends Component {
   }
 
   render() {
-    const { state, style } = this.props;
+    const { state, style, disabled } = this.props;
     return (
       <button onClick={ this.handleClick }
         style={ { ...subscribeBtnStyle, ...style } }
-        disabled={ state !== FORM_INITIAL }>
+        disabled={ disabled || state !== FORM_INITIAL }>
         <FadeTransition>
           { this.renderContent() }
         </FadeTransition>
@@ -50,5 +50,6 @@ CheckmarkSpinnerButton.propTypes = {
   onClick: PropTypes.func,
   state: PropTypes.string,
   style: PropTypes.object,
-  children: PropTypes.node
+  children: PropTypes.node,
+  disabled: PropTypes.bool
 };

@@ -4,7 +4,6 @@ import { softBlackColor, sanFranciscoTextFamily, silverSandColor } from 'utils/s
 export const headerStyle = {
   base: {
     marginBottom: '50px',
-    backgroundColor: 'white',
     height: '26px',
     lineHeight: '26px',
     fontFamily: sanFranciscoTextFamily,
@@ -12,7 +11,8 @@ export const headerStyle = {
     borderLeft: `8px solid ${silverSandColor}`,
     color: softBlackColor,
     letterSpacing: '-0.2px',
-    paddingLeft: '8px'
+    paddingLeft: '8px',
+    position: 'relative'
   },
   extraWide: {
     fontSize: '14px'
@@ -35,27 +35,23 @@ export const linkStyle = {
   fontWeight: 100
 };
 
-export const alignLeftStyle = {
-  display: 'inline-block',
-  width: '50%',
-  textAlign: 'left'
-};
-
 export const alignRightStyle = {
   display: 'inline-block',
-  width: '50%',
+  width: '130px',
   textAlign: 'right'
 };
 
 export const wrapperStyle = {
-  margin: '16px',
+  padding: '30px 16px 32px',
   boxSizing: 'border-box',
-  backgroundColor: 'white',
-  borderBottom: `1px solid ${softBlackColor}`,
-  paddingBottom: '16px'
+  borderBottom: `1px solid ${softBlackColor}`
 };
 
 export const contentStyle = {
-  backgroundColor: 'white',
-  paddingBottom: '16px'
+
+};
+
+export const editBoxStyle = {
+  width: 'calc(100% - 130px)',
+  display: 'inline-block'
 };

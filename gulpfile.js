@@ -15,7 +15,9 @@ const rename = require('gulp-rename');
 const buildHTML = (varBlock, destination) => () => {
   gulp.src('index.html')
     .pipe(htmlreplace({
-      css: ['/dist/css/grid.css', '/dist/css/font.css', '/dist/css/base.css'],
+      css: [
+        '/dist/css/grid.css', '/dist/css/font.css', '/dist/css/base.css',
+        '/dist/css/react-datepicker.css', '/dist/css/draft.css'],
       var: varBlock
     }))
     .pipe(gulp.dest(destination));
@@ -32,7 +34,7 @@ const buildJs = (output) => (() => {
     'NODE_ENV': 'production'
   });
   const b = browserify({
-    entries: 'src/js/index.js',
+    entries: 'src/js/index.prod.js',
     transform: [
       babelify.configure({ presets: ['es2015', 'react'] })
     ]
@@ -50,13 +52,13 @@ const buildJs = (output) => (() => {
 
 const ROOT = '/www/static/';
 
-let globalVariableBlock;
+let globalVariableBlock = '<script type="text/javascript">'
+  + 'var GA_TRACKING_ID = "UA-63671047-3";'
+  + '</script>';
 if (process.env.NODE_ENV === 'production') {
   globalVariableBlock = '<script type="text/javascript">'
     + 'var GA_TRACKING_ID = "UA-63671047-2";'
     + '</script>';
-} else if (process.env.NODE_ENV === 'staging') {
-  globalVariableBlock = '';
 }
 
 gulp.task('build-html', buildHTML(globalVariableBlock, `${ROOT}templates/`));
@@ -66,7 +68,8 @@ gulp.task('copy-static', copyStatic(`${ROOT}dist/`));
 gulp.task('build', ['build-html', 'build-js', 'copy-static']);
 
 const liveTestDir = 'live-test-build';
-const testBlock = '<script type="text/javascript">LIVE_TEST=true;</script>';
+const testBlock = '<script type="text/javascript">' +
+  'var LIVE_TEST=true; var GA_TRACKING_ID = "UA-XXXXX-Y";</script>';
 
 gulp.task('build-html-live-test', buildHTML(testBlock, liveTestDir));
 gulp.task('build-js-live-test', buildJs(`${liveTestDir}/dist/`));

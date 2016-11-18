@@ -1,7 +1,7 @@
 export const extraWideStyle = {
-  height: '496px'
+  height: '240px'
 };
 
 export const desktopStyle = {
-  height: '440.5px'
+  height: '240px'
 };

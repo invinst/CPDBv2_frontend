@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes, Component } from 'react';
 import { assign } from 'lodash';
 
 import ResponsiveComponent from 'components/responsive/responsive-component';
@@ -12,17 +12,10 @@ const _responsiveStyle = {
   [MOBILE]: TABLET
 };
 
-export default class ResponsiveStyleComponent extends ResponsiveComponent {
-  renderWithResponsiveStyle(style) {
-    return <div/>;
-  }
-
-  responsiveStyle() {
-    return {};
-  }
-
+export default class ResponsiveStyleComponent extends Component {
   extractStyle(key) {
-    let styleMap = assign({}, _responsiveStyle, this.responsiveStyle());
+    const { responsiveStyle } = this.props;
+    let styleMap = assign({}, _responsiveStyle, responsiveStyle);
     let style = styleMap[key];
     if (typeof style === 'string') {
       style = styleMap[style];
@@ -35,20 +28,42 @@ export default class ResponsiveStyleComponent extends ResponsiveComponent {
   }
 
   renderExtraWide() {
-    return this.renderWithResponsiveStyle(this.extractStyle(EXTRA_WIDE));
+    const { children } = this.props;
+    return children(this.extractStyle(EXTRA_WIDE));
   }
 
   renderDesktop() {
-    return this.renderWithResponsiveStyle(this.extractStyle(DESKTOP));
+    const { children } = this.props;
+    return children(this.extractStyle(DESKTOP));
   }
 
   renderTablet() {
-    return this.renderWithResponsiveStyle(this.extractStyle(TABLET));
+    const { children } = this.props;
+    return children(this.extractStyle(TABLET));
   }
 
   renderMobile() {
-    return this.renderWithResponsiveStyle(this.extractStyle(MOBILE));
+    const { children } = this.props;
+    return children(this.extractStyle(MOBILE));
+  }
+
+  render() {
+    const { style } = this.props;
+    return (
+      <ResponsiveComponent
+        mobileChildren={ this.renderMobile() }
+        tabletChildren={ this.renderTablet() }
+        desktopChildren={ this.renderDesktop() }
+        extraWideChildren={ this.renderExtraWide() }
+        style={ style }/>
+    );
   }
 }
+
+ResponsiveStyleComponent.propTypes = {
+  style: PropTypes.object,
+  children: PropTypes.func,
+  responsiveStyle: PropTypes.object
+};
 
 export { MOBILE, TABLET, DESKTOP, EXTRA_WIDE };

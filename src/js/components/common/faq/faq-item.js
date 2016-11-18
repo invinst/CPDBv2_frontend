@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
@@ -7,21 +7,7 @@ import ConfiguredRadium from 'utils/configured-radium';
 import { faqItemStyle, faqItemTitleStyle } from './faq-item.style';
 
 
-class FAQItem extends ResponsiveStyleComponent {
-  responsiveStyle() {
-    return {
-      [EXTRA_WIDE]: {
-        faqItemTitle: [faqItemTitleStyle.base, faqItemTitleStyle.extraWide]
-      },
-      [DESKTOP]: {
-        faqItemTitle: faqItemTitleStyle.base
-      },
-      [TABLET]: {
-        faqItemTitle: [faqItemTitleStyle.base, faqItemTitleStyle.tablet]
-      }
-    };
-  }
-
+class FAQItem extends Component {
   renderWithResponsiveStyle(style) {
     const { faq, onClick, wrapperStyle } = this.props;
 
@@ -30,10 +16,29 @@ class FAQItem extends ResponsiveStyleComponent {
         <div
           className='faq-title link--transition'
           style={ style.faqItemTitle }
-          onClick={ () => { onClick(faq); } }>
-          { faq.title }
+          onClick={ () => { onClick(faq.id); } }>
+          { faq.question }
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ {
+          [EXTRA_WIDE]: {
+            faqItemTitle: [faqItemTitleStyle.base, faqItemTitleStyle.extraWide]
+          },
+          [DESKTOP]: {
+            faqItemTitle: faqItemTitleStyle.base
+          },
+          [TABLET]: {
+            faqItemTitle: [faqItemTitleStyle.base, faqItemTitleStyle.tablet]
+          }
+        } }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }
@@ -41,8 +46,7 @@ class FAQItem extends ResponsiveStyleComponent {
 FAQItem.propTypes = {
   faq: PropTypes.shape({
     id: PropTypes.number,
-    title: PropTypes.string,
-    body: PropTypes.array
+    question: PropTypes.string
   }),
   onClick: PropTypes.func,
   wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])

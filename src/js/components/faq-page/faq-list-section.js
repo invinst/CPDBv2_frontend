@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import FAQListItem from './faq-list-item';
-import { wrapperStyle } from './faq-list-section.style';
+import { wrapperStyle, addFaqButtonStyle } from './faq-list-section.style';
 
 
 export default class FAQListSection extends Component {
@@ -10,16 +10,41 @@ export default class FAQListSection extends Component {
     this.state = {
       expandedId: null
     };
+    this.renderAddFaqButton = this.renderAddFaqButton.bind(this);
   }
 
   handleClick(faqId) {
+    const { editModeOn } = this.context;
     const { expandedId } = this.state;
-    const nextId = faqId === expandedId ? null : faqId;
-    if (nextId !== expandedId) {
-      this.setState({
-        expandedId: nextId
-      });
+    const { openBottomSheetWithFAQ } = this.props;
+
+    if (editModeOn) {
+      openBottomSheetWithFAQ(faqId);
+    } else {
+      const nextId = faqId === expandedId ? null : faqId;
+      if (nextId !== expandedId) {
+        this.setState({
+          expandedId: nextId
+        });
+      }
     }
+  }/**/
+
+  renderAddFaqButton() {
+    const { editModeOn } = this.context;
+
+    if (!editModeOn) {
+      return null;
+    }
+
+    return (
+      <div
+        className='add-faq-btn'
+        onClick={ this.props.openBottomSheetToCreateFAQ }
+        style={ addFaqButtonStyle }>
+        [+]
+      </div>
+    );
   }
 
   render() {
@@ -27,6 +52,7 @@ export default class FAQListSection extends Component {
 
     return (
       <div style={ wrapperStyle }>
+        { this.renderAddFaqButton() }
         {
           this.props.faqs.map(faq => {
             return (
@@ -41,5 +67,11 @@ export default class FAQListSection extends Component {
 }
 
 FAQListSection.propTypes = {
-  faqs: PropTypes.array.isRequired
+  faqs: PropTypes.array.isRequired,
+  openBottomSheetWithFAQ: PropTypes.func,
+  openBottomSheetToCreateFAQ: PropTypes.func
+};
+
+FAQListSection.contextTypes = {
+  editModeOn: PropTypes.bool
 };

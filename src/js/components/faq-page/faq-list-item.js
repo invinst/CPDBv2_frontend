@@ -46,8 +46,8 @@ class FAQListItem extends Component {
 FAQListItem.propTypes = {
   faq: PropTypes.shape({
     id: PropTypes.number,
-    title: PropTypes.string,
-    body: PropTypes.array
+    question: PropTypes.string,
+    answer: PropTypes.array
   }),
   handleClick: PropTypes.func.isRequired,
   expandedId: PropTypes.number

@@ -1,9 +1,9 @@
-import { whiteTwoColor, warmGreyColor, sanFranciscoTextFamily, eggPlantColor } from 'utils/styles';
+import { whiteTwoColor, mediumGrayColor, sanFranciscoTextFamily, eggPlantColor } from 'utils/styles';
 
 
 export const groupHeaderStyle = {
-  borderLeft: `8px solid ${warmGreyColor}`,
-  color: warmGreyColor,
+  borderLeft: `8px solid ${mediumGrayColor}`,
+  color: mediumGrayColor,
   marginBottom: '26px',
   paddingLeft: '8px',
   fontSize: '14px',

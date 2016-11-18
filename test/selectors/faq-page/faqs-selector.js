@@ -1,6 +1,7 @@
-import { faqsSelector, dataAvailableSelector, paginationSelector } from 'selectors/faq-page/faqs-selector';
+import {
+  faqsSelector, dataAvailableSelector
+} from 'selectors/faq-page/faqs-selector';
 import FAQFactory from 'utils/test/factories/faq';
-import PaginationFactory from 'utils/test/factories/pagination';
 
 
 describe('faqs selectors', function () {
@@ -14,51 +15,38 @@ describe('faqs selectors', function () {
 
   describe('faqsSelector', function () {
     it('should return available faqs', function () {
-      const faq = FAQFactory.build();
-      state.faqPage = {
-        faqs: PaginationFactory.build({ results: [faq] })
-      };
+      const question = 'question';
+      const answer = 'answer';
+      const faq = FAQFactory.build({}, { question, answer });
+      state.faqs = [faq];
 
-      faqsSelector(state).should.eql([faq]);
+      faqsSelector(state).should.eql([{
+        id: faq.id,
+        answer: [answer],
+        question
+      }]);
     });
   });
 
   describe('dataAvailableSelector', function () {
     it('should return false when isRequesting', function () {
       state.faqPage = {
-        faqs: PaginationFactory.build({ results: FAQFactory.buildList(3) }),
         isRequesting: true
       };
       dataAvailableSelector(state).should.be.false();
     });
 
-    it('should return true if has more than 2 faqs and requesting is false', function () {
+    it('should return true if has faqs and requesting is false', function () {
+      state.faqs = [1];
       state.faqPage = {
-        isRequesting: false,
-        faqs: PaginationFactory.build({ results: FAQFactory.buildList(3) })
+        isRequesting: false
       };
       dataAvailableSelector(state).should.be.true();
     });
 
-    it('should return false when stories has less than 3 faqs', function () {
-      state.faqPage = {
-        faqs: PaginationFactory.build({ results: FAQFactory.buildList(2) })
-      };
+    it('should return false when there are no faqs', function () {
+      state.faqs = [];
       dataAvailableSelector(state).should.be.false();
-    });
-  });
-
-  describe('paginationSelector', function () {
-    it('should return count, next and previous', function () {
-      const next = 'next';
-      const previous = 'previous';
-      const count = 'count';
-
-      state.faqPage = {
-        faqs: { next, previous, count }
-      };
-
-      paginationSelector(state).should.eql({ next, previous, count });
     });
   });
 });

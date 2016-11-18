@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { buildPlainTextField } from 'utils/draft';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { faqFormFontStyle, faqFormStyle, inputGroupStyle, responsiveTitleInput } from './faq-form.style';
@@ -7,7 +8,7 @@ import ResponsiveStyleComponent, {
 } from 'components/responsive/responsive-style-component';
 
 
-class FAQForm extends ResponsiveStyleComponent {
+class FAQForm extends Component {
   constructor(props) {
     super(props);
     this.state = { disabled: true };
@@ -50,7 +51,7 @@ class FAQForm extends ResponsiveStyleComponent {
     event.preventDefault();
 
     const data = {
-      title: event.target.title.value
+      fields: [buildPlainTextField('question', event.target.title.value)]
     };
 
     const { target } = event;
@@ -81,6 +82,15 @@ class FAQForm extends ResponsiveStyleComponent {
           </form>
         </div>
       </div>
+    );
+  }
+
+  render() {
+    return (
+      <ResponsiveStyleComponent
+        responsiveStyle={ this.responsiveStyle() }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
 }

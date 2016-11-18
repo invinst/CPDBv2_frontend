@@ -1,22 +1,26 @@
 import { createSelector } from 'reselect';
+import { map, values } from 'lodash';
 
-import { getPaginationInfo } from 'selectors/common/pagination-selector';
+import { getField, plainTextValueToString, multilineTextValueToArray } from 'utils/draft';
 
 
 const getIsRequesting = state => state.faqPage.isRequesting;
+const getFAQs = state => state.faqs;
 
-const getFAQs = state => state.faqPage.faqs;
+export const faqTransform = faq => {
+  return {
+    id: faq.id,
+    question: plainTextValueToString(getField(faq.fields, 'question').value),
+    answer: multilineTextValueToArray(getField(faq.fields, 'answer').value)
+  };
+};
 
-export const faqsSelector = createSelector(getFAQs, (faqs) => {
-  return faqs.results.slice(0);
-});
-
-export const paginationSelector = createSelector(getFAQs, getPaginationInfo);
+export const faqsSelector = createSelector(getFAQs, faqs => map(faqs, faq => faqTransform(faq)));
 
 export const dataAvailableSelector = createSelector(
   getIsRequesting,
-  faqsSelector,
+  getFAQs,
   (isRequesting, faqs) => {
-    return !isRequesting && faqs.length >= 3;
+    return !isRequesting && values(faqs).length > 0;
   }
 );

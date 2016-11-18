@@ -29,7 +29,7 @@ describe('Hoverable component', function () {
   });
 
   it('should pass hovering equal true to children when hovered', function () {
-    instance = renderIntoDocument(<HoverableDummy/>);
+    instance = renderIntoDocument(<HoverableDummy onMouseOver={ () => {} } onMouseOut={ () => {} }/>);
     const span = findRenderedDOMComponentWithTag(instance, 'span');
     Simulate.mouseOver(span);
     const dummy = findRenderedComponentWithType(instance, Dummy);

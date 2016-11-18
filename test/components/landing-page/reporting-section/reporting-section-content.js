@@ -1,20 +1,26 @@
 import React from 'react';
+import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 
 import ReportingSectionContent from 'components/landing-page/reporting-section/reporting-section-content';
-import StoryFactory from 'utils/test/factories/story';
-
+import { SimpleReportFactory } from 'utils/test/factories/report';
+import Report from 'components/common/report/report';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('ReportingSectionContent component', function () {
-  const stories = StoryFactory.buildList(3);
+  let instance;
+  const reports = SimpleReportFactory.buildList(3);
 
-  it('should be renderable', function () {
-    ReportingSectionContent.should.be.renderable({ stories: stories });
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
   });
 
-  it('should trigger onStoryClick', function () {
-    ReportingSectionContent.should.triggerCallbackWhenClick(
-      'onStoryClick', 'story-title', { stories: stories }, stories[0]
+  it('should be renderable', function () {
+    const onStoryClick = () => {};
+    instance = renderIntoDocument(
+      <ReportingSectionContent reports={ reports } onStoryClick={ onStoryClick }/>
     );
+    const report = scryRenderedComponentsWithType(instance, Report)[0];
+    report.props.onClick.should.eql(onStoryClick);
   });
 });
