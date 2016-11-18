@@ -6,7 +6,7 @@ import {
 
 
 export default handleActions({
-  [SUGGESTION_REQUEST_START]: (state, action) => (true),
-  [SUGGESTION_REQUEST_SUCCESS]: (state, action) => (false),
-  [SUGGESTION_REQUEST_FAILURE]: (state, action) => (false)
-}, false);
+  [SUGGESTION_REQUEST_START]: (state, action) => ({}),
+  [SUGGESTION_REQUEST_SUCCESS]: (state, action) => action.payload,
+  [SUGGESTION_REQUEST_FAILURE]: (state, action) => ({})
+}, {});
