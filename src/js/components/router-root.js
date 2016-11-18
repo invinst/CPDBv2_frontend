@@ -27,8 +27,6 @@ export default class RouterRoot extends Component {
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Collaborate' }) }/>,
       <Route path={ FAQ_PATH } component={ FAQPage } key='4'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }/>,
-      <Route path={ SEARCH_PATH } component={ AutoCompleteContainer } key='5'
-        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Search' }) }/>
     ];
     return (
       <Provider store={ store }>
