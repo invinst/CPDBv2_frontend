@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
-import suggestions from './suggestions';
+import suggestionGroups from './suggestion-groups';
 import isRequesting from './is-requesting';
 
 
 const suggestionApp = combineReducers({
-  suggestions,
+  suggestionGroups,
   isRequesting
 });
 
