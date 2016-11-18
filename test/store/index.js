@@ -55,7 +55,7 @@ describe('store', function () {
         },
         suggestionApp: {
           isRequesting: false,
-          suggestions: []
+          suggestionGroups: {}
         }
       },
       faqPage: {

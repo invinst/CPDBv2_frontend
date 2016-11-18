@@ -1,31 +1,29 @@
 import {
   SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
-} from 'actions/landing-page/suggestion-action';
-import suggestionAppIsRequesting from 'reducers/landing-page/suggestion-app/is-requesting';
+} from 'actions/landing-page/suggestion';
+import isRequesting from 'reducers/landing-page/suggestion-app/is-requesting';
 
 
-describe('suggestionAppIsRequesting reducer', function () {
-  it('should return initial state', function () {
-    suggestionAppIsRequesting(undefined, {}).should.be.false();
+describe('suggestionApp.isRequesting reducer', function () {
+  it('should have initial state', function () {
+    isRequesting(undefined, {}).should.be.false();
   });
 
-  it('should handle LANDING_PAGE_REQUEST_START', function () {
-    suggestionAppIsRequesting(undefined, {
+  it('should handle SUGGESTION_REQUEST_START', function () {
+    isRequesting(undefined, {
       type: SUGGESTION_REQUEST_START
     }).should.be.true();
   });
 
-  it('should handle LANDING_PAGE_REQUEST_SUCCESS', function () {
-    suggestionAppIsRequesting(true, {
-      type: SUGGESTION_REQUEST_SUCCESS,
-      payload: [1, 2, 3]
+  it('should handle SUGGESTION_REQUEST_SUCCESS', function () {
+    isRequesting(undefined, {
+      type: SUGGESTION_REQUEST_SUCCESS
     }).should.be.false();
   });
 
-  it('should handle LANDING_PAGE_REQUEST_FAILURE', function () {
-    suggestionAppIsRequesting(true, {
-      type: SUGGESTION_REQUEST_FAILURE,
-      payload: new Error('Load failed')
+  it('should handle SUGGESTION_REQUEST_FAILURE', function () {
+    isRequesting(undefined, {
+      type: SUGGESTION_REQUEST_FAILURE
     }).should.be.false();
   });
 });
