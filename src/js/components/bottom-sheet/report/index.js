@@ -2,12 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
 import {
-  leftBarStyle, rightBarStyle, wrapperStyle, infoRowStyle, labelStyle, infoRowsStyle,
+  leftBarStyle, rightBarStyle, wrapperStyle, infoRowStyle, labelStyle, infoRowsStyle, extraPaddingStyle,
   headerTitleStyle, excerptStyle, contentWrapperStyle, oneColumnStyle, articleLinkWrapperStyle
 } from './report.style';
 import EditableSection from 'components/inline-editable/editable-section';
-import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
-import MultilineTextEditable from 'components/inline-editable/editable-section/multiline-text-editable';
 import StringInput from './string-input';
 import DatePickerInput from './date-picker-input';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
@@ -42,17 +40,17 @@ export class Report extends Component {
   }
 
   renderTwoColumns(style) {
-    const { fieldProps } = this.props;
+    const { fieldProps, sectionEditModeOn } = this.props;
     return (
       <div>
-        <div style={ style.leftBar }>
+        <div style={ { ...style.leftBar, ...(sectionEditModeOn ? extraPaddingStyle : {}) } }>
           <div style={ style.headerTitle }>
-            <PlainTextEditable { ...fieldProps['title'] } placeholder='Title'/>
+            <RichTextEditable { ...fieldProps['title'] } placeholder='Title'/>
           </div>
           { this.renderInfoRows(style) }
         </div>
-        <div style={ style.rightBar }>
-          <MultilineTextEditable
+        <div style={ { ...style.rightBar, ...(sectionEditModeOn ? extraPaddingStyle : {}) } }>
+          <RichTextEditable
             style={ excerptStyle }
             placeholder='Excerpt'
             { ...fieldProps['excerpt'] }/>
@@ -67,14 +65,14 @@ export class Report extends Component {
   }
 
   renderOneColumn() {
-    const { fieldProps } = this.props;
+    const { fieldProps, sectionEditModeOn } = this.props;
     return (
-      <div style={ oneColumnStyle }>
+      <div style={ { ...oneColumnStyle, ...(sectionEditModeOn ? extraPaddingStyle : {}) } }>
         <div style={ headerTitleStyle[TABLET] }>
-          <PlainTextEditable { ...fieldProps['title'] } placeholder='Title'/>
+          <RichTextEditable { ...fieldProps['title'] } placeholder='Title'/>
         </div>
         { this.renderInfoRows({ label: labelStyle[TABLET] }) }
-        <MultilineTextEditable
+        <RichTextEditable
           style={ excerptStyle }
           placeholder='Excerpt'
           { ...fieldProps['excerpt'] }/>
@@ -122,6 +120,7 @@ Report.propTypes = {
   className: PropTypes.string,
   fieldProps: PropTypes.object,
   editToggleProps: PropTypes.object,
+  sectionEditModeOn: PropTypes.bool,
   closeBottomSheet: PropTypes.func
 };
 
