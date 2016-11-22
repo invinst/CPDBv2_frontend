@@ -7,5 +7,5 @@ export default url => {
   }
 
   const searchString = url.split('?')[1];
-  return parse(searchString).search;
+  return { ...parse(searchString) };
 };

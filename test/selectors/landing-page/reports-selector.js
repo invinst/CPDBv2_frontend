@@ -47,17 +47,17 @@ describe('landingPageReports', function () {
   describe('dataAvailableSelector', function () {
     it('should return false when isRequesting', function () {
       state.landingPage.reportSection = {
-        reports: [1, 2, 3],
-        isRequesting: true
+        reports: [1, 2, 3]
       };
+      state.landingPage.isRequesting = true;
       dataAvailableSelector(state).should.be.false();
     });
 
     it('should return true if has reports and requesting is false', function () {
       state.landingPage.reportSection = {
-        isRequesting: false,
         reports: [1, 2, 3]
       };
+      state.landingPage.isRequesting = false;
       dataAvailableSelector(state).should.be.true();
     });
 

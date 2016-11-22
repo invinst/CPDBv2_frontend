@@ -9,6 +9,7 @@ export const wrapperStyle = ({ active, hovering }) => ({
   width: '50px',
   height: '50px',
   padding: '18px 15px',
+  fontSize: '16px',
   backgroundColor: active ?
     hovering ? deepBlueColor : accentColor :
     hovering ? lavenderColor : 'white'

@@ -7,8 +7,7 @@ import {
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
-import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
-import MultilineTextEditable from 'components/inline-editable/editable-section/multiline-text-editable';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import EditableSection from 'components/inline-editable/editable-section';
 
@@ -43,12 +42,12 @@ class CollaborateSection extends Component {
       <div style={ wrapperStyle }>
         <div style={ style.header }>
           <div style={ editBoxStyle }>
-            <PlainTextEditable { ...fieldProps['collaborate_header'] }/>
+            <RichTextEditable { ...fieldProps['collaborate_header'] }/>
           </div>
           <EditToggle { ...editToggleProps }/>
         </div>
         <div style={ contentStyle }>
-          <MultilineTextEditable { ...fieldProps['collaborate_content'] } style={ {
+          <RichTextEditable { ...fieldProps['collaborate_content'] } style={ {
             wrapper: style.wrapper,
             paragraph: style.paragraph
           } }/>

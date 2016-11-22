@@ -10,7 +10,7 @@ import {
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 import SubscribeForm from 'containers/landing-page/vftg-section/subscribe-form-container';
-import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import LinkPicker from 'components/inline-editable/link-picker';
 import EditableSection from 'components/inline-editable/editable-section';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
@@ -58,7 +58,7 @@ export class VFTGSection extends Component {
               <EditToggle { ...editToggleProps } style={ editWrapperLinkStyle }/>
             </div>
             <div style={ style.textStyle }>
-              <PlainTextEditable { ...fieldProps['vftg_content'] }
+              <RichTextEditable { ...fieldProps['vftg_content'] }
                 presenterElement={
                   <a className='link--transition' style={ textHoverStyle }
                     href={ link } key={ style.screen }/>

@@ -29,7 +29,7 @@ export default class ReportsMasonry extends Component {
         <div style={ wrapperStyle }>
           <MasonryInfiniteScroller
             hasMore={ hasMore }
-            loadMore={ loadMore.bind(null, nextParams) }
+            loadMore={ () => loadMore(nextParams) }
             sizes={ masonrySizes }>
             {
               addButtonArray.concat(

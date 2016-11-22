@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import PaginationFactory from 'utils/test/factories/pagination';
 import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
-import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 class EditContextWrapper extends ContextWrapper {}
@@ -60,7 +60,7 @@ describe('FAQSection component', function () {
     toggle.props.a.should.eql('a');
     const strategyForm = findRenderedComponentWithType(instance, StrategyForm);
     strategyForm.props.c.should.eql('c');
-    const header = findRenderedComponentWithType(instance, PlainTextEditable);
+    const header = findRenderedComponentWithType(instance, RichTextEditable);
     header.props.b.should.eql('b');
   });
 });

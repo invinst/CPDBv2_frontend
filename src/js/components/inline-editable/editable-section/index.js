@@ -18,6 +18,12 @@ export default function (SubComponent) {
       this.fieldProps = this.fieldProps.bind(this);
     }
 
+    getChildContext() {
+      return {
+        sectionEditModeOn: this.props.sectionEditModeOn
+      };
+    }
+
     componentWillReceiveProps(nextProps) {
       this.setState({
         fields: mapValues(nextProps.fields, this.deserializeField)
@@ -116,6 +122,10 @@ export default function (SubComponent) {
     sectionEditModeOn: PropTypes.bool,
     turnOnSectionEditMode: PropTypes.func,
     turnOffSectionEditMode: PropTypes.func
+  };
+
+  EditableSection.childContextTypes = {
+    sectionEditModeOn: PropTypes.bool
   };
 
   return EditableSection;
