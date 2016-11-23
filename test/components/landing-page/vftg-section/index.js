@@ -8,7 +8,7 @@ import MockStore from 'redux-mock-store';
 import { unmountComponentSuppressError } from 'utils/test';
 import { VFTGSection } from 'components/landing-page/vftg-section';
 import DatePicker from 'components/inline-editable/date-picker';
-import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import LinkPicker from 'components/inline-editable/link-picker';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import SubscribeForm from 'containers/landing-page/vftg-section/subscribe-form-container';
@@ -41,7 +41,7 @@ describe('VFTGSection component', function () {
     );
     const datePickerElement = findRenderedComponentWithType(instance, DatePicker);
     datePickerElement.props.a.should.eql('a');
-    const plainTextElement = findRenderedComponentWithType(instance, PlainTextEditable);
+    const plainTextElement = findRenderedComponentWithType(instance, RichTextEditable);
     plainTextElement.props.b.should.eql('b');
     const linkPickerElement = findRenderedComponentWithType(instance, LinkPicker);
     linkPickerElement.props.c.should.eql('c');

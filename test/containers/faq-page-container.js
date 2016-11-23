@@ -5,7 +5,6 @@ import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-
 import { unmountComponentSuppressError } from 'utils/test';
 import { UnconnectedFAQPageContainer } from 'containers/faq-page-container';
 import FAQListSection from 'components/faq-page/faq-list-section';
-import FAQListSectionPlaceHolder from 'components/faq-page/faq-list-section-placeholder';
 import FAQFactory from 'utils/test/factories/faq';
 
 
@@ -19,24 +18,16 @@ describe('UnconnectedFAQPageContainer', function () {
   it('should render FAQListSection when data is available', function () {
     instance = renderIntoDocument(
       <UnconnectedFAQPageContainer
-        requestFAQs={ () => {} } askQuestion={ () => {} } faqs={ FAQFactory.buildList(3) } dataAvailable={ true }/>
+        requestFAQs={ () => {} } askQuestion={ () => {} } faqs={ FAQFactory.buildList(3) }/>
     );
     findRenderedComponentWithType(instance, FAQListSection);
-  });
-
-  it('should render FAQListSectionPlaceHolder when data is not available', function () {
-    instance = renderIntoDocument(
-      <UnconnectedFAQPageContainer
-        requestFAQs={ () => {} } askQuestion={ () => {} } faqs={ [] } dataAvailable={ false }/>
-    );
-    findRenderedComponentWithType(instance, FAQListSectionPlaceHolder);
   });
 
   it('should call requestFAQs when it just mount', function () {
     const callback = spy();
     instance = renderIntoDocument(
       <UnconnectedFAQPageContainer
-        requestFAQs={ callback } askQuestion={ () => {} } faqs={ [] } dataAvailable={ false }/>
+        requestFAQs={ callback } askQuestion={ () => {} } faqs={ [] }/>
     );
     callback.called.should.be.true();
   });

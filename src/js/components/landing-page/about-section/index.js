@@ -1,7 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
-import MultilineTextEditable from 'components/inline-editable/editable-section/multiline-text-editable';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import EditableSection from 'components/inline-editable/editable-section';
 import ResponsiveStyleComponent, {
@@ -11,6 +9,7 @@ import {
   paragraphStyle, contentWrapperStyle, wrapperStyle, headerStyle,
   contentStyle, editBoxStyle
 } from './about-section.style';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 class AboutSection extends Component {
@@ -38,12 +37,12 @@ class AboutSection extends Component {
       <div style={ wrapperStyle }>
         <div style={ style.header }>
           <div style={ editBoxStyle }>
-            <PlainTextEditable { ...fieldProps['about_header'] }/>
+            <RichTextEditable { ...fieldProps['about_header'] }/>
           </div>
           <EditToggle { ...editToggleProps }/>
         </div>
         <div style={ contentStyle }>
-          <MultilineTextEditable { ...fieldProps['about_content'] } style={ {
+          <RichTextEditable { ...fieldProps['about_content'] } style={ {
             wrapper: contentWrapperStyle,
             paragraph: style.paragraph
           } }/>
