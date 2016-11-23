@@ -3,10 +3,9 @@ import React, { Component, PropTypes } from 'react';
 
 import { requestFAQs, askQuestion } from 'actions/faq-page';
 import { openBottomSheetWithFAQ, openBottomSheetToCreateFAQ } from 'actions/bottom-sheet';
-import { dataAvailableSelector, faqsSelector } from 'selectors/faq-page/faqs-selector';
+import { faqsSelector } from 'selectors/faq-page/faqs-selector';
 import { getIsSubmitting } from 'selectors/faq-page/faq-form-selector';
 import FAQListSection from 'components/faq-page/faq-list-section';
-import FAQListSectionPlaceHolder from 'components/faq-page/faq-list-section-placeholder';
 
 
 export class UnconnectedFAQPageContainer extends Component {
@@ -16,30 +15,22 @@ export class UnconnectedFAQPageContainer extends Component {
 
   render() {
     const {
-      dataAvailable, faqs,
-      openBottomSheetWithFAQ, openBottomSheetToCreateFAQ
+      faqs, openBottomSheetWithFAQ, openBottomSheetToCreateFAQ
     } = this.props;
 
-    if (dataAvailable) {
-      return (
-        <div>
-          <FAQListSection
-            faqs={ faqs }
-            openBottomSheetToCreateFAQ={ openBottomSheetToCreateFAQ }
-            openBottomSheetWithFAQ={ openBottomSheetWithFAQ }/>
-        </div>
-      );
-    } else {
-      return (
-        <FAQListSectionPlaceHolder/>
-      );
-    }
+    return (
+      <div>
+        <FAQListSection
+          faqs={ faqs }
+          openBottomSheetToCreateFAQ={ openBottomSheetToCreateFAQ }
+          openBottomSheetWithFAQ={ openBottomSheetWithFAQ }/>
+      </div>
+    );
   }
 }
 
 UnconnectedFAQPageContainer.propTypes = {
   requestFAQs: PropTypes.func.isRequired,
-  dataAvailable: PropTypes.bool,
   faqs: PropTypes.array,
   store: PropTypes.object,
   openBottomSheetWithFAQ: PropTypes.func,
@@ -48,7 +39,6 @@ UnconnectedFAQPageContainer.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   return {
-    dataAvailable: dataAvailableSelector(state),
     faqs: faqsSelector(state),
     isSubmitting: getIsSubmitting(state)
   };
