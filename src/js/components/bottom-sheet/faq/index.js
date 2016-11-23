@@ -2,32 +2,31 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   leftBarStyle, rightBarStyle, answerStyle, questionStyle, answerWrapperStyle, oneColumnStyle,
-  contentWrapperStyle
+  contentWrapperStyle, extraPaddingStyle
 } from './faq.style';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import EditableSection from 'components/inline-editable/editable-section';
-import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
-import MultilineTextEditable from 'components/inline-editable/editable-section/multiline-text-editable';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 class FAQ extends Component {
   renderTwoColumns(style) {
-    const { fieldProps } = this.props;
+    const { fieldProps, sectionEditModeOn } = this.props;
     return (
       <div>
-        <div style={ style.leftBar }>
+        <div style={ { ...style.leftBar, ...(sectionEditModeOn ? extraPaddingStyle : {}) } }>
           <div style={ style.question }>
-            <PlainTextEditable
+            <RichTextEditable
               placeholder='Question'
               { ...fieldProps['question'] }/>
           </div>
         </div>
-        <div style={ style.rightBar }>
+        <div style={ { ...style.rightBar, ...(sectionEditModeOn ? extraPaddingStyle : {}) } }>
           <div style={ answerWrapperStyle }>
-            <MultilineTextEditable
+            <RichTextEditable
               style={ answerStyle }
               placeholder='Answer'
               { ...fieldProps['answer'] }/>
@@ -38,16 +37,16 @@ class FAQ extends Component {
   }
 
   renderOneColumn() {
-    const { fieldProps } = this.props;
+    const { fieldProps, sectionEditModeOn } = this.props;
     return (
-      <div style={ oneColumnStyle }>
+      <div style={ { ...oneColumnStyle, ...(sectionEditModeOn ? extraPaddingStyle : {}) } }>
         <div style={ questionStyle[TABLET] }>
-          <PlainTextEditable
+          <RichTextEditable
             placeholder='Question'
             { ...fieldProps['question'] }/>
         </div>
         <div style={ answerWrapperStyle }>
-          <MultilineTextEditable
+          <RichTextEditable
             style={ answerStyle }
             placeholder='Answer'
             { ...fieldProps['answer'] }/>
@@ -84,7 +83,8 @@ class FAQ extends Component {
 
 FAQ.propTypes = {
   fieldProps: PropTypes.object,
-  editToggleProps: PropTypes.object
+  editToggleProps: PropTypes.object,
+  sectionEditModeOn: PropTypes.bool
 };
 
 export default EditableSection(FAQ);

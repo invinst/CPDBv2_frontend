@@ -6,7 +6,6 @@ describe('faqSection reducer', function () {
     faqSection(undefined, {}).should.eql({
       fields: {},
       editModeOn: false,
-      isRequesting: false,
       faqs: []
     });
   });

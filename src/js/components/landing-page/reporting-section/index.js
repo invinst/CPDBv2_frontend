@@ -14,7 +14,7 @@ import ResponsiveStyleComponent, {
 import EditableSection from 'components/inline-editable/editable-section';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
-import PlainTextEditable from 'components/inline-editable/editable-section/plain-text-editable';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 class ReportingSection extends Component {
@@ -51,7 +51,7 @@ class ReportingSection extends Component {
     return (
       <div style={ style.header }>
         <div style={ editBoxStyle }>
-          <PlainTextEditable { ...fieldProps['reporting_header'] }/>
+          <RichTextEditable { ...fieldProps['reporting_header'] }/>
         </div>
         {
           editModeOn ?

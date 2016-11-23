@@ -2,13 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import { Entity } from 'draft-js';
 
 import MoreLink from 'components/common/more-link';
-import { linkStyle } from './link.style';
+import { linkStyle, pinkLinkStyle } from './link.style';
 
 
 class Link extends Component {
   render() {
     const { children, entityKey } = this.props;
-    const { editModeOn } = this.context;
+    const { editModeOn, sectionEditModeOn } = this.context;
     const { url } = Entity.get(entityKey).getData();
     if (!editModeOn) {
       return (
@@ -18,7 +18,7 @@ class Link extends Component {
       );
     }
     return (
-      <span style={ linkStyle }>
+      <span style={ sectionEditModeOn ? pinkLinkStyle : linkStyle }>
         { children }
       </span>
     );
@@ -31,7 +31,8 @@ Link.propTypes = {
 };
 
 Link.contextTypes = {
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
+  sectionEditModeOn: PropTypes.bool
 };
 
 export default Link;

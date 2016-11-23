@@ -6,7 +6,6 @@ describe('reportSection reducer', function () {
     reportSection(undefined, {}).should.eql({
       fields: {},
       editModeOn: false,
-      isRequesting: false,
       reports: []
     });
   });

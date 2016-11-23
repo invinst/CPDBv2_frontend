@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 
 import {
   SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
-} from 'actions/landing-page/suggestion-action';
+} from 'actions/landing-page/suggestion';
 
 
 export default handleActions({

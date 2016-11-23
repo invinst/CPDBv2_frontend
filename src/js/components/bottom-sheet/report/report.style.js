@@ -24,7 +24,9 @@ export const leftBarStyle = {
 const _rightBarStyle = () => ({
   display: 'inline-block',
   boxSizing: 'border-box',
-  padding: '77px 32px 0',
+  paddingTop: '77px',
+  paddingRight: '32px',
+  paddingLeft: '32px',
   width: '704px',
   verticalAlign: 'top',
   borderLeft: `1px solid ${pinkishGreyColor}`,
@@ -121,6 +123,12 @@ export const articleLinkWrapperStyle = {
 };
 
 export const oneColumnStyle = {
-  padding: '74px 32px 0 32px',
+  paddingTop: '74px',
+  paddingRight: '32px',
+  paddingLeft: '32px',
   boxSizing: 'border-box'
+};
+
+export const extraPaddingStyle = {
+  paddingTop: '124px'
 };

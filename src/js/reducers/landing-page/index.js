@@ -7,6 +7,7 @@ import heroSection from './hero-section';
 import vftgSection from './vftg-section';
 import aboutSection from './about-section';
 import collaborateSection from './collaborate-section';
+import isRequesting from './is-requesting';
 
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   heroSection,
   vftgSection,
   aboutSection,
-  collaborateSection
+  collaborateSection,
+  isRequesting
 });
