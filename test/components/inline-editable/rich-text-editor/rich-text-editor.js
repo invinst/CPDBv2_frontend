@@ -1,5 +1,5 @@
 import React from 'react';
-import { findDOMNode } from 'react-dom';
+import { findDOMNode, render } from 'react-dom';
 import { Editor, SelectionState, EditorState } from 'draft-js';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 import { spy } from 'sinon';
@@ -33,6 +33,18 @@ describe('RichTextEditor component', function () {
     editor.props.readOnly.should.be.false();
     editor.props.editorState.should.eql(editorState);
     editor.props.placeholder.should.eql('abc');
+  });
+
+  it('should not show toolbar when become readOnly', function () {
+    const editorState = convertContentStateToEditorState(
+      RawContentStateFactory.build({}, { blockTexts: ['a'] })
+    );
+    const rootEl = document.createElement('DIV');
+    instance = render(<RichTextEditor editorState={ editorState }/>, rootEl);
+    instance.setState({ showToolbar: true, toolbarHovered: true });
+    render(<RichTextEditor editorState={ editorState } readOnly={ true }/>, rootEl);
+    instance.state.showToolbar.should.be.false();
+    instance.state.toolbarHovered.should.be.false();
   });
 
   it('should change toolbarHovered state', function () {

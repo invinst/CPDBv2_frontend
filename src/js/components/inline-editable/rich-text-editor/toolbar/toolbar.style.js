@@ -1,5 +1,6 @@
 export const wrapperStyle = {
   height: '50px',
+  width: '150px',
   position: 'relative'
 };
 

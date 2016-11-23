@@ -24,6 +24,15 @@ export default class RichTextEditor extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.readOnly) {
+      this.setState({
+        showToolbar: false,
+        toolbarHovered: false
+      });
+    }
+  }
+
   handleChange(editorState) {
     const { onChange } = this.props;
     let selectionState = editorState.getSelection();
