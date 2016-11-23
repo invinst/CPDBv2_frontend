@@ -102,6 +102,7 @@ describe('RichTextEditor component', function () {
 
     editor.props.onChange(editorState);
     instance.state.showToolbar.should.be.true();
+    instance.state.toolbarHovered.should.be.false();
     const toolbar = findRenderedComponentWithType(instance, Toolbar);
     const rect = findDOMNode(instance).getBoundingClientRect();
     toolbar.props.parentTop.should.eql(rect.top);
@@ -113,10 +114,11 @@ describe('RichTextEditor component', function () {
       RawContentStateFactory.build({}, { blockTexts: ['abc'] })
     );
     instance = renderIntoDocument(<RichTextEditor editorState={ editorState }/>);
-    instance.setState({ showToolbar: true });
+    instance.setState({ showToolbar: true, toolbarHovered: true });
     const editor = findRenderedComponentWithType(instance, Editor);
 
     editor.props.onChange(editorState);
     instance.state.showToolbar.should.be.false();
+    instance.state.toolbarHovered.should.be.false();
   });
 });

@@ -25,7 +25,10 @@ class Toolbar extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.editorState !== this.props.editorState) {
-      this.setState({ linkActive: false });
+      this.setState({
+        linkActive: false,
+        showUrlInput: false
+      });
     }
   }
 

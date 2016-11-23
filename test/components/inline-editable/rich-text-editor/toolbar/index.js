@@ -178,10 +178,11 @@ describe('Toolbar component', function () {
     );
     const rootEl = document.createElement('DIV');
     instance = render(<Toolbar show={ true } editorState={ editorState }/>, rootEl);
-    instance.setState({ linkActive: true });
+    instance.setState({ linkActive: true, showUrlInput: true });
     editorState = draftJs.EditorState.createEmpty();
     instance = render(<Toolbar show={ true } editorState={ editorState }/>, rootEl);
     instance.state.linkActive.should.be.false();
+    instance.state.showUrlInput.should.be.false();
   });
 
   it('should give correct position style to bubble', function () {

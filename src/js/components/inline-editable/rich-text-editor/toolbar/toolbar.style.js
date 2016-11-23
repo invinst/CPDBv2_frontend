@@ -4,6 +4,6 @@ export const wrapperStyle = {
 };
 
 export const urlInputStyle = {
-  left: '-125px',
+  left: '-25px',
   top: '-60px'
 };

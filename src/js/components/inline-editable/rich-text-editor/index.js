@@ -34,12 +34,14 @@ export default class RichTextEditor extends Component {
       const rect = this.rootEl.getBoundingClientRect();
       this.setState({
         showToolbar: true,
+        toolbarHovered: false,
         editorLeft: rect.left,
         editorTop: rect.top
       });
     } else {
       this.setState({
-        showToolbar: false
+        showToolbar: false,
+        toolbarHovered: false
       });
     }
     if (onChange) {
