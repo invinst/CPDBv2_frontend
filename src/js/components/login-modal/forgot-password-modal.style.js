@@ -36,6 +36,7 @@ export const subHeaderStyle = {
 export const emailInputWrapperStyle = {
   borderBottom: `2px solid ${greyColor}`,
   paddingBottom: '8px',
+  cursor: 'pointer',
   marginBottom: '11px'
 };
 
