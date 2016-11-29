@@ -22,6 +22,16 @@ class LoginModal extends Component {
     this.handleForgotPassword = this.handleForgotPassword.bind(this);
     this.renderContent = this.renderContent.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.focusNameInput = this.focusNameInput.bind(this);
+    this.focusPasswordInput = this.focusPasswordInput.bind(this);
+  }
+
+  focusNameInput() {
+    this.nameInput.focus();
+  }
+
+  focusPasswordInput() {
+    this.passwordInput.focus();
   }
 
   handleSignIn() {
@@ -59,14 +69,15 @@ class LoginModal extends Component {
     return (
       <div style={ { ...outerWrapperStyle, opacity } }>
         <div style={ innerWrapperStyle }>
-          <div style={ nameWrapperStyle }>
+          <div className='name-input-wrapper' style={ nameWrapperStyle } onClick={ this.focusNameInput }>
             <span style={ labelStyle }>Name</span>
             <input
               ref={ el => this.nameInput = el }
               onChange={ this.handleInputChange }
               style={ usernameInputStyle } />
           </div>
-          <div style={ passwordInputWrapperStyle }>
+          <div
+            className='password-input-wrapper' style={ passwordInputWrapperStyle } onClick={ this.focusPasswordInput }>
             <span style={ labelStyle }>Password</span>
             <input
               onKeyDown={ !disabled ? this.handlePasswordKeyDown : null }
@@ -112,8 +123,7 @@ LoginModal.propTypes = {
   showForgotPasswordModal: PropTypes.bool,
   loginErrorMessage: PropTypes.string,
   loginSuccessMessage: PropTypes.string,
-  forgotPasswordErrorMessage: PropTypes.string,
-  apiAccessToken: PropTypes.string
+  forgotPasswordErrorMessage: PropTypes.string
 };
 
 export default LoginModal;
