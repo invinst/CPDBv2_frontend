@@ -17,7 +17,7 @@ export const wrapperStyle = ({ active, hovering }) => ({
 
 export const iconStyle = (iconToUse) => ({
   display: 'inline-block',
-  width: '20px',
-  height: '10px',
+  width: '100%',
+  height: '100%',
   background: `url("${imgUrl(iconToUse)}") no-repeat scroll center`
 });
