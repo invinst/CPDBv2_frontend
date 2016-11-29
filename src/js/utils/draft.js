@@ -87,6 +87,10 @@ export const linkEntitySelected = (editorState) => {
   return false;
 };
 
+export const inlineStyleSelected = (editorState, type) => {
+  return !!editorState.getCurrentInlineStyle().get(type);
+};
+
 export const createLinkEntity = (editorState, data) => {
   const entityKey = Entity.create('LINK', 'MUTABLE', data);
   return RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);

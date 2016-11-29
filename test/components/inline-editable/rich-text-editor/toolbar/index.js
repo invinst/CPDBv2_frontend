@@ -27,7 +27,7 @@ describe('Toolbar component', function () {
       RawContentStateFactory.build()
     );
     instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState }/>);
-    findRenderedComponentWithType(instance, ToolbarButton);
+    scryRenderedComponentsWithType(instance, ToolbarButton).length.should.eql(3);
     findRenderedComponentWithType(instance, Bubble);
   });
 
@@ -41,22 +41,71 @@ describe('Toolbar component', function () {
       RawContentStateFactory.build()
     );
     instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState }/>);
-    let button = findRenderedComponentWithType(instance, ToolbarButton);
-    button.props.onClick();
+    let buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
+    let linkButton = buttons[2];
+    linkButton.props.onClick();
 
     // button become "active" and url input show
-    button.props.active.should.be.true();
+    linkButton.props.active.should.be.true();
     instance.state.showUrlInput.should.be.true();
     instance.state.linkActive.should.be.true();
     findRenderedComponentWithType(instance, UrlInput);
 
-    button.props.onClick();
+    linkButton.props.onClick();
 
     // button become "inactive" and url input stop showing
-    button.props.active.should.be.false();
+    linkButton.props.active.should.be.false();
     instance.state.showUrlInput.should.be.false();
     instance.state.showUrlInput.should.be.false();
     scryRenderedComponentsWithType(instance, UrlInput).length.should.eql(0);
+  });
+
+  it('should toggle text bold when click on bold button', function () {
+    let editorState = convertContentStateToEditorState(
+      RawContentStateFactory.build()
+    );
+    const onChange = spy();
+    const rootEl = document.createElement('DIV');
+    instance = render(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>, rootEl);
+    let buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
+    let boldButton = buttons[0];
+    boldButton.props.active.should.be.false();
+    boldButton.props.onClick();
+    editorState = onChange.args[0][0];
+
+    editorState.getCurrentInlineStyle().get('BOLD').should.be.eql('BOLD');
+
+    instance = render(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>, rootEl);
+    boldButton = scryRenderedComponentsWithType(instance, ToolbarButton)[0];
+    boldButton.props.active.should.be.true();
+    boldButton.props.onClick();
+    editorState = onChange.args[1][0];
+
+    should.not.exists(editorState.getCurrentInlineStyle().get('BOLD'));
+  });
+
+  it('should toggle text italic when click on italic button', function () {
+    let editorState = convertContentStateToEditorState(
+      RawContentStateFactory.build()
+    );
+    const onChange = spy();
+    const rootEl = document.createElement('DIV');
+    instance = render(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>, rootEl);
+    let buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
+    let italicButton = buttons[1];
+    italicButton.props.active.should.be.false();
+    italicButton.props.onClick();
+    editorState = onChange.args[0][0];
+
+    editorState.getCurrentInlineStyle().get('ITALIC').should.be.eql('ITALIC');
+
+    instance = render(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>, rootEl);
+    italicButton = scryRenderedComponentsWithType(instance, ToolbarButton)[1];
+    italicButton.props.active.should.be.true();
+    italicButton.props.onClick();
+    editorState = onChange.args[1][0];
+
+    should.not.exists(editorState.getCurrentInlineStyle().get('ITALIC'));
   });
 
   it('should remove link entity from selection if click on link button', function () {
@@ -71,8 +120,9 @@ describe('Toolbar component', function () {
 
     const onChange = spy();
     instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>);
-    let button = findRenderedComponentWithType(instance, ToolbarButton);
-    button.props.onClick();
+    let buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
+    let linkButton = buttons[2];
+    linkButton.props.onClick();
 
     // link entity should be removed
     editorState = onChange.args[0][0];
@@ -128,10 +178,11 @@ describe('Toolbar component', function () {
     );
     const rootEl = document.createElement('DIV');
     instance = render(<Toolbar show={ true } editorState={ editorState }/>, rootEl);
-    instance.setState({ linkActive: true });
+    instance.setState({ linkActive: true, showUrlInput: true });
     editorState = draftJs.EditorState.createEmpty();
     instance = render(<Toolbar show={ true } editorState={ editorState }/>, rootEl);
     instance.state.linkActive.should.be.false();
+    instance.state.showUrlInput.should.be.false();
   });
 
   it('should give correct position style to bubble', function () {
@@ -158,7 +209,7 @@ describe('Toolbar component', function () {
     );
     const bubble = findRenderedComponentWithType(instance, Bubble);
     bubble.props.style.top.should.eql(`${rect.top - 60}px`);
-    bubble.props.style.left.should.eql(`${rect.left + (rect.width - 50) / 2}px`);
+    bubble.props.style.left.should.eql(`${rect.left + (rect.width - 150) / 2}px`);
   });
 
   it('should not give any position style to bubble if not selecting correct element', function () {

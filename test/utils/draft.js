@@ -7,7 +7,8 @@ import {
   contentStateToTextArray, convertContentStateToEditorState, getField, multilineTextValueToArray,
   plainTextValueToString, createBlock, buildPlainTextField, createEmptyEditorState, hasSelection,
   createFieldWithEmptyEditorState, createEmptyStringField, createEmptyDateField, removeSelection,
-  getFieldOrCreateEmptyWithEditorState, linkEntitySelected, createLinkEntity, removeLinkEntity
+  getFieldOrCreateEmptyWithEditorState, linkEntitySelected, createLinkEntity, removeLinkEntity,
+  inlineStyleSelected
 } from 'utils/draft';
 import { PlainTextFieldFactory } from 'utils/test/factories/field';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
@@ -178,6 +179,19 @@ describe('Draft utils', function () {
       const contentState = draftJs.ContentState.createFromText('abc');
       let editorState = draftJs.EditorState.createWithContent(contentState);
       linkEntitySelected(editorState).should.be.false();
+    });
+  });
+
+  describe('inlineStyleSelected', function () {
+    it('should return current inline style', function () {
+      const contentState = draftJs.ContentState.createFromText('abc');
+      let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
+      selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
+      let editorState = draftJs.EditorState.createWithContent(contentState);
+      editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
+      inlineStyleSelected(editorState, 'BOLD').should.be.false();
+      editorState = draftJs.RichUtils.toggleInlineStyle(editorState, 'BOLD');
+      inlineStyleSelected(editorState, 'BOLD').should.be.true();
     });
   });
 
