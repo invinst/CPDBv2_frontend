@@ -18,6 +18,7 @@ class ForgotPasswordModal extends Component {
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.renderContent = this.renderContent.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.focusEmailInput = this.focusEmailInput.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -26,6 +27,10 @@ class ForgotPasswordModal extends Component {
         disabled: true
       });
     }
+  }
+
+  focusEmailInput() {
+    this.emailInput.focus();
   }
 
   handleResetPassword() {
@@ -54,7 +59,7 @@ class ForgotPasswordModal extends Component {
       <div style={ { ...innerWrapperStyle, opacity: opacity } }>
         <div style={ headerStyle }>Forgot your password?</div>
         <div style={ subHeaderStyle }>We’ll email you instructions on how to reset it.</div>
-        <div style={ emailInputWrapperStyle }>
+        <div className='email-input-wrapper' style={ emailInputWrapperStyle } onClick={ this.focusEmailInput }>
           <span style={ labelStyle }>Email</span>
           <input
             ref={ (el) => this.emailInput = el }

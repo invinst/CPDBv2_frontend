@@ -25,3 +25,8 @@ export const forgotPasswordLinkStyle = {
     }
   }
 };
+
+export const linkWrapperStyle = {
+  display: 'inline-block',
+  padding: '10px 0'
+};
