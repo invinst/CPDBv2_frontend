@@ -10,6 +10,7 @@ import {
 } from './header-content.style';
 import Link from 'components/common/react-router-link';
 import PropsRerender from 'components/common/higher-order/props-rerender';
+import { editMode } from 'utils/edit-path';
 
 
 export const links = [
@@ -33,21 +34,34 @@ export const links = [
 
 class HeaderContent extends React.Component {
   goToBasePath() {
-    browserHistory.push(ROOT_PATH);
+    const { editModeOn } = this.context;
+
+    let href = ROOT_PATH;
+    if (editModeOn) {
+      href = editMode(href);
+    }
+    browserHistory.push(href);
   }
 
   render() {
     const { compact, pathname } = this.props;
+    const { editModeOn } = this.context;
     return (
       <ResponsiveFixedWidthComponent>
         <div style={ compact ? navWrapperCompactStyle : navWrapperStyle }>
-          { links.map((link, ind) => (
-            <ClosableNavLink
-              key={ ind } style={ navStyle } href={ link.href } showCloseBtn={ compact && link.href === pathname }
-              onClickClose={ this.goToBasePath }>
-              { link.name }
-            </ClosableNavLink>
-          )) }
+          { links.map((link, ind) => {
+            let href = link.href;
+            if (editModeOn) {
+              href = editMode(href);
+            }
+            return (
+              <ClosableNavLink
+                key={ ind } style={ navStyle } href={ href } showCloseBtn={ compact && href === pathname }
+                onClickClose={ this.goToBasePath.bind(this) }>
+                { link.name }
+              </ClosableNavLink>
+            );
+          }) }
         </div>
         <Link to={ ROOT_PATH } style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
           <span style={ logoStyle }>CPDP</span>
@@ -60,6 +74,10 @@ class HeaderContent extends React.Component {
 HeaderContent.propTypes = {
   compact: PropTypes.bool,
   pathname: PropTypes.string
+};
+
+HeaderContent.contextTypes = {
+  editModeOn: PropTypes.bool
 };
 
 export default PropsRerender(HeaderContent);
