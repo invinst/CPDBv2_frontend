@@ -7,26 +7,37 @@ const uglify = require('gulp-uglify');
 const buffer = require('vinyl-buffer');
 const source = require('vinyl-source-stream');
 const gutil = require('gulp-util');
+const rev = require('gulp-rev');
+const revReplace = require('gulp-rev-replace');
+const concatCss = require('gulp-concat-css');
 const htmlreplace = require('gulp-html-replace');
 const babelify = require('babelify');
 const rename = require('gulp-rename');
 
 
-const buildHTML = (varBlock, destination) => () => {
+const buildHTML = (varBlock, destination, revFilePath) => () => {
   gulp.src('index.html')
     .pipe(htmlreplace({
-      css: [
-        '/dist/css/grid.css', '/dist/css/font.css', '/dist/css/base.css',
-        '/dist/css/react-datepicker.css', '/dist/css/draft.css'],
+      css: ['/dist/bundle.css'],
       var: varBlock
     }))
+    .pipe(revReplace({ manifest: gulp.src(revFilePath) }))
     .pipe(gulp.dest(destination));
 };
 
 const copyStatic = (destination) => () => {
-  gulp.src(['src/**/*', '!src/js', '!src/js/**'])
+  gulp.src(['src/**/*', '!src/js', '!src/js/**', '!src/css', '!src/css/**'])
     .pipe(gulp.dest(destination));
 };
+
+const buildCss = (output) => (() => {
+  return gulp.src('src/css/**/*.css')
+    .pipe(concatCss('bundle.css'))
+    .pipe(rev())
+    .pipe(gulp.dest(output))
+    .pipe(rev.manifest('rev-css-manifest.json'))
+    .pipe(gulp.dest(output));
+});
 
 const buildJs = (output) => (() => {
   const envs = env.set({
@@ -47,6 +58,9 @@ const buildJs = (output) => (() => {
     .on('error', gutil.log)
     .pipe(envs.reset)
     .pipe(rename('bundle.js'))
+    .pipe(rev())
+    .pipe(gulp.dest(output))
+    .pipe(rev.manifest('rev-js-manifest.json'))
     .pipe(gulp.dest(output));
 });
 
@@ -61,18 +75,28 @@ if (process.env.NODE_ENV === 'production') {
     + '</script>';
 }
 
-gulp.task('build-html', buildHTML(globalVariableBlock, `${ROOT}templates/`));
 gulp.task('build-js', buildJs(`${ROOT}dist/`));
+gulp.task('build-css', buildCss(`${ROOT}dist/`));
 gulp.task('copy-static', copyStatic(`${ROOT}dist/`));
+gulp.task(
+  'build-html',
+  ['build-js', 'build-css'],
+  buildHTML(globalVariableBlock, `${ROOT}templates/`, `${ROOT}dist/*-manifest.json`)
+);
 
-gulp.task('build', ['build-html', 'build-js', 'copy-static']);
+gulp.task('build', ['build-html', 'copy-static']);
 
 const liveTestDir = 'live-test-build';
 const testBlock = '<script type="text/javascript">' +
   'var LIVE_TEST=true; var GA_TRACKING_ID = "UA-XXXXX-Y";</script>';
 
-gulp.task('build-html-live-test', buildHTML(testBlock, liveTestDir));
 gulp.task('build-js-live-test', buildJs(`${liveTestDir}/dist/`));
+gulp.task('build-css-live-test', buildCss(`${liveTestDir}/dist/`));
 gulp.task('copy-static-live-test', copyStatic(`${liveTestDir}/dist/`));
+gulp.task(
+  'build-html-live-test',
+  ['build-js-live-test', 'build-css-live-test'],
+  buildHTML(testBlock, liveTestDir, `${liveTestDir}/dist/*-manifest.json`)
+);
 
-gulp.task('build-live-test', ['build-html-live-test', 'build-js-live-test', 'copy-static-live-test']);
+gulp.task('build-live-test', ['build-html-live-test', 'copy-static-live-test']);
