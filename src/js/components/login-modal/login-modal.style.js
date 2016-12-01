@@ -64,12 +64,15 @@ export const signInButtonStyle = {
 
 export const nameWrapperStyle = {
   borderBottom: `2px solid ${greyColor}`,
+  cursor: 'pointer',
   paddingBottom: '11px'
 };
 
 export const passwordInputWrapperStyle = {
-  paddingTop: '11px',
-  paddingBottom: '24px'
+  paddingTop: '1px',
+  cursor: 'pointer',
+  paddingBottom: '10px',
+  marginBottom: '4px'
 };
 
 const messageStyle = {
