@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import ConfiguredRadium from 'utils/configured-radium';
-import Footer from 'components/footer';
 import HeroSection from 'components/landing-page/hero-section';
 import FAQSectionContainer from 'containers/landing-page/faq-section-container';
 import ReportingSectionContainer from 'containers/landing-page/reporting-section-container';
@@ -68,7 +67,6 @@ class LandingPage extends Component {
             </div>
           </ResponsiveFixedWidthComponent>
         </div>
-        <Footer/>
       </div>
     );
   }
