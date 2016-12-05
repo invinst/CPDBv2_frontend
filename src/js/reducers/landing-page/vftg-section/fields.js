@@ -6,6 +6,7 @@ import { getField } from 'utils/draft';
 
 const fields = handleActions({
   [LANDING_PAGE_REQUEST_SUCCESS]: (state, action) => ({
+    'vftg_header': getField(action.payload.fields, 'vftg_header'),
     'vftg_content': getField(action.payload.fields, 'vftg_content'),
     'vftg_link': getField(action.payload.fields, 'vftg_link'),
     'vftg_date': getField(action.payload.fields, 'vftg_date')

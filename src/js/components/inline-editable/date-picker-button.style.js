@@ -32,7 +32,7 @@ export const dateStyle = {
   fontSize: '13px',
   color: lightMineShaftColor,
   marginLeft: '6px',
-  width: '75px',
+  width: '90px',
   height: '15px',
   display: 'inline-block'
 };
