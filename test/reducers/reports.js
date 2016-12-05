@@ -1,7 +1,7 @@
 import ReportFactory from 'utils/test/factories/report';
 import reports from 'reducers/reports';
 import {
-  REPORTS_REQUEST_SUCCESS, UPDATE_REPORT_REQUEST_SUCCESS
+  REPORTS_REQUEST_SUCCESS, UPDATE_REPORT_REQUEST_SUCCESS, REPORT_REQUEST_SUCCESS
 } from 'actions/reporting-page';
 import { RandomizedListFieldFactory } from 'utils/test/factories/field';
 import { LANDING_PAGE_REQUEST_SUCCESS } from 'actions/landing-page';
@@ -20,6 +20,16 @@ describe('reports', function () {
     }).should.eql({
       [results[0].id]: results[0],
       [results[1].id]: results[1]
+    });
+  });
+
+  it('should handle REPORT_REQUEST_SUCCESS', function () {
+    const result = ReportFactory.build();
+    reports(undefined, {
+      type: REPORT_REQUEST_SUCCESS,
+      payload: result
+    }).should.eql({
+      [result.id]: result
     });
   });
 

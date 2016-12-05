@@ -62,3 +62,8 @@ ReportGroup.propTypes = {
   reportType: PropTypes.number,
   reportStyle: PropTypes.object
 };
+
+ReportGroup.defaultProps = {
+  type: 1,
+  reports: []
+};

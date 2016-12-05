@@ -9,9 +9,15 @@ import BottomSheetContainer from 'containers/bottom-sheet';
 import Header from 'components/header';
 import RouteTransition from 'components/animation/route-transition';
 import LoginModalContainer from 'containers/login-modal-container';
+import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.prevChildren = null;
+  }
+
   getChildContext() {
     return { adapter: getMockAdapter() };
   }
@@ -23,22 +29,48 @@ export default class App extends React.Component {
     Mousetrap.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
   }
 
+  componentWillReceiveProps() {
+    if (this.props.children) {
+      this.prevChildren = this.props.children;
+    }
+  }
+
   componentWillUnmount() {
     Mousetrap.unbind('esc');
   }
 
+  children() {
+    const { children, params } = this.props;
+    if (params.reportId && this.prevChildren) {
+      return this.prevChildren;
+    }
+    return children;
+  }
+
+  bottomSheetContent() {
+    const { params } = this.props;
+    const { reportId, faqId } = params;
+    if (reportId) {
+      return { id: reportId, type: REPORT_TYPE };
+    }
+    if (faqId) {
+      return { id: faqId, type: FAQ_TYPE };
+    }
+    return null;
+  }
+
   render() {
-    const { location } = this.props;
+    const { location, appContent } = this.props;
     const { pathname } = location;
 
     return (
       <StyleRoot>
         <EditModeContainer location={ location }>
-          <Header pathname={ pathname }/>
-          <RouteTransition pathname={ pathname }>
-            { this.props.children }
+          <Header pathname={ pathname } appContent={ appContent }/>
+          <RouteTransition pathname={ appContent }>
+            { this.children() }
           </RouteTransition>
-          <BottomSheetContainer/>
+          <BottomSheetContainer content={ this.bottomSheetContent() }/>
           <LoginModalContainer location={ location }/>
         </EditModeContainer>
       </StyleRoot>
@@ -52,8 +84,16 @@ App.childContextTypes = {
 
 App.propTypes = {
   children: PropTypes.node,
+  appContent: PropTypes.string,
+  params: PropTypes.object,
   receiveTokenFromCookie: PropTypes.func,
   showLoginModal: PropTypes.bool,
   location: locationShape,
   toggleEditMode: PropTypes.func
+};
+
+App.defaultProps = {
+  params: {},
+  location: {},
+  receiveTokenFromCookie: () => {}
 };

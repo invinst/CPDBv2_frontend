@@ -31,4 +31,13 @@ describe('bodyScrollMiddleware', function () {
     document.body.className.should.not.containEql('noscroll');
     dispatched.should.eql(dispatchAction);
   });
+
+  it('should enable bodyscroll on @@router/LOCATION_CHANGE', function () {
+    let dispatched;
+    document.body.className = 'noscroll';
+    const dispatchAction = { type: '@@router/LOCATION_CHANGE' };
+    bodyScrollMiddleware({})(action => dispatched = action)(dispatchAction);
+    document.body.className.should.not.containEql('noscroll');
+    dispatched.should.eql(dispatchAction);
+  });
 });

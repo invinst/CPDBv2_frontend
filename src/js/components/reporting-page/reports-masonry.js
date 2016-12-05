@@ -1,15 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 import MasonryInfiniteScroller from 'react-masonry-infinite';
+import { isEmpty } from 'lodash';
 
+import PropsRerender from 'components/common/higher-order/props-rerender';
 import ReportGroup from './report-group';
 import { masonrySizes } from './group-types';
 import ReportAddButton from './report-add-button';
 import { wrapperStyle, borderSleeveStyle } from './reports-masonry.style';
 
 
-export default class ReportsMasonry extends Component {
+class ReportsMasonry extends Component {
   componentDidMount() {
-    this.props.loadMore();
+    const { reportGroups, loadMore } = this.props;
+    if (isEmpty(reportGroups)) {
+      loadMore();
+    }
   }
 
   render() {
@@ -60,3 +65,10 @@ ReportsMasonry.propTypes = {
 ReportsMasonry.contextTypes = {
   editModeOn: PropTypes.bool
 };
+
+ReportsMasonry.defaultProps = {
+  reportGroups: [],
+  loadMore: () => {}
+};
+
+export default PropsRerender(ReportsMasonry);

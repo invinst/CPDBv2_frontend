@@ -6,9 +6,9 @@ import { contentSelector } from 'selectors/bottom-sheet';
 
 
 function mapStateToProps(state, props) {
-  const content = contentSelector(state);
+  const content = contentSelector(state, props);
   return {
-    content: content,
+    content,
     open: content !== null
   };
 }

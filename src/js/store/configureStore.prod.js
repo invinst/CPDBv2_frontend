@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 import rootReducer from 'reducers/root-reducer';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
+import bottomSheetPath from 'middleware/body-scroll-middleware';
 
 
 export default function configureStore(initialState) {
@@ -13,7 +14,7 @@ export default function configureStore(initialState) {
     rootReducer,
     initialState,
     applyMiddleware(
-      thunk, configuredAxiosMiddleware, bodyScrollMiddleware,
+      thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath,
       routerMiddleware(browserHistory)
     )
   );
