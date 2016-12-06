@@ -28,7 +28,9 @@ export default class RouterRoot extends Component {
       <Route path={ COLLAB_PATH } component={ CollaborationPage } key='3'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Collaborate' }) }/>,
       <Route path={ FAQ_PATH } component={ FAQPage } key='4'
-        onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }/>
+        onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }>
+        <Route path={ ':faqId' } component={ FAQPage }/>
+      </Route>
     ];
 
     return (

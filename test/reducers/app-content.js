@@ -15,6 +15,13 @@ describe('appContentReducer', function () {
         pathname: '/edit/reporting/13/'
       }
     }).should.eql('/edit/');
+
+    appContentReducer('/edit/', {
+      type: '@@router/LOCATION_CHANGE',
+      payload: {
+        pathname: '/edit/faq/13/'
+      }
+    }).should.eql('/edit/');
   });
 
   it('should return /reporting/ if there\'s no previous state when handle LOCATION_CHANGE', function () {
@@ -24,9 +31,16 @@ describe('appContentReducer', function () {
         pathname: '/reporting/13/'
       }
     }).should.eql('/reporting/');
+
+    appContentReducer(null, {
+      type: '@@router/LOCATION_CHANGE',
+      payload: {
+        pathname: '/faq/13/'
+      }
+    }).should.eql('/faq/');
   });
 
-  it('should return the same pathname if path is not reporting bottomsheet when handle LOCATION_CHANGE', function () {
+  it('should return the same pathname if path is not bottomsheet when handle LOCATION_CHANGE', function () {
     appContentReducer(null, {
       type: '@@router/LOCATION_CHANGE',
       payload: {

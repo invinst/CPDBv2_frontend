@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { find, get } from 'lodash';
+import { find } from 'lodash';
 
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import {
@@ -48,17 +48,22 @@ export const faqSelector = createSelector(
   getFAQs,
   getContentId,
   (faqs, id) => {
-    const faq = find(faqs, faq => faq.id === id);
+    const faq = find(faqs, faq => faq.id === parseInt(id));
     return {
-      id: get(faq, 'id', null),
-      fields: {
-        'question': faq ?
-          getField(faq.fields, 'question') :
-          createFieldWithEmptyEditorState('question', 'plain_text'),
-        'answer': faq ?
-          getField(faq.fields, 'answer') :
-          createFieldWithEmptyEditorState('answer', 'multiline_text')
-      }
+      id: id !== 'new' ? id : null,
+      fields: (
+        id === 'new' ?
+        {
+          'question': createFieldWithEmptyEditorState('question', 'plain_text'),
+          'answer': createFieldWithEmptyEditorState('answer', 'multiline_text')
+        } :
+          faq ?
+          {
+            'question': getField(faq.fields, 'question'),
+            'answer': getField(faq.fields, 'answer')
+          } :
+          null
+      )
     };
   }
 );

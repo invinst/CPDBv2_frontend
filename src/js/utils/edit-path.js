@@ -13,7 +13,7 @@ export function pushPathPreserveEditMode(path) {
   if (editModeOn(getCurrentPathname())) {
     path = editMode(path);
   } else {
-    path = path.match(/(?:\/?edit\/)?(.+)/)[1];
+    path = path.match(/(?:\/?edit\/)?(.*)/)[1];
   }
 
   if (!path.startsWith('/')) {

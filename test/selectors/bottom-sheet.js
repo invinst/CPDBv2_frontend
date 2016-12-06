@@ -116,14 +116,14 @@ describe('bottomSheet selector', function () {
       });
     });
 
-    it('should return empty faq when there isn\'t an id', function () {
+    it('should return empty faq when id is "new"', function () {
       const state = {
         faqs: []
       };
       const props = {
         content: {
           type: REPORT_TYPE,
-          id: null
+          id: 'new'
         }
       };
       const stubGenKey = stub(draftJs, 'genKey');

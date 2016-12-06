@@ -21,17 +21,17 @@ describe('App component', function () {
   const mockStore = MockStore();
   const store = mockStore({ authentication: {}, adapter: 'adapter' });
 
+  class ChildComponent extends Component {
+    render() {
+      return <div/>;
+    }
+  }
+
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
   it('should keep previous children when displaying report', function () {
-    class ChildComponent extends Component {
-      render() {
-        return <div/>;
-      }
-    }
-
     let rootEl = document.createElement('div');
     instance = render(
       <Provider store={ store }>
@@ -48,6 +48,33 @@ describe('App component', function () {
       <Provider store={ store }>
         <App
           params={ { reportId: 1 } }
+          location={ { pathname: '/', search: '/', action: 'POP' } }
+          appContent='/'>
+          abc
+        </App>
+      </Provider>,
+      rootEl
+    );
+    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
+  });
+
+  it('should keep previous children when displaying faq', function () {
+    let rootEl = document.createElement('div');
+    instance = render(
+      <Provider store={ store }>
+        <App
+          location={ { pathname: '/', search: '/', action: 'POP' } }
+          appContent='/'>
+          <ChildComponent/>
+        </App>
+      </Provider>,
+      rootEl
+    );
+    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
+    instance = render(
+      <Provider store={ store }>
+        <App
+          params={ { faqId: 1 } }
           location={ { pathname: '/', search: '/', action: 'POP' } }
           appContent='/'>
           abc

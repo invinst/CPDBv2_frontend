@@ -37,8 +37,8 @@ describe('EditPath utils', function () {
 
     it('should preserve non edit mode when push a new path', function () {
       stub(utilsDom, 'getCurrentPathname', () => '/reporting/13/');
-      pushPathPreserveEditMode('/edit/reporting/');
-      browserHistory.push.args[0][0].should.eql('/reporting/');
+      pushPathPreserveEditMode('/edit/');
+      browserHistory.push.args[0][0].should.eql('/');
       utilsDom.getCurrentPathname.restore();
     });
   });

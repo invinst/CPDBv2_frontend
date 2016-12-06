@@ -41,7 +41,7 @@ export default class App extends React.Component {
 
   children() {
     const { children, params } = this.props;
-    if (params.reportId && this.prevChildren) {
+    if ((params.reportId || params.faqId) && this.prevChildren) {
       return this.prevChildren;
     }
     return children;
