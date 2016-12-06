@@ -52,7 +52,9 @@ export class VFTGSection extends Component {
           <div style={ newsWrapperStyle }>
             <div style={ headerBlockStyle }>
               <div style={ editBoxStyle }>
-                <span style={ style.header }>CPDP WEEKLY</span>
+                <span style={ style.header }>
+                  <RichTextEditable { ...fieldProps['vftg_header'] }/>
+                </span>
                 <DatePicker { ...fieldProps['vftg_date'] }/>
               </div>
               <EditToggle { ...editToggleProps } style={ editWrapperLinkStyle }/>
