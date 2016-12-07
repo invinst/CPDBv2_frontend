@@ -1,3 +1,6 @@
+import React, { Component, PropTypes } from 'react';
+import { renderIntoDocument } from 'react-addons-test-utils';
+import { mapValues } from 'lodash';
 import { unmountComponentAtNode, findDOMNode, render } from 'react-dom';
 import isMobile from 'ismobilejs';
 import { spy } from 'sinon';
@@ -40,4 +43,23 @@ export function withMockGA(cb) {
   };
   cb(gaSpy);
   global.ga = oldGa;
+}
+
+export function renderWithContext(context, component) {
+  class ContextWrapper extends Component {
+    getChildContext() {
+      return context;
+    }
+    render() {
+      const { children } = this.props;
+      return children;
+    }
+  }
+
+  ContextWrapper.propTypes = {
+    children: PropTypes.node
+  };
+
+  ContextWrapper.childContextTypes = mapValues(context, () => PropTypes.any);
+  return renderIntoDocument(<ContextWrapper>{ component }</ContextWrapper>);
 }

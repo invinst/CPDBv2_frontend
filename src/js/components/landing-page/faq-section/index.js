@@ -65,7 +65,7 @@ export class FAQSection extends Component {
         <div style={ style.header }>
           <span style={ alignLeftStyle }>FAQ</span>
           <span style={ alignRightStyle }>
-            <MoreLink to={ FAQ_PATH }>See more FAQ</MoreLink>
+            <MoreLink to={ `/${FAQ_PATH}` }>See more FAQ</MoreLink>
           </span>
         </div>
       );

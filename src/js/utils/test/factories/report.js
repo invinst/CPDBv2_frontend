@@ -46,3 +46,9 @@ export const SimpleReportFactory = Factory.define('simpleReportFactory')
   .attr('publishDate', '')
   .attr('author', '')
   .attr('articleLink', '');
+
+export const ReportCardFactory = Factory.define('reportCardFactory')
+  .sequence('id')
+  .attr('title', '')
+  .attr('publicationName', '')
+  .attr('publishDate', '');

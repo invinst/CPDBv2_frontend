@@ -60,7 +60,7 @@ class ReportingSection extends Component {
               <EditToggle { ...editToggleProps }/>
             </span> :
             <span style={ alignRightStyle }>
-              <MoreLink to={ STORIES_PATH }>See more reporting</MoreLink>
+              <MoreLink to={ `/${STORIES_PATH}` }>See more reporting</MoreLink>
             </span>
         }
       </div>

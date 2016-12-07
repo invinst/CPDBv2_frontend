@@ -21,6 +21,14 @@ export function changePageTitle(title) {
   document.title = title;
 }
 
+export function windowAddEventListener(event, callback) {
+  window.addEventListener(event, callback);
+}
+
+export function windowRemoveEventListener(event, callback) {
+  window.removeEventListener(event, callback);
+}
+
 export function setMetaAttribute(name, content) {
   let metaEl = document.evaluate(
     `//meta[@name="${name}"]`, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null

@@ -16,6 +16,18 @@ import RichTextEditable from 'components/inline-editable/editable-section/rich-t
 
 
 export class Report extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchReport();
+  }
+
+  fetchReport() {
+    const { reportId, fields, fetchReport } = this.props;
+    if (reportId && reportId !== 'new' && !fields) {
+      fetchReport(reportId);
+    }
+  }
+
   renderInfoRows(style) {
     const { fieldProps } = this.props;
     return (
@@ -121,7 +133,9 @@ Report.propTypes = {
   fieldProps: PropTypes.object,
   editToggleProps: PropTypes.object,
   sectionEditModeOn: PropTypes.bool,
-  closeBottomSheet: PropTypes.func
+  fields: PropTypes.object,
+  fetchReport: PropTypes.func,
+  reportId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default EditableSection(Report);
