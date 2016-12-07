@@ -16,7 +16,7 @@ describe('Header component', function () {
   });
 
   it('should render HeaderContent but not CompactHeader if at landing page', function () {
-    instance = renderIntoDocument(<Header pathname='/'/>);
+    instance = renderIntoDocument(<Header pathname='/' appContent='/'/>);
     const headerContent = scryRenderedComponentsWithType(instance, HeaderContent)[0];
     headerContent.props.compact.should.be.false();
     headerContent.props.pathname.should.eql('/');
@@ -25,7 +25,7 @@ describe('Header component', function () {
   });
 
   it('should render CompactHeader but not render HeaderContent if not at landing page', function () {
-    instance = renderIntoDocument(<Header pathname='/faq'/>);
+    instance = renderIntoDocument(<Header pathname='/faq' appContent='/faq'/>);
     const compactHeader = findRenderedComponentWithType(instance, CompactHeader);
     compactHeader.props.show.should.be.true();
     compactHeader.props.pathname.should.eql('/faq');

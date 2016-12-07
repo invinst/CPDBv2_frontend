@@ -13,6 +13,18 @@ import RichTextEditable from 'components/inline-editable/editable-section/rich-t
 
 
 class FAQ extends Component {
+  constructor(props) {
+    super(props);
+    this.fetchFAQ();
+  }
+
+  fetchFAQ() {
+    const { faqId, fields, fetchFAQ } = this.props;
+    if (faqId && faqId !== 'new' && !fields) {
+      fetchFAQ(faqId);
+    }
+  }
+
   renderTwoColumns(style) {
     const { fieldProps, sectionEditModeOn } = this.props;
     return (
@@ -58,7 +70,7 @@ class FAQ extends Component {
   render() {
     const { editToggleProps } = this.props;
     return (
-      <div>
+      <div className='faq-bottom-sheet'>
         <BottomSheetHeader editToggleProps={ editToggleProps }/>
         <div style={ contentWrapperStyle() }>
           <ResponsiveFixedWidthComponent>
@@ -84,6 +96,9 @@ class FAQ extends Component {
 FAQ.propTypes = {
   fieldProps: PropTypes.object,
   editToggleProps: PropTypes.object,
+  faqId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  fields: PropTypes.object,
+  fetchFAQ: PropTypes.func,
   sectionEditModeOn: PropTypes.bool
 };
 

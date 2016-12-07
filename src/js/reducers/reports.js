@@ -2,7 +2,8 @@ import { handleActions } from 'redux-actions';
 import { reduce, find } from 'lodash';
 
 import {
-  REPORTS_REQUEST_SUCCESS, UPDATE_REPORT_REQUEST_SUCCESS
+  REPORTS_REQUEST_SUCCESS, UPDATE_REPORT_REQUEST_SUCCESS,
+  REPORT_REQUEST_SUCCESS
 } from 'actions/reporting-page';
 import { LANDING_PAGE_REQUEST_SUCCESS } from 'actions/landing-page';
 
@@ -29,5 +30,11 @@ export default handleActions({
       },
       {}
     )
-  })
+  }),
+  [REPORT_REQUEST_SUCCESS]: (state, action) => (
+    { ...state, ...reduce([action.payload], (result, value) => {
+      result[value.id] = value;
+      return result;
+    }, {}) }
+  )
 }, {});

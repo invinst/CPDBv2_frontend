@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Report from 'components/bottom-sheet/report';
-import { updateReport, addReport } from 'actions/reporting-page';
+import { updateReport, addReport, fetchReport } from 'actions/reporting-page';
 
 
 function mapStateToProps(state, { fields, turnOffSectionEditMode, id }) {
@@ -15,7 +15,8 @@ function mapStateToProps(state, { fields, turnOffSectionEditMode, id }) {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({
-    onSaveForm: ownProps.id ? updateReport.bind(null, ownProps.id) : addReport
+    onSaveForm: ownProps.id ? updateReport.bind(null, ownProps.id) : addReport,
+    fetchReport
   }, dispatch);
 };
 

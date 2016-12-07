@@ -1,5 +1,4 @@
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
-import { openBottomSheetWithReport, closeBottomSheet, openBottomSheetWithFAQ } from 'actions/bottom-sheet';
 
 
 describe('bodyScrollMiddleware', function () {
@@ -7,26 +6,28 @@ describe('bodyScrollMiddleware', function () {
     document.body.className = '';
   });
 
-  it('should disable bodyscroll on OPEN_BOTTOM_SHEET_WITH_REPORT', function () {
+  it('should enable bodyscroll on @@router/LOCATION_CHANGE if path is report bottom sheet', function () {
     let dispatched;
-    const dispatchAction = openBottomSheetWithReport({});
+    document.body.className = '';
+    const dispatchAction = { type: '@@router/LOCATION_CHANGE', payload: { pathname: '/reporting/1/' } };
     bodyScrollMiddleware({})(action => dispatched = action)(dispatchAction);
     document.body.className.should.containEql('noscroll');
     dispatched.should.eql(dispatchAction);
   });
 
-  it('should disable bodyscroll on OPEN_BOTTOM_SHEET_WITH_FAQ', function () {
+  it('should enable bodyscroll on @@router/LOCATION_CHANGE if path is faq bottom sheet', function () {
     let dispatched;
-    const dispatchAction = openBottomSheetWithFAQ({});
+    document.body.className = '';
+    const dispatchAction = { type: '@@router/LOCATION_CHANGE', payload: { pathname: '/faq/1/' } };
     bodyScrollMiddleware({})(action => dispatched = action)(dispatchAction);
     document.body.className.should.containEql('noscroll');
     dispatched.should.eql(dispatchAction);
   });
 
-  it('should enable bodyscroll on CLOSE_BOTTOM_SHEET', function () {
+  it('should disabke bodyscroll on @@router/LOCATION_CHANGE', function () {
     let dispatched;
     document.body.className = 'noscroll';
-    const dispatchAction = closeBottomSheet();
+    const dispatchAction = { type: '@@router/LOCATION_CHANGE', payload: { pathname: '/foo/bar/' } };
     bodyScrollMiddleware({})(action => dispatched = action)(dispatchAction);
     document.body.className.should.not.containEql('noscroll');
     dispatched.should.eql(dispatchAction);

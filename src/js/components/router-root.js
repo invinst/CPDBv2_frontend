@@ -22,11 +22,15 @@ export default class RouterRoot extends Component {
       <IndexRoute component={ LandingPageContainer } key='1'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) }/>,
       <Route path={ STORIES_PATH } component={ ReportingPage } key='2'
-        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }/>,
+        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }>
+        <Route path={ ':reportId' } component={ ReportingPage }/>
+      </Route>,
       <Route path={ COLLAB_PATH } component={ CollaborationPage } key='3'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Collaborate' }) }/>,
       <Route path={ FAQ_PATH } component={ FAQPage } key='4'
-        onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }/>
+        onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }>
+        <Route path={ ':faqId' } component={ FAQPage }/>
+      </Route>
     ];
 
     return (

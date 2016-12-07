@@ -76,9 +76,7 @@ describe('store', function () {
         apiAccessToken: null,
         showForgotPasswordModal: false
       },
-      bottomSheet: {
-        content: null
-      },
+      appContent: null,
       reportingPage: {
         isRequesting: false,
         reportGrouping: {
