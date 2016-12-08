@@ -1,56 +1,52 @@
-import { accentColor, softBlackColor, wildSandColor, altoColor, sanFranciscoTextFamily } from 'utils/styles';
+import { spindleColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
 
 
 export const wrapperStyle = {
-  backgroundColor: wildSandColor
+  height: '464px',
+  padding: '32px 32px 100px 32px'
 };
 
-export const leftColumnWrapper = {
-  paddingRight: '50px',
-  borderRight: `1px solid ${altoColor}`
+export const leftColumnWrapperStyle = {
+  width: '50%',
+  background: spindleColor,
+  display: 'inline-block'
 };
 
-export const rightColumnWrapper = {
-  paddingLeft: '50px'
+export const sunburstGraphicStyle = {
+  background: `url("${imgUrl('sunburst-graphic.svg')}") no-repeat scroll 0 0 transparent`,
+  width: '242px',
+  height: '260px',
+  margin: '86px auto'
 };
 
-export const innerWrapperStyle = {
-  backgroundColor: 'white',
-  margin: '5px 32px 60px',
-  padding: '50px',
-  boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.17)'
+export const rightColumnWrapperStyle = {
+  width: '50%',
+  display: 'inline-block',
+  paddingLeft: '32px',
+  paddingRight: '25px'
 };
 
-export const linkStyle = {
-  color: softBlackColor,
-  fontSize: '13px',
+export const heroTitleStyle = {
   fontFamily: sanFranciscoTextFamily,
-  fontWeight: '600',
-  textDecoration: 'none',
-  cursor: 'pointer',
-  ':hover': {
-    color: accentColor
-  }
+  fontSize: '36px',
+  fontWeight: 600,
+  color: softBlackColor
 };
 
-export const paragraphStyle = {
+const heroTextStyle = {
   fontFamily: sanFranciscoTextFamily,
-  marginTop: '18px',
-  marginBottom: '5px',
-  fontSize: '15px'
+  fontSize: '16px',
+  fontWeight: 400,
+  color: softBlackColor
 };
 
-export const previewImageStyle = {
-  base: {
-    height: '278px',
-    cursor: 'pointer'
-  },
+export const heroComplaintTextStyle = {
+  ...heroTextStyle,
+  padding: '25px 0'
+};
 
-  extraWide: {
-    height: '358px'
-  },
-
-  tablet: {
-    height: '192px'
-  }
+export const heroUseOfForceStyle = {
+  ...heroTextStyle,
+  borderTop: `1px solid ${softBlackColor}`
 };
