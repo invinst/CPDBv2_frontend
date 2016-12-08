@@ -15,7 +15,7 @@ describe('reportingPage actions', function () {
         payload: {
           request: {
             url: REPORTS_API_URL,
-            adapter: undefined,
+            adapter: null,
             params: undefined
           }
         }
@@ -30,7 +30,7 @@ describe('reportingPage actions', function () {
         payload: {
           request: {
             url: `${REPORTS_API_URL}1/`,
-            adapter: undefined,
+            adapter: null,
             params: undefined
           }
         }

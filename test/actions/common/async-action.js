@@ -13,7 +13,7 @@ describe('async-action', function () {
           request: {
             url,
             params: undefined,
-            adapter: undefined
+            adapter: null
           }
         }
       });

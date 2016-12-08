@@ -16,7 +16,7 @@ describe('faqPage actions', function () {
           request: {
             url: FAQS_API_URL,
             params: undefined,
-            adapter: undefined
+            adapter: null
           }
         }
       });
@@ -30,7 +30,7 @@ describe('faqPage actions', function () {
         payload: {
           request: {
             url: `${FAQS_API_URL}1/`,
-            adapter: undefined,
+            adapter: null,
             params: undefined
           }
         }

@@ -12,6 +12,7 @@ export default class Autocomplete extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
     this.getSuggestion = debounce(props.getSuggestion, 100);
     this.state = {
       value: ''
@@ -19,20 +20,28 @@ export default class Autocomplete extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
-
+    const { contentType } = this.props;
     this.setState({
       value
     });
 
     if (value) {
-      this.getSuggestion({
-        text: value
-      });
+      this.getSuggestion(value, { contentType });
+    } else {
+      this.props.selectTag(null);
+    }
+  }
+
+  handleSelect(contentType) {
+    if (contentType === this.props.contentType) {
+      this.getSuggestion(this.state.value);
+    } else {
+      this.getSuggestion(this.state.value, { contentType });
     }
   }
 
   renderContent() {
-    const { suggestionGroups, isRequesting, tags } = this.props;
+    const { suggestionGroups, isRequesting, tags, contentType } = this.props;
 
     if (this.state.value === '') {
       return (
@@ -46,7 +55,7 @@ export default class Autocomplete extends Component {
 
     return (
       <div style={ resultWrapperStyle }>
-        <SuggestionTags tags={ tags }/>
+        <SuggestionTags tags={ tags } onSelect={ this.handleSelect } selected={ contentType }/>
         <SuggestionResults
           suggestionGroups={ suggestionGroups }
           isRequesting={ isRequesting } />
@@ -73,7 +82,9 @@ Autocomplete.propTypes = {
   suggestionGroups: PropTypes.object,
   tags: PropTypes.array,
   isRequesting: PropTypes.bool,
-  getSuggestion: PropTypes.func
+  getSuggestion: PropTypes.func,
+  selectTag: PropTypes.func,
+  contentType: PropTypes.string
 };
 
 Autocomplete.defaultProps = {

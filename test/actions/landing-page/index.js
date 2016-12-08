@@ -11,7 +11,7 @@ describe('requestLandingPage action', function () {
       payload: {
         request: {
           url: LANDING_PAGE_API_URL,
-          adapter: undefined,
+          adapter: null,
           params: undefined
         }
       }

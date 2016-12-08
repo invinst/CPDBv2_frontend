@@ -53,7 +53,9 @@ describe('store', function () {
         },
         suggestionApp: {
           isRequesting: false,
-          suggestionGroups: {}
+          suggestionGroups: {},
+          contentType: null,
+          tags: []
         },
         isRequesting: false
       },

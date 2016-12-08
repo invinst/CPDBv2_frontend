@@ -7,11 +7,15 @@ import { tagStyle, tagsWrapperStyle } from './suggestion-tags.style';
 
 class SuggestionTags extends Component {
   render() {
+    const { selected, onSelect } = this.props;
+
     return (
-      <div style={ tagsWrapperStyle }>
+      <div style={ tagsWrapperStyle } className='suggestion-tags' >
         {
           map(this.props.tags, (tag, key) => (
-            <span style={ tagStyle } key={ key }>{ S(tag).capitalize().s }</span>
+            <span style={ tagStyle(selected === tag) } key={ key } onClick={ onSelect.bind(this, tag) }>
+              { S(tag).capitalize().s }
+            </span>
           ))
         }
       </div>
@@ -20,15 +24,9 @@ class SuggestionTags extends Component {
 }
 
 SuggestionTags.propTypes = {
-  tags: PropTypes.array
-};
-
-SuggestionTags.defaultProps = {
-  tags: [
-    'Officers', 'Police District', 'Ward',
-    'Police Beat', 'Final Outcome', 'Recommended Outcome',
-    'Officer Rank'
-  ]
+  tags: PropTypes.array,
+  selected: PropTypes.string,
+  onSelect: PropTypes.func
 };
 
 export default SuggestionTags;

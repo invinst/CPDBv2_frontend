@@ -1,6 +1,8 @@
 import Cookies from 'js-cookie';
+import { getMockAdapter } from 'mock-api';
 
-export const get = (url, types) => ((params, adapter) => ({
+
+export const get = (url, types) => ((params, adapter=getMockAdapter()) => ({
   types,
   payload: {
     request: {

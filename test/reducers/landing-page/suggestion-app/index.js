@@ -5,7 +5,9 @@ describe('suggestionApp reducer', function () {
   it('should have initial state', function () {
     suggestionApp(undefined, {}).should.deepEqual({
       isRequesting: false,
-      suggestionGroups: {}
+      suggestionGroups: {},
+      contentType: null,
+      tags: []
     });
   });
 });

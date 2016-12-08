@@ -18,7 +18,7 @@ describe('SuggestionTags component', function () {
   });
 
   it('should capitalize tags', function () {
-    instance = renderIntoDocument(<SuggestionTags tags={ ['aaa'] }/>);
+    instance = renderIntoDocument(<SuggestionTags tags={ ['aaa'] } onSelect={ () => {} }/>);
     findDOMNode(instance).textContent.should.containEql('Aaa');
   });
 });
