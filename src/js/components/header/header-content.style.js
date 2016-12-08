@@ -3,12 +3,13 @@ import { softBlackColor } from 'utils/styles';
 
 export const navStyle = {
   display: 'inline-block',
-  marginLeft: '50px'
+  marginLeft: '50px',
+  fontWeight: 300
 };
 
 export const navWrapperStyle = {
   padding: '36px 32px 32px 0',
-  height: '83px',
+  height: '88px',
   boxSizing: 'border-box',
   textAlign: 'right'
 };
@@ -25,17 +26,18 @@ export const navWrapperCompactStyle = {
 export const logoStyle = {
   height: '17px',
   width: '77px',
-  fontWeight: 'bold',
-  fontSize: '30px',
+  fontWeight: 600,
+  fontSize: '36px',
   color: softBlackColor,
   fontFamily: '"San Francisco Text", sans-serif',
-  display: 'inline-block'
+  display: 'inline-block',
+  textDecoration: 'none'
 };
 
 export const logoWrapperStyle = {
   height: '62px',
   paddingLeft: '32px',
-  paddingTop: '18px',
+  paddingTop: '9px',
   boxSizing: 'border-box'
 };
 
