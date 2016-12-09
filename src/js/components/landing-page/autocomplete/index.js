@@ -8,6 +8,8 @@ import { backButtonStyle, autocompleteWrapperStyle, searchBoxStyle, helperTextSt
   resultWrapperStyle } from './autocomplete.style.js';
 
 
+const DEFAULT_SUGGESTION_LIMIT = 10;
+
 export default class Autocomplete extends Component {
   constructor(props) {
     super(props);
@@ -21,12 +23,14 @@ export default class Autocomplete extends Component {
 
   handleChange({ currentTarget: { value } }) {
     const { contentType } = this.props;
+    const limit = contentType ? null : DEFAULT_SUGGESTION_LIMIT;
+
     this.setState({
       value
     });
 
     if (value) {
-      this.getSuggestion(value, { contentType });
+      this.getSuggestion(value, { contentType, limit });
     } else {
       this.props.selectTag(null);
     }

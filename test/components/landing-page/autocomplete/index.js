@@ -31,7 +31,8 @@ describe('AutoComplete component', function () {
     searchInput.value = 'a';
     Simulate.change(searchInput);
     getSuggestion.calledWith('a', {
-      contentType: null
+      contentType: null,
+      limit: 10
     });
     instance.state.value.should.equal('a');
   });

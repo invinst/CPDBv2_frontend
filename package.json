@@ -11,7 +11,7 @@
     "test-watch": "npm run test -- --watch",
     "cover": "npm run test -- --plugin [ mochify-istanbul --report text --exclude **/mock-api/**]",
     "cover-human-readable": "npm run test -- --plugin [ mochify-istanbul --report text ]",
-    "cover-circle": "npm run test -- --plugin [ mochify-istanbul --report lcovonly ]",
+    "cover-circle": "npm run test -- --plugin [ mochify-istanbul --report lcovonly --exclude **/mock-api/**]",
     "live-test": "nightwatch",
     "lint": "eslint ./src ./test"
   },
