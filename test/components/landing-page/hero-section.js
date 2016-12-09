@@ -1,8 +1,10 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
+import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 
-import HeroSection from 'components/landing-page/hero-section';
-import { unmountComponentSuppressError, withMockGA } from 'utils/test';
+import { HeroSection } from 'components/landing-page/hero-section';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
+import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('HeroSection component', function () {
@@ -12,27 +14,9 @@ describe('HeroSection component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should be renderable', function () {
-    HeroSection.should.be.responsiveRenderable({
-      complaintsText: 'complaint text', useOfForceText: 'use of force text'
-    });
-  });
-
-  it('should trigger gaSpy when click on dataLink', function () {
-    withMockGA((gaSpy) => {
-      instance = renderIntoDocument(<HeroSection/>);
-      const dataLink = findRenderedDOMComponentWithClass(instance, 'data-link');
-      Simulate.click(dataLink);
-      gaSpy.called.should.be.true();
-    });
-  });
-
-  it('should trigger gaSpy when click on shootingDataLink', function () {
-    withMockGA((gaSpy) => {
-      instance = renderIntoDocument(<HeroSection/>);
-      const dataLink = findRenderedDOMComponentWithClass(instance, 'shooting-data-link');
-      Simulate.click(dataLink);
-      gaSpy.called.should.be.true();
-    });
+  it('should render three rich text fields and edit toggle', function () {
+    instance = renderIntoDocument(<HeroSection/>);
+    scryRenderedComponentsWithType(instance, RichTextEditable).length.should.eql(3);
+    scryRenderedComponentsWithType(instance, EditToggle).length.should.eql(1);
   });
 });

@@ -38,7 +38,10 @@ describe('store', function () {
           editModeOn: false,
           reports: []
         },
-        heroSection: {},
+        heroSection: {
+          editModeOn: false,
+          fields: {}
+        },
         vftgSection: {
           fields: {},
           editModeOn: false
