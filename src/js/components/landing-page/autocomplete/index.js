@@ -8,7 +8,7 @@ import { backButtonStyle, autocompleteWrapperStyle, searchBoxStyle, helperTextSt
   resultWrapperStyle } from './autocomplete.style.js';
 
 
-const DEFAULT_SUGGESTION_LIMIT = 10;
+const DEFAULT_SUGGESTION_LIMIT = 9;
 
 export default class Autocomplete extends Component {
   constructor(props) {
@@ -61,6 +61,7 @@ export default class Autocomplete extends Component {
       <div style={ resultWrapperStyle }>
         <SuggestionTags tags={ tags } onSelect={ this.handleSelect } selected={ contentType }/>
         <SuggestionResults
+          onLoadMore={ this.handleSelect }
           suggestionGroups={ suggestionGroups }
           isRequesting={ isRequesting } />
       </div>

@@ -1,26 +1,25 @@
 import React, { Component, PropTypes } from 'react';
-import { map, get } from 'lodash';
+import { map, chunk } from 'lodash';
 
 import {
-  suggestionGroupStyle, groupHeaderStyle, suggestionItemStyle,
-  suggestionTextStyle, metaTextStyle, loadMoreButtonStyle
+  suggestionGroupStyle, groupHeaderStyle, loadMoreButtonStyle, suggestionTextStyle
 } from './suggestion-group.style';
+import SuggestionChunk from './suggestion-group/suggestion-chunk';
 
 
 export default class SuggestionGroup extends Component {
-  renderSuggestions() {
-    return map(this.props.suggestions, (suggestion, key) => (
-      <div key={ key } style={ suggestionItemStyle }>
-        <div style={ suggestionTextStyle }>{ get(suggestion, 'payload.result_text', '') }</div>
-        <div style={ metaTextStyle }>{ get(suggestion, 'payload.result_extra_information', '') }</div>
-      </div>
+  renderChunks() {
+    return map(chunk(this.props.suggestions, 10), (suggestionChunk, key) => (
+      <SuggestionChunk key={ key } suggestionChunk={ suggestionChunk } index={ key }/>
     ));
   }
 
   renderLoadMore() {
-    if (this.props.suggestions.length === 9) {
+    const { suggestions, onLoadMore, header } = this.props;
+
+    if (suggestions.length === 9) {
       return (
-        <div style={ loadMoreButtonStyle }>
+        <div style={ loadMoreButtonStyle } onClick={ onLoadMore.bind(null, header) }>
           <div style={ suggestionTextStyle }>Show more results</div>
         </div>
       );
@@ -33,7 +32,7 @@ export default class SuggestionGroup extends Component {
       return (
         <div style={ suggestionGroupStyle }>
           <div style={ groupHeaderStyle }>{ this.props.header }</div>
-          { this.renderSuggestions() }
+          { this.renderChunks() }
           { this.renderLoadMore() }
         </div>
       );
@@ -44,7 +43,8 @@ export default class SuggestionGroup extends Component {
 
 SuggestionGroup.propTypes = {
   suggestions: PropTypes.array,
-  header: PropTypes.string
+  header: PropTypes.string,
+  onLoadMore: PropTypes.func
 };
 
 SuggestionGroup.defaultProps = {

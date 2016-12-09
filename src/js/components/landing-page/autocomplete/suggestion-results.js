@@ -7,8 +7,11 @@ import SuggestionGroup from './suggestion-group';
 
 export default class SuggestionResults extends Component {
   renderGroups() {
-    return map(this.props.suggestionGroups, (suggestions, key) => (
+    const { suggestionGroups, onLoadMore } = this.props;
+
+    return map(suggestionGroups, (suggestions, key) => (
       <SuggestionGroup
+        onLoadMore={ onLoadMore }
         key={ 'suggestion-group-' + key }
         suggestions={ suggestions }
         header={ key }/>
@@ -28,5 +31,6 @@ export default class SuggestionResults extends Component {
 
 SuggestionResults.propTypes = {
   suggestionGroups: PropTypes.object,
-  isRequesting: PropTypes.bool
+  isRequesting: PropTypes.bool,
+  onLoadMore: PropTypes.func
 };

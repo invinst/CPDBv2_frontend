@@ -1,4 +1,4 @@
-import { whiteTwoColor, mediumGrayColor, sanFranciscoTextFamily, eggPlantColor } from 'utils/styles';
+import { whiteTwoColor, mediumGrayColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const groupHeaderStyle = {
@@ -18,18 +18,10 @@ export const suggestionGroupStyle = {
   borderLeft: `1px solid ${whiteTwoColor}`
 };
 
-export const suggestionItemStyle = {
+export const loadMoreButtonStyle = {
   padding: '12px 14px',
-  borderBottom: `1px solid ${whiteTwoColor}`,
   width: '415px',
-  height: '32px'
-};
-
-export const metaTextStyle = {
-  fontSize: '13px',
-  fontWeight: 300,
-  fontFamily: sanFranciscoTextFamily,
-  color: eggPlantColor
+  cursor: 'pointer'
 };
 
 export const suggestionTextStyle = {
@@ -38,8 +30,3 @@ export const suggestionTextStyle = {
   fontFamily: sanFranciscoTextFamily
 };
 
-export const loadMoreButtonStyle = {
-  padding: '12px 14px',
-  width: '415px',
-  cursor: 'pointer'
-};

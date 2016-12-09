@@ -27,6 +27,7 @@ describe('SuggestionGroup component', function () {
   it('should show `Show more results` if it had 10 suggestions', function () {
     instance = renderIntoDocument(
       <SuggestionGroup
+        onLoadMore={ () => {} }
         suggestions={ fill(new Array(9), 1) } />
     );
     findDOMNode(instance).textContent.should.containEql('Show more results');
