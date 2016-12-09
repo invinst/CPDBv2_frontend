@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import ConfiguredRadium from 'utils/configured-radium';
-import HeroSection from 'components/landing-page/hero-section';
+import HeroSectionContainer from 'containers/landing-page/hero-section-container';
 import FAQSectionContainer from 'containers/landing-page/faq-section-container';
 import ReportingSectionContainer from 'containers/landing-page/reporting-section-container';
 import VFTGSectionContainer from 'containers/landing-page/vftg-section';
@@ -33,11 +33,11 @@ class LandingPage extends Component {
   }
 
   renderWithResponsiveStyle(style) {
-    const { store, heroSection } = this.props;
+    const { store } = this.props;
 
     return (
       <div>
-        <HeroSection { ...heroSection } />
+        <HeroSectionContainer/>
         <div style={ bottomSectionsWrapperStyle }>
           <ResponsiveFixedWidthComponent>
             <div className='pure-g'>
@@ -83,7 +83,6 @@ class LandingPage extends Component {
 
 LandingPage.propTypes = {
   store: PropTypes.object,
-  heroSection: PropTypes.object,
   vftgSection: PropTypes.object,
   requestLandingPage: PropTypes.func
 };
