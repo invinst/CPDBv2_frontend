@@ -1,4 +1,4 @@
-import { random } from 'lodash';
+import { random, map } from 'lodash';
 
 import groupTypes from 'components/reporting-page/group-types';
 import uuid from 'utils/uuid';
@@ -36,6 +36,7 @@ const getGroupTypesGenerator = (strategy) => {
   }
 };
 
+/* istanbul ignore next */
 function* randomGroupTypesGenerator(reports) {
   // eslint-disable-next-line no-constant-condition
   while (true) {
@@ -47,10 +48,10 @@ function* randomGroupTypesGenerator(reports) {
   }
 }
 
+/* istanbul ignore next */
 function* checkerBoardGroupTypesGenerator(reports) {
-  let index = 0;
   // eslint-disable-next-line no-constant-condition
   while (true) {
-    yield groupTypes[++index % 2];
+    yield* map([1, 0, 1, 0, 1, 1, 0, 0], num => groupTypes[num]);
   }
 }
