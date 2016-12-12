@@ -1,13 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
-import { STORIES_PATH } from 'utils/constants';
 import {
   alignRightStyle, coverageWrapperStyle, headerStyle,
   wrapperStyle, contentStyle, editBoxStyle
 } from './reporting-section.style';
 import ReportingPlaceHolder from 'components/landing-page/reporting-section/place-holder';
 import ReportingSectionContent from 'components/landing-page/reporting-section/reporting-section-content';
-import MoreLink from 'components/common/more-link';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
 } from 'components/responsive/responsive-style-component';
@@ -33,14 +31,14 @@ class ReportingSection extends Component {
   }
 
   renderContent() {
-    const { dataAvailable, reports, sectionEditModeOn } = this.props;
+    const { dataAvailable, reportGroups, sectionEditModeOn } = this.props;
 
     return (
       !dataAvailable || sectionEditModeOn ?
         <ReportingPlaceHolder/> :
         <ReportingSectionContent
-          reports={ reports }
-          onStoryClick={ this.props.openBottomSheetWithReport }/>
+          reportGroups={ reportGroups }
+          onReportClick={ this.props.openBottomSheetWithReport }/>
     );
   }
 
@@ -59,9 +57,7 @@ class ReportingSection extends Component {
               <StrategyForm { ...fieldProps['reporting_randomizer'] }/>
               <EditToggle { ...editToggleProps }/>
             </span> :
-            <span style={ alignRightStyle }>
-              <MoreLink to={ `/${STORIES_PATH}` }>See more reporting</MoreLink>
-            </span>
+            null
         }
       </div>
     );
@@ -91,7 +87,7 @@ class ReportingSection extends Component {
 ReportingSection.propTypes = {
   openBottomSheetWithReport: PropTypes.func.isRequired,
   dataAvailable: PropTypes.bool,
-  reports: PropTypes.array,
+  reportGroups: PropTypes.array,
   fieldProps: PropTypes.object,
   sectionEditModeOn: PropTypes.bool,
   editToggleProps: PropTypes.object

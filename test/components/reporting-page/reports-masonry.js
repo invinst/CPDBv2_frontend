@@ -1,9 +1,9 @@
 import { spy } from 'sinon';
 import React from 'react';
-import MasonryInfiniteScroller from 'react-masonry-infinite';
 import {
   findRenderedComponentWithType, renderIntoDocument, scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import ReportAddButton from 'components/reporting-page/report-add-button';
@@ -58,7 +58,7 @@ describe('ReportsMasonry component', function () {
     loadMore.called.should.be.false();
   });
 
-  it('should call loadMore when MasonryInfiniteScroller call loadMore', function () {
+  it('should call loadMore when InfiniteScroll call loadMore', function () {
     const loadMore = spy();
     const nextParams = {};
     instance = renderIntoDocument(
@@ -67,8 +67,8 @@ describe('ReportsMasonry component', function () {
         loadMore={ loadMore }
       />
     );
-    const masonryScroller = findRenderedComponentWithType(instance, MasonryInfiniteScroller);
-    masonryScroller.props.loadMore();
+    const scroller = findRenderedComponentWithType(instance, InfiniteScroll);
+    scroller.props.loadMore();
     loadMore.calledWith(nextParams).should.be.true();
   });
 });

@@ -33,6 +33,7 @@ export function reRender(component, element, ...args) {
 
 global.ga = () => {};
 
+/* istanbul ignore next */
 export function withMockGA(cb) {
   const gaSpy = spy();
   const oldGa = global.ga;
