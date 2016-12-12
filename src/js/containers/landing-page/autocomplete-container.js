@@ -2,15 +2,17 @@ import { connect } from 'react-redux';
 
 import Autocomplete from 'components/landing-page/autocomplete';
 import { getSuggestion, selectTag } from 'actions/landing-page/suggestion';
+import { suggestionGroupsSelector, isEmptySelector } from 'selectors/landing-page/autocomplete/suggestion-groups';
 
 
 function mapStateToProps(state) {
-  const { suggestionGroups, isRequesting, contentType, tags } = state.landingPage.suggestionApp;
+  const { isRequesting, contentType, tags } = state.landingPage.suggestionApp;
   return {
     tags,
-    suggestionGroups,
+    suggestionGroups: suggestionGroupsSelector(state),
     isRequesting,
-    contentType
+    contentType,
+    isEmpty: isEmptySelector(state)
   };
 }
 

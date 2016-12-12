@@ -12,6 +12,11 @@ export const tagStyle = (selected) => ({
   borderRadius: '2px'
 });
 
+export const dataToolTagStyle = {
+  ...tagStyle(),
+  cursor: 'default'
+};
+
 export const tagsWrapperStyle = {
   padding: '9px 16px 91px'
 };

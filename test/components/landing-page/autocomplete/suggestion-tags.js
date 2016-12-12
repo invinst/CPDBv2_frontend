@@ -21,4 +21,9 @@ describe('SuggestionTags component', function () {
     instance = renderIntoDocument(<SuggestionTags tags={ ['aaa'] } onSelect={ () => {} }/>);
     findDOMNode(instance).textContent.should.containEql('Aaa');
   });
+
+  it('should render Data Tool tag when there is no tags', function () {
+    instance = renderIntoDocument(<SuggestionTags tags={ [] }/>);
+    findDOMNode(instance).textContent.should.containEql('Data Tool');
+  });
 });

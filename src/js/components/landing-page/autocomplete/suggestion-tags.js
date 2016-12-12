@@ -1,23 +1,31 @@
 import React, { Component, PropTypes } from 'react';
-import map from 'lodash/map';
+import { map, isEmpty } from 'lodash';
 import S from 'string';
 
-import { tagStyle, tagsWrapperStyle } from './suggestion-tags.style';
+import { tagStyle, tagsWrapperStyle, dataToolTagStyle } from './suggestion-tags.style';
 
 
 class SuggestionTags extends Component {
-  render() {
-    const { selected, onSelect } = this.props;
+  renderTags() {
+    const { tags, selected, onSelect } = this.props;
 
+    if (isEmpty(tags)) {
+      return (
+        <span style={ dataToolTagStyle }>Data Tool</span>
+      );
+    }
+
+    return map(tags, (tag, key) => (
+      <span style={ tagStyle(selected === tag) } key={ key } onClick={ onSelect.bind(this, tag) }>
+        { S(tag).capitalize().s }
+      </span>
+    ));
+  }
+
+  render() {
     return (
       <div style={ tagsWrapperStyle } className='suggestion-tags' >
-        {
-          map(this.props.tags, (tag, key) => (
-            <span style={ tagStyle(selected === tag) } key={ key } onClick={ onSelect.bind(this, tag) }>
-              { S(tag).capitalize().s }
-            </span>
-          ))
-        }
+        { this.renderTags() }
       </div>
     );
   }
