@@ -12,7 +12,7 @@ export const headerStyle = {
   base: {
     fontFamily: sanFranciscoTextFamily,
     fontSize: '13px',
-    fontWeight: 500,
+    fontWeight: 300,
     color: softBlackColor,
     paddingTop: '4px',
     display: 'inline-block'
@@ -31,7 +31,7 @@ export const headerStyle = {
 export const textStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '20px',
-  fontWeight: 300
+  fontWeight: 500
 };
 
 export const textHoverStyle = {
@@ -59,7 +59,7 @@ export const formHeaderBlockStyle = {
   marginBottom: '26px',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '13px',
-  fontWeight: 700,
+  fontWeight: 300,
   color: softBlackColor,
   position: 'relative'
 };

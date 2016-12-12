@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  alignRightStyle, coverageWrapperStyle, headerStyle,
-  wrapperStyle, contentStyle, editBoxStyle
+  alignRightStyle, headerStyle, wrapperStyle, contentStyle, editBoxStyle
 } from './reporting-section.style';
 import ReportingPlaceHolder from 'components/landing-page/reporting-section/place-holder';
 import ReportingSectionContent from 'components/landing-page/reporting-section/reporting-section-content';
@@ -65,7 +64,7 @@ class ReportingSection extends Component {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ { ...wrapperStyle, ...coverageWrapperStyle } }>
+      <div style={ wrapperStyle }>
         { this.renderHeader(style) }
         <div style={ contentStyle }>
           { this.renderContent() }

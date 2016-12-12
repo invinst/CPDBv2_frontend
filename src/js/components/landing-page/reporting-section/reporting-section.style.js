@@ -25,10 +25,6 @@ export const headerStyle = {
   }
 };
 
-export const coverageWrapperStyle = {
-  borderBottom: `1px solid ${softBlackColor}`
-};
-
 export const linkStyle = {
   color: softBlackColor,
   textDecoration: 'none',
@@ -42,13 +38,13 @@ export const alignRightStyle = {
 };
 
 export const wrapperStyle = {
-  padding: '57px 16px 100px',
-  boxSizing: 'border-box',
-  borderBottom: `1px solid ${softBlackColor}`
+  padding: '57px 16px 0 16px',
+  boxSizing: 'border-box'
 };
 
 export const contentStyle = {
-
+  paddingBottom: '100px',
+  borderBottom: `1px solid ${softBlackColor}`
 };
 
 export const editBoxStyle = {
