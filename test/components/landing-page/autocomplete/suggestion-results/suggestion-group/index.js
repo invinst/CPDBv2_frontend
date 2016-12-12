@@ -3,7 +3,7 @@ import React from 'react';
 import { renderIntoDocument } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { fill } from 'lodash';
-import SuggestionGroup from 'components/landing-page/autocomplete/suggestion-group';
+import SuggestionGroup from 'components/landing-page/autocomplete/suggestion-results/suggestion-group';
 import { unmountComponentSuppressError } from 'utils/test';
 
 

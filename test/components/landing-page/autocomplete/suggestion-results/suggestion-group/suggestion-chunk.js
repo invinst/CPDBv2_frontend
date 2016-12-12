@@ -1,4 +1,4 @@
-import SuggestionChunk from 'components/landing-page/autocomplete/suggestion-group/suggestion-chunk';
+import SuggestionChunk from 'components/landing-page/autocomplete/suggestion-results/suggestion-group/suggestion-chunk';
 
 
 describe('SuggestionChunk component', function () {

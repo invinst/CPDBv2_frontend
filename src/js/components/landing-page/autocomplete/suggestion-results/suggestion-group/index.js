@@ -4,7 +4,7 @@ import { map, chunk } from 'lodash';
 import {
   suggestionGroupStyle, groupHeaderStyle, loadMoreButtonStyle, suggestionTextStyle
 } from './suggestion-group.style';
-import SuggestionChunk from './suggestion-group/suggestion-chunk';
+import SuggestionChunk from './suggestion-chunk';
 
 
 export default class SuggestionGroup extends Component {
@@ -28,10 +28,11 @@ export default class SuggestionGroup extends Component {
   }
 
   render() {
-    if (this.props.suggestions.length > 0) {
+    const { suggestions, header } = this.props;
+    if (suggestions.length > 0) {
       return (
         <div style={ suggestionGroupStyle }>
-          <div style={ groupHeaderStyle }>{ this.props.header }</div>
+          <div style={ groupHeaderStyle }>{ header }</div>
           { this.renderChunks() }
           { this.renderLoadMore() }
         </div>
