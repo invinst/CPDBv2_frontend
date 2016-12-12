@@ -22,6 +22,7 @@ export default {
       }
     ]
   },
+  'noresult': {},
   'OFFICER': {
     'OFFICER': [
       {

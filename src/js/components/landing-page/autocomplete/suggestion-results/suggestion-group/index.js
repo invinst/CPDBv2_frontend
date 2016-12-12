@@ -31,7 +31,7 @@ export default class SuggestionGroup extends Component {
     const { suggestions, header } = this.props;
     if (suggestions.length > 0) {
       return (
-        <div style={ suggestionGroupStyle }>
+        <div style={ suggestionGroupStyle } className='suggestion-group'>
           <div style={ groupHeaderStyle }>{ header }</div>
           { this.renderChunks() }
           { this.renderLoadMore() }
