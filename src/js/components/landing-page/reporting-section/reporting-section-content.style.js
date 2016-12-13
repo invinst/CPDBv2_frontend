@@ -1,5 +1,3 @@
-import { sanFranciscoTextFamily, softBlackColor, wildSandColor } from 'utils/styles';
-
 export const wrapperStyle = {
   paddingLeft: 0,
   paddingBottom: '100px',
@@ -14,18 +12,4 @@ export const borderSleeveStyle = {
   top: '1px',
   position: 'relative',
   background: 'white'
-};
-
-export const loadMoreStyle = {
-  float: 'right',
-  fontSize: '16px',
-  fontFamily: sanFranciscoTextFamily,
-  color: softBlackColor,
-  height: '86px',
-  width: '228px',
-  background: wildSandColor,
-  textDecoration: 'none',
-  marginTop: '16px',
-  padding: '33px 16px',
-  boxSizing: 'border-box'
 };
