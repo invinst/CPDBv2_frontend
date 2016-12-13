@@ -10,14 +10,15 @@ export const hoverColorStyle = {
 export const reportWrapperStyle = {
   backgroundColor: 'white',
   display: 'inline-block',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  padding: '43px 16px 14px 16px',
+  boxSizing: 'border-box'
 };
 
 export const sourceWrapperStyle = {
   height: '16px',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '13px',
-  marginTop: '43px',
   marginBottom: '29px'
 };
 
