@@ -25,6 +25,7 @@ export const loadMoreStyle = {
   width: '228px',
   background: wildSandColor,
   textDecoration: 'none',
+  marginTop: '16px',
   padding: '33px 16px',
   boxSizing: 'border-box'
 };
