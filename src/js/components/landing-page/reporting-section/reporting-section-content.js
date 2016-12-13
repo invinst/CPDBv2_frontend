@@ -2,10 +2,13 @@ import React, { PropTypes, Component } from 'react';
 
 import MasonryLayout from 'components/common/masonry-layout';
 import PropsRerender from 'components/common/higher-order/props-rerender';
-import { wrapperStyle, borderSleeveStyle } from './reporting-section-content.style';
+import {
+  wrapperStyle, borderSleeveStyle, loadMoreStyle, loadMoreHoverStyle
+} from './reporting-section-content.style';
 import ReportGroup from 'components/reporting-page/report-group';
 import { masonrySizes } from 'components/reporting-page/group-types';
-import LoadMore from './load-more';
+import LinkButton from 'components/common/link-button';
+import { STORIES_PATH } from 'utils/constants';
 
 class ReportingSectionContent extends Component {
   render() {
@@ -25,7 +28,11 @@ class ReportingSectionContent extends Component {
             )
           }
         </MasonryLayout>
-        <LoadMore />
+        <LinkButton
+          link={ `/${STORIES_PATH}` }
+          normalStyle={ loadMoreStyle }
+          hoverStyle={ loadMoreHoverStyle }>More
+        </LinkButton>
       </div>
     );
   }

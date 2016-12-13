@@ -1,5 +1,5 @@
 import {
-  softBlackColor, silverSandColor, lightGreyColor, wildSandColor, sanFranciscoTextFamily
+  softBlackColor, silverSandColor, lightGreyColor, wildSandColor, whiteTwoColor, sanFranciscoTextFamily
 } from 'utils/styles';
 
 
@@ -32,16 +32,26 @@ export const contentStyle = {
   borderBottom: `1px solid ${softBlackColor}`
 };
 
-export const loadMoreStyle = {
+export const _loadMoreStyle = {
   fontSize: '16px',
   fontFamily: sanFranciscoTextFamily,
+  fontWeight: 500,
   color: softBlackColor,
   height: '86px',
-  background: wildSandColor,
   textDecoration: 'none',
   padding: '32px 16px',
   display: 'block',
   boxSizing: 'border-box'
+};
+
+export const loadMoreStyle = {
+  ..._loadMoreStyle,
+  background: wildSandColor
+};
+
+export const loadMoreHoverStyle = {
+  ..._loadMoreStyle,
+  background: whiteTwoColor
 };
 
 export const linkStyle = {
