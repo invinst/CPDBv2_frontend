@@ -20,7 +20,6 @@ export class SunburstGraphic extends Component {
   }
 
   render() {
-
     return (
       <ResponsiveStyleComponent
         style={ responsiveStyleWrapperStyle }
