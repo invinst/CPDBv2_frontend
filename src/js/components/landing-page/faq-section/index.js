@@ -4,7 +4,8 @@ import { FAQ_PATH } from 'utils/constants';
 import FAQItem from 'components/common/faq/faq-item';
 import FAQSectionPlaceHolder from 'components/landing-page/faq-section/faq-section-place-holder';
 import {
-  headerStyle, underlineFAQStyle, wrapperStyle, editBoxStyle, loadMoreStyle, contentStyle
+  headerStyle, underlineFAQStyle, wrapperStyle, editBoxStyle,
+  loadMoreStyle, loadMoreHoverStyle, contentStyle
 } from './faq-section.style';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
@@ -13,7 +14,7 @@ import EditableSection from 'components/inline-editable/editable-section';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
-import Link from 'components/common/react-router-link';
+import LinkButton from 'components/common/link-button';
 
 
 export class FAQSection extends Component {
@@ -46,7 +47,11 @@ export class FAQSection extends Component {
                 wrapperStyle={ [ind < faqs.length - 1 && underlineFAQStyle] }/>
             );
           }) }
-          <Link to={ `/${FAQ_PATH}` } style={ loadMoreStyle }>More</Link>
+          <LinkButton
+            link={ `/${FAQ_PATH}` }
+            normalStyle={ loadMoreStyle }
+            hoverStyle={ loadMoreHoverStyle }>More
+          </LinkButton>
         </div>
       );
     } else {
