@@ -66,8 +66,18 @@ export const underlineFAQStyle = {
 };
 
 export const wrapperStyle = {
-  padding: '32px 16px 0 16px',
-  boxSizing: 'border-box'
+  base: {
+    boxSizing: 'border-box'
+  },
+  extraWide: {
+    padding: '66px 16px 0 16px'
+  },
+  desktop: {
+    padding: '32px 16px 0 16px'
+  },
+  tablet: {
+    padding: '32px 16px 0 16px'
+  }
 };
 
 export const editModeAlignLeftStyle = {

@@ -23,9 +23,19 @@ export const paragraphStyle = {
 };
 
 export const wrapperStyle = {
-  padding: '32px 16px',
-  boxSizing: 'border-box',
-  borderBottom: 0
+  base: {
+    boxSizing: 'border-box',
+    borderBottom: 0
+  },
+  extraWide: {
+    padding: '66px 16px'
+  },
+  desktop: {
+    padding: '32px 16px 66px 16px'
+  },
+  tablet: {
+    padding: '32px 16px 66px 16px'
+  }
 };
 
 export const headerStyle = {

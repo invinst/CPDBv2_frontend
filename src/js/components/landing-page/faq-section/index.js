@@ -14,20 +14,23 @@ import EditableSection from 'components/inline-editable/editable-section';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
-import LinkButton from 'components/common/link-button';
+import HoverableLink from 'components/common/hoverable-link';
 
 
 export class FAQSection extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        header: { ...headerStyle.base, ...headerStyle.extraWide }
+        header: { ...headerStyle.base, ...headerStyle.extraWide },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.extraWide }
       },
       [DESKTOP]: {
-        header: { ...headerStyle.base, ...headerStyle.desktop }
+        header: { ...headerStyle.base, ...headerStyle.desktop },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.desktop }
       },
       [TABLET]: {
-        header: { ...headerStyle.base, ...headerStyle.tablet }
+        header: { ...headerStyle.base, ...headerStyle.tablet },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.tablet }
       }
     };
   }
@@ -47,11 +50,14 @@ export class FAQSection extends Component {
                 wrapperStyle={ [ind < faqs.length - 1 && underlineFAQStyle] }/>
             );
           }) }
-          <LinkButton
-            link={ `/${FAQ_PATH}` }
-            normalStyle={ loadMoreStyle }
-            hoverStyle={ loadMoreHoverStyle }>More
-          </LinkButton>
+          <HoverableLink
+            to={ `/${FAQ_PATH}` }
+            style={ {
+              base: loadMoreStyle,
+              hover: loadMoreHoverStyle
+            } }>
+            More
+          </HoverableLink>
         </div>
       );
     } else {
@@ -83,7 +89,7 @@ export class FAQSection extends Component {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ wrapperStyle }>
+      <div style={ style.wrapper }>
         <div style={ contentStyle }>
           { this.renderHeader(style) }
           { this.renderContent() }

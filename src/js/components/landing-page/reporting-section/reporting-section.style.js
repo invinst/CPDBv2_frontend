@@ -38,8 +38,18 @@ export const alignRightStyle = {
 };
 
 export const wrapperStyle = {
-  padding: '57px 16px 0 16px',
-  boxSizing: 'border-box'
+  base: {
+    boxSizing: 'border-box'
+  },
+  extraWide: {
+    padding: '58px 16px 0 16px'
+  },
+  desktop: {
+    padding: '57px 16px 0 16px'
+  },
+  tablet: {
+    padding: '44px 16px 0 16px'
+  }
 };
 
 export const contentStyle = {

@@ -16,7 +16,6 @@ export const reportWrapperStyle = {
 };
 
 export const sourceWrapperStyle = {
-  height: '16px',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '13px',
   marginBottom: '29px'
@@ -24,11 +23,13 @@ export const sourceWrapperStyle = {
 
 const basePublicationStyle = {
   color: codGrayColor,
+  display: 'inline-block',
+  marginRight: '8px',
   fontWeight: 300
 };
 
 const basePublishDateStyle = {
-  marginLeft: '8px',
+  display: 'inline-block',
   color: softBlackColor,
   fontWeight: 300,
   opacity: .5

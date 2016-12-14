@@ -21,7 +21,7 @@ export const paragraphStyle = {
   },
 
   desktop: {
-    fontSize: '32px'
+    fontSize: '36px'
   },
 
   extraWide: {
@@ -49,9 +49,19 @@ export const paragraphWrapperStyle = {
 };
 
 export const wrapperStyle = {
-  boxSizing: 'border-box',
-  padding: '32px 16px',
-  borderBottom: 0
+  base: {
+    boxSizing: 'border-box',
+    borderBottom: 0
+  },
+  extraWide: {
+    padding: '66px 16px 32px 16px'
+  },
+  desktop: {
+    padding: '30px 16px 32px 16px'
+  },
+  tablet: {
+    padding: '30px 16px 32px 16px'
+  }
 };
 
 export const headerStyle = {

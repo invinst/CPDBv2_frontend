@@ -15,22 +15,25 @@ class CollaborateSection extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        wrapper: paragraphWrapperStyle.extraWide,
+        paragraphWrapper: paragraphWrapperStyle.extraWide,
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.extraWide },
         underlineLink: { ...paragraphStyle.base, ...paragraphStyle.extraWide, ...underlinedLinkStyle },
-        header: { ...headerStyle.base, ...headerStyle.extraWide }
+        header: { ...headerStyle.base, ...headerStyle.extraWide },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.extraWide }
       },
       [DESKTOP]: {
-        wrapper: paragraphWrapperStyle.desktop,
+        paragraphWrapper: paragraphWrapperStyle.desktop,
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.desktop },
         underlineLink: { ...paragraphStyle.base, ...underlinedLinkStyle },
-        header: { ...headerStyle.base, ...headerStyle.desktop }
+        header: { ...headerStyle.base, ...headerStyle.desktop },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.desktop }
       },
       [TABLET]: {
-        wrapper: paragraphWrapperStyle.tablet,
+        paragraphWrapper: paragraphWrapperStyle.tablet,
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.tablet },
         underlineLink: { ...paragraphStyle.base, ...paragraphStyle.tablet, ...underlinedLinkStyle },
-        header: { ...headerStyle.base, ...headerStyle.tablet }
+        header: { ...headerStyle.base, ...headerStyle.tablet },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.tablet }
       }
     };
   }
@@ -39,7 +42,7 @@ class CollaborateSection extends Component {
     const { editToggleProps, fieldProps } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
+      <div style={ style.wrapper }>
         <div style={ style.header }>
           <div style={ editBoxStyle }>
             <RichTextEditable { ...fieldProps['collaborate_header'] }/>
@@ -48,7 +51,7 @@ class CollaborateSection extends Component {
         </div>
         <div style={ contentStyle }>
           <RichTextEditable { ...fieldProps['collaborate_content'] } style={ {
-            wrapper: style.wrapper,
+            wrapper: style.paragraphWrapper,
             paragraph: style.paragraph
           } }/>
         </div>

@@ -17,15 +17,18 @@ class AboutSection extends Component {
     return {
       [EXTRA_WIDE]: {
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.extraWide },
-        header: { ...headerStyle.base, ...headerStyle.extraWide }
+        header: { ...headerStyle.base, ...headerStyle.extraWide },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.extraWide }
       },
       [DESKTOP]: {
         paragraph: paragraphStyle.base,
-        header: { ...headerStyle.base, ...headerStyle.desktop }
+        header: { ...headerStyle.base, ...headerStyle.desktop },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.desktop }
       },
       [TABLET]: {
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.tablet },
-        header: { ...headerStyle.base, ...headerStyle.tablet }
+        header: { ...headerStyle.base, ...headerStyle.tablet },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.tablet }
       }
     };
   }
@@ -34,7 +37,7 @@ class AboutSection extends Component {
     const { editToggleProps, fieldProps } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
+      <div style={ style.wrapper }>
         <div style={ style.header }>
           <div style={ editBoxStyle }>
             <RichTextEditable { ...fieldProps['about_header'] }/>

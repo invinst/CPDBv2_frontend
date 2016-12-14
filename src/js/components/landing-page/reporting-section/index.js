@@ -18,13 +18,16 @@ class ReportingSection extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        header: { ...headerStyle.base, ...headerStyle.extraWide }
+        header: { ...headerStyle.base, ...headerStyle.extraWide },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.extraWide }
       },
       [DESKTOP]: {
-        header: { ...headerStyle.base, ...headerStyle.desktop }
+        header: { ...headerStyle.base, ...headerStyle.desktop },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.desktop }
       },
       [TABLET]: {
-        header: { ...headerStyle.base, ...headerStyle.tablet }
+        header: { ...headerStyle.base, ...headerStyle.tablet },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.tablet }
       }
     };
   }
@@ -64,7 +67,7 @@ class ReportingSection extends Component {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ wrapperStyle }>
+      <div style={ style.wrapper }>
         { this.renderHeader(style) }
         <div style={ contentStyle }>
           { this.renderContent() }
