@@ -17,7 +17,7 @@ export const COLLAB_PATH = 'collaborate/';
 export const DATA_PATH = 'data/';
 export const FAQ_PATH = 'faq/';
 export const STORIES_PATH = 'reporting/';
-export const SEARCH_PATH = 'search/';
+export const SEARCH_PATH = '/search/';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 

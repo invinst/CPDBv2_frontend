@@ -12,6 +12,17 @@ import LoginModalContainer from 'containers/login-modal-container';
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 
 
+const bindAlphabetNumberic = (func) => {
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.split('').map(
+    (letter) => Mousetrap.bind(letter, func)
+  );
+};
+
+const unbindAlphabetNumberic = () => {
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.split('').map(Mousetrap.unbind);
+};
+
+
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -27,6 +38,7 @@ export default class App extends React.Component {
 
     receiveTokenFromCookie();
     Mousetrap.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
+    bindAlphabetNumberic((event) => (this.props.toggleSearchMode(event.key)));
   }
 
   componentWillReceiveProps() {
@@ -37,6 +49,7 @@ export default class App extends React.Component {
 
   componentWillUnmount() {
     Mousetrap.unbind('esc');
+    unbindAlphabetNumberic();
   }
 
   children() {
@@ -89,7 +102,8 @@ App.propTypes = {
   receiveTokenFromCookie: PropTypes.func,
   showLoginModal: PropTypes.bool,
   location: locationShape,
-  toggleEditMode: PropTypes.func
+  toggleEditMode: PropTypes.func,
+  toggleSearchMode: PropTypes.func
 };
 
 App.defaultProps = {

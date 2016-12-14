@@ -72,7 +72,9 @@ export default class Autocomplete extends Component {
 
   render() {
     return (
-      <div style={ autocompleteWrapperStyle }>
+      <div
+        className='autocomplete-page'
+        style={ autocompleteWrapperStyle }>
         <div style={ searchBoxStyle }>
           <span style={ backButtonStyle }/>
           <SearchBox onChange={ this.handleChange } value={ this.state.value }/>

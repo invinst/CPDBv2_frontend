@@ -133,8 +133,11 @@ describe('App component', function () {
   it('should toggle edit mode when hit esc', function () {
     const toggleEditMode = spy();
     let triggerESC;
+    //FIXME: Fix this workaround
     stub(Mousetrap, 'bind', (event, cb) => {
-      triggerESC = cb;
+      if (event == 'esc') {
+        triggerESC = cb;
+      }
     });
 
     instance = renderIntoDocument(

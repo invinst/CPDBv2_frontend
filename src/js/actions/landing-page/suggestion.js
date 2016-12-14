@@ -1,5 +1,8 @@
 import { get } from 'actions/common/async-action';
 import { createAction } from 'redux-actions';
+import { push } from 'react-router-redux';
+import { SEARCH_PATH } from 'utils/constants';
+
 
 export const SUGGESTION_URL = 'suggestion/';
 
@@ -14,3 +17,10 @@ export const getSuggestion = (text, params, adapter) => get(`${SUGGESTION_URL}${
 export const SELECT_TAG = 'SELECT_TAG';
 
 export const selectTag = createAction(SELECT_TAG);
+
+export const toggleSearchMode = (text) => (push({
+  pathname: SEARCH_PATH,
+  state: {
+    searchText: text
+  }
+}));
