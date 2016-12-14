@@ -1,24 +1,15 @@
-import { altoColor } from 'utils/styles';
-
-
-export const storyWrapperStyle = {
-  height: '240px',
-  fontSize: '26px'
+export const wrapperStyle = {
+  paddingLeft: 0,
+  paddingBottom: '100px',
+  position: 'relative',
+  top: '-1px'
 };
 
-export const smallStoryStyle = {
-  tablet: {
-    height: '150px',
-    fontSize: '20px'
-  },
-
-  desktop: {
-    fontSize: '16px'
-  }
-};
-
-export const divideLineStyle = {
-  backgroundColor: altoColor,
+export const borderSleeveStyle = {
+  height: '1px',
   width: '100%',
-  height: '1px'
+  zIndex: 50,
+  top: '1px',
+  position: 'relative',
+  background: 'white'
 };

@@ -38,9 +38,7 @@ class Report extends Component {
   }
 
   renderWithResponsiveStyle(responsiveStyle) {
-    const {
-      report, onClick, hovering, wrapperStyle
-    } = this.props;
+    const { report, onClick, hovering, wrapperStyle } = this.props;
 
     return (
       <div

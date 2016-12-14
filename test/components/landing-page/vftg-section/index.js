@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument, findRenderedComponentWithType
+  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
@@ -18,7 +18,8 @@ describe('VFTGSection component', function () {
   const fieldProps = {
     'vftg_date': { a: 'a' },
     'vftg_content': { b: 'b' },
-    'vftg_link': { c: 'c' }
+    'vftg_link': { c: 'c' },
+    'vftg_header': { e: 'e' }
   };
   const editToggleProps = {
     d: 'd'
@@ -41,8 +42,10 @@ describe('VFTGSection component', function () {
     );
     const datePickerElement = findRenderedComponentWithType(instance, DatePicker);
     datePickerElement.props.a.should.eql('a');
-    const plainTextElement = findRenderedComponentWithType(instance, RichTextEditable);
-    plainTextElement.props.b.should.eql('b');
+    const headerElement = scryRenderedComponentsWithType(instance, RichTextEditable)[0];
+    headerElement.props.e.should.eql('e');
+    const contentElement = scryRenderedComponentsWithType(instance, RichTextEditable)[1];
+    contentElement.props.b.should.eql('b');
     const linkPickerElement = findRenderedComponentWithType(instance, LinkPicker);
     linkPickerElement.props.c.should.eql('c');
     const toggleElement = findRenderedComponentWithType(instance, EditToggle);

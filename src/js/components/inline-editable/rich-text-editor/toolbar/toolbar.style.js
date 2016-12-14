@@ -1,6 +1,7 @@
 export const wrapperStyle = {
   height: '50px',
   width: '150px',
+  fontSize: '16px',
   position: 'relative'
 };
 

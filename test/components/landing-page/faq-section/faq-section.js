@@ -35,10 +35,6 @@ describe('FAQSection component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render', function () {
-    FAQSection.should.be.renderable({ store: store, openBottomSheetWithFAQ: () => {} });
-  });
-
   it('should render when edit mode on', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>

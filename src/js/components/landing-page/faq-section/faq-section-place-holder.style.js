@@ -1,3 +1,3 @@
 export default {
-  height: '356px'
+  height: '510px'
 };

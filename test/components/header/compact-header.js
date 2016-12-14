@@ -1,39 +1,40 @@
 import React from 'react';
-import { stub } from 'sinon';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
+import * as utilsDom from 'utils/dom';
 import CompactHeader from 'components/header/compact-header';
 import HeaderContent from 'components/header/header-content';
 
 describe('CompactHeader component', function () {
   let instance;
-  let callback;
+  let triggerScroll = () => {};
 
   beforeEach(function () {
-    stub(window, 'addEventListener', (evt, cb) => {
+    stub(utilsDom, 'windowAddEventListener', (evt, cb) => {
       if (evt === 'scroll') {
-        callback = cb;
+        triggerScroll = cb;
       }
     });
   });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-    window.addEventListener.restore();
+    utilsDom.windowAddEventListener.restore();
   });
 
   it('should set state show to true when scrollY > 145', function () {
     instance = renderIntoDocument(<CompactHeader/>);
     window.scrollY = 146;
-    callback();
+    triggerScroll();
     instance.state.show.should.be.true();
   });
 
   it('should set state show to false when scrollY < 145', function () {
     instance = renderIntoDocument(<CompactHeader/>);
     window.scrollY = 140;
-    callback();
+    triggerScroll();
     instance.state.show.should.be.false();
   });
 

@@ -9,6 +9,7 @@ import { toggleEditMode } from 'actions/inline-editable/edit-mode';
 function mapStateToProps(state, ownProps) {
   return {
     location: ownProps.location,
+    appContent: state.appContent,
     showLoginModal: showLoginModalSelector(state, ownProps)
   };
 }

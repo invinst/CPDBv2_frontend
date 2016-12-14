@@ -13,13 +13,13 @@ class TwitterSection extends Component {
   responsiveStyle() {
     return {
       [TABLET]: {
-        height: 484
+        height: 725
       },
       [DESKTOP]: {
-        height: 500
+        height: 725
       },
       [EXTRA_WIDE]: {
-        height: 600
+        height: 870
       }
     };
   }

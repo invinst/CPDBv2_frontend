@@ -24,6 +24,7 @@ export const ABOUT = 'ABOUT';
 export const VFTG = 'VFTG';
 export const FAQ = 'FAQ';
 export const REPORTING = 'REPORTING';
+export const HERO = 'HERO';
 
 export const TURN_ON_SECTION_EDIT_MODE = 'TURN_ON_SECTION_EDIT_MODE';
 export const TURN_OFF_SECTION_EDIT_MODE = 'TURN_OFF_SECTION_EDIT_MODE';

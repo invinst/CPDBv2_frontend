@@ -1,15 +1,21 @@
 import React, { Component, PropTypes } from 'react';
-import MasonryInfiniteScroller from 'react-masonry-infinite';
+import { isEmpty } from 'lodash';
+import InfiniteScroll from 'react-infinite-scroller';
 
+import MasonryLayout from 'components/common/masonry-layout';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 import ReportGroup from './report-group';
 import { masonrySizes } from './group-types';
 import ReportAddButton from './report-add-button';
 import { wrapperStyle, borderSleeveStyle } from './reports-masonry.style';
 
 
-export default class ReportsMasonry extends Component {
+class ReportsMasonry extends Component {
   componentDidMount() {
-    this.props.loadMore();
+    const { reportGroups, loadMore } = this.props;
+    if (isEmpty(reportGroups)) {
+      loadMore();
+    }
   }
 
   render() {
@@ -27,21 +33,23 @@ export default class ReportsMasonry extends Component {
       <div>
         <div style={ borderSleeveStyle }/>
         <div style={ wrapperStyle }>
-          <MasonryInfiniteScroller
-            hasMore={ hasMore }
+          <InfiniteScroll
             loadMore={ () => loadMore(nextParams) }
-            sizes={ masonrySizes }>
-            {
-              addButtonArray.concat(
-                reportGroups.map(group => (
-                  <ReportGroup
-                    key={ group.key }
-                    onReportClick={ onReportClick }
-                    { ...group }/>
-                ))
-              )
-            }
-          </MasonryInfiniteScroller>
+            hasMore={ hasMore }>
+            <MasonryLayout
+              sizes={ masonrySizes }>
+              {
+                addButtonArray.concat(
+                  reportGroups.map(group => (
+                    <ReportGroup
+                      key={ group.key }
+                      onReportClick={ onReportClick }
+                      { ...group }/>
+                  ))
+                )
+              }
+            </MasonryLayout>
+          </InfiniteScroll>
         </div>
       </div>
     );
@@ -60,3 +68,10 @@ ReportsMasonry.propTypes = {
 ReportsMasonry.contextTypes = {
   editModeOn: PropTypes.bool
 };
+
+ReportsMasonry.defaultProps = {
+  reportGroups: [],
+  loadMore: () => {}
+};
+
+export default PropsRerender(ReportsMasonry);

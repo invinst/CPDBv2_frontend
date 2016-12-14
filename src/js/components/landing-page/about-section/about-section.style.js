@@ -1,4 +1,4 @@
-import { softBlackColor, sanFranciscoTextFamily, silverSandColor } from 'utils/styles';
+import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const contentWrapperStyle = {
@@ -10,7 +10,7 @@ export const paragraphStyle = {
     color: softBlackColor,
     fontFamily: sanFranciscoTextFamily,
     fontSize: '26px',
-    fontWeight: 300,
+    fontWeight: 500,
     margin: '0 0 30px 0'
   },
   tablet: {
@@ -23,9 +23,19 @@ export const paragraphStyle = {
 };
 
 export const wrapperStyle = {
-  padding: '32px 16px',
-  boxSizing: 'border-box',
-  borderBottom: 0
+  base: {
+    boxSizing: 'border-box',
+    borderBottom: 0
+  },
+  extraWide: {
+    padding: '66px 16px'
+  },
+  desktop: {
+    padding: '32px 16px 66px 16px'
+  },
+  tablet: {
+    padding: '32px 16px 66px 16px'
+  }
 };
 
 export const headerStyle = {
@@ -33,8 +43,8 @@ export const headerStyle = {
     height: '26px',
     lineHeight: '26px',
     fontFamily: sanFranciscoTextFamily,
-    fontWeight: 300,
-    borderLeft: `8px solid ${silverSandColor}`,
+    fontWeight: 500,
+    borderLeft: `8px solid ${softBlackColor}`,
     color: softBlackColor,
     letterSpacing: '-0.2px',
     paddingLeft: '8px',

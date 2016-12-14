@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Motion, spring } from 'react-motion';
 
 import { faster } from 'utils/spring-presets';
+import { windowAddEventListener, windowRemoveEventListener } from 'utils/dom';
 import HeaderContent from 'components/header/header-content';
 import { compactHeaderWrapperStyle } from 'components/header/compact-header.style';
 
@@ -18,11 +19,11 @@ export default class CompactHeader extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
+    windowAddEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
+    windowRemoveEventListener('scroll', this.handleScroll);
   }
 
   handleScroll() {
