@@ -22,6 +22,9 @@ const store = mockStore({
     vftgSection: {
       fields: {}
     },
+    heroSection: {
+      fields: {}
+    },
     collaborateSection: {
       fields: {}
     }

@@ -2,11 +2,10 @@ import React, { Component, PropTypes } from 'react';
 
 import { FAQ_PATH } from 'utils/constants';
 import FAQItem from 'components/common/faq/faq-item';
-import MoreLink from 'components/common/more-link';
 import FAQSectionPlaceHolder from 'components/landing-page/faq-section/faq-section-place-holder';
 import {
-  alignLeftStyle, alignRightStyle, headerStyle, contentStyle,
-  underlineFAQStyle, wrapperStyle, editBoxStyle
+  headerStyle, underlineFAQStyle, wrapperStyle, editBoxStyle,
+  loadMoreStyle, loadMoreHoverStyle, contentStyle
 } from './faq-section.style';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
@@ -15,19 +14,23 @@ import EditableSection from 'components/inline-editable/editable-section';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
+import HoverableLink from 'components/common/hoverable-link';
 
 
 export class FAQSection extends Component {
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
-        header: { ...headerStyle.base, ...headerStyle.extraWide }
+        header: { ...headerStyle.base, ...headerStyle.extraWide },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.extraWide }
       },
       [DESKTOP]: {
-        header: { ...headerStyle.base, ...headerStyle.desktop }
+        header: { ...headerStyle.base, ...headerStyle.desktop },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.desktop }
       },
       [TABLET]: {
-        header: { ...headerStyle.base, ...headerStyle.tablet }
+        header: { ...headerStyle.base, ...headerStyle.tablet },
+        wrapper: { ...wrapperStyle.base, ...wrapperStyle.tablet }
       }
     };
   }
@@ -38,15 +41,23 @@ export class FAQSection extends Component {
     if (dataAvailable && !sectionEditModeOn) {
       return (
         <div>
-        { faqs.map((faq, ind) => {
-          return (
-            <FAQItem
-              key={ ind }
-              faq={ faq }
-              onClick={ openBottomSheetWithFAQ }
-              wrapperStyle={ [ind < faqs.length - 1 && underlineFAQStyle] }/>
-          );
-        }) }
+          { faqs.map((faq, ind) => {
+            return (
+              <FAQItem
+                key={ ind }
+                faq={ faq }
+                onClick={ openBottomSheetWithFAQ }
+                wrapperStyle={ [ind < faqs.length - 1 && underlineFAQStyle] }/>
+            );
+          }) }
+          <HoverableLink
+            to={ `/${FAQ_PATH}` }
+            style={ {
+              base: loadMoreStyle,
+              hover: loadMoreHoverStyle
+            } }>
+            More
+          </HoverableLink>
         </div>
       );
     } else {
@@ -60,34 +71,28 @@ export class FAQSection extends Component {
     const { editToggleProps, fieldProps } = this.props;
     const { editModeOn } = this.context;
 
-    if (!editModeOn) {
-      return (
-        <div style={ style.header }>
-          <span style={ alignLeftStyle }>FAQ</span>
-          <span style={ alignRightStyle }>
-            <MoreLink to={ `/${FAQ_PATH}` }>See more FAQ</MoreLink>
-          </span>
-        </div>
-      );
-    }
-
     return (
       <div style={ style.header }>
         <div style={ editBoxStyle }>
           <RichTextEditable { ...fieldProps['faq_header'] }/>
         </div>
-        <StrategyForm { ...fieldProps['faq_randomizer'] }/>
-        <EditToggle { ...editToggleProps }/>
+        { editModeOn ?
+          [
+            <StrategyForm key='1' { ...fieldProps['faq_randomizer'] }/>,
+            <EditToggle key='2' { ...editToggleProps }/>
+          ] :
+          null
+        }
       </div>
     );
   }
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ wrapperStyle }>
-        { this.renderHeader(style) }
+      <div style={ style.wrapper }>
         <div style={ contentStyle }>
-            { this.renderContent() }
+          { this.renderHeader(style) }
+          { this.renderContent() }
         </div>
       </div>
     );

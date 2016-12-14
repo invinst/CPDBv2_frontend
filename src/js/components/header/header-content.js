@@ -63,9 +63,9 @@ class HeaderContent extends React.Component {
             );
           }) }
         </div>
-        <Link className='header-logo' to={ ROOT_PATH } style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
-          <span style={ logoStyle }>CPDP</span>
-        </Link>
+        <div style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
+          <Link className='header-logo' to={ ROOT_PATH } style={ logoStyle }>CPDP</Link>
+        </div>
       </ResponsiveFixedWidthComponent>
     );
   }

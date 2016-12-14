@@ -1,5 +1,5 @@
 import {
-  softBlackColor, sanFranciscoTextFamily, silverSandColor, fashionPinkColor, pinkishWhiteColor, mistyRoseColor
+  softBlackColor, sanFranciscoTextFamily, fashionPinkColor, pinkishWhiteColor, mistyRoseColor
 } from 'utils/styles';
 
 
@@ -12,7 +12,7 @@ export const paragraphStyle = {
   base: {
     fontFamily: sanFranciscoTextFamily,
     fontSize: '36px',
-    fontWeight: 300,
+    fontWeight: 500,
     margin: '0 0 30px 0'
   },
 
@@ -21,7 +21,7 @@ export const paragraphStyle = {
   },
 
   desktop: {
-    fontSize: '32px'
+    fontSize: '36px'
   },
 
   extraWide: {
@@ -30,7 +30,7 @@ export const paragraphStyle = {
 };
 
 export const underlinedLinkStyle = {
-  fontWeight: 400
+  fontWeight: 500
 };
 
 export const paragraphWrapperStyle = {
@@ -49,9 +49,19 @@ export const paragraphWrapperStyle = {
 };
 
 export const wrapperStyle = {
-  boxSizing: 'border-box',
-  padding: '32px 16px',
-  borderBottom: 0
+  base: {
+    boxSizing: 'border-box',
+    borderBottom: 0
+  },
+  extraWide: {
+    padding: '66px 16px 32px 16px'
+  },
+  desktop: {
+    padding: '30px 16px 32px 16px'
+  },
+  tablet: {
+    padding: '30px 16px 32px 16px'
+  }
 };
 
 export const headerStyle = {
@@ -59,8 +69,8 @@ export const headerStyle = {
     height: '26px',
     lineHeight: '26px',
     fontFamily: sanFranciscoTextFamily,
-    fontWeight: 300,
-    borderLeft: `8px solid ${silverSandColor}`,
+    fontWeight: 500,
+    borderLeft: `8px solid ${softBlackColor}`,
     color: softBlackColor,
     letterSpacing: '-0.2px',
     paddingLeft: '8px',

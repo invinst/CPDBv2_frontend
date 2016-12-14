@@ -7,7 +7,8 @@ export default [
   {
     [EXTRA_WIDE]: {
       title: {
-        fontSize: '16px'
+        fontSize: '16px',
+        fontWeight: 600
       },
       base: {
         width: '280px'
@@ -15,7 +16,8 @@ export default [
     },
     [DESKTOP]: {
       title: {
-        fontSize: '15px'
+        fontSize: '15px',
+        fontWeight: 600
       },
       base: {
         width: '228px'
@@ -23,7 +25,8 @@ export default [
     },
     [TABLET]: {
       title: {
-        fontSize: '13px'
+        fontSize: '13px',
+        fontWeight: 600
       },
       base: {
         width: '172px'
@@ -33,7 +36,8 @@ export default [
   {
     [EXTRA_WIDE]: {
       title: {
-        fontSize: '36px'
+        fontSize: '36px',
+        fontWeight: 500
       },
       base: {
         width: '280px'
@@ -41,7 +45,8 @@ export default [
     },
     [DESKTOP]: {
       title: {
-        fontSize: '30px'
+        fontSize: '30px',
+        fontWeight: 500
       },
       base: {
         width: '228px'
@@ -49,7 +54,8 @@ export default [
     },
     [TABLET]: {
       title: {
-        fontSize: '22px'
+        fontSize: '22px',
+        fontWeight: 500
       },
       base: {
         width: '172px'

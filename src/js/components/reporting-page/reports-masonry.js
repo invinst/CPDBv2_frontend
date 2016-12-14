@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import MasonryInfiniteScroller from 'react-masonry-infinite';
 import { isEmpty } from 'lodash';
+import InfiniteScroll from 'react-infinite-scroller';
 
+import MasonryLayout from 'components/common/masonry-layout';
 import PropsRerender from 'components/common/higher-order/props-rerender';
 import ReportGroup from './report-group';
 import { masonrySizes } from './group-types';
@@ -32,21 +33,23 @@ class ReportsMasonry extends Component {
       <div>
         <div style={ borderSleeveStyle }/>
         <div style={ wrapperStyle }>
-          <MasonryInfiniteScroller
-            hasMore={ hasMore }
+          <InfiniteScroll
             loadMore={ () => loadMore(nextParams) }
-            sizes={ masonrySizes }>
-            {
-              addButtonArray.concat(
-                reportGroups.map(group => (
-                  <ReportGroup
-                    key={ group.key }
-                    onReportClick={ onReportClick }
-                    { ...group }/>
-                ))
-              )
-            }
-          </MasonryInfiniteScroller>
+            hasMore={ hasMore }>
+            <MasonryLayout
+              sizes={ masonrySizes }>
+              {
+                addButtonArray.concat(
+                  reportGroups.map(group => (
+                    <ReportGroup
+                      key={ group.key }
+                      onReportClick={ onReportClick }
+                      { ...group }/>
+                  ))
+                )
+              }
+            </MasonryLayout>
+          </InfiniteScroll>
         </div>
       </div>
     );

@@ -10,7 +10,7 @@ export const faqItemStyle = {
 
 export const faqItemTitleStyle = {
   base: {
-    color: 'inherit',
+    color: softBlackColor,
     paddingLeft: '16px',
     cursor: 'pointer',
     fontFamily: sanFranciscoTextFamily,
@@ -18,7 +18,7 @@ export const faqItemTitleStyle = {
     lineHeight: '20px',
     paddingTop: '32px',
     paddingBottom: '32px',
-    fontWeight: 300
+    fontWeight: 500
   },
 
   tablet: {
