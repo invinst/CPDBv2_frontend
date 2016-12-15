@@ -13,7 +13,9 @@ export class SunburstGraphic extends Component {
     const { hovering } = this.props;
 
     return (
-      <a style={ { ...style.wrapper, ...(hovering ? wrapperHoverStyle : {}) } } href='https://beta.cpdb.co'>
+      <a className='link--transition'
+        style={ { ...style.wrapper, ...(hovering ? wrapperHoverStyle : {}) } }
+        href='https://beta.cpdb.co'>
         <div style={ { ...style.sunburst, ...(hovering ? sunburstGraphicHoverStyle : {}) } }/>
       </a>
     );
