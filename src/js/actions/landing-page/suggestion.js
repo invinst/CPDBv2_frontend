@@ -18,9 +18,6 @@ export const SELECT_TAG = 'SELECT_TAG';
 
 export const selectTag = createAction(SELECT_TAG);
 
-export const toggleSearchMode = (text) => (push({
-  pathname: SEARCH_PATH,
-  state: {
-    searchText: text
-  }
+export const toggleSearchMode = () => (push({
+  pathname: `/${SEARCH_PATH}`
 }));

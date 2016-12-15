@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
-import should from 'should';
-import { Provider } from 'react-redux';
-import MockStore from 'redux-mock-store';
-import { render } from 'react-dom';
-import { stub, spy } from 'sinon';
-import Mousetrap from 'mousetrap';
-import {
-  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType
-} from 'react-addons-test-utils';
-
 import 'polyfill';
+
+import { Provider } from 'react-redux';
+import { render } from 'react-dom';
+import {
+  renderIntoDocument,
+  findRenderedComponentWithType,
+  scryRenderedComponentsWithType
+} from 'react-addons-test-utils';
+import Mousetrap from 'mousetrap';
+import React, { Component } from 'react';
+
+import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
+import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
 import BottomSheetContainer from 'containers/bottom-sheet';
-import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
+import MockStore from 'redux-mock-store';
+import should from 'should';
 
 
 describe('App component', function () {
@@ -132,13 +135,6 @@ describe('App component', function () {
 
   it('should toggle edit mode when hit esc', function () {
     const toggleEditMode = spy();
-    let triggerESC;
-    //FIXME: Fix this workaround
-    stub(Mousetrap, 'bind', (event, cb) => {
-      if (event == 'esc') {
-        triggerESC = cb;
-      }
-    });
 
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -149,8 +145,25 @@ describe('App component', function () {
       </Provider>
     );
 
-    triggerESC();
+    Mousetrap.trigger('esc');
+
     toggleEditMode.calledWith('/').should.be.true();
-    Mousetrap.bind.restore();
+  });
+
+  it('should toggle search mode when press any key', function () {
+    const toggleSearchMode = spy();
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <App
+          toggleSearchMode={ toggleSearchMode }
+          location={ { pathname: '/', search: '/', action: 'POP' } }
+          appContent='/' />
+      </Provider>
+    );
+
+    Mousetrap.trigger('a');
+
+    toggleSearchMode.calledOnce.should.be.true();
   });
 });

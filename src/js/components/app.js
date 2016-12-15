@@ -1,26 +1,17 @@
-import React, { PropTypes } from 'react';
-import Mousetrap from 'mousetrap';
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
+import Mousetrap from 'mousetrap';
+import React, { PropTypes } from 'react';
 
-import { getMockAdapter } from 'mock-api';
-import EditModeContainer from 'containers/inline-editable/edit-mode-container';
-import BottomSheetContainer from 'containers/bottom-sheet';
-import Header from 'components/header';
-import RouteTransition from 'components/animation/route-transition';
-import LoginModalContainer from 'containers/login-modal-container';
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
+import { getMockAdapter } from 'mock-api';
+import BottomSheetContainer from 'containers/bottom-sheet';
+import EditModeContainer from 'containers/inline-editable/edit-mode-container';
+import Header from 'components/header';
+import LoginModalContainer from 'containers/login-modal-container';
+import RouteTransition from 'components/animation/route-transition';
 
-
-const bindAlphabetNumberic = (func) => {
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.split('').map(
-    (letter) => Mousetrap.bind(letter, func)
-  );
-};
-
-const unbindAlphabetNumberic = () => {
-  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'.split('').map(Mousetrap.unbind);
-};
+import { ALPHA_NUMBERIC } from 'utils/constants';
 
 
 export default class App extends React.Component {
@@ -38,7 +29,7 @@ export default class App extends React.Component {
 
     receiveTokenFromCookie();
     Mousetrap.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
-    bindAlphabetNumberic((event) => (this.props.toggleSearchMode(event.key)));
+    ALPHA_NUMBERIC.map((letter) => (Mousetrap.bind(letter, this.props.toggleSearchMode)));
   }
 
   componentWillReceiveProps() {
@@ -49,7 +40,7 @@ export default class App extends React.Component {
 
   componentWillUnmount() {
     Mousetrap.unbind('esc');
-    unbindAlphabetNumberic();
+    ALPHA_NUMBERIC.map(Mousetrap.unbind);
   }
 
   children() {
