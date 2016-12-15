@@ -29,12 +29,12 @@ describe('HeaderContent component', function () {
 
   it('should render links and logo', function () {
     instance = renderIntoDocument(<HeaderContent/>);
-    const link = scryRenderedComponentsWithType(instance, Link)[4];
+    const link = scryRenderedComponentsWithType(instance, Link)[3];
     link.props.to.should.eql(ROOT_PATH);
     findDOMNode(link).innerText.should.eql('CPDP');
     const navLinks = scryRenderedComponentsWithType(instance, ClosableNavLink);
-    navLinks.length.should.eql(4);
-    navLinks[1].props.href.should.eql(`/${STORIES_PATH}`);
+    navLinks.length.should.eql(3);
+    navLinks[0].props.href.should.eql(`/${STORIES_PATH}`);
   });
 
   it('should render edit links in edit mode', function () {
@@ -44,8 +44,8 @@ describe('HeaderContent component', function () {
       </HeaderContentContextWrapper>
     );
     const navLinks = scryRenderedComponentsWithType(instance, ClosableNavLink);
-    navLinks.length.should.eql(4);
-    navLinks[1].props.href.should.eql(`/edit/${STORIES_PATH}`);
+    navLinks.length.should.eql(3);
+    navLinks[0].props.href.should.eql(`/edit/${STORIES_PATH}`);
   });
 
   it('should display close button beneath appropriate nav link', function () {
