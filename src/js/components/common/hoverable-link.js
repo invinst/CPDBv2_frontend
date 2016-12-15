@@ -9,7 +9,7 @@ class HoverableLink extends Component {
     const { to, hovering, style, children } = this.props;
 
     return (
-      <Link to={ to } style={ hovering ? style.hover : style.base }>
+      <Link to={ to } style={ hovering ? style.hover : style.base } className='link--transition'>
         { children }
       </Link>
     );
