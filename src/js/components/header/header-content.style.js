@@ -1,10 +1,27 @@
-import { softBlackColor } from 'utils/styles';
+import { softBlackColor, accentColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const navStyle = {
   display: 'inline-block',
   marginLeft: '50px',
   fontWeight: 300
+};
+
+const _hoverableLinkStyle = {
+  color: softBlackColor,
+  fontFamily: sanFranciscoTextFamily,
+  fontSize: '15px',
+  textDecoration: 'none',
+  display: 'inline-block',
+  fontWeight: 300
+};
+
+export const hoverableLinkStyle = {
+  base: _hoverableLinkStyle,
+  hover: {
+    ..._hoverableLinkStyle,
+    color: accentColor
+  }
 };
 
 export const navWrapperStyle = {
@@ -23,7 +40,7 @@ export const navWrapperCompactStyle = {
   display: 'inline-block'
 };
 
-export const logoStyle = {
+const _logoStyle = {
   height: '17px',
   width: '77px',
   fontWeight: 600,
@@ -32,6 +49,14 @@ export const logoStyle = {
   fontFamily: '"San Francisco Text", sans-serif',
   display: 'inline-block',
   textDecoration: 'none'
+};
+
+export const logoStyle = {
+  base: _logoStyle,
+  hover: {
+    ..._logoStyle,
+    color: accentColor
+  }
 };
 
 export const logoWrapperStyle = {

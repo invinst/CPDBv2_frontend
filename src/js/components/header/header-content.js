@@ -8,16 +8,14 @@ import {
   STORIES_PATH
 } from 'utils/constants';
 import { editMode } from 'utils/edit-path';
-import { navStyle as navLinkStyle } from 'components/common/nav-link.style';
-import { wrapperStyle } from 'components/closable-nav-link.style';
 import ClosableNavLink from 'components/closable-nav-link';
-import Link from 'components/common/react-router-link';
 import PropsRerender from 'components/common/higher-order/props-rerender';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import HoverableLink from 'components/common/hoverable-link';
 
 import {
   navWrapperStyle, navStyle, logoWrapperStyle, logoStyle,
-  navWrapperCompactStyle, logoWrapperCompactStyle
+  navWrapperCompactStyle, logoWrapperCompactStyle, hoverableLinkStyle
 } from './header-content.style';
 
 export const links = [
@@ -50,13 +48,13 @@ class HeaderContent extends React.Component {
     const { compact, pathname } = this.props;
     const { editModeOn } = this.context;
 
-    // FIXME: Please the <a> tag here @khoi.pham
     return (
       <ResponsiveFixedWidthComponent>
         <div style={ compact ? navWrapperCompactStyle : navWrapperStyle }>
-          <div style={ { ...wrapperStyle, ...navStyle } }>
-            <a style={ navLinkStyle.base } className='link--transition' href='//beta.cpdb.co'>Data</a>
-          </div>
+          <HoverableLink href='//beta.cpdb.co'
+            style={ hoverableLinkStyle }>
+            Data
+          </HoverableLink>
           { links.map((link, ind) => {
             let href = link.href;
             if (editModeOn) {
@@ -72,7 +70,9 @@ class HeaderContent extends React.Component {
           }) }
         </div>
         <div style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
-          <Link className='header-logo' to={ ROOT_PATH } style={ logoStyle }>CPDP</Link>
+          <HoverableLink className='header-logo' to={ ROOT_PATH } style={ logoStyle }>
+            CPDP
+          </HoverableLink>
         </div>
       </ResponsiveFixedWidthComponent>
     );
