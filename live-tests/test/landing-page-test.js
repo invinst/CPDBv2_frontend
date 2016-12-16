@@ -4,6 +4,6 @@ describe('landing-page', function () {
       .url(client.launch_url)
       .expect.element('body').to.be.present.before(100);
     client.keys('a');
-    client.expect.element('.autocomplete-page').to.be.present.before(100);
+    client.expect.element('.search-page').to.be.present.before(100);
   });
 });
