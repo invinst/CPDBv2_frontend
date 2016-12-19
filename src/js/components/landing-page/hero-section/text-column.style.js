@@ -94,3 +94,11 @@ export const heroUseOfForceStyle = {
     width: '406px'
   }
 };
+
+export const entityLinkStyle = {
+  underline: {
+    hover: {
+      opacity: .2
+    }
+  }
+};

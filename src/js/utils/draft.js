@@ -2,6 +2,7 @@ import { convertFromRaw, EditorState, genKey, Entity, RichUtils } from 'draft-js
 import { isEmpty, map, find } from 'lodash';
 import moment from 'moment';
 
+import { ENTITY_LINK } from 'utils/constants';
 import defaultDecorator from 'decorators';
 
 
@@ -81,7 +82,7 @@ export const linkEntitySelected = (editorState) => {
   if (entityKey != null) {
     const entity = Entity.get(entityKey);
 
-    return entity.getType() === 'LINK';
+    return entity.getType() === ENTITY_LINK;
   }
 
   return false;
@@ -92,7 +93,7 @@ export const inlineStyleSelected = (editorState, type) => {
 };
 
 export const createLinkEntity = (editorState, data) => {
-  const entityKey = Entity.create('LINK', 'MUTABLE', data);
+  const entityKey = Entity.create(ENTITY_LINK, 'MUTABLE', data);
   return RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
 };
 
