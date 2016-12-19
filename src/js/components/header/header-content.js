@@ -70,7 +70,7 @@ class HeaderContent extends React.Component {
           }) }
         </div>
         <div style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
-          <HoverableLink className='header-logo' to={ ROOT_PATH } style={ logoStyle }>
+          <HoverableLink className='test--header-logo' to={ ROOT_PATH } style={ logoStyle }>
             CPDP
           </HoverableLink>
         </div>

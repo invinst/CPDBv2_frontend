@@ -50,8 +50,8 @@ describe('Header', function () {
     client.click('//a[text()="Collaborate"]');
     client.assert.urlEquals(`${client.launch_url}/collaborate/`);
 
-    client.useCss().waitForElementVisible('.header-logo', 1000);
-    client.click('.header-logo');
+    client.useCss().waitForElementVisible('.test--header-logo', 1000);
+    client.click('.test--header-logo');
     client.assert.urlEquals(`${client.launch_url}/`);
   });
 
@@ -61,7 +61,7 @@ describe('Header', function () {
       .useCss().expect.element('body').to.be.present.before(1000);
     client.useCss().waitForElementVisible('.subscribe-form__input', 1000);
     client.keys(client.Keys.ESCAPE);
-    client.waitForElementVisible('.edit-toggle', 1000);
+    client.waitForElementVisible('.test--edit-toggle', 1000);
     client.assert.urlEquals(`${client.launch_url}/edit/`);
   });
 
@@ -73,7 +73,7 @@ describe('Header', function () {
     client.url(client.launch_url);
     client.useCss().waitForElementVisible('.subscribe-form__input', 1000);
     client.keys(client.Keys.ESCAPE);
-    client.waitForElementVisible('.edit-toggle', 1000);
+    client.waitForElementVisible('.test--edit-toggle', 1000);
 
     client.useXpath().waitForElementVisible('//a[text()="Reporting"]', 1000);
     client.click('//a[text()="Reporting"]');
@@ -92,7 +92,7 @@ describe('Header', function () {
     client.url(client.launch_url);
     client.useCss().waitForElementVisible('.subscribe-form__input', 1000);
     client.keys(client.Keys.ESCAPE);
-    client.waitForElementVisible('.edit-toggle', 1000);
+    client.waitForElementVisible('.test--edit-toggle', 1000);
 
     client.useXpath().waitForElementVisible('//a[text()="FAQ"]', 1000);
     client.click('//a[text()="FAQ"]');
