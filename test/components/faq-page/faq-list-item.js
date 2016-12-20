@@ -7,22 +7,23 @@ import { spy } from 'sinon';
 
 import { withAnimationDisabled } from 'utils/test';
 import FAQListItem from 'components/faq-page/faq-list-item';
-import { SimpleFAQFactory } from 'utils/test/factories/faq';
 import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
 
 
 describe('FAQListItem component', function () {
   let instance;
-  const faq = SimpleFAQFactory.build();
   const handleClick = spy();
+  const fieldProps = {
+    question: {}
+  };
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
   it('should be renderable', function () {
-    FAQListItem.should.be.renderable({ faq, handleClick });
+    FAQListItem.should.be.renderable({ fieldProps, handleClick });
   });
 
   it('should expand content when receive newProps', function () {
@@ -32,8 +33,8 @@ describe('FAQListItem component', function () {
       },
       render() {
         return (
-          <FAQListItem ref='faqItem' expandedId={ this.state.expandedId }
-            faq={ faq } handleClick={ handleClick }/>
+          <FAQListItem faqId={ 1 } ref='faqItem' expandedId={ this.state.expandedId }
+            fieldProps={ fieldProps } handleClick={ handleClick }/>
         );
       }
     }));
@@ -41,14 +42,14 @@ describe('FAQListItem component', function () {
     scryRenderedComponentsWithType(instance, FAQItemContent).length.should.equal(0);
 
     withAnimationDisabled(function () {
-      instance.setState({ expandedId: faq.id });
+      instance.setState({ expandedId: 1 });
 
       findRenderedComponentWithType(instance, FAQItemContent).should.be.ok();
     });
   });
 
   it('should trigger handleClick', function () {
-    instance = renderIntoDocument(<FAQListItem faq={ faq } handleClick={ handleClick }/>);
+    instance = renderIntoDocument(<FAQListItem fieldProps={ fieldProps } handleClick={ handleClick }/>);
     const titleElement = findRenderedDOMComponentWithClass(instance, 'faq-title');
 
     Simulate.click(titleElement);
