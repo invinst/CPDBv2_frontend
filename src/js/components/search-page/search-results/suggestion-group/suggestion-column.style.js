@@ -1,4 +1,4 @@
-import { whiteTwoColor, sanFranciscoTextFamily, eggPlantColor } from 'utils/styles';
+import { softBlackColor, whiteTwoColor, sanFranciscoTextFamily, eggPlantColor } from 'utils/styles';
 
 
 export const suggestionColumnStyle = (first=false) => ({
@@ -11,7 +11,9 @@ export const suggestionItemStyle = {
   padding: '12px 14px',
   borderBottom: `1px solid ${whiteTwoColor}`,
   width: '415px',
-  height: '32px'
+  height: '32px',
+  display: 'block',
+  textDecoration: 'none'
 };
 
 export const metaTextStyle = {
@@ -24,6 +26,7 @@ export const metaTextStyle = {
 export const suggestionTextStyle = {
   fontWeight: 500,
   fontSize: '14px',
-  fontFamily: sanFranciscoTextFamily
+  fontFamily: sanFranciscoTextFamily,
+  color: softBlackColor
 };
 

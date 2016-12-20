@@ -9,14 +9,16 @@ import {
 export default class SuggestionColumn extends Component {
   renderSuggestions() {
     return map(this.props.suggestions, (suggestion, key) => (
-      <div key={ key } style={ suggestionItemStyle }>
+      <a key={ key }
+        href={ suggestion.payload.url }
+        style={ suggestionItemStyle }>
         <div style={ suggestionTextStyle }>
           { get(suggestion, 'payload.result_text', '') }
         </div>
         <div style={ metaTextStyle }>
           { get(suggestion, 'payload.result_extra_information', '') }
         </div>
-      </div>
+      </a>
     ));
   }
 
