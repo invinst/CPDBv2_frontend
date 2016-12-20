@@ -10,7 +10,7 @@ export default class SuggestionColumn extends Component {
   renderSuggestions() {
     return map(this.props.suggestions, (suggestion, key) => (
       <a key={ key }
-        href={ suggestion.payload.url }
+        href={ get(suggestion, 'payload.url', '') }
         style={ suggestionItemStyle }>
         <div style={ suggestionTextStyle }>
           { get(suggestion, 'payload.result_text', '') }
