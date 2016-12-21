@@ -26,6 +26,7 @@ class MoreLink extends Component {
 
     return (
       <a href={ href }
+        target='_blank'
         onMouseOver={ this.handleMouseOver }
         onMouseOut={ this.handleMouseOut }
         onClick={ onClick }
