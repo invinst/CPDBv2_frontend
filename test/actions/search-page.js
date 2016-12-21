@@ -1,6 +1,7 @@
 import {
-  getSuggestion, selectTag, toggleSearchMode, SUGGESTION_URL, SELECT_TAG,
-  SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
+  getSuggestion, selectTag, toggleSearchMode, suggestionClick,
+  SUGGESTION_URL, SELECT_TAG, SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS,
+  SUGGESTION_REQUEST_FAILURE, SUGGESTION_CLICK
 } from 'actions/search-page';
 import { SEARCH_PATH } from 'utils/constants';
 import { CALL_HISTORY_METHOD } from 'react-router-redux';
@@ -46,6 +47,23 @@ describe('suggestion action', function () {
             }
           ],
           method: 'push'
+        }
+      });
+    });
+  });
+
+  describe('suggestionClick', function () {
+    it('should return correct action', function () {
+      const contentType = 'contentType';
+      const text = 'text';
+      const url = 'url';
+
+      suggestionClick(contentType, text, url).should.deepEqual({
+        type: SUGGESTION_CLICK,
+        payload: {
+          contentType,
+          text,
+          url
         }
       });
     });

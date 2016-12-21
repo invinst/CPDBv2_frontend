@@ -9,8 +9,15 @@ import SuggestionColumn from './suggestion-column';
 
 export default class SuggestionGroup extends Component {
   renderColumns() {
-    return map(chunk(this.props.suggestions, 10), (suggestions, key) => (
-      <SuggestionColumn key={ key } suggestions={ suggestions } index={ key }/>
+    const { suggestions, header, suggestionClick } = this.props;
+
+    return map(chunk(suggestions, 10), (suggestions, key) => (
+      <SuggestionColumn
+        key={ key }
+        suggestionClick={ suggestionClick }
+        contentType={ header }
+        suggestions={ suggestions }
+        index={ key }/>
     ));
   }
 
@@ -45,7 +52,8 @@ export default class SuggestionGroup extends Component {
 SuggestionGroup.propTypes = {
   suggestions: PropTypes.array,
   header: PropTypes.string,
-  onLoadMore: PropTypes.func
+  onLoadMore: PropTypes.func,
+  suggestionClick: PropTypes.func
 };
 
 SuggestionGroup.defaultProps = {

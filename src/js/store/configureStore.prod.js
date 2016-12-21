@@ -1,4 +1,5 @@
-import { createStore, applyMiddleware } from 'redux';
+import persistState from 'redux-localstorage';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { routerMiddleware } from 'react-router-redux';
 import { browserHistory } from 'react-router';
@@ -9,13 +10,26 @@ import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
 import bottomSheetPath from 'middleware/bottom-sheet-path';
 
 
+const localStorageConfig = {
+  slicer(paths) {
+    return (state) => ({
+      searchPage: {
+        recentSuggestions: state.searchPage.recentSuggestions
+      }
+    });
+  }
+};
+
 export default function configureStore(initialState) {
   return createStore(
     rootReducer,
     initialState,
-    applyMiddleware(
-      thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath,
-      routerMiddleware(browserHistory)
+    compose(
+      applyMiddleware(
+        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath,
+        routerMiddleware(browserHistory)
+      ),
+      persistState(()=>{}, localStorageConfig)
     )
   );
 }

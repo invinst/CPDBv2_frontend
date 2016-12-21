@@ -21,3 +21,11 @@ export const selectTag = createAction(SELECT_TAG);
 export const toggleSearchMode = () => (push({
   pathname: `/${SEARCH_PATH}`
 }));
+
+export const SUGGESTION_CLICK = 'SUGGESTION_CLICK';
+
+export const suggestionClick = (contentType, text, url) => createAction(SUGGESTION_CLICK)({
+  contentType,
+  text,
+  url
+});

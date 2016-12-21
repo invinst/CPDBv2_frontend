@@ -8,7 +8,7 @@ import SuggestionNoResult from './search-no-result';
 
 export default class SuggestionResults extends Component {
   renderGroups() {
-    const { suggestionGroups, onLoadMore, searchText, isEmpty, isRequesting } = this.props;
+    const { suggestionGroups, onLoadMore, searchText, isEmpty, isRequesting, suggestionClick } = this.props;
 
     if (isRequesting) {
       return 'Loading...';
@@ -25,6 +25,7 @@ export default class SuggestionResults extends Component {
         onLoadMore={ onLoadMore }
         key={ 'suggestion-group-' + key }
         suggestions={ suggestions }
+        suggestionClick={ suggestionClick }
         header={ key }/>
     ));
   }
@@ -45,5 +46,6 @@ SuggestionResults.propTypes = {
   suggestionGroups: PropTypes.object,
   isRequesting: PropTypes.bool,
   onLoadMore: PropTypes.func,
+  suggestionClick: PropTypes.func,
   isEmpty: PropTypes.bool
 };

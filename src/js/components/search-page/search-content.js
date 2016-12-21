@@ -4,6 +4,7 @@ import { debounce } from 'lodash';
 import SearchResults from './search-results';
 import SearchBox from './search-box';
 import SearchTags from './search-tags';
+import RecentSuggestion from './search-no-input/recent-suggestion.js';
 import { backButtonStyle, searchContentWrapperStyle, searchBoxStyle, helperTextStyle,
   resultWrapperStyle } from './search-content.style.js';
 
@@ -45,7 +46,10 @@ export default class SearchContent extends Component {
   }
 
   renderContent() {
-    const { suggestionGroups, isRequesting, tags, contentType, isEmpty } = this.props;
+    const {
+      suggestionGroups, isRequesting, tags, contentType,
+      isEmpty, recentSuggestions, suggestionClick
+    } = this.props;
 
     if (this.state.value === '') {
       return (
@@ -53,6 +57,7 @@ export default class SearchContent extends Component {
           <div style={ helperTextStyle }>
             Type the name of a police officer, badge number, or CRID number.
           </div>
+          <RecentSuggestion recentSuggestions={ recentSuggestions }/>
         </div>
       );
     }
@@ -61,6 +66,7 @@ export default class SearchContent extends Component {
       <div style={ resultWrapperStyle }>
         <SearchTags tags={ tags } onSelect={ this.handleSelect } selected={ contentType }/>
         <SearchResults
+          suggestionClick={ suggestionClick }
           isEmpty={ isEmpty }
           searchText={ this.state.value }
           onLoadMore={ this.handleSelect }
@@ -90,9 +96,11 @@ export default class SearchContent extends Component {
 SearchContent.propTypes = {
   suggestionGroups: PropTypes.object,
   tags: PropTypes.array,
+  recentSuggestions: PropTypes.array,
   isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func,
   selectTag: PropTypes.func,
+  suggestionClick: PropTypes.func,
   contentType: PropTypes.string,
   isEmpty: PropTypes.bool
 };

@@ -5,7 +5,8 @@ export default {
         'text': 'Bernadette Kelly',
         'payload': {
           'result_text': 'Bernadette Kelly',
-          'result_extra_information': '7186'
+          'result_extra_information': '7186',
+          'url': '#'
         }
       }
     ],
