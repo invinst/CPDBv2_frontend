@@ -98,6 +98,7 @@ describe('store', function () {
         isRequesting: false,
         suggestionGroups: {},
         contentType: null,
+        recentSuggestions: [],
         tags: []
       }
     });

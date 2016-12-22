@@ -7,6 +7,7 @@ describe('searchPage reducer', function () {
       isRequesting: false,
       suggestionGroups: {},
       contentType: null,
+      recentSuggestions: [],
       tags: []
     });
   });

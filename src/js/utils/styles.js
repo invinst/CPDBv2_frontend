@@ -31,6 +31,7 @@ export const black32Color = 'rgba(0, 0, 0, 0.32)';
 export const deepBlueColor = '#004DC8';
 export const lavenderColor = '#CDE0FC';
 export const spindleColor = '#B2D5E9';
+export const greyishColor = '#ADADAD';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';

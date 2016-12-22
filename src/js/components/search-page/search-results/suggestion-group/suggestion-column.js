@@ -56,3 +56,7 @@ SuggestionColumn.propTypes = {
   contentType: PropTypes.string,
   suggestionClick: PropTypes.func
 };
+
+SuggestionColumn.defaultProps = {
+  suggestionClick: () => {}
+};
