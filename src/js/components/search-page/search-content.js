@@ -4,9 +4,11 @@ import { debounce } from 'lodash';
 import SearchResults from './search-results';
 import SearchBox from './search-box';
 import SearchTags from './search-tags';
-import RecentSuggestion from './search-no-input/recent-suggestion.js';
-import { backButtonStyle, searchContentWrapperStyle, searchBoxStyle, helperTextStyle,
-  resultWrapperStyle } from './search-content.style.js';
+import SearchNoInput from './search-no-input';
+import {
+  backButtonStyle, searchContentWrapperStyle, searchBoxStyle,
+  resultWrapperStyle
+} from './search-content.style.js';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -51,14 +53,9 @@ export default class SearchContent extends Component {
       isEmpty, recentSuggestions, suggestionClick
     } = this.props;
 
-    if (this.state.value === '') {
+    if (!this.state.value) {
       return (
-        <div style={ resultWrapperStyle }>
-          <div style={ helperTextStyle }>
-            Type the name of a police officer, badge number, or CRID number.
-          </div>
-          <RecentSuggestion recentSuggestions={ recentSuggestions }/>
-        </div>
+        <SearchNoInput recentSuggestions={ recentSuggestions }/>
       );
     }
 

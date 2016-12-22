@@ -41,6 +41,7 @@ describe('search-page', function () {
   });
 
   it('should show the recent search', function (client) {
+    client.execute('window.localStorage.clear();');
     visitSearchPage(client);
 
     client.assert.visible('input')
@@ -52,5 +53,11 @@ describe('search-page', function () {
 
     visitSearchPage(client);
     client.expect.element('.recent-suggestions').text.to.contain('Bernadette Kelly');
+  });
+
+  it('should not show the recent search if it is empty', function (client) {
+    client.execute('window.localStorage.clear();');
+    visitSearchPage(client);
+    client.expect.element('.recent-suggestions').to.not.be.present;
   });
 });

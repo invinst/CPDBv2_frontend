@@ -1,10 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { isEmpty } from 'lodash';
 
 import { resultWrapperStyle, helperTextStyle, recentRandomWrapperStyle } from './search-no-input.style';
 import RecentSuggestion from './recent-suggestion';
 
 
 export default class SuggestionNoInput extends Component {
+  renderRecentSuggestion() {
+    const { recentSuggestions } = this.props;
+
+    if (!isEmpty(recentSuggestions)) {
+      return (
+        <RecentSuggestion recentSuggestions={ recentSuggestions }/>
+      );
+    }
+  }
+
   render() {
     return (
       <div style={ resultWrapperStyle }>
@@ -12,9 +23,13 @@ export default class SuggestionNoInput extends Component {
           Type the name of a police officer, badge number, or CRID number.
         </div>
         <div style={ recentRandomWrapperStyle }>
-          <RecentSuggestion/>
+          { this.renderRecentSuggestion() }
         </div>
       </div>
     );
   }
 }
+
+SuggestionNoInput.propTypes = {
+  recentSuggestions: PropTypes.array
+};
