@@ -6,41 +6,57 @@ import { getOffsetKey } from 'utils/rich-text';
 import ToolbarButton from './toolbar-button';
 import UrlInput from './url-input';
 import Bubble from './bubble';
-import { createLinkEntity, removeLinkEntity } from 'utils/draft';
+import { createLinkEntity, removeLinkEntity, defocus } from 'utils/draft';
 import { wrapperStyle, urlInputStyle } from './toolbar.style';
 
 class Toolbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showUrlInput: false,
-      linkActive: false
+      linkActive: false,
+      urlInputValue: ''
     };
     this.position = {};
+    this.urlInputHasFocus = false;
+    this.mouseOver = false;
     this.handleLinkButtonClick = this.handleLinkButtonClick.bind(this);
     this.handleBoldButtonClick = this.handleBoldButtonClick.bind(this);
     this.handleItalicButtonClick = this.handleItalicButtonClick.bind(this);
-    this.handleUrlInputEntryFinished = this.handleUrlInputEntryFinished.bind(this);
+    this.handleUrlInputChange = this.handleUrlInputChange.bind(this);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+    this.handleMouseOut = this.handleMouseOut.bind(this);
+    this.handleUrlInputFocus = this.handleUrlInputFocus.bind(this);
+    this.handleUrlInputBlur = this.handleUrlInputBlur.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.editorState !== this.props.editorState) {
-      this.setState({
-        linkActive: false,
-        showUrlInput: false
-      });
+      const linkEntity = linkEntitySelected(nextProps.editorState);
+      if (linkEntity) {
+        const { url } = linkEntity.getData();
+        this.setState({ urlInputValue: url, linkActive: true });
+      } else {
+        this.setState({ urlInputValue: '', linkActive: false });
+      }
     }
   }
 
   handleLinkButtonClick() {
     const { editorState, onChange } = this.props;
-    const { showUrlInput } = this.state;
-    if (linkEntitySelected(editorState)) {
+    const { linkActive, urlInputValue } = this.state;
+    if (urlInputValue) {
       onChange(removeLinkEntity(editorState));
-      this.setState({ showUrlInput: false, linkActive: false });
+      this.setState({ linkActive: false });
     } else {
-      this.setState({ showUrlInput: !showUrlInput, linkActive: !showUrlInput });
+      this.setState({ linkActive: !linkActive });
     }
+  }
+
+  handleUrlInputChange(value) {
+    let { editorState, onChange } = this.props;
+    this.setState({ urlInputValue: value });
+    editorState = createLinkEntity(editorState, { url: value });
+    onChange(defocus(editorState));
   }
 
   handleBoldButtonClick() {
@@ -51,16 +67,6 @@ class Toolbar extends Component {
   handleItalicButtonClick() {
     const { editorState, onChange } = this.props;
     onChange(RichUtils.toggleInlineStyle(editorState, 'ITALIC'));
-  }
-
-  handleUrlInputEntryFinished(url) {
-    const { editorState, onChange } = this.props;
-    let linkActive = false;
-    if (url) {
-      onChange(createLinkEntity(editorState, { url }));
-      linkActive = true;
-    }
-    this.setState({ showUrlInput: false, linkActive });
   }
 
   currentSelectionRect() {
@@ -91,10 +97,38 @@ class Toolbar extends Component {
     return this.position;
   }
 
+  handleMouseOver() {
+    const { onFocus } = this.props;
+    this.mouseOver = true;
+    onFocus();
+  }
+
+  handleMouseOut() {
+    const { onBlur } = this.props;
+    this.mouseOver = false;
+    if (!this.urlInputHasFocus) {
+      onBlur();
+    }
+  }
+
+  handleUrlInputFocus() {
+    const { onFocus } = this.props;
+    this.urlInputHasFocus = true;
+    onFocus();
+  }
+
+  handleUrlInputBlur() {
+    const { onBlur } = this.props;
+    this.urlInputHasFocus = false;
+    if (!this.mouseOver) {
+      onBlur();
+    }
+  }
+
   render() {
-    const { editorState, show, onMouseOver, onMouseOut } = this.props;
-    const { showUrlInput, linkActive } = this.state;
-    let _linkActive = linkActive || (editorState && linkEntitySelected(editorState));
+    const { editorState, show } = this.props;
+    const { linkActive, urlInputValue } = this.state;
+    let _linkActive = linkActive || (editorState && !!urlInputValue);
     let boldActive = editorState && inlineStyleSelected(editorState, 'BOLD');
     let italicActive = editorState && inlineStyleSelected(editorState, 'ITALIC');
 
@@ -106,30 +140,35 @@ class Toolbar extends Component {
       <Bubble style={ this.toolbarPosition() }>
         <div style={ { ...wrapperStyle } }>
           <ToolbarButton
-            onMouseOver={ onMouseOver }
-            onMouseOut={ onMouseOut }
+            onMouseOver={ this.handleMouseOver }
+            onMouseOut={ this.handleMouseOut }
             icon='bold-blue.svg'
             activeIcon='bold-white.svg'
             onClick={ this.handleBoldButtonClick }
             active={ boldActive }/>
           <ToolbarButton
-            onMouseOver={ onMouseOver }
-            onMouseOut={ onMouseOut }
+            onMouseOver={ this.handleMouseOver }
+            onMouseOut={ this.handleMouseOut }
             icon='italic-blue.svg'
             activeIcon='italic-white.svg'
             onClick={ this.handleItalicButtonClick }
             active={ italicActive }/>
           <ToolbarButton
-            onMouseOver={ onMouseOver }
-            onMouseOut={ onMouseOut }
+            onMouseOver={ this.handleMouseOver }
+            onMouseOut={ this.handleMouseOut }
             icon='link-blue.svg'
             activeIcon='link-white.svg'
             onClick={ this.handleLinkButtonClick }
             active={ _linkActive }/>
-          { showUrlInput ?
+          { _linkActive ?
             <UrlInput
-              style={ urlInputStyle }
-              onEntryFinished={ this.handleUrlInputEntryFinished }/> :
+              onMouseOver={ this.handleMouseOver }
+              onMouseOut={ this.handleMouseOut }
+              onFocus={ this.handleUrlInputFocus }
+              onBlur={ this.handleUrlInputBlur }
+              value={ urlInputValue }
+              onChange={ this.handleUrlInputChange }
+              style={ urlInputStyle }/> :
             null
           }
         </div>
@@ -144,8 +183,8 @@ Toolbar.propTypes = {
   onChange: PropTypes.func,
   parentLeft: PropTypes.number,
   parentTop: PropTypes.number,
-  onMouseOut: PropTypes.func,
-  onMouseOver: PropTypes.func
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func
 };
 
 export default Toolbar;

@@ -45,15 +45,15 @@ export default class TextInput extends Component {
   render() {
     const {
       style, paddingVertical, paddingHorizontal, width, height,
-      placeholder, focusAfterMount, ...rest
+      placeholder, autoFocus, ...rest
     } = this.props;
     const { wrapperStyle, inputStyle, placeholderStyle } = inputStyles;
+    const { value, showPlaceholder } = this.state;
+    const _showPlaceholder = showPlaceholder && !rest.value;
     delete rest.value;
     delete rest.onChange;
     delete rest.onBlur;
     delete rest.onFocus;
-    const { value, showPlaceholder } = this.state;
-    const _showPlaceholder = showPlaceholder && !rest.value;
     const _wrapperStyle = { ...wrapperStyle(width, height), ...style.wrapper };
     const _inputStyle = {
       ...inputStyle(paddingVertical, paddingHorizontal),
@@ -67,7 +67,7 @@ export default class TextInput extends Component {
     return (
       <div style={ _wrapperStyle }>
         <input
-          autoFocus={ !!focusAfterMount }
+          autoFocus={ autoFocus }
           style={ _inputStyle }
           value={ value }
           onFocus={ this.handleFocus }
@@ -87,7 +87,7 @@ export default class TextInput extends Component {
 
 TextInput.propTypes = {
   style: PropTypes.object,
-  focusAfterMount: PropTypes.bool,
+  autoFocus: PropTypes.bool,
   paddingVertical: PropTypes.number,
   paddingHorizontal: PropTypes.number,
   width: PropTypes.number,
