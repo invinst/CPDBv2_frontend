@@ -14,6 +14,8 @@ export default class SuggestionNoInput extends Component {
         <RecentSuggestion recentSuggestions={ recentSuggestions }/>
       );
     }
+
+    return null;
   }
 
   render() {

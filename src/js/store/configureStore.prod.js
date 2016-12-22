@@ -8,17 +8,8 @@ import rootReducer from 'reducers/root-reducer';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
 import bottomSheetPath from 'middleware/bottom-sheet-path';
+import localStorageConfig from './local-storage-config';
 
-
-const localStorageConfig = {
-  slicer(paths) {
-    return (state) => ({
-      searchPage: {
-        recentSuggestions: state.searchPage.recentSuggestions
-      }
-    });
-  }
-};
 
 export default function configureStore(initialState) {
   return createStore(
