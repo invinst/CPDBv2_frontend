@@ -11,10 +11,10 @@ export default class SuggestionNoResult extends Component {
       <div style={ suggestionGroupStyle }>
         <div style={ groupHeaderStyle }>Data Tool</div>
         <div style={ noResultItemStyle }>
-          <div>Search "{ searchText }" on the Complaints Data Tool</div>
+          <div>Search "{ searchText }" in the complaints data tool</div>
         </div>
         <div style={ noResultItemStyle }>
-          <div>Search "{ searchText }" on the TIRR (Use of force) Data Tool</div>
+          <div>Search "{ searchText }" in the use of force data tool</div>
         </div>
       </div>
     );
