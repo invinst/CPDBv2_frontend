@@ -46,7 +46,7 @@ describe('search-page', function () {
 
     client.assert.visible('input')
       .setValue('input', 'Ke')
-      .waitForElementVisible('.suggestion-group', 100);
+      .waitForElementVisible('.suggestion-group', 300);
 
     client.expect.element('.content-wrapper').text.to.contain('Bernadette Kelly');
     client.click('.suggestion-column a');
@@ -59,5 +59,37 @@ describe('search-page', function () {
     client.execute('window.localStorage.clear();');
     visitSearchPage(client);
     client.expect.element('.recent-suggestions').to.not.be.present;
+  });
+
+  it('should go back to previous page when user click on back button', function (client) {
+    client.url(client.launch_url);
+    visitSearchPage(client);
+    client.click('.searchbar__button--back');
+    client.assert.urlEquals(`${client.launch_url}/`);
+  });
+
+  it('should go back to previous page when user hit ESCAPE with no focus on search input', function (client) {
+    client.url(client.launch_url);
+    visitSearchPage(client);
+    // unfocus search input
+    client.click('.search-hint');
+    client.keys(client.Keys.ESCAPE);
+    client.assert.urlEquals(`${client.launch_url}/`);
+  });
+
+  it('should go back to previous page when user hit ESCAPE with no focus on search input', function (client) {
+    client.url(client.launch_url);
+    visitSearchPage(client);
+    // unfocus search input
+    client.click('.search-hint');
+    client.keys(client.Keys.ESCAPE);
+    client.assert.urlEquals(`${client.launch_url}/`);
+  });
+
+  it('should go back to previous page when user hit ESCAPE with focus on search input', function (client) {
+    client.url(client.launch_url);
+    visitSearchPage(client);
+    client.keys(client.Keys.ESCAPE);
+    client.assert.urlEquals(`${client.launch_url}/`);
   });
 });

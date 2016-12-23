@@ -4,6 +4,7 @@ import {
   findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
+import Mousetrap from 'mousetrap';
 
 import SearchTags from 'components/search-page/search-tags';
 import SearchContent from 'components/search-page/search-content';
@@ -90,5 +91,28 @@ describe('SearchContent component', function () {
     Simulate.change(searchInput);
     const contentWrapper = findRenderedDOMComponentWithClass(instance, 'content-wrapper');
     contentWrapper.textContent.should.containEql('Loading...');
+  });
+
+  it('should call router.goBack when user click on searchbar__button--back', function () {
+    const router = { goBack: spy() };
+
+    instance = renderIntoDocument(
+      <SearchContent router={ router }/>
+    );
+
+    const backButton = findRenderedDOMComponentWithClass(instance, 'searchbar__button--back');
+    Simulate.click(backButton);
+    router.goBack.calledOnce.should.be.true();
+  });
+
+  it('should call router.goBack when user hit ESCAPE', function () {
+    const router = { goBack: spy() };
+
+    instance = renderIntoDocument(
+      <SearchContent router={ router }/>
+    );
+
+    Mousetrap.trigger('esc');
+    router.goBack.calledOnce.should.be.true();
   });
 });

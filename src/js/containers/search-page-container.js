@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import SearchContent from 'components/search-page/search-content';
 import { getSuggestion, selectTag, toggleSearchMode, suggestionClick } from 'actions/search-page';
@@ -25,4 +26,4 @@ const mapDispatchToProps = {
   suggestionClick
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchContent);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchContent));

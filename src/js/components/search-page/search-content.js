@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { debounce } from 'lodash';
+import Mousetrap from 'mousetrap';
 
 import SearchResults from './search-results';
 import SearchBox from './search-box';
@@ -18,10 +19,19 @@ export default class SearchContent extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.handleGoBack = this.handleGoBack.bind(this);
     this.getSuggestion = debounce(props.getSuggestion, 100);
     this.state = {
       value: ''
     };
+  }
+
+  componentDidMount() {
+    Mousetrap.bind('esc', this.handleGoBack);
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind('esc');
   }
 
   handleChange({ currentTarget: { value } }) {
@@ -45,6 +55,11 @@ export default class SearchContent extends Component {
     } else {
       this.getSuggestion(this.state.value, { contentType });
     }
+  }
+
+  handleGoBack(e) {
+    e.preventDefault();
+    this.props.router.goBack();
   }
 
   renderContent() {
@@ -79,8 +94,14 @@ export default class SearchContent extends Component {
         className='search-page'
         style={ searchContentWrapperStyle }>
         <div style={ searchBoxStyle }>
-          <span style={ backButtonStyle }/>
-          <SearchBox onChange={ this.handleChange } value={ this.state.value }/>
+          <span
+            onClick={ this.handleGoBack }
+            className='searchbar__button--back'
+            style={ backButtonStyle }/>
+          <SearchBox
+            onEscape={ this.handleGoBack }
+            onChange={ this.handleChange }
+            value={ this.state.value }/>
         </div>
         <div style={ resultWrapperStyle }>
           { this.renderContent() }
@@ -99,12 +120,16 @@ SearchContent.propTypes = {
   selectTag: PropTypes.func,
   suggestionClick: PropTypes.func,
   contentType: PropTypes.string,
-  isEmpty: PropTypes.bool
+  isEmpty: PropTypes.bool,
+  router: PropTypes.object
 };
 
 SearchContent.defaultProps = {
   suggestionGroups: {},
   isRequesting: false,
-  getSuggestion: () => {}
+  getSuggestion: () => {},
+  router: {
+    goBack: () => {}
+  }
 };
 

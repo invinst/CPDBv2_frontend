@@ -21,7 +21,7 @@ export default class SuggestionNoInput extends Component {
   render() {
     return (
       <div style={ resultWrapperStyle }>
-        <div style={ helperTextStyle }>
+        <div style={ helperTextStyle } className='search-hint'>
           Type the name of a police officer, badge number, or CRID number.
         </div>
         <div style={ recentRandomWrapperStyle }>
