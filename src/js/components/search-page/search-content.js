@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { debounce } from 'lodash';
+import { isEmpty, debounce } from 'lodash';
 import Mousetrap from 'mousetrap';
 
 import SearchResults from './search-results';
@@ -58,7 +58,8 @@ export default class SearchContent extends Component {
   }
 
   handleGoBack(e) {
-    e.preventDefault();
+    // Since mousetrap just send here an empty object, we might need this for the test to passed
+    !isEmpty(e) && e.preventDefault();
     this.props.router.goBack();
   }
 
