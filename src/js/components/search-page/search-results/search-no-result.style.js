@@ -27,3 +27,7 @@ export const noResultItemStyle = {
   width: '415px',
   height: '32px'
 };
+
+export const aHrefStyle = {
+  textDecoration: 'none'
+};
