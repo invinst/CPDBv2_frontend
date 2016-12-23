@@ -22,7 +22,7 @@ export default class SuggestionNoInput extends Component {
     return (
       <div style={ resultWrapperStyle }>
         <div style={ helperTextStyle } className='search-hint'>
-          Type the name of a police officer, badge number, or CRID number.
+          Search by officer name, badge number, or neighborhood.
         </div>
         <div style={ recentRandomWrapperStyle }>
           { this.renderRecentSuggestion() }
