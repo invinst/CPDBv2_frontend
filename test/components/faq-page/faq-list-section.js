@@ -3,7 +3,7 @@ import {
   renderIntoDocument, scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass, Simulate,
   findRenderedComponentWithType, findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import { withAnimationDisabled } from 'utils/test';
 import ContextWrapper from 'utils/test/components/context-wrapper';
@@ -12,6 +12,7 @@ import FAQListItem from 'components/faq-page/faq-list-item';
 import FAQFactory from 'utils/test/factories/faq';
 import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
+import * as IntercomUtil from 'utils/intercom';
 
 
 class FAQListSectionContextWrapper extends ContextWrapper {}
@@ -20,10 +21,15 @@ FAQListSectionContextWrapper.childContextTypes = {
 };
 
 describe('FAQListSection', function () {
-  let instance;
+  let instance, stubTrackClickedFaqItem;
+
+  beforeEach(function () {
+    stubTrackClickedFaqItem = stub(IntercomUtil, 'trackClickedFaqItem');
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
+    stubTrackClickedFaqItem.restore();
   });
 
   it('should be renderable', function () {
@@ -74,6 +80,37 @@ describe('FAQListSection', function () {
       findRenderedComponentWithType(itemContents[0], FAQItemContent).should.be.ok();
       scryRenderedComponentsWithType(itemContents[1], FAQItemContent).length.should.equal(0);
       scryRenderedComponentsWithType(itemContents[2], FAQItemContent).length.should.equal(0);
+    });
+  });
+
+  it('should send event to Intercom when expanding children without editModeOn', function () {
+    const faqs = [{
+      id: 1,
+      question: 'a',
+      answer: ['b']
+    }, {
+      id: 2,
+      question: 'c',
+      answer: ['d']
+    }, {
+      id: 3,
+      question: 'e',
+      answer: ['f']
+    }];
+
+    instance = renderIntoDocument(
+      <FAQListSection faqs={ faqs }/>
+    );
+
+    withAnimationDisabled(function () {
+      const [title1, title2] = scryRenderedDOMComponentsWithClass(instance, 'faq-title');
+      scryRenderedComponentsWithType(instance, FAQListItem);
+
+      Simulate.click(title2);
+      stubTrackClickedFaqItem.calledWith(2, 'c', ['d']).should.equal(true);
+
+      Simulate.click(title1);
+      stubTrackClickedFaqItem.calledWith(1, 'a', ['b']).should.equal(true);
     });
   });
 

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import FAQListItem from './faq-list-item';
 import { wrapperStyle, addFaqButtonStyle } from './faq-list-section.style';
+import { trackClickedFaqItem } from 'utils/intercom';
 
 
 export default class FAQListSection extends Component {
@@ -13,19 +14,24 @@ export default class FAQListSection extends Component {
     this.renderAddFaqButton = this.renderAddFaqButton.bind(this);
   }
 
-  handleClick(faqId) {
+  handleClick(faq) {
     const { editModeOn } = this.context;
     const { expandedId } = this.state;
     const { openBottomSheetWithFAQ } = this.props;
+    const { id, question, answer } = faq;
 
     if (editModeOn) {
-      openBottomSheetWithFAQ(faqId);
+      openBottomSheetWithFAQ(id);
     } else {
-      const nextId = faqId === expandedId ? null : faqId;
+      const nextId = id === expandedId ? null : id;
       if (nextId !== expandedId) {
         this.setState({
           expandedId: nextId
         });
+
+        if (nextId !== null) {
+          trackClickedFaqItem(id, question, answer);
+        }
       }
     }
   }/**/
@@ -57,7 +63,7 @@ export default class FAQListSection extends Component {
           this.props.faqs.map(faq => {
             return (
               <FAQListItem key={ faq.id } faq={ faq } expandedId={ expandedId }
-                handleClick={ this.handleClick.bind(this, faq.id) }/>
+                handleClick={ this.handleClick.bind(this, faq) }/>
             );
           })
         }

@@ -68,10 +68,12 @@ const ROOT = '/www/static/';
 
 let globalVariableBlock = '<script type="text/javascript">'
   + 'var GA_TRACKING_ID = "UA-63671047-3";'
+  + 'var INTERCOM_ID = "gbsby1ik";'
   + '</script>';
 if (process.env.NODE_ENV === 'production') {
   globalVariableBlock = '<script type="text/javascript">'
     + 'var GA_TRACKING_ID = "UA-63671047-2";'
+    + 'var INTERCOM_ID = "p51vy1rb";'
     + '</script>';
 }
 
