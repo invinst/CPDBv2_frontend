@@ -1,19 +1,11 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+import { V1_ROOT_PATH } from 'utils/constants';
 
-let API_ROOT = '/api/v1/';
-let API_ROOT_V2 = `${global.location.origin}/api/v2/`;
-
-/* istanbul ignore next */
-if (global.DEVELOPMENT) {
-  const LOCAL_BASE_PATH = 'http://localhost:8000';
-  API_ROOT = `${LOCAL_BASE_PATH}/api/v1/`;
-  API_ROOT_V2 = `${LOCAL_BASE_PATH}/api/v2/`;
-}
 
 export const clientConfig = {
-  baseURL: API_ROOT,
+  baseURL: V1_ROOT_PATH,
   responseType: 'json',
   headers: {
     common: {
@@ -25,5 +17,3 @@ export const clientConfig = {
 const client = axios.create(clientConfig);
 
 export default client;
-
-export const V2_ROOT_PATH = API_ROOT_V2;

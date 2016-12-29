@@ -6,10 +6,10 @@ import { buttonStyle } from './login-modal-button.style';
 
 export default class LoginModalButton extends Component {
   render() {
-    const { children, onClick, disabled } = this.props;
+    const { children, onClick, disabled, className } = this.props;
 
     return (
-      <HoverableButton onClick={ onClick } style={ buttonStyle } disabled={ disabled }>
+      <HoverableButton className={ className } onClick={ onClick } style={ buttonStyle } disabled={ disabled }>
         { children }
       </HoverableButton>
     );
@@ -17,6 +17,7 @@ export default class LoginModalButton extends Component {
 }
 
 LoginModalButton.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.node,
   onClick: PropTypes.func,
   disabled: PropTypes.bool

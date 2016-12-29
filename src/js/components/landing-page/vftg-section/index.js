@@ -47,13 +47,13 @@ export class VFTGSection extends Component {
     const link = fieldProps['vftg_link'] ? fieldProps['vftg_link'].value : null;
 
     return (
-      <div style={ wrapperStyle }>
+      <div style={ wrapperStyle } className='test--vftg-section'>
         <div style={ sectionEditModeOn ? vftgWrapperEditModeStyle : vftgWrapperStyle }>
           <div style={ newsWrapperStyle }>
             <div style={ headerBlockStyle }>
               <div style={ editBoxStyle }>
                 <span style={ style.header }>
-                  <RichTextEditable { ...fieldProps['vftg_header'] }/>
+                  <RichTextEditable className='test--vftg-header' { ...fieldProps['vftg_header'] }/>
                 </span>
                 <DatePicker { ...fieldProps['vftg_date'] }/>
               </div>

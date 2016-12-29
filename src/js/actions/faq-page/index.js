@@ -1,5 +1,5 @@
 import { get, authenticatedPost, authenticatedPatch } from 'actions/common/async-action';
-import { V2_ROOT_PATH } from 'utils/axios-client';
+import { V2_ROOT_PATH } from 'utils/constants';
 
 
 export const FAQS_REQUEST_START = 'FAQS_REQUEST_START';

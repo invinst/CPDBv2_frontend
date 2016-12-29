@@ -1,5 +1,6 @@
 'use strict';
 
+const spawn = require('child_process').spawn;
 const gulp = require('gulp');
 const env = require('gulp-env');
 const browserify = require('browserify');
@@ -100,3 +101,12 @@ gulp.task(
 );
 
 gulp.task('build-live-test', ['build-html-live-test', 'copy-static-live-test']);
+
+gulp.task('run-live-test', function (cb) {
+  var testServer = spawn('node', ['test-server.js'], { stdio: 'inherit' });
+  var wdio = spawn('./node_modules/.bin/wdio', ['wdio.conf.js'], { stdio: 'inherit' });
+  wdio.on('exit', function (exitCode) {
+    testServer.kill();
+    cb(exitCode);
+  });
+});

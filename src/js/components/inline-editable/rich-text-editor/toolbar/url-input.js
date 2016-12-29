@@ -23,6 +23,7 @@ export default class UrlInput extends Component {
       <Bubble style={ style } onMouseOver={ onMouseOver } onMouseOut={ onMouseOut }>
         <Input
           style={ inputStyle }
+          className='test--toolbar-url-input'
           autoFocus={ true }
           paddingVertical={ 15 }
           paddingHorizontal={ 15 }

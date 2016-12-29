@@ -54,8 +54,15 @@ class Toolbar extends Component {
 
   handleUrlInputChange(value) {
     let { editorState, onChange } = this.props;
+
     this.setState({ urlInputValue: value });
-    editorState = createLinkEntity(editorState, { url: value });
+
+    if (value) {
+      editorState = createLinkEntity(editorState, { url: value });
+    } else {
+      editorState = removeLinkEntity(editorState);
+    }
+
     onChange(defocus(editorState));
   }
 
@@ -137,9 +144,10 @@ class Toolbar extends Component {
     }
 
     return (
-      <Bubble style={ this.toolbarPosition() }>
+      <Bubble style={ this.toolbarPosition() } className='test--rich-text-toolbar'>
         <div style={ { ...wrapperStyle } }>
           <ToolbarButton
+            className='test--rich-text-bold'
             onMouseOver={ this.handleMouseOver }
             onMouseOut={ this.handleMouseOut }
             icon='bold-blue.svg'
@@ -147,6 +155,7 @@ class Toolbar extends Component {
             onClick={ this.handleBoldButtonClick }
             active={ boldActive }/>
           <ToolbarButton
+            className='test--rich-text-italic'
             onMouseOver={ this.handleMouseOver }
             onMouseOut={ this.handleMouseOut }
             icon='italic-blue.svg'
@@ -154,6 +163,7 @@ class Toolbar extends Component {
             onClick={ this.handleItalicButtonClick }
             active={ italicActive }/>
           <ToolbarButton
+            className='test--rich-text-link'
             onMouseOver={ this.handleMouseOver }
             onMouseOut={ this.handleMouseOut }
             icon='link-blue.svg'

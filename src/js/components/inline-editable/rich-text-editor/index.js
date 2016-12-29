@@ -72,7 +72,7 @@ export default class RichTextEditor extends Component {
   }
 
   render() {
-    const { placeholder, style, readOnly, editorState } = this.props;
+    const { placeholder, style, readOnly, editorState, className } = this.props;
     const { showToolbar, editorLeft, editorTop } = this.state;
     const { wrapper, paragraph } = style;
 
@@ -98,7 +98,7 @@ export default class RichTextEditor extends Component {
     }
 
     return (
-      <div style={ wrapperStyle } ref={ el => {
+      <div style={ wrapperStyle } className={ className } ref={ el => {
         if (el) {
           this.rootEl = el;
         }
@@ -124,6 +124,7 @@ export default class RichTextEditor extends Component {
 }
 
 RichTextEditor.propTypes = {
+  className: PropTypes.string,
   placeholder: PropTypes.string,
   style: PropTypes.object,
   onChange: PropTypes.func,

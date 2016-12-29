@@ -12,7 +12,7 @@ class FAQItem extends Component {
     const { faq, onClick, wrapperStyle } = this.props;
 
     return (
-      <div key={ style.screen } style={ [faqItemStyle, wrapperStyle] }>
+      <div key={ style.screen } style={ [faqItemStyle, wrapperStyle] } className='test--faq-item'>
         <div
           className='faq-title link--transition'
           style={ style.faqItemTitle }
