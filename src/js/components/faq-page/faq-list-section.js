@@ -4,7 +4,6 @@ import FAQListItem from './faq-list-item';
 import { wrapperStyle, addFaqButtonStyle } from './faq-list-section.style';
 import { trackClickedFaqItem } from 'utils/intercom';
 
-
 export default class FAQListSection extends Component {
   constructor(props) {
     super(props);
@@ -14,11 +13,18 @@ export default class FAQListSection extends Component {
     this.renderAddFaqButton = this.renderAddFaqButton.bind(this);
   }
 
+  trackEvent(faq) {
+    const { id, fieldProps } = faq;
+    const answer = fieldProps.answer.value.getCurrentContent().getPlainText();
+    const question = fieldProps.question.value.getCurrentContent().getPlainText();
+    trackClickedFaqItem(id, question, answer);
+  }
+
   handleClick(faq) {
     const { editModeOn } = this.context;
     const { expandedId } = this.state;
     const { openBottomSheetWithFAQ } = this.props;
-    const { id, question, answer } = faq;
+    const { id } = faq;
 
     if (editModeOn) {
       openBottomSheetWithFAQ(id);
@@ -30,7 +36,7 @@ export default class FAQListSection extends Component {
         });
 
         if (nextId !== null) {
-          trackClickedFaqItem(id, question, answer);
+          this.trackEvent(faq);
         }
       }
     }
@@ -62,8 +68,8 @@ export default class FAQListSection extends Component {
         {
           this.props.faqs.map(faq => {
             return (
-              <FAQListItem key={ faq.id } faq={ faq } expandedId={ expandedId }
-                handleClick={ this.handleClick.bind(this, faq) }/>
+              <FAQListItem key={ faq.id } faqId={ faq.id } fieldProps={ faq.fieldProps }
+                expandedId={ expandedId } handleClick={ this.handleClick.bind(this, faq) }/>
             );
           })
         }

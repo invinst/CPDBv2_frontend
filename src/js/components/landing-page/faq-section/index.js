@@ -44,8 +44,9 @@ export class FAQSection extends Component {
           { faqs.map((faq, ind) => {
             return (
               <FAQItem
-                key={ ind }
-                faq={ faq }
+                key={ faq.id }
+                faqId={ faq.id }
+                fieldProps={ faq.fieldProps }
                 onClick={ openBottomSheetWithFAQ }
                 wrapperStyle={ [ind < faqs.length - 1 && underlineFAQStyle] }/>
             );

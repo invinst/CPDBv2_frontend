@@ -16,13 +16,13 @@ describe('Intercom utils', function () {
 
   describe('trackClickedFaqItem', function () {
     it('should call Intercom API', function () {
-      trackClickedFaqItem(11, 'Some question?', ['Two', 'Paragraphs']);
+      trackClickedFaqItem(11, 'Some question?', 'An answer.');
 
       IntercomStub.calledOnce.should.equal(true);
       IntercomStub.calledWith('trackEvent', 'clicked-faq-item', {
         id: 11,
         question: 'Some question?',
-        answer: 'Two. Paragraphs'
+        answer: 'An answer.'
       }).should.equal(true);
     });
   });

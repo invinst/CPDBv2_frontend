@@ -10,8 +10,8 @@ export const faqContentStyle = {
   padding: '0 0 15px 16px'
 };
 
-export const paragraphStyle = {
-  margin: '0 0 9px 0',
+export const editBlockStyle = {
   fontFamily: minionProFamily,
-  fontSize: '18px'
+  fontSize: '18px',
+  margin: '0 0 9px 0'
 };
