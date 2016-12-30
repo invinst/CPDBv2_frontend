@@ -14,9 +14,13 @@ dependencies:
     - npm install -g eslint-plugin-react@5.0.1
     - npm install -g babel-eslint@6.0.3
     - npm install
+    - npm run selenium install
   cache_directories:
     - "node_modules"
 test:
+  pre:
+    - npm run selenium start:
+      background: true
   override:
     - eslint .
     - npm run cover-circle

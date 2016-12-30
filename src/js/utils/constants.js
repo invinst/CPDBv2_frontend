@@ -56,4 +56,4 @@ export const V1_ROOT_PATH = API_ROOT;
 export const LANDING_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/landing-page/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
 export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
-export const MAIL_CHIMP_URL = `${V1_ROOT_PATH}vftg/`;
+export const MAIL_CHIMP_URL = `${global.location.origin}${V1_ROOT_PATH}vftg/`;

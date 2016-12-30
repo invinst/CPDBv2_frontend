@@ -1,6 +1,7 @@
 'use strict';
 
 import { includes } from 'lodash';
+require('should');
 
 import landingPage from './page-objects/landing-page';
 
@@ -10,7 +11,6 @@ describe('Rich text editor', function () {
     landingPage.open();
     landingPage.openEditMode();
     landingPage.heroSection.editToggle.click();
-    landingPage.selectText(landingPage.heroSection.title.selector);
     landingPage.selectText(landingPage.heroSection.title.selector);
   });
 

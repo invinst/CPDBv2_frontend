@@ -20,6 +20,12 @@ Almost everything dev related should be done inside vagrant box. Exceptions are 
 - `npm test` to run tests.
 - `npm run cover` will run tests and output coverage statistics to `./lcov.info`
 
+## Run Selenium Tests
+
+- `npm run selenium install` to install latest selenium and driver.
+- `npm run selenium start` to start selenium standalone server.
+- `npm run live-test` to run selenium tests.
+
 ## Development
 
 - `npm start` to run development server (powered by [budo](https://github.com/mattdesl/budo))

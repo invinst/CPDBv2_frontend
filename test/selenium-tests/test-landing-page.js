@@ -1,5 +1,7 @@
 'use strict';
 
+require('should');
+
 import landingPage from './page-objects/landing-page';
 
 

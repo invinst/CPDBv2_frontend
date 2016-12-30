@@ -10,7 +10,7 @@ exports.config = {
   // directory is where your package.json resides, so `wdio` will be called from there.
   //
   specs: [
-    './test/specs/**/test-*.js'
+    './test/selenium-tests/**/test-*.js'
   ],
   // Patterns to exclude.
   exclude: [
@@ -58,7 +58,7 @@ exports.config = {
   sync: true,
   //
   // Level of logging verbosity: silent | verbose | command | data | result | error
-  logLevel: 'verbose',
+  logLevel: 'error',
   //
   // Enables colors for log output.
   coloredLogs: true,

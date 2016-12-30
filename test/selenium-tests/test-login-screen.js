@@ -1,6 +1,6 @@
 'use strict';
 
-import { includes } from 'lodash';
+require('should');
 
 import landingPage from './page-objects/landing-page';
 
@@ -21,7 +21,7 @@ describe('Login screen', function () {
     it('should hide login screen when clicked on if logged-in successfully', function () {
       landingPage.loginScreen.enterCredentials('username', 'password');
       landingPage.loginScreen.loginButton.click();
-      landingPage.loginScreen.loginModal.waitForVisible(2000, true);
+      landingPage.loginScreen.loginModal.waitForExist(2000, true);
     });
 
     it('should show error message when clicked on if there is an error', function () {
@@ -29,7 +29,7 @@ describe('Login screen', function () {
       landingPage.loginScreen.loginButton.click();
 
       const text = landingPage.loginScreen.loginModal.getText();
-      includes(text, 'Bad username/password').should.be.true();
+      text.should.containEql('Bad username/password');
     });
   });
 
@@ -54,7 +54,7 @@ describe('Login screen', function () {
         landingPage.loginScreen.forgotPasswordModal.waitForVisible(2000, true);
 
         const text = landingPage.loginScreen.loginModal.getText();
-        includes(text, 'Please check your email for a password reset link.').should.be.true();
+        text.should.containEql('Please check your email for a password reset link.');
       });
 
       it('should show error message when clicked on if there is an error', function () {
@@ -62,7 +62,7 @@ describe('Login screen', function () {
         landingPage.loginScreen.resetPasswordButton.click();
 
         const text = landingPage.loginScreen.forgotPasswordModal.getText();
-        includes(text, 'Sorry, there\'s no account registered with this email address.').should.be.true();
+        text.should.containEql('Sorry, there\'s no account registered with this email address.');
       });
     });
   });
