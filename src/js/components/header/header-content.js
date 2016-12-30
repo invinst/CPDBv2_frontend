@@ -1,23 +1,26 @@
-import React, { PropTypes } from 'react';
 import { browserHistory } from 'react-router';
+import React, { PropTypes } from 'react';
 
+import {
+  ROOT_PATH,
+  COLLAB_PATH,
+  FAQ_PATH,
+  STORIES_PATH
+} from 'utils/constants';
+import { editMode } from 'utils/edit-path';
+import { navStyle as navLinkStyle } from 'components/common/nav-link.style';
+import { wrapperStyle } from 'components/closable-nav-link.style';
 import ClosableNavLink from 'components/closable-nav-link';
+import Link from 'components/common/react-router-link';
+import PropsRerender from 'components/common/higher-order/props-rerender';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
-import { ROOT_PATH, COLLAB_PATH, DATA_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
+
 import {
   navWrapperStyle, navStyle, logoWrapperStyle, logoStyle,
   navWrapperCompactStyle, logoWrapperCompactStyle
 } from './header-content.style';
-import Link from 'components/common/react-router-link';
-import PropsRerender from 'components/common/higher-order/props-rerender';
-import { editMode } from 'utils/edit-path';
-
 
 export const links = [
-  {
-    name: 'Data',
-    href: '/' + DATA_PATH
-  },
   {
     name: 'Reporting',
     href: '/' + STORIES_PATH
@@ -46,9 +49,14 @@ class HeaderContent extends React.Component {
   render() {
     const { compact, pathname } = this.props;
     const { editModeOn } = this.context;
+
+    // FIXME: Please the <a> tag here @khoi.pham
     return (
       <ResponsiveFixedWidthComponent>
         <div style={ compact ? navWrapperCompactStyle : navWrapperStyle }>
+          <div style={ { ...wrapperStyle, ...navStyle } }>
+            <a style={ navLinkStyle.base } className='link--transition' href='//beta.cpdb.co'>Data</a>
+          </div>
           { links.map((link, ind) => {
             let href = link.href;
             if (editModeOn) {
