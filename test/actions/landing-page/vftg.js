@@ -11,8 +11,8 @@ describe('subscribeEmail action', function () {
       payload: {
         request: {
           url: MAIL_CHIMP_URL,
-          method: 'POST',
-          adapter: undefined,
+          method: 'post',
+          adapter: null,
           data: {
             email: 'abc@abc.abc'
           }

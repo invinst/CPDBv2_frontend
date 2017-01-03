@@ -4,11 +4,11 @@ import should from 'should';
 import {
   renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
-import draftJs from 'draft-js';
+import draftJs, { Entity } from 'draft-js';
 import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import { convertContentStateToEditorState } from 'utils/draft';
+import { convertContentStateToEditorState, createLinkEntity, removeLinkEntity } from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import Toolbar from 'components/inline-editable/rich-text-editor/toolbar';
 import ToolbarButton from 'components/inline-editable/rich-text-editor/toolbar/toolbar-button';
@@ -47,7 +47,6 @@ describe('Toolbar component', function () {
 
     // button become "active" and url input show
     linkButton.props.active.should.be.true();
-    instance.state.showUrlInput.should.be.true();
     instance.state.linkActive.should.be.true();
     findRenderedComponentWithType(instance, UrlInput);
 
@@ -55,8 +54,6 @@ describe('Toolbar component', function () {
 
     // button become "inactive" and url input stop showing
     linkButton.props.active.should.be.false();
-    instance.state.showUrlInput.should.be.false();
-    instance.state.showUrlInput.should.be.false();
     scryRenderedComponentsWithType(instance, UrlInput).length.should.eql(0);
   });
 
@@ -120,6 +117,8 @@ describe('Toolbar component', function () {
 
     const onChange = spy();
     instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>);
+    instance.setState({ 'urlInputValue': 'abc' });
+
     let buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
     let linkButton = buttons[2];
     linkButton.props.onClick();
@@ -128,28 +127,6 @@ describe('Toolbar component', function () {
     editorState = onChange.args[0][0];
     const contentBlock = editorState.getCurrentContent().getFirstBlock();
     should.not.exist(contentBlock.getEntityAt(1));
-  });
-
-  it('should create link entity when input entry finished', function () {
-    // create editorState with selection
-    const contentState = draftJs.ContentState.createFromText('abc');
-    let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
-    selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
-    let editorState = draftJs.EditorState.createWithContent(contentState);
-    editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-
-    const onChange = spy();
-    instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>);
-    instance.setState({ 'showUrlInput': true });
-    const input = findRenderedComponentWithType(instance, UrlInput);
-    input.props.onEntryFinished('abc');
-    instance.state.showUrlInput.should.be.false();
-    instance.state.linkActive.should.be.true();
-
-    // link entity should be created
-    editorState = onChange.args[0][0];
-    const contentBlock = editorState.getCurrentContent().getFirstBlock();
-    contentBlock.getEntityAt(1).should.be.ok();
   });
 
   it('should not create link entity if there\'s no url given', function () {
@@ -162,10 +139,7 @@ describe('Toolbar component', function () {
 
     const onChange = spy();
     instance = renderIntoDocument(<Toolbar show={ true } editorState={ editorState } onChange={ onChange }/>);
-    instance.setState({ 'showUrlInput': true });
-    const input = findRenderedComponentWithType(instance, UrlInput);
-    input.props.onEntryFinished(null);
-    instance.state.showUrlInput.should.be.false();
+    instance.setState({ 'urlInputValue': null });
     instance.state.linkActive.should.be.false();
 
     // no changes made to editorState
@@ -178,11 +152,10 @@ describe('Toolbar component', function () {
     );
     const rootEl = document.createElement('DIV');
     instance = render(<Toolbar show={ true } editorState={ editorState }/>, rootEl);
-    instance.setState({ linkActive: true, showUrlInput: true });
+    instance.setState({ linkActive: true });
     editorState = draftJs.EditorState.createEmpty();
     instance = render(<Toolbar show={ true } editorState={ editorState }/>, rootEl);
     instance.state.linkActive.should.be.false();
-    instance.state.showUrlInput.should.be.false();
   });
 
   it('should give correct position style to bubble', function () {
@@ -233,5 +206,184 @@ describe('Toolbar component', function () {
     const bubble = findRenderedComponentWithType(instance, Bubble);
     should.not.exists(bubble.props.style.top);
     should.not.exists(bubble.props.style.left);
+  });
+
+  it('should create link entity if url input not empty', function () {
+    const onChange = spy();
+    // create editorState with selection
+    const contentState = draftJs.ContentState.createFromText('abc');
+    let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
+    selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
+    let editorState = draftJs.EditorState.createWithContent(contentState);
+    editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
+
+    instance = renderIntoDocument(
+      <Toolbar show={ true } editorState={ editorState }
+        parentTop={ 0 } parentLeft={ 0 } onChange={ onChange }/>
+    );
+    instance.setState({ linkActive: true });
+
+    const urlInput = findRenderedComponentWithType(instance, UrlInput);
+    urlInput.props.onChange('http://example.com');
+
+    editorState = onChange.args[0][0];
+
+    const entity = editorState.getCurrentContent().getFirstBlock().getEntityAt(1);
+    const linkInstance = Entity.get(entity);
+    const { url } = linkInstance.getData();
+
+    linkInstance.should.be.ok();
+    url.should.eql('http://example.com');
+  });
+
+  it ('should remove link entity if url input empty', function () {
+    const onChange = spy();
+    // create editorState with selection
+    const contentState = draftJs.ContentState.createFromText('abc');
+    let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
+    selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
+    let editorState = draftJs.EditorState.createWithContent(contentState);
+    editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
+
+    instance = renderIntoDocument(
+      <Toolbar show={ true } editorState={ editorState }
+        parentTop={ 0 } parentLeft={ 0 } onChange={ onChange }/>
+    );
+    instance.setState({ linkActive: true });
+
+    const urlInput = findRenderedComponentWithType(instance, UrlInput);
+    urlInput.props.onChange('');
+
+    editorState = onChange.args[0][0];
+    const entity = editorState.getCurrentContent().getFirstBlock().getEntityAt(1);
+
+    should.not.exist(entity);
+  });
+
+  it('should handle focus on mouse over', function () {
+    const onFocus = spy();
+    // create editorState with selection
+    const contentState = draftJs.ContentState.createFromText('abc');
+    const editorState = draftJs.EditorState.createWithContent(contentState);
+
+    instance = renderIntoDocument(
+      <Toolbar show={ true } editorState={ editorState }
+        parentTop={ 0 } parentLeft={ 0 } onFocus={ onFocus }/>
+    );
+
+    const buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
+    const boldButton = buttons[0];
+
+    boldButton.props.onMouseOver();
+
+    onFocus.called.should.be.true();
+  });
+
+  it('should handle blur on mouse out', function () {
+    const onBlur = spy();
+    // create editorState with selection
+    const contentState = draftJs.ContentState.createFromText('abc');
+    const editorState = draftJs.EditorState.createWithContent(contentState);
+
+    instance = renderIntoDocument(
+      <Toolbar show={ true } editorState={ editorState }
+        parentTop={ 0 } parentLeft={ 0 } onBlur={ onBlur }/>
+    );
+
+    const buttons = scryRenderedComponentsWithType(instance, ToolbarButton);
+    const boldButton = buttons[0];
+
+    boldButton.props.onMouseOut();
+
+    onBlur.called.should.be.true();
+  });
+
+  it('should handle focus if url input is focus', function () {
+    const onFocus = spy();
+    // create editorState with selection
+    const contentState = draftJs.ContentState.createFromText('abc');
+    let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
+    selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
+    let editorState = draftJs.EditorState.createWithContent(contentState);
+    editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
+
+    instance = renderIntoDocument(
+      <Toolbar show={ true } editorState={ editorState }
+        parentTop={ 0 } parentLeft={ 0 } onFocus={ onFocus }/>
+    );
+    instance.setState({ linkActive: true });
+
+    const urlInput = findRenderedComponentWithType(instance, UrlInput);
+    urlInput.props.onFocus('');
+
+    onFocus.called.should.be.true();
+  });
+
+  it('should handle blur if url input is blur', function () {
+    const onBlur = spy();
+    // create editorState with selection
+    const contentState = draftJs.ContentState.createFromText('abc');
+    let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
+    selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
+    let editorState = draftJs.EditorState.createWithContent(contentState);
+    editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
+
+    instance = renderIntoDocument(
+      <Toolbar show={ true } editorState={ editorState }
+        parentTop={ 0 } parentLeft={ 0 } onBlur={ onBlur }/>
+    );
+    instance.setState({ linkActive: true });
+
+    const urlInput = findRenderedComponentWithType(instance, UrlInput);
+    urlInput.props.onBlur('');
+
+    onBlur.called.should.be.true();
+  });
+
+  it('should activate link button if a link entity is selected', function () {
+    const contentState = draftJs.ContentState.createFromText('abc');
+    let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
+    selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
+    let editorState = draftJs.EditorState.createWithContent(contentState);
+    editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
+
+    const rootEl = document.createElement('DIV');
+    instance = render(
+      <Toolbar show={ true } parentTop={ 0 } parentLeft={ 0 } editorState={ editorState }/>,
+      rootEl
+    );
+
+    editorState = createLinkEntity(editorState, { url: 'http://abc.com' });
+
+    instance = render(
+      <Toolbar show={ true } parentTop={ 0 } parentLeft={ 0 } editorState={ editorState }/>,
+      rootEl
+    );
+    instance.state.urlInputValue.should.eql('http://abc.com');
+    instance.state.linkActive.should.be.true();
+  });
+
+  it('should deactivate link button if a link entity is not selected', function () {
+    const contentState = draftJs.ContentState.createFromText('abc');
+    let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
+    selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
+    let editorState = draftJs.EditorState.createWithContent(contentState);
+    editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
+    editorState = createLinkEntity(editorState, { url: 'http://abc.com' });
+
+    const rootEl = document.createElement('DIV');
+    instance = render(
+      <Toolbar show={ true } parentTop={ 0 } parentLeft={ 0 } editorState={ editorState }/>,
+      rootEl
+    );
+
+    editorState = removeLinkEntity(editorState);
+
+    instance = render(
+      <Toolbar show={ true } parentTop={ 0 } parentLeft={ 0 } editorState={ editorState }/>,
+      rootEl
+    );
+    instance.state.urlInputValue.should.eql('');
+    instance.state.linkActive.should.be.false();
   });
 });
