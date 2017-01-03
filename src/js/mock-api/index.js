@@ -3,7 +3,7 @@ import axiosMockClient from 'utils/axios-mock-client';
 import landingPageGetData from './landing-page/get-data';
 import suggestionGetData from './landing-page/suggestions';
 
-const SEARCH_API_URL = /.*\/suggestion\/([^/]*)\//;
+const SEARCH_API_URL = /^suggestion\/([^/]*)\//;
 const LANDING_PAGE_API_URL = /cms-pages\/landing-page\//;
 
 
