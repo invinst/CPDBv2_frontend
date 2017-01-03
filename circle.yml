@@ -7,6 +7,11 @@ machine:
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get update && sudo apt-get install gcc-4.9 g++-4.9
 dependencies:
   pre:
+    - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - sudo apt-get install lsb-base
+    - sudo dpkg -i google-chrome.deb
+    - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+    - rm google-chrome.deb
     - bash ./bin/install_phantomjs.sh
   override:
     - npm install -g npm@3.8.7
@@ -14,7 +19,7 @@ dependencies:
     - npm install -g eslint-plugin-react@5.0.1
     - npm install -g babel-eslint@6.0.3
     - npm install
-    - npm run selenium -- install --drivers.chrome.version=2.24
+    - npm run selenium install
     - npm run selenium start:
           background: true
   cache_directories:
