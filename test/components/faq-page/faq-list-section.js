@@ -27,7 +27,7 @@ function createEditorStateStub(plainText) {
           getPlainText: () => {
             return plainText;
           }
-        }
+        };
       }
     }
   };
@@ -180,28 +180,28 @@ describe('FAQListSection', function () {
       openBottom.called.should.be.true();
     });
   });
+});
 
-  describe('trackEvent', function() {
-    let stubTrackClickedFaqItem;
+describe('trackEvent', function () {
+  let stubTrackClickedFaqItem;
 
-    beforeEach(function() {
-      stubTrackClickedFaqItem = stub(IntercomUtil, 'trackClickedFaqItem');
+  beforeEach(function () {
+    stubTrackClickedFaqItem = stub(IntercomUtil, 'trackClickedFaqItem');
+  });
+
+  afterEach(function () {
+    stubTrackClickedFaqItem.restore();
+  });
+
+  it('should call Intercom tracking util', function () {
+    FAQListSection.prototype.trackEvent({
+      id: 9,
+      fieldProps: {
+        question: createEditorStateStub('q'),
+        answer: createEditorStateStub('a')
+      }
     });
 
-    afterEach(function() {
-      stubTrackClickedFaqItem.restore();
-    });
-
-    it('should call Intercom tracking util', function() {
-      FAQListSection.prototype.trackEvent({
-        id: 9,
-        fieldProps: {
-          question: createEditorStateStub('q'),
-          answer: createEditorStateStub('a')
-        }
-      });
-
-      stubTrackClickedFaqItem.calledWith(9, 'q', 'a').should.equal(true);
-    });
+    stubTrackClickedFaqItem.calledWith(9, 'q', 'a').should.equal(true);
   });
 });
