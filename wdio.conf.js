@@ -44,8 +44,7 @@ exports.config = {
     // 5 instances get started at a time.
     maxInstances: 5,
     //
-    browserName: 'chrome',
-    version: '43.0'
+    browserName: 'chrome'
   }],
   //
   // ===================
