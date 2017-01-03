@@ -14,7 +14,7 @@ dependencies:
     - npm install -g eslint-plugin-react@5.0.1
     - npm install -g babel-eslint@6.0.3
     - npm install
-    - npm run selenium install
+    - npm run selenium -- install --drivers.chrome.version=2.24
     - npm run selenium start:
           background: true
   cache_directories:
