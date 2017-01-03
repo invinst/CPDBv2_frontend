@@ -37,5 +37,6 @@ export const onError = ({ action, next, error }, options) => {
 export default axiosMiddleware(axiosClient, {
   onSuccess,
   onError,
+  returnRejectedPromiseOnError: true,
   errorSuffix: '_FAILURE'
 });

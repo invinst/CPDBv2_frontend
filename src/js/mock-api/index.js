@@ -16,10 +16,12 @@ axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'valid@email.com' })
 axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, there\'s no account registered with this email address.' });
 
-axiosMockClient.onPost(MAIL_CHIMP_URL, { email: 'valid@email.com' }).reply(200, { 'success': true });
-axiosMockClient.onPost(MAIL_CHIMP_URL, { email: 'invalid@email.com' })
+// remove "/" from beginning of any v1 path for axios mock adapter to work.
+let mailChimpUrl = MAIL_CHIMP_URL.slice(1);
+axiosMockClient.onPost(mailChimpUrl, { email: 'valid@email.com' }).reply(200, { 'success': true });
+axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
   .reply(400, {
-    'detail': 'invalid@gmail.com looks fake or invalid, please enter a real email address.', 'success': false
+    'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false
   });
 
 /*istanbul ignore next*/

@@ -28,6 +28,7 @@ describe('Login screen', function () {
       landingPage.loginScreen.enterCredentials('badname', 'badpassword');
       landingPage.loginScreen.loginButton.click();
 
+      landingPage.loginScreen.loginModal.waitForVisible();
       browser.waitUntil(function () {
         return landingPage.loginScreen.loginModal.getText().indexOf('Bad username/password') !== -1;
       }, 2000, 'expected error text to show after 2s');
@@ -49,6 +50,7 @@ describe('Login screen', function () {
 
     describe('reset password button', function () {
       it('should show success message when clicked on if there is not an error', function () {
+        landingPage.loginScreen.emailInput.waitForVisible();
         landingPage.loginScreen.emailInput.setValue('valid@email.com');
         landingPage.loginScreen.resetPasswordButton.click();
 
