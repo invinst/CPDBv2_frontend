@@ -34,7 +34,7 @@ class LoginScreen extends Section {
   }
 
   enterCredentials(username, password) {
-    this.loginModal.waitForVisible(2000);
+    this.loginModal.waitForVisible(10000);
     this.loginNameInput.setValue(username);
     this.loginPasswordInput.setValue(password);
   }
@@ -42,7 +42,7 @@ class LoginScreen extends Section {
   login() {
     this.enterCredentials('username', 'password');
     this.loginButton.click();
-    this.loginModal.waitForExist(2000, true);
+    this.loginModal.waitForExist(10000, true);
   }
 }
 
