@@ -229,16 +229,14 @@ describe('landing page', function () {
         landingPage.vftgSection.subscribeForm.setValue('valid@email.com');
         landingPage.vftgSection.subscribeButton.click();
 
-        landingPage.vftgSection.subscribeSuccess.waitForVisible();
-        landingPage.vftgSection.subscribeFailure.waitForVisible(2000, true);
+        landingPage.vftgSection.subscribeSuccess.waitForVisible(2000);
       });
 
       it('should show cross mark when the email is invalid', function () {
         landingPage.vftgSection.subscribeForm.setValue('invalid@email.com');
         landingPage.vftgSection.subscribeButton.click();
 
-        landingPage.vftgSection.subscribeSuccess.waitForVisible(2000, true);
-        landingPage.vftgSection.subscribeFailure.waitForVisible();
+        landingPage.vftgSection.subscribeFailure.waitForVisible(2000);
       });
     });
   });

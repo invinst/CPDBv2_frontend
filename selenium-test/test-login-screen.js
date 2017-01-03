@@ -28,8 +28,9 @@ describe('Login screen', function () {
       landingPage.loginScreen.enterCredentials('badname', 'badpassword');
       landingPage.loginScreen.loginButton.click();
 
-      const text = landingPage.loginScreen.loginModal.getText();
-      text.should.containEql('Bad username/password');
+      browser.waitUntil(function () {
+        return landingPage.loginScreen.loginModal.getText().indexOf('Bad username/password') !== -1;
+      }, 2000, 'expected error text to show after 2s');
     });
   });
 
@@ -51,18 +52,22 @@ describe('Login screen', function () {
         landingPage.loginScreen.emailInput.setValue('valid@email.com');
         landingPage.loginScreen.resetPasswordButton.click();
 
-        landingPage.loginScreen.forgotPasswordModal.waitForVisible(2000, true);
+        landingPage.loginScreen.forgotPasswordModal.waitForExist(2000, true);
 
-        const text = landingPage.loginScreen.loginModal.getText();
-        text.should.containEql('Please check your email for a password reset link.');
+        browser.waitUntil(function () {
+          return landingPage.loginScreen.loginModal.getText()
+            .indexOf('Please check your email for a password reset link.') !== -1;
+        }, 2000, 'expected success text to show after 2s');
       });
 
       it('should show error message when clicked on if there is an error', function () {
         landingPage.loginScreen.emailInput.setValue('invalid@email.com');
         landingPage.loginScreen.resetPasswordButton.click();
 
-        const text = landingPage.loginScreen.forgotPasswordModal.getText();
-        text.should.containEql('Sorry, there\'s no account registered with this email address.');
+        browser.waitUntil(function () {
+          return landingPage.loginScreen.forgotPasswordModal.getText()
+            .indexOf('Sorry, there\'s no account registered with this email address.') !== -1;
+        }, 2000, 'expected error text to show after 2s');
       });
     });
   });
