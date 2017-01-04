@@ -11,8 +11,11 @@
   become_user: root
   tags: setup
 
+- include: setup_yarn.yml
+  tags: yarn setup
+
 - name: Install Browserify
-  npm: name=browserify version=13.0.0 global=yes
+  command: yarn global add browserify@13.0.0
   become: yes
   become_user: root
   tags: setup
