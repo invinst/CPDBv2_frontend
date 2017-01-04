@@ -1,17 +1,22 @@
 'use strict';
 
-import Section from './section';
+import Section from './sections/section';
 
 
 export default class Page extends Section {
   open(path) {
     browser.deleteCookie();
-    browser.url('/' + path);
+    browser.url(path);
   }
 
   get currentBasePath() {
     const url = browser.getUrl();
     return url.replace(/https?:\/\/[^/]+/, '');
+  }
+
+  openEditMode() {
+    browser.keys('Escape');
+    this.loginScreen.login();
   }
 
   selectText(selector) {

@@ -1,22 +1,11 @@
 'use strict';
 
-import Section from './section';
 import Page from './page';
+import Section from './sections/section';
+import Header from './sections/header';
+import RichTextToolbar from './sections/rich-text-toolbar';
+import BottomSheet from './sections/bottom-sheet';
 
-
-class RichTextToolbar extends Section {
-  constructor() {
-    super();
-
-    this.prepareElementGetters({
-      element: '.test--rich-text-toolbar',
-      boldButton: '.test--rich-text-bold',
-      italicButton: '.test--rich-text-italic',
-      linkButton: '.test--rich-text-link',
-      urlInput: '.test--toolbar-url-input'
-    });
-  }
-}
 
 class LoginScreen extends Section {
   constructor() {
@@ -34,7 +23,7 @@ class LoginScreen extends Section {
   }
 
   enterCredentials(username, password) {
-    this.loginModal.waitForVisible(10000);
+    this.loginModal.waitForVisible(20000);
     this.loginNameInput.setValue(username);
     this.loginPasswordInput.setValue(password);
   }
@@ -42,7 +31,7 @@ class LoginScreen extends Section {
   login() {
     this.enterCredentials('username', 'password');
     this.loginButton.click();
-    this.loginModal.waitForVisible(10000, true);
+    this.loginModal.waitForExist(20000, true);
   }
 }
 
@@ -81,7 +70,6 @@ class ReportingSection extends Section {
       cancelButton: '//div[@class="test--reporting-section"]//a[contains(@class, "cancel-button")]',
       updateButton: '//div[@class="test--reporting-section"]//a[contains(@class, "update-button")]',
       report: '//div[@class="report"]',
-      reportBottomSheet: '//div[@class="report-bottom-sheet"]',
       moreButton: '//div[@class="test--reporting-section"]//a'
     });
   }
@@ -99,7 +87,6 @@ class FAQSection extends Section {
       cancelButton: '//div[@class="test--faq-section"]//a[contains(@class, "cancel-button")]',
       updateButton: '//div[@class="test--faq-section"]//a[contains(@class, "update-button")]',
       faq: '//div[@class="test--faq-section"]//div[@class="test--faq-item"]',
-      faqBottomSheet: '//div[@class="faq-bottom-sheet"]',
       moreButton: '//div[@class="test--faq-section"]//a'
     });
   }
@@ -156,10 +143,12 @@ class CollaborateSection extends Section {
 class LandingPage extends Page {
   constructor() {
     super();
-    this.vftgSection = new VFTGSection();
-    this.loginScreen = new LoginScreen();
-    this.heroSection = new HeroSection();
+    this.header = new Header();
     this.richTextToolbar = new RichTextToolbar();
+    this.bottomSheet = new BottomSheet();
+    this.loginScreen = new LoginScreen();
+    this.vftgSection = new VFTGSection();
+    this.heroSection = new HeroSection();
     this.reportingSection = new ReportingSection();
     this.faqSection = new FAQSection();
     this.aboutSection = new AboutSection();
@@ -167,21 +156,8 @@ class LandingPage extends Page {
   }
 
   open() {
-    super.open('');
-    this.vftgSection.subscribeForm.waitForVisible();
-  }
-
-  enterEditMode() {
-    browser.keys('Escape');
-  }
-
-  openEditMode() {
-    this.enterEditMode();
-    this.loginScreen.login();
-  }
-
-  enterUrl(url) {
-    browser.keys(url);
+    super.open('/');
+    browser.element('body').waitForVisible();
   }
 }
 

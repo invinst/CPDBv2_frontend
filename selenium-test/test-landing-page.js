@@ -196,7 +196,7 @@ describe('landing page', function () {
       it('should open report bottom sheet when clicked on', function () {
         landingPage.reportingSection.report.click();
 
-        landingPage.reportingSection.reportBottomSheet.waitForVisible();
+        landingPage.bottomSheet.reportBottomSheet.waitForVisible();
       });
 
       it('should navigate to reporting page when click on More button', function () {
@@ -214,7 +214,7 @@ describe('landing page', function () {
       it('should open FAQ bottom sheet when clicked on', function () {
         landingPage.faqSection.faq.click();
 
-        landingPage.faqSection.faqBottomSheet.waitForVisible();
+        landingPage.bottomSheet.faqBottomSheet.waitForVisible();
       });
 
       it('should navigate to faq page when click on More button', function () {
