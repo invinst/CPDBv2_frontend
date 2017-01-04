@@ -42,7 +42,7 @@ class LoginScreen extends Section {
   login() {
     this.enterCredentials('username', 'password');
     this.loginButton.click();
-    this.loginModal.waitForExist(10000, true);
+    this.loginModal.waitForVisible(10000, true);
   }
 }
 
@@ -53,7 +53,7 @@ class HeroSection extends Section {
     this.prepareElementGetters({
       heroFirstRichTextEditor: 'div[contenteditable="true"]',
       firstRichTextBlock: 'div[contenteditable="true"] span[data-text="true"]',
-      editToggle: '.edit-toggle a',
+      editToggle: '//div[@class="test--hero-section"]//a[@class="test--more-link"]',
       boldTextSpan: '.test--hero-title div[contenteditable="true"] span[style="font-weight: bold;"]',
       italicTextSpan: '.test--hero-title div[contenteditable="true"] span[style="font-style: italic;"]',
       linkTextSpan: '//div[@class="test--hero-title"]//span[contains(@style, "text-decoration: underline;")]',
@@ -74,7 +74,7 @@ class ReportingSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      editToggle: '//div[@class="test--reporting-section"]//div[@class="edit-toggle"]//a',
+      editToggle: '//div[@class="test--reporting-section"]//a[@class="test--more-link"]',
       headerTitle: '//div[@class="test--reporting-section-header"]//div[@data-contents="true"]',
       numberEntriesInput: '//div[@class="test--reporting-section"]//input',
       strategiesSelect: '//div[@class="test--reporting-section"]//select',
@@ -92,7 +92,7 @@ class FAQSection extends Section {
     super();
 
     this.prepareElementGetters({
-      editToggle: '//div[@class="test--faq-section"]//div[@class="edit-toggle"]//a',
+      editToggle: '//div[@class="test--faq-section"]//a[@class="test--more-link"]',
       headerTitle: '//div[@class="test--faq-section-header"]//div[@data-contents="true"]',
       numberEntriesInput: '//div[@class="test--faq-section"]//input',
       strategiesSelect: '//div[@class="test--faq-section"]//select',
@@ -109,7 +109,7 @@ class VFTGSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      editToggle: '//div[@class="test--vftg-section"]//div[@class="edit-toggle"]//a',
+      editToggle: '//div[@class="test--vftg-section"]//a[@class="test--more-link"]',
       headerTitle: '//*[@class="test--vftg-header"]//div[@data-block="true"]',
       datePicker: '//div[@class="test--vftg-section"]//span[contains(@style, "date-picker-pink.svg")]',
       datePickerForm: '//div[@class="react-datepicker"]',
@@ -131,7 +131,7 @@ class AboutSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      editToggle: '//div[@class="test--about-section"]//div[@class="edit-toggle"]//a',
+      editToggle: '//div[@class="test--about-section"]//a[@class="test--more-link"]',
       headerTitle: '//*[@class="test--about-section-header"]//div[@data-block="true"]',
       cancelButton: '//div[@class="test--about-section"]//a[contains(@class, "cancel-button")]',
       updateButton: '//div[@class="test--about-section"]//a[contains(@class, "update-button")]',
@@ -144,7 +144,7 @@ class CollaborateSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      editToggle: '//div[@class="test--collaborate-section"]//div[@class="edit-toggle"]//a',
+      editToggle: '//div[@class="test--collaborate-section"]//a[@class="test--more-link"]',
       headerTitle: '//*[@class="test--collaborate-section-header"]//div[@data-block="true"]',
       cancelButton: '//div[@class="test--collaborate-section"]//a[contains(@class, "cancel-button")]',
       updateButton: '//div[@class="test--collaborate-section"]//a[contains(@class, "update-button")]',
