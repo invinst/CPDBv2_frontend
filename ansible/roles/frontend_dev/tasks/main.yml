@@ -3,3 +3,13 @@
   command: yarn global add budo@8.2.1
   become: yes
   become_user: root
+
+- name: Change Yarn global module directory owner
+  become: yes
+  become_user: root
+  file:
+    path: /usr/local/share/.config/yarn/global/node_modules
+    state: directory
+    owner: vagrant
+    recurse: yes
+    group: vagrant

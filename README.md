@@ -7,28 +7,28 @@
 - `sudo ansible-galaxy install Heroqu.nodejs4x`
 - `sudo ansible-galaxy install nicolai86.phantomjs`
 - Make sure your node and npm version match vagrant's: (node v4.4.3 and npm v3.8.7)
-- `npm install`
+- `yarn install`
 - `vagrant up`
 - `vagrant rsync-auto` (put this on another console this required for live reload)
 - `vagrant ssh`
 - `cd /code`
 
-Almost everything dev related should be done inside vagrant box. Exceptions are when you have to install a new npm package, `npm shrinkwrap` and push/pull code. This is because currently we don't have a way for host machine to see file changes made within vagrant.
+Almost everything dev related should be done inside vagrant box. Exceptions are when you have to install a new npm package, run live-test and push/pull code. This is because currently we don't have a way for host machine to see file changes made within vagrant.
 
 ## Run Tests
 
-- `npm test` to run tests.
-- `npm run cover` will run tests and output coverage statistics to `./lcov.info`
+- `yarn test` to run tests.
+- `yarn cover` will run tests and output coverage statistics to `./lcov.info`
 
 ## Run Selenium Tests
 
-- `npm run selenium install` to install latest selenium and driver.
-- `npm run selenium start` to start selenium standalone server.
-- `npm run live-test` to run selenium tests.
+- `yarn selenium install` to install latest selenium and driver.
+- `yarn selenium start` to start selenium standalone server.
+- `yarn live-test` to run selenium tests.
 
 ## Development
 
-- `npm start` to run development server (powered by [budo](https://github.com/mattdesl/budo))
+- `yarn start` to run development server (powered by [budo](https://github.com/mattdesl/budo))
 - visit `localhost:9966` to see live changes.
 
 ## Deployment
