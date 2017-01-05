@@ -11,7 +11,6 @@ import FAQListSection from 'components/faq-page/faq-list-section';
 import FAQListItem from 'components/faq-page/faq-list-item';
 import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
-import * as IntercomUtil from 'utils/intercom';
 
 
 class FAQListSectionContextWrapper extends ContextWrapper {}
@@ -59,7 +58,7 @@ describe('FAQListSection', function () {
   });
 
   it('should expand children correctly without editModeOn', function () {
-    const stubTrackEvent = stub(FAQListSection.prototype, 'trackEvent');
+    const stubDispatchExpandFAQAction = stub(FAQListSection.prototype, 'dispatchExpandFAQAction');
 
     instance = renderIntoDocument(
       <FAQListSection faqs={ faqs }/>
@@ -82,11 +81,12 @@ describe('FAQListSection', function () {
       scryRenderedComponentsWithType(itemContents[2], FAQItemContent).length.should.equal(0);
     });
 
-    stubTrackEvent.restore();
+    stubDispatchExpandFAQAction.restore();
   });
 
   it('should send event to Intercom when expanding children without editModeOn', function () {
-    const stubTrackEvent = stub(FAQListSection.prototype, 'trackEvent');
+    const stubDispatchExpandFAQAction = stub(FAQListSection.prototype, 'dispatchExpandFAQAction');
+    const spyExpandFAQ = spy();
 
     const faqs = [{
       id: 1,
@@ -106,7 +106,7 @@ describe('FAQListSection', function () {
     }];
 
     instance = renderIntoDocument(
-      <FAQListSection faqs={ faqs }/>
+      <FAQListSection faqs={ faqs } expandFAQ={ spyExpandFAQ }/>
     );
 
     withAnimationDisabled(function () {
@@ -114,13 +114,13 @@ describe('FAQListSection', function () {
       scryRenderedComponentsWithType(instance, FAQListItem);
 
       Simulate.click(title2);
-      stubTrackEvent.calledWith(faqs[1]).should.equal(true);
+      stubDispatchExpandFAQAction.calledWith(spyExpandFAQ, faqs[1]).should.equal(true);
 
       Simulate.click(title1);
-      stubTrackEvent.calledWith(faqs[0]).should.equal(true);
+      stubDispatchExpandFAQAction.calledWith(spyExpandFAQ, faqs[0]).should.equal(true);
     });
 
-    stubTrackEvent.restore();
+    stubDispatchExpandFAQAction.restore();
   });
 
   it('should openBottomSheetWithFAQ when click on faq-item with editModeOn', function () {
@@ -182,19 +182,11 @@ describe('FAQListSection', function () {
   });
 });
 
-describe('trackEvent', function () {
-  let stubTrackClickedFaqItem;
-
-  beforeEach(function () {
-    stubTrackClickedFaqItem = stub(IntercomUtil, 'trackClickedFaqItem');
-  });
-
-  afterEach(function () {
-    stubTrackClickedFaqItem.restore();
-  });
+describe('dispatchExpandFAQAction', function () {
 
   it('should call Intercom tracking util', function () {
-    FAQListSection.prototype.trackEvent({
+    const expandFAQ = spy();
+    FAQListSection.prototype.dispatchExpandFAQAction(expandFAQ, {
       id: 9,
       fieldProps: {
         question: createEditorStateStub('q'),
@@ -202,6 +194,7 @@ describe('trackEvent', function () {
       }
     });
 
-    stubTrackClickedFaqItem.calledWith(9, 'q', 'a').should.equal(true);
+    expandFAQ.calledWith({ id: 9, question: 'q', answer: 'a' }).should.equal(true);
+
   });
 });
