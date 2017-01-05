@@ -106,7 +106,8 @@ gulp.task(
 
 gulp.task('build-live-test', ['build-html-live-test', 'copy-static-live-test']);
 
-gulp.task('run-live-test', ['build-live-test'], function (cb) {
+
+gulp.task('run-live-test', function (cb) {
   const testServer = spawn('node', ['test-server.js']);
   const wdio = spawn('yarn', ['wdio'], { stdio: 'inherit' });
   wdio.on('exit', function (exitCode) {

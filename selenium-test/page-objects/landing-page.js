@@ -7,34 +7,6 @@ import RichTextToolbar from './sections/rich-text-toolbar';
 import BottomSheet from './sections/bottom-sheet';
 
 
-class LoginScreen extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      loginModal: '.test--login-modal',
-      loginNameInput: '.test--login-modal .name-input-wrapper input',
-      loginPasswordInput: '.test--login-modal .password-input-wrapper input',
-      loginButton: '.test--login-modal .test--login-button',
-      forgotPasswordButton: '.test--forgot-password-link',
-      forgotPasswordModal: '.test--forgot-password-modal',
-      emailInput: '.test--login-modal .email-input-wrapper input',
-      resetPasswordButton: '.test--reset-password'
-    });
-  }
-
-  enterCredentials(username, password) {
-    this.loginModal.waitForVisible(20000);
-    this.loginNameInput.setValue(username);
-    this.loginPasswordInput.setValue(password);
-  }
-
-  login() {
-    this.enterCredentials('username', 'password');
-    this.loginButton.click();
-    this.loginModal.waitForExist(20000, true);
-  }
-}
-
 class HeroSection extends Section {
   constructor() {
     super();
@@ -146,7 +118,6 @@ class LandingPage extends Page {
     this.header = new Header();
     this.richTextToolbar = new RichTextToolbar();
     this.bottomSheet = new BottomSheet();
-    this.loginScreen = new LoginScreen();
     this.vftgSection = new VFTGSection();
     this.heroSection = new HeroSection();
     this.reportingSection = new ReportingSection();

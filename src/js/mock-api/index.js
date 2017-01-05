@@ -1,10 +1,12 @@
 import axiosMockClient from 'utils/axios-mock-client';
-import { LANDING_PAGE_API_URL, SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL } from 'utils/constants';
+import { LANDING_PAGE_API_URL, SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL, REPORTS_API_URL } from 'utils/constants';
 
 import landingPageGetData from './landing-page/get-data';
+import reportingPageGetData from './reporting-page/get-data';
 
 
 axiosMockClient.onGet(LANDING_PAGE_API_URL).reply(200, landingPageGetData);
+axiosMockClient.onGet(REPORTS_API_URL).reply(() => [200, reportingPageGetData()]);
 
 axiosMockClient.onPost(SIGNIN_URL, { username: 'username', password: 'password' })
   .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });

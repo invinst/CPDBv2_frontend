@@ -1,9 +1,16 @@
 'use strict';
 
 import Section from './sections/section';
+import LoginScreen from './sections/login-screen';
 
 
 export default class Page extends Section {
+  constructor() {
+    super();
+
+    this.loginScreen = new LoginScreen();
+  }
+
   open(path) {
     browser.deleteCookie();
     browser.url(path);
@@ -17,6 +24,10 @@ export default class Page extends Section {
   openEditMode() {
     browser.keys('Escape');
     this.loginScreen.login();
+  }
+
+  isRichTextEditorEmpty(element) {
+    return element.element('.public-DraftEditorPlaceholder-root').state === 'success';
   }
 
   selectText(selector) {
