@@ -1,10 +1,16 @@
-import { stub } from 'sinon';
+import TwitterWidgetsLoader from 'twitter-widgets';
 
 
-export function getTwitterWidgets() {
+export function loadTwitter(cb) {
   if (global.Mocha !== undefined) {
-    return { createTimeline: stub() };
+    const mockTwttr = {
+      widgets: {
+        createTimeline: () => {}
+      }
+    };
+    cb(mockTwttr);
+  } else {
+    /* istanbul ignore next */
+    TwitterWidgetsLoader.load(cb);
   }
-  /* istanbul ignore next */
-  return global.twttr.widgets;
 }
