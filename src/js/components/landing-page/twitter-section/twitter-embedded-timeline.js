@@ -1,16 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 
-import { getTwitterWidgets } from 'utils/vendors';
+import { loadTwitter } from 'utils/vendors';
 
 
 export default class TwitterEmbeddedTimeline extends Component {
   componentDidMount() {
-    this.updateTimeline();
+    loadTwitter(this.updateTimeline.bind(this));
   }
 
-  updateTimeline() {
-    const widgets = getTwitterWidgets();
-    widgets.createTimeline(
+  updateTimeline(twttr) {
+    twttr.widgets.createTimeline(
       '600720083413962752',
       this._wrapper,
       {
