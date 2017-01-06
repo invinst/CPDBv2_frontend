@@ -15,12 +15,9 @@ class ReportingSection extends Section {
 }
 
 class ReportingPage extends Page {
-  constructor() {
-    super();
-    this.header = new Header();
-    this.reportingSection = new ReportingSection();
-    this.bottomSheet = new BottomSheet();
-  }
+  header = new Header();
+  reportingSection = new ReportingSection();
+  bottomSheet = new BottomSheet();
 
   open() {
     super.open('/reporting/');

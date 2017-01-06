@@ -89,6 +89,8 @@
     "axios-mock-adapter": "^1.7.1",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "bricks.js": "^1.7.0",
+    "browserify": "13.0.0",
+    "budo": "8.2.1",
     "chroma-js": "^1.2.1",
     "classnames": "^2.2.5",
     "clipboard": "^1.5.10",

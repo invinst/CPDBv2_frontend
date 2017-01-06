@@ -113,18 +113,15 @@ class CollaborateSection extends Section {
 }
 
 class LandingPage extends Page {
-  constructor() {
-    super();
-    this.header = new Header();
-    this.richTextToolbar = new RichTextToolbar();
-    this.bottomSheet = new BottomSheet();
-    this.vftgSection = new VFTGSection();
-    this.heroSection = new HeroSection();
-    this.reportingSection = new ReportingSection();
-    this.faqSection = new FAQSection();
-    this.aboutSection = new AboutSection();
-    this.collaborateSection = new CollaborateSection();
-  }
+  header = new Header();
+  richTextToolbar = new RichTextToolbar();
+  bottomSheet = new BottomSheet();
+  vftgSection = new VFTGSection();
+  heroSection = new HeroSection();
+  reportingSection = new ReportingSection();
+  faqSection = new FAQSection();
+  aboutSection = new AboutSection();
+  collaborateSection = new CollaborateSection();
 
   open() {
     super.open('/');
