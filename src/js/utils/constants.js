@@ -38,3 +38,5 @@ export const FORM_INITIAL = 'FORM_INITIAL';
 export const FORM_LOADING = 'FORM_LOADING';
 export const FORM_SUCCESS = 'FORM_SUCCESS';
 export const FORM_FAILURE = 'FORM_FAILURE';
+
+export const ENTITY_LINK = 'LINK';
