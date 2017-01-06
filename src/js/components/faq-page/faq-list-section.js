@@ -56,8 +56,8 @@ export default class FAQListSection extends Component {
         {
           this.props.faqs.map(faq => {
             return (
-              <FAQListItem key={ faq.id } faq={ faq } expandedId={ expandedId }
-                handleClick={ this.handleClick.bind(this, faq.id) }/>
+              <FAQListItem key={ faq.id } faqId={ faq.id } fieldProps={ faq.fieldProps }
+                expandedId={ expandedId } handleClick={ this.handleClick.bind(this, faq.id) }/>
             );
           })
         }
