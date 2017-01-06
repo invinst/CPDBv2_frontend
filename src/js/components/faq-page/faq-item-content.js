@@ -7,7 +7,7 @@ import { contentStyle, paragraphStyle, faqContentStyle } from './faq-item-conten
 class FAQItemContent extends Component {
   render() {
     return (
-      <div style={ [contentStyle, this.props.style] }>
+      <div style={ [contentStyle, this.props.style] } className='test--faq-item-content'>
         <div style={ faqContentStyle }>
         { this.props.faq.answer.map((paragraph, key) => {
           return <p style={ paragraphStyle } key={ key } >{ paragraph }</p>;

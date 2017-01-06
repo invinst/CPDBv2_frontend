@@ -1,12 +1,10 @@
 import { get, authenticatedPost, authenticatedPatch } from 'actions/common/async-action';
-import { V2_ROOT_PATH } from 'utils/constants';
+import { FAQS_API_URL } from 'utils/constants';
 
 
 export const FAQS_REQUEST_START = 'FAQS_REQUEST_START';
 export const FAQS_REQUEST_SUCCESS = 'FAQS_REQUEST_SUCCESS';
 export const FAQS_REQUEST_FAILURE = 'FAQS_REQUEST_FAILURE';
-
-export const FAQS_API_URL = `${V2_ROOT_PATH}faqs/`;
 
 export const requestFAQs = get(
   FAQS_API_URL, [FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE]

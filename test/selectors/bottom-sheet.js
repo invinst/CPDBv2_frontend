@@ -8,21 +8,18 @@ import { contentSelector, reportSelector, faqSelector } from 'selectors/bottom-s
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import ReportFactory from 'utils/test/factories/report';
 import FaqFactory from 'utils/test/factories/faq';
-import {
-  PlainTextFieldFactory, StringFieldFactory, DateFieldFactory, MultilineTextFieldFactory,
-  RichTextFieldFactory
-} from 'utils/test/factories/field';
+import { StringFieldFactory, DateFieldFactory, RichTextFieldFactory } from 'utils/test/factories/field';
 
 
 describe('bottomSheet selector', function () {
   const emptyReportFields = {
-    'title': PlainTextFieldFactory.build({ name: 'title' }, { blockTexts: [''] }),
+    'title': RichTextFieldFactory.build({ name: 'title' }, { blockTexts: [''] }),
     'publication': StringFieldFactory.build({ name: 'publication', value: '' }),
     'publish_date': DateFieldFactory.build(
       { name: 'publish_date', value: moment().format('YYYY-MM-DD') }
     ),
     'author': StringFieldFactory.build({ name: 'author', value: '' }),
-    'excerpt': MultilineTextFieldFactory.build(
+    'excerpt': RichTextFieldFactory.build(
       { name: 'excerpt' }, { blockTexts: [''] }
     ),
     'article_link': RichTextFieldFactory.build(
@@ -30,8 +27,8 @@ describe('bottomSheet selector', function () {
     )
   };
   const emptyFaqFields = {
-    question: PlainTextFieldFactory.build({ name: 'question' }, { blockTexts: [''] }),
-    answer: MultilineTextFieldFactory.build({ name: 'answer' }, { blockTexts: [''] })
+    question: RichTextFieldFactory.build({ name: 'question' }, { blockTexts: [''] }),
+    answer: RichTextFieldFactory.build({ name: 'answer' }, { blockTexts: [''] })
   };
 
   describe('reportSelector', function () {
@@ -58,11 +55,11 @@ describe('bottomSheet selector', function () {
       reportSelector(state, props).should.eql({
         id: 1,
         fields: {
-          'title': PlainTextFieldFactory.build({ name: 'title' }, { blockTexts: [title] }),
+          'title': RichTextFieldFactory.build({ name: 'title' }, { blockTexts: [title] }),
           'publication': StringFieldFactory.build({ name: 'publication', value: publication }),
           'publish_date': DateFieldFactory.build({ name: 'publish_date', value: publishDate }),
           'author': StringFieldFactory.build({ name: 'author', value: author }),
-          'excerpt': MultilineTextFieldFactory.build(
+          'excerpt': RichTextFieldFactory.build(
             { name: 'excerpt' }, { blockTexts: [excerpt] }
           ),
           'article_link': RichTextFieldFactory.build(
@@ -110,8 +107,8 @@ describe('bottomSheet selector', function () {
       faqSelector(state, props).should.eql({
         id: 1,
         fields: {
-          'question': PlainTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
-          'answer': MultilineTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
+          'question': RichTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
+          'answer': RichTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
         }
       });
     });
@@ -169,11 +166,11 @@ describe('bottomSheet selector', function () {
         props: {
           id: 1,
           fields: {
-            'title': PlainTextFieldFactory.build({ name: 'title' }, { blockTexts: [title] }),
+            'title': RichTextFieldFactory.build({ name: 'title' }, { blockTexts: [title] }),
             'publication': StringFieldFactory.build({ name: 'publication', value: publication }),
             'publish_date': DateFieldFactory.build({ name: 'publish_date', value: publishDate }),
             'author': StringFieldFactory.build({ name: 'author', value: author }),
-            'excerpt': MultilineTextFieldFactory.build(
+            'excerpt': RichTextFieldFactory.build(
               { name: 'excerpt' }, { blockTexts: [excerpt] }
             ),
             'article_link': RichTextFieldFactory.build(
@@ -206,8 +203,8 @@ describe('bottomSheet selector', function () {
         props: {
           id: 1,
           fields: {
-            'question': PlainTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
-            'answer': MultilineTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
+            'question': RichTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
+            'answer': RichTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
           }
         }
       });

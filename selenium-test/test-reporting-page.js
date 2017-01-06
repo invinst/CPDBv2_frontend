@@ -54,6 +54,9 @@ describe('reporting page', function () {
     it('open edittable bottom sheet when click on report', function () {
       reportingPage.reportingSection.report.click();
       reportingPage.bottomSheet.reportBottomSheet.waitForVisible();
+      reportingPage.isRichTextEditorEmpty(reportingPage.bottomSheet.reportTitle).should.be.false();
+      reportingPage.isRichTextEditorEmpty(reportingPage.bottomSheet.reportExcerpt).should.be.false();
+      reportingPage.isRichTextEditorEmpty(reportingPage.bottomSheet.reportArticleLink).should.be.false();
     });
   });
 });

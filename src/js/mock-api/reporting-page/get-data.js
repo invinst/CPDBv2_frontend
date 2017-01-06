@@ -1,6 +1,7 @@
 import ReportFactory from 'utils/test/factories/report';
 
 
+/* istanbul ignore next */
 export default () => {
   const reports = ReportFactory.buildList(20);
   return {
