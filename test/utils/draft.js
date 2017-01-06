@@ -10,6 +10,7 @@ import {
   getFieldOrCreateEmptyWithEditorState, linkEntitySelected, createLinkEntity, removeLinkEntity,
   inlineStyleSelected
 } from 'utils/draft';
+import { ENTITY_LINK } from 'utils/constants';
 import { PlainTextFieldFactory } from 'utils/test/factories/field';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import defaultDecorator from 'decorators';
@@ -170,7 +171,7 @@ describe('Draft utils', function () {
       selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
       let editorState = draftJs.EditorState.createWithContent(contentState);
       editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-      const entityKey = draftJs.Entity.create('LINK', 'MUTABLE', { url: 'http://example.com' });
+      const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
       editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
       linkEntitySelected(editorState).should.be.true();
     });
@@ -215,7 +216,7 @@ describe('Draft utils', function () {
       selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
       let editorState = draftJs.EditorState.createWithContent(contentState);
       editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-      const entityKey = draftJs.Entity.create('LINK', 'MUTABLE', { url: 'http://example.com' });
+      const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
       editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
       editorState = removeLinkEntity(editorState);
       const contentBlock = editorState.getCurrentContent().getFirstBlock();

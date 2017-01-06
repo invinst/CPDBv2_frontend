@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classnames from 'classnames';
 
 import Link from './react-router-link';
 import Hoverable from 'components/common/higher-order/hoverable';
@@ -6,10 +7,19 @@ import Hoverable from 'components/common/higher-order/hoverable';
 
 class HoverableLink extends Component {
   render() {
-    const { to, hovering, style, children } = this.props;
+    const { to, href, hovering, style, children } = this.props;
+    const className = classnames(this.props.className, 'link--transition');
+
+    if (href) {
+      return (
+        <a href={ href } style={ hovering ? style.hover : style.base } className={ className }>
+          { children }
+        </a>
+      );
+    }
 
     return (
-      <Link to={ to } style={ hovering ? style.hover : style.base } className='link--transition'>
+      <Link to={ to } style={ hovering ? style.hover : style.base } className={ className }>
         { children }
       </Link>
     );
@@ -18,8 +28,10 @@ class HoverableLink extends Component {
 
 HoverableLink.propTypes = {
   to: PropTypes.string,
+  href: PropTypes.string,
   hovering: PropTypes.bool,
   style: PropTypes.object,
+  className: PropTypes.string,
   children: PropTypes.node
 };
 
