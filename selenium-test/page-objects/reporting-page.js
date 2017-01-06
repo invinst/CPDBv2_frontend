@@ -4,11 +4,8 @@ import BottomSheet from './sections/bottom-sheet';
 
 
 class ReportingPage extends Page {
-  constructor() {
-    super();
-    this.header = new Header();
-    this.bottomSheet = new BottomSheet();
-  }
+  header = new Header();
+  bottomSheet = new BottomSheet();
 
   open() {
     super.open('/reporting/');

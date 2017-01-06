@@ -21,14 +21,16 @@ export default class Page extends Section {
 
   selectText(selector) {
     browser.execute(function (selector) {
-      let element;
 
-      if (selector.startsWith('/')) {
-        element = document.evaluate(
-          selector, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
-      } else {
-        element = document.querySelector(selector);
+      function getElementBySelector(selector) {
+        if (selector.startsWith('/')) {
+          return document.evaluate(selector, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+        } else {
+          return document.querySelector(selector);
+        }
       }
+
+      const element = getElementBySelector(selector);
 
       const startInd = 0;
       const endInd = element.children.length;
