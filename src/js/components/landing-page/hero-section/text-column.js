@@ -26,14 +26,17 @@ export class TextColumn extends Component {
       <div style={ style.wrapper }>
         <div style={ style.title }>
           <RichTextEditable
+            className='test--hero-title'
             { ...fieldProps['hero_title'] }/>
         </div>
         <div style={ style.complaints }>
           <RichTextEditable
+            className='test--hero-complaints'
             { ...fieldProps['hero_complaint_text'] }/>
         </div>
         <div style={ style.useOfForce }>
           <RichTextEditable
+            className='test--hero-use-of-force'
             { ...fieldProps['hero_use_of_force_text'] }/>
         </div>
       </div>

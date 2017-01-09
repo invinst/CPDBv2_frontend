@@ -82,10 +82,11 @@ export const linkEntitySelected = (editorState) => {
   if (entityKey != null) {
     const entity = Entity.get(entityKey);
 
-    return entity.getType() === ENTITY_LINK;
+    if (entity.getType() === ENTITY_LINK)
+      return entity;
   }
 
-  return false;
+  return null;
 };
 
 export const inlineStyleSelected = (editorState, type) => {
@@ -120,4 +121,11 @@ export const hasSelection = (editorState) => {
   const selectionState = editorState.getSelection();
   return (selectionState.getStartOffset() != selectionState.getEndOffset()) ||
     (selectionState.getStartKey() != selectionState.getEndKey());
+};
+
+export const defocus = editorState => {
+  let selectionState = editorState.getSelection();
+  selectionState = selectionState.set('hasFocus', false);
+  editorState = EditorState.acceptSelection(editorState, selectionState);
+  return editorState;
 };

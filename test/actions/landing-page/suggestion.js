@@ -17,7 +17,7 @@ describe('suggestion action', function () {
             params: {
               text: 'abc'
             },
-            adapter: undefined
+            adapter: null
           }
         }
       });

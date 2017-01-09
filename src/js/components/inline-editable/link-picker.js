@@ -46,7 +46,7 @@ export default class LinkPicker extends Component {
         </HoverableButton>
         {
           open ?
-            <div style={ { ...popupWrapperStyle, ...style } }>
+            <div style={ { ...popupWrapperStyle, ...style } } className='test--link-picker'>
               <input style={ linkInputStyle } onChange={ this.handleChange } value={ value }/>
             </div> :
             null

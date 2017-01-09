@@ -34,6 +34,7 @@ export default class CheckmarkSpinnerButton extends Component {
 
   render() {
     const { state, style, disabled } = this.props;
+
     return (
       <button onClick={ this.handleClick }
         style={ { ...subscribeBtnStyle, ...style } }

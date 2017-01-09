@@ -22,7 +22,7 @@ export default class Crossmark extends Component {
         style={ motionStyle }>
         {
           ({ strokeDashoffset }) => (
-            <svg viewBox='15 15 40 40' style={ { ...svgStyle, ...style } }>
+            <svg className='test--cross-mark' viewBox='15 15 40 40' style={ { ...svgStyle, ...style } }>
               <path d='m35,35l-9.3,-9.3' style={ { ...pathStyle, strokeDashoffset } }/>
               <path d='m35,35l9.3,9.3' style={ { ...pathStyle, strokeDashoffset } }/>
               <path d='m35,35l-9.3,9.3' style={ { ...pathStyle, strokeDashoffset } }/>

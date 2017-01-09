@@ -14,43 +14,56 @@ export default class RichTextEditor extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.handleToolbarMouseOver = () => this.setState({ toolbarHovered: true });
-    this.handleToolbarMouseOut = () => this.setState({ toolbarHovered: false });
+    this.handleToolbarFocus = this.handleToolbarFocus.bind(this);
+    this.handleToolbarBlur = this.handleToolbarBlur.bind(this);
+    this.toolbarFocused = false;
     this.state = {
       showToolbar: false,
       editorTop: null,
-      editorLeft: null,
-      toolbarHovered: false
+      editorLeft: null
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.readOnly) {
+      this.toolbarFocused = false;
       this.setState({
-        showToolbar: false,
-        toolbarHovered: false
+        showToolbar: false
       });
     }
   }
 
+  handleToolbarBlur() {
+    this.toolbarFocused = false;
+    this.handleChange(this.props.editorState);
+  }
+
+  handleToolbarFocus() {
+    this.toolbarFocused = true;
+    this.handleChange(this.props.editorState);
+  }
+
+  hasFocus(editorState) {
+    const selectionState = editorState.getSelection();
+    return (selectionState.getHasFocus() || this.toolbarFocused);
+  }
+
   handleChange(editorState) {
     const { onChange } = this.props;
-    let selectionState = editorState.getSelection();
-    if (!selectionState.getHasFocus() && !this.state.toolbarHovered) {
+    if (!this.hasFocus(editorState)) {
       editorState = removeSelection(editorState);
     }
     if (hasSelection(editorState)) {
       const rect = this.rootEl.getBoundingClientRect();
       this.setState({
         showToolbar: true,
-        toolbarHovered: false,
         editorLeft: rect.left,
         editorTop: rect.top
       });
     } else {
+      this.toolbarFocused = false;
       this.setState({
-        showToolbar: false,
-        toolbarHovered: false
+        showToolbar: false
       });
     }
     if (onChange) {
@@ -59,7 +72,7 @@ export default class RichTextEditor extends Component {
   }
 
   render() {
-    const { placeholder, style, readOnly, editorState } = this.props;
+    const { placeholder, style, readOnly, editorState, className } = this.props;
     const { showToolbar, editorLeft, editorTop } = this.state;
     const { wrapper, paragraph } = style;
 
@@ -85,7 +98,7 @@ export default class RichTextEditor extends Component {
     }
 
     return (
-      <div style={ wrapperStyle } ref={ el => {
+      <div style={ wrapperStyle } className={ className } ref={ el => {
         if (el) {
           this.rootEl = el;
         }
@@ -101,8 +114,8 @@ export default class RichTextEditor extends Component {
           show={ showToolbar }
           parentLeft={ editorLeft }
           parentTop={ editorTop }
-          onMouseOver={ this.handleToolbarMouseOver }
-          onMouseOut={ this.handleToolbarMouseOut }
+          onFocus={ this.handleToolbarFocus }
+          onBlur={ this.handleToolbarBlur }
           editorState={ editorState }
           onChange={ this.handleChange }/>
       </div>
@@ -111,6 +124,7 @@ export default class RichTextEditor extends Component {
 }
 
 RichTextEditor.propTypes = {
+  className: PropTypes.string,
   placeholder: PropTypes.string,
   style: PropTypes.object,
   onChange: PropTypes.func,

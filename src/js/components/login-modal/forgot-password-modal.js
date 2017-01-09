@@ -56,7 +56,7 @@ class ForgotPasswordModal extends Component {
     const { disabled } = this.state;
 
     return (
-      <div style={ { ...innerWrapperStyle, opacity: opacity } }>
+      <div style={ { ...innerWrapperStyle, opacity: opacity } } className='test--forgot-password-modal'>
         <div style={ headerStyle }>Forgot your password?</div>
         <div style={ subHeaderStyle }>We’ll email you instructions on how to reset it.</div>
         <div className='email-input-wrapper' style={ emailInputWrapperStyle } onClick={ this.focusEmailInput }>
@@ -71,7 +71,8 @@ class ForgotPasswordModal extends Component {
           <span style={ errorMessageStyle }>{ errorMessage }</span>
           <LoginModalButton
             onClick={ this.handleResetPassword }
-            disabled={ disabled }>
+            disabled={ disabled }
+            className='test--reset-password'>
             Reset Password
           </LoginModalButton>
         </div>

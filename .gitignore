@@ -49,5 +49,8 @@ bundle.js
 ### live test package ###
 live-test-build/
 
-### pyCharm
+### pyCharm ###
 .idea
+
+### live test error screenshots ###
+errorShots/
