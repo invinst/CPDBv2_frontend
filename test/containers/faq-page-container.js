@@ -5,7 +5,6 @@ import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-
 import { unmountComponentSuppressError } from 'utils/test';
 import { UnconnectedFAQPageContainer } from 'containers/faq-page-container';
 import FAQListSection from 'components/faq-page/faq-list-section';
-import FAQFactory from 'utils/test/factories/faq';
 
 
 describe('UnconnectedFAQPageContainer', function () {
@@ -18,7 +17,7 @@ describe('UnconnectedFAQPageContainer', function () {
   it('should render FAQListSection when data is available', function () {
     instance = renderIntoDocument(
       <UnconnectedFAQPageContainer
-        requestFAQs={ () => {} } askQuestion={ () => {} } faqs={ FAQFactory.buildList(3) }/>
+        requestFAQs={ () => {} } askQuestion={ () => {} } faqs={ [] }/>
     );
     findRenderedComponentWithType(instance, FAQListSection);
   });

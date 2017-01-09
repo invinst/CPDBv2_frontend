@@ -18,7 +18,7 @@ class EditToggle extends Component {
     }
 
     return (
-      <div className='edit-toggle' style={ { ...moreLinkWrapperStyle, ...style } }>
+      <div className='test--edit-toggle' style={ { ...moreLinkWrapperStyle, ...style } }>
         {
           !sectionEditModeOn ?
             <MoreLink

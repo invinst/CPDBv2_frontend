@@ -7,6 +7,7 @@ import {
 import draftJs, { Entity } from 'draft-js';
 import { spy } from 'sinon';
 
+import { ENTITY_LINK } from 'utils/constants';
 import { unmountComponentSuppressError } from 'utils/test';
 import { convertContentStateToEditorState, createLinkEntity, removeLinkEntity } from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
@@ -112,7 +113,7 @@ describe('Toolbar component', function () {
     selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
     let editorState = draftJs.EditorState.createWithContent(contentState);
     editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-    const entityKey = draftJs.Entity.create('LINK', 'MUTABLE', { url: 'http://example.com' });
+    const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
     editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
 
     const onChange = spy();

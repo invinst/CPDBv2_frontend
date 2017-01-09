@@ -1,20 +1,15 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { stub } from 'sinon';
 import {
-  renderIntoDocument, scryRenderedDOMComponentsWithTag, scryRenderedComponentsWithType
+  scryRenderedDOMComponentsWithTag, scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import { Entity } from 'draft-js';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import MoreLink from 'components/common/more-link';
-import ContextWrapper from 'utils/test/components/context-wrapper';
+import { ENTITY_LINK } from 'utils/constants';
 import Link from 'components/inline-editable/rich-text-editor/entities/link';
 
-
-class LinkContextWrapper extends ContextWrapper {}
-LinkContextWrapper.childContextTypes = {
-  editModeOn: PropTypes.bool
-};
 
 describe('Link component', function () {
   let instance;
@@ -32,11 +27,7 @@ describe('Link component', function () {
     const getStub = stub(Entity, 'get');
     getStub.withArgs(entityKey).returns({ getData: () => { return { url }; } });
 
-    instance = renderIntoDocument(
-      <LinkContextWrapper context={ context }>
-        <Link entityKey={ entityKey } />
-      </LinkContextWrapper>
-    );
+    instance = renderWithContext(context, <Link entityKey={ entityKey }/>);
     const moreLinkElement = scryRenderedComponentsWithType(instance, MoreLink)[0];
     moreLinkElement.props.href.should.eql(url);
     getStub.restore();
@@ -51,12 +42,23 @@ describe('Link component', function () {
     const getStub = stub(Entity, 'get');
     getStub.withArgs(entityKey).returns({ getData: () => { return { url }; } });
 
-    instance = renderIntoDocument(
-      <LinkContextWrapper context={ context }>
-        <Link entityKey={ entityKey } />
-      </LinkContextWrapper>
-    );
+    instance = renderWithContext(context, <Link entityKey={ entityKey }/>);
+
     scryRenderedDOMComponentsWithTag(instance, 'span').should.be.ok();
     getStub.restore();
+  });
+
+  it('should apply style from context', function () {
+    const style = { a: 'b' };
+    const context = {
+      draftEntityStyle: {
+        [ENTITY_LINK]: style
+      }
+    };
+    stub(Entity, 'get').returns({ getData: () => { return { url: 'url' }; } });
+    instance = renderWithContext(context, <Link/>);
+    const moreLinkElement = scryRenderedComponentsWithType(instance, MoreLink)[0];
+    moreLinkElement.props.style.should.equal(style);
+    Entity.get.restore();
   });
 });
