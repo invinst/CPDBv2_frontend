@@ -15,19 +15,21 @@ class FAQListItem extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      expanded: nextProps.expandedId === nextProps.faq.id
+      expanded: nextProps.expandedId === nextProps.faqId
     });
   }
 
   render() {
-    const { faq, handleClick } = this.props;
+    const { faqId, handleClick, fieldProps } = this.props;
     const { expanded } = this.state;
 
     return (
       <div style={ faqItemWrapperStyle }>
-        <FAQItem faq={ faq } onClick={ handleClick } wrapperStyle={ [expanded && faqItemExpandedStyle] }/>
+        <FAQItem
+          fieldProps={ fieldProps } faqId={ faqId }
+          onClick={ handleClick } wrapperStyle={ [expanded && faqItemExpandedStyle] }/>
         <ExpandTransition
-          childKey={ expanded ? faq.id : null }
+          childKey={ expanded ? faqId : null }
           onFullyClosed={
             /* istanbul ignore next */
             (key) => {this.setState({ expanded: false });}
@@ -36,7 +38,7 @@ class FAQListItem extends Component {
             /* istanbul ignore next */
             (key) => {this.setState({ expanded: true });}
           }>
-          <FAQItemContent faq={ faq } expanded={ expanded } />
+          <FAQItemContent fieldProps={ fieldProps } expanded={ expanded }/>
         </ExpandTransition>
       </div>
     );
@@ -44,11 +46,8 @@ class FAQListItem extends Component {
 }
 
 FAQListItem.propTypes = {
-  faq: PropTypes.shape({
-    id: PropTypes.number,
-    question: PropTypes.string,
-    answer: PropTypes.array
-  }),
+  fieldProps: PropTypes.object,
+  faqId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   handleClick: PropTypes.func.isRequired,
   expandedId: PropTypes.number
 };

@@ -18,11 +18,10 @@ describe('faqs selectors', function () {
       const faq = FAQFactory.build({}, { question, answer });
       state.faqs = [faq];
 
-      faqsSelector(state).should.eql([{
-        id: faq.id,
-        answer: [answer],
-        question
-      }]);
+      const { id, fieldProps } = faqsSelector(state)[0];
+      id.should.equal(faq.id);
+      fieldProps['answer'].should.be.ok();
+      fieldProps['question'].should.be.ok();
     });
   });
 });

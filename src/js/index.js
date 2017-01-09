@@ -8,10 +8,8 @@ import 'polyfill';
 import RouterRoot from 'components/router-root';
 
 global.Perf = Perf;
+TwitterWidgetsLoader.load(() => {});
 
-TwitterWidgetsLoader.load(function (twttr) {
-  global.twttr = twttr;
-  render(
-    <RouterRoot />,
-    document.getElementById('root'));
-});
+render(
+  <RouterRoot />,
+  document.getElementById('root'));

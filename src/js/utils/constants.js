@@ -39,6 +39,7 @@ export const FORM_LOADING = 'FORM_LOADING';
 export const FORM_SUCCESS = 'FORM_SUCCESS';
 export const FORM_FAILURE = 'FORM_FAILURE';
 
+export const ENTITY_LINK = 'LINK';
 
 let API_ROOT = `${global.location.origin}/api/v1/`;
 let API_ROOT_V2 = `${global.location.origin}/api/v2/`;

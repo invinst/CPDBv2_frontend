@@ -9,7 +9,6 @@ import { withAnimationDisabled } from 'utils/test';
 import ContextWrapper from 'utils/test/components/context-wrapper';
 import FAQListSection from 'components/faq-page/faq-list-section';
 import FAQListItem from 'components/faq-page/faq-list-item';
-import FAQFactory from 'utils/test/factories/faq';
 import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
 
@@ -21,6 +20,11 @@ FAQListSectionContextWrapper.childContextTypes = {
 
 describe('FAQListSection', function () {
   let instance;
+  const faqs = [
+    { id: 1, fieldProps: { question: {} } },
+    { id: 2, fieldProps: { question: {} } },
+    { id: 3, fieldProps: { question: {} } }
+  ];
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
@@ -31,8 +35,6 @@ describe('FAQListSection', function () {
   });
 
   it('should render faq-list-item', function () {
-    const faqs = FAQFactory.buildList(3);
-
     instance = renderIntoDocument(
       <FAQListSection faqs={ faqs }/>
     );
@@ -41,20 +43,6 @@ describe('FAQListSection', function () {
   });
 
   it('should expand children correctly without editModeOn', function () {
-    const faqs = [{
-      id: 1,
-      question: 'a',
-      answer: ['b']
-    }, {
-      id: 2,
-      question: 'c',
-      answer: ['d']
-    }, {
-      id: 3,
-      question: 'e',
-      answer: ['f']
-    }];
-
     instance = renderIntoDocument(
       <FAQListSection faqs={ faqs }/>
     );
@@ -78,7 +66,6 @@ describe('FAQListSection', function () {
   });
 
   it('should openBottomSheetWithFAQ when click on faq-item with editModeOn', function () {
-    const faqs = FAQFactory.buildList(1);
     const openBottom = spy();
 
     instance = renderIntoDocument(
@@ -88,7 +75,7 @@ describe('FAQListSection', function () {
     );
 
     withAnimationDisabled(function () {
-      const faq = findRenderedDOMComponentWithClass(instance, 'faq-title');
+      const faq = scryRenderedDOMComponentsWithClass(instance, 'faq-title')[0];
 
       Simulate.click(faq);
       openBottom.calledWith(faqs[0].id).should.be.true();

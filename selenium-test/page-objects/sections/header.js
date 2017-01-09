@@ -6,7 +6,7 @@ class Header extends Section {
     super();
     this.prepareElementGetters({
       closeButtonSelector: '.nav-link__close-btn',
-      headerLogoSelector: '.header-logo',
+      headerLogoSelector: '.test--header-logo',
       reporting: '//a[text()="Reporting"]',
       faq: '//a[text()="FAQ"]',
       collaborate: '//a[text()="Collaborate"]'
