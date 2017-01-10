@@ -1,6 +1,9 @@
 import Cookies from 'js-cookie';
 
-export const get = (url, types) => ((params, adapter) => ({
+import { getMockAdapter } from 'mock-api';
+
+
+export const get = (url, types) => ((params, adapter=getMockAdapter()) => ({
   types,
   payload: {
     request: {
@@ -19,11 +22,11 @@ const authorizationHeaders = () => ({
   }
 });
 
-const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter) => ({
+const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
   types,
   payload: {
     request: {
-      method: 'POST',
+      method: 'post',
       url,
       data,
       adapter,
@@ -36,11 +39,11 @@ export const post = postWithConfig();
 
 export const authenticatedPost = postWithConfig(authorizationHeaders);
 
-const patchWithConfig = (config=() => ({})) => (url, types) => ((data, adapter) => ({
+const patchWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
   types,
   payload: {
     request: {
-      method: 'PATCH',
+      method: 'patch',
       url,
       data,
       adapter,

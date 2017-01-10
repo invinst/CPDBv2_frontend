@@ -129,6 +129,7 @@
     "globals": {
         "Intercom": false,
         "LIVE_TEST": false,
+        "browser": false,
         "Promise": false
     }
 }

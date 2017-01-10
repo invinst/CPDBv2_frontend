@@ -3,24 +3,39 @@ machine:
     version: 4.1.0
   environment:
     NODE_ENV: development
+    YARN_VERSION: 0.18.1
+    PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
   post:
     - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test && sudo apt-get update && sudo apt-get install gcc-4.9 g++-4.9
 dependencies:
   pre:
+    - |
+      if [[ ! -e ~/.yarn/bin/yarn || $(yarn --version) != "${YARN_VERSION}" ]]; then
+        curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version $YARN_VERSION
+      fi
+    - curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    - sudo apt-get install lsb-base
+    - sudo dpkg -i google-chrome.deb
+    - sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+    - rm google-chrome.deb
     - bash ./bin/install_phantomjs.sh
   override:
-    - npm install -g npm@3.8.7
-    - npm install -g eslint@2.8.0
-    - npm install -g eslint-plugin-react@5.0.1
-    - npm install -g babel-eslint@6.0.3
-    - npm install
+    - yarn global add eslint@2.8.0
+    - yarn global add eslint-plugin-react@5.0.1
+    - yarn global add babel-eslint@6.0.3
+    - yarn install
+    - yarn selenium install
+    - yarn selenium start:
+          background: true
   cache_directories:
     - "node_modules"
+    - ~/.yarn
+    - ~/.cache/yarn
 test:
   override:
     - eslint .
-    - npm run cover-circle
-    - npm run live-test
+    - yarn cover-circle
+    - yarn live-test
   post:
     - cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
 

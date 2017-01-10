@@ -1,9 +1,10 @@
 import {
   signIn, resetPassword, openForgotPasswordModal, closeForgotPasswordModal, receiveTokenFromCookie,
-  SIGNIN_REQUEST, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE, SIGNIN_URL,
-  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, RESET_PASSWORD_URL,
+  SIGNIN_REQUEST, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE,
+  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE,
   OPEN_FORGOT_PASSWORD_MODAL, CLOSE_FORGOT_PASSWORD_MODAL, RECEIVE_TOKEN_FROM_COOKIE
 } from 'actions/authentication';
+import { RESET_PASSWORD_URL, SIGNIN_URL } from 'utils/constants';
 
 
 describe('authentication actions', function () {
@@ -15,9 +16,9 @@ describe('authentication actions', function () {
         payload: {
           request: {
             url: SIGNIN_URL,
-            adapter: undefined,
+            adapter: null,
             data: data,
-            method: 'POST'
+            method: 'post'
           }
         }
       });
@@ -32,9 +33,9 @@ describe('authentication actions', function () {
         payload: {
           request: {
             url: RESET_PASSWORD_URL,
-            adapter: undefined,
+            adapter: null,
             data: data,
-            method: 'POST'
+            method: 'post'
           }
         }
       });

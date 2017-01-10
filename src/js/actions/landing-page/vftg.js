@@ -1,7 +1,6 @@
 import { post } from 'actions/common/async-action';
+import { MAIL_CHIMP_URL } from 'utils/constants';
 
-
-export const MAIL_CHIMP_URL = '/vftg/';
 
 export const SUBSCRIBE_EMAIL_REQUEST = 'SUBSCRIBE_EMAIL_REQUEST';
 export const SUBSCRIBE_EMAIL_SUCCESS = 'SUBSCRIBE_EMAIL_SUCCESS';

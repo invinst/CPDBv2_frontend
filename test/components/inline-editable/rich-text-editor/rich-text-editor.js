@@ -41,22 +41,9 @@ describe('RichTextEditor component', function () {
     );
     const rootEl = document.createElement('DIV');
     instance = render(<RichTextEditor editorState={ editorState }/>, rootEl);
-    instance.setState({ showToolbar: true, toolbarHovered: true });
+    instance.setState({ showToolbar: true });
     render(<RichTextEditor editorState={ editorState } readOnly={ true }/>, rootEl);
     instance.state.showToolbar.should.be.false();
-    instance.state.toolbarHovered.should.be.false();
-  });
-
-  it('should change toolbarHovered state', function () {
-    const editorState = convertContentStateToEditorState(
-      RawContentStateFactory.build({}, { blockTexts: ['a'] })
-    );
-    instance = renderIntoDocument(<RichTextEditor editorState={ editorState }/>);
-    const toolbar = findRenderedComponentWithType(instance, Toolbar);
-    toolbar.props.onMouseOver();
-    instance.state.toolbarHovered.should.be.true();
-    toolbar.props.onMouseOut();
-    instance.state.toolbarHovered.should.be.false();
   });
 
   it('should emit back editorState change from Editor', function () {
@@ -114,7 +101,6 @@ describe('RichTextEditor component', function () {
 
     editor.props.onChange(editorState);
     instance.state.showToolbar.should.be.true();
-    instance.state.toolbarHovered.should.be.false();
     const toolbar = findRenderedComponentWithType(instance, Toolbar);
     const rect = findDOMNode(instance).getBoundingClientRect();
     toolbar.props.parentTop.should.eql(rect.top);
@@ -126,11 +112,36 @@ describe('RichTextEditor component', function () {
       RawContentStateFactory.build({}, { blockTexts: ['abc'] })
     );
     instance = renderIntoDocument(<RichTextEditor editorState={ editorState }/>);
-    instance.setState({ showToolbar: true, toolbarHovered: true });
+    instance.setState({ showToolbar: true });
     const editor = findRenderedComponentWithType(instance, Editor);
 
     editor.props.onChange(editorState);
     instance.state.showToolbar.should.be.false();
-    instance.state.toolbarHovered.should.be.false();
+  });
+
+  it('should handle toolbar on focus event', function () {
+    const onChange = spy();
+
+    let editorState = convertContentStateToEditorState(
+      RawContentStateFactory.build({}, { blockTexts: ['abc'] })
+    );
+    instance = renderIntoDocument(<RichTextEditor onChange={ onChange } editorState={ editorState }/>);
+    const toolbar = findRenderedComponentWithType(instance, Toolbar);
+
+    toolbar.props.onFocus();
+    onChange.called.should.be.true();
+  });
+
+  it('should handle toolbar on blur event', function () {
+    const onChange = spy();
+
+    let editorState = convertContentStateToEditorState(
+      RawContentStateFactory.build({}, { blockTexts: ['abc'] })
+    );
+    instance = renderIntoDocument(<RichTextEditor onChange={ onChange } editorState={ editorState }/>);
+    const toolbar = findRenderedComponentWithType(instance, Toolbar);
+
+    toolbar.props.onBlur();
+    onChange.called.should.be.true();
   });
 });

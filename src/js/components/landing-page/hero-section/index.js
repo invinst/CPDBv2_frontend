@@ -12,7 +12,7 @@ export class HeroSection extends Component {
     const { editToggleProps, fieldProps } = this.props;
 
     return (
-      <div style={ outerWrapperStyle }>
+      <div style={ outerWrapperStyle } className='test--hero-section'>
         <ResponsiveFixedWidthComponent>
           <div style={ wrapperStyle }>
             <SunburstGraphic />

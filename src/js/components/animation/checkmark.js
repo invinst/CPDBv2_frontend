@@ -21,7 +21,7 @@ export default class CheckMark extends Component {
         style={ motionStyle }>
         {
           ({ strokeDashoffset }) => (
-            <svg viewBox='15 15 40 40' style={ { ...svgStyle, ...style } }>
+            <svg className='test--check-mark' viewBox='15 15 40 40' style={ { ...svgStyle, ...style } }>
               <path
                 d='m31.5,46.5l15.3,-23.2'
                 style={ { ...lineStyle, strokeDashoffset } }/>
