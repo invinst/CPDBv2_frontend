@@ -51,7 +51,7 @@ export default class SearchContent extends Component {
 
   handleSelect(contentType) {
     if (contentType === this.props.contentType) {
-      this.getSuggestion(this.state.value);
+      this.getSuggestion(this.state.value, { limit: DEFAULT_SUGGESTION_LIMIT });
     } else {
       this.getSuggestion(this.state.value, { contentType });
     }

@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { map, chunk } from 'lodash';
 
-import {
-  suggestionGroupStyle, groupHeaderStyle, loadMoreButtonStyle, suggestionTextStyle
-} from './suggestion-group.style';
+import { suggestionGroupStyle, groupHeaderStyle } from './suggestion-group.style';
 import SuggestionColumn from './suggestion-column';
+import LoadMoreButton from './load-more-button';
+
 
 
 export default class SuggestionGroup extends Component {
@@ -26,9 +26,7 @@ export default class SuggestionGroup extends Component {
 
     if (suggestions.length === 9) {
       return (
-        <div style={ loadMoreButtonStyle } onClick={ onLoadMore.bind(null, header) }>
-          <div style={ suggestionTextStyle }>Show more results</div>
-        </div>
+        <LoadMoreButton onLoadMore={ onLoadMore } header={ header }/>
       );
     }
     return null;
@@ -36,6 +34,7 @@ export default class SuggestionGroup extends Component {
 
   render() {
     const { suggestions, header } = this.props;
+
     if (suggestions.length > 0) {
       return (
         <div style={ suggestionGroupStyle } className='suggestion-group'>
