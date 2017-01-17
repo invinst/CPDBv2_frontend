@@ -10,16 +10,13 @@ export default Factory.define('FAQFactory')
   .attr('fields', ['question', 'answer'], (question, answer) => [
     PlainTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
     MultilineTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
-  ]);
+  ])
+  .sequence('meta', i => ({ 'order': i }));
 
 export const CuratedFAQFactory = Factory.define('curatedFAQFactory')
   .extend('FAQFactory')
   .attr('fields', ['question', 'answer'], (question, answer) => ({
     question: PlainTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
     answer: MultilineTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
-  }));
-
-export const SimpleFAQFactory = Factory.define('simpleFAQFactory')
-  .sequence('id')
-  .attr('question', '')
-  .attr('answer', ['']);
+  }))
+  .sequence('meta', i => ({ 'order': i }));

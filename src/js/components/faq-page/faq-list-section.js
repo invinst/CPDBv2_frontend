@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import FAQListItem from './faq-list-item';
+import DraggableFAQListItem from './draggable-faq-list-item';
 import { wrapperStyle, addFaqButtonStyle } from './faq-list-section.style';
 
 
@@ -11,6 +11,7 @@ export default class FAQListSection extends Component {
       expandedId: null
     };
     this.renderAddFaqButton = this.renderAddFaqButton.bind(this);
+    props.requestFAQs();
   }
 
   handleClick(faqId) {
@@ -28,7 +29,7 @@ export default class FAQListSection extends Component {
         });
       }
     }
-  }/**/
+  }
 
   renderAddFaqButton() {
     const { editModeOn } = this.context;
@@ -48,19 +49,21 @@ export default class FAQListSection extends Component {
   }
 
   render() {
+    const { faqs, findItem, moveItem } = this.props;
+
     const { expandedId } = this.state;
+    const faqItems = faqs.map(faq => {
+      return (
+        <DraggableFAQListItem key={ faq.id } faqId={ faq.id } fieldProps={ faq.fieldProps }
+          findItem={ findItem } moveItem={ moveItem }
+          expandedId={ expandedId } handleClick={ this.handleClick.bind(this, faq.id) }/>
+      );
+    });
 
     return (
       <div style={ wrapperStyle }>
         { this.renderAddFaqButton() }
-        {
-          this.props.faqs.map(faq => {
-            return (
-              <FAQListItem key={ faq.id } faqId={ faq.id } fieldProps={ faq.fieldProps }
-                expandedId={ expandedId } handleClick={ this.handleClick.bind(this, faq.id) }/>
-            );
-          })
-        }
+        { faqItems }
       </div>
     );
   }
@@ -69,7 +72,15 @@ export default class FAQListSection extends Component {
 FAQListSection.propTypes = {
   faqs: PropTypes.array.isRequired,
   openBottomSheetWithFAQ: PropTypes.func,
-  openBottomSheetToCreateFAQ: PropTypes.func
+  openBottomSheetToCreateFAQ: PropTypes.func,
+  requestFAQs: PropTypes.func,
+  findItem: PropTypes.func,
+  moveItem: PropTypes.func
+};
+
+FAQListSection.defaultProps = {
+  faqs: [],
+  requestFAQs: () => {}
 };
 
 FAQListSection.contextTypes = {

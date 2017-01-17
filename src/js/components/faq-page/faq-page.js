@@ -5,7 +5,12 @@ import FAQPageContainer from 'containers/faq-page-container';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 
 
-export default class FAQPage extends Component {
+class FAQPage extends Component {
+  shouldComponentUpdate() {
+    /* istanbul ignore next */
+    return false;
+  }
+
   render() {
     return (
       <div style={ faqPageStyle }>
@@ -20,3 +25,5 @@ export default class FAQPage extends Component {
 FAQPage.propTypes = {
   store: PropTypes.object
 };
+
+export default FAQPage;

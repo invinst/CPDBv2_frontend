@@ -54,7 +54,8 @@ FAQItem.propTypes = {
 };
 
 FAQItem.defaultProps = {
-  wrapperStyle: {}
+  wrapperStyle: {},
+  onClick: () => {}
 };
 
 export default ConfiguredRadium(FAQItem);

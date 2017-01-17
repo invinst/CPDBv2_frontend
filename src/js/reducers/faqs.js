@@ -2,8 +2,8 @@ import { handleActions } from 'redux-actions';
 import { reduce, find } from 'lodash';
 
 import {
-  FAQS_REQUEST_SUCCESS, UPDATE_FAQ_REQUEST_SUCCESS
-} from 'actions/faq-page';
+  FAQS_REQUEST_SUCCESS, UPDATE_FAQ_REQUEST_SUCCESS, BULK_UPDATE_FAQS_SUCCESS
+} from 'utils/constants';
 import { LANDING_PAGE_REQUEST_SUCCESS } from 'actions/landing-page';
 
 
@@ -29,5 +29,11 @@ export default handleActions({
       },
       {}
     )
-  })
+  }),
+  [BULK_UPDATE_FAQS_SUCCESS]: (state, action) => (
+    { ...state, ...reduce(action.payload, (result, value) => {
+      result[value.id] = value;
+      return result;
+    }, {}) }
+  )
 }, {});

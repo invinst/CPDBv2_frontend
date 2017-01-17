@@ -1,4 +1,4 @@
-import { FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE } from 'actions/faq-page';
+import { FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE } from 'utils/constants';
 import isRequesting from 'reducers/faq-page/is-requesting';
 
 

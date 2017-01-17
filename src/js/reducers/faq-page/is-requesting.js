@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-import { FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE } from 'actions/faq-page';
+import { FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE } from 'utils/constants';
 
 
 const isRequesting = handleActions({

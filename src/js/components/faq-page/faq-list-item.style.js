@@ -1,4 +1,4 @@
-import { lightGreyColor, accentColor, softBlackColor } from 'utils/styles';
+import { lightGreyColor, pinkishWhiteColor, accentColor, softBlackColor } from 'utils/styles';
 
 
 export const faqItemWrapperStyle = {
@@ -11,4 +11,10 @@ export const faqItemExpandedStyle = {
   ':hover': {
     color: softBlackColor
   }
+};
+
+export const dropPreviewStyle = {
+  height: '85px',
+  backgroundColor: pinkishWhiteColor,
+  marginLeft: '16px'
 };
