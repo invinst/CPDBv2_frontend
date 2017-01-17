@@ -57,7 +57,7 @@ export class Report extends Component {
       <div>
         <div style={ { ...style.leftBar, ...(sectionEditModeOn ? extraPaddingStyle : {}) } }>
           <div style={ style.headerTitle }>
-            <RichTextEditable { ...fieldProps['title'] } placeholder='Title'/>
+            <RichTextEditable { ...fieldProps['title'] } placeholder='Title' className='test--rich-text-title'/>
           </div>
           { this.renderInfoRows(style) }
         </div>
@@ -65,10 +65,12 @@ export class Report extends Component {
           <RichTextEditable
             style={ excerptStyle }
             placeholder='Excerpt'
+            className='test--rich-text-excerpt'
             { ...fieldProps['excerpt'] }/>
           <div style={ articleLinkWrapperStyle }>
             <RichTextEditable
               placeholder='link to article'
+              className='test--rich-text-article-link'
               { ...fieldProps['article_link'] }/>
           </div>
         </div>

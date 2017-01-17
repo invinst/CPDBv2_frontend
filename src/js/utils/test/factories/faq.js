@@ -1,22 +1,23 @@
 import { Factory } from 'rosie';
+import { lorem } from 'faker';
 
-import { PlainTextFieldFactory, MultilineTextFieldFactory } from './field';
+import { RichTextFieldFactory } from './field';
 
 
 export default Factory.define('FAQFactory')
   .sequence('id')
-  .option('question', '')
-  .option('answer', '')
+  .option('question', () => lorem.sentence())
+  .option('answer', () => lorem.sentence())
   .attr('fields', ['question', 'answer'], (question, answer) => [
-    PlainTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
-    MultilineTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
+    RichTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
+    RichTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
   ]);
 
 export const CuratedFAQFactory = Factory.define('curatedFAQFactory')
   .extend('FAQFactory')
   .attr('fields', ['question', 'answer'], (question, answer) => ({
-    question: PlainTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
-    answer: MultilineTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
+    question: RichTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
+    answer: RichTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
   }));
 
 export const SimpleFAQFactory = Factory.define('simpleFAQFactory')

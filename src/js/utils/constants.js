@@ -57,4 +57,6 @@ export const V1_ROOT_PATH = API_ROOT;
 export const LANDING_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/landing-page/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
 export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
+export const REPORTS_API_URL = `${V2_ROOT_PATH}reports/`;
+export const FAQS_API_URL = `${V2_ROOT_PATH}faqs/`;
 export const MAIL_CHIMP_URL = '/vftg/';
