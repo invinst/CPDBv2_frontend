@@ -3,9 +3,9 @@ import React from 'react';
 
 import { requestFAQs, updateOrder } from 'actions/faq-page';
 import { openBottomSheetWithFAQ, openBottomSheetToCreateFAQ } from 'actions/bottom-sheet';
+import { expandFAQ } from 'actions/faq-page/index';
 import { faqsSelector } from 'selectors/faq-page/faqs-selector';
 import DroppableFAQListSection from 'components/faq-page/droppable-faq-list-section';
-
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -17,7 +17,8 @@ const mapDispatchToProps = {
   requestFAQs,
   openBottomSheetWithFAQ,
   updateOrder,
-  openBottomSheetToCreateFAQ
+  openBottomSheetToCreateFAQ,
+  expandFAQ
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DroppableFAQListSection);

@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import DraggableFAQListItem from './draggable-faq-list-item';
 import { wrapperStyle, addFaqButtonStyle } from './faq-list-section.style';
 
-
 export default class FAQListSection extends Component {
   constructor(props) {
     super(props);
@@ -14,19 +13,32 @@ export default class FAQListSection extends Component {
     props.requestFAQs();
   }
 
-  handleClick(faqId) {
+  dispatchExpandFAQAction(expandFAQ, faq) {
+    const { id, fieldProps } = faq;
+    const answer = fieldProps.answer.value.getCurrentContent().getPlainText();
+    const question = fieldProps.question.value.getCurrentContent().getPlainText();
+    expandFAQ({ id, question, answer });
+  }
+
+  handleClick(faq) {
     const { editModeOn } = this.context;
     const { expandedId } = this.state;
-    const { openBottomSheetWithFAQ } = this.props;
+    const { openBottomSheetWithFAQ, expandFAQ } = this.props;
+    const { id } = faq;
 
     if (editModeOn) {
-      openBottomSheetWithFAQ(faqId);
+      openBottomSheetWithFAQ(id);
     } else {
-      const nextId = faqId === expandedId ? null : faqId;
+      const nextId = id === expandedId ? null : id;
       if (nextId !== expandedId) {
+
         this.setState({
           expandedId: nextId
         });
+
+        if (nextId !== null) {
+          this.dispatchExpandFAQAction(expandFAQ, faq);
+        }
       }
     }
   }
@@ -56,7 +68,7 @@ export default class FAQListSection extends Component {
       return (
         <DraggableFAQListItem key={ faq.id } faqId={ faq.id } fieldProps={ faq.fieldProps }
           findItem={ findItem } moveItem={ moveItem }
-          expandedId={ expandedId } handleClick={ this.handleClick.bind(this, faq.id) }/>
+          expandedId={ expandedId } handleClick={ this.handleClick.bind(this, faq) }/>
       );
     });
 
@@ -73,6 +85,7 @@ FAQListSection.propTypes = {
   faqs: PropTypes.array.isRequired,
   openBottomSheetWithFAQ: PropTypes.func,
   openBottomSheetToCreateFAQ: PropTypes.func,
+  expandFAQ: PropTypes.func,
   requestFAQs: PropTypes.func,
   findItem: PropTypes.func,
   moveItem: PropTypes.func

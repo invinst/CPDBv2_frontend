@@ -18,7 +18,7 @@ describe('bottomSheetPathMiddleware', function () {
 
   it('should push bottom sheet path on OPEN_BOTTOM_SHEET_WITH_REPORT', function () {
     let dispatched;
-    const dispatchAction = openBottomSheetWithReport(14);
+    const dispatchAction = openBottomSheetWithReport({ id: 14 });
     bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
     editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/reporting/14/');
     dispatched.should.eql(dispatchAction);

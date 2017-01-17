@@ -73,10 +73,12 @@ const ROOT = '/www/static/';
 
 let globalVariableBlock = '<script type="text/javascript">'
   + 'var GA_TRACKING_ID = "UA-63671047-3";'
+  + 'var INTERCOM_ID = "gbsby1ik";'
   + '</script>';
 if (process.env.NODE_ENV === 'production') {
   globalVariableBlock = '<script type="text/javascript">'
     + 'var GA_TRACKING_ID = "UA-63671047-2";'
+    + 'var INTERCOM_ID = "p51vy1rb";'
     + '</script>';
 }
 
@@ -106,7 +108,8 @@ gulp.task(
 
 gulp.task('build-live-test', ['build-html-live-test', 'copy-static-live-test']);
 
-gulp.task('run-live-test', ['build-live-test'], function (cb) {
+
+gulp.task('run-live-test', function (cb) {
   const testServer = spawn('node', ['test-server.js']);
   const wdio = spawn('yarn', ['wdio'], { stdio: 'inherit' });
   wdio.on('exit', function (exitCode) {
