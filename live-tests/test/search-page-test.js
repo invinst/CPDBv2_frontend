@@ -11,7 +11,7 @@ describe('search-page', function () {
       .setValue('input', 'Ke')
       .waitForElementVisible('.suggestion-group', 100);
     client.expect.element('#root').text.to.contain('Officer');
-    client.expect.element('#root').text.to.contain('Neighborhoods');
+    client.expect.element('#root').text.to.contain('Neighborhood');
     client.expect.element('.content-wrapper').text.to.contain('Bernadette Kelly'); // officer name
     client.expect.element('.content-wrapper').text.to.contain('7186'); // officer bdage
     client.expect.element('.content-wrapper').text.to.contain('Kenwood'); // neighborhood
@@ -22,10 +22,10 @@ describe('search-page', function () {
     client.assert.visible('input')
       .setValue('input', 'Ke')
       .waitForElementVisible('.suggestion-group', 100);
-    client.click('.suggestion-tags span')
+    client.click('.suggestion-tags span:nth-child(2)')
       .pause(300);
     client.expect.element('.content-wrapper').text.to.contain('OFFICER');
-    client.expect.element('.content-wrapper').text.to.not.contain('NEIGHBORHOODS');
+    client.expect.element('.content-wrapper').text.to.not.contain('NEIGHBORHOOD');
     client.expect.element('.content-wrapper').text.to.contain('Bernadette Kelly');
     client.expect.element('.content-wrapper').text.to.contain('Charles Kelly'); // another officer
   });
@@ -48,11 +48,11 @@ describe('search-page', function () {
       .setValue('input', 'Ke')
       .waitForElementVisible('.suggestion-group', 300);
 
-    client.expect.element('.content-wrapper').text.to.contain('Bernadette Kelly');
+    client.expect.element('.content-wrapper').text.to.contain('Kenwood');
     client.click('.suggestion-column a');
 
     visitSearchPage(client);
-    client.expect.element('.recent-suggestions').text.to.contain('Bernadette Kelly');
+    client.expect.element('.recent-suggestions').text.to.contain('Kenwood');
   });
 
   it('should not show the recent search if it is empty', function (client) {
