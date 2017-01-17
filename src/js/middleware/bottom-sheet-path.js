@@ -8,7 +8,8 @@ import { pushPathPreserveEditMode } from 'utils/edit-path';
 
 export default store => next => action => {
   if (action.type === OPEN_BOTTOM_SHEET_WITH_REPORT) {
-    pushPathPreserveEditMode(`/${STORIES_PATH}${action.payload}/`);
+    const report = action.payload;
+    pushPathPreserveEditMode(`/${STORIES_PATH}${report.id}/`);
   }
 
   if (action.type === OPEN_BOTTOM_SHEET_TO_CREATE_REPORT) {

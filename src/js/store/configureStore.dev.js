@@ -7,6 +7,7 @@ import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 import rootReducer from 'reducers/root-reducer';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
 import bottomSheetPath from 'middleware/bottom-sheet-path';
+import intercomLogging from 'middleware/intercom-logging';
 
 
 export default function configureStore(initialState) {
@@ -16,7 +17,7 @@ export default function configureStore(initialState) {
     initialState,
     compose(
       applyMiddleware(
-        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath,
+        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath, intercomLogging,
         routerMiddleware(browserHistory)
         ),
       window.devToolsExtension ? window.devToolsExtension() : f => f
