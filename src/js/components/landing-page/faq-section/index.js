@@ -44,8 +44,9 @@ export class FAQSection extends Component {
           { faqs.map((faq, ind) => {
             return (
               <FAQItem
-                key={ ind }
-                faq={ faq }
+                key={ faq.id }
+                faqId={ faq.id }
+                fieldProps={ faq.fieldProps }
                 onClick={ openBottomSheetWithFAQ }
                 wrapperStyle={ [ind < faqs.length - 1 && underlineFAQStyle] }/>
             );
@@ -72,7 +73,7 @@ export class FAQSection extends Component {
     const { editModeOn } = this.context;
 
     return (
-      <div style={ style.header }>
+      <div style={ style.header } className='test--faq-section-header'>
         <div style={ editBoxStyle }>
           <RichTextEditable { ...fieldProps['faq_header'] }/>
         </div>
@@ -89,7 +90,7 @@ export class FAQSection extends Component {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ style.wrapper }>
+      <div style={ style.wrapper } className='test--faq-section'>
         <div style={ contentStyle }>
           { this.renderHeader(style) }
           { this.renderContent() }

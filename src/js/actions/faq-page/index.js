@@ -1,12 +1,11 @@
-import { get, authenticatedPost, authenticatedPatch } from 'actions/common/async-action';
-import { V2_ROOT_PATH } from 'utils/axios-client';
+import { createAction } from 'redux-actions';
 
+import { get, authenticatedPost, authenticatedPatch } from 'actions/common/async-action';
+import { FAQS_API_URL } from 'utils/constants';
 
 export const FAQS_REQUEST_START = 'FAQS_REQUEST_START';
 export const FAQS_REQUEST_SUCCESS = 'FAQS_REQUEST_SUCCESS';
 export const FAQS_REQUEST_FAILURE = 'FAQS_REQUEST_FAILURE';
-
-export const FAQS_API_URL = `${V2_ROOT_PATH}faqs/`;
 
 export const requestFAQs = get(
   FAQS_API_URL, [FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE]
@@ -32,6 +31,9 @@ export const askQuestion = authenticatedPost(
 export const UPDATE_FAQ_REQUEST_START = 'UPDATE_FAQ_REQUEST_START';
 export const UPDATE_FAQ_REQUEST_SUCCESS = 'UPDATE_FAQ_REQUEST_SUCCESS';
 export const UPDATE_FAQ_REQUEST_FAILURE = 'UPDATE_FAQ_REQUEST_FAILURE';
+
+export const EXPAND_FAQ = 'EXPAND_FAQ';
+export const expandFAQ = createAction(EXPAND_FAQ);
 
 export const updateFAQ = (id, data) => (authenticatedPatch(
   `${FAQS_API_URL}${id}/`,

@@ -8,39 +8,33 @@ import { inputStyle } from './url-input.style';
 export default class UrlInput extends Component {
   constructor(props) {
     super(props);
-    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount() {
-    this.url = '';
-  }
-
   handleChange(event) {
-    this.url = event.target.value;
-  }
-
-  handleKeyPress(event) {
-    if (event.key === 'Enter') {
-      this.props.onEntryFinished(this.url);
+    if (event.target.value !== this.props.value) {
+      this.props.onChange(event.target.value);
     }
   }
 
   render() {
-    const { style } = this.props;
+    const { style, value, onMouseOver, onMouseOut, onFocus, onBlur } = this.props;
     return (
-      <Bubble style={ style }>
+      <Bubble style={ style } onMouseOver={ onMouseOver } onMouseOut={ onMouseOut }>
         <Input
           style={ inputStyle }
-          focusAfterMount={ true }
+          className='test--toolbar-url-input'
+          autoFocus={ true }
           paddingVertical={ 15 }
           paddingHorizontal={ 15 }
+          onFocus={ onFocus }
+          onBlur={ onBlur }
+          value={ value }
           width={ 300 }
           height={ 50 }
           placeholder='Type or paste a link'
           type='text'
-          onChange={ this.handleChange }
-          onKeyPress={ this.handleKeyPress }/>
+          onChange={ this.handleChange }/>
       </Bubble>
     );
   }
@@ -48,5 +42,10 @@ export default class UrlInput extends Component {
 
 UrlInput.propTypes = {
   style: PropTypes.object,
-  onEntryFinished: PropTypes.func
+  value: PropTypes.string,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func
 };

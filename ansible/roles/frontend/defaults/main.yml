@@ -1,0 +1,5 @@
+---
+yarn_debian_repo_url: "http://dl.yarnpkg.com/debian/ stable main"
+yarn_debian_repo_gpg_key_url: "http://dl.yarnpkg.com/debian/pubkey.gpg"
+yarn_debian_repofile_path: "/etc/apt/sources.list.d/yarn.list"
+npm_version: "3.8.7"

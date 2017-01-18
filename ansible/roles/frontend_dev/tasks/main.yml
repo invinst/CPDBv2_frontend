@@ -1,5 +1,0 @@
----
-- name: Install Budo
-  npm: name=budo version=8.2.1 global=yes
-  become: yes
-  become_user: root

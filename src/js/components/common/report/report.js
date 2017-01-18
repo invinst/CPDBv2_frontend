@@ -44,7 +44,7 @@ class Report extends Component {
       <div
         className='report'
         style={ { ...reportWrapperStyle, ...responsiveStyle.base, ...wrapperStyle } }
-        onClick={ () => { onClick(report.id); } }>
+        onClick={ () => { onClick(report); } }>
         <div style={ sourceWrapperStyle }>
           <span
             className='link--transition'

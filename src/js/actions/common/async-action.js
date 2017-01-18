@@ -21,11 +21,11 @@ const authorizationHeaders = () => ({
   }
 });
 
-const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter) => ({
+const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
   types,
   payload: {
     request: {
-      method: 'POST',
+      method: 'post',
       url,
       data,
       adapter,
@@ -38,11 +38,11 @@ export const post = postWithConfig();
 
 export const authenticatedPost = postWithConfig(authorizationHeaders);
 
-const patchWithConfig = (config=() => ({})) => (url, types) => ((data, adapter) => ({
+const patchWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
   types,
   payload: {
     request: {
-      method: 'PATCH',
+      method: 'patch',
       url,
       data,
       adapter,

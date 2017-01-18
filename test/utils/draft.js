@@ -8,8 +8,9 @@ import {
   plainTextValueToString, createBlock, buildPlainTextField, createEmptyEditorState, hasSelection,
   createFieldWithEmptyEditorState, createEmptyStringField, createEmptyDateField, removeSelection,
   getFieldOrCreateEmptyWithEditorState, linkEntitySelected, createLinkEntity, removeLinkEntity,
-  inlineStyleSelected
+  inlineStyleSelected, defocus, getSelectionStartBlockKey
 } from 'utils/draft';
+import { ENTITY_LINK } from 'utils/constants';
 import { PlainTextFieldFactory } from 'utils/test/factories/field';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import defaultDecorator from 'decorators';
@@ -164,21 +165,21 @@ describe('Draft utils', function () {
   });
 
   describe('linkEntitySelected', function () {
-    it('should return true if a link entity is selected', function () {
+    it('should return entity if a link entity is selected', function () {
       const contentState = draftJs.ContentState.createFromText('abc');
       let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
       selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
       let editorState = draftJs.EditorState.createWithContent(contentState);
       editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-      const entityKey = draftJs.Entity.create('LINK', 'MUTABLE', { url: 'http://example.com' });
+      const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
       editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
-      linkEntitySelected(editorState).should.be.true();
+      linkEntitySelected(editorState).should.be.ok();
     });
 
-    it('should return false if no link entity is selected', function () {
+    it('should return null if no link entity is selected', function () {
       const contentState = draftJs.ContentState.createFromText('abc');
       let editorState = draftJs.EditorState.createWithContent(contentState);
-      linkEntitySelected(editorState).should.be.false();
+      should(linkEntitySelected(editorState)).not.be.ok();
     });
   });
 
@@ -215,7 +216,7 @@ describe('Draft utils', function () {
       selectionState = selectionState.set('anchorOffset', 1).set('focusOffset', 2);
       let editorState = draftJs.EditorState.createWithContent(contentState);
       editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
-      const entityKey = draftJs.Entity.create('LINK', 'MUTABLE', { url: 'http://example.com' });
+      const entityKey = draftJs.Entity.create(ENTITY_LINK, 'MUTABLE', { url: 'http://example.com' });
       editorState = draftJs.RichUtils.toggleLink(editorState, editorState.getSelection(), entityKey);
       editorState = removeLinkEntity(editorState);
       const contentBlock = editorState.getCurrentContent().getFirstBlock();
@@ -251,6 +252,31 @@ describe('Draft utils', function () {
       const contentState = draftJs.ContentState.createFromText('abc');
       let editorState = draftJs.EditorState.createWithContent(contentState);
       hasSelection(editorState).should.be.false();
+    });
+  });
+
+  describe('defocus', function () {
+    it('should defocus editorstate', function () {
+      const contentState = draftJs.ContentState.createFromText('abc');
+      let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
+      selectionState = selectionState.set('hasFocus', true);
+      let editorState = draftJs.EditorState.createWithContent(contentState);
+      editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
+
+      editorState = defocus(editorState);
+      selectionState = editorState.getSelection();
+      selectionState.getHasFocus().should.be.false();
+    });
+  });
+
+  describe('getSelectionStartBlockKey', function () {
+    it('should return start key of selection', function () {
+      const contentState = draftJs.ContentState.createFromText('abc');
+      let selectionState = draftJs.SelectionState.createEmpty(contentState.getFirstBlock().getKey());
+      let editorState = draftJs.EditorState.createWithContent(contentState);
+      editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
+
+      getSelectionStartBlockKey(editorState).should.eql(selectionState.getStartKey());
     });
   });
 });

@@ -39,6 +39,28 @@ export const FORM_LOADING = 'FORM_LOADING';
 export const FORM_SUCCESS = 'FORM_SUCCESS';
 export const FORM_FAILURE = 'FORM_FAILURE';
 
+export const ENTITY_LINK = 'LINK';
+
+let API_ROOT = `${global.location.origin}/api/v1/`;
+let API_ROOT_V2 = `${global.location.origin}/api/v2/`;
+
+/* istanbul ignore next */
+if (global.DEVELOPMENT) {
+  const LOCAL_BASE_PATH = 'http://localhost:8000';
+  API_ROOT = `${LOCAL_BASE_PATH}/api/v1/`;
+  API_ROOT_V2 = `${LOCAL_BASE_PATH}/api/v2/`;
+}
+
+export const V2_ROOT_PATH = API_ROOT_V2;
+export const V1_ROOT_PATH = API_ROOT;
+
+export const LANDING_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/landing-page/`;
+export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
+export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
+export const REPORTS_API_URL = `${V2_ROOT_PATH}reports/`;
+export const FAQS_API_URL = `${V2_ROOT_PATH}faqs/`;
+export const MAIL_CHIMP_URL = '/vftg/';
+
 export const V1_URL = 'https://beta.cpdb.co';
 
 export const ALPHA_NUMBERIC = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',

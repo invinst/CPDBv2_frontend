@@ -2,12 +2,22 @@ import React, { Component, PropTypes } from 'react';
 
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
-import { EXTRA_WIDE, TABLET, DESKTOP } from 'utils/constants';
+import { EXTRA_WIDE, TABLET, DESKTOP, ENTITY_LINK } from 'utils/constants';
 import {
-  textWrapperStyle, heroTitleStyle, heroComplaintTextStyle, heroUseOfForceStyle, responsiveStyleWrapperStyle
+  textWrapperStyle, heroTitleStyle, heroComplaintTextStyle, heroUseOfForceStyle,
+  responsiveStyleWrapperStyle, entityLinkStyle
 } from './text-column.style';
 
+
 export class TextColumn extends Component {
+
+  getChildContext() {
+    return {
+      draftEntityStyle: {
+        [ENTITY_LINK]: entityLinkStyle
+      }
+    };
+  }
 
   renderWithResponsiveStyle(style) {
     const { fieldProps } = this.props;
@@ -16,14 +26,17 @@ export class TextColumn extends Component {
       <div style={ style.wrapper }>
         <div style={ style.title }>
           <RichTextEditable
+            className='test--hero-title'
             { ...fieldProps['hero_title'] }/>
         </div>
         <div style={ style.complaints }>
           <RichTextEditable
+            className='test--hero-complaints'
             { ...fieldProps['hero_complaint_text'] }/>
         </div>
         <div style={ style.useOfForce }>
           <RichTextEditable
+            className='test--hero-use-of-force'
             { ...fieldProps['hero_use_of_force_text'] }/>
         </div>
       </div>
@@ -66,6 +79,10 @@ TextColumn.propTypes = {
 
 TextColumn.defaultProps = {
   fieldProps: {}
+};
+
+TextColumn.childContextTypes = {
+  draftEntityStyle: PropTypes.object
 };
 
 export default TextColumn;

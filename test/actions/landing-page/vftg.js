@@ -1,6 +1,7 @@
 import {
-  subscribeEmail, MAIL_CHIMP_URL, SUBSCRIBE_EMAIL_REQUEST, SUBSCRIBE_EMAIL_SUCCESS, SUBSCRIBE_EMAIL_FAILURE
+  subscribeEmail, SUBSCRIBE_EMAIL_REQUEST, SUBSCRIBE_EMAIL_SUCCESS, SUBSCRIBE_EMAIL_FAILURE
 } from 'actions/landing-page/vftg';
+import { MAIL_CHIMP_URL } from 'utils/constants';
 
 
 describe('subscribeEmail action', function () {
@@ -10,8 +11,8 @@ describe('subscribeEmail action', function () {
       payload: {
         request: {
           url: MAIL_CHIMP_URL,
-          method: 'POST',
-          adapter: undefined,
+          method: 'post',
+          adapter: null,
           data: {
             email: 'abc@abc.abc'
           }

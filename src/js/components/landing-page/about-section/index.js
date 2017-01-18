@@ -37,14 +37,14 @@ class AboutSection extends Component {
     const { editToggleProps, fieldProps } = this.props;
 
     return (
-      <div style={ style.wrapper }>
+      <div style={ style.wrapper } className='test--about-section'>
         <div style={ style.header }>
           <div style={ editBoxStyle }>
-            <RichTextEditable { ...fieldProps['about_header'] }/>
+            <RichTextEditable { ...fieldProps['about_header'] } className='test--about-section-header'/>
           </div>
           <EditToggle { ...editToggleProps }/>
         </div>
-        <div style={ contentStyle }>
+        <div style={ contentStyle } className='test--about-section-content'>
           <RichTextEditable { ...fieldProps['about_content'] } style={ {
             wrapper: contentWrapperStyle,
             paragraph: style.paragraph

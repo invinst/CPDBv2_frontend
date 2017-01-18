@@ -6,6 +6,8 @@
 
 - CSS class name must follow BEM convention and have this format: `{{block}}__{{element}}—{{modifier}}`. Block, element and modifier all must only contain lowercase alphanumeric characters and hyphen.
 
+- CSS classes that are there for the sole purpose of testing must begin with `test--`.
+
 ## Basic Use Case
 
 We use a variant of inline style called [Radium](https://github.com/FormidableLabs/radium). To use Radium, simply wrap it in `Radium()` before export it. A component module `{component-name}.js` will import it's style from a style module `{component-name}.style.js` in the same folder. Also it will only use relative import to import style.
