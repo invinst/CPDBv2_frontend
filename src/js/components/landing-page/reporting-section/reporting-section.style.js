@@ -61,3 +61,8 @@ export const editBoxStyle = {
   width: 'calc(100% - 130px)',
   display: 'inline-block'
 };
+
+export const moreButtonStyle = {
+  display: 'inline-block',
+  float: 'right'
+};

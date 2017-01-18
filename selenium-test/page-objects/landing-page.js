@@ -42,7 +42,7 @@ class ReportingSection extends Section {
       cancelButton: '//div[@class="test--reporting-section"]//a[contains(@class, "cancel-button")]',
       updateButton: '//div[@class="test--reporting-section"]//a[contains(@class, "update-button")]',
       report: '//div[@class="report"]',
-      moreButton: '//div[@class="test--reporting-section"]//a'
+      moreButton: '//div[@class="test--reporting-section-header"]//a'
     });
   }
 }
