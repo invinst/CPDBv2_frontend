@@ -8,11 +8,12 @@ export default Factory.define('FAQFactory')
   .sequence('id')
   .option('question', () => lorem.sentence())
   .option('answer', () => lorem.sentence())
+  .option('order', 1)
   .attr('fields', ['question', 'answer'], (question, answer) => [
     RichTextFieldFactory.build({ name: 'question' }, { blockTexts: [question] }),
     RichTextFieldFactory.build({ name: 'answer' }, { blockTexts: [answer] })
   ])
-  .sequence('meta', i => ({ 'order': i }));
+  .attr('meta', ['order'], order => ({ 'order': order }));
 
 export const CuratedFAQFactory = Factory.define('curatedFAQFactory')
   .extend('FAQFactory')
