@@ -15,7 +15,7 @@ class FAQItemContent extends Component {
   render() {
     const { style, fieldProps } = this.props;
     return (
-      <div style={ [contentStyle, style] }>
+      <div style={ [contentStyle, style] } className='test--faq-item-content'>
         <div style={ faqContentStyle }>
           <RichTextEditable
             placeholder='Answer'

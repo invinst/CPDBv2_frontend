@@ -13,7 +13,7 @@
     "cover-human-readable": "npm run test -- --plugin [ mochify-istanbul --report text ]",
     "cover-circle": "npm run test -- --plugin [ mochify-istanbul --report lcovonly ]",
     "selenium": "selenium-standalone",
-    "live-test": "gulp run-live-test",
+    "live-test": "gulp build-live-test && gulp run-live-test",
     "wdio": "wdio wdio.conf.js",
     "lint": "eslint ./src ./test"
   },

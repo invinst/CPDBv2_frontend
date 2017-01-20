@@ -5,9 +5,14 @@ class BottomSheet extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      reportBottomSheet: '//div[@class="report-bottom-sheet"]',
-      faqBottomSheet: '//div[@class="faq-bottom-sheet"]',
-      overlay: '//*[@class="bottom-sheet__overlay"]'
+      overlay: '.bottom-sheet__overlay',
+      reportBottomSheet: '.report-bottom-sheet',
+      reportTitle: '.test--rich-text-title',
+      reportExcerpt: '.test--rich-text-excerpt',
+      reportArticleLink: '.test--rich-text-article-link',
+      faqBottomSheet: '.faq-bottom-sheet',
+      faqQuestion: '.test--faq-rich-text-question',
+      faqAnswer: '.test--faq-rich-text-answer'
     });
   }
 
