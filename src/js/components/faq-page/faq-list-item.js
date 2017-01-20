@@ -11,6 +11,7 @@ class FAQListItem extends Component {
   constructor(props) {
     super(props);
     this.state = { expanded: false };
+    this.onStarredToggle = this.onStarredToggle.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -19,9 +20,16 @@ class FAQListItem extends Component {
     });
   }
 
+  onStarredToggle(starred) {
+    const { faqId, updateFAQ } = this.props;
+
+    updateFAQ(faqId, { meta: { starred: starred } });
+  }
+
   render() {
-    const { faqId, handleClick, fieldProps, isDragging } = this.props;
+    const { faqId, handleClick, fieldProps, isDragging, starred } = this.props;
     const { expanded } = this.state;
+    const { editModeOn } = this.context;
 
     if (isDragging) {
       return <div style={ dropPreviewStyle }/>;
@@ -30,7 +38,8 @@ class FAQListItem extends Component {
     return (
       <div style={ faqItemWrapperStyle }>
         <FAQItem
-          fieldProps={ fieldProps } faqId={ faqId }
+          fieldProps={ fieldProps } faqId={ faqId } starred={ starred }
+          showStar={ editModeOn } onStarredToggle={ this.onStarredToggle }
           onClick={ handleClick } wrapperStyle={ [expanded && faqItemExpandedStyle] }/>
         <ExpandTransition
           childKey={ expanded ? faqId : null }
@@ -54,7 +63,13 @@ FAQListItem.propTypes = {
   faqId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   handleClick: PropTypes.func,
   isDragging: PropTypes.bool,
-  expandedId: PropTypes.number
+  expandedId: PropTypes.number,
+  starred: PropTypes.bool,
+  updateFAQ: PropTypes.func
+};
+
+FAQListItem.contextTypes = {
+  editModeOn: PropTypes.bool
 };
 
 export default ConfiguredRadium(FAQListItem);

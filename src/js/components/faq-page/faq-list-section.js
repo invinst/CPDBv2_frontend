@@ -61,13 +61,13 @@ export default class FAQListSection extends Component {
   }
 
   render() {
-    const { faqs, findItem, moveItem } = this.props;
+    const { faqs, findItem, moveItem, updateFAQ } = this.props;
 
     const { expandedId } = this.state;
     const faqItems = faqs.map(faq => {
       return (
         <DraggableFAQListItem key={ faq.id } faqId={ faq.id } fieldProps={ faq.fieldProps }
-          findItem={ findItem } moveItem={ moveItem }
+          findItem={ findItem } moveItem={ moveItem } starred={ faq.meta.starred } updateFAQ={ updateFAQ }
           expandedId={ expandedId } handleClick={ this.handleClick.bind(this, faq) }/>
       );
     });
@@ -88,7 +88,8 @@ FAQListSection.propTypes = {
   expandFAQ: PropTypes.func,
   requestFAQs: PropTypes.func,
   findItem: PropTypes.func,
-  moveItem: PropTypes.func
+  moveItem: PropTypes.func,
+  updateFAQ: PropTypes.func
 };
 
 FAQListSection.defaultProps = {

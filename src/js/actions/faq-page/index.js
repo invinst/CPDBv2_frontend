@@ -10,7 +10,7 @@ import {
 } from 'utils/constants';
 
 export const requestFAQs = get(
-  FAQS_API_URL, [FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE]
+  `${FAQS_API_URL}?limit=100`, [FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE]
 );
 
 export const fetchFAQ = (id) => (get(

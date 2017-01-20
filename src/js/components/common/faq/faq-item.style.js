@@ -30,3 +30,14 @@ export const faqItemTitleStyle = {
     fontSize: '20px'
   }
 };
+
+export const titleReducedWidth = {
+  width: 'calc(100% - 30px)',
+  display: 'inline-block',
+  boxSizing: 'border-box'
+};
+
+export const checkboxStyle = {
+  display: 'inline-block',
+  width: '30px'
+};

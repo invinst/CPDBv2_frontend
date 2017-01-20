@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
-import { requestFAQs, updateOrder } from 'actions/faq-page';
+import { requestFAQs, updateOrder, updateFAQ } from 'actions/faq-page';
 import { openBottomSheetWithFAQ, openBottomSheetToCreateFAQ } from 'actions/bottom-sheet';
 import { expandFAQ } from 'actions/faq-page/index';
 import { faqsSelector } from 'selectors/faq-page/faqs-selector';
@@ -18,7 +18,8 @@ const mapDispatchToProps = {
   openBottomSheetWithFAQ,
   updateOrder,
   openBottomSheetToCreateFAQ,
-  expandFAQ
+  expandFAQ,
+  updateFAQ
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DroppableFAQListSection);

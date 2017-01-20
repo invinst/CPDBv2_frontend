@@ -37,9 +37,9 @@ describe('FAQListSection', function () {
   let instance;
 
   const faqs = [
-    { id: 1, fieldProps: { question: {} } },
-    { id: 2, fieldProps: { question: {} } },
-    { id: 3, fieldProps: { question: {} } }
+    { id: 1, fieldProps: { question: {} }, meta: { order: 1, starred: false } },
+    { id: 2, fieldProps: { question: {} }, meta: { order: 2, starred: false } },
+    { id: 3, fieldProps: { question: {} }, meta: { order: 3, starred: false } }
   ];
 
   afterEach(function () {
@@ -91,22 +91,11 @@ describe('FAQListSection', function () {
     const stubDispatchExpandFAQAction = stub(FAQListSection.prototype, 'dispatchExpandFAQAction');
     const spyExpandFAQ = spy();
 
-    const faqs = [{
-      id: 1,
-      fieldProps: {
-        question: {}
-      }
-    }, {
-      id: 2,
-      fieldProps: {
-        question: {}
-      }
-    }, {
-      id: 3,
-      fieldProps: {
-        question: {}
-      }
-    }];
+    const faqs = [
+      { id: 1, fieldProps: { question: {} }, meta: { order: 1, starred: false } },
+      { id: 2, fieldProps: { question: {} }, meta: { order: 2, starred: false } },
+      { id: 3, fieldProps: { question: {} }, meta: { order: 3, starred: false } }
+    ];
 
     instance = renderInDragDropContext(
       <FAQListSection faqs={ faqs } expandFAQ={ spyExpandFAQ }/>

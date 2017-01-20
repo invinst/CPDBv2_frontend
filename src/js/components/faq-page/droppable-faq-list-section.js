@@ -38,7 +38,7 @@ export class _DroppableFAQListSection extends Component {
   }
 
   currentOrder() {
-    const faqs = map(this.state.faqs, faq => ({ id: faq.id, meta: faq.meta }));
+    const faqs = map(this.state.faqs, faq => ({ id: faq.id, meta: { order: faq.meta.order } }));
     let order = max(map(faqs, faq => faq.meta.order));
 
     each(faqs, faq => {
