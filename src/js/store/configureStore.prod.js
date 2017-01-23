@@ -7,7 +7,7 @@ import rootReducer from 'reducers/root-reducer';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
 import bottomSheetPath from 'middleware/bottom-sheet-path';
-import intercomLogging from 'middleware/intercom-logging';
+import tracking from 'middleware/tracking';
 
 
 export default function configureStore(initialState) {
@@ -15,7 +15,7 @@ export default function configureStore(initialState) {
     rootReducer,
     initialState,
     applyMiddleware(
-      thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath, intercomLogging,
+      thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath, tracking,
       routerMiddleware(browserHistory)
     )
   );
