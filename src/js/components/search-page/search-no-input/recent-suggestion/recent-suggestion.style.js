@@ -1,5 +1,13 @@
-import { whiteTwoColor, mediumGrayColor, sanFranciscoTextFamily } from 'utils/styles';
+import {
+  whiteTwoColor, sanFranciscoTextFamily, mediumGrayColor
+} from 'utils/styles';
 
+
+export const suggestionColumnStyle = {
+  display: 'inline-block',
+  marginLeft: '31px',
+  verticalAlign: 'top'
+};
 
 export const groupHeaderStyle = {
   borderLeft: `8px solid ${mediumGrayColor}`,

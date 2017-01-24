@@ -13,7 +13,7 @@ export default {
     'UNIT': [
 
     ],
-    'NEIGHBORHOODS': [
+    'NEIGHBORHOOD': [
       {
         'text': 'Kenwood',
         'payload': {

@@ -1,15 +1,25 @@
 import { createSelector } from 'reselect';
-import { omitBy, isEmpty, keys } from 'lodash';
+import { omitBy, isEmpty, keys, pick, indexOf, sortBy } from 'lodash';
 
+
+const SEARCH_CATEGORIES = ['COMMUNITY', 'NEIGHBORHOOD', 'OFFICER', 'UNIT'];
 
 const getSuggestionGroups = (state) => (state.searchPage.suggestionGroups);
+const getSuggestionTags = (state) => (state.searchPage.tags);
 
 export const suggestionGroupsSelector = createSelector(
   getSuggestionGroups,
   (suggestionGroups) => (
-    omitBy(suggestionGroups, isEmpty)
+    pick(omitBy(suggestionGroups, isEmpty), SEARCH_CATEGORIES)
   )
 );
+
+export const suggestionTagsSelector = createSelector(
+  getSuggestionTags,
+  (suggestionTags) => (
+    sortBy(suggestionTags, (tag) => (indexOf(SEARCH_CATEGORIES, tag))
+  )
+));
 
 export const isEmptySelector = createSelector(
   suggestionGroupsSelector,

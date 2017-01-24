@@ -16,7 +16,7 @@ describe('SuggestionGroup component', function () {
 
 
   it('should be renderable', function () {
-    SuggestionGroup.should.be.renderable({ suggestions: [1] });
+    SuggestionGroup.should.be.renderable({ suggestions: [{}] });
   });
 
   it('should render null', function () {
@@ -28,7 +28,7 @@ describe('SuggestionGroup component', function () {
     instance = renderIntoDocument(
       <SuggestionGroup
         onLoadMore={ () => {} }
-        suggestions={ fill(new Array(9), 1) } />
+        suggestions={ fill(new Array(9), {}) } />
     );
     findDOMNode(instance).textContent.should.containEql('Show more results');
   });

@@ -1,4 +1,4 @@
-import { suggestionGroupsSelector, isEmptySelector } from 'selectors/search-page';
+import { suggestionGroupsSelector, isEmptySelector, suggestionTagsSelector } from 'selectors/search-page';
 
 
 describe('autocomplete selector', function () {
@@ -14,6 +14,16 @@ describe('autocomplete selector', function () {
       }).should.deepEqual({
         'OFFICER': [{}]
       });
+    });
+  });
+
+  describe('suggestionTagsSelector', function () {
+    it('should out put correct order', function () {
+      suggestionTagsSelector({
+        searchPage: {
+          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY']
+        }
+      }).should.deepEqual(['COMMUNITY', 'NEIGHBORHOOD', 'OFFICER', 'UNIT']);
     });
   });
 

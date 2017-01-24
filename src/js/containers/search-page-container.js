@@ -3,14 +3,14 @@ import { withRouter } from 'react-router';
 
 import SearchContent from 'components/search-page/search-content';
 import { getSuggestion, selectTag, toggleSearchMode, suggestionClick } from 'actions/search-page';
-import { suggestionGroupsSelector, isEmptySelector } from 'selectors/search-page';
+import { suggestionGroupsSelector, isEmptySelector, suggestionTagsSelector } from 'selectors/search-page';
 
 
 function mapStateToProps(state) {
-  const { isRequesting, contentType, tags, recentSuggestions } = state.searchPage;
+  const { isRequesting, contentType, recentSuggestions } = state.searchPage;
 
   return {
-    tags,
+    tags: suggestionTagsSelector(state),
     suggestionGroups: suggestionGroupsSelector(state),
     isRequesting,
     contentType,
