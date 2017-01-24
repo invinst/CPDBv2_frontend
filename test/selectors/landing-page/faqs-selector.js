@@ -30,11 +30,10 @@ describe('faqs selectors (landing page)', function () {
         }
       };
 
-      faqsSelector(state).should.eql([{
-        id: faq.id,
-        question: question,
-        answer: [answer]
-      }]);
+      const { id, fieldProps } = faqsSelector(state)[0];
+      id.should.eql(faq.id);
+      fieldProps['question'].should.be.ok();
+      fieldProps['answer'].should.be.ok();
     });
   });
 

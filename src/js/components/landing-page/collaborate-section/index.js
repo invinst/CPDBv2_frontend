@@ -42,14 +42,14 @@ class CollaborateSection extends Component {
     const { editToggleProps, fieldProps } = this.props;
 
     return (
-      <div style={ style.wrapper }>
-        <div style={ style.header }>
+      <div style={ style.wrapper } className='test--collaborate-section'>
+        <div style={ style.header } className='test--collaborate-section-header'>
           <div style={ editBoxStyle }>
             <RichTextEditable { ...fieldProps['collaborate_header'] }/>
           </div>
           <EditToggle { ...editToggleProps }/>
         </div>
-        <div style={ contentStyle }>
+        <div style={ contentStyle } className='test--collaborate-section-content'>
           <RichTextEditable { ...fieldProps['collaborate_content'] } style={ {
             wrapper: style.paragraphWrapper,
             paragraph: style.paragraph

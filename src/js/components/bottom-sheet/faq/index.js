@@ -33,6 +33,7 @@ class FAQ extends Component {
           <div style={ style.question }>
             <RichTextEditable
               placeholder='Question'
+              className='test--faq-rich-text-question'
               { ...fieldProps['question'] }/>
           </div>
         </div>
@@ -41,6 +42,7 @@ class FAQ extends Component {
             <RichTextEditable
               style={ answerStyle }
               placeholder='Answer'
+              className='test--faq-rich-text-answer'
               { ...fieldProps['answer'] }/>
           </div>
         </div>

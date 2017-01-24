@@ -49,7 +49,7 @@ class ReportingSection extends Component {
     const { editModeOn } = this.context;
 
     return (
-      <div style={ style.header }>
+      <div style={ style.header } className='test--reporting-section-header'>
         <div style={ editBoxStyle }>
           <RichTextEditable { ...fieldProps['reporting_header'] }/>
         </div>
@@ -67,7 +67,7 @@ class ReportingSection extends Component {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ style.wrapper }>
+      <div style={ style.wrapper } className='test--reporting-section'>
         { this.renderHeader(style) }
         <div style={ contentStyle }>
           { this.renderContent() }

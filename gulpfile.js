@@ -1,5 +1,6 @@
 'use strict';
 
+const spawn = require('child_process').spawn;
 const gulp = require('gulp');
 const env = require('gulp-env');
 const browserify = require('browserify');
@@ -12,7 +13,9 @@ const revReplace = require('gulp-rev-replace');
 const concatCss = require('gulp-concat-css');
 const htmlreplace = require('gulp-html-replace');
 const babelify = require('babelify');
+const gulpif = require('gulp-if');
 const rename = require('gulp-rename');
+const sourcemaps = require('gulp-sourcemaps');
 
 
 const buildHTML = (varBlock, destination, revFilePath) => () => {
@@ -39,7 +42,7 @@ const buildCss = (output) => (() => {
     .pipe(gulp.dest(output));
 });
 
-const buildJs = (output) => (() => {
+const buildJs = (output, produceSourceMap) => (() => {
   const envs = env.set({
     'NODE_PATH': 'src/js',
     'NODE_ENV': 'production'
@@ -54,11 +57,13 @@ const buildJs = (output) => (() => {
   return b.bundle()
     .pipe(source('index.js'))
     .pipe(buffer())
+    .pipe(gulpif(produceSourceMap, sourcemaps.init({ loadMaps: true })))
     .pipe(uglify())
     .on('error', gutil.log)
     .pipe(envs.reset)
     .pipe(rename('bundle.js'))
     .pipe(rev())
+    .pipe(gulpif(produceSourceMap, sourcemaps.write('./')))
     .pipe(gulp.dest(output))
     .pipe(rev.manifest('rev-js-manifest.json'))
     .pipe(gulp.dest(output));
@@ -68,10 +73,12 @@ const ROOT = '/www/static/';
 
 let globalVariableBlock = '<script type="text/javascript">'
   + 'var GA_TRACKING_ID = "UA-63671047-3";'
+  + 'var INTERCOM_ID = "gbsby1ik";'
   + '</script>';
 if (process.env.NODE_ENV === 'production') {
   globalVariableBlock = '<script type="text/javascript">'
     + 'var GA_TRACKING_ID = "UA-63671047-2";'
+    + 'var INTERCOM_ID = "p51vy1rb";'
     + '</script>';
 }
 
@@ -90,7 +97,7 @@ const liveTestDir = 'live-test-build';
 const testBlock = '<script type="text/javascript">' +
   'var LIVE_TEST=true; var GA_TRACKING_ID = "UA-XXXXX-Y";</script>';
 
-gulp.task('build-js-live-test', buildJs(`${liveTestDir}/dist/`));
+gulp.task('build-js-live-test', buildJs(`${liveTestDir}/dist/`, true));
 gulp.task('build-css-live-test', buildCss(`${liveTestDir}/dist/`));
 gulp.task('copy-static-live-test', copyStatic(`${liveTestDir}/dist/`));
 gulp.task(
@@ -100,3 +107,13 @@ gulp.task(
 );
 
 gulp.task('build-live-test', ['build-html-live-test', 'copy-static-live-test']);
+
+
+gulp.task('run-live-test', function (cb) {
+  const testServer = spawn('node', ['test-server.js']);
+  const wdio = spawn('yarn', ['wdio'], { stdio: 'inherit' });
+  wdio.on('exit', function (exitCode) {
+    testServer.kill();
+    cb(exitCode);
+  });
+});

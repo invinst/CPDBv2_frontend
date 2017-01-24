@@ -10,10 +10,12 @@ class ClosableNavLink extends React.Component {
   renderCloseButton() {
     const { showCloseBtn, onClickClose } = this.props;
     if (showCloseBtn) {
-      return (<CloseButton
-        className='nav-link__close-btn link--transition'
-        style={ closeButtonStyle }
-        onClick={ onClickClose }/>);
+      return (
+        <CloseButton
+          className='nav-link__close-btn link--transition'
+          style={ closeButtonStyle }
+          onClick={ onClickClose }/>
+      );
     }
     return null;
   }

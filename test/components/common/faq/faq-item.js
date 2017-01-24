@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { SimpleFAQFactory } from 'utils/test/factories/faq';
 import FAQItem from 'components/common/faq/faq-item';
 
 
 describe('FAQItem component', function () {
-  const faq = SimpleFAQFactory.build();
+  const fieldProps = { question: {} };
 
   it('should be renderable', function () {
-    FAQItem.should.be.renderable({ faq: faq });
+    FAQItem.should.be.renderable({ fieldProps });
   });
 
   it('should trigger onClick', function () {
-    FAQItem.should.triggerCallbackWhenClick('onClick', 'faq-title', { faq: faq }, faq.id);
+    FAQItem.should.triggerCallbackWhenClick('onClick', 'faq-title', { fieldProps, faqId: '11' }, '11');
   });
 });

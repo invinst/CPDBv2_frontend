@@ -5,10 +5,14 @@ import { wrapperStyle, arrowStyle, arrowBorderStyle, outerWrapperStyle } from '.
 
 export default class Bubble extends Component {
   render() {
-    const { children, style } = this.props;
+    const { children, onMouseOver, className, onMouseOut, style } = this.props;
 
     return (
-      <div style={ { ...outerWrapperStyle, ...style } }>
+      <div
+        onMouseOver={ onMouseOver }
+        className={ className }
+        onMouseOut={ onMouseOut }
+        style={ { ...outerWrapperStyle, ...style } }>
         <div style={ wrapperStyle }>
           <div style={ arrowBorderStyle }> </div>
           <div style={ arrowStyle }> </div>
@@ -21,5 +25,8 @@ export default class Bubble extends Component {
 
 Bubble.propTypes = {
   style: PropTypes.object,
+  className: PropTypes.string,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func,
   children: PropTypes.node
 };

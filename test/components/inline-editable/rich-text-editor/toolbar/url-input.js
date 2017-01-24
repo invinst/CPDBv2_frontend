@@ -20,12 +20,12 @@ describe('UrlInput component', function () {
     findRenderedComponentWithType(instance, Input);
   });
 
-  it('should trigger onEntryFinished with entered url when press enter key', function () {
-    const onEntryFinished = spy();
-    instance = renderIntoDocument(<UrlInput onEntryFinished={ onEntryFinished }/>);
+  it('should trigger onChange when typing on url input', function () {
+    const onChange = spy();
+
+    instance = renderIntoDocument(<UrlInput onChange={ onChange }/>);
     const input = findRenderedComponentWithType(instance, Input);
     input.props.onChange({ target: { value: 'http://example.com' } });
-    input.props.onKeyPress({ key: 'Enter' });
-    onEntryFinished.calledWith('http://example.com').should.be.true();
+    onChange.calledWith('http://example.com').should.be.true();
   });
 });

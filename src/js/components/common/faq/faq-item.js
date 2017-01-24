@@ -3,21 +3,24 @@ import React, { Component, PropTypes } from 'react';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import ConfiguredRadium from 'utils/configured-radium';
 import { faqItemStyle, faqItemTitleStyle } from './faq-item.style';
 
 
 class FAQItem extends Component {
   renderWithResponsiveStyle(style) {
-    const { faq, onClick, wrapperStyle } = this.props;
+    const { faqId, onClick, wrapperStyle, fieldProps } = this.props;
 
     return (
-      <div key={ style.screen } style={ [faqItemStyle, wrapperStyle] }>
+      <div key={ style.screen } style={ [faqItemStyle, wrapperStyle] } className='test--faq-item'>
         <div
           className='faq-title link--transition'
           style={ style.faqItemTitle }
-          onClick={ () => { onClick(faq.id); } }>
-          { faq.question }
+          onClick={ () => { onClick(faqId); } }>
+          <RichTextEditable
+            placeholder='Question'
+            { ...fieldProps['question'] }/>
         </div>
       </div>
     );
@@ -44,10 +47,8 @@ class FAQItem extends Component {
 }
 
 FAQItem.propTypes = {
-  faq: PropTypes.shape({
-    id: PropTypes.number,
-    question: PropTypes.string
-  }),
+  faqId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  fieldProps: PropTypes.object,
   onClick: PropTypes.func,
   wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };

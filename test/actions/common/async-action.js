@@ -31,9 +31,9 @@ describe('async-action', function () {
         payload: {
           request: {
             url,
-            method: 'POST',
+            method: 'post',
             data,
-            adapter: undefined
+            adapter: null
           }
         }
       });
@@ -51,9 +51,9 @@ describe('async-action', function () {
         payload: {
           request: {
             url,
-            method: 'POST',
+            method: 'post',
             data,
-            adapter: undefined,
+            adapter: null,
             headers: {
               Authorization: null
             }
@@ -74,9 +74,9 @@ describe('async-action', function () {
         payload: {
           request: {
             url,
-            method: 'PATCH',
+            method: 'patch',
             data,
-            adapter: undefined
+            adapter: null
           }
         }
       });
@@ -94,9 +94,9 @@ describe('async-action', function () {
         payload: {
           request: {
             url,
-            method: 'PATCH',
+            method: 'patch',
             data,
-            adapter: undefined,
+            adapter: null,
             headers: {
               Authorization: null
             }

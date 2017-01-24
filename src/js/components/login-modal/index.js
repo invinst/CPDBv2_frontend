@@ -67,7 +67,7 @@ class LoginModal extends Component {
     const { disabled } = this.state;
 
     return (
-      <div style={ { ...outerWrapperStyle, opacity } }>
+      <div style={ { ...outerWrapperStyle, opacity } } className='test--login-modal'>
         <div style={ innerWrapperStyle }>
           <div className='name-input-wrapper' style={ nameWrapperStyle } onClick={ this.focusNameInput }>
             <span style={ labelStyle }>Name</span>
@@ -93,7 +93,8 @@ class LoginModal extends Component {
             <LoginModalButton
               style={ signInButtonStyle }
               onClick={ this.handleSignIn }
-              disabled={ disabled }>
+              disabled={ disabled }
+              className='test--login-button'>
               Sign In
             </LoginModalButton>
           </div>

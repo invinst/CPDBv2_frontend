@@ -9,6 +9,7 @@ import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
 import bottomSheetPath from 'middleware/bottom-sheet-path';
 import localStorageConfig from './local-storage-config';
+import intercomLogging from 'middleware/intercom-logging';
 
 
 export default function configureStore(initialState) {
@@ -17,7 +18,7 @@ export default function configureStore(initialState) {
     initialState,
     compose(
       applyMiddleware(
-        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath,
+        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath, intercomLogging,
         routerMiddleware(browserHistory)
       ),
       persistState(()=>{}, localStorageConfig)
