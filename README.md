@@ -6,14 +6,8 @@
 
 - `sudo ansible-galaxy install Heroqu.nodejs4x`
 - `sudo ansible-galaxy install nicolai86.phantomjs`
-- Make sure your node and npm version match vagrant's: (node v4.4.3, npm v3.8.7 and yarn v0.8.1)
+- Make sure your node and npm version match: (node v4.4.3, npm v3.8.7 and yarn v0.8.1)
 - `yarn install`
-- `vagrant up`
-- `vagrant rsync-auto` (put this on another console this required for live reload)
-- `vagrant ssh`
-- `cd /code`
-
-Almost everything dev related should be done inside vagrant box. Exceptions are when you have to install a new npm package, run live-test and push/pull code. This is because currently we don't have a way for host machine to see file changes made within vagrant.
 
 ## Run Tests
 

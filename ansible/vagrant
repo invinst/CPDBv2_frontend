@@ -1,2 +1,0 @@
-[default]
-192.168.50.100 ansible_user=vagrant node_env=local
