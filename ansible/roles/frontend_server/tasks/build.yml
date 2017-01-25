@@ -10,12 +10,15 @@
     dest={{ application_root_path }}
     accept_hostkey=True
     version={{ branch }}
+    force=yes
     key_file=***REMOVED***
   tags: deploy
 
 - name : Install packages based on package.json.
   command: yarn
     chdir={{ application_root_path }}
+  environment:
+    NODE_ENV: development
   tags: deploy
 
 - name: Install gulp
