@@ -1,9 +1,0 @@
----
-- hosts: default
-  vars:
-    phantomjs_version: "2.1.1"
-    phantomjs_url: "https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-2.1.1-linux-x86_64.tar.bz2"
-  roles:
-    - ansible-nodejs4x
-    - frontend_dev
-    - nicolai86.phantomjs

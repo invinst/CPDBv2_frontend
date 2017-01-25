@@ -9,7 +9,7 @@ class ForgotPasswordLink extends Component {
     const { onClick, hovering } = this.props;
 
     return (
-      <div style={ linkWrapperStyle } onClick={ onClick }>
+      <div style={ linkWrapperStyle } onClick={ onClick } className='test--forgot-password-link'>
         <UnderlineText
           hovering={ hovering }
           style={ forgotPasswordLinkStyle }>

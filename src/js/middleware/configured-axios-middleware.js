@@ -9,7 +9,8 @@ export const onSuccess = ({ action, next, response }, options) => {
   const nextAction = {
     type: getActionTypes(action, options)[1],
     payload: response.data,
-    statusCode: response.status
+    statusCode: response.status,
+    request: response.config
   };
   next(nextAction);
   return nextAction;
@@ -37,5 +38,6 @@ export const onError = ({ action, next, error }, options) => {
 export default axiosMiddleware(axiosClient, {
   onSuccess,
   onError,
+  returnRejectedPromiseOnError: true,
   errorSuffix: '_FAILURE'
 });

@@ -30,7 +30,7 @@ describe('TextInput component', function () {
     const onFocusSpy = spy();
 
     instance = renderIntoDocument(
-      <TextInput onFocus={ onFocusSpy } focusAfterMount={ false } />
+      <TextInput onFocus={ onFocusSpy } autoFocus={ false } />
     );
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
     Simulate.focus(inputElement);
@@ -54,7 +54,7 @@ describe('TextInput component', function () {
     const onFocusSpy = spy();
 
     instance = renderIntoDocument(
-      <TextInput onFocus={ onFocusSpy } focusAfterMount={ false } />
+      <TextInput onFocus={ onFocusSpy } autoFocus={ false } />
     );
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
     Simulate.focus(inputElement);

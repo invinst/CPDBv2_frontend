@@ -23,7 +23,7 @@ export default function Toggleable(ComposedComponent) {
     render() {
       return (
         <div onClick={ this.onClick }>
-          <ComposedComponent {...this.props}/>
+          <ComposedComponent { ...this.props }/>
         </div>
       );
     }

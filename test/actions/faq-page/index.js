@@ -1,10 +1,11 @@
 import {
-  requestFAQs, askQuestion, updateFAQ, fetchFAQ, FAQS_API_URL,
+  requestFAQs, askQuestion, updateFAQ, fetchFAQ,
   FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE,
   FAQS_POST_START, FAQS_POST_SUCCESS, FAQS_POST_FAILURE,
   FAQ_REQUEST_START, FAQ_REQUEST_SUCCESS, FAQ_REQUEST_FAILURE,
   UPDATE_FAQ_REQUEST_START, UPDATE_FAQ_REQUEST_SUCCESS, UPDATE_FAQ_REQUEST_FAILURE
 } from 'actions/faq-page';
+import { FAQS_API_URL } from 'utils/constants';
 
 
 describe('faqPage actions', function () {
@@ -16,7 +17,7 @@ describe('faqPage actions', function () {
           request: {
             url: FAQS_API_URL,
             params: undefined,
-            adapter: undefined
+            adapter: null
           }
         }
       });
@@ -30,7 +31,7 @@ describe('faqPage actions', function () {
         payload: {
           request: {
             url: `${FAQS_API_URL}1/`,
-            adapter: undefined,
+            adapter: null,
             params: undefined
           }
         }
@@ -47,12 +48,12 @@ describe('faqPage actions', function () {
         payload: {
           request: {
             url: FAQS_API_URL,
-            method: 'POST',
+            method: 'post',
             headers: {
               Authorization: null
             },
             data: data,
-            adapter: undefined
+            adapter: null
           }
         }
       });
@@ -69,12 +70,12 @@ describe('faqPage actions', function () {
         payload: {
           request: {
             url: `${FAQS_API_URL}${id}/`,
-            method: 'PATCH',
+            method: 'patch',
             headers: {
               Authorization: null
             },
             data: data,
-            adapter: undefined
+            adapter: null
           }
         }
       });

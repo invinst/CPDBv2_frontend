@@ -14,6 +14,7 @@ class MoreLink extends Component {
     if (to) {
       return (
         <Link to={ to }
+          className='test--more-link'
           onMouseOver={ this.handleMouseOver }
           onMouseOut={ this.handleMouseOut }
           style={ linkStyle }>
@@ -26,6 +27,8 @@ class MoreLink extends Component {
 
     return (
       <a href={ href }
+        className='test--more-link'
+        target='_blank'
         onMouseOver={ this.handleMouseOver }
         onMouseOut={ this.handleMouseOut }
         onClick={ onClick }

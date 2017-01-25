@@ -22,11 +22,11 @@ export const reportSelector = createSelector(
       fields: (
         id === 'new' ?
         {
-          'title': createFieldWithEmptyEditorState('title', 'plain_text'),
+          'title': createFieldWithEmptyEditorState('title', 'rich_text'),
           'publication': createEmptyStringField('publication'),
           'publish_date': createEmptyDateField('publish_date'),
           'author': createEmptyStringField('author'),
-          'excerpt': createFieldWithEmptyEditorState('excerpt', 'multiline_text'),
+          'excerpt': createFieldWithEmptyEditorState('excerpt', 'rich_text'),
           'article_link': createFieldWithEmptyEditorState('article_link', 'rich_text')
         } :
           report ?
@@ -54,8 +54,8 @@ export const faqSelector = createSelector(
       fields: (
         id === 'new' ?
         {
-          'question': createFieldWithEmptyEditorState('question', 'plain_text'),
-          'answer': createFieldWithEmptyEditorState('answer', 'multiline_text')
+          'question': createFieldWithEmptyEditorState('question', 'rich_text'),
+          'answer': createFieldWithEmptyEditorState('answer', 'rich_text')
         } :
           faq ?
           {

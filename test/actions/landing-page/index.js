@@ -1,7 +1,7 @@
 import {
-  requestLandingPage, LANDING_PAGE_API_URL,
-  LANDING_PAGE_REQUEST_START, LANDING_PAGE_REQUEST_SUCCESS, LANDING_PAGE_REQUEST_FAILURE
+  requestLandingPage, LANDING_PAGE_REQUEST_START, LANDING_PAGE_REQUEST_SUCCESS, LANDING_PAGE_REQUEST_FAILURE
 } from 'actions/landing-page';
+import { LANDING_PAGE_API_URL } from 'utils/constants';
 
 
 describe('requestLandingPage action', function () {
@@ -11,7 +11,7 @@ describe('requestLandingPage action', function () {
       payload: {
         request: {
           url: LANDING_PAGE_API_URL,
-          adapter: undefined,
+          adapter: null,
           params: undefined
         }
       }

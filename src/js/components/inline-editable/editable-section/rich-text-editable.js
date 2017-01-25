@@ -7,7 +7,7 @@ import RichTextEditor from 'components/inline-editable/rich-text-editor';
 class RichTextEditable extends Component {
   render() {
     const {
-      style, editModeOn, value, onChange, placeholder
+      style, editModeOn, value, onChange, placeholder, className
     } = this.props;
 
     return (
@@ -15,6 +15,7 @@ class RichTextEditable extends Component {
         editModeOn={ editModeOn }
         editorElement={
           <RichTextEditor
+            className={ className }
             style={ style }
             onChange={ onChange }
             editorState={ value }
@@ -22,6 +23,7 @@ class RichTextEditable extends Component {
         }
         presenterElement={
           <RichTextEditor
+            className={ className }
             style={ style }
             editorState={ value }
             readOnly={ true }/>
@@ -31,6 +33,7 @@ class RichTextEditable extends Component {
 }
 
 RichTextEditable.propTypes = {
+  className: PropTypes.string,
   value: PropTypes.object,
   style: PropTypes.object,
   onChange: PropTypes.func,

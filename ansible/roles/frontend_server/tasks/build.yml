@@ -14,18 +14,18 @@
   tags: deploy
 
 - name : Install packages based on package.json.
-  command: npm install
+  command: yarn
     chdir={{ application_root_path }}
   tags: deploy
 
 - name: Install gulp
-  npm: name=gulp version=3.9.1 global=yes
+  command: yarn global add gulp@3.9.1
   become: yes
   become_user: root
   tags: setup
 
 - name: Install gulp cli
-  npm: name=gulp-cli version=1.2.1 global=yes
+  command: yarn global add gulp-cli@1.2.1
   become: yes
   become_user: root
   tags: setup
@@ -43,6 +43,6 @@
   tags: deploy
 
 - name: Build everything
-  command: npm run build
+  command: yarn build
     chdir={{ application_root_path }}
   tags: deploy

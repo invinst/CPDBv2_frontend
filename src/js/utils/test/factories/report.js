@@ -1,24 +1,25 @@
 import { Factory } from 'rosie';
 
+import { lorem, date, internet } from 'faker';
+import moment from 'moment';
 import {
-  PlainTextFieldFactory, MultilineTextFieldFactory, StringFieldFactory,
-  DateFieldFactory, RichTextFieldFactory
+  RichTextFieldFactory, StringFieldFactory, DateFieldFactory
 } from 'utils/test/factories/field';
 
 
 export default Factory.define('report')
   .sequence('id')
-  .option('title', '')
-  .option('excerpt', '')
-  .option('publication', '')
-  .option('publishDate', '')
-  .option('author', '')
-  .option('articleLink', '')
+  .option('title', () => lorem.sentence())
+  .option('excerpt', () => lorem.sentence())
+  .option('publication', () => lorem.words())
+  .option('publishDate', () => moment(date.past()).format('YYYY-MM-DD'))
+  .option('author', () => lorem.words())
+  .option('articleLink', () => internet.url())
   .attr('fields',
     ['title', 'excerpt', 'publication', 'publishDate', 'author', 'articleLink'],
     (title, excerpt, publication, publishDate, author, articleLink) => [
-      PlainTextFieldFactory.build({ name: 'title' }, { blockTexts: [title] }),
-      MultilineTextFieldFactory.build({ name: 'excerpt' }, { blockTexts: [excerpt] }),
+      RichTextFieldFactory.build({ name: 'title' }, { blockTexts: [title] }),
+      RichTextFieldFactory.build({ name: 'excerpt' }, { blockTexts: [excerpt] }),
       StringFieldFactory.build({ name: 'publication', value: publication }),
       DateFieldFactory.build({ name: 'publish_date', value: publishDate }),
       StringFieldFactory.build({ name: 'author', value: author }),
@@ -30,8 +31,8 @@ export const CuratedReportFactory = Factory.define('curatedReport')
   .attr('fields',
     ['title', 'excerpt', 'publication', 'publishDate', 'author', 'articleLink'],
     (title, excerpt, publication, publishDate, author, articleLink) => ({
-      'title': PlainTextFieldFactory.build({ name: 'title' }, { blockTexts: [title] }),
-      'excerpt': MultilineTextFieldFactory.build({ name: 'excerpt' }, { blockTexts: [excerpt] }),
+      'title': RichTextFieldFactory.build({ name: 'title' }, { blockTexts: [title] }),
+      'excerpt': RichTextFieldFactory.build({ name: 'excerpt' }, { blockTexts: [excerpt] }),
       'publication': StringFieldFactory.build({ name: 'publication', value: publication }),
       'publish_date': DateFieldFactory.build({ name: 'publish_date', value: publishDate }),
       'author': StringFieldFactory.build({ name: 'author', value: author }),

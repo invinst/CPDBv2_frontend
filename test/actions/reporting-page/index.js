@@ -1,10 +1,11 @@
 import {
   requestReports, addReport, updateReport, fetchReport,
-  REPORTS_REQUEST_START, REPORTS_REQUEST_SUCCESS, REPORTS_REQUEST_FAILURE, REPORTS_API_URL,
+  REPORTS_REQUEST_START, REPORTS_REQUEST_SUCCESS, REPORTS_REQUEST_FAILURE,
   ADD_REPORT_REQUEST_START, ADD_REPORT_REQUEST_SUCCESS, ADD_REPORT_REQUEST_FAILURE,
   UPDATE_REPORT_REQUEST_START, UPDATE_REPORT_REQUEST_SUCCESS, UPDATE_REPORT_REQUEST_FAILURE,
   REPORT_REQUEST_START, REPORT_REQUEST_SUCCESS, REPORT_REQUEST_FAILURE
 } from 'actions/reporting-page';
+import { REPORTS_API_URL } from 'utils/constants';
 
 
 describe('reportingPage actions', function () {
@@ -15,7 +16,7 @@ describe('reportingPage actions', function () {
         payload: {
           request: {
             url: REPORTS_API_URL,
-            adapter: undefined,
+            adapter: null,
             params: undefined
           }
         }
@@ -30,7 +31,7 @@ describe('reportingPage actions', function () {
         payload: {
           request: {
             url: `${REPORTS_API_URL}1/`,
-            adapter: undefined,
+            adapter: null,
             params: undefined
           }
         }
@@ -49,8 +50,8 @@ describe('reportingPage actions', function () {
             headers: {
               Authorization: null
             },
-            adapter: undefined,
-            method: 'POST',
+            adapter: null,
+            method: 'post',
             data: data
           }
         }
@@ -70,8 +71,8 @@ describe('reportingPage actions', function () {
             headers: {
               Authorization: null
             },
-            adapter: undefined,
-            method: 'PATCH',
+            adapter: null,
+            method: 'patch',
             data: data
           }
         }

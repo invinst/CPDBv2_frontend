@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  alignRightStyle, headerStyle, wrapperStyle, contentStyle, editBoxStyle
+  alignRightStyle, headerStyle, wrapperStyle, contentStyle, editBoxStyle, moreButtonStyle
 } from './reporting-section.style';
 import ReportingPlaceHolder from 'components/landing-page/reporting-section/place-holder';
 import ReportingSectionContent from 'components/landing-page/reporting-section/reporting-section-content';
@@ -12,6 +12,8 @@ import EditableSection from 'components/inline-editable/editable-section';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import StrategyForm from 'components/inline-editable/editable-section/strategy-form';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
+import MoreLink from 'components/common/more-link';
+import { STORIES_PATH } from 'utils/constants';
 
 
 class ReportingSection extends Component {
@@ -49,7 +51,7 @@ class ReportingSection extends Component {
     const { editModeOn } = this.context;
 
     return (
-      <div style={ style.header }>
+      <div style={ style.header } className='test--reporting-section-header'>
         <div style={ editBoxStyle }>
           <RichTextEditable { ...fieldProps['reporting_header'] }/>
         </div>
@@ -59,7 +61,9 @@ class ReportingSection extends Component {
               <StrategyForm { ...fieldProps['reporting_randomizer'] }/>
               <EditToggle { ...editToggleProps }/>
             </span> :
-            null
+            <div style={ moreButtonStyle }>
+              <MoreLink to={ `/${STORIES_PATH}` } >See more reporting</MoreLink>
+            </div>
         }
       </div>
     );
@@ -67,7 +71,7 @@ class ReportingSection extends Component {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ style.wrapper }>
+      <div style={ style.wrapper } className='test--reporting-section'>
         { this.renderHeader(style) }
         <div style={ contentStyle }>
           { this.renderContent() }
