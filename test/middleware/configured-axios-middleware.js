@@ -17,14 +17,24 @@ describe('configured-axios-middleware', function () {
   describe('onSuccess', () => {
     const response = {
       data: [1, 2, 3],
-      status: 200
+      status: 200,
+      config: {
+        params: {
+          a: 1
+        }
+      }
     };
 
     it('should fire action with response as payload', () => {
       onSuccess({ action, next, response }).should.eql({
         type: getActionTypes(action)[1],
         payload: response.data,
-        statusCode: 200
+        statusCode: 200,
+        request: {
+          params: {
+            a: 1
+          }
+        }
       });
     });
   });

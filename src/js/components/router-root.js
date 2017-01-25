@@ -8,7 +8,7 @@ import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import FAQPage from 'components/faq-page/faq-page';
-import AutocompletePage from 'components/landing-page/autocomplete/autocomplete-page';
+import SearchPage from 'components/search-page';
 import ReportingPage from 'components/reporting-page';
 import { COLLAB_PATH, FAQ_PATH, STORIES_PATH, SEARCH_PATH } from 'utils/constants';
 import configureStore from 'store';
@@ -41,7 +41,7 @@ class RouterRoot extends Component {
           <Route path='/(edit)' component={ AppContainer }>
             { routes }
           </Route>
-          <Route path={ SEARCH_PATH } component={ AutocompletePage }/>
+          <Route path={ SEARCH_PATH } component={ SearchPage }/>
         </Router>
       </Provider>
     );
