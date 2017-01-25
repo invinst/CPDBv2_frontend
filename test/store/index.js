@@ -54,10 +54,6 @@ describe('store', function () {
           fields: {},
           editModeOn: false
         },
-        suggestionApp: {
-          isRequesting: false,
-          suggestionGroups: {}
-        },
         isRequesting: false
       },
       faqPage: {
@@ -97,6 +93,13 @@ describe('store', function () {
       faqs: {},
       routing: {
         locationBeforeTransitions: null
+      },
+      searchPage: {
+        isRequesting: false,
+        suggestionGroups: {},
+        contentType: null,
+        recentSuggestions: [],
+        tags: []
       }
     });
   });
