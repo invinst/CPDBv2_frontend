@@ -23,7 +23,7 @@ describe('autocomplete selector', function () {
         searchPage: {
           tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY']
         }
-      }).should.deepEqual(['COMMUNITY', 'NEIGHBORHOOD', 'OFFICER', 'UNIT']);
+      }).should.deepEqual(['OFFICER', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT']);
     });
   });
 

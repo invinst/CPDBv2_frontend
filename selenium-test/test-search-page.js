@@ -18,7 +18,7 @@ describe('Search Page', function () {
     searchPage.rootElement.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
     searchPage.rootElement.getText().should.containEql('Officer');
-    searchPage.rootElement.getText().should.containEql('Neighborhoods');
+    searchPage.rootElement.getText().should.containEql('Neighborhood');
     searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly'); // officer name
     searchPage.contentWrapper.getText().should.containEql('7186'); // officer bdage
     searchPage.contentWrapper.getText().should.containEql('Kenwood'); // neighborhood
@@ -34,7 +34,7 @@ describe('Search Page', function () {
     searchPage.contentWrapper.getText().should.containEql('OFFICER');
     searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
     searchPage.contentWrapper.getText().should.containEql('Charles Kelly'); // another officer
-    searchPage.contentWrapper.getText().should.not.containEql('NEIGHBORHOODS');
+    searchPage.contentWrapper.getText().should.not.containEql('NEIGHBORHOOD');
   });
 
   it('should show DataTool suggestions when no result return', function () {
