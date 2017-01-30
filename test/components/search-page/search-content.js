@@ -3,10 +3,11 @@ import {
   Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
   findRenderedComponentWithType
 } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { stub, spy } from 'sinon';
 import Mousetrap from 'mousetrap';
 
 import SearchTags from 'components/search-page/search-tags';
+import SearchBox from 'components/search-page/search-box';
 import SearchContent from 'components/search-page/search-content';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -115,4 +116,24 @@ describe('SearchContent component', function () {
     Mousetrap.trigger('esc');
     router.goBack.calledOnce.should.be.true();
   });
+
+  it('should follow the first result url when user hit ENTER', function () {
+    const locationAssign = stub(window.location, 'assign');
+    const suggestionGroups = {
+      'OFFICER': [{
+        'payload': {
+          'url': 'url'
+        }
+      }]
+    };
+
+    instance = renderIntoDocument(
+      <SearchContent suggestionGroups={ suggestionGroups } />
+    );
+
+    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
+    searchComponent.mousetrap.trigger('enter');
+    locationAssign.calledWith('url').should.be.true();
+  });
 });
+
