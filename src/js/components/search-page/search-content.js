@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty, debounce } from 'lodash';
+import { isEmpty, debounce, head, values } from 'lodash';
 import Mousetrap from 'mousetrap';
 
 import SearchResults from './search-results';
@@ -20,6 +20,7 @@ export default class SearchContent extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleGoBack = this.handleGoBack.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
     this.getSuggestion = debounce(props.getSuggestion, 100);
     this.state = {
       value: ''
@@ -63,6 +64,13 @@ export default class SearchContent extends Component {
     this.props.router.goBack();
   }
 
+  handleEnter(e) {
+    const firstRecord = head(head(values(this.props.suggestionGroups)));
+    if (firstRecord) {
+      window.location.assign(firstRecord.payload.url);
+    }
+  }
+
   renderContent() {
     const {
       suggestionGroups, isRequesting, tags, contentType,
@@ -102,6 +110,7 @@ export default class SearchContent extends Component {
           <SearchBox
             onEscape={ this.handleGoBack }
             onChange={ this.handleChange }
+            onEnter={ this.handleEnter }
             value={ this.state.value }/>
         </div>
         <div style={ resultWrapperStyle }>
