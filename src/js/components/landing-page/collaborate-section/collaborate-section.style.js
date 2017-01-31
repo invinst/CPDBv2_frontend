@@ -90,6 +90,8 @@ export const editBoxStyle = {
 export const underlinedLinkStyle = () => {
   const screenWidth = window.innerWidth;
   let underlineHeight = '7px';
+
+  /* istanbul ignore next */
   if (screenWidth >= TABLET_BREAK_POINT && screenWidth < DESKTOP_BREAK_POINT) {
     underlineHeight = '9px';
   } else if (screenWidth >= DESKTOP_BREAK_POINT) {
