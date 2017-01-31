@@ -1,6 +1,5 @@
-import {
-  softBlackColor, sanFranciscoTextFamily, fashionPinkColor, pinkishWhiteColor, mistyRoseColor
-} from 'utils/styles';
+import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
+import { TABLET_BREAK_POINT, DESKTOP_BREAK_POINT } from 'utils/constants';
 
 
 export const contentStyle = {
@@ -27,10 +26,6 @@ export const paragraphStyle = {
   extraWide: {
     fontSize: '48px'
   }
-};
-
-export const underlinedLinkStyle = {
-  fontWeight: 500
 };
 
 export const paragraphWrapperStyle = {
@@ -87,42 +82,30 @@ export const headerStyle = {
   }
 };
 
-export const editLinkBaseStyle = {
-  color: fashionPinkColor
-};
-
-export const editLinkHoverStyle = editLinkBaseStyle;
-
-export const editLinkUnderlineBaseStyle = {
-  backgroundColor: fashionPinkColor,
-  opacity: .2
-};
-
-export const editLinkUnderlineHoverStyle = {
-  backgroundColor: fashionPinkColor,
-  opacity: 1
-};
-
-export const moreLinkWrapperStyle = {
-  textAlign: 'right',
-  display: 'inline-block',
-  width: '130px'
-};
-
-export const editModeWrapperStyle = {
-  backgroundColor: pinkishWhiteColor
-};
-
-export const buttonStyle = {
-  backgroundColor: mistyRoseColor,
-  border: '1px solid white',
-  borderRadius: '3px',
-  marginRight: '10px',
-  padding: '5px 7px',
-  cursor: 'pointer'
-};
-
 export const editBoxStyle = {
   width: 'calc(100% - 130px)',
   display: 'inline-block'
+};
+
+export const underlinedLinkStyle = () => {
+  const screenWidth = window.innerWidth;
+  let underlineHeight = '7px';
+  if (screenWidth >= TABLET_BREAK_POINT && screenWidth < DESKTOP_BREAK_POINT) {
+    underlineHeight = '9px';
+  } else if (screenWidth >= DESKTOP_BREAK_POINT) {
+    underlineHeight = '13px';
+  }
+
+  return {
+    underline: {
+      base: {
+        height: underlineHeight,
+        bottom: `-${underlineHeight}`
+      },
+      hover: {
+        height: underlineHeight,
+        bottom: `-${underlineHeight}`
+      }
+    }
+  };
 };
