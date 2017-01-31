@@ -1,9 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
-import ConfiguredRadium from 'utils/configured-radium';
 import ExpandTransition from 'components/animation/expand-transition';
 import FAQItemContent from './faq-item-content';
-import { faqItemWrapperStyle, faqItemExpandedStyle } from './faq-list-item.style';
+import { faqItemWrapperStyle, faqItemStyle, faqItemExpandedStyle } from './faq-list-item.style';
 import FAQItem from 'components/common/faq/faq-item';
 
 
@@ -27,7 +26,7 @@ class FAQListItem extends Component {
       <div style={ faqItemWrapperStyle }>
         <FAQItem
           fieldProps={ fieldProps } faqId={ faqId }
-          onClick={ handleClick } wrapperStyle={ [expanded && faqItemExpandedStyle] }/>
+          onClick={ handleClick } wrapperStyle={ expanded ? faqItemExpandedStyle : faqItemStyle }/>
         <ExpandTransition
           childKey={ expanded ? faqId : null }
           onFullyClosed={
@@ -52,4 +51,4 @@ FAQListItem.propTypes = {
   expandedId: PropTypes.number
 };
 
-export default ConfiguredRadium(FAQListItem);
+export default FAQListItem;

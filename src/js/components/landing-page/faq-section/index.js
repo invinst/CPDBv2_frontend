@@ -4,8 +4,8 @@ import { FAQ_PATH } from 'utils/constants';
 import FAQItem from 'components/common/faq/faq-item';
 import FAQSectionPlaceHolder from 'components/landing-page/faq-section/faq-section-place-holder';
 import {
-  headerStyle, underlineFAQStyle, wrapperStyle, editBoxStyle,
-  loadMoreStyle, loadMoreHoverStyle, contentStyle
+  headerStyle, faqStyle, wrapperStyle, editBoxStyle,
+  underlineFAQStyle, loadMoreStyle, loadMoreHoverStyle, contentStyle
 } from './faq-section.style';
 import ResponsiveStyleComponent, {
   EXTRA_WIDE, DESKTOP, TABLET
@@ -48,7 +48,7 @@ export class FAQSection extends Component {
                 faqId={ faq.id }
                 fieldProps={ faq.fieldProps }
                 onClick={ openBottomSheetWithFAQ }
-                wrapperStyle={ [ind < faqs.length - 1 && underlineFAQStyle] }/>
+                wrapperStyle={ [faqStyle, ind < faqs.length - 1 && underlineFAQStyle] }/>
             );
           }) }
           <HoverableLink

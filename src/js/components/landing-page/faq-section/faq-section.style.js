@@ -1,5 +1,5 @@
 import {
-  softBlackColor, silverSandColor, lightGreyColor, wildSandColor, whiteTwoColor, sanFranciscoTextFamily
+  softBlackColor, silverSandColor, lightGreyColor, wildSandColor, whiteTwoColor, accentColor, sanFranciscoTextFamily
 } from 'utils/styles';
 
 
@@ -63,6 +63,13 @@ export const linkStyle = {
 
 export const underlineFAQStyle = {
   borderBottom: `1px solid ${lightGreyColor}`
+};
+
+export const faqStyle = {
+  color: softBlackColor,
+  ':hover': {
+    color: accentColor
+  }
 };
 
 export const wrapperStyle = {
