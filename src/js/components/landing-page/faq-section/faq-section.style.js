@@ -61,15 +61,21 @@ export const linkStyle = {
   borderBottom: `4px solid ${ silverSandColor }`
 };
 
-export const underlineFAQStyle = {
-  borderBottom: `1px solid ${lightGreyColor}`
-};
-
 export const faqStyle = {
-  color: softBlackColor,
-  ':hover': {
+  base: {
+    color: softBlackColor
+  },
+  hover: {
     color: accentColor
   }
+};
+
+export const lastFaqStyle = {
+  base: {
+    ...faqStyle.base,
+    borderBottom: `1px solid ${lightGreyColor}`
+  },
+  hover: faqStyle.hover
 };
 
 export const wrapperStyle = {

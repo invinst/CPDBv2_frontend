@@ -7,13 +7,17 @@ export const faqItemWrapperStyle = {
 };
 
 export const faqItemStyle = {
-  color: softBlackColor,
-  ':hover': {
+  base: {
+    color: softBlackColor
+  },
+  hover: {
     color: accentColor
   }
 };
 
 export const faqItemExpandedStyle = {
-  color: softBlackColor,
-  fontWeight: '600'
+  base: {
+    color: softBlackColor,
+    fontWeight: '600'
+  }
 };

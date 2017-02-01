@@ -1,5 +1,5 @@
 import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
-import { TABLET_BREAK_POINT, DESKTOP_BREAK_POINT } from 'utils/constants';
+import { DESKTOP, TABLET, EXTRA_WIDE } from 'components/responsive/responsive-style-component';
 
 
 export const contentStyle = {
@@ -87,27 +87,26 @@ export const editBoxStyle = {
   display: 'inline-block'
 };
 
-export const underlinedLinkStyle = () => {
-  const screenWidth = window.innerWidth;
-  let underlineHeight = '7px';
 
-  /* istanbul ignore next */
-  if (screenWidth >= TABLET_BREAK_POINT && screenWidth < DESKTOP_BREAK_POINT) {
-    underlineHeight = '9px';
-  } else if (screenWidth >= DESKTOP_BREAK_POINT) {
-    underlineHeight = '13px';
-  }
-
-  return {
-    underline: {
-      base: {
-        height: underlineHeight,
-        bottom: `-${underlineHeight}`
-      },
-      hover: {
-        height: underlineHeight,
-        bottom: `-${underlineHeight}`
-      }
-    }
+function underlineStyle(underlineHeight) {
+  const baseStyle = {
+    height: `${underlineHeight}px`,
+    bottom: `-${underlineHeight}px`
   };
+  return {
+    base: baseStyle,
+    hover: baseStyle
+  };
+}
+
+export const underlinedLinkStyle = {
+  [TABLET]: {
+    underline: underlineStyle(7)
+  },
+  [DESKTOP]: {
+    underline: underlineStyle(9)
+  },
+  [EXTRA_WIDE]: {
+    underline: underlineStyle(13)
+  }
 };

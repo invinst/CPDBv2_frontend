@@ -16,7 +16,7 @@ class CollaborateSection extends Component {
   getChildContext() {
     return {
       draftEntityStyle: {
-        [ENTITY_LINK]: underlinedLinkStyle()
+        [ENTITY_LINK]: underlinedLinkStyle
       }
     };
   }
