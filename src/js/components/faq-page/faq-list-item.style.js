@@ -1,4 +1,4 @@
-import { lightGreyColor, accentColor, softBlackColor } from 'utils/styles';
+import { lightGreyColor, pinkishWhiteColor, accentColor, softBlackColor } from 'utils/styles';
 
 
 export const faqItemWrapperStyle = {
@@ -6,7 +6,7 @@ export const faqItemWrapperStyle = {
   borderBottom: `1px solid ${lightGreyColor}`
 };
 
-export const faqItemStyle = {
+const faqTitleStyle = {
   base: {
     color: softBlackColor
   },
@@ -15,9 +15,21 @@ export const faqItemStyle = {
   }
 };
 
-export const faqItemExpandedStyle = {
+const faqTitleExpandedStyle = {
   base: {
     color: softBlackColor,
     fontWeight: '600'
   }
 };
+
+export const dropPreviewStyle = {
+  height: '85px',
+  backgroundColor: pinkishWhiteColor,
+  marginLeft: '16px'
+};
+
+export function faqStyle(expanded) {
+  return {
+    title: expanded ? faqTitleExpandedStyle : faqTitleStyle
+  };
+}

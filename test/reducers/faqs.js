@@ -1,8 +1,6 @@
 import FaqFactory from 'utils/test/factories/faq';
 import faqs from 'reducers/faqs';
-import {
-  FAQS_REQUEST_SUCCESS, UPDATE_FAQ_REQUEST_SUCCESS
-} from 'actions/faq-page';
+import { FAQS_REQUEST_SUCCESS, UPDATE_FAQ_REQUEST_SUCCESS, BULK_UPDATE_FAQS_SUCCESS } from 'utils/constants';
 import { LANDING_PAGE_REQUEST_SUCCESS } from 'actions/landing-page';
 import { RandomizedListFieldFactory } from 'utils/test/factories/field';
 
@@ -53,6 +51,17 @@ describe('faqs', function () {
       [currentFaqFactoryId + 1]: faqsField.value[0],
       [currentFaqFactoryId + 2]: faqsField.value[1],
       [currentFaqFactoryId + 3]: faqsField.value[2]
+    });
+  });
+
+  it('should handle BULK_UPDATE_FAQS_SUCCESS', function () {
+    const results = FaqFactory.buildList(2);
+    faqs(undefined, {
+      type: BULK_UPDATE_FAQS_SUCCESS,
+      payload: results
+    }).should.eql({
+      [results[0].id]: results[0],
+      [results[1].id]: results[1]
     });
   });
 });
