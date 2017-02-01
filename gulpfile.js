@@ -16,6 +16,7 @@ const babelify = require('babelify');
 const gulpif = require('gulp-if');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
+const envify = require('envify/custom');
 
 
 const buildHTML = (varBlock, destination, revFilePath) => () => {
@@ -50,7 +51,10 @@ const buildJs = (output, produceSourceMap) => (() => {
   const b = browserify({
     entries: 'src/js/index.prod.js',
     transform: [
-      babelify.configure({ presets: ['es2015', 'react'] })
+      babelify.configure({ presets: ['es2015', 'react'] }),
+      envify({
+        'CPDB_APP_ENV': process.env.CPDB_APP_ENV
+      })
     ]
   });
 
