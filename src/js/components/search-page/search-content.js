@@ -10,6 +10,7 @@ import {
   backButtonStyle, searchContentWrapperStyle, searchBoxStyle,
   resultWrapperStyle
 } from './search-content.style.js';
+import { dataToolSearchUrl } from 'utils/v1-url';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -66,9 +67,16 @@ export default class SearchContent extends Component {
 
   handleEnter(e) {
     const firstRecord = head(head(values(this.props.suggestionGroups)));
+    const { value } = this.state;
+    let url;
+
     if (firstRecord) {
-      window.location.assign(firstRecord.payload.url);
+      url = firstRecord.payload.url;
+    } else {
+      url = dataToolSearchUrl(value);
     }
+
+    window.location.assign(url);
   }
 
   renderContent() {

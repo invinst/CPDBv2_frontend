@@ -1,4 +1,4 @@
 export default {
   appEnv: 'test',
-  v1Url: 'cpdb.lvh.me'
+  v1Url: 'http://cpdb.lvh.me'
 };

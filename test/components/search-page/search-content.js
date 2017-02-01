@@ -134,6 +134,22 @@ describe('SearchContent component', function () {
     const searchComponent = findRenderedComponentWithType(instance, SearchBox);
     searchComponent.mousetrap.trigger('enter');
     locationAssign.calledWith('url').should.be.true();
+    locationAssign.restore();
+  });
+
+  it('should follow the v1 search url user hit ENTER but there\'s no results', function () {
+    const locationAssign = stub(window.location, 'assign');
+
+    instance = renderIntoDocument(
+      <SearchContent />
+    );
+    instance.setState({ 'value': 'something' });
+
+    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
+    searchComponent.mousetrap.trigger('enter');
+
+    locationAssign.calledWith('http://cpdb.lvh.me/s/something').should.be.true();
+    locationAssign.restore();
   });
 });
 
