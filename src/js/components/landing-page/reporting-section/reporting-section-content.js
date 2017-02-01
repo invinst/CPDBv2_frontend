@@ -5,8 +5,6 @@ import PropsRerender from 'components/common/higher-order/props-rerender';
 import { wrapperStyle, borderSleeveStyle } from './reporting-section-content.style';
 import ReportGroup from 'components/reporting-page/report-group';
 import { masonrySizes } from 'components/reporting-page/group-types';
-import MoreLink from './more-link';
-import { STORIES_PATH } from 'utils/constants';
 
 class ReportingSectionContent extends Component {
   render() {
@@ -26,7 +24,6 @@ class ReportingSectionContent extends Component {
             )
           }
         </MasonryLayout>
-        <MoreLink to={ `/${STORIES_PATH}` }>More</MoreLink>
       </div>
     );
   }

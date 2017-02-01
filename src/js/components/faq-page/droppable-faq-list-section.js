@@ -5,6 +5,7 @@ import { DropTarget } from 'react-dnd';
 
 import FAQListSection from './faq-list-section';
 import { DragTypes } from 'utils/constants';
+import { moveFromIndexToIndex } from 'utils/collection';
 
 
 const target = {
@@ -50,14 +51,12 @@ export class _DroppableFAQListSection extends Component {
   }
 
   moveItem(id, atIndex) {
-    const { faq, index } = this.findItem(id);
+    const { index } = this.findItem(id);
     let { faqs } = this.state;
 
     this.toId = faqs[atIndex].id;
     this.fromId = id;
-    faqs = faqs.slice(0);
-    faqs.splice(index, 1);
-    faqs.splice(atIndex, 0, faq);
+    faqs = moveFromIndexToIndex(faqs, index, atIndex);
     this.setState({ faqs });
   }
 

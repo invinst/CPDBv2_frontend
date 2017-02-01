@@ -1,5 +1,4 @@
 import Cookies from 'js-cookie';
-
 import { getMockAdapter } from 'mock-api';
 
 

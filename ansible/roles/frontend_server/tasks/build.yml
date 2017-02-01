@@ -11,6 +11,7 @@
     accept_hostkey=True
     version={{ branch }}
     key_file=***REMOVED***
+    force=yes
   tags: deploy
 
 - name : Install packages based on package.json.

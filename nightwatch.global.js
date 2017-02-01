@@ -1,3 +1,4 @@
+var historyApiFallback = require('connect-history-api-fallback');
 var browserSync = require('browser-sync').create();
 var gulp = require('gulp');
 require('./gulpfile.js');
@@ -10,19 +11,9 @@ module.exports = {
         notify: false,
         port: 9100,
         open: false,
-        middleware: function (req, res, next) {
-          if (req.url.match(/^[\w\d\/]+$/)) {
-            req.url = '/index.html';
-          }
-          return next();
-        },
         server: {
-          baseDir: ['./live-test-build']
-          // routes: {
-          //   '/reporting/\d+/': './live-test-build',
-          //   '/reporting/': './live-test-build',
-          //   '/faq/': './live-test-build'
-          // }
+          baseDir: ['./live-test-build'],
+          middleware: [historyApiFallback()]
         },
         snippetOptions: { blacklist: ['/'] },
         ui: false

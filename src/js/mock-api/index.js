@@ -6,7 +6,9 @@ import {
 import landingPageGetData from './landing-page/get-data';
 import reportingPageGetData from './reporting-page/get-data';
 import FAQPageGetData from './faq-page/get-data';
+import suggestionGetData from './landing-page/suggestions';
 
+const SEARCH_API_URL = /^suggestion\/([^/]*)\//;
 
 axiosMockClient.onGet(LANDING_PAGE_API_URL).reply(200, landingPageGetData);
 /* istanbul ignore next */
@@ -31,6 +33,11 @@ axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
   .reply(400, {
     'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false
   });
+
+axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
+  const matchs = SEARCH_API_URL.exec(config.url);
+  return [200, suggestionGetData[config.params.contentType || matchs[1]] || suggestionGetData['default']];
+});
 
 /*istanbul ignore next*/
 export function getMockAdapter() {
