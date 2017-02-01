@@ -23,6 +23,10 @@ describe('FAQ page', function () {
       faqPage.faqSection.faq.click();
       faqPage.faqSection.faqContent.waitForVisible(2000);
     });
+
+    it('should not have starred checkbox', function () {
+      faqPage.faqSection.starredCheckbox.waitForVisible(2000, true);
+    });
   });
 
   context('edit mode on', function () {
@@ -51,6 +55,12 @@ describe('FAQ page', function () {
       faqPage.bottomSheet.faqBottomSheet.waitForVisible();
       faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faqQuestion).should.be.false();
       faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faqAnswer).should.be.false();
+    });
+
+    it('should toggle starred when click on starred checkbox', function () {
+      faqPage.faqSection.checkedStarredCheckbox.waitForVisible(2000, true);
+      faqPage.faqSection.starredCheckbox.click();
+      faqPage.faqSection.checkedStarredCheckbox.waitForVisible();
     });
   });
 });

@@ -13,9 +13,9 @@ describe('DroppableFAQListSection', function () {
   let instance;
 
   let faqs = [
-    { id: 1, fieldProps: { question: {} } },
-    { id: 2, fieldProps: { question: {} } },
-    { id: 3, fieldProps: { question: {} } }
+    { id: 1, fieldProps: { question: {} }, meta: { starred: false } },
+    { id: 2, fieldProps: { question: {} }, meta: { starred: false } },
+    { id: 3, fieldProps: { question: {} }, meta: { starred: false } }
   ];
 
   afterEach(function () {
@@ -66,9 +66,9 @@ describe('DroppableFAQListSection', function () {
   describe('findItem', function () {
     it('should return faq and index', function () {
       faqs = [
-        { id: 1, fieldProps: { question: {}, answer: {} }, meta: { order: 1 } },
-        { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 2 } },
-        { id: 3, fieldProps: { question: {}, answer: {} }, meta: { order: 3 } }
+        { id: 1, fieldProps: { question: {}, answer: {} }, meta: { order: 1, starred: false } },
+        { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 2, starred: false } },
+        { id: 3, fieldProps: { question: {}, answer: {} }, meta: { order: 3, starred: false } }
       ];
 
       instance = renderInDragDropContext(
@@ -78,7 +78,7 @@ describe('DroppableFAQListSection', function () {
       const droppableFaqListSection = findRenderedComponentWithType(instance, _DroppableFAQListSection);
 
       droppableFaqListSection.findItem(2).should.eql({
-        faq: { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 2 } },
+        faq: { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 2, starred: false } },
         index: 1
       });
     });
@@ -87,9 +87,9 @@ describe('DroppableFAQListSection', function () {
   describe('moveItem', function () {
     it('should reorder faqs list', function () {
       faqs = [
-        { id: 1, fieldProps: { question: {}, answer: {} }, meta: { order: 1 } },
-        { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 2 } },
-        { id: 3, fieldProps: { question: {}, answer: {} }, meta: { order: 3 } }
+        { id: 1, fieldProps: { question: {}, answer: {} }, meta: { order: 1, starred: false } },
+        { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 2, starred: false } },
+        { id: 3, fieldProps: { question: {}, answer: {} }, meta: { order: 3, starred: false } }
       ];
 
       instance = renderInDragDropContext(
@@ -101,9 +101,9 @@ describe('DroppableFAQListSection', function () {
       droppableFaqListSection.moveItem(1, 2);
 
       droppableFaqListSection.state.faqs.should.eql([
-        { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 2 } },
-        { id: 3, fieldProps: { question: {}, answer: {} }, meta: { order: 3 } },
-        { id: 1, fieldProps: { question: {}, answer: {} }, meta: { order: 1 } }
+        { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 2, starred: false } },
+        { id: 3, fieldProps: { question: {}, answer: {} }, meta: { order: 3, starred: false } },
+        { id: 1, fieldProps: { question: {}, answer: {} }, meta: { order: 1, starred: false } }
       ]);
     });
   });
@@ -111,9 +111,9 @@ describe('DroppableFAQListSection', function () {
   describe('currentOrder', function () {
     it('should return order data of current faqs list and modify meta.order accordingly', function () {
       faqs = [
-        { id: 1, fieldProps: { question: {}, answer: {} }, meta: { order: 1 } },
-        { id: 3, fieldProps: { question: {}, answer: {} }, meta: { order: 2 } },
-        { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 3 } }
+        { id: 1, fieldProps: { question: {}, answer: {} }, meta: { order: 1, starred: false } },
+        { id: 3, fieldProps: { question: {}, answer: {} }, meta: { order: 2, starred: false } },
+        { id: 2, fieldProps: { question: {}, answer: {} }, meta: { order: 3, starred: false } }
       ];
 
       instance = renderInDragDropContext(

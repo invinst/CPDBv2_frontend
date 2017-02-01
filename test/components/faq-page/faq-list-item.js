@@ -1,13 +1,12 @@
 import React from 'react';
 import {
-  renderIntoDocument, Simulate,
-  findRenderedComponentWithType, findRenderedDOMComponentWithClass, scryRenderedComponentsWithType
+  renderIntoDocument, Simulate, findRenderedDOMComponentWithClass,
+  findRenderedComponentWithType, scryRenderedComponentsWithType, findRenderedDOMComponentWithTag
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
-import { withAnimationDisabled } from 'utils/test';
+import { withAnimationDisabled, unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import FAQListItem from 'components/faq-page/faq-list-item';
-import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
 import FAQItem from 'components/common/faq/faq-item';
 
@@ -71,5 +70,37 @@ describe('FAQListItem component', function () {
     );
 
     scryRenderedComponentsWithType(instance, FAQItem).should.have.length(0);
+  });
+
+  it('should show starred checkbox if edit mode is on', function () {
+    instance = renderWithContext({ editModeOn: true },
+      <FAQListItem fieldProps={ fieldProps } handleClick={ handleClick } starred={ false }/>
+    );
+
+    findRenderedDOMComponentWithTag(instance, 'input');
+  });
+
+  it('should not show checkbox if edit mode is off', function () {
+    instance = renderIntoDocument(
+      <FAQListItem fieldProps={ fieldProps } handleClick={ handleClick } starred={ false }/>
+    );
+
+    scryRenderedComponentsWithType(instance, 'input').should.have.length(0);
+  });
+
+  it('should call update FAQ API when toggle starred checkbox', function () {
+    const updateFAQ = spy();
+    const faqId = 1;
+
+    instance = renderWithContext({ editModeOn: true },
+      <FAQListItem
+        fieldProps={ fieldProps } handleClick={ handleClick }
+        starred={ false } updateFAQ={ updateFAQ } faqId={ faqId }/>
+    );
+
+    const starredCheckbox = findRenderedDOMComponentWithTag(instance, 'input');
+    Simulate.change(starredCheckbox);
+
+    updateFAQ.calledWith(faqId, { meta: { starred: true } }).should.be.true();
   });
 });

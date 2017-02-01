@@ -14,7 +14,7 @@ axiosMockClient.onGet(LANDING_PAGE_API_URL).reply(200, landingPageGetData);
 /* istanbul ignore next */
 axiosMockClient.onGet(REPORTS_API_URL).reply(() => [200, reportingPageGetData()]);
 /* istanbul ignore next */
-axiosMockClient.onGet(FAQS_API_URL).reply(() => [200, FAQPageGetData()]);
+axiosMockClient.onGet(new RegExp(`${FAQS_API_URL}\?.+`)).reply(() => [200, FAQPageGetData()]);
 
 axiosMockClient.onPost(SIGNIN_URL, { username: 'username', password: 'password' })
   .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });

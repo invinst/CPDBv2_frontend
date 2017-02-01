@@ -16,7 +16,7 @@ describe('faqPage actions', function () {
         types: [FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE],
         payload: {
           request: {
-            url: FAQS_API_URL,
+            url: `${FAQS_API_URL}?limit=100`,
             params: undefined,
             adapter: null
           }

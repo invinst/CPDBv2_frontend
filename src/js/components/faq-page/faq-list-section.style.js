@@ -3,7 +3,7 @@ import { fashionPinkColor, pinkishWhiteColor } from 'utils/styles';
 
 export const wrapperStyle = {
   marginBottom: '32px',
-  width: '934px'
+  maxWidth: '934px'
 };
 
 export const addFaqButtonStyle = {
