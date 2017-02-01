@@ -151,5 +151,25 @@ describe('SearchContent component', function () {
     locationAssign.calledWith('http://cpdb.lvh.me/s/something').should.be.true();
     locationAssign.restore();
   });
+
+  it('should track recent suggestion when user press ENTER and there are results', function () {
+    const trackRecentSuggestion = spy();
+    const suggestionGroups = {
+      'OFFICER': [{
+        'payload': {
+          'result_text': 'Kevin',
+          'url': 'url'
+        }
+      }]
+    };
+
+    instance = renderIntoDocument(
+      <SearchContent suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }/>
+    );
+
+    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
+    searchComponent.mousetrap.trigger('enter');
+    trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url').should.be.true();
+  });
 });
 

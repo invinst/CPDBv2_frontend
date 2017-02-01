@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty, debounce, head, values } from 'lodash';
+import { isEmpty, debounce, head, values, keys } from 'lodash';
 import Mousetrap from 'mousetrap';
 
 import SearchResults from './search-results';
@@ -66,12 +66,16 @@ export default class SearchContent extends Component {
   }
 
   handleEnter(e) {
-    const firstRecord = head(head(values(this.props.suggestionGroups)));
+    const { suggestionGroups, trackRecentSuggestion } = this.props;
     const { value } = this.state;
+    const firstRecord = head(head(values(suggestionGroups)));
+    const contentType = head(keys(suggestionGroups));
     let url;
 
     if (firstRecord) {
+      const text = firstRecord.payload['result_text'];
       url = firstRecord.payload.url;
+      trackRecentSuggestion(contentType, text, url);
     } else {
       url = dataToolSearchUrl(value);
     }
@@ -82,7 +86,7 @@ export default class SearchContent extends Component {
   renderContent() {
     const {
       suggestionGroups, isRequesting, tags, contentType,
-      isEmpty, recentSuggestions, suggestionClick
+      isEmpty, recentSuggestions, trackRecentSuggestion
     } = this.props;
 
     if (!this.state.value) {
@@ -95,7 +99,7 @@ export default class SearchContent extends Component {
       <div style={ resultWrapperStyle }>
         <SearchTags tags={ tags } onSelect={ this.handleSelect } selected={ contentType }/>
         <SearchResults
-          suggestionClick={ suggestionClick }
+          suggestionClick={ trackRecentSuggestion }
           isEmpty={ isEmpty }
           searchText={ this.state.value }
           onLoadMore={ this.handleSelect }
@@ -136,7 +140,7 @@ SearchContent.propTypes = {
   isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func,
   selectTag: PropTypes.func,
-  suggestionClick: PropTypes.func,
+  trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
   isEmpty: PropTypes.bool,
   router: PropTypes.object
@@ -146,6 +150,7 @@ SearchContent.defaultProps = {
   suggestionGroups: {},
   isRequesting: false,
   getSuggestion: () => {},
+  trackRecentSuggestion: () => {},
   router: {
     goBack: () => {}
   }

@@ -1,7 +1,7 @@
 import {
-  getSuggestion, selectTag, toggleSearchMode, suggestionClick,
+  getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion,
   SUGGESTION_URL, SELECT_TAG, SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS,
-  SUGGESTION_REQUEST_FAILURE, SUGGESTION_CLICK
+  SUGGESTION_REQUEST_FAILURE, TRACK_RECENT_SUGGESTION
 } from 'actions/search-page';
 import { SEARCH_PATH } from 'utils/constants';
 import { CALL_HISTORY_METHOD } from 'react-router-redux';
@@ -52,14 +52,14 @@ describe('suggestion action', function () {
     });
   });
 
-  describe('suggestionClick', function () {
+  describe('trackRecentSuggestion', function () {
     it('should return correct action', function () {
       const contentType = 'contentType';
       const text = 'text';
       const url = 'url';
 
-      suggestionClick(contentType, text, url).should.deepEqual({
-        type: SUGGESTION_CLICK,
+      trackRecentSuggestion(contentType, text, url).should.deepEqual({
+        type: TRACK_RECENT_SUGGESTION,
         payload: {
           contentType,
           text,
