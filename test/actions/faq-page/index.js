@@ -1,11 +1,12 @@
+import { requestFAQs, askQuestion, updateFAQ, fetchFAQ, updateOrder } from 'actions/faq-page';
+
 import {
-  requestFAQs, askQuestion, updateFAQ, fetchFAQ,
-  FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE,
+  FAQS_API_URL, FAQS_REQUEST_START, FAQS_REQUEST_SUCCESS, FAQS_REQUEST_FAILURE,
   FAQS_POST_START, FAQS_POST_SUCCESS, FAQS_POST_FAILURE,
   FAQ_REQUEST_START, FAQ_REQUEST_SUCCESS, FAQ_REQUEST_FAILURE,
-  UPDATE_FAQ_REQUEST_START, UPDATE_FAQ_REQUEST_SUCCESS, UPDATE_FAQ_REQUEST_FAILURE
-} from 'actions/faq-page';
-import { FAQS_API_URL } from 'utils/constants';
+  UPDATE_FAQ_REQUEST_START, UPDATE_FAQ_REQUEST_SUCCESS, UPDATE_FAQ_REQUEST_FAILURE,
+  BULK_UPDATE_FAQS_START, BULK_UPDATE_FAQS_SUCCESS, BULK_UPDATE_FAQS_FAILURE
+} from 'utils/constants';
 
 
 describe('faqPage actions', function () {
@@ -75,6 +76,39 @@ describe('faqPage actions', function () {
               Authorization: null
             },
             data: data,
+            adapter: null
+          }
+        }
+      });
+    });
+  });
+
+  describe('updateOrder', function () {
+    it('should return right action', function () {
+      const faqs = [
+        {
+          'id': 1,
+          'meta': {
+            'order': 1
+          }
+        }, {
+          'id': 2,
+          'meta': {
+            'order': 2
+          }
+        }
+      ];
+
+      updateOrder(faqs).should.eql({
+        types: [BULK_UPDATE_FAQS_START, BULK_UPDATE_FAQS_SUCCESS, BULK_UPDATE_FAQS_FAILURE],
+        payload: {
+          request: {
+            url: `${FAQS_API_URL}bulk-update/`,
+            method: 'patch',
+            headers: {
+              Authorization: null
+            },
+            data: faqs,
             adapter: null
           }
         }

@@ -9,6 +9,7 @@ import { withAnimationDisabled } from 'utils/test';
 import FAQListItem from 'components/faq-page/faq-list-item';
 import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
+import FAQItem from 'components/common/faq/faq-item';
 
 
 describe('FAQListItem component', function () {
@@ -54,5 +55,21 @@ describe('FAQListItem component', function () {
 
     Simulate.click(titleElement);
     handleClick.calledOnce.should.be.true();
+  });
+
+  it('should render FAQItem if not being dragged', function () {
+    instance = renderIntoDocument(
+      <FAQListItem fieldProps={ fieldProps } handleClick={ handleClick } isDragging={ false }/>
+    );
+
+    findRenderedComponentWithType(instance, FAQItem);
+  });
+
+  it('should not render FAQItem if being dragged', function () {
+    instance = renderIntoDocument(
+      <FAQListItem fieldProps={ fieldProps } handleClick={ handleClick } isDragging={ true }/>
+    );
+
+    scryRenderedComponentsWithType(instance, FAQItem).should.have.length(0);
   });
 });

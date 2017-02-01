@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
 import {
-  renderIntoDocument, scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass, Simulate,
+  scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass, Simulate,
   findRenderedComponentWithType, findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
-import { withAnimationDisabled } from 'utils/test';
+import { withAnimationDisabled, renderInDragDropContext, unmountComponentSuppressError } from 'utils/test';
 import ContextWrapper from 'utils/test/components/context-wrapper';
 import FAQListSection from 'components/faq-page/faq-list-section';
+import DraggableFAQListItem from 'components/faq-page/draggable-faq-list-item';
 import FAQListItem from 'components/faq-page/faq-list-item';
-import { unmountComponentSuppressError } from 'utils/test';
 import FAQItemContent from 'components/faq-page/faq-item-content';
 
 
@@ -35,6 +35,7 @@ function createEditorStateStub(plainText) {
 
 describe('FAQListSection', function () {
   let instance;
+
   const faqs = [
     { id: 1, fieldProps: { question: {} } },
     { id: 2, fieldProps: { question: {} } },
@@ -50,17 +51,19 @@ describe('FAQListSection', function () {
   });
 
   it('should render faq-list-item', function () {
-    instance = renderIntoDocument(
-      <FAQListSection faqs={ faqs }/>
+    const requestFAQs = spy();
+    instance = renderInDragDropContext(
+      <FAQListSection faqs={ faqs } requestFAQs={ requestFAQs }/>
     );
 
+    scryRenderedComponentsWithType(instance, DraggableFAQListItem).should.have.length(3);
     scryRenderedComponentsWithType(instance, FAQListItem).should.have.length(3);
+    requestFAQs.called.should.be.true();
   });
 
   it('should expand children correctly without editModeOn', function () {
     const stubDispatchExpandFAQAction = stub(FAQListSection.prototype, 'dispatchExpandFAQAction');
-
-    instance = renderIntoDocument(
+    instance = renderInDragDropContext(
       <FAQListSection faqs={ faqs }/>
     );
 
@@ -105,7 +108,7 @@ describe('FAQListSection', function () {
       }
     }];
 
-    instance = renderIntoDocument(
+    instance = renderInDragDropContext(
       <FAQListSection faqs={ faqs } expandFAQ={ spyExpandFAQ }/>
     );
 
@@ -125,10 +128,11 @@ describe('FAQListSection', function () {
 
   it('should openBottomSheetWithFAQ when click on faq-item with editModeOn', function () {
     const openBottom = spy();
+    const requestFAQs = spy();
 
-    instance = renderIntoDocument(
+    instance = renderInDragDropContext(
       <FAQListSectionContextWrapper context={ { editModeOn: true } }>
-        <FAQListSection faqs={ faqs } openBottomSheetWithFAQ={ openBottom } />
+        <FAQListSection faqs={ faqs } openBottomSheetWithFAQ={ openBottom } requestFAQs={ requestFAQs }/>
       </FAQListSectionContextWrapper>
     );
 
@@ -142,9 +146,10 @@ describe('FAQListSection', function () {
 
   it('should not render add-faq-btn button without editModeOn', function () {
     const faqs = [];
+    const requestFAQs = spy();
 
-    instance = renderIntoDocument(
-      <FAQListSection faqs={ faqs }/>
+    instance = renderInDragDropContext(
+      <FAQListSection faqs={ faqs } requestFAQs={ requestFAQs }/>
     );
 
     scryRenderedDOMComponentsWithClass(instance, 'add-faq-btn').length.should.equal(0);
@@ -152,10 +157,11 @@ describe('FAQListSection', function () {
 
   it('should render add-faq-btn button with editModeOn', function () {
     const faqs = [];
+    const requestFAQs = spy();
 
-    instance = renderIntoDocument(
+    instance = renderInDragDropContext(
       <FAQListSectionContextWrapper context={ { editModeOn: true } }>
-        <FAQListSection faqs={ faqs } />
+        <FAQListSection faqs={ faqs } requestFAQs={ requestFAQs }/>
       </FAQListSectionContextWrapper>
     );
 
@@ -165,10 +171,11 @@ describe('FAQListSection', function () {
   it('should openBottomSheetToCreateFAQ when click add-faq-btn', function () {
     const faqs = [];
     const openBottom = spy();
+    const requestFAQs = spy();
 
-    instance = renderIntoDocument(
+    instance = renderInDragDropContext(
       <FAQListSectionContextWrapper context={ { editModeOn: true } }>
-        <FAQListSection faqs={ faqs } openBottomSheetToCreateFAQ={ openBottom } />
+        <FAQListSection faqs={ faqs } openBottomSheetToCreateFAQ={ openBottom } requestFAQs={ requestFAQs }/>
       </FAQListSectionContextWrapper>
     );
 
@@ -180,21 +187,19 @@ describe('FAQListSection', function () {
       openBottom.called.should.be.true();
     });
   });
-});
 
-describe('dispatchExpandFAQAction', function () {
+  describe('dispatchExpandFAQAction', function () {
+    it('should call Intercom tracking util', function () {
+      const expandFAQ = spy();
+      FAQListSection.prototype.dispatchExpandFAQAction(expandFAQ, {
+        id: 9,
+        fieldProps: {
+          question: createEditorStateStub('q'),
+          answer: createEditorStateStub('a')
+        }
+      });
 
-  it('should call Intercom tracking util', function () {
-    const expandFAQ = spy();
-    FAQListSection.prototype.dispatchExpandFAQAction(expandFAQ, {
-      id: 9,
-      fieldProps: {
-        question: createEditorStateStub('q'),
-        answer: createEditorStateStub('a')
-      }
+      expandFAQ.calledWith({ id: 9, question: 'q', answer: 'a' }).should.be.true();
     });
-
-    expandFAQ.calledWith({ id: 9, question: 'q', answer: 'a' }).should.equal(true);
-
   });
 });
