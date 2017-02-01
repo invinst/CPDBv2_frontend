@@ -109,7 +109,6 @@ describe('Search Page', function () {
     searchPage.rootElement.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
     browser.keys('Enter');
-    browser.pause(500);
     browser.getUrl().should.be.equal('http://cpdb.lvh.me/officer/7186/bernadette-kelly');
   });
 
@@ -117,11 +116,9 @@ describe('Search Page', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('noresult');
 
-    searchPage.suggestionGroup.waitForVisible();
     searchPage.rootElement.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
     browser.keys('Enter');
-    browser.pause(500);
     browser.getUrl().should.be.equal('http://cpdb.lvh.me/s/noresult');
   });
 

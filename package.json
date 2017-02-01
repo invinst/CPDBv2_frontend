@@ -12,8 +12,7 @@
     "cover": "yarn run test -- --plugin [ mochify-istanbul --report text --exclude **/mock-api/**]",
     "cover-human-readable": "yarn run test -- --plugin [ mochify-istanbul --report text ]",
     "cover-circle": "yarn run test -- --plugin [ mochify-istanbul --report lcovonly --exclude **/mock-api/**]",
-    "live-test": "CPDB_APP_ENV=test gulp build-live-test && gulp run-live-test",
-    "wdio": "wdio wdio.conf.js",
+    "live-test": "CPDB_APP_ENV=test wdio wdio.conf.js",
     "lint": "eslint ./src ./test"
   },
   "repository": {
@@ -64,7 +63,6 @@
     "mocha": "^2.4.5",
     "mochify": "^2.17.0",
     "mochify-istanbul": "^2.4.1",
-    "nightwatch": "^0.9.0",
     "react-addons-perf": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
     "recursive-readdir-sync": "^1.0.6",
