@@ -24,9 +24,6 @@ dependencies:
     - yarn global add eslint-plugin-react@5.0.1
     - yarn global add babel-eslint@6.0.3
     - yarn install
-    - yarn selenium install
-    - yarn selenium start:
-          background: true
   cache_directories:
     - "node_modules"
     - ~/.yarn
