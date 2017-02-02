@@ -48,7 +48,7 @@ export class FAQSection extends Component {
                 faqId={ faq.id }
                 fieldProps={ faq.fieldProps }
                 onClick={ openBottomSheetWithFAQ }
-                wrapperStyle={ [ind < faqs.length - 1 && underlineFAQStyle] }/>
+                wrapperStyle={ ind < faqs.length - 1 ? underlineFAQStyle : null }/>
             );
           }) }
           <HoverableLink
