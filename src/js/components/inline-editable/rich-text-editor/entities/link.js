@@ -6,7 +6,7 @@ import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import { ENTITY_LINK } from 'utils/constants';
-import { linkStyle, pinkLinkStyle } from './link.style';
+import { linkStyle, pinkLinkStyle, linkWrapperStyle } from './link.style';
 
 
 class Link extends Component {
@@ -43,7 +43,7 @@ class Link extends Component {
 
   render() {
     return (
-      <ResponsiveStyleComponent
+      <ResponsiveStyleComponent style={ linkWrapperStyle }
         responsiveStyle={ this.responsiveStyle() }>
         { this.renderWithResponsiveStyle.bind(this) }
       </ResponsiveStyleComponent>
