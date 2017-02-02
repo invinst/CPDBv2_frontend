@@ -10,7 +10,9 @@ class FAQSection extends Section {
     this.prepareElementGetters({
       faq: '.test--faq-item',
       addButton: '//div[text()="[+]"]',
-      faqContent: '.test--faq-item-content'
+      faqContent: '.test--faq-item-content',
+      starredCheckbox: '.test--faq-item input[type=checkbox]',
+      checkedStarredCheckbox: '.test--faq-item input[type=checkbox]:checked'
     });
   }
 }

@@ -57,12 +57,6 @@ describe('store', function () {
         isRequesting: false
       },
       faqPage: {
-        faqs: {
-          results: [],
-          count: 0,
-          next: null,
-          previous: null
-        },
         isRequesting: false,
         faqForm: {
           isSubmitting: false

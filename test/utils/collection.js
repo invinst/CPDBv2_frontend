@@ -1,4 +1,4 @@
-import { groupElements } from 'utils/collection';
+import { groupElements, moveFromIndexToIndex } from 'utils/collection';
 
 
 describe('groupElements', function () {
@@ -16,5 +16,14 @@ describe('groupElements', function () {
     const expectedResult = [[1, 2, 3], [4]];
 
     groupElements(arr, sizes).should.deepEqual(expectedResult);
+  });
+});
+
+describe('moveFromIndexToIndex', function () {
+  it('should move element index within array', function () {
+    const arr = [1, 2, 3, 4, 5];
+    moveFromIndexToIndex(arr, 1, 3).should.deepEqual([1, 3, 4, 2, 5]);
+    moveFromIndexToIndex(arr, 0, 4).should.deepEqual([2, 3, 4, 5, 1]);
+    moveFromIndexToIndex(arr, 4, 0).should.deepEqual([5, 1, 2, 3, 4]);
   });
 });
