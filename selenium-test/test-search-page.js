@@ -101,7 +101,7 @@ describe('Search Page', function () {
     landingPage.currentBasePath.should.equal('/');
   });
 
-  it('follow the first link when user press enter after typing', function () {
+  it('should follow the first link when user press enter after typing', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 
@@ -112,7 +112,7 @@ describe('Search Page', function () {
     browser.getUrl().should.be.equal('http://cpdb.lvh.me/officer/7186/bernadette-kelly');
   });
 
-  it('follow the v1 url when user press enter and there is no results', function () {
+  it('should follow the v1 url when user press enter and there is no results', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('noresult');
 
