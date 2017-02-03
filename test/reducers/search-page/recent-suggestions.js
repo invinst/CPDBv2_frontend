@@ -1,14 +1,14 @@
 import recentSuggestions from 'reducers/search-page/recent-suggestions';
-import { SUGGESTION_CLICK } from 'actions/search-page';
+import { TRACK_RECENT_SUGGESTION } from 'actions/search-page';
 import recentSuggestionFactory from 'utils/test/factories/recent-suggestion';
 
 
 describe('recentSuggestions reducer', function () {
-  it('should handle SUGGESTION_CLICK', function () {
+  it('should handle TRACK_RECENT_SUGGESTION', function () {
     const recentSuggestion = recentSuggestionFactory.build();
 
     recentSuggestions(undefined, {
-      type: SUGGESTION_CLICK,
+      type: TRACK_RECENT_SUGGESTION,
       payload: recentSuggestion
     }).should.deepEqual([recentSuggestion]);
   });
@@ -17,7 +17,7 @@ describe('recentSuggestions reducer', function () {
     const recentSuggestion = recentSuggestionFactory.build();
 
     recentSuggestions([recentSuggestion], {
-      type: SUGGESTION_CLICK,
+      type: TRACK_RECENT_SUGGESTION,
       payload: recentSuggestion
     }).length.should.equal(1);
   });
@@ -27,7 +27,7 @@ describe('recentSuggestions reducer', function () {
     const state = recentSuggestionFactory.buildList(10);
 
     recentSuggestions(state, {
-      type: SUGGESTION_CLICK,
+      type: TRACK_RECENT_SUGGESTION,
       payload: recentSuggestion
     }).length.should.equal(10);
   });
@@ -36,7 +36,7 @@ describe('recentSuggestions reducer', function () {
     const recentSuggestion = recentSuggestionFactory.build();
     const state = [recentSuggestionFactory.build()];
     const recents = recentSuggestions(state, {
-      type: SUGGESTION_CLICK,
+      type: TRACK_RECENT_SUGGESTION,
       payload: recentSuggestion
     });
 

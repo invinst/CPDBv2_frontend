@@ -6,10 +6,11 @@ import { searchInputStyle } from './search-box.style';
 
 export default class SearchBox extends Component {
   componentDidMount() {
-    const { onEscape } = this.props;
+    const { onEscape, onEnter } = this.props;
     this.searchInput.focus();
     this.mousetrap = new Mousetrap(this.searchInput);
     this.mousetrap.bind('esc', onEscape);
+    this.mousetrap.bind('enter', onEnter);
   }
 
   render() {
@@ -29,5 +30,6 @@ export default class SearchBox extends Component {
 SearchBox.propTypes = {
   onChange: PropTypes.func,
   onEscape: PropTypes.func,
+  onEnter: PropTypes.func,
   value: PropTypes.string
 };

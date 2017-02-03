@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty, debounce } from 'lodash';
+import { isEmpty, debounce, head, values, keys } from 'lodash';
 import Mousetrap from 'mousetrap';
 
 import SearchResults from './search-results';
@@ -10,6 +10,7 @@ import {
   backButtonStyle, searchContentWrapperStyle, searchBoxStyle,
   resultWrapperStyle
 } from './search-content.style.js';
+import { dataToolSearchUrl } from 'utils/v1-url';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -20,6 +21,7 @@ export default class SearchContent extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleGoBack = this.handleGoBack.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
     this.getSuggestion = debounce(props.getSuggestion, 100);
     this.state = {
       value: ''
@@ -63,10 +65,28 @@ export default class SearchContent extends Component {
     this.props.router.goBack();
   }
 
+  handleEnter(e) {
+    const { suggestionGroups, trackRecentSuggestion } = this.props;
+    const { value } = this.state;
+    const firstRecord = head(head(values(suggestionGroups)));
+    const contentType = head(keys(suggestionGroups));
+    let url;
+
+    if (firstRecord) {
+      const text = firstRecord.payload['result_text'];
+      url = firstRecord.payload.url;
+      trackRecentSuggestion(contentType, text, url);
+    } else {
+      url = dataToolSearchUrl(value);
+    }
+
+    window.location.assign(url);
+  }
+
   renderContent() {
     const {
       suggestionGroups, isRequesting, tags, contentType,
-      isEmpty, recentSuggestions, suggestionClick
+      isEmpty, recentSuggestions, trackRecentSuggestion
     } = this.props;
 
     if (!this.state.value) {
@@ -79,7 +99,7 @@ export default class SearchContent extends Component {
       <div style={ resultWrapperStyle }>
         <SearchTags tags={ tags } onSelect={ this.handleSelect } selected={ contentType }/>
         <SearchResults
-          suggestionClick={ suggestionClick }
+          suggestionClick={ trackRecentSuggestion }
           isEmpty={ isEmpty }
           searchText={ this.state.value }
           onLoadMore={ this.handleSelect }
@@ -102,6 +122,7 @@ export default class SearchContent extends Component {
           <SearchBox
             onEscape={ this.handleGoBack }
             onChange={ this.handleChange }
+            onEnter={ this.handleEnter }
             value={ this.state.value }/>
         </div>
         <div style={ resultWrapperStyle }>
@@ -119,7 +140,7 @@ SearchContent.propTypes = {
   isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func,
   selectTag: PropTypes.func,
-  suggestionClick: PropTypes.func,
+  trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
   isEmpty: PropTypes.bool,
   router: PropTypes.object
@@ -129,6 +150,7 @@ SearchContent.defaultProps = {
   suggestionGroups: {},
   isRequesting: false,
   getSuggestion: () => {},
+  trackRecentSuggestion: () => {},
   router: {
     goBack: () => {}
   }
