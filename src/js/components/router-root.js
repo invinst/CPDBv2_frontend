@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { DragDropContext } from 'react-dnd';
 
 import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
@@ -15,7 +17,7 @@ import history from 'utils/history';
 
 const store = configureStore();
 
-export default class RouterRoot extends Component {
+class RouterRoot extends Component {
 
   render() {
     const routes = [
@@ -45,3 +47,5 @@ export default class RouterRoot extends Component {
     );
   }
 }
+
+export default DragDropContext(HTML5Backend)(RouterRoot);
