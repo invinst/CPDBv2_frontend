@@ -97,7 +97,7 @@ FAQItem.propTypes = {
   fieldProps: PropTypes.object,
   onClick: PropTypes.func,
   hovering: PropTypes.bool,
-  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  style: PropTypes.object,
   onStarredToggle: PropTypes.func,
   showStar: PropTypes.bool,
   starred: PropTypes.bool
