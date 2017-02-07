@@ -1,3 +1,9 @@
+var historyApiFallback = require('connect-history-api-fallback');
+var browserSync = require('browser-sync').create();
+var gulp = require('gulp');
+require('./gulpfile.js');
+
+
 exports.config = {
 
   //
@@ -141,8 +147,23 @@ exports.config = {
   // resolved to continue.
   //
   // Gets executed once before all workers get launched.
-  // onPrepare: function (config, capabilities) {
-  // },
+  onPrepare: function (config, capabilities) {
+    return new Promise(function (resolve, reject) {
+      gulp.start('build-live-test', function () {
+        browserSync.init({
+          notify: false,
+          port: 4000,
+          open: false,
+          server: {
+            baseDir: ['./live-test-build'],
+            middleware: [historyApiFallback()]
+          },
+          snippetOptions: { blacklist: ['/'] },
+          ui: false
+        }, resolve);
+      });
+    });
+  },
   //
   // Gets executed just before initialising the webdriver session and test framework. It allows you
   // to manipulate configurations depending on the capability or spec.
@@ -174,7 +195,7 @@ exports.config = {
       width: 1000,
       height: 1000
     });
-  }
+  },
   //
   // Runs before a WebdriverIO command gets executed.
   // beforeCommand: function (commandName, args) {
@@ -203,6 +224,7 @@ exports.config = {
   //
   // Gets executed after all workers got shut down and the process is about to exit. It is not
   // possible to defer the end of the process using a promise.
-  // onComplete: function(exitCode) {
-  // }
+  onComplete: function (exitCode) {
+    browserSync.exit();
+  }
 };

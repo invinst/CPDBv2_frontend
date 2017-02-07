@@ -27,4 +27,16 @@ describe('SearchBox component', function () {
     instance.mousetrap.trigger('esc');
     onEscape.calledOnce.should.be.true();
   });
+
+  it('should handle ENTER', function () {
+    const onEnter = spy();
+
+    instance = renderIntoDocument(
+      <SearchBox onEnter={ onEnter }/>
+    );
+
+    instance.mousetrap.trigger('enter');
+    onEnter.calledOnce.should.be.true();
+  });
+
 });
