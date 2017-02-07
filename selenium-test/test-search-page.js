@@ -100,4 +100,44 @@ describe('Search Page', function () {
 
     landingPage.currentBasePath.should.equal('/');
   });
+
+  it('should follow the first link when user press enter after typing', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.rootElement.waitForVisible();
+    searchPage.contentWrapper.waitForVisible();
+    browser.keys('Enter');
+    browser.getUrl().should.be.equal('http://cpdb.lvh.me/officer/7186/bernadette-kelly');
+  });
+
+  it('should follow the v1 url when user press enter and there is no results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('noresult');
+
+    searchPage.rootElement.waitForVisible();
+    searchPage.contentWrapper.waitForVisible();
+    browser.keys('Enter');
+    browser.getUrl().should.be.equal('http://cpdb.lvh.me/s/noresult');
+  });
+
+  it('should show save recent suggestions when user press Enter and there are results', function () {
+    browser.execute(() => {
+      window.localStorage.clear();
+    });
+
+    searchPage.open();
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.rootElement.waitForVisible();
+    searchPage.contentWrapper.waitForVisible();
+    browser.keys('Enter');
+
+    searchPage.open();
+    searchPage.recentSuggestions.waitForVisible();
+    searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+  });
 });

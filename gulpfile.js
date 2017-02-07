@@ -1,6 +1,5 @@
 'use strict';
 
-const spawn = require('child_process').spawn;
 const gulp = require('gulp');
 const env = require('gulp-env');
 const browserify = require('browserify');
@@ -16,6 +15,7 @@ const babelify = require('babelify');
 const gulpif = require('gulp-if');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
+const envify = require('envify/custom');
 
 
 const buildHTML = (varBlock, destination, revFilePath) => () => {
@@ -48,9 +48,12 @@ const buildJs = (output, produceSourceMap) => (() => {
     'NODE_ENV': 'production'
   });
   const b = browserify({
-    entries: 'src/js/index.prod.js',
+    entries: 'src/js/index.js',
     transform: [
-      babelify.configure({ presets: ['es2015', 'react'] })
+      babelify.configure({ presets: ['es2015', 'react'] }),
+      envify({
+        'CPDB_APP_ENV': process.env.CPDB_APP_ENV
+      })
     ]
   });
 
@@ -108,12 +111,3 @@ gulp.task(
 
 gulp.task('build-live-test', ['build-html-live-test', 'copy-static-live-test']);
 
-
-gulp.task('run-live-test', function (cb) {
-  const testServer = spawn('node', ['test-server.js']);
-  const wdio = spawn('yarn', ['wdio'], { stdio: 'inherit' });
-  wdio.on('exit', function (exitCode) {
-    testServer.kill();
-    cb(exitCode);
-  });
-});

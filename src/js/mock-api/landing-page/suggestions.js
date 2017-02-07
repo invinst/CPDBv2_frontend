@@ -6,7 +6,7 @@ export default {
         'payload': {
           'result_text': 'Bernadette Kelly',
           'result_extra_information': '7186',
-          'url': '#'
+          'url': 'http://cpdb.lvh.me/officer/7186/bernadette-kelly'
         }
       }
     ],

@@ -22,9 +22,9 @@ export const toggleSearchMode = () => (push({
   pathname: `/${SEARCH_PATH}`
 }));
 
-export const SUGGESTION_CLICK = 'SUGGESTION_CLICK';
+export const TRACK_RECENT_SUGGESTION = 'TRACK_RECENT_SUGGESTION';
 
-export const suggestionClick = (contentType, text, url) => createAction(SUGGESTION_CLICK)({
+export const trackRecentSuggestion = (contentType, text, url) => createAction(TRACK_RECENT_SUGGESTION)({
   contentType,
   text,
   url

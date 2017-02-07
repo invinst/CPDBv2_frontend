@@ -7,7 +7,9 @@ import 'babel-polyfill';
 import 'polyfill';
 import RouterRoot from 'components/router-root';
 
-global.Perf = Perf;
+if (global.DEVELOPMENT) {
+  global.Perf = Perf;
+}
 TwitterWidgetsLoader.load(() => {});
 
 render(
