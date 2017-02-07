@@ -3,10 +3,11 @@ import {
   Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
   findRenderedComponentWithType
 } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { stub, spy } from 'sinon';
 import Mousetrap from 'mousetrap';
 
 import SearchTags from 'components/search-page/search-tags';
+import SearchBox from 'components/search-page/search-box';
 import SearchContent from 'components/search-page/search-content';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -115,4 +116,60 @@ describe('SearchContent component', function () {
     Mousetrap.trigger('esc');
     router.goBack.calledOnce.should.be.true();
   });
+
+  it('should follow the first result url when user hit ENTER', function () {
+    const locationAssign = stub(window.location, 'assign');
+    const suggestionGroups = {
+      'OFFICER': [{
+        'payload': {
+          'url': 'url'
+        }
+      }]
+    };
+
+    instance = renderIntoDocument(
+      <SearchContent suggestionGroups={ suggestionGroups } />
+    );
+
+    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
+    searchComponent.mousetrap.trigger('enter');
+    locationAssign.calledWith('url').should.be.true();
+    locationAssign.restore();
+  });
+
+  it('should follow the v1 search url user hit ENTER but there\'s no results', function () {
+    const locationAssign = stub(window.location, 'assign');
+
+    instance = renderIntoDocument(
+      <SearchContent />
+    );
+    instance.setState({ 'value': 'something' });
+
+    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
+    searchComponent.mousetrap.trigger('enter');
+
+    locationAssign.calledWith('http://cpdb.lvh.me/s/something').should.be.true();
+    locationAssign.restore();
+  });
+
+  it('should track recent suggestion when user press ENTER and there are results', function () {
+    const trackRecentSuggestion = spy();
+    const suggestionGroups = {
+      'OFFICER': [{
+        'payload': {
+          'result_text': 'Kevin',
+          'url': 'url'
+        }
+      }]
+    };
+
+    instance = renderIntoDocument(
+      <SearchContent suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }/>
+    );
+
+    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
+    searchComponent.mousetrap.trigger('enter');
+    trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url').should.be.true();
+  });
 });
+
