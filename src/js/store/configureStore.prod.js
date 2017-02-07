@@ -8,8 +8,8 @@ import rootReducer from 'reducers/root-reducer';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
 import bottomSheetPath from 'middleware/bottom-sheet-path';
+import tracking from 'middleware/tracking';
 import localStorageConfig from './local-storage-config';
-import intercomLogging from 'middleware/intercom-logging';
 
 
 export default function configureStore(initialState) {
@@ -18,7 +18,7 @@ export default function configureStore(initialState) {
     initialState,
     compose(
       applyMiddleware(
-        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath, intercomLogging,
+        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath, tracking,
         routerMiddleware(browserHistory)
       ),
       persistState(()=>{}, localStorageConfig)
