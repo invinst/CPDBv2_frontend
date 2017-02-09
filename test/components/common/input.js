@@ -5,8 +5,8 @@ import {
 import { spy, stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import TextInput from 'components/inline-editable/rich-text-editor/toolbar/input';
-import * as inputStyles from 'components/inline-editable/rich-text-editor/toolbar/input.style';
+import TextInput from 'components/common/input';
+import * as inputStyles from 'components/common/input.style';
 
 describe('TextInput component', function () {
   let instance;

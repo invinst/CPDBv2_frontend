@@ -60,6 +60,7 @@ export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
 export const REPORTS_API_URL = `${V2_ROOT_PATH}reports/`;
 export const FAQS_API_URL = `${V2_ROOT_PATH}faqs/`;
 export const MAIL_CHIMP_URL = '/vftg/';
+export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -84,6 +85,10 @@ export const UPDATE_FAQ_REQUEST_FAILURE = 'UPDATE_FAQ_REQUEST_FAILURE';
 export const BULK_UPDATE_FAQS_START = 'BULK_UPDATE_FAQS_START';
 export const BULK_UPDATE_FAQS_SUCCESS = 'BULK_UPDATE_FAQS_SUCCESS';
 export const BULK_UPDATE_FAQS_FAILURE = 'BULK_UPDATE_FAQS_FAILURE';
+
+export const SEARCH_OFFICERS_REQUEST_START = 'SEARCH_OFFICERS_REQUEST_START';
+export const SEARCH_OFFICERS_REQUEST_SUCCESS = 'SEARCH_OFFICERS_REQUEST_SUCCESS';
+export const SEARCH_OFFICERS_REQUEST_FAILURE = 'SEARCH_OFFICERS_REQUEST_FAILURE';
 
 export const ALPHA_NUMBERIC = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
                                'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',

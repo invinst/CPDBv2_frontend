@@ -15,6 +15,10 @@ export default class TextInput extends Component {
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ value: nextProps.value });
+  }
+
   handleFocus(event) {
     const { onFocus } = this.props;
     this.setState({ showPlaceholder: !this.state.value });
@@ -42,6 +46,10 @@ export default class TextInput extends Component {
     }
   }
 
+  focus() {
+    this.input.focus();
+  }
+
   render() {
     const {
       style, paddingVertical, paddingHorizontal, width, height,
@@ -67,6 +75,7 @@ export default class TextInput extends Component {
     return (
       <div style={ _wrapperStyle }>
         <input
+          ref={ input => this.input = input }
           autoFocus={ autoFocus }
           style={ _inputStyle }
           value={ value }

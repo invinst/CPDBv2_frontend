@@ -16,7 +16,14 @@ import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 describe('BottomSheet component', function () {
   let element;
   const mockStore = MockStore();
-  const store = mockStore({});
+  const store = mockStore({
+    bottomSheet: {
+      officersAutoSuggest: {
+        isRequesting: false,
+        officers: []
+      }
+    }
+  });
   const report = CuratedReportFactory.build();
   const faq = CuratedFAQFactory.build();
 

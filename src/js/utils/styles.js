@@ -6,6 +6,8 @@ export const darkGreyColor = '#666666';
 export const midnightBlueColor = '#0B3168';
 export const darkGrayColor = '#A7A7A7';
 export const whiteSmokeColor = 'rgba(255,255,255, 0.7)';
+export const monzaColor = 'rgba(208, 1, 27, 0.1)';
+export const subdueAccentColor= '#D3E4FC';
 /* v2 redesign */
 export const wildSandColor = '#F4F4F4';
 export const altoColor = '#D8D8D8';
@@ -32,6 +34,11 @@ export const deepBlueColor = '#004DC8';
 export const lavenderColor = '#CDE0FC';
 export const spindleColor = '#B2D5E9';
 export const greyishColor = '#ADADAD';
+export const coralRedColor = '#DC3747';
+export const rajahColor = '#F46937';
+export const goldenrodColor = '#F69833';
+export const swampGreenColor = '#F0C41B';
+export const hippieGreenColor = '#5D924E';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';

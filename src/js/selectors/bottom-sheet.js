@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { find } from 'lodash';
+import { find, map } from 'lodash';
 
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import {
@@ -89,3 +89,11 @@ export const contentSelector = (state, props) => {
     props: childrenProps
   };
 };
+
+export const officerSearchResultSelector = state => map(state.bottomSheet.officersAutoSuggest.officers, obj => ({
+  fullName: obj['full_name'],
+  gender: obj.gender,
+  race: obj.race,
+  allegationCount: obj['allegation_count'],
+  id: obj['id']
+}));
