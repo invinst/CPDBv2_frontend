@@ -21,7 +21,7 @@ class SuggestionItem extends Component {
     const text = get(suggestion, 'payload.result_text', '');
     const href = get(suggestion, 'payload.url', '');
     const extraText = get(suggestion, 'payload.result_extra_information', '');
-    const tags = get(suggestion, 'payload.tags');
+    const tags = get(suggestion, 'payload.tags', []);
 
     return (
       <a href={ href }
