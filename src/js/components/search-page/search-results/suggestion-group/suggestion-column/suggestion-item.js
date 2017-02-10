@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { get } from 'lodash';
+import { join, get } from 'lodash';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import { suggestionItemStyle, suggestionTextStyle, metaTextStyle, tagStyle } from './suggestion-item.style';
@@ -40,7 +40,7 @@ class SuggestionItem extends Component {
         <div
           className='link--transition'
           style={ tagStyle(hovering) }>
-          { tags.join(', ') }
+          { join(tags, ', ') }
         </div>
       </a>
     );
