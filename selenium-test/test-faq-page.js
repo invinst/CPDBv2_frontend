@@ -16,12 +16,16 @@ describe('FAQ page', function () {
     });
 
     it('should show list of questions', function () {
-      faqPage.faqSection.faq.count.should.equal(20);
+      faqPage.faqSection.faq.count.should.equal(3);
     });
 
     it('should display answer when click on question', function () {
       faqPage.faqSection.faq.click();
       faqPage.faqSection.faqContent.waitForVisible(2000);
+    });
+
+    it('should not have starred checkbox', function () {
+      faqPage.faqSection.starredCheckbox.waitForVisible(2000, true);
     });
   });
 
@@ -38,7 +42,7 @@ describe('FAQ page', function () {
       faqPage.faqSection.addButton.waitForVisible();
     });
 
-    it('open empty edittable bottom sheet when click on add button', function () {
+    it('should open empty edittable bottom sheet when click on add button', function () {
       faqPage.faqSection.addButton.click();
 
       faqPage.bottomSheet.faqBottomSheet.waitForVisible();
@@ -46,11 +50,17 @@ describe('FAQ page', function () {
       faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faqAnswer).should.be.true();
     });
 
-    it('open edittable bottom sheet when click on question', function () {
+    it('should open edittable bottom sheet when click on question', function () {
       faqPage.faqSection.faq.click();
       faqPage.bottomSheet.faqBottomSheet.waitForVisible();
       faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faqQuestion).should.be.false();
       faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faqAnswer).should.be.false();
+    });
+
+    it('should toggle starred when click on starred checkbox', function () {
+      faqPage.faqSection.checkedStarredCheckbox.waitForVisible(2000, true);
+      faqPage.faqSection.starredCheckbox.click();
+      faqPage.faqSection.checkedStarredCheckbox.waitForVisible();
     });
   });
 });

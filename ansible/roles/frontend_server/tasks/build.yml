@@ -12,6 +12,7 @@
     version={{ branch }}
     force=yes
     key_file=***REMOVED***
+    force=yes
   tags: deploy
 
 - name : Install packages based on package.json.

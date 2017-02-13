@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map } from 'lodash';
+import { map, sortBy, values } from 'lodash';
 
 import { getField, convertContentStateToEditorState } from 'utils/draft';
 
@@ -9,6 +9,7 @@ const getFAQs = state => state.faqs;
 export const faqTransform = faq => {
   return {
     id: faq.id,
+    meta: faq.meta,
     fieldProps: {
       'answer': {
         value: convertContentStateToEditorState(getField(faq.fields, 'answer').value),
@@ -24,4 +25,10 @@ export const faqTransform = faq => {
   };
 };
 
-export const faqsSelector = createSelector(getFAQs, faqs => map(faqs, faq => faqTransform(faq)));
+export const faqsSelector = createSelector(getFAQs, faqs => {
+  const result = map(
+    sortBy(values(faqs), faq => -faq.meta.order),
+    faq => faqTransform(faq)
+  );
+  return result;
+});

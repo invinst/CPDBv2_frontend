@@ -1,5 +1,5 @@
 import faqForm from 'reducers/faq-page/faq-form';
-import { FAQS_POST_START, FAQS_POST_SUCCESS, FAQS_POST_FAILURE } from 'actions/faq-page';
+import { FAQS_POST_START, FAQS_POST_SUCCESS, FAQS_POST_FAILURE } from 'utils/constants';
 
 
 describe('faqForm reducer', function () {
