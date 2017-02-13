@@ -4,8 +4,8 @@ import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
 } from 'components/responsive/responsive-style-component';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
-import Hoverable from 'components/common/higher-order/hoverable';
-import { titleStyle, checkboxStyle, titleReducedWidth } from './faq-item.style';
+import ConfiguredRadium from 'utils/configured-radium';
+import { faqItemStyle, faqItemTitleStyle, checkboxStyle, titleReducedWidth } from './faq-item.style';
 
 
 class FAQItem extends Component {
@@ -29,33 +29,15 @@ class FAQItem extends Component {
     onStarredToggle(!starred);
   }
 
-  wrapperStyle() {
-    const style = this.props.style.wrapper || {};
-    return {
-      ...style.base,
-      ...(this.props.hovering ? style.hover : {})
-    };
-  }
-
-  titleStyle(responsiveStyle) {
-    const style = this.props.style.title || {};
-    return {
-      ...responsiveStyle.title,
-      ...(this.props.showStar ? titleReducedWidth : {}),
-      ...style.base,
-      ...(this.props.hovering ? style.hover : {})
-    };
-  }
-
   renderWithResponsiveStyle(style) {
-    const { faqId, onClick, fieldProps, showStar } = this.props;
+    const { faqId, onClick, wrapperStyle, fieldProps, showStar } = this.props;
     const { starred } = this.state;
 
     return (
-      <div key={ style.screen } style={ this.wrapperStyle() } className='test--faq-item'>
+      <div key={ style.screen } style={ { ...faqItemStyle, ...wrapperStyle } } className='test--faq-item'>
         <div
           className='faq-title link--transition'
-          style={ this.titleStyle(style) }
+          style={ { ...style.faqItemTitle, ...(showStar ? titleReducedWidth : {}) } }
           onClick={ () => { onClick(faqId); } }>
           <RichTextEditable
             placeholder='Question'
@@ -77,13 +59,13 @@ class FAQItem extends Component {
       <ResponsiveStyleComponent
         responsiveStyle={ {
           [EXTRA_WIDE]: {
-            title: { ...titleStyle.base, ...titleStyle.extraWide }
+            faqItemTitle: { ...faqItemTitleStyle.base, ...faqItemTitleStyle.extraWide }
           },
           [DESKTOP]: {
-            title: titleStyle.base
+            faqItemTitle: faqItemTitleStyle.base
           },
           [TABLET]: {
-            title: { ...titleStyle.base, ...titleStyle.tablet }
+            faqItemTitle: { ...faqItemTitleStyle.base, ...faqItemTitleStyle.tablet }
           }
         } }>
         { this.renderWithResponsiveStyle.bind(this) }
@@ -96,16 +78,15 @@ FAQItem.propTypes = {
   faqId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   fieldProps: PropTypes.object,
   onClick: PropTypes.func,
-  hovering: PropTypes.bool,
-  style: PropTypes.object,
+  wrapperStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onStarredToggle: PropTypes.func,
   showStar: PropTypes.bool,
   starred: PropTypes.bool
 };
 
 FAQItem.defaultProps = {
-  style: {},
+  wrapperStyle: {},
   onClick: () => {}
 };
 
-export default Hoverable(FAQItem);
+export default ConfiguredRadium(FAQItem);

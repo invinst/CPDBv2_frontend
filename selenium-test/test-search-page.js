@@ -80,7 +80,6 @@ describe('Search Page', function () {
     landingPage.open();
     searchPage.open();
     searchPage.backButton.click();
-    searchPage.backButton.waitForVisible(20000, true);
 
     landingPage.currentBasePath.should.equal('/');
   });

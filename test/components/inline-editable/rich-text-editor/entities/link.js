@@ -7,7 +7,6 @@ import { Entity } from 'draft-js';
 
 import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import MoreLink from 'components/common/more-link';
-import { TABLET, DESKTOP, EXTRA_WIDE } from 'components/responsive/responsive-style-component';
 import { ENTITY_LINK } from 'utils/constants';
 import Link from 'components/inline-editable/rich-text-editor/entities/link';
 
@@ -54,24 +53,6 @@ describe('Link component', function () {
     const context = {
       draftEntityStyle: {
         [ENTITY_LINK]: style
-      }
-    };
-    stub(Entity, 'get').returns({ getData: () => { return { url: 'url' }; } });
-    instance = renderWithContext(context, <Link/>);
-    const moreLinkElement = scryRenderedComponentsWithType(instance, MoreLink)[0];
-    moreLinkElement.props.style.should.equal(style);
-    Entity.get.restore();
-  });
-
-  it('should apply responsive style from context', function () {
-    const style = { 'c': 'd' };
-    const context = {
-      draftEntityStyle: {
-        [ENTITY_LINK]: {
-          [TABLET]: style,
-          [DESKTOP]: style,
-          [EXTRA_WIDE]: style
-        }
       }
     };
     stub(Entity, 'get').returns({ getData: () => { return { url: 'url' }; } });
