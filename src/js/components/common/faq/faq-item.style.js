@@ -1,8 +1,16 @@
-import { sanFranciscoTextFamily } from 'utils/styles';
+import { accentColor, softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
-export const titleStyle = {
+export const faqItemStyle = {
+  color: softBlackColor,
+  ':hover': {
+    color: accentColor
+  }
+};
+
+export const faqItemTitleStyle = {
   base: {
+    color: softBlackColor,
     paddingLeft: '16px',
     cursor: 'pointer',
     fontFamily: sanFranciscoTextFamily,

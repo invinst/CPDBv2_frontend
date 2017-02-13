@@ -2,34 +2,19 @@ import React, { Component, PropTypes } from 'react';
 import { Entity } from 'draft-js';
 
 import MoreLink from 'components/common/more-link';
-import ResponsiveStyleComponent, {
-  DESKTOP, TABLET, EXTRA_WIDE
-} from 'components/responsive/responsive-style-component';
 import { ENTITY_LINK } from 'utils/constants';
-import { linkStyle, pinkLinkStyle, linkWrapperStyle } from './link.style';
+import { linkStyle, pinkLinkStyle } from './link.style';
 
 
 class Link extends Component {
-  responsiveStyle() {
-    let styleFromContext = this.context.draftEntityStyle && this.context.draftEntityStyle[ENTITY_LINK] || {};
-    if (!styleFromContext[DESKTOP] && !styleFromContext[TABLET] && !styleFromContext[EXTRA_WIDE]) {
-      return {
-        [DESKTOP]: styleFromContext,
-        [TABLET]: styleFromContext,
-        [EXTRA_WIDE]: styleFromContext
-      };
-    } else {
-      return styleFromContext;
-    }
-  }
-
-  renderWithResponsiveStyle(style) {
+  render() {
     const { children, entityKey } = this.props;
     const { editModeOn, sectionEditModeOn } = this.context;
+    const styleFromContext = this.context.draftEntityStyle && this.context.draftEntityStyle[ENTITY_LINK];
     const { url } = Entity.get(entityKey).getData();
     if (!editModeOn) {
       return (
-        <MoreLink href={ url } style={ style }>
+        <MoreLink href={ url } style={ styleFromContext }>
           { children }
         </MoreLink>
       );
@@ -38,15 +23,6 @@ class Link extends Component {
       <span style={ sectionEditModeOn ? pinkLinkStyle : linkStyle }>
         { children }
       </span>
-    );
-  }
-
-  render() {
-    return (
-      <ResponsiveStyleComponent style={ linkWrapperStyle }
-        responsiveStyle={ this.responsiveStyle() }>
-        { this.renderWithResponsiveStyle.bind(this) }
-      </ResponsiveStyleComponent>
     );
   }
 }

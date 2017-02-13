@@ -1,5 +1,6 @@
-import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
-import { DESKTOP, TABLET, EXTRA_WIDE } from 'components/responsive/responsive-style-component';
+import {
+  softBlackColor, sanFranciscoTextFamily, fashionPinkColor, pinkishWhiteColor, mistyRoseColor
+} from 'utils/styles';
 
 
 export const contentStyle = {
@@ -26,6 +27,10 @@ export const paragraphStyle = {
   extraWide: {
     fontSize: '48px'
   }
+};
+
+export const underlinedLinkStyle = {
+  fontWeight: 500
 };
 
 export const paragraphWrapperStyle = {
@@ -82,31 +87,42 @@ export const headerStyle = {
   }
 };
 
+export const editLinkBaseStyle = {
+  color: fashionPinkColor
+};
+
+export const editLinkHoverStyle = editLinkBaseStyle;
+
+export const editLinkUnderlineBaseStyle = {
+  backgroundColor: fashionPinkColor,
+  opacity: .2
+};
+
+export const editLinkUnderlineHoverStyle = {
+  backgroundColor: fashionPinkColor,
+  opacity: 1
+};
+
+export const moreLinkWrapperStyle = {
+  textAlign: 'right',
+  display: 'inline-block',
+  width: '130px'
+};
+
+export const editModeWrapperStyle = {
+  backgroundColor: pinkishWhiteColor
+};
+
+export const buttonStyle = {
+  backgroundColor: mistyRoseColor,
+  border: '1px solid white',
+  borderRadius: '3px',
+  marginRight: '10px',
+  padding: '5px 7px',
+  cursor: 'pointer'
+};
+
 export const editBoxStyle = {
   width: 'calc(100% - 130px)',
   display: 'inline-block'
-};
-
-
-function underlineStyle(underlineHeight) {
-  const baseStyle = {
-    height: `${underlineHeight}px`,
-    bottom: `-${underlineHeight}px`
-  };
-  return {
-    base: baseStyle,
-    hover: baseStyle
-  };
-}
-
-export const underlinedLinkStyle = {
-  [TABLET]: {
-    underline: underlineStyle(7)
-  },
-  [DESKTOP]: {
-    underline: underlineStyle(9)
-  },
-  [EXTRA_WIDE]: {
-    underline: underlineStyle(13)
-  }
 };

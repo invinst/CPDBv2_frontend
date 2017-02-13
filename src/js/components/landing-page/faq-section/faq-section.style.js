@@ -1,5 +1,5 @@
 import {
-  softBlackColor, silverSandColor, lightGreyColor, wildSandColor, whiteTwoColor, accentColor, sanFranciscoTextFamily
+  softBlackColor, silverSandColor, lightGreyColor, wildSandColor, whiteTwoColor, sanFranciscoTextFamily
 } from 'utils/styles';
 
 
@@ -61,21 +61,8 @@ export const linkStyle = {
   borderBottom: `4px solid ${ silverSandColor }`
 };
 
-export const faqStyle = {
-  base: {
-    color: softBlackColor
-  },
-  hover: {
-    color: accentColor
-  }
-};
-
-export const lastFaqStyle = {
-  base: {
-    ...faqStyle.base,
-    borderBottom: `1px solid ${lightGreyColor}`
-  },
-  hover: faqStyle.hover
+export const underlineFAQStyle = {
+  borderBottom: `1px solid ${lightGreyColor}`
 };
 
 export const wrapperStyle = {

@@ -10,6 +10,7 @@
     "test-debug": "yarn run test -- --debug",
     "test-watch": "yarn run test -- --watch",
     "cover": "yarn run test -- --plugin [ mochify-istanbul --report text --exclude **/mock-api/**]",
+    "cover-human-readable": "yarn run test -- --plugin [ mochify-istanbul --report text ]",
     "cover-circle": "yarn run test -- --plugin [ mochify-istanbul --report lcovonly --exclude **/mock-api/**]",
     "live-test": "CPDB_APP_ENV=test wdio wdio.conf.js",
     "lint": "eslint ./src ./test"
