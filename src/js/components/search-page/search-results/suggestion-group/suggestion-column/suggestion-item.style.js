@@ -5,7 +5,7 @@ import {
   eggPlantColor,
   accentColor,
   subdueAccentTextColor,
-  lightSubdueAccentTextColor,
+  lightSubdueAccentTextColor
 } from 'utils/styles';
 
 
@@ -48,8 +48,7 @@ export const metaTextStyle = (hovering, isFocused) => {
   };
 };
 
-
-export const tagStyle = (hovering, isFocused) => {
+export const reasonStyle = (hovering, isFocused) => {
   let color;
   if (isFocused) {
     color = subdueAccentTextColor;

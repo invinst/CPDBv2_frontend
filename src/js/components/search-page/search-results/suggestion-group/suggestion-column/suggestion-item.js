@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { join, get } from 'lodash';
+import { get } from 'lodash';
 import classnames from 'classnames';
 import { Link } from 'react-router';
 import { Motion, spring, presets } from 'react-motion';
@@ -9,7 +9,7 @@ import {
   suggestionItemStyle,
   suggestionTextStyle,
   metaTextStyle,
-  tagStyle,
+  reasonStyle,
   enterContainerStyle,
   enterBoxStyle,
   enterTextStyle
@@ -48,8 +48,8 @@ class SuggestionItem extends Component {
     const href = get(suggestion, 'payload.url', '');
     const to = get(suggestion, 'payload.to', '');
     const extraText = get(suggestion, 'payload.result_extra_information', '');
-    const tags = get(suggestion, 'payload.tags', []);
     const suggestionItemClassName = classnames('suggestion-item', { 'focused': isFocused });
+    const reason = get(suggestion, 'payload.result_reason', '');
 
     const commonWrapperProps = {
       style: suggestionItemStyle,
@@ -119,10 +119,10 @@ class SuggestionItem extends Component {
                 { extraText }
               </div>
               <div
-                key='tag'
-                className='link--transition test--suggestion-item-tag'
-                style={ tagStyle(hovering, isFocused) }>
-                { join(tags, ', ') }
+                key='reason'
+                className='link--transition test--suggestion-item-reason'
+                style={ reasonStyle(hovering, isFocused) }>
+                { reason }
               </div>
             </div>
           )

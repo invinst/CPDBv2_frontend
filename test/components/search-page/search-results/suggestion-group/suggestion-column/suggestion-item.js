@@ -76,10 +76,10 @@ describe('<SuggestionItem/>', function () {
 
       const text = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-text');
       const extraText = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-extra-text');
-      const tag = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-tag');
+      const reason = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-reason');
       text.style.color.should.eql('rgb(0, 94, 244)');
       extraText.style.color.should.eql('rgb(76, 142, 248)');
-      tag.style.color.should.eql('rgb(76, 142, 248)');
+      reason.style.color.should.eql('rgb(76, 142, 248)');
     });
 
     it('should render hovered item\'s colors correctly', function () {
@@ -89,10 +89,10 @@ describe('<SuggestionItem/>', function () {
 
       const text = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-text');
       const extraText = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-extra-text');
-      const tag = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-tag');
+      const reason = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-reason');
       text.style.color.should.eql('rgb(0, 94, 244)');
       extraText.style.color.should.eql('rgb(0, 94, 244)');
-      tag.style.color.should.eql('rgb(0, 94, 244)');
+      reason.style.color.should.eql('rgb(0, 94, 244)');
     });
   });
 
