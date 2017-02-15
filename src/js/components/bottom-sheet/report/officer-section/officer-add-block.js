@@ -29,8 +29,10 @@ export default class OfficerAddBlock extends Component {
       <div style={ wrapperStyle }>
         <div style={ headerStyle }>
           <div style={ officerTextStyle }>Officer</div>
-          <div style={ selectedOfficer ? buttonStyle : disabledButtonStyle } onClick={ this.handleAddClick }>Add</div>
-          <div style={ buttonStyle } onClick={ onCancelClick }>Cancel</div>
+          <div className='test--add-button'
+            style={ selectedOfficer ? buttonStyle : disabledButtonStyle }
+            onClick={ this.handleAddClick }>Add</div>
+          <div className='test--cancel-button' style={ buttonStyle } onClick={ onCancelClick }>Cancel</div>
         </div>
         <OfficerAutoSuggest officers={ officers } searchOfficers={ searchOfficers } onChange={ this.handleChange }/>
       </div>

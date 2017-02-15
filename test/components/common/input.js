@@ -61,6 +61,20 @@ describe('TextInput component', function () {
     onFocusSpy.called.should.be.true();
   });
 
+  it('should trigger internal input focus on focus', function () {
+    const onFocusSpy = spy();
+
+    instance = renderIntoDocument(
+      <TextInput onFocus={ onFocusSpy } autoFocus={ false } />
+    );
+
+    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
+    const inputFocusSpy = spy(inputElement, 'focus');
+
+    instance.focus();
+    inputFocusSpy.called.should.be.true();
+  });
+
   it('should have wrapperStyle base on width and height', function () {
     const width = 1;
     const height = 1;

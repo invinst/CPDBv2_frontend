@@ -7,9 +7,9 @@ import {
 } from './officer-auto-suggest.style';
 
 
-export default class OfficerInput extends Component {
-  constructor() {
-    super();
+export default class OfficerAutoSuggest extends Component {
+  constructor(props) {
+    super(props);
 
     this.state = {
       officers: [],
@@ -85,7 +85,7 @@ export default class OfficerInput extends Component {
   }
 
   renderSuggestion(suggestion) {
-    return <div>{ suggestion.fullName }</div>;
+    return <div className='test--suggestion'>{ suggestion.fullName }</div>;
   }
 
   renderSuggestionsContainer({ children, ...rest }) {
@@ -95,7 +95,9 @@ export default class OfficerInput extends Component {
     if (children) {
       content = children;
     } else {
-      content = value && !officers.length && inputHasFocus ? <div style={ messageStyle }>No match found</div> : null;
+      content = value && !officers.length && inputHasFocus
+        ? <div style={ messageStyle } className='test--no-match-found'>No match found</div>
+        : null;
     }
 
     return (
@@ -129,12 +131,12 @@ export default class OfficerInput extends Component {
   }
 }
 
-OfficerInput.propTypes = {
+OfficerAutoSuggest.propTypes = {
   searchOfficers: PropTypes.func,
   onChange: PropTypes.func,
   officers: PropTypes.array
 };
 
-OfficerInput.defaultProps = {
+OfficerAutoSuggest.defaultProps = {
   officers: []
 };

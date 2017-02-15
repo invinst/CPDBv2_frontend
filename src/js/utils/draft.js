@@ -68,6 +68,12 @@ export const createEmptyDateField = (name) => ({
   value: moment().format('YYYY-MM-DD')
 });
 
+export const createEmptyOfficersField = () => ({
+  name: 'officers',
+  type: 'officers_list',
+  value: []
+});
+
 export const getFieldOrCreateEmptyWithEditorState = (fields, name, type) => (
   getField(fields, name)
   || createFieldWithEmptyEditorState(name, type));

@@ -30,7 +30,7 @@ export class Report extends Component {
   }
 
   renderInfoRows(style) {
-    const { fieldProps, searchOfficers, officerSearchResult, sectionEditModeOn } = this.props;
+    const { fieldProps, searchOfficers, officerSearchResult } = this.props;
 
     return (
       <div>
@@ -52,9 +52,9 @@ export class Report extends Component {
           </div>
         </div>
         <OfficerSection
+          { ...fieldProps['officers'] }
           officerSearchResult={ officerSearchResult }
-          searchOfficers={ searchOfficers }
-          sectionEditModeOn={ sectionEditModeOn }/>
+          searchOfficers={ searchOfficers }/>
       </div>
     );
   }

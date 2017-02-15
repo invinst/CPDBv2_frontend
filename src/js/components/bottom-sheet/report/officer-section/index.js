@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { filter } from 'lodash';
+import { filter, map, find } from 'lodash';
 
 import HoverableButton from 'components/common/hoverable-button';
 import OfficerCard from './officer-card';
@@ -16,7 +16,7 @@ export default class OfficerSection extends Component {
 
     this.state = {
       showInput: false,
-      officers: props.officers
+      officers: props.value
     };
 
     this.handleAddOfficerClick = this.handleAddOfficerClick.bind(this);
@@ -26,7 +26,7 @@ export default class OfficerSection extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ officers: nextProps.officers });
+    this.setState({ officers: nextProps.value });
   }
 
   handleAddOfficerClick(event) {
@@ -38,34 +38,51 @@ export default class OfficerSection extends Component {
   }
 
   handleNewOfficer(officer) {
+    const { onChange } = this.props;
     const { officers } = this.state;
+
     if (!find(officers, obj => obj.id === officer.id)) {
       officers.push(officer);
     }
+
     this.setState({ officers: officers, showInput: false });
+    onChange(officers);
   }
 
   handleRemoveOfficer(officerId) {
+    const { onChange } = this.props;
     const { officers } = this.state;
 
+    const newOfficers = filter(officers, officer => officer.id !== officerId);
+
     this.setState({
-      officers: filter(officers, officer => officer.id !== officerId)
+      officers: newOfficers
     });
+
+    onChange(newOfficers);
   }
 
   renderAddOfficerButton() {
-    return (<div style={ addOfficerButtonStyle } onClick={ this.handleAddOfficerClick }>Add Officer</div>);
+    return (
+      <div className='test--add-officer-button'
+        style={ addOfficerButtonStyle } onClick={ this.handleAddOfficerClick }>Add Officer</div>
+    );
   }
 
   renderOfficerInvolved() {
     const { officers } = this.state;
+    const { editModeOn } = this.props;
 
     return (
-      <div style={ officerInvolvedStyle }>
+      <div className='test--officer-involved' style={ officerInvolvedStyle }>
         <div style={ officerInvolvedTextStyle }>Officers Involved ({ officers.length })</div>
-        <div style={ addOfficerCircleWrapperStyle }>
-          <HoverableButton style={ addOfficerCircleStyle } onClick={ this.handleAddOfficerClick }/>
-        </div>
+        {
+          editModeOn ?
+            <div style={ addOfficerCircleWrapperStyle }>
+              <HoverableButton style={ addOfficerCircleStyle } onClick={ this.handleAddOfficerClick }/>
+            </div>
+            : null
+        }
       </div>
     );
   }
@@ -82,14 +99,16 @@ export default class OfficerSection extends Component {
 
   renderOfficerCards() {
     const { officers } = this.state;
+    const { editModeOn } = this.props;
 
-    const officerCards = officers.map((officer, index) => {
+    const officerCards = map(officers, (officer, index) => {
       const isLastCard = index === officers.length - 1;
       return (
         <OfficerCard
-          key={ officer.id } officerId={ officer.id } fullName={ officer.fullName } race={ officer.race }
-          gender={ officer.gender } allegationCount={ officer.allegationCount }
-          onRemoveClick={ this.handleRemoveOfficer } style={ isLastCard ? lastOfficerCardStyle : null }/>
+          key={ officer.id } editModeOn={ editModeOn } officerId={ officer.id } fullName={ officer.fullName }
+          race={ officer.race } gender={ officer.gender } allegationCount={ officer.allegationCount }
+          v1Url={ officer.v1Url } onRemoveClick={ this.handleRemoveOfficer }
+          style={ isLastCard ? lastOfficerCardStyle : null }/>
       );
     });
 
@@ -100,14 +119,19 @@ export default class OfficerSection extends Component {
 
   render() {
     const { showInput, officers } = this.state;
+    const { editModeOn } = this.props;
 
     let header;
-    if (showInput) {
-      header = this.renderOfficerInput();
-    } else if (officers.length) {
+    if (!editModeOn) {
       header = this.renderOfficerInvolved();
     } else {
-      header = this.renderAddOfficerButton();
+      if (showInput) {
+        header = this.renderOfficerInput();
+      } else if (officers && officers.length) {
+        header = this.renderOfficerInvolved();
+      } else {
+        header = this.renderAddOfficerButton();
+      }
     }
 
     return (
@@ -123,12 +147,13 @@ export default class OfficerSection extends Component {
 
 OfficerSection.propTypes = {
   officerSearchResult: PropTypes.array,
-  officers: PropTypes.array,
+  value: PropTypes.array,
+  onChange: PropTypes.func,
   searchOfficers: PropTypes.func,
-  sectionEditModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool
 };
 
 OfficerSection.defaultProps = {
-  officers: [],
+  value: [],
   officerSearchResult: []
 };

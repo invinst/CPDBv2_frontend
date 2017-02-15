@@ -4,13 +4,14 @@ import { find, map } from 'lodash';
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import {
   getField, createFieldWithEmptyEditorState, createEmptyStringField,
-  createEmptyDateField
+  createEmptyDateField, createEmptyOfficersField
 } from 'utils/draft';
 
 
 const getReports = state => state.reports;
 const getFAQs = state => state.faqs;
 const getContentId = (state, props) => props.content.id;
+const getOfficerSearchResult = state => state.bottomSheet.officersAutoSuggest.officers;
 
 export const reportSelector = createSelector(
   getReports,
@@ -27,7 +28,8 @@ export const reportSelector = createSelector(
           'publish_date': createEmptyDateField('publish_date'),
           'author': createEmptyStringField('author'),
           'excerpt': createFieldWithEmptyEditorState('excerpt', 'rich_text'),
-          'article_link': createFieldWithEmptyEditorState('article_link', 'rich_text')
+          'article_link': createFieldWithEmptyEditorState('article_link', 'rich_text'),
+          'officers': createEmptyOfficersField()
         } :
           report ?
           {
@@ -36,7 +38,8 @@ export const reportSelector = createSelector(
             'publish_date': getField(report.fields, 'publish_date'),
             'author': getField(report.fields, 'author'),
             'excerpt': getField(report.fields, 'excerpt'),
-            'article_link': getField(report.fields, 'article_link')
+            'article_link': getField(report.fields, 'article_link'),
+            'officers': getField(report.fields, 'officers')
           } :
           null
       )
@@ -90,10 +93,23 @@ export const contentSelector = (state, props) => {
   };
 };
 
-export const officerSearchResultSelector = state => map(state.bottomSheet.officersAutoSuggest.officers, obj => ({
-  fullName: obj['full_name'],
-  gender: obj.gender,
-  race: obj.race,
-  allegationCount: obj['allegation_count'],
-  id: obj['id']
-}));
+export function officersToCamelCase(officers) {
+  return map(officers, officer => ({
+    fullName: officer['full_name'],
+    gender: officer.gender,
+    race: officer.race,
+    allegationCount: officer['allegation_count'],
+    id: officer['id'],
+    v1Url: officer['v1_url']
+  }));
+}
+
+export function officersToSnakeCase(officers) {
+  return map(officers, officer => ({ id: officer.id }));
+}
+
+
+export const officerSearchResultSelector = createSelector(
+  getOfficerSearchResult,
+  officersToCamelCase
+);

@@ -1,15 +1,26 @@
 import {
   coralRedColor, rajahColor, goldenrodColor, swampGreenColor, hippieGreenColor,
-  softBlackColor, whiteTwoColor, sanFranciscoTextFamily
+  softBlackColor, whiteTwoColor, accentColor, subdueAccentTextColor, sanFranciscoTextFamily
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
-export const wrapperStyle = {
+const _wrapperStyle = {
   paddingTop: '16px',
   paddingBottom: '17px',
   borderBottom: `1px solid ${whiteTwoColor}`,
-  position: 'relative'
+  position: 'relative',
+  cursor: 'default'
+};
+
+export const wrapperStyle = {
+  base: {
+    ..._wrapperStyle
+  },
+  hover: {
+    ..._wrapperStyle,
+    cursor: 'pointer'
+  }
 };
 
 const OFFICER_COMPLAINT_COUNT_RANGE = [
@@ -49,17 +60,37 @@ export const officerContentWrapperStyle = {
   verticalAlign: 'middle'
 };
 
-export const officerNameStyle = {
+const _baseOfficerNameStyle = {
   fontSize: '14px',
   fontWeight: 400
 };
 
-export const officerSubInfoStyle = {
+export const officerNameStyle = {
+  base: {
+    ..._baseOfficerNameStyle
+  },
+  hover: {
+    ..._baseOfficerNameStyle,
+    color: accentColor
+  }
+};
+
+const _officerSubInfoStyle = {
   fontSize: '12px',
   fontWeight: 300
 };
 
-export const removeOfficerWrapperStyle = {
+export const officerSubInfoStyle = {
+  base: {
+    ..._officerSubInfoStyle
+  },
+  hover: {
+    ..._officerSubInfoStyle,
+    color: subdueAccentTextColor
+  }
+};
+
+export const rightIconStyle = {
   display: 'inline-block'
 };
 
@@ -78,5 +109,22 @@ export const removeOfficerStyle = {
   hover: {
     ..._removeOfficerStyle,
     background: `url("${imgUrl('ic-delete-officer-card-hover.svg')}") 6px 3px no-repeat scroll`
+  }
+};
+
+const _indicatorStyle = {
+  background: `url("${imgUrl('disclosure-indicator.svg')}") 14px 0 no-repeat scroll`,
+  width: '8px',
+  height: '13px',
+  verticalAlign: 'middle',
+  paddingRight: '14px',
+  display: 'inline-block'
+};
+
+export const indicatorStyle = {
+  base: _indicatorStyle,
+  hover: {
+    ..._indicatorStyle,
+    background: `url("${imgUrl('disclosure-indicator-hover.svg')}") 14px 0 no-repeat scroll`
   }
 };
