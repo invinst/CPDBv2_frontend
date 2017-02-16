@@ -19,6 +19,7 @@ class LoginScreen extends Section {
   enterCredentials(username, password) {
     this.loginModal.waitForVisible(20000);
     this.loginNameInput.setValue(username);
+    browser.pause(100);
     this.loginPasswordInput.setValue(password);
   }
 

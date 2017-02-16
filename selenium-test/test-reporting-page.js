@@ -44,16 +44,18 @@ describe('reporting page', function () {
     });
 
     it('open empty edittable bottom sheet when click on add button', function () {
+      reportingPage.reportingSection.addButton.waitForVisible();
       reportingPage.reportingSection.addButton.click();
-      reportingPage.bottomSheet.reportBottomSheet.waitForVisible();
+      reportingPage.bottomSheet.reportTitle.waitForVisible();
       reportingPage.isRichTextEditorEmpty(reportingPage.bottomSheet.reportTitle).should.be.true();
       reportingPage.isRichTextEditorEmpty(reportingPage.bottomSheet.reportExcerpt).should.be.true();
       reportingPage.isRichTextEditorEmpty(reportingPage.bottomSheet.reportArticleLink).should.be.true();
     });
 
     it('open edittable bottom sheet when click on report', function () {
+      reportingPage.reportingSection.report.waitForVisible();
       reportingPage.reportingSection.report.click();
-      reportingPage.bottomSheet.reportBottomSheet.waitForVisible();
+      reportingPage.bottomSheet.reportTitle.waitForVisible();
       reportingPage.isRichTextEditorEmpty(reportingPage.bottomSheet.reportTitle).should.be.false();
       reportingPage.isRichTextEditorEmpty(reportingPage.bottomSheet.reportExcerpt).should.be.false();
       reportingPage.isRichTextEditorEmpty(reportingPage.bottomSheet.reportArticleLink).should.be.false();

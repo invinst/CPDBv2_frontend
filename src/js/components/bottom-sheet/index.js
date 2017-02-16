@@ -80,7 +80,7 @@ export default class BottomSheet extends Component {
 
   renderBottomSheet(style={}) {
     return (
-      <div style={ assign({}, sheetStyle, style) }>
+      <div className='test--bottom-sheet-wrapper' style={ assign({}, sheetStyle, style) }>
         { this.renderContent() }
       </div>
     );

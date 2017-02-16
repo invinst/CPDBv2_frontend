@@ -3,7 +3,7 @@ import { filter, map, find } from 'lodash';
 
 import HoverableButton from 'components/common/hoverable-button';
 import OfficerCard from './officer-card';
-import OfficerAddBlock from './officer-add-block';
+import OfficerAddBlockContainer from 'containers/bottom-sheet/report/officer-add-block';
 import {
   addOfficerButtonStyle, addOfficerCircleWrapperStyle, addOfficerCircleStyle, officerInvolvedStyle,
   officerInvolvedTextStyle, officerCardsWrapperStyle, lastOfficerCardStyle
@@ -79,7 +79,8 @@ export default class OfficerSection extends Component {
         {
           editModeOn ?
             <div style={ addOfficerCircleWrapperStyle }>
-              <HoverableButton style={ addOfficerCircleStyle } onClick={ this.handleAddOfficerClick }/>
+              <HoverableButton className='test--circle-add-officer-button'
+                style={ addOfficerCircleStyle } onClick={ this.handleAddOfficerClick }/>
             </div>
             : null
         }
@@ -88,12 +89,8 @@ export default class OfficerSection extends Component {
   }
 
   renderOfficerInput() {
-    const { searchOfficers, officerSearchResult } = this.props;
-
     return (
-      <OfficerAddBlock
-        searchOfficers={ searchOfficers } officers={ officerSearchResult } onChange={ this.handleNewOfficer }
-        onCancelClick={ this.handleCancelOfficerAdd }/>
+      <OfficerAddBlockContainer onChange={ this.handleNewOfficer } onCancelClick={ this.handleCancelOfficerAdd }/>
     );
   }
 
@@ -146,14 +143,11 @@ export default class OfficerSection extends Component {
 }
 
 OfficerSection.propTypes = {
-  officerSearchResult: PropTypes.array,
   value: PropTypes.array,
   onChange: PropTypes.func,
-  searchOfficers: PropTypes.func,
   editModeOn: PropTypes.bool
 };
 
 OfficerSection.defaultProps = {
-  value: [],
-  officerSearchResult: []
+  value: []
 };

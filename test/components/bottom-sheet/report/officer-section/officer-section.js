@@ -4,6 +4,8 @@ import {
   findRenderedDOMComponentWithClass, Simulate
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
+import { Provider } from 'react-redux';
+import MockStore from 'redux-mock-store';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import OfficerSection from 'components/bottom-sheet/report/officer-section';
@@ -13,6 +15,17 @@ import OfficerCard from 'components/bottom-sheet/report/officer-section/officer-
 
 describe('OfficerSection', function () {
   let instance;
+  const mockStore = MockStore();
+  const store = mockStore({
+    authentication: {},
+    adapter: 'adapter',
+    bottomSheet: {
+      officersAutoSuggest: {
+        isRequesting: false,
+        officers: []
+      }
+    }
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
@@ -25,9 +38,7 @@ describe('OfficerSection', function () {
         return { value: [] };
       },
       render() {
-        return (
-          <OfficerSection value={ this.state.value }/>
-        );
+        return (<OfficerSection value={ this.state.value }/>);
       }
     }));
 
@@ -41,8 +52,10 @@ describe('OfficerSection', function () {
   });
 
   describe('edit mode off', function () {
-    it('should show officer involved if edit mode is off', function () {
-      instance = renderIntoDocument(<OfficerSection editModeOn={ false }/>);
+    it('should show officer involved', function () {
+      instance = renderIntoDocument(
+        <OfficerSection editModeOn={ false }/>
+      );
 
       findRenderedDOMComponentWithClass(instance, 'test--officer-involved');
     });
@@ -51,7 +64,13 @@ describe('OfficerSection', function () {
   describe('edit mode on', function () {
     describe('showInput property is true', function () {
       it('should show officer add block', function () {
-        instance = renderIntoDocument(<OfficerSection editModeOn={ true } />);
+        const providerInstance = renderIntoDocument(
+          <Provider store={ store }>
+            <OfficerSection editModeOn={ true } />
+          </Provider>
+        );
+
+        instance = findRenderedComponentWithType(providerInstance, OfficerSection);
         instance.setState({ showInput: true });
 
         findRenderedComponentWithType(instance, OfficerAddBlock);
@@ -61,14 +80,26 @@ describe('OfficerSection', function () {
     describe('showInput property is false', function () {
       it('should show officer involved if officers exists', function () {
         const officers = [{ id: 1, fullName: 'Foo' }];
-        instance = renderIntoDocument(<OfficerSection editModeOn={ true } />);
+        const providerInstance = renderIntoDocument(
+          <Provider store={ store }>
+            <OfficerSection editModeOn={ true } />
+          </Provider>
+        );
+
+        instance = findRenderedComponentWithType(providerInstance, OfficerSection);
         instance.setState({ showInput: false, officers: officers });
 
         findRenderedDOMComponentWithClass(instance, 'test--officer-involved');
       });
 
       it('should show add officer button if officers does not exists', function () {
-        instance = renderIntoDocument(<OfficerSection editModeOn={ true } />);
+        const providerInstance = renderIntoDocument(
+          <Provider store={ store }>
+            <OfficerSection editModeOn={ true } />
+          </Provider>
+        );
+
+        instance = findRenderedComponentWithType(providerInstance, OfficerSection);
         instance.setState({ showInput: false, officers: [] });
 
         findRenderedDOMComponentWithClass(instance, 'test--add-officer-button');
@@ -77,7 +108,13 @@ describe('OfficerSection', function () {
   });
 
   it('should handle when we click on add officer button', function () {
-    instance = renderIntoDocument(<OfficerSection editModeOn={ true } />);
+    const providerInstance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerSection editModeOn={ true } />
+      </Provider>
+    );
+
+    instance = findRenderedComponentWithType(providerInstance, OfficerSection);
     instance.setState({ showInput: false, officers: [] });
 
     const addOfficerButton = findRenderedDOMComponentWithClass(instance, 'test--add-officer-button');
@@ -87,7 +124,13 @@ describe('OfficerSection', function () {
   });
 
   it('should handle when we click on cancel adding officer button', function () {
-    instance = renderIntoDocument(<OfficerSection editModeOn={ true } />);
+    const providerInstance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerSection editModeOn={ true } />
+      </Provider>
+    );
+
+    instance = findRenderedComponentWithType(providerInstance, OfficerSection);
     instance.setState({ showInput: true });
 
     const cancelButton = findRenderedDOMComponentWithClass(instance, 'test--cancel-button');
@@ -101,7 +144,13 @@ describe('OfficerSection', function () {
     const officers = [{ id: 1, fullName: 'Foo' }];
     const newOfficer = { id: 2, fullName: 'Bar' };
 
-    instance = renderIntoDocument(<OfficerSection editModeOn={ true } value={ officers } onChange={ onChange } />);
+    const providerInstance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerSection editModeOn={ true } value={ officers } onChange={ onChange } />
+      </Provider>
+    );
+
+    instance = findRenderedComponentWithType(providerInstance, OfficerSection);
     instance.setState({ showInput: true });
 
     const officerAddBlock = findRenderedComponentWithType(instance, OfficerAddBlock);
@@ -117,7 +166,13 @@ describe('OfficerSection', function () {
     const onChange = spy();
     const officers = [{ id: 1, fullName: 'Foo' }];
 
-    instance = renderIntoDocument(<OfficerSection editModeOn={ true } value={ officers } onChange={ onChange } />);
+    const providerInstance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerSection editModeOn={ true } value={ officers } onChange={ onChange } />
+      </Provider>
+    );
+
+    instance = findRenderedComponentWithType(providerInstance, OfficerSection);
     instance.setState({ showInput: true });
 
     const officerAddBlock = findRenderedComponentWithType(instance, OfficerAddBlock);
@@ -129,7 +184,9 @@ describe('OfficerSection', function () {
   it('should handle when we remove officer', function () {
     const onChange = spy();
     const officers = [{ id: 1, fullName: 'Foo' }];
-    instance = renderIntoDocument(<OfficerSection editModeOn={ true } value={ officers } onChange={ onChange }/>);
+    instance = renderIntoDocument(
+      <OfficerSection editModeOn={ true } value={ officers } onChange={ onChange }/>
+    );
 
     const officerCard = findRenderedComponentWithType(instance, OfficerCard);
     officerCard.props.onRemoveClick(1);

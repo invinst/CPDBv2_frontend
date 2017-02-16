@@ -36,6 +36,7 @@ export default class OfficerAutoSuggest extends Component {
     return (
       <div style={ officerInputWrapperStyle }>
         <Input
+          className='test--officer-input'
           { ...inputProps }
           style={ officerInputStyle }
           paddingVertical={ 10 }

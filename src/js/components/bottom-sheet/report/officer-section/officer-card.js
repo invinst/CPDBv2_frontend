@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Hoverable from 'components/common/higher-order/hoverable';
 import HoverableButton from 'components/common/hoverable-button';
 import {
-  wrapperStyle, circleStyle, officerContentWrapperStyle, rightIconStyle,
+  wrapperStyle, circleStyle, officerContentWrapperStyle,
   officerNameStyle, officerSubInfoStyle, removeOfficerStyle, indicatorStyle
 } from './officer-card.style';
 
@@ -32,23 +32,26 @@ export class OfficerCard extends Component {
     const { officerId, fullName, gender, race, allegationCount, v1Url, onRemoveClick, editModeOn } = this.props;
     const style = this.getStyle();
 
-    return (
-      <div href={ editModeOn ? null : v1Url } style={ style.wrapper }>
-        <div style={ circleStyle(allegationCount) }/>
-        <div style={ officerContentWrapperStyle }>
-          <div style={ style.officerName }>{ fullName }</div>
-          <div style={ style.officerSubInfo }>{ gender } ({ race })</div>
-        </div>
-        <div style={ rightIconStyle }>
-        {
-          editModeOn ?
-            <HoverableButton className='test--remove-officer-button'
-              style={ removeOfficerStyle } onClick={ () => onRemoveClick(officerId) } />
-            : <div style={ style.indicator } />
-        }
-        </div>
-      </div>
-    );
+    let wrapperElement;
+    if (!editModeOn) {
+      wrapperElement = <a href={ v1Url } style={ style.wrapper } className='test--officer-card'/>;
+    } else {
+      wrapperElement = <div style={ style.wrapper } className='test--officer-card'/>;
+    }
+
+    const content = [
+      <div key='1' style={ circleStyle(allegationCount) }/>,
+      <div key='2' style={ officerContentWrapperStyle }>
+        <div style={ style.officerName } className='test--officer-name'>{ fullName }</div>
+        <div style={ style.officerSubInfo } className='test--officer-sub-info'>{ gender } ({ race })</div>
+      </div>,
+      editModeOn ?
+        <HoverableButton key='3' className='test--remove-officer-button'
+          style={ removeOfficerStyle } onClick={ () => onRemoveClick(officerId) } /> :
+        <div key='4' className='test--indicator' style={ style.indicator } />
+    ];
+
+    return React.cloneElement(wrapperElement, {}, content);
   }
 }
 

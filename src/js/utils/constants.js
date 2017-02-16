@@ -60,7 +60,7 @@ export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
 export const REPORTS_API_URL = `${V2_ROOT_PATH}reports/`;
 export const FAQS_API_URL = `${V2_ROOT_PATH}faqs/`;
 export const MAIL_CHIMP_URL = '/vftg/';
-export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}/`;
+export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'

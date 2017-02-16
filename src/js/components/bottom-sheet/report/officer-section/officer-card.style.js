@@ -8,6 +8,7 @@ import { imgUrl } from 'utils/static-assets';
 const _wrapperStyle = {
   paddingTop: '16px',
   paddingBottom: '17px',
+  display: 'block',
   borderBottom: `1px solid ${whiteTwoColor}`,
   position: 'relative',
   cursor: 'default'

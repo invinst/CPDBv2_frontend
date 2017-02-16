@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 
 import { get } from 'actions/common/async-action';
 import {
-  V2_ROOT_PATH, SEARCH_OFFICERS_REQUEST_START, SEARCH_OFFICERS_REQUEST_SUCCESS, SEARCH_OFFICERS_REQUEST_FAILURE
+  SEARCH_OFFICER_URL, SEARCH_OFFICERS_REQUEST_START, SEARCH_OFFICERS_REQUEST_SUCCESS, SEARCH_OFFICERS_REQUEST_FAILURE
 } from 'utils/constants';
 
 
@@ -23,6 +23,6 @@ export const openBottomSheetToCreateFAQ = createAction(OPEN_BOTTOM_SHEET_TO_CREA
 export const openBottomSheetToCreateReport = createAction(OPEN_BOTTOM_SHEET_TO_CREATE_REPORT);
 
 export const searchOfficers = (text) => (get(
-  `${V2_ROOT_PATH}report-bottomsheet-officer-search/${text}/`,
+  `${SEARCH_OFFICER_URL}${text}/`,
   [SEARCH_OFFICERS_REQUEST_START, SEARCH_OFFICERS_REQUEST_SUCCESS, SEARCH_OFFICERS_REQUEST_FAILURE]
 )());
