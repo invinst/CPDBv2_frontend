@@ -2,8 +2,8 @@ import { handleActions } from 'redux-actions';
 import Cookies from 'js-cookie';
 
 import {
-  SIGNIN_REQUEST_SUCCESS, RECEIVE_TOKEN_FROM_COOKIE
-} from 'actions/authentication';
+  SIGNIN_REQUEST_SUCCESS, RECEIVE_TOKEN_FROM_COOKIE, LOG_OUT
+} from 'utils/constants';
 import { LANDING_PAGE_REQUEST_FAILURE } from 'actions/landing-page';
 
 
@@ -21,5 +21,9 @@ export default handleActions({
       return null;
     }
     return state;
+  },
+  [LOG_OUT]: (state, action) => {
+    Cookies.remove('apiAccessToken');
+    return null;
   }
 }, null);

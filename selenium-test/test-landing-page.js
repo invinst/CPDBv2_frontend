@@ -8,18 +8,16 @@ import landingPage from './page-objects/landing-page';
 describe('landing page', function () {
   beforeEach(function () {
     landingPage.open();
+    browser.pause(500);
   });
 
-  it('should enter edit mode when press ESCAPE', function () {
+  it('should toggle edit mode when press ESCAPE', function () {
+    // enter edit mode when press ESCAPE
     browser.keys('Escape');
-
     landingPage.currentBasePath.should.equal('/edit/');
-  });
 
-  it('should exit edit mode when press ESCAPE again', function () {
+    // exit edit mode when press ESCAPE again
     browser.keys('Escape');
-    browser.keys('Escape');
-
     landingPage.currentBasePath.should.equal('/');
   });
 

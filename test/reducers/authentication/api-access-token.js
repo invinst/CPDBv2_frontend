@@ -3,9 +3,7 @@ import { stub, assert } from 'sinon';
 import Cookies from 'js-cookie';
 
 import authenticationApiAccessToken from 'reducers/authentication/api-access-token';
-import {
-  SIGNIN_REQUEST_SUCCESS, RECEIVE_TOKEN_FROM_COOKIE
-} from 'actions/authentication';
+import { SIGNIN_REQUEST_SUCCESS, RECEIVE_TOKEN_FROM_COOKIE, LOG_OUT } from 'utils/constants';
 import { LANDING_PAGE_REQUEST_FAILURE } from 'actions/landing-page';
 
 
@@ -47,5 +45,14 @@ describe('authenticationApiAccessToken reducer', function () {
       type: LANDING_PAGE_REQUEST_FAILURE,
       statusCode: 400
     }).should.eql('previousState');
+  });
+
+  it('should return null on LOG_OUT', function () {
+    const removeStub = stub(Cookies, 'remove');
+    should(authenticationApiAccessToken(undefined, {
+      type: LOG_OUT
+    })).be.null();
+    removeStub.restore();
+    assert.calledWith(removeStub, 'apiAccessToken');
   });
 });
