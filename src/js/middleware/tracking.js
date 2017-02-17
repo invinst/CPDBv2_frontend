@@ -3,19 +3,21 @@ import {
   OPEN_BOTTOM_SHEET_WITH_FAQ
 } from 'actions/bottom-sheet';
 import { EXPAND_FAQ } from 'actions/faq-page/index';
-import { trackClickedReportingItem, trackClickedFaqItem } from 'utils/intercom';
+import { trackIntercomClickedFaqEvent, trackIntercomClickedReportEvent, trackInternalEvent } from 'utils/tracking';
 import { getField, plainTextValueToString, multilineTextValueToArray } from 'utils/draft';
 import { find } from 'lodash';
 
-const INTERCOM_TRACKING_MAP = {
+const EVENTS = {
   [OPEN_BOTTOM_SHEET_WITH_REPORT]: (store, action) => {
     const report = action.payload;
-    trackClickedReportingItem(report.id, report.title);
+    trackIntercomClickedReportEvent(report.id, report.title);
+    trackInternalEvent('report-click', { 'id': report.id, 'title': report.title });
   },
 
   [EXPAND_FAQ]: (store, action) => {
     const { id, question, answer } = action.payload;
-    trackClickedFaqItem(id, question, answer);
+    trackIntercomClickedFaqEvent(id, question, answer);
+    trackInternalEvent('faq-click', { 'id': id, 'question': question, 'answer': answer });
   },
 
   [OPEN_BOTTOM_SHEET_WITH_FAQ]: (store, action) => {
@@ -23,14 +25,15 @@ const INTERCOM_TRACKING_MAP = {
     const faq = find(faqs, ['id', action.payload]);
     const question = plainTextValueToString(getField(faq.fields, 'question').value);
     const answer = multilineTextValueToArray(getField(faq.fields, 'answer').value).join('\n');
-    trackClickedFaqItem(faq.id, question, answer);
+    trackIntercomClickedFaqEvent(faq.id, question, answer);
+    trackInternalEvent('faq-click', { 'id': faq.id, 'question': question, 'answer': answer });
   }
 };
 
 
 export default store => next => action => {
-  if (INTERCOM_TRACKING_MAP.hasOwnProperty(action.type)) {
-    INTERCOM_TRACKING_MAP[action.type](store, action);
+  if (EVENTS.hasOwnProperty(action.type)) {
+    EVENTS[action.type](store, action);
   }
 
   return next(action);
