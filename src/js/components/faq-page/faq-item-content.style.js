@@ -1,4 +1,4 @@
-import { minionProFamily } from 'utils/styles';
+import { sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const contentStyle = {
@@ -11,7 +11,8 @@ export const faqContentStyle = {
 };
 
 export const editBlockStyle = {
-  fontFamily: minionProFamily,
-  fontSize: '18px',
+  fontFamily: sanFranciscoTextFamily,
+  fontSize: '16px',
+  fontWeight: 300,
   margin: '0 0 9px 0'
 };
