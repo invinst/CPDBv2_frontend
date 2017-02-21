@@ -43,7 +43,7 @@ describe('bottom-sheet', function () {
       reportingPage.openEditMode();
     });
 
-    it.only('should show add officer button if officers does not exists', function () {
+    it('should show add officer button if officers does not exists', function () {
       reportingPage.reportingSection.secondReport.waitForVisible();
       reportingPage.reportingSection.secondReport.click();
       reportingPage.bottomSheet.officerSection.addOfficerButton.waitForVisible();
