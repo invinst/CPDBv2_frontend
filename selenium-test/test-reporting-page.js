@@ -6,6 +6,8 @@ import reportingPage from './page-objects/reporting-page';
 
 
 describe('reporting page', function () {
+  this.retries(2);
+
   beforeEach(function () {
     reportingPage.open();
   });

@@ -12,6 +12,8 @@ function addOfficerCard() {
 }
 
 describe('bottom-sheet', function () {
+  this.retries(2);
+
   beforeEach(function () {
     reportingPage.open();
   });
