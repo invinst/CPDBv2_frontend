@@ -5,7 +5,7 @@ import OfficerFactory from 'utils/test/factories/officer';
 /* istanbul ignore next */
 export default () => {
 
-  const officer = OfficerFactory.build({ full_name: 'Foo', v1_url: 'https://foo.bar/officer/kevin-keel/3749' }); // eslint-disable-line
+  const officer = OfficerFactory.build({ 'full_name': 'Foo', 'v1_url': 'https://foo.bar/officer/kevin-keel/3749' });
   const firstReport = ReportFactory.build({}, { officers: [officer] });
   const reports = ReportFactory.buildList(9);
   reports.unshift(firstReport);

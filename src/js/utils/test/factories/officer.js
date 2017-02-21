@@ -2,6 +2,7 @@ import { Factory } from 'rosie';
 import { name, random, internet } from 'faker';
 
 
+/* istanbul ignore next */
 export default Factory.define('officer')
   .sequence('id')
   .attr('full_name', () => name.firstName())

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
+import { map } from 'lodash';
 
 import {
   leftBarStyle, rightBarStyle, wrapperStyle, infoRowStyle, labelStyle, infoRowsStyle, extraPaddingStyle,
@@ -31,25 +32,21 @@ export class Report extends Component {
 
   renderInfoRows(style) {
     const { fieldProps, searchOfficers, officerSearchResult } = this.props;
+    const fields = [
+      { label: 'Publication', element: <StringInput { ...fieldProps['publication'] }/> },
+      { label: 'Publish Date', element: <DatePickerInput { ...fieldProps['publish_date'] }/> },
+      { label: 'Author', element: <StringInput { ...fieldProps['author'] }/> }
+    ];
 
     return (
       <div>
         <div style={ infoRowsStyle }>
-          <div style={ infoRowStyle }>
-            <span style={ style.label }>Publication</span>
-            <StringInput
-              { ...fieldProps['publication'] }/>
-          </div>
-          <div style={ infoRowStyle }>
-            <span style={ style.label }>Publish Date</span>
-            <DatePickerInput
-              { ...fieldProps['publish_date'] }/>
-          </div>
-          <div style={ infoRowStyle }>
-            <span style={ style.label }>Author</span>
-            <StringInput
-              { ...fieldProps['author'] }/>
-          </div>
+          { map(fields, ({ label, element }, ind) => (
+            <div key={ ind } style={ infoRowStyle }>
+              <span style={ style.label }>label</span>
+              { element }
+            </div>
+          )) }
         </div>
         <OfficerSection
           { ...fieldProps['officers'] }
