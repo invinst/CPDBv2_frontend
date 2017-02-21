@@ -24,6 +24,13 @@ class ReportingPage extends Page {
     super.open('/reporting/');
     browser.element('body').waitForVisible();
   }
+
+  waitForFullyAvailable() {
+    browser.waitUntil(() => {
+      return browser.getUrl().indexOf('/reporting/') !== -1
+        && browser.elements('.test--route-transition-element').value.length == 1;
+    }, 20000);
+  }
 }
 
 module.exports = new ReportingPage();

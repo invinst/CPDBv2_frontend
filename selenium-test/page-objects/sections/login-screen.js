@@ -27,7 +27,7 @@ class LoginScreen extends Section {
   login() {
     this.enterCredentials('username', 'password');
     this.loginButton.click();
-    this.loginModal.waitForVisible(40000, true);
+    this.loginModal.waitForExist(40000, true);
   }
 }
 

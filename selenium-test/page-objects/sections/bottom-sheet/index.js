@@ -26,7 +26,7 @@ class BottomSheet extends Section {
     browser.buttonPress();
   }
 
-  waitUntilBottomSheetFullyAvailable() {
+  waitForFullyAvailable() {
     browser.waitUntil(function () {
       return browser.getCssProperty('.test--bottom-sheet-wrapper', 'bottom').value === '0px';
     }, 20000);

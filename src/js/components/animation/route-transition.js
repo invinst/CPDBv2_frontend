@@ -50,6 +50,7 @@ export default class RouteTransition extends Component {
               const { key, style, data } = config;
               return (
                 <div
+                  className='test--route-transition-element'
                   key={ `${key}-transition` }
                   style={ {
                     ...innerWrapperStyle,
