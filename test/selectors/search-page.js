@@ -1,4 +1,9 @@
-import { suggestionGroupsSelector, isEmptySelector, suggestionTagsSelector } from 'selectors/search-page';
+import { range } from 'lodash';
+
+import {
+  suggestionColumnsSelector, suggestionGroupsSelector, isEmptySelector,
+  suggestionTagsSelector
+} from 'selectors/search-page';
 
 
 describe('autocomplete selector', function () {
@@ -49,5 +54,15 @@ describe('autocomplete selector', function () {
         }
       }).should.be.false();
     });
+  });
+
+  describe('suggestionColumnsSelector', function () {
+    suggestionColumnsSelector({
+      searchPage: {
+        suggestionGroups: {
+          'OFFICER': range(15)
+        }
+      }
+    }).should.deepEqual([10, 5]);
   });
 });
