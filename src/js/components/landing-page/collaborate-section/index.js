@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  paragraphStyle, underlinedLinkStyle, contentStyle, paragraphWrapperStyle,
-  wrapperStyle, headerStyle, editBoxStyle
+  paragraphStyle, contentStyle, paragraphWrapperStyle,
+  wrapperStyle, headerStyle, editBoxStyle, underlinedLinkStyle
 } from './collaborate-section.style';
 import ResponsiveStyleComponent, {
   DESKTOP, TABLET, EXTRA_WIDE
@@ -10,28 +10,34 @@ import ResponsiveStyleComponent, {
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import EditableSection from 'components/inline-editable/editable-section';
+import { ENTITY_LINK } from 'utils/constants';
 
 class CollaborateSection extends Component {
+  getChildContext() {
+    return {
+      draftEntityStyle: {
+        [ENTITY_LINK]: underlinedLinkStyle
+      }
+    };
+  }
+
   responsiveStyle() {
     return {
       [EXTRA_WIDE]: {
         paragraphWrapper: paragraphWrapperStyle.extraWide,
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.extraWide },
-        underlineLink: { ...paragraphStyle.base, ...paragraphStyle.extraWide, ...underlinedLinkStyle },
         header: { ...headerStyle.base, ...headerStyle.extraWide },
         wrapper: { ...wrapperStyle.base, ...wrapperStyle.extraWide }
       },
       [DESKTOP]: {
         paragraphWrapper: paragraphWrapperStyle.desktop,
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.desktop },
-        underlineLink: { ...paragraphStyle.base, ...underlinedLinkStyle },
         header: { ...headerStyle.base, ...headerStyle.desktop },
         wrapper: { ...wrapperStyle.base, ...wrapperStyle.desktop }
       },
       [TABLET]: {
         paragraphWrapper: paragraphWrapperStyle.tablet,
         paragraph: { ...paragraphStyle.base, ...paragraphStyle.tablet },
-        underlineLink: { ...paragraphStyle.base, ...paragraphStyle.tablet, ...underlinedLinkStyle },
         header: { ...headerStyle.base, ...headerStyle.tablet },
         wrapper: { ...wrapperStyle.base, ...wrapperStyle.tablet }
       }
@@ -72,6 +78,10 @@ class CollaborateSection extends Component {
 CollaborateSection.propTypes = {
   editToggleProps: PropTypes.object,
   fieldProps: PropTypes.object
+};
+
+CollaborateSection.childContextTypes = {
+  draftEntityStyle: PropTypes.object
 };
 
 export default EditableSection(CollaborateSection);

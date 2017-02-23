@@ -31,6 +31,10 @@ export default class MasonryLayout extends Component {
       return this.instance.pack();
     }
 
+    if (prevProps.children[0].key !== children[0].key) {
+      return this.instance.pack();
+    }
+
     if (prevProps.children.length !== children.length) {
       return this.instance.update();
     }

@@ -71,37 +71,33 @@ export class _DroppableFAQListSection extends Component {
   }
 
   render() {
-    const { connectDropTarget, ...rest } = this.props;
+    const { connectDropTarget, editModeOn, ...rest } = this.props;
     const { faqs } = this.state;
-    const { editModeOn } = this.context;
     delete rest.faqs;
+    delete rest.requestFAQs;
 
-    return editModeOn ?
-      connectDropTarget(
-        <div>
-          <FAQListSection { ...rest }
-            faqs={ faqs }
-            moveItem={ this.moveItem }
-            findItem={ this.findItem }/>
-        </div>
-      ) :
-      <FAQListSection { ...rest } faqs={ faqs }/>;
+    return connectDropTarget(
+      <div>
+        <FAQListSection { ...rest }
+          faqs={ faqs }
+          editModeOn={ editModeOn }
+          moveItem={ this.moveItem }
+          findItem={ this.findItem }/>
+      </div>
+    );
   }
 }
 
 _DroppableFAQListSection.propTypes = {
   connectDropTarget: PropTypes.func,
   updateOrder: PropTypes.func,
+  editModeOn: PropTypes.bool,
   faqs: PropTypes.array
 };
 
 _DroppableFAQListSection.defaultProps = {
   connectDropTarget: () => {},
   updateOrder: () => {}
-};
-
-_DroppableFAQListSection.contextTypes = {
-  editModeOn: PropTypes.bool
 };
 
 export default DropTarget(DragTypes.FAQ_ITEM, target, collect)(_DroppableFAQListSection);

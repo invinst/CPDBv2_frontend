@@ -41,5 +41,6 @@ export const underlineStyle = {
 
 export const underlineHoverStyle = {
   ...underlineCommonStyle,
-  backgroundColor: accentColor
+  backgroundColor: accentColor,
+  opacity: '.2'
 };

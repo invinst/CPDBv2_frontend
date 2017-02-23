@@ -11,6 +11,7 @@ function mapStateToProps(state, ownProps) {
     reportGroups: groupsSelector(state),
     hasMore: hasMoreSelector(state),
     nextParams: nextParamsSelector(state),
+    editModeOn: ownProps.editModeOn,
     nextUrl: state.reportingPage.pagination.next
   };
 }

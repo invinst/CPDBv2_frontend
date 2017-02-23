@@ -43,8 +43,12 @@ describe('MasonryLayout component', function () {
     bricksInstance.pack.callCount.should.equal(1);
     bricksInstance.update.callCount.should.equal(0);
 
-    instance = render(<MasonryLayout>{ [child1, child2] }</MasonryLayout>, rootElement);
-    bricksInstance.pack.callCount.should.equal(1);
+    instance = render(<MasonryLayout>{ [child2] }</MasonryLayout>, rootElement);
+    bricksInstance.pack.callCount.should.equal(2);
+    bricksInstance.update.callCount.should.equal(0);
+
+    instance = render(<MasonryLayout>{ [child2, child1] }</MasonryLayout>, rootElement);
+    bricksInstance.pack.callCount.should.equal(2);
     bricksInstance.update.callCount.should.equal(1);
   });
 });
