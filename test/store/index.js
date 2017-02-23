@@ -58,6 +58,7 @@ describe('store', function () {
       },
       faqPage: {
         isRequesting: false,
+        faqsRequested: false,
         faqForm: {
           isSubmitting: false
         }
@@ -81,6 +82,12 @@ describe('store', function () {
           next: null,
           previous: null,
           count: 0
+        }
+      },
+      bottomSheet: {
+        officersAutoSuggest: {
+          isRequesting: false,
+          officers: []
         }
       },
       reports: {},

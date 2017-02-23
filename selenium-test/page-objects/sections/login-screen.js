@@ -1,5 +1,7 @@
 import Section from './section';
 
+import { reliableSetValue } from '../../utils';
+
 
 class LoginScreen extends Section {
   constructor() {
@@ -18,14 +20,14 @@ class LoginScreen extends Section {
 
   enterCredentials(username, password) {
     this.loginModal.waitForVisible(20000);
-    this.loginNameInput.setValue(username);
-    this.loginPasswordInput.setValue(password);
+    reliableSetValue(this.loginNameInput, username);
+    reliableSetValue(this.loginPasswordInput, password);
   }
 
   login() {
     this.enterCredentials('username', 'password');
     this.loginButton.click();
-    this.loginModal.waitForVisible(20000, true);
+    this.loginModal.waitForExist(40000, true);
   }
 }
 

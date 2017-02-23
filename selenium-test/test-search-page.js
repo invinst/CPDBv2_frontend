@@ -6,6 +6,7 @@ import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
 
 describe('Search Page', function () {
+
   beforeEach(function () {
     searchPage.open();
   });

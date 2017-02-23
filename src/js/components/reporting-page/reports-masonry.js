@@ -19,15 +19,20 @@ class ReportsMasonry extends Component {
   }
 
   render() {
-    const {
-      hasMore, loadMore, reportGroups, onReportClick, nextParams, onAddReportClick
-    } = this.props;
-    const { editModeOn } = this.context;
+    const { hasMore, loadMore, reportGroups, onReportClick, nextParams, onAddReportClick, editModeOn } = this.props;
 
-    let addButtonArray = [];
+    let reportElements = [];
     if (editModeOn) {
-      addButtonArray = [<ReportAddButton key='add' onClick={ onAddReportClick }/>];
+      reportElements = [<ReportAddButton key='add' onClick={ onAddReportClick }/>];
     }
+    reportElements = reportElements.concat(
+      reportGroups.map(group => (
+        <ReportGroup
+          key={ group.key }
+          onReportClick={ onReportClick }
+          { ...group }/>
+      ))
+    );
 
     return (
       <div>
@@ -38,16 +43,7 @@ class ReportsMasonry extends Component {
             hasMore={ hasMore }>
             <MasonryLayout
               sizes={ masonrySizes }>
-              {
-                addButtonArray.concat(
-                  reportGroups.map(group => (
-                    <ReportGroup
-                      key={ group.key }
-                      onReportClick={ onReportClick }
-                      { ...group }/>
-                  ))
-                )
-              }
+              { reportElements }
             </MasonryLayout>
           </InfiniteScroll>
         </div>
@@ -62,11 +58,8 @@ ReportsMasonry.propTypes = {
   reportGroups: PropTypes.array,
   onReportClick: PropTypes.func,
   onAddReportClick: PropTypes.func,
+  editModeOn: PropTypes.bool,
   nextParams: PropTypes.object
-};
-
-ReportsMasonry.contextTypes = {
-  editModeOn: PropTypes.bool
 };
 
 ReportsMasonry.defaultProps = {

@@ -2,6 +2,7 @@
 
 import Section from './sections/section';
 import LoginScreen from './sections/login-screen';
+import { retry } from '../utils';
 
 
 export default class Page extends Section {
@@ -21,8 +22,20 @@ export default class Page extends Section {
     return url.replace(/https?:\/\/[^/]+/, '');
   }
 
+  toggleEditMode(editModeOn) {
+    retry(
+      () => {
+        browser.keys('Escape');
+        browser.pause(10);
+      },
+      () => {
+        return editModeOn ? this.currentBasePath.match(/^edit/) == null : this.currentBasePath.match(/^edit/) !== null;
+      }
+    );
+  }
+
   openEditMode() {
-    browser.keys('Escape');
+    this.toggleEditMode(false);
     this.loginScreen.login();
   }
 

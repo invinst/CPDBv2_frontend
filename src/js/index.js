@@ -10,6 +10,11 @@ import RouterRoot from 'components/router-root';
 if (global.DEVELOPMENT) {
   global.Perf = Perf;
 }
+
+if (global.LIVE_TEST) {
+  global.disableAnimation = true;
+}
+
 TwitterWidgetsLoader.load(() => {});
 
 render(

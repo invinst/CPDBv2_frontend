@@ -22,7 +22,16 @@ import should from 'should';
 describe('App component', function () {
   let instance;
   const mockStore = MockStore();
-  const store = mockStore({ authentication: {}, adapter: 'adapter' });
+  const store = mockStore({
+    authentication: {},
+    adapter: 'adapter',
+    bottomSheet: {
+      officersAutoSuggest: {
+        isRequesting: false,
+        officers: []
+      }
+    }
+  });
 
   class ChildComponent extends Component {
     render() {
