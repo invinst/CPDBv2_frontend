@@ -6,16 +6,12 @@ import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixe
 
 
 class FAQPage extends Component {
-  shouldComponentUpdate() {
-    /* istanbul ignore next */
-    return false;
-  }
-
   render() {
+    const { editModeOn } = this.context;
     return (
       <div style={ faqPageStyle }>
         <ResponsiveFixedWidthComponent>
-          <FAQPageContainer store={ this.props.store }/>
+          <FAQPageContainer editModeOn={ editModeOn } store={ this.props.store }/>
         </ResponsiveFixedWidthComponent>
       </div>
     );
@@ -24,6 +20,10 @@ class FAQPage extends Component {
 
 FAQPage.propTypes = {
   store: PropTypes.object
+};
+
+FAQPage.contextTypes = {
+  editModeOn: PropTypes.bool
 };
 
 export default FAQPage;

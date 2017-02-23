@@ -12,6 +12,10 @@ export default class FadeMotion extends Component {
       opacity: spring(show ? 1 : 0, defaultConfig())
     };
 
+    if (global.disableAnimation) {
+      return show ? children(1) : null;
+    }
+
     return (
       <Motion
         defaultStyle={ defaultStyle }

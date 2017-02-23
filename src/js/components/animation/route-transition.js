@@ -6,6 +6,10 @@ import { outerWrapperStyle, innerWrapperStyle } from './route-transition.style';
 
 
 export default class RouteTransition extends Component {
+  shouldComponentUpdate(nextProps) {
+    return this.props.pathname !== nextProps.pathname;
+  }
+
   willEnter() {
     return {
       opacity: 0,
@@ -38,6 +42,9 @@ export default class RouteTransition extends Component {
   }
 
   render() {
+    if (global.disableAnimation) {
+      return this.props.children;
+    }
     return (
       <TransitionMotion
         styles={ this.getStyles() }
@@ -50,7 +57,6 @@ export default class RouteTransition extends Component {
               const { key, style, data } = config;
               return (
                 <div
-                  className='test--route-transition-element'
                   key={ `${key}-transition` }
                   style={ {
                     ...innerWrapperStyle,

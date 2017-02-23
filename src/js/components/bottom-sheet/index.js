@@ -45,6 +45,10 @@ export default class BottomSheet extends Component {
       opacity: spring( open ? .8 : 0, defaultConfig())
     };
 
+    if (global.disableAnimation) {
+      return open ? this.renderOverlay({ opacity: .8 }) : null;
+    }
+
     return (
       <Motion
         defaultStyle={ defaultStyle }
@@ -89,6 +93,10 @@ export default class BottomSheet extends Component {
   renderBottomSheetAnimation() {
     const { open } = this.props;
     const height = 44 - window.innerHeight;
+
+    if (global.disableAnimation) {
+      return open ? this.renderBottomSheet({ bottom: '0px' }) : null;
+    }
 
     return (
       <Motion

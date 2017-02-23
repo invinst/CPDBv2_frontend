@@ -25,12 +25,6 @@ class BottomSheet extends Section {
     browser.moveToObject('body', 10, 10);
     browser.buttonPress();
   }
-
-  waitForFullyAvailable() {
-    browser.waitUntil(function () {
-      return browser.getCssProperty('.test--bottom-sheet-wrapper', 'bottom').value === '0px';
-    }, 20000);
-  }
 }
 
 module.exports = BottomSheet;

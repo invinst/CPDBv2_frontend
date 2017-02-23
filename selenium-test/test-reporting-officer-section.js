@@ -12,7 +12,6 @@ function addOfficerCard() {
 }
 
 describe('bottom-sheet', function () {
-  this.retries(2);
 
   beforeEach(function () {
     reportingPage.open();
@@ -33,7 +32,6 @@ describe('bottom-sheet', function () {
       reportingPage.reportingSection.report.waitForVisible();
       reportingPage.reportingSection.report.click();
 
-      reportingPage.bottomSheet.waitForFullyAvailable();
       reportingPage.bottomSheet.officerSection.officerCard.element.waitForVisible();
       reportingPage.bottomSheet.officerSection.officerCard.element.click();
       browser.getUrl().should.be.equal('https://foo.bar/officer/kevin-keel/3749');
@@ -43,7 +41,6 @@ describe('bottom-sheet', function () {
   context('edit mode on', function () {
     beforeEach(function () {
       reportingPage.openEditMode();
-      reportingPage.waitForFullyAvailable();
     });
 
     it('should show add officer button if officers does not exists', function () {
@@ -54,7 +51,6 @@ describe('bottom-sheet', function () {
 
     it('should show officer involved and officer cards if officers exists', function () {
       reportingPage.reportingSection.report.click();
-      reportingPage.bottomSheet.waitForFullyAvailable();
       reportingPage.bottomSheet.officerSection.officerInvolved.waitForVisible();
       reportingPage.bottomSheet.officerSection.officerCard.name.waitForVisible();
       reportingPage.bottomSheet.officerSection.officerCard.removeButton.waitForVisible();
@@ -63,7 +59,6 @@ describe('bottom-sheet', function () {
 
     it('should show add officer block when we click on add officer button', function () {
       reportingPage.reportingSection.secondReport.click();
-      reportingPage.bottomSheet.waitForFullyAvailable();
       reportingPage.bottomSheet.officerSection.addOfficerButton.waitForVisible();
       reportingPage.bottomSheet.officerSection.addOfficerButton.click();
       reportingPage.bottomSheet.officerSection.officerAddBlock.addButton.waitForVisible();
@@ -71,7 +66,6 @@ describe('bottom-sheet', function () {
 
     it('should show add officer block when we click on add officer circle button', function () {
       reportingPage.reportingSection.report.click();
-      reportingPage.bottomSheet.waitForFullyAvailable();
       reportingPage.bottomSheet.officerSection.circleAddOfficerButton.waitForVisible();
       reportingPage.bottomSheet.officerSection.circleAddOfficerButton.click();
       reportingPage.bottomSheet.officerSection.officerAddBlock.addButton.waitForVisible();
@@ -79,7 +73,6 @@ describe('bottom-sheet', function () {
 
     it('should show "No match found" if there is no suggested officer', function () {
       reportingPage.reportingSection.report.click();
-      reportingPage.bottomSheet.waitForFullyAvailable();
       reportingPage.bottomSheet.officerSection.circleAddOfficerButton.waitForVisible();
       reportingPage.bottomSheet.officerSection.circleAddOfficerButton.click();
       reportingPage.bottomSheet.officerSection.officerAddBlock.officerAutoSuggest.input.setValue('notfound');
@@ -88,7 +81,6 @@ describe('bottom-sheet', function () {
 
     it('should show list of suggested officers when we type in input', function () {
       reportingPage.reportingSection.report.click();
-      reportingPage.bottomSheet.waitForFullyAvailable();
       reportingPage.bottomSheet.officerSection.circleAddOfficerButton.waitForVisible();
       reportingPage.bottomSheet.officerSection.circleAddOfficerButton.click();
       reportingPage.bottomSheet.officerSection.officerAddBlock.officerAutoSuggest.input.waitForVisible();
@@ -99,7 +91,6 @@ describe('bottom-sheet', function () {
 
     it('should close add officer block when we click on Cancel button', function () {
       reportingPage.reportingSection.report.click();
-      reportingPage.bottomSheet.waitForFullyAvailable();
       reportingPage.bottomSheet.officerSection.circleAddOfficerButton.waitForVisible();
       reportingPage.bottomSheet.officerSection.circleAddOfficerButton.click();
       reportingPage.bottomSheet.officerSection.officerAddBlock.cancelButton.waitForVisible();
@@ -109,7 +100,6 @@ describe('bottom-sheet', function () {
 
     it('should update list of officer cards when we select a suggested officer and click add button', function () {
       reportingPage.reportingSection.secondReport.click();
-      reportingPage.bottomSheet.waitForFullyAvailable();
       reportingPage.bottomSheet.officerSection.addOfficerButton.waitForVisible();
       reportingPage.bottomSheet.officerSection.addOfficerButton.click();
       addOfficerCard();
@@ -118,7 +108,6 @@ describe('bottom-sheet', function () {
 
     it('should update list of officer cards when we remove an officer', function () {
       reportingPage.reportingSection.report.click();
-      reportingPage.bottomSheet.waitForFullyAvailable();
       reportingPage.bottomSheet.officerSection.officerCard.removeButton.waitForVisible();
       reportingPage.bottomSheet.officerSection.officerCard.removeButton.click();
       reportingPage.bottomSheet.officerSection.officerCard.name.waitForVisible(20000, true);
@@ -126,7 +115,6 @@ describe('bottom-sheet', function () {
 
     it('should not remove existing officer card when searching for new one', function () {
       reportingPage.reportingSection.secondReport.click();
-      reportingPage.bottomSheet.waitForFullyAvailable();
 
       reportingPage.bottomSheet.officerSection.addOfficerButton.waitForVisible();
       reportingPage.bottomSheet.officerSection.addOfficerButton.click();

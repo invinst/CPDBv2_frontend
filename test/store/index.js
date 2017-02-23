@@ -58,6 +58,7 @@ describe('store', function () {
       },
       faqPage: {
         isRequesting: false,
+        faqsRequested: false,
         faqForm: {
           isSubmitting: false
         }

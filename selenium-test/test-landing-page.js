@@ -6,6 +6,7 @@ import landingPage from './page-objects/landing-page';
 
 
 describe('landing page', function () {
+
   beforeEach(function () {
     landingPage.open();
   });

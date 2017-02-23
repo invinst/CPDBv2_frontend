@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 import ReportAddButton from 'components/reporting-page/report-add-button';
 import ReportsMasonry from 'components/reporting-page/reports-masonry';
 
@@ -18,17 +18,15 @@ describe('ReportsMasonry component', function () {
   });
 
   it('should show addButton when edit mode on', function () {
-    instance = renderWithContext(
-      { editModeOn: true },
-      <ReportsMasonry/>
+    instance = renderIntoDocument(
+      <ReportsMasonry editModeOn={ true }/>
     );
     findRenderedComponentWithType(instance, ReportAddButton);
   });
 
   it('should not show addButton when edit mode off', function () {
-    instance = renderWithContext(
-      { editModeOn: false },
-      <ReportsMasonry/>
+    instance = renderIntoDocument(
+      <ReportsMasonry editModeOn={ false }/>
     );
     scryRenderedComponentsWithType(instance, ReportAddButton).length.should.eql(0);
   });
