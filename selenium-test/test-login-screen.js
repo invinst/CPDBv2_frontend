@@ -6,9 +6,10 @@ import landingPage from './page-objects/landing-page';
 
 
 describe('Login screen', function () {
+
   beforeEach(function () {
     landingPage.open();
-    browser.keys('Escape');
+    landingPage.toggleEditMode(false);
   });
 
   describe('login button', function () {

@@ -106,7 +106,6 @@ export const headerTitleStyle = {
 };
 
 export const infoRowsStyle = {
-  marginBottom: '32px',
   marginTop: '32px',
   borderBottom: `1px solid ${altoColor}`
 };

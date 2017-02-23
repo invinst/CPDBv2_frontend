@@ -45,6 +45,10 @@ export default class BottomSheet extends Component {
       opacity: spring( open ? .8 : 0, defaultConfig())
     };
 
+    if (global.disableAnimation) {
+      return open ? this.renderOverlay({ opacity: .8 }) : null;
+    }
+
     return (
       <Motion
         defaultStyle={ defaultStyle }
@@ -69,7 +73,8 @@ export default class BottomSheet extends Component {
           contentClass,
           assign({}, content.props, {
             turnOffSectionEditMode: this.props.onClose,
-            sectionEditModeOn: this.context.editModeOn
+            sectionEditModeOn: this.context.editModeOn,
+            searchOfficers: this.props.searchOfficers
           })
         );
       }
@@ -79,7 +84,7 @@ export default class BottomSheet extends Component {
 
   renderBottomSheet(style={}) {
     return (
-      <div style={ assign({}, sheetStyle, style) }>
+      <div className='test--bottom-sheet-wrapper' style={ assign({}, sheetStyle, style) }>
         { this.renderContent() }
       </div>
     );
@@ -88,6 +93,10 @@ export default class BottomSheet extends Component {
   renderBottomSheetAnimation() {
     const { open } = this.props;
     const height = 44 - window.innerHeight;
+
+    if (global.disableAnimation) {
+      return open ? this.renderBottomSheet({ bottom: '0px' }) : null;
+    }
 
     return (
       <Motion
@@ -119,7 +128,8 @@ BottomSheet.propTypes = {
     type: PropTypes.string,
     props: PropTypes.object
   }),
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
+  searchOfficers: PropTypes.func
 };
 
 BottomSheet.contextTypes = {

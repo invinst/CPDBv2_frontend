@@ -9,6 +9,7 @@ class ReportingSection extends Section {
     super();
     this.prepareElementGetters({
       report: '//div[@class="report"]',
+      secondReport: '(//div[@class="report"])[2]',
       addButton: '//div[text()="[+]"]'
     });
   }

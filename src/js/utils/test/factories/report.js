@@ -3,7 +3,7 @@ import { Factory } from 'rosie';
 import { lorem, date, internet } from 'faker';
 import moment from 'moment';
 import {
-  RichTextFieldFactory, StringFieldFactory, DateFieldFactory
+  RichTextFieldFactory, StringFieldFactory, DateFieldFactory, FieldFactory
 } from 'utils/test/factories/field';
 
 
@@ -15,15 +15,17 @@ export default Factory.define('report')
   .option('publishDate', () => moment(date.past()).format('YYYY-MM-DD'))
   .option('author', () => lorem.words())
   .option('articleLink', () => internet.url())
+  .option('officers', () => [])
   .attr('fields',
-    ['title', 'excerpt', 'publication', 'publishDate', 'author', 'articleLink'],
-    (title, excerpt, publication, publishDate, author, articleLink) => [
+    ['title', 'excerpt', 'publication', 'publishDate', 'author', 'articleLink', 'officers'],
+    (title, excerpt, publication, publishDate, author, articleLink, officers) => [
       RichTextFieldFactory.build({ name: 'title' }, { blockTexts: [title] }),
       RichTextFieldFactory.build({ name: 'excerpt' }, { blockTexts: [excerpt] }),
       StringFieldFactory.build({ name: 'publication', value: publication }),
       DateFieldFactory.build({ name: 'publish_date', value: publishDate }),
       StringFieldFactory.build({ name: 'author', value: author }),
-      RichTextFieldFactory.build({ name: 'article_link' }, { blockTexts: [articleLink] })
+      RichTextFieldFactory.build({ name: 'article_link' }, { blockTexts: [articleLink] }),
+      FieldFactory.build({ name: 'officers', type: 'officers_list', value: officers })
     ]);
 
 export const CuratedReportFactory = Factory.define('curatedReport')

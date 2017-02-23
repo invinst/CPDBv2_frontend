@@ -6,34 +6,33 @@ import landingPage from './page-objects/landing-page';
 
 
 describe('landing page', function () {
+
   beforeEach(function () {
     landingPage.open();
   });
 
   it('should enter edit mode when press ESCAPE', function () {
-    browser.keys('Escape');
-
+    landingPage.toggleEditMode(false);
     landingPage.currentBasePath.should.equal('/edit/');
   });
 
   it('should exit edit mode when press ESCAPE again', function () {
-    browser.keys('Escape');
-    browser.keys('Escape');
-
+    landingPage.toggleEditMode(false);
+    landingPage.toggleEditMode(true);
     landingPage.currentBasePath.should.equal('/');
   });
 
   it('should show login screen if not logged-in when entering edit mode', function () {
-    browser.keys('Escape');
+    landingPage.toggleEditMode(false);
     landingPage.loginScreen.loginModal.waitForVisible();
   });
 
   it('should not show login screen if already logged-in when entering edit mode', function () {
-    browser.keys('Escape');
+    landingPage.toggleEditMode(false);
     landingPage.loginScreen.login();
 
-    browser.keys('Escape');
-    browser.keys('Escape');
+    landingPage.toggleEditMode(true);
+    landingPage.toggleEditMode(false);
 
     browser.pause(500);
     landingPage.loginScreen.loginModal.waitForVisible(2000, true);

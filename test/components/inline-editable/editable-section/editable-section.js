@@ -7,7 +7,7 @@ import { spy, stub } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import { convertContentStateToEditorState } from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
-import { PlainTextFieldFactory, StringFieldFactory } from 'utils/test/factories/field';
+import { FieldFactory, PlainTextFieldFactory, StringFieldFactory } from 'utils/test/factories/field';
 import EditableSection from 'components/inline-editable/editable-section';
 
 
@@ -24,7 +24,8 @@ describe('EditableSection component', function () {
   let instance;
   const fields = {
     a: PlainTextFieldFactory.build({ name: 'a' }, { blockTexts: ['A'] }),
-    b: StringFieldFactory.build({ name: 'b', value: 'B' })
+    b: StringFieldFactory.build({ name: 'b', value: 'B' }),
+    c: FieldFactory.build({ name: 'officers', type: 'officers_list', value: [{ id: 1, fullName: 'Foo' }] })
   };
 
   afterEach(function () {
