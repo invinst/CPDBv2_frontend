@@ -6,6 +6,8 @@ import { getField, convertContentStateToEditorState } from 'utils/draft';
 
 const getFAQs = state => state.faqs;
 
+export const faqsRequested = state => state.faqPage.faqsRequested;
+
 export const faqTransform = faq => {
   return {
     id: faq.id,

@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  baseStyle, underlineStyle, underlineWrapperStyle, underlineHoverStyle,
-  baseHoverStyle
+  baseStyle, underlineStyle, underlineWrapperStyle, underlineHoverStyle, baseHoverStyle
 } from './underline-text.style';
 
 

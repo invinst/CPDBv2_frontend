@@ -5,7 +5,7 @@ import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import UrlInput from 'components/inline-editable/rich-text-editor/toolbar/url-input';
 import Bubble from 'components/inline-editable/rich-text-editor/toolbar/bubble';
-import Input from 'components/inline-editable/rich-text-editor/toolbar/input';
+import Input from 'components/common/input';
 
 describe('UrlInput component', function () {
   let instance;

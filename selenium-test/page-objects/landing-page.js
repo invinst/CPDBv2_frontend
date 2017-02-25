@@ -58,7 +58,7 @@ class FAQSection extends Section {
       strategiesSelect: '//div[@class="test--faq-section"]//select',
       cancelButton: '//div[@class="test--faq-section"]//a[contains(@class, "cancel-button")]',
       updateButton: '//div[@class="test--faq-section"]//a[contains(@class, "update-button")]',
-      faq: '//div[@class="test--faq-section"]//div[@class="test--faq-item"]',
+      faq: '//div[@class="test--faq-section"]//div[contains(@class, "test--faq-item")]',
       moreButton: '//div[@class="test--faq-section"]//a'
     });
   }

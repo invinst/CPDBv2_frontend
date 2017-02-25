@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Bubble from './bubble';
-import Input from './input';
+import Input from 'components/common/input';
 import { inputStyle } from './url-input.style';
 
 

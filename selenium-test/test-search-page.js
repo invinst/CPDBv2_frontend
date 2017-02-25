@@ -6,6 +6,7 @@ import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
 
 describe('Search Page', function () {
+
   beforeEach(function () {
     searchPage.open();
   });
@@ -80,6 +81,7 @@ describe('Search Page', function () {
     landingPage.open();
     searchPage.open();
     searchPage.backButton.click();
+    searchPage.backButton.waitForVisible(20000, true);
 
     landingPage.currentBasePath.should.equal('/');
   });

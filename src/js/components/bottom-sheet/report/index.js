@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
+import { map } from 'lodash';
 
 import {
   leftBarStyle, rightBarStyle, wrapperStyle, infoRowStyle, labelStyle, infoRowsStyle, extraPaddingStyle,
@@ -13,6 +14,7 @@ import ResponsiveComponent from 'components/responsive/responsive-component';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
+import OfficerSection from './officer-section';
 
 
 export class Report extends Component {
@@ -29,24 +31,27 @@ export class Report extends Component {
   }
 
   renderInfoRows(style) {
-    const { fieldProps } = this.props;
+    const { fieldProps, searchOfficers, officerSearchResult } = this.props;
+    const fields = [
+      { label: 'Publication', element: <StringInput { ...fieldProps['publication'] }/> },
+      { label: 'Publish Date', element: <DatePickerInput { ...fieldProps['publish_date'] }/> },
+      { label: 'Author', element: <StringInput { ...fieldProps['author'] }/> }
+    ];
+
     return (
-      <div style={ infoRowsStyle }>
-        <div style={ infoRowStyle }>
-          <span style={ style.label }>Publication</span>
-          <StringInput
-            { ...fieldProps['publication'] }/>
+      <div>
+        <div style={ infoRowsStyle }>
+          { map(fields, ({ label, element }, ind) => (
+            <div key={ ind } style={ infoRowStyle }>
+              <span style={ style.label }>label</span>
+              { element }
+            </div>
+          )) }
         </div>
-        <div style={ infoRowStyle }>
-          <span style={ style.label }>Publish Date</span>
-          <DatePickerInput
-            { ...fieldProps['publish_date'] }/>
-        </div>
-        <div style={ infoRowStyle }>
-          <span style={ style.label }>Author</span>
-          <StringInput
-            { ...fieldProps['author'] }/>
-        </div>
+        <OfficerSection
+          { ...fieldProps['officers'] }
+          officerSearchResult={ officerSearchResult }
+          searchOfficers={ searchOfficers }/>
       </div>
     );
   }
@@ -137,7 +142,9 @@ Report.propTypes = {
   sectionEditModeOn: PropTypes.bool,
   fields: PropTypes.object,
   fetchReport: PropTypes.func,
-  reportId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  reportId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  searchOfficers: PropTypes.func,
+  officerSearchResult: PropTypes.array
 };
 
 export default EditableSection(Report);

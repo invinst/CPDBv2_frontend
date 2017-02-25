@@ -4,6 +4,7 @@ import { convertToRaw } from 'draft-js';
 
 import { editModeWrapperStyle } from './editable-section.style';
 import { convertContentStateToEditorState } from 'utils/draft';
+import { officersToCamelCase, officersToSnakeCase } from 'selectors/bottom-sheet';
 
 
 export default function (SubComponent) {
@@ -43,6 +44,11 @@ export default function (SubComponent) {
             ...field,
             value: convertContentStateToEditorState(field.value)
           };
+        case 'officers_list':
+          return {
+            ...field,
+            value: officersToCamelCase(field.value)
+          };
       }
       return field;
     }
@@ -55,6 +61,11 @@ export default function (SubComponent) {
           return {
             ...field,
             value: convertToRaw(field.value.getCurrentContent())
+          };
+        case 'officers_list':
+          return {
+            ...field,
+            value: officersToSnakeCase(field.value)
           };
       }
       return field;

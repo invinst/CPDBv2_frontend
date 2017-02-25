@@ -5,8 +5,8 @@ import {
 import { spy, stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import TextInput from 'components/inline-editable/rich-text-editor/toolbar/input';
-import * as inputStyles from 'components/inline-editable/rich-text-editor/toolbar/input.style';
+import TextInput from 'components/common/input';
+import * as inputStyles from 'components/common/input.style';
 
 describe('TextInput component', function () {
   let instance;
@@ -59,6 +59,20 @@ describe('TextInput component', function () {
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
     Simulate.focus(inputElement);
     onFocusSpy.called.should.be.true();
+  });
+
+  it('should trigger internal input focus on focus', function () {
+    const onFocusSpy = spy();
+
+    instance = renderIntoDocument(
+      <TextInput onFocus={ onFocusSpy } autoFocus={ false } />
+    );
+
+    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
+    const inputFocusSpy = spy(inputElement, 'focus');
+
+    instance.focus();
+    inputFocusSpy.called.should.be.true();
   });
 
   it('should have wrapperStyle base on width and height', function () {

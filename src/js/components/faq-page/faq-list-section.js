@@ -10,7 +10,6 @@ export default class FAQListSection extends Component {
       expandedId: null
     };
     this.renderAddFaqButton = this.renderAddFaqButton.bind(this);
-    props.requestFAQs();
   }
 
   dispatchExpandFAQAction(expandFAQ, faq) {
@@ -21,9 +20,8 @@ export default class FAQListSection extends Component {
   }
 
   handleClick(faq) {
-    const { editModeOn } = this.context;
     const { expandedId } = this.state;
-    const { openBottomSheetWithFAQ, expandFAQ } = this.props;
+    const { editModeOn, openBottomSheetWithFAQ, expandFAQ } = this.props;
     const { id } = faq;
 
     if (editModeOn) {
@@ -44,7 +42,7 @@ export default class FAQListSection extends Component {
   }
 
   renderAddFaqButton() {
-    const { editModeOn } = this.context;
+    const { editModeOn } = this.props;
 
     if (!editModeOn) {
       return null;
@@ -86,17 +84,12 @@ FAQListSection.propTypes = {
   openBottomSheetWithFAQ: PropTypes.func,
   openBottomSheetToCreateFAQ: PropTypes.func,
   expandFAQ: PropTypes.func,
-  requestFAQs: PropTypes.func,
   findItem: PropTypes.func,
   moveItem: PropTypes.func,
+  editModeOn: PropTypes.bool,
   updateFAQ: PropTypes.func
 };
 
 FAQListSection.defaultProps = {
-  faqs: [],
-  requestFAQs: () => {}
-};
-
-FAQListSection.contextTypes = {
-  editModeOn: PropTypes.bool
+  faqs: []
 };
