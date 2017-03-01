@@ -15,6 +15,7 @@ describe('landing page', function () {
   it('should enter edit mode when press ESCAPE', function () {
     landingPage.toggleEditMode(false);
     landingPage.currentBasePath.should.equal('/edit/');
+  });
 
   it('should exit edit mode when press ESCAPE again', function () {
     landingPage.toggleEditMode(false);
