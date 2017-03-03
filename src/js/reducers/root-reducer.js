@@ -10,6 +10,7 @@ import reportingPage from './reporting-page';
 import reports from './reports';
 import faqs from './faqs';
 import bottomSheet from './bottom-sheet';
+import officerPage from './officer-page';
 
 
 export default combineReducers({
@@ -22,5 +23,6 @@ export default combineReducers({
   reports,
   faqs,
   bottomSheet,
-  routing: routerReducer
+  routing: routerReducer,
+  officerPage
 });
