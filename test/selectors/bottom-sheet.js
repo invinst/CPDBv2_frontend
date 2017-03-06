@@ -4,11 +4,13 @@ import { stub } from 'sinon';
 import should from 'should';
 
 import '../setup';
-import { contentSelector, reportSelector, faqSelector } from 'selectors/bottom-sheet';
+import {
+  contentSelector, reportSelector, faqSelector, officersToSnakeCase
+} from 'selectors/bottom-sheet';
 import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import ReportFactory from 'utils/test/factories/report';
 import FaqFactory from 'utils/test/factories/faq';
-import { StringFieldFactory, DateFieldFactory, RichTextFieldFactory } from 'utils/test/factories/field';
+import { StringFieldFactory, DateFieldFactory, RichTextFieldFactory, FieldFactory } from 'utils/test/factories/field';
 
 
 describe('bottomSheet selector', function () {
@@ -24,7 +26,8 @@ describe('bottomSheet selector', function () {
     ),
     'article_link': RichTextFieldFactory.build(
       { name: 'article_link' }, { blockTexts: [''] }
-    )
+    ),
+    'officers': FieldFactory.build({ name: 'officers', type: 'officers_list', value: [] })
   };
   const emptyFaqFields = {
     question: RichTextFieldFactory.build({ name: 'question' }, { blockTexts: [''] }),
@@ -39,10 +42,11 @@ describe('bottomSheet selector', function () {
       const author = 'c';
       const excerpt = 'd';
       const articleLink = 'e';
+      const officers = [1];
       const state = {
         reports: [
           ReportFactory.build({ id: 1 }, {
-            title, publication, publishDate, author, excerpt, articleLink
+            title, publication, publishDate, author, excerpt, articleLink, officers
           })
         ]
       };
@@ -64,6 +68,9 @@ describe('bottomSheet selector', function () {
           ),
           'article_link': RichTextFieldFactory.build(
             { name: 'article_link' }, { blockTexts: [articleLink] }
+          ),
+          'officers': FieldFactory.build(
+            { name: 'officers', type: 'officers_list', value: officers }
           )
         }
       });
@@ -145,10 +152,11 @@ describe('bottomSheet selector', function () {
       const author = 'c';
       const excerpt = 'd';
       const articleLink = 'e';
+      const officers = [1];
       const state = {
         reports: [
           ReportFactory.build({ id: 1 }, {
-            title, publication, publishDate, author, excerpt, articleLink
+            title, publication, publishDate, author, excerpt, articleLink, officers
           })
         ]
       };
@@ -175,6 +183,9 @@ describe('bottomSheet selector', function () {
             ),
             'article_link': RichTextFieldFactory.build(
               { name: 'article_link' }, { blockTexts: [articleLink] }
+            ),
+            'officers': FieldFactory.build(
+              { name: 'officers', type: 'officers_list', value: officers }
             )
           }
         }
@@ -209,6 +220,14 @@ describe('bottomSheet selector', function () {
         }
       });
       stubGenKey.restore();
+    });
+  });
+
+  describe('officersToSnakeCase', function () {
+    it('should return list of ids of officers', function () {
+      const officers = [{ id: 1, fullName: 'Foo' }, { id: 2, fullName: 'Bar' }];
+
+      officersToSnakeCase(officers).should.eql([{ id: 1 }, { id: 2 }]);
     });
   });
 });
