@@ -1,9 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-import {
-  OPEN_FORGOT_PASSWORD_MODAL, CLOSE_FORGOT_PASSWORD_MODAL,
-  RESET_PASSWORD_SUCCESS
-} from 'actions/authentication';
+import { OPEN_FORGOT_PASSWORD_MODAL, CLOSE_FORGOT_PASSWORD_MODAL, RESET_PASSWORD_SUCCESS } from 'utils/constants';
 
 
 export default handleActions({

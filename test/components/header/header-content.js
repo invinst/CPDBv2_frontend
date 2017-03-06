@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
 import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument, scryRenderedComponentsWithType
-} from 'react-addons-test-utils';
 import { each, find } from 'lodash';
+import {
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedDOMComponentWithClass
+} from 'react-addons-test-utils';
+import MockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 import ContextWrapper from 'utils/test/components/context-wrapper';
 import { getCurrentPathname } from 'utils/dom';
@@ -22,13 +24,21 @@ HeaderContentContextWrapper.childContextTypes = {
 
 describe('HeaderContent component', function () {
   let instance;
+  const mockStore = MockStore();
+  const store = mockStore({ authentication: {
+    apiAccessToken: 'apiAccessToken'
+  }, adapter: 'adapter' });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
   it('should render links and logo', function () {
-    instance = renderIntoDocument(<HeaderContent/>);
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <HeaderContent pathname={ ROOT_PATH }/>
+      </Provider>
+    );
     const link = scryRenderedComponentsWithType(instance, Link)[3];
     link.props.to.should.eql(ROOT_PATH);
     findDOMNode(link).innerText.should.eql('CPDP');
@@ -39,9 +49,11 @@ describe('HeaderContent component', function () {
 
   it('should render edit links in edit mode', function () {
     instance = renderIntoDocument(
-      <HeaderContentContextWrapper context={ { editModeOn: true } }>
-        <HeaderContent/>
-      </HeaderContentContextWrapper>
+      <Provider store={ store }>
+        <HeaderContentContextWrapper context={ { editModeOn: true } }>
+          <HeaderContent pathname={ ROOT_PATH }/>
+        </HeaderContentContextWrapper>
+      </Provider>
     );
     const navLinks = scryRenderedComponentsWithType(instance, ClosableNavLink);
     navLinks.length.should.eql(3);
@@ -50,7 +62,11 @@ describe('HeaderContent component', function () {
 
   it('should display close button beneath appropriate nav link', function () {
     each(links, ({ name, href }) => {
-      instance = renderIntoDocument(<HeaderContent compact={ true } pathname={ href }/>);
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <HeaderContent compact={ true } pathname={ href }/>
+        </Provider>
+      );
       const navLinks = scryRenderedComponentsWithType(instance, ClosableNavLink);
       const navLink = find(navLinks, element => element.props.href === href);
       navLink.props.showCloseBtn.should.be.true();
@@ -58,7 +74,11 @@ describe('HeaderContent component', function () {
   });
 
   it('should go to base path when click close button', function () {
-    instance = renderIntoDocument(<HeaderContent/>);
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <HeaderContent pathname={ ROOT_PATH }/>
+      </Provider>
+    );
     const navLink = scryRenderedComponentsWithType(instance, ClosableNavLink)[0];
     navLink.props.onClickClose();
     getCurrentPathname().should.equal(ROOT_PATH);
@@ -66,17 +86,33 @@ describe('HeaderContent component', function () {
 
   it('should go to edit base path when click close button in edit mode', function () {
     instance = renderIntoDocument(
-      <HeaderContentContextWrapper context={ { editModeOn: true } }>
-        <HeaderContent/>
-      </HeaderContentContextWrapper>
+      <Provider store={ store }>
+        <HeaderContentContextWrapper context={ { editModeOn: true } }>
+          <HeaderContent pathname={ `/edit/${STORIES_PATH}` }/>
+        </HeaderContentContextWrapper>
+      </Provider>
     );
     const navLink = scryRenderedComponentsWithType(instance, ClosableNavLink)[0];
     navLink.props.onClickClose();
-    getCurrentPathname().should.equal(`/edit${ROOT_PATH}`);
+    getCurrentPathname().should.equal('/edit/');
   });
 
   it('should not show close button when at base path', function () {
-    instance = renderIntoDocument(<HeaderContent pathname='/'/>);
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <HeaderContent pathname={ ROOT_PATH } />
+      </Provider>
+    );
     scryRenderedComponentsWithType(instance, CloseButton).length.should.equal(0);
+  });
+
+  it('should display log out button', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <HeaderContent pathname={ `/edit/${STORIES_PATH}` }/>
+      </Provider>
+    );
+
+    findRenderedDOMComponentWithClass(instance, 'test--logout-button');
   });
 });

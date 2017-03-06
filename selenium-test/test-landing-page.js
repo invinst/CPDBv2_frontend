@@ -9,6 +9,7 @@ describe('landing page', function () {
 
   beforeEach(function () {
     landingPage.open();
+    browser.pause(500);
   });
 
   it('should enter edit mode when press ESCAPE', function () {

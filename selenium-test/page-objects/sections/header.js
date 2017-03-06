@@ -9,7 +9,8 @@ class Header extends Section {
       headerLogoSelector: '.test--header-logo',
       reporting: '//a[text()="Reporting"]',
       faq: '//a[text()="FAQ"]',
-      collaborate: '//a[text()="Collaborate"]'
+      collaborate: '//a[text()="Collaborate"]',
+      logOutButton: '.test--logout-button'
     });
   }
 }

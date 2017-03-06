@@ -1,8 +1,8 @@
 import { handleActions } from 'redux-actions';
 
 import {
-  SIGNIN_REQUEST_FAILURE, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST, RESET_PASSWORD_SUCCESS
-} from 'actions/authentication';
+  SIGNIN_REQUEST, SIGNIN_REQUEST_FAILURE, SIGNIN_REQUEST_SUCCESS, RESET_PASSWORD_SUCCESS
+} from 'utils/constants';
 
 
 export default handleActions({
