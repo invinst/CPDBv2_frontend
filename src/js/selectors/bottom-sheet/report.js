@@ -1,23 +1,21 @@
 import { createSelector } from 'reselect';
-import { find, map } from 'lodash';
+import { map } from 'lodash';
 
-import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import {
   getField, createFieldWithEmptyEditorState, createEmptyStringField,
   createEmptyDateField, createEmptyOfficersField
 } from 'utils/draft';
 
 
-const getReports = state => state.reports;
-const getFAQs = state => state.faqs;
-const getContentId = (state, props) => props.content.id;
 const getOfficerSearchResult = state => state.bottomSheet.officersAutoSuggest.officers;
+const getReports = state => state.reports;
+const getId = (state, props) => props.id;
 
 export const reportSelector = createSelector(
   getReports,
-  getContentId,
+  getId,
   (reports, id) => {
-    const report = find(reports, report => report.id === parseInt(id));
+    const report = reports[parseInt(id)];
     return {
       id: id !== 'new' ? id : null,
       fields: (
@@ -46,52 +44,6 @@ export const reportSelector = createSelector(
     };
   }
 );
-
-export const faqSelector = createSelector(
-  getFAQs,
-  getContentId,
-  (faqs, id) => {
-    const faq = find(faqs, faq => faq.id === parseInt(id));
-    return {
-      id: id !== 'new' ? id : null,
-      fields: (
-        id === 'new' ?
-        {
-          'question': createFieldWithEmptyEditorState('question', 'rich_text'),
-          'answer': createFieldWithEmptyEditorState('answer', 'rich_text')
-        } :
-          faq ?
-          {
-            'question': getField(faq.fields, 'question'),
-            'answer': getField(faq.fields, 'answer')
-          } :
-          null
-      )
-    };
-  }
-);
-
-export const contentSelector = (state, props) => {
-  const { content } = props;
-  if (!content) {
-    return null;
-  }
-
-  let childrenProps;
-
-  if (content.type === REPORT_TYPE) {
-    childrenProps = reportSelector(state, props);
-  }
-
-  if (content.type === FAQ_TYPE) {
-    childrenProps = faqSelector(state, props);
-  }
-
-  return {
-    type: content.type,
-    props: childrenProps
-  };
-};
 
 export function officersToCamelCase(officers) {
   return map(officers, officer => ({

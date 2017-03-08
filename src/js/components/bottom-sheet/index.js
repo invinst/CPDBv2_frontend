@@ -5,7 +5,7 @@ import { assign } from 'lodash';
 import ReportContainer from 'containers/bottom-sheet/report';
 import FAQContainer from 'containers/bottom-sheet/faq';
 import { overlayStyle, sheetStyle } from './bottom-sheet.style';
-import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
+import { BottomSheetContentType } from 'utils/constants';
 import { defaultConfig } from 'utils/spring-presets';
 
 
@@ -13,8 +13,8 @@ export default class BottomSheet extends Component {
   constructor(props) {
     super(props);
     this.contentMap = {
-      [REPORT_TYPE]: ReportContainer,
-      [FAQ_TYPE]: FAQContainer
+      [BottomSheetContentType.REPORT]: ReportContainer,
+      [BottomSheetContentType.FAQ]: FAQContainer
     };
   }
 
@@ -71,11 +71,11 @@ export default class BottomSheet extends Component {
       if (contentClass) {
         return React.createElement(
           contentClass,
-          assign({}, content.props, {
+          {
             turnOffSectionEditMode: this.props.onClose,
             sectionEditModeOn: this.context.editModeOn,
-            searchOfficers: this.props.searchOfficers
-          })
+            id: content.id
+          }
         );
       }
     }
@@ -125,11 +125,10 @@ export default class BottomSheet extends Component {
 BottomSheet.propTypes = {
   open: PropTypes.bool,
   content: PropTypes.shape({
-    type: PropTypes.string,
+    type: PropTypes.object,
     props: PropTypes.object
   }),
-  onClose: PropTypes.func,
-  searchOfficers: PropTypes.func
+  onClose: PropTypes.func
 };
 
 BottomSheet.contextTypes = {

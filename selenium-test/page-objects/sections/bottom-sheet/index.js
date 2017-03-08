@@ -10,6 +10,9 @@ class BottomSheet extends Section {
     this.prepareElementGetters({
       overlay: '.bottom-sheet__overlay',
       reportBottomSheet: '.report-bottom-sheet',
+      reportPublicationLabel: '//span[text()="Publication"]',
+      reportPublishDateLabel: '//span[text()="Publish Date"]',
+      reportAuthorLabel: '//span[text()="Author"]',
       reportTitle: '.test--rich-text-title',
       reportExcerpt: '.test--rich-text-excerpt',
       reportArticleLink: '.test--rich-text-article-link',

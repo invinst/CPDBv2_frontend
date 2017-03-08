@@ -43,7 +43,7 @@ export class Report extends Component {
         <div style={ infoRowsStyle }>
           { map(fields, ({ label, element }, ind) => (
             <div key={ ind } style={ infoRowStyle }>
-              <span style={ style.label }>label</span>
+              <span style={ style.label }>{ label }</span>
               { element }
             </div>
           )) }

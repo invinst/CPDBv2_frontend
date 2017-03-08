@@ -3,7 +3,6 @@ import { locationShape } from 'react-router/lib/PropTypes';
 import Mousetrap from 'mousetrap';
 import React, { PropTypes } from 'react';
 
-import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import { getMockAdapter } from 'mock-api';
 import BottomSheetContainer from 'containers/bottom-sheet';
 import EditModeContainer from 'containers/inline-editable/edit-mode-container';
@@ -51,20 +50,8 @@ export default class App extends React.Component {
     return children;
   }
 
-  bottomSheetContent() {
-    const { params } = this.props;
-    const { reportId, faqId } = params;
-    if (reportId) {
-      return { id: reportId, type: REPORT_TYPE };
-    }
-    if (faqId) {
-      return { id: faqId, type: FAQ_TYPE };
-    }
-    return null;
-  }
-
   render() {
-    const { location, appContent } = this.props;
+    const { location, appContent, params } = this.props;
     const { pathname } = location;
 
     return (
@@ -74,7 +61,7 @@ export default class App extends React.Component {
           <RouteTransition pathname={ appContent }>
             { this.children() }
           </RouteTransition>
-          <BottomSheetContainer content={ this.bottomSheetContent() }/>
+          <BottomSheetContainer params={ params }/>
           <LoginModalContainer location={ location }/>
         </EditModeContainer>
       </StyleRoot>

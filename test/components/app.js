@@ -10,13 +10,11 @@ import {
 import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
 
-import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
 import BottomSheetContainer from 'containers/bottom-sheet';
 import MockStore from 'redux-mock-store';
-import should from 'should';
 
 
 describe('App component', function () {
@@ -25,6 +23,8 @@ describe('App component', function () {
   const store = mockStore({
     authentication: {},
     adapter: 'adapter',
+    reports: { 1: {} },
+    faqs: { 1: {} },
     bottomSheet: {
       officersAutoSuggest: {
         isRequesting: false,
@@ -97,7 +97,7 @@ describe('App component', function () {
     scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
   });
 
-  it('should pass report content to BottomSheetContainer when having report id', function () {
+  it('should pass params to BottomSheetContainer', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <App
@@ -107,39 +107,7 @@ describe('App component', function () {
       </Provider>
     );
     const element = findRenderedComponentWithType(instance, BottomSheetContainer);
-    element.props.content.should.deepEqual({
-      id: 1,
-      type: REPORT_TYPE
-    });
-  });
-
-  it('should pass faq content to BottomSheetContainer when having faq id', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <App
-          params={ { faqId: 1 } }
-          location={ { pathname: '/', search: '/', action: 'POP' } }
-          appContent='/' />
-      </Provider>
-    );
-    const element = findRenderedComponentWithType(instance, BottomSheetContainer);
-    element.props.content.should.deepEqual({
-      id: 1,
-      type: FAQ_TYPE
-    });
-  });
-
-  it('should pass null content to BottomSheetContainer when having no report or faq', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <App
-          location={ { pathname: '/', search: '/', action: 'POP' } }
-          appContent='/' />
-      </Provider>
-    );
-    window.scrollY = 150;
-    const element = findRenderedComponentWithType(instance, BottomSheetContainer);
-    should(element.props.content).be.null();
+    element.props.params.should.deepEqual({ reportId: 1 });
   });
 
   it('should toggle edit mode when hit esc', function () {

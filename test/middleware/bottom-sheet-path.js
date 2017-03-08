@@ -36,7 +36,7 @@ describe('bottomSheetPathMiddleware', function () {
     const store = {
       getState() {
         return {
-          appContent: '/foo/bar/'
+          pathStack: ['/foo/', '/bar/']
         };
       }
     };
@@ -44,7 +44,7 @@ describe('bottomSheetPathMiddleware', function () {
     let dispatched;
     const dispatchAction = closeBottomSheet();
     bottomSheetPathMiddleware(store)(action => dispatched = action)(dispatchAction);
-    editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/foo/bar/');
+    editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/foo/');
     dispatched.should.eql(dispatchAction);
   });
 

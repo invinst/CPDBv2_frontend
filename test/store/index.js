@@ -108,7 +108,8 @@ describe('store', function () {
         fullName: '',
         isRequesting: false,
         summary: {}
-      }
+      },
+      pathStack: []
     });
   });
 });
