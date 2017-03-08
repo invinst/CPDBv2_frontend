@@ -1,10 +1,11 @@
 import {
-  signIn, resetPassword, openForgotPasswordModal, closeForgotPasswordModal, receiveTokenFromCookie,
-  SIGNIN_REQUEST, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE,
-  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE,
-  OPEN_FORGOT_PASSWORD_MODAL, CLOSE_FORGOT_PASSWORD_MODAL, RECEIVE_TOKEN_FROM_COOKIE
+  signIn, resetPassword, openForgotPasswordModal, closeForgotPasswordModal, receiveTokenFromCookie, logOut
 } from 'actions/authentication';
-import { RESET_PASSWORD_URL, SIGNIN_URL } from 'utils/constants';
+import { SIGNIN_REQUEST, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE,
+  RESET_PASSWORD_REQUEST, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE,
+  OPEN_FORGOT_PASSWORD_MODAL, CLOSE_FORGOT_PASSWORD_MODAL, RECEIVE_TOKEN_FROM_COOKIE,
+  RESET_PASSWORD_URL, SIGNIN_URL, LOG_OUT
+} from 'utils/constants';
 
 
 describe('authentication actions', function () {
@@ -64,6 +65,15 @@ describe('authentication actions', function () {
     it('should return right action', function () {
       receiveTokenFromCookie().should.eql({
         type: RECEIVE_TOKEN_FROM_COOKIE,
+        payload: undefined
+      });
+    });
+  });
+
+  describe('logOut', function () {
+    it('should return right action', function () {
+      logOut().should.eql({
+        type: LOG_OUT,
         payload: undefined
       });
     });
