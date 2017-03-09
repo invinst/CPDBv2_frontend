@@ -101,6 +101,13 @@ describe('store', function () {
         contentType: null,
         recentSuggestions: [],
         tags: []
+      },
+      officerPage: {
+        complaintFacets: [],
+        complaintsCount: 0,
+        fullName: '',
+        isRequesting: false,
+        summary: {}
       }
     });
   });
