@@ -6,10 +6,8 @@ import AggregateSection from './aggregate-section';
 
 
 export default class SummaryPage extends Component {
-  constructor(props) {
-    super(props);
-
-    const { fetchOfficerSummary, officerId } = props;
+  componentWillMount() {
+    const { fetchOfficerSummary, officerId } = this.props;
     fetchOfficerSummary(officerId);
   }
 
@@ -29,7 +27,7 @@ export default class SummaryPage extends Component {
 SummaryPage.propTypes = {
   officerSummary: PropTypes.object,
   complaintsCount: PropTypes.number,
-  complaintFacets: PropTypes.object,
+  complaintFacets: PropTypes.array,
   fetchOfficerSummary: PropTypes.func,
   officerId: PropTypes.number
 };

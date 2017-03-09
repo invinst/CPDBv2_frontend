@@ -5,7 +5,8 @@ import { render } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
+  scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
@@ -13,6 +14,7 @@ import React, { Component } from 'react';
 import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
+import SearchPage from 'components/search-page';
 import BottomSheetContainer from 'containers/bottom-sheet';
 import MockStore from 'redux-mock-store';
 
@@ -142,5 +144,31 @@ describe('App component', function () {
     Mousetrap.trigger('a');
 
     toggleSearchMode.calledOnce.should.be.true();
+  });
+
+  it('should not display header if children is a SearchPage', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <App
+          location={ { pathname: '/', search: '/', action: 'POP' } }
+          appContent='/'>
+          <SearchPage/>
+        </App>
+      </Provider>
+    );
+    scryRenderedDOMComponentsWithClass(instance, 'test--header-logo').length.should.eql(0);
+  });
+
+  it('should display header if children is not a SearchPage', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <App
+          location={ { pathname: '/', search: '/', action: 'POP' } }
+          appContent='/'>
+          abc
+        </App>
+      </Provider>
+    );
+    scryRenderedDOMComponentsWithClass(instance, 'test--header-logo').length.should.not.eql(0);
   });
 });

@@ -1,10 +1,11 @@
 import pathStackReducer from 'reducers/path-stack';
 
 
-const locationChange = path => ({
+const locationChange = (path, pop=false) => ({
   type: '@@router/LOCATION_CHANGE',
   payload: {
-    pathname: path
+    pathname: path,
+    action: pop ? 'POP' : 'PUSH'
   }
 });
 
@@ -57,6 +58,20 @@ describe('pathStackReducer', function () {
       .should.eql(['/abc/', '/faq/205/']);
   });
 
+  it('should prepend search path when receive officer path if stack was empty', function () {
+    pathStackReducer([], locationChange('/officer/205/'))
+      .should.eql(['/search/', '/officer/205/']);
+
+    pathStackReducer([], locationChange('/officer/205/timeline/'))
+      .should.eql(['/search/', '/officer/205/timeline/']);
+
+    pathStackReducer([], locationChange('/edit/officer/205/timeline/'))
+      .should.eql(['/search/', '/officer/205/timeline/']);
+
+    pathStackReducer(['/abc/'], locationChange('/officer/205/'))
+      .should.eql(['/abc/', '/officer/205/']);
+  });
+
   it('should not push the same reporting path on top of each other', function () {
     pathStackReducer(['/def/'], locationChange('/def/')).should.eql(['/def/']);
     pathStackReducer(['/def/'], locationChange('/edit/def/')).should.eql(['/def/']);
@@ -68,5 +83,13 @@ describe('pathStackReducer', function () {
     pathStackReducer([], locationChange('/abcedit/')).should.eql(['/abcedit/']);
     pathStackReducer([], locationChange('/def/edit/')).should.eql(['/def/edit/']);
     pathStackReducer([], locationChange('/def/edit/abc/')).should.eql(['/def/edit/abc/']);
+  });
+
+  it('should pop path when hit back button', function () {
+    pathStackReducer(['abc', 'xyz'], locationChange('abc', true)).should.eql(['abc']);
+    pathStackReducer(['/abc/', '/officer/123/timeline/'], locationChange('/officer/123/', true))
+      .should.eql(['/abc/', '/officer/123/']);
+    pathStackReducer(['/officer/456/', '/officer/123/timeline/'], locationChange('/officer/456/', true))
+      .should.eql(['/officer/456/']);
   });
 });

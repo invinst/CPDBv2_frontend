@@ -1,7 +1,8 @@
 import { handleActions } from 'redux-actions';
 import { map } from 'lodash';
 
-import { isReportBottomSheetPath, isFAQBottomSheetPath } from 'utils/bottom-sheet';
+import { isReportBottomSheetPath, isFAQBottomSheetPath, isOfficerBottomSheetPath } from 'utils/bottom-sheet';
+import { SEARCH_PATH } from 'utils/constants';
 
 
 const generatePaths = pathname => {
@@ -11,6 +12,10 @@ const generatePaths = pathname => {
 
   if (isFAQBottomSheetPath(pathname)) {
     return ['/faq/', pathname];
+  }
+
+  if (isOfficerBottomSheetPath(pathname)) {
+    return [`/${SEARCH_PATH}`, pathname];
   }
 
   return [pathname];
@@ -34,6 +39,10 @@ export default handleActions({
 
     if (lastElementMatch && pathnameMatch && lastElementMatch[1] === pathnameMatch[1]) {
       return map(state, (element, index) => index === state.length - 1 ? pathname : element);
+    }
+
+    if (action.payload.action === 'POP') {
+      return state.slice(0, -1);
     }
 
     return [...state, pathname];

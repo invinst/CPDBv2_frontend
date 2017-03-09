@@ -24,6 +24,12 @@ describe('BottomSheet component', function () {
   const faq = CuratedFAQFactory.build();
   const store = mockStore({
     bottomSheet: { officersAutoSuggest: { isRequesting: false, officers: [] } },
+    officerPage: {
+      fullName: 'John Doe',
+      summary: {
+        'date_of_appt': '2010-10-02'
+      }
+    },
     reports: { [report.id]: report },
     faqs: { [faq.id]: faq }
   });
@@ -126,6 +132,16 @@ describe('BottomSheet component', function () {
         </Provider>
       );
       findDOMNode(element).innerHTML.should.containEql(faq.fields.question.value.blocks[0].text);
+    });
+
+    it('should render officer when received officer content', function () {
+      element = renderIntoDocument(
+        <Provider store={ store }>
+          <BottomSheet open={ true }
+            content={ { type: BottomSheetContentType.OFFICER, id: 1 } }/>
+        </Provider>
+      );
+      findDOMNode(element).innerHTML.should.containEql('John Doe');
     });
 
     it('should render previous content when receive null content', function () {

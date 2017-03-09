@@ -9,7 +9,8 @@ import { getOfficerName } from 'selectors/officer-page';
 function mapStateToProps(state, ownProps) {
   return {
     officerName: getOfficerName(state),
-    officerId: parseInt(ownProps.params.officerId)
+    officerId: parseInt(ownProps.id),
+    location: ownProps.location
   };
 }
 

@@ -90,6 +90,7 @@ describe('Search Page', function () {
     landingPage.open();
     searchPage.open();
     searchPage.searchHint.click(); // unfocus search input
+    browser.debug();
     browser.keys('Escape');
 
     landingPage.currentBasePath.should.equal('/');

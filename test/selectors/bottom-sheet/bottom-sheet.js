@@ -10,12 +10,16 @@ describe('bottomSheet selector', function () {
       should(contentSelector({}, { params: {} })).be.null();
     });
 
-    it('should return report props if content type is REPORT_TYPE', function () {
+    it('should return report content if content type is REPORT', function () {
       contentSelector({}, { params: { reportId: 1 } }).should.eql({ id: 1, type: BottomSheetContentType.REPORT });
     });
 
-    it('should return faq props if content type is FAQ_TYPE', function () {
+    it('should return faq content if content type is FAQ', function () {
       contentSelector({}, { params: { faqId: 1 } }).should.eql({ id: 1, type: BottomSheetContentType.FAQ });
+    });
+
+    it('should return officer content if content type is OFFICER', function () {
+      contentSelector({}, { params: { officerId: 1 } }).should.eql({ id: 1, type: BottomSheetContentType.OFFICER });
     });
   });
 });

@@ -29,14 +29,17 @@ export class OfficerCard extends Component {
   }
 
   render() {
-    const { officerId, fullName, gender, race, allegationCount, v1Url, onRemoveClick, editModeOn } = this.props;
+    const {
+      officerId, fullName, gender, race, allegationCount, onRemoveClick, editModeOn, openBottomSheetWithOfficer
+    } = this.props;
     const style = this.getStyle();
 
-    let wrapperElement;
+    const wrapperProps = {
+      style: style.wrapper,
+      className: 'test--officer-card'
+    };
     if (!editModeOn) {
-      wrapperElement = <a href={ v1Url } style={ style.wrapper } className='test--officer-card'/>;
-    } else {
-      wrapperElement = <div style={ style.wrapper } className='test--officer-card'/>;
+      wrapperProps.onClick = () => openBottomSheetWithOfficer(officerId);
     }
 
     const content = [
@@ -51,20 +54,20 @@ export class OfficerCard extends Component {
         <div key='4' className='test--indicator' style={ style.indicator } />
     ];
 
-    return React.cloneElement(wrapperElement, {}, content);
+    return React.cloneElement(<div/>, wrapperProps, content);
   }
 }
 
 OfficerCard.propTypes = {
   officerId: PropTypes.number,
   fullName: PropTypes.string,
-  v1Url: PropTypes.string,
   gender: PropTypes.string,
   race: PropTypes.string,
   allegationCount: PropTypes.number,
   onRemoveClick: PropTypes.func,
   style: PropTypes.object,
   editModeOn: PropTypes.bool,
+  openBottomSheetWithOfficer: PropTypes.func,
   hovering: PropTypes.bool
 };
 

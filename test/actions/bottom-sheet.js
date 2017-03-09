@@ -1,29 +1,28 @@
 import {
-  openBottomSheetWithReport, closeBottomSheet, openBottomSheetWithFAQ, searchOfficers,
-  OPEN_BOTTOM_SHEET_WITH_REPORT, CLOSE_BOTTOM_SHEET, OPEN_BOTTOM_SHEET_WITH_FAQ
+  openBottomSheetWithReport, closeBottomSheet, openBottomSheetWithFAQ, searchOfficers, openBottomSheetWithOfficer
 } from 'actions/bottom-sheet';
 import {
-  V2_ROOT_PATH, SEARCH_OFFICERS_REQUEST_START, SEARCH_OFFICERS_REQUEST_SUCCESS, SEARCH_OFFICERS_REQUEST_FAILURE
+  OPEN_BOTTOM_SHEET_WITH_REPORT, CLOSE_BOTTOM_SHEET, OPEN_BOTTOM_SHEET_WITH_FAQ,
+  V2_ROOT_PATH, SEARCH_OFFICERS_REQUEST_START, SEARCH_OFFICERS_REQUEST_SUCCESS, SEARCH_OFFICERS_REQUEST_FAILURE,
+  OPEN_BOTTOM_SHEET_WITH_OFFICER
 } from 'utils/constants';
 
 
 describe('bottomSheet actions', function () {
   describe('openBottomSheetWithReport', function () {
     it('should return right action', function () {
-      const report = {};
-      openBottomSheetWithReport(report).should.eql({
+      openBottomSheetWithReport(3).should.eql({
         type: OPEN_BOTTOM_SHEET_WITH_REPORT,
-        payload: report
+        payload: 3
       });
     });
   });
 
   describe('openBottomSheetWithFAQ', function () {
     it('should return right action', function () {
-      const faq = {};
-      openBottomSheetWithFAQ(faq).should.eql({
+      openBottomSheetWithFAQ(4).should.eql({
         type: OPEN_BOTTOM_SHEET_WITH_FAQ,
-        payload: faq
+        payload: 4
       });
     });
   });
@@ -48,6 +47,15 @@ describe('bottomSheet actions', function () {
             params: undefined
           }
         }
+      });
+    });
+  });
+
+  describe('openBottomSheetWithOfficer', function () {
+    it('should return right action', function () {
+      openBottomSheetWithOfficer(3).should.eql({
+        type: OPEN_BOTTOM_SHEET_WITH_OFFICER,
+        payload: 3
       });
     });
   });

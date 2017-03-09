@@ -8,6 +8,7 @@ import BottomSheetContainer from 'containers/bottom-sheet';
 import EditModeContainer from 'containers/inline-editable/edit-mode-container';
 import Header from 'components/header';
 import LoginModalContainer from 'containers/login-modal-container';
+import SearchPage from 'components/search-page';
 import RouteTransition from 'components/animation/route-transition';
 
 import { ALPHA_NUMBERIC } from 'utils/constants';
@@ -44,24 +45,31 @@ export default class App extends React.Component {
 
   children() {
     const { children, params } = this.props;
-    if ((params.reportId || params.faqId) && this.prevChildren) {
+    const { reportId, faqId, officerId } = params;
+    if ((reportId || faqId || officerId) && this.prevChildren) {
       return this.prevChildren;
     }
     return children;
   }
 
+  showHeader(children) {
+    return (!children || [SearchPage].indexOf(children.type) === -1);
+  }
+
   render() {
     const { location, appContent, params } = this.props;
     const { pathname } = location;
+    const children = this.children();
+    const showHeader = this.showHeader(children);
 
     return (
       <StyleRoot>
         <EditModeContainer location={ location }>
-          <Header pathname={ pathname } appContent={ appContent }/>
+          <Header pathname={ pathname } appContent={ appContent } show={ showHeader }/>
           <RouteTransition pathname={ appContent }>
             { this.children() }
           </RouteTransition>
-          <BottomSheetContainer params={ params }/>
+          <BottomSheetContainer params={ params } location={ location }/>
           <LoginModalContainer location={ location }/>
         </EditModeContainer>
       </StyleRoot>
