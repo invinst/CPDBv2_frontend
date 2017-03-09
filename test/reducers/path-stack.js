@@ -72,7 +72,7 @@ describe('pathStackReducer', function () {
       .should.eql(['/abc/', '/officer/205/']);
   });
 
-  it('should not push the same reporting path on top of each other', function () {
+  it('should refresh stack when received non bottom sheet path', function () {
     pathStackReducer(['/def/'], locationChange('/def/')).should.eql(['/def/']);
     pathStackReducer(['/def/'], locationChange('/edit/def/')).should.eql(['/def/']);
   });
@@ -85,7 +85,11 @@ describe('pathStackReducer', function () {
     pathStackReducer([], locationChange('/def/edit/abc/')).should.eql(['/def/edit/abc/']);
   });
 
-  it('should pop path when hit back button', function () {
+  it('should handle pop back from regular page to bottom sheet', function () {
+    pathStackReducer(['/abc/'], locationChange('/officer/123/', true)).should.eql(['/abc/', '/officer/123/']);
+  });
+
+  it('should handle other pop back cases', function () {
     pathStackReducer(['abc', 'xyz'], locationChange('abc', true)).should.eql(['abc']);
     pathStackReducer(['/abc/', '/officer/123/timeline/'], locationChange('/officer/123/', true))
       .should.eql(['/abc/', '/officer/123/']);

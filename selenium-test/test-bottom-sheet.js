@@ -5,7 +5,13 @@ require('should');
 import landingPage from './page-objects/landing-page';
 import reportingPage from './page-objects/reporting-page';
 import faqPage from './page-objects/faq-page';
+import searchPage from './page-objects/search-page';
 
+
+function clickOverlay() {
+  browser.moveToObject('body', 10, 10);
+  browser.buttonPress();
+}
 
 describe('bottom-sheet', function () {
 
@@ -97,6 +103,46 @@ describe('bottom-sheet', function () {
       faqPage.bottomSheet.clickOverlay();
       faqPage.bottomSheet.faqBottomSheet.waitForVisible(10000, true);
       faqPage.currentBasePath.should.equal('/edit/faq/');
+    });
+  });
+
+  describe('officer', function () {
+    it('should open officer bottom-sheet when visit /officer/<id>/ directly', function () {
+      browser.url('/officer/1/');
+
+      searchPage.officerBottomSheet.element.waitForVisible();
+    });
+
+    it('visit officer directly, click overlay, should see search page', function () {
+      browser.url('/officer/1/');
+
+      clickOverlay();
+      browser.getUrl().should.match(/\/search\/$/);
+    });
+
+    it('visit report directly, click officer card, '
+      + 'should see officer page, click overlay, should see report page', function () {
+      browser.url('/reporting/1/');
+
+      reportingPage.bottomSheet.officerSection.officerCard.element.click();
+      browser.getUrl().should.match(/\/officer\/1\/$/);
+
+      clickOverlay();
+      browser.getUrl().should.match(/\/reporting\/1\/$/);
+    });
+
+    it('visit officer, click overlay, should see search page, hit back button, ' +
+       'should see officer, click overlay, should see search page', function () {
+      browser.url('/officer/1/');
+
+      clickOverlay();
+      browser.getUrl().should.match(/\/search\/$/);
+
+      browser.back();
+      browser.getUrl().should.match(/\/officer\/1\/$/);
+
+      clickOverlay();
+      browser.getUrl().should.match(/\/search\/$/);
     });
   });
 });
