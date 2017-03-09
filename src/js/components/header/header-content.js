@@ -1,17 +1,14 @@
 import { browserHistory } from 'react-router';
 import React, { PropTypes } from 'react';
+import { map } from 'lodash';
 
-import {
-  ROOT_PATH,
-  COLLAB_PATH,
-  FAQ_PATH,
-  STORIES_PATH
-} from 'utils/constants';
+import { ROOT_PATH, COLLAB_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants';
 import { editMode } from 'utils/edit-path';
 import ClosableNavLink from 'components/closable-nav-link';
 import PropsRerender from 'components/common/higher-order/props-rerender';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import HoverableLink from 'components/common/hoverable-link';
+import LogOutButtonContainer from 'containers/log-out-container';
 
 import {
   navWrapperStyle, navStyle, logoWrapperStyle, logoStyle,
@@ -55,7 +52,7 @@ class HeaderContent extends React.Component {
             style={ hoverableLinkStyle }>
             Data
           </HoverableLink>
-          { links.map((link, ind) => {
+          { map(links, (link, ind) => {
             let href = link.href;
             if (editModeOn) {
               href = editMode(href);
@@ -68,6 +65,9 @@ class HeaderContent extends React.Component {
               </ClosableNavLink>
             );
           }) }
+          {
+            <LogOutButtonContainer pathname={ pathname }/>
+          }
         </div>
         <div style={ compact ? logoWrapperCompactStyle : logoWrapperStyle }>
           <HoverableLink className='test--header-logo' to={ ROOT_PATH } style={ logoStyle }>

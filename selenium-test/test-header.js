@@ -1,6 +1,6 @@
 'use strict';
 
-require('should');
+var should = require('should');
 
 import landingPage from './page-objects/landing-page';
 
@@ -13,47 +13,55 @@ describe('Header', function () {
 
   context('edit mode off', function () {
     it('should navigate to reporting path when click on reporting link', function () {
-      landingPage.header.reporting.waitForVisible(2000);
+      landingPage.header.reporting.waitForVisible();
       landingPage.header.reporting.click();
+      browser.pause(500);
       landingPage.currentBasePath.should.equal('/reporting/');
 
-      landingPage.header.closeButtonSelector.waitForVisible(2000);
+      landingPage.header.closeButtonSelector.waitForVisible();
       landingPage.header.closeButtonSelector.click();
 
       landingPage.currentBasePath.should.equal('/');
     });
 
     it('should navigate to FAQ path when click on FAQ link', function () {
-      landingPage.header.faq.waitForVisible(2000);
+      landingPage.header.faq.waitForVisible();
       landingPage.header.faq.click();
+      browser.pause(500);
       landingPage.currentBasePath.should.equal('/faq/');
 
-      landingPage.header.closeButtonSelector.waitForVisible(2000);
+      landingPage.header.closeButtonSelector.waitForVisible();
       landingPage.header.closeButtonSelector.click();
 
       landingPage.currentBasePath.should.equal('/');
     });
 
     it('should navigate to Collaborate path when click on Collaborate link', function () {
-      landingPage.header.collaborate.waitForVisible(2000);
+      landingPage.header.collaborate.waitForVisible();
       landingPage.header.collaborate.click();
+      browser.pause(500);
       landingPage.currentBasePath.should.equal('/collaborate/');
 
-      landingPage.header.closeButtonSelector.waitForVisible(2000);
+      landingPage.header.closeButtonSelector.waitForVisible();
       landingPage.header.closeButtonSelector.click();
 
       landingPage.currentBasePath.should.equal('/');
     });
 
     it('should navigate to base path when click on header logo', function () {
-      landingPage.header.collaborate.waitForVisible(2000);
+      landingPage.header.collaborate.waitForVisible();
       landingPage.header.collaborate.click();
+      browser.pause(500);
       landingPage.currentBasePath.should.equal('/collaborate/');
 
-      landingPage.header.headerLogoSelector.waitForVisible(2000);
+      landingPage.header.headerLogoSelector.waitForVisible();
       landingPage.header.headerLogoSelector.click();
 
       landingPage.currentBasePath.should.equal('/');
+    });
+
+    it('should not display log out button', function () {
+      landingPage.header.logOutButton.waitForVisible(2000, true);
     });
   });
 
@@ -63,23 +71,32 @@ describe('Header', function () {
     });
 
     it('should preserve edit mode when go to reporting page', function () {
-      landingPage.header.reporting.waitForVisible(2000);
+      landingPage.header.reporting.waitForVisible();
       landingPage.header.reporting.click();
+      browser.pause(500);
       landingPage.currentBasePath.should.equal('/edit/reporting/');
 
-      landingPage.header.closeButtonSelector.waitForVisible(2000);
+      landingPage.header.closeButtonSelector.waitForVisible();
       landingPage.header.closeButtonSelector.click();
       landingPage.currentBasePath.should.equal('/edit/');
     });
 
     it('should preserve edit mode when go to faq page', function () {
-      landingPage.header.faq.waitForVisible(2000);
+      landingPage.header.faq.waitForVisible();
       landingPage.header.faq.click();
+      browser.pause(500);
       landingPage.currentBasePath.should.equal('/edit/faq/');
 
-      landingPage.header.closeButtonSelector.waitForVisible(2000);
+      landingPage.header.closeButtonSelector.waitForVisible();
       landingPage.header.closeButtonSelector.click();
       landingPage.currentBasePath.should.equal('/edit/');
+    });
+
+    it('should display log out button and log out when we click on', function () {
+      landingPage.header.logOutButton.waitForVisible();
+      landingPage.header.logOutButton.click();
+      landingPage.loginScreen.loginModal.waitForVisible();
+      should(browser.getCookie('apiAccessToken')).be.null();
     });
   });
 });
