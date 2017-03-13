@@ -1,5 +1,5 @@
 import {
-  pinkishGreyColor, altoColor, mediumGrayColor, sanFranciscoTextFamily
+  pinkishGreyColor, altoColor, mediumGrayColor, pinkishWhiteColor, sanFranciscoTextFamily
 } from 'utils/styles';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 
@@ -27,6 +27,7 @@ const _rightBarStyle = () => ({
   paddingTop: '77px',
   paddingRight: '32px',
   paddingLeft: '32px',
+  paddingBottom: '74px',
   width: '704px',
   verticalAlign: 'top',
   borderLeft: `1px solid ${pinkishGreyColor}`,
@@ -43,10 +44,6 @@ export const rightBarStyle = {
     width: '590px'
   })
 };
-
-export const wrapperStyle = () => ({
-  height: `${window.innerHeight - 44}px`
-});
 
 export const excerptStyle = {
   wrapper: {
@@ -110,11 +107,6 @@ export const infoRowsStyle = {
   borderBottom: `1px solid ${altoColor}`
 };
 
-export const contentWrapperStyle = () => ({
-  overflowY: 'auto',
-  height: `${window.innerHeight - 88}px`
-});
-
 export const articleLinkWrapperStyle = {
   fontSize: '14px',
   textAlign: 'right',
@@ -125,9 +117,17 @@ export const oneColumnStyle = {
   paddingTop: '74px',
   paddingRight: '32px',
   paddingLeft: '32px',
-  boxSizing: 'border-box'
+  paddingBottom: '74px',
+  boxSizing: 'border-box',
+  minHeight: `${window.innerHeight - 88}px`
 };
 
 export const extraPaddingStyle = {
   paddingTop: '124px'
+};
+
+export const headerStyle = editModeOn => {
+  return {
+    backgroundColor: editModeOn ? pinkishWhiteColor : 'white'
+  };
 };

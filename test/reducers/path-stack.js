@@ -96,4 +96,10 @@ describe('pathStackReducer', function () {
     pathStackReducer(['/officer/456/', '/officer/123/timeline/'], locationChange('/officer/456/', true))
       .should.eql(['/officer/456/']);
   });
+
+  it('should prepend bottom sheet path on first visit', function () {
+    pathStackReducer([], locationChange('/officer/123/', true)).should.eql(['/search/', '/officer/123/']);
+    pathStackReducer([], locationChange('/reporting/123/', true)).should.eql(['/reporting/', '/reporting/123/']);
+    pathStackReducer([], locationChange('/faq/123/', true)).should.eql(['/faq/', '/faq/123/']);
+  });
 });

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
 import {
-  leftBarStyle, rightBarStyle, answerStyle, questionStyle, answerWrapperStyle, oneColumnStyle,
-  contentWrapperStyle, extraPaddingStyle
+  leftBarStyle, rightBarStyle, answerStyle, questionStyle, answerWrapperStyle,
+  oneColumnStyle, extraPaddingStyle, headerStyle
 } from './faq.style';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
@@ -10,6 +10,7 @@ import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
 import EditableSection from 'components/inline-editable/editable-section';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
+import StickyHeader from 'components/common/sticky-header';
 
 
 class FAQ extends Component {
@@ -70,11 +71,13 @@ class FAQ extends Component {
   }
 
   render() {
-    const { editToggleProps } = this.props;
+    const { editToggleProps, sectionEditModeOn } = this.props;
     return (
       <div className='faq-bottom-sheet'>
-        <BottomSheetHeader editToggleProps={ editToggleProps }/>
-        <div style={ contentWrapperStyle() }>
+        <StickyHeader style={ headerStyle(sectionEditModeOn) }>
+          <BottomSheetHeader editToggleProps={ editToggleProps }/>
+        </StickyHeader>
+        <div>
           <ResponsiveFixedWidthComponent>
             <ResponsiveComponent
               extraWideChildren={ this.renderTwoColumns({

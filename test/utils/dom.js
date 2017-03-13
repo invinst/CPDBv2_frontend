@@ -24,7 +24,7 @@ describe('dom utils', function () {
     });
   });
 
-  describe('disableBodyScroll + enableBodyScroll function', function () {
+  describe('disableBodyScroll', function () {
     afterEach(function () {
       document.body.className = '';
     });
@@ -32,6 +32,18 @@ describe('dom utils', function () {
     it('should add "noscroll" class to body', function () {
       disableBodyScroll();
       document.body.className.should.containEql('noscroll');
+    });
+
+    it('should not add "noscroll" anymore if body className has it already', function () {
+      document.body.className = 'noscroll somethingelse';
+      disableBodyScroll();
+      document.body.className.should.eql('noscroll somethingelse');
+    });
+  });
+
+  describe('enableBodyScroll function', function () {
+    afterEach(function () {
+      document.body.className = '';
     });
 
     it('should remove "noscroll" class to body', function () {

@@ -5,9 +5,10 @@ import { assign } from 'lodash';
 import ReportContainer from 'containers/bottom-sheet/report';
 import FAQContainer from 'containers/bottom-sheet/faq';
 import OfficerContainer from 'containers/officer-page';
-import { overlayStyle, sheetStyle } from './bottom-sheet.style';
+import { overlayStyle, sheetStyle, sheetWrapperStyle, closeBottomSheetTriggerStyle } from './bottom-sheet.style';
 import { BottomSheetContentType } from 'utils/constants';
 import { defaultConfig } from 'utils/spring-presets';
+import { recalculateStickyness } from 'components/common/sticky-header';
 
 
 export default class BottomSheet extends Component {
@@ -35,7 +36,6 @@ export default class BottomSheet extends Component {
     return (
       <div
         className='bottom-sheet__overlay'
-        onClick={ () => this.props.onClose() }
         style={ assign({}, overlayStyle, style) }/>
     );
   }
@@ -88,8 +88,13 @@ export default class BottomSheet extends Component {
 
   renderBottomSheet(style={}) {
     return (
-      <div className='test--bottom-sheet-wrapper' style={ assign({}, sheetStyle, style) }>
-        { this.renderContent() }
+      <div className='test--bottom-sheet-wrapper' style={ assign({}, sheetWrapperStyle, style) }
+        onScroll={ recalculateStickyness }>
+        <div className='test--close-bottom-sheet'
+          style={ closeBottomSheetTriggerStyle } onClick={ () => this.props.onClose() } />
+        <div style={ sheetStyle }>
+          { this.renderContent() }
+        </div>
       </div>
     );
   }

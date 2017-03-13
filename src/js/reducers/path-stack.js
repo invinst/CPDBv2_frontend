@@ -16,8 +16,6 @@ const generatePaths = pathname => {
   if (isOfficerBottomSheetPath(pathname)) {
     return [`/${SEARCH_PATH}`, pathname];
   }
-
-  return [pathname];
 };
 
 const isBottomSheet = pathname => (
@@ -44,6 +42,7 @@ export default handleActions({
           if (lastpath && !isBottomSheet(lastpath)) {
             return [...state, pathname];
           } else if (state.length < 2) {
+            // first visit is actually a 'POP' not a 'PUSH' so we need to prepend path here
             return generatePaths(pathname);
           }
           return state.slice(0, -1);

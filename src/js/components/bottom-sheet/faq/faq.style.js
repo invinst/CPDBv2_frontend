@@ -1,4 +1,4 @@
-import { pinkishGreyColor, sanFranciscoTextFamily } from 'utils/styles';
+import { pinkishGreyColor, pinkishWhiteColor, sanFranciscoTextFamily } from 'utils/styles';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 
 
@@ -7,6 +7,7 @@ const _leftBarStyle = () => ({
   boxSizing: 'border-box',
   paddingLeft: '32px',
   paddingTop: '74px',
+  paddingBottom: '74px',
   width: '482px',
   borderRight: `1px solid ${pinkishGreyColor}`,
   minHeight: `${window.innerHeight - 88}px`
@@ -26,6 +27,7 @@ const _rightBarStyle = () => ({
   paddingTop: '77px',
   paddingRight: '32px',
   paddingLeft: '32px',
+  paddingBottom: '74px',
   width: '704px',
   verticalAlign: 'top',
   borderLeft: `1px solid ${pinkishGreyColor}`,
@@ -71,11 +73,6 @@ export const questionStyle = {
   [TABLET]: _questionStyle
 };
 
-export const contentWrapperStyle = () => ({
-  overflowY: 'auto',
-  height: `${window.innerHeight - 88}px`
-});
-
 export const answerWrapperStyle = {
   fontSize: '18px',
   fontWeight: '400'
@@ -85,9 +82,17 @@ export const oneColumnStyle = {
   paddingTop: '74px',
   paddingRight: '32px',
   paddingLeft: '32px',
+  paddingBottom: '74px',
+  minHeight: `${window.innerHeight - 88}px`,
   boxSizing: 'border-box'
 };
 
 export const extraPaddingStyle = {
   paddingTop: '124px'
+};
+
+export const headerStyle = editModeOn => {
+  return {
+    backgroundColor: editModeOn ? pinkishWhiteColor : 'white'
+  };
 };
