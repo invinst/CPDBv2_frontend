@@ -34,6 +34,7 @@ describe('App component', function () {
       }
     }
   });
+  const location = { pathname: '/', search: '/', action: 'POP' };
 
   class ChildComponent extends Component {
     render() {
@@ -50,7 +51,7 @@ describe('App component', function () {
     instance = render(
       <Provider store={ store }>
         <App
-          location={ { pathname: '/', search: '/', action: 'POP' } }
+          location={ location }
           appContent='/'>
           <ChildComponent/>
         </App>
@@ -62,7 +63,7 @@ describe('App component', function () {
       <Provider store={ store }>
         <App
           params={ { reportId: 1 } }
-          location={ { pathname: '/', search: '/', action: 'POP' } }
+          location={ location }
           appContent='/'>
           abc
         </App>
@@ -77,7 +78,7 @@ describe('App component', function () {
     instance = render(
       <Provider store={ store }>
         <App
-          location={ { pathname: '/', search: '/', action: 'POP' } }
+          location={ location }
           appContent='/'>
           <ChildComponent/>
         </App>
@@ -89,7 +90,7 @@ describe('App component', function () {
       <Provider store={ store }>
         <App
           params={ { faqId: 1 } }
-          location={ { pathname: '/', search: '/', action: 'POP' } }
+          location={ location }
           appContent='/'>
           abc
         </App>
@@ -104,7 +105,7 @@ describe('App component', function () {
       <Provider store={ store }>
         <App
           params={ { reportId: 1 } }
-          location={ { pathname: '/', search: '/', action: 'POP' } }
+          location={ location }
           appContent='/' />
       </Provider>
     );
@@ -119,7 +120,7 @@ describe('App component', function () {
       <Provider store={ store }>
         <App
           toggleEditMode={ toggleEditMode }
-          location={ { pathname: '/', search: '/', action: 'POP' } }
+          location={ location }
           appContent='/' />
       </Provider>
     );
@@ -136,7 +137,7 @@ describe('App component', function () {
       <Provider store={ store }>
         <App
           toggleSearchMode={ toggleSearchMode }
-          location={ { pathname: '/', search: '/', action: 'POP' } }
+          location={ location }
           appContent='/' />
       </Provider>
     );
@@ -150,7 +151,7 @@ describe('App component', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <App
-          location={ { pathname: '/', search: '/', action: 'POP' } }
+          location={ location }
           appContent='/'>
           <SearchPage/>
         </App>
@@ -163,12 +164,53 @@ describe('App component', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <App
-          location={ { pathname: '/', search: '/', action: 'POP' } }
+          location={ location }
           appContent='/'>
           abc
         </App>
       </Provider>
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--header-logo').length.should.not.eql(0);
+  });
+
+  it('should not update prevChildren if previous page is a bottom sheet', function () {
+    let rootEl = document.createElement('div');
+    instance = render(
+      <Provider store={ store }>
+        <App
+          location={ location }
+          appContent='/'>
+          <ChildComponent/>
+        </App>
+      </Provider>,
+      rootEl
+    );
+    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
+    instance = render(
+      <Provider store={ store }>
+        <App
+          params={ { reportId: 1 } }
+          location={ location }
+          appContent='/'>
+          <div className='test-div'/>
+        </App>
+      </Provider>,
+      rootEl
+    );
+    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
+    scryRenderedDOMComponentsWithClass(instance, 'test-div').length.should.eql(0);
+    instance = render(
+      <Provider store={ store }>
+        <App
+          params={ { faqId: 1 } }
+          location={ location }
+          appContent='/'>
+          abc
+        </App>
+      </Provider>,
+      rootEl
+    );
+    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
+    scryRenderedDOMComponentsWithClass(instance, 'test-div').length.should.eql(0);
   });
 });

@@ -102,4 +102,14 @@ describe('pathStackReducer', function () {
     pathStackReducer([], locationChange('/reporting/123/', true)).should.eql(['/reporting/', '/reporting/123/']);
     pathStackReducer([], locationChange('/faq/123/', true)).should.eql(['/faq/', '/faq/123/']);
   });
+
+  it('should handle backward action', function () {
+    pathStackReducer(['/reporting/', '/reporting/123/', '/officer/123/'], locationChange('/reporting/123/', true))
+      .should.eql(['/reporting/', '/reporting/123/']);
+  });
+
+  it ('should handle forward action', function () {
+    pathStackReducer(['/reporting/', '/reporting/123/'], locationChange('/officer/123/', true))
+      .should.eql(['/reporting/', '/reporting/123/', '/officer/123/']);
+  });
 });

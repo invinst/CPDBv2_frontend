@@ -31,26 +31,21 @@ const isSameEntity = (path1, path2) => {
 export default handleActions({
   '@@router/LOCATION_CHANGE': (state, action) => {
     const pathname = action.payload.pathname.replace(/^\/edit(\/.*)/, '$1');
-    const direction = action.payload.action;
     const lastpath = state[state.length - 1];
 
     if (isBottomSheet(pathname)) {
       if (isSameEntity(pathname, lastpath)) {
         return [...state.slice(0, -1), pathname];
       } else {
-        if (direction === 'POP') {
-          if (lastpath && !isBottomSheet(lastpath)) {
-            return [...state, pathname];
-          } else if (state.length < 2) {
-            // first visit is actually a 'POP' not a 'PUSH' so we need to prepend path here
-            return generatePaths(pathname);
-          }
-          return state.slice(0, -1);
-        } else {
-          if (state.length) {
-            return [...state, pathname];
-          }
+        if (!state.length) {
           return generatePaths(pathname);
+        } else {
+          const indexOfPathName = state.indexOf(pathname);
+          if (indexOfPathName !== -1 && indexOfPathName === state.length - 2) {
+            return state.slice(0, -1);
+          } else {
+            return [...state, pathname];
+          }
         }
       }
     } else {

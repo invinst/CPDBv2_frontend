@@ -32,8 +32,9 @@ export default class App extends React.Component {
     ALPHA_NUMBERIC.map((letter) => (Mousetrap.bind(letter, this.props.toggleSearchMode)));
   }
 
-  componentWillReceiveProps() {
-    if (this.props.children) {
+  componentWillReceiveProps(nextProps) {
+    const { reportId, faqId, officerId } = this.props.params;
+    if (this.props.children && !(reportId || faqId || officerId)) {
       this.prevChildren = this.props.children;
     }
   }
@@ -49,6 +50,7 @@ export default class App extends React.Component {
     if ((reportId || faqId || officerId) && this.prevChildren) {
       return this.prevChildren;
     }
+    this.prevChildren = children;
     return children;
   }
 
