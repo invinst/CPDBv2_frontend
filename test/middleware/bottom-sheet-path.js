@@ -44,7 +44,7 @@ describe('bottomSheetPathMiddleware', function () {
     const store = {
       getState() {
         return {
-          pathStack: ['/foo/', '/bar/']
+          appContent: '/foo/'
         };
       }
     };

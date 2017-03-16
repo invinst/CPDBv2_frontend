@@ -28,9 +28,8 @@ export default store => next => action => {
   }
 
   if (action.type === CLOSE_BOTTOM_SHEET) {
-    const { pathStack } = store.getState();
-    pathStack.pop();
-    pushPathPreserveEditMode(pathStack.pop());
+    const { appContent } = store.getState();
+    pushPathPreserveEditMode(appContent);
   }
   return next(action);
 };

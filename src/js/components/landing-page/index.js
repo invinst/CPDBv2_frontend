@@ -15,7 +15,7 @@ import PropsRerender from 'components/common/higher-order/props-rerender';
 
 
 class LandingPage extends Component {
-  componentDidMount() {
+  componentWillMount() {
     this.props.requestLandingPage(null, this.context.adapter);
   }
 
