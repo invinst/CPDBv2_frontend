@@ -57,13 +57,15 @@ describe('suggestion action', function () {
       const contentType = 'contentType';
       const text = 'text';
       const url = 'url';
+      const to = 'to';
 
-      trackRecentSuggestion(contentType, text, url).should.deepEqual({
+      trackRecentSuggestion(contentType, text, url, to).should.deepEqual({
         type: TRACK_RECENT_SUGGESTION,
         payload: {
           contentType,
           text,
-          url
+          url,
+          to
         }
       });
     });

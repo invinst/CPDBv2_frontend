@@ -24,8 +24,9 @@ export const toggleSearchMode = () => (push({
 
 export const TRACK_RECENT_SUGGESTION = 'TRACK_RECENT_SUGGESTION';
 
-export const trackRecentSuggestion = (contentType, text, url) => createAction(TRACK_RECENT_SUGGESTION)({
+export const trackRecentSuggestion = (contentType, text, url, to) => createAction(TRACK_RECENT_SUGGESTION)({
   contentType,
   text,
+  to,
   url
 });

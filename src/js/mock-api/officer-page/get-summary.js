@@ -1,6 +1,6 @@
 export default () => ({
   'id': 1,
-  'full_name': 'Mr. Foo',
+  'full_name': 'Bernadette Kelly',
   'unit': '001',
   'date_of_appt': '2015-09-23',
   'rank': 'NA',

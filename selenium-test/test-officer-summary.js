@@ -19,6 +19,8 @@ describe('officer summary page', function () {
   });
 
   it('should display officer summary', function () {
+    summaryPage.header.officerName.getText().should.equal('Bernadette Kelly');
+
     summaryPage.summarySection.unitLabel.getText().should.equal('Unit');
     summaryPage.summarySection.unitValue.getText().should.equal('001');
 
