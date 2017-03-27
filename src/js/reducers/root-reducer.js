@@ -11,7 +11,6 @@ import reports from './reports';
 import faqs from './faqs';
 import bottomSheet from './bottom-sheet';
 import officerPage from './officer-page';
-import pathStack from './path-stack';
 
 
 export default combineReducers({
@@ -25,6 +24,5 @@ export default combineReducers({
   faqs,
   bottomSheet,
   routing: routerReducer,
-  officerPage,
-  pathStack
+  officerPage
 });

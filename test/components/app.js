@@ -14,7 +14,7 @@ import React, { Component } from 'react';
 import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
-import SearchPage from 'components/search-page';
+import SearchPageContainer from 'containers/search-page-container';
 import BottomSheetContainer from 'containers/bottom-sheet';
 import MockStore from 'redux-mock-store';
 
@@ -27,6 +27,7 @@ describe('App component', function () {
     adapter: 'adapter',
     reports: { 1: {} },
     faqs: { 1: {} },
+    searchPage: {},
     bottomSheet: {
       officersAutoSuggest: {
         isRequesting: false,
@@ -147,20 +148,20 @@ describe('App component', function () {
     toggleSearchMode.calledOnce.should.be.true();
   });
 
-  it('should not display header if children is a SearchPage', function () {
+  it('should not display header if children is a SearchPageContainer', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <App
           location={ location }
           appContent='/'>
-          <SearchPage/>
+          <SearchPageContainer/>
         </App>
       </Provider>
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--header-logo').length.should.eql(0);
   });
 
-  it('should display header if children is not a SearchPage', function () {
+  it('should display header if children is not a SearchPageContainer', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <App
