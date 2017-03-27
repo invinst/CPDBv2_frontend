@@ -6,7 +6,9 @@ export function innerHeight(el) {
 }
 
 export function disableBodyScroll() {
-  document.body.className += ' noscroll';
+  if (document.body.className.indexOf('noscroll') === -1) {
+    document.body.className += ' noscroll';
+  }
 }
 
 export function enableBodyScroll() {

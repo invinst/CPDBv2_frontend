@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { map } from 'lodash';
 
 import {
-  leftBarStyle, rightBarStyle, wrapperStyle, infoRowStyle, labelStyle, infoRowsStyle, extraPaddingStyle,
-  headerTitleStyle, excerptStyle, contentWrapperStyle, oneColumnStyle, articleLinkWrapperStyle
+  leftBarStyle, rightBarStyle, infoRowStyle, labelStyle, infoRowsStyle, extraPaddingStyle,
+  headerTitleStyle, excerptStyle, oneColumnStyle, articleLinkWrapperStyle, headerStyle
 } from './report.style';
 import EditableSection from 'components/inline-editable/editable-section';
 import StringInput from './string-input';
@@ -15,11 +15,11 @@ import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import OfficerSection from './officer-section';
+import StickyHeader from 'components/common/sticky-header';
 
 
 export class Report extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     this.fetchReport();
   }
 
@@ -106,13 +106,15 @@ export class Report extends Component {
   }
 
   render() {
-    let { className, editToggleProps } = this.props;
+    let { className, editToggleProps, sectionEditModeOn } = this.props;
     className = classNames('report-bottom-sheet', className);
 
     return (
-      <div className={ className } style={ wrapperStyle() }>
-        <BottomSheetHeader editToggleProps={ editToggleProps }/>
-        <div style={ contentWrapperStyle() }>
+      <div className={ className }>
+        <StickyHeader style={ headerStyle(sectionEditModeOn) }>
+          <BottomSheetHeader editToggleProps={ editToggleProps }/>
+        </StickyHeader>
+        <div>
           <ResponsiveFixedWidthComponent>
             <ResponsiveComponent
               extraWideChildren={ this.renderTwoColumns({

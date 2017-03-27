@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { isEmpty, debounce, head, values, keys } from 'lodash';
+import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 
 import SearchResults from './search-results';
@@ -71,16 +72,22 @@ export default class SearchContent extends Component {
     const firstRecord = head(head(values(suggestionGroups)));
     const contentType = head(keys(suggestionGroups));
     let url;
+    let to;
 
     if (firstRecord) {
       const text = firstRecord.payload['result_text'];
       url = firstRecord.payload.url;
-      trackRecentSuggestion(contentType, text, url);
+      to = firstRecord.payload.to;
+      trackRecentSuggestion(contentType, text, url, to);
     } else {
       url = dataToolSearchUrl(value);
     }
 
-    window.location.assign(url);
+    if (to) {
+      browserHistory.push(to);
+    } else {
+      window.location.assign(url);
+    }
   }
 
   renderContent() {

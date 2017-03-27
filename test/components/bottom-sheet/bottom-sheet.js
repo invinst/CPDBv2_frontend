@@ -168,7 +168,7 @@ describe('BottomSheet component', function () {
           <BottomSheet open={ true } content={ { type: BottomSheetContentType.FAQ } } onClose={ onClose }/>
         </Provider>
       );
-      const overlay = findRenderedDOMComponentWithClass(element, 'bottom-sheet__overlay');
+      const overlay = findRenderedDOMComponentWithClass(element, 'test--close-bottom-sheet');
       Simulate.click(overlay);
       onClose.called.should.be.true();
     });

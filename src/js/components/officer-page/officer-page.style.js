@@ -1,4 +1,10 @@
 export const pageWrapperStyle = {
-  height: `${window.innerHeight - 110}px`,
-  scroll: 'auto'
+  minHeight: `${window.innerHeight - 108}px`,
+  scroll: 'auto',
+  boxSizing: 'border-box',
+  paddingBottom: '74px'
+};
+
+export const headerStyle = {
+  backgroundColor: 'white'
 };
