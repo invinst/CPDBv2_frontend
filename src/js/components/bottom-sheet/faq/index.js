@@ -14,8 +14,7 @@ import StickyHeader from 'components/common/sticky-header';
 
 
 class FAQ extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     this.fetchFAQ();
   }
 

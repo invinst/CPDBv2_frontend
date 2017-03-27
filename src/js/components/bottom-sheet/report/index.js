@@ -19,8 +19,7 @@ import StickyHeader from 'components/common/sticky-header';
 
 
 export class Report extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     this.fetchReport();
   }
 

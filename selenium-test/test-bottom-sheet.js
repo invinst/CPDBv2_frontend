@@ -113,26 +113,27 @@ describe('bottom-sheet', function () {
       searchPage.officerBottomSheet.element.waitForVisible();
     });
 
-    it('visit officer directly, click overlay, should see search page', function () {
+    it('should display search page when we visit officer directly, then click overlay', function () {
       browser.url('/officer/1/');
 
       clickOverlay();
       browser.getUrl().should.match(/\/search\/$/);
     });
 
-    it('visit report directly, click officer card, '
-      + 'should see officer page, click overlay, should see report page', function () {
+    it('should display officer page when we visit report directly and then click officer card; ' +
+      'then should close all bottom sheets and back to reporting page then click overlay', function () {
       browser.url('/reporting/1/');
 
       reportingPage.bottomSheet.officerSection.officerCard.element.click();
       browser.getUrl().should.match(/\/officer\/1\/$/);
 
       clickOverlay();
-      browser.getUrl().should.match(/\/reporting\/1\/$/);
+      browser.getUrl().should.match(/\/reporting\/$/);
     });
 
-    it('visit officer, click overlay, should see search page, hit back button, ' +
-       'should see officer, click overlay, should see search page', function () {
+    it('should display search page when we visit officer and click overlay;' +
+      'then should display officer page when hit on back botton;' +
+      'then should display search page again when we click overlay', function () {
       browser.url('/officer/1/');
 
       clickOverlay();

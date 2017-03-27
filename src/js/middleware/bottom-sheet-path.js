@@ -1,6 +1,5 @@
-import { STORIES_PATH, FAQ_PATH } from 'utils/constants';
 import {
-  OPEN_BOTTOM_SHEET_WITH_REPORT, CLOSE_BOTTOM_SHEET, OPEN_BOTTOM_SHEET_TO_CREATE_REPORT,
+  STORIES_PATH, FAQ_PATH, OPEN_BOTTOM_SHEET_WITH_REPORT, CLOSE_BOTTOM_SHEET, OPEN_BOTTOM_SHEET_TO_CREATE_REPORT,
   OPEN_BOTTOM_SHEET_WITH_FAQ, OPEN_BOTTOM_SHEET_TO_CREATE_FAQ, OPEN_BOTTOM_SHEET_WITH_OFFICER
 } from 'utils/constants';
 import { pushPathPreserveEditMode } from 'utils/edit-path';
@@ -29,9 +28,8 @@ export default store => next => action => {
   }
 
   if (action.type === CLOSE_BOTTOM_SHEET) {
-    const { pathStack } = store.getState();
-    pathStack.pop();
-    pushPathPreserveEditMode(pathStack.pop());
+    const { appContent } = store.getState();
+    pushPathPreserveEditMode(appContent);
   }
   return next(action);
 };
