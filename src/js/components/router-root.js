@@ -8,7 +8,7 @@ import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import FAQPage from 'components/faq-page/faq-page';
-import SearchPage from 'components/search-page';
+import SearchPageContainer from 'containers/search-page-container';
 import ReportingPage from 'components/reporting-page';
 import { COLLAB_PATH, FAQ_PATH, STORIES_PATH, SEARCH_PATH, OFFICER_PATH, CR_PATH } from 'utils/constants';
 import configureStore from 'store';
@@ -33,9 +33,9 @@ class RouterRoot extends Component {
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }>
         <Route path={ ':faqId' } component={ FAQPage }/>
       </Route>,
-      <Route path={ OFFICER_PATH } component={ SearchPage } key='5'/>,
-      <Route path={ SEARCH_PATH } component={ SearchPage } key='6'/>,
-      <Route path={ CR_PATH } component={ SearchPage } key='7'/>
+      <Route path={ OFFICER_PATH } component={ SearchPageContainer } key='5'/>,
+      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='6'/>,
+      <Route path={ CR_PATH } component={ SearchPageContainer } key='7'/>
     ];
 
     return (

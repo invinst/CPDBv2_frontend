@@ -4,6 +4,7 @@ import {
   findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { stub, spy } from 'sinon';
+import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 
 import SearchTags from 'components/search-page/search-tags';
@@ -135,6 +136,26 @@ describe('SearchContent component', function () {
     searchComponent.mousetrap.trigger('enter');
     locationAssign.calledWith('url').should.be.true();
     locationAssign.restore();
+  });
+
+  it('should push first result to when user hit ENTER if to is set', function () {
+    stub(browserHistory, 'push');
+    const suggestionGroups = {
+      'OFFICER': [{
+        'payload': {
+          'to': 'to'
+        }
+      }]
+    };
+
+    instance = renderIntoDocument(
+      <SearchContent suggestionGroups={ suggestionGroups } />
+    );
+
+    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
+    searchComponent.mousetrap.trigger('enter');
+    browserHistory.push.calledWith('to').should.be.true();
+    browserHistory.push.restore();
   });
 
   it('should follow the v1 search url user hit ENTER but there\'s no results', function () {
