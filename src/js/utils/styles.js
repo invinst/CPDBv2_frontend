@@ -41,7 +41,6 @@ export const goldenrodColor = '#F69833';
 export const swampGreenColor = '#F0C41B';
 export const hippieGreenColor = '#5D924E';
 export const hardBlackColor = '#1A1818';
-export const orangeColor = 'rgba(255, 95, 0, 0.3)';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';

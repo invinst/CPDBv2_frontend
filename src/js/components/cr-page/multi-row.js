@@ -12,10 +12,10 @@ export default class MultiRow extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <div style={ labelStyle }>{ label }</div>
-        <div style={ contentStyle }>
+        <div className='test--row-label' style={ labelStyle }>{ label }</div>
+        <div className='test--row-content' style={ contentStyle }>
         { map(contents, (content, index) => (
-          <div key={ index } style={ contentRowStyle }>{ content }</div>
+          <div className='test--row-content-item' key={ index } style={ contentRowStyle }>{ content }</div>
         )) }
         </div>
       </div>

@@ -2,11 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import FadeMotion from 'components/animation/fade-motion';
 import Header from './header';
 import StickyHeader from 'components/common/sticky-header';
 import OfficerRow from './officer-row';
 import MultiRow from './multi-row';
-import OutcomeRow from './outcome-row';
+import FindingRow from './finding-row';
 import Row from './row';
 import { wrapperStyle, titleStyle, subtitleStyle, headerStyle, pageWrapperStyle, overlayStyle } from './cr-page.style';
 
@@ -20,6 +21,7 @@ export default class CRPage extends Component {
     };
 
     this.handleToggleCoaccusedDropDown = this.handleToggleCoaccusedDropDown.bind(this);
+    this.renderOverlay = this.renderOverlay.bind(this);
   }
 
   componentWillMount() {
@@ -40,6 +42,13 @@ export default class CRPage extends Component {
     });
   }
 
+  renderOverlay(opacity) {
+    return (
+      <div className='test--cr-overlay'
+        style={ { ...overlayStyle, opacity: opacity } } onClick={ this.handleToggleCoaccusedDropDown }/>
+    );
+  }
+
   render() {
     const {
       crid, coaccused, complainants, officerId, openBottomSheetWithOfficer, openBottomSheetWithComplaint
@@ -58,21 +67,21 @@ export default class CRPage extends Component {
         </StickyHeader>
         <ResponsiveFixedWidthComponent>
           <div style={ pageWrapperStyle }>
-            <div style={ titleStyle }>{ category }</div>
-            <div style={ subtitleStyle }>{ subcategory }</div>
+            <div className='test--cr-category' style={ titleStyle }>{ category }</div>
+            <div className='test--cr-subcategory' style={ subtitleStyle }>{ subcategory }</div>
             <OfficerRow
               fullName={ fullName } race={ race } gender={ gender } officerId={ officerId }
               openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
             <MultiRow label='Complainant' contents={ complainants }/>
-            <OutcomeRow label='Final Finding' content={ finalFinding }/>
+            <FindingRow label='Final Finding' content={ finalFinding }/>
             <Row label='Recommended Outcome' content={ reccOutcome }/>
             <Row label='Final Outcome' content={ finalOutcome }/>
           </div>
         </ResponsiveFixedWidthComponent>
         {
-          displayCoaccusedDropdown
-            ? <div style={ overlayStyle } onClick={ this.handleToggleCoaccusedDropDown }/>
-            : null
+          <FadeMotion show={ displayCoaccusedDropdown } maxOpacity={ .5 }>
+            { this.renderOverlay }
+          </FadeMotion>
         }
       </div>
     );
@@ -95,4 +104,9 @@ CRPage.propTypes = {
   officerId: PropTypes.number,
   openBottomSheetWithComplaint: PropTypes.func,
   fetchCR: PropTypes.func
+};
+
+CRPage.defaultProps = {
+  fetchCR: () => {},
+  coaccused: []
 };

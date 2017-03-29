@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, lightBlackColor, softBlackColor, greyishColor } from 'utils/styles';
+import { sanFranciscoTextFamily, lightBlackColor, softBlackColor } from 'utils/styles';
 
 
 export const boxShadowStyle = {
@@ -20,13 +20,4 @@ export const titleStyle = {
   fontWeight: 500,
   display: 'inline-block',
   float: 'left'
-};
-
-export const moreCoaccusedStyle = {
-  fontSize: '14px',
-  fontWeight: 400,
-  display: 'inline-block',
-  float: 'right',
-  color: greyishColor,
-  cursor: 'pointer'
 };

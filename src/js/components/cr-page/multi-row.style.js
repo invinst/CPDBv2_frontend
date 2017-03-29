@@ -25,5 +25,6 @@ export const contentStyle = {
 export const contentRowStyle = {
   borderBottom: `1px solid ${whiteTwoColor}`,
   padding: '11px 0',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  verticalAlign: 'middle'
 };

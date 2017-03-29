@@ -3,7 +3,7 @@ import { map } from 'lodash';
 
 
 const getCoaccused = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].coaccused;
-export const getComplainants = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].complainants;
+const getComplainants = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].complainants;
 
 const coaccusedToCamelCase = coaccused => {
   return {
@@ -27,7 +27,11 @@ const getComplainantStringSelector = createSelector(
     race = race ? race : 'Unknown';
     gender = gender ? gender : 'Unknown';
 
-    return `${race}, ${gender}, Age ${age}`;
+    if (age) {
+      return `${race}, ${gender}, Age ${age}`;
+    } else {
+      return `${race}, ${gender}`;
+    }
   })
 );
 

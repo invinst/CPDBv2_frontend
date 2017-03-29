@@ -1,6 +1,5 @@
 import { sanFranciscoTextFamily, softBlackColor, greyishColor, mediumGrayColor, whiteTwoColor } from 'utils/styles';
 
-
 export const wrapperStyle = {
   fontFamily: sanFranciscoTextFamily,
   padding: '10px 0',
@@ -8,7 +7,8 @@ export const wrapperStyle = {
   minHeight: '18px',
   textAlign: 'center',
   borderTop: `solid 1px ${whiteTwoColor}`,
-  borderBottom: `solid 1px ${whiteTwoColor}`
+  borderBottom: `solid 1px ${whiteTwoColor}`,
+  verticalAlign: 'middle'
 };
 
 export const labelStyle = {
@@ -17,7 +17,8 @@ export const labelStyle = {
   display: 'inline-block',
   float: 'left',
   width: '175px',
-  textAlign: 'left'
+  textAlign: 'left',
+  verticalAlign: 'middle'
 };
 
 export const officerNameStyle = {
@@ -25,25 +26,14 @@ export const officerNameStyle = {
   color: softBlackColor,
   paddingRight: '16px',
   display: 'inline-block',
-  float: 'left'
+  float: 'left',
+  verticalAlign: 'middle'
 };
 
 export const extraInfoStyle = {
   fontWeight: 400,
   color: mediumGrayColor,
   display: 'inline-block',
-  float: 'left'
-};
-
-export const viewOfficerButtonWrapperStyle = {
-  paddingRight: '19px',
-  fontWeight: 400,
-  color: mediumGrayColor,
-  display: 'inline-block',
-  cursor: 'pointer',
-  float: 'right'
-};
-
-export const rightIndicatorStyle= {
-
+  float: 'left',
+  verticalAlign: 'middle'
 };

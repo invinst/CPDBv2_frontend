@@ -12,9 +12,11 @@ export const labelStyle = {
   fontWeight: 400,
   display: 'inline-block',
   width: '175px',
-  padding: '11px 0'
+  padding: '11px 0',
+  verticalAlign: 'middle'
 };
 
 export const contentStyle = {
-  color: softBlackColor
+  color: softBlackColor,
+  verticalAlign: 'middle'
 };
