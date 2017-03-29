@@ -1,6 +1,9 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithTag, Simulate } from 'react-addons-test-utils';
+import {
+  renderIntoDocument, findRenderedDOMComponentWithTag, Simulate, findRenderedComponentWithType
+} from 'react-addons-test-utils';
 import { spy } from 'sinon';
+import { Link } from 'react-router';
 
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-column/suggestion-item';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -39,6 +42,13 @@ describe('<SuggestionItem/>', function () {
     const suggestionElement = findRenderedDOMComponentWithTag(instance, 'a');
     Simulate.click(suggestionElement);
     suggestionClick.calledWith(contentType, text, url).should.be.true();
+  });
+
+  it('should render Link component when suggestion contain to', function () {
+    instance = renderIntoDocument(
+      <SuggestionItem suggestion={ { payload: { to: 'abc' } } }/>
+    );
+    findRenderedComponentWithType(instance, Link);
   });
 });
 

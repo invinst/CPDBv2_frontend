@@ -43,4 +43,9 @@ describe('Header component', function () {
     compactHeader.props.pathname.should.eql('/faq');
     scryRenderedComponentsWithType(instance, HeaderContent).length.should.eql(1);
   });
+
+  it('should render nothing when show is false', function () {
+    instance = renderIntoDocument(<Header pathname='/' appContent='/' show={ false }/>);
+    instance.should.displayNothing();
+  });
 });

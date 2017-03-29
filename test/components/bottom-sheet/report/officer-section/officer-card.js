@@ -54,4 +54,22 @@ describe('OfficerCard', function () {
     );
     instance.should.be.ok();
   });
+
+  it('should trigger openBottomSheetWithOfficer when click on', function () {
+    const openBottomSheetWithOfficer = spy();
+    instance = renderIntoDocument(
+      <OfficerCard officerId={ 3 } openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
+    );
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--officer-card'));
+    openBottomSheetWithOfficer.calledWith(3).should.be.true();
+  });
+
+  it('should not trigger openBottomSheetWithOfficer in edit mode', function () {
+    const openBottomSheetWithOfficer = spy();
+    instance = renderIntoDocument(
+      <OfficerCard editModeOn={ true } officerId={ 3 } openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
+    );
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--officer-card'));
+    openBottomSheetWithOfficer.called.should.be.false();
+  });
 });

@@ -6,7 +6,17 @@ export default {
         'payload': {
           'result_text': 'Bernadette Kelly',
           'result_extra_information': '7186',
-          'url': 'http://cpdb.lvh.me/officer/7186/bernadette-kelly'
+          'to': '/officer/1/'
+        }
+      }
+    ],
+    'CO-ACCUSED': [
+      {
+        'text': 'Bernadette Kelly',
+        'payload': {
+          'result_text': 'Bernadette Kelly',
+          'result_extra_information': '7186',
+          'to': '/officer/1/'
         }
       }
     ],
