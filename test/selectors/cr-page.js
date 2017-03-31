@@ -67,5 +67,19 @@ describe('CR page selectors', function () {
         subcategory: 'Unknown'
       }]);
     });
+
+    it('should return list of involvements', function () {
+      const involvement = {
+        'involved_type': 'Watch Commander',
+        'officers': [{ 'id': 1, 'abbr_name': 'F. Bar', 'extra_info': 'male, white' }]
+      };
+      const state = { crs: { '123': { involvements: [involvement] } } };
+      const props = { crid: 123 };
+
+      contentSelector(state, props).involvements.should.eql([{
+        involvedType: 'Watch Commander',
+        officers: [{ id: 1, abbrName: 'F. Bar', extraInfo: 'male, white' }]
+      }]);
+    });
   });
 });

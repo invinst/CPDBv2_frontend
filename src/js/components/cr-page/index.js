@@ -9,7 +9,11 @@ import OfficerRow from './officer-row';
 import MultiRow from './multi-row';
 import FindingRow from './finding-row';
 import Row from './row';
-import { wrapperStyle, titleStyle, subtitleStyle, headerStyle, pageWrapperStyle, overlayStyle } from './cr-page.style';
+import Timeline from './timeline';
+import {
+  wrapperStyle, titleStyle, subtitleStyle, headerStyle, summarySectionStyle, overlayStyle, leftColumnStyle,
+  pageWrapperStyle, rightColumnStyle
+} from './cr-page.style';
 
 
 export default class CRPage extends Component {
@@ -51,11 +55,14 @@ export default class CRPage extends Component {
 
   render() {
     const {
-      crid, coaccused, complainants, officerId, openBottomSheetWithOfficer, openBottomSheetWithComplaint
+      crid, coaccused, complainants, officerId, openBottomSheetWithOfficer, openBottomSheetWithComplaint,
+      incidentDate
     } = this.props;
     const { displayCoaccusedDropdown } = this.state;
     const officer = find(coaccused, officer => officer.id === officerId) || {};
-    const { category, subcategory, fullName, race, gender, finalFinding, reccOutcome, finalOutcome } = officer;
+    const {
+      category, subcategory, fullName, race, gender, finalFinding, reccOutcome, finalOutcome, startDate, endDate
+    } = officer;
 
     return (
       <div style={ wrapperStyle }>
@@ -67,22 +74,27 @@ export default class CRPage extends Component {
         </StickyHeader>
         <ResponsiveFixedWidthComponent>
           <div style={ pageWrapperStyle }>
-            <div className='test--cr-category' style={ titleStyle }>{ category }</div>
-            <div className='test--cr-subcategory' style={ subtitleStyle }>{ subcategory }</div>
-            <OfficerRow
-              fullName={ fullName } race={ race } gender={ gender } officerId={ officerId }
-              openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
-            <MultiRow label='Complainant' contents={ complainants }/>
-            <FindingRow label='Final Finding' content={ finalFinding }/>
-            <Row label='Recommended Outcome' content={ reccOutcome }/>
-            <Row label='Final Outcome' content={ finalOutcome }/>
+            <div style={ summarySectionStyle }>
+              <div className='test--cr-category' style={ titleStyle }>{ category }</div>
+              <div className='test--cr-subcategory' style={ subtitleStyle }>{ subcategory }</div>
+              <OfficerRow
+                fullName={ fullName } race={ race } gender={ gender } officerId={ officerId }
+                openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
+              <MultiRow label='Complainant' contents={ complainants }/>
+              <FindingRow label='Final Finding' content={ finalFinding }/>
+              <Row label='Recommended Outcome' content={ reccOutcome }/>
+              <Row label='Final Outcome' content={ finalOutcome }/>
+            </div>
+            <div style={ leftColumnStyle }>
+              <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
+            </div>
+            <div style={ rightColumnStyle }>
+            </div>
           </div>
         </ResponsiveFixedWidthComponent>
-        {
-          <FadeMotion show={ displayCoaccusedDropdown } maxOpacity={ .5 }>
-            { this.renderOverlay }
-          </FadeMotion>
-        }
+        <FadeMotion show={ displayCoaccusedDropdown } maxOpacity={ .5 }>
+          { this.renderOverlay }
+        </FadeMotion>
       </div>
     );
   }
@@ -97,6 +109,7 @@ CRPage.propTypes = {
   finalFinding: PropTypes.string,
   finalOutcome: PropTypes.string,
   recOutcome: PropTypes.string,
+  incidentDate: PropTypes.string,
   openBottomSheetWithOfficer: PropTypes.func,
   race: PropTypes.string,
   fullName: PropTypes.string,

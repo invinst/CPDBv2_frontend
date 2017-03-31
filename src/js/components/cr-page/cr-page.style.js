@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor, whiteTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -11,12 +11,15 @@ export const headerStyle = {
   zIndex: 300
 };
 
+export const summarySectionStyle = {
+  paddingLeft: '16px'
+};
+
 export const pageWrapperStyle = {
-  minHeight: `${window.innerHeight - 108}px`,
-  scroll: 'auto',
   boxSizing: 'border-box',
-  paddingLeft: '16px',
   paddingTop: '30px',
+  scroll: 'auto',
+  minHeight: `${window.innerHeight - 108}px`,
   paddingBottom: '74px'
 };
 
@@ -44,4 +47,17 @@ export const overlayStyle = {
   position: 'absolute',
   opacity: 0.5,
   zIndex: 200
+};
+
+export const leftColumnStyle = {
+  width: '320px',
+  display: 'inline-block',
+  borderRight: `1px solid ${whiteTwoColor}`,
+  paddingLeft: '16px',
+  verticalAlign: 'top'
+};
+
+export const rightColumnStyle = {
+  width: 'calc(100% - 337px)',
+  display: 'inline-block'
 };
