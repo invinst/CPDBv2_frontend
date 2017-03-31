@@ -11,6 +11,7 @@ import OfficerRow from 'components/cr-page/officer-row';
 import MultiRow from 'components/cr-page/multi-row';
 import FindingRow from 'components/cr-page/finding-row';
 import Row from 'components/cr-page/row';
+import Location from 'components/cr-page/location';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 
 
@@ -21,7 +22,7 @@ describe('CRPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render header, officer, complainants, final finding, recommended outcome and final outcome', function () {
+  it('should render complaint and officer information', function () {
     instance = renderIntoDocument(<CRPage coaccused={ [{ id: 1, fullName: 'Foo' }] }/>);
 
     scryRenderedComponentsWithType(instance, StickyHeader).should.have.length(1);
@@ -29,6 +30,7 @@ describe('CRPage component', function () {
     scryRenderedComponentsWithType(instance, MultiRow).should.have.length(1);
     scryRenderedComponentsWithType(instance, FindingRow).should.have.length(1);
     scryRenderedComponentsWithType(instance, Row).should.have.length(2);
+    scryRenderedComponentsWithType(instance, Location).should.have.length(1);
   });
 
   it('should trigger fetchCR on initial', function () {
