@@ -11,6 +11,7 @@ import FindingRow from './finding-row';
 import Row from './row';
 import Timeline from './timeline';
 import Location from './location';
+import Involvement from './involvement';
 import {
   wrapperStyle, titleStyle, subtitleStyle, headerStyle, summarySectionStyle, overlayStyle, leftColumnStyle,
   pageWrapperStyle, rightColumnStyle
@@ -57,7 +58,7 @@ export default class CRPage extends Component {
   render() {
     const {
       crid, coaccused, complainants, officerId, openBottomSheetWithOfficer, openBottomSheetWithComplaint,
-      incidentDate, point, address, location, beat
+      incidentDate, point, address, location, beat, involvements
     } = this.props;
     const { displayCoaccusedDropdown } = this.state;
     const officer = find(coaccused, officer => officer.id === officerId) || {};
@@ -88,6 +89,7 @@ export default class CRPage extends Component {
             </div>
             <div style={ leftColumnStyle }>
               <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
+              <Involvement involvements={ involvements } openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
             </div>
             <div style={ rightColumnStyle }>
               <Location point={ point } address={ address } location={ location } beat={ beat }/>
@@ -121,6 +123,7 @@ CRPage.propTypes = {
   address: PropTypes.string,
   location: PropTypes.string,
   beat: PropTypes.object,
+  involvements: PropTypes.array,
   openBottomSheetWithComplaint: PropTypes.func,
   fetchCR: PropTypes.func
 };
