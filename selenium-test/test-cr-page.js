@@ -93,4 +93,17 @@ describe('CR page', function () {
     summaryPage.header.officerName.waitForVisible();
   });
 
+  it('should display list of involvements', function () {
+    crPage.involvementSection.firstInvolvementType.getText().should.equal('investigator');
+    crPage.involvementSection.secondInvolvementType.getText().should.equal('police witnesses');
+    crPage.involvementSection.firstOfficer.getText().should.containEql('L. Skol');
+    crPage.involvementSection.firstOfficer.getText().should.containEql('126 cases');
+    crPage.involvementSection.secondOfficer.getText().should.containEql('R. Piwinicki');
+    crPage.involvementSection.secondOfficer.getText().should.containEql('male, white');
+  });
+
+  it('should navigate to officer page when we click on officer card', function () {
+    crPage.involvementSection.firstOfficer.click();
+    browser.getUrl().should.match(/\/officer\/1\/$/);
+  });
 });

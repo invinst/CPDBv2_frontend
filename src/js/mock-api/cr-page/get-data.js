@@ -55,10 +55,6 @@ export default () => ({
       'id': 2,
       'abbr_name': 'R. Piwinicki',
       'extra_info': 'male, white'
-    }, {
-      'id': 3,
-      'abbr_name': 'J. Ipsum',
-      'extra_info': 'male, black'
     }]
   }]
 });

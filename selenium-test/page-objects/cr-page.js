@@ -59,9 +59,23 @@ class InfoSection extends Section {
   }
 }
 
+class InvolvementSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      firstInvolvementType: '(//*[@class="test--involvement-type"])[1]',
+      firstOfficer: '(//*[@class="test--officer-row"])[1]',
+      secondInvolvementType: '(//*[@class="test--involvement-type"])[2]',
+      secondOfficer: '(//*[@class="test--officer-row"])[2]'
+    });
+  }
+}
+
 class CRPage extends Page {
   header = new Header()
   infoSection = new InfoSection();
+  involvementSection = new InvolvementSection();
 
   constructor() {
     super();

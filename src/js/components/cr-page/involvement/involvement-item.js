@@ -11,7 +11,7 @@ export default class InvolvementItem extends Component {
 
     return (
       <div style={ { ...wrapperStyle, ...style } }>
-        <div style={ headerStyle }>{ involvedType }</div>
+        <div className='test--involvement-type' style={ headerStyle }>{ involvedType }</div>
         <div>
           {
             map(officers, ({ id, abbrName, extraInfo }, index) => (
