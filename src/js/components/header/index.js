@@ -10,7 +10,11 @@ import CompactHeader from 'components/header/compact-header';
 
 class Header extends Component {
   render() {
-    const { pathname, appContent } = this.props;
+    const { pathname, appContent, show } = this.props;
+    if (!show) {
+      return null;
+    }
+
     const isAtLandingPage = ROOT_EDIT_REGEX.test(appContent);
     return (
       <div>
@@ -26,7 +30,12 @@ class Header extends Component {
 
 Header.propTypes = {
   pathname: PropTypes.string,
+  show: PropTypes.bool,
   appContent: PropTypes.string
+};
+
+Header.defaultProps = {
+  show: true
 };
 
 export default PropsStateRerender(ConfiguredRadium(Header));

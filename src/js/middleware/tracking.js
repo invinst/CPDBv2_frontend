@@ -1,7 +1,7 @@
 import {
   OPEN_BOTTOM_SHEET_WITH_REPORT,
   OPEN_BOTTOM_SHEET_WITH_FAQ
-} from 'actions/bottom-sheet';
+} from 'utils/constants';
 import { EXPAND_FAQ } from 'actions/faq-page/index';
 import { trackIntercomClickedFaqEvent, trackIntercomClickedReportEvent, trackInternalEvent } from 'utils/tracking';
 import { getField, plainTextValueToString, multilineTextValueToArray } from 'utils/draft';

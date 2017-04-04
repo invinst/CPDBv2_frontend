@@ -9,6 +9,8 @@ import appContent from './app-content';
 import reportingPage from './reporting-page';
 import reports from './reports';
 import faqs from './faqs';
+import bottomSheet from './bottom-sheet';
+import officerPage from './officer-page';
 
 
 export default combineReducers({
@@ -20,5 +22,7 @@ export default combineReducers({
   reportingPage,
   reports,
   faqs,
-  routing: routerReducer
+  bottomSheet,
+  routing: routerReducer,
+  officerPage
 });

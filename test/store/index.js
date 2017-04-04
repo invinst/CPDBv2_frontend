@@ -58,6 +58,7 @@ describe('store', function () {
       },
       faqPage: {
         isRequesting: false,
+        faqsRequested: false,
         faqForm: {
           isSubmitting: false
         }
@@ -83,6 +84,12 @@ describe('store', function () {
           count: 0
         }
       },
+      bottomSheet: {
+        officersAutoSuggest: {
+          isRequesting: false,
+          officers: []
+        }
+      },
       reports: {},
       faqs: {},
       routing: {
@@ -94,6 +101,13 @@ describe('store', function () {
         contentType: null,
         recentSuggestions: [],
         tags: []
+      },
+      officerPage: {
+        complaintFacets: [],
+        complaintsCount: 0,
+        fullName: '',
+        isRequesting: false,
+        summary: {}
       }
     });
   });

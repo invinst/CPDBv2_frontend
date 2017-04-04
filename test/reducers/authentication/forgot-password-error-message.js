@@ -3,9 +3,8 @@ import { each } from 'lodash';
 
 import authenticationForgotPasswordErrorMessage from 'reducers/authentication/forgot-password-error-message';
 import {
-  RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, CLOSE_SIGNIN_MODAL,
-  RESET_PASSWORD_REQUEST
-} from 'actions/authentication';
+  RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, RESET_PASSWORD_REQUEST
+} from 'utils/constants';
 
 
 describe('authenticationForgotPasswordErrorMessage reducer', function () {
@@ -21,8 +20,8 @@ describe('authenticationForgotPasswordErrorMessage reducer', function () {
     }).should.eql(message);
   });
 
-  it('should return null on RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST, CLOSE_SIGNIN_MODAL', function () {
-    each([RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST, CLOSE_SIGNIN_MODAL], (type) => {
+  it('should return null on RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST', function () {
+    each([RESET_PASSWORD_SUCCESS, RESET_PASSWORD_REQUEST], (type) => {
       should(authenticationForgotPasswordErrorMessage(undefined, {
         type: type
       })).be.null();
