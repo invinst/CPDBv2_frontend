@@ -4,12 +4,14 @@ import React from 'react';
 import { requestFAQs, updateOrder, updateFAQ } from 'actions/faq-page';
 import { openBottomSheetWithFAQ, openBottomSheetToCreateFAQ } from 'actions/bottom-sheet';
 import { expandFAQ } from 'actions/faq-page/index';
-import { faqsSelector } from 'selectors/faq-page/faqs-selector';
-import DroppableFAQListSection from 'components/faq-page/droppable-faq-list-section';
+import { faqsSelector, faqsRequested } from 'selectors/faq-page/faqs-selector';
+import FAQListWrapper from 'components/faq-page/faq-list-wrapper';
 
 function mapStateToProps(state, ownProps) {
   return {
-    faqs: faqsSelector(state)
+    faqs: faqsSelector(state),
+    requested: faqsRequested(state),
+    editModeOn: ownProps.editModeOn
   };
 }
 
@@ -22,4 +24,4 @@ const mapDispatchToProps = {
   updateFAQ
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DroppableFAQListSection);
+export default connect(mapStateToProps, mapDispatchToProps)(FAQListWrapper);

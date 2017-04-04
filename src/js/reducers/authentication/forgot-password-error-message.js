@@ -1,9 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-import {
-  RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE,
-  RESET_PASSWORD_REQUEST
-} from 'actions/authentication';
+import { RESET_PASSWORD_SUCCESS, RESET_PASSWORD_FAILURE, RESET_PASSWORD_REQUEST } from 'utils/constants';
 
 
 export default handleActions({

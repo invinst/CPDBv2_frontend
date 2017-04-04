@@ -6,25 +6,28 @@ import landingPage from './page-objects/landing-page';
 
 
 describe('Login screen', function () {
+
   beforeEach(function () {
     landingPage.open();
-    browser.keys('Escape');
+    landingPage.toggleEditMode(false);
   });
 
   describe('login button', function () {
     it('should do nothing when clicked on if username and password are not filled in', function () {
+      landingPage.loginScreen.loginButton.waitForVisible();
       landingPage.loginScreen.loginButton.click();
-      browser.pause(2000);
       landingPage.loginScreen.loginModal.waitForVisible();
     });
 
     it('should hide login screen when clicked on if logged-in successfully', function () {
+      landingPage.loginScreen.loginModal.waitForVisible();
       landingPage.loginScreen.enterCredentials('username', 'password');
       landingPage.loginScreen.loginButton.click();
       landingPage.loginScreen.loginModal.waitForExist(2000, true);
     });
 
     it('should show error message when clicked on if there is an error', function () {
+      landingPage.loginScreen.loginModal.waitForVisible();
       landingPage.loginScreen.enterCredentials('badname', 'badpassword');
       landingPage.loginScreen.loginButton.click();
 
@@ -37,15 +40,17 @@ describe('Login screen', function () {
 
   describe('reset password link', function () {
     it('should show reset password modal when clicked on', function () {
+      landingPage.loginScreen.forgotPasswordButton.waitForVisible();
       landingPage.loginScreen.forgotPasswordButton.click();
-      landingPage.loginScreen.forgotPasswordModal.waitForVisible(2000);
+      landingPage.loginScreen.forgotPasswordModal.waitForVisible();
     });
   });
 
   describe('reset password modal', function () {
     beforeEach(function () {
+      landingPage.loginScreen.forgotPasswordButton.waitForVisible();
       landingPage.loginScreen.forgotPasswordButton.click();
-      landingPage.loginScreen.forgotPasswordModal.waitForVisible(2000);
+      landingPage.loginScreen.forgotPasswordModal.waitForVisible();
     });
 
     describe('reset password button', function () {

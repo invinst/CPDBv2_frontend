@@ -1,3 +1,6 @@
+import Enum from 'enum';
+
+
 export const TOP = 'top';
 export const BOTTOM = 'bottom';
 
@@ -18,6 +21,7 @@ export const DATA_PATH = 'data/';
 export const FAQ_PATH = 'faq/';
 export const STORIES_PATH = 'reporting/';
 export const SEARCH_PATH = 'search/';
+export const OFFICER_PATH = 'officer/:officerId';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
@@ -61,6 +65,8 @@ export const REPORTS_API_URL = `${V2_ROOT_PATH}reports/`;
 export const FAQS_API_URL = `${V2_ROOT_PATH}faqs/`;
 export const MAIL_CHIMP_URL = '/vftg/';
 export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
+export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
+export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -86,7 +92,38 @@ export const BULK_UPDATE_FAQS_START = 'BULK_UPDATE_FAQS_START';
 export const BULK_UPDATE_FAQS_SUCCESS = 'BULK_UPDATE_FAQS_SUCCESS';
 export const BULK_UPDATE_FAQS_FAILURE = 'BULK_UPDATE_FAQS_FAILURE';
 
+export const SEARCH_OFFICERS_REQUEST_START = 'SEARCH_OFFICERS_REQUEST_START';
+export const SEARCH_OFFICERS_REQUEST_SUCCESS = 'SEARCH_OFFICERS_REQUEST_SUCCESS';
+export const SEARCH_OFFICERS_REQUEST_FAILURE = 'SEARCH_OFFICERS_REQUEST_FAILURE';
+
+export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
+export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
+export const OFFICER_SUMMARY_REQUEST_FAILURE = 'OFFICER_SUMMARY_REQUEST_FAILURE';
+
+export const OPEN_BOTTOM_SHEET_WITH_REPORT = 'OPEN_BOTTOM_SHEET_WITH_REPORT';
+export const OPEN_BOTTOM_SHEET_WITH_FAQ = 'OPEN_BOTTOM_SHEET_WITH_FAQ';
+export const OPEN_BOTTOM_SHEET_WITH_OFFICER = 'OPEN_BOTTOM_SHEET_WITH_OFFICER';
+export const CLOSE_BOTTOM_SHEET = 'CLOSE_BOTTOM_SHEET';
+export const OPEN_BOTTOM_SHEET_TO_CREATE_FAQ = 'OPEN_BOTTOM_SHEET_TO_CREATE_FAQ';
+export const OPEN_BOTTOM_SHEET_TO_CREATE_REPORT = 'OPEN_BOTTOM_SHEET_TO_CREATE_REPORT';
+
 export const ALPHA_NUMBERIC = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
                                'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
                                'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
                                'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+export const SIGNIN_REQUEST = 'SIGNIN_REQUEST';
+export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
+export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';
+
+export const RESET_PASSWORD_REQUEST = 'RESET_PASSWORD_REQUEST';
+export const RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS';
+export const RESET_PASSWORD_FAILURE = 'RESET_PASSWORD_FAILURE';
+
+export const OPEN_FORGOT_PASSWORD_MODAL = 'OPEN_FORGOT_PASSWORD_MODAL';
+export const CLOSE_FORGOT_PASSWORD_MODAL = 'CLOSE_FORGOT_PASSWORD_MODAL';
+export const RECEIVE_TOKEN_FROM_COOKIE = 'RECEIVE_TOKEN_FROM_COOKIE';
+
+export const LOG_OUT = 'LOG_OUT';
+
+export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER']);

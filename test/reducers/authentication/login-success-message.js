@@ -3,9 +3,8 @@ import { each } from 'lodash';
 
 import authenticationLoginSuccessMessage from 'reducers/authentication/login-success-message';
 import {
-  RESET_PASSWORD_SUCCESS, SIGNIN_REQUEST_SUCCESS, CLOSE_SIGNIN_MODAL, SIGNIN_REQUEST,
-  SIGNIN_REQUEST_FAILURE
-} from 'actions/authentication';
+  SIGNIN_REQUEST, RESET_PASSWORD_SUCCESS, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE
+} from 'utils/constants';
 
 
 describe('authenticationLoginSuccessMessage reducer', function () {
@@ -23,7 +22,7 @@ describe('authenticationLoginSuccessMessage reducer', function () {
 
   it('should return null on a bunch of actions', function () {
     each(
-      [SIGNIN_REQUEST, SIGNIN_REQUEST_SUCCESS, CLOSE_SIGNIN_MODAL, SIGNIN_REQUEST_FAILURE],
+      [SIGNIN_REQUEST, SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE],
       (type) => {
         should(authenticationLoginSuccessMessage(undefined, {
           type: type

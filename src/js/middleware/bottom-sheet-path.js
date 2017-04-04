@@ -1,8 +1,7 @@
-import { STORIES_PATH, FAQ_PATH } from 'utils/constants';
 import {
-  OPEN_BOTTOM_SHEET_WITH_REPORT, CLOSE_BOTTOM_SHEET, OPEN_BOTTOM_SHEET_TO_CREATE_REPORT,
-  OPEN_BOTTOM_SHEET_WITH_FAQ, OPEN_BOTTOM_SHEET_TO_CREATE_FAQ
-} from 'actions/bottom-sheet';
+  STORIES_PATH, FAQ_PATH, OPEN_BOTTOM_SHEET_WITH_REPORT, CLOSE_BOTTOM_SHEET, OPEN_BOTTOM_SHEET_TO_CREATE_REPORT,
+  OPEN_BOTTOM_SHEET_WITH_FAQ, OPEN_BOTTOM_SHEET_TO_CREATE_FAQ, OPEN_BOTTOM_SHEET_WITH_OFFICER
+} from 'utils/constants';
 import { pushPathPreserveEditMode } from 'utils/edit-path';
 
 
@@ -22,6 +21,10 @@ export default store => next => action => {
 
   if (action.type === OPEN_BOTTOM_SHEET_TO_CREATE_FAQ) {
     pushPathPreserveEditMode(`/${FAQ_PATH}new/`);
+  }
+
+  if (action.type === OPEN_BOTTOM_SHEET_WITH_OFFICER) {
+    pushPathPreserveEditMode(`/officer/${action.payload}/`);
   }
 
   if (action.type === CLOSE_BOTTOM_SHEET) {

@@ -34,4 +34,8 @@ StringInput.propTypes = {
   editModeOn: PropTypes.bool
 };
 
+StringInput.defaultProps = {
+  value: ''
+};
+
 export default StringInput;

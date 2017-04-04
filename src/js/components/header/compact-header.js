@@ -36,16 +36,23 @@ export default class CompactHeader extends Component {
     return (this.state.show || this.props.show);
   }
 
+  renderHeader(pathname, top) {
+    return (
+      <div style={ { top: `${top * -88}px`, ...compactHeaderWrapperStyle } }>
+        <HeaderContent compact={ true } pathname={ pathname }/>
+      </div>
+    );
+  }
+
   render() {
     const { pathname } = this.props;
+    if (global.disableAnimation) {
+      return this.renderHeader(pathname, this.show() ? 0 : 1);
+    }
     return (
       <Motion defaultStyle={ this.show() ? { top: 0 }: { top: 1 } }
         style={ this.show() ? { top: spring(0, faster()) } : { top: spring(1, faster()) } }>
-      { interpolatingStyle => (
-        <div style={ { top: `${interpolatingStyle.top * -88}px`, ...compactHeaderWrapperStyle } }>
-          <HeaderContent compact={ true } pathname={ pathname }/>
-        </div>
-      ) }
+        { interpolatingStyle => this.renderHeader(pathname, interpolatingStyle.top) }
       </Motion>
     );
   }

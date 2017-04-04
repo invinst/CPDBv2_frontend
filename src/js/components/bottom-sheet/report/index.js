@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
+import { map } from 'lodash';
 
 import {
-  leftBarStyle, rightBarStyle, wrapperStyle, infoRowStyle, labelStyle, infoRowsStyle, extraPaddingStyle,
-  headerTitleStyle, excerptStyle, contentWrapperStyle, oneColumnStyle, articleLinkWrapperStyle
+  leftBarStyle, rightBarStyle, infoRowStyle, labelStyle, infoRowsStyle, extraPaddingStyle,
+  headerTitleStyle, excerptStyle, oneColumnStyle, articleLinkWrapperStyle, headerStyle
 } from './report.style';
 import EditableSection from 'components/inline-editable/editable-section';
 import StringInput from './string-input';
@@ -13,11 +14,12 @@ import ResponsiveComponent from 'components/responsive/responsive-component';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
+import OfficerSection from './officer-section';
+import StickyHeader from 'components/common/sticky-header';
 
 
 export class Report extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
     this.fetchReport();
   }
 
@@ -29,24 +31,28 @@ export class Report extends Component {
   }
 
   renderInfoRows(style) {
-    const { fieldProps } = this.props;
+    const { fieldProps, searchOfficers, officerSearchResult, openBottomSheetWithOfficer } = this.props;
+    const fields = [
+      { label: 'Publication', element: <StringInput { ...fieldProps['publication'] }/> },
+      { label: 'Publish Date', element: <DatePickerInput { ...fieldProps['publish_date'] }/> },
+      { label: 'Author', element: <StringInput { ...fieldProps['author'] }/> }
+    ];
+
     return (
-      <div style={ infoRowsStyle }>
-        <div style={ infoRowStyle }>
-          <span style={ style.label }>Publication</span>
-          <StringInput
-            { ...fieldProps['publication'] }/>
+      <div>
+        <div style={ infoRowsStyle }>
+          { map(fields, ({ label, element }, ind) => (
+            <div key={ ind } style={ infoRowStyle }>
+              <span style={ style.label }>{ label }</span>
+              { element }
+            </div>
+          )) }
         </div>
-        <div style={ infoRowStyle }>
-          <span style={ style.label }>Publish Date</span>
-          <DatePickerInput
-            { ...fieldProps['publish_date'] }/>
-        </div>
-        <div style={ infoRowStyle }>
-          <span style={ style.label }>Author</span>
-          <StringInput
-            { ...fieldProps['author'] }/>
-        </div>
+        <OfficerSection
+          { ...fieldProps['officers'] }
+          officerSearchResult={ officerSearchResult }
+          openBottomSheetWithOfficer={ openBottomSheetWithOfficer }
+          searchOfficers={ searchOfficers }/>
       </div>
     );
   }
@@ -100,13 +106,15 @@ export class Report extends Component {
   }
 
   render() {
-    let { className, editToggleProps } = this.props;
+    let { className, editToggleProps, sectionEditModeOn } = this.props;
     className = classNames('report-bottom-sheet', className);
 
     return (
-      <div className={ className } style={ wrapperStyle() }>
-        <BottomSheetHeader editToggleProps={ editToggleProps }/>
-        <div style={ contentWrapperStyle() }>
+      <div className={ className }>
+        <StickyHeader style={ headerStyle(sectionEditModeOn) }>
+          <BottomSheetHeader editToggleProps={ editToggleProps }/>
+        </StickyHeader>
+        <div>
           <ResponsiveFixedWidthComponent>
             <ResponsiveComponent
               extraWideChildren={ this.renderTwoColumns({
@@ -137,7 +145,10 @@ Report.propTypes = {
   sectionEditModeOn: PropTypes.bool,
   fields: PropTypes.object,
   fetchReport: PropTypes.func,
-  reportId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  reportId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  searchOfficers: PropTypes.func,
+  openBottomSheetWithOfficer: PropTypes.func,
+  officerSearchResult: PropTypes.array
 };
 
 export default EditableSection(Report);

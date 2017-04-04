@@ -6,6 +6,7 @@ import faqPage from './page-objects/faq-page';
 
 
 describe('FAQ page', function () {
+
   beforeEach(function () {
     faqPage.open();
   });
