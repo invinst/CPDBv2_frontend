@@ -21,6 +21,7 @@ export const abbrNameStyle = hovering => ({
 export const extraInfoStyle = hovering => ({
   fontWeight: 400,
   color: hovering ? accentColor : mediumGrayColor,
+  opacity: hovering ? 0.5 : 1,
   display: 'inline-block'
 });
 
