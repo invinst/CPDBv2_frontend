@@ -56,6 +56,14 @@ class OfficerSummaryPage extends Page {
   summarySection = new SummarySection();
   aggregateSection = new AggregateSection();
 
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      element: '.test--bottom-sheet-wrapper'
+    });
+  }
+
   open() {
     super.open('/officer/1/');
     browser.element('body').waitForVisible();

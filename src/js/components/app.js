@@ -2,12 +2,12 @@ import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
 import React, { PropTypes } from 'react';
 
-import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
 import { getMockAdapter } from 'mock-api';
 import BottomSheetContainer from 'containers/bottom-sheet';
 import EditModeContainer from 'containers/inline-editable/edit-mode-container';
 import Header from 'components/header';
 import LoginModalContainer from 'containers/login-modal-container';
+import SearchPageContainer from 'containers/search-page-container';
 import RouteTransition from 'components/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
@@ -35,8 +35,9 @@ export default class App extends React.Component {
     receiveTokenFromCookie();
   }
 
-  componentWillReceiveProps() {
-    if (this.props.children) {
+  componentWillReceiveProps(nextProps) {
+    const { reportId, faqId, officerId } = this.props.params;
+    if (this.props.children && !(reportId || faqId || officerId)) {
       this.prevChildren = this.props.children;
     }
   }
@@ -48,36 +49,32 @@ export default class App extends React.Component {
 
   children() {
     const { children, params } = this.props;
-    if ((params.reportId || params.faqId) && this.prevChildren) {
+    const { reportId, faqId, officerId } = params;
+    if ((reportId || faqId || officerId) && this.prevChildren) {
       return this.prevChildren;
     }
+    this.prevChildren = children;
     return children;
   }
 
-  bottomSheetContent() {
-    const { params } = this.props;
-    const { reportId, faqId } = params;
-    if (reportId) {
-      return { id: reportId, type: REPORT_TYPE };
-    }
-    if (faqId) {
-      return { id: faqId, type: FAQ_TYPE };
-    }
-    return null;
+  showHeader(children) {
+    return (!children || [SearchPageContainer].indexOf(children.type) === -1);
   }
 
   render() {
-    const { location, appContent } = this.props;
+    const { location, appContent, params } = this.props;
     const { pathname } = location;
+    const children = this.children();
+    const showHeader = this.showHeader(children);
 
     return (
       <StyleRoot>
         <EditModeContainer location={ location }>
-          <Header pathname={ pathname } appContent={ appContent }/>
+          <Header pathname={ pathname } appContent={ appContent } show={ showHeader }/>
           <RouteTransition pathname={ appContent }>
             { this.children() }
           </RouteTransition>
-          <BottomSheetContainer content={ this.bottomSheetContent() }/>
+          <BottomSheetContainer params={ params } location={ location }/>
           <LoginModalContainer location={ location }/>
         </EditModeContainer>
       </StyleRoot>

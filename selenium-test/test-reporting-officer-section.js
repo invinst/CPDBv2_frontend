@@ -28,13 +28,13 @@ describe('bottom-sheet', function () {
       reportingPage.bottomSheet.officerSection.officerCard.removeButton.waitForVisible(20000, true);
     });
 
-    it('should navigate to officer v1Url when we click on officer card', function () {
+    it('should navigate to officer page when we click on officer card', function () {
       reportingPage.reportingSection.report.waitForVisible();
       reportingPage.reportingSection.report.click();
 
       reportingPage.bottomSheet.officerSection.officerCard.element.waitForVisible();
       reportingPage.bottomSheet.officerSection.officerCard.element.click();
-      browser.getUrl().should.be.equal('https://foo.bar/officer/kevin-keel/3749');
+      browser.getUrl().should.match(/.+\/officer\/1\/$/);
     });
   });
 

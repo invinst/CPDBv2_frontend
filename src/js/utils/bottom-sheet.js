@@ -8,3 +8,7 @@ export function isReportBottomSheetPath(path) {
 export function isFAQBottomSheetPath(path) {
   return !!path.match(new RegExp(`(\/edit)?/${FAQ_PATH}(\\d+|new)`));
 }
+
+export function isOfficerBottomSheetPath(path) {
+  return !!path.match(/^(\/edit)?\/officer\/(\d+)\/(timeline\/)?/);
+}

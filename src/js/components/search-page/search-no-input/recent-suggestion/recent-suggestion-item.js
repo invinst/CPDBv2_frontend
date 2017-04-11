@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import S from 'string';
+import { Link } from 'react-router';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import { suggestionItemStyle, metaTextStyle, suggestionTextStyle } from './recent-suggestion-item.style.js';
@@ -9,13 +10,25 @@ class RecentSuggestionItem extends Component {
   render() {
     const { entry, hovering } = this.props;
 
+    const children = [
+      <span className='link--transition' style={ metaTextStyle(hovering) } key='meta'>
+        { S(entry.contentType).capitalize().s }
+      </span>,
+      <span className='link--transition' style={ suggestionTextStyle(hovering) } key='suggestion'>
+        { entry.text }
+      </span>
+    ];
+    const wrapperProps = {
+      style: suggestionItemStyle
+    };
+
+    if (entry.to) {
+      return (
+        <Link to={ entry.to } { ...wrapperProps }>{ children }</Link>
+      );
+    }
     return (
-      <a href={ entry.url } style={ suggestionItemStyle }>
-        <span className='link--transition' style={ metaTextStyle(hovering) }>
-          { S(entry.contentType).capitalize().s }
-        </span>
-        <span className='link--transition' style={ suggestionTextStyle(hovering) } >{ entry.text }</span>
-      </a>
+      <a href={ entry.url } style={ suggestionItemStyle }>{ children }</a>
     );
   }
 }
