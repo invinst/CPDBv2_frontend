@@ -1,4 +1,4 @@
-import { mediumGrayColor, hardBlackColor, whiteTwoColor } from 'utils/styles';
+import { mediumGrayColor, hardBlackColor, whiteTwoColor, brightOrangeTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -32,10 +32,18 @@ export const entryStyle = {
 export const countStyle = {
   color: hardBlackColor,
   display: 'inline-block',
-  width: '38px'
+  width: '32px'
 };
+
+export const sustainedCountStyle = sustainedCount => ({
+  color: brightOrangeTwoColor,
+  opacity: sustainedCount === 0 ? 0.36 : 1,
+  display: 'inline-block',
+  width: '32px'
+});
 
 export const nameStyle = {
   color: mediumGrayColor,
+  fontWeight: 300,
   display: 'inline-block'
 };

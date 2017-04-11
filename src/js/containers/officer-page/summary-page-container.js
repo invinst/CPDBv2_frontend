@@ -3,14 +3,17 @@ import React from 'react';
 
 import SummaryPage from 'components/officer-page/summary-page';
 import { fetchOfficerSummary } from 'actions/officer-page';
-import { summarySelector, getComplaintsCount, getComplaintFacets } from 'selectors/officer-page';
+import {
+  summarySelector, getComplaintsCount, getSustainedCount, getComplaintFacetsSelector
+} from 'selectors/officer-page';
 
 
 function mapStateToProps(state, ownProps) {
   return {
     officerSummary: summarySelector(state),
     complaintsCount: getComplaintsCount(state),
-    complaintFacets: getComplaintFacets(state),
+    sustainedCount: getSustainedCount(state),
+    complaintFacets: getComplaintFacetsSelector(state),
     offficerId: ownProps.offficerId
   };
 }
