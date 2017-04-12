@@ -56,7 +56,6 @@ export const leftColumnStyle = {
   width: '320px',
   display: 'inline-block',
   borderRight: `1px solid ${whiteTwoColor}`,
-  paddingLeft: '16px',
   verticalAlign: 'top'
 };
 

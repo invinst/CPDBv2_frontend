@@ -8,7 +8,7 @@ export const wrapperStyle = {
 
 export const headerStyle = {
   padding: '11px 0 2px 16px',
-  fontWeight: 400,
+  fontWeight: 300,
   color: mediumGrayColor
 };
 
