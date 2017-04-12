@@ -14,7 +14,7 @@ import Location from './location';
 import Involvement from './involvement';
 import {
   wrapperStyle, titleStyle, subtitleStyle, headerStyle, summarySectionStyle, overlayStyle, leftColumnStyle,
-  pageWrapperStyle, rightColumnStyle
+  pageWrapperStyle, rightColumnStyle, headerWrapperStyle
 } from './cr-page.style';
 
 
@@ -68,12 +68,14 @@ export default class CRPage extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <StickyHeader style={ headerStyle }>
-          <Header crid={ crid } coaccused={ coaccused } officerId={ officerId }
-            displayCoaccusedDropdown={ displayCoaccusedDropdown }
-            openBottomSheetWithComplaint={ openBottomSheetWithComplaint }
-            onDropDownButtonClick={ this.handleToggleCoaccusedDropDown }/>
-        </StickyHeader>
+        <div style={ headerWrapperStyle }>
+          <StickyHeader style={ headerStyle }>
+            <Header crid={ crid } coaccused={ coaccused } officerId={ officerId }
+              displayCoaccusedDropdown={ displayCoaccusedDropdown }
+              openBottomSheetWithComplaint={ openBottomSheetWithComplaint }
+              onDropDownButtonClick={ this.handleToggleCoaccusedDropDown }/>
+          </StickyHeader>
+        </div>
         <ResponsiveFixedWidthComponent>
           <div style={ pageWrapperStyle }>
             <div style={ summarySectionStyle }>

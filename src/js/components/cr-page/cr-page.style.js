@@ -6,7 +6,10 @@ export const wrapperStyle = {
 };
 
 export const headerStyle = {
-  backgroundColor: 'white',
+  backgroundColor: 'white'
+};
+
+export const headerWrapperStyle = {
   position: 'relative',
   zIndex: 300
 };
