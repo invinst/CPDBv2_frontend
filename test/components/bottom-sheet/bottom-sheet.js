@@ -14,22 +14,25 @@ import BottomSheet from 'components/bottom-sheet';
 import { unmountComponentSuppressError, withAnimationDisabled } from 'utils/test';
 import { CuratedReportFactory } from 'utils/test/factories/report';
 import { CuratedFAQFactory } from 'utils/test/factories/faq';
-import { REPORT_TYPE, FAQ_TYPE } from 'actions/bottom-sheet';
+import { BottomSheetContentType } from 'utils/constants';
 
 
 describe('BottomSheet component', function () {
   let element;
   const mockStore = MockStore();
-  const store = mockStore({
-    bottomSheet: {
-      officersAutoSuggest: {
-        isRequesting: false,
-        officers: []
-      }
-    }
-  });
   const report = CuratedReportFactory.build();
   const faq = CuratedFAQFactory.build();
+  const store = mockStore({
+    bottomSheet: { officersAutoSuggest: { isRequesting: false, officers: [] } },
+    officerPage: {
+      fullName: 'John Doe',
+      summary: {
+        'date_of_appt': '2010-10-02'
+      }
+    },
+    reports: { [report.id]: report },
+    faqs: { [faq.id]: faq }
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(element);
@@ -40,7 +43,7 @@ describe('BottomSheet component', function () {
       withAnimationDisabled(() => {
         element = renderIntoDocument(
           <Provider store={ store }>
-            <BottomSheet open={ false } content={ { type: REPORT_TYPE, props: { ...report } } }/>
+            <BottomSheet open={ false } content={ { type: BottomSheetContentType.REPORT } }/>
           </Provider>
         );
 
@@ -52,7 +55,7 @@ describe('BottomSheet component', function () {
       withAnimationDisabled(() => {
         element = renderIntoDocument(
           <Provider store={ store }>
-            <BottomSheet open={ true } content={ { type: REPORT_TYPE, props: { ...report } } }/>
+            <BottomSheet open={ true } content={ { type: BottomSheetContentType.REPORT } }/>
           </Provider>
         );
 
@@ -65,7 +68,7 @@ describe('BottomSheet component', function () {
       withAnimationDisabled(() => {
         element = renderIntoDocument(
           <Provider store={ store }>
-            <BottomSheet open={ true } content={ { type: REPORT_TYPE, props: { ...report } } }/>
+            <BottomSheet open={ true } content={ { type: BottomSheetContentType.REPORT } }/>
           </Provider>
         );
 
@@ -114,7 +117,8 @@ describe('BottomSheet component', function () {
     it('should render report when received report content', function () {
       element = renderIntoDocument(
         <Provider store={ store }>
-          <BottomSheet open={ true } content={ { type: REPORT_TYPE, props: { ...report } } }/>
+          <BottomSheet open={ true }
+            content={ { type: BottomSheetContentType.REPORT, id: report.id } }/>
         </Provider>
       );
       findDOMNode(element).innerHTML.should.containEql(report.fields.title.value.blocks[0].text);
@@ -123,10 +127,21 @@ describe('BottomSheet component', function () {
     it('should render faq when received faq content', function () {
       element = renderIntoDocument(
         <Provider store={ store }>
-          <BottomSheet open={ true } content={ { type: FAQ_TYPE, props: { ...faq } } }/>
+          <BottomSheet open={ true }
+            content={ { type: BottomSheetContentType.FAQ, id: faq.id } }/>
         </Provider>
       );
       findDOMNode(element).innerHTML.should.containEql(faq.fields.question.value.blocks[0].text);
+    });
+
+    it('should render officer when received officer content', function () {
+      element = renderIntoDocument(
+        <Provider store={ store }>
+          <BottomSheet open={ true }
+            content={ { type: BottomSheetContentType.OFFICER, id: 1 } }/>
+        </Provider>
+      );
+      findDOMNode(element).innerHTML.should.containEql('John Doe');
     });
 
     it('should render previous content when receive null content', function () {
@@ -134,7 +149,8 @@ describe('BottomSheet component', function () {
 
       render(
         <Provider store={ store }>
-          <BottomSheet open={ true } content={ { type: REPORT_TYPE, props: { ...report } } }/>
+          <BottomSheet open={ true }
+            content={ { type: BottomSheetContentType.REPORT, id: report.id } }/>
         </Provider>,
         rootEl);
       element = render(
@@ -149,10 +165,10 @@ describe('BottomSheet component', function () {
       const onClose = spy();
       element = renderIntoDocument(
         <Provider store={ store }>
-          <BottomSheet open={ true } content={ { type: FAQ_TYPE, props: { ...faq } } } onClose={ onClose }/>
+          <BottomSheet open={ true } content={ { type: BottomSheetContentType.FAQ } } onClose={ onClose }/>
         </Provider>
       );
-      const overlay = findRenderedDOMComponentWithClass(element, 'bottom-sheet__overlay');
+      const overlay = findRenderedDOMComponentWithClass(element, 'test--close-bottom-sheet');
       Simulate.click(overlay);
       onClose.called.should.be.true();
     });

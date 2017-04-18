@@ -8,9 +8,8 @@ import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import FAQPage from 'components/faq-page/faq-page';
-import SearchPage from 'components/search-page';
+import SearchPageContainer from 'containers/search-page-container';
 import ReportingPage from 'components/reporting-page';
-import OfficerPageContainer from 'containers/officer-page';
 import { COLLAB_PATH, FAQ_PATH, STORIES_PATH, SEARCH_PATH, OFFICER_PATH } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -33,7 +32,9 @@ class RouterRoot extends Component {
       <Route path={ FAQ_PATH } component={ FAQPage } key='4'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }>
         <Route path={ ':faqId' } component={ FAQPage }/>
-      </Route>
+      </Route>,
+      <Route path={ OFFICER_PATH } component={ SearchPageContainer } key='5'/>,
+      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='6'/>
     ];
 
     return (
@@ -42,8 +43,6 @@ class RouterRoot extends Component {
           <Route path='/(edit)' component={ AppContainer }>
             { routes }
           </Route>
-          <Route path={ SEARCH_PATH } component={ SearchPage }/>
-          <Route path={ OFFICER_PATH } component={ OfficerPageContainer }/>
         </Router>
       </Provider>
     );

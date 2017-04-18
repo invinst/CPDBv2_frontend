@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { map, isEmpty } from 'lodash';
-import S from 'string';
+import titleize from 'titleize';
 
 import { tagStyle, tagsWrapperStyle, dataToolTagStyle } from './search-tags.style';
 
@@ -17,7 +17,7 @@ class SearchTags extends Component {
 
     return map(tags, (tag, key) => (
       <span style={ tagStyle(selected === tag) } key={ key } onClick={ onSelect.bind(this, tag) }>
-        { S(tag).capitalize().s }
+        { titleize(tag) }
       </span>
     ));
   }

@@ -96,7 +96,7 @@ export default class OfficerSection extends Component {
 
   renderOfficerCards() {
     const { officers } = this.state;
-    const { editModeOn } = this.props;
+    const { editModeOn, openBottomSheetWithOfficer } = this.props;
 
     const officerCards = map(officers, (officer, index) => {
       const isLastCard = index === officers.length - 1;
@@ -104,8 +104,8 @@ export default class OfficerSection extends Component {
         <OfficerCard
           key={ officer.id } editModeOn={ editModeOn } officerId={ officer.id } fullName={ officer.fullName }
           race={ officer.race } gender={ officer.gender } allegationCount={ officer.allegationCount }
-          v1Url={ officer.v1Url } onRemoveClick={ this.handleRemoveOfficer }
-          style={ isLastCard ? lastOfficerCardStyle : null }/>
+          onRemoveClick={ this.handleRemoveOfficer } style={ isLastCard ? lastOfficerCardStyle : null }
+          openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
       );
     });
 
@@ -144,6 +144,7 @@ export default class OfficerSection extends Component {
 
 OfficerSection.propTypes = {
   value: PropTypes.array,
+  openBottomSheetWithOfficer: PropTypes.func,
   onChange: PropTypes.func,
   editModeOn: PropTypes.bool
 };
