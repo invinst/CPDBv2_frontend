@@ -8,7 +8,7 @@ export const wrapperStyle = {
 export const headerStyle = {
   backgroundColor: 'white',
   position: 'relative',
-  zIndex: 300
+  zIndex: 900
 };
 
 export const pageWrapperStyle = {
