@@ -8,31 +8,50 @@ import { wrapperStyle, titleStyle, dateStyle, eventStyle } from './timeline.styl
 const milestoneDistance = 75;
 
 export default class Timeline extends Component {
+  /**
+   * Prepare timeline data in a format that can be easily translated to svg elements
+   * e.g.     [{ date: '2005-10-23', events: ['Incident Occurs', 'Investigation Begins'] },
+   *           { date: '2005-11-21', events: ['Investigation Closed'] }]
+   * @return {array} The timeline array.
+   */
   getTimeLine() {
     const { startDate, endDate, incidentDate } = this.props;
 
     const result = [];
     result.push({ date: incidentDate, events: ['Incident Occurs'] });
+
+    const invBeginText = 'Investigation Begins';
     if (startDate && startDate === incidentDate) {
-      filter(result, obj => obj.date === incidentDate)[0].events.push('Investigation Begins');
+      filter(result, obj => obj.date === incidentDate)[0].events.push(invBeginText);
     } else {
-      result.push({ date: startDate, events: ['Investigation Begins'] });
+      result.push({ date: startDate, events: [invBeginText] });
     }
 
+    const invClosedText = 'Investigation Closed';
     if (endDate && endDate === startDate) {
-      filter(result, obj => obj.date === startDate)[0].events.push('Investigation Closed');
+      filter(result, obj => obj.date === startDate)[0].events.push(invClosedText);
     } else {
-      result.push({ date: endDate, events: ['Investigation Closed'] });
+      result.push({ date: endDate, events: [invClosedText] });
     }
 
     return result;
   }
 
+  /**
+   * Return vertical line height depending on how many "dots" are on timeline.
+   * The more dots there are the longer the line.
+   * @param  {object} timeline - each key on this object represent a single dot.
+   * @return {int} The line height.
+   */
   computeLineHeight(timeline) {
     const numberOfMilestones = Object.keys(timeline).length;
     return milestoneDistance * (numberOfMilestones - 1);
   }
 
+  /**
+   * Render the timeline dots based on computed timeline array.
+   * @return {element} The resulted svg elements.
+   */
   renderTimelineCircles() {
     const timeline = this.getTimeLine();
     const lineHeight = this.computeLineHeight(timeline);
@@ -57,6 +76,10 @@ export default class Timeline extends Component {
     );
   }
 
+  /**
+   * Render the timeline texts based on computed timeline array.
+   * @return {element} The resulted svg elements.
+   */
   renderTimelineTexts() {
     const timeline = this.getTimeLine();
 
@@ -88,6 +111,7 @@ export default class Timeline extends Component {
     const { endDate } = this.props;
     const timeline = this.getTimeLine();
     const lineHeight = this.computeLineHeight(timeline);
+    // viewbox height is similarly affected by how many dots/events are there on timeline array.
     const viewBoxHeight = 20 + 16 * (filter(timeline, obj => obj.date === endDate)[0].events.length) + lineHeight;
 
     return (
