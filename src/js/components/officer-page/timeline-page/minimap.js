@@ -6,16 +6,38 @@ import { wrapperStyle, yearStyle, itemsStyle, rowStyle } from './minimap.style';
 
 
 export default class Minimap extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedItemIndex: null
+    };
+    this.handleMinimapItemClick = this.handleMinimapItemClick.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.sortDescending !== this.props.sortDescending) {
+      this.setState({ selectedItemIndex: null });
+    }
+  }
+
+  handleMinimapItemClick(index) {
+    this.setState({ selectedItemIndex: index });
+    const { onItemClick } = this.props;
+    onItemClick(index);
+  }
+
   render() {
     const { minimap } = this.props;
+    const { selectedItemIndex } = this.state;
     return (
       <div style={ wrapperStyle }>
         { map(minimap, ({ year, items }) => (
           <div style={ rowStyle } key={ year }>
             <div style={ yearStyle }>{ year }</div>
             <div style={ itemsStyle }>
-              { map(items, (item, index) => (
-                <MinimapItem text={ item } key={ index }/>
+              { map(items, ({ kind, index }) => (
+                <MinimapItem text={ kind } key={ index } active={ selectedItemIndex === index }
+                  onClick={ () => this.handleMinimapItemClick(index) }/>
               )) }
             </div>
           </div>
@@ -26,5 +48,7 @@ export default class Minimap extends Component {
 }
 
 Minimap.propTypes = {
-  minimap: PropTypes.array
+  minimap: PropTypes.array,
+  onItemClick: PropTypes.func,
+  sortDescending: PropTypes.bool
 };

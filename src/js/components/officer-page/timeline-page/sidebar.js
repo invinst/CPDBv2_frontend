@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
 import Minimap from './minimap';
-import { leftButtonStyle, rightButtonStyle, wrapperStyle } from './sidebar.style';
+import SideBarButton from './sidebar-button';
+
+import { wrapperStyle, leftButtonStyle, rightButtonStyle } from './sidebar.style';
 
 
 export default class SideBar extends Component {
@@ -20,14 +22,16 @@ export default class SideBar extends Component {
   }
 
   render() {
-    const { toggleSortOrder, minimap } = this.props;
+    const { flipSortOrder, minimap, selectMinimapItem, sortDescending } = this.props;
     return (
       <div style={ wrapperStyle }>
         <div>
-          <span style={ leftButtonStyle }>Filter</span>
-          <span style={ rightButtonStyle } onClick={ toggleSortOrder }>{ this.rightButtonText() }</span>
+          <SideBarButton style={ leftButtonStyle }>Filter</SideBarButton>
+          <SideBarButton style={ rightButtonStyle } onClick={ () => flipSortOrder() }>
+            { this.rightButtonText() }
+          </SideBarButton>
         </div>
-        <Minimap minimap={ minimap }/>
+        <Minimap minimap={ minimap } onItemClick={ selectMinimapItem } sortDescending={ sortDescending }/>
       </div>
     );
   }
@@ -36,7 +40,8 @@ export default class SideBar extends Component {
 SideBar.propTypes = {
   fetchMinimap: PropTypes.func,
   sortDescending: PropTypes.bool,
-  toggleSortOrder: PropTypes.func,
+  flipSortOrder: PropTypes.func,
   officerId: PropTypes.number,
-  minimap: PropTypes.array
+  minimap: PropTypes.array,
+  selectMinimapItem: PropTypes.func
 };

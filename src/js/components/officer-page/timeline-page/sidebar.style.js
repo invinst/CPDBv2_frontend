@@ -1,4 +1,4 @@
-import { lightBlackColor, sanFranciscoTextFamily, mediumGrayColor } from 'utils/styles';
+import { lightBlackColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -13,15 +13,9 @@ export const wrapperStyle = {
 };
 
 export const leftButtonStyle = {
-  fontSize: '14px',
-  fontFamily: sanFranciscoTextFamily,
-  fontWeight: 400,
-  color: mediumGrayColor,
-  display: 'inline-block',
   float: 'left'
 };
 
 export const rightButtonStyle = {
-  ...leftButtonStyle,
   float: 'right'
 };

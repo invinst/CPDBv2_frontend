@@ -33,6 +33,7 @@ export const itemStyle = (hovering, active) => ({
   padding: '3px 0',
   marginLeft: '1px',
   marginBottom: '1px',
+  cursor: 'pointer',
   ...(hovering ? hoverStyle : {}),
   ...(active ? activeStyle : {})
 });

@@ -2,17 +2,18 @@ import { createSelector } from 'reselect';
 import S from 'string';
 import moment from 'moment';
 
-import { reduce, sortBy, keys, map, mapKeys } from 'lodash';
+import { reduce, sortBy, keys, map, mapKeys, reverse } from 'lodash';
 
 import extractQuery from 'utils/extract-query';
 import { TimelineItemType } from 'utils/constants';
 
 const getTimelineNextUrl = state => state.officerPage.timeline.pagination.next;
 const getTimelineIsRequesting = state => state.officerPage.timeline.isRequesting;
-const getTimelineItems = state => state.officerPage.timeline.items;
 const getMinimap = state => state.officerPage.timeline.minimap.minimap;
 
-export const sortDescendingSelector = state => state.officerPage.timeline.sortDescending;
+export const getTimelineItems = state => state.officerPage.timeline.items;
+export const getSelectedItemIndex = state => state.officerPage.timeline.selectedItemIndex;
+export const getSortDescending = state => state.officerPage.timeline.sortDescending;
 
 export const timelineItemsHasMoreSelector = createSelector(
   [getTimelineNextUrl, getTimelineIsRequesting],
@@ -29,10 +30,10 @@ export const timelineItemsNextParamsSelector = createSelector(
 );
 
 const mapping = {
-  cr: TimelineItemType.CR,
-  year: TimelineItemType.YEAR,
-  joined: TimelineItemType.JOINED,
-  unit: TimelineItemType.UNIT
+  CR: TimelineItemType.CR,
+  YEAR: TimelineItemType.YEAR,
+  JOINED: TimelineItemType.JOINED,
+  UNIT_CHANGE: TimelineItemType.UNIT
 };
 
 export const timelineItemsSelector = createSelector(
@@ -45,15 +46,41 @@ export const timelineItemsSelector = createSelector(
 );
 
 export const minimapSelector = createSelector(
-  [getMinimap],
-  (minimap) => {
+  [getMinimap, getSortDescending],
+  (minimap, sortDescending) => {
+    if (!sortDescending) {
+      minimap = reverse([...minimap]);
+    }
+
+    let currentYear = null;
+    let currentIndex = sortDescending ? -1 : -2;
+    minimap = map(minimap, item => {
+      item = { ...item };
+      if (currentYear !== item.year) {
+        currentYear = item.year;
+        item['index'] = currentIndex + 2;
+      } else {
+        item['index'] = currentIndex + 1;
+      }
+      currentIndex = item['index'];
+      return item;
+    });
+
     const minimapItems = reduce(minimap, (result, item) => {
-      (result[item['year']] || (result[item['year']] = [])).push(item['kind']);
+      (result[item['year']] || (result[item['year']] = [])).push({ kind: item.kind, index: item.index });
       return result;
     }, {});
 
     return sortBy(map(keys(minimapItems), key => {
-      return { year: key, items: minimapItems[key] };
-    }), obj => -obj.year);
+      return {
+        year: key,
+        items: minimapItems[key]
+      };
+    }), obj => sortDescending ? -obj.year : obj.year);
   }
+);
+
+export const sortParamsSelector = createSelector(
+  [getSortDescending],
+  (sortDescending) => sortDescending ? {} : { sort: 'asc' }
 );

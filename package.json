@@ -122,6 +122,7 @@
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.0.1",
     "reselect": "^2.5.1",
+    "shallow-equals": "^1.0.0",
     "string": "^3.3.3",
     "titleize": "^1.0.0",
     "twitter-widgets": "^1.0.0",
