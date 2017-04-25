@@ -8,14 +8,6 @@ export const wrapperStyle = {
   fontSize: '14px'
 };
 
-export const dateStyle = {
-  fontWeight: 300
-};
-
-export const eventStyle = {
-  fontWeight: 400
-};
-
 export const titleStyle = {
   fontWeight: 600,
   color: softBlackColor,
