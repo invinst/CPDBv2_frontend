@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import 'mapbox.js';
 
-import { MAPBOX_ACCESS_TOKEN, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
+import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
+import { buildMap, buildMarker } from 'utils/mapbox';
 import { wrapperStyle } from './cr-location-map.style';
 import { markerRedColor } from 'utils/styles';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
@@ -28,8 +28,7 @@ export default class CRLocationMap extends Component {
   gotRef(el) {
     if (el && !this.map) {
       const { lat, lng } = this.props;
-      global.L.mapbox.accessToken = MAPBOX_ACCESS_TOKEN;
-      this.map = global.L.mapbox.map(el, 'mapbox.streets', {
+      this.map = buildMap(el, 'mapbox.streets', {
         center: [centerLat, centerLng],
         zoom: zoom1,
         dragging: false,
@@ -61,7 +60,7 @@ export default class CRLocationMap extends Component {
     if (this.marker) {
       this.map.removeLayer(this.marker);
     }
-    this.marker = global.L.mapbox.featureLayer().setGeoJSON(geojson).addTo(this.map);
+    this.marker = buildMarker(geojson).addTo(this.map);
   }
 
   handleMapClick(e) {
