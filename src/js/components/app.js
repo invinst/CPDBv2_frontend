@@ -1,6 +1,5 @@
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
-import Mousetrap from 'mousetrap';
 import React, { PropTypes } from 'react';
 
 import { getMockAdapter } from 'mock-api';
@@ -10,6 +9,7 @@ import Header from 'components/header';
 import LoginModalContainer from 'containers/login-modal-container';
 import SearchPageContainer from 'containers/search-page-container';
 import RouteTransition from 'components/animation/route-transition';
+import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 import { ALPHA_NUMBERIC } from 'utils/constants';
 
@@ -24,12 +24,15 @@ export default class App extends React.Component {
     return { adapter: getMockAdapter() };
   }
 
+  componentWillMount() {
+    LayeredKeyBinding.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
+    ALPHA_NUMBERIC.map((letter) => (LayeredKeyBinding.bind(letter, this.props.toggleSearchMode)));
+  }
+
   componentDidMount() {
     const { receiveTokenFromCookie } = this.props;
 
     receiveTokenFromCookie();
-    Mousetrap.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
-    ALPHA_NUMBERIC.map((letter) => (Mousetrap.bind(letter, this.props.toggleSearchMode)));
   }
 
   componentWillReceiveProps(nextProps) {
@@ -40,8 +43,8 @@ export default class App extends React.Component {
   }
 
   componentWillUnmount() {
-    Mousetrap.unbind('esc');
-    ALPHA_NUMBERIC.map(Mousetrap.unbind);
+    LayeredKeyBinding.unbind('esc');
+    ALPHA_NUMBERIC.map(LayeredKeyBinding.unbind);
   }
 
   children() {
