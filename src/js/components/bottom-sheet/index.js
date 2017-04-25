@@ -6,6 +6,7 @@ import BottomSheetTransition from 'components/animation/bottom-sheet-transition'
 import ReportContainer from 'containers/bottom-sheet/report';
 import FAQContainer from 'containers/bottom-sheet/faq';
 import OfficerContainer from 'containers/officer-page';
+import CRContainer from 'containers/cr-page';
 import { overlayStyle, sheetStyle, sheetWrapperStyle, closeBottomSheetTriggerStyle } from './bottom-sheet.style';
 import { BottomSheetContentType } from 'utils/constants';
 import { defaultConfig } from 'utils/spring-presets';
@@ -18,7 +19,8 @@ export default class BottomSheet extends Component {
     this.contentMap = {
       [BottomSheetContentType.REPORT]: ReportContainer,
       [BottomSheetContentType.FAQ]: FAQContainer,
-      [BottomSheetContentType.OFFICER]: OfficerContainer
+      [BottomSheetContentType.OFFICER]: OfficerContainer,
+      [BottomSheetContentType.CR]: CRContainer
     };
   }
 
@@ -78,7 +80,7 @@ export default class BottomSheet extends Component {
           {
             turnOffSectionEditMode: this.props.onClose,
             sectionEditModeOn: this.context.editModeOn,
-            id: content.id,
+            ...content.props,
             location
           }
         );

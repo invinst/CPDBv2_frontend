@@ -6,14 +6,14 @@ import { defaultConfig } from 'utils/spring-presets';
 
 export default class FadeMotion extends Component {
   render() {
-    const { show, children } = this.props;
-    const defaultStyle = { opacity: show ? 1 : 0 };
+    const { show, children, maxOpacity } = this.props;
+    const defaultStyle = { opacity: show ? maxOpacity : 0 };
     const motionStyle = {
-      opacity: spring(show ? 1 : 0, defaultConfig())
+      opacity: spring(show ? maxOpacity : 0, defaultConfig())
     };
 
     if (global.disableAnimation) {
-      return show ? children(1) : null;
+      return show ? children(maxOpacity) : null;
     }
 
     return (
@@ -33,6 +33,11 @@ export default class FadeMotion extends Component {
 }
 
 FadeMotion.propTypes = {
+  maxOpacity: PropTypes.number,
   children: PropTypes.func,
   show: PropTypes.bool
+};
+
+FadeMotion.defaultProps = {
+  maxOpacity: 1
 };

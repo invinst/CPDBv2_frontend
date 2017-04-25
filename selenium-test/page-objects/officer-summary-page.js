@@ -3,6 +3,7 @@ import { each } from 'lodash';
 import Page from './page';
 import Section from './sections/section';
 
+
 class Header extends Section {
   constructor() {
     super();
