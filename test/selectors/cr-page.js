@@ -1,3 +1,5 @@
+import should from 'should';
+
 import { contentSelector } from 'selectors/cr-page';
 
 
@@ -9,6 +11,7 @@ describe('CR page selectors', function () {
 
       contentSelector(state, props).coaccused.should.eql([]);
       contentSelector(state, props).complainants.should.eql([]);
+      contentSelector(state, props).involvements.should.eql([]);
     });
 
     it('should return list of complainants display string', function () {
@@ -80,6 +83,34 @@ describe('CR page selectors', function () {
         involvedType: 'Watch Commander',
         officers: [{ id: 1, abbrName: 'F. Bar', extraInfo: 'male, white' }]
       }]);
+    });
+
+    it('should return undefined incidentDate and location data if cr data does not exists', function () {
+      const state = { crs: {} };
+      const props = { crid: 123 };
+      const result = contentSelector(state, props);
+      should.not.exists(result.point);
+      should.not.exists(result.incidentDate);
+      should.not.exists(result.address);
+      should.not.exists(result.location);
+      should.not.exists(result.beat);
+    });
+
+    it('should return incidentDate and location data if cr data are available', function () {
+      const state = { crs: { '123': {
+        point: [1, 2],
+        'incident_date': '2011-03-24',
+        address: '123 Positiv Ave.',
+        location: 'Police Building',
+        beat: '1134'
+      } } };
+      const props = { crid: 123 };
+      const result = contentSelector(state, props);
+      result.point.should.eql([1, 2]);
+      result.incidentDate.should.eql('2011-03-24');
+      result.address.should.eql('123 Positiv Ave.');
+      result.location.should.eql('Police Building');
+      result.beat.should.eql('1134');
     });
   });
 });
