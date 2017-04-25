@@ -4204,9 +4204,9 @@ map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
 
-mapbox.js@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/mapbox.js/-/mapbox.js-3.0.1.tgz#630a97d1c5aac1fd8dc77f5eef250bf9522aba04"
+mapbox.js@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/mapbox.js/-/mapbox.js-3.1.0.tgz#a8c055b6dec35fb6288354dde1f8a5ec5f8208a6"
   dependencies:
     corslite "0.0.6"
     isarray "0.0.1"

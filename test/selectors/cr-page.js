@@ -93,7 +93,7 @@ describe('CR page selectors', function () {
       should.not.exists(result.incidentDate);
       should.not.exists(result.address);
       should.not.exists(result.location);
-      should.not.exists(result.beat);
+      result.beat.should.eql({ name: 'Unknown' });
     });
 
     it('should return incidentDate and location data if cr data are available', function () {
@@ -102,7 +102,7 @@ describe('CR page selectors', function () {
         'incident_date': '2011-03-24',
         address: '123 Positiv Ave.',
         location: 'Police Building',
-        beat: '1134'
+        beat: { name: '1134' }
       } } };
       const props = { crid: 123 };
       const result = contentSelector(state, props);
@@ -110,7 +110,7 @@ describe('CR page selectors', function () {
       result.incidentDate.should.eql('2011-03-24');
       result.address.should.eql('123 Positiv Ave.');
       result.location.should.eql('Police Building');
-      result.beat.should.eql('1134');
+      result.beat.should.eql({ name: '1134' });
     });
   });
 });
