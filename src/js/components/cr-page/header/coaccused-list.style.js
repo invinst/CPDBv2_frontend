@@ -7,7 +7,7 @@ export const coaccusedListWrapperStyle = {
   position: 'absolute',
   top: '64px',
   boxShadow: `0 2px 1px 0 ${lightBlackColor}`,
-  zIndex: 300,
+  zIndex: 900,
   overflow: 'hidden',
   width: '100%'
 };

@@ -11,7 +11,7 @@ export const headerStyle = {
 
 export const headerWrapperStyle = {
   position: 'relative',
-  zIndex: 300
+  zIndex: 900
 };
 
 export const summarySectionStyle = {

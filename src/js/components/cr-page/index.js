@@ -30,7 +30,7 @@ export default class CRPage extends Component {
     this.renderOverlay = this.renderOverlay.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { crid, fetchCR } = this.props;
 
     fetchCR(crid);
