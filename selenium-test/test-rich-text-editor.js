@@ -33,6 +33,7 @@ describe('Rich text editor', function () {
     describe('bold button', function () {
 
       beforeEach(function () {
+        landingPage.selectText(landingPage.heroSection.title.selector);
         landingPage.richTextToolbar.boldButton.click();
       });
 
@@ -48,6 +49,7 @@ describe('Rich text editor', function () {
 
     describe('italic button', function () {
       beforeEach(function () {
+        landingPage.selectText(landingPage.heroSection.title.selector);
         landingPage.richTextToolbar.italicButton.click();
       });
 
@@ -63,6 +65,7 @@ describe('Rich text editor', function () {
 
     describe('link button', function () {
       beforeEach(function () {
+        landingPage.selectText(landingPage.heroSection.title.selector);
         landingPage.richTextToolbar.linkButton.click();
       });
 

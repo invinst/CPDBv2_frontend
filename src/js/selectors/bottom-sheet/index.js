@@ -3,16 +3,19 @@ import { BottomSheetContentType } from 'utils/constants';
 
 export function contentSelector(state, props) {
   const { params } = props;
-  const { reportId, faqId, officerId } = params;
+  const { reportId, faqId, officerId, crid } = params;
 
   if (reportId) {
-    return { id: reportId, type: BottomSheetContentType.REPORT };
+    return { props: { id: reportId }, type: BottomSheetContentType.REPORT };
   }
   if (faqId) {
-    return { id: faqId, type: BottomSheetContentType.FAQ };
+    return { props: { id: faqId }, type: BottomSheetContentType.FAQ };
+  }
+  if (crid) {
+    return { props: { crid, officerId }, type: BottomSheetContentType.CR };
   }
   if (officerId) {
-    return { id: officerId, type: BottomSheetContentType.OFFICER };
+    return { props: { id: officerId }, type: BottomSheetContentType.OFFICER };
   }
   return null;
 }
