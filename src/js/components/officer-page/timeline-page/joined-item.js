@@ -1,20 +1,22 @@
 import React, { PropTypes, Component } from 'react';
 
-import { unitTextStyle, dateStyle } from './joined-item.style';
+import { joinedTextStyle, dateStyle, joinedDescriptionStyle } from './joined-item.style';
 
 export default class JoinedItem extends Component {
   render() {
-    const { item } = this.props;
+    const { item, flashRatio } = this.props;
     const { date } = item;
     return (
       <div>
-        <span style={ unitTextStyle }>Joined</span>
+        <span style={ joinedTextStyle }>Joined</span>
         <span style={ dateStyle }>{ date }</span>
+        <span style={ joinedDescriptionStyle(flashRatio) }>Joined CPD</span>
       </div>
     );
   }
 }
 
 JoinedItem.propTypes = {
-  item: PropTypes.object
+  item: PropTypes.object,
+  flashRatio: PropTypes.number
 };

@@ -4,7 +4,7 @@ import Timeline from 'components/officer-page/timeline-page/timeline';
 import { fetchTimelineItems, fetchTimelineItemsWhenIndexOutOfBound } from 'actions/officer-page/timeline';
 import {
   timelineItemsHasMoreSelector, timelineItemsSelector, timelineItemsNextParamsSelector, sortParamsSelector,
-  getSelectedItemIndex
+  getSelectedItemIndex, getHoveredItemIndex
 } from 'selectors/officer-page/timeline';
 
 
@@ -14,7 +14,8 @@ function mapStateToProps(state, ownProps) {
     sortParams: sortParamsSelector(state),
     items: timelineItemsSelector(state),
     nextParams: timelineItemsNextParamsSelector(state),
-    selectedItemIndex: getSelectedItemIndex(state)
+    selectedItemIndex: getSelectedItemIndex(state),
+    hoveredItemIndex: getHoveredItemIndex(state)
   };
 }
 

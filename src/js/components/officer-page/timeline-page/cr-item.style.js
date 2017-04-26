@@ -1,7 +1,14 @@
+import { scale } from 'chroma-js';
+
 import {
   sanFranciscoTextFamily, hardBlackColor, mediumGrayColor, accentColor, veryLightBigStone,
   softBlackColor
 } from 'utils/styles';
+
+
+export const wrapperStyle = {
+  cursor: 'pointer'
+};
 
 export const crTextStyle = {
   display: 'inline-block',
@@ -53,15 +60,16 @@ export const coaccusedStyle = {
   marginTop: '11px'
 };
 
-export const categoryStyle = hovering => ({
+export const categoryStyle = (hovering, flashRatio=null) => ({
   fontFamily: sanFranciscoTextFamily,
   fontSize: '18px',
   fontWeight: 600,
-  color: hovering ? accentColor : softBlackColor,
+  color: hovering ? accentColor :
+    (flashRatio !== null ? scale([softBlackColor, accentColor, softBlackColor])(flashRatio).hex() : softBlackColor),
   marginTop: '11px'
 });
 
-export const subcategoryStyle = hovering => ({
+export const subcategoryStyle = hovering=> ({
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
   fontWeight: 500,

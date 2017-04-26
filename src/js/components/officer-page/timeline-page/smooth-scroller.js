@@ -23,7 +23,8 @@ export default class SmoothScroller extends Component {
     const { selectedItemTop } = this.props;
     if (selectedItemTop !== this.prevSelectedItemTop) {
       const [top, scrollTop] = this.getScrollerTopScrollTop();
-      this.prevScrollTop = selectedItemTop - top + scrollTop;
+      const itemMarginTop = 14;
+      this.prevScrollTop = selectedItemTop - top + scrollTop - itemMarginTop;
     }
     return this.prevScrollTop;
   }

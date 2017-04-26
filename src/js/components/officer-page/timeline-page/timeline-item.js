@@ -2,13 +2,13 @@ import React, { PropTypes, Component, createElement } from 'react';
 import { Motion, spring } from 'react-motion';
 
 import { TimelineItemType } from 'utils/constants';
+import { slower } from 'utils/spring-presets';
 import Hoverable from 'components/common/higher-order/hoverable';
 import CrItem from './cr-item';
 import YearItem from './year-item';
 import UnitItem from './unit-item';
 import JoinedItem from './joined-item';
-import { defaultConfig } from 'utils/spring-presets';
-import { wrapperStyle, overlayStyle } from './timeline-item.style';
+import { wrapperStyle } from './timeline-item.style';
 
 
 class TimelineItem extends Component {
@@ -37,29 +37,22 @@ class TimelineItem extends Component {
     }
   }
 
-  renderContent({ opacity }) {
-    const { item, hovering } = this.props;
-    const child = createElement(this.contentMap[item.kind], { item, hovering });
-    return (
-      <div style={ wrapperStyle(hovering) } ref={ el => this.element = el }>
-        <div style={ { ...overlayStyle, opacity } }/>
-        { child }
-      </div>
-    );
+  renderContent({ ratio }) {
+    const { item, hovering, minimapItemHovered } = this.props;
+    const child = createElement(this.contentMap[item.kind], { item, hovering, flashRatio: ratio });
+    return <div style={ wrapperStyle(hovering || minimapItemHovered) } ref={ el => this.element = el }>{ child }</div>;
   }
 
   render() {
     const { flash } = this.props;
-
     if (flash) {
       return (
-        <Motion defaultStyle={ { opacity: 1 } }
-          style={ { opacity: spring(0, defaultConfig()) } }>
+        <Motion style={ { ratio: spring(1, slower()) } } defaultStyle={ { ratio: 0 } }>
           { this.renderContent.bind(this) }
         </Motion>
       );
     }
-    return this.renderContent({ opacity: 0 });
+    return this.renderContent({ ratio: null });
   }
 }
 
@@ -68,6 +61,7 @@ TimelineItem.propTypes = {
   hovering: PropTypes.bool,
   onSelected: PropTypes.func,
   selected: PropTypes.bool,
+  minimapItemHovered: PropTypes.bool,
   flash: PropTypes.bool
 };
 

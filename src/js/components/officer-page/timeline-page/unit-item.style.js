@@ -1,4 +1,6 @@
-import { sanFranciscoTextFamily, mediumGrayColor } from 'utils/styles';
+import { scale } from 'chroma-js';
+
+import { sanFranciscoTextFamily, mediumGrayColor, accentColor } from 'utils/styles';
 
 export const unitTextStyle = {
   width: '169px',
@@ -21,13 +23,14 @@ export const dateStyle = {
   marginLeft: '136px'
 };
 
-export const descriptionStyle = {
+export const descriptionStyle = flashRatio => ({
   width: '309px',
   display: 'inline-block',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
   fontWeight: 500,
-  color: mediumGrayColor,
+  color: flashRatio !== null ? scale([mediumGrayColor, accentColor, mediumGrayColor])(flashRatio).hex()
+    : mediumGrayColor,
   textAlign: 'left',
   marginTop: '11px'
-};
+});

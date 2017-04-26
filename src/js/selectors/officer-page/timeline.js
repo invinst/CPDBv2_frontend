@@ -13,6 +13,7 @@ const getMinimap = state => state.officerPage.timeline.minimap.minimap;
 
 export const getTimelineItems = state => state.officerPage.timeline.items;
 export const getSelectedItemIndex = state => state.officerPage.timeline.selectedItemIndex;
+export const getHoveredItemIndex = state => state.officerPage.timeline.hoveredItemIndex;
 export const getSortDescending = state => state.officerPage.timeline.sortDescending;
 
 export const timelineItemsHasMoreSelector = createSelector(

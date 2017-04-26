@@ -39,7 +39,7 @@ export default class Timeline extends Component {
   }
 
   render() {
-    const { items, loadMore, nextParams, hasMore, sortParams, selectedItemIndex } = this.props;
+    const { items, loadMore, nextParams, hasMore, sortParams, selectedItemIndex, hoveredItemIndex } = this.props;
     const { selectedItemTop, flashItemIndex } = this.state;
     return (
       <SmoothScroller style={ wrapperStyle } selectedItemTop={ selectedItemTop }>
@@ -49,6 +49,7 @@ export default class Timeline extends Component {
           useWindow={ false }>
           { map(items, (item, ind) => (
             <TimelineItem item={ item } key={ ind } selected={ ind === selectedItemIndex }
+              minimapItemHovered={ ind === hoveredItemIndex }
               onSelected={ this.handleItemSelected } flash={ ind === flashItemIndex }/>
           )) }
         </InfiniteScroll>
@@ -64,5 +65,6 @@ Timeline.propTypes = {
   sortParams: PropTypes.object,
   hasMore: PropTypes.bool,
   selectedItemIndex: PropTypes.number,
+  hoveredItemIndex: PropTypes.number,
   loadMoreIfNecessary: PropTypes.func
 };
