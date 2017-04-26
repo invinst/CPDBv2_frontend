@@ -10,7 +10,7 @@ import CollaborationPage from 'components/collaboration-page/collaboration-page'
 import FAQPage from 'components/faq-page/faq-page';
 import SearchPageContainer from 'containers/search-page-container';
 import ReportingPage from 'components/reporting-page';
-import { COLLAB_PATH, FAQ_PATH, STORIES_PATH, SEARCH_PATH, OFFICER_PATH } from 'utils/constants';
+import { COLLAB_PATH, FAQ_PATH, STORIES_PATH, SEARCH_PATH, OFFICER_PATH, CR_PATH } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
 
@@ -34,7 +34,8 @@ class RouterRoot extends Component {
         <Route path={ ':faqId' } component={ FAQPage }/>
       </Route>,
       <Route path={ OFFICER_PATH } component={ SearchPageContainer } key='5'/>,
-      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='6'/>
+      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='6'/>,
+      <Route path={ CR_PATH } component={ SearchPageContainer } key='7'/>
     ];
 
     return (
