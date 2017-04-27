@@ -7,11 +7,6 @@ import { wrapperStyle } from './summary-page.style.js';
 
 
 export default class SummaryPage extends Component {
-  componentWillMount() {
-    const { fetchOfficerSummary, officerId } = this.props;
-    fetchOfficerSummary(officerId);
-  }
-
   render() {
     const { officerSummary, complaintsCount, complaintFacets } = this.props;
 

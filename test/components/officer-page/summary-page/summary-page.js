@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
-import { spy } from 'sinon';
 
 import SummaryPage from 'components/officer-page/summary-page';
 import SummarySection from 'components/officer-page/summary-page/summary-section';
@@ -22,16 +21,5 @@ describe('SummaryPage component', function () {
 
     scryRenderedComponentsWithType(instance, SummarySection).should.have.length(1);
     scryRenderedComponentsWithType(instance, AggregateSection).should.have.length(1);
-  });
-
-  it('should call fetchOfficerSummary on initialization', function () {
-    const fetchOfficerSummary = spy();
-    const officerId = 1;
-    instance = renderIntoDocument(
-      <SummaryPage
-        fetchOfficerSummary={ fetchOfficerSummary } officerId={ officerId }/>
-    );
-
-    fetchOfficerSummary.calledWith(officerId).should.be.true();
   });
 });

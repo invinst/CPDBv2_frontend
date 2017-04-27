@@ -18,18 +18,21 @@ export default class Timeline extends Component {
   }
 
   componentDidMount() {
-    const { loadMore, sortParams } = this.props;
-    loadMore(sortParams);
+    const { fetchTimelineItems, sortParams, officerId } = this.props;
+    fetchTimelineItems(officerId, sortParams);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { sortParams, loadMore, selectedItemIndex, loadMoreIfNecessary, items } = this.props;
+    const {
+      sortParams, fetchTimelineItems, selectedItemIndex,
+      fetchTimelineItemsWhenIndexOutOfBound, items, officerId
+    } = this.props;
     if (nextProps.sortParams !== sortParams) {
-      loadMore(nextProps.sortParams);
+      fetchTimelineItems(officerId, nextProps.sortParams);
     }
 
     if (nextProps.selectedItemIndex !== selectedItemIndex) {
-      loadMoreIfNecessary(size(items), nextProps.selectedItemIndex, sortParams);
+      fetchTimelineItemsWhenIndexOutOfBound(size(items), nextProps.selectedItemIndex, officerId, sortParams);
       setTimeout(() => this.setState({ flashItemIndex: nextProps.selectedItemIndex }), 500);
     }
   }
@@ -39,18 +42,22 @@ export default class Timeline extends Component {
   }
 
   render() {
-    const { items, loadMore, nextParams, hasMore, sortParams, selectedItemIndex, hoveredItemIndex } = this.props;
+    const {
+      items, fetchTimelineItems, nextParams, hasMore, sortParams,
+      selectedItemIndex, hoveredItemIndex, openBottomSheetWithComplaint, officerId
+    } = this.props;
     const { selectedItemTop, flashItemIndex } = this.state;
     return (
       <SmoothScroller style={ wrapperStyle } selectedItemTop={ selectedItemTop }>
         <InfiniteScroll
-          loadMore={ () => hasMore ? loadMore({ ...sortParams, ...nextParams }) : null }
+          loadMore={ () => hasMore ? fetchTimelineItems(officerId, { ...sortParams, ...nextParams }) : null }
           hasMore={ hasMore }
           useWindow={ false }>
           { map(items, (item, ind) => (
             <TimelineItem item={ item } key={ ind } selected={ ind === selectedItemIndex }
-              minimapItemHovered={ ind === hoveredItemIndex }
-              onSelected={ this.handleItemSelected } flash={ ind === flashItemIndex }/>
+              minimapItemHovered={ ind === hoveredItemIndex } officerId={ officerId }
+              onSelected={ this.handleItemSelected } flash={ ind === flashItemIndex }
+              openBottomSheetWithComplaint={ openBottomSheetWithComplaint }/>
           )) }
         </InfiniteScroll>
       </SmoothScroller>
@@ -60,11 +67,17 @@ export default class Timeline extends Component {
 
 Timeline.propTypes = {
   items: PropTypes.array,
-  loadMore: PropTypes.func,
+  fetchTimelineItems: PropTypes.func,
   nextParams: PropTypes.object,
   sortParams: PropTypes.object,
   hasMore: PropTypes.bool,
   selectedItemIndex: PropTypes.number,
   hoveredItemIndex: PropTypes.number,
-  loadMoreIfNecessary: PropTypes.func
+  officerId: PropTypes.number,
+  fetchTimelineItemsWhenIndexOutOfBound: PropTypes.func,
+  openBottomSheetWithComplaint: PropTypes.func
+};
+
+Timeline.defaultProps = {
+  fetchTimelineItems: () => {}
 };

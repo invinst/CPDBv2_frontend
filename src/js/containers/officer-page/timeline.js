@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 
 import Timeline from 'components/officer-page/timeline-page/timeline';
 import { fetchTimelineItems, fetchTimelineItemsWhenIndexOutOfBound } from 'actions/officer-page/timeline';
+import { openBottomSheetWithComplaint } from 'actions/bottom-sheet';
 import {
   timelineItemsHasMoreSelector, timelineItemsSelector, timelineItemsNextParamsSelector, sortParamsSelector,
   getSelectedItemIndex, getHoveredItemIndex
@@ -15,14 +16,15 @@ function mapStateToProps(state, ownProps) {
     items: timelineItemsSelector(state),
     nextParams: timelineItemsNextParamsSelector(state),
     selectedItemIndex: getSelectedItemIndex(state),
+    officerId: ownProps.officerId,
     hoveredItemIndex: getHoveredItemIndex(state)
   };
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  loadMore: (params={}) => dispatch(fetchTimelineItems(ownProps.officerId)(params)),
-  loadMoreIfNecessary: (itemsLength, selectedIndex, params={}) => dispatch(
-    fetchTimelineItemsWhenIndexOutOfBound(itemsLength, selectedIndex, ownProps.officerId, params))
-});
+const mapDispatchToProps = {
+  fetchTimelineItems,
+  fetchTimelineItemsWhenIndexOutOfBound,
+  openBottomSheetWithComplaint
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timeline);

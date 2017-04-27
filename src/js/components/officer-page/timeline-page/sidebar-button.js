@@ -4,7 +4,7 @@ import Hoverable from 'components/common/higher-order/hoverable';
 import { buttonStyle } from './sidebar-button.style';
 
 
-class SidebarButton extends Component {
+export class SideBarButton extends Component {
   render() {
     const { onClick, children, hovering, style } = this.props;
     return (
@@ -13,11 +13,11 @@ class SidebarButton extends Component {
   }
 }
 
-SidebarButton.propTypes = {
+SideBarButton.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
   hovering: PropTypes.bool,
   style: PropTypes.object
 };
 
-export default Hoverable(SidebarButton);
+export default Hoverable(SideBarButton);

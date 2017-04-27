@@ -11,7 +11,7 @@ import JoinedItem from './joined-item';
 import { wrapperStyle } from './timeline-item.style';
 
 
-class TimelineItem extends Component {
+export class TimelineItem extends Component {
   constructor(props) {
     super(props);
     this.contentMap = {
@@ -20,6 +20,7 @@ class TimelineItem extends Component {
       [TimelineItemType.JOINED]: JoinedItem,
       [TimelineItemType.UNIT]: UnitItem
     };
+    this.handleContentRef = this.handleContentRef.bind(this);
   }
 
   componentDidMount() {
@@ -37,10 +38,27 @@ class TimelineItem extends Component {
     }
   }
 
+  handleContentRef(el) {
+    this.element = el;
+  }
+
   renderContent({ ratio }) {
-    const { item, hovering, minimapItemHovered } = this.props;
-    const child = createElement(this.contentMap[item.kind], { item, hovering, flashRatio: ratio });
-    return <div style={ wrapperStyle(hovering || minimapItemHovered) } ref={ el => this.element = el }>{ child }</div>;
+    const { item, hovering, minimapItemHovered, openBottomSheetWithComplaint, officerId } = this.props;
+    const onClick = item.kind ===
+      TimelineItemType.CR
+      ? (crid) => openBottomSheetWithComplaint({ officerId, crid })
+      : null;
+
+    let child = null;
+    if (this.contentMap[item.kind]) {
+      child = createElement(this.contentMap[item.kind], { item, hovering, onClick, flashRatio: ratio });
+    }
+
+    return (
+      <div style={ wrapperStyle(hovering || minimapItemHovered) } ref={ this.handleContentRef }>
+        { child }
+      </div>
+    );
   }
 
   render() {
@@ -62,7 +80,13 @@ TimelineItem.propTypes = {
   onSelected: PropTypes.func,
   selected: PropTypes.bool,
   minimapItemHovered: PropTypes.bool,
-  flash: PropTypes.bool
+  flash: PropTypes.bool,
+  officerId: PropTypes.number,
+  openBottomSheetWithComplaint: PropTypes.func
+};
+
+TimelineItem.defaultProps = {
+  item: {}
 };
 
 export default Hoverable(TimelineItem);

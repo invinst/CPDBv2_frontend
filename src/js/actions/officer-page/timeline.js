@@ -17,12 +17,12 @@ export const fetchMinimap = offficerId => (get(
    OFFICER_TIMELINE_MINIMAP_REQUEST_FAILURE]
 )());
 
-export const fetchTimelineItems = offficerId => get(
+export const fetchTimelineItems = (offficerId, params) => (get(
   `${OFFICER_URL}${offficerId}/timeline-items/`,
   [OFFICER_TIMELINE_ITEMS_REQUEST_START,
    OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS,
    OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE]
-);
+)(params));
 
 export const flipSortOrder = createAction(OFFICER_TIMELINE_FLIP_SORT_ORDER);
 
@@ -38,7 +38,7 @@ export const fetchTimelineItemsWhenIndexOutOfBound = (itemsLength, index, office
   if (index >= itemsLength) {
     const minLoadingCount = index - itemsLength;
     const limit = minLoadingCount % 20 === 0 ? minLoadingCount : (Math.floor(minLoadingCount / 20) + 1) * 20;
-    return fetchTimelineItems(officerId)({ ...params, limit, offset: itemsLength });
+    return fetchTimelineItems(officerId, { ...params, limit, offset: itemsLength });
   }
   return createAction(DO_NOTHING_ACTION)();
 };

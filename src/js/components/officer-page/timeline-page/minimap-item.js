@@ -4,7 +4,7 @@ import Hoverable from 'components/common/higher-order/hoverable';
 import { itemStyle } from './minimap-item.style';
 
 
-class MinimapItem extends Component {
+export class MinimapItem extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.hovering !== this.props.hovering) {
       const { onHover } = this.props;
@@ -13,9 +13,9 @@ class MinimapItem extends Component {
   }
 
   render() {
-    const { text, hovering, active, onClick } = this.props;
+    const { text, hovering, active, onClick, className } = this.props;
     return (
-      <span style={ itemStyle(hovering, active) } onClick={ onClick }>{ text }</span>
+      <span className={ className } style={ itemStyle(hovering, active) } onClick={ onClick }>{ text }</span>
     );
   }
 }
@@ -23,6 +23,7 @@ class MinimapItem extends Component {
 MinimapItem.propTypes = {
   text: PropTypes.string,
   hovering: PropTypes.bool,
+  className: PropTypes.string,
   active: PropTypes.bool,
   onClick: PropTypes.func,
   onHover: PropTypes.func

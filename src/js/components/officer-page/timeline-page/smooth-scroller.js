@@ -22,7 +22,8 @@ export default class SmoothScroller extends Component {
     }
     const { selectedItemTop } = this.props;
     if (selectedItemTop !== this.prevSelectedItemTop) {
-      const [top, scrollTop] = this.getScrollerTopScrollTop();
+      const { top } = this.scrollerEl.getBoundingClientRect();
+      const scrollTop = this.scrollerEl.scrollTop;
       const itemMarginTop = 14;
       this.prevScrollTop = selectedItemTop - top + scrollTop - itemMarginTop;
     }
@@ -31,11 +32,6 @@ export default class SmoothScroller extends Component {
 
   handleScrollerElementRef(el) {
     this.scrollerEl = el;
-  }
-
-  getScrollerTopScrollTop() {
-    const { top } = this.scrollerEl.getBoundingClientRect();
-    return [top, this.scrollerEl.scrollTop];
   }
 
   render() {

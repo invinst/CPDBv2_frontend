@@ -7,12 +7,12 @@ import {
 } from './cr-item.style';
 
 
-class CrItem extends Component {
+export class CRItem extends Component {
   render() {
-    const { hovering, item, flashRatio } = this.props;
+    const { hovering, item, flashRatio, onClick } = this.props;
     const { crid, date, category, finding, subcategory, coaccused, hasDocument, hasAudio } = item;
     return (
-      <div style={ wrapperStyle }>
+      <div style={ wrapperStyle } onClick={ () => onClick(crid) }>
         <div>
           <span style={ crTextStyle }>CR <span style={ crNumberStyle }>{ crid }</span></span>
           <span style={ dateStyle }>{ date }</span>
@@ -26,18 +26,23 @@ class CrItem extends Component {
         </div>
         <div>
           <span style={ coaccusedStyle }>1 of { coaccused } Coaccused</span>
-          { hasDocument ? <span style={ documentIconStyle }/> : null }
-          { hasAudio ? <span style={ audioIconStyle }/> : null }
+          { hasDocument ? <span className='test--document-icon' style={ documentIconStyle }/> : null }
+          { hasAudio ? <span className='test--audio-icon' style={ audioIconStyle }/> : null }
         </div>
       </div>
     );
   }
 }
 
-CrItem.propTypes = {
+CRItem.propTypes = {
   hovering: PropTypes.bool,
   item: PropTypes.object,
-  flashRatio: PropTypes.number
+  flashRatio: PropTypes.number,
+  onClick: PropTypes.func
 };
 
-export default Hoverable(CrItem);
+CRItem.defaultProps = {
+  item: {}
+};
+
+export default Hoverable(CRItem);

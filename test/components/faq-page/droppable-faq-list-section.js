@@ -52,7 +52,7 @@ describe('DroppableFAQListSection', function () {
     const dropTarget = findRenderedComponentWithType(instance, DroppableFAQListSection);
     const dragSourceFAQListItem = scryRenderedComponentsWithType(instance, DragSourceFAQListItem)[0];
     const orderObj = {};
-    stub(droppableFaqListSection, 'currentOrder', () => orderObj);
+    stub(droppableFaqListSection, 'currentOrder').callsFake(() => orderObj);
 
     backend.simulateBeginDrag([dragSourceFAQListItem.getHandlerId()]);
     backend.simulateHover([dropTarget.getHandlerId()]);

@@ -35,7 +35,7 @@ describe('StickyHeader component', function () {
       <StickyHeader><div /></StickyHeader>
     );
 
-    stub(instance.placeholderElement, 'getBoundingClientRect', () => ({ top: 1 }));
+    stub(instance.placeholderElement, 'getBoundingClientRect').callsFake(() => ({ top: 1 }));
     recalculateStickyness();
     instance.state.isSticky.should.be.false();
   });
@@ -45,7 +45,7 @@ describe('StickyHeader component', function () {
       <StickyHeader><div /></StickyHeader>
     );
 
-    stub(instance.placeholderElement, 'getBoundingClientRect', () => ({ top: -1 }));
+    stub(instance.placeholderElement, 'getBoundingClientRect').callsFake(() => ({ top: -1 }));
     recalculateStickyness();
     instance.state.isSticky.should.be.true();
   });

@@ -20,3 +20,7 @@ JoinedItem.propTypes = {
   item: PropTypes.object,
   flashRatio: PropTypes.number
 };
+
+JoinedItem.defaultProps = {
+  item: {}
+};

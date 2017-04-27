@@ -47,3 +47,7 @@ SideBar.propTypes = {
   selectMinimapItem: PropTypes.func,
   hoverMinimapItem: PropTypes.func
 };
+
+SideBar.defaultProps = {
+  fetchMinimap: () => {}
+};

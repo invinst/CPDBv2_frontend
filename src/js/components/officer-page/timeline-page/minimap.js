@@ -42,7 +42,8 @@ export default class Minimap extends Component {
             <div style={ yearStyle }>{ year }</div>
             <div style={ itemsStyle }>
               { map(items, ({ kind, index }) => (
-                <MinimapItem text={ kind } key={ index } active={ selectedItemIndex === index }
+                <MinimapItem className='test--minimapitem' text={ kind }
+                  key={ index } active={ selectedItemIndex === index }
                   onClick={ () => this.handleMinimapItemClick(index) }
                   onHover={ (hovered) => this.handleMinimapItemHover(hovered ? index : null) }/>
               )) }
@@ -59,4 +60,9 @@ Minimap.propTypes = {
   onItemClick: PropTypes.func,
   onItemHover: PropTypes.func,
   sortDescending: PropTypes.bool
+};
+
+Minimap.defaultProps = {
+  onItemHover: () => {},
+  onItemClick: () => {}
 };

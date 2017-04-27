@@ -31,3 +31,7 @@ Scroller.propTypes = {
   onElementRef: PropTypes.func,
   children: PropTypes.node
 };
+
+Scroller.defaultProps = {
+  onElementRef: () => {}
+};

@@ -19,7 +19,7 @@ describe('CompactHeader component', function () {
   const store = mockStore({ authentication: {}, adapter: 'adapter' });
 
   beforeEach(function () {
-    stub(utilsDom, 'windowAddEventListener', (evt, cb) => {
+    stub(utilsDom, 'windowAddEventListener').callsFake((evt, cb) => {
       if (evt === 'scroll') {
         triggerScroll = cb;
       }
