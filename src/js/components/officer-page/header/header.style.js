@@ -25,7 +25,7 @@ export const linkWrapperStyle = {
   float: 'right',
   height: '64px',
   letterSpacing: '.8px',
-  padding: '22px 16px 22px 0',
+  padding: '22px 0',
   boxSizing: 'border-box'
 };
 

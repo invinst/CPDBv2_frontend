@@ -43,6 +43,9 @@ export const hippieGreenColor = '#5D924E';
 export const hardBlackColor = '#1A1818';
 export const softGreyColor = '#979797';
 export const markerRedColor = '#F9001E';
+export const brightOrangeColor = '#FF5F00';
+export const brightOrangeTwoColor = '#FF6000';
+export const dustyOrangeColor = '#F46937';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';

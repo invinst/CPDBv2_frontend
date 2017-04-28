@@ -9,17 +9,25 @@ export const wrapperStyle = {
   fontSize: '14px',
   height: '18px',
   fontWeight: 500,
-  borderTop: `solid 1px ${whiteTwoColor}`,
+  borderBottom: `solid 1px ${whiteTwoColor}`,
   display: 'inline-block'
 };
 
 export const labelStyle = {
   display: 'inline-block',
   color: mediumGrayColor,
+  fontWeight: 300,
   width: '117px'
 };
 
 export const valueStyle = {
   display: 'inline-block',
   color: hardBlackColor
+};
+
+export const descriptionStyle = {
+  display: 'inline-block',
+  color: mediumGrayColor,
+  fontWeight: 300,
+  marginLeft: '8px'
 };
