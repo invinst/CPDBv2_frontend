@@ -27,8 +27,8 @@ export default class Timeline extends Component {
       sortParams, fetchTimelineItems, selectedItemIndex,
       fetchTimelineItemsWhenIndexOutOfBound, items, officerId
     } = this.props;
-    if (nextProps.sortParams !== sortParams) {
-      fetchTimelineItems(officerId, nextProps.sortParams);
+    if (nextProps.sortParams !== sortParams || nextProps.officerId !== officerId) {
+      fetchTimelineItems(nextProps.officerId, nextProps.sortParams);
     }
 
     if (nextProps.selectedItemIndex !== selectedItemIndex) {

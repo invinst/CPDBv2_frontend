@@ -5,11 +5,12 @@ import {
 } from 'utils/constants';
 
 const getOfficerId = (url) => {
-  return parseInt(url.replace(/.*officers\/(\d+).*/, '$1'));
+  return parseInt(url.replace(/.*officers?\/(\d+).*/, '$1'));
 };
 
 export default handleActions({
   [OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS]: (state, { request }) => getOfficerId(request.url),
   [OFFICER_TIMELINE_MINIMAP_REQUEST_SUCCESS]: (state, { request }) => getOfficerId(request.url),
-  [OFFICER_SUMMARY_REQUEST_SUCCESS]: (state, { request }) => getOfficerId(request.url)
+  [OFFICER_SUMMARY_REQUEST_SUCCESS]: (state, { request }) => getOfficerId(request.url),
+  '@@router/LOCATION_CHANGE': (state, { payload: { pathname } }) => getOfficerId(pathname)
 }, null);

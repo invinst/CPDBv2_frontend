@@ -13,6 +13,13 @@ export default class OfficerPage extends Component {
     fetchOfficerSummary(officerId);
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { fetchOfficerSummary, officerId } = nextProps;
+    if (officerId !== this.props.officerId) {
+      fetchOfficerSummary(officerId);
+    }
+  }
+
   renderContent() {
     const { location, officerId } = this.props;
     const parts = location.pathname.split('/');

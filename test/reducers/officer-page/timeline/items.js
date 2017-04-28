@@ -20,4 +20,11 @@ describe('items reducer', function () {
       type: OFFICER_TIMELINE_FLIP_SORT_ORDER
     }).should.eql([]);
   });
+
+  it('should handle @@router/LOCATION_CHANGE', function () {
+    items([1, 2, 3], {
+      type: '@@router/LOCATION_CHANGE',
+      payload: { pathname: '/officer/1234/timeline/' }
+    }).should.eql([]);
+  });
 });

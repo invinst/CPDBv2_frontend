@@ -12,23 +12,30 @@ describe('officerId reducer', function () {
   });
 
   it('should handle OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS', function () {
-    officerId(undefined, {
+    officerId(null, {
       type: OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS,
       request: { url: 'http://domain/api/v2/officers/1234/timeline-items/' }
     }).should.eql(1234);
   });
 
   it('should handle OFFICER_TIMELINE_MINIMAP_REQUEST_SUCCESS', function () {
-    officerId(undefined, {
+    officerId(null, {
       type: OFFICER_TIMELINE_MINIMAP_REQUEST_SUCCESS,
       request: { url: 'http://domain/api/v2/officers/1234/timeline-minimap/' }
     }).should.eql(1234);
   });
 
   it('should handle OFFICER_SUMMARY_REQUEST_SUCCESS', function () {
-    officerId(undefined, {
+    officerId(null, {
       type: OFFICER_SUMMARY_REQUEST_SUCCESS,
       request: { url: 'http://domain/api/v2/officers/1234/' }
+    }).should.eql(1234);
+  });
+
+  it('should handle @@router/LOCATION_CHANGE', function () {
+    officerId(null, {
+      type: '@@router/LOCATION_CHANGE',
+      payload: { pathname: '/officer/1234/timeline/' }
     }).should.eql(1234);
   });
 });

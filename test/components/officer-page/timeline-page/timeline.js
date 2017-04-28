@@ -42,6 +42,18 @@ describe('Timeline component', function () {
     fetchTimelineItems.calledWith(123, { b: 'b' }).should.be.true();
   });
 
+  it('should invoke fetchTimelineItems when officerId change', function () {
+    const fetchTimelineItems = spy();
+    instance = renderIntoDocument(
+      <Timeline fetchTimelineItems={ fetchTimelineItems } sortParams={ { a: 'a' } } officerId={ 123 }/>
+    );
+    reRender(
+      <Timeline fetchTimelineItems={ fetchTimelineItems } sortParams={ { a: 'a' } } officerId={ 456 }/>,
+      instance
+    );
+    fetchTimelineItems.calledWith(123, { a: 'a' }).should.be.true();
+  });
+
   it('should invoke fetchTimelineItemsWhenIndexOutOfBound when selectedItemIndex change', function (done) {
     const fetchSpy = spy();
     instance = renderIntoDocument(
