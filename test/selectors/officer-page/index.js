@@ -1,4 +1,6 @@
-import { getOfficerName, getComplaintsCount, getComplaintFacets, summarySelector } from 'selectors/officer-page';
+import {
+  getOfficerName, getComplaintsCount, getComplaintFacetsSelector, summarySelector
+} from 'selectors/officer-page';
 
 
 describe('officer page selectors', function () {
@@ -28,12 +30,39 @@ describe('officer page selectors', function () {
     });
   });
 
-  describe('getComplaintFacets', function () {
+  describe('getComplaintFacetsSelector', function () {
     it('should return complaint facets', function () {
-      const complaintFacets = [{ name: 'foo', entries: [] }];
+      const complaintFacets = [{
+        name: 'foo',
+        entries: [{ 'name': 'Illegal Search', 'count': 2, 'sustained_count': 1 }]
+      }];
       state.officerPage = { complaintFacets };
 
-      getComplaintFacets(state).should.eql(complaintFacets);
+      getComplaintFacetsSelector(state).should.eql([{
+        name: 'foo',
+        entries: [{ name: 'Illegal Search', count: 2, sustainedCount: 1 }]
+      }]);
+    });
+
+    it('should return facet entries sorted with "Unknown" last', function () {
+      const complaintFacets = [{
+        name: 'foo',
+        entries: [
+          { name: 'c', count: 3, 'sustained_count': 0 },
+          { name: 'a', count: 2, 'sustained_count': 1 },
+          { name: 'Unknown', count: 2, 'sustained_count': 0 }
+        ]
+      }];
+      state.officerPage = { complaintFacets };
+
+      getComplaintFacetsSelector(state).should.eql([{
+        name: 'foo',
+        entries: [
+          { name: 'a', count: 2, sustainedCount: 1 },
+          { name: 'c', count: 3, sustainedCount: 0 },
+          { name: 'Unknown', count: 2, sustainedCount: 0 }
+        ]
+      }]);
     });
   });
 
@@ -46,7 +75,7 @@ describe('officer page selectors', function () {
       state.officerPage = { summary };
 
       summarySelector(state).should.eql({
-        unitName: 'unit', rank: 'rank', dateOfAppt: 'SEP 23, 2015',
+        unitName: 'unit', rank: 'rank', dateOfAppt: '2015-09-23',
         race: 'race', gender: 'Male', badge: 'badge'
       });
     });

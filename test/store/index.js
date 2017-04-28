@@ -113,6 +113,7 @@ describe('store', function () {
         isRequesting: false,
         officerId: null,
         summary: {},
+        sustainedCount: 0,
         timeline: {
           hoveredItemIndex: null,
           isRequesting: false,
