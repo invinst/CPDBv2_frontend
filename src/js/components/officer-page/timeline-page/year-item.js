@@ -10,18 +10,18 @@ export default class YearItem extends Component {
     const { year, crs } = item;
     return (
       <div>
-        <span style={ yearStyle }>{ year }</span>
+        <span className='test--timeline-item-year' style={ yearStyle }>{ year }</span>
         <div style={ rowWithBorderStyle }>
-          <span style={ labelStyle }>CRs</span>
-          <span style={ valueStyle }>{ crs }</span>
+          <span className='test--crs-label' style={ labelStyle }>CRs</span>
+          <span className='test--crs-value' style={ valueStyle }>{ crs }</span>
         </div>
         <div style={ rowWithBorderStyle }>
-          <span style={ labelStyle }>TRRs</span>
-          <span style={ valueStyle }>0</span>
+          <span className='test--trrs-label' style={ labelStyle }>TRRs</span>
+          <span className='test--trrs-value' style={ valueStyle }>0</span>
         </div>
         <div style={ rowStyle }>
-          <span style={ labelStyle }>Salary</span>
-          <span style={ valueStyle }>Data not available</span>
+          <span className='test--salary-label' style={ labelStyle }>Salary</span>
+          <span className='test--salary-value' style={ valueStyle }>Data not available</span>
         </div>
       </div>
     );

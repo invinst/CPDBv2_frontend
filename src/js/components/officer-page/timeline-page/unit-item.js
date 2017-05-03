@@ -8,9 +8,10 @@ export default class UnitItem extends Component {
     const { date, unitName } = item;
     return (
       <div>
-        <span style={ unitTextStyle }>Unit Change</span>
-        <span style={ dateStyle }>{ date }</span>
-        <span style={ descriptionStyle(flashRatio) }>Assigned to Unit { unitName }</span>
+        <span className='test--unit-item-kind' style={ unitTextStyle }>Unit Change</span>
+        <span className='test--unit-item-date' style={ dateStyle }>{ date }</span>
+        <span className='test--unit-item-description'
+          style={ descriptionStyle(flashRatio) }>Assigned to Unit { unitName }</span>
       </div>
     );
   }

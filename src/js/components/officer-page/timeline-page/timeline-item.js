@@ -55,7 +55,8 @@ export class TimelineItem extends Component {
     }
 
     return (
-      <div style={ wrapperStyle(hovering || minimapItemHovered) } ref={ this.handleContentRef }>
+      <div className='test--card-item'
+        style={ wrapperStyle(hovering || minimapItemHovered) } ref={ this.handleContentRef }>
         { child }
       </div>
     );

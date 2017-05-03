@@ -26,8 +26,8 @@ export default class SideBar extends Component {
     return (
       <div style={ wrapperStyle }>
         <div>
-          <SideBarButton style={ leftButtonStyle }>Filter</SideBarButton>
-          <SideBarButton style={ rightButtonStyle } onClick={ () => flipSortOrder() }>
+          <SideBarButton className='test--filter-button' style={ leftButtonStyle }>Filter</SideBarButton>
+          <SideBarButton className='test--sort-button' style={ rightButtonStyle } onClick={ () => flipSortOrder() }>
             { this.rightButtonText() }
           </SideBarButton>
         </div>

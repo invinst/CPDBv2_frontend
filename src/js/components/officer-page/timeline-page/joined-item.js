@@ -8,9 +8,9 @@ export default class JoinedItem extends Component {
     const { date } = item;
     return (
       <div>
-        <span style={ joinedTextStyle }>Joined</span>
-        <span style={ dateStyle }>{ date }</span>
-        <span style={ joinedDescriptionStyle(flashRatio) }>Joined CPD</span>
+        <span className='test--joined-item-kind' style={ joinedTextStyle }>Joined</span>
+        <span className='test--joined-item-date' style={ dateStyle }>{ date }</span>
+        <span className='test--joined-item-description' style={ joinedDescriptionStyle(flashRatio) }>Joined CPD</span>
       </div>
     );
   }

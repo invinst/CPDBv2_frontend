@@ -39,7 +39,7 @@ export default class Minimap extends Component {
       <div style={ wrapperStyle }>
         { map(minimap, ({ year, items }) => (
           <div style={ rowStyle } key={ year }>
-            <div style={ yearStyle }>{ year }</div>
+            <div className='test--year-label' style={ yearStyle }>{ year }</div>
             <div style={ itemsStyle }>
               { map(items, ({ kind, index }) => (
                 <MinimapItem className='test--minimapitem' text={ kind }

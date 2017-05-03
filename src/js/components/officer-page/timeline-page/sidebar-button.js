@@ -6,9 +6,11 @@ import { buttonStyle } from './sidebar-button.style';
 
 export class SideBarButton extends Component {
   render() {
-    const { onClick, children, hovering, style } = this.props;
+    const { onClick, children, hovering, style, className } = this.props;
     return (
-      <span style={ { ...buttonStyle(hovering), ...style } } onClick={ onClick }>{ children }</span>
+      <span className={ className } style={ { ...buttonStyle(hovering), ...style } } onClick={ onClick }>
+        { children }
+      </span>
     );
   }
 }
@@ -17,7 +19,8 @@ SideBarButton.propTypes = {
   onClick: PropTypes.func,
   children: PropTypes.node,
   hovering: PropTypes.bool,
-  style: PropTypes.object
+  style: PropTypes.object,
+  className: PropTypes.string
 };
 
 export default Hoverable(SideBarButton);

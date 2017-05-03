@@ -14,18 +14,20 @@ export class CRItem extends Component {
     return (
       <div style={ wrapperStyle } onClick={ () => onClick(crid) }>
         <div>
-          <span style={ crTextStyle }>CR <span style={ crNumberStyle }>{ crid }</span></span>
-          <span style={ dateStyle }>{ date }</span>
+          <span className='test--cr-item-crid' style={ crTextStyle }>
+            CR <span style={ crNumberStyle }>{ crid }</span>
+          </span>
+          <span className='test--cr-item-date' style={ dateStyle }>{ date }</span>
         </div>
-        <div style={ categoryStyle(hovering, flashRatio) } >
+        <div className='test--cr-item-category' style={ categoryStyle(hovering, flashRatio) } >
           { category }
         </div>
-        <div style={ subcategoryStyle(hovering) }>{ subcategory }</div>
+        <div className='test--cr-item-subcategory' style={ subcategoryStyle(hovering) }>{ subcategory }</div>
         <div>
-          <span style={ findingStyle }>{ finding }</span>
+          <span className='test--cr-item-finding' style={ findingStyle }>{ finding }</span>
         </div>
         <div>
-          <span style={ coaccusedStyle }>1 of { coaccused } Coaccused</span>
+          <span className='test--cr-item-coaccused' style={ coaccusedStyle }>1 of { coaccused } Coaccused</span>
           { hasDocument ? <span className='test--document-icon' style={ documentIconStyle }/> : null }
           { hasAudio ? <span className='test--audio-icon' style={ audioIconStyle }/> : null }
         </div>
