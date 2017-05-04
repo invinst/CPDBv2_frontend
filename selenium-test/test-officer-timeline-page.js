@@ -32,11 +32,6 @@ describe('officer timeline page', function () {
   });
 
   it('should refresh timeline as well as minimap when visit other officers', function () {
-    // visit officer timeline 1234
-    // click overlay -> return to search page
-    // click on officer 5678
-    // click on timeline tab
-    // should show timeline and minimap of officer 5678
     timelinePage.open(1234);
     timelinePage.sidebar.yearLabel.count.should.equal(1);
     timelinePage.timeline.cardItem.count.should.equal(2);
@@ -66,11 +61,14 @@ describe('officer timeline page', function () {
       );
     });
 
-    it.only('should scroll to corresponding timeline item when clicked on', function () {
-      browser.debug();
+    it('should scroll to corresponding timeline item when clicked on', function () {
+      timelinePage.timeline.cardItem.count.should.equal(10);
       timelinePage.timeline.joinedItem.kind.isVisible().should.be.false();
       timelinePage.sidebar.clickOn('2001', 'Joined');
       timelinePage.timeline.joinedItem.kind.waitForVisible();
+      timelinePage.timeline.joinedItem.kind.getText().should.equal('Joined');
+      timelinePage.timeline.joinedItem.date.getText().should.equal('DEC 5, 2001');
+      timelinePage.timeline.joinedItem.description.getText().should.equal('Joined CPD');
     });
   });
 
@@ -98,10 +96,16 @@ describe('officer timeline page', function () {
       timelinePage.timeline.unitItem.description.getText().should.equal('Assigned to Unit 004');
     });
 
-    it('should fetch more timeline items when scroll down', function () {
-      timelinePage.timeline.cardItem.count.should.equal(10);
-      timelinePage.timeline.scrollToCardItem(10);
-      timelinePage.timeline.cardItem.count.should.equal(15);
+    it('should refresh items when change sort order', function () {
+      timelinePage.timeline.joinedItem.kind.isVisible().should.be.false();
+
+      timelinePage.sidebar.sortButton.waitForVisible();
+      timelinePage.sidebar.sortButton.click();
+
+      timelinePage.timeline.joinedItem.kind.waitForVisible();
+      timelinePage.timeline.joinedItem.kind.getText().should.equal('Joined');
+      timelinePage.timeline.joinedItem.date.getText().should.equal('DEC 5, 2001');
+      timelinePage.timeline.joinedItem.description.getText().should.equal('Joined CPD');
     });
   });
 });

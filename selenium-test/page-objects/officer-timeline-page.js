@@ -7,7 +7,7 @@ class Header extends Section {
     super();
     this.prepareElementGetters({
       officerName: '.test--officer-name',
-      headerTimelineButton: '//a[@class="test--header-button"]'
+      headerTimelineButton: '//a[@class="test--header-button"][text()="Timeline"]'
     });
   }
 }
