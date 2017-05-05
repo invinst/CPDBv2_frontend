@@ -6,6 +6,8 @@ import fullName from './full-name';
 import complaintsCount from './complaints-count';
 import sustainedCount from './sustained-count';
 import complaintFacets from './complaint-facets';
+import timeline from './timeline';
+import officerId from './officer-id';
 
 
 export default combineReducers({
@@ -14,5 +16,7 @@ export default combineReducers({
   summary,
   complaintsCount,
   sustainedCount,
-  complaintFacets
+  complaintFacets,
+  timeline,
+  officerId
 });

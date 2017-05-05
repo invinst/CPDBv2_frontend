@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import SummaryPage from 'components/officer-page/summary-page';
-import { fetchOfficerSummary } from 'actions/officer-page';
 import {
   summarySelector, getComplaintsCount, getSustainedCount, getComplaintFacetsSelector
 } from 'selectors/officer-page';
@@ -18,8 +17,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = {
-  fetchOfficerSummary
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SummaryPage);
+export default connect(mapStateToProps, null)(SummaryPage);

@@ -51,5 +51,17 @@ export default {
         }
       }
     ]
+  },
+  'foo': {
+    'OFFICER': [
+      {
+        'text': 'Laurence Lanners',
+        'payload': {
+          'result_text': 'Laurence Lanners',
+          'result_extra_information': '5678',
+          'to': '/officer/5678/'
+        }
+      }
+    ]
   }
 };

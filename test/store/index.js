@@ -111,8 +111,24 @@ describe('store', function () {
         complaintsCount: 0,
         fullName: '',
         isRequesting: false,
+        officerId: null,
         summary: {},
-        sustainedCount: 0
+        sustainedCount: 0,
+        timeline: {
+          hoveredItemIndex: null,
+          isRequesting: false,
+          items: [],
+          minimap: {
+            isRequesting: false,
+            minimap: []
+          },
+          pagination: {
+            next: null,
+            previous: null
+          },
+          selectedItemIndex: null,
+          sortDescending: true
+        }
       }
     });
   });

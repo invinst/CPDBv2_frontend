@@ -1,8 +1,6 @@
 export const pageWrapperStyle = {
-  minHeight: `${window.innerHeight - 108}px`,
   scroll: 'auto',
-  boxSizing: 'border-box',
-  paddingBottom: '74px'
+  boxSizing: 'border-box'
 };
 
 export const headerStyle = {
