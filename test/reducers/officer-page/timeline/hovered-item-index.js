@@ -1,7 +1,9 @@
 import hoveredItemIndex from 'reducers/officer-page/timeline/hovered-item-index';
 import should from 'should';
 
-import { OFFICER_TIMELINE_HOVER_MINIMAP_ITEM, OFFICER_TIMELINE_SELECT_MINIMAP_ITEM } from 'utils/constants';
+import {
+  OFFICER_TIMELINE_HOVER_MINIMAP_ITEM, OFFICER_TIMELINE_SELECT_MINIMAP_ITEM, OFFICER_TIMELINE_HOVER_TIMELINE_ITEM
+} from 'utils/constants';
 
 
 describe('hoveredItemIndex reducer', function () {
@@ -19,6 +21,13 @@ describe('hoveredItemIndex reducer', function () {
   it('should handle OFFICER_TIMELINE_SELECT_MINIMAP_ITEM', function () {
     hoveredItemIndex(undefined, {
       type: OFFICER_TIMELINE_SELECT_MINIMAP_ITEM,
+      payload: { 'index': 4 }
+    }).should.eql(4);
+  });
+
+  it('should handle OFFICER_TIMELINE_HOVER_TIMELINE_ITEM', function () {
+    hoveredItemIndex(undefined, {
+      type: OFFICER_TIMELINE_HOVER_TIMELINE_ITEM,
       payload: { 'index': 4 }
     }).should.eql(4);
   });

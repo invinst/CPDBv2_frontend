@@ -110,4 +110,13 @@ describe('TimelineItem component', function () {
     );
     scryRenderedComponentsWithType(instance, Motion).should.have.length(0);
   });
+
+  it('should trigger onHover when hovering changed', function () {
+    const onHover = spy();
+    instance = renderIntoDocument(<TimelineItem hovering={ false } onHover={ onHover }/>);
+    instance = reRender(<TimelineItem hovering={ true } onHover={ onHover }/>, instance);
+    onHover.calledWith(true).should.be.true();
+    instance = reRender(<TimelineItem hovering={ false } onHover={ onHover }/>, instance);
+    onHover.calledWith(false).should.be.true();
+  });
 });

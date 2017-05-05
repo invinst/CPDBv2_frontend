@@ -99,4 +99,13 @@ describe('Timeline component', function () {
       fetchTimelineItems.calledWith(123, { a: 'a', b: 'b' }).should.be.false();
     });
   });
+
+  it('should invoke hoverTimelineItem when hover on an item', function () {
+    const onHover = spy();
+    instance = renderIntoDocument(<Timeline items={ items } hoverTimelineItem={ onHover }/>);
+    scryRenderedComponentsWithType(instance, TimelineItem)[0].props.onHover(true);
+    onHover.calledWith(0).should.be.true();
+    scryRenderedComponentsWithType(instance, TimelineItem)[0].props.onHover(false);
+    onHover.calledWith(null).should.be.true();
+  });
 });

@@ -44,7 +44,7 @@ export default class Timeline extends Component {
   render() {
     const {
       items, fetchTimelineItems, nextParams, hasMore, sortParams,
-      selectedItemIndex, hoveredItemIndex, openBottomSheetWithComplaint, officerId
+      selectedItemIndex, hoveredItemIndex, openBottomSheetWithComplaint, officerId, hoverTimelineItem
     } = this.props;
     const { selectedItemTop, flashItemIndex } = this.state;
     return (
@@ -57,7 +57,8 @@ export default class Timeline extends Component {
             <TimelineItem item={ item } key={ ind } selected={ ind === selectedItemIndex }
               minimapItemHovered={ ind === hoveredItemIndex } officerId={ officerId }
               onSelected={ this.handleItemSelected } flash={ ind === flashItemIndex }
-              openBottomSheetWithComplaint={ openBottomSheetWithComplaint }/>
+              openBottomSheetWithComplaint={ openBottomSheetWithComplaint }
+              onHover={ (hovered) => hoverTimelineItem(hovered ? ind : null) }/>
           )) }
         </InfiniteScroll>
       </SmoothScroller>
@@ -75,7 +76,8 @@ Timeline.propTypes = {
   hoveredItemIndex: PropTypes.number,
   officerId: PropTypes.number,
   fetchTimelineItemsWhenIndexOutOfBound: PropTypes.func,
-  openBottomSheetWithComplaint: PropTypes.func
+  openBottomSheetWithComplaint: PropTypes.func,
+  hoverTimelineItem: PropTypes.func
 };
 
 Timeline.defaultProps = {

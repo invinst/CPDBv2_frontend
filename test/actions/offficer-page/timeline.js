@@ -1,13 +1,14 @@
 import {
   fetchMinimap, fetchTimelineItems, flipSortOrder, selectMinimapItem, hoverMinimapItem,
-  fetchTimelineItemsWhenIndexOutOfBound
+  fetchTimelineItemsWhenIndexOutOfBound, hoverTimelineItem
 } from 'actions/officer-page/timeline';
 
 import {
   OFFICER_URL, OFFICER_TIMELINE_MINIMAP_REQUEST_START, OFFICER_TIMELINE_MINIMAP_REQUEST_SUCCESS,
   OFFICER_TIMELINE_MINIMAP_REQUEST_FAILURE, OFFICER_TIMELINE_ITEMS_REQUEST_START,
   OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS, OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE, OFFICER_TIMELINE_FLIP_SORT_ORDER,
-  OFFICER_TIMELINE_SELECT_MINIMAP_ITEM, OFFICER_TIMELINE_HOVER_MINIMAP_ITEM, DO_NOTHING_ACTION
+  OFFICER_TIMELINE_SELECT_MINIMAP_ITEM, OFFICER_TIMELINE_HOVER_MINIMAP_ITEM, DO_NOTHING_ACTION,
+  OFFICER_TIMELINE_HOVER_TIMELINE_ITEM
 } from 'utils/constants';
 
 describe('officer timeline actions', function () {
@@ -109,6 +110,17 @@ describe('officer timeline actions', function () {
       fetchTimelineItemsWhenIndexOutOfBound(itemsLength, index, officerId, params).should.eql({
         type: DO_NOTHING_ACTION,
         payload: undefined
+      });
+    });
+  });
+
+  describe('hoverTimelineItem', function () {
+    it('should return the right action', function () {
+      hoverTimelineItem(1).should.eql({
+        type: OFFICER_TIMELINE_HOVER_TIMELINE_ITEM,
+        payload: {
+          index: 1
+        }
       });
     });
   });
