@@ -116,18 +116,11 @@ describe('CR page', function () {
     crPage.attachmentsSection.getAttachment('AUDIO', 1).getText().should.equal('CR Audio');
   });
 
-  it('should navigate to page with document url when we click on document item', function () {
-    crPage.attachmentsSection.getAttachment('DOCUMENTS', 1).click();
-    browser.getUrl().should.equal('http://cr-document.com/');
-  });
-
-  it('should navigate to page with video url when we click on video item', function () {
-    crPage.attachmentsSection.getAttachment('VIDEO', 1).click();
-    browser.getUrl().should.equal('http://cr-video.com/');
-  });
-
-  it('should navigate to page with audio item url when we click on audio item', function () {
-    crPage.attachmentsSection.getAttachment('AUDIO', 1).click();
-    browser.getUrl().should.equal('http://cr-audio.com/');
+  it.only('should navigate to page with attachment item url when we click on', function () {
+    crPage.attachmentsSection.getAttachment('DOCUMENTS', 1).getAttribute('href').should.equal(
+      'http://cr-document.com/'
+    );
+    crPage.attachmentsSection.getAttachment('VIDEO', 1).getAttribute('href').should.equal('http://cr-video.com/');
+    crPage.attachmentsSection.getAttachment('AUDIO', 1).getAttribute('href').should.equal('http://cr-audio.com/');
   });
 });
