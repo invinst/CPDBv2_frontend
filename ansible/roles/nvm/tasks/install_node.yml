@@ -3,16 +3,3 @@
   shell: ~/nvm.sh install {{ nvm_node_version }}
   args:
     executable: /bin/bash
-
-- name: Set default node version to {{ nvm_node_version }}
-  shell: ~/nvm.sh alias default {{ nvm_node_version }}
-  args:
-    executable: /bin/bash
-
-- name: Store node version
-  command: node --version
-  register: actual_node_version
-
-- name: Check that node version is correct
-  assert:
-    that: actual_node_version.stdout == "v{{ nvm_node_version }}"

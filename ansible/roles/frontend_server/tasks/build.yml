@@ -20,18 +20,23 @@
     chdir={{ application_root_path }}
   environment:
     NODE_ENV: development
+    PATH: "{{ node_path }}:{{ ansible_env.PATH }}"
   tags: deploy
 
 - name: Install gulp
   command: yarn global add gulp@3.9.1
   become: yes
   become_user: root
+  environment:
+    PATH: "{{ node_path }}:{{ ansible_env.PATH }}"
   tags: setup
 
 - name: Install gulp cli
   command: yarn global add gulp-cli@1.2.1
   become: yes
   become_user: root
+  environment:
+    PATH: "{{ node_path }}:{{ ansible_env.PATH }}"
   tags: setup
 
 - name: Clean static root
@@ -49,4 +54,6 @@
 - name: Build everything
   command: yarn build
     chdir={{ application_root_path }}
+  environment:
+    PATH: "{{ node_path }}:{{ ansible_env.PATH }}"
   tags: deploy

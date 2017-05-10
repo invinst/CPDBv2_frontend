@@ -7,39 +7,7 @@
 
 - name: Install Yarn
   shell: /tmp/install_yarn.sh --version {{ yarn_version }}
+  environment:
+    PATH: "{{ node_path }}:{{ ansible_env.PATH }}"
   args:
     executable: /bin/bash
-
-# - name: Check if YARN repo is already configured.
-#   stat: path={{ yarn_debian_repofile_path }}
-#   register: yarn_repofile_result
-
-# - name: Import YARN APT key.
-#   apt_key:
-#     url: "{{ yarn_debian_repo_gpg_key_url }}"
-#     state: present
-#   register: result
-#   until: '"failed" not in result'
-#   retries: 3
-#   delay: 5
-#   become: yes
-#   become_user: root
-#   when: not yarn_repofile_result.stat.exists
-
-# - name: Install YARN APT repo.
-#   apt_repository:
-#     repo: "deb {{ yarn_debian_repo_url }}"
-#     state: present
-#   register: result
-#   until: '"failed" not in result'
-#   retries: 3
-#   delay: 5
-#   become: yes
-#   become_user: root
-#   when: not yarn_repofile_result.stat.exists
-
-# - name: Install YARN package manager
-#   become: yes
-#   become_user: root
-#   package:
-#     name: yarn=0.23*
