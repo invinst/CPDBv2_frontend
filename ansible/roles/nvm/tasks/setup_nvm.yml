@@ -1,6 +1,8 @@
 ---
 - name: Install dependencies
   apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
+  become: yes
+  become_user: root
   with_items:
     - build-essential
     - libssl-dev
@@ -14,6 +16,7 @@
 - name: Install nvm
   command: bash /tmp/install_nvm.sh
 
-- name: Create nvm source script
-  template: src=nvm_source
-            dest=~/nvm_source
+- name: Create the nvm script
+  template: src=nvm.sh
+            dest=~/nvm.sh
+            mode=u+x

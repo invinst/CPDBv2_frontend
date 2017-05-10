@@ -1,6 +1,7 @@
 ---
 - hosts: webservers
   roles:
+    - nvm
     - frontend_server
   vars:
     - deploy_user: ansible

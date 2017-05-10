@@ -1,12 +1,11 @@
 ---
-
 - name: Install Node {{ nvm_node_version }}
-  shell: source ~/nvm_source && nvm install {{ nvm_node_version }}
+  shell: ~/nvm.sh install {{ nvm_node_version }}
   args:
     executable: /bin/bash
 
 - name: Set default node version to {{ nvm_node_version }}
-  shell: source ~/nvm_source && nvm alias default {{ nvm_node_version }}
+  shell: ~/nvm.sh alias default {{ nvm_node_version }}
   args:
     executable: /bin/bash
 
