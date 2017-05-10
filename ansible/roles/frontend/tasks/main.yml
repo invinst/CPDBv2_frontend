@@ -5,6 +5,17 @@
   become_user: root
   tags: setup
 
+- include: setup_nvm.yml
+  tags:
+    - nvm
+    - node
+    - setup
+
+- include: install_node.yml
+  tags:
+    - node
+    - setup
+
 - name: Update npm
   npm: name=npm version="{{npm_version}}" global=yes
   become: yes

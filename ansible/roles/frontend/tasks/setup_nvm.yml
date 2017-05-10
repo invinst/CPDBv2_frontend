@@ -1,0 +1,20 @@
+---
+- name: Install dependencies
+  apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
+  with_items:
+    - build-essential
+    - libssl-dev
+
+- name: Get install script
+  get_url:
+    url: https://raw.githubusercontent.com/creationix/nvm/{{ nvm_version }}/install.sh
+    dest: /tmp/install_nvm.sh
+    mode: u+x
+
+- name: Install nvm
+  command: bash /tmp/install_nvm.sh
+
+- name: Create nvm source script
+  template: src=nvm_source
+            dest=~/nvm_source
+            mode=u+x
