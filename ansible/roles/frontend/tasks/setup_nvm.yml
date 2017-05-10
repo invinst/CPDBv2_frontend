@@ -17,4 +17,3 @@
 - name: Create nvm source script
   template: src=nvm_source
             dest=~/nvm_source
-            mode=u+x
