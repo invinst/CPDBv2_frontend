@@ -1,9 +1,9 @@
 machine:
   node:
-    version: 4.1.0
+    version: 6.10.3
   environment:
     NODE_ENV: development
-    YARN_VERSION: 0.18.1
+    YARN_VERSION: 0.23.4
     PATH: "${PATH}:${HOME}/.yarn/bin:${HOME}/${CIRCLE_PROJECT_REPONAME}/node_modules/.bin"
     ERROR_SCREENSHOT_DIR: /home/ubuntu/CPDBv2_frontend/errorShots
   post:
