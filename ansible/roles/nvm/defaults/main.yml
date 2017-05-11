@@ -1,0 +1,5 @@
+---
+nvm_version: "v0.33.2"
+nvm_node_version: "6.10.3"
+nvm_dir: "{{ ansible_env.HOME }}/.nvm"
+node_path: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin"

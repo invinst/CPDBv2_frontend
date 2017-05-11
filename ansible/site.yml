@@ -1,9 +1,13 @@
 ---
 - hosts: webservers
   roles:
+    - nvm
     - frontend_server
   vars:
     - deploy_user: ansible
     - deploy_group: ansible
+    - nvm_node_version: "6.10.3"
+    - nvm_dir: "{{ ansible_env.HOME }}/.nvm"
+    - node_path: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin"
   environment:
     NODE_ENV: "{{ node_env }}"
