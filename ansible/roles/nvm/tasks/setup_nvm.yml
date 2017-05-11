@@ -7,6 +7,11 @@
     - build-essential
     - libssl-dev
 
+- name: Make sure .bashrc file exists
+  file:
+    path: "{{ ansible_env.HOME }}/.bashrc"
+    state: touch
+
 - name: Get install script
   get_url:
     url: https://raw.githubusercontent.com/creationix/nvm/{{ nvm_version }}/install.sh
@@ -15,8 +20,3 @@
 
 - name: Install nvm
   command: bash /tmp/install_nvm.sh
-
-- name: Create the nvm script
-  template: src=nvm.sh
-            dest=~/nvm.sh
-            mode=u+x
