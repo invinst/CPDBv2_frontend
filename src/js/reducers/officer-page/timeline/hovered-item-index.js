@@ -4,5 +4,6 @@ import { OFFICER_TIMELINE_HOVER_MINIMAP_ITEM, OFFICER_TIMELINE_SELECT_MINIMAP_IT
 
 export default handleActions({
   [OFFICER_TIMELINE_HOVER_MINIMAP_ITEM]: (state, { payload }) => payload.index,
-  [OFFICER_TIMELINE_SELECT_MINIMAP_ITEM]: (state, { payload }) => payload.index
+  [OFFICER_TIMELINE_SELECT_MINIMAP_ITEM]: (state, { payload }) => payload.index,
+  '@@router/LOCATION_CHANGE': (state, action) => null
 }, null);

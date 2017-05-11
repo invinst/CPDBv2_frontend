@@ -22,4 +22,8 @@ describe('hoveredItemIndex reducer', function () {
       payload: { 'index': 4 }
     }).should.eql(4);
   });
+
+  it('should handle @@router/LOCATION_CHANGE', function () {
+    should.not.exists(hoveredItemIndex(1, { type: '@@router/LOCATION_CHANGE' }));
+  });
 });
