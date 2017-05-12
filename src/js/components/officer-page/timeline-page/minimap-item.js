@@ -13,9 +13,11 @@ export class MinimapItem extends Component {
   }
 
   render() {
-    const { text, hovering, active, onClick, className } = this.props;
+    const { text, hovering, active, onClick, className, timelineItemHovered } = this.props;
     return (
-      <span className={ className } style={ itemStyle(hovering, active) } onClick={ onClick }>{ text }</span>
+      <span className={ className } style={ itemStyle(hovering || timelineItemHovered, active) } onClick={ onClick }>
+        { text }
+      </span>
     );
   }
 }
@@ -26,7 +28,8 @@ MinimapItem.propTypes = {
   className: PropTypes.string,
   active: PropTypes.bool,
   onClick: PropTypes.func,
-  onHover: PropTypes.func
+  onHover: PropTypes.func,
+  timelineItemHovered: PropTypes.bool
 };
 
 export default Hoverable(MinimapItem);
