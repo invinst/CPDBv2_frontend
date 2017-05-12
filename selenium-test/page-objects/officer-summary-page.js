@@ -51,9 +51,6 @@ class AggregateSection extends Section {
 
     this.prepareElementGetters({
       title: '.test--aggregate-title',
-      fadedTitle: '.test--aggregate-faded-title',
-      count: '.test--aggregate-count',
-      sustainedCount: '.test--aggregate-sustained-count',
       ...facetGetters
     });
   }
