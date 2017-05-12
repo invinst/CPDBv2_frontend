@@ -6,6 +6,7 @@ export const wrapperStyle = {
   width: '288px',
   height: '100%',
   overflow: 'auto',
+  WebkitOverflowScrolling: 'touch',
   background: 'white',
   boxShadow: `0 1px 2px 0 ${lightBlackColor}`,
   padding: '18px 16px',

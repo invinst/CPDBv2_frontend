@@ -10,6 +10,8 @@ export const wrapperStyle = {
   height: '18px',
   fontWeight: 500,
   borderBottom: `solid 1px ${whiteTwoColor}`,
+  overflow: 'auto',
+  WebkitOverflowScrolling: 'touch',
   display: 'inline-block'
 };
 
