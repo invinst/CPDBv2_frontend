@@ -16,7 +16,7 @@ export class SunburstGraphic extends Component {
       <a className='link--transition'
         style={ { ...style.wrapper, ...(hovering ? wrapperHoverStyle : {}) } }
         href='https://beta.cpdb.co'>
-        <div className='link--transition'
+        <div
           style={ { ...style.sunburst, ...(hovering ? sunburstGraphicHoverStyle : {}) } }/>
       </a>
     );

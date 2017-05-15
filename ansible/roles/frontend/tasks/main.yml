@@ -9,6 +9,8 @@
   npm: name=npm version="{{npm_version}}" global=yes
   become: yes
   become_user: root
+  environment:
+    PATH: "{{ node_path }}:{{ ansible_env.PATH }}"
   tags: setup
 
 - include: setup_yarn.yml

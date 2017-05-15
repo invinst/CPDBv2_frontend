@@ -102,12 +102,33 @@ describe('store', function () {
         recentSuggestions: [],
         tags: []
       },
+      crPage: {
+        isRequesting: false
+      },
+      crs: {},
       officerPage: {
         complaintFacets: [],
         complaintsCount: 0,
         fullName: '',
         isRequesting: false,
-        summary: {}
+        officerId: null,
+        summary: {},
+        sustainedCount: 0,
+        timeline: {
+          hoveredItemIndex: null,
+          isRequesting: false,
+          items: [],
+          minimap: {
+            isRequesting: false,
+            minimap: []
+          },
+          pagination: {
+            next: null,
+            previous: null
+          },
+          selectedItemIndex: null,
+          sortDescending: true
+        }
       }
     });
   });

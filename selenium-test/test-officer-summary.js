@@ -23,9 +23,11 @@ describe('officer summary page', function () {
 
     summaryPage.summarySection.unitLabel.getText().should.equal('Unit');
     summaryPage.summarySection.unitValue.getText().should.equal('001');
+    summaryPage.summarySection.unitLink.getText().should.equal('view unit profile');
 
     summaryPage.summarySection.dateOfApptLabel.getText().should.equal('Date of Appt.');
     summaryPage.summarySection.dateOfApptValue.getText().should.equal('SEP 23, 2015');
+    summaryPage.summarySection.dateOfApptDescription.getText().should.equal('2 year veteran');
 
     summaryPage.summarySection.rankLabel.getText().should.equal('Rank');
     summaryPage.summarySection.rankValue.getText().should.equal('NA');
@@ -39,28 +41,35 @@ describe('officer summary page', function () {
     summaryPage.summarySection.sexLabel.getText().should.equal('Sex');
     summaryPage.summarySection.sexValue.getText().should.equal('Male');
 
+    summaryPage.summarySection.salaryLabel.getText().should.equal('2016 Salary');
+
     summaryPage.aggregateSection.title.getText().should.equal('COMPLAINT RECORDS');
     summaryPage.aggregateSection.fadedTitle.getText().should.equal('CRs');
     summaryPage.aggregateSection.count.getText().should.equal('10');
+    summaryPage.aggregateSection.sustainedCount.getText().should.equal('2');
 
     summaryPage.aggregateSection.category.waitForVisible();
     summaryPage.aggregateSection.categoryName.getText().should.equal('CATEGORY');
     summaryPage.aggregateSection.categoryEntryCount.getText().should.equal('10');
+    summaryPage.aggregateSection.categoryEntrySustainedCount.getText().should.equal('2');
     summaryPage.aggregateSection.categoryEntryName.getText().should.equal('Illegal Search');
 
     summaryPage.aggregateSection.race.waitForVisible();
-    summaryPage.aggregateSection.raceName.getText().should.equal('RACE');
+    summaryPage.aggregateSection.raceName.getText().should.equal('COMPLAINANT RACE');
     summaryPage.aggregateSection.raceEntryCount.getText().should.equal('10');
+    summaryPage.aggregateSection.raceEntrySustainedCount.getText().should.equal('2');
     summaryPage.aggregateSection.raceEntryName.getText().should.equal('White');
 
     summaryPage.aggregateSection.age.waitForVisible();
-    summaryPage.aggregateSection.ageName.getText().should.equal('AGE');
+    summaryPage.aggregateSection.ageName.getText().should.equal('COMPLAINANT AGE');
     summaryPage.aggregateSection.ageEntryCount.getText().should.equal('10');
-    summaryPage.aggregateSection.ageEntryName.getText().should.equal('18');
+    summaryPage.aggregateSection.ageEntrySustainedCount.getText().should.equal('2');
+    summaryPage.aggregateSection.ageEntryName.getText().should.equal('<20');
 
     summaryPage.aggregateSection.gender.waitForVisible();
-    summaryPage.aggregateSection.genderName.getText().should.equal('GENDER');
+    summaryPage.aggregateSection.genderName.getText().should.equal('COMPLAINANT GENDER');
     summaryPage.aggregateSection.genderEntryCount.getText().should.equal('10');
+    summaryPage.aggregateSection.genderEntrySustainedCount.getText().should.equal('2');
     summaryPage.aggregateSection.genderEntryName.getText().should.equal('Female');
   });
 });

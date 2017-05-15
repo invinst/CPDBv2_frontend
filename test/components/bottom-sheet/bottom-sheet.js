@@ -31,7 +31,8 @@ describe('BottomSheet component', function () {
       }
     },
     reports: { [report.id]: report },
-    faqs: { [faq.id]: faq }
+    faqs: { [faq.id]: faq },
+    crs: {}
   });
 
   afterEach(function () {
@@ -118,7 +119,7 @@ describe('BottomSheet component', function () {
       element = renderIntoDocument(
         <Provider store={ store }>
           <BottomSheet open={ true }
-            content={ { type: BottomSheetContentType.REPORT, id: report.id } }/>
+            content={ { type: BottomSheetContentType.REPORT, props: { id: report.id } } }/>
         </Provider>
       );
       findDOMNode(element).innerHTML.should.containEql(report.fields.title.value.blocks[0].text);
@@ -128,7 +129,7 @@ describe('BottomSheet component', function () {
       element = renderIntoDocument(
         <Provider store={ store }>
           <BottomSheet open={ true }
-            content={ { type: BottomSheetContentType.FAQ, id: faq.id } }/>
+            content={ { type: BottomSheetContentType.FAQ, props: { id: faq.id } } }/>
         </Provider>
       );
       findDOMNode(element).innerHTML.should.containEql(faq.fields.question.value.blocks[0].text);
@@ -138,10 +139,20 @@ describe('BottomSheet component', function () {
       element = renderIntoDocument(
         <Provider store={ store }>
           <BottomSheet open={ true }
-            content={ { type: BottomSheetContentType.OFFICER, id: 1 } }/>
+            content={ { type: BottomSheetContentType.OFFICER, props: { id: 1 } } }/>
         </Provider>
       );
       findDOMNode(element).innerHTML.should.containEql('John Doe');
+    });
+
+    it('should render CR when received CR content', function () {
+      element = renderIntoDocument(
+        <Provider store={ store }>
+          <BottomSheet open={ true }
+            content={ { type: BottomSheetContentType.CR, props: { crid: '1', officerId: 1 } } }/>
+        </Provider>
+      );
+      findDOMNode(element).innerHTML.should.containEql('CR 1');
     });
 
     it('should render previous content when receive null content', function () {
@@ -150,7 +161,7 @@ describe('BottomSheet component', function () {
       render(
         <Provider store={ store }>
           <BottomSheet open={ true }
-            content={ { type: BottomSheetContentType.REPORT, id: report.id } }/>
+            content={ { type: BottomSheetContentType.REPORT, props: { id: report.id } } }/>
         </Provider>,
         rootEl);
       element = render(

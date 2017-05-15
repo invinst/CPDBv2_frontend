@@ -1,7 +1,7 @@
 import axiosMockClient from 'utils/axios-mock-client';
 import {
   LANDING_PAGE_API_URL, SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL,
-  REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL
+  REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL
 } from 'utils/constants';
 
 import OfficerFactory from 'utils/test/factories/officer';
@@ -10,6 +10,9 @@ import reportingPageGetData from './reporting-page/get-data';
 import FAQPageGetData from './faq-page/get-data';
 import suggestionGetData from './landing-page/suggestions';
 import getSummaryData from './officer-page/get-summary';
+import getMinimapData from './officer-page/get-minimap';
+import getTimelineItemsData, { reversedTimelineItems, nextTimelineItems } from './officer-page/get-timeline-item';
+import getCRData from './cr-page/get-data';
 
 
 const SEARCH_API_URL = /^suggestion\/([^/]*)\//;
@@ -47,6 +50,18 @@ axiosMockClient.onGet(`${SEARCH_OFFICER_URL}foo/`).reply(() => [200, OfficerFact
 axiosMockClient.onGet(`${SEARCH_OFFICER_URL}notfound/`).reply(200, []);
 
 axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(200, getSummaryData());
+
+axiosMockClient.onGet(`${CR_URL}1/`).reply(200, getCRData());
+
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-minimap/`).reply(200, getMinimapData());
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { offset: '10' } }).reply(200, nextTimelineItems());
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { sort: 'asc' } })
+  .reply(200, reversedTimelineItems());
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`).reply(200, getTimelineItemsData());
+axiosMockClient.onGet(`${OFFICER_URL}1234/timeline-minimap/`).reply(200, getMinimapData(1234));
+axiosMockClient.onGet(`${OFFICER_URL}1234/timeline-items/`).reply(200, getTimelineItemsData(1234));
+axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-minimap/`).reply(200, getMinimapData(5678));
+axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-items/`).reply(200, getTimelineItemsData(5678));
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

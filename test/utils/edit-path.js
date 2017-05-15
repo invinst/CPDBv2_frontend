@@ -29,14 +29,14 @@ describe('EditPath utils', function () {
     });
 
     it('should preserve edit mode when push a new path', function () {
-      stub(utilsDom, 'getCurrentPathname', () => '/edit/reporting/13/');
+      stub(utilsDom, 'getCurrentPathname').callsFake(() => '/edit/reporting/13/');
       pushPathPreserveEditMode('/');
       browserHistory.push.args[0][0].should.eql('/edit/');
       utilsDom.getCurrentPathname.restore();
     });
 
     it('should preserve non edit mode when push a new path', function () {
-      stub(utilsDom, 'getCurrentPathname', () => '/reporting/13/');
+      stub(utilsDom, 'getCurrentPathname').callsFake(() => '/reporting/13/');
       pushPathPreserveEditMode('/edit/');
       browserHistory.push.args[0][0].should.eql('/');
       utilsDom.getCurrentPathname.restore();

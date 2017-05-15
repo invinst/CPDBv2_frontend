@@ -22,6 +22,8 @@ export const FAQ_PATH = 'faq/';
 export const STORIES_PATH = 'reporting/';
 export const SEARCH_PATH = 'search/';
 export const OFFICER_PATH = 'officer/:officerId';
+export const OFFICER_TIMELINE_PATH = 'officer/:officerId/timeline';
+export const CR_PATH = 'complaint/:crid/:officerId';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
@@ -67,6 +69,7 @@ export const MAIL_CHIMP_URL = '/vftg/';
 export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
+export const CR_URL = `${V2_ROOT_PATH}cr/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -103,9 +106,14 @@ export const OFFICER_SUMMARY_REQUEST_FAILURE = 'OFFICER_SUMMARY_REQUEST_FAILURE'
 export const OPEN_BOTTOM_SHEET_WITH_REPORT = 'OPEN_BOTTOM_SHEET_WITH_REPORT';
 export const OPEN_BOTTOM_SHEET_WITH_FAQ = 'OPEN_BOTTOM_SHEET_WITH_FAQ';
 export const OPEN_BOTTOM_SHEET_WITH_OFFICER = 'OPEN_BOTTOM_SHEET_WITH_OFFICER';
+export const OPEN_BOTTOM_SHEET_WITH_COMPLAINT = 'OPEN_BOTTOM_SHEET_WITH_COMPLAINT';
 export const CLOSE_BOTTOM_SHEET = 'CLOSE_BOTTOM_SHEET';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_FAQ = 'OPEN_BOTTOM_SHEET_TO_CREATE_FAQ';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_REPORT = 'OPEN_BOTTOM_SHEET_TO_CREATE_REPORT';
+
+export const CR_REQUEST_START = 'CR_REQUEST_START';
+export const CR_REQUEST_SUCCESS = 'CR_REQUEST_SUCCESS';
+export const CR_REQUEST_FAILURE = 'CR_REQUEST_FAILURE';
 
 export const ALPHA_NUMBERIC = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
                                'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
@@ -126,4 +134,21 @@ export const RECEIVE_TOKEN_FROM_COOKIE = 'RECEIVE_TOKEN_FROM_COOKIE';
 
 export const LOG_OUT = 'LOG_OUT';
 
-export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER']);
+export const OFFICER_TIMELINE_MINIMAP_REQUEST_START = 'OFFICER_TIMELINE_MINIMAP_REQUEST_START';
+export const OFFICER_TIMELINE_MINIMAP_REQUEST_SUCCESS = 'OFFICER_TIMELINE_MINIMAP_REQUEST_SUCCESS';
+export const OFFICER_TIMELINE_MINIMAP_REQUEST_FAILURE = 'OFFICER_TIMELINE_MINIMAP_REQUEST_FAILURE';
+export const OFFICER_TIMELINE_ITEMS_REQUEST_START = 'OFFICER_TIMELINE_ITEMS_REQUEST_START';
+export const OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS = 'OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS';
+export const OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE = 'OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE';
+export const OFFICER_TIMELINE_FLIP_SORT_ORDER = 'OFFICER_TIMELINE_FLIP_SORT_ORDER';
+export const OFFICER_TIMELINE_SELECT_MINIMAP_ITEM = 'OFFICER_TIMELINE_SELECT_MINIMAP_ITEM';
+export const OFFICER_TIMELINE_HOVER_MINIMAP_ITEM = 'OFFICER_TIMELINE_HOVER_MINIMAP_ITEM';
+export const OFFICER_TIMELINE_HOVER_TIMELINE_ITEM = 'OFFICER_TIMELINE_HOVER_TIMELINE_ITEM';
+export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
+
+export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR']);
+
+export const TimelineItemType = new Enum(['CR', 'UNIT', 'YEAR', 'JOINED']);
+
+export const MAPBOX_ACCESS_TOKEN =
+  'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
