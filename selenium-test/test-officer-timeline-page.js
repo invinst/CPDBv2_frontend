@@ -55,7 +55,7 @@ describe('officer timeline page', function () {
     it('should highlight corresponding timeline item when hovered on', function () {
       timelinePage.sidebar.yearLabel.waitForVisible();
       timelinePage.sidebar.minimapItem.waitForVisible();
-      timelinePage.sidebar.hoverOn('2005', 'CR');
+      timelinePage.sidebar.hoverOn('2005', 1);
       timelinePage.timeline.cardItemAtIndex(2).getCssProperty('backgroundColor').value.should.equal(
         'rgba(255,255,255,1)'
       );
@@ -64,7 +64,7 @@ describe('officer timeline page', function () {
     it('should scroll to corresponding timeline item when clicked on', function () {
       timelinePage.timeline.cardItem.count.should.equal(10);
       timelinePage.timeline.joinedItem.kind.isVisible().should.be.false();
-      timelinePage.sidebar.clickOn('2001', 'Joined');
+      timelinePage.sidebar.clickOn('2001', 2);
       timelinePage.timeline.joinedItem.kind.waitForVisible();
       timelinePage.timeline.joinedItem.kind.getText().should.equal('Joined');
       timelinePage.timeline.joinedItem.date.getText().should.equal('DEC 5, 2001');
@@ -106,6 +106,13 @@ describe('officer timeline page', function () {
       timelinePage.timeline.joinedItem.kind.getText().should.equal('Joined');
       timelinePage.timeline.joinedItem.date.getText().should.equal('DEC 5, 2001');
       timelinePage.timeline.joinedItem.description.getText().should.equal('Joined CPD');
+    });
+
+    it('should highlight corresponding minimap item when hovered on', function () {
+      timelinePage.timeline.hoverOn(2);
+      timelinePage.sidebar.itemAt('2005', 1).getCssProperty('backgroundColor').value.should.equal(
+        'rgba(228,228,228,1)'
+      );
     });
   });
 });

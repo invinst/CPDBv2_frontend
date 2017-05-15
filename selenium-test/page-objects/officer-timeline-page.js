@@ -24,16 +24,20 @@ class SideBar extends Section {
     });
   }
 
-  hoverOn(year, type) {
-    browser.moveToObject(this.getMinimapItemSelector(year, type));
+  hoverOn(year, index) {
+    browser.moveToObject(this.getMinimapItemSelector(year, index));
   }
 
-  clickOn(year, type) {
-    browser.click(this.getMinimapItemSelector(year, type));
+  clickOn(year, index) {
+    browser.click(this.getMinimapItemSelector(year, index));
   }
 
-  getMinimapItemSelector(year, type) {
-    return `(//*[@class="test--year-label"][text()="${year}"]/following-sibling::*/span/span[text()="${type}"])`;
+  getMinimapItemSelector(year, index) {
+    return `(//*[@class="test--year-label"][text()="${year}"]/following-sibling::*/span/span)[${index}]`;
+  }
+
+  itemAt(year, index) {
+    return browser.element(this.getMinimapItemSelector(year, index));
   }
 }
 
@@ -116,6 +120,10 @@ class Timeline extends Section {
 
   cardItemSelector(index) {
     return `(//*[@class="test--card-item"])[${index}]`;
+  }
+
+  hoverOn(index) {
+    browser.moveToObject(this.cardItemSelector(index));
   }
 }
 

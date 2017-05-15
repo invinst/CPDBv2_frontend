@@ -22,7 +22,9 @@ export default class SideBar extends Component {
   }
 
   render() {
-    const { flipSortOrder, minimap, selectMinimapItem, sortDescending, hoverMinimapItem } = this.props;
+    const {
+      flipSortOrder, minimap, selectMinimapItem, sortDescending, hoverMinimapItem, hoveredItemIndex
+    } = this.props;
     return (
       <div style={ wrapperStyle }>
         <div>
@@ -32,7 +34,7 @@ export default class SideBar extends Component {
           </SideBarButton>
         </div>
         <Minimap minimap={ minimap } onItemClick={ selectMinimapItem } sortDescending={ sortDescending }
-          onItemHover={ hoverMinimapItem }/>
+          onItemHover={ hoverMinimapItem } hoveredItemIndex={ hoveredItemIndex }/>
       </div>
     );
   }
@@ -45,7 +47,8 @@ SideBar.propTypes = {
   officerId: PropTypes.number,
   minimap: PropTypes.array,
   selectMinimapItem: PropTypes.func,
-  hoverMinimapItem: PropTypes.func
+  hoverMinimapItem: PropTypes.func,
+  hoveredItemIndex: PropTypes.number
 };
 
 SideBar.defaultProps = {
