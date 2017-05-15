@@ -37,7 +37,7 @@ describe('officer page selectors', function () {
   });
 
   describe('getHoveredItemIndex', function () {
-    it('should return hovred item index', function () {
+    it('should return hovered item index', function () {
       state.officerPage.timeline = {
         hoveredItemIndex: 1
       };

@@ -1,0 +1,11 @@
+---
+- include: setup_nvm.yml
+  tags:
+    - nvm
+    - node
+    - setup
+
+- include: install_node.yml
+  tags:
+    - node
+    - setup

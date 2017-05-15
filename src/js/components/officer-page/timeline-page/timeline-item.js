@@ -36,6 +36,11 @@ export class TimelineItem extends Component {
       const { top } = this.element.getBoundingClientRect();
       this.props.onSelected(top);
     }
+
+    if (nextProps.hovering !== this.props.hovering) {
+      const { onHover } = this.props;
+      onHover(nextProps.hovering);
+    }
   }
 
   handleContentRef(el) {
@@ -83,7 +88,8 @@ TimelineItem.propTypes = {
   minimapItemHovered: PropTypes.bool,
   flash: PropTypes.bool,
   officerId: PropTypes.number,
-  openBottomSheetWithComplaint: PropTypes.func
+  openBottomSheetWithComplaint: PropTypes.func,
+  onHover: PropTypes.func
 };
 
 TimelineItem.defaultProps = {
