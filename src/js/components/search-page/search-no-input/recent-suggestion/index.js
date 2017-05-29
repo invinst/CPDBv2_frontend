@@ -14,7 +14,7 @@ export default class RecentSuggestion extends Component {
         className='recent-suggestions'>
         <div style={ groupHeaderStyle }>RECENT</div>
         <div>
-        {
+          {
           recentSuggestions.map((entry, key) => (
             <RecentSuggestionItem key={ key } entry={ entry }/>
           ))
