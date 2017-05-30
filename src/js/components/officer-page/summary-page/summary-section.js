@@ -15,8 +15,8 @@ export default class SummarySection extends Component {
     return [
       ['Rank', rank],
       ['Date of Appt.',
-       moment(dateOfAppt).format('ll').toUpperCase(),
-       `${moment().year() - moment(dateOfAppt).year()} year veteran`],
+        moment(dateOfAppt).format('ll').toUpperCase(),
+        `${moment().year() - moment(dateOfAppt).year()} year veteran`],
       ['Badge', badge],
       ['Race', race],
       ['2016 Salary', 'DATA NOT READY'],

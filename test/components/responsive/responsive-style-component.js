@@ -26,7 +26,7 @@ describe('ResponsiveStyleComponent component', function () {
         [TABLET]: obj3,
         [MOBILE]: obj4
       } }>
-      { children }
+        { children }
       </ResponsiveStyleComponent>
     );
     children.calledWith(obj1).should.be.true();

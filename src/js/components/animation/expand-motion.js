@@ -46,7 +46,7 @@ export default class ExpandMotion extends Component {
 
           return React.cloneElement(
             this.props.children, { ref: this.handleChildrenRef, style: { height: `${height}px` }
-          });
+            });
         } }
       </Motion>
     );

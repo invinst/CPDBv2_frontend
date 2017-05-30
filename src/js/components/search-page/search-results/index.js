@@ -37,7 +37,7 @@ export default class SuggestionResults extends Component {
           { this.renderGroups() }
         </div>
       </div>
-      );
+    );
   }
 }
 

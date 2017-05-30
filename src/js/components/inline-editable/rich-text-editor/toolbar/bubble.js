@@ -14,8 +14,8 @@ export default class Bubble extends Component {
         onMouseOut={ onMouseOut }
         style={ { ...outerWrapperStyle, ...style } }>
         <div style={ wrapperStyle }>
-          <div style={ arrowBorderStyle }> </div>
-          <div style={ arrowStyle }> </div>
+          <div style={ arrowBorderStyle } />
+          <div style={ arrowStyle } />
           { children }
         </div>
       </div>

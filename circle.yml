@@ -21,9 +21,6 @@ dependencies:
     - rm google-chrome.deb
     - bash ./bin/install_phantomjs.sh
   override:
-    - yarn global add eslint@2.8.0
-    - yarn global add eslint-plugin-react@5.0.1
-    - yarn global add babel-eslint@6.0.3
     - yarn install
   cache_directories:
     - "node_modules"
@@ -31,7 +28,7 @@ dependencies:
     - ~/.cache/yarn
 test:
   override:
-    - eslint .
+    - yarn lint
     - yarn cover-circle
     - yarn live-test
   post:

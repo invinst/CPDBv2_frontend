@@ -14,8 +14,8 @@ export default class MultiRow extends Component {
       <div style={ wrapperStyle }>
         <div className='test--row-label' style={ labelStyle }>{ label }</div>
         <div className='test--row-content' style={ contentStyle }>
-        { map(contents, (content, index) => (
-          <div className='test--row-content-item' key={ index } style={ contentRowStyle }>{ content }</div>
+          { map(contents, (content, index) => (
+            <div className='test--row-content-item' key={ index } style={ contentRowStyle }>{ content }</div>
         )) }
         </div>
       </div>
