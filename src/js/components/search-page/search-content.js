@@ -110,6 +110,7 @@ export default class SearchContent extends Component {
           searchText={ this.state.value }
           onLoadMore={ this.handleSelect }
           suggestionGroups={ suggestionGroups }
+          isShowingSingleContentType={ contentType !== null }
           isRequesting={ isRequesting } />
       </div>
     );
@@ -161,4 +162,3 @@ SearchContent.defaultProps = {
     goBack: () => {}
   }
 };
-
