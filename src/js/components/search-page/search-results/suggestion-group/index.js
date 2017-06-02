@@ -22,9 +22,9 @@ export default class SuggestionGroup extends Component {
   }
 
   renderLoadMore() {
-    const { suggestions, onLoadMore, header } = this.props;
+    const { suggestions, onLoadMore, header, isShowingSingleContentType } = this.props;
 
-    if (suggestions.length === 9) {
+    if (!isShowingSingleContentType && suggestions.length === 10) {
       return (
         <LoadMoreButton onLoadMore={ onLoadMore } header={ header }/>
       );
@@ -52,7 +52,8 @@ SuggestionGroup.propTypes = {
   suggestions: PropTypes.array,
   header: PropTypes.string,
   onLoadMore: PropTypes.func,
-  suggestionClick: PropTypes.func
+  suggestionClick: PropTypes.func,
+  isShowingSingleContentType: PropTypes.bool
 };
 
 SuggestionGroup.defaultProps = {

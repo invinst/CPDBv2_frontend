@@ -20,7 +20,8 @@ class SearchPage extends Page {
       backButton: '.searchbar__button--back',
       firstOfficerResult: '//*[@class="suggestion-group"]/*[text()="OFFICER"]/following-sibling::*/span[1]//a',
       firstCoAccusedResult: '//*[@class="suggestion-group"]/*[text()="CO-ACCUSED"]/following-sibling::*/span[1]//a',
-      searchHint: '.search-hint'
+      searchHint: '.search-hint',
+      loadMoreButton: '.test--load-more-button'
     });
   }
 
