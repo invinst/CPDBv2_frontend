@@ -12,17 +12,13 @@ import { tagsWrapperHeight } from 'components/search-page/search-tags.style';
 
 
 export default class SuggestionGroup extends Component {
-  canLoadMore() {
+  canLoadMore(numberOfItems) {
     const { suggestions, isShowingSingleContentType } = this.props;
-    return !isShowingSingleContentType && suggestions.length === 10;
+    return !isShowingSingleContentType && suggestions.length >= numberOfItems;
   }
 
-  renderColumns() {
+  renderColumns(numberOfItems) {
     const { suggestions, header, suggestionClick, isShowingSingleContentType } = this.props;
-
-    const occupiedHeight = navWrapperCompactHeight + tagsWrapperHeight + loadMoreButtonHeight + headerHeight;
-    const availableHeight = viewportHeight() - occupiedHeight;
-    const numberOfItems = Math.max(parseInt(availableHeight / suggestionItemHeight), 1);
 
     let columns = [];
     if (isShowingSingleContentType) {
@@ -41,10 +37,10 @@ export default class SuggestionGroup extends Component {
     ));
   }
 
-  renderLoadMore() {
+  renderLoadMore(numberOfItems) {
     const { onLoadMore, header } = this.props;
 
-    if (this.canLoadMore()) {
+    if (this.canLoadMore(numberOfItems)) {
       return (
         <LoadMoreButton onLoadMore={ onLoadMore } header={ header }/>
       );
@@ -55,12 +51,19 @@ export default class SuggestionGroup extends Component {
   render() {
     const { suggestions, header } = this.props;
 
+    const occupiedHeight = navWrapperCompactHeight + tagsWrapperHeight + loadMoreButtonHeight + headerHeight;
+    const availableHeight = viewportHeight() - occupiedHeight;
+    const numberOfItems = Math.min(
+      10,
+      Math.max(parseInt(availableHeight / suggestionItemHeight), 1)
+    );
+
     if (suggestions.length > 0) {
       return (
         <div style={ suggestionGroupStyle } className='suggestion-group'>
           <div style={ groupHeaderStyle }>{ header }</div>
-          { this.renderColumns() }
-          { this.renderLoadMore() }
+          { this.renderColumns(numberOfItems) }
+          { this.renderLoadMore(numberOfItems) }
         </div>
       );
     }
@@ -78,5 +81,6 @@ SuggestionGroup.propTypes = {
 
 SuggestionGroup.defaultProps = {
   suggestions: [],
-  header: ''
+  header: '',
+  onLoadMore: function () {}
 };
