@@ -17,6 +17,10 @@ export const dataToolTagStyle = {
   cursor: 'default'
 };
 
+export const tagsWrapperHeight = 127;
+
 export const tagsWrapperStyle = {
-  padding: '9px 16px 91px'
+  padding: '9px 16px',
+  height: `${tagsWrapperHeight}px`,
+  boxSizing: 'border-box'
 };
