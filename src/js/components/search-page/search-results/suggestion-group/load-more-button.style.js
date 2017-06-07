@@ -1,9 +1,11 @@
 import { sanFranciscoTextFamily, softBlackColor, accentColor, sugarCaneColor } from 'utils/styles';
 
+export const loadMoreButtonHeight = 40;
 
 export const loadMoreButtonStyle = {
   padding: '12px 14px',
-  width: '415px',
+  height: `${loadMoreButtonHeight}px`,
+  boxSizing: 'border-box',
   cursor: 'pointer',
   backgroundColor: sugarCaneColor
 };
