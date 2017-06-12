@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {
   Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
   findRenderedComponentWithType
@@ -12,6 +13,7 @@ import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
 import SearchContent from 'components/search-page/search-content';
 import { unmountComponentSuppressError } from 'utils/test';
+import * as domUtils from 'utils/dom';
 
 
 describe('SearchContent component', function () {
@@ -226,5 +228,22 @@ describe('SearchContent component', function () {
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
+  });
+
+  describe('after keyboard navigation', function () {
+    beforeEach(function () {
+      this.scrollToElementStub = stub(domUtils, 'scrollToElement');
+    });
+
+    afterEach(function () {
+      this.scrollToElementStub.restore();
+    });
+
+    it ('should scroll to focused item', function () {
+      const domNode = document.createElement('div');
+      ReactDOM.render(<SearchContent navigation={ { columnIndex: 0, itemIndex: 0 } }/>, domNode);
+      ReactDOM.render(<SearchContent navigation={ { columnIndex: 1, itemIndex: 0 } }/>, domNode);
+      this.scrollToElementStub.calledWith('#suggestion-item-1-0').should.be.true();
+    });
   });
 });

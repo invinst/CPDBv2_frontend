@@ -65,7 +65,7 @@ class SuggestionItem extends Component {
     );
 
     return (
-      <div className={ suggestionItemClassName } style={ suggestionItemWrapperStyle(isFocused) }>
+      <div className={ suggestionItemClassName } style={ suggestionItemWrapperStyle(isFocused) } id={ this.props.id }>
         { linkTag }
       </div>
     );

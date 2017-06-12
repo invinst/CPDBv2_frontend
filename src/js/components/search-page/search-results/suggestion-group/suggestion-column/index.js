@@ -15,6 +15,7 @@ export default class SuggestionColumn extends Component {
 
       return (
         <SuggestionItem
+          id={ `suggestion-item-${columnIndex}-${index}` }
           key={ index }
           contentType={ contentType }
           suggestion={ suggestion }

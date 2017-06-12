@@ -10,6 +10,7 @@ import {
   backButtonStyle, searchContentWrapperStyle, searchBoxStyle, resultWrapperStyle
 } from './search-content.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
+import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { NAVIGATION_KEYS } from 'utils/constants';
 
@@ -32,6 +33,15 @@ export default class SearchContent extends Component {
       direction,
       () => move(direction, this.props.suggestionColumns)
     )));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Make sure keyboard-focused item is kept within viewport:
+    const oldPosition = this.props.navigation;
+    const newPosition = nextProps.navigation;
+    if (oldPosition !== newPosition) {
+      scrollToElement(`#suggestion-item-${newPosition.columnIndex}-${newPosition.itemIndex}`);
+    }
   }
 
   componentWillUnmount() {

@@ -51,3 +51,7 @@ export function setMetaAttribute(name, content) {
 export function changePageDescription(description) {
   setMetaAttribute('description', description);
 }
+
+export function scrollToElement(selector) {
+  document.querySelector(selector).scrollIntoView();
+}
