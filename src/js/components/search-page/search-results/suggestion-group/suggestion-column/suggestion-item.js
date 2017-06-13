@@ -5,11 +5,11 @@ import classnames from 'classnames';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import {
-  suggestionItemWrapperStyle,
   suggestionItemStyle,
   suggestionTextStyle,
   metaTextStyle,
-  tagStyle
+  tagStyle,
+  suggestionEnterStyle
 } from './suggestion-item.style';
 
 
@@ -40,21 +40,28 @@ class SuggestionItem extends Component {
 
     const children = [
       <div
+        key='enter'
+        className='link--transition'
+        style={ suggestionEnterStyle(isFocused) }
+      >
+        enter
+      </div>,
+      <div
         key='suggestion'
         className='link--transition'
-        style={ suggestionTextStyle(hovering) }>
+        style={ suggestionTextStyle(hovering, isFocused) }>
         { text }
       </div>,
       <div
         key='meta'
         className='link--transition'
-        style={ metaTextStyle(hovering) }>
+        style={ metaTextStyle(hovering, isFocused) }>
         { extraText }
       </div>,
       <div
         key='tag'
         className='link--transition'
-        style={ tagStyle(hovering) }>
+        style={ tagStyle(hovering, isFocused) }>
         { join(tags, ', ') }
       </div>
     ];
@@ -65,7 +72,7 @@ class SuggestionItem extends Component {
     );
 
     return (
-      <div className={ suggestionItemClassName } style={ suggestionItemWrapperStyle(isFocused) } id={ this.props.id }>
+      <div className={ suggestionItemClassName } id={ this.props.id }>
         { linkTag }
       </div>
     );
