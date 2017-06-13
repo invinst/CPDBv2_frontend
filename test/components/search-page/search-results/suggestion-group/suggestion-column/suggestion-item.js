@@ -1,8 +1,8 @@
 import React from 'react';
 import {
   renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
   findRenderedDOMComponentWithTag,
+  findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
   Simulate
 } from 'react-addons-test-utils';
@@ -55,11 +55,41 @@ describe('<SuggestionItem/>', function () {
     findRenderedComponentWithType(instance, Link);
   });
 
-  it('highlight the content by default if it\'s the first result', function () {
-    instance = renderIntoDocument(
-      <SuggestionItem isFocused={ true }/>
-    );
+  describe('when focused/hovered', function () {
+    beforeEach(function () {
+      this.suggestion = {
+        payload: {
+          'result_text': 'my text',
+          'result_extra_information': 'my extra text',
+          tags: ['my tag']
+        }
+      };
+    });
 
-    scryRenderedDOMComponentsWithClass(instance, 'focused').should.have.length(1);
+    it('should render focused item\'s colors correctly', function () {
+      instance = renderIntoDocument(
+        <SuggestionItem isFocused={ true } suggestion={ this.suggestion }/>
+      );
+
+      const text = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-text');
+      const extraText = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-extra-text');
+      const tag = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-tag');
+      text.style.color.should.eql('rgb(0, 94, 244)');
+      extraText.style.color.should.eql('rgb(76, 142, 248)');
+      tag.style.color.should.eql('rgb(76, 142, 248)');
+    });
+
+    it('should render hovered item\'s colors correctly', function () {
+      instance = renderIntoDocument(
+        <SuggestionItem isFocused={ false } hovering={ true } suggestion={ this.suggestion }/>
+      );
+
+      const text = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-text');
+      const extraText = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-extra-text');
+      const tag = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-tag');
+      text.style.color.should.eql('rgb(0, 94, 244)');
+      extraText.style.color.should.eql('rgb(0, 94, 244)');
+      tag.style.color.should.eql('rgb(0, 94, 244)');
+    });
   });
 });

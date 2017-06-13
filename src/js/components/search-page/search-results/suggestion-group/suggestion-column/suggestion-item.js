@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { join, get } from 'lodash';
 import { Link } from 'react-router';
-import classnames from 'classnames';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import {
@@ -31,7 +30,6 @@ class SuggestionItem extends Component {
     const to = get(suggestion, 'payload.to', '');
     const extraText = get(suggestion, 'payload.result_extra_information', '');
     const tags = get(suggestion, 'payload.tags', []);
-    const suggestionItemClassName = classnames('suggestion-item', { 'focused': isFocused });
 
     const commonWrapperProps = {
       style: suggestionItemStyle,
@@ -48,19 +46,19 @@ class SuggestionItem extends Component {
       </div>,
       <div
         key='suggestion'
-        className='link--transition'
+        className='link--transition test--suggestion-item-text'
         style={ suggestionTextStyle(hovering, isFocused) }>
         { text }
       </div>,
       <div
         key='meta'
-        className='link--transition'
+        className='link--transition test--suggestion-item-extra-text'
         style={ metaTextStyle(hovering, isFocused) }>
         { extraText }
       </div>,
       <div
         key='tag'
-        className='link--transition'
+        className='link--transition test--suggestion-item-tag'
         style={ tagStyle(hovering, isFocused) }>
         { join(tags, ', ') }
       </div>
@@ -72,7 +70,7 @@ class SuggestionItem extends Component {
     );
 
     return (
-      <div className={ suggestionItemClassName } id={ this.props.id }>
+      <div className='suggestion-item' id={ this.props.id }>
         { linkTag }
       </div>
     );
