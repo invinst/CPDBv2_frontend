@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderIntoDocument } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
 import SearchBox from 'components/search-page/search-box';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -39,4 +39,23 @@ describe('SearchBox component', function () {
     onEnter.calledOnce.should.be.true();
   });
 
+  it('should blur when press up', function () {
+    instance = renderIntoDocument(
+      <SearchBox/>
+    );
+    const blur = stub(instance.searchInput, 'blur');
+
+    instance.mousetrap.trigger('up');
+    blur.calledOnce.should.be.true();
+  });
+
+  it('should blur when press down', function () {
+    instance = renderIntoDocument(
+      <SearchBox/>
+    );
+    const blur = stub(instance.searchInput, 'blur');
+
+    instance.mousetrap.trigger('down');
+    blur.calledOnce.should.be.true();
+  });
 });

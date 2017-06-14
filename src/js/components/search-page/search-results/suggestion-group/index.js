@@ -18,7 +18,7 @@ export default class SuggestionGroup extends Component {
   }
 
   renderColumns(numberOfItems) {
-    const { suggestions, header, suggestionClick, isShowingSingleContentType } = this.props;
+    const { suggestions, header, suggestionClick, isShowingSingleContentType, columnIndex, navigation } = this.props;
 
     let columns = [];
     if (isShowingSingleContentType) {
@@ -27,14 +27,18 @@ export default class SuggestionGroup extends Component {
       columns = [suggestions.slice(0, numberOfItems)];
     }
 
-    return map(columns, (suggestions, key) => (
-      <SuggestionColumn
-        key={ key }
-        suggestionClick={ suggestionClick }
-        contentType={ header }
-        suggestions={ suggestions }
-        index={ key }/>
-    ));
+    return map(columns, (suggestions, key) => {
+      return (
+        <SuggestionColumn
+          key={ key }
+          navigation={ navigation }
+          suggestionClick={ suggestionClick }
+          contentType={ header }
+          suggestions={ suggestions }
+          index={ key }
+          columnIndex={ columnIndex + key } />
+      );
+    });
   }
 
   renderLoadMore(numberOfItems) {
@@ -72,6 +76,8 @@ export default class SuggestionGroup extends Component {
 }
 
 SuggestionGroup.propTypes = {
+  columnIndex: PropTypes.number,
+  navigation: PropTypes.object,
   suggestions: PropTypes.array,
   header: PropTypes.string,
   onLoadMore: PropTypes.func,

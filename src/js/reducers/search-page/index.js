@@ -5,6 +5,7 @@ import isRequesting from './is-requesting';
 import contentType from './content-type';
 import tags from './tags';
 import recentSuggestions from './recent-suggestions';
+import navigation from './navigation';
 
 
 const searchPage = combineReducers({
@@ -12,7 +13,8 @@ const searchPage = combineReducers({
   isRequesting,
   contentType,
   tags,
-  recentSuggestions
+  recentSuggestions,
+  navigation
 });
 
 export default searchPage;
