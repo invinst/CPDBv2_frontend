@@ -1,9 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import { join, get } from 'lodash';
 import { Link } from 'react-router';
+import classnames from 'classnames';
 
 import Hoverable from 'components/common/higher-order/hoverable';
-import { suggestionItemStyle, suggestionTextStyle, metaTextStyle, tagStyle } from './suggestion-item.style';
+import {
+  suggestionItemWrapperStyle,
+  suggestionItemStyle,
+  suggestionTextStyle,
+  metaTextStyle,
+  tagStyle
+} from './suggestion-item.style';
 
 
 class SuggestionItem extends Component {
@@ -18,17 +25,19 @@ class SuggestionItem extends Component {
   }
 
   render() {
-    const { suggestion, hovering } = this.props;
+    const { suggestion, hovering, isFocused } = this.props;
     const text = get(suggestion, 'payload.result_text', '');
     const href = get(suggestion, 'payload.url', '');
     const to = get(suggestion, 'payload.to', '');
     const extraText = get(suggestion, 'payload.result_extra_information', '');
     const tags = get(suggestion, 'payload.tags', []);
+    const suggestionItemClassName = classnames('suggestion-item', { 'focused': isFocused });
 
     const commonWrapperProps = {
       style: suggestionItemStyle,
       onClick: this.handleClick.bind(this, text, href, to)
     };
+
     const children = [
       <div
         key='suggestion'
@@ -50,13 +59,15 @@ class SuggestionItem extends Component {
       </div>
     ];
 
-    if (to) {
-      return (
-        <Link to={ to } { ...commonWrapperProps }>{ children }</Link>
-      );
-    }
+    const linkTag = (to ?
+      <Link to={ to } { ...commonWrapperProps }>{ children }</Link> :
+      <a href={ href } { ...commonWrapperProps } >{ children }</a>
+    );
+
     return (
-      <a href={ href } { ...commonWrapperProps }>{ children }</a>
+      <div className={ suggestionItemClassName } style={ suggestionItemWrapperStyle(isFocused) }>
+        { linkTag }
+      </div>
     );
   }
 }
@@ -66,6 +77,7 @@ SuggestionItem.defaultProps = {
 };
 
 SuggestionItem.propTypes = {
+  isFocused: PropTypes.bool,
   suggestion: PropTypes.object,
   suggestionClick: PropTypes.func,
   hovering: PropTypes.bool,

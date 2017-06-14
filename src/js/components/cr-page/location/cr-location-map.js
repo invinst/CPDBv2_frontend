@@ -82,8 +82,7 @@ export default class CRLocationMap extends Component {
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='test--cr-location-map' ref={ this.gotRef.bind(this) } style={ style.wrapper }>
-      </div>
+      <div className='test--cr-location-map' ref={ this.gotRef.bind(this) } style={ style.wrapper } />
     );
   }
 

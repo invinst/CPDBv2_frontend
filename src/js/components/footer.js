@@ -18,7 +18,7 @@ class Footer extends React.Component {
             <ResponsiveFixedWidthComponent style={ responsiveFixedWidthInnerStyle }>
               { links.map( (link, ind) => (
                 <FooterNavLink style={ ind === 0 ? firstLinkStyle : linkStyle } key={ ind }>
-                { link }
+                  { link }
                 </FooterNavLink>
               )) }
             </ResponsiveFixedWidthComponent>
