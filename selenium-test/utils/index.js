@@ -27,3 +27,10 @@ export const reliableSetValue = function (element, value) {
     () => element.getValue() === value
   );
 };
+
+export const getRequestCount = url => {
+  const result = browser.execute(function (url) {
+    return window.requestCount(url);
+  }, url);
+  return result.value;
+};

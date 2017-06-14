@@ -5,6 +5,8 @@ import 'should';
 import timelinePage from './page-objects/officer-timeline-page';
 import searchPage from './page-objects/search-page';
 import crPage from './page-objects/cr-page';
+import { getRequestCount } from './utils';
+
 
 describe('officer timeline page', function () {
   beforeEach(function () {
@@ -32,6 +34,11 @@ describe('officer timeline page', function () {
     timelinePage.header.officerName.getText().should.equal('Bernadette Kelly');
   });
 
+  it('should highlight timeline header button', function () {
+    timelinePage.header.activeButton.waitForVisible();
+    timelinePage.header.activeButton.getText().should.equal('Timeline');
+  });
+
   it('should refresh timeline as well as minimap when visit other officers', function () {
     timelinePage.open(1234);
     timelinePage.sidebar.yearLabel.count.should.equal(1);
@@ -45,16 +52,37 @@ describe('officer timeline page', function () {
     searchPage.firstOfficerResult.waitForVisible();
     searchPage.firstOfficerResult.click();
 
-    timelinePage.header.headerTimelineButton.waitForVisible();
-    timelinePage.header.headerTimelineButton.click();
+    timelinePage.header.timelineButton.waitForVisible();
+    timelinePage.header.timelineButton.click();
 
     timelinePage.sidebar.yearLabel.count.should.equal(0);
     timelinePage.timeline.cardItem.count.should.equal(0);
   });
 
-  it('should launch timeline, summary, minimap requests upon direct visit');
+  it('should launch timeline, summary, minimap requests upon direct visit', function () {
+    getRequestCount('/officers/1/timeline-items/').should.equal(1);
+    getRequestCount('/officers/1/summary/').should.equal(1);
+    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
+  });
 
-  it('should not launch any request when click on Summary tab');
+  it('should not launch any request when click on Summary tab', function () {
+    timelinePage.header.summaryButton.waitForVisible();
+    timelinePage.header.summaryButton.click();
+
+    getRequestCount('/officers/1/timeline-items/').should.equal(1);
+    getRequestCount('/officers/1/summary/').should.equal(1);
+    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
+  });
+
+  it('should preserve sort order when click other tabs', function () {
+    timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
+
+    timelinePage.sidebar.sortButton.click();
+    timelinePage.header.summaryButton.click();
+    timelinePage.header.timelineButton.click();
+
+    timelinePage.sidebar.sortButton.getText().should.equal('Sort by newest first');
+  });
 
   it('should reset sort order when visit other officer', function () {
     timelinePage.sidebar.sortButton.waitForVisible();
@@ -69,8 +97,8 @@ describe('officer timeline page', function () {
     searchPage.firstOfficerResult.waitForVisible();
     searchPage.firstOfficerResult.click();
 
-    timelinePage.header.headerTimelineButton.waitForVisible();
-    timelinePage.header.headerTimelineButton.click();
+    timelinePage.header.timelineButton.waitForVisible();
+    timelinePage.header.timelineButton.click();
 
     timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
   });
