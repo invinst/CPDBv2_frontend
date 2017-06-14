@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { omitBy, isEmpty, keys, pick, indexOf, sortBy } from 'lodash';
+import { omitBy, isEmpty, keys, pick, indexOf, sortBy, map, chunk, flatten } from 'lodash';
 
 
 const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS'];
@@ -27,3 +27,13 @@ export const isEmptySelector = createSelector(
     !keys(suggestionGroups).length
   )
 );
+
+export const suggestionColumnsSelector = createSelector(
+  suggestionGroupsSelector,
+  (suggestionGroups) => (
+    flatten(
+      map(suggestionGroups, (suggestions) => (
+        map(chunk(suggestions, 10), (columns) => (columns.length))
+      ))
+    )
+));

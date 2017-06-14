@@ -5,6 +5,10 @@ export function innerHeight(el) {
   return sumBy(el.children, child => child.getBoundingClientRect().height);
 }
 
+export function viewportHeight() {
+  return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+}
+
 export function disableBodyScroll() {
   if (document.body.className.indexOf('noscroll') === -1) {
     document.body.className += ' noscroll';

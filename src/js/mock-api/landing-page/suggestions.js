@@ -1,15 +1,18 @@
+import { fill } from 'lodash';
+
+const officers = Array(10);
+fill(officers, {
+  'text': 'Bernadette Kelly',
+  'payload': {
+    'result_text': 'Bernadette Kelly',
+    'result_extra_information': '7186',
+    'to': '/officer/1/'
+  }
+});
+
 export default {
   'default': {
-    'OFFICER': [
-      {
-        'text': 'Bernadette Kelly',
-        'payload': {
-          'result_text': 'Bernadette Kelly',
-          'result_extra_information': '7186',
-          'to': '/officer/1/'
-        }
-      }
-    ],
+    'OFFICER': officers,
     'CO-ACCUSED': [
       {
         'text': 'Bernadette Kelly',

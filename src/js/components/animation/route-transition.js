@@ -64,7 +64,7 @@ export default class RouteTransition extends Component {
                     transform: `scale(${style.scale})`
                   } }
                 >
-                 { data.handler }
+                  { data.handler }
                 </div>
               );
             }) }

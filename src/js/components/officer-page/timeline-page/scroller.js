@@ -22,7 +22,7 @@ export default class Scroller extends Component {
     return (
       <div className='test--timeline-items-container'
         style={ { ...wrapperStyle, ...style } } ref={ this.handleElementRef.bind(this) }>
-      { children }
+        { children }
       </div>
     );
   }

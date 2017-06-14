@@ -1,0 +1,7 @@
+{
+  "ignore": [
+    "order-alphabetical",
+    "star-property-hack",
+    "bulletproof-font-face"
+  ]
+}

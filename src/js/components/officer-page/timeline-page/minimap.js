@@ -33,7 +33,7 @@ export default class Minimap extends Component {
   }
 
   render() {
-    const { minimap } = this.props;
+    const { minimap, hoveredItemIndex } = this.props;
     const { selectedItemIndex } = this.state;
     return (
       <div style={ wrapperStyle }>
@@ -45,7 +45,8 @@ export default class Minimap extends Component {
                 <MinimapItem className='test--minimapitem' text={ kind }
                   key={ index } active={ selectedItemIndex === index }
                   onClick={ () => this.handleMinimapItemClick(index) }
-                  onHover={ (hovered) => this.handleMinimapItemHover(hovered ? index : null) }/>
+                  onHover={ (hovered) => this.handleMinimapItemHover(hovered ? index : null) }
+                  timelineItemHovered={ hoveredItemIndex === index }/>
               )) }
             </div>
           </div>
@@ -59,7 +60,8 @@ Minimap.propTypes = {
   minimap: PropTypes.array,
   onItemClick: PropTypes.func,
   onItemHover: PropTypes.func,
-  sortDescending: PropTypes.bool
+  sortDescending: PropTypes.bool,
+  hoveredItemIndex: PropTypes.number
 };
 
 Minimap.defaultProps = {

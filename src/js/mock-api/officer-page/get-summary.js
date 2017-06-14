@@ -15,6 +15,6 @@ export default () => ({
       { 'name': 'complainant race', 'entries': [{ 'name': 'White', 'count': 10, 'sustained_count': 2 }] },
       { 'name': 'complainant age', 'entries': [{ 'name': '<20', 'count': 10, 'sustained_count': 2 }] },
       { 'name': 'complainant gender', 'entries': [{ 'name': 'Female', 'count': 10, 'sustained_count': 2 }]
-    }]
+      }]
   }
 });
