@@ -8,7 +8,15 @@ import SuggestionNoResult from './search-no-result';
 
 export default class SuggestionResults extends Component {
   renderGroups() {
-    const { suggestionGroups, onLoadMore, searchText, isEmpty, isRequesting, suggestionClick } = this.props;
+    const { suggestionGroups,
+      onLoadMore,
+      searchText,
+      isEmpty,
+      isRequesting,
+      suggestionClick,
+      navigation,
+      isShowingSingleContentType
+    } = this.props;
 
     if (isRequesting) {
       return 'Loading...';
@@ -19,15 +27,24 @@ export default class SuggestionResults extends Component {
         <SuggestionNoResult searchText={ searchText }/>
       );
     }
+    // FIXME: Refactor it by a more convinient way
+    let i = -1;
 
-    return map(suggestionGroups, (suggestions, key) => (
-      <SuggestionGroup
-        onLoadMore={ onLoadMore }
-        key={ 'suggestion-group-' + key }
-        suggestions={ suggestions }
-        suggestionClick={ suggestionClick }
-        header={ key }/>
-    ));
+    return map(suggestionGroups, (suggestions, key) => {
+      i = i + 1;
+
+      return (
+        <SuggestionGroup
+          onLoadMore={ onLoadMore }
+          key={ `suggestion-group-${key}` }
+          navigation={ navigation }
+          suggestions={ suggestions }
+          suggestionClick={ suggestionClick }
+          isShowingSingleContentType={ isShowingSingleContentType }
+          header={ key }
+          columnIndex={ i } />
+      );
+    });
   }
 
   render() {
@@ -37,15 +54,17 @@ export default class SuggestionResults extends Component {
           { this.renderGroups() }
         </div>
       </div>
-      );
+    );
   }
 }
 
 SuggestionResults.propTypes = {
+  navigation: PropTypes.object,
   searchText: PropTypes.string,
   suggestionGroups: PropTypes.object,
   isRequesting: PropTypes.bool,
   onLoadMore: PropTypes.func,
   suggestionClick: PropTypes.func,
-  isEmpty: PropTypes.bool
+  isEmpty: PropTypes.bool,
+  isShowingSingleContentType: PropTypes.bool
 };
