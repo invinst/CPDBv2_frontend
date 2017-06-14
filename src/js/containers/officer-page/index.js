@@ -2,9 +2,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import OfficerPage from 'components/officer-page';
-import { fetchOfficerSummary } from 'actions/officer-page';
 import { getOfficerName } from 'selectors/officer-page';
-
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -14,8 +12,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = {
-  fetchOfficerSummary
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(OfficerPage);
+export default connect(mapStateToProps, null)(OfficerPage);

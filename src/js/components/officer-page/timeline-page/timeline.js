@@ -17,17 +17,13 @@ export default class Timeline extends Component {
     this.handleItemSelected = this.handleItemSelected.bind(this);
   }
 
-  componentDidMount() {
-    const { fetchTimelineItems, sortParams, officerId } = this.props;
-    fetchTimelineItems(officerId, sortParams);
-  }
-
   componentWillReceiveProps(nextProps) {
     const {
       sortParams, fetchTimelineItems, selectedItemIndex,
       fetchTimelineItemsWhenIndexOutOfBound, items, officerId
     } = this.props;
-    if (nextProps.sortParams !== sortParams || nextProps.officerId !== officerId) {
+
+    if (nextProps.sortParams !== sortParams) {
       fetchTimelineItems(nextProps.officerId, nextProps.sortParams);
     }
 

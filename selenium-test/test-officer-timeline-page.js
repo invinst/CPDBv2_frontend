@@ -4,6 +4,7 @@ import 'should';
 
 import timelinePage from './page-objects/officer-timeline-page';
 import searchPage from './page-objects/search-page';
+import crPage from './page-objects/cr-page';
 
 describe('officer timeline page', function () {
   beforeEach(function () {
@@ -51,6 +52,29 @@ describe('officer timeline page', function () {
     timelinePage.timeline.cardItem.count.should.equal(0);
   });
 
+  it('should launch timeline, summary, minimap requests upon direct visit');
+
+  it('should not launch any request when click on Summary tab');
+
+  it('should reset sort order when visit other officer', function () {
+    timelinePage.sidebar.sortButton.waitForVisible();
+    timelinePage.sidebar.sortButton.click();
+    timelinePage.sidebar.sortButton.getText().should.equal('Sort by newest first');
+
+    timelinePage.bottomSheet.clickOverlay();
+
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('foo');
+
+    searchPage.firstOfficerResult.waitForVisible();
+    searchPage.firstOfficerResult.click();
+
+    timelinePage.header.headerTimelineButton.waitForVisible();
+    timelinePage.header.headerTimelineButton.click();
+
+    timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
+  });
+
   describe('minimap', function () {
     it('should highlight corresponding timeline item when hovered on', function () {
       timelinePage.sidebar.yearLabel.waitForVisible();
@@ -69,6 +93,13 @@ describe('officer timeline page', function () {
       timelinePage.timeline.joinedItem.kind.getText().should.equal('Joined');
       timelinePage.timeline.joinedItem.date.getText().should.equal('DEC 5, 2001');
       timelinePage.timeline.joinedItem.description.getText().should.equal('Joined CPD');
+    });
+
+    it('should change sort button text when click on', function () {
+      timelinePage.sidebar.sortButton.waitForVisible();
+      timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
+      timelinePage.sidebar.sortButton.click();
+      timelinePage.sidebar.sortButton.getText().should.equal('Sort by newest first');
     });
   });
 
@@ -113,6 +144,12 @@ describe('officer timeline page', function () {
       timelinePage.sidebar.itemAt('2005', 1).getCssProperty('backgroundColor').value.should.equal(
         'rgba(228,228,228,1)'
       );
+    });
+
+    it('should launch Complaint bottom sheet when click on a CR item', function () {
+      timelinePage.timeline.cardItemAtIndex(2).click();
+      crPage.element.waitForVisible();
+      crPage.currentBasePath.should.equal('/complaint/968734/1/');
     });
   });
 });

@@ -72,4 +72,8 @@ describe('officer summary page', function () {
     summaryPage.aggregateSection.genderEntrySustainedCount.getText().should.equal('2');
     summaryPage.aggregateSection.genderEntryName.getText().should.equal('Female');
   });
+
+  it('should launch timeline, summary, minimap requests upon direct visit');
+
+  it('should not launch any request when click on Timeline tab');
 });

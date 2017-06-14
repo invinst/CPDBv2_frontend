@@ -8,18 +8,6 @@ import StickyHeader from 'components/common/sticky-header';
 
 
 export default class OfficerPage extends Component {
-  componentDidMount() {
-    const { fetchOfficerSummary, officerId } = this.props;
-    fetchOfficerSummary(officerId);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { fetchOfficerSummary, officerId } = nextProps;
-    if (officerId !== this.props.officerId) {
-      fetchOfficerSummary(officerId);
-    }
-  }
-
   renderContent() {
     const { location, officerId } = this.props;
     const parts = location.pathname.split('/');
@@ -48,13 +36,11 @@ export default class OfficerPage extends Component {
 }
 
 OfficerPage.propTypes = {
-  fetchOfficerSummary: PropTypes.func,
   location: PropTypes.object,
   officerName: PropTypes.string,
   officerId: PropTypes.number
 };
 
 OfficerPage.defaultProps = {
-  location: { pathname: '/' },
-  fetchOfficerSummary: () => {}
+  location: { pathname: '/' }
 };
