@@ -45,7 +45,7 @@ export default class OfficerAutoSuggest extends Component {
     );
   }
 
-  handleBlur(event, { focusedSuggestion }) {
+  handleBlur(event) {
     this.setState({
       inputHasFocus: false
     });

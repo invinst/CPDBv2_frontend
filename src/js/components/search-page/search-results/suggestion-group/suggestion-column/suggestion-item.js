@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { join, get } from 'lodash';
+import classnames from 'classnames';
 import { Link } from 'react-router';
 
 import Hoverable from 'components/common/higher-order/hoverable';
@@ -30,6 +31,7 @@ class SuggestionItem extends Component {
     const to = get(suggestion, 'payload.to', '');
     const extraText = get(suggestion, 'payload.result_extra_information', '');
     const tags = get(suggestion, 'payload.tags', []);
+    const suggestionItemClassName = classnames('suggestion-item', { 'focused': isFocused });
 
     const commonWrapperProps = {
       style: suggestionItemStyle,
@@ -70,7 +72,7 @@ class SuggestionItem extends Component {
     );
 
     return (
-      <div className='suggestion-item' id={ this.props.id }>
+      <div className={ suggestionItemClassName } id={ this.props.id }>
         { linkTag }
       </div>
     );
@@ -82,6 +84,7 @@ SuggestionItem.defaultProps = {
 };
 
 SuggestionItem.propTypes = {
+  id: PropTypes.string,
   isFocused: PropTypes.bool,
   suggestion: PropTypes.object,
   suggestionClick: PropTypes.func,

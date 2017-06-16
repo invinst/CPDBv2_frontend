@@ -6,6 +6,15 @@ import SuggestionItem from './suggestion-item';
 
 
 export default class SuggestionColumn extends Component {
+  shouldComponentUpdate(nextProps) {
+    const activeColumnIndex = nextProps.navigation.columnIndex;
+    return (
+      nextProps.columnIndex === activeColumnIndex ||
+      nextProps.columnIndex === activeColumnIndex - 1 ||
+      nextProps.columnIndex === activeColumnIndex + 1
+    );
+  }
+
   renderSuggestions() {
     const { contentType, suggestions, suggestionClick, columnIndex, navigation } = this.props;
     let isFocused;
