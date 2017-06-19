@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithTag,
@@ -6,10 +7,12 @@ import {
   findRenderedComponentWithType,
   Simulate
 } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { spy, useFakeTimers } from 'sinon';
 import { Link } from 'react-router';
 
-import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-column/suggestion-item';
+import SuggestionItem, {
+  UnwrappedSuggestionItem
+} from 'components/search-page/search-results/suggestion-group/suggestion-column/suggestion-item';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
@@ -90,6 +93,29 @@ describe('<SuggestionItem/>', function () {
       text.style.color.should.eql('rgb(0, 94, 244)');
       extraText.style.color.should.eql('rgb(0, 94, 244)');
       tag.style.color.should.eql('rgb(0, 94, 244)');
+    });
+  });
+
+  describe('when entering focused state', function () {
+    beforeEach(function () {
+      this.clock = useFakeTimers();
+    });
+
+    afterEach(function () {
+      this.clock.restore();
+    });
+
+    it('should set state.enter to `true` then reset it immediately after', function () {
+      const element = document.createElement('div');
+
+      const component = ReactDOM.render(<UnwrappedSuggestionItem isFocused={ false } />, element);
+      component.state.enteringFocusedState.should.be.false();
+
+      ReactDOM.render(<UnwrappedSuggestionItem isFocused={ true } />, element);
+      component.state.enteringFocusedState.should.be.true();
+
+      this.clock.tick(50);
+      component.state.enteringFocusedState.should.be.false();
     });
   });
 });

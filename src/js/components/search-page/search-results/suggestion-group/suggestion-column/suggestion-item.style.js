@@ -66,16 +66,30 @@ export const tagStyle = (hovering, isFocused) => {
   };
 };
 
-export const suggestionEnterStyle = (isFocused) => ({
-  float: 'right',
+export const enterContainerStyle = {
+  position: 'relative',
+  'float': 'right',
+  height: '100%',
+  width: '100px'
+};
+
+export const enterBoxStyle = {
+  position: 'absolute',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  WebkitTransform: 'translateY(-50%)',
+  right: 0,
   color: `${lightSubdueAccentTextColor}`,
   border: `1px solid ${lightSubdueAccentTextColor}`,
   fontSize: '12px',
   padding: '4px 8px',
-  verticalAlign: 'middle',
-  position: 'relative',
+  boxSizing: 'border-box',
+  width: '46px'
+};
+
+export const enterTextStyle = {
+  position: 'absolute',
   top: '50%',
   transform: 'translateY(-50%)',
   WebkitTransform: 'translateY(-50%)',
-  display: isFocused? 'inherit': 'none'
-});
+};

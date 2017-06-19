@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { join, get } from 'lodash';
 import classnames from 'classnames';
 import { Link } from 'react-router';
+import { Motion, spring, presets } from 'react-motion';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import {
@@ -9,7 +10,9 @@ import {
   suggestionTextStyle,
   metaTextStyle,
   tagStyle,
-  suggestionEnterStyle
+  enterContainerStyle,
+  enterBoxStyle,
+  enterTextStyle
 } from './suggestion-item.style';
 
 
@@ -17,6 +20,21 @@ class SuggestionItem extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      enteringFocusedState: false
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    /*
+      When isFocused is changed from false to true, set `enteringFocusedState` to true
+      then immediately set it back to false. This allows custom starting position
+      for "enter" animations. See `textContainer` below for an example.
+    */
+    if (!this.props.isFocused && nextProps.isFocused) {
+      this.setState({ enteringFocusedState: true });
+      setTimeout(() => { this.setState({ enteringFocusedState: false }); }, 10);
+    }
   }
 
   handleClick(text, href, to) {
@@ -38,32 +56,83 @@ class SuggestionItem extends Component {
       onClick: this.handleClick.bind(this, text, href, to)
     };
 
-    const children = [
-      <div
+    const enter = (
+      <Motion
         key='enter'
-        className='link--transition'
-        style={ suggestionEnterStyle(isFocused) }
+        defaultStyle={ { height: 0, opacity: 0 } }
+        style={ {
+          height: spring(isFocused ? 24 : 0, presets.stiff),
+          opacity: spring(isFocused ? 1 : 0)
+        } }
       >
-        enter
-      </div>,
-      <div
-        key='suggestion'
-        className='link--transition test--suggestion-item-text'
-        style={ suggestionTextStyle(hovering, isFocused) }>
-        { text }
-      </div>,
-      <div
-        key='meta'
-        className='link--transition test--suggestion-item-extra-text'
-        style={ metaTextStyle(hovering, isFocused) }>
-        { extraText }
-      </div>,
-      <div
-        key='tag'
-        className='link--transition test--suggestion-item-tag'
-        style={ tagStyle(hovering, isFocused) }>
-        { join(tags, ', ') }
-      </div>
+        { (style) => {
+          if (!isFocused) {
+            return null;
+          } else {
+            return (
+              <div style={ enterContainerStyle }>
+                <div
+                  className='link--transition'
+                  style={ {
+                    ...enterBoxStyle,
+                    height: `${style.height}px`,
+                  } }
+                >
+                  <span style={ {
+                    ...enterTextStyle,
+                    opacity: style.opacity,
+                  } }>
+                    enter
+                  </span>
+                </div>
+              </div>
+            );
+          }
+        } }
+      </Motion>
+    );
+
+    const textContainer = (
+      <Motion
+        key='text-container'
+        defaultStyle={ { translateY: 0 } }
+        style={ {
+          // "enter" transition effect: slide up from 15px under
+          translateY: this.state.enteringFocusedState ? 15 : spring(0, presets.stiff)
+        } }
+      >
+        {
+          (style) => (
+            <div style={ {
+              transform: `translateY(${style.translateY}px)`,
+            } }>
+              <div
+                key='suggestion'
+                className='link--transition test--suggestion-item-text'
+                style={ suggestionTextStyle(hovering, isFocused) }>
+                { text }
+              </div>
+              <div
+                key='meta'
+                className='link--transition test--suggestion-item-extra-text'
+                style={ metaTextStyle(hovering, isFocused) }>
+                { extraText }
+              </div>
+              <div
+                key='tag'
+                className='link--transition test--suggestion-item-tag'
+                style={ tagStyle(hovering, isFocused) }>
+                { join(tags, ', ') }
+              </div>
+            </div>
+          )
+        }
+      </Motion>
+    );
+
+    const children = [
+      enter,
+      textContainer
     ];
 
     const linkTag = (to ?
@@ -93,3 +162,5 @@ SuggestionItem.propTypes = {
 };
 
 export default Hoverable(SuggestionItem);
+
+export const UnwrappedSuggestionItem = SuggestionItem;
