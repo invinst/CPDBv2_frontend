@@ -2,17 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import { get } from 'lodash';
 import classnames from 'classnames';
 import { Link } from 'react-router';
-import { Motion, spring, presets } from 'react-motion';
 
 import Hoverable from 'components/common/higher-order/hoverable';
+import SuggestionItemText from './suggestion-item-text';
+import SuggestionEnterBadge from './suggestion-item-enter-badge';
 import {
-  suggestionItemStyle,
-  suggestionTextStyle,
-  metaTextStyle,
-  reasonStyle,
-  enterContainerStyle,
-  enterBoxStyle,
-  enterTextStyle
+  suggestionItemStyle
 } from './suggestion-item.style';
 
 
@@ -56,83 +51,20 @@ class SuggestionItem extends Component {
       onClick: this.handleClick.bind(this, text, href, to)
     };
 
-    const enter = (
-      <Motion
-        key='enter'
-        defaultStyle={ { height: 0, opacity: 0 } }
-        style={ {
-          height: spring(isFocused ? 24 : 0, presets.stiff),
-          opacity: spring(isFocused ? 1 : 0)
-        } }
-      >
-        { (style) => {
-          if (!isFocused) {
-            return null;
-          } else {
-            return (
-              <div style={ enterContainerStyle }>
-                <div
-                  className='link--transition'
-                  style={ {
-                    ...enterBoxStyle,
-                    height: `${style.height}px`,
-                  } }
-                >
-                  <span style={ {
-                    ...enterTextStyle,
-                    opacity: style.opacity,
-                  } }>
-                    enter
-                  </span>
-                </div>
-              </div>
-            );
-          }
-        } }
-      </Motion>
-    );
-
-    const textContainer = (
-      <Motion
-        key='text-container'
-        defaultStyle={ { translateY: 0 } }
-        style={ {
-          // "enter" transition effect: slide up from 15px under
-          translateY: this.state.enteringFocusedState ? 15 : spring(0, presets.stiff)
-        } }
-      >
-        {
-          (style) => (
-            <div style={ {
-              transform: `translateY(${style.translateY}px)`,
-            } }>
-              <div
-                key='suggestion'
-                className='link--transition test--suggestion-item-text'
-                style={ suggestionTextStyle(hovering, isFocused) }>
-                { text }
-              </div>
-              <div
-                key='meta'
-                className='link--transition test--suggestion-item-extra-text'
-                style={ metaTextStyle(hovering, isFocused) }>
-                { extraText }
-              </div>
-              <div
-                key='reason'
-                className='link--transition test--suggestion-item-reason'
-                style={ reasonStyle(hovering, isFocused) }>
-                { reason }
-              </div>
-            </div>
-          )
-        }
-      </Motion>
-    );
-
     const children = [
-      enter,
-      textContainer
+      <SuggestionEnterBadge
+        key='enter-badge'
+        isFocused={ isFocused }
+      />,
+      <SuggestionItemText
+        key='text'
+        text={ text }
+        extraText={ extraText }
+        reason={ reason }
+        hovering={ hovering }
+        isFocused={ isFocused }
+        enteringFocusedState={ this.state.enteringFocusedState }
+      />
     ];
 
     const linkTag = (to ?
