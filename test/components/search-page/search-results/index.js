@@ -1,5 +1,9 @@
 import React from 'react';
-import { findRenderedComponentWithType, renderIntoDocument } from 'react-addons-test-utils';
+import {
+  findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
+  renderIntoDocument
+} from 'react-addons-test-utils';
 
 import SearchResults from 'components/search-page/search-results';
 import SearchNoResult from 'components/search-page/search-results/search-no-result';
@@ -18,6 +22,14 @@ describe('SearchResults component', function () {
       a: [{}]
     };
     SearchResults.should.be.renderable({ suggestionGroups });
+  });
+
+  it('should render Loading when isRequesting', function () {
+    instance = renderIntoDocument(
+      <SearchResults isRequesting={ true }/>
+    );
+    const contentWrapper = findRenderedDOMComponentWithClass(instance, 'content-wrapper');
+    contentWrapper.textContent.should.containEql('Loading...');
   });
 
   it('should render SearchNoResult component when isEmpty', function () {

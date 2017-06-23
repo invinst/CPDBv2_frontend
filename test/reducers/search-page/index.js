@@ -9,7 +9,8 @@ describe('searchPage reducer', function () {
       suggestionGroups: {},
       contentType: null,
       recentSuggestions: [],
-      tags: []
+      tags: [],
+      query: ''
     });
   });
 });

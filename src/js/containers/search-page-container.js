@@ -2,7 +2,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import SearchContent from 'components/search-page/search-content';
-import { getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion, move } from 'actions/search-page';
+import {
+  getSuggestion,
+  selectTag,
+  toggleSearchMode,
+  trackRecentSuggestion,
+  move,
+  changeSearchQuery
+} from 'actions/search-page';
 import {
   suggestionGroupsSelector, isEmptySelector, suggestionTagsSelector,
   suggestionColumnsSelector
@@ -10,17 +17,18 @@ import {
 
 
 function mapStateToProps(state) {
-  const { isRequesting, contentType, recentSuggestions, navigation } = state.searchPage;
+  const { isRequesting, contentType, recentSuggestions, navigation, query } = state.searchPage;
 
   return {
     navigation,
+    query,
     tags: suggestionTagsSelector(state),
     suggestionGroups: suggestionGroupsSelector(state),
     isRequesting,
     contentType,
     isEmpty: isEmptySelector(state),
     suggestionColumns: suggestionColumnsSelector(state),
-    recentSuggestions
+    recentSuggestions,
   };
 }
 
@@ -29,7 +37,8 @@ const mapDispatchToProps = {
   selectTag,
   toggleSearchMode,
   trackRecentSuggestion,
-  move
+  move,
+  changeSearchQuery
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchContent));

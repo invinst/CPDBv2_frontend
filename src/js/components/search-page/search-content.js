@@ -23,9 +23,6 @@ export default class SearchContent extends Component {
     this.handleGoBack = this.handleGoBack.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
     this.getSuggestion = debounce(props.getSuggestion, 100);
-    this.state = {
-      value: ''
-    };
   }
 
   componentDidMount() {
@@ -43,15 +40,12 @@ export default class SearchContent extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
-    const { contentType } = this.props;
+    const { contentType, changeSearchQuery } = this.props;
     const limit = contentType ? null : DEFAULT_SUGGESTION_LIMIT;
-
-    this.setState({
-      value
-    });
+    changeSearchQuery(value);
 
     if (value) {
-      this.getSuggestion(value, { contentType, limit });
+      this.props.getSuggestion(value, { contentType, limit });
     } else {
       this.props.selectTag(null);
     }
@@ -59,9 +53,9 @@ export default class SearchContent extends Component {
 
   handleSelect(contentType) {
     if (contentType === this.props.contentType) {
-      this.getSuggestion(this.state.value, { limit: DEFAULT_SUGGESTION_LIMIT });
+      this.getSuggestion(this.props.query, { limit: DEFAULT_SUGGESTION_LIMIT });
     } else {
-      this.getSuggestion(this.state.value, { contentType });
+      this.getSuggestion(this.props.query, { contentType });
     }
   }
 
@@ -72,8 +66,7 @@ export default class SearchContent extends Component {
   }
 
   handleEnter(e) {
-    const { suggestionGroups, trackRecentSuggestion } = this.props;
-    const { value } = this.state;
+    const { suggestionGroups, trackRecentSuggestion, query } = this.props;
     const firstRecord = head(head(values(suggestionGroups)));
     const contentType = head(keys(suggestionGroups));
     let url;
@@ -85,7 +78,7 @@ export default class SearchContent extends Component {
       to = firstRecord.payload.to;
       trackRecentSuggestion(contentType, text, url, to);
     } else {
-      url = dataToolSearchUrl(value);
+      url = dataToolSearchUrl(query);
     }
 
     if (to) {
@@ -98,10 +91,10 @@ export default class SearchContent extends Component {
   renderContent() {
     const {
       suggestionGroups, isRequesting, tags, contentType, navigation,
-      isEmpty, recentSuggestions, trackRecentSuggestion
+      isEmpty, recentSuggestions, trackRecentSuggestion, query
     } = this.props;
 
-    if (!this.state.value) {
+    if (!query) {
       return (
         <SearchNoInput recentSuggestions={ recentSuggestions }/>
       );
@@ -114,7 +107,7 @@ export default class SearchContent extends Component {
           navigation={ navigation }
           suggestionClick={ trackRecentSuggestion }
           isEmpty={ isEmpty }
-          searchText={ this.state.value }
+          searchText={ query }
           onLoadMore={ this.handleSelect }
           suggestionGroups={ suggestionGroups }
           isShowingSingleContentType={ contentType !== null }
@@ -138,7 +131,7 @@ export default class SearchContent extends Component {
             onChange={ this.handleChange }
             onEnter={ this.handleEnter }
             navigate={ this.props.move }
-            value={ this.state.value }/>
+            value={ this.props.query }/>
         </div>
         <div style={ resultWrapperStyle }>
           { this.renderContent() }
@@ -161,15 +154,19 @@ SearchContent.propTypes = {
   trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
   isEmpty: PropTypes.bool,
-  router: PropTypes.object
+  router: PropTypes.object,
+  query: PropTypes.string,
+  changeSearchQuery: PropTypes.func
 };
 
 SearchContent.defaultProps = {
   suggestionGroups: {},
+  contentType: null,
   isRequesting: false,
   getSuggestion: () => {},
   trackRecentSuggestion: () => {},
   router: {
     goBack: () => {}
-  }
+  },
+  changeSearchQuery: () => {}
 };

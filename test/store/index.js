@@ -101,7 +101,8 @@ describe('store', function () {
         suggestionGroups: {},
         contentType: null,
         recentSuggestions: [],
-        tags: []
+        tags: [],
+        query: ''
       },
       crPage: {
         isRequesting: false

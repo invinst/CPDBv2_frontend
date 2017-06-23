@@ -26,7 +26,12 @@ export default class App extends React.Component {
 
   componentWillMount() {
     LayeredKeyBinding.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
-    ALPHA_NUMBERIC.map((letter) => (LayeredKeyBinding.bind(letter, this.props.toggleSearchMode)));
+    ALPHA_NUMBERIC.forEach((letter) => {
+      LayeredKeyBinding.bind(letter, () => {
+        this.props.changeSearchQuery(letter);
+        this.props.toggleSearchMode();
+      });
+    });
   }
 
   componentDidMount() {
@@ -94,11 +99,13 @@ App.propTypes = {
   showLoginModal: PropTypes.bool,
   location: locationShape,
   toggleEditMode: PropTypes.func,
-  toggleSearchMode: PropTypes.func
+  toggleSearchMode: PropTypes.func,
+  changeSearchQuery: PropTypes.func
 };
 
 App.defaultProps = {
   params: {},
   location: {},
-  receiveTokenFromCookie: () => {}
+  receiveTokenFromCookie: () => {},
+  changeSearchQuery: () => {}
 };

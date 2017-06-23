@@ -6,6 +6,7 @@ import {
 import { stub, spy } from 'sinon';
 import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
+import lodash from 'lodash';
 
 import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
@@ -16,8 +17,14 @@ import { unmountComponentSuppressError } from 'utils/test';
 describe('SearchContent component', function () {
   let instance;
 
+  beforeEach(function () {
+    // Stub lodash.debounce() so that it returns the input function as-is
+    this.debounceStub = stub(lodash, 'debounce', func => func);
+  });
+
   afterEach(function () {
     unmountComponentSuppressError(instance);
+    this.debounceStub.restore();
   });
 
   it('should be renderable', function () {
@@ -35,9 +42,8 @@ describe('SearchContent component', function () {
     Simulate.change(searchInput);
     getSuggestion.calledWith('a', {
       contentType: null,
-      limit: 10
-    });
-    instance.state.value.should.equal('a');
+      limit: 9
+    }).should.be.true();
   });
 
   it('should clear all tags when user remove all text', function () {
@@ -48,8 +54,7 @@ describe('SearchContent component', function () {
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = '';
     Simulate.change(searchInput);
-    selectTag.calledWith(null);
-    instance.state.value.should.equal('');
+    selectTag.calledWith(null).should.be.true();
   });
 
   it('should call api when user select a tag', function () {
@@ -57,16 +62,15 @@ describe('SearchContent component', function () {
     const tags = ['a'];
 
     instance = renderIntoDocument(
-      <SearchContent getSuggestion={ getSuggestion } tags={ tags }/>
+      <SearchContent getSuggestion={ getSuggestion } tags={ tags } query={ 'a' }/>
     );
-    instance.setState({ value: 'a' });
 
     const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
     const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
     Simulate.click(tagElement);
     getSuggestion.calledWith('a', {
       contentType: 'a'
-    });
+    }).should.be.true();
   });
 
   it('should call api when user deselect a tag', function () {
@@ -74,25 +78,13 @@ describe('SearchContent component', function () {
     const tags = ['a'];
 
     instance = renderIntoDocument(
-      <SearchContent getSuggestion={ getSuggestion } tags={ tags } contentType='a'/>
+      <SearchContent getSuggestion={ getSuggestion } tags={ tags } contentType='a' query='b' />
     );
-    instance.setState({ value: 'a' });
 
     const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
     const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
     Simulate.click(tagElement);
-    getSuggestion.calledWith('a');
-  });
-
-  it('should render Loading when isRequesting', function () {
-    instance = renderIntoDocument(
-      <SearchContent isRequesting={ true }/>
-    );
-    const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
-    searchInput.value = 'a';
-    Simulate.change(searchInput);
-    const contentWrapper = findRenderedDOMComponentWithClass(instance, 'content-wrapper');
-    contentWrapper.textContent.should.containEql('Loading...');
+    getSuggestion.calledWith('b').should.be.true();
   });
 
   it('should call router.goBack when user click on searchbar__button--back', function () {
@@ -162,9 +154,8 @@ describe('SearchContent component', function () {
     const locationAssign = stub(window.location, 'assign');
 
     instance = renderIntoDocument(
-      <SearchContent />
+      <SearchContent query={ 'something' }/>
     );
-    instance.setState({ 'value': 'something' });
 
     const searchComponent = findRenderedComponentWithType(instance, SearchBox);
     searchComponent.mousetrap.trigger('enter');
@@ -237,4 +228,3 @@ describe('SearchContent component', function () {
     move.calledWith(direction, suggestionColumns).should.be.true();
   });
 });
-
