@@ -192,5 +192,49 @@ describe('SearchContent component', function () {
     searchComponent.mousetrap.trigger('enter');
     trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url').should.be.true();
   });
+
+  it('should trigger move when up key pressed', function () {
+    const move = spy();
+    const suggestionColumns = [];
+    const direction = 'up';
+    instance = renderIntoDocument(
+      <SearchContent move={ move } suggestionColumns={ suggestionColumns }/>
+    );
+    Mousetrap.trigger(direction);
+    move.calledWith(direction, suggestionColumns).should.be.true();
+  });
+
+  it('should trigger move when down key pressed', function () {
+    const move = spy();
+    const suggestionColumns = [];
+    const direction = 'down';
+    instance = renderIntoDocument(
+      <SearchContent move={ move } suggestionColumns={ suggestionColumns }/>
+    );
+    Mousetrap.trigger(direction);
+    move.calledWith(direction, suggestionColumns).should.be.true();
+  });
+
+  it('should trigger move when left key pressed', function () {
+    const move = spy();
+    const suggestionColumns = [];
+    const direction = 'left';
+    instance = renderIntoDocument(
+      <SearchContent move={ move } suggestionColumns={ suggestionColumns }/>
+    );
+    Mousetrap.trigger(direction);
+    move.calledWith(direction, suggestionColumns).should.be.true();
+  });
+
+  it('should trigger move when right key pressed', function () {
+    const move = spy();
+    const suggestionColumns = [];
+    const direction = 'right';
+    instance = renderIntoDocument(
+      <SearchContent move={ move } suggestionColumns={ suggestionColumns }/>
+    );
+    Mousetrap.trigger(direction);
+    move.calledWith(direction, suggestionColumns).should.be.true();
+  });
 });
 
