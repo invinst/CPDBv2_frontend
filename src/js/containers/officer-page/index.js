@@ -12,4 +12,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, null)(OfficerPage);
+export default connect(mapStateToProps)(OfficerPage);
