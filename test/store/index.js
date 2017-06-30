@@ -96,6 +96,7 @@ describe('store', function () {
         locationBeforeTransitions: null
       },
       searchPage: {
+        navigation: { 'columnIndex': 0, 'itemIndex': 0 },
         isRequesting: false,
         suggestionGroups: {},
         contentType: null,

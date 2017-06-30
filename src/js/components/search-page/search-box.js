@@ -11,6 +11,10 @@ export default class SearchBox extends Component {
     this.mousetrap = new Mousetrap(this.searchInput);
     this.mousetrap.bind('esc', onEscape);
     this.mousetrap.bind('enter', onEnter);
+    ['up', 'down'].map((direction) => (this.mousetrap.bind(
+      direction,
+      () => (this.searchInput.blur())
+    )));
   }
 
   render() {

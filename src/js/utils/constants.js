@@ -126,6 +126,8 @@ export const ALPHA_NUMBERIC = [
   'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
 ];
 
+export const NAVIGATION_KEYS = ['up', 'down', 'right', 'left'];
+
 export const SIGNIN_REQUEST = 'SIGNIN_REQUEST';
 export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
 export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';
