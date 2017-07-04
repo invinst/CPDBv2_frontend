@@ -24,6 +24,7 @@ export const SEARCH_PATH = 'search/';
 export const OFFICER_PATH = 'officer/:officerId';
 export const OFFICER_TIMELINE_PATH = 'officer/:officerId/timeline';
 export const CR_PATH = 'complaint/:crid/:officerId';
+export const UNIT_PROFILE_PATH = 'unit/:unitName';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
@@ -70,6 +71,7 @@ export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
+export const UNIT_PROFILE_URL = `${V2_ROOT_PATH}units/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -103,6 +105,10 @@ export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
 export const OFFICER_SUMMARY_REQUEST_FAILURE = 'OFFICER_SUMMARY_REQUEST_FAILURE';
 
+export const UNIT_PROFILE_SUMMARY_REQUEST_START = 'UNIT_PROFILE_SUMMARY_REQUEST_START';
+export const UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS = 'UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS';
+export const UNIT_PROFILE_SUMMARY_REQUEST_FAILURE = 'UNIT_PROFILE_SUMMARY_REQUEST_FAILURE';
+
 export const OPEN_BOTTOM_SHEET_WITH_REPORT = 'OPEN_BOTTOM_SHEET_WITH_REPORT';
 export const OPEN_BOTTOM_SHEET_WITH_FAQ = 'OPEN_BOTTOM_SHEET_WITH_FAQ';
 export const OPEN_BOTTOM_SHEET_WITH_OFFICER = 'OPEN_BOTTOM_SHEET_WITH_OFFICER';
@@ -110,6 +116,7 @@ export const OPEN_BOTTOM_SHEET_WITH_COMPLAINT = 'OPEN_BOTTOM_SHEET_WITH_COMPLAIN
 export const CLOSE_BOTTOM_SHEET = 'CLOSE_BOTTOM_SHEET';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_FAQ = 'OPEN_BOTTOM_SHEET_TO_CREATE_FAQ';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_REPORT = 'OPEN_BOTTOM_SHEET_TO_CREATE_REPORT';
+export const OPEN_BOTTOM_SHEET_WITH_POLICE_UNIT = 'OPEN_BOTTOM_SHEET_WITH_POLICE_UNIT';
 
 export const CR_REQUEST_START = 'CR_REQUEST_START';
 export const CR_REQUEST_SUCCESS = 'CR_REQUEST_SUCCESS';
@@ -150,7 +157,7 @@ export const OFFICER_TIMELINE_HOVER_MINIMAP_ITEM = 'OFFICER_TIMELINE_HOVER_MINIM
 export const OFFICER_TIMELINE_HOVER_TIMELINE_ITEM = 'OFFICER_TIMELINE_HOVER_TIMELINE_ITEM';
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
 
-export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR']);
+export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR', 'UNIT_PROFILE']);
 
 export const TimelineItemType = new Enum(['CR', 'UNIT', 'YEAR', 'JOINED']);
 

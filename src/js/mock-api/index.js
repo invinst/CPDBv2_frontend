@@ -1,7 +1,7 @@
 import axiosMockClient from 'utils/axios-mock-client';
 import {
   LANDING_PAGE_API_URL, SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL,
-  REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL
+  REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL, UNIT_PROFILE_URL
 } from 'utils/constants';
 
 import OfficerFactory from 'utils/test/factories/officer';
@@ -13,6 +13,7 @@ import getSummaryData from './officer-page/get-summary';
 import getMinimapData from './officer-page/get-minimap';
 import getTimelineItemsData, { reversedTimelineItems, nextTimelineItems } from './officer-page/get-timeline-item';
 import getCRData from './cr-page/get-data';
+import getUnitSummaryData from './unit-profile-page/get-summary';
 
 
 const SEARCH_API_URL = /^suggestion\/([^/]*)\//;
@@ -62,6 +63,8 @@ axiosMockClient.onGet(`${OFFICER_URL}1234/timeline-minimap/`).reply(200, getMini
 axiosMockClient.onGet(`${OFFICER_URL}1234/timeline-items/`).reply(200, getTimelineItemsData(1234));
 axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-minimap/`).reply(200, getMinimapData(5678));
 axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-items/`).reply(200, getTimelineItemsData(5678));
+
+axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {
