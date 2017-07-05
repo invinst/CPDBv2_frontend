@@ -35,3 +35,7 @@ export const tagStyle = (hovering) => ({
   fontFamily: sanFranciscoTextFamily,
   color: hovering ? accentColor : softBlackColor
 });
+
+export const suggestionItemWrapperStyle = (isFocused) => ({
+  border: isFocused ? 'solid 1px #ccc': 'none'
+});

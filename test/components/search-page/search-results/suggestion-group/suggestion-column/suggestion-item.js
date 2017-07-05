@@ -1,6 +1,10 @@
 import React from 'react';
 import {
-  renderIntoDocument, findRenderedDOMComponentWithTag, Simulate, findRenderedComponentWithType
+  renderIntoDocument,
+  scryRenderedDOMComponentsWithClass,
+  findRenderedDOMComponentWithTag,
+  findRenderedComponentWithType,
+  Simulate
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 import { Link } from 'react-router';
@@ -50,5 +54,12 @@ describe('<SuggestionItem/>', function () {
     );
     findRenderedComponentWithType(instance, Link);
   });
-});
 
+  it('highlight the content by default if it\'s the first result', function () {
+    instance = renderIntoDocument(
+      <SuggestionItem isFocused={ true }/>
+    );
+
+    scryRenderedDOMComponentsWithClass(instance, 'focused').should.have.length(1);
+  });
+});
