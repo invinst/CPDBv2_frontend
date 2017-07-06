@@ -3,6 +3,7 @@
 require('should');
 
 import summaryPage from './page-objects/officer-summary-page';
+import { getRequestCount } from './utils';
 
 
 describe('officer summary page', function () {
@@ -12,10 +13,8 @@ describe('officer summary page', function () {
 
   it('should highlight summary header button', function () {
     summaryPage.header.officerName.waitForVisible();
-    summaryPage.header.headerButton.waitForVisible();
-    summaryPage.header.headerButton.count.should.equal(2);
-    summaryPage.header.headerActiveButton.waitForVisible();
-    summaryPage.header.headerActiveButton.getText().should.equal('Summary');
+    summaryPage.header.activeButton.waitForVisible();
+    summaryPage.header.activeButton.getText().should.equal('Summary');
   });
 
   it('should display officer summary', function () {
@@ -71,5 +70,20 @@ describe('officer summary page', function () {
     summaryPage.aggregateSection.genderEntryCount.getText().should.equal('10');
     summaryPage.aggregateSection.genderEntrySustainedCount.getText().should.equal('2');
     summaryPage.aggregateSection.genderEntryName.getText().should.equal('Female');
+  });
+
+  it('should launch timeline, summary, minimap requests upon direct visit', function () {
+    getRequestCount('/officers/1/timeline-items/').should.equal(1);
+    getRequestCount('/officers/1/summary/').should.equal(1);
+    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
+  });
+
+  it('should not launch any request when click on Timeline tab', function () {
+    summaryPage.header.timelineButton.waitForVisible();
+    summaryPage.header.timelineButton.click();
+
+    getRequestCount('/officers/1/timeline-items/').should.equal(1);
+    getRequestCount('/officers/1/summary/').should.equal(1);
+    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
   });
 });

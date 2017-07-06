@@ -7,11 +7,6 @@ import { wrapperStyle, leftButtonStyle, rightButtonStyle } from './sidebar.style
 
 
 export default class SideBar extends Component {
-  componentDidMount() {
-    const { fetchMinimap, officerId } = this.props;
-    fetchMinimap(officerId);
-  }
-
   rightButtonText() {
     const { sortDescending } = this.props;
     if (sortDescending) {
@@ -41,7 +36,6 @@ export default class SideBar extends Component {
 }
 
 SideBar.propTypes = {
-  fetchMinimap: PropTypes.func,
   sortDescending: PropTypes.bool,
   flipSortOrder: PropTypes.func,
   officerId: PropTypes.number,
@@ -49,8 +43,4 @@ SideBar.propTypes = {
   selectMinimapItem: PropTypes.func,
   hoverMinimapItem: PropTypes.func,
   hoveredItemIndex: PropTypes.number
-};
-
-SideBar.defaultProps = {
-  fetchMinimap: () => {}
 };

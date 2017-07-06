@@ -10,7 +10,7 @@ import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
 import bottomSheetPath from 'middleware/bottom-sheet-path';
 import tracking from 'middleware/tracking';
 import localStorageConfig from './local-storage-config';
-
+import preloadOfficerPageDataMiddleware from 'middleware/preload-officer-page-data-middleware';
 
 export default function configureStore(initialState) {
   /* istanbul ignore next */
@@ -20,7 +20,7 @@ export default function configureStore(initialState) {
     compose(
       applyMiddleware(
         thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath, tracking,
-        routerMiddleware(browserHistory)
+        routerMiddleware(browserHistory), preloadOfficerPageDataMiddleware
       ),
       persistState(()=>{}, localStorageConfig),
       window.devToolsExtension ? window.devToolsExtension() : f => f

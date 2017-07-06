@@ -24,16 +24,6 @@ describe('Timeline SideBar component', function () {
     scryRenderedComponentsWithType(instance, Minimap).should.have.length(1);
   });
 
-  it('should call fetchMinimap on initialization', function () {
-    const fetchMinimap = spy();
-    const officerId = 1;
-    instance = renderIntoDocument(
-      <SideBar fetchMinimap={ fetchMinimap } officerId={ officerId }/>
-    );
-
-    fetchMinimap.calledWith(officerId).should.be.true();
-  });
-
   it('should display "Sort by oldest first" if sortDescending', function () {
     instance = renderIntoDocument(
       <SideBar sortDescending={ true }/>

@@ -15,4 +15,10 @@ describe('selectedItemIndex reducer', function () {
       payload: { index: 1 }
     }).should.eql(1);
   });
+
+  it('should handle @@router/LOCATION_CHANGE', function () {
+    should.not.exists(selectedItemIndex(1, {
+      type: '@@router/LOCATION_CHANGE'
+    }));
+  });
 });
