@@ -5,7 +5,8 @@ import {
   eggPlantColor,
   accentColor,
   subdueAccentTextColor,
-  lightSubdueAccentTextColor
+  lightSubdueAccentTextColor,
+  ultraGirlyPink
 } from 'utils/styles';
 
 
@@ -91,4 +92,9 @@ export const enterTextStyle = {
   top: '50%',
   transform: 'translateY(-50%)',
   WebkitTransform: 'translateY(-50%)'
+};
+
+export const aliasLinkStyle = {
+  color: ultraGirlyPink,
+  textDecoration: 'none',
 };

@@ -14,7 +14,8 @@ export default class SuggestionResults extends Component {
       isEmpty,
       isRequesting,
       suggestionClick,
-      navigation
+      navigation,
+      aliasEditModeOn
     } = this.props;
 
     if (isRequesting) {
@@ -41,7 +42,8 @@ export default class SuggestionResults extends Component {
           canLoadMore={ group.canLoadMore }
           suggestionClick={ suggestionClick }
           header={ group.header }
-          columnIndex={ i } />
+          columnIndex={ i }
+          aliasEditModeOn={ aliasEditModeOn } />
       );
     });
   }
@@ -64,5 +66,6 @@ SuggestionResults.propTypes = {
   isRequesting: PropTypes.bool,
   onLoadMore: PropTypes.func,
   suggestionClick: PropTypes.func,
-  isEmpty: PropTypes.bool
+  isEmpty: PropTypes.bool,
+  aliasEditModeOn: PropTypes.bool
 };

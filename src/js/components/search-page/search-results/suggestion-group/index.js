@@ -13,7 +13,8 @@ export default class SuggestionGroup extends Component {
       header,
       suggestionClick,
       columnIndex,
-      navigation
+      navigation,
+      aliasEditModeOn
     } = this.props;
 
     return map(suggestions, (suggestionsInColumn, key) => {
@@ -25,7 +26,8 @@ export default class SuggestionGroup extends Component {
           contentType={ header }
           suggestions={ suggestionsInColumn }
           index={ key }
-          columnIndex={ columnIndex + key } />
+          columnIndex={ columnIndex + key }
+          aliasEditModeOn={ aliasEditModeOn } />
       );
     });
   }
@@ -64,7 +66,8 @@ SuggestionGroup.propTypes = {
   header: PropTypes.string,
   onLoadMore: PropTypes.func,
   suggestionClick: PropTypes.func,
-  canLoadMore: PropTypes.bool
+  canLoadMore: PropTypes.bool,
+  aliasEditModeOn: PropTypes.bool
 };
 
 SuggestionGroup.defaultProps = {

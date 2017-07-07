@@ -16,7 +16,7 @@ export default class SuggestionColumn extends Component {
   }
 
   renderSuggestions() {
-    const { contentType, suggestions, suggestionClick, columnIndex, navigation } = this.props;
+    const { contentType, suggestions, suggestionClick, columnIndex, navigation, aliasEditModeOn } = this.props;
     let isFocused;
 
     return map(suggestions, (suggestion, index) => {
@@ -26,10 +26,12 @@ export default class SuggestionColumn extends Component {
         <SuggestionItem
           id={ `suggestion-item-${columnIndex}-${index}` }
           key={ index }
+          suggestionType={ contentType.toLowerCase() }
           contentType={ contentType }
           suggestion={ suggestion }
           suggestionClick={ suggestionClick }
-          isFocused={ isFocused }/>
+          isFocused={ isFocused }
+          aliasEditModeOn={ aliasEditModeOn } />
       );
     });
   }
@@ -51,7 +53,8 @@ SuggestionColumn.propTypes = {
   index: PropTypes.number,
   suggestions: PropTypes.array,
   contentType: PropTypes.string,
-  suggestionClick: PropTypes.func
+  suggestionClick: PropTypes.func,
+  aliasEditModeOn: PropTypes.bool
 };
 
 SuggestionColumn.defaultProps = {

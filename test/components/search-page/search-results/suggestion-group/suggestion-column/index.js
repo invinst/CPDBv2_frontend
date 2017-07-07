@@ -1,6 +1,8 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import { renderIntoDocument, findRenderedDOMComponentWithTag, Simulate } from 'react-addons-test-utils';
 import { spy } from 'sinon';
+import MockStore from 'redux-mock-store';
 
 import SuggestionColumn from 'components/search-page/search-results/suggestion-group/suggestion-column';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -8,6 +10,9 @@ import { unmountComponentSuppressError } from 'utils/test';
 
 describe('SuggestionColumn component', function () {
   let instance;
+
+  const mockStore = MockStore();
+  const store = mockStore();
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
@@ -30,10 +35,12 @@ describe('SuggestionColumn component', function () {
     }];
 
     instance = renderIntoDocument(
-      <SuggestionColumn
-        suggestionClick={ suggestionClick }
-        suggestions={ suggestions }
-        contentType={ contentType }/>
+      <Provider store={ store }>
+        <SuggestionColumn
+          suggestionClick={ suggestionClick }
+          suggestions={ suggestions }
+          contentType={ contentType }/>
+      </Provider>
     );
 
     const suggestionElement = findRenderedDOMComponentWithTag(instance, 'a');

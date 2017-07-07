@@ -15,9 +15,10 @@ import {
   chunkedSuggestionGroupsSelector, isEmptySelector, suggestionTagsSelector,
   suggestionColumnsSelector, focusedSuggestionSelector, isShowingSingleContentTypeSelector
 } from 'selectors/search-page';
+import editModeOnSelector from 'selectors/edit-mode-on';
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   const { isRequesting, contentType, recentSuggestions, navigation, query, itemsPerColumn } = state.searchPage;
 
   return {
@@ -32,7 +33,8 @@ function mapStateToProps(state) {
     suggestionColumns: suggestionColumnsSelector(state),
     focusedSuggestion: focusedSuggestionSelector(state),
     isShowingSingleContentType: isShowingSingleContentTypeSelector(state),
-    recentSuggestions
+    recentSuggestions,
+    editModeOn: editModeOnSelector(state, ownProps)
   };
 }
 

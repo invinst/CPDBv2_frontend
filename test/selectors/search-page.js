@@ -3,8 +3,10 @@ import { range } from 'lodash';
 import {
   suggestionColumnsSelector, suggestionGroupsSelector, isEmptySelector,
   suggestionTagsSelector, orderedSuggestionGroupsSelector, chunkedSuggestionGroupsSelector,
-  focusedSuggestionSelector
+  focusedSuggestionSelector, isOnSearchPageSelector
 } from 'selectors/search-page';
+
+import { SEARCH_PATH } from 'utils/constants';
 
 
 describe('autocomplete selector', function () {
@@ -181,5 +183,35 @@ describe('autocomplete selector', function () {
         }
       }).should.deepEqual('o5');
     });
+  });
+});
+
+describe('isOnSearchPageSelector', function () {
+  it('should return false when at root path', function () {
+    isOnSearchPageSelector(
+      {}, { location: { pathname: '/' } }
+    ).should.be.false();
+  });
+
+  it('should return false when at faq path', function () {
+    isOnSearchPageSelector(
+      {}, { location: { pathname: '/faq/' } }
+    ).should.be.false();
+  });
+
+  it(`should return true when at ${SEARCH_PATH}`, function () {
+    isOnSearchPageSelector(
+      {}, { location: { pathname: `/${SEARCH_PATH}` } }
+    ).should.be.true();
+  });
+
+  it('should return true when in search page\'s edit mode', function () {
+    isOnSearchPageSelector(
+      {}, { location: { pathname: `/edit/${SEARCH_PATH}` } }
+    ).should.be.true();
+
+    isOnSearchPageSelector(
+      {}, { location: { pathname: `/edit/${SEARCH_PATH}alias/` } }
+    ).should.be.true();
   });
 });

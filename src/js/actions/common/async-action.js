@@ -54,3 +54,20 @@ const patchWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=g
 export const patch = patchWithConfig();
 
 export const authenticatedPatch = patchWithConfig(authorizationHeaders);
+
+const putWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
+  types,
+  payload: {
+    request: {
+      method: 'put',
+      url,
+      data,
+      adapter,
+      ...config()
+    }
+  }
+}));
+
+export const put = putWithConfig();
+
+export const authenticatedPut = putWithConfig(authorizationHeaders);

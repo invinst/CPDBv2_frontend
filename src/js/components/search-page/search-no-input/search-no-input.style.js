@@ -6,10 +6,6 @@ export const helperTextStyle = {
   color: lightMineShaftColor
 };
 
-export const resultWrapperStyle = {
-  backgroundColor: 'white'
-};
-
 export const recentRandomWrapperStyle = {
 
 };

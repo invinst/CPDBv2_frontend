@@ -1,7 +1,6 @@
 import { get } from 'actions/common/async-action';
 import { createAction } from 'redux-actions';
-import { push } from 'react-router-redux';
-import { SEARCH_PATH } from 'utils/constants';
+import { OPEN_SEARCH_PAGE } from 'utils/constants';
 
 
 export const SUGGESTION_URL = 'suggestion/';
@@ -18,9 +17,7 @@ export const SELECT_TAG = 'SELECT_TAG';
 
 export const selectTag = createAction(SELECT_TAG);
 
-export const toggleSearchMode = () => (push({
-  pathname: `/${SEARCH_PATH}`
-}));
+export const toggleSearchMode = createAction(OPEN_SEARCH_PAGE);
 
 export const CHANGE_SEARCH_QUERY = 'CHANGE_SEARCH_QUERY';
 export const changeSearchQuery = createAction(CHANGE_SEARCH_QUERY);

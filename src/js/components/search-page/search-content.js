@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { isEmpty, debounce, head } from 'lodash';
 import { browserHistory } from 'react-router';
 
@@ -7,12 +8,13 @@ import SearchBox from './search-box';
 import SearchTags from './search-tags';
 import SearchNoInput from './search-no-input';
 import {
-  backButtonStyle, searchContentWrapperStyle, searchBoxStyle, resultWrapperStyle
+  backButtonStyle, searchContentWrapperStyle, searchBoxStyle,
+  plusPlaceHolderStyle, plusWrapperStyle, plusSignStyle, cancelButtonStyle, buttonsWrapperStyle
 } from './search-content.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import { NAVIGATION_KEYS } from 'utils/constants';
+import { NAVIGATION_KEYS, SEARCH_ALIAS_EDIT_PATH, SEARCH_PATH } from 'utils/constants';
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
 
@@ -28,13 +30,17 @@ export default class SearchContent extends Component {
   }
 
   componentDidMount() {
-    const { move } = this.props;
+    const { move, query } = this.props;
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
       () => move(direction, this.props.suggestionColumns)
     )));
     LayeredKeyBinding.bind('enter', this.handleViewItem);
+
+    if (query && query.length >= 2) {
+      setTimeout(() => { this.sendSearchRequest(query); }, 500);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,16 +67,20 @@ export default class SearchContent extends Component {
     }
   }
 
-  handleChange({ currentTarget: { value } }) {
+  sendSearchRequest(query) {
     const { contentType, changeSearchQuery } = this.props;
     const limit = contentType ? null : DEFAULT_SUGGESTION_LIMIT;
-    changeSearchQuery(value);
+    changeSearchQuery(query);
 
-    if (value) {
-      this.props.getSuggestion(value, { contentType, limit });
+    if (query) {
+      this.props.getSuggestion(query, { contentType, limit });
     } else {
       this.props.selectTag(null);
     }
+  }
+
+  handleChange({ currentTarget: { value } }) {
+    this.sendSearchRequest(value);
   }
 
   handleSelect(contentType) {
@@ -114,10 +124,10 @@ export default class SearchContent extends Component {
     }
   }
 
-  renderContent() {
+  renderContent(aliasEditModeOn) {
     const {
       suggestionGroups, isRequesting, tags, contentType, navigation,
-      isEmpty, recentSuggestions, trackRecentSuggestion, query
+      isEmpty, recentSuggestions, trackRecentSuggestion, query, editModeOn
     } = this.props;
 
     if (!query) {
@@ -126,9 +136,40 @@ export default class SearchContent extends Component {
       );
     }
 
+    let cancelButton = null;
+    let plusButton = null;
+    if (editModeOn) {
+      if (aliasEditModeOn) {
+        cancelButton = (
+          <Link to={ `/edit/${SEARCH_PATH}` } style={ cancelButtonStyle }>
+            Cancel
+          </Link>
+        );
+      } else {
+        plusButton = (
+          <div style={ plusWrapperStyle }>
+            <Link to={ `/edit/${SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
+          </div>
+        );
+      }
+    }
+
     return (
-      <div style={ resultWrapperStyle }>
-        <SearchTags tags={ tags } onSelect={ this.handleSelect } selected={ contentType }/>
+      <div>
+
+        <div style={ buttonsWrapperStyle }>
+          <SearchTags
+            tags={ tags }
+            onSelect={ this.handleSelect }
+            selected={ contentType }
+          />
+          { cancelButton }
+        </div>
+
+        <div style={ plusPlaceHolderStyle }>
+          { plusButton }
+        </div>
+
         <SearchResults
           navigation={ navigation }
           suggestionClick={ trackRecentSuggestion }
@@ -136,17 +177,21 @@ export default class SearchContent extends Component {
           searchText={ query }
           onLoadMore={ this.handleSelect }
           suggestionGroups={ suggestionGroups }
-          isRequesting={ isRequesting } />
+          isRequesting={ isRequesting }
+          aliasEditModeOn={ aliasEditModeOn }
+        />
+
       </div>
     );
   }
 
   render() {
+    const aliasEditModeOn = (this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`));
     return (
       <div
         className='search-page'
-        style={ searchContentWrapperStyle }>
-        <div style={ searchBoxStyle }>
+        style={ searchContentWrapperStyle(aliasEditModeOn) }>
+        <div style={ searchBoxStyle(aliasEditModeOn) }>
           <span
             onClick={ this.handleGoBack }
             className='searchbar__button--back'
@@ -158,8 +203,8 @@ export default class SearchContent extends Component {
             navigate={ this.props.move }
             value={ this.props.query }/>
         </div>
-        <div style={ resultWrapperStyle }>
-          { this.renderContent() }
+        <div>
+          { this.renderContent(aliasEditModeOn) }
         </div>
       </div>
     );
@@ -167,6 +212,9 @@ export default class SearchContent extends Component {
 }
 
 SearchContent.propTypes = {
+  location: PropTypes.shape({
+    pathname: PropTypes.string
+  }),
   move: PropTypes.func,
   suggestionColumns: PropTypes.array,
   navigation: PropTypes.object,
@@ -183,7 +231,8 @@ SearchContent.propTypes = {
   router: PropTypes.object,
   query: PropTypes.string,
   changeSearchQuery: PropTypes.func,
-  resetNavigation: PropTypes.func
+  resetNavigation: PropTypes.func,
+  editModeOn: PropTypes.bool
 };
 
 SearchContent.defaultProps = {
@@ -196,5 +245,9 @@ SearchContent.defaultProps = {
   router: {
     goBack: () => {}
   },
-  changeSearchQuery: () => {}
+
+  changeSearchQuery: () => {},
+  location: {
+    pathname: '/'
+  }
 };
