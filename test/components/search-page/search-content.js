@@ -19,7 +19,7 @@ describe('SearchContent component', function () {
 
   beforeEach(function () {
     // Stub lodash.debounce() so that it returns the input function as-is
-    this.debounceStub = stub(lodash, 'debounce', func => func);
+    this.debounceStub = stub(lodash, 'debounce').callsFake(func => func);
   });
 
   afterEach(function () {
