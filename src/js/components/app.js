@@ -11,7 +11,7 @@ import SearchPageContainer from 'containers/search-page-container';
 import RouteTransition from 'components/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
-import { ALPHA_NUMBERIC } from 'utils/constants';
+import { ALPHA_NUMBERIC, SEARCH_PATH } from 'utils/constants';
 
 
 export default class App extends React.Component {
@@ -28,8 +28,10 @@ export default class App extends React.Component {
     LayeredKeyBinding.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
     ALPHA_NUMBERIC.forEach((letter) => {
       LayeredKeyBinding.bind(letter, () => {
-        this.props.changeSearchQuery(letter);
-        this.props.toggleSearchMode();
+        if (this.props.location.pathname !== `/${SEARCH_PATH}`) {
+          this.props.changeSearchQuery(letter);
+          this.props.toggleSearchMode();
+        }
       });
     });
   }
