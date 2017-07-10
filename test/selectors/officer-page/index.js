@@ -70,15 +70,16 @@ describe('officer page selectors', function () {
     it('should return summary', function () {
       const summary = {
         'unit': 'unit', 'rank': 'rank', 'date_of_appt': '2015-09-23',
-        'race': 'race', 'gender': 'Male', 'badge': 'badge'
+        'race': 'race', 'gender': 'Male', 'badge': 'badge',
+        'date_of_resignation': '2016-01-02', agency: 'CPD'
       };
       state.officerPage = { summary };
 
       summarySelector(state).should.eql({
         unitName: 'unit', rank: 'rank', dateOfAppt: '2015-09-23',
-        race: 'race', gender: 'Male', badge: 'badge'
+        race: 'race', gender: 'Male', badge: 'badge',
+        dateOfResignation: '2016-01-02', agency: 'CPD'
       });
     });
   });
 });
-
