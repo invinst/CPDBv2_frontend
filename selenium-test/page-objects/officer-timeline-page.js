@@ -1,16 +1,7 @@
 import Page from './page';
 import Section from './sections/section';
 import BottomSheet from './sections/bottom-sheet';
-
-class Header extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      officerName: '.test--officer-name',
-      headerTimelineButton: '//a[@class="test--header-button"][text()="Timeline"]'
-    });
-  }
-}
+import Header from './sections/officer-page-header';
 
 
 class SideBar extends Section {

@@ -51,6 +51,14 @@ export const brightOrangeColor = '#FF5F00';
 export const brightOrangeTwoColor = '#FF6000';
 export const dustyOrangeColor = '#F46937';
 export const sugarCaneColor = '#F5F4F4';
+export const darkSilverSandColor = '#B9BFC3';
+export const skepticColor = '#CFE7DC';
+export const jaggedIceColor = '#BDDBE6';
+export const romanticColor = '#FFCFB2';
+export const porcelainColor = '#E4E8EB';
+export const botticelliColor = '#D4E1EC';
+export const galleryColor = '#EFEFEF';
+export const lightAltoColor = '#E0E0E0';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';
