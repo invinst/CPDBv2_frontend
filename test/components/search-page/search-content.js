@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {
   Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
   findRenderedComponentWithType
@@ -12,18 +13,23 @@ import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
 import SearchContent from 'components/search-page/search-content';
 import { unmountComponentSuppressError } from 'utils/test';
+import * as domUtils from 'utils/dom';
 
 
 describe('SearchContent component', function () {
   let instance;
 
   beforeEach(function () {
+    this.locationAssign = stub(window.location, 'assign');
+    this.browserHistoryPush = stub(browserHistory, 'push');
     // Stub lodash.debounce() so that it returns the input function as-is
     this.debounceStub = stub(lodash, 'debounce').callsFake(func => func);
   });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
+    this.locationAssign.restore();
+    this.browserHistoryPush.restore();
     this.debounceStub.restore();
   });
 
@@ -111,14 +117,14 @@ describe('SearchContent component', function () {
   });
 
   it('should follow the first result url when user hit ENTER', function () {
-    const locationAssign = stub(window.location, 'assign');
-    const suggestionGroups = {
-      'OFFICER': [{
-        'payload': {
-          'url': 'url'
-        }
-      }]
-    };
+    const suggestionGroups = [
+      {
+        header: 'OFFICER',
+        columns: [
+          [{ payload: { url: 'url' } }]
+        ]
+      }
+    ];
 
     instance = renderIntoDocument(
       <SearchContent suggestionGroups={ suggestionGroups } />
@@ -126,19 +132,19 @@ describe('SearchContent component', function () {
 
     const searchComponent = findRenderedComponentWithType(instance, SearchBox);
     searchComponent.mousetrap.trigger('enter');
-    locationAssign.calledWith('url').should.be.true();
-    locationAssign.restore();
+    this.locationAssign.calledWith('url').should.be.true();
+    this.browserHistoryPush.called.should.be.false();
   });
 
   it('should push first result to when user hit ENTER if to is set', function () {
-    stub(browserHistory, 'push');
-    const suggestionGroups = {
-      'OFFICER': [{
-        'payload': {
-          'to': 'to'
-        }
-      }]
-    };
+    const suggestionGroups = [
+      {
+        header: 'OFFICER',
+        columns: [
+          [{ payload: { url: 'url', to: 'to' } }]
+        ]
+      }
+    ];
 
     instance = renderIntoDocument(
       <SearchContent suggestionGroups={ suggestionGroups } />
@@ -146,13 +152,11 @@ describe('SearchContent component', function () {
 
     const searchComponent = findRenderedComponentWithType(instance, SearchBox);
     searchComponent.mousetrap.trigger('enter');
-    browserHistory.push.calledWith('to').should.be.true();
-    browserHistory.push.restore();
+    this.browserHistoryPush.calledWith('to').should.be.true();
+    this.locationAssign.called.should.be.false();
   });
 
-  it('should follow the v1 search url user hit ENTER but there\'s no results', function () {
-    const locationAssign = stub(window.location, 'assign');
-
+  it('should follow the v1 search url when user hit ENTER but there\'s no results', function () {
     instance = renderIntoDocument(
       <SearchContent query={ 'something' }/>
     );
@@ -160,20 +164,19 @@ describe('SearchContent component', function () {
     const searchComponent = findRenderedComponentWithType(instance, SearchBox);
     searchComponent.mousetrap.trigger('enter');
 
-    locationAssign.calledWith('http://cpdb.lvh.me/s/something').should.be.true();
-    locationAssign.restore();
+    this.locationAssign.calledWith('http://cpdb.lvh.me/s/something').should.be.true();
   });
 
   it('should track recent suggestion when user press ENTER and there are results', function () {
     const trackRecentSuggestion = spy();
-    const suggestionGroups = {
-      'OFFICER': [{
-        'payload': {
-          'result_text': 'Kevin',
-          'url': 'url'
-        }
-      }]
-    };
+    const suggestionGroups = [
+      {
+        header: 'OFFICER',
+        columns: [
+          [{ payload: { url: 'url', to: 'to', 'result_text': 'Kevin' } }]
+        ]
+      }
+    ];
 
     instance = renderIntoDocument(
       <SearchContent suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }/>
@@ -226,5 +229,42 @@ describe('SearchContent component', function () {
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
+  });
+
+  describe('after keyboard navigation', function () {
+    beforeEach(function () {
+      this.scrollToElementStub = stub(domUtils, 'scrollToElement');
+    });
+
+    afterEach(function () {
+      this.scrollToElementStub.restore();
+    });
+
+    it ('should scroll to focused item', function () {
+      const domNode = document.createElement('div');
+      ReactDOM.render(<SearchContent navigation={ { columnIndex: 0, itemIndex: 0 } }/>, domNode);
+      ReactDOM.render(<SearchContent navigation={ { columnIndex: 1, itemIndex: 0 } }/>, domNode);
+      this.scrollToElementStub.calledWith('#suggestion-item-1-0').should.be.true();
+    });
+  });
+
+  describe('handleViewItem', function () {
+    it('should use browserHistory.push() if visiting focused item with internal link', function () {
+      instance = renderIntoDocument(
+        <SearchContent focusedSuggestion={ { payload: { to: '/dummy/url' } } }/>
+      );
+      Mousetrap.trigger('enter');
+      this.browserHistoryPush.calledWith('/dummy/url').should.be.true();
+      this.locationAssign.called.should.be.false();
+    });
+
+    it('should use window.location.assign() if visiting focused item with external link', function () {
+      instance = renderIntoDocument(
+        <SearchContent focusedSuggestion={ { payload: { url: 'http://whatever.local' } } }/>
+      );
+      Mousetrap.trigger('enter');
+      this.locationAssign.calledWith('http://whatever.local').should.be.true();
+      this.browserHistoryPush.called.should.be.false();
+    });
   });
 });

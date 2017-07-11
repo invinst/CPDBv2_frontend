@@ -2,10 +2,13 @@ import { handleActions } from 'redux-actions';
 import { SEARCH_NAVIGATION_LEFT,
          SEARCH_NAVIGATION_DOWN,
          SEARCH_NAVIGATION_RIGHT,
-         SEARCH_NAVIGATION_UP } from 'actions/search-page';
+         SEARCH_NAVIGATION_UP,
+         SEARCH_NAVIGATION_RESET } from 'actions/search-page';
 
 
 export default handleActions({
+  [SEARCH_NAVIGATION_RESET]: () => ({ columnIndex: 0, itemIndex: 0 }),
+
   [SEARCH_NAVIGATION_LEFT]: ({ columnIndex, itemIndex }, action) => {
     const { suggestionColumns } = action.payload;
 

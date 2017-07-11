@@ -27,7 +27,9 @@ describe('App component', function () {
     adapter: 'adapter',
     reports: { 1: {} },
     faqs: { 1: {} },
-    searchPage: {},
+    searchPage: {
+      navigation: {}
+    },
     bottomSheet: {
       officersAutoSuggest: {
         isRequesting: false,

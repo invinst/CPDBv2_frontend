@@ -11,7 +11,8 @@ export const darkerGreyColor = '#4A4A4A';
 export const whiteSmokeColor = 'rgba(255,255,255, 0.7)';
 export const monzaColor = 'rgba(208, 1, 27, 0.1)';
 export const subdueAccentColor= '#D3E4FC';
-export const subdueAccentTextColor = 'rgba(0, 94, 244, 0.7)';
+export const subdueAccentTextColor = '#4C8EF8'; // rgb(76, 142, 248)
+export const lightSubdueAccentTextColor = 'rgba(0, 94, 244, 0.6)';
 /* v2 redesign */
 export const wildSandColor = '#F4F4F4';
 export const altoColor = '#D8D8D8';

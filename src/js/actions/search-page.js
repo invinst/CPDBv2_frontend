@@ -48,3 +48,6 @@ export const trackRecentSuggestion = (contentType, text, url, to) => createActio
   to,
   url
 });
+
+export const SEARCH_NAVIGATION_RESET = 'SEARCH_NAVIGATION_RESET';
+export const resetNavigation = createAction(SEARCH_NAVIGATION_RESET);

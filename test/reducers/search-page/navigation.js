@@ -1,11 +1,20 @@
 import navigation from 'reducers/search-page/navigation';
 import {
   SEARCH_NAVIGATION_LEFT, SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_RIGHT,
-  SEARCH_NAVIGATION_UP
+  SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET
 } from 'actions/search-page';
 
 
 describe('navigation reducer', function () {
+  describe('SEARCH_NAVIGATION_RESET', function () {
+    it('resets to (0, 0) position', function () {
+      navigation({ 'columnIndex': 1, 'itemIndex': 2 }, {
+        type: SEARCH_NAVIGATION_RESET,
+        payload: {}
+      }).should.deepEqual({ 'columnIndex': 0, 'itemIndex': 0 });
+    });
+  });
+
   describe('SEARCH_NAVIGATION_LEFT', function () {
     it('stays in the same position if it\'s in the most-left column', function () {
       const suggestionColumns = [2, 2];
