@@ -53,16 +53,6 @@ describe('TimelineItem component', function () {
     findRenderedComponentWithType(instance, UnitItem);
   });
 
-  it('should trigger openBottomSheetWithComplaint if click on a CR item', function () {
-    const func = spy();
-    instance = renderIntoDocument(
-      <TimelineItem openBottomSheetWithComplaint={ func } item={ { kind: TimelineItemType.CR } } officerId={ 456 }/>
-    );
-    const crItem = findRenderedComponentWithType(instance, CrItem);
-    crItem.props.onClick(123);
-    func.calledWith({ crid: 123, officerId: 456 }).should.be.true();
-  });
-
   describe('selected prop', function () {
     beforeEach(function () {
       stub(TimelineItem.prototype, 'handleContentRef').callsFake(function () {
