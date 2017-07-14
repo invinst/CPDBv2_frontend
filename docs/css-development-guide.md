@@ -2,21 +2,20 @@
 
 ## Common guidelines
 
-- As we use inline-style `className` prop will only serve 2 purposes: help with testing or if those classes come from 3rd party libraries such as PureCSS. Note that it's not encouraged to use another 3rd party library for CSS as we already have PureCSS.
+- As we use inline-style `className` prop will only serve 2 purposes: help with testing or if those classes come from 3rd party libraries such as PureCSS. PureCSS usage is now deprecated though and should not be used for new features.
 
-- CSS class name must follow BEM convention and have this format: `{{block}}__{{element}}—{{modifier}}`. Block, element and modifier all must only contain lowercase alphanumeric characters and hyphen.
+- CSS class name must follow [BEM convention](http://getbem.com/introduction/) and have this format: `{{block}}__{{element}}—{{modifier}}`. Block, element and modifier all must only contain lowercase alphanumeric characters and hyphen.
 
 - CSS classes that are there for the sole purpose of testing must begin with `test--`.
 
 ## Basic Use Case
 
-We use a variant of inline style called [Radium](https://github.com/FormidableLabs/radium). To use Radium, simply wrap it in `Radium()` before export it. A component module `{component-name}.js` will import it's style from a style module `{component-name}.style.js` in the same folder. Also it will only use relative import to import style.
+We use vanilla inline styles and ES6 object rest/spread syntax to do style merging. A component module `{component-name}.js` will import it's style from a style module `{component-name}.style.js` in the same folder. Also it will import with relative import syntax.
 
 ```javascript
 // components/component.js
 
 import React from 'react';
-import Radium from 'radium';
 import { style } from './component.style';
 
 
@@ -28,7 +27,7 @@ class Component extends React.Component {
   }
 }
 
-export default Radium(Component);
+export default Component;
 ```
 
 ```javascript
@@ -42,122 +41,88 @@ export const style = {
 
 ## Merge Styles
 
-To merge styles, simply put them in array. Style will be merged from right to left.
+To merge styles, simply use spread syntax:
 
 ```javascript
-// components/component.js
-
-import React, {PropTypes} from 'react';
-import Radium from 'radium';
-import { style, styleActive } from './component.style';
-
-
-class Component extends React.Component {
-  render() {
-    return (
-      <div style={ [style, this.props.active ? styleActive : null] }/>
-    );
-  }
-}
-
-Component.propTypes = {
-  active: PropTypes.bool
-};
-
-export default Radium(Component);
-```
-
-```javascript
-//componets/component.style.js
-
-export const style = {
-  background: 'red',
-  height: '110px'
-};
-
-export const styleActive = {
-  background: 'yellow'
-};
+<div style={ { ...inlineStyle, ...styleFromProps } }/>
 ```
 
 ## Layout
 
-we use PureCSS grid system for layout: [http://purecss.io/grids/](http://purecss.io/grids/). For most cases, stick with non-responsive grid classes (e.g. `pure-u-1-1`, `pure-u-2-3`). Read **Responsive** section to know how to use responsive grid classes.
+We only use vanilla inline style to layout components nowaday because most of our layouts do not easily fit into any grid system.
 
-## Responsive
+## Responsiveness
 
-**Important Note:** Mobile layout is disabled for now. That means mobile layout will copy tablet layout for most patterns below.
+**Important Note:** Mobile layout is disabled for now and will most likely render the same as tablet layout. Mobile devices should be pointed to mobile site which live under `CPDBv2_mobile` repo.
 
-There are 3 patterns that you could use to make a component responsive. All of which are discussed below. Whatever pattern that you choose, make sure to use only 1 of them on a component. When your component does not need to be responsive, do not extend from any responsive component.
+There are 3 breakpoints:
+- **Extra wide**: 1200px and up
+- **Desktop**: 992px - 1200px
+- **Tablet**: 768px - 992px
+- Everything below tablet size render tablet layout.
 
-### Extends From `ResponsiveComponent`
+Below are components that help with responsiveness:
 
-This pattern fit those components that change layout significantly between devices. Just extends from `ResponsiveComponent` and provide 4 methods: `renderMobile`, `renderTablet`, `renderDesktop`, `renderExtraWide`. If `renderMobile` is missing, it defaults to `renderTablet`. If `renderExtraWide` is missing, it defaults to `renderDesktop`.
+### ResponsiveComponent
+
+Very simple to use - simply provide a component for each screen size. Use this if layout change drastically from one screen size to another.
+
+Props:
+
+- **extraWideChildren**: the component to be rendered at extra wide size.
+- **desktopChildren**: the component to be rendered at desktop size.
+- **tabletChildren**: the component to be rendered at tablet size.
+
+Examples:
 
 ```javascript
-import ResponsiveComponent from 'components/responsive/responsive-component';
-
-class Component extends ResponsiveComponent {
-  renderMobile() {...}
-  renderTablet() {...}
-  renderDesktop() {...}
-  renderExtraWide() {...}
-}
+<ResponsiveComponent
+  extraWideChildren={ this.renderTwoColumns({
+    leftBar: leftBarStyle[EXTRA_WIDE](),
+    rightBar: rightBarStyle[EXTRA_WIDE](),
+    question: questionStyle[EXTRA_WIDE]
+  }) }
+  desktopChildren={ this.renderTwoColumns({
+    leftBar: leftBarStyle[DESKTOP](),
+    rightBar: rightBarStyle[DESKTOP](),
+    question: questionStyle[DESKTOP]
+  }) }
+  tabletChildren={ this.renderOneColumn() }/>
 ```
 
-### Extends from `ResponsiveStyleComponent`
+### ResponsiveStyleComponent
 
-This pattern fit those that have zero markup changes but has to change style on different screen sizes. Just extends from `ResponsiveStyleComponent` and provide 2 methods: `responsiveStyle` and `renderWithResponsiveStyle`. `responsiveStyle` should return a mapping of `style` object for each device type. The appropriate `style` object will be passed to `renderWithResponsiveStyle` depending on screen size. You can also pass in key of other screen size (e.g. `[MOBILE]: TABLET`) if the 2 screen sizes display the same.
+A little more sophisticated but more code reuse. Use this if the markup stay the same and only thing change is style.
+
+Props:
+
+- **responsiveStyle**: accept an object that specify style objects to be used for each screen size.
+- **children**: accept a single function that will be called with each style object defined in `responsiveStyle` to produce corresponding markup for each screen size.
+
+Example:
 
 ```javascript
-import ResponsiveStyleComponent, {
-  MOBILE, TABLET, DESKTOP, EXTRA_WIDE
-} from 'components/responsive/responsive-style-component';
-import {wrapperStyle, mobileStyle, tabletStyle} from './component.style.js';
-
-class Component extends ResponsiveStyleComponent {
-  responsiveStyle() {
-    return {
-      [MOBILE]: {
-        wrapper: [wrapperStyle, mobileStyle, this.props.style]
-      },
-      [TABLET]: MOBILE,
-      [DESKTOP]: {
-        wrapper: [wrapperStyle, this.props.style]
-      },
-      [EXTRA_WIDE]: DESKTOP
-    };
-  }
-
   renderWithResponsiveStyle(style) {
     return (
-      <div style={ style.wrapper }>
-        ...
-      </div>
+      <p style={ style.content }>
+        { this.props.children }
+      </p>
     );
   }
-}
-```
 
-### Use PureCSS Responsive Grids
-
-When only layout change and you never have to touch media queries you can use this pattern. Just use class names such as `pure-u-mo-*`, `pure-u-ta-*`, `pure-u-de-*` (custom created classes to support our own screen size break points) to specify device specific column width.
-
-```javascript
-import React from 'react';
-import Radium from 'radium';
-import { style } from './component.style';
-
-
-class Component extends React.Component {
   render() {
     return (
-      <div className='pure-g'>
-        <div style={ [style] } className='pure-u-mo-1-1 pure-u-ta-1-2 pure-u-de-1-3'/>
-      </div>
+      <ResponsiveStyleComponent
+        responsiveStyle={ {
+          [TABLET]: {
+            content: { ...contentStyle, ...contentTabletStyle, ...this.props.style }
+          },
+          [DESKTOP]: {
+            content: { ...contentStyle, ...this.props.style }
+          }
+        } }>
+        { this.renderWithResponsiveStyle.bind(this) }
+      </ResponsiveStyleComponent>
     );
   }
-}
-
-export default Radium(Component);
 ```
