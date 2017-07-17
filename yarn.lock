@@ -4579,14 +4579,16 @@ mocha@^3.1.2, mocha@^3.2.0:
     mkdirp "0.5.1"
     supports-color "3.1.2"
 
-mochify-istanbul@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/mochify-istanbul/-/mochify-istanbul-2.4.1.tgz#8472485a4222aa6291a9f04e5f79265813c004e9"
+mochify-istanbul@^2.4.2:
+  version "2.4.2"
+  resolved "https://registry.yarnpkg.com/mochify-istanbul/-/mochify-istanbul-2.4.2.tgz#b422b2cbc138a2c3f3450ab159e6733c873fbc7b"
   dependencies:
     istanbul "^0.4.2"
     lodash "^2.4.1"
     minimatch "^3.0.0"
     resolve "^1.1.6"
+    split2 "^2.1.1"
+    stream-combiner2 "^1.1.1"
     through2 "^2.0.0"
 
 mochify@^3.2.1:
@@ -6285,6 +6287,12 @@ split2@^0.2.1:
   dependencies:
     through2 "~0.6.1"
 
+split2@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/split2/-/split2-2.1.1.tgz#7a1f551e176a90ecd3345f7246a0cfe175ef4fd0"
+  dependencies:
+    through2 "^2.0.2"
+
 sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
@@ -6573,7 +6581,7 @@ tfunk@^3.0.1:
     chalk "^1.1.1"
     object-path "^0.9.0"
 
-through2@2.X, through2@^2.0.0, through2@^2.0.1:
+through2@2.X, through2@^2.0.0, through2@^2.0.1, through2@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/through2/-/through2-2.0.3.tgz#0004569b37c7c74ba39c43f3ced78d1ad94140be"
   dependencies:

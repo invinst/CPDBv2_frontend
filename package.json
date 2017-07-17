@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Frontend for cpdb v2",
   "main": "index.js",
+  "license": "UNLICENSED",
   "scripts": {
     "build": "CPDB_APP_ENV=production gulp build",
     "start": "CPDB_APP_ENV=development NODE_PATH=src/js budo src/js/index.js:dist/bundle.js --pushstate --host 0.0.0.0 --live -- --transform [ babelify --presets [ es2015 react ] ] --transform envify",
@@ -62,7 +63,7 @@
     "gulp-util": "^3.0.7",
     "mocha": "^2.4.5",
     "mochify": "^3.2.1",
-    "mochify-istanbul": "^2.4.1",
+    "mochify-istanbul": "^2.4.2",
     "react-addons-perf": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
     "react-dnd-test-backend": "^1.0.2",

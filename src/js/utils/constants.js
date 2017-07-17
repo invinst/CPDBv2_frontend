@@ -1,5 +1,9 @@
 import Enum from 'enum';
 
+import {
+  darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
+  galleryColor, lightAltoColor
+} from 'utils/styles';
 
 export const TOP = 'top';
 export const BOTTOM = 'bottom';
@@ -149,6 +153,7 @@ export const OFFICER_TIMELINE_SELECT_MINIMAP_ITEM = 'OFFICER_TIMELINE_SELECT_MIN
 export const OFFICER_TIMELINE_HOVER_MINIMAP_ITEM = 'OFFICER_TIMELINE_HOVER_MINIMAP_ITEM';
 export const OFFICER_TIMELINE_HOVER_TIMELINE_ITEM = 'OFFICER_TIMELINE_HOVER_TIMELINE_ITEM';
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
+export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
 
 export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR']);
 
@@ -156,3 +161,14 @@ export const TimelineItemType = new Enum(['CR', 'UNIT', 'YEAR', 'JOINED']);
 
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
+
+export const FINDING_COLORS = {
+  'Unfounded': darkSilverSandColor,
+  'Exonerated': skepticColor,
+  'Not Sustained': jaggedIceColor,
+  'Sustained': romanticColor,
+  'No Cooperation': porcelainColor,
+  'No Affidavit': botticelliColor,
+  'Discharged': galleryColor,
+  'Unknown': lightAltoColor
+};

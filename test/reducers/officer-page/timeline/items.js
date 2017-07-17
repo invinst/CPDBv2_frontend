@@ -1,6 +1,8 @@
 import items from 'reducers/officer-page/timeline/items';
 
-import { OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS, OFFICER_TIMELINE_FLIP_SORT_ORDER } from 'utils/constants';
+import {
+  OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS, OFFICER_TIMELINE_FLIP_SORT_ORDER, CHANGE_OFFICER_ID
+} from 'utils/constants';
 
 
 describe('items reducer', function () {
@@ -21,10 +23,9 @@ describe('items reducer', function () {
     }).should.eql([]);
   });
 
-  it('should handle @@router/LOCATION_CHANGE', function () {
+  it('should handle CHANGE_OFFICER_ID', function () {
     items([1, 2, 3], {
-      type: '@@router/LOCATION_CHANGE',
-      payload: { pathname: '/officer/1234/timeline/' }
+      type: CHANGE_OFFICER_ID
     }).should.eql([]);
   });
 });

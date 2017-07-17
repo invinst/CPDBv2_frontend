@@ -24,7 +24,7 @@ export class CRItem extends Component {
         </div>
         <div className='test--cr-item-subcategory' style={ subcategoryStyle(hovering) }>{ subcategory }</div>
         <div>
-          <span className='test--cr-item-finding' style={ findingStyle }>{ finding }</span>
+          <span className='test--cr-item-finding' style={ findingStyle(finding) }>{ finding }</span>
         </div>
         <div>
           <span className='test--cr-item-coaccused' style={ coaccusedStyle }>1 of { coaccused } Coaccused</span>

@@ -31,6 +31,10 @@ export const summarySelector = createSelector(
     dateOfAppt: summary['date_of_appt'],
     race: summary.race,
     gender: summary.gender,
-    badge: summary.badge
+    badge: summary.badge,
+    // TODO: server doesn't actually return date_of_resignation & agency
+    // fields yet. Recheck these fields once they're implemented.
+    dateOfResignation: summary['date_of_resignation'],
+    agency: summary.agency
   })
 );

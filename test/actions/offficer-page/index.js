@@ -1,7 +1,8 @@
-import { fetchOfficerSummary } from 'actions/officer-page';
+import { fetchOfficerSummary, changeOfficerId } from 'actions/officer-page';
 
 import {
-  OFFICER_URL, OFFICER_SUMMARY_REQUEST_START, OFFICER_SUMMARY_REQUEST_SUCCESS, OFFICER_SUMMARY_REQUEST_FAILURE
+  OFFICER_URL, OFFICER_SUMMARY_REQUEST_START, OFFICER_SUMMARY_REQUEST_SUCCESS, OFFICER_SUMMARY_REQUEST_FAILURE,
+  CHANGE_OFFICER_ID
 } from 'utils/constants';
 
 
@@ -17,6 +18,15 @@ describe('officerPage actions', function () {
             adapter: null
           }
         }
+      });
+    });
+  });
+
+  describe('changeOfficerId', function () {
+    it('should return the right action', function () {
+      changeOfficerId(123).should.eql({
+        type: CHANGE_OFFICER_ID,
+        payload: 123
       });
     });
   });
