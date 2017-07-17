@@ -1,9 +1,10 @@
 import { scale } from 'chroma-js';
 
 import {
-  sanFranciscoTextFamily, hardBlackColor, mediumGrayColor, accentColor, veryLightBigStone,
+  sanFranciscoTextFamily, hardBlackColor, mediumGrayColor, accentColor,
   softBlackColor
 } from 'utils/styles';
+import { FINDING_COLORS } from 'utils/constants';
 
 
 export const wrapperStyle = {
@@ -37,18 +38,18 @@ export const dateStyle = {
   color: mediumGrayColor
 };
 
-export const findingStyle = {
+export const findingStyle = finding => ({
   display: 'inline-block',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
   fontWeight: 500,
   color: hardBlackColor,
   padding: '4px 8px',
-  backgroundColor: veryLightBigStone,
+  backgroundColor: FINDING_COLORS[finding] || 'white',
   borderRadius: '2px',
   marginTop: '8px',
   textAlign: 'center'
-};
+});
 
 export const coaccusedStyle = {
   width: '169px',

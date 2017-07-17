@@ -14,9 +14,8 @@ describe('SuggestionGroup component', function () {
     unmountComponentSuppressError(instance);
   });
 
-
   it('should be renderable', function () {
-    SuggestionGroup.should.be.renderable({ suggestions: [{}] });
+    SuggestionGroup.should.be.renderable({ suggestions: [[]] });
   });
 
   it('should render null', function () {
@@ -24,31 +23,20 @@ describe('SuggestionGroup component', function () {
     (findDOMNode(instance) === null).should.be.true();
   });
 
-  it('should not show `Show more results` if currently showing a single content type\'s results', function () {
+  it('should not render `Show more results` if canLoadMore is false', function () {
     instance = renderIntoDocument(
       <SuggestionGroup
-        onLoadMore={ () => {} }
-        suggestions={ fill(new Array(10), {}) }
-        isShowingSingleContentType={ true } />
-    );
-    findDOMNode(instance).textContent.should.not.containEql('Show more results');
-  });
-  it('should not show `Show more results` if showing less than 10 results', function () {
-    instance = renderIntoDocument(
-      <SuggestionGroup
-        onLoadMore={ () => {} }
-        suggestions={ fill(new Array(9), {}) }
-        isShowingSingleContentType={ false } />
+        suggestions={ [fill(new Array(10), {})] }
+        canLoadMore={ false } />
     );
     findDOMNode(instance).textContent.should.not.containEql('Show more results');
   });
 
-  it('should show `Show more results` if it had 10 suggestions', function () {
+  it('should render `Show more results` if canLoadMore is true', function () {
     instance = renderIntoDocument(
       <SuggestionGroup
-        onLoadMore={ () => {} }
-        suggestions={ fill(new Array(10), {}) }
-        isShowingSingleContentType={ false } />
+        suggestions={ [fill(new Array(10), {})] }
+        canLoadMore={ true } />
     );
     findDOMNode(instance).textContent.should.containEql('Show more results');
   });

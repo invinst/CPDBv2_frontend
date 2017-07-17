@@ -41,6 +41,11 @@ export default class CRPage extends Component {
     if (this.props.officerId !== nextProps.officerId) {
       this.setState({ displayCoaccusedDropdown: false });
     }
+
+    const { fetchCR, crid } = nextProps;
+    if (this.props.crid !== crid) {
+      fetchCR(crid);
+    }
   }
 
   handleToggleCoaccusedDropDown() {

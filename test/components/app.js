@@ -27,7 +27,9 @@ describe('App component', function () {
     adapter: 'adapter',
     reports: { 1: {} },
     faqs: { 1: {} },
-    searchPage: {},
+    searchPage: {
+      navigation: {}
+    },
     bottomSheet: {
       officersAutoSuggest: {
         isRequesting: false,
@@ -131,13 +133,15 @@ describe('App component', function () {
     toggleEditMode.calledWith('/').should.be.true();
   });
 
-  it('should toggle search mode when press any key', function () {
+  it('should toggle search mode and change search query when press any key and not in search page', function () {
     const toggleSearchMode = spy();
+    const changeSearchQuery = spy();
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <App
           toggleSearchMode={ toggleSearchMode }
+          changeSearchQuery={ changeSearchQuery }
           location={ location }
           appContent='/' />
       </Provider>
@@ -146,6 +150,29 @@ describe('App component', function () {
     Mousetrap.trigger('a');
 
     toggleSearchMode.calledOnce.should.be.true();
+    changeSearchQuery.calledOnce.should.be.true();
+    changeSearchQuery.calledWith('a').should.be.true();
+  });
+
+  it('should not toggle search mode and change search query when press any key and be in search page', function () {
+    const toggleSearchMode = spy();
+    const changeSearchQuery = spy();
+    const location = { pathname: '/search/', search: '/', action: 'POP' };
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <App
+          toggleSearchMode={ toggleSearchMode }
+          changeSearchQuery={ changeSearchQuery }
+          location={ location }
+          appContent='/' />
+      </Provider>
+    );
+
+    Mousetrap.trigger('a');
+
+    toggleSearchMode.calledOnce.should.be.false();
+    changeSearchQuery.calledOnce.should.be.false();
   });
 
   it('should not display header if children is a SearchPageContainer', function () {
