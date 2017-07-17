@@ -30,12 +30,12 @@ class SuggestionEnterBadge extends Component {
                   className='link--transition'
                   style={ {
                     ...enterBoxStyle,
-                    height: `${style.height}px`,
+                    height: `${style.height}px`
                   } }
                 >
                   <span style={ {
                     ...enterTextStyle,
-                    opacity: style.opacity,
+                    opacity: style.opacity
                   } }>
                     enter
                   </span>
@@ -50,7 +50,7 @@ class SuggestionEnterBadge extends Component {
 }
 
 SuggestionEnterBadge.propTypes = {
-  isFocused: PropTypes.bool,
+  isFocused: PropTypes.bool
 };
 
 export default SuggestionEnterBadge;

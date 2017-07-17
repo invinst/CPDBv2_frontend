@@ -83,8 +83,7 @@ export class FAQSection extends Component {
         [
           <StrategyForm key='1' { ...fieldProps['faq_randomizer'] }/>,
           <EditToggle key='2' { ...editToggleProps }/>
-        ] :
-          null
+        ] : null
         }
       </div>
     );

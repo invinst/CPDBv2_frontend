@@ -18,7 +18,7 @@ export const suggestionItemStyle = {
   width: '443px',
   boxSizing: 'border-box',
   display: 'block',
-  textDecoration: 'none',
+  textDecoration: 'none'
 };
 
 export const suggestionTextStyle = (hovering, isFocused) => {
@@ -90,5 +90,5 @@ export const enterTextStyle = {
   position: 'absolute',
   top: '50%',
   transform: 'translateY(-50%)',
-  WebkitTransform: 'translateY(-50%)',
+  WebkitTransform: 'translateY(-50%)'
 };

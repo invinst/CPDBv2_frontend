@@ -25,6 +25,10 @@ describe('hoveredItemIndex reducer', function () {
     }).should.eql(4);
   });
 
+  it('should handle @@router/LOCATION_CHANGE', function () {
+    should.not.exists(hoveredItemIndex(1, { type: '@@router/LOCATION_CHANGE' }));
+  });
+
   it('should handle OFFICER_TIMELINE_HOVER_TIMELINE_ITEM', function () {
     hoveredItemIndex(undefined, {
       type: OFFICER_TIMELINE_HOVER_TIMELINE_ITEM,
