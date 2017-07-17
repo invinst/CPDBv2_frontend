@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty, debounce, head, values, keys } from 'lodash';
+import { isEmpty, debounce, head } from 'lodash';
 import { browserHistory } from 'react-router';
 
 import SearchResults from './search-results';
@@ -10,6 +10,7 @@ import {
   backButtonStyle, searchContentWrapperStyle, searchBoxStyle, resultWrapperStyle
 } from './search-content.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
+import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { NAVIGATION_KEYS } from 'utils/constants';
 
@@ -22,10 +23,8 @@ export default class SearchContent extends Component {
     this.handleSelect = this.handleSelect.bind(this);
     this.handleGoBack = this.handleGoBack.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
+    this.handleViewItem = this.handleViewItem.bind(this);
     this.getSuggestion = debounce(props.getSuggestion, 100);
-    this.state = {
-      value: ''
-    };
   }
 
   componentDidMount() {
@@ -35,23 +34,40 @@ export default class SearchContent extends Component {
       direction,
       () => move(direction, this.props.suggestionColumns)
     )));
+    LayeredKeyBinding.bind('enter', this.handleViewItem);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // Make sure keyboard-focused item is kept within viewport:
+    const oldPosition = this.props.navigation;
+    const newPosition = nextProps.navigation;
+    if (oldPosition !== newPosition) {
+      scrollToElement(`#suggestion-item-${newPosition.columnIndex}-${newPosition.itemIndex}`);
+    }
   }
 
   componentWillUnmount() {
     LayeredKeyBinding.unbind('esc');
     NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
+    LayeredKeyBinding.unbind('enter');
+  }
+
+  handleViewItem() {
+    const { to, url } = this.props.focusedSuggestion.payload;
+    if (to) {
+      browserHistory.push(to);
+    } else {
+      window.location.assign(url);
+    }
   }
 
   handleChange({ currentTarget: { value } }) {
-    const { contentType } = this.props;
+    const { contentType, changeSearchQuery } = this.props;
     const limit = contentType ? null : DEFAULT_SUGGESTION_LIMIT;
-
-    this.setState({
-      value
-    });
+    changeSearchQuery(value);
 
     if (value) {
-      this.getSuggestion(value, { contentType, limit });
+      this.props.getSuggestion(value, { contentType, limit });
     } else {
       this.props.selectTag(null);
     }
@@ -59,10 +75,11 @@ export default class SearchContent extends Component {
 
   handleSelect(contentType) {
     if (contentType === this.props.contentType) {
-      this.getSuggestion(this.state.value, { limit: DEFAULT_SUGGESTION_LIMIT });
+      this.getSuggestion(this.props.query, { limit: DEFAULT_SUGGESTION_LIMIT });
     } else {
-      this.getSuggestion(this.state.value, { contentType });
+      this.getSuggestion(this.props.query, { contentType });
     }
+    this.props.resetNavigation();
   }
 
   handleGoBack(e) {
@@ -72,20 +89,22 @@ export default class SearchContent extends Component {
   }
 
   handleEnter(e) {
-    const { suggestionGroups, trackRecentSuggestion } = this.props;
-    const { value } = this.state;
-    const firstRecord = head(head(values(suggestionGroups)));
-    const contentType = head(keys(suggestionGroups));
-    let url;
-    let to;
+    const { suggestionGroups, trackRecentSuggestion, query } = this.props;
 
-    if (firstRecord) {
+    let url, to;
+
+    if (suggestionGroups.length === 0) {
+      url = dataToolSearchUrl(query);
+
+    } else {
+      const firstGroup = head(suggestionGroups);
+      const firstRecord = head(head(firstGroup.columns));
+      const contentType = firstGroup.header;
+
       const text = firstRecord.payload['result_text'];
       url = firstRecord.payload.url;
       to = firstRecord.payload.to;
       trackRecentSuggestion(contentType, text, url, to);
-    } else {
-      url = dataToolSearchUrl(value);
     }
 
     if (to) {
@@ -98,10 +117,10 @@ export default class SearchContent extends Component {
   renderContent() {
     const {
       suggestionGroups, isRequesting, tags, contentType, navigation,
-      isEmpty, recentSuggestions, trackRecentSuggestion
+      isEmpty, recentSuggestions, trackRecentSuggestion, query
     } = this.props;
 
-    if (!this.state.value) {
+    if (!query) {
       return (
         <SearchNoInput recentSuggestions={ recentSuggestions }/>
       );
@@ -114,10 +133,9 @@ export default class SearchContent extends Component {
           navigation={ navigation }
           suggestionClick={ trackRecentSuggestion }
           isEmpty={ isEmpty }
-          searchText={ this.state.value }
+          searchText={ query }
           onLoadMore={ this.handleSelect }
           suggestionGroups={ suggestionGroups }
-          isShowingSingleContentType={ contentType !== null }
           isRequesting={ isRequesting } />
       </div>
     );
@@ -138,7 +156,7 @@ export default class SearchContent extends Component {
             onChange={ this.handleChange }
             onEnter={ this.handleEnter }
             navigate={ this.props.move }
-            value={ this.state.value }/>
+            value={ this.props.query }/>
         </div>
         <div style={ resultWrapperStyle }>
           { this.renderContent() }
@@ -152,7 +170,8 @@ SearchContent.propTypes = {
   move: PropTypes.func,
   suggestionColumns: PropTypes.array,
   navigation: PropTypes.object,
-  suggestionGroups: PropTypes.object,
+  focusedSuggestion: PropTypes.object,
+  suggestionGroups: PropTypes.array,
   tags: PropTypes.array,
   recentSuggestions: PropTypes.array,
   isRequesting: PropTypes.bool,
@@ -161,15 +180,21 @@ SearchContent.propTypes = {
   trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
   isEmpty: PropTypes.bool,
-  router: PropTypes.object
+  router: PropTypes.object,
+  query: PropTypes.string,
+  changeSearchQuery: PropTypes.func,
+  resetNavigation: PropTypes.func
 };
 
 SearchContent.defaultProps = {
-  suggestionGroups: {},
+  suggestionGroups: [],
+  contentType: null,
   isRequesting: false,
   getSuggestion: () => {},
   trackRecentSuggestion: () => {},
+  resetNavigation: () => {},
   router: {
     goBack: () => {}
-  }
+  },
+  changeSearchQuery: () => {}
 };

@@ -56,4 +56,12 @@ describe('CRPage component', function () {
     header.props.onDropDownButtonClick();
     instance.state.displayCoaccusedDropdown.should.be.true();
   });
+
+  it('should trigger fetchCR if crid changed', function () {
+    const fetchCR = spy();
+    instance = renderIntoDocument(<CRPage crid={ '123' } />);
+
+    instance = reRender(<CRPage crid={ '456' } fetchCR={ fetchCR } />, instance);
+    fetchCR.calledWith('456').should.be.true();
+  });
 });

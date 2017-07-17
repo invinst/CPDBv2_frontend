@@ -1,15 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { join, get } from 'lodash';
-import { Link } from 'react-router';
+import { get } from 'lodash';
 import classnames from 'classnames';
+import { Link } from 'react-router';
 
 import Hoverable from 'components/common/higher-order/hoverable';
+import SuggestionItemText from './suggestion-item-text';
+import SuggestionEnterBadge from './suggestion-item-enter-badge';
 import {
-  suggestionItemWrapperStyle,
-  suggestionItemStyle,
-  suggestionTextStyle,
-  metaTextStyle,
-  tagStyle
+  suggestionItemStyle
 } from './suggestion-item.style';
 
 
@@ -17,6 +15,21 @@ class SuggestionItem extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      enteringFocusedState: false
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    /*
+      When isFocused is changed from false to true, set `enteringFocusedState` to true
+      then immediately set it back to false. This allows custom starting position
+      for "enter" animations. See `textContainer` below for an example.
+    */
+    if (!this.props.isFocused && nextProps.isFocused) {
+      this.setState({ enteringFocusedState: true });
+      setTimeout(() => { this.setState({ enteringFocusedState: false }); }, 10);
+    }
   }
 
   handleClick(text, href, to) {
@@ -30,8 +43,8 @@ class SuggestionItem extends Component {
     const href = get(suggestion, 'payload.url', '');
     const to = get(suggestion, 'payload.to', '');
     const extraText = get(suggestion, 'payload.result_extra_information', '');
-    const tags = get(suggestion, 'payload.tags', []);
     const suggestionItemClassName = classnames('suggestion-item', { 'focused': isFocused });
+    const reason = get(suggestion, 'payload.result_reason', '');
 
     const commonWrapperProps = {
       style: suggestionItemStyle,
@@ -39,24 +52,19 @@ class SuggestionItem extends Component {
     };
 
     const children = [
-      <div
-        key='suggestion'
-        className='link--transition'
-        style={ suggestionTextStyle(hovering) }>
-        { text }
-      </div>,
-      <div
-        key='meta'
-        className='link--transition'
-        style={ metaTextStyle(hovering) }>
-        { extraText }
-      </div>,
-      <div
-        key='tag'
-        className='link--transition'
-        style={ tagStyle(hovering) }>
-        { join(tags, ', ') }
-      </div>
+      <SuggestionEnterBadge
+        key='enter-badge'
+        isFocused={ isFocused }
+      />,
+      <SuggestionItemText
+        key='text'
+        text={ text }
+        extraText={ extraText }
+        reason={ reason }
+        hovering={ hovering }
+        isFocused={ isFocused }
+        enteringFocusedState={ this.state.enteringFocusedState }
+      />
     ];
 
     const linkTag = (to ?
@@ -65,7 +73,7 @@ class SuggestionItem extends Component {
     );
 
     return (
-      <div className={ suggestionItemClassName } style={ suggestionItemWrapperStyle(isFocused) }>
+      <div className={ suggestionItemClassName } id={ this.props.id }>
         { linkTag }
       </div>
     );
@@ -77,6 +85,7 @@ SuggestionItem.defaultProps = {
 };
 
 SuggestionItem.propTypes = {
+  id: PropTypes.string,
   isFocused: PropTypes.bool,
   suggestion: PropTypes.object,
   suggestionClick: PropTypes.func,
@@ -85,3 +94,5 @@ SuggestionItem.propTypes = {
 };
 
 export default Hoverable(SuggestionItem);
+
+export const UnwrappedSuggestionItem = SuggestionItem;

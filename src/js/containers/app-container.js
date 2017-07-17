@@ -4,7 +4,7 @@ import App from 'components/app';
 import { receiveTokenFromCookie } from 'actions/authentication';
 import showLoginModalSelector from 'selectors/login-modal/show-login-modal';
 import { toggleEditMode } from 'actions/inline-editable/edit-mode';
-import { toggleSearchMode } from 'actions/search-page';
+import { toggleSearchMode, changeSearchQuery } from 'actions/search-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -18,7 +18,8 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   receiveTokenFromCookie,
   toggleEditMode,
-  toggleSearchMode
+  toggleSearchMode,
+  changeSearchQuery
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

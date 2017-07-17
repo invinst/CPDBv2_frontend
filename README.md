@@ -22,6 +22,16 @@
 
 ## Development
 
+First create a symlink to let the local devserver serve fonts correctly:
+
+```bash
+mkdir src/dist
+cd src/dist
+ln -s ../fonts fonts
+```
+
+Then:
+
 - `yarn start` to run development server (powered by [budo](https://github.com/mattdesl/budo))
 - visit `localhost:9966` to see live changes.
 

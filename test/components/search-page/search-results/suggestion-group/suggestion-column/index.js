@@ -40,4 +40,43 @@ describe('SuggestionColumn component', function () {
     Simulate.click(suggestionElement);
     suggestionClick.calledWith(contentType, text, url).should.be.true();
   });
+
+  describe('shouldComponentUpdate', function () {
+    it('should re-render if this is the active column', function () {
+      SuggestionColumn.prototype.shouldComponentUpdate({
+        columnIndex: 1,
+        navigation: {
+          columnIndex: 1
+        }
+      }).should.be.true();
+    });
+
+    it('should re-render if this is right before the active column', function () {
+      SuggestionColumn.prototype.shouldComponentUpdate({
+        columnIndex: 1,
+        navigation: {
+          columnIndex: 2
+        }
+      }).should.be.true();
+    });
+
+    it('should re-render if this is right after the active column', function () {
+      SuggestionColumn.prototype.shouldComponentUpdate({
+        columnIndex: 3,
+        navigation: {
+          columnIndex: 2
+        }
+      }).should.be.true();
+    });
+
+    it('should not re-render if this is neither the active column nor next to it', function () {
+      SuggestionColumn.prototype.shouldComponentUpdate({
+        columnIndex: 0,
+        navigation: {
+          columnIndex: 2
+        }
+      }).should.be.false();
+    });
+
+  });
 });

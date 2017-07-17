@@ -22,14 +22,6 @@ describe('Timeline component', function () {
     Timeline.should.be.renderable();
   });
 
-  it('should invoke fetchTimelineItems when mounted', function () {
-    const fetchTimelineItems = spy();
-    instance = renderIntoDocument(
-      <Timeline fetchTimelineItems={ fetchTimelineItems } sortParams={ { a: 'a' } } officerId={ 123 }/>
-    );
-    fetchTimelineItems.calledWith(123, { a: 'a' }).should.be.true();
-  });
-
   it('should invoke fetchTimelineItems when sortParams change', function () {
     const fetchTimelineItems = spy();
     instance = renderIntoDocument(
@@ -40,18 +32,6 @@ describe('Timeline component', function () {
       instance
     );
     fetchTimelineItems.calledWith(123, { b: 'b' }).should.be.true();
-  });
-
-  it('should invoke fetchTimelineItems when officerId change', function () {
-    const fetchTimelineItems = spy();
-    instance = renderIntoDocument(
-      <Timeline fetchTimelineItems={ fetchTimelineItems } sortParams={ { a: 'a' } } officerId={ 123 }/>
-    );
-    reRender(
-      <Timeline fetchTimelineItems={ fetchTimelineItems } sortParams={ { a: 'a' } } officerId={ 456 }/>,
-      instance
-    );
-    fetchTimelineItems.calledWith(123, { a: 'a' }).should.be.true();
   });
 
   it('should invoke fetchTimelineItemsWhenIndexOutOfBound when selectedItemIndex change', function (done) {

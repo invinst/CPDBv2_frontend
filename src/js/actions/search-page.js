@@ -22,6 +22,9 @@ export const toggleSearchMode = () => (push({
   pathname: `/${SEARCH_PATH}`
 }));
 
+export const CHANGE_SEARCH_QUERY = 'CHANGE_SEARCH_QUERY';
+export const changeSearchQuery = createAction(CHANGE_SEARCH_QUERY);
+
 export const TRACK_RECENT_SUGGESTION = 'TRACK_RECENT_SUGGESTION';
 export const SEARCH_NAVIGATION_LEFT = 'SEARCH_NAVIGATION_LEFT';
 export const SEARCH_NAVIGATION_RIGHT = 'SEARCH_NAVIGATION_RIGHT';
@@ -45,3 +48,6 @@ export const trackRecentSuggestion = (contentType, text, url, to) => createActio
   to,
   url
 });
+
+export const SEARCH_NAVIGATION_RESET = 'SEARCH_NAVIGATION_RESET';
+export const resetNavigation = createAction(SEARCH_NAVIGATION_RESET);

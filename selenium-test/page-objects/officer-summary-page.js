@@ -2,18 +2,8 @@ import { each } from 'lodash';
 
 import Page from './page';
 import Section from './sections/section';
+import Header from './sections/officer-page-header';
 
-
-class Header extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      officerName: '.test--officer-name',
-      headerButton: '.test--header-button',
-      headerActiveButton: '.test--header-button-active'
-    });
-  }
-}
 
 class SummarySection extends Section {
   constructor() {
