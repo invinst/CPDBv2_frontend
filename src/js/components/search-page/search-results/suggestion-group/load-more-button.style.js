@@ -14,5 +14,5 @@ export const suggestionTextStyle = (hovering) => ({
   fontWeight: 500,
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
-  color: hovering ? accentColor : softBlackColor,
+  color: hovering ? accentColor : softBlackColor
 });

@@ -4,7 +4,7 @@ import { Motion, spring, presets } from 'react-motion';
 import {
   suggestionTextStyle,
   metaTextStyle,
-  reasonStyle,
+  reasonStyle
 } from './suggestion-item.style';
 
 
@@ -24,7 +24,7 @@ class SuggestionItemText extends Component {
         {
           (style) => (
             <div style={ {
-              transform: `translateY(${style.translateY}px)`,
+              transform: `translateY(${style.translateY}px)`
             } }>
               <div
                 key='suggestion'
