@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, mediumGrayColor, lightBlackColor } from 'utils/styles';
+import { sanFranciscoTextFamily, mediumGrayColor, lightBlackColor, sugarCaneColor } from 'utils/styles';
 
 
 export const coaccusedListWrapperStyle = {
@@ -19,4 +19,9 @@ export const coaccusedTextStyle = {
   color: mediumGrayColor,
   paddingTop: '11px',
   boxSizing: 'border-box'
+};
+
+export const breakSectionStyle = {
+  height: '133px',
+  backgroundColor: sugarCaneColor
 };

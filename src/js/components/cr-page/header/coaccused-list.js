@@ -3,7 +3,7 @@ import { map, find, filter, pick, compact } from 'lodash';
 
 import CoaccusedListItem from './coaccused-list-item';
 import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
-import { coaccusedListWrapperStyle, coaccusedTextStyle } from './coaccused-list.style';
+import { coaccusedListWrapperStyle, coaccusedTextStyle, breakSectionStyle } from './coaccused-list.style';
 
 
 export default class CoaccusedList extends Component {
@@ -29,6 +29,7 @@ export default class CoaccusedList extends Component {
             })
           }
         </ResponsiveFixedWidthComponent>
+        <div style={ breakSectionStyle }></div>
       </div>
     );
   }
