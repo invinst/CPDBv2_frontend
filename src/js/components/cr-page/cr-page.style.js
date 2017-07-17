@@ -56,10 +56,14 @@ export const leftColumnStyle = {
   width: '320px',
   display: 'inline-block',
   borderRight: `1px solid ${whiteTwoColor}`,
-  verticalAlign: 'top'
+  verticalAlign: 'top',
+  paddingBottom: '24px'
 };
 
 export const rightColumnStyle = {
   width: 'calc(100% - 337px)',
-  display: 'inline-block'
+  borderLeft: `1px solid ${whiteTwoColor}`,
+  display: 'inline-block',
+  marginLeft: '-1px',
+  paddingBottom: '24px'
 };
