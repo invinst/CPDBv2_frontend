@@ -42,10 +42,7 @@ describe('officer summary page', function () {
 
     summaryPage.summarySection.salaryLabel.getText().should.equal('2016 Salary');
 
-    summaryPage.aggregateSection.title.getText().should.equal('COMPLAINT RECORDS');
-    summaryPage.aggregateSection.fadedTitle.getText().should.equal('CRs');
-    summaryPage.aggregateSection.count.getText().should.equal('10');
-    summaryPage.aggregateSection.sustainedCount.getText().should.equal('2');
+    summaryPage.aggregateSection.title.getText().should.equal('10 complaint records (CRs), 2 sustained');
 
     summaryPage.aggregateSection.category.waitForVisible();
     summaryPage.aggregateSection.categoryName.getText().should.equal('CATEGORY');
