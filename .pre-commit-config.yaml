@@ -2,4 +2,4 @@
     sha: aaa8651ac4833f38c66a6b1b475856f4b1e01c57
     hooks:
     -   id: eslint
-        additional_dependencies: ["eslint@2.8.0", "eslint-plugin-react@5.0.1", "babel-eslint@6.0.3"]
+        additional_dependencies: ["eslint@3.19.0", "eslint-plugin-react@5.0.1", "babel-eslint@6.0.3"]

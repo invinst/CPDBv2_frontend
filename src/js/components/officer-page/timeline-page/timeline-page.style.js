@@ -1,3 +1,3 @@
 export const wrapperStyle = {
-  height: `${window.innerHeight - 64}px`
+  height: `${window.innerHeight - 116}px`
 };

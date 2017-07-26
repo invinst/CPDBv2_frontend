@@ -106,4 +106,21 @@ describe('CR page', function () {
     crPage.involvementSection.firstOfficer.click();
     browser.getUrl().should.match(/\/officer\/1\/$/);
   });
+
+  it('should display list of attachments', function () {
+    crPage.attachmentsSection.attachmentCount('DOCUMENTS').should.equal(2);
+    crPage.attachmentsSection.attachmentCount('VIDEO').should.equal(1);
+    crPage.attachmentsSection.attachmentCount('AUDIO').should.equal(1);
+    crPage.attachmentsSection.getAttachment('DOCUMENTS', 1).getText().should.equal('CR Document 1');
+    crPage.attachmentsSection.getAttachment('VIDEO', 1).getText().should.equal('CR Video');
+    crPage.attachmentsSection.getAttachment('AUDIO', 1).getText().should.equal('CR Audio');
+  });
+
+  it.only('should navigate to page with attachment item url when we click on', function () {
+    crPage.attachmentsSection.getAttachment('DOCUMENTS', 1).getAttribute('href').should.equal(
+      'http://cr-document.com/'
+    );
+    crPage.attachmentsSection.getAttachment('VIDEO', 1).getAttribute('href').should.equal('http://cr-video.com/');
+    crPage.attachmentsSection.getAttachment('AUDIO', 1).getAttribute('href').should.equal('http://cr-audio.com/');
+  });
 });

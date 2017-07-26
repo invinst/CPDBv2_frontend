@@ -11,14 +11,14 @@ export default class SummaryPage extends Component {
     const { officerSummary, complaintsCount, sustainedCount, complaintFacets } = this.props;
 
     return (
-      <ResponsiveFixedWidthComponent>
-        <div style={ wrapperStyle }>
+      <div style={ wrapperStyle }>
+        <ResponsiveFixedWidthComponent>
           <SummarySection officerSummary={ officerSummary }/>
           <AggregateSection
-            title='COMPLAINT RECORDS' fadedTitle='CRs' count={ complaintsCount } sustainedCount={ sustainedCount }
+            title='complaint records (CRs)' count={ complaintsCount } sustainedCount={ sustainedCount }
             aggregateFacets={ complaintFacets }/>
-        </div>
-      </ResponsiveFixedWidthComponent>
+        </ResponsiveFixedWidthComponent>
+      </div>
     );
   }
 }

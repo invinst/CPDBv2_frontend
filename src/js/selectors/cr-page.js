@@ -6,6 +6,9 @@ const getCoaccused = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid
 const getComplainants = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].complainants;
 const getCR = (state, { crid }) => !state.crs[crid] ? {} : state.crs[crid];
 const getInvolvements = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].involvements;
+const getDocuments = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].documents;
+const getVideos = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].videos;
+const getAudios = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].audios;
 
 const getComplainantStringSelector = createSelector(
   getComplainants,
@@ -55,7 +58,10 @@ export const contentSelector = createSelector(
   getComplainantStringSelector,
   getCR,
   getInvolvementsSelector,
-  (coaccused, complainants, cr, involvements) => ({
+  getDocuments,
+  getVideos,
+  getAudios,
+  (coaccused, complainants, cr, involvements, documents, videos, audios) => ({
     coaccused,
     complainants,
     point: cr.point,
@@ -63,6 +69,9 @@ export const contentSelector = createSelector(
     address: cr.address,
     location: cr.location,
     beat: cr.beat || { name: 'Unknown' },
-    involvements
+    involvements,
+    documents,
+    videos,
+    audios
   })
 );
