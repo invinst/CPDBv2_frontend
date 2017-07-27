@@ -1,7 +1,10 @@
 import selectedItemIndex from 'reducers/officer-page/timeline/selected-item-index';
 import should from 'should';
 
-import { OFFICER_TIMELINE_SELECT_MINIMAP_ITEM } from 'utils/constants';
+import {
+  OFFICER_TIMELINE_SELECT_MINIMAP_ITEM, OFFICER_TIMELINE_SELECT_TIMELINE_ITEM, OFFICER_TIMELINE_FLIP_SORT_ORDER,
+  CHANGE_OFFICER_ID
+} from 'utils/constants';
 
 
 describe('selectedItemIndex reducer', function () {
@@ -12,11 +15,22 @@ describe('selectedItemIndex reducer', function () {
   it('should handle OFFICER_TIMELINE_SELECT_MINIMAP_ITEM', function () {
     selectedItemIndex(null, {
       type: OFFICER_TIMELINE_SELECT_MINIMAP_ITEM,
-      payload: { index: 1 }
+      payload: 1
     }).should.eql(1);
   });
 
-  it('should handle @@router/LOCATION_CHANGE', function () {
-    should.not.exists(selectedItemIndex(1, { type: '@@router/LOCATION_CHANGE' }));
+  it('should handle OFFICER_TIMELINE_SELECT_TIMELINE_ITEM', function () {
+    selectedItemIndex(null, {
+      type: OFFICER_TIMELINE_SELECT_TIMELINE_ITEM,
+      payload: 1
+    }).should.eql(1);
+  });
+
+  it('should handle OFFICER_TIMELINE_FLIP_SORT_ORDER', function () {
+    should.not.exists(selectedItemIndex(1, { type: OFFICER_TIMELINE_FLIP_SORT_ORDER }));
+  });
+
+  it('should handle CHANGE_OFFICER_ID', function () {
+    should.not.exists(selectedItemIndex(1, { type: CHANGE_OFFICER_ID }));
   });
 });
