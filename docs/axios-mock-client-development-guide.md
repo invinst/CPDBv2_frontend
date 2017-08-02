@@ -2,11 +2,11 @@
 
 ## Introduction
 
-This is a simple wrapper that use [axios-mock-adapter](https://github.com/ctimmerm/axios-mock-adapter) to mock api request. 
+This is a simple wrapper that use [axios-mock-adapter](https://github.com/ctimmerm/axios-mock-adapter) to mock api request.
 
 ## Usage
 
-Define a status code and returned data in case it success to using it:
+Define status code and returned data in case of success:
 
 ```javascript
 import axiosClient from 'utils/axios-client';

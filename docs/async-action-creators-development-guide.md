@@ -1,6 +1,7 @@
 # Async action creators development guide
 
 ## Introduction
+
 We are using [redux-axios-middleware](https://github.com/svrcekmichal/redux-axios-middleware), so we only need to define actions supported by it to build an async action, for example:
 
 ```javascript
@@ -23,6 +24,7 @@ export const requestStories = (params, adapter) => ({
 ```
 
 ## How to test
+
 We assume that you know how to test Async action creators recommended by redux, if you didn't know it yet please read [the testing guide](http://redux.js.org/docs/recipes/WritingTests.html) by redux first. On previous example, we left the room for adapter here which is used for testing purpose:
 
 ```javascript
@@ -32,7 +34,9 @@ request: {
   adapter
 }
 ```
+
 So we need to pass the mock adapter there to test it out:
+
 ```javascript
 import axiosMockClient from 'utils/axios-mock-client';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';

@@ -14,11 +14,9 @@
 
 - When you need factory, use one or create one using [rosie](https://github.com/rosiejs/rosie). See [here](../src/js/utils/test/factories/story.js) for example.
 
-- Some component has required props in order to work. To test such component with `should.renderable()` (which doesn't pass down any prop), use `defaultProps`. See example in [here](../src/js/components/stories/story-small.js).
+- Some components need required props in order to work. To test such component with `should.renderable()` (which doesn't pass down any prop), use `defaultProps`. See example in [here](../src/js/components/common/faq/faq-item.js).
 
-- Sometime you need to update a component's prop during test. In such case, use `ReactDOM.render` to render the same component with different props. Don't use `ReactTestUtils.renderIntoDocument`, instead use `ReactDOM.render` as the former will just render your component into another root element, while with the latter you can specify the same root element for different renders. See example [here](../test/components/animation/expand-transition.js).
-
-- Never pass arrow function to `describe`, `afterEach`, `beforeEach`, `it` function when writing test as `this` variable is desirable within those scopes.
+- Sometime you need to update a component's prop during test. In such case, use `ReactDOM.render` to render the same component with different props. Don't use `ReactTestUtils.renderIntoDocument`, instead use `reRender` from `utils/test` module as the former will just render your component into another root element, while the latter will reRender with the same root element. See example [here](../test/components/animation/fade-transition.js).
 
 ## Style
 
