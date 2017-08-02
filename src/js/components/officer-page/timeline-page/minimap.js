@@ -8,23 +8,7 @@ import { wrapperStyle, yearStyle, itemsStyle, rowStyle } from './minimap.style';
 export default class Minimap extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      selectedItemIndex: null
-    };
-    this.handleMinimapItemClick = this.handleMinimapItemClick.bind(this);
     this.handleMinimapItemHover = this.handleMinimapItemHover.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.sortDescending !== this.props.sortDescending) {
-      this.setState({ selectedItemIndex: null });
-    }
-  }
-
-  handleMinimapItemClick(index) {
-    this.setState({ selectedItemIndex: index });
-    const { onItemClick } = this.props;
-    onItemClick(index);
   }
 
   handleMinimapItemHover(index) {
@@ -33,8 +17,7 @@ export default class Minimap extends Component {
   }
 
   render() {
-    const { minimap, hoveredItemIndex } = this.props;
-    const { selectedItemIndex } = this.state;
+    const { minimap, hoveredItemIndex, selectedItemIndex, onItemClick } = this.props;
     return (
       <div style={ wrapperStyle }>
         { map(minimap, ({ year, items }) => (
@@ -44,7 +27,7 @@ export default class Minimap extends Component {
               { map(items, ({ kind, index }) => (
                 <MinimapItem className='test--minimapitem' text={ kind }
                   key={ index } active={ selectedItemIndex === index }
-                  onClick={ () => this.handleMinimapItemClick(index) }
+                  onClick={ () => onItemClick(index) }
                   onHover={ (hovered) => this.handleMinimapItemHover(hovered ? index : null) }
                   timelineItemHovered={ hoveredItemIndex === index }/>
               )) }
@@ -61,7 +44,8 @@ Minimap.propTypes = {
   onItemClick: PropTypes.func,
   onItemHover: PropTypes.func,
   sortDescending: PropTypes.bool,
-  hoveredItemIndex: PropTypes.number
+  hoveredItemIndex: PropTypes.number,
+  selectedItemIndex: PropTypes.number
 };
 
 Minimap.defaultProps = {

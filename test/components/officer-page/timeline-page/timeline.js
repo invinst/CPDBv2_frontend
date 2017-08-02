@@ -88,4 +88,11 @@ describe('Timeline component', function () {
     scryRenderedComponentsWithType(instance, TimelineItem)[0].props.onHover(false);
     onHover.calledWith(null).should.be.true();
   });
+
+  it('should invoke selectTimelineItem when click on an item', function () {
+    const selectTimelineItem = spy();
+    instance = renderIntoDocument(<Timeline items={ items } selectTimelineItem={ selectTimelineItem }/>);
+    scryRenderedComponentsWithType(instance, TimelineItem)[0].props.onClick();
+    selectTimelineItem.calledWith(0).should.be.true();
+  });
 });
