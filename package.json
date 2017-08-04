@@ -44,7 +44,7 @@
     "body-parser": "^1.15.2",
     "browser-sync": "^2.12.8",
     "connect-history-api-fallback": "^1.3.0",
-    "coveralls": "^2.11.9",
+    "coveralls": "^2.13.1",
     "envify": "^4.0.0",
     "eslint": "^3.19.0",
     "eslint-plugin-react": "^7.0.1",
