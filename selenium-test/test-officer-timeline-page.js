@@ -103,6 +103,16 @@ describe('officer timeline page', function () {
     timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
   });
 
+  it('should change selected minimap item when going back from CR page', function () {
+    timelinePage.sidebar.clickOn('2005', 1);
+    timelinePage.timeline.cardItemAtIndex(5).click();
+    crPage.element.waitForVisible();
+    browser.back();
+    timelinePage.sidebar.itemAt('2004', 1).getCssProperty('backgroundColor').value.should.equal(
+      'rgba(255,255,255,1)'
+    );
+  });
+
   describe('minimap', function () {
     it('should highlight corresponding timeline item when hovered on', function () {
       timelinePage.sidebar.yearLabel.waitForVisible();
@@ -128,6 +138,24 @@ describe('officer timeline page', function () {
       timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
       timelinePage.sidebar.sortButton.click();
       timelinePage.sidebar.sortButton.getText().should.equal('Sort by newest first');
+    });
+
+    it('should highlight selected item', function () {
+      timelinePage.sidebar.clickOn('2005', 1);
+      timelinePage.sidebar.itemAt('2005', 1).getCssProperty('backgroundColor').value.should.equal(
+        'rgba(255,255,255,1)'
+      );
+    });
+
+    it('should remove highlight for selected item when change sort order', function () {
+      timelinePage.sidebar.clickOn('2005', 1);
+      timelinePage.sidebar.itemAt('2005', 1).getCssProperty('backgroundColor').value.should.equal(
+        'rgba(255,255,255,1)'
+      );
+      timelinePage.sidebar.sortButton.click();
+      timelinePage.sidebar.itemAt('2005', 1).getCssProperty('backgroundColor').value.should.equal(
+        'rgba(244,244,244,1)'
+      );
     });
   });
 

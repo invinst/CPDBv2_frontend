@@ -17,6 +17,11 @@ export default class Timeline extends Component {
     this.handleItemSelected = this.handleItemSelected.bind(this);
   }
 
+  getChildContext() {
+    const { openBottomSheetWithComplaint } = this.props;
+    return { openBottomSheetWithComplaint };
+  }
+
   componentWillReceiveProps(nextProps) {
     const {
       sortParams, fetchTimelineItems, selectedItemIndex,
@@ -39,8 +44,8 @@ export default class Timeline extends Component {
 
   render() {
     const {
-      items, fetchTimelineItems, nextParams, hasMore, sortParams,
-      selectedItemIndex, hoveredItemIndex, openBottomSheetWithComplaint, officerId, hoverTimelineItem
+      items, fetchTimelineItems, nextParams, hasMore, sortParams, selectedItemIndex, hoveredItemIndex,
+      officerId, hoverTimelineItem, selectTimelineItem
     } = this.props;
     const { selectedItemTop, flashItemIndex } = this.state;
     return (
@@ -53,8 +58,8 @@ export default class Timeline extends Component {
             <TimelineItem item={ item } key={ ind } selected={ ind === selectedItemIndex }
               minimapItemHovered={ ind === hoveredItemIndex } officerId={ officerId }
               onSelected={ this.handleItemSelected } flash={ ind === flashItemIndex }
-              openBottomSheetWithComplaint={ openBottomSheetWithComplaint }
-              onHover={ (hovered) => hoverTimelineItem(hovered ? ind : null) }/>
+              onHover={ (hovered) => hoverTimelineItem(hovered ? ind : null) }
+              onClick={ () => selectTimelineItem(ind) }/>
           )) }
         </InfiniteScroll>
       </SmoothScroller>
@@ -73,9 +78,14 @@ Timeline.propTypes = {
   officerId: PropTypes.number,
   fetchTimelineItemsWhenIndexOutOfBound: PropTypes.func,
   openBottomSheetWithComplaint: PropTypes.func,
-  hoverTimelineItem: PropTypes.func
+  hoverTimelineItem: PropTypes.func,
+  selectTimelineItem: PropTypes.func
 };
 
 Timeline.defaultProps = {
   fetchTimelineItems: () => {}
+};
+
+Timeline.childContextTypes = {
+  openBottomSheetWithComplaint: PropTypes.func
 };
