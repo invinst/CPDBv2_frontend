@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithTag,
@@ -9,22 +10,31 @@ import {
 } from 'react-addons-test-utils';
 import { spy, useFakeTimers } from 'sinon';
 import { Link } from 'react-router';
+import MockStore from 'redux-mock-store';
 
 import SuggestionItem, {
   UnwrappedSuggestionItem
 } from 'components/search-page/search-results/suggestion-group/suggestion-column/suggestion-item';
+
+import
+  SuggestionItemText
+from 'components/search-page/search-results/suggestion-group/suggestion-column/suggestion-item-text';
+
 import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('<SuggestionItem/>', function () {
   let instance;
 
+  const mockStore = MockStore();
+  const store = mockStore();
+
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
   it('should be renderable', function () {
-    SuggestionItem.should.be.renderable();
+    SuggestionItem.should.be.renderable({ store });
   });
 
   it('should trigger suggestionClick when user click on a suggestion', function () {
@@ -40,10 +50,12 @@ describe('<SuggestionItem/>', function () {
     };
 
     instance = renderIntoDocument(
-      <SuggestionItem
-        suggestionClick={ suggestionClick }
-        suggestion={ suggestion }
-        contentType={ contentType }/>
+      <Provider store={ store }>
+        <SuggestionItem
+          suggestionClick={ suggestionClick }
+          suggestion={ suggestion }
+          contentType={ contentType }/>
+      </Provider>
     );
 
     const suggestionElement = findRenderedDOMComponentWithTag(instance, 'a');
@@ -53,7 +65,9 @@ describe('<SuggestionItem/>', function () {
 
   it('should render Link component when suggestion contain to', function () {
     instance = renderIntoDocument(
-      <SuggestionItem suggestion={ { payload: { to: 'abc' } } }/>
+      <Provider store={ store }>
+        <SuggestionItem suggestion={ { payload: { to: 'abc' } } }/>
+      </Provider>
     );
     findRenderedComponentWithType(instance, Link);
   });
@@ -71,7 +85,9 @@ describe('<SuggestionItem/>', function () {
 
     it('should render focused item\'s colors correctly', function () {
       instance = renderIntoDocument(
-        <SuggestionItem isFocused={ true } suggestion={ this.suggestion }/>
+        <Provider store={ store }>
+          <SuggestionItem isFocused={ true } suggestion={ this.suggestion }/>
+        </Provider>
       );
 
       const text = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-text');
@@ -84,7 +100,9 @@ describe('<SuggestionItem/>', function () {
 
     it('should render hovered item\'s colors correctly', function () {
       instance = renderIntoDocument(
-        <SuggestionItem isFocused={ false } hovering={ true } suggestion={ this.suggestion }/>
+        <Provider store={ store }>
+          <SuggestionItem isFocused={ false } hovering={ true } suggestion={ this.suggestion }/>
+        </Provider>
       );
 
       const text = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-text');
@@ -108,14 +126,23 @@ describe('<SuggestionItem/>', function () {
     it('should set state.enter to `true` then reset it immediately after', function () {
       const element = document.createElement('div');
 
-      const component = ReactDOM.render(<UnwrappedSuggestionItem isFocused={ false } />, element);
-      component.state.enteringFocusedState.should.be.false();
+      const component = ReactDOM.render(
+        <Provider store={ store }>
+          <UnwrappedSuggestionItem isFocused={ false } />
+        </Provider>, element
+      );
+      const suggestionItemText = findRenderedComponentWithType(component, SuggestionItemText);
+      suggestionItemText.props.enteringFocusedState.should.be.false();
 
-      ReactDOM.render(<UnwrappedSuggestionItem isFocused={ true } />, element);
-      component.state.enteringFocusedState.should.be.true();
+      ReactDOM.render(
+        <Provider store={ store }>
+          <UnwrappedSuggestionItem isFocused={ true } />
+        </Provider>, element
+      );
+      suggestionItemText.props.enteringFocusedState.should.be.true();
 
       this.clock.tick(50);
-      component.state.enteringFocusedState.should.be.false();
+      suggestionItemText.props.enteringFocusedState.should.be.false();
     });
   });
 });

@@ -60,6 +60,12 @@ export const porcelainColor = '#E4E8EB';
 export const botticelliColor = '#D4E1EC';
 export const galleryColor = '#EFEFEF';
 export const lightAltoColor = '#E0E0E0';
+export const girlyPink = '#FFE8FF';
+export const lightGirlyPink = '#FFEFFF';
+export const deepGirlyPink = '#FAD7E9';
+export const ultraGirlyPink = '#D518d2';
+export const eyeCandyPink = '#FFEFFE';
+export const smokeGray = '#9F9F9F';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular",sans-serif';

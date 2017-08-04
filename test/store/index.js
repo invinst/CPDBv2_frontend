@@ -105,6 +105,7 @@ describe('store', function () {
         query: '',
         itemsPerColumn: 10
       },
+      inlineAliasAdminPage: {},
       crPage: {
         isRequesting: false
       },

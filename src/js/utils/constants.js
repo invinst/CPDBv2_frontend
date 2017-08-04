@@ -25,6 +25,8 @@ export const DATA_PATH = 'data/';
 export const FAQ_PATH = 'faq/';
 export const STORIES_PATH = 'reporting/';
 export const SEARCH_PATH = 'search/';
+export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
+export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
 export const OFFICER_TIMELINE_PATH = 'officer/:officerId/timeline';
 export const CR_PATH = 'complaint/:crid/:officerId';
@@ -74,6 +76,7 @@ export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
+export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -114,6 +117,8 @@ export const OPEN_BOTTOM_SHEET_WITH_COMPLAINT = 'OPEN_BOTTOM_SHEET_WITH_COMPLAIN
 export const CLOSE_BOTTOM_SHEET = 'CLOSE_BOTTOM_SHEET';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_FAQ = 'OPEN_BOTTOM_SHEET_TO_CREATE_FAQ';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_REPORT = 'OPEN_BOTTOM_SHEET_TO_CREATE_REPORT';
+
+export const OPEN_SEARCH_PAGE = 'OPEN_SEARCH_PAGE';
 
 export const CR_REQUEST_START = 'CR_REQUEST_START';
 export const CR_REQUEST_SUCCESS = 'CR_REQUEST_SUCCESS';

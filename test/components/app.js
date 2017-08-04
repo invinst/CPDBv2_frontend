@@ -143,6 +143,7 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
+          isOnSearchPage={ false }
           appContent='/' />
       </Provider>
     );
@@ -165,14 +166,15 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          appContent='/' />
+          isOnSearchPage={ true }
+          appContent='/'
+        />
       </Provider>
     );
 
     Mousetrap.trigger('a');
-
-    toggleSearchMode.calledOnce.should.be.false();
-    changeSearchQuery.calledOnce.should.be.false();
+    toggleSearchMode.called.should.be.false();
+    changeSearchQuery.called.should.be.false();
   });
 
   it('should not display header if children is a SearchPageContainer', function () {
@@ -180,8 +182,9 @@ describe('App component', function () {
       <Provider store={ store }>
         <App
           location={ location }
-          appContent='/'>
-          <SearchPageContainer/>
+          appContent='/'
+        >
+          <SearchPageContainer location={ location }/>
         </App>
       </Provider>
     );

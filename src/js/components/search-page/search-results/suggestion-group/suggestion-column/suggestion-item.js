@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { Link } from 'react-router';
 
 import Hoverable from 'components/common/higher-order/hoverable';
-import SuggestionItemText from './suggestion-item-text';
+import SuggestionItemTextContainer from 'containers/search-page/suggestion-item-text-container';
 import SuggestionEnterBadge from './suggestion-item-enter-badge';
 import {
   suggestionItemStyle
@@ -38,10 +38,11 @@ class SuggestionItem extends Component {
   }
 
   render() {
-    const { suggestion, hovering, isFocused } = this.props;
+    const { suggestion, hovering, isFocused, aliasEditModeOn, suggestionType } = this.props;
     const text = get(suggestion, 'payload.result_text', '');
     const href = get(suggestion, 'payload.url', '');
     const to = get(suggestion, 'payload.to', '');
+    const aliases = get(suggestion, 'payload.tags', []) || []; // lodash.get() treats null as a positive too
     const extraText = get(suggestion, 'payload.result_extra_information', '');
     const suggestionItemClassName = classnames('suggestion-item', { 'focused': isFocused });
     const reason = get(suggestion, 'payload.result_reason', '');
@@ -56,14 +57,18 @@ class SuggestionItem extends Component {
         key='enter-badge'
         isFocused={ isFocused }
       />,
-      <SuggestionItemText
+      <SuggestionItemTextContainer
         key='text'
+        id={ suggestion.id }
         text={ text }
+        suggestionType={ suggestionType }
         extraText={ extraText }
         reason={ reason }
+        aliases={ aliases }
         hovering={ hovering }
         isFocused={ isFocused }
         enteringFocusedState={ this.state.enteringFocusedState }
+        aliasEditModeOn={ aliasEditModeOn }
       />
     ];
 
@@ -74,14 +79,15 @@ class SuggestionItem extends Component {
 
     return (
       <div className={ suggestionItemClassName } id={ this.props.id }>
-        { linkTag }
+        { aliasEditModeOn ? <div style={ suggestionItemStyle }>{ children }</div> : linkTag }
       </div>
     );
   }
 }
 
 SuggestionItem.defaultProps = {
-  suggestionClick: () => {}
+  suggestionClick: () => {},
+  suggestion: {}
 };
 
 SuggestionItem.propTypes = {
@@ -90,7 +96,9 @@ SuggestionItem.propTypes = {
   suggestion: PropTypes.object,
   suggestionClick: PropTypes.func,
   hovering: PropTypes.bool,
-  contentType: PropTypes.string
+  contentType: PropTypes.string,
+  aliasEditModeOn: PropTypes.bool,
+  suggestionType: PropTypes.string
 };
 
 export default Hoverable(SuggestionItem);

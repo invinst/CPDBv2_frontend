@@ -7,7 +7,6 @@ import SearchPageContainer from 'containers/search-page-container';
 
 const store = configureStore();
 
-
 export default class SearchPage extends Component {
   render() {
     return (
@@ -20,4 +19,8 @@ export default class SearchPage extends Component {
 
 SearchPage.propTypes = {
   location: PropTypes.object
+};
+
+SearchPage.defaultProps = {
+  location: { pathname: '' }
 };

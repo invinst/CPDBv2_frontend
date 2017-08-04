@@ -1,6 +1,12 @@
 
 # Created by https://www.gitignore.io/api/jspm,node
 
+# OS X BS
+*.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
 ### Node ###
 # Logs
 logs

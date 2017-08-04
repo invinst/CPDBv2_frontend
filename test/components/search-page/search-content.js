@@ -13,6 +13,7 @@ import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
 import SearchContent from 'components/search-page/search-content';
 import { unmountComponentSuppressError } from 'utils/test';
+import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import * as domUtils from 'utils/dom';
 
 
@@ -265,6 +266,30 @@ describe('SearchContent component', function () {
       Mousetrap.trigger('enter');
       this.locationAssign.calledWith('http://whatever.local').should.be.true();
       this.browserHistoryPush.called.should.be.false();
+    });
+  });
+
+  describe('in edit mode', function () {
+    it('should render [+] sign', function () {
+      instance = renderIntoDocument(
+        <SearchContent editModeOn={ true } query='ke'/>
+      );
+      const domNode = ReactDOM.findDOMNode(instance);
+      domNode.textContent.should.containEql('[+]');
+      domNode.textContent.should.not.containEql('Cancel');
+    });
+
+    it('should render "cancel" button when in alias edit mode', function () {
+      instance = renderIntoDocument(
+        <SearchContent
+          editModeOn={ true }
+          location={ { pathname: `/edit/${SEARCH_ALIAS_EDIT_PATH}` } }
+          query='ke'
+        />
+      );
+      const domNode = ReactDOM.findDOMNode(instance);
+      domNode.textContent.should.not.containEql('[+]');
+      domNode.textContent.should.containEql('Cancel');
     });
   });
 });

@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { omitBy, isEmpty, keys, pick, indexOf, sortBy, chunk, flatten } from 'lodash';
-
+import { SEARCH_PATH } from 'utils/constants';
 
 const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS'];
 
@@ -9,6 +9,7 @@ const getSuggestionTags = (state) => (state.searchPage.tags);
 const getSuggestionNavigation = state => state.searchPage.navigation;
 const getSuggestionContentType = state => state.searchPage.contentType;
 const getNumberOfItemsPerColumn = state => state.searchPage.itemsPerColumn;
+const getPathname = (state, props) => props.location.pathname;
 
 export const suggestionGroupsSelector = createSelector(
   getSuggestionGroups,
@@ -129,4 +130,12 @@ export const isEmptySelector = createSelector(
 export const suggestionColumnsSelector = createSelector(
   coordinatesMapSelector,
   (coordinatesMap) => coordinatesMap.map(column => column.length)
+);
+
+export const isOnSearchPageSelector = createSelector(
+  getPathname,
+  (pathname) => (
+    pathname === `/${SEARCH_PATH}` ||
+    pathname.startsWith(`/edit/${SEARCH_PATH}`)
+  )
 );
