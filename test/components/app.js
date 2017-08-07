@@ -143,7 +143,8 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-        appContent='/' />
+          appContent='/'
+        />
       </Provider>
     );
 

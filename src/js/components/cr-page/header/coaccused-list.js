@@ -29,7 +29,7 @@ export default class CoaccusedList extends Component {
             })
           }
         </ResponsiveFixedWidthComponent>
-        <div style={ breakSectionStyle }></div>
+        <div style={ breakSectionStyle }/>
       </div>
     );
   }
