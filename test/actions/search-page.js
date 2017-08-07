@@ -4,8 +4,7 @@ import {
   SUGGESTION_REQUEST_FAILURE, TRACK_RECENT_SUGGESTION, SEARCH_NAVIGATION_UP,
   SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_LEFT, SEARCH_NAVIGATION_RIGHT, move
 } from 'actions/search-page';
-import { SEARCH_PATH } from 'utils/constants';
-import { CALL_HISTORY_METHOD } from 'react-router-redux';
+import { OPEN_SEARCH_PAGE } from 'utils/constants';
 
 
 describe('suggestion action', function () {
@@ -39,16 +38,9 @@ describe('suggestion action', function () {
 
   describe('toggleSearchMode', function () {
     it('should return correct action', function () {
-      toggleSearchMode('abc').should.deepEqual({
-        type: CALL_HISTORY_METHOD,
-        payload: {
-          args: [
-            {
-              pathname: `/${SEARCH_PATH}`
-            }
-          ],
-          method: 'push'
-        }
+      toggleSearchMode().should.deepEqual({
+        type: OPEN_SEARCH_PAGE,
+        payload: undefined
       });
     });
   });

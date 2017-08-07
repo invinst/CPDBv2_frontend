@@ -56,5 +56,27 @@ export default () => ({
       'abbr_name': 'R. Piwinicki',
       'extra_info': 'male, white'
     }]
-  }]
+  }],
+  'documents': [
+    {
+      'title': 'CR Document 1',
+      'url': 'http://cr-document.com/'
+    },
+    {
+      'title': 'CR Document 2',
+      'url': 'http://cr-document.com/'
+    }
+  ],
+  'videos': [
+    {
+      'title': 'CR Video',
+      'url': 'http://cr-video.com/'
+    }
+  ],
+  'audios': [
+    {
+      'title': 'CR Audio',
+      'url': 'http://cr-audio.com/'
+    }
+  ]
 });

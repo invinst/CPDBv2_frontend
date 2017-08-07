@@ -15,7 +15,7 @@ export default class SuggestionResults extends Component {
       isRequesting,
       suggestionClick,
       navigation,
-      isShowingSingleContentType
+      aliasEditModeOn
     } = this.props;
 
     if (isRequesting) {
@@ -27,22 +27,23 @@ export default class SuggestionResults extends Component {
         <SuggestionNoResult searchText={ searchText }/>
       );
     }
-    // FIXME: Refactor it by a more convinient way
+    // FIXME: Refactor it by a more convenient way
     let i = -1;
 
-    return map(suggestionGroups, (suggestions, key) => {
+    return map(suggestionGroups, (group, index) => {
       i = i + 1;
 
       return (
         <SuggestionGroup
           onLoadMore={ onLoadMore }
-          key={ `suggestion-group-${key}` }
+          key={ `suggestion-group-${group.header}` }
           navigation={ navigation }
-          suggestions={ suggestions }
+          suggestions={ group.columns }
+          canLoadMore={ group.canLoadMore }
           suggestionClick={ suggestionClick }
-          isShowingSingleContentType={ isShowingSingleContentType }
-          header={ key }
-          columnIndex={ i } />
+          header={ group.header }
+          columnIndex={ i }
+          aliasEditModeOn={ aliasEditModeOn } />
       );
     });
   }
@@ -61,10 +62,10 @@ export default class SuggestionResults extends Component {
 SuggestionResults.propTypes = {
   navigation: PropTypes.object,
   searchText: PropTypes.string,
-  suggestionGroups: PropTypes.object,
+  suggestionGroups: PropTypes.array,
   isRequesting: PropTypes.bool,
   onLoadMore: PropTypes.func,
   suggestionClick: PropTypes.func,
   isEmpty: PropTypes.bool,
-  isShowingSingleContentType: PropTypes.bool
+  aliasEditModeOn: PropTypes.bool
 };

@@ -2,25 +2,39 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import SearchContent from 'components/search-page/search-content';
-import { getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion, move } from 'actions/search-page';
 import {
-  suggestionGroupsSelector, isEmptySelector, suggestionTagsSelector,
-  suggestionColumnsSelector
+  getSuggestion,
+  selectTag,
+  toggleSearchMode,
+  trackRecentSuggestion,
+  move,
+  resetNavigation,
+  changeSearchQuery
+} from 'actions/search-page';
+import {
+  chunkedSuggestionGroupsSelector, isEmptySelector, suggestionTagsSelector,
+  suggestionColumnsSelector, focusedSuggestionSelector, isShowingSingleContentTypeSelector
 } from 'selectors/search-page';
+import editModeOnSelector from 'selectors/edit-mode-on';
 
 
-function mapStateToProps(state) {
-  const { isRequesting, contentType, recentSuggestions, navigation } = state.searchPage;
+function mapStateToProps(state, ownProps) {
+  const { isRequesting, contentType, recentSuggestions, navigation, query, itemsPerColumn } = state.searchPage;
 
   return {
     navigation,
+    itemsPerColumn,
+    query,
     tags: suggestionTagsSelector(state),
-    suggestionGroups: suggestionGroupsSelector(state),
+    suggestionGroups: chunkedSuggestionGroupsSelector(state),
     isRequesting,
     contentType,
     isEmpty: isEmptySelector(state),
     suggestionColumns: suggestionColumnsSelector(state),
-    recentSuggestions
+    focusedSuggestion: focusedSuggestionSelector(state),
+    isShowingSingleContentType: isShowingSingleContentTypeSelector(state),
+    recentSuggestions,
+    editModeOn: editModeOnSelector(state, ownProps)
   };
 }
 
@@ -29,7 +43,9 @@ const mapDispatchToProps = {
   selectTag,
   toggleSearchMode,
   trackRecentSuggestion,
-  move
+  move,
+  changeSearchQuery,
+  resetNavigation
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchContent));

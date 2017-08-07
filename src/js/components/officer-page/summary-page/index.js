@@ -13,15 +13,15 @@ export default class SummaryPage extends Component {
     } = this.props;
 
     return (
-      <ResponsiveFixedWidthComponent>
-        <div style={ wrapperStyle }>
+      <div style={ wrapperStyle }>
+        <ResponsiveFixedWidthComponent>
           <SummarySection officerSummary={ officerSummary }
-            openBottomSheetWithPoliceUnit={ openBottomSheetWithPoliceUnit }/>
+            openBottomSheetWithPoliceUnit={ openBottomSheetWithPoliceUnit } />
           <AggregateSection
-            title='COMPLAINT RECORDS' fadedTitle='CRs' count={ complaintsCount } sustainedCount={ sustainedCount }
+            title='complaint records (CRs)' count={ complaintsCount } sustainedCount={ sustainedCount }
             aggregateFacets={ complaintFacets }/>
-        </div>
-      </ResponsiveFixedWidthComponent>
+        </ResponsiveFixedWidthComponent>
+      </div>
     );
   }
 }

@@ -1,8 +1,10 @@
 import { browserHistory } from 'react-router';
+import { stub, spy } from 'sinon';
 
 import {
   innerHeight, disableBodyScroll, enableBodyScroll, getCurrentPathname,
-  changePageTitle, setMetaAttribute, changePageDescription
+  changePageTitle, setMetaAttribute, changePageDescription, viewportHeight,
+  scrollToElement
 } from 'utils/dom';
 
 describe('dom utils', function () {
@@ -21,6 +23,12 @@ describe('dom utils', function () {
 
     it('should calculate correct element innerHeight', function () {
       innerHeight(fakeDomNode()).should.equal(10);
+    });
+  });
+
+  describe('viewportHeight', function () {
+    it('should return correct viewport height', function () {
+      viewportHeight().should.eql(2000);
     });
   });
 
@@ -101,6 +109,23 @@ describe('dom utils', function () {
       ).singleNodeValue;
       el.getAttribute('content').should.equal('lorem ipsum');
       headEl.removeChild(el);
+    });
+  });
+
+  describe('scrollToElement', function () {
+    before(function () {
+      this.stubQuerySelector = stub(document, 'querySelector');
+      this.dummyElement = { scrollIntoView: spy() };
+      this.stubQuerySelector.withArgs('#dummy').returns(this.dummyElement);
+    });
+
+    it('should call appropriate method on selected element to scroll to it', function () {
+      scrollToElement('#dummy');
+      this.dummyElement.scrollIntoView.called.should.be.true();
+    });
+
+    after(function () {
+      this.stubQuerySelector.restore();
     });
   });
 });

@@ -72,10 +72,25 @@ class InvolvementSection extends Section {
   }
 }
 
+class AttachmentsSection extends Section {
+  getAttachment(type, index) {
+    return browser.element(
+      `(//*[@class="test--attachment-section-title"][text()="${type}"]/following-sibling::*/a)[${index}]`
+    );
+  }
+
+  attachmentCount(type) {
+    return browser.elements(
+      `(//*[@class="test--attachment-section-title"][text()="${type}"]/following-sibling::*/a)`
+    ).value.length;
+  }
+}
+
 class CRPage extends Page {
   header = new Header()
   infoSection = new InfoSection();
   involvementSection = new InvolvementSection();
+  attachmentsSection = new AttachmentsSection();
 
   constructor() {
     super();

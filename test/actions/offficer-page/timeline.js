@@ -57,9 +57,7 @@ describe('officer timeline actions', function () {
     it('should return the right action', function () {
       selectMinimapItem(1).should.eql({
         type: OFFICER_TIMELINE_SELECT_MINIMAP_ITEM,
-        payload: {
-          index: 1
-        }
+        payload: 1
       });
     });
   });
@@ -68,9 +66,7 @@ describe('officer timeline actions', function () {
     it('should return the right action', function () {
       hoverMinimapItem(1).should.eql({
         type: OFFICER_TIMELINE_HOVER_MINIMAP_ITEM,
-        payload: {
-          index: 1
-        }
+        payload: 1
       });
     });
   });
@@ -118,9 +114,7 @@ describe('officer timeline actions', function () {
     it('should return the right action', function () {
       hoverTimelineItem(1).should.eql({
         type: OFFICER_TIMELINE_HOVER_TIMELINE_ITEM,
-        payload: {
-          index: 1
-        }
+        payload: 1
       });
     });
   });

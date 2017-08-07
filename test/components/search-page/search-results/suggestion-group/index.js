@@ -1,22 +1,26 @@
 import React from 'react';
 
+import { Provider } from 'react-redux';
 import { renderIntoDocument } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { fill } from 'lodash';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
 import { unmountComponentSuppressError } from 'utils/test';
+import MockStore from 'redux-mock-store';
 
 
 describe('SuggestionGroup component', function () {
   let instance;
 
+  const mockStore = MockStore();
+  const store = mockStore();
+
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
-
   it('should be renderable', function () {
-    SuggestionGroup.should.be.renderable({ suggestions: [{}] });
+    SuggestionGroup.should.be.renderable({ suggestions: [[]] });
   });
 
   it('should render null', function () {
@@ -24,31 +28,24 @@ describe('SuggestionGroup component', function () {
     (findDOMNode(instance) === null).should.be.true();
   });
 
-  it('should not show `Show more results` if currently showing a single content type\'s results', function () {
+  it('should not render `Show more results` if canLoadMore is false', function () {
     instance = renderIntoDocument(
-      <SuggestionGroup
-        onLoadMore={ () => {} }
-        suggestions={ fill(new Array(10), {}) }
-        isShowingSingleContentType={ true } />
-    );
-    findDOMNode(instance).textContent.should.not.containEql('Show more results');
-  });
-  it('should not show `Show more results` if showing less than 10 results', function () {
-    instance = renderIntoDocument(
-      <SuggestionGroup
-        onLoadMore={ () => {} }
-        suggestions={ fill(new Array(9), {}) }
-        isShowingSingleContentType={ false } />
+      <Provider store={ store }>
+        <SuggestionGroup
+          suggestions={ [fill(new Array(10), {})] }
+          canLoadMore={ false } />
+      </Provider>
     );
     findDOMNode(instance).textContent.should.not.containEql('Show more results');
   });
 
-  it('should show `Show more results` if it had 10 suggestions', function () {
+  it('should render `Show more results` if canLoadMore is true', function () {
     instance = renderIntoDocument(
-      <SuggestionGroup
-        onLoadMore={ () => {} }
-        suggestions={ fill(new Array(10), {}) }
-        isShowingSingleContentType={ false } />
+      <Provider store={ store }>
+        <SuggestionGroup
+          suggestions={ [fill(new Array(10), {})] }
+          canLoadMore={ true } />
+      </Provider>
     );
     findDOMNode(instance).textContent.should.containEql('Show more results');
   });

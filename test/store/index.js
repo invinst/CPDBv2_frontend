@@ -101,8 +101,11 @@ describe('store', function () {
         suggestionGroups: {},
         contentType: null,
         recentSuggestions: [],
-        tags: []
+        tags: [],
+        query: '',
+        itemsPerColumn: 10
       },
+      inlineAliasAdminPage: {},
       crPage: {
         isRequesting: false
       },

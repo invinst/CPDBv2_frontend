@@ -12,6 +12,7 @@ import MultiRow from 'components/cr-page/multi-row';
 import FindingRow from 'components/cr-page/finding-row';
 import Row from 'components/cr-page/row';
 import Location from 'components/cr-page/location';
+import Attachments from 'components/cr-page/attachments';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 
 
@@ -31,6 +32,7 @@ describe('CRPage component', function () {
     scryRenderedComponentsWithType(instance, FindingRow).should.have.length(1);
     scryRenderedComponentsWithType(instance, Row).should.have.length(2);
     scryRenderedComponentsWithType(instance, Location).should.have.length(1);
+    scryRenderedComponentsWithType(instance, Attachments).should.have.length(3);
   });
 
   it('should trigger fetchCR on initial', function () {
@@ -55,5 +57,13 @@ describe('CRPage component', function () {
     const header = findRenderedComponentWithType(instance, Header);
     header.props.onDropDownButtonClick();
     instance.state.displayCoaccusedDropdown.should.be.true();
+  });
+
+  it('should trigger fetchCR if crid changed', function () {
+    const fetchCR = spy();
+    instance = renderIntoDocument(<CRPage crid={ '123' } />);
+
+    instance = reRender(<CRPage crid={ '456' } fetchCR={ fetchCR } />, instance);
+    fetchCR.calledWith('456').should.be.true();
   });
 });

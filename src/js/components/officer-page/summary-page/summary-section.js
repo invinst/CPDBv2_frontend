@@ -10,13 +10,26 @@ import {
 
 
 export default class SummarySection extends Component {
+  formatCareerDate(inputDate) {
+    return moment(inputDate).format('ll').toUpperCase();
+  }
+
   summaryFields() {
-    const { rank, dateOfAppt, race, gender, badge } = this.props.officerSummary;
+    const { rank, dateOfAppt, dateOfResignation, race, gender, badge, agency } = this.props.officerSummary;
+
+    const careerStart = this.formatCareerDate(dateOfAppt);
+    const careerEnd = dateOfResignation ? this.formatCareerDate(dateOfResignation) : 'PRESENT';
+    const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
+    const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
+    const agencyText = agency ? `with ${agency}` : 'veteran';
+
     return [
       ['Rank', rank],
-      ['Date of Appt.',
-        moment(dateOfAppt).format('ll').toUpperCase(),
-        `${moment().year() - moment(dateOfAppt).year()} year veteran`],
+      [
+        'Career',
+        `${careerStart}—${careerEnd}`,
+        `${yearsSinceAppt} ${yearText} ${agencyText}`
+      ],
       ['Badge', badge],
       ['Race', race],
       ['2016 Salary', 'DATA NOT READY'],

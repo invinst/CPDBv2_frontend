@@ -1,6 +1,12 @@
 
 # Created by https://www.gitignore.io/api/jspm,node
 
+# OS X BS
+*.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
 ### Node ###
 # Logs
 logs
@@ -54,3 +60,5 @@ live-test-build/
 
 ### live test error screenshots ###
 errorShots/
+
+/src/dist/fonts

@@ -48,15 +48,11 @@ export class TimelineItem extends Component {
   }
 
   renderContent({ ratio }) {
-    const { item, hovering, minimapItemHovered, openBottomSheetWithComplaint, officerId } = this.props;
-    const onClick = item.kind ===
-      TimelineItemType.CR
-      ? (crid) => openBottomSheetWithComplaint({ officerId, crid })
-      : null;
+    const { item, hovering, minimapItemHovered, onClick, officerId } = this.props;
 
     let child = null;
     if (this.contentMap[item.kind]) {
-      child = createElement(this.contentMap[item.kind], { item, hovering, onClick, flashRatio: ratio });
+      child = createElement(this.contentMap[item.kind], { item, hovering, onClick, officerId, flashRatio: ratio });
     }
 
     return (
@@ -88,8 +84,8 @@ TimelineItem.propTypes = {
   minimapItemHovered: PropTypes.bool,
   flash: PropTypes.bool,
   officerId: PropTypes.number,
-  openBottomSheetWithComplaint: PropTypes.func,
-  onHover: PropTypes.func
+  onHover: PropTypes.func,
+  onClick: PropTypes.func
 };
 
 TimelineItem.defaultProps = {

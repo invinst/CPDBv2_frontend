@@ -6,8 +6,17 @@ import SuggestionItem from './suggestion-item';
 
 
 export default class SuggestionColumn extends Component {
+  shouldComponentUpdate(nextProps) {
+    const activeColumnIndex = nextProps.navigation.columnIndex;
+    return (
+      nextProps.columnIndex === activeColumnIndex ||
+      nextProps.columnIndex === activeColumnIndex - 1 ||
+      nextProps.columnIndex === activeColumnIndex + 1
+    );
+  }
+
   renderSuggestions() {
-    const { contentType, suggestions, suggestionClick, columnIndex, navigation } = this.props;
+    const { contentType, suggestions, suggestionClick, columnIndex, navigation, aliasEditModeOn } = this.props;
     let isFocused;
 
     return map(suggestions, (suggestion, index) => {
@@ -15,11 +24,14 @@ export default class SuggestionColumn extends Component {
 
       return (
         <SuggestionItem
+          id={ `suggestion-item-${columnIndex}-${index}` }
           key={ index }
+          suggestionType={ contentType.toLowerCase() }
           contentType={ contentType }
           suggestion={ suggestion }
           suggestionClick={ suggestionClick }
-          isFocused={ isFocused }/>
+          isFocused={ isFocused }
+          aliasEditModeOn={ aliasEditModeOn } />
       );
     });
   }
@@ -41,7 +53,8 @@ SuggestionColumn.propTypes = {
   index: PropTypes.number,
   suggestions: PropTypes.array,
   contentType: PropTypes.string,
-  suggestionClick: PropTypes.func
+  suggestionClick: PropTypes.func,
+  aliasEditModeOn: PropTypes.bool
 };
 
 SuggestionColumn.defaultProps = {

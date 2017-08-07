@@ -25,4 +25,8 @@ LoadMoreButton.propTypes = {
   hovering: PropTypes.bool
 };
 
+LoadMoreButton.defaultProps = {
+  onLoadMore: function () {}
+};
+
 export default Hoverable(LoadMoreButton);

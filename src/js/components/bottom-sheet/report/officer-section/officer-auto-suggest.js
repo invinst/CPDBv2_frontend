@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import AutoSuggest from 'react-autosuggest';
+import { omit } from 'lodash';
 
 import Input from 'components/common/input';
 import {
@@ -45,7 +46,7 @@ export default class OfficerAutoSuggest extends Component {
     );
   }
 
-  handleBlur(event, { focusedSuggestion }) {
+  handleBlur(event) {
     this.setState({
       inputHasFocus: false
     });
@@ -101,8 +102,10 @@ export default class OfficerAutoSuggest extends Component {
         : null;
     }
 
+    // Omit irrelevant props to prevent warnings that fail the test command:
+    const divProps = omit(rest, ['containerProps', 'query']);
     return (
-      <div { ...rest }>{ content }</div>
+      <div { ...divProps }>{ content }</div>
     );
   }
 
