@@ -1,7 +1,8 @@
 import { handleActions } from 'redux-actions';
 import { STORIES_PATH, FAQ_PATH, SEARCH_PATH } from 'utils/constants';
 import {
-  isReportBottomSheetPath, isFAQBottomSheetPath, isOfficerBottomSheetPath, isComplaintBottomSheetPath
+  isReportBottomSheetPath, isFAQBottomSheetPath, isOfficerBottomSheetPath, isComplaintBottomSheetPath,
+  isUnitProfileBottomSheetPath
 } from 'utils/bottom-sheet';
 
 
@@ -13,7 +14,9 @@ export default handleActions({
     if (isFAQBottomSheetPath(action.payload.pathname)) {
       return state ? state : `/${FAQ_PATH}`;
     }
-    if (isOfficerBottomSheetPath(action.payload.pathname) || isComplaintBottomSheetPath(action.payload.pathname)) {
+    if (isOfficerBottomSheetPath(action.payload.pathname)
+      || isComplaintBottomSheetPath(action.payload.pathname)
+      || isUnitProfileBottomSheetPath(action.payload.pathname)) {
       return state ? state : `/${SEARCH_PATH}`;
     }
     return action.payload.pathname;

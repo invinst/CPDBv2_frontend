@@ -33,5 +33,11 @@ describe('bottomSheet selector', function () {
         { props: { crid: '1', officerId: 1 }, type: BottomSheetContentType.CR }
       );
     });
+
+    it('should return unit content if content type is UNIT_PROFILE', function () {
+      contentSelector({}, { params: { unitName: '007' } }).should.eql(
+        { props: { unitName: '007' }, type: BottomSheetContentType.UNIT_PROFILE }
+      );
+    });
   });
 });

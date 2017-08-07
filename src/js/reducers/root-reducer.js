@@ -13,6 +13,7 @@ import crs from './crs';
 import bottomSheet from './bottom-sheet';
 import officerPage from './officer-page';
 import crPage from './cr-page';
+import unitProfilePage from './unit-profile-page';
 import inlineAliasAdminPage from './inline-alias-admin-page';
 
 
@@ -30,5 +31,6 @@ export default combineReducers({
   routing: routerReducer,
   officerPage,
   crPage,
+  unitProfilePage,
   inlineAliasAdminPage
 });

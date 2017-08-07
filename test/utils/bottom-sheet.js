@@ -1,4 +1,6 @@
-import { isReportBottomSheetPath, isFAQBottomSheetPath, isOfficerBottomSheetPath } from 'utils/bottom-sheet';
+import {
+  isReportBottomSheetPath, isFAQBottomSheetPath, isOfficerBottomSheetPath, isUnitProfileBottomSheetPath
+} from 'utils/bottom-sheet';
 
 describe('bottomSheetUtils', function () {
   describe('#isReportBottomSheetPath', function () {
@@ -36,6 +38,16 @@ describe('bottomSheetUtils', function () {
       isOfficerBottomSheetPath('/foo/officer/1/').should.be.false();
       isOfficerBottomSheetPath('/foo/bar').should.be.false();
       isOfficerBottomSheetPath('/officer/').should.be.false();
+    });
+  });
+
+  describe('isUnitProfileBottomSheetPath', function () {
+    it('returns true if path is unit profile bottom sheet', function () {
+      isUnitProfileBottomSheetPath('/unit/1/').should.be.true();
+    });
+
+    it('returns false if path is not unit profile bottom sheet', function () {
+      isUnitProfileBottomSheetPath('/foo/bar/').should.be.false();
     });
   });
 });

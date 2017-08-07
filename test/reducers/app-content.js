@@ -50,6 +50,13 @@ describe('appContentReducer', function () {
         pathname: '/edit/officer/13/'
       }
     }).should.eql('/edit/');
+
+    appContentReducer('/', {
+      type: '@@router/LOCATION_CHANGE',
+      payload: {
+        pathname: '/unit/13/'
+      }
+    }).should.eql('/');
   });
 
   it('should return default path if there\'s no previous state when handle LOCATION_CHANGE', function () {
@@ -71,6 +78,13 @@ describe('appContentReducer', function () {
       type: '@@router/LOCATION_CHANGE',
       payload: {
         pathname: '/officer/13/'
+      }
+    }).should.eql('/search/');
+
+    appContentReducer(null, {
+      type: '@@router/LOCATION_CHANGE',
+      payload: {
+        pathname: '/unit/13/'
       }
     }).should.eql('/search/');
   });
