@@ -143,8 +143,7 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          isOnSearchPage={ false }
-          appContent='/' />
+        appContent='/' />
       </Provider>
     );
 
@@ -166,7 +165,6 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          isOnSearchPage={ true }
           appContent='/'
         />
       </Provider>

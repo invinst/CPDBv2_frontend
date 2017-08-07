@@ -131,11 +131,3 @@ export const suggestionColumnsSelector = createSelector(
   coordinatesMapSelector,
   (coordinatesMap) => coordinatesMap.map(column => column.length)
 );
-
-export const isOnSearchPageSelector = createSelector(
-  getPathname,
-  (pathname) => (
-    pathname === `/${SEARCH_PATH}` ||
-    pathname.startsWith(`/edit/${SEARCH_PATH}`)
-  )
-);
