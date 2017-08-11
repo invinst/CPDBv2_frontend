@@ -87,6 +87,7 @@ export default class InlineAliasAdmin extends Component {
             renderInput={ this.renderInput }
             onlyUnique={ true }
             addKeys={ [13, 188] } // Enter & Comma
+            addOnBlur={ true }
           />
 
           <p style={ hintStyle }>
