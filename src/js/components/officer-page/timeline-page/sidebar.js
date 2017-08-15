@@ -7,11 +7,6 @@ import { wrapperStyle, leftButtonStyle, rightButtonStyle } from './sidebar.style
 
 
 export default class SideBar extends Component {
-  componentDidMount() {
-    const { fetchMinimap, officerId } = this.props;
-    fetchMinimap(officerId);
-  }
-
   rightButtonText() {
     const { sortDescending } = this.props;
     if (sortDescending) {
@@ -23,7 +18,7 @@ export default class SideBar extends Component {
 
   render() {
     const {
-      flipSortOrder, minimap, selectMinimapItem, sortDescending, hoverMinimapItem, hoveredItemIndex
+      flipSortOrder, minimap, selectMinimapItem, sortDescending, hoverMinimapItem, hoveredItemIndex, selectedItemIndex
     } = this.props;
     return (
       <div style={ wrapperStyle }>
@@ -34,23 +29,20 @@ export default class SideBar extends Component {
           </SideBarButton>
         </div>
         <Minimap minimap={ minimap } onItemClick={ selectMinimapItem } sortDescending={ sortDescending }
-          onItemHover={ hoverMinimapItem } hoveredItemIndex={ hoveredItemIndex }/>
+          onItemHover={ hoverMinimapItem } hoveredItemIndex={ hoveredItemIndex }
+          selectedItemIndex={ selectedItemIndex }/>
       </div>
     );
   }
 }
 
 SideBar.propTypes = {
-  fetchMinimap: PropTypes.func,
   sortDescending: PropTypes.bool,
   flipSortOrder: PropTypes.func,
   officerId: PropTypes.number,
   minimap: PropTypes.array,
   selectMinimapItem: PropTypes.func,
   hoverMinimapItem: PropTypes.func,
-  hoveredItemIndex: PropTypes.number
-};
-
-SideBar.defaultProps = {
-  fetchMinimap: () => {}
+  hoveredItemIndex: PropTypes.number,
+  selectedItemIndex: PropTypes.number
 };

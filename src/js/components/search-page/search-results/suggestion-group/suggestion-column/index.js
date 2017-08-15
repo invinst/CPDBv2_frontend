@@ -6,16 +6,32 @@ import SuggestionItem from './suggestion-item';
 
 
 export default class SuggestionColumn extends Component {
-  renderSuggestions() {
-    const { contentType, suggestions, suggestionClick } = this.props;
+  shouldComponentUpdate(nextProps) {
+    const activeColumnIndex = nextProps.navigation.columnIndex;
+    return (
+      nextProps.columnIndex === activeColumnIndex ||
+      nextProps.columnIndex === activeColumnIndex - 1 ||
+      nextProps.columnIndex === activeColumnIndex + 1
+    );
+  }
 
-    return map(suggestions, (suggestion, key) => {
+  renderSuggestions() {
+    const { contentType, suggestions, suggestionClick, columnIndex, navigation, aliasEditModeOn } = this.props;
+    let isFocused;
+
+    return map(suggestions, (suggestion, index) => {
+      isFocused = (columnIndex == navigation.columnIndex) && (index == navigation.itemIndex);
+
       return (
         <SuggestionItem
-          key={ key }
+          id={ `suggestion-item-${columnIndex}-${index}` }
+          key={ index }
+          suggestionType={ contentType.toLowerCase() }
           contentType={ contentType }
           suggestion={ suggestion }
-          suggestionClick={ suggestionClick }/>
+          suggestionClick={ suggestionClick }
+          isFocused={ isFocused }
+          aliasEditModeOn={ aliasEditModeOn } />
       );
     });
   }
@@ -32,12 +48,16 @@ export default class SuggestionColumn extends Component {
 }
 
 SuggestionColumn.propTypes = {
+  columnIndex: PropTypes.number,
+  navigation: PropTypes.object,
   index: PropTypes.number,
   suggestions: PropTypes.array,
   contentType: PropTypes.string,
-  suggestionClick: PropTypes.func
+  suggestionClick: PropTypes.func,
+  aliasEditModeOn: PropTypes.bool
 };
 
 SuggestionColumn.defaultProps = {
+  navigation: {},
   suggestionClick: () => {}
 };

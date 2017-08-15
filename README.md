@@ -4,23 +4,29 @@
 
 ## Getting Started
 
-- `sudo ansible-galaxy install Heroqu.nodejs4x`
-- `sudo ansible-galaxy install nicolai86.phantomjs`
 - Make sure your node and npm version match: (node v6.10.3, npm v3.10.10 and yarn v0.23.4)
-- `yarn install`
+- `yarn`
 
 ## Run Tests
 
 - `yarn test` to run tests.
-- `yarn cover` will run tests and output coverage statistics to `./lcov.info`
+- `yarn cover` will run tests and output coverage statistics to console.
 
 ## Run Selenium Tests
 
-- `yarn selenium install` to install latest selenium and driver.
-- `yarn selenium start` to start selenium standalone server.
 - `yarn live-test` to run selenium tests.
 
 ## Development
+
+First create a symlink to let the local devserver serve fonts correctly:
+
+```bash
+mkdir src/dist
+cd src/dist
+ln -s ../fonts fonts
+```
+
+Then:
 
 - `yarn start` to run development server (powered by [budo](https://github.com/mattdesl/budo))
 - visit `localhost:9966` to see live changes.
@@ -40,42 +46,15 @@ We use instances from Azure for now. Both can be ssh'ed into with "ansible" user
 
 Chrome 45+, Firefox 45+, IE 11, Safari 9+ and iOS 8+ Safari.
 
-## CSS Development Guide
+## Development Guides
 
-[Read here](docs/css-development-guide.md)
-
-## Animation Development Guide
-
-[Read here](docs/animation-development-guide.md)
-
-## Miscellaneous Frontend Best Practices
-
-[Read here](docs/miscellaneous-frontend-best-practices.md)
-
-## Redux Testing Guide
-
-Redux has well-documented testing guideline, please read it [here](http://redux.js.org/docs/recipes/WritingTests.html).
-
-## Reducers
-
-We use [redux-actions](https://github.com/acdlite/redux-actions) to create action. The simplest way to create a reducer is using `handleActions` from redux-actions. You can read it [here](https://github.com/acdlite/redux-actions#handleactionsreducermap-defaultstate).
-
-## Axios Mock Client(`utils/axios-mock-client`)
-
-[Read here](docs/axios-mock-client-development-guide.md)
-
-## Configured Axios Middleware(`middleware/configured-axios-middleware`)
-
-[Read here](docs/configured-axios-middleware-development-guide.md)
-
-## Async Action Creators
-
-[Read here](docs/async-action-creators-development-guide.md)
-
-## Selectors
-
-[Read here](docs/selectors-development-guide.md)
-
-## Nightwatch end-2-end testing
-
-[Read here](docs/nightwatch-testing-guide.md)
+- [CSS development guide](docs/css-development-guide.md)
+- [Animation development guide](docs/animation-development-guide.md)
+- [redux-actions usage](https://github.com/acdlite/redux-actions#usage)
+- [Redux testing guidelines](http://redux.js.org/docs/recipes/WritingTests.html)
+- [Axios mock client](docs/axios-mock-client-development-guide.md)
+- [Configured Axios middleware](docs/configured-axios-middleware-development-guide.md)
+- [Async action creators](docs/async-action-creators-development-guide.md)
+- [Selectors](docs/selectors-development-guide.md)
+- [WebdriverIO tests](docs/webdriverio.md)
+- [Miscelaneous topics](docs/miscellaneous-frontend-best-practices.md)

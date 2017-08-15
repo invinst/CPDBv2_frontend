@@ -13,10 +13,15 @@ export const tagStyle = (selected) => ({
 });
 
 export const dataToolTagStyle = {
-  ...tagStyle(),
+  ...tagStyle(false),
   cursor: 'default'
 };
 
+export const tagsWrapperHeight = 50;
+
 export const tagsWrapperStyle = {
-  padding: '9px 16px 91px'
+  padding: '9px 16px',
+  height: `${tagsWrapperHeight}px`,
+  boxSizing: 'border-box',
+  float: 'left'
 };

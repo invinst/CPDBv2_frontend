@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { isEmpty } from 'lodash';
 
-import { resultWrapperStyle, helperTextStyle, recentRandomWrapperStyle } from './search-no-input.style';
+import { helperTextStyle, recentRandomWrapperStyle } from './search-no-input.style';
 import RecentSuggestion from './recent-suggestion';
 
 
@@ -20,7 +20,7 @@ export default class SuggestionNoInput extends Component {
 
   render() {
     return (
-      <div style={ resultWrapperStyle }>
+      <div>
         <div style={ helperTextStyle } className='search-hint'>
           Search by officer name, badge number, or neighborhood.
         </div>

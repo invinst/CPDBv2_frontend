@@ -7,9 +7,11 @@ import { browserHistory } from 'react-router';
 import rootReducer from 'reducers/root-reducer';
 import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
 import bodyScrollMiddleware from 'middleware/body-scroll-middleware';
+import searchPath from 'middleware/search-path';
 import bottomSheetPath from 'middleware/bottom-sheet-path';
 import tracking from 'middleware/tracking';
 import localStorageConfig from './local-storage-config';
+import preloadOfficerPageDataMiddleware from 'middleware/preload-officer-page-data-middleware';
 
 
 export default function configureStore(initialState) {
@@ -18,8 +20,8 @@ export default function configureStore(initialState) {
     initialState,
     compose(
       applyMiddleware(
-        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath, tracking,
-        routerMiddleware(browserHistory)
+        thunk, configuredAxiosMiddleware, bodyScrollMiddleware, bottomSheetPath, searchPath, tracking,
+        routerMiddleware(browserHistory), preloadOfficerPageDataMiddleware
       ),
       persistState(()=>{}, localStorageConfig)
     )

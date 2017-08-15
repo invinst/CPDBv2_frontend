@@ -1,0 +1,19 @@
+.react-tagsinput {
+  border: 1px solid #D002CD;
+  background-color: white;
+  padding: 5px 5px 0px 5px;
+  font-size: 12px;
+  border-radius: 2px;
+  width: 300px;
+}
+
+.react-tagsinput-tag {
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  background-color: #FFE8FF;
+  color: #E25AE1;
+  padding: 2px 5px;
+  line-height: 12px;
+  border-radius: 1px;
+}

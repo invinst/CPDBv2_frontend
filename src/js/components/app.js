@@ -1,3 +1,4 @@
+import { includes } from 'lodash';
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
 import React, { PropTypes } from 'react';
@@ -8,6 +9,7 @@ import EditModeContainer from 'containers/inline-editable/edit-mode-container';
 import Header from 'components/header';
 import LoginModalContainer from 'containers/login-modal-container';
 import SearchPageContainer from 'containers/search-page-container';
+import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
 import RouteTransition from 'components/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
@@ -26,7 +28,15 @@ export default class App extends React.Component {
 
   componentWillMount() {
     LayeredKeyBinding.bind('esc', () => this.props.toggleEditMode(this.props.location.pathname));
-    ALPHA_NUMBERIC.map((letter) => (LayeredKeyBinding.bind(letter, this.props.toggleSearchMode)));
+    ALPHA_NUMBERIC.forEach((letter) => {
+      LayeredKeyBinding.bind(letter, () => {
+        const pathname = this.props.location.pathname;
+        if (['/', '/edit/'].includes(pathname)) {
+          this.props.changeSearchQuery(letter);
+          this.props.toggleSearchMode();
+        }
+      });
+    });
   }
 
   componentDidMount() {
@@ -58,7 +68,11 @@ export default class App extends React.Component {
   }
 
   showHeader(children) {
-    return (!children || [SearchPageContainer].indexOf(children.type) === -1);
+    const headerlessPages = [SearchPageContainer, InlineAliasAdminContainer];
+    return (
+      !children ||
+      !includes(headerlessPages, children.type)
+    );
   }
 
   render() {
@@ -94,11 +108,15 @@ App.propTypes = {
   showLoginModal: PropTypes.bool,
   location: locationShape,
   toggleEditMode: PropTypes.func,
-  toggleSearchMode: PropTypes.func
+  toggleSearchMode: PropTypes.func,
+  changeSearchQuery: PropTypes.func
 };
 
 App.defaultProps = {
   params: {},
-  location: {},
-  receiveTokenFromCookie: () => {}
+  location: {
+    pathname: ''
+  },
+  receiveTokenFromCookie: () => {},
+  changeSearchQuery: () => {}
 };

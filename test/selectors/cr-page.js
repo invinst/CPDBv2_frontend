@@ -5,14 +5,18 @@ import { contentSelector } from 'selectors/cr-page';
 
 describe('CR page selectors', function () {
   describe('contentSelector', function () {
-    it('should return empty coaccused and complainants array if crid does not exist', function () {
-      const state = { crs: {} };
-      const props = { crid: 123 };
+    it('should return empty coaccused, complainants, documents, videos and audios array if crid does not exist',
+      function () {
+        const state = { crs: {} };
+        const props = { crid: 123 };
 
-      contentSelector(state, props).coaccused.should.eql([]);
-      contentSelector(state, props).complainants.should.eql([]);
-      contentSelector(state, props).involvements.should.eql([]);
-    });
+        contentSelector(state, props).coaccused.should.eql([]);
+        contentSelector(state, props).complainants.should.eql([]);
+        contentSelector(state, props).involvements.should.eql([]);
+        contentSelector(state, props).documents.should.eql([]);
+        contentSelector(state, props).videos.should.eql([]);
+        contentSelector(state, props).audios.should.eql([]);
+      });
 
     it('should return list of complainants display string', function () {
       const complainant1 = { race: 'White', gender: 'Male', age: 18 };
@@ -111,6 +115,30 @@ describe('CR page selectors', function () {
       result.address.should.eql('123 Positiv Ave.');
       result.location.should.eql('Police Building');
       result.beat.should.eql({ name: '1134' });
+    });
+
+    it('should return list of documents', function () {
+      const doc = { title: 'abc', url: 'def' };
+      const state = { crs: { '123': { documents: [doc] } } };
+      const props = { crid: 123 };
+
+      contentSelector(state, props).documents.should.eql([doc]);
+    });
+
+    it('should return list of videos', function () {
+      const video = { title: 'abc', url: 'def' };
+      const state = { crs: { '123': { videos: [video] } } };
+      const props = { crid: 123 };
+
+      contentSelector(state, props).videos.should.eql([video]);
+    });
+
+    it('should return list of documents', function () {
+      const audio = { title: 'abc', url: 'def' };
+      const state = { crs: { '123': { audios: [audio] } } };
+      const props = { crid: 123 };
+
+      contentSelector(state, props).audios.should.eql([audio]);
     });
   });
 });

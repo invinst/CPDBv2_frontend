@@ -16,3 +16,7 @@ export function isOfficerBottomSheetPath(path) {
 export function isComplaintBottomSheetPath(path) {
   return !!path.match(/^(\/edit)?\/complaint\/(\d+)\/(\d+)\//);
 }
+
+export function isUnitProfileBottomSheetPath(path) {
+  return !!path.match(/^\/unit\/(\d+)\//);
+}

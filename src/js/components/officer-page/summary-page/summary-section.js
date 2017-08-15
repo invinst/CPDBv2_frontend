@@ -10,13 +10,26 @@ import {
 
 
 export default class SummarySection extends Component {
+  formatCareerDate(inputDate) {
+    return moment(inputDate).format('ll').toUpperCase();
+  }
+
   summaryFields() {
-    const { rank, dateOfAppt, race, gender, badge } = this.props.officerSummary;
+    const { rank, dateOfAppt, dateOfResignation, race, gender, badge, agency } = this.props.officerSummary;
+
+    const careerStart = this.formatCareerDate(dateOfAppt);
+    const careerEnd = dateOfResignation ? this.formatCareerDate(dateOfResignation) : 'PRESENT';
+    const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
+    const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
+    const agencyText = agency ? `with ${agency}` : 'veteran';
+
     return [
       ['Rank', rank],
-      ['Date of Appt.',
-       moment(dateOfAppt).format('ll').toUpperCase(),
-       `${moment().year() - moment(dateOfAppt).year()} year veteran`],
+      [
+        'Career',
+        `${careerStart}—${careerEnd}`,
+        `${yearsSinceAppt} ${yearText} ${agencyText}`
+      ],
       ['Badge', badge],
       ['Race', race],
       ['2016 Salary', 'DATA NOT READY'],
@@ -27,7 +40,8 @@ export default class SummarySection extends Component {
 
 
   render() {
-    const { unitName } = this.props.officerSummary;
+    const { officerSummary, openBottomSheetWithPoliceUnit } = this.props;
+    const { unitName } = officerSummary;
     const summaryFields = this.summaryFields();
 
     return (
@@ -35,7 +49,7 @@ export default class SummarySection extends Component {
         <div style={ unitWrapperStyle }>
           <span className='test--field-unit-label' style={ unitLabelStyle }>Unit</span>
           <span className='test--field-unit-value' style={ unitValueStyle }>{ unitName }</span>
-          <ViewUnitProfileButton unitName={ unitName }/>
+          <ViewUnitProfileButton unitName={ unitName } onClick={ openBottomSheetWithPoliceUnit }/>
         </div>
         <div style={ fieldsWrapperStyle }>
           { map(summaryFields, ([label, value, description], ind) => {
@@ -51,7 +65,8 @@ export default class SummarySection extends Component {
 }
 
 SummarySection.propTypes = {
-  officerSummary: PropTypes.object
+  officerSummary: PropTypes.object,
+  openBottomSheetWithPoliceUnit: PropTypes.func
 };
 
 SummarySection.defaultProps = {

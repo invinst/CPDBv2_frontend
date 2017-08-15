@@ -96,12 +96,16 @@ describe('store', function () {
         locationBeforeTransitions: null
       },
       searchPage: {
+        navigation: { 'columnIndex': 0, 'itemIndex': 0 },
         isRequesting: false,
         suggestionGroups: {},
         contentType: null,
         recentSuggestions: [],
-        tags: []
+        tags: [],
+        query: '',
+        itemsPerColumn: 10
       },
+      inlineAliasAdminPage: {},
       crPage: {
         isRequesting: false
       },
@@ -129,6 +133,10 @@ describe('store', function () {
           selectedItemIndex: null,
           sortDescending: true
         }
+      },
+      unitProfilePage: {
+        isRequesting: false,
+        summary: {}
       }
     });
   });

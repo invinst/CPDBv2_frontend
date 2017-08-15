@@ -31,9 +31,11 @@ export const navWrapperStyle = {
   textAlign: 'right'
 };
 
+export const navWrapperCompactHeight = 83;
+
 export const navWrapperCompactStyle = {
   padding: '31px 32px 32px 0',
-  height: '83px',
+  height: `${navWrapperCompactHeight}px`,
   boxSizing: 'border-box',
   textAlign: 'right',
   float: 'right',

@@ -12,7 +12,7 @@ class CoverImage extends React.Component {
     }
 
     return (
-      <div style={ style }></div>
+      <div style={ style } />
     );
   }
 }

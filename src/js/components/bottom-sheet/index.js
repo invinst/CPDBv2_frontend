@@ -7,6 +7,7 @@ import ReportContainer from 'containers/bottom-sheet/report';
 import FAQContainer from 'containers/bottom-sheet/faq';
 import OfficerContainer from 'containers/officer-page';
 import CRContainer from 'containers/cr-page';
+import UnitProfileContainer from 'containers/unit-profile-page';
 import { overlayStyle, sheetStyle, sheetWrapperStyle, closeBottomSheetTriggerStyle } from './bottom-sheet.style';
 import { BottomSheetContentType } from 'utils/constants';
 import { defaultConfig } from 'utils/spring-presets';
@@ -20,7 +21,8 @@ export default class BottomSheet extends Component {
       [BottomSheetContentType.REPORT]: ReportContainer,
       [BottomSheetContentType.FAQ]: FAQContainer,
       [BottomSheetContentType.OFFICER]: OfficerContainer,
-      [BottomSheetContentType.CR]: CRContainer
+      [BottomSheetContentType.CR]: CRContainer,
+      [BottomSheetContentType.UNIT_PROFILE]: UnitProfileContainer
     };
   }
 

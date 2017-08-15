@@ -14,21 +14,21 @@ describe('hoveredItemIndex reducer', function () {
   it('should handle OFFICER_TIMELINE_HOVER_MINIMAP_ITEM', function () {
     hoveredItemIndex(undefined, {
       type: OFFICER_TIMELINE_HOVER_MINIMAP_ITEM,
-      payload: { 'index': 3 }
+      payload: 3
     }).should.eql(3);
   });
 
   it('should handle OFFICER_TIMELINE_SELECT_MINIMAP_ITEM', function () {
     hoveredItemIndex(undefined, {
       type: OFFICER_TIMELINE_SELECT_MINIMAP_ITEM,
-      payload: { 'index': 4 }
+      payload: 4
     }).should.eql(4);
   });
 
   it('should handle OFFICER_TIMELINE_HOVER_TIMELINE_ITEM', function () {
     hoveredItemIndex(undefined, {
       type: OFFICER_TIMELINE_HOVER_TIMELINE_ITEM,
-      payload: { 'index': 4 }
+      payload: 4
     }).should.eql(4);
   });
 });

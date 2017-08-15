@@ -6,11 +6,19 @@ import { searchInputStyle } from './search-box.style';
 
 export default class SearchBox extends Component {
   componentDidMount() {
-    const { onEscape, onEnter } = this.props;
+    const { onEscape, onEnter, value } = this.props;
     this.searchInput.focus();
+    if (value) {
+      // Make sure the text input cursor is always at the end
+      this.searchInput.setSelectionRange(value.length, value.length);
+    }
     this.mousetrap = new Mousetrap(this.searchInput);
     this.mousetrap.bind('esc', onEscape);
     this.mousetrap.bind('enter', onEnter);
+    ['up', 'down'].map((direction) => (this.mousetrap.bind(
+      direction,
+      () => (this.searchInput.blur())
+    )));
   }
 
   render() {

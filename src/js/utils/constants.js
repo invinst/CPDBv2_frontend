@@ -1,5 +1,9 @@
 import Enum from 'enum';
 
+import {
+  darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
+  galleryColor, lightAltoColor
+} from 'utils/styles';
 
 export const TOP = 'top';
 export const BOTTOM = 'bottom';
@@ -21,9 +25,12 @@ export const DATA_PATH = 'data/';
 export const FAQ_PATH = 'faq/';
 export const STORIES_PATH = 'reporting/';
 export const SEARCH_PATH = 'search/';
+export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
+export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
 export const OFFICER_TIMELINE_PATH = 'officer/:officerId/timeline';
 export const CR_PATH = 'complaint/:crid/:officerId';
+export const UNIT_PROFILE_PATH = 'unit/:unitName';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
@@ -70,6 +77,8 @@ export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
+export const UNIT_PROFILE_URL = `${V2_ROOT_PATH}units/`;
+export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -103,6 +112,10 @@ export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
 export const OFFICER_SUMMARY_REQUEST_FAILURE = 'OFFICER_SUMMARY_REQUEST_FAILURE';
 
+export const UNIT_PROFILE_SUMMARY_REQUEST_START = 'UNIT_PROFILE_SUMMARY_REQUEST_START';
+export const UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS = 'UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS';
+export const UNIT_PROFILE_SUMMARY_REQUEST_FAILURE = 'UNIT_PROFILE_SUMMARY_REQUEST_FAILURE';
+
 export const OPEN_BOTTOM_SHEET_WITH_REPORT = 'OPEN_BOTTOM_SHEET_WITH_REPORT';
 export const OPEN_BOTTOM_SHEET_WITH_FAQ = 'OPEN_BOTTOM_SHEET_WITH_FAQ';
 export const OPEN_BOTTOM_SHEET_WITH_OFFICER = 'OPEN_BOTTOM_SHEET_WITH_OFFICER';
@@ -110,15 +123,22 @@ export const OPEN_BOTTOM_SHEET_WITH_COMPLAINT = 'OPEN_BOTTOM_SHEET_WITH_COMPLAIN
 export const CLOSE_BOTTOM_SHEET = 'CLOSE_BOTTOM_SHEET';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_FAQ = 'OPEN_BOTTOM_SHEET_TO_CREATE_FAQ';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_REPORT = 'OPEN_BOTTOM_SHEET_TO_CREATE_REPORT';
+export const OPEN_BOTTOM_SHEET_WITH_POLICE_UNIT = 'OPEN_BOTTOM_SHEET_WITH_POLICE_UNIT';
+
+export const OPEN_SEARCH_PAGE = 'OPEN_SEARCH_PAGE';
 
 export const CR_REQUEST_START = 'CR_REQUEST_START';
 export const CR_REQUEST_SUCCESS = 'CR_REQUEST_SUCCESS';
 export const CR_REQUEST_FAILURE = 'CR_REQUEST_FAILURE';
 
-export const ALPHA_NUMBERIC = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
-                               'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
-                               'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
-                               'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+export const ALPHA_NUMBERIC = [
+  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
+  'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+  'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y',
+  'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+];
+
+export const NAVIGATION_KEYS = ['up', 'down', 'right', 'left'];
 
 export const SIGNIN_REQUEST = 'SIGNIN_REQUEST';
 export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
@@ -144,11 +164,24 @@ export const OFFICER_TIMELINE_FLIP_SORT_ORDER = 'OFFICER_TIMELINE_FLIP_SORT_ORDE
 export const OFFICER_TIMELINE_SELECT_MINIMAP_ITEM = 'OFFICER_TIMELINE_SELECT_MINIMAP_ITEM';
 export const OFFICER_TIMELINE_HOVER_MINIMAP_ITEM = 'OFFICER_TIMELINE_HOVER_MINIMAP_ITEM';
 export const OFFICER_TIMELINE_HOVER_TIMELINE_ITEM = 'OFFICER_TIMELINE_HOVER_TIMELINE_ITEM';
+export const OFFICER_TIMELINE_SELECT_TIMELINE_ITEM = 'OFFICER_TIMELINE_SELECT_TIMELINE_ITEM';
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
+export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
 
-export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR']);
+export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR', 'UNIT_PROFILE']);
 
 export const TimelineItemType = new Enum(['CR', 'UNIT', 'YEAR', 'JOINED']);
 
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
+
+export const FINDING_COLORS = {
+  'Unfounded': darkSilverSandColor,
+  'Exonerated': skepticColor,
+  'Not Sustained': jaggedIceColor,
+  'Sustained': romanticColor,
+  'No Cooperation': porcelainColor,
+  'No Affidavit': botticelliColor,
+  'Discharged': galleryColor,
+  'Unknown': lightAltoColor
+};

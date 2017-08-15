@@ -5,6 +5,19 @@ require('should');
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
 
+describe('Landing Page to Search Page', function () {
+  beforeEach(function () {
+    landingPage.open();
+  });
+
+  it('should activate search page with correct query when user types anything from landing page', function () {
+    browser.keys('foobar');
+    searchPage.input.waitForVisible();
+    landingPage.currentBasePath.should.equal('/search/');
+    searchPage.input.getValue().should.containEql('foobar');
+  });
+});
+
 describe('Search Page', function () {
 
   beforeEach(function () {
@@ -23,6 +36,32 @@ describe('Search Page', function () {
     searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly'); // officer name
     searchPage.contentWrapper.getText().should.containEql('7186'); // officer bdage
     searchPage.contentWrapper.getText().should.containEql('Kenwood'); // neighborhood
+  });
+
+  it('should show fewer results if there is not enough vertical space', function () {
+    browser.setViewportSize({ width: 1280, height: 710 });
+    searchPage.open();
+
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.rootElement.waitForVisible();
+    searchPage.contentWrapper.waitForVisible();
+    searchPage.officerResults.count.should.eql(6);
+  });
+
+  it('should show filtered result when user clicks "Show more results"', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.loadMoreButton.click();
+    searchPage.contentWrapper.waitForVisible();
+    searchPage.contentWrapper.getText().should.containEql('OFFICER');
+    searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
+    searchPage.contentWrapper.getText().should.containEql('Charles Kelly'); // another officer
+    searchPage.contentWrapper.getText().should.not.containEql('NEIGHBORHOOD');
   });
 
   it('should show filtered result when user select tag', function () {

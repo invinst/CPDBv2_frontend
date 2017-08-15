@@ -30,7 +30,7 @@ export default class ReportGroup extends Component {
 
     return (
       <div style={ { ...groupStyle, ...responsiveStyle.base } }>
-      {
+        {
         reports.map((report, ind) => (
           <Report
             key={ ind }

@@ -39,11 +39,11 @@ export default class SmoothScroller extends Component {
     const _scrollTop = this.getScrollTop();
     return (
       <Motion style={ { scrollTop: spring(_scrollTop, defaultConfig()) } } defaultStyle={ { scrollTop: _scrollTop } }>
-      { ({ scrollTop }) => (
-        <Scroller style={ style } scrollTop={ scrollTop }
-          onElementRef={ this.handleScrollerElementRef }>
-        { children }
-        </Scroller>
+        { ({ scrollTop }) => (
+          <Scroller style={ style } scrollTop={ scrollTop }
+            onElementRef={ this.handleScrollerElementRef }>
+            { children }
+          </Scroller>
       ) }
       </Motion>
     );

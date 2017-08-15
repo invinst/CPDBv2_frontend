@@ -5,6 +5,9 @@ import isRequesting from './is-requesting';
 import contentType from './content-type';
 import tags from './tags';
 import recentSuggestions from './recent-suggestions';
+import navigation from './navigation';
+import query from './query';
+import itemsPerColumn from './items-per-column';
 
 
 const searchPage = combineReducers({
@@ -12,7 +15,10 @@ const searchPage = combineReducers({
   isRequesting,
   contentType,
   tags,
-  recentSuggestions
+  recentSuggestions,
+  navigation,
+  query,
+  itemsPerColumn
 });
 
 export default searchPage;

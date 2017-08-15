@@ -1,30 +1,41 @@
 import React, { Component, PropTypes } from 'react';
-import { map, chunk } from 'lodash';
+import { map } from 'lodash';
 
 import { suggestionGroupStyle, groupHeaderStyle } from './suggestion-group.style';
 import SuggestionColumn from './suggestion-column';
 import LoadMoreButton from './load-more-button';
 
 
-
 export default class SuggestionGroup extends Component {
   renderColumns() {
-    const { suggestions, header, suggestionClick } = this.props;
+    const {
+      suggestions,
+      header,
+      suggestionClick,
+      columnIndex,
+      navigation,
+      aliasEditModeOn
+    } = this.props;
 
-    return map(chunk(suggestions, 10), (suggestions, key) => (
-      <SuggestionColumn
-        key={ key }
-        suggestionClick={ suggestionClick }
-        contentType={ header }
-        suggestions={ suggestions }
-        index={ key }/>
-    ));
+    return map(suggestions, (suggestionsInColumn, key) => {
+      return (
+        <SuggestionColumn
+          key={ key }
+          navigation={ navigation }
+          suggestionClick={ suggestionClick }
+          contentType={ header }
+          suggestions={ suggestionsInColumn }
+          index={ key }
+          columnIndex={ columnIndex + key }
+          aliasEditModeOn={ aliasEditModeOn } />
+      );
+    });
   }
 
   renderLoadMore() {
-    const { suggestions, onLoadMore, header } = this.props;
+    const { onLoadMore, header, canLoadMore } = this.props;
 
-    if (suggestions.length === 9) {
+    if (canLoadMore) {
       return (
         <LoadMoreButton onLoadMore={ onLoadMore } header={ header }/>
       );
@@ -49,13 +60,18 @@ export default class SuggestionGroup extends Component {
 }
 
 SuggestionGroup.propTypes = {
+  columnIndex: PropTypes.number,
+  navigation: PropTypes.object,
   suggestions: PropTypes.array,
   header: PropTypes.string,
   onLoadMore: PropTypes.func,
-  suggestionClick: PropTypes.func
+  suggestionClick: PropTypes.func,
+  canLoadMore: PropTypes.bool,
+  aliasEditModeOn: PropTypes.bool
 };
 
 SuggestionGroup.defaultProps = {
   suggestions: [],
-  header: ''
+  header: '',
+  onLoadMore: function () {}
 };

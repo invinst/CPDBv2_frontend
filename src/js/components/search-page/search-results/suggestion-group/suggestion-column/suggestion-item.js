@@ -1,15 +1,35 @@
 import React, { Component, PropTypes } from 'react';
-import { join, get } from 'lodash';
+import { get } from 'lodash';
+import classnames from 'classnames';
 import { Link } from 'react-router';
 
 import Hoverable from 'components/common/higher-order/hoverable';
-import { suggestionItemStyle, suggestionTextStyle, metaTextStyle, tagStyle } from './suggestion-item.style';
+import SuggestionItemTextContainer from 'containers/search-page/suggestion-item-text-container';
+import SuggestionEnterBadge from './suggestion-item-enter-badge';
+import {
+  suggestionItemStyle
+} from './suggestion-item.style';
 
 
 class SuggestionItem extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      enteringFocusedState: false
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    /*
+      When isFocused is changed from false to true, set `enteringFocusedState` to true
+      then immediately set it back to false. This allows custom starting position
+      for "enter" animations. See `textContainer` below for an example.
+    */
+    if (!this.props.isFocused && nextProps.isFocused) {
+      this.setState({ enteringFocusedState: true });
+      setTimeout(() => { this.setState({ enteringFocusedState: false }); }, 10);
+    }
   }
 
   handleClick(text, href, to) {
@@ -18,58 +38,69 @@ class SuggestionItem extends Component {
   }
 
   render() {
-    const { suggestion, hovering } = this.props;
+    const { suggestion, hovering, isFocused, aliasEditModeOn, suggestionType } = this.props;
     const text = get(suggestion, 'payload.result_text', '');
     const href = get(suggestion, 'payload.url', '');
     const to = get(suggestion, 'payload.to', '');
+    const aliases = get(suggestion, 'payload.tags', []) || []; // lodash.get() treats null as a positive too
     const extraText = get(suggestion, 'payload.result_extra_information', '');
-    const tags = get(suggestion, 'payload.tags', []);
+    const suggestionItemClassName = classnames('suggestion-item', { 'focused': isFocused });
+    const reason = get(suggestion, 'payload.result_reason', '');
 
     const commonWrapperProps = {
       style: suggestionItemStyle,
       onClick: this.handleClick.bind(this, text, href, to)
     };
+
     const children = [
-      <div
-        key='suggestion'
-        className='link--transition'
-        style={ suggestionTextStyle(hovering) }>
-        { text }
-      </div>,
-      <div
-        key='meta'
-        className='link--transition'
-        style={ metaTextStyle(hovering) }>
-        { extraText }
-      </div>,
-      <div
-        key='tag'
-        className='link--transition'
-        style={ tagStyle(hovering) }>
-        { join(tags, ', ') }
-      </div>
+      <SuggestionEnterBadge
+        key='enter-badge'
+        isFocused={ isFocused }
+      />,
+      <SuggestionItemTextContainer
+        key='text'
+        id={ suggestion.id }
+        text={ text }
+        suggestionType={ suggestionType }
+        extraText={ extraText }
+        reason={ reason }
+        aliases={ aliases }
+        hovering={ hovering }
+        isFocused={ isFocused }
+        enteringFocusedState={ this.state.enteringFocusedState }
+        aliasEditModeOn={ aliasEditModeOn }
+      />
     ];
 
-    if (to) {
-      return (
-        <Link to={ to } { ...commonWrapperProps }>{ children }</Link>
-      );
-    }
+    const linkTag = (to ?
+      <Link to={ to } { ...commonWrapperProps }>{ children }</Link> :
+      <a href={ href } { ...commonWrapperProps } >{ children }</a>
+    );
+
     return (
-      <a href={ href } { ...commonWrapperProps }>{ children }</a>
+      <div className={ suggestionItemClassName } id={ this.props.id }>
+        { aliasEditModeOn ? <div style={ suggestionItemStyle }>{ children }</div> : linkTag }
+      </div>
     );
   }
 }
 
 SuggestionItem.defaultProps = {
-  suggestionClick: () => {}
+  suggestionClick: () => {},
+  suggestion: {}
 };
 
 SuggestionItem.propTypes = {
+  id: PropTypes.string,
+  isFocused: PropTypes.bool,
   suggestion: PropTypes.object,
   suggestionClick: PropTypes.func,
   hovering: PropTypes.bool,
-  contentType: PropTypes.string
+  contentType: PropTypes.string,
+  aliasEditModeOn: PropTypes.bool,
+  suggestionType: PropTypes.string
 };
 
 export default Hoverable(SuggestionItem);
+
+export const UnwrappedSuggestionItem = SuggestionItem;

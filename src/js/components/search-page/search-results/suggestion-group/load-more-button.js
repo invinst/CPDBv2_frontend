@@ -8,7 +8,10 @@ class LoadMoreButton extends Component {
     const { onLoadMore, hovering, header } = this.props;
 
     return (
-      <div className='link--transition' style={ loadMoreButtonStyle } onClick={ onLoadMore.bind(null, header) }>
+      <div
+        className='link--transition test--load-more-button'
+        style={ loadMoreButtonStyle }
+        onClick={ onLoadMore.bind(null, header) }>
         <div style={ suggestionTextStyle(hovering) }>Show more results</div>
       </div>
     );
@@ -20,6 +23,10 @@ LoadMoreButton.propTypes = {
   onLoadMore: PropTypes.func,
   header: PropTypes.string,
   hovering: PropTypes.bool
+};
+
+LoadMoreButton.defaultProps = {
+  onLoadMore: function () {}
 };
 
 export default Hoverable(LoadMoreButton);

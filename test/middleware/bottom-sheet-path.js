@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 import bottomSheetPathMiddleware from 'middleware/bottom-sheet-path';
 import {
   openBottomSheetWithReport, openBottomSheetToCreateReport, closeBottomSheet, openBottomSheetWithFAQ,
-  openBottomSheetToCreateFAQ, openBottomSheetWithOfficer, openBottomSheetWithComplaint
+  openBottomSheetToCreateFAQ, openBottomSheetWithOfficer, openBottomSheetWithComplaint, openBottomSheetWithPoliceUnit
 } from 'actions/bottom-sheet';
 import * as editPathUtils from 'utils/edit-path';
 
@@ -77,6 +77,14 @@ describe('bottomSheetPathMiddleware', function () {
     const dispatchAction = openBottomSheetToCreateFAQ();
     bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
     editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/faq/new/');
+    dispatched.should.eql(dispatchAction);
+  });
+
+  it('should push bottom sheet path on OPEN_BOTTOM_SHEET_WITH_POLICE_UNIT', function () {
+    let dispatched;
+    const dispatchAction = openBottomSheetWithPoliceUnit('007');
+    bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
+    editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/unit/007/');
     dispatched.should.eql(dispatchAction);
   });
 });

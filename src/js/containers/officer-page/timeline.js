@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import Timeline from 'components/officer-page/timeline-page/timeline';
 import {
-  fetchTimelineItems, fetchTimelineItemsWhenIndexOutOfBound, hoverTimelineItem
+  fetchTimelineItems, fetchTimelineItemsWhenIndexOutOfBound, hoverTimelineItem, selectTimelineItem
 } from 'actions/officer-page/timeline';
 import { openBottomSheetWithComplaint } from 'actions/bottom-sheet';
 import {
@@ -27,7 +27,8 @@ const mapDispatchToProps = {
   fetchTimelineItems,
   fetchTimelineItemsWhenIndexOutOfBound,
   openBottomSheetWithComplaint,
-  hoverTimelineItem
+  hoverTimelineItem,
+  selectTimelineItem
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timeline);

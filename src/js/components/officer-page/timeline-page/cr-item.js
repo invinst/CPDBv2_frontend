@@ -8,11 +8,23 @@ import {
 
 
 export class CRItem extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { onClick, item, officerId } = this.props;
+    const { crid } = item;
+    onClick();
+    this.context.openBottomSheetWithComplaint({ officerId, crid });
+  }
+
   render() {
-    const { hovering, item, flashRatio, onClick } = this.props;
+    const { hovering, item, flashRatio } = this.props;
     const { crid, date, category, finding, subcategory, coaccused, hasDocument, hasAudio } = item;
     return (
-      <div style={ wrapperStyle } onClick={ () => onClick(crid) }>
+      <div className='test--cr-item-wrapper' style={ wrapperStyle } onClick={ this.handleClick }>
         <div>
           <span className='test--cr-item-crid' style={ crTextStyle }>
             CR <span style={ crNumberStyle }>{ crid }</span>
@@ -24,7 +36,7 @@ export class CRItem extends Component {
         </div>
         <div className='test--cr-item-subcategory' style={ subcategoryStyle(hovering) }>{ subcategory }</div>
         <div>
-          <span className='test--cr-item-finding' style={ findingStyle }>{ finding }</span>
+          <span className='test--cr-item-finding' style={ findingStyle(finding) }>{ finding }</span>
         </div>
         <div>
           <span className='test--cr-item-coaccused' style={ coaccusedStyle }>1 of { coaccused } Coaccused</span>
@@ -39,12 +51,17 @@ export class CRItem extends Component {
 CRItem.propTypes = {
   hovering: PropTypes.bool,
   item: PropTypes.object,
+  officerId: PropTypes.number,
   flashRatio: PropTypes.number,
   onClick: PropTypes.func
 };
 
 CRItem.defaultProps = {
   item: {}
+};
+
+CRItem.contextTypes = {
+  openBottomSheetWithComplaint: PropTypes.func
 };
 
 export default Hoverable(CRItem);
