@@ -5,6 +5,19 @@ require('should');
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
 
+describe('Landing Page to Search Page', function () {
+  beforeEach(function () {
+    landingPage.open();
+  });
+
+  it('should activate search page with correct query when user types anything from landing page', function () {
+    browser.keys('foobar');
+    searchPage.input.waitForVisible();
+    landingPage.currentBasePath.should.equal('/search/');
+    searchPage.input.getValue().should.containEql('foobar');
+  });
+});
+
 describe('Search Page', function () {
 
   beforeEach(function () {
