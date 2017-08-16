@@ -27,7 +27,7 @@ export default class SVGComponent extends Component {
           { endDate
           ? [
             <DateTextSVG key='1' y='89'>{ moment(endDate).format('ll') }</DateTextSVG>,
-            <EventTextSVG key='2' y='180'>Investigation Closed</EventTextSVG>
+            <EventTextSVG key='2' y='105'>Investigation Closed</EventTextSVG>
           ]
           : <EventTextSVG y='89'>Investigation Closed</EventTextSVG>
         }
