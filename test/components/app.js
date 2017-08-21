@@ -187,7 +187,7 @@ describe('App component', function () {
         </App>
       </Provider>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--header-logo').length.should.eql(0);
+    scryRenderedDOMComponentsWithClass(instance, 'test--slim-header').length.should.eql(0);
   });
 
   it('should display header if children is not a SearchPageContainer', function () {
@@ -195,12 +195,13 @@ describe('App component', function () {
       <Provider store={ store }>
         <App
           location={ location }
-          appContent='/'>
+          appContent='/'
+        >
           abc
         </App>
       </Provider>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--header-logo').length.should.not.eql(0);
+    scryRenderedDOMComponentsWithClass(instance, 'test--slim-header').length.should.not.eql(0);
   });
 
   it('should not update prevChildren if previous page is a bottom sheet', function () {
