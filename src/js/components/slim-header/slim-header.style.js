@@ -6,7 +6,10 @@ export const slimHeaderStyle = {
   height: `${SLIM_HEADER_HEIGHT}px`,
   lineHeight: '22px',
   padding: '0 16px',
-  backgroundColor: 'white'
+  backgroundColor: 'white',
+  position: 'fixed',
+  zIndex: 1,
+  width: 'inherit'
 };
 
 const linkStyle = {
@@ -30,4 +33,8 @@ export const rightLinkStyle = {
 
 export const rightLinksWrapperStyle = {
   float: 'right'
+};
+
+export const outerStyle = {
+  width: 'inherit'
 };

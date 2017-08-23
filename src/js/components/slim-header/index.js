@@ -7,7 +7,13 @@ import { editMode } from 'utils/edit-path';
 import ConfiguredRadium from 'utils/configured-radium';
 import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 import LogOutButtonContainer from 'containers/log-out-container';
-import { slimHeaderStyle, leftLinkStyle, rightLinkStyle, rightLinksWrapperStyle } from './slim-header.style';
+import {
+  slimHeaderStyle,
+  leftLinkStyle,
+  rightLinkStyle,
+  rightLinksWrapperStyle,
+  outerStyle
+} from './slim-header.style';
 
 const links = [
   {
@@ -50,20 +56,28 @@ class SlimHeader extends Component {
     ));
 
     return (
-      <ResponsiveFixedWidthComponent>
-        <div style={ slimHeaderStyle } className='test--slim-header'>
-          <Link
-            style={ leftLinkStyle }
-            to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
-            className='test--header-logo'
-          >
-            Citizens Police Data Project
-          </Link>
-          <div style={ rightLinksWrapperStyle }>
-            { rightLinks }
-            <LogOutButtonContainer pathname={ pathname }/>
-          </div>
-        </div>
+      <ResponsiveFixedWidthComponent style={ outerStyle }>
+        <table style={ slimHeaderStyle } className='test--slim-header'>
+          <tbody>
+            <tr>
+              <td>
+                <Link
+                  style={ leftLinkStyle }
+                  to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
+                  className='test--header-logo'
+                >
+                  Citizens Police Data Project
+                </Link>
+              </td>
+              <td>
+                <div style={ rightLinksWrapperStyle }>
+                  { rightLinks }
+                  <LogOutButtonContainer pathname={ pathname }/>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </ResponsiveFixedWidthComponent>
     );
   }
