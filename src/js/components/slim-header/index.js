@@ -11,6 +11,7 @@ import {
   slimHeaderStyle,
   leftLinkStyle,
   rightLinkStyle,
+  activeLinkStyle,
   rightLinksWrapperStyle,
   outerStyle
 } from './slim-header.style';
@@ -18,11 +19,11 @@ import {
 const links = [
   {
     name: 'Downloads',
-    href: ROOT_PATH
+    href: '/TODO'
   },
   {
     name: 'Legal Disclaimer',
-    href: ROOT_PATH
+    href: '/TODO'
   },
   {
     name: 'FAQ',
@@ -30,11 +31,11 @@ const links = [
   },
   {
     name: 'Glossary',
-    href: ROOT_PATH
+    href: '/TODO'
   },
   {
     name: 'Collaborate',
-    href: COLLAB_PATH
+    href: '/' + COLLAB_PATH
   },
 ];
 
@@ -47,19 +48,29 @@ class SlimHeader extends Component {
       return null;
     }
 
-    const rightLinks = links.map((link, index) => (
-      <Link
-        style={ rightLinkStyle }
-        key={ index }
-        to={ editModeOn ? editMode(link.href) : link.href }>{ link.name }
-      </Link>
-    ));
+    const homeHref = editModeOn ? editMode(ROOT_PATH) : ROOT_PATH;
+    const homeLinkStyle = (
+      window.location.pathname === homeHref ? { ...leftLinkStyle, ...activeLinkStyle } : leftLinkStyle
+    );
+
+    const rightLinks = links.map((link, index) => {
+      const href = editModeOn ? editMode(link.href) : link.href;
+      const style = pathname === href ? { ...rightLinkStyle, ...activeLinkStyle } : rightLinkStyle;
+
+      return (
+        <Link
+          style={ style }
+          key={ index }
+          to={ href }>{ link.name }
+        </Link>
+      );
+    });
 
     return (
       <ResponsiveFixedWidthComponent style={ outerStyle }>
         <div style={ slimHeaderStyle } className='test--slim-header'>
           <Link
-            style={ leftLinkStyle }
+            style={ homeLinkStyle }
             to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
             className='test--header-logo'
           >

@@ -12,21 +12,23 @@ export const slimHeaderStyle = {
 
 const linkStyle = {
   textDecoration: 'none',
-  color: 'inherit',
   fontSize: '12px',
+  color: mediumGrayColor,
   fontWeight: 500
 };
 
 export const leftLinkStyle = {
   ...linkStyle,
-  color: softBlackColor,
   fontWeight: 600
 };
 
 export const rightLinkStyle = {
   ...linkStyle,
-  color: mediumGrayColor,
   marginLeft: '50px'
+};
+
+export const activeLinkStyle = {
+  color: softBlackColor
 };
 
 export const rightLinksWrapperStyle = {
