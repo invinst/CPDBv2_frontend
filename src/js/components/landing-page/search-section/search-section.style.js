@@ -1,8 +1,7 @@
 import { sugarCaneColor, greyishColor } from 'utils/styles';
-import { SLIM_HEADER_HEIGHT } from 'components/slim-header/slim-header.style';
 
 export const searchSectionStyle = {
-  height: `calc(84vh - ${SLIM_HEADER_HEIGHT}px)`,
+  height: '84vh',
   width: '100%'
 };
 

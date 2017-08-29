@@ -1,9 +1,7 @@
 import { mediumGrayColor, softBlackColor } from 'utils/styles';
 
-export const SLIM_HEADER_HEIGHT = 22;
-
 export const slimHeaderStyle = {
-  height: `${SLIM_HEADER_HEIGHT}px`,
+  height: '22px',
   lineHeight: '22px',
   padding: '0 16px',
   backgroundColor: 'white',

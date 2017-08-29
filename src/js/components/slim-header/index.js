@@ -57,27 +57,19 @@ class SlimHeader extends Component {
 
     return (
       <ResponsiveFixedWidthComponent style={ outerStyle }>
-        <table style={ slimHeaderStyle } className='test--slim-header'>
-          <tbody>
-            <tr>
-              <td>
-                <Link
-                  style={ leftLinkStyle }
-                  to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
-                  className='test--header-logo'
-                >
-                  Citizens Police Data Project
-                </Link>
-              </td>
-              <td>
-                <div style={ rightLinksWrapperStyle }>
-                  { rightLinks }
-                  <LogOutButtonContainer pathname={ pathname }/>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div style={ slimHeaderStyle } className='test--slim-header'>
+          <Link
+            style={ leftLinkStyle }
+            to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
+            className='test--header-logo'
+          >
+            Citizens Police Data Project
+          </Link>
+          <div style={ rightLinksWrapperStyle }>
+            { rightLinks }
+            <LogOutButtonContainer pathname={ pathname }/>
+          </div>
+        </div>
       </ResponsiveFixedWidthComponent>
     );
   }
