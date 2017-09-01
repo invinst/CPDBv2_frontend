@@ -12,28 +12,11 @@ describe('Header', function () {
   });
 
   context('edit mode off', function () {
-    it('should navigate to reporting path when click on reporting link', function () {
-      landingPage.header.reporting.waitForVisible();
-      landingPage.header.reporting.click();
-      browser.pause(500);
-      landingPage.currentBasePath.should.equal('/reporting/');
-
-      landingPage.header.closeButtonSelector.waitForVisible();
-      landingPage.header.closeButtonSelector.click();
-
-      landingPage.currentBasePath.should.equal('/');
-    });
-
     it('should navigate to FAQ path when click on FAQ link', function () {
       landingPage.header.faq.waitForVisible();
       landingPage.header.faq.click();
       browser.pause(500);
       landingPage.currentBasePath.should.equal('/faq/');
-
-      landingPage.header.closeButtonSelector.waitForVisible();
-      landingPage.header.closeButtonSelector.click();
-
-      landingPage.currentBasePath.should.equal('/');
     });
 
     it('should navigate to Collaborate path when click on Collaborate link', function () {
@@ -41,18 +24,12 @@ describe('Header', function () {
       landingPage.header.collaborate.click();
       browser.pause(500);
       landingPage.currentBasePath.should.equal('/collaborate/');
-
-      landingPage.header.closeButtonSelector.waitForVisible();
-      landingPage.header.closeButtonSelector.click();
-
-      landingPage.currentBasePath.should.equal('/');
     });
 
     it('should navigate to base path when click on header logo', function () {
       landingPage.header.collaborate.waitForVisible();
       landingPage.header.collaborate.click();
       browser.pause(500);
-      landingPage.currentBasePath.should.equal('/collaborate/');
 
       landingPage.header.headerLogoSelector.waitForVisible();
       landingPage.header.headerLogoSelector.click();
@@ -70,25 +47,14 @@ describe('Header', function () {
       landingPage.openEditMode();
     });
 
-    it('should preserve edit mode when go to reporting page', function () {
-      landingPage.header.reporting.waitForVisible();
-      landingPage.header.reporting.click();
-      browser.pause(500);
-      landingPage.currentBasePath.should.equal('/edit/reporting/');
-
-      landingPage.header.closeButtonSelector.waitForVisible();
-      landingPage.header.closeButtonSelector.click();
-      landingPage.currentBasePath.should.equal('/edit/');
-    });
-
     it('should preserve edit mode when go to faq page', function () {
       landingPage.header.faq.waitForVisible();
       landingPage.header.faq.click();
       browser.pause(500);
       landingPage.currentBasePath.should.equal('/edit/faq/');
 
-      landingPage.header.closeButtonSelector.waitForVisible();
-      landingPage.header.closeButtonSelector.click();
+      landingPage.header.headerLogoSelector.waitForVisible();
+      landingPage.header.headerLogoSelector.click();
       landingPage.currentBasePath.should.equal('/edit/');
     });
 

@@ -10,6 +10,7 @@ import VFTGSectionContainer from 'containers/landing-page/vftg-section';
 import TwitterSection from './twitter-section/twitter-section';
 import AboutSectionContainer from 'containers/landing-page/about-section-container';
 import CollaborateSectionContainer from 'containers/landing-page/collaborate-section-container';
+import SearchSectionComponent from 'components/landing-page/search-section';
 import { bottomSectionsWrapperStyle, divideLineStyle } from './landing-page.style';
 import PropsRerender from 'components/common/higher-order/props-rerender';
 
@@ -37,7 +38,8 @@ class LandingPage extends Component {
 
     return (
       <div>
-        <HeroSectionContainer/>
+        <SearchSectionComponent />
+        <HeroSectionContainer />
         <div style={ bottomSectionsWrapperStyle }>
           <ResponsiveFixedWidthComponent>
             <div className='pure-g'>
