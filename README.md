@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-- Make sure your node and npm version match: (node v6.10.3, npm v3.10.10 and yarn v0.23.4)
+- Make sure your node version match: (node v6.10.3 and yarn v0.23.4)
 - `yarn`
 
 ## Run Tests
@@ -42,6 +42,38 @@ We use instances from Azure for now. Both can be ssh'ed into with "ansible" user
 - `bin/setup-production`: Setup production instance.
 - `bin/deploy-production`: Deploy newest code to production instance.
 
+## CircleCI setup
+
+We're using CircleCI 2.0 which makes use of docker images. For this repo, we're running CircleCI on our
+[custom image][1] which is built from `.circleci/docker/Dockerfile` and currently published as `cpdbdev/cpdbv2_frontend`
+on Docker Hub.
+
+We need the custom image because the CircleCI-provided node 6 image (circleci/node:6.10.3-browsers):
+
+- Does not have java, which we need in order to run selenium
+- Has a fixed yarn version, which does not match our current one
+
+By building from our own Dockerfile, we can add java and control the yarn version exactly as we want.
+
+Other benefits:
+
+- Speed. It's no longer necessary to install stuff like Chrome, yarn, etc. on every build.
+- Consistency. Previously we needed to upgrade ChromeDriver periodically to catch up with the latest Chrome releases.
+  Now we can control when we want a newer Chrome (by updating the Docker image).
+
+Right now the benefits seem to justify the added burden of maintaining a Dockerfile. Let's try this out for a while and
+see how things go.
+
+### Building & pushing the docker image for CI:
+
+```bash
+docker login
+docker build -t cpdbdev/cpdbv2_frontend:0.1.0 .circleci/docker
+docker push cpdbdev/cpdbv2_frontend:0.1.0
+```
+
+Remember to bump the version of course.
+
 ## Browser supports
 
 Chrome 45+, Firefox 45+, IE 11, Safari 9+ and iOS 8+ Safari.
@@ -58,3 +90,5 @@ Chrome 45+, Firefox 45+, IE 11, Safari 9+ and iOS 8+ Safari.
 - [Selectors](docs/selectors-development-guide.md)
 - [WebdriverIO tests](docs/webdriverio.md)
 - [Miscelaneous topics](docs/miscellaneous-frontend-best-practices.md)
+
+[1]: https://circleci.com/docs/2.0/custom-images/
