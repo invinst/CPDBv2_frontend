@@ -4,7 +4,6 @@ import { whiteTwoColor, sanFranciscoTextFamily, greyishColor } from 'utils/style
 export const wrapperStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
-  borderBottom: `1px solid ${whiteTwoColor}`
 };
 
 export const labelStyle = {
@@ -27,4 +26,9 @@ export const contentRowStyle = {
   padding: '11px 0',
   boxSizing: 'border-box',
   verticalAlign: 'middle'
+};
+
+export const lastRowStyle = {
+  ...contentRowStyle,
+  borderBottom: 0
 };

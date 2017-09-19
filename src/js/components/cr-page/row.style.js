@@ -1,11 +1,11 @@
 import { whiteTwoColor, sanFranciscoTextFamily, greyishColor, softBlackColor } from 'utils/styles';
 
 
-export const wrapperStyle = {
+export const wrapperStyle = (hasBorderBottom) => ({
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
-  borderBottom: `solid 1px ${whiteTwoColor}`
-};
+  borderBottom: hasBorderBottom ? `solid 1px ${whiteTwoColor}` : '0'
+});
 
 export const labelStyle = {
   color: greyishColor,

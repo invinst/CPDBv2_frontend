@@ -37,7 +37,8 @@ const getCoaccusedSelector = createSelector(
     startDate: coaccused['start_date'],
     endDate: coaccused['end_date'],
     category: coaccused['category'] || 'Unknown',
-    subcategory: coaccused['subcategory'] || 'Unknown'
+    subcategory: coaccused['subcategory'] || 'Unknown',
+    badge: coaccused['badge'] || 'Unknown'
   }))
 );
 

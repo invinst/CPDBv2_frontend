@@ -12,7 +12,3 @@ export const involvedTextStyle = {
   color: softBlackColor,
   fontWeight: 600
 };
-
-export const lastInvolvementStyle = {
-  borderBottom: 'none'
-};

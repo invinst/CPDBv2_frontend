@@ -13,6 +13,7 @@ import Timeline from './timeline';
 import Location from './location';
 import Involvement from './involvement';
 import Attachments from './attachments';
+import BlockTitle from './block-title';
 import {
   wrapperStyle, titleStyle, subtitleStyle, headerStyle, summarySectionStyle, overlayStyle, leftColumnStyle,
   pageWrapperStyle, rightColumnStyle, headerWrapperStyle
@@ -69,7 +70,7 @@ export default class CRPage extends Component {
     const { displayCoaccusedDropdown } = this.state;
     const officer = find(coaccused, officer => officer.id === officerId) || {};
     const {
-      category, subcategory, fullName, race, gender, finalFinding, reccOutcome, finalOutcome, startDate, endDate
+      category, subcategory, fullName, finalFinding, reccOutcome, finalOutcome, startDate, endDate, badge
     } = officer;
 
     return (
@@ -88,14 +89,16 @@ export default class CRPage extends Component {
               <div className='test--cr-category' style={ titleStyle }>{ category }</div>
               <div className='test--cr-subcategory' style={ subtitleStyle }>{ subcategory }</div>
               <OfficerRow
-                fullName={ fullName } race={ race } gender={ gender } officerId={ officerId }
+                fullName={ fullName } badge={ badge } officerId={ officerId }
                 openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
-              <MultiRow label='Complainant' contents={ complainants }/>
-              <FindingRow label='Final Finding' content={ finalFinding }/>
-              <Row label='Recommended Outcome' content={ reccOutcome }/>
-              <Row label='Final Outcome' content={ finalOutcome }/>
+              <MultiRow label='COMPLAINANT' contents={ complainants }/>
             </div>
             <div style={ leftColumnStyle }>
+              <BlockTitle>OUTCOME</BlockTitle>
+              <FindingRow label='Final Finding' content={ finalFinding }/>
+              <Row label='Recommended Outcome' content={ reccOutcome }/>
+              <Row label='Final Outcome' content={ finalOutcome } hasBorderBottom={ false } />
+
               <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
               <Involvement involvements={ involvements } openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
             </div>

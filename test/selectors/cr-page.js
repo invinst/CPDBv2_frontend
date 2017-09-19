@@ -50,7 +50,8 @@ describe('CR page selectors', function () {
         startDate: '2012-02-01',
         endDate: '2013-02-01',
         category: 'Operations/Personnel Violation',
-        subcategory: 'Neglect of duty/conduct unbecoming - on duty'
+        subcategory: 'Neglect of duty/conduct unbecoming - on duty',
+        badge: 'Unknown'
       }]);
     });
 
@@ -71,7 +72,8 @@ describe('CR page selectors', function () {
         startDate: '2012-02-01',
         endDate: '2013-02-01',
         category: 'Unknown',
-        subcategory: 'Unknown'
+        subcategory: 'Unknown',
+        badge: 'Unknown'
       }]);
     });
 

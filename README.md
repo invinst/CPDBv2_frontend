@@ -15,6 +15,7 @@
 ## Run Selenium Tests
 
 - `yarn live-test` to run selenium tests.
+- `yarn live-test -- --spec ./selenium-test/<test-name>.js` to run specific test.
 
 ## Development
 
