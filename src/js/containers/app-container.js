@@ -6,6 +6,7 @@ import showLoginModalSelector from 'selectors/login-modal/show-login-modal';
 import { toggleEditMode } from 'actions/inline-editable/edit-mode';
 import { toggleSearchMode, changeSearchQuery } from 'actions/search-page';
 import editModeOnSelector from 'selectors/edit-mode-on';
+import { openLegalDisclaimerModal } from 'actions/generic-modal';
 
 
 function mapStateToProps(state, ownProps) {
@@ -13,7 +14,8 @@ function mapStateToProps(state, ownProps) {
     location: ownProps.location,
     appContent: state.appContent,
     showLoginModal: showLoginModalSelector(state, ownProps),
-    editModeOn: editModeOnSelector(state, ownProps)
+    editModeOn: editModeOnSelector(state, ownProps),
+    genericModalIsActive: Boolean(state.genericModal.activeModal)
   };
 }
 
@@ -21,7 +23,8 @@ const mapDispatchToProps = {
   receiveTokenFromCookie,
   toggleEditMode,
   toggleSearchMode,
-  changeSearchQuery
+  changeSearchQuery,
+  openLegalDisclaimerModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

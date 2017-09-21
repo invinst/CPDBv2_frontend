@@ -5,7 +5,8 @@ import { editModeOn } from 'selectors/edit-mode-on';
 
 
 export function editMode(pathname) {
-  const nonEditPart = pathname.match(/^(?:\/?edit)?\/?(.*)$/)[1];
+  const path = pathname || '';
+  const nonEditPart = path.match(/^(?:\/?edit)?\/?(.*)$/)[1];
   return `/edit/${nonEditPart}`;
 }
 
