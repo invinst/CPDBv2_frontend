@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-ansible-playbook ansible/site.yml -i ansible/staging --tags "deploy"
+ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook ansible/site.yml -i ansible/staging --tags "deploy"

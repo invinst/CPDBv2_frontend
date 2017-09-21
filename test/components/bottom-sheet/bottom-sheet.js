@@ -111,7 +111,7 @@ describe('BottomSheet component', function () {
           setTimeout(() => {
             rootEl.children[0].children.length.should.equal(0);
             callback();
-          }, 1000);
+          }, 1500);
         });
     });
 
