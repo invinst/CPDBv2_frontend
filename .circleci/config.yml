@@ -3,10 +3,9 @@ jobs:
 
   test:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.1.0
+      - image: cpdbdev/cpdbv2_frontend:0.1.1
     environment:
       NODE_ENV: development
-      ERROR_SCREENSHOT_DIR: /home/ubuntu/CPDBv2_frontend/errorShots
     steps:
       - checkout
       - run: yarn install
@@ -14,13 +13,12 @@ jobs:
       - run: yarn cover-circle
       - run: yarn live-test
       - run: cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
-      - run:
-          name: Gather error screenshots as artifacts
-          command: if [ -d $ERROR_SCREENSHOT_DIR ]; then cp -r $ERROR_SCREENSHOT_DIR $CIRCLE_ARTIFACTS; fi
+      - store_artifacts:
+          path: ~/CPDBv2_frontend/errorShots
 
   deploy:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.1.0
+      - image: cpdbdev/cpdbv2_frontend:0.1.1
     environment:
       NODE_ENV: development
     steps:
