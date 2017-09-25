@@ -15,10 +15,10 @@ export default class CoaccusedList extends Component {
     return (
       <div style={ { ...coaccusedListWrapperStyle, ...style } }>
         <ResponsiveFixedWidthComponent>
-          <div className='test--coaccused-text' style={ coaccusedTextStyle }>Co-accused</div>
+          <div className='test--coaccused-text' style={ coaccusedTextStyle }>Coaccused</div>
           {
             map(compact([currentOfficer, ...otherCoaccused]), (officer, index) => {
-              const props = pick(officer, ['fullName', 'gender', 'race', 'category', 'id']);
+              const props = pick(officer, ['fullName', 'category', 'id', 'badge']);
 
               return (
                 <CoaccusedListItem key={ officer.id }

@@ -12,7 +12,8 @@ export const viewOfficerButtonWrapperStyle = hovering => ({
 });
 
 export const textStyle = {
-  verticalAlign: 'middle'
+  height: '32px',
+  lineHeight: '32px'
 };
 
 export const arrowStyle = hovering => ({

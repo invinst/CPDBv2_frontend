@@ -1,5 +1,6 @@
 import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Attachments from 'components/cr-page/attachments';
@@ -12,15 +13,25 @@ describe('Attachments component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should not render if not items', function () {
-    instance = renderIntoDocument(<Attachments/>);
-    instance.should.displayNothing();
+  it('should show "no documents" message if no items', function () {
+    instance = renderIntoDocument(<Attachments />);
+    findDOMNode(instance).innerText.should.containEql(
+      'There are no documents publicly available for this incident at this time.'
+    );
   });
 
-  it('should not render if items is empty', function () {
-    const items = [];
-    instance = renderIntoDocument(<Attachments items={ items }/>);
-    instance.should.displayNothing();
+  it('should show "no documents" message if items is empty', function () {
+    instance = renderIntoDocument(<Attachments items={ [] }/>);
+    findDOMNode(instance).innerText.should.containEql(
+      'There are no documents publicly available for this incident at this time.'
+    );
+  });
+
+  it('should show custom "no document" message for each type', function () {
+    instance = renderIntoDocument(<Attachments title='VIDEO' />);
+    findDOMNode(instance).innerText.should.containEql(
+      'There are no video clips publicly available for this incident at this time.'
+    );
   });
 
   it('should render if has items and items is not empty', function () {

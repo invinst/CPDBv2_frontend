@@ -17,7 +17,7 @@ export default class Header extends Component {
       <div style={ boxShadowStyle }>
         <ResponsiveFixedWidthComponent>
           <div style={ headerStyle }>
-            <span className='test--header-title' style={ titleStyle }>{ `CR ${crid}` }</span>
+            <span className='test--header-title' style={ titleStyle(displayCoaccusedDropdown) }>{ `CR ${crid}` }</span>
             <CoaccusedDropdownButton
               coaccused={ coaccused } officerId={ officerId }
               displayCoaccusedDropdown={ displayCoaccusedDropdown }

@@ -11,7 +11,7 @@ class ViewMapButton extends Component {
 
     return (
       <a className='test--view-map-button' style={ viewMapButtonStyle(hovering) } href={ url } target='_blank'>
-        <span style={ textStyle }>view on google maps</span>
+        <span style={ textStyle }>View on google maps</span>
         <div style={ arrowStyle(hovering) } />
       </a>
     );

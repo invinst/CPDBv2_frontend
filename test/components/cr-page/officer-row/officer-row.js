@@ -15,11 +15,11 @@ describe('OfficerRow component', function () {
   });
 
   it('should render properly', function () {
-    instance = renderIntoDocument(<OfficerRow fullName='Foo Bar' gender='Male' race='White' />);
+    instance = renderIntoDocument(<OfficerRow fullName='Foo Bar' badge='12345' />);
     const innerHTML = findDOMNode(instance).innerHTML;
-    innerHTML.should.containEql('Officer');
+    innerHTML.should.containEql('ACCUSED OFFICER');
     innerHTML.should.containEql('Foo Bar');
-    innerHTML.should.containEql('male, white');
+    innerHTML.should.containEql('Badge 12345');
     scryRenderedComponentsWithType(instance, ViewProfileButton).should.have.length(1);
   });
 });

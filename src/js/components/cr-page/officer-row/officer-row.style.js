@@ -2,11 +2,11 @@ import { sanFranciscoTextFamily, softBlackColor, greyishColor, mediumGrayColor, 
 
 export const wrapperStyle = {
   fontFamily: sanFranciscoTextFamily,
-  padding: '10px 0',
+  boxSizing: 'border-box',
+  padding: '11px 0',
   fontSize: '14px',
-  minHeight: '18px',
+  minHeight: '54px',
   textAlign: 'center',
-  borderTop: `solid 1px ${whiteTwoColor}`,
   borderBottom: `solid 1px ${whiteTwoColor}`,
   verticalAlign: 'middle'
 };
