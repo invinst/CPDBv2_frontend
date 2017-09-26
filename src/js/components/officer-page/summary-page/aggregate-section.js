@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { map } from 'lodash';
 
 import AggregateFacet from './aggregate-facet';
+import AggregateRow from './aggregate-row';
 import { wrapperStyle, titleStyle, sustainedTextStyle, sectionHeaderStyle } from './aggregate-section.style';
 
 
@@ -15,6 +16,7 @@ export default class AggregateSection extends Component {
           <span style={ titleStyle }>{ `${count} ${title}, ` }</span>
           <span style={ sustainedTextStyle }>{ `${sustainedCount} sustained` }</span>
         </div>
+        <AggregateRow name='Total' count={ count } sustainedCount={ sustainedCount } />
         { map(aggregateFacets, ({ name, entries }, ind) => (
           <AggregateFacet name={ name } entries={ entries } key={ ind }/>
         )) }

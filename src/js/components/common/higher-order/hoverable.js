@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import isMobile from 'ismobilejs';
 
 
-export default function (ComponentClass) {
+export default function (ComponentClass, wrapperElement='span', display='inline') {
   class Hoverable extends Component {
     constructor(props) {
       super(props);
@@ -41,12 +41,21 @@ export default function (ComponentClass) {
 
     render() {
       const { hovering } = this.state;
-      return (
-        <span
-          onMouseOver={ this.handleMouseOver }
-          onMouseOut={ this.handleMouseOut }>
-          <ComponentClass hovering={ hovering } { ...this.props }/>
-        </span>
+
+      return React.createElement(
+        wrapperElement,
+        {
+          onMouseOver: this.handleMouseOver,
+          onMouseOut: this.handleMouseOut,
+          style: { display }
+        },
+        React.createElement(
+          ComponentClass,
+          {
+            hovering: hovering,
+            ...this.props
+          }
+        )
       );
     }
   }

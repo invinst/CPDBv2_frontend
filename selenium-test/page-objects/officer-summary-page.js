@@ -34,9 +34,10 @@ class AggregateSection extends Section {
     each(facetFields, (field, index) => {
       facetGetters[`${field}`] = `(//div[@class="test--aggregate-facet"])[${index + 1}]`;
       facetGetters[`${field}Name`] = `(//div[@class="test--aggregate-facet-name"])[${index + 1}]`;
-      facetGetters[`${field}EntryCount`] = `(//span[@class="test--entry-count"])[${index + 1}]`;
-      facetGetters[`${field}EntrySustainedCount`] = `(//span[@class="test--entry-sustained-count"])[${index + 1}]`;
-      facetGetters[`${field}EntryName`] = `(//span[@class="test--entry-name"])[${index + 1}]`;
+      facetGetters[`${field}EntryCount`] = `(//span[@class="test--entry-count"])[${index + 2}]`;
+      facetGetters[`${field}EntrySustainedCount`] = `(//span[@class="test--entry-sustained-count"])[${index + 2}]`;
+      facetGetters[`${field}EntryName`] = `(//span[@class="test--entry-name"])[${index + 2}]`;
+      facetGetters[`${field}Sparkline`] = `(//div[@class="test--sparkline"])[${index + 1}]`;
     });
 
     this.prepareElementGetters({

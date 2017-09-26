@@ -34,13 +34,33 @@ describe('officer page selectors', function () {
     it('should return complaint facets', function () {
       const complaintFacets = [{
         name: 'foo',
-        entries: [{ 'name': 'Illegal Search', 'count': 2, 'sustained_count': 1 }]
+        entries: [{
+          'name': 'Illegal Search',
+          'count': 2,
+          'sustained_count': 1,     // eslint-disable-line camelcase
+          items: [{
+            year: 2012,
+            count: 2,
+            'substained_count': 1,    // eslint-disable-line camelcase
+            name: 'Illegal Search'
+          }]
+        }]
       }];
       state.officerPage = { complaintFacets };
 
       getComplaintFacetsSelector(state).should.eql([{
         name: 'foo',
-        entries: [{ name: 'Illegal Search', count: 2, sustainedCount: 1 }]
+        entries: [{
+          name: 'Illegal Search',
+          count: 2,
+          sustainedCount: 1,
+          items: [{
+            year: 2012,
+            count: 2,
+            'substained_count': 1,    // eslint-disable-line camelcase
+            name: 'Illegal Search'
+          }]
+        }]
       }]);
     });
 
@@ -48,9 +68,9 @@ describe('officer page selectors', function () {
       const complaintFacets = [{
         name: 'foo',
         entries: [
-          { name: 'c', count: 3, 'sustained_count': 0 },
-          { name: 'a', count: 2, 'sustained_count': 1 },
-          { name: 'Unknown', count: 2, 'sustained_count': 0 }
+          { name: 'c', count: 3, 'sustained_count': 0, items: [] },
+          { name: 'a', count: 2, 'sustained_count': 1, items: [] },
+          { name: 'Unknown', count: 2, 'sustained_count': 0, items: [] }
         ]
       }];
       state.officerPage = { complaintFacets };
@@ -58,9 +78,9 @@ describe('officer page selectors', function () {
       getComplaintFacetsSelector(state).should.eql([{
         name: 'foo',
         entries: [
-          { name: 'a', count: 2, sustainedCount: 1 },
-          { name: 'c', count: 3, sustainedCount: 0 },
-          { name: 'Unknown', count: 2, sustainedCount: 0 }
+          { name: 'a', count: 2, sustainedCount: 1, items: [] },
+          { name: 'c', count: 3, sustainedCount: 0, items: [] },
+          { name: 'Unknown', count: 2, sustainedCount: 0, items: [] }
         ]
       }]);
     });
