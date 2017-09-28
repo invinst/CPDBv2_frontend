@@ -11,9 +11,7 @@ class CoaccusedList extends Section {
     const itemOrders = ['first', 'second'];
     const itemGetters = {};
     each(itemOrders, (field, index) => {
-      itemGetters[`${field}FullName`] = `(//span[@class="test--coaccused-fullname"])[${index + 1}]`;
-      itemGetters[`${field}ExtraInfo`] = `(//span[@class="test--coaccused-extra-info"])[${index + 1}]`;
-      itemGetters[`${field}Category`] = `(//span[@class="test--coaccused-category"])[${index + 1}]`;
+      itemGetters[`${field}ListItem`] = `(//*[@class="test--coaccused-list-item"])[${index + 1}]`;
     });
 
     this.prepareElementGetters({
@@ -46,7 +44,6 @@ class InfoSection extends Section {
     each(infoFields, (field, index) => {
       infoGetters[`${field}Label`] = `(//*[@class="test--row-label"])[${index + 1}]`;
       infoGetters[`${field}Content`] = `(//*[@class="test--row-content"])[${index + 1}]`;
-      infoGetters[`${field}ExtraInfo`] = `(//span[@class="test--row-extra-info"])[${index + 1}]`;
     });
 
     this.prepareElementGetters({
@@ -73,6 +70,15 @@ class InvolvementSection extends Section {
 }
 
 class AttachmentsSection extends Section {
+
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      documentRequestInput: '.test--attachment-request',
+      documentRequestedMessage: '.test--attachment-requested'
+    });
+  }
+
   getAttachment(type, index) {
     return browser.element(
       `(//*[@class="test--attachment-section-title"][text()="${type}"]/following-sibling::*/a)[${index}]`
@@ -86,11 +92,26 @@ class AttachmentsSection extends Section {
   }
 }
 
+
+class DocumentRequestModalSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      overlay: '//div[@class="test--generic-modal-overlay"]',
+      content: '.test--generic-modal-content',
+      emailInput: '//div[@class="test--generic-modal-content"]//input[@placeholder="Your email"]',
+      submitButton: '//div[@class="test--generic-modal-content"]//input[@type="submit"]',
+      messageBox: '.test--request-document-modal--message',
+    });
+  }
+}
+
 class CRPage extends Page {
-  header = new Header()
+  header = new Header();
   infoSection = new InfoSection();
   involvementSection = new InvolvementSection();
   attachmentsSection = new AttachmentsSection();
+  documentRequestModalSection = new DocumentRequestModalSection();
 
   constructor() {
     super();
@@ -101,8 +122,8 @@ class CRPage extends Page {
     });
   }
 
-  open() {
-    super.open('/complaint/1/1/');
+  open(id = 1) {
+    super.open(`/complaint/${id}/1/`);
     browser.element('body').waitForVisible();
   }
 }

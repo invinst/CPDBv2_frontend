@@ -9,3 +9,7 @@ export function hasOfficerIdChanged(action, officerId) {
   }
   return false;
 }
+
+export function getCrId(url) {
+  return parseInt(url.replace(/.*complaint?\/(\d+).*/, '$1'));
+}

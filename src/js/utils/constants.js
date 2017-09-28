@@ -132,6 +132,12 @@ export const CR_REQUEST_START = 'CR_REQUEST_START';
 export const CR_REQUEST_SUCCESS = 'CR_REQUEST_SUCCESS';
 export const CR_REQUEST_FAILURE = 'CR_REQUEST_FAILURE';
 
+export const CR_REQUEST_DOC_FAILURE = 'CR_REQUEST_DOC_FAILURE';
+export const CR_REQUEST_DOC_SUCCESS = 'CR_REQUEST_DOC_SUCCESS';
+export const CR_REQUEST_DOC_START = 'CR_REQUEST_DOC_START';
+
+
+
 export const ALPHA_NUMBERIC = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
   'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
