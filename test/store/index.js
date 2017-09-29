@@ -54,6 +54,10 @@ describe('store', function () {
           fields: {},
           editModeOn: false
         },
+        activityGrid: {
+          cards: [],
+          isRequesting: false
+        },
         isRequesting: false
       },
       faqPage: {

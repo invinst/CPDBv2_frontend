@@ -1,3 +1,4 @@
 export default {
-  appName: 'CPDP'
+  appName: 'CPDP',
+  visualTokenAccount: 'cpdbvisualtokenstaging',
 };

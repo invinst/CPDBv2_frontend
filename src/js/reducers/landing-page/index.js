@@ -7,6 +7,7 @@ import vftgSection from './vftg-section';
 import aboutSection from './about-section';
 import collaborateSection from './collaborate-section';
 import isRequesting from './is-requesting';
+import activityGrid from './activity-grid';
 
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   vftgSection,
   aboutSection,
   collaborateSection,
+  activityGrid,
   isRequesting
 });
