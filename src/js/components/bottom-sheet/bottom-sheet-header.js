@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   headerWrapperStyle, editWrapperLinkStyle
 } from './bottom-sheet-header.style';
@@ -13,13 +13,13 @@ class BottomSheetHeader extends Component {
 
     return (
       <div style={ headerWrapperStyle }>
-        <ResponsiveFixedWidthComponent>
+        <ResponsiveFluidWidthComponent>
           <div>
             <EditToggle
               { ...editToggleProps }
               style={ editWrapperLinkStyle }/>
           </div>
-        </ResponsiveFixedWidthComponent>
+        </ResponsiveFluidWidthComponent>
       </div>
     );
   }

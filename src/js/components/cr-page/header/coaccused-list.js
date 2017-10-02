@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { map, find, filter, pick, compact } from 'lodash';
 
 import CoaccusedListItem from './coaccused-list-item';
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import { coaccusedListWrapperStyle, coaccusedTextStyle, breakSectionStyle } from './coaccused-list.style';
 
 
@@ -14,7 +14,7 @@ export default class CoaccusedList extends Component {
 
     return (
       <div style={ { ...coaccusedListWrapperStyle, ...style } }>
-        <ResponsiveFixedWidthComponent>
+        <ResponsiveFluidWidthComponent>
           <div className='test--coaccused-text' style={ coaccusedTextStyle }>Coaccused</div>
           {
             map(compact([currentOfficer, ...otherCoaccused]), (officer, index) => {
@@ -28,7 +28,7 @@ export default class CoaccusedList extends Component {
               );
             })
           }
-        </ResponsiveFixedWidthComponent>
+        </ResponsiveFluidWidthComponent>
         <div style={ breakSectionStyle }/>
       </div>
     );

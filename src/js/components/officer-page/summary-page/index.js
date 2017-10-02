@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import SummarySection from './summary-section';
 import AggregateSection from './aggregate-section';
 import { wrapperStyle } from './summary-page.style.js';
@@ -14,13 +14,13 @@ export default class SummaryPage extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <ResponsiveFixedWidthComponent>
+        <ResponsiveFluidWidthComponent>
           <SummarySection officerSummary={ officerSummary }
             openBottomSheetWithPoliceUnit={ openBottomSheetWithPoliceUnit } />
           <AggregateSection
             title='complaint records (CRs)' count={ complaintsCount } sustainedCount={ sustainedCount }
             aggregateFacets={ complaintFacets }/>
-        </ResponsiveFixedWidthComponent>
+        </ResponsiveFluidWidthComponent>
       </div>
     );
   }

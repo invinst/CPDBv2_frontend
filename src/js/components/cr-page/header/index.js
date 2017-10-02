@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import CoaccusedList from './coaccused-list';
 import ExpandMotion from 'components/animation/expand-motion';
 import CoaccusedDropdownButton from './coaccused-dropdown-button';
@@ -15,7 +15,7 @@ export default class Header extends Component {
 
     return (
       <div style={ boxShadowStyle }>
-        <ResponsiveFixedWidthComponent>
+        <ResponsiveFluidWidthComponent>
           <div style={ headerStyle }>
             <span className='test--header-title' style={ titleStyle(displayCoaccusedDropdown) }>{ `CR ${crid}` }</span>
             <CoaccusedDropdownButton
@@ -23,7 +23,7 @@ export default class Header extends Component {
               displayCoaccusedDropdown={ displayCoaccusedDropdown }
               onClick={ onDropDownButtonClick } />
           </div>
-        </ResponsiveFixedWidthComponent>
+        </ResponsiveFluidWidthComponent>
         {
           <ExpandMotion show={ displayCoaccusedDropdown }>
             <CoaccusedList currentOfficerId={ officerId } coaccused={ coaccused }

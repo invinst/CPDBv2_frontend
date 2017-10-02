@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import FadeMotion from 'components/animation/fade-motion';
 import Header from './header';
 import StickyHeader from 'components/common/sticky-header';
@@ -83,7 +83,7 @@ export default class CRPage extends Component {
               onDropDownButtonClick={ this.handleToggleCoaccusedDropDown }/>
           </StickyHeader>
         </div>
-        <ResponsiveFixedWidthComponent>
+        <ResponsiveFluidWidthComponent>
           <div style={ pageWrapperStyle }>
             <div style={ summarySectionStyle }>
               <div className='test--cr-category' style={ titleStyle }>{ category }</div>
@@ -109,7 +109,7 @@ export default class CRPage extends Component {
               <Attachments title='AUDIO' iconName='ic-audio.svg' items={ audios }/>
             </div>
           </div>
-        </ResponsiveFixedWidthComponent>
+        </ResponsiveFluidWidthComponent>
         <FadeMotion show={ displayCoaccusedDropdown } maxOpacity={ .5 }>
           { this.renderOverlay }
         </FadeMotion>
