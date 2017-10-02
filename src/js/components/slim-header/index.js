@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import { ROOT_PATH, FAQ_PATH, COLLAB_PATH } from 'utils/constants';
 import { editMode } from 'utils/edit-path';
 import ConfiguredRadium from 'utils/configured-radium';
@@ -67,7 +67,7 @@ class SlimHeader extends Component {
     });
 
     return (
-      <ResponsiveFixedWidthComponent style={ outerStyle }>
+      <ResponsiveFluidWidthComponent style={ outerStyle }>
         <div style={ slimHeaderStyle } className='test--slim-header'>
           <Link
             style={ homeLinkStyle }
@@ -81,7 +81,7 @@ class SlimHeader extends Component {
             <LogOutButtonContainer pathname={ pathname }/>
           </div>
         </div>
-      </ResponsiveFixedWidthComponent>
+      </ResponsiveFluidWidthComponent>
     );
   }
 }

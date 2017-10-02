@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import MemberAggregateSection from './member-aggregate-section';
 import ComplaintAggregateSection from './complaint-aggregate-section';
 import { wrapperStyle } from './summary-page.style.js';
@@ -17,14 +17,14 @@ export default class SummaryPage extends Component {
       activeMembers, totalMembers, memberFacets, complaintCount, sustainedComplaintCount, complaintFacets
     } = this.props;
     return (
-      <ResponsiveFixedWidthComponent>
+      <ResponsiveFluidWidthComponent>
         <div style={ wrapperStyle }>
           <MemberAggregateSection activeMembers={ activeMembers } totalMembers={ totalMembers }
             memberFacets={ memberFacets }/>
           <ComplaintAggregateSection count={ complaintCount }
             sustainedCount={ sustainedComplaintCount } facets={ complaintFacets }/>
         </div>
-      </ResponsiveFixedWidthComponent>
+      </ResponsiveFluidWidthComponent>
     );
   }
 }

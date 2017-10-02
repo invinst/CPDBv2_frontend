@@ -5,6 +5,7 @@ export const slimHeaderStyle = {
   lineHeight: '22px',
   padding: '0 16px',
   backgroundColor: 'white',
+  boxSizing: 'border-box',
   position: 'fixed',
   zIndex: 1,
   width: 'inherit'

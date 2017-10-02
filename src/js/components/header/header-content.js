@@ -6,7 +6,7 @@ import { ROOT_PATH, COLLAB_PATH, FAQ_PATH, STORIES_PATH } from 'utils/constants'
 import { editMode } from 'utils/edit-path';
 import ClosableNavLink from 'components/closable-nav-link';
 import PropsRerender from 'components/common/higher-order/props-rerender';
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import HoverableLink from 'components/common/hoverable-link';
 import LogOutButtonContainer from 'containers/log-out-container';
 
@@ -46,7 +46,7 @@ class HeaderContent extends React.Component {
     const { editModeOn } = this.context;
 
     return (
-      <ResponsiveFixedWidthComponent>
+      <ResponsiveFluidWidthComponent>
         <div style={ compact ? navWrapperCompactStyle : navWrapperStyle }>
           <HoverableLink href='//beta.cpdb.co'
             style={ hoverableLinkStyle }>
@@ -74,7 +74,7 @@ class HeaderContent extends React.Component {
             CPDP
           </HoverableLink>
         </div>
-      </ResponsiveFixedWidthComponent>
+      </ResponsiveFluidWidthComponent>
     );
   }
 }

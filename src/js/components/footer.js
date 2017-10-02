@@ -4,7 +4,7 @@ import FooterNavLink from 'components/common/footer-nav-link';
 import {
   wrapperStyle, linkStyle, linkWrapperStyle, sectionStyle, responsiveFixedWidthInnerStyle, firstLinkStyle
 } from './footer.style';
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import NoRerender from 'components/common/higher-order/no-rerender';
 
 
@@ -15,13 +15,13 @@ class Footer extends React.Component {
       <div style={ sectionStyle }>
         <div style={ wrapperStyle }>
           <div style={ linkWrapperStyle }>
-            <ResponsiveFixedWidthComponent style={ responsiveFixedWidthInnerStyle }>
+            <ResponsiveFluidWidthComponent style={ responsiveFixedWidthInnerStyle }>
               { links.map( (link, ind) => (
                 <FooterNavLink style={ ind === 0 ? firstLinkStyle : linkStyle } key={ ind }>
                   { link }
                 </FooterNavLink>
               )) }
-            </ResponsiveFixedWidthComponent>
+            </ResponsiveFluidWidthComponent>
           </div>
         </div>
       </div>

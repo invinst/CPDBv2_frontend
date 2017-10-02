@@ -7,7 +7,7 @@ import {
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import EditableSection from 'components/inline-editable/editable-section';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import StickyHeader from 'components/common/sticky-header';
@@ -77,7 +77,7 @@ class FAQ extends Component {
           <BottomSheetHeader editToggleProps={ editToggleProps }/>
         </StickyHeader>
         <div>
-          <ResponsiveFixedWidthComponent>
+          <ResponsiveFluidWidthComponent>
             <ResponsiveComponent
               extraWideChildren={ this.renderTwoColumns({
                 leftBar: leftBarStyle[EXTRA_WIDE](),
@@ -90,7 +90,7 @@ class FAQ extends Component {
                 question: questionStyle[DESKTOP]
               }) }
               tabletChildren={ this.renderOneColumn() }/>
-          </ResponsiveFixedWidthComponent>
+          </ResponsiveFluidWidthComponent>
         </div>
       </div>
     );

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import ResponsiveStyleComponent, { DESKTOP, TABLET } from 'components/responsive/responsive-style-component';
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ConfiguredRadium from 'utils/configured-radium';
 import HeroSectionContainer from 'containers/landing-page/hero-section-container';
 import FAQSectionContainer from 'containers/landing-page/faq-section-container';
@@ -41,7 +41,7 @@ class LandingPage extends Component {
         <SearchSectionComponent />
         <HeroSectionContainer />
         <div style={ bottomSectionsWrapperStyle }>
-          <ResponsiveFixedWidthComponent>
+          <ResponsiveFluidWidthComponent>
             <div className='pure-g'>
               <div className='pure-u-1-1'>
                 <ReportingSectionContainer store={ store }/>
@@ -67,7 +67,7 @@ class LandingPage extends Component {
                 <CollaborateSectionContainer/>
               </div>
             </div>
-          </ResponsiveFixedWidthComponent>
+          </ResponsiveFluidWidthComponent>
         </div>
       </div>
     );
