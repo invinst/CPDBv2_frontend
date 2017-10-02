@@ -28,37 +28,10 @@ describe('store', function () {
     const { getCurrentState } = setUp();
     getCurrentState().should.eql({
       landingPage: {
-        faqSection: {
-          faqs: [],
-          fields: {},
-          editModeOn: false
-        },
-        reportSection: {
-          fields: {},
-          editModeOn: false,
-          reports: []
-        },
-        heroSection: {
-          editModeOn: false,
-          fields: {}
-        },
-        vftgSection: {
-          fields: {},
-          editModeOn: false
-        },
-        aboutSection: {
-          fields: {},
-          editModeOn: false
-        },
-        collaborateSection: {
-          fields: {},
-          editModeOn: false
-        },
         activityGrid: {
           cards: [],
           isRequesting: false
         },
-        isRequesting: false
       },
       faqPage: {
         isRequesting: false,

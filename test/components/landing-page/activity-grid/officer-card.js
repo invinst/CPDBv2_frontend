@@ -6,7 +6,7 @@ import {
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test/index';
 
-import OfficerCard from 'components/activity-grid/officer-card';
+import OfficerCard from 'components/landing-page/activity-grid/officer-card';
 
 describe('OfficerCard component', function () {
   let instance;

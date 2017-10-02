@@ -20,6 +20,6 @@ const store = mockStore({
 
 describe('LandingPage component', function () {
   it('should render', function () {
-    LandingPage.should.be.responsiveRenderable({ store: store, requestLandingPage: () => {} });
+    LandingPage.should.be.responsiveRenderable({ store: store });
   });
 });

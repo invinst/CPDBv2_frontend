@@ -5,7 +5,7 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 
 import AppContainer from 'containers/app-container';
-import LandingPageContainer from 'containers/landing-page';
+import LandingPage from 'components/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import FAQPage from 'components/faq-page/faq-page';
 import SearchPageContainer from 'containers/search-page-container';
@@ -25,7 +25,7 @@ class RouterRoot extends Component {
 
   render() {
     const routes = [
-      <IndexRoute component={ LandingPageContainer } key='1'
+      <IndexRoute component={ LandingPage } key='1'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) }/>,
       <Route path={ STORIES_PATH } component={ ReportingPage } key='2'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }>

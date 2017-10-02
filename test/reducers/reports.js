@@ -3,8 +3,6 @@ import reports from 'reducers/reports';
 import {
   REPORTS_REQUEST_SUCCESS, UPDATE_REPORT_REQUEST_SUCCESS, REPORT_REQUEST_SUCCESS
 } from 'actions/reporting-page';
-import { RandomizedListFieldFactory } from 'utils/test/factories/field';
-import { LANDING_PAGE_REQUEST_SUCCESS } from 'actions/landing-page';
 
 
 describe('reports', function () {
@@ -48,21 +46,6 @@ describe('reports', function () {
         id: 1,
         fields: 'newField'
       }
-    });
-  });
-
-  it('should handle LANDING_PAGE_REQUEST_SUCCESS', function () {
-    const currentReportFactoryId = ReportFactory.build().id;
-    const reportsField = RandomizedListFieldFactory.build({ name: 'reports' }, { subFactory: ReportFactory });
-    reports(undefined, {
-      type: LANDING_PAGE_REQUEST_SUCCESS,
-      payload: {
-        fields: [reportsField]
-      }
-    }).should.eql({
-      [currentReportFactoryId + 1]: reportsField.value[0],
-      [currentReportFactoryId + 2]: reportsField.value[1],
-      [currentReportFactoryId + 3]: reportsField.value[2]
     });
   });
 });

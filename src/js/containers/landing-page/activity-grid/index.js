@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import ActivityGrid from 'components/activity-grid';
+import ActivityGrid from 'components/landing-page/activity-grid';
 import { cardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 

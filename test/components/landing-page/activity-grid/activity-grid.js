@@ -5,8 +5,8 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import ActivityGrid from 'components/activity-grid';
-import OfficerCard from 'components/activity-grid/officer-card';
+import ActivityGrid from 'components/landing-page/activity-grid';
+import OfficerCard from 'components/landing-page/activity-grid/officer-card';
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 
 
