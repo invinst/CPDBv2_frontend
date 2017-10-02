@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
 import OfficerVisualToken from 'components/visual-token/officer-visual-token';
-import { wrapperStyle, officerTextStyle, fullNameTextStyle } from './officer-card.style.js';
+import { wrapperStyle, officerTextStyle, fullNameTextStyle, visualTokenStyle } from './officer-card.style.js';
 
 
 export default class OfficerCard extends Component {
@@ -11,8 +11,7 @@ export default class OfficerCard extends Component {
     return (
       <Link to={ `/officer/${officerId}/` } style={ wrapperStyle }>
         <OfficerVisualToken
-          width={ 216 }
-          height={ 216 }
+          style={ visualTokenStyle }
           officerId={ officerId }
           backgroundColor={ visualTokenBackgroundColor }/>
         <p style={ officerTextStyle }>Officer</p>

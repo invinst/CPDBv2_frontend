@@ -26,8 +26,6 @@ describe('OfficerCard component', function () {
     const link = findRenderedComponentWithType(instance, Link);
     link.props.to.should.eql('/officer/1/');
     const visualTokenElement = link.props.children[0];
-    visualTokenElement.props.width.should.eql(216);
-    visualTokenElement.props.height.should.eql(216);
     visualTokenElement.props.officerId.should.eql(1);
     visualTokenElement.props.backgroundColor.should.eql('red');
   });

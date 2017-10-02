@@ -3,12 +3,17 @@ import { sanFranciscoTextFamily, greyishColor, softBlackColor } from 'utils/styl
 
 export const wrapperStyle = {
   display: 'inline-block',
-  width: '248px',
-  paddingLeft: '16px',
+  width: '25%',
+  padding: '16px',
   boxSizing: 'border-box',
-  textDecoration: 'none',
-  height: '286px',
-  paddingTop: '16px'
+  textDecoration: 'none'
+};
+
+export const visualTokenStyle = {
+  display: 'block',
+  height: 'calc(25vw - 32px)',
+  maxHeight: '328px',
+  minHeight: '160px'
 };
 
 export const officerTextStyle = {
@@ -25,6 +30,7 @@ export const fullNameTextStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
   fontWeight: '500',
+  marginBottom: '13px',
   color: softBlackColor,
   marginTop: 0
 };

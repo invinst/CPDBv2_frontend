@@ -19,8 +19,6 @@ describe('OfficerVisualToken component', function () {
       <OfficerVisualToken
         officerId={ 1 }
         backgroundColor='red'
-        width={ 200 }
-        height={ 200 }
       />
     );
     const imgElement = findRenderedDOMComponentWithTag(instance, 'img');

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
 import OfficerCard from './officer-card';
-import { wrapperStyle } from './activity-grid.style';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 
 
 export default class ActivityGrid extends Component {
@@ -12,7 +12,7 @@ export default class ActivityGrid extends Component {
   render() {
     const { cards } = this.props;
     return (
-      <div style={ wrapperStyle }>
+      <ResponsiveFluidWidthComponent>
         { cards.map(({ id, fullName, visualTokenBackgroundColor }) =>
           <OfficerCard
             officerId={ id }
@@ -20,7 +20,7 @@ export default class ActivityGrid extends Component {
             key={ id }
             visualTokenBackgroundColor={ visualTokenBackgroundColor }/>)
         }
-      </div>
+      </ResponsiveFluidWidthComponent>
     );
   }
 }

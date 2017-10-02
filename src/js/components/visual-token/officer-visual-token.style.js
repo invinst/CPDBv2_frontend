@@ -1,15 +1,15 @@
-export const wrapperStyle = (width, height) => ({
+export const wrapperStyle = {
   display: 'inline-block',
-  width: `${width}px`,
-  height: `${height}px`,
   overflow: 'hidden',
   position: 'relative'
-});
+};
 
 export const imgStyle = {
   position: 'absolute',
   top: 0,
   left: 0,
+  width: '100%',
+  height: '100%',
   transform: 'scale(1.8)'
 };
 

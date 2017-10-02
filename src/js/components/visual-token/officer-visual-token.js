@@ -10,12 +10,12 @@ export default class OfficerVisualToken extends Component {
   }
 
   render() {
-    const { officerId, backgroundColor, width, height } = this.props;
+    const { officerId, backgroundColor, style } = this.props;
     const svgUrl = this.getSvgUrl(officerId);
     return (
-      <div style={ wrapperStyle(width, height) }>
+      <div style={ { ...wrapperStyle, ...style } }>
         <div style={ backgroundStyle(backgroundColor) }/>
-        <img style={ imgStyle } src={ svgUrl } width={ width } height={ height }/>
+        <img style={ imgStyle } src={ svgUrl }/>
       </div>
     );
   }
@@ -24,6 +24,5 @@ export default class OfficerVisualToken extends Component {
 OfficerVisualToken.propTypes = {
   officerId: PropTypes.number,
   backgroundColor: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number
+  style: PropTypes.object
 };
