@@ -14,8 +14,7 @@ function mapStateToProps(state, ownProps) {
     location: ownProps.location,
     appContent: state.appContent,
     showLoginModal: showLoginModalSelector(state, ownProps),
-    editModeOn: editModeOnSelector(state, ownProps),
-    genericModalIsActive: Boolean(state.genericModal.activeModal)
+    editModeOn: editModeOnSelector(state, ownProps)
   };
 }
 

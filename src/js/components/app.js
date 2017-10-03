@@ -77,28 +77,24 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { location, appContent, params, genericModalIsActive, openLegalDisclaimerModal } = this.props;
+    const { location, appContent, params, openLegalDisclaimerModal } = this.props;
     const children = this.children();
     const showHeader = this.showHeader(children);
-
-    const wrapperStyle = genericModalIsActive ? { overflow: 'hidden' } : {};
 
     return (
       <StyleRoot>
         <EditModeContainer location={ location }>
-          <div style={ wrapperStyle }>
-            <SlimHeader
-              show={ showHeader }
-              pathname={ location.pathname }
-              openLegalDisclaimerModal={ openLegalDisclaimerModal }
-            />
-            <RouteTransition pathname={ appContent }>
-              { this.children() }
-            </RouteTransition>
-            <BottomSheetContainer params={ params } location={ location }/>
-            <LoginModalContainer location={ location }/>
-            <GenericModalContainer />
-          </div>
+          <SlimHeader
+            show={ showHeader }
+            pathname={ location.pathname }
+            openLegalDisclaimerModal={ openLegalDisclaimerModal }
+          />
+          <RouteTransition pathname={ appContent }>
+            { this.children() }
+          </RouteTransition>
+          <BottomSheetContainer params={ params } location={ location }/>
+          <LoginModalContainer location={ location }/>
+          <GenericModalContainer />
         </EditModeContainer>
       </StyleRoot>
     );
@@ -119,7 +115,6 @@ App.propTypes = {
   toggleEditMode: PropTypes.func,
   toggleSearchMode: PropTypes.func,
   changeSearchQuery: PropTypes.func,
-  genericModalIsActive: PropTypes.bool,
   openLegalDisclaimerModal: PropTypes.func
 };
 
