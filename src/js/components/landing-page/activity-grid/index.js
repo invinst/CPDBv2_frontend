@@ -18,7 +18,9 @@ export default class ActivityGrid extends Component {
             officerId={ id }
             fullName={ fullName }
             key={ id }
-            visualTokenBackgroundColor={ visualTokenBackgroundColor }/>)
+            visualTokenBackgroundColor={ visualTokenBackgroundColor }
+            />
+          )
         }
       </ResponsiveFluidWidthComponent>
     );

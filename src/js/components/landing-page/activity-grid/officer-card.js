@@ -9,7 +9,7 @@ export default class OfficerCard extends Component {
   render() {
     const { officerId, fullName, visualTokenBackgroundColor } = this.props;
     return (
-      <Link to={ `/officer/${officerId}/` } style={ wrapperStyle }>
+      <Link to={ `/officer/${officerId}/` } style={ wrapperStyle } className='test--activity-grid-section-card'>
         <OfficerVisualToken
           style={ visualTokenStyle }
           officerId={ officerId }
