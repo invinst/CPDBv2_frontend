@@ -2,7 +2,6 @@
 
 require('should');
 
-import landingPage from './page-objects/landing-page';
 import faqPage from './page-objects/faq-page';
 import searchPage from './page-objects/search-page';
 
@@ -15,23 +14,6 @@ function clickOverlay() {
 describe('bottom-sheet', function () {
 
   describe('faq', function () {
-    it('should open and close faq bottom-sheet', function () {
-      landingPage.open();
-
-      landingPage.faqSection.faq.waitForVisible();
-      landingPage.faqSection.faq.click();
-      landingPage.bottomSheet.faqBottomSheet.waitForVisible();
-      landingPage.bottomSheet.overlay.waitForVisible();
-      browser.element('body').getAttribute('class').should.containEql('noscroll');
-      landingPage.currentBasePath.should.equal('/faq/9/');
-
-      landingPage.bottomSheet.clickOverlay();
-      landingPage.bottomSheet.faqBottomSheet.waitForVisible(10000, true);
-      landingPage.bottomSheet.overlay.waitForVisible(10000, true);
-      browser.element('body').getAttribute('class').should.not.containEql('noscroll');
-      landingPage.currentBasePath.should.equal('/');
-    });
-
     it('should show faq bottom sheet when visit /faq/<id>/ path', function () {
       browser.url('/faq/1/');
       faqPage.bottomSheet.faqBottomSheet.waitForVisible();

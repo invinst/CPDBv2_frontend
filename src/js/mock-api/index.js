@@ -1,11 +1,10 @@
 import axiosMockClient, { countRequests } from 'utils/axios-mock-client';
 import {
-  LANDING_PAGE_API_URL, SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL,
+  SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL, ACTIVITY_GRID_API_URL,
   REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL, UNIT_PROFILE_URL
 } from 'utils/constants';
 
 import OfficerFactory from 'utils/test/factories/officer';
-import landingPageGetData from './landing-page/get-data';
 import reportingPageGetData from './reporting-page/get-data';
 import FAQPageGetData from './faq-page/get-data';
 import suggestionGetData from './landing-page/suggestions';
@@ -14,15 +13,16 @@ import getMinimapData from './officer-page/get-minimap';
 import getTimelineItemsData, { reversedTimelineItems, nextTimelineItems } from './officer-page/get-timeline-item';
 import getCRData from './cr-page/get-data';
 import getUnitSummaryData from './unit-profile-page/get-summary';
+import getActivityGridData from './landing-page/activity-grid';
 
 
 const SEARCH_API_URL = /^suggestion\/([^/]*)\//;
-
-axiosMockClient.onGet(LANDING_PAGE_API_URL).reply(200, landingPageGetData);
 /* istanbul ignore next */
 axiosMockClient.onGet(REPORTS_API_URL).reply(() => [200, reportingPageGetData()]);
 /* istanbul ignore next */
 axiosMockClient.onGet(new RegExp(`${FAQS_API_URL}\?.+`)).reply(() => [200, FAQPageGetData()]);
+
+axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
 
 axiosMockClient.onPost(SIGNIN_URL, { username: 'username', password: 'password' })
   .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });

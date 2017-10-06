@@ -6,7 +6,7 @@ require('should');
 import landingPage from './page-objects/landing-page';
 
 
-describe('Rich text editor', function () {
+describe.skip('Rich text editor', function () {
 
   beforeEach(function () {
     landingPage.open();

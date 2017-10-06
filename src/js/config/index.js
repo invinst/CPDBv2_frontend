@@ -5,6 +5,7 @@ const nodeEnv = process.env.CPDB_APP_ENV;
 const configs = {
   'development': require('./development'),
   'production': require('./production'),
+  'staging': require('./staging'),
   'test': require('./test')
 };
 

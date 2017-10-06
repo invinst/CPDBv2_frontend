@@ -79,6 +79,7 @@ export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
 export const UNIT_PROFILE_URL = `${V2_ROOT_PATH}units/`;
 export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
+export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -185,3 +186,7 @@ export const FINDING_COLORS = {
   'Discharged': galleryColor,
   'Unknown': lightAltoColor
 };
+
+export const ACTIVITY_GRID_REQUEST_START = 'ACTIVITY_GRID_REQUEST_START';
+export const ACTIVITY_GRID_REQUEST_SUCCESS = 'ACTIVITY_GRID_REQUEST_SUCCESS';
+export const ACTIVITY_GRID_REQUEST_FAILURE = 'ACTIVITY_GRID_REQUEST_FAILURE';

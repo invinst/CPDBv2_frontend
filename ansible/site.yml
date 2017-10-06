@@ -11,3 +11,4 @@
     - node_path: "{{ nvm_dir }}/versions/node/v{{ nvm_node_version }}/bin"
   environment:
     NODE_ENV: "{{ node_env }}"
+    CPDB_APP_ENV: "{{ cpdb_app_env }}"
