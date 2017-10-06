@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { map } from 'lodash';
 
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   unitNameStyle, linkWrapperStyle, linkStyle, wrapperStyle, activeLinkStyle, boxShadowStyle
 } from './header.style';
@@ -27,7 +27,7 @@ export default class Header extends Component {
 
     return (
       <div style={ boxShadowStyle }>
-        <ResponsiveFixedWidthComponent>
+        <ResponsiveFluidWidthComponent>
           <div style={ wrapperStyle }>
             <div className='test--unit-name' style={ unitNameStyle }>{ `Unit ${unitName}` }</div>
             <div style={ linkWrapperStyle }>
@@ -45,7 +45,7 @@ export default class Header extends Component {
               }
             </div>
           </div>
-        </ResponsiveFixedWidthComponent>
+        </ResponsiveFluidWidthComponent>
       </div>
     );
   }

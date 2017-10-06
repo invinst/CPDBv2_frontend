@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import EditableSection from 'components/inline-editable/editable-section';
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import EditToggle from 'components/inline-editable/editable-section/edit-toggle';
 import SunburstGraphic from './sunburst-graphic';
 import TextColumn from './text-column';
@@ -13,7 +13,7 @@ export class HeroSection extends Component {
 
     return (
       <div style={ outerWrapperStyle } className='test--hero-section'>
-        <ResponsiveFixedWidthComponent>
+        <ResponsiveFluidWidthComponent>
           <div style={ wrapperStyle }>
             <SunburstGraphic />
             <TextColumn fieldProps={ fieldProps }/>
@@ -21,7 +21,7 @@ export class HeroSection extends Component {
               <EditToggle { ...editToggleProps }/>
             </div>
           </div>
-        </ResponsiveFixedWidthComponent>
+        </ResponsiveFluidWidthComponent>
       </div>
     );
   }
