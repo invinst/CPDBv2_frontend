@@ -52,9 +52,3 @@ export const RandomizerFieldFactory = Factory.define('randomizerField')
       'name': 'Last days'
     }]
   });
-
-export const RandomizedListFieldFactory = Factory.define('randomizedListField')
-  .extend('field')
-  .option('subFactory', new Factory())
-  .attr('type', 'randomized_list')
-  .attr('value', ['subFactory'], (subFactory) => subFactory.buildList(3));
