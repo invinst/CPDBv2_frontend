@@ -33,7 +33,7 @@ class LandingPage extends Page {
   richTextToolbar = new RichTextToolbar();
   bottomSheet = new BottomSheet();
   collaborateSection = new CollaborateSection();
-  activityGridSection = new ActivityGridSection()
+  activityGridSection = new ActivityGridSection();
 
   open() {
     super.open('/');
