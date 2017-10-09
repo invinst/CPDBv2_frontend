@@ -5,7 +5,7 @@ import { getVisualTokenShade } from 'utils/visual-token';
 
 const getNodes = state => state.officerPage.socialGraph.nodes;
 const getLinks = state => state.officerPage.socialGraph.links;
-const getYearRange = state => state.officerPage.socialGraph.yearRange;
+export const getYearRange = state => state.officerPage.socialGraph.yearRange;
 
 
 export const nodesSelector = createSelector(
@@ -53,7 +53,7 @@ export const legendSelector = createSelector(
   (nodes) => {
     let crs = nodes.map(node => node.crs);
     crs = _.sortBy(crs).reverse();
-    const nodeShades = crs.map(getVisualTokenShade);
+    const nodeShades = _.uniq(crs.map(getVisualTokenShade));
     return {
       mostCrs: _.maxBy(crs),
       leastCrs: _.minBy(crs),

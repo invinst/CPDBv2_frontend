@@ -13,7 +13,8 @@ import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
 import ReportingPage from 'components/reporting-page';
 import {
   COLLAB_PATH, FAQ_PATH, STORIES_PATH, SEARCH_PATH, OFFICER_PATH, OFFICER_TIMELINE_PATH, CR_PATH,
-  UNIT_PROFILE_PATH, SEARCH_ALIAS_EDIT_PATH, INLINE_SEARCH_ALIAS_ADMIN_PATH
+  UNIT_PROFILE_PATH, SEARCH_ALIAS_EDIT_PATH, INLINE_SEARCH_ALIAS_ADMIN_PATH,
+  OFFICER_SOCIAL_GRAPH_PATH
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -43,7 +44,8 @@ class RouterRoot extends Component {
       <Route path={ CR_PATH } component={ SearchPageContainer } key='8'/>,
       <Route path={ UNIT_PROFILE_PATH } component={ SearchPageContainer } key='9'/>,
       <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer } key='10'/>,
-      <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11' />
+      <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11' />,
+      <Route path={ OFFICER_SOCIAL_GRAPH_PATH } component={ SearchPageContainer } key='12'/>
     ];
 
     return (

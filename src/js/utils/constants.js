@@ -29,6 +29,7 @@ export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
 export const OFFICER_TIMELINE_PATH = 'officer/:officerId/timeline';
+export const OFFICER_SOCIAL_GRAPH_PATH = 'officer/:officerId/social-graph';
 export const CR_PATH = 'complaint/:crid/:officerId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 

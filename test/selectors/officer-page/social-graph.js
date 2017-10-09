@@ -1,6 +1,8 @@
 import _ from 'lodash';
 
-import { nodesSelector, linksSelector, legendSelector } from 'selectors/officer-page/social-graph';
+import {
+  nodesSelector, linksSelector, legendSelector
+} from 'selectors/officer-page/social-graph';
 
 
 describe('Officer social graph selectors', function () {
@@ -148,7 +150,17 @@ describe('Officer social graph selectors', function () {
           id: 5,
           name: 'bal',
           'cr_years': [null]
-        }
+        },
+        {
+          id: 6,
+          name: 'foo',
+          'cr_years': _.range(6).map(() => 2002)
+        },
+        {
+          id: 7,
+          name: 'foo',
+          'cr_years': _.range(13).map(() => 2002)
+        },
       ];
       socialGraph.yearRange = [2001, 2002];
       legendSelector(state).should.eql({
