@@ -11,7 +11,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { HoverPoint } from 'components/common/sparklines/hover-point';
 
 
-describe('Sparkline components', function () {
+describe('HoverPoint component', function () {
   let instance;
   const tooltipData = {
     year: 2001,

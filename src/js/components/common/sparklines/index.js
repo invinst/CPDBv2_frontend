@@ -6,7 +6,7 @@ import HoverPoint from './hover-point';
 import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './sparklines.style';
 
 
-const width = 600;
+export const width = 600;
 
 export default class SimpleSparklines extends React.Component {
   hoverPointClickHandler(year) {
@@ -25,7 +25,7 @@ export default class SimpleSparklines extends React.Component {
     const length = data.length;
     const maxCount = data[length - 1]['count'];
     const minCount = data[0]['count'];
-    const defaultHoverPointWidth = width / (length - 1);
+    const defaultHoverPointWidth = length === 1 ? width : width / (length - 1);
     const halfHoverPointWidth = defaultHoverPointWidth / 2;
 
     let currentSustainedCount = 0;
@@ -34,12 +34,14 @@ export default class SimpleSparklines extends React.Component {
       const sustainedCount = sustained_count;           // eslint-disable-line camelcase
       let hoverPointWidth = defaultHoverPointWidth;
       let alignment = 'middle';
-      if (i === 0) {
-        alignment = 'left';
-        hoverPointWidth = halfHoverPointWidth;
-      } else if (i === length - 1) {
-        alignment = 'right';
-        hoverPointWidth = halfHoverPointWidth;
+      if (length !== 1) {
+        if (i === 0) {
+          alignment = 'left';
+          hoverPointWidth = halfHoverPointWidth;
+        } else if (i === length - 1) {
+          alignment = 'right';
+          hoverPointWidth = halfHoverPointWidth;
+        }
       }
 
       let hasSustainedCR = false;
