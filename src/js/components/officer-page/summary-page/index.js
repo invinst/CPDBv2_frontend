@@ -31,7 +31,6 @@ SummaryPage.propTypes = {
   complaintsCount: PropTypes.number,
   complaintFacets: PropTypes.array,
   sustainedCount: PropTypes.number,
-  fetchOfficerSummary: PropTypes.func,
   officerId: PropTypes.number,
   openBottomSheetWithPoliceUnit: PropTypes.func
 };

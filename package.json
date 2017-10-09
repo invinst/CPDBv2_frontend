@@ -109,6 +109,7 @@
     "mousetrap": "^1.6.0",
     "query-string": "^4.2.3",
     "radium": "^0.18.1",
+    "rc-slider": "^8.3.1",
     "react": "^15.3.2",
     "react-autosuggest": "^8.0.0",
     "react-datepicker": "^0.30.0",

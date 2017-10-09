@@ -7,44 +7,44 @@ const getNodes = state => state.officerPage.socialGraph.nodes;
 const getLinks = state => state.officerPage.socialGraph.links;
 export const getYearRange = state => state.officerPage.socialGraph.yearRange;
 
+const cachedNodesSelector = createSelector(
+  [getNodes],
+  rawNodes => [...rawNodes]
+);
+
+const cachedLinksSelector = createSelector(
+  [getLinks],
+  rawLinks => [...rawLinks]
+);
+
 
 export const nodesSelector = createSelector(
-  [getNodes, getYearRange],
-  (rawNodes, [minYear, maxYear]) => {
-    const nodes = rawNodes.map(node => {
+  [cachedNodesSelector, getYearRange],
+  (cachedNodes, [minYear, maxYear]) => {
+    _.each(cachedNodes, node => {
       const filteredYears = _.filter(
         node['cr_years'],
         year => minYear <= year && year <= maxYear || year === null
       );
-      return {
-        id: node.id,
-        name: node.name,
-        crs: filteredYears.length
-      };
+      node.crs = filteredYears.length;
     });
 
-    return _.filter(nodes, node => node.crs > 0);
+    return _.filter(cachedNodes, node => node.crs > 0);
   }
 );
 
 export const linksSelector = createSelector(
-  [getLinks, getYearRange],
-  (rawLinks, [minYear, maxYear]) => {
-    const links = rawLinks.reduce((accumulator, link) => {
+  [cachedLinksSelector, getYearRange],
+  (cachedLinks, [minYear, maxYear]) => {
+    _.each(cachedLinks, link => {
       const filteredYears = _.filter(
         link['cr_years'],
         year => minYear <= year && year <= maxYear || year === null
       );
-      if (filteredYears.length !== 0) {
-        accumulator.push({
-          source: link.source,
-          target: link.target
-        });
-      }
-      return accumulator;
-    }, []);
+      link.crs = filteredYears.length;
+    });
 
-    return links;
+    return _.filter(cachedLinks, link => link.crs !== 0);
   }
 );
 

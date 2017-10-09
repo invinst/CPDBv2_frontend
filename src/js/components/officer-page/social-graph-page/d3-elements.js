@@ -20,31 +20,33 @@ export default class D3Elements extends Component {
   }
 
   componentWillUnmount() {
-    this.props.ticker.on(`tick.${this.onTickCallbackName}`, null);
+    this.props.simulation.on(`tick.${this.onTickCallbackName}`, null);
   }
 
+  /* istanbul ignore next */
   updateElement() {
-    const { data, elementName, staticAttrs, ticker, dynamicAttrs, text } = this.props;
+    const { data, elementName, staticAttrs, simulation, dynamicAttrs, text } = this.props;
     let element = select(`g.${this.groupClassName}`)
-      .selectAll(`.${staticAttrs.className}`)
+      .selectAll(elementName)
       .data(data);
 
     element.exit().remove();
     element = element
       .enter()
       .insert(elementName)
-      .attr('class', staticAttrs.className)
       .merge(element);
     each(staticAttrs, (v, k) => {
       element.attr(k, v);
     });
     element.text(text);
 
-    ticker.on(`tick.${this.onTickCallbackName}`, () => {
-      each(dynamicAttrs, (v, k) => {
-        element.attr(k, v);
+    if (simulation) {
+      simulation.on(`tick.${this.onTickCallbackName}`, () => {
+        each(dynamicAttrs, (v, k) => {
+          element.attr(k, v);
+        });
       });
-    });
+    }
   }
 
   render() {
@@ -53,10 +55,15 @@ export default class D3Elements extends Component {
 }
 
 D3Elements.propTypes = {
-  ticker: PropTypes.object,
+  simulation: PropTypes.object,
   data: PropTypes.array,
   elementName: PropTypes.string,
   staticAttrs: PropTypes.object,
   dynamicAttrs: PropTypes.object,
   text: PropTypes.func
+};
+
+D3Elements.defaultProps = {
+  staticAttrs: {},
+  dynamicAttrs: {}
 };

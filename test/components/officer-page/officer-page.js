@@ -8,6 +8,7 @@ import Header from 'components/officer-page/header';
 import TimelinePage from 'components/officer-page/timeline-page';
 import SummaryPage from 'components/officer-page/summary-page';
 import MockStore from 'redux-mock-store';
+import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
 
 
 describe('OfficerPage component', function () {
@@ -15,6 +16,15 @@ describe('OfficerPage component', function () {
   const store = mockStore({
     officerPage: {
       summary: {},
+      socialGraph: {
+        isRequesting: false,
+        links: [],
+        nodes: [],
+        yearRange: [
+          1984,
+          2017
+        ]
+      },
       timeline: {
         sortDescending: true,
         minimap: {
@@ -58,5 +68,17 @@ describe('OfficerPage component', function () {
 
     scryRenderedComponentsWithType(instance, Header).should.have.length(1);
     scryRenderedComponentsWithType(instance, TimelinePage).should.have.length(1);
+  });
+
+  it('should render Socialgraph when path is social-graph', function () {
+    const location = { pathname: '/officer/123/social-graph/' };
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage location={ location }/>
+      </Provider>
+    );
+
+    scryRenderedComponentsWithType(instance, Header).should.have.length(1);
+    scryRenderedComponentsWithType(instance, SocialGraphPageContainer).should.have.length(1);
   });
 });

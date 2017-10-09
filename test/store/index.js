@@ -95,6 +95,15 @@ describe('store', function () {
         officerId: null,
         summary: {},
         sustainedCount: 0,
+        socialGraph: {
+          isRequesting: false,
+          links: [],
+          nodes: [],
+          yearRange: [
+            1984,
+            2017
+          ]
+        },
         timeline: {
           hoveredItemIndex: null,
           isRequesting: false,

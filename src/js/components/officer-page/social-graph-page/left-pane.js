@@ -15,7 +15,12 @@ export default class LeftPane extends Component {
         <Legend { ...legend }/>
         <div style={ totalStyle }>
           <span style={ textStyle }>Officers</span>
-          <span style={ numberStyle }>{ numOfficers }</span>
+          <span
+            style={ numberStyle }
+            className='test--social-graph-left-pane-num-officers'
+          >
+            { numOfficers }
+          </span>
         </div>
       </div>
     );

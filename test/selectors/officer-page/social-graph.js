@@ -51,19 +51,44 @@ describe('Officer social graph selectors', function () {
         {
           id: 1,
           name: 'John Doe',
-          crs: 3
+          crs: 3,
+          'cr_years': [2001, 2002, 2003, 2004, 2005]
         },
         {
           id: 3,
           name: 'John Kee',
-          crs: 2
+          crs: 2,
+          'cr_years': [2002, 2002]
         },
         {
           id: 5,
           name: 'John Bee',
-          crs: 1
+          crs: 1,
+          'cr_years': [null]
         }
       ]);
+    });
+
+    it('should return cached nodes', function () {
+      socialGraph.nodes = [
+        {
+          id: 1,
+          name: 'John Doe',
+          'cr_years': [2001, 2005]
+        }
+      ];
+
+      socialGraph.yearRange = [2001, 2002];
+      const firstResult = nodesSelector(state);
+      firstResult.should.have.length(1);
+      firstResult[0].crs.should.eql(1);
+      firstResult[0].x = 123;
+
+      socialGraph.yearRange = [2001, 2005];
+      const secondResult = nodesSelector(state);
+      secondResult.should.have.length(1);
+      secondResult[0].crs.should.eql(2);
+      secondResult[0].x.should.eql(123);
     });
   });
 
@@ -105,21 +130,51 @@ describe('Officer social graph selectors', function () {
       linksSelector(state).should.eql([
         {
           source: 2,
-          target: 3
+          target: 3,
+          crs: 1,
+          'cr_years': [2002, 2006]
         },
         {
           source: 5,
-          target: 4
+          target: 4,
+          crs: 1,
+          'cr_years': [null]
         },
         {
           source: 5,
-          target: 6
+          target: 6,
+          crs: 1,
+          'cr_years': [2004]
         },
         {
           source: 7,
-          target: 6
+          target: 6,
+          crs: 1,
+          'cr_years': [2003]
         }
       ]);
+    });
+
+    it('should return cached links', function () {
+      socialGraph.links = [
+        {
+          source: 2,
+          target: 3,
+          'cr_years': [2002, 2006]
+        },
+      ];
+
+      socialGraph.yearRange = [2002, 2004];
+      const firstResult = linksSelector(state);
+      firstResult.should.have.length(1);
+      firstResult[0].crs.should.eql(1);
+      firstResult[0].x = 123;
+
+      socialGraph.yearRange = [2001, 2007];
+      const secondResult = linksSelector(state);
+      secondResult.should.have.length(1);
+      secondResult[0].crs.should.eql(2);
+      secondResult[0].x.should.eql(123);
     });
   });
 

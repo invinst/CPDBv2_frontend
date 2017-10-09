@@ -19,7 +19,11 @@ export default class Legend extends Component {
     return (
       <span>
         <span style={ textStyle }>{ text }</span>
-        <span style={ crStyle }>{ cr }</span>
+        <span
+          className='test--social-graph-legend-cr-num'
+          style={ crStyle }>
+          { cr }
+        </span>
       </span>
     );
   }
@@ -31,7 +35,10 @@ export default class Legend extends Component {
         {
           nodeShades.map((shade, index) => (
             <div key={ index }>
-              <span style={ circleStyle(shade) }/>
+              <span
+                style={ circleStyle(shade) }
+                className='test--social-graph-legend-shade'
+              />
               { this.textContent(index) }
             </div>
           ))

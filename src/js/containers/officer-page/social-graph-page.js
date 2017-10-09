@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { fetchSocialGraph, setYearRange } from 'actions/officer-page/social-graph';
+import { setYearRange } from 'actions/officer-page/social-graph';
 import {
   nodesSelector, linksSelector, legendSelector, getYearRange
 } from 'selectors/officer-page/social-graph';
@@ -18,7 +18,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  fetchSocialGraph,
   setYearRange
 };
 

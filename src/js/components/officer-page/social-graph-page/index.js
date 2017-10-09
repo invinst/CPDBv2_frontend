@@ -8,16 +8,12 @@ import { rightPane, socialGraphStyle } from './social-graph-page.style';
 
 
 export default class SocialGraphPage extends Component {
-  componentDidMount() {
-    this.props.fetchSocialGraph(this.props.officerId);
-  }
-
   render() {
     const { nodes, links, legend, yearRange, setYearRange } = this.props;
     return (
       <div>
         <ResponsiveFluidWidthComponent>
-          <Slider yearRange={ yearRange } setYearRange={ setYearRange }/>
+          <Slider value={ yearRange } onChange={ setYearRange }/>
           <div>
             <LeftPane legend={ legend } numOfficers={ nodes.length }/>
             <div style={ rightPane }>
@@ -40,6 +36,5 @@ SocialGraphPage.propTypes = {
   legend: PropTypes.object,
   yearRange: PropTypes.array,
   officerId: PropTypes.number,
-  setYearRange: PropTypes.func,
-  fetchSocialGraph: PropTypes.func
+  setYearRange: PropTypes.func
 };
