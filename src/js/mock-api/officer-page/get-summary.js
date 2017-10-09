@@ -10,6 +10,15 @@ export default () => ({
   'complaint_records': {
     'count': 10,
     'sustained_count': 2,
+    'items': [{
+      'year': 2010,
+      'count': 5,
+      'sustained_count': 1
+    }, {
+      'year': 2012,
+      'count': 10,
+      'sustained_count': 2
+    }],
     'facets': [{
       'name': 'category',
       'entries': [{
@@ -18,6 +27,11 @@ export default () => ({
         'sustained_count': 2,
         'items': [{
           'year': 2010,
+          'count': 5,
+          'sustained_count': 1,
+          'name': 'Illegal Search'
+        }, {
+          'year': 2012,
           'count': 10,
           'sustained_count': 2,
           'name': 'Illegal Search'

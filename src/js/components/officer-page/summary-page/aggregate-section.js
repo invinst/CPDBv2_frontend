@@ -8,7 +8,7 @@ import { wrapperStyle, titleStyle, sustainedTextStyle, sectionHeaderStyle } from
 
 export default class AggregateSection extends Component {
   render() {
-    const { aggregateFacets, title, count, sustainedCount } = this.props;
+    const { aggregateFacets, title, count, sustainedCount, complaintsByYear } = this.props;
 
     return (
       <div style={ wrapperStyle }>
@@ -16,7 +16,12 @@ export default class AggregateSection extends Component {
           <span style={ titleStyle }>{ `${count} ${title}, ` }</span>
           <span style={ sustainedTextStyle }>{ `${sustainedCount} sustained` }</span>
         </div>
-        <AggregateRow name='Total' count={ count } sustainedCount={ sustainedCount } />
+        <AggregateRow
+          name='Total'
+          count={ count }
+          sustainedCount={ sustainedCount }
+          items={ complaintsByYear }
+        />
         { map(aggregateFacets, ({ name, entries }, ind) => (
           <AggregateFacet name={ name } entries={ entries } key={ ind }/>
         )) }
@@ -29,5 +34,6 @@ AggregateSection.propTypes = {
   aggregateFacets: PropTypes.array,
   title: PropTypes.string,
   count: PropTypes.number,
-  sustainedCount: PropTypes.number
+  sustainedCount: PropTypes.number,
+  complaintsByYear: PropTypes.array
 };

@@ -37,8 +37,6 @@ export default class SummarySection extends Component {
     ];
   }
 
-
-
   render() {
     const { officerSummary, openBottomSheetWithPoliceUnit } = this.props;
     const { unitName } = officerSummary;

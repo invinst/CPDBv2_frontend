@@ -37,7 +37,7 @@ class AggregateSection extends Section {
       facetGetters[`${field}EntryCount`] = `(//span[@class="test--entry-count"])[${index + 2}]`;
       facetGetters[`${field}EntrySustainedCount`] = `(//span[@class="test--entry-sustained-count"])[${index + 2}]`;
       facetGetters[`${field}EntryName`] = `(//span[@class="test--entry-name"])[${index + 2}]`;
-      facetGetters[`${field}Sparkline`] = `(//div[@class="test--sparkline"])[${index + 1}]`;
+      facetGetters[`${field}Sparkline`] = `(//div[@class="test--sparkline"])[${index + 2}]`;
     });
 
     this.prepareElementGetters({
