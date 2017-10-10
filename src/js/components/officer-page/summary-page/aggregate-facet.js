@@ -9,7 +9,7 @@ import {
 
 export default class AggregateFacet extends Component {
   render() {
-    const { name, entries } = this.props;
+    const { name, entries, startYear } = this.props;
 
     return (
       <div className='test--aggregate-facet' style={ wrapperStyle }>
@@ -26,6 +26,7 @@ export default class AggregateFacet extends Component {
                   sustainedCount={ sustainedCount }
                   key={ `aggr-row-${ind}` }
                   items={ items }
+                  startYear={ startYear }
                 />
               )
             )
@@ -39,5 +40,6 @@ export default class AggregateFacet extends Component {
 AggregateFacet.propTypes = {
   name: PropTypes.string,
   entries: PropTypes.array,
-  aggregateFacets: PropTypes.array
+  aggregateFacets: PropTypes.array,
+  startYear: PropTypes.number
 };

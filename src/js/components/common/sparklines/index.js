@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import lodashFind from 'lodash/find';
+import { range, keyBy } from 'lodash';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 import HoverPoint from './hover-point';
@@ -9,16 +9,38 @@ import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './spar
 export const width = 600;
 
 export default class SimpleSparklines extends React.Component {
-  hoverPointClickHandler(year) {
-    const { router, selectMinimapItem, officerId, minimapItems } = this.props;
+  fillEmptyDataYear(data, begin = 2000, end = 2017) {
+    /* Fills empty years with previous data, to ensure no sudden jump between years
+     */
+    if (!data || data.length === 0) {
+      return [];
+    }
+    const yearRange = range(begin, end + 1);
+    const yearData = keyBy(data, 'year');
+    let dummyRecord = Object.assign({}, data[0],
+      { 'year': begin, count: 0, 'sustained_count': 0 });
+    return yearRange.map(function (value) {
+      if (value in yearData) {
+        dummyRecord = yearData[value];
+        return yearData[value];
+      }
+      else {
+        let result = Object.assign({}, dummyRecord);
+        result['year'] = value;
+        return result;
+      }
+    });
+  }
+
+  hoverPointClickHandler() {
+    const { router, officerId } = this.props;
     router.push(`/officer/${officerId}/timeline/`);
-    const index = lodashFind(minimapItems, item => item.year == year).items[0].index;
-    selectMinimapItem(index);
-    // TODO: This scrolling feature should be handled in Office Timeline itself via URL params
+    // TODO: Should scroll to selected year too and filter by type too.
+    // This feature should be handled in Office Timeline itself via URL params
   }
 
   renderHoverPoints(data) {
-    if ( data.length === 0 ) {
+    if (data.length === 0) {
       return [];
     }
     const points = new Array(data.length);
@@ -29,7 +51,7 @@ export default class SimpleSparklines extends React.Component {
     const halfHoverPointWidth = defaultHoverPointWidth / 2;
 
     let currentSustainedCount = 0;
-    for (let i = 0; i < length; i++ ) {
+    for (let i = 0; i < length; i++) {
       const { year, count, sustained_count } = data[i]; // eslint-disable-line camelcase
       const sustainedCount = sustained_count;           // eslint-disable-line camelcase
       let hoverPointWidth = defaultHoverPointWidth;
@@ -50,10 +72,10 @@ export default class SimpleSparklines extends React.Component {
         currentSustainedCount = sustainedCount;
       }
 
-      const y = (count-minCount) / maxCount * HEIGHT + 3.5;
+      const y = (count - minCount) / maxCount * HEIGHT + 3.5;
       points[i] = (
         <HoverPoint
-          clickHandler={ this.hoverPointClickHandler.bind(this, year) }
+          clickHandler={ this.hoverPointClickHandler.bind(this) }
           i={ i }
           y={ y }
           hasSustainedCR={ hasSustainedCR }
@@ -69,8 +91,10 @@ export default class SimpleSparklines extends React.Component {
   }
 
   render() {
-    const { data } = this.props;
-    const sparklineData = data.map(d => d['count']);
+    const { data, startYear } = this.props;
+    const endYear = (new Date()).getFullYear();
+    let filledData = this.fillEmptyDataYear(data, startYear, endYear);
+    const sparklineData = filledData.map(d => d['count']);
     return (
       <div className='test--sparkline' style={ wrapperStyle(width) }>
         <Sparklines
@@ -78,10 +102,10 @@ export default class SimpleSparklines extends React.Component {
           height={ HEIGHT }
           width={ width }
         >
-          <SparklinesLine style={ sparklinesStyle } />
+          <SparklinesLine style={ sparklinesStyle }/>
         </Sparklines>
         <div style={ hoverOverlayStyle }>
-          { this.renderHoverPoints(data) }
+          { this.renderHoverPoints(filledData) }
         </div>
       </div>
     );
@@ -91,9 +115,8 @@ export default class SimpleSparklines extends React.Component {
 SimpleSparklines.propTypes = {
   data: PropTypes.array,
   router: PropTypes.object,
-  selectMinimapItem: PropTypes.func,
   officerId: PropTypes.number,
-  minimapItems: PropTypes.array
+  startYear: PropTypes.number
 };
 
 SimpleSparklines.defaultProps = {

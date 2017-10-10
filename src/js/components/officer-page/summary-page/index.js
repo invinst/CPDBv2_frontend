@@ -18,6 +18,7 @@ export default class SummaryPage extends Component {
           <SummarySection officerSummary={ officerSummary }
             openBottomSheetWithPoliceUnit={ openBottomSheetWithPoliceUnit } />
           <AggregateSection
+            dateOfAppt={ officerSummary ? officerSummary.dateOfAppt : null }
             title='complaint records (CRs)' count={ complaintsCount } sustainedCount={ sustainedCount }
             complaintsByYear={ complaintsByYear }
             aggregateFacets={ complaintFacets }/>
