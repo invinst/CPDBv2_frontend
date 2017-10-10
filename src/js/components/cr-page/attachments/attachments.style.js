@@ -43,3 +43,8 @@ export const iconStyle = iconName => ({
   marginRight: '21px',
   background: `url(${imgUrl(iconName)}) left center / auto no-repeat`
 });
+
+export const requestLinkStyle = {
+  cursor: 'pointer',
+  color: softBlackColor
+};

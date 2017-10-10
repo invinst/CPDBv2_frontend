@@ -16,30 +16,49 @@ import {
   outerStyle
 } from './slim-header.style';
 
-const links = [
-  {
-    name: 'Downloads',
-    href: '/TODO'
-  },
-  {
-    name: 'Legal Disclaimer',
-    href: '/TODO'
-  },
-  {
-    name: 'FAQ',
-    href: '/' + FAQ_PATH
-  },
-  {
-    name: 'Glossary',
-    href: '/TODO'
-  },
-  {
-    name: 'Collaborate',
-    href: '/' + COLLAB_PATH
-  },
-];
-
 class SlimHeader extends Component {
+  renderRightLinks() {
+    const { pathname, openLegalDisclaimerModal } = this.props;
+    const { editModeOn } = this.context;
+    const links = [
+      {
+        name: 'Downloads',
+        href: '/TODO'
+      },
+      {
+        name: 'Legal Disclaimer',
+        onClick: openLegalDisclaimerModal
+      },
+      {
+        name: 'FAQ',
+        href: '/' + FAQ_PATH
+      },
+      {
+        name: 'Glossary',
+        href: '/TODO'
+      },
+      {
+        name: 'Collaborate',
+        href: '/' + COLLAB_PATH
+      },
+    ];
+
+    return links.map((link, index) => {
+      const href = link.href && (editModeOn ? editMode(link.href) : link.href);
+      const style = pathname === href ? { ...rightLinkStyle, ...activeLinkStyle } : rightLinkStyle;
+
+      return (
+        <Link
+          style={ style }
+          key={ index }
+          to={ href }
+          onClick={ link.onClick }>
+          { link.name }
+        </Link>
+      );
+    });
+  }
+
   render() {
     const { show, pathname } = this.props;
     const { editModeOn } = this.context;
@@ -50,21 +69,10 @@ class SlimHeader extends Component {
 
     const homeHref = editModeOn ? editMode(ROOT_PATH) : ROOT_PATH;
     const homeLinkStyle = (
-      window.location.pathname === homeHref ? { ...leftLinkStyle, ...activeLinkStyle } : leftLinkStyle
+      pathname === homeHref ? { ...leftLinkStyle, ...activeLinkStyle } : leftLinkStyle
     );
 
-    const rightLinks = links.map((link, index) => {
-      const href = editModeOn ? editMode(link.href) : link.href;
-      const style = pathname === href ? { ...rightLinkStyle, ...activeLinkStyle } : rightLinkStyle;
-
-      return (
-        <Link
-          style={ style }
-          key={ index }
-          to={ href }>{ link.name }
-        </Link>
-      );
-    });
+    const rightLinks = this.renderRightLinks();
 
     return (
       <ResponsiveFluidWidthComponent style={ outerStyle }>
@@ -89,6 +97,7 @@ class SlimHeader extends Component {
 SlimHeader.propTypes = {
   show: PropTypes.bool,
   pathname: PropTypes.string,
+  openLegalDisclaimerModal: PropTypes.func
 };
 
 SlimHeader.defaultProps = {

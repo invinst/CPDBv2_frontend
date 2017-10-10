@@ -5,7 +5,7 @@ import IncidentAndBeginAndClose from './incident-begin-close-svg';
 import IncidentBeginClose from './incidentbeginclose-svg';
 import IncidentBeginAndClose from './incidentbegin-close-svg';
 import IncidentAndBeginClose from './incident-beginclose-svg';
-import BlockTitle from '../block-title';
+import BlockTitle from 'components/common/block-title';
 
 
 export default class Timeline extends Component {

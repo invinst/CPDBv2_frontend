@@ -15,6 +15,7 @@ import officerPage from './officer-page';
 import crPage from './cr-page';
 import unitProfilePage from './unit-profile-page';
 import inlineAliasAdminPage from './inline-alias-admin-page';
+import genericModal from './generic-modal';
 
 
 export default combineReducers({
@@ -32,5 +33,6 @@ export default combineReducers({
   officerPage,
   crPage,
   unitProfilePage,
-  inlineAliasAdminPage
+  inlineAliasAdminPage,
+  genericModal
 });
