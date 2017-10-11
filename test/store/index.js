@@ -115,6 +115,9 @@ describe('store', function () {
       unitProfilePage: {
         isRequesting: false,
         summary: {}
+      },
+      genericModal: {
+        activeModal: null
       }
     });
   });

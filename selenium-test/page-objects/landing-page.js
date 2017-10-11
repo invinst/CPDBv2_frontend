@@ -28,12 +28,23 @@ class ActivityGridSection extends Section {
   }
 }
 
+class GenericModalSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      overlay: '//div[@class="test--generic-modal-overlay"]',
+      legalDisclaimerTitle: '//p[text()="LEGAL DISCLAIMER"]'
+    });
+  }
+}
+
 class LandingPage extends Page {
   header = new Header();
   richTextToolbar = new RichTextToolbar();
   bottomSheet = new BottomSheet();
   collaborateSection = new CollaborateSection();
   activityGridSection = new ActivityGridSection();
+  genericModalSection = new GenericModalSection();
 
   open() {
     super.open('/');

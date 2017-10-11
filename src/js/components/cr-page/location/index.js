@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import ViewMapButton from './view-map-button';
 import CRLocationMap from './cr-location-map';
-import BlockTitle from '../block-title';
+import BlockTitle from 'components/common/block-title';
 import {
   wrapperStyle, addressStyle, locationStyle, beatStyle, labelStyle, contentStyle
 } from './location.style';

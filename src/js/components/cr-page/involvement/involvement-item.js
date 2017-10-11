@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 
 import { wrapperStyle, lastItemStyle } from './involvement-item.style';
-import BlockTitle from '../block-title';
+import BlockTitle from 'components/common/block-title';
 import OfficerRow from './officer-row';
 
 
