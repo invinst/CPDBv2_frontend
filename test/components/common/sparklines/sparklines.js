@@ -73,11 +73,12 @@ describe('Sparkline components', function () {
           data={ data }
           router={ router }
           officerId={ 111 }
+          timelineEventQuery={ { 'complainant race': 'Black' } }
         />
       );
 
-      instance.hoverPointClickHandler(2011);
-      router.push.calledWith('/officer/111/timeline/').should.be.true();
+      instance.hoverPointClickHandler();
+      router.push.calledWith('/officer/111/timeline/?race=Black').should.be.true();
     });
 
   });

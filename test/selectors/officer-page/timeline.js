@@ -115,13 +115,46 @@ describe('officer page selectors', function () {
             kind: 'CR',
             date: '2005-11-28'
           }
-        ]
+        ],
+        filters: {}
       };
 
       timelineItemsSelector(state).should.eql([
         {
           fooKey: 'bar',
           kind: TimelineItemType.YEAR,
+          date: null
+        },
+        {
+          kind: TimelineItemType.CR,
+          date: 'NOV 28, 2005'
+        }
+      ]);
+    });
+
+    it('should filter out empty "YEAR" items', function () {
+      state.officerPage.timeline = {
+        items: [
+          {
+            kind: 'YEAR',
+            year: 2006
+          },
+          {
+            kind: 'YEAR',
+            year: 2005
+          },
+          {
+            kind: 'CR',
+            date: '2005-11-28'
+          }
+        ],
+        filters: { 'x': 'xxx' }
+      };
+
+      timelineItemsSelector(state).should.eql([
+        {
+          kind: TimelineItemType.YEAR,
+          year: 2005,
           date: null
         },
         {

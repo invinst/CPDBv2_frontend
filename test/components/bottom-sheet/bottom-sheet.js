@@ -28,6 +28,9 @@ describe('BottomSheet component', function () {
       fullName: 'John Doe',
       summary: {
         'date_of_appt': '2010-10-02'
+      },
+      timeline: {
+        filters: {}
       }
     },
     reports: { [report.id]: report },

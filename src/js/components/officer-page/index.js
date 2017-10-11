@@ -14,7 +14,7 @@ export default class OfficerPage extends Component {
     const parts = location.pathname.split('/');
     const path = parts[parts.length - 2];
     if (path === 'timeline') {
-      return <TimelinePage officerId={ officerId }/>;
+      return <TimelinePage officerId={ officerId } urlParams={ location.query }/>;
     } else if (path === 'social') {
       return <SocialGraphPageContainer officerId={ officerId }/>;
     }
@@ -22,13 +22,17 @@ export default class OfficerPage extends Component {
   }
 
   render() {
-    const { location, officerName } = this.props;
+    const { location, officerName, officerTimelineUrlParams } = this.props;
     const { pathname } = location;
 
     return (
       <div>
         <StickyHeader style={ headerStyle }>
-          <Header officerName={ officerName } pathname={ pathname }/>
+          <Header
+            officerName={ officerName }
+            pathname={ pathname }
+            officerTimelineUrlParams={ officerTimelineUrlParams }
+          />
         </StickyHeader>
         <div style={ pageWrapperStyle }>
           { this.renderContent() }
@@ -41,7 +45,8 @@ export default class OfficerPage extends Component {
 OfficerPage.propTypes = {
   location: PropTypes.object,
   officerName: PropTypes.string,
-  officerId: PropTypes.number
+  officerId: PropTypes.number,
+  officerTimelineUrlParams: PropTypes.string
 };
 
 OfficerPage.defaultProps = {

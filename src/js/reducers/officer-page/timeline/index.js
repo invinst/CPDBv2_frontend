@@ -7,6 +7,7 @@ import minimap from './minimap';
 import pagination from './pagination';
 import selectedItemIndex from './selected-item-index';
 import hoveredItemIndex from './hovered-item-index';
+import filters from './filters';
 
 export default combineReducers({
   isRequesting,
@@ -15,5 +16,6 @@ export default combineReducers({
   minimap,
   pagination,
   selectedItemIndex,
-  hoveredItemIndex
+  hoveredItemIndex,
+  filters
 });

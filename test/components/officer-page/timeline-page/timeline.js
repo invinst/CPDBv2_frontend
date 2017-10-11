@@ -22,16 +22,29 @@ describe('Timeline component', function () {
     Timeline.should.be.renderable();
   });
 
-  it('should invoke fetchTimelineItems when sortParams change', function () {
-    const fetchTimelineItems = spy();
+  it('should invoke fetchTimelineFullItems and fetchMinimap when sortParams change', function () {
+    const fetchTimelineFullItems = spy();
+    const fetchMinimap = spy();
     instance = renderIntoDocument(
-      <Timeline fetchTimelineItems={ fetchTimelineItems } sortParams={ { a: 'a' } } officerId={ 123 }/>
+      <Timeline
+        fetchTimelineFullItems={ fetchTimelineFullItems }
+        fetchMinimap={ fetchMinimap }
+        sortParams={ { a: 'a' } }
+        officerId={ 123 }
+      />
     );
     reRender(
-      <Timeline fetchTimelineItems={ fetchTimelineItems } sortParams={ { b: 'b' } } officerId={ 123 }/>,
+      <Timeline
+        fetchTimelineFullItems={ fetchTimelineFullItems }
+        fetchMinimap={ fetchMinimap }
+        sortParams={ { b: 'b' } }
+        filters={ { c: 'c' } }
+        officerId={ 123 }
+      />,
       instance
     );
-    fetchTimelineItems.calledWith(123, { b: 'b' }).should.be.true();
+    fetchTimelineFullItems.calledWith(123, { b: 'b', c: 'c' }).should.be.true();
+    fetchMinimap.calledWith(123, { c: 'c' }).should.be.true();
   });
 
   it('should invoke fetchTimelineItemsWhenIndexOutOfBound when selectedItemIndex change', function (done) {

@@ -1,12 +1,14 @@
 import { createSelector } from 'reselect';
 import S from 'string';
 import moment from 'moment';
+import { serializeFilterParams } from 'utils/location';
 
 import { reduce, sortBy, keys, map, mapKeys, reverse } from 'lodash';
 
 import extractQuery from 'utils/extract-query';
 import { TimelineItemType } from 'utils/constants';
 
+export const getTimelineFilters = state => state.officerPage.timeline.filters;
 const getTimelineNextUrl = state => state.officerPage.timeline.pagination.next;
 const getTimelineIsRequesting = state => state.officerPage.timeline.isRequesting;
 const getMinimap = state => state.officerPage.timeline.minimap.minimap;
@@ -38,12 +40,25 @@ const mapping = {
 };
 
 export const timelineItemsSelector = createSelector(
-  [getTimelineItems],
-  (items) => map(items, item => ({
-    ...mapKeys(item, (val, key) => S(key).camelize().s),
-    date: item.date ? moment(item.date).format('ll').toUpperCase() : null,
-    kind: mapping[item.kind]
-  }))
+  [getTimelineItems, getTimelineFilters],
+  (items, filters) => {
+    return items.reduce((acc, item) => {
+      if (Object.keys(filters).length > 0 && item.kind === 'YEAR') {
+        const filteredCrs = items.filter(i => (new Date(i.date)).getFullYear() === item.year).length;
+        if (filteredCrs === 0) {
+          return acc;
+        }
+      }
+
+      acc.push({
+        ...mapKeys(item, (val, key) => S(key).camelize().s),
+        date: item.date ? moment(item.date).format('ll').toUpperCase() : null,
+        kind: mapping[item.kind]
+      });
+
+      return acc;
+    }, []);
+  }
 );
 
 export const minimapSelector = createSelector(
@@ -84,4 +99,11 @@ export const minimapSelector = createSelector(
 export const sortParamsSelector = createSelector(
   [getSortDescending],
   (sortDescending) => sortDescending ? {} : { sort: 'asc' }
+);
+
+export const timelineUrlParamsSelector = createSelector(
+  [getTimelineFilters],
+  (filters) => {
+    return serializeFilterParams(filters, '?');
+  }
 );

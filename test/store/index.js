@@ -125,7 +125,8 @@ describe('store', function () {
             previous: null
           },
           selectedItemIndex: null,
-          sortDescending: true
+          sortDescending: true,
+          filters: {}
         }
       },
       unitProfilePage: {

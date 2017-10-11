@@ -21,9 +21,10 @@ const OFFICER_BUTTONS = [
   ['Social Map', officerPath('social')]
 ];
 
+
 export default class Header extends Component {
   render() {
-    const { officerName, pathname } = this.props;
+    const { officerName, pathname, officerTimelineUrlParams } = this.props;
 
     return (
       <div style={ boxShadowStyle }>
@@ -34,8 +35,10 @@ export default class Header extends Component {
               {
                 map(OFFICER_BUTTONS, ([label, getPath], ind) => {
                   const path = getPath(pathname);
+                  let pathWithParams = (label === 'Timeline' && officerTimelineUrlParams) ?
+                    path + officerTimelineUrlParams : path;
                   return (
-                    <Link to={ path } key={ ind }
+                    <Link to={ pathWithParams } key={ ind }
                       className={ path === pathname ? 'test--header-button-active' : 'test--header-button' }
                       style={ path === pathname ? activeLinkStyle : linkStyle }>
                       { label }
@@ -53,5 +56,6 @@ export default class Header extends Component {
 
 Header.propTypes = {
   officerName: PropTypes.string,
-  pathname: PropTypes.string
+  pathname: PropTypes.string,
+  officerTimelineUrlParams: PropTypes.string
 };

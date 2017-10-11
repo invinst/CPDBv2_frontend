@@ -12,8 +12,8 @@ jobs:
       - run: yarn install
       - run: yarn lint
       - run: yarn cover-circle
-      - run: yarn live-test
       - run: cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
+      - run: yarn live-test
       - store_artifacts:
           path: /root/project/errorShots
 

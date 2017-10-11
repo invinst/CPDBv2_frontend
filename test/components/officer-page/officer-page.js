@@ -26,7 +26,9 @@ describe('OfficerPage component', function () {
         ]
       },
       timeline: {
+        items: [],
         sortDescending: true,
+        filters: {},
         minimap: {
           pagination: {
             next: null,

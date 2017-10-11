@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react';
-import { range, keyBy } from 'lodash';
+import { range, keyBy, mapKeys } from 'lodash';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
+import { serializeFilterParams } from 'utils/location';
 import HoverPoint from './hover-point';
 import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './sparklines.style';
 
@@ -37,10 +38,11 @@ export default class SimpleSparklines extends React.Component {
   }
 
   hoverPointClickHandler() {
-    const { router, officerId } = this.props;
-    router.push(`/officer/${officerId}/timeline/`);
-    // TODO: Should scroll to selected year too and filter by type too.
-    // This feature should be handled in Office Timeline itself via URL params
+    const { router, officerId, timelineEventQuery } = this.props;
+    let urlParams = mapKeys(timelineEventQuery, (value, key) => key.replace('complainant ', ''));
+    const urlParamsString = serializeFilterParams(urlParams, '?');
+    router.push(`/officer/${officerId}/timeline/${urlParamsString}`);
+    // TODO: Should scroll to selected year to.
   }
 
   renderHoverPoints(data) {
@@ -119,7 +121,8 @@ SimpleSparklines.propTypes = {
   data: PropTypes.array,
   router: PropTypes.object,
   officerId: PropTypes.number,
-  startYear: PropTypes.number
+  startYear: PropTypes.number,
+  timelineEventQuery: PropTypes.object
 };
 
 SimpleSparklines.defaultProps = {

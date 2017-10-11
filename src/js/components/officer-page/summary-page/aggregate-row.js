@@ -8,7 +8,8 @@ import {
 
 export default class AggregateRow extends Component {
   render() {
-    const { name, count, sustainedCount, items, startYear } = this.props;
+    const { facetName, name, count, sustainedCount, items, startYear } = this.props;
+    const timelineEventQuery = facetName ? { [facetName]: name } : {};
     return (
       <div style={ entryStyle }>
         <span className='test--entry-name' style={ nameStyle }>{ name }</span>
@@ -17,8 +18,8 @@ export default class AggregateRow extends Component {
           { sustainedCount }
         </span>
         { items && (
-          <SparklinesContainer data={ items } startYear={ startYear }/>
-        )}
+          <SparklinesContainer timelineEventQuery={ timelineEventQuery } data={ items } startYear={ startYear }/>
+        ) }
       </div>
     );
   }
@@ -26,8 +27,9 @@ export default class AggregateRow extends Component {
 
 AggregateRow.propTypes = {
   name: PropTypes.string,
+  facetName: PropTypes.string,
   count: PropTypes.number,
   sustainedCount: PropTypes.number,
   items: PropTypes.array,
-  startYear: PropTypes.number
+  startYear: PropTypes.number,
 };
