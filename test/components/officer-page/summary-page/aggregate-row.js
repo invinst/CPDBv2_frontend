@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
+  findRenderedDOMComponentWithClass,
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
@@ -59,11 +59,11 @@ describe('AggregateRow component', function () {
       </Provider>
     );
 
-    scryRenderedDOMComponentsWithClass(instance, 'test--entry-name')[0].textContent.should.eql('foo');
-    scryRenderedDOMComponentsWithClass(instance, 'test--entry-count')[0].textContent.should.eql('3');
-    scryRenderedDOMComponentsWithClass(instance, 'test--entry-sustained-count')[0].textContent.should.eql('1');
+    findRenderedDOMComponentWithClass(instance, 'test--entry-name').textContent.should.eql('foo');
+    findRenderedDOMComponentWithClass(instance, 'test--entry-count').textContent.should.eql('3');
+    findRenderedDOMComponentWithClass(instance, 'test--entry-sustained-count').textContent.should.eql('1');
 
-    scryRenderedComponentsWithType(instance, SimpleSparklines).length.should.eql(1);
+    scryRenderedComponentsWithType(instance, SimpleSparklines).should.have.length(1);
 
   });
 });

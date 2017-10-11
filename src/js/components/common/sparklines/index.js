@@ -43,7 +43,7 @@ export default class SimpleSparklines extends React.Component {
     if (data.length === 0) {
       return [];
     }
-    const points = new Array(data.length);
+
     const length = data.length;
     const maxCount = data[length - 1]['count'];
     const minCount = data[0]['count'];
@@ -51,9 +51,9 @@ export default class SimpleSparklines extends React.Component {
     const halfHoverPointWidth = defaultHoverPointWidth / 2;
 
     let currentSustainedCount = 0;
-    for (let i = 0; i < length; i++) {
-      const { year, count, sustained_count } = data[i]; // eslint-disable-line camelcase
-      const sustainedCount = sustained_count;           // eslint-disable-line camelcase
+    return data.map((point, i) => {
+      const { year, count } = point;
+      const sustainedCount = point.sustained_count;
       let hoverPointWidth = defaultHoverPointWidth;
       let alignment = 'middle';
       if (length !== 1) {
@@ -73,7 +73,7 @@ export default class SimpleSparklines extends React.Component {
       }
 
       const y = (count - minCount) / maxCount * HEIGHT + 3.5;
-      points[i] = (
+      return (
         <HoverPoint
           clickHandler={ this.hoverPointClickHandler.bind(this) }
           i={ i }
@@ -86,8 +86,7 @@ export default class SimpleSparklines extends React.Component {
           tooltipData={ { 'year': year, 'count': count } }
         />
       );
-    }
-    return points;
+    });
   }
 
   render() {
