@@ -4,14 +4,14 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 import Slider from './slider';
 import LeftPane from './left-pane';
 import SimulatedSocialGraph from './simulated-social-graph';
-import { rightPane, socialGraphStyle } from './social-graph-page.style';
+import { rightPane, wrapperStyle } from './social-graph-page.style';
 
 
 export default class SocialGraphPage extends Component {
   render() {
     const { nodes, links, legend, yearRange, setYearRange } = this.props;
     return (
-      <div>
+      <div style={ wrapperStyle }>
         <ResponsiveFluidWidthComponent>
           <Slider value={ yearRange } onChange={ setYearRange }/>
           <div>
@@ -20,7 +20,6 @@ export default class SocialGraphPage extends Component {
               <SimulatedSocialGraph
                 nodes={ nodes }
                 links={ links }
-                style={ socialGraphStyle }
               />
             </div>
           </div>
