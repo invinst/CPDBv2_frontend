@@ -10,7 +10,8 @@ class Header extends Section {
       reporting: '//a[text()="Reporting"]',
       faq: '//a[text()="FAQ"]',
       collaborate: '//a[text()="Collaborate"]',
-      logOutButton: '.test--logout-button'
+      legalDisclaimer: '//a[text()="Legal Disclaimer"]',
+      logOutButton: '.test--logout-button',
     });
   }
 }

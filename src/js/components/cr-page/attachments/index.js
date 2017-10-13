@@ -1,8 +1,14 @@
 import React, { PropTypes, Component } from 'react';
-import { map } from 'lodash';
+import { map, capitalize } from 'lodash';
 
-import { itemTitleStyle, iconStyle, itemTitleWithBorderStyle, emptyMessageStyle } from './attachments.style';
-import BlockTitle from '../block-title';
+import {
+  itemTitleStyle,
+  iconStyle,
+  itemTitleWithBorderStyle,
+  emptyMessageStyle,
+  requestLinkStyle
+} from './attachments.style';
+import BlockTitle from 'components/common/block-title';
 
 const emptyMessageMappings = {
   DOCUMENTS: 'documents',
@@ -12,14 +18,17 @@ const emptyMessageMappings = {
 
 export default class Attachments extends Component {
   render() {
-    const { title, items, iconName } = this.props;
+    const { title, items, iconName, openRequestDocumentModal } = this.props;
     let body;
 
     if (!items || items.length == 0) {
       const message = emptyMessageMappings[title] || 'documents';
       body = (
         <div style={ emptyMessageStyle }>
-          There are no { message } publicly available for this incident at this time.
+          <p>There are no { message } publicly available for this incident at this time.</p>
+          <p style={ { display: 'none' } /* TODO in story #151246125 */ }>
+            <a style={ requestLinkStyle } onClick={ openRequestDocumentModal }>Request { capitalize(message) }</a>
+          </p>
         </div>
       );
 
@@ -49,5 +58,6 @@ export default class Attachments extends Component {
 Attachments.propTypes = {
   title: PropTypes.string,
   iconName: PropTypes.string,
-  items: PropTypes.array
+  items: PropTypes.array,
+  openRequestDocumentModal: PropTypes.func
 };

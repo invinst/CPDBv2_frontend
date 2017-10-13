@@ -35,6 +35,9 @@ describe('App component', function () {
         isRequesting: false,
         officers: []
       }
+    },
+    genericModal: {
+      activeModal: null
     }
   });
   const location = { pathname: '/', search: '/', action: 'POP' };

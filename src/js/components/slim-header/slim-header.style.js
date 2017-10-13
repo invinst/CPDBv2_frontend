@@ -15,7 +15,8 @@ const linkStyle = {
   textDecoration: 'none',
   fontSize: '12px',
   color: mediumGrayColor,
-  fontWeight: 500
+  fontWeight: 500,
+  cursor: 'pointer'
 };
 
 export const leftLinkStyle = {

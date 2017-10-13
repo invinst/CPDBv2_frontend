@@ -13,7 +13,7 @@ import Timeline from './timeline';
 import Location from './location';
 import Involvement from './involvement';
 import Attachments from './attachments';
-import BlockTitle from './block-title';
+import BlockTitle from 'components/common/block-title';
 import {
   wrapperStyle, titleStyle, subtitleStyle, headerStyle, summarySectionStyle, overlayStyle, leftColumnStyle,
   pageWrapperStyle, rightColumnStyle, headerWrapperStyle
@@ -65,7 +65,7 @@ export default class CRPage extends Component {
   render() {
     const {
       crid, coaccused, complainants, officerId, openBottomSheetWithOfficer, openBottomSheetWithComplaint,
-      incidentDate, point, address, location, beat, involvements, documents, videos, audios
+      incidentDate, point, address, location, beat, involvements, documents, videos, audios, openRequestDocumentModal
     } = this.props;
     const { displayCoaccusedDropdown } = this.state;
     const officer = find(coaccused, officer => officer.id === officerId) || {};
@@ -104,9 +104,25 @@ export default class CRPage extends Component {
             </div>
             <div style={ rightColumnStyle }>
               <Location point={ point } address={ address } location={ location } beat={ beat }/>
-              <Attachments title='DOCUMENTS' iconName='ic-document.svg' items={ documents }/>
-              <Attachments title='VIDEO' iconName='ic-video.svg' items={ videos }/>
-              <Attachments title='AUDIO' iconName='ic-audio.svg' items={ audios }/>
+              <Attachments
+                title='DOCUMENTS'
+                iconName='ic-document.svg'
+                items={ documents }
+                openRequestDocumentModal={ openRequestDocumentModal }
+              />
+              <Attachments
+                title='VIDEO'
+                iconName='ic-video.svg'
+                items={ videos }
+                openRequestDocumentModal={ openRequestDocumentModal }
+              />
+              <Attachments
+                title='AUDIO'
+                iconName='ic-audio.svg'
+                items={ audios }
+                openRequestDocumentModal={ openRequestDocumentModal }
+              />
+
             </div>
           </div>
         </ResponsiveFluidWidthComponent>
@@ -142,7 +158,8 @@ CRPage.propTypes = {
   fetchCR: PropTypes.func,
   documents: PropTypes.array,
   videos: PropTypes.array,
-  audios: PropTypes.array
+  audios: PropTypes.array,
+  openRequestDocumentModal: PropTypes.func
 };
 
 CRPage.defaultProps = {
