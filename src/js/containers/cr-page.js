@@ -5,6 +5,7 @@ import { fetchCR } from 'actions/cr-page';
 import { contentSelector } from 'selectors/cr-page';
 import { openBottomSheetWithOfficer, openBottomSheetWithComplaint } from 'actions/bottom-sheet';
 import CRPage from 'components/cr-page';
+import { openRequestDocumentModal } from 'actions/generic-modal';
 
 
 function mapStateToProps(state, ownProps) {
@@ -18,7 +19,8 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   fetchCR,
   openBottomSheetWithOfficer,
-  openBottomSheetWithComplaint
+  openBottomSheetWithComplaint,
+  openRequestDocumentModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CRPage);
