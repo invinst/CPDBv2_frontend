@@ -18,11 +18,15 @@ export default class SimpleSparklines extends React.Component {
     const yearRange = range(begin, end + 1);
     const yearData = keyBy(data, 'year');
     let dummyRecord = Object.assign({}, data[0],
-      { 'year': begin, count: 0, 'sustained_count': 0 });
+      { 'year': begin, count: 0, 'sustained_count': 0, 'aggCount': 0 });
     return yearRange.map(function (value) {
       if (value in yearData) {
-        dummyRecord = yearData[value];
-        return yearData[value];
+        const currentYear = yearData[value];
+        dummyRecord.aggCount += currentYear.count;
+        return {
+          ...currentYear,
+          aggCount: dummyRecord.aggCount
+        };
       }
       else {
         let result = Object.assign({}, dummyRecord);
@@ -93,7 +97,7 @@ export default class SimpleSparklines extends React.Component {
     const { data, startYear } = this.props;
     const endYear = (new Date()).getFullYear();
     let filledData = this.fillEmptyDataYear(data, startYear, endYear);
-    const sparklineData = filledData.map(d => d['count']);
+    const sparklineData = filledData.map(d => d['aggCount']);
     return (
       <div className='test--sparkline' style={ wrapperStyle(width) }>
         <Sparklines

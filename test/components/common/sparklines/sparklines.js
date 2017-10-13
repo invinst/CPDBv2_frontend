@@ -90,12 +90,12 @@ describe('Sparkline components', function () {
         name: 'Unknown',
         year: 2001
       }, {
-        count: 32,
+        count: 4,
         'sustained_count': 1,
         name: 'Unknown',
         year: 2003
       }, {
-        count: 48,
+        count: 11,
         'sustained_count': 1,
         name: 'Unknown',
         year: 2004
@@ -104,32 +104,38 @@ describe('Sparkline components', function () {
       SimpleSparklines.prototype.fillEmptyDataYear(data, 2000, 2005).should.eql(
         [{
           count: 0,
+          aggCount: 0,
           'sustained_count': 0,
           name: 'Unknown',
           year: 2000,
         }, {
           count: 2,
+          aggCount: 2,
           'sustained_count': 0,
           name: 'Unknown',
           year: 2001
         }, {
-          count: 2,
+          count: 0,
+          aggCount: 2,
           'sustained_count': 0,
           name: 'Unknown',
           year: 2002
         }, {
-          count: 32,
+          count: 4,
+          aggCount: 6,
           'sustained_count': 1,
           name: 'Unknown',
           year: 2003
         }, {
-          count: 48,
+          count: 11,
+          aggCount: 17,
           'sustained_count': 1,
           name: 'Unknown',
           year: 2004
         }, {
-          count: 48,
-          'sustained_count': 1,
+          count: 0,
+          aggCount: 17,
+          'sustained_count': 0,
           name: 'Unknown',
           year: 2005
         }]
