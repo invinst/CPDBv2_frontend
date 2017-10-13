@@ -15,7 +15,7 @@ export default class OfficerPage extends Component {
     const path = parts[parts.length - 2];
     if (path === 'timeline') {
       return <TimelinePage officerId={ officerId }/>;
-    } else if (path === 'social-graph') {
+    } else if (path === 'social') {
       return <SocialGraphPageContainer officerId={ officerId }/>;
     }
     return <SummaryPageContainer officerId={ officerId }/>;

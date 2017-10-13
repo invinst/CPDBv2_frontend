@@ -18,7 +18,7 @@ const path = subPath => pathname => {
 const HEADER_BUTTONS = [
   ['Summary', path()],
   ['Timeline', path('timeline')],
-  ['Social Map', path('social-graph')]
+  ['Social Map', path('social')]
 ];
 
 export default class Header extends Component {

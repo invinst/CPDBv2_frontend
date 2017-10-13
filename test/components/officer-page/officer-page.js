@@ -71,7 +71,7 @@ describe('OfficerPage component', function () {
   });
 
   it('should render Socialgraph when path is social-graph', function () {
-    const location = { pathname: '/officer/123/social-graph/' };
+    const location = { pathname: '/officer/123/social/' };
     instance = renderIntoDocument(
       <Provider store={ store }>
         <OfficerPage location={ location }/>

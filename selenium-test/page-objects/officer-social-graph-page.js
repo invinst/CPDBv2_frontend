@@ -1,5 +1,6 @@
 import Page from './page';
 import Section from './sections/section';
+import Header from './sections/officer-page-header';
 
 
 class LeftPane extends Section {
@@ -37,12 +38,13 @@ class Slider extends Section {
 }
 
 class OfficerSocialGraphPage extends Page {
+  header = new Header();
   leftPane = new LeftPane();
   socialGraph = new SocialGraph();
   slider = new Slider();
 
   open(officerId) {
-    super.open(`/officer/${officerId}/social-graph/`);
+    super.open(`/officer/${officerId}/social/`);
     browser.element('body').waitForVisible();
   }
 }

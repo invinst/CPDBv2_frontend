@@ -83,4 +83,12 @@ describe('officer summary page', function () {
     getRequestCount('/officers/1/summary/').should.equal(1);
     getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
   });
+
+  it('should not launch any request when click on Social tab', function () {
+    summaryPage.header.socialButton.waitForVisible();
+    summaryPage.header.socialButton.click();
+
+    getRequestCount('/officers/1/social-graph/').should.equal(1);
+    getRequestCount('/officers/1/summary/').should.equal(1);
+  });
 });
