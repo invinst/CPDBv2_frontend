@@ -16,7 +16,7 @@ describe('ViewUnitProfileButton component', function () {
 
   it('should render properly', function () {
     instance = renderIntoDocument(<ViewUnitProfileButton />);
-    findDOMNode(instance).innerText.should.containEql('view unit profile');
+    findDOMNode(instance).innerText.should.containEql('View unit profile');
   });
 
   it('should handle onClick event', function () {
