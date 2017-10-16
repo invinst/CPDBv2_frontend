@@ -1,9 +1,9 @@
-import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor, lightBlackColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor } from 'utils/styles';
 
 
 export const officerNameStyle = {
   fontSize: '26px',
-  fontWeight: 600,
+  fontWeight: 500,
   fontFamily: sanFranciscoTextFamily,
   color: softBlackColor,
   display: 'inline-block',
@@ -14,11 +14,8 @@ export const officerNameStyle = {
 export const wrapperStyle = {
   padding: '0 16px',
   height: '64px',
+  marginTop: '22px',
   boxSizing: 'border-box'
-};
-
-export const boxShadowStyle = {
-  boxShadow: `0 1px 2px 0 ${lightBlackColor}`
 };
 
 export const linkWrapperStyle = {

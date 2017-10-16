@@ -1,34 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 
 import Header from './header';
-import SummaryPageContainer from 'containers/officer-page/summary-page-container';
-import TimelinePage from './timeline-page';
-import { pageWrapperStyle, headerStyle } from './officer-page.style';
-import StickyHeader from 'components/common/sticky-header';
+import { pageWrapperStyle } from './officer-page.style';
 
 
 export default class OfficerPage extends Component {
-  renderContent() {
-    const { location, officerId } = this.props;
-    const parts = location.pathname.split('/');
-    const path = parts[parts.length - 2];
-    if (path === 'timeline') {
-      return <TimelinePage officerId={ officerId }/>;
-    }
-    return <SummaryPageContainer officerId={ officerId }/>;
-  }
-
   render() {
-    const { location, officerName } = this.props;
+    const { location, officerName, children } = this.props;
     const { pathname } = location;
 
     return (
       <div>
-        <StickyHeader style={ headerStyle }>
-          <Header officerName={ officerName } pathname={ pathname }/>
-        </StickyHeader>
+        <Header officerName={ officerName } pathname={ pathname }/>
         <div style={ pageWrapperStyle }>
-          { this.renderContent() }
+          { children }
         </div>
       </div>
     );
@@ -38,6 +23,7 @@ export default class OfficerPage extends Component {
 OfficerPage.propTypes = {
   location: PropTypes.object,
   officerName: PropTypes.string,
+  children: PropTypes.node,
   officerId: PropTypes.number
 };
 

@@ -60,8 +60,8 @@ export default class App extends React.Component {
 
   children() {
     const { children, params } = this.props;
-    const { reportId, faqId, officerId } = params;
-    if ((reportId || faqId || officerId) && this.prevChildren) {
+    const { reportId, faqId } = params;
+    if ((reportId || faqId) && this.prevChildren) {
       return this.prevChildren;
     }
     this.prevChildren = children;
@@ -90,7 +90,7 @@ export default class App extends React.Component {
             openLegalDisclaimerModal={ openLegalDisclaimerModal }
           />
           <RouteTransition pathname={ appContent }>
-            { this.children() }
+            { children }
           </RouteTransition>
           <BottomSheetContainer params={ params } location={ location }/>
           <LoginModalContainer location={ location }/>

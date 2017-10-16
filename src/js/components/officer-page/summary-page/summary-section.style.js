@@ -2,7 +2,7 @@ import { whiteTwoColor, mediumGrayColor, hardBlackColor, accentColor, sanFrancis
 
 
 export const wrapperStyle = {
-  paddingTop: '38px',
+  paddingTop: '16px',
   paddingBottom: '40px',
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,

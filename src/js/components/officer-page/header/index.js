@@ -4,7 +4,7 @@ import { map } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
-  officerNameStyle, linkWrapperStyle, linkStyle, wrapperStyle, activeLinkStyle, boxShadowStyle
+  officerNameStyle, linkWrapperStyle, linkStyle, wrapperStyle, activeLinkStyle
 } from './header.style';
 
 
@@ -26,27 +26,25 @@ export default class Header extends Component {
     const { officerName, pathname } = this.props;
 
     return (
-      <div style={ boxShadowStyle }>
-        <ResponsiveFluidWidthComponent>
-          <div style={ wrapperStyle }>
-            <div className='test--officer-name' style={ officerNameStyle }>{ officerName }</div>
-            <div style={ linkWrapperStyle }>
-              {
-                map(OFFICER_BUTTONS, ([label, getPath], ind) => {
-                  const path = getPath(pathname);
-                  return (
-                    <Link to={ path } key={ ind }
-                      className={ path === pathname ? 'test--header-button-active' : 'test--header-button' }
-                      style={ path === pathname ? activeLinkStyle : linkStyle }>
-                      { label }
-                    </Link>
-                  );
-                })
-              }
-            </div>
+      <ResponsiveFluidWidthComponent>
+        <div style={ wrapperStyle }>
+          <div className='test--officer-name' style={ officerNameStyle }>{ officerName }</div>
+          <div style={ linkWrapperStyle }>
+            {
+              map(OFFICER_BUTTONS, ([label, getPath], ind) => {
+                const path = getPath(pathname);
+                return (
+                  <Link to={ path } key={ ind }
+                    className={ path === pathname ? 'test--header-button-active' : 'test--header-button' }
+                    style={ path === pathname ? activeLinkStyle : linkStyle }>
+                    { label }
+                  </Link>
+                );
+              })
+            }
           </div>
-        </ResponsiveFluidWidthComponent>
-      </div>
+        </div>
+      </ResponsiveFluidWidthComponent>
     );
   }
 }
