@@ -2,10 +2,15 @@ import React, { PropTypes, Component } from 'react';
 import { TransitionMotion, spring } from 'react-motion';
 
 import { defaultConfig } from 'utils/spring-presets';
+import { isSameOfficerPath, isSameCR } from 'utils/location';
 import { outerWrapperStyle, innerWrapperStyle } from './route-transition.style';
 
 
 export default class RouteTransition extends Component {
+  componentWillReceiveProps() {
+    this.prevPathname = this.props.pathname;
+  }
+
   shouldComponentUpdate(nextProps) {
     return this.props.pathname !== nextProps.pathname;
   }
@@ -42,7 +47,9 @@ export default class RouteTransition extends Component {
   }
 
   render() {
-    if (global.disableAnimation) {
+    if (global.disableAnimation
+        || isSameOfficerPath(this.prevPathname, this.props.pathname)
+        || isSameCR(this.prevPathname, this.props.pathname)) {
       return this.props.children;
     }
     return (

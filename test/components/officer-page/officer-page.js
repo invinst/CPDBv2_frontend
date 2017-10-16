@@ -1,12 +1,11 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 
 import { Provider } from 'react-redux';
 import { unmountComponentSuppressError } from 'utils/test';
 import OfficerPage from 'components/officer-page';
 import Header from 'components/officer-page/header';
-import TimelinePage from 'components/officer-page/timeline-page';
-import SummaryPage from 'components/officer-page/summary-page';
 import MockStore from 'redux-mock-store';
 
 
@@ -36,27 +35,16 @@ describe('OfficerPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render header and summary page', function () {
+  it('should render header and children', function () {
     const location = { pathname: '' };
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage location={ location }/>
+        <OfficerPage location={ location }>abc</OfficerPage>
       </Provider>
     );
 
     scryRenderedComponentsWithType(instance, Header).should.have.length(1);
-    scryRenderedComponentsWithType(instance, SummaryPage).should.have.length(1);
-  });
-
-  it('should render Timeline when path is timeline', function () {
-    const location = { pathname: '/officer/123/timeline/' };
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage location={ location }/>
-      </Provider>
-    );
-
-    scryRenderedComponentsWithType(instance, Header).should.have.length(1);
-    scryRenderedComponentsWithType(instance, TimelinePage).should.have.length(1);
+    const el = findDOMNode(instance);
+    el.textContent.should.containEql('abc');
   });
 });

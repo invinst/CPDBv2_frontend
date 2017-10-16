@@ -30,7 +30,7 @@ export class OfficerCard extends Component {
 
   render() {
     const {
-      officerId, fullName, gender, race, allegationCount, onRemoveClick, editModeOn, openBottomSheetWithOfficer
+      officerId, fullName, gender, race, allegationCount, onRemoveClick, editModeOn, openOfficerPage
     } = this.props;
     const style = this.getStyle();
 
@@ -39,7 +39,7 @@ export class OfficerCard extends Component {
       className: 'test--officer-card'
     };
     if (!editModeOn) {
-      wrapperProps.onClick = () => openBottomSheetWithOfficer(officerId);
+      wrapperProps.onClick = () => openOfficerPage(officerId);
     }
 
     const content = [
@@ -67,7 +67,7 @@ OfficerCard.propTypes = {
   onRemoveClick: PropTypes.func,
   style: PropTypes.object,
   editModeOn: PropTypes.bool,
-  openBottomSheetWithOfficer: PropTypes.func,
+  openOfficerPage: PropTypes.func,
   hovering: PropTypes.bool
 };
 

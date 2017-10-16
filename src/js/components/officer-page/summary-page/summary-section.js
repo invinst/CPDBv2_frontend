@@ -40,7 +40,7 @@ export default class SummarySection extends Component {
 
 
   render() {
-    const { officerSummary, openBottomSheetWithPoliceUnit } = this.props;
+    const { officerSummary, openPoliceUnitPage } = this.props;
     const { unitName } = officerSummary;
     const summaryFields = this.summaryFields();
 
@@ -49,7 +49,7 @@ export default class SummarySection extends Component {
         <div style={ unitWrapperStyle }>
           <span className='test--field-unit-label' style={ unitLabelStyle }>Unit</span>
           <span className='test--field-unit-value' style={ unitValueStyle }>{ unitName }</span>
-          <ViewUnitProfileButton unitName={ unitName } onClick={ openBottomSheetWithPoliceUnit }/>
+          <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage }/>
         </div>
         <div style={ fieldsWrapperStyle }>
           { map(summaryFields, ([label, value, description], ind) => {
@@ -66,7 +66,7 @@ export default class SummarySection extends Component {
 
 SummarySection.propTypes = {
   officerSummary: PropTypes.object,
-  openBottomSheetWithPoliceUnit: PropTypes.func
+  openPoliceUnitPage: PropTypes.func
 };
 
 SummarySection.defaultProps = {

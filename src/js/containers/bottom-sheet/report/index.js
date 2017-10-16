@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Report from 'components/bottom-sheet/report';
 import { updateReport, addReport, fetchReport } from 'actions/reporting-page';
-import { openBottomSheetWithOfficer } from 'actions/bottom-sheet';
+import { openOfficerPage } from 'actions/bottom-sheet';
 import { reportSelector } from 'selectors/bottom-sheet/report';
 
 
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators({
     onSaveForm: ownProps.id ? updateReport.bind(null, ownProps.id) : addReport,
     fetchReport,
-    openBottomSheetWithOfficer
+    openOfficerPage
   }, dispatch);
 };
 

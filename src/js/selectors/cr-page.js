@@ -2,13 +2,13 @@ import { createSelector } from 'reselect';
 import { map } from 'lodash';
 
 
-const getCoaccused = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].coaccused;
-const getComplainants = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].complainants;
-const getCR = (state, { crid }) => !state.crs[crid] ? {} : state.crs[crid];
-const getInvolvements = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].involvements;
-const getDocuments = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].documents;
-const getVideos = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].videos;
-const getAudios = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].audios;
+const getCoaccused = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].coaccused;
+const getComplainants = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].complainants;
+const getCR = (state, { params: { crid } }) => !state.crs[crid] ? {} : state.crs[crid];
+const getInvolvements = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].involvements;
+const getDocuments = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].documents;
+const getVideos = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].videos;
+const getAudios = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].audios;
 
 const getComplainantStringSelector = createSelector(
   getComplainants,

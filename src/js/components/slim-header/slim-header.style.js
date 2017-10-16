@@ -7,6 +7,7 @@ export const slimHeaderStyle = {
   backgroundColor: 'white',
   boxSizing: 'border-box',
   position: 'fixed',
+  top: 0,
   zIndex: 1,
   width: 'inherit'
 };

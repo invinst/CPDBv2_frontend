@@ -4,7 +4,6 @@ import { find } from 'lodash';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import FadeMotion from 'components/animation/fade-motion';
 import Header from './header';
-import StickyHeader from 'components/common/sticky-header';
 import OfficerRow from './officer-row';
 import MultiRow from './multi-row';
 import FindingRow from './finding-row';
@@ -15,7 +14,7 @@ import Involvement from './involvement';
 import Attachments from './attachments';
 import BlockTitle from 'components/common/block-title';
 import {
-  wrapperStyle, titleStyle, subtitleStyle, headerStyle, summarySectionStyle, overlayStyle, leftColumnStyle,
+  wrapperStyle, titleStyle, subtitleStyle, summarySectionStyle, overlayStyle, leftColumnStyle,
   pageWrapperStyle, rightColumnStyle, headerWrapperStyle
 } from './cr-page.style';
 
@@ -64,7 +63,7 @@ export default class CRPage extends Component {
 
   render() {
     const {
-      crid, coaccused, complainants, officerId, openBottomSheetWithOfficer, openBottomSheetWithComplaint,
+      crid, coaccused, complainants, officerId, openOfficerPage, openComplaintPage,
       incidentDate, point, address, location, beat, involvements, documents, videos, audios, openRequestDocumentModal
     } = this.props;
     const { displayCoaccusedDropdown } = this.state;
@@ -76,12 +75,10 @@ export default class CRPage extends Component {
     return (
       <div style={ wrapperStyle }>
         <div style={ headerWrapperStyle }>
-          <StickyHeader style={ headerStyle }>
-            <Header crid={ crid } coaccused={ coaccused } officerId={ officerId }
-              displayCoaccusedDropdown={ displayCoaccusedDropdown }
-              openBottomSheetWithComplaint={ openBottomSheetWithComplaint }
-              onDropDownButtonClick={ this.handleToggleCoaccusedDropDown }/>
-          </StickyHeader>
+          <Header crid={ crid } coaccused={ coaccused } officerId={ officerId }
+            displayCoaccusedDropdown={ displayCoaccusedDropdown }
+            openComplaintPage={ openComplaintPage }
+            onDropDownButtonClick={ this.handleToggleCoaccusedDropDown }/>
         </div>
         <ResponsiveFluidWidthComponent>
           <div style={ pageWrapperStyle }>
@@ -90,7 +87,7 @@ export default class CRPage extends Component {
               <div className='test--cr-subcategory' style={ subtitleStyle }>{ subcategory }</div>
               <OfficerRow
                 fullName={ fullName } badge={ badge } officerId={ officerId }
-                openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
+                openOfficerPage={ openOfficerPage }/>
               <MultiRow label='COMPLAINANT' contents={ complainants }/>
             </div>
             <div style={ leftColumnStyle }>
@@ -100,7 +97,7 @@ export default class CRPage extends Component {
               <Row label='Final Outcome' content={ finalOutcome } hasBorderBottom={ false } />
 
               <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-              <Involvement involvements={ involvements } openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
+              <Involvement involvements={ involvements } openOfficerPage={ openOfficerPage }/>
             </div>
             <div style={ rightColumnStyle }>
               <Location point={ point } address={ address } location={ location } beat={ beat }/>
@@ -144,7 +141,7 @@ CRPage.propTypes = {
   finalOutcome: PropTypes.string,
   recOutcome: PropTypes.string,
   incidentDate: PropTypes.string,
-  openBottomSheetWithOfficer: PropTypes.func,
+  openOfficerPage: PropTypes.func,
   race: PropTypes.string,
   fullName: PropTypes.string,
   gender: PropTypes.string,
@@ -154,7 +151,7 @@ CRPage.propTypes = {
   location: PropTypes.string,
   beat: PropTypes.object,
   involvements: PropTypes.array,
-  openBottomSheetWithComplaint: PropTypes.func,
+  openComplaintPage: PropTypes.func,
   fetchCR: PropTypes.func,
   documents: PropTypes.array,
   videos: PropTypes.array,

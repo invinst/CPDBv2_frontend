@@ -7,6 +7,7 @@ export const getOfficerName = state => state.officerPage.fullName;
 export const getComplaintsCount = state => state.officerPage.complaintsCount;
 export const getSustainedCount = state => state.officerPage.sustainedCount;
 const getComplaintFacets = state => state.officerPage.complaintFacets;
+export const getOfficerId = state => state.officerPage.officerId;
 
 export const getComplaintFacetsSelector = createSelector(
   getComplaintFacets,

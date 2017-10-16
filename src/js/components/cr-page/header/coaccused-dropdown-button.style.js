@@ -8,7 +8,8 @@ export const moreCoaccusedStyle = (showDropDown, hovering) => ({
   float: 'right',
   color: showDropDown ? softBlackColor : (hovering ? accentColor : greyishColor),
   cursor: 'pointer',
-  fontFamily: sanFranciscoTextFamily
+  fontFamily: sanFranciscoTextFamily,
+  paddingTop: '16px'
 });
 
 export const arrowStyle = (showDropDown, hovering) => ({

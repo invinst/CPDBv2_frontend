@@ -8,7 +8,7 @@ describe('CR page selectors', function () {
     it('should return empty coaccused, complainants, documents, videos and audios array if crid does not exist',
       function () {
         const state = { crs: {} };
-        const props = { crid: 123 };
+        const props = { params: { crid: 123 } };
 
         contentSelector(state, props).coaccused.should.eql([]);
         contentSelector(state, props).complainants.should.eql([]);
@@ -22,7 +22,7 @@ describe('CR page selectors', function () {
       const complainant1 = { race: 'White', gender: 'Male', age: 18 };
       const complainant2 = {};
       const state = { crs: { '123': { complainants: [complainant1, complainant2] } } };
-      const props = { crid: 123 };
+      const props = { params: { crid: 123 } };
 
       contentSelector(state, props).complainants.should.eql([
         'White, Male, Age 18',
@@ -37,7 +37,7 @@ describe('CR page selectors', function () {
         'end_date': '2013-02-01', 'category': 'Operations/Personnel Violation',
         'subcategory': 'Neglect of duty/conduct unbecoming - on duty' };
       const state = { crs: { '123': { coaccused: [coaccusedObj] } } };
-      const props = { crid: 123 };
+      const props = { params: { crid: 123 } };
 
       contentSelector(state, props).coaccused.should.eql([{
         id: 1,
@@ -59,7 +59,7 @@ describe('CR page selectors', function () {
         + 'reccOutcome, category, subcategory to Unknown if missing data', function () {
       const coaccusedObj = { 'id': 1, 'full_name': 'Michel Foo', 'start_date': '2012-02-01', 'end_date': '2013-02-01' };
       const state = { crs: { '123': { coaccused: [coaccusedObj] } } };
-      const props = { crid: 123 };
+      const props = { params: { crid: 123 } };
 
       contentSelector(state, props).coaccused.should.eql([{
         id: 1,
@@ -83,7 +83,7 @@ describe('CR page selectors', function () {
         'officers': [{ 'id': 1, 'abbr_name': 'F. Bar', 'extra_info': 'male, white' }]
       };
       const state = { crs: { '123': { involvements: [involvement] } } };
-      const props = { crid: 123 };
+      const props = { params: { crid: 123 } };
 
       contentSelector(state, props).involvements.should.eql([{
         involvedType: 'Watch Commander',
@@ -93,7 +93,7 @@ describe('CR page selectors', function () {
 
     it('should return undefined incidentDate and location data if cr data does not exists', function () {
       const state = { crs: {} };
-      const props = { crid: 123 };
+      const props = { params: { crid: 123 } };
       const result = contentSelector(state, props);
       should.not.exists(result.point);
       should.not.exists(result.incidentDate);
@@ -110,7 +110,7 @@ describe('CR page selectors', function () {
         location: 'Police Building',
         beat: { name: '1134' }
       } } };
-      const props = { crid: 123 };
+      const props = { params: { crid: 123 } };
       const result = contentSelector(state, props);
       result.point.should.eql([1, 2]);
       result.incidentDate.should.eql('2011-03-24');
@@ -122,7 +122,7 @@ describe('CR page selectors', function () {
     it('should return list of documents', function () {
       const doc = { title: 'abc', url: 'def' };
       const state = { crs: { '123': { documents: [doc] } } };
-      const props = { crid: 123 };
+      const props = { params: { crid: 123 } };
 
       contentSelector(state, props).documents.should.eql([doc]);
     });
@@ -130,7 +130,7 @@ describe('CR page selectors', function () {
     it('should return list of videos', function () {
       const video = { title: 'abc', url: 'def' };
       const state = { crs: { '123': { videos: [video] } } };
-      const props = { crid: 123 };
+      const props = { params: { crid: 123 } };
 
       contentSelector(state, props).videos.should.eql([video]);
     });
@@ -138,7 +138,7 @@ describe('CR page selectors', function () {
     it('should return list of documents', function () {
       const audio = { title: 'abc', url: 'def' };
       const state = { crs: { '123': { audios: [audio] } } };
-      const props = { crid: 123 };
+      const props = { params: { crid: 123 } };
 
       contentSelector(state, props).audios.should.eql([audio]);
     });

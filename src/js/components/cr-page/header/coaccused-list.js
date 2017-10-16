@@ -8,7 +8,7 @@ import { coaccusedListWrapperStyle, coaccusedTextStyle, breakSectionStyle } from
 
 export default class CoaccusedList extends Component {
   render() {
-    const { currentOfficerId, coaccused, openBottomSheetWithComplaint, crid, style } = this.props;
+    const { currentOfficerId, coaccused, openComplaintPage, crid, style } = this.props;
     const currentOfficer = find(coaccused, obj => obj.id === currentOfficerId);
     const otherCoaccused = filter(coaccused, obj => obj.id !== currentOfficerId);
 
@@ -24,7 +24,7 @@ export default class CoaccusedList extends Component {
                 <CoaccusedListItem key={ officer.id }
                   showBottomBorder={ index !== coaccused.length - 1 }
                   viewing={ officer.id === currentOfficerId } { ...props }
-                  openBottomSheetWithComplaint={ openBottomSheetWithComplaint } crid={ crid }/>
+                  openComplaintPage={ openComplaintPage } crid={ crid }/>
               );
             })
           }
@@ -38,7 +38,7 @@ export default class CoaccusedList extends Component {
 CoaccusedList.propTypes = {
   currentOfficerId: PropTypes.number,
   crid: PropTypes.string,
-  openBottomSheetWithComplaint: PropTypes.func,
+  openComplaintPage: PropTypes.func,
   coaccused: PropTypes.array,
   style: PropTypes.object
 };

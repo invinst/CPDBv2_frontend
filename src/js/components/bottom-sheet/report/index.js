@@ -31,7 +31,7 @@ export class Report extends Component {
   }
 
   renderInfoRows(style) {
-    const { fieldProps, searchOfficers, officerSearchResult, openBottomSheetWithOfficer } = this.props;
+    const { fieldProps, searchOfficers, officerSearchResult, openOfficerPage } = this.props;
     const fields = [
       { label: 'Publication', element: <StringInput { ...fieldProps['publication'] }/> },
       { label: 'Publish Date', element: <DatePickerInput { ...fieldProps['publish_date'] }/> },
@@ -51,7 +51,7 @@ export class Report extends Component {
         <OfficerSection
           { ...fieldProps['officers'] }
           officerSearchResult={ officerSearchResult }
-          openBottomSheetWithOfficer={ openBottomSheetWithOfficer }
+          openOfficerPage={ openOfficerPage }
           searchOfficers={ searchOfficers }/>
       </div>
     );
@@ -147,7 +147,7 @@ Report.propTypes = {
   fetchReport: PropTypes.func,
   reportId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   searchOfficers: PropTypes.func,
-  openBottomSheetWithOfficer: PropTypes.func,
+  openOfficerPage: PropTypes.func,
   officerSearchResult: PropTypes.array
 };
 

@@ -135,26 +135,6 @@ describe('BottomSheet component', function () {
       findDOMNode(element).innerHTML.should.containEql(faq.fields.question.value.blocks[0].text);
     });
 
-    it('should render officer when received officer content', function () {
-      element = renderIntoDocument(
-        <Provider store={ store }>
-          <BottomSheet open={ true }
-            content={ { type: BottomSheetContentType.OFFICER, props: { id: 1 } } }/>
-        </Provider>
-      );
-      findDOMNode(element).innerHTML.should.containEql('John Doe');
-    });
-
-    it('should render CR when received CR content', function () {
-      element = renderIntoDocument(
-        <Provider store={ store }>
-          <BottomSheet open={ true }
-            content={ { type: BottomSheetContentType.CR, props: { crid: '1', officerId: 1 } } }/>
-        </Provider>
-      );
-      findDOMNode(element).innerHTML.should.containEql('CR 1');
-    });
-
     it('should render previous content when receive null content', function () {
       let rootEl = document.createElement('div');
 

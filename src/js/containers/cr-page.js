@@ -3,23 +3,23 @@ import React from 'react';
 
 import { fetchCR } from 'actions/cr-page';
 import { contentSelector } from 'selectors/cr-page';
-import { openBottomSheetWithOfficer, openBottomSheetWithComplaint } from 'actions/bottom-sheet';
+import { openOfficerPage, openComplaintPage } from 'actions/bottom-sheet';
 import CRPage from 'components/cr-page';
 import { openRequestDocumentModal } from 'actions/generic-modal';
 
 
 function mapStateToProps(state, ownProps) {
   return {
-    crid: ownProps.crid,
-    officerId: parseInt(ownProps.officerId),
+    crid: ownProps.params.crid,
+    officerId: parseInt(ownProps.params.officerId),
     ...contentSelector(state, ownProps)
   };
 }
 
 const mapDispatchToProps = {
   fetchCR,
-  openBottomSheetWithOfficer,
-  openBottomSheetWithComplaint,
+  openOfficerPage,
+  openComplaintPage,
   openRequestDocumentModal
 };
 

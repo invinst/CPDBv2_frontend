@@ -17,7 +17,7 @@ export class CRItem extends Component {
     const { onClick, item, officerId } = this.props;
     const { crid } = item;
     onClick();
-    this.context.openBottomSheetWithComplaint({ officerId, crid });
+    this.context.openComplaintPage({ officerId, crid });
   }
 
   render() {
@@ -61,7 +61,7 @@ CRItem.defaultProps = {
 };
 
 CRItem.contextTypes = {
-  openBottomSheetWithComplaint: PropTypes.func
+  openComplaintPage: PropTypes.func
 };
 
 export default Hoverable(CRItem);
