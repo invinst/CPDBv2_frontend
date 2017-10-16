@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, softBlackColor, whiteTwoColor, greyishColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, whiteTwoColor, greyishColor, accentColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
@@ -47,4 +47,8 @@ export const iconStyle = iconName => ({
 export const requestLinkStyle = {
   cursor: 'pointer',
   color: softBlackColor
+};
+
+export const okMarkStyle = {
+  color: accentColor
 };

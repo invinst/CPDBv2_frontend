@@ -84,7 +84,14 @@ describe('store', function () {
       },
       inlineAliasAdminPage: {},
       crPage: {
-        isRequesting: false
+        isRequesting: false,
+        attachmentRequest: {
+          request: {
+            isRequested: false,
+            message: ''
+          },
+          subscribedCRIDs: {}
+        }
       },
       crs: {},
       officerPage: {

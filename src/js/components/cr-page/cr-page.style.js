@@ -68,3 +68,12 @@ export const rightColumnStyle = {
   paddingLeft: '16px',
   boxSizing: 'border-box'
 };
+
+export const requestButtonStyle = {
+  width: '54px',
+  height: '18px',
+  fontSize: '14px',
+  fontWeight: 500,
+  textAlign: 'left',
+  color: '#231f20'
+};

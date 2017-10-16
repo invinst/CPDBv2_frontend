@@ -1,7 +1,7 @@
 import { whiteTwoColor, sugarCaneColor, greyishColor, softBlackColor } from 'utils/styles';
 
 export const paddingWrapperStyle = {
-  padding: '0 16px 16px 16px'
+  padding: '0 16px 8px 16px'
 };
 
 export const inputStyle = {
@@ -23,7 +23,8 @@ export const instructionStyle = {
   color: '#8f8f8f',
   fontWeight: 300,
   paddingTop: '38px',
-  fontSize: '14px'
+  fontSize: '14px',
+  marginBottom: '15px'
 };
 
 export const overlayStyle = {
@@ -62,4 +63,42 @@ export const iUnderstandStyle = {
   ...linkStyle,
   display: 'inline-block',
   margin: '11px 0'
+};
+
+export const linkButtonStyle = {
+  textDecoration: 'none',
+  width: '54px',
+  height: '18px',
+  fontSize: '14px',
+  fontWeight: 400,
+  textAlign: 'left',
+  color: greyishColor,
+  cursor: 'pointer',
+  display: 'inline-block'
+};
+
+export const submitButtonStyle = {
+  ...linkButtonStyle,
+  color: softBlackColor,
+  margin: '11px 16px 27px 16px',
+  background: 'none',
+  border: 'none',
+  padding: 0
+};
+
+export const messageBoxStyle = {
+  backgroundColor: sugarCaneColor,
+  height: '32px',
+  borderTop: `1px solid ${whiteTwoColor}`,
+  textAlign: 'center',
+  lineHeight: '18px',
+  fontSize: '14px',
+  color: '#8f8f8f',
+  fontWeight: 400,
+  paddingTop: '6px',
+  borderSizing: 'border-box'
+};
+
+export const emphasisTextboxStyle = {
+  backgroundColor: 'rgba(255, 96, 0, 0.1)'
 };
