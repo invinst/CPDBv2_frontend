@@ -130,7 +130,7 @@ describe('CR page without attachment', function () {
     crPage.attachmentsSection.documentRequestInput.waitForVisible();
   });
 
-  it('should show request document modal when click to "Request Document"', function () {
+  it('should show request document modal when clicks on "Request Document"', function () {
     crPage.attachmentsSection.documentRequestInput.click();
     crPage.documentRequestModalSection.emailInput.waitForVisible();
   });
