@@ -95,6 +95,7 @@ describe('store', function () {
       },
       crs: {},
       officerPage: {
+        complaintsByYear: [],
         complaintFacets: [],
         complaintsCount: 0,
         fullName: '',

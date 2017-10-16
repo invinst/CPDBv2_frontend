@@ -21,5 +21,5 @@ export const sustainedTextStyle = {
 };
 
 export const sectionHeaderStyle = {
-  paddingBottom: '11px'
+  paddingBottom: '18px'
 };

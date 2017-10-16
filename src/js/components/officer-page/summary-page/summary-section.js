@@ -18,7 +18,7 @@ export default class SummarySection extends Component {
     const { rank, dateOfAppt, dateOfResignation, race, gender, badge, agency } = this.props.officerSummary;
 
     const careerStart = this.formatCareerDate(dateOfAppt);
-    const careerEnd = dateOfResignation ? this.formatCareerDate(dateOfResignation) : 'PRESENT';
+    const careerEnd = dateOfResignation ? this.formatCareerDate(dateOfResignation) : 'Present';
     const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
     const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
     const agencyText = agency ? `with ${agency}` : 'veteran';
@@ -36,8 +36,6 @@ export default class SummarySection extends Component {
       ['Sex', gender]
     ];
   }
-
-
 
   render() {
     const { officerSummary, openBottomSheetWithPoliceUnit } = this.props;
