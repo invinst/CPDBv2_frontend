@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Style } from 'radium';
 
 import { overlayStyle, contentStyle } from './generic-modal.style';
-import RequestDocumentModalContent from './request-document-modal-content';
+import RequestDocumentModalContent from '../../containers/request-document-modal-container';
 import LegalDisclaimerModalContent from './legal-disclaimer-modal-content';
 import scrollbarWidth from 'utils/scrollbar-width';
 
@@ -19,7 +19,7 @@ class GenericModal extends React.Component {
   }
 
   render() {
-    const { activeModal, closeModal } = this.props;
+    const { activeModal, closeModal, location } = this.props;
 
     if (!activeModal) {
       return <Style scopeSelector='body' rules={ { overflowY: 'scroll' } } />;
@@ -33,7 +33,7 @@ class GenericModal extends React.Component {
     return (
       <div className='test--generic-modal-overlay' style={ overlayStyle } onClick={ closeModal }>
         <div className='test--generic-modal-content' style={ contentStyle } onClick={ this.preventCloseModal }>
-          <ContentClass closeModal={ closeModal }/>
+          <ContentClass closeModal={ closeModal } location={ location } />
         </div>
         <Style scopeSelector='body' rules={ bodyStyleRules } />
       </div>
@@ -44,6 +44,7 @@ class GenericModal extends React.Component {
 GenericModal.propTypes = {
   activeModal: PropTypes.string,
   closeModal: PropTypes.func,
+  location: PropTypes.object
 };
 
 export default GenericModal;

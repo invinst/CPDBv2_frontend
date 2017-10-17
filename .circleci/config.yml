@@ -8,13 +8,14 @@ jobs:
       NODE_ENV: development
     steps:
       - checkout
+      - run: pwd
       - run: yarn install
       - run: yarn lint
       - run: yarn cover-circle
       - run: yarn live-test
       - run: cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - store_artifacts:
-          path: ~/CPDBv2_frontend/errorShots
+          path: /root/project/errorShots
 
   deploy:
     docker:

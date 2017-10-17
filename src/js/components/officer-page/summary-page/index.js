@@ -9,7 +9,7 @@ import { wrapperStyle } from './summary-page.style.js';
 export default class SummaryPage extends Component {
   render() {
     const {
-      officerSummary, complaintsCount, sustainedCount, complaintFacets, openBottomSheetWithPoliceUnit
+      officerSummary, complaintsCount, sustainedCount, complaintFacets, openBottomSheetWithPoliceUnit, complaintsByYear
     } = this.props;
 
     return (
@@ -18,7 +18,9 @@ export default class SummaryPage extends Component {
           <SummarySection officerSummary={ officerSummary }
             openBottomSheetWithPoliceUnit={ openBottomSheetWithPoliceUnit } />
           <AggregateSection
+            dateOfAppt={ officerSummary ? officerSummary.dateOfAppt : null }
             title='complaint records (CRs)' count={ complaintsCount } sustainedCount={ sustainedCount }
+            complaintsByYear={ complaintsByYear }
             aggregateFacets={ complaintFacets }/>
         </ResponsiveFluidWidthComponent>
       </div>
@@ -31,6 +33,6 @@ SummaryPage.propTypes = {
   complaintsCount: PropTypes.number,
   complaintFacets: PropTypes.array,
   sustainedCount: PropTypes.number,
-  officerId: PropTypes.number,
-  openBottomSheetWithPoliceUnit: PropTypes.func
+  openBottomSheetWithPoliceUnit: PropTypes.func,
+  complaintsByYear: PropTypes.array
 };

@@ -1,4 +1,4 @@
-import { getOfficerId, hasOfficerIdChanged } from 'utils/location';
+import { getOfficerId, hasOfficerIdChanged, getCrId } from 'utils/location';
 
 
 describe('location utils', function () {
@@ -9,6 +9,12 @@ describe('location utils', function () {
 
     it('should return NaN if wrong url was given', function () {
       isNaN(getOfficerId('foo')).should.be.true();
+    });
+  });
+
+  describe('getCrId', function () {
+    it('should return the Complaint record Id', function () {
+      getCrId('/complaint/123/').should.eql(123);
     });
   });
 

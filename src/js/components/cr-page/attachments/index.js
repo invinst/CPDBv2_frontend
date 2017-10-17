@@ -6,7 +6,8 @@ import {
   iconStyle,
   itemTitleWithBorderStyle,
   emptyMessageStyle,
-  requestLinkStyle
+  requestLinkStyle,
+  okMarkStyle
 } from './attachments.style';
 import BlockTitle from 'components/common/block-title';
 
@@ -18,17 +19,38 @@ const emptyMessageMappings = {
 
 export default class Attachments extends Component {
   render() {
-    const { title, items, iconName, openRequestDocumentModal } = this.props;
+    const {
+      title,
+      items,
+      iconName,
+      openRequestDocumentModal,
+      showRequestMessage,
+      alreadyRequested
+    } = this.props;
+
+    const message = emptyMessageMappings[title] || 'documents';
     let body;
 
-    if (!items || items.length == 0) {
-      const message = emptyMessageMappings[title] || 'documents';
+    let requestMessage = null;
+    if (showRequestMessage) {
+      requestMessage = !alreadyRequested ? (
+        <p>
+          <a className='test--attachment-request' style={ requestLinkStyle } onClick={ openRequestDocumentModal }>
+            Request { capitalize(message) }
+          </a>
+        </p>
+      ) : (
+        <p className='test--attachment-requested' style={ { textTransform: 'capitalize' } }>
+          { message } Requested &nbsp; <span style={ okMarkStyle }>✔</span>
+        </p>
+      );
+    }
+
+    if (!items || items.length === 0) {
       body = (
         <div style={ emptyMessageStyle }>
           <p>There are no { message } publicly available for this incident at this time.</p>
-          <p style={ { display: 'none' } /* TODO in story #151246125 */ }>
-            <a style={ requestLinkStyle } onClick={ openRequestDocumentModal }>Request { capitalize(message) }</a>
-          </p>
+          { requestMessage }
         </div>
       );
 
@@ -59,5 +81,11 @@ Attachments.propTypes = {
   title: PropTypes.string,
   iconName: PropTypes.string,
   items: PropTypes.array,
-  openRequestDocumentModal: PropTypes.func
+  openRequestDocumentModal: PropTypes.func,
+  showRequestMessage: PropTypes.bool,
+  alreadyRequested: PropTypes.bool
+};
+
+Attachments.defaultProps = {
+  showRequestMessage: false
 };

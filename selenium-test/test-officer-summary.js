@@ -22,10 +22,10 @@ describe('officer summary page', function () {
 
     summaryPage.summarySection.unitLabel.getText().should.equal('Unit');
     summaryPage.summarySection.unitValue.getText().should.equal('001');
-    summaryPage.summarySection.unitLink.getText().should.equal('view unit profile');
+    summaryPage.summarySection.unitLink.getText().should.equal('View unit profile');
 
     summaryPage.summarySection.dateOfApptLabel.getText().should.equal('Career');
-    summaryPage.summarySection.dateOfApptValue.getText().should.equal('SEP 23, 2015—PRESENT');
+    summaryPage.summarySection.dateOfApptValue.getText().should.equal('SEP 23, 2015—Present');
     summaryPage.summarySection.dateOfApptDescription.getText().should.equal('2 year veteran');
 
     summaryPage.summarySection.rankLabel.getText().should.equal('Rank');
@@ -49,24 +49,29 @@ describe('officer summary page', function () {
     summaryPage.aggregateSection.categoryEntryCount.getText().should.equal('10');
     summaryPage.aggregateSection.categoryEntrySustainedCount.getText().should.equal('2');
     summaryPage.aggregateSection.categoryEntryName.getText().should.equal('Illegal Search');
+    summaryPage.aggregateSection.categorySparkline.waitForVisible();
 
     summaryPage.aggregateSection.race.waitForVisible();
     summaryPage.aggregateSection.raceName.getText().should.equal('COMPLAINANT RACE');
     summaryPage.aggregateSection.raceEntryCount.getText().should.equal('10');
     summaryPage.aggregateSection.raceEntrySustainedCount.getText().should.equal('2');
     summaryPage.aggregateSection.raceEntryName.getText().should.equal('White');
+    summaryPage.aggregateSection.raceSparkline.waitForVisible();
 
     summaryPage.aggregateSection.age.waitForVisible();
     summaryPage.aggregateSection.ageName.getText().should.equal('COMPLAINANT AGE');
     summaryPage.aggregateSection.ageEntryCount.getText().should.equal('10');
     summaryPage.aggregateSection.ageEntrySustainedCount.getText().should.equal('2');
     summaryPage.aggregateSection.ageEntryName.getText().should.equal('<20');
+    summaryPage.aggregateSection.ageSparkline.waitForVisible();
 
     summaryPage.aggregateSection.gender.waitForVisible();
     summaryPage.aggregateSection.genderName.getText().should.equal('COMPLAINANT GENDER');
     summaryPage.aggregateSection.genderEntryCount.getText().should.equal('10');
     summaryPage.aggregateSection.genderEntrySustainedCount.getText().should.equal('2');
     summaryPage.aggregateSection.genderEntryName.getText().should.equal('Female');
+    summaryPage.aggregateSection.genderSparkline.waitForVisible();
+
   });
 
   it('should launch timeline, summary, minimap requests upon direct visit', function () {
