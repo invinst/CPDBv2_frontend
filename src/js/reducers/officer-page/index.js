@@ -7,6 +7,7 @@ import complaintsCount from './complaints-count';
 import sustainedCount from './sustained-count';
 import complaintFacets from './complaint-facets';
 import timeline from './timeline';
+import socialGraph from './social-graph';
 import officerId from './officer-id';
 import complaintsByYear from './complaints-by-year';
 
@@ -19,6 +20,7 @@ export default combineReducers({
   sustainedCount,
   complaintFacets,
   timeline,
+  socialGraph,
   officerId,
   complaintsByYear
 });

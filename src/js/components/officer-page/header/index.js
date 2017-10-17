@@ -18,7 +18,7 @@ const officerPath = subPath => pathname => {
 const OFFICER_BUTTONS = [
   ['Summary', officerPath()],
   ['Timeline', officerPath('timeline')],
-  ['Social Map', officerPath('social-graph')]
+  ['Social Map', officerPath('social')]
 ];
 
 export default class Header extends Component {

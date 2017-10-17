@@ -33,11 +33,6 @@ SummaryPage.propTypes = {
   complaintsCount: PropTypes.number,
   complaintFacets: PropTypes.array,
   sustainedCount: PropTypes.number,
-  fetchOfficerSummary: PropTypes.func,
   openBottomSheetWithPoliceUnit: PropTypes.func,
   complaintsByYear: PropTypes.array
-};
-
-SummaryPage.contextTypes = {
-  store: PropTypes.object
 };
