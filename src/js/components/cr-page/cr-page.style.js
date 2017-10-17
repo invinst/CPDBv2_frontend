@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor, whiteTwoColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -55,15 +55,25 @@ export const overlayStyle = {
 export const leftColumnStyle = {
   width: '320px',
   display: 'inline-block',
-  borderRight: `1px solid ${whiteTwoColor}`,
   verticalAlign: 'top',
-  paddingBottom: '24px'
+  paddingBottom: '24px',
+  paddingLeft: '16px'
 };
 
 export const rightColumnStyle = {
   width: 'calc(100% - 337px)',
-  borderLeft: `1px solid ${whiteTwoColor}`,
   display: 'inline-block',
   marginLeft: '-1px',
-  paddingBottom: '24px'
+  paddingBottom: '24px',
+  paddingLeft: '16px',
+  boxSizing: 'border-box'
+};
+
+export const requestButtonStyle = {
+  width: '54px',
+  height: '18px',
+  fontSize: '14px',
+  fontWeight: 500,
+  textAlign: 'left',
+  color: '#231f20'
 };

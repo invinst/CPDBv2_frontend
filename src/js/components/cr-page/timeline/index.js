@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 
-import { wrapperStyle, titleStyle } from './timeline.style';
+import { wrapperStyle } from './timeline.style';
 import IncidentAndBeginAndClose from './incident-begin-close-svg';
 import IncidentBeginClose from './incidentbeginclose-svg';
 import IncidentBeginAndClose from './incidentbegin-close-svg';
 import IncidentAndBeginClose from './incident-beginclose-svg';
+import BlockTitle from 'components/common/block-title';
 
 
 export default class Timeline extends Component {
@@ -23,7 +24,7 @@ export default class Timeline extends Component {
   render() {
     return (
       <div style={ wrapperStyle }>
-        <div style={ titleStyle }>INVESTIGATION TIMELINE</div>
+        <BlockTitle>INVESTIGATION TIMELINE</BlockTitle>
         { this.renderTimeline() }
       </div>
     );

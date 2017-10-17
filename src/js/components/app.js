@@ -6,8 +6,9 @@ import React, { PropTypes } from 'react';
 import { getMockAdapter } from 'mock-api';
 import BottomSheetContainer from 'containers/bottom-sheet';
 import EditModeContainer from 'containers/inline-editable/edit-mode-container';
-import Header from 'components/header';
+import SlimHeader from 'components/slim-header';
 import LoginModalContainer from 'containers/login-modal-container';
+import GenericModalContainer from 'containers/generic-modal-container';
 import SearchPageContainer from 'containers/search-page-container';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
 import RouteTransition from 'components/animation/route-transition';
@@ -76,20 +77,24 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { location, appContent, params } = this.props;
-    const { pathname } = location;
+    const { location, appContent, params, openLegalDisclaimerModal } = this.props;
     const children = this.children();
     const showHeader = this.showHeader(children);
 
     return (
       <StyleRoot>
         <EditModeContainer location={ location }>
-          <Header pathname={ pathname } appContent={ appContent } show={ showHeader }/>
+          <SlimHeader
+            show={ showHeader }
+            pathname={ location.pathname }
+            openLegalDisclaimerModal={ openLegalDisclaimerModal }
+          />
           <RouteTransition pathname={ appContent }>
             { this.children() }
           </RouteTransition>
           <BottomSheetContainer params={ params } location={ location }/>
           <LoginModalContainer location={ location }/>
+          <GenericModalContainer location={ location } />
         </EditModeContainer>
       </StyleRoot>
     );
@@ -109,7 +114,8 @@ App.propTypes = {
   location: locationShape,
   toggleEditMode: PropTypes.func,
   toggleSearchMode: PropTypes.func,
-  changeSearchQuery: PropTypes.func
+  changeSearchQuery: PropTypes.func,
+  openLegalDisclaimerModal: PropTypes.func
 };
 
 App.defaultProps = {

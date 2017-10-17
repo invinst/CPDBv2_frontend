@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import FadeMotion from 'components/animation/fade-motion';
 import Header from './header';
 import StickyHeader from 'components/common/sticky-header';
@@ -13,6 +13,7 @@ import Timeline from './timeline';
 import Location from './location';
 import Involvement from './involvement';
 import Attachments from './attachments';
+import BlockTitle from 'components/common/block-title';
 import {
   wrapperStyle, titleStyle, subtitleStyle, headerStyle, summarySectionStyle, overlayStyle, leftColumnStyle,
   pageWrapperStyle, rightColumnStyle, headerWrapperStyle
@@ -64,13 +65,20 @@ export default class CRPage extends Component {
   render() {
     const {
       crid, coaccused, complainants, officerId, openBottomSheetWithOfficer, openBottomSheetWithComplaint,
-      incidentDate, point, address, location, beat, involvements, documents, videos, audios
+      incidentDate, point, address, location, beat, involvements, documents, videos, audios, openRequestDocumentModal,
+      alreadyRequested
     } = this.props;
     const { displayCoaccusedDropdown } = this.state;
     const officer = find(coaccused, officer => officer.id === officerId) || {};
     const {
-      category, subcategory, fullName, race, gender, finalFinding, reccOutcome, finalOutcome, startDate, endDate
+      category, subcategory, fullName, finalFinding, reccOutcome, finalOutcome, startDate, endDate, badge
     } = officer;
+
+    const showRequestMessage = (
+      (!videos || videos.length === 0) &&
+      (!audios || audios.length === 0) &&
+      (!documents || documents.length === 0)
+    );
 
     return (
       <div style={ wrapperStyle }>
@@ -82,31 +90,52 @@ export default class CRPage extends Component {
               onDropDownButtonClick={ this.handleToggleCoaccusedDropDown }/>
           </StickyHeader>
         </div>
-        <ResponsiveFixedWidthComponent>
+        <ResponsiveFluidWidthComponent>
           <div style={ pageWrapperStyle }>
             <div style={ summarySectionStyle }>
               <div className='test--cr-category' style={ titleStyle }>{ category }</div>
               <div className='test--cr-subcategory' style={ subtitleStyle }>{ subcategory }</div>
               <OfficerRow
-                fullName={ fullName } race={ race } gender={ gender } officerId={ officerId }
+                fullName={ fullName } badge={ badge } officerId={ officerId }
                 openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
-              <MultiRow label='Complainant' contents={ complainants }/>
-              <FindingRow label='Final Finding' content={ finalFinding }/>
-              <Row label='Recommended Outcome' content={ reccOutcome }/>
-              <Row label='Final Outcome' content={ finalOutcome }/>
+              <MultiRow label='COMPLAINANT' contents={ complainants }/>
             </div>
             <div style={ leftColumnStyle }>
+              <BlockTitle>OUTCOME</BlockTitle>
+              <FindingRow label='Final Finding' content={ finalFinding }/>
+              <Row label='Recommended Outcome' content={ reccOutcome }/>
+              <Row label='Final Outcome' content={ finalOutcome } hasBorderBottom={ false } />
+
               <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
               <Involvement involvements={ involvements } openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
             </div>
             <div style={ rightColumnStyle }>
               <Location point={ point } address={ address } location={ location } beat={ beat }/>
-              <Attachments title='DOCUMENTS' iconName='ic-document.svg' items={ documents }/>
-              <Attachments title='VIDEO' iconName='ic-video.svg' items={ videos }/>
-              <Attachments title='AUDIO' iconName='ic-audio.svg' items={ audios }/>
+              <Attachments
+                title='DOCUMENTS'
+                iconName='ic-document.svg'
+                items={ documents }
+                openRequestDocumentModal={ openRequestDocumentModal }
+                showRequestMessage={ showRequestMessage }
+                alreadyRequested={ alreadyRequested }
+              />
+
+              <Attachments
+                title='VIDEO'
+                iconName='ic-video.svg'
+                items={ videos }
+                openRequestDocumentModal={ openRequestDocumentModal }
+              />
+              <Attachments
+                title='AUDIO'
+                iconName='ic-audio.svg'
+                items={ audios }
+                openRequestDocumentModal={ openRequestDocumentModal }
+              />
+
             </div>
           </div>
-        </ResponsiveFixedWidthComponent>
+        </ResponsiveFluidWidthComponent>
         <FadeMotion show={ displayCoaccusedDropdown } maxOpacity={ .5 }>
           { this.renderOverlay }
         </FadeMotion>
@@ -139,10 +168,12 @@ CRPage.propTypes = {
   fetchCR: PropTypes.func,
   documents: PropTypes.array,
   videos: PropTypes.array,
-  audios: PropTypes.array
+  audios: PropTypes.array,
+  openRequestDocumentModal: PropTypes.func,
+  alreadyRequested: PropTypes.bool
 };
 
 CRPage.defaultProps = {
   fetchCR: () => {},
-  coaccused: []
+  coaccused: [],
 };

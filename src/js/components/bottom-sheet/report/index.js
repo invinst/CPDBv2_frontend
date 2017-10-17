@@ -9,7 +9,7 @@ import {
 import EditableSection from 'components/inline-editable/editable-section';
 import StringInput from './string-input';
 import DatePickerInput from './date-picker-input';
-import ResponsiveFixedWidthComponent from 'components/responsive/responsive-fixed-width-component';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ResponsiveComponent from 'components/responsive/responsive-component';
 import { DESKTOP, TABLET, EXTRA_WIDE } from 'utils/constants';
 import BottomSheetHeader from 'components/bottom-sheet/bottom-sheet-header';
@@ -115,7 +115,7 @@ export class Report extends Component {
           <BottomSheetHeader editToggleProps={ editToggleProps }/>
         </StickyHeader>
         <div>
-          <ResponsiveFixedWidthComponent>
+          <ResponsiveFluidWidthComponent>
             <ResponsiveComponent
               extraWideChildren={ this.renderTwoColumns({
                 leftBar: leftBarStyle[EXTRA_WIDE](),
@@ -130,7 +130,7 @@ export class Report extends Component {
                 headerTitle: headerTitleStyle[DESKTOP]
               }) }
               tabletChildren={ this.renderOneColumn() }/>
-          </ResponsiveFixedWidthComponent>
+          </ResponsiveFluidWidthComponent>
         </div>
       </div>
     );

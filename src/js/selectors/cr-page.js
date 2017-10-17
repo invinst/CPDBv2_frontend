@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { map } from 'lodash';
+import { map, get } from 'lodash';
+
 
 
 const getCoaccused = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].coaccused;
@@ -9,6 +10,10 @@ const getInvolvements = (state, { crid }) => !state.crs[crid] ? [] : state.crs[c
 const getDocuments = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].documents;
 const getVideos = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].videos;
 const getAudios = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].audios;
+
+export const getDocumentAlreadyRequested = (
+  (state, { crid } ) => Boolean(get(state, `crPage.attachmentRequest.subscribedCRIDs[${crid}]`, undefined))
+);
 
 const getComplainantStringSelector = createSelector(
   getComplainants,
@@ -37,7 +42,8 @@ const getCoaccusedSelector = createSelector(
     startDate: coaccused['start_date'],
     endDate: coaccused['end_date'],
     category: coaccused['category'] || 'Unknown',
-    subcategory: coaccused['subcategory'] || 'Unknown'
+    subcategory: coaccused['subcategory'] || 'Unknown',
+    badge: coaccused['badge'] || 'Unknown'
   }))
 );
 
@@ -72,6 +78,6 @@ export const contentSelector = createSelector(
     involvements,
     documents,
     videos,
-    audios
+    audios,
   })
 );

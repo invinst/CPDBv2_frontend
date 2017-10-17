@@ -7,8 +7,8 @@ import {
 } from 'utils/constants';
 
 
-export const fetchOfficerSummary = offficerId => (get(
-  `${OFFICER_URL}${offficerId}/summary/`,
+export const fetchOfficerSummary = officerId => (get(
+  `${OFFICER_URL}${officerId}/summary/`,
   [OFFICER_SUMMARY_REQUEST_START, OFFICER_SUMMARY_REQUEST_SUCCESS, OFFICER_SUMMARY_REQUEST_FAILURE]
 )());
 

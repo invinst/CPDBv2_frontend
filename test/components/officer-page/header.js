@@ -12,7 +12,7 @@ describe('Header component', function () {
     const links = scryRenderedComponentsWithType(instance, Link);
     links.should.have.length(3);
     map(links, link => link.props.to).should.eql([
-      '/officer/123/', '/officer/123/timeline/', '/officer/123/social-graph/'
+      '/officer/123/', '/officer/123/timeline/', '/officer/123/social/'
     ]);
   });
 });

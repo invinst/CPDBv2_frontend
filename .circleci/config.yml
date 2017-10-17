@@ -1,0 +1,39 @@
+version: 2
+jobs:
+
+  test:
+    docker:
+      - image: cpdbdev/cpdbv2_frontend:0.1.1
+    environment:
+      NODE_ENV: development
+    steps:
+      - checkout
+      - run: pwd
+      - run: yarn install
+      - run: yarn lint
+      - run: yarn cover-circle
+      - run: yarn live-test
+      - run: cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
+      - store_artifacts:
+          path: /root/project/errorShots
+
+  deploy:
+    docker:
+      - image: cpdbdev/cpdbv2_frontend:0.1.1
+    environment:
+      NODE_ENV: development
+    steps:
+      - checkout
+      - run: bin/circle-deploy-staging
+
+workflows:
+  version: 2
+  test_and_deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: staging

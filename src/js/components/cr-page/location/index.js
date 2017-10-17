@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from 'react';
 
 import ViewMapButton from './view-map-button';
 import CRLocationMap from './cr-location-map';
+import BlockTitle from 'components/common/block-title';
 import {
-  wrapperStyle, locationTextStyle, addressStyle, locationStyle, beatStyle, labelStyle, contentStyle
+  wrapperStyle, addressStyle, locationStyle, beatStyle, labelStyle, contentStyle
 } from './location.style';
 
 
@@ -13,7 +14,7 @@ export default class Location extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <div style={ locationTextStyle }>LOCATION</div>
+        <BlockTitle>LOCATION</BlockTitle>
         {
           point ? <CRLocationMap lng={ point.long } lat={ point.lat }/> : null
         }

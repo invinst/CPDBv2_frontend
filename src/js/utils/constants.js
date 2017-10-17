@@ -29,6 +29,7 @@ export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
 export const OFFICER_TIMELINE_PATH = 'officer/:officerId/timeline';
+export const OFFICER_SOCIAL_GRAPH_PATH = 'officer/:officerId/social';
 export const CR_PATH = 'complaint/:crid/:officerId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 
@@ -79,6 +80,7 @@ export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
 export const UNIT_PROFILE_URL = `${V2_ROOT_PATH}units/`;
 export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
+export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -130,6 +132,12 @@ export const OPEN_SEARCH_PAGE = 'OPEN_SEARCH_PAGE';
 export const CR_REQUEST_START = 'CR_REQUEST_START';
 export const CR_REQUEST_SUCCESS = 'CR_REQUEST_SUCCESS';
 export const CR_REQUEST_FAILURE = 'CR_REQUEST_FAILURE';
+
+export const CR_REQUEST_DOC_FAILURE = 'CR_REQUEST_DOC_FAILURE';
+export const CR_REQUEST_DOC_SUCCESS = 'CR_REQUEST_DOC_SUCCESS';
+export const CR_REQUEST_DOC_START = 'CR_REQUEST_DOC_START';
+
+
 
 export const ALPHA_NUMBERIC = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
@@ -184,4 +192,53 @@ export const FINDING_COLORS = {
   'No Affidavit': botticelliColor,
   'Discharged': galleryColor,
   'Unknown': lightAltoColor
+};
+
+export const ACTIVITY_GRID_REQUEST_START = 'ACTIVITY_GRID_REQUEST_START';
+export const ACTIVITY_GRID_REQUEST_SUCCESS = 'ACTIVITY_GRID_REQUEST_SUCCESS';
+export const ACTIVITY_GRID_REQUEST_FAILURE = 'ACTIVITY_GRID_REQUEST_FAILURE';
+
+export const OFFICER_SOCIAL_GRAPH_REQUEST_START = 'OFFICER_SOCIAL_GRAPH_REQUEST_START';
+export const OFFICER_SOCIAL_GRAPH_REQUEST_SUCCESS = 'OFFICER_SOCIAL_GRAPH_REQUEST_SUCCESS';
+export const OFFICER_SOCIAL_GRAPH_REQUEST_FAILURE = 'OFFICER_SOCIAL_GRAPH_REQUEST_FAILURE';
+export const OFFICER_SOCIAL_GRAPH_SET_YEAR_RANGE = 'OFFICER_SOCIAL_GRAPH_SET_YEAR_RANGE';
+
+export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
+export const VISUAL_TOKEN_COLOR_SCHEME = {
+  '00': '#f5f4f4',
+  '10': '#edf0fa',
+  '01': '#f8eded',
+  '20': '#d4e2f4',
+  '11': '#ecdeef',
+  '02': '#efdede',
+  '30': '#c6d4ec',
+  '21': '#d9d1ee',
+  '12': '#eacbe0',
+  '03': '#ebcfcf',
+  '40': '#aec9e8',
+  '31': '#c0c3e1',
+  '22': '#cdbddd',
+  '13': '#e4b8cf',
+  '04': '#f0b8b8',
+  '50': '#90b1f5',
+  '41': '#aaace3',
+  '32': '#b6a5de',
+  '23': '#c99edc',
+  '14': '#e498b6',
+  '05': '#f89090',
+  '51': '#748be4',
+  '42': '#8e84e0',
+  '33': '#af7fbd',
+  '24': '#c873a2',
+  '15': '#e1718a',
+  '52': '#6660ae',
+  '43': '#8458aa',
+  '34': '#a34e99',
+  '25': '#b5496a',
+  '53': '#4c3d8f',
+  '44': '#6b2e7e',
+  '35': '#792f55',
+  '54': '#391c6a',
+  '45': '#520051',
+  '55': '#131313',
 };

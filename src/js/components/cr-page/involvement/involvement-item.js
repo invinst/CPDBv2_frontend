@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 
-import { wrapperStyle, headerStyle, lastItemStyle } from './involvement-item.style';
+import { wrapperStyle, lastItemStyle } from './involvement-item.style';
+import BlockTitle from 'components/common/block-title';
 import OfficerRow from './officer-row';
 
 
@@ -11,14 +12,17 @@ export default class InvolvementItem extends Component {
 
     return (
       <div style={ { ...wrapperStyle, ...style } }>
-        <div className='test--involvement-type' style={ headerStyle }>{ involvedType }</div>
+        <BlockTitle className='test--involvement-type'>{ involvedType.toUpperCase() }</BlockTitle>
         <div>
           {
-            map(officers, ({ id, abbrName, extraInfo }, index) => (
-              <OfficerRow style={ index === officers.length - 1 ? lastItemStyle : {} }
-                onClick={ openBottomSheetWithOfficer }
-                key={ id } officerId={ id } abbrName={ abbrName } extraInfo={ extraInfo } />
-            ))
+            map(officers, ({ id, abbrName, extraInfo, ...officer }, index) =>
+            {
+              return (
+                <OfficerRow style={ index === officers.length - 1 ? lastItemStyle : {} }
+                  onClick={ openBottomSheetWithOfficer }
+                  key={ id } officerId={ id } abbrName={ abbrName } extraInfo={ extraInfo } />
+              );
+            })
           }
         </div>
       </div>

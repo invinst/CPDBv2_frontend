@@ -1,8 +1,8 @@
-import { sanFranciscoTextFamily, lightBlackColor, softBlackColor } from 'utils/styles';
+import { sanFranciscoTextFamily, lightBlackColor, softBlackColor, greyishColor } from 'utils/styles';
 
 
 export const boxShadowStyle = {
-  boxShadow: `0 1px 2px 0 ${lightBlackColor}`,
+  borderBottom: `1px solid ${lightBlackColor}`,
   position: 'relative'
 };
 
@@ -15,9 +15,10 @@ export const headerStyle = {
   textAlign: 'center'
 };
 
-export const titleStyle = {
+export const titleStyle = (displayCoaccusedDropdown) => ({
   fontSize: '26px',
   fontWeight: 500,
   display: 'inline-block',
-  float: 'left'
-};
+  float: 'left',
+  color: displayCoaccusedDropdown ? greyishColor : 'inherit'
+});

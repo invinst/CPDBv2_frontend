@@ -28,33 +28,10 @@ describe('store', function () {
     const { getCurrentState } = setUp();
     getCurrentState().should.eql({
       landingPage: {
-        faqSection: {
-          faqs: [],
-          fields: {},
-          editModeOn: false
+        activityGrid: {
+          cards: [],
+          isRequesting: false
         },
-        reportSection: {
-          fields: {},
-          editModeOn: false,
-          reports: []
-        },
-        heroSection: {
-          editModeOn: false,
-          fields: {}
-        },
-        vftgSection: {
-          fields: {},
-          editModeOn: false
-        },
-        aboutSection: {
-          fields: {},
-          editModeOn: false
-        },
-        collaborateSection: {
-          fields: {},
-          editModeOn: false
-        },
-        isRequesting: false
       },
       faqPage: {
         isRequesting: false,
@@ -107,10 +84,18 @@ describe('store', function () {
       },
       inlineAliasAdminPage: {},
       crPage: {
-        isRequesting: false
+        isRequesting: false,
+        attachmentRequest: {
+          request: {
+            isRequested: false,
+            message: ''
+          },
+          subscribedCRIDs: {}
+        }
       },
       crs: {},
       officerPage: {
+        complaintsByYear: [],
         complaintFacets: [],
         complaintsCount: 0,
         fullName: '',
@@ -118,6 +103,15 @@ describe('store', function () {
         officerId: null,
         summary: {},
         sustainedCount: 0,
+        socialGraph: {
+          isRequesting: false,
+          links: [],
+          nodes: [],
+          yearRange: [
+            1984,
+            2017
+          ]
+        },
         timeline: {
           hoveredItemIndex: null,
           isRequesting: false,
@@ -137,6 +131,9 @@ describe('store', function () {
       unitProfilePage: {
         isRequesting: false,
         summary: {}
+      },
+      genericModal: {
+        activeModal: null
       }
     });
   });

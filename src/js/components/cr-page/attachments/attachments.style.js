@@ -1,12 +1,12 @@
-import { sanFranciscoTextFamily, softBlackColor, whiteTwoColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, whiteTwoColor, greyishColor, accentColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
-export const wrapperStyle = {
-  margin: '40px 0 0 16px',
-  borderBottom: `1px solid ${whiteTwoColor}`
+export const emptyMessageStyle = {
+  color: greyishColor,
+  fontSize: '14px',
+  padding: '11px 0'
 };
-
 
 export const titleStyle = {
   fontFamily: sanFranciscoTextFamily,
@@ -43,3 +43,12 @@ export const iconStyle = iconName => ({
   marginRight: '21px',
   background: `url(${imgUrl(iconName)}) left center / auto no-repeat`
 });
+
+export const requestLinkStyle = {
+  cursor: 'pointer',
+  color: softBlackColor
+};
+
+export const okMarkStyle = {
+  color: accentColor
+};

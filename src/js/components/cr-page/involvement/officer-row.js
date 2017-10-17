@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
+import LabeledIcon from 'components/common/labeled-icon';
 import Hoverable from 'components/common/higher-order/hoverable';
-import { wrapperStyle, abbrNameStyle, extraInfoStyle, arrowStyle } from './officer-row.style';
+import { wrapperStyle } from './officer-row.style';
 
 
 class OfficerRow extends Component {
@@ -10,9 +11,7 @@ class OfficerRow extends Component {
 
     return (
       <div className='test--officer-row' style={ { ...wrapperStyle, ...style } } onClick={ () => onClick(officerId) }>
-        <span style={ abbrNameStyle(hovering) }>{ abbrName }</span>
-        <span style={ extraInfoStyle(hovering) }>{ extraInfo }</span>
-        <div style={ arrowStyle(hovering) } />
+        <LabeledIcon label={ abbrName } sublabel={ extraInfo } hovering={ hovering }/>
       </div>
     );
   }

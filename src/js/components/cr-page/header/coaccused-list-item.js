@@ -1,30 +1,38 @@
 import React, { Component, PropTypes } from 'react';
 
 import Hoverable from 'components/common/higher-order/hoverable';
+import LabeledIcon from 'components/common/labeled-icon';
 import {
-  wrapperStyle, officerInfoStyle, fullNameStyle, extraInfoStyle, categoryStyle, viewingStyle, arrowStyle
+  wrapperStyle, officerInfoStyle, viewingStyle, arrowStyle,
+  viewStyle
 } from './coaccused-list-item.style';
 
 
-class CoaccusedListItem extends Component {
+export class CoaccusedListItem extends Component {
   render() {
     const {
-      viewing, hovering, fullName, gender, race, category, openBottomSheetWithComplaint, crid, id, showBottomBorder
+      viewing, hovering, fullName, openBottomSheetWithComplaint, crid, id, showBottomBorder, badge
     } = this.props;
+
+    let viewingText = null;
+    if (viewing) {
+      viewingText = <span style={ viewingStyle }>Viewing</span>;
+    } else {
+      viewingText = (
+        <div style={ viewingStyle }>
+          <span style={ viewStyle(hovering) }>View</span> <span style={ arrowStyle(hovering) } />
+        </div>
+      );
+    }
 
     return (
       <div className='test--coaccused-list-item'
         style={ wrapperStyle(viewing, hovering, showBottomBorder) }
         onClick={ viewing ? null : () => openBottomSheetWithComplaint({ crid, officerId: id }) }>
         <div style={ officerInfoStyle }>
-          <span className='test--coaccused-fullname' style={ fullNameStyle(viewing, hovering) }>{ fullName }</span>
-          <span className='test--coaccused-extra-info'
-            style={ extraInfoStyle(viewing, hovering) }>{ `${gender}, ${race}`.toLowerCase() }</span>
+          <LabeledIcon label={ fullName } sublabel={ 'Badge ' + badge }/>
         </div>
-        <span className='test--coaccused-category' style={ categoryStyle(viewing, hovering) }>{ category }</span>
-        {
-          viewing ? <span style={ viewingStyle }>VIEWING</span> : <div style={ arrowStyle(hovering) } />
-        }
+        { viewingText }
       </div>
     );
   }
@@ -38,7 +46,7 @@ CoaccusedListItem.propTypes = {
   fullName: PropTypes.string,
   gender: PropTypes.string,
   race: PropTypes.string,
-  category: PropTypes.string,
+  badge: PropTypes.string,
   hovering: PropTypes.bool,
   showBottomBorder: PropTypes.bool
 };

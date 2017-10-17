@@ -1,0 +1,8 @@
+/*
+By default, the Mapbox logo has z-index 1000 which is higher than
+coaccused dropdown list's (900). Need to lower it so the dropdown
+properly covers up the logo.
+*/
+.leaflet-bottom.leaflet-left {
+  z-index: 899 !important;
+}

@@ -1,9 +1,10 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import React from 'react';
 
 import SummaryPage from 'components/officer-page/summary-page';
 import {
-  summarySelector, getComplaintsCount, getSustainedCount, getComplaintFacetsSelector
+  summarySelector, getComplaintsCount, getSustainedCount, getComplaintsByYear, getComplaintFacetsSelector
 } from 'selectors/officer-page';
 import { openBottomSheetWithPoliceUnit } from 'actions/bottom-sheet';
 
@@ -13,8 +14,8 @@ function mapStateToProps(state, ownProps) {
     officerSummary: summarySelector(state),
     complaintsCount: getComplaintsCount(state),
     sustainedCount: getSustainedCount(state),
-    complaintFacets: getComplaintFacetsSelector(state),
-    offficerId: ownProps.offficerId
+    complaintsByYear: getComplaintsByYear(state),
+    complaintFacets: getComplaintFacetsSelector(state)
   };
 }
 
@@ -22,4 +23,4 @@ const mapDispatchToProps = {
   openBottomSheetWithPoliceUnit
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SummaryPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SummaryPage));

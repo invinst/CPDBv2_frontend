@@ -4,7 +4,6 @@ import Cookies from 'js-cookie';
 
 import authenticationApiAccessToken from 'reducers/authentication/api-access-token';
 import { SIGNIN_REQUEST_SUCCESS, RECEIVE_TOKEN_FROM_COOKIE, LOG_OUT } from 'utils/constants';
-import { LANDING_PAGE_REQUEST_FAILURE } from 'actions/landing-page';
 
 
 describe('authenticationApiAccessToken reducer', function () {
@@ -28,23 +27,6 @@ describe('authenticationApiAccessToken reducer', function () {
     authenticationApiAccessToken(undefined, {
       type: RECEIVE_TOKEN_FROM_COOKIE
     }).should.eql('apiAccessToken');
-  });
-
-  it('should return null on LANDING_PAGE_REQUEST_FAILURE and statusCode is 401', function () {
-    const removeStub = stub(Cookies, 'remove');
-    should(authenticationApiAccessToken(undefined, {
-      type: LANDING_PAGE_REQUEST_FAILURE,
-      statusCode: 401
-    })).be.null();
-    removeStub.restore();
-    assert.calledWith(removeStub, 'apiAccessToken');
-  });
-
-  it('should return previous state on LANDING_PAGE_REQUEST_FAILURE and statusCode is not 401', function () {
-    authenticationApiAccessToken('previousState', {
-      type: LANDING_PAGE_REQUEST_FAILURE,
-      statusCode: 400
-    }).should.eql('previousState');
   });
 
   it('should return null on LOG_OUT', function () {

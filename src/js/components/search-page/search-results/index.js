@@ -12,15 +12,10 @@ export default class SuggestionResults extends Component {
       onLoadMore,
       searchText,
       isEmpty,
-      isRequesting,
       suggestionClick,
       navigation,
       aliasEditModeOn
     } = this.props;
-
-    if (isRequesting) {
-      return 'Loading...';
-    }
 
     if (isEmpty) {
       return (
@@ -49,6 +44,14 @@ export default class SuggestionResults extends Component {
   }
 
   render() {
+    const { isRequesting } = this.props;
+    if (isRequesting) {
+      return (
+        <div style={ resultWrapperStyle }>
+          Loading...
+        </div>
+      );
+    }
     return (
       <div style={ resultWrapperStyle }>
         <div className='content-wrapper'>

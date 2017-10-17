@@ -3,8 +3,7 @@ import { sanFranciscoTextFamily, softBlackColor, whiteTwoColor, mediumGrayColor 
 
 export const wrapperStyle = {
   fontSize: '14px',
-  fontFamily: sanFranciscoTextFamily,
-  borderBottom: `solid 1px ${whiteTwoColor}`
+  fontFamily: sanFranciscoTextFamily
 };
 
 export const locationTextStyle = {
@@ -14,7 +13,6 @@ export const locationTextStyle = {
 };
 
 export const addressStyle = {
-  marginLeft: '16px',
   padding: '11px 0',
   borderBottom: `solid 1px ${whiteTwoColor}`,
   fontWeight: 400,
@@ -22,7 +20,6 @@ export const addressStyle = {
 };
 
 export const locationStyle = {
-  marginLeft: '16px',
   padding: '11px 0',
   borderBottom: `solid 1px ${whiteTwoColor}`,
   fontWeight: 400,
@@ -30,7 +27,6 @@ export const locationStyle = {
 };
 
 export const beatStyle = {
-  marginLeft: '16px',
   padding: '11px 0',
   minHeight: '18px'
 };

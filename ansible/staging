@@ -1,2 +1,2 @@
 [webservers]
-staging.cpdp.co ansible_user=ansible branch=staging node_env=staging
+staging.cpdp.co ansible_user=ansible branch=staging node_env=staging cpdb_app_env=staging
