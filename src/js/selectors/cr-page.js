@@ -2,13 +2,43 @@ import { createSelector } from 'reselect';
 import { map } from 'lodash';
 
 
-const getCoaccused = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].coaccused;
-const getComplainants = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].complainants;
-const getCR = (state, { params: { crid } }) => !state.crs[crid] ? {} : state.crs[crid];
-const getInvolvements = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].involvements;
-const getDocuments = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].documents;
-const getVideos = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].videos;
-const getAudios = (state, { params: { crid } }) => !state.crs[crid] ? [] : state.crs[crid].audios;
+const getCoaccused = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].coaccused;
+};
+
+const getComplainants = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].complainants;
+};
+
+const getCR = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? {} : state.crs[crid];
+};
+
+const getInvolvements = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].involvements;
+};
+
+const getDocuments = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].documents;
+};
+
+const getVideos = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].videos;
+};
+
+const getAudios = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].audios;
+};
+
+export const getCRID = state => String(state.crPage.crid);
+export const getOfficerId = state => state.crPage.officerId;
 
 const getComplainantStringSelector = createSelector(
   getComplainants,

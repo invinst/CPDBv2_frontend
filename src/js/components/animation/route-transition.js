@@ -12,6 +12,10 @@ export default class RouteTransition extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    if (isSameOfficerPath(nextProps.pathname, this.props.pathname)
+        || isSameCR(nextProps.pathname, this.props.pathname)) {
+      return false;
+    }
     return this.props.pathname !== nextProps.pathname;
   }
 
@@ -47,9 +51,7 @@ export default class RouteTransition extends Component {
   }
 
   render() {
-    if (global.disableAnimation
-        || isSameOfficerPath(this.prevPathname, this.props.pathname)
-        || isSameCR(this.prevPathname, this.props.pathname)) {
+    if (global.disableAnimation) {
       return this.props.children;
     }
     return (

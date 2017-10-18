@@ -9,7 +9,22 @@ export function getCRID(url) {
   if (url === undefined) {
     return NaN;
   }
-  return parseInt(url.replace(/.*complaint?\/(\d+).*/, '$1'));
+  return parseInt(url.replace(/.*complaint\/(\d+).*/, '$1'));
+}
+
+export function getComplaintOfficerId(url) {
+  if (url === undefined) {
+    return NaN;
+  }
+  return parseInt(url.replace(/.*complaint\/\d+\/(\d+).*/, '$1'));
+}
+
+export function getOfficerActiveTab(url) {
+  const pattern = /.*officer\/\d+\/([a-z-]*)/;
+  if (url.search(pattern) === -1) {
+    return null;
+  }
+  return url.match(pattern)[1];
 }
 
 export function hasOfficerIdChanged(action, officerId) {

@@ -84,15 +84,19 @@ describe('store', function () {
       },
       inlineAliasAdminPage: {},
       crPage: {
-        isRequesting: false
+        isRequesting: false,
+        crid: null,
+        officerId: null
       },
       crs: {},
       officerPage: {
+        activeTab: null,
         complaintFacets: [],
         complaintsCount: 0,
         fullName: '',
         isRequesting: false,
         officerId: null,
+        pathname: null,
         summary: {},
         sustainedCount: 0,
         timeline: {

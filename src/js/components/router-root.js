@@ -13,12 +13,18 @@ import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
-import SummaryPageContainer from 'containers/officer-page/summary-page-container';
-import TimelinePage from 'components/officer-page/timeline-page';
 import ReportingPage from 'components/reporting-page';
 import {
-  COLLAB_PATH, FAQ_PATH, STORIES_PATH, SEARCH_PATH, OFFICER_PATH, CR_PATH,
-  UNIT_PROFILE_PATH, SEARCH_ALIAS_EDIT_PATH, INLINE_SEARCH_ALIAS_ADMIN_PATH
+  COLLAB_PATH,
+  FAQ_PATH,
+  STORIES_PATH,
+  SEARCH_PATH,
+  OFFICER_PATH,
+  CR_PATH,
+  UNIT_PROFILE_PATH,
+  OFFICER_TIMELINE_PATH,
+  SEARCH_ALIAS_EDIT_PATH,
+  INLINE_SEARCH_ALIAS_ADMIN_PATH
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -42,10 +48,8 @@ class RouterRoot extends Component {
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }>
         <Route path={ ':faqId' } component={ FAQPage }/>
       </Route>,
-      <Route path={ OFFICER_PATH } component={ OfficerPageContainer } key='5'>
-        <IndexRoute component={ SummaryPageContainer }/>
-        <Route path='timeline' component={ TimelinePage }/>
-      </Route>,
+      <Route path={ OFFICER_PATH } component={ OfficerPageContainer } key='5'/>,
+      <Route path={ OFFICER_TIMELINE_PATH } component={ OfficerPageContainer } key='6'/>,
       <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7'/>,
       <Route path={ CR_PATH } component={ CRPageContainer } key='8'/>,
       <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'/>,

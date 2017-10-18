@@ -7,6 +7,8 @@ import complaintsCount from './complaints-count';
 import sustainedCount from './sustained-count';
 import complaintFacets from './complaint-facets';
 import timeline from './timeline';
+import activeTab from './active-tab';
+import pathname from './pathname';
 import officerId from './officer-id';
 
 
@@ -17,6 +19,8 @@ export default combineReducers({
   complaintsCount,
   sustainedCount,
   complaintFacets,
+  activeTab,
+  pathname,
   timeline,
   officerId
 });

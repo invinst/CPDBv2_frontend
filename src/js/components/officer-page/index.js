@@ -1,19 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 
 import Header from './header';
+import SummaryPageContainer from 'containers/officer-page/summary-page-container';
+import TimelinePage from './timeline-page';
 import { pageWrapperStyle } from './officer-page.style';
 
 
 export default class OfficerPage extends Component {
+  renderChildren() {
+    const { activeTab } = this.props;
+    if (activeTab === 'timeline') {
+      return <TimelinePage/>;
+    }
+    return <SummaryPageContainer/>;
+  }
+
   render() {
-    const { location, officerName, children } = this.props;
-    const { pathname } = location;
+    const { officerName, activeTab, pathname } = this.props;
 
     return (
       <div>
-        <Header officerName={ officerName } pathname={ pathname }/>
+        <Header officerName={ officerName } activeTab={ activeTab } pathname={ pathname }/>
         <div style={ pageWrapperStyle }>
-          { children }
+          { this.renderChildren() }
         </div>
       </div>
     );
@@ -21,12 +30,11 @@ export default class OfficerPage extends Component {
 }
 
 OfficerPage.propTypes = {
-  location: PropTypes.object,
   officerName: PropTypes.string,
-  children: PropTypes.node,
-  officerId: PropTypes.number
+  activeTab: PropTypes.string,
+  pathname: PropTypes.string,
 };
 
 OfficerPage.defaultProps = {
-  location: { pathname: '/' }
+  pathname: '/'
 };
