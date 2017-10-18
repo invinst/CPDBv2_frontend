@@ -23,6 +23,7 @@ import {
   CR_PATH,
   UNIT_PROFILE_PATH,
   OFFICER_TIMELINE_PATH,
+  OFFICER_SOCIAL_GRAPH_PATH,
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH
 } from 'utils/constants';
@@ -54,7 +55,8 @@ class RouterRoot extends Component {
       <Route path={ CR_PATH } component={ CRPageContainer } key='8'/>,
       <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'/>,
       <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer } key='10'/>,
-      <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11' />
+      <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11' />,
+      <Route path={ OFFICER_SOCIAL_GRAPH_PATH } component={ OfficerPageContainer } key='12'/>
     ];
 
     return (

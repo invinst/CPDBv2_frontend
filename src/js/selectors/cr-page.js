@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { map } from 'lodash';
+import { map, get } from 'lodash';
+
 
 
 const getCoaccused = state => {
@@ -39,6 +40,13 @@ const getAudios = state => {
 
 export const getCRID = state => String(state.crPage.crid);
 export const getOfficerId = state => state.crPage.officerId;
+
+export const getDocumentAlreadyRequested = state => {
+  const crid = state.crPage.crid;
+  return Boolean(get(
+    state, `crPage.attachmentRequest.subscribedCRIDs[${crid}]`, undefined
+  ));
+};
 
 const getComplainantStringSelector = createSelector(
   getComplainants,
@@ -103,6 +111,6 @@ export const contentSelector = createSelector(
     involvements,
     documents,
     videos,
-    audios
+    audios,
   })
 );

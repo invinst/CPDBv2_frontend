@@ -94,7 +94,7 @@ export default class App extends React.Component {
           </RouteTransition>
           <BottomSheetContainer params={ params } location={ location }/>
           <LoginModalContainer location={ location }/>
-          <GenericModalContainer />
+          <GenericModalContainer location={ location } />
         </EditModeContainer>
       </StyleRoot>
     );

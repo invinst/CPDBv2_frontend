@@ -68,4 +68,4 @@ export const eyeCandyPink = '#FFEFFE';
 export const smokeGray = '#9F9F9F';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
-export const minionProFamily = '"Minion Pro Regular",sans-serif';
+export const minionProFamily = '"Minion Pro Regular", sans-serif';

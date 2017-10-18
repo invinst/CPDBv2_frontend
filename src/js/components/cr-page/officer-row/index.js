@@ -12,7 +12,9 @@ export default class OfficerRow extends Component {
     return (
       <div style={ wrapperStyle }>
         <span className='test--row-label' style={ labelStyle }>ACCUSED OFFICER</span>
-        <LabeledIcon label={ fullName } sublabel={ `Badge ${badge}` } />
+        <div className='test--row-content'>
+          <LabeledIcon label={ fullName } sublabel={ `Badge ${badge}` } />
+        </div>
         <ViewProfileButton officerId={ officerId } onClick={ openOfficerPage } />
       </div>
     );

@@ -9,7 +9,9 @@ import complaintFacets from './complaint-facets';
 import timeline from './timeline';
 import activeTab from './active-tab';
 import pathname from './pathname';
+import socialGraph from './social-graph';
 import officerId from './officer-id';
+import complaintsByYear from './complaints-by-year';
 
 
 export default combineReducers({
@@ -22,5 +24,7 @@ export default combineReducers({
   activeTab,
   pathname,
   timeline,
-  officerId
+  socialGraph,
+  officerId,
+  complaintsByYear
 });

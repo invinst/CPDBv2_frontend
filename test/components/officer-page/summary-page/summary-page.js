@@ -16,7 +16,7 @@ describe('SummaryPage component', function () {
 
   it('should render SummarySection and AggregateSection', function () {
     instance = renderIntoDocument(
-      <SummaryPage fetchOfficerSummary={ () => {} }/>
+      <SummaryPage fetchOfficerSummary={ () => {} } />
     );
 
     scryRenderedComponentsWithType(instance, SummarySection).should.have.length(1);

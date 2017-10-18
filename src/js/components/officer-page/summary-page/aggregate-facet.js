@@ -1,14 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import { map } from 'lodash';
 
+import AggregateRow from './aggregate-row';
 import {
-  wrapperStyle, aggregateNameStyle, whiteSleeveStyle, entryStyle, countStyle, nameStyle, sustainedCountStyle
+  wrapperStyle, aggregateNameStyle, whiteSleeveStyle
 } from './aggregate-facet.style';
 
 
 export default class AggregateFacet extends Component {
   render() {
-    const { name, entries } = this.props;
+    const { name, entries, startYear } = this.props;
 
     return (
       <div className='test--aggregate-facet' style={ wrapperStyle }>
@@ -16,16 +17,19 @@ export default class AggregateFacet extends Component {
         <div style={ whiteSleeveStyle }/>
         <div>
           {
-            map(entries, ({ count, sustainedCount, name }, ind) => {
-              return (
-                <div style={ entryStyle } key={ ind }>
-                  <span className='test--entry-count' style={ countStyle }>{ count }</span>
-                  <span className='test--entry-sustained-count'
-                    style={ sustainedCountStyle(sustainedCount) }>{ sustainedCount }</span>
-                  <span className='test--entry-name' style={ nameStyle }>{ name }</span>
-                </div>
-              );
-            })
+            map(
+              entries,
+              ({ count, sustainedCount, name, items }, ind) => (
+                <AggregateRow
+                  name={ name }
+                  count={ count }
+                  sustainedCount={ sustainedCount }
+                  key={ `aggr-row-${ind}` }
+                  items={ items }
+                  startYear={ startYear }
+                />
+              )
+            )
           }
         </div>
       </div>
@@ -35,5 +39,7 @@ export default class AggregateFacet extends Component {
 
 AggregateFacet.propTypes = {
   name: PropTypes.string,
-  entries: PropTypes.array
+  entries: PropTypes.array,
+  aggregateFacets: PropTypes.array,
+  startYear: PropTypes.number
 };

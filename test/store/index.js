@@ -86,10 +86,18 @@ describe('store', function () {
       crPage: {
         isRequesting: false,
         crid: null,
-        officerId: null
+        officerId: null,
+        attachmentRequest: {
+          request: {
+            isRequested: false,
+            message: ''
+          },
+          subscribedCRIDs: {}
+        }
       },
       crs: {},
       officerPage: {
+        complaintsByYear: [],
         activeTab: null,
         complaintFacets: [],
         complaintsCount: 0,
@@ -99,6 +107,15 @@ describe('store', function () {
         pathname: null,
         summary: {},
         sustainedCount: 0,
+        socialGraph: {
+          isRequesting: false,
+          links: [],
+          nodes: [],
+          yearRange: [
+            1984,
+            2017
+          ]
+        },
         timeline: {
           hoveredItemIndex: null,
           isRequesting: false,

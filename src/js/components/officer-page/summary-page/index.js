@@ -13,6 +13,7 @@ export default class SummaryPage extends Component {
       complaintsCount,
       sustainedCount,
       complaintFacets,
+      complaintsByYear,
       openPoliceUnitPage
     } = this.props;
 
@@ -22,7 +23,9 @@ export default class SummaryPage extends Component {
           <SummarySection officerSummary={ officerSummary }
             openPoliceUnitPage={ openPoliceUnitPage } />
           <AggregateSection
+            dateOfAppt={ officerSummary ? officerSummary.dateOfAppt : null }
             title='complaint records (CRs)' count={ complaintsCount } sustainedCount={ sustainedCount }
+            complaintsByYear={ complaintsByYear }
             aggregateFacets={ complaintFacets }/>
         </ResponsiveFluidWidthComponent>
       </div>
@@ -37,5 +40,6 @@ SummaryPage.propTypes = {
   sustainedCount: PropTypes.number,
   fetchOfficerSummary: PropTypes.func,
   officerId: PropTypes.number,
-  openPoliceUnitPage: PropTypes.func
+  openPoliceUnitPage: PropTypes.func,
+  complaintsByYear: PropTypes.array
 };

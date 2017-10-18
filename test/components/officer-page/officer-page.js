@@ -8,6 +8,7 @@ import OfficerPage from 'components/officer-page';
 import TimelinePage from 'components/officer-page/timeline-page';
 import SummaryPageContainer from 'containers/officer-page/summary-page-container';
 import Header from 'components/officer-page/header';
+import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
 
 
 describe('OfficerPage component', function () {
@@ -15,6 +16,15 @@ describe('OfficerPage component', function () {
   const store = mockStore({
     officerPage: {
       summary: {},
+      socialGraph: {
+        isRequesting: false,
+        links: [],
+        nodes: [],
+        yearRange: [
+          1984,
+          2017
+        ]
+      },
       timeline: {
         sortDescending: true,
         minimap: {
@@ -49,7 +59,7 @@ describe('OfficerPage component', function () {
   it('should render timeline page if active tab is timeline', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Jerome Finnigan' activeTab='timeline'/>
+        <OfficerPage activeTab='timeline'/>
       </Provider>
     );
 
@@ -59,10 +69,21 @@ describe('OfficerPage component', function () {
   it('should render summary page if active tab is summary', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Jerome Finnigan' activeTab=''/>
+        <OfficerPage activeTab=''/>
       </Provider>
     );
 
     scryRenderedComponentsWithType(instance, SummaryPageContainer).should.have.length(1);
+  });
+
+  it('should render Socialgraph when path is social', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage activeTab='social'/>
+      </Provider>
+    );
+
+    scryRenderedComponentsWithType(instance, Header).should.have.length(1);
+    scryRenderedComponentsWithType(instance, SocialGraphPageContainer).should.have.length(1);
   });
 });
