@@ -79,7 +79,7 @@ export default class CRPage extends Component {
     );
 
     return (
-      <div style={ wrapperStyle }>
+      <div style={ wrapperStyle } className='test--cr-page'>
         <div style={ headerWrapperStyle }>
           <Header crid={ crid } coaccused={ coaccused } officerId={ officerId }
             displayCoaccusedDropdown={ displayCoaccusedDropdown }
