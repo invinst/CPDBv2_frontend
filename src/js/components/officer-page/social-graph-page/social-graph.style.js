@@ -10,5 +10,6 @@ export const textStyle = [
   `font-family: ${sanFranciscoTextFamily}`,
   'font-size: 14px',
   'font-weight: 400',
+  'cursor: pointer',
   `color: ${greyishColor}`,
 ].join('; ');
