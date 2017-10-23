@@ -5,8 +5,7 @@ import {
   leftColumnStyle,
   boldTextStyle,
   imageStyle,
-  imageSrcSet,
-  imageSizes,
+  imageLinkStyle,
   imageSrc,
   normalTextStyle,
   wrapperStyle
@@ -36,11 +35,9 @@ export default class HeroSection extends Component {
           </p>
           <a href='https://beta.cpdb.co' style={ boldTextStyle }>View the Data Tool</a>
         </div>
-        <a href='https://beta.cpdb.co' style={ imageStyle }>
+        <a href='https://beta.cpdb.co' style={ imageLinkStyle }>
           <img
-            src={ imageSrc }
-            srcSet={ imageSrcSet }
-            sizes={ imageSizes }
+            src={ imageSrc } style={ imageStyle }
           />
         </a>
       </ResponsiveFluidWidthComponent>
