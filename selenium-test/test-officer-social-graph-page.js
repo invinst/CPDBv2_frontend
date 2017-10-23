@@ -25,9 +25,15 @@ describe('officer social graph page', function () {
     socialGraphPage.socialGraph.links.count.should.equal(2);
   });
 
+  it('should visit other officer social map when click on node', function () {
+    socialGraphPage.socialGraph.element.waitForVisible();
+    browser.elements(socialGraphPage.socialGraph.nodes.selector).value[1].click();
+    browser.getUrl().should.match(/\/officer\/2\/social\/$/);
+  });
+
   it('should show slider', function () {
     socialGraphPage.slider.element.waitForVisible();
-    socialGraphPage.slider.minHandle.getText().should.equal('1984');
+    socialGraphPage.slider.minHandle.getText().should.equal('2000');
     socialGraphPage.slider.maxHandle.getText().should.equal('2017');
   });
 

@@ -25,7 +25,7 @@ export default class D3Elements extends Component {
 
   /* istanbul ignore next */
   updateElement() {
-    const { data, elementName, staticAttrs, simulation, dynamicAttrs, text } = this.props;
+    const { data, elementName, staticAttrs, simulation, dynamicAttrs, text, click } = this.props;
     let element = select(`g.${this.groupClassName}`)
       .selectAll(elementName)
       .data(data);
@@ -39,6 +39,10 @@ export default class D3Elements extends Component {
       element.attr(k, v);
     });
     element.text(text);
+
+    if (click) {
+      element.on('click', click);
+    }
 
     if (simulation) {
       simulation.on(`tick.${this.onTickCallbackName}`, () => {
@@ -60,7 +64,8 @@ D3Elements.propTypes = {
   elementName: PropTypes.string,
   staticAttrs: PropTypes.object,
   dynamicAttrs: PropTypes.object,
-  text: PropTypes.func
+  text: PropTypes.func,
+  click: PropTypes.func
 };
 
 D3Elements.defaultProps = {

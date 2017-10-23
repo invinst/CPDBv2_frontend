@@ -112,7 +112,7 @@ describe('store', function () {
           links: [],
           nodes: [],
           yearRange: [
-            1984,
+            2000,
             2017
           ]
         },

@@ -9,12 +9,13 @@ import { wrapperStyle } from './slider.style';
 export default class Slider extends Component {
   render() {
     const { value, onChange } = this.props;
+    const currentYear = new Date().getYear() + 1900;
     return (
       <div style={ wrapperStyle } className='test--social-graph-slider'>
         <Range
-          min={ 1984 }
-          max={ 2017 }
-          defaultValue={ [1984, 2017] }
+          min={ 2000 }
+          max={ currentYear }
+          defaultValue={ [2000, currentYear] }
           onChange={ onChange }
           value={ value }
           trackStyle={ [{ visibility: 'hidden' }] }
