@@ -138,7 +138,8 @@ describe('store', function () {
       },
       genericModal: {
         activeModal: null
-      }
+      },
+      headerBackLink: '/'
     });
   });
 });

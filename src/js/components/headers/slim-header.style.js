@@ -1,7 +1,9 @@
-import { mediumGrayColor, softBlackColor } from 'utils/styles';
+import { mediumGrayColor, softBlackColor, clayGray } from 'utils/styles';
+
+export const slimHeaderHeight = 22;
 
 export const slimHeaderStyle = {
-  height: '22px',
+  height: `${slimHeaderHeight}px`,
   lineHeight: '22px',
   padding: '0 16px',
   backgroundColor: 'white',
@@ -40,4 +42,10 @@ export const rightLinksWrapperStyle = {
 
 export const outerStyle = {
   width: 'inherit'
+};
+
+export const subtitleStyle = {
+  fontSize: '12px',
+  color: clayGray,
+  marginLeft: '4px'
 };
