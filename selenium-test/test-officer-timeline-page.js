@@ -14,8 +14,6 @@ describe('officer timeline page', function () {
   });
 
   it('should show minimap', function () {
-    // timelinePage.sidebar.filterButton.waitForVisible();
-    // timelinePage.sidebar.sortButton.waitForVisible();
     timelinePage.sidebar.yearLabel.waitForVisible();
 
     timelinePage.sidebar.yearLabel.count.should.equal(5);
@@ -74,35 +72,6 @@ describe('officer timeline page', function () {
     getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
   });
 
-  // it('should preserve sort order when click other tabs', function () {
-  //   timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
-  //
-  //   timelinePage.sidebar.sortButton.click();
-  //   timelinePage.header.summaryButton.click();
-  //   timelinePage.header.timelineButton.click();
-  //
-  //   timelinePage.sidebar.sortButton.getText().should.equal('Sort by newest first');
-  // });
-  //
-  // it('should reset sort order when visit other officer', function () {
-  //   timelinePage.sidebar.sortButton.waitForVisible();
-  //   timelinePage.sidebar.sortButton.click();
-  //   timelinePage.sidebar.sortButton.getText().should.equal('Sort by newest first');
-  //
-  //   timelinePage.bottomSheet.clickOverlay();
-  //
-  //   searchPage.input.waitForVisible();
-  //   searchPage.input.setValue('foo');
-  //
-  //   searchPage.firstOfficerResult.waitForVisible();
-  //   searchPage.firstOfficerResult.click();
-  //
-  //   timelinePage.header.timelineButton.waitForVisible();
-  //   timelinePage.header.timelineButton.click();
-  //
-  //   timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
-  // });
-
   it('should change selected minimap item when going back from CR page', function () {
     timelinePage.sidebar.clickOn('2005', 1);
     timelinePage.timeline.cardItemAtIndex(5).click();
@@ -133,30 +102,12 @@ describe('officer timeline page', function () {
       timelinePage.timeline.joinedItem.description.getText().should.equal('Joined CPD');
     });
 
-    // it('should change sort button text when click on', function () {
-    //   timelinePage.sidebar.sortButton.waitForVisible();
-    //   timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
-    //   timelinePage.sidebar.sortButton.click();
-    //   timelinePage.sidebar.sortButton.getText().should.equal('Sort by newest first');
-    // });
-
     it('should highlight selected item', function () {
       timelinePage.sidebar.clickOn('2005', 1);
       timelinePage.sidebar.itemAt('2005', 1).getCssProperty('backgroundColor').value.should.equal(
         'rgba(255,255,255,1)'
       );
     });
-
-    // it('should remove highlight for selected item when change sort order', function () {
-    //   timelinePage.sidebar.clickOn('2005', 1);
-    //   timelinePage.sidebar.itemAt('2005', 1).getCssProperty('backgroundColor').value.should.equal(
-    //     'rgba(255,255,255,1)'
-    //   );
-    //   timelinePage.sidebar.sortButton.click();
-    //   timelinePage.sidebar.itemAt('2005', 1).getCssProperty('backgroundColor').value.should.equal(
-    //     'rgba(244,244,244,1)'
-    //   );
-    // });
   });
 
   describe('timeline', function () {
@@ -182,18 +133,6 @@ describe('officer timeline page', function () {
       timelinePage.timeline.unitItem.date.getText().should.equal('APR 28, 2005');
       timelinePage.timeline.unitItem.description.getText().should.equal('Assigned to Unit 004');
     });
-
-    // it('should refresh items when change sort order', function () {
-    //   timelinePage.timeline.joinedItem.kind.isVisible().should.be.false();
-    //
-    //   timelinePage.sidebar.sortButton.waitForVisible();
-    //   timelinePage.sidebar.sortButton.click();
-    //
-    //   timelinePage.timeline.joinedItem.kind.waitForVisible();
-    //   timelinePage.timeline.joinedItem.kind.getText().should.equal('Joined');
-    //   timelinePage.timeline.joinedItem.date.getText().should.equal('DEC 5, 2001');
-    //   timelinePage.timeline.joinedItem.description.getText().should.equal('Joined CPD');
-    // });
 
     it('should highlight corresponding minimap item when hovered on', function () {
       timelinePage.timeline.hoverOn(2);

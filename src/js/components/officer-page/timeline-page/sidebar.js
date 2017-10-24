@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import Minimap from './minimap';
-import SideBarButton from './sidebar-button';
 import { imgUrl } from 'utils/static-assets';
 import { forEach, omit } from 'lodash';
 
@@ -9,8 +8,6 @@ import { serializeFilterParams } from 'utils/location';
 
 import {
   wrapperStyle,
-  leftButtonStyle,
-  rightButtonStyle,
   headingStyle,
   filterBlockStyle,
   xContainerStyle,
@@ -23,18 +20,9 @@ import {
 
 
 export default class SideBar extends Component {
-  rightButtonText() {
-    const { sortDescending } = this.props;
-    if (sortDescending) {
-      return 'Sort by oldest first';
-    } else {
-      return 'Sort by newest first';
-    }
-  }
 
   render() {
     const {
-      flipSortOrder,
       minimap,
       selectMinimapItem,
       sortDescending,
@@ -61,23 +49,6 @@ export default class SideBar extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <div>
-          <SideBarButton
-            className='test--filter-button'
-            style={ { ...leftButtonStyle, display: 'none' } }
-          >
-            Filter
-          </SideBarButton>
-
-          <SideBarButton
-            className='test--sort-button'
-            style={ { ...rightButtonStyle, display: 'none' } }
-            onClick={ flipSortOrder }
-          >
-            { this.rightButtonText() }
-          </SideBarButton>
-
-        </div>
         { Object.keys(filters).length > 0 && (
           <div>
             <span style={ headingStyle }>Filtered by</span>

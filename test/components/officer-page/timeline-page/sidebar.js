@@ -10,11 +10,8 @@ import {
 
 import SideBar from 'components/officer-page/timeline-page/sidebar';
 import Minimap from 'components/officer-page/timeline-page/minimap';
-import SideBarButton from 'components/officer-page/timeline-page/sidebar-button';
 import { unmountComponentSuppressError } from 'utils/test';
 
-// TODO: sort-related tests are temporarily skipped
-// because sorting is disabled in this release
 
 describe('Timeline SideBar component', function () {
   let instance;
@@ -30,27 +27,6 @@ describe('Timeline SideBar component', function () {
 
     scryRenderedComponentsWithType(instance, Minimap).should.have.length(1);
   });
-
-  // it('should display "Sort by oldest first" if sortDescending', function () {
-  //   instance = renderIntoDocument(
-  //     <SideBar sortDescending={ true }/>
-  //   );
-  //   scryRenderedComponentsWithType(instance, SideBarButton)[1].props.children.should.eql('Sort by oldest first');
-  // });
-
-  it('should display "Sort by oldest first" if not sortDescending', function () {
-    instance = renderIntoDocument(
-      <SideBar sortDescending={ false }/>
-    );
-    scryRenderedComponentsWithType(instance, SideBarButton)[1].props.children.should.eql('Sort by newest first');
-  });
-
-  // it('should flip sort order when click on sort button', function () {
-  //   const flipSortOrder = spy();
-  //   instance = renderIntoDocument(<SideBar flipSortOrder={ flipSortOrder }/>);
-  //   scryRenderedComponentsWithType(instance, SideBarButton)[1].props.onClick();
-  //   flipSortOrder.called.should.be.true();
-  // });
 
   it('should render currently applied filters', function () {
     instance = renderIntoDocument(
