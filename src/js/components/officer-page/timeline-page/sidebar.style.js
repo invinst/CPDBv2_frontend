@@ -37,6 +37,7 @@ export const filterBlockStyle = {
   display: 'inline-block',
   marginRight: '5px',
   paddingRight: '8px',
+  paddingBottom: '2px',
   minWidth: '95px'
 };
 
