@@ -21,7 +21,7 @@ describe('SummarySection component', function () {
     const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
     summaryFields.should.have.length(6);
     map(summaryFields, field => field.props.label).should.eql([
-      'Rank', 'Career', 'Badge', 'Race', '2016 Salary', 'Sex'
+      'Rank', 'Date of Appt.', 'Badge', 'Race', '2016 Salary', 'Sex'
     ]);
   });
 });
