@@ -37,7 +37,7 @@ export const normalTextStyle = {
   marginBottom: '24px'
 };
 
-export const imageSrc = imgUrl('v1-data-tool@2x.png');
+export const imageSrc = imgUrl('v1-2-data-tool@2x.png');
 
 export const wrapperStyle = {
   marginBottom: '144px'
