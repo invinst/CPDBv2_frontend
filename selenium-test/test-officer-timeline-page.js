@@ -164,15 +164,15 @@ describe('Timeline page with filtered params', function () {
     timelinePage.sidebar.findFilterItemRemoveBtnWithText('Black').waitForVisible(500, true);
     timelinePage.sidebar.itemAt('2003', 2).waitForVisible();  // more item appear
     timelinePage.timeline.element.getText().should.not.containEql('Illegal Search');
-    timelinePage.timeline.element.getText().should.containEql('CR 123456');
-    timelinePage.timeline.element.getText().should.containEql('CR 456123');
+    timelinePage.timeline.element.getHTML().should.containEql('123456');
+    timelinePage.timeline.element.getHTML().should.containEql('456123');
 
     timelinePage.sidebar.findFilterItemRemoveBtnWithText('Use of Force').waitForVisible();
 
     categoryFilterLink.click();
     timelinePage.sidebar.findFilterItemRemoveBtnWithText('Use of Force').waitForVisible(500, true);
     timelinePage.sidebar.itemAt('2002', 2).waitForVisible();
-    timelinePage.timeline.element.getText().should.containEql('CR 123456');
-    timelinePage.timeline.element.getText().should.containEql('CR 456123');
+    timelinePage.timeline.element.getHTML().should.containEql('123456');
+    timelinePage.timeline.element.getHTML().should.containEql('456123');
   });
 });
