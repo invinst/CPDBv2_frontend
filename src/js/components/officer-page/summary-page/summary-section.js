@@ -41,7 +41,7 @@ export default class SummarySection extends Component {
 
     return [
       ['Rank', rank],
-      ['Career', this.careerDuration(), this.careerDescription()],
+      ['Date of Appt.', this.careerDuration(), this.careerDescription()],
       ['Badge', badge],
       ['Race', race],
       ['2016 Salary', 'DATA NOT READY'],

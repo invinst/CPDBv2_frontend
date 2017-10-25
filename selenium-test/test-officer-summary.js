@@ -24,7 +24,7 @@ describe('officer summary page', function () {
     summaryPage.summarySection.unitValue.getText().should.equal('001');
     summaryPage.summarySection.unitLink.getText().should.equal('View unit profile');
 
-    summaryPage.summarySection.dateOfApptLabel.getText().should.equal('Career');
+    summaryPage.summarySection.dateOfApptLabel.getText().should.equal('Date of Appt.');
     summaryPage.summarySection.dateOfApptValue.getText().should.equal('SEP 23, 2015');
     summaryPage.summarySection.dateOfApptDescription.getText().should.equal('');
 

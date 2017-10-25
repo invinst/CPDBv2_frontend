@@ -15,9 +15,14 @@ export const leftColumnStyle = {
   color: clayGray
 };
 
-export const imageStyle = {
+export const imageLinkStyle = {
   display: 'inline-block',
   verticalAlign: 'top',
+  width: 'calc(100% - 370px)'
+};
+
+export const imageStyle = {
+  width: '100%'
 };
 
 export const boldTextStyle = {
@@ -32,19 +37,7 @@ export const normalTextStyle = {
   marginBottom: '24px'
 };
 
-export const imageSrc = imgUrl('v1-data-tool@2x.png');
-
-export const imageSrcSet = `
-  ${imgUrl('v1-data-tool.png')} 622w,
-  ${imgUrl('v1-data-tool@2x.png')} 1244w,
-  ${imgUrl('v1-data-tool@3x.png')} 1866w
-`;
-
-export const imageSizes = `
-  (max-width: 768px) 398px,
-  (min-width: 1440px) 1070px,
-  calc(100vw - 370px)
-`;
+export const imageSrc = imgUrl('v1-2-data-tool@2x.png');
 
 export const wrapperStyle = {
   marginBottom: '144px'
