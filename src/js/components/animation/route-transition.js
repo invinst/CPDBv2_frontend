@@ -7,10 +7,6 @@ import { outerWrapperStyle, innerWrapperStyle } from './route-transition.style';
 
 
 export default class RouteTransition extends Component {
-  componentWillReceiveProps() {
-    this.prevPathname = this.props.pathname;
-  }
-
   shouldComponentUpdate(nextProps) {
     if (isSameOfficerPath(nextProps.pathname, this.props.pathname)
         || isSameCR(nextProps.pathname, this.props.pathname)) {
