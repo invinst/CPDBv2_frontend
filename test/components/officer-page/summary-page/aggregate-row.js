@@ -69,31 +69,17 @@ describe('AggregateRow component', function () {
 
   describe('getFilteredOfficerTimelineLink', function () {
     it('should return full path to officer timeline page with filter URL params', function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <AggregateRow
-            facetName='category'
-            name='Use of Force'
-            pathname='/officer/12345/'
-            items={ [] } />
-        </Provider>
+      const link = AggregateRow.prototype.getFilteredOfficerTimelineLink(
+        'category', 'Use of Force', '/officer/12345/'
       );
-
-      instance.getFilteredOfficerTimelineLink()
-        .should.eql('/officer/12345/timeline/?category=Use%20of%20Force');
+      link.should.eql('/officer/12345/timeline/?category=Use%20of%20Force');
     });
 
     it('should return path to officer timeline page without params if not provided', function () {
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <AggregateRow
-            pathname='/officer/12345/'
-            items={ [] } />
-        </Provider>
+      const link = AggregateRow.prototype.getFilteredOfficerTimelineLink(
+        undefined, undefined, '/officer/12345/'
       );
-
-      instance.getFilteredOfficerTimelineLink()
-        .should.eql('/officer/12345/timeline/');
+      link.should.eql('/officer/12345/timeline/');
     });
   });
 });

@@ -11,8 +11,7 @@ import { officerPath } from 'components/officer-page/header';
 
 
 export default class AggregateRow extends Component {
-  getFilteredOfficerTimelineLink() {
-    const { facetName, name, pathname } = this.props;
+  getFilteredOfficerTimelineLink(facetName, name, pathname) {
     const timelineEventQuery = facetName ? { [facetName]: name } : {};
 
     let urlParams = mapKeys(timelineEventQuery, (value, key) => key.replace('complainant ', ''));
@@ -21,8 +20,8 @@ export default class AggregateRow extends Component {
   }
 
   render() {
-    const { name, count, sustainedCount, items, startYear } = this.props;
-    const timelineLink = this.getFilteredOfficerTimelineLink();
+    const { facetName, name, pathname, count, sustainedCount, items, startYear } = this.props;
+    const timelineLink = this.getFilteredOfficerTimelineLink(facetName, name, pathname);
 
     return (
       <div style={ entryStyle }>
