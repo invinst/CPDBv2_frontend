@@ -14,22 +14,34 @@ export default class SummarySection extends Component {
     return moment(inputDate).format('ll').toUpperCase();
   }
 
-  summaryFields() {
-    const { rank, dateOfAppt, dateOfResignation, race, gender, badge, agency } = this.props.officerSummary;
+  careerDuration() {
+    // TODO: uncomment this once resignation data is available
+    // const { dateOfAppt, dateOfResignation } = this.props.officerSummary;
+    // const careerStart = this.formatCareerDate(dateOfAppt);
+    // const careerEnd = dateOfResignation ? this.formatCareerDate(dateOfResignation) : 'Present';
+    // return `${careerStart}—${careerEnd}`;
 
+    const { dateOfAppt } = this.props.officerSummary;
     const careerStart = this.formatCareerDate(dateOfAppt);
-    const careerEnd = dateOfResignation ? this.formatCareerDate(dateOfResignation) : 'Present';
-    const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
-    const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
-    const agencyText = agency ? `with ${agency}` : 'veteran';
+    return careerStart;
+  }
+
+  careerDescription() {
+    // TODO: uncomment this once resignation data is available
+    // const { dateOfAppt, agency } = this.props.officerSummary;
+    // const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
+    // const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
+    // const agencyText = agency ? `with ${agency}` : 'veteran';
+    // return `${yearsSinceAppt} ${yearText} ${agencyText}`;
+    return '';
+  }
+
+  summaryFields() {
+    const { rank, race, gender, badge } = this.props.officerSummary;
 
     return [
       ['Rank', rank],
-      [
-        'Career',
-        `${careerStart}—${careerEnd}`,
-        `${yearsSinceAppt} ${yearText} ${agencyText}`
-      ],
+      ['Career', this.careerDuration(), this.careerDescription()],
       ['Badge', badge],
       ['Race', race],
       ['2016 Salary', 'DATA NOT READY'],
