@@ -6,7 +6,7 @@ export function isRedirectingToOfficerTimelinePage(action) {
   const regex = /^\/officer\/\d+\/timeline\/$/;
   return (
     action.type === '@@router/LOCATION_CHANGE' &&
-    action.payload.pathname.match(regex)
+    !!action.payload.pathname.match(regex)
   );
 }
 

@@ -77,7 +77,7 @@ describe('Sparkline components', function () {
         />
       );
 
-      instance.hoverPointClickHandler();
+      instance.hoverPointClickHandler('/officer/111/');
       router.push.calledWith('/officer/111/timeline/?race=Black').should.be.true();
     });
 

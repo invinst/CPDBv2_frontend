@@ -8,7 +8,7 @@ import {
 } from './header.style';
 
 
-const officerPath = subPath => pathname => {
+export const officerPath = subPath => pathname => {
   if (subPath) {
     return pathname.replace(/(\d+).+/, `$1/${subPath}/`);
   }

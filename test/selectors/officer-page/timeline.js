@@ -1,6 +1,7 @@
 import {
   getTimelineItems, getSelectedItemIndex, getHoveredItemIndex, getSortDescending, timelineItemsHasMoreSelector,
-  timelineItemsNextParamsSelector, timelineItemsSelector, minimapSelector, sortParamsSelector
+  timelineItemsNextParamsSelector, timelineItemsSelector, minimapSelector, sortParamsSelector, getTimelineFilters,
+  timelineUrlParamsSelector
 } from 'selectors/officer-page/timeline';
 
 import { TimelineItemType } from 'utils/constants';
@@ -8,7 +9,10 @@ import { TimelineItemType } from 'utils/constants';
 describe('officer page selectors', function () {
   let state = {
     officerPage: {
-      timeline: {}
+      timeline: {
+        filters: {}
+      },
+
     }
   };
 
@@ -23,6 +27,20 @@ describe('officer page selectors', function () {
       };
 
       getTimelineItems(state).should.eql([1, 2, 3]);
+    });
+  });
+
+  describe('getTimelineFilters', function () {
+    it('should return current timeline filter', function () {
+      state.officerPage.timeline.filters = {
+        'category': 'Illegal Search',
+        'age': '41-50'
+      };
+
+      getTimelineFilters(state).should.eql({
+        'category': 'Illegal Search',
+        'age': '41-50'
+      });
     });
   });
 
@@ -180,6 +198,16 @@ describe('officer page selectors', function () {
       };
 
       sortParamsSelector(state).should.eql({ sort: 'asc' });
+    });
+  });
+
+  describe('timelineUrlParamsSelector', function () {
+    it('should return params string }', function () {
+      state.officerPage.timeline.filters = {
+        category: 'Illegal Search',
+        age: '41-50',
+      };
+      timelineUrlParamsSelector(state).should.eql('?category=Illegal%20Search&age=41-50');
     });
   });
 

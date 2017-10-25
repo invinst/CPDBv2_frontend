@@ -5,11 +5,16 @@ import { Sparklines, SparklinesLine } from 'react-sparklines';
 import { serializeFilterParams } from 'utils/location';
 import HoverPoint from './hover-point';
 import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './sparklines.style';
+import { officerPath } from 'components/officer-page/header';
 
 
 export const width = 600;
 
 export default class SimpleSparklines extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   fillEmptyDataYear(data, begin = 2000, end = 2017) {
     /* Fills empty years with previous data, to ensure no sudden jump between years
      */
@@ -37,11 +42,12 @@ export default class SimpleSparklines extends React.Component {
     });
   }
 
-  hoverPointClickHandler() {
-    const { router, officerId, timelineEventQuery } = this.props;
+  hoverPointClickHandler(pathName) {
+    const { router, timelineEventQuery } = this.props;
     let urlParams = mapKeys(timelineEventQuery, (value, key) => key.replace('complainant ', ''));
     const urlParamsString = serializeFilterParams(urlParams, '?');
-    router.push(`/officer/${officerId}/timeline/${urlParamsString}`);
+    const redirectUrl = officerPath('timeline')(pathName) + urlParamsString;
+    router.push(redirectUrl);
     // TODO: Should scroll to selected year to.
   }
 
@@ -81,7 +87,7 @@ export default class SimpleSparklines extends React.Component {
       const y = (count - minCount) / maxCount * HEIGHT + 3.5;
       return (
         <HoverPoint
-          clickHandler={ this.hoverPointClickHandler.bind(this) }
+          clickHandler={ this.hoverPointClickHandler.bind(this, window.location.pathname) }
           i={ i }
           y={ y }
           hasSustainedCR={ hasSustainedCR }
