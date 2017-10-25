@@ -134,7 +134,7 @@ class SlimHeader extends Component {
               (opacity) => (
                 <span style={ { ...subtitleStyle, opacity: opacity } }>
                   collects and publishes
-                  <span style={ { whiteSpace: 'nowrap' } }>information about police misconduct in Chicago.</span>
+                  <span style={ { whiteSpace: 'nowrap' } }> information about police misconduct in Chicago.</span>
                 </span>
               )
             }
