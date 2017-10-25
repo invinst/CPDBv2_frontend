@@ -25,6 +25,7 @@ export const sustainedCountStyle = sustainedCount => ({
 });
 
 export const nameStyle = {
+  textDecoration: 'none',
   width: '221px',
   color: mediumGrayColor,
   fontWeight: 300,

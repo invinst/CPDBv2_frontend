@@ -29,6 +29,7 @@ export default class AggregateFacet extends Component {
                   key={ `aggr-row-${ind}` }
                   items={ items }
                   startYear={ startYear }
+                  pathname={ window.location.pathname }
                 />
               )
             )

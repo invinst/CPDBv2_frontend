@@ -1,11 +1,9 @@
 import React, { PropTypes } from 'react';
-import { range, keyBy, mapKeys } from 'lodash';
+import { range, keyBy } from 'lodash';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
-import { serializeFilterParams } from 'utils/location';
 import HoverPoint from './hover-point';
 import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './sparklines.style';
-import { officerPath } from 'components/officer-page/header';
 
 
 export const width = 600;
@@ -42,13 +40,10 @@ export default class SimpleSparklines extends React.Component {
     });
   }
 
-  hoverPointClickHandler(pathName) {
-    const { router, timelineEventQuery } = this.props;
-    let urlParams = mapKeys(timelineEventQuery, (value, key) => key.replace('complainant ', ''));
-    const urlParamsString = serializeFilterParams(urlParams, '?');
-    const redirectUrl = officerPath('timeline')(pathName) + urlParamsString;
-    router.push(redirectUrl);
-    // TODO: Should scroll to selected year to.
+  hoverPointClickHandler() {
+    const { router, timelineLink } = this.props;
+    router.push(timelineLink);
+    // TODO: Should scroll to selected year too.
   }
 
   renderHoverPoints(data) {
@@ -87,7 +82,7 @@ export default class SimpleSparklines extends React.Component {
       const y = (count - minCount) / maxCount * HEIGHT + 3.5;
       return (
         <HoverPoint
-          clickHandler={ this.hoverPointClickHandler.bind(this, window.location.pathname) }
+          clickHandler={ this.hoverPointClickHandler.bind(this) }
           i={ i }
           y={ y }
           hasSustainedCR={ hasSustainedCR }
@@ -128,7 +123,7 @@ SimpleSparklines.propTypes = {
   router: PropTypes.object,
   officerId: PropTypes.number,
   startYear: PropTypes.number,
-  timelineEventQuery: PropTypes.object
+  timelineLink: PropTypes.string
 };
 
 SimpleSparklines.defaultProps = {
