@@ -14,7 +14,12 @@ import {
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import { NAVIGATION_KEYS, SEARCH_ALIAS_EDIT_PATH, SEARCH_PATH } from 'utils/constants';
+import {
+  NAVIGATION_KEYS,
+  SEARCH_ALIAS_EDIT_PATH,
+  SEARCH_PATH,
+  ROOT_PATH
+} from 'utils/constants';
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
 
@@ -95,7 +100,7 @@ export default class SearchContent extends Component {
   handleGoBack(e) {
     // Since mousetrap just send here an empty object, we might need this for the test to be passed
     !isEmpty(e) && e.preventDefault();
-    this.props.router.goBack();
+    browserHistory.push(ROOT_PATH);
   }
 
   handleEnter(e) {

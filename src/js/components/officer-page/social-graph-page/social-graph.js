@@ -1,7 +1,9 @@
 import React, { PropTypes, Component } from 'react';
+import { browserHistory } from 'react-router';
 
 import D3Elements from './d3-elements';
 import { whiteTwoColor } from 'utils/styles';
+import { OFFICER_SOCIAL_GRAPH_PATH } from 'utils/constants';
 import { getVisualTokenShade } from 'utils/visual-token';
 import { svgStyle, textStyle } from './social-graph.style';
 
@@ -40,9 +42,15 @@ export default class SocialGraph extends Component {
             cx: data => data.x,
             cy: data => data.y
           } }
+          click={
+            d => {
+              const path = `/${OFFICER_SOCIAL_GRAPH_PATH.replace(':officerId', d.id)}/`;
+              browserHistory.push(path);
+            }
+          }
           staticAttrs={ {
             r: '5',
-            style: d => `fill: ${getVisualTokenShade(d.crs)};`
+            style: d => `fill: ${getVisualTokenShade(d.crs)}; cursor: pointer;`
           } }
           data={ simulation.nodes() }
           simulation={ simulation }
@@ -54,6 +62,12 @@ export default class SocialGraph extends Component {
             x: data => data.x - 5,
             y: data => data.y + 20
           } }
+          click={
+            d => {
+              const path = `/${OFFICER_SOCIAL_GRAPH_PATH.replace(':officerId', d.id)}/`;
+              browserHistory.push(path);
+            }
+          }
           staticAttrs={ {
             style: textStyle
           } }
