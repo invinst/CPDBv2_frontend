@@ -2,14 +2,18 @@ import { whiteTwoColor, clayGray, softBlackColor } from 'utils/styles';
 
 const shareMenuHorizontalMargin = 16;
 
+export const outerStyle = {
+  borderBottom: '1px solid ' + whiteTwoColor
+};
+
 export const navBarStyle = {
   height: '22px',
   lineHeight: '22px',
-  borderBottom: '1px solid ' + whiteTwoColor,
   color: clayGray,
-  padding: '0 8px',
+  padding: '0 16px',
   fontSize: '12px',
-  fontWeight: 400
+  fontWeight: 400,
+  position: 'relative'
 };
 
 export const leftLinkStyle = {
@@ -25,8 +29,8 @@ export const rightLinkStyle = (active) => ({
 });
 
 export const shareMenuStyle = {
-  position: 'fixed',
-  right: '8px',
+  position: 'absolute',
+  right: '16px',
   top: '22px',
   border: '1px solid ' + whiteTwoColor,
   zIndex: 3,

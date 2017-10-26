@@ -2,7 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import ClipboardButton from 'react-clipboard.js';
 import { Link } from 'react-router';
 import { BACK_LINK_WHITELIST } from 'utils/constants';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
+  outerStyle,
   navBarStyle,
   leftLinkStyle,
   rightLinkStyle,
@@ -93,17 +95,19 @@ export default class ShareableHeader extends Component {
     const backLinkText = `Back to ${BACK_LINK_WHITELIST[backLink]}`;
 
     return (
-      <div style={ navBarStyle }>
-        <Link style={ leftLinkStyle } className='left-link' to={ backLink }>{ backLinkText }</Link>
-        <span
-          style={ rightLinkStyle(shareMenuIsOpen) }
-          onClick={ shareButtonClickHandler }
-          className='test--shareable-header--share-link'
-        >
+      <ResponsiveFluidWidthComponent style={ outerStyle }>
+        <div style={ navBarStyle }>
+          <Link style={ leftLinkStyle } className='left-link' to={ backLink }>{ backLinkText }</Link>
+          <span
+            style={ rightLinkStyle(shareMenuIsOpen) }
+            onClick={ shareButtonClickHandler }
+            className='test--shareable-header--share-link'
+          >
           Share
         </span>
-        { this.renderMenu() }
-      </div>
+          { this.renderMenu() }
+        </div>
+      </ResponsiveFluidWidthComponent>
     );
   }
 }
