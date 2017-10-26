@@ -14,7 +14,8 @@ function mapStateToProps(state, ownProps) {
     location: ownProps.location,
     appContent: state.appContent,
     showLoginModal: showLoginModalSelector(state, ownProps),
-    editModeOn: editModeOnSelector(state, ownProps)
+    editModeOn: editModeOnSelector(state, ownProps),
+    headerBackLink: state.headerBackLink,
   };
 }
 

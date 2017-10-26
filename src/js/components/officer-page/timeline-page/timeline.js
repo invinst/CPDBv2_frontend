@@ -18,8 +18,8 @@ export default class Timeline extends Component {
   }
 
   getChildContext() {
-    const { openBottomSheetWithComplaint } = this.props;
-    return { openBottomSheetWithComplaint };
+    const { openComplaintPage } = this.props;
+    return { openComplaintPage };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -77,7 +77,7 @@ Timeline.propTypes = {
   hoveredItemIndex: PropTypes.number,
   officerId: PropTypes.number,
   fetchTimelineItemsWhenIndexOutOfBound: PropTypes.func,
-  openBottomSheetWithComplaint: PropTypes.func,
+  openComplaintPage: PropTypes.func,
   hoverTimelineItem: PropTypes.func,
   selectTimelineItem: PropTypes.func
 };
@@ -87,5 +87,5 @@ Timeline.defaultProps = {
 };
 
 Timeline.childContextTypes = {
-  openBottomSheetWithComplaint: PropTypes.func
+  openComplaintPage: PropTypes.func
 };

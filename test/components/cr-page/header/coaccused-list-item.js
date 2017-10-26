@@ -29,14 +29,14 @@ describe('CoaccusedListItem component', function () {
 
   context('viewing is true', function () {
     it('should not handle onClick', function () {
-      const openBottomSheetWithComplaint = spy();
+      const openComplaintPage = spy();
       instance = renderIntoDocument(
         <CoaccusedListItem viewing={ true }
-          openBottomSheetWithComplaint={ openBottomSheetWithComplaint }/>
+          openComplaintPage={ openComplaintPage }/>
       );
       const item = findRenderedDOMComponentWithClass(instance, 'test--coaccused-list-item');
       Simulate.click(item);
-      openBottomSheetWithComplaint.called.should.be.false();
+      openComplaintPage.called.should.be.false();
     });
 
     it('should display "Viewing" text for currently active coaccused officer', function () {
@@ -48,15 +48,15 @@ describe('CoaccusedListItem component', function () {
 
   context('viewing is false', function () {
     it('should handle onClick', function () {
-      const openBottomSheetWithComplaint = spy();
+      const openComplaintPage = spy();
       instance = renderIntoDocument(
         <CoaccusedListItem viewing={ false } id={ 1 } crid={ '1' }
-          openBottomSheetWithComplaint={ openBottomSheetWithComplaint }/>
+          openComplaintPage={ openComplaintPage }/>
       );
       const item = findRenderedDOMComponentWithClass(instance, 'test--coaccused-list-item');
       item.innerText.should.containEql('View');
       Simulate.click(item);
-      openBottomSheetWithComplaint.calledWith({ officerId: 1, crid: '1' }).should.be.true();
+      openComplaintPage.calledWith({ officerId: 1, crid: '1' }).should.be.true();
     });
   });
 });

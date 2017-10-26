@@ -14,8 +14,11 @@ import React, { Component } from 'react';
 import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
+import ShareableHeader from 'components/headers/shareable-header';
+import SlimHeader from 'components/headers/slim-header';
 import SearchPageContainer from 'containers/search-page-container';
 import BottomSheetContainer from 'containers/bottom-sheet';
+import OfficerPageContainer from 'containers/officer-page';
 import MockStore from 'redux-mock-store';
 
 
@@ -35,6 +38,9 @@ describe('App component', function () {
         isRequesting: false,
         officers: []
       }
+    },
+    officerPage: {
+      summary: {}
     },
     genericModal: {
       activeModal: null
@@ -179,7 +185,7 @@ describe('App component', function () {
     changeSearchQuery.called.should.be.false();
   });
 
-  it('should not display header if children is a SearchPageContainer', function () {
+  it('should not display header if children is a "headerless page"', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <App
@@ -190,21 +196,38 @@ describe('App component', function () {
         </App>
       </Provider>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--slim-header').length.should.eql(0);
+    scryRenderedComponentsWithType(instance, SlimHeader).length.should.eql(0);
+    scryRenderedComponentsWithType(instance, ShareableHeader).length.should.eql(0);
   });
 
-  it('should display header if children is not a SearchPageContainer', function () {
+  it('should display ShareableHeader if children is a shareable page', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <App
           location={ location }
           appContent='/'
         >
-          abc
+          <OfficerPageContainer />
         </App>
       </Provider>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--slim-header').length.should.not.eql(0);
+    scryRenderedComponentsWithType(instance, SlimHeader).length.should.eql(0);
+    findRenderedComponentWithType(instance, ShareableHeader);
+  });
+
+  it('should display SlimHeader by default', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <App
+          location={ location }
+          appContent='/'
+        >
+          asdf
+        </App>
+      </Provider>
+    );
+    scryRenderedComponentsWithType(instance, ShareableHeader).length.should.eql(0);
+    findRenderedComponentWithType(instance, SlimHeader);
   });
 
   it('should not update prevChildren if previous page is a bottom sheet', function () {

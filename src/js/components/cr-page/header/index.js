@@ -10,7 +10,7 @@ import { boxShadowStyle, headerStyle, titleStyle } from './header.style';
 export default class Header extends Component {
   render() {
     const {
-      crid, officerId, coaccused, openBottomSheetWithComplaint, displayCoaccusedDropdown, onDropDownButtonClick
+      crid, officerId, coaccused, openComplaintPage, displayCoaccusedDropdown, onDropDownButtonClick
     } = this.props;
 
     return (
@@ -27,7 +27,7 @@ export default class Header extends Component {
         {
           <ExpandMotion show={ displayCoaccusedDropdown }>
             <CoaccusedList currentOfficerId={ officerId } coaccused={ coaccused }
-              openBottomSheetWithComplaint={ openBottomSheetWithComplaint } crid={ crid }/>
+              openComplaintPage={ openComplaintPage } crid={ crid }/>
           </ExpandMotion>
         }
       </div>
@@ -37,7 +37,7 @@ export default class Header extends Component {
 
 Header.propTypes = {
   crid: PropTypes.string,
-  openBottomSheetWithComplaint: PropTypes.func,
+  openComplaintPage: PropTypes.func,
   officerId: PropTypes.number,
   coaccused: PropTypes.array,
   displayCoaccusedDropdown: PropTypes.bool,

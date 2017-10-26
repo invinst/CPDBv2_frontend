@@ -1,8 +1,13 @@
 import React from 'react';
 import { findDOMNode, render } from 'react-dom';
+import { stub } from 'sinon';
 
 import RouteTransition from 'components/animation/route-transition';
-import { unmountComponentSuppressError, withAnimationDisabled } from 'utils/test';
+import {
+  unmountComponentSuppressError,
+  withAnimationDisabled,
+  reRender
+} from 'utils/test';
 import { renderIntoDocument, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
 
 
@@ -11,6 +16,57 @@ describe('RouteTransition component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(element);
+  });
+
+  it('should not update if is same officer path', function () {
+    element = renderIntoDocument(
+      <RouteTransition pathname='/officer/1/'>
+        some summary
+      </RouteTransition>
+    );
+    const render = stub(RouteTransition.prototype, 'render');
+    element = reRender(
+      <RouteTransition pathname='/officer/1/timeline/'>
+        some timeline
+      </RouteTransition>,
+      element
+    );
+    render.called.should.be.false();
+    render.restore();
+  });
+
+  it('should not update if is same CR path', function () {
+    element = renderIntoDocument(
+      <RouteTransition pathname='/complaint/1/2/'>
+        complaint for some officer
+      </RouteTransition>
+    );
+    const render = stub(RouteTransition.prototype, 'render');
+    element = reRender(
+      <RouteTransition pathname='/complaint/1/3/'>
+        complaint for other officer
+      </RouteTransition>,
+      element
+    );
+    render.called.should.be.false();
+    render.restore();
+  });
+
+  it('should not update if pathname doesnt change', function () {
+    element = renderIntoDocument(
+      <RouteTransition pathname='/officer/1/'>
+        some summary
+      </RouteTransition>
+    );
+    const render = stub(RouteTransition.prototype, 'render');
+    element = reRender(
+      <RouteTransition pathname='/officer/1/'>
+        some summary
+      </RouteTransition>,
+      element
+    );
+    render.called.should.be.false();
+    render.restore();
   });
 
   context('animation disabled', function () {

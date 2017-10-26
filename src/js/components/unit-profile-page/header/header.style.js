@@ -14,6 +14,7 @@ export const unitNameStyle = {
 export const wrapperStyle = {
   padding: '0 16px',
   height: '64px',
+  marginTop: '22px',
   boxSizing: 'border-box'
 };
 

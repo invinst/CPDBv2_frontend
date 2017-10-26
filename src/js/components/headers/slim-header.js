@@ -2,28 +2,59 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import { ROOT_PATH, FAQ_PATH, COLLAB_PATH } from 'utils/constants';
+import { ROOT_PATH, FAQ_PATH } from 'utils/constants';
 import { editMode } from 'utils/edit-path';
 import ConfiguredRadium from 'utils/configured-radium';
 import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 import LogOutButtonContainer from 'containers/log-out-container';
+import FadeMotion from 'components/animation/fade-motion';
 import {
   slimHeaderStyle,
   leftLinkStyle,
   rightLinkStyle,
   activeLinkStyle,
   rightLinksWrapperStyle,
-  outerStyle
+  outerStyle,
+  subtitleStyle,
+  slimHeaderHeight,
 } from './slim-header.style';
 
 class SlimHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showSubtitle: true
+    };
+    this.scrollEventListener = this.scrollEventListener.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.scrollEventListener);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.scrollEventListener);
+  }
+
+  scrollEventListener() {
+    if (window.scrollY > slimHeaderHeight && this.state.showSubtitle) {
+      this.setState({
+        showSubtitle: false
+      });
+    } else if (window.scrollY <= slimHeaderHeight && !this.state.showSubtitle) {
+      this.setState({
+        showSubtitle: true
+      });
+    }
+  }
+
   renderRightLinks() {
     const { pathname, openLegalDisclaimerModal } = this.props;
     const { editModeOn } = this.context;
     const links = [
       {
-        name: 'Downloads',
-        href: '/TODO'
+        name: 'Data',
+        externalHref: 'https://beta.cpdb.co/'
       },
       {
         name: 'Legal Disclaimer',
@@ -35,15 +66,23 @@ class SlimHeader extends Component {
       },
       {
         name: 'Glossary',
-        href: '/TODO'
-      },
-      {
-        name: 'Collaborate',
-        href: '/' + COLLAB_PATH
-      },
+        externalHref: 'https://beta.cpdb.co/glossary/'
+      }
     ];
 
     return links.map((link, index) => {
+      if (link.externalHref) {
+        return (
+          <a
+            style={ rightLinkStyle }
+            key={ index }
+            href={ link.externalHref }
+          >
+            { link.name }
+          </a>
+        );
+      }
+
       const href = link.href && (editModeOn ? editMode(link.href) : link.href);
       const style = pathname === href ? { ...rightLinkStyle, ...activeLinkStyle } : rightLinkStyle;
 
@@ -77,6 +116,11 @@ class SlimHeader extends Component {
     return (
       <ResponsiveFluidWidthComponent style={ outerStyle }>
         <div style={ slimHeaderStyle } className='test--slim-header'>
+          <div style={ rightLinksWrapperStyle }>
+            { rightLinks }
+            <LogOutButtonContainer pathname={ pathname }/>
+          </div>
+
           <Link
             style={ homeLinkStyle }
             to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
@@ -84,10 +128,17 @@ class SlimHeader extends Component {
           >
             Citizens Police Data Project
           </Link>
-          <div style={ rightLinksWrapperStyle }>
-            { rightLinks }
-            <LogOutButtonContainer pathname={ pathname }/>
-          </div>
+
+          <FadeMotion show={ this.state.showSubtitle }>
+            {
+              (opacity) => (
+                <span style={ { ...subtitleStyle, opacity: opacity } }>
+                  collects and publishes
+                  <span style={ { whiteSpace: 'nowrap' } }> information about police misconduct in Chicago.</span>
+                </span>
+              )
+            }
+          </FadeMotion>
         </div>
       </ResponsiveFluidWidthComponent>
     );

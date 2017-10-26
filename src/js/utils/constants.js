@@ -33,6 +33,14 @@ export const OFFICER_SOCIAL_GRAPH_PATH = 'officer/:officerId/social';
 export const CR_PATH = 'complaint/:crid/:officerId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 
+// Links to be used in ShareableHeader's "Back to XXX" link
+export const BACK_LINK_WHITELIST = {
+  [ROOT_PATH]: 'Home',
+  ['/edit' + ROOT_PATH]: 'Home',
+  [ROOT_PATH + SEARCH_PATH]: 'Search',
+  [ROOT_PATH + 'edit/' + SEARCH_PATH]: 'Search'
+};
+
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
 // Reducer defaults
@@ -120,12 +128,12 @@ export const UNIT_PROFILE_SUMMARY_REQUEST_FAILURE = 'UNIT_PROFILE_SUMMARY_REQUES
 
 export const OPEN_BOTTOM_SHEET_WITH_REPORT = 'OPEN_BOTTOM_SHEET_WITH_REPORT';
 export const OPEN_BOTTOM_SHEET_WITH_FAQ = 'OPEN_BOTTOM_SHEET_WITH_FAQ';
-export const OPEN_BOTTOM_SHEET_WITH_OFFICER = 'OPEN_BOTTOM_SHEET_WITH_OFFICER';
-export const OPEN_BOTTOM_SHEET_WITH_COMPLAINT = 'OPEN_BOTTOM_SHEET_WITH_COMPLAINT';
+export const OPEN_OFFICER_PAGE = 'OPEN_OFFICER_PAGE';
+export const OPEN_COMPLAINT_PAGE = 'OPEN_COMPLAINT_PAGE';
 export const CLOSE_BOTTOM_SHEET = 'CLOSE_BOTTOM_SHEET';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_FAQ = 'OPEN_BOTTOM_SHEET_TO_CREATE_FAQ';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_REPORT = 'OPEN_BOTTOM_SHEET_TO_CREATE_REPORT';
-export const OPEN_BOTTOM_SHEET_WITH_POLICE_UNIT = 'OPEN_BOTTOM_SHEET_WITH_POLICE_UNIT';
+export const OPEN_POLICE_UNIT_PAGE = 'OPEN_POLICE_UNIT_PAGE';
 
 export const OPEN_SEARCH_PAGE = 'OPEN_SEARCH_PAGE';
 
