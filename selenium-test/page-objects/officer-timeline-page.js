@@ -46,8 +46,6 @@ class YearItem extends Section {
       year: '.test--timeline-item-year',
       crsLabel: '.test--crs-label',
       crsValue: '.test--crs-value',
-      trrsLabel: '.test--trrs-label',
-      trrsValue: '.test--trrs-value',
       salaryLabel: '.test--salary-label',
       salaryValue: '.test--salary-value'
     });
