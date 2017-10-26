@@ -35,9 +35,10 @@ export default class ShareableHeader extends Component {
     document.body.removeEventListener('click', this.closeShareMenu);
   }
 
-  closeShareMenu() {
+  closeShareMenu(e) {
     if (this.state.shareMenuIsOpen) {
       this.setState({ shareMenuIsOpen: false });
+      e.stopPropagation();
     }
   }
 
