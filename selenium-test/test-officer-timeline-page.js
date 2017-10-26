@@ -126,8 +126,6 @@ describe('officer timeline page', function () {
       timelinePage.timeline.yearItem.year.getText().should.equal('2005');
       timelinePage.timeline.yearItem.crsLabel.getText().should.equal('CRs');
       timelinePage.timeline.yearItem.crsValue.getText().should.equal('1');
-      timelinePage.timeline.yearItem.trrsLabel.getText().should.equal('TRRs');
-      timelinePage.timeline.yearItem.trrsValue.getText().should.equal('0');
       timelinePage.timeline.yearItem.salaryLabel.getText().should.equal('Salary');
       timelinePage.timeline.yearItem.salaryValue.getText().should.equal('Data not available');
 
