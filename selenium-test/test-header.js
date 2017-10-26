@@ -19,7 +19,7 @@ describe('Header', function () {
       landingPage.currentBasePath.should.equal('/faq/');
     });
 
-    it('should navigate to Collaborate path when click on Collaborate link', function () {
+    it.skip('should navigate to Collaborate path when click on Collaborate link', function () {
       landingPage.header.collaborate.waitForVisible();
       landingPage.header.collaborate.click();
       browser.pause(500);
@@ -27,8 +27,8 @@ describe('Header', function () {
     });
 
     it('should navigate to base path when click on header logo', function () {
-      landingPage.header.collaborate.waitForVisible();
-      landingPage.header.collaborate.click();
+      landingPage.header.faq.waitForVisible();
+      landingPage.header.faq.click();
       browser.pause(500);
 
       landingPage.header.headerLogoSelector.waitForVisible();

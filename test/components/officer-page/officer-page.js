@@ -1,13 +1,13 @@
 import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
-
+import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+
 import { unmountComponentSuppressError } from 'utils/test';
 import OfficerPage from 'components/officer-page';
-import Header from 'components/officer-page/header';
 import TimelinePage from 'components/officer-page/timeline-page';
-import SummaryPage from 'components/officer-page/summary-page';
-import MockStore from 'redux-mock-store';
+import SummaryPageContainer from 'containers/officer-page/summary-page-container';
+import Header from 'components/officer-page/header';
 import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
 
 
@@ -48,35 +48,40 @@ describe('OfficerPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render header and summary page', function () {
-    const location = { pathname: '' };
+  it('should render header', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage location={ location }/>
+        <OfficerPage officerName='Jerome Finnigan' activeTab='timeline' pathname='timeline'/>
       </Provider>
     );
 
     scryRenderedComponentsWithType(instance, Header).should.have.length(1);
-    scryRenderedComponentsWithType(instance, SummaryPage).should.have.length(1);
   });
 
-  it('should render Timeline when path is timeline', function () {
-    const location = { pathname: '/officer/123/timeline/' };
+  it('should render timeline page if active tab is timeline', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage location={ location }/>
+        <OfficerPage activeTab='timeline'/>
       </Provider>
     );
 
-    scryRenderedComponentsWithType(instance, Header).should.have.length(1);
     scryRenderedComponentsWithType(instance, TimelinePage).should.have.length(1);
   });
 
-  it('should render Socialgraph when path is social-graph', function () {
-    const location = { pathname: '/officer/123/social/' };
+  it('should render summary page if active tab is summary', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage location={ location }/>
+        <OfficerPage activeTab=''/>
+      </Provider>
+    );
+
+    scryRenderedComponentsWithType(instance, SummaryPageContainer).should.have.length(1);
+  });
+
+  it('should render Socialgraph when path is social', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage activeTab='social'/>
       </Provider>
     );
 

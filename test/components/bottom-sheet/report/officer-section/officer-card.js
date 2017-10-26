@@ -55,21 +55,21 @@ describe('OfficerCard', function () {
     instance.should.be.ok();
   });
 
-  it('should trigger openBottomSheetWithOfficer when click on', function () {
-    const openBottomSheetWithOfficer = spy();
+  it('should trigger openOfficerPage when click on', function () {
+    const openOfficerPage = spy();
     instance = renderIntoDocument(
-      <OfficerCard officerId={ 3 } openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
+      <OfficerCard officerId={ 3 } openOfficerPage={ openOfficerPage }/>
     );
     Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--officer-card'));
-    openBottomSheetWithOfficer.calledWith(3).should.be.true();
+    openOfficerPage.calledWith(3).should.be.true();
   });
 
-  it('should not trigger openBottomSheetWithOfficer in edit mode', function () {
-    const openBottomSheetWithOfficer = spy();
+  it('should not trigger openOfficerPage in edit mode', function () {
+    const openOfficerPage = spy();
     instance = renderIntoDocument(
-      <OfficerCard editModeOn={ true } officerId={ 3 } openBottomSheetWithOfficer={ openBottomSheetWithOfficer }/>
+      <OfficerCard editModeOn={ true } officerId={ 3 } openOfficerPage={ openOfficerPage }/>
     );
     Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--officer-card'));
-    openBottomSheetWithOfficer.called.should.be.false();
+    openOfficerPage.called.should.be.false();
   });
 });

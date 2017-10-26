@@ -1,7 +1,13 @@
+import should from 'should';
+
 import {
   getOfficerId,
   hasOfficerIdChanged,
-  getCrId,
+  getCRID,
+  getComplaintOfficerId,
+  getOfficerActiveTab,
+  isSameOfficerPath,
+  isSameCR,
   isRedirectingToOfficerTimelinePage,
   serializeFilterParams
 } from 'utils/location';
@@ -15,12 +21,6 @@ describe('location utils', function () {
 
     it('should return NaN if wrong url was given', function () {
       isNaN(getOfficerId('foo')).should.be.true();
-    });
-  });
-
-  describe('getCrId', function () {
-    it('should return the Complaint record Id', function () {
-      getCrId('/complaint/123/').should.eql(123);
     });
   });
 
@@ -52,6 +52,68 @@ describe('location utils', function () {
           pathname: '/foo/2/'
         }
       }, 2).should.be.false();
+    });
+  });
+
+  describe('getCRID', function () {
+    it('should return NaN when url is undefined', function () {
+      getCRID(undefined).should.be.NaN();
+    });
+
+    it('should return crid', function () {
+      getCRID('/complaint/123/').should.eql(123);
+    });
+  });
+
+  describe('getComplaintOfficerId', function () {
+    it('should return NaN when url is undefined', function () {
+      getComplaintOfficerId(undefined).should.be.NaN();
+    });
+
+    it('should return complaint officer id', function () {
+      getComplaintOfficerId('/complaint/123/456').should.eql(456);
+    });
+  });
+
+  describe('getOfficerActiveTab', function () {
+    it('should return null when url is not an officer path', function () {
+      should.not.exist(getOfficerActiveTab('/some/incorrect/path/'));
+    });
+
+    it('should return officer active tab', function () {
+      getOfficerActiveTab('/officer/123/timeline/').should.eql('timeline');
+      getOfficerActiveTab('/officer/123/social/').should.eql('social');
+      getOfficerActiveTab('/officer/123/').should.eql('');
+    });
+  });
+
+  describe('isSameOfficerPath', function () {
+    it('should return false when an argument is not an officer path', function () {
+      isSameOfficerPath('/some/incorrect/path/', '/officer/1/').should.be.false();
+      isSameOfficerPath('/officer/1/', '/some/incorrect/path/').should.be.false();
+    });
+
+    it('should return flase when officer ids do not match', function () {
+      isSameOfficerPath('/officer/123/', '/officer/456/').should.be.false();
+    });
+
+    it('should return true when officer ids match', function () {
+      isSameOfficerPath('/officer/123/', '/officer/123/').should.be.true();
+    });
+  });
+
+  describe('isSameCR', function () {
+    it('should return false when an argument is not an complaint path', function () {
+      isSameCR('/some/incorrect/path/', '/complaint/1/').should.be.false();
+      isSameCR('/complaint/1/', '/some/incorrect/path/').should.be.false();
+    });
+
+    it('should return flase when complaint ids do not match', function () {
+      isSameCR('/complaint/123/', '/complaint/456/').should.be.false();
+    });
+
+    it('should return true when complaint ids match', function () {
+      isSameCR('/complaint/123/', '/complaint/123/').should.be.true();
     });
   });
 
@@ -98,6 +160,5 @@ describe('location utils', function () {
         'category': 'Illegal Search'
       }, '?').should.eql('?age=41-50&category=Illegal%20Search');
     });
-
   });
 });

@@ -85,6 +85,8 @@ describe('store', function () {
       inlineAliasAdminPage: {},
       crPage: {
         isRequesting: false,
+        crid: null,
+        officerId: null,
         attachmentRequest: {
           request: {
             isRequested: false,
@@ -96,11 +98,13 @@ describe('store', function () {
       crs: {},
       officerPage: {
         complaintsByYear: [],
+        activeTab: null,
         complaintFacets: [],
         complaintsCount: 0,
         fullName: '',
         isRequesting: false,
         officerId: null,
+        pathname: null,
         summary: {},
         sustainedCount: 0,
         socialGraph: {
@@ -135,7 +139,8 @@ describe('store', function () {
       },
       genericModal: {
         activeModal: null
-      }
+      },
+      headerBackLink: '/'
     });
   });
 });

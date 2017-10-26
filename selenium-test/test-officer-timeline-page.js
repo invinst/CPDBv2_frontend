@@ -3,7 +3,6 @@
 import 'should';
 
 import timelinePage from './page-objects/officer-timeline-page';
-import searchPage from './page-objects/search-page';
 import crPage from './page-objects/cr-page';
 import { getRequestCount } from './utils';
 
@@ -37,26 +36,6 @@ describe('officer timeline page', function () {
     timelinePage.header.activeButton.getText().should.equal('Timeline');
   });
 
-  it('should refresh timeline as well as minimap when visit other officers', function () {
-    timelinePage.open(1234);
-    timelinePage.sidebar.yearLabel.count.should.equal(1);
-    timelinePage.timeline.cardItem.count.should.equal(2);
-
-    timelinePage.bottomSheet.clickOverlay();
-
-    searchPage.input.waitForVisible();
-    searchPage.input.setValue('foo');
-
-    searchPage.firstOfficerResult.waitForVisible();
-    searchPage.firstOfficerResult.click();
-
-    timelinePage.header.timelineButton.waitForVisible();
-    timelinePage.header.timelineButton.click();
-
-    timelinePage.sidebar.yearLabel.count.should.equal(0);
-    timelinePage.timeline.cardItem.count.should.equal(0);
-  });
-
   it('should launch timeline, summary, minimap requests upon direct visit', function () {
     getRequestCount('/officers/1/timeline-items/').should.equal(1);
     getRequestCount('/officers/1/summary/').should.equal(1);
@@ -70,6 +49,17 @@ describe('officer timeline page', function () {
     getRequestCount('/officers/1/timeline-items/').should.equal(1);
     getRequestCount('/officers/1/summary/').should.equal(1);
     getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
+  });
+
+  // Sorting is disabled in this release
+  it.skip('should preserve sort order when click other tabs', function () {
+    timelinePage.sidebar.sortButton.getText().should.equal('Sort by oldest first');
+
+    timelinePage.sidebar.sortButton.click();
+    timelinePage.header.summaryButton.click();
+    timelinePage.header.timelineButton.click();
+
+    timelinePage.sidebar.sortButton.getText().should.equal('Sort by newest first');
   });
 
   it('should change selected minimap item when going back from CR page', function () {

@@ -1,5 +1,10 @@
 import {
-  getOfficerName, getComplaintsCount, getComplaintFacetsSelector, summarySelector
+  getOfficerName,
+  getComplaintsCount,
+  getComplaintFacetsSelector,
+  summarySelector,
+  getActiveTab,
+  getPathname
 } from 'selectors/officer-page';
 
 
@@ -79,6 +84,28 @@ describe('officer page selectors', function () {
         race: 'race', gender: 'Male', badge: 'badge',
         dateOfResignation: '2016-01-02', agency: 'CPD'
       });
+    });
+  });
+
+  describe('getActiveTab', function () {
+    it('should return active tab', function () {
+      const state = {
+        officerPage: {
+          activeTab: 'timeline'
+        }
+      };
+      getActiveTab(state).should.eql('timeline');
+    });
+  });
+
+  describe('getPathname', function () {
+    it('should return pathname', function () {
+      const state = {
+        officerPage: {
+          pathname: '/some/path/'
+        }
+      };
+      getPathname(state).should.eql('/some/path/');
     });
   });
 });

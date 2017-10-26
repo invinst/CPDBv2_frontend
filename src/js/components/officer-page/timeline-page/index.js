@@ -8,12 +8,12 @@ import { wrapperStyle } from './timeline-page.style';
 
 export default class TimelinePage extends Component {
   render() {
-    const { officerId, urlParams } = this.props;
+    const { urlParams } = this.props;
     return (
       <ResponsiveFluidWidthComponent>
         <div style={ wrapperStyle }>
-          <SideBarContainer officerId={ officerId }/>
-          <TimelineContainer officerId={ officerId } urlParams={ urlParams }/>
+          <SideBarContainer/>
+          <TimelineContainer urlParams={ urlParams }/>
         </div>
       </ResponsiveFluidWidthComponent>
     );

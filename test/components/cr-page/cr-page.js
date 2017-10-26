@@ -5,7 +5,6 @@ import {
 } from 'react-addons-test-utils';
 
 import CRPage from 'components/cr-page';
-import StickyHeader from 'components/common/sticky-header';
 import Header from 'components/cr-page/header';
 import OfficerRow from 'components/cr-page/officer-row';
 import MultiRow from 'components/cr-page/multi-row';
@@ -26,7 +25,6 @@ describe('CRPage component', function () {
   it('should render complaint and officer information', function () {
     instance = renderIntoDocument(<CRPage coaccused={ [{ id: 1, fullName: 'Foo' }] }/>);
 
-    scryRenderedComponentsWithType(instance, StickyHeader).should.have.length(1);
     scryRenderedComponentsWithType(instance, OfficerRow).should.have.length(1);
     scryRenderedComponentsWithType(instance, MultiRow).should.have.length(1);
     scryRenderedComponentsWithType(instance, FindingRow).should.have.length(1);

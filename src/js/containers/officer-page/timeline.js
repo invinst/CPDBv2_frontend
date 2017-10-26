@@ -10,11 +10,16 @@ import {
   changeTimelineFilters,
   fetchMinimap
 } from 'actions/officer-page/timeline';
-import { openBottomSheetWithComplaint } from 'actions/bottom-sheet';
+import { openComplaintPage } from 'actions/bottom-sheet';
 import {
-  timelineItemsHasMoreSelector, timelineItemsSelector, timelineItemsNextParamsSelector, sortParamsSelector,
-  getSelectedItemIndex, getHoveredItemIndex
+  timelineItemsHasMoreSelector,
+  timelineItemsSelector,
+  timelineItemsNextParamsSelector,
+  sortParamsSelector,
+  getSelectedItemIndex,
+  getHoveredItemIndex
 } from 'selectors/officer-page/timeline';
+import { getOfficerId } from 'selectors/officer-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -24,7 +29,7 @@ function mapStateToProps(state, ownProps) {
     items: timelineItemsSelector(state),
     nextParams: timelineItemsNextParamsSelector(state),
     selectedItemIndex: getSelectedItemIndex(state),
-    officerId: ownProps.officerId,
+    officerId: getOfficerId(state),
     hoveredItemIndex: getHoveredItemIndex(state),
     filters: state.officerPage.timeline.filters
   };
@@ -34,7 +39,7 @@ const mapDispatchToProps = {
   fetchTimelineItems,
   fetchTimelineFullItems: fetchTimelineFirstItems,
   fetchTimelineItemsWhenIndexOutOfBound,
-  openBottomSheetWithComplaint,
+  openComplaintPage,
   hoverTimelineItem,
   selectTimelineItem,
   changeTimelineFilters,

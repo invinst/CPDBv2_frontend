@@ -9,6 +9,8 @@ export const getComplaintsCount = state => state.officerPage.complaintsCount;
 export const getSustainedCount = state => state.officerPage.sustainedCount;
 export const getComplaintsByYear = state => state.officerPage.complaintsByYear;
 const getComplaintFacets = state => state.officerPage.complaintFacets;
+export const getActiveTab = state => state.officerPage.activeTab;
+export const getPathname = state => state.officerPage.pathname;
 
 export const getComplaintFacetsSelector = createSelector(
   getComplaintFacets,

@@ -11,7 +11,7 @@ import {
 export class CoaccusedListItem extends Component {
   render() {
     const {
-      viewing, hovering, fullName, openBottomSheetWithComplaint, crid, id, showBottomBorder, badge
+      viewing, hovering, fullName, openComplaintPage, crid, id, showBottomBorder, badge
     } = this.props;
 
     let viewingText = null;
@@ -28,7 +28,7 @@ export class CoaccusedListItem extends Component {
     return (
       <div className='test--coaccused-list-item'
         style={ wrapperStyle(viewing, hovering, showBottomBorder) }
-        onClick={ viewing ? null : () => openBottomSheetWithComplaint({ crid, officerId: id }) }>
+        onClick={ viewing ? null : () => openComplaintPage({ crid, officerId: id }) }>
         <div style={ officerInfoStyle }>
           <LabeledIcon label={ fullName } sublabel={ 'Badge ' + badge }/>
         </div>
@@ -42,7 +42,7 @@ CoaccusedListItem.propTypes = {
   viewing: PropTypes.bool,
   id: PropTypes.number,
   crid: PropTypes.string,
-  openBottomSheetWithComplaint: PropTypes.func,
+  openComplaintPage: PropTypes.func,
   fullName: PropTypes.string,
   gender: PropTypes.string,
   race: PropTypes.string,

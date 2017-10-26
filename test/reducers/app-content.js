@@ -23,13 +23,6 @@ describe('appContentReducer', function () {
       }
     }).should.eql('/');
 
-    appContentReducer('/', {
-      type: '@@router/LOCATION_CHANGE',
-      payload: {
-        pathname: '/officer/13/'
-      }
-    }).should.eql('/');
-
     appContentReducer('/edit/', {
       type: '@@router/LOCATION_CHANGE',
       payload: {
@@ -43,20 +36,6 @@ describe('appContentReducer', function () {
         pathname: '/edit/faq/13/'
       }
     }).should.eql('/edit/');
-
-    appContentReducer('/edit/', {
-      type: '@@router/LOCATION_CHANGE',
-      payload: {
-        pathname: '/edit/officer/13/'
-      }
-    }).should.eql('/edit/');
-
-    appContentReducer('/', {
-      type: '@@router/LOCATION_CHANGE',
-      payload: {
-        pathname: '/unit/13/'
-      }
-    }).should.eql('/');
   });
 
   it('should return default path if there\'s no previous state when handle LOCATION_CHANGE', function () {
@@ -73,20 +52,6 @@ describe('appContentReducer', function () {
         pathname: '/faq/13/'
       }
     }).should.eql('/faq/');
-
-    appContentReducer(null, {
-      type: '@@router/LOCATION_CHANGE',
-      payload: {
-        pathname: '/officer/13/'
-      }
-    }).should.eql('/search/');
-
-    appContentReducer(null, {
-      type: '@@router/LOCATION_CHANGE',
-      payload: {
-        pathname: '/unit/13/'
-      }
-    }).should.eql('/search/');
   });
 
   it('should return the same pathname if path is not bottomsheet when handle LOCATION_CHANGE', function () {

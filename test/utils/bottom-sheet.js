@@ -1,5 +1,7 @@
 import {
-  isReportBottomSheetPath, isFAQBottomSheetPath, isOfficerBottomSheetPath, isUnitProfileBottomSheetPath
+  isReportBottomSheetPath,
+  isFAQBottomSheetPath,
+  isOfficerPath,
 } from 'utils/bottom-sheet';
 
 describe('bottomSheetUtils', function () {
@@ -27,27 +29,17 @@ describe('bottomSheetUtils', function () {
     });
   });
 
-  describe('#isOfficerBottomSheetPath', function () {
-    it('returns true if path is officer bottom sheet', function () {
-      isOfficerBottomSheetPath('/officer/1/').should.be.true();
-      isOfficerBottomSheetPath('/officer/2/timeline/').should.be.true();
-      isOfficerBottomSheetPath('/edit/officer/2/timeline/').should.be.true();
+  describe('#isOfficerPath', function () {
+    it('returns true if path is officer', function () {
+      isOfficerPath('/officer/1/').should.be.true();
+      isOfficerPath('/officer/2/timeline/').should.be.true();
+      isOfficerPath('/edit/officer/2/timeline/').should.be.true();
     });
 
-    it('returns false if path is not officer bottom sheet', function () {
-      isOfficerBottomSheetPath('/foo/officer/1/').should.be.false();
-      isOfficerBottomSheetPath('/foo/bar').should.be.false();
-      isOfficerBottomSheetPath('/officer/').should.be.false();
-    });
-  });
-
-  describe('isUnitProfileBottomSheetPath', function () {
-    it('returns true if path is unit profile bottom sheet', function () {
-      isUnitProfileBottomSheetPath('/unit/1/').should.be.true();
-    });
-
-    it('returns false if path is not unit profile bottom sheet', function () {
-      isUnitProfileBottomSheetPath('/foo/bar/').should.be.false();
+    it('returns false if path is not officer', function () {
+      isOfficerPath('/foo/officer/1/').should.be.false();
+      isOfficerPath('/foo/bar').should.be.false();
+      isOfficerPath('/officer/').should.be.false();
     });
   });
 });

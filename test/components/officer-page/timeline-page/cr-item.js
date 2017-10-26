@@ -19,19 +19,19 @@ describe('CRItem component', function () {
     CRItem.should.be.renderable();
   });
 
-  it('should trigger onClick and openBottomSheetWithComplaint when clicked on', function () {
-    const openBottomSheetWithComplaint = spy();
+  it('should trigger onClick and openComplaintPage when clicked on', function () {
+    const openComplaintPage = spy();
     const onClick = spy();
     const officerId = 1;
     const crid = 1234;
-    instance = renderWithContext({ openBottomSheetWithComplaint },
+    instance = renderWithContext({ openComplaintPage },
       <CRItem officerId={ officerId } item={ { crid } } onClick={ onClick }/>
     );
     const crItem = findRenderedDOMComponentWithClass(instance, 'test--cr-item-wrapper');
     Simulate.click(crItem);
 
     onClick.called.should.be.true();
-    openBottomSheetWithComplaint.calledWith({ officerId, crid }).should.be.true();
+    openComplaintPage.calledWith({ officerId, crid }).should.be.true();
   });
 
   it('should render document icon when item has document', function () {

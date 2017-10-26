@@ -7,7 +7,7 @@ import UnitProfilePage from 'components/unit-profile-page';
 const mapStateToProps = (state, ownProps) => {
   return {
     location: ownProps.location,
-    unitName: ownProps.unitName
+    unitName: ownProps.params.unitName
   };
 };
 

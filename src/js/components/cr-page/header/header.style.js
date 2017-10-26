@@ -7,12 +7,14 @@ export const boxShadowStyle = {
 };
 
 export const headerStyle = {
-  padding: '16px',
   fontFamily: sanFranciscoTextFamily,
   color: softBlackColor,
-  height: '32px',
   lineHeight: '32px',
-  textAlign: 'center'
+  textAlign: 'center',
+  padding: '0 16px',
+  height: '64px',
+  marginTop: '22px',
+  boxSizing: 'border-box'
 };
 
 export const titleStyle = (displayCoaccusedDropdown) => ({
@@ -20,5 +22,6 @@ export const titleStyle = (displayCoaccusedDropdown) => ({
   fontWeight: 500,
   display: 'inline-block',
   float: 'left',
-  color: displayCoaccusedDropdown ? greyishColor : 'inherit'
+  color: displayCoaccusedDropdown ? greyishColor : 'inherit',
+  paddingTop: '16px'
 });
