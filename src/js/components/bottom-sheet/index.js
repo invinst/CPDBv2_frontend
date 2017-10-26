@@ -5,7 +5,6 @@ import { assign } from 'lodash';
 import BottomSheetTransition from 'components/animation/bottom-sheet-transition';
 import ReportContainer from 'containers/bottom-sheet/report';
 import FAQContainer from 'containers/bottom-sheet/faq';
-import OfficerContainer from 'containers/officer-page';
 import CRContainer from 'containers/cr-page';
 import UnitProfileContainer from 'containers/unit-profile-page';
 import { overlayStyle, sheetStyle, sheetWrapperStyle, closeBottomSheetTriggerStyle } from './bottom-sheet.style';
@@ -20,7 +19,6 @@ export default class BottomSheet extends Component {
     this.contentMap = {
       [BottomSheetContentType.REPORT]: ReportContainer,
       [BottomSheetContentType.FAQ]: FAQContainer,
-      [BottomSheetContentType.OFFICER]: OfficerContainer,
       [BottomSheetContentType.CR]: CRContainer,
       [BottomSheetContentType.UNIT_PROFILE]: UnitProfileContainer
     };

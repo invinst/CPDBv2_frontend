@@ -3,17 +3,50 @@ import { map, get } from 'lodash';
 
 
 
-const getCoaccused = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].coaccused;
-const getComplainants = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].complainants;
-const getCR = (state, { crid }) => !state.crs[crid] ? {} : state.crs[crid];
-const getInvolvements = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].involvements;
-const getDocuments = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].documents;
-const getVideos = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].videos;
-const getAudios = (state, { crid }) => !state.crs[crid] ? [] : state.crs[crid].audios;
+const getCoaccused = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].coaccused;
+};
 
-export const getDocumentAlreadyRequested = (
-  (state, { crid } ) => Boolean(get(state, `crPage.attachmentRequest.subscribedCRIDs[${crid}]`, undefined))
-);
+const getComplainants = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].complainants;
+};
+
+const getCR = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? {} : state.crs[crid];
+};
+
+const getInvolvements = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].involvements;
+};
+
+const getDocuments = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].documents;
+};
+
+const getVideos = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].videos;
+};
+
+const getAudios = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].audios;
+};
+
+export const getCRID = state => String(state.crPage.crid);
+export const getOfficerId = state => state.crPage.officerId;
+
+export const getDocumentAlreadyRequested = state => {
+  const crid = state.crPage.crid;
+  return Boolean(get(
+    state, `crPage.attachmentRequest.subscribedCRIDs[${crid}]`, undefined
+  ));
+};
 
 const getComplainantStringSelector = createSelector(
   getComplainants,

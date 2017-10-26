@@ -8,7 +8,7 @@ import OfficerRow from './officer-row';
 
 export default class InvolvementItem extends Component {
   render() {
-    const { involvedType, officers, openBottomSheetWithOfficer, style } = this.props;
+    const { involvedType, officers, openOfficerPage, style } = this.props;
 
     return (
       <div style={ { ...wrapperStyle, ...style } }>
@@ -19,7 +19,7 @@ export default class InvolvementItem extends Component {
             {
               return (
                 <OfficerRow style={ index === officers.length - 1 ? lastItemStyle : {} }
-                  onClick={ openBottomSheetWithOfficer }
+                  onClick={ openOfficerPage }
                   key={ id } officerId={ id } abbrName={ abbrName } extraInfo={ extraInfo } />
               );
             })
@@ -35,5 +35,5 @@ InvolvementItem.propTypes = {
   involvedType: PropTypes.string,
   officers: PropTypes.array,
   style: PropTypes.object,
-  openBottomSheetWithOfficer: PropTypes.func
+  openOfficerPage: PropTypes.func
 };

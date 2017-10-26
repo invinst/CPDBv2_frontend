@@ -2,8 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Header from './header';
 import SummaryPageContainer from 'containers/unit-profile-page/summary-page';
-import { pageWrapperStyle, headerStyle } from './unit-profile-page.style';
-import StickyHeader from 'components/common/sticky-header';
+import { pageWrapperStyle } from './unit-profile-page.style';
 
 
 export default class UnitProfilePage extends Component {
@@ -13,9 +12,7 @@ export default class UnitProfilePage extends Component {
 
     return (
       <div>
-        <StickyHeader style={ headerStyle }>
-          <Header unitName={ unitName } pathname={ pathname }/>
-        </StickyHeader>
+        <Header unitName={ unitName } pathname={ pathname }/>
         <div style={ pageWrapperStyle }>
           <SummaryPageContainer unitName={ unitName }/>;
         </div>

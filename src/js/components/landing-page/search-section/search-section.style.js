@@ -1,7 +1,7 @@
 import { sugarCaneColor, greyishColor } from 'utils/styles';
 
 export const searchSectionStyle = {
-  height: '84vh',
+  height: '60vh',
   width: '100%'
 };
 

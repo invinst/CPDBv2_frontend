@@ -7,7 +7,7 @@ import InvolvementItem from './involvement-item';
 
 export default class Involvement extends Component {
   render() {
-    const { involvements, openBottomSheetWithOfficer } = this.props;
+    const { involvements, openOfficerPage } = this.props;
 
     if (!involvements || involvements.length === 0) {
       return null;
@@ -18,7 +18,7 @@ export default class Involvement extends Component {
         {
           map(involvements, ({ involvedType, officers }, index) => (
             <InvolvementItem
-              openBottomSheetWithOfficer={ openBottomSheetWithOfficer }
+              openOfficerPage={ openOfficerPage }
               key={ index } involvedType={ involvedType } officers={ officers } />)
           )
         }
@@ -29,5 +29,5 @@ export default class Involvement extends Component {
 
 Involvement.propTypes = {
   involvements: PropTypes.array,
-  openBottomSheetWithOfficer: PropTypes.func
+  openOfficerPage: PropTypes.func
 };

@@ -6,7 +6,7 @@ import SummaryPage from 'components/officer-page/summary-page';
 import {
   summarySelector, getComplaintsCount, getSustainedCount, getComplaintsByYear, getComplaintFacetsSelector
 } from 'selectors/officer-page';
-import { openBottomSheetWithPoliceUnit } from 'actions/bottom-sheet';
+import { openPoliceUnitPage } from 'actions/bottom-sheet';
 
 
 function mapStateToProps(state, ownProps) {
@@ -20,7 +20,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  openBottomSheetWithPoliceUnit
+  openPoliceUnitPage
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SummaryPage));

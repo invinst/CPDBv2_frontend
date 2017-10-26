@@ -7,24 +7,33 @@ import {
   OFFICER_TIMELINE_MINIMAP_REQUEST_FAILURE, OFFICER_TIMELINE_FLIP_SORT_ORDER, OFFICER_TIMELINE_ITEMS_REQUEST_START,
   OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS, OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE, OFFICER_TIMELINE_SELECT_MINIMAP_ITEM,
   DO_NOTHING_ACTION, OFFICER_TIMELINE_HOVER_MINIMAP_ITEM, OFFICER_TIMELINE_HOVER_TIMELINE_ITEM,
-  OFFICER_TIMELINE_SELECT_TIMELINE_ITEM
+  OFFICER_TIMELINE_SELECT_TIMELINE_ITEM, OFFICER_TIMELINE_CHANGE_FILTERS, OFFICER_TIMELINE_FIRST_ITEMS_REQUEST_SUCCESS
 } from 'utils/constants';
 
 
-export const fetchMinimap = offficerId => (get(
+export const fetchMinimap = (offficerId, params) => (get(
   `${OFFICER_URL}${offficerId}/timeline-minimap/`,
   [
     OFFICER_TIMELINE_MINIMAP_REQUEST_START,
     OFFICER_TIMELINE_MINIMAP_REQUEST_SUCCESS,
     OFFICER_TIMELINE_MINIMAP_REQUEST_FAILURE
   ]
-)());
+)(params));
 
 export const fetchTimelineItems = (offficerId, params) => (get(
   `${OFFICER_URL}${offficerId}/timeline-items/`,
   [
     OFFICER_TIMELINE_ITEMS_REQUEST_START,
     OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS,
+    OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE
+  ]
+)(params));
+
+export const fetchTimelineFirstItems = (offficerId, params) => (get(
+  `${OFFICER_URL}${offficerId}/timeline-items/`,
+  [
+    OFFICER_TIMELINE_ITEMS_REQUEST_START,
+    OFFICER_TIMELINE_FIRST_ITEMS_REQUEST_SUCCESS,
     OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE
   ]
 )(params));
@@ -47,3 +56,5 @@ export const fetchTimelineItemsWhenIndexOutOfBound = (itemsLength, index, office
   }
   return createAction(DO_NOTHING_ACTION)();
 };
+
+export const changeTimelineFilters = createAction(OFFICER_TIMELINE_CHANGE_FILTERS);

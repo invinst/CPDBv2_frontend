@@ -1,4 +1,4 @@
-import { whiteTwoColor, sugarCaneColor, greyishColor, softBlackColor } from 'utils/styles';
+import { whiteTwoColor, sugarCaneColor, greyishColor, softBlackColor, clayGray } from 'utils/styles';
 
 export const paddingWrapperStyle = {
   padding: '0 16px 8px 16px'
@@ -12,7 +12,7 @@ export const inputStyle = {
   borderRadius: '2px',
   fontSize: '13px',
   fontWeight: '500px',
-  color: '#8f8f8f',
+  color: clayGray,
   border: 'none',
   '::-webkit-input-placeholder': {
     color: 'red'
@@ -20,7 +20,7 @@ export const inputStyle = {
 };
 
 export const instructionStyle = {
-  color: '#8f8f8f',
+  color: clayGray,
   fontWeight: 300,
   paddingTop: '38px',
   fontSize: '14px',
@@ -93,7 +93,7 @@ export const messageBoxStyle = {
   textAlign: 'center',
   lineHeight: '18px',
   fontSize: '14px',
-  color: '#8f8f8f',
+  color: clayGray,
   fontWeight: 400,
   paddingTop: '6px',
   borderSizing: 'border-box'

@@ -117,8 +117,7 @@ class CRPage extends Page {
     super();
 
     this.prepareElementGetters({
-      element: '.test--bottom-sheet-wrapper',
-      overlay: '.test--close-bottom-sheet'
+      element: '.test--cr-page'
     });
   }
 

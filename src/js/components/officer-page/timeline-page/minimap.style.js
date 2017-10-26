@@ -2,7 +2,7 @@ import { sanFranciscoTextFamily, softBlackColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
-  marginTop: '50px'
+  marginTop: '8px'
 };
 
 export const rowStyle = {

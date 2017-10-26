@@ -9,6 +9,10 @@ import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './spar
 export const width = 600;
 
 export default class SimpleSparklines extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   fillEmptyDataYear(data, begin = 2000, end = 2017) {
     /* Fills empty years with previous data, to ensure no sudden jump between years
      */
@@ -37,10 +41,9 @@ export default class SimpleSparklines extends React.Component {
   }
 
   hoverPointClickHandler() {
-    const { router, officerId } = this.props;
-    router.push(`/officer/${officerId}/timeline/`);
-    // TODO: Should scroll to selected year too and filter by type too.
-    // This feature should be handled in Office Timeline itself via URL params
+    const { router, timelineLink } = this.props;
+    router.push(timelineLink);
+    // TODO: Should scroll to selected year too.
   }
 
   renderHoverPoints(data) {
@@ -119,7 +122,8 @@ SimpleSparklines.propTypes = {
   data: PropTypes.array,
   router: PropTypes.object,
   officerId: PropTypes.number,
-  startYear: PropTypes.number
+  startYear: PropTypes.number,
+  timelineLink: PropTypes.string
 };
 
 SimpleSparklines.defaultProps = {

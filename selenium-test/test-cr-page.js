@@ -38,11 +38,6 @@ describe('CR page', function () {
     crPage.infoSection.finalOutcomeContent.getText().should.equal('Reprimand');
   });
 
-  it('should close bottom sheet, back to Search page when click on overlay', function () {
-    crPage.overlay.click();
-    browser.getUrl().should.match(/\/search\/$/);
-  });
-
   it('should toggle displaying dropdown coaccused list when click on dropdown button', function () {
     crPage.header.coaccusedDropdownButton.click();
     crPage.header.overlay.waitForVisible();
@@ -152,6 +147,6 @@ describe('CR page without attachment', function () {
     crPage.documentRequestModalSection.emailInput.setValue('invalid@email.com');
     crPage.documentRequestModalSection.submitButton.click();
     crPage.documentRequestModalSection.messageBox.waitForVisible();
-    crPage.documentRequestModalSection.messageBox.getText().should.equal('Sorry, we can not subscribe your email')
+    crPage.documentRequestModalSection.messageBox.getText().should.equal('Sorry, we can not subscribe your email');
   });
 });

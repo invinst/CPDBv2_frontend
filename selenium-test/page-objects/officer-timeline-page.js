@@ -11,7 +11,8 @@ class SideBar extends Section {
       filterButton: '.test--filter-button',
       sortButton: '.test--sort-button',
       yearLabel: '.test--year-label',
-      minimapItem: '.test--minimapitem'
+      minimapItem: '.test--minimapitem',
+      filterItem: '.test--filter-block'
     });
   }
 
@@ -30,6 +31,11 @@ class SideBar extends Section {
   itemAt(year, index) {
     return browser.element(this.getMinimapItemSelector(year, index));
   }
+
+  findFilterItemRemoveBtnWithText(name) {
+    const selector = `//*[@class="test--filter-block"]//p[text()[.="${name}"]]/../a`;
+    return browser.element(selector);
+  }
 }
 
 
@@ -40,8 +46,6 @@ class YearItem extends Section {
       year: '.test--timeline-item-year',
       crsLabel: '.test--crs-label',
       crsValue: '.test--crs-value',
-      trrsLabel: '.test--trrs-label',
-      trrsValue: '.test--trrs-value',
       salaryLabel: '.test--salary-label',
       salaryValue: '.test--salary-value'
     });
@@ -132,8 +136,8 @@ class OfficerTimelinePage extends Page {
     });
   }
 
-  open(officerId) {
-    super.open(`/officer/${officerId}/timeline/`);
+  open(officerId, urlParams='') {
+    super.open(`/officer/${officerId}/timeline/${urlParams}`);
     browser.element('body').waitForVisible();
   }
 }

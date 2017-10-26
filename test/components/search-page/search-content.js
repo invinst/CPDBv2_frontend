@@ -94,27 +94,23 @@ describe('SearchContent component', function () {
     getSuggestion.calledWith('b').should.be.true();
   });
 
-  it('should call router.goBack when user click on searchbar__button--back', function () {
-    const router = { goBack: spy() };
-
+  it('should call browserHistory.push when user click on searchbar__button--back', function () {
     instance = renderIntoDocument(
-      <SearchContent router={ router }/>
+      <SearchContent />
     );
 
     const backButton = findRenderedDOMComponentWithClass(instance, 'searchbar__button--back');
     Simulate.click(backButton);
-    router.goBack.calledOnce.should.be.true();
+    this.browserHistoryPush.calledWith('/').should.be.true();
   });
 
   it('should call router.goBack when user hit ESCAPE', function () {
-    const router = { goBack: spy() };
-
     instance = renderIntoDocument(
-      <SearchContent router={ router }/>
+      <SearchContent />
     );
 
     Mousetrap.trigger('esc');
-    router.goBack.calledOnce.should.be.true();
+    this.browserHistoryPush.calledWith('/').should.be.true();
   });
 
   it('should follow the first result url when user hit ENTER', function () {

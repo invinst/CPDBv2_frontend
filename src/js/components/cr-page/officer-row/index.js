@@ -7,7 +7,7 @@ import { wrapperStyle, labelStyle, } from './officer-row.style';
 
 export default class OfficerRow extends Component {
   render() {
-    const { fullName, openBottomSheetWithOfficer, officerId, badge } = this.props;
+    const { fullName, openOfficerPage, officerId, badge } = this.props;
 
     return (
       <div style={ wrapperStyle }>
@@ -15,7 +15,7 @@ export default class OfficerRow extends Component {
         <div className='test--row-content'>
           <LabeledIcon label={ fullName } sublabel={ `Badge ${badge}` } />
         </div>
-        <ViewProfileButton officerId={ officerId } onClick={ openBottomSheetWithOfficer } />
+        <ViewProfileButton officerId={ officerId } onClick={ openOfficerPage } />
       </div>
     );
   }
@@ -24,6 +24,6 @@ export default class OfficerRow extends Component {
 OfficerRow.propTypes = {
   fullName: PropTypes.string,
   badge: PropTypes.string,
-  openBottomSheetWithOfficer: PropTypes.func,
+  openOfficerPage: PropTypes.func,
   officerId: PropTypes.number
 };

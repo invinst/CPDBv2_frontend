@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 import bottomSheetPathMiddleware from 'middleware/bottom-sheet-path';
 import {
   openBottomSheetWithReport, openBottomSheetToCreateReport, closeBottomSheet, openBottomSheetWithFAQ,
-  openBottomSheetToCreateFAQ, openBottomSheetWithOfficer, openBottomSheetWithComplaint, openBottomSheetWithPoliceUnit
+  openBottomSheetToCreateFAQ, openOfficerPage, openComplaintPage, openPoliceUnitPage
 } from 'actions/bottom-sheet';
 import * as editPathUtils from 'utils/edit-path';
 
@@ -32,17 +32,17 @@ describe('bottomSheetPathMiddleware', function () {
     dispatched.should.eql(dispatchAction);
   });
 
-  it('should push bottom sheet path on OPEN_BOTTOM_SHEET_WITH_OFFICER', function () {
+  it('should push bottom sheet path on OPEN_OFFICER_PAGE', function () {
     let dispatched;
-    const dispatchAction = openBottomSheetWithOfficer(123);
+    const dispatchAction = openOfficerPage(123);
     bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
     editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/officer/123/');
     dispatched.should.eql(dispatchAction);
   });
 
-  it('should push bottom sheet path on OPEN_BOTTOM_SHEET_WITH_COMPLAINT', function () {
+  it('should push bottom sheet path on OPEN_COMPLAINT_PAGE', function () {
     let dispatched;
-    const dispatchAction = openBottomSheetWithComplaint({ crid: '1', officerId: 1 });
+    const dispatchAction = openComplaintPage({ crid: '1', officerId: 1 });
     bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
     editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/complaint/1/1/');
     dispatched.should.eql(dispatchAction);
@@ -80,9 +80,9 @@ describe('bottomSheetPathMiddleware', function () {
     dispatched.should.eql(dispatchAction);
   });
 
-  it('should push bottom sheet path on OPEN_BOTTOM_SHEET_WITH_POLICE_UNIT', function () {
+  it('should push bottom sheet path on OPEN_POLICE_UNIT_PAGE', function () {
     let dispatched;
-    const dispatchAction = openBottomSheetWithPoliceUnit('007');
+    const dispatchAction = openPoliceUnitPage('007');
     bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
     editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/unit/007/');
     dispatched.should.eql(dispatchAction);

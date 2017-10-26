@@ -21,23 +21,5 @@ describe('bottomSheet selector', function () {
         { props: { id: 1 }, type: BottomSheetContentType.FAQ }
       );
     });
-
-    it('should return officer content if content type is OFFICER', function () {
-      contentSelector({}, { params: { officerId: 1 } }).should.eql(
-        { props: { id: 1 }, type: BottomSheetContentType.OFFICER }
-      );
-    });
-
-    it('should return CR content if content type is CR', function () {
-      contentSelector({}, { params: { crid: '1', officerId: 1 } }).should.eql(
-        { props: { crid: '1', officerId: 1 }, type: BottomSheetContentType.CR }
-      );
-    });
-
-    it('should return unit content if content type is UNIT_PROFILE', function () {
-      contentSelector({}, { params: { unitName: '007' } }).should.eql(
-        { props: { unitName: '007' }, type: BottomSheetContentType.UNIT_PROFILE }
-      );
-    });
   });
 });

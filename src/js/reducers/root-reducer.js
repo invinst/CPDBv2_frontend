@@ -16,6 +16,7 @@ import crPage from './cr-page';
 import unitProfilePage from './unit-profile-page';
 import inlineAliasAdminPage from './inline-alias-admin-page';
 import genericModal from './generic-modal';
+import headerBackLink from './header-back-link';
 
 
 export default combineReducers({
@@ -34,5 +35,6 @@ export default combineReducers({
   crPage,
   unitProfilePage,
   inlineAliasAdminPage,
-  genericModal
+  genericModal,
+  headerBackLink
 });
