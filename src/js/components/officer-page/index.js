@@ -43,7 +43,7 @@ OfficerPage.propTypes = {
   officerTimelineUrlParams: PropTypes.string,
   activeTab: PropTypes.string,
   pathname: PropTypes.string,
-  query: PropTypes.objects
+  query: PropTypes.object
 };
 
 OfficerPage.defaultProps = {
