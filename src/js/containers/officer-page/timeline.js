@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import Timeline from 'components/officer-page/timeline-page/timeline';
 import {
   fetchTimelineItems,
+  fetchTimelineFirstItems,
   fetchTimelineItemsWhenIndexOutOfBound,
   hoverTimelineItem,
-  selectTimelineItem
+  selectTimelineItem,
+  changeTimelineFilters,
+  fetchMinimap
 } from 'actions/officer-page/timeline';
 import { openComplaintPage } from 'actions/bottom-sheet';
 import {
@@ -27,16 +30,20 @@ function mapStateToProps(state, ownProps) {
     nextParams: timelineItemsNextParamsSelector(state),
     selectedItemIndex: getSelectedItemIndex(state),
     officerId: getOfficerId(state),
-    hoveredItemIndex: getHoveredItemIndex(state)
+    hoveredItemIndex: getHoveredItemIndex(state),
+    filters: state.officerPage.timeline.filters
   };
 }
 
 const mapDispatchToProps = {
   fetchTimelineItems,
+  fetchTimelineFullItems: fetchTimelineFirstItems,
   fetchTimelineItemsWhenIndexOutOfBound,
   openComplaintPage,
   hoverTimelineItem,
-  selectTimelineItem
+  selectTimelineItem,
+  changeTimelineFilters,
+  fetchMinimap
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timeline);

@@ -9,9 +9,9 @@ import { pageWrapperStyle } from './officer-page.style';
 
 export default class OfficerPage extends Component {
   renderChildren() {
-    const { activeTab } = this.props;
+    const { activeTab, query } = this.props;
     if (activeTab === 'timeline') {
-      return <TimelinePage/>;
+      return <TimelinePage urlParams={ query }/>;
     } else if (activeTab === 'social') {
       return <SocialGraphPageContainer/>;
     }
@@ -19,11 +19,16 @@ export default class OfficerPage extends Component {
   }
 
   render() {
-    const { officerName, activeTab, pathname } = this.props;
+    const { officerName, activeTab, pathname, officerTimelineUrlParams } = this.props;
 
     return (
       <div>
-        <Header officerName={ officerName } activeTab={ activeTab } pathname={ pathname }/>
+        <Header
+          officerName={ officerName }
+          activeTab={ activeTab }
+          pathname={ pathname }
+          officerTimelineUrlParams={ officerTimelineUrlParams }
+        />
         <div style={ pageWrapperStyle }>
           { this.renderChildren() }
         </div>
@@ -34,8 +39,11 @@ export default class OfficerPage extends Component {
 
 OfficerPage.propTypes = {
   officerName: PropTypes.string,
+  officerId: PropTypes.number,
+  officerTimelineUrlParams: PropTypes.string,
   activeTab: PropTypes.string,
   pathname: PropTypes.string,
+  query: PropTypes.object
 };
 
 OfficerPage.defaultProps = {

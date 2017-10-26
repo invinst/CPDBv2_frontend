@@ -40,7 +40,10 @@ describe('App component', function () {
       }
     },
     officerPage: {
-      summary: {}
+      summary: {},
+      timeline: {
+        filters: {}
+      }
     },
     genericModal: {
       activeModal: null
@@ -207,7 +210,7 @@ describe('App component', function () {
           location={ location }
           appContent='/'
         >
-          <OfficerPageContainer />
+          <OfficerPageContainer location={ { query: {} } } />
         </App>
       </Provider>
     );

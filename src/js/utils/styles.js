@@ -70,3 +70,6 @@ export const clayGray = '#8F8F8F';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular", sans-serif';
+
+
+export const sidebarWidth = 320;

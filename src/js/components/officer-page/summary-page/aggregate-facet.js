@@ -10,6 +10,7 @@ import {
 export default class AggregateFacet extends Component {
   render() {
     const { name, entries, startYear } = this.props;
+    const facetName = name;
 
     return (
       <div className='test--aggregate-facet' style={ wrapperStyle }>
@@ -21,12 +22,14 @@ export default class AggregateFacet extends Component {
               entries,
               ({ count, sustainedCount, name, items }, ind) => (
                 <AggregateRow
+                  facetName={ facetName }
                   name={ name }
                   count={ count }
                   sustainedCount={ sustainedCount }
                   key={ `aggr-row-${ind}` }
                   items={ items }
                   startYear={ startYear }
+                  pathname={ window.location.pathname }
                 />
               )
             )

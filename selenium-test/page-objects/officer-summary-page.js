@@ -36,7 +36,7 @@ class AggregateSection extends Section {
       facetGetters[`${field}Name`] = `(//div[@class="test--aggregate-facet-name"])[${index + 1}]`;
       facetGetters[`${field}EntryCount`] = `(//span[@class="test--entry-count"])[${index + 2}]`;
       facetGetters[`${field}EntrySustainedCount`] = `(//span[@class="test--entry-sustained-count"])[${index + 2}]`;
-      facetGetters[`${field}EntryName`] = `(//span[@class="test--entry-name"])[${index + 2}]`;
+      facetGetters[`${field}EntryName`] = `(//a[@class="test--entry-name"])[${index + 2}]`;
       facetGetters[`${field}Sparkline`] = `(//div[@class="test--sparkline"])[${index + 2}]`;
     });
 

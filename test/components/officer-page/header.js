@@ -7,7 +7,7 @@ import {
   findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
-import Header from 'components/officer-page/header';
+import Header, { officerPath } from 'components/officer-page/header';
 
 
 describe('Header component', function () {
@@ -42,5 +42,10 @@ describe('Header component', function () {
     );
     const activeButton = findRenderedDOMComponentWithClass(instance, 'test--header-button-active');
     activeButton.textContent.should.eql('Social Map');
+  });
+
+  it('officerPath should return right url', function () {
+    officerPath('timeline')('/officer/1/').should.eql('/officer/1/timeline/');
+    officerPath('summary')('/officer/1/summary').should.eql('/officer/1/summary/');
   });
 });

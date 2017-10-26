@@ -9,9 +9,13 @@ import reportingPageGetData from './reporting-page/get-data';
 import FAQPageGetData from './faq-page/get-data';
 import suggestionGetData from './landing-page/suggestions';
 import getSummaryData from './officer-page/get-summary';
-import getMinimapData from './officer-page/get-minimap';
+import getMinimapData, { filterMinimapItem } from './officer-page/get-minimap';
 import getSocialGraphData from './officer-page/get-social-graph';
-import getTimelineItemsData, { reversedTimelineItems, nextTimelineItems } from './officer-page/get-timeline-item';
+import getTimelineItemsData, {
+  reversedTimelineItems,
+  nextTimelineItems,
+  filterTimelineItems
+} from './officer-page/get-timeline-item';
 import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getUnitSummaryData from './unit-profile-page/get-summary';
@@ -36,10 +40,10 @@ axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'valid@email.com' })
 axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, there\'s no account registered with this email address.' });
 
-axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'valid@email.com' } )
-  .reply(200, { 'message': 'Thanks for subscribing.', crid: 2 } );
-axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'invalid@email.com' } )
-  .reply(400, { 'error': 'Sorry, we can not subscribe your email' } );
+axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'valid@email.com' })
+  .reply(200, { 'message': 'Thanks for subscribing.', crid: 2 });
+axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'invalid@email.com' })
+  .reply(400, { 'error': 'Sorry, we can not subscribe your email' });
 
 
 // remove "/" from beginning of any v1 path for axios mock adapter to work.
@@ -65,20 +69,31 @@ axiosMockClient.onGet(`${CR_URL}1/`).reply(200, getCRData());
 axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());
 
 
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-minimap/`).reply(countRequests(() => [200, getMinimapData()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { limit: 20, offset: 10 } })
   .reply(countRequests(() => [200, nextTimelineItems()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { offset: 10 } })
   .reply(countRequests(() => [200, nextTimelineItems()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { sort: 'asc' } })
   .reply(countRequests(() => [200, reversedTimelineItems()]));
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { category: 'Use of Force', race: 'Black' } })
+  .reply(countRequests(() => [200, filterTimelineItems('category=Use%20of%20Force&race=Black')]));
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { category: 'Use of Force' } })
+  .reply(countRequests(() => [200, filterTimelineItems('category=Use%20of%20Force')]));
+
 axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`).reply(countRequests(() => [200, getTimelineItemsData()]));
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-minimap/`, { params: { category: 'Use of Force', race: 'Black' } })
+  .reply(countRequests(() => [200, filterMinimapItem('category=Use%20of%20Force&race=Black')]));
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-minimap/`, { params: { category: 'Use of Force' } })
+  .reply(countRequests(() => [200, filterMinimapItem('category=Use%20of%20Force')]));
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-minimap/`).reply(countRequests(() => [200, getMinimapData()]));
 axiosMockClient.onGet(`${OFFICER_URL}1234/timeline-minimap/`).reply(countRequests(() => [200, getMinimapData(1234)]));
 axiosMockClient.onGet(`${OFFICER_URL}1234/timeline-items/`)
   .reply(countRequests(() => [200, getTimelineItemsData(1234)]));
+
 axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-minimap/`).reply(countRequests(() => [200, getMinimapData(5678)]));
 axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-items/`)
   .reply(countRequests(() => [200, getTimelineItemsData(5678)]));
+
 
 axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());
 

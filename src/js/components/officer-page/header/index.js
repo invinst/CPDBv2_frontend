@@ -8,7 +8,7 @@ import {
 } from './header.style';
 
 
-const officerPath = subPath => pathname => {
+export const officerPath = subPath => pathname => {
   if (subPath) {
     return pathname.replace(/(\d+).+/, `$1/${subPath}/`);
   }
@@ -21,9 +21,10 @@ const OFFICER_BUTTONS = [
   ['Social Map', 'social']
 ];
 
+
 export default class Header extends Component {
   render() {
-    const { officerName, pathname, activeTab } = this.props;
+    const { officerName, pathname, activeTab, officerTimelineUrlParams } = this.props;
 
     return (
       <ResponsiveFluidWidthComponent>
@@ -33,8 +34,10 @@ export default class Header extends Component {
             {
               map(OFFICER_BUTTONS, ([label, subpath], ind) => {
                 const path = officerPath(subpath)(pathname);
+                let pathWithParams = (label === 'Timeline' && officerTimelineUrlParams) ?
+                  path + officerTimelineUrlParams : path;
                 return (
-                  <Link to={ path } key={ ind }
+                  <Link to={ pathWithParams } key={ ind }
                     className={ subpath === activeTab ? 'test--header-button-active' : 'test--header-button' }
                     style={ subpath === activeTab ? activeLinkStyle : linkStyle }>
                     { label }
@@ -52,5 +55,6 @@ export default class Header extends Component {
 Header.propTypes = {
   officerName: PropTypes.string,
   activeTab: PropTypes.string,
-  pathname: PropTypes.string
+  pathname: PropTypes.string,
+  officerTimelineUrlParams: PropTypes.string
 };

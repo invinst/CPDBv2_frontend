@@ -1,6 +1,6 @@
 import {
   fetchMinimap, fetchTimelineItems, flipSortOrder, selectMinimapItem, hoverMinimapItem,
-  fetchTimelineItemsWhenIndexOutOfBound, hoverTimelineItem
+  fetchTimelineItemsWhenIndexOutOfBound, hoverTimelineItem, fetchTimelineFirstItems, changeTimelineFilters
 } from 'actions/officer-page/timeline';
 
 import {
@@ -8,7 +8,7 @@ import {
   OFFICER_TIMELINE_MINIMAP_REQUEST_FAILURE, OFFICER_TIMELINE_ITEMS_REQUEST_START,
   OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS, OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE, OFFICER_TIMELINE_FLIP_SORT_ORDER,
   OFFICER_TIMELINE_SELECT_MINIMAP_ITEM, OFFICER_TIMELINE_HOVER_MINIMAP_ITEM, DO_NOTHING_ACTION,
-  OFFICER_TIMELINE_HOVER_TIMELINE_ITEM
+  OFFICER_TIMELINE_HOVER_TIMELINE_ITEM, OFFICER_TIMELINE_FIRST_ITEMS_REQUEST_SUCCESS, OFFICER_TIMELINE_CHANGE_FILTERS
 } from 'utils/constants';
 
 describe('officer timeline actions', function () {
@@ -37,6 +37,33 @@ describe('officer timeline actions', function () {
           request: {
             url: `${OFFICER_URL}123/timeline-items/`,
             params: { a: 'a' },
+            adapter: null
+          }
+        }
+      });
+    });
+  });
+
+  describe('changeTimelineFilters', function () {
+    it('should return the right action', function () {
+      changeTimelineFilters({ a: 'a' }).should.eql({
+        type: OFFICER_TIMELINE_CHANGE_FILTERS,
+        payload: {
+          a: 'a'
+        }
+      });
+    });
+  });
+
+  describe('fetchTimelineFirstItems', function () {
+    it('should return the right action', function () {
+      fetchTimelineFirstItems(123, { a: 'a', b: 'b' }).should.eql({
+        types: [OFFICER_TIMELINE_ITEMS_REQUEST_START, OFFICER_TIMELINE_FIRST_ITEMS_REQUEST_SUCCESS,
+          OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE],
+        payload: {
+          request: {
+            url: `${OFFICER_URL}123/timeline-items/`,
+            params: { a: 'a', b: 'b' },
             adapter: null
           }
         }
