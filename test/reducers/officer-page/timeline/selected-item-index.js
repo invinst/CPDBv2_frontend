@@ -3,7 +3,7 @@ import should from 'should';
 
 import {
   OFFICER_TIMELINE_SELECT_MINIMAP_ITEM, OFFICER_TIMELINE_SELECT_TIMELINE_ITEM, OFFICER_TIMELINE_FLIP_SORT_ORDER,
-  CHANGE_OFFICER_ID
+  CHANGE_OFFICER_ID, OFFICER_TIMELINE_CLEAR_SELECTED_ITEM_INDEX
 } from 'utils/constants';
 
 
@@ -32,5 +32,9 @@ describe('selectedItemIndex reducer', function () {
 
   it('should handle CHANGE_OFFICER_ID', function () {
     should.not.exists(selectedItemIndex(1, { type: CHANGE_OFFICER_ID }));
+  });
+
+  it('should handle OFFICER_TIMELINE_CLEAR_SELECTED_ITEM_INDEX', function () {
+    should.not.exists(selectedItemIndex(1, { type: OFFICER_TIMELINE_CLEAR_SELECTED_ITEM_INDEX }));
   });
 });
