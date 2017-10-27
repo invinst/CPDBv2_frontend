@@ -1,7 +1,12 @@
 import preloadOfficerPageDataMiddleware from 'middleware/preload-officer-page-data-middleware';
 import { spy, stub } from 'sinon';
 import { changeOfficerId, fetchOfficerSummary } from 'actions/officer-page';
-import { fetchTimelineFirstItems, fetchMinimap, changeTimelineFilters } from 'actions/officer-page/timeline';
+import {
+  fetchTimelineFirstItems,
+  fetchMinimap,
+  changeTimelineFilters,
+  clearSelectedItemIndex
+} from 'actions/officer-page/timeline';
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import * as timelineSelectors from 'selectors/officer-page/timeline';
 
@@ -101,6 +106,7 @@ describe('preload-officer-page-data-middleware', function () {
       store.dispatch.calledWith(changeTimelineFilters({ race: 'Black' })).should.be.true();
       store.dispatch.calledWith(fetchTimelineFirstItems(1, { race: 'Black' })).should.be.true();
       store.dispatch.calledWith(fetchMinimap(1, { race: 'Black' })).should.be.true();
+      store.dispatch.calledWith(clearSelectedItemIndex()).should.be.true();
     });
 
   });

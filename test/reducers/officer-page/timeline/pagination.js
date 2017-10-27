@@ -38,10 +38,4 @@ describe('pagination reducer', function () {
       type: OFFICER_TIMELINE_FLIP_SORT_ORDER
     }).should.eql({ 'next': null, 'previous': null });
   });
-
-  it('should handle @@router/LOCATION_CHANGE', function () {
-    pagination({ 'next': 'next', 'previous': 'prev' }, {
-      type: '@@router/LOCATION_CHANGE'
-    }).should.eql({ 'next': null, 'previous': null });
-  });
 });
