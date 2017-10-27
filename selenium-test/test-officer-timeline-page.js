@@ -134,6 +134,18 @@ describe('officer timeline page', function () {
       crPage.element.waitForVisible();
       crPage.currentBasePath.should.equal('/complaint/968734/1/');
     });
+
+    it('should resume pagination correctly after switching to another tab and back', function () {
+      timelinePage.header.summaryButton.click();
+      summaryPage.aggregateSection.title.waitForVisible();
+
+      summaryPage.header.timelineButton.click();
+      const tenthMinimapItem = timelinePage.sidebar.itemAt(2002, 1);
+      tenthMinimapItem.waitForVisible();
+      tenthMinimapItem.click();
+
+      timelinePage.timeline.cardItemAtIndex(13).waitForVisible();
+    });
   });
 });
 
