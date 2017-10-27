@@ -18,6 +18,7 @@ export default class AggregateSection extends Component {
           <span style={ sustainedTextStyle }>{ `${sustainedCount} sustained` }</span>
         </div>
         <AggregateRow
+          pathname={ window.location.pathname }
           name='Total'
           count={ count }
           sustainedCount={ sustainedCount }
