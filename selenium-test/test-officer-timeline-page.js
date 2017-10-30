@@ -3,6 +3,7 @@
 import 'should';
 
 import timelinePage from './page-objects/officer-timeline-page';
+import summaryPage from './page-objects/officer-summary-page';
 import crPage from './page-objects/cr-page';
 import { getRequestCount } from './utils';
 
@@ -134,6 +135,18 @@ describe('officer timeline page', function () {
       crPage.element.waitForVisible();
       crPage.currentBasePath.should.equal('/complaint/968734/1/');
     });
+
+    it('should resume pagination correctly after switching to another tab and back', function () {
+      timelinePage.header.summaryButton.click();
+      summaryPage.aggregateSection.title.waitForVisible();
+
+      summaryPage.header.timelineButton.click();
+      const tenthMinimapItem = timelinePage.sidebar.itemAt(2002, 1);
+      tenthMinimapItem.waitForVisible();
+      tenthMinimapItem.click();
+
+      timelinePage.timeline.cardItemAtIndex(13).waitForVisible();
+    });
   });
 });
 
@@ -173,4 +186,43 @@ describe('Timeline page with filtered params', function () {
     timelinePage.timeline.element.getHTML().should.containEql('123456');
     timelinePage.timeline.element.getHTML().should.containEql('456123');
   });
+
+  it('should scroll down to previously selected item when revisiting Timeline with the same filter', function () {
+    timelinePage.sidebar.itemAt('2004', 1).click();
+    timelinePage.timeline.cardItemAtIndex(6).waitForVisible();
+    browser.pause(2000);
+    const prevScrollPosition = browser.element('.test--timeline-items-container').getAttribute('scrollTop');
+    prevScrollPosition.should.be.greaterThan(0); // should scroll down to focused item
+
+    // Go to any other page
+    timelinePage.header.summaryButton.click();
+    const categoryTitleLink = browser.element('(//a[@class="test--entry-name"])[2]');
+    categoryTitleLink.waitForVisible();
+
+    // Go back to timeline
+    summaryPage.header.timelineButton.click();
+    browser.pause(2000);
+
+    const newScrollPosition = browser.element('.test--timeline-items-container').getAttribute('scrollTop');
+    newScrollPosition.should.equal(prevScrollPosition);
+  });
+
+  it('should not scroll down when revisiting Timeline with a different filter', function () {
+    timelinePage.sidebar.itemAt('2004', 1).click();
+    timelinePage.timeline.cardItemAtIndex(6).waitForVisible();
+    const prevScrollPosition = browser.element('.test--timeline-items-container').getAttribute('scrollTop');
+    prevScrollPosition.should.be.greaterThan(0); // should scroll down to focused item
+
+    // Go to any other page
+    timelinePage.header.summaryButton.click();
+    const categoryTitleLink = browser.element('(//a[@class="test--entry-name"])[2]');
+    categoryTitleLink.waitForVisible();
+
+    // Go back to timeline but with a different filter
+    categoryTitleLink.click();
+
+    const newScrollPosition = browser.element('.test--timeline-items-container').getAttribute('scrollTop');
+    newScrollPosition.should.equal('0');
+  });
+
 });

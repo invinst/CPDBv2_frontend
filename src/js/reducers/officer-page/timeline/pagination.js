@@ -21,9 +21,5 @@ export default handleActions({
   [OFFICER_TIMELINE_FLIP_SORT_ORDER]: (state, action) => ({
     next: null,
     previous: null
-  }),
-  '@@router/LOCATION_CHANGE': (state, action) => ({
-    next: null,
-    previous: null
   })
 }, { 'next': null, 'previous': null });
