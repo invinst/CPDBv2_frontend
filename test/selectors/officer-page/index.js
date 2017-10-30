@@ -71,19 +71,32 @@ describe('officer page selectors', function () {
   });
 
   describe('summarySelector', function () {
+    const summary = {
+      'unit': 'unit', 'rank': 'rank', 'date_of_appt': '2015-09-23',
+      'race': 'race', 'gender': 'Male', 'badge': 'badge'
+    };
+
     it('should return summary', function () {
-      const summary = {
-        'unit': 'unit', 'rank': 'rank', 'date_of_appt': '2015-09-23',
-        'race': 'race', 'gender': 'Male', 'badge': 'badge',
-        'date_of_resignation': '2016-01-02', agency: 'CPD'
-      };
       state.officerPage = { summary };
 
       summarySelector(state).should.eql({
-        unitName: 'unit', rank: 'rank', dateOfAppt: '2015-09-23',
+        unitName: 'unit', rank: 'rank',
         race: 'race', gender: 'Male', badge: 'badge',
-        dateOfResignation: '2016-01-02', agency: 'CPD'
+        'careerDescription': '2 year veteran',
+        'careerDuration': 'SEP 23, 2015—Present'
       });
+    });
+
+    it('should return summary with resignation date in career duration', function () {
+      state.officerPage = { summary: { ...summary, 'date_of_resignation': '2016-01-02' } };
+
+      summarySelector(state).careerDuration.should.eql('SEP 23, 2015—JAN 2, 2016');
+    });
+
+    it('should return summary with agency in career description', function () {
+      state.officerPage = { summary: { ...summary, 'agency': 'CPD' } };
+
+      summarySelector(state).careerDescription.should.eql('2 years with CPD');
     });
   });
 

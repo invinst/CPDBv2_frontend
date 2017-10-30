@@ -1,8 +1,24 @@
 import { createSelector } from 'reselect';
 import { map } from 'lodash';
+import moment from 'moment';
 
 
 const getSummary = state => state.officerPage.summary;
+const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
+
+const getCareerDuration = (dateOfAppt, dateOfResignation) => {
+  const careerStart = formatCareerDate(dateOfAppt);
+  const careerEnd = dateOfResignation ? formatCareerDate(dateOfResignation) : 'Present';
+  return `${careerStart}—${careerEnd}`;
+};
+
+const getCareerDescription = (dateOfAppt, agency) => {
+  const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
+  const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
+  const agencyText = agency ? `with ${agency}` : 'veteran';
+  return `${yearsSinceAppt} ${yearText} ${agencyText}`;
+};
+
 export const getOfficerName = state => state.officerPage.fullName;
 export const getOfficerId = state => state.officerPage.officerId;
 export const getComplaintsCount = state => state.officerPage.complaintsCount;
@@ -30,13 +46,10 @@ export const summarySelector = createSelector(
   summary => ({
     unitName: summary.unit,
     rank: summary.rank ? summary.rank : 'N/A',
-    dateOfAppt: summary['date_of_appt'],
     race: summary.race,
     gender: summary.gender,
     badge: summary.badge,
-    // TODO: server doesn't actually return date_of_resignation & agency
-    // fields yet. Recheck these fields once they're implemented.
-    dateOfResignation: summary['date_of_resignation'],
-    agency: summary.agency
+    careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
+    careerDescription: getCareerDescription(summary['date_of_appt'], summary['agency'])
   })
 );

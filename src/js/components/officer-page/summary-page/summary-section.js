@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
-import moment from 'moment';
 
 import SummaryField from './summary-field';
 import ViewUnitProfileButton from './view-unit-profile-button';
@@ -10,38 +9,12 @@ import {
 
 
 export default class SummarySection extends Component {
-  formatCareerDate(inputDate) {
-    return moment(inputDate).format('ll').toUpperCase();
-  }
-
-  careerDuration() {
-    // TODO: uncomment this once resignation data is available
-    // const { dateOfAppt, dateOfResignation } = this.props.officerSummary;
-    // const careerStart = this.formatCareerDate(dateOfAppt);
-    // const careerEnd = dateOfResignation ? this.formatCareerDate(dateOfResignation) : 'Present';
-    // return `${careerStart}—${careerEnd}`;
-
-    const { dateOfAppt } = this.props.officerSummary;
-    const careerStart = this.formatCareerDate(dateOfAppt);
-    return careerStart;
-  }
-
-  careerDescription() {
-    // TODO: uncomment this once resignation data is available
-    // const { dateOfAppt, agency } = this.props.officerSummary;
-    // const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
-    // const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
-    // const agencyText = agency ? `with ${agency}` : 'veteran';
-    // return `${yearsSinceAppt} ${yearText} ${agencyText}`;
-    return '';
-  }
-
   summaryFields() {
-    const { rank, race, gender, badge } = this.props.officerSummary;
+    const { rank, race, gender, badge, careerDuration, careerDescription } = this.props.officerSummary;
 
     return [
       ['Rank', rank],
-      ['Date of Appt.', this.careerDuration(), this.careerDescription()],
+      ['Career', careerDuration, careerDescription],
       ['Badge', badge],
       ['Race', race],
       ['2016 Salary', 'DATA NOT READY'],
