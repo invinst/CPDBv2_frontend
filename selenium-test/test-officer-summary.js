@@ -3,6 +3,7 @@
 require('should');
 
 import summaryPage from './page-objects/officer-summary-page';
+import timelinePage from './page-objects/officer-timeline-page';
 import { getRequestCount } from './utils';
 
 
@@ -95,5 +96,11 @@ describe('officer summary page', function () {
 
     getRequestCount('/officers/1/social-graph/').should.equal(1);
     getRequestCount('/officers/1/summary/').should.equal(1);
+  });
+
+  it('should redirect to timeline at matching year', function () {
+    browser.element('.test--sparkline--hover-point').click();
+    timelinePage.sidebar.minimapItem.waitForVisible();
+    browser.getUrl().should.endWith('/1/timeline/?year=2015');
   });
 });
