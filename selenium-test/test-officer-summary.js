@@ -24,9 +24,9 @@ describe('officer summary page', function () {
     summaryPage.summarySection.unitValue.getText().should.equal('001');
     summaryPage.summarySection.unitLink.getText().should.equal('View unit profile');
 
-    summaryPage.summarySection.dateOfApptLabel.getText().should.equal('Date of Appt.');
-    summaryPage.summarySection.dateOfApptValue.getText().should.equal('SEP 23, 2015');
-    summaryPage.summarySection.dateOfApptDescription.getText().should.equal('');
+    summaryPage.summarySection.dateOfApptLabel.getText().should.equal('Career');
+    summaryPage.summarySection.dateOfApptValue.getText().should.equal('SEP 23, 2015—Present');
+    summaryPage.summarySection.dateOfApptDescription.getText().should.equal('2 year veteran');
 
     summaryPage.summarySection.rankLabel.getText().should.equal('Rank');
     summaryPage.summarySection.rankValue.getText().should.equal('NA');
