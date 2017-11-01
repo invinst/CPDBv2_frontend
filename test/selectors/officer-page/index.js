@@ -82,8 +82,9 @@ describe('officer page selectors', function () {
       summarySelector(state).should.eql({
         unitName: 'unit', rank: 'rank',
         race: 'race', gender: 'Male', badge: 'badge',
-        'careerDescription': '2 years',
-        'careerDuration': 'SEP 23, 2015—Present'
+        dateOfAppt: '2015-09-23',
+        careerDescription: '2 years',
+        careerDuration: 'SEP 23, 2015—Present'
       });
     });
 
