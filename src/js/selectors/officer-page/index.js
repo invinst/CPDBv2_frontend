@@ -12,11 +12,14 @@ const getCareerDuration = (dateOfAppt, dateOfResignation) => {
   return `${careerStart}—${careerEnd}`;
 };
 
-const getCareerDescription = (dateOfAppt, agency) => {
-  const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
-  const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
-  const agencyText = agency ? `with ${agency}` : 'veteran';
-  return `${yearsSinceAppt} ${yearText} ${agencyText}`;
+const getCareerDescription = (dateOfAppt, dateOfResignation) => {
+  const endYear = dateOfResignation ? moment(dateOfResignation).year() : moment().year();
+  const yearsSinceAppt = endYear - moment(dateOfAppt).year();
+  if (yearsSinceAppt < 1) {
+    return '';
+  }
+  const yearText = yearsSinceAppt === 1 ? 'year' : 'years';
+  return `${yearsSinceAppt} ${yearText}`;
 };
 
 export const getOfficerName = state => state.officerPage.fullName;
@@ -50,6 +53,6 @@ export const summarySelector = createSelector(
     gender: summary.gender,
     badge: summary.badge,
     careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
-    careerDescription: getCareerDescription(summary['date_of_appt'], summary['agency'])
+    careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation'])
   })
 );

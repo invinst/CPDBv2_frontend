@@ -82,7 +82,7 @@ describe('officer page selectors', function () {
       summarySelector(state).should.eql({
         unitName: 'unit', rank: 'rank',
         race: 'race', gender: 'Male', badge: 'badge',
-        'careerDescription': '2 year veteran',
+        'careerDescription': '2 years',
         'careerDuration': 'SEP 23, 2015—Present'
       });
     });
@@ -93,10 +93,16 @@ describe('officer page selectors', function () {
       summarySelector(state).careerDuration.should.eql('SEP 23, 2015—JAN 2, 2016');
     });
 
-    it('should return summary with agency in career description', function () {
-      state.officerPage = { summary: { ...summary, 'agency': 'CPD' } };
+    it('should return summary with 1 year in career description', function () {
+      state.officerPage = { summary: { ...summary, 'date_of_resignation': '2016-10-23' } };
 
-      summarySelector(state).careerDescription.should.eql('2 years with CPD');
+      summarySelector(state).careerDescription.should.eql('1 year');
+    });
+
+    it('should return summary without empty career description', function () {
+      state.officerPage = { summary: { ...summary, 'date_of_resignation': '2015-12-23' } };
+
+      summarySelector(state).careerDescription.should.eql('');
     });
   });
 
