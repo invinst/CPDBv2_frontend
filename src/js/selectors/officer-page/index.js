@@ -7,16 +7,31 @@ const getSummary = state => state.officerPage.summary;
 const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
 
 const getCareerDuration = (dateOfAppt, dateOfResignation) => {
+  if (!dateOfAppt && !dateOfResignation) {
+    return '';
+  }
+
   const careerStart = formatCareerDate(dateOfAppt);
   const careerEnd = dateOfResignation ? formatCareerDate(dateOfResignation) : 'Present';
   return `${careerStart}—${careerEnd}`;
 };
 
 const getCareerDescription = (dateOfAppt, agency) => {
+  if (!dateOfAppt) {
+    return '';
+  }
+
   const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
   const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
   const agencyText = agency ? `with ${agency}` : 'veteran';
   return `${yearsSinceAppt} ${yearText} ${agencyText}`;
+};
+
+const getSummaryRank = summary => {
+  if (summary.rank === undefined) {
+    return '';
+  }
+  return summary.rank ? summary.rank : 'N/A';
 };
 
 export const getOfficerName = state => state.officerPage.fullName;
@@ -45,7 +60,7 @@ export const summarySelector = createSelector(
   getSummary,
   summary => ({
     unitName: summary.unit,
-    rank: summary.rank ? summary.rank : 'N/A',
+    rank: getSummaryRank(summary),
     dateOfAppt: summary['date_of_appt'],
     race: summary.race,
     gender: summary.gender,
