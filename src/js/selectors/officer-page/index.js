@@ -46,6 +46,7 @@ export const summarySelector = createSelector(
   summary => ({
     unitName: summary.unit,
     rank: summary.rank ? summary.rank : 'N/A',
+    dateOfAppt: summary['date_of_appt'],
     race: summary.race,
     gender: summary.gender,
     badge: summary.badge,

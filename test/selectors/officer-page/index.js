@@ -82,6 +82,7 @@ describe('officer page selectors', function () {
       summarySelector(state).should.eql({
         unitName: 'unit', rank: 'rank',
         race: 'race', gender: 'Male', badge: 'badge',
+        dateOfAppt: '2015-09-23',
         'careerDescription': '2 year veteran',
         'careerDuration': 'SEP 23, 2015—Present'
       });
