@@ -16,15 +16,18 @@ const getCareerDuration = (dateOfAppt, dateOfResignation) => {
   return `${careerStart}—${careerEnd}`;
 };
 
-const getCareerDescription = (dateOfAppt, agency) => {
-  if (!dateOfAppt) {
+const getCareerDescription = (dateOfAppt, dateOfResignation) => {
+  if (!dateOfAppt && !dateOfResignation) {
     return '';
   }
 
-  const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
-  const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
-  const agencyText = agency ? `with ${agency}` : 'veteran';
-  return `${yearsSinceAppt} ${yearText} ${agencyText}`;
+  const endYear = dateOfResignation ? moment(dateOfResignation).year() : moment().year();
+  const yearsSinceAppt = endYear - moment(dateOfAppt).year();
+  if (yearsSinceAppt < 1) {
+    return '';
+  }
+  const yearText = yearsSinceAppt === 1 ? 'year' : 'years';
+  return `${yearsSinceAppt} ${yearText}`;
 };
 
 const getSummaryRank = summary => {
@@ -66,6 +69,6 @@ export const summarySelector = createSelector(
     gender: summary.gender,
     badge: summary.badge,
     careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
-    careerDescription: getCareerDescription(summary['date_of_appt'], summary['agency'])
+    careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation'])
   })
 );
