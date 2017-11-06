@@ -1,39 +1,37 @@
-import { lightBlackColor, wildSandColor, lightMineShaftColor, whiteTwoColor,
-  sanFranciscoTextFamily } from 'utils/styles';
-import { imgUrl } from 'utils/static-assets';
-import { fashionPinkColor, pinkishWhiteColor, girlyPink, lightGirlyPink, deepGirlyPink } from 'utils/styles';
+import {
+  sanFranciscoTextFamily,
+  fashionPinkColor,
+  pinkishWhiteColor,
+  girlyPink,
+  lightGirlyPink,
+  deepGirlyPink,
+  greyishColor
+} from 'utils/styles';
 import { tagsWrapperHeight, tagStyle, tagsWrapperStyle } from './search-tags.style';
 
 
 export const searchContentWrapperStyle = (aliasEditModeOn) => ({
   minHeight: '100vh',
   background: aliasEditModeOn ? lightGirlyPink : 'white',
-  fontFamily: sanFranciscoTextFamily
+  fontFamily: sanFranciscoTextFamily,
+  padding: '0 16px'
 });
 
+export const backButtonWidth = 41;
 export const backButtonStyle = {
-  background: `url(${imgUrl('arrow.svg')}) center no-repeat ${wildSandColor}`,
   display: 'inline-block',
-  width: '26px',
-  height: '26px',
-  margin: '4px 23px 5px 0',
-  border: `1px solid ${whiteTwoColor}`,
-  borderRadius: '2px'
+  fontSize: '13px',
+  color: greyishColor,
+  width: `${backButtonWidth}px`,
+  lineHeight: '32px',
+  cursor: 'pointer'
 };
 
 export const searchBoxStyle = (aliasEditModeOn) => ({
-  height: '83px',
   backgroundColor: aliasEditModeOn ? girlyPink : 'white',
-  boxSizing: 'border-box',
-  padding: '23px 16px',
-  boxShadow: `0 1px 2px 0 ${lightBlackColor}`,
+  padding: '8px 0',
   marginBottom: '1px'
 });
-
-export const helperTextStyle = {
-  padding: '16px 63px 92px',
-  color: lightMineShaftColor
-};
 
 export const plusPlaceholderHeight = 74;
 export const plusPlaceHolderStyle = {

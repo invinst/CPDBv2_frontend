@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {
   Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType
+  findRenderedComponentWithType, scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 import { stub, spy } from 'sinon';
 import { browserHistory } from 'react-router';
@@ -270,9 +270,12 @@ describe('SearchContent component', function () {
       instance = renderIntoDocument(
         <SearchContent editModeOn={ true } query='ke'/>
       );
+
       const domNode = ReactDOM.findDOMNode(instance);
       domNode.textContent.should.containEql('[+]');
-      domNode.textContent.should.not.containEql('Cancel');
+
+      scryRenderedDOMComponentsWithClass(instance, 'test--cancel-alias-button')
+        .length.should.eql(0);
     });
 
     it('should render "cancel" button when in alias edit mode', function () {
@@ -285,7 +288,8 @@ describe('SearchContent component', function () {
       );
       const domNode = ReactDOM.findDOMNode(instance);
       domNode.textContent.should.not.containEql('[+]');
-      domNode.textContent.should.containEql('Cancel');
+
+      findRenderedDOMComponentWithClass(instance, 'test--cancel-alias-button');
     });
   });
 });

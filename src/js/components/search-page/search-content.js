@@ -129,6 +129,10 @@ export default class SearchContent extends Component {
     }
   }
 
+  handleSelectRecent() {
+    // TODO
+  }
+
   renderContent(aliasEditModeOn) {
     const {
       suggestionGroups, isRequesting, tags, contentType, navigation,
@@ -137,7 +141,12 @@ export default class SearchContent extends Component {
 
     if (!query) {
       return (
-        <SearchNoInput recentSuggestions={ recentSuggestions }/>
+        <div>
+          <SearchTags
+            onSelect={ this.handleSelectRecent.bind(this) }
+            tags={ ['RECENT', 'SUGGESTED'] } />
+          <SearchNoInput recentSuggestions={ recentSuggestions }/>
+        </div>
       );
     }
 
@@ -146,7 +155,7 @@ export default class SearchContent extends Component {
     if (editModeOn) {
       if (aliasEditModeOn) {
         cancelButton = (
-          <Link to={ `/edit/${SEARCH_PATH}` } style={ cancelButtonStyle }>
+          <Link to={ `/edit/${SEARCH_PATH}` } style={ cancelButtonStyle } className='test--cancel-alias-button'>
             Cancel
           </Link>
         );
@@ -197,16 +206,18 @@ export default class SearchContent extends Component {
         className='search-page'
         style={ searchContentWrapperStyle(aliasEditModeOn) }>
         <div style={ searchBoxStyle(aliasEditModeOn) }>
-          <span
-            onClick={ this.handleGoBack }
-            className='searchbar__button--back'
-            style={ backButtonStyle }/>
           <SearchBox
             onEscape={ this.handleGoBack }
             onChange={ this.handleChange }
             onEnter={ this.handleEnter }
             navigate={ this.props.move }
             value={ this.props.query }/>
+          <span
+            onClick={ this.handleGoBack }
+            className='searchbar__button--back'
+            style={ backButtonStyle }>
+            Cancel
+          </span>
         </div>
         <div>
           { this.renderContent(aliasEditModeOn) }

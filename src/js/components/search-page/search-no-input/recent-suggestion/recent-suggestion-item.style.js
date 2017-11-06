@@ -4,7 +4,7 @@ import {
 
 
 export const suggestionItemStyle = {
-  padding: '12px 14px',
+  padding: '12px 14px 12px 0',
   borderBottom: `1px solid ${whiteTwoColor}`,
   width: '415px',
   display: 'block',
