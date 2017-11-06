@@ -13,25 +13,31 @@ import { officerPath } from 'components/officer-page/header';
 export default class AggregateRow extends Component {
   getFilteredOfficerTimelineLink(facetName, name, pathname) {
     const timelineEventQuery = facetName ? { [facetName]: name } : {};
+    const timelinePathname = officerPath('timeline')(pathname);
+    const urlParams = mapKeys(timelineEventQuery, (value, key) => key.replace('complainant ', ''));
 
-    let urlParams = mapKeys(timelineEventQuery, (value, key) => key.replace('complainant ', ''));
-    const urlParamsString = serializeFilterParams(urlParams, '?');
-    return officerPath('timeline')(pathname) + urlParamsString;
+    return (year) => {
+      if (year) {
+        urlParams.year = year;
+      }
+      const urlParamsString = serializeFilterParams(urlParams, '?');
+      return timelinePathname + urlParamsString;
+    };
   }
 
   render() {
     const { facetName, name, pathname, count, sustainedCount, items, startYear } = this.props;
-    const timelineLink = this.getFilteredOfficerTimelineLink(facetName, name, pathname);
+    const getTimelineLink = this.getFilteredOfficerTimelineLink(facetName, name, pathname);
 
     return (
       <div style={ entryStyle }>
-        <Link className='test--entry-name' style={ nameStyle } to={ timelineLink }>{ name }</Link>
+        <Link className='test--entry-name' style={ nameStyle } to={ getTimelineLink() }>{ name }</Link>
         <span className='test--entry-count' style={ countStyle }>{ count }</span>
         <span className='test--entry-sustained-count' style={ sustainedCountStyle(sustainedCount) }>
           { sustainedCount }
         </span>
         { items && (
-          <SparklinesContainer timelineLink={ timelineLink } data={ items } startYear={ startYear }/>
+          <SparklinesContainer getTimelineLink={ getTimelineLink } data={ items } startYear={ startYear }/>
         ) }
       </div>
     );
