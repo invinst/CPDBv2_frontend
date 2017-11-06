@@ -22,6 +22,10 @@ describe('location utils', function () {
     it('should return NaN if wrong url was given', function () {
       isNaN(getOfficerId('foo')).should.be.true();
     });
+
+    it('should return NaN if url is undefined', function () {
+      isNaN(getOfficerId(undefined)).should.be.true();
+    });
   });
 
   describe('hasOfficerIdChanged', function () {

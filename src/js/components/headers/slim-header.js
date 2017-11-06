@@ -19,7 +19,7 @@ import {
   slimHeaderHeight,
 } from './slim-header.style';
 
-class SlimHeader extends Component {
+export class SlimHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,11 +29,11 @@ class SlimHeader extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('scroll', this.scrollEventListener);
+    addEventListener('scroll', this.scrollEventListener);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.scrollEventListener);
+    removeEventListener('scroll', this.scrollEventListener);
   }
 
   scrollEventListener() {

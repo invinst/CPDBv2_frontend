@@ -225,4 +225,14 @@ describe('Timeline page with filtered params', function () {
     newScrollPosition.should.equal('0');
   });
 
+  it('should scroll to latest item of chosen year if provided in URL params', function () {
+    timelinePage.open(1, '?year=2004');
+    browser.pause(2000);
+
+    const container = browser.element('.test--timeline-items-container');
+    // Should have scrolled past the "Unit Change" event item above it
+    container.getText().should.not.containEql('APR 28, 2005');
+    container.getAttribute('scrollTop').should.be.greaterThan(500);
+  });
+
 });
