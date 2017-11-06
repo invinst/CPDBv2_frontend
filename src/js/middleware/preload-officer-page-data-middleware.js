@@ -3,10 +3,13 @@ import { fetchOfficerSummary, changeOfficerId } from 'actions/officer-page';
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import {
   fetchTimelineFirstItems,
-  fetchMinimap,
   changeTimelineFilters,
-  clearSelectedItemIndex
+  clearSelectedItemIndex,
 } from 'actions/officer-page/timeline';
+import {
+  fetchMinimapThenSelectTimelineItem,
+  selectLatestMinimapItemInYear
+} from 'actions/officer-page/timeline-minimap';
 import { getTimelineFilters } from 'selectors/officer-page/timeline';
 import { getOfficerId as getOfficerIdFromState } from 'selectors/officer-page';
 import { isEqual } from 'lodash';
@@ -16,6 +19,7 @@ export default store => next => action => {
 
   if (isRedirectingToOfficerTimelinePage(action)) {
     const oldQuery = getTimelineFilters(store.getState());
+    const year = action.payload.query.year;
     store.dispatch(changeTimelineFilters(action.payload.query));
     const newQuery = getTimelineFilters(store.getState());
 
@@ -23,7 +27,10 @@ export default store => next => action => {
       store.dispatch(clearSelectedItemIndex());
       const officerId = getOfficerId(action.payload.pathname);
       store.dispatch(fetchTimelineFirstItems(officerId, newQuery));
-      store.dispatch(fetchMinimap(officerId, newQuery));
+      store.dispatch(fetchMinimapThenSelectTimelineItem(officerId, newQuery, year));
+    }
+    else if (!isOfficerIdChange) {
+      store.dispatch(selectLatestMinimapItemInYear(year));
     }
   }
 
@@ -33,7 +40,13 @@ export default store => next => action => {
     store.dispatch(fetchOfficerSummary(nextOfficerId));
     store.dispatch(fetchSocialGraph(nextOfficerId));
     store.dispatch(fetchTimelineFirstItems(nextOfficerId, getTimelineFilters(store.getState())));
-    store.dispatch(fetchMinimap(nextOfficerId, getTimelineFilters(store.getState())));
+    store.dispatch(
+      fetchMinimapThenSelectTimelineItem(
+        nextOfficerId,
+        getTimelineFilters(store.getState()),
+        action.payload.query.year
+      )
+    );
   }
 
   return next(action);

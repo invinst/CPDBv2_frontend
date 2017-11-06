@@ -66,17 +66,18 @@ describe('Sparkline components', function () {
   describe('hoverPointClickHandler()', function () {
     it('should redirect to officer timeline', function () {
       const router = { push: spy() };
+      const getTimelineLink = year => `/officer/111/timeline/?race=Black&year=${year}`;
       instance = renderIntoDocument(
         <SimpleSparklines
           data={ data }
           router={ router }
           officerId={ 111 }
-          timelineLink='/officer/111/timeline/?race=Black'
+          getTimelineLink={ getTimelineLink }
         />
       );
 
-      instance.hoverPointClickHandler();
-      router.push.calledWith('/officer/111/timeline/?race=Black').should.be.true();
+      instance.hoverPointClickHandler(2000);
+      router.push.calledWith('/officer/111/timeline/?race=Black&year=2000').should.be.true();
     });
 
   });

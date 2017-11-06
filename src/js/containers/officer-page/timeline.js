@@ -7,9 +7,9 @@ import {
   fetchTimelineItemsWhenIndexOutOfBound,
   hoverTimelineItem,
   selectTimelineItem,
-  changeTimelineFilters,
-  fetchMinimap
+  changeTimelineFilters
 } from 'actions/officer-page/timeline';
+import { fetchMinimap } from 'actions/officer-page/timeline-minimap';
 import { openComplaintPage } from 'actions/bottom-sheet';
 import {
   timelineItemsHasMoreSelector,

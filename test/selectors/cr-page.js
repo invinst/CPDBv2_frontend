@@ -1,6 +1,6 @@
 import should from 'should';
 
-import { contentSelector, getCRID, getOfficerId } from 'selectors/cr-page';
+import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
 
 
 describe('CR page selectors', function () {
@@ -33,7 +33,8 @@ describe('CR page selectors', function () {
         'id': 1, 'full_name': 'Michel Foo', 'gender': 'Male', 'race': 'White', 'final_finding': 'Sustained',
         'recc_outcome': 'Reprimand', 'final_outcome': 'Reprimand', 'start_date': '2012-02-01',
         'end_date': '2013-02-01', 'category': 'Operations/Personnel Violation',
-        'subcategory': 'Neglect of duty/conduct unbecoming - on duty' };
+        'subcategory': 'Neglect of duty/conduct unbecoming - on duty'
+      };
       const state = { crs: { '123': { coaccused: [coaccusedObj] } }, crPage: { crid: 123 } };
 
       contentSelector(state).coaccused.should.eql([{
@@ -53,7 +54,7 @@ describe('CR page selectors', function () {
     });
 
     it('should set coaccused gender, race, finalFinding, finalOutcome, '
-        + 'reccOutcome, category, subcategory to Unknown if missing data', function () {
+      + 'reccOutcome, category, subcategory to Unknown if missing data', function () {
       const coaccusedObj = { 'id': 1, 'full_name': 'Michel Foo', 'start_date': '2012-02-01', 'end_date': '2013-02-01' };
       const state = { crs: { '123': { coaccused: [coaccusedObj] } }, crPage: { crid: 123 } };
 
@@ -98,13 +99,15 @@ describe('CR page selectors', function () {
 
     it('should return incidentDate and location data if cr data are available', function () {
       const state = {
-        crs: { '123': {
-          point: [1, 2],
-          'incident_date': '2011-03-24',
-          address: '123 Positiv Ave.',
-          location: 'Police Building',
-          beat: { name: '1134' }
-        } },
+        crs: {
+          '123': {
+            point: [1, 2],
+            'incident_date': '2011-03-24',
+            address: '123 Positiv Ave.',
+            location: 'Police Building',
+            beat: { name: '1134' }
+          }
+        },
         crPage: { crid: 123 }
       };
       const result = contentSelector(state);
@@ -156,6 +159,36 @@ describe('CR page selectors', function () {
         }
       };
       getOfficerId(state).should.eql(1);
+    });
+  });
+
+  describe('getDocumentAlreadyRequested', function () {
+    it('should return true when available', function () {
+      const state = {
+        crPage: {
+          crid: 111,
+          attachmentRequest: {
+            subscribedCRIDs: {
+              111: true
+            }
+          }
+        }
+      };
+      getDocumentAlreadyRequested(state).should.be.true();
+    });
+
+    it('should return false when unavailable', function () {
+      const state = {
+        crPage: {
+          crid: 111,
+          attachmentRequest: {
+            subscribedCRIDs: {
+              222: true
+            }
+          }
+        }
+      };
+      getDocumentAlreadyRequested(state).should.be.false();
     });
   });
 });
