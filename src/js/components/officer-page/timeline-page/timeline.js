@@ -95,14 +95,10 @@ Timeline.propTypes = {
 };
 
 Timeline.defaultProps = {
-  fetchTimelineItems: () => {
-  },
-  fetchTimelineFullItems: () => {
-  },
-  fetchMinimap: () => {
-  },
-  changeTimelineFilters: () => {
-  }
+  fetchTimelineItems: () => {},
+  fetchTimelineFullItems: () => {},
+  fetchMinimap: () => {},
+  changeTimelineFilters: () => {}
 };
 
 Timeline.childContextTypes = {
