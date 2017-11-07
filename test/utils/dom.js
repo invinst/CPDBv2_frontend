@@ -113,10 +113,14 @@ describe('dom utils', function () {
   });
 
   describe('scrollToElement', function () {
-    before(function () {
+    beforeEach(function () {
       this.stubQuerySelector = stub(document, 'querySelector');
       this.dummyElement = { scrollIntoView: spy() };
       this.stubQuerySelector.withArgs('#dummy').returns(this.dummyElement);
+    });
+
+    afterEach(function () {
+      this.stubQuerySelector.restore();
     });
 
     it('should call appropriate method on selected element to scroll to it', function () {
@@ -124,8 +128,9 @@ describe('dom utils', function () {
       this.dummyElement.scrollIntoView.called.should.be.true();
     });
 
-    after(function () {
-      this.stubQuerySelector.restore();
+    it('should abort if element was not found', function () {
+      scrollToElement('#nonexistent');
+      this.dummyElement.scrollIntoView.called.should.be.false();
     });
   });
 });
