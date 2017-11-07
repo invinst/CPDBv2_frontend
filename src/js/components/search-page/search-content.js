@@ -136,7 +136,8 @@ export default class SearchContent extends Component {
   renderContent(aliasEditModeOn) {
     const {
       suggestionGroups, isRequesting, tags, contentType, navigation,
-      isEmpty, recentSuggestions, trackRecentSuggestion, query, editModeOn
+      isEmpty, recentSuggestions, trackRecentSuggestion, query, editModeOn,
+      officerCards, requestActivityGrid
     } = this.props;
 
     if (!query) {
@@ -144,8 +145,12 @@ export default class SearchContent extends Component {
         <div>
           <SearchTags
             onSelect={ this.handleSelectRecent.bind(this) }
-            tags={ ['RECENT', 'SUGGESTED'] } />
-          <SearchNoInput recentSuggestions={ recentSuggestions }/>
+            tags={ ['RECENT'] }/>
+          <SearchNoInput
+            recentSuggestions={ recentSuggestions }
+            officerCards={ officerCards }
+            requestActivityGrid={ requestActivityGrid }
+          />
         </div>
       );
     }
@@ -248,7 +253,9 @@ SearchContent.propTypes = {
   query: PropTypes.string,
   changeSearchQuery: PropTypes.func,
   resetNavigation: PropTypes.func,
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
+  officerCards: PropTypes.array,
+  requestActivityGrid: PropTypes.func
 };
 
 SearchContent.defaultProps = {

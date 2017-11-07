@@ -11,6 +11,9 @@ export default class ActivityGrid extends Component {
 
   render() {
     const { cards } = this.props;
+    const visualTokenStyle = { height: 'calc(25vw - 32px)', minHeight: '160px' };
+    const cardStyle = { width: '25%' };
+
     return (
       <ResponsiveFluidWidthComponent>
         { cards.map(({ id, fullName, visualTokenBackgroundColor }) =>
@@ -19,6 +22,8 @@ export default class ActivityGrid extends Component {
             fullName={ fullName }
             key={ id }
             visualTokenBackgroundColor={ visualTokenBackgroundColor }
+            visualTokenStyle={ visualTokenStyle }
+            cardStyle={ cardStyle }
             />
           )
         }

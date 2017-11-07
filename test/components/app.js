@@ -30,6 +30,11 @@ describe('App component', function () {
     adapter: 'adapter',
     reports: { 1: {} },
     faqs: { 1: {} },
+    landingPage: {
+      activityGrid: {
+        cards: []
+      }
+    },
     searchPage: {
       navigation: {}
     },

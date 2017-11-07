@@ -7,13 +7,18 @@ import { wrapperStyle, officerTextStyle, fullNameTextStyle, visualTokenStyle } f
 
 export default class OfficerCard extends Component {
   render() {
-    const { officerId, fullName, visualTokenBackgroundColor } = this.props;
+    const { officerId, fullName, visualTokenBackgroundColor, cardStyle } = this.props;
     return (
-      <Link to={ `/officer/${officerId}/` } style={ wrapperStyle } className='test--activity-grid-section-card'>
+      <Link
+        to={ `/officer/${officerId}/` }
+        style={ { ...wrapperStyle, ...cardStyle } }
+        className='test--activity-grid-section-card'
+      >
         <OfficerVisualToken
-          style={ visualTokenStyle }
+          style={ { ...visualTokenStyle, ...this.props.visualTokenStyle } }
           officerId={ officerId }
-          backgroundColor={ visualTokenBackgroundColor }/>
+          backgroundColor={ visualTokenBackgroundColor }
+        />
         <p style={ officerTextStyle }>Officer</p>
         <p style={ fullNameTextStyle }>{ fullName }</p>
       </Link>
@@ -24,5 +29,7 @@ export default class OfficerCard extends Component {
 OfficerCard.propTypes = {
   officerId: PropTypes.number,
   fullName: PropTypes.string,
-  visualTokenBackgroundColor: PropTypes.string
+  visualTokenBackgroundColor: PropTypes.string,
+  cardStyle: PropTypes.object,
+  visualTokenStyle: PropTypes.object
 };

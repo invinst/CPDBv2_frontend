@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { isEmpty } from 'lodash';
 
 import RecentSuggestion from './recent-suggestion';
+import SuggestedCards from 'components/search-page/search-no-input/suggested-cards';
+import { horizontallyScrollableStyle } from './search-no-input.style';
 
 
 export default class SuggestionNoInput extends Component {
@@ -18,14 +20,21 @@ export default class SuggestionNoInput extends Component {
   }
 
   render() {
+    const { officerCards, requestActivityGrid } = this.props;
     return (
-      <div>
+      <div style={ horizontallyScrollableStyle }>
         { this.renderRecentSuggestion() }
+        <SuggestedCards
+          cards={ officerCards }
+          requestActivityGrid={ requestActivityGrid }
+        />
       </div>
     );
   }
 }
 
 SuggestionNoInput.propTypes = {
-  recentSuggestions: PropTypes.array
+  recentSuggestions: PropTypes.array,
+  officerCards: PropTypes.array,
+  requestActivityGrid: PropTypes.func
 };

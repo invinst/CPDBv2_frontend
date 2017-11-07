@@ -1,11 +1,11 @@
-import { sanFranciscoTextFamily, whiteTwoColor, mediumGrayColor, softBlackColor } from 'utils/styles';
+import { sanFranciscoTextFamily, whiteTwoColor, softBlackColor, greyishColor } from 'utils/styles';
 
 
 export const groupHeaderStyle = {
-  borderLeft: `8px solid ${mediumGrayColor}`,
-  color: mediumGrayColor,
-  marginBottom: '26px',
-  paddingLeft: '8px',
+  color: greyishColor,
+  marginTop: '38px',
+  marginBottom: '18px',
+  height: '8px',
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
   letterSpacing: '0.5px'
@@ -14,8 +14,6 @@ export const groupHeaderStyle = {
 export const suggestionGroupStyle = {
   display: 'inline-block',
   verticalAlign: 'top',
-  marginLeft: '31px',
-  borderLeft: `1px solid ${whiteTwoColor}`
 };
 
 export const noResultItemStyle = {

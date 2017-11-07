@@ -10,6 +10,11 @@ import {
 import { tagsWrapperHeight, tagStyle, tagsWrapperStyle } from './search-tags.style';
 
 
+export const searchBoxLineHeight = 32;
+const searchBoxPadding = 8;
+export const searchBoxHeight = searchBoxLineHeight + searchBoxPadding * 2;
+export const backButtonWidth = 41;
+
 export const searchContentWrapperStyle = (aliasEditModeOn) => ({
   minHeight: '100vh',
   background: aliasEditModeOn ? lightGirlyPink : 'white',
@@ -17,7 +22,6 @@ export const searchContentWrapperStyle = (aliasEditModeOn) => ({
   padding: '0 16px'
 });
 
-export const backButtonWidth = 41;
 export const backButtonStyle = {
   display: 'inline-block',
   fontSize: '13px',
@@ -29,8 +33,7 @@ export const backButtonStyle = {
 
 export const searchBoxStyle = (aliasEditModeOn) => ({
   backgroundColor: aliasEditModeOn ? girlyPink : 'white',
-  padding: '8px 0',
-  marginBottom: '1px'
+  padding: `${searchBoxPadding}px 0 9px 0`,
 });
 
 export const plusPlaceholderHeight = 74;
