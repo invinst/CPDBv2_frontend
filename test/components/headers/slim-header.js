@@ -1,19 +1,23 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
 import { FAQ_PATH } from 'utils/constants';
-import SlimHeader from 'components/headers/slim-header';
+import { SlimHeader } from 'components/headers/slim-header';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithTag
+  scryRenderedDOMComponentsWithTag,
+  findRenderedComponentWithType,
+  scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { Link } from 'react-router';
 import MockStore from 'redux-mock-store';
 import ContextWrapper from 'utils/test/components/context-wrapper';
-import { spy } from 'sinon';
+import { stub, spy } from 'sinon';
 
-class SlimHeaderContextWrapper extends ContextWrapper {}
+class SlimHeaderContextWrapper extends ContextWrapper {
+}
+
 SlimHeaderContextWrapper.childContextTypes = {
   editModeOn: PropTypes.bool
 };
@@ -25,8 +29,28 @@ describe('SlimHeader component', function () {
     authentication: {}
   });
 
+
+  beforeEach(function () {
+    window.scrollTo(0, 0);
+    stub(window, 'addEventListener');
+    stub(window, 'removeEventListener');
+  });
+
   afterEach(function () {
+    window.addEventListener.restore();
+    window.removeEventListener.restore();
     unmountComponentSuppressError(element);
+  });
+
+  it('should render nothing if "show" prop is false', function () {
+    element = renderIntoDocument(
+      <Provider store={ store }>
+        <SlimHeaderContextWrapper context={ { editModeOn: false } }>
+          <SlimHeader show={ false }/>
+        </SlimHeaderContextWrapper>
+      </Provider>
+    );
+    scryRenderedDOMComponentsWithClass(element, 'test--slim-header').length.should.eql(0);
   });
 
   it('should render Legal Disclaimer link', function () {
@@ -34,7 +58,7 @@ describe('SlimHeader component', function () {
     element = renderIntoDocument(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
+          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/'/>
         </SlimHeaderContextWrapper>
       </Provider>
     );
@@ -49,7 +73,7 @@ describe('SlimHeader component', function () {
     element = renderIntoDocument(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
+          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/'/>
         </SlimHeaderContextWrapper>
       </Provider>
     );
@@ -64,7 +88,7 @@ describe('SlimHeader component', function () {
     element = renderIntoDocument(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
+          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/'/>
         </SlimHeaderContextWrapper>
       </Provider>
     );
@@ -79,7 +103,7 @@ describe('SlimHeader component', function () {
     element = renderIntoDocument(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
+          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/'/>
         </SlimHeaderContextWrapper>
       </Provider>
     );
@@ -89,4 +113,41 @@ describe('SlimHeader component', function () {
     link.getAttribute('href').should.eql('https://beta.cpdb.co/glossary/');
   });
 
+  it('should subscribe & unsubscribe scrollEventListener on mount & unmount', function () {
+
+    element = renderIntoDocument(
+      <Provider store={ store }>
+        <SlimHeaderContextWrapper context={ { editModeOn: false } }>
+          <SlimHeader show={ true } pathname='/'/>
+        </SlimHeaderContextWrapper>
+      </Provider>
+    );
+
+    const slimHeader = findRenderedComponentWithType(element, SlimHeader);
+    window.addEventListener.calledWith('scroll', slimHeader.scrollEventListener).should.be.true();
+
+    unmountComponentSuppressError(element);
+    window.removeEventListener.calledWith('scroll', slimHeader.scrollEventListener).should.be.true();
+  });
+
+  it('should toggle subtitle when scrolling up or down', function () {
+    const element = renderIntoDocument(
+      <Provider store={ store }>
+        <SlimHeaderContextWrapper context={ { editModeOn: false } }>
+          <SlimHeader show={ true } pathname='/'/>
+        </SlimHeaderContextWrapper>
+      </Provider>
+    );
+
+    const slimHeader = findRenderedComponentWithType(element, SlimHeader);
+    slimHeader.state.showSubtitle.should.be.true();
+
+    window.scrollY = 999;
+    slimHeader.scrollEventListener();
+    slimHeader.state.showSubtitle.should.be.false();
+
+    window.scrollY = 0;
+    slimHeader.scrollEventListener();
+    slimHeader.state.showSubtitle.should.be.true();
+  });
 });

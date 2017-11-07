@@ -40,10 +40,9 @@ export default class SimpleSparklines extends React.Component {
     });
   }
 
-  hoverPointClickHandler() {
-    const { router, timelineLink } = this.props;
-    router.push(timelineLink);
-    // TODO: Should scroll to selected year too.
+  hoverPointClickHandler(year) {
+    const { router, getTimelineLink } = this.props;
+    router.push(getTimelineLink(year));
   }
 
   renderHoverPoints(data) {
@@ -82,7 +81,7 @@ export default class SimpleSparklines extends React.Component {
       const y = (count - minCount) / maxCount * HEIGHT + 3.5;
       return (
         <HoverPoint
-          clickHandler={ this.hoverPointClickHandler.bind(this) }
+          clickHandler={ this.hoverPointClickHandler.bind(this, year) }
           i={ i }
           y={ y }
           hasSustainedCR={ hasSustainedCR }
@@ -123,7 +122,7 @@ SimpleSparklines.propTypes = {
   router: PropTypes.object,
   officerId: PropTypes.number,
   startYear: PropTypes.number,
-  timelineLink: PropTypes.string
+  getTimelineLink: PropTypes.func
 };
 
 SimpleSparklines.defaultProps = {
