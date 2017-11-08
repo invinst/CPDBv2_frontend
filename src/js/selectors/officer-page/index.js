@@ -1,8 +1,42 @@
 import { createSelector } from 'reselect';
 import { map } from 'lodash';
+import moment from 'moment';
 
 
 const getSummary = state => state.officerPage.summary;
+const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
+
+const getCareerDuration = (dateOfAppt, dateOfResignation) => {
+  if (!dateOfAppt && !dateOfResignation) {
+    return '';
+  }
+
+  const careerStart = formatCareerDate(dateOfAppt);
+  const careerEnd = dateOfResignation ? formatCareerDate(dateOfResignation) : 'Present';
+  return `${careerStart}—${careerEnd}`;
+};
+
+const getCareerDescription = (dateOfAppt, dateOfResignation) => {
+  if (!dateOfAppt && !dateOfResignation) {
+    return '';
+  }
+
+  const endYear = dateOfResignation ? moment(dateOfResignation).year() : moment().year();
+  const yearsSinceAppt = endYear - moment(dateOfAppt).year();
+  if (yearsSinceAppt < 1) {
+    return '';
+  }
+  const yearText = yearsSinceAppt === 1 ? 'year' : 'years';
+  return `${yearsSinceAppt} ${yearText}`;
+};
+
+const getSummaryRank = summary => {
+  if (summary.rank === undefined) {
+    return '';
+  }
+  return summary.rank ? summary.rank : 'N/A';
+};
+
 export const getOfficerName = state => state.officerPage.fullName;
 export const getOfficerId = state => state.officerPage.officerId;
 export const getComplaintsCount = state => state.officerPage.complaintsCount;
@@ -29,14 +63,12 @@ export const summarySelector = createSelector(
   getSummary,
   summary => ({
     unitName: summary.unit,
-    rank: summary.rank ? summary.rank : 'N/A',
+    rank: getSummaryRank(summary),
     dateOfAppt: summary['date_of_appt'],
     race: summary.race,
     gender: summary.gender,
     badge: summary.badge,
-    // TODO: server doesn't actually return date_of_resignation & agency
-    // fields yet. Recheck these fields once they're implemented.
-    dateOfResignation: summary['date_of_resignation'],
-    agency: summary.agency
+    careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
+    careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation'])
   })
 );
