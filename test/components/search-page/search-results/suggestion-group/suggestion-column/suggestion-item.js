@@ -21,6 +21,7 @@ import
 from 'components/search-page/search-results/suggestion-group/suggestion-column/suggestion-item-text';
 
 import { unmountComponentSuppressError } from 'utils/test';
+import OfficerVisualToken from 'components/visual-token/officer-visual-token';
 
 
 describe('<SuggestionItem/>', function () {
@@ -72,6 +73,35 @@ describe('<SuggestionItem/>', function () {
     findRenderedComponentWithType(instance, Link);
   });
 
+  it('should render OfficerVisualToken component when suggestionType is officer', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SuggestionItem
+          suggestion={ { payload: {
+            to: 'abc',
+            'visual_token_background_color': 'red'
+          } } }
+          suggestionType='officer'
+      />
+      </Provider>
+    );
+    findRenderedComponentWithType(instance, OfficerVisualToken);
+  });
+
+  it('should render suggestion thumbnail placeholder when suggestionType is not officer', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SuggestionItem
+          suggestion={ { payload: {
+            to: 'abc',
+          } } }
+          suggestionType='not officer'
+      />
+      </Provider>
+    );
+    findRenderedDOMComponentWithClass(instance, 'test--suggestion-thumbnail-placeholder');
+  });
+
   describe('when focused/hovered', function () {
     beforeEach(function () {
       this.suggestion = {
@@ -94,7 +124,8 @@ describe('<SuggestionItem/>', function () {
       const extraText = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-extra-text');
       const reason = findRenderedDOMComponentWithClass(instance, 'test--suggestion-item-reason');
       text.style.color.should.eql('rgb(0, 94, 244)');
-      extraText.style.color.should.eql('rgb(76, 142, 248)');
+      extraText.style.color.should.eql('rgb(0, 94, 244)');
+      extraText.style.opacity.should.eql('0.5');
       reason.style.color.should.eql('rgb(76, 142, 248)');
     });
 

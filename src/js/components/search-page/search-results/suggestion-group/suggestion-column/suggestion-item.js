@@ -7,8 +7,10 @@ import Hoverable from 'components/common/higher-order/hoverable';
 import SuggestionItemTextContainer from 'containers/search-page/suggestion-item-text-container';
 import SuggestionEnterBadge from './suggestion-item-enter-badge';
 import {
-  suggestionItemStyle
+  suggestionItemStyle, visualTokenStyle
 } from './suggestion-item.style';
+import OfficerVisualToken from 'components/visual-token/officer-visual-token';
+import { altoColor } from 'utils/styles';
 
 
 class SuggestionItem extends Component {
@@ -37,6 +39,10 @@ class SuggestionItem extends Component {
     suggestionClick(contentType, text, href, to);
   }
 
+  renderSuggestionThumbnail() {
+
+  }
+
   render() {
     const { suggestion, hovering, isFocused, aliasEditModeOn, suggestionType } = this.props;
     const text = get(suggestion, 'payload.result_text', '');
@@ -46,13 +52,36 @@ class SuggestionItem extends Component {
     const extraText = get(suggestion, 'payload.result_extra_information', '');
     const suggestionItemClassName = classnames('suggestion-item', { 'focused': isFocused });
     const reason = get(suggestion, 'payload.result_reason', '');
+    const visualTokenBackgroundColor = get(suggestion, 'payload.visual_token_background_color', '');
 
     const commonWrapperProps = {
       style: suggestionItemStyle,
       onClick: this.handleClick.bind(this, text, href, to)
     };
 
+
+    let suggestionThumbnail = null;
+    if (suggestionType === 'officer') {
+      suggestionThumbnail = (
+        <OfficerVisualToken
+          key='suggestion-thumbnail'
+          officerId={ parseInt(suggestion.id) }
+          backgroundColor={ visualTokenBackgroundColor }
+          style={ visualTokenStyle }
+        />
+      );
+    } else {
+      suggestionThumbnail = (
+        <div
+          className='test--suggestion-thumbnail-placeholder'
+          key='suggestion-thumbnail'
+          style={ { ...visualTokenStyle, backgroundColor: altoColor } }
+        />
+      );
+    }
+
     const children = [
+      suggestionThumbnail,
       <SuggestionEnterBadge
         key='enter-badge'
         isFocused={ isFocused }
@@ -72,10 +101,12 @@ class SuggestionItem extends Component {
       />
     ];
 
-    const linkTag = (to ?
-      <Link to={ to } { ...commonWrapperProps }>{ children }</Link> :
-      <a href={ href } { ...commonWrapperProps } >{ children }</a>
-    );
+    let linkTag;
+    if (to) {
+      linkTag = <Link to={ to } { ...commonWrapperProps }>{ children }</Link>;
+    } else {
+      linkTag = <a href={ href } { ...commonWrapperProps } >{ children }</a>;
+    }
 
     return (
       <div className={ suggestionItemClassName } id={ this.props.id }>

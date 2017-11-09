@@ -20,7 +20,7 @@ export const noResultItemStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
   color: softBlackColor,
-  padding: '12px 14px',
+  padding: '6px 0',
   borderBottom: `1px solid ${whiteTwoColor}`,
   width: '415px',
   height: '32px'

@@ -37,13 +37,9 @@ export const searchBoxStyle = (aliasEditModeOn) => ({
 });
 
 export const plusPlaceholderHeight = 74;
-export const plusPlaceHolderStyle = {
-  height: `${plusPlaceholderHeight}px`,
-  marginBottom: '20px'
-};
 
 export const plusWrapperStyle = {
-  height: '100%',
+  height: `${plusPlaceholderHeight}px`,
   textAlign: 'center',
   fontSize: '36px',
   color: fashionPinkColor,

@@ -1,25 +1,24 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import { isEmpty, debounce, head } from 'lodash';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
+import { debounce, head, isEmpty } from 'lodash';
 
 import SearchResults from './search-results';
 import SearchBox from './search-box';
 import SearchTags from './search-tags';
 import SearchNoInput from './search-no-input';
 import {
-  backButtonStyle, searchContentWrapperStyle, searchBoxStyle,
-  plusPlaceHolderStyle, plusWrapperStyle, plusSignStyle, cancelButtonStyle, buttonsWrapperStyle
+  backButtonStyle,
+  buttonsWrapperStyle,
+  cancelButtonStyle,
+  plusSignStyle,
+  plusWrapperStyle,
+  searchBoxStyle,
+  searchContentWrapperStyle
 } from './search-content.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import {
-  NAVIGATION_KEYS,
-  SEARCH_ALIAS_EDIT_PATH,
-  SEARCH_PATH,
-  ROOT_PATH
-} from 'utils/constants';
+import { NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_PATH } from 'utils/constants';
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
 
@@ -175,7 +174,6 @@ export default class SearchContent extends Component {
 
     return (
       <div>
-
         <div style={ buttonsWrapperStyle }>
           <SearchTags
             tags={ tags }
@@ -185,9 +183,7 @@ export default class SearchContent extends Component {
           { cancelButton }
         </div>
 
-        <div style={ plusPlaceHolderStyle }>
-          { plusButton }
-        </div>
+        { plusButton }
 
         <SearchResults
           navigation={ navigation }

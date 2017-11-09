@@ -39,7 +39,7 @@ describe('SuggestionGroup component', function () {
     findDOMNode(instance).textContent.should.not.containEql('Show more results');
   });
 
-  it('should render `Show more results` if canLoadMore is true', function () {
+  it('should render `All` if canLoadMore is true', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SuggestionGroup
@@ -47,6 +47,6 @@ describe('SuggestionGroup component', function () {
           canLoadMore={ true } />
       </Provider>
     );
-    findDOMNode(instance).textContent.should.containEql('Show more results');
+    findDOMNode(instance).textContent.should.containEql('All');
   });
 });
