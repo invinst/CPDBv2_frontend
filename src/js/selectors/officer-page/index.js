@@ -7,16 +7,34 @@ const getSummary = state => state.officerPage.summary;
 const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
 
 const getCareerDuration = (dateOfAppt, dateOfResignation) => {
+  if (!dateOfAppt && !dateOfResignation) {
+    return '';
+  }
+
   const careerStart = formatCareerDate(dateOfAppt);
   const careerEnd = dateOfResignation ? formatCareerDate(dateOfResignation) : 'Present';
   return `${careerStart}—${careerEnd}`;
 };
 
-const getCareerDescription = (dateOfAppt, agency) => {
-  const yearsSinceAppt = moment().year() - moment(dateOfAppt).year();
-  const yearText = !agency || yearsSinceAppt === 1 ? 'year' : 'years';
-  const agencyText = agency ? `with ${agency}` : 'veteran';
-  return `${yearsSinceAppt} ${yearText} ${agencyText}`;
+const getCareerDescription = (dateOfAppt, dateOfResignation) => {
+  if (!dateOfAppt && !dateOfResignation) {
+    return '';
+  }
+
+  const endYear = dateOfResignation ? moment(dateOfResignation).year() : moment().year();
+  const yearsSinceAppt = endYear - moment(dateOfAppt).year();
+  if (yearsSinceAppt < 1) {
+    return '';
+  }
+  const yearText = yearsSinceAppt === 1 ? 'year' : 'years';
+  return `${yearsSinceAppt} ${yearText}`;
+};
+
+const getSummaryRank = summary => {
+  if (summary.rank === undefined) {
+    return '';
+  }
+  return summary.rank ? summary.rank : 'N/A';
 };
 
 export const getOfficerName = state => state.officerPage.fullName;
@@ -45,12 +63,12 @@ export const summarySelector = createSelector(
   getSummary,
   summary => ({
     unitName: summary.unit,
-    rank: summary.rank ? summary.rank : 'N/A',
+    rank: getSummaryRank(summary),
     dateOfAppt: summary['date_of_appt'],
     race: summary.race,
     gender: summary.gender,
     badge: summary.badge,
     careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
-    careerDescription: getCareerDescription(summary['date_of_appt'], summary['agency'])
+    careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation'])
   })
 );
