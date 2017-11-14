@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType
+  renderIntoDocument, findRenderedComponentWithType, scryRenderedComponentsWithType,
+  findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 import { Motion } from 'react-motion';
@@ -8,7 +9,6 @@ import { Motion } from 'react-motion';
 import { TimelineItemType } from 'utils/constants';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import CrItem from 'components/officer-page/timeline-page/cr-item';
-import YearItem from 'components/officer-page/timeline-page/year-item';
 import UnitItem from 'components/officer-page/timeline-page/unit-item';
 import JoinedItem from 'components/officer-page/timeline-page/joined-item';
 import { TimelineItem } from 'components/officer-page/timeline-page/timeline-item';
@@ -39,11 +39,12 @@ describe('TimelineItem component', function () {
     findRenderedComponentWithType(instance, JoinedItem);
   });
 
-  it('should render cr item when received a cr item', function () {
+  it('should not render year item', function () {
     instance = renderIntoDocument(
       <TimelineItem item={ { kind: TimelineItemType.YEAR } }/>
     );
-    findRenderedComponentWithType(instance, YearItem);
+    const year = findRenderedDOMComponentWithClass(instance, 'test--card-item');
+    year.textContent.should.eql('');
   });
 
   it('should render cr item when received a cr item', function () {

@@ -71,6 +71,8 @@ axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());
 
 axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { limit: 20, offset: 10 } })
   .reply(countRequests(() => [200, nextTimelineItems()]));
+axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { limit: 0, offset: 10 } })
+  .reply(countRequests(() => [200, nextTimelineItems()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { offset: '10' } })
   .reply(countRequests(() => [200, nextTimelineItems()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { sort: 'asc' } })
