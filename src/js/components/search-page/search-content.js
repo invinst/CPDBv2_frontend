@@ -211,7 +211,6 @@ export default class SearchContent extends Component {
             onEscape={ this.handleGoBack }
             onChange={ this.handleChange }
             onEnter={ this.handleEnter }
-            navigate={ this.props.move }
             value={ this.props.query }/>
           <span
             onClick={ this.handleGoBack }

@@ -9,8 +9,8 @@ import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
 
+import TextInput from 'components/common/input';
 import SearchTags from 'components/search-page/search-tags';
-import SearchBox from 'components/search-page/search-box';
 import SearchContent from 'components/search-page/search-content';
 import { unmountComponentSuppressError } from 'utils/test';
 import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
@@ -127,8 +127,8 @@ describe('SearchContent component', function () {
       <SearchContent suggestionGroups={ suggestionGroups } />
     );
 
-    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
-    searchComponent.mousetrap.trigger('enter');
+    const input = findRenderedComponentWithType(instance, TextInput);
+    input.mousetrap.trigger('enter');
     this.locationAssign.calledWith('url').should.be.true();
     this.browserHistoryPush.called.should.be.false();
   });
@@ -147,8 +147,8 @@ describe('SearchContent component', function () {
       <SearchContent suggestionGroups={ suggestionGroups } />
     );
 
-    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
-    searchComponent.mousetrap.trigger('enter');
+    const input = findRenderedComponentWithType(instance, TextInput);
+    input.mousetrap.trigger('enter');
     this.browserHistoryPush.calledWith('to').should.be.true();
     this.locationAssign.called.should.be.false();
   });
@@ -158,8 +158,8 @@ describe('SearchContent component', function () {
       <SearchContent query={ 'something' }/>
     );
 
-    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
-    searchComponent.mousetrap.trigger('enter');
+    const input = findRenderedComponentWithType(instance, TextInput);
+    input.mousetrap.trigger('enter');
 
     this.locationAssign.calledWith('http://cpdb.lvh.me/s/something').should.be.true();
   });
@@ -179,8 +179,8 @@ describe('SearchContent component', function () {
       <SearchContent suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }/>
     );
 
-    const searchComponent = findRenderedComponentWithType(instance, SearchBox);
-    searchComponent.mousetrap.trigger('enter');
+    const input = findRenderedComponentWithType(instance, TextInput);
+    input.mousetrap.trigger('enter');
     trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url').should.be.true();
   });
 

@@ -27,8 +27,9 @@ export const backButtonStyle = {
   fontSize: '13px',
   color: greyishColor,
   width: `${backButtonWidth}px`,
-  lineHeight: '32px',
-  cursor: 'pointer'
+  cursor: 'pointer',
+  position: 'relative',
+  top: '6px'
 };
 
 export const searchBoxStyle = (aliasEditModeOn) => ({
