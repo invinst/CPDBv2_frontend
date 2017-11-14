@@ -1,16 +1,15 @@
-import { whiteTwoColor, mediumGrayColor, sanFranciscoTextFamily } from 'utils/styles';
+import { greyishColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
-const headerInnerHeight = 16;
-const headerMarginBottom = 26;
+const headerInnerHeight = 18;
+const headerMarginBottom = 8;
 export const headerHeight = headerInnerHeight + headerMarginBottom;
 
 export const groupHeaderStyle = {
-  borderLeft: `8px solid ${mediumGrayColor}`,
-  color: mediumGrayColor,
+  color: greyishColor,
+  marginTop: '38px',
   marginBottom: `${headerMarginBottom}px`,
   height: `${headerInnerHeight}px`,
-  paddingLeft: '8px',
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
   letterSpacing: '0.5px'
@@ -18,7 +17,5 @@ export const groupHeaderStyle = {
 
 export const suggestionGroupStyle = {
   display: 'inline-block',
-  verticalAlign: 'top',
-  marginLeft: '31px',
-  borderLeft: `1px solid ${whiteTwoColor}`
+  verticalAlign: 'top'
 };

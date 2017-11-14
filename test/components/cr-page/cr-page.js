@@ -9,7 +9,7 @@ import Header from 'components/cr-page/header';
 import OfficerRow from 'components/cr-page/officer-row';
 import MultiRow from 'components/cr-page/multi-row';
 import FindingRow from 'components/cr-page/finding-row';
-import Row from 'components/cr-page/row';
+import Row from 'components/common/row';
 import Location from 'components/cr-page/location';
 import Attachments from 'components/cr-page/attachments';
 import { unmountComponentSuppressError, reRender } from 'utils/test';

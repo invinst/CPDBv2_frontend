@@ -1,25 +1,24 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import { isEmpty, debounce, head } from 'lodash';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
+import { debounce, head, isEmpty } from 'lodash';
 
 import SearchResults from './search-results';
 import SearchBox from './search-box';
 import SearchTags from './search-tags';
 import SearchNoInput from './search-no-input';
 import {
-  backButtonStyle, searchContentWrapperStyle, searchBoxStyle,
-  plusPlaceHolderStyle, plusWrapperStyle, plusSignStyle, cancelButtonStyle, buttonsWrapperStyle
+  backButtonStyle,
+  buttonsWrapperStyle,
+  cancelButtonStyle,
+  plusSignStyle,
+  plusWrapperStyle,
+  searchBoxStyle,
+  searchContentWrapperStyle
 } from './search-content.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import {
-  NAVIGATION_KEYS,
-  SEARCH_ALIAS_EDIT_PATH,
-  SEARCH_PATH,
-  ROOT_PATH
-} from 'utils/constants';
+import { NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_PATH } from 'utils/constants';
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
 
@@ -129,15 +128,29 @@ export default class SearchContent extends Component {
     }
   }
 
+  handleSelectRecent() {
+    // TODO
+  }
+
   renderContent(aliasEditModeOn) {
     const {
       suggestionGroups, isRequesting, tags, contentType, navigation,
-      isEmpty, recentSuggestions, trackRecentSuggestion, query, editModeOn
+      isEmpty, recentSuggestions, trackRecentSuggestion, query, editModeOn,
+      officerCards, requestActivityGrid
     } = this.props;
 
     if (!query) {
       return (
-        <SearchNoInput recentSuggestions={ recentSuggestions }/>
+        <div>
+          <SearchTags
+            onSelect={ this.handleSelectRecent.bind(this) }
+            tags={ ['RECENT'] }/>
+          <SearchNoInput
+            recentSuggestions={ recentSuggestions }
+            officerCards={ officerCards }
+            requestActivityGrid={ requestActivityGrid }
+          />
+        </div>
       );
     }
 
@@ -146,7 +159,7 @@ export default class SearchContent extends Component {
     if (editModeOn) {
       if (aliasEditModeOn) {
         cancelButton = (
-          <Link to={ `/edit/${SEARCH_PATH}` } style={ cancelButtonStyle }>
+          <Link to={ `/edit/${SEARCH_PATH}` } style={ cancelButtonStyle } className='test--cancel-alias-button'>
             Cancel
           </Link>
         );
@@ -161,7 +174,6 @@ export default class SearchContent extends Component {
 
     return (
       <div>
-
         <div style={ buttonsWrapperStyle }>
           <SearchTags
             tags={ tags }
@@ -171,9 +183,7 @@ export default class SearchContent extends Component {
           { cancelButton }
         </div>
 
-        <div style={ plusPlaceHolderStyle }>
-          { plusButton }
-        </div>
+        { plusButton }
 
         <SearchResults
           navigation={ navigation }
@@ -197,16 +207,17 @@ export default class SearchContent extends Component {
         className='search-page'
         style={ searchContentWrapperStyle(aliasEditModeOn) }>
         <div style={ searchBoxStyle(aliasEditModeOn) }>
-          <span
-            onClick={ this.handleGoBack }
-            className='searchbar__button--back'
-            style={ backButtonStyle }/>
           <SearchBox
             onEscape={ this.handleGoBack }
             onChange={ this.handleChange }
             onEnter={ this.handleEnter }
-            navigate={ this.props.move }
             value={ this.props.query }/>
+          <span
+            onClick={ this.handleGoBack }
+            className='searchbar__button--back'
+            style={ backButtonStyle }>
+            Cancel
+          </span>
         </div>
         <div>
           { this.renderContent(aliasEditModeOn) }
@@ -237,7 +248,9 @@ SearchContent.propTypes = {
   query: PropTypes.string,
   changeSearchQuery: PropTypes.func,
   resetNavigation: PropTypes.func,
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
+  officerCards: PropTypes.array,
+  requestActivityGrid: PropTypes.func
 };
 
 SearchContent.defaultProps = {

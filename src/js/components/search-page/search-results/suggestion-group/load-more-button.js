@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Hoverable from 'components/common/higher-order/hoverable';
-import { loadMoreButtonStyle, suggestionTextStyle } from './load-more-button.style';
+import { loadMoreButtonStyle, loadMoreButtonTextStyle } from './load-more-button.style';
 
 
 class LoadMoreButton extends Component {
@@ -12,7 +12,7 @@ class LoadMoreButton extends Component {
         className='link--transition test--load-more-button'
         style={ loadMoreButtonStyle }
         onClick={ onLoadMore.bind(null, header) }>
-        <div style={ suggestionTextStyle(hovering) }>Show more results</div>
+        <div style={ loadMoreButtonTextStyle(hovering) }>All</div>
       </div>
     );
   }

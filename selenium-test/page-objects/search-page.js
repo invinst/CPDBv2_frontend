@@ -18,8 +18,8 @@ class SearchPage extends Page {
       suggestionLink: '.suggestion-column a',
       recentSuggestions: '.recent-suggestions',
       backButton: '.searchbar__button--back',
-      officerResults: '//*[@class="suggestion-group"]/*[text()="OFFICER"]/following-sibling::*/span//a',
-      firstOfficerResult: '//*[@class="suggestion-group"]/*[text()="OFFICER"]/following-sibling::*/span[1]//a',
+      officerResults: '//*[@class="suggestion-group"]/*[text()="OFFICERS"]/following-sibling::*/span//a',
+      firstOfficerResult: '//*[@class="suggestion-group"]/*[text()="OFFICERS"]/following-sibling::*/span[1]//a',
       firstCoAccusedResult: '//*[@class="suggestion-group"]/*[text()="CO-ACCUSED"]/following-sibling::*/span[1]//a',
       searchHint: '.search-hint',
       loadMoreButton: '.test--load-more-button'
