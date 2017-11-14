@@ -1,6 +1,6 @@
 import summary from 'reducers/officer-page/summary';
 
-import { OFFICER_SUMMARY_REQUEST_SUCCESS } from 'utils/constants';
+import { OFFICER_SUMMARY_REQUEST_SUCCESS, CHANGE_OFFICER_ID } from 'utils/constants';
 
 
 describe('summary reducer', function () {
@@ -13,5 +13,11 @@ describe('summary reducer', function () {
       type: OFFICER_SUMMARY_REQUEST_SUCCESS,
       payload: { 'a': 'b' }
     }).should.eql({ 'a': 'b' });
+  });
+
+  it('should handle CHANGE_OFFICER_ID', function () {
+    summary(undefined, {
+      type: CHANGE_OFFICER_ID,
+    }).should.eql({});
   });
 });

@@ -72,8 +72,12 @@ describe('officer page selectors', function () {
 
   describe('summarySelector', function () {
     const summary = {
-      'unit': 'unit', 'rank': 'rank', 'date_of_appt': '2015-09-23',
-      'race': 'race', 'gender': 'Male', 'badge': 'badge'
+      'unit': 'unit',
+      'rank': 'rank',
+      'date_of_appt': '2015-09-23',
+      'race': 'race',
+      'gender': 'Male',
+      'badge': 'badge'
     };
 
     it('should return summary', function () {
@@ -83,8 +87,8 @@ describe('officer page selectors', function () {
         unitName: 'unit', rank: 'rank',
         race: 'race', gender: 'Male', badge: 'badge',
         dateOfAppt: '2015-09-23',
-        'careerDescription': '2 year veteran',
-        'careerDuration': 'SEP 23, 2015—Present'
+        careerDescription: '2 years',
+        careerDuration: 'SEP 23, 2015—Present'
       });
     });
 
@@ -94,10 +98,40 @@ describe('officer page selectors', function () {
       summarySelector(state).careerDuration.should.eql('SEP 23, 2015—JAN 2, 2016');
     });
 
-    it('should return summary with agency in career description', function () {
-      state.officerPage = { summary: { ...summary, 'agency': 'CPD' } };
+    it('should return summary with 1 year in career description', function () {
+      state.officerPage = { summary: { ...summary, 'date_of_resignation': '2016-10-23' } };
 
-      summarySelector(state).careerDescription.should.eql('2 years with CPD');
+      summarySelector(state).careerDescription.should.eql('1 year');
+    });
+
+    it('should return summary without empty career description', function () {
+      state.officerPage = { summary: { ...summary, 'date_of_resignation': '2015-12-23' } };
+
+      summarySelector(state).careerDescription.should.eql('');
+    });
+
+    it('should return summary with empty careerDuration if no date_of_appt and date_of_resignation', function () {
+      state.officerPage = { summary: { ...summary, 'date_of_appt': '', 'date_of_resignation': '' } };
+
+      summarySelector(state).careerDuration.should.eql('');
+    });
+
+    it('should return summary with empty getCareerDescription if there is no date_of_appt', function () {
+      state.officerPage = { summary: { ...summary, 'date_of_appt': '' } };
+
+      summarySelector(state).careerDescription.should.eql('');
+    });
+
+    it('should return summary with empty rank if summary is an empty object', function () {
+      state.officerPage = { summary: {} };
+
+      summarySelector(state).rank.should.eql('');
+    });
+
+    it('should return summary with rank N/A if there is no rank', function () {
+      state.officerPage = { summary: { ...summary, rank: '' } };
+
+      summarySelector(state).rank.should.eql('N/A');
     });
   });
 

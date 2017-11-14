@@ -1,10 +1,16 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  scryRenderedComponentsWithType,
+  findRenderedComponentWithType,
+} from 'react-addons-test-utils';
 
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import SummaryPage from 'components/officer-page/summary-page';
 import SummarySection from 'components/officer-page/summary-page/summary-section';
 import AggregateSection from 'components/officer-page/summary-page/aggregate-section';
 import { unmountComponentSuppressError } from 'utils/test';
+import scrollbarWidth from 'utils/scrollbar-width';
 
 
 describe('SummaryPage component', function () {
@@ -16,10 +22,20 @@ describe('SummaryPage component', function () {
 
   it('should render SummarySection and AggregateSection', function () {
     instance = renderIntoDocument(
-      <SummaryPage fetchOfficerSummary={ () => {} } />
+      <SummaryPage fetchOfficerSummary={ () => {
+      } }/>
     );
 
     scryRenderedComponentsWithType(instance, SummarySection).should.have.length(1);
     scryRenderedComponentsWithType(instance, AggregateSection).should.have.length(1);
+  });
+
+  it('should render wrapper that takes scrollbar width into account', function () {
+    instance = renderIntoDocument(
+      <SummaryPage fetchOfficerSummary={ () => {
+      } }/>
+    );
+    findRenderedComponentWithType(instance, ResponsiveFluidWidthComponent)
+      .props.style.width.should.eql(`calc(100% + ${scrollbarWidth}px)`);
   });
 });

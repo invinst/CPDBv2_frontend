@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
-import { map, size } from 'lodash';
+import { map } from 'lodash';
 
 import TimelineItem from './timeline-item';
 import SmoothScroller from './smooth-scroller';
@@ -25,9 +25,10 @@ export default class Timeline extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       sortParams, fetchTimelineFullItems, selectedItemIndex,
-      fetchTimelineItemsWhenIndexOutOfBound, items, officerId,
+      fetchTimelineItemsWhenIndexOutOfBound, officerId,
       fetchMinimap
     } = this.props;
+
     if (nextProps.sortParams !== sortParams) {
       fetchTimelineFullItems(nextProps.officerId, { ...nextProps.sortParams, ...nextProps.filters });
       fetchMinimap(nextProps.officerId, nextProps.filters);
@@ -35,7 +36,7 @@ export default class Timeline extends Component {
 
     if (nextProps.selectedItemIndex !== selectedItemIndex) {
       fetchTimelineItemsWhenIndexOutOfBound(
-        size(items), nextProps.selectedItemIndex,
+        nextProps.selectedItemIndex,
         officerId,
         { ...sortParams, ...nextProps.filters });
       setTimeout(() => this.setState({ flashItemIndex: nextProps.selectedItemIndex }), 500);
@@ -60,7 +61,8 @@ export default class Timeline extends Component {
           hasMore={ hasMore }
           useWindow={ false }>
           { map(items, (item, ind) => (
-            <TimelineItem item={ item } key={ ind } selected={ ind === selectedItemIndex }
+            <TimelineItem
+              item={ item } key={ ind } selected={ ind === selectedItemIndex }
               minimapItemHovered={ ind === hoveredItemIndex } officerId={ officerId }
               onSelected={ this.handleItemSelected } flash={ ind === flashItemIndex }
               onHover={ (hovered) => hoverTimelineItem(hovered ? ind : null) }
