@@ -7,7 +7,7 @@ import Header from './header';
 import OfficerRow from './officer-row';
 import MultiRow from './multi-row';
 import FindingRow from './finding-row';
-import Row from './row';
+import Row from 'components/common/row';
 import Timeline from './timeline';
 import Location from './location';
 import Involvement from './involvement';

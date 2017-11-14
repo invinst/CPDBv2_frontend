@@ -3,7 +3,6 @@ import { sanFranciscoTextFamily, greyishColor, softBlackColor } from 'utils/styl
 
 export const wrapperStyle = {
   display: 'inline-block',
-  width: '25%',
   padding: '16px',
   boxSizing: 'border-box',
   textDecoration: 'none'
@@ -11,9 +10,7 @@ export const wrapperStyle = {
 
 export const visualTokenStyle = {
   display: 'block',
-  height: 'calc(25vw - 32px)',
   maxHeight: '328px',
-  minHeight: '160px'
 };
 
 export const officerTextStyle = {

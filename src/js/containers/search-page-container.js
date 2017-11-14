@@ -15,6 +15,8 @@ import {
   chunkedSuggestionGroupsSelector, isEmptySelector, suggestionTagsSelector,
   suggestionColumnsSelector, focusedSuggestionSelector, isShowingSingleContentTypeSelector
 } from 'selectors/search-page';
+import { cardsSelector } from 'selectors/landing-page/activity-grid';
+import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import editModeOnSelector from 'selectors/edit-mode-on';
 
 
@@ -34,6 +36,7 @@ function mapStateToProps(state, ownProps) {
     focusedSuggestion: focusedSuggestionSelector(state),
     isShowingSingleContentType: isShowingSingleContentTypeSelector(state),
     recentSuggestions,
+    officerCards: cardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps)
   };
 }
@@ -45,7 +48,8 @@ const mapDispatchToProps = {
   trackRecentSuggestion,
   move,
   changeSearchQuery,
-  resetNavigation
+  resetNavigation,
+  requestActivityGrid
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchContent));
