@@ -39,10 +39,6 @@ class SuggestionItem extends Component {
     suggestionClick(contentType, text, href, to);
   }
 
-  renderSuggestionThumbnail() {
-
-  }
-
   render() {
     const { suggestion, hovering, isFocused, aliasEditModeOn, suggestionType } = this.props;
     const text = get(suggestion, 'payload.result_text', '');
