@@ -176,4 +176,40 @@ describe('<SuggestionItem/>', function () {
       suggestionItemText.props.enteringFocusedState.should.be.false();
     });
   });
+
+  describe('when edit mode off', function () {
+    it('should not display aliases', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SuggestionItem
+            aliasEditModeOn={ false }
+            suggestion={ { payload: {
+              'result_reason': '',
+              tags: ['myAlias'],
+              to: 'abc'
+            } } }/>
+        </Provider>
+      );
+      const div = findRenderedDOMComponentWithClass(instance, 'link--transition test--suggestion-item-reason');
+      div.textContent.should.not.containEql('myAlias');
+    });
+  });
+
+  describe('when edit mode on', function () {
+    it('should display aliases', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SuggestionItem
+            aliasEditModeOn={ true }
+            suggestion={ { payload: {
+              'result_reason': '',
+              tags: ['myAlias'],
+              to: 'abc'
+            } } }/>
+        </Provider>
+      );
+      const div = findRenderedDOMComponentWithClass(instance, 'link--transition test--suggestion-item-reason');
+      div.textContent.should.containEql('myAlias');
+    });
+  });
 });
