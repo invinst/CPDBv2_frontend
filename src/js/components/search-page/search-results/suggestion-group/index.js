@@ -5,6 +5,12 @@ import { suggestionGroupStyle, groupHeaderStyle } from './suggestion-group.style
 import SuggestionColumn from './suggestion-column';
 import LoadMoreButton from './load-more-button';
 
+const HEADER_MAPPINGS = {
+  OFFICER: 'OFFICERS',
+  COMMUNITY: 'COMMUNITIES',
+  NEIGHBORHOOD: 'NEIGHBORHOODS',
+  UNIT: 'UNITS'
+};
 
 export default class SuggestionGroup extends Component {
   renderColumns() {
@@ -49,7 +55,7 @@ export default class SuggestionGroup extends Component {
     if (suggestions.length > 0) {
       return (
         <div style={ suggestionGroupStyle } className='suggestion-group'>
-          <div style={ groupHeaderStyle }>{ header }</div>
+          <div style={ groupHeaderStyle }>{ HEADER_MAPPINGS[header] || header }</div>
           { this.renderColumns() }
           { this.renderLoadMore() }
         </div>

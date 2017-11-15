@@ -19,7 +19,7 @@ describe('TextInput component', function () {
     const onBlurSpy = spy();
 
     instance = renderIntoDocument(
-      <TextInput onBlur={ onBlurSpy } />
+      <TextInput onBlur={ onBlurSpy }/>
     );
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
     Simulate.blur(inputElement);
@@ -30,7 +30,7 @@ describe('TextInput component', function () {
     const onFocusSpy = spy();
 
     instance = renderIntoDocument(
-      <TextInput onFocus={ onFocusSpy } autoFocus={ false } />
+      <TextInput onFocus={ onFocusSpy } autoFocus={ false }/>
     );
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
     Simulate.focus(inputElement);
@@ -41,7 +41,7 @@ describe('TextInput component', function () {
     const onChangeSpy = spy();
 
     instance = renderIntoDocument(
-      <TextInput onChange={ onChangeSpy } />
+      <TextInput onChange={ onChangeSpy }/>
     );
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
     inputElement.value = 'value';
@@ -54,7 +54,7 @@ describe('TextInput component', function () {
     const onFocusSpy = spy();
 
     instance = renderIntoDocument(
-      <TextInput onFocus={ onFocusSpy } autoFocus={ false } />
+      <TextInput onFocus={ onFocusSpy } autoFocus={ false }/>
     );
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
     Simulate.focus(inputElement);
@@ -65,7 +65,7 @@ describe('TextInput component', function () {
     const onFocusSpy = spy();
 
     instance = renderIntoDocument(
-      <TextInput onFocus={ onFocusSpy } autoFocus={ false } />
+      <TextInput onFocus={ onFocusSpy } autoFocus={ false }/>
     );
 
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
@@ -82,7 +82,7 @@ describe('TextInput component', function () {
     wrapperStyleStub.withArgs(width, height).returns({ fontSize: '1px' });
 
     instance = renderIntoDocument(
-      <TextInput width={ width } height={ height } />
+      <TextInput width={ width } height={ height }/>
     );
     const wrapperElement = scryRenderedDOMComponentsWithTag(instance, 'div')[0];
     wrapperElement.style.fontSize.should.eql('1px');
@@ -95,7 +95,7 @@ describe('TextInput component', function () {
     inputStyleStub.withArgs(paddingVertical, paddingHorizontal).returns({ fontSize: '1px' });
 
     instance = renderIntoDocument(
-      <TextInput paddingVertical={ paddingVertical } paddingHorizontal={ paddingHorizontal } />
+      <TextInput paddingVertical={ paddingVertical } paddingHorizontal={ paddingHorizontal }/>
     );
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
     inputElement.style.fontSize.should.eql('1px');
@@ -109,9 +109,42 @@ describe('TextInput component', function () {
     placeholderStyleStub.withArgs(height, paddingVertical, paddingHorizontal).returns({ fontSize: '1px' });
 
     instance = renderIntoDocument(
-      <TextInput height={ height } paddingVertical={ paddingVertical } paddingHorizontal={ paddingHorizontal } />
+      <TextInput height={ height } paddingVertical={ paddingVertical } paddingHorizontal={ paddingHorizontal }/>
     );
     const placeholderElement = scryRenderedDOMComponentsWithTag(instance, 'div')[1];
     placeholderElement.style.fontSize.should.eql('1px');
   });
+
+  it('should handle keys in keyPressHandlers', function () {
+    const keyPressHandlers = {
+      esc: spy(),
+      enter: spy()
+    };
+
+    instance = renderIntoDocument(
+      <TextInput keyPressHandlers={ keyPressHandlers }/>
+    );
+
+    instance.mousetrap.trigger('esc');
+    keyPressHandlers.esc.calledOnce.should.be.true();
+
+    instance.mousetrap.trigger('enter');
+    keyPressHandlers.enter.calledOnce.should.be.true();
+  });
+
+  describe('when blurOnKeyPress prop is provided', function () {
+    it('should blur when an assigned key is pressed', function () {
+      instance = renderIntoDocument(
+        <TextInput blurOnKeyPress={ ['up', 'down'] }/>
+      );
+      const blur = stub(instance.input, 'blur');
+
+      instance.mousetrap.trigger('down');
+      blur.calledOnce.should.be.true();
+
+      instance.mousetrap.trigger('up');
+      blur.calledTwice.should.be.true();
+    });
+  });
+
 });

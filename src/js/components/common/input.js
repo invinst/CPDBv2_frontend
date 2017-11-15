@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import Mousetrap from 'mousetrap';
 
 import * as inputStyles from './input.style';
 
@@ -13,6 +14,31 @@ export default class TextInput extends Component {
       showPlaceholder: true,
       value: props.value
     };
+  }
+
+  componentDidMount() {
+    const { value, keyPressHandlers, blurOnKeyPress } = this.props;
+    if (value) {
+      // Make sure the text input cursor is always at the end
+      this.input.setSelectionRange(value.length, value.length);
+    }
+
+    this.mousetrap = new Mousetrap(this.input);
+
+    // Arbitrary key press handler
+    if (keyPressHandlers) {
+      for (const [key, handler] of Object.entries(keyPressHandlers)) {
+        this.mousetrap.bind(key, handler);
+      }
+    }
+
+    // Blur input element when one of these keys is pressed
+    if (blurOnKeyPress) {
+      blurOnKeyPress.map((key) => (this.mousetrap.bind(
+        key,
+        () => this.input.blur()
+      )));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,7 +79,9 @@ export default class TextInput extends Component {
   render() {
     const {
       style, paddingVertical, paddingHorizontal, width, height,
-      placeholder, autoFocus, ...rest
+      placeholder, autoFocus,
+      keyPressHandlers, blurOnKeyPress, // eslint-disable-line no-unused-vars
+      ...rest
     } = this.props;
     const { wrapperStyle, inputStyle, placeholderStyle } = inputStyles;
     const { value, showPlaceholder } = this.state;
@@ -104,6 +132,9 @@ TextInput.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   onChange: PropTypes.func,
+  keyPressHandlers: PropTypes.object,
+  blurOnKeyPress: PropTypes.array,
+  on: PropTypes.func,
   value: PropTypes.string,
   placeholder: PropTypes.string
 };

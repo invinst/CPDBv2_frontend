@@ -11,7 +11,7 @@ export default class SuggestionNoResult extends Component {
 
     return (
       <div style={ suggestionGroupStyle }>
-        <div style={ groupHeaderStyle }>Data Tool</div>
+        <div style={ groupHeaderStyle }>DATA TOOL</div>
         <a href={ complaintsDataToolSearchUrl } style={ aHrefStyle }>
           <div style={ noResultItemStyle }>
             <div>Search "{ searchText }" in the data tool</div>

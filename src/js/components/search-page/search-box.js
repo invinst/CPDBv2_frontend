@@ -1,36 +1,30 @@
 import React, { Component, PropTypes } from 'react';
-import Mousetrap from 'mousetrap';
 
 import { searchInputStyle } from './search-box.style';
+import TextInput from 'components/common/input';
 
 
-export default class SearchBox extends Component {
-  componentDidMount() {
-    const { onEscape, onEnter, value } = this.props;
-    this.searchInput.focus();
-    if (value) {
-      // Make sure the text input cursor is always at the end
-      this.searchInput.setSelectionRange(value.length, value.length);
-    }
-    this.mousetrap = new Mousetrap(this.searchInput);
-    this.mousetrap.bind('esc', onEscape);
-    this.mousetrap.bind('enter', onEnter);
-    ['up', 'down'].map((direction) => (this.mousetrap.bind(
-      direction,
-      () => (this.searchInput.blur())
-    )));
-  }
-
+class SearchBox extends Component {
   render() {
-    const { value, onChange } = this.props;
+    const { value, onChange, onEscape, onEnter } = this.props;
+
+    const keyPressHandlers = {
+      esc: onEscape,
+      enter: onEnter,
+    };
 
     return (
-      <input
-        ref={ searchInput => { this.searchInput = searchInput; } }
+      <TextInput
+        autoFocus={ true }
         style={ searchInputStyle }
-        placeholder='Search'
+        placeholder='Search Chicago'
         onChange={ onChange }
-        value={ value }/>
+        paddingVertical={ 9 }
+        paddingHorizontal={ 9 }
+        value={ value }
+        keyPressHandlers={ keyPressHandlers }
+        blurOnKeyPress={ ['up', 'down'] }
+      />
     );
   }
 }
@@ -41,3 +35,5 @@ SearchBox.propTypes = {
   onEnter: PropTypes.func,
   value: PropTypes.string
 };
+
+export default SearchBox;

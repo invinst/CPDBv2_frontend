@@ -8,8 +8,20 @@ import { getRequestCount } from './utils';
 
 
 describe('officer summary page', function () {
+
   beforeEach(function () {
+    browser.setViewportSize({
+      width: 1000,
+      height: 500
+    });
     summaryPage.open();
+  });
+
+  afterEach(function () {
+    browser.setViewportSize({
+      width: 1000,
+      height: 1000
+    });
   });
 
   it('should highlight summary header button', function () {

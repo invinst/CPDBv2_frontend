@@ -53,5 +53,8 @@ export function changePageDescription(description) {
 }
 
 export function scrollToElement(selector) {
-  document.querySelector(selector).scrollIntoView();
+  const element = document.querySelector(selector);
+  if (element) {
+    element.scrollIntoView();
+  }
 }

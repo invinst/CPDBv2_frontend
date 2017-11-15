@@ -13,10 +13,7 @@ export const inputStyle = {
   fontSize: '13px',
   fontWeight: '500px',
   color: clayGray,
-  border: 'none',
-  '::-webkit-input-placeholder': {
-    color: 'red'
-  }
+  border: 'none'
 };
 
 export const instructionStyle = {
