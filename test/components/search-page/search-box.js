@@ -1,7 +1,11 @@
 import React from 'react';
-import { renderIntoDocument } from 'react-addons-test-utils';
-import { spy, stub } from 'sinon';
+import {
+  renderIntoDocument,
+  findRenderedComponentWithType
+} from 'react-addons-test-utils';
+import { spy } from 'sinon';
 
+import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -17,45 +21,27 @@ describe('SearchBox component', function () {
     SearchBox.should.be.renderable();
   });
 
-  it('should handle ESCAPE', function () {
+  it('should pass correct props to Input', function () {
     const onEscape = spy();
-
-    instance = renderIntoDocument(
-      <SearchBox onEscape={ onEscape }/>
-    );
-
-    instance.mousetrap.trigger('esc');
-    onEscape.calledOnce.should.be.true();
-  });
-
-  it('should handle ENTER', function () {
+    const onChange = spy();
     const onEnter = spy();
 
     instance = renderIntoDocument(
-      <SearchBox onEnter={ onEnter }/>
+      <SearchBox
+        onEscape={ onEscape }
+        onChange={ onChange }
+        onEnter={ onEnter }
+        value='wa'
+      />
     );
 
-    instance.mousetrap.trigger('enter');
-    onEnter.calledOnce.should.be.true();
-  });
-
-  it('should blur when press up', function () {
-    instance = renderIntoDocument(
-      <SearchBox/>
-    );
-    const blur = stub(instance.searchInput, 'blur');
-
-    instance.mousetrap.trigger('up');
-    blur.calledOnce.should.be.true();
-  });
-
-  it('should blur when press down', function () {
-    instance = renderIntoDocument(
-      <SearchBox/>
-    );
-    const blur = stub(instance.searchInput, 'blur');
-
-    instance.mousetrap.trigger('down');
-    blur.calledOnce.should.be.true();
+    const input = findRenderedComponentWithType(instance, TextInput);
+    input.props.value.should.eql('wa');
+    input.props.keyPressHandlers.should.eql({
+      esc: onEscape,
+      enter: onEnter
+    });
+    input.props.onChange.should.equal(onChange);
+    input.props.blurOnKeyPress.should.eql(['up', 'down']);
   });
 });

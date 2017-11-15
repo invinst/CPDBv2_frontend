@@ -50,6 +50,11 @@ export class TimelineItem extends Component {
   renderContent({ ratio }) {
     const { item, hovering, minimapItemHovered, onClick, officerId } = this.props;
 
+    // Temporarily hide Year items [#152789435]
+    if (item.kind === TimelineItemType.YEAR) {
+      return <div className='test--card-item' />;
+    }
+
     let child = null;
     if (this.contentMap[item.kind]) {
       child = createElement(this.contentMap[item.kind], { item, hovering, onClick, officerId, flashRatio: ratio });

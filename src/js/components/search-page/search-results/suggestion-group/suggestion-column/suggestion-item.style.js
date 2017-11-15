@@ -2,21 +2,21 @@ import {
   softBlackColor,
   whiteTwoColor,
   sanFranciscoTextFamily,
-  eggPlantColor,
   accentColor,
   subdueAccentTextColor,
   lightSubdueAccentTextColor,
-  ultraGirlyPink
+  ultraGirlyPink, greyishColor
 } from 'utils/styles';
 
 
 export const suggestionItemHeight = 65;
 
 export const suggestionItemStyle = {
-  padding: '12px 14px',
+  padding: '12px 0',
+  marginRight: '13px',
   borderBottom: `1px solid ${whiteTwoColor}`,
   height: `${suggestionItemHeight}px`,
-  width: '443px',
+  width: '304px',
   boxSizing: 'border-box',
   display: 'block',
   textDecoration: 'none'
@@ -32,20 +32,12 @@ export const suggestionTextStyle = (hovering, isFocused) => {
 };
 
 export const metaTextStyle = (hovering, isFocused) => {
-  let color;
-  if (isFocused) {
-    color = subdueAccentTextColor;
-  } else if (hovering) {
-    color = accentColor;
-  } else {
-    color = eggPlantColor;
-  }
-
   return {
     fontSize: '13px',
     fontWeight: 300,
     fontFamily: sanFranciscoTextFamily,
-    color: color
+    color: isFocused || hovering ? accentColor : greyishColor,
+    opacity: 0.5
   };
 };
 
@@ -97,4 +89,11 @@ export const enterTextStyle = {
 export const aliasLinkStyle = {
   color: ultraGirlyPink,
   textDecoration: 'none',
+};
+
+export const visualTokenStyle = {
+  width: '32px',
+  height: '32px',
+  float: 'left',
+  marginRight: '8px'
 };

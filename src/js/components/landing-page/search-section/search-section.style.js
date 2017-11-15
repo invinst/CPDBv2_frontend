@@ -5,10 +5,10 @@ export const searchSectionStyle = {
   width: '100%'
 };
 
-export const searchBoxStyle = {
+export const searchBoxStyle = (wide) => ({
   position: 'relative',
   height: '32px',
-  width: '500px',
+  width: wide ? '600px' : '500px',
   backgroundColor: sugarCaneColor,
   color: greyishColor,
   top: '46%',
@@ -20,4 +20,4 @@ export const searchBoxStyle = {
   cursor: 'text',
   display: 'block',
   textDecoration: 'none'
-};
+});

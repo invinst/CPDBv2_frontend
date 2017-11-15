@@ -47,7 +47,7 @@ export default class SuggestionResults extends Component {
     const { isRequesting } = this.props;
     if (isRequesting) {
       return (
-        <div style={ resultWrapperStyle }>
+        <div style={ { ...resultWrapperStyle, marginTop: '38px' } }>
           Loading...
         </div>
       );

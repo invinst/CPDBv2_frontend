@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Row from 'components/cr-page/row';
+import Row from 'components/common/row';
 
 
 describe('Row component', function () {
