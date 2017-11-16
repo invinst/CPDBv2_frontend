@@ -151,16 +151,16 @@ describe('autocomplete selector', function () {
         searchPage: {
           itemsPerColumn: 3,
           suggestionGroups: {
-            'OFFICER': ['o1', 'o2', 'o3', 'o4'],
+            'OFFICER': [{ o1: 'o1' }, { o2: 'o2' }, { o3: 'o3' }, { o4: 'o4' }],
             'UNIT': [],
-            'CO-ACCUSED': ['c1', 'c2']
+            'CO-ACCUSED': [{ c1: 'c1' }, { c2: 'c2' }]
           },
           navigation: {
             columnIndex: 1,
             itemIndex: 1
           }
         }
-      }).should.deepEqual('c2');
+      }).should.deepEqual({ header: 'CO-ACCUSED', c2: 'c2' });
     });
 
     it('should return correct suggestion when viewing single group', function () {
@@ -168,9 +168,9 @@ describe('autocomplete selector', function () {
         searchPage: {
           itemsPerColumn: 2,
           suggestionGroups: {
-            'OFFICER': ['o1', 'o2', 'o3', 'o4', 'o5'],
+            'OFFICER': [{ o1: 'o1' }, { o2: 'o2' }, { o3: 'o3' }, { o4: 'o4' }, { o5: 'o5' }],
             'UNIT': [],
-            'CO-ACCUSED': ['c1', 'c2']
+            'CO-ACCUSED': []
           },
           contentType: 'OFFICER',
           navigation: {
@@ -178,7 +178,7 @@ describe('autocomplete selector', function () {
             itemIndex: 0
           }
         }
-      }).should.deepEqual('o5');
+      }).should.deepEqual({ header: 'OFFICER', o5: 'o5' });
     });
   });
 });

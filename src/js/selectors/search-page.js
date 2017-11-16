@@ -9,6 +9,7 @@ const getSuggestionNavigation = state => state.searchPage.navigation;
 const getSuggestionContentType = state => state.searchPage.contentType;
 const getNumberOfItemsPerColumn = state => state.searchPage.itemsPerColumn;
 
+
 export const suggestionGroupsSelector = createSelector(
   getSuggestionGroups,
   (suggestionGroups) => (
@@ -94,18 +95,20 @@ export const chunkedSuggestionGroupsSelector = createSelector(
 export const coordinatesMapSelector = createSelector(
   chunkedSuggestionGroupsSelector,
   chunkedGroups => {
-    const columns = flatten(chunkedGroups.map(group => group.columns));
-    return columns;
+    const coordinatesMap = flatten(chunkedGroups.map(group => group.columns));
+    const headers = chunkedGroups.map(group => group.header);
+    return { coordinatesMap, headers };
   }
 );
 
 export const focusedSuggestionSelector = createSelector(
   coordinatesMapSelector,
   getSuggestionNavigation,
-  (coordinatesMap, { columnIndex, itemIndex }) => {
+  ({ coordinatesMap, headers }, { columnIndex, itemIndex }) => {
     const column = coordinatesMap[columnIndex];
     if (column) {
-      return column[itemIndex];
+      const header = headers.length === 1 ? headers[0] : headers[columnIndex];
+      return { ...column[itemIndex], header };
     }
     return {};
   }
@@ -115,8 +118,8 @@ export const suggestionTagsSelector = createSelector(
   getSuggestionTags,
   (suggestionTags) => (
     sortBy(suggestionTags, (tag) => (indexOf(SEARCH_CATEGORIES, tag))
-  )
-));
+    )
+  ));
 
 export const isEmptySelector = createSelector(
   suggestionGroupsSelector,
@@ -127,5 +130,5 @@ export const isEmptySelector = createSelector(
 
 export const suggestionColumnsSelector = createSelector(
   coordinatesMapSelector,
-  (coordinatesMap) => coordinatesMap.map(column => column.length)
+  ({ coordinatesMap, headers }) => coordinatesMap.map(column => column.length)
 );
