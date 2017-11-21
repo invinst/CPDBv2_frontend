@@ -3,7 +3,7 @@ import { range } from 'lodash';
 import {
   suggestionColumnsSelector, suggestionGroupsSelector, isEmptySelector,
   suggestionTagsSelector, orderedSuggestionGroupsSelector, chunkedSuggestionGroupsSelector,
-  focusedSuggestionSelector
+  focusedSuggestionSelector, previewPaneInfoSelector
 } from 'selectors/search-page';
 
 describe('autocomplete selector', function () {
@@ -179,6 +179,38 @@ describe('autocomplete selector', function () {
           }
         }
       }).should.deepEqual({ header: 'OFFICER', o5: 'o5' });
+    });
+  });
+
+  describe('previewPaneInfoSelector', function () {
+    it('should return correct info', function () {
+      const focusedSuggestion = {
+        header: 'OFFICER',
+        id: '12345',
+        text: 'John Wang',
+        payload: {
+          unit: '001',
+          rank: null,
+          salary: '$99,999',
+          race: 'White',
+          sex: 'Male',
+          'visual_token_background_color': '#fafafa'
+        }
+      };
+      const currentYear = (new Date()).getFullYear();
+      const info = {
+        data: [
+          ['unit', '001'],
+          ['rank', null],
+          [`${currentYear} salary`, '$99,999'],
+          ['race', 'White'],
+          ['sex', 'Male']
+        ],
+        visualTokenBackgroundColor: '#fafafa',
+        id: '12345',
+        text: 'John Wang'
+      };
+      previewPaneInfoSelector(focusedSuggestion).should.deepEqual(info);
     });
   });
 });

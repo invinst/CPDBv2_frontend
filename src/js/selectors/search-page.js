@@ -9,6 +9,23 @@ const getSuggestionNavigation = state => state.searchPage.navigation;
 const getSuggestionContentType = state => state.searchPage.contentType;
 const getNumberOfItemsPerColumn = state => state.searchPage.itemsPerColumn;
 
+export const previewPaneInfoSelector = createSelector(
+  suggestion => suggestion,
+  (suggestion) => {
+    const { payload, id, text } = suggestion;
+    const currentYear = (new Date()).getFullYear();
+    const data = [
+      ['unit', payload.unit],
+      ['rank', payload.rank],
+      [`${currentYear} salary`, payload.salary],
+      ['race', payload.race],
+      ['sex', payload.sex]
+    ];
+    const visualTokenBackgroundColor = payload['visual_token_background_color'];
+    return { data, visualTokenBackgroundColor, id, text };
+  }
+);
+
 
 export const suggestionGroupsSelector = createSelector(
   getSuggestionGroups,

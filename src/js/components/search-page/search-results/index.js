@@ -5,6 +5,7 @@ import { resultWrapperStyle, columnWrapperStyle } from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
+import { previewPaneInfoSelector } from 'selectors/search-page';
 
 
 export default class SuggestionResults extends Component {
@@ -47,25 +48,16 @@ export default class SuggestionResults extends Component {
 
   render() {
     const { isRequesting, focusedSuggestion } = this.props;
-    let data;
     let previewPane = null;
     const shouldShowPreviewPane = focusedSuggestion.header === 'OFFICER';
 
     if (focusedSuggestion.payload && shouldShowPreviewPane) {
-      const { payload, id, text } = focusedSuggestion;
-      const currentYear = (new Date()).getFullYear();
-      data = [
-        ['unit', payload.unit],
-        ['rank', payload.rank],
-        [`${currentYear} salary`, payload.salary],
-        ['race', payload.race],
-        ['sex', payload.sex]
-      ];
+      const { data, visualTokenBackgroundColor, id, text } = previewPaneInfoSelector(focusedSuggestion);
       previewPane = (
         <PreviewPane
           data={ data }
           officerId={ id }
-          backgroundColor={ payload['visual_token_background_color'] }
+          backgroundColor={ visualTokenBackgroundColor }
           title={ text }
         />
       );
