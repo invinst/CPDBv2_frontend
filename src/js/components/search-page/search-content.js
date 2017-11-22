@@ -136,7 +136,7 @@ export default class SearchContent extends Component {
     const {
       suggestionGroups, isRequesting, tags, contentType, navigation,
       isEmpty, recentSuggestions, trackRecentSuggestion, query, editModeOn,
-      officerCards, requestActivityGrid
+      officerCards, requestActivityGrid, focusedSuggestion
     } = this.props;
 
     if (!query) {
@@ -194,6 +194,7 @@ export default class SearchContent extends Component {
           suggestionGroups={ suggestionGroups }
           isRequesting={ isRequesting }
           aliasEditModeOn={ aliasEditModeOn }
+          focusedSuggestion={ focusedSuggestion }
         />
 
       </div>
