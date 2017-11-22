@@ -129,3 +129,4 @@ export const suggestionColumnsSelector = createSelector(
   coordinatesMapSelector,
   (coordinatesMap) => coordinatesMap.map(column => column.length)
 );
+

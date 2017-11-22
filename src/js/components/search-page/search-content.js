@@ -6,6 +6,7 @@ import SearchResults from './search-results';
 import SearchBox from './search-box';
 import SearchTags from './search-tags';
 import SearchNoInput from './search-no-input';
+import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import {
   backButtonStyle,
   buttonsWrapperStyle,
@@ -136,8 +137,14 @@ export default class SearchContent extends Component {
     const {
       suggestionGroups, isRequesting, tags, contentType, navigation,
       isEmpty, recentSuggestions, trackRecentSuggestion, query, editModeOn,
-      officerCards, requestActivityGrid
+      officerCards, requestActivityGrid, searchTermsHidden
     } = this.props;
+
+    if (!searchTermsHidden) {
+      return (
+        <SearchTermsContainer/>
+      );
+    }
 
     if (!query) {
       return (
@@ -202,6 +209,8 @@ export default class SearchContent extends Component {
 
   render() {
     const aliasEditModeOn = (this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`));
+    const { query, toggleSearchTerms, searchTermsHidden } = this.props;
+
     return (
       <div
         className='search-page'
@@ -211,7 +220,9 @@ export default class SearchContent extends Component {
             onEscape={ this.handleGoBack }
             onChange={ this.handleChange }
             onEnter={ this.handleEnter }
-            value={ this.props.query }/>
+            value={ query }
+            toggleSearchTerms={ toggleSearchTerms }
+            searchTermsHidden={ searchTermsHidden }/>
           <span
             onClick={ this.handleGoBack }
             className='searchbar__button--back'
@@ -250,7 +261,9 @@ SearchContent.propTypes = {
   resetNavigation: PropTypes.func,
   editModeOn: PropTypes.bool,
   officerCards: PropTypes.array,
-  requestActivityGrid: PropTypes.func
+  requestActivityGrid: PropTypes.func,
+  toggleSearchTerms: PropTypes.func,
+  searchTermsHidden: PropTypes.bool
 };
 
 SearchContent.defaultProps = {
@@ -267,5 +280,6 @@ SearchContent.defaultProps = {
   changeSearchQuery: () => {},
   location: {
     pathname: '/'
-  }
+  },
+  toggleSearchTerms: () => {}
 };

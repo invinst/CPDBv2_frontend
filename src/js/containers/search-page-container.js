@@ -12,9 +12,13 @@ import {
   changeSearchQuery
 } from 'actions/search-page';
 import {
+  toggleSearchTerms, requestSearchTermCategories
+} from 'actions/search-page/search-terms';
+import {
   chunkedSuggestionGroupsSelector, isEmptySelector, suggestionTagsSelector,
   suggestionColumnsSelector, focusedSuggestionSelector, isShowingSingleContentTypeSelector
 } from 'selectors/search-page';
+import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { cardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import editModeOnSelector from 'selectors/edit-mode-on';
@@ -37,7 +41,8 @@ function mapStateToProps(state, ownProps) {
     isShowingSingleContentType: isShowingSingleContentTypeSelector(state),
     recentSuggestions,
     officerCards: cardsSelector(state),
-    editModeOn: editModeOnSelector(state, ownProps)
+    editModeOn: editModeOnSelector(state, ownProps),
+    searchTermsHidden: hiddenSelector(state),
   };
 }
 
@@ -49,7 +54,9 @@ const mapDispatchToProps = {
   move,
   changeSearchQuery,
   resetNavigation,
-  requestActivityGrid
+  requestActivityGrid,
+  toggleSearchTerms,
+  requestSearchTermCategories
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchContent));

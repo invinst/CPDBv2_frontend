@@ -4,7 +4,11 @@ export const wrapperStyle = {
   backgroundColor: wildSandColor,
   width: `calc(100% - ${sidebarWidth}px)`,
   height: '100%',
-  boxSizing: 'border-box',
-  paddingBottom: '16px',
   display: 'inline-block'
+};
+
+export const scrollerStyle = {
+  height: '100%',
+  paddingBottom: '16px',
+  boxSizing: 'border-box',
 };

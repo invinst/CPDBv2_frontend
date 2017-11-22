@@ -4,7 +4,7 @@ import { map } from 'lodash';
 
 import TimelineItem from './timeline-item';
 import SmoothScroller from './smooth-scroller';
-import { wrapperStyle } from './timeline.style';
+import { wrapperStyle, scrollerStyle } from './timeline.style';
 
 
 export default class Timeline extends Component {
@@ -54,22 +54,24 @@ export default class Timeline extends Component {
     } = this.props;
     const { selectedItemTop, flashItemIndex } = this.state;
     return (
-      <SmoothScroller style={ wrapperStyle } selectedItemTop={ selectedItemTop }>
-        <InfiniteScroll
-          loadMore={ () => hasMore
-            ? fetchTimelineItems(officerId, { ...sortParams, ...nextParams, ...filters }) : null }
-          hasMore={ hasMore }
-          useWindow={ false }>
-          { map(items, (item, ind) => (
-            <TimelineItem
-              item={ item } key={ ind } selected={ ind === selectedItemIndex }
-              minimapItemHovered={ ind === hoveredItemIndex } officerId={ officerId }
-              onSelected={ this.handleItemSelected } flash={ ind === flashItemIndex }
-              onHover={ (hovered) => hoverTimelineItem(hovered ? ind : null) }
-              onClick={ () => selectTimelineItem(ind) }/>
-          )) }
-        </InfiniteScroll>
-      </SmoothScroller>
+      <div className='test--timeline-items-container' style={ wrapperStyle }>
+        <SmoothScroller style={ scrollerStyle } selectedItemTop={ selectedItemTop }>
+          <InfiniteScroll
+            loadMore={ () => hasMore
+              ? fetchTimelineItems(officerId, { ...sortParams, ...nextParams, ...filters }) : null }
+            hasMore={ hasMore }
+            useWindow={ false }>
+            { map(items, (item, ind) => (
+              <TimelineItem
+                item={ item } key={ ind } selected={ ind === selectedItemIndex }
+                minimapItemHovered={ ind === hoveredItemIndex } officerId={ officerId }
+                onSelected={ this.handleItemSelected } flash={ ind === flashItemIndex }
+                onHover={ (hovered) => hoverTimelineItem(hovered ? ind : null) }
+                onClick={ () => selectTimelineItem(ind) }/>
+            )) }
+          </InfiniteScroll>
+        </SmoothScroller>
+      </div>
     );
   }
 }

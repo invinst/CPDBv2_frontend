@@ -1,4 +1,4 @@
-import { greyishColor, softBlackColor, sugarCaneColor } from 'utils/styles';
+import { greyishColor, softBlackColor, sugarCaneColor, clayGray } from 'utils/styles';
 import { backButtonWidth } from './search-content.style';
 
 
@@ -15,13 +15,29 @@ export const searchInputStyle = {
   },
   wrapper: {
     boxSizing: 'border-box',
-    width: `calc(100% - ${backButtonWidth + marginRight}px)`,
+    width: '100%',
     height: '32px',
-    marginRight: `${marginRight}px`,
-    padding: 0,
+    padding: 0
   },
   placeholder: {
     color: greyishColor,
     fontSize: '14px'
   }
+};
+
+export const searchTermsButtonStyle = (hidden) => ({
+  position: 'absolute',
+  color: hidden ? clayGray : softBlackColor,
+  right: '16px',
+  lineHeight: '32px',
+  fontSize: '13px',
+  fontWeight: 500,
+  cursor: 'pointer'
+});
+
+export const wrapperStyle = {
+  position: 'relative',
+  width: `calc(100% - ${backButtonWidth + marginRight}px)`,
+  display: 'inline-block',
+  marginRight: `${marginRight}px`
 };
