@@ -4,7 +4,7 @@ import { renderIntoDocument } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import Scroller from 'components/officer-page/timeline-page/scroller';
+import Scroller from 'components/common/scroller';
 
 
 describe('Scroller component', function () {
@@ -36,6 +36,20 @@ describe('Scroller component', function () {
       instance
     );
     instance.element.scrollTop.should.eql(10);
+    Scroller.prototype.handleElementRef.restore();
+  });
+
+  it('should set its element scrollLeft when receive a new scrollLeft', function () {
+    stub(Scroller.prototype, 'handleElementRef');
+    instance = renderIntoDocument(
+      <Scroller scrollLeft={ 0 }/>
+    );
+    instance.element = stub();
+    instance = reRender(
+      <Scroller scrollLeft={ 10 }/>,
+      instance
+    );
+    instance.element.scrollLeft.should.eql(10);
     Scroller.prototype.handleElementRef.restore();
   });
 });

@@ -1,5 +1,5 @@
 import { greyishColor, softBlackColor, sugarCaneColor, clayGray } from 'utils/styles';
-import { backButtonWidth } from './search-content.style';
+import { backButtonWidth } from './search-page.style';
 
 
 const marginRight = 23;

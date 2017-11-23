@@ -9,8 +9,8 @@ class NavigationItem extends Component {
     const { text, hovering, onClick } = this.props;
     return (
       <span
+        className='test--navigation-item'
         style={ itemStyle(hovering) }
-        key={ text }
         onClick={ onClick }>
         { text }
       </span>

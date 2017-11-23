@@ -38,7 +38,9 @@ class SearchBox extends Component {
           keyPressHandlers={ keyPressHandlers }
           blurOnKeyPress={ ['up', 'down'] }
         />
-        <span style={ searchTermsButtonStyle(searchTermsHidden) } onClick={ this.handleToggleSeachTerm }>
+        <span className='test--toggle-button'
+          style={ searchTermsButtonStyle(searchTermsHidden) }
+          onClick={ this.handleToggleSeachTerm }>
           { `${searchTermsHidden ? 'Show' : 'Hide'} Search terms` }
         </span>
       </div>

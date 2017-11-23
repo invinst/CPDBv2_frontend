@@ -22,3 +22,7 @@ CategoryItemContent.propTypes = {
   item: PropTypes.object,
   style: PropTypes.object
 };
+
+CategoryItemContent.defaultProps = {
+  item: {}
+};

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import SearchContent from 'components/search-page/search-content';
+import SearchPage from 'components/search-page';
 import {
   getSuggestion,
   selectTag,
@@ -59,4 +59,4 @@ const mapDispatchToProps = {
   requestSearchTermCategories
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchContent));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchPage));

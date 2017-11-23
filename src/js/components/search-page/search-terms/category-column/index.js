@@ -32,7 +32,10 @@ export default class CategoryColumn extends Component {
       <div style={ itemsWrapperStyle } ref={ this.onGetRef.bind(this) }>
         {
           map(chunk(items, 13), (itemsChunk, index) => (
-            <div style={ itemsChunkWrapperStyle } key={ index }>
+            <div
+              style={ itemsChunkWrapperStyle }
+              key={ index }
+              className='test--category-item-chunk'>
               {
                 map(itemsChunk, (item, index) => (
                   <CategoryItem key={ index } item={ item }

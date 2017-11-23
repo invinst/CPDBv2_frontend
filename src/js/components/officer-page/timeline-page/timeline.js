@@ -3,7 +3,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { map } from 'lodash';
 
 import TimelineItem from './timeline-item';
-import SmoothScroller from './smooth-scroller';
+import SmoothScroller from 'components/common/smooth-scroller';
 import { wrapperStyle, scrollerStyle } from './timeline.style';
 
 
@@ -55,7 +55,8 @@ export default class Timeline extends Component {
     const { selectedItemTop, flashItemIndex } = this.state;
     return (
       <div className='test--timeline-items-container' style={ wrapperStyle }>
-        <SmoothScroller style={ scrollerStyle } selectedItemTop={ selectedItemTop }>
+        <SmoothScroller direction='top' style={ scrollerStyle }
+          selectedOffset={ selectedItemTop } directionMargin={ 14 }>
           <InfiniteScroll
             loadMore={ () => hasMore
               ? fetchTimelineItems(officerId, { ...sortParams, ...nextParams, ...filters }) : null }

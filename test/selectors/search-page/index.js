@@ -6,7 +6,7 @@ import {
   focusedSuggestionSelector
 } from 'selectors/search-page';
 
-describe('autocomplete selector', function () {
+describe('search page selector', function () {
   describe('suggestionGroupsSelector', function () {
     it('should output non-empty group', function () {
       suggestionGroupsSelector({

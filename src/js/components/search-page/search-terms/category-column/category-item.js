@@ -24,7 +24,10 @@ class CategoryItem extends Component {
 
     return (
       <div style={ itemStyle }>
-        <div onClick={ this.toggleExpanded } style={ nameStyle(expanded, hovering) } className='link--transition'>
+        <div
+          onClick={ this.toggleExpanded }
+          style={ nameStyle(expanded, hovering) }
+          className='link--transition'>
           { item.name }
         </div>
         <ExpandMotion show={ expanded }>
@@ -40,6 +43,10 @@ CategoryItem.propTypes = {
   expanded: PropTypes.bool,
   hovering: PropTypes.bool,
   toggleExpanded: PropTypes.func
+};
+
+CategoryItem.defaultProps = {
+  item: {}
 };
 
 export default Hoverable(CategoryItem);

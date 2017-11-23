@@ -3,7 +3,7 @@ import { map } from 'lodash';
 
 import Navigation from './navigation';
 import CategoryColumn from './category-column';
-import SmoothScroller from './smooth-scroller';
+import SmoothScroller from 'components/common/smooth-scroller';
 import { contentWrapperStyle } from './search-terms.style.js';
 
 
@@ -38,7 +38,7 @@ export default class SearchTerms extends Component {
     const { expandedId, selectedLeft } = this.state;
 
     return (
-      <SmoothScroller style={ contentWrapperStyle } selectedItemLeft={ selectedLeft }>
+      <SmoothScroller direction='left' style={ contentWrapperStyle } selectedOffset={ selectedLeft }>
         {
           map(categories, ({ items, name }, index) => (
             <CategoryColumn
@@ -72,4 +72,8 @@ SearchTerms.propTypes = {
   onSelectCategory: PropTypes.func,
   selectedCategoryIndex: PropTypes.number,
   categories: PropTypes.array
+};
+
+SearchTerms.defaultProps = {
+  requestSearchTermCategories: () => {}
 };

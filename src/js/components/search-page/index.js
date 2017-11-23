@@ -15,7 +15,7 @@ import {
   plusWrapperStyle,
   searchBoxStyle,
   searchContentWrapperStyle
-} from './search-content.style.js';
+} from './search-page.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
@@ -281,5 +281,6 @@ SearchContent.defaultProps = {
   location: {
     pathname: '/'
   },
-  toggleSearchTerms: () => {}
+  toggleSearchTerms: () => {},
+  searchTermsHidden: true
 };
