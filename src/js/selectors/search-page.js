@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { omitBy, isEmpty, keys, pick, indexOf, sortBy, chunk, flatten } from 'lodash';
 
-const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS'];
+const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'];
 
 const getSuggestionGroups = (state) => (state.searchPage.suggestionGroups);
 const getSuggestionTags = (state) => (state.searchPage.tags);

@@ -23,9 +23,20 @@ describe('CRPage component', function () {
   });
 
   it('should render complaint and officer information', function () {
-    instance = renderIntoDocument(<CRPage coaccused={ [{ id: 1, fullName: 'Foo' }] }/>);
+    instance = renderIntoDocument(<CRPage coaccused={ [{ id: 1, fullName: 'Foo' }] } officerId={ 1 } />);
 
     scryRenderedComponentsWithType(instance, OfficerRow).should.have.length(1);
+    scryRenderedComponentsWithType(instance, MultiRow).should.have.length(1);
+    scryRenderedComponentsWithType(instance, FindingRow).should.have.length(1);
+    scryRenderedComponentsWithType(instance, Row).should.have.length(2);
+    scryRenderedComponentsWithType(instance, Location).should.have.length(1);
+    scryRenderedComponentsWithType(instance, Attachments).should.have.length(3);
+  });
+
+  it('should not render officer information if there is no officer', function () {
+    instance = renderIntoDocument(<CRPage />);
+
+    scryRenderedComponentsWithType(instance, OfficerRow).should.have.length(0);
     scryRenderedComponentsWithType(instance, MultiRow).should.have.length(1);
     scryRenderedComponentsWithType(instance, FindingRow).should.have.length(1);
     scryRenderedComponentsWithType(instance, Row).should.have.length(2);
