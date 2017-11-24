@@ -260,3 +260,5 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
   '45': '#520051',
   '55': '#131313',
 };
+
+export const RECENT_CONTENT_TYPE = 'RECENT';

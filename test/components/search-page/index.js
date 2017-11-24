@@ -1,24 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import {
   Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType, scryRenderedDOMComponentsWithClass
+  findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { stub, spy } from 'sinon';
 import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
+import MockStore from 'redux-mock-store';
 
 import TextInput from 'components/common/input';
-import SearchTags from 'components/search-page/search-tags';
 import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError } from 'utils/test';
-import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import * as domUtils from 'utils/dom';
 
 
 describe('SearchPage component', function () {
   let instance;
+  const store = MockStore()({
+    searchPage: {
+      navigation: {},
+      searchTerms: {
+        categories: []
+      }
+    }
+  });
 
   beforeEach(function () {
     this.locationAssign = stub(window.location, 'assign');
@@ -62,36 +70,6 @@ describe('SearchPage component', function () {
     searchInput.value = '';
     Simulate.change(searchInput);
     selectTag.calledWith(null).should.be.true();
-  });
-
-  it('should call api when user select a tag', function () {
-    const getSuggestion = spy();
-    const tags = ['a'];
-
-    instance = renderIntoDocument(
-      <SearchPage getSuggestion={ getSuggestion } tags={ tags } query={ 'a' }/>
-    );
-
-    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
-    const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
-    Simulate.click(tagElement);
-    getSuggestion.calledWith('a', {
-      contentType: 'a'
-    }).should.be.true();
-  });
-
-  it('should call api when user deselect a tag', function () {
-    const getSuggestion = spy();
-    const tags = ['a'];
-
-    instance = renderIntoDocument(
-      <SearchPage getSuggestion={ getSuggestion } tags={ tags } contentType='a' query='b' />
-    );
-
-    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
-    const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
-    Simulate.click(tagElement);
-    getSuggestion.calledWith('b').should.be.true();
   });
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
@@ -155,7 +133,9 @@ describe('SearchPage component', function () {
 
   it('should follow the v1 search url when user hit ENTER but there\'s no results', function () {
     instance = renderIntoDocument(
-      <SearchPage query={ 'something' }/>
+      <Provider store={ store }>
+        <SearchPage query={ 'something' }/>
+      </Provider>
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
@@ -265,31 +245,4 @@ describe('SearchPage component', function () {
     });
   });
 
-  describe('in edit mode', function () {
-    it('should render [+] sign', function () {
-      instance = renderIntoDocument(
-        <SearchPage editModeOn={ true } query='ke'/>
-      );
-
-      const domNode = ReactDOM.findDOMNode(instance);
-      domNode.textContent.should.containEql('[+]');
-
-      scryRenderedDOMComponentsWithClass(instance, 'test--cancel-alias-button')
-        .length.should.eql(0);
-    });
-
-    it('should render "cancel" button when in alias edit mode', function () {
-      instance = renderIntoDocument(
-        <SearchPage
-          editModeOn={ true }
-          location={ { pathname: `/edit/${SEARCH_ALIAS_EDIT_PATH}` } }
-          query='ke'
-        />
-      );
-      const domNode = ReactDOM.findDOMNode(instance);
-      domNode.textContent.should.not.containEql('[+]');
-
-      findRenderedDOMComponentWithClass(instance, 'test--cancel-alias-button');
-    });
-  });
 });

@@ -1,19 +1,21 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { map } from 'lodash';
 
-import { resultWrapperStyle } from './search-results.style';
+import { resultWrapperStyle, plusWrapperStyle, plusSignStyle } from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
+import * as constants from 'utils/constants';
 
 
 export default class SuggestionResults extends Component {
   renderGroups() {
     const { suggestionGroups,
-      onLoadMore,
       searchText,
       isEmpty,
       suggestionClick,
       navigation,
+      onLoadMore,
       aliasEditModeOn
     } = this.props;
 
@@ -44,7 +46,7 @@ export default class SuggestionResults extends Component {
   }
 
   render() {
-    const { isRequesting } = this.props;
+    const { isRequesting, editModeOn, aliasEditModeOn } = this.props;
     if (isRequesting) {
       return (
         <div style={ { ...resultWrapperStyle, marginTop: '38px' } }>
@@ -53,9 +55,17 @@ export default class SuggestionResults extends Component {
       );
     }
     return (
-      <div style={ resultWrapperStyle }>
-        <div className='content-wrapper'>
-          { this.renderGroups() }
+      <div>
+        { editModeOn && !aliasEditModeOn ?
+          <div style={ plusWrapperStyle }>
+            <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
+          </div> :
+          null
+        }
+        <div style={ resultWrapperStyle }>
+          <div className='content-wrapper'>
+            { this.renderGroups() }
+          </div>
         </div>
       </div>
     );
@@ -67,8 +77,12 @@ SuggestionResults.propTypes = {
   searchText: PropTypes.string,
   suggestionGroups: PropTypes.array,
   isRequesting: PropTypes.bool,
-  onLoadMore: PropTypes.func,
   suggestionClick: PropTypes.func,
+  editModeOn: PropTypes.bool,
+  getSuggestion: PropTypes.func,
+  onLoadMore: PropTypes.func,
+  resetNavigation: PropTypes.func,
   isEmpty: PropTypes.bool,
+  contentType: PropTypes.string,
   aliasEditModeOn: PropTypes.bool
 };

@@ -1,14 +1,9 @@
 import {
   sanFranciscoTextFamily,
-  fashionPinkColor,
-  pinkishWhiteColor,
   girlyPink,
   lightGirlyPink,
-  deepGirlyPink,
   greyishColor
 } from 'utils/styles';
-import { tagsWrapperHeight, tagStyle, tagsWrapperStyle } from './search-tags.style';
-
 
 export const searchBoxLineHeight = 32;
 const searchBoxPadding = 8;
@@ -36,46 +31,3 @@ export const searchBoxStyle = (aliasEditModeOn) => ({
   backgroundColor: aliasEditModeOn ? girlyPink : 'white',
   padding: `${searchBoxPadding}px 0 9px 0`,
 });
-
-export const plusPlaceholderHeight = 74;
-
-export const plusWrapperStyle = {
-  height: `${plusPlaceholderHeight}px`,
-  textAlign: 'center',
-  fontSize: '36px',
-  color: fashionPinkColor,
-  fontWeight: '600',
-  backgroundColor: pinkishWhiteColor,
-  boxSizing: 'border-box',
-  cursor: 'pointer',
-  marginLeft: '16px',
-  marginBottom: '20px',
-  width: '40%',
-  minWidth: '480px',
-  margin: 'auto'
-};
-
-export const plusSignStyle = {
-  // Reset <a> link styles:
-  textDecoration: 'none',
-  color: 'inherit',
-
-  position: 'relative',
-  display: 'block',
-  top: '50%',
-  transform: 'translateY(-50%)'
-};
-
-export const cancelButtonStyle = {
-  ...tagStyle(false),
-  float: 'right',
-  textDecoration: 'none',
-  backgroundColor: deepGirlyPink,
-  color: 'inherit',
-  margin: tagsWrapperStyle.padding,
-  border: 'none'
-};
-
-export const buttonsWrapperStyle = {
-  height: `${tagsWrapperHeight}px`
-};

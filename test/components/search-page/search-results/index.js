@@ -50,4 +50,24 @@ describe('SearchResults component', function () {
     renderedGroups[0].props.header.should.eql('1');
     renderedGroups[1].props.header.should.eql('2');
   });
+
+  context('in edit mode', function () {
+    it('should render [+] sign when not aliasEditModeOn', function () {
+      instance = renderIntoDocument(
+        <SearchResults editModeOn={ true } aliasEditModeOn={ false }/>
+      );
+
+      const domNode = findDOMNode(instance);
+      domNode.textContent.should.containEql('[+]');
+    });
+
+    it('should not render [+] sign when in aliasEditModeOn', function () {
+      instance = renderIntoDocument(
+        <SearchResults editModeOn={ true } aliasEditModeOn={ true }/>
+      );
+
+      const domNode = findDOMNode(instance);
+      domNode.textContent.should.not.containEql('[+]');
+    });
+  });
 });

@@ -1,37 +1,28 @@
 import React, { Component, PropTypes } from 'react';
-import { browserHistory, Link } from 'react-router';
-import { debounce, head, isEmpty } from 'lodash';
+import { browserHistory } from 'react-router';
+import { head, isEmpty } from 'lodash';
 
-import SearchResults from './search-results';
 import SearchBox from './search-box';
-import SearchTags from './search-tags';
-import SearchNoInput from './search-no-input';
-import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import {
   backButtonStyle,
-  buttonsWrapperStyle,
-  cancelButtonStyle,
-  plusSignStyle,
-  plusWrapperStyle,
   searchBoxStyle,
   searchContentWrapperStyle
 } from './search-page.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import { NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_PATH } from 'utils/constants';
+import SearchMainPanel from './search-main-panel';
+import { NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
 
-export default class SearchContent extends Component {
+export default class SearchPage extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
     this.handleGoBack = this.handleGoBack.bind(this);
     this.handleEnter = this.handleEnter.bind(this);
     this.handleViewItem = this.handleViewItem.bind(this);
-    this.getSuggestion = debounce(props.getSuggestion, 100);
   }
 
   componentDidMount() {
@@ -88,15 +79,6 @@ export default class SearchContent extends Component {
     this.sendSearchRequest(value);
   }
 
-  handleSelect(contentType) {
-    if (contentType === this.props.contentType) {
-      this.getSuggestion(this.props.query, { limit: DEFAULT_SUGGESTION_LIMIT });
-    } else {
-      this.getSuggestion(this.props.query, { contentType });
-    }
-    this.props.resetNavigation();
-  }
-
   handleGoBack(e) {
     // Since mousetrap just send here an empty object, we might need this for the test to be passed
     !isEmpty(e) && e.preventDefault();
@@ -129,87 +111,12 @@ export default class SearchContent extends Component {
     }
   }
 
-  handleSelectRecent() {
-    // TODO
-  }
-
-  renderContent(aliasEditModeOn) {
-    const {
-      suggestionGroups, isRequesting, tags, contentType, navigation,
-      isEmpty, recentSuggestions, trackRecentSuggestion, query, editModeOn,
-      officerCards, requestActivityGrid, searchTermsHidden
-    } = this.props;
-
-    if (!searchTermsHidden) {
-      return (
-        <SearchTermsContainer/>
-      );
-    }
-
-    if (!query) {
-      return (
-        <div>
-          <SearchTags
-            onSelect={ this.handleSelectRecent.bind(this) }
-            tags={ ['RECENT'] }/>
-          <SearchNoInput
-            recentSuggestions={ recentSuggestions }
-            officerCards={ officerCards }
-            requestActivityGrid={ requestActivityGrid }
-          />
-        </div>
-      );
-    }
-
-    let cancelButton = null;
-    let plusButton = null;
-    if (editModeOn) {
-      if (aliasEditModeOn) {
-        cancelButton = (
-          <Link to={ `/edit/${SEARCH_PATH}` } style={ cancelButtonStyle } className='test--cancel-alias-button'>
-            Cancel
-          </Link>
-        );
-      } else {
-        plusButton = (
-          <div style={ plusWrapperStyle }>
-            <Link to={ `/edit/${SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
-          </div>
-        );
-      }
-    }
-
-    return (
-      <div>
-        <div style={ buttonsWrapperStyle }>
-          <SearchTags
-            tags={ tags }
-            onSelect={ this.handleSelect }
-            selected={ contentType }
-          />
-          { cancelButton }
-        </div>
-
-        { plusButton }
-
-        <SearchResults
-          navigation={ navigation }
-          suggestionClick={ trackRecentSuggestion }
-          isEmpty={ isEmpty }
-          searchText={ query }
-          onLoadMore={ this.handleSelect }
-          suggestionGroups={ suggestionGroups }
-          isRequesting={ isRequesting }
-          aliasEditModeOn={ aliasEditModeOn }
-        />
-
-      </div>
-    );
-  }
-
   render() {
-    const aliasEditModeOn = (this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`));
-    const { query, toggleSearchTerms, searchTermsHidden } = this.props;
+    const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
+    const {
+      query, toggleSearchTerms, searchTermsHidden, tags, contentType, recentSuggestions,
+      editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion
+    } = this.props;
 
     return (
       <div
@@ -231,14 +138,26 @@ export default class SearchContent extends Component {
           </span>
         </div>
         <div>
-          { this.renderContent(aliasEditModeOn) }
+          <SearchMainPanel
+            tags={ tags }
+            contentType={ contentType }
+            recentSuggestions={ recentSuggestions }
+            query={ query }
+            editModeOn={ editModeOn }
+            aliasEditModeOn={ aliasEditModeOn }
+            officerCards={ officerCards }
+            requestActivityGrid={ requestActivityGrid }
+            searchTermsHidden={ searchTermsHidden }
+            resetNavigation={ resetNavigation }
+            getSuggestion={ getSuggestion }
+          />
         </div>
       </div>
     );
   }
 }
 
-SearchContent.propTypes = {
+SearchPage.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string
   }),
@@ -266,7 +185,7 @@ SearchContent.propTypes = {
   searchTermsHidden: PropTypes.bool
 };
 
-SearchContent.defaultProps = {
+SearchPage.defaultProps = {
   suggestionGroups: [],
   contentType: null,
   isRequesting: false,
@@ -276,7 +195,6 @@ SearchContent.defaultProps = {
   router: {
     goBack: () => {}
   },
-
   changeSearchQuery: () => {},
   location: {
     pathname: '/'

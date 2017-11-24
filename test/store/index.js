@@ -82,10 +82,9 @@ describe('store', function () {
         query: '',
         searchTerms: {
           categories: [],
-          hidden: false,
+          hidden: true,
           selectedCategory: null
-        },
-        itemsPerColumn: 10
+        }
       },
       inlineAliasAdminPage: {},
       crPage: {
