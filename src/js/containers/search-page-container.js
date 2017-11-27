@@ -25,12 +25,16 @@ import editModeOnSelector from 'selectors/edit-mode-on';
 
 
 function mapStateToProps(state, ownProps) {
-  const { isRequesting, contentType, recentSuggestions, navigation, query, itemsPerColumn } = state.searchPage;
+  const {
+    isRequesting, contentType, recentSuggestions, navigation, query, itemsPerColumn
+  } = state.searchPage;
+  const { children } = ownProps;
 
   return {
     navigation,
     itemsPerColumn,
     query,
+    children,
     tags: suggestionTagsSelector(state),
     suggestionGroups: chunkedSuggestionGroupsSelector(state),
     isRequesting,

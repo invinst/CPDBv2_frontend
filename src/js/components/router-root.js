@@ -9,6 +9,7 @@ import LandingPage from 'components/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import FAQPage from 'components/faq-page/faq-page';
 import SearchPageContainer from 'containers/search-page-container';
+import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
@@ -19,6 +20,7 @@ import {
   FAQ_PATH,
   STORIES_PATH,
   SEARCH_PATH,
+  SEARCH_TERMS_PATH,
   OFFICER_PATH,
   CR_PATH,
   UNIT_PROFILE_PATH,
@@ -51,7 +53,9 @@ class RouterRoot extends Component {
       </Route>,
       <Route path={ OFFICER_PATH } component={ OfficerPageContainer } key='5'/>,
       <Route path={ OFFICER_TIMELINE_PATH } component={ OfficerPageContainer } key='6'/>,
-      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7'/>,
+      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7'>
+        <Route path={ SEARCH_TERMS_PATH } component={ SearchTermsContainer }/>
+      </Route>,
       <Route path={ CR_PATH } component={ CRPageContainer } key='8'/>,
       <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'/>,
       <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer } key='10'/>,

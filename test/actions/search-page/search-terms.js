@@ -1,5 +1,5 @@
 import {
-  requestSearchTermCategories, toggleSearchTerms, selectCategory
+  requestSearchTermCategories, selectCategory
 } from 'actions/search-page/search-terms';
 import * as constants from 'utils/constants';
 
@@ -20,15 +20,6 @@ describe('search terms actions', function () {
             adapter: null
           }
         }
-      });
-    });
-  });
-
-  describe('toggleSearchTerms', function () {
-    it('should return correct action', function () {
-      toggleSearchTerms().should.deepEqual({
-        type: constants.TOGGLE_SEARCH_TERMS,
-        payload: undefined
       });
     });
   });

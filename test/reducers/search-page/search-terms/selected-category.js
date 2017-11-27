@@ -15,10 +15,4 @@ describe('selectedCategory reducer', function () {
       payload: 'abc'
     }).should.equal('abc');
   });
-
-  it('should handle TOGGLE_SEARCH_TERMS', function () {
-    should(selectedCategory('abc', {
-      type: constants.TOGGLE_SEARCH_TERMS
-    })).be.null();
-  });
 });

@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
+import { pushPathPreserveEditMode } from 'utils/edit-path';
+import * as constants from 'utils/constants';
 import { searchInputStyle, searchTermsButtonStyle, wrapperStyle } from './search-box.style';
 import TextInput from 'components/common/input';
 
@@ -12,7 +14,11 @@ class SearchBox extends Component {
   }
 
   handleToggleSeachTerm() {
-    this.props.toggleSearchTerms();
+    if (this.props.searchTermsHidden) {
+      pushPathPreserveEditMode(`${constants.SEARCH_PATH}${constants.SEARCH_TERMS_PATH}`);
+    } else {
+      pushPathPreserveEditMode(constants.SEARCH_PATH);
+    }
   }
 
   render() {

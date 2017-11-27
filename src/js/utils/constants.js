@@ -25,6 +25,7 @@ export const DATA_PATH = 'data/';
 export const FAQ_PATH = 'faq/';
 export const STORIES_PATH = 'reporting/';
 export const SEARCH_PATH = 'search/';
+export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
@@ -190,7 +191,6 @@ export const SEARCH_TERM_CATEGORIES_REQUEST_SUCCESS = 'SEARCH_TERM_CATEGORIES_RE
 export const SEARCH_TERM_CATEGORIES_REQUEST_FAILURE = 'SEARCH_TERM_CATEGORIES_REQUEST_FAILURE';
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
-export const TOGGLE_SEARCH_TERMS = 'TOGGLE_SEARCH_TERMS';
 export const SELECT_CATEGORY = 'SELECT_CATEGORY';
 
 

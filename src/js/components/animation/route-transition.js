@@ -2,17 +2,31 @@ import React, { PropTypes, Component } from 'react';
 import { TransitionMotion, spring } from 'react-motion';
 
 import { defaultConfig } from 'utils/spring-presets';
-import { isSameOfficerPath, isSameCR } from 'utils/location';
 import { outerWrapperStyle, innerWrapperStyle } from './route-transition.style';
 
 
 export default class RouteTransition extends Component {
-  shouldComponentUpdate(nextProps) {
-    if (isSameOfficerPath(nextProps.pathname, this.props.pathname)
-        || isSameCR(nextProps.pathname, this.props.pathname)) {
-      return false;
+  /**
+   * Return the same key for some paths so that animation won't trigger
+   *
+   *  - Officer paths such as /officer/123/ and /officer/123/timeline/ should give the same key
+   *  - Complaint paths such as /complaint/234/456/ and /complaint/234/789/ should give the same key
+   *  - Search paths such as /search/ and /search/terms/ should always give the same key
+   */
+  getRouteTransitionKey() {
+    const { pathname } = this.props;
+    const patterns = [
+      /.*(officer\/\d+).*/,
+      /.*(complaint\/\d+).*/,
+      /.*(search)\/.*/
+    ];
+    for (let ind in patterns) {
+      const pattern = patterns[ind];
+      if (pathname.match(pattern)) {
+        return pathname.replace(pattern, '$1');
+      }
     }
-    return this.props.pathname !== nextProps.pathname;
+    return pathname;
   }
 
   willEnter() {
@@ -30,11 +44,12 @@ export default class RouteTransition extends Component {
   }
 
   getStyles() {
-    const { children, pathname } = this.props;
+    const { children } = this.props;
+    const routeTransitionKey = this.getRouteTransitionKey();
 
     return [
       {
-        key: pathname,
+        key: routeTransitionKey,
         data: {
           handler: children
         },

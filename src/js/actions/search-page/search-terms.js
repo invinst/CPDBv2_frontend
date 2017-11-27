@@ -12,6 +12,4 @@ export const requestSearchTermCategories = get(
   ]
 );
 
-export const toggleSearchTerms = createAction(constants.TOGGLE_SEARCH_TERMS);
-
 export const selectCategory = createAction(constants.SELECT_CATEGORY);

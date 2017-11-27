@@ -114,8 +114,8 @@ export default class SearchPage extends Component {
   render() {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
-      query, toggleSearchTerms, searchTermsHidden, tags, contentType, recentSuggestions,
-      editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion
+      query, searchTermsHidden, tags, contentType, recentSuggestions,
+      editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children
     } = this.props;
 
     return (
@@ -128,7 +128,6 @@ export default class SearchPage extends Component {
             onChange={ this.handleChange }
             onEnter={ this.handleEnter }
             value={ query }
-            toggleSearchTerms={ toggleSearchTerms }
             searchTermsHidden={ searchTermsHidden }/>
           <span
             onClick={ this.handleGoBack }
@@ -138,19 +137,23 @@ export default class SearchPage extends Component {
           </span>
         </div>
         <div>
-          <SearchMainPanel
-            tags={ tags }
-            contentType={ contentType }
-            recentSuggestions={ recentSuggestions }
-            query={ query }
-            editModeOn={ editModeOn }
-            aliasEditModeOn={ aliasEditModeOn }
-            officerCards={ officerCards }
-            requestActivityGrid={ requestActivityGrid }
-            searchTermsHidden={ searchTermsHidden }
-            resetNavigation={ resetNavigation }
-            getSuggestion={ getSuggestion }
-          />
+          {
+            children ?
+              children :
+              <SearchMainPanel
+                tags={ tags }
+                contentType={ contentType }
+                recentSuggestions={ recentSuggestions }
+                query={ query }
+                editModeOn={ editModeOn }
+                aliasEditModeOn={ aliasEditModeOn }
+                officerCards={ officerCards }
+                requestActivityGrid={ requestActivityGrid }
+                searchTermsHidden={ searchTermsHidden }
+                resetNavigation={ resetNavigation }
+                getSuggestion={ getSuggestion }
+              />
+          }
         </div>
       </div>
     );
@@ -177,11 +180,11 @@ SearchPage.propTypes = {
   router: PropTypes.object,
   query: PropTypes.string,
   changeSearchQuery: PropTypes.func,
+  children: PropTypes.node,
   resetNavigation: PropTypes.func,
   editModeOn: PropTypes.bool,
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
-  toggleSearchTerms: PropTypes.func,
   searchTermsHidden: PropTypes.bool
 };
 
@@ -199,6 +202,5 @@ SearchPage.defaultProps = {
   location: {
     pathname: '/'
   },
-  toggleSearchTerms: () => {},
   searchTermsHidden: true
 };

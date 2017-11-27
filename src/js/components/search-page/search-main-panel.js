@@ -2,7 +2,6 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { debounce } from 'lodash';
 
-import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import SearchTags from './search-tags';
 import SearchResultsContainer from 'containers/search-page/search-results-container';
 import SearchNoInput from './search-no-input';
@@ -30,14 +29,8 @@ export default class SearchMainPanel extends Component {
   render() {
     const {
       tags, contentType, recentSuggestions, query, editModeOn,
-      officerCards, requestActivityGrid, searchTermsHidden, aliasEditModeOn
+      officerCards, requestActivityGrid, aliasEditModeOn
     } = this.props;
-
-    if (!searchTermsHidden) {
-      return (
-        <SearchTermsContainer/>
-      );
-    }
 
     return (
       <div>
@@ -89,13 +82,11 @@ SearchMainPanel.propTypes = {
   aliasEditModeOn: PropTypes.bool,
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
-  searchTermsHidden: PropTypes.bool,
   resetNavigation: PropTypes.func,
   getSuggestion: PropTypes.func
 };
 
 SearchMainPanel.defaultProps = {
   getSuggestion: () => {},
-  resetNavigation: () => {},
-  searchTermsHidden: true
+  resetNavigation: () => {}
 };

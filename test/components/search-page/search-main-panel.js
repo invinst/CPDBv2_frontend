@@ -9,7 +9,6 @@ import lodash from 'lodash';
 import MockStore from 'redux-mock-store';
 
 import SearchTags from 'components/search-page/search-tags';
-import SearchTerms from 'components/search-page/search-terms';
 import SearchMainPanel from 'components/search-page/search-main-panel';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -83,15 +82,6 @@ describe('SearchMainPanel component', function () {
     Simulate.click(tagElement);
 
     getSuggestion.called.should.be.false();
-  });
-
-  it('should display SearchTerms if searchTermsHidden is false', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchMainPanel searchTermsHidden={ false }/>
-      </Provider>
-    );
-    findRenderedComponentWithType(instance, SearchTerms);
   });
 
   context('in edit mode', function () {

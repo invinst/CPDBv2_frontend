@@ -5,8 +5,9 @@ import {
   findRenderedDOMComponentWithClass,
   Simulate
 } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 
+import * as editPathUtils from 'utils/edit-path';
 import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -48,15 +49,27 @@ describe('SearchBox component', function () {
   });
 
   it('should toggle search terms', function () {
-    const toggleSearchTerms = spy();
+    const pushPathPreserveEditMode = stub(editPathUtils, 'pushPathPreserveEditMode');
 
     instance = renderIntoDocument(
-      <SearchBox toggleSearchTerms={ toggleSearchTerms }/>
+      <SearchBox searchTermsHidden={ true }/>
     );
 
-    const toggleButton = findRenderedDOMComponentWithClass(instance, 'test--toggle-button');
+    let toggleButton = findRenderedDOMComponentWithClass(instance, 'test--toggle-button');
     Simulate.click(toggleButton);
-    toggleSearchTerms.called.should.be.true();
+    pushPathPreserveEditMode.calledWith('search/terms/');
+
+    unmountComponentSuppressError(instance);
+
+    instance = renderIntoDocument(
+      <SearchBox searchTermsHidden={ false }/>
+    );
+
+    toggleButton = findRenderedDOMComponentWithClass(instance, 'test--toggle-button');
+    Simulate.click(toggleButton);
+    pushPathPreserveEditMode.calledWith('search/');
+
+    pushPathPreserveEditMode.restore();
   });
 
   it('should render Show Search terms on search term is hidden', function () {
