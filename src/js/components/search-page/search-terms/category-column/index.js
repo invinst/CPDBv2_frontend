@@ -53,8 +53,8 @@ export default class CategoryColumn extends Component {
     const { name } = this.props;
 
     return (
-      <div style={ columnWrapperStyle }>
-        <div style={ headerStyle }>{ name }</div>
+      <div style={ columnWrapperStyle } className='test--category-column'>
+        <div style={ headerStyle } className='test--category-header'>{ name }</div>
         {
           this.renderItems()
         }

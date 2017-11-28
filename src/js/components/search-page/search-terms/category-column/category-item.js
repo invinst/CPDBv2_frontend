@@ -23,7 +23,7 @@ class CategoryItem extends Component {
     const { item, expanded, hovering } = this.props;
 
     return (
-      <div style={ itemStyle }>
+      <div style={ itemStyle } className='test--category-item'>
         <div
           onClick={ this.toggleExpanded }
           style={ nameStyle(expanded, hovering) }

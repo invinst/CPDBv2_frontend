@@ -9,7 +9,7 @@ export default class CategoryItemContent extends Component {
     const { item, style } = this.props;
 
     return (
-      <div style={ { ...wrapperStyle, ...style } }>
+      <div style={ { ...wrapperStyle, ...style } } className='test--category-item-description'>
         <div style={ descriptionStyle }>{ item.description }</div>
         <CallToAction item={ item }/>
         <div style={ paddingStyle }/>
