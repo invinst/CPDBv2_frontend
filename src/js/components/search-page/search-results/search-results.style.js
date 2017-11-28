@@ -5,9 +5,16 @@ import {
 
 
 export const resultWrapperStyle = {
-  overflowX: 'auto',
   boxSizing: 'border-box',
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+  position: 'relative'
+};
+
+export const columnWrapperStyle = shouldShowPreviewPane => {
+  return {
+    overflowX: 'auto',
+    width: `calc(100% - ${shouldShowPreviewPane ? 320 : 0}px)`
+  };
 };
 
 export const plusWrapperStyle = {

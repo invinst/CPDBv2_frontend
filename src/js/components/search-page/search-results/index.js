@@ -2,15 +2,20 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { map } from 'lodash';
 
-import { resultWrapperStyle, plusWrapperStyle, plusSignStyle } from './search-results.style';
+import {
+  resultWrapperStyle, plusWrapperStyle, plusSignStyle, columnWrapperStyle
+} from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
+import PreviewPane from 'components/search-page/search-results/preview-pane';
+import { previewPaneInfoSelector } from 'selectors/search-page';
 import * as constants from 'utils/constants';
 
 
 export default class SuggestionResults extends Component {
   renderGroups() {
-    const { suggestionGroups,
+    const {
+      suggestionGroups,
       searchText,
       isEmpty,
       suggestionClick,
@@ -27,7 +32,7 @@ export default class SuggestionResults extends Component {
     // FIXME: Refactor it by a more convenient way
     let i = -1;
 
-    return map(suggestionGroups, (group, index) => {
+    return map(suggestionGroups, (group) => {
       i = i + 1;
 
       return (
@@ -40,13 +45,28 @@ export default class SuggestionResults extends Component {
           suggestionClick={ suggestionClick }
           header={ group.header }
           columnIndex={ i }
-          aliasEditModeOn={ aliasEditModeOn } />
+          aliasEditModeOn={ aliasEditModeOn }/>
       );
     });
   }
 
   render() {
-    const { isRequesting, editModeOn, aliasEditModeOn } = this.props;
+    const { isRequesting, focusedSuggestion, editModeOn, aliasEditModeOn } = this.props;
+    let previewPane = null;
+    const shouldShowPreviewPane = focusedSuggestion.header === 'OFFICER';
+
+    if (focusedSuggestion.payload && shouldShowPreviewPane) {
+      const { data, visualTokenBackgroundColor, id, text } = previewPaneInfoSelector(focusedSuggestion);
+      previewPane = (
+        <PreviewPane
+          data={ data }
+          officerId={ id }
+          backgroundColor={ visualTokenBackgroundColor }
+          title={ text }
+        />
+      );
+    }
+
     if (isRequesting) {
       return (
         <div style={ { ...resultWrapperStyle, marginTop: '38px' } }>
@@ -63,10 +83,11 @@ export default class SuggestionResults extends Component {
           null
         }
         <div style={ resultWrapperStyle }>
-          <div className='content-wrapper'>
+          <div className='content-wrapper' style={ columnWrapperStyle(shouldShowPreviewPane) }>
             { this.renderGroups() }
           </div>
         </div>
+        { previewPane }
       </div>
     );
   }
@@ -84,5 +105,10 @@ SuggestionResults.propTypes = {
   resetNavigation: PropTypes.func,
   isEmpty: PropTypes.bool,
   contentType: PropTypes.string,
-  aliasEditModeOn: PropTypes.bool
+  aliasEditModeOn: PropTypes.bool,
+  focusedSuggestion: PropTypes.object
+};
+
+SuggestionResults.defaultProps = {
+  focusedSuggestion: {}
 };

@@ -6,6 +6,7 @@ import {
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
+import PreviewPane from 'components/search-page/search-results/preview-pane';
 import SearchResults from 'components/search-page/search-results';
 import SearchNoResult from 'components/search-page/search-results/search-no-result';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
@@ -68,6 +69,60 @@ describe('SearchResults component', function () {
 
       const domNode = findDOMNode(instance);
       domNode.textContent.should.not.containEql('[+]');
+    });
+  });
+
+  describe('Preview Pane', function () {
+    it('should not render PreviewPane when no officer is focused', function () {
+      const focusedSuggestion = {
+        header: 'CO-ACCUSED',
+        text: 'Traci Walker',
+        payload: {
+          'result_extra_information': 'Badge # 2374',
+          'result_reason': 'coaccused with Walter Ware (17626)',
+          'result_text': 'Traci Walker',
+          'to': '/officer/29811/'
+        }
+      };
+      instance = renderIntoDocument(
+        <SearchResults isEmpty={ false } focusedSuggestion={ focusedSuggestion }/>
+      );
+
+      const previewPane = scryRenderedComponentsWithType(instance, PreviewPane);
+      previewPane.length.should.eql(0);
+    });
+
+    it('should render PreviewPane when an officer is focused', function () {
+      const focusedSuggestion = {
+        header: 'OFFICER',
+        id: '12345',
+        text: 'John Wang',
+        payload: {
+          unit: '001',
+          rank: null,
+          salary: '$99,999',
+          race: 'White',
+          sex: 'Male',
+          'visual_token_background_color': '#fafafa'
+        }
+      };
+      instance = renderIntoDocument(
+        <SearchResults isEmpty={ false } focusedSuggestion={ focusedSuggestion }/>
+      );
+
+      const previewPane = findRenderedComponentWithType(instance, PreviewPane);
+      const currentYear = (new Date()).getFullYear();
+
+      previewPane.props.data.should.eql([
+        ['unit', '001'],
+        ['rank', null],
+        [`${currentYear} salary`, '$99,999'],
+        ['race', 'White'],
+        ['sex', 'Male']
+      ]);
+      previewPane.props.officerId.should.eql('12345');
+      previewPane.props.backgroundColor.should.eql('#fafafa');
+      previewPane.props.title.should.eql('John Wang');
     });
   });
 });

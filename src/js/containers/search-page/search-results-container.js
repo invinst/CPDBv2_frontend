@@ -8,7 +8,7 @@ import {
   resetNavigation
 } from 'actions/search-page';
 import {
-  chunkedSuggestionGroupsSelector, isEmptySelector
+  chunkedSuggestionGroupsSelector, isEmptySelector, focusedSuggestionSelector
 } from 'selectors/search-page';
 
 
@@ -22,6 +22,7 @@ function mapStateToProps(state, ownProps) {
     aliasEditModeOn,
     isEmpty: isEmptySelector(state),
     searchText: query,
+    focusedSuggestion: focusedSuggestionSelector(state),
     contentType,
     editModeOn,
     suggestionGroups: chunkedSuggestionGroupsSelector(state),
