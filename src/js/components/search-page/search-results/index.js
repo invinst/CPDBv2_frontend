@@ -1,14 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 
-import { resultWrapperStyle } from './search-results.style';
+import { resultWrapperStyle, columnWrapperStyle } from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
+import PreviewPane from 'components/search-page/search-results/preview-pane';
+import { previewPaneInfoSelector } from 'selectors/search-page';
 
 
 export default class SuggestionResults extends Component {
   renderGroups() {
-    const { suggestionGroups,
+    const {
+      suggestionGroups,
       onLoadMore,
       searchText,
       isEmpty,
@@ -25,7 +28,7 @@ export default class SuggestionResults extends Component {
     // FIXME: Refactor it by a more convenient way
     let i = -1;
 
-    return map(suggestionGroups, (group, index) => {
+    return map(suggestionGroups, (group) => {
       i = i + 1;
 
       return (
@@ -38,13 +41,28 @@ export default class SuggestionResults extends Component {
           suggestionClick={ suggestionClick }
           header={ group.header }
           columnIndex={ i }
-          aliasEditModeOn={ aliasEditModeOn } />
+          aliasEditModeOn={ aliasEditModeOn }/>
       );
     });
   }
 
   render() {
-    const { isRequesting } = this.props;
+    const { isRequesting, focusedSuggestion } = this.props;
+    let previewPane = null;
+    const shouldShowPreviewPane = focusedSuggestion.header === 'OFFICER';
+
+    if (focusedSuggestion.payload && shouldShowPreviewPane) {
+      const { data, visualTokenBackgroundColor, id, text } = previewPaneInfoSelector(focusedSuggestion);
+      previewPane = (
+        <PreviewPane
+          data={ data }
+          officerId={ id }
+          backgroundColor={ visualTokenBackgroundColor }
+          title={ text }
+        />
+      );
+    }
+
     if (isRequesting) {
       return (
         <div style={ { ...resultWrapperStyle, marginTop: '38px' } }>
@@ -54,9 +72,10 @@ export default class SuggestionResults extends Component {
     }
     return (
       <div style={ resultWrapperStyle }>
-        <div className='content-wrapper'>
+        <div className='content-wrapper' style={ columnWrapperStyle(shouldShowPreviewPane) }>
           { this.renderGroups() }
         </div>
+        { previewPane }
       </div>
     );
   }
@@ -70,5 +89,10 @@ SuggestionResults.propTypes = {
   onLoadMore: PropTypes.func,
   suggestionClick: PropTypes.func,
   isEmpty: PropTypes.bool,
-  aliasEditModeOn: PropTypes.bool
+  aliasEditModeOn: PropTypes.bool,
+  focusedSuggestion: PropTypes.object
+};
+
+SuggestionResults.defaultProps = {
+  focusedSuggestion: {}
 };

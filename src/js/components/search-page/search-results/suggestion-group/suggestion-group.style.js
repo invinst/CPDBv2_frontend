@@ -16,6 +16,7 @@ export const groupHeaderStyle = {
 };
 
 export const suggestionGroupStyle = {
+  position: 'relative',
   display: 'inline-block',
   verticalAlign: 'top'
 };
