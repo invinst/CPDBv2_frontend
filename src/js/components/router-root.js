@@ -25,7 +25,8 @@ import {
   OFFICER_TIMELINE_PATH,
   OFFICER_SOCIAL_GRAPH_PATH,
   SEARCH_ALIAS_EDIT_PATH,
-  INLINE_SEARCH_ALIAS_ADMIN_PATH
+  INLINE_SEARCH_ALIAS_ADMIN_PATH,
+  STANDALONE_CR_PATH
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -53,6 +54,7 @@ class RouterRoot extends Component {
       <Route path={ OFFICER_TIMELINE_PATH } component={ OfficerPageContainer } key='6'/>,
       <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7'/>,
       <Route path={ CR_PATH } component={ CRPageContainer } key='8'/>,
+      <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer } key='13'/>,
       <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'/>,
       <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer } key='10'/>,
       <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11' />,
