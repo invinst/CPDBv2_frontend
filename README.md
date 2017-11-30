@@ -43,6 +43,10 @@ We use instances from Azure for now. Both can be ssh'ed into with "ansible" user
 - `bin/setup-production`: Setup production instance.
 - `bin/deploy-production`: Deploy newest code to production instance.
 
+## localStorageVersion
+
+We have to refresh local storage after we make some database or client changes to maintain the reliability of our website. Remember to bump `localStorageVersion` in `config/base.js` after every changes.
+
 ## CircleCI setup
 
 We're using CircleCI 2.0 which makes use of docker images. For this repo, we're running CircleCI on our
