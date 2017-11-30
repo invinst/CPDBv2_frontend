@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { find } from 'lodash';
+import { find, isEmpty } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import FadeMotion from 'components/animation/fade-motion';
@@ -78,6 +78,11 @@ export default class CRPage extends Component {
       (!documents || documents.length === 0)
     );
 
+    const officerRow = isEmpty(officer) ? null : (
+      <OfficerRow
+        fullName={ fullName } badge={ badge } officerId={ officerId }
+        openOfficerPage={ openOfficerPage }/>
+    );
     return (
       <div style={ wrapperStyle } className='test--cr-page'>
         <div style={ headerWrapperStyle }>
@@ -91,9 +96,7 @@ export default class CRPage extends Component {
             <div style={ summarySectionStyle }>
               <div className='test--cr-category' style={ titleStyle }>{ category }</div>
               <div className='test--cr-subcategory' style={ subtitleStyle }>{ subcategory }</div>
-              <OfficerRow
-                fullName={ fullName } badge={ badge } officerId={ officerId }
-                openOfficerPage={ openOfficerPage }/>
+              { officerRow }
               <MultiRow label='COMPLAINANT' contents={ complainants }/>
             </div>
             <div style={ leftColumnStyle }>
