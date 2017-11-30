@@ -4,7 +4,7 @@ import { omitBy, isEmpty, keys, pick, indexOf, sortBy, chunk, flatten } from 'lo
 import { searchPageItemsPerColumn } from 'utils/search';
 import * as constants from 'utils/constants';
 
-const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS'];
+const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'];
 
 const getSuggestionGroups = state => state.searchPage.suggestionGroups;
 const getSuggestionTags = state => state.searchPage.tags;

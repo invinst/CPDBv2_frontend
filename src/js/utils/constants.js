@@ -32,6 +32,7 @@ export const OFFICER_PATH = 'officer/:officerId';
 export const OFFICER_TIMELINE_PATH = 'officer/:officerId/timeline';
 export const OFFICER_SOCIAL_GRAPH_PATH = 'officer/:officerId/social';
 export const CR_PATH = 'complaint/:crid/:officerId';
+export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 
 // Links to be used in ShareableHeader's "Back to XXX" link
