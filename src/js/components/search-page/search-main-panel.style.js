@@ -16,3 +16,7 @@ export const cancelButtonStyle = {
 export const buttonsWrapperStyle = {
   height: '44px'
 };
+
+export const searchMainPanelStyle = {
+  height: 'calc(100vh - 50px)'
+};

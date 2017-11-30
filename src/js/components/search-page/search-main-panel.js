@@ -6,7 +6,7 @@ import SearchTags from './search-tags';
 import SearchResultsContainer from 'containers/search-page/search-results-container';
 import SearchNoInput from './search-no-input';
 import * as constants from 'utils/constants';
-import { buttonsWrapperStyle, cancelButtonStyle } from './search-main-panel.style';
+import { buttonsWrapperStyle, cancelButtonStyle, searchMainPanelStyle } from './search-main-panel.style';
 
 
 export default class SearchMainPanel extends Component {
@@ -33,7 +33,7 @@ export default class SearchMainPanel extends Component {
     } = this.props;
 
     return (
-      <div>
+      <div style={ searchMainPanelStyle }>
         <div style={ buttonsWrapperStyle }>
           <SearchTags
             tags={ tags }

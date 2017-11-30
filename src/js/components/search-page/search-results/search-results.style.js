@@ -4,17 +4,18 @@ import {
 } from 'utils/styles';
 
 
-export const resultWrapperStyle = {
+export const resultWrapperStyle = (shouldShowPreviewPane) => ({
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
-  position: 'relative'
-};
+  position: 'relative',
+  height: 'calc(100% - 2px)',
+  width: `calc(100% - ${shouldShowPreviewPane ? 320 : 0}px)`,
+  display: 'inline-block'
+});
 
-export const columnWrapperStyle = shouldShowPreviewPane => {
-  return {
-    overflowX: 'auto',
-    width: `calc(100% - ${shouldShowPreviewPane ? 320 : 0}px)`
-  };
+export const columnWrapperStyle = {
+  overflowX: 'auto',
+  height: '100%'
 };
 
 export const plusWrapperStyle = {
@@ -42,4 +43,9 @@ export const plusSignStyle = {
   display: 'block',
   top: '50%',
   transform: 'translateY(-50%)'
+};
+
+export const suggestionResultsStyle = {
+  position: 'relative',
+  height: 'calc(100% - 43px)'
 };

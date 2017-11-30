@@ -2,7 +2,7 @@ import { whiteTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
-  padding: '11px 0px',
-  borderBottom: `2px solid ${whiteTwoColor}`,
-  borderTop: `2px solid ${whiteTwoColor}`
+  padding: '12px 0px',
+  borderBottom: `1px solid ${whiteTwoColor}`,
+  borderTop: `1px solid ${whiteTwoColor}`
 };

@@ -3,7 +3,8 @@ import { Link } from 'react-router';
 import { map } from 'lodash';
 
 import {
-  resultWrapperStyle, plusWrapperStyle, plusSignStyle, columnWrapperStyle
+  resultWrapperStyle, plusWrapperStyle, plusSignStyle, columnWrapperStyle,
+  suggestionResultsStyle
 } from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
@@ -75,15 +76,15 @@ export default class SuggestionResults extends Component {
       );
     }
     return (
-      <div>
+      <div style={ suggestionResultsStyle }>
         { editModeOn && !aliasEditModeOn ?
           <div style={ plusWrapperStyle }>
             <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
           </div> :
           null
         }
-        <div style={ resultWrapperStyle }>
-          <div className='content-wrapper' style={ columnWrapperStyle(shouldShowPreviewPane) }>
+        <div style={ resultWrapperStyle(shouldShowPreviewPane) }>
+          <div className='content-wrapper' style={ columnWrapperStyle }>
             { this.renderGroups() }
           </div>
         </div>
