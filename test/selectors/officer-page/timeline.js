@@ -126,10 +126,6 @@ describe('officer page selectors', function () {
       state.officerPage.timeline = {
         items: [
           {
-            'foo_key': 'bar',
-            kind: 'YEAR'
-          },
-          {
             kind: 'CR',
             date: '2005-11-28'
           }
@@ -138,43 +134,6 @@ describe('officer page selectors', function () {
       };
 
       timelineItemsSelector(state).should.eql([
-        {
-          fooKey: 'bar',
-          kind: TimelineItemType.YEAR,
-          date: null
-        },
-        {
-          kind: TimelineItemType.CR,
-          date: 'NOV 28, 2005'
-        }
-      ]);
-    });
-
-    it('should filter out empty "YEAR" items', function () {
-      state.officerPage.timeline = {
-        items: [
-          {
-            kind: 'YEAR',
-            year: 2006
-          },
-          {
-            kind: 'YEAR',
-            year: 2005
-          },
-          {
-            kind: 'CR',
-            date: '2005-11-28'
-          }
-        ],
-        filters: { 'x': 'xxx' }
-      };
-
-      timelineItemsSelector(state).should.eql([
-        {
-          kind: TimelineItemType.YEAR,
-          year: 2005,
-          date: null
-        },
         {
           kind: TimelineItemType.CR,
           date: 'NOV 28, 2005'
@@ -240,11 +199,13 @@ describe('officer page selectors', function () {
           items: [
             {
               kind: 'CR',
-              index: 1
+              index: 0,
+              year: 2005
             },
             {
               kind: 'Unit',
-              index: 2
+              index: 1,
+              year: 2005
             }
           ]
         },
@@ -253,7 +214,8 @@ describe('officer page selectors', function () {
           items: [
             {
               kind: 'Joined',
-              index: 4
+              index: 2,
+              year: 2000
             }
           ]
         }
@@ -271,7 +233,8 @@ describe('officer page selectors', function () {
           items: [
             {
               kind: 'Joined',
-              index: 0
+              index: 0,
+              year: 2000
             }
           ]
         },
@@ -280,11 +243,13 @@ describe('officer page selectors', function () {
           items: [
             {
               kind: 'Unit',
-              index: 2
+              index: 1,
+              year: 2005
             },
             {
               kind: 'CR',
-              index: 3
+              index: 2,
+              year: 2005
             }
           ]
         }

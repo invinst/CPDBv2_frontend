@@ -5,7 +5,6 @@ import { TimelineItemType } from 'utils/constants';
 import { slower } from 'utils/spring-presets';
 import Hoverable from 'components/common/higher-order/hoverable';
 import CrItem from './cr-item';
-import YearItem from './year-item';
 import UnitItem from './unit-item';
 import JoinedItem from './joined-item';
 import { wrapperStyle } from './timeline-item.style';
@@ -16,7 +15,6 @@ export class TimelineItem extends Component {
     super(props);
     this.contentMap = {
       [TimelineItemType.CR]: CrItem,
-      [TimelineItemType.YEAR]: YearItem,
       [TimelineItemType.JOINED]: JoinedItem,
       [TimelineItemType.UNIT]: UnitItem
     };
@@ -49,11 +47,6 @@ export class TimelineItem extends Component {
 
   renderContent({ ratio }) {
     const { item, hovering, minimapItemHovered, onClick, officerId } = this.props;
-
-    // Temporarily hide Year items [#152789435]
-    if (item.kind === TimelineItemType.YEAR) {
-      return <div className='test--card-item' />;
-    }
 
     let child = null;
     if (this.contentMap[item.kind]) {
