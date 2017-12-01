@@ -21,6 +21,6 @@ export const tagsWrapperStyle = {
   height: `${tagsWrapperHeight}px`,
   boxSizing: 'border-box',
   width: '100%',
-  borderBottom: `2px solid ${whiteTwoColor}`,
-  borderTop: `2px solid ${whiteTwoColor}`
+  borderBottom: `1px solid ${whiteTwoColor}`,
+  borderTop: `1px solid ${whiteTwoColor}`
 };

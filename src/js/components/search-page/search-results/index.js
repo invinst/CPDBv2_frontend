@@ -1,22 +1,27 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import { map } from 'lodash';
 
-import { resultWrapperStyle, columnWrapperStyle } from './search-results.style';
+import {
+  resultWrapperStyle, plusWrapperStyle, plusSignStyle, columnWrapperStyle,
+  suggestionResultsStyle
+} from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 import { previewPaneInfoSelector } from 'selectors/search-page';
+import * as constants from 'utils/constants';
 
 
 export default class SuggestionResults extends Component {
   renderGroups() {
     const {
       suggestionGroups,
-      onLoadMore,
       searchText,
       isEmpty,
       suggestionClick,
       navigation,
+      onLoadMore,
       aliasEditModeOn
     } = this.props;
 
@@ -47,7 +52,7 @@ export default class SuggestionResults extends Component {
   }
 
   render() {
-    const { isRequesting, focusedSuggestion } = this.props;
+    const { isRequesting, focusedSuggestion, editModeOn, aliasEditModeOn } = this.props;
     let previewPane = null;
     const shouldShowPreviewPane = focusedSuggestion.header === 'OFFICER';
 
@@ -71,9 +76,17 @@ export default class SuggestionResults extends Component {
       );
     }
     return (
-      <div style={ resultWrapperStyle }>
-        <div className='content-wrapper' style={ columnWrapperStyle(shouldShowPreviewPane) }>
-          { this.renderGroups() }
+      <div style={ suggestionResultsStyle }>
+        { editModeOn && !aliasEditModeOn ?
+          <div style={ plusWrapperStyle }>
+            <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
+          </div> :
+          null
+        }
+        <div style={ resultWrapperStyle(shouldShowPreviewPane) }>
+          <div className='content-wrapper' style={ columnWrapperStyle }>
+            { this.renderGroups() }
+          </div>
         </div>
         { previewPane }
       </div>
@@ -86,9 +99,13 @@ SuggestionResults.propTypes = {
   searchText: PropTypes.string,
   suggestionGroups: PropTypes.array,
   isRequesting: PropTypes.bool,
-  onLoadMore: PropTypes.func,
   suggestionClick: PropTypes.func,
+  editModeOn: PropTypes.bool,
+  getSuggestion: PropTypes.func,
+  onLoadMore: PropTypes.func,
+  resetNavigation: PropTypes.func,
   isEmpty: PropTypes.bool,
+  contentType: PropTypes.string,
   aliasEditModeOn: PropTypes.bool,
   focusedSuggestion: PropTypes.object
 };

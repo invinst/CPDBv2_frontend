@@ -160,7 +160,7 @@ describe('Timeline page with filtered params', function () {
     timelinePage.open(1, '?category=Use%20of%20Force&race=Black&invalid=xxx');
   });
 
-  it('should show 2 filtered item and handle clear each filter', function () {
+  it.skip('should show 2 filtered item and handle clear each filter', function () {
 
     timelinePage.sidebar.filterItem.count.should.equal(2);
 
@@ -192,7 +192,7 @@ describe('Timeline page with filtered params', function () {
     timelinePage.timeline.element.getHTML().should.containEql('456123');
   });
 
-  it('should scroll down to previously selected item when revisiting Timeline with the same filter', function () {
+  it.skip('should scroll down to previously selected item when revisiting Timeline with the same filter', function () {
     timelinePage.sidebar.itemAt('2004', 1).click();
     timelinePage.timeline.cardItemAtIndex(6).waitForVisible();
     browser.pause(2000);
@@ -212,7 +212,7 @@ describe('Timeline page with filtered params', function () {
     newScrollPosition.should.equal(prevScrollPosition);
   });
 
-  it('should not scroll down when revisiting Timeline with a different filter', function () {
+  it.skip('should not scroll down when revisiting Timeline with a different filter', function () {
     timelinePage.sidebar.itemAt('2004', 1).click();
     timelinePage.timeline.cardItemAtIndex(6).waitForVisible();
     const prevScrollPosition = browser.element('.test--timeline-items-container').getAttribute('scrollTop');
@@ -230,7 +230,7 @@ describe('Timeline page with filtered params', function () {
     newScrollPosition.should.equal('0');
   });
 
-  it('should scroll to latest item of chosen year if provided in URL params', function () {
+  it.skip('should scroll to latest item of chosen year if provided in URL params', function () {
     timelinePage.open(1, '?year=2003');
     browser.pause(2000);
 

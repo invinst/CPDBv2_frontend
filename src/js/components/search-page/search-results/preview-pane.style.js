@@ -1,15 +1,14 @@
 import { softBlackColor, whiteTwoColor } from 'utils/styles';
-import scrollBarWidth from 'utils/scrollbar-width';
 
-export const previewPaneWidth = 320;
 
 export const wrapperStyle = {
   position: 'absolute',
   top: 0,
   right: 0,
+  width: '320px',
   borderLeft: `1px ${whiteTwoColor} solid`,
   backgroundColor: 'white',
-  height: `calc(100% - ${scrollBarWidth}px`,
+  height: '100%'
 };
 
 export const titleStyle = {
@@ -21,6 +20,6 @@ export const titleStyle = {
 };
 
 export const visualTokenStyle = {
-  width: `${previewPaneWidth}px`,
-  height: `${previewPaneWidth}px`
+  width: '320px',
+  height: '320px'
 };

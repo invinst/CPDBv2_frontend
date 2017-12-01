@@ -6,8 +6,6 @@ import {
   getCRID,
   getComplaintOfficerId,
   getOfficerActiveTab,
-  isSameOfficerPath,
-  isSameCR,
   isRedirectingToOfficerTimelinePage,
   serializeFilterParams
 } from 'utils/location';
@@ -88,36 +86,6 @@ describe('location utils', function () {
       getOfficerActiveTab('/officer/123/timeline/').should.eql('timeline');
       getOfficerActiveTab('/officer/123/social/').should.eql('social');
       getOfficerActiveTab('/officer/123/').should.eql('');
-    });
-  });
-
-  describe('isSameOfficerPath', function () {
-    it('should return false when an argument is not an officer path', function () {
-      isSameOfficerPath('/some/incorrect/path/', '/officer/1/').should.be.false();
-      isSameOfficerPath('/officer/1/', '/some/incorrect/path/').should.be.false();
-    });
-
-    it('should return flase when officer ids do not match', function () {
-      isSameOfficerPath('/officer/123/', '/officer/456/').should.be.false();
-    });
-
-    it('should return true when officer ids match', function () {
-      isSameOfficerPath('/officer/123/', '/officer/123/').should.be.true();
-    });
-  });
-
-  describe('isSameCR', function () {
-    it('should return false when an argument is not an complaint path', function () {
-      isSameCR('/some/incorrect/path/', '/complaint/1/').should.be.false();
-      isSameCR('/complaint/1/', '/some/incorrect/path/').should.be.false();
-    });
-
-    it('should return flase when complaint ids do not match', function () {
-      isSameCR('/complaint/123/', '/complaint/456/').should.be.false();
-    });
-
-    it('should return true when complaint ids match', function () {
-      isSameCR('/complaint/123/', '/complaint/123/').should.be.true();
     });
   });
 

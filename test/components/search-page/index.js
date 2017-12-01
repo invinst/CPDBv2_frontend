@@ -1,24 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import {
   Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType, scryRenderedDOMComponentsWithClass
+  findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { stub, spy } from 'sinon';
 import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
+import MockStore from 'redux-mock-store';
 
 import TextInput from 'components/common/input';
-import SearchTags from 'components/search-page/search-tags';
-import SearchContent from 'components/search-page/search-content';
+import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError } from 'utils/test';
-import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import * as domUtils from 'utils/dom';
 
 
-describe('SearchContent component', function () {
+describe('SearchPage component', function () {
   let instance;
+  const store = MockStore()({
+    searchPage: {
+      navigation: {},
+      searchTerms: {
+        categories: []
+      }
+    }
+  });
 
   beforeEach(function () {
     this.locationAssign = stub(window.location, 'assign');
@@ -35,14 +43,14 @@ describe('SearchContent component', function () {
   });
 
   it('should be renderable', function () {
-    SearchContent.should.be.renderable();
+    SearchPage.should.be.renderable();
   });
 
   it('should call api when user type in', function () {
     const getSuggestion = spy();
 
     instance = renderIntoDocument(
-      <SearchContent getSuggestion={ getSuggestion }/>
+      <SearchPage getSuggestion={ getSuggestion }/>
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = 'a';
@@ -56,7 +64,7 @@ describe('SearchContent component', function () {
   it('should clear all tags when user remove all text', function () {
     const selectTag = spy();
     instance = renderIntoDocument(
-      <SearchContent selectTag={ selectTag }/>
+      <SearchPage selectTag={ selectTag }/>
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = '';
@@ -64,39 +72,9 @@ describe('SearchContent component', function () {
     selectTag.calledWith(null).should.be.true();
   });
 
-  it('should call api when user select a tag', function () {
-    const getSuggestion = spy();
-    const tags = ['a'];
-
-    instance = renderIntoDocument(
-      <SearchContent getSuggestion={ getSuggestion } tags={ tags } query={ 'a' }/>
-    );
-
-    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
-    const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
-    Simulate.click(tagElement);
-    getSuggestion.calledWith('a', {
-      contentType: 'a'
-    }).should.be.true();
-  });
-
-  it('should call api when user deselect a tag', function () {
-    const getSuggestion = spy();
-    const tags = ['a'];
-
-    instance = renderIntoDocument(
-      <SearchContent getSuggestion={ getSuggestion } tags={ tags } contentType='a' query='b' />
-    );
-
-    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
-    const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
-    Simulate.click(tagElement);
-    getSuggestion.calledWith('b').should.be.true();
-  });
-
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
     instance = renderIntoDocument(
-      <SearchContent />
+      <SearchPage />
     );
 
     const backButton = findRenderedDOMComponentWithClass(instance, 'searchbar__button--back');
@@ -106,7 +84,7 @@ describe('SearchContent component', function () {
 
   it('should call router.goBack when user hit ESCAPE', function () {
     instance = renderIntoDocument(
-      <SearchContent />
+      <SearchPage />
     );
 
     Mousetrap.trigger('esc');
@@ -124,7 +102,7 @@ describe('SearchContent component', function () {
     ];
 
     instance = renderIntoDocument(
-      <SearchContent suggestionGroups={ suggestionGroups } />
+      <SearchPage suggestionGroups={ suggestionGroups } />
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
@@ -144,7 +122,7 @@ describe('SearchContent component', function () {
     ];
 
     instance = renderIntoDocument(
-      <SearchContent suggestionGroups={ suggestionGroups } />
+      <SearchPage suggestionGroups={ suggestionGroups } />
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
@@ -155,7 +133,9 @@ describe('SearchContent component', function () {
 
   it('should follow the v1 search url when user hit ENTER but there\'s no results', function () {
     instance = renderIntoDocument(
-      <SearchContent query={ 'something' }/>
+      <Provider store={ store }>
+        <SearchPage query={ 'something' }/>
+      </Provider>
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
@@ -176,7 +156,7 @@ describe('SearchContent component', function () {
     ];
 
     instance = renderIntoDocument(
-      <SearchContent suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }/>
+      <SearchPage suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }/>
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
@@ -189,7 +169,7 @@ describe('SearchContent component', function () {
     const suggestionColumns = [];
     const direction = 'up';
     instance = renderIntoDocument(
-      <SearchContent move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
@@ -200,7 +180,7 @@ describe('SearchContent component', function () {
     const suggestionColumns = [];
     const direction = 'down';
     instance = renderIntoDocument(
-      <SearchContent move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
@@ -211,7 +191,7 @@ describe('SearchContent component', function () {
     const suggestionColumns = [];
     const direction = 'left';
     instance = renderIntoDocument(
-      <SearchContent move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
@@ -222,7 +202,7 @@ describe('SearchContent component', function () {
     const suggestionColumns = [];
     const direction = 'right';
     instance = renderIntoDocument(
-      <SearchContent move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
@@ -239,8 +219,8 @@ describe('SearchContent component', function () {
 
     it ('should scroll to focused item', function () {
       const domNode = document.createElement('div');
-      ReactDOM.render(<SearchContent navigation={ { columnIndex: 0, itemIndex: 0 } }/>, domNode);
-      ReactDOM.render(<SearchContent navigation={ { columnIndex: 1, itemIndex: 0 } }/>, domNode);
+      ReactDOM.render(<SearchPage navigation={ { columnIndex: 0, itemIndex: 0 } }/>, domNode);
+      ReactDOM.render(<SearchPage navigation={ { columnIndex: 1, itemIndex: 0 } }/>, domNode);
       this.scrollToElementStub.calledWith('#suggestion-item-1-0').should.be.true();
     });
   });
@@ -248,7 +228,7 @@ describe('SearchContent component', function () {
   describe('handleViewItem', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       instance = renderIntoDocument(
-        <SearchContent focusedSuggestion={ { payload: { to: '/dummy/url' } } }/>
+        <SearchPage focusedSuggestion={ { payload: { to: '/dummy/url' } } }/>
       );
       Mousetrap.trigger('enter');
       this.browserHistoryPush.calledWith('/dummy/url').should.be.true();
@@ -257,7 +237,7 @@ describe('SearchContent component', function () {
 
     it('should use window.location.assign() if visiting focused item with external link', function () {
       instance = renderIntoDocument(
-        <SearchContent focusedSuggestion={ { payload: { url: 'http://whatever.local' } } }/>
+        <SearchPage focusedSuggestion={ { payload: { url: 'http://whatever.local' } } }/>
       );
       Mousetrap.trigger('enter');
       this.locationAssign.calledWith('http://whatever.local').should.be.true();
@@ -265,31 +245,4 @@ describe('SearchContent component', function () {
     });
   });
 
-  describe('in edit mode', function () {
-    it('should render [+] sign', function () {
-      instance = renderIntoDocument(
-        <SearchContent editModeOn={ true } query='ke'/>
-      );
-
-      const domNode = ReactDOM.findDOMNode(instance);
-      domNode.textContent.should.containEql('[+]');
-
-      scryRenderedDOMComponentsWithClass(instance, 'test--cancel-alias-button')
-        .length.should.eql(0);
-    });
-
-    it('should render "cancel" button when in alias edit mode', function () {
-      instance = renderIntoDocument(
-        <SearchContent
-          editModeOn={ true }
-          location={ { pathname: `/edit/${SEARCH_ALIAS_EDIT_PATH}` } }
-          query='ke'
-        />
-      );
-      const domNode = ReactDOM.findDOMNode(instance);
-      domNode.textContent.should.not.containEql('[+]');
-
-      findRenderedDOMComponentWithClass(instance, 'test--cancel-alias-button');
-    });
-  });
 });

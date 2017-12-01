@@ -80,7 +80,11 @@ describe('store', function () {
         recentSuggestions: [],
         tags: [],
         query: '',
-        itemsPerColumn: 10
+        searchTerms: {
+          categories: [],
+          hidden: true,
+          selectedCategory: null
+        }
       },
       inlineAliasAdminPage: {},
       crPage: {

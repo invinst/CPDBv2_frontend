@@ -36,7 +36,10 @@ describe('App component', function () {
       }
     },
     searchPage: {
-      navigation: {}
+      navigation: {},
+      searchTerms: {
+        hidden: true
+      }
     },
     bottomSheet: {
       officersAutoSuggest: {

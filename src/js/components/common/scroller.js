@@ -8,6 +8,9 @@ export default class Scroller extends Component {
     if (nextProps.scrollTop !== this.props.scrollTop) {
       this.element.scrollTop = nextProps.scrollTop;
     }
+    if (nextProps.scrollLeft !== this.props.scrollLeft) {
+      this.element.scrollLeft = nextProps.scrollLeft;
+    }
   }
 
   handleElementRef(el) {
@@ -20,8 +23,7 @@ export default class Scroller extends Component {
   render() {
     const { style, children } = this.props;
     return (
-      <div className='test--timeline-items-container'
-        style={ { ...wrapperStyle, ...style } } ref={ this.handleElementRef.bind(this) }>
+      <div style={ { ...wrapperStyle, ...style } } ref={ this.handleElementRef.bind(this) }>
         { children }
       </div>
     );
@@ -30,6 +32,7 @@ export default class Scroller extends Component {
 
 Scroller.propTypes = {
   scrollTop: PropTypes.number,
+  scrollLeft: PropTypes.number,
   style: PropTypes.object,
   onElementRef: PropTypes.func,
   children: PropTypes.node

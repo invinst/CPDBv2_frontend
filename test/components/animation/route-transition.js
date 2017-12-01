@@ -1,6 +1,5 @@
 import React from 'react';
 import { findDOMNode, render } from 'react-dom';
-import { stub } from 'sinon';
 
 import RouteTransition from 'components/animation/route-transition';
 import {
@@ -18,55 +17,63 @@ describe('RouteTransition component', function () {
     unmountComponentSuppressError(element);
   });
 
-  it('should not update if is same officer path', function () {
+  it('should give the same key for same officer path', function () {
     element = renderIntoDocument(
       <RouteTransition pathname='/officer/1/'>
         some summary
       </RouteTransition>
     );
-    const render = stub(RouteTransition.prototype, 'render');
+    element.getRouteTransitionKey().should.eql('officer/1');
+
     element = reRender(
       <RouteTransition pathname='/officer/1/timeline/'>
         some timeline
       </RouteTransition>,
       element
     );
-    render.called.should.be.false();
-    render.restore();
+    element.getRouteTransitionKey().should.eql('officer/1');
   });
 
-  it('should not update if is same CR path', function () {
+  it('should give the same key for same CR path', function () {
     element = renderIntoDocument(
       <RouteTransition pathname='/complaint/1/2/'>
         complaint for some officer
       </RouteTransition>
     );
-    const render = stub(RouteTransition.prototype, 'render');
+    element.getRouteTransitionKey().should.eql('complaint/1');
+
     element = reRender(
       <RouteTransition pathname='/complaint/1/3/'>
         complaint for other officer
       </RouteTransition>,
       element
     );
-    render.called.should.be.false();
-    render.restore();
-  });
+    element.getRouteTransitionKey().should.eql('complaint/1');
 
-  it('should not update if pathname doesnt change', function () {
-    element = renderIntoDocument(
-      <RouteTransition pathname='/officer/1/'>
-        some summary
-      </RouteTransition>
-    );
-    const render = stub(RouteTransition.prototype, 'render');
     element = reRender(
-      <RouteTransition pathname='/officer/1/'>
-        some summary
+      <RouteTransition pathname='/complaint/1/'>
+        complaint for other officer
       </RouteTransition>,
       element
     );
-    render.called.should.be.false();
-    render.restore();
+    element.getRouteTransitionKey().should.eql('complaint/1');
+  });
+
+  it('should give the same key for search paths', function () {
+    element = renderIntoDocument(
+      <RouteTransition pathname='/search/'>
+        complaint for some officer
+      </RouteTransition>
+    );
+    element.getRouteTransitionKey().should.eql('search');
+
+    element = reRender(
+      <RouteTransition pathname='/search/terms/'>
+        complaint for other officer
+      </RouteTransition>,
+      element
+    );
+    element.getRouteTransitionKey().should.eql('search');
   });
 
   context('animation disabled', function () {
@@ -88,7 +95,9 @@ describe('RouteTransition component', function () {
 
     it('should render child', function () {
       let testText = 'should be rendered';
-      element = renderIntoDocument(<RouteTransition pathname='/path'><p>{ testText }</p></RouteTransition>);
+      element = renderIntoDocument(
+        <RouteTransition pathname='/path'><p>{ testText }</p></RouteTransition>
+      );
       findDOMNode(element).innerHTML.should.containEql(testText);
     });
 

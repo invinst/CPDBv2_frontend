@@ -5,8 +5,9 @@ import {
   suggestionTagsSelector, orderedSuggestionGroupsSelector, chunkedSuggestionGroupsSelector,
   focusedSuggestionSelector, previewPaneInfoSelector
 } from 'selectors/search-page';
+import * as searchUtils from 'utils/search';
 
-describe('autocomplete selector', function () {
+describe('search page selector', function () {
   describe('suggestionGroupsSelector', function () {
     it('should output non-empty group', function () {
       suggestionGroupsSelector({
@@ -23,12 +24,22 @@ describe('autocomplete selector', function () {
   });
 
   describe('suggestionTagsSelector', function () {
-    it('should out put correct order', function () {
+    it('should output correct order', function () {
       suggestionTagsSelector({
         searchPage: {
-          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY']
+          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY'],
+          query: 'something'
         }
       }).should.deepEqual(['OFFICER', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT']);
+    });
+
+    it('should output RECENT tag if theres no query', function () {
+      suggestionTagsSelector({
+        searchPage: {
+          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY'],
+          query: ''
+        }
+      }).should.deepEqual(['RECENT']);
     });
   });
 
@@ -58,14 +69,16 @@ describe('autocomplete selector', function () {
 
   describe('suggestionColumnsSelector', function () {
     it('should chunk columns', function () {
+      const oldValue = searchUtils.searchPageItemsPerColumn;
+      searchUtils.searchPageItemsPerColumn = 10;
       suggestionColumnsSelector({
         searchPage: {
           suggestionGroups: {
             'OFFICER': range(15)
-          },
-          itemsPerColumn: 10
+          }
         }
       }).should.deepEqual([10]);
+      searchUtils.searchPageItemsPerColumn = oldValue;
     });
   });
 
@@ -94,10 +107,11 @@ describe('autocomplete selector', function () {
 
   describe('chunkedSuggestionGroupsSelector', function () {
     it('should return chunked columns of a single group correctly', function () {
+      const oldValue = searchUtils.searchPageItemsPerColumn;
+      searchUtils.searchPageItemsPerColumn = 3;
       chunkedSuggestionGroupsSelector({
         searchPage: {
           contentType: 'OFFICER',
-          itemsPerColumn: 3,
           suggestionGroups: {
             'OFFICER': ['o1', 'o2', 'o3', 'o4'],
             'UNIT': [],
@@ -114,12 +128,14 @@ describe('autocomplete selector', function () {
           canLoadMore: false
         }
       ]);
+      searchUtils.searchPageItemsPerColumn = oldValue;
     });
 
     it('should return sliced results from all groups correctly', function () {
+      const oldValue = searchUtils.searchPageItemsPerColumn;
+      searchUtils.searchPageItemsPerColumn = 3;
       chunkedSuggestionGroupsSelector({
         searchPage: {
-          itemsPerColumn: 3,
           suggestionGroups: {
             'OFFICER': ['o1', 'o2', 'o3', 'o4'],
             'UNIT': [],
@@ -142,14 +158,16 @@ describe('autocomplete selector', function () {
           canLoadMore: false
         }
       ]);
+      searchUtils.searchPageItemsPerColumn = oldValue;
     });
   });
 
   describe('focusedSuggestionSelector', function () {
     it('should return correct suggestion when viewing all groups', function () {
+      const oldValue = searchUtils.searchPageItemsPerColumn;
+      searchUtils.searchPageItemsPerColumn = 3;
       focusedSuggestionSelector({
         searchPage: {
-          itemsPerColumn: 3,
           suggestionGroups: {
             'OFFICER': [{ o1: 'o1' }, { o2: 'o2' }, { o3: 'o3' }, { o4: 'o4' }],
             'UNIT': [],
@@ -161,12 +179,14 @@ describe('autocomplete selector', function () {
           }
         }
       }).should.deepEqual({ header: 'CO-ACCUSED', c2: 'c2' });
+      searchUtils.searchPageItemsPerColumn = oldValue;
     });
 
     it('should return correct suggestion when viewing single group', function () {
+      const oldValue = searchUtils.searchPageItemsPerColumn;
+      searchUtils.searchPageItemsPerColumn = 2;
       focusedSuggestionSelector({
         searchPage: {
-          itemsPerColumn: 2,
           suggestionGroups: {
             'OFFICER': [{ o1: 'o1' }, { o2: 'o2' }, { o3: 'o3' }, { o4: 'o4' }, { o5: 'o5' }],
             'UNIT': [],
@@ -179,6 +199,7 @@ describe('autocomplete selector', function () {
           }
         }
       }).should.deepEqual({ header: 'OFFICER', o5: 'o5' });
+      searchUtils.searchPageItemsPerColumn = oldValue;
     });
   });
 
