@@ -47,5 +47,5 @@ export const plusSignStyle = {
 
 export const suggestionResultsStyle = {
   position: 'relative',
-  height: 'calc(100% - 43px)'
+  height: 'calc(100% - 45px)'
 };
