@@ -4,7 +4,7 @@ import { map } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
-  unitNameStyle, linkWrapperStyle, linkStyle, wrapperStyle, activeLinkStyle, boxShadowStyle
+  unitNameStyle, unitNameWrapperStyle, linkWrapperStyle, linkStyle, wrapperStyle, activeLinkStyle, boxShadowStyle
 } from './header.style';
 
 
@@ -23,13 +23,15 @@ const HEADER_BUTTONS = [
 
 export default class Header extends Component {
   render() {
-    const { unitName, pathname } = this.props;
-
+    const { unitName, unitDescription, pathname } = this.props;
     return (
       <div style={ boxShadowStyle }>
         <ResponsiveFluidWidthComponent>
           <div style={ wrapperStyle }>
-            <div className='test--unit-name' style={ unitNameStyle }>{ `Unit ${unitName}` }</div>
+            <div className='test--unit-name-wrapper' style={ unitNameWrapperStyle }>
+              <div className='test--unit-name' style={ unitNameStyle }>{ `Unit ${unitName}` }</div>
+              <div>{ unitDescription }</div>
+            </div>
             <div style={ linkWrapperStyle }>
               {
                 map(HEADER_BUTTONS, ([label, getPath], index) => {
@@ -53,5 +55,6 @@ export default class Header extends Component {
 
 Header.propTypes = {
   unitName: PropTypes.string,
+  unitDescription: PropTypes.string,
   pathname: PropTypes.string
 };
