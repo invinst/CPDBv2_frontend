@@ -1,39 +1,74 @@
-import { mediumGrayColor, softBlackColor, clayGray } from 'utils/styles';
+import { mediumGrayColor, softBlackColor, clayGray, accentColor, whiteTwoColor } from 'utils/styles';
 
-export const slimHeaderHeight = 22;
+const middleSlimHeaderHeight = 40;
+const topSlimHeaderHeight = 64;
+const leftPadding = 16;
 
-export const slimHeaderStyle = {
-  height: `${slimHeaderHeight}px`,
-  lineHeight: '22px',
-  padding: '0 16px',
-  backgroundColor: 'white',
+const slimHeaderStyle = {
+  padding: `0 ${leftPadding}px`,
   boxSizing: 'border-box',
-  position: 'fixed',
-  top: 0,
-  zIndex: 1,
-  width: 'inherit'
+  width: 'inherit',
+  fontSize: '14px',
+};
+
+export const topSlimHeaderStyle = {
+  ...slimHeaderStyle,
+  height: `${topSlimHeaderHeight}px`,
+  lineHeight: `${topSlimHeaderHeight}px`,
+};
+
+export const middleSlimHeaderStyle = {
+  ...slimHeaderStyle,
+  height: `${middleSlimHeaderHeight}px`,
+  lineHeight: `${middleSlimHeaderHeight}px`,
+  boxShadow: '0 1px 1px 0 rgba(0, 0, 0, 0.13)',
+  backgroundColor: 'white'
+};
+
+export const bottomSlimHeaderStyle = {
+  ...topSlimHeaderStyle,
+  cursor: 'pointer',
+  backgroundColor: accentColor
 };
 
 const linkStyle = {
   textDecoration: 'none',
-  fontSize: '12px',
   color: mediumGrayColor,
-  fontWeight: 500,
+  fontWeight: 400,
   cursor: 'pointer'
 };
 
-export const leftLinkStyle = {
+export const topLeftLinkStyle = {
   ...linkStyle,
-  fontWeight: 600
-};
-
-export const rightLinkStyle = {
-  ...linkStyle,
-  marginLeft: '50px'
-};
-
-export const activeLinkStyle = {
   color: softBlackColor
+};
+
+export const middleLeftLinkStyle = {
+  ...linkStyle,
+  color: softBlackColor
+};
+
+export const bottomLeftLinkStyle = {
+  ...linkStyle,
+  color: whiteTwoColor
+};
+
+export const topRightLinkStyle = {
+  ...linkStyle,
+  marginLeft: '50px',
+  color: accentColor
+};
+
+export const middleRightLinkStyle = {
+  ...linkStyle,
+  marginLeft: '50px',
+  color: clayGray
+};
+
+export const bottomRightLinkStyle = {
+  ...linkStyle,
+  marginLeft: '50px',
+  color: whiteTwoColor
 };
 
 export const rightLinksWrapperStyle = {
@@ -45,7 +80,9 @@ export const outerStyle = {
 };
 
 export const subtitleStyle = {
-  fontSize: '12px',
   color: clayGray,
-  marginLeft: '4px'
+  marginLeft: `${leftPadding}px`,
+  fontSize: '14px',
+  fontWeight: '300',
+  marginTop: '-22px'
 };

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { EventEmitter } from 'fbemitter';
 
 import { stickyStyle, childrenWrapperStyle } from './sticky-header.style';
+import { isScrolledToBottom } from 'utils/dom';
 
 
 const emitter = new EventEmitter();
@@ -15,6 +16,7 @@ export default class StickyHeader extends Component {
     super();
     this.state = {
       isSticky: false,
+      isAtBottom: false,
       placeholderHeight: 0
     };
 
@@ -32,7 +34,7 @@ export default class StickyHeader extends Component {
   isSticky() {
     if (this.placeholderElement) {
       const fromTop = this.placeholderElement.getBoundingClientRect().top;
-      return fromTop <= 0;
+      return fromTop < 0;
     }
 
     return false;
@@ -40,11 +42,15 @@ export default class StickyHeader extends Component {
 
   recalculateStickyness() {
     const isSticky = this.isSticky();
-    if (isSticky !== this.state.isSticky) {
+    const isAtBottom = isScrolledToBottom();
+
+    if (isSticky !== this.state.isSticky || isAtBottom !== this.state.isAtBottom) {
       this.setState({
         isSticky,
+        isAtBottom,
         placeholderHeight: isSticky ? this.childrenElement.getBoundingClientRect().height : 0
       });
+      this.props.handleStateChange(isSticky, isAtBottom);
     }
   }
 
@@ -59,11 +65,14 @@ export default class StickyHeader extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, ...rest } = this.props;
+    delete rest.style;
+    delete rest.handleStateChange;
+
     const { placeholderHeight } = this.state;
     const childrenWrapperStyle = this.childrenWrapperStyle();
     return (
-      <div>
+      <div { ...rest }>
         <div style={ { paddingBottom: `${placeholderHeight}px` } } ref={ el => { this.placeholderElement = el; } }/>
         <div style={ childrenWrapperStyle } ref={ el => { this.childrenElement = el; } }>
           { children }
@@ -75,5 +84,10 @@ export default class StickyHeader extends Component {
 
 StickyHeader.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object
+  style: PropTypes.object,
+  handleStateChange: PropTypes.func
+};
+
+StickyHeader.defaultProps = {
+  handleStateChange: () => {}
 };

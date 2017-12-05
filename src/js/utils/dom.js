@@ -1,5 +1,8 @@
 import { sumBy } from 'lodash';
 
+if ('scrollRestoration' in window.history) {
+  window.history.scrollRestoration = 'manual';
+}
 
 export function innerHeight(el) {
   return sumBy(el.children, child => child.getBoundingClientRect().height);
@@ -7,6 +10,21 @@ export function innerHeight(el) {
 
 export function viewportHeight() {
   return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+}
+
+export function fullDocumentHeight() {
+  // height of whole document including parts outside the visible viewport
+  const body = document.body;
+  const html = document.documentElement;
+  return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+}
+
+export function bodyScrollPosition() {
+  return document.documentElement.scrollTop;
+}
+
+export function isScrolledToBottom() {
+  return viewportHeight() + bodyScrollPosition() === fullDocumentHeight();
 }
 
 export function disableBodyScroll() {
@@ -57,4 +75,8 @@ export function scrollToElement(selector) {
   if (element) {
     element.scrollIntoView();
   }
+}
+
+export function scrollToTop() {
+  window.scrollTo(0, 0);
 }

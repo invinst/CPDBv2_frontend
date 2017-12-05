@@ -2,30 +2,41 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import StickyHeader, { recalculateStickyness } from 'components/common/sticky-header';
 import { ROOT_PATH, FAQ_PATH } from 'utils/constants';
 import { editMode } from 'utils/edit-path';
 import ConfiguredRadium from 'utils/configured-radium';
 import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 import LogOutButtonContainer from 'containers/log-out-container';
-import FadeMotion from 'components/animation/fade-motion';
 import {
-  slimHeaderStyle,
-  leftLinkStyle,
-  rightLinkStyle,
-  activeLinkStyle,
+  topSlimHeaderStyle,
+  middleSlimHeaderStyle,
+  bottomSlimHeaderStyle,
+  topLeftLinkStyle,
+  middleLeftLinkStyle,
+  bottomLeftLinkStyle,
+  topRightLinkStyle,
+  middleRightLinkStyle,
+  bottomRightLinkStyle,
   rightLinksWrapperStyle,
   outerStyle,
   subtitleStyle,
-  slimHeaderHeight,
 } from './slim-header.style';
+import { scrollToTop } from 'utils/dom';
 
 export class SlimHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSubtitle: true
+      showSubtitle: true,
+      slimHeaderStyle: topSlimHeaderStyle,
+      leftLinkStyle: topLeftLinkStyle,
+      rightLinkStyle: topRightLinkStyle,
+      handleOnClick: () => {},
     };
+
     this.scrollEventListener = this.scrollEventListener.bind(this);
+    this.handleStateChange = this.handleStateChange.bind(this);
   }
 
   componentDidMount() {
@@ -37,19 +48,11 @@ export class SlimHeader extends Component {
   }
 
   scrollEventListener() {
-    if (window.scrollY > slimHeaderHeight && this.state.showSubtitle) {
-      this.setState({
-        showSubtitle: false
-      });
-    } else if (window.scrollY <= slimHeaderHeight && !this.state.showSubtitle) {
-      this.setState({
-        showSubtitle: true
-      });
-    }
+    recalculateStickyness();
   }
 
   renderRightLinks() {
-    const { pathname, openLegalDisclaimerModal } = this.props;
+    const { openLegalDisclaimerModal } = this.props;
     const { editModeOn } = this.context;
     const links = [
       {
@@ -74,7 +77,7 @@ export class SlimHeader extends Component {
       if (link.externalHref) {
         return (
           <a
-            style={ rightLinkStyle }
+            style={ this.state.rightLinkStyle }
             key={ index }
             href={ link.externalHref }
           >
@@ -84,11 +87,10 @@ export class SlimHeader extends Component {
       }
 
       const href = link.href && (editModeOn ? editMode(link.href) : link.href);
-      const style = pathname === href ? { ...rightLinkStyle, ...activeLinkStyle } : rightLinkStyle;
 
       return (
         <Link
-          style={ style }
+          style={ this.state.rightLinkStyle }
           key={ index }
           to={ href }
           onClick={ link.onClick }>
@@ -96,6 +98,36 @@ export class SlimHeader extends Component {
         </Link>
       );
     });
+  }
+
+  handleStateChange(isSticky, isAtBottom) {
+    // top
+    if (!isSticky) {
+      this.setState({
+        slimHeaderStyle: topSlimHeaderStyle,
+        leftLinkStyle: topLeftLinkStyle,
+        rightLinkStyle: topRightLinkStyle,
+        handleOnClick: () => {}
+      });
+    }
+    // middle
+    else if (!isAtBottom) {
+      this.setState({
+        slimHeaderStyle: middleSlimHeaderStyle,
+        leftLinkStyle: middleLeftLinkStyle,
+        rightLinkStyle: middleRightLinkStyle,
+        handleOnClick: () => {}
+      });
+    }
+    // bottom
+    else {
+      this.setState({
+        slimHeaderStyle: bottomSlimHeaderStyle,
+        leftLinkStyle: bottomLeftLinkStyle,
+        rightLinkStyle: bottomRightLinkStyle,
+        handleOnClick: scrollToTop
+      });
+    }
   }
 
   render() {
@@ -106,40 +138,35 @@ export class SlimHeader extends Component {
       return null;
     }
 
-    const homeHref = editModeOn ? editMode(ROOT_PATH) : ROOT_PATH;
-    const homeLinkStyle = (
-      pathname === homeHref ? { ...leftLinkStyle, ...activeLinkStyle } : leftLinkStyle
-    );
-
     const rightLinks = this.renderRightLinks();
 
     return (
       <ResponsiveFluidWidthComponent style={ outerStyle }>
-        <div style={ slimHeaderStyle } className='test--slim-header'>
-          <div style={ rightLinksWrapperStyle }>
-            { rightLinks }
-            <LogOutButtonContainer pathname={ pathname }/>
+        <StickyHeader
+          className='test--slim-header__wrapper'
+          handleStateChange={ this.handleStateChange }
+          onClick={ this.state.handleOnClick }
+        >
+          <div style={ this.state.slimHeaderStyle } className='test--slim-header'>
+            <div style={ rightLinksWrapperStyle }>
+              { rightLinks }
+              <LogOutButtonContainer pathname={ pathname } />
+            </div>
+
+            <Link
+              style={ this.state.leftLinkStyle }
+              to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
+              className='test--header-logo'
+            >
+              Citizens Police Data Project
+            </Link>
           </div>
-
-          <Link
-            style={ homeLinkStyle }
-            to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
-            className='test--header-logo'
-          >
-            Citizens Police Data Project
-          </Link>
-
-          <FadeMotion show={ this.state.showSubtitle }>
-            {
-              (opacity) => (
-                <span style={ { ...subtitleStyle, opacity: opacity } }>
-                  collects and publishes
-                  <span style={ { whiteSpace: 'nowrap' } }> information about police misconduct in Chicago.</span>
-                </span>
-              )
-            }
-          </FadeMotion>
+        </StickyHeader>
+        <div style={ { ...subtitleStyle } }>
+          <div> collects and publishes information</div>
+          <div> about police misconduct in Chicago. </div>
         </div>
+
       </ResponsiveFluidWidthComponent>
     );
   }
