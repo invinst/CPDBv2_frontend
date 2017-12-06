@@ -5,7 +5,6 @@ class Header extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      stickyWrapper: '.test--slim-header__wrapper > div:nth-child(2)',
       mainElement: '.test--slim-header',
       closeButtonSelector: '.nav-link__close-btn',
       headerLogoSelector: '.test--header-logo',

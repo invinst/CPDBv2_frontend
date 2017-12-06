@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import MediaQuery from 'react-responsive';
+
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import StickyHeader, { recalculateStickyness } from 'components/common/sticky-header';
@@ -8,6 +10,7 @@ import { editMode } from 'utils/edit-path';
 import ConfiguredRadium from 'utils/configured-radium';
 import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 import LogOutButtonContainer from 'containers/log-out-container';
+import SearchSectionComponent from 'components/landing-page/search-section';
 import {
   topSlimHeaderStyle,
   middleSlimHeaderStyle,
@@ -19,36 +22,39 @@ import {
   middleRightLinkStyle,
   bottomRightLinkStyle,
   rightLinksWrapperStyle,
-  outerStyle,
-  subtitleStyle,
+  bottomSubtitleStyle,
+  logoWrapperStyle,
+  middleSubtitleStyle,
+  topSubtitleStyle
 } from './slim-header.style';
 import { scrollToTop } from 'utils/dom';
+import {
+  bottomSearchBoxStyle, middleSearchBoxStyle,
+  topSearchBoxStyle
+} from 'components/landing-page/search-section/search-section.style';
 
 export class SlimHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showSubtitle: true,
+      subtitleStyle: topSubtitleStyle,
       slimHeaderStyle: topSlimHeaderStyle,
       leftLinkStyle: topLeftLinkStyle,
       rightLinkStyle: topRightLinkStyle,
-      handleOnClick: () => {},
+      searchBoxStyle: topSearchBoxStyle,
+      handleOnClick: () => {
+      },
     };
 
-    this.scrollEventListener = this.scrollEventListener.bind(this);
     this.handleStateChange = this.handleStateChange.bind(this);
   }
 
   componentDidMount() {
-    addEventListener('scroll', this.scrollEventListener);
+    addEventListener('scroll', recalculateStickyness);
   }
 
   componentWillUnmount() {
-    removeEventListener('scroll', this.scrollEventListener);
-  }
-
-  scrollEventListener() {
-    recalculateStickyness();
+    removeEventListener('scroll', recalculateStickyness);
   }
 
   renderRightLinks() {
@@ -77,6 +83,8 @@ export class SlimHeader extends Component {
       if (link.externalHref) {
         return (
           <a
+            className='test--right-external-link'
+            onClick={ (e) => { e.stopPropagation(); } }
             style={ this.state.rightLinkStyle }
             key={ index }
             href={ link.externalHref }
@@ -93,7 +101,8 @@ export class SlimHeader extends Component {
           style={ this.state.rightLinkStyle }
           key={ index }
           to={ href }
-          onClick={ link.onClick }>
+          onClick={ link.onClick }
+        >
           { link.name }
         </Link>
       );
@@ -107,7 +116,10 @@ export class SlimHeader extends Component {
         slimHeaderStyle: topSlimHeaderStyle,
         leftLinkStyle: topLeftLinkStyle,
         rightLinkStyle: topRightLinkStyle,
-        handleOnClick: () => {}
+        subtitleStyle: topSubtitleStyle,
+        searchBoxStyle: topSearchBoxStyle,
+        handleOnClick: () => {
+        }
       });
     }
     // middle
@@ -116,7 +128,10 @@ export class SlimHeader extends Component {
         slimHeaderStyle: middleSlimHeaderStyle,
         leftLinkStyle: middleLeftLinkStyle,
         rightLinkStyle: middleRightLinkStyle,
-        handleOnClick: () => {}
+        subtitleStyle: middleSubtitleStyle,
+        searchBoxStyle: middleSearchBoxStyle,
+        handleOnClick: () => {
+        }
       });
     }
     // bottom
@@ -125,6 +140,8 @@ export class SlimHeader extends Component {
         slimHeaderStyle: bottomSlimHeaderStyle,
         leftLinkStyle: bottomLeftLinkStyle,
         rightLinkStyle: bottomRightLinkStyle,
+        subtitleStyle: bottomSubtitleStyle,
+        searchBoxStyle: bottomSearchBoxStyle,
         handleOnClick: scrollToTop
       });
     }
@@ -141,33 +158,44 @@ export class SlimHeader extends Component {
     const rightLinks = this.renderRightLinks();
 
     return (
-      <ResponsiveFluidWidthComponent style={ outerStyle }>
-        <StickyHeader
-          className='test--slim-header__wrapper'
-          handleStateChange={ this.handleStateChange }
-          onClick={ this.state.handleOnClick }
-        >
-          <div style={ this.state.slimHeaderStyle } className='test--slim-header'>
-            <div style={ rightLinksWrapperStyle }>
-              { rightLinks }
-              <LogOutButtonContainer pathname={ pathname } />
-            </div>
-
-            <Link
-              style={ this.state.leftLinkStyle }
-              to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
-              className='test--header-logo'
-            >
-              Citizens Police Data Project
-            </Link>
+      <StickyHeader
+        wrapperComponent={ ResponsiveFluidWidthComponent }
+        className='test--slim-header'
+        handleStateChange={ this.handleStateChange }
+        onClick={ this.state.handleOnClick }
+        style={ this.state.slimHeaderStyle }
+      >
+        <div style={ { height: this.state.slimHeaderStyle.height } }>
+          <div style={ rightLinksWrapperStyle }>
+            { rightLinks }
+            <LogOutButtonContainer pathname={ pathname } />
           </div>
-        </StickyHeader>
-        <div style={ { ...subtitleStyle } }>
-          <div> collects and publishes information</div>
-          <div> about police misconduct in Chicago. </div>
-        </div>
 
-      </ResponsiveFluidWidthComponent>
+          <SearchSectionComponent searchBoxStyle={ this.state.searchBoxStyle }/>
+
+          <div style={ logoWrapperStyle }>
+            <MediaQuery minWidth={ 830 }>
+              {(matches) => (
+                <Link
+                  style={ this.state.leftLinkStyle }
+                  to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
+                  className='test--header-logo'
+                >
+                  { matches ? 'Citizens Police Data Project' : 'CPDP' }
+                </Link>
+              )}
+            </MediaQuery>
+            <MediaQuery minWidth={ 950 }>
+              <div style={ this.state.subtitleStyle }>
+                <div> collects and publishes information</div>
+                <div> about police misconduct in Chicago.</div>
+              </div>
+            </MediaQuery>
+          </div>
+
+        </div>
+      </StickyHeader>
+
     );
   }
 }

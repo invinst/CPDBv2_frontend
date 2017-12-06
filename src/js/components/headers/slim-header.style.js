@@ -1,26 +1,27 @@
-import { mediumGrayColor, softBlackColor, clayGray, accentColor, whiteTwoColor } from 'utils/styles';
+import { mediumGrayColor, softBlackColor, clayGray, accentColor, sugarCaneColor } from 'utils/styles';
 
 const middleSlimHeaderHeight = 40;
-const topSlimHeaderHeight = 64;
+const topSlimHeaderHeight = 102;
 const leftPadding = 16;
+const logoWidth = 288;
+const rightLinkMargin = 46;
 
 const slimHeaderStyle = {
   padding: `0 ${leftPadding}px`,
   boxSizing: 'border-box',
   width: 'inherit',
   fontSize: '14px',
+  lineHeight: '18px'
 };
 
 export const topSlimHeaderStyle = {
   ...slimHeaderStyle,
   height: `${topSlimHeaderHeight}px`,
-  lineHeight: `${topSlimHeaderHeight}px`,
 };
 
 export const middleSlimHeaderStyle = {
   ...slimHeaderStyle,
   height: `${middleSlimHeaderHeight}px`,
-  lineHeight: `${middleSlimHeaderHeight}px`,
   boxShadow: '0 1px 1px 0 rgba(0, 0, 0, 0.13)',
   backgroundColor: 'white'
 };
@@ -50,39 +51,53 @@ export const middleLeftLinkStyle = {
 
 export const bottomLeftLinkStyle = {
   ...linkStyle,
-  color: whiteTwoColor
+  color: sugarCaneColor
+};
+
+const rightLinkStyle = {
+  ...linkStyle,
+  marginLeft: `${rightLinkMargin}px`
 };
 
 export const topRightLinkStyle = {
-  ...linkStyle,
-  marginLeft: '50px',
+  ...rightLinkStyle,
   color: accentColor
 };
 
 export const middleRightLinkStyle = {
-  ...linkStyle,
-  marginLeft: '50px',
+  ...rightLinkStyle,
   color: clayGray
 };
 
 export const bottomRightLinkStyle = {
-  ...linkStyle,
-  marginLeft: '50px',
-  color: whiteTwoColor
+  ...rightLinkStyle,
+  color: 'white',
 };
 
 export const rightLinksWrapperStyle = {
-  float: 'right'
+  float: 'right',
+  position: 'relative',
+  top: '50%',
+  transform: 'translateY(-50%)'
 };
 
-export const outerStyle = {
-  width: 'inherit'
+export const logoWrapperStyle = {
+  position: 'relative',
+  top: '50%',
+  transform: 'translateY(-50%)',
+  maxWidth: `${logoWidth}px`
 };
 
-export const subtitleStyle = {
-  color: clayGray,
-  marginLeft: `${leftPadding}px`,
+const subtitleStyle = {
   fontSize: '14px',
   fontWeight: '300',
-  marginTop: '-22px'
+  width: `${logoWidth}px`,
+  color: clayGray,
 };
+
+export const topSubtitleStyle = subtitleStyle;
+export const middleSubtitleStyle = {
+  ...subtitleStyle,
+  display: 'none',
+};
+export const bottomSubtitleStyle = subtitleStyle;

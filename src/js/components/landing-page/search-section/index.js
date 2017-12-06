@@ -1,28 +1,42 @@
-import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
-import { SEARCH_PATH } from 'utils/constants';
-import { editMode } from 'utils/edit-path';
-import { searchSectionStyle, searchBoxStyle } from './search-section.style';
-import MediaQuery from 'react-responsive';
+import React, { PropTypes, Component } from 'react';
+import { SEARCH_PATH, SEARCH_TERMS_PATH } from 'utils/constants';
+import { pushPathPreserveEditMode } from 'utils/edit-path';
+import { searchSectionStyle, searchTermsLinkStyle } from './search-section.style';
 
+export default class SearchSection extends Component {
+  goToSearch(e) {
+    pushPathPreserveEditMode(`/${SEARCH_PATH}`);
+    e.stopPropagation();
+  }
 
-const SearchSection = (props, context) => {
-  const to = context.editModeOn ? editMode(SEARCH_PATH) : `/${SEARCH_PATH}`;
+  goToSearchTerms(e) {
+    pushPathPreserveEditMode(`/${SEARCH_PATH}${SEARCH_TERMS_PATH}`);
+    e.stopPropagation();
+  }
 
-  return (
-    <div style={ searchSectionStyle }>
-      <MediaQuery maxWidth={ 991 }>
-        <Link style={ searchBoxStyle(false) } to={ to }>Search</Link>
-      </MediaQuery>
-      <MediaQuery minWidth={ 992 }>
-        <Link style={ searchBoxStyle(true) } to={ to }>Search</Link>
-      </MediaQuery>
-    </div>
-  );
-};
+  render() {
+    return (
+      <div style={ searchSectionStyle }>
+        <div
+          style={ this.props.searchBoxStyle }
+          onClick={ this.goToSearch }
+          className='test--search-section-search-box'>
+          <span
+            style={ searchTermsLinkStyle }
+            onClick={ this.goToSearchTerms }
+            className='test--search-section-term'>
+            What can I search?
+          </span>
+        </div>
+      </div>
+    );
+  }
+}
 
 SearchSection.contextTypes = {
   editModeOn: PropTypes.bool
 };
 
-export default SearchSection;
+SearchSection.propTypes = {
+  searchBoxStyle: PropTypes.object
+};

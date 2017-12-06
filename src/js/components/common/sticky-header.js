@@ -65,17 +65,20 @@ export default class StickyHeader extends Component {
   }
 
   render() {
-    const { children, ...rest } = this.props;
+    const { children, wrapperComponent, ...rest } = this.props;
     delete rest.style;
     delete rest.handleStateChange;
 
     const { placeholderHeight } = this.state;
     const childrenWrapperStyle = this.childrenWrapperStyle();
+    const Wrapper = wrapperComponent || 'div';
     return (
-      <div { ...rest }>
+      <div>
         <div style={ { paddingBottom: `${placeholderHeight}px` } } ref={ el => { this.placeholderElement = el; } }/>
-        <div style={ childrenWrapperStyle } ref={ el => { this.childrenElement = el; } }>
-          { children }
+        <div style={ childrenWrapperStyle } ref={ el => { this.childrenElement = el; } } { ...rest }>
+          <Wrapper>
+            { children }
+          </Wrapper>
         </div>
       </div>
     );
@@ -85,7 +88,8 @@ export default class StickyHeader extends Component {
 StickyHeader.propTypes = {
   children: PropTypes.node,
   style: PropTypes.object,
-  handleStateChange: PropTypes.func
+  handleStateChange: PropTypes.func,
+  wrapperComponent: PropTypes.func
 };
 
 StickyHeader.defaultProps = {
