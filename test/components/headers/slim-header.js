@@ -27,6 +27,7 @@ import {
   bottomSearchBoxStyle, middleSearchBoxStyle,
   topSearchBoxStyle
 } from 'components/landing-page/search-section/search-section.style';
+import { accentColor, clayGray } from 'utils/styles';
 
 class SlimHeaderContextWrapper extends ContextWrapper {
 }
@@ -144,6 +145,7 @@ describe('SlimHeader component', function () {
     slimHeader.state.subtitleStyle.should.eql(topSubtitleStyle);
     slimHeader.state.subtitleStyle.should.eql(topSubtitleStyle);
     slimHeader.state.searchBoxStyle.should.eql(topSearchBoxStyle);
+    slimHeader.state.magnifyingGlassColor.should.eql(accentColor);
     slimHeader.state.handleOnClick.should.not.eql(scrollToTop);
   });
 
@@ -191,6 +193,7 @@ describe('SlimHeader component', function () {
       this.slimHeader.state.rightLinkStyle.should.eql(topRightLinkStyle);
       this.slimHeader.state.subtitleStyle.should.eql(topSubtitleStyle);
       this.slimHeader.state.searchBoxStyle.should.eql(topSearchBoxStyle);
+      this.slimHeader.state.magnifyingGlassColor.should.eql(accentColor);
       this.slimHeader.state.handleOnClick.should.not.eql(scrollToTop);
     });
 
@@ -201,6 +204,7 @@ describe('SlimHeader component', function () {
       this.slimHeader.state.rightLinkStyle.should.eql(middleRightLinkStyle);
       this.slimHeader.state.subtitleStyle.should.eql(middleSubtitleStyle);
       this.slimHeader.state.searchBoxStyle.should.eql(middleSearchBoxStyle);
+      this.slimHeader.state.magnifyingGlassColor.should.eql(clayGray);
       this.slimHeader.state.handleOnClick.should.not.eql(scrollToTop);
     });
 
@@ -211,6 +215,7 @@ describe('SlimHeader component', function () {
       this.slimHeader.state.rightLinkStyle.should.eql(bottomRightLinkStyle);
       this.slimHeader.state.subtitleStyle.should.eql(bottomSubtitleStyle);
       this.slimHeader.state.searchBoxStyle.should.eql(bottomSearchBoxStyle);
+      this.slimHeader.state.magnifyingGlassColor.should.eql('white');
       this.slimHeader.state.handleOnClick.should.eql(scrollToTop);
     });
   });

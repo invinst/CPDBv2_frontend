@@ -50,3 +50,10 @@ export const bottomSearchBoxStyle = {
   border: 'solid 1px white',
   color: 'white'
 };
+
+export const magnifyingGlassStyle = {
+  float: 'left',
+  position: 'relative',
+  top: '50%',
+  transform: 'translateY(-50%)'
+};

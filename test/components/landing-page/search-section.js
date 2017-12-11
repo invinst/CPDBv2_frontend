@@ -1,11 +1,13 @@
 import React from 'react';
+
 import {
-  Simulate, renderIntoDocument, findRenderedDOMComponentWithClass
+  Simulate, renderIntoDocument, findRenderedDOMComponentWithClass, findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import SearchSection from 'components/landing-page/search-section';
 import * as editPath from 'utils/edit-path' ;
+import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 
 
 describe('SearchSection component', function () {
@@ -41,5 +43,11 @@ describe('SearchSection component', function () {
     const searchBox = findRenderedDOMComponentWithClass(instance, 'test--search-section-term');
     Simulate.click(searchBox);
     this.stubPushPathPreserveEditMode.calledWith('/search/terms/').should.be.true();
+  });
+
+  it('should render MagnifyingGlass with correct color', function () {
+    instance = renderIntoDocument(<SearchSection magnifyingGlassColor={ 'white' } />);
+    const magnifyingGlass = findRenderedComponentWithType(instance, MagnifyingGlass);
+    magnifyingGlass.props.color.should.eql('white');
   });
 });

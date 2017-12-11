@@ -32,6 +32,7 @@ import {
   bottomSearchBoxStyle, middleSearchBoxStyle,
   topSearchBoxStyle
 } from 'components/landing-page/search-section/search-section.style';
+import { accentColor, clayGray } from 'utils/styles';
 
 export class SlimHeader extends Component {
   constructor(props) {
@@ -42,8 +43,8 @@ export class SlimHeader extends Component {
       leftLinkStyle: topLeftLinkStyle,
       rightLinkStyle: topRightLinkStyle,
       searchBoxStyle: topSearchBoxStyle,
-      handleOnClick: () => {
-      },
+      magnifyingGlassColor: accentColor,
+      handleOnClick: () => {},
     };
 
     this.handleStateChange = this.handleStateChange.bind(this);
@@ -118,6 +119,7 @@ export class SlimHeader extends Component {
         rightLinkStyle: topRightLinkStyle,
         subtitleStyle: topSubtitleStyle,
         searchBoxStyle: topSearchBoxStyle,
+        magnifyingGlassColor: accentColor,
         handleOnClick: () => {
         }
       });
@@ -130,8 +132,8 @@ export class SlimHeader extends Component {
         rightLinkStyle: middleRightLinkStyle,
         subtitleStyle: middleSubtitleStyle,
         searchBoxStyle: middleSearchBoxStyle,
-        handleOnClick: () => {
-        }
+        magnifyingGlassColor: clayGray,
+        handleOnClick: () => {}
       });
     }
     // bottom
@@ -142,6 +144,7 @@ export class SlimHeader extends Component {
         rightLinkStyle: bottomRightLinkStyle,
         subtitleStyle: bottomSubtitleStyle,
         searchBoxStyle: bottomSearchBoxStyle,
+        magnifyingGlassColor: 'white',
         handleOnClick: scrollToTop
       });
     }
@@ -150,6 +153,14 @@ export class SlimHeader extends Component {
   render() {
     const { show, pathname } = this.props;
     const { editModeOn } = this.context;
+    const {
+      slimHeaderStyle,
+      leftLinkStyle,
+      subtitleStyle,
+      searchBoxStyle,
+      magnifyingGlassColor,
+      handleOnClick
+    } = this.state;
 
     if (!show) {
       return null;
@@ -162,31 +173,33 @@ export class SlimHeader extends Component {
         wrapperComponent={ ResponsiveFluidWidthComponent }
         className='test--slim-header'
         handleStateChange={ this.handleStateChange }
-        onClick={ this.state.handleOnClick }
-        style={ this.state.slimHeaderStyle }
+        onClick={ handleOnClick }
+        style={ slimHeaderStyle }
       >
-        <div style={ { height: this.state.slimHeaderStyle.height } }>
+        <div style={ { height: slimHeaderStyle.height } }>
           <div style={ rightLinksWrapperStyle }>
             { rightLinks }
             <LogOutButtonContainer pathname={ pathname } />
           </div>
 
-          <SearchSectionComponent searchBoxStyle={ this.state.searchBoxStyle }/>
+          <SearchSectionComponent
+            searchBoxStyle={ searchBoxStyle }
+            magnifyingGlassColor={ magnifyingGlassColor } />
 
           <div style={ logoWrapperStyle }>
             <MediaQuery minWidth={ 830 }>
-              {(matches) => (
+              { (matches) => (
                 <Link
-                  style={ this.state.leftLinkStyle }
+                  style={ leftLinkStyle }
                   to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
                   className='test--header-logo'
                 >
                   { matches ? 'Citizens Police Data Project' : 'CPDP' }
                 </Link>
-              )}
+              ) }
             </MediaQuery>
             <MediaQuery minWidth={ 950 }>
-              <div style={ this.state.subtitleStyle }>
+              <div style={ subtitleStyle }>
                 <div> collects and publishes information</div>
                 <div> about police misconduct in Chicago.</div>
               </div>
