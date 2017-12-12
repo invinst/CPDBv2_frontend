@@ -22,10 +22,25 @@ describe('activity-grid selectors', function () {
 
     it('should transform correctly', function () {
       state.landingPage.activityGrid.cards = [{
-        id: '1', 'full_name': 'someone', 'visual_token_background_color': 'red'
+        id: '1',
+        'full_name': 'someone',
+        'visual_token_background_color': 'red',
+        'complaint_count': 10,
+        'sustained_count': 5,
+        'birth_year': 1970,
+        race: 'Black',
+        gender: 'Female'
       }];
       cardsSelector(state).should.eql([{
-        id: '1', fullName: 'someone', visualTokenBackgroundColor: 'red'
+        id: '1',
+        fullName: 'someone',
+        visualTokenBackgroundColor: 'red',
+        complaintCount: 10,
+        sustainedCount: 5,
+        complaintRate: 50,
+        birthYear: 1970,
+        race: 'black',
+        gender: 'female'
       }]);
     });
 
