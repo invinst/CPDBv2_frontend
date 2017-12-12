@@ -16,11 +16,10 @@ export const previewPaneInfoSelector = createSelector(
   suggestion => suggestion,
   (suggestion) => {
     const { payload, id, text } = suggestion;
-    const currentYear = (new Date()).getFullYear();
     const data = [
       ['unit', payload.unit],
       ['rank', payload.rank],
-      [`${currentYear} salary`, payload.salary],
+      [`${constants.CURRENT_YEAR} salary`, payload.salary],
       ['race', payload.race],
       ['sex', payload.sex]
     ];
