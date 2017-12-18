@@ -37,8 +37,8 @@ export const topSearchBoxStyle = {
 export const middleSearchBoxStyle = {
   ...searchBoxStyle,
   backgroundColor: 'white',
-  height: '24px',
-  lineHeight: '24px',
+  height: '32px',
+  lineHeight: '32px',
   border: `solid 1px ${whiteTwoColor}`,
 };
 
