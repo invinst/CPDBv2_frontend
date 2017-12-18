@@ -197,7 +197,7 @@ export const SELECT_CATEGORY = 'SELECT_CATEGORY';
 
 export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR', 'UNIT_PROFILE']);
 
-export const TimelineItemType = new Enum(['CR', 'UNIT', 'YEAR', 'JOINED']);
+export const TimelineItemType = new Enum(['CR', 'UNIT', 'JOINED']);
 
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';

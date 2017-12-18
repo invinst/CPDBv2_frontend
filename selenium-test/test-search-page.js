@@ -83,6 +83,7 @@ describe('Search Page', function () {
 
     searchPage.contentWrapper.waitForVisible();
     searchPage.suggestionTags.waitForVisible();
+    browser.pause(100);
     searchPage.contentWrapper.getText().should.containEql('DATA TOOL');
     searchPage.suggestionTags.getText().should.containEql('Data Tool');
   });

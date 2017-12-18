@@ -77,7 +77,7 @@ describe('officer timeline page', function () {
 
   it('should change selected minimap item when going back from CR page', function () {
     timelinePage.sidebar.clickOn('2005', 1);
-    timelinePage.timeline.cardItemAtIndex(5).click();
+    timelinePage.timeline.cardItemAtIndex(3).click();
     crPage.element.waitForVisible();
     browser.back();
     timelinePage.sidebar.itemAt('2004', 1).getCssProperty('backgroundColor').value.should.equal(
@@ -90,14 +90,14 @@ describe('officer timeline page', function () {
       timelinePage.sidebar.yearLabel.waitForVisible();
       timelinePage.sidebar.minimapItem.waitForVisible();
       timelinePage.sidebar.hoverOn('2005', 1);
-      timelinePage.timeline.cardItemAtIndex(2).getCssProperty('backgroundColor').value.should.equal(
+      timelinePage.timeline.cardItemAtIndex(1).getCssProperty('backgroundColor').value.should.equal(
         'rgba(255,255,255,1)'
       );
     });
 
     it('should scroll to corresponding timeline item when clicked on', function () {
       timelinePage.timeline.cardItem.count.should.equal(10);
-      timelinePage.timeline.joinedItem.kind.isVisible().should.be.false();
+      timelinePage.timeline.joinedItem.kind.isVisibleWithinViewport().should.be.false();
       timelinePage.sidebar.clickOn('2001', 2);
       timelinePage.timeline.joinedItem.kind.waitForVisible();
       timelinePage.timeline.joinedItem.kind.getText().should.equal('Joined');
@@ -130,14 +130,14 @@ describe('officer timeline page', function () {
     });
 
     it('should highlight corresponding minimap item when hovered on', function () {
-      timelinePage.timeline.hoverOn(2);
+      timelinePage.timeline.hoverOn(1);
       timelinePage.sidebar.itemAt('2005', 1).getCssProperty('backgroundColor').value.should.equal(
         'rgba(228,228,228,1)'
       );
     });
 
     it('should launch Complaint bottom sheet when click on a CR item', function () {
-      timelinePage.timeline.cardItemAtIndex(2).click();
+      timelinePage.timeline.cardItemAtIndex(1).click();
       crPage.element.waitForVisible();
       crPage.currentBasePath.should.equal('/complaint/968734/1/');
     });
