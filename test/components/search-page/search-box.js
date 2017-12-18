@@ -3,6 +3,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  findRenderedDOMComponentWithTag,
   Simulate
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
@@ -88,5 +89,14 @@ describe('SearchBox component', function () {
 
     const toggleButton = findRenderedDOMComponentWithClass(instance, 'test--toggle-button');
     toggleButton.textContent.should.equal('Hide Search terms');
+  });
+
+  it('should render input with disabled spellcheck', function () {
+    instance = renderIntoDocument(
+      <SearchBox />
+    );
+
+    const input = findRenderedDOMComponentWithTag(instance, 'input');
+    input.getAttribute('spellcheck').should.eql('false');
   });
 });
