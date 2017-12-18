@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MapboxGL from 'components/common/mapbox-gl';
-import mapboxgl from 'utils/mapbox-gl';
+import { mapboxgl } from 'utils/vendors';
 
 
 describe('MapboxGL component', function () {
