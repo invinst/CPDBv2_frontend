@@ -1,14 +1,19 @@
 import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor, lightBlackColor } from 'utils/styles';
 
 
-export const unitNameStyle = {
+export const unitNameWrapperStyle = {
   fontSize: '26px',
-  fontWeight: 600,
+  fontWeight: 500,
   fontFamily: sanFranciscoTextFamily,
   color: softBlackColor,
   display: 'inline-block',
-  paddingTop: '16px',
   float: 'left'
+};
+
+export const unitNameStyle = {
+  fontSize: '18px',
+  fontWeight: 500,
+  color: mediumGrayColor
 };
 
 export const wrapperStyle = {
