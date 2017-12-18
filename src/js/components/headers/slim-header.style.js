@@ -1,6 +1,6 @@
 import { mediumGrayColor, softBlackColor, clayGray, accentColor, sugarCaneColor } from 'utils/styles';
 
-const middleSlimHeaderHeight = 40;
+const middleSlimHeaderHeight = 64;
 const topSlimHeaderHeight = 102;
 const leftPadding = 16;
 const logoWidth = 288;
