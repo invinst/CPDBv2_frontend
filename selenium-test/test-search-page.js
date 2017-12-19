@@ -83,6 +83,7 @@ describe('Search Page', function () {
 
     searchPage.contentWrapper.waitForVisible();
     searchPage.suggestionTags.waitForVisible();
+    browser.pause(100);
     searchPage.contentWrapper.getText().should.containEql('DATA TOOL');
     searchPage.suggestionTags.getText().should.containEql('Data Tool');
   });
@@ -200,5 +201,15 @@ describe('Search Page', function () {
     searchPage.open();
     searchPage.recentSuggestions.waitForVisible();
     searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+  });
+
+  it('should switch to search terms page when click on toggle', function () {
+    searchPage.searchTermToggle.getText().should.equal('Show Search terms');
+    searchPage.searchTermToggle.click();
+    searchPage.searchTermToggle.getText().should.equal('Hide Search terms');
+    browser.getUrl().should.match(/\/search\/terms\/$/);
+    searchPage.searchTermToggle.click();
+    searchPage.searchTermToggle.getText().should.equal('Show Search terms');
+    browser.getUrl().should.not.match(/\/search\/terms\/$/);
   });
 });

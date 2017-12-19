@@ -5,11 +5,6 @@ import { OFFICER_URL } from 'utils/constants';
 
 const allCards = [
   {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2005
-  },
-  {
     category: 'Use of Force',
     kind: 'CR',
     subcategory: 'EXCESSIVE FORCE - OFF DUTY',
@@ -25,11 +20,6 @@ const allCards = [
     'unit_name': '004',
     kind: 'UNIT_CHANGE',
     date: '2005-04-28'
-  },
-  {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2004
   },
   {
     category: 'Use of Force',
@@ -49,11 +39,6 @@ const allCards = [
     date: '2004-04-28'
   },
   {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2003
-  },
-  {
     category: 'Use of Force',
     kind: 'CR',
     subcategory: 'EXCESSIVE FORCE - OFF DUTY',
@@ -69,11 +54,6 @@ const allCards = [
     'unit_name': '002',
     kind: 'UNIT_CHANGE',
     date: '2003-04-28'
-  },
-  {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2002
   },
   {
     category: 'Illegal Search',
@@ -93,11 +73,6 @@ const allCards = [
     date: '2002-04-28'
   },
   {
-    crs: 0,
-    kind: 'YEAR',
-    year: 2001
-  },
-  {
     'unit_name': '010',
     kind: 'UNIT_CHANGE',
     date: '2001-12-05'
@@ -110,10 +85,6 @@ const allCards = [
 
 const filteredCards = {
   'category=Use%20of%20Force&race=Black': [{
-    crs: 1,
-    kind: 'YEAR',
-    year: 2005
-  }, {
     category: 'Use of Force',
     kind: 'CR',
     subcategory: 'EXCESSIVE FORCE - OFF DUTY',
@@ -128,10 +99,6 @@ const filteredCards = {
     'unit_name': '004',
     kind: 'UNIT_CHANGE',
     date: '2005-04-28'
-  }, {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2004
   }, {
     category: 'Use of Force',
     kind: 'CR',
@@ -148,25 +115,13 @@ const filteredCards = {
     kind: 'UNIT_CHANGE',
     date: '2004-04-28'
   }, {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2003
-  }, {
     'unit_name': '002',
     kind: 'UNIT_CHANGE',
     date: '2003-04-28'
   }, {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2002
-  }, {
     'unit_name': '001',
     kind: 'UNIT_CHANGE',
     date: '2002-04-28'
-  }, {
-    crs: 0,
-    kind: 'YEAR',
-    year: 2001
   }, {
     'unit_name': '010',
     kind: 'UNIT_CHANGE',
@@ -176,10 +131,6 @@ const filteredCards = {
     date: '2001-12-05'
   }],
   'category=Use%20of%20Force': [{
-    crs: 1,
-    kind: 'YEAR',
-    year: 2005
-  }, {
     category: 'Use of Force',
     kind: 'CR',
     subcategory: 'EXCESSIVE FORCE - OFF DUTY',
@@ -195,10 +146,6 @@ const filteredCards = {
     kind: 'UNIT_CHANGE',
     date: '2005-04-28'
   }, {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2004
-  }, {
     category: 'Use of Force',
     kind: 'CR',
     subcategory: 'EXCESSIVE FORCE - OFF DUTY',
@@ -213,10 +160,6 @@ const filteredCards = {
     'unit_name': '003',
     kind: 'UNIT_CHANGE',
     date: '2004-04-28'
-  }, {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2003
   }, {
     category: 'Use of Force',
     kind: 'CR',
@@ -233,17 +176,9 @@ const filteredCards = {
     kind: 'UNIT_CHANGE',
     date: '2003-04-28'
   }, {
-    crs: 1,
-    kind: 'YEAR',
-    year: 2002
-  }, {
     'unit_name': '001',
     kind: 'UNIT_CHANGE',
     date: '2002-04-28'
-  }, {
-    crs: 0,
-    kind: 'YEAR',
-    year: 2001
   }, {
     'unit_name': '010',
     kind: 'UNIT_CHANGE',
@@ -265,11 +200,6 @@ const results = {
   },
   '1234': {
     results: [
-      {
-        crs: 0,
-        kind: 'YEAR',
-        year: 2001
-      },
       {
         kind: 'JOINED',
         date: '2001-12-05'

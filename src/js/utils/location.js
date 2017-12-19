@@ -43,18 +43,6 @@ export function hasOfficerIdChanged(action, officerId) {
   return false;
 }
 
-export function isSameOfficerPath(path1, path2) {
-  const prevOfficerId = getOfficerId(path1);
-  const officerId = getOfficerId(path2);
-  return !isNaN(prevOfficerId) && !isNaN(officerId) && prevOfficerId === officerId;
-}
-
-export function isSameCR(path1, path2) {
-  const prevCRID = getCRID(path1);
-  const CRID = getCRID(path2);
-  return !isNaN(prevCRID) && !isNaN(CRID) && prevCRID === CRID;
-}
-
 export function serializeFilterParams(obj, startWith = '') {
   const urlParams = Object.entries(obj).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
   return urlParams ? startWith + urlParams : '';

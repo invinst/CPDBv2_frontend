@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import YearItem from 'components/officer-page/timeline-page/year-item';
+import CategoryItemContent from 'components/search-page/search-terms/category-column/category-item-content';
 
 
-describe('YearItem component', function () {
+describe('CategoryItemContent component', function () {
   let instance;
 
   afterEach(function () {
@@ -12,6 +12,6 @@ describe('YearItem component', function () {
   });
 
   it('should renderable', function () {
-    YearItem.should.be.renderable({ item: { year: '2000', crs: '1' } });
+    CategoryItemContent.should.be.renderable();
   });
 });

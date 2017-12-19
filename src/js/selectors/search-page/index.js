@@ -1,13 +1,16 @@
 import { createSelector } from 'reselect';
 import { omitBy, isEmpty, keys, pick, indexOf, sortBy, chunk, flatten } from 'lodash';
 
+import { searchPageItemsPerColumn } from 'utils/search';
+import * as constants from 'utils/constants';
+
 const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'];
 
-const getSuggestionGroups = (state) => (state.searchPage.suggestionGroups);
-const getSuggestionTags = (state) => (state.searchPage.tags);
+const getSuggestionGroups = state => state.searchPage.suggestionGroups;
+const getSuggestionTags = state => state.searchPage.tags;
 const getSuggestionNavigation = state => state.searchPage.navigation;
 const getSuggestionContentType = state => state.searchPage.contentType;
-const getNumberOfItemsPerColumn = state => state.searchPage.itemsPerColumn;
+const getQuery = state => state.searchPage.query;
 
 export const previewPaneInfoSelector = createSelector(
   suggestion => suggestion,
@@ -81,9 +84,8 @@ export const isShowingSingleContentTypeSelector = createSelector(
 */
 export const chunkedSuggestionGroupsSelector = createSelector(
   orderedSuggestionGroupsSelector,
-  getNumberOfItemsPerColumn,
   isShowingSingleContentTypeSelector,
-  (orderedGroups, itemsPerColumn, isSingle) => {
+  (orderedGroups, isSingle) => {
     if (!orderedGroups || orderedGroups.length === 0) {
       return [];
     }
@@ -92,17 +94,17 @@ export const chunkedSuggestionGroupsSelector = createSelector(
       const group = orderedGroups[0];
       return [{
         header: group.header,
-        columns: chunk(group.items, itemsPerColumn),
+        columns: chunk(group.items, searchPageItemsPerColumn),
         canLoadMore: false
       }];
 
     } else {
       return orderedGroups.map((group, index) => {
-        const slicedGroup = group.items.slice(0, itemsPerColumn);
+        const slicedGroup = group.items.slice(0, searchPageItemsPerColumn);
         return {
           header: group.header,
           columns: [slicedGroup],
-          canLoadMore: slicedGroup.length >= itemsPerColumn
+          canLoadMore: slicedGroup.length >= searchPageItemsPerColumn
         };
       });
     }
@@ -133,10 +135,14 @@ export const focusedSuggestionSelector = createSelector(
 
 export const suggestionTagsSelector = createSelector(
   getSuggestionTags,
-  (suggestionTags) => (
-    sortBy(suggestionTags, (tag) => (indexOf(SEARCH_CATEGORIES, tag))
-    )
-  ));
+  getQuery,
+  (suggestionTags, query) => {
+    if (!query) {
+      return [constants.RECENT_CONTENT_TYPE];
+    }
+    return sortBy(suggestionTags, tag => indexOf(SEARCH_CATEGORIES, tag));
+  }
+);
 
 export const isEmptySelector = createSelector(
   suggestionGroupsSelector,
@@ -149,3 +155,4 @@ export const suggestionColumnsSelector = createSelector(
   coordinatesMapSelector,
   ({ coordinatesMap, headers }) => coordinatesMap.map(column => column.length)
 );
+

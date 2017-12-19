@@ -9,7 +9,11 @@ describe('searchPage reducer', function () {
       suggestionGroups: {},
       contentType: null,
       recentSuggestions: [],
-      itemsPerColumn: 10,
+      searchTerms: {
+        categories: [],
+        hidden: true,
+        selectedCategory: null
+      },
       tags: [],
       query: ''
     });

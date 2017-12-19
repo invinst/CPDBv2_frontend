@@ -25,6 +25,7 @@ export const DATA_PATH = 'data/';
 export const FAQ_PATH = 'faq/';
 export const STORIES_PATH = 'reporting/';
 export const SEARCH_PATH = 'search/';
+export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
@@ -90,6 +91,7 @@ export const CR_URL = `${V2_ROOT_PATH}cr/`;
 export const UNIT_PROFILE_URL = `${V2_ROOT_PATH}units/`;
 export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
 export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
+export const SEARCH_TERM_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categories/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -185,12 +187,17 @@ export const OFFICER_TIMELINE_HOVER_TIMELINE_ITEM = 'OFFICER_TIMELINE_HOVER_TIME
 export const OFFICER_TIMELINE_SELECT_TIMELINE_ITEM = 'OFFICER_TIMELINE_SELECT_TIMELINE_ITEM';
 export const OFFICER_TIMELINE_CHANGE_FILTERS = 'OFFICER_TIMELINE_CHANGE_FILTERS';
 export const OFFICER_TIMELINE_CLEAR_SELECTED_ITEM_INDEX = 'OFFICER_TIMELINE_CLEAR_SELECTED_ITEM_INDEX';
+export const SEARCH_TERM_CATEGORIES_REQUEST_START = 'SEARCH_TERM_CATEGORIES_REQUEST_START';
+export const SEARCH_TERM_CATEGORIES_REQUEST_SUCCESS = 'SEARCH_TERM_CATEGORIES_REQUEST_SUCCESS';
+export const SEARCH_TERM_CATEGORIES_REQUEST_FAILURE = 'SEARCH_TERM_CATEGORIES_REQUEST_FAILURE';
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
+export const SELECT_CATEGORY = 'SELECT_CATEGORY';
+
 
 export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR', 'UNIT_PROFILE']);
 
-export const TimelineItemType = new Enum(['CR', 'UNIT', 'YEAR', 'JOINED']);
+export const TimelineItemType = new Enum(['CR', 'UNIT', 'JOINED']);
 
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
@@ -254,3 +261,5 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
   '45': '#520051',
   '55': '#131313',
 };
+
+export const RECENT_CONTENT_TYPE = 'RECENT';
