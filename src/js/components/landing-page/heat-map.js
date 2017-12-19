@@ -29,7 +29,7 @@ export default class HeatMap extends Component {
               },
               'heatmap-intensity': {
                 stops: [
-                  [10, 0.1],
+                  [9, 0.09],
                   [17, 3]
                 ]
               },
@@ -46,14 +46,14 @@ export default class HeatMap extends Component {
               ],
               'heatmap-radius': {
                 stops: [
-                  [10, 15],
+                  [9, 10],
                   [17, 20]
                 ]
               },
               'heatmap-opacity': {
                 default: 1,
                 stops: [
-                  [10, 1],
+                  [9, 1],
                   [17, 1]
                 ]
               },
