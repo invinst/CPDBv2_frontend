@@ -76,7 +76,8 @@ export default class HeatMap extends Component {
             paint: {
               'fill-color': '#007991',
               'fill-opacity': 0.3
-            }
+            },
+            filter: ['==', 'name', '']
           },
           {
             id: 'neighborhood-outline',
