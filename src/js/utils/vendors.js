@@ -25,18 +25,27 @@ _mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 if (global.mocha !== undefined) {
   const addSourceSpy = spy();
   const addLayerSpy = spy();
+  const setFilterSpy = spy();
 
   class MockMap {
     constructor() {
       this.addSource = addSourceSpy;
       this.addLayer = addLayerSpy;
+      this.setFilter = setFilterSpy;
     }
-    on(eventName, func) { func(); }
+    on() {
+      arguments[arguments.length - 1]({
+        features: [{
+          properties: {}
+        }]
+      }, this);
+    }
   }
 
   _mapboxgl.Map = MockMap;
   _mapboxgl._addSourceSpy = addSourceSpy;
   _mapboxgl._addLayerSpy = addLayerSpy;
+  _mapboxgl._setFilterSpy = setFilterSpy;
 }
 
 export const mapboxgl = _mapboxgl;
