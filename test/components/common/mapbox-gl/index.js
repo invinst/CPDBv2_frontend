@@ -18,7 +18,7 @@ describe('MapboxGL component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should renderable', function () {
+  it('should be renderable', function () {
     MapboxGL.should.be.renderable();
   });
 

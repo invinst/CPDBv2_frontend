@@ -18,4 +18,4 @@ export function mediaUrl(path) {
 }
 
 export const clusterGeoJSONPath = `${config.heatMapContainer}cluster.geojson`;
-export const neighborhoodGeoJSONPath = `${config.heatMapContainer}neighborhood.geojson`;
+export const neighborhoodGeoJSONPath = `${config.heatMapContainer}community.geojson`;
