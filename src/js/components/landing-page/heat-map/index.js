@@ -53,13 +53,13 @@ export default class HeatMap extends Component {
                   type: 'exponential',
                   stops: [
                     [0, 0],
-                    [6, 1]
+                    [5000, 1]
                   ]
                 },
                 'heatmap-intensity': {
                   stops: [
-                    [9, 0.09],
-                    [17, 3]
+                    [9, 20],
+                    [17, 100]
                   ]
                 },
                 'heatmap-color': [
@@ -75,7 +75,7 @@ export default class HeatMap extends Component {
                 ],
                 'heatmap-radius': {
                   stops: [
-                    [9, 10],
+                    [9, 14],
                     [17, 20]
                   ]
                 },
