@@ -1,11 +1,11 @@
 import { clayGray, softBlackColor } from 'utils/styles';
 
 
-export const noNeighborhoodStyle = {
+export const noCommunityStyle = {
   padding: '20px 16px 16px 16px'
 };
 
-export const noNeighborhoodHeaderStyle = {
+export const noCommunityHeaderStyle = {
   fontSize: '14px',
   fontWeight: '500',
   marginBottom: '22px',

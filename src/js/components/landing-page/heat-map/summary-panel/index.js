@@ -1,18 +1,18 @@
 import React, { PropTypes, Component } from 'react';
 
 import { panelStyle } from './summary-panel.style';
-import Neighborhood from './neighborhood';
-import NoNeighborhood from './no-neighborhood';
+import Community from './community';
+import NoCommunity from './no-community';
 
 
 export default class SummaryPanel extends Component {
   render() {
-    const { neighborhood } = this.props;
+    const { community } = this.props;
 
     return (
       <div style={ panelStyle }>
         {
-          this.props.neighborhood ? <Neighborhood neighborhood={ neighborhood }/> : <NoNeighborhood/>
+          community ? <Community community={ community }/> : <NoCommunity/>
         }
       </div>
     );
@@ -20,5 +20,5 @@ export default class SummaryPanel extends Component {
 }
 
 SummaryPanel.propTypes = {
-  neighborhood: PropTypes.object
+  community: PropTypes.object
 };

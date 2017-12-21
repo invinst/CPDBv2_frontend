@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { clusterGeoJSONPath, neighborhoodGeoJSONPath } from 'utils/static-assets';
+import { clusterGeoJSONPath, communityGeoJSONPath } from 'utils/static-assets';
 import MapboxGL from 'components/common/mapbox-gl';
 import SummaryPanel from './summary-panel';
 import { mapContainerStyle, wrapperStyle } from './heat-map.style';
@@ -21,26 +21,26 @@ export default class HeatMap extends Component {
       <div style={ wrapperStyle }>
         <MapboxGL style={ mapContainerStyle }
           onClick={ [
-            ['neighborhood-fill', (e, map) => {
-              map.setFilter('neighborhood-select', ['==', 'name', e.features[0].properties.name]);
+            ['community-fill', (e, map) => {
+              map.setFilter('community-select', ['==', 'name', e.features[0].properties.name]);
               this.setState({
                 selected: e.features[0].properties
               });
             }]
           ] }
           onMouseMove={ [
-            ['neighborhood-fill', (e, map) =>
-              map.setFilter('neighborhood-hover', ['==', 'name', e.features[0].properties.name])
+            ['community-fill', (e, map) =>
+              map.setFilter('community-hover', ['==', 'name', e.features[0].properties.name])
             ]
           ] }
           onMouseLeave={ [
-            ['neighborhood-fill', (e, map) =>
-              map.setFilter('neighborhood-hover', ['==', 'name', ''])
+            ['community-fill', (e, map) =>
+              map.setFilter('community-hover', ['==', 'name', ''])
             ]
           ] }
           sources={ [
             { name: 'cluster', type: 'geojson', data: clusterGeoJSONPath },
-            { name: 'neighborhood', type: 'geojson', data: neighborhoodGeoJSONPath },
+            { name: 'community', type: 'geojson', data: communityGeoJSONPath },
           ] }
           layers={ [
             {
@@ -89,9 +89,9 @@ export default class HeatMap extends Component {
               }
             },
             {
-              id: 'neighborhood-hover',
+              id: 'community-hover',
               type: 'fill',
-              source: 'neighborhood',
+              source: 'community',
               paint: {
                 'fill-color': '#007991',
                 'fill-opacity': 0.3
@@ -99,9 +99,9 @@ export default class HeatMap extends Component {
               filter: ['==', 'name', '']
             },
             {
-              id: 'neighborhood-select',
+              id: 'community-select',
               type: 'fill',
-              source: 'neighborhood',
+              source: 'community',
               paint: {
                 'fill-color': '#007991',
                 'fill-opacity': 0.5
@@ -109,18 +109,18 @@ export default class HeatMap extends Component {
               filter: ['==', 'name', '']
             },
             {
-              id: 'neighborhood-outline',
+              id: 'community-outline',
               type: 'line',
-              source: 'neighborhood',
+              source: 'community',
               paint: {
                 'line-color': '#007991',
                 'line-opacity': 0.8
               }
             },
             {
-              id: 'neighborhood-fill',
+              id: 'community-fill',
               type: 'fill',
-              source: 'neighborhood',
+              source: 'community',
               paint: {
                 'fill-color': '#007991',
                 'fill-opacity': 0
@@ -128,7 +128,7 @@ export default class HeatMap extends Component {
             }
           ] }
         />
-        <SummaryPanel neighborhood={ selected }/>
+        <SummaryPanel community={ selected }/>
       </div>
     );
   }

@@ -5,15 +5,15 @@ import {
 import { imgUrl } from 'utils/static-assets';
 
 
-export const neighborhoodStyle = {
+export const communityStyle = {
   padding: '0 16px'
 };
 
-export const neighborhoodBodyStyle = {
+export const communityBodyStyle = {
   paddingBottom: '20px'
 };
 
-export const neighborhoodHeaderStyle = {
+export const communityHeaderStyle = {
   padding: '20px 0 8px',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
@@ -40,16 +40,16 @@ export const comparisonTextStyle = {
   color: clayGray
 };
 
-export const neighborhoodItemStyle = {
+export const communityItemStyle = {
   padding: '10px 0',
   borderBottom: `1px solid ${whiteTwoColor}`
 };
 
-export const neighborhoodLastItemStyle = {
+export const communityLastItemStyle = {
   padding: '10px 0'
 };
 
-export const neighborhoodTitleStyle = {
+export const communityTitleStyle = {
   fontSize: '14px',
   fontWeight: '500',
   color: greyishColor,
@@ -59,7 +59,7 @@ export const neighborhoodTitleStyle = {
   marginRight: '16px'
 };
 
-export const neighborhoodCategoryStyle = {
+export const communityCategoryStyle = {
   fontSize: '14px',
   fontWeight: '500',
   color: softBlackColor,

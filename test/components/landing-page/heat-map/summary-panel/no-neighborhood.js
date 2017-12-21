@@ -1,10 +1,10 @@
 import React from 'react';
 
-import NoNeighborhood from 'components/landing-page/heat-map/summary-panel/no-neighborhood';
+import NoCommunity from 'components/landing-page/heat-map/summary-panel/no-community';
 
 
-describe('NoNeighborhood component', function () {
+describe('NoCommunity component', function () {
   it('should renderable', function () {
-    NoNeighborhood.should.be.renderable();
+    NoCommunity.should.be.renderable();
   });
 });

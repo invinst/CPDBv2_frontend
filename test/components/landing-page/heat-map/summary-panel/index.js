@@ -3,8 +3,8 @@ import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-
 
 import { unmountComponentSuppressError } from 'utils/test';
 import SummaryPanel from 'components/landing-page/heat-map/summary-panel';
-import NoNeighborhood from 'components/landing-page/heat-map/summary-panel/no-neighborhood';
-import Neighborhood from 'components/landing-page/heat-map/summary-panel/neighborhood';
+import NoCommunity from 'components/landing-page/heat-map/summary-panel/no-community';
+import Community from 'components/landing-page/heat-map/summary-panel/community';
 
 
 describe('SummaryPanel component', function () {
@@ -18,13 +18,13 @@ describe('SummaryPanel component', function () {
     SummaryPanel.should.be.renderable();
   });
 
-  it('should render NoNeighborhood when there is no selected neighborhood', function () {
+  it('should render NoCommunity when there is no selected community', function () {
     instance = renderIntoDocument(<SummaryPanel/>);
-    findRenderedComponentWithType(instance, NoNeighborhood).should.be.ok();
+    findRenderedComponentWithType(instance, NoCommunity).should.be.ok();
   });
 
-  it('should render Neighborhood when there is selected neighborhood', function () {
-    instance = renderIntoDocument(<SummaryPanel neighborhood={ {} }/>);
-    findRenderedComponentWithType(instance, Neighborhood).should.be.ok();
+  it('should render Community when there is selected community', function () {
+    instance = renderIntoDocument(<SummaryPanel community={ {} }/>);
+    findRenderedComponentWithType(instance, Community).should.be.ok();
   });
 });

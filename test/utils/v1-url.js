@@ -1,4 +1,4 @@
-import { dataToolSearchUrl, neighborhoodUrl } from 'utils/v1-url';
+import { dataToolSearchUrl, communityUrl } from 'utils/v1-url';
 
 
 describe('dataToolSearchUrl', function () {
@@ -7,9 +7,9 @@ describe('dataToolSearchUrl', function () {
   });
 });
 
-describe('neighborhoodUrl', function () {
+describe('communityUrl', function () {
   it('should return v1 data tool search url', function () {
-    neighborhoodUrl('Hyde Park')
-      .should.equal('http://cpdb.lvh.me/url-mediator/session-builder?neighborhood=Hyde%20Park');
+    communityUrl('Hyde Park')
+      .should.equal('http://cpdb.lvh.me/url-mediator/session-builder?community=Hyde%20Park');
   });
 });
