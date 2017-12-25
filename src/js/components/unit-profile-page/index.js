@@ -6,15 +6,20 @@ import { pageWrapperStyle } from './unit-profile-page.style';
 
 
 export default class UnitProfilePage extends Component {
+  componentDidMount() {
+    const { fetchUnitProfileSummary, unitName } = this.props;
+    fetchUnitProfileSummary(unitName);
+  }
+
   render() {
-    const { location, unitName } = this.props;
+    const { location, unitName, summary } = this.props;
     const { pathname } = location;
 
     return (
       <div>
-        <Header unitName={ unitName } pathname={ pathname }/>
+        <Header unitName={ unitName } pathname={ pathname } unitDescription={ summary.description }/>
         <div style={ pageWrapperStyle }>
-          <SummaryPageContainer unitName={ unitName }/>;
+          <SummaryPageContainer unitName={ unitName } summary={ summary }/>;
         </div>
       </div>
     );
@@ -23,9 +28,13 @@ export default class UnitProfilePage extends Component {
 
 UnitProfilePage.propTypes = {
   location: PropTypes.object,
-  unitName: PropTypes.string
+  unitName: PropTypes.string,
+  summary: PropTypes.object,
+  fetchUnitProfileSummary: PropTypes.func
 };
 
 UnitProfilePage.defaultProps = {
-  location: { pathname: '/' }
+  location: { pathname: '/' },
+  summary: {},
+  fetchUnitProfileSummary: () => {}
 };

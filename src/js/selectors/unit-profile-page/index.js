@@ -4,11 +4,14 @@ import { get, sortBy, map } from 'lodash';
 
 const getMemberRecords = state => get(state, 'unitProfilePage.summary.member_records', {});
 const getComplaintRecords = state => get(state, 'unitProfilePage.summary.complaint_records', {});
+const getUnitDescription = state => get(state, 'unitProfilePage.summary.description', '');
 
 export const summarySelector = createSelector(
   getMemberRecords,
   getComplaintRecords,
-  (memberRecords, complaintRecords) => ({
+  getUnitDescription,
+  (memberRecords, complaintRecords, unitDescription) => ({
+    description: unitDescription,
     activeMembers: get(memberRecords, 'active_members', 0),
     totalMembers: get(memberRecords, 'total', 0),
     memberFacets: _sortRecords(get(memberRecords, 'facets', [])),
