@@ -3,8 +3,7 @@ import { Link } from 'react-router';
 import MediaQuery from 'react-responsive';
 
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import StickyHeader, { recalculateStickyness } from 'components/common/sticky-header';
+import { recalculateStickyness } from 'components/common/sticky-header';
 import { ROOT_PATH, FAQ_PATH } from 'utils/constants';
 import { editMode } from 'utils/edit-path';
 import ConfiguredRadium from 'utils/configured-radium';

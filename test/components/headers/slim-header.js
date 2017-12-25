@@ -22,7 +22,6 @@ import {
   topSlimHeaderStyle, topSubtitleStyle
 } from 'components/headers/slim-header.style';
 import { scrollToTop } from 'utils/dom';
-import StickyHeader from 'components/common/sticky-header';
 import {
   bottomSearchBoxStyle, middleSearchBoxStyle,
   topSearchBoxStyle
@@ -147,21 +146,6 @@ describe('SlimHeader component', function () {
     slimHeader.state.searchBoxStyle.should.eql(topSearchBoxStyle);
     slimHeader.state.magnifyingGlassColor.should.eql(accentColor);
     slimHeader.state.handleOnClick.should.not.eql(scrollToTop);
-  });
-
-  it('should pass state change and click handlers to StickyHeader', function () {
-    element = renderIntoDocument(
-      <Provider store={ store }>
-        <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } pathname='/' />
-        </SlimHeaderContextWrapper>
-      </Provider>
-    );
-
-    const slimHeader = findRenderedComponentWithType(element, SlimHeader);
-    const stickyHeader = findRenderedComponentWithType(slimHeader, StickyHeader);
-    stickyHeader.props.handleStateChange.should.equal(slimHeader.handleStateChange);
-    stickyHeader.props.onClick.should.equal(slimHeader.state.handleOnClick);
   });
 
   describe('handleStateChange', function () {

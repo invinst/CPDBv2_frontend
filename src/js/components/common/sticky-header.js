@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { EventEmitter } from 'fbemitter';
 
 import { stickyStyle, childrenWrapperStyle } from './sticky-header.style';
-import { isScrolledToBottom } from 'utils/dom';
 
 
 const emitter = new EventEmitter();
@@ -16,7 +15,6 @@ export default class StickyHeader extends Component {
     super();
     this.state = {
       isSticky: false,
-      isAtBottom: false,
       placeholderHeight: 0
     };
 
@@ -34,7 +32,7 @@ export default class StickyHeader extends Component {
   isSticky() {
     if (this.placeholderElement) {
       const fromTop = this.placeholderElement.getBoundingClientRect().top;
-      return fromTop < 0;
+      return fromTop <= 0;
     }
 
     return false;
@@ -42,15 +40,11 @@ export default class StickyHeader extends Component {
 
   recalculateStickyness() {
     const isSticky = this.isSticky();
-    const isAtBottom = isScrolledToBottom();
-
-    if (isSticky !== this.state.isSticky || isAtBottom !== this.state.isAtBottom) {
+    if (isSticky !== this.state.isSticky) {
       this.setState({
         isSticky,
-        isAtBottom,
         placeholderHeight: isSticky ? this.childrenElement.getBoundingClientRect().height : 0
       });
-      this.props.handleStateChange(isSticky, isAtBottom);
     }
   }
 
@@ -65,20 +59,14 @@ export default class StickyHeader extends Component {
   }
 
   render() {
-    const { children, wrapperComponent, ...rest } = this.props;
-    delete rest.style;
-    delete rest.handleStateChange;
-
+    const { children } = this.props;
     const { placeholderHeight } = this.state;
     const childrenWrapperStyle = this.childrenWrapperStyle();
-    const Wrapper = wrapperComponent || 'div';
     return (
       <div>
         <div style={ { paddingBottom: `${placeholderHeight}px` } } ref={ el => { this.placeholderElement = el; } }/>
-        <div style={ childrenWrapperStyle } ref={ el => { this.childrenElement = el; } } { ...rest }>
-          <Wrapper>
-            { children }
-          </Wrapper>
+        <div style={ childrenWrapperStyle } ref={ el => { this.childrenElement = el; } }>
+          { children }
         </div>
       </div>
     );
@@ -87,9 +75,7 @@ export default class StickyHeader extends Component {
 
 StickyHeader.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object,
-  handleStateChange: PropTypes.func,
-  wrapperComponent: PropTypes.func
+  style: PropTypes.object
 };
 
 StickyHeader.defaultProps = {
