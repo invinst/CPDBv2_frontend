@@ -16,7 +16,8 @@ export const linkStyle = {
   display: 'inline-block',
   marginRight: '24px',
   fontWeight: '300',
-  color: clayGray
+  color: clayGray,
+  fontSize: '14px'
 };
 
 export const linkWrapperStyle = {

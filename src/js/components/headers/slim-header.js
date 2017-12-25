@@ -1,199 +1,102 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
-import MediaQuery from 'react-responsive';
+import { Motion, spring } from 'react-motion';
 
-
-import { recalculateStickyness } from 'components/common/sticky-header';
-import { ROOT_PATH, FAQ_PATH } from 'utils/constants';
-import { editMode } from 'utils/edit-path';
 import ConfiguredRadium from 'utils/configured-radium';
 import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
-import LogOutButtonContainer from 'containers/log-out-container';
-import SearchSectionComponent from 'components/landing-page/search-section';
-import {
-  topSlimHeaderStyle,
-  middleSlimHeaderStyle,
-  bottomSlimHeaderStyle,
-  topLeftLinkStyle,
-  middleLeftLinkStyle,
-  bottomLeftLinkStyle,
-  topRightLinkStyle,
-  middleRightLinkStyle,
-  bottomRightLinkStyle,
-  rightLinksWrapperStyle,
-  bottomSubtitleStyle,
-  logoWrapperStyle,
-  middleSubtitleStyle,
-  topSubtitleStyle
-} from './slim-header.style';
-import { scrollToTop } from 'utils/dom';
-import {
-  bottomSearchBoxStyle, middleSearchBoxStyle,
-  topSearchBoxStyle
-} from 'components/landing-page/search-section/search-section.style';
-import { accentColor, clayGray } from 'utils/styles';
+import { bodyScrollPosition, isScrolledToBottom } from 'utils/dom';
+import SlimHeaderContent from 'components/headers/slim-header-content';
+import { fixedStyle } from 'components/headers/slim-header.style';
+
 
 export class SlimHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      subtitleStyle: topSubtitleStyle,
-      slimHeaderStyle: topSlimHeaderStyle,
-      leftLinkStyle: topLeftLinkStyle,
-      rightLinkStyle: topRightLinkStyle,
-      searchBoxStyle: topSearchBoxStyle,
-      magnifyingGlassColor: accentColor,
-      handleOnClick: () => {},
+      position: 'top'
     };
 
-    this.handleStateChange = this.handleStateChange.bind(this);
+    this.recalculatePosition = this.recalculatePosition.bind(this);
   }
 
   componentDidMount() {
-    addEventListener('scroll', recalculateStickyness);
+    addEventListener('scroll', this.recalculatePosition);
   }
 
   componentWillUnmount() {
-    removeEventListener('scroll', recalculateStickyness);
+    removeEventListener('scroll', this.recalculatePosition);
   }
 
-  renderRightLinks() {
-    const { editModeOn } = this.context;
-    const links = [
-      {
-        name: 'Data',
-        externalHref: 'https://beta.cpdb.co/'
-      },
-      {
-        name: 'FAQ',
-        href: '/' + FAQ_PATH
-      },
-      {
-        name: 'Glossary',
-        externalHref: 'https://beta.cpdb.co/glossary/'
-      }
-    ];
+  recalculatePosition() {
+    let newPosition = 'middle';
 
-    return links.map((link, index) => {
-      if (link.externalHref) {
-        return (
-          <a
-            className='test--right-external-link'
-            onClick={ (e) => { e.stopPropagation(); } }
-            style={ this.state.rightLinkStyle }
-            key={ index }
-            href={ link.externalHref }
-          >
-            { link.name }
-          </a>
-        );
-      }
-
-      const href = link.href && (editModeOn ? editMode(link.href) : link.href);
-
-      return (
-        <Link
-          style={ this.state.rightLinkStyle }
-          key={ index }
-          to={ href }
-          onClick={ link.onClick }
-        >
-          { link.name }
-        </Link>
-      );
-    });
-  }
-
-  handleStateChange(isSticky, isAtBottom) {
-    // top
-    if (!isSticky) {
-      this.setState({
-        slimHeaderStyle: topSlimHeaderStyle,
-        leftLinkStyle: topLeftLinkStyle,
-        rightLinkStyle: topRightLinkStyle,
-        subtitleStyle: topSubtitleStyle,
-        searchBoxStyle: topSearchBoxStyle,
-        magnifyingGlassColor: accentColor,
-        handleOnClick: () => {
-        }
-      });
+    const scrollPosition = bodyScrollPosition();
+    if (scrollPosition === 0) {
+      newPosition = 'top';
+    } else if (isScrolledToBottom()) {
+      newPosition = 'bottom';
     }
-    // middle
-    else if (!isAtBottom) {
-      this.setState({
-        slimHeaderStyle: middleSlimHeaderStyle,
-        leftLinkStyle: middleLeftLinkStyle,
-        rightLinkStyle: middleRightLinkStyle,
-        subtitleStyle: middleSubtitleStyle,
-        searchBoxStyle: middleSearchBoxStyle,
-        magnifyingGlassColor: clayGray,
-        handleOnClick: () => {}
-      });
-    }
-    // bottom
-    else {
-      this.setState({
-        slimHeaderStyle: bottomSlimHeaderStyle,
-        leftLinkStyle: bottomLeftLinkStyle,
-        rightLinkStyle: bottomRightLinkStyle,
-        subtitleStyle: bottomSubtitleStyle,
-        searchBoxStyle: bottomSearchBoxStyle,
-        magnifyingGlassColor: 'white',
-        handleOnClick: scrollToTop
-      });
+
+    if (newPosition !== this.state.position) {
+      this.setState({ position: newPosition });
     }
   }
 
   render() {
     const { show, pathname } = this.props;
     const { editModeOn } = this.context;
-    const {
-      slimHeaderStyle,
-      leftLinkStyle,
-      subtitleStyle,
-      searchBoxStyle,
-      magnifyingGlassColor,
-    } = this.state;
 
     if (!show) {
       return null;
     }
 
-    const rightLinks = this.renderRightLinks();
+    const isTop = this.state.position === 'top';
+    const isBottom = this.state.position === 'bottom';
+
+    const defaultStyle = {
+      translateY: isTop ? 100 : 0,
+      backgroundR: isBottom ? 0 : 255,
+      backgroundG: isBottom ? 94 : 255,
+      backgroundB: isBottom ? 244 : 255,
+      height: isBottom ? 102 : 64
+    };
+    const style = {
+      translateY: spring(isTop ? 100 : 0),
+      backgroundR: spring(isBottom ? 0 : 255),
+      backgroundG: spring(isBottom ? 94 : 255),
+      backgroundB: spring(isBottom ? 244 : 255),
+      height: spring(isBottom ? 102 : 64)
+    };
 
     return (
       <div>
-        <div style={ { height: slimHeaderStyle.height } }>
-          <div style={ rightLinksWrapperStyle }>
-            { rightLinks }
-            <LogOutButtonContainer pathname={ pathname } />
-          </div>
-
-          <SearchSectionComponent
-            searchBoxStyle={ searchBoxStyle }
-            magnifyingGlassColor={ magnifyingGlassColor } />
-
-          <div style={ logoWrapperStyle }>
-            <MediaQuery minWidth={ 830 }>
-              { (matches) => (
-                <Link
-                  style={ leftLinkStyle }
-                  to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
-                  className='test--header-logo'
-                >
-                  { matches ? 'Citizens Police Data Project' : 'CPDP' }
-                </Link>
-              ) }
-            </MediaQuery>
-            <MediaQuery minWidth={ 950 }>
-              <div style={ subtitleStyle }>
-                <div> collects and publishes information</div>
-                <div> about police misconduct in Chicago.</div>
-              </div>
-            </MediaQuery>
-          </div>
-
-        </div>
+        <SlimHeaderContent
+          className='test--top-slim-header'
+          position='top'
+          pathname={ pathname }
+          editModeOn={ editModeOn }
+        />
+        <Motion defaultStyle={ defaultStyle } style={ style }>
+          { ({ translateY, backgroundR, backgroundG, backgroundB, height }) => {
+            const r = Math.round(backgroundR);
+            const g = Math.round(backgroundG);
+            const b = Math.round(backgroundB);
+            return (
+              <SlimHeaderContent
+                className='test--sticky-slim-header'
+                position={ this.state.position }
+                pathname={ pathname }
+                editModeOn={ editModeOn }
+                style={ {
+                  transform: `translateY(-${translateY}%)`,
+                  backgroundColor: `rgb(${r}, ${g}, ${b})`,
+                  height: `${height}px`,
+                  ...fixedStyle
+                } }
+                disableTop={ true }
+              />
+            );
+          } }
+        </Motion>
       </div>
     );
   }
@@ -201,8 +104,7 @@ export class SlimHeader extends Component {
 
 SlimHeader.propTypes = {
   show: PropTypes.bool,
-  pathname: PropTypes.string,
-  openLegalDisclaimerModal: PropTypes.func
+  pathname: PropTypes.string
 };
 
 SlimHeader.defaultProps = {
