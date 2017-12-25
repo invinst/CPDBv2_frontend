@@ -58,16 +58,11 @@ export class SlimHeader extends Component {
   }
 
   renderRightLinks() {
-    const { openLegalDisclaimerModal } = this.props;
     const { editModeOn } = this.context;
     const links = [
       {
         name: 'Data',
         externalHref: 'https://beta.cpdb.co/'
-      },
-      {
-        name: 'Legal Disclaimer',
-        onClick: openLegalDisclaimerModal
       },
       {
         name: 'FAQ',
@@ -158,7 +153,6 @@ export class SlimHeader extends Component {
       subtitleStyle,
       searchBoxStyle,
       magnifyingGlassColor,
-      handleOnClick
     } = this.state;
 
     if (!show) {
@@ -168,13 +162,7 @@ export class SlimHeader extends Component {
     const rightLinks = this.renderRightLinks();
 
     return (
-      <StickyHeader
-        wrapperComponent={ ResponsiveFluidWidthComponent }
-        className='test--slim-header'
-        handleStateChange={ this.handleStateChange }
-        onClick={ handleOnClick }
-        style={ slimHeaderStyle }
-      >
+      <div>
         <div style={ { height: slimHeaderStyle.height } }>
           <div style={ rightLinksWrapperStyle }>
             { rightLinks }
@@ -206,8 +194,7 @@ export class SlimHeader extends Component {
           </div>
 
         </div>
-      </StickyHeader>
-
+      </div>
     );
   }
 }

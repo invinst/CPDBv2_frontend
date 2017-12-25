@@ -66,22 +66,6 @@ describe('SlimHeader component', function () {
     scryRenderedDOMComponentsWithClass(element, 'test--slim-header').length.should.eql(0);
   });
 
-  it('should render Legal Disclaimer link', function () {
-    const openRequestDocumentModal = spy();
-    element = renderIntoDocument(
-      <Provider store={ store }>
-        <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
-        </SlimHeaderContextWrapper>
-      </Provider>
-    );
-
-    const links = scryRenderedComponentsWithType(element, Link);
-    const legalLink = links.filter(link => link.props.children === 'Legal Disclaimer')[0];
-    legalLink.props.onClick();
-    openRequestDocumentModal.calledOnce.should.be.true();
-  });
-
   it('should render FAQ link', function () {
     const openRequestDocumentModal = spy();
     element = renderIntoDocument(
