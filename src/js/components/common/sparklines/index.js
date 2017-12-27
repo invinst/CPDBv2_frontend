@@ -56,10 +56,8 @@ export default class SimpleSparklines extends React.Component {
     const defaultHoverPointWidth = length === 1 ? width : width / (length - 1);
     const halfHoverPointWidth = defaultHoverPointWidth / 2;
 
-    let currentSustainedCount = 0;
     return data.map((point, i) => {
       const { year, count } = point;
-      const sustainedCount = point.sustained_count;
       let hoverPointWidth = defaultHoverPointWidth;
       let alignment = 'middle';
       if (length !== 1) {
@@ -72,19 +70,13 @@ export default class SimpleSparklines extends React.Component {
         }
       }
 
-      let hasSustainedCR = false;
-      if (sustainedCount > currentSustainedCount) {
-        hasSustainedCR = true;
-        currentSustainedCount = sustainedCount;
-      }
-
       const y = (count - minCount) / maxCount * HEIGHT + 3.5;
       return (
         <HoverPoint
           clickHandler={ this.hoverPointClickHandler.bind(this, year) }
           i={ i }
           y={ y }
-          hasSustainedCR={ hasSustainedCR }
+          hasSustainedCR={ point.sustained_count > 0 }
           width={ hoverPointWidth }
           alignment={ alignment }
           height={ HEIGHT }

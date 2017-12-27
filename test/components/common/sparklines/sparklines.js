@@ -12,7 +12,7 @@ import SimpleSparklines, { width } from 'components/common/sparklines';
 import HoverPoint from 'components/common/sparklines/hover-point';
 
 
-describe('Sparkline components', function () {
+describe.only('Sparkline components', function () {
   let instance;
   const data = [{
     year: 2001,
@@ -21,7 +21,7 @@ describe('Sparkline components', function () {
   }, {
     year: 2002,
     count: 2,
-    'sustained_count': 0
+    'sustained_count': 2
   }, {
     year: 2003,
     count: 3,
@@ -44,6 +44,17 @@ describe('Sparkline components', function () {
     const yearCount = (new Date()).getFullYear() - 2001 + 1;
     scryRenderedComponentsWithType(instance, HoverPoint).length.should.eql(yearCount);
     scryRenderedDOMComponentsWithTag(instance, 'circle').length.should.eql(yearCount);
+  });
+
+  it('should render hover points with correct hasSustainedCR props', function () {
+    instance = renderIntoDocument(
+      <SimpleSparklines data={ data } startYear={ 2001 }/>
+    );
+
+    const points = scryRenderedComponentsWithType(instance, HoverPoint);
+    points[0].props.hasSustainedCR.should.be.false();
+    points[1].props.hasSustainedCR.should.be.true();
+    points[2].props.hasSustainedCR.should.be.true();
   });
 
   it('should render a single hover point with 100% width if there is only 1 item', function () {
