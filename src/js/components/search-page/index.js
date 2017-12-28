@@ -45,7 +45,10 @@ export default class SearchPage extends Component {
   componentWillReceiveProps(nextProps) {
     // Make sure keyboard-focused item is kept within viewport:
     if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
-      scrollToElement(`.suggestion-item-${nextProps.focusedItem.uniqueKey}`);
+      scrollToElement(
+        `.suggestion-item-${nextProps.focusedItem.uniqueKey}`,
+        { block: 'nearest', inline: 'nearest' }
+      );
     }
   }
 
