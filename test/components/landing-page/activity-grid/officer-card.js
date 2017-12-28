@@ -34,7 +34,6 @@ describe('OfficerCard component', function () {
     const link = findRenderedComponentWithType(instance, Link);
     link.props.to.should.eql('/officer/1/');
     const visualTokenElement = link.props.children[0];
-    visualTokenElement.props.officerId.should.eql(1);
     visualTokenElement.props.backgroundColor.should.eql('red');
 
     const text = findDOMNode(instance).innerText;

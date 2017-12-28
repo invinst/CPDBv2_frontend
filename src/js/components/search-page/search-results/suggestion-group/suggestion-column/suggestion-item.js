@@ -61,7 +61,6 @@ class SuggestionItem extends Component {
       suggestionThumbnail = (
         <OfficerVisualToken
           key='suggestion-thumbnail'
-          officerId={ parseInt(suggestion.id) }
           backgroundColor={ visualTokenBackgroundColor }
           style={ visualTokenStyle }
         />
