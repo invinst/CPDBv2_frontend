@@ -4,7 +4,6 @@ import {
   renderIntoDocument,
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
-import { stub } from 'sinon';
 import { findDOMNode } from 'react-dom';
 
 import PreviewPane from 'components/search-page/search-results/preview-pane';
@@ -17,13 +16,8 @@ import { unmountComponentSuppressError } from 'utils/test';
 describe('SearchResults component', function () {
   let instance;
 
-  beforeEach(function () {
-    stub(Date.prototype, 'getFullYear').returns(2017);
-  });
-
   afterEach(function () {
     unmountComponentSuppressError(instance);
-    Date.prototype.getFullYear.restore();
   });
 
   it('should be renderable', function () {

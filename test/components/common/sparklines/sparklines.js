@@ -8,6 +8,7 @@ import {
 import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
+import { getThisYear } from 'utils/date';
 import SimpleSparklines, { width } from 'components/common/sparklines';
 import HoverPoint from 'components/common/sparklines/hover-point';
 
@@ -41,7 +42,7 @@ describe('Sparkline components', function () {
       <SimpleSparklines data={ data } startYear={ 2001 }/>
     );
 
-    const yearCount = (new Date()).getFullYear() - 2001 + 1;
+    const yearCount = getThisYear() - 2001 + 1;
     scryRenderedComponentsWithType(instance, HoverPoint).length.should.eql(yearCount);
     scryRenderedDOMComponentsWithTag(instance, 'circle').length.should.eql(yearCount);
   });
@@ -55,7 +56,7 @@ describe('Sparkline components', function () {
     instance = renderIntoDocument(
       <SimpleSparklines
         data={ singleData }
-        startYear={ (new Date()).getFullYear() }
+        startYear={ getThisYear() }
       />
     );
 

@@ -1,6 +1,7 @@
 import { Factory } from 'rosie';
 import { random, lorem, name, internet, date } from 'faker';
 
+/* istanbul ignore next */
 export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
   .option('race', 'White')
   .option('sex', 'Male')
@@ -11,7 +12,7 @@ export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
   .option('unit', '001')
   .option('tags', [])
   .option('visualTokenBackgroundColor', internet.color)
-  .option('birthYear', () => date.past().getFullYear())
+  .option('birthYear', () => date.between('1950-01-01', '1990-12-31').getFullYear())
   .option('allegationCount', 20)
   .option('sustainedCount', 0)
   .attr('id', () => String(random.number()))
@@ -42,7 +43,7 @@ export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
 /* istanbul ignore next */
 export const RawCRSuggestion = Factory.define('RawCRSuggestion')
   .attr('id', () => String(random.number()))
-  .option('resultText', () => `${name.firstName()} ${name.lastName()}`)
+  .option('resultText', lorem.sentence)
   .option('to', '')
   .option('url', '')
   .option('crid', () => String(random.number()))
@@ -61,6 +62,25 @@ export const RawCRSuggestion = Factory.define('RawCRSuggestion')
     })
   );
 
+/* istanbul ignore next */
+export const RawNeighborhoodSuggestion = Factory.define('RawNeighborhoodSuggestion')
+  .attr('id', () => String(random.number()))
+  .option('resultText', lorem.words)
+  .option('to', '')
+  .option('url', '')
+  .option('tags', [])
+  .attr(
+    'payload',
+    ['resultText', 'to', 'url', 'tags'],
+    (resultText, to, url, tags) => ({
+      'result_text': resultText,
+      to,
+      url,
+      tags,
+    })
+  );
+
+/* istanbul ignore next */
 export const OfficerSuggestion = Factory.define('OfficerSuggestion')
   .attr('id', () => String(random.number()))
   .attr('type', 'OFFICER')

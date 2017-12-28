@@ -1,9 +1,11 @@
 import { compact, get } from 'lodash';
 
+import { getThisYear } from 'utils/date';
+
 
 const searchResultTransformMap = {
   OFFICER: ({ payload }) => {
-    const currentYear = (new Date()).getFullYear();
+    const currentYear = getThisYear();
     const age = payload['birth_year'] ? `${currentYear - payload['birth_year']} year old` : null;
     const race = payload['race'] === 'Unknown' ? null : payload['race'];
     const sex = payload['sex'] ? payload['sex'] : null;

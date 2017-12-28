@@ -3,6 +3,7 @@ import { range, keyBy } from 'lodash';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 import HoverPoint from './hover-point';
+import { getThisYear } from 'utils/date';
 import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './sparklines.style';
 
 
@@ -97,7 +98,7 @@ export default class SimpleSparklines extends React.Component {
 
   render() {
     const { data, startYear } = this.props;
-    const endYear = (new Date()).getFullYear();
+    const endYear = getThisYear();
     let filledData = this.fillEmptyDataYear(data, startYear, endYear);
     const sparklineData = filledData.map(d => d['aggCount']);
     return (

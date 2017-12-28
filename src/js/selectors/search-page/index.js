@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { omitBy, isEmpty, keys, pick, indexOf, sortBy, get, flatten, map } from 'lodash';
 
 import * as constants from 'utils/constants';
+import { getThisYear } from 'utils/date';
 import { searchResultItemTransform } from './search-result';
 import { getSvgUrl } from 'utils/visual-token';
 
@@ -13,7 +14,7 @@ const getSuggestionNavigation = state => state.searchPage.navigation;
 const getSuggestionContentType = state => state.searchPage.contentType;
 const getQuery = state => state.searchPage.query;
 
-const currentYear = (new Date()).getFullYear();
+const currentYear = getThisYear();
 
 
 export const isShowingSingleContentTypeSelector = createSelector(

@@ -1,4 +1,3 @@
-import { stub } from 'sinon';
 import should from 'should';
 
 import {
@@ -11,14 +10,6 @@ import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/sugg
 
 
 describe('search page selector', function () {
-  beforeEach(function () {
-    stub(Date.prototype, 'getFullYear').returns(2017);
-  });
-
-  afterEach(function () {
-    Date.prototype.getFullYear.restore();
-  });
-
   describe('isShowingSingleContentTypeSelector', function () {
     it('should tell if showing single type of content', function () {
       isShowingSingleContentTypeSelector({
@@ -254,12 +245,11 @@ describe('search page selector', function () {
           'visual_token_background_color': '#fafafa'
         }
       };
-      const currentYear = (new Date()).getFullYear();
       const info = {
         data: [
           ['unit', '001'],
           ['rank', null],
-          [`${currentYear} salary`, '$99,999'],
+          ['2017 salary', '$99,999'],
           ['race', 'White'],
           ['sex', 'Male']
         ],

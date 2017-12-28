@@ -21,7 +21,7 @@ export default class SuggestionGroup extends Component {
     } = this.props;
 
     return (
-      <div style={ suggestionGroupStyle }>
+      <div style={ suggestionGroupStyle } className='test--suggestion-group'>
         <div style={ groupHeaderStyle }>{ header }</div>
         <div>
           {

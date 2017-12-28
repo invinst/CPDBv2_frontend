@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { head, isEmpty, get } from 'lodash';
+import { head, isEmpty } from 'lodash';
 
 import SearchBox from './search-box';
 import {
@@ -31,7 +31,7 @@ export default class SearchPage extends Component {
     NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
       (event) => {
-        get(event, 'preventDefault', () => {})();
+        event.preventDefault && event.preventDefault();
         move(direction, this.props.totalItemCount);
       }
     )));

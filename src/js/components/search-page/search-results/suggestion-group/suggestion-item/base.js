@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import classnames from 'classnames';
 
 import JumpyMotion from 'components/animation/jumpy-motion';
 import * as constants from 'utils/constants';
@@ -81,7 +82,7 @@ export default class SuggestionItemBase extends Component {
 
     const commonWrapperProps = {
       style: suggestionItemStyle(hovering, isFocused),
-      className: `suggestion-item-${uniqueKey}`,
+      className: classnames(`suggestion-item-${uniqueKey}`, { 'test--focused': isFocused }),
       onClick: this.handleClick.bind(this, text, url, to)
     };
 
