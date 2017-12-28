@@ -12,7 +12,7 @@ import SimpleSparklines, { width } from 'components/common/sparklines';
 import HoverPoint from 'components/common/sparklines/hover-point';
 
 
-describe.only('Sparkline components', function () {
+describe('Sparkline components', function () {
   let instance;
   const data = [{
     year: 2001,
