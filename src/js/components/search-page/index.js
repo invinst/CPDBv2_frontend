@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { head, isEmpty } from 'lodash';
+import { head, isEmpty, get } from 'lodash';
 
 import SearchBox from './search-box';
 import {
@@ -30,7 +30,10 @@ export default class SearchPage extends Component {
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
-      () => move(direction, this.props.suggestionColumns)
+      (event) => {
+        get(event, 'preventDefault', () => {})();
+        move(direction, this.props.totalItemCount);
+      }
     )));
     LayeredKeyBinding.bind('enter', this.handleViewItem);
 
@@ -41,10 +44,8 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     // Make sure keyboard-focused item is kept within viewport:
-    const oldPosition = this.props.navigation;
-    const newPosition = nextProps.navigation;
-    if (oldPosition !== newPosition) {
-      scrollToElement(`#suggestion-item-${newPosition.columnIndex}-${newPosition.itemIndex}`);
+    if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
+      scrollToElement(`.suggestion-item-${nextProps.focusedItem.uniqueKey}`);
     }
   }
 
@@ -55,7 +56,7 @@ export default class SearchPage extends Component {
   }
 
   handleViewItem() {
-    const { to, url } = this.props.focusedSuggestion.payload;
+    const { to, url } = this.props.focusedItem;
     if (to) {
       browserHistory.push(to);
     } else {
@@ -87,20 +88,18 @@ export default class SearchPage extends Component {
 
   handleEnter(e) {
     const { suggestionGroups, trackRecentSuggestion, query } = this.props;
-
     let url, to;
 
     if (suggestionGroups.length === 0) {
       url = dataToolSearchUrl(query);
-
     } else {
       const firstGroup = head(suggestionGroups);
-      const firstRecord = head(head(firstGroup.columns));
+      const firstRecord = head(firstGroup.items);
       const contentType = firstGroup.header;
 
-      const text = firstRecord.payload['result_text'];
-      url = firstRecord.payload.url;
-      to = firstRecord.payload.to;
+      const text = firstRecord.text;
+      url = firstRecord.url;
+      to = firstRecord.to;
       trackRecentSuggestion(contentType, text, url, to);
     }
 
@@ -165,9 +164,8 @@ SearchPage.propTypes = {
     pathname: PropTypes.string
   }),
   move: PropTypes.func,
-  suggestionColumns: PropTypes.array,
-  navigation: PropTypes.object,
-  focusedSuggestion: PropTypes.object,
+  totalItemCount: PropTypes.number,
+  focusedItem: PropTypes.object,
   suggestionGroups: PropTypes.array,
   tags: PropTypes.array,
   recentSuggestions: PropTypes.array,
@@ -191,6 +189,7 @@ SearchPage.propTypes = {
 SearchPage.defaultProps = {
   suggestionGroups: [],
   contentType: null,
+  focusedItem: {},
   isRequesting: false,
   getSuggestion: () => {},
   trackRecentSuggestion: () => {},

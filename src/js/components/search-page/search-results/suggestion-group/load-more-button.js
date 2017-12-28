@@ -12,7 +12,7 @@ class LoadMoreButton extends Component {
         className='link--transition test--load-more-button'
         style={ loadMoreButtonStyle }
         onClick={ onLoadMore.bind(null, header) }>
-        <div style={ loadMoreButtonTextStyle(hovering) }>All</div>
+        <div style={ loadMoreButtonTextStyle(hovering) }>More</div>
       </div>
     );
   }

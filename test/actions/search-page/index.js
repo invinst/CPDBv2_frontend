@@ -2,7 +2,7 @@ import {
   getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion,
   SUGGESTION_URL, SELECT_TAG, SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS,
   SUGGESTION_REQUEST_FAILURE, TRACK_RECENT_SUGGESTION, SEARCH_NAVIGATION_UP,
-  SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_LEFT, SEARCH_NAVIGATION_RIGHT, move
+  SEARCH_NAVIGATION_DOWN, move
 } from 'actions/search-page';
 import { OPEN_SEARCH_PAGE } from 'utils/constants';
 
@@ -66,37 +66,19 @@ describe('suggestion action', function () {
 
   describe('move', function () {
     it('should return SEARCH_NAVIGATION_UP', function () {
-      move('up', 'suggestionColumns').should.deepEqual({
+      move('up', 2).should.deepEqual({
         type: SEARCH_NAVIGATION_UP,
         payload: {
-          suggestionColumns: 'suggestionColumns'
+          totalItemCount: 2
         }
       });
     });
 
     it('should return SEARCH_NAVIGATION_DOWN', function () {
-      move('down', 'suggestionColumns').should.deepEqual({
+      move('down', 2).should.deepEqual({
         type: SEARCH_NAVIGATION_DOWN,
         payload: {
-          suggestionColumns: 'suggestionColumns'
-        }
-      });
-    });
-
-    it('should return SEARCH_NAVIGATION_LEFT', function () {
-      move('left', 'suggestionColumns').should.deepEqual({
-        type: SEARCH_NAVIGATION_LEFT,
-        payload: {
-          suggestionColumns: 'suggestionColumns'
-        }
-      });
-    });
-
-    it('should return SEARCH_NAVIGATION_RIGHT', function () {
-      move('right', 'suggestionColumns').should.deepEqual({
-        type: SEARCH_NAVIGATION_RIGHT,
-        payload: {
-          suggestionColumns: 'suggestionColumns'
+          totalItemCount: 2
         }
       });
     });

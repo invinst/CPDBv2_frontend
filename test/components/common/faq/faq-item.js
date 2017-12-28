@@ -13,7 +13,7 @@ describe('FAQItem component', function () {
   });
 
   it('should trigger onClick', function () {
-    FAQItem.should.triggerCallbackWhenClick('onClick', 'faq-title', { fieldProps, faqId: '11' }, '11');
+    FAQItem.should.triggerCallbackWhenClick('onClick', 'faq-title', { fieldProps, faqId: '11' }, ['11']);
   });
 
   it('should handle starred checkbox changed when toggle starred checkbox', function () {

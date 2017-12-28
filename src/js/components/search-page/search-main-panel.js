@@ -1,12 +1,11 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import { debounce } from 'lodash';
 
 import SearchTags from './search-tags';
 import SearchResultsContainer from 'containers/search-page/search-results-container';
 import SearchNoInput from './search-no-input';
 import * as constants from 'utils/constants';
-import { buttonsWrapperStyle, cancelButtonStyle, searchMainPanelStyle } from './search-main-panel.style';
+import { buttonsWrapperStyle, searchMainPanelStyle } from './search-main-panel.style';
 
 
 export default class SearchMainPanel extends Component {
@@ -40,18 +39,6 @@ export default class SearchMainPanel extends Component {
             onSelect={ this.handleSelect.bind(this) }
             selected={ contentType }
           />
-
-          {
-            editModeOn && aliasEditModeOn ?
-              <Link
-                to={ `/edit/${constants.SEARCH_PATH}` }
-                style={ cancelButtonStyle }
-                className='test--cancel-alias-button'>
-                Cancel
-              </Link> :
-              null
-          }
-
         </div>
 
         {

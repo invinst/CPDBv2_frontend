@@ -1,25 +1,152 @@
-import { range } from 'lodash';
+import { stub } from 'sinon';
+import should from 'should';
 
 import {
-  suggestionColumnsSelector, suggestionGroupsSelector, isEmptySelector,
-  suggestionTagsSelector, orderedSuggestionGroupsSelector, chunkedSuggestionGroupsSelector,
-  focusedSuggestionSelector, previewPaneInfoSelector
+  isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
+  focusedItemSelector, previewPaneInfoSelector, totalItemCountSelector,
+  isShowingSingleContentTypeSelector
 } from 'selectors/search-page';
-import * as searchUtils from 'utils/search';
+import { getSvgUrl } from 'utils/visual-token';
+import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
+
 
 describe('search page selector', function () {
-  describe('suggestionGroupsSelector', function () {
-    it('should output non-empty group', function () {
-      suggestionGroupsSelector({
+  beforeEach(function () {
+    stub(Date.prototype, 'getFullYear').returns(2017);
+  });
+
+  afterEach(function () {
+    Date.prototype.getFullYear.restore();
+  });
+
+  describe('isShowingSingleContentTypeSelector', function () {
+    it('should tell if showing single type of content', function () {
+      isShowingSingleContentTypeSelector({
+        searchPage: {
+          contentType: 'OFFICER'
+        }
+      }).should.be.true();
+      isShowingSingleContentTypeSelector({
+        searchPage: {}
+      }).should.be.false();
+    });
+  });
+
+  describe('searchResultGroupsSelector', function () {
+    it('should give correct item format for OFFICER', function () {
+      searchResultGroupsSelector({
         searchPage: {
           suggestionGroups: {
-            'OFFICER': [{}],
-            'UNIT': []
+            'OFFICER': [
+              RawOfficerSuggestion.build({ id: '29033' }, {
+                race: 'White',
+                resultText: 'Jerome Turbyville',
+                sex: 'Male',
+                birthYear: 1969,
+                to: '/officer/29033/',
+                allegationCount: 10,
+                sustainedCount: 2,
+                unit: '018',
+                visualTokenBackgroundColor: '#90b1f5'
+              })
+            ]
           }
         }
-      }).should.deepEqual({
-        'OFFICER': [{}]
+      }).should.deepEqual([
+        {
+          header: 'OFFICER',
+          canLoadMore: false,
+          items: [{
+            type: 'OFFICER',
+            id: '29033',
+            text: 'Jerome Turbyville',
+            to: '/officer/29033/',
+            url: '',
+            tags: [],
+            uniqueKey: 'OFFICER-29033',
+            demographicInfo: '48 year old, White, Male',
+            complaintCount: 10,
+            sustainedCount: 2
+          }]
+        }
+      ]);
+    });
+
+    it('should give correct item format for CR', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          suggestionGroups: {
+            'CR': [RawCRSuggestion.build(
+              { id: '1001' },
+              { crid: '1234', 'outcome': 'Sustained', resultText: 'Lorem' }
+            )]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'CR',
+          canLoadMore: false,
+          items: [{
+            type: 'CR',
+            id: '1001',
+            text: 'Lorem',
+            to: '',
+            url: '',
+            tags: [],
+            uniqueKey: 'CR-1001',
+            subText: 'CRID 1234, Sustained'
+          }]
+        }
+      ]);
+    });
+
+    it('should limit items per category to 5', function () {
+      const [officerGroup, coaccusedGroup] = searchResultGroupsSelector({
+        searchPage: {
+          suggestionGroups: {
+            'OFFICER': RawOfficerSuggestion.buildList(10),
+            'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
+          }
+        }
       });
+
+      officerGroup.header.should.equal('OFFICER');
+      officerGroup.items.should.have.length(5);
+      officerGroup.canLoadMore.should.be.true();
+
+      coaccusedGroup.header.should.equal('CO-ACCUSED');
+      coaccusedGroup.items.should.have.length(3);
+      coaccusedGroup.canLoadMore.should.be.false();
+    });
+
+    it('should not limit items if a category is selected', function () {
+      const [officerGroup] = searchResultGroupsSelector({
+        searchPage: {
+          suggestionGroups: {
+            'OFFICER': RawOfficerSuggestion.buildList(10),
+            'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
+          },
+          contentType: 'OFFICER'
+        }
+      });
+
+      officerGroup.header.should.equal('OFFICER');
+      officerGroup.items.should.have.length(10);
+      officerGroup.canLoadMore.should.be.false();
+    });
+
+    it('should omit empty categories', function () {
+      const groups = searchResultGroupsSelector({
+        searchPage: {
+          suggestionGroups: {
+            'OFFICER': [],
+            'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
+          }
+        }
+      });
+
+      groups.length.should.equal(1);
+      groups[0].header.should.equal('CO-ACCUSED');
     });
   });
 
@@ -67,139 +194,48 @@ describe('search page selector', function () {
     });
   });
 
-  describe('suggestionColumnsSelector', function () {
-    it('should chunk columns', function () {
-      const oldValue = searchUtils.searchPageItemsPerColumn;
-      searchUtils.searchPageItemsPerColumn = 10;
-      suggestionColumnsSelector({
+  describe('focusedItemSelector', function () {
+    it('should return correct suggestion', function () {
+      focusedItemSelector({
         searchPage: {
           suggestionGroups: {
-            'OFFICER': range(15)
-          }
-        }
-      }).should.deepEqual([10]);
-      searchUtils.searchPageItemsPerColumn = oldValue;
-    });
-  });
-
-  describe('orderedSuggestionGroupsSelector', function () {
-    it('should transform suggestionGroups into a structure with guaranteed order', function () {
-      orderedSuggestionGroupsSelector({
-        searchPage: {
-          suggestionGroups: {
-            'OFFICER': [{}],
+            'OFFICER': RawOfficerSuggestion.buildList(2),
             'UNIT': [],
-            'CO-ACCUSED': [{}, {}]
-          }
-        }
-      }).should.deepEqual([
-        {
-          header: 'OFFICER',
-          items: [{}]
-        },
-        {
-          header: 'CO-ACCUSED',
-          items: [{}, {}]
-        }
-      ]);
-    });
-  });
-
-  describe('chunkedSuggestionGroupsSelector', function () {
-    it('should return chunked columns of a single group correctly', function () {
-      const oldValue = searchUtils.searchPageItemsPerColumn;
-      searchUtils.searchPageItemsPerColumn = 3;
-      chunkedSuggestionGroupsSelector({
-        searchPage: {
-          contentType: 'OFFICER',
-          suggestionGroups: {
-            'OFFICER': ['o1', 'o2', 'o3', 'o4'],
-            'UNIT': [],
-            'CO-ACCUSED': ['c1', 'c2']
-          }
-        }
-      }).should.deepEqual([
-        {
-          header: 'OFFICER',
-          columns: [
-            ['o1', 'o2', 'o3'],
-            ['o4']
-          ],
-          canLoadMore: false
-        }
-      ]);
-      searchUtils.searchPageItemsPerColumn = oldValue;
-    });
-
-    it('should return sliced results from all groups correctly', function () {
-      const oldValue = searchUtils.searchPageItemsPerColumn;
-      searchUtils.searchPageItemsPerColumn = 3;
-      chunkedSuggestionGroupsSelector({
-        searchPage: {
-          suggestionGroups: {
-            'OFFICER': ['o1', 'o2', 'o3', 'o4'],
-            'UNIT': [],
-            'CO-ACCUSED': ['c1', 'c2']
-          }
-        }
-      }).should.deepEqual([
-        {
-          header: 'OFFICER',
-          columns: [
-            ['o1', 'o2', 'o3']
-          ],
-          canLoadMore: true
-        },
-        {
-          header: 'CO-ACCUSED',
-          columns: [
-            ['c1', 'c2']
-          ],
-          canLoadMore: false
-        }
-      ]);
-      searchUtils.searchPageItemsPerColumn = oldValue;
-    });
-  });
-
-  describe('focusedSuggestionSelector', function () {
-    it('should return correct suggestion when viewing all groups', function () {
-      const oldValue = searchUtils.searchPageItemsPerColumn;
-      searchUtils.searchPageItemsPerColumn = 3;
-      focusedSuggestionSelector({
-        searchPage: {
-          suggestionGroups: {
-            'OFFICER': [{ o1: 'o1' }, { o2: 'o2' }, { o3: 'o3' }, { o4: 'o4' }],
-            'UNIT': [],
-            'CO-ACCUSED': [{ c1: 'c1' }, { c2: 'c2' }]
+            'CO-ACCUSED': [RawOfficerSuggestion.build(), RawOfficerSuggestion.build({ id: '29033' }, {
+              race: 'White',
+              resultText: 'Jerome Turbyville',
+              url: 'https://example.com',
+              to: '/officer/29033'
+            })]
           },
           navigation: {
-            columnIndex: 1,
-            itemIndex: 1
+            itemIndex: 3
           }
         }
-      }).should.deepEqual({ header: 'CO-ACCUSED', c2: 'c2' });
-      searchUtils.searchPageItemsPerColumn = oldValue;
+      }).should.deepEqual({
+        id: '29033',
+        text: 'Jerome Turbyville',
+        to: '/officer/29033',
+        type: 'CO-ACCUSED',
+        uniqueKey: 'CO-ACCUSED-29033',
+        url: 'https://example.com',
+        tags: []
+      });
     });
 
-    it('should return correct suggestion when viewing single group', function () {
-      const oldValue = searchUtils.searchPageItemsPerColumn;
-      searchUtils.searchPageItemsPerColumn = 2;
-      focusedSuggestionSelector({
+    it('should return empty when there is no suggestion', function () {
+      should(focusedItemSelector({
         searchPage: {
           suggestionGroups: {
-            'OFFICER': [{ o1: 'o1' }, { o2: 'o2' }, { o3: 'o3' }, { o4: 'o4' }, { o5: 'o5' }],
+            'OFFICER': [],
             'UNIT': [],
             'CO-ACCUSED': []
           },
-          contentType: 'OFFICER',
           navigation: {
-            columnIndex: 2,
             itemIndex: 0
           }
         }
-      }).should.deepEqual({ header: 'OFFICER', o5: 'o5' });
-      searchUtils.searchPageItemsPerColumn = oldValue;
+      })['id']).not.be.ok();
     });
   });
 
@@ -228,10 +264,35 @@ describe('search page selector', function () {
           ['sex', 'Male']
         ],
         visualTokenBackgroundColor: '#fafafa',
-        id: '12345',
+        visualTokenImg: getSvgUrl('12345'),
         text: 'John Wang'
       };
-      previewPaneInfoSelector(focusedSuggestion).should.deepEqual(info);
+      previewPaneInfoSelector({
+        searchPage: {
+          suggestionGroups: {
+            'OFFICER': [focusedSuggestion],
+            'UNIT': [],
+            'CO-ACCUSED': []
+          },
+          navigation: {
+            itemIndex: 0
+          }
+        }
+      }).should.deepEqual(info);
+    });
+  });
+
+  describe('totalItemCountSelector', function () {
+    it('should return total suggestions count', function () {
+      totalItemCountSelector({
+        searchPage: {
+          suggestionGroups: {
+            'OFFICER': RawOfficerSuggestion.buildList(3),
+            'UNIT': [],
+            'CO-ACCUSED': []
+          }
+        }
+      }).should.equal(3);
     });
   });
 });

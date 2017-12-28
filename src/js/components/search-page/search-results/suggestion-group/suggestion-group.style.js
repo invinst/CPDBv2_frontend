@@ -1,22 +1,15 @@
-import { greyishColor, sanFranciscoTextFamily } from 'utils/styles';
+import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
-
-const headerInnerHeight = 18;
-const headerMarginBottom = 8;
-export const headerHeight = headerInnerHeight + headerMarginBottom;
-
-export const groupHeaderStyle = {
-  color: greyishColor,
-  marginTop: '38px',
-  marginBottom: `${headerMarginBottom}px`,
-  height: `${headerInnerHeight}px`,
-  fontSize: '14px',
-  fontFamily: sanFranciscoTextFamily,
-  letterSpacing: '0.5px'
-};
 
 export const suggestionGroupStyle = {
-  position: 'relative',
-  display: 'inline-block',
-  verticalAlign: 'top'
+};
+
+export const groupHeaderStyle = {
+  fontSize: '14px',
+  fontWeight: '500',
+  fontFamily: sanFranciscoTextFamily,
+  color: softBlackColor,
+  padding: '38px 16px 8px',
+  height: '64px',
+  boxSizing: 'border-box'
 };
