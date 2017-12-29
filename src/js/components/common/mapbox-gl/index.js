@@ -25,6 +25,8 @@ export default class MapboxGL extends Component {
       style: this.props.mapStyle
     });
 
+    this._mapBox.addControl(new mapboxgl.NavigationControl(), 'top-left');
+
     this._mapBox.on('load', () => {
       each(sources, ({ name, ...rest }) => this._mapBox.addSource(name, rest));
       each(layers, layer => this._mapBox.addLayer(layer));
@@ -64,7 +66,7 @@ MapboxGL.defaultProps = {
   mapStyle: 'mapbox://styles/mapbox/light-v9',
   minZoom: 9,
   maxZoom: 17,
-  scrollZoom: true,
+  scrollZoom: false,
   dragRotate: false,
   dragPan: true,
   defaultZoom: 9,
