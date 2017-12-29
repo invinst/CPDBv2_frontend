@@ -26,12 +26,15 @@ if (global.mocha !== undefined) {
   const addSourceSpy = spy();
   const addLayerSpy = spy();
   const setFilterSpy = spy();
+  const addControlSpy = spy();
+  const navigationControlSpy = spy();
 
   class MockMap {
     constructor() {
       this.addSource = addSourceSpy;
       this.addLayer = addLayerSpy;
       this.setFilter = setFilterSpy;
+      this.addControl = addControlSpy;
     }
     on() {
       arguments[arguments.length - 1]({
@@ -46,6 +49,8 @@ if (global.mocha !== undefined) {
   _mapboxgl._addSourceSpy = addSourceSpy;
   _mapboxgl._addLayerSpy = addLayerSpy;
   _mapboxgl._setFilterSpy = setFilterSpy;
+  _mapboxgl._addControlSpy = addControlSpy;
+  _mapboxgl.NavigationControl = navigationControlSpy;
 }
 
 export const mapboxgl = _mapboxgl;
