@@ -8,7 +8,8 @@ export default class MapboxGL extends Component {
   componentDidMount() {
     const {
       minZoom, maxZoom, scrollZoom, dragRotate, sources, onMouseMove,
-      dragPan, defaultZoom, maxBounds, center, layers, onMouseLeave
+      dragPan, defaultZoom, maxBounds, center, layers, onMouseLeave,
+      onClick
     } = this.props;
 
     this._mapBox = new mapboxgl.Map({
@@ -29,6 +30,7 @@ export default class MapboxGL extends Component {
       each(layers, layer => this._mapBox.addLayer(layer));
       each(onMouseMove, ([name, func]) => this._mapBox.on('mousemove', name, e => func(e, this._mapBox)));
       each(onMouseLeave, ([name, func]) => this._mapBox.on('mouseleave', name, e => func(e, this._mapBox)));
+      each(onClick, ([name, func]) => this._mapBox.on('click', name, e => func(e, this._mapBox)));
     });
   }
 
@@ -53,6 +55,7 @@ MapboxGL.propTypes = {
   center: PropTypes.array,
   onMouseMove: PropTypes.array,
   onMouseLeave: PropTypes.array,
+  onClick: PropTypes.array,
   sources: PropTypes.array,
   layers: PropTypes.array
 };
@@ -73,5 +76,6 @@ MapboxGL.defaultProps = {
   sources: [],
   layers: [],
   onMouseMove: [],
-  onMouseLeave: []
+  onMouseLeave: [],
+  onClick: []
 };
