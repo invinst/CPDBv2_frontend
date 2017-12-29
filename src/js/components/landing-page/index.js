@@ -5,7 +5,7 @@ import ConfiguredRadium from 'utils/configured-radium';
 import SearchSectionComponent from 'components/landing-page/search-section';
 import ActivityGridContainer from 'containers/landing-page/activity-grid';
 import PropsRerender from 'components/common/higher-order/props-rerender';
-import HeroSection from './hero-section';
+import HeatMap from './heat-map';
 
 
 class LandingPage extends Component {
@@ -17,7 +17,7 @@ class LandingPage extends Component {
     return (
       <div>
         <SearchSectionComponent />
-        <HeroSection />
+        <HeatMap/>
         <ActivityGridContainer/>
       </div>
     );
