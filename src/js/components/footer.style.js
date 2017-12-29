@@ -31,6 +31,5 @@ export const responsiveFixedWidthInnerStyle = {
 
 export const invistStyle = {
   float: 'right',
-  fontWeight: 600,
-  color: clayGray
+  height: '23px'
 };
