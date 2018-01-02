@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 import { map } from 'lodash';
 import moment from 'moment';
 
+import { getThisYear } from 'utils/date';
+
 
 const getSummary = state => state.officerPage.summary;
 const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
@@ -21,7 +23,7 @@ const getCareerDescription = (dateOfAppt, dateOfResignation) => {
     return '';
   }
 
-  const endYear = dateOfResignation ? moment(dateOfResignation).year() : moment().year();
+  const endYear = dateOfResignation ? moment(dateOfResignation).year() : getThisYear();
   const yearsSinceAppt = endYear - moment(dateOfAppt).year();
   if (yearsSinceAppt < 1) {
     return '';
