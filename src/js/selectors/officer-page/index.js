@@ -77,7 +77,7 @@ export const summarySelector = createSelector(
 
 export const complaintsByYearSelector = createSelector(
   getComplaintsByYear,
-  complaints => complaints.map(complaint => ({
+  complaints => !complaints ? [] : complaints.map(complaint => ({
     year: complaint.year,
     count: complaint.count,
     sustainedCount: complaint['sustained_count']

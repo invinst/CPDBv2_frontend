@@ -17,15 +17,15 @@ describe('Sparkline components', function () {
   const data = [{
     year: 2001,
     count: 1,
-    'sustained_count': 0
+    sustainedCount: 0
   }, {
     year: 2002,
     count: 2,
-    'sustained_count': 2
+    sustainedCount: 2
   }, {
     year: 2003,
     count: 3,
-    'sustained_count': 1
+    sustainedCount: 1
   }];
 
   afterEach(function () {
@@ -61,7 +61,7 @@ describe('Sparkline components', function () {
     const singleData = [{
       year: 2001,
       count: 1,
-      'sustained_count': 0
+      sustainedCount: 0
     }];
     instance = renderIntoDocument(
       <SimpleSparklines
@@ -97,17 +97,17 @@ describe('Sparkline components', function () {
     it('should fill data', function () {
       const data = [{
         count: 2,
-        'sustained_count': 0,
+        sustainedCount: 0,
         name: 'Unknown',
         year: 2001
       }, {
         count: 4,
-        'sustained_count': 1,
+        sustainedCount: 1,
         name: 'Unknown',
         year: 2003
       }, {
         count: 11,
-        'sustained_count': 1,
+        sustainedCount: 1,
         name: 'Unknown',
         year: 2004
       }];
@@ -116,37 +116,37 @@ describe('Sparkline components', function () {
         [{
           count: 0,
           aggCount: 0,
-          'sustained_count': 0,
+          sustainedCount: 0,
           name: 'Unknown',
           year: 2000,
         }, {
           count: 2,
           aggCount: 2,
-          'sustained_count': 0,
+          sustainedCount: 0,
           name: 'Unknown',
           year: 2001
         }, {
           count: 0,
           aggCount: 2,
-          'sustained_count': 0,
+          sustainedCount: 0,
           name: 'Unknown',
           year: 2002
         }, {
           count: 4,
           aggCount: 6,
-          'sustained_count': 1,
+          sustainedCount: 1,
           name: 'Unknown',
           year: 2003
         }, {
           count: 11,
           aggCount: 17,
-          'sustained_count': 1,
+          sustainedCount: 1,
           name: 'Unknown',
           year: 2004
         }, {
           count: 0,
           aggCount: 17,
-          'sustained_count': 0,
+          sustainedCount: 0,
           name: 'Unknown',
           year: 2005
         }]
