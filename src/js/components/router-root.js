@@ -3,6 +3,7 @@ import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
+import { componentCache } from 'redux-breadcrumb-trail';
 
 import AppContainer from 'containers/app-container';
 import LandingPage from 'components/landing-page';
@@ -32,16 +33,26 @@ import {
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
+import OfficerBreadcrumb from 'components/breadcrumbs/officer-breadcrumb';
+import UnitBreadcrumb from 'components/breadcrumbs/unit-breadcrumb';
+import CRBreadcrumb from 'components/breadcrumbs/cr-breadcrumb';
 
 
 const store = configureStore();
 
 class RouterRoot extends Component {
+  constructor(props) {
+    super(props);
+    componentCache.set('officer', OfficerBreadcrumb);
+    componentCache.set('unit', UnitBreadcrumb);
+    componentCache.set('cr', CRBreadcrumb);
+  }
 
   render() {
+
     const routes = [
-      <IndexRoute component={ LandingPage } key='1'
-        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) }/>,
+      <IndexRoute component={ LandingPage } key='1' breadcrumb='Home'
+        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) } />,
       <Route path={ STORIES_PATH } component={ ReportingPage } key='2'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }>
         <Route path={ ':reportId' } component={ ReportingPage }/>
@@ -52,17 +63,26 @@ class RouterRoot extends Component {
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }>
         <Route path={ ':faqId' } component={ FAQPage }/>
       </Route>,
-      <Route path={ OFFICER_PATH } component={ OfficerPageContainer } key='5'/>,
-      <Route path={ OFFICER_TIMELINE_PATH } component={ OfficerPageContainer } key='6'/>,
-      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7'>
+      <Route path={ OFFICER_PATH } component={ OfficerPageContainer } key='5'
+        breadcrumb={ { componentCacheKey: 'officer' } } />,
+      <Route path={ OFFICER_TIMELINE_PATH } component={ OfficerPageContainer } key='6'
+        breadcrumb='Officer Timeline' />,
+      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7'
+        breadcrumb='Search'>
         <Route path={ SEARCH_TERMS_PATH } component={ SearchTermsContainer }/>
       </Route>,
-      <Route path={ CR_PATH } component={ CRPageContainer } key='8'/>,
-      <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer } key='13'/>,
-      <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'/>,
-      <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer } key='10'/>,
-      <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11' />,
-      <Route path={ OFFICER_SOCIAL_GRAPH_PATH } component={ OfficerPageContainer } key='12'/>
+      <Route path={ CR_PATH } component={ CRPageContainer } key='8'
+        breadcrumb={ { componentCacheKey: 'cr' } }/>,
+      <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer } key='13'
+        breadcrumb='STANDALONE_CR_PATH'/>,
+      <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'
+        breadcrumb={ { componentCacheKey: 'unit' } }/>,
+      <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer } key='10'
+        breadcrumb='SEARCH_ALIAS_EDIT_PATH'/>,
+      <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11'
+        breadcrumb='INLINE_SEARCH_ALIAS_ADMIN_PATH'/>,
+      <Route path={ OFFICER_SOCIAL_GRAPH_PATH } component={ OfficerPageContainer } key='12'
+        breadcrumb='OFFICER_SOCIAL_GRAPH_PATH'/>
     ];
 
     return (
