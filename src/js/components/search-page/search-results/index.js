@@ -23,7 +23,11 @@ export default class SuggestionResults extends Component {
       onLoadMore,
       aliasEditModeOn,
       setAliasAdminPageContent,
-      focusedItem
+      focusedItem,
+      getSuggestionWithContentType,
+      hasMore,
+      singleContent,
+      nextParams
     } = this.props;
 
     if (isEmpty) {
@@ -40,10 +44,15 @@ export default class SuggestionResults extends Component {
         navigation={ navigation }
         setAliasAdminPageContent={ setAliasAdminPageContent }
         suggestions={ group.items }
-        canLoadMore={ group.canLoadMore }
+        showMoreButton={ group.canLoadMore }
         suggestionClick={ suggestionClick }
         header={ group.header }
-        aliasEditModeOn={ aliasEditModeOn }/>
+        aliasEditModeOn={ aliasEditModeOn }
+        getSuggestionWithContentType={ getSuggestionWithContentType }
+        hasMore={ hasMore }
+        searchText={ searchText }
+        nextParams={ nextParams }
+        singleContent={ singleContent }/>
       ));
   }
 
@@ -105,9 +114,14 @@ SuggestionResults.propTypes = {
   contentType: PropTypes.string,
   aliasEditModeOn: PropTypes.bool,
   previewPaneInfo: PropTypes.object,
-  focusedItem: PropTypes.object
+  focusedItem: PropTypes.object,
+  getSuggestionWithContentType: PropTypes.func,
+  hasMore: PropTypes.bool,
+  nextParams: PropTypes.object,
+  singleContent: PropTypes.bool
 };
 
 SuggestionResults.defaultProps = {
-  previewPaneInfo: {}
+  previewPaneInfo: {},
+  getSuggestionWithContentType: () => {}
 };

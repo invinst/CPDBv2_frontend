@@ -5,6 +5,7 @@ import * as constants from 'utils/constants';
 import { getThisYear } from 'utils/date';
 import { searchResultItemTransform } from './search-result';
 import { getSvgUrl } from 'utils/visual-token';
+import extractQuery from 'utils/extract-query';
 
 const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'];
 
@@ -13,6 +14,7 @@ const getSuggestionTags = state => state.searchPage.tags;
 const getSuggestionNavigation = state => state.searchPage.navigation;
 const getSuggestionContentType = state => state.searchPage.contentType;
 const getQuery = state => state.searchPage.query;
+const getPagination = state => state.searchPage.pagination;
 
 const currentYear = getThisYear();
 
@@ -134,4 +136,15 @@ export const searchResultGroupsSelector = createSelector(
     canLoadMore,
     items: map(items, item => searchResultItemTransform(item))
   }))
+);
+
+export const hasMoreSelector = createSelector(
+  isShowingSingleContentTypeSelector,
+  getPagination,
+  (singleContent, { next }) => (singleContent && !!next)
+);
+
+export const nextParamsSelector = createSelector(
+  getPagination,
+  ({ next }) => (extractQuery(next))
 );

@@ -6,7 +6,9 @@ describe('searchPage reducer', function () {
     searchPage(undefined, {}).should.deepEqual({
       navigation: { 'itemIndex': 0 },
       isRequesting: false,
-      suggestionGroups: {},
+      suggestionGroups: {
+        meta: {}
+      },
       contentType: null,
       recentSuggestions: [],
       searchTerms: {
@@ -15,7 +17,8 @@ describe('searchPage reducer', function () {
         selectedCategory: null
       },
       tags: [],
-      query: ''
+      query: '',
+      pagination: {}
     });
   });
 });

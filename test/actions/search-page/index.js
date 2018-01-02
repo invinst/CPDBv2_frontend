@@ -2,9 +2,9 @@ import {
   getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion,
   SUGGESTION_URL, SELECT_TAG, SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS,
   SUGGESTION_REQUEST_FAILURE, TRACK_RECENT_SUGGESTION, SEARCH_NAVIGATION_UP,
-  SEARCH_NAVIGATION_DOWN, move
+  SEARCH_NAVIGATION_DOWN, move, getSuggestionWithContentType
 } from 'actions/search-page';
-import { OPEN_SEARCH_PAGE } from 'utils/constants';
+import * as constants from 'utils/constants';
 
 
 describe('suggestion action', function () {
@@ -27,6 +27,29 @@ describe('suggestion action', function () {
     });
   });
 
+  describe('getSuggestionWithContentType', function () {
+    it('should return correct action', function () {
+      getSuggestionWithContentType('abc', {
+        contentType: 'xyz'
+      }).should.deepEqual({
+        types: [
+          constants.SUGGESTION_SINGLE_REQUEST_START,
+          constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
+          constants.SUGGESTION_SINGLE_REQUEST_FAILURE
+        ],
+        payload: {
+          request: {
+            url: `${SUGGESTION_URL}abc/single/`,
+            params: {
+              contentType: 'xyz'
+            },
+            adapter: null
+          }
+        }
+      });
+    });
+  });
+
   describe('selectTag', function () {
     it('should return correct action', function () {
       selectTag('abc').should.deepEqual({
@@ -39,7 +62,7 @@ describe('suggestion action', function () {
   describe('toggleSearchMode', function () {
     it('should return correct action', function () {
       toggleSearchMode().should.deepEqual({
-        type: OPEN_SEARCH_PAGE,
+        type: constants.OPEN_SEARCH_PAGE,
         payload: undefined
       });
     });
