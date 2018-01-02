@@ -4,8 +4,8 @@ import { Motion, spring } from 'react-motion';
 import ConfiguredRadium from 'utils/configured-radium';
 import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 import { bodyScrollPosition, isScrolledToBottom } from 'utils/dom';
-import SlimHeaderContent from 'components/headers/slim-header-content';
-import { fixedStyle } from 'components/headers/slim-header.style';
+import SlimHeaderContent from './slim-header-content';
+import { fixedStyle } from './slim-header.style';
 
 
 export class SlimHeader extends Component {

@@ -14,8 +14,8 @@ import { Link } from 'react-router';
 import MockStore from 'redux-mock-store';
 import ContextWrapper from 'utils/test/components/context-wrapper';
 import { stub, spy } from 'sinon';
-import { fixedStyle } from 'components/headers/slim-header.style';
-import SlimHeaderContent from 'components/headers/slim-header-content';
+import { fixedStyle } from 'components/headers/slim-header/slim-header.style';
+import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
 
 class SlimHeaderContextWrapper extends ContextWrapper {
 }

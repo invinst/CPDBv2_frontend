@@ -8,7 +8,7 @@ import {
   middleSlimHeaderStyle, middleSubtitleStyle,
   topLeftLinkStyle, topRightLinkStyle,
   topSlimHeaderStyle, topSubtitleStyle
-} from 'components/headers/slim-header.style';
+} from 'components/headers/slim-header/slim-header.style';
 import { scrollToTop } from 'utils/dom';
 import {
   bottomSearchBoxStyle,
@@ -16,7 +16,7 @@ import {
   topSearchBoxStyle
 } from 'components/landing-page/search-section/search-section.style';
 import { accentColor } from 'utils/styles';
-import SlimHeaderContent from 'components/headers/slim-header-content';
+import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
 
 class SlimHeaderContentContextWrapper extends ContextWrapper {
 }
