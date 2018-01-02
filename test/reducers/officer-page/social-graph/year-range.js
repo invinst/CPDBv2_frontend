@@ -5,7 +5,7 @@ import yearRange from 'reducers/officer-page/social-graph/year-range';
 
 
 describe('yearRange reducer', function () {
-  const defaultValue = [2000, new Date().getYear() + 1900];
+  const defaultValue = [2000, 2017];
 
   it('should return initial state', function () {
     yearRange(undefined, {}).should.be.eql(defaultValue);
