@@ -26,7 +26,9 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const { move, query } = this.props;
+    const { move, query, location, params, routes, pushBreadcrumb } = this.props;
+    pushBreadcrumb({ location, params, routes });
+
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
@@ -37,6 +39,7 @@ export default class SearchPage extends Component {
     if (query && query.length >= 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);
     }
+
   }
 
   componentWillReceiveProps(nextProps) {

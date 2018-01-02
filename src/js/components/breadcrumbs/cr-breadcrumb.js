@@ -10,5 +10,5 @@ export function CRBreadcrumb({ crid }) {
 export default connect(mapStateToProps)(breadcrumbify(CRBreadcrumb));
 
 CRBreadcrumb.propTypes = {
-  crid: PropTypes.number,
+  crid: PropTypes.string,
 };

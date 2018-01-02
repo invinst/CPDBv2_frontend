@@ -8,6 +8,7 @@ import PropsRerender from 'components/common/higher-order/props-rerender';
 import HeatMap from './heat-map';
 
 
+
 class LandingPage extends Component {
   responsiveStyle() {
     return {};
@@ -21,6 +22,12 @@ class LandingPage extends Component {
         <ActivityGridContainer/>
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.props.resetBreadcrumb({
+      breadcrumbs: []
+    });
   }
 
   render() {

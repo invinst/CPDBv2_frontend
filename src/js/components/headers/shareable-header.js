@@ -16,6 +16,7 @@ import {
   shareMenuLinkItemStyle
 } from './shareable-header.style';
 import { imgUrl } from 'utils/static-assets';
+import { breadcrumbItem } from 'components/breadcrumbs/breadcrumb-item';
 
 
 export default class ShareableHeader extends Component {
@@ -113,6 +114,8 @@ export default class ShareableHeader extends Component {
             routes={ routes }
             params={ params }
             location={ location }
+            separatorRenderer={ (<breadcrumbItem> > </breadcrumbItem>) }
+            itemRenderer={ breadcrumbItem }
           />
           { this.renderMenu() }
         </div>

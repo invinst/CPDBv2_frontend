@@ -6,7 +6,7 @@ import { DragDropContext } from 'react-dnd';
 import { componentCache } from 'redux-breadcrumb-trail';
 
 import AppContainer from 'containers/app-container';
-import LandingPage from 'components/landing-page';
+import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import FAQPage from 'components/faq-page/faq-page';
 import SearchPageContainer from 'containers/search-page-container';
@@ -51,7 +51,7 @@ class RouterRoot extends Component {
   render() {
 
     const routes = [
-      <IndexRoute component={ LandingPage } key='1' breadcrumb='Home'
+      <IndexRoute component={ LandingPageContainer } key='1' breadcrumb='Home'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) } />,
       <Route path={ STORIES_PATH } component={ ReportingPage } key='2'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }>
@@ -64,9 +64,10 @@ class RouterRoot extends Component {
         <Route path={ ':faqId' } component={ FAQPage }/>
       </Route>,
       <Route path={ OFFICER_PATH } component={ OfficerPageContainer } key='5'
-        breadcrumb={ { componentCacheKey: 'officer' } } />,
-      <Route path={ OFFICER_TIMELINE_PATH } component={ OfficerPageContainer } key='6'
-        breadcrumb='Officer Timeline' />,
+        breadcrumb={ { componentCacheKey: 'officer' } }>
+        <Route path={ 'timeline' } component={ OfficerPageContainer } key='6' useParentBreadcrumb />
+      </Route>,
+
       <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7'
         breadcrumb='Search'>
         <Route path={ SEARCH_TERMS_PATH } component={ SearchTermsContainer }/>
