@@ -1,19 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import ClipboardButton from 'react-clipboard.js';
-import { Link } from 'react-router';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
-import { BACK_LINK_WHITELIST } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   outerStyle,
   navBarStyle,
-  leftLinkStyle,
   rightLinkStyle,
   shareMenuStyle,
   menuItemImgStyle,
   shareMenuButtonItemStyle,
-  shareMenuLinkItemStyle
+  shareMenuLinkItemStyle,
 } from './shareable-header.style';
 import { imgUrl } from 'utils/static-assets';
 import { breadcrumbItem } from 'components/breadcrumbs/breadcrumb-item';
@@ -92,16 +89,14 @@ export default class ShareableHeader extends Component {
   }
 
   render() {
-    const { backLink, location, routes, params } = this.props;
+    const { location, routes, params } = this.props;
     const { shareMenuIsOpen } = this.state;
 
     const shareButtonClickHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
-    const backLinkText = `Back to ${BACK_LINK_WHITELIST[backLink]}`;
 
     return (
       <ResponsiveFluidWidthComponent style={ outerStyle }>
         <div style={ navBarStyle }>
-          <Link style={ leftLinkStyle } className='left-link' to={ backLink }>{ backLinkText }</Link>
           <span
             style={ rightLinkStyle(shareMenuIsOpen) }
             onClick={ shareButtonClickHandler }
@@ -125,7 +120,6 @@ export default class ShareableHeader extends Component {
 }
 
 ShareableHeader.propTypes = {
-  backLink: PropTypes.string,
   location: PropTypes.object,
   params: PropTypes.object,
   routes: PropTypes.array,
@@ -135,7 +129,6 @@ ShareableHeader.propTypes = {
 };
 
 ShareableHeader.defaultProps = {
-  backLink: '/',
   params: {},
   location: {
     pathname: ''

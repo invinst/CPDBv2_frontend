@@ -35,14 +35,6 @@ export const CR_PATH = 'complaint/:crid/:officerId';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 
-// Links to be used in ShareableHeader's "Back to XXX" link
-export const BACK_LINK_WHITELIST = {
-  [ROOT_PATH]: 'Home',
-  ['/edit' + ROOT_PATH]: 'Home',
-  [ROOT_PATH + SEARCH_PATH]: 'Search',
-  [ROOT_PATH + 'edit/' + SEARCH_PATH]: 'Search'
-};
-
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
 // Reducer defaults

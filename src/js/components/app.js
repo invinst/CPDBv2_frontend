@@ -79,7 +79,7 @@ export default class App extends React.Component {
 
     const shareablePages = [OfficerPageContainer, CRPageContainer, UnitProfilePageContainer];
     if (includes(shareablePages, children.type)) {
-      return <ShareableHeaderContainer backLink={ this.props.headerBackLink }/>;
+      return <ShareableHeaderContainer/>;
     }
 
     const { openLegalDisclaimerModal, location } = this.props;
@@ -126,7 +126,6 @@ App.propTypes = {
   toggleSearchMode: PropTypes.func,
   changeSearchQuery: PropTypes.func,
   openLegalDisclaimerModal: PropTypes.func,
-  headerBackLink: PropTypes.string
 };
 
 App.defaultProps = {
