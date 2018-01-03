@@ -1,8 +1,8 @@
-import { softBlackColor, clayGray } from 'utils/styles';
+import { clayGray } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
 
 export const breadcrumbItemStyle = {
   display: 'inline-block',
-  fontSize: '14px',
   fontWeight: 500,
   lineHeight: '40px',
 };
@@ -10,7 +10,7 @@ export const breadcrumbItemStyle = {
 export const breadcrumbTextStyle = {
   ...breadcrumbItemStyle,
   paddingRight: '8px',
-  color: softBlackColor
+  color: 'blue'
 };
 
 export const breadcrumbLinkStyle = {
@@ -21,5 +21,9 @@ export const breadcrumbLinkStyle = {
 
 export const breadcrumbSeparatorStyle = {
   ...breadcrumbItemStyle,
-  paddingRight: '8px',
+  padding: '2px 8px 0 0',
+  height: '12px',
+  width: '7.4px',
+  background: `url(${imgUrl('disclosure-indicator.svg')}) no-repeat scroll`,
+  verticalAlign: 'middle',
 };

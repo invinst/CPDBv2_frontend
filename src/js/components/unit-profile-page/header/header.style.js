@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor, lightBlackColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor, lightBlackColor, whiteTwoColor } from 'utils/styles';
 
 
 export const unitNameWrapperStyle = {
@@ -17,14 +17,10 @@ export const unitNameStyle = {
 };
 
 export const wrapperStyle = {
-  padding: '0 16px',
   height: '64px',
-  marginTop: '22px',
-  boxSizing: 'border-box'
-};
-
-export const boxShadowStyle = {
-  boxShadow: `0 1px 2px 0 ${lightBlackColor}`
+  margin: '22px 16px',
+  boxSizing: 'border-box',
+  borderBottom: `solid 1px ${whiteTwoColor}`,
 };
 
 export const linkWrapperStyle = {

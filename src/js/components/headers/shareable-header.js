@@ -95,7 +95,6 @@ export default class ShareableHeader extends Component {
     const { shareMenuIsOpen } = this.state;
 
     const shareButtonClickHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
-    const separatorRenderer = <li style={ breadcrumbSeparatorStyle }> > </li>;
 
     return (
       <ResponsiveFluidWidthComponent style={ outerStyle }>
@@ -105,14 +104,14 @@ export default class ShareableHeader extends Component {
             onClick={ shareButtonClickHandler }
             className='test--shareable-header--share-link'
           >
-          Share
-        </span>
+            Share
+          </span>
           <Breadcrumbs
             className='test--breadcrumbs'
             routes={ routes }
             params={ params }
             location={ location }
-            separatorRenderer={ separatorRenderer }
+            separatorRenderer={ <li style={ breadcrumbSeparatorStyle }/> }
             itemRenderer={ breadcrumbItem }
             style={ breadcrumbsStyle }
           />
