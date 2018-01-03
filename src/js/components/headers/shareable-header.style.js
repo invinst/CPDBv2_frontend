@@ -7,7 +7,7 @@ export const outerStyle = {
 };
 
 export const navBarStyle = {
-  height: '22px',
+  height: '40px',
   lineHeight: '22px',
   color: clayGray,
   padding: '0 16px',
@@ -69,4 +69,9 @@ export const shareMenuLinkItemStyle = {
   ...shareMenuItemStyle,
   color: 'inherit',
   textDecoration: 'none'
+};
+
+export const breadcrumbsStyle = {
+  margin: 0,
+  padding: 0,
 };

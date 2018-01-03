@@ -13,7 +13,9 @@ import {
   shareMenuLinkItemStyle,
 } from './shareable-header.style';
 import { imgUrl } from 'utils/static-assets';
-import { breadcrumbItem } from 'components/breadcrumbs/breadcrumb-item';
+import { breadcrumbItem } from 'components/headers/breadcrumb-item';
+import { breadcrumbsStyle } from 'components/headers/shareable-header.style';
+import { breadcrumbSeparatorStyle } from 'components/headers/breadcrumb-item-style';
 
 
 export default class ShareableHeader extends Component {
@@ -93,6 +95,7 @@ export default class ShareableHeader extends Component {
     const { shareMenuIsOpen } = this.state;
 
     const shareButtonClickHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
+    const separatorRenderer = <li style={ breadcrumbSeparatorStyle }> > </li>;
 
     return (
       <ResponsiveFluidWidthComponent style={ outerStyle }>
@@ -105,12 +108,13 @@ export default class ShareableHeader extends Component {
           Share
         </span>
           <Breadcrumbs
-            className='list-inline'
+            className='test--breadcrumbs'
             routes={ routes }
             params={ params }
             location={ location }
-            separatorRenderer={ (<breadcrumbItem> > </breadcrumbItem>) }
+            separatorRenderer={ separatorRenderer }
             itemRenderer={ breadcrumbItem }
+            style={ breadcrumbsStyle }
           />
           { this.renderMenu() }
         </div>
