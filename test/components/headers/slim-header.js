@@ -13,6 +13,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { Link } from 'react-router';
 import MockStore from 'redux-mock-store';
 import ContextWrapper from 'utils/test/components/context-wrapper';
+import * as domUtils from 'utils/dom';
 import { stub, spy } from 'sinon';
 import { fixedStyle } from 'components/headers/slim-header/slim-header.style';
 import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
@@ -114,6 +115,48 @@ describe('SlimHeader component', function () {
       };
       Simulate.click(externalLinks[0], dummyEvent);
       dummyEvent.stopPropagation.called.should.be.true();
+    });
+  });
+
+  describe('recalculatePosition', function () {
+    beforeEach(function () {
+      element = renderIntoDocument(
+        <Provider store={ store }>
+          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
+            <SlimHeader show={ true } pathname='/' />
+          </SlimHeaderContextWrapper>
+        </Provider>
+      );
+
+      this.slimHeader = findRenderedComponentWithType(element, SlimHeader);
+      stub(domUtils, 'bodyScrollPosition');
+      stub(domUtils, 'isScrolledToBottom');
+    });
+
+    afterEach(function () {
+      domUtils.bodyScrollPosition.restore();
+      domUtils.isScrolledToBottom.restore();
+    });
+
+    it('should remain in top position', function () {
+      domUtils.bodyScrollPosition.returns(0);
+      domUtils.isScrolledToBottom.returns(false);
+      this.slimHeader.recalculatePosition();
+      this.slimHeader.state.position.should.eql('top');
+    });
+
+    it('should transition to middle position', function () {
+      domUtils.bodyScrollPosition.returns(100);
+      domUtils.isScrolledToBottom.returns(false);
+      this.slimHeader.recalculatePosition();
+      this.slimHeader.state.position.should.eql('middle');
+    });
+
+    it('should transition to bottom position', function () {
+      domUtils.bodyScrollPosition.returns(100);
+      domUtils.isScrolledToBottom.returns(true);
+      this.slimHeader.recalculatePosition();
+      this.slimHeader.state.position.should.eql('bottom');
     });
   });
 
