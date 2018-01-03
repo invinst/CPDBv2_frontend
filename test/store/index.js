@@ -144,7 +144,9 @@ describe('store', function () {
       genericModal: {
         activeModal: null
       },
-      headerBackLink: '/'
+      breadcrumb: {
+        breadcrumbs: []
+      }
     });
   });
 });

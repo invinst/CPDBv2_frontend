@@ -33,6 +33,8 @@ describe('SearchPage component', function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
     // Stub lodash.debounce() so that it returns the input function as-is
     this.debounceStub = stub(lodash, 'debounce').callsFake(func => func);
+
+    this.stubPushBreadcrumbs = stub();
   });
 
   afterEach(function () {
@@ -42,15 +44,11 @@ describe('SearchPage component', function () {
     this.debounceStub.restore();
   });
 
-  it('should be renderable', function () {
-    SearchPage.should.be.renderable();
-  });
-
   it('should call api when user type in', function () {
     const getSuggestion = spy();
 
     instance = renderIntoDocument(
-      <SearchPage getSuggestion={ getSuggestion }/>
+      <SearchPage getSuggestion={ getSuggestion } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = 'a';
@@ -64,7 +62,7 @@ describe('SearchPage component', function () {
   it('should clear all tags when user remove all text', function () {
     const selectTag = spy();
     instance = renderIntoDocument(
-      <SearchPage selectTag={ selectTag }/>
+      <SearchPage selectTag={ selectTag } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = '';
@@ -74,7 +72,7 @@ describe('SearchPage component', function () {
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
     instance = renderIntoDocument(
-      <SearchPage />
+      <SearchPage pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
 
     const backButton = findRenderedDOMComponentWithClass(instance, 'searchbar__button--back');
@@ -84,7 +82,7 @@ describe('SearchPage component', function () {
 
   it('should call router.goBack when user hit ESCAPE', function () {
     instance = renderIntoDocument(
-      <SearchPage />
+      <SearchPage pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
 
     Mousetrap.trigger('esc');
@@ -102,7 +100,7 @@ describe('SearchPage component', function () {
     ];
 
     instance = renderIntoDocument(
-      <SearchPage suggestionGroups={ suggestionGroups } />
+      <SearchPage suggestionGroups={ suggestionGroups } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
@@ -122,7 +120,7 @@ describe('SearchPage component', function () {
     ];
 
     instance = renderIntoDocument(
-      <SearchPage suggestionGroups={ suggestionGroups } />
+      <SearchPage suggestionGroups={ suggestionGroups } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
@@ -134,7 +132,7 @@ describe('SearchPage component', function () {
   it('should follow the v1 search url when user hit ENTER but there\'s no results', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <SearchPage query={ 'something' }/>
+        <SearchPage query={ 'something' } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
       </Provider>
     );
 
@@ -156,7 +154,8 @@ describe('SearchPage component', function () {
     ];
 
     instance = renderIntoDocument(
-      <SearchPage suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }/>
+      <SearchPage suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }
+        pushBreadcrumbs={ this.stubPushBreadcrumbs } />
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
@@ -169,7 +168,7 @@ describe('SearchPage component', function () {
     const suggestionColumns = [];
     const direction = 'up';
     instance = renderIntoDocument(
-      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } suggestionColumns={ suggestionColumns } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
@@ -180,7 +179,7 @@ describe('SearchPage component', function () {
     const suggestionColumns = [];
     const direction = 'down';
     instance = renderIntoDocument(
-      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } suggestionColumns={ suggestionColumns } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
@@ -191,7 +190,7 @@ describe('SearchPage component', function () {
     const suggestionColumns = [];
     const direction = 'left';
     instance = renderIntoDocument(
-      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } suggestionColumns={ suggestionColumns } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
@@ -202,7 +201,7 @@ describe('SearchPage component', function () {
     const suggestionColumns = [];
     const direction = 'right';
     instance = renderIntoDocument(
-      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } suggestionColumns={ suggestionColumns } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, suggestionColumns).should.be.true();
@@ -219,8 +218,14 @@ describe('SearchPage component', function () {
 
     it ('should scroll to focused item', function () {
       const domNode = document.createElement('div');
-      ReactDOM.render(<SearchPage navigation={ { columnIndex: 0, itemIndex: 0 } }/>, domNode);
-      ReactDOM.render(<SearchPage navigation={ { columnIndex: 1, itemIndex: 0 } }/>, domNode);
+      ReactDOM.render(
+        <SearchPage navigation={ { columnIndex: 0, itemIndex: 0 } } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>,
+        domNode
+      );
+      ReactDOM.render(
+        <SearchPage navigation={ { columnIndex: 1, itemIndex: 0 } } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>,
+        domNode
+      );
       this.scrollToElementStub.calledWith('#suggestion-item-1-0').should.be.true();
     });
   });
@@ -228,7 +233,9 @@ describe('SearchPage component', function () {
   describe('handleViewItem', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       instance = renderIntoDocument(
-        <SearchPage focusedSuggestion={ { payload: { to: '/dummy/url' } } }/>
+        <SearchPage focusedSuggestion={ { payload: { to: '/dummy/url' } } }
+          pushBreadcrumbs={ this.stubPushBreadcrumbs }
+        />
       );
       Mousetrap.trigger('enter');
       this.browserHistoryPush.calledWith('/dummy/url').should.be.true();
@@ -237,7 +244,9 @@ describe('SearchPage component', function () {
 
     it('should use window.location.assign() if visiting focused item with external link', function () {
       instance = renderIntoDocument(
-        <SearchPage focusedSuggestion={ { payload: { url: 'http://whatever.local' } } }/>
+        <SearchPage focusedSuggestion={ { payload: { url: 'http://whatever.local' } } }
+          pushBreadcrumbs={ this.stubPushBreadcrumbs }
+        />
       );
       Mousetrap.trigger('enter');
       this.locationAssign.calledWith('http://whatever.local').should.be.true();
@@ -245,4 +254,20 @@ describe('SearchPage component', function () {
     });
   });
 
+  it('should push search into breadcrumbs', function () {
+    const location = {
+      pathname: '/search', search: '/', action: 'POP'
+    };
+    const params = {};
+    const routes = [];
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage
+          pushBreadcrumbs={ this.stubPushBreadcrumbs } location={ location } params={ params } routes={ routes }
+        />
+      </Provider>
+    );
+    this.stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
+  });
 });

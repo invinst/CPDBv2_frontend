@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { breadcrumbTextStyle, breadcrumbLinkStyle } from 'components/headers/breadcrumb-item-style';
 
 export const breadcrumbItem = (props) => {
@@ -17,4 +17,11 @@ export const breadcrumbItem = (props) => {
   return (
     <li style={ breadcrumbTextStyle }>{children}</li>
   );
+};
+
+breadcrumbItem.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ])
 };

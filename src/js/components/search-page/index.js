@@ -26,8 +26,8 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const { move, query, location, params, routes, pushBreadcrumb } = this.props;
-    pushBreadcrumb({ location, params, routes });
+    const { move, query, location, params, routes, pushBreadcrumbs } = this.props;
+    pushBreadcrumbs({ location, params, routes });
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
@@ -188,7 +188,10 @@ SearchPage.propTypes = {
   editModeOn: PropTypes.bool,
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
-  searchTermsHidden: PropTypes.bool
+  searchTermsHidden: PropTypes.bool,
+  params: PropTypes.object,
+  routes: PropTypes.array,
+  pushBreadcrumbs: PropTypes.func
 };
 
 SearchPage.defaultProps = {
@@ -205,5 +208,5 @@ SearchPage.defaultProps = {
   location: {
     pathname: '/'
   },
-  searchTermsHidden: true
+  searchTermsHidden: true,
 };

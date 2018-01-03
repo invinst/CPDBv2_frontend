@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor, lightBlackColor, whiteTwoColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor, whiteTwoColor } from 'utils/styles';
 
 
 export const unitNameWrapperStyle = {

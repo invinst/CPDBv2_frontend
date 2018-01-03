@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push as pushBreadcrumb } from 'redux-breadcrumb-trail';
+import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
 
 import SearchPage from 'components/search-page';
 import {
@@ -62,7 +62,7 @@ const mapDispatchToProps = {
   requestActivityGrid,
   toggleSearchTerms,
   requestSearchTermCategories,
-  pushBreadcrumb
+  pushBreadcrumbs: pushBreadcrumbs
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchPage));

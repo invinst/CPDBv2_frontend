@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
@@ -10,8 +10,10 @@ import HeatMap from './heat-map';
 
 
 class LandingPage extends Component {
-  responsiveStyle() {
-    return {};
+  componentDidMount() {
+    this.props.resetBreadcrumbs({
+      breadcrumbs: []
+    });
   }
 
   renderWithResponsiveStyle(style) {
@@ -24,20 +26,19 @@ class LandingPage extends Component {
     );
   }
 
-  componentDidMount() {
-    this.props.resetBreadcrumb({
-      breadcrumbs: []
-    });
-  }
-
   render() {
     return (
       <ResponsiveStyleComponent
-        responsiveStyle={ this.responsiveStyle() }>
+        responsiveStyle={ {} }>
         { this.renderWithResponsiveStyle.bind(this) }
       </ResponsiveStyleComponent>
     );
   }
 }
 
+LandingPage.propTypes = {
+  resetBreadcrumbs: PropTypes.func
+};
+
 export default PropsRerender(ConfiguredRadium(LandingPage));
+

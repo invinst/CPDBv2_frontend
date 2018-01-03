@@ -67,8 +67,10 @@ class RouterRoot extends Component {
 
       <Route path={ OFFICER_PATH } component={ OfficerPageContainer } key='5'
         breadcrumb={ { componentCacheKey: 'officer' } }>
-        <Route path={ OFFICER_TIMELINE_SUFFIX } component={ OfficerPageContainer } key='6' useParentBreadcrumb />
-        <Route path={ OFFICER_SOCIAL_GRAPH_SUFFIX } component={ OfficerPageContainer } key='12' useParentBreadcrumb />
+        <Route path={ OFFICER_TIMELINE_SUFFIX } component={ OfficerPageContainer } key='6'
+          useParentBreadcrumb={ true } />
+        <Route path={ OFFICER_SOCIAL_GRAPH_SUFFIX } component={ OfficerPageContainer } key='12'
+          useParentBreadcrumb={ true } />
       </Route>,
 
       <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7' breadcrumb='Search'>

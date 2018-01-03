@@ -135,5 +135,6 @@ ShareableHeader.defaultProps = {
   params: {},
   location: {
     pathname: ''
-  }
+  },
+  routes: []
 };

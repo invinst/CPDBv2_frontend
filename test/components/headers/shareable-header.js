@@ -8,41 +8,44 @@ import {
   findRenderedComponentWithType,
   Simulate
 } from 'react-addons-test-utils';
+import MockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import { Link } from 'react-router';
 import { stub } from 'sinon';
 
 describe('ShareableHeader component', function () {
   let element;
+  let instance;
+  const mockStore = MockStore();
+  const store = mockStore({
+    breadcrumb: {
+      breadcrumbs: []
+    }
+  });
+
+  beforeEach (function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <ShareableHeader />
+      </Provider>
+    );
+    element = findRenderedComponentWithType(instance, ShareableHeader);
+  });
 
   afterEach(function () {
-    unmountComponentSuppressError(element);
+    unmountComponentSuppressError(instance);
   });
 
   it('should close "share" menu by default', function () {
-    element = renderIntoDocument(
-      <ShareableHeader backLink='/'/>
-    );
-
     element.state.shareMenuIsOpen.should.be.false();
   });
 
-  it('should render Back to Home and Share link', function () {
-    element = renderIntoDocument(
-      <ShareableHeader backLink='/search/'/>
-    );
-
-    const links = scryRenderedComponentsWithType(element, Link);
-    links.filter(link => link.props.children === 'Back to Search').should.have.length(1);
-
+  it('should render Share link', function () {
     findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
   });
 
   it('should toggle menu when user clicks "Share"', function () {
-    element = renderIntoDocument(
-      <ShareableHeader />
-    );
     scryRenderedComponentsWithType(element, 'test--shareable-header--share-menu').should.have.length(0);
     const shareLink = findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
     Simulate.click(shareLink);
@@ -51,54 +54,22 @@ describe('ShareableHeader component', function () {
     scryRenderedComponentsWithType(element, 'test--shareable-header--share-menu').should.have.length(0);
   });
 
-  describe('global click listener', function () {
-    beforeEach(function () {
-      stub(document.body, 'addEventListener');
-      stub(document.body, 'removeEventListener');
-    });
-
-    afterEach(function () {
-      document.body.addEventListener.restore();
-      document.body.removeEventListener.restore();
-    });
-
-    it('should assign global click handler to close share menu', function () {
-      element = renderIntoDocument(
-        <ShareableHeader />
-      );
-      document.body.addEventListener.calledWith('click', element.closeShareMenu).should.be.true();
-    });
-
-    it('should destroy global click handler on unmount', function () {
-      element = renderIntoDocument(
-        <ShareableHeader />
-      );
-
-      document.body.removeEventListener.called.should.be.false();
-      unmountComponentSuppressError(element);
-      document.body.removeEventListener.calledWith('click', element.closeShareMenu).should.be.true();
-    });
-  });
-
   describe('share menu', function () {
     beforeEach(function () {
-      this.element = renderIntoDocument(
-        <ShareableHeader />
-      );
-      this.shareLink = findRenderedDOMComponentWithClass(this.element, 'test--shareable-header--share-link');
+      this.shareLink = findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
       Simulate.click(this.shareLink);
       this.encodedLink = encodeURIComponent(window.location.href);
     });
 
     it('should render copy link', function () {
-      const copyLink = findRenderedComponentWithType(this.element, ClipboardButton);
+      const copyLink = findRenderedComponentWithType(element, ClipboardButton);
       copyLink.props.children.should.eql('Copy Link');
-      copyLink.props.onClick.should.equal(this.element.closeShareMenu);
+      copyLink.props.onClick.should.equal(element.closeShareMenu);
       copyLink.props['data-clipboard-text'].should.eql(window.location.href);
     });
 
     it('should render tweet link', function () {
-      const link = findRenderedDOMComponentWithClass(this.element, 'test--shareable-header--tweet-link');
+      const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--tweet-link');
       link.textContent.should.containEql('Tweet');
       link.getAttribute('href').should.eql('https://twitter.com/intent/tweet?url=' + this.encodedLink);
 
@@ -108,7 +79,7 @@ describe('ShareableHeader component', function () {
     });
 
     it('should render facebook share link', function () {
-      const link = findRenderedDOMComponentWithClass(this.element, 'test--shareable-header--facebook-link');
+      const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--facebook-link');
       link.textContent.should.containEql('Share');
       link.getAttribute('href').should.eql('https://www.facebook.com/sharer/sharer.php?u=' + this.encodedLink);
 
@@ -118,3 +89,42 @@ describe('ShareableHeader component', function () {
     });
   });
 });
+
+describe('ShareableHeader global click listener', function () {
+  let element;
+  let instance;
+  const mockStore = MockStore();
+  const store = mockStore({
+    breadcrumb: {
+      breadcrumbs: []
+    }
+  });
+
+  beforeEach(function () {
+    stub(document.body, 'addEventListener');
+    stub(document.body, 'removeEventListener');
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <ShareableHeader />
+      </Provider>
+    );
+    element = findRenderedComponentWithType(instance, ShareableHeader);
+  });
+
+  afterEach(function () {
+    document.body.addEventListener.restore();
+    document.body.removeEventListener.restore();
+    unmountComponentSuppressError(instance);
+  });
+
+  it('should assign global click handler to close share menu', function () {
+    document.body.addEventListener.calledWith('click', element.closeShareMenu).should.be.true();
+  });
+
+  it('should destroy global click handler on unmount', function () {
+    document.body.removeEventListener.called.should.be.false();
+    unmountComponentSuppressError(element);
+    document.body.removeEventListener.calledWith('click', element.closeShareMenu).should.be.true();
+  });
+});
+
