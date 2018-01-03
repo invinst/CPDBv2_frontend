@@ -25,11 +25,9 @@ import {
   OFFICER_PATH,
   CR_PATH,
   UNIT_PROFILE_PATH,
-  OFFICER_TIMELINE_PATH,
-  OFFICER_SOCIAL_GRAPH_PATH,
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
-  STANDALONE_CR_PATH
+  STANDALONE_CR_PATH, OFFICER_TIMELINE_SUFFIX, OFFICER_SOCIAL_GRAPH_SUFFIX
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -53,37 +51,39 @@ class RouterRoot extends Component {
     const routes = [
       <IndexRoute component={ LandingPageContainer } key='1' breadcrumb='Home'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) } />,
+
       <Route path={ STORIES_PATH } component={ ReportingPage } key='2'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }>
         <Route path={ ':reportId' } component={ ReportingPage }/>
       </Route>,
+
       <Route path={ COLLAB_PATH } component={ CollaborationPage } key='3'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Collaborate' }) }/>,
+
       <Route path={ FAQ_PATH } component={ FAQPage } key='4'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }>
         <Route path={ ':faqId' } component={ FAQPage }/>
       </Route>,
+
       <Route path={ OFFICER_PATH } component={ OfficerPageContainer } key='5'
         breadcrumb={ { componentCacheKey: 'officer' } }>
-        <Route path={ 'timeline' } component={ OfficerPageContainer } key='6' useParentBreadcrumb />
+        <Route path={ OFFICER_TIMELINE_SUFFIX } component={ OfficerPageContainer } key='6' useParentBreadcrumb />
+        <Route path={ OFFICER_SOCIAL_GRAPH_SUFFIX } component={ OfficerPageContainer } key='12' useParentBreadcrumb />
       </Route>,
 
-      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7'
-        breadcrumb='Search'>
+      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7' breadcrumb='Search'>
         <Route path={ SEARCH_TERMS_PATH } component={ SearchTermsContainer }/>
       </Route>,
-      <Route path={ CR_PATH } component={ CRPageContainer } key='8'
-        breadcrumb={ { componentCacheKey: 'cr' } }/>,
+
+      <Route path={ CR_PATH } component={ CRPageContainer } key='8' breadcrumb={ { componentCacheKey: 'cr' } }/>,
       <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer } key='13'
-        breadcrumb='STANDALONE_CR_PATH'/>,
+        breadcrumb={ { componentCacheKey: 'cr' } }/>,
+
       <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'
         breadcrumb={ { componentCacheKey: 'unit' } }/>,
-      <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer } key='10'
-        breadcrumb='SEARCH_ALIAS_EDIT_PATH'/>,
-      <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11'
-        breadcrumb='INLINE_SEARCH_ALIAS_ADMIN_PATH'/>,
-      <Route path={ OFFICER_SOCIAL_GRAPH_PATH } component={ OfficerPageContainer } key='12'
-        breadcrumb='OFFICER_SOCIAL_GRAPH_PATH'/>
+
+      <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer } key='10'/>,
+      <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11'/>,
     ];
 
     return (
