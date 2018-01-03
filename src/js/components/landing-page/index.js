@@ -4,8 +4,8 @@ import ResponsiveStyleComponent from 'components/responsive/responsive-style-com
 import ConfiguredRadium from 'utils/configured-radium';
 import ActivityGridContainer from 'containers/landing-page/activity-grid';
 import PropsRerender from 'components/common/higher-order/props-rerender';
-import HeroSection from './hero-section';
 import FooterContainer from 'containers/footer-container';
+import HeatMap from './heat-map';
 
 
 class LandingPage extends Component {
@@ -16,7 +16,7 @@ class LandingPage extends Component {
   renderWithResponsiveStyle(style) {
     return (
       <div>
-        <HeroSection />
+        <HeatMap/>
         <ActivityGridContainer/>
         <FooterContainer />
       </div>
