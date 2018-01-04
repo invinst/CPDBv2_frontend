@@ -16,8 +16,8 @@ describe('shareableHeader', function () {
       searchPage.firstOfficerResult.click();
       header.breadcrumbs.mainElement.waitForVisible();
 
-      const breadcrumbsItems = header.breadcrumbs.items;
-      breadcrumbsItems.count.should.eql(3);
+      const BreadcrumbsItems = header.breadcrumbs.items;
+      BreadcrumbsItems.count.should.eql(3);
 
       header.breadcrumbs.mainElement.getText().should.eql('HomeSearchBernadette Kelly');
     });

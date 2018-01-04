@@ -1,5 +1,5 @@
 import React from 'react';
-import ClipboardButton from 'react-clipboard.js';
+import ClipboardButton from 'react-clipboard.js/dist/react-clipboard';
 import ShareableHeader from 'components/headers/shareable-header';
 import {
   renderIntoDocument,
@@ -13,7 +13,7 @@ import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test/index';
 import { stub } from 'sinon';
 
 describe('ShareableHeader component', function () {

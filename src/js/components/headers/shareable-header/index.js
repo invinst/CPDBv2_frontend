@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import ClipboardButton from 'react-clipboard.js';
+import ClipboardButton from 'react-clipboard.js/dist/react-clipboard';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
@@ -13,9 +13,9 @@ import {
   shareMenuLinkItemStyle,
 } from './shareable-header.style';
 import { imgUrl } from 'utils/static-assets';
-import { breadcrumbItem } from 'components/headers/breadcrumb-item';
-import { breadcrumbsStyle } from 'components/headers/shareable-header.style';
-import { breadcrumbSeparatorStyle } from 'components/headers/breadcrumb-item-style';
+import BreadcrumbsItem from 'components/headers/shareable-header/breadcrumbs-item';
+import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
+import { breadcrumbSeparatorStyle } from 'components/headers/shareable-header/breadcrumbs-item-style';
 
 
 export default class ShareableHeader extends Component {
@@ -95,6 +95,7 @@ export default class ShareableHeader extends Component {
     const { shareMenuIsOpen } = this.state;
 
     const shareButtonClickHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
+    const separatorRenderer = () => <li style={ breadcrumbSeparatorStyle }/>;
 
     return (
       <ResponsiveFluidWidthComponent style={ outerStyle }>
@@ -111,8 +112,8 @@ export default class ShareableHeader extends Component {
             routes={ routes }
             params={ params }
             location={ location }
-            separatorRenderer={ () => <li style={ breadcrumbSeparatorStyle }/> }
-            itemRenderer={ breadcrumbItem }
+            separatorRenderer={ separatorRenderer }
+            itemRenderer={ BreadcrumbsItem }
             style={ breadcrumbsStyle }
           />
           { this.renderMenu() }
