@@ -111,7 +111,7 @@ export default class ShareableHeader extends Component {
             routes={ routes }
             params={ params }
             location={ location }
-            separatorRenderer={ <li style={ breadcrumbSeparatorStyle }/> }
+            separatorRenderer={ () => <li style={ breadcrumbSeparatorStyle }/> }
             itemRenderer={ breadcrumbItem }
             style={ breadcrumbsStyle }
           />

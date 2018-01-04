@@ -44,7 +44,7 @@ export default class SocialGraph extends Component {
           } }
           click={
             d => {
-              const path = `/${OFFICER_SOCIAL_GRAPH_PATH.replace(':officerId', d.id)}/`;
+              const path = `/${OFFICER_SOCIAL_GRAPH_PATH.replace(':officerId', d.id)}`;
               browserHistory.push(path);
             }
           }

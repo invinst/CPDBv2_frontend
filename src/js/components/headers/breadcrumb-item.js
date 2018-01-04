@@ -15,7 +15,7 @@ export const breadcrumbItem = (props) => {
     });
   }
   return (
-    <li style={ breadcrumbTextStyle }>{children}</li>
+    <li className='test--breadcrumbs-item' style={ breadcrumbTextStyle }>{children}</li>
   );
 };
 

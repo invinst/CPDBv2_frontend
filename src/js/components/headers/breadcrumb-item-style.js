@@ -1,4 +1,4 @@
-import { clayGray } from 'utils/styles';
+import { clayGray, softBlackColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 export const breadcrumbItemStyle = {
@@ -10,7 +10,7 @@ export const breadcrumbItemStyle = {
 export const breadcrumbTextStyle = {
   ...breadcrumbItemStyle,
   paddingRight: '8px',
-  color: 'blue'
+  color: softBlackColor
 };
 
 export const breadcrumbLinkStyle = {

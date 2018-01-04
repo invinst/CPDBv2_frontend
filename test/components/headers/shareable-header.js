@@ -6,10 +6,12 @@ import {
   scryRenderedComponentsWithType,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
+  scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import Breadcrumbs from 'redux-breadcrumb-trail';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import { stub } from 'sinon';
@@ -46,12 +48,16 @@ describe('ShareableHeader component', function () {
   });
 
   it('should toggle menu when user clicks "Share"', function () {
-    scryRenderedComponentsWithType(element, 'test--shareable-header--share-menu').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(element, 'test--shareable-header--share-menu').should.have.length(0);
     const shareLink = findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
     Simulate.click(shareLink);
     findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-menu');
     Simulate.click(shareLink);
-    scryRenderedComponentsWithType(element, 'test--shareable-header--share-menu').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(element, 'test--shareable-header--share-menu').should.have.length(0);
+  });
+
+  it('should render the breadCrumbs', function () {
+    findRenderedComponentWithType(element, Breadcrumbs);
   });
 
   describe('share menu', function () {
