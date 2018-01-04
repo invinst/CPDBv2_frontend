@@ -1,14 +1,24 @@
 import navigation from 'reducers/search-page/navigation';
 import {
-  SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET
+  SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
+  CHANGE_SEARCH_QUERY
 } from 'actions/search-page';
 
 
 describe('navigation reducer', function () {
   describe('SEARCH_NAVIGATION_RESET', function () {
-    it('resets to (0, 0) position', function () {
+    it('resets to first position', function () {
       navigation({ 'itemIndex': 2 }, {
         type: SEARCH_NAVIGATION_RESET,
+        payload: {}
+      }).should.deepEqual({ 'itemIndex': 0 });
+    });
+  });
+
+  describe('CHANGE_SEARCH_QUERY', function () {
+    it('resets to first position', function () {
+      navigation({ 'itemIndex': 2 }, {
+        type: CHANGE_SEARCH_QUERY,
         payload: {}
       }).should.deepEqual({ 'itemIndex': 0 });
     });

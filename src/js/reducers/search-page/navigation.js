@@ -1,11 +1,14 @@
 import { handleActions } from 'redux-actions';
 import {
-  SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET
+  SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
+  CHANGE_SEARCH_QUERY
 } from 'actions/search-page';
 
 
 export default handleActions({
   [SEARCH_NAVIGATION_RESET]: () => ({ itemIndex: 0 }),
+
+  [CHANGE_SEARCH_QUERY]: () => ({ itemIndex: 0 }),
 
   [SEARCH_NAVIGATION_DOWN]: ({ itemIndex }, action) => {
     const { totalItemCount } = action.payload;
