@@ -11,6 +11,7 @@ import SearchResults from 'components/search-page/search-results';
 import SearchNoResult from 'components/search-page/search-results/search-no-result';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
 import { unmountComponentSuppressError } from 'utils/test';
+import { getThisYear } from 'utils/date';
 
 
 describe('SearchResults component', function () {
@@ -111,7 +112,7 @@ describe('SearchResults component', function () {
       );
 
       const previewPane = findRenderedComponentWithType(instance, PreviewPane);
-      const currentYear = (new Date()).getFullYear();
+      const currentYear = getThisYear();
 
       previewPane.props.data.should.eql([
         ['unit', '001'],

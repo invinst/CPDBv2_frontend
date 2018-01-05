@@ -2,7 +2,8 @@
 
 import Page from './page';
 import Section from './sections/section';
-import Header from './sections/header';
+import { TopHeader, StickyHeader } from './sections/header';
+import Footer from './sections/footer';
 import RichTextToolbar from './sections/rich-text-toolbar';
 import BottomSheet from './sections/bottom-sheet';
 
@@ -39,7 +40,9 @@ class GenericModalSection extends Section {
 }
 
 class LandingPage extends Page {
-  header = new Header();
+  topHeader = new TopHeader();
+  stickyHeader = new StickyHeader();
+  footer = new Footer();
   richTextToolbar = new RichTextToolbar();
   bottomSheet = new BottomSheet();
   collaborateSection = new CollaborateSection();
