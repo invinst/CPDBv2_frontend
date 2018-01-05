@@ -1,3 +1,6 @@
+import config from 'config';
+
+
 export function imgUrl(path) {
   if (global.DEVELOPMENT) {
     return `/src/img/${path}`;
@@ -13,3 +16,6 @@ export function mediaUrl(path) {
     return path;
   }
 }
+
+export const clusterGeoJSONPath = `${config.heatMapContainer}cluster.geojson`;
+export const communityGeoJSONPath = `${config.heatMapContainer}community.geojson`;

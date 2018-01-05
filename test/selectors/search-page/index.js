@@ -6,6 +6,7 @@ import {
   focusedSuggestionSelector, previewPaneInfoSelector
 } from 'selectors/search-page';
 import * as searchUtils from 'utils/search';
+import { getThisYear } from 'utils/date';
 
 describe('search page selector', function () {
   describe('suggestionGroupsSelector', function () {
@@ -218,7 +219,7 @@ describe('search page selector', function () {
           'visual_token_background_color': '#fafafa'
         }
       };
-      const currentYear = (new Date()).getFullYear();
+      const currentYear = getThisYear();
       const info = {
         data: [
           ['unit', '001'],

@@ -1,23 +1,30 @@
 import React, { PropTypes } from 'react';
 
-import ConfiguredRadium from 'utils/configured-radium';
 import { navStyle } from './footer-nav-link.style';
 
 
 class FooterNavLink extends React.Component {
   render() {
+    const { name, externalHref, onClick } = this.props;
+
     return (
-      <a href={ this.props.href } style={ [navStyle, this.props.style] }>
-        { this.props.children }
+      <a
+        href={ externalHref }
+        style={ { ...navStyle, ...this.props.style } }
+        onClick={ onClick }
+      >
+        { name }
       </a>
     );
+
   }
 }
 
 FooterNavLink.propTypes = {
-  children: PropTypes.node,
-  href: PropTypes.string,
+  externalHref: PropTypes.string,
+  name: PropTypes.string,
+  onClick: PropTypes.func,
   style: PropTypes.object
 };
 
-export default ConfiguredRadium(FooterNavLink);
+export default FooterNavLink;
