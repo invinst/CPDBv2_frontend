@@ -6,6 +6,14 @@ const leftPadding = 16;
 const logoWidth = 288;
 const rightLinkMargin = 46;
 
+export const fixedStyle = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  right: 0,
+  zIndex: 1
+};
+
 const slimHeaderStyle = {
   padding: `0 ${leftPadding}px`,
   boxSizing: 'border-box',
@@ -23,13 +31,13 @@ export const middleSlimHeaderStyle = {
   ...slimHeaderStyle,
   height: `${middleSlimHeaderHeight}px`,
   boxShadow: '0 1px 1px 0 rgba(0, 0, 0, 0.13)',
-  backgroundColor: 'white'
+  // backgroundColor: 'white'
 };
 
 export const bottomSlimHeaderStyle = {
   ...topSlimHeaderStyle,
   cursor: 'pointer',
-  backgroundColor: accentColor
+  // backgroundColor: accentColor
 };
 
 const linkStyle = {
