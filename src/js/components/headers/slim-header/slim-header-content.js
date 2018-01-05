@@ -2,8 +2,14 @@ import React, { PropTypes, Component } from 'react';
 import RightLinks from './right-links';
 import Logo from './logo';
 import {
-  bottomLeftLinkStyle, bottomRightLinkStyle, bottomSlimHeaderStyle, bottomSubtitleStyle,
-  middleLeftLinkStyle, middleRightLinkStyle, middleSlimHeaderStyle, middleSubtitleStyle,
+  bottomLeftLinkStyle,
+  bottomRightLinkStyle,
+  bottomSlimHeaderStyle,
+  bottomSubtitleStyle,
+  middleLeftLinkStyle,
+  middleRightLinkStyle,
+  middleSlimHeaderStyle,
+  middleSubtitleStyle,
   rightLinksWrapperStyle,
   topLeftLinkStyle,
   topRightLinkStyle,
