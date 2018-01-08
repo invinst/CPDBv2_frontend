@@ -1,5 +1,5 @@
 import Page from './page';
-import Header from './sections/header';
+import { TopHeader } from './sections/header';
 import Section from './sections/section';
 import BottomSheet from './sections/bottom-sheet';
 
@@ -18,7 +18,7 @@ class FAQSection extends Section {
 }
 
 class FAQPage extends Page {
-  header = new Header();
+  header = new TopHeader();
   bottomSheet = new BottomSheet();
   faqSection = new FAQSection();
 

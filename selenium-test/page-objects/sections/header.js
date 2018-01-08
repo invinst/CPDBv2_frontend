@@ -1,19 +1,37 @@
 import Section from './section';
 
 
-class Header extends Section {
+class TopHeader extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      closeButtonSelector: '.nav-link__close-btn',
-      headerLogoSelector: '.test--header-logo',
-      reporting: '//a[text()="Reporting"]',
-      faq: '//a[text()="FAQ"]',
-      collaborate: '//a[text()="Collaborate"]',
-      legalDisclaimer: '//a[text()="Legal Disclaimer"]',
-      logOutButton: '.test--logout-button',
+      mainElement: '.test--top-slim-header',
+      closeButtonSelector: '.test--top-slim-header .nav-link__close-btn',
+      headerLogoSelector: '.test--top-slim-header .test--header-logo',
+      data: '//*[@class="test--top-slim-header"]//a[text()="Data"]',
+      faq: '//*[@class="test--top-slim-header"]//a[text()="FAQ"]',
+      glossary: '//a[text()="Glossary"]',
+      logOutButton: '.test--top-slim-header .test--logout-button',
     });
   }
 }
 
-module.exports = Header;
+class StickyHeader extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      mainElement: '.test--sticky-slim-header',
+      closeButtonSelector: '.test--sticky-slim-header .nav-link__close-btn',
+      headerLogoSelector: '.test--sticky-slim-header .test--header-logo',
+      data: '//*[@class="test--sticky-slim-header"]//a[text()="Data"]',
+      faq: '//*[@class="test--sticky-slim-header"]//a[text()="FAQ"]',
+      glossary: '//a[text()="Glossary"]',
+      logOutButton: '.test--sticky-slim-header .test--logout-button',
+    });
+  }
+}
+
+module.exports = {
+  TopHeader,
+  StickyHeader
+};

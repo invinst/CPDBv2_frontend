@@ -7,13 +7,16 @@ import {
   scryRenderedComponentsWithType,
   scryRenderedDOMComponentsWithTag,
   findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass, Simulate
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { Link } from 'react-router';
 import MockStore from 'redux-mock-store';
 import ContextWrapper from 'utils/test/components/context-wrapper';
+import * as domUtils from 'utils/dom';
 import { stub, spy } from 'sinon';
+import { fixedStyle } from 'components/headers/slim-header/slim-header.style';
+import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
 
 class SlimHeaderContextWrapper extends ContextWrapper {
 }
@@ -28,7 +31,6 @@ describe('SlimHeader component', function () {
   const store = mockStore({
     authentication: {}
   });
-
 
   beforeEach(function () {
     window.scrollTo(0, 0);
@@ -46,26 +48,11 @@ describe('SlimHeader component', function () {
     element = renderIntoDocument(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ false }/>
+          <SlimHeader show={ false } />
         </SlimHeaderContextWrapper>
       </Provider>
     );
     scryRenderedDOMComponentsWithClass(element, 'test--slim-header').length.should.eql(0);
-  });
-
-  it('should render Legal Disclaimer link', function () {
-    const openRequestDocumentModal = spy();
-    element = renderIntoDocument(
-      <Provider store={ store }>
-        <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/'/>
-        </SlimHeaderContextWrapper>
-      </Provider>
-    );
-
-    const links = scryRenderedComponentsWithType(element, Link);
-    const legalLink = links.filter(link => link.props.children === 'Legal Disclaimer')[0];
-    legalLink.props.onClick.should.equal(openRequestDocumentModal);
   });
 
   it('should render FAQ link', function () {
@@ -73,7 +60,7 @@ describe('SlimHeader component', function () {
     element = renderIntoDocument(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/'/>
+          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
         </SlimHeaderContextWrapper>
       </Provider>
     );
@@ -88,7 +75,7 @@ describe('SlimHeader component', function () {
     element = renderIntoDocument(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/'/>
+          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
         </SlimHeaderContextWrapper>
       </Provider>
     );
@@ -103,7 +90,7 @@ describe('SlimHeader component', function () {
     element = renderIntoDocument(
       <Provider store={ store }>
         <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/'/>
+          <SlimHeader show={ true } openLegalDisclaimerModal={ openRequestDocumentModal } pathname='/' />
         </SlimHeaderContextWrapper>
       </Provider>
     );
@@ -113,41 +100,137 @@ describe('SlimHeader component', function () {
     link.getAttribute('href').should.eql('https://beta.cpdb.co/glossary/');
   });
 
-  it('should subscribe & unsubscribe scrollEventListener on mount & unmount', function () {
-
-    element = renderIntoDocument(
-      <Provider store={ store }>
-        <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } pathname='/'/>
-        </SlimHeaderContextWrapper>
-      </Provider>
-    );
-
-    const slimHeader = findRenderedComponentWithType(element, SlimHeader);
-    window.addEventListener.calledWith('scroll', slimHeader.scrollEventListener).should.be.true();
-
-    unmountComponentSuppressError(element);
-    window.removeEventListener.calledWith('scroll', slimHeader.scrollEventListener).should.be.true();
+  describe('External links', function () {
+    it('should stopPropagation when being clicked', function () {
+      element = renderIntoDocument(
+        <Provider store={ store }>
+          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
+            <SlimHeader show={ true } pathname='/' />
+          </SlimHeaderContextWrapper>
+        </Provider>
+      );
+      let externalLinks = scryRenderedDOMComponentsWithClass(element, 'test--right-external-link');
+      const dummyEvent = {
+        stopPropagation: spy()
+      };
+      Simulate.click(externalLinks[0], dummyEvent);
+      dummyEvent.stopPropagation.called.should.be.true();
+    });
   });
 
-  it('should toggle subtitle when scrolling up or down', function () {
-    const element = renderIntoDocument(
-      <Provider store={ store }>
-        <SlimHeaderContextWrapper context={ { editModeOn: false } }>
-          <SlimHeader show={ true } pathname='/'/>
-        </SlimHeaderContextWrapper>
-      </Provider>
-    );
+  describe('recalculatePosition', function () {
+    beforeEach(function () {
+      element = renderIntoDocument(
+        <Provider store={ store }>
+          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
+            <SlimHeader show={ true } pathname='/' />
+          </SlimHeaderContextWrapper>
+        </Provider>
+      );
 
-    const slimHeader = findRenderedComponentWithType(element, SlimHeader);
-    slimHeader.state.showSubtitle.should.be.true();
+      this.slimHeader = findRenderedComponentWithType(element, SlimHeader);
+      stub(domUtils, 'bodyScrollPosition');
+      stub(domUtils, 'isScrolledToBottom');
+    });
 
-    window.scrollY = 999;
-    slimHeader.scrollEventListener();
-    slimHeader.state.showSubtitle.should.be.false();
+    afterEach(function () {
+      domUtils.bodyScrollPosition.restore();
+      domUtils.isScrolledToBottom.restore();
+    });
 
-    window.scrollY = 0;
-    slimHeader.scrollEventListener();
-    slimHeader.state.showSubtitle.should.be.true();
+    it('should remain in top position', function () {
+      domUtils.bodyScrollPosition.returns(0);
+      domUtils.isScrolledToBottom.returns(false);
+      this.slimHeader.recalculatePosition();
+      this.slimHeader.state.position.should.eql('top');
+    });
+
+    it('should transition to middle position', function () {
+      domUtils.bodyScrollPosition.returns(100);
+      domUtils.isScrolledToBottom.returns(false);
+      this.slimHeader.recalculatePosition();
+      this.slimHeader.state.position.should.eql('middle');
+    });
+
+    it('should transition to bottom position', function () {
+      domUtils.bodyScrollPosition.returns(100);
+      domUtils.isScrolledToBottom.returns(true);
+      this.slimHeader.recalculatePosition();
+      this.slimHeader.state.position.should.eql('bottom');
+    });
+  });
+
+  describe('SlimHeaderContent', function () {
+    it('should be rendered with correct style on the top of the page', function () {
+      element = renderIntoDocument(
+        <Provider store={ store }>
+          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
+            <SlimHeader show={ true } pathname='/' />
+          </SlimHeaderContextWrapper>
+        </Provider>
+      );
+
+      const slimHeader = findRenderedComponentWithType(element, SlimHeader);
+      slimHeader.setState({ position: 'top' });
+
+      const slimHeaderContent = scryRenderedComponentsWithType(element, SlimHeaderContent)[0];
+      slimHeaderContent.props.position.should.eql('top');
+      slimHeaderContent.props.pathname.should.eql('/');
+      slimHeaderContent.props.editModeOn.should.eql(false);
+    });
+
+    it('should be rendered with correct style in the middle of the page', function () {
+      element = renderIntoDocument(
+        <Provider store={ store }>
+          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
+            <SlimHeader show={ true } pathname='/' />
+          </SlimHeaderContextWrapper>
+        </Provider>
+      );
+
+      const slimHeader = findRenderedComponentWithType(element, SlimHeader);
+      slimHeader.setState({ position: 'middle' });
+
+      const slimHeaderContent = scryRenderedComponentsWithType(element, SlimHeaderContent)[1];
+
+      slimHeaderContent.props.position.should.eql('middle');
+      slimHeaderContent.props.pathname.should.eql('/');
+      slimHeaderContent.props.editModeOn.should.eql(false);
+      slimHeaderContent.props.disableTop.should.eql(true);
+      slimHeaderContent.props.style.should.eql({
+        transform: 'translateY(-100%)',
+        backgroundColor: 'rgb(255, 255, 255)',
+        height: '64px',
+        ...fixedStyle
+      });
+    });
+
+    it('should be rendered with correct style in the bottom of the page', function (done) {
+      element = renderIntoDocument(
+        <Provider store={ store }>
+          <SlimHeaderContextWrapper context={ { editModeOn: false } }>
+            <SlimHeader show={ true } pathname='/' />
+          </SlimHeaderContextWrapper>
+        </Provider>
+      );
+
+      const slimHeader = findRenderedComponentWithType(element, SlimHeader);
+      slimHeader.setState({ position: 'bottom' });
+      setTimeout(function () {
+        const slimHeaderContent = scryRenderedComponentsWithType(element, SlimHeaderContent)[1];
+        slimHeaderContent.props.position.should.eql('bottom');
+        slimHeaderContent.props.pathname.should.eql('/');
+        slimHeaderContent.props.editModeOn.should.eql(false);
+        slimHeaderContent.props.disableTop.should.eql(true);
+        slimHeaderContent.props.style.should.eql({
+          transform: 'translateY(-0%)',
+          backgroundColor: 'rgb(0, 94, 244)',
+          height: '102px',
+          ...fixedStyle
+        });
+        done();
+      }, 1900);
+
+    });
   });
 });
