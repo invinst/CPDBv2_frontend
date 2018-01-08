@@ -64,7 +64,7 @@ let API_ROOT_V2 = `${global.location.origin}/api/v2/`;
 
 /* istanbul ignore next */
 if (global.DEVELOPMENT) {
-  const LOCAL_BASE_PATH = 'http://localhost:8000';
+  const LOCAL_BASE_PATH = 'http://staging.cpdp.co';
   API_ROOT = `${LOCAL_BASE_PATH}/api/v1/`;
   API_ROOT_V2 = `${LOCAL_BASE_PATH}/api/v2/`;
 }
@@ -187,6 +187,8 @@ export const SEARCH_TERM_CATEGORIES_REQUEST_FAILURE = 'SEARCH_TERM_CATEGORIES_RE
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
 export const SELECT_CATEGORY = 'SELECT_CATEGORY';
+
+export const UPDATE_SHAREABLE_PAGE_SCROLL_POSITION = 'UPDATE_SHAREABLE_PAGE_SCROLL_POSITION';
 
 
 export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR', 'UNIT_PROFILE']);

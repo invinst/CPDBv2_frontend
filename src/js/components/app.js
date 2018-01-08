@@ -18,7 +18,7 @@ import RouteTransition from 'components/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 import { ALPHA_NUMBERIC } from 'utils/constants';
-import ShareableHeaderContainer from 'containers/shareable-header-container';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
 export default class App extends React.Component {
   constructor(props) {

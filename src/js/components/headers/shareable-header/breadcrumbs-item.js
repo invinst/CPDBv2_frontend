@@ -4,6 +4,7 @@ import { breadcrumbTextStyle, breadcrumbLinkStyle } from 'components/headers/sha
 export default class BreadcrumbsItem extends React.Component {
   render() {
     let children;
+    const scrollPosition = this.props.scrollPosition;
     if (typeof this.props.children === 'string') {
       children = this.props.children;
     }
@@ -11,12 +12,12 @@ export default class BreadcrumbsItem extends React.Component {
       children = React.cloneElement(this.props.children, {
         style: {
           ...this.props.children.props.style,
-          ...breadcrumbLinkStyle
+          ...breadcrumbLinkStyle(scrollPosition)
         }
       });
     }
     return (
-      <li className='test--breadcrumbs-item' style={ breadcrumbTextStyle }>{children}</li>
+      <li className='test--breadcrumbs-item' style={ breadcrumbTextStyle(scrollPosition) }>{children}</li>
     );
   }
 }
@@ -25,5 +26,6 @@ BreadcrumbsItem.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
-  ])
+  ]),
+  scrollPosition: PropTypes.string,
 };

@@ -1,4 +1,4 @@
-import { clayGray, softBlackColor } from 'utils/styles';
+import { clayGray, softBlackColor, accentColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 export const breadcrumbItemStyle = {
@@ -7,17 +7,17 @@ export const breadcrumbItemStyle = {
   lineHeight: '40px',
 };
 
-export const breadcrumbTextStyle = {
+export const breadcrumbTextStyle = (position) => ({
   ...breadcrumbItemStyle,
   paddingRight: '8px',
-  color: softBlackColor
-};
+  color: position === 'top' ? softBlackColor : clayGray
+});
 
-export const breadcrumbLinkStyle = {
+export const breadcrumbLinkStyle = (position) => ({
   ...breadcrumbItemStyle,
-  color: clayGray,
+  color: position === 'bottom' ? accentColor : clayGray,
   textDecoration: 'none'
-};
+});
 
 export const breadcrumbSeparatorStyle = {
   ...breadcrumbItemStyle,

@@ -14,7 +14,7 @@ import {
   headerPlaceholder,
 } from './shareable-header.style';
 import { imgUrl } from 'utils/static-assets';
-import BreadcrumbsItem from 'components/headers/shareable-header/breadcrumbs-item';
+import BreadcrumbsItemContainer from 'containers/headers/shareable-header/breadcrumbs-item-container';
 import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
 import { breadcrumbSeparatorStyle } from 'components/headers/shareable-header/breadcrumbs-item-style';
 import { bodyScrollPosition, isScrolledToBottom } from 'utils/dom';
@@ -65,6 +65,7 @@ export default class ShareableHeader extends Component {
 
   handleScroll() {
     this.recalculatePosition();
+    this.props.updateShareablePageScrollPosition(this.state.position);
   }
 
   recalculatePosition() {
@@ -126,7 +127,6 @@ export default class ShareableHeader extends Component {
 
   render() {
     const { location, routes, params } = this.props;
-    console.log('params', params)
     const { shareMenuIsOpen } = this.state;
 
     const shareButtonClickHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
@@ -150,7 +150,7 @@ export default class ShareableHeader extends Component {
               params={ params }
               location={ location }
               separatorRenderer={ separatorRenderer }
-              itemRenderer={ BreadcrumbsItem }
+              itemRenderer={ BreadcrumbsItemContainer }
               style={ breadcrumbsStyle }
             />
             { this.renderMenu() }
@@ -167,7 +167,8 @@ ShareableHeader.propTypes = {
   routes: PropTypes.array,
   closeShareMenu: PropTypes.func,
   openShareMenu: PropTypes.func,
-  shareMenuIsOpen: PropTypes.bool
+  shareMenuIsOpen: PropTypes.bool,
+  updateShareablePageScrollPosition: PropTypes.func,
 };
 
 ShareableHeader.defaultProps = {

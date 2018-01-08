@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { reducer as breadcrumb } from 'redux-breadcrumb-trail';
 
 import faqPage from './faq-page';
 import landingPage from './landing-page';
@@ -16,7 +17,7 @@ import crPage from './cr-page';
 import unitProfilePage from './unit-profile-page';
 import inlineAliasAdminPage from './inline-alias-admin-page';
 import genericModal from './generic-modal';
-import { reducer as breadcrumb } from 'redux-breadcrumb-trail';
+import headers from './headers';
 
 
 export default combineReducers({
@@ -36,5 +37,6 @@ export default combineReducers({
   unitProfilePage,
   inlineAliasAdminPage,
   genericModal,
-  breadcrumb
+  breadcrumb,
+  headers
 });
