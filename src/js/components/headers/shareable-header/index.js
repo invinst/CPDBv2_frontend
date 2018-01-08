@@ -11,30 +11,36 @@ import {
   menuItemImgStyle,
   shareMenuButtonItemStyle,
   shareMenuLinkItemStyle,
+  headerPlaceholder,
 } from './shareable-header.style';
 import { imgUrl } from 'utils/static-assets';
 import BreadcrumbsItem from 'components/headers/shareable-header/breadcrumbs-item';
 import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
 import { breadcrumbSeparatorStyle } from 'components/headers/shareable-header/breadcrumbs-item-style';
+import { bodyScrollPosition, isScrolledToBottom } from 'utils/dom';
 
 
 export default class ShareableHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      shareMenuIsOpen: false
+      shareMenuIsOpen: false,
+      position: 'top'
     };
 
     this.closeShareMenu = this.closeShareMenu.bind(this);
     this.openShareMenu = this.openShareMenu.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
     document.body.addEventListener('click', this.closeShareMenu);
+    addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     document.body.removeEventListener('click', this.closeShareMenu);
+    removeEventListener('scroll', this.handleScroll);
   }
 
   closeShareMenu(e) {
@@ -46,6 +52,34 @@ export default class ShareableHeader extends Component {
 
   openShareMenu() {
     this.setState({ shareMenuIsOpen: true });
+  }
+
+  isSticky() {
+    if (this.placeholderElement) {
+      const fromTop = this.placeholderElement.getBoundingClientRect().top;
+      return fromTop <= 0;
+    }
+
+    return false;
+  }
+
+  handleScroll() {
+    this.recalculatePosition();
+  }
+
+  recalculatePosition() {
+    let newPosition = 'middle';
+
+    const scrollPosition = bodyScrollPosition();
+    if (scrollPosition === 0) {
+      newPosition = 'top';
+    } else if (isScrolledToBottom()) {
+      newPosition = 'bottom';
+    }
+
+    if (newPosition !== this.state.position) {
+      this.setState({ position: newPosition });
+    }
   }
 
   renderMenu() {
@@ -60,7 +94,7 @@ export default class ShareableHeader extends Component {
     return (
       <div style={ shareMenuStyle } className='test--shareable-header--share-menu'>
         <ClipboardButton
-          style={ shareMenuButtonItemStyle }
+          style={ shareMenuButtonItemStyle(this.state.position) }
           onClick={ this.closeShareMenu }
           data-clipboard-text={ window.location.href }
         >
@@ -92,33 +126,37 @@ export default class ShareableHeader extends Component {
 
   render() {
     const { location, routes, params } = this.props;
+    console.log('params', params)
     const { shareMenuIsOpen } = this.state;
 
     const shareButtonClickHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
     const separatorRenderer = () => <li style={ breadcrumbSeparatorStyle }/>;
 
     return (
-      <ResponsiveFluidWidthComponent style={ outerStyle }>
-        <div style={ navBarStyle }>
-          <span
-            style={ rightLinkStyle(shareMenuIsOpen) }
-            onClick={ shareButtonClickHandler }
-            className='test--shareable-header--share-link'
-          >
-            Share
-          </span>
-          <Breadcrumbs
-            className='test--breadcrumbs'
-            routes={ routes }
-            params={ params }
-            location={ location }
-            separatorRenderer={ separatorRenderer }
-            itemRenderer={ BreadcrumbsItem }
-            style={ breadcrumbsStyle }
-          />
-          { this.renderMenu() }
-        </div>
-      </ResponsiveFluidWidthComponent>
+      <div>
+        <div style={ headerPlaceholder }/>
+        <ResponsiveFluidWidthComponent style={ outerStyle }>
+          <div style={ navBarStyle } ref={ el => { this.placeholderElement = el; } }>
+            <span
+              style={ rightLinkStyle(shareMenuIsOpen, this.state.position) }
+              onClick={ shareButtonClickHandler }
+              className='test--shareable-header--share-link'
+            >
+              Share
+            </span>
+            <Breadcrumbs
+              className='test--breadcrumbs'
+              routes={ routes }
+              params={ params }
+              location={ location }
+              separatorRenderer={ separatorRenderer }
+              itemRenderer={ BreadcrumbsItem }
+              style={ breadcrumbsStyle }
+            />
+            { this.renderMenu() }
+          </div>
+        </ResponsiveFluidWidthComponent>
+      </div>
     );
   }
 }
