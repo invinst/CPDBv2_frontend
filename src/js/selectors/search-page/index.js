@@ -3,6 +3,7 @@ import { omitBy, isEmpty, keys, pick, indexOf, sortBy, chunk, flatten } from 'lo
 
 import { searchPageItemsPerColumn } from 'utils/search';
 import * as constants from 'utils/constants';
+import { getThisYear } from 'utils/date';
 
 const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'];
 
@@ -16,10 +17,11 @@ export const previewPaneInfoSelector = createSelector(
   suggestion => suggestion,
   (suggestion) => {
     const { payload, id, text } = suggestion;
+    const currentYear = getThisYear();
     const data = [
       ['unit', payload.unit],
       ['rank', payload.rank],
-      [`${constants.CURRENT_YEAR} salary`, payload.salary],
+      [`${currentYear} salary`, payload.salary],
       ['race', payload.race],
       ['sex', payload.sex]
     ];
