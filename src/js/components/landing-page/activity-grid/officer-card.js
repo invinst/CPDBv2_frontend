@@ -45,12 +45,12 @@ export default class OfficerCard extends Component {
       if (!birthYear) {
         return '';
       }
-      const age = getThisYear() - birthYear;
-      return `${age - 1}/${age} year old, `;
+      const age = getThisYear() - birthYear - 1;
+      return `${age} year old`;
     };
 
     const extraInfo = () => {
-      return `${ageString()}${race}, ${gender}.`;
+      return `${ageString()} ${race} ${gender}`;
     };
 
     return (

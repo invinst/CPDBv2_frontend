@@ -8,6 +8,7 @@ export const wrapperStyle = {
   textDecoration: 'none',
   verticalAlign: 'top',
   border: `solid 1px ${whiteTwoColor}`,
+  borderRadius: '2px'
 };
 
 export const visualTokenStyle = {

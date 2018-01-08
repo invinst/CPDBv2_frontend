@@ -41,7 +41,7 @@ describe('OfficerCard component', function () {
     text.should.containEql('10 Complaints, 5 Sustained');
     text.should.containEql('Less than 20% of other officers');
 
-    const age = getThisYear() - 1980;
-    text.should.containEql(`${age - 1}/${age} year old, white, male.`);
+    const age = getThisYear() - 1980 - 1;
+    text.should.containEql(`${age} year old white male`);
   });
 });
