@@ -17,7 +17,7 @@ import { imgUrl } from 'utils/static-assets';
 import BreadcrumbsItemContainer from 'containers/headers/shareable-header/breadcrumbs-item-container';
 import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
 import { breadcrumbSeparatorStyle } from 'components/headers/shareable-header/breadcrumbs-item-style';
-import { bodyScrollPosition, isScrolledToBottom } from 'utils/dom';
+import { calculatePosition } from 'utils/dom';
 
 
 export default class ShareableHeader extends Component {
@@ -55,23 +55,11 @@ export default class ShareableHeader extends Component {
   }
 
   handleScroll() {
-    this.recalculatePosition();
-    this.props.updateShareablePageScrollPosition(this.state.position);
-  }
-
-  recalculatePosition() {
-    let newPosition = 'middle';
-
-    const scrollPosition = bodyScrollPosition();
-    if (scrollPosition === 0) {
-      newPosition = 'top';
-    } else if (isScrolledToBottom()) {
-      newPosition = 'bottom';
-    }
-
+    const newPosition = calculatePosition();
     if (newPosition !== this.state.position) {
       this.setState({ position: newPosition });
     }
+    this.props.updateShareablePageScrollPosition(this.state.position);
   }
 
   renderMenu() {

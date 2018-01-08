@@ -66,7 +66,7 @@ export const deepGirlyPink = '#FAD7E9';
 export const ultraGirlyPink = '#D518d2';
 export const eyeCandyPink = '#FFEFFE';
 export const smokeGray = '#9F9F9F';
-export const clayGray = '#8F8F8F'; // rgb(143,143,143)
+export const clayGray = '#8F8F8F'; // rgb(143, 143, 143)
 export const lightBlue = '#1775F1';
 export const hawkesBlue = '#CCDFFD'; // rgb(204, 223, 253)
 

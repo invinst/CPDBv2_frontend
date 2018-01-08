@@ -36,6 +36,19 @@ export function isScrolledToBottom() {
   return viewportHeight() + bodyScrollPosition() + 20 >= fullDocumentHeight();
 }
 
+export function calculatePosition() {
+  let position = 'middle';
+
+  const scrollPosition = bodyScrollPosition();
+  if (scrollPosition === 0) {
+    position = 'top';
+  } else if (isScrolledToBottom()) {
+    position = 'bottom';
+  }
+
+  return position;
+}
+
 export function disableBodyScroll() {
   if (document.body.className.indexOf('noscroll') === -1) {
     document.body.className += ' noscroll';

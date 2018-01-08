@@ -48,7 +48,7 @@ const buildJs = (output, produceSourceMap) => (() => {
     'NODE_ENV': 'production'
   });
   const b = browserify({
-    entries: 'src/js/scroll-position.js',
+    entries: 'src/js/index.js',
     transform: [
       babelify.configure({ presets: ['es2015', 'react'] }),
       envify({

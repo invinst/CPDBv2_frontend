@@ -4,7 +4,6 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 import SummarySection from './summary-section';
 import AggregateSection from './aggregate-section';
 import { wrapperStyle } from './summary-page.style.js';
-import scrollbarWidth from 'utils/scrollbar-width';
 
 
 export default class SummaryPage extends Component {
