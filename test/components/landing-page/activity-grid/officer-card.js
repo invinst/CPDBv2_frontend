@@ -8,7 +8,7 @@ import {
 import { unmountComponentSuppressError } from 'utils/test/index';
 
 import OfficerCard from 'components/landing-page/activity-grid/officer-card';
-import { CURRENT_YEAR } from 'utils/constants';
+import { getThisYear } from 'utils/date';
 
 describe('OfficerCard component', function () {
   let instance;
@@ -41,7 +41,7 @@ describe('OfficerCard component', function () {
     text.should.containEql('10 Complaints, 5 Sustained');
     text.should.containEql('Less than 20% of other officers');
 
-    const age = CURRENT_YEAR - 1980;
-    text.should.containEql(`${age - 1}/${age} years old, white, male.`);
+    const age = getThisYear() - 1980;
+    text.should.containEql(`${age - 1}/${age} year old, white, male.`);
   });
 });

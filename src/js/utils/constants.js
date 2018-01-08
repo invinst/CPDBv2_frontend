@@ -263,5 +263,3 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
 };
 
 export const RECENT_CONTENT_TYPE = 'RECENT';
-
-export const CURRENT_YEAR = (new Date()).getFullYear();
