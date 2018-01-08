@@ -29,3 +29,7 @@ BreadcrumbsItem.propTypes = {
   ]),
   scrollPosition: PropTypes.string,
 };
+
+BreadcrumbsItem.defaultProps = {
+  scrollPosition: 'top',
+};

@@ -10,7 +10,7 @@ export const breadcrumbItemStyle = {
 export const breadcrumbTextStyle = (position) => ({
   ...breadcrumbItemStyle,
   paddingRight: '8px',
-  color: position === 'top' ? softBlackColor : clayGray
+  color: position === 'bottom' ? clayGray : softBlackColor
 });
 
 export const breadcrumbLinkStyle = (position) => ({

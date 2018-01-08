@@ -54,15 +54,6 @@ export default class ShareableHeader extends Component {
     this.setState({ shareMenuIsOpen: true });
   }
 
-  isSticky() {
-    if (this.placeholderElement) {
-      const fromTop = this.placeholderElement.getBoundingClientRect().top;
-      return fromTop <= 0;
-    }
-
-    return false;
-  }
-
   handleScroll() {
     this.recalculatePosition();
     this.props.updateShareablePageScrollPosition(this.state.position);
@@ -95,7 +86,7 @@ export default class ShareableHeader extends Component {
     return (
       <div style={ shareMenuStyle } className='test--shareable-header--share-menu'>
         <ClipboardButton
-          style={ shareMenuButtonItemStyle(this.state.position) }
+          style={ shareMenuButtonItemStyle }
           onClick={ this.closeShareMenu }
           data-clipboard-text={ window.location.href }
         >
