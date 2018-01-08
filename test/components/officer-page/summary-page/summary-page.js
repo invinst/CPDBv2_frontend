@@ -29,13 +29,4 @@ describe('SummaryPage component', function () {
     scryRenderedComponentsWithType(instance, SummarySection).should.have.length(1);
     scryRenderedComponentsWithType(instance, AggregateSection).should.have.length(1);
   });
-
-  it('should render wrapper that takes scrollbar width into account', function () {
-    instance = renderIntoDocument(
-      <SummaryPage fetchOfficerSummary={ () => {
-      } }/>
-    );
-    findRenderedComponentWithType(instance, ResponsiveFluidWidthComponent)
-      .props.style.width.should.eql(`calc(100% + ${scrollbarWidth}px)`);
-  });
 });

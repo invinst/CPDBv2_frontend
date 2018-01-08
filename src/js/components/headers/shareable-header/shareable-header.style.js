@@ -103,6 +103,5 @@ export const breadcrumbsStyle = {
 
 export const headerPlaceholder = {
   height: '40px',
-  width: '100vw',
   position: 'relative'
 };

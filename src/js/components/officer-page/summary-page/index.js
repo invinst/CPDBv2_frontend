@@ -20,7 +20,7 @@ export default class SummaryPage extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <ResponsiveFluidWidthComponent style={ { width: `calc(100% + ${scrollbarWidth}px)` } }>
+        <ResponsiveFluidWidthComponent>
           <SummarySection officerSummary={ officerSummary }
             openPoliceUnitPage={ openPoliceUnitPage } />
           <AggregateSection
