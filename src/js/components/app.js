@@ -82,12 +82,9 @@ export default class App extends React.Component {
       return <ShareableHeaderContainer/>;
     }
 
-    const { openLegalDisclaimerModal, location } = this.props;
+    const { location } = this.props;
     return (
-      <SlimHeader
-        pathname={ location.pathname }
-        openLegalDisclaimerModal={ openLegalDisclaimerModal }
-      />
+      <SlimHeader pathname={ location.pathname } />
     );
   }
 
@@ -125,7 +122,6 @@ App.propTypes = {
   toggleEditMode: PropTypes.func,
   toggleSearchMode: PropTypes.func,
   changeSearchQuery: PropTypes.func,
-  openLegalDisclaimerModal: PropTypes.func,
 };
 
 App.defaultProps = {
