@@ -1,9 +1,6 @@
 import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
-export const suggestionGroupStyle = {
-};
-
 export const groupHeaderStyle = {
   fontSize: '14px',
   fontWeight: '500',

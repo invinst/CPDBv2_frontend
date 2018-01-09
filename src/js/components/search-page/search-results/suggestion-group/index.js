@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 
 
-import { suggestionGroupStyle, groupHeaderStyle } from './suggestion-group.style';
+import { groupHeaderStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 
@@ -21,7 +21,7 @@ export default class SuggestionGroup extends Component {
     } = this.props;
 
     return (
-      <div style={ suggestionGroupStyle } className='test--suggestion-group'>
+      <div className='test--suggestion-group'>
         <div style={ groupHeaderStyle }>{ header }</div>
         <div>
           {
