@@ -1,6 +1,7 @@
 import { whiteTwoColor, clayGray, softBlackColor, sugarCaneColor, hawkesBlue, accentColor } from 'utils/styles';
 
 const shareMenuHorizontalMargin = 16;
+export const shareableHeaderHeight = 40;
 
 export const outerStyle = {
   backgroundColor: sugarCaneColor,
@@ -8,11 +9,11 @@ export const outerStyle = {
   top: 0,
   left: 0,
   right: 0,
-  zIndex: 1,
+  zIndex: 3,
 };
 
 export const navBarStyle = {
-  height: '40px',
+  height: `${shareableHeaderHeight}px`,
   lineHeight: '22px',
   color: clayGray,
   padding: '0 16px',
@@ -101,7 +102,7 @@ export const breadcrumbsStyle = {
   padding: 0,
 };
 
-export const headerPlaceholder = {
-  height: '40px',
+export const headerPlaceholderStyle = {
+  height: `${shareableHeaderHeight}px`,
   position: 'relative'
 };

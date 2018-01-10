@@ -9,6 +9,7 @@ import {
   getOfficerId
 } from 'selectors/officer-page';
 import { timelineUrlParamsSelector } from 'selectors/officer-page/timeline';
+import { getShareablePageScrollPosition } from 'selectors/headers/shareable-header';
 
 export function mapStateToProps(state, ownProps) {
   return {
@@ -17,7 +18,8 @@ export function mapStateToProps(state, ownProps) {
     pathname: getPathname(state),
     query: ownProps.location.query,
     officerTimelineUrlParams: timelineUrlParamsSelector(state),
-    activeTab: getActiveTab(state)
+    activeTab: getActiveTab(state),
+    scrollPosition: getShareablePageScrollPosition(state),
   };
 }
 

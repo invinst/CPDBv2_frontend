@@ -11,7 +11,7 @@ import {
   menuItemImgStyle,
   shareMenuButtonItemStyle,
   shareMenuLinkItemStyle,
-  headerPlaceholder,
+  headerPlaceholderStyle,
 } from './shareable-header.style';
 import { imgUrl } from 'utils/static-assets';
 import BreadcrumbsItemContainer from 'containers/headers/shareable-header/breadcrumbs-item-container';
@@ -113,7 +113,7 @@ export default class ShareableHeader extends Component {
 
     return (
       <div>
-        <div style={ headerPlaceholder }/>
+        <div style={ headerPlaceholderStyle }/>
         <ResponsiveFluidWidthComponent style={ outerStyle }>
           <div style={ navBarStyle } ref={ el => { this.placeholderElement = el; } }>
             <span

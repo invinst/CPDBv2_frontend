@@ -64,7 +64,8 @@ export default class CRPage extends Component {
   render() {
     const {
       crid, coaccused, complainants, officerId, openOfficerPage, openComplaintPage, alreadyRequested,
-      incidentDate, point, address, crLocation, beat, involvements, documents, videos, audios, openRequestDocumentModal
+      incidentDate, point, address, crLocation, beat, involvements, documents, videos, audios, openRequestDocumentModal,
+      scrollPosition
     } = this.props;
     const { displayCoaccusedDropdown } = this.state;
     const officer = find(coaccused, officer => officer.id === officerId) || {};
@@ -86,7 +87,7 @@ export default class CRPage extends Component {
     return (
       <div style={ wrapperStyle } className='test--cr-page'>
         <div style={ headerWrapperStyle }>
-          <Header crid={ crid } coaccused={ coaccused } officerId={ officerId }
+          <Header crid={ crid } coaccused={ coaccused } officerId={ officerId } scrollPosition={ scrollPosition }
             displayCoaccusedDropdown={ displayCoaccusedDropdown }
             openComplaintPage={ openComplaintPage }
             onDropDownButtonClick={ this.handleToggleCoaccusedDropDown }/>
@@ -169,10 +170,12 @@ CRPage.propTypes = {
   videos: PropTypes.array,
   audios: PropTypes.array,
   openRequestDocumentModal: PropTypes.func,
-  alreadyRequested: PropTypes.bool
+  alreadyRequested: PropTypes.bool,
+  scrollPosition: PropTypes.string,
 };
 
 CRPage.defaultProps = {
   fetchCR: () => {},
   coaccused: [],
+  scrollPosition: 'top'
 };

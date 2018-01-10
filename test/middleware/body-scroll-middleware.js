@@ -24,7 +24,7 @@ describe('bodyScrollMiddleware', function () {
     dispatched.should.eql(dispatchAction);
   });
 
-  it('should disabke bodyscroll on @@router/LOCATION_CHANGE', function () {
+  it('should disable bodyscroll on @@router/LOCATION_CHANGE', function () {
     let dispatched;
     document.body.className = 'noscroll';
     const dispatchAction = { type: '@@router/LOCATION_CHANGE', payload: { pathname: '/foo/bar/' } };
