@@ -6,11 +6,9 @@ export const moreCoaccusedStyle = (showDropDown, hovering, scrollPosition) => {
   if (showDropDown)
     color = softBlackColor;
   else if (scrollPosition === 'bottom')
-    color = 'white';
-  else if (hovering)
-    color = accentColor;
+    color = hovering ? accentColor: 'white';
   else
-    color = greyishColor;
+    color = hovering ? softBlackColor: accentColor;
 
   return {
     fontSize: '14px',
@@ -29,11 +27,9 @@ export const arrowStyle = (showDropDown, hovering, scrollPosition) => {
   if (showDropDown)
     imgName = 'arrow-up-soft-black.svg';
   else if (scrollPosition === 'bottom')
-    imgName = 'arrow-down-white.svg';
-  else if (hovering)
-    imgName = 'arrow-down-blue.svg';
+    imgName = hovering ? 'arrow-down-blue.svg' : 'arrow-down-white.svg';
   else
-    imgName = 'arrow-down-grey.svg';
+    imgName = hovering ? 'arrow-down-grey.svg' : 'arrow-down-blue.svg';
 
   return {
     background: `url("${imgUrl(imgName)}") 0px 0px no-repeat scroll`,

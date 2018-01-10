@@ -13,11 +13,18 @@ export const breadcrumbTextStyle = (position) => ({
   color: position === 'bottom' ? clayGray : softBlackColor
 });
 
-export const breadcrumbLinkStyle = (position) => ({
-  ...breadcrumbItemStyle,
-  color: position === 'bottom' ? accentColor : clayGray,
-  textDecoration: 'none'
-});
+export const breadcrumbLinkStyle = (position, hovering) => {
+  let color;
+  if (position === 'bottom')
+    color = hovering ? softBlackColor : accentColor;
+  else
+    color = hovering ? accentColor : clayGray;
+  return {
+    ...breadcrumbItemStyle,
+    color: color,
+    textDecoration: 'none'
+  };
+};
 
 export const breadcrumbSeparatorStyle = {
   ...breadcrumbItemStyle,
