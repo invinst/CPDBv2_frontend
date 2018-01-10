@@ -1,14 +1,10 @@
 import React from 'react';
-import ClipboardButton from 'react-clipboard.js/dist/react-clipboard';
 import ShareableHeader from 'components/headers/shareable-header';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import {
   renderIntoDocument,
-  scryRenderedComponentsWithType,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass,
-  Simulate
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -41,60 +37,12 @@ describe('ShareableHeader component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should close "share" menu by default', function () {
-    element.state.shareMenuIsOpen.should.be.false();
-  });
-
   it('should render Share link', function () {
     findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
   });
 
-  it('should toggle menu when user clicks "Share"', function () {
-    scryRenderedDOMComponentsWithClass(element, 'test--shareable-header--share-menu').should.have.length(0);
-    const shareLink = findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
-    Simulate.click(shareLink);
-    findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-menu');
-    Simulate.click(shareLink);
-    scryRenderedDOMComponentsWithClass(element, 'test--shareable-header--share-menu').should.have.length(0);
-  });
-
   it('should render the breadCrumbs', function () {
     findRenderedComponentWithType(element, Breadcrumbs);
-  });
-
-  describe('share menu', function () {
-    beforeEach(function () {
-      this.shareLink = findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
-      Simulate.click(this.shareLink);
-      this.encodedLink = encodeURIComponent(window.location.href);
-    });
-
-    it('should render copy link', function () {
-      const copyLink = findRenderedComponentWithType(element, ClipboardButton);
-      copyLink.props.children.should.eql('Copy Link');
-      copyLink.props.onClick.should.equal(element.closeShareMenu);
-      copyLink.props['data-clipboard-text'].should.eql(window.location.href);
-    });
-
-    it('should render tweet link', function () {
-      const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--tweet-link');
-      link.textContent.should.containEql('Tweet');
-      link.getAttribute('href').should.eql('https://twitter.com/intent/tweet?url=' + this.encodedLink);
-
-      // should close menu on click
-      Simulate.click(link);
-      scryRenderedComponentsWithType(element, 'test--shareable-header--share-menu').should.have.length(0);
-    });
-
-    it('should render facebook share link', function () {
-      const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--facebook-link');
-      link.textContent.should.containEql('Share');
-      link.getAttribute('href').should.eql('https://www.facebook.com/sharer/sharer.php?u=' + this.encodedLink);
-
-      // should close menu on click
-      Simulate.click(link);
-      scryRenderedComponentsWithType(element, 'test--shareable-header--share-menu').should.have.length(0);
-    });
   });
 
   describe('handleScroll', function () {

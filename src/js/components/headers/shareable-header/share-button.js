@@ -7,7 +7,7 @@ import {
 import Hoverable from 'components/common/higher-order/hoverable';
 import ShareMenu from 'components/headers/shareable-header/share-menu';
 
-class ShareButton extends React.Component {
+export class ShareButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
