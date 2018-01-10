@@ -6,7 +6,7 @@ import { shareableHeaderHeight } from 'components/headers/shareable-header/share
 
 const height = 64;
 
-export const boxShadowStyle = (scrollPosition) => {
+export const boxShadowStyle = (scrollPosition, hovering) => {
   if (scrollPosition === 'bottom') {
     return {
       position: 'fixed',
@@ -14,7 +14,7 @@ export const boxShadowStyle = (scrollPosition) => {
       right: 0,
       zIndex: 1,
       top: `${shareableHeaderHeight}px`,
-      backgroundColor: accentColor,
+      backgroundColor: hovering ? 'white' : accentColor,
     };
   }
 
@@ -41,12 +41,12 @@ export const headerStyle = {
   borderBottom: `1px solid ${lightBlackColor}`,
 };
 
-export const titleStyle = (displayCoaccusedDropdown, scrollPosition) => {
+export const titleStyle = (displayCoaccusedDropdown, scrollPosition, hovering) => {
   let color = 'inherit';
   if (displayCoaccusedDropdown)
     color = greyishColor;
   else if (scrollPosition === 'bottom')
-    color = sugarCaneColor;
+    color = hovering ? softBlackColor : sugarCaneColor;
 
   return {
     fontSize: '26px',

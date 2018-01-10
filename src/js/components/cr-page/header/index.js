@@ -5,29 +5,33 @@ import CoaccusedList from './coaccused-list';
 import ExpandMotion from 'components/animation/expand-motion';
 import CoaccusedDropdownButton from './coaccused-dropdown-button';
 import { boxShadowStyle, headerStyle, titleStyle, outerPlaceholderStyle } from './header.style';
+import Hoverable from 'components/common/higher-order/hoverable';
 
 
-export default class Header extends Component {
+class Header extends Component {
   render() {
     const {
-      crid, officerId, coaccused, openComplaintPage, displayCoaccusedDropdown, onDropDownButtonClick, scrollPosition
+      crid, officerId, coaccused, openComplaintPage, displayCoaccusedDropdown, onDropDownButtonClick, scrollPosition,
+      hovering
     } = this.props;
 
     return (
       <div>
         <div style={ outerPlaceholderStyle(scrollPosition) }/>
-        <div style={ boxShadowStyle(scrollPosition) }>
+        <div style={ boxShadowStyle(scrollPosition, hovering) }>
           <ResponsiveFluidWidthComponent>
             <div style={ headerStyle }>
               <span
                 className='test--header-title'
-                style={ titleStyle(displayCoaccusedDropdown, scrollPosition) }>{ `CR ${crid}` }
+                style={ titleStyle(displayCoaccusedDropdown, scrollPosition, hovering) }>{ `CR ${crid}` }
               </span>
               <CoaccusedDropdownButton
-                coaccused={ coaccused } officerId={ officerId }
+                coaccused={ coaccused }
+                officerId={ officerId }
                 displayCoaccusedDropdown={ displayCoaccusedDropdown }
                 onClick={ onDropDownButtonClick }
                 scrollPosition={ scrollPosition }
+                parentHovering={ hovering }
               />
             </div>
           </ResponsiveFluidWidthComponent>
@@ -49,4 +53,7 @@ Header.propTypes = {
   displayCoaccusedDropdown: PropTypes.bool,
   onDropDownButtonClick: PropTypes.func,
   scrollPosition: PropTypes.string,
+  hovering: PropTypes.bool
 };
+
+export default Hoverable(Header);

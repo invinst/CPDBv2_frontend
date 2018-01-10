@@ -11,7 +11,7 @@ import { imgUrl } from 'utils/static-assets';
 
 export default class ShareMenu extends React.Component {
   render() {
-    const { open } = this.props;
+    const { open, closeShareMenu } = this.props;
 
     if (!open) {
       return null;
@@ -23,7 +23,7 @@ export default class ShareMenu extends React.Component {
       <div style={ wrapperStyle } className='test--shareable-header--share-menu'>
         <ClipboardButton
           style={ buttonItemStyle }
-          onClick={ this.closeShareMenu }
+          onClick={ closeShareMenu }
           data-clipboard-text={ window.location.href }
         >
           Copy Link
@@ -34,7 +34,7 @@ export default class ShareMenu extends React.Component {
           className='test--shareable-header--tweet-link'
           href={ 'https://twitter.com/intent/tweet?url=' + encodedLink }
           target='_blank'
-          onClick={ this.closeShareMenu }
+          onClick={ closeShareMenu }
         >
           Tweet <img style={ imgStyle } src={ imgUrl('ic-twitter.svg') } />
         </a>
@@ -44,7 +44,7 @@ export default class ShareMenu extends React.Component {
           className='test--shareable-header--facebook-link'
           href={ 'https://www.facebook.com/sharer/sharer.php?u=' + encodedLink }
           target='_blank'
-          onClick={ this.closeShareMenu }
+          onClick={ closeShareMenu }
         >
           Share <img style={ imgStyle } src={ imgUrl('ic-facebook.svg') } />
         </a>
@@ -55,9 +55,10 @@ export default class ShareMenu extends React.Component {
 
 ShareMenu.propTypes = {
   hovering: PropTypes.bool,
-  open: PropTypes.bool
+  open: PropTypes.bool,
+  closeShareMenu: PropTypes.func,
 };
 
 ShareMenu.defaultProps = {
-  open: 'false'
+  open: true
 };

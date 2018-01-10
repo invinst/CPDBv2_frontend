@@ -43,7 +43,7 @@ class ShareButton extends React.Component {
         >
           Share
         </span>
-        <ShareMenu open={ shareMenuIsOpen }/>
+        <ShareMenu open={ shareMenuIsOpen } closeShareMenu={ this.closeShareMenu }/>
       </div>
     );
   }
