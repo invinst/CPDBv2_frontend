@@ -19,7 +19,6 @@ export default class OfficerCard extends Component {
       visualTokenBackgroundColor,
       complaintCount,
       sustainedCount,
-      complaintRate,
       birthYear,
       race,
       gender,
@@ -70,7 +69,10 @@ export default class OfficerCard extends Component {
           </div>
           <div style={ sectionStyle }>
             <p style={ boldTextStyle }>{ complaintString() }</p>
-            <p style={ lightTextStyle }>Less than { complaintRate }% of other officers</p>
+            {/*
+            TODO: uncomment when actual complaintRate is available from server
+            <p style={ lightTextStyle }>More than { complaintRate }% of other officers</p>
+            */}
           </div>
           <div style={ noBorderSectionStyle }>
             <p style={ extraInfoStyle }>{ extraInfo() }</p>

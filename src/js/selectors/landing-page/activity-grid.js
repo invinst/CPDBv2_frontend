@@ -9,7 +9,7 @@ const cardTransform = card => ({
   visualTokenBackgroundColor: card['visual_token_background_color'],
   complaintCount: card['complaint_count'],
   sustainedCount: card['sustained_count'],
-  complaintRate: 50,
+  complaintRate: 50,  // TODO: use actual percentile number when that's available
   birthYear: card['birth_year'],
   race: toLower(card['race']),
   gender: toLower(card['gender']),
