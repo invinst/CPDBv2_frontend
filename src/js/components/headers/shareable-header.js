@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ClipboardButton from 'react-clipboard.js';
 import { Link } from 'react-router';
 import { BACK_LINK_WHITELIST } from 'utils/constants';
+import config from 'config';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   outerStyle,
@@ -68,7 +69,7 @@ export default class ShareableHeader extends Component {
         <a
           style={ shareMenuLinkItemStyle }
           className='test--shareable-header--tweet-link'
-          href={ 'https://twitter.com/intent/tweet?url=' + encodedLink }
+          href={ `https://twitter.com/intent/tweet?url=${encodedLink}&via=${config.twitterBotName}` }
           target='_blank'
           onClick={ this.closeShareMenu }
         >
