@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { breadcrumbTextStyle, breadcrumbLinkStyle } from 'components/headers/shareable-header/breadcrumbs-item-style';
+import { breadcrumbTextStyle, breadcrumbLinkStyle } from 'components/headers/shareable-header/breadcrumbs-item.style';
 
 export default class BreadcrumbsItem extends React.Component {
   render() {

@@ -23,11 +23,13 @@ import {
   SEARCH_PATH,
   SEARCH_TERMS_PATH,
   OFFICER_PATH,
-  CR_PATH,
+  CR_PATH_SUFFIX,
   UNIT_PROFILE_PATH,
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
-  STANDALONE_CR_PATH, OFFICER_TIMELINE_SUFFIX, OFFICER_SOCIAL_GRAPH_SUFFIX
+  STANDALONE_CR_PATH,
+  OFFICER_TIMELINE_SUFFIX,
+  OFFICER_SOCIAL_GRAPH_SUFFIX
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -77,9 +79,10 @@ class RouterRoot extends Component {
         <Route path={ SEARCH_TERMS_PATH } component={ SearchTermsContainer }/>
       </Route>,
 
-      <Route path={ CR_PATH } component={ CRPageContainer } key='8' breadcrumb={ { componentCacheKey: 'cr' } }/>,
       <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer } key='13'
-        breadcrumb={ { componentCacheKey: 'cr' } }/>,
+        breadcrumb={ { componentCacheKey: 'cr' } }>
+        <Route path={ CR_PATH_SUFFIX } component={ CRPageContainer } key='8' useParentBreadcrumb={ true }/>
+      </Route>,
 
       <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'
         breadcrumb={ { componentCacheKey: 'unit' } }/>,

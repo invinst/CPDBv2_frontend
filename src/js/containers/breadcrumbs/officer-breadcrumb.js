@@ -1,14 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { breadcrumbify } from 'redux-breadcrumb-trail';
 import { connect } from 'react-redux';
-import { mapStateToProps } from 'containers/officer-page';
+import OfficerBreadcrumb from 'components/breadcrumbs/officer-breadcrumb';
+import { getOfficerName } from 'selectors/officer-page';
 
-export function OfficerBreadcrumb({ officerName }) {
-  return <span>{ officerName }</span>;
+function mapStateToProps(state) {
+  return {
+    officerName: getOfficerName(state),
+  };
 }
 
 export default connect(mapStateToProps)(breadcrumbify(OfficerBreadcrumb));
-
-OfficerBreadcrumb.propTypes = {
-  officerName: PropTypes.string,
-};

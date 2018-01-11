@@ -14,8 +14,7 @@ import {
 } from './shareable-header.style';
 import { imgUrl } from 'utils/static-assets';
 import BreadcrumbsItem from 'components/headers/shareable-header/breadcrumbs-item';
-import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
-import { breadcrumbSeparatorStyle } from 'components/headers/shareable-header/breadcrumbs-item-style';
+import { breadcrumbsStyle, breadcrumbSeparatorStyle } from 'components/headers/shareable-header/shareable-header.style';
 
 
 export default class ShareableHeader extends Component {

@@ -1,14 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { breadcrumbify } from 'redux-breadcrumb-trail';
 import { connect } from 'react-redux';
-import { mapStateToProps } from 'containers/cr-page';
+import CRBreadcrumb from 'components/breadcrumbs/cr-breadcrumb';
+import { getCRID } from 'selectors/cr-page';
 
-export function CRBreadcrumb({ crid }) {
-  return <span>{ `CR ${crid}` }</span>;
+function mapStateToProps(state) {
+  return {
+    crid: getCRID(state),
+  };
 }
 
 export default connect(mapStateToProps)(breadcrumbify(CRBreadcrumb));
-
-CRBreadcrumb.propTypes = {
-  crid: PropTypes.string,
-};

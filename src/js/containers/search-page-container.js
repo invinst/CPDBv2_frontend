@@ -62,7 +62,7 @@ const mapDispatchToProps = {
   requestActivityGrid,
   toggleSearchTerms,
   requestSearchTermCategories,
-  pushBreadcrumbs: pushBreadcrumbs
+  pushBreadcrumbs,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchPage));

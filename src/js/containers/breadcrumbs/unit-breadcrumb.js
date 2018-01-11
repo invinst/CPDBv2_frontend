@@ -1,15 +1,14 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { breadcrumbify } from 'redux-breadcrumb-trail';
 import { connect } from 'react-redux';
-import { mapStateToProps } from 'containers/unit-profile-page';
+import UnitBreadcrumb from 'components/breadcrumbs/unit-breadcrumb';
+import { summarySelector } from 'selectors/unit-profile-page';
 
-export function UnitBreadcrumb({ unitName, summary }) {
-  return <span>{ `${unitName} ${summary.description}` }</span>;
-}
+const mapStateToProps = (state, ownProps) => {
+  return {
+    unitName: ownProps.params.unitName,
+    summary: summarySelector(state)
+  };
+};
 
 export default connect(mapStateToProps)(breadcrumbify(UnitBreadcrumb));
-
-UnitBreadcrumb.propTypes = {
-  unitName: PropTypes.string,
-  summary: PropTypes.object,
-};

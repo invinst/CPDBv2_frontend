@@ -1,4 +1,6 @@
-import { whiteTwoColor, clayGray, softBlackColor, sugarCaneColor } from 'utils/styles';
+import { clayGray, softBlackColor, sugarCaneColor, whiteTwoColor } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
+import { breadcrumbItemStyle } from 'components/headers/shareable-header/breadcrumbs-item.style';
 
 const shareMenuHorizontalMargin = 16;
 
@@ -82,4 +84,12 @@ export const shareMenuLinkItemStyle = {
 export const breadcrumbsStyle = {
   margin: 0,
   padding: 0,
+};
+export const breadcrumbSeparatorStyle = {
+  ...breadcrumbItemStyle,
+  padding: '2px 8px 0 0',
+  height: '12px',
+  width: '7.4px',
+  background: `url(${imgUrl('disclosure-indicator.svg')}) no-repeat scroll`,
+  verticalAlign: 'middle',
 };
