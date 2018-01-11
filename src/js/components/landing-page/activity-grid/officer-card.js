@@ -9,9 +9,10 @@ import {
   sectionStyle, sustainedStyle
 } from 'components/landing-page/activity-grid/officer-card.style';
 import { pluralize } from 'utils/language';
+import Hoverable from 'components/common/higher-order/hoverable';
 
 
-export default class OfficerCard extends Component {
+export class OfficerCard extends Component {
   render() {
     const {
       officerId,
@@ -23,6 +24,7 @@ export default class OfficerCard extends Component {
       race,
       gender,
       cardStyle,
+      hovering,
     } = this.props;
 
     const complaintString = () => {
@@ -31,7 +33,7 @@ export default class OfficerCard extends Component {
       if (sustainedCount) {
         return (
           <span>
-            <span>{ complaint }</span>, <span style={ sustainedStyle }>{ sustained }</span>
+            <span>{ complaint }</span>, <span style={ sustainedStyle(hovering) }>{ sustained }</span>
           </span>
         );
       }
@@ -55,7 +57,7 @@ export default class OfficerCard extends Component {
     return (
       <Link
         to={ `/officer/${officerId}/` }
-        style={ { ...wrapperStyle, ...cardStyle } }
+        style={ { ...wrapperStyle(hovering), ...cardStyle } }
         className='test--activity-grid-section-card'
       >
         <OfficerVisualToken
@@ -64,18 +66,18 @@ export default class OfficerCard extends Component {
         />
         <div>
           <div style={ sectionStyle }>
-            <p style={ lightTextStyle }>Officer</p>
-            <p style={ boldTextStyle }>{ fullName }</p>
+            <p style={ lightTextStyle(hovering) }>Officer</p>
+            <p style={ boldTextStyle(hovering) }>{ fullName }</p>
           </div>
           <div style={ sectionStyle }>
-            <p style={ boldTextStyle }>{ complaintString() }</p>
+            <p style={ boldTextStyle(hovering) }>{ complaintString() }</p>
             {/*
             TODO: uncomment when actual complaintRate is available from server
             <p style={ lightTextStyle }>More than { complaintRate }% of other officers</p>
             */}
           </div>
           <div style={ noBorderSectionStyle }>
-            <p style={ extraInfoStyle }>{ extraInfo() }</p>
+            <p style={ extraInfoStyle(hovering) }>{ extraInfo() }</p>
           </div>
         </div>
       </Link>
@@ -95,4 +97,7 @@ OfficerCard.propTypes = {
   birthYear: PropTypes.number,
   race: PropTypes.string,
   gender: PropTypes.string,
+  hovering: PropTypes.bool,
 };
+
+export default Hoverable(OfficerCard);

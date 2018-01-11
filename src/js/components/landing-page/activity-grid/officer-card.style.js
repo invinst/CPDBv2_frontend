@@ -1,48 +1,51 @@
-import { softBlackColor, clayGray, whiteTwoColor, brightOrangeTwoColor } from 'utils/styles';
+import {
+  softBlackColor, clayGray, whiteTwoColor, brightOrangeTwoColor, lighterAccentColor,
+  accentColor
+} from 'utils/styles';
 
 
-export const wrapperStyle = {
+export const wrapperStyle = (hovering) => ({
   display: 'inline-block',
   margin: '16px',
   boxSizing: 'border-box',
   textDecoration: 'none',
   verticalAlign: 'top',
-  border: `solid 1px ${whiteTwoColor}`,
+  border: `solid 1px ${hovering ? accentColor : whiteTwoColor}`,
   borderRadius: '2px'
-};
+});
 
 export const visualTokenStyle = {
   display: 'block',
 };
 
-export const lightTextStyle = {
+export const lightTextStyle = (hovering) => ({
   fontSize: '12px',
   lineHeight: 1.17,
   fontWeight: 400,
-  color: clayGray,
+  color: hovering ? lighterAccentColor : clayGray,
   marginTop: 0,
   marginBottom: 0,
   height: '14px',
   whiteSpace: 'nowrap',
   overflow: 'hidden',
   textOverflow: 'ellipsis'
-};
+});
 
-export const boldTextStyle = {
+export const boldTextStyle = (hovering) => ({
   lineHeight: '18px',
   fontSize: '14px',
   fontWeight: 400,
-  color: softBlackColor,
+  color: hovering ? accentColor : softBlackColor,
   marginTop: 0,
   marginBottom: 0
-};
+});
 
-export const extraInfoStyle = {
+export const extraInfoStyle = (hovering) => ({
   fontSize: '14px',
   lineHeight: '18px',
   margin: 0,
-  color: clayGray
-};
+  color: hovering ? lighterAccentColor : clayGray
+});
 
 export const sectionStyle = {
   margin: '0 16px',
@@ -57,7 +60,7 @@ export const noBorderSectionStyle = {
   border: 'none'
 };
 
-export const sustainedStyle = {
-  color: brightOrangeTwoColor,
+export const sustainedStyle = (hovering) => ({
+  color: hovering ? 'inherit' : brightOrangeTwoColor,
   whiteSpace: 'nowrap'
-};
+});

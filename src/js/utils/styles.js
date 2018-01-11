@@ -2,6 +2,7 @@ export const softBlackColor = '#231F20'; // rgb(35, 31, 32)
 export const lightGreyColor = '#D0D2D3';
 export const veryLightGreyColor = '#E4E4E4';
 export const accentColor = '#005EF4'; // rgb(0, 94, 244)
+export const lighterAccentColor = '#4382F6'; // rgba(0, 94, 244, 0.7)
 export const greyColor = '#DFDFDF';
 export const darkGreyColor = '#666666';
 export const midnightBlueColor = '#0B3168';
