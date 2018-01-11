@@ -83,12 +83,9 @@ export default class App extends React.Component {
       return <ShareableHeader backLink={ this.props.headerBackLink }/>;
     }
 
-    const { openLegalDisclaimerModal, location } = this.props;
+    const { location } = this.props;
     return (
-      <SlimHeader
-        pathname={ location.pathname }
-        openLegalDisclaimerModal={ openLegalDisclaimerModal }
-      />
+      <SlimHeader pathname={ location.pathname } />
     );
   }
 
@@ -126,7 +123,6 @@ App.propTypes = {
   toggleEditMode: PropTypes.func,
   toggleSearchMode: PropTypes.func,
   changeSearchQuery: PropTypes.func,
-  openLegalDisclaimerModal: PropTypes.func,
   headerBackLink: PropTypes.string
 };
 

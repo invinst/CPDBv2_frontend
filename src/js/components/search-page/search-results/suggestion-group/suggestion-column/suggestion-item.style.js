@@ -5,7 +5,8 @@ import {
   accentColor,
   subdueAccentTextColor,
   lightSubdueAccentTextColor,
-  ultraGirlyPink, greyishColor
+  ultraGirlyPink,
+  clayGray
 } from 'utils/styles';
 
 
@@ -36,7 +37,7 @@ export const metaTextStyle = (hovering, isFocused) => {
     fontSize: '13px',
     fontWeight: 300,
     fontFamily: sanFranciscoTextFamily,
-    color: isFocused || hovering ? accentColor : greyishColor,
+    color: isFocused || hovering ? accentColor : clayGray,
     opacity: 0.5
   };
 };
