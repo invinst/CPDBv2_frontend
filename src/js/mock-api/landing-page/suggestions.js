@@ -4,28 +4,36 @@ import { RawOfficerSuggestion, RawNeighborhoodSuggestion } from 'utils/test/fact
 export const groupedSuggestions = {
   'default': {
     'OFFICER': [
-      RawOfficerSuggestion.build({ id: '1' }, {
-        resultText: 'Bernadette Kelly',
-        to: '/officer/1/',
-        allegationCount: 10,
-        sustainedCount: 2,
-        birthYear: 1972,
-        race: 'White',
-        sex: 'Male'
-      }),
+      RawOfficerSuggestion.build(
+        {
+          id: '1'
+        }, {
+          resultText: 'Bernadette Kelly',
+          to: '/officer/1/',
+          allegationCount: 10,
+          sustainedCount: 2,
+          birthYear: 1972,
+          race: 'White',
+          sex: 'Male'
+        }
+      ),
       RawOfficerSuggestion.build({ id: '2' }),
       ...RawOfficerSuggestion.buildList(8)
     ],
     'CO-ACCUSED': [
-      RawOfficerSuggestion.build({ id: '1' }, {
-        resultText: 'Bernadette Kelly',
-        to: '/officer/1/',
-        allegationCount: 10,
-        sustainedCount: 2,
-        birthYear: 1972,
-        race: 'White',
-        sex: 'Male'
-      })
+      RawOfficerSuggestion.build(
+        {
+          id: '1'
+        }, {
+          resultText: 'Bernadette Kelly',
+          to: '/officer/1/',
+          allegationCount: 10,
+          sustainedCount: 2,
+          birthYear: 1972,
+          race: 'White',
+          sex: 'Male'
+        }
+      )
     ],
     'UNIT': [
 

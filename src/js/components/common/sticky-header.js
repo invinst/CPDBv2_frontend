@@ -77,3 +77,7 @@ StickyHeader.propTypes = {
   children: PropTypes.node,
   style: PropTypes.object
 };
+
+StickyHeader.defaultProps = {
+  handleStateChange: () => {}
+};

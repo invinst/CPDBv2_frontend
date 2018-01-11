@@ -74,3 +74,12 @@ export const summarySelector = createSelector(
     careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation'])
   })
 );
+
+export const complaintsByYearSelector = createSelector(
+  getComplaintsByYear,
+  complaints => !complaints ? [] : complaints.map(complaint => ({
+    year: complaint.year,
+    count: complaint.count,
+    sustainedCount: complaint['sustained_count']
+  }))
+);
