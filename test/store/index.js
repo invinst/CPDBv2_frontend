@@ -75,7 +75,10 @@ describe('store', function () {
       searchPage: {
         navigation: { 'itemIndex': 0 },
         isRequesting: false,
-        suggestionGroups: {},
+        suggestionGroups: {
+          meta: {}
+        },
+        pagination: {},
         contentType: null,
         recentSuggestions: [],
         tags: [],

@@ -3,7 +3,7 @@ import should from 'should';
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
   focusedItemSelector, previewPaneInfoSelector, totalItemCountSelector,
-  isShowingSingleContentTypeSelector
+  isShowingSingleContentTypeSelector, hasMoreSelector, nextParamsSelector
 } from 'selectors/search-page';
 import { getSvgUrl } from 'utils/visual-token';
 import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
@@ -283,6 +283,52 @@ describe('search page selector', function () {
           }
         }
       }).should.equal(3);
+    });
+  });
+
+  describe('hasMoreSelector', function () {
+    it('should return false when no content type is selected', function () {
+      hasMoreSelector({
+        searchPage: {
+          pagination: {},
+          contentType: null
+        }
+      }).should.be.false();
+    });
+
+    it('should return false when content type is selected and there is no next url', function () {
+      hasMoreSelector({
+        searchPage: {
+          pagination: {},
+          contentType: 'OFFICER'
+        }
+      }).should.be.false();
+    });
+
+    it('should return true when content type is selected and there is next url', function () {
+      hasMoreSelector({
+        searchPage: {
+          pagination: {
+            next: 'example.com/next'
+          },
+          contentType: 'OFFICER'
+        }
+      }).should.be.true();
+    });
+  });
+
+  describe('nextParamsSelector', function () {
+    it('should return params from url', function () {
+      nextParamsSelector({
+        searchPage: {
+          pagination: {
+            next: 'example.com?limit=20&offset=20'
+          }
+        }
+      }).should.deepEqual({
+        limit: '20',
+        offset: '20'
+      });
     });
   });
 });

@@ -25,7 +25,8 @@ describe('SearchPage component', function () {
       navigation: {},
       searchTerms: {
         categories: []
-      }
+      },
+      pagination: {}
     }
   });
 
@@ -47,7 +48,7 @@ describe('SearchPage component', function () {
     SearchPage.should.be.renderable();
   });
 
-  it('should call api when user type in', function () {
+  it('should call get suggestion api when no contentType selected', function () {
     const getSuggestion = spy();
 
     instance = renderIntoDocument(
@@ -59,6 +60,23 @@ describe('SearchPage component', function () {
     getSuggestion.calledWith('a', {
       contentType: null,
       limit: 9
+    }).should.be.true();
+  });
+
+  it('should call get suggestion api when contentType is selected', function () {
+    const getSuggestionWithContentType = spy();
+    const contentType = 'OFFICER';
+
+    instance = renderIntoDocument(
+      <SearchPage
+        contentType={ contentType }
+        getSuggestionWithContentType={ getSuggestionWithContentType }/>
+    );
+    const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
+    searchInput.value = 'a';
+    Simulate.change(searchInput);
+    getSuggestionWithContentType.calledWith('a', {
+      contentType
     }).should.be.true();
   });
 
@@ -135,7 +153,7 @@ describe('SearchPage component', function () {
   it('should follow the v1 search url when user hit ENTER but there\'s no results', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <SearchPage query={ 'something' }/>
+        <SearchPage query='something'/>
       </Provider>
     );
 

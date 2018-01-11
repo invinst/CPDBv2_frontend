@@ -1,6 +1,6 @@
 import { get } from 'actions/common/async-action';
 import { createAction } from 'redux-actions';
-import { OPEN_SEARCH_PAGE } from 'utils/constants';
+import * as constants from 'utils/constants';
 
 
 export const SUGGESTION_URL = 'suggestion/';
@@ -13,11 +13,17 @@ export const getSuggestion = (text, params, adapter) => get(`${SUGGESTION_URL}${
   SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
 ])(params, adapter);
 
+export const getSuggestionWithContentType = (text, params, adapter) => get(`${SUGGESTION_URL}${text}/single/`, [
+  constants.SUGGESTION_SINGLE_REQUEST_START,
+  constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
+  constants.SUGGESTION_SINGLE_REQUEST_FAILURE
+])(params, adapter);
+
 export const SELECT_TAG = 'SELECT_TAG';
 
 export const selectTag = createAction(SELECT_TAG);
 
-export const toggleSearchMode = createAction(OPEN_SEARCH_PAGE);
+export const toggleSearchMode = createAction(constants.OPEN_SEARCH_PAGE);
 
 export const CHANGE_SEARCH_QUERY = 'CHANGE_SEARCH_QUERY';
 export const changeSearchQuery = createAction(CHANGE_SEARCH_QUERY);

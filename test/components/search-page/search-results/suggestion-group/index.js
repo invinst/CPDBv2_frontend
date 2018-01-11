@@ -1,6 +1,10 @@
 import React from 'react';
+import { spy } from 'sinon';
+import InfiniteScroll from 'react-infinite-scroller';
 
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import {
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
+} from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -22,10 +26,27 @@ describe('SuggestionGroup component', function () {
     scryRenderedComponentsWithType(instance, SuggestionItem).should.have.length(3);
   });
 
-  it('should render `More` if canLoadMore is true', function () {
+  it('should render `More` if showMoreButton is true', function () {
     instance = renderIntoDocument(
-      <SuggestionGroup canLoadMore={ true }/>
+      <SuggestionGroup showMoreButton={ true }/>
     );
     findDOMNode(instance).textContent.should.containEql('More');
+  });
+
+  it('should load more on scroll to bottom', function () {
+    const searchText = 'abc';
+    const nextParams = {
+      limit: 20,
+      offset: 20
+    };
+    const getSuggestionWithContentType = spy();
+
+    instance = renderIntoDocument(
+      <SuggestionGroup
+        getSuggestionWithContentType={ getSuggestionWithContentType }
+        searchText={ searchText } nextParams={ nextParams } hasMore={ true }/>
+    );
+    findRenderedComponentWithType(instance, InfiniteScroll).props.loadMore();
+    getSuggestionWithContentType.calledWith(searchText, nextParams).should.be.true();
   });
 });

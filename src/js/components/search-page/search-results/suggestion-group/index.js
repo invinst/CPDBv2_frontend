@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
+import InfiniteScroll from 'react-infinite-scroller';
 
-
-import { groupHeaderStyle } from './suggestion-group.style';
+import { groupHeaderStyle, scrollerStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 
@@ -12,18 +12,27 @@ export default class SuggestionGroup extends Component {
     const {
       suggestions,
       header,
-      canLoadMore,
+      showMoreButton,
       onLoadMore,
       focusedItem,
       aliasEditModeOn,
       setAliasAdminPageContent,
-      suggestionClick
+      suggestionClick,
+      hasMore,
+      searchText,
+      nextParams,
+      getSuggestionWithContentType,
+      singleContent
     } = this.props;
 
     return (
-      <div className='test--suggestion-group'>
+      <div style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
         <div style={ groupHeaderStyle }>{ header }</div>
-        <div>
+        <InfiniteScroll
+          loadMore={ () => getSuggestionWithContentType(searchText, { ...nextParams }) }
+          initialLoad={ false }
+          hasMore={ hasMore }
+          useWindow={ false }>
           {
             map(suggestions, (suggestion) => (
               <SuggestionItem
@@ -35,8 +44,8 @@ export default class SuggestionGroup extends Component {
                 isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
             ))
           }
-        </div>
-        { canLoadMore ? <LoadMoreButton onLoadMore={ onLoadMore } header={ header }/> : null }
+        </InfiniteScroll>
+        { showMoreButton ? <LoadMoreButton onLoadMore={ onLoadMore } header={ header }/> : null }
       </div>
     );
   }
@@ -45,12 +54,17 @@ export default class SuggestionGroup extends Component {
 SuggestionGroup.propTypes = {
   suggestions: PropTypes.array,
   header: PropTypes.string,
-  canLoadMore: PropTypes.bool,
+  showMoreButton: PropTypes.bool,
   aliasEditModeOn: PropTypes.bool,
   onLoadMore: PropTypes.func,
   suggestionClick: PropTypes.func,
   setAliasAdminPageContent: PropTypes.func,
-  focusedItem: PropTypes.object
+  focusedItem: PropTypes.object,
+  getSuggestionWithContentType: PropTypes.func,
+  hasMore: PropTypes.bool,
+  searchText: PropTypes.string,
+  nextParams: PropTypes.object,
+  singleContent: PropTypes.bool
 };
 
 SuggestionGroup.defaultProps = {

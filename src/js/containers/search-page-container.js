@@ -9,7 +9,8 @@ import {
   trackRecentSuggestion,
   move,
   resetNavigation,
-  changeSearchQuery
+  changeSearchQuery,
+  getSuggestionWithContentType
 } from 'actions/search-page';
 import {
   toggleSearchTerms, requestSearchTermCategories
@@ -52,6 +53,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   getSuggestion,
+  getSuggestionWithContentType,
   selectTag,
   toggleSearchMode,
   trackRecentSuggestion,

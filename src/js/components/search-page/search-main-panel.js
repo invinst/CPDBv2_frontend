@@ -12,6 +12,7 @@ export default class SearchMainPanel extends Component {
   constructor(props) {
     super(props);
     this.getSuggestion = debounce(props.getSuggestion, 100);
+    this.getSuggestionWithContentType = debounce(props.getSuggestionWithContentType, 100);
   }
 
   handleSelect(contentType) {
@@ -20,7 +21,7 @@ export default class SearchMainPanel extends Component {
     } else if (contentType === this.props.contentType) {
       this.getSuggestion(this.props.query, { limit: 9 });
     } else {
-      this.getSuggestion(this.props.query, { contentType });
+      this.getSuggestionWithContentType(this.props.query, { contentType });
     }
     this.props.resetNavigation();
   }
@@ -70,10 +71,12 @@ SearchMainPanel.propTypes = {
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   resetNavigation: PropTypes.func,
-  getSuggestion: PropTypes.func
+  getSuggestion: PropTypes.func,
+  getSuggestionWithContentType: PropTypes.func
 };
 
 SearchMainPanel.defaultProps = {
   getSuggestion: () => {},
+  getSuggestionWithContentType: () => {},
   resetNavigation: () => {}
 };
