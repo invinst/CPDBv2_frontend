@@ -1,8 +1,11 @@
 import { createSelector } from 'reselect';
-import { omitBy, isEmpty, keys, pick, indexOf, sortBy, chunk, flatten } from 'lodash';
+import { omitBy, isEmpty, keys, pick, indexOf, sortBy, get, flatten, map } from 'lodash';
 
-import { searchPageItemsPerColumn } from 'utils/search';
 import * as constants from 'utils/constants';
+import { getThisYear } from 'utils/date';
+import { searchResultItemTransform } from './search-result';
+import { getSvgUrl } from 'utils/visual-token';
+import extractQuery from 'utils/extract-query';
 
 const SEARCH_CATEGORIES = ['OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'];
 
@@ -11,126 +14,75 @@ const getSuggestionTags = state => state.searchPage.tags;
 const getSuggestionNavigation = state => state.searchPage.navigation;
 const getSuggestionContentType = state => state.searchPage.contentType;
 const getQuery = state => state.searchPage.query;
+const getPagination = state => state.searchPage.pagination;
 
-export const previewPaneInfoSelector = createSelector(
-  suggestion => suggestion,
-  (suggestion) => {
-    const { payload, id, text } = suggestion;
-    const currentYear = (new Date()).getFullYear();
-    const data = [
-      ['unit', payload.unit],
-      ['rank', payload.rank],
-      [`${currentYear} salary`, payload.salary],
-      ['race', payload.race],
-      ['sex', payload.sex]
-    ];
-    const visualTokenBackgroundColor = payload['visual_token_background_color'];
-    return { data, visualTokenBackgroundColor, id, text };
-  }
-);
+const currentYear = getThisYear();
 
-
-export const suggestionGroupsSelector = createSelector(
-  getSuggestionGroups,
-  (suggestionGroups) => (
-    pick(omitBy(suggestionGroups, isEmpty), SEARCH_CATEGORIES)
-  )
-);
-
-/*
-  [
-    {
-      header: 'OFFICER',
-      items: [<officer1>, <officer2>]
-    },
-    {
-      header: 'CO-ACCUSED',
-      items: [<ca1>, <ca2>]
-    }
-  ]
-*/
-export const orderedSuggestionGroupsSelector = createSelector(
-  suggestionGroupsSelector,
-  unorderedSuggestionGroups => {
-    const orderedKeys = keys(unorderedSuggestionGroups);
-    return orderedKeys.map(key => ({ header: key, items: unorderedSuggestionGroups[key] }));
-  }
-);
 
 export const isShowingSingleContentTypeSelector = createSelector(
   getSuggestionContentType,
   contentType => !!contentType
 );
 
+const itemsPerCategory = 5;
+
 /*
 [
   {
     header: 'OFFICER',
-    columns: [
-      [1, 2],
-      [3, 4]
+    items: [
+      1, 2, 3, 4, 5
     ],
     canLoadMore: <boolean>
   },
   {
     header: 'CO-ACCUSED',
-    columns: [
-      [1, 2],
-      [3, 4]
+    items: [
+      1, 2, 3, 4
     ],
     canLoadMore: <boolean>
   }
 ]
 */
-export const chunkedSuggestionGroupsSelector = createSelector(
-  orderedSuggestionGroupsSelector,
+const slicedSuggestionGroupsSelector = createSelector(
+  getSuggestionGroups,
   isShowingSingleContentTypeSelector,
-  (orderedGroups, isSingle) => {
-    if (!orderedGroups || orderedGroups.length === 0) {
-      return [];
-    }
+  (suggestionGroups, isSingle) => {
+    let groups = pick(omitBy(suggestionGroups, isEmpty), SEARCH_CATEGORIES);
 
-    if (isSingle) {
-      const group = orderedGroups[0];
-      return [{
-        header: group.header,
-        columns: chunk(group.items, searchPageItemsPerColumn),
-        canLoadMore: false
-      }];
-
-    } else {
-      return orderedGroups.map((group, index) => {
-        const slicedGroup = group.items.slice(0, searchPageItemsPerColumn);
-        return {
-          header: group.header,
-          columns: [slicedGroup],
-          canLoadMore: slicedGroup.length >= searchPageItemsPerColumn
-        };
-      });
-    }
+    return keys(groups).map(key => {
+      let items = isSingle ? groups[key] : groups[key].slice(0, itemsPerCategory);
+      items = map(items, item => ({ ...item, type: key }));
+      return {
+        header: key,
+        items,
+        canLoadMore: !isSingle && items.length >= itemsPerCategory
+      };
+    });
   }
 );
 
-export const coordinatesMapSelector = createSelector(
-  chunkedSuggestionGroupsSelector,
-  chunkedGroups => {
-    const coordinatesMap = flatten(chunkedGroups.map(group => group.columns));
-    const headers = chunkedGroups.map(group => group.header);
-    return { coordinatesMap, headers };
+const itemsListSelector = createSelector(
+  slicedSuggestionGroupsSelector,
+  groups => {
+    return flatten(groups.map(group => group.items));
   }
 );
 
-export const focusedSuggestionSelector = createSelector(
-  coordinatesMapSelector,
+const focusedSuggestionSelector = createSelector(
+  itemsListSelector,
   getSuggestionNavigation,
-  ({ coordinatesMap, headers }, { columnIndex, itemIndex }) => {
-    const column = coordinatesMap[columnIndex];
-    if (column) {
-      const header = headers.length === 1 ? headers[0] : headers[columnIndex];
-      return { ...column[itemIndex], header };
+  (itemsList, { itemIndex }) => {
+    if (itemsList.length) {
+      return itemsList[itemIndex];
     }
     return {};
   }
+);
+
+export const focusedItemSelector = createSelector(
+  focusedSuggestionSelector,
+  searchResultItemTransform
 );
 
 export const suggestionTagsSelector = createSelector(
@@ -145,14 +97,54 @@ export const suggestionTagsSelector = createSelector(
 );
 
 export const isEmptySelector = createSelector(
-  suggestionGroupsSelector,
-  (suggestionGroups) => (
-    !keys(suggestionGroups).length
-  )
+  slicedSuggestionGroupsSelector,
+  suggestionGroups => !suggestionGroups.length
 );
 
-export const suggestionColumnsSelector = createSelector(
-  coordinatesMapSelector,
-  ({ coordinatesMap, headers }) => coordinatesMap.map(column => column.length)
+export const totalItemCountSelector = createSelector(
+  itemsListSelector,
+  (itemsList) => itemsList.length
 );
 
+const previewPaneTypeMap = {
+  'OFFICER': (suggestion) => {
+    const { payload, id, text } = suggestion;
+    const visualTokenImg = getSvgUrl(id);
+    const data = [
+      ['unit', payload.unit],
+      ['rank', payload.rank],
+      [`${currentYear} salary`, payload.salary],
+      ['race', payload.race],
+      ['sex', payload.sex]
+    ];
+    const visualTokenBackgroundColor = payload['visual_token_background_color'];
+    return { data, visualTokenBackgroundColor, visualTokenImg, text };
+  }
+};
+
+export const previewPaneInfoSelector = createSelector(
+  focusedSuggestionSelector,
+  suggestion => {
+    return get(previewPaneTypeMap, suggestion.type, () => ({}))(suggestion);
+  }
+);
+
+export const searchResultGroupsSelector = createSelector(
+  slicedSuggestionGroupsSelector,
+  groups => map(groups, ({ header, items, canLoadMore }) => ({
+    header,
+    canLoadMore,
+    items: map(items, item => searchResultItemTransform(item))
+  }))
+);
+
+export const hasMoreSelector = createSelector(
+  isShowingSingleContentTypeSelector,
+  getPagination,
+  (singleContent, { next }) => (singleContent && !!next)
+);
+
+export const nextParamsSelector = createSelector(
+  getPagination,
+  ({ next }) => (extractQuery(next))
+);

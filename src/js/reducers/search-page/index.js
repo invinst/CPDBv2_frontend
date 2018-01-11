@@ -8,6 +8,7 @@ import recentSuggestions from './recent-suggestions';
 import navigation from './navigation';
 import query from './query';
 import searchTerms from './search-terms';
+import pagination from './pagination';
 
 
 const searchPage = combineReducers({
@@ -18,7 +19,8 @@ const searchPage = combineReducers({
   recentSuggestions,
   navigation,
   query,
-  searchTerms
+  searchTerms,
+  pagination
 });
 
 export default searchPage;

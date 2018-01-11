@@ -10,6 +10,7 @@ import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import SimpleSparklines, { width } from 'components/common/sparklines';
 import HoverPoint from 'components/common/sparklines/hover-point';
+import { getThisYear } from 'utils/date';
 
 
 describe('Sparkline components', function () {
@@ -17,15 +18,15 @@ describe('Sparkline components', function () {
   const data = [{
     year: 2001,
     count: 1,
-    'sustained_count': 0
+    sustainedCount: 0
   }, {
     year: 2002,
     count: 2,
-    'sustained_count': 0
+    sustainedCount: 2
   }, {
     year: 2003,
     count: 3,
-    'sustained_count': 1
+    sustainedCount: 1
   }];
 
   afterEach(function () {
@@ -38,24 +39,34 @@ describe('Sparkline components', function () {
 
   it('should render HoverPoint and svg', function () {
     instance = renderIntoDocument(
+      <SimpleSparklines data={ data } startYear={ 2000 }/>
+    );
+    const yearCount = getThisYear() - 2000 + 1;
+    scryRenderedComponentsWithType(instance, HoverPoint).length.should.eql(yearCount);
+    scryRenderedDOMComponentsWithTag(instance, 'circle').length.should.eql(yearCount);
+  });
+
+  it('should render hover points with correct hasSustainedCR props', function () {
+    instance = renderIntoDocument(
       <SimpleSparklines data={ data } startYear={ 2001 }/>
     );
 
-    const yearCount = (new Date()).getFullYear() - 2001 + 1;
-    scryRenderedComponentsWithType(instance, HoverPoint).length.should.eql(yearCount);
-    scryRenderedDOMComponentsWithTag(instance, 'circle').length.should.eql(yearCount);
+    const points = scryRenderedComponentsWithType(instance, HoverPoint);
+    points[0].props.hasSustainedCR.should.be.false();
+    points[1].props.hasSustainedCR.should.be.true();
+    points[2].props.hasSustainedCR.should.be.true();
   });
 
   it('should render a single hover point with 100% width if there is only 1 item', function () {
     const singleData = [{
       year: 2001,
       count: 1,
-      'sustained_count': 0
+      sustainedCount: 0
     }];
     instance = renderIntoDocument(
       <SimpleSparklines
         data={ singleData }
-        startYear={ (new Date()).getFullYear() }
+        startYear={ getThisYear() }
       />
     );
 
@@ -86,17 +97,17 @@ describe('Sparkline components', function () {
     it('should fill data', function () {
       const data = [{
         count: 2,
-        'sustained_count': 0,
+        sustainedCount: 0,
         name: 'Unknown',
         year: 2001
       }, {
         count: 4,
-        'sustained_count': 1,
+        sustainedCount: 1,
         name: 'Unknown',
         year: 2003
       }, {
         count: 11,
-        'sustained_count': 1,
+        sustainedCount: 1,
         name: 'Unknown',
         year: 2004
       }];
@@ -105,37 +116,37 @@ describe('Sparkline components', function () {
         [{
           count: 0,
           aggCount: 0,
-          'sustained_count': 0,
+          sustainedCount: 0,
           name: 'Unknown',
           year: 2000,
         }, {
           count: 2,
           aggCount: 2,
-          'sustained_count': 0,
+          sustainedCount: 0,
           name: 'Unknown',
           year: 2001
         }, {
           count: 0,
           aggCount: 2,
-          'sustained_count': 0,
+          sustainedCount: 0,
           name: 'Unknown',
           year: 2002
         }, {
           count: 4,
           aggCount: 6,
-          'sustained_count': 1,
+          sustainedCount: 1,
           name: 'Unknown',
           year: 2003
         }, {
           count: 11,
           aggCount: 17,
-          'sustained_count': 1,
+          sustainedCount: 1,
           name: 'Unknown',
           year: 2004
         }, {
           count: 0,
           aggCount: 17,
-          'sustained_count': 0,
+          sustainedCount: 0,
           name: 'Unknown',
           year: 2005
         }]

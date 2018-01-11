@@ -15,6 +15,7 @@ import TextInput from 'components/common/input';
 import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError } from 'utils/test';
 import * as domUtils from 'utils/dom';
+import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 
 
 describe('SearchPage component', function () {
@@ -24,7 +25,8 @@ describe('SearchPage component', function () {
       navigation: {},
       searchTerms: {
         categories: []
-      }
+      },
+      pagination: {}
     }
   });
 
@@ -46,7 +48,7 @@ describe('SearchPage component', function () {
     SearchPage.should.be.renderable();
   });
 
-  it('should call api when user type in', function () {
+  it('should call get suggestion api when no contentType selected', function () {
     const getSuggestion = spy();
 
     instance = renderIntoDocument(
@@ -58,6 +60,23 @@ describe('SearchPage component', function () {
     getSuggestion.calledWith('a', {
       contentType: null,
       limit: 9
+    }).should.be.true();
+  });
+
+  it('should call get suggestion api when contentType is selected', function () {
+    const getSuggestionWithContentType = spy();
+    const contentType = 'OFFICER';
+
+    instance = renderIntoDocument(
+      <SearchPage
+        contentType={ contentType }
+        getSuggestionWithContentType={ getSuggestionWithContentType }/>
+    );
+    const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
+    searchInput.value = 'a';
+    Simulate.change(searchInput);
+    getSuggestionWithContentType.calledWith('a', {
+      contentType
     }).should.be.true();
   });
 
@@ -95,8 +114,8 @@ describe('SearchPage component', function () {
     const suggestionGroups = [
       {
         header: 'OFFICER',
-        columns: [
-          [{ payload: { url: 'url' } }]
+        items: [
+          { url: 'url' }
         ]
       }
     ];
@@ -115,8 +134,8 @@ describe('SearchPage component', function () {
     const suggestionGroups = [
       {
         header: 'OFFICER',
-        columns: [
-          [{ payload: { url: 'url', to: 'to' } }]
+        items: [
+          { url: 'url', to: 'to' }
         ]
       }
     ];
@@ -134,7 +153,7 @@ describe('SearchPage component', function () {
   it('should follow the v1 search url when user hit ENTER but there\'s no results', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <SearchPage query={ 'something' }/>
+        <SearchPage query='something'/>
       </Provider>
     );
 
@@ -149,8 +168,8 @@ describe('SearchPage component', function () {
     const suggestionGroups = [
       {
         header: 'OFFICER',
-        columns: [
-          [{ payload: { url: 'url', to: 'to', 'result_text': 'Kevin' } }]
+        items: [
+          { url: 'url', to: 'to', 'text': 'Kevin' }
         ]
       }
     ];
@@ -166,46 +185,24 @@ describe('SearchPage component', function () {
 
   it('should trigger move when up key pressed', function () {
     const move = spy();
-    const suggestionColumns = [];
+    const totalItemCount = 3;
     const direction = 'up';
     instance = renderIntoDocument(
-      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } totalItemCount={ totalItemCount }/>
     );
     Mousetrap.trigger(direction);
-    move.calledWith(direction, suggestionColumns).should.be.true();
+    move.calledWith(direction, totalItemCount).should.be.true();
   });
 
   it('should trigger move when down key pressed', function () {
     const move = spy();
-    const suggestionColumns = [];
+    const totalItemCount = 3;
     const direction = 'down';
     instance = renderIntoDocument(
-      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
+      <SearchPage move={ move } totalItemCount={ totalItemCount }/>
     );
     Mousetrap.trigger(direction);
-    move.calledWith(direction, suggestionColumns).should.be.true();
-  });
-
-  it('should trigger move when left key pressed', function () {
-    const move = spy();
-    const suggestionColumns = [];
-    const direction = 'left';
-    instance = renderIntoDocument(
-      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
-    );
-    Mousetrap.trigger(direction);
-    move.calledWith(direction, suggestionColumns).should.be.true();
-  });
-
-  it('should trigger move when right key pressed', function () {
-    const move = spy();
-    const suggestionColumns = [];
-    const direction = 'right';
-    instance = renderIntoDocument(
-      <SearchPage move={ move } suggestionColumns={ suggestionColumns }/>
-    );
-    Mousetrap.trigger(direction);
-    move.calledWith(direction, suggestionColumns).should.be.true();
+    move.calledWith(direction, totalItemCount).should.be.true();
   });
 
   describe('after keyboard navigation', function () {
@@ -219,16 +216,16 @@ describe('SearchPage component', function () {
 
     it ('should scroll to focused item', function () {
       const domNode = document.createElement('div');
-      ReactDOM.render(<SearchPage navigation={ { columnIndex: 0, itemIndex: 0 } }/>, domNode);
-      ReactDOM.render(<SearchPage navigation={ { columnIndex: 1, itemIndex: 0 } }/>, domNode);
-      this.scrollToElementStub.calledWith('#suggestion-item-1-0').should.be.true();
+      ReactDOM.render(<SearchPage focusedItem={ { uniqueKey: 'OFFICER-1234' } }/>, domNode);
+      ReactDOM.render(<SearchPage focusedItem={ { uniqueKey: 'OFFICER-5678' } }/>, domNode);
+      this.scrollToElementStub.calledWith('.suggestion-item-OFFICER-5678').should.be.true();
     });
   });
 
   describe('handleViewItem', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       instance = renderIntoDocument(
-        <SearchPage focusedSuggestion={ { payload: { to: '/dummy/url' } } }/>
+        <SearchPage focusedItem={ OfficerSuggestion.build({ to: '/dummy/url' }) }/>
       );
       Mousetrap.trigger('enter');
       this.browserHistoryPush.calledWith('/dummy/url').should.be.true();
@@ -237,7 +234,7 @@ describe('SearchPage component', function () {
 
     it('should use window.location.assign() if visiting focused item with external link', function () {
       instance = renderIntoDocument(
-        <SearchPage focusedSuggestion={ { payload: { url: 'http://whatever.local' } } }/>
+        <SearchPage focusedItem={ OfficerSuggestion.build({ url: 'http://whatever.local' }) }/>
       );
       Mousetrap.trigger('enter');
       this.locationAssign.calledWith('http://whatever.local').should.be.true();
