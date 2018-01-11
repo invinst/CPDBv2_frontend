@@ -6,7 +6,7 @@ import { summarySelector } from 'selectors/unit-profile-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 
 
-export const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     location: ownProps.location,
     unitName: ownProps.params.unitName,

@@ -31,9 +31,9 @@ import {
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
-import OfficerBreadcrumb from 'components/breadcrumbs/officer-breadcrumb';
-import UnitBreadcrumb from 'components/breadcrumbs/unit-breadcrumb';
-import CRBreadcrumb from 'components/breadcrumbs/cr-breadcrumb';
+import OfficerBreadcrumb from 'containers/breadcrumbs/officer-breadcrumb';
+import UnitBreadcrumb from 'containers/breadcrumbs/unit-breadcrumb';
+import CRBreadcrumb from 'containers/breadcrumbs/cr-breadcrumb';
 
 
 const store = configureStore();

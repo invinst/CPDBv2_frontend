@@ -8,7 +8,7 @@ import CRPage from 'components/cr-page';
 import { openRequestDocumentModal } from 'actions/generic-modal';
 
 
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     crid: getCRID(state),
     officerId: getOfficerId(state),
