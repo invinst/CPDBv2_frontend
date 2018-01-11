@@ -79,10 +79,10 @@ export function changePageDescription(description) {
   setMetaAttribute('description', description);
 }
 
-export function scrollToElement(selector) {
+export function scrollToElement(selector, alignToTop=true) {
   const element = document.querySelector(selector);
   if (element) {
-    element.scrollIntoView();
+    element.scrollIntoView(alignToTop);
   }
 }
 

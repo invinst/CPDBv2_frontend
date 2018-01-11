@@ -7,8 +7,12 @@ import {
   trackRecentSuggestion,
   resetNavigation
 } from 'actions/search-page';
+import { setAliasAdminPageContent } from 'actions/inline-alias-admin-page';
 import {
-  chunkedSuggestionGroupsSelector, isEmptySelector, focusedSuggestionSelector
+  isEmptySelector,
+  previewPaneInfoSelector,
+  searchResultGroupsSelector,
+  focusedItemSelector
 } from 'selectors/search-page';
 
 
@@ -22,17 +26,19 @@ function mapStateToProps(state, ownProps) {
     aliasEditModeOn,
     isEmpty: isEmptySelector(state),
     searchText: query,
-    focusedSuggestion: focusedSuggestionSelector(state),
     contentType,
     editModeOn,
-    suggestionGroups: chunkedSuggestionGroupsSelector(state),
+    suggestionGroups: searchResultGroupsSelector(state),
     isRequesting,
+    previewPaneInfo: previewPaneInfoSelector(state),
+    focusedItem: focusedItemSelector(state)
   };
 }
 
 const mapDispatchToProps = {
   getSuggestion,
   resetNavigation,
+  setAliasAdminPageContent,
   suggestionClick: trackRecentSuggestion,
 };
 
