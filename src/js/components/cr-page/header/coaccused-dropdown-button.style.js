@@ -1,12 +1,12 @@
 import { sanFranciscoTextFamily, softBlackColor, accentColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
-export const moreCoaccusedStyle = (showDropDown, hovering, parentHovering, scrollPosition) => {
+export const moreCoaccusedStyle = (showDropDown, hovering, scrollPosition) => {
   let color;
   if (showDropDown)
     color = softBlackColor;
   else if (scrollPosition === 'bottom')
-    color = (hovering || parentHovering) ? accentColor: 'white';
+    color = hovering ? accentColor: 'white';
   else
     color = hovering ? softBlackColor: accentColor;
 
@@ -22,12 +22,12 @@ export const moreCoaccusedStyle = (showDropDown, hovering, parentHovering, scrol
   };
 };
 
-export const arrowStyle = (showDropDown, hovering, parentHovering, scrollPosition) => {
+export const arrowStyle = (showDropDown, hovering, scrollPosition) => {
   let imgName;
   if (showDropDown)
     imgName = 'arrow-up-soft-black.svg';
   else if (scrollPosition === 'bottom')
-    imgName = (hovering || parentHovering) ? 'arrow-down-blue.svg' : 'arrow-down-white.svg';
+    imgName = hovering ? 'arrow-down-blue.svg' : 'arrow-down-white.svg';
   else
     imgName = hovering ? 'arrow-down-grey.svg' : 'arrow-down-blue.svg';
 

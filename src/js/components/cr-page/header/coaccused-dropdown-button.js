@@ -5,11 +5,16 @@ import Hoverable from 'components/common/higher-order/hoverable';
 import { moreCoaccusedStyle, arrowStyle } from './coaccused-dropdown-button.style';
 
 
-class CoaccusedDropdownButton extends Component {
+export class CoaccusedDropdownButton extends Component {
+  componentDidUpdate() {
+    const { hovering, setParentHovering } = this.props;
+    setParentHovering(hovering);
+  }
+
   render() {
     const {
       coaccused, officerId, onClick, displayCoaccusedDropdown,
-      hovering, scrollPosition, parentHovering
+      hovering, scrollPosition
     } = this.props;
 
     if (!coaccused || coaccused.length <= 1) {
@@ -26,10 +31,10 @@ class CoaccusedDropdownButton extends Component {
 
     return (
       <span className='test--coaccused-dropdown-button'
-        style={ moreCoaccusedStyle(displayCoaccusedDropdown, hovering, parentHovering, scrollPosition) }
+        style={ moreCoaccusedStyle(displayCoaccusedDropdown, hovering, scrollPosition) }
         onClick={ onClick }>
         { coaccusedText }
-        <span style={ arrowStyle(displayCoaccusedDropdown, hovering, parentHovering, scrollPosition) }/>
+        <span style={ arrowStyle(displayCoaccusedDropdown, hovering, scrollPosition) }/>
       </span>
     );
   }
@@ -42,7 +47,7 @@ CoaccusedDropdownButton.propTypes = {
   displayCoaccusedDropdown: PropTypes.bool,
   hovering: PropTypes.bool,
   scrollPosition: PropTypes.string,
-  parentHovering: PropTypes.bool,
+  setParentHovering: PropTypes.func,
 };
 
 export default Hoverable(CoaccusedDropdownButton);

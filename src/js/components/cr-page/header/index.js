@@ -5,15 +5,32 @@ import CoaccusedList from './coaccused-list';
 import ExpandMotion from 'components/animation/expand-motion';
 import CoaccusedDropdownButton from './coaccused-dropdown-button';
 import { boxShadowStyle, headerStyle, titleStyle, outerPlaceholderStyle } from './header.style';
-import Hoverable from 'components/common/higher-order/hoverable';
 
 
-class Header extends Component {
+export default class Header extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      hovering: false
+    };
+
+    this.setHovering = this.setHovering.bind(this);
+  }
+
+  setHovering(hovering) {
+    if (this.state.hovering !== hovering) {
+      this.setState({
+        hovering: hovering
+      });
+    }
+  }
+
   render() {
     const {
-      crid, officerId, coaccused, openComplaintPage, displayCoaccusedDropdown, onDropDownButtonClick, scrollPosition,
-      hovering
+      crid, officerId, coaccused, openComplaintPage, displayCoaccusedDropdown, onDropDownButtonClick, scrollPosition
     } = this.props;
+    const { hovering } = this.state;
 
     return (
       <div>
@@ -31,7 +48,7 @@ class Header extends Component {
                 displayCoaccusedDropdown={ displayCoaccusedDropdown }
                 onClick={ onDropDownButtonClick }
                 scrollPosition={ scrollPosition }
-                parentHovering={ hovering }
+                setParentHovering={ this.setHovering }
               />
             </div>
           </ResponsiveFluidWidthComponent>
@@ -53,7 +70,4 @@ Header.propTypes = {
   displayCoaccusedDropdown: PropTypes.bool,
   onDropDownButtonClick: PropTypes.func,
   scrollPosition: PropTypes.string,
-  hovering: PropTypes.bool
 };
-
-export default Hoverable(Header);

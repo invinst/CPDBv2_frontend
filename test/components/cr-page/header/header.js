@@ -1,11 +1,13 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import {
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
+} from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Header from 'components/cr-page/header';
-import CoaccusedDropdownButton from 'components/cr-page/header/coaccused-dropdown-button';
 import CoaccusedList from 'components/cr-page/header/coaccused-list';
+import { CoaccusedDropdownButton } from 'components/cr-page/header/coaccused-dropdown-button';
 
 describe('Header component', function () {
   let instance;
@@ -28,5 +30,19 @@ describe('Header component', function () {
   it('should not display coaccused list if displayCoaccusedDropdown is false', function () {
     instance = renderIntoDocument(<Header displayCoaccusedDropdown={ false } />);
     scryRenderedComponentsWithType(instance, CoaccusedList).should.have.length(0);
+  });
+
+  it('should have initial state', function () {
+    instance = renderIntoDocument(<Header crid='123' />);
+    instance.state.should.eql({
+      hovering: false
+    });
+  });
+
+  it('should render CoaccusedDropdownButton with setHovering function', function () {
+    instance = renderIntoDocument(<Header crid='123' />);
+    const dropdownButton = findRenderedComponentWithType(instance, CoaccusedDropdownButton);
+
+    dropdownButton.props.setParentHovering.should.eql(instance.setHovering);
   });
 });

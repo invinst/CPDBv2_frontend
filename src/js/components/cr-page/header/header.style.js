@@ -12,7 +12,6 @@ export const boxShadowStyle = (scrollPosition, hovering) => {
       position: 'fixed',
       left: 0,
       right: 0,
-      zIndex: 1,
       top: `${shareableHeaderHeight}px`,
       backgroundColor: hovering ? 'white' : accentColor,
     };
@@ -21,6 +20,7 @@ export const boxShadowStyle = (scrollPosition, hovering) => {
   return {
     position: 'relative',
     backgroundColor: 'white',
+    zIndex: 1,
   };
 };
 
