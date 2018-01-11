@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import ShortList from 'components/common/short-list';
 import { wrapperStyle, titleStyle, visualTokenStyle } from './preview-pane.style.js';
+import { isEmpty } from 'lodash';
+import SlideMotion from 'components/animation/slide-motion';
 
 
 export default class PreviewPane extends Component {
@@ -8,19 +10,21 @@ export default class PreviewPane extends Component {
     const { data, visualTokenBackgroundColor, visualTokenImg, title } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
-        <div className='test--preview-pane-title' style={ titleStyle }>{ title }</div>
-        {
-          visualTokenImg ?
-            <img
-              className='test--previiew-pane-visual-token'
-              style={ { ...visualTokenStyle, backgroundColor: visualTokenBackgroundColor } }
-              src={ visualTokenImg }
-            /> :
-            null
-        }
-        <ShortList data={ data }/>
-      </div>
+      <SlideMotion show={ !isEmpty(data) }>
+        <div style={ wrapperStyle }>
+          <div className='test--preview-pane-title' style={ titleStyle }>{ title }</div>
+          {
+            visualTokenImg ?
+              <img
+                className='test--previiew-pane-visual-token'
+                style={ { ...visualTokenStyle, backgroundColor: visualTokenBackgroundColor } }
+                src={ visualTokenImg }
+              /> :
+              null
+          }
+          <ShortList data={ data }/>
+        </div>
+      </SlideMotion>
     );
 
   }
