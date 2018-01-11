@@ -5,14 +5,18 @@ import SearchResults from 'components/search-page/search-results';
 import {
   getSuggestion,
   trackRecentSuggestion,
-  resetNavigation
+  resetNavigation,
+  getSuggestionWithContentType
 } from 'actions/search-page';
 import { setAliasAdminPageContent } from 'actions/inline-alias-admin-page';
 import {
   isEmptySelector,
   previewPaneInfoSelector,
   searchResultGroupsSelector,
-  focusedItemSelector
+  focusedItemSelector,
+  hasMoreSelector,
+  nextParamsSelector,
+  isShowingSingleContentTypeSelector
 } from 'selectors/search-page';
 
 
@@ -31,7 +35,10 @@ function mapStateToProps(state, ownProps) {
     suggestionGroups: searchResultGroupsSelector(state),
     isRequesting,
     previewPaneInfo: previewPaneInfoSelector(state),
-    focusedItem: focusedItemSelector(state)
+    focusedItem: focusedItemSelector(state),
+    hasMore: hasMoreSelector(state),
+    nextParams: nextParamsSelector(state),
+    singleContent: isShowingSingleContentTypeSelector(state)
   };
 }
 
@@ -40,6 +47,7 @@ const mapDispatchToProps = {
   resetNavigation,
   setAliasAdminPageContent,
   suggestionClick: trackRecentSuggestion,
+  getSuggestionWithContentType
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

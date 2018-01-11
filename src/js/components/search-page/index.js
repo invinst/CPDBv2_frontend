@@ -73,7 +73,11 @@ export default class SearchPage extends Component {
     changeSearchQuery(query);
 
     if (query) {
-      this.props.getSuggestion(query, { contentType, limit });
+      if (contentType) {
+        this.props.getSuggestionWithContentType(query, { contentType });
+      } else {
+        this.props.getSuggestion(query, { contentType, limit });
+      }
     } else {
       this.props.selectTag(null);
     }
@@ -117,7 +121,8 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
-      editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children
+      editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children,
+      getSuggestionWithContentType
     } = this.props;
 
     return (
@@ -154,6 +159,7 @@ export default class SearchPage extends Component {
                 searchTermsHidden={ searchTermsHidden }
                 resetNavigation={ resetNavigation }
                 getSuggestion={ getSuggestion }
+                getSuggestionWithContentType={ getSuggestionWithContentType }
               />
           }
         </div>
@@ -174,6 +180,7 @@ SearchPage.propTypes = {
   recentSuggestions: PropTypes.array,
   isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func,
+  getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
   trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
@@ -195,6 +202,7 @@ SearchPage.defaultProps = {
   focusedItem: {},
   isRequesting: false,
   getSuggestion: () => {},
+  getSuggestionWithContentType: () => {},
   trackRecentSuggestion: () => {},
   resetNavigation: () => {},
   router: {
