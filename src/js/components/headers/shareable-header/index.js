@@ -1,20 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import ClipboardButton from 'react-clipboard.js';
-import { Link } from 'react-router';
-import { BACK_LINK_WHITELIST } from 'utils/constants';
 import config from 'config';
+import Breadcrumbs from 'redux-breadcrumb-trail';
+
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   outerStyle,
   navBarStyle,
-  leftLinkStyle,
   rightLinkStyle,
   shareMenuStyle,
   menuItemImgStyle,
   shareMenuButtonItemStyle,
-  shareMenuLinkItemStyle
+  shareMenuLinkItemStyle,
 } from './shareable-header.style';
 import { imgUrl } from 'utils/static-assets';
+import BreadcrumbsItem from 'components/headers/shareable-header/breadcrumbs-item';
+import { breadcrumbsStyle, breadcrumbSeparatorStyle } from 'components/headers/shareable-header/shareable-header.style';
 
 
 export default class ShareableHeader extends Component {
@@ -73,7 +74,7 @@ export default class ShareableHeader extends Component {
           target='_blank'
           onClick={ this.closeShareMenu }
         >
-          Tweet <img style={ menuItemImgStyle } src={ imgUrl('ic-twitter.svg') }/>
+          Tweet <img style={ menuItemImgStyle } src={ imgUrl('ic-twitter.svg') } />
         </a>
 
         <a
@@ -83,30 +84,38 @@ export default class ShareableHeader extends Component {
           target='_blank'
           onClick={ this.closeShareMenu }
         >
-          Share <img style={ menuItemImgStyle } src={ imgUrl('ic-facebook.svg') }/>
+          Share <img style={ menuItemImgStyle } src={ imgUrl('ic-facebook.svg') } />
         </a>
       </div>
     );
   }
 
   render() {
-    const { backLink } = this.props;
+    const { location, routes, params } = this.props;
     const { shareMenuIsOpen } = this.state;
 
     const shareButtonClickHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
-    const backLinkText = `Back to ${BACK_LINK_WHITELIST[backLink]}`;
+    const separatorRenderer = () => <li style={ breadcrumbSeparatorStyle }/>;
 
     return (
       <ResponsiveFluidWidthComponent style={ outerStyle }>
         <div style={ navBarStyle }>
-          <Link style={ leftLinkStyle } className='left-link' to={ backLink }>{ backLinkText }</Link>
           <span
             style={ rightLinkStyle(shareMenuIsOpen) }
             onClick={ shareButtonClickHandler }
             className='test--shareable-header--share-link'
           >
-          Share
-        </span>
+            Share
+          </span>
+          <Breadcrumbs
+            className='test--breadcrumbs'
+            routes={ routes }
+            params={ params }
+            location={ location }
+            separatorRenderer={ separatorRenderer }
+            itemRenderer={ BreadcrumbsItem }
+            style={ breadcrumbsStyle }
+          />
           { this.renderMenu() }
         </div>
       </ResponsiveFluidWidthComponent>
@@ -115,12 +124,18 @@ export default class ShareableHeader extends Component {
 }
 
 ShareableHeader.propTypes = {
-  backLink: PropTypes.string,
+  location: PropTypes.object,
+  params: PropTypes.object,
+  routes: PropTypes.array,
   closeShareMenu: PropTypes.func,
   openShareMenu: PropTypes.func,
   shareMenuIsOpen: PropTypes.bool
 };
 
 ShareableHeader.defaultProps = {
-  backLink: '/'
+  params: {},
+  location: {
+    pathname: ''
+  },
+  routes: []
 };

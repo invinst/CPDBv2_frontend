@@ -29,19 +29,13 @@ export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
-export const OFFICER_TIMELINE_PATH = 'officer/:officerId/timeline';
-export const OFFICER_SOCIAL_GRAPH_PATH = 'officer/:officerId/social';
-export const CR_PATH = 'complaint/:crid/:officerId';
+export const OFFICER_TIMELINE_SUFFIX = 'timeline/';
+export const OFFICER_SOCIAL_GRAPH_SUFFIX = 'social/';
+export const OFFICER_TIMELINE_PATH = `officer/:officerId/${OFFICER_TIMELINE_SUFFIX}`;
+export const OFFICER_SOCIAL_GRAPH_PATH = `officer/:officerId/${OFFICER_SOCIAL_GRAPH_SUFFIX}`;
+export const CR_PATH_SUFFIX = ':officerId';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
-
-// Links to be used in ShareableHeader's "Back to XXX" link
-export const BACK_LINK_WHITELIST = {
-  [ROOT_PATH]: 'Home',
-  ['/edit' + ROOT_PATH]: 'Home',
-  [ROOT_PATH + SEARCH_PATH]: 'Search',
-  [ROOT_PATH + 'edit/' + SEARCH_PATH]: 'Search'
-};
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
