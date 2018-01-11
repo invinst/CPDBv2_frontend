@@ -1,83 +1,74 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
+import InfiniteScroll from 'react-infinite-scroller';
 
-import { suggestionGroupStyle, groupHeaderStyle } from './suggestion-group.style';
-import SuggestionColumn from './suggestion-column';
+import { groupHeaderStyle, scrollerStyle } from './suggestion-group.style';
+import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 
-const HEADER_MAPPINGS = {
-  OFFICER: 'OFFICERS',
-  COMMUNITY: 'COMMUNITIES',
-  NEIGHBORHOOD: 'NEIGHBORHOODS',
-  UNIT: 'UNITS'
-};
 
 export default class SuggestionGroup extends Component {
-  renderColumns() {
+  render() {
     const {
       suggestions,
       header,
+      showMoreButton,
+      onLoadMore,
+      focusedItem,
+      aliasEditModeOn,
+      setAliasAdminPageContent,
       suggestionClick,
-      columnIndex,
-      navigation,
-      aliasEditModeOn
+      hasMore,
+      searchText,
+      nextParams,
+      getSuggestionWithContentType,
+      singleContent
     } = this.props;
 
-    return map(suggestions, (suggestionsInColumn, key) => {
-      return (
-        <SuggestionColumn
-          key={ key }
-          navigation={ navigation }
-          suggestionClick={ suggestionClick }
-          contentType={ header }
-          suggestions={ suggestionsInColumn }
-          index={ key }
-          columnIndex={ columnIndex + key }
-          aliasEditModeOn={ aliasEditModeOn } />
-      );
-    });
-  }
-
-  renderLoadMore() {
-    const { onLoadMore, header, canLoadMore } = this.props;
-
-    if (canLoadMore) {
-      return (
-        <LoadMoreButton onLoadMore={ onLoadMore } header={ header }/>
-      );
-    }
-    return null;
-  }
-
-  render() {
-    const { suggestions, header } = this.props;
-
-    if (suggestions.length > 0) {
-      return (
-        <div style={ suggestionGroupStyle } className='suggestion-group'>
-          <div style={ groupHeaderStyle }>{ HEADER_MAPPINGS[header] || header }</div>
-          { this.renderColumns() }
-          { this.renderLoadMore() }
-        </div>
-      );
-    }
-    return null;
+    return (
+      <div style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
+        <div style={ groupHeaderStyle }>{ header }</div>
+        <InfiniteScroll
+          loadMore={ () => getSuggestionWithContentType(searchText, { ...nextParams }) }
+          initialLoad={ false }
+          hasMore={ hasMore }
+          useWindow={ false }>
+          {
+            map(suggestions, (suggestion) => (
+              <SuggestionItem
+                key={ suggestion.uniqueKey }
+                aliasEditModeOn={ aliasEditModeOn }
+                setAliasAdminPageContent={ setAliasAdminPageContent }
+                suggestionClick={ suggestionClick }
+                suggestion={ suggestion }
+                isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
+            ))
+          }
+        </InfiniteScroll>
+        { showMoreButton ? <LoadMoreButton onLoadMore={ onLoadMore } header={ header }/> : null }
+      </div>
+    );
   }
 }
 
 SuggestionGroup.propTypes = {
-  columnIndex: PropTypes.number,
-  navigation: PropTypes.object,
   suggestions: PropTypes.array,
   header: PropTypes.string,
+  showMoreButton: PropTypes.bool,
+  aliasEditModeOn: PropTypes.bool,
   onLoadMore: PropTypes.func,
   suggestionClick: PropTypes.func,
-  canLoadMore: PropTypes.bool,
-  aliasEditModeOn: PropTypes.bool
+  setAliasAdminPageContent: PropTypes.func,
+  focusedItem: PropTypes.object,
+  getSuggestionWithContentType: PropTypes.func,
+  hasMore: PropTypes.bool,
+  searchText: PropTypes.string,
+  nextParams: PropTypes.object,
+  singleContent: PropTypes.bool
 };
 
 SuggestionGroup.defaultProps = {
   suggestions: [],
-  header: '',
-  onLoadMore: function () {}
+  focusedItem: {},
+  header: ''
 };

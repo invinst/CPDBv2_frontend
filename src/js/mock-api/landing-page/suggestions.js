@@ -1,70 +1,70 @@
-import { fill } from 'lodash';
+import { RawOfficerSuggestion, RawNeighborhoodSuggestion } from 'utils/test/factories/suggestion';
 
-const officers = Array(10);
-fill(officers, {
-  'text': 'Bernadette Kelly',
-  'payload': {
-    'result_text': 'Bernadette Kelly',
-    'result_extra_information': '7186',
-    'to': '/officer/1/'
-  }
-});
 
-export default {
+export const groupedSuggestions = {
   'default': {
-    'OFFICER': officers,
-    'CO-ACCUSED': [
-      {
-        'text': 'Bernadette Kelly',
-        'payload': {
-          'result_text': 'Bernadette Kelly',
-          'result_extra_information': '7186',
-          'to': '/officer/1/'
+    'OFFICER': [
+      RawOfficerSuggestion.build(
+        {
+          id: '1'
+        }, {
+          resultText: 'Bernadette Kelly',
+          to: '/officer/1/',
+          allegationCount: 10,
+          sustainedCount: 2,
+          birthYear: 1972,
+          race: 'White',
+          sex: 'Male'
         }
-      }
+      ),
+      RawOfficerSuggestion.build({ id: '2' }),
+      ...RawOfficerSuggestion.buildList(8)
+    ],
+    'CO-ACCUSED': [
+      RawOfficerSuggestion.build(
+        {
+          id: '1'
+        }, {
+          resultText: 'Bernadette Kelly',
+          to: '/officer/1/',
+          allegationCount: 10,
+          sustainedCount: 2,
+          birthYear: 1972,
+          race: 'White',
+          sex: 'Male'
+        }
+      )
     ],
     'UNIT': [
 
     ],
     'NEIGHBORHOOD': [
-      {
-        'text': 'Kenwood',
-        'payload': {
-          'result_text': 'Kenwood',
-          'result_extra_information': ''
-        }
-      }
+      RawNeighborhoodSuggestion.build({ id: '1' }, { resultText: 'Kenwood' })
     ]
   },
   'noresult': {},
-  'OFFICER': {
-    'OFFICER': [
-      {
-        'text': 'Bernadette Kelly',
-        'payload': {
-          'result_text': 'Bernadette Kelly',
-          'result_extra_information': '7186'
-        }
-      },
-      {
-        'text': 'Charles Kelly',
-        'payload': {
-          'result_text': 'Charles Kelly',
-          'result_extra_information': ''
-        }
-      }
-    ]
-  },
   'foo': {
     'OFFICER': [
-      {
-        'text': 'Laurence Lanners',
-        'payload': {
-          'result_text': 'Laurence Lanners',
-          'result_extra_information': '5678',
-          'to': '/officer/5678/'
-        }
-      }
+      RawOfficerSuggestion.build({}, { resultText: 'Laurence Lanners', to: '/officer/5678/' })
     ]
+  }
+};
+
+export const singleGroupSuggestions = {
+  'default': {
+    count: 30,
+    previous: null,
+    next: 'http://my/api/?contentType=OFFICER&offset=20',
+    results: [
+      RawOfficerSuggestion.build({}, { resultText: 'Bernadette Kelly' }),
+      RawOfficerSuggestion.build({}, { resultText: 'Charles Kelly' }),
+      ...RawOfficerSuggestion.buildList(18)
+    ]
+  },
+  offset20: {
+    count: 30,
+    previous: null,
+    next: null,
+    results: RawOfficerSuggestion.buildList(10)
   }
 };

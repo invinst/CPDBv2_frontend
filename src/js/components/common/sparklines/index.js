@@ -3,8 +3,8 @@ import { range, keyBy } from 'lodash';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 import HoverPoint from './hover-point';
-import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './sparklines.style';
 import { getThisYear } from 'utils/date';
+import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './sparklines.style';
 
 
 export const width = 600;

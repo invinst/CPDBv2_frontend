@@ -19,7 +19,8 @@ describe('SearchMainPanel component', function () {
       navigation: {},
       searchTerms: {
         categories: []
-      }
+      },
+      pagination: {}
     }
   });
 
@@ -32,13 +33,15 @@ describe('SearchMainPanel component', function () {
     lodash.debounce.restore();
   });
 
-  it('should call api when user select a tag', function () {
-    const getSuggestion = spy();
+  it('should call api with content type when user select a tag', function () {
+    const getSuggestionWithContentType = spy();
     const tags = ['a'];
 
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <SearchMainPanel getSuggestion={ getSuggestion } tags={ tags } query={ 'a' }/>
+        <SearchMainPanel
+          getSuggestionWithContentType={ getSuggestionWithContentType }
+          tags={ tags } query={ 'a' }/>
       </Provider>
     );
 
@@ -46,7 +49,7 @@ describe('SearchMainPanel component', function () {
     const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
     Simulate.click(tagElement);
 
-    getSuggestion.calledWith('a', {
+    getSuggestionWithContentType.calledWith('a', {
       contentType: 'a'
     }).should.be.true();
   });

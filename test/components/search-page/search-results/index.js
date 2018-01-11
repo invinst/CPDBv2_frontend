@@ -74,41 +74,21 @@ describe('SearchResults component', function () {
   });
 
   describe('Preview Pane', function () {
-    it('should not render PreviewPane when no officer is focused', function () {
-      const focusedSuggestion = {
-        header: 'CO-ACCUSED',
-        text: 'Traci Walker',
-        payload: {
-          'result_extra_information': 'Badge # 2374',
-          'result_reason': 'coaccused with Walter Ware (17626)',
-          'result_text': 'Traci Walker',
-          'to': '/officer/29811/'
-        }
-      };
-      instance = renderIntoDocument(
-        <SearchResults isEmpty={ false } focusedSuggestion={ focusedSuggestion }/>
-      );
-
-      const previewPane = scryRenderedComponentsWithType(instance, PreviewPane);
-      previewPane.length.should.eql(0);
-    });
-
     it('should render PreviewPane when an officer is focused', function () {
-      const focusedSuggestion = {
-        header: 'OFFICER',
-        id: '12345',
-        text: 'John Wang',
-        payload: {
-          unit: '001',
-          rank: null,
-          salary: '$99,999',
-          race: 'White',
-          sex: 'Male',
-          'visual_token_background_color': '#fafafa'
-        }
+      const previewPaneInfo = {
+        data: [
+          ['unit', '001'],
+          ['rank', null],
+          ['2017 salary', '$99,999'],
+          ['race', 'White'],
+          ['sex', 'Male']
+        ],
+        title: 'John Wang',
+        visualTokenBackgroundColor: '#fafafa',
+        visualTokenImg: 'http://test.img'
       };
       instance = renderIntoDocument(
-        <SearchResults isEmpty={ false } focusedSuggestion={ focusedSuggestion }/>
+        <SearchResults isEmpty={ false } previewPaneInfo={ previewPaneInfo }/>
       );
 
       const previewPane = findRenderedComponentWithType(instance, PreviewPane);
@@ -121,8 +101,8 @@ describe('SearchResults component', function () {
         ['race', 'White'],
         ['sex', 'Male']
       ]);
-      previewPane.props.officerId.should.eql('12345');
-      previewPane.props.backgroundColor.should.eql('#fafafa');
+      previewPane.props.visualTokenImg.should.eql('http://test.img');
+      previewPane.props.visualTokenBackgroundColor.should.eql('#fafafa');
       previewPane.props.title.should.eql('John Wang');
     });
   });
