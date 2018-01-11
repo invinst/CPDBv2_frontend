@@ -8,6 +8,13 @@ import LoadMoreButton from './load-more-button';
 
 
 export default class SuggestionGroup extends Component {
+  componentDidMount() {
+    const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
+    if (singleContent) {
+      getSuggestionWithContentType(searchText, { contentType: header });
+    }
+  }
+
   render() {
     const {
       suggestions,

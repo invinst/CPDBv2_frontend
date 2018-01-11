@@ -49,4 +49,20 @@ describe('SuggestionGroup component', function () {
     findRenderedComponentWithType(instance, InfiniteScroll).props.loadMore();
     getSuggestionWithContentType.calledWith(searchText, nextParams).should.be.true();
   });
+
+  it('should call single content type api when single content is detected', function () {
+    const header = 'OFFICER';
+    const searchText = 'abc';
+    const getSuggestionWithContentType = spy();
+
+    instance = renderIntoDocument(
+      <SuggestionGroup
+        singleContent={ true }
+        getSuggestionWithContentType={ getSuggestionWithContentType }
+        header={ header }
+        searchText={ searchText }/>
+    );
+
+    getSuggestionWithContentType.calledWith(searchText, { contentType: header }).should.be.true();
+  });
 });

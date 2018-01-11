@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { unionBy } from 'lodash';
+import { unionBy, omitBy, isEmpty } from 'lodash';
 
 import {
   SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
@@ -9,7 +9,9 @@ import * as constants from 'utils/constants';
 
 export default handleActions({
   [SUGGESTION_REQUEST_START]: (state, action) => ({ meta: {} }),
-  [SUGGESTION_REQUEST_SUCCESS]: (state, action) => ({ ...action.payload, meta: { url: action.request.url } }),
+  [SUGGESTION_REQUEST_SUCCESS]: (state, action) => ({
+    ...omitBy(action.payload, isEmpty), meta: { url: action.request.url }
+  }),
   [SUGGESTION_REQUEST_FAILURE]: (state, action) => ({ meta: {} }),
   [constants.SUGGESTION_SINGLE_REQUEST_START]: (state, action) => (state),
   [constants.SUGGESTION_SINGLE_REQUEST_SUCCESS]: (state, action) => {

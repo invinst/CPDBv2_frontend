@@ -22,6 +22,7 @@ describe('SearchPage component', function () {
   let instance;
   const store = MockStore()({
     searchPage: {
+      tags: [],
       navigation: {},
       searchTerms: {
         categories: []

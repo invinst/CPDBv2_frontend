@@ -14,11 +14,20 @@ describe('search page selector', function () {
     it('should tell if showing single type of content', function () {
       isShowingSingleContentTypeSelector({
         searchPage: {
-          contentType: 'OFFICER'
+          contentType: 'OFFICER',
+          tags: []
         }
       }).should.be.true();
       isShowingSingleContentTypeSelector({
-        searchPage: {}
+        searchPage: {
+          contentType: null,
+          tags: [1]
+        }
+      }).should.be.true();
+      isShowingSingleContentTypeSelector({
+        searchPage: {
+          tags: []
+        },
       }).should.be.false();
     });
   });
@@ -27,6 +36,7 @@ describe('search page selector', function () {
     it('should give correct item format for OFFICER', function () {
       searchResultGroupsSelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': [
               RawOfficerSuggestion.build({ id: '29033' }, {
@@ -66,6 +76,7 @@ describe('search page selector', function () {
     it('should give correct item format for CR', function () {
       searchResultGroupsSelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'CR': [RawCRSuggestion.build(
               { id: '1001' },
@@ -94,6 +105,7 @@ describe('search page selector', function () {
     it('should limit items per category to 5', function () {
       const [officerGroup, coaccusedGroup] = searchResultGroupsSelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(10),
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
@@ -113,6 +125,7 @@ describe('search page selector', function () {
     it('should not limit items if a category is selected', function () {
       const [officerGroup] = searchResultGroupsSelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(10),
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
@@ -129,6 +142,7 @@ describe('search page selector', function () {
     it('should omit empty categories', function () {
       const groups = searchResultGroupsSelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': [],
             'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
@@ -165,6 +179,7 @@ describe('search page selector', function () {
     it('should be true when all keys are empty', function () {
       isEmptySelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': [],
             'UNIT': []
@@ -176,6 +191,7 @@ describe('search page selector', function () {
     it('should be false when not all keys are empty', function () {
       isEmptySelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': [{}],
             'UNIT': []
@@ -189,6 +205,7 @@ describe('search page selector', function () {
     it('should return correct suggestion', function () {
       focusedItemSelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(2),
             'UNIT': [],
@@ -217,6 +234,7 @@ describe('search page selector', function () {
     it('should return empty when there is no suggestion', function () {
       should(focusedItemSelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': [],
             'UNIT': [],
@@ -259,6 +277,7 @@ describe('search page selector', function () {
       };
       previewPaneInfoSelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': [focusedSuggestion],
             'UNIT': [],
@@ -276,6 +295,7 @@ describe('search page selector', function () {
     it('should return total suggestions count', function () {
       totalItemCountSelector({
         searchPage: {
+          tags: [],
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(3),
             'UNIT': [],
@@ -290,6 +310,7 @@ describe('search page selector', function () {
     it('should return false when no content type is selected', function () {
       hasMoreSelector({
         searchPage: {
+          tags: [],
           pagination: {},
           contentType: null
         }
@@ -299,6 +320,7 @@ describe('search page selector', function () {
     it('should return false when content type is selected and there is no next url', function () {
       hasMoreSelector({
         searchPage: {
+          tags: [],
           pagination: {},
           contentType: 'OFFICER'
         }
@@ -308,6 +330,7 @@ describe('search page selector', function () {
     it('should return true when content type is selected and there is next url', function () {
       hasMoreSelector({
         searchPage: {
+          tags: [],
           pagination: {
             next: 'example.com/next'
           },
