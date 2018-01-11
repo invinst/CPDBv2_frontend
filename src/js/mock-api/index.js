@@ -8,7 +8,7 @@ import {
 import OfficerFactory from 'utils/test/factories/officer';
 import reportingPageGetData from './reporting-page/get-data';
 import FAQPageGetData from './faq-page/get-data';
-import suggestionGetData from './landing-page/suggestions';
+import { groupedSuggestions, singleGroupSuggestions } from './landing-page/suggestions';
 import getSummaryData from './officer-page/get-summary';
 import getMinimapData, { filterMinimapItem } from './officer-page/get-minimap';
 import getSocialGraphData from './officer-page/get-social-graph';
@@ -24,7 +24,8 @@ import getActivityGridData from './landing-page/activity-grid';
 import getSearchTermsData from './search-terms-page';
 
 
-const SEARCH_API_URL = /^suggestion\/([^/]*)\//;
+const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
+const SEARCH_SINGLE_API_URL = /^suggestion\/([^/]*)\/single\/$/;
 /* istanbul ignore next */
 axiosMockClient.onGet(REPORTS_API_URL).reply(() => [200, reportingPageGetData()]);
 /* istanbul ignore next */
@@ -56,9 +57,16 @@ axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
     'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false
   });
 
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER' } }).reply(() => {
+  return [200, singleGroupSuggestions.default];
+});
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER', offset: '20' } }).reply(() => {
+  return [200, singleGroupSuggestions.offset20];
+});
+
 axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
   const matchs = SEARCH_API_URL.exec(config.url);
-  return [200, suggestionGetData[config.params.contentType || matchs[1]] || suggestionGetData['default']];
+  return [200, groupedSuggestions[config.params.contentType || matchs[1]] || groupedSuggestions['default']];
 });
 
 axiosMockClient.onGet(`${SEARCH_OFFICER_URL}foo/`).reply(() => [200, OfficerFactory.buildList(3)]);

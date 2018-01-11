@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import ClipboardButton from 'react-clipboard.js/dist/react-clipboard';
+import ClipboardButton from 'react-clipboard.js';
+import config from 'config';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
@@ -69,7 +70,7 @@ export default class ShareableHeader extends Component {
         <a
           style={ shareMenuLinkItemStyle }
           className='test--shareable-header--tweet-link'
-          href={ 'https://twitter.com/intent/tweet?url=' + encodedLink }
+          href={ `https://twitter.com/intent/tweet?url=${encodedLink}&via=${config.twitterBotName}` }
           target='_blank'
           onClick={ this.closeShareMenu }
         >

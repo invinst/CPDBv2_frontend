@@ -15,6 +15,7 @@ import Breadcrumbs from 'redux-breadcrumb-trail';
 
 import { unmountComponentSuppressError } from 'utils/test/index';
 import { stub } from 'sinon';
+import config from 'config';
 
 describe('ShareableHeader component', function () {
   let element;
@@ -77,7 +78,8 @@ describe('ShareableHeader component', function () {
     it('should render tweet link', function () {
       const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--tweet-link');
       link.textContent.should.containEql('Tweet');
-      link.getAttribute('href').should.eql('https://twitter.com/intent/tweet?url=' + this.encodedLink);
+      const href = `https://twitter.com/intent/tweet?url=${this.encodedLink}&via=${config.twitterBotName}`;
+      link.getAttribute('href').should.eql(href);
 
       // should close menu on click
       Simulate.click(link);

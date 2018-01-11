@@ -28,7 +28,7 @@ describe('PreviewPane component', function () {
     instance = renderIntoDocument(
       <PreviewPane
         data={ data }
-        officerId={ '1234' }
+        visualTokenImg={ 'http://test.img' }
         backgroundColor={ 'red' }
         title={ 'Tsumiki Miniwa' }
       />
@@ -39,7 +39,7 @@ describe('PreviewPane component', function () {
 
     const visualToken = findRenderedDOMComponentWithClass(instance, 'test--previiew-pane-visual-token');
     visualToken.getAttribute('src').should.eql(
-      'https://cpdbdev.blob.core.windows.net/visual-token/officer_1234.svg'
+      'http://test.img'
     );
 
     const shortList = findRenderedComponentWithType(instance, ShortList);
