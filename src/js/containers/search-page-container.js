@@ -15,8 +15,9 @@ import {
   toggleSearchTerms, requestSearchTermCategories
 } from 'actions/search-page/search-terms';
 import {
-  chunkedSuggestionGroupsSelector, isEmptySelector, suggestionTagsSelector,
-  suggestionColumnsSelector, focusedSuggestionSelector, isShowingSingleContentTypeSelector
+  isEmptySelector, suggestionTagsSelector, totalItemCountSelector,
+  focusedItemSelector, isShowingSingleContentTypeSelector,
+  searchResultGroupsSelector
 } from 'selectors/search-page';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { cardsSelector } from 'selectors/landing-page/activity-grid';
@@ -26,27 +27,26 @@ import editModeOnSelector from 'selectors/edit-mode-on';
 
 function mapStateToProps(state, ownProps) {
   const {
-    isRequesting, contentType, recentSuggestions, navigation, query, itemsPerColumn
+    isRequesting, contentType, recentSuggestions, query, itemsPerColumn
   } = state.searchPage;
   const { children } = ownProps;
 
   return {
-    navigation,
     itemsPerColumn,
     query,
     children,
     tags: suggestionTagsSelector(state),
-    suggestionGroups: chunkedSuggestionGroupsSelector(state),
+    suggestionGroups: searchResultGroupsSelector(state),
     isRequesting,
     contentType,
     isEmpty: isEmptySelector(state),
-    suggestionColumns: suggestionColumnsSelector(state),
-    focusedSuggestion: focusedSuggestionSelector(state),
+    focusedItem: focusedItemSelector(state),
     isShowingSingleContentType: isShowingSingleContentTypeSelector(state),
     recentSuggestions,
     officerCards: cardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
+    totalItemCount: totalItemCountSelector(state)
   };
 }
 

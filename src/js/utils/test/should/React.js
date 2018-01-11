@@ -66,7 +66,7 @@ should.Assertion.add('triggerCallbackWhenClick', function (callbackProp, target=
   }
 
   if (expectedArg !== null) {
-    callback.calledWith(expectedArg).should.be.true();
+    callback.calledWith(...expectedArg).should.be.true();
   } else {
     callback.called.should.be.true();
   }

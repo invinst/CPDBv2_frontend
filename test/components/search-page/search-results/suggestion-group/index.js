@@ -1,52 +1,31 @@
 import React from 'react';
 
-import { Provider } from 'react-redux';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
-import { fill } from 'lodash';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
 import { unmountComponentSuppressError } from 'utils/test';
-import MockStore from 'redux-mock-store';
+import { OfficerSuggestion } from 'utils/test/factories/suggestion';
+import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 
 
 describe('SuggestionGroup component', function () {
   let instance;
 
-  const mockStore = MockStore();
-  const store = mockStore();
-
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should be renderable', function () {
-    SuggestionGroup.should.be.renderable({ suggestions: [[]] });
-  });
-
-  it('should render null', function () {
-    instance = renderIntoDocument(<SuggestionGroup/>);
-    (findDOMNode(instance) === null).should.be.true();
-  });
-
-  it('should not render `Show more results` if canLoadMore is false', function () {
+  it('should render SuggestionItem', function () {
     instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SuggestionGroup
-          suggestions={ [fill(new Array(10), {})] }
-          canLoadMore={ false } />
-      </Provider>
+      <SuggestionGroup suggestions={ OfficerSuggestion.buildList(3) }/>
     );
-    findDOMNode(instance).textContent.should.not.containEql('Show more results');
+    scryRenderedComponentsWithType(instance, SuggestionItem).should.have.length(3);
   });
 
-  it('should render `All` if canLoadMore is true', function () {
+  it('should render `More` if canLoadMore is true', function () {
     instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SuggestionGroup
-          suggestions={ [fill(new Array(10), {})] }
-          canLoadMore={ true } />
-      </Provider>
+      <SuggestionGroup canLoadMore={ true }/>
     );
-    findDOMNode(instance).textContent.should.containEql('All');
+    findDOMNode(instance).textContent.should.containEql('More');
   });
 });

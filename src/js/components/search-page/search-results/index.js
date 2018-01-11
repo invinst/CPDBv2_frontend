@@ -4,12 +4,11 @@ import { map } from 'lodash';
 
 import {
   resultWrapperStyle, plusWrapperStyle, plusSignStyle, columnWrapperStyle,
-  suggestionResultsStyle
+  suggestionResultsStyle, cancelButtonStyle, actionBarStyle
 } from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
-import { previewPaneInfoSelector } from 'selectors/search-page';
 import * as constants from 'utils/constants';
 
 
@@ -22,7 +21,9 @@ export default class SuggestionResults extends Component {
       suggestionClick,
       navigation,
       onLoadMore,
-      aliasEditModeOn
+      aliasEditModeOn,
+      setAliasAdminPageContent,
+      focusedItem
     } = this.props;
 
     if (isEmpty) {
@@ -30,43 +31,43 @@ export default class SuggestionResults extends Component {
         <SuggestionNoResult searchText={ searchText }/>
       );
     }
-    // FIXME: Refactor it by a more convenient way
-    let i = -1;
 
-    return map(suggestionGroups, (group) => {
-      i = i + 1;
+    return map(suggestionGroups, (group) => (
+      <SuggestionGroup
+        focusedItem={ focusedItem }
+        onLoadMore={ onLoadMore }
+        key={ `suggestion-group-${group.header}` }
+        navigation={ navigation }
+        setAliasAdminPageContent={ setAliasAdminPageContent }
+        suggestions={ group.items }
+        canLoadMore={ group.canLoadMore }
+        suggestionClick={ suggestionClick }
+        header={ group.header }
+        aliasEditModeOn={ aliasEditModeOn }/>
+      ));
+  }
 
-      return (
-        <SuggestionGroup
-          onLoadMore={ onLoadMore }
-          key={ `suggestion-group-${group.header}` }
-          navigation={ navigation }
-          suggestions={ group.columns }
-          canLoadMore={ group.canLoadMore }
-          suggestionClick={ suggestionClick }
-          header={ group.header }
-          columnIndex={ i }
-          aliasEditModeOn={ aliasEditModeOn }/>
-      );
-    });
+  renderActionBar() {
+    const { aliasEditModeOn } = this.props;
+
+    return (
+      aliasEditModeOn ?
+        <div style={ actionBarStyle }>
+          <Link
+            to={ `/edit/${constants.SEARCH_PATH}` }
+            style={ cancelButtonStyle }
+            className='test--cancel-alias-button'>
+            Cancel
+          </Link>
+        </div> :
+        <div style={ plusWrapperStyle }>
+          <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
+        </div>
+    );
   }
 
   render() {
-    const { isRequesting, focusedSuggestion, editModeOn, aliasEditModeOn } = this.props;
-    let previewPane = null;
-    const shouldShowPreviewPane = focusedSuggestion.header === 'OFFICER';
-
-    if (focusedSuggestion.payload && shouldShowPreviewPane) {
-      const { data, visualTokenBackgroundColor, id, text } = previewPaneInfoSelector(focusedSuggestion);
-      previewPane = (
-        <PreviewPane
-          data={ data }
-          officerId={ id }
-          backgroundColor={ visualTokenBackgroundColor }
-          title={ text }
-        />
-      );
-    }
+    const { isRequesting, editModeOn, aliasEditModeOn, previewPaneInfo } = this.props;
 
     if (isRequesting) {
       return (
@@ -76,19 +77,14 @@ export default class SuggestionResults extends Component {
       );
     }
     return (
-      <div style={ suggestionResultsStyle }>
-        { editModeOn && !aliasEditModeOn ?
-          <div style={ plusWrapperStyle }>
-            <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
-          </div> :
-          null
-        }
-        <div style={ resultWrapperStyle(shouldShowPreviewPane) }>
+      <div style={ suggestionResultsStyle(aliasEditModeOn) }>
+        <div style={ resultWrapperStyle }>
           <div className='content-wrapper' style={ columnWrapperStyle }>
+            { editModeOn ? this.renderActionBar() : null }
             { this.renderGroups() }
           </div>
         </div>
-        { previewPane }
+        <PreviewPane { ...previewPaneInfo }/>
       </div>
     );
   }
@@ -104,12 +100,14 @@ SuggestionResults.propTypes = {
   getSuggestion: PropTypes.func,
   onLoadMore: PropTypes.func,
   resetNavigation: PropTypes.func,
+  setAliasAdminPageContent: PropTypes.func,
   isEmpty: PropTypes.bool,
   contentType: PropTypes.string,
   aliasEditModeOn: PropTypes.bool,
-  focusedSuggestion: PropTypes.object
+  previewPaneInfo: PropTypes.object,
+  focusedItem: PropTypes.object
 };
 
 SuggestionResults.defaultProps = {
-  focusedSuggestion: {}
+  previewPaneInfo: {}
 };
