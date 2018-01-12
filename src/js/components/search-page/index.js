@@ -122,7 +122,7 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
       editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children,
-      getSuggestionWithContentType
+      getSuggestionWithContentType, selectTag
     } = this.props;
 
     return (
@@ -160,6 +160,7 @@ export default class SearchPage extends Component {
                 resetNavigation={ resetNavigation }
                 getSuggestion={ getSuggestion }
                 getSuggestionWithContentType={ getSuggestionWithContentType }
+                selectTag={ selectTag }
               />
           }
         </div>

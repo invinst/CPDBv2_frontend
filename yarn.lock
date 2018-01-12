@@ -383,11 +383,12 @@ axios-mock-adapter@1.8.1:
   dependencies:
     deep-equal "^1.0.1"
 
-axios@0.11.0:
-  version "0.11.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.11.0.tgz#50adc59bd0f11bee89a383b24b2d407648e6d6e8"
+axios@^0.17.1:
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.17.1.tgz#2d8e3e5d0bdbd7327f91bc814f5c57660f81824d"
   dependencies:
-    follow-redirects "0.0.7"
+    follow-redirects "^1.2.5"
+    is-buffer "^1.1.5"
 
 babel-code-frame@^6.16.0, babel-code-frame@^6.22.0:
   version "6.22.0"
@@ -2156,6 +2157,12 @@ debug@2.3.3:
   dependencies:
     ms "0.7.2"
 
+debug@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  dependencies:
+    ms "2.0.0"
+
 decamelize@^1.0.0, decamelize@^1.1.1, decamelize@^1.1.2:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/decamelize/-/decamelize-1.2.0.tgz#f6534d15148269b20352e7bee26f501f9a191290"
@@ -3003,12 +3010,11 @@ flux-standard-action@^0.6.0:
   dependencies:
     lodash.isplainobject "^3.2.0"
 
-follow-redirects@0.0.7:
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-0.0.7.tgz#34b90bab2a911aa347571da90f22bd36ecd8a919"
+follow-redirects@^1.2.5:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.3.0.tgz#f684871fc116d2e329fda55ef67687f4fabc905c"
   dependencies:
-    debug "^2.2.0"
-    stream-consume "^0.1.0"
+    debug "^3.1.0"
 
 for-in@^0.1.5:
   version "0.1.6"
@@ -3949,6 +3955,10 @@ is-binary-path@^1.0.0:
 is-buffer@^1.0.2, is-buffer@^1.1.0:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.4.tgz#cfc86ccd5dc5a52fa80489111c6920c457e2d98b"
+
+is-buffer@^1.1.5:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/is-buffer/-/is-buffer-1.1.6.tgz#efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
 
 is-builtin-module@^1.0.0:
   version "1.0.0"
@@ -4982,6 +4992,10 @@ ms@0.7.1:
 ms@0.7.2:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
+
+ms@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ms/-/ms-2.0.0.tgz#5608aeadfc00be6c2901df5f9861788de0d597c8"
 
 multi-glob@^1.0.1:
   version "1.0.1"
@@ -6833,7 +6847,7 @@ stream-combiner2@^1.0.2, stream-combiner2@^1.1.1:
     duplexer2 "~0.1.0"
     readable-stream "^2.0.2"
 
-stream-consume@^0.1.0, stream-consume@~0.1.0:
+stream-consume@~0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/stream-consume/-/stream-consume-0.1.0.tgz#a41ead1a6d6081ceb79f65b061901b6d8f3d1d0f"
 
