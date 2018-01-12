@@ -1,7 +1,7 @@
 import { sanFranciscoTextFamily, softBlackColor, accentColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
-export const moreCoaccusedStyle = (showDropDown, hovering, scrollPosition) => {
+export const buttonStyle = (showDropDown, hovering, scrollPosition) => {
   let color;
   if (showDropDown)
     color = softBlackColor;

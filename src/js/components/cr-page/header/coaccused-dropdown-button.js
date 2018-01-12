@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 
 import Hoverable from 'components/common/higher-order/hoverable';
-import { moreCoaccusedStyle, arrowStyle } from './coaccused-dropdown-button.style';
+import { buttonStyle, arrowStyle } from './coaccused-dropdown-button.style';
 
 
 export class CoaccusedDropdownButton extends Component {
@@ -30,11 +30,15 @@ export class CoaccusedDropdownButton extends Component {
     }
 
     return (
-      <span className='test--coaccused-dropdown-button'
-        style={ moreCoaccusedStyle(displayCoaccusedDropdown, hovering, scrollPosition) }
-        onClick={ onClick }>
+      <span
+        className='test--coaccused-dropdown-button'
+        style={ buttonStyle(displayCoaccusedDropdown, hovering, scrollPosition) }
+        onClick={ onClick }
+      >
         { coaccusedText }
-        <span style={ arrowStyle(displayCoaccusedDropdown, hovering, scrollPosition) }/>
+        <span
+          className='test--coaccused-dropdown-arrow'
+          style={ arrowStyle(displayCoaccusedDropdown, hovering, scrollPosition) }/>
       </span>
     );
   }

@@ -43,7 +43,7 @@ export const headerStyle = {
 };
 
 export const titleStyle = (displayCoaccusedDropdown, scrollPosition, hovering) => {
-  let color = 'inherit';
+  let color = softBlackColor;
   if (displayCoaccusedDropdown)
     color = greyishColor;
   else if (scrollPosition === 'bottom')

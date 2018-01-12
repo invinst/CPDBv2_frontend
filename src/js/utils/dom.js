@@ -36,17 +36,15 @@ export function isScrolledToBottom() {
   return viewportHeight() + bodyScrollPosition() + 20 >= fullDocumentHeight();
 }
 
+/* istanbul ignore next */
 export function calculatePosition() {
-  let position = 'middle';
-
-  const scrollPosition = bodyScrollPosition();
-  if (scrollPosition === 0) {
-    position = 'top';
+  if (bodyScrollPosition() === 0) {
+    return 'top';
   } else if (isScrolledToBottom()) {
-    position = 'bottom';
+    return 'bottom';
   }
 
-  return position;
+  return 'middle';
 }
 
 export function disableBodyScroll() {
