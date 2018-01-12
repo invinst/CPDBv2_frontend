@@ -1,5 +1,6 @@
 import React from 'react';
 import { stub } from 'sinon';
+import ClipboardButton from 'react-clipboard.js';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import ShareMenu from 'components/headers/shareable-header/share-menu';
@@ -7,7 +8,7 @@ import {
   findRenderedComponentWithType, findRenderedDOMComponentWithClass, renderIntoDocument, scryRenderedComponentsWithType,
   Simulate
 } from 'react-addons-test-utils';
-import ClipboardButton from 'react-clipboard.js';
+import config from 'config';
 
 
 describe('ShareMenu component', function () {
@@ -37,7 +38,8 @@ describe('ShareMenu component', function () {
   it('should render tweet link', function () {
     const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--tweet-link');
     link.textContent.should.containEql('Tweet');
-    link.getAttribute('href').should.eql('https://twitter.com/intent/tweet?url=' + this.encodedLink);
+    const href = `https://twitter.com/intent/tweet?url=${this.encodedLink}&via=${config.twitterBotName}`;
+    link.getAttribute('href').should.eql(href);
 
     // should close menu on click
     Simulate.click(link);

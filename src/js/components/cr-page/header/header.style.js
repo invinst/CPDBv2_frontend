@@ -13,6 +13,7 @@ export const boxShadowStyle = (scrollPosition, hovering) => {
       left: 0,
       right: 0,
       top: `${shareableHeaderHeight}px`,
+      zIndex: 1,
       backgroundColor: hovering ? 'white' : accentColor,
     };
   }

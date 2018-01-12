@@ -33,7 +33,7 @@ export const OFFICER_TIMELINE_SUFFIX = 'timeline/';
 export const OFFICER_SOCIAL_GRAPH_SUFFIX = 'social/';
 export const OFFICER_TIMELINE_PATH = `officer/:officerId/${OFFICER_TIMELINE_SUFFIX}`;
 export const OFFICER_SOCIAL_GRAPH_PATH = `officer/:officerId/${OFFICER_SOCIAL_GRAPH_SUFFIX}`;
-export const CR_PATH = 'complaint/:crid/:officerId';
+export const CR_PATH_SUFFIX = ':officerId';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 
@@ -151,7 +151,7 @@ export const ALPHA_NUMBERIC = [
   'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
 ];
 
-export const NAVIGATION_KEYS = ['up', 'down', 'right', 'left'];
+export const NAVIGATION_KEYS = ['up', 'down'];
 
 export const SIGNIN_REQUEST = 'SIGNIN_REQUEST';
 export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
@@ -217,6 +217,10 @@ export const OFFICER_SOCIAL_GRAPH_REQUEST_START = 'OFFICER_SOCIAL_GRAPH_REQUEST_
 export const OFFICER_SOCIAL_GRAPH_REQUEST_SUCCESS = 'OFFICER_SOCIAL_GRAPH_REQUEST_SUCCESS';
 export const OFFICER_SOCIAL_GRAPH_REQUEST_FAILURE = 'OFFICER_SOCIAL_GRAPH_REQUEST_FAILURE';
 export const OFFICER_SOCIAL_GRAPH_SET_YEAR_RANGE = 'OFFICER_SOCIAL_GRAPH_SET_YEAR_RANGE';
+
+export const SUGGESTION_SINGLE_REQUEST_START = 'SUGGESTION_SINGLE_REQUEST_START';
+export const SUGGESTION_SINGLE_REQUEST_SUCCESS = 'SUGGESTION_SINGLE_REQUEST_SUCCESS';
+export const SUGGESTION_SINGLE_REQUEST_FAILURE = 'SUGGESTION_SINGLE_REQUEST_FAILURE';
 
 export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
 export const VISUAL_TOKEN_COLOR_SCHEME = {

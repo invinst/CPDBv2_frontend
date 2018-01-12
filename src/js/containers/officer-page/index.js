@@ -11,7 +11,7 @@ import {
 import { timelineUrlParamsSelector } from 'selectors/officer-page/timeline';
 import { getShareablePageScrollPosition } from 'selectors/headers/shareable-header';
 
-export function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, ownProps) {
   return {
     officerName: getOfficerName(state),
     officerId: getOfficerId(state),

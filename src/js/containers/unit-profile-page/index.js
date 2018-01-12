@@ -7,7 +7,7 @@ import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { getShareablePageScrollPosition } from 'selectors/headers/shareable-header';
 
 
-export const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     location: ownProps.location,
     unitName: ownProps.params.unitName,

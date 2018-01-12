@@ -9,7 +9,7 @@ import { openRequestDocumentModal } from 'actions/generic-modal';
 import { getShareablePageScrollPosition } from 'selectors/headers/shareable-header';
 
 
-export function mapStateToProps(state) {
+function mapStateToProps(state) {
   return {
     crid: getCRID(state),
     officerId: getOfficerId(state),

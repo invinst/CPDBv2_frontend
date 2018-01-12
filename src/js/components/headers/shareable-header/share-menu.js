@@ -8,6 +8,8 @@ import {
   linkItemStyle,
 } from './share-menu.style';
 import { imgUrl } from 'utils/static-assets';
+import config from 'config';
+
 
 export default class ShareMenu extends React.Component {
   render() {
@@ -32,7 +34,7 @@ export default class ShareMenu extends React.Component {
         <a
           style={ linkItemStyle }
           className='test--shareable-header--tweet-link'
-          href={ 'https://twitter.com/intent/tweet?url=' + encodedLink }
+          href={ `https://twitter.com/intent/tweet?url=${encodedLink}&via=${config.twitterBotName}` }
           target='_blank'
           onClick={ closeShareMenu }
         >

@@ -13,8 +13,7 @@ export const backButtonWidth = 41;
 export const searchContentWrapperStyle = (aliasEditModeOn) => ({
   minHeight: '100vh',
   background: aliasEditModeOn ? lightGirlyPink : 'white',
-  fontFamily: sanFranciscoTextFamily,
-  padding: '0 16px'
+  fontFamily: sanFranciscoTextFamily
 });
 
 export const backButtonStyle = {
@@ -29,5 +28,5 @@ export const backButtonStyle = {
 
 export const searchBoxStyle = (aliasEditModeOn) => ({
   backgroundColor: aliasEditModeOn ? girlyPink : 'white',
-  padding: `${searchBoxPadding}px 0 9px 0`,
+  padding: `${searchBoxPadding}px 16px 9px 16px`,
 });

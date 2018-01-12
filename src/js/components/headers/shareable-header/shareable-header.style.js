@@ -1,4 +1,6 @@
 import { clayGray, sugarCaneColor } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
+import { breadcrumbItemStyle } from 'components/headers/shareable-header/breadcrumbs-item.style';
 
 export const shareableHeaderHeight = 40;
 
@@ -23,6 +25,14 @@ export const navBarStyle = {
 export const breadcrumbsStyle = {
   margin: 0,
   padding: 0,
+};
+export const breadcrumbSeparatorStyle = {
+  ...breadcrumbItemStyle,
+  padding: '2px 8px 0 0',
+  height: '12px',
+  width: '7.4px',
+  background: `url(${imgUrl('disclosure-indicator.svg')}) no-repeat scroll`,
+  verticalAlign: 'middle',
 };
 
 export const headerPlaceholderStyle = {

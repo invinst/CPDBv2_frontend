@@ -2,13 +2,13 @@ import { softBlackColor, whiteTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
-  position: 'absolute',
-  top: 0,
-  right: 0,
-  width: '320px',
+  width: '321px',
   borderLeft: `1px ${whiteTwoColor} solid`,
   backgroundColor: 'white',
-  height: '100%'
+  height: '100%',
+  boxSizing: 'border-box',
+  display: 'inline-block',
+  verticalAlign: 'top'
 };
 
 export const titleStyle = {

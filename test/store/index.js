@@ -73,9 +73,12 @@ describe('store', function () {
         locationBeforeTransitions: null
       },
       searchPage: {
-        navigation: { 'columnIndex': 0, 'itemIndex': 0 },
+        navigation: { 'itemIndex': 0 },
         isRequesting: false,
-        suggestionGroups: {},
+        suggestionGroups: {
+          meta: {}
+        },
+        pagination: {},
         contentType: null,
         recentSuggestions: [],
         tags: [],

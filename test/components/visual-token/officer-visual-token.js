@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   renderIntoDocument,
-  findRenderedDOMComponentWithTag,
+  findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test/index';
@@ -17,13 +17,10 @@ describe('OfficerVisualToken component', function () {
   it('should render correctly', function () {
     instance = renderIntoDocument(
       <OfficerVisualToken
-        officerId={ 1 }
         backgroundColor='red'
       />
     );
-    const imgElement = findRenderedDOMComponentWithTag(instance, 'img');
-    imgElement.getAttribute('src').should.eql(
-      'https://cpdbdev.blob.core.windows.net/visual-token/officer_1.svg'
-    );
+    const visualTokenElement = findRenderedDOMComponentWithClass(instance, 'test--officer-visual-token-background');
+    visualTokenElement.style.backgroundColor.should.eql('red');
   });
 });

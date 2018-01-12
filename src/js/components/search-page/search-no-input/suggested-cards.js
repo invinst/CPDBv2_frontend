@@ -17,17 +17,36 @@ export default class SuggestedCards extends Component {
 
   render() {
     const { cards } = this.props;
-    const visualTokenStyle = { height: '144px' };
-    const cardStyle = { width: '176px' }; // 144px (visual token) + 32px (text)
-    const cardComponents = cards.map(({ id, fullName, visualTokenBackgroundColor }, index) =>
-      <OfficerCard
-        officerId={ id }
-        fullName={ fullName }
-        key={ index }
-        visualTokenBackgroundColor={ visualTokenBackgroundColor }
-        visualTokenStyle={ visualTokenStyle }
-        cardStyle={ cardStyle }
-      />
+    const visualTokenStyle = { height: '100px' };
+    const cardStyle = { width: '232px' }; // 144px (visual token) + 32px (text)
+    const cardComponents = cards.map(
+      (
+        {
+         id,
+         fullName,
+         visualTokenBackgroundColor,
+         complaintCount,
+         sustainedCount,
+         birthYear,
+         race,
+         gender,
+         complaintRate
+       }, index
+      ) =>
+        <OfficerCard
+          officerId={ id }
+          fullName={ fullName }
+          key={ index }
+          visualTokenBackgroundColor={ visualTokenBackgroundColor }
+          visualTokenStyle={ visualTokenStyle }
+          cardStyle={ cardStyle }
+          complaintCount={ complaintCount }
+          sustainedCount={ sustainedCount }
+          complaintRate={ complaintRate }
+          birthYear={ birthYear }
+          race={ race }
+          gender={ gender }
+        />
     );
 
     const availableHeight = viewportHeight() - searchBoxHeight - tagsWrapperHeight;
@@ -35,8 +54,8 @@ export default class SuggestedCards extends Component {
     return (
       <FixedHeightGrid
         style={ { display: 'inline-block', paddingTop: '32px' } }
-        childHeight={ 230 }
-        childWidth={ 176 }
+        childHeight={ 314 } // 282 + 16*2
+        childWidth={ 264 } // 232 + 16*2
         availableHeight={ availableHeight }
       >
         { cardComponents }

@@ -10,9 +10,9 @@ class LoadMoreButton extends Component {
     return (
       <div
         className='link--transition test--load-more-button'
-        style={ loadMoreButtonStyle }
+        style={ loadMoreButtonStyle(hovering) }
         onClick={ onLoadMore.bind(null, header) }>
-        <div style={ loadMoreButtonTextStyle(hovering) }>All</div>
+        <div style={ loadMoreButtonTextStyle(hovering) }>More</div>
       </div>
     );
   }
