@@ -56,7 +56,10 @@ describe('App component', function () {
     },
     genericModal: {
       activeModal: null
-    }
+    },
+    breadcrumb: {
+      breadcrumbs: []
+    },
   });
   const location = { pathname: '/', search: '/', action: 'POP' };
 
@@ -204,7 +207,7 @@ describe('App component', function () {
           location={ location }
           appContent='/'
         >
-          <SearchPageContainer location={ location }/>
+          <SearchPageContainer location={ location } routes={ [] }/>
         </App>
       </Provider>
     );

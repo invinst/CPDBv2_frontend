@@ -4,7 +4,7 @@ import { map } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
-  unitNameStyle, unitNameWrapperStyle, linkWrapperStyle, linkStyle, wrapperStyle, activeLinkStyle, boxShadowStyle
+  unitNameStyle, unitNameWrapperStyle, linkWrapperStyle, linkStyle, wrapperStyle, activeLinkStyle
 } from './header.style';
 
 
@@ -25,30 +25,28 @@ export default class Header extends Component {
   render() {
     const { unitName, unitDescription, pathname } = this.props;
     return (
-      <div style={ boxShadowStyle }>
-        <ResponsiveFluidWidthComponent>
-          <div style={ wrapperStyle }>
-            <div className='test--unit-name-wrapper' style={ unitNameWrapperStyle }>
-              <div className='test--unit-name' style={ unitNameStyle }>{ `Unit ${unitName}` }</div>
-              <div>{ unitDescription }</div>
-            </div>
-            <div style={ linkWrapperStyle }>
-              {
-                map(HEADER_BUTTONS, ([label, getPath], index) => {
-                  const path = getPath(pathname);
-                  return (
-                    <Link to={ path } key={ index }
-                      className={ path === pathname ? 'test--header-button-active' : 'test--header-button' }
-                      style={ path === pathname ? activeLinkStyle : linkStyle }>
-                      { label }
-                    </Link>
-                  );
-                })
-              }
-            </div>
+      <ResponsiveFluidWidthComponent>
+        <div style={ wrapperStyle }>
+          <div className='test--unit-name-wrapper' style={ unitNameWrapperStyle }>
+            <div className='test--unit-name' style={ unitNameStyle }>{ `Unit ${unitName}` }</div>
+            <div>{ unitDescription }</div>
           </div>
-        </ResponsiveFluidWidthComponent>
-      </div>
+          <div style={ linkWrapperStyle }>
+            {
+              map(HEADER_BUTTONS, ([label, getPath], index) => {
+                const path = getPath(pathname);
+                return (
+                  <Link to={ path } key={ index }
+                    className={ path === pathname ? 'test--header-button-active' : 'test--header-button' }
+                    style={ path === pathname ? activeLinkStyle : linkStyle }>
+                    { label }
+                  </Link>
+                );
+              })
+            }
+          </div>
+        </div>
+      </ResponsiveFluidWidthComponent>
     );
   }
 }

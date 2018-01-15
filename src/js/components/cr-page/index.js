@@ -64,7 +64,7 @@ export default class CRPage extends Component {
   render() {
     const {
       crid, coaccused, complainants, officerId, openOfficerPage, openComplaintPage, alreadyRequested,
-      incidentDate, point, address, location, beat, involvements, documents, videos, audios, openRequestDocumentModal
+      incidentDate, point, address, crLocation, beat, involvements, documents, videos, audios, openRequestDocumentModal
     } = this.props;
     const { displayCoaccusedDropdown } = this.state;
     const officer = find(coaccused, officer => officer.id === officerId) || {};
@@ -109,7 +109,7 @@ export default class CRPage extends Component {
               <Involvement involvements={ involvements } openOfficerPage={ openOfficerPage }/>
             </div>
             <div style={ rightColumnStyle }>
-              <Location point={ point } address={ address } location={ location } beat={ beat }/>
+              <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
               <Attachments
                 title='DOCUMENTS'
                 iconName='ic-document.svg'
@@ -160,7 +160,7 @@ CRPage.propTypes = {
   officerId: PropTypes.number,
   point: PropTypes.object,
   address: PropTypes.string,
-  location: PropTypes.string,
+  crLocation: PropTypes.string,
   beat: PropTypes.object,
   involvements: PropTypes.array,
   openComplaintPage: PropTypes.func,

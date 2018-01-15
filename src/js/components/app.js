@@ -18,8 +18,7 @@ import RouteTransition from 'components/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 import { ALPHA_NUMBERIC } from 'utils/constants';
-import ShareableHeader from 'components/headers/shareable-header';
-
+import ShareableHeaderContainer from 'containers/shareable-header-container';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -80,7 +79,7 @@ export default class App extends React.Component {
 
     const shareablePages = [OfficerPageContainer, CRPageContainer, UnitProfilePageContainer];
     if (includes(shareablePages, children.type)) {
-      return <ShareableHeader backLink={ this.props.headerBackLink }/>;
+      return <ShareableHeaderContainer/>;
     }
 
     const { location } = this.props;
@@ -123,7 +122,6 @@ App.propTypes = {
   toggleEditMode: PropTypes.func,
   toggleSearchMode: PropTypes.func,
   changeSearchQuery: PropTypes.func,
-  headerBackLink: PropTypes.string
 };
 
 App.defaultProps = {

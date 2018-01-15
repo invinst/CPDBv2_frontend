@@ -16,7 +16,7 @@ import crPage from './cr-page';
 import unitProfilePage from './unit-profile-page';
 import inlineAliasAdminPage from './inline-alias-admin-page';
 import genericModal from './generic-modal';
-import headerBackLink from './header-back-link';
+import { reducer as breadcrumb } from 'redux-breadcrumb-trail';
 
 
 export default combineReducers({
@@ -36,5 +36,5 @@ export default combineReducers({
   unitProfilePage,
   inlineAliasAdminPage,
   genericModal,
-  headerBackLink
+  breadcrumb
 });
