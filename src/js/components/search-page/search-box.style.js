@@ -10,7 +10,7 @@ export const searchInputStyle = {
     border: 0,
     fontSize: '14px',
     verticalAlign: 'top',
-    fontWeight: 500,
+    fontWeight: 300,
     backgroundColor: sugarCaneColor
   },
   wrapper: {
@@ -31,7 +31,7 @@ export const searchTermsButtonStyle = (hidden) => ({
   right: '16px',
   lineHeight: '32px',
   fontSize: '13px',
-  fontWeight: 500,
+  fontWeight: 300,
   cursor: 'pointer'
 });
 
