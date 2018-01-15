@@ -13,7 +13,7 @@ export default handleActions({
     ...omitBy(action.payload, isEmpty), meta: { url: action.request.url }
   }),
   [SUGGESTION_REQUEST_FAILURE]: (state, action) => state,
-  [constants.SUGGESTION_SINGLE_REQUEST_START]: (state, action) => (state),
+  [constants.SUGGESTION_SINGLE_REQUEST_START]: (state, action) => state,
   [constants.SUGGESTION_SINGLE_REQUEST_SUCCESS]: (state, action) => {
     const { contentType } = action.request.params;
     return {

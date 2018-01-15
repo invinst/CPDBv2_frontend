@@ -2,7 +2,7 @@ import {
   sanFranciscoTextFamily,
   girlyPink,
   lightGirlyPink,
-  greyishColor
+  accentColor
 } from 'utils/styles';
 
 export const searchBoxLineHeight = 32;
@@ -19,7 +19,7 @@ export const searchContentWrapperStyle = (aliasEditModeOn) => ({
 export const backButtonStyle = {
   display: 'inline-block',
   fontSize: '13px',
-  color: greyishColor,
+  color: accentColor,
   width: `${backButtonWidth}px`,
   cursor: 'pointer',
   position: 'relative',

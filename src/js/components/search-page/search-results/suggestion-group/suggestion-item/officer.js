@@ -15,7 +15,7 @@ class OfficerItem extends SuggestionItemBase {
         <span>{ demographicInfo }, </span>
         <span
           style={ complaintsTextStyle((isFocused || hovering) && complaintCount > 0) }>
-          { complaintCount } Complaints,
+          { `${complaintCount} Complaints, ` }
         </span>
         <span
           style={ sustainedTextStyle((isFocused ||hovering) && sustainedCount > 0) }>

@@ -29,7 +29,7 @@ import editModeOnSelector from 'selectors/edit-mode-on';
 
 function mapStateToProps(state, ownProps) {
   const {
-    isRequesting, contentType, recentSuggestions, query, itemsPerColumn
+    contentType, recentSuggestions, query, itemsPerColumn
   } = state.searchPage;
   const { children } = ownProps;
 
@@ -39,7 +39,6 @@ function mapStateToProps(state, ownProps) {
     children,
     tags: suggestionTagsSelector(state),
     suggestionGroups: searchResultGroupsSelector(state),
-    isRequesting,
     contentType,
     isEmpty: isEmptySelector(state),
     focusedItem: focusedItemSelector(state),

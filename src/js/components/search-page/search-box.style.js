@@ -1,4 +1,4 @@
-import { greyishColor, softBlackColor, sugarCaneColor, clayGray } from 'utils/styles';
+import { softBlackColor, sugarCaneColor, clayGray } from 'utils/styles';
 import { backButtonWidth } from './search-page.style';
 
 
@@ -20,7 +20,7 @@ export const searchInputStyle = {
     padding: 0
   },
   placeholder: {
-    color: greyishColor,
+    color: clayGray,
     fontSize: '14px'
   }
 };
