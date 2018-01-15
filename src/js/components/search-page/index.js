@@ -5,7 +5,7 @@ import { Promise } from 'es6-promise';
 
 import SearchBox from './search-box';
 import {
-  backButtonStyle,
+  cancelButtonStyle,
   searchBoxStyle,
   searchContentWrapperStyle
 } from './search-page.style.js';
@@ -13,6 +13,7 @@ import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
+import HoverableButton from 'components/common/hoverable-button';
 import { NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -140,12 +141,12 @@ export default class SearchPage extends Component {
             onEnter={ this.handleEnter }
             value={ query }
             searchTermsHidden={ searchTermsHidden }/>
-          <span
+          <HoverableButton
+            style={ cancelButtonStyle }
             onClick={ this.handleGoBack }
-            className='searchbar__button--back'
-            style={ backButtonStyle }>
+            className='searchbar__button--back'>
             Cancel
-          </span>
+          </HoverableButton>
         </div>
         <div>
           {
