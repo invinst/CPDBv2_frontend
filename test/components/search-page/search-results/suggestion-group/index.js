@@ -1,5 +1,5 @@
 import React from 'react';
-import { spy } from 'sinon';
+import { stub } from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import {
@@ -39,7 +39,7 @@ describe('SuggestionGroup component', function () {
       limit: 20,
       offset: 20
     };
-    const getSuggestionWithContentType = spy();
+    const getSuggestionWithContentType = stub().returns({ catch: stub() });
 
     instance = renderIntoDocument(
       <SuggestionGroup
@@ -53,7 +53,8 @@ describe('SuggestionGroup component', function () {
   it('should call single content type api when single content is detected', function () {
     const header = 'OFFICER';
     const searchText = 'abc';
-    const getSuggestionWithContentType = spy();
+    const catchSpy = stub();
+    const getSuggestionWithContentType = stub().returns({ catch: catchSpy });
 
     instance = renderIntoDocument(
       <SuggestionGroup
@@ -64,5 +65,6 @@ describe('SuggestionGroup component', function () {
     );
 
     getSuggestionWithContentType.calledWith(searchText, { contentType: header }).should.be.true();
+    catchSpy.called.should.be.true();
   });
 });

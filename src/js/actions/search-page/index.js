@@ -1,7 +1,8 @@
 import { get } from 'actions/common/async-action';
 import { createAction } from 'redux-actions';
-import * as constants from 'utils/constants';
 import { CancelToken } from 'axios';
+
+import * as constants from 'utils/constants';
 
 
 let source;

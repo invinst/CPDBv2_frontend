@@ -48,7 +48,7 @@ describe('SearchPage component', function () {
   });
 
   it('should call get suggestion api when no contentType selected', function () {
-    const getSuggestion = spy();
+    const getSuggestion = stub().returns({ catch: spy() });
 
     instance = renderIntoDocument(
       <SearchPage getSuggestion={ getSuggestion } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
@@ -63,7 +63,7 @@ describe('SearchPage component', function () {
   });
 
   it('should call get suggestion api when contentType is selected', function () {
-    const getSuggestionWithContentType = spy();
+    const getSuggestionWithContentType = stub().returns({ catch: spy() });
     const contentType = 'OFFICER';
 
     instance = renderIntoDocument(

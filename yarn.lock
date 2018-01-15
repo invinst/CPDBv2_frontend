@@ -2520,9 +2520,9 @@ es6-map@^0.1.3:
     es6-symbol "~3.1.0"
     event-emitter "~0.3.4"
 
-es6-promise@^3.1.2:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-3.3.1.tgz#a08cdde84ccdbf34d027a1451bc91d4bcd28a613"
+es6-promise@^4.2.2:
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.2.tgz#f722d7769af88bd33bc13ec6605e1f92966b82d9"
 
 es6-set@~0.1.3:
   version "0.1.4"
@@ -4757,9 +4757,9 @@ mapbox.js@^3.1.0:
     mustache "2.2.1"
     sanitize-caja "0.1.4"
 
-matchmedia@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/matchmedia/-/matchmedia-0.1.2.tgz#cfd47f2bf68fbc7f5ea1bd3a3cf1715ecba3c1bd"
+matchmediaquery@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/matchmediaquery/-/matchmediaquery-0.2.1.tgz#223c7005793de03e47ce92b13285a72c44ada2cf"
   dependencies:
     css-mediaquery "^0.1.2"
 
@@ -5553,7 +5553,7 @@ prop-types@15.x, prop-types@^15.5.0, prop-types@^15.5.4, prop-types@^15.5.8:
     fbjs "^0.8.9"
     loose-envify "^1.3.1"
 
-prop-types@^15.5.10, prop-types@^15.5.6:
+prop-types@^15.5.10, prop-types@^15.5.6, prop-types@^15.5.7:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
   dependencies:
@@ -5858,13 +5858,13 @@ react-redux@^5.0.3:
     loose-envify "^1.1.0"
     prop-types "^15.5.10"
 
-react-responsive@^1.1.2:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/react-responsive/-/react-responsive-1.2.5.tgz#8a64ff989ab5cd8ac1a191dd6ed107e8e349f1d4"
+react-responsive@1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/react-responsive/-/react-responsive-1.3.4.tgz#95f75a73fc57c6db05a5e422d761e3b41982b00a"
   dependencies:
-    babel-runtime "^6.18.0"
     hyphenate-style-name "^1.0.0"
-    matchmedia "^0.1.2"
+    matchmediaquery "^0.2.1"
+    prop-types "^15.5.7"
 
 react-router-redux@^4.0.6:
   version "4.0.7"
@@ -6039,9 +6039,9 @@ redux-actions@^0.9.1:
     flux-standard-action "^0.6.0"
     reduce-reducers "^0.1.0"
 
-redux-axios-middleware@^1.0.0-rc.0:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/redux-axios-middleware/-/redux-axios-middleware-1.3.1.tgz#11a839ce7effa895b91904025a87cc2657a2419b"
+redux-axios-middleware@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/redux-axios-middleware/-/redux-axios-middleware-4.0.0.tgz#81951c3d9adce6f83ef892fd1568571cebe4a336"
 
 redux-breadcrumb-trail@^0.6.0:
   version "0.6.0"

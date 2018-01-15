@@ -11,7 +11,7 @@ export default class SuggestionGroup extends Component {
   componentDidMount() {
     const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
     if (singleContent) {
-      getSuggestionWithContentType(searchText, { contentType: header });
+      getSuggestionWithContentType(searchText, { contentType: header }).catch(() => {});
     }
   }
 

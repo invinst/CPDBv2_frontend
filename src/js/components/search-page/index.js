@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { head, isEmpty } from 'lodash';
+import { Promise } from 'es6-promise';
 
 import SearchBox from './search-box';
 import {
@@ -77,9 +78,9 @@ export default class SearchPage extends Component {
 
     if (query) {
       if (contentType) {
-        this.props.getSuggestionWithContentType(query, { contentType });
+        this.props.getSuggestionWithContentType(query, { contentType }).catch(() => {});
       } else {
-        this.props.getSuggestion(query, { contentType, limit });
+        this.props.getSuggestion(query, { contentType, limit }).catch(() => {});
       }
     } else {
       this.props.selectTag(null);
@@ -202,12 +203,13 @@ SearchPage.propTypes = {
   pushBreadcrumbs: PropTypes.func
 };
 
+/* istanbul ignore next */
 SearchPage.defaultProps = {
   suggestionGroups: [],
   contentType: null,
   focusedItem: {},
-  getSuggestion: () => {},
-  getSuggestionWithContentType: () => {},
+  getSuggestion: () => new Promise(() => {}),
+  getSuggestionWithContentType: () => new Promise(() => {}),
   trackRecentSuggestion: () => {},
   resetNavigation: () => {},
   router: {
