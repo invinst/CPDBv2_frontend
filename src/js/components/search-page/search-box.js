@@ -44,6 +44,7 @@ class SearchBox extends Component {
           keyPressHandlers={ keyPressHandlers }
           blurOnKeyPress={ ['up', 'down'] }
           spellCheck={ false }
+          className='test--search-page-input'
         />
         <span className='test--toggle-button'
           style={ searchTermsButtonStyle(searchTermsHidden) }

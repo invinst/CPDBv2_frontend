@@ -1,16 +1,14 @@
 'use strict';
 
 import Page from './page';
-import officerBottomSheet from './officer-summary-page';
 
 
 class SearchPage extends Page {
 
   constructor() {
     super();
-    this.officerBottomSheet = officerBottomSheet;
     this.prepareElementGetters({
-      input: '//input',
+      input: '.test--search-page-input',
       page: '.search-page',
       suggestionGroup: '.test--suggestion-group',
       suggestionTags: '.suggestion-tags span',
