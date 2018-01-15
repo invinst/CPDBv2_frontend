@@ -3,7 +3,7 @@ import { Motion, spring } from 'react-motion';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
-import { bodyScrollPosition, isScrolledToBottom } from 'utils/dom';
+import { calculatePosition } from 'utils/dom';
 import SlimHeaderContent from './slim-header-content';
 import { fixedStyle } from './slim-header.style';
 
@@ -27,15 +27,7 @@ export class SlimHeader extends Component {
   }
 
   recalculatePosition() {
-    let newPosition = 'middle';
-
-    const scrollPosition = bodyScrollPosition();
-    if (scrollPosition === 0) {
-      newPosition = 'top';
-    } else if (isScrolledToBottom()) {
-      newPosition = 'bottom';
-    }
-
+    const newPosition = calculatePosition();
     if (newPosition !== this.state.position) {
       this.setState({ position: newPosition });
     }

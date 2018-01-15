@@ -59,6 +59,11 @@ describe('App component', function () {
     breadcrumb: {
       breadcrumbs: []
     },
+    headers: {
+      shareableHeader: {
+        scrollPosition: 'top'
+      }
+    }
   });
   const location = { pathname: '/', search: '/', action: 'POP' };
 

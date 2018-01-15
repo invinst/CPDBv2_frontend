@@ -188,6 +188,8 @@ export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an act
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
 export const SELECT_CATEGORY = 'SELECT_CATEGORY';
 
+export const UPDATE_SHAREABLE_PAGE_SCROLL_POSITION = 'UPDATE_SHAREABLE_PAGE_SCROLL_POSITION';
+
 
 export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR', 'UNIT_PROFILE']);
 

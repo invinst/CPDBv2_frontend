@@ -1,124 +1,70 @@
 import React, { Component, PropTypes } from 'react';
-import ClipboardButton from 'react-clipboard.js';
-import config from 'config';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   outerStyle,
   navBarStyle,
-  rightLinkStyle,
-  shareMenuStyle,
-  menuItemImgStyle,
-  shareMenuButtonItemStyle,
-  shareMenuLinkItemStyle,
+  headerPlaceholderStyle,
+  breadcrumbSeparatorStyle
 } from './shareable-header.style';
-import { imgUrl } from 'utils/static-assets';
-import BreadcrumbsItem from 'components/headers/shareable-header/breadcrumbs-item';
-import { breadcrumbsStyle, breadcrumbSeparatorStyle } from 'components/headers/shareable-header/shareable-header.style';
+import BreadcrumbsItemContainer from 'containers/headers/shareable-header/breadcrumbs-item-container';
+import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
+import ShareButton from 'components/headers/shareable-header/share-button';
+import { calculatePosition } from 'utils/dom';
 
 
 export default class ShareableHeader extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      shareMenuIsOpen: false
+      position: 'top'
     };
 
-    this.closeShareMenu = this.closeShareMenu.bind(this);
-    this.openShareMenu = this.openShareMenu.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
     document.body.addEventListener('click', this.closeShareMenu);
+    addEventListener('scroll', this.handleScroll);
   }
 
   componentWillUnmount() {
     document.body.removeEventListener('click', this.closeShareMenu);
+    removeEventListener('scroll', this.handleScroll);
   }
 
-  closeShareMenu(e) {
-    if (this.state.shareMenuIsOpen) {
-      this.setState({ shareMenuIsOpen: false });
-      e.stopPropagation();
+  handleScroll() {
+    const newPosition = calculatePosition();
+    if (newPosition !== this.state.position) {
+      this.setState({ position: newPosition });
     }
-  }
-
-  openShareMenu() {
-    this.setState({ shareMenuIsOpen: true });
-  }
-
-  renderMenu() {
-    const { shareMenuIsOpen } = this.state;
-
-    if (!shareMenuIsOpen) {
-      return null;
-    }
-
-    const encodedLink = encodeURIComponent(window.location.href);
-
-    return (
-      <div style={ shareMenuStyle } className='test--shareable-header--share-menu'>
-        <ClipboardButton
-          style={ shareMenuButtonItemStyle }
-          onClick={ this.closeShareMenu }
-          data-clipboard-text={ window.location.href }
-        >
-          Copy Link
-        </ClipboardButton>
-
-        <a
-          style={ shareMenuLinkItemStyle }
-          className='test--shareable-header--tweet-link'
-          href={ `https://twitter.com/intent/tweet?url=${encodedLink}&via=${config.twitterBotName}` }
-          target='_blank'
-          onClick={ this.closeShareMenu }
-        >
-          Tweet <img style={ menuItemImgStyle } src={ imgUrl('ic-twitter.svg') } />
-        </a>
-
-        <a
-          style={ { ...shareMenuLinkItemStyle, border: 0 } }
-          className='test--shareable-header--facebook-link'
-          href={ 'https://www.facebook.com/sharer/sharer.php?u=' + encodedLink }
-          target='_blank'
-          onClick={ this.closeShareMenu }
-        >
-          Share <img style={ menuItemImgStyle } src={ imgUrl('ic-facebook.svg') } />
-        </a>
-      </div>
-    );
+    this.props.updateShareablePageScrollPosition(this.state.position);
   }
 
   render() {
     const { location, routes, params } = this.props;
-    const { shareMenuIsOpen } = this.state;
 
-    const shareButtonClickHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
     const separatorRenderer = () => <li style={ breadcrumbSeparatorStyle }/>;
 
     return (
-      <ResponsiveFluidWidthComponent style={ outerStyle }>
-        <div style={ navBarStyle }>
-          <span
-            style={ rightLinkStyle(shareMenuIsOpen) }
-            onClick={ shareButtonClickHandler }
-            className='test--shareable-header--share-link'
-          >
-            Share
-          </span>
-          <Breadcrumbs
-            className='test--breadcrumbs'
-            routes={ routes }
-            params={ params }
-            location={ location }
-            separatorRenderer={ separatorRenderer }
-            itemRenderer={ BreadcrumbsItem }
-            style={ breadcrumbsStyle }
-          />
-          { this.renderMenu() }
-        </div>
-      </ResponsiveFluidWidthComponent>
+      <div>
+        <div style={ headerPlaceholderStyle }/>
+        <ResponsiveFluidWidthComponent style={ outerStyle }>
+          <div style={ navBarStyle } ref={ el => { this.placeholderElement = el; } }>
+            <ShareButton scrollPosition={ this.state.position }/>
+            <Breadcrumbs
+              className='test--breadcrumbs'
+              routes={ routes }
+              params={ params }
+              location={ location }
+              separatorRenderer={ separatorRenderer }
+              itemRenderer={ BreadcrumbsItemContainer }
+              style={ breadcrumbsStyle }
+            />
+          </div>
+        </ResponsiveFluidWidthComponent>
+      </div>
     );
   }
 }
@@ -129,7 +75,8 @@ ShareableHeader.propTypes = {
   routes: PropTypes.array,
   closeShareMenu: PropTypes.func,
   openShareMenu: PropTypes.func,
-  shareMenuIsOpen: PropTypes.bool
+  shareMenuIsOpen: PropTypes.bool,
+  updateShareablePageScrollPosition: PropTypes.func,
 };
 
 ShareableHeader.defaultProps = {

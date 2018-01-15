@@ -81,7 +81,7 @@ export default class RouteTransition extends Component {
                   style={ {
                     ...innerWrapperStyle,
                     opacity: style.opacity,
-                    transform: `scale(${style.scale})`
+                    transform: style.scale !== 1 ? `scale(${style.scale})`: 'none'
                   } }
                 >
                   { data.handler }

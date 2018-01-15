@@ -1,4 +1,4 @@
-import { clayGray, softBlackColor } from 'utils/styles';
+import { clayGray, softBlackColor, accentColor } from 'utils/styles';
 
 export const breadcrumbItemStyle = {
   display: 'inline-block',
@@ -6,14 +6,21 @@ export const breadcrumbItemStyle = {
   lineHeight: '40px',
 };
 
-export const breadcrumbTextStyle = {
+export const breadcrumbTextStyle = (position) => ({
   ...breadcrumbItemStyle,
   paddingRight: '8px',
-  color: softBlackColor
-};
+  color: position === 'bottom' ? clayGray : softBlackColor
+});
 
-export const breadcrumbLinkStyle = {
-  ...breadcrumbItemStyle,
-  color: clayGray,
-  textDecoration: 'none'
+export const breadcrumbLinkStyle = (position, hovering) => {
+  let color;
+  if (position === 'bottom')
+    color = hovering ? softBlackColor : accentColor;
+  else
+    color = hovering ? accentColor : clayGray;
+  return {
+    ...breadcrumbItemStyle,
+    color: color,
+    textDecoration: 'none'
+  };
 };
