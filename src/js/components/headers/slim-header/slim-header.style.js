@@ -82,7 +82,7 @@ export const bottomRightLinkStyle = {
   color: 'white',
 };
 
-export const rightLinksWrapperStyle = {
+export const verticallyAlignedHeaderItemStyle = {
   float: 'right',
   position: 'relative',
   top: '50%',

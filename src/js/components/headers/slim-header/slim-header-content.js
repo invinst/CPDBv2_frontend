@@ -10,7 +10,7 @@ import {
   middleRightLinkStyle,
   middleSlimHeaderStyle,
   middleSubtitleStyle,
-  rightLinksWrapperStyle,
+  verticallyAlignedHeaderItemStyle,
   topLeftLinkStyle,
   topRightLinkStyle,
   topSlimHeaderStyle,
@@ -82,9 +82,12 @@ class SlimHeaderContent extends Component {
       <div className={ className } style={ { ...slimHeaderStyle, ...style } } onClick={ handleOnClick }>
         <ResponsiveFluidWidthComponent>
           <div style={ { height: style.height || slimHeaderStyle.height } }>
-            <div style={ rightLinksWrapperStyle }>
-              <RightLinks rightLinkStyle={ rightLinkStyle } editModeOn={ editModeOn } />
+            <div style={ verticallyAlignedHeaderItemStyle }>
               <LogOutButtonContainer pathname={ pathname } />
+            </div>
+
+            <div style={ verticallyAlignedHeaderItemStyle }>
+              <RightLinks rightLinkStyle={ rightLinkStyle } editModeOn={ editModeOn } />
             </div>
 
             <SearchSectionComponent
