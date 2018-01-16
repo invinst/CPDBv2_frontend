@@ -7,9 +7,15 @@ import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('StickyHeader component', function () {
+  let instance;
+
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
+  });
+
   it('should recalculate stickyness if recalculateStickyness is called', function () {
     const recalculateStickynessSpy = spy(StickyHeader.prototype, 'recalculateStickyness');
-    const instance = renderIntoDocument(
+    instance = renderIntoDocument(
       <StickyHeader><div /></StickyHeader>
     );
 
@@ -22,7 +28,7 @@ describe('StickyHeader component', function () {
   });
 
   it('should not be sticky if place holder is null', function () {
-    const instance = renderIntoDocument(
+    instance = renderIntoDocument(
       <StickyHeader><div /></StickyHeader>
     );
     instance.placeholderElement = null;
@@ -31,7 +37,7 @@ describe('StickyHeader component', function () {
   });
 
   it('should not be sticky if place holder is available', function () {
-    const instance = renderIntoDocument(
+    instance = renderIntoDocument(
       <StickyHeader><div /></StickyHeader>
     );
 
@@ -41,7 +47,7 @@ describe('StickyHeader component', function () {
   });
 
   it('should be sticky if place holder is hidden', function () {
-    const instance = renderIntoDocument(
+    instance = renderIntoDocument(
       <StickyHeader><div /></StickyHeader>
     );
 

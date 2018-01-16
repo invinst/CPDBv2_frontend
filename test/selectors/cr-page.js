@@ -114,7 +114,7 @@ describe('CR page selectors', function () {
       result.point.should.eql([1, 2]);
       result.incidentDate.should.eql('2011-03-24');
       result.address.should.eql('123 Positiv Ave.');
-      result.location.should.eql('Police Building');
+      result.crLocation.should.eql('Police Building');
       result.beat.should.eql({ name: '1134' });
     });
 

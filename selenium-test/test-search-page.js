@@ -29,26 +29,16 @@ describe('Search Page', function () {
     searchPage.input.setValue('Ke');
 
     searchPage.suggestionGroup.waitForVisible();
-    searchPage.rootElement.waitForVisible();
-    searchPage.contentWrapper.waitForVisible();
-    searchPage.rootElement.getText().should.containEql('Officer');
-    searchPage.rootElement.getText().should.containEql('Neighborhood');
-    searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly'); // officer name
-    searchPage.contentWrapper.getText().should.containEql('7186'); // officer bdage
-    searchPage.contentWrapper.getText().should.containEql('Kenwood'); // neighborhood
-  });
+    searchPage.page.getText().should.containEql('Officer');
+    searchPage.page.getText().should.containEql('Neighborhood');
+    searchPage.firstOfficerResult.waitForVisible();
+    searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly'); // officer name
+    searchPage.firstOfficerResult.getText().should.containEql('45 year old, White, Male, '); // officer demographic
+    searchPage.firstOfficerResult.getText().should.containEql('10 Complaints, '); // officer complaints
+    searchPage.firstOfficerResult.getText().should.containEql('2 Sustained'); // officer sustained
 
-  it('should show fewer results if there is not enough vertical space', function () {
-    browser.setViewportSize({ width: 1280, height: 710 });
-    searchPage.open();
-
-    searchPage.input.waitForVisible();
-    searchPage.input.setValue('Ke');
-
-    searchPage.suggestionGroup.waitForVisible();
-    searchPage.rootElement.waitForVisible();
-    searchPage.contentWrapper.waitForVisible();
-    searchPage.officerResults.count.should.eql(6);
+    searchPage.firstNeighborhoodResult.waitForVisible();
+    searchPage.firstNeighborhoodResult.getText().should.containEql('Kenwood'); // neighborhood
   });
 
   it('should show filtered result when user clicks "Show more results"', function () {
@@ -115,11 +105,9 @@ describe('Search Page', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionGroup.waitForVisible();
-    searchPage.contentWrapper.waitForVisible();
-    searchPage.suggestionLink.waitForVisible();
-    searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
-    searchPage.suggestionLink.click();
+    searchPage.firstOfficerResult.waitForVisible();
+    searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly');
+    searchPage.firstOfficerResult.click();
 
     searchPage.open();
     searchPage.recentSuggestions.waitForVisible();
@@ -144,17 +132,6 @@ describe('Search Page', function () {
     landingPage.currentBasePath.should.equal('/');
   });
 
-  // should unskip this before PR
-  it.skip('should go back to previous page when user hit ESCAPE with no focus on search input', function () {
-    landingPage.open();
-    searchPage.open();
-    searchPage.searchHint.click(); // unfocus search input
-    browser.debug();
-    browser.keys('Escape');
-
-    landingPage.currentBasePath.should.equal('/');
-  });
-
   it('should go back to previous page when user hit ESCAPE with focus on search input', function () {
     landingPage.open();
     searchPage.open();
@@ -168,7 +145,6 @@ describe('Search Page', function () {
     searchPage.input.setValue('Ke');
 
     searchPage.suggestionGroup.waitForVisible();
-    searchPage.rootElement.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
     browser.keys('Enter');
     searchPage.currentBasePath.should.equal('/officer/1/');
@@ -178,7 +154,6 @@ describe('Search Page', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('noresult');
 
-    searchPage.rootElement.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
     browser.keys('Enter');
     browser.getUrl().should.be.equal('http://cpdb.lvh.me/s/noresult');
@@ -194,7 +169,6 @@ describe('Search Page', function () {
     searchPage.input.setValue('Ke');
 
     searchPage.suggestionGroup.waitForVisible();
-    searchPage.rootElement.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
     browser.keys('Enter');
 
@@ -211,5 +185,22 @@ describe('Search Page', function () {
     searchPage.searchTermToggle.click();
     searchPage.searchTermToggle.getText().should.equal('Show Search terms');
     browser.getUrl().should.not.match(/\/search\/terms\/$/);
+  });
+
+  it('should navigates between the result when user press the navigation keys', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.contentWrapper.waitForVisible();
+
+    searchPage.firstOfficerResult.getAttribute('class').should.containEql('test--focused');
+    searchPage.secondOfficerResult.getAttribute('class').should.not.containEql('test--focused');
+
+    browser.keys('ArrowDown'); // unfocus
+    browser.keys('ArrowDown');
+
+    searchPage.firstOfficerResult.getAttribute('class').should.not.containEql('test--focused');
+    searchPage.secondOfficerResult.getAttribute('class').should.containEql('test--focused');
   });
 });

@@ -4,7 +4,7 @@ import { stub, spy } from 'sinon';
 import {
   innerHeight, disableBodyScroll, enableBodyScroll, getCurrentPathname,
   changePageTitle, setMetaAttribute, changePageDescription, viewportHeight,
-  scrollToElement
+  scrollToElement,
 } from 'utils/dom';
 
 describe('dom utils', function () {

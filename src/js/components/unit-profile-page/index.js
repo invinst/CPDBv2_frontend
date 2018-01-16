@@ -12,12 +12,17 @@ export default class UnitProfilePage extends Component {
   }
 
   render() {
-    const { location, unitName, summary } = this.props;
+    const { location, unitName, summary, scrollPosition } = this.props;
     const { pathname } = location;
 
     return (
       <div>
-        <Header unitName={ unitName } pathname={ pathname } unitDescription={ summary.description }/>
+        <Header
+          unitName={ unitName }
+          pathname={ pathname }
+          unitDescription={ summary.description }
+          scrollPosition={ scrollPosition }
+        />
         <div style={ pageWrapperStyle }>
           <SummaryPageContainer unitName={ unitName } summary={ summary }/>;
         </div>
@@ -30,7 +35,8 @@ UnitProfilePage.propTypes = {
   location: PropTypes.object,
   unitName: PropTypes.string,
   summary: PropTypes.object,
-  fetchUnitProfileSummary: PropTypes.func
+  fetchUnitProfileSummary: PropTypes.func,
+  scrollPosition: PropTypes.string
 };
 
 UnitProfilePage.defaultProps = {

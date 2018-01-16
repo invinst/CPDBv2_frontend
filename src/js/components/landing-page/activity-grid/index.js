@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { chunk } from 'lodash';
 
 import OfficerCard from './officer-card';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
@@ -11,21 +12,45 @@ export default class ActivityGrid extends Component {
 
   render() {
     const { cards } = this.props;
-    const visualTokenStyle = { height: 'calc(25vw - 32px)', minHeight: '160px' };
-    const cardStyle = { width: '25%' };
-
+    const visualTokenStyle = { height: '100px' };
+    const cardStyle = { width: 'calc(25% - 32px)' }; // two 16px margins
+    const rows = chunk(cards, 4);
     return (
       <ResponsiveFluidWidthComponent>
-        { cards.map(({ id, fullName, visualTokenBackgroundColor }) =>
-          <OfficerCard
-            officerId={ id }
-            fullName={ fullName }
-            key={ id }
-            visualTokenBackgroundColor={ visualTokenBackgroundColor }
-            visualTokenStyle={ visualTokenStyle }
-            cardStyle={ cardStyle }
-            />
-          )
+        {
+          rows.map((cards, index) => (
+            <div key={ index }>
+              {
+                cards.map(
+                  ({
+                     id,
+                     fullName,
+                     visualTokenBackgroundColor,
+                     complaintCount,
+                     sustainedCount,
+                     birthYear,
+                     race,
+                     gender,
+                     complaintRate
+                   }) =>
+                     <OfficerCard
+                       officerId={ id }
+                       fullName={ fullName }
+                       key={ id }
+                       visualTokenBackgroundColor={ visualTokenBackgroundColor }
+                       visualTokenStyle={ visualTokenStyle }
+                       cardStyle={ cardStyle }
+                       complaintCount={ complaintCount }
+                       sustainedCount={ sustainedCount }
+                       complaintRate={ complaintRate }
+                       birthYear={ birthYear }
+                       race={ race }
+                       gender={ gender }
+                    />
+                )
+              }
+            </div>
+          ))
         }
       </ResponsiveFluidWidthComponent>
     );

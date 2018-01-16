@@ -26,25 +26,32 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const { move, query } = this.props;
+    const { move, query, location, params, routes, pushBreadcrumbs } = this.props;
+    pushBreadcrumbs({ location, params, routes });
+
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
-      () => move(direction, this.props.suggestionColumns)
+      (event) => {
+        event.preventDefault && event.preventDefault();
+        move(direction, this.props.totalItemCount);
+      }
     )));
     LayeredKeyBinding.bind('enter', this.handleViewItem);
 
     if (query && query.length >= 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);
     }
+
   }
 
   componentWillReceiveProps(nextProps) {
     // Make sure keyboard-focused item is kept within viewport:
-    const oldPosition = this.props.navigation;
-    const newPosition = nextProps.navigation;
-    if (oldPosition !== newPosition) {
-      scrollToElement(`#suggestion-item-${newPosition.columnIndex}-${newPosition.itemIndex}`);
+    if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
+      scrollToElement(
+        `.suggestion-item-${nextProps.focusedItem.uniqueKey}`,
+        { block: 'nearest', inline: 'nearest' }
+      );
     }
   }
 
@@ -55,7 +62,7 @@ export default class SearchPage extends Component {
   }
 
   handleViewItem() {
-    const { to, url } = this.props.focusedSuggestion.payload;
+    const { to, url } = this.props.focusedItem;
     if (to) {
       browserHistory.push(to);
     } else {
@@ -69,7 +76,11 @@ export default class SearchPage extends Component {
     changeSearchQuery(query);
 
     if (query) {
-      this.props.getSuggestion(query, { contentType, limit });
+      if (contentType) {
+        this.props.getSuggestionWithContentType(query, { contentType });
+      } else {
+        this.props.getSuggestion(query, { contentType, limit });
+      }
     } else {
       this.props.selectTag(null);
     }
@@ -87,20 +98,18 @@ export default class SearchPage extends Component {
 
   handleEnter(e) {
     const { suggestionGroups, trackRecentSuggestion, query } = this.props;
-
     let url, to;
 
     if (suggestionGroups.length === 0) {
       url = dataToolSearchUrl(query);
-
     } else {
       const firstGroup = head(suggestionGroups);
-      const firstRecord = head(head(firstGroup.columns));
+      const firstRecord = head(firstGroup.items);
       const contentType = firstGroup.header;
 
-      const text = firstRecord.payload['result_text'];
-      url = firstRecord.payload.url;
-      to = firstRecord.payload.to;
+      const text = firstRecord.text;
+      url = firstRecord.url;
+      to = firstRecord.to;
       trackRecentSuggestion(contentType, text, url, to);
     }
 
@@ -115,7 +124,8 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
-      editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children
+      editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children,
+      getSuggestionWithContentType
     } = this.props;
 
     return (
@@ -152,6 +162,7 @@ export default class SearchPage extends Component {
                 searchTermsHidden={ searchTermsHidden }
                 resetNavigation={ resetNavigation }
                 getSuggestion={ getSuggestion }
+                getSuggestionWithContentType={ getSuggestionWithContentType }
               />
           }
         </div>
@@ -165,14 +176,14 @@ SearchPage.propTypes = {
     pathname: PropTypes.string
   }),
   move: PropTypes.func,
-  suggestionColumns: PropTypes.array,
-  navigation: PropTypes.object,
-  focusedSuggestion: PropTypes.object,
+  totalItemCount: PropTypes.number,
+  focusedItem: PropTypes.object,
   suggestionGroups: PropTypes.array,
   tags: PropTypes.array,
   recentSuggestions: PropTypes.array,
   isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func,
+  getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
   trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
@@ -185,14 +196,19 @@ SearchPage.propTypes = {
   editModeOn: PropTypes.bool,
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
-  searchTermsHidden: PropTypes.bool
+  searchTermsHidden: PropTypes.bool,
+  params: PropTypes.object,
+  routes: PropTypes.array,
+  pushBreadcrumbs: PropTypes.func
 };
 
 SearchPage.defaultProps = {
   suggestionGroups: [],
   contentType: null,
+  focusedItem: {},
   isRequesting: false,
   getSuggestion: () => {},
+  getSuggestionWithContentType: () => {},
   trackRecentSuggestion: () => {},
   resetNavigation: () => {},
   router: {
@@ -202,5 +218,5 @@ SearchPage.defaultProps = {
   location: {
     pathname: '/'
   },
-  searchTermsHidden: true
+  searchTermsHidden: true,
 };
