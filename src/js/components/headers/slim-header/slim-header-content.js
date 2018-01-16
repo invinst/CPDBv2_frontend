@@ -80,7 +80,7 @@ class SlimHeaderContent extends Component {
 
     return (
       <div className={ className } style={ { ...slimHeaderStyle, ...style } } onClick={ handleOnClick }>
-        <ResponsiveFluidWidthComponent>
+        <ResponsiveFluidWidthComponent xPadding={ 16 }>
           <div style={ { height: style.height || slimHeaderStyle.height } }>
             <div style={ verticallyAlignedHeaderItemStyle }>
               <LogOutButtonContainer pathname={ pathname } />

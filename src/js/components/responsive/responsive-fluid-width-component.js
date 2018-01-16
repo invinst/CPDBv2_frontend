@@ -1,16 +1,17 @@
 import React, { PropTypes, Component } from 'react';
 import MediaQuery from 'react-responsive';
 
+import scrollBarWidth from 'utils/scrollbar-width';
 import { fixedStyle, fluidStyle } from './responsive-fluid-width-component.style';
 
 
 export default class ResponsiveFluidWidthComponent extends Component {
   render() {
-    const { style, children } = this.props;
+    const { style, children, xPadding } = this.props;
     return (
       <div style={ style }>
         <MediaQuery maxWidth={ 767 }>
-          <div style={ fixedStyle(768) }>
+          <div className='test--fixed-width-component' style={ fixedStyle(767 - xPadding*2 - scrollBarWidth) }>
             { children }
           </div>
         </MediaQuery>
@@ -31,5 +32,10 @@ export default class ResponsiveFluidWidthComponent extends Component {
 
 ResponsiveFluidWidthComponent.propTypes = {
   style: PropTypes.object,
-  children: PropTypes.node
+  children: PropTypes.node,
+  xPadding: PropTypes.number
+};
+
+ResponsiveFluidWidthComponent.defaultProps = {
+  xPadding: 0
 };
