@@ -11,7 +11,11 @@ export const fixedStyle = {
   top: 0,
   left: 0,
   right: 0,
-  zIndex: 1
+  zIndex: 3 // need to be at least 3 to cover Mapbox's controls & copyright text
+};
+
+export const middleWrapperStyle = {
+  boxShadow: '0 1px 1px 0 rgba(0, 0, 0, 0.13)',
 };
 
 const slimHeaderStyle = {
@@ -30,14 +34,11 @@ export const topSlimHeaderStyle = {
 export const middleSlimHeaderStyle = {
   ...slimHeaderStyle,
   height: `${middleSlimHeaderHeight}px`,
-  boxShadow: '0 1px 1px 0 rgba(0, 0, 0, 0.13)',
-  // backgroundColor: 'white'
 };
 
 export const bottomSlimHeaderStyle = {
   ...topSlimHeaderStyle,
   cursor: 'pointer',
-  // backgroundColor: accentColor
 };
 
 const linkStyle = {

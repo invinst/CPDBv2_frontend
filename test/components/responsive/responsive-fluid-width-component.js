@@ -28,14 +28,4 @@ describe('ResponsiveFluidWidthComponent', function () {
     const div = node.props.children;
     div.props.style.width.should.eql(`${767 - scrollBarWidth}px`);
   });
-
-  it('should take xPadding into account in fixed width mode', function () {
-    instance = renderIntoDocument(
-      <ResponsiveFluidWidthComponent xPadding={ 20 }/>
-    );
-    const nodes = scryRenderedComponentsWithType(instance, MediaQuery);
-    const node = nodes.filter(n => n.props.maxWidth === 767)[0];
-    const div = node.props.children;
-    div.props.style.width.should.eql(`${767 - 20*2 - scrollBarWidth}px`);
-  });
 });
