@@ -19,8 +19,8 @@ describe('SearchTags component', function () {
 
   it('should capitalize tags', function () {
     instance = renderIntoDocument(<SearchTags tags={ ['aaa', 'bbb'] } onSelect={ () => {} }/>);
-    findDOMNode(instance).textContent.should.containEql('Aaa');
-    findDOMNode(instance).textContent.should.containEql('Bbb');
+    findDOMNode(instance).textContent.should.containEql('AAA');
+    findDOMNode(instance).textContent.should.containEql('BBB');
   });
 
   it('should render nothing when there is only one tag', function () {

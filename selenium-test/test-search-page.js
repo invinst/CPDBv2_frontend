@@ -29,8 +29,8 @@ describe('Search Page', function () {
     searchPage.input.setValue('Ke');
 
     searchPage.suggestionGroup.waitForVisible();
-    searchPage.page.getText().should.containEql('Officer');
-    searchPage.page.getText().should.containEql('Neighborhood');
+    searchPage.page.getText().should.containEql('OFFICER');
+    searchPage.page.getText().should.containEql('NEIGHBORHOOD');
     searchPage.firstOfficerResult.waitForVisible();
     searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly'); // officer name
     searchPage.firstOfficerResult.getText().should.containEql('45 year old, White, Male, '); // officer demographic
@@ -178,12 +178,12 @@ describe('Search Page', function () {
   });
 
   it('should switch to search terms page when click on toggle', function () {
-    searchPage.searchTermToggle.getText().should.equal('Show Search terms');
+    searchPage.searchTermToggle.getText().should.equal('What can I search?');
     searchPage.searchTermToggle.click();
     searchPage.searchTermToggle.getText().should.equal('Hide Search terms');
     browser.getUrl().should.match(/\/search\/terms\/$/);
     searchPage.searchTermToggle.click();
-    searchPage.searchTermToggle.getText().should.equal('Show Search terms');
+    searchPage.searchTermToggle.getText().should.equal('What can I search?');
     browser.getUrl().should.not.match(/\/search\/terms\/$/);
   });
 });

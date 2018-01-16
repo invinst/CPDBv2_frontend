@@ -25,7 +25,7 @@ export const onError = ({ action, next, error }, options) => {
   const nextAction = {
     type: getActionTypes(action, options)[2],
     statusCode: error.status,
-    payload: error.data || errorObject
+    payload: (error.response && error.response.data) || errorObject
   };
   next(nextAction);
   return nextAction;
