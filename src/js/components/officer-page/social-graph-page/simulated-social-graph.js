@@ -52,6 +52,7 @@ export default class SimulatedSocialGraph extends Component {
       <SocialGraph
         simulation={ this.simulation }
         links={ this.linkForce.links() }
+        onClick={ this.props.onClick }
       />
     );
   }
@@ -59,5 +60,6 @@ export default class SimulatedSocialGraph extends Component {
 
 SimulatedSocialGraph.propTypes = {
   nodes: PropTypes.array,
-  links: PropTypes.array
+  links: PropTypes.array,
+  onClick: PropTypes.func,
 };

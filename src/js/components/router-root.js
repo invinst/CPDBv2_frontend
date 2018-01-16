@@ -81,7 +81,7 @@ class RouterRoot extends Component {
 
       <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer } key='13'
         breadcrumb={ { componentCacheKey: 'cr' } }>
-        <Route path={ CR_PATH_SUFFIX } component={ CRPageContainer } key='8' useParentBreadcrumb={ true }/>
+        <Route path={ CR_PATH_SUFFIX } component={ CRPageContainer } key='8' useParentBreadcrumb={ true } />
       </Route>,
 
       <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'
