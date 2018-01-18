@@ -129,32 +129,27 @@ describe('SlimHeader component', function () {
       );
 
       this.slimHeader = findRenderedComponentWithType(element, SlimHeader);
-      stub(domUtils, 'bodyScrollPosition');
-      stub(domUtils, 'isScrolledToBottom');
+      stub(domUtils, 'calculatePosition');
     });
 
     afterEach(function () {
-      domUtils.bodyScrollPosition.restore();
-      domUtils.isScrolledToBottom.restore();
+      domUtils.calculatePosition.restore();
     });
 
     it('should remain in top position', function () {
-      domUtils.bodyScrollPosition.returns(0);
-      domUtils.isScrolledToBottom.returns(false);
+      domUtils.calculatePosition.returns('top');
       this.slimHeader.recalculatePosition();
       this.slimHeader.state.position.should.eql('top');
     });
 
     it('should transition to middle position', function () {
-      domUtils.bodyScrollPosition.returns(100);
-      domUtils.isScrolledToBottom.returns(false);
+      domUtils.calculatePosition.returns('middle');
       this.slimHeader.recalculatePosition();
       this.slimHeader.state.position.should.eql('middle');
     });
 
     it('should transition to bottom position', function () {
-      domUtils.bodyScrollPosition.returns(100);
-      domUtils.isScrolledToBottom.returns(true);
+      domUtils.calculatePosition.returns('bottom');
       this.slimHeader.recalculatePosition();
       this.slimHeader.state.position.should.eql('bottom');
     });

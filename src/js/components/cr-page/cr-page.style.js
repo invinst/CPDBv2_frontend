@@ -11,7 +11,6 @@ export const headerStyle = {
 
 export const headerWrapperStyle = {
   position: 'relative',
-  zIndex: 900
 };
 
 export const summarySectionStyle = {
@@ -49,7 +48,6 @@ export const overlayStyle = {
   backgroundColor: 'white',
   position: 'absolute',
   opacity: 0.5,
-  zIndex: 200
 };
 
 export const leftColumnStyle = {
@@ -61,19 +59,9 @@ export const leftColumnStyle = {
 };
 
 export const rightColumnStyle = {
-  width: 'calc(100% - 337px)',
+  width: 'calc(100% - 336px)',
   display: 'inline-block',
-  marginLeft: '-1px',
   paddingBottom: '24px',
   paddingLeft: '16px',
   boxSizing: 'border-box'
-};
-
-export const requestButtonStyle = {
-  width: '54px',
-  height: '18px',
-  fontSize: '14px',
-  fontWeight: 500,
-  textAlign: 'left',
-  color: '#231f20'
 };

@@ -2,12 +2,20 @@ import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 
 import Hoverable from 'components/common/higher-order/hoverable';
-import { moreCoaccusedStyle, arrowStyle } from './coaccused-dropdown-button.style';
+import { buttonStyle, arrowStyle } from './coaccused-dropdown-button.style';
 
 
-class CoaccusedDropdownButton extends Component {
+export class CoaccusedDropdownButton extends Component {
+  componentDidUpdate() {
+    const { hovering, setParentHovering } = this.props;
+    setParentHovering(hovering);
+  }
+
   render() {
-    const { coaccused, officerId, onClick, displayCoaccusedDropdown, hovering } = this.props;
+    const {
+      coaccused, officerId, onClick, displayCoaccusedDropdown,
+      hovering, scrollPosition
+    } = this.props;
 
     if (!coaccused || coaccused.length <= 1) {
       return null;
@@ -22,10 +30,15 @@ class CoaccusedDropdownButton extends Component {
     }
 
     return (
-      <span className='test--coaccused-dropdown-button'
-        style={ moreCoaccusedStyle(displayCoaccusedDropdown, hovering) } onClick={ onClick }>
+      <span
+        className='test--coaccused-dropdown-button'
+        style={ buttonStyle(displayCoaccusedDropdown, hovering, scrollPosition) }
+        onClick={ onClick }
+      >
         { coaccusedText }
-        <span style={ arrowStyle(displayCoaccusedDropdown, hovering) }/>
+        <span
+          className='test--coaccused-dropdown-arrow'
+          style={ arrowStyle(displayCoaccusedDropdown, hovering, scrollPosition) }/>
       </span>
     );
   }
@@ -36,7 +49,9 @@ CoaccusedDropdownButton.propTypes = {
   officerId: PropTypes.number,
   onClick: PropTypes.func,
   displayCoaccusedDropdown: PropTypes.bool,
-  hovering: PropTypes.bool
+  hovering: PropTypes.bool,
+  scrollPosition: PropTypes.string,
+  setParentHovering: PropTypes.func,
 };
 
 export default Hoverable(CoaccusedDropdownButton);

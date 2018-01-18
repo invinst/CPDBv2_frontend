@@ -149,6 +149,11 @@ describe('store', function () {
       },
       breadcrumb: {
         breadcrumbs: []
+      },
+      headers: {
+        shareableHeader: {
+          scrollPosition: null
+        }
       }
     });
   });

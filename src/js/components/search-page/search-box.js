@@ -45,6 +45,7 @@ class SearchBox extends Component {
           keyPressHandlers={ keyPressHandlers }
           blurOnKeyPress={ ['up', 'down'] }
           spellCheck={ false }
+          className='test--search-page-input'
         />
         <HoverableButton
           className='test--toggle-button'
