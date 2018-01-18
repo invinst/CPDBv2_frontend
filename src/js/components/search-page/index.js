@@ -16,6 +16,7 @@ import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button';
 import { NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 
+
 const DEFAULT_SUGGESTION_LIMIT = 9;
 
 export default class SearchPage extends Component {
@@ -127,7 +128,7 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
       editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children,
-      getSuggestionWithContentType, selectTag
+      getSuggestionWithContentType, selectTag, changeSearchQuery
     } = this.props;
 
     return (
@@ -140,7 +141,9 @@ export default class SearchPage extends Component {
             onChange={ this.handleChange }
             onEnter={ this.handleEnter }
             value={ query }
-            searchTermsHidden={ searchTermsHidden }/>
+            searchTermsHidden={ searchTermsHidden }
+            changeSearchQuery={ changeSearchQuery }
+          />
           <HoverableButton
             style={ cancelButtonStyle }
             onClick={ this.handleGoBack }
