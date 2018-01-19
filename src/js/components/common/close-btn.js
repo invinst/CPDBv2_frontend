@@ -8,9 +8,13 @@ import {
 
 class CloseButton extends React.Component {
   render() {
+    const { imageName, hoveredImageName } = this.props;
     return (
-      <button style={ [closeButtonStyle, this.props.style] } className={ this.props.className }
-        onClick={ this.props.onClick }/>
+      <button
+        style={ { ...closeButtonStyle(imageName, hoveredImageName), ...this.props.style } }
+        className={ this.props.className }
+        onClick={ this.props.onClick }
+      />
     );
   }
 }
@@ -18,7 +22,14 @@ class CloseButton extends React.Component {
 CloseButton.propTypes = {
   onClick: PropTypes.func,
   className: PropTypes.string,
-  style: PropTypes.object
+  style: PropTypes.object,
+  imageName: PropTypes.string,
+  hoveredImageName: PropTypes.string,
+};
+
+CloseButton.defaultProps = {
+  imageName: 'ic-close.svg',
+  hoveredImageName: 'ic-close-hover.svg',
 };
 
 export default ConfiguredRadium(CloseButton);

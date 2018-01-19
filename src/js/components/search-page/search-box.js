@@ -29,9 +29,12 @@ class SearchBox extends Component {
 
     if (value !== '') {
       return (
-        <CloseButton className='test--search-close-button'
+        <CloseButton
+          className='test--search-close-button'
           style={ closeButtonStyle }
           onClick={ () => changeSearchQuery('') }
+          imageName='ic-grey-close.svg'
+          hoveredImageName='ic-grey-close.svg'
         />
       );
     } else {
