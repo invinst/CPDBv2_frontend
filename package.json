@@ -108,6 +108,7 @@
     "mapbox.js": "^3.1.0",
     "moment": "^2.14.1",
     "mousetrap": "^1.6.0",
+    "pluralize": "^7.0.0",
     "query-string": "^4.2.3",
     "radium": "^0.18.1",
     "rc-slider": "^8.3.1",

@@ -10,7 +10,7 @@ export default class PreviewPane extends Component {
     const { data, visualTokenBackgroundColor, visualTokenImg, title } = this.props;
 
     return (
-      <SlideMotion show={ !isEmpty(data) }>
+      <SlideMotion show={ !isEmpty(data) } translateX={ 100 }>
         <div style={ wrapperStyle }>
           <div className='test--preview-pane-title' style={ titleStyle }>{ title }</div>
           {
