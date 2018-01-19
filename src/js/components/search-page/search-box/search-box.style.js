@@ -41,16 +41,6 @@ export const searchTermsButtonStyle = {
   }
 };
 
-export const closeButtonStyle = {
-  position: 'absolute',
-  right: '8px',
-  left: 'none',
-  height: '32px',
-  lineHeight: '32px',
-  backgroundColor: 'transparent',
-  ':hover': 'none'
-};
-
 export const wrapperStyle = {
   position: 'relative',
   width: 'calc(100% - 64px)',

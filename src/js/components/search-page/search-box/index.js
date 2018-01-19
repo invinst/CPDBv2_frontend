@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 
 import { pushPathPreserveEditMode } from 'utils/edit-path';
 import * as constants from 'utils/constants';
-import { searchInputStyle, searchTermsButtonStyle, wrapperStyle, closeButtonStyle } from './search-box.style';
+import { searchInputStyle, searchTermsButtonStyle, wrapperStyle } from './search-box.style';
 import TextInput from 'components/common/input';
 import HoverableButton from 'components/common/hoverable-button';
-import CloseButton from 'components/common/close-btn';
+import CloseButton from './close-btn';
 
 
 class SearchBox extends Component {
@@ -31,10 +31,7 @@ class SearchBox extends Component {
       return (
         <CloseButton
           className='test--search-close-button'
-          style={ closeButtonStyle }
           onClick={ () => changeSearchQuery('') }
-          imageName='ic-grey-close.svg'
-          hoveredImageName='ic-grey-close.svg'
         />
       );
     } else {
