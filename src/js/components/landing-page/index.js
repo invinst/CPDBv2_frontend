@@ -5,7 +5,7 @@ import ConfiguredRadium from 'utils/configured-radium';
 import ActivityGridContainer from 'containers/landing-page/activity-grid';
 import PropsRerender from 'components/common/higher-order/props-rerender';
 import FooterContainer from 'containers/footer-container';
-import HeatMap from './heat-map';
+import HeatMap from 'containers/landing-page/heat-map';
 
 
 

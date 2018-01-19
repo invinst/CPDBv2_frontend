@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { each } from 'lodash';
+import { Promise } from 'es6-promise';
 
 import { mapboxgl } from 'utils/vendors';
 
@@ -7,9 +8,8 @@ import { mapboxgl } from 'utils/vendors';
 export default class MapboxGL extends Component {
   componentDidMount() {
     const {
-      minZoom, maxZoom, scrollZoom, dragRotate, sources, onMouseMove,
-      dragPan, defaultZoom, maxBounds, center, layers, onMouseLeave,
-      onClick
+      minZoom, maxZoom, scrollZoom, dragRotate, onMouseMove,
+      dragPan, defaultZoom, maxBounds, center, onMouseLeave, onClick
     } = this.props;
 
     this._mapBox = new mapboxgl.Map({
@@ -27,13 +27,63 @@ export default class MapboxGL extends Component {
 
     this._mapBox.addControl(new mapboxgl.NavigationControl(), 'top-left');
 
-    this._mapBox.on('load', () => {
-      each(sources, ({ name, ...rest }) => this._mapBox.addSource(name, rest));
-      each(layers, layer => this._mapBox.addLayer(layer));
-      each(onMouseMove, ([name, func]) => this._mapBox.on('mousemove', name, e => func(e, this._mapBox)));
-      each(onMouseLeave, ([name, func]) => this._mapBox.on('mouseleave', name, e => func(e, this._mapBox)));
-      each(onClick, ([name, func]) => this._mapBox.on('click', name, e => func(e, this._mapBox)));
+    this.mapBoxLoaded = new Promise((resolve, reject) => {
+      this.cancelMapBoxLoad = () => reject('cancelled');
+      this._mapBox.on('load', () => {
+        resolve();
+      });
     });
+
+    this.mapBoxLoaded.then(() => {
+      this.updateSource();
+      this.updateLayer();
+      /* istanbul ignore next */
+      each(onMouseMove, (args) => this._mapBox.on('mousemove', ...args));
+      each(onMouseLeave, (args) => this._mapBox.on('mouseleave', ...args));
+      each(onClick, (args) => this._mapBox.on('click', ...args));
+    }).catch(reason => {
+      if (reason !== 'cancelled') {
+        throw reason;
+      }
+    });
+  }
+
+  componentDidUpdate() {
+    this.mapBoxLoaded.then(() => {
+      this.updateSource();
+      this.updateLayer();
+    }).catch(reason => {
+      /* istanbul ignore next */
+      if (reason !== 'cancelled') {
+        throw reason;
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    this.cancelMapBoxLoad();
+    this._mapBox.remove();
+  }
+
+  updateSource() {
+    const { sources } = this.props;
+    each(sources, ({ name, ...rest }) => {
+      let source = this._mapBox.getSource(name);
+      if (!source && rest.data !== null) {
+        this._mapBox.addSource(name, rest);
+      }
+    });
+  }
+
+  updateLayer() {
+    const { layers, filters } = this.props;
+    each(layers, layer => {
+      let _layer = this._mapBox.getLayer(layer.id);
+      if (!_layer) {
+        this._mapBox.addLayer(layer);
+      }
+    });
+    each(filters, args => this._mapBox.setFilter(...args));
   }
 
   render() {
@@ -58,8 +108,10 @@ MapboxGL.propTypes = {
   onMouseMove: PropTypes.array,
   onMouseLeave: PropTypes.array,
   onClick: PropTypes.array,
+  filters: PropTypes.array,
   sources: PropTypes.array,
-  layers: PropTypes.array
+  layers: PropTypes.array,
+  sourceDataLoaded: PropTypes.func
 };
 
 MapboxGL.defaultProps = {
@@ -79,5 +131,6 @@ MapboxGL.defaultProps = {
   layers: [],
   onMouseMove: [],
   onMouseLeave: [],
+  filters: [],
   onClick: []
 };

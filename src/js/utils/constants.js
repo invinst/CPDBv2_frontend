@@ -62,12 +62,16 @@ export const ENTITY_LINK = 'LINK';
 let API_ROOT = `${global.location.origin}/api/v1/`;
 let API_ROOT_V2 = `${global.location.origin}/api/v2/`;
 
+let basePath = global.location.origin;
+
 /* istanbul ignore next */
 if (global.DEVELOPMENT) {
-  const LOCAL_BASE_PATH = 'http://localhost:8000';
-  API_ROOT = `${LOCAL_BASE_PATH}/api/v1/`;
-  API_ROOT_V2 = `${LOCAL_BASE_PATH}/api/v2/`;
+  basePath = 'http://localhost:8000';
+  API_ROOT = `${basePath}/api/v1/`;
+  API_ROOT_V2 = `${basePath}/api/v2/`;
 }
+
+export const BASE_PATH = basePath;
 
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;
@@ -86,6 +90,7 @@ export const UNIT_PROFILE_URL = `${V2_ROOT_PATH}units/`;
 export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
 export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
 export const SEARCH_TERM_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categories/`;
+export const CITY_SUMMARY_API_URL = `${V2_ROOT_PATH}city-summary/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -221,6 +226,14 @@ export const OFFICER_SOCIAL_GRAPH_SET_YEAR_RANGE = 'OFFICER_SOCIAL_GRAPH_SET_YEA
 export const SUGGESTION_SINGLE_REQUEST_START = 'SUGGESTION_SINGLE_REQUEST_START';
 export const SUGGESTION_SINGLE_REQUEST_SUCCESS = 'SUGGESTION_SINGLE_REQUEST_SUCCESS';
 export const SUGGESTION_SINGLE_REQUEST_FAILURE = 'SUGGESTION_SINGLE_REQUEST_FAILURE';
+
+export const CITY_SUMMARY_REQUEST_START = 'CITY_SUMMARY_REQUEST_START';
+export const CITY_SUMMARY_REQUEST_SUCCESS = 'CITY_SUMMARY_REQUEST_SUCCESS';
+export const CITY_SUMMARY_REQUEST_FAILURE = 'CITY_SUMMARY_REQUEST_FAILURE';
+
+export const COMMUNITY_REQUEST_START = 'COMMUNITY_REQUEST_START';
+export const COMMUNITY_REQUEST_SUCCESS = 'COMMUNITY_REQUEST_SUCCESS';
+export const COMMUNITY_REQUEST_FAILURE = 'COMMUNITY_REQUEST_FAILURE';
 
 export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
 export const VISUAL_TOKEN_COLOR_SCHEME = {
