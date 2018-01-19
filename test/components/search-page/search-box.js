@@ -4,6 +4,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   findRenderedDOMComponentWithTag,
+  scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
@@ -98,5 +99,21 @@ describe('SearchBox component', function () {
 
     const input = findRenderedDOMComponentWithTag(instance, 'input');
     input.getAttribute('spellcheck').should.eql('false');
+  });
+
+  it('should render close button when there is a search query', function () {
+    instance = renderIntoDocument(
+      <SearchBox value='sa'/>
+    );
+    findRenderedDOMComponentWithClass(instance, 'test--search-close-button');
+    scryRenderedDOMComponentsWithClass(instance, 'test--toggle-button').should.have.length(0);
+  });
+
+  it('should render toggle search term button when there is no search query', function () {
+    instance = renderIntoDocument(
+      <SearchBox value=''/>
+    );
+    findRenderedDOMComponentWithClass(instance, 'test--toggle-button');
+    scryRenderedDOMComponentsWithClass(instance, 'test--search-close-button').should.have.length(0);
   });
 });

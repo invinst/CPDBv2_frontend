@@ -8,7 +8,7 @@ import HoverableButton from 'components/common/hoverable-button';
 import CloseButton from './close-btn';
 
 
-class SearchBox extends Component {
+export default class SearchBox extends Component {
   constructor(props) {
     super(props);
 
@@ -87,4 +87,6 @@ SearchBox.propTypes = {
   changeSearchQuery: PropTypes.func,
 };
 
-export default SearchBox;
+SearchBox.defaultProps = {
+  value: '',
+};
