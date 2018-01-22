@@ -2,16 +2,22 @@ import Cookies from 'js-cookie';
 import { getMockAdapter } from 'mock-api';
 
 
-export const get = (url, types) => ((params, adapter=getMockAdapter()) => ({
-  types,
-  payload: {
-    request: {
-      url,
-      params,
-      adapter
-    }
+export const get = (url, types, cancelToken) => ((params, adapter=getMockAdapter()) => {
+  const request = {
+    url,
+    params,
+    adapter
+  };
+
+  if (cancelToken) {
+    request.cancelToken = cancelToken;
   }
-}));
+
+  return {
+    types,
+    payload: { request }
+  };
+});
 
 const authorizationHeaders = () => ({
   headers: {

@@ -1,10 +1,9 @@
 import { getActionTypes } from 'redux-axios-middleware';
 
-import { onSuccess, onError, getErrorMessage } from 'middleware/configured-axios-middleware';
+import { onSuccess, onError } from 'middleware/configured-axios-middleware';
 
 describe('configured-axios-middleware', function () {
   const next = (action) => (action);
-  const requestUrl = '/request-url';
   const action = {
     type: 'REQUEST',
     payload: {
@@ -42,13 +41,13 @@ describe('configured-axios-middleware', function () {
   describe('onError', () => {
     it('should fire action with error', () => {
       const error = {
-        status: 400
+        message: 'Cancelled by user'
       };
 
       onError({ action, next, error }).should.eql({
         type: getActionTypes(action)[2],
-        payload: new Error(getErrorMessage(requestUrl, error.status)),
-        statusCode: 400
+        payload: new Error(error.message),
+        statusCode: undefined
       });
     });
 

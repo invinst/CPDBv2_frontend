@@ -3,8 +3,6 @@ import axiosMiddleware, { getActionTypes } from 'redux-axios-middleware';
 import axiosClient from 'utils/axios-client';
 
 
-export const getErrorMessage = (url, status) => (`Request to ${url} failed with status code ${status}.`);
-
 export const onSuccess = ({ action, next, response }, options) => {
   const nextAction = {
     type: getActionTypes(action, options)[1],
@@ -21,15 +19,13 @@ export const onError = ({ action, next, error }, options) => {
   if (error instanceof Error) {
     errorObject = error;
   } else {
-    const errorMessage = error.data ? error.data.message
-      : getErrorMessage(action.payload.request.url, error.status);
-    errorObject = new Error(errorMessage);
+    errorObject = new Error(error.message);
   }
 
   const nextAction = {
     type: getActionTypes(action, options)[2],
     statusCode: error.status,
-    payload: error.data || errorObject
+    payload: (error.response && error.response.data) || errorObject
   };
   next(nextAction);
   return nextAction;

@@ -1,14 +1,10 @@
 import React, { PropTypes } from 'react';
-import { greyishColor } from 'utils/styles';
 
-const style = {
-  fontSize: '14px',
-  padding: '36px 16px 8px 0',
-  color: greyishColor
-};
+import { titleStyle } from './block-title.style';
+
 
 const BlockTitle = ({ children, ...props }) => (
-  <div style={ style } { ...props } >{ children }</div>
+  <div style={ titleStyle } { ...props } >{ children }</div>
 );
 
 BlockTitle.propTypes = {

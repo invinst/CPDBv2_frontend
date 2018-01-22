@@ -37,7 +37,8 @@ describe('searchPage.suggestionGroups reducer', function () {
       payload: {
         'neighborhoods': [{ a: 1 }],
         'officer_badge_number': [{ b: 2 }],
-        'officer_name': [{ c: 3 }]
+        'officer_name': [{ c: 3 }],
+        'unit': []
       }
     }).should.deepEqual({
       'neighborhoods': [{ a: 1 }],

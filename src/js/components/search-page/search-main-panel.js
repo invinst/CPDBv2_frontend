@@ -19,8 +19,10 @@ export default class SearchMainPanel extends Component {
     if (contentType === constants.RECENT_CONTENT_TYPE) {
       return;
     } else if (contentType === this.props.contentType) {
+      this.props.selectTag(null);
       this.getSuggestion(this.props.query, { limit: 9 });
     } else {
+      this.props.selectTag(contentType);
       this.getSuggestionWithContentType(this.props.query, { contentType });
     }
     this.props.resetNavigation();
@@ -72,11 +74,13 @@ SearchMainPanel.propTypes = {
   requestActivityGrid: PropTypes.func,
   resetNavigation: PropTypes.func,
   getSuggestion: PropTypes.func,
-  getSuggestionWithContentType: PropTypes.func
+  getSuggestionWithContentType: PropTypes.func,
+  selectTag: PropTypes.func
 };
 
 SearchMainPanel.defaultProps = {
   getSuggestion: () => {},
   getSuggestionWithContentType: () => {},
-  resetNavigation: () => {}
+  resetNavigation: () => {},
+  selectTag: () => {}
 };
