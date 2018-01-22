@@ -128,7 +128,7 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
       editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children,
-      getSuggestionWithContentType, selectTag, changeSearchQuery
+      getSuggestionWithContentType, selectTag, changeSearchQuery, focusedItem
     } = this.props;
 
     return (
@@ -143,6 +143,7 @@ export default class SearchPage extends Component {
             value={ query }
             searchTermsHidden={ searchTermsHidden }
             changeSearchQuery={ changeSearchQuery }
+            focused={ focusedItem.uniqueKey === 'undefined-undefined' }
           />
           <HoverableButton
             style={ cancelButtonStyle }

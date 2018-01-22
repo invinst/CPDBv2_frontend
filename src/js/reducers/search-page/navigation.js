@@ -20,12 +20,12 @@ export default handleActions({
   },
 
   [SEARCH_NAVIGATION_UP]: ({ itemIndex }, action) => {
-    const newItemIndex = itemIndex > 0 ? itemIndex - 1 : itemIndex;
+    const newItemIndex = itemIndex > -1 ? itemIndex - 1 : itemIndex;
 
     return {
       'itemIndex': newItemIndex
     };
   }
 }, {
-  'itemIndex': 0
+  'itemIndex': -1
 });

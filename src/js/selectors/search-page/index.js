@@ -74,6 +74,9 @@ const focusedSuggestionSelector = createSelector(
   itemsListSelector,
   getSuggestionNavigation,
   (itemsList, { itemIndex }) => {
+    if (itemIndex < 0) {
+      return {};
+    }
     if (itemsList.length) {
       return itemsList[itemIndex];
     }

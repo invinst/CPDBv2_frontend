@@ -18,6 +18,7 @@ export default class TextInput extends Component {
 
   componentDidMount() {
     const { value, keyPressHandlers, blurOnKeyPress } = this.props;
+
     if (value) {
       // Make sure the text input cursor is always at the end
       this.input.setSelectionRange(value.length, value.length);
@@ -42,7 +43,12 @@ export default class TextInput extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ value: nextProps.value });
+    const { focused, value } = nextProps;
+
+    this.setState({ value });
+    if (focused) {
+      this.input.focus();
+    }
   }
 
   handleFocus(event) {
@@ -80,7 +86,7 @@ export default class TextInput extends Component {
     const {
       style, paddingVertical, paddingHorizontal, width, height,
       placeholder, autoFocus,
-      keyPressHandlers, blurOnKeyPress, // eslint-disable-line no-unused-vars
+      keyPressHandlers, blurOnKeyPress, focused, // eslint-disable-line no-unused-vars
       ...rest
     } = this.props;
     const { wrapperStyle, inputStyle, placeholderStyle } = inputStyles;
@@ -90,6 +96,7 @@ export default class TextInput extends Component {
     delete rest.onChange;
     delete rest.onBlur;
     delete rest.onFocus;
+    delete rest.focused;
     const _wrapperStyle = { ...wrapperStyle(width, height), ...style.wrapper };
     const _inputStyle = {
       ...inputStyle(paddingVertical, paddingHorizontal),
@@ -136,10 +143,12 @@ TextInput.propTypes = {
   blurOnKeyPress: PropTypes.array,
   on: PropTypes.func,
   value: PropTypes.string,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  focused: PropTypes.bool
 };
 
 TextInput.defaultProps = {
   style: {},
-  value: ''
+  value: '',
+  focused: false
 };

@@ -49,7 +49,7 @@ export default class SearchBox extends Component {
   }
 
   render() {
-    const { value, onChange, onEscape, onEnter } = this.props;
+    const { value, onChange, onEscape, onEnter, focused } = this.props;
 
     const keyPressHandlers = {
       esc: onEscape,
@@ -70,6 +70,7 @@ export default class SearchBox extends Component {
           blurOnKeyPress={ ['up', 'down'] }
           spellCheck={ false }
           className='test--search-page-input'
+          focused={ focused }
         />
         { this.renderToggleButton() }
       </div>
@@ -85,8 +86,10 @@ SearchBox.propTypes = {
   value: PropTypes.string,
   searchTermsHidden: PropTypes.bool,
   changeSearchQuery: PropTypes.func,
+  focused: PropTypes.bool,
 };
 
 SearchBox.defaultProps = {
   value: '',
+  focused: false
 };
