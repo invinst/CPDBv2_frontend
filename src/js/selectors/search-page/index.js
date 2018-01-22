@@ -66,7 +66,16 @@ const slicedSuggestionGroupsSelector = createSelector(
 const itemsListSelector = createSelector(
   slicedSuggestionGroupsSelector,
   groups => {
-    return flatten(groups.map(group => group.items));
+    return flatten(groups.map(group => {
+      if (group.canLoadMore) {
+        const more = {
+          id: group.header,
+          type: 'more'
+        };
+        group.items.push(more);
+      }
+      return group.items;
+    }));
   }
 );
 

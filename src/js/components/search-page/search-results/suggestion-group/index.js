@@ -52,7 +52,13 @@ export default class SuggestionGroup extends Component {
             ))
           }
         </InfiniteScroll>
-        { showMoreButton ? <LoadMoreButton onLoadMore={ onLoadMore } header={ header }/> : null }
+        { showMoreButton ?
+          <LoadMoreButton
+            onLoadMore={ onLoadMore }
+            header={ header }
+            isFocused={ focusedItem.uniqueKey === `more-${header}` }
+          />
+          : null }
       </div>
     );
   }
