@@ -67,11 +67,11 @@ export default class SearchBox extends Component {
           paddingHorizontal={ 9 }
           value={ value }
           keyPressHandlers={ keyPressHandlers }
-          blurOnKeyPress={ ['up', 'down'] }
+          blurOnKeyPress={ ['down'] }
+          onBlurHandler={ resetNavigation }
           spellCheck={ false }
           className='test--search-page-input'
           focused={ focused }
-          resetNavigation={ resetNavigation }
         />
         { this.renderToggleButton() }
       </div>
