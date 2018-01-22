@@ -49,7 +49,7 @@ export default class SearchBox extends Component {
   }
 
   render() {
-    const { value, onChange, onEscape, onEnter, focused } = this.props;
+    const { value, onChange, onEscape, onEnter, focused, resetNavigation } = this.props;
 
     const keyPressHandlers = {
       esc: onEscape,
@@ -71,6 +71,7 @@ export default class SearchBox extends Component {
           spellCheck={ false }
           className='test--search-page-input'
           focused={ focused }
+          resetNavigation={ resetNavigation }
         />
         { this.renderToggleButton() }
       </div>
@@ -87,6 +88,7 @@ SearchBox.propTypes = {
   searchTermsHidden: PropTypes.bool,
   changeSearchQuery: PropTypes.func,
   focused: PropTypes.bool,
+  resetNavigation: PropTypes.func,
 };
 
 SearchBox.defaultProps = {

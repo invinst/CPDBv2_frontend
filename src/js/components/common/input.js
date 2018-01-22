@@ -17,7 +17,7 @@ export default class TextInput extends Component {
   }
 
   componentDidMount() {
-    const { value, keyPressHandlers, blurOnKeyPress } = this.props;
+    const { value, keyPressHandlers, blurOnKeyPress, resetNavigation } = this.props;
 
     if (value) {
       // Make sure the text input cursor is always at the end
@@ -37,7 +37,10 @@ export default class TextInput extends Component {
     if (blurOnKeyPress) {
       blurOnKeyPress.map((key) => (this.mousetrap.bind(
         key,
-        () => this.input.blur()
+        () => {
+          this.input.blur();
+          resetNavigation();
+        }
       )));
     }
   }
@@ -84,19 +87,22 @@ export default class TextInput extends Component {
 
   render() {
     const {
-      style, paddingVertical, paddingHorizontal, width, height,
-      placeholder, autoFocus,
-      keyPressHandlers, blurOnKeyPress, focused, // eslint-disable-line no-unused-vars
+      style, paddingVertical, paddingHorizontal, width, height, placeholder, autoFocus,
       ...rest
     } = this.props;
     const { wrapperStyle, inputStyle, placeholderStyle } = inputStyles;
     const { value, showPlaceholder } = this.state;
     const _showPlaceholder = showPlaceholder && !rest.value;
+
     delete rest.value;
     delete rest.onChange;
     delete rest.onBlur;
     delete rest.onFocus;
+    delete rest.keyPressHandlers;
+    delete rest.blurOnKeyPress;
     delete rest.focused;
+    delete rest.resetNavigation;
+
     const _wrapperStyle = { ...wrapperStyle(width, height), ...style.wrapper };
     const _inputStyle = {
       ...inputStyle(paddingVertical, paddingHorizontal),
@@ -144,7 +150,8 @@ TextInput.propTypes = {
   on: PropTypes.func,
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  focused: PropTypes.bool
+  focused: PropTypes.bool,
+  resetNavigation: PropTypes.func,
 };
 
 TextInput.defaultProps = {

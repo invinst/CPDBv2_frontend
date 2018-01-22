@@ -144,6 +144,7 @@ export default class SearchPage extends Component {
             searchTermsHidden={ searchTermsHidden }
             changeSearchQuery={ changeSearchQuery }
             focused={ focusedItem.uniqueKey === 'undefined-undefined' }
+            resetNavigation={ resetNavigation }
           />
           <HoverableButton
             style={ cancelButtonStyle }
