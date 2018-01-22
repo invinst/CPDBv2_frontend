@@ -17,15 +17,22 @@ export default class CitySummary extends Component {
     const { allegationCount, disciplineCount, mostCommonComplaints } = citySummary;
 
     return (
-      <div style={ wrapperStyle(isActive) } className='link--transition' onClick={ onClick }>
+      <div style={ wrapperStyle(isActive) }
+        className='link--transition test--city-summary'
+        onClick={ onClick }>
         <div style={ headerStyle }>CHICAGO 2000 - 2016</div>
-        <div style={ allegationDisciplineStyle }>
-          <div style={ allegationTextStyle }>{ allegationCount } allegations</div>
-          <div style={ disciplineTextStyle }>{ disciplineCount } disciplines</div>
+        <div style={ allegationDisciplineStyle }
+          className='test--allegation-discipline-count'>
+          <div style={ allegationTextStyle }>
+            { allegationCount } allegations
+          </div>
+          <div style={ disciplineTextStyle }>
+            { disciplineCount } disciplines
+          </div>
         </div>
         <div>
           <div style={ mostCommonComplaintStyle }>MOST COMMON COMPLAINT</div>
-          <div>
+          <div className='test--most-common-complaints'>
             {
               map(mostCommonComplaints, (category, index) => (
                 <div key={ index } style={ categoryStyle(index === mostCommonComplaints.length - 1) }>

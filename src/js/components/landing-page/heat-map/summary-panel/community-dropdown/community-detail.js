@@ -51,11 +51,12 @@ export default class CommunityDetail extends Component {
           <span style={ headerTextStyle }>{ name }</span>
           <span className='test--community-close-btn' style={ closeButtonStyle } onClick={ closeDetail }/>
         </div>
-        <div style={ allegationDisciplineStyle }>
+        <div style={ allegationDisciplineStyle }
+          className='test--community-allegation-discipline'>
           <span style={ allegationTextStyle }>{ allegationCount } allegations </span>
           <span style={ disciplineTextStyle }>{ disciplineCount } disciplines</span>
         </div>
-        <div style={ racePopulationStyle }>
+        <div style={ racePopulationStyle } className='test--community-race-population'>
           <div style={ columnStyle }>
             <div>
               <div style={ labelTextStyle }>Population</div>
@@ -78,7 +79,7 @@ export default class CommunityDetail extends Component {
             }
           </div>
         </div>
-        <div style={ officersWrapperStyle }>
+        <div style={ officersWrapperStyle } className='test--community-officers'>
           <div style={ officersHeaderStyle }>OFFICERS WITH MOST ALLEGATIONS</div>
           <div>
             {
@@ -96,7 +97,10 @@ export default class CommunityDetail extends Component {
               ))
             }
           </div>
-          <a style={ learnMoreStyle } href={ communityUrl(name) }>
+          <a
+            className='test--community-v1-link'
+            style={ learnMoreStyle }
+            href={ communityUrl(name) }>
             <span style={ learnMoreTextStyle }>Learn more</span>
             <span style={ rightArrowBlueStyle }/>
           </a>

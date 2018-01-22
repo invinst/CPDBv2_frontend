@@ -22,7 +22,7 @@ export function loadTwitter(cb) {
 
 _mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
-if (global.mocha !== undefined) {
+if (global.LIVE_TEST !== undefined || global.mocha !== undefined) {
   const addSourceSpy = spy();
   const getSourceSpy = stub().returns(undefined);
   const addLayerSpy = spy();

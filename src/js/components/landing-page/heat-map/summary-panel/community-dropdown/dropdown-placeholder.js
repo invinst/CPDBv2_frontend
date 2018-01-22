@@ -11,7 +11,9 @@ export default class DropdownPlaceholder extends Component {
     const { openDropdown } = this.props;
 
     return (
-      <div style={ wrapperStyle } onClick={ openDropdown }>
+      <div style={ wrapperStyle }
+        onClick={ openDropdown }
+        className='test--dropdown-placeholder'>
         <div style={ firstRowStyle }>
           <span style={ firstRowTextStyle }>
             Select a community to learn more about police activity in that area.
@@ -19,7 +21,7 @@ export default class DropdownPlaceholder extends Component {
           <span style={ arrowDownStyle }/>
         </div>
         <div style={ secondRowStyle }>
-          or <Link to='/search/terms/'>see what you can search for</Link>
+          or <Link to='/search/terms/' className='test--dropdown-search-terms'>see what you can search for</Link>
         </div>
       </div>
     );

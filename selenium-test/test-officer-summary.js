@@ -111,7 +111,8 @@ describe('officer summary page', function () {
   });
 
   it('should redirect to timeline at matching year', function () {
-    browser.element('.test--sparkline--hover-point').click();
+    summaryPage.aggregateSection.sparklineHoverPoint.waitForVisible();
+    summaryPage.aggregateSection.sparklineHoverPoint.click();
     timelinePage.sidebar.minimapItem.waitForVisible();
     browser.getUrl().should.endWith('/1/timeline/?year=2015');
   });
