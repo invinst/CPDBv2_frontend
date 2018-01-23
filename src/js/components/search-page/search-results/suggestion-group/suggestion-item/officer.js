@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import pluralize from 'pluralize';
 
 import SuggestionItemBase from './base';
 import { grayTextStyle } from './base.style';
@@ -15,7 +16,7 @@ class OfficerItem extends SuggestionItemBase {
         <span>{ demographicInfo }, </span>
         <span
           style={ complaintsTextStyle((isFocused || hovering) && complaintCount > 0) }>
-          { `${complaintCount} Complaints, ` }
+          { `${pluralize('Complaint', complaintCount, true)}, ` }
         </span>
         <span
           style={ sustainedTextStyle((isFocused ||hovering) && sustainedCount > 0) }>
