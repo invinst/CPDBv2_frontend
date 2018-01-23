@@ -102,6 +102,7 @@ export default class TextInput extends Component {
     delete rest.blurOnKeyPress;
     delete rest.focused;
     delete rest.resetNavigation;
+    delete rest.onBlurHandler;
 
     const _wrapperStyle = { ...wrapperStyle(width, height), ...style.wrapper };
     const _inputStyle = {
@@ -157,5 +158,5 @@ TextInput.propTypes = {
 TextInput.defaultProps = {
   style: {},
   value: '',
-  focused: false
+  focused: false,
 };

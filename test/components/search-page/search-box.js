@@ -48,7 +48,7 @@ describe('SearchBox component', function () {
       enter: onEnter
     });
     input.props.onChange.should.equal(onChange);
-    input.props.blurOnKeyPress.should.eql(['up', 'down']);
+    input.props.blurOnKeyPress.should.eql(['down']);
   });
 
   it('should toggle search terms', function () {

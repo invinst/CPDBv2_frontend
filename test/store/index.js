@@ -73,7 +73,7 @@ describe('store', function () {
         locationBeforeTransitions: null
       },
       searchPage: {
-        navigation: { 'itemIndex': 0 },
+        navigation: { 'itemIndex': -1 },
         isRequesting: false,
         suggestionGroups: {
           meta: {}

@@ -4,7 +4,7 @@ import searchPage from 'reducers/search-page';
 describe('searchPage reducer', function () {
   it('should have initial state', function () {
     searchPage(undefined, {}).should.deepEqual({
-      navigation: { 'itemIndex': 0 },
+      navigation: { 'itemIndex': -1 },
       isRequesting: false,
       suggestionGroups: {
         meta: {}

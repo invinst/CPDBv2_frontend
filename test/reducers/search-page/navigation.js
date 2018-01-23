@@ -16,11 +16,11 @@ describe('navigation reducer', function () {
   });
 
   describe('CHANGE_SEARCH_QUERY', function () {
-    it('resets to first position', function () {
+    it('resets to search box position', function () {
       navigation({ 'itemIndex': 2 }, {
         type: CHANGE_SEARCH_QUERY,
         payload: {}
-      }).should.deepEqual({ 'itemIndex': 0 });
+      }).should.deepEqual({ 'itemIndex': -1 });
     });
   });
 
@@ -45,13 +45,13 @@ describe('navigation reducer', function () {
   });
 
   describe('SEARCH_NAVIGATION_UP', function () {
-    it('stays in the same position if it\'s the top row', function () {
-      navigation({ 'itemIndex': 0 }, {
+    it('stays in the same position if it\'s in the search box', function () {
+      navigation({ 'itemIndex': -1 }, {
         type: SEARCH_NAVIGATION_UP,
         payload: {
           totalItemCount: 2
         }
-      }).should.deepEqual({ 'itemIndex': 0 });
+      }).should.deepEqual({ 'itemIndex': -1 });
     });
 
     it('moves up one row in normal case', function () {
