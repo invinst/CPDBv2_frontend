@@ -184,7 +184,7 @@ describe('Search Page', function () {
     searchPage.suggestionGroup.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
 
-    searchPage.firstOfficerResult.getAttribute('class').should.containEql('test--focused');
+    searchPage.firstOfficerResult.getAttribute('class').should.not.containEql('test--focused');
     searchPage.secondOfficerResult.getAttribute('class').should.not.containEql('test--focused');
 
     browser.keys('ArrowDown'); // unfocus
