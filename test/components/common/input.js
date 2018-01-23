@@ -4,7 +4,7 @@ import {
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { reRender, unmountComponentSuppressError } from 'utils/test';
 import TextInput from 'components/common/input';
 import * as inputStyles from 'components/common/input.style';
 
@@ -130,6 +130,15 @@ describe('TextInput component', function () {
 
     instance.mousetrap.trigger('enter');
     keyPressHandlers.enter.calledOnce.should.be.true();
+  });
+
+  it('should focus when receiving new focused props', function () {
+    instance = renderIntoDocument(<TextInput/>);
+    const stubFocus = stub(instance.input, 'focus');
+    stubFocus.called.should.be.false();
+
+    instance = reRender(<TextInput focused={ true }/>, instance);
+    stubFocus.called.should.be.true();
   });
 
   describe('when blurOnKeyPress prop is provided', function () {

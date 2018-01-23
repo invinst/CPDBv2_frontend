@@ -246,6 +246,46 @@ describe('search page selector', function () {
         }
       })['id']).not.be.ok();
     });
+
+    it('should return empty when itemIndex is smaller than 0', function () {
+      should(focusedItemSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'OFFICER': [],
+            'UNIT': [],
+            'CO-ACCUSED': []
+          },
+          navigation: {
+            itemIndex: -1
+          }
+        }
+      })['id']).not.be.ok();
+    });
+
+    it('should return More correctly', function () {
+      focusedItemSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'OFFICER': RawOfficerSuggestion.buildList(6),
+            'UNIT': [],
+            'CO-ACCUSED': []
+          },
+          navigation: {
+            itemIndex: 5
+          }
+        }
+      }).should.deepEqual({
+        id: 'OFFICER',
+        tags: [],
+        text: undefined,
+        to: undefined,
+        type: 'more',
+        uniqueKey: 'more-OFFICER',
+        url: undefined,
+      });
+    });
   });
 
   describe('previewPaneInfoSelector', function () {
