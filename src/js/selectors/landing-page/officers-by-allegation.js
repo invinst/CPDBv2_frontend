@@ -1,10 +1,9 @@
 import { createSelector } from 'reselect';
 import { shuffle } from 'lodash';
-
 import { cardTransform } from './common';
 
 
-const getCards = state => state.landingPage.activityGrid.cards;
+const getCards = state => state.landingPage.officersByAllegation.cards;
 
 export const cardsSelector = createSelector(
   [getCards],

@@ -39,10 +39,6 @@ describe('landing page', function () {
     landingPage.loginScreen.loginModal.waitForVisible(2000, true);
   });
 
-  it('should show activity grid', function () {
-    landingPage.activityGridSection.cards.count.should.equal(40);
-  });
-
   it('should open a modal when user clicks on "Legal Disclaimer"', function () {
     landingPage.footer.legalDisclaimer.click();
     landingPage.genericModalSection.overlay.waitForVisible();
@@ -59,6 +55,29 @@ describe('landing page', function () {
     activeWidth.should.eql(initialWidth);
   });
 
+  // it('should show activity grid', function () {
+  //   landingPage.activityGridSection.cards.count.should.equal(40);
+  // });
+
+  describe('Recent Activity carousel', function () {
+    it('should show initial carousel', function () {
+      landingPage.recentActivityCarousel.cards.count.should.equal(40);
+      landingPage.recentActivityCarousel.rightArrow.waitForVisible();
+      landingPage.recentActivityCarousel.leftArrow.waitForVisible(2000, true);
+    });
+    it('should change next group of slides when click to right arrow', function () {
+      landingPage.recentActivityCarousel.rightArrow.click();
+      landingPage.recentActivityCarousel.leftArrow.waitForVisible(1000);
+    });
+  });
+
+  describe('Officers By Allegation carousel', function () {
+    it('should show initial carousel', function () {
+      landingPage.officersByAllegationCarousel.cards.count.should.equal(48);
+      landingPage.officersByAllegationCarousel.rightArrow.waitForVisible();
+      landingPage.officersByAllegationCarousel.leftArrow.waitForVisible(2000, true);
+    });
+  });
 
   describe('Header', function () {
     afterEach(function () {
@@ -83,7 +102,7 @@ describe('landing page', function () {
 
     it('should have blue background when scrolled all the way to bottom of page', function () {
       browser.scroll(0, 9999999);
-      browser.pause(1000);
+      browser.pause(2000);
       landingPage.stickyHeader.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
       landingPage.stickyHeader.faq.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       landingPage.stickyHeader.mainElement.getCssProperty('box-shadow').value.should.eql('none');

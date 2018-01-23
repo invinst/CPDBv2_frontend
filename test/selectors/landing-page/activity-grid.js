@@ -27,6 +27,7 @@ describe('activity-grid selectors', function () {
         'visual_token_background_color': 'red',
         'complaint_count': 10,
         'sustained_count': 5,
+        'complaint_percentile': 80,
         'birth_year': 1970,
         race: 'Black',
         gender: 'Female'
@@ -37,7 +38,7 @@ describe('activity-grid selectors', function () {
         visualTokenBackgroundColor: 'red',
         complaintCount: 10,
         sustainedCount: 5,
-        complaintRate: 50,
+        complaintPercentile: 80,
         birthYear: 1970,
         race: 'black',
         gender: 'female'
