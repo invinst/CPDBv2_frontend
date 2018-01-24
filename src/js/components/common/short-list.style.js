@@ -1,4 +1,4 @@
-import { greyishColor } from 'utils/styles';
+import { clayGray } from 'utils/styles';
 
 export const wrapperStyle = {
   margin: '8px 0 8px 16px',
@@ -6,7 +6,7 @@ export const wrapperStyle = {
 };
 export const labelStyle = {
   width: '110px',
-  color: greyishColor,
+  color: clayGray,
   textTransform: 'capitalize',
 };
 export const contentStyle = {};

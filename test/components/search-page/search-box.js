@@ -73,13 +73,13 @@ describe('SearchBox component', function () {
     pushPathPreserveEditMode.restore();
   });
 
-  it('should render Show Search terms on search term is hidden', function () {
+  it('should render "What can I search?" on search term is hidden', function () {
     instance = renderIntoDocument(
       <SearchBox searchTermsHidden={ true }/>
     );
 
     const toggleButton = findRenderedDOMComponentWithClass(instance, 'test--toggle-button');
-    toggleButton.textContent.should.equal('Show Search terms');
+    toggleButton.textContent.should.equal('What can I search?');
   });
 
   it('should render Hide Search terms on search term is showing', function () {

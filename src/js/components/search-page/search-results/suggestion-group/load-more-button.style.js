@@ -1,4 +1,4 @@
-import { sanFranciscoTextFamily, accentColor, greyishColor, whiteTwoColor } from 'utils/styles';
+import { sanFranciscoTextFamily, accentColor, clayGray, whiteTwoColor } from 'utils/styles';
 
 
 export const loadMoreButtonStyle = (hovering) => ({
@@ -13,7 +13,7 @@ export const loadMoreButtonTextStyle = (hovering) => ({
   fontWeight: 500,
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
-  color: hovering ? accentColor : greyishColor,
+  color: hovering ? accentColor : clayGray,
   borderBottom: `1px solid ${whiteTwoColor}`,
   padding: '11px 0',
   height: '100%',
