@@ -24,10 +24,18 @@ export default class CitySummary extends Component {
         <div style={ allegationDisciplineStyle }
           className='test--allegation-discipline-count'>
           <div style={ allegationTextStyle }>
-            { allegationCount } allegations
+            {
+              allegationCount ?
+                `${allegationCount.toLocaleString()} allegations` :
+                null
+            }
           </div>
           <div style={ disciplineTextStyle }>
-            { disciplineCount } disciplines
+            {
+              disciplineCount ?
+                `${disciplineCount.toLocaleString()} disciplines` :
+                null
+            }
           </div>
         </div>
         <div>
