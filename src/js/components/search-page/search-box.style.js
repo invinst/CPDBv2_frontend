@@ -1,8 +1,6 @@
-import { greyishColor, softBlackColor, sugarCaneColor, clayGray } from 'utils/styles';
-import { backButtonWidth } from './search-page.style';
+import { softBlackColor, sugarCaneColor, clayGray, accentColor } from 'utils/styles';
 
 
-const marginRight = 23;
 export const searchInputStyle = {
   input: {
     color: softBlackColor,
@@ -10,7 +8,7 @@ export const searchInputStyle = {
     border: 0,
     fontSize: '14px',
     verticalAlign: 'top',
-    fontWeight: 500,
+    fontWeight: 300,
     backgroundColor: sugarCaneColor
   },
   wrapper: {
@@ -20,24 +18,32 @@ export const searchInputStyle = {
     padding: 0
   },
   placeholder: {
-    color: greyishColor,
+    color: clayGray,
     fontSize: '14px'
   }
 };
 
-export const searchTermsButtonStyle = (hidden) => ({
+const _searchTermsButtonStyle = {
   position: 'absolute',
-  color: hidden ? clayGray : softBlackColor,
+  color: clayGray,
   right: '16px',
   lineHeight: '32px',
   fontSize: '13px',
-  fontWeight: 500,
+  fontWeight: 300,
   cursor: 'pointer'
-});
+};
+
+export const searchTermsButtonStyle = {
+  base: _searchTermsButtonStyle,
+  hover: {
+    ..._searchTermsButtonStyle,
+    color: accentColor
+  }
+};
 
 export const wrapperStyle = {
   position: 'relative',
-  width: `calc(100% - ${backButtonWidth + marginRight}px)`,
+  width: 'calc(100% - 64px)',
   display: 'inline-block',
-  marginRight: `${marginRight}px`
+  marginRight: '23px'
 };

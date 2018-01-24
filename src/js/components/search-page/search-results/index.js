@@ -4,7 +4,8 @@ import { map } from 'lodash';
 
 import {
   resultWrapperStyle, plusWrapperStyle, plusSignStyle, columnWrapperStyle,
-  suggestionResultsStyle, cancelButtonStyle, actionBarStyle
+  suggestionResultsStyle, cancelButtonStyle, actionBarStyle,
+  loadingStyle
 } from './search-results.style';
 import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
@@ -78,21 +79,20 @@ export default class SuggestionResults extends Component {
   render() {
     const { isRequesting, editModeOn, aliasEditModeOn, previewPaneInfo } = this.props;
 
-    if (isRequesting) {
-      return (
-        <div style={ { ...resultWrapperStyle, marginTop: '38px' } }>
-          Loading...
-        </div>
-      );
-    }
     return (
       <div style={ suggestionResultsStyle(aliasEditModeOn) }>
-        <div style={ resultWrapperStyle }>
-          <div className='content-wrapper' style={ columnWrapperStyle }>
-            { editModeOn ? this.renderActionBar() : null }
-            { this.renderGroups() }
-          </div>
-        </div>
+        {
+          isRequesting ?
+            <div style={ loadingStyle }>
+              Loading...
+            </div> :
+            <div style={ resultWrapperStyle }>
+              <div className='content-wrapper' style={ columnWrapperStyle }>
+                { editModeOn ? this.renderActionBar() : null }
+                { this.renderGroups() }
+              </div>
+            </div>
+        }
         <PreviewPane { ...previewPaneInfo }/>
       </div>
     );

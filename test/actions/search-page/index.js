@@ -1,3 +1,6 @@
+import { stub, spy } from 'sinon';
+import { CancelToken } from 'axios';
+
 import {
   getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion,
   SUGGESTION_URL, SELECT_TAG, SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS,
@@ -8,22 +11,39 @@ import * as constants from 'utils/constants';
 
 
 describe('suggestion action', function () {
+  let cancel;
+
+  beforeEach(function () {
+    cancel = spy();
+    stub(CancelToken, 'source').returns({
+      token: 'token',
+      cancel
+    });
+  });
+
+  afterEach(function () {
+    CancelToken.source.restore();
+  });
+
   describe('getSuggestion', function () {
     it('should return correct action', function () {
-      getSuggestion('abc', {
-        contentType: 'xyz'
-      }).should.deepEqual({
+      getSuggestion('abc').should.deepEqual({
         types: [SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE],
         payload: {
           request: {
             url: `${SUGGESTION_URL}abc/`,
-            params: {
-              contentType: 'xyz'
-            },
-            adapter: null
+            params: undefined,
+            adapter: null,
+            cancelToken: 'token'
           }
         }
       });
+    });
+
+    it('should cancel old request if new request is called', function () {
+      getSuggestion('abc');
+      getSuggestion('def');
+      cancel.called.should.be.true();
     });
   });
 
@@ -43,7 +63,8 @@ describe('suggestion action', function () {
             params: {
               contentType: 'xyz'
             },
-            adapter: null
+            adapter: null,
+            cancelToken: 'token'
           }
         }
       });

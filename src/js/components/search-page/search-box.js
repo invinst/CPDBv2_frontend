@@ -4,6 +4,7 @@ import { pushPathPreserveEditMode } from 'utils/edit-path';
 import * as constants from 'utils/constants';
 import { searchInputStyle, searchTermsButtonStyle, wrapperStyle } from './search-box.style';
 import TextInput from 'components/common/input';
+import HoverableButton from 'components/common/hoverable-button';
 
 
 class SearchBox extends Component {
@@ -46,11 +47,16 @@ class SearchBox extends Component {
           spellCheck={ false }
           className='test--search-page-input'
         />
-        <span className='test--toggle-button'
-          style={ searchTermsButtonStyle(searchTermsHidden) }
+        <HoverableButton
+          className='test--toggle-button'
+          style={ searchTermsButtonStyle }
           onClick={ this.handleToggleSeachTerm }>
-          { `${searchTermsHidden ? 'Show' : 'Hide'} Search terms` }
-        </span>
+          {
+            searchTermsHidden ?
+              'What can I search?' :
+              'Hide Search terms'
+          }
+        </HoverableButton>
       </div>
     );
   }
