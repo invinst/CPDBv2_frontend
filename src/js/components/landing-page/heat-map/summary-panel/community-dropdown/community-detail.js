@@ -85,7 +85,7 @@ export default class CommunityDetail extends Component {
             {
               map(mostComplaintsOfficers, (officer, index) => (
                 <Link
-                  to={ `/officer/${officer.id}` }
+                  to={ `/officer/${officer.id}/` }
                   style={ officerItemStyle(index === mostComplaintsOfficers.length - 1) }
                   key={ officer.id }>
                   <span style={ officerTextStyle }>

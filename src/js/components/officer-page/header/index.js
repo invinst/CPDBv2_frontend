@@ -6,15 +6,9 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 import {
   officerNameStyle, linkWrapperStyle, linkStyle, wrapperStyle, activeLinkStyle, outerStyle, outerPlaceholderStyle
 } from './header.style';
+import { officerPath } from 'utils/location';
 import { scrollToTop } from 'utils/dom';
 
-
-export const officerPath = subPath => pathname => {
-  if (subPath) {
-    return pathname.replace(/(\d+).+/, `$1/${subPath}/`);
-  }
-  return pathname.replace(/(\d+).+/, '$1/');
-};
 
 const OFFICER_BUTTONS = [
   ['Summary', ''],
@@ -36,7 +30,7 @@ export default class Header extends Component {
             <div style={ linkWrapperStyle }>
               {
                 map(OFFICER_BUTTONS, ([label, subpath], ind) => {
-                  const path = officerPath(subpath)(pathname);
+                  const path = officerPath(subpath, pathname);
                   let pathWithParams = (label === 'Timeline' && officerTimelineUrlParams) ?
                     path + officerTimelineUrlParams : path;
                   return (
