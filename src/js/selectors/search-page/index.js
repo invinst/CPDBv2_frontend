@@ -70,7 +70,7 @@ const itemsListSelector = createSelector(
       if (group.canLoadMore) {
         const more = {
           id: group.header,
-          type: 'more'
+          type: constants.MORE_SUGGESTION_TYPE
         };
         group.items.push(more);
       }

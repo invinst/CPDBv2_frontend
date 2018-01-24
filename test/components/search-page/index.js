@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {
   Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType
+  findRenderedComponentWithType, scryRenderedDOMComponentsWithTag
 } from 'react-addons-test-utils';
 import { stub, spy } from 'sinon';
 import { browserHistory } from 'react-router';
@@ -16,6 +16,8 @@ import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError } from 'utils/test';
 import * as domUtils from 'utils/dom';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
+import SearchTags from 'components/search-page/search-tags';
+import { MORE_SUGGESTION_TYPE } from 'utils/constants';
 
 
 describe('SearchPage component', function () {
@@ -252,6 +254,17 @@ describe('SearchPage component', function () {
       this.locationAssign.calledWith('http://whatever.local').should.be.true();
       this.browserHistoryPush.called.should.be.false();
     });
+
+    it('should call handleSelect to show more suggestion items when entering on More button', function () {
+      const handleSelectStub = stub(SearchPage.prototype, 'handleSelect');
+      instance = renderIntoDocument(
+        <SearchPage focusedItem={ OfficerSuggestion.build({ id: 'OFFICER', 'type': MORE_SUGGESTION_TYPE }) }/>
+      );
+      Mousetrap.trigger('enter');
+      handleSelectStub.calledWith('OFFICER');
+
+      handleSelectStub.restore();
+    });
   });
 
   it('should push search into breadcrumbs', function () {
@@ -269,5 +282,43 @@ describe('SearchPage component', function () {
       </Provider>
     );
     this.stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
+  });
+
+  it('should call api with content type when user select a tag', function () {
+    const getSuggestionWithContentType = spy();
+    const tags = ['a', 'b'];
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage
+          getSuggestionWithContentType={ getSuggestionWithContentType }
+          tags={ tags } query={ 'a' }
+        />
+      </Provider>
+    );
+
+    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
+    const tagElements = scryRenderedDOMComponentsWithTag(suggestionTagsElement, 'span');
+    Simulate.click(tagElements[0]);
+
+    getSuggestionWithContentType.calledWith('a', {
+      contentType: 'a'
+    }).should.be.true();
+  });
+
+  it('should call api when user deselect a tag', function () {
+    const getSuggestion = spy();
+    const tags = ['a', 'b'];
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage getSuggestion={ getSuggestion } tags={ tags } contentType='a' query='c' />
+      </Provider>
+    );
+
+    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
+    const tagElements = scryRenderedDOMComponentsWithTag(suggestionTagsElement, 'span');
+    Simulate.click(tagElements[0]);
+    getSuggestion.calledWith('c').should.be.true();
   });
 });

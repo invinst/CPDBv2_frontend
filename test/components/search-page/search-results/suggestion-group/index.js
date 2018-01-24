@@ -11,6 +11,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
+import { MORE_SUGGESTION_TYPE } from 'utils/constants';
 
 describe('SuggestionGroup component', function () {
   let instance;
@@ -36,10 +37,10 @@ describe('SuggestionGroup component', function () {
   it('should focus on showMoreButton when uniqueKeys are matched', function () {
     instance = renderIntoDocument(
       <SuggestionGroup
-        header='officer'
+        header='OFFICER'
         showMoreButton={ true }
         focusedItem={ {
-          uniqueKey: 'more-officer'
+          uniqueKey: `${MORE_SUGGESTION_TYPE}-OFFICER`
         } }
       />
     );

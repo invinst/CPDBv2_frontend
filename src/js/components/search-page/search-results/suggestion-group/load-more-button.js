@@ -2,14 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 import Hoverable from 'components/common/higher-order/hoverable';
 import { loadMoreButtonStyle, loadMoreButtonTextStyle } from './load-more-button.style';
-import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 
 class LoadMoreButton extends Component {
-  componentDidMount() {
-    const { onLoadMore, header } = this.props;
-    LayeredKeyBinding.bind('enter', onLoadMore.bind(null, header));
-  }
 
   render() {
     const { onLoadMore, hovering, header, isFocused } = this.props;

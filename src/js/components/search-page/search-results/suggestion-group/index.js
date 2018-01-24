@@ -5,6 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { groupHeaderStyle, scrollerStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
+import { MORE_SUGGESTION_TYPE } from 'utils/constants';
 
 
 export default class SuggestionGroup extends Component {
@@ -56,7 +57,7 @@ export default class SuggestionGroup extends Component {
           <LoadMoreButton
             onLoadMore={ onLoadMore }
             header={ header }
-            isFocused={ focusedItem.uniqueKey === `more-${header}` }
+            isFocused={ focusedItem.uniqueKey === `${MORE_SUGGESTION_TYPE}-${header}` }
           />
           : null }
       </div>
