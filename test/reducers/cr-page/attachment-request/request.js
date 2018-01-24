@@ -40,7 +40,7 @@ describe('AttachmentRequest reducer', function () {
       }, {
         type: CR_REQUEST_DOC_FAILURE,
         payload: {
-          error: 'Not subscribe'
+          message: 'Not subscribe'
         }
       }).should.eql({
         isRequested: false,

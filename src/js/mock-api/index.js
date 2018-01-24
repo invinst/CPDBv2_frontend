@@ -46,7 +46,7 @@ axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'invalid@email.com' })
 axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'valid@email.com' })
   .reply(200, { 'message': 'Thanks for subscribing.', crid: 2 });
 axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'invalid@email.com' })
-  .reply(400, { 'error': 'Sorry, we can not subscribe your email' });
+  .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
 
 
 // remove "/" from beginning of any v1 path for axios mock adapter to work.
