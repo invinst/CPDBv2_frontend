@@ -1,10 +1,12 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 import { map } from 'lodash';
 
-import Navigation from './navigation';
 import CategoryColumn from './category-column';
 import SmoothScroller from 'components/common/smooth-scroller';
-import { contentWrapperStyle } from './search-terms.style.js';
+import { contentWrapperStyle, searchTermTitleStyle,
+  bottomLinkStyle, bottomLinksWrapperStyle } from './search-terms.style.js';
+import { SEARCH_PATH } from 'utils/constants';
 
 
 export default class SearchTerms extends Component {
@@ -53,14 +55,18 @@ export default class SearchTerms extends Component {
   }
 
   render() {
-    const { navigationItems, onSelectCategory } = this.props;
-
     return (
       <div>
-        <Navigation items={ navigationItems } onSelectItem={ onSelectCategory }/>
-        {
-          this.renderColumns()
-        }
+        <div style={ searchTermTitleStyle }>Search terms</div>
+        { this.renderColumns() }
+        <div style={ bottomLinksWrapperStyle }>
+          <Link style={ bottomLinkStyle } to={ SEARCH_PATH }>
+            Back to Front Page
+          </Link>
+          <Link style={ bottomLinkStyle } to={ SEARCH_PATH }>
+            Search
+          </Link>
+        </div>
       </div>
     );
   }
@@ -68,8 +74,6 @@ export default class SearchTerms extends Component {
 
 SearchTerms.propTypes = {
   requestSearchTermCategories: PropTypes.func,
-  navigationItems: PropTypes.array,
-  onSelectCategory: PropTypes.func,
   selectedCategoryIndex: PropTypes.number,
   categories: PropTypes.array
 };

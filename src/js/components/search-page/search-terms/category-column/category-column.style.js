@@ -1,7 +1,6 @@
-import { clayGray } from 'utils/styles';
+import { softBlackColor } from 'utils/styles';
 
 export const columnWrapperStyle = {
-  display: 'inline-block',
   verticalAlign: 'top'
 };
 
@@ -10,14 +9,15 @@ export const itemsWrapperStyle = {
 };
 
 export const itemsChunkWrapperStyle = {
-  display: 'inline-block',
   verticalAlign: 'top'
 };
 
 export const headerStyle = {
+  width: '668px',
   fontSize: '14px',
   fontWeight: 500,
-  color: clayGray,
-  padding: '8px 0',
-  textTransform: 'uppercase'
+  color: softBlackColor,
+  padding: '34px 0 10px 0',
+  textTransform: 'uppercase',
+  boxSizing: 'border-box',
 };
