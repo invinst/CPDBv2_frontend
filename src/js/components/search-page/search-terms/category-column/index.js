@@ -6,20 +6,6 @@ import CategoryItem from './category-item';
 
 
 export default class CategoryColumn extends Component {
-  componentDidMount() {
-    const { selected, onSelected } = this.props;
-    if (selected) {
-      const { left } = this.element.getBoundingClientRect();
-      onSelected(left);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.selected && !this.props.selected) {
-      const { left } = this.element.getBoundingClientRect();
-      this.props.onSelected(left);
-    }
-  }
 
   onGetRef(el) {
     this.element = el;
@@ -68,7 +54,6 @@ CategoryColumn.propTypes = {
   name: PropTypes.string,
   index: PropTypes.number,
   selected: PropTypes.bool,
-  onSelected: PropTypes.func,
   expandedId: PropTypes.string,
   toggleExpanded: PropTypes.func
 };

@@ -3,10 +3,11 @@ import { Link } from 'react-router';
 import { map } from 'lodash';
 
 import CategoryColumn from './category-column';
-import SmoothScroller from 'components/common/smooth-scroller';
 import { contentWrapperStyle, searchTermTitleStyle,
   bottomLinkStyle, bottomLinksWrapperStyle } from './search-terms.style.js';
 import { SEARCH_PATH } from 'utils/constants';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import { fluidStyle } from 'components/responsive/responsive-fluid-width-component.style';
 
 
 export default class SearchTerms extends Component {
@@ -14,10 +15,8 @@ export default class SearchTerms extends Component {
     super(props);
 
     this.toggleExpanded = this.toggleExpanded.bind(this);
-    this.getCategoryLeft = this.getCategoryLeft.bind(this);
     this.state = {
       expandedId: null,
-      selectedLeft: null
     };
   }
 
@@ -31,26 +30,28 @@ export default class SearchTerms extends Component {
     });
   }
 
-  getCategoryLeft(left) {
-    this.setState({ selectedLeft: left });
-  }
-
   renderColumns() {
     const { categories, selectedCategoryIndex } = this.props;
-    const { expandedId, selectedLeft } = this.state;
+    const { expandedId } = this.state;
 
     return (
-      <SmoothScroller direction='left' style={ contentWrapperStyle } selectedOffset={ selectedLeft }>
+      <ResponsiveFluidWidthComponent
+        style={ contentWrapperStyle }
+        minimumStyle={ fluidStyle }
+        mediumStyle={ { width: '699px' } }
+        maximumStyle={ { width: '1440px' } }
+        minWidthThreshold={ 700 }
+        maxWidthThreshold={ 1440 }
+      >
         {
           map(categories, ({ items, name }, index) => (
             <CategoryColumn
               key={ name } name={ name } items={ items }
               selected={ selectedCategoryIndex === index }
-              onSelected={ this.getCategoryLeft }
               expandedId={ expandedId } toggleExpanded={ this.toggleExpanded }/>
           ))
         }
-      </SmoothScroller>
+      </ResponsiveFluidWidthComponent>
     );
   }
 

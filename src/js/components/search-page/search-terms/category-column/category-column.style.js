@@ -13,7 +13,6 @@ export const itemsChunkWrapperStyle = {
 };
 
 export const headerStyle = {
-  width: '668px',
   fontSize: '14px',
   fontWeight: 500,
   color: softBlackColor,

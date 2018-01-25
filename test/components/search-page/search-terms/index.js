@@ -41,15 +41,6 @@ describe('SearchTerms component', function () {
     should(instance.state.expandedId).be.null();
   });
 
-  it('should set selectedLeft when category column is selected', function () {
-    instance = renderIntoDocument(
-      <SearchTerms categories={ SearchTermCategory.buildList(1) }/>
-    );
-    const columns = scryRenderedComponentsWithType(instance, CategoryColumn);
-    columns[0].props.onSelected(123);
-    instance.state.selectedLeft.should.eql(123);
-  });
-
   it('should fire request when mounted', function () {
     const callback = spy();
     instance = renderIntoDocument(
