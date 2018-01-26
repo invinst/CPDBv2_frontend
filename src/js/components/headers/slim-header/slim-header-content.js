@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import RightLinks from './right-links';
 import Logo from './logo';
 import {
+  middleWrapperStyle,
   bottomLeftLinkStyle,
   bottomRightLinkStyle,
   bottomSlimHeaderStyle,
@@ -10,7 +11,7 @@ import {
   middleRightLinkStyle,
   middleSlimHeaderStyle,
   middleSubtitleStyle,
-  rightLinksWrapperStyle,
+  verticallyAlignedHeaderItemStyle,
   topLeftLinkStyle,
   topRightLinkStyle,
   topSlimHeaderStyle,
@@ -29,6 +30,7 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 
 const positionSpecificStyles = {
   top: {
+    wrapperStyle: {},
     subtitleStyle: topSubtitleStyle,
     slimHeaderStyle: topSlimHeaderStyle,
     leftLinkStyle: topLeftLinkStyle,
@@ -38,6 +40,7 @@ const positionSpecificStyles = {
     handleOnClick: () => {},
   },
   middle: {
+    wrapperStyle: middleWrapperStyle,
     slimHeaderStyle: middleSlimHeaderStyle,
     leftLinkStyle: middleLeftLinkStyle,
     rightLinkStyle: middleRightLinkStyle,
@@ -47,6 +50,7 @@ const positionSpecificStyles = {
     handleOnClick: () => {}
   },
   bottom: {
+    wrapperStyle: {},
     slimHeaderStyle: bottomSlimHeaderStyle,
     leftLinkStyle: bottomLeftLinkStyle,
     rightLinkStyle: bottomRightLinkStyle,
@@ -69,6 +73,7 @@ class SlimHeaderContent extends Component {
     const { position, pathname, editModeOn, style, disableTop, className } = this.props;
 
     const {
+      wrapperStyle,
       slimHeaderStyle,
       leftLinkStyle,
       subtitleStyle,
@@ -79,12 +84,15 @@ class SlimHeaderContent extends Component {
     } = this.getPositionSpecificStyles(position, disableTop);
 
     return (
-      <div className={ className } style={ { ...slimHeaderStyle, ...style } } onClick={ handleOnClick }>
+      <div className={ className } onClick={ handleOnClick } style={ { ...wrapperStyle, ...style } }>
         <ResponsiveFluidWidthComponent>
-          <div style={ { height: style.height || slimHeaderStyle.height } }>
-            <div style={ rightLinksWrapperStyle }>
-              <RightLinks rightLinkStyle={ rightLinkStyle } editModeOn={ editModeOn } />
+          <div style={ slimHeaderStyle }>
+            <div style={ verticallyAlignedHeaderItemStyle }>
               <LogOutButtonContainer pathname={ pathname } />
+            </div>
+
+            <div style={ verticallyAlignedHeaderItemStyle }>
+              <RightLinks rightLinkStyle={ rightLinkStyle } editModeOn={ editModeOn } />
             </div>
 
             <SearchSectionComponent
