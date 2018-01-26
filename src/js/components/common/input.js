@@ -17,7 +17,7 @@ export default class TextInput extends Component {
   }
 
   componentDidMount() {
-    const { value, keyPressHandlers, blurOnKeyPress, onBlurHandler } = this.props;
+    const { value, keyPressHandlers, blurOnKeyPress } = this.props;
 
     if (value) {
       // Make sure the text input cursor is always at the end
@@ -37,10 +37,7 @@ export default class TextInput extends Component {
     if (blurOnKeyPress) {
       blurOnKeyPress.map((key) => (this.mousetrap.bind(
         key,
-        () => {
-          this.input.blur();
-          onBlurHandler();
-        }
+        () => this.input.blur()
       )));
     }
   }
@@ -102,7 +99,6 @@ export default class TextInput extends Component {
     delete rest.blurOnKeyPress;
     delete rest.focused;
     delete rest.resetNavigation;
-    delete rest.onBlurHandler;
 
     const _wrapperStyle = { ...wrapperStyle(width, height), ...style.wrapper };
     const _inputStyle = {
@@ -152,7 +148,6 @@ TextInput.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
   focused: PropTypes.bool,
-  onBlurHandler: PropTypes.func,
 };
 
 TextInput.defaultProps = {

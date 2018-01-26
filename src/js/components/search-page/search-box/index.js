@@ -68,7 +68,7 @@ export default class SearchBox extends Component {
           value={ value }
           keyPressHandlers={ keyPressHandlers }
           blurOnKeyPress={ ['down'] }
-          onBlurHandler={ resetNavigation }
+          onBlur={ () => resetNavigation() }
           spellCheck={ false }
           className='test--search-page-input'
           focused={ focused }
