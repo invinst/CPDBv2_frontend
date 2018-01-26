@@ -4,6 +4,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   findRenderedDOMComponentWithTag,
+  scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
@@ -12,6 +13,7 @@ import * as editPathUtils from 'utils/edit-path';
 import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
 import { unmountComponentSuppressError } from 'utils/test';
+import CloseButton from 'components/search-page/search-box/close-btn';
 
 
 describe('SearchBox component', function () {
@@ -98,5 +100,31 @@ describe('SearchBox component', function () {
 
     const input = findRenderedDOMComponentWithTag(instance, 'input');
     input.getAttribute('spellcheck').should.eql('false');
+  });
+
+  it('should render close button when there is a search query', function () {
+    instance = renderIntoDocument(
+      <SearchBox value='sa'/>
+    );
+    findRenderedDOMComponentWithClass(instance, 'test--search-close-button');
+    scryRenderedDOMComponentsWithClass(instance, 'test--toggle-button').should.have.length(0);
+  });
+
+  it('should render toggle search term button when there is no search query', function () {
+    instance = renderIntoDocument(
+      <SearchBox value=''/>
+    );
+    findRenderedDOMComponentWithClass(instance, 'test--toggle-button');
+    scryRenderedDOMComponentsWithClass(instance, 'test--search-close-button').should.have.length(0);
+  });
+
+  it('should call changeSearchQuery with empty string when the clear search button is clicked', function () {
+    const changeSearchQueryStub = stub();
+    instance = renderIntoDocument(
+      <SearchBox value='Ke' changeSearchQuery={ changeSearchQueryStub }/>
+    );
+    const clearSearchButton = findRenderedComponentWithType(instance, CloseButton);
+    clearSearchButton.props.onClick();
+    changeSearchQueryStub.calledWith('').should.be.true();
   });
 });
