@@ -116,12 +116,12 @@ MapboxGL.propTypes = {
 
 MapboxGL.defaultProps = {
   mapStyle: 'mapbox://styles/mapbox/light-v9',
-  minZoom: 9,
+  minZoom: 9.5,
   maxZoom: 17,
   scrollZoom: false,
   dragRotate: false,
   dragPan: true,
-  defaultZoom: 9,
+  defaultZoom: 9.5,
   center: [-87.4024055, 41.85677],
   maxBounds: [
     [-88.53057861328125, 41.143501411390766],
