@@ -72,6 +72,7 @@ export const clayGray = '#8F8F8F'; // rgb(143, 143, 143)
 export const glitterColor = '#E1EBFD';
 export const lightBlue = '#1775F1';
 export const hawkesBlue = '#CCDFFD'; // rgb(204, 223, 253)
+export const bostonRed = '#CC0000';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular", sans-serif';
