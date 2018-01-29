@@ -27,6 +27,11 @@ describe('Heat map', function () {
       browser.getUrl().should.match(/\/search\/terms\/$/);
     });
 
+    it('should go to v1 when click on the complaints', function () {
+      browser.elements(landingPage.heatMapSection.complaintCategory.selector).value[0].click();
+      browser.getUrl().should.match(/\/url-mediator\/session-builder\?cat__category=/);
+    });
+
     context('dropdown revealed', function () {
       beforeEach(function () {
         landingPage.heatMapSection.dropdownPlaceholder.click();
@@ -76,7 +81,7 @@ describe('Heat map', function () {
 
         it('should navigate to officer detail page when click on officer item', function () {
           browser.elements(landingPage.heatMapSection.communityDetail.officers.selector).value[0].click();
-          browser.getUrl().should.match(/\/officer\/2\/$/);
+          browser.getUrl().should.match(/\/officer\/1\/$/);
         });
 
         it('should navigate to v1 data tool when click on See More button', function () {

@@ -49,7 +49,7 @@ class CitySummary extends Section {
   }
 
   tapBottom() {
-    browser.moveToObject('.test--city-summary', 100, 320);
+    browser.moveToObject('.test--city-summary', 100, 370);
     browser.buttonPress();
   }
 }
@@ -81,6 +81,7 @@ class HeatMapSection extends Section {
     super();
     this.prepareElementGetters({
       dropdownPlaceholder: '.test--dropdown-placeholder',
+      complaintCategory: '.test--complaint-category',
       searchTermsLink: '.test--dropdown-search-terms'
     });
   }
