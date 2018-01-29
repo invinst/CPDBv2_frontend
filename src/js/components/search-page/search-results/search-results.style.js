@@ -11,7 +11,7 @@ export const resultWrapperStyle = {
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
   position: 'relative',
-  height: 'calc(100% - 2px)',
+  height: 'calc(100% - 4px)',
   width: 'calc(100% - 321px)',
   display: 'inline-block'
 };
@@ -51,7 +51,8 @@ export const plusSignStyle = {
 export const suggestionResultsStyle = aliasEditModeOn => ({
   position: 'relative',
   height: 'calc(100% - 45px)',
-  backgroundColor: aliasEditModeOn ? girlyPink : concreteColor
+  backgroundColor: aliasEditModeOn ? girlyPink : concreteColor,
+  overflowX: 'hidden'
 });
 
 export const actionBarStyle = {
@@ -69,4 +70,12 @@ export const cancelButtonStyle = {
   color: 'inherit',
   margin: '11px 0',
   border: 'none'
+};
+
+export const loadingStyle = {
+  ...resultWrapperStyle,
+  backgroundColor: concreteColor,
+  paddingTop: '38px',
+  paddingLeft: '16px',
+  fontSize: '14px'
 };

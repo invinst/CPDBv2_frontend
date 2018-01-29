@@ -4,27 +4,52 @@ import { pushPathPreserveEditMode } from 'utils/edit-path';
 import * as constants from 'utils/constants';
 import { searchInputStyle, searchTermsButtonStyle, wrapperStyle } from './search-box.style';
 import TextInput from 'components/common/input';
+import HoverableButton from 'components/common/hoverable-button';
+import CloseButton from './close-btn';
 
 
-class SearchBox extends Component {
+export default class SearchBox extends Component {
   constructor(props) {
     super(props);
 
-    this.handleToggleSeachTerm = this.handleToggleSeachTerm.bind(this);
+    this.handleToggleButtonClick = this.handleToggleButtonClick.bind(this);
   }
 
-  handleToggleSeachTerm() {
+  handleToggleButtonClick() {
     if (this.props.searchTermsHidden) {
       pushPathPreserveEditMode(`${constants.SEARCH_PATH}${constants.SEARCH_TERMS_PATH}`);
-    } else {
+    }
+    else {
       pushPathPreserveEditMode(constants.SEARCH_PATH);
     }
   }
 
+  renderToggleButton() {
+    const { value, searchTermsHidden, changeSearchQuery } = this.props;
+
+    if (value !== '') {
+      return (
+        <CloseButton
+          className='test--search-close-button'
+          onClick={ () => changeSearchQuery('') }
+        />
+      );
+    } else {
+      return (
+        <HoverableButton
+          className='test--toggle-button'
+          style={ searchTermsButtonStyle }
+          onClick={ this.handleToggleButtonClick }>
+          {
+            searchTermsHidden ? 'What can I search?' : 'Hide Search terms'
+          }
+        </HoverableButton>
+      );
+    }
+  }
+
   render() {
-    const {
-      value, onChange, onEscape, onEnter, searchTermsHidden
-    } = this.props;
+    const { value, onChange, onEscape, onEnter } = this.props;
 
     const keyPressHandlers = {
       esc: onEscape,
@@ -46,11 +71,7 @@ class SearchBox extends Component {
           spellCheck={ false }
           className='test--search-page-input'
         />
-        <span className='test--toggle-button'
-          style={ searchTermsButtonStyle(searchTermsHidden) }
-          onClick={ this.handleToggleSeachTerm }>
-          { `${searchTermsHidden ? 'Show' : 'Hide'} Search terms` }
-        </span>
+        { this.renderToggleButton() }
       </div>
     );
   }
@@ -62,7 +83,10 @@ SearchBox.propTypes = {
   onEnter: PropTypes.func,
   toggleSearchTerms: PropTypes.func,
   value: PropTypes.string,
-  searchTermsHidden: PropTypes.bool
+  searchTermsHidden: PropTypes.bool,
+  changeSearchQuery: PropTypes.func,
 };
 
-export default SearchBox;
+SearchBox.defaultProps = {
+  value: '',
+};

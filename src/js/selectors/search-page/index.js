@@ -21,7 +21,8 @@ const currentYear = getThisYear();
 
 export const isShowingSingleContentTypeSelector = createSelector(
   getSuggestionContentType,
-  contentType => !!contentType
+  getSuggestionTags,
+  (contentType, tags) => !!contentType || tags.length === 1
 );
 
 const itemsPerCategory = 5;
