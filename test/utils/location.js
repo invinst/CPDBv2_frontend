@@ -7,11 +7,21 @@ import {
   getComplaintOfficerId,
   getOfficerActiveTab,
   isRedirectingToOfficerTimelinePage,
-  serializeFilterParams
+  serializeFilterParams,
+  officerPath
 } from 'utils/location';
 
 
 describe('location utils', function () {
+  describe('officerPath', function () {
+    it('should return right url', function () {
+      officerPath('timeline', '/officer/1/').should.eql('/officer/1/timeline/');
+      officerPath('summary', '/officer/1/summary').should.eql('/officer/1/summary/');
+      officerPath('timeline', '/officer/1234').should.eql('/officer/1234/timeline/');
+      officerPath('', '/officer/12345/timeline/').should.eql('/officer/12345/');
+    });
+  });
+
   describe('getOfficerId', function () {
     it('should return the officer id', function () {
       getOfficerId('/officer/10/').should.eql(10);

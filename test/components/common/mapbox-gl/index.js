@@ -1,4 +1,5 @@
 import React from 'react';
+import { unmountComponentAtNode, findDOMNode } from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -12,6 +13,8 @@ describe('MapboxGL component', function () {
   beforeEach(function () {
     mapboxgl._addSourceSpy.reset();
     mapboxgl._addLayerSpy.reset();
+    mapboxgl._getSourceSpy.reset();
+    mapboxgl._removeSpy.reset();
   });
 
   afterEach(function () {
@@ -22,7 +25,7 @@ describe('MapboxGL component', function () {
     MapboxGL.should.be.renderable();
   });
 
-  it('should add sources and layers on load', function () {
+  it('should add sources and layers on load', function (done) {
     const sources = [{
       name: 'abc',
       type: 'geojson',
@@ -35,15 +38,24 @@ describe('MapboxGL component', function () {
       paint: {}
     }];
     instance = renderIntoDocument(<MapboxGL sources={ sources } layers={ layers }/>);
-    instance._mapBox.addSource.calledWith('abc', {
-      type: 'geojson',
-      data: 'path/to/geojson'
-    }).should.be.true();
-    instance._mapBox.addLayer.calledWith({
-      id: 'heatmap-layer',
-      type: 'heatmap',
-      source: 'abc',
-      paint: {}
-    }).should.be.true();
+    setTimeout(() => {
+      instance._mapBox.addSource.calledWith('abc', {
+        type: 'geojson',
+        data: 'path/to/geojson'
+      }).should.be.true();
+      instance._mapBox.addLayer.calledWith({
+        id: 'heatmap-layer',
+        type: 'heatmap',
+        source: 'abc',
+        paint: {}
+      }).should.be.true();
+      done();
+    }, 100);
+  });
+
+  it('should remove map on unmount', function () {
+    instance = renderIntoDocument(<MapboxGL/>);
+    unmountComponentAtNode(findDOMNode(instance).parentNode);
+    instance._mapBox.remove.called.should.be.true();
   });
 });

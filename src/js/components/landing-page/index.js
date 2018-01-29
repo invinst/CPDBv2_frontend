@@ -4,7 +4,7 @@ import ResponsiveStyleComponent from 'components/responsive/responsive-style-com
 import ConfiguredRadium from 'utils/configured-radium';
 import ActivityGridContainer from 'containers/landing-page/activity-grid';
 import FooterContainer from 'containers/footer-container';
-import HeatMap from './heat-map';
+import HeatMap from 'containers/landing-page/heat-map';
 
 
 
