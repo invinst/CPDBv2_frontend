@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
 import ActivityGridContainer from 'containers/landing-page/activity-grid';
-import PropsRerender from 'components/common/higher-order/props-rerender';
 import FooterContainer from 'containers/footer-container';
 import HeatMap from './heat-map';
 
@@ -40,5 +39,5 @@ LandingPage.propTypes = {
   resetBreadcrumbs: PropTypes.func
 };
 
-export default PropsRerender(ConfiguredRadium(LandingPage));
+export default ConfiguredRadium(LandingPage);
 

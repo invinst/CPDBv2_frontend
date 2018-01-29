@@ -16,6 +16,7 @@ class SearchPage extends Page {
       recentSuggestions: '.recent-suggestions',
       backButton: '.searchbar__button--back',
       searchTermToggle: '.test--toggle-button',
+      clearSearchButton: '.test--search-close-button',
       firstOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-1',
       secondOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-2',
       firstNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-1',

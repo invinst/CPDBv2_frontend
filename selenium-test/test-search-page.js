@@ -177,16 +177,6 @@ describe('Search Page', function () {
     searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
   });
 
-  it('should switch to search terms page when click on toggle', function () {
-    searchPage.searchTermToggle.getText().should.equal('What can I search?');
-    searchPage.searchTermToggle.click();
-    searchPage.searchTermToggle.getText().should.equal('Hide Search terms');
-    browser.getUrl().should.match(/\/search\/terms\/$/);
-    searchPage.searchTermToggle.click();
-    searchPage.searchTermToggle.getText().should.equal('What can I search?');
-    browser.getUrl().should.not.match(/\/search\/terms\/$/);
-  });
-
   it('should navigates between the result when user press the navigation keys', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
@@ -202,5 +192,27 @@ describe('Search Page', function () {
 
     searchPage.firstOfficerResult.getAttribute('class').should.not.containEql('test--focused');
     searchPage.secondOfficerResult.getAttribute('class').should.containEql('test--focused');
+  });
+
+  describe('Search box button', function () {
+    it('should clear the query when clicked', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+
+      searchPage.clearSearchButton.waitForVisible();
+
+      searchPage.clearSearchButton.click();
+      searchPage.input.getValue().should.containEql('');
+    });
+
+    it('should open search terms page when clicked', function () {
+      searchPage.searchTermToggle.getText().should.equal('What can I search?');
+      searchPage.searchTermToggle.click();
+      searchPage.searchTermToggle.getText().should.equal('Hide Search terms');
+      browser.getUrl().should.match(/\/search\/terms\/$/);
+      searchPage.searchTermToggle.click();
+      searchPage.searchTermToggle.getText().should.equal('What can I search?');
+      browser.getUrl().should.not.match(/\/search\/terms\/$/);
+    });
   });
 });
