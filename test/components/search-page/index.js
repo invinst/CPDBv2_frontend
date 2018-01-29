@@ -17,7 +17,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import * as domUtils from 'utils/dom';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
-import { MORE_SUGGESTION_TYPE } from 'utils/constants';
+import { MORE_TYPE } from 'utils/constants';
 
 
 describe('SearchPage component', function () {
@@ -258,7 +258,7 @@ describe('SearchPage component', function () {
     it('should call handleSelect to show more suggestion items when entering on More button', function () {
       const handleSelectStub = stub(SearchPage.prototype, 'handleSelect');
       instance = renderIntoDocument(
-        <SearchPage focusedItem={ OfficerSuggestion.build({ id: 'OFFICER', 'type': MORE_SUGGESTION_TYPE }) }/>
+        <SearchPage focusedItem={ OfficerSuggestion.build({ id: 'OFFICER', 'type': MORE_TYPE }) }/>
       );
       Mousetrap.trigger('enter');
       handleSelectStub.calledWith('OFFICER');

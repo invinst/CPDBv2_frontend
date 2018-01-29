@@ -7,7 +7,7 @@ import {
 } from 'selectors/search-page';
 import { getSvgUrl } from 'utils/visual-token';
 import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
-import { MORE_SUGGESTION_TYPE } from 'utils/constants';
+import { MORE_TYPE } from 'utils/constants';
 
 
 describe('search page selector', function () {
@@ -282,8 +282,8 @@ describe('search page selector', function () {
         tags: [],
         text: undefined,
         to: undefined,
-        type: MORE_SUGGESTION_TYPE,
-        uniqueKey: `${MORE_SUGGESTION_TYPE}-OFFICER`,
+        type: MORE_TYPE,
+        uniqueKey: `${MORE_TYPE}-OFFICER`,
         url: undefined,
       });
     });

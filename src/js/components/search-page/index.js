@@ -14,7 +14,7 @@ import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button';
-import { MORE_SUGGESTION_TYPE, NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
+import { MORE_TYPE, NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import * as constants from 'utils/constants';
 
 
@@ -70,10 +70,10 @@ export default class SearchPage extends Component {
   }
 
   handleViewItem() {
-    const { to, url, type, id } = this.props.focusedItem;
+    const { to, url, type, resultType } = this.props.focusedItem;
 
-    if (type === MORE_SUGGESTION_TYPE) {
-      this.handleSelect(id);
+    if (type === MORE_TYPE) {
+      this.handleSelect(resultType);
     } else if (to) {
       browserHistory.push(to);
     } else {

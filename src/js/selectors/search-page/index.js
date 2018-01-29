@@ -63,14 +63,23 @@ const slicedSuggestionGroupsSelector = createSelector(
   }
 );
 
-const itemsListSelector = createSelector(
+const suggestionListSelector = createSelector(
+  slicedSuggestionGroupsSelector,
+  groups => {
+    return flatten(groups.map(group => {
+      return group.items;
+    }));
+  }
+);
+
+const itemListSelector = createSelector(
   slicedSuggestionGroupsSelector,
   groups => {
     return flatten(groups.map(group => {
       if (group.canLoadMore) {
         const more = {
           id: group.header,
-          type: constants.MORE_SUGGESTION_TYPE
+          type: constants.MORE_TYPE
         };
         group.items.push(more);
       }
@@ -79,8 +88,8 @@ const itemsListSelector = createSelector(
   }
 );
 
-const focusedSuggestionSelector = createSelector(
-  itemsListSelector,
+const rawFocusedItemSelector = createSelector(
+  itemListSelector,
   getSuggestionNavigation,
   (itemsList, { itemIndex }) => {
     if (itemIndex < 0) {
@@ -94,7 +103,7 @@ const focusedSuggestionSelector = createSelector(
 );
 
 export const focusedItemSelector = createSelector(
-  focusedSuggestionSelector,
+  rawFocusedItemSelector,
   searchResultItemTransform
 );
 
@@ -115,7 +124,7 @@ export const isEmptySelector = createSelector(
 );
 
 export const totalItemCountSelector = createSelector(
-  itemsListSelector,
+  itemListSelector,
   (itemsList) => itemsList.length
 );
 
@@ -136,9 +145,9 @@ const previewPaneTypeMap = {
 };
 
 export const previewPaneInfoSelector = createSelector(
-  focusedSuggestionSelector,
-  suggestion => {
-    return get(previewPaneTypeMap, suggestion.type, () => ({}))(suggestion);
+  rawFocusedItemSelector,
+  item => {
+    return get(previewPaneTypeMap, item.type, () => ({}))(item);
   }
 );
 

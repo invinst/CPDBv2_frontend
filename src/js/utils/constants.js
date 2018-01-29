@@ -263,4 +263,4 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
 };
 
 export const RECENT_CONTENT_TYPE = 'RECENT';
-export const MORE_SUGGESTION_TYPE = 'MORE';
+export const MORE_TYPE = 'MORE';

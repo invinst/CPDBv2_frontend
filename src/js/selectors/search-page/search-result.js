@@ -1,6 +1,7 @@
 import { compact, get } from 'lodash';
 
 import { getThisYear } from 'utils/date';
+import { MORE_TYPE } from 'utils/constants';
 
 
 const searchResultTransformMap = {
@@ -25,6 +26,14 @@ const searchResultTransformMap = {
 
 
 export const searchResultItemTransform = (item) => {
+
+  if (item.type === MORE_TYPE)
+    return {
+      type: item.type,
+      moreType: item.id,
+      uniqueKey: `${item.type}-${item.id}`,
+    };
+
   const transform = get(searchResultTransformMap, item.type, () => {});
 
   return {
