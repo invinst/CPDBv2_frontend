@@ -27,7 +27,7 @@ const mapDispatchToProps = {
   openOfficerPage,
   openComplaintPage,
   openRequestDocumentModal,
-  resetBreadcrumbs: resetBreadcrumbs
+  resetBreadcrumbs,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CRPage);
