@@ -6,9 +6,9 @@ import {
 
 
 export default handleActions({
-  [SEARCH_NAVIGATION_RESET]: () => ({ itemIndex: 0 }),
+  [SEARCH_NAVIGATION_RESET]: () => ({ itemIndex: 1 }),
 
-  [CHANGE_SEARCH_QUERY]: () => ({ itemIndex: -1 }),
+  [CHANGE_SEARCH_QUERY]: () => ({ itemIndex: 0 }),
 
   [SEARCH_NAVIGATION_DOWN]: ({ itemIndex }, action) => {
     const { totalItemCount } = action.payload;
@@ -20,12 +20,12 @@ export default handleActions({
   },
 
   [SEARCH_NAVIGATION_UP]: ({ itemIndex }, action) => {
-    const newItemIndex = itemIndex > -1 ? itemIndex - 1 : itemIndex;
+    const newItemIndex = itemIndex > 0 ? itemIndex - 1 : itemIndex;
 
     return {
       'itemIndex': newItemIndex
     };
   }
 }, {
-  'itemIndex': -1
+  'itemIndex': 0
 });
