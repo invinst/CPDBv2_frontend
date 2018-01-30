@@ -47,6 +47,7 @@ export const getComplaintsByYear = state => state.officerPage.complaintsByYear;
 const getComplaintFacets = state => state.officerPage.complaintFacets;
 export const getActiveTab = state => state.officerPage.activeTab;
 export const getPathname = state => state.officerPage.pathname;
+export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCachedFullName;
 
 export const getComplaintFacetsSelector = createSelector(
   getComplaintFacets,
