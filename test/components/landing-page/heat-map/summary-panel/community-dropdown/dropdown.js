@@ -74,4 +74,22 @@ describe('Dropdown component', function () {
     Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--dropdown-up-arrow'));
     closeDropdown.called.should.be.true();
   });
+
+  it('should select first filtered community', function () {
+    const communities = [
+      communityFactory.build({ id: 301 }),
+      communityFactory.build({ id: 302 })
+    ];
+    const selectCommunity = spy();
+    instance = renderIntoDocument(
+      <Dropdown
+        communities={ communities }
+        selectCommunity={ selectCommunity }
+      />
+    );
+
+    const input = findRenderedComponentWithType(instance, TextInput);
+    input.props.keyPressHandlers.enter();
+    selectCommunity.calledWith(301).should.be.true();
+  });
 });

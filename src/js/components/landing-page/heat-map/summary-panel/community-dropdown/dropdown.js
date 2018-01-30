@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { map, filter } from 'lodash';
+import isMobile from 'ismobilejs';
 
 import TextInput from 'components/common/input';
 import {
@@ -31,6 +32,13 @@ export default class Dropdown extends Component {
     );
   }
 
+  selectFirstCommunity() {
+    const communities = this.getCommunities();
+    if (communities.length > 0) {
+      this.props.selectCommunity(communities[0].id);
+    }
+  }
+
   render() {
     const { selectCommunity, closeDropdown } = this.props;
     const { filterText } = this.state;
@@ -42,8 +50,12 @@ export default class Dropdown extends Component {
           <TextInput
             width={ 320 }
             height={ 320 }
+            autoFocus={ !isMobile.any }
             paddingVertical={ 23 }
             paddingHorizontal={ 16 }
+            keyPressHandlers={ {
+              enter: () => this.selectFirstCommunity()
+            } }
             placeholder='Select a community'
             style={ inputStyle }
             value={ filterText }
