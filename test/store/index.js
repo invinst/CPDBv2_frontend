@@ -113,6 +113,7 @@ describe('store', function () {
         complaintFacets: [],
         complaintsCount: null,
         fullName: '',
+        breadcrumbCachedFullName: '',
         isRequesting: false,
         officerId: null,
         pathname: null,

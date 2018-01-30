@@ -6,6 +6,7 @@ import {
 } from 'selectors/officer-page/social-graph';
 import { getOfficerId } from 'selectors/officer-page';
 import SocialGraphPage from 'components/officer-page/social-graph-page';
+import { openOfficerSocialGraphPage } from 'actions/bottom-sheet';
 
 
 function mapStateToProps(state) {
@@ -19,7 +20,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  setYearRange
+  setYearRange,
+  openOfficerSocialGraphPage
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocialGraphPage);
