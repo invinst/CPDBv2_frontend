@@ -71,6 +71,7 @@ class Dropdown extends Section {
     super();
     this.prepareElementGetters({
       dropdownUpArrow: '.test--dropdown-up-arrow',
+      textInput: '.test--dropdown-text-input',
       dropdownItems: '.test--dropdown-item'
     });
   }

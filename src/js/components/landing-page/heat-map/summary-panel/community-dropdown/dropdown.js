@@ -48,6 +48,7 @@ export default class Dropdown extends Component {
       <div style={ wrapperStyle }>
         <div style={ inputWrapperStyle }>
           <TextInput
+            className='test--dropdown-text-input'
             width={ 320 }
             height={ 320 }
             autoFocus={ !isMobile.any }

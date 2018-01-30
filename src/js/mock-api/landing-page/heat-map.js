@@ -3,7 +3,7 @@ import { map } from 'lodash';
 import { CitySummaryFactory, rawCommunityFactory } from 'utils/test/factories/heat-map';
 
 
-export const getCitySummary = () => (CitySummaryFactory.build({
+export const getCitySummary = () => CitySummaryFactory.build({
   'allegation_count': 10,
   'discipline_count': 5,
   'most_common_complaints': [
@@ -20,7 +20,7 @@ export const getCitySummary = () => (CitySummaryFactory.build({
       count: 1
     }
   ]
-}));
+});
 
 export const getCommunities = () => ({
   type: 'FeatureCollection',
@@ -28,7 +28,8 @@ export const getCommunities = () => ({
     [
       rawCommunityFactory.build({
         'allegation_count': 5,
-        'discipline_count': 2
+        'discipline_count': 2,
+        'name': 'Hyde Park'
       }),
       ...rawCommunityFactory.buildList(9)
     ],
