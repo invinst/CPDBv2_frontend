@@ -2,13 +2,18 @@ import React from 'react';
 import { spy } from 'sinon';
 import should from 'should';
 import {
-  renderIntoDocument, scryRenderedComponentsWithType
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import SearchTerms from 'components/search-page/search-terms';
 import { SearchTermCategory } from 'utils/test/factories/search-terms';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
+import {
+  contentWrapperStyle, maximumStyle, mediumStyle,
+  minimumStyle
+} from 'components/search-page/search-terms/search-terms.style';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 
 
 describe('SearchTerms component', function () {
@@ -47,5 +52,18 @@ describe('SearchTerms component', function () {
       <SearchTerms requestSearchTermCategories={ callback }/>
     );
     callback.called.should.be.true();
+  });
+
+  it('should render ResponsiveFluidWidthComponent with correct props', function () {
+    instance = renderIntoDocument(
+      <SearchTerms />
+    );
+    const responsiveComponent = findRenderedComponentWithType(instance, ResponsiveFluidWidthComponent);
+    responsiveComponent.props.style.should.eql(contentWrapperStyle);
+    responsiveComponent.props.minimumStyle.should.eql(minimumStyle);
+    responsiveComponent.props.mediumStyle.should.eql(mediumStyle);
+    responsiveComponent.props.maximumStyle.should.eql(maximumStyle);
+    responsiveComponent.props.minWidthThreshold.should.eql(700);
+    responsiveComponent.props.maxWidthThreshold.should.eql(1440);
   });
 });

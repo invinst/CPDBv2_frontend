@@ -30,3 +30,15 @@ export const bottomLinkStyle = {
 export const bottomLinksWrapperStyle = {
   padding: '128px 16px 126px 16px',
 };
+
+export const minimumStyle = {
+  width: '100%',
+};
+
+export const mediumStyle = {
+  width: '699px',
+};
+
+export const maximumStyle = {
+  width: '1440px',
+};

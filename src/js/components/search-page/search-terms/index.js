@@ -3,11 +3,12 @@ import { Link } from 'react-router';
 import { map } from 'lodash';
 
 import CategoryColumn from './category-column';
-import { contentWrapperStyle, searchTermTitleStyle,
-  bottomLinkStyle, bottomLinksWrapperStyle } from './search-terms.style.js';
+import {
+  contentWrapperStyle, searchTermTitleStyle, bottomLinkStyle, bottomLinksWrapperStyle,
+  minimumStyle, mediumStyle, maximumStyle
+} from './search-terms.style.js';
 import { SEARCH_PATH } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import { fluidStyle } from 'components/responsive/responsive-fluid-width-component.style';
 
 
 export default class SearchTerms extends Component {
@@ -37,9 +38,9 @@ export default class SearchTerms extends Component {
     return (
       <ResponsiveFluidWidthComponent
         style={ contentWrapperStyle }
-        minimumStyle={ fluidStyle }
-        mediumStyle={ { width: '699px' } }
-        maximumStyle={ { width: '1440px' } }
+        minimumStyle={ minimumStyle }
+        mediumStyle={ mediumStyle }
+        maximumStyle={ maximumStyle }
         minWidthThreshold={ 700 }
         maxWidthThreshold={ 1440 }
       >
