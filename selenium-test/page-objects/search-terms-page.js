@@ -67,12 +67,22 @@ class CategoryMainPanelSection extends Section {
   }
 }
 
+class BottomLinksSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      backToFrontPageLink: '.test--search-term-back-front-page-link',
+      backToSearchPageLink: '.test--search-term-back-search-page-link'
+    });
+  }
+}
 
 class SearchPage extends Page {
   constructor() {
     super();
     this.navigationBar = new NavigationBarSection();
     this.categoryMainPanel = new CategoryMainPanelSection();
+    this.bottomLinks = new BottomLinksSection();
   }
 
   open() {
