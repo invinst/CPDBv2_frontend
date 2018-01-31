@@ -63,7 +63,7 @@ describe('Search Page', function () {
     searchPage.suggestionGroup.waitForVisible();
 
     times(6, () => browser.keys('ArrowDown'));
-    browser.keys('Enter')
+    browser.keys('Enter');
 
     searchPage.contentWrapper.waitForVisible();
     searchPage.contentWrapper.getText().should.containEql('OFFICER');
@@ -201,8 +201,7 @@ describe('Search Page', function () {
 
     searchPage.suggestionGroup.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
-
-    searchPage.firstOfficerResult.getAttribute('class').should.not.containEql('test--focused');
+    searchPage.firstOfficerResult.getAttribute('class').should.containEql('test--focused');
     searchPage.secondOfficerResult.getAttribute('class').should.not.containEql('test--focused');
 
     browser.keys('ArrowDown');

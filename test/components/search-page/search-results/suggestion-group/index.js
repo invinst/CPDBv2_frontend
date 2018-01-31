@@ -11,7 +11,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
-import { MORE_TYPE } from 'utils/constants';
+import { MORE_BUTTON } from 'utils/constants';
 
 describe('SuggestionGroup component', function () {
   let instance;
@@ -40,7 +40,7 @@ describe('SuggestionGroup component', function () {
         header='OFFICER'
         showMoreButton={ true }
         focusedItem={ {
-          uniqueKey: `${MORE_TYPE}-OFFICER`
+          uniqueKey: `${MORE_BUTTON}-OFFICER`
         } }
       />
     );

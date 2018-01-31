@@ -141,17 +141,15 @@ describe('TextInput component', function () {
     stubFocus.called.should.be.true();
   });
 
-  describe('when blurOnKeyPress prop is provided', function () {
-    it('should blur and call onBlurHandler when an assigned key is pressed', function () {
-      const stubOnBlurHandler = stub();
+  context('when blurOnKeyPress prop is provided', function () {
+    it('should blur when an assigned key is pressed', function () {
       instance = renderIntoDocument(
-        <TextInput blurOnKeyPress={ ['down'] } onBlurHandler={ stubOnBlurHandler }/>
+        <TextInput blurOnKeyPress={ ['down'] }/>
       );
       const blur = stub(instance.input, 'blur');
 
       instance.mousetrap.trigger('down');
       blur.calledOnce.should.be.true();
-      stubOnBlurHandler.called.should.be.true();
     });
   });
 

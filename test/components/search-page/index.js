@@ -15,9 +15,9 @@ import TextInput from 'components/common/input';
 import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError } from 'utils/test';
 import * as domUtils from 'utils/dom';
-import { OfficerSuggestion } from 'utils/test/factories/suggestion';
+import { NavigationItem } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
-import { MORE_TYPE } from 'utils/constants';
+import { MORE_BUTTON } from 'utils/constants';
 
 
 describe('SearchPage component', function () {
@@ -235,7 +235,7 @@ describe('SearchPage component', function () {
   describe('handleViewItem', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       instance = renderIntoDocument(
-        <SearchPage focusedItem={ OfficerSuggestion.build({ to: '/dummy/url' }) }
+        <SearchPage focusedItem={ NavigationItem.build({ to: '/dummy/url' }) }
           pushBreadcrumbs={ this.stubPushBreadcrumbs }
         />
       );
@@ -246,7 +246,7 @@ describe('SearchPage component', function () {
 
     it('should use window.location.assign() if visiting focused item with external link', function () {
       instance = renderIntoDocument(
-        <SearchPage focusedItem={ OfficerSuggestion.build({ url: 'http://whatever.local' }) }
+        <SearchPage focusedItem={ NavigationItem.build({ url: 'http://whatever.local' }) }
           pushBreadcrumbs={ this.stubPushBreadcrumbs }
         />
       );
@@ -258,7 +258,9 @@ describe('SearchPage component', function () {
     it('should call handleSelect to show more suggestion items when entering on More button', function () {
       const handleSelectStub = stub(SearchPage.prototype, 'handleSelect');
       instance = renderIntoDocument(
-        <SearchPage focusedItem={ OfficerSuggestion.build({ id: 'OFFICER', 'type': MORE_TYPE }) }/>
+        <SearchPage
+          focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
+          />
       );
       Mousetrap.trigger('enter');
       handleSelectStub.calledWith('OFFICER');
