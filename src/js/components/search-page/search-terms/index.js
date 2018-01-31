@@ -32,7 +32,7 @@ export default class SearchTerms extends Component {
   }
 
   renderColumns() {
-    const { categories, selectedCategoryIndex } = this.props;
+    const { categories } = this.props;
     const { expandedId } = this.state;
 
     return (
@@ -45,10 +45,9 @@ export default class SearchTerms extends Component {
         maxWidthThreshold={ 1440 }
       >
         {
-          map(categories, ({ items, name }, index) => (
+          map(categories, ({ items, name }) => (
             <CategoryColumn
               key={ name } name={ name } items={ items }
-              selected={ selectedCategoryIndex === index }
               expandedId={ expandedId } toggleExpanded={ this.toggleExpanded }/>
           ))
         }
@@ -76,7 +75,6 @@ export default class SearchTerms extends Component {
 
 SearchTerms.propTypes = {
   requestSearchTermCategories: PropTypes.func,
-  selectedCategoryIndex: PropTypes.number,
   categories: PropTypes.array
 };
 

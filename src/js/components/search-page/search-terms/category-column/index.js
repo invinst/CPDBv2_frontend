@@ -53,7 +53,6 @@ CategoryColumn.propTypes = {
   items: PropTypes.array,
   name: PropTypes.string,
   index: PropTypes.number,
-  selected: PropTypes.bool,
   expandedId: PropTypes.string,
   toggleExpanded: PropTypes.func
 };
