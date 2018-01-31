@@ -48,7 +48,19 @@ describe('SearchBox component', function () {
       enter: onEnter
     });
     input.props.onChange.should.equal(onChange);
-    input.props.blurOnKeyPress.should.eql(['up', 'down']);
+    input.props.blurOnKeyPress.should.eql(['down']);
+  });
+
+  it('should call resetNavigation when text input is blured', function () {
+    const resetNavigation = spy();
+    instance = renderIntoDocument(
+      <SearchBox
+        resetNavigation={ resetNavigation }
+      />
+    );
+
+    Simulate.blur(findRenderedDOMComponentWithClass(instance, 'test--search-page-input'));
+    resetNavigation.called.should.be.true();
   });
 
   it('should toggle search terms', function () {
