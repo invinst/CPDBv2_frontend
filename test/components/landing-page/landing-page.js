@@ -12,6 +12,10 @@ import { unmountComponentSuppressError } from 'utils/test';
 const mockStore = configureStore();
 const store = mockStore({
   landingPage: {
+    heatMap: {
+      citySummary: {},
+      communities: null
+    },
     activityGrid: {
       cards: [
         OfficerCardFactory.build(),

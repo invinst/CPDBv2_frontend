@@ -1,13 +1,12 @@
-import { whiteTwoColor, sanFranciscoTextFamily } from 'utils/styles';
+import { sanFranciscoTextFamily } from 'utils/styles';
 
 
-export const panelStyle = {
+export const panelStyle = top => ({
   position: 'absolute',
-  top: '60px',
+  top: `${top}px`,
   left: 'calc(50% + 130px)',
   width: '320px',
   minHeight: '112px',
-  background: 'white',
-  border: `1px solid ${whiteTwoColor}`,
+  background: 'transparent',
   fontFamily: sanFranciscoTextFamily
-};
+});
