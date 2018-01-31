@@ -47,3 +47,10 @@ export function serializeFilterParams(obj, startWith = '') {
   const urlParams = Object.entries(obj).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
   return urlParams ? startWith + urlParams : '';
 }
+
+export const officerPath = (subPath, pathname) => {
+  if (subPath) {
+    return pathname.replace(/(\d+).*/, `$1/${subPath}/`);
+  }
+  return pathname.replace(/(\d+).*/, '$1/');
+};

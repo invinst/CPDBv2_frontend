@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { find, isEmpty } from 'lodash';
+import { find, isEmpty, cloneDeep, pullAt } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import FadeMotion from 'components/animation/fade-motion';
@@ -46,6 +46,30 @@ export default class CRPage extends Component {
     if (this.props.crid !== crid) {
       fetchCR(crid);
     }
+
+    const newBreadcrumb = this.refineBreadcrumb(nextProps.breadcrumb);
+    if (newBreadcrumb !== nextProps.breadcrumb) {
+      this.props.resetBreadcrumbs(newBreadcrumb);
+    }
+  }
+
+  refineBreadcrumb(breadcrumb) {
+    const breadcrumbs = breadcrumb.breadcrumbs;
+    if (!isEmpty(breadcrumbs)) {
+      const lastBreadcrumb = breadcrumbs[breadcrumbs.length - 1];
+      const secondLastBreadcrumb = breadcrumbs[breadcrumbs.length - 2];
+
+      if (lastBreadcrumb.breadcrumbKey === secondLastBreadcrumb.breadcrumbKey) {
+        if (lastBreadcrumb.params.crid === secondLastBreadcrumb.params.crid) {
+          if (lastBreadcrumb.params.officerId !== secondLastBreadcrumb.params.officerId) {
+            const newBreadcrumb = cloneDeep(breadcrumb);
+            pullAt(newBreadcrumb.breadcrumbs, newBreadcrumb.breadcrumbs.length - 2);
+            return newBreadcrumb;
+          }
+        }
+      }
+    }
+    return breadcrumb;
   }
 
   handleToggleCoaccusedDropDown() {
@@ -172,10 +196,15 @@ CRPage.propTypes = {
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
   scrollPosition: PropTypes.string,
+  resetBreadcrumbs: PropTypes.func,
+  breadcrumb: PropTypes.object,
 };
 
 CRPage.defaultProps = {
   fetchCR: () => {},
   coaccused: [],
-  scrollPosition: 'top'
+  scrollPosition: 'top',
+  breadcrumb: {
+    breadcrumbs: []
+  }
 };

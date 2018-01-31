@@ -32,6 +32,10 @@ describe('store', function () {
           cards: [],
           isRequesting: false
         },
+        heatMap: {
+          citySummary: {},
+          communities: null
+        }
       },
       faqPage: {
         isRequesting: false,
@@ -109,6 +113,7 @@ describe('store', function () {
         complaintFacets: [],
         complaintsCount: null,
         fullName: '',
+        breadcrumbCachedFullName: '',
         isRequesting: false,
         officerId: null,
         pathname: null,

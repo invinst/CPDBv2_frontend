@@ -3,9 +3,10 @@ import { stub } from 'sinon';
 import bottomSheetPathMiddleware from 'middleware/bottom-sheet-path';
 import {
   openBottomSheetWithReport, openBottomSheetToCreateReport, closeBottomSheet, openBottomSheetWithFAQ,
-  openBottomSheetToCreateFAQ, openOfficerPage, openComplaintPage, openPoliceUnitPage
+  openBottomSheetToCreateFAQ, openOfficerPage, openComplaintPage, openPoliceUnitPage, openOfficerSocialGraphPage
 } from 'actions/bottom-sheet';
 import * as editPathUtils from 'utils/edit-path';
+
 
 describe('bottomSheetPathMiddleware', function () {
   beforeEach(function () {
@@ -37,6 +38,14 @@ describe('bottomSheetPathMiddleware', function () {
     const dispatchAction = openOfficerPage(123);
     bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
     editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/officer/123/');
+    dispatched.should.eql(dispatchAction);
+  });
+
+  it('should push bottom sheet path on OPEN_OFFICER_SOCIAL_GRAPH_PAGE', function () {
+    let dispatched;
+    const dispatchAction = openOfficerSocialGraphPage(123);
+    bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
+    editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/officer/123/social/');
     dispatched.should.eql(dispatchAction);
   });
 

@@ -9,7 +9,7 @@ import { rightPane, wrapperStyle } from './social-graph-page.style';
 
 export default class SocialGraphPage extends Component {
   render() {
-    const { nodes, links, legend, yearRange, setYearRange } = this.props;
+    const { nodes, links, legend, yearRange, setYearRange, openOfficerSocialGraphPage } = this.props;
     return (
       <div style={ wrapperStyle }>
         <ResponsiveFluidWidthComponent>
@@ -20,6 +20,7 @@ export default class SocialGraphPage extends Component {
               <SimulatedSocialGraph
                 nodes={ nodes }
                 links={ links }
+                onClick={ openOfficerSocialGraphPage }
               />
             </div>
           </div>
@@ -35,5 +36,6 @@ SocialGraphPage.propTypes = {
   legend: PropTypes.object,
   yearRange: PropTypes.array,
   officerId: PropTypes.number,
-  setYearRange: PropTypes.func
+  setYearRange: PropTypes.func,
+  openOfficerSocialGraphPage: PropTypes.func,
 };

@@ -39,26 +39,48 @@ describe('configured-axios-middleware', function () {
   });
 
   describe('onError', () => {
-    it('should fire action with error', () => {
+    it('should fire action with error with response without message', function () {
       const error = {
-        message: 'Cancelled by user'
+        response: {
+          status: 400
+        }
       };
 
       onError({ action, next, error }).should.eql({
         type: getActionTypes(action)[2],
-        payload: new Error(error.message),
-        statusCode: undefined
+        payload: {
+          message: 'Request to /request-url failed with status code 400.'
+        },
+        statusCode: 400
       });
     });
 
     it('should fire action with error object', function () {
       const message = 'Axios error message';
       const error = new Error(message);
-      error.status = 400;
 
       onError({ action, next, error }).should.eql({
         type: getActionTypes(action)[2],
-        payload: error,
+        payload: {
+          message
+        },
+        statusCode: null
+      });
+    });
+
+    it('should fire action with error with message in response', function () {
+      const message = 'You\'ve entered an incorrect password.';
+      const error = new Error();
+      error.response = {
+        status: 400,
+        data: { message }
+      };
+
+      onError({ action, next, error }).should.eql({
+        type: getActionTypes(action)[2],
+        payload: {
+          message
+        },
         statusCode: 400
       });
     });
