@@ -20,7 +20,7 @@ describe('navigation reducer', function () {
       navigation({ 'itemIndex': 2 }, {
         type: CHANGE_SEARCH_QUERY,
         payload: {}
-      }).should.deepEqual({ 'itemIndex': 0 });
+      }).should.deepEqual({ 'itemIndex': 1 });
     });
   });
 
