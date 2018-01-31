@@ -16,7 +16,7 @@ export default class CitySummary extends Component {
 
   render() {
     const { citySummary, isActive, onClick } = this.props;
-    const { allegationCount, disciplineCount, mostCommonComplaints } = citySummary;
+    const { allegationCount, disciplinePercentage, mostCommonComplaints } = citySummary;
 
     return (
       <div style={ wrapperStyle(isActive) }
@@ -38,8 +38,8 @@ export default class CitySummary extends Component {
           </div>
           <div style={ disciplineTextStyle }>
             {
-              disciplineCount ?
-                `${disciplineCount.toLocaleString()} disciplines` :
+              disciplinePercentage ?
+                `${ disciplinePercentage }% disciplined` :
                 null
             }
           </div>

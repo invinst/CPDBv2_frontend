@@ -13,7 +13,7 @@ describe('Heat map', function () {
   describe('summary panel', function () {
     it('should display city summary', function () {
       landingPage.heatMapSection.citySummary.allegationDiscipline.getText().should.containEql('10 allegations');
-      landingPage.heatMapSection.citySummary.allegationDiscipline.getText().should.containEql('5 disciplines');
+      landingPage.heatMapSection.citySummary.allegationDiscipline.getText().should.containEql('50% disciplined');
     });
 
     it('should reveal dropdown when click on placeholder', function () {
