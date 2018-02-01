@@ -56,7 +56,7 @@ export default class CitySummary extends Component {
                   style={ categoryStyle(index === mostCommonComplaints.length - 1) }>
                   <div style={ categoryTextWrapper }>
                     <div style={ categoryNameStyle }>{ name }</div>
-                    <div>{ count } allegations</div>
+                    <div>{ count.toLocaleString() } allegations</div>
                   </div>
                   <div style={ rightArrowStyle }/>
                 </a>
