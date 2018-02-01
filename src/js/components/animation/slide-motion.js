@@ -6,17 +6,17 @@ import { faster } from 'utils/spring-presets';
 
 export default class SlideMotion extends Component {
   render() {
-    const { show, children, translateX } = this.props;
+    const { show, children, offsetX } = this.props;
 
     if (global.disableAnimation) {
       return show ? children : null;
     }
 
     return (
-      <Motion defaultStyle={ { translateX: show ? 0 : translateX } }
-        style={ { translateX: spring(show ? 0 : translateX, faster) } }>
+      <Motion defaultStyle={ { translateX: show ? 0 : offsetX } }
+        style={ { translateX: spring(show ? 0 : offsetX, faster) } }>
         { ({ translateX }) => {
-          if (translateX === translateX && !show) {
+          if (translateX === offsetX && !show) {
             return null;
           }
 
@@ -34,5 +34,5 @@ export default class SlideMotion extends Component {
 SlideMotion.propTypes = {
   children: PropTypes.node,
   show: PropTypes.bool,
-  translateX: PropTypes.number
+  offsetX: PropTypes.number
 };

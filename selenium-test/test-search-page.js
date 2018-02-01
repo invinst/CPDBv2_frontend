@@ -2,6 +2,8 @@
 
 require('should');
 
+import { times } from 'lodash';
+
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
 
@@ -47,6 +49,22 @@ describe('Search Page', function () {
 
     searchPage.suggestionGroup.waitForVisible();
     searchPage.loadMoreButton.click();
+    searchPage.contentWrapper.waitForVisible();
+    searchPage.contentWrapper.getText().should.containEql('OFFICER');
+    searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
+    searchPage.contentWrapper.getText().should.containEql('Charles Kelly'); // another officer
+    searchPage.contentWrapper.getText().should.not.containEql('NEIGHBORHOOD');
+  });
+
+  it('should show filtered result when user presses enter when focusing on "Show more results"', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+
+    times(6, () => browser.keys('ArrowDown'));
+    browser.keys('Enter');
+
     searchPage.contentWrapper.waitForVisible();
     searchPage.contentWrapper.getText().should.containEql('OFFICER');
     searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
@@ -183,15 +201,28 @@ describe('Search Page', function () {
 
     searchPage.suggestionGroup.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
-
     searchPage.firstOfficerResult.getAttribute('class').should.containEql('test--focused');
     searchPage.secondOfficerResult.getAttribute('class').should.not.containEql('test--focused');
 
-    browser.keys('ArrowDown'); // unfocus
+    browser.keys('ArrowDown');
     browser.keys('ArrowDown');
 
     searchPage.firstOfficerResult.getAttribute('class').should.not.containEql('test--focused');
     searchPage.secondOfficerResult.getAttribute('class').should.containEql('test--focused');
+  });
+
+  it('should focus on More button after the last suggestion item when user press the navigation keys', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.contentWrapper.waitForVisible();
+
+    searchPage.loadMoreButton.getAttribute('class').should.not.containEql('test--focused');
+
+    times(6, () => browser.keys('ArrowDown'));
+
+    searchPage.loadMoreButton.getAttribute('class').should.containEql('test--focused');
   });
 
   describe('Search box button', function () {

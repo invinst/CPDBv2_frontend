@@ -10,7 +10,7 @@ import { getThisYear } from 'utils/date';
 export default class Slider extends Component {
   render() {
     const { value, onChange } = this.props;
-    const currentYear = getThisYear() + 1900;
+    const currentYear = getThisYear();
     return (
       <div style={ wrapperStyle } className='test--social-graph-slider'>
         <Range

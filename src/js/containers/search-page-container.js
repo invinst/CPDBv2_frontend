@@ -17,10 +17,12 @@ import {
   toggleSearchTerms, requestSearchTermCategories
 } from 'actions/search-page/search-terms';
 import {
-  isEmptySelector, suggestionTagsSelector, totalItemCountSelector,
-  focusedItemSelector, isShowingSingleContentTypeSelector,
-  searchResultGroupsSelector
-} from 'selectors/search-page';
+  focusedItemSelector, totalItemCountSelector
+} from 'selectors/search-page/navigation';
+import {
+  suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector
+} from 'selectors/search-page/search-results';
+import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { cardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
