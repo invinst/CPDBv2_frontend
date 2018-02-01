@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { map, chunk } from 'lodash';
 
-import { columnWrapperStyle, headerStyle, itemsWrapperStyle, itemsChunkWrapperStyle } from './category-column.style';
+import { columnWrapperStyle, headerStyle, itemsWrapperStyle } from './category-column.style';
 import CategoryItem from './category-item';
 
 
@@ -12,23 +12,19 @@ export default class CategoryColumn extends Component {
   }
 
   renderItems() {
-    const { items, expandedId, toggleExpanded } = this.props;
+    const { items, expandedId, toggleExpanded, focusedItem } = this.props;
 
     return (
       <div style={ itemsWrapperStyle } ref={ this.onGetRef.bind(this) }>
         {
-          map(chunk(items, 13), (itemsChunk, index) => (
-            <div
-              style={ itemsChunkWrapperStyle }
+          map(items, (item, index) => (
+            <CategoryItem
               key={ index }
-              className='test--category-item-chunk'>
-              {
-                map(itemsChunk, (item, index) => (
-                  <CategoryItem key={ index } item={ item }
-                    expanded={ expandedId === item.id } toggleExpanded={ toggleExpanded }/>
-                ))
-              }
-            </div>
+              item={ item }
+              expanded={ expandedId === item.id }
+              toggleExpanded={ toggleExpanded }
+              isFocused={ focusedItem.uniqueKey === `${item.type}-${item.id}` }
+            />
           ))
         }
       </div>
@@ -54,5 +50,6 @@ CategoryColumn.propTypes = {
   name: PropTypes.string,
   index: PropTypes.number,
   expandedId: PropTypes.string,
-  toggleExpanded: PropTypes.func
+  toggleExpanded: PropTypes.func,
+  focusedItem: PropTypes.object,
 };

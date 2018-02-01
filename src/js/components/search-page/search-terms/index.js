@@ -7,8 +7,9 @@ import {
   contentWrapperStyle, searchTermTitleStyle, bottomLinkStyle, bottomLinksWrapperStyle,
   minimumStyle, mediumStyle, maximumStyle
 } from './search-terms.style.js';
-import { ROOT_PATH, SEARCH_PATH } from 'utils/constants';
+import { ROOT_PATH, SEARCH_TERMS_NAVIGATION_KEYS, SEARCH_PATH } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 
 export default class SearchTerms extends Component {
@@ -22,7 +23,19 @@ export default class SearchTerms extends Component {
   }
 
   componentDidMount() {
-    this.props.requestSearchTermCategories();
+    const { requestSearchTermCategories, move } = this.props;
+    requestSearchTermCategories();
+    SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
+      direction,
+      (event) => {
+        event.preventDefault && event.preventDefault();
+        move(direction, 8);
+      }
+    )));
+  }
+
+  componentWillUnmount() {
+    SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
   }
 
   toggleExpanded(itemId) {
@@ -32,7 +45,7 @@ export default class SearchTerms extends Component {
   }
 
   renderColumns() {
-    const { categories } = this.props;
+    const { categories, focusedItem } = this.props;
     const { expandedId } = this.state;
 
     return (
@@ -54,6 +67,25 @@ export default class SearchTerms extends Component {
         minWidthThreshold={ 700 }
         maxWidthThreshold={ 1440 }
       >
+        {
+          map(categories, ({ items, name }) => (
+            <CategoryColumn
+              key={ name }
+              name={ name }
+              items={ items }
+              expandedId={ expandedId }
+              toggleExpanded={ this.toggleExpanded }
+              focusedItem={ focusedItem }
+            />
+          ))
+        }
+      </ResponsiveFluidWidthComponent>
+    );
+  }
+
+  render() {
+    return (
+      <div>
         <div style={ searchTermTitleStyle }>Search terms</div>
         { this.renderColumns() }
         <div style={ bottomLinksWrapperStyle }>
@@ -71,9 +103,12 @@ export default class SearchTerms extends Component {
 
 SearchTerms.propTypes = {
   requestSearchTermCategories: PropTypes.func,
-  categories: PropTypes.array
+  move: PropTypes.func,
+  categories: PropTypes.array,
+  focusedItem: PropTypes.object,
 };
 
 SearchTerms.defaultProps = {
-  requestSearchTermCategories: () => {}
+  requestSearchTermCategories: () => {},
+  move: () => {},
 };

@@ -8,10 +8,6 @@ export const itemsWrapperStyle = {
   whiteSpace: 'nowrap'
 };
 
-export const itemsChunkWrapperStyle = {
-  verticalAlign: 'top'
-};
-
 export const headerStyle = {
   fontSize: '14px',
   fontWeight: 300,

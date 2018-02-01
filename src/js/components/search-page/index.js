@@ -14,8 +14,9 @@ import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button';
-import { MORE_BUTTON, NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX } from 'utils/constants';
-import * as constants from 'utils/constants';
+import {
+  SEARCH_PAGE_NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE
+} from 'utils/constants';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -37,8 +38,9 @@ export default class SearchPage extends Component {
     const { move, query, location, params, routes, pushBreadcrumbs } = this.props;
     pushBreadcrumbs({ location, params, routes });
 
+    // TODO: consider to move those key bindings to SearchResult
     LayeredKeyBinding.bind('esc', this.handleGoBack);
-    NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
+    SEARCH_PAGE_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
       (event) => {
         event.preventDefault && event.preventDefault();
@@ -64,8 +66,9 @@ export default class SearchPage extends Component {
   }
 
   componentWillUnmount() {
+    console.log('unmount!');
     LayeredKeyBinding.unbind('esc');
-    NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
+    SEARCH_PAGE_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
     LayeredKeyBinding.unbind('enter');
   }
 
@@ -110,7 +113,7 @@ export default class SearchPage extends Component {
   handleSelect(newContentType) {
     const { contentType, query, selectTag, resetNavigation } = this.props;
 
-    if (newContentType === constants.RECENT_CONTENT_TYPE) {
+    if (newContentType === RECENT_CONTENT_TYPE) {
       return;
     } else if (newContentType === contentType) {
       selectTag(null);

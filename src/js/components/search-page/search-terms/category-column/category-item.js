@@ -20,10 +20,10 @@ class CategoryItem extends Component {
   }
 
   render() {
-    const { item, expanded, hovering } = this.props;
+    const { item, expanded, hovering, isFocused } = this.props;
 
     return (
-      <div style={ itemStyle } className='test--category-item'>
+      <div style={ itemStyle(isFocused) } className='test--category-item'>
         <div
           onClick={ this.toggleExpanded }
           style={ nameStyle(expanded, hovering) }
@@ -42,7 +42,8 @@ CategoryItem.propTypes = {
   item: PropTypes.object,
   expanded: PropTypes.bool,
   hovering: PropTypes.bool,
-  toggleExpanded: PropTypes.func
+  toggleExpanded: PropTypes.func,
+  isFocused: PropTypes.bool,
 };
 
 CategoryItem.defaultProps = {
