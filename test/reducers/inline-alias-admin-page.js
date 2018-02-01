@@ -31,18 +31,36 @@ describe('inlineAliasAdminPage reducer', function () {
     });
   });
 
-  it('should set errorMessage when "update alias" request fails', function () {
+  it('should set errorMessage when "update alias" request fails with a single string as error message', function () {
     reducer({
       foo: 'bar',
       errorMessage: ''
     }, {
       type: UPDATE_ALIAS_REQUEST_FAILURE,
       payload: {
-        aliases: ['Alias too long']
+        message: 'Something went really wrong'
       }
     }).should.eql({
       foo: 'bar',
-      errorMessage: 'Alias too long'
+      errorMessage: 'Something went really wrong'
+    });
+  });
+
+  it('should set errorMessage when "update alias" request fails with an object as error message', function () {
+    reducer({
+      foo: 'bar',
+      errorMessage: ''
+    }, {
+      type: UPDATE_ALIAS_REQUEST_FAILURE,
+      payload: {
+        message: {
+          aliases: ['Error one.', 'Error two.'],
+          dummy: ['Error three.', 'Error four.']
+        }
+      }
+    }).should.eql({
+      foo: 'bar',
+      errorMessage: 'aliases: Error one. Error two. - dummy: Error three. Error four.'
     });
   });
 

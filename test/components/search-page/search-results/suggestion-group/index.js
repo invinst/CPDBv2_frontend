@@ -10,7 +10,8 @@ import SuggestionGroup from 'components/search-page/search-results/suggestion-gr
 import { unmountComponentSuppressError } from 'utils/test';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
-
+import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
+import { MORE_BUTTON } from 'utils/constants';
 
 describe('SuggestionGroup component', function () {
   let instance;
@@ -31,6 +32,20 @@ describe('SuggestionGroup component', function () {
       <SuggestionGroup showMoreButton={ true }/>
     );
     findDOMNode(instance).textContent.should.containEql('More');
+  });
+
+  it('should focus on showMoreButton when uniqueKeys are matched', function () {
+    instance = renderIntoDocument(
+      <SuggestionGroup
+        header='OFFICER'
+        showMoreButton={ true }
+        focusedItem={ {
+          uniqueKey: `${MORE_BUTTON}-OFFICER`
+        } }
+      />
+    );
+    const loadMoreButton = findRenderedComponentWithType(instance, LoadMoreButton);
+    loadMoreButton.props.isFocused.should.be.true();
   });
 
   it('should load more on scroll to bottom', function () {
