@@ -1,37 +1,11 @@
-import should from 'should';
-
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
-  focusedItemSelector, previewPaneInfoSelector, totalItemCountSelector,
-  isShowingSingleContentTypeSelector, hasMoreSelector, nextParamsSelector
-} from 'selectors/search-page';
-import { getSvgUrl } from 'utils/visual-token';
+  hasMoreSelector, nextParamsSelector
+} from 'selectors/search-page/search-results';
 import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
 
 
-describe('search page selector', function () {
-  describe('isShowingSingleContentTypeSelector', function () {
-    it('should tell if showing single type of content', function () {
-      isShowingSingleContentTypeSelector({
-        searchPage: {
-          contentType: 'OFFICER',
-          tags: []
-        }
-      }).should.be.true();
-      isShowingSingleContentTypeSelector({
-        searchPage: {
-          contentType: null,
-          tags: [1]
-        }
-      }).should.be.true();
-      isShowingSingleContentTypeSelector({
-        searchPage: {
-          tags: []
-        },
-      }).should.be.false();
-    });
-  });
-
+describe('search page results selector', function () {
   describe('searchResultGroupsSelector', function () {
     it('should give correct item format for OFFICER', function () {
       searchResultGroupsSelector({
@@ -201,110 +175,11 @@ describe('search page selector', function () {
     });
   });
 
-  describe('focusedItemSelector', function () {
-    it('should return correct suggestion', function () {
-      focusedItemSelector({
-        searchPage: {
-          tags: [],
-          suggestionGroups: {
-            'OFFICER': RawOfficerSuggestion.buildList(2),
-            'UNIT': [],
-            'CO-ACCUSED': [RawOfficerSuggestion.build(), RawOfficerSuggestion.build({ id: '29033' }, {
-              race: 'White',
-              resultText: 'Jerome Turbyville',
-              url: 'https://example.com',
-              to: '/officer/29033'
-            })]
-          },
-          navigation: {
-            itemIndex: 3
-          }
-        }
-      }).should.deepEqual({
-        id: '29033',
-        text: 'Jerome Turbyville',
-        to: '/officer/29033',
-        type: 'CO-ACCUSED',
-        uniqueKey: 'CO-ACCUSED-29033',
-        url: 'https://example.com',
-        tags: []
-      });
-    });
 
-    it('should return empty when there is no suggestion', function () {
-      should(focusedItemSelector({
-        searchPage: {
-          tags: [],
-          suggestionGroups: {
-            'OFFICER': [],
-            'UNIT': [],
-            'CO-ACCUSED': []
-          },
-          navigation: {
-            itemIndex: 0
-          }
-        }
-      })['id']).not.be.ok();
-    });
-  });
 
-  describe('previewPaneInfoSelector', function () {
-    it('should return correct info', function () {
-      const focusedSuggestion = {
-        header: 'OFFICER',
-        id: '12345',
-        text: 'John Wang',
-        payload: {
-          unit: '001',
-          rank: null,
-          salary: '$99,999',
-          race: 'White',
-          sex: 'Male',
-          'visual_token_background_color': '#fafafa'
-        }
-      };
-      const info = {
-        data: [
-          ['unit', '001'],
-          ['rank', null],
-          ['2017 salary', '$99,999'],
-          ['race', 'White'],
-          ['sex', 'Male']
-        ],
-        visualTokenBackgroundColor: '#fafafa',
-        visualTokenImg: getSvgUrl('12345'),
-        text: 'John Wang'
-      };
-      previewPaneInfoSelector({
-        searchPage: {
-          tags: [],
-          suggestionGroups: {
-            'OFFICER': [focusedSuggestion],
-            'UNIT': [],
-            'CO-ACCUSED': []
-          },
-          navigation: {
-            itemIndex: 0
-          }
-        }
-      }).should.deepEqual(info);
-    });
-  });
 
-  describe('totalItemCountSelector', function () {
-    it('should return total suggestions count', function () {
-      totalItemCountSelector({
-        searchPage: {
-          tags: [],
-          suggestionGroups: {
-            'OFFICER': RawOfficerSuggestion.buildList(3),
-            'UNIT': [],
-            'CO-ACCUSED': []
-          }
-        }
-      }).should.equal(3);
-    });
-  });
+
+
 
   describe('hasMoreSelector', function () {
     it('should return false when no content type is selected', function () {

@@ -11,13 +11,15 @@ import {
 import { setAliasAdminPageContent } from 'actions/inline-alias-admin-page';
 import {
   isEmptySelector,
-  previewPaneInfoSelector,
   searchResultGroupsSelector,
-  focusedItemSelector,
   hasMoreSelector,
-  nextParamsSelector,
-  isShowingSingleContentTypeSelector
-} from 'selectors/search-page';
+  nextParamsSelector
+} from 'selectors/search-page/search-results';
+import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
+import {
+  previewPaneInfoSelector,
+  focusedItemSelector
+} from 'selectors/search-page/navigation';
 
 
 function mapStateToProps(state, ownProps) {
