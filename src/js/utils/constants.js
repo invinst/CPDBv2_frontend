@@ -276,3 +276,9 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
 };
 
 export const RECENT_CONTENT_TYPE = 'RECENT';
+export const MORE_BUTTON = 'MORE_BUTTON';
+export const SEARCH_BOX = 'SEARCH_BOX';
+
+export const SEARCH_CATEGORIES = [
+  'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'
+];
