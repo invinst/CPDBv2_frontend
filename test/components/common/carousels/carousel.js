@@ -17,57 +17,39 @@ import OfficerCard from 'components/landing-page/activity-grid/officer-card';
 
 describe('Carousel components', function () {
   let instance;
-  const data = [{
-    'id': 1,
-    'visualTokenBackgroundColor': '#c6d4ec',
-    'fullName': 'Manuel Guzman',
-    'complaintCount': 13,
-    'sustainedCount': 0,
-    'birthYear': 1974,
-    'complaintPercentile': 84.5,
-    'race': 'Hispanic',
-    'gender': 'Male'
-  }, {
-    'id': 2,
-    'fullName': 'Jerome Finnagan',
-    'complaintCount': 55,
-    'sustainedCount': 22,
-    'birthYear': 1979,
-    'complaintPercentile': 94.5,
-    'race': 'White',
-    'gender': 'Male'
-  }];
-  const renderSlideFunc = function (item) {
-    const attr = _.omit(item, 'id');
-    return <OfficerCard
-      { ...attr }
-      officerId={ item.id }/>;
-  };
+  let consoleStub;
+  let renderCarouselSuppressWarningProps, renderSlideFunc;
 
-  function renderCarouselSuppressWarningProps(data, header = '', description = '') {
-    // This is suppress the warning of library `react-id-swiper` on react testing, which is:
-    // `Warning: Failed prop type: Invalid prop `children` supplied to `ReactIdSwiper`.in ReactIdSwiper`
-    // and this make test returns Exit 1
+  before(function () {
+    consoleStub = stub(console, 'error'); //suppress console.error `Swiper`
 
-    const consoleStub = stub(console, 'error');
-    instance = renderIntoDocument(
-      <Carousel
-        header={ header }
-        data={ data }
-        description={ description }
-        renderSlideFunc={ renderSlideFunc }
-      />
-    );
+    renderSlideFunc = function (item) {
+      const attr = _.omit(item, 'id');
+      return <OfficerCard
+        { ...attr }
+        officerId={ item.id }/>;
+    };
+    renderCarouselSuppressWarningProps = function (data, header = '', description = '') {
+      return renderIntoDocument(
+        <Carousel
+          header={ header }
+          data={ data }
+          description={ description }
+          renderSlideFunc={ renderSlideFunc }
+        />
+      );
+    };
+  });
+
+  after(function () {
+    //We ensure that this console.error is belong to `Swiper`. Note that this error only appear first test
+    consoleStub.calledOnce.should.be.true();
+    consoleStub.getCall(0).args[0].should.containEql('Invalid prop `children` supplied to `ReactIdSwiper`.');
     consoleStub.restore();
-    return instance;
-  }
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-  });
-
-  it('should renderable', function () {
-    Carousel.should.be.renderable();
   });
 
   it('should not render if no data', function () {
@@ -78,6 +60,26 @@ describe('Carousel components', function () {
   });
 
   it('should render appropriately if few data provided', function () {
+    const data = [{
+      'id': 1,
+      'visualTokenBackgroundColor': '#c6d4ec',
+      'fullName': 'Manuel Guzman',
+      'complaintCount': 13,
+      'sustainedCount': 0,
+      'birthYear': 1974,
+      'complaintPercentile': 84.5,
+      'race': 'Hispanic',
+      'gender': 'Male'
+    }, {
+      'id': 2,
+      'fullName': 'Jerome Finnagan',
+      'complaintCount': 55,
+      'sustainedCount': 22,
+      'birthYear': 1979,
+      'complaintPercentile': 94.5,
+      'race': 'White',
+      'gender': 'Male'
+    }];
 
     instance = renderCarouselSuppressWarningProps(data, 'HEADER', 'Description of this section');
 
