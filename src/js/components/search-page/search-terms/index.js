@@ -5,7 +5,7 @@ import { map } from 'lodash';
 import CategoryColumn from './category-column';
 import {
   contentWrapperStyle, searchTermTitleStyle, bottomLinkStyle, bottomLinksWrapperStyle,
-  minimumStyle, mediumStyle, maximumStyle
+  minimumStyle, mediumStyle, maximumStyle, searchTermWrapperStyle
 } from './search-terms.style.js';
 import { ROOT_PATH, SEARCH_TERMS_NAVIGATION_KEYS, SEARCH_PATH } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
@@ -29,7 +29,8 @@ export default class SearchTerms extends Component {
       direction,
       (event) => {
         event.preventDefault && event.preventDefault();
-        move(direction, 8);
+        // totalItemCount cannot be declared in the "const" way as it needs updating
+        move(direction, this.props.totalItemCount);
       }
     )));
   }
@@ -85,7 +86,7 @@ export default class SearchTerms extends Component {
 
   render() {
     return (
-      <div>
+      <div style={ searchTermWrapperStyle }>
         <div style={ searchTermTitleStyle }>Search terms</div>
         { this.renderColumns() }
         <div style={ bottomLinksWrapperStyle }>
@@ -106,6 +107,7 @@ SearchTerms.propTypes = {
   move: PropTypes.func,
   categories: PropTypes.array,
   focusedItem: PropTypes.object,
+  totalItemCount: PropTypes.number
 };
 
 SearchTerms.defaultProps = {

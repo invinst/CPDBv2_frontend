@@ -11,9 +11,28 @@ import SuggestionGroup from './suggestion-group';
 import SuggestionNoResult from './search-no-result';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 import * as constants from 'utils/constants';
+import * as LayeredKeyBinding from 'utils/layered-key-binding';
+import { SEARCH_PAGE_NAVIGATION_KEYS } from 'utils/constants';
 
 
 export default class SuggestionResults extends Component {
+  componentDidMount() {
+    const { move } = this.props;
+
+    SEARCH_PAGE_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
+      direction,
+      (event) => {
+        event.preventDefault && event.preventDefault();
+        // totalItemCount cannot be declared in the "const" way as it needs updating
+        move(direction, this.props.totalItemCount);
+      }
+    )));
+  }
+
+  componentWillUnmount() {
+    SEARCH_PAGE_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
+  }
+
   renderGroups() {
     const {
       suggestionGroups,
@@ -118,7 +137,9 @@ SuggestionResults.propTypes = {
   getSuggestionWithContentType: PropTypes.func,
   hasMore: PropTypes.bool,
   nextParams: PropTypes.object,
-  singleContent: PropTypes.bool
+  singleContent: PropTypes.bool,
+  move: PropTypes.func,
+  totalItemCount: PropTypes.number,
 };
 
 SuggestionResults.defaultProps = {

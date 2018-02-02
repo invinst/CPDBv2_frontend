@@ -26,7 +26,7 @@ class CategoryItem extends Component {
       <div style={ itemStyle(isFocused) } className='test--category-item'>
         <div
           onClick={ this.toggleExpanded }
-          style={ nameStyle(expanded, hovering) }
+          style={ nameStyle(isFocused, expanded, hovering) }
           className='link--transition'>
           { item.name }
         </div>

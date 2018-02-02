@@ -58,3 +58,8 @@ export const focusedItemSelector = createSelector(
   rawFocusedItemSelector,
   navigationItemTransform
 );
+
+export const totalItemCountSelector = createSelector(
+  flattenItems,
+  (itemsList) => itemsList.length
+);

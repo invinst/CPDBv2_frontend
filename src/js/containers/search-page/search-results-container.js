@@ -6,7 +6,7 @@ import {
   getSuggestion,
   trackRecentSuggestion,
   resetNavigation,
-  getSuggestionWithContentType
+  getSuggestionWithContentType, move
 } from 'actions/search-page';
 import { setAliasAdminPageContent } from 'actions/inline-alias-admin-page';
 import {
@@ -18,7 +18,7 @@ import {
 import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
 import {
   previewPaneInfoSelector,
-  focusedItemSelector
+  focusedItemSelector, totalItemCountSelector
 } from 'selectors/search-page/navigation';
 
 
@@ -40,7 +40,8 @@ function mapStateToProps(state, ownProps) {
     focusedItem: focusedItemSelector(state),
     hasMore: hasMoreSelector(state),
     nextParams: nextParamsSelector(state),
-    singleContent: isShowingSingleContentTypeSelector(state)
+    singleContent: isShowingSingleContentTypeSelector(state),
+    totalItemCount: totalItemCountSelector(state)
   };
 }
 
@@ -49,7 +50,8 @@ const mapDispatchToProps = {
   resetNavigation,
   setAliasAdminPageContent,
   suggestionClick: trackRecentSuggestion,
-  getSuggestionWithContentType
+  getSuggestionWithContentType,
+  move,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

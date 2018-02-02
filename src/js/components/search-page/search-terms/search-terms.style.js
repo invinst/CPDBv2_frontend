@@ -1,10 +1,15 @@
-import { softBlackColor, whiteTwoColor, accentColor } from 'utils/styles';
+import { softBlackColor, whiteTwoColor, accentColor, concreteColor } from 'utils/styles';
 
 export const contentWrapperStyle = {
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
   margin: '0 16px',
   borderTop: `solid 1px ${whiteTwoColor}`,
+};
+
+export const searchTermWrapperStyle = {
+  padding: '0 16px',
+  background: concreteColor
 };
 
 export const searchTermTitleStyle = {
@@ -27,7 +32,7 @@ export const bottomLinkStyle = {
 };
 
 export const bottomLinksWrapperStyle = {
-  padding: '128px 0 126px 0',
+  paddingTop: '128px',
 };
 
 export const minimumStyle = {

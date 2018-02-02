@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { map, chunk } from 'lodash';
+import { map } from 'lodash';
 
 import { columnWrapperStyle, headerStyle, itemsWrapperStyle } from './category-column.style';
 import CategoryItem from './category-item';
@@ -12,7 +12,7 @@ export default class CategoryColumn extends Component {
   }
 
   renderItems() {
-    const { items, expandedId, toggleExpanded, focusedItem } = this.props;
+    const { items, expandedId, toggleExpanded, focusedItem, name } = this.props;
 
     return (
       <div style={ itemsWrapperStyle } ref={ this.onGetRef.bind(this) }>
@@ -23,7 +23,7 @@ export default class CategoryColumn extends Component {
               item={ item }
               expanded={ expandedId === item.id }
               toggleExpanded={ toggleExpanded }
-              isFocused={ focusedItem.uniqueKey === `${item.type}-${item.id}` }
+              isFocused={ focusedItem.uniqueKey === `${name}-${item.id}` }
             />
           ))
         }
@@ -32,11 +32,12 @@ export default class CategoryColumn extends Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { name, focusedItem } = this.props;
+    const isFocusedHeader = focusedItem.uniqueKey === `category-${name}`;
 
     return (
       <div style={ columnWrapperStyle } className='test--category-column'>
-        <div style={ headerStyle } className='test--category-header'>{ name }</div>
+        <div style={ headerStyle(isFocusedHeader) } className='test--category-header'>{ name }</div>
         {
           this.renderItems()
         }

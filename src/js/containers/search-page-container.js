@@ -8,7 +8,6 @@ import {
   selectTag,
   toggleSearchMode,
   trackRecentSuggestion,
-  move,
   resetNavigation,
   changeSearchQuery,
   getSuggestionWithContentType
@@ -16,9 +15,7 @@ import {
 import {
   toggleSearchTerms, requestSearchTermCategories
 } from 'actions/search-page/search-terms';
-import {
-  focusedItemSelector, totalItemCountSelector
-} from 'selectors/search-page/navigation';
+import { focusedItemSelector } from 'selectors/search-page/navigation';
 import {
   suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector
 } from 'selectors/search-page/search-results';
@@ -49,7 +46,6 @@ function mapStateToProps(state, ownProps) {
     officerCards: cardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
-    totalItemCount: totalItemCountSelector(state)
   };
 }
 
@@ -59,7 +55,6 @@ const mapDispatchToProps = {
   selectTag,
   toggleSearchMode,
   trackRecentSuggestion,
-  move,
   changeSearchQuery,
   resetNavigation,
   requestActivityGrid,
