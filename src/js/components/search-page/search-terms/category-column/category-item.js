@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import classnames from 'classnames';
 
 import ExpandMotion from 'components/animation/expand-motion';
 import Hoverable from 'components/common/higher-order/hoverable';
@@ -23,7 +24,8 @@ class CategoryItem extends Component {
     const { item, expanded, hovering, isFocused } = this.props;
 
     return (
-      <div style={ itemStyle(isFocused) } className='test--category-item'>
+      <div style={ itemStyle(isFocused) } className={ classnames('term-item', { 'focused': isFocused }) }>
+
         <div
           onClick={ this.toggleExpanded }
           style={ nameStyle(isFocused, expanded, hovering) }

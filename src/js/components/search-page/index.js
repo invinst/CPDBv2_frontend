@@ -52,7 +52,7 @@ export default class SearchPage extends Component {
     if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
       scrollToElement(
         `.suggestion-item-${nextProps.focusedItem.uniqueKey}`,
-        { block: 'nearest', inline: 'nearest' }
+        { block: 'center', inline: 'nearest' }
       );
     }
   }

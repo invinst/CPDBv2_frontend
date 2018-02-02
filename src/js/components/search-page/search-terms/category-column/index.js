@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { map } from 'lodash';
+import classnames from 'classnames';
 
 import { columnWrapperStyle, headerStyle, itemsWrapperStyle } from './category-column.style';
 import CategoryItem from './category-item';
@@ -17,15 +18,19 @@ export default class CategoryColumn extends Component {
     return (
       <div style={ itemsWrapperStyle } ref={ this.onGetRef.bind(this) }>
         {
-          map(items, (item, index) => (
-            <CategoryItem
-              key={ index }
-              item={ item }
-              expanded={ expandedId === item.id }
-              toggleExpanded={ toggleExpanded }
-              isFocused={ focusedItem.uniqueKey === `${name}-${item.id}` }
-            />
-          ))
+          map(items, (item, index) => {
+            const uniqueKey = `${name}-${item.id}`;
+            const isFocused = focusedItem.uniqueKey === uniqueKey;
+            return (
+              <CategoryItem
+                key={ index }
+                item={ item }
+                expanded={ expandedId === item.id }
+                toggleExpanded={ toggleExpanded }
+                isFocused={ isFocused }
+              />
+            );
+          })
         }
       </div>
     );
@@ -33,11 +38,22 @@ export default class CategoryColumn extends Component {
 
   render() {
     const { name, focusedItem } = this.props;
-    const isFocusedHeader = focusedItem.uniqueKey === `category-${name}`;
+    const headerUniqueKey = `category-${name}`;
+    const isFocusedHeader = focusedItem.uniqueKey === headerUniqueKey;
 
     return (
       <div style={ columnWrapperStyle } className='test--category-column'>
-        <div style={ headerStyle(isFocusedHeader) } className='test--category-header'>{ name }</div>
+        <div
+          style={ headerStyle(isFocusedHeader) }
+          className={
+            classnames(
+              `term-item-${headerUniqueKey}`,
+              { 'test--focused': isFocusedHeader },
+              'test--category-header')
+          }
+        >
+          { name }
+        </div>
         {
           this.renderItems()
         }

@@ -10,6 +10,7 @@ import {
 import { ROOT_PATH, SEARCH_TERMS_NAVIGATION_KEYS, SEARCH_PATH } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
+import { scrollToElement } from 'utils/dom';
 
 
 export default class SearchTerms extends Component {
@@ -23,8 +24,9 @@ export default class SearchTerms extends Component {
   }
 
   componentDidMount() {
-    const { requestSearchTermCategories, move } = this.props;
+    const { requestSearchTermCategories, move, resetNavigation } = this.props;
     requestSearchTermCategories();
+    resetNavigation();
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
       (event) => {
@@ -39,6 +41,16 @@ export default class SearchTerms extends Component {
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
   }
 
+  componentWillReceiveProps(nextProps) {
+    // Make sure keyboard-focused item is kept within viewport:
+    if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
+      scrollToElement(
+        '.term-item.focused',
+        { behavior: 'instant', block: 'center'}
+      );
+    }
+  }
+
   toggleExpanded(itemId) {
     this.setState({
       expandedId: this.state.expandedId === itemId ? null : itemId
@@ -50,11 +62,16 @@ export default class SearchTerms extends Component {
     const { expandedId } = this.state;
 
     return (
-        map(categories, ({ items, name }) => (
-          <CategoryColumn
-            key={ name } name={ name } items={ items }
-            expandedId={ expandedId } toggleExpanded={ this.toggleExpanded }/>
-        ))
+      map(categories, ({ items, name }) => (
+        <CategoryColumn
+          key={ name }
+          name={ name }
+          items={ items }
+          expandedId={ expandedId }
+          toggleExpanded={ this.toggleExpanded }
+          focusedItem={ focusedItem }
+        />
+      ))
     );
   }
 
@@ -68,34 +85,17 @@ export default class SearchTerms extends Component {
         minWidthThreshold={ 700 }
         maxWidthThreshold={ 1440 }
       >
-        {
-          map(categories, ({ items, name }) => (
-            <CategoryColumn
-              key={ name }
-              name={ name }
-              items={ items }
-              expandedId={ expandedId }
-              toggleExpanded={ this.toggleExpanded }
-              focusedItem={ focusedItem }
-            />
-          ))
-        }
-      </ResponsiveFluidWidthComponent>
-    );
-  }
-
-  render() {
-    return (
-      <div style={ searchTermWrapperStyle }>
-        <div style={ searchTermTitleStyle }>Search terms</div>
-        { this.renderColumns() }
-        <div style={ bottomLinksWrapperStyle }>
-          <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
-            Back to Front Page
-          </Link>
-          <Link style={ bottomLinkStyle } to={ SEARCH_PATH } className='test--search-term-back-search-page-link'>
-            Search
-          </Link>
+        <div style={ searchTermWrapperStyle }>
+          <div style={ searchTermTitleStyle }>Search terms</div>
+          { this.renderColumns() }
+          <div style={ bottomLinksWrapperStyle }>
+            <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
+              Back to Front Page
+            </Link>
+            <Link style={ bottomLinkStyle } to={ SEARCH_PATH } className='test--search-term-back-search-page-link'>
+              Search
+            </Link>
+          </div>
         </div>
       </ResponsiveFluidWidthComponent>
     );
@@ -107,7 +107,8 @@ SearchTerms.propTypes = {
   move: PropTypes.func,
   categories: PropTypes.array,
   focusedItem: PropTypes.object,
-  totalItemCount: PropTypes.number
+  totalItemCount: PropTypes.number,
+  resetNavigation: PropTypes.func,
 };
 
 SearchTerms.defaultProps = {
