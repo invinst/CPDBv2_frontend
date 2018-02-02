@@ -1,15 +1,12 @@
 import { softBlackColor, clayGray } from 'utils/styles';
-import { fluidStyle } from 'components/responsive/responsive-fluid-width-component.style';
 
 export const slideWidth = 232;
 export const spaceSlideWidth = 8;
-export const maxSlideWidth = slideWidth + spaceSlideWidth * 2; // should change in react-slick.css too
-
-
+export const maxSlideWidth = slideWidth + spaceSlideWidth * 2;
 export const headerSectionWidth = 320;
 
 export const wrapperStyle = {
-  ...fluidStyle,
+  width: '100%',
   height: '266px',
   marginTop: '48px'
 };

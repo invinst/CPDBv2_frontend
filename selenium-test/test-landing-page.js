@@ -55,10 +55,6 @@ describe('landing page', function () {
     activeWidth.should.eql(initialWidth);
   });
 
-  // it('should show activity grid', function () {
-  //   landingPage.activityGridSection.cards.count.should.equal(40);
-  // });
-
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
       landingPage.recentActivityCarousel.cards.count.should.equal(40);

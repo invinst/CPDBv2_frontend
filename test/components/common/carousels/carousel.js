@@ -8,9 +8,11 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import ReactDOM from 'react-dom';
 import { stub } from 'sinon';
+import _ from 'lodash';
 
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 import Carousel from 'components/common/carousel';
+import OfficerCard from 'components/landing-page/activity-grid/officer-card';
 
 
 describe('Carousel components', function () {
@@ -27,7 +29,6 @@ describe('Carousel components', function () {
     'gender': 'Male'
   }, {
     'id': 2,
-    'visualTokenBackgroundColor': '#c6d4ec',
     'fullName': 'Jerome Finnagan',
     'complaintCount': 55,
     'sustainedCount': 22,
@@ -36,14 +37,26 @@ describe('Carousel components', function () {
     'race': 'White',
     'gender': 'Male'
   }];
+  const renderSlideFunc = function (item) {
+    const attr = _.omit(item, 'id');
+    return <OfficerCard
+      { ...attr }
+      officerId={ item.id }/>;
+  };
 
   function renderCarouselSuppressWarningProps(data, header = '', description = '') {
     // This is suppress the warning of library `react-id-swiper` on react testing, which is:
     // `Warning: Failed prop type: Invalid prop `children` supplied to `ReactIdSwiper`.in ReactIdSwiper`
     // and this make test returns Exit 1
+
     const consoleStub = stub(console, 'error');
     instance = renderIntoDocument(
-      <Carousel header={ header } data={ data } description={ description }/>
+      <Carousel
+        header={ header }
+        data={ data }
+        description={ description }
+        renderSlideFunc={ renderSlideFunc }
+      />
     );
     consoleStub.restore();
     return instance;
@@ -125,11 +138,15 @@ describe('Carousel components', function () {
 
   it('should update the state of the component when the data prop changed', function () {
     let node = document.createElement('div');
-    let component = ReactDOM.render(<Carousel data={ OfficerCardFactory.buildList(2) }/>, node);
+    let component = ReactDOM.render(
+      <Carousel
+        renderSlideFunc={ renderSlideFunc }
+        data={ OfficerCardFactory.buildList(2) }
+      />, node);
     component.state.displayRightArrow.should.be.false();
 
     // `component` will be updated instead of remounted
-    ReactDOM.render(<Carousel data={ OfficerCardFactory.buildList(10) }/>, node);
+    ReactDOM.render(<Carousel renderSlideFunc={ renderSlideFunc } data={ OfficerCardFactory.buildList(10) }/>, node);
     component.state.displayRightArrow.should.be.true();
   });
 });

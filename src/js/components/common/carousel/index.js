@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import Swiper from 'react-id-swiper';
 
-import OfficerCard from 'components/landing-page/activity-grid/officer-card.js';
 import {
   wrapperStyle,
   maxSlideWidth,
@@ -13,7 +12,6 @@ import {
   headerTextStyle,
   mainSliderStyle,
   carouselWrapperStyle,
-  innerSlideCarouselStyle
 } from './carousel.style';
 import { arrowWrapperWidth } from './carousel-arrow.style' ;
 import Arrow from './carousel-arrow';
@@ -65,7 +63,7 @@ class Carousel extends Component {
   }
 
   componentWillUnmount() {
-    window.addEventListener('resize', this.updateNumVisibleSlide);
+    window.removeEventListener('resize', this.updateNumVisibleSlide);
     this._isMounted = false;
   }
 
@@ -115,7 +113,7 @@ class Carousel extends Component {
   }
 
   render() {
-    const { header, description, data } = this.props;
+    const { header, description, data, renderSlideFunc } = this.props;
     return (typeof data !== 'undefined' && data.length > 0) ? (
       <div style={ wrapperStyle }>
         <div className='test--carousel--wrapper' style={ carouselWrapperStyle }>
@@ -127,21 +125,13 @@ class Carousel extends Component {
               if (node) this.swiper = node.swiper;
             } }>
               {
-                data.map((officer) => (
-                  <div className='test--carousel--item' key={ officer.id } style={ { width: `${slideWidth}px` } }>
-                    <OfficerCard
-                      officerId={ officer.id }
-                      fullName={ officer.fullName }
-                      visualTokenBackgroundColor={ officer.visualTokenBackgroundColor }
-                      visualTokenStyle={ { height: '100px' } }
-                      cardStyle={ innerSlideCarouselStyle }
-                      complaintCount={ officer.complaintCount }
-                      sustainedCount={ officer.sustainedCount }
-                      complaintPercentile={ officer.complaintPercentile }
-                      birthYear={ officer.birthYear }
-                      race={ officer.race }
-                      gender={ officer.gender }
-                    />
+                data.map((item, idx) => (
+                  <div
+                    className='test--carousel--item'
+                    key={ `item-${item.id || idx}` }
+                    style={ { width: `${slideWidth}px` } }
+                  >
+                    { renderSlideFunc(item) }
                   </div>
                 ))
               }
@@ -168,7 +158,8 @@ Carousel.propTypes = {
     PropTypes.string,
     PropTypes.element
   ]),
-  data: PropTypes.array
+  data: PropTypes.array,
+  renderSlideFunc: PropTypes.func
 };
 
 export default Carousel;

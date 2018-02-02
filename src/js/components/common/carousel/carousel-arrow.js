@@ -7,13 +7,13 @@ class Arrow extends React.Component {
   render() {
     const { side, clickHandler, hovering } = this.props;
     return (
-      <div className={ 'test--carousel--arrow--' + side } style={ arrowWrapperStyle(side) }
+      <div className={ `test--carousel--arrow--${side}` } style={ arrowWrapperStyle(side) }
         onClick={ e => clickHandler(side) }>
-        { hovering ? (
+        { hovering ?
           <img src={ imgUrl('disclosure-indicator-blue.svg') } style={ arrowStyle(side) }/>
-        ) : (
+          :
           <img src={ imgUrl('disclosure-indicator.svg') } style={ arrowStyle(side) }/>
-        ) }
+        }
       </div>
     );
   }

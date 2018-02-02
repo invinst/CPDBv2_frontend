@@ -46,7 +46,7 @@ export default class ActivityGrid extends Component {
                        birthYear={ birthYear }
                        race={ race }
                        gender={ gender }
-                    />
+                     />
                 )
               }
             </div>
@@ -63,5 +63,6 @@ ActivityGrid.propTypes = {
 };
 
 ActivityGrid.defaultProps = {
-  requestActivityGrid: () => {}
+  requestActivityGrid: () => {
+  }
 };
