@@ -7,7 +7,7 @@ export const citySummarySelector = createSelector(
   getCitySummary,
   (citySummary) => ({
     allegationCount: citySummary['allegation_count'],
-    disciplineCount: citySummary['discipline_count'],
+    disciplinePercentage: Math.round((citySummary['discipline_count'] * 100) / citySummary['allegation_count']),
     mostCommonComplaints: citySummary['most_common_complaints']
   })
 );

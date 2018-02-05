@@ -48,12 +48,12 @@ export default class CommunityDetail extends Component {
           <span style={ headerTextStyle }>{ name }</span>
           <span className='test--community-close-btn' style={ closeButtonStyle } onClick={ closeDetail }/>
         </div>
+        <CommunityRacePopulation population={ population } medianIncome={ medianIncome } raceCount={ raceCount }/>
         <div style={ allegationDisciplineStyle }
           className='test--community-allegation-discipline'>
           <span style={ allegationTextStyle }>{ allegationCount } allegations </span>
           <span style={ disciplineTextStyle }>{ disciplineCount } disciplines</span>
         </div>
-        <CommunityRacePopulation population={ population } medianIncome={ medianIncome } raceCount={ raceCount }/>
         <CommunityOfficers mostComplaintsOfficers={ mostComplaintsOfficers }/>
         <a
           className='test--community-v1-link'
