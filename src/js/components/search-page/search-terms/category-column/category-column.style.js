@@ -14,7 +14,7 @@ export const itemsChunkWrapperStyle = {
 
 export const headerStyle = {
   fontSize: '14px',
-  fontWeight: 500,
+  fontWeight: 300,
   color: softBlackColor,
   padding: '34px 0 10px 0',
   textTransform: 'uppercase',

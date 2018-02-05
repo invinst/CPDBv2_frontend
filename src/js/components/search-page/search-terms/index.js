@@ -36,6 +36,16 @@ export default class SearchTerms extends Component {
     const { expandedId } = this.state;
 
     return (
+        map(categories, ({ items, name }) => (
+          <CategoryColumn
+            key={ name } name={ name } items={ items }
+            expandedId={ expandedId } toggleExpanded={ this.toggleExpanded }/>
+        ))
+    );
+  }
+
+  render() {
+    return (
       <ResponsiveFluidWidthComponent
         style={ contentWrapperStyle }
         minimumStyle={ minimumStyle }
@@ -44,20 +54,6 @@ export default class SearchTerms extends Component {
         minWidthThreshold={ 700 }
         maxWidthThreshold={ 1440 }
       >
-        {
-          map(categories, ({ items, name }) => (
-            <CategoryColumn
-              key={ name } name={ name } items={ items }
-              expandedId={ expandedId } toggleExpanded={ this.toggleExpanded }/>
-          ))
-        }
-      </ResponsiveFluidWidthComponent>
-    );
-  }
-
-  render() {
-    return (
-      <div>
         <div style={ searchTermTitleStyle }>Search terms</div>
         { this.renderColumns() }
         <div style={ bottomLinksWrapperStyle }>
@@ -68,7 +64,7 @@ export default class SearchTerms extends Component {
             Search
           </Link>
         </div>
-      </div>
+      </ResponsiveFluidWidthComponent>
     );
   }
 }

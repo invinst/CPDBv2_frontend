@@ -63,7 +63,7 @@ export default class SearchBox extends Component {
           style={ searchInputStyle }
           placeholder='Search Chicago'
           onChange={ onChange }
-          paddingVertical={ 9 }
+          paddingVertical={ 8 }
           paddingHorizontal={ 9 }
           value={ value }
           keyPressHandlers={ keyPressHandlers }

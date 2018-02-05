@@ -3,8 +3,8 @@ import { greyishColor, softBlackColor, accentColor, whiteTwoColor } from 'utils/
 
 export const itemStyle = {
   fontSize: '14px',
-  fontWeight: 500,
-  borderBottom: `2px solid ${whiteTwoColor}`
+  fontWeight: 300,
+  borderBottom: `1px solid ${whiteTwoColor}`
 };
 
 export const nameStyle = (show, hovering) => ({
