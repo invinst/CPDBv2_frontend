@@ -2,7 +2,7 @@ import axiosMockClient, { countRequests } from 'utils/axios-mock-client';
 import {
   SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL, ACTIVITY_GRID_API_URL,
   REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL, UNIT_PROFILE_URL,
-  SEARCH_TERM_CATEGORIES_API_URL, CITY_SUMMARY_API_URL
+  SEARCH_TERM_CATEGORIES_API_URL, OFFICERS_BY_ALLEGATION_API_URL, CITY_SUMMARY_API_URL
 } from 'utils/constants';
 
 import OfficerFactory from 'utils/test/factories/officer';
@@ -34,6 +34,7 @@ axiosMockClient.onGet(REPORTS_API_URL).reply(() => [200, reportingPageGetData()]
 axiosMockClient.onGet(new RegExp(`${FAQS_API_URL}\?.+`)).reply(() => [200, FAQPageGetData()]);
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
+axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getActivityGridData(48)]);
 
 axiosMockClient.onPost(SIGNIN_URL, { username: 'username', password: 'password' })
   .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
