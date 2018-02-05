@@ -21,6 +21,7 @@ export class OfficerCard extends Component {
       complaintCount,
       sustainedCount,
       birthYear,
+      complaintPercentile,
       race,
       gender,
       cardStyle,
@@ -54,11 +55,21 @@ export class OfficerCard extends Component {
       return `${ageString()} ${race} ${gender}`;
     };
 
+    const complaintPercentileString = (hovering) => {
+      if (complaintPercentile) {
+        const complaintFormat = parseFloat(Math.floor(complaintPercentile));
+        return (
+          <p style={ lightTextStyle(hovering) }>More than { complaintFormat }% of other officers</p>
+        );
+      }
+      return '';
+    };
+
     return (
       <Link
         to={ `/officer/${officerId}/` }
         style={ { ...wrapperStyle(hovering), ...cardStyle } }
-        className='test--activity-grid-section-card'
+        className='test--officer-card'
       >
         <OfficerVisualToken
           style={ { ...visualTokenStyle, ...this.props.visualTokenStyle } }
@@ -71,10 +82,7 @@ export class OfficerCard extends Component {
           </div>
           <div style={ sectionStyle }>
             <p style={ boldTextStyle(hovering) }>{ complaintString() }</p>
-            {/*
-            TODO: uncomment when actual complaintRate is available from server
-            <p style={ lightTextStyle }>More than { complaintRate }% of other officers</p>
-            */}
+            { complaintPercentileString(hovering) }
           </div>
           <div style={ noBorderSectionStyle }>
             <p style={ extraInfoStyle(hovering) }>{ extraInfo() }</p>
@@ -93,7 +101,7 @@ OfficerCard.propTypes = {
   visualTokenStyle: PropTypes.object,
   complaintCount: PropTypes.number,
   sustainedCount: PropTypes.number,
-  complaintRate: PropTypes.number,
+  complaintPercentile: PropTypes.number,
   birthYear: PropTypes.number,
   race: PropTypes.string,
   gender: PropTypes.string,

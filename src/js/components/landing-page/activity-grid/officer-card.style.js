@@ -51,7 +51,7 @@ export const sectionStyle = {
   margin: '0 16px',
   padding: '11px 0',
   borderBottom: `solid 1px ${whiteTwoColor}`,
-  height: '60px',
+  height: '54px',
   boxSizing: 'border-box',
 };
 
