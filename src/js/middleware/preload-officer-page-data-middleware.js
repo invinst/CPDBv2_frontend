@@ -17,6 +17,8 @@ import { isEqual } from 'lodash';
 export default store => next => action => {
   const isOfficerIdChange = hasOfficerIdChanged(action, getOfficerIdFromState(store.getState()));
 
+  const result = next(action);
+
   if (isRedirectingToOfficerTimelinePage(action)) {
     const oldQuery = getTimelineFilters(store.getState());
     const year = action.payload.query.year;
@@ -49,5 +51,5 @@ export default store => next => action => {
     );
   }
 
-  return next(action);
+  return result;
 };
