@@ -37,18 +37,18 @@ export default class SearchTerms extends Component {
     )));
   }
 
-  componentWillUnmount() {
-    SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
-  }
-
   componentWillReceiveProps(nextProps) {
     // Make sure keyboard-focused item is kept within viewport:
     if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
       scrollToElement(
         '.term-item.focused',
-        { behavior: 'instant', block: 'center'}
+        { behavior: 'instant', block: 'center' }
       );
     }
+  }
+
+  componentWillUnmount() {
+    SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
   }
 
   toggleExpanded(itemId) {

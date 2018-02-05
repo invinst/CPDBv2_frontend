@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { flatten, get, map } from 'lodash';
+import { flatten, get, map, concat } from 'lodash';
+import * as constants from 'utils/constants';
 
 
 const searchTermsSelector = state => state.searchPage.searchTerms;
@@ -18,13 +19,15 @@ export const categoriesSelector = createSelector(
 const flattenItems = createSelector(
   categoriesSelector,
   categories => {
-    return flatten(categories.map(category => {
-      const items = map(category.items, item => ({ ...item, type: category.name }));
-      return [
-        { id: category.name, name: category.name, type: 'category' },
-        ...items,
-      ];
-    }));
+    return concat(
+      [{ uniqueKey: constants.SEARCH_BOX }],
+      flatten(categories.map(category => {
+        const items = map(category.items, item => ({ ...item, type: category.name }));
+        return [
+          { id: category.name, name: category.name, type: 'category' },
+          ...items,
+        ];
+      })));
   }
 );
 
@@ -44,17 +47,17 @@ const navigationItemTransform = item => {
     return {};
   }
   return {
-    id: item.id,
-    name: item.name,
+    id: get(item, 'id', ''),
+    name: get(item, 'name', ''),
     description: get(item, 'description', ''),
     callToActionType: get(item, 'call_to_action_type', ''),
     link: get(item, 'link', ''),
-    type: item.type,
-    uniqueKey: `${item.type}-${item.id}`,
+    type: get(item, 'type', ''),
+    uniqueKey: get(item, 'uniqueKey', `${item.type}-${item.id}`),
   };
 };
 
-export const focusedItemSelector = createSelector(
+export const focusedSearchTermItemSelector = createSelector(
   rawFocusedItemSelector,
   navigationItemTransform
 );

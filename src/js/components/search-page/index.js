@@ -143,9 +143,20 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
-      editModeOn, officerCards, requestActivityGrid, resetNavigation,
-      children, changeSearchQuery, focusedItem
+      editModeOn, officerCards, requestActivityGrid, resetSearchResultNavigation,
+      children, changeSearchQuery, focusedItem, pathname, resetSearchTermNavigation
     } = this.props;
+
+    let resetNavigation;
+
+    if (pathname.match(/search\/$/)) {
+      resetNavigation = resetSearchResultNavigation;
+    }
+    else if (pathname.match(/search\/terms\/$/)) {
+      resetNavigation = resetSearchTermNavigation;
+    } else {
+      return () => {};
+    }
 
     return (
       <div
@@ -184,6 +195,7 @@ export default class SearchPage extends Component {
                 requestActivityGrid={ requestActivityGrid }
                 searchTermsHidden={ searchTermsHidden }
                 handleSelect={ this.handleSelect }
+                pathname={ pathname }
               />
           }
         </div>
@@ -217,7 +229,10 @@ SearchPage.propTypes = {
   searchTermsHidden: PropTypes.bool,
   params: PropTypes.object,
   routes: PropTypes.array,
-  pushBreadcrumbs: PropTypes.func
+  pushBreadcrumbs: PropTypes.func,
+  resetSearchResultNavigation: PropTypes.func,
+  pathname: PropTypes.string,
+  resetSearchTermNavigation: PropTypes.func,
 };
 
 /* istanbul ignore next */

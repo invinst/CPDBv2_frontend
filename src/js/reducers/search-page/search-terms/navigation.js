@@ -7,7 +7,7 @@ import {
 
 
 export default handleActions({
-  [SEARCH_TERMS_NAVIGATION_RESET]: () => ({ itemIndex: 0 }),
+  [SEARCH_TERMS_NAVIGATION_RESET]: () => ({ itemIndex: 1 }),
 
   [SEARCH_TERMS_NAVIGATION_DOWN]: ({ itemIndex }, action) => {
     const { totalItemCount } = action.payload;

@@ -1,5 +1,5 @@
 import {
-  focusedItemSelector,
+  getFocusedItemSelector,
   previewPaneInfoSelector,
   totalItemCountSelector
 } from 'selectors/search-page/navigation';
@@ -8,9 +8,9 @@ import { getSvgUrl } from 'utils/visual-token';
 import { MORE_BUTTON, SEARCH_BOX } from 'utils/constants';
 
 describe('search page navigation selector', function () {
-  describe('focusedItemSelector', function () {
+  describe('focusedSearchTermItemSelector', function () {
     it('should return correct suggestion', function () {
-      focusedItemSelector({
+      getFocusedItemSelector({
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -37,7 +37,7 @@ describe('search page navigation selector', function () {
     });
 
     it('should return searchbox item when there is no suggestion', function () {
-      focusedItemSelector({
+      getFocusedItemSelector({
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -59,7 +59,7 @@ describe('search page navigation selector', function () {
     });
 
     it('should return More correctly', function () {
-      focusedItemSelector({
+      getFocusedItemSelector({
         searchPage: {
           tags: [],
           suggestionGroups: {

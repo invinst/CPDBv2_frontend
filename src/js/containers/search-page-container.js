@@ -8,14 +8,15 @@ import {
   selectTag,
   toggleSearchMode,
   trackRecentSuggestion,
-  resetNavigation,
+  resetNavigation as resetSearchResultNavigation,
   changeSearchQuery,
   getSuggestionWithContentType
 } from 'actions/search-page';
 import {
-  toggleSearchTerms, requestSearchTermCategories
+  requestSearchTermCategories, resetNavigation as resetSearchTermNavigation
 } from 'actions/search-page/search-terms';
-import { focusedItemSelector } from 'selectors/search-page/navigation';
+import { getFocusedItemSelector } from 'selectors/search-page/navigation';
+import { focusedSearchTermItemSelector } from 'selectors/search-page/search-terms';
 import {
   suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector
 } from 'selectors/search-page/search-results';
@@ -30,17 +31,20 @@ function mapStateToProps(state, ownProps) {
   const {
     contentType, recentSuggestions, query, itemsPerColumn
   } = state.searchPage;
-  const { children } = ownProps;
+  const { children, location } = ownProps;
+  const focusedItem = getFocusedItemSelector(location.pathname)(state);
 
   return {
     itemsPerColumn,
     query,
     children,
+    pathname: location.pathname,
     tags: suggestionTagsSelector(state),
     suggestionGroups: searchResultGroupsSelector(state),
     contentType,
     isEmpty: isEmptySelector(state),
-    focusedItem: focusedItemSelector(state),
+    focusedItem: focusedItem,
+    focusedSearchTermItem: focusedSearchTermItemSelector(state),
     isShowingSingleContentType: isShowingSingleContentTypeSelector(state),
     recentSuggestions,
     officerCards: cardsSelector(state),
@@ -56,11 +60,11 @@ const mapDispatchToProps = {
   toggleSearchMode,
   trackRecentSuggestion,
   changeSearchQuery,
-  resetNavigation,
+  resetSearchResultNavigation,
   requestActivityGrid,
-  toggleSearchTerms,
   requestSearchTermCategories,
   pushBreadcrumbs,
+  resetSearchTermNavigation
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchPage));

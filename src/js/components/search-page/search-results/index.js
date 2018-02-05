@@ -31,6 +31,8 @@ export default class SuggestionResults extends Component {
 
   componentWillUnmount() {
     SEARCH_PAGE_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
+
+    this.props.resetNavigation();
   }
 
   renderGroups() {

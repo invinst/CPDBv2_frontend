@@ -83,7 +83,6 @@ SearchBox.propTypes = {
   onChange: PropTypes.func,
   onEscape: PropTypes.func,
   onEnter: PropTypes.func,
-  toggleSearchTerms: PropTypes.func,
   value: PropTypes.string,
   searchTermsHidden: PropTypes.bool,
   changeSearchQuery: PropTypes.func,

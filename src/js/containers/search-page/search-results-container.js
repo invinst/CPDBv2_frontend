@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 
 import SearchResults from 'components/search-page/search-results';
-
 import {
   getSuggestion,
   trackRecentSuggestion,
   resetNavigation,
-  getSuggestionWithContentType, move
+  getSuggestionWithContentType,
+  move
 } from 'actions/search-page';
 import { setAliasAdminPageContent } from 'actions/inline-alias-admin-page';
 import {
@@ -18,12 +18,13 @@ import {
 import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
 import {
   previewPaneInfoSelector,
-  focusedItemSelector, totalItemCountSelector
+  getFocusedItemSelector,
+  totalItemCountSelector
 } from 'selectors/search-page/navigation';
 
 
 function mapStateToProps(state, ownProps) {
-  const { onLoadMore, aliasEditModeOn, editModeOn } = ownProps;
+  const { onLoadMore, aliasEditModeOn, editModeOn, pathname } = ownProps;
   const { isRequesting, navigation, query, contentType } = state.searchPage;
 
   return {
@@ -37,7 +38,7 @@ function mapStateToProps(state, ownProps) {
     suggestionGroups: searchResultGroupsSelector(state),
     isRequesting,
     previewPaneInfo: previewPaneInfoSelector(state),
-    focusedItem: focusedItemSelector(state),
+    focusedItem: getFocusedItemSelector(pathname)(state),
     hasMore: hasMoreSelector(state),
     nextParams: nextParamsSelector(state),
     singleContent: isShowingSingleContentTypeSelector(state),
