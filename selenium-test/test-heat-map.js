@@ -13,18 +13,24 @@ describe('Heat map', function () {
   describe('summary panel', function () {
     it('should display city summary', function () {
       landingPage.heatMapSection.citySummary.allegationDiscipline.getText().should.containEql('10 allegations');
-      landingPage.heatMapSection.citySummary.allegationDiscipline.getText().should.containEql('5 disciplines');
+      landingPage.heatMapSection.citySummary.allegationDiscipline.getText().should.containEql('50% disciplined');
     });
 
     it('should reveal dropdown when click on placeholder', function () {
       landingPage.heatMapSection.dropdownPlaceholder.click();
       landingPage.heatMapSection.dropdown.dropdownItems.waitForVisible();
       landingPage.heatMapSection.dropdown.dropdownItems.count.should.eql(10);
+      browser.hasFocus(landingPage.heatMapSection.dropdown.textInput.selector);
     });
 
     it('should go to /search/terms/ when click on link in placeholder', function () {
       landingPage.heatMapSection.searchTermsLink.click();
       browser.getUrl().should.match(/\/search\/terms\/$/);
+    });
+
+    it('should go to v1 when click on the complaints', function () {
+      browser.elements(landingPage.heatMapSection.complaintCategory.selector).value[0].click();
+      browser.getUrl().should.match(/\/url-mediator\/session-builder\?cat__category=/);
     });
 
     context('dropdown revealed', function () {
@@ -41,6 +47,17 @@ describe('Heat map', function () {
           .should.containEql('5 allegations');
         landingPage.heatMapSection.communityDetail.allegationDiscipline.getText()
           .should.containEql('2 disciplines');
+      });
+
+      it('should show first community if hit enter', function () {
+        browser.keys('\uE007'); // Hit Enter
+        landingPage.heatMapSection.communityDetail.allegationDiscipline.waitForVisible();
+      });
+
+      it('should show only community that match with entered text', function () {
+        landingPage.heatMapSection.dropdown.textInput.setValue('Hyde');
+        landingPage.heatMapSection.dropdown.dropdownItems.count.should.eql(1);
+        landingPage.heatMapSection.dropdown.dropdownItems.getText().should.containEql('Hyde Park');
       });
 
       it('should change back if click on city summary', function () {
