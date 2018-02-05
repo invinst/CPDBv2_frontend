@@ -15,13 +15,13 @@ export const headerStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 400,
   fontSize: '14px',
-  borderBottom: `1px solid ${ whiteTwoColor }`,
   padding: '23px 0',
   textTransform: 'uppercase'
 };
 
 export const allegationDisciplineStyle = {
-  padding: '13px 0'
+  padding: '13px 0',
+  borderBottom: `1px solid ${ whiteTwoColor }`,
 };
 
 export const allegationTextStyle = {

@@ -41,7 +41,7 @@ export default class SummaryPanel extends Component {
   render() {
     const { showDropdown } = this.state;
     const { communityId } = this.props;
-    const topValue = (showDropdown || communityId) ? -288 : 60;
+    const topValue = (showDropdown || communityId) ? -322 : 60;
 
     return (
       <Motion

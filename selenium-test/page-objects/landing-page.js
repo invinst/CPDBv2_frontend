@@ -49,7 +49,7 @@ class CitySummary extends Section {
   }
 
   tapBottom() {
-    browser.moveToObject('.test--city-summary', 100, 320);
+    browser.moveToObject('.test--city-summary', 100, 370);
     browser.buttonPress();
   }
 }
@@ -71,6 +71,7 @@ class Dropdown extends Section {
     super();
     this.prepareElementGetters({
       dropdownUpArrow: '.test--dropdown-up-arrow',
+      textInput: '.test--dropdown-text-input',
       dropdownItems: '.test--dropdown-item'
     });
   }
@@ -81,6 +82,7 @@ class HeatMapSection extends Section {
     super();
     this.prepareElementGetters({
       dropdownPlaceholder: '.test--dropdown-placeholder',
+      complaintCategory: '.test--complaint-category',
       searchTermsLink: '.test--dropdown-search-terms'
     });
   }

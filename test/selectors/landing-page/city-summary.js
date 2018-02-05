@@ -19,7 +19,7 @@ describe('citySummarySelector', function () {
       }
     }).should.eql({
       allegationCount: 10,
-      disciplineCount: 5,
+      disciplinePercentage: 50,
       mostCommonComplaints: [
         'abc',
         'def',

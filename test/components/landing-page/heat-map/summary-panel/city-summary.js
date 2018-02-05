@@ -17,9 +17,18 @@ describe('CitySummary component', function () {
 
   it('should render most common complaints', function () {
     const mostCommonComplaints = [
-      'failure to provide service',
-      'search of premise without warrant',
-      'excessive force'
+      {
+        name: 'failure to provide service',
+        count: 3
+      },
+      {
+        name: 'search of premise without warrant',
+        count: 2
+      },
+      {
+        name: 'excessive force',
+        count: 1
+      }
     ];
     const citySummary = {
       mostCommonComplaints
@@ -27,8 +36,9 @@ describe('CitySummary component', function () {
 
     instance = renderIntoDocument(<CitySummary citySummary={ citySummary }/>);
     const element = findDOMNode(instance);
-    each(mostCommonComplaints, (complaint) => {
-      element.innerHTML.should.containEql(complaint);
+    each(mostCommonComplaints, ({ name, count }) => {
+      element.textContent.should.containEql(name);
+      element.textContent.should.containEql(`${ count } allegations`);
     });
   });
 

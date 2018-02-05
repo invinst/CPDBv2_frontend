@@ -122,7 +122,7 @@ MapboxGL.defaultProps = {
   dragRotate: false,
   dragPan: true,
   defaultZoom: 9.5,
-  center: [-87.4024055, 41.85677],
+  center: [-87.4024055, 41.83677],
   maxBounds: [
     [-88.53057861328125, 41.143501411390766],
     [-85.39947509765625, 42.474122772511485]
