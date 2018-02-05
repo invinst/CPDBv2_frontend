@@ -37,7 +37,7 @@ class Carousel extends Component {
     this.state = {
       numVisibleSlide: defaultNumVisibleSlides,
       displayLeftArrow: false,
-      displayRightArrow: (props.data ? props.data.length : 0) > defaultNumVisibleSlides
+      displayRightArrow: (props.slides ? props.slides.length : 0) > defaultNumVisibleSlides
     };
   }
 
@@ -48,8 +48,8 @@ class Carousel extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const lenData = this.props.data ? this.props.data.length : 0;
-    const nextLenData = nextProps.data ? nextProps.data.length : 0;
+    const lenData = this.props.slides ? this.props.slides.length : 0;
+    const nextLenData = nextProps.slides ? nextProps.slides.length : 0;
     if (lenData !== nextLenData) {
       this.setState({
         ...this.state,
@@ -99,22 +99,22 @@ class Carousel extends Component {
   }
 
   clickHandler(direction) {
-    const { data } = this.props;
+    const { slides } = this.props;
     let nextSlide;
     if (direction === 'left') {
       nextSlide = Math.max(this.swiper.activeIndex - this.state.numVisibleSlide, 0);
     } else if (direction === 'right') {
       nextSlide = Math.min(
         this.swiper.activeIndex + this.state.numVisibleSlide,
-        data.length - this.state.numVisibleSlide
+        slides.length - this.state.numVisibleSlide
       );
     }
     this.swiper.slideTo(nextSlide);
   }
 
   render() {
-    const { header, description, data, renderSlideFunc } = this.props;
-    return (typeof data !== 'undefined' && data.length > 0) ? (
+    const { header, description, slides, slideWidth } = this.props;
+    return (typeof slides !== 'undefined' && slides.length > 0) ? (
       <div style={ wrapperStyle }>
         <div className='test--carousel--wrapper' style={ carouselWrapperStyle }>
           { this.state.displayLeftArrow && (
@@ -125,13 +125,13 @@ class Carousel extends Component {
               if (node) this.swiper = node.swiper;
             } }>
               {
-                data.map((item, idx) => (
+                slides.map((slide, idx) => (
                   <div
                     className='test--carousel--item'
-                    key={ `item-${item.id || idx}` }
+                    key={ `item-${idx}` }
                     style={ { width: `${slideWidth}px` } }
                   >
-                    { renderSlideFunc(item) }
+                    { slide }
                   </div>
                 ))
               }
@@ -152,14 +152,18 @@ class Carousel extends Component {
   }
 }
 
+Carousel.defaultProps = {
+  slideWidth: slideWidth
+};
+
 Carousel.propTypes = {
   header: PropTypes.string,
   description: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element
   ]),
-  data: PropTypes.array,
-  renderSlideFunc: PropTypes.func
+  slides: PropTypes.array,
+  slideWidth: PropTypes.number
 };
 
 export default Carousel;

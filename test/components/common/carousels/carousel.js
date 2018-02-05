@@ -18,24 +18,20 @@ import OfficerCard from 'components/landing-page/activity-grid/officer-card';
 describe('Carousel components', function () {
   let instance;
   let consoleStub;
-  let renderCarouselSuppressWarningProps, renderSlideFunc;
+  let renderCarouselSuppressWarningProps;
 
   before(function () {
     consoleStub = stub(console, 'error'); //suppress console.error `Swiper`
-
-    renderSlideFunc = function (item) {
-      const attr = _.omit(item, 'id');
-      return <OfficerCard
-        { ...attr }
-        officerId={ item.id }/>;
-    };
     renderCarouselSuppressWarningProps = function (data, header = '', description = '') {
+      const slides = data.map((item) => {
+        const attr = _.omit(item, 'id');
+        return <OfficerCard key={ item.id } { ...attr } officerId={ item.id }/>;
+      });
       return renderIntoDocument(
         <Carousel
           header={ header }
-          data={ data }
           description={ description }
-          renderSlideFunc={ renderSlideFunc }
+          slides={ slides }
         />
       );
     };
@@ -140,15 +136,15 @@ describe('Carousel components', function () {
 
   it('should update the state of the component when the data prop changed', function () {
     let node = document.createElement('div');
+    const slides = _.range(2).map((i) => (<div key={ i }> { i } </div>));
     let component = ReactDOM.render(
-      <Carousel
-        renderSlideFunc={ renderSlideFunc }
-        data={ OfficerCardFactory.buildList(2) }
-      />, node);
+      <Carousel slides={ slides }/>, node
+    );
     component.state.displayRightArrow.should.be.false();
 
+    const newSlides = _.range(10).map((i) => (<div key={ i }> { i } </div>));
     // `component` will be updated instead of remounted
-    ReactDOM.render(<Carousel renderSlideFunc={ renderSlideFunc } data={ OfficerCardFactory.buildList(10) }/>, node);
+    ReactDOM.render(<Carousel slides={ newSlides }/>, node);
     component.state.displayRightArrow.should.be.true();
   });
 });

@@ -17,32 +17,29 @@ export default class RecentActivity extends Component {
         <a href='#'>@cpdpbot</a>
       </div>
     );
-
-    const renderSlide = function (item) {
-      return (
-        <OfficerCard
-          officerId={ item.id }
-          fullName={ item.fullName }
-          visualTokenBackgroundColor={ item.visualTokenBackgroundColor }
-          cardStyle={ { width: '232px', margin: 0 } }
-          complaintCount={ item.complaintCount }
-          sustainedCount={ item.sustainedCount }
-          complaintPercentile={ item.complaintPercentile }
-          birthYear={ item.birthYear }
-          race={ item.race }
-          gender={ item.gender }
-          visualTokenStyle={ { height: '100px' } }
-        />
-      );
-    };
+    const slideComponents = cards.map((item) => (
+      <OfficerCard
+        key={ item.id }
+        officerId={ item.id }
+        fullName={ item.fullName }
+        visualTokenBackgroundColor={ item.visualTokenBackgroundColor }
+        cardStyle={ { width: '232px', margin: 0 } }
+        complaintCount={ item.complaintCount }
+        sustainedCount={ item.sustainedCount }
+        complaintPercentile={ item.complaintPercentile }
+        birthYear={ item.birthYear }
+        race={ item.race }
+        gender={ item.gender }
+        visualTokenStyle={ { height: '100px' } }
+      />
+    ));
 
     return (
       <div className='test--recent-activity'>
         <Carousel
           header='Recent Activity'
           description={ recentActivityText }
-          data={ cards }
-          renderSlideFunc={ renderSlide }
+          slides={ slideComponents }
         />
       </div>
     );
