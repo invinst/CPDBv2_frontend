@@ -6,6 +6,8 @@ import OfficersByAllegationContainer from 'containers/landing-page/officers-by-a
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import FooterContainer from 'containers/footer-container';
 import HeatMap from 'containers/landing-page/heat-map';
+import RecentDocument from 'components/landing-page/recent-document';
+import ComplaintSummaries from './complaint-summaries';
 
 
 class LandingPage extends Component {
@@ -21,6 +23,8 @@ class LandingPage extends Component {
         <HeatMap/>
         <OfficersByAllegationContainer/>
         <RecentActivityContainer/>
+        <RecentDocument/>
+        <ComplaintSummaries/>
         <FooterContainer/>
       </div>
     );
