@@ -20,11 +20,24 @@ class CollaborateSection extends Section {
   }
 }
 
-class ActivityGridSection extends Section {
+class RecentActivityCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      cards: '//a[@class="test--activity-grid-section-card"]'
+      leftArrow: '//div[@class="test--recent-activity"]//div[@class="test--carousel--arrow--left"]',
+      rightArrow: '//div[@class="test--recent-activity"]//div[@class="test--carousel--arrow--right"]',
+      cards: '//div[@class="test--recent-activity"]//a[@class="test--officer-card"]'
+    });
+  }
+}
+
+class OfficersByAllegationCarouselSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      leftArrow: '//div[@class="test--officers-by-allegation"]//div[@class="test--carousel--arrow--left"]',
+      rightArrow: '//div[@class="test--officers-by-allegation"]//div[@class="test--carousel--arrow--right"]',
+      cards: '//div[@class="test--officers-by-allegation"]//a[@class="test--officer-card"]'
     });
   }
 }
@@ -99,7 +112,8 @@ class LandingPage extends Page {
   richTextToolbar = new RichTextToolbar();
   bottomSheet = new BottomSheet();
   collaborateSection = new CollaborateSection();
-  activityGridSection = new ActivityGridSection();
+  recentActivityCarousel = new RecentActivityCarouselSection()
+  officersByAllegationCarousel = new OfficersByAllegationCarouselSection()
   genericModalSection = new GenericModalSection();
   heatMapSection = new HeatMapSection();
 

@@ -22,6 +22,13 @@ const store = mockStore({
         OfficerCardFactory.build(),
         OfficerCardFactory.build(),
       ]
+    },
+    officersByAllegation: {
+      cards: [
+        OfficerCardFactory.build(),
+        OfficerCardFactory.build(),
+        OfficerCardFactory.build(),
+      ]
     }
   }
 });
@@ -47,7 +54,7 @@ describe('LandingPage component', function () {
 
     element = renderIntoDocument(
       <Provider store={ store }>
-        <LandingPage resetBreadcrumbs={ stubResetBreadcrumbs } />
+        <LandingPage resetBreadcrumbs={ stubResetBreadcrumbs }/>
       </Provider>
     );
     stubResetBreadcrumbs.calledOnce.should.be.true();

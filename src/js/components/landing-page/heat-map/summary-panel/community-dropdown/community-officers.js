@@ -10,7 +10,7 @@ import {
 
 export default class CommunityOfficers extends Component {
   render() {
-    const { mostComplaintsOfficers } = this.props;
+    const { mostComplaintsOfficers, communityName } = this.props;
     return (
       <div style={ officersWrapperStyle } className='test--community-officers'>
         <div style={ officersHeaderStyle }>OFFICERS WITH MOST ALLEGATIONS</div>
@@ -23,7 +23,7 @@ export default class CommunityOfficers extends Component {
                 key={ officer.id }>
                 <span style={ officerTextStyle }>
                   <div style={ officerNameTextStyle }>{ officer.fullName }</div>
-                  <div style={ complaintsCountStyle }>{ officer.complaintsCount } complaints in { name }</div>
+                  <div style={ complaintsCountStyle }>{ officer.complaintsCount } complaints in { communityName }</div>
                 </span>
                 <span style={ rightArrowStyle }/>
               </Link>
@@ -36,5 +36,6 @@ export default class CommunityOfficers extends Component {
 }
 
 CommunityOfficers.propTypes = {
-  mostComplaintsOfficers: PropTypes.array
+  mostComplaintsOfficers: PropTypes.array,
+  communityName: PropTypes.string
 };

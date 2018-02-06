@@ -54,7 +54,7 @@ export default class CommunityDetail extends Component {
           <span style={ allegationTextStyle }>{ allegationCount } allegations </span>
           <span style={ disciplineTextStyle }>{ disciplineCount } disciplines</span>
         </div>
-        <CommunityOfficers mostComplaintsOfficers={ mostComplaintsOfficers }/>
+        <CommunityOfficers mostComplaintsOfficers={ mostComplaintsOfficers } communityName={ name }/>
         <a
           className='test--community-v1-link'
           style={ learnMoreStyle }
