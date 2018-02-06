@@ -1,4 +1,4 @@
-import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
+import { isShowingSingleContentTypeSelector } from 'selectors/search-page/search-results';
 
 describe('isShowingSingleContentTypeSelector', function () {
   it('should tell if showing single type of content', function () {

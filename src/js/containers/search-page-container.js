@@ -15,12 +15,10 @@ import {
 import {
   requestSearchTermCategories, resetNavigation as resetSearchTermNavigation
 } from 'actions/search-page/search-terms';
-import { getfocusedItem } from 'selectors/search-page/navigation';
-import { focusedSearchTermItemSelector } from 'selectors/search-page/search-terms';
+import { getFocusedItem } from 'selectors/search-page';
 import {
   suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector
 } from 'selectors/search-page/search-results';
-import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { cardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
@@ -32,7 +30,7 @@ function mapStateToProps(state, ownProps) {
     contentType, recentSuggestions, query, itemsPerColumn
   } = state.searchPage;
   const { children } = ownProps;
-  const focusedItem = getfocusedItem(state);
+  const focusedItem = getFocusedItem(state);
 
   return {
     itemsPerColumn,
@@ -43,8 +41,6 @@ function mapStateToProps(state, ownProps) {
     contentType,
     isEmpty: isEmptySelector(state),
     focusedItem: focusedItem,
-    focusedSearchTermItem: focusedSearchTermItemSelector(state),
-    isShowingSingleContentType: isShowingSingleContentTypeSelector(state),
     recentSuggestions,
     officerCards: cardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),

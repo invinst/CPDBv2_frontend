@@ -3,9 +3,7 @@ import { flatten, concat } from 'lodash';
 
 import * as constants from 'utils/constants';
 import { navigationItemTransform, previewPaneTransform } from './transforms';
-import { slicedSuggestionGroupsSelector } from './base';
-import { focusedSearchTermItemSelector } from './search-terms';
-import { hiddenSelector } from 'selectors/search-page/search-terms';
+import { slicedSuggestionGroupsSelector } from './index';
 
 
 const getSuggestionNavigation = state => state.searchPage.navigation;
@@ -43,10 +41,6 @@ export const focusedResultItemSelector = createSelector(
   rawFocusedItemSelector,
   navigationItemTransform
 );
-
-export const getfocusedItem = (state) => {
-  return hiddenSelector(state) ? focusedResultItemSelector(state) : focusedSearchTermItemSelector(state);
-};
 
 export const previewPaneInfoSelector = createSelector(
   rawFocusedItemSelector,

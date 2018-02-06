@@ -13,14 +13,14 @@ import {
   isEmptySelector,
   searchResultGroupsSelector,
   hasMoreSelector,
-  nextParamsSelector
+  nextParamsSelector,
+  isShowingSingleContentTypeSelector
 } from 'selectors/search-page/search-results';
-import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
 import {
   previewPaneInfoSelector,
-  getfocusedItem,
   totalItemCountSelector
-} from 'selectors/search-page/navigation';
+} from 'selectors/search-page/search-results/navigation';
+import { getFocusedItem } from 'selectors/search-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -38,7 +38,7 @@ function mapStateToProps(state, ownProps) {
     suggestionGroups: searchResultGroupsSelector(state),
     isRequesting,
     previewPaneInfo: previewPaneInfoSelector(state),
-    focusedItem: getfocusedItem(state),
+    focusedItem: getFocusedItem(state),
     hasMore: hasMoreSelector(state),
     nextParams: nextParamsSelector(state),
     singleContent: isShowingSingleContentTypeSelector(state),

@@ -1,16 +1,16 @@
 import {
-  getfocusedItem,
   previewPaneInfoSelector,
   totalItemCountSelector
-} from 'selectors/search-page/navigation';
+} from 'selectors/search-page/search-results/navigation';
 import { RawOfficerSuggestion } from 'utils/test/factories/suggestion';
 import { getSvgUrl } from 'utils/visual-token';
 import { MORE_BUTTON, SEARCH_BOX } from 'utils/constants';
+import { getFocusedItem } from 'selectors/search-page';
 
 describe('search page navigation selector', function () {
   describe('focusedSearchTermItemSelector', function () {
     it('should return correct suggestion', function () {
-      getfocusedItem({
+      getFocusedItem({
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -37,7 +37,7 @@ describe('search page navigation selector', function () {
     });
 
     it('should return searchbox item when there is no suggestion', function () {
-      getfocusedItem({
+      getFocusedItem({
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -59,7 +59,7 @@ describe('search page navigation selector', function () {
     });
 
     it('should return More correctly', function () {
-      getfocusedItem({
+      getFocusedItem({
         searchPage: {
           tags: [],
           suggestionGroups: {

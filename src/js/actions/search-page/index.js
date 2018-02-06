@@ -3,8 +3,6 @@ import { createAction } from 'redux-actions';
 import { CancelToken } from 'axios';
 
 import * as constants from 'utils/constants';
-import { SEARCH_TERMS_NAVIGATION_DOWN } from 'utils/constants';
-import { SEARCH_TERMS_NAVIGATION_UP } from 'utils/constants';
 import { moveFunction } from 'actions/search-page/base';
 
 
