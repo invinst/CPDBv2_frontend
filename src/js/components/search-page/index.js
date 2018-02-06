@@ -170,7 +170,7 @@ export default class SearchPage extends Component {
             resetNavigation={ resetNavigation }
           />
           <HoverableButton
-            style={ cancelButtonStyle }
+            style={ cancelButtonStyle(searchTermsHidden) }
             onClick={ this.handleGoBack }
             className='searchbar__button--back'>
             Cancel
