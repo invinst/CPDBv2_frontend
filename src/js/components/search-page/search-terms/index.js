@@ -114,4 +114,8 @@ SearchTerms.propTypes = {
 SearchTerms.defaultProps = {
   requestSearchTermCategories: () => {},
   move: () => {},
+  resetNavigation: () => {},
+  focusedItem: {
+    uniqueKey: null
+  }
 };

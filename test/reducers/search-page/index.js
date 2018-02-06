@@ -14,6 +14,9 @@ describe('searchPage reducer', function () {
       searchTerms: {
         categories: [],
         hidden: true,
+        navigation: {
+          itemIndex: 0,
+        }
       },
       tags: [],
       query: '',

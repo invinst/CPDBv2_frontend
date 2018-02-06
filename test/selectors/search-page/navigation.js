@@ -25,6 +25,9 @@ describe('search page navigation selector', function () {
           },
           navigation: {
             itemIndex: 4
+          },
+          searchTerms: {
+            hidden: true
           }
         }
       }).should.deepEqual({
@@ -47,6 +50,9 @@ describe('search page navigation selector', function () {
           },
           navigation: {
             itemIndex: 0
+          },
+          searchTerms: {
+            hidden: true
           }
         }
       }).should.deepEqual({
@@ -69,6 +75,9 @@ describe('search page navigation selector', function () {
           },
           navigation: {
             itemIndex: 6
+          },
+          searchTerms: {
+            hidden: true
           }
         }
       }).should.deepEqual({

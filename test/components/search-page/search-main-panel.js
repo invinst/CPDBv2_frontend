@@ -17,7 +17,10 @@ describe('SearchMainPanel component', function () {
       tags: [],
       navigation: {},
       searchTerms: {
-        categories: []
+        categories: [],
+        navigation: {
+          itemIndex: 0,
+        }
       },
       pagination: {}
     }

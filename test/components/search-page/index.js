@@ -27,7 +27,10 @@ describe('SearchPage component', function () {
       tags: [],
       navigation: {},
       searchTerms: {
-        categories: []
+        categories: [],
+        navigation: {
+          itemIndex: 0,
+        }
       },
       pagination: {}
     }
@@ -185,28 +188,6 @@ describe('SearchPage component', function () {
     const input = findRenderedComponentWithType(instance, TextInput);
     input.mousetrap.trigger('enter');
     trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url').should.be.true();
-  });
-
-  it('should trigger move when up key pressed', function () {
-    const move = spy();
-    const totalItemCount = 3;
-    const direction = 'up';
-    instance = renderIntoDocument(
-      <SearchPage move={ move } totalItemCount={ totalItemCount } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
-    );
-    Mousetrap.trigger(direction);
-    move.calledWith(direction, totalItemCount).should.be.true();
-  });
-
-  it('should trigger move when down key pressed', function () {
-    const move = spy();
-    const totalItemCount = 3;
-    const direction = 'down';
-    instance = renderIntoDocument(
-      <SearchPage move={ move } totalItemCount={ totalItemCount } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
-    );
-    Mousetrap.trigger(direction);
-    move.calledWith(direction, totalItemCount).should.be.true();
   });
 
   describe('after keyboard navigation', function () {

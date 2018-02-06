@@ -67,3 +67,9 @@ CategoryColumn.propTypes = {
   toggleExpanded: PropTypes.func,
   focusedItem: PropTypes.object,
 };
+
+CategoryColumn.defaultProps = {
+  focusedItem: {
+    uniqueKey: null
+  }
+};

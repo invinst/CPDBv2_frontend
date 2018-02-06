@@ -1,5 +1,10 @@
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
-import * as constants from 'utils/constants';
+import {
+  SEARCH_TERMS_CATEGORIES_REQUEST_START,
+  SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
+  SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE,
+  SEARCH_TERM_CATEGORIES_API_URL,
+} from 'utils/constants';
 
 
 describe('search terms actions', function () {
@@ -7,13 +12,13 @@ describe('search terms actions', function () {
     it('should return correct action', function () {
       requestSearchTermCategories().should.deepEqual({
         types: [
-          constants.SEARCH_TERM_CATEGORIES_REQUEST_START,
-          constants.SEARCH_TERM_CATEGORIES_REQUEST_SUCCESS,
-          constants.SEARCH_TERM_CATEGORIES_REQUEST_FAILURE
+          SEARCH_TERMS_CATEGORIES_REQUEST_START,
+          SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
+          SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE
         ],
         payload: {
           request: {
-            url: constants.SEARCH_TERM_CATEGORIES_API_URL,
+            url: SEARCH_TERM_CATEGORIES_API_URL,
             params: undefined,
             adapter: null
           }

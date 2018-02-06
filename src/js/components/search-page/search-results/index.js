@@ -146,5 +146,6 @@ SuggestionResults.propTypes = {
 
 SuggestionResults.defaultProps = {
   previewPaneInfo: {},
-  getSuggestionWithContentType: () => {}
+  getSuggestionWithContentType: () => {},
+  resetNavigation: () => {},
 };

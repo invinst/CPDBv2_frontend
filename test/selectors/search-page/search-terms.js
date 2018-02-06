@@ -1,9 +1,9 @@
 import {
   hiddenSelector,
-  navigationItemsSelector,
   categoriesSelector,
 } from 'selectors/search-page/search-terms';
 
+import { navigationItemsSelector } from 'selectors/search-page/search-terms/navigation';
 
 describe('search terms selectors', function () {
   const state = {
