@@ -42,6 +42,7 @@ class AggregateSection extends Section {
 
     this.prepareElementGetters({
       title: '.test--aggregate-title',
+      sparklineHoverPoint: '.test--sparkline--hover-point',
       ...facetGetters
     });
   }

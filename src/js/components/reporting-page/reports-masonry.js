@@ -3,14 +3,13 @@ import { isEmpty } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import MasonryLayout from 'components/common/masonry-layout';
-import PropsRerender from 'components/common/higher-order/props-rerender';
 import ReportGroup from './report-group';
 import { masonrySizes } from './group-types';
 import ReportAddButton from './report-add-button';
 import { wrapperStyle, borderSleeveStyle } from './reports-masonry.style';
 
 
-class ReportsMasonry extends Component {
+export default class ReportsMasonry extends Component {
   componentDidMount() {
     const { reportGroups, loadMore } = this.props;
     if (isEmpty(reportGroups)) {
@@ -66,5 +65,3 @@ ReportsMasonry.defaultProps = {
   reportGroups: [],
   loadMore: () => {}
 };
-
-export default PropsRerender(ReportsMasonry);

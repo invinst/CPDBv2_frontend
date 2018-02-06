@@ -1,14 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import {
-  Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType, scryRenderedDOMComponentsWithClass
+  renderIntoDocument,
+  findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
-import { spy, stub } from 'sinon';
-import lodash from 'lodash';
 import MockStore from 'redux-mock-store';
 
-import SearchTags from 'components/search-page/search-tags';
 import SearchMainPanel from 'components/search-page/search-main-panel';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -16,6 +14,7 @@ describe('SearchMainPanel component', function () {
   let instance;
   const store = MockStore()({
     searchPage: {
+      tags: [],
       navigation: {},
       searchTerms: {
         categories: []
@@ -24,67 +23,8 @@ describe('SearchMainPanel component', function () {
     }
   });
 
-  beforeEach(function () {
-    stub(lodash, 'debounce').callsFake(func => func);
-  });
-
   afterEach(function () {
     unmountComponentSuppressError(instance);
-    lodash.debounce.restore();
-  });
-
-  it('should call api with content type when user select a tag', function () {
-    const getSuggestionWithContentType = spy();
-    const tags = ['a'];
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchMainPanel
-          getSuggestionWithContentType={ getSuggestionWithContentType }
-          tags={ tags } query={ 'a' }/>
-      </Provider>
-    );
-
-    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
-    const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
-    Simulate.click(tagElement);
-
-    getSuggestionWithContentType.calledWith('a', {
-      contentType: 'a'
-    }).should.be.true();
-  });
-
-  it('should call api when user deselect a tag', function () {
-    const getSuggestion = spy();
-    const tags = ['a'];
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchMainPanel getSuggestion={ getSuggestion } tags={ tags } contentType='a' query='b' />
-      </Provider>
-    );
-
-    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
-    const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
-    Simulate.click(tagElement);
-    getSuggestion.calledWith('b').should.be.true();
-  });
-
-  it('should not trigger getSuggestion if selected contentType is RECENT', function () {
-    const getSuggestion = spy();
-    const tags = ['RECENT'];
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchMainPanel getSuggestion={ getSuggestion } tags={ tags } query={ 'a' }/>
-      </Provider>
-    );
-
-    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
-    const tagElement = findRenderedDOMComponentWithTag(suggestionTagsElement, 'span');
-    Simulate.click(tagElement);
-
-    getSuggestion.called.should.be.false();
   });
 
   context('in edit mode', function () {

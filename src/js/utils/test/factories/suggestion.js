@@ -92,3 +92,10 @@ export const OfficerSuggestion = Factory.define('OfficerSuggestion')
   .attr('demographicInfo', '35 year old, Male, White')
   .attr('complaintCount', 20)
   .attr('sustainedCount', 0);
+
+export const NavigationItem = Factory.define('NavigationItem')
+  .attr('id', () => String(random.number()))
+  .attr('type', 'OFFICER')
+  .attr('to', '')
+  .attr('url', '')
+  .attr('uniqueKey', ['type', 'id'], (type, id) => `${type}-${id}`);

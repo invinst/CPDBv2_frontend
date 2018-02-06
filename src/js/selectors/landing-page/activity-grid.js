@@ -1,19 +1,10 @@
 import { createSelector } from 'reselect';
-import { shuffle, toLower } from 'lodash';
+import { shuffle } from 'lodash';
+
+import { cardTransform } from './common';
 
 
 const getCards = state => state.landingPage.activityGrid.cards;
-const cardTransform = card => ({
-  id: card['id'],
-  fullName: card['full_name'],
-  visualTokenBackgroundColor: card['visual_token_background_color'],
-  complaintCount: card['complaint_count'],
-  sustainedCount: card['sustained_count'],
-  complaintRate: 50,  // TODO: use actual percentile number when that's available
-  birthYear: card['birth_year'],
-  race: toLower(card['race']),
-  gender: toLower(card['gender']),
-});
 
 export const cardsSelector = createSelector(
   [getCards],

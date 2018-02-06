@@ -6,10 +6,6 @@ export function defaultConfig() {
   return { stiffness: 120, damping: 17 };
 }
 
-export function faster() {
-  return { stiffness: 230, damping: 30 };
-}
-
 export function slower() {
   return { stiffness: 300, damping: 100 };
 }

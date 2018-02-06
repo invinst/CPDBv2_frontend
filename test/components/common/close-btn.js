@@ -1,6 +1,6 @@
 import React from 'react';
 
-import CloseButton from 'components/common/close-btn';
+import CloseButton from 'components/search-page/search-box/close-btn';
 import { unmountComponentSuppressError } from 'utils/test';
 
 

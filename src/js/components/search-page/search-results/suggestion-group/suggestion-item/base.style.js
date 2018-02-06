@@ -21,13 +21,13 @@ export const suggestionItemStyle = (hovering, active) => ({
 export const grayTextStyle = {
   color: clayGray,
   fontSize: '12px',
-  fontWeight: '500'
+  fontWeight: '300'
 };
 
 export const blackTextStyle = (hovering, active) => ({
   color: hovering || active ? accentColor : softBlackColor,
   fontSize: '14px',
-  fontWeight: '500'
+  fontWeight: '300'
 });
 
 export const innerWrapperStyle = {

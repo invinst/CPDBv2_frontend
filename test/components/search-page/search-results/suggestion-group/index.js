@@ -1,5 +1,5 @@
 import React from 'react';
-import { spy } from 'sinon';
+import { stub } from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import {
@@ -10,7 +10,8 @@ import SuggestionGroup from 'components/search-page/search-results/suggestion-gr
 import { unmountComponentSuppressError } from 'utils/test';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
-
+import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
+import { MORE_BUTTON } from 'utils/constants';
 
 describe('SuggestionGroup component', function () {
   let instance;
@@ -33,13 +34,27 @@ describe('SuggestionGroup component', function () {
     findDOMNode(instance).textContent.should.containEql('More');
   });
 
+  it('should focus on showMoreButton when uniqueKeys are matched', function () {
+    instance = renderIntoDocument(
+      <SuggestionGroup
+        header='OFFICER'
+        showMoreButton={ true }
+        focusedItem={ {
+          uniqueKey: `${MORE_BUTTON}-OFFICER`
+        } }
+      />
+    );
+    const loadMoreButton = findRenderedComponentWithType(instance, LoadMoreButton);
+    loadMoreButton.props.isFocused.should.be.true();
+  });
+
   it('should load more on scroll to bottom', function () {
     const searchText = 'abc';
     const nextParams = {
       limit: 20,
       offset: 20
     };
-    const getSuggestionWithContentType = spy();
+    const getSuggestionWithContentType = stub().returns({ catch: stub() });
 
     instance = renderIntoDocument(
       <SuggestionGroup
@@ -48,5 +63,23 @@ describe('SuggestionGroup component', function () {
     );
     findRenderedComponentWithType(instance, InfiniteScroll).props.loadMore();
     getSuggestionWithContentType.calledWith(searchText, nextParams).should.be.true();
+  });
+
+  it('should call single content type api when single content is detected', function () {
+    const header = 'OFFICER';
+    const searchText = 'abc';
+    const catchSpy = stub();
+    const getSuggestionWithContentType = stub().returns({ catch: catchSpy });
+
+    instance = renderIntoDocument(
+      <SuggestionGroup
+        singleContent={ true }
+        getSuggestionWithContentType={ getSuggestionWithContentType }
+        header={ header }
+        searchText={ searchText }/>
+    );
+
+    getSuggestionWithContentType.calledWith(searchText, { contentType: header }).should.be.true();
+    catchSpy.called.should.be.true();
   });
 });

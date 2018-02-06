@@ -1,19 +1,19 @@
-import { sanFranciscoTextFamily, accentColor, greyishColor, whiteTwoColor } from 'utils/styles';
+import { sanFranciscoTextFamily, accentColor, glitterColor, clayGray, whiteTwoColor } from 'utils/styles';
 
 
-export const loadMoreButtonStyle = (hovering) => ({
-  backgroundColor: hovering ? 'white' : 'transparent',
+export const loadMoreButtonStyle = (hovering, isFocused) => ({
+  backgroundColor: isFocused ? glitterColor : (hovering ? 'white' : 'transparent'),
   padding: '0 16px',
   height: '40px',
   boxSizing: 'border-box',
   cursor: 'pointer',
 });
 
-export const loadMoreButtonTextStyle = (hovering) => ({
+export const loadMoreButtonTextStyle = (hovering, isFocused) => ({
   fontWeight: 500,
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
-  color: hovering ? accentColor : greyishColor,
+  color: isFocused ? accentColor : (hovering ? accentColor : clayGray),
   borderBottom: `1px solid ${whiteTwoColor}`,
   padding: '11px 0',
   height: '100%',

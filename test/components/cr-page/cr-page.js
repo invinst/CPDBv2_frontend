@@ -1,5 +1,5 @@
 import React from 'react';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import {
   renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
 } from 'react-addons-test-utils';
@@ -74,5 +74,188 @@ describe('CRPage component', function () {
 
     instance = reRender(<CRPage crid={ '456' } fetchCR={ fetchCR } />, instance);
     fetchCR.calledWith('456').should.be.true();
+  });
+
+  it('should resetBreadcrumbs after the breadcrumbs is refined', function () {
+    const stubResetBreadcrumbs = stub();
+    const firstBreadcrumbItem = {
+      component: {
+        componentCacheKey: 'cr'
+      },
+      breadcrumbKey: 'complaint/:crid',
+      url: '/complaint/1045343/8562/',
+      location: {
+        pathname: '/complaint/1045343/8562/',
+        search: '',
+        hash: '',
+        action: 'PUSH',
+        key: 'ilfuy5',
+        query: {}
+      },
+      params: {
+        crid: '1045343',
+        officerId: '8562'
+      },
+      current: false
+    };
+    const secondBreadcrumbItem = {
+      component: {
+        componentCacheKey: 'cr'
+      },
+      breadcrumbKey: 'complaint/:crid',
+      url: '/complaint/1045343/21850/',
+      location: {
+        pathname: '/complaint/1045343/21850/',
+        search: '',
+        hash: '',
+        action: 'PUSH',
+        key: 'unrsun',
+        query: {}
+      },
+      params: {
+        crid: '1045343',
+        officerId: '21850'
+      },
+      current: true
+    };
+
+    instance = renderIntoDocument(
+      <CRPage
+        resetBreadcrumbs={ stubResetBreadcrumbs }
+        breadcrumb={ { breadcrumbs: [firstBreadcrumbItem] } }
+      />
+    );
+
+    instance = reRender(
+      <CRPage
+        resetBreadcrumbs={ stubResetBreadcrumbs }
+        breadcrumb={ { breadcrumbs: [firstBreadcrumbItem, secondBreadcrumbItem] } }
+      />, instance
+    );
+    stubResetBreadcrumbs.calledWith({ breadcrumbs: [secondBreadcrumbItem] }).should.be.true();
+  });
+
+  describe('refineBreadcrumbs', function () {
+    beforeEach(function () {
+      instance = renderIntoDocument(<CRPage />);
+    });
+
+    it('should deduplicate the breadcrumbs when needed', function () {
+      const breadcrumb = {
+        breadcrumbs: [
+          {
+            component: {
+              componentCacheKey: 'cr'
+            },
+            breadcrumbKey: 'complaint/:crid',
+            url: '/complaint/1045343/8562/',
+            location: {
+              pathname: '/complaint/1045343/8562/',
+              search: '',
+              hash: '',
+              action: 'PUSH',
+              key: 'ilfuy5',
+              query: {}
+            },
+            params: {
+              crid: '1045343',
+              officerId: '8562'
+            },
+            current: false
+          },
+          {
+            component: {
+              componentCacheKey: 'cr'
+            },
+            breadcrumbKey: 'complaint/:crid',
+            url: '/complaint/1045343/21850/',
+            location: {
+              pathname: '/complaint/1045343/21850/',
+              search: '',
+              hash: '',
+              action: 'PUSH',
+              key: 'unrsun',
+              query: {}
+            },
+            params: {
+              crid: '1045343',
+              officerId: '21850'
+            },
+            current: true
+          }
+        ]
+      };
+      const refinedBreadcrumbs = instance.refineBreadcrumb(breadcrumb);
+
+      refinedBreadcrumbs.should.eql({
+        breadcrumbs: [
+          {
+            component: {
+              componentCacheKey: 'cr'
+            },
+            breadcrumbKey: 'complaint/:crid',
+            url: '/complaint/1045343/21850/',
+            location: {
+              pathname: '/complaint/1045343/21850/',
+              search: '',
+              hash: '',
+              action: 'PUSH',
+              key: 'unrsun',
+              query: {}
+            },
+            params: {
+              crid: '1045343',
+              officerId: '21850'
+            },
+            current: true
+          }
+        ]
+      });
+    });
+
+    it('should leave the breadcrumbs unchanged when needed', function () {
+      const breadcrumb = {
+        breadcrumbs: [
+          {
+            component: 'Search',
+            breadcrumbKey: 'search/',
+            url: '/search/',
+            location: {
+              pathname: '/search/',
+              search: '',
+              hash: '',
+              action: 'PUSH',
+              key: '6pvlgn',
+              query: {}
+            },
+            params: {},
+            current: false
+          },
+          {
+            component: {
+              componentCacheKey: 'cr'
+            },
+            breadcrumbKey: 'complaint/:crid',
+            url: '/complaint/108026/1642/',
+            location: {
+              pathname: '/complaint/108026/1642/',
+              search: '',
+              hash: '',
+              action: 'PUSH',
+              key: '2zsrk1',
+              query: {}
+            },
+            params: {
+              crid: '108026',
+              officerId: '1642'
+            },
+            current: true
+          }
+        ]
+      };
+      const refinedBreadcrumbs = instance.refineBreadcrumb(breadcrumb);
+
+      refinedBreadcrumbs.should.eql(breadcrumb);
+    });
   });
 });

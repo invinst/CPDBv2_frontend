@@ -36,6 +36,7 @@ describe('App component', function () {
       }
     },
     searchPage: {
+      tags: [],
       navigation: {},
       searchTerms: {
         hidden: true

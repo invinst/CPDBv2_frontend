@@ -2,11 +2,10 @@ import React, { Component, PropTypes } from 'react';
 
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
-import ActivityGridContainer from 'containers/landing-page/activity-grid';
-import PropsRerender from 'components/common/higher-order/props-rerender';
+import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
+import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import FooterContainer from 'containers/footer-container';
-import HeatMap from './heat-map';
-
+import HeatMap from 'containers/landing-page/heat-map';
 
 
 class LandingPage extends Component {
@@ -20,8 +19,9 @@ class LandingPage extends Component {
     return (
       <div>
         <HeatMap/>
-        <ActivityGridContainer/>
-        <FooterContainer />
+        <OfficersByAllegationContainer/>
+        <RecentActivityContainer/>
+        <FooterContainer/>
       </div>
     );
   }
@@ -40,5 +40,5 @@ LandingPage.propTypes = {
   resetBreadcrumbs: PropTypes.func
 };
 
-export default PropsRerender(ConfiguredRadium(LandingPage));
+export default ConfiguredRadium(LandingPage);
 

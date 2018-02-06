@@ -7,13 +7,13 @@ import SparklinesContainer from 'containers/officer-page/officer-sparkline-conta
 import {
   entryStyle, countStyle, nameStyle, sustainedCountStyle
 } from './aggregate-row.style';
-import { officerPath } from 'components/officer-page/header';
+import { officerPath } from 'utils/location';
 
 
 export default class AggregateRow extends Component {
   getFilteredOfficerTimelineLink(facetName, name, pathname) {
     const timelineEventQuery = facetName ? { [facetName]: name } : {};
-    const timelinePathname = officerPath('timeline')(pathname);
+    const timelinePathname = officerPath('timeline', pathname);
     const urlParams = mapKeys(timelineEventQuery, (value, key) => key.replace('complainant ', ''));
 
     return (year) => {

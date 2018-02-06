@@ -31,7 +31,7 @@ export default class ActivityGrid extends Component {
                      birthYear,
                      race,
                      gender,
-                     complaintRate
+                     complaintPercentile
                    }) =>
                      <OfficerCard
                        officerId={ id }
@@ -42,11 +42,11 @@ export default class ActivityGrid extends Component {
                        cardStyle={ cardStyle }
                        complaintCount={ complaintCount }
                        sustainedCount={ sustainedCount }
-                       complaintRate={ complaintRate }
+                       complaintPercentile={ complaintPercentile }
                        birthYear={ birthYear }
                        race={ race }
                        gender={ gender }
-                    />
+                     />
                 )
               }
             </div>
@@ -63,5 +63,6 @@ ActivityGrid.propTypes = {
 };
 
 ActivityGrid.defaultProps = {
-  requestActivityGrid: () => {}
+  requestActivityGrid: () => {
+  }
 };

@@ -5,7 +5,7 @@ import {
   bottomLeftLinkStyle,
   bottomRightLinkStyle, bottomSlimHeaderStyle, bottomSubtitleStyle,
   middleLeftLinkStyle, middleRightLinkStyle,
-  middleSlimHeaderStyle, middleSubtitleStyle,
+  middleSlimHeaderStyle, middleSubtitleStyle, middleWrapperStyle,
   topLeftLinkStyle, topRightLinkStyle,
   topSlimHeaderStyle, topSubtitleStyle
 } from 'components/headers/slim-header/slim-header.style';
@@ -34,6 +34,7 @@ describe('SlimHeaderContent component', function () {
 
   it('getPositionSpecificStyles should return correct styles', function () {
     SlimHeaderContent.prototype.getPositionSpecificStyles('top', false).should.containEql({
+      wrapperStyle: {},
       subtitleStyle: topSubtitleStyle,
       slimHeaderStyle: topSlimHeaderStyle,
       leftLinkStyle: topLeftLinkStyle,
@@ -43,6 +44,7 @@ describe('SlimHeaderContent component', function () {
     });
 
     SlimHeaderContent.prototype.getPositionSpecificStyles('middle', false).should.containEql({
+      wrapperStyle: middleWrapperStyle,
       slimHeaderStyle: middleSlimHeaderStyle,
       leftLinkStyle: middleLeftLinkStyle,
       rightLinkStyle: middleRightLinkStyle,
@@ -52,6 +54,7 @@ describe('SlimHeaderContent component', function () {
     });
 
     SlimHeaderContent.prototype.getPositionSpecificStyles('bottom', false).should.eql({
+      wrapperStyle: {},
       slimHeaderStyle: bottomSlimHeaderStyle,
       leftLinkStyle: bottomLeftLinkStyle,
       rightLinkStyle: bottomRightLinkStyle,

@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { head, isEmpty } from 'lodash';
+import { debounce, head, isEmpty } from 'lodash';
+import { Promise } from 'es6-promise';
 
 import SearchBox from './search-box';
 import {
-  backButtonStyle,
+  cancelButtonStyle,
   searchBoxStyle,
   searchContentWrapperStyle
 } from './search-page.style.js';
@@ -12,7 +13,10 @@ import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
-import { NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
+import HoverableButton from 'components/common/hoverable-button';
+import { MORE_BUTTON, NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX } from 'utils/constants';
+import * as constants from 'utils/constants';
+
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
 
@@ -21,8 +25,12 @@ export default class SearchPage extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleGoBack = this.handleGoBack.bind(this);
-    this.handleEnter = this.handleEnter.bind(this);
+    this.handleSearchBoxEnter = this.handleSearchBoxEnter.bind(this);
     this.handleViewItem = this.handleViewItem.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+
+    this.getSuggestion = debounce(this.props.getSuggestion, 100);
+    this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
   }
 
   componentDidMount() {
@@ -62,8 +70,11 @@ export default class SearchPage extends Component {
   }
 
   handleViewItem() {
-    const { to, url } = this.props.focusedItem;
-    if (to) {
+    const { to, url, type, id } = this.props.focusedItem;
+
+    if (type === MORE_BUTTON) {
+      this.handleSelect(id);
+    } else if (to) {
       browserHistory.push(to);
     } else {
       window.location.assign(url);
@@ -77,9 +88,9 @@ export default class SearchPage extends Component {
 
     if (query) {
       if (contentType) {
-        this.props.getSuggestionWithContentType(query, { contentType });
+        this.props.getSuggestionWithContentType(query, { contentType }).catch(() => {});
       } else {
-        this.props.getSuggestion(query, { contentType, limit });
+        this.props.getSuggestion(query, { contentType, limit }).catch(() => {});
       }
     } else {
       this.props.selectTag(null);
@@ -96,7 +107,22 @@ export default class SearchPage extends Component {
     browserHistory.push(ROOT_PATH);
   }
 
-  handleEnter(e) {
+  handleSelect(newContentType) {
+    const { contentType, query, selectTag, resetNavigation } = this.props;
+
+    if (newContentType === constants.RECENT_CONTENT_TYPE) {
+      return;
+    } else if (newContentType === contentType) {
+      selectTag(null);
+      this.getSuggestion(query, { limit: 9 });
+    } else {
+      selectTag(newContentType);
+      this.getSuggestionWithContentType(this.props.query, { contentType: newContentType });
+    }
+    resetNavigation();
+  }
+
+  handleSearchBoxEnter(e) {
     const { suggestionGroups, trackRecentSuggestion, query } = this.props;
     let url, to;
 
@@ -124,8 +150,8 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
-      editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children,
-      getSuggestionWithContentType
+      editModeOn, officerCards, requestActivityGrid, resetNavigation,
+      children, changeSearchQuery, focusedItem
     } = this.props;
 
     return (
@@ -136,15 +162,19 @@ export default class SearchPage extends Component {
           <SearchBox
             onEscape={ this.handleGoBack }
             onChange={ this.handleChange }
-            onEnter={ this.handleEnter }
+            onEnter={ this.handleSearchBoxEnter }
             value={ query }
-            searchTermsHidden={ searchTermsHidden }/>
-          <span
+            searchTermsHidden={ searchTermsHidden }
+            changeSearchQuery={ changeSearchQuery }
+            focused={ focusedItem.uniqueKey === SEARCH_BOX }
+            resetNavigation={ resetNavigation }
+          />
+          <HoverableButton
+            style={ cancelButtonStyle }
             onClick={ this.handleGoBack }
-            className='searchbar__button--back'
-            style={ backButtonStyle }>
+            className='searchbar__button--back'>
             Cancel
-          </span>
+          </HoverableButton>
         </div>
         <div>
           {
@@ -160,9 +190,7 @@ export default class SearchPage extends Component {
                 officerCards={ officerCards }
                 requestActivityGrid={ requestActivityGrid }
                 searchTermsHidden={ searchTermsHidden }
-                resetNavigation={ resetNavigation }
-                getSuggestion={ getSuggestion }
-                getSuggestionWithContentType={ getSuggestionWithContentType }
+                handleSelect={ this.handleSelect }
               />
           }
         </div>
@@ -181,7 +209,6 @@ SearchPage.propTypes = {
   suggestionGroups: PropTypes.array,
   tags: PropTypes.array,
   recentSuggestions: PropTypes.array,
-  isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func,
   getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
@@ -202,13 +229,13 @@ SearchPage.propTypes = {
   pushBreadcrumbs: PropTypes.func
 };
 
+/* istanbul ignore next */
 SearchPage.defaultProps = {
   suggestionGroups: [],
   contentType: null,
   focusedItem: {},
-  isRequesting: false,
-  getSuggestion: () => {},
-  getSuggestionWithContentType: () => {},
+  getSuggestion: () => new Promise(() => {}),
+  getSuggestionWithContentType: () => new Promise(() => {}),
   trackRecentSuggestion: () => {},
   resetNavigation: () => {},
   router: {
@@ -219,4 +246,6 @@ SearchPage.defaultProps = {
     pathname: '/'
   },
   searchTermsHidden: true,
+  selectTag: (...args) => {},
+  pushBreadcrumbs: (...args) => {},
 };

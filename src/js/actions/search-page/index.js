@@ -1,7 +1,19 @@
 import { get } from 'actions/common/async-action';
 import { createAction } from 'redux-actions';
+import { CancelToken } from 'axios';
+
 import * as constants from 'utils/constants';
 
+
+let source;
+
+const cancelOldRequest = (newRequest) => (...args) => {
+  if (source) {
+    source.cancel('Cancelled by user');
+  }
+  source = CancelToken.source();
+  return newRequest(...args);
+};
 
 export const SUGGESTION_URL = 'suggestion/';
 
@@ -9,15 +21,27 @@ export const SUGGESTION_REQUEST_START = 'SUGGESTION_REQUEST_START';
 export const SUGGESTION_REQUEST_SUCCESS = 'SUGGESTION_REQUEST_SUCCESS';
 export const SUGGESTION_REQUEST_FAILURE = 'SUGGESTION_REQUEST_FAILURE';
 
-export const getSuggestion = (text, params, adapter) => get(`${SUGGESTION_URL}${text}/`, [
-  SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
-])(params, adapter);
+export const getSuggestion = cancelOldRequest(
+  (text, params, adapter) => get(
+    `${SUGGESTION_URL}${text}/`,
+    [
+      SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
+    ],
+    source.token
+  )(params, adapter)
+);
 
-export const getSuggestionWithContentType = (text, params, adapter) => get(`${SUGGESTION_URL}${text}/single/`, [
-  constants.SUGGESTION_SINGLE_REQUEST_START,
-  constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
-  constants.SUGGESTION_SINGLE_REQUEST_FAILURE
-])(params, adapter);
+export const getSuggestionWithContentType = cancelOldRequest(
+  (text, params, adapter) => get(
+    `${SUGGESTION_URL}${text}/single/`,
+    [
+      constants.SUGGESTION_SINGLE_REQUEST_START,
+      constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
+      constants.SUGGESTION_SINGLE_REQUEST_FAILURE
+    ],
+    source.token
+  )(params, adapter)
+);
 
 export const SELECT_TAG = 'SELECT_TAG';
 

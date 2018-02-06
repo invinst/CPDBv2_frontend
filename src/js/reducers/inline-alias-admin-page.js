@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import { toPairs } from 'lodash';
 
 import {
   SET_ALIAS_ADMIN_PAGE_CONTENT,
@@ -11,9 +12,11 @@ export default handleActions({
   [SET_ALIAS_ADMIN_PAGE_CONTENT]: (state, { payload: { id, type, text, description, existingAliases } }) => ({
     id, type, text, description, existingAliases, errorMessage: ''
   }),
-  [UPDATE_ALIAS_REQUEST_FAILURE]: (state, { payload }) => ({
+  [UPDATE_ALIAS_REQUEST_FAILURE]: (state, { payload: { message } }) => ({
     ...state,
-    errorMessage: payload.aliases.join('. ')
+    errorMessage: typeof message === 'string' ? message : (
+      toPairs(message).map(([field, errors]) => `${field}: ${errors.join(' ')}`).join(' - ')
+    )
   }),
   [UPDATE_ALIAS_REQUEST_START]: (state, { payload }) => ({
     ...state,
