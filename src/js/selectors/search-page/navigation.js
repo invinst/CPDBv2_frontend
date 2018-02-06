@@ -5,6 +5,7 @@ import * as constants from 'utils/constants';
 import { navigationItemTransform, previewPaneTransform } from './transforms';
 import { slicedSuggestionGroupsSelector } from './base';
 import { focusedSearchTermItemSelector } from './search-terms';
+import { hiddenSelector } from 'selectors/search-page/search-terms';
 
 
 const getSuggestionNavigation = state => state.searchPage.navigation;
@@ -43,16 +44,8 @@ export const focusedResultItemSelector = createSelector(
   navigationItemTransform
 );
 
-
-export const getFocusedItemSelector = (path) => {
-  if (path.match(/search\/$/)) {
-    return focusedResultItemSelector;
-  }
-  else if (path.match(/search\/terms\/$/)) {
-    return focusedSearchTermItemSelector;
-  } else {
-    return () => {};
-  }
+export const getfocusedItem = (state) => {
+  return hiddenSelector(state) ? focusedResultItemSelector(state) : focusedSearchTermItemSelector(state);
 };
 
 export const previewPaneInfoSelector = createSelector(

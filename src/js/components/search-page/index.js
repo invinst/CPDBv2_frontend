@@ -144,19 +144,10 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
       editModeOn, officerCards, requestActivityGrid, resetSearchResultNavigation,
-      children, changeSearchQuery, focusedItem, pathname, resetSearchTermNavigation
+      children, changeSearchQuery, focusedItem, resetSearchTermNavigation
     } = this.props;
 
-    let resetNavigation;
-
-    if (pathname.match(/search\/$/)) {
-      resetNavigation = resetSearchResultNavigation;
-    }
-    else if (pathname.match(/search\/terms\/$/)) {
-      resetNavigation = resetSearchTermNavigation;
-    } else {
-      return () => {};
-    }
+    const resetNavigation = searchTermsHidden ? resetSearchResultNavigation : resetSearchTermNavigation;
 
     return (
       <div
@@ -195,7 +186,6 @@ export default class SearchPage extends Component {
                 requestActivityGrid={ requestActivityGrid }
                 searchTermsHidden={ searchTermsHidden }
                 handleSelect={ this.handleSelect }
-                pathname={ pathname }
               />
           }
         </div>
@@ -231,7 +221,6 @@ SearchPage.propTypes = {
   routes: PropTypes.array,
   pushBreadcrumbs: PropTypes.func,
   resetSearchResultNavigation: PropTypes.func,
-  pathname: PropTypes.string,
   resetSearchTermNavigation: PropTypes.func,
 };
 

@@ -11,7 +11,7 @@ export default class SearchMainPanel extends Component {
   render() {
     const {
       tags, contentType, recentSuggestions, query, editModeOn,
-      officerCards, requestActivityGrid, aliasEditModeOn, handleSelect, pathname
+      officerCards, requestActivityGrid, aliasEditModeOn, handleSelect
     } = this.props;
 
     return (
@@ -30,7 +30,6 @@ export default class SearchMainPanel extends Component {
               onLoadMore={ handleSelect }
               editModeOn={ editModeOn }
               aliasEditModeOn={ aliasEditModeOn }
-              pathname={ pathname }
             /> :
             <SearchNoInput
               recentSuggestions={ recentSuggestions }

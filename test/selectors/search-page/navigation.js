@@ -1,5 +1,5 @@
 import {
-  getFocusedItemSelector,
+  getfocusedItem,
   previewPaneInfoSelector,
   totalItemCountSelector
 } from 'selectors/search-page/navigation';
@@ -10,7 +10,7 @@ import { MORE_BUTTON, SEARCH_BOX } from 'utils/constants';
 describe('search page navigation selector', function () {
   describe('focusedSearchTermItemSelector', function () {
     it('should return correct suggestion', function () {
-      getFocusedItemSelector({
+      getfocusedItem({
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -37,7 +37,7 @@ describe('search page navigation selector', function () {
     });
 
     it('should return searchbox item when there is no suggestion', function () {
-      getFocusedItemSelector({
+      getfocusedItem({
         searchPage: {
           tags: [],
           suggestionGroups: {
@@ -59,7 +59,7 @@ describe('search page navigation selector', function () {
     });
 
     it('should return More correctly', function () {
-      getFocusedItemSelector({
+      getfocusedItem({
         searchPage: {
           tags: [],
           suggestionGroups: {

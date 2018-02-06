@@ -18,13 +18,13 @@ import {
 import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
 import {
   previewPaneInfoSelector,
-  getFocusedItemSelector,
+  getfocusedItem,
   totalItemCountSelector
 } from 'selectors/search-page/navigation';
 
 
 function mapStateToProps(state, ownProps) {
-  const { onLoadMore, aliasEditModeOn, editModeOn, pathname } = ownProps;
+  const { onLoadMore, aliasEditModeOn, editModeOn } = ownProps;
   const { isRequesting, navigation, query, contentType } = state.searchPage;
 
   return {
@@ -38,7 +38,7 @@ function mapStateToProps(state, ownProps) {
     suggestionGroups: searchResultGroupsSelector(state),
     isRequesting,
     previewPaneInfo: previewPaneInfoSelector(state),
-    focusedItem: getFocusedItemSelector(pathname)(state),
+    focusedItem: getfocusedItem(state),
     hasMore: hasMoreSelector(state),
     nextParams: nextParamsSelector(state),
     singleContent: isShowingSingleContentTypeSelector(state),

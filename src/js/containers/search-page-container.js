@@ -15,7 +15,7 @@ import {
 import {
   requestSearchTermCategories, resetNavigation as resetSearchTermNavigation
 } from 'actions/search-page/search-terms';
-import { getFocusedItemSelector } from 'selectors/search-page/navigation';
+import { getfocusedItem } from 'selectors/search-page/navigation';
 import { focusedSearchTermItemSelector } from 'selectors/search-page/search-terms';
 import {
   suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector
@@ -31,14 +31,13 @@ function mapStateToProps(state, ownProps) {
   const {
     contentType, recentSuggestions, query, itemsPerColumn
   } = state.searchPage;
-  const { children, location } = ownProps;
-  const focusedItem = getFocusedItemSelector(location.pathname)(state);
+  const { children } = ownProps;
+  const focusedItem = getfocusedItem(state);
 
   return {
     itemsPerColumn,
     query,
     children,
-    pathname: location.pathname,
     tags: suggestionTagsSelector(state),
     suggestionGroups: searchResultGroupsSelector(state),
     contentType,
