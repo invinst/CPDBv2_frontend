@@ -3,7 +3,8 @@ import { softBlackColor, whiteTwoColor, accentColor } from 'utils/styles';
 export const contentWrapperStyle = {
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
-  margin: '0 16px'
+  margin: '0 16px',
+  borderTop: `solid 1px ${whiteTwoColor}`,
 };
 
 export const searchTermTitleStyle = {
