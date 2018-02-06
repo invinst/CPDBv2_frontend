@@ -46,10 +46,7 @@ export default class CategoryColumn extends Component {
         <div
           style={ headerStyle(isFocusedHeader) }
           className={
-            classnames(
-              `term-item-${headerUniqueKey}`,
-              { 'test--focused': isFocusedHeader },
-              'test--category-header')
+            classnames('term-item', 'test--category-header', { 'focused': isFocusedHeader })
           }
         >
           { name }
