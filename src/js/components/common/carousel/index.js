@@ -20,6 +20,9 @@ import Arrow from './carousel-arrow';
 class Carousel extends Component {
   constructor(props) {
     super(props);
+
+    const { lazyLoading } = this.props;
+
     this.updateNumVisibleSlide = this.updateNumVisibleSlide.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
 
@@ -30,7 +33,10 @@ class Carousel extends Component {
       initialSlide: 0,
       spaceBetween: spaceSlideWidth,
       slidesPerView: 'auto',
-      slidesOffsetAfter: arrowWrapperWidth * 2 + 10
+      slidesOffsetAfter: arrowWrapperWidth * 2 + 10,
+
+      preloadImages: !!lazyLoading,
+      lazy: !!lazyLoading // Enable lazy loading
     };
     this._hasEventRegistered = false;
     this._isMounted = false;
@@ -153,7 +159,8 @@ class Carousel extends Component {
 }
 
 Carousel.defaultProps = {
-  slideWidth: slideWidth
+  slideWidth: slideWidth,
+  lazyLoading: false
 };
 
 Carousel.propTypes = {
@@ -163,6 +170,7 @@ Carousel.propTypes = {
     PropTypes.element
   ]),
   slides: PropTypes.array,
+  lazyLoading: PropTypes.bool,
   slideWidth: PropTypes.number
 };
 

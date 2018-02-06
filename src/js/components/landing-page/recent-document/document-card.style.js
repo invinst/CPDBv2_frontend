@@ -1,12 +1,12 @@
-import { whiteTwoColor, sugarCaneColor, greyishColor, clayGray } from 'utils/styles';
+import { whiteTwoColor, sugarCaneColor, greyishColor, clayGray, accentColor } from 'utils/styles';
 
-export const documentCardWrapperStyle = {
+export const documentCardWrapperStyle = (hovering)=>({
   width: '232px',
   height: '266px',
   borderRadius: '2px',
-  border: `solid 1px ${whiteTwoColor}`,
+  border: `solid 1px ${hovering ? accentColor:whiteTwoColor}`,
   boxSizing: 'border-box'
-};
+});
 
 export const thumbnailDocumentStyle = {
   height: '209px',
@@ -23,7 +23,7 @@ export const imageDocumentStyle = {
 };
 
 
-export const descriptionDocumentStyle = {
+export const descriptionDocumentStyle = hovering => ({
   width: '200px',
   height: '36px',
   fontSize: '14px',
@@ -31,5 +31,5 @@ export const descriptionDocumentStyle = {
   textAlign: 'left',
   marginLeft: '16px',
   marginTop: '10px',
-  color: clayGray,
-};
+  color: hovering ? accentColor: clayGray,
+});

@@ -1,19 +1,27 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import DocumentCard from './document-card';
 import Carousel from 'components/common/carousel';
-import _ from 'lodash';
+
 
 export default class RecentDocument extends Component {
 
   componentDidMount() {
-
+    this.props.getRecentDocument();
   }
 
   render() {
 
-    const dummyDocuments = _.range(6).map((idx) => {
+    const { cards } = this.props;
+
+    const documents = cards.map((cr) => {
       return (
-        <DocumentCard key={ idx }/>
+        <DocumentCard
+          key={ cr.crid }
+          crid={ cr.crid }
+          numDocuments={ cr.numDocuments }
+          previewImageUrl={ cr.latestDocument.previewImageUrl }
+          url={ cr.latestDocument.url }
+        />
       );
     });
 
@@ -24,11 +32,20 @@ export default class RecentDocument extends Component {
       </div>
     );
 
-
     return (
       <div className='test--recent-document'>
-        <Carousel slides={ dummyDocuments } header='New Documents' description={ descriptionText }/>
+        <Carousel
+          slides={ documents }
+          header='New Documents'
+          description={ descriptionText }
+          lazyLoading={ true }
+        />
       </div>
     );
   }
 }
+
+RecentDocument.propTypes = {
+  cards: PropTypes.object,
+  getRecentDocument: PropTypes.func
+};
