@@ -8,6 +8,7 @@ import FooterContainer from 'containers/footer-container';
 import HeatMap from 'containers/landing-page/heat-map';
 import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import ComplaintSummaries from './complaint-summaries';
+import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
 
 
 class LandingPage extends Component {
@@ -24,7 +25,9 @@ class LandingPage extends Component {
         <OfficersByAllegationContainer/>
         <RecentActivityContainer/>
         <RecentDocumentContainer/>
-        <ComplaintSummaries/>
+
+        { /* TODO: will embed reading data when complaint summary is ready*/ }
+        <ComplaintSummaries cards={ ComplaintSummaryFactory.buildList(20) }/>
         <FooterContainer/>
       </div>
     );

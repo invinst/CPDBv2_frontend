@@ -17,12 +17,12 @@ describe('Complaint Summaries components', function () {
     'crid': '111',
     'category': 'Illegal Search',
     'summary': 'This is summary 1',
-    'closedDate': Date(2017, 6, 6)
+    'closedDate': new Date(2017, 6, 6)
   }, {
-    'crid': '111',
+    'crid': '112',
     'category': 'Use of Force',
     'summary': 'This is summary 2',
-    'closedDate': Date(2017, 1, 6)
+    'closedDate': new Date(2017, 1, 6)
   }];
 
   beforeEach(function () {
@@ -44,12 +44,12 @@ describe('Complaint Summaries components', function () {
     complaintSummaryCards.should.have.length(2);
     const complaintSummaryCard1 = findDOMNode(complaintSummaryCards[0]);
     complaintSummaryCard1.textContent.should.containEql('Illegal Search');
-    complaintSummaryCard1.textContent.should.containEql('Jun 6, 2017');
+    complaintSummaryCard1.textContent.should.containEql('Jul 6, 2017');
     complaintSummaryCard1.textContent.should.containEql('This is summary 1');
 
     const complaintSummaryCard2 = findDOMNode(complaintSummaryCards[1]);
     complaintSummaryCard2.textContent.should.containEql('Use of Force');
-    complaintSummaryCard2.textContent.should.containEql('Jan 1, 2017');
+    complaintSummaryCard2.textContent.should.containEql('Feb 6, 2017');
     complaintSummaryCard2.textContent.should.containEql('This is summary 2');
   });
 });

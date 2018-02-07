@@ -42,6 +42,17 @@ class OfficersByAllegationCarouselSection extends Section {
   }
 }
 
+class RecentDocumentCarouselSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      leftArrow: '//div[@class="test--recent-document"]//div[@class="test--carousel--arrow--left"]',
+      rightArrow: '//div[@class="test--recent-document"]//div[@class="test--carousel--arrow--right"]',
+      cards: '//div[@class="test--recent-document"]//a[@class="test--document-card"]'
+    });
+  }
+}
+
 class GenericModalSection extends Section {
   constructor() {
     super();
@@ -112,8 +123,9 @@ class LandingPage extends Page {
   richTextToolbar = new RichTextToolbar();
   bottomSheet = new BottomSheet();
   collaborateSection = new CollaborateSection();
-  recentActivityCarousel = new RecentActivityCarouselSection()
-  officersByAllegationCarousel = new OfficersByAllegationCarouselSection()
+  recentActivityCarousel = new RecentActivityCarouselSection();
+  officersByAllegationCarousel = new OfficersByAllegationCarouselSection();
+  recentDocumentCarousel = new RecentDocumentCarouselSection();
   genericModalSection = new GenericModalSection();
   heatMapSection = new HeatMapSection();
 

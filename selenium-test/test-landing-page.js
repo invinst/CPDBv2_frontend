@@ -3,6 +3,7 @@
 require('should');
 
 import landingPage from './page-objects/landing-page';
+import summaryPage from './page-objects/officer-summary-page';
 
 
 describe('landing page', function () {
@@ -65,6 +66,12 @@ describe('landing page', function () {
       landingPage.recentActivityCarousel.rightArrow.click();
       landingPage.recentActivityCarousel.leftArrow.waitForVisible(1000);
     });
+    it('should go to officer summary page when click to card', function () {
+      const firstCard = landingPage.recentActivityCarousel.cards;
+      firstCard.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/officer\/\d+\/$/);
+    });
   });
 
   describe('Officers By Allegation carousel', function () {
@@ -72,6 +79,36 @@ describe('landing page', function () {
       landingPage.officersByAllegationCarousel.cards.count.should.equal(48);
       landingPage.officersByAllegationCarousel.rightArrow.waitForVisible();
       landingPage.officersByAllegationCarousel.leftArrow.waitForVisible(2000, true);
+    });
+    it('should go to officer summary page when click to card', function () {
+      const firstCard = landingPage.recentActivityCarousel.cards;
+      firstCard.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/officer\/\d+\/$/);
+    });
+  });
+
+  describe('Recent Document Carousel', function () {
+    it('should show initial carousel', function () {
+      landingPage.recentDocumentCarousel.cards.count.should.equal(24);
+      landingPage.recentDocumentCarousel.rightArrow.waitForVisible();
+      landingPage.recentDocumentCarousel.leftArrow.waitForVisible(2000, true);
+    });
+    it('should go to cr page when click to card', function () {
+      const firstCard = landingPage.recentDocumentCarousel.cards;
+      firstCard.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+    });
+  });
+
+  describe.skip('Complaint Summaries Carousel', function () {
+    // TODO: rewrite test where complaint summary data is ready
+    it('should go to cr page when click to card', function () {
+      const firstCard = landingPage.complaintSummariesCarousel.cards;
+      firstCard.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/\d+\/\d+\/$/);
     });
   });
 

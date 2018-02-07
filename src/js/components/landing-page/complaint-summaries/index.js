@@ -1,22 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import ComplaintSummaryCard from './complaint-summary-card';
 import Carousel from 'components/common/carousel';
-import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
 
 
 export default class ComplaintSummaries extends Component {
   render() {
-    // TODO: will embed reading data when complaint summary is ready
-    const cards = ComplaintSummaryFactory.buildList(20);
+    const { cards } = this.props;
 
-    const dummyDocuments = cards.map((card, idx) => {
-      return (
-        <ComplaintSummaryCard
-          key={ idx }
-          { ...card }
-        />
-      );
-    });
+    const complaintSummaries = cards.map((card, idx) => {
+      return <ComplaintSummaryCard key={ idx } { ...card } />;
+    }); // temporary
 
     const descriptionText = (
       <div>
@@ -30,12 +23,14 @@ export default class ComplaintSummaries extends Component {
         <Carousel
           header='Complaint Summaries'
           description={ descriptionText }
-          slides={ dummyDocuments }
+          slides={ complaintSummaries }
         />
       </div>
     );
   }
 }
 
-
+ComplaintSummaries.propTypes = {
+  cards: PropTypes.array
+};
 
