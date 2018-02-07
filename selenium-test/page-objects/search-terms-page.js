@@ -6,31 +6,12 @@ import Page from './page';
 import Section from './sections/section';
 
 
-class NavigationBarSection extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      navigationItems: '.test--navigation-item'
-    });
-  }
-
-  getNavigationItem(itemIndex) {
-    return browser.element(`(//span[@class='test--navigation-item'])[${itemIndex}]`);
-  }
-
-  getNavigationItemNames() {
-    return map(browser.elements(this.navigationItems.selector).value, ({ getText }) => (getText()));
-  }
-}
-
-
 class CategoryMainPanelSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
       categoryColumns: '.test--category-column',
-      categoryItemChunks: '.test--category-item-chunk',
-      firstCategoryItem: '.test--category-item'
+      firstCategoryItem: '.test--category-item',
     });
   }
 
@@ -38,25 +19,20 @@ class CategoryMainPanelSection extends Section {
     return map(browser.elements('.test--category-header').value, ({ getText }) => (getText()));
   }
 
-  getItemsInChunk(columnIndex, chunkIndex) {
-    // since title is the first child, the first test--category-column is the second child element
-    return browser.elements(`
-      .test--category-column:nth-child(${columnIndex + 1})
-      .test--category-item-chunk:nth-child(${chunkIndex})
-      .test--category-item
+  getCategoryHeader(headerIndex) {
+    return browser.elements(`(//div[contains(@class, 'test--category-header')])[${headerIndex + 1}]`);
+  }
+
+  getItemInColumn(columnIndex, itemIndex) {
+    return browser.elements(`(
+        //div[contains(@class, 'test--category-column')][${columnIndex + 1}]
+        //div[contains(@class, 'term-item test--category-item')]
+      )[${itemIndex + 1}]
     `);
   }
 
-  getItemsCountInChunk(columnIndex, chunkIndex) {
-    return this.getItemsInChunk(columnIndex, chunkIndex).value.length;
-  }
-
-  getCategoryColum(columnIndex) {
-    return browser.element(`.test--category-column:nth-child(${columnIndex})`);
-  }
-
   getCategoryItemSelector(itemIndex) {
-    return `(//div[@class='test--category-item'])[${itemIndex}]`;
+    return `(//div[@class='term-item test--category-item'])[${itemIndex}]`;
   }
 
   getCategoryNameAtItem(itemIndex) {
@@ -78,12 +54,14 @@ class BottomLinksSection extends Section {
   }
 }
 
-class SearchPage extends Page {
+class SearchTermsPage extends Page {
   constructor() {
     super();
-    this.navigationBar = new NavigationBarSection();
     this.categoryMainPanel = new CategoryMainPanelSection();
     this.bottomLinks = new BottomLinksSection();
+    this.prepareElementGetters({
+      input: '.test--search-page-input',
+    });
   }
 
   open() {
@@ -92,4 +70,4 @@ class SearchPage extends Page {
   }
 }
 
-module.exports = new SearchPage();
+module.exports = new SearchTermsPage();

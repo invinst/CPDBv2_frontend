@@ -24,8 +24,9 @@ class CategoryItem extends Component {
     const { item, expanded, hovering, isFocused } = this.props;
 
     return (
-      <div style={ itemStyle(isFocused) } className={ classnames('term-item', { 'focused': isFocused }) }>
-
+      <div
+        style={ itemStyle(isFocused) }
+        className={ classnames('term-item', 'test--category-item', { 'focused': isFocused }) }>
         <div
           onClick={ this.toggleExpanded }
           style={ nameStyle(isFocused, expanded, hovering) }

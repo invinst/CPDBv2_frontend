@@ -10,19 +10,6 @@ describe('Search terms page', function () {
     searchTermsPage.open();
   });
 
-  it('should show search term categories in 13ish columns', function () {
-    searchTermsPage.categoryMainPanel.categoryColumns.count.should.equal(3);
-    searchTermsPage.categoryMainPanel.getColumnNames().should.eql([
-      'GEOGRAPHY', 'OFFICERS', 'COMPLAINANTS'
-    ]);
-    searchTermsPage.categoryMainPanel.categoryItemChunks.count.should.equal(8);
-    searchTermsPage.categoryMainPanel.getItemsCountInChunk(1, 1).should.equal(13);
-    searchTermsPage.categoryMainPanel.getItemsCountInChunk(2, 1).should.equal(13);
-    searchTermsPage.categoryMainPanel.getItemsCountInChunk(2, 5).should.equal(13);
-    searchTermsPage.categoryMainPanel.getItemsCountInChunk(2, 6).should.equal(6);
-    searchTermsPage.categoryMainPanel.getItemsCountInChunk(3, 1).should.equal(12);
-  });
-
   it('should reveal category item description when click on a category item', function () {
     const firstCategoryItem = searchTermsPage.categoryMainPanel.firstCategoryItem;
     firstCategoryItem.getText().should.containEql('Police District');
@@ -56,5 +43,27 @@ describe('Search terms page', function () {
   it('should navigate to Search page when clicking on backToSearchPageLink', function () {
     searchTermsPage.bottomLinks.backToSearchPageLink.click();
     browser.getUrl().should.match(/\/search\/$/);
+  });
+
+  it('should navigates between the result when user press the navigation keys', function () {
+    const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
+    const firstTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 0);
+    const secondTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 1);
+    firstCategoryHeader.getAttribute('class').should.containEql('focused');
+    firstTerm.getAttribute('class').should.not.containEql('focused');
+    secondTerm.getAttribute('class').should.not.containEql('focused');
+
+    browser.keys('ArrowDown');
+    browser.keys('ArrowDown');
+
+    firstCategoryHeader.getAttribute('class').should.not.containEql('focused');
+    firstTerm.getAttribute('class').should.containEql('focused');
+    secondTerm.getAttribute('class').should.not.containEql('focused');
+
+    browser.keys('ArrowDown');
+
+    firstCategoryHeader.getAttribute('class').should.not.containEql('focused');
+    firstTerm.getAttribute('class').should.not.containEql('focused');
+    secondTerm.getAttribute('class').should.containEql('focused');
   });
 });

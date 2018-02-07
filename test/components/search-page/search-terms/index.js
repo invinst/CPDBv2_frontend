@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { spy, stub } from 'sinon';
 import should from 'should';
 import {
