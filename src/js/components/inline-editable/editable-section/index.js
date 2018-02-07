@@ -37,8 +37,6 @@ export default function (SubComponent) {
       }
 
       switch (field.type) {
-        case 'plain_text':
-        case 'multiline_text':
         case 'rich_text':
           return {
             ...field,
@@ -55,8 +53,6 @@ export default function (SubComponent) {
 
     serializeField(field) {
       switch (field.type) {
-        case 'plain_text':
-        case 'multiline_text':
         case 'rich_text':
           return {
             ...field,

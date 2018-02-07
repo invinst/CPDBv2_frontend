@@ -5,13 +5,12 @@ import { stub } from 'sinon';
 
 import {
   contentStateToTextArray, convertContentStateToEditorState, getField, multilineTextValueToArray,
-  plainTextValueToString, createBlock, buildPlainTextField, createEmptyEditorState, hasSelection,
+  plainTextValueToString, createBlock, createEmptyEditorState, hasSelection,
   createFieldWithEmptyEditorState, createEmptyStringField, createEmptyDateField, removeSelection,
   getFieldOrCreateEmptyWithEditorState, linkEntitySelected, createLinkEntity, removeLinkEntity,
   inlineStyleSelected, defocus, getSelectionStartBlockKey
 } from 'utils/draft';
 import { ENTITY_LINK } from 'utils/constants';
-import { PlainTextFieldFactory } from 'utils/test/factories/field';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import defaultDecorator from 'decorators';
 
@@ -90,14 +89,6 @@ describe('Draft utils', function () {
         type: 'unstyled',
         text: 'abc'
       });
-    });
-  });
-
-  describe('buildPlainTextField', function () {
-    it('should return plain text field', function () {
-      buildPlainTextField('title', 'hi').should.eql(
-        PlainTextFieldFactory.build({ name: 'title' }, { blockTexts: ['hi'] })
-      );
     });
   });
 

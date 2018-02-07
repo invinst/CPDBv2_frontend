@@ -36,15 +36,6 @@ export const createBlock = (text='') => ({
   text
 });
 
-export const buildPlainTextField = (name, text) => ({
-  name,
-  type: 'plain_text',
-  value: {
-    blocks: [createBlock(text)],
-    entityMap: {}
-  }
-});
-
 export const createEmptyEditorState = () => ({
   blocks: [createBlock()],
   entityMap: {}
