@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
 import ComplaintSummaryCard from './complaint-summary-card';
 import Carousel from 'components/common/carousel';
-import _ from 'lodash';
+import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
 
-// import Carousel from 'components/common/carousel';
-// import OfficerCard from 'components/landing-page/activity-grid/officer-card';
 
 export default class ComplaintSummaries extends Component {
-
-  componentDidMount() {
-
-  }
-
   render() {
+    // TODO: will embed reading data when complaint summary is ready
+    const cards = ComplaintSummaryFactory.buildList(20);
 
-    const dummyDocuments = _.range(6).map((idx) => {
+    const dummyDocuments = cards.map((card, idx) => {
       return (
-        <ComplaintSummaryCard key={ idx }/>
+        <ComplaintSummaryCard
+          key={ idx }
+          { ...card }
+        />
       );
     });
 

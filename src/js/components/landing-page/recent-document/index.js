@@ -46,6 +46,6 @@ export default class RecentDocument extends Component {
 }
 
 RecentDocument.propTypes = {
-  cards: PropTypes.object,
+  cards: PropTypes.array,
   getRecentDocument: PropTypes.func
 };

@@ -1,43 +1,42 @@
-import { whiteTwoColor, clayGray, softBlackColor } from 'utils/styles';
+import { whiteTwoColor, clayGray, softBlackColor, accentColor } from 'utils/styles';
 
-
-export const complaintSummaryCardStyle = {
+export const complaintSummaryCardStyle = (hovering) => ({
   width: '232px',
   height: '266px',
   borderRadius: '2px',
   padding: '11px 16px',
   boxSizing: 'border-box',
-  border: `solid 1px ${whiteTwoColor}`,
-};
+  border: `solid 1px ${hovering ? accentColor : whiteTwoColor}`
+});
 
 export const titleWrapperStyle = {
   height: '61px',
 };
 
-export const dateStyle = {
+export const dateStyle = (hovering) => ({
   height: '14px',
   fontSize: '12px',
   lineHeight: 1.17,
   textAlign: 'left',
-  color: clayGray,
-};
+  color: hovering ? accentColor : clayGray,
+});
 
-export const categoryStyle = {
+export const categoryStyle = hovering => ({
   fontSize: '14px',
   fontWeight: 500,
   textAlign: 'left',
   marginTop: '2px',
-  color: softBlackColor,
-};
+  color: hovering ? accentColor : softBlackColor
+});
 
-export const summaryWrapperStyle = {
+export const summaryWrapperStyle = (hovering) => ({
   boxSizing: 'border-box',
   paddingTop: '11px',
-  borderTop: `solid 2px ${whiteTwoColor}`
-};
+  borderTop: `solid 2px ${hovering ? accentColor : whiteTwoColor}`
+});
 
-export const contentStyle = {
+export const contentStyle = (hovering) => ({
   fontSize: '14px',
   textAlign: 'left',
-  color: 'rgb(102,102,102)' // text-shadow not supported spread-distance
-};
+  color: hovering ? accentColor : clayGray
+});

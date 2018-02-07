@@ -36,6 +36,10 @@ describe('store', function () {
           cards: [],
           isRequesting: false
         },
+        recentDocument: {
+          cards: [],
+          isRequesting: false
+        },
         heatMap: {
           citySummary: {},
           communities: null

@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
+import moment from 'moment';
+import Hoverable from 'components/common/higher-order/hoverable';
 import {
   complaintSummaryCardStyle,
   categoryStyle,
@@ -8,24 +11,37 @@ import {
   titleWrapperStyle
 } from './complaint-summary-card.style';
 
-
-export default class ComplaintSummaryCard extends React.Component {
+class ComplaintSummaryCard extends React.Component {
   render() {
+    const { hovering, summary, closedDate, category, crid } = this.props;
     return (
-      <div style={ complaintSummaryCardStyle }>
-        <div style={ titleWrapperStyle }>
-          <div style={ dateStyle }>13 Jun 2017</div>
-          <div style={ categoryStyle }>Use of Force</div>
-        </div>
-
-        <div style={ summaryWrapperStyle }>
-          <div style={ contentStyle }>
-            In an incident involving an off-duty CPD Officer/father and the Complainant/daughter, it was alleged that
-            the Officer/father slapped the Complainant/daughter about the
-            face.
+      <div style={ complaintSummaryCardStyle(hovering) }>
+        <Link
+          style={ { textDecoration: 'none' } }
+          to={ `/complaint/${crid}/` }
+          className='test--complaint-summary-card'
+        >
+          <div style={ titleWrapperStyle }>
+            <div style={ dateStyle(hovering) }>{ moment(closedDate).format('ll') }</div>
+            <div style={ categoryStyle(hovering) }>{ category }</div>
           </div>
-        </div>
+          <div style={ summaryWrapperStyle(hovering) }>
+            <div style={ contentStyle(hovering) }>
+              { summary }
+            </div>
+          </div>
+        </Link>
       </div>
     );
   }
 }
+
+ComplaintSummaryCard.propTypes = {
+  crid: PropTypes.string,
+  summary: PropTypes.string,
+  closedDate: PropTypes.instanceOf(Date),
+  category: PropTypes.string,
+  hovering: PropTypes.bool
+};
+
+export default Hoverable(ComplaintSummaryCard);
