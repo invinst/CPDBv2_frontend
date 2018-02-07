@@ -1,8 +1,6 @@
 import _ from 'lodash';
 
-import {
-  nodesSelector, linksSelector, legendSelector
-} from 'selectors/officer-page/social-graph';
+import { legendSelector, linksSelector, nodesSelector } from 'selectors/officer-page/social-graph';
 
 
 describe('Officer social graph selectors', function () {

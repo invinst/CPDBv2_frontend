@@ -18,6 +18,7 @@ import * as domUtils from 'utils/dom';
 import { NavigationItem } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
 import { MORE_BUTTON } from 'utils/constants';
+import SearchBox from 'components/search-page/search-box';
 
 
 describe('SearchPage component', function () {
@@ -28,6 +29,7 @@ describe('SearchPage component', function () {
       navigation: {},
       searchTerms: {
         categories: [],
+        hidden: true,
         navigation: {
           itemIndex: 0,
         }
@@ -303,5 +305,22 @@ describe('SearchPage component', function () {
     const tagElements = scryRenderedDOMComponentsWithTag(suggestionTagsElement, 'span');
     Simulate.click(tagElements[0]);
     getSuggestion.calledWith('c').should.be.true();
+  });
+
+  it('should pass resetSearchResultNavigation action into Search Box when Search Term is hidden', function () {
+    const resetSearchResultNavigation = stub();
+    const resetSearchTermNavigation = stub();
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage
+          resetSearchResultNavigation={ resetSearchResultNavigation }
+          resetSearchTermNavigation={ resetSearchTermNavigation }
+        />
+      </Provider>
+    );
+
+    const searchBox = findRenderedComponentWithType(instance, SearchBox);
+    searchBox.props.resetNavigation.should.eql(resetSearchResultNavigation);
   });
 });

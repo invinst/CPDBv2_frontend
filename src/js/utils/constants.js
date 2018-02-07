@@ -90,7 +90,7 @@ export const CR_URL = `${V2_ROOT_PATH}cr/`;
 export const UNIT_PROFILE_URL = `${V2_ROOT_PATH}units/`;
 export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
 export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
-export const SEARCH_TERM_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categories/`;
+export const SEARCH_TERMS_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categories/`;
 export const CITY_SUMMARY_API_URL = `${V2_ROOT_PATH}city-summary/`;
 
 export const DragTypes = {

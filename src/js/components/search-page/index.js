@@ -32,6 +32,9 @@ export default class SearchPage extends Component {
 
     this.getSuggestion = debounce(this.props.getSuggestion, 100);
     this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
+
+    const { resetSearchResultNavigation, resetSearchTermNavigation, searchTermsHidden } = props;
+    this.resetNavigation = searchTermsHidden ? resetSearchResultNavigation : resetSearchTermNavigation;
   }
 
   componentDidMount() {
@@ -101,7 +104,7 @@ export default class SearchPage extends Component {
   }
 
   handleSelect(newContentType) {
-    const { contentType, query, selectTag, resetNavigation } = this.props;
+    const { contentType, query, selectTag } = this.props;
 
     if (newContentType === RECENT_CONTENT_TYPE) {
       return;
@@ -112,7 +115,7 @@ export default class SearchPage extends Component {
       selectTag(newContentType);
       this.getSuggestionWithContentType(this.props.query, { contentType: newContentType });
     }
-    resetNavigation();
+    this.resetNavigation();
   }
 
   handleSearchBoxEnter(e) {
@@ -143,11 +146,9 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
-      editModeOn, officerCards, requestActivityGrid, resetSearchResultNavigation,
-      children, changeSearchQuery, focusedItem, resetSearchTermNavigation
+      editModeOn, officerCards, requestActivityGrid,
+      children, changeSearchQuery, focusedItem
     } = this.props;
-
-    const resetNavigation = searchTermsHidden ? resetSearchResultNavigation : resetSearchTermNavigation;
 
     return (
       <div
@@ -162,7 +163,7 @@ export default class SearchPage extends Component {
             searchTermsHidden={ searchTermsHidden }
             changeSearchQuery={ changeSearchQuery }
             focused={ focusedItem.uniqueKey === SEARCH_BOX }
-            resetNavigation={ resetNavigation }
+            resetNavigation={ this.resetNavigation }
           />
           <HoverableButton
             style={ cancelButtonStyle(searchTermsHidden) }
@@ -212,7 +213,6 @@ SearchPage.propTypes = {
   query: PropTypes.string,
   changeSearchQuery: PropTypes.func,
   children: PropTypes.node,
-  resetNavigation: PropTypes.func,
   editModeOn: PropTypes.bool,
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
@@ -232,7 +232,6 @@ SearchPage.defaultProps = {
   getSuggestion: () => new Promise(() => {}),
   getSuggestionWithContentType: () => new Promise(() => {}),
   trackRecentSuggestion: () => {},
-  resetNavigation: () => {},
   router: {
     goBack: () => {}
   },
@@ -243,4 +242,6 @@ SearchPage.defaultProps = {
   searchTermsHidden: true,
   selectTag: (...args) => {},
   pushBreadcrumbs: (...args) => {},
+  resetSearchResultNavigation: () => {},
+  resetSearchTermNavigation: () => {},
 };

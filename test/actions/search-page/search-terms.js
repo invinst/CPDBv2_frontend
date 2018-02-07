@@ -1,9 +1,12 @@
-import { requestSearchTermCategories } from 'actions/search-page/search-terms';
+import { requestSearchTermCategories, move, resetNavigation } from 'actions/search-page/search-terms';
 import {
   SEARCH_TERMS_CATEGORIES_REQUEST_START,
   SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
   SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE,
-  SEARCH_TERM_CATEGORIES_API_URL,
+  SEARCH_TERMS_CATEGORIES_API_URL,
+  SEARCH_TERMS_NAVIGATION_UP,
+  SEARCH_TERMS_NAVIGATION_DOWN,
+  SEARCH_TERMS_NAVIGATION_RESET,
 } from 'utils/constants';
 
 
@@ -18,11 +21,40 @@ describe('search terms actions', function () {
         ],
         payload: {
           request: {
-            url: SEARCH_TERM_CATEGORIES_API_URL,
+            url: SEARCH_TERMS_CATEGORIES_API_URL,
             params: undefined,
             adapter: null
           }
         }
+      });
+    });
+  });
+
+  describe('move', function () {
+    it('should return SEARCH_NAVIGATION_UP', function () {
+      move('up', 2).should.deepEqual({
+        type: SEARCH_TERMS_NAVIGATION_UP,
+        payload: {
+          totalItemCount: 2
+        }
+      });
+    });
+
+    it('should return SEARCH_NAVIGATION_DOWN', function () {
+      move('down', 2).should.deepEqual({
+        type: SEARCH_TERMS_NAVIGATION_DOWN,
+        payload: {
+          totalItemCount: 2
+        }
+      });
+    });
+  });
+
+  describe('resetNavigation', function () {
+    it('should return SEARCH_TERMS_NAVIGATION_RESET', function () {
+      resetNavigation().should.deepEqual({
+        type: SEARCH_TERMS_NAVIGATION_RESET,
+        payload: undefined
       });
     });
   });

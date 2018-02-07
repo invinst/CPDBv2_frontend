@@ -3,14 +3,10 @@ import { concat, flatten, map } from 'lodash';
 
 import { navigationItemTransform } from './transforms';
 import * as constants from 'utils/constants';
-import { searchTermsSelector, categoriesSelector } from './index';
+import { categoriesSelector } from './index';
 
 
 const getSearchTermsNavigationIndex = state => state.searchPage.searchTerms.navigation.itemIndex;
-
-export const navigationItemsSelector = createSelector(
-  searchTermsSelector, searchTerms => map(searchTerms.categories, 'name')
-);
 
 const flattenItems = createSelector(
   categoriesSelector,

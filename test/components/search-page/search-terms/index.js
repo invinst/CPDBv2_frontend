@@ -1,11 +1,12 @@
 import React from 'react';
-import { spy } from 'sinon';
+import ReactDOM from 'react-dom';
+import { spy, stub } from 'sinon';
 import should from 'should';
 import {
   renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
 } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { reRender, unmountComponentSuppressError } from 'utils/test';
 import SearchTerms from 'components/search-page/search-terms';
 import { SearchTermCategory } from 'utils/test/factories/search-terms';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
@@ -14,6 +15,7 @@ import {
   minimumStyle
 } from 'components/search-page/search-terms/search-terms.style';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import * as domUtils from 'utils/dom';
 
 
 describe('SearchTerms component', function () {
@@ -65,5 +67,24 @@ describe('SearchTerms component', function () {
     responsiveComponent.props.maximumStyle.should.eql(maximumStyle);
     responsiveComponent.props.minWidthThreshold.should.eql(700);
     responsiveComponent.props.maxWidthThreshold.should.eql(1440);
+  });
+
+  describe('after keyboard navigation', function () {
+    beforeEach(function () {
+      this.scrollToElementStub = stub(domUtils, 'scrollToElement');
+    });
+
+    afterEach(function () {
+      this.scrollToElementStub.restore();
+    });
+
+    it('should scroll to focused item', function () {
+      instance = renderIntoDocument(<SearchTerms focusedItem={ { uniqueKey: null } }/>);
+      instance = reRender(<SearchTerms focusedItem={ { uniqueKey: 'OFFICER-RACE' } }/>, instance);
+
+      this.scrollToElementStub.calledWith(
+        '.term-item.focused', { behavior: 'instant', block: 'center' }
+      ).should.be.true();
+    });
   });
 });

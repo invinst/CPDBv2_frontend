@@ -3,8 +3,6 @@ import {
   categoriesSelector,
 } from 'selectors/search-page/search-terms';
 
-import { navigationItemsSelector } from 'selectors/search-page/search-terms/navigation';
-
 describe('search terms selectors', function () {
   const state = {
     searchPage: {
@@ -21,12 +19,6 @@ describe('search terms selectors', function () {
   describe('hiddenSelector', function () {
     it('should return hidden state', function () {
       hiddenSelector(state).should.be.false();
-    });
-  });
-
-  describe('navigationItemsSelector', function () {
-    it('should return navigation items', function () {
-      navigationItemsSelector(state).should.eql(['abc']);
     });
   });
 
