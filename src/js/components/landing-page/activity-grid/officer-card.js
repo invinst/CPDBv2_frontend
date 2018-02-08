@@ -3,14 +3,16 @@ import { Link } from 'react-router';
 
 import OfficerVisualToken from 'components/visual-token/officer-visual-token';
 import { wrapperStyle, lightTextStyle, boldTextStyle, visualTokenStyle } from './officer-card.style.js';
-import { CURRENT_YEAR } from 'utils/constants';
+import { getThisYear } from 'utils/date';
 import {
   extraInfoStyle, noBorderSectionStyle,
   sectionStyle, sustainedStyle
 } from 'components/landing-page/activity-grid/officer-card.style';
+import { pluralize } from 'utils/language';
+import Hoverable from 'components/common/higher-order/hoverable';
 
 
-export default class OfficerCard extends Component {
+export class OfficerCard extends Component {
   render() {
     const {
       officerId,
@@ -18,20 +20,21 @@ export default class OfficerCard extends Component {
       visualTokenBackgroundColor,
       complaintCount,
       sustainedCount,
-      complaintRate,
       birthYear,
+      complaintPercentile,
       race,
       gender,
       cardStyle,
+      hovering,
     } = this.props;
 
     const complaintString = () => {
-      const complaint = `${complaintCount} Complaint${complaintCount !== 1 ? 's' : ''}`;
+      const complaint = `${complaintCount} ${pluralize('Complaint', complaintCount)}`;
       const sustained = `${sustainedCount} Sustained`;
       if (sustainedCount) {
         return (
           <span>
-            <span>{ complaint }</span>, <span style={ sustainedStyle }>{ sustained }</span>
+            <span>{ complaint }</span>, <span style={ sustainedStyle(hovering) }>{ sustained }</span>
           </span>
         );
       }
@@ -44,19 +47,29 @@ export default class OfficerCard extends Component {
       if (!birthYear) {
         return '';
       }
-      const age = CURRENT_YEAR - birthYear;
-      return `${age - 1}/${age} years old, `;
+      const age = getThisYear() - birthYear - 1;
+      return `${age} year old`;
     };
 
     const extraInfo = () => {
-      return `${ageString()}${race}, ${gender}.`;
+      return `${ageString()} ${race} ${gender}`;
+    };
+
+    const complaintPercentileString = (hovering) => {
+      if (complaintPercentile) {
+        const complaintFormat = parseFloat(Math.floor(complaintPercentile));
+        return (
+          <p style={ lightTextStyle(hovering) }>More than { complaintFormat }% of other officers</p>
+        );
+      }
+      return '';
     };
 
     return (
       <Link
         to={ `/officer/${officerId}/` }
-        style={ { ...wrapperStyle, ...cardStyle } }
-        className='test--activity-grid-section-card'
+        style={ { ...wrapperStyle(hovering), ...cardStyle } }
+        className='test--officer-card'
       >
         <OfficerVisualToken
           style={ { ...visualTokenStyle, ...this.props.visualTokenStyle } }
@@ -65,15 +78,15 @@ export default class OfficerCard extends Component {
         />
         <div>
           <div style={ sectionStyle }>
-            <p style={ lightTextStyle }>Officer</p>
-            <p style={ boldTextStyle }>{ fullName }</p>
+            <p style={ lightTextStyle(hovering) }>Officer</p>
+            <p style={ boldTextStyle(hovering) }>{ fullName }</p>
           </div>
           <div style={ sectionStyle }>
-            <p style={ boldTextStyle }>{ complaintString() }</p>
-            <p style={ lightTextStyle }>Less than { complaintRate }% of other officers</p>
+            <p style={ boldTextStyle(hovering) }>{ complaintString() }</p>
+            { complaintPercentileString(hovering) }
           </div>
           <div style={ noBorderSectionStyle }>
-            <p style={ extraInfoStyle }>{ extraInfo() }</p>
+            <p style={ extraInfoStyle(hovering) }>{ extraInfo() }</p>
           </div>
         </div>
       </Link>
@@ -89,8 +102,11 @@ OfficerCard.propTypes = {
   visualTokenStyle: PropTypes.object,
   complaintCount: PropTypes.number,
   sustainedCount: PropTypes.number,
-  complaintRate: PropTypes.number,
+  complaintPercentile: PropTypes.number,
   birthYear: PropTypes.number,
   race: PropTypes.string,
   gender: PropTypes.string,
+  hovering: PropTypes.bool,
 };
+
+export default Hoverable(OfficerCard);

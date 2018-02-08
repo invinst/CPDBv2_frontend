@@ -4,12 +4,13 @@ import { greyishColor } from 'utils/styles';
 
 import SliderHandle from './handle';
 import { wrapperStyle } from './slider.style';
+import { getThisYear } from 'utils/date';
 
 
 export default class Slider extends Component {
   render() {
     const { value, onChange } = this.props;
-    const currentYear = new Date().getYear() + 1900;
+    const currentYear = getThisYear();
     return (
       <div style={ wrapperStyle } className='test--social-graph-slider'>
         <Range

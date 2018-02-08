@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { head, isEmpty } from 'lodash';
+import { debounce, head, isEmpty } from 'lodash';
+import { Promise } from 'es6-promise';
 
 import SearchBox from './search-box';
 import {
-  backButtonStyle,
+  cancelButtonStyle,
   searchBoxStyle,
   searchContentWrapperStyle
 } from './search-page.style.js';
@@ -12,7 +13,10 @@ import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
-import { NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
+import HoverableButton from 'components/common/hoverable-button';
+import { MORE_BUTTON, NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX } from 'utils/constants';
+import * as constants from 'utils/constants';
+
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
 
@@ -21,30 +25,41 @@ export default class SearchPage extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleGoBack = this.handleGoBack.bind(this);
-    this.handleEnter = this.handleEnter.bind(this);
+    this.handleSearchBoxEnter = this.handleSearchBoxEnter.bind(this);
     this.handleViewItem = this.handleViewItem.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+
+    this.getSuggestion = debounce(this.props.getSuggestion, 100);
+    this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
   }
 
   componentDidMount() {
-    const { move, query } = this.props;
+    const { move, query, location, params, routes, pushBreadcrumbs } = this.props;
+    pushBreadcrumbs({ location, params, routes });
+
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
-      () => move(direction, this.props.suggestionColumns)
+      (event) => {
+        event.preventDefault && event.preventDefault();
+        move(direction, this.props.totalItemCount);
+      }
     )));
     LayeredKeyBinding.bind('enter', this.handleViewItem);
 
     if (query && query.length >= 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);
     }
+
   }
 
   componentWillReceiveProps(nextProps) {
     // Make sure keyboard-focused item is kept within viewport:
-    const oldPosition = this.props.navigation;
-    const newPosition = nextProps.navigation;
-    if (oldPosition !== newPosition) {
-      scrollToElement(`#suggestion-item-${newPosition.columnIndex}-${newPosition.itemIndex}`);
+    if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
+      scrollToElement(
+        `.suggestion-item-${nextProps.focusedItem.uniqueKey}`,
+        { block: 'nearest', inline: 'nearest' }
+      );
     }
   }
 
@@ -55,8 +70,11 @@ export default class SearchPage extends Component {
   }
 
   handleViewItem() {
-    const { to, url } = this.props.focusedSuggestion.payload;
-    if (to) {
+    const { to, url, type, id } = this.props.focusedItem;
+
+    if (type === MORE_BUTTON) {
+      this.handleSelect(id);
+    } else if (to) {
       browserHistory.push(to);
     } else {
       window.location.assign(url);
@@ -69,7 +87,11 @@ export default class SearchPage extends Component {
     changeSearchQuery(query);
 
     if (query) {
-      this.props.getSuggestion(query, { contentType, limit });
+      if (contentType) {
+        this.props.getSuggestionWithContentType(query, { contentType }).catch(() => {});
+      } else {
+        this.props.getSuggestion(query, { contentType, limit }).catch(() => {});
+      }
     } else {
       this.props.selectTag(null);
     }
@@ -85,22 +107,35 @@ export default class SearchPage extends Component {
     browserHistory.push(ROOT_PATH);
   }
 
-  handleEnter(e) {
-    const { suggestionGroups, trackRecentSuggestion, query } = this.props;
+  handleSelect(newContentType) {
+    const { contentType, query, selectTag, resetNavigation } = this.props;
 
+    if (newContentType === constants.RECENT_CONTENT_TYPE) {
+      return;
+    } else if (newContentType === contentType) {
+      selectTag(null);
+      this.getSuggestion(query, { limit: 9 });
+    } else {
+      selectTag(newContentType);
+      this.getSuggestionWithContentType(this.props.query, { contentType: newContentType });
+    }
+    resetNavigation();
+  }
+
+  handleSearchBoxEnter(e) {
+    const { suggestionGroups, trackRecentSuggestion, query } = this.props;
     let url, to;
 
     if (suggestionGroups.length === 0) {
       url = dataToolSearchUrl(query);
-
     } else {
       const firstGroup = head(suggestionGroups);
-      const firstRecord = head(head(firstGroup.columns));
+      const firstRecord = head(firstGroup.items);
       const contentType = firstGroup.header;
 
-      const text = firstRecord.payload['result_text'];
-      url = firstRecord.payload.url;
-      to = firstRecord.payload.to;
+      const text = firstRecord.text;
+      url = firstRecord.url;
+      to = firstRecord.to;
       trackRecentSuggestion(contentType, text, url, to);
     }
 
@@ -115,7 +150,8 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
-      editModeOn, officerCards, requestActivityGrid, resetNavigation, getSuggestion, children
+      editModeOn, officerCards, requestActivityGrid, resetNavigation,
+      children, changeSearchQuery, focusedItem
     } = this.props;
 
     return (
@@ -126,15 +162,19 @@ export default class SearchPage extends Component {
           <SearchBox
             onEscape={ this.handleGoBack }
             onChange={ this.handleChange }
-            onEnter={ this.handleEnter }
+            onEnter={ this.handleSearchBoxEnter }
             value={ query }
-            searchTermsHidden={ searchTermsHidden }/>
-          <span
+            searchTermsHidden={ searchTermsHidden }
+            changeSearchQuery={ changeSearchQuery }
+            focused={ focusedItem.uniqueKey === SEARCH_BOX }
+            resetNavigation={ resetNavigation }
+          />
+          <HoverableButton
+            style={ cancelButtonStyle(searchTermsHidden) }
             onClick={ this.handleGoBack }
-            className='searchbar__button--back'
-            style={ backButtonStyle }>
+            className='searchbar__button--back'>
             Cancel
-          </span>
+          </HoverableButton>
         </div>
         <div>
           {
@@ -150,8 +190,7 @@ export default class SearchPage extends Component {
                 officerCards={ officerCards }
                 requestActivityGrid={ requestActivityGrid }
                 searchTermsHidden={ searchTermsHidden }
-                resetNavigation={ resetNavigation }
-                getSuggestion={ getSuggestion }
+                handleSelect={ this.handleSelect }
               />
           }
         </div>
@@ -165,14 +204,13 @@ SearchPage.propTypes = {
     pathname: PropTypes.string
   }),
   move: PropTypes.func,
-  suggestionColumns: PropTypes.array,
-  navigation: PropTypes.object,
-  focusedSuggestion: PropTypes.object,
+  totalItemCount: PropTypes.number,
+  focusedItem: PropTypes.object,
   suggestionGroups: PropTypes.array,
   tags: PropTypes.array,
   recentSuggestions: PropTypes.array,
-  isRequesting: PropTypes.bool,
   getSuggestion: PropTypes.func,
+  getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
   trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
@@ -185,14 +223,19 @@ SearchPage.propTypes = {
   editModeOn: PropTypes.bool,
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
-  searchTermsHidden: PropTypes.bool
+  searchTermsHidden: PropTypes.bool,
+  params: PropTypes.object,
+  routes: PropTypes.array,
+  pushBreadcrumbs: PropTypes.func
 };
 
+/* istanbul ignore next */
 SearchPage.defaultProps = {
   suggestionGroups: [],
   contentType: null,
-  isRequesting: false,
-  getSuggestion: () => {},
+  focusedItem: {},
+  getSuggestion: () => new Promise(() => {}),
+  getSuggestionWithContentType: () => new Promise(() => {}),
   trackRecentSuggestion: () => {},
   resetNavigation: () => {},
   router: {
@@ -202,5 +245,7 @@ SearchPage.defaultProps = {
   location: {
     pathname: '/'
   },
-  searchTermsHidden: true
+  searchTermsHidden: true,
+  selectTag: (...args) => {},
+  pushBreadcrumbs: (...args) => {},
 };

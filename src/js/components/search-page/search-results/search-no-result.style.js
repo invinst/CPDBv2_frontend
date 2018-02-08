@@ -14,6 +14,7 @@ export const groupHeaderStyle = {
 export const suggestionGroupStyle = {
   display: 'inline-block',
   verticalAlign: 'top',
+  paddingLeft: '16px'
 };
 
 export const noResultItemStyle = {

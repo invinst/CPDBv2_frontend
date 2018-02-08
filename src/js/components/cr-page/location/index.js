@@ -13,7 +13,7 @@ export default class Location extends Component {
     const { point, address, location, beat } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
+      <div style={ wrapperStyle } className='cr-page-location-section'>
         <BlockTitle>LOCATION</BlockTitle>
         {
           point ? <CRLocationMap lng={ point.long } lat={ point.lat }/> : null

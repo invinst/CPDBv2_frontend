@@ -1,4 +1,4 @@
-import { nickelColor } from 'utils/styles';
+import { clayGray } from 'utils/styles';
 
 
 export const sectionStyle = {
@@ -14,15 +14,10 @@ export const wrapperStyle = {
 
 export const linkStyle = {
   display: 'inline-block',
-  marginLeft: '50px',
+  marginRight: '24px',
   fontWeight: '300',
-  color: nickelColor
-};
-
-export const firstLinkStyle = {
-  display: 'inline-block',
-  fontWeight: '300',
-  color: nickelColor
+  color: clayGray,
+  fontSize: '14px'
 };
 
 export const linkWrapperStyle = {
@@ -32,4 +27,9 @@ export const linkWrapperStyle = {
 
 export const responsiveFixedWidthInnerStyle = {
   padding: '0 16px'
+};
+
+export const invistStyle = {
+  float: 'right',
+  height: '23px'
 };

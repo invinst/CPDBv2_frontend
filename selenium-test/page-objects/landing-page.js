@@ -2,7 +2,8 @@
 
 import Page from './page';
 import Section from './sections/section';
-import Header from './sections/header';
+import { TopHeader, StickyHeader } from './sections/header';
+import Footer from './sections/footer';
 import RichTextToolbar from './sections/rich-text-toolbar';
 import BottomSheet from './sections/bottom-sheet';
 
@@ -19,11 +20,24 @@ class CollaborateSection extends Section {
   }
 }
 
-class ActivityGridSection extends Section {
+class RecentActivityCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      cards: '//a[@class="test--activity-grid-section-card"]'
+      leftArrow: '//div[@class="test--recent-activity"]//div[@class="test--carousel--arrow--left"]',
+      rightArrow: '//div[@class="test--recent-activity"]//div[@class="test--carousel--arrow--right"]',
+      cards: '//div[@class="test--recent-activity"]//a[@class="test--officer-card"]'
+    });
+  }
+}
+
+class OfficersByAllegationCarouselSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      leftArrow: '//div[@class="test--officers-by-allegation"]//div[@class="test--carousel--arrow--left"]',
+      rightArrow: '//div[@class="test--officers-by-allegation"]//div[@class="test--carousel--arrow--right"]',
+      cards: '//div[@class="test--officers-by-allegation"]//a[@class="test--officer-card"]'
     });
   }
 }
@@ -38,13 +52,70 @@ class GenericModalSection extends Section {
   }
 }
 
+class CitySummary extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      allegationDiscipline: '.test--allegation-discipline-count',
+      mostCommonComplaints: '.test--most-common-complaints'
+    });
+  }
+
+  tapBottom() {
+    browser.moveToObject('.test--city-summary', 100, 370);
+    browser.buttonPress();
+  }
+}
+
+class CommunityDetail extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      closeBtn: '.test--community-close-btn',
+      allegationDiscipline: '.test--community-allegation-discipline',
+      v1Link: '.test--community-v1-link',
+      officers: '.test--community-officers'
+    });
+  }
+}
+
+class Dropdown extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      dropdownUpArrow: '.test--dropdown-up-arrow',
+      textInput: '.test--dropdown-text-input',
+      dropdownItems: '.test--dropdown-item'
+    });
+  }
+}
+
+class HeatMapSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      dropdownPlaceholder: '.test--dropdown-placeholder',
+      complaintCategory: '.test--complaint-category',
+      searchTermsLink: '.test--dropdown-search-terms'
+    });
+  }
+
+  citySummary = new CitySummary();
+  communityDetail = new CommunityDetail();
+  dropdown = new Dropdown();
+}
+
 class LandingPage extends Page {
-  header = new Header();
+  topHeader = new TopHeader();
+  stickyHeader = new StickyHeader();
+  footer = new Footer();
   richTextToolbar = new RichTextToolbar();
   bottomSheet = new BottomSheet();
   collaborateSection = new CollaborateSection();
-  activityGridSection = new ActivityGridSection();
+  recentActivityCarousel = new RecentActivityCarouselSection()
+  officersByAllegationCarousel = new OfficersByAllegationCarouselSection()
   genericModalSection = new GenericModalSection();
+  heatMapSection = new HeatMapSection();
 
   open() {
     super.open('/');

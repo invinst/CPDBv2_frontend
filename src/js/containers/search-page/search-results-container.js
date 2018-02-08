@@ -5,11 +5,21 @@ import SearchResults from 'components/search-page/search-results';
 import {
   getSuggestion,
   trackRecentSuggestion,
-  resetNavigation
+  resetNavigation,
+  getSuggestionWithContentType
 } from 'actions/search-page';
+import { setAliasAdminPageContent } from 'actions/inline-alias-admin-page';
 import {
-  chunkedSuggestionGroupsSelector, isEmptySelector, focusedSuggestionSelector
-} from 'selectors/search-page';
+  isEmptySelector,
+  searchResultGroupsSelector,
+  hasMoreSelector,
+  nextParamsSelector
+} from 'selectors/search-page/search-results';
+import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
+import {
+  previewPaneInfoSelector,
+  focusedItemSelector
+} from 'selectors/search-page/navigation';
 
 
 function mapStateToProps(state, ownProps) {
@@ -22,18 +32,24 @@ function mapStateToProps(state, ownProps) {
     aliasEditModeOn,
     isEmpty: isEmptySelector(state),
     searchText: query,
-    focusedSuggestion: focusedSuggestionSelector(state),
     contentType,
     editModeOn,
-    suggestionGroups: chunkedSuggestionGroupsSelector(state),
+    suggestionGroups: searchResultGroupsSelector(state),
     isRequesting,
+    previewPaneInfo: previewPaneInfoSelector(state),
+    focusedItem: focusedItemSelector(state),
+    hasMore: hasMoreSelector(state),
+    nextParams: nextParamsSelector(state),
+    singleContent: isShowingSingleContentTypeSelector(state)
   };
 }
 
 const mapDispatchToProps = {
   getSuggestion,
   resetNavigation,
+  setAliasAdminPageContent,
   suggestionClick: trackRecentSuggestion,
+  getSuggestionWithContentType
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

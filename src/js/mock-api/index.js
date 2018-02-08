@@ -2,13 +2,13 @@ import axiosMockClient, { countRequests } from 'utils/axios-mock-client';
 import {
   SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL, ACTIVITY_GRID_API_URL,
   REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL, UNIT_PROFILE_URL,
-  SEARCH_TERM_CATEGORIES_API_URL
+  SEARCH_TERM_CATEGORIES_API_URL, OFFICERS_BY_ALLEGATION_API_URL, CITY_SUMMARY_API_URL
 } from 'utils/constants';
 
 import OfficerFactory from 'utils/test/factories/officer';
 import reportingPageGetData from './reporting-page/get-data';
 import FAQPageGetData from './faq-page/get-data';
-import suggestionGetData from './landing-page/suggestions';
+import { groupedSuggestions, singleGroupSuggestions } from './landing-page/suggestions';
 import getSummaryData from './officer-page/get-summary';
 import getMinimapData, { filterMinimapItem } from './officer-page/get-minimap';
 import getSocialGraphData from './officer-page/get-social-graph';
@@ -22,15 +22,19 @@ import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import getActivityGridData from './landing-page/activity-grid';
 import getSearchTermsData from './search-terms-page';
+import { getCitySummary, getCommunities } from './landing-page/heat-map';
+import { communityGeoJSONPath } from 'utils/static-assets';
 
 
-const SEARCH_API_URL = /^suggestion\/([^/]*)\//;
+const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
+const SEARCH_SINGLE_API_URL = /^suggestion\/([^/]*)\/single\/$/;
 /* istanbul ignore next */
 axiosMockClient.onGet(REPORTS_API_URL).reply(() => [200, reportingPageGetData()]);
 /* istanbul ignore next */
 axiosMockClient.onGet(new RegExp(`${FAQS_API_URL}\?.+`)).reply(() => [200, FAQPageGetData()]);
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
+axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getActivityGridData(48)]);
 
 axiosMockClient.onPost(SIGNIN_URL, { username: 'username', password: 'password' })
   .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
@@ -45,7 +49,7 @@ axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'invalid@email.com' })
 axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'valid@email.com' })
   .reply(200, { 'message': 'Thanks for subscribing.', crid: 2 });
 axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'invalid@email.com' })
-  .reply(400, { 'error': 'Sorry, we can not subscribe your email' });
+  .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
 
 
 // remove "/" from beginning of any v1 path for axios mock adapter to work.
@@ -56,9 +60,16 @@ axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
     'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false
   });
 
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER' } }).reply(() => {
+  return [200, singleGroupSuggestions.default];
+});
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER', offset: '20' } }).reply(() => {
+  return [200, singleGroupSuggestions.offset20];
+});
+
 axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
   const matchs = SEARCH_API_URL.exec(config.url);
-  return [200, suggestionGetData[config.params.contentType || matchs[1]] || suggestionGetData['default']];
+  return [200, groupedSuggestions[config.params.contentType || matchs[1]] || groupedSuggestions['default']];
 });
 
 axiosMockClient.onGet(`${SEARCH_OFFICER_URL}foo/`).reply(() => [200, OfficerFactory.buildList(3)]);
@@ -101,6 +112,9 @@ axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-items/`)
 axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());
 
 axiosMockClient.onGet(SEARCH_TERM_CATEGORIES_API_URL).reply(200, getSearchTermsData());
+
+axiosMockClient.onGet(CITY_SUMMARY_API_URL).reply(200, getCitySummary());
+axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

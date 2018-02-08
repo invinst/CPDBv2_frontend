@@ -3,8 +3,8 @@ import { range, keyBy } from 'lodash';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 
 import HoverPoint from './hover-point';
+import { getThisYear } from 'utils/date';
 import { wrapperStyle, hoverOverlayStyle, sparklinesStyle, HEIGHT } from './sparklines.style';
-import { CURRENT_YEAR } from 'utils/constants';
 
 
 export const width = 600;
@@ -23,7 +23,7 @@ export default class SimpleSparklines extends React.Component {
     const yearRange = range(begin, end + 1);
     const yearData = keyBy(data, 'year');
     let dummyRecord = Object.assign({}, data[0],
-      { 'year': begin, count: 0, 'sustained_count': 0, 'aggCount': 0 });
+      { 'year': begin, count: 0, 'sustainedCount': 0, 'aggCount': 0 });
     return yearRange.map(function (value) {
       if (value in yearData) {
         const currentYear = yearData[value];
@@ -57,10 +57,8 @@ export default class SimpleSparklines extends React.Component {
     const defaultHoverPointWidth = length === 1 ? width : width / (length - 1);
     const halfHoverPointWidth = defaultHoverPointWidth / 2;
 
-    let currentSustainedCount = 0;
     return data.map((point, i) => {
       const { year, count } = point;
-      const sustainedCount = point.sustained_count;
       let hoverPointWidth = defaultHoverPointWidth;
       let alignment = 'middle';
       if (length !== 1) {
@@ -73,19 +71,13 @@ export default class SimpleSparklines extends React.Component {
         }
       }
 
-      let hasSustainedCR = false;
-      if (sustainedCount > currentSustainedCount) {
-        hasSustainedCR = true;
-        currentSustainedCount = sustainedCount;
-      }
-
       const y = (count - minCount) / maxCount * HEIGHT + 3.5;
       return (
         <HoverPoint
           clickHandler={ this.hoverPointClickHandler.bind(this, year) }
           i={ i }
           y={ y }
-          hasSustainedCR={ hasSustainedCR }
+          hasSustainedCR={ point.sustainedCount > 0 }
           width={ hoverPointWidth }
           alignment={ alignment }
           height={ HEIGHT }
@@ -98,7 +90,7 @@ export default class SimpleSparklines extends React.Component {
 
   render() {
     const { data, startYear } = this.props;
-    let filledData = this.fillEmptyDataYear(data, startYear, CURRENT_YEAR);
+    let filledData = this.fillEmptyDataYear(data, startYear, getThisYear());
     const sparklineData = filledData.map(d => d['aggCount']);
     return (
       <div className='test--sparkline' style={ wrapperStyle(width) }>

@@ -12,7 +12,3 @@ export const navigationItemsSelector = createSelector(
 export const categoriesSelector = createSelector(
   searchTermsSelector, searchTerms => searchTerms.categories
 );
-
-export const selectedCategoryIndexSelector = createSelector(
-  searchTermsSelector, searchTerms => searchTerms.selectedCategory
-);

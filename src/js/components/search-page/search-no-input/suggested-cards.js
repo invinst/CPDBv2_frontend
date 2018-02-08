@@ -54,8 +54,8 @@ export default class SuggestedCards extends Component {
     return (
       <FixedHeightGrid
         style={ { display: 'inline-block', paddingTop: '32px' } }
-        childHeight={ 282 + 16*2 }
-        childWidth={ 232 + 16*2 }
+        childHeight={ 314 } // 282 + 16*2
+        childWidth={ 264 } // 232 + 16*2
         availableHeight={ availableHeight }
       >
         { cardComponents }

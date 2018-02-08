@@ -258,19 +258,9 @@ describe('officer timeline actions', function () {
 
             items: [
               {
-                crs: 1,
-                kind: 'YEAR',
-                year: 2003
-              },
-              {
                 crid: '123',
                 kind: 'CR',
                 year: 2003
-              },
-              {
-                crs: 2,
-                kind: 'YEAR',
-                year: 2001
               },
               {
                 crid: '231',
@@ -296,9 +286,9 @@ describe('officer timeline actions', function () {
       store.dispatch(selectLatestMinimapItemInYear('2001')).then(() => {
         store.getActions().should.containEql({
           type: 'OFFICER_TIMELINE_SELECT_MINIMAP_ITEM',
-          payload: 3
+          payload: 1
         });
-        timelineActions.fetchTimelineItemsWhenIndexOutOfBound.calledWith(3, 111, {}).should.be.true();
+        timelineActions.fetchTimelineItemsWhenIndexOutOfBound.calledWith(1, 111, {}).should.be.true();
         done();
       }).catch(done);
     });

@@ -39,8 +39,9 @@ class CategoryMainPanelSection extends Section {
   }
 
   getItemsInChunk(columnIndex, chunkIndex) {
+    // since title is the first child, the first test--category-column is the second child element
     return browser.elements(`
-      .test--category-column:nth-child(${columnIndex})
+      .test--category-column:nth-child(${columnIndex + 1})
       .test--category-item-chunk:nth-child(${chunkIndex})
       .test--category-item
     `);
@@ -67,12 +68,22 @@ class CategoryMainPanelSection extends Section {
   }
 }
 
+class BottomLinksSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      backToFrontPageLink: '.test--search-term-back-front-page-link',
+      backToSearchPageLink: '.test--search-term-back-search-page-link'
+    });
+  }
+}
 
 class SearchPage extends Page {
   constructor() {
     super();
     this.navigationBar = new NavigationBarSection();
     this.categoryMainPanel = new CategoryMainPanelSection();
+    this.bottomLinks = new BottomLinksSection();
   }
 
   open() {

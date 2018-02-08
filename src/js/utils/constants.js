@@ -29,19 +29,13 @@ export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
-export const OFFICER_TIMELINE_PATH = 'officer/:officerId/timeline';
-export const OFFICER_SOCIAL_GRAPH_PATH = 'officer/:officerId/social';
-export const CR_PATH = 'complaint/:crid/:officerId';
+export const OFFICER_TIMELINE_SUFFIX = 'timeline/';
+export const OFFICER_SOCIAL_GRAPH_SUFFIX = 'social/';
+export const OFFICER_TIMELINE_PATH = `officer/:officerId/${OFFICER_TIMELINE_SUFFIX}`;
+export const OFFICER_SOCIAL_GRAPH_PATH = `officer/:officerId/${OFFICER_SOCIAL_GRAPH_SUFFIX}`;
+export const CR_PATH_SUFFIX = ':officerId';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
-
-// Links to be used in ShareableHeader's "Back to XXX" link
-export const BACK_LINK_WHITELIST = {
-  [ROOT_PATH]: 'Home',
-  ['/edit' + ROOT_PATH]: 'Home',
-  [ROOT_PATH + SEARCH_PATH]: 'Search',
-  [ROOT_PATH + 'edit/' + SEARCH_PATH]: 'Search'
-};
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
@@ -68,12 +62,16 @@ export const ENTITY_LINK = 'LINK';
 let API_ROOT = `${global.location.origin}/api/v1/`;
 let API_ROOT_V2 = `${global.location.origin}/api/v2/`;
 
+let basePath = global.location.origin;
+
 /* istanbul ignore next */
 if (global.DEVELOPMENT) {
-  const LOCAL_BASE_PATH = 'http://localhost:8000';
-  API_ROOT = `${LOCAL_BASE_PATH}/api/v1/`;
-  API_ROOT_V2 = `${LOCAL_BASE_PATH}/api/v2/`;
+  basePath = 'http://localhost:8000';
+  API_ROOT = `${basePath}/api/v1/`;
+  API_ROOT_V2 = `${basePath}/api/v2/`;
 }
+
+export const BASE_PATH = basePath;
 
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;
@@ -87,11 +85,13 @@ export const MAIL_CHIMP_URL = '/vftg/';
 export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
+export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
 export const UNIT_PROFILE_URL = `${V2_ROOT_PATH}units/`;
 export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
 export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
 export const SEARCH_TERM_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categories/`;
+export const CITY_SUMMARY_API_URL = `${V2_ROOT_PATH}city-summary/`;
 
 export const DragTypes = {
   FAQ_ITEM: 'FAQ_ITEM'
@@ -132,6 +132,7 @@ export const UNIT_PROFILE_SUMMARY_REQUEST_FAILURE = 'UNIT_PROFILE_SUMMARY_REQUES
 export const OPEN_BOTTOM_SHEET_WITH_REPORT = 'OPEN_BOTTOM_SHEET_WITH_REPORT';
 export const OPEN_BOTTOM_SHEET_WITH_FAQ = 'OPEN_BOTTOM_SHEET_WITH_FAQ';
 export const OPEN_OFFICER_PAGE = 'OPEN_OFFICER_PAGE';
+export const OPEN_OFFICER_SOCIAL_GRAPH_PAGE = 'OPEN_OFFICER_SOCIAL_GRAPH_PAGE';
 export const OPEN_COMPLAINT_PAGE = 'OPEN_COMPLAINT_PAGE';
 export const CLOSE_BOTTOM_SHEET = 'CLOSE_BOTTOM_SHEET';
 export const OPEN_BOTTOM_SHEET_TO_CREATE_FAQ = 'OPEN_BOTTOM_SHEET_TO_CREATE_FAQ';
@@ -157,7 +158,7 @@ export const ALPHA_NUMBERIC = [
   'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
 ];
 
-export const NAVIGATION_KEYS = ['up', 'down', 'right', 'left'];
+export const NAVIGATION_KEYS = ['up', 'down'];
 
 export const SIGNIN_REQUEST = 'SIGNIN_REQUEST';
 export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
@@ -192,12 +193,13 @@ export const SEARCH_TERM_CATEGORIES_REQUEST_SUCCESS = 'SEARCH_TERM_CATEGORIES_RE
 export const SEARCH_TERM_CATEGORIES_REQUEST_FAILURE = 'SEARCH_TERM_CATEGORIES_REQUEST_FAILURE';
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
-export const SELECT_CATEGORY = 'SELECT_CATEGORY';
+
+export const UPDATE_SHAREABLE_PAGE_SCROLL_POSITION = 'UPDATE_SHAREABLE_PAGE_SCROLL_POSITION';
 
 
 export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR', 'UNIT_PROFILE']);
 
-export const TimelineItemType = new Enum(['CR', 'UNIT', 'YEAR', 'JOINED']);
+export const TimelineItemType = new Enum(['CR', 'UNIT', 'JOINED']);
 
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
@@ -217,10 +219,26 @@ export const ACTIVITY_GRID_REQUEST_START = 'ACTIVITY_GRID_REQUEST_START';
 export const ACTIVITY_GRID_REQUEST_SUCCESS = 'ACTIVITY_GRID_REQUEST_SUCCESS';
 export const ACTIVITY_GRID_REQUEST_FAILURE = 'ACTIVITY_GRID_REQUEST_FAILURE';
 
+export const OFFICERS_BY_ALLEGATION_REQUEST_START = 'OFFICER_BY_ALLEGATIONS_REQUEST_START';
+export const OFFICERS_BY_ALLEGATION_REQUEST_SUCCESS = 'OFFICERS_BY_ALLEGATION_REQUEST_SUCCESS';
+export const OFFICERS_BY_ALLEGATION_REQUEST_FAILURE = 'OFFICERS_BY_ALLEGATION_REQUEST_FAILURE';
+
 export const OFFICER_SOCIAL_GRAPH_REQUEST_START = 'OFFICER_SOCIAL_GRAPH_REQUEST_START';
 export const OFFICER_SOCIAL_GRAPH_REQUEST_SUCCESS = 'OFFICER_SOCIAL_GRAPH_REQUEST_SUCCESS';
 export const OFFICER_SOCIAL_GRAPH_REQUEST_FAILURE = 'OFFICER_SOCIAL_GRAPH_REQUEST_FAILURE';
 export const OFFICER_SOCIAL_GRAPH_SET_YEAR_RANGE = 'OFFICER_SOCIAL_GRAPH_SET_YEAR_RANGE';
+
+export const SUGGESTION_SINGLE_REQUEST_START = 'SUGGESTION_SINGLE_REQUEST_START';
+export const SUGGESTION_SINGLE_REQUEST_SUCCESS = 'SUGGESTION_SINGLE_REQUEST_SUCCESS';
+export const SUGGESTION_SINGLE_REQUEST_FAILURE = 'SUGGESTION_SINGLE_REQUEST_FAILURE';
+
+export const CITY_SUMMARY_REQUEST_START = 'CITY_SUMMARY_REQUEST_START';
+export const CITY_SUMMARY_REQUEST_SUCCESS = 'CITY_SUMMARY_REQUEST_SUCCESS';
+export const CITY_SUMMARY_REQUEST_FAILURE = 'CITY_SUMMARY_REQUEST_FAILURE';
+
+export const COMMUNITY_REQUEST_START = 'COMMUNITY_REQUEST_START';
+export const COMMUNITY_REQUEST_SUCCESS = 'COMMUNITY_REQUEST_SUCCESS';
+export const COMMUNITY_REQUEST_FAILURE = 'COMMUNITY_REQUEST_FAILURE';
 
 export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
 export const VISUAL_TOKEN_COLOR_SCHEME = {
@@ -263,5 +281,9 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
 };
 
 export const RECENT_CONTENT_TYPE = 'RECENT';
+export const MORE_BUTTON = 'MORE_BUTTON';
+export const SEARCH_BOX = 'SEARCH_BOX';
 
-export const CURRENT_YEAR = (new Date()).getFullYear();
+export const SEARCH_CATEGORIES = [
+  'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'
+];

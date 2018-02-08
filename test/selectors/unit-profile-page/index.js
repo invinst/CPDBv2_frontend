@@ -7,6 +7,7 @@ describe('unit profile page selectors', function () {
       const state = {
         'unitProfilePage': {
           'summary': {
+            'description': 'Lorem ipsum',
             'member_records': {
               'active_members': 1,
               'total': 2,
@@ -31,6 +32,7 @@ describe('unit profile page selectors', function () {
       };
 
       summarySelector(state).should.eql({
+        'description': 'Lorem ipsum',
         'activeMembers': 1,
         'totalMembers': 2,
         'memberFacets': [

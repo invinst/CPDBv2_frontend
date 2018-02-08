@@ -13,13 +13,13 @@ export default class ActivityGrid extends Component {
   render() {
     const { cards } = this.props;
     const visualTokenStyle = { height: '100px' };
-    const cardStyle = { width: 'calc(25% - 2*16px)' };
+    const cardStyle = { width: 'calc(25% - 32px)' }; // two 16px margins
     const rows = chunk(cards, 4);
     return (
       <ResponsiveFluidWidthComponent>
         {
           rows.map((cards, index) => (
-            <div className='card-row' key={ 'row-' + index }>
+            <div className='card-row' key={ `row-${index}` }>
               {
                 cards.map(
                   ({
@@ -31,7 +31,7 @@ export default class ActivityGrid extends Component {
                      birthYear,
                      race,
                      gender,
-                     complaintRate
+                     complaintPercentile
                    }) =>
                      <OfficerCard
                        officerId={ id }
@@ -42,11 +42,11 @@ export default class ActivityGrid extends Component {
                        cardStyle={ cardStyle }
                        complaintCount={ complaintCount }
                        sustainedCount={ sustainedCount }
-                       complaintRate={ complaintRate }
+                       complaintPercentile={ complaintPercentile }
                        birthYear={ birthYear }
                        race={ race }
                        gender={ gender }
-                    />
+                     />
                 )
               }
             </div>

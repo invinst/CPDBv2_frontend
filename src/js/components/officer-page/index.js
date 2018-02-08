@@ -19,7 +19,7 @@ export default class OfficerPage extends Component {
   }
 
   render() {
-    const { officerName, activeTab, pathname, officerTimelineUrlParams } = this.props;
+    const { officerName, activeTab, pathname, officerTimelineUrlParams, scrollPosition } = this.props;
 
     return (
       <div>
@@ -28,6 +28,7 @@ export default class OfficerPage extends Component {
           activeTab={ activeTab }
           pathname={ pathname }
           officerTimelineUrlParams={ officerTimelineUrlParams }
+          scrollPosition={ scrollPosition }
         />
         <div style={ pageWrapperStyle }>
           { this.renderChildren() }
@@ -43,9 +44,11 @@ OfficerPage.propTypes = {
   officerTimelineUrlParams: PropTypes.string,
   activeTab: PropTypes.string,
   pathname: PropTypes.string,
-  query: PropTypes.object
+  query: PropTypes.object,
+  scrollPosition: PropTypes.string,
 };
 
 OfficerPage.defaultProps = {
-  pathname: '/'
+  pathname: '/',
+  scrollPosition: 'top',
 };

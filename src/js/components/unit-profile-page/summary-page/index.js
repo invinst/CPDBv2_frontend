@@ -7,11 +7,6 @@ import { wrapperStyle } from './summary-page.style.js';
 
 
 export default class SummaryPage extends Component {
-  componentDidMount() {
-    const { unitName, fetchUnitProfileSummary } = this.props;
-    fetchUnitProfileSummary(unitName);
-  }
-
   render() {
     const {
       activeMembers, totalMembers, memberFacets, complaintCount, sustainedComplaintCount, complaintFacets
@@ -36,10 +31,5 @@ SummaryPage.propTypes = {
   memberFacets: PropTypes.array,
   complaintCount: PropTypes.number,
   sustainedComplaintCount: PropTypes.number,
-  complaintFacets: PropTypes.array,
-  fetchUnitProfileSummary: PropTypes.func
-};
-
-SummaryPage.defaultProps = {
-  fetchUnitProfileSummary: () => {}
+  complaintFacets: PropTypes.array
 };

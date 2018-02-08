@@ -106,7 +106,7 @@ export const contentSelector = createSelector(
     point: cr.point,
     incidentDate: cr['incident_date'],
     address: cr.address,
-    location: cr.location,
+    crLocation: cr.location,
     beat: cr.beat || { name: 'Unknown' },
     involvements,
     documents,
