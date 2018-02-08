@@ -54,6 +54,16 @@ describe('Search term navigation selector', function () {
     }
   });
 
+  const searchBoxItem = {
+    id: '',
+    name: '',
+    description: '',
+    callToActionType: '',
+    link: '',
+    type: '',
+    uniqueKey: SEARCH_BOX
+  };
+
   describe('totalItemCountSelector', function () {
     it('should return total suggestions count', function () {
       totalItemCountSelector(makeStore()).should.equal(7);
@@ -61,16 +71,9 @@ describe('Search term navigation selector', function () {
   });
 
   describe('focusedResultItemSelector', function () {
+
     it('should return searchbox item when itemIndex is 0', function () {
-      focusedSearchTermItemSelector(makeStore(0)).should.deepEqual({
-        id: '',
-        name: '',
-        description: '',
-        callToActionType: '',
-        link: '',
-        type: '',
-        uniqueKey: SEARCH_BOX
-      });
+      focusedSearchTermItemSelector(makeStore(0)).should.deepEqual(searchBoxItem);
     });
 
     it('should return category item when it is focused', function () {
@@ -95,6 +98,10 @@ describe('Search term navigation selector', function () {
         type: 'Geography',
         uniqueKey: 'Geography-community'
       });
+    });
+
+    it('should return searchBoxItem when itemIndex is out of item list range', function () {
+      focusedSearchTermItemSelector(makeStore(10)).should.deepEqual(searchBoxItem);
     });
   });
 });

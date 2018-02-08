@@ -2,9 +2,6 @@ import { get } from 'lodash';
 
 
 export const navigationItemTransform = item => {
-  if (item === undefined) {
-    return {};
-  }
   return {
     id: get(item, 'id', ''),
     name: get(item, 'name', ''),

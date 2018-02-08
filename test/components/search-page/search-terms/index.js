@@ -15,6 +15,7 @@ import {
 } from 'components/search-page/search-terms/search-terms.style';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import * as domUtils from 'utils/dom';
+import Mousetrap from 'mousetrap';
 
 
 describe('SearchTerms component', function () {
@@ -66,6 +67,28 @@ describe('SearchTerms component', function () {
     responsiveComponent.props.maximumStyle.should.eql(maximumStyle);
     responsiveComponent.props.minWidthThreshold.should.eql(700);
     responsiveComponent.props.maxWidthThreshold.should.eql(1440);
+  });
+
+  it('should trigger move when up key pressed', function () {
+    const move = spy();
+    const totalItemCount = 3;
+    const direction = 'up';
+    instance = renderIntoDocument(
+      <SearchTerms move={ move } totalItemCount={ totalItemCount }/>
+    );
+    Mousetrap.trigger(direction);
+    move.calledWith(direction, totalItemCount).should.be.true();
+  });
+
+  it('should trigger move when down key pressed', function () {
+    const move = spy();
+    const totalItemCount = 3;
+    const direction = 'down';
+    instance = renderIntoDocument(
+      <SearchTerms move={ move } totalItemCount={ totalItemCount }/>
+    );
+    Mousetrap.trigger(direction);
+    move.calledWith(direction, totalItemCount).should.be.true();
   });
 
   describe('after keyboard navigation', function () {
