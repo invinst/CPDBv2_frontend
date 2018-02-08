@@ -11,6 +11,7 @@ import { ROOT_PATH, SEARCH_TERMS_NAVIGATION_KEYS, SEARCH_PATH } from 'utils/cons
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { scrollToElement } from 'utils/dom';
+import PreviewPane from './preview-pane';
 
 
 export default class SearchTerms extends Component {
@@ -76,28 +77,32 @@ export default class SearchTerms extends Component {
   }
 
   render() {
+    const { focusedItem } = this.props;
     return (
-      <ResponsiveFluidWidthComponent
-        style={ contentWrapperStyle }
-        minimumStyle={ minimumStyle }
-        mediumStyle={ mediumStyle }
-        maximumStyle={ maximumStyle }
-        minWidthThreshold={ 700 }
-        maxWidthThreshold={ 1440 }
-      >
-        <div style={ searchTermWrapperStyle }>
-          <div style={ searchTermTitleStyle }>Search terms</div>
-          { this.renderColumns() }
-          <div style={ bottomLinksWrapperStyle }>
-            <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
-              Back to Front Page
-            </Link>
-            <Link style={ bottomLinkStyle } to={ SEARCH_PATH } className='test--search-term-back-search-page-link'>
-              Search
-            </Link>
+      <div>
+        <ResponsiveFluidWidthComponent
+          style={ contentWrapperStyle }
+          minimumStyle={ minimumStyle }
+          mediumStyle={ mediumStyle }
+          maximumStyle={ maximumStyle }
+          minWidthThreshold={ 1020 }
+          maxWidthThreshold={ 1760 }
+        >
+          <div style={ searchTermWrapperStyle }>
+            <div style={ searchTermTitleStyle }>Search terms</div>
+            { this.renderColumns() }
+            <div style={ bottomLinksWrapperStyle }>
+              <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
+                Back to Front Page
+              </Link>
+              <Link style={ bottomLinkStyle } to={ SEARCH_PATH } className='test--search-term-back-search-page-link'>
+                Search
+              </Link>
+            </div>
           </div>
-        </div>
-      </ResponsiveFluidWidthComponent>
+        </ResponsiveFluidWidthComponent>
+        <PreviewPane item={ focusedItem } />
+      </div>
     );
   }
 }

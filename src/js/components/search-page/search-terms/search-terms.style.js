@@ -3,13 +3,15 @@ import { softBlackColor, whiteTwoColor, accentColor, concreteColor } from 'utils
 export const contentWrapperStyle = {
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
-  margin: '0 16px',
+  position: 'relative',
+  height: 'calc(100% - 4px)',
+  width: 'calc(100% - 320px)',
   borderTop: `solid 1px ${whiteTwoColor}`,
 };
 
 export const searchTermWrapperStyle = {
   padding: '0 16px',
-  background: concreteColor
+  background: concreteColor,
 };
 
 export const searchTermTitleStyle = {
@@ -40,9 +42,9 @@ export const minimumStyle = {
 };
 
 export const mediumStyle = {
-  width: '699px',
+  maxWidth: '699px',
 };
 
 export const maximumStyle = {
-  width: '1440px',
+  maxWidth: '1440px',
 };
