@@ -21,7 +21,7 @@ export default class CallToAction extends Component {
 
     return (
       <a href={ item.link } style={ linkStyle }>
-        Visit Data Tool
+        Enter Data Tool
       </a>
     );
   }
