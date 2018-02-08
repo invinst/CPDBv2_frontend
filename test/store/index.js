@@ -94,7 +94,6 @@ describe('store', function () {
         searchTerms: {
           categories: [],
           hidden: true,
-          selectedCategory: null
         }
       },
       inlineAliasAdminPage: {},

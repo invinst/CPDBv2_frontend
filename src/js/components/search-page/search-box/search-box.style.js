@@ -23,23 +23,23 @@ export const searchInputStyle = {
   }
 };
 
-const _searchTermsButtonStyle = {
+const _searchTermsButtonStyle = (searchTermsHidden) => ({
   position: 'absolute',
-  color: clayGray,
+  color: searchTermsHidden ? accentColor : clayGray,
   right: '16px',
   lineHeight: '32px',
   fontSize: '13px',
   fontWeight: 300,
   cursor: 'pointer'
-};
+});
 
-export const searchTermsButtonStyle = {
-  base: _searchTermsButtonStyle,
+export const searchTermsButtonStyle = (searchTermsHidden) => ({
+  base: _searchTermsButtonStyle(searchTermsHidden),
   hover: {
-    ..._searchTermsButtonStyle,
+    ..._searchTermsButtonStyle(searchTermsHidden),
     color: accentColor
   }
-};
+});
 
 export const wrapperStyle = {
   position: 'relative',
