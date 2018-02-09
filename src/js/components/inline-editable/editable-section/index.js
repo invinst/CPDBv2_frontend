@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { map, values, mapValues } from 'lodash';
 import { convertToRaw } from 'draft-js';
 
-import { editModeWrapperStyle } from './editable-section.style';
+import { wrapperStyle } from './editable-section.style';
 import { convertContentStateToEditorState } from 'utils/draft';
 import { officersToCamelCase, officersToSnakeCase } from 'selectors/bottom-sheet/report';
 
@@ -105,7 +105,7 @@ export default function (SubComponent) {
       const { fields } = this.state;
 
       return (
-        <div style={ sectionEditModeOn ? editModeWrapperStyle : null }>
+        <div style={ wrapperStyle(sectionEditModeOn) }>
           <SubComponent
             sectionEditModeOn={ sectionEditModeOn }
             editToggleProps={ {

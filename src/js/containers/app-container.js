@@ -5,6 +5,7 @@ import { receiveTokenFromCookie } from 'actions/authentication';
 import showLoginModalSelector from 'selectors/login-modal/show-login-modal';
 import { toggleEditMode } from 'actions/inline-editable/edit-mode';
 import { toggleSearchMode, changeSearchQuery } from 'actions/search-page';
+import { fetchPage } from 'actions/cms';
 import editModeOnSelector from 'selectors/edit-mode-on';
 
 
@@ -18,6 +19,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
+  fetchCMSContent: fetchPage('landing-page'),
   receiveTokenFromCookie,
   toggleEditMode,
   toggleSearchMode,

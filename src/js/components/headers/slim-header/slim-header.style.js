@@ -1,9 +1,8 @@
-import { mediumGrayColor, softBlackColor, clayGray, accentColor, sugarCaneColor } from 'utils/styles';
+import { mediumGrayColor, clayGray, accentColor } from 'utils/styles';
 
 const middleSlimHeaderHeight = 64;
 const topSlimHeaderHeight = 102;
 const leftPadding = 16;
-const logoWidth = 288;
 const rightLinkMargin = 46;
 
 export const fixedStyle = {
@@ -41,30 +40,11 @@ export const bottomSlimHeaderStyle = {
   cursor: 'pointer',
 };
 
-const linkStyle = {
+const rightLinkStyle = {
   textDecoration: 'none',
   color: mediumGrayColor,
   fontWeight: 400,
-  cursor: 'pointer'
-};
-
-export const topLeftLinkStyle = {
-  ...linkStyle,
-  color: softBlackColor
-};
-
-export const middleLeftLinkStyle = {
-  ...linkStyle,
-  color: softBlackColor
-};
-
-export const bottomLeftLinkStyle = {
-  ...linkStyle,
-  color: sugarCaneColor
-};
-
-const rightLinkStyle = {
-  ...linkStyle,
+  cursor: 'pointer',
   marginLeft: `${rightLinkMargin}px`
 };
 
@@ -90,23 +70,8 @@ export const verticallyAlignedHeaderItemStyle = {
   transform: 'translateY(-50%)'
 };
 
-export const logoWrapperStyle = {
+export const logoWrapper = {
   position: 'relative',
   top: '50%',
-  transform: 'translateY(-50%)',
-  maxWidth: `${logoWidth}px`
+  transform: 'translateY(-50%)'
 };
-
-const subtitleStyle = {
-  fontSize: '14px',
-  fontWeight: '300',
-  width: `${logoWidth}px`,
-  color: clayGray,
-};
-
-export const topSubtitleStyle = subtitleStyle;
-export const middleSubtitleStyle = {
-  ...subtitleStyle,
-  display: 'none',
-};
-export const bottomSubtitleStyle = subtitleStyle;

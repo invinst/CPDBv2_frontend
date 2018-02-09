@@ -1,5 +1,5 @@
 import { convertFromRaw, EditorState, genKey, Entity, RichUtils } from 'draft-js';
-import { isEmpty, map, find } from 'lodash';
+import { isEmpty, map, find, compact } from 'lodash';
 import moment from 'moment';
 
 import { ENTITY_LINK } from 'utils/constants';
@@ -10,6 +10,10 @@ export const contentStateToTextArray = contentState => (
   !contentState || contentState.isEmpty() ?
     [] :
     map(contentState.getBlocksAsArray(), block => block.getText())
+);
+
+export const editorStateToText = editorState => (
+  compact(contentStateToTextArray(editorState.getCurrentContent())).join(' ')
 );
 
 export const convertContentStateToEditorState = rawContentState => (

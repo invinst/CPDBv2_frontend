@@ -1,6 +1,6 @@
 import { push } from 'react-router-redux';
 
-import { editModeOn } from 'selectors/edit-mode-on';
+import { editModeOn } from 'utils/edit-path';
 import { editMode } from 'utils/edit-path';
 
 
