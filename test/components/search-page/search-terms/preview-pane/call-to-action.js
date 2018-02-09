@@ -1,7 +1,7 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import {
-  renderIntoDocument, findRenderedDOMComponentWithTag
+  renderIntoDocument, findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test/index';
@@ -23,7 +23,7 @@ describe('CallToAction component', function () {
       } }/>
     );
 
-    const a = findRenderedDOMComponentWithTag(instance, 'a');
+    const a = findRenderedDOMComponentWithClass(instance, 'test--call-to-action-link');
     a.href.should.eql('http://mylink.com/');
   });
 
