@@ -7,6 +7,7 @@ import {
 export const itemStyle = (isFocused) => ({
   fontSize: '14px',
   fontWeight: 300,
+  padding: '0 16px',
   borderBottom: `1px solid ${whiteTwoColor}`,
   background: isFocused ? fadedAccentColor : concreteColor,
 });

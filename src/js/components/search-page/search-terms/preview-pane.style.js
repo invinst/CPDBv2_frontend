@@ -5,9 +5,8 @@ export const wrapperStyle = {
   position: 'absolute',
   top: '49px',
   right: '0px',
-  bottom: '0px',
   width: '320px',
-  backgroundColor: 'white',
+  // backgroundColor: 'gray',
   boxSizing: 'border-box',
   verticalAlign: 'top',
   borderTop: `solid 1px ${whiteTwoColor}`,
@@ -24,18 +23,16 @@ export const titleStyle = {
 export const descriptionStyle = {
   fontSize: '14px',
   fontWeight: 500,
-  margin: '7px 16px 0 16px',
+  margin: '7px 16px 16px 16px',
   color: clayGray,
-  height: 'calc(100% - 96px - 40px)'
+  height: 'calc(100% - 96px - 40px)',
 };
 
 export const actionStyle = {
   height: '40px',
   backgroundColor: hawkesBlue,
   borderRadius: '2px',
-  paddingLeft: '16px',
-  lineHeight: '40px',
-  color: accentColor,
+  margin: '0 16px',
 };
 
 const _actionButtonStyle = {
@@ -45,13 +42,14 @@ const _actionButtonStyle = {
   border: `1px solid ${accentColor}`,
   position: 'absolute',
   color: accentColor,
-  right: '16px',
+  right: '32px',
   lineHeight: '26px',
   fontSize: '14px',
   fontWeight: 500,
   cursor: 'pointer',
   textAlign: 'center',
-  margin: '7px 0'
+  margin: '7px 0',
+  display: 'inline-block',
 };
 
 export const actionButtonStyle = ({

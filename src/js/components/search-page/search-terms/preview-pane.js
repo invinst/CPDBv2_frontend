@@ -15,7 +15,7 @@ export default class PreviewPane extends Component {
     const { item } = this.props;
 
     return (
-      <SlideMotion show={ !isEmpty(item) } offsetX={ 100 }>
+      <SlideMotion show={ !isEmpty(item.name) } offsetX={ 100 }>
         <div style={ wrapperStyle }>
           <div className='test--preview-pane-title' style={ titleStyle }>{ item.name }</div>
           <div className='test--preview-pane-description' style={ descriptionStyle }>{ item.description }</div>

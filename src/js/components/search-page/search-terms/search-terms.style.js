@@ -10,13 +10,12 @@ export const contentWrapperStyle = {
 };
 
 export const searchTermWrapperStyle = {
-  padding: '0 16px',
   background: concreteColor,
 };
 
 export const searchTermTitleStyle = {
   fontSize: '26px',
-  padding: '48px 0 16px 0',
+  padding: '48px 16px 16px 16px',
   fontWeight: 300,
   color: softBlackColor,
   borderBottom: `1px solid ${whiteTwoColor}`,
@@ -34,7 +33,7 @@ export const bottomLinkStyle = {
 };
 
 export const bottomLinksWrapperStyle = {
-  paddingTop: '128px',
+  padding: '128px 16px 0 16px',
 };
 
 export const minimumStyle = {
