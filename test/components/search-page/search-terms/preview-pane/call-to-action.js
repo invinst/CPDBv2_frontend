@@ -4,8 +4,8 @@ import {
   renderIntoDocument, findRenderedDOMComponentWithTag
 } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import CallToAction from 'components/search-page/search-terms/category-column/call-to-action';
+import { unmountComponentSuppressError } from 'utils/test/index';
+import CallToAction from 'components/search-page/search-terms/preview-pane/call-to-action';
 
 
 describe('CallToAction component', function () {

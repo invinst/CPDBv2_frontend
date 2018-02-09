@@ -3,7 +3,7 @@ import { actionStyle, descriptionStyle, titleStyle, wrapperStyle, actionButtonSt
 import { isEmpty } from 'lodash';
 import SlideMotion from 'components/animation/slide-motion';
 import { HoverableButton } from 'components/common/hoverable-button';
-import CallToAction from 'components/search-page/search-terms/category-column/call-to-action';
+import CallToAction from './call-to-action';
 
 
 export default class PreviewPane extends Component {

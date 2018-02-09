@@ -15,14 +15,6 @@ import PreviewPane from './preview-pane';
 
 
 export default class SearchTerms extends Component {
-  constructor(props) {
-    super(props);
-
-    this.toggleExpanded = this.toggleExpanded.bind(this);
-    this.state = {
-      expandedId: null,
-    };
-  }
 
   componentDidMount() {
     const { requestSearchTermCategories, move, resetNavigation } = this.props;
@@ -52,15 +44,8 @@ export default class SearchTerms extends Component {
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
   }
 
-  toggleExpanded(itemId) {
-    this.setState({
-      expandedId: this.state.expandedId === itemId ? null : itemId
-    });
-  }
-
   renderColumns() {
     const { categories, focusedItem } = this.props;
-    const { expandedId } = this.state;
 
     return (
       map(categories, ({ items, name }) => (
@@ -68,8 +53,6 @@ export default class SearchTerms extends Component {
           key={ name }
           name={ name }
           items={ items }
-          expandedId={ expandedId }
-          toggleExpanded={ this.toggleExpanded }
           focusedItem={ focusedItem }
         />
       ))

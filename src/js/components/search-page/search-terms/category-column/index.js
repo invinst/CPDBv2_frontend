@@ -13,7 +13,7 @@ export default class CategoryColumn extends Component {
   }
 
   renderItems() {
-    const { items, expandedId, toggleExpanded, focusedItem, name } = this.props;
+    const { items, focusedItem, name } = this.props;
 
     return (
       <div style={ itemsWrapperStyle } ref={ this.onGetRef.bind(this) }>
@@ -25,8 +25,6 @@ export default class CategoryColumn extends Component {
               <CategoryItem
                 key={ index }
                 item={ item }
-                expanded={ expandedId === item.id }
-                toggleExpanded={ toggleExpanded }
                 isFocused={ isFocused }
               />
             );
@@ -63,8 +61,6 @@ CategoryColumn.propTypes = {
   items: PropTypes.array,
   name: PropTypes.string,
   index: PropTypes.number,
-  expandedId: PropTypes.string,
-  toggleExpanded: PropTypes.func,
   focusedItem: PropTypes.object,
 };
 

@@ -10,26 +10,6 @@ describe('Search terms page', function () {
     searchTermsPage.open();
   });
 
-  it('should reveal category item description when click on a category item', function () {
-    const firstCategoryItem = searchTermsPage.categoryMainPanel.firstCategoryItem;
-    firstCategoryItem.getText().should.containEql('Police District');
-    firstCategoryItem.element('.link--transition').click();
-    browser.pause(300);
-    firstCategoryItem.element('.test--category-item-description')
-      .getText().should.containEql('Whatever');
-  });
-
-  it('should expand one category item at a time', function () {
-    searchTermsPage.categoryMainPanel.getCategoryNameAtItem(1).click();
-    searchTermsPage.categoryMainPanel.getCategoryDescriptionAtItem(1).isExisting().should.be.true();
-    searchTermsPage.categoryMainPanel.getCategoryDescriptionAtItem(2).isExisting().should.be.false();
-
-    searchTermsPage.categoryMainPanel.getCategoryNameAtItem(2).click();
-    browser.pause(1000);
-    searchTermsPage.categoryMainPanel.getCategoryDescriptionAtItem(2).isExisting().should.be.true();
-    searchTermsPage.categoryMainPanel.getCategoryDescriptionAtItem(1).isExisting().should.be.false();
-  });
-
   it('should render bottom links', function () {
     searchTermsPage.bottomLinks.backToFrontPageLink.should.ok();
     searchTermsPage.bottomLinks.backToSearchPageLink.should.ok();
