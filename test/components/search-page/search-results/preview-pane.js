@@ -37,7 +37,7 @@ describe('PreviewPane component', function () {
     const title = findRenderedDOMComponentWithClass(instance, 'test--preview-pane-title');
     title.textContent.should.eql('Tsumiki Miniwa');
 
-    const visualToken = findRenderedDOMComponentWithClass(instance, 'test--previiew-pane-visual-token');
+    const visualToken = findRenderedDOMComponentWithClass(instance, 'test--preview-pane-visual-token');
     visualToken.getAttribute('src').should.eql(
       'http://test.img'
     );

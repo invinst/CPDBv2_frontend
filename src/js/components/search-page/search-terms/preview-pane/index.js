@@ -7,9 +7,6 @@ import CallToAction from './call-to-action';
 
 export default class PreviewPane extends Component {
 
-  handleEnterButtonClick() {
-  }
-
   render() {
     const { item } = this.props;
 
@@ -27,13 +24,9 @@ export default class PreviewPane extends Component {
 }
 
 PreviewPane.propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  actionCall: PropTypes.string,
   item: PropTypes.object,
 };
 
 PreviewPane.defaultProps = {
-  data: [],
   item: {},
 };

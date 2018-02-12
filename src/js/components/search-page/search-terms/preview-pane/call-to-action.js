@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { get } from 'lodash';
 
-import { linkStyle, actionStyle, actionButtonStyle } from './call-to-action.style';
+import { actionButtonStyle, actionStyle, linkStyle } from './call-to-action.style';
 import HoverableButton from 'components/common/hoverable-button';
 
 
@@ -16,6 +16,9 @@ export default class CallToAction extends Component {
       'link': this.renderLink,
       'view_all': this.renderViewAll
     };
+  }
+
+  handleEnterButtonClick() {
   }
 
   renderLink() {

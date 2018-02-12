@@ -1,18 +1,24 @@
 import React from 'react';
 import { spy, stub } from 'sinon';
 import {
-  renderIntoDocument, findRenderedComponentWithType
+  findRenderedComponentWithType,
+  renderIntoDocument,
 } from 'react-addons-test-utils';
+import Mousetrap from 'mousetrap';
 
 import { reRender, unmountComponentSuppressError } from 'utils/test';
 import SearchTerms from 'components/search-page/search-terms';
 import {
-  contentWrapperStyle, maximumStyle, mediumStyle,
+  contentWrapperStyle,
+  maximumStyle,
+  mediumStyle,
   minimumStyle
 } from 'components/search-page/search-terms/search-terms.style';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import PreviewPane from 'components/search-page/search-terms/preview-pane';
+import { SearchTermCategory } from 'utils/test/factories/search-terms';
 import * as domUtils from 'utils/dom';
-import Mousetrap from 'mousetrap';
+import CategoryColumn from 'components/search-page/search-terms/category-column';
 
 
 describe('SearchTerms component', function () {
@@ -26,10 +32,18 @@ describe('SearchTerms component', function () {
     SearchTerms.should.be.renderable();
   });
 
+  it('should be able to render CategoryColumn', function () {
+    instance = renderIntoDocument(
+      <SearchTerms categories={ SearchTermCategory.buildList(1) } />
+    );
+    const categoryColumn = findRenderedComponentWithType(instance, CategoryColumn);
+    categoryColumn.should.be.ok();
+  });
+
   it('should fire request when mounted', function () {
     const callback = spy();
     instance = renderIntoDocument(
-      <SearchTerms requestSearchTermCategories={ callback }/>
+      <SearchTerms requestSearchTermCategories={ callback } />
     );
     callback.called.should.be.true();
   });
@@ -52,7 +66,7 @@ describe('SearchTerms component', function () {
     const totalItemCount = 3;
     const direction = 'up';
     instance = renderIntoDocument(
-      <SearchTerms move={ move } totalItemCount={ totalItemCount }/>
+      <SearchTerms move={ move } totalItemCount={ totalItemCount } />
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
@@ -63,7 +77,7 @@ describe('SearchTerms component', function () {
     const totalItemCount = 3;
     const direction = 'down';
     instance = renderIntoDocument(
-      <SearchTerms move={ move } totalItemCount={ totalItemCount }/>
+      <SearchTerms move={ move } totalItemCount={ totalItemCount } />
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
@@ -79,12 +93,24 @@ describe('SearchTerms component', function () {
     });
 
     it('should scroll to focused item', function () {
-      instance = renderIntoDocument(<SearchTerms focusedItem={ { uniqueKey: null } }/>);
-      instance = reRender(<SearchTerms focusedItem={ { uniqueKey: 'OFFICER-RACE' } }/>, instance);
+      instance = renderIntoDocument(<SearchTerms focusedItem={ { uniqueKey: null } } />);
+      instance = reRender(<SearchTerms focusedItem={ { uniqueKey: 'OFFICER-RACE' } } />, instance);
 
       this.scrollToElementStub.calledWith(
         '.term-item.focused', { behavior: 'instant', block: 'center' }
       ).should.be.true();
+    });
+
+    it('should render preview pane for the focused item', function () {
+      const focusedItem = {
+        id: 'category',
+        name: 'Some item',
+        description: 'This is item for testing'
+      };
+
+      instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
+      const previewPane = findRenderedComponentWithType(instance, PreviewPane);
+      previewPane.should.be.ok();
     });
   });
 });

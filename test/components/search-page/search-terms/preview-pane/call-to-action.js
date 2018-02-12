@@ -1,11 +1,10 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument, findRenderedDOMComponentWithClass
-} from 'react-addons-test-utils';
+import { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test/index';
 import CallToAction from 'components/search-page/search-terms/preview-pane/call-to-action';
+import { spy } from 'sinon';
 
 
 describe('CallToAction component', function () {
@@ -20,7 +19,7 @@ describe('CallToAction component', function () {
       <CallToAction item={ {
         'call_to_action_type': 'link',
         link: 'http://mylink.com/'
-      } }/>
+      } } />
     );
 
     const a = findRenderedDOMComponentWithClass(instance, 'test--call-to-action-link');
@@ -32,7 +31,7 @@ describe('CallToAction component', function () {
       <CallToAction item={ {
         'call_to_action_type': 'view_all',
         name: 'police districts'
-      } }/>
+      } } />
     );
 
     const element = findDOMNode(instance);
@@ -43,8 +42,35 @@ describe('CallToAction component', function () {
     instance = renderIntoDocument(
       <CallToAction item={ {
         'call_to_action_type': 'abc'
-      } }/>
+      } } />
     );
     instance.should.displayNothing();
+  });
+
+  it('should render enter button', function () {
+    instance = renderIntoDocument(
+      <CallToAction item={ {
+        'call_to_action_type': 'view_all',
+        name: 'police districts'
+      } } />
+    );
+
+    const enterButton = findRenderedDOMComponentWithClass(instance, 'test--enter-button');
+    enterButton.should.be.ok();
+  });
+
+  it('should handle enter button onClick', function () {
+    const handleEnterButtonClick = spy(CallToAction.prototype, 'handleEnterButtonClick');
+    instance = renderIntoDocument(
+      <CallToAction item={ {
+        'call_to_action_type': 'view_all',
+        name: 'police districts'
+      } } />
+    );
+
+    const enterButton = findRenderedDOMComponentWithClass(instance, 'test--enter-button');
+    Simulate.click(enterButton);
+
+    handleEnterButtonClick.called.should.be.true();
   });
 });
