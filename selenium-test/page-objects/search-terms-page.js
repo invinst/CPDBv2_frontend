@@ -6,6 +6,18 @@ import Page from './page';
 import Section from './sections/section';
 
 
+class PreviewPane extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      title: '.test--preview-pane-title',
+      description: '.test--preview-pane-description',
+      callToAction: '.test--preview-pane-action',
+    });
+  }
+}
+
+
 class CategoryMainPanelSection extends Section {
   constructor() {
     super();
@@ -59,6 +71,7 @@ class SearchTermsPage extends Page {
     super();
     this.categoryMainPanel = new CategoryMainPanelSection();
     this.bottomLinks = new BottomLinksSection();
+    this.previewPane = new PreviewPane();
     this.prepareElementGetters({
       input: '.test--search-page-input',
     });

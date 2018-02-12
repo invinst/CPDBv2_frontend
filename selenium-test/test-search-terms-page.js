@@ -1,6 +1,6 @@
 'use strict';
 
-require('should');
+var should = require('should');
 
 import searchTermsPage from './page-objects/search-terms-page';
 
@@ -45,5 +45,30 @@ describe('Search terms page', function () {
     firstCategoryHeader.getAttribute('class').should.not.containEql('focused');
     firstTerm.getAttribute('class').should.not.containEql('focused');
     secondTerm.getAttribute('class').should.containEql('focused');
+  });
+
+  it('should hide PreviewPane when no item is focused', function () {
+    browser.keys('ArrowDown');
+    browser.keys('ArrowUp');
+
+    should(searchTermsPage.previewPane).be.eql({});
+  });
+
+  it('should show PreviewPane when navigation to SearchTerms items', function () {
+    searchTermsPage.previewPane.title.getText().should.eql('Geography');
+
+    browser.keys('ArrowDown');
+    browser.keys('ArrowDown');
+
+    searchTermsPage.previewPane.title.getText().should.not.eql('Geography');
+    searchTermsPage.previewPane.title.getText().should.not.eql('');
+  });
+
+  it('should show callToAction bar when it is available', function () {
+    searchTermsPage.previewPane.callToAction.waitForVisible(2000, true);
+
+    browser.keys('ArrowDown');
+    browser.keys('ArrowDown');
+    searchTermsPage.previewPane.callToAction.getText().should.containEql('View ALL');
   });
 });
