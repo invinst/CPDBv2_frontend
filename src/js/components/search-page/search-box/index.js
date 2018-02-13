@@ -38,7 +38,7 @@ export default class SearchBox extends Component {
       return (
         <HoverableButton
           className='test--toggle-button'
-          style={ searchTermsButtonStyle }
+          style={ searchTermsButtonStyle(searchTermsHidden) }
           onClick={ this.handleToggleButtonClick }>
           {
             searchTermsHidden ? 'What can I search?' : 'Hide Search terms'
@@ -63,7 +63,7 @@ export default class SearchBox extends Component {
           style={ searchInputStyle }
           placeholder='Search Chicago'
           onChange={ onChange }
-          paddingVertical={ 9 }
+          paddingVertical={ 8 }
           paddingHorizontal={ 9 }
           value={ value }
           keyPressHandlers={ keyPressHandlers }
