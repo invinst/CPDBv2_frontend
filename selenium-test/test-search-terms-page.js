@@ -71,4 +71,16 @@ describe('Search terms page', function () {
     browser.keys('ArrowDown');
     searchTermsPage.previewPane.callToAction.getText().should.containEql('View ALL');
   });
+
+  it('should show PreviewPane when a SearchTerms category is clicked', function () {
+    searchTermsPage.categoryMainPanel.firstCategoryHeader.click();
+
+    searchTermsPage.previewPane.title.getText().should.eql('Geography');
+  });
+
+  it('should show PreviewPane when a SearchTerms item is clicked', function () {
+    searchTermsPage.categoryMainPanel.firstCategoryItem.click();
+
+    searchTermsPage.previewPane.title.getText().should.eql('Communities');
+  });
 });
