@@ -38,7 +38,6 @@ export default class RecentDocument extends Component {
           slides={ documents }
           header='New Documents'
           description={ descriptionText }
-          lazyLoading={ true }
         />
       </div>
     );

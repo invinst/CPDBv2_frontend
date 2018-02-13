@@ -18,8 +18,7 @@ export default class ComplaintSummaries extends Component {
 
     const descriptionText = (
       <div>
-        <p>We often update our complaint records as we recieve more information from the City.</p>
-        <p>Here are some of the recent updates.</p>
+        <p>These records contain summary information of the incident of the alleged complaint.</p>
       </div>
     );
 
