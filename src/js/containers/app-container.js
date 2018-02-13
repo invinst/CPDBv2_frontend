@@ -7,6 +7,7 @@ import { toggleEditMode } from 'actions/inline-editable/edit-mode';
 import { toggleSearchMode, changeSearchQuery } from 'actions/search-page';
 import { fetchPage } from 'actions/cms';
 import editModeOnSelector from 'selectors/edit-mode-on';
+import * as constants from 'utils/constants';
 
 
 function mapStateToProps(state, ownProps) {
@@ -19,7 +20,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  fetchCMSContent: fetchPage('landing-page'),
+  fetchLandingPageContent: fetchPage(constants.LANDING_PAGE_ID),
   receiveTokenFromCookie,
   toggleEditMode,
   toggleSearchMode,

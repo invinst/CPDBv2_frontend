@@ -53,6 +53,9 @@ describe('store', function () {
         showForgotPasswordModal: false
       },
       appContent: null,
+      cms: {
+        pages: {}
+      },
       reportingPage: {
         isRequesting: false,
         reportGrouping: {
@@ -159,6 +162,9 @@ describe('store', function () {
       headers: {
         shareableHeader: {
           scrollPosition: null
+        },
+        slimHeader: {
+          logoSectionEditModeOn: false
         }
       }
     });

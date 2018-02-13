@@ -300,3 +300,5 @@ export const CMS_PAGE_REQUEST_SUCCESS = 'CMS_PAGE_REQUEST_SUCCESS';
 export const CMS_PAGE_REQUEST_FAILURE = 'CMS_PAGE_REQUEST_FAILURE';
 
 export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
+
+export const LANDING_PAGE_ID = 'landing-page';

@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import { get } from 'lodash';
 
 import Editable from 'components/inline-editable/editable';
 import RichTextEditor from 'components/inline-editable/rich-text-editor';
@@ -7,8 +8,21 @@ import { editorStateToText } from 'utils/draft';
 
 
 export default class LinkTextEditable extends Component {
+
+  getEditorProps() {
+    const { editModeOn, value, onChange, fieldname } = this.props;
+    const fieldContext = get(this.context.fieldContexts, fieldname, {});
+    return {
+      editModeOn: editModeOn || fieldContext.editModeOn,
+      value: value || fieldContext.value,
+      onChange: onChange || fieldContext.onChange
+    };
+  }
+
   render() {
-    const { style, className, to, editModeOn, onChange, value, placeholder } = this.props;
+    const { style, className, to, placeholder } = this.props;
+    const { editModeOn, onChange, value } = this.getEditorProps();
+
     return (
       <Editable
         editModeOn={ editModeOn }
@@ -41,9 +55,14 @@ LinkTextEditable.propTypes = {
   onChange: PropTypes.func,
   value: PropTypes.object,
   placeholder: PropTypes.string,
-  to: PropTypes.string
+  to: PropTypes.string,
+  fieldname: PropTypes.string
 };
 
 LinkTextEditable.defaultProps = {
   style: {}
+};
+
+LinkTextEditable.contextTypes = {
+  fieldContexts: PropTypes.object
 };

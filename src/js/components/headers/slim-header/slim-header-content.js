@@ -12,11 +12,11 @@ import {
   logoWrapper,
   topRightLinkStyle,
   topSlimHeaderStyle,
-} from './slim-header.style';
-import {
-  bottomSearchBoxStyle, middleSearchBoxStyle,
+  bottomSearchBoxStyle,
+  middleSearchBoxStyle,
   topSearchBoxStyle
-} from 'components/landing-page/search-section/search-section.style';
+} from './slim-header-content.style';
+
 import LogOutButtonContainer from 'containers/log-out-container';
 import SearchSectionComponent from 'components/landing-page/search-section';
 import { accentColor } from 'utils/styles';
@@ -110,6 +110,7 @@ SlimHeaderContent.defaultProps = {
   style: {},
   disableTop: false,
   position: 'top',
+  pathname: '/'
 };
 
 export default SlimHeaderContent;

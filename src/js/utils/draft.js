@@ -1,4 +1,4 @@
-import { convertFromRaw, EditorState, genKey, Entity, RichUtils } from 'draft-js';
+import { convertFromRaw, EditorState, genKey, Entity, RichUtils, convertToRaw } from 'draft-js';
 import { isEmpty, map, find, compact } from 'lodash';
 import moment from 'moment';
 
@@ -20,6 +20,10 @@ export const convertContentStateToEditorState = rawContentState => (
   isEmpty(rawContentState) ?
     EditorState.createEmpty(defaultDecorator) :
     EditorState.createWithContent(convertFromRaw(rawContentState), defaultDecorator)
+);
+
+export const convertEditorStateToRaw = editorState => (
+  convertToRaw(editorState.getCurrentContent())
 );
 
 export const getField = (fields, name) => find(fields, (field) => (field.name===name));

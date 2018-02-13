@@ -44,10 +44,10 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    const { receiveTokenFromCookie, fetchCMSContent } = this.props;
+    const { receiveTokenFromCookie, fetchLandingPageContent } = this.props;
 
     receiveTokenFromCookie();
-    fetchCMSContent();
+    fetchLandingPageContent();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -115,7 +115,7 @@ App.childContextTypes = {
 
 App.propTypes = {
   children: PropTypes.node,
-  fetchCMSContent: PropTypes.func,
+  fetchLandingPageContent: PropTypes.func,
   appContent: PropTypes.string,
   params: PropTypes.object,
   receiveTokenFromCookie: PropTypes.func,
@@ -128,6 +128,7 @@ App.propTypes = {
 
 App.defaultProps = {
   params: {},
+  fetchLandingPageContent: () => {},
   location: {
     pathname: ''
   },

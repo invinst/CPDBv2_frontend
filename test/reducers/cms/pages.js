@@ -7,13 +7,13 @@ describe('pages reducer', function () {
     pages(undefined, {}).should.deepEqual({});
   });
 
-  it('should handle SLUGPAGE_REQUEST_SUCCESS', function () {
+  it('should handle CMS_PAGE_REQUEST_SUCCESS', function () {
     pages(
       {
         'another_page': 'page content'
       },
       {
-        type: constants.SLUGPAGE_REQUEST_SUCCESS,
+        type: constants.CMS_PAGE_REQUEST_SUCCESS,
         payload: {
           fields: [
             {
@@ -33,13 +33,13 @@ describe('pages reducer', function () {
     ).should.deepEqual({
       'another_page': 'page content',
       'my_slug_page': {
-        fields: [
-          {
+        fields: {
+          'navbar_title': {
             name: 'navbar_title',
             type: 'rich_text',
             value: 'my rich text'
           }
-        ],
+        },
         meta: {
           order: 1
         }
@@ -47,13 +47,13 @@ describe('pages reducer', function () {
     });
   });
 
-  it('should handle SLUGPAGE_UPDATE_REQUEST_SUCCESS', function () {
+  it('should handle UPDATE_CMS_PAGE_REQUEST_SUCCESS', function () {
     pages(
       {
         'another_page': 'page content'
       },
       {
-        type: constants.SLUGPAGE_UPDATE_REQUEST_SUCCESS,
+        type: constants.UPDATE_CMS_PAGE_REQUEST_SUCCESS,
         payload: {
           fields: [
             {
@@ -73,13 +73,13 @@ describe('pages reducer', function () {
     ).should.deepEqual({
       'another_page': 'page content',
       'my_slug_page': {
-        fields: [
-          {
+        fields: {
+          'navbar_title': {
             name: 'navbar_title',
             type: 'rich_text',
             value: 'my rich text'
           }
-        ],
+        },
         meta: {
           order: 1
         }
