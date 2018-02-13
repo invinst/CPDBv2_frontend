@@ -1,4 +1,4 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 import classnames from 'classnames';
 
@@ -13,7 +13,7 @@ export default class CategoryColumn extends Component {
   }
 
   renderItems() {
-    const { items, focusedItem, name } = this.props;
+    const { items, focusedItem, name, handleItemClick } = this.props;
 
     return (
       <div style={ itemsWrapperStyle } ref={ this.onGetRef.bind(this) }>
@@ -25,7 +25,9 @@ export default class CategoryColumn extends Component {
               <CategoryItem
                 key={ index }
                 item={ item }
+                itemUniqueKey={ uniqueKey }
                 isFocused={ isFocused }
+                handleItemClick={ handleItemClick }
               />
             );
           })
@@ -35,7 +37,7 @@ export default class CategoryColumn extends Component {
   }
 
   render() {
-    const { name, focusedItem } = this.props;
+    const { name, focusedItem, handleItemClick } = this.props;
     const headerUniqueKey = `category-${name}`;
     const isFocusedHeader = focusedItem.uniqueKey === headerUniqueKey;
 
@@ -43,6 +45,7 @@ export default class CategoryColumn extends Component {
       <div style={ columnWrapperStyle } className='test--category-column'>
         <div
           style={ headerStyle(isFocusedHeader) }
+          onClick={ () => handleItemClick(headerUniqueKey) }
           className={
             classnames('term-item', 'test--category-header', { 'focused': isFocusedHeader })
           }
@@ -62,6 +65,7 @@ CategoryColumn.propTypes = {
   name: PropTypes.string,
   index: PropTypes.number,
   focusedItem: PropTypes.object,
+  handleItemClick: PropTypes.func,
 };
 
 CategoryColumn.defaultProps = {

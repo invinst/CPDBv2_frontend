@@ -16,4 +16,5 @@ export const headerStyle = (isFocused) => ({
   textTransform: 'uppercase',
   boxSizing: 'border-box',
   background: isFocused ? fadedAccentColor : concreteColor,
+  cursor: 'pointer',
 });

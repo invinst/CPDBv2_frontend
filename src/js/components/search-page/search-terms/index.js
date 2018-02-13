@@ -16,6 +16,11 @@ import PreviewPane from './preview-pane';
 
 export default class SearchTerms extends Component {
 
+  constructor(props) {
+    super(props);
+    this.handleItemClick = this.handleItemClick.bind(this);
+  }
+
   componentDidMount() {
     const { requestSearchTermCategories, move, resetNavigation } = this.props;
     requestSearchTermCategories();
@@ -44,6 +49,11 @@ export default class SearchTerms extends Component {
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
   }
 
+  handleItemClick(uniqueKey) {
+    const { setNavigation, navigationKeys } = this.props;
+    setNavigation({ navigationKeys, uniqueKey });
+  }
+
   renderColumns() {
     const { categories, focusedItem } = this.props;
 
@@ -54,6 +64,7 @@ export default class SearchTerms extends Component {
           name={ name }
           items={ items }
           focusedItem={ focusedItem }
+          handleItemClick={ this.handleItemClick }
         />
       ))
     );
@@ -97,13 +108,17 @@ SearchTerms.propTypes = {
   focusedItem: PropTypes.object,
   totalItemCount: PropTypes.number,
   resetNavigation: PropTypes.func,
+  setNavigation: PropTypes.func,
+  navigationKeys: PropTypes.array,
 };
 
 SearchTerms.defaultProps = {
   requestSearchTermCategories: () => {},
   move: () => {},
   resetNavigation: () => {},
+  setNavigation: () => {},
   focusedItem: {
     uniqueKey: null
-  }
+  },
+  navigationKeys: [],
 };
