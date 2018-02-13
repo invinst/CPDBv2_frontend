@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 
 import ComplaintSummaryCard from 'components/landing-page/complaint-summaries/complaint-summary-card';
 import ComplaintSummaries from 'components/landing-page/complaint-summaries';
@@ -15,14 +15,14 @@ describe('Complaint Summaries components', function () {
   let instance, consoleStub;
   const data = [{
     'crid': '111',
-    'category': 'Illegal Search',
+    'categoryNames': ['Illegal Search'],
     'summary': 'This is summary 1',
-    'closedDate': new Date(2017, 6, 6)
+    'incidentDate': new Date(2017, 6, 6)
   }, {
     'crid': '112',
-    'category': 'Use of Force',
+    'categoryNames': ['Use of Force'],
     'summary': 'This is summary 2',
-    'closedDate': new Date(2017, 1, 6)
+    'incidentDate': new Date(2017, 1, 6)
   }];
 
   beforeEach(function () {
@@ -36,9 +36,12 @@ describe('Complaint Summaries components', function () {
 
   it('should render appropriately', function () {
 
+    let callback = spy();
+
     instance = renderIntoDocument(
-      <ComplaintSummaries cards={ data }/>
+      <ComplaintSummaries cards={ data } getComplaintSummaries={ callback }/>
     );
+    callback.calledOnce.should.be.true();
 
     const complaintSummaryCards = scryRenderedComponentsWithType(instance, ComplaintSummaryCard);
     complaintSummaryCards.should.have.length(2);

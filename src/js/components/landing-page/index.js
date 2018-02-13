@@ -2,13 +2,13 @@ import React, { Component, PropTypes } from 'react';
 
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
-import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
-import RecentActivityContainer from 'containers/landing-page/recent-activity';
+
+import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
 import FooterContainer from 'containers/footer-container';
 import HeatMap from 'containers/landing-page/heat-map';
+import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import RecentDocumentContainer from 'containers/landing-page/recent-document';
-import ComplaintSummaries from './complaint-summaries';
-import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
+import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
 
 
 class LandingPage extends Component {
@@ -25,9 +25,7 @@ class LandingPage extends Component {
         <OfficersByAllegationContainer/>
         <RecentActivityContainer/>
         <RecentDocumentContainer/>
-
-        { /* TODO: will embed reading data when complaint summary is ready*/ }
-        <ComplaintSummaries cards={ ComplaintSummaryFactory.buildList(20) }/>
+        <ComplaintSummariesContainer/>
         <FooterContainer/>
       </div>
     );

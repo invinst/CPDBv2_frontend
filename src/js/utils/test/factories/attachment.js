@@ -1,11 +1,11 @@
 import { Factory } from 'rosie';
 
-import { internet, image, random, helpers } from 'faker';
+import { internet, random, helpers } from 'faker';
 
 const RawDocumentFactory = Factory.define('RawDocumentFactory')
   .attr('title', () => (`CR ${random.number()}`))
   .attr('url', internet.url)
-  .attr('preview_image_url', image.imageUrl);
+  .attr('preview_image_url', 'http://via.placeholder.com/133x176');
 
 export const RawDocumentCardFactory = Factory.define('DocumentCardFactory')
   .option('num_card', 2)

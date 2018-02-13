@@ -4,12 +4,17 @@ import Carousel from 'components/common/carousel';
 
 
 export default class ComplaintSummaries extends Component {
+
+  componentDidMount() {
+    this.props.getComplaintSummaries();
+  }
+
   render() {
     const { cards } = this.props;
 
     const complaintSummaries = cards.map((card, idx) => {
       return <ComplaintSummaryCard key={ idx } { ...card } />;
-    }); // temporary
+    });
 
     const descriptionText = (
       <div>
@@ -18,7 +23,7 @@ export default class ComplaintSummaries extends Component {
       </div>
     );
 
-    return (
+    return (cards && cards.length > 0) && (
       <div className='test--complaint-summaries'>
         <Carousel
           header='Complaint Summaries'
@@ -31,6 +36,7 @@ export default class ComplaintSummaries extends Component {
 }
 
 ComplaintSummaries.propTypes = {
-  cards: PropTypes.array
+  cards: PropTypes.array,
+  getComplaintSummaries: PropTypes.func
 };
 

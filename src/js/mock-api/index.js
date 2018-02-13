@@ -3,7 +3,7 @@ import {
   SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL, ACTIVITY_GRID_API_URL,
   REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL, UNIT_PROFILE_URL,
   SEARCH_TERM_CATEGORIES_API_URL, OFFICERS_BY_ALLEGATION_API_URL, CITY_SUMMARY_API_URL,
-  RECENT_DOCUMENT_URL
+  RECENT_DOCUMENT_URL, RECENT_COMPLAINT_SUMMARIES_URL
 } from 'utils/constants';
 
 import OfficerFactory from 'utils/test/factories/officer';
@@ -23,6 +23,7 @@ import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import getActivityGridData from './landing-page/activity-grid';
 import getRecentDocument from './landing-page/recent-document';
+import getComplaintSummaries from './landing-page/complaint-summaries';
 import getSearchTermsData from './search-terms-page';
 import { getCitySummary, getCommunities } from './landing-page/heat-map';
 import { communityGeoJSONPath } from 'utils/static-assets';
@@ -38,6 +39,7 @@ axiosMockClient.onGet(new RegExp(`${FAQS_API_URL}\?.+`)).reply(() => [200, FAQPa
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
 axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getActivityGridData(48)]);
 axiosMockClient.onGet(RECENT_DOCUMENT_URL).reply(() => [200, getRecentDocument(24)]);
+axiosMockClient.onGet(RECENT_COMPLAINT_SUMMARIES_URL).reply(() => [200, getComplaintSummaries(20)]);
 
 axiosMockClient.onPost(SIGNIN_URL, { username: 'username', password: 'password' })
   .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });

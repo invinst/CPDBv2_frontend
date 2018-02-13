@@ -40,6 +40,10 @@ describe('store', function () {
           cards: [],
           isRequesting: false
         },
+        complaintSummaries: {
+          cards: [],
+          isRequesting: false
+        },
         heatMap: {
           citySummary: {},
           communities: null

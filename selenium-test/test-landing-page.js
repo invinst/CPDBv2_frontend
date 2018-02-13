@@ -3,8 +3,6 @@
 require('should');
 
 import landingPage from './page-objects/landing-page';
-import summaryPage from './page-objects/officer-summary-page';
-
 
 describe('landing page', function () {
 
@@ -102,13 +100,17 @@ describe('landing page', function () {
     });
   });
 
-  describe.skip('Complaint Summaries Carousel', function () {
-    // TODO: rewrite test where complaint summary data is ready
+  describe('Complaint Summaries Carousel', function () {
+    it('should show initial carousel', function () {
+      landingPage.complaintSummariesCarousel.cards.count.should.equal(20);
+      landingPage.complaintSummariesCarousel.rightArrow.waitForVisible();
+      landingPage.complaintSummariesCarousel.leftArrow.waitForVisible(2000, true);
+    });
     it('should go to cr page when click to card', function () {
       const firstCard = landingPage.complaintSummariesCarousel.cards;
       firstCard.click();
       browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/\d+\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
     });
   });
 

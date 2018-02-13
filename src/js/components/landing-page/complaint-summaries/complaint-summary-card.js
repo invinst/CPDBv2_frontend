@@ -1,6 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+
 import moment from 'moment';
+import _ from 'lodash';
+
 import Hoverable from 'components/common/higher-order/hoverable';
 import {
   complaintSummaryCardStyle,
@@ -13,7 +16,10 @@ import {
 
 class ComplaintSummaryCard extends React.Component {
   render() {
-    const { hovering, summary, closedDate, category, crid } = this.props;
+    const { hovering, summary, incidentDate, categoryNames, crid } = this.props;
+
+    const categories = _.join(categoryNames, ', ');
+
     return (
       <div style={ complaintSummaryCardStyle(hovering) }>
         <Link
@@ -22,12 +28,12 @@ class ComplaintSummaryCard extends React.Component {
           className='test--complaint-summary-card'
         >
           <div style={ titleWrapperStyle }>
-            <div style={ dateStyle(hovering) }>{ moment(closedDate).format('ll') }</div>
-            <div style={ categoryStyle(hovering) }>{ category }</div>
+            <div style={ dateStyle(hovering) }>{ moment(incidentDate, 'YYYY-MM-DD').format('ll') }</div>
+            <div style={ categoryStyle(hovering) }>{ categories }</div>
           </div>
           <div style={ summaryWrapperStyle(hovering) }>
             <div style={ contentStyle(hovering) }>
-              { summary }
+              { _.truncate(summary, { 'length': 280, 'separator': ' ' }) }
             </div>
           </div>
         </Link>
@@ -39,8 +45,8 @@ class ComplaintSummaryCard extends React.Component {
 ComplaintSummaryCard.propTypes = {
   crid: PropTypes.string,
   summary: PropTypes.string,
-  closedDate: PropTypes.instanceOf(Date),
-  category: PropTypes.string,
+  incidentDate: PropTypes.string,
+  categoryNames: PropTypes.array,
   hovering: PropTypes.bool
 };
 
