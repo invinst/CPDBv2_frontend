@@ -1,5 +1,5 @@
 import { cardsSelector, } from 'selectors/landing-page/complaint-summaries';
-import { RawDocumentCardFactory } from 'utils/test/factories/attachment';
+import { RawComplaintSummaryFactory } from 'utils/test/factories/complaint';
 import lodash from 'lodash';
 import { spy } from 'sinon';
 
@@ -16,7 +16,7 @@ describe('complaint-summaries selectors', function () {
 
   describe('cardsSelector', function () {
     it('should return a list of cards', function () {
-      state.landingPage.complaintSummaries.cards = RawDocumentCardFactory.buildList(40);
+      state.landingPage.complaintSummaries.cards = RawComplaintSummaryFactory.buildList(40);
       cardsSelector(state).should.have.length(40);
     });
 
