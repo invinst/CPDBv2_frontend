@@ -35,7 +35,10 @@ CategoryItem.propTypes = {
 };
 
 CategoryItem.defaultProps = {
-  item: {}
+  item: {},
+  isFocused: false,
+  hovering: false,
+  itemUniqueKey: ''
 };
 
 export default Hoverable(CategoryItem);

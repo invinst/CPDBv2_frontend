@@ -2,7 +2,9 @@ import React from 'react';
 import { spy, stub } from 'sinon';
 import {
   findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
   renderIntoDocument,
+  Simulate,
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 
@@ -23,6 +25,21 @@ import CategoryColumn from 'components/search-page/search-terms/category-column'
 
 describe('SearchTerms component', function () {
   let instance;
+  const categories = [
+    {
+      name: 'Geography',
+      items: [
+        {
+          id: 'community',
+          name: 'Communities',
+          description: 'Chicago is divided.',
+          'call_to_action_type': 'view_all',
+          link: 'http://beta.cpdb.co/url-mediator/session-builder?community=<name>'
+        }
+      ]
+    }
+  ];
+  const navigationKeys = ['category-Geography', 'Geography-Communities'];
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
@@ -81,6 +98,29 @@ describe('SearchTerms component', function () {
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
+  });
+
+  it('should trigger setNavigation when click on a search term item', function () {
+    const setNavigation = spy();
+
+    instance = renderIntoDocument(
+      <SearchTerms setNavigation={ setNavigation } categories={ categories } navigationKeys={ navigationKeys }/>
+    );
+
+    const searchTerms = findRenderedComponentWithType(instance, SearchTerms);
+
+    Simulate.click(findRenderedDOMComponentWithClass(searchTerms, 'test--category-item'));
+    setNavigation.calledWith({ navigationKeys, uniqueKey: 'Geography-community' }).should.be.true();
+  });
+
+  it('should be able to setNavigation on a category header', function () {
+    const setNavigation = spy();
+    instance = renderIntoDocument(
+      <SearchTerms setNavigation={ setNavigation } categories={ categories } navigationKeys={ navigationKeys }/>
+    );
+
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--category-header'));
+    setNavigation.calledWith({ navigationKeys, uniqueKey: 'category-Geography' }).should.be.true();
   });
 
   describe('after keyboard navigation', function () {
