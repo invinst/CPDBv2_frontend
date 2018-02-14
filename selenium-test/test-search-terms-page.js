@@ -83,4 +83,13 @@ describe('Search terms page', function () {
 
     searchTermsPage.previewPane.title.getText().should.eql('Communities');
   });
+
+  it('should show PreviewPane when a SearchTerms item is clicked', function () {
+    browser.keys('ArrowDown');
+    browser.keys('ArrowDown');
+
+    searchTermsPage.previewPane.descriptionLink.click();
+
+    browser.getUrl().should.containEql('http://www.somelink.cpdp.com');
+  });
 });
