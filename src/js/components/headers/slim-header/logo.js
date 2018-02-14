@@ -15,7 +15,7 @@ class Logo extends Component {
     const { editModeOn } = this.context;
     const { position, editWrapperStateProps } = this.props;
     const titleLink = editModeOn ? editMode(ROOT_PATH) : ROOT_PATH;
-    /* istanbul ignore next */
+
     return (
       <EditWrapperStateProvider { ...editWrapperStateProps }>
         <HoverableEditWrapper style={ wrapperStyle[position] }>

@@ -114,9 +114,8 @@ export default class RichTextEditor extends Component {
           editorState={ editorState }
           placeholder={ placeholder }/>
         {
-          disableToolbar
-            ? null
-            : <Toolbar
+          !disableToolbar && (
+            <Toolbar
               show={ showToolbar }
               parentLeft={ editorLeft }
               parentTop={ editorTop }
@@ -124,6 +123,7 @@ export default class RichTextEditor extends Component {
               onBlur={ this.handleToolbarBlur }
               editorState={ editorState }
               onChange={ this.handleChange }/>
+          )
         }
       </div>
     );
