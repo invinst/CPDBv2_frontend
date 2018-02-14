@@ -6,7 +6,6 @@ describe('searchTerms reducer', function () {
     searchTerms(undefined, {}).should.deepEqual({
       categories: [],
       hidden: true,
-      selectedCategory: null
     });
   });
 });

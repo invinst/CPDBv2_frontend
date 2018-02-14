@@ -1,6 +1,4 @@
-import {
-  requestSearchTermCategories, selectCategory
-} from 'actions/search-page/search-terms';
+import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 import * as constants from 'utils/constants';
 
 
@@ -20,15 +18,6 @@ describe('search terms actions', function () {
             adapter: null
           }
         }
-      });
-    });
-  });
-
-  describe('selectCategory', function () {
-    it('should return correct action', function () {
-      selectCategory('police-districts').should.deepEqual({
-        type: constants.SELECT_CATEGORY,
-        payload: 'police-districts'
       });
     });
   });
