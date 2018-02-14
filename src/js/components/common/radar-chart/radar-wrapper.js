@@ -1,32 +1,76 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { Motion, spring } from 'react-motion';
+import _ from 'lodash';
 
-import { radarMainCircleStyle, radarMainAreaStyle, radarMainStrokeStyle } from './radar-wrapper.style';
+import {
+  radarMainCircleStyle,
+  radarMainAreaStyle,
+  radarMainStrokeStyle
+} from './radar-wrapper.style';
+import { curveLinearClosed, radialLine } from 'd3-shape';
+
 
 export default class RadarWrapper extends React.Component {
   render() {
+    const { extraStyle, drawStroke, data } = this.props;
+
+    const circles = data ? data.map((point, i) => {
+      return <circle
+        className='radarCircle' r='4' key={ i }
+        cx={ point.x }
+        cy={ point.y }
+        style={ radarMainCircleStyle }/>;
+    }) : null;
+
+    let previousData = this.props.previousData || _.map(data, (d) => ({ ...d, r: 0 }));
+
+    const radarLine = radialLine()
+      .curve(curveLinearClosed)
+      .radius(d => d.r)
+      .angle(d => d.angle);
+
+    const calculatePath = (value) => {
+      const moveData = _.map(data, (d, i) => ({
+        ...d,
+        r: (d.r - previousData[i].r) * value + previousData[i].r
+      }));
+      return radarLine(moveData);
+    };
+
+
     return (
       <g className='radarWrapper'>
-        <path
-          className='radarArea'
-          d='M41.85789451624786,-24.16666666666667C62.786841774371794,4.8333333333333215,132.54999930145158,57.99999999999997,125.57368354874362,72.49999999999997C118.59736779603564,86.99999999999997,33.1374998253629,67.86805555555554,7.694864054642536e-15,62.833333333333336C-33.13749982536289,57.79861111111113,-66.27499965072579,56.7916666666667,-73.25131540343376,42.29166666666671C-80.22763115614174,27.791666666666714,-54.06644708348684,-0.20138888888884665,-41.85789451624788,-24.166666666666632C-29.64934194900892,-48.131944444444414,-13.952631505415955,-101.5,0,-101.5C13.952631505415955,-101.5,20.928947258123927,-53.166666666666664,41.85789451624786,-24.16666666666667'
-          style={ radarMainAreaStyle }/>
-        <path
-          className='radarStroke'
-          d='M41.85789451624786,-24.16666666666667C62.786841774371794,4.8333333333333215,132.54999930145158,57.99999999999997,125.57368354874362,72.49999999999997C118.59736779603564,86.99999999999997,33.1374998253629,67.86805555555554,7.694864054642536e-15,62.833333333333336C-33.13749982536289,57.79861111111113,-66.27499965072579,56.7916666666667,-73.25131540343376,42.29166666666671C-80.22763115614174,27.791666666666714,-54.06644708348684,-0.20138888888884665,-41.85789451624788,-24.166666666666632C-29.64934194900892,-48.131944444444414,-13.952631505415955,-101.5,0,-101.5C13.952631505415955,-101.5,20.928947258123927,-53.166666666666664,41.85789451624786,-24.16666666666667'
-          style={ radarMainStrokeStyle }/>
-        <circle className='radarCircle' r='4' cx='6.2150825056728174e-15' cy='-101.5'
-                style={ radarMainCircleStyle }/>
-        <circle className='radarCircle' r='4' cx='41.85789451624786' cy='-24.166666666666664'
-                style={ radarMainCircleStyle }/>
-        <circle className='radarCircle' r='4' cx='125.57368354874362' cy='72.49999999999997'
-                style={ radarMainCircleStyle }/>
-        <circle className='radarCircle' r='4' cx='3.847432027321268e-15' cy='62.833333333333336'
-                style={ radarMainCircleStyle }/>
-        <circle className='radarCircle' r='4' cx='-73.25131540343376' cy='42.2916666666667'
-                style={ radarMainCircleStyle }/>
-        <circle className='radarCircle' r='4' cx='-41.85789451624788' cy='-24.166666666666636'
-                style={ radarMainCircleStyle }/>
+        <Motion defaultStyle={ { value: 0 } } style={ { value: spring(1, { stiffness: 100 }) } }>
+          { ({ value }) => (
+            <g>
+              <path
+                className='radarArea'
+                d={ calculatePath(value) }
+                style={ { ...radarMainAreaStyle, ...extraStyle } }/>
+
+              { drawStroke && (
+                <path
+                  className='radarStroke'
+                  d={ calculatePath(value) }
+                  style={ radarMainStrokeStyle }/>
+              ) }
+            </g>
+          ) }
+        </Motion>
+        { circles }
       </g>
     );
   }
 }
+
+RadarWrapper.defaultProps = {
+  extraStyle: {},
+  drawStroke: false
+};
+
+RadarWrapper.propTypes = {
+  previousData: PropTypes.array,
+  data: PropTypes.array,
+  extraStyle: PropTypes.object,
+  drawStroke: PropTypes.bool
+};
