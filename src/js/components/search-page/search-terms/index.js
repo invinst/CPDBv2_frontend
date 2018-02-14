@@ -17,9 +17,8 @@ import PreviewPane from './preview-pane';
 export default class SearchTerms extends Component {
 
   componentDidMount() {
-    const { requestSearchTermCategories, move, resetNavigation } = this.props;
+    const { requestSearchTermCategories, move } = this.props;
     requestSearchTermCategories();
-    resetNavigation();
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
       (event) => {
@@ -42,6 +41,7 @@ export default class SearchTerms extends Component {
 
   componentWillUnmount() {
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
+    this.props.resetNavigation(0);
   }
 
   renderColumns() {

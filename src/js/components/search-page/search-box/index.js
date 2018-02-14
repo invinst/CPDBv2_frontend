@@ -56,6 +56,10 @@ export default class SearchBox extends Component {
       enter: onEnter,
     };
 
+    const keyPressWithBlurHandlers = {
+      down: () => resetNavigation()
+    };
+
     return (
       <div style={ wrapperStyle }>
         <TextInput
@@ -67,8 +71,7 @@ export default class SearchBox extends Component {
           paddingHorizontal={ 9 }
           value={ value }
           keyPressHandlers={ keyPressHandlers }
-          blurOnKeyPress={ ['down'] }
-          onBlur={ () => resetNavigation() }
+          keyPressWithBlurHandlers={ keyPressWithBlurHandlers }
           spellCheck={ false }
           className='test--search-page-input'
           focused={ focused }
