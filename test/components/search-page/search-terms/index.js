@@ -3,6 +3,7 @@ import { spy, stub } from 'sinon';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  findRenderedDOMComponentWithTag,
   renderIntoDocument,
   Simulate,
 } from 'react-addons-test-utils';
@@ -151,6 +152,19 @@ describe('SearchTerms component', function () {
       instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
       const previewPane = findRenderedComponentWithType(instance, PreviewPane);
       previewPane.should.be.ok();
+    });
+
+    it('should render preview pane with markdown link', function () {
+      const focusedItem = {
+        id: 'category',
+        name: 'Some item',
+        description: 'This is item for testing. [Google](http://www.google.com)'
+      };
+
+      instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
+      const previewPaneDescription = findRenderedComponentWithType(instance, PreviewPane);
+      const description = findRenderedDOMComponentWithTag(previewPaneDescription, 'a');
+      description.getAttribute('href').should.containEql('http://www.google.com');
     });
   });
 });
