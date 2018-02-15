@@ -24,6 +24,7 @@ class CategoryMainPanelSection extends Section {
     this.prepareElementGetters({
       categoryColumns: '.test--category-column',
       firstCategoryItem: '.test--category-item',
+      focusedItem: '(//div[contains(@class, \'focused\')])[1]',
     });
   }
 
@@ -61,7 +62,7 @@ class BottomLinksSection extends Section {
     super();
     this.prepareElementGetters({
       backToFrontPageLink: '.test--search-term-back-front-page-link',
-      backToSearchPageLink: '.test--search-term-back-search-page-link'
+      backToSearchPageLink: '.test--search-term-back-search-page-link',
     });
   }
 }
@@ -74,6 +75,9 @@ class SearchTermsPage extends Page {
     this.previewPane = new PreviewPane();
     this.prepareElementGetters({
       input: '.test--search-page-input',
+      title: '.test--search-term-title',
+      searchTermToggle: '.test--toggle-button',
+      clearSearchButton: '.test--search-close-button',
     });
   }
 

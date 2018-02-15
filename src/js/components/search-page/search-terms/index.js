@@ -72,7 +72,7 @@ export default class SearchTerms extends Component {
           maxWidthThreshold={ 1760 }
         >
           <div style={ searchTermWrapperStyle }>
-            <div style={ searchTermTitleStyle }>Search terms</div>
+            <div style={ searchTermTitleStyle } className='test--search-term-title'>Search terms</div>
             { this.renderColumns() }
             <div style={ bottomLinksWrapperStyle }>
               <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
