@@ -1,9 +1,6 @@
 import React from 'react';
 import { spy, stub } from 'sinon';
-import {
-  findRenderedComponentWithType,
-  renderIntoDocument,
-} from 'react-addons-test-utils';
+import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 
 import { reRender, unmountComponentSuppressError } from 'utils/test';
@@ -81,6 +78,16 @@ describe('SearchTerms component', function () {
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
+  });
+
+  it('should resetNavigation to 0 when unmounted', function () {
+    const resetNavigation = spy();
+    instance = renderIntoDocument(
+      <SearchTerms resetNavigation={ resetNavigation }/>
+    );
+    unmountComponentSuppressError(instance);
+
+    resetNavigation.calledWith(0).should.be.true();
   });
 
   describe('after keyboard navigation', function () {

@@ -96,6 +96,16 @@ describe('SearchResults component', function () {
     move.calledWith(direction, totalItemCount).should.be.true();
   });
 
+  it('should resetNavigation to 0 when unmounted', function () {
+    const resetNavigation = spy();
+    instance = renderIntoDocument(
+      <SearchResults resetNavigation={ resetNavigation }/>
+    );
+    unmountComponentSuppressError(instance);
+
+    resetNavigation.calledWith(0).should.be.true();
+  });
+
   describe('Preview Pane', function () {
     it('should render PreviewPane when an officer is focused', function () {
       const previewPaneInfo = {
