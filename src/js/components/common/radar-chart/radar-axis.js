@@ -17,7 +17,7 @@ export default class RadarAxis extends React.Component {
 
     const radarLine = radialLine()
       .curve(curveLinearClosed)
-      .radius(d => rScale(maxValue))
+      .radius(rScale(maxValue))
       .angle((d, i) => i * angleSlice - Math.PI);
 
     return (

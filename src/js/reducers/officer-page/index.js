@@ -13,7 +13,7 @@ import socialGraph from './social-graph';
 import officerId from './officer-id';
 import complaintsByYear from './complaints-by-year';
 import breadcrumbCachedFullName from './breadcrumb-cached-full-name';
-
+import percentile from './radar-chart';
 
 export default combineReducers({
   isRequesting,
@@ -29,4 +29,5 @@ export default combineReducers({
   officerId,
   complaintsByYear,
   breadcrumbCachedFullName,
+  percentile
 });

@@ -7,9 +7,6 @@ import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import FooterContainer from 'containers/footer-container';
 import HeatMap from 'containers/landing-page/heat-map';
 
-// TODO: to be deleted. this test only
-import OfficerRadarChart from 'components/common/radar-chart';
-
 
 class LandingPage extends Component {
   componentDidMount() {
@@ -22,7 +19,6 @@ class LandingPage extends Component {
     return (
       <div>
         <HeatMap/>
-        <OfficerRadarChart/>
         <OfficersByAllegationContainer/>
         <RecentActivityContainer/>
         <FooterContainer/>

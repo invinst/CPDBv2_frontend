@@ -14,15 +14,13 @@ export default class RadarWrapper extends React.Component {
   render() {
     const { extraStyle, drawStroke, data } = this.props;
 
-    const circles = data ? data.map((point, i) => {
-      return <circle
+    const circles = _.map(data[data.length - 1].items, (point, i) =>
+      <circle
         className='radarCircle' r='4' key={ i }
         cx={ point.x }
         cy={ point.y }
-        style={ radarMainCircleStyle }/>;
-    }) : null;
-
-    let previousData = this.props.previousData || _.map(data, (d) => ({ ...d, r: 0 }));
+        style={ radarMainCircleStyle }/>
+    );
 
     const radarLine = radialLine()
       .curve(curveLinearClosed)
@@ -30,17 +28,21 @@ export default class RadarWrapper extends React.Component {
       .angle(d => d.angle);
 
     const calculatePath = (value) => {
-      const moveData = _.map(data, (d, i) => ({
-        ...d,
-        r: (d.r - previousData[i].r) * value + previousData[i].r
-      }));
+      const index = Math.min(parseInt(value) + 1, data.length-1);
+      const previousData = data[index - 1].items;
+      const moveData = _.map(data[index].items, (d, i) => {
+        return {
+          ...d,
+          r: (d.r - previousData[i].r) * (value - index) + d.r
+        };
+      });
       return radarLine(moveData);
     };
-
+    const valueSpring = data.length - 1;
 
     return (
       <g className='radarWrapper'>
-        <Motion defaultStyle={ { value: 0 } } style={ { value: spring(1, { stiffness: 100 }) } }>
+        <Motion defaultStyle={ { value: 0 } } style={ { value: spring(valueSpring, { stiffness: 20 }) } }>
           { ({ value }) => (
             <g>
               <path
