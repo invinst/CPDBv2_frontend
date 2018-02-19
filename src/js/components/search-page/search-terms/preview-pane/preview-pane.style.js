@@ -6,7 +6,6 @@ export const wrapperStyle = {
   top: '49px',
   right: '0px',
   width: '320px',
-  // backgroundColor: 'gray',
   boxSizing: 'border-box',
   verticalAlign: 'top',
   borderTop: `solid 1px ${whiteTwoColor}`,

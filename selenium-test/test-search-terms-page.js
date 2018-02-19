@@ -1,6 +1,6 @@
 'use strict';
 
-var should = require('should');
+import should from 'should';
 
 import searchTermsPage from './page-objects/search-terms-page';
 import searchPage from './page-objects/search-page';
@@ -60,7 +60,7 @@ describe('Search terms page', function () {
     should(searchTermsPage.previewPane).be.eql({});
   });
 
-  it('should show PreviewPane when navigation to SearchTerms items', function () {
+  it('should show PreviewPane when navigating to SearchTerms items', function () {
     browser.keys('ArrowDown');
 
     searchTermsPage.previewPane.title.getText().should.eql('Geography');

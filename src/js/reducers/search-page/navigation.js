@@ -7,7 +7,7 @@ import {
 
 export default handleActions({
   [SEARCH_NAVIGATION_RESET]: ({ itemIndex }, action) => {
-    const newItemIndex= action.payload === undefined ? 1 : action.payload;
+    const newItemIndex = action.payload === undefined ? 1 : action.payload;
     return { itemIndex: newItemIndex };
   },
 
