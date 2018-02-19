@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 import classnames from 'classnames';
 
-import { columnWrapperStyle, headerStyle, itemsWrapperStyle, headerInnerStyle } from './category-column.style';
+import { columnWrapperStyle, headerStyle, itemsWrapperStyle } from './category-column.style';
 import CategoryItem from './category-item';
 
 

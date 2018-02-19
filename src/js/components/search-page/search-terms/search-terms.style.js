@@ -4,9 +4,11 @@ export const contentWrapperStyle = {
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
   position: 'relative',
-  height: 'calc(100% - 4px)',
+  height: 'calc(100vh - 49px)',
   width: 'calc(100% - 320px)',
   borderTop: `solid 1px ${whiteTwoColor}`,
+  overflowX: 'auto',
+  display: 'inline-block',
 };
 
 export const searchTermWrapperStyle = {

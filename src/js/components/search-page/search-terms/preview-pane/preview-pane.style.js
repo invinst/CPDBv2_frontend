@@ -2,12 +2,9 @@ import { softBlackColor, clayGray, whiteTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
-  position: 'absolute',
-  top: '49px',
-  right: '0px',
   width: '320px',
-  // backgroundColor: 'gray',
   boxSizing: 'border-box',
+  display: 'inline-block',
   verticalAlign: 'top',
   borderTop: `solid 1px ${whiteTwoColor}`,
 };

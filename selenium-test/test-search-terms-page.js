@@ -83,4 +83,10 @@ describe('Search terms page', function () {
 
     searchTermsPage.previewPane.title.getText().should.eql('Communities');
   });
+
+  it('should show PreviewPane in the viewport when scroll to bottom', function () {
+    browser.scroll(0, 9999999);
+
+    searchTermsPage.previewPane.title.isVisibleWithinViewport().should.be.true();
+  });
 });
