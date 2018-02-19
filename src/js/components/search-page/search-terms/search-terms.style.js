@@ -15,7 +15,8 @@ export const searchTermWrapperStyle = {
 
 export const searchTermTitleStyle = {
   fontSize: '26px',
-  padding: '48px 16px 16px 16px',
+  padding: '48px 0 16px 0',
+  margin: '0 16px',
   fontWeight: 300,
   color: softBlackColor,
   borderBottom: `1px solid ${whiteTwoColor}`,
