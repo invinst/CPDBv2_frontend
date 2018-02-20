@@ -2,7 +2,6 @@ import {
   hiddenSelector,
   navigationItemsSelector,
   categoriesSelector,
-  selectedCategoryIndexSelector
 } from 'selectors/search-page/search-terms';
 
 
@@ -34,12 +33,6 @@ describe('search terms selectors', function () {
   describe('categoriesSelector', function () {
     it('should return categories', function () {
       categoriesSelector(state).should.eql([{ name: 'abc' }]);
-    });
-  });
-
-  describe('selectedCategoryIndexSelector', function () {
-    it('should return selectedCategory', function () {
-      selectedCategoryIndexSelector(state).should.equal(1);
     });
   });
 });

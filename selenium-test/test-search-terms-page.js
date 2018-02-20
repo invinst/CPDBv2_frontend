@@ -43,16 +43,18 @@ describe('Search terms page', function () {
     searchTermsPage.categoryMainPanel.getCategoryDescriptionAtItem(1).isExisting().should.be.false();
   });
 
-  it('should display all category names in filter bar', function () {
-    searchTermsPage.navigationBar.getNavigationItemNames().should.eql([
-      'Geography', 'Officers', 'Complainants'
-    ]);
+  it('should render bottom links', function () {
+    searchTermsPage.bottomLinks.backToFrontPageLink.should.ok();
+    searchTermsPage.bottomLinks.backToSearchPageLink.should.ok();
   });
 
-  it('should scroll to correct search term column when click on category name', function () {
-    searchTermsPage.categoryMainPanel.getCategoryColum(3).isVisibleWithinViewport().should.be.false();
-    searchTermsPage.navigationBar.getNavigationItem(3).click();
-    browser.pause(1000);
-    searchTermsPage.categoryMainPanel.getCategoryColum(3).isVisibleWithinViewport().should.be.true();
+  it('should navigate to Homepage when clicking on backToFrontPageLink', function () {
+    searchTermsPage.bottomLinks.backToFrontPageLink.click();
+    browser.getUrl().should.match(/\/$/);
+  });
+
+  it('should navigate to Search page when clicking on backToSearchPageLink', function () {
+    searchTermsPage.bottomLinks.backToSearchPageLink.click();
+    browser.getUrl().should.match(/\/search\/$/);
   });
 });
