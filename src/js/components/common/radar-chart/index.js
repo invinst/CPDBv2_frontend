@@ -9,26 +9,24 @@ import RadarTooltipPoints from './radar-tooltip-point';
 import { radarContaninerStyle } from './radar-chart.style';
 
 export default class OfficerRadarChart extends React.Component {
-  render() {
-    const conf = {
+  constructor(props) {
+    super(props);
+    this.conf = {
       width: 496,
-      height: 400
+      height: 400,
+      maxValue: 100,
+      radius: 164
     };
+  }
 
-    const { data } = this.props;
-    if (data.length === 0)
-      return null;
-
-    const maxValue = 100;
-    const radius = 164;
-
+  _embedComputedPosition(data) {
     const rScale = scaleLinear()
-      .range([0, radius])
-      .domain([0, maxValue]);
+      .range([0, this.conf.radius])
+      .domain([0, this.conf.maxValue]);
 
     const angleSlice = Math.PI * 2 / data[0].items.length;
 
-    const transformData = _.map(data, (d) => ({
+    return _.map(data, (d) => ({
       year: d.year,
       items: _.map(d.items, (d, i) => {
         const r = rScale(d.value);
@@ -41,17 +39,27 @@ export default class OfficerRadarChart extends React.Component {
         };
       })
     }));
+  }
+
+  render() {
+    const { data } = this.props;
+    if (!data || data.length === 0)
+      return <svg className='test--radar'/>;
+
+    const transformData = this._embedComputedPosition(data);
 
     return (
-      <svg width={ conf.width } height={ conf.height } style={ radarContaninerStyle }>
-        <g transform={ `translate(${conf.width / 2},${conf.height / 2})` }>
+      <svg
+        className='test--radar' style={ radarContaninerStyle }
+        width={ this.conf.width } height={ this.conf.height }
+      >
+        <g transform={ `translate(${this.conf.width / 2},${this.conf.height / 2})` }>
           <RadarAxis
             axisTitles={ _.map(data[0].items, (d) => d.axis) }
-            radius={ radius }
-            maxValue={ maxValue }
+            radius={ this.conf.radius }
+            maxValue={ this.conf.maxValue }
           />
-          <RadarWrapper
-            data={ transformData }/>
+          <RadarWrapper data={ transformData }/>
           <RadarTooltipPoints data={ transformData[transformData.length - 1].items }/>
         </g>
       </svg>

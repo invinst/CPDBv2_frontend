@@ -7,8 +7,8 @@ export default class RadarTooltipPoint extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activePoint: { x: 0, y: 0, value: 0 },
-      showTooltip: false
+      showTooltip: false,
+      activePoint: { x: 0, y: 0, value: 0 }
     };
   }
 
@@ -32,13 +32,13 @@ export default class RadarTooltipPoint extends React.Component {
 
   render() {
     const { data } = this.props;
-    return (
+    return data ? (
       <g>
-        <g className='radarCircleWrapper'>
+        <g className='test--radar--tooltip'>
           { data.map((point, i) => (
             <circle
               key={ i }
-              className='radarInvisibleCircle' r='8' cx={ point.x } cy={ point.y }
+              className='test--radar--tooltip--point' r='8' cx={ point.x } cy={ point.y }
               style={ radarPointStyle }
               onMouseOver={ (e) => this.mouseOver(e, point.value) }
               onMouseOut={ (e) => this.mouseOut(e, point.value) }
@@ -46,13 +46,14 @@ export default class RadarTooltipPoint extends React.Component {
           )) }
         </g>
         <text
-          className='tooltip' textAnchor='middle' dy='0.35em'
+          className='test--radar--tooltip--text' textAnchor='middle' dy='0.35em'
+          style={ tooltipStyle(this.state.showTooltip) }
           x={ this.state.activePoint.x }
-          y={ this.state.activePoint.y }
-          style={ tooltipStyle(this.state.showTooltip) }>{ this.state.activePoint.value }
+          y={ this.state.activePoint.y }>
+          { this.state.activePoint.value }
         </text>
       </g>
-    );
+    ) : <g/>;
   }
 }
 

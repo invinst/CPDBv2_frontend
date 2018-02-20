@@ -6,12 +6,12 @@ export const radarMainAreaStyle = {
 };
 
 export const radarMainStrokeStyle = {
-  stroke: 'rgb(38, 175, 50)',
+  stroke: accentColor,
   strokeWidth: '2px',
   fill: 'none'
 };
 
 export const radarMainCircleStyle = {
-  fill: 'rgb(38, 175, 50)',
+  fill: accentColor,
   fillOpacity: 0.8
 };

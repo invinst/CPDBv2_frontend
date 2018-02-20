@@ -6,10 +6,12 @@ import { curveLinearClosed, radialLine } from 'd3-shape';
 
 export default class RadarAxis extends React.Component {
   render() {
-
     const { radius, axisTitles, maxValue } = this.props;
+
+    if (!axisTitles)
+      return <g className='test--radar--axis-wrapper'/>;
     const angleSlice = Math.PI * 2 / axisTitles.length;
-    const labelFactor = 1.15; // How much farther than the radius of the outer circle should the labels be placed
+    const labelFactor = 1.15; // How much farther than radius of outer circle should labels be placed
 
     const rScale = scaleLinear()
       .range([0, radius])
@@ -21,7 +23,7 @@ export default class RadarAxis extends React.Component {
       .angle((d, i) => i * angleSlice - Math.PI);
 
     return (
-      <g className='axisWrapper'>
+      <g className='test--radar--axis-wrapper'>
 
         { axisTitles.map((title, i) => {
           const xText = radius * labelFactor * Math.cos(angleSlice * i + Math.PI / 2);
@@ -40,7 +42,7 @@ export default class RadarAxis extends React.Component {
         }
 
         <path
-          className='radarBoundaryArea'
+          className='test--radar--boundary-area'
           d={ radarLine(axisTitles.map(() => ({ value: maxValue }))) }
           style={ radarBoundaryAreaStyle }/>
       </g>

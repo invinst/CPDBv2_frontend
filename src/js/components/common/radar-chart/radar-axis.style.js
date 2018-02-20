@@ -1,4 +1,4 @@
-import { accentColor } from '../../../utils/styles';
+import { accentColor } from 'utils/styles';
 
 export const radarAxisTextStyle = {
   fontSize: '10px'
