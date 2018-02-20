@@ -1,7 +1,8 @@
 import {
   hiddenSelector,
-  categoriesSelector,
 } from 'selectors/search-page/search-terms';
+import { categoriesSelector } from 'selectors/search-page/search-terms/categories';
+
 
 describe('search terms selectors', function () {
   const state = {

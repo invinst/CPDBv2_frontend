@@ -1,7 +1,7 @@
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
   hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector
-} from 'selectors/search-page/search-results';
+} from 'selectors/search-page/search-results/suggestion-groups';
 import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
 
 

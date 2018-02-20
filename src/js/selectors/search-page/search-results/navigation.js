@@ -3,7 +3,7 @@ import { flatten, concat } from 'lodash';
 
 import * as constants from 'utils/constants';
 import { navigationItemTransform, previewPaneTransform } from './transforms';
-import { slicedSuggestionGroupsSelector } from './index';
+import { slicedSuggestionGroupsSelector } from './suggestion-groups';
 
 
 const getSuggestionNavigation = state => state.searchPage.navigation;
