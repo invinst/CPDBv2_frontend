@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 
 import SummaryPage from 'components/officer-page/summary-page';
-import SummarySection from 'components/officer-page/summary-page/summary-section';
+import SummarySection from 'components/officer-page/summary-section';
 import AggregateSection from 'components/officer-page/summary-page/aggregate-section';
 import { unmountComponentSuppressError } from 'utils/test';
 

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import SummarySection from './summary-section';
+import SummarySection from '../summary-section';
 import AggregateSection from './aggregate-section';
 import { wrapperStyle } from './summary-page.style.js';
 

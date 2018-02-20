@@ -5,7 +5,7 @@ import {
   renderIntoDocument, scryRenderedComponentsWithType, findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
-import SummarySection from 'components/officer-page/summary-page/summary-section';
+import SummarySection from 'components/officer-page/summary-section';
 import SummaryField from 'components/officer-page/summary-page/summary-field';
 import ViewUnitProfileButton from 'components/officer-page/summary-page/view-unit-profile-button';
 

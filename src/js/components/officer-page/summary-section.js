@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 
-import SummaryField from './summary-field';
-import ViewUnitProfileButton from './view-unit-profile-button';
+import SummaryField from './summary-page/summary-field';
+import ViewUnitProfileButton from './summary-page/view-unit-profile-button';
 import {
-  wrapperStyle, fieldsWrapperStyle, unitWrapperStyle, unitLabelStyle, unitValueStyle, lastFieldStyle
+  wrapperStyle, fieldsWrapperStyle, unitWrapperStyle, unitLabelStyle, unitValueStyle, lastFieldStyle, officerNameStyle
 } from './summary-section.style';
 
 
@@ -23,12 +23,15 @@ export default class SummarySection extends Component {
   }
 
   render() {
-    const { officerSummary, openPoliceUnitPage } = this.props;
+    const { officerSummary, openPoliceUnitPage, officerName } = this.props;
     const { unitName } = officerSummary;
     const summaryFields = this.summaryFields();
 
     return (
       <div style={ wrapperStyle }>
+        <div style={ officerNameStyle }>
+          { officerName }
+        </div>
         <div style={ unitWrapperStyle }>
           <span className='test--field-unit-label' style={ unitLabelStyle }>Unit</span>
           <span className='test--field-unit-value' style={ unitValueStyle }>{ unitName }</span>
@@ -49,7 +52,8 @@ export default class SummarySection extends Component {
 
 SummarySection.propTypes = {
   officerSummary: PropTypes.object,
-  openPoliceUnitPage: PropTypes.func
+  openPoliceUnitPage: PropTypes.func,
+  officerName: PropTypes.string,
 };
 
 SummarySection.defaultProps = {

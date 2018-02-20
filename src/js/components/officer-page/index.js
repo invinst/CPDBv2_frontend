@@ -1,38 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 
-import Header from './header';
-import SummaryPageContainer from 'containers/officer-page/summary-page-container';
-import TimelinePage from './timeline-page';
-import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
-import { pageWrapperStyle } from './officer-page.style';
+import { pageWrapperStyle, radarChartPlaceholder } from './officer-page.style';
+import SummarySection from './summary-section';
+import MetricsSection from 'components/officer-page/metrics-section';
 
 
 export default class OfficerPage extends Component {
-  renderChildren() {
-    const { activeTab, query } = this.props;
-    if (activeTab === 'timeline') {
-      return <TimelinePage urlParams={ query }/>;
-    } else if (activeTab === 'social') {
-      return <SocialGraphPageContainer/>;
-    }
-    return <SummaryPageContainer/>;
-  }
 
   render() {
-    const { officerName, activeTab, pathname, officerTimelineUrlParams, scrollPosition } = this.props;
-
+    const { officerSummary, openPoliceUnitPage, officerName } = this.props;
     return (
       <div>
-        <Header
-          officerName={ officerName }
-          activeTab={ activeTab }
-          pathname={ pathname }
-          officerTimelineUrlParams={ officerTimelineUrlParams }
-          scrollPosition={ scrollPosition }
-        />
         <div style={ pageWrapperStyle }>
-          { this.renderChildren() }
+          <div style={ radarChartPlaceholder }/>
+          <SummarySection
+            officerName={ officerName }
+            officerSummary={ officerSummary }
+            openPoliceUnitPage={ openPoliceUnitPage } />
         </div>
+        <MetricsSection/>
       </div>
     );
   }
@@ -46,9 +32,12 @@ OfficerPage.propTypes = {
   pathname: PropTypes.string,
   query: PropTypes.object,
   scrollPosition: PropTypes.string,
+  officerSummary: PropTypes.object,
+  openPoliceUnitPage: PropTypes.func,
 };
 
 OfficerPage.defaultProps = {
   pathname: '/',
   scrollPosition: 'top',
+  officerSummary: {},
 };

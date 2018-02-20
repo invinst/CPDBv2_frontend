@@ -4,15 +4,15 @@ import { sanFranciscoTextFamily, mediumGrayColor, hardBlackColor, whiteTwoColor 
 export const wrapperStyle = {
   padding: '11px 0',
   margin: '0 16px',
-  width: 'calc(50% - 32px)',
+  width: 'calc(100% - 32px)',
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
   height: '18px',
   fontWeight: 500,
-  borderBottom: `solid 1px ${whiteTwoColor}`,
+  borderTop: `solid 1px ${whiteTwoColor}`,
   overflow: 'auto',
   WebkitOverflowScrolling: 'touch',
-  display: 'inline-block'
+  display: 'inline-block',
 };
 
 export const labelStyle = {
