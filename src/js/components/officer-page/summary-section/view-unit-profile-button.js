@@ -11,7 +11,7 @@ class ViewUnitProfileButton extends Component {
     return (
       <div className='test--view-profile-button' style={ viewUnitButtonWrapperStyle(hovering) }
         onClick={ () => onClick(unitName) }>
-        <span style={ textStyle }>View unit profile</span>
+        <span style={ textStyle }>View Unit Profile</span>
         <div style={ arrowStyle(hovering) } />
       </div>
     );

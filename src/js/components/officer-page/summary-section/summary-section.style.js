@@ -16,10 +16,10 @@ export const fieldsWrapperStyle = {
 };
 
 export const unitWrapperStyle = {
-  padding: '11px 0',
+  height: '40px',
+  lineHeight: '39px',
   margin: '0 16px',
   width: 'calc(100% - 32px)',
-  height: '18px',
   borderTop: `solid 1px ${whiteTwoColor}`,
   display: 'inline-block'
 };

@@ -68,11 +68,12 @@ export const summarySelector = createSelector(
     unitName: summary.unit,
     rank: getSummaryRank(summary),
     dateOfAppt: summary['date_of_appt'],
+    birthYear: summary['birth_year'],
     race: summary.race,
     gender: summary.gender,
     badge: summary.badge,
     careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
-    careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation'])
+    careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation']),
   })
 );
 

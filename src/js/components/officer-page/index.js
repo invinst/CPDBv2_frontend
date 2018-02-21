@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import { pageWrapperStyle, radarChartPlaceholder } from './officer-page.style';
-import SummarySection from './summary-section';
+import SummarySection from './summary-section/index';
 import MetricsSection from 'components/officer-page/metrics-section';
 
 

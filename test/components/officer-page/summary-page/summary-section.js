@@ -5,9 +5,9 @@ import {
   renderIntoDocument, scryRenderedComponentsWithType, findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
-import SummarySection from 'components/officer-page/summary-section';
-import SummaryField from 'components/officer-page/summary-page/summary-field';
-import ViewUnitProfileButton from 'components/officer-page/summary-page/view-unit-profile-button';
+import SummarySection from 'components/officer-page/summary-section/index';
+import SummaryField from 'components/officer-page/summary-section/summary-field';
+import ViewUnitProfileButton from 'components/officer-page/summary-section/view-unit-profile-button';
 
 
 describe('SummarySection component', function () {

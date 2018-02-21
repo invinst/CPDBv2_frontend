@@ -3,7 +3,7 @@ import { findDOMNode } from 'react-dom';
 import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
-import ViewUnitProfileButton from 'components/officer-page/summary-page/view-unit-profile-button';
+import ViewUnitProfileButton from 'components/officer-page/summary-section/view-unit-profile-button';
 import { unmountComponentSuppressError } from 'utils/test';
 
 

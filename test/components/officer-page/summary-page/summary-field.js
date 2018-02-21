@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderIntoDocument, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
 
-import SummaryField from 'components/officer-page/summary-page/summary-field';
+import SummaryField from 'components/officer-page/summary-section/summary-field';
 
 
 describe('SummaryField component', function () {
