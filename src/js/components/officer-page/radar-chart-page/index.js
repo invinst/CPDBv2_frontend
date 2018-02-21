@@ -16,7 +16,7 @@ export default class OfficerRadarDemoPage extends Component {
     const { threeCornerPercentile, fiveCornerPercentile } = this.props;
 
     return (
-      <div >
+      <div className='test--officer--radar-chart' >
         <ResponsiveFluidWidthComponent>
           <OfficerRadarChart data={ threeCornerPercentile }/>
           <OfficerRadarChart data={ fiveCornerPercentile }/>

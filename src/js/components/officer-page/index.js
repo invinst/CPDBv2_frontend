@@ -4,7 +4,7 @@ import Header from './header';
 import SummaryPageContainer from 'containers/officer-page/summary-page-container';
 import TimelinePage from './timeline-page';
 import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
-import OfficerRadarDemoPageContainer from 'containers/officer-page/radar-chart'; // TODO: demo purpose
+import OfficerRadarDemoPageContainer from 'containers/officer-page/radar-chart-page'; // TODO: demo purpose
 import { pageWrapperStyle } from './officer-page.style';
 
 

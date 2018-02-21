@@ -13,7 +13,8 @@ import { scrollToTop } from 'utils/dom';
 const OFFICER_BUTTONS = [
   ['Summary', ''],
   ['Timeline', 'timeline'],
-  ['Social Map', 'social']
+  ['Social Map', 'social'],
+  ['Radar (Demo)', 'radar']
 ];
 
 

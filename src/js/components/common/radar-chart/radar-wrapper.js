@@ -31,8 +31,9 @@ export default class RadarWrapper extends React.Component {
       .angle(d => d.angle);
 
     const calculatePath = (value) => {
-      const index = Math.min(parseInt(value) + 1, data.length - 1);
+      const index = Math.min(parseInt(value) + 1, transitionData.length - 1);
       const previousData = transitionData[index - 1].items;
+
       const moveData = _.map(transitionData[index].items, (d, i) => {
         const newR = (d.r - previousData[i].r) * (value - (index - 1)) + previousData[i].r;
         return {

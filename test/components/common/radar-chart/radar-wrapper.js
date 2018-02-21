@@ -49,4 +49,13 @@ describe('RadarWrapper components', function () {
     findRenderedDOMComponentWithClass(instance, 'test--radar--stroke');
     scryRenderedDOMComponentsWithClass(instance, 'test--radar--circles').should.have.length(3);
   });
+
+  it('should also render if data length is 1', function () {
+    const compactData = [data[0]];
+    instance = renderIntoDocument(
+      <RadarWrapper data={ compactData }/>
+    );
+    findRenderedDOMComponentWithClass(instance, 'test--radar--wrapper');
+    scryRenderedDOMComponentsWithClass(instance, 'test--radar--circles').should.have.length(3);
+  });
 });

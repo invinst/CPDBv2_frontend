@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import OfficerRadarDemoPage from 'components/officer-page/radar-chart';
+import OfficerRadarDemoPage from 'components/officer-page/radar-chart-page';
 import { fetchPercentile } from 'actions/officer-page/radar-chart';
 import { getOfficerId } from 'selectors/officer-page';
 import { officerYearlyThreePercentile, officerYearlyFivePercentile } from 'selectors/officer-page/radar-chart';

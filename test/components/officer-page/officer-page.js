@@ -9,6 +9,7 @@ import TimelinePage from 'components/officer-page/timeline-page';
 import SummaryPageContainer from 'containers/officer-page/summary-page-container';
 import Header from 'components/officer-page/header';
 import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
+import RadarDemoContainer from 'containers/officer-page/radar-chart-page';
 
 
 describe('OfficerPage component', function () {
@@ -39,6 +40,10 @@ describe('OfficerPage component', function () {
           next: null,
           previous: null
         }
+      },
+      percentile: {
+        isRequesting: false,
+        items: []
       }
     }
   });
@@ -87,5 +92,15 @@ describe('OfficerPage component', function () {
 
     scryRenderedComponentsWithType(instance, Header).should.have.length(1);
     scryRenderedComponentsWithType(instance, SocialGraphPageContainer).should.have.length(1);
+  });
+
+  it('should render officer radar page if active tab is summary', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage activeTab='radar'/>
+      </Provider>
+    );
+
+    scryRenderedComponentsWithType(instance, RadarDemoContainer).should.have.length(1);
   });
 });
