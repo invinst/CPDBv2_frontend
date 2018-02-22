@@ -1,4 +1,4 @@
-import { accentColor } from 'utils/styles';
+import { accentColor, clayGray } from 'utils/styles';
 
 export const radarMainAreaStyle = {
   fill: accentColor,
@@ -11,7 +11,7 @@ export const radarMainStrokeStyle = {
   fill: 'none'
 };
 
-export const radarMainCircleStyle = {
-  fill: accentColor,
-  fillOpacity: 0.8
+export const radarLegendYearStyle = {
+  fill: clayGray,
+  fontWeight: 'bold'
 };

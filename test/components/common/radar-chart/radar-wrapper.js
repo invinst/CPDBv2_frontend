@@ -4,8 +4,9 @@ import RadarWrapper from 'components/common/radar-chart/radar-wrapper';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
+
+import { useFakeTimers } from 'sinon';
 
 describe('RadarWrapper components', function () {
   let instance;
@@ -33,7 +34,9 @@ describe('RadarWrapper components', function () {
   }];
 
   afterEach(function () {
-    unmountComponentSuppressError(instance);
+    if (instance) {
+      unmountComponentSuppressError(instance);
+    }
   });
 
   it('should be renderable', function () {
@@ -47,7 +50,7 @@ describe('RadarWrapper components', function () {
     findRenderedDOMComponentWithClass(instance, 'test--radar--wrapper');
     findRenderedDOMComponentWithClass(instance, 'test--radar--radar-area');
     findRenderedDOMComponentWithClass(instance, 'test--radar--stroke');
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar--circles').should.have.length(3);
+    findRenderedDOMComponentWithClass(instance, 'test--radar--legend-year');
   });
 
   it('should also render if data length is 1', function () {
@@ -56,6 +59,55 @@ describe('RadarWrapper components', function () {
       <RadarWrapper data={ compactData }/>
     );
     findRenderedDOMComponentWithClass(instance, 'test--radar--wrapper');
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar--circles').should.have.length(3);
+  });
+
+  it('test hide text year legend after animation end', function (done) {
+    // TODO: move to selenium-test when officer-profle page is ready
+    this.timeout(5000);
+    instance = renderIntoDocument(
+      <RadarWrapper data={ data }/>
+    );
+
+    setTimeout(function () {
+      const legendYearElement = findRenderedDOMComponentWithClass(instance, 'test--radar--legend-year');
+      legendYearElement.textContent.should.be.eql('2017');
+      legendYearElement.getAttribute('style').should.containEql('visibility: hidden');
+      done();
+    }, 1900);
+  });
+
+  describe('test transition', function () {
+    let clock;
+    beforeEach(function () {
+      clock = useFakeTimers();
+    });
+
+    afterEach(function () {
+      clock.restore();
+    });
+
+    it('should change transition value after mounting', function () {
+      instance = renderIntoDocument(
+        <RadarWrapper data={ data }/>
+      );
+      instance.state.transitionValue.should.eql(0);
+      clock.tick(25);
+      instance.state.transitionValue.should.eql(instance.velocity);
+      clock.tick(500);
+      instance.state.transitionValue.should.eql(2);
+    });
+
+    it('should update the text legend as transition execute', function () {
+      const intervalTime = Math.ceil(instance.interval * (1.0 / instance.velocity)) + instance.interval;
+      instance = renderIntoDocument(
+        <RadarWrapper data={ data }/>
+      );
+
+      let legendYearElement = findRenderedDOMComponentWithClass(instance, 'test--radar--legend-year');
+      legendYearElement.textContent.should.be.eql('2015');
+
+      clock.tick(intervalTime);
+      findRenderedDOMComponentWithClass(instance, 'test--radar--legend-year').textContent.should.be.eql('2016');
+    });
   });
 });
