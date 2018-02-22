@@ -77,7 +77,8 @@ describe('officer page selectors', function () {
       'date_of_appt': '2015-09-23',
       'race': 'race',
       'gender': 'Male',
-      'badge': 'badge'
+      'badge': 'badge',
+      'birth_year': 1991,
     };
 
     it('should return summary', function () {
@@ -88,7 +89,8 @@ describe('officer page selectors', function () {
         race: 'race', gender: 'Male', badge: 'badge',
         dateOfAppt: '2015-09-23',
         careerDescription: '2 years',
-        careerDuration: 'SEP 23, 2015—Present'
+        careerDuration: 'SEP 23, 2015—Present',
+        birthYear: 1991
       });
     });
 

@@ -16,7 +16,6 @@ function mapStateToProps(state, ownProps) {
     officerTimelineUrlParams: timelineUrlParamsSelector(state),
     activeTab: getActiveTab(state),
     scrollPosition: getShareablePageScrollPosition(state),
-
     officerSummary: summarySelector(state),
   };
 }

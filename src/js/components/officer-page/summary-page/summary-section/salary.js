@@ -17,5 +17,5 @@ export default class Salary extends Component {
 }
 
 Salary.propTypes = {
-  salary: PropTypes.number,
+  salary: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };

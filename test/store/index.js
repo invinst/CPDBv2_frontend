@@ -121,6 +121,7 @@ describe('store', function () {
         officerId: null,
         pathname: null,
         summary: {},
+        metrics: {},
         sustainedCount: null,
         socialGraph: {
           isRequesting: false,

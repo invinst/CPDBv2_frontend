@@ -1,43 +1,56 @@
 import React, { Component, PropTypes } from 'react';
 import { chunk } from 'lodash';
 
-import { metricSectionStyle, wrapperStyle, verticalLineStyle } from './metrics-section.style';
-import MetricsColumn from 'components/officer-page/metrics-section/metrics-column';
+import { metricSectionStyle, verticalLineStyle, wrapperStyle } from './metrics-section.style';
+import MetricsColumn from 'components/officer-page/summary-page/metrics-section/metrics-column';
 
 
 export default class MetricsSection extends Component {
 
   render() {
+    const {
+      allegationCount,
+      topAllegationPercentile,
+      honorableMentionCount,
+      sustainedCount,
+      disciplineCount,
+      topHonorableMentionPercentile,
+      useOfForceCount,
+      majorAwardCount,
+      topUseOfForcePercentile,
+      civilianComplimentCount
+    } = this.props.metrics;
+
     const metrics = [
       {
-        value: 76,
+        value: allegationCount,
         name: 'Allegations',
-        description: 'More than ##% of other officers',
+        description: `More than ${topAllegationPercentile}% of other officers`,
       },
       {
-        value: 0,
+        value: sustainedCount,
         name: 'Sustained',
-        description: '# Disciplined',
+        description: `${disciplineCount} Disciplined`,
       },
       {
-        value: 6,
+        value: useOfForceCount,
         name: 'Use of Force Reports ',
-        description: 'More than ##% of other officers',
+        description: `More than ${topUseOfForcePercentile}% of other officers`,
       },
       {
-        value: 0,
+        value: civilianComplimentCount,
         name: 'Civilian Compliments',
         description: '',
       },
       {
-        value: 0,
+        value: majorAwardCount,
         name: 'Major Awards',
         description: '',
       },
       {
-        value: 6,
+        value: honorableMentionCount,
         name: 'Honorable Mentions',
-        description: 'More than ##% of other officers',
+        description: `More than ${topHonorableMentionPercentile}% of other officers`,
       }
     ];
 
@@ -61,5 +74,9 @@ export default class MetricsSection extends Component {
 }
 
 MetricsSection.propTypes = {
-  metrics: PropTypes.array,
+  metrics: PropTypes.object,
+};
+
+MetricsSection.defaultProps = {
+  metrics: {},
 };

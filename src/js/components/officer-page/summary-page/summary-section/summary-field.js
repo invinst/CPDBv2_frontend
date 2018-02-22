@@ -19,7 +19,7 @@ export default class SummaryField extends Component {
 
 SummaryField.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   style: PropTypes.object,
   children: PropTypes.node,
 };

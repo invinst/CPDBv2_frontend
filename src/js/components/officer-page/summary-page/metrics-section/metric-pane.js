@@ -26,7 +26,7 @@ export default class MetricPane extends Component {
 }
 
 MetricPane.propTypes = {
-  value: PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.string,
   description: PropTypes.string,
   borderTop: PropTypes.bool,

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { slice } from 'lodash';
 
 import { wrapperStyle } from './metrics-column.style';
-import MetricPane from 'components/officer-page/metrics-section/metric-pane';
+import MetricPane from 'components/officer-page/summary-page/metrics-section/metric-pane';
 
 
 export default class MetricsColumn extends Component {

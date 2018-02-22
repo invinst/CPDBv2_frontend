@@ -1,24 +1,39 @@
 import React, { Component, PropTypes } from 'react';
 
-import { pageWrapperStyle, radarChartPlaceholder } from './officer-page.style';
-import SummarySection from './summary-section/index';
-import MetricsSection from 'components/officer-page/metrics-section';
+import { pageWrapperStyle } from './officer-page.style';
+import Header from './header';
+import SummaryPageContainer from 'containers/officer-page/summary-page-container';
+import TimelinePage from './timeline-page';
+import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
 
 
 export default class OfficerPage extends Component {
 
+  renderChildren() {
+    const { activeTab, query } = this.props;
+    if (activeTab === 'timeline') {
+      return <TimelinePage urlParams={ query }/>;
+    } else if (activeTab === 'social') {
+      return <SocialGraphPageContainer/>;
+    }
+    return <SummaryPageContainer/>;
+  }
+
   render() {
-    const { officerSummary, openPoliceUnitPage, officerName } = this.props;
+    const { officerName, activeTab, pathname, officerTimelineUrlParams, scrollPosition } = this.props;
+
     return (
       <div>
+        <Header
+          officerName={ officerName }
+          activeTab={ activeTab }
+          pathname={ pathname }
+          officerTimelineUrlParams={ officerTimelineUrlParams }
+          scrollPosition={ scrollPosition }
+        />
         <div style={ pageWrapperStyle }>
-          <div style={ radarChartPlaceholder }/>
-          <SummarySection
-            officerName={ officerName }
-            officerSummary={ officerSummary }
-            openPoliceUnitPage={ openPoliceUnitPage } />
+          { this.renderChildren() }
         </div>
-        <MetricsSection/>
       </div>
     );
   }
@@ -26,18 +41,14 @@ export default class OfficerPage extends Component {
 
 OfficerPage.propTypes = {
   officerName: PropTypes.string,
-  officerId: PropTypes.number,
   officerTimelineUrlParams: PropTypes.string,
   activeTab: PropTypes.string,
   pathname: PropTypes.string,
   query: PropTypes.object,
   scrollPosition: PropTypes.string,
-  officerSummary: PropTypes.object,
-  openPoliceUnitPage: PropTypes.func,
 };
 
 OfficerPage.defaultProps = {
   pathname: '/',
   scrollPosition: 'top',
-  officerSummary: {},
 };
