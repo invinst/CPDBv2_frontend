@@ -31,6 +31,7 @@ describe('search page navigation selector', function () {
         id: '29033',
         to: '/officer/29033',
         type: 'CO-ACCUSED',
+        text: 'Jerome Turbyville',
         uniqueKey: 'CO-ACCUSED-29033',
         url: 'https://example.com'
       });
@@ -53,6 +54,7 @@ describe('search page navigation selector', function () {
         id: undefined,
         to: undefined,
         type: undefined,
+        text: undefined,
         uniqueKey: SEARCH_BOX,
         url: undefined
       });
@@ -74,6 +76,7 @@ describe('search page navigation selector', function () {
       }).should.deepEqual({
         id: 'OFFICER',
         to: undefined,
+        text: undefined,
         type: MORE_BUTTON,
         uniqueKey: `${MORE_BUTTON}-OFFICER`,
         url: undefined,
