@@ -1,10 +1,9 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate } from 'react-addons-test-utils';
+import { findRenderedDOMComponentWithClass, renderIntoDocument } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test/index';
 import CallToAction from 'components/search-page/search-terms/preview-pane/call-to-action';
-import { spy } from 'sinon';
 
 
 describe('CallToAction component', function () {
@@ -57,20 +56,5 @@ describe('CallToAction component', function () {
 
     const enterButton = findRenderedDOMComponentWithClass(instance, 'test--enter-button');
     enterButton.should.be.ok();
-  });
-
-  it('should handle enter button onClick', function () {
-    const handleEnterButtonClick = spy(CallToAction.prototype, 'handleEnterButtonClick');
-    instance = renderIntoDocument(
-      <CallToAction item={ {
-        'call_to_action_type': 'view_all',
-        name: 'police districts'
-      } } />
-    );
-
-    const enterButton = findRenderedDOMComponentWithClass(instance, 'test--enter-button');
-    Simulate.click(enterButton);
-
-    handleEnterButtonClick.called.should.be.true();
   });
 });

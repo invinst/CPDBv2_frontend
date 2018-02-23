@@ -153,4 +153,29 @@ describe('TextInput component', function () {
     });
   });
 
+  context('when keyPressWithBlurHandlers prop is provided', function () {
+
+    it('should call handlers and blur when the keys are pressed', function () {
+      const keyDownHandlerStub = stub();
+      const keyUpHandlerStub = stub();
+      const keyPressWithBlurHandlers = {
+        down: keyDownHandlerStub,
+        up: keyUpHandlerStub,
+      };
+
+      instance = renderIntoDocument(
+        <TextInput keyPressWithBlurHandlers={ keyPressWithBlurHandlers }/>
+      );
+      const blur = spy(instance.input, 'blur');
+
+      instance.mousetrap.trigger('down');
+      keyDownHandlerStub.calledOnce.should.be.true();
+      blur.calledOnce.should.be.true();
+
+      Simulate.focus(instance.input);
+      instance.mousetrap.trigger('up');
+      keyDownHandlerStub.calledOnce.should.be.true();
+      blur.calledTwice.should.be.true();
+    });
+  });
 });

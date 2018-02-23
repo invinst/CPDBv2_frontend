@@ -22,9 +22,8 @@ export default class SearchTerms extends Component {
   }
 
   componentDidMount() {
-    const { requestSearchTermCategories, move, resetNavigation } = this.props;
+    const { requestSearchTermCategories, move } = this.props;
     requestSearchTermCategories();
-    resetNavigation();
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
       (event) => {
@@ -47,6 +46,7 @@ export default class SearchTerms extends Component {
 
   componentWillUnmount() {
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
+    this.props.resetNavigation(0);
   }
 
   handleItemClick(uniqueKey) {
@@ -83,7 +83,7 @@ export default class SearchTerms extends Component {
           maxWidthThreshold={ 1760 }
         >
           <div style={ searchTermWrapperStyle }>
-            <div style={ searchTermTitleStyle }>Search terms</div>
+            <div style={ searchTermTitleStyle } className='test--search-term-title'>Search terms</div>
             { this.renderColumns() }
             <div style={ bottomLinksWrapperStyle }>
               <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>

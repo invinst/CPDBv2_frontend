@@ -2,10 +2,8 @@ import React from 'react';
 import { spy, stub } from 'sinon';
 import {
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-  Simulate,
-} from 'react-addons-test-utils';
+ findRenderedDOMComponentWithClass, renderIntoDocument,
+Simulate,} from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 
 import { reRender, unmountComponentSuppressError } from 'utils/test';
@@ -121,6 +119,16 @@ describe('SearchTerms component', function () {
 
     Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--category-header'));
     setNavigation.calledWith({ navigationKeys, uniqueKey: 'category-Geography' }).should.be.true();
+  });
+
+  it('should resetNavigation to 0 when unmounted', function () {
+    const resetNavigation = spy();
+    instance = renderIntoDocument(
+      <SearchTerms resetNavigation={ resetNavigation }/>
+    );
+    unmountComponentSuppressError(instance);
+
+    resetNavigation.calledWith(0).should.be.true();
   });
 
   describe('after keyboard navigation', function () {
