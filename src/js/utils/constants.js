@@ -76,7 +76,8 @@ export const BASE_PATH = basePath;
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;
 
-export const LANDING_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/landing-page/`;
+export const SLUG_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/`;
+export const LANDING_PAGE_API_URL = `${SLUG_PAGE_API_URL}landing-page/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
 export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
 export const REPORTS_API_URL = `${V2_ROOT_PATH}reports/`;
@@ -287,3 +288,16 @@ export const SEARCH_BOX = 'SEARCH_BOX';
 export const SEARCH_CATEGORIES = [
   'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'
 ];
+
+export const TURN_ON_LOGO_EDIT_MODE = 'TURN_ON_LOGO_EDIT_MODE';
+export const TURN_OFF_LOGO_EDIT_MODE = 'TURN_OFF_LOGO_EDIT_MODE';
+export const UPDATE_CMS_PAGE_REQUEST_START = 'UPDATE_CMS_PAGE_REQUEST_START';
+export const UPDATE_CMS_PAGE_REQUEST_SUCCESS = 'UPDATE_CMS_PAGE_REQUEST_SUCCESS';
+export const UPDATE_CMS_PAGE_REQUEST_FAILURE = 'UPDATE_CMS_PAGE_REQUEST_FAILURE';
+export const CMS_PAGE_REQUEST_START = 'CMS_PAGE_REQUEST_START';
+export const CMS_PAGE_REQUEST_SUCCESS = 'CMS_PAGE_REQUEST_SUCCESS';
+export const CMS_PAGE_REQUEST_FAILURE = 'CMS_PAGE_REQUEST_FAILURE';
+
+export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
+
+export const LANDING_PAGE_ID = 'landing-page';

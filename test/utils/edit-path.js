@@ -2,7 +2,7 @@ import { stub } from 'sinon';
 import { browserHistory } from 'react-router';
 
 import * as utilsDom from 'utils/dom';
-import { editMode, pushPathPreserveEditMode } from 'utils/edit-path';
+import { editMode, pushPathPreserveEditMode, editModeOn } from 'utils/edit-path';
 
 
 describe('EditPath utils', function () {
@@ -40,6 +40,18 @@ describe('EditPath utils', function () {
       pushPathPreserveEditMode('/edit/');
       browserHistory.push.args[0][0].should.eql('/');
       utilsDom.getCurrentPathname.restore();
+    });
+  });
+
+  describe('editModeOn', function () {
+    it('should return true if path is /edit/...', function () {
+      const path = '/edit/a';
+      editModeOn(path).should.be.true();
+    });
+
+    it('should return false if path is not /edit/...', function () {
+      const path = '/a';
+      editModeOn(path).should.be.false();
     });
   });
 });

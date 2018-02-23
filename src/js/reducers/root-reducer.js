@@ -18,6 +18,7 @@ import unitProfilePage from './unit-profile-page';
 import inlineAliasAdminPage from './inline-alias-admin-page';
 import genericModal from './generic-modal';
 import headers from './headers';
+import cms from './cms';
 
 
 export default combineReducers({
@@ -38,5 +39,6 @@ export default combineReducers({
   inlineAliasAdminPage,
   genericModal,
   breadcrumb,
-  headers
+  headers,
+  cms
 });

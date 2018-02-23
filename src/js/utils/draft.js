@@ -1,5 +1,5 @@
-import { convertFromRaw, EditorState, genKey, Entity, RichUtils } from 'draft-js';
-import { isEmpty, map, find } from 'lodash';
+import { convertFromRaw, EditorState, genKey, Entity, RichUtils, convertToRaw } from 'draft-js';
+import { isEmpty, map, find, compact } from 'lodash';
 import moment from 'moment';
 
 import { ENTITY_LINK } from 'utils/constants';
@@ -12,10 +12,18 @@ export const contentStateToTextArray = contentState => (
     map(contentState.getBlocksAsArray(), block => block.getText())
 );
 
+export const editorStateToText = editorState => (
+  compact(contentStateToTextArray(editorState.getCurrentContent())).join(' ')
+);
+
 export const convertContentStateToEditorState = rawContentState => (
   isEmpty(rawContentState) ?
     EditorState.createEmpty(defaultDecorator) :
     EditorState.createWithContent(convertFromRaw(rawContentState), defaultDecorator)
+);
+
+export const convertEditorStateToRaw = editorState => (
+  convertToRaw(editorState.getCurrentContent())
 );
 
 export const getField = (fields, name) => find(fields, (field) => (field.name===name));
@@ -34,15 +42,6 @@ export const createBlock = (text='') => ({
   key: genKey(),
   type: 'unstyled',
   text
-});
-
-export const buildPlainTextField = (name, text) => ({
-  name,
-  type: 'plain_text',
-  value: {
-    blocks: [createBlock(text)],
-    entityMap: {}
-  }
 });
 
 export const createEmptyEditorState = () => ({

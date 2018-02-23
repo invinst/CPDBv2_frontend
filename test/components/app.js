@@ -42,6 +42,9 @@ describe('App component', function () {
         hidden: true
       }
     },
+    cms: {
+      pages: {}
+    },
     bottomSheet: {
       officersAutoSuggest: {
         isRequesting: false,
@@ -63,6 +66,9 @@ describe('App component', function () {
     headers: {
       shareableHeader: {
         scrollPosition: 'top'
+      },
+      slimHeader: {
+        logoSectionEditModeOn: false
       }
     }
   });

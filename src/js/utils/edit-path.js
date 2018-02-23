@@ -1,8 +1,12 @@
 import { browserHistory } from 'react-router';
+import { compact } from 'lodash';
 
 import { getCurrentPathname } from 'utils/dom';
-import { editModeOn } from 'selectors/edit-mode-on';
 
+
+export const editModeOn = (pathname) => (
+  compact(pathname.split('/'))[0] === 'edit'
+);
 
 export function editMode(pathname) {
   const path = pathname || '';
