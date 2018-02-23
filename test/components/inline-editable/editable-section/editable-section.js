@@ -7,7 +7,7 @@ import { spy, stub } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import { convertContentStateToEditorState } from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
-import { FieldFactory, PlainTextFieldFactory, StringFieldFactory } from 'utils/test/factories/field';
+import { FieldFactory, RichTextFieldFactory, StringFieldFactory } from 'utils/test/factories/field';
 import EditableSection from 'components/inline-editable/editable-section';
 
 
@@ -23,7 +23,7 @@ const WrappedComponent = EditableSection(SubComponent);
 describe('EditableSection component', function () {
   let instance;
   const fields = {
-    a: PlainTextFieldFactory.build({ name: 'a' }, { blockTexts: ['A'] }),
+    a: RichTextFieldFactory.build({ name: 'a' }, { blockTexts: ['A'] }),
     b: StringFieldFactory.build({ name: 'b', value: 'B' }),
     c: FieldFactory.build({ name: 'officers', type: 'officers_list', value: [{ id: 1, fullName: 'Foo' }] })
   };
@@ -94,7 +94,7 @@ describe('EditableSection component', function () {
     const rootEl = document.createElement('DIV');
     instance = render(<WrappedComponent/>, rootEl);
     instance = render(<WrappedComponent fields={ {
-      a: PlainTextFieldFactory.build({}, { blockTexts: ['b'] })
+      a: RichTextFieldFactory.build({}, { blockTexts: ['b'] })
     } }/>, rootEl);
     instance.state.fields.a.value.getCurrentContent().getFirstBlock().getText().should.eql('b');
   });

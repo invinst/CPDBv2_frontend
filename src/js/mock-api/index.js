@@ -3,7 +3,7 @@ import {
   SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL, ACTIVITY_GRID_API_URL,
   REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL, UNIT_PROFILE_URL,
   SEARCH_TERM_CATEGORIES_API_URL, OFFICERS_BY_ALLEGATION_API_URL, CITY_SUMMARY_API_URL,
-  RECENT_DOCUMENT_URL, RECENT_COMPLAINT_SUMMARIES_URL
+  RECENT_DOCUMENT_URL, RECENT_COMPLAINT_SUMMARIES_URL, LANDING_PAGE_API_URL
 } from 'utils/constants';
 
 import OfficerFactory from 'utils/test/factories/officer';
@@ -27,6 +27,7 @@ import getComplaintSummaries from './landing-page/complaint-summaries';
 import getSearchTermsData from './search-terms-page';
 import { getCitySummary, getCommunities } from './landing-page/heat-map';
 import { communityGeoJSONPath } from 'utils/static-assets';
+import { getCMSFields } from './landing-page/cms-field';
 
 
 const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
@@ -120,6 +121,8 @@ axiosMockClient.onGet(SEARCH_TERM_CATEGORIES_API_URL).reply(200, getSearchTermsD
 
 axiosMockClient.onGet(CITY_SUMMARY_API_URL).reply(200, getCitySummary());
 axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
+
+axiosMockClient.onGet(LANDING_PAGE_API_URL).reply(200, getCMSFields());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

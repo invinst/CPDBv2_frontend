@@ -1,39 +1,68 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import MediaQuery from 'react-responsive';
+
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
+import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';
 import { editMode } from 'utils/edit-path';
-import { logoWrapperStyle } from './slim-header.style';
+import { wrapperStyle, titleStyle, subtitleStyle } from './logo.style';
 import { ROOT_PATH } from 'utils/constants';
 
-export default class Logo extends Component {
+class Logo extends Component {
   render() {
-    const { leftLinkStyle, editModeOn, subtitleStyle } = this.props;
+    const { editModeOn } = this.context;
+    const { position, editWrapperStateProps } = this.props;
+    const titleLink = editModeOn ? editMode(ROOT_PATH) : ROOT_PATH;
+
     return (
-      <div style={ logoWrapperStyle }>
-        <MediaQuery minWidth={ 830 }>
-          { (matches) => (
-            <Link
-              style={ leftLinkStyle }
-              to={ editModeOn ? editMode(ROOT_PATH) : ROOT_PATH }
-              className='test--header-logo'
-            >
-              { matches ? 'Citizens Police Data Project' : 'CPDP' }
-            </Link>
-          ) }
-        </MediaQuery>
-        <MediaQuery minWidth={ 950 }>
-          <div style={ subtitleStyle }>
-            <div> collects and publishes information</div>
-            <div> about police misconduct in Chicago.</div>
-          </div>
-        </MediaQuery>
-      </div>
+      <EditWrapperStateProvider { ...editWrapperStateProps }>
+        <HoverableEditWrapper style={ wrapperStyle[position] }>
+          <MediaQuery minWidth={ 830 }>
+            { (matches) => (
+              matches
+                ? <LinkTextEditable
+                  style={ titleStyle[position] }
+                  className='test--header-logo-title'
+                  placeholder='Title'
+                  to={ titleLink }
+                  fieldname='navbar_title'
+                  />
+                : <Link
+                  style={ titleStyle[position] }
+                  to={ titleLink }
+                  className='test--header-logo-title'>
+                    CPDP
+                  </Link>
+            ) }
+          </MediaQuery>
+          <MediaQuery minWidth={ 950 }>
+            <RichTextEditable
+              style={ subtitleStyle[position] }
+              className='test--header-logo-subtitle'
+              placeholder='Subtitle'
+              fieldname='navbar_subtitle'
+              />
+          </MediaQuery>
+        </HoverableEditWrapper>
+      </EditWrapperStateProvider>
     );
   }
 }
 
 Logo.propTypes = {
-  editModeOn: PropTypes.bool,
-  leftLinkStyle: PropTypes.object,
-  subtitleStyle: PropTypes.object
+  style: PropTypes.object,
+  position: PropTypes.string,
+  editWrapperStateProps: PropTypes.object
 };
+
+Logo.defaultProps = {
+  style: {}
+};
+
+Logo.contextTypes = {
+  editModeOn: PropTypes.bool
+};
+
+export default Logo;

@@ -46,16 +46,16 @@ describe('FAQ page', function () {
     it('should open empty edittable bottom sheet when click on add button', function () {
       faqPage.faqSection.addButton.click();
 
-      faqPage.bottomSheet.faqBottomSheet.waitForVisible();
-      faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faqQuestion).should.be.true();
-      faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faqAnswer).should.be.true();
+      faqPage.bottomSheet.faq.element.waitForVisible();
+      faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faq.question).should.be.true();
+      faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faq.answer).should.be.true();
     });
 
     it('should open edittable bottom sheet when click on question', function () {
       faqPage.faqSection.faq.click();
-      faqPage.bottomSheet.faqBottomSheet.waitForVisible();
-      faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faqQuestion).should.be.false();
-      faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faqAnswer).should.be.false();
+      faqPage.bottomSheet.faq.element.waitForVisible();
+      faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faq.question).should.be.false();
+      faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faq.answer).should.be.false();
     });
 
     it('should toggle starred when click on starred checkbox', function () {

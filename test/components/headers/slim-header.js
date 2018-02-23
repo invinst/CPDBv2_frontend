@@ -1,7 +1,5 @@
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-redux';
-import { FAQ_PATH } from 'utils/constants';
-import { SlimHeader } from 'components/headers/slim-header';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
@@ -9,14 +7,19 @@ import {
   findRenderedComponentWithType,
   scryRenderedDOMComponentsWithClass, Simulate
 } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
 import { Link } from 'react-router';
 import MockStore from 'redux-mock-store';
+import { stub, spy } from 'sinon';
+
+import { FAQ_PATH } from 'utils/constants';
+import { SlimHeader } from 'components/headers/slim-header';
+import { unmountComponentSuppressError } from 'utils/test';
 import ContextWrapper from 'utils/test/components/context-wrapper';
 import * as domUtils from 'utils/dom';
-import { stub, spy } from 'sinon';
 import { fixedStyle } from 'components/headers/slim-header/slim-header.style';
 import SlimHeaderContent from 'components/headers/slim-header/slim-header-content';
+import { RichTextFieldFactory } from 'utils/test/factories/field';
+
 
 class SlimHeaderContextWrapper extends ContextWrapper {
 }
@@ -29,7 +32,21 @@ describe('SlimHeader component', function () {
   let element;
   const mockStore = MockStore();
   const store = mockStore({
-    authentication: {}
+    authentication: {},
+    cms: {
+      pages: {
+        'landing-page': {
+          fields: {
+            'navbar_title': RichTextFieldFactory.build({ name: 'navbar_title' })
+          }
+        }
+      }
+    },
+    headers: {
+      slimHeader: {
+        logoSectionEditModeOn: false
+      }
+    }
   });
 
   beforeEach(function () {
@@ -120,6 +137,7 @@ describe('SlimHeader component', function () {
 
   describe('recalculatePosition', function () {
     beforeEach(function () {
+      stub(domUtils, 'calculatePosition');
       element = renderIntoDocument(
         <Provider store={ store }>
           <SlimHeaderContextWrapper context={ { editModeOn: false } }>
@@ -129,7 +147,6 @@ describe('SlimHeader component', function () {
       );
 
       this.slimHeader = findRenderedComponentWithType(element, SlimHeader);
-      stub(domUtils, 'calculatePosition');
     });
 
     afterEach(function () {
