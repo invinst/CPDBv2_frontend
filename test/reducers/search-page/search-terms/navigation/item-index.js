@@ -10,17 +10,17 @@ import {
 describe('itemIndex reducer', function () {
   describe('SEARCH_TERMS_NAVIGATION_RESET', function () {
     it('resets to first position by default', function () {
-      itemIndex( 2, {
+      itemIndex(2, {
         type: SEARCH_TERMS_NAVIGATION_RESET,
         payload: undefined
       }).should.deepEqual(1);
     });
 
     it('resets to a position', function () {
-      navigation({ 'itemIndex': 2 }, {
+      itemIndex(2, {
         type: SEARCH_TERMS_NAVIGATION_RESET,
         payload: 3
-      }).should.deepEqual({ 'itemIndex': 3 });
+      }).should.deepEqual(3);
     });
   });
 

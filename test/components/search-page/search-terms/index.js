@@ -1,9 +1,8 @@
 import React from 'react';
 import { spy, stub } from 'sinon';
 import {
-  findRenderedComponentWithType,
- findRenderedDOMComponentWithClass, renderIntoDocument,
-Simulate,} from 'react-addons-test-utils';
+  findRenderedComponentWithType, findRenderedDOMComponentWithClass, renderIntoDocument, Simulate
+} from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 
 import { reRender, unmountComponentSuppressError } from 'utils/test';
