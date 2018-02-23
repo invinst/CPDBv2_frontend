@@ -1,33 +1,14 @@
 'use strict';
 
-require('should');
+import should from 'should';
 
 import searchTermsPage from './page-objects/search-terms-page';
+import searchPage from './page-objects/search-page';
 
 
 describe('Search terms page', function () {
   beforeEach(function () {
     searchTermsPage.open();
-  });
-
-  it('should reveal category item description when click on a category item', function () {
-    const firstCategoryItem = searchTermsPage.categoryMainPanel.firstCategoryItem;
-    firstCategoryItem.getText().should.containEql('Police District');
-    firstCategoryItem.element('.link--transition').click();
-    browser.pause(300);
-    firstCategoryItem.element('.test--category-item-description')
-      .getText().should.containEql('Whatever');
-  });
-
-  it('should expand one category item at a time', function () {
-    searchTermsPage.categoryMainPanel.getCategoryNameAtItem(1).click();
-    searchTermsPage.categoryMainPanel.getCategoryDescriptionAtItem(1).isExisting().should.be.true();
-    searchTermsPage.categoryMainPanel.getCategoryDescriptionAtItem(2).isExisting().should.be.false();
-
-    searchTermsPage.categoryMainPanel.getCategoryNameAtItem(2).click();
-    browser.pause(1000);
-    searchTermsPage.categoryMainPanel.getCategoryDescriptionAtItem(2).isExisting().should.be.true();
-    searchTermsPage.categoryMainPanel.getCategoryDescriptionAtItem(1).isExisting().should.be.false();
   });
 
   it('should render bottom links', function () {
@@ -49,11 +30,16 @@ describe('Search terms page', function () {
     const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
     const firstTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 0);
     const secondTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 1);
-    firstCategoryHeader.getAttribute('class').should.containEql('focused');
+    firstCategoryHeader.getAttribute('class').should.not.containEql('focused');
     firstTerm.getAttribute('class').should.not.containEql('focused');
     secondTerm.getAttribute('class').should.not.containEql('focused');
 
     browser.keys('ArrowDown');
+
+    firstCategoryHeader.getAttribute('class').should.containEql('focused');
+    firstTerm.getAttribute('class').should.not.containEql('focused');
+    secondTerm.getAttribute('class').should.not.containEql('focused');
+
     browser.keys('ArrowDown');
 
     firstCategoryHeader.getAttribute('class').should.not.containEql('focused');
@@ -65,5 +51,79 @@ describe('Search terms page', function () {
     firstCategoryHeader.getAttribute('class').should.not.containEql('focused');
     firstTerm.getAttribute('class').should.not.containEql('focused');
     secondTerm.getAttribute('class').should.containEql('focused');
+  });
+
+  it('should hide PreviewPane when no item is focused', function () {
+    browser.keys('ArrowDown');
+    browser.keys('ArrowUp');
+
+    should(searchTermsPage.previewPane).be.eql({});
+  });
+
+  it('should show PreviewPane when navigating to SearchTerms items', function () {
+    browser.keys('ArrowDown');
+
+    searchTermsPage.previewPane.title.getText().should.eql('Geography');
+
+    browser.keys('ArrowDown');
+
+    searchTermsPage.previewPane.title.getText().should.not.eql('Geography');
+    searchTermsPage.previewPane.title.getText().should.not.eql('');
+  });
+
+  it('should show callToAction bar when it is available', function () {
+    browser.keys('ArrowDown');
+
+    searchTermsPage.previewPane.title.getText().should.eql('Geography');
+    searchTermsPage.previewPane.callToAction.waitForVisible(2000, true);
+
+    browser.keys('ArrowDown');
+    searchTermsPage.previewPane.callToAction.getText().should.containEql('View ALL');
+  });
+
+  it('should focus on the search box by default', function () {
+    searchTermsPage.input.waitForVisible();
+
+    browser.keys('A');
+
+    searchTermsPage.input.getValue().should.eql('A');
+  });
+
+  it('should focus on nothing after unfocused the input', function () {
+    searchTermsPage.input.waitForVisible();
+    searchTermsPage.title.click();
+
+    searchTermsPage.categoryMainPanel.focusedItem.waitForVisible(2000, true);
+  });
+
+  it('should focus back to search box when go to search page', function () {
+    searchTermsPage.input.waitForVisible();
+    const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
+
+    browser.keys('ArrowDown');
+
+    firstCategoryHeader.getAttribute('class').should.containEql('focused');
+
+    searchTermsPage.searchTermToggle.click();
+
+    browser.getUrl().should.match(/\/search\/$/);
+
+    searchPage.input.setValue('Ke');
+    searchPage.suggestionGroup.waitForVisible();
+
+    browser.keys('ArrowDown');
+    browser.keys('ArrowDown');
+
+    searchPage.clearSearchButton.click();
+    searchTermsPage.searchTermToggle.waitForVisible();
+    searchTermsPage.searchTermToggle.click();
+
+    browser.getUrl().should.match(/\/search\/terms\/$/);
+
+    searchTermsPage.input.waitForVisible();
+    searchPage.input.setValue('Some other ');
+    browser.keys('T');
+
+    searchTermsPage.input.getValue().should.eql('Some other T');
   });
 });

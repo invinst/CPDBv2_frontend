@@ -12,14 +12,8 @@ describe('CategoryItem component', function () {
   });
 
   it('should be renderable', function () {
-    CategoryItem.should.be.renderable({ expanded: true });
-    CategoryItem.should.be.renderable({ expanded: false });
     CategoryItem.should.be.renderable({ show: true });
     CategoryItem.should.be.renderable({ hovering: true });
     CategoryItem.should.be.renderable({ isFocused: true });
-  });
-
-  it('should trigger toggleExpanded when click on name', function () {
-    CategoryItem.should.triggerCallbackWhenClick('toggleExpanded', 'link--transition');
   });
 });

@@ -29,12 +29,10 @@ export default class SearchPage extends Component {
     this.handleSearchBoxEnter = this.handleSearchBoxEnter.bind(this);
     this.handleViewItem = this.handleViewItem.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.resetNavigation = this.resetNavigation.bind(this);
 
     this.getSuggestion = debounce(this.props.getSuggestion, 100);
     this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
-
-    const { resetSearchResultNavigation, resetSearchTermNavigation, searchTermsHidden } = props;
-    this.resetNavigation = searchTermsHidden ? resetSearchResultNavigation : resetSearchTermNavigation;
   }
 
   componentDidMount() {
@@ -93,6 +91,12 @@ export default class SearchPage extends Component {
     }
   }
 
+  resetNavigation(payload) {
+    const { resetSearchResultNavigation, resetSearchTermNavigation, searchTermsHidden } = this.props;
+    const resetNavigation = searchTermsHidden ? resetSearchResultNavigation : resetSearchTermNavigation;
+    resetNavigation(payload);
+  }
+
   handleChange({ currentTarget: { value } }) {
     this.sendSearchRequest(value);
   }
@@ -149,7 +153,6 @@ export default class SearchPage extends Component {
       editModeOn, officerCards, requestActivityGrid,
       children, changeSearchQuery, focusedItem
     } = this.props;
-
     return (
       <div
         className='search-page'

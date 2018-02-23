@@ -6,11 +6,18 @@ import {
 
 describe('navigation reducer', function () {
   describe('SEARCH_TERMS_NAVIGATION_RESET', function () {
-    it('resets to first position', function () {
+    it('resets to first position by default', function () {
       navigation({ 'itemIndex': 2 }, {
         type: SEARCH_TERMS_NAVIGATION_RESET,
-        payload: {}
+        payload: undefined
       }).should.deepEqual({ 'itemIndex': 1 });
+    });
+
+    it('resets to a position', function () {
+      navigation({ 'itemIndex': 2 }, {
+        type: SEARCH_TERMS_NAVIGATION_RESET,
+        payload: 3
+      }).should.deepEqual({ 'itemIndex': 3 });
     });
   });
 

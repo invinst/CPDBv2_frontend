@@ -1,5 +1,5 @@
 import {
-  greyishColor, softBlackColor, accentColor, whiteTwoColor, concreteColor,
+  greyishColor, accentColor, whiteTwoColor, concreteColor,
   fadedAccentColor
 } from 'utils/styles';
 
@@ -7,15 +7,14 @@ import {
 export const itemStyle = (isFocused) => ({
   fontSize: '14px',
   fontWeight: 300,
+  padding: '0 16px',
   borderBottom: `1px solid ${whiteTwoColor}`,
   background: isFocused ? fadedAccentColor : concreteColor,
 });
 
-export const nameStyle = (isFocused, show, hovering) => {
+export const nameStyle = (isFocused, hovering) => {
   let color;
-  if (show)
-    color = softBlackColor;
-  else if (hovering)
+  if (hovering)
     color = accentColor;
   else if (isFocused)
     color = accentColor;

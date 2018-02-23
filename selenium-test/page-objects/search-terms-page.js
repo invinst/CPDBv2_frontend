@@ -6,12 +6,25 @@ import Page from './page';
 import Section from './sections/section';
 
 
+class PreviewPane extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      title: '.test--preview-pane-title',
+      description: '.test--preview-pane-description',
+      callToAction: '.test--preview-pane-action',
+    });
+  }
+}
+
+
 class CategoryMainPanelSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
       categoryColumns: '.test--category-column',
       firstCategoryItem: '.test--category-item',
+      focusedItem: '(//div[contains(@class, \'focused\')])[1]',
     });
   }
 
@@ -49,7 +62,7 @@ class BottomLinksSection extends Section {
     super();
     this.prepareElementGetters({
       backToFrontPageLink: '.test--search-term-back-front-page-link',
-      backToSearchPageLink: '.test--search-term-back-search-page-link'
+      backToSearchPageLink: '.test--search-term-back-search-page-link',
     });
   }
 }
@@ -59,8 +72,12 @@ class SearchTermsPage extends Page {
     super();
     this.categoryMainPanel = new CategoryMainPanelSection();
     this.bottomLinks = new BottomLinksSection();
+    this.previewPane = new PreviewPane();
     this.prepareElementGetters({
       input: '.test--search-page-input',
+      title: '.test--search-term-title',
+      searchTermToggle: '.test--toggle-button',
+      clearSearchButton: '.test--search-close-button',
     });
   }
 

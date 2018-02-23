@@ -12,7 +12,7 @@ export const headerStyle = (isFocused) => ({
   fontSize: '14px',
   fontWeight: 300,
   color: isFocused ? accentColor : clayGray,
-  padding: '34px 0 10px 0',
+  padding: '34px 16px 10px 16px',
   textTransform: 'uppercase',
   boxSizing: 'border-box',
   background: isFocused ? fadedAccentColor : concreteColor,

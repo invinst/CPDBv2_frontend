@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {
-  Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType, scryRenderedDOMComponentsWithTag
+  findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
+  findRenderedDOMComponentWithTag,
+  renderIntoDocument,
+  scryRenderedDOMComponentsWithTag,
+  Simulate
 } from 'react-addons-test-utils';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
@@ -18,7 +22,6 @@ import * as domUtils from 'utils/dom';
 import { NavigationItem } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
 import { MORE_BUTTON } from 'utils/constants';
-import SearchBox from 'components/search-page/search-box';
 
 
 describe('SearchPage component', function () {
@@ -307,20 +310,22 @@ describe('SearchPage component', function () {
     getSuggestion.calledWith('c').should.be.true();
   });
 
-  it('should pass resetSearchResultNavigation action into Search Box when Search Term is hidden', function () {
-    const resetSearchResultNavigation = stub();
-    const resetSearchTermNavigation = stub();
+  it('should call resetSearchResultNavigation if SearchPage resetNavigation is called when Search Term is hidden',
+    function () {
+      const resetSearchResultNavigation = stub();
+      const resetSearchTermNavigation = stub();
 
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage
-          resetSearchResultNavigation={ resetSearchResultNavigation }
-          resetSearchTermNavigation={ resetSearchTermNavigation }
-        />
-      </Provider>
-    );
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchPage
+            resetSearchResultNavigation={ resetSearchResultNavigation }
+            resetSearchTermNavigation={ resetSearchTermNavigation }
+          />
+        </Provider>
+      );
 
-    const searchBox = findRenderedComponentWithType(instance, SearchBox);
-    searchBox.props.resetNavigation.should.eql(resetSearchResultNavigation);
-  });
+      const searchBox = findRenderedComponentWithType(instance, SearchPage);
+      searchBox.resetNavigation(1);
+      resetSearchResultNavigation.calledWith(1).should.be.true();
+    });
 });
