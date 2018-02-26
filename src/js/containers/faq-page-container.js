@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
-import { requestFAQs, updateOrder, updateFAQ } from 'actions/faq-page';
+import { requestFAQs, updateOrder, updateFAQ, expandFAQ } from 'actions/faq-page';
 import { openBottomSheetWithFAQ, openBottomSheetToCreateFAQ } from 'actions/bottom-sheet';
-import { expandFAQ } from 'actions/faq-page/index';
 import { faqsSelector, faqsRequested } from 'selectors/faq-page/faqs-selector';
 import FAQListWrapper from 'components/faq-page/faq-list-wrapper';
 

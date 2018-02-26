@@ -75,14 +75,14 @@ describe('Heat map', function () {
       context('community selected', function () {
         beforeEach(function () {
           browser.elements(landingPage.heatMapSection.dropdown.dropdownItems.selector).value[0].click();
-          landingPage.heatMapSection.dropdown.dropdownItems.waitForVisible(10000, true);
+          landingPage.heatMapSection.dropdown.dropdownItems.waitForVisible(20000, true);
           landingPage.heatMapSection.communityDetail.allegationDiscipline.waitForVisible();
         });
 
         it('should change back if click on city summary', function () {
           landingPage.heatMapSection.citySummary.tapBottom();
           landingPage.heatMapSection.dropdownPlaceholder.waitForVisible();
-          landingPage.heatMapSection.communityDetail.allegationDiscipline.waitForVisible(10000, true);
+          landingPage.heatMapSection.communityDetail.allegationDiscipline.waitForVisible(20000, true);
         });
 
         it('should change back if click on x button', function () {

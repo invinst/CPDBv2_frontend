@@ -1,4 +1,8 @@
-import * as constants from 'utils/constants';
+import {
+  SEARCH_TERMS_CATEGORIES_REQUEST_START,
+  SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE,
+  SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
+} from 'utils/constants';
 import categories from 'reducers/search-page/search-terms/categories';
 
 
@@ -7,21 +11,21 @@ describe('categories reducer', function () {
     categories(undefined, {}).should.eql([]);
   });
 
-  it('should handle SEARCH_TERM_CATEGORIES_REQUEST_START', function () {
+  it('should handle SEARCH_TERMS_CATEGORIES_REQUEST_START', function () {
     categories('abc', {
-      type: constants.SEARCH_TERM_CATEGORIES_REQUEST_START
+      type: SEARCH_TERMS_CATEGORIES_REQUEST_START
     }).should.eql('abc');
   });
 
-  it('should handle SEARCH_TERM_CATEGORIES_REQUEST_FAILURE', function () {
+  it('should handle SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE', function () {
     categories('abc', {
-      type: constants.SEARCH_TERM_CATEGORIES_REQUEST_FAILURE
+      type: SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE
     }).should.eql('abc');
   });
 
-  it('should handle SEARCH_TERM_CATEGORIES_REQUEST_SUCCESS', function () {
+  it('should handle SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS', function () {
     categories('abc', {
-      type: constants.SEARCH_TERM_CATEGORIES_REQUEST_SUCCESS,
+      type: SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
       payload: 'def'
     }).should.eql('def');
   });

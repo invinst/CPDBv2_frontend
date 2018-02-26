@@ -141,8 +141,8 @@ describe('landing page', function () {
     });
 
     it('should have blue background when scrolled all the way to bottom of page', function () {
-      browser.scroll(0, 9999999);
-      browser.pause(2000);
+      browser.scroll(0, 99999);
+      browser.pause(10000);
       landingPage.stickyHeader.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
       landingPage.stickyHeader.faq.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       landingPage.stickyHeader.mainElement.getCssProperty('box-shadow').value.should.eql('none');

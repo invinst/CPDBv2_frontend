@@ -1,11 +1,9 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument, findRenderedDOMComponentWithTag
-} from 'react-addons-test-utils';
+import { findRenderedDOMComponentWithClass, renderIntoDocument } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import CallToAction from 'components/search-page/search-terms/category-column/call-to-action';
+import { unmountComponentSuppressError } from 'utils/test/index';
+import CallToAction from 'components/search-page/search-terms/preview-pane/call-to-action';
 
 
 describe('CallToAction component', function () {
@@ -20,10 +18,10 @@ describe('CallToAction component', function () {
       <CallToAction item={ {
         'call_to_action_type': 'link',
         link: 'http://mylink.com/'
-      } }/>
+      } } />
     );
 
-    const a = findRenderedDOMComponentWithTag(instance, 'a');
+    const a = findRenderedDOMComponentWithClass(instance, 'test--call-to-action-link');
     a.href.should.eql('http://mylink.com/');
   });
 
@@ -32,7 +30,7 @@ describe('CallToAction component', function () {
       <CallToAction item={ {
         'call_to_action_type': 'view_all',
         name: 'police districts'
-      } }/>
+      } } />
     );
 
     const element = findDOMNode(instance);
@@ -43,8 +41,20 @@ describe('CallToAction component', function () {
     instance = renderIntoDocument(
       <CallToAction item={ {
         'call_to_action_type': 'abc'
-      } }/>
+      } } />
     );
     instance.should.displayNothing();
+  });
+
+  it('should render enter button', function () {
+    instance = renderIntoDocument(
+      <CallToAction item={ {
+        'call_to_action_type': 'view_all',
+        name: 'police districts'
+      } } />
+    );
+
+    const enterButton = findRenderedDOMComponentWithClass(instance, 'test--enter-button');
+    enterButton.should.be.ok();
   });
 });

@@ -2,7 +2,7 @@ import axiosMockClient, { countRequests } from 'utils/axios-mock-client';
 import {
   SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL, ACTIVITY_GRID_API_URL,
   REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL, UNIT_PROFILE_URL,
-  SEARCH_TERM_CATEGORIES_API_URL, OFFICERS_BY_ALLEGATION_API_URL, CITY_SUMMARY_API_URL,
+  SEARCH_TERMS_CATEGORIES_API_URL, OFFICERS_BY_ALLEGATION_API_URL, CITY_SUMMARY_API_URL,
   RECENT_DOCUMENT_URL, RECENT_COMPLAINT_SUMMARIES_URL, LANDING_PAGE_API_URL
 } from 'utils/constants';
 
@@ -117,7 +117,7 @@ axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-items/`)
 
 axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());
 
-axiosMockClient.onGet(SEARCH_TERM_CATEGORIES_API_URL).reply(200, getSearchTermsData());
+axiosMockClient.onGet(SEARCH_TERMS_CATEGORIES_API_URL).reply(200, getSearchTermsData());
 
 axiosMockClient.onGet(CITY_SUMMARY_API_URL).reply(200, getCitySummary());
 axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());

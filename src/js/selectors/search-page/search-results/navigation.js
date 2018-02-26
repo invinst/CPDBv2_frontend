@@ -3,7 +3,7 @@ import { flatten, concat } from 'lodash';
 
 import * as constants from 'utils/constants';
 import { navigationItemTransform, previewPaneTransform } from './transforms';
-import { slicedSuggestionGroupsSelector } from './base';
+import { slicedSuggestionGroupsSelector } from './suggestion-groups';
 
 
 const getSuggestionNavigation = state => state.searchPage.navigation;
@@ -37,7 +37,7 @@ const rawFocusedItemSelector = createSelector(
   }
 );
 
-export const focusedItemSelector = createSelector(
+export const focusedResultItemSelector = createSelector(
   rawFocusedItemSelector,
   navigationItemTransform
 );

@@ -14,8 +14,9 @@ import { scrollToElement } from 'utils/dom';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button';
-import { MORE_BUTTON, NAVIGATION_KEYS, ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX } from 'utils/constants';
-import * as constants from 'utils/constants';
+import {
+  ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE
+} from 'utils/constants';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -28,23 +29,17 @@ export default class SearchPage extends Component {
     this.handleSearchBoxEnter = this.handleSearchBoxEnter.bind(this);
     this.handleViewItem = this.handleViewItem.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+    this.resetNavigation = this.resetNavigation.bind(this);
 
     this.getSuggestion = debounce(this.props.getSuggestion, 100);
     this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
   }
 
   componentDidMount() {
-    const { move, query, location, params, routes, pushBreadcrumbs } = this.props;
+    const { query, location, params, routes, pushBreadcrumbs } = this.props;
     pushBreadcrumbs({ location, params, routes });
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
-    NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
-      direction,
-      (event) => {
-        event.preventDefault && event.preventDefault();
-        move(direction, this.props.totalItemCount);
-      }
-    )));
     LayeredKeyBinding.bind('enter', this.handleViewItem);
 
     if (query && query.length >= 2) {
@@ -58,14 +53,13 @@ export default class SearchPage extends Component {
     if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
       scrollToElement(
         `.suggestion-item-${nextProps.focusedItem.uniqueKey}`,
-        { block: 'nearest', inline: 'nearest' }
+        { block: 'center', inline: 'nearest' }
       );
     }
   }
 
   componentWillUnmount() {
     LayeredKeyBinding.unbind('esc');
-    NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.unbind(direction)));
     LayeredKeyBinding.unbind('enter');
   }
 
@@ -101,6 +95,12 @@ export default class SearchPage extends Component {
     }
   }
 
+  resetNavigation(payload) {
+    const { resetSearchResultNavigation, resetSearchTermNavigation, searchTermsHidden } = this.props;
+    const resetNavigation = searchTermsHidden ? resetSearchResultNavigation : resetSearchTermNavigation;
+    resetNavigation(payload);
+  }
+
   handleChange({ currentTarget: { value } }) {
     this.sendSearchRequest(value);
   }
@@ -112,9 +112,9 @@ export default class SearchPage extends Component {
   }
 
   handleSelect(newContentType) {
-    const { contentType, query, selectTag, resetNavigation } = this.props;
+    const { contentType, query, selectTag } = this.props;
 
-    if (newContentType === constants.RECENT_CONTENT_TYPE) {
+    if (newContentType === RECENT_CONTENT_TYPE) {
       return;
     } else if (newContentType === contentType) {
       selectTag(null);
@@ -123,7 +123,7 @@ export default class SearchPage extends Component {
       selectTag(newContentType);
       this.getSuggestionWithContentType(this.props.query, { contentType: newContentType });
     }
-    resetNavigation();
+    this.resetNavigation();
   }
 
   handleSearchBoxEnter(e) {
@@ -154,10 +154,9 @@ export default class SearchPage extends Component {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
-      editModeOn, officerCards, requestActivityGrid, resetNavigation,
+      editModeOn, officerCards, requestActivityGrid,
       children, changeSearchQuery, focusedItem
     } = this.props;
-
     return (
       <div
         className='search-page'
@@ -171,7 +170,7 @@ export default class SearchPage extends Component {
             searchTermsHidden={ searchTermsHidden }
             changeSearchQuery={ changeSearchQuery }
             focused={ focusedItem.uniqueKey === SEARCH_BOX }
-            resetNavigation={ resetNavigation }
+            resetNavigation={ this.resetNavigation }
           />
           <HoverableButton
             style={ cancelButtonStyle(searchTermsHidden) }
@@ -207,8 +206,6 @@ SearchPage.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string
   }),
-  move: PropTypes.func,
-  totalItemCount: PropTypes.number,
   focusedItem: PropTypes.object,
   suggestionGroups: PropTypes.array,
   tags: PropTypes.array,
@@ -223,14 +220,15 @@ SearchPage.propTypes = {
   query: PropTypes.string,
   changeSearchQuery: PropTypes.func,
   children: PropTypes.node,
-  resetNavigation: PropTypes.func,
   editModeOn: PropTypes.bool,
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   searchTermsHidden: PropTypes.bool,
   params: PropTypes.object,
   routes: PropTypes.array,
-  pushBreadcrumbs: PropTypes.func
+  pushBreadcrumbs: PropTypes.func,
+  resetSearchResultNavigation: PropTypes.func,
+  resetSearchTermNavigation: PropTypes.func,
 };
 
 /* istanbul ignore next */
@@ -241,7 +239,6 @@ SearchPage.defaultProps = {
   getSuggestion: () => new Promise(() => {}),
   getSuggestionWithContentType: () => new Promise(() => {}),
   trackRecentSuggestion: () => {},
-  resetNavigation: () => {},
   router: {
     goBack: () => {}
   },
@@ -252,4 +249,6 @@ SearchPage.defaultProps = {
   searchTermsHidden: true,
   selectTag: (...args) => {},
   pushBreadcrumbs: (...args) => {},
+  resetSearchResultNavigation: () => {},
+  resetSearchTermNavigation: () => {},
 };

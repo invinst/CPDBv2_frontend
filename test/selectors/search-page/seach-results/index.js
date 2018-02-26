@@ -1,9 +1,31 @@
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
-  hasMoreSelector, nextParamsSelector
-} from 'selectors/search-page/search-results';
+  hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector
+} from 'selectors/search-page/search-results/suggestion-groups';
 import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
 
+
+describe('isShowingSingleContentTypeSelector', function () {
+  it('should tell if showing single type of content', function () {
+    isShowingSingleContentTypeSelector({
+      searchPage: {
+        contentType: 'OFFICER',
+        tags: []
+      }
+    }).should.be.true();
+    isShowingSingleContentTypeSelector({
+      searchPage: {
+        contentType: null,
+        tags: [1]
+      }
+    }).should.be.true();
+    isShowingSingleContentTypeSelector({
+      searchPage: {
+        tags: []
+      },
+    }).should.be.false();
+  });
+});
 
 describe('search page results selector', function () {
   describe('searchResultGroupsSelector', function () {
@@ -175,12 +197,6 @@ describe('search page results selector', function () {
     });
   });
 
-
-
-
-
-
-
   describe('hasMoreSelector', function () {
     it('should return false when no content type is selected', function () {
       hasMoreSelector({
@@ -230,3 +246,4 @@ describe('search page results selector', function () {
     });
   });
 });
+

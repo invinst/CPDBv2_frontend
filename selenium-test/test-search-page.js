@@ -7,6 +7,7 @@ import { times } from 'lodash';
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
 
+
 describe('Landing Page to Search Page', function () {
   beforeEach(function () {
     landingPage.open();
@@ -66,10 +67,11 @@ describe('Search Page', function () {
     browser.keys('Enter');
 
     searchPage.contentWrapper.waitForVisible();
-    searchPage.contentWrapper.getText().should.containEql('OFFICER');
-    searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
-    searchPage.contentWrapper.getText().should.containEql('Charles Kelly'); // another officer
-    searchPage.contentWrapper.getText().should.not.containEql('NEIGHBORHOOD');
+    const content = searchPage.contentWrapper.getText();
+    content.should.containEql('OFFICER');
+    content.should.containEql('Bernadette Kelly');
+    content.should.containEql('Charles Kelly'); // another officer
+    content.should.not.containEql('NEIGHBORHOOD');
   });
 
   it('should show filtered result when user select tag', function () {
@@ -79,10 +81,11 @@ describe('Search Page', function () {
     searchPage.suggestionGroup.waitForVisible();
     searchPage.suggestionTags.click();
     searchPage.contentWrapper.waitForVisible();
-    searchPage.contentWrapper.getText().should.containEql('OFFICER');
-    searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
-    searchPage.contentWrapper.getText().should.containEql('Charles Kelly'); // another officer
-    searchPage.contentWrapper.getText().should.not.containEql('NEIGHBORHOOD');
+    const content = searchPage.contentWrapper.getText();
+    content.should.containEql('OFFICER');
+    content.should.containEql('Bernadette Kelly');
+    content.should.containEql('Charles Kelly'); // another officer
+    content.should.not.containEql('NEIGHBORHOOD');
   });
 
   it('should show DataTool suggestions when no result return', function () {
@@ -236,6 +239,15 @@ describe('Search Page', function () {
     times(6, () => browser.keys('ArrowDown'));
 
     searchPage.loadMoreButton.getAttribute('class').should.containEql('test--focused');
+  });
+
+  it('should focus on the search box by default', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    browser.keys('T');
+
+    searchPage.input.getValue().should.eql('KeT');
   });
 
   describe('Search box button', function () {
