@@ -29,8 +29,8 @@ describe('Rich text editor', function () {
     });
 
     describe('bold button', function () {
-
       beforeEach(function () {
+        faqPage.richTextToolbar.boldButton.waitForVisible(10000);
         faqPage.richTextToolbar.boldButton.click();
       });
 
@@ -46,6 +46,7 @@ describe('Rich text editor', function () {
 
     describe('italic button', function () {
       beforeEach(function () {
+        faqPage.richTextToolbar.italicButton.waitForVisible(10000);
         faqPage.richTextToolbar.italicButton.click();
       });
 
