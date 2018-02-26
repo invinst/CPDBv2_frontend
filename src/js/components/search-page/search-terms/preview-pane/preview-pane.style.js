@@ -1,4 +1,4 @@
-import { softBlackColor, clayGray, whiteTwoColor } from 'utils/styles';
+import { softBlackColor, clayGray } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -6,7 +6,6 @@ export const wrapperStyle = {
   boxSizing: 'border-box',
   display: 'inline-block',
   verticalAlign: 'top',
-  borderTop: `solid 1px ${whiteTwoColor}`,
 };
 
 export const titleStyle = {
@@ -24,4 +23,3 @@ export const descriptionStyle = {
   color: clayGray,
   height: 'calc(100% - 96px - 40px)',
 };
-

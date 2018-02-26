@@ -6,7 +6,6 @@ export const contentWrapperStyle = {
   position: 'relative',
   height: 'calc(100vh - 53px)',
   width: 'calc(100% - 320px)',
-  borderTop: `solid 1px ${whiteTwoColor}`,
   overflowX: 'auto',
   display: 'inline-block',
 };
@@ -21,7 +20,6 @@ export const searchTermTitleStyle = {
   margin: '0 16px',
   fontWeight: 300,
   color: softBlackColor,
-  borderBottom: `1px solid ${whiteTwoColor}`,
 };
 
 export const bottomLinkStyle = {
