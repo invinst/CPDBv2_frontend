@@ -4,7 +4,6 @@ require('should');
 
 import landingPage from './page-objects/landing-page';
 
-
 describe('landing page', function () {
 
   beforeEach(function () {
@@ -61,9 +60,17 @@ describe('landing page', function () {
       landingPage.recentActivityCarousel.rightArrow.waitForVisible();
       landingPage.recentActivityCarousel.leftArrow.waitForVisible(2000, true);
     });
+
     it('should change next group of slides when click to right arrow', function () {
       landingPage.recentActivityCarousel.rightArrow.click();
       landingPage.recentActivityCarousel.leftArrow.waitForVisible(1000);
+    });
+
+    it('should go to officer summary page when click to card', function () {
+      const firstCard = landingPage.recentActivityCarousel.cards;
+      firstCard.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/officer\/\d+\/$/);
     });
   });
 
@@ -72,6 +79,43 @@ describe('landing page', function () {
       landingPage.officersByAllegationCarousel.cards.count.should.equal(48);
       landingPage.officersByAllegationCarousel.rightArrow.waitForVisible();
       landingPage.officersByAllegationCarousel.leftArrow.waitForVisible(2000, true);
+    });
+
+    it('should go to officer summary page when click to card', function () {
+      const firstCard = landingPage.recentActivityCarousel.cards;
+      firstCard.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/officer\/\d+\/$/);
+    });
+  });
+
+  describe('Recent Document Carousel', function () {
+    it('should show initial carousel', function () {
+      landingPage.recentDocumentCarousel.cards.count.should.equal(24);
+      landingPage.recentDocumentCarousel.rightArrow.waitForVisible();
+      landingPage.recentDocumentCarousel.leftArrow.waitForVisible(2000, true);
+    });
+
+    it('should go to cr page when click to card', function () {
+      const firstCard = landingPage.recentDocumentCarousel.cards;
+      firstCard.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+    });
+  });
+
+  describe('Complaint Summaries Carousel', function () {
+    it('should show initial carousel', function () {
+      landingPage.complaintSummariesCarousel.cards.count.should.equal(20);
+      landingPage.complaintSummariesCarousel.rightArrow.waitForVisible();
+      landingPage.complaintSummariesCarousel.leftArrow.waitForVisible(2000, true);
+    });
+
+    it('should go to cr page when click to card', function () {
+      const firstCard = landingPage.complaintSummariesCarousel.cards;
+      firstCard.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
     });
   });
 
