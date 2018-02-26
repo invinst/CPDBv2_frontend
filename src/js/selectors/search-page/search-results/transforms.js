@@ -59,6 +59,7 @@ export const searchResultItemTransform = (item) => ({
 export const navigationItemTransform = item => ({
   type: item.type,
   id: item.id,
+  text: get(item, 'payload.result_text'),
   uniqueKey: get(item, 'uniqueKey', `${item.type}-${item.id}`),
   to: get(item, 'payload.to'),
   url: get(item, 'payload.url'),

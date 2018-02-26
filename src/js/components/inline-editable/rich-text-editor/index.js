@@ -72,7 +72,7 @@ export default class RichTextEditor extends Component {
   }
 
   render() {
-    const { placeholder, style, readOnly, editorState, className } = this.props;
+    const { placeholder, style, readOnly, editorState, className, disableToolbar } = this.props;
     const { showToolbar, editorLeft, editorTop } = this.state;
     const { wrapper, paragraph } = style;
 
@@ -98,11 +98,14 @@ export default class RichTextEditor extends Component {
     }
 
     return (
-      <div style={ wrapperStyle } className={ className } ref={ el => {
-        if (el) {
-          this.rootEl = el;
-        }
-      } }>
+      <div
+        style={ wrapperStyle }
+        className={ className }
+        ref={ el => {
+          if (el) {
+            this.rootEl = el;
+          }
+        } }>
         <Editor
           onChange={ this.handleChange }
           blockRenderMap={ blockRenderMap }
@@ -110,14 +113,18 @@ export default class RichTextEditor extends Component {
           readOnly={ readOnly }
           editorState={ editorState }
           placeholder={ placeholder }/>
-        <Toolbar
-          show={ showToolbar }
-          parentLeft={ editorLeft }
-          parentTop={ editorTop }
-          onFocus={ this.handleToolbarFocus }
-          onBlur={ this.handleToolbarBlur }
-          editorState={ editorState }
-          onChange={ this.handleChange }/>
+        {
+          !disableToolbar && (
+            <Toolbar
+              show={ showToolbar }
+              parentLeft={ editorLeft }
+              parentTop={ editorTop }
+              onFocus={ this.handleToolbarFocus }
+              onBlur={ this.handleToolbarBlur }
+              editorState={ editorState }
+              onChange={ this.handleChange }/>
+          )
+        }
       </div>
     );
   }
@@ -129,6 +136,7 @@ RichTextEditor.propTypes = {
   style: PropTypes.object,
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
+  disableToolbar: PropTypes.bool,
   editorState: PropTypes.object
 };
 

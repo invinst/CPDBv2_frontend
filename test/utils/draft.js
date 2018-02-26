@@ -5,13 +5,13 @@ import { stub } from 'sinon';
 
 import {
   contentStateToTextArray, convertContentStateToEditorState, getField, multilineTextValueToArray,
-  plainTextValueToString, createBlock, buildPlainTextField, createEmptyEditorState, hasSelection,
+  plainTextValueToString, createBlock, createEmptyEditorState, hasSelection,
   createFieldWithEmptyEditorState, createEmptyStringField, createEmptyDateField, removeSelection,
   getFieldOrCreateEmptyWithEditorState, linkEntitySelected, createLinkEntity, removeLinkEntity,
-  inlineStyleSelected, defocus, getSelectionStartBlockKey
+  inlineStyleSelected, defocus, getSelectionStartBlockKey,
+  editorStateToText, convertEditorStateToRaw
 } from 'utils/draft';
 import { ENTITY_LINK } from 'utils/constants';
-import { PlainTextFieldFactory } from 'utils/test/factories/field';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import defaultDecorator from 'decorators';
 
@@ -90,14 +90,6 @@ describe('Draft utils', function () {
         type: 'unstyled',
         text: 'abc'
       });
-    });
-  });
-
-  describe('buildPlainTextField', function () {
-    it('should return plain text field', function () {
-      buildPlainTextField('title', 'hi').should.eql(
-        PlainTextFieldFactory.build({ name: 'title' }, { blockTexts: ['hi'] })
-      );
     });
   });
 
@@ -277,6 +269,35 @@ describe('Draft utils', function () {
       editorState = draftJs.EditorState.acceptSelection(editorState, selectionState);
 
       getSelectionStartBlockKey(editorState).should.eql(selectionState.getStartKey());
+    });
+  });
+
+  describe('editorStateToText', function () {
+    it('should return text from editor state', function () {
+      const contentState = draftJs.ContentState.createFromText('multiple line\ntext');
+      const editorState = draftJs.EditorState.createWithContent(contentState);
+      editorStateToText(editorState).should.equal('multiple line text');
+    });
+  });
+
+  describe('convertEditorStateToRaw', function () {
+    it('should return raw content state from editor state', function () {
+      const contentState = draftJs.ContentState.createFromText('abc');
+      const editorState = draftJs.EditorState.createWithContent(contentState);
+      convertEditorStateToRaw(editorState).should.eql({
+        blocks: [
+          {
+            data: {},
+            depth: 0,
+            entityRanges: [],
+            inlineStyleRanges: [],
+            key: contentState.getFirstBlock().getKey(),
+            text: 'abc',
+            type: 'unstyled'
+          }
+        ],
+        entityMap: {}
+      });
     });
   });
 });

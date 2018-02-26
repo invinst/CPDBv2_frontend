@@ -6,9 +6,18 @@ import RichTextEditable from 'components/inline-editable/editable-section/rich-t
 import Editable from 'components/inline-editable/editable';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import { convertContentStateToEditorState } from 'utils/draft';
+import { renderWithContext } from 'utils/test';
+
 
 describe('RichTextEditable component', function () {
   let instance;
+  let editorState;
+
+  beforeEach(function () {
+    editorState = convertContentStateToEditorState(
+      RawContentStateFactory.build({}, { blockTexts: ['abc'] })
+    );
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
@@ -17,9 +26,7 @@ describe('RichTextEditable component', function () {
   it('should render with given props', function () {
     const style = {};
     const onChange = () => {};
-    const editorState = convertContentStateToEditorState(
-      RawContentStateFactory.build({}, { blockTexts: ['abc'] })
-    );
+
     instance = renderIntoDocument(
       <RichTextEditable
         editModeOn={ true }
@@ -39,5 +46,28 @@ describe('RichTextEditable component', function () {
     editor.props.onChange.should.eql(onChange);
     editor.props.editorState.should.eql(editorState);
     editor.props.placeholder.should.eql('123');
+  });
+
+  it('should render with given context', function () {
+    const onChangeSpy = () => {};
+    instance = renderWithContext(
+      {
+        fieldContexts: {
+          'navbar_title': {
+            editModeOn: true,
+            value: editorState,
+            onChange: onChangeSpy,
+          }
+        }
+      },
+      <RichTextEditable fieldname='navbar_title' />
+    );
+
+    const editable = findRenderedComponentWithType(instance, Editable);
+    editable.props.editModeOn.should.be.true();
+    editable.props.editorElement.props.should.containEql({
+      editorState: editorState,
+      onChange: onChangeSpy
+    });
   });
 });

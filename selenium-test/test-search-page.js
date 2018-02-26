@@ -115,22 +115,35 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.eql('/officer/1/');
   });
 
-  it('should show the recent search', function () {
-    browser.execute(() => {
-      window.localStorage.clear();
+  describe('should show the recent search', function () {
+    beforeEach(function () {
+      browser.execute(() => {
+        window.localStorage.clear();
+      });
+      searchPage.open();
+
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+
+      searchPage.firstOfficerResult.waitForVisible();
+      searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly');
     });
-    searchPage.open();
 
-    searchPage.input.waitForVisible();
-    searchPage.input.setValue('Ke');
+    it('when click on result item', function () {
+      searchPage.firstOfficerResult.click();
 
-    searchPage.firstOfficerResult.waitForVisible();
-    searchPage.firstOfficerResult.getText().should.containEql('Bernadette Kelly');
-    searchPage.firstOfficerResult.click();
+      searchPage.open();
+      searchPage.recentSuggestions.waitForVisible();
+      searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+    });
 
-    searchPage.open();
-    searchPage.recentSuggestions.waitForVisible();
-    searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+    it('when hit enter on result item', function () {
+      browser.keys('Enter');
+
+      searchPage.open();
+      searchPage.recentSuggestions.waitForVisible();
+      searchPage.recentSuggestions.getText().should.containEql('Bernadette Kelly');
+    });
   });
 
   it('should not show the recent search if it is empty', function () {

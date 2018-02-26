@@ -43,10 +43,7 @@ describe('store', function () {
       },
       faqPage: {
         isRequesting: false,
-        faqsRequested: false,
-        faqForm: {
-          isSubmitting: false
-        }
+        faqsRequested: false
       },
       authentication: {
         loginErrorMessage: null,
@@ -56,6 +53,9 @@ describe('store', function () {
         showForgotPasswordModal: false
       },
       appContent: null,
+      cms: {
+        pages: {}
+      },
       reportingPage: {
         isRequesting: false,
         reportGrouping: {
@@ -164,6 +164,9 @@ describe('store', function () {
       headers: {
         shareableHeader: {
           scrollPosition: null
+        },
+        slimHeader: {
+          logoSectionEditModeOn: false
         }
       }
     });
