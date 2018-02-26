@@ -20,5 +20,3 @@ describe('getComplaintSummaries action', function () {
     });
   });
 });
-
-

@@ -38,4 +38,3 @@ ComplaintSummaries.propTypes = {
   cards: PropTypes.array,
   getComplaintSummaries: PropTypes.func
 };
-
