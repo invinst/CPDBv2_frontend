@@ -7,7 +7,7 @@ import {
   totalItemCountSelector,
   navigationKeySelector
 } from 'selectors/search-page/search-terms/navigation';
-import { categoriesSelector } from 'selectors/search-page/search-terms';
+import { categoriesSelector } from 'selectors/search-page/search-terms/categories';
 
 
 function mapStateToProps(state, ownProps) {

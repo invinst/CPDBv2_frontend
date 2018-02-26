@@ -15,7 +15,7 @@ import {
   hasMoreSelector,
   nextParamsSelector,
   isShowingSingleContentTypeSelector
-} from 'selectors/search-page/search-results';
+} from 'selectors/search-page/search-results/suggestion-groups';
 import {
   previewPaneInfoSelector,
   totalItemCountSelector

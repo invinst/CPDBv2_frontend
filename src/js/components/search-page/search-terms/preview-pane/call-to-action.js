@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { get } from 'lodash';
 
-import { actionButtonStyle, actionStyle, linkStyle } from './call-to-action.style';
-import HoverableButton from 'components/common/hoverable-button';
+import { linkStyle } from './call-to-action.style';
+import ActionBar from 'components/search-page/search-terms/preview-pane/action-bar';
 
 
 export default class CallToAction extends Component {
@@ -18,42 +18,27 @@ export default class CallToAction extends Component {
     };
   }
 
-  handleEnterButtonClick() {
-  }
-
   renderLink() {
     const { item } = this.props;
 
-    return this.renderActionBarLayout(
-      <a href={ item.link } style={ linkStyle } className={ 'test--call-to-action-link' }>
-        Enter Data Tool
-      </a>
+    return (
+      <ActionBar>
+        <a href={ item.link } style={ linkStyle } className={ 'test--call-to-action-link' }>
+          Enter Data Tool
+        </a>
+      </ActionBar>
     );
   }
 
   renderViewAll() {
     const { item } = this.props;
 
-    return this.renderActionBarLayout(
-      <div style={ linkStyle }>
-        View ALL { item.name }
-      </div>
-    );
-  }
-
-  renderActionBarLayout(child) {
     return (
-      <div className='test--preview-pane-action' style={ actionStyle }>
-        <div>
-          { child }
+      <ActionBar>
+        <div style={ linkStyle }>
+          View ALL { item.name }
         </div>
-        <HoverableButton
-          className='test--enter-button'
-          style={ actionButtonStyle }
-          onClick={ this.handleEnterButtonClick }>
-          enter
-        </HoverableButton>
-      </div>
+      </ActionBar>
     );
   }
 

@@ -66,6 +66,7 @@ export const slicedSuggestionGroupsSelector = createSelector(
     });
   }
 );
+
 export const isEmptySelector = createSelector(
   slicedSuggestionGroupsSelector,
   suggestionGroups => !suggestionGroups.length
