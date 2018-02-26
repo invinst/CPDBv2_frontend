@@ -8,12 +8,14 @@ import { itemStyle, nameStyle } from './category-item.style';
 class CategoryItem extends Component {
 
   render() {
-    const { item, hovering, isFocused } = this.props;
+    const { item, hovering, isFocused, handleItemClick, itemUniqueKey } = this.props;
 
     return (
       <div
         style={ itemStyle(isFocused) }
-        className={ classnames('term-item', 'test--category-item', { 'focused': isFocused }) }>
+        className={ classnames('term-item', 'test--category-item', { 'focused': isFocused }) }
+        onClick={ () => handleItemClick(itemUniqueKey) }
+      >
         <div
           style={ nameStyle(isFocused, hovering) }
           className='link--transition'>
@@ -28,10 +30,15 @@ CategoryItem.propTypes = {
   item: PropTypes.object,
   hovering: PropTypes.bool,
   isFocused: PropTypes.bool,
+  handleItemClick: PropTypes.func,
+  itemUniqueKey: PropTypes.string,
 };
 
 CategoryItem.defaultProps = {
-  item: {}
+  item: {},
+  isFocused: false,
+  hovering: false,
+  itemUniqueKey: ''
 };
 
 export default Hoverable(CategoryItem);

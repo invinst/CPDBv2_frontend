@@ -1,8 +1,11 @@
 import { handleActions } from 'redux-actions';
+import { indexOf } from 'lodash';
+
 import {
-  SEARCH_TERMS_NAVIGATION_UP,
   SEARCH_TERMS_NAVIGATION_DOWN,
   SEARCH_TERMS_NAVIGATION_RESET,
+  SEARCH_TERMS_NAVIGATION_SET,
+  SEARCH_TERMS_NAVIGATION_UP,
 } from 'utils/constants';
 
 
@@ -27,7 +30,15 @@ export default handleActions({
     return {
       'itemIndex': newItemIndex
     };
-  }
+  },
+
+  [SEARCH_TERMS_NAVIGATION_SET]: ({ itemIndex }, action) => {
+    const { navigationKeys, uniqueKey } = action.payload;
+    const newItemIndex = indexOf(navigationKeys, uniqueKey);
+    return {
+      'itemIndex': newItemIndex
+    };
+  },
 }, {
   'itemIndex': 0
 });

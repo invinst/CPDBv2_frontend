@@ -6,7 +6,6 @@ export const contentWrapperStyle = {
   position: 'relative',
   height: 'calc(100% - 4px)',
   width: 'calc(100% - 320px)',
-  borderTop: `solid 1px ${whiteTwoColor}`,
 };
 
 export const searchTermWrapperStyle = {
@@ -18,7 +17,6 @@ export const searchTermTitleStyle = {
   padding: '48px 16px 16px 16px',
   fontWeight: 300,
   color: softBlackColor,
-  borderBottom: `1px solid ${whiteTwoColor}`,
 };
 
 export const bottomLinkStyle = {

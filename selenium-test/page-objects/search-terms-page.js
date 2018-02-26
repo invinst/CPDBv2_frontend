@@ -24,6 +24,7 @@ class CategoryMainPanelSection extends Section {
     this.prepareElementGetters({
       categoryColumns: '.test--category-column',
       firstCategoryItem: '.test--category-item',
+      firstCategoryHeader: '.test--category-header',
       focusedItem: '(//div[contains(@class, \'focused\')])[1]',
     });
   }

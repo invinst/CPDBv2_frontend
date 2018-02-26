@@ -1,4 +1,8 @@
-import { focusedSearchTermItemSelector, totalItemCountSelector } from 'selectors/search-page/search-terms/navigation';
+import {
+  focusedSearchTermItemSelector,
+  navigationKeySelector,
+  totalItemCountSelector
+} from 'selectors/search-page/search-terms/navigation';
 import { SEARCH_BOX } from 'utils/constants';
 
 
@@ -102,6 +106,20 @@ describe('Search term navigation selector', function () {
 
     it('should return searchBoxItem when itemIndex is out of item list range', function () {
       focusedSearchTermItemSelector(makeStore(10)).should.deepEqual(searchBoxItem);
+    });
+  });
+
+  describe('navigationKeySelector', function () {
+    it('should return all item uniqueKeys in order with the first item is SEARCH_BOX ', function () {
+      navigationKeySelector(makeStore(0)).should.deepEqual([
+        SEARCH_BOX,
+        'category-Geography',
+        'Geography-community',
+        'Geography-police-beats',
+        'category-Complaint Categories',
+        'Complaint Categories-conduct-unbecoming-off-duty',
+        'Complaint Categories-criminal-misconduct',
+      ]);
     });
   });
 });

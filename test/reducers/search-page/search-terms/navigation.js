@@ -1,6 +1,9 @@
 import navigation from 'reducers/search-page/search-terms/navigation';
 import {
-  SEARCH_TERMS_NAVIGATION_DOWN, SEARCH_TERMS_NAVIGATION_UP, SEARCH_TERMS_NAVIGATION_RESET,
+  SEARCH_TERMS_NAVIGATION_DOWN,
+  SEARCH_TERMS_NAVIGATION_RESET,
+  SEARCH_TERMS_NAVIGATION_SET,
+  SEARCH_TERMS_NAVIGATION_UP,
 } from 'utils/constants';
 
 
@@ -58,6 +61,17 @@ describe('navigation reducer', function () {
           totalItemCount: 2
         }
       }).should.deepEqual({ 'itemIndex': 0 });
+    });
+  });
+
+  describe('SEARCH_TERMS_NAVIGATION_SET', function () {
+    it('set the index of the uniqueKey', function () {
+      const uniqueKey = 'some-key';
+      const navigationKeys = ['key-1', 'key-2', uniqueKey];
+      navigation({ 'itemIndex': 1 }, {
+        type: SEARCH_TERMS_NAVIGATION_SET,
+        payload: { navigationKeys, uniqueKey }
+      }).should.deepEqual({ 'itemIndex': 2 });
     });
   });
 });

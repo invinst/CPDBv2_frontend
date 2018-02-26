@@ -43,3 +43,11 @@ export const focusedSearchTermItemSelector = createSelector(
   rawFocusedItemSelector,
   navigationItemTransform
 );
+
+export const navigationKeySelector = createSelector(
+  flattenItems,
+  (items) => {
+    const navigationItems = items.map(navigationItemTransform);
+    return navigationItems.map((navigationItem) => navigationItem.uniqueKey);
+  }
+);

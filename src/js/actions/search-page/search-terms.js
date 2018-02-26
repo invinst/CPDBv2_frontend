@@ -9,6 +9,7 @@ import {
   SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
   SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE,
   SEARCH_TERMS_NAVIGATION_RESET,
+  SEARCH_TERMS_NAVIGATION_SET,
 } from 'utils/constants';
 import { moveFunction } from './base';
 
@@ -25,3 +26,4 @@ export const requestSearchTermCategories = get(
 export const move = moveFunction(SEARCH_TERMS_NAVIGATION_UP, SEARCH_TERMS_NAVIGATION_DOWN);
 
 export const resetNavigation = createAction(SEARCH_TERMS_NAVIGATION_RESET);
+export const setNavigation = createAction(SEARCH_TERMS_NAVIGATION_SET);
