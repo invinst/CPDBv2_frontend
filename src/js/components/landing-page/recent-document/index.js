@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+
 import DocumentCard from './document-card';
 import Carousel from 'components/common/carousel';
+import InlineEditHeader from 'components/common/carousel/inline-header-section';
 
 
 export default class RecentDocument extends Component {
@@ -11,34 +13,30 @@ export default class RecentDocument extends Component {
 
   render() {
 
-    const { cards } = this.props;
+    const { cards, editWrapperStateProps } = this.props;
+    const slideWidth = 232;
 
     const documents = cards.map((cr) => {
       return (
-        <DocumentCard
-          key={ cr.crid }
-          crid={ cr.crid }
-          numDocuments={ cr.numDocuments }
-          previewImageUrl={ cr.latestDocument.previewImageUrl }
-          url={ cr.latestDocument.url }
-        />
+        <div key={ cr.crid } style={ { width: `${slideWidth}px` } }>
+          <DocumentCard
+            crid={ cr.crid }
+            numDocuments={ cr.numDocuments }
+            previewImageUrl={ cr.latestDocument.previewImageUrl }
+            url={ cr.latestDocument.url }
+          />
+        </div>
       );
     });
-
-    const descriptionText = (
-      <div>
-        <p>We often update our complaint records as we recieve more information from the City.</p>
-        <p>Here are some of the recent updates.</p>
-      </div>
-    );
-
     return (
       <div className='test--recent-document'>
         <Carousel
-          slides={ documents }
-          header='New Documents'
-          description={ descriptionText }
-        />
+          headerSection={
+            <InlineEditHeader editWrapperStateProps={ editWrapperStateProps } type='document'/>
+          }
+        >
+          { documents }
+        </Carousel>
       </div>
     );
   }
@@ -46,5 +44,6 @@ export default class RecentDocument extends Component {
 
 RecentDocument.propTypes = {
   cards: PropTypes.array,
-  getRecentDocument: PropTypes.func
+  getRecentDocument: PropTypes.func,
+  editWrapperStateProps: PropTypes.object
 };

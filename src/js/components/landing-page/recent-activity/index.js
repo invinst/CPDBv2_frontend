@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+
 import Carousel from 'components/common/carousel';
 import OfficerCard from 'components/landing-page/activity-grid/officer-card';
+import InlineEditHeader from 'components/common/carousel/inline-header-section';
 
 export default class RecentActivity extends Component {
 
@@ -9,38 +11,36 @@ export default class RecentActivity extends Component {
   }
 
   render() {
-    let { cards } = this.props;
-    const recentActivityText = (
-      <div>
-        The officers, pairings, and units we display here are based on what other guests are
-        searching on cpdp in addition to officers who are mentioned in conversation with our twitter bot,
-        <a href='#'>@cpdpbot</a>
-      </div>
-    );
+    let { cards, editWrapperStateProps } = this.props;
+    const slideWidth = 232;
     const slideComponents = cards.map((item) => (
-      <OfficerCard
-        key={ item.id }
-        officerId={ item.id }
-        fullName={ item.fullName }
-        visualTokenBackgroundColor={ item.visualTokenBackgroundColor }
-        cardStyle={ { width: '232px', margin: 0 } }
-        complaintCount={ item.complaintCount }
-        sustainedCount={ item.sustainedCount }
-        complaintPercentile={ item.complaintPercentile }
-        birthYear={ item.birthYear }
-        race={ item.race }
-        gender={ item.gender }
-        visualTokenStyle={ { height: '100px' } }
-      />
+      <div key={ item.id } style={ { width: `${slideWidth}px` } }>
+        <OfficerCard
+          key={ item.id }
+          officerId={ item.id }
+          fullName={ item.fullName }
+          visualTokenBackgroundColor={ item.visualTokenBackgroundColor }
+          cardStyle={ { width: '232px', margin: 0 } }
+          complaintCount={ item.complaintCount }
+          sustainedCount={ item.sustainedCount }
+          complaintPercentile={ item.complaintPercentile }
+          birthYear={ item.birthYear }
+          race={ item.race }
+          gender={ item.gender }
+          visualTokenStyle={ { height: '100px' } }
+        />
+      </div>
     ));
 
     return (
       <div className='test--recent-activity'>
         <Carousel
-          header='Recent Activity'
-          description={ recentActivityText }
-          slides={ slideComponents }
-        />
+          headerSection={
+            <InlineEditHeader editWrapperStateProps={ editWrapperStateProps } type='activity'/>
+          }
+        >
+          { slideComponents }
+        </Carousel>
       </div>
     );
   }
@@ -48,5 +48,6 @@ export default class RecentActivity extends Component {
 
 RecentActivity.propTypes = {
   cards: PropTypes.array,
-  requestActivityGrid: PropTypes.func
+  requestActivityGrid: PropTypes.func,
+  editWrapperStateProps: PropTypes.object
 };

@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+
 import ComplaintSummaryCard from './complaint-summary-card';
 import Carousel from 'components/common/carousel';
+import HeaderSection from 'components/common/carousel/inline-header-section';
 
 
 export default class ComplaintSummaries extends Component {
@@ -10,25 +12,23 @@ export default class ComplaintSummaries extends Component {
   }
 
   render() {
-    const { cards } = this.props;
+    const { cards, editWrapperStateProps } = this.props;
 
-    const complaintSummaries = cards.map((card, idx) => {
-      return <ComplaintSummaryCard key={ idx } { ...card } />;
-    });
+    const slideWidth = 232; // TODO: change to constant
 
-    const descriptionText = (
-      <div>
-        <p>These records contain summary information of the incident of the alleged complaint.</p>
+    const complaintSummaries = cards.map((card, idx) => (
+      <div key={ idx } style={ { width: `${slideWidth}px` } }>
+        <ComplaintSummaryCard { ...card } />
       </div>
-    );
+    ));
 
     return (cards && cards.length > 0) && (
       <div className='test--complaint-summaries'>
-        <Carousel
-          header='Complaint Summaries'
-          description={ descriptionText }
-          slides={ complaintSummaries }
-        />
+        <Carousel headerSection={
+          <HeaderSection editWrapperStateProps={ editWrapperStateProps } type='complaint'/>
+        } >
+          { complaintSummaries }
+        </Carousel>
       </div>
     );
   }
@@ -36,6 +36,7 @@ export default class ComplaintSummaries extends Component {
 
 ComplaintSummaries.propTypes = {
   cards: PropTypes.array,
-  getComplaintSummaries: PropTypes.func
+  getComplaintSummaries: PropTypes.func,
+  editWrapperStateProps: PropTypes.object
 };
 
