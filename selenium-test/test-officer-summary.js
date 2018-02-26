@@ -27,6 +27,7 @@ describe('officer summary page', function () {
   it('should highlight summary header button', function () {
     summaryPage.header.officerName.waitForVisible();
     summaryPage.header.activeButton.waitForVisible();
+    browser.pause('5000');
     summaryPage.header.activeButton.getText().should.equal('Summary');
   });
 

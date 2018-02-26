@@ -64,14 +64,18 @@ export default class SearchPage extends Component {
   }
 
   handleViewItem() {
-    const { to, url, type, id } = this.props.focusedItem;
+    const { trackRecentSuggestion } = this.props;
+    const { to, url, type, id, text } = this.props.focusedItem;
 
     if (type === MORE_BUTTON) {
       this.handleSelect(id);
-    } else if (to) {
-      browserHistory.push(to);
     } else {
-      window.location.assign(url);
+      trackRecentSuggestion(type, text, url, to);
+      if (to) {
+        browserHistory.push(to);
+      } else {
+        window.location.assign(url);
+      }
     }
   }
 

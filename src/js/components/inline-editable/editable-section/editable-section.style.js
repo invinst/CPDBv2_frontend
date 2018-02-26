@@ -1,6 +1,7 @@
 import { pinkishWhiteColor } from 'utils/styles';
 
 
-export const editModeWrapperStyle = {
-  backgroundColor: pinkishWhiteColor
-};
+export const wrapperStyle = sectionEditModeOn => ({
+  backgroundColor: sectionEditModeOn ? pinkishWhiteColor : 'transparent',
+  display: 'inline-block'
+});
