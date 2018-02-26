@@ -1,10 +1,7 @@
 import React from 'react';
 import { spy, stub } from 'sinon';
 import {
-  findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
-  renderIntoDocument,
-  Simulate
+  findRenderedComponentWithType, findRenderedDOMComponentWithClass, renderIntoDocument, Simulate
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 
@@ -149,6 +146,13 @@ describe('SearchTerms component', function () {
       this.scrollToElementStub.calledWith(
         '.term-item.focused', { behavior: 'instant', block: 'center' }
       ).should.be.true();
+    });
+
+    it('should not scroll to if scrollTo is false', function () {
+      instance = renderIntoDocument(<SearchTerms focusedItem={ { uniqueKey: null } } scrollTo={ true }/>);
+      instance = reRender(<SearchTerms focusedItem={ { uniqueKey: 'OFFICER-RACE' } } scrollTo={ false } />, instance);
+
+      this.scrollToElementStub.called.should.be.false();
     });
 
     it('should render preview pane for the focused item', function () {

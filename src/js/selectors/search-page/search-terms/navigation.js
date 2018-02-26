@@ -7,6 +7,7 @@ import { categoriesSelector } from './categories';
 
 
 const getSearchTermsNavigationIndex = state => state.searchPage.searchTerms.navigation.itemIndex;
+export const getScrollTo = state => state.searchPage.searchTerms.navigation.scrollTo;
 
 const flattenItems = createSelector(
   categoriesSelector,

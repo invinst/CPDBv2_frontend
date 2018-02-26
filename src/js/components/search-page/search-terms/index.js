@@ -36,7 +36,7 @@ export default class SearchTerms extends Component {
 
   componentWillReceiveProps(nextProps) {
     // Make sure keyboard-focused item is kept within viewport:
-    if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
+    if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey && nextProps.scrollTo) {
       scrollToElement(
         '.term-item.focused',
         { behavior: 'instant', block: 'center' }
@@ -110,6 +110,7 @@ SearchTerms.propTypes = {
   resetNavigation: PropTypes.func,
   setNavigation: PropTypes.func,
   navigationKeys: PropTypes.array,
+  scrollTo: PropTypes.bool,
 };
 
 SearchTerms.defaultProps = {
@@ -121,4 +122,5 @@ SearchTerms.defaultProps = {
     uniqueKey: null
   },
   navigationKeys: [],
+  scrollTo: true,
 };

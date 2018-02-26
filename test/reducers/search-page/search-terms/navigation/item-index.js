@@ -1,4 +1,4 @@
-import navigation from 'reducers/search-page/search-terms/navigation';
+import itemIndex from 'reducers/search-page/search-terms/navigation/item-index';
 import {
   SEARCH_TERMS_NAVIGATION_DOWN,
   SEARCH_TERMS_NAVIGATION_RESET,
@@ -7,60 +7,60 @@ import {
 } from 'utils/constants';
 
 
-describe('navigation reducer', function () {
+describe('itemIndex reducer', function () {
   describe('SEARCH_TERMS_NAVIGATION_RESET', function () {
     it('resets to first position by default', function () {
-      navigation({ 'itemIndex': 2 }, {
+      itemIndex(2, {
         type: SEARCH_TERMS_NAVIGATION_RESET,
         payload: undefined
-      }).should.deepEqual({ 'itemIndex': 1 });
+      }).should.deepEqual(1);
     });
 
     it('resets to a position', function () {
-      navigation({ 'itemIndex': 2 }, {
+      itemIndex(2, {
         type: SEARCH_TERMS_NAVIGATION_RESET,
         payload: 3
-      }).should.deepEqual({ 'itemIndex': 3 });
+      }).should.deepEqual(3);
     });
   });
 
   describe('SEARCH_TERMS_NAVIGATION_DOWN', function () {
     it('stays in the same position if it\'s the last one', function () {
-      navigation({ 'itemIndex': 1 }, {
+      itemIndex(1, {
         type: SEARCH_TERMS_NAVIGATION_DOWN,
         payload: {
           totalItemCount: 2
         }
-      }).should.deepEqual({ 'itemIndex': 1 });
+      }).should.deepEqual(1);
     });
 
     it('moves down one row in the normal case', function () {
-      navigation({ 'itemIndex': 0 }, {
+      itemIndex(0, {
         type: SEARCH_TERMS_NAVIGATION_DOWN,
         payload: {
           totalItemCount: 2
         }
-      }).should.deepEqual({ 'itemIndex': 1 });
+      }).should.deepEqual(1);
     });
   });
 
   describe('SEARCH_TERMS_NAVIGATION_UP', function () {
     it('stays in the same position if it\'s in the search box', function () {
-      navigation({ 'itemIndex': -1 }, {
+      itemIndex(-1, {
         type: SEARCH_TERMS_NAVIGATION_UP,
         payload: {
           totalItemCount: 2
         }
-      }).should.deepEqual({ 'itemIndex': -1 });
+      }).should.deepEqual(-1);
     });
 
     it('moves up one row in normal case', function () {
-      navigation({ 'itemIndex': 1 }, {
+      itemIndex( 1, {
         type: SEARCH_TERMS_NAVIGATION_UP,
         payload: {
           totalItemCount: 2
         }
-      }).should.deepEqual({ 'itemIndex': 0 });
+      }).should.deepEqual(0);
     });
   });
 
@@ -68,10 +68,10 @@ describe('navigation reducer', function () {
     it('set the index of the uniqueKey', function () {
       const uniqueKey = 'some-key';
       const navigationKeys = ['key-1', 'key-2', uniqueKey];
-      navigation({ 'itemIndex': 1 }, {
+      itemIndex(1, {
         type: SEARCH_TERMS_NAVIGATION_SET,
         payload: { navigationKeys, uniqueKey }
-      }).should.deepEqual({ 'itemIndex': 2 });
+      }).should.deepEqual(2);
     });
   });
 });

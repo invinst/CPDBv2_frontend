@@ -81,6 +81,25 @@ describe('Search terms page', function () {
     searchTermsPage.previewPane.callToAction.getText().should.containEql('View ALL');
   });
 
+  it('should show PreviewPane when a SearchTerms category is clicked', function () {
+    searchTermsPage.categoryMainPanel.firstCategoryHeader.click();
+
+    searchTermsPage.previewPane.title.getText().should.eql('Geography');
+  });
+
+  it('should show PreviewPane when a SearchTerms item is clicked', function () {
+    searchTermsPage.categoryMainPanel.firstCategoryItem.click();
+
+    searchTermsPage.previewPane.title.getText().should.eql('Communities');
+  });
+
+  it('should show PreviewPane in the viewport when scroll to bottom', function () {
+    browser.keys('ArrowDown');
+    browser.scroll(0, 9999999);
+
+    searchTermsPage.previewPane.title.isVisibleWithinViewport().should.be.true();
+  });
+
   it('should focus on the search box by default', function () {
     searchTermsPage.input.waitForVisible();
 

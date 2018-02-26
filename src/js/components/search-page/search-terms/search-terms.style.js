@@ -4,8 +4,10 @@ export const contentWrapperStyle = {
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
   position: 'relative',
-  height: 'calc(100% - 4px)',
+  height: 'calc(100vh - 53px)',
   width: 'calc(100% - 320px)',
+  overflowX: 'auto',
+  display: 'inline-block',
 };
 
 export const searchTermWrapperStyle = {
@@ -14,7 +16,8 @@ export const searchTermWrapperStyle = {
 
 export const searchTermTitleStyle = {
   fontSize: '26px',
-  padding: '48px 16px 16px 16px',
+  padding: '48px 0 16px 0',
+  margin: '0 16px',
   fontWeight: 300,
   color: softBlackColor,
 };
