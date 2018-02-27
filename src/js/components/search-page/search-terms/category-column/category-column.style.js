@@ -1,7 +1,6 @@
-import { clayGray } from 'utils/styles';
+import { accentColor, softBlackColor, fadedAccentColor, concreteColor } from 'utils/styles';
 
 export const columnWrapperStyle = {
-  display: 'inline-block',
   verticalAlign: 'top'
 };
 
@@ -9,15 +8,13 @@ export const itemsWrapperStyle = {
   whiteSpace: 'nowrap'
 };
 
-export const itemsChunkWrapperStyle = {
-  display: 'inline-block',
-  verticalAlign: 'top'
-};
-
-export const headerStyle = {
+export const headerStyle = (isFocused) => ({
   fontSize: '14px',
   fontWeight: 500,
-  color: clayGray,
-  padding: '8px 0',
-  textTransform: 'uppercase'
-};
+  color: isFocused ? accentColor : softBlackColor,
+  padding: '34px 16px 10px 16px',
+  textTransform: 'uppercase',
+  boxSizing: 'border-box',
+  background: isFocused ? fadedAccentColor : concreteColor,
+  cursor: 'pointer',
+});

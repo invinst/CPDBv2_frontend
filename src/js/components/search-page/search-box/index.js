@@ -38,7 +38,7 @@ export default class SearchBox extends Component {
       return (
         <HoverableButton
           className='test--toggle-button'
-          style={ searchTermsButtonStyle }
+          style={ searchTermsButtonStyle(searchTermsHidden) }
           onClick={ this.handleToggleButtonClick }>
           {
             searchTermsHidden ? 'What can I search?' : 'Hide Search terms'
@@ -56,6 +56,10 @@ export default class SearchBox extends Component {
       enter: onEnter,
     };
 
+    const keyPressWithBlurHandlers = {
+      down: () => resetNavigation()
+    };
+
     return (
       <div style={ wrapperStyle }>
         <TextInput
@@ -63,12 +67,11 @@ export default class SearchBox extends Component {
           style={ searchInputStyle }
           placeholder='Search Chicago'
           onChange={ onChange }
-          paddingVertical={ 9 }
+          paddingVertical={ 8 }
           paddingHorizontal={ 9 }
           value={ value }
           keyPressHandlers={ keyPressHandlers }
-          blurOnKeyPress={ ['down'] }
-          onBlur={ () => resetNavigation() }
+          keyPressWithBlurHandlers={ keyPressWithBlurHandlers }
           spellCheck={ false }
           className='test--search-page-input'
           focused={ focused }
@@ -83,7 +86,6 @@ SearchBox.propTypes = {
   onChange: PropTypes.func,
   onEscape: PropTypes.func,
   onEnter: PropTypes.func,
-  toggleSearchTerms: PropTypes.func,
   value: PropTypes.string,
   searchTermsHidden: PropTypes.bool,
   changeSearchQuery: PropTypes.func,

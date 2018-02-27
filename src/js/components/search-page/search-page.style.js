@@ -3,7 +3,9 @@ import {
   girlyPink,
   lightGirlyPink,
   accentColor,
-  softBlackColor
+  softBlackColor,
+  clayGray,
+  whiteTwoColor,
 } from 'utils/styles';
 
 
@@ -19,23 +21,25 @@ export const searchContentWrapperStyle = (aliasEditModeOn) => ({
 
 export const searchBoxStyle = (aliasEditModeOn) => ({
   backgroundColor: aliasEditModeOn ? girlyPink : 'white',
-  padding: `${searchBoxPadding}px 16px 9px 16px`,
+  padding: `${searchBoxPadding}px 0 9px 0`,
+  margin: '0 16px',
+  borderBottom: `1px solid ${whiteTwoColor}`,
 });
 
-const _cancelButtonStyle = {
+const _cancelButtonStyle = (searchTermsHidden) => ({
   display: 'inline-block',
   fontSize: '13px',
-  color: accentColor,
+  color: searchTermsHidden ? clayGray : accentColor,
   width: '41px',
   cursor: 'pointer',
   position: 'relative',
   top: '6px'
-};
+});
 
-export const cancelButtonStyle = {
-  base: _cancelButtonStyle,
+export const cancelButtonStyle = (searchTermsHidden) => ({
+  base: _cancelButtonStyle(searchTermsHidden),
   hover: {
-    ..._cancelButtonStyle,
+    ..._cancelButtonStyle(searchTermsHidden),
     color: softBlackColor
   }
-};
+});

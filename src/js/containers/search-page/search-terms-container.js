@@ -1,23 +1,31 @@
 import { connect } from 'react-redux';
 
 import SearchTerms from 'components/search-page/search-terms';
-import { requestSearchTermCategories, selectCategory } from 'actions/search-page/search-terms';
+import { requestSearchTermCategories, move, resetNavigation, setNavigation } from 'actions/search-page/search-terms';
 import {
-  navigationItemsSelector, categoriesSelector, selectedCategoryIndexSelector
-} from 'selectors/search-page/search-terms';
+  focusedSearchTermItemSelector,
+  totalItemCountSelector,
+  navigationKeySelector,
+  getScrollTo,
+} from 'selectors/search-page/search-terms/navigation';
+import { categoriesSelector } from 'selectors/search-page/search-terms/categories';
 
 
 function mapStateToProps(state, ownProps) {
   return {
-    navigationItems: navigationItemsSelector(state),
-    selectedCategoryIndex: selectedCategoryIndexSelector(state),
-    categories: categoriesSelector(state)
+    categories: categoriesSelector(state),
+    focusedItem: focusedSearchTermItemSelector(state),
+    totalItemCount: totalItemCountSelector(state),
+    navigationKeys: navigationKeySelector(state),
+    scrollTo: getScrollTo(state),
   };
 }
 
 const mapDispatchToProps = {
   requestSearchTermCategories,
-  onSelectCategory: selectCategory
+  move,
+  resetNavigation,
+  setNavigation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchTerms);

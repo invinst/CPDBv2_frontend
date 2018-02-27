@@ -46,9 +46,15 @@ export default class Page extends Section {
   selectText(selector) {
     browser.execute(function (selector) {
 
+      function getElementByXPath(path, contextNode) {
+        return document.evaluate(
+          path, contextNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
+        ).singleNodeValue;
+      }
+
       function getElementBySelector(selector) {
         if (selector.startsWith('/')) {
-          return document.evaluate(selector, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+          return getElementByXPath(selector, document);
         } else {
           return document.querySelector(selector);
         }
@@ -56,18 +62,21 @@ export default class Page extends Section {
 
       const element = getElementBySelector(selector);
 
-      const startInd = 0;
-      const endInd = element.children.length;
+      const firstTextElement = getElementByXPath('.//span[text()]', element);
+      const lastTextElement = getElementByXPath('(.//span[text()])[last()]', element);
 
       const selection = window.getSelection();
       const range = document.createRange();
 
-      range.setStart(element, startInd);
-      range.setEnd(element, endInd);
+      const startIndex = 0;
+      const endIndex = lastTextElement.childNodes.length;
 
-      selection.removeAllRanges();
+      range.setStart(firstTextElement, startIndex);
+      range.setEnd(lastTextElement, endIndex);
+
+      selection.empty();
       selection.addRange(range);
-      selection.removeAllRanges();
+      selection.empty();
       selection.addRange(range);
     }, selector);
   }

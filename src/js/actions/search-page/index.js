@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions';
 import { CancelToken } from 'axios';
 
 import * as constants from 'utils/constants';
+import { moveFunction } from 'actions/search-page/base';
 
 
 let source;
@@ -56,14 +57,7 @@ export const TRACK_RECENT_SUGGESTION = 'TRACK_RECENT_SUGGESTION';
 export const SEARCH_NAVIGATION_UP = 'SEARCH_NAVIGATION_UP';
 export const SEARCH_NAVIGATION_DOWN = 'SEARCH_NAVIGATION_DOWN';
 
-export const move = (direction, totalItemCount) => {
-  const DIRECTON_TO_ACTION = {
-    'up': SEARCH_NAVIGATION_UP,
-    'down': SEARCH_NAVIGATION_DOWN
-  };
-
-  return createAction(DIRECTON_TO_ACTION[direction])({ totalItemCount });
-};
+export const move = moveFunction(SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_DOWN);
 
 export const trackRecentSuggestion = (contentType, text, url, to) => createAction(TRACK_RECENT_SUGGESTION)({
   contentType,

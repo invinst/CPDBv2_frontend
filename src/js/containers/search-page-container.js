@@ -8,21 +8,17 @@ import {
   selectTag,
   toggleSearchMode,
   trackRecentSuggestion,
-  move,
-  resetNavigation,
+  resetNavigation as resetSearchResultNavigation,
   changeSearchQuery,
   getSuggestionWithContentType
 } from 'actions/search-page';
 import {
-  toggleSearchTerms, requestSearchTermCategories
+  requestSearchTermCategories, resetNavigation as resetSearchTermNavigation
 } from 'actions/search-page/search-terms';
-import {
-  focusedItemSelector, totalItemCountSelector
-} from 'selectors/search-page/navigation';
+import { getFocusedItem } from 'selectors/search-page';
 import {
   suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector
-} from 'selectors/search-page/search-results';
-import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
+} from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { cardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
@@ -34,6 +30,7 @@ function mapStateToProps(state, ownProps) {
     contentType, recentSuggestions, query, itemsPerColumn
   } = state.searchPage;
   const { children } = ownProps;
+  const focusedItem = getFocusedItem(state);
 
   return {
     itemsPerColumn,
@@ -43,13 +40,11 @@ function mapStateToProps(state, ownProps) {
     suggestionGroups: searchResultGroupsSelector(state),
     contentType,
     isEmpty: isEmptySelector(state),
-    focusedItem: focusedItemSelector(state),
-    isShowingSingleContentType: isShowingSingleContentTypeSelector(state),
+    focusedItem: focusedItem,
     recentSuggestions,
     officerCards: cardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
-    totalItemCount: totalItemCountSelector(state)
   };
 }
 
@@ -59,13 +54,12 @@ const mapDispatchToProps = {
   selectTag,
   toggleSearchMode,
   trackRecentSuggestion,
-  move,
   changeSearchQuery,
-  resetNavigation,
+  resetSearchResultNavigation,
   requestActivityGrid,
-  toggleSearchTerms,
   requestSearchTermCategories,
   pushBreadcrumbs,
+  resetSearchTermNavigation
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchPage));

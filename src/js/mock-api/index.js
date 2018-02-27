@@ -2,7 +2,8 @@ import axiosMockClient, { countRequests } from 'utils/axios-mock-client';
 import {
   SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL, ACTIVITY_GRID_API_URL,
   REPORTS_API_URL, FAQS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL, UNIT_PROFILE_URL,
-  SEARCH_TERM_CATEGORIES_API_URL, OFFICERS_BY_ALLEGATION_API_URL, CITY_SUMMARY_API_URL
+  SEARCH_TERMS_CATEGORIES_API_URL, OFFICERS_BY_ALLEGATION_API_URL, CITY_SUMMARY_API_URL,
+  RECENT_DOCUMENT_URL, RECENT_COMPLAINT_SUMMARIES_URL, LANDING_PAGE_API_URL
 } from 'utils/constants';
 
 import OfficerFactory from 'utils/test/factories/officer';
@@ -21,9 +22,12 @@ import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import getActivityGridData from './landing-page/activity-grid';
+import getRecentDocument from './landing-page/recent-document';
+import getComplaintSummaries from './landing-page/complaint-summaries';
 import getSearchTermsData from './search-terms-page';
 import { getCitySummary, getCommunities } from './landing-page/heat-map';
 import { communityGeoJSONPath } from 'utils/static-assets';
+import { getCMSFields } from './landing-page/cms-field';
 
 
 const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
@@ -35,6 +39,8 @@ axiosMockClient.onGet(new RegExp(`${FAQS_API_URL}\?.+`)).reply(() => [200, FAQPa
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
 axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getActivityGridData(48)]);
+axiosMockClient.onGet(RECENT_DOCUMENT_URL).reply(() => [200, getRecentDocument(24)]);
+axiosMockClient.onGet(RECENT_COMPLAINT_SUMMARIES_URL).reply(() => [200, getComplaintSummaries(20)]);
 
 axiosMockClient.onPost(SIGNIN_URL, { username: 'username', password: 'password' })
   .reply(200, { 'apiAccessToken': '055a5575c1832e9123cd546fe0cfdc8607f8680c' });
@@ -111,10 +117,12 @@ axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-items/`)
 
 axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());
 
-axiosMockClient.onGet(SEARCH_TERM_CATEGORIES_API_URL).reply(200, getSearchTermsData());
+axiosMockClient.onGet(SEARCH_TERMS_CATEGORIES_API_URL).reply(200, getSearchTermsData());
 
 axiosMockClient.onGet(CITY_SUMMARY_API_URL).reply(200, getCitySummary());
 axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
+
+axiosMockClient.onGet(LANDING_PAGE_API_URL).reply(200, getCMSFields());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

@@ -1,10 +1,12 @@
 import React from 'react';
-import { spy } from 'sinon';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
-import { SearchTermCategoryItem } from 'utils/test/factories/search-terms';
+import { unmountComponentSuppressError } from 'utils/test';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
+import {
+  renderIntoDocument,
+  findRenderedDOMComponentWithClass,
+} from 'react-addons-test-utils';
+import { SearchTermCategory } from 'utils/test/factories/search-terms';
 
 
 describe('CategoryColumn component', function () {
@@ -18,31 +20,21 @@ describe('CategoryColumn component', function () {
     CategoryColumn.should.be.renderable();
   });
 
-  it('should trigger onSelected if selected when mounted', function () {
-    const callback = spy();
+  it('should be able to focus to header', function () {
+    const items = SearchTermCategory.buildList(1);
+    const name = items[0].name;
+    const focusedItem = { uniqueKey: `category-${name}` };
     instance = renderIntoDocument(
-      <CategoryColumn selected={ true } onSelected={ callback }/>
+      <CategoryColumn
+        key={ name }
+        name={ name }
+        items={ items }
+        focusedItem={ focusedItem } />
     );
-    callback.called.should.be.true();
-  });
 
-  it('should trigger onSelected if receive new selected prop', function () {
-    const callback = spy();
-    instance = renderIntoDocument(
-      <CategoryColumn selected={ false } onSelected={ callback }/>
-    );
-    callback.called.should.be.false();
+    const header = findRenderedDOMComponentWithClass(instance, 'test--category-header');
 
-    reRender(<CategoryColumn selected={ true }/>, instance);
-    callback.called.should.be.true();
-  });
-
-  it('should render items in 13-items chunks', function () {
-    const items = SearchTermCategoryItem.buildList(20);
-    instance = renderIntoDocument(<CategoryColumn items={ items }/>);
-    const chunks = scryRenderedDOMComponentsWithClass(instance, 'test--category-item-chunk');
-    chunks.should.have.length(2);
-    chunks[0].children.should.have.length(13);
-    chunks[1].children.should.have.length(7);
+    header.textContent.should.eql(name);
+    header.className.should.containEql('focused');
   });
 });

@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {
-  Simulate, renderIntoDocument, findRenderedDOMComponentWithTag, findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType, scryRenderedDOMComponentsWithTag
+  findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
+  findRenderedDOMComponentWithTag,
+  renderIntoDocument,
+  scryRenderedDOMComponentsWithTag,
+  Simulate
 } from 'react-addons-test-utils';
-import { stub, spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
@@ -27,7 +31,11 @@ describe('SearchPage component', function () {
       tags: [],
       navigation: {},
       searchTerms: {
-        categories: []
+        categories: [],
+        hidden: true,
+        navigation: {
+          itemIndex: 0,
+        }
       },
       pagination: {}
     }
@@ -187,28 +195,6 @@ describe('SearchPage component', function () {
     trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url').should.be.true();
   });
 
-  it('should trigger move when up key pressed', function () {
-    const move = spy();
-    const totalItemCount = 3;
-    const direction = 'up';
-    instance = renderIntoDocument(
-      <SearchPage move={ move } totalItemCount={ totalItemCount } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
-    );
-    Mousetrap.trigger(direction);
-    move.calledWith(direction, totalItemCount).should.be.true();
-  });
-
-  it('should trigger move when down key pressed', function () {
-    const move = spy();
-    const totalItemCount = 3;
-    const direction = 'down';
-    instance = renderIntoDocument(
-      <SearchPage move={ move } totalItemCount={ totalItemCount } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
-    );
-    Mousetrap.trigger(direction);
-    move.calledWith(direction, totalItemCount).should.be.true();
-  });
-
   describe('after keyboard navigation', function () {
     beforeEach(function () {
       this.scrollToElementStub = stub(domUtils, 'scrollToElement');
@@ -323,4 +309,23 @@ describe('SearchPage component', function () {
     Simulate.click(tagElements[0]);
     getSuggestion.calledWith('c').should.be.true();
   });
+
+  it('should call resetSearchResultNavigation if SearchPage resetNavigation is called when Search Term is hidden',
+    function () {
+      const resetSearchResultNavigation = stub();
+      const resetSearchTermNavigation = stub();
+
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchPage
+            resetSearchResultNavigation={ resetSearchResultNavigation }
+            resetSearchTermNavigation={ resetSearchTermNavigation }
+          />
+        </Provider>
+      );
+
+      const searchBox = findRenderedComponentWithType(instance, SearchPage);
+      searchBox.resetNavigation(1);
+      resetSearchResultNavigation.calledWith(1).should.be.true();
+    });
 });

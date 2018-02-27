@@ -31,12 +31,14 @@ describe('SearchBox component', function () {
     const onEscape = spy();
     const onChange = spy();
     const onEnter = spy();
+    const resetNavigation = spy();
 
     instance = renderIntoDocument(
       <SearchBox
         onEscape={ onEscape }
         onChange={ onChange }
         onEnter={ onEnter }
+        resetNavigation={ resetNavigation }
         value='wa'
       />
     );
@@ -48,19 +50,40 @@ describe('SearchBox component', function () {
       enter: onEnter
     });
     input.props.onChange.should.equal(onChange);
-    input.props.blurOnKeyPress.should.eql(['down']);
+    input.props.keyPressWithBlurHandlers.should.have.key('down');
   });
 
-  it('should call resetNavigation when text input is blured', function () {
+  it('should call resetNavigation when pressing down in the text input and make it blur', function () {
     const resetNavigation = spy();
     instance = renderIntoDocument(
       <SearchBox
         resetNavigation={ resetNavigation }
+        focused={ true }
       />
     );
 
-    Simulate.blur(findRenderedDOMComponentWithClass(instance, 'test--search-page-input'));
+    const textInput = findRenderedComponentWithType(instance, TextInput);
+    const blur = spy(textInput.input, 'blur');
+
+    textInput.mousetrap.trigger('down');
+
+    blur.called.should.be.true();
     resetNavigation.called.should.be.true();
+  });
+
+  it('should not call resetNavigation when the input.blur is called', function () {
+    const resetNavigation = spy();
+    instance = renderIntoDocument(
+      <SearchBox
+        resetNavigation={ resetNavigation }
+        focused={ true }
+      />
+    );
+
+    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
+    Simulate.blur(inputElement);
+
+    resetNavigation.called.should.be.false();
   });
 
   it('should toggle search terms', function () {

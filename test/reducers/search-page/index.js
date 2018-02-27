@@ -14,7 +14,10 @@ describe('searchPage reducer', function () {
       searchTerms: {
         categories: [],
         hidden: true,
-        selectedCategory: null
+        navigation: {
+          itemIndex: 0,
+          scrollTo: true,
+        }
       },
       tags: [],
       query: '',

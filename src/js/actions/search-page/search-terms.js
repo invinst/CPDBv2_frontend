@@ -1,15 +1,29 @@
 import { createAction } from 'redux-actions';
-
-import * as constants from 'utils/constants';
 import { get } from 'actions/common/async-action';
 
+import {
+  SEARCH_TERMS_NAVIGATION_UP,
+  SEARCH_TERMS_NAVIGATION_DOWN,
+  SEARCH_TERMS_CATEGORIES_API_URL,
+  SEARCH_TERMS_CATEGORIES_REQUEST_START,
+  SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
+  SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE,
+  SEARCH_TERMS_NAVIGATION_RESET,
+  SEARCH_TERMS_NAVIGATION_SET,
+} from 'utils/constants';
+import { moveFunction } from './base';
+
+
 export const requestSearchTermCategories = get(
-  constants.SEARCH_TERM_CATEGORIES_API_URL,
+  SEARCH_TERMS_CATEGORIES_API_URL,
   [
-    constants.SEARCH_TERM_CATEGORIES_REQUEST_START,
-    constants.SEARCH_TERM_CATEGORIES_REQUEST_SUCCESS,
-    constants.SEARCH_TERM_CATEGORIES_REQUEST_FAILURE
+    SEARCH_TERMS_CATEGORIES_REQUEST_START,
+    SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS,
+    SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE
   ]
 );
 
-export const selectCategory = createAction(constants.SELECT_CATEGORY);
+export const move = moveFunction(SEARCH_TERMS_NAVIGATION_UP, SEARCH_TERMS_NAVIGATION_DOWN);
+
+export const resetNavigation = createAction(SEARCH_TERMS_NAVIGATION_RESET);
+export const setNavigation = createAction(SEARCH_TERMS_NAVIGATION_SET);
