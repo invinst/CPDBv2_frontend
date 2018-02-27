@@ -6,7 +6,10 @@ import {
 
 
 export default handleActions({
-  [SEARCH_NAVIGATION_RESET]: () => ({ itemIndex: 1 }),
+  [SEARCH_NAVIGATION_RESET]: ({ itemIndex }, action) => {
+    const newItemIndex = action.payload === undefined ? 1 : action.payload;
+    return { itemIndex: newItemIndex };
+  },
 
   [CHANGE_SEARCH_QUERY]: () => ({ itemIndex: 1 }),
 

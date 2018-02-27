@@ -18,7 +18,7 @@ import {
 import { getFocusedItem } from 'selectors/search-page';
 import {
   suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector
-} from 'selectors/search-page/search-results';
+} from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { cardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';

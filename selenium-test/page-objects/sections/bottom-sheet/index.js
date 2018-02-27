@@ -1,9 +1,11 @@
 import Section from '../section';
 import OfficerSection from './officer-section';
+import FAQSection from './faq-section';
 
 
 class BottomSheet extends Section {
   officerSection = new OfficerSection();
+  faq = new FAQSection();
 
   constructor() {
     super();
@@ -17,10 +19,6 @@ class BottomSheet extends Section {
       reportExcerpt: '.test--rich-text-excerpt',
       reportArticleLink: '.test--rich-text-article-link',
       reportOfficerInvolved: '.test--officer-involved',
-
-      faqBottomSheet: '.faq-bottom-sheet',
-      faqQuestion: '.test--faq-rich-text-question',
-      faqAnswer: '.test--faq-rich-text-answer'
     });
   }
 

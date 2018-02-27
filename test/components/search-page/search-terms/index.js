@@ -3,9 +3,8 @@ import { spy, stub } from 'sinon';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  findRenderedDOMComponentWithTag,
-  renderIntoDocument,
-  Simulate,
+ findRenderedDOMComponentWithTag, renderIntoDocument,
+  Simulate
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 
@@ -124,6 +123,16 @@ describe('SearchTerms component', function () {
     setNavigation.calledWith({ navigationKeys, uniqueKey: 'category-Geography' }).should.be.true();
   });
 
+  it('should resetNavigation to 0 when unmounted', function () {
+    const resetNavigation = spy();
+    instance = renderIntoDocument(
+      <SearchTerms resetNavigation={ resetNavigation }/>
+    );
+    unmountComponentSuppressError(instance);
+
+    resetNavigation.calledWith(0).should.be.true();
+  });
+
   describe('after keyboard navigation', function () {
     beforeEach(function () {
       this.scrollToElementStub = stub(domUtils, 'scrollToElement');
@@ -140,6 +149,13 @@ describe('SearchTerms component', function () {
       this.scrollToElementStub.calledWith(
         '.term-item.focused', { behavior: 'instant', block: 'center' }
       ).should.be.true();
+    });
+
+    it('should not scroll to if scrollTo is false', function () {
+      instance = renderIntoDocument(<SearchTerms focusedItem={ { uniqueKey: null } } scrollTo={ true }/>);
+      instance = reRender(<SearchTerms focusedItem={ { uniqueKey: 'OFFICER-RACE' } } scrollTo={ false } />, instance);
+
+      this.scrollToElementStub.called.should.be.false();
     });
 
     it('should render preview pane for the focused item', function () {

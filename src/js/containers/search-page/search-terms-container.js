@@ -5,9 +5,10 @@ import { requestSearchTermCategories, move, resetNavigation, setNavigation } fro
 import {
   focusedSearchTermItemSelector,
   totalItemCountSelector,
-  navigationKeySelector
+  navigationKeySelector,
+  getScrollTo,
 } from 'selectors/search-page/search-terms/navigation';
-import { categoriesSelector } from 'selectors/search-page/search-terms';
+import { categoriesSelector } from 'selectors/search-page/search-terms/categories';
 
 
 function mapStateToProps(state, ownProps) {
@@ -16,6 +17,7 @@ function mapStateToProps(state, ownProps) {
     focusedItem: focusedSearchTermItemSelector(state),
     totalItemCount: totalItemCountSelector(state),
     navigationKeys: navigationKeySelector(state),
+    scrollTo: getScrollTo(state),
   };
 }
 

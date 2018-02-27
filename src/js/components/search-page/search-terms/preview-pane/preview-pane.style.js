@@ -2,11 +2,9 @@ import { softBlackColor, clayGray } from 'utils/styles';
 
 
 export const wrapperStyle = {
-  position: 'absolute',
-  top: '49px',
-  right: '0px',
   width: '320px',
   boxSizing: 'border-box',
+  display: 'inline-block',
   verticalAlign: 'top',
 };
 
@@ -25,4 +23,3 @@ export const descriptionStyle = {
   color: clayGray,
   height: 'calc(100% - 96px - 40px)',
 };
-

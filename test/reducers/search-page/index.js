@@ -16,6 +16,7 @@ describe('searchPage reducer', function () {
         hidden: true,
         navigation: {
           itemIndex: 0,
+          scrollTo: true,
         }
       },
       tags: [],
