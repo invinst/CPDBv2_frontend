@@ -43,10 +43,14 @@ describe('FAQ page', function () {
       faqPage.faqSection.addButton.waitForVisible();
     });
 
-    it('should open empty edittable bottom sheet when click on add button', function () {
+    it('should open empty editable bottom sheet when click on add button', function () {
+      this.retries(3);
+
       faqPage.faqSection.addButton.click();
 
-      faqPage.bottomSheet.faq.element.waitForVisible();
+      faqPage.bottomSheet.faq.question.waitForVisible();
+      faqPage.bottomSheet.faq.answer.waitForVisible();
+
       faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faq.question).should.be.true();
       faqPage.isRichTextEditorEmpty(faqPage.bottomSheet.faq.answer).should.be.true();
     });

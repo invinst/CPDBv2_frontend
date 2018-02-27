@@ -1,9 +1,9 @@
 'use strict';
 
 import { includes } from 'lodash';
-require('should');
-
 import faqPage from './page-objects/faq-page';
+
+require('should');
 
 
 describe('Rich text editor', function () {
@@ -28,33 +28,41 @@ describe('Rich text editor', function () {
       faqPage.richTextToolbar.element.waitForVisible(2000, true);
     });
 
-    describe.skip('bold button', function () {
+    describe('bold button', function () {
       beforeEach(function () {
         faqPage.richTextToolbar.boldButton.waitForVisible();
         faqPage.richTextToolbar.boldButton.click();
       });
 
       it('should make text bold when clicked', function () {
+        this.retries(3);
+
         faqPage.bottomSheet.faq.boldTextSpan.waitForVisible();
       });
 
       it('should make text not bold when clicked on again', function () {
+        this.retries(3);
+
         faqPage.richTextToolbar.boldButton.click();
         faqPage.bottomSheet.faq.boldTextSpan.waitForVisible(2000, true);
       });
     });
 
-    describe.skip('italic button', function () {
+    describe('italic button', function () {
       beforeEach(function () {
         faqPage.richTextToolbar.italicButton.waitForVisible();
         faqPage.richTextToolbar.italicButton.click();
       });
 
       it('should make text italic when clicked', function () {
+        this.retries(3);
+
         faqPage.bottomSheet.faq.italicTextSpan.waitForVisible();
       });
 
       it('should make text not italic when clicked on again', function () {
+        this.retries(3);
+
         faqPage.richTextToolbar.italicButton.click();
         faqPage.bottomSheet.faq.italicTextSpan.waitForVisible(2000, true);
       });
