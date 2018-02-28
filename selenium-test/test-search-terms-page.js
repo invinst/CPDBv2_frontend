@@ -158,7 +158,7 @@ describe('Search terms page', function () {
     searchTermsPage.previewPane.title.getText().should.eql('Communities');
   });
 
-  it('should show PreviewPane when a SearchTerms item is clicked', function () {
+  it('should show PreviewPane with markdown', function () {
     browser.keys('ArrowDown');
     browser.keys('ArrowDown');
 
