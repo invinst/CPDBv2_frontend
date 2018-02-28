@@ -13,8 +13,12 @@ export const getComplaintSummaries = get(
 );
 
 export const turnOnCarouselComplaintHeaderEditMode = createAction(
-  constants.TURN_ON_CAROUSEL_COMPLAINT_HEADER_EDIT_MODE);
+  constants.TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
+  () => constants.CAROUSEL_TYPES.COMPLAINT
+);
 
 export const turnOffCarouselComplaintHeaderEditMode = createAction(
-  constants.TURN_OFF_CAROUSEL_COMPLAINT_HEADER_EDIT_MODE
+  constants.TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
+  () => constants.CAROUSEL_TYPES.COMPLAINT
 );
+

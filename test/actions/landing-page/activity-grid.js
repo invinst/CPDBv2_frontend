@@ -1,4 +1,8 @@
-import { requestActivityGrid } from 'actions/landing-page/activity-grid';
+import {
+  requestActivityGrid,
+  turnOnCarouselActivityHeaderEditMode,
+  turnOffCarouselActivityHeaderEditMode
+} from 'actions/landing-page/activity-grid';
 import * as constants from 'utils/constants';
 
 
@@ -17,6 +21,24 @@ describe('requestActivityGrid action', function () {
           params: undefined
         }
       }
+    });
+  });
+});
+
+describe('turnOnCarouselActivityHeaderEditMode action', function () {
+  it('should return correct action', function () {
+    turnOnCarouselActivityHeaderEditMode().should.eql({
+      type: constants.TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
+      payload: constants.CAROUSEL_TYPES.ACTIVITY
+    });
+  });
+});
+
+describe('turnOffCarouselActivityHeaderEditMode action', function () {
+  it('should return correct action', function () {
+    turnOffCarouselActivityHeaderEditMode().should.eql({
+      type: constants.TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
+      payload: constants.CAROUSEL_TYPES.ACTIVITY
     });
   });
 });

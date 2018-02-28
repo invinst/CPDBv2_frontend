@@ -5,7 +5,7 @@ import {
   wrapperStyle,
   maxSlideWidth,
   spaceSlideWidth,
-  slideWidth,
+  // slideWidth,
   headerSectionWidth,
   headerWrapperStyle,
   mainSliderStyle,
@@ -141,7 +141,7 @@ class Carousel extends Component {
 }
 
 Carousel.defaultProps = {
-  slideWidth: slideWidth,
+  headerSection: ''
 };
 
 Carousel.propTypes = {
@@ -150,7 +150,6 @@ Carousel.propTypes = {
     PropTypes.element
   ]),
   children: PropTypes.array,
-  slideWidth: PropTypes.number
 };
 
 export default Carousel;

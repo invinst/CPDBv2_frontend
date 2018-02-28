@@ -26,7 +26,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  getComplaintSummaries,
+  queryData: getComplaintSummaries,
 
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselComplaintHeaderEditMode,

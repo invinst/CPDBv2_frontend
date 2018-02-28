@@ -5,8 +5,8 @@ import { cardsSelector, getCarouselAllegationHeaderEditModeOn } from 'selectors/
 import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-allegation';
 import * as constants from 'utils/constants';
 import { getCMSFields } from 'selectors/cms';
-import { updatePage } from '../../../actions/cms';
-import { mergeEditWrapperStateProps } from '../../../utils/container';
+import { updatePage } from 'actions/cms';
+import { mergeEditWrapperStateProps } from 'utils/container';
 import {
   turnOffCarouselAllegationHeaderEditMode,
   turnOnCarouselAllegationHeaderEditMode
@@ -22,7 +22,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  requestOfficersByAllegation,
+  queryData: requestOfficersByAllegation,
 
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselAllegationHeaderEditMode,

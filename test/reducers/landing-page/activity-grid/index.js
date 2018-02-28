@@ -5,7 +5,8 @@ describe('activityGrid reducer', function () {
   it('should return initial state', function () {
     activityGrid(undefined, {}).should.eql({
       cards: [],
-      isRequesting: false
+      isRequesting: false,
+      headerEditModeOn: false,
     });
   });
 });

@@ -13,8 +13,11 @@ export const requestActivityGrid = get(
 );
 
 export const turnOnCarouselActivityHeaderEditMode = createAction(
-  constants.TURN_ON_CAROUSEL_ACTIVITY_HEADER_EDIT_MODE);
+  constants.TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
+  () => constants.CAROUSEL_TYPES.ACTIVITY
+);
 
 export const turnOffCarouselActivityHeaderEditMode = createAction(
-  constants.TURN_OFF_CAROUSEL_ACTIVITY_HEADER_EDIT_MODE
+  constants.TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
+  () => constants.CAROUSEL_TYPES.ACTIVITY
 );

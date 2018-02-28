@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
-import { stub, spy } from 'sinon';
+import { stub } from 'sinon';
 
 import RecentDocument from 'components/landing-page/recent-document';
 import DocumentCard from 'components/landing-page/recent-document/document-card';
@@ -15,19 +15,15 @@ describe('Recent Document components', function () {
   let consoleStub;
   const data = [{
     'crid': '111',
-    'latestDocument': {
-      'title': 'CR document 1',
-      'url': 'http://cr-document.com/1',
-      'previewImageUrl': 'http://preview.com/url'
-    },
+    'title': 'CR document 1',
+    'url': 'http://cr-document.com/1',
+    'previewImageUrl': 'http://preview.com/url',
     'numDocuments': 2
   }, {
     'crid': '112',
-    'latestDocument': {
-      'title': 'CR document 3',
-      'url': 'http://cr-document.com/3',
-      'previewImageUrl': 'http://preview.com/url3'
-    },
+    'title': 'CR document 3',
+    'url': 'http://cr-document.com/3',
+    'previewImageUrl': 'http://preview.com/url3',
     'numDocuments': 1
   }];
 
@@ -41,12 +37,9 @@ describe('Recent Document components', function () {
   });
 
   it('should render appropriately', function () {
-    const callback = spy();
     instance = renderIntoDocument(
-      <RecentDocument cards={ data } getRecentDocument={ callback }/>
+      <RecentDocument cards={ data } />
     );
-
-    callback.calledOnce.should.be.true();
 
     const recentDocumentCards = scryRenderedComponentsWithType(instance, DocumentCard);
     recentDocumentCards.should.have.length(2);

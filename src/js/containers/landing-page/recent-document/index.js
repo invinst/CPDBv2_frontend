@@ -22,7 +22,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  getRecentDocument,
+  queryData: getRecentDocument,
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselDocumentHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselDocumentHeaderEditMode

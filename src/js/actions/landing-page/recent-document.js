@@ -13,8 +13,11 @@ export const getRecentDocument = get(
 );
 
 export const turnOnCarouselDocumentHeaderEditMode = createAction(
-  constants.TURN_ON_CAROUSEL_DOCUMENT_HEADER_EDIT_MODE);
+  constants.TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
+  () => constants.CAROUSEL_TYPES.DOCUMENT
+);
 
 export const turnOffCarouselDocumentHeaderEditMode = createAction(
-  constants.TURN_OFF_CAROUSEL_DOCUMENT_HEADER_EDIT_MODE
+  constants.TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
+  () => constants.CAROUSEL_TYPES.DOCUMENT
 );

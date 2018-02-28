@@ -34,6 +34,7 @@ describe('activity-grid selectors', function () {
       }];
       cardsSelector(state).should.eql([{
         id: '1',
+        officerId: '1',
         fullName: 'someone',
         visualTokenBackgroundColor: 'red',
         complaintCount: 10,

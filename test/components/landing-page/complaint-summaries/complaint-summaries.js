@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
-import { stub, spy } from 'sinon';
+import { stub } from 'sinon';
 
 import ComplaintSummaryCard from 'components/landing-page/complaint-summaries/complaint-summary-card';
 import ComplaintSummaries from 'components/landing-page/complaint-summaries';
@@ -36,12 +36,9 @@ describe('Complaint Summaries components', function () {
 
   it('should render appropriately', function () {
 
-    let callback = spy();
-
     instance = renderIntoDocument(
-      <ComplaintSummaries cards={ data } getComplaintSummaries={ callback }/>
+      <ComplaintSummaries cards={ data } />
     );
-    callback.calledOnce.should.be.true();
 
     const complaintSummaryCards = scryRenderedComponentsWithType(instance, ComplaintSummaryCard);
     complaintSummaryCards.should.have.length(2);

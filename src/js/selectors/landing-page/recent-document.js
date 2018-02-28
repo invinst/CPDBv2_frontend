@@ -7,11 +7,9 @@ const getCards = state => state.landingPage.recentDocument.cards;
 
 const cardTransform = (card) => ({
   crid: card['crid'],
-  latestDocument: card.hasOwnProperty('latest_document') ? {
-    title: card['latest_document']['title'],
-    url: card['latest_document']['url'],
-    previewImageUrl: card['latest_document']['preview_image_url']
-  } : {},
+  title: card['latest_document'] ? card['latest_document']['title'] : '',
+  url: card['latest_document'] ? card['latest_document']['url'] : '',
+  previewImageUrl: card['latest_document'] ? card['latest_document']['preview_image_url'] : '',
   numDocuments: card['num_recent_documents']
 });
 
