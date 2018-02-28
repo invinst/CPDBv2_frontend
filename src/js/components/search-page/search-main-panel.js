@@ -53,6 +53,7 @@ SearchMainPanel.propTypes = {
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   handleSelect: PropTypes.func,
+  pathname: PropTypes.string,
 };
 
 SearchMainPanel.defaultProps = {

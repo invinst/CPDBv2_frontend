@@ -84,7 +84,7 @@ exports.config = {
   baseUrl: 'http://localhost:4000',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 30000,
+  waitforTimeout: 50000,
   //
   // Default timeout in milliseconds for request
   // if Selenium Grid doesn't send response
@@ -231,7 +231,7 @@ exports.config = {
   seleniumArgs: {
     drivers: {
       chrome: {
-        version: 2.33,
+        version: 2.34,
         baseURL: 'https://chromedriver.storage.googleapis.com'
       }
     }
@@ -239,7 +239,7 @@ exports.config = {
   seleniumInstallArgs: {
     drivers: {
       chrome: {
-        version: 2.33,
+        version: 2.34,
         baseURL: 'https://chromedriver.storage.googleapis.com'
       }
     }

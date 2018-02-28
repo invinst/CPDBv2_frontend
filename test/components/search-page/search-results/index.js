@@ -5,14 +5,15 @@ import {
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
+import { spy } from 'sinon';
+import Mousetrap from 'mousetrap';
+import { unmountComponentSuppressError } from 'utils/test';
+import { getThisYear } from 'utils/date';
 
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 import SearchResults from 'components/search-page/search-results';
 import SearchNoResult from 'components/search-page/search-results/search-no-result';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
-import { unmountComponentSuppressError } from 'utils/test';
-import { getThisYear } from 'utils/date';
-
 
 describe('SearchResults component', function () {
   let instance;
@@ -71,6 +72,38 @@ describe('SearchResults component', function () {
       const domNode = findDOMNode(instance);
       domNode.textContent.should.not.containEql('[+]');
     });
+  });
+
+  it('should trigger move when up key pressed', function () {
+    const move = spy();
+    const totalItemCount = 3;
+    const direction = 'up';
+    instance = renderIntoDocument(
+      <SearchResults move={ move } totalItemCount={ totalItemCount }/>
+    );
+    Mousetrap.trigger(direction);
+    move.calledWith(direction, totalItemCount).should.be.true();
+  });
+
+  it('should trigger move when down key pressed', function () {
+    const move = spy();
+    const totalItemCount = 3;
+    const direction = 'down';
+    instance = renderIntoDocument(
+      <SearchResults move={ move } totalItemCount={ totalItemCount }/>
+    );
+    Mousetrap.trigger(direction);
+    move.calledWith(direction, totalItemCount).should.be.true();
+  });
+
+  it('should resetNavigation to 0 when unmounted', function () {
+    const resetNavigation = spy();
+    instance = renderIntoDocument(
+      <SearchResults resetNavigation={ resetNavigation }/>
+    );
+    unmountComponentSuppressError(instance);
+
+    resetNavigation.calledWith(0).should.be.true();
   });
 
   describe('Preview Pane', function () {

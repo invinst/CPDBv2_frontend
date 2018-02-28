@@ -26,14 +26,6 @@ export const DraftFieldFactory = Factory.define('draftFieldFactory')
   .option('blockTexts', [lorem.sentence()])
   .attr('value', ['blockTexts'], (blockTexts) => RawContentStateFactory.build({}, { blockTexts }));
 
-export const PlainTextFieldFactory = Factory.define('plainTextField')
-  .extend('draftFieldFactory')
-  .attr('type', 'plain_text');
-
-export const MultilineTextFieldFactory = Factory.define('multilineTextField')
-  .extend('draftFieldFactory')
-  .attr('type', 'multiline_text');
-
 export const RichTextFieldFactory = Factory.define('richTextField')
   .extend('draftFieldFactory')
   .attr('type', 'rich_text');
