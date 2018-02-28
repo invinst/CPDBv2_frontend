@@ -1,9 +1,9 @@
 'use strict';
 
+import 'should';
 import { includes } from 'lodash';
-import faqPage from './page-objects/faq-page';
 
-require('should');
+import faqPage from './page-objects/faq-page';
 
 
 describe('Rich text editor', function () {
