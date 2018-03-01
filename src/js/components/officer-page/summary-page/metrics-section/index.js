@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { chunk } from 'lodash';
+import pluralize from 'pluralize';
 
 import { metricSectionStyle, verticalLineStyle, wrapperStyle } from './metrics-section.style';
 import MetricsColumn from 'components/officer-page/summary-page/metrics-section/metrics-column';
@@ -24,32 +25,33 @@ export default class MetricsSection extends Component {
     const metrics = [
       {
         value: allegationCount,
-        name: 'Allegations',
+        name: `${pluralize('Allegation', allegationCount)}`,
         description: `More than ${topAllegationPercentile}% of other officers`,
       },
       {
         value: sustainedCount,
         name: 'Sustained',
         description: `${disciplineCount} Disciplined`,
+        highlightValue: true,
       },
       {
         value: useOfForceCount,
-        name: 'Use of Force Reports ',
+        name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
         description: `More than ${topUseOfForcePercentile}% of other officers`,
       },
       {
         value: civilianComplimentCount,
-        name: 'Civilian Compliments',
+        name: `Civilian ${pluralize('Compliment', civilianComplimentCount)}`,
         description: '',
       },
       {
         value: majorAwardCount,
-        name: 'Major Awards',
+        name: `Major ${pluralize('Award', majorAwardCount)}`,
         description: '',
       },
       {
         value: honorableMentionCount,
-        name: 'Honorable Mentions',
+        name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
         description: `More than ${topHonorableMentionPercentile}% of other officers`,
       }
     ];

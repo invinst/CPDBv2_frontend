@@ -1,4 +1,4 @@
-import { softBlackColor, clayGray, greyishColor } from 'utils/styles';
+import { softBlackColor, clayGray, greyishColor, brightOrangeTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = (borderTop, dashedBorder) => {
@@ -10,12 +10,12 @@ export const wrapperStyle = (borderTop, dashedBorder) => {
   };
 };
 
-export const valueStyle = (active) => ({
+export const valueStyle = (active, highlightValue) => ({
   height: '32px',
   lineHeight: '32px',
   fontSize: '26px',
   fontWeight: 500,
-  color: active ? softBlackColor : clayGray,
+  color: highlightValue ? brightOrangeTwoColor : active ? softBlackColor : clayGray,
   textAlign: 'center',
 });
 
