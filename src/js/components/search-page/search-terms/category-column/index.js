@@ -1,7 +1,8 @@
-import React, { PropTypes, Component } from 'react';
-import { map, chunk } from 'lodash';
+import React, { Component, PropTypes } from 'react';
+import { map } from 'lodash';
+import classnames from 'classnames';
 
-import { columnWrapperStyle, headerStyle, itemsWrapperStyle, itemsChunkWrapperStyle } from './category-column.style';
+import { columnWrapperStyle, headerStyle, itemsWrapperStyle } from './category-column.style';
 import CategoryItem from './category-item';
 
 
@@ -12,35 +13,45 @@ export default class CategoryColumn extends Component {
   }
 
   renderItems() {
-    const { items, expandedId, toggleExpanded } = this.props;
+    const { items, focusedItem, name, handleItemClick } = this.props;
 
     return (
       <div style={ itemsWrapperStyle } ref={ this.onGetRef.bind(this) }>
         {
-          map(chunk(items, 13), (itemsChunk, index) => (
-            <div
-              style={ itemsChunkWrapperStyle }
-              key={ index }
-              className='test--category-item-chunk'>
-              {
-                map(itemsChunk, (item, index) => (
-                  <CategoryItem key={ index } item={ item }
-                    expanded={ expandedId === item.id } toggleExpanded={ toggleExpanded }/>
-                ))
-              }
-            </div>
-          ))
+          map(items, (item, index) => {
+            const uniqueKey = `${name}-${item.id}`;
+            const isFocused = focusedItem.uniqueKey === uniqueKey;
+            return (
+              <CategoryItem
+                key={ index }
+                item={ item }
+                itemUniqueKey={ uniqueKey }
+                isFocused={ isFocused }
+                handleItemClick={ handleItemClick }
+              />
+            );
+          })
         }
       </div>
     );
   }
 
   render() {
-    const { name } = this.props;
+    const { name, focusedItem, handleItemClick } = this.props;
+    const headerUniqueKey = `category-${name}`;
+    const isFocusedHeader = focusedItem.uniqueKey === headerUniqueKey;
 
     return (
       <div style={ columnWrapperStyle } className='test--category-column'>
-        <div style={ headerStyle } className='test--category-header'>{ name }</div>
+        <div
+          style={ headerStyle(isFocusedHeader) }
+          onClick={ () => handleItemClick(headerUniqueKey) }
+          className={
+            classnames('term-item', 'test--category-header', { 'focused': isFocusedHeader })
+          }
+        >
+          { name }
+        </div>
         {
           this.renderItems()
         }
@@ -53,6 +64,12 @@ CategoryColumn.propTypes = {
   items: PropTypes.array,
   name: PropTypes.string,
   index: PropTypes.number,
-  expandedId: PropTypes.string,
-  toggleExpanded: PropTypes.func
+  focusedItem: PropTypes.object,
+  handleItemClick: PropTypes.func,
+};
+
+CategoryColumn.defaultProps = {
+  focusedItem: {
+    uniqueKey: null
+  }
 };

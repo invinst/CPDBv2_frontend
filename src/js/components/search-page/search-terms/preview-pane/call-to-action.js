@@ -1,7 +1,9 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { get } from 'lodash';
 
 import { linkStyle } from './call-to-action.style';
+import ActionBar from 'components/search-page/search-terms/preview-pane/action-bar';
+
 
 export default class CallToAction extends Component {
   constructor(props) {
@@ -20,9 +22,11 @@ export default class CallToAction extends Component {
     const { item } = this.props;
 
     return (
-      <a href={ item.link } style={ linkStyle }>
-        Visit Data Tool
-      </a>
+      <ActionBar>
+        <a href={ item.link } style={ linkStyle } className={ 'test--call-to-action-link' }>
+          Enter Data Tool
+        </a>
+      </ActionBar>
     );
   }
 
@@ -30,9 +34,11 @@ export default class CallToAction extends Component {
     const { item } = this.props;
 
     return (
-      <div style={ linkStyle }>
-        View ALL { item.name }
-      </div>
+      <ActionBar>
+        <div style={ linkStyle }>
+          View ALL { item.name }
+        </div>
+      </ActionBar>
     );
   }
 

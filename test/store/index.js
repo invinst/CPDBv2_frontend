@@ -106,6 +106,10 @@ describe('store', function () {
         searchTerms: {
           categories: [],
           hidden: true,
+          navigation: {
+            itemIndex: 0,
+            scrollTo: true,
+          }
         }
       },
       inlineAliasAdminPage: {},

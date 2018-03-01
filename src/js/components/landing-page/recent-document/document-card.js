@@ -8,8 +8,8 @@ import {
   imageDocumentStyle,
   descriptionDocumentStyle
 } from './document-card.style';
-
 import Hoverable from 'components/common/higher-order/hoverable';
+
 
 class DocumentCard extends React.Component {
   render() {

@@ -1,5 +1,6 @@
 import { whiteTwoColor, sugarCaneColor, greyishColor, clayGray, accentColor } from 'utils/styles';
 
+
 export const documentCardWrapperStyle = (hovering)=>({
   width: '232px',
   height: '266px',
@@ -21,7 +22,6 @@ export const imageDocumentStyle = {
   marginTop: '16px',
   border: `solid 1px ${greyishColor}`,
 };
-
 
 export const descriptionDocumentStyle = hovering => ({
   width: '200px',

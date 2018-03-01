@@ -5,9 +5,10 @@ import {
   getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion,
   SUGGESTION_URL, SELECT_TAG, SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS,
   SUGGESTION_REQUEST_FAILURE, TRACK_RECENT_SUGGESTION, SEARCH_NAVIGATION_UP,
-  SEARCH_NAVIGATION_DOWN, move, getSuggestionWithContentType
+  SEARCH_NAVIGATION_DOWN, move, getSuggestionWithContentType, SEARCH_NAVIGATION_RESET
 } from 'actions/search-page';
 import * as constants from 'utils/constants';
+import { resetNavigation } from 'actions/search-page';
 
 
 describe('suggestion action', function () {
@@ -124,6 +125,15 @@ describe('suggestion action', function () {
         payload: {
           totalItemCount: 2
         }
+      });
+    });
+  });
+
+  describe('resetNavigation', function () {
+    it('should return SEARCH_NAVIGATION_RESET', function () {
+      resetNavigation().should.deepEqual({
+        type: SEARCH_NAVIGATION_RESET,
+        payload: undefined
       });
     });
   });

@@ -2,6 +2,7 @@ import { Factory } from 'rosie';
 import { date, lorem, helpers } from 'faker';
 import moment from 'moment';
 
+
 export const RawComplaintSummaryFactory = Factory.define('RawComplaintSummaryFactory')
   .attr('crid', () => (helpers.replaceSymbolWithNumber('107####')))
   .attr('summary', lorem.paragraph)
@@ -9,7 +10,6 @@ export const RawComplaintSummaryFactory = Factory.define('RawComplaintSummaryFac
   .attr('category_names', () => {
     return [helpers.shuffle(['Use of Force', 'Illegal Search', 'Domestic', 'Unknown'])[0]];
   });
-
 
 export const ComplaintSummaryFactory = Factory.define('ComplaintSummaryFactory')
   .attr('crid', () => (helpers.replaceSymbolWithNumber('107####')))

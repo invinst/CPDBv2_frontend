@@ -28,7 +28,6 @@ describe('Carousel components', function () {
         const attr = _.omit(item, 'id');
         return <OfficerCard key={ item.id } { ...attr } officerId={ item.id }/>;
       });
-
       return renderIntoDocument(
         <Carousel headerSection={ headerNode }>
           { slides }
@@ -39,8 +38,6 @@ describe('Carousel components', function () {
 
   after(function () {
     //We ensure that this console.error is belong to `Swiper`. Note that this error only appear first test
-    // consoleStub.calledOnce.should.be.true();
-    // consoleStub.getCall(0).args[0].should.containEql('Invalid prop `children` supplied to `ReactIdSwiper`.');
     consoleStub.restore();
   });
 
@@ -83,7 +80,6 @@ describe('Carousel components', function () {
     const header = findRenderedDOMComponentWithClass(instance, 'test--carousel--header');
     header.textContent.should.containEql('HEADER');
     instance.props.children.should.have.length(2);
-    // const items = scryRenderedDOMComponentsWithClass(instance, 'test--carousel--item');
     const items = scryRenderedComponentsWithType(instance, OfficerCard);
     items.should.have.length(2);
     ReactDOM.findDOMNode(items[0]).textContent.should.containEql('Manuel Guzman');

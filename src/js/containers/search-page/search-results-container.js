@@ -1,25 +1,26 @@
 import { connect } from 'react-redux';
 
 import SearchResults from 'components/search-page/search-results';
-
 import {
   getSuggestion,
   trackRecentSuggestion,
   resetNavigation,
-  getSuggestionWithContentType
+  getSuggestionWithContentType,
+  move
 } from 'actions/search-page';
 import { setAliasAdminPageContent } from 'actions/inline-alias-admin-page';
 import {
   isEmptySelector,
   searchResultGroupsSelector,
   hasMoreSelector,
-  nextParamsSelector
-} from 'selectors/search-page/search-results';
-import { isShowingSingleContentTypeSelector } from 'selectors/search-page/base';
+  nextParamsSelector,
+  isShowingSingleContentTypeSelector
+} from 'selectors/search-page/search-results/suggestion-groups';
 import {
   previewPaneInfoSelector,
-  focusedItemSelector
-} from 'selectors/search-page/navigation';
+  totalItemCountSelector
+} from 'selectors/search-page/search-results/navigation';
+import { getFocusedItem } from 'selectors/search-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -37,10 +38,11 @@ function mapStateToProps(state, ownProps) {
     suggestionGroups: searchResultGroupsSelector(state),
     isRequesting,
     previewPaneInfo: previewPaneInfoSelector(state),
-    focusedItem: focusedItemSelector(state),
+    focusedItem: getFocusedItem(state),
     hasMore: hasMoreSelector(state),
     nextParams: nextParamsSelector(state),
-    singleContent: isShowingSingleContentTypeSelector(state)
+    singleContent: isShowingSingleContentTypeSelector(state),
+    totalItemCount: totalItemCountSelector(state)
   };
 }
 
@@ -49,7 +51,8 @@ const mapDispatchToProps = {
   resetNavigation,
   setAliasAdminPageContent,
   suggestionClick: trackRecentSuggestion,
-  getSuggestionWithContentType
+  getSuggestionWithContentType,
+  move,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

@@ -22,5 +22,4 @@ export const tagsWrapperStyle = {
   boxSizing: 'border-box',
   width: '100%',
   borderBottom: `1px solid ${whiteTwoColor}`,
-  borderTop: `1px solid ${whiteTwoColor}`
 };

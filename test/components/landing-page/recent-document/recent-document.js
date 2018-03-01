@@ -3,12 +3,13 @@ import {
   renderIntoDocument,
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
+import { unmountComponentSuppressError } from 'utils/test';
 import RecentDocument from 'components/landing-page/recent-document';
 import DocumentCard from 'components/landing-page/recent-document/document-card';
+
 
 describe('Recent Document components', function () {
   let instance;
