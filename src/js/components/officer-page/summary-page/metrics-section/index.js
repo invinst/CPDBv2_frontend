@@ -22,6 +22,7 @@ export default class MetricsSection extends Component {
       civilianComplimentCount
     } = this.props.metrics;
 
+
     const metrics = [
       {
         value: allegationCount,

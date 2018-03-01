@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import currencyFormatter from 'currency-formatter';
 
 import { salaryStyle, salaryAmountStyle } from './salary.style';
 
@@ -9,7 +10,9 @@ export default class Salary extends Component {
 
     return (
       <div className='test--salary'>
-        <span className='test--salary-amount' style={ salaryAmountStyle }>{ `$${salary}` }</span>
+        <span className='test--salary-amount' style={ salaryAmountStyle }>
+          { typeof salary === 'string' ? salary : currencyFormatter.format(salary, { code: 'USD', precision: 0 }) }
+        </span>
         <span style={ salaryStyle }> base salary</span>
       </div>
     );

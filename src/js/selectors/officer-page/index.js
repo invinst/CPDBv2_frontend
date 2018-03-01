@@ -78,7 +78,7 @@ export const summarySelector = createSelector(
   })
 );
 
-const DATA_NOT_AVAILABLE = 'N/A';
+export const DATA_NOT_AVAILABLE = 'N/A';
 
 export const metricsSelector = createSelector(
   getMetrics,

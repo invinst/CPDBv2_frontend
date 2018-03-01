@@ -5,7 +5,7 @@ import SummaryField from 'components/officer-page/summary-page/summary-section/s
 
 
 describe('SummaryField component', function () {
-  it('should display field label and value and description', function () {
+  it('should display field label and value and right-child', function () {
     const instance = renderIntoDocument(<SummaryField />);
 
     scryRenderedDOMComponentsWithClass(instance, 'test--field-label').should.have.length(1);

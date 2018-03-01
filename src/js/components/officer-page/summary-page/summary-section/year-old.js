@@ -9,7 +9,7 @@ export default class YearOld extends Component {
     const { birthYear } = this.props;
 
     return (
-      <span style={ yearOldStyle }>
+      <span className='test--year-old' style={ yearOldStyle }>
         { `${getThisYear() - birthYear } years old` }
       </span>
     );

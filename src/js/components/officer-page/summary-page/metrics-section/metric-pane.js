@@ -11,13 +11,13 @@ export default class MetricPane extends Component {
 
     return (
       <div style={ wrapperStyle(borderTop, dashedBorder) }>
-        <div style={ valueStyle(active, highlightValue) }>
+        <div className='test--metrics-pane-value' style={ valueStyle(active, highlightValue) }>
           { value }
         </div>
-        <div style={ nameStyle(active) }>
+        <div className='test--metrics-pane-name' style={ nameStyle(active) }>
           { name }
         </div>
-        <div style={ descriptionStyle }>
+        <div className='test--metrics-pane-description' style={ descriptionStyle }>
           { description }
         </div>
       </div>

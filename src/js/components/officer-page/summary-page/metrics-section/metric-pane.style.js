@@ -10,14 +10,29 @@ export const wrapperStyle = (borderTop, dashedBorder) => {
   };
 };
 
-export const valueStyle = (active, highlightValue) => ({
-  height: '32px',
-  lineHeight: '32px',
-  fontSize: '26px',
-  fontWeight: 500,
-  color: highlightValue ? brightOrangeTwoColor : active ? softBlackColor : clayGray,
-  textAlign: 'center',
-});
+export const valueStyle = (active, highlightValue) => {
+  let color;
+  if (active) {
+    if (highlightValue) {
+      color = brightOrangeTwoColor;
+    }
+    else {
+      color = softBlackColor;
+    }
+  }
+  else {
+    color = clayGray;
+  }
+
+  return {
+    height: '32px',
+    lineHeight: '32px',
+    fontSize: '26px',
+    fontWeight: 500,
+    color: color,
+    textAlign: 'center',
+  };
+};
 
 export const nameStyle = (active) => ({
   height: '18px',
