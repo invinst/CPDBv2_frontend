@@ -50,7 +50,7 @@ describe('RadarWrapper components', function () {
     findRenderedDOMComponentWithClass(instance, 'test--radar--wrapper');
     findRenderedDOMComponentWithClass(instance, 'test--radar--radar-area');
     findRenderedDOMComponentWithClass(instance, 'test--radar--stroke');
-    findRenderedDOMComponentWithClass(instance, 'test--radar--legend-year');
+    findRenderedDOMComponentWithClass(instance, 'test--radar--legend-content');
   });
 
   it('should also render if data length is 1', function () {
@@ -69,7 +69,7 @@ describe('RadarWrapper components', function () {
     );
 
     setTimeout(function () {
-      const legendYearElement = findRenderedDOMComponentWithClass(instance, 'test--radar--legend-year');
+      const legendYearElement = findRenderedDOMComponentWithClass(instance, 'test--radar--legend-content');
       legendYearElement.textContent.should.be.eql('2017');
       legendYearElement.getAttribute('style').should.containEql('visibility: hidden');
       done();
@@ -103,11 +103,11 @@ describe('RadarWrapper components', function () {
         <RadarWrapper data={ data }/>
       );
 
-      let legendYearElement = findRenderedDOMComponentWithClass(instance, 'test--radar--legend-year');
+      let legendYearElement = findRenderedDOMComponentWithClass(instance, 'test--radar--legend-content');
       legendYearElement.textContent.should.be.eql('2015');
 
       clock.tick(intervalTime);
-      findRenderedDOMComponentWithClass(instance, 'test--radar--legend-year').textContent.should.be.eql('2016');
+      findRenderedDOMComponentWithClass(instance, 'test--radar--legend-content').textContent.should.be.eql('2016');
     });
   });
 });

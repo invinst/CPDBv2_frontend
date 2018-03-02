@@ -2,7 +2,7 @@ import Enum from 'enum';
 
 import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
-  galleryColor, lightAltoColor, visualTokenSchemeColor
+  galleryColor, lightAltoColor, visualTokenSchemeColor, greyColor, softBlackColor
 } from 'utils/styles';
 
 export const TOP = 'top';
@@ -331,6 +331,12 @@ export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
   '202': visualTokenSchemeColor.darkestRedColor,
   '212': visualTokenSchemeColor.darkestRedColor,
   '222': visualTokenSchemeColor.darkestRedColor,
+};
+
+export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
+  COLOR_TEXT_LIGHT_SCHEME: ['202', '212', '222'],
+  DARK_COLOR: softBlackColor,
+  LIGHT_COLOR: greyColor
 };
 
 export const RECENT_CONTENT_TYPE = 'RECENT';

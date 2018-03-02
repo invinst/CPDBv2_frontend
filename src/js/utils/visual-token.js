@@ -20,10 +20,14 @@ const scalePercentile = (val) => {
 };
 
 export const getVisualTokenOIGBackground = (internalPercentile, civilPercentile, useOfForcePercentile) => {
+  const { LIGHT_COLOR, DARK_COLOR, COLOR_TEXT_LIGHT_SCHEME } = constants.OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT;
   const key = [
     scalePercentile(internalPercentile),
     scalePercentile(civilPercentile),
     scalePercentile(useOfForcePercentile)
   ].join('');
-  return constants.OIG_VISUAL_TOKEN_COLOR_SCHEME[key];
+  return {
+    backgroundColor: constants.OIG_VISUAL_TOKEN_COLOR_SCHEME[key],
+    textColor: COLOR_TEXT_LIGHT_SCHEME.indexOf(key) === -1 ? DARK_COLOR : LIGHT_COLOR,
+  };
 };
