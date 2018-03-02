@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { wrapperStyle, labelStyle, valueStyle, rightChildStyle } from './summary-field.style';
+import { wrapperStyle, labelStyle, valueStyle, extraInfoStyle } from './summary-field.style';
 
 
 export default class SummaryField extends Component {
@@ -11,7 +11,7 @@ export default class SummaryField extends Component {
       <div style={ { ...wrapperStyle, ...style } }>
         <span className='test--field-label' style={ labelStyle }>{ label }</span>
         <span className='test--field-value' style={ valueStyle }>{ value }</span>
-        <span className='test--field-right-child' style={ rightChildStyle }> { children } </span>
+        <span className='test--field-extra-info' style={ extraInfoStyle }> { children } </span>
       </div>
     );
   }

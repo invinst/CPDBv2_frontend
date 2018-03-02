@@ -27,7 +27,7 @@ export const valueStyle = {
   color: hardBlackColor
 };
 
-export const rightChildStyle = {
+export const extraInfoStyle = {
   display: 'inline-block',
   float: 'right',
 };

@@ -32,7 +32,7 @@ export default class SummarySection extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <div style={ officerNameStyle }>
+        <div className='test--summary-section-officer-name' style={ officerNameStyle }>
           { officerName }
         </div>
         {

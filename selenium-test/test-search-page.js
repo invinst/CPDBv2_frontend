@@ -232,6 +232,8 @@ describe('Search Page', function () {
   });
 
   it('should focus on More button after the last suggestion item when user press the navigation keys', function () {
+    this.retries();
+
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 
