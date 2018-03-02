@@ -10,9 +10,8 @@ import YearOld from './year-old';
 
 export default class SummarySection extends Component {
   summaryFields() {
-    const {
-      rank, race, gender, badge, careerDuration, unitName, openPoliceUnitPage, birthYear
-    } = this.props.officerSummary;
+    const { rank, race, gender, badge, careerDuration, unitName, birthYear } = this.props.officerSummary;
+    const { openPoliceUnitPage } = this.props;
     const baseSalary = 'DATA NOT READY';
 
     return [

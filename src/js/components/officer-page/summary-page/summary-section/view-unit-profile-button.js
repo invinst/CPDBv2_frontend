@@ -9,8 +9,11 @@ class ViewUnitProfileButton extends Component {
     const { unitName, hovering, onClick } = this.props;
 
     return (
-      <div className='test--view-profile-button' style={ viewUnitButtonWrapperStyle(hovering) }
-        onClick={ () => onClick(unitName) }>
+      <div
+        className='test--view-profile-button'
+        style={ viewUnitButtonWrapperStyle(hovering) }
+        onClick={ () => onClick(unitName)
+      }>
         <span style={ textStyle }>View Unit Profile</span>
         <div style={ arrowStyle(hovering) } />
       </div>

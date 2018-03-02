@@ -13,6 +13,7 @@ class SummarySection extends Section {
 
     const elementGetters = {
       officerName: '.test--summary-section-officer-name',
+      viewUnitProfileButton: '.test--view-profile-button',
     };
     each(fields, (field, index) => {
       elementGetters[`${field}Label`] = `(//span[@class="test--field-label"])[${index + 1}]`;

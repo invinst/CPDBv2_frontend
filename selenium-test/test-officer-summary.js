@@ -3,7 +3,6 @@
 require('should');
 
 import summaryPage from './page-objects/officer-summary-page';
-import timelinePage from './page-objects/officer-timeline-page';
 import { getRequestCount } from './utils';
 
 
@@ -83,5 +82,11 @@ describe('officer summary page', function () {
 
     getRequestCount('/officers/1/social-graph/').should.equal(1);
     getRequestCount('/officers/1/summary/').should.equal(1);
+  });
+
+  it('should open unit profile page when clicking on View Unit Profile button', function () {
+    summaryPage.summarySection.viewUnitProfileButton.click();
+
+    browser.getUrl().should.match(/\/unit\/\d+\/$/);
   });
 });

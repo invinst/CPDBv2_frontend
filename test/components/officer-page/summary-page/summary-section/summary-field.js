@@ -10,6 +10,6 @@ describe('SummaryField component', function () {
 
     scryRenderedDOMComponentsWithClass(instance, 'test--field-label').should.have.length(1);
     scryRenderedDOMComponentsWithClass(instance, 'test--field-value').should.have.length(1);
-    scryRenderedDOMComponentsWithClass(instance, 'test--field-right-child').should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, 'test--field-extra-info').should.have.length(1);
   });
 });
