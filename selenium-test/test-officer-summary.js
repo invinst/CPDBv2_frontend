@@ -32,8 +32,6 @@ describe('officer summary page', function () {
   });
 
   it('should display officer summary', function () {
-    this.retries(3);
-
     summaryPage.header.officerName.waitForVisible();
     summaryPage.header.officerName.getText().should.equal('Bernadette Kelly');
 
