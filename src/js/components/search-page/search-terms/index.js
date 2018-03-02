@@ -1,13 +1,18 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { map } from 'lodash';
 
 import CategoryColumn from './category-column';
 import {
-  contentWrapperStyle, searchTermTitleStyle, bottomLinkStyle, bottomLinksWrapperStyle,
-  minimumStyle, mediumStyle, maximumStyle, searchTermWrapperStyle
+  bottomLinkStyle,
+  bottomLinksWrapperStyle,
+  contentWrapperStyle,
+  maximumStyle,
+  mediumStyle,
+  minimumStyle,
+  searchTermTitleStyle,
 } from './search-terms.style.js';
-import { ROOT_PATH, SEARCH_TERMS_NAVIGATION_KEYS, SEARCH_PATH } from 'utils/constants';
+import { ROOT_PATH, SEARCH_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { scrollToElement } from 'utils/dom';
@@ -82,7 +87,7 @@ export default class SearchTerms extends Component {
           minWidthThreshold={ 1020 }
           maxWidthThreshold={ 1760 }
         >
-          <div style={ searchTermWrapperStyle }>
+          <div>
             <div style={ searchTermTitleStyle } className='test--search-term-title'>Search terms</div>
             { this.renderColumns() }
             <div style={ bottomLinksWrapperStyle }>

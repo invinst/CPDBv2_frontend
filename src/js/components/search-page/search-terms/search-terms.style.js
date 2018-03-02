@@ -1,5 +1,6 @@
 import { softBlackColor, whiteTwoColor, accentColor, concreteColor } from 'utils/styles';
 
+
 export const contentWrapperStyle = {
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
@@ -8,9 +9,6 @@ export const contentWrapperStyle = {
   width: 'calc(100% - 320px)',
   overflowX: 'auto',
   display: 'inline-block',
-};
-
-export const searchTermWrapperStyle = {
   background: concreteColor,
 };
 
