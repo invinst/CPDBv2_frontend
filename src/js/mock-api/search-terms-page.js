@@ -3,7 +3,7 @@ import { SearchTermCategory, SearchTermCategoryItem } from 'utils/test/factories
 export default () => ([
   SearchTermCategory.build({ name: 'Geography', items: [
     SearchTermCategoryItem.build(
-      { name: 'Police District', description: 'Whatever' }
+      { name: 'Communities', description: 'Whatever', 'call_to_action_type': 'view_all' }
     ),
     ...SearchTermCategoryItem.buildList(12)]
   }),

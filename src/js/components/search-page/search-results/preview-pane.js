@@ -16,7 +16,7 @@ export default class PreviewPane extends Component {
           {
             visualTokenImg ?
               <img
-                className='test--previiew-pane-visual-token'
+                className='test--preview-pane-visual-token'
                 style={ { ...visualTokenStyle, backgroundColor: visualTokenBackgroundColor } }
                 src={ visualTokenImg }
               /> :
