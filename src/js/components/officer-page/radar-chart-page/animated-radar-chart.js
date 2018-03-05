@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { map } from 'lodash';
+import { map, isEqual } from 'lodash';
 
 import { scaleLinear } from 'd3-scale';
 
@@ -24,6 +24,12 @@ export default class AnimatedRadarChart extends Component {
   componentDidMount() {
     if (this.props.data && this.props.data.length > 1)
       this.startTimer();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data && nextProps.data.length > 1 && !isEqual(this.props.data, nextProps.data) ) {
+      this.startTimer();
+    }
   }
 
   componentWillUnmount() {

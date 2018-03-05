@@ -6,7 +6,7 @@ import {
 } from 'react-addons-test-utils';
 import { useFakeTimers } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import AnimatedRadarChart from 'components/officer-page/radar-chart-page/animated-radar-chart';
 import StaticRadarChart from 'components/common/radar-chart';
 
@@ -53,6 +53,16 @@ describe('AnimatedRadarChart components', function () {
   it('should render if data provided', function () {
     instance = renderIntoDocument(<AnimatedRadarChart data={ data }/>);
     findRenderedComponentWithType(instance, StaticRadarChart);
+  });
+
+  it('should rerender if data change', function () {
+    instance = renderIntoDocument(<AnimatedRadarChart data={ [data[0]] }/>);
+
+    instance = reRender(
+      <AnimatedRadarChart data={ data }/>,
+      instance
+    );
+    should(instance.timer).not.be.null();
   });
 
   describe('test animate', function () {
