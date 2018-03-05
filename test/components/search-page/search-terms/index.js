@@ -21,6 +21,7 @@ import PreviewPane from 'components/search-page/search-terms/preview-pane';
 import { SearchTermCategory } from 'utils/test/factories/search-terms';
 import * as domUtils from 'utils/dom';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
+import MinimalScrollBars from 'components/search-page/search-terms/minimal-scroll-bar';
 
 
 describe('SearchTerms component', function () {
@@ -55,6 +56,13 @@ describe('SearchTerms component', function () {
     );
     const categoryColumn = findRenderedComponentWithType(instance, CategoryColumn);
     categoryColumn.should.be.ok();
+  });
+
+  it('should render MinimalScrollBars', function () {
+    instance = renderIntoDocument(
+      <SearchTerms categories={ SearchTermCategory.buildList(1) } />
+    );
+    findRenderedComponentWithType(instance, MinimalScrollBars).should.be.ok();
   });
 
   it('should fire request when mounted', function () {

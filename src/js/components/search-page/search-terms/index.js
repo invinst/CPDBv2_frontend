@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { map } from 'lodash';
 
+
 import CategoryColumn from './category-column';
 import {
   bottomLinkStyle,
@@ -11,12 +12,14 @@ import {
   mediumStyle,
   minimumStyle,
   searchTermTitleStyle,
+  wrapperStyle,
 } from './search-terms.style.js';
 import { ROOT_PATH, SEARCH_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { scrollToElement } from 'utils/dom';
 import PreviewPane from './preview-pane';
+import MinimalScrollBars from 'components/search-page/search-terms/minimal-scroll-bar';
 
 
 export default class SearchTerms extends Component {
@@ -79,27 +82,29 @@ export default class SearchTerms extends Component {
     const { focusedItem } = this.props;
     return (
       <div>
-        <ResponsiveFluidWidthComponent
-          style={ contentWrapperStyle }
-          minimumStyle={ minimumStyle }
-          mediumStyle={ mediumStyle }
-          maximumStyle={ maximumStyle }
-          minWidthThreshold={ 1020 }
-          maxWidthThreshold={ 1760 }
-        >
-          <div>
-            <div style={ searchTermTitleStyle } className='test--search-term-title'>Search terms</div>
-            { this.renderColumns() }
-            <div style={ bottomLinksWrapperStyle }>
-              <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
-                Back to Front Page
-              </Link>
-              <Link style={ bottomLinkStyle } to={ SEARCH_PATH } className='test--search-term-back-search-page-link'>
-                Search
-              </Link>
+        <MinimalScrollBars style={ wrapperStyle } >
+          <ResponsiveFluidWidthComponent
+            style={ contentWrapperStyle }
+            minimumStyle={ minimumStyle }
+            mediumStyle={ mediumStyle }
+            maximumStyle={ maximumStyle }
+            minWidthThreshold={ 1020 }
+            maxWidthThreshold={ 1760 }
+          >
+            <div>
+              <div style={ searchTermTitleStyle } className='test--search-term-title'>Search terms</div>
+              { this.renderColumns() }
+              <div style={ bottomLinksWrapperStyle }>
+                <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
+                  Back to Front Page
+                </Link>
+                <Link style={ bottomLinkStyle } to={ SEARCH_PATH } className='test--search-term-back-search-page-link'>
+                  Search
+                </Link>
+              </div>
             </div>
-          </div>
-        </ResponsiveFluidWidthComponent>
+          </ResponsiveFluidWidthComponent>
+        </MinimalScrollBars>
         <PreviewPane item={ focusedItem } />
       </div>
     );
@@ -128,4 +133,5 @@ SearchTerms.defaultProps = {
   },
   navigationKeys: [],
   scrollTo: true,
+  categories: [],
 };
