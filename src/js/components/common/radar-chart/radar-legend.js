@@ -8,7 +8,7 @@ export default class RadarLegend extends React.Component {
   render() {
     const { fadeOut, content } = this.props;
 
-    const legendYearText = (content, opacity) => content && (
+    const legendYearText = (content, opacity) => content ? (
       <text
         className='test--radar--legend-content' textAnchor='middle' dy='0.35em'
         style={ { ...radarLegendTextStyle, opacity, visibility: opacity ? 'visible' : 'hidden' } }
@@ -16,7 +16,7 @@ export default class RadarLegend extends React.Component {
         y={ 180 }>
         { content }
       </text>
-    );
+    ) : null;
 
     return fadeOut ?
       (

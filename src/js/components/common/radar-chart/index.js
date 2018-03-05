@@ -1,121 +1,109 @@
 import React, { Component, PropTypes } from 'react';
+import { scaleLinear } from 'd3-scale';
 import { map } from 'lodash';
 
-import { scaleLinear } from 'd3-scale';
+import { radarContaninerStyle } from './static-radar-chart.style';
+import RadarAxis from './radar-axis';
+import RadarArea from './radar-area';
+import RadarLegend from './radar-legend';
+import RadarTooltipPoints from './radar-tooltip-point';
 
-import { StaticRadarChart } from './static-radar-chart';
 
-
-export default class AnimatedChart extends Component {
+export default class StaticRadarChart extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      transitionValue: 0
+    this.config = {
+      width: 496,
+      height: 400,
+      maxValue: 100,
+      radius: 164
     };
-    this.interval = 20;
-    this.velocity = 0.1;
-    this.timer = null;
-
-    this.handleClick = this.handleClick.bind(this);
-    this.animate = this.animate.bind(this);
-    this.getCurrentTransitionData = this.getCurrentTransitionData.bind(this);
   }
 
-  componentDidMount() {
-    this.startTimer();
-  }
+  _embedComputedPosition(data) {
+    const rScale = scaleLinear()
+      .range([0, this.config.radius])
+      .domain([0, this.config.maxValue]);
 
-  componentWillUnmount() {
-    this.stopTimer();
-  }
+    const angleSlice = Math.PI * 2 / data.length;
 
-  animate() {
-    const { data } = this.props;
-    if (data.length < 2)
-      return;
-
-    const maxValue = data.length - 1;
-    this.setState({
-      transitionValue: Math.min(this.state.transitionValue + this.velocity, maxValue),
-    });
-    if (this.state.transitionValue >= maxValue) {
-      this.stopTimer();
-    }
-  }
-
-  startTimer() {
-    this.timer = setInterval(this.animate, this.interval);
-  }
-
-  stopTimer() {
-    clearInterval(this.timer);
-    this.timer = null;
-  }
-
-  getCurrentTransitionData() {
-    const { transitionValue } = this.state;
-    const { data } = this.props;
-
-
-    // ensure at least 2 elements
-    if (data.length < 2)
-      return data[0];
-
-    const index = Math.min(parseInt(transitionValue) + 1, data.length - 1);
-
-    const previousData = data[index - 1].items;
-
-    const color = scaleLinear()
-      .domain([0, 1])
-      .range([data[index - 1].visualTokenBackground, data[index].visualTokenBackground]);
-
-    const backgroundColor = color(transitionValue - (index - 1));
-    // console.warn(backgroundColor);
-
-    return {
-      ...data[index],
-      items: map(data[index].items, (d, i) => ({
+    return map(data, (d, i) => {
+      const r = rScale(d.value);
+      return {
         ...d,
-        value: (d.value - previousData[i].value) * (transitionValue - (index - 1)) + previousData[i].value,
-      })),
-      visualTokenBackground: backgroundColor
-    };
-  }
-
-  handleClick() {
-    if (this.timer) {
-      this.stopTimer();
-    } else {
-      if (this.state.transitionValue === this.props.data.length - 1) {
-        this.setState({
-          transitionValue: 0,
-        });
-      }
-      this.startTimer();
-    }
+        r: r,
+        angle: i * angleSlice - Math.PI,
+        x: r * Math.cos(angleSlice * i + Math.PI / 2),
+        y: r * Math.sin(angleSlice * i + Math.PI / 2)
+      };
+    });
   }
 
   render() {
+    const {
+      data,
+      legendText,
+      fadeOutLegend,
+      hideAxisText,
+      backgroundColor,
+      textColor
+    } = this.props;
 
-    const { transitionValue } = this.state;
-    const { data } = this.props;
+    if (!data || !data.length)
+      return <svg className='test--radar'/>;
 
-    const itemData = this.getCurrentTransitionData();
+    const titles = map(data, (d) => d.axis);
 
-    return (!!itemData) && (
-      <StaticRadarChart
-        onClick={ this.handleClick }
-        textColor={ itemData.textColor }
-        backgroundColor={ itemData.visualTokenBackground }
-        fadeOutLegend={ transitionValue >= (data.length - 1) }
-        legendText={ itemData.year }
-        data={ itemData.items }
-      />
+    const transformData = this._embedComputedPosition(data);
+
+    return (
+      <svg
+        onClick={ this.props.onClick }
+        className='test--radar'
+        style={ { ...radarContaninerStyle, backgroundColor } }
+        width={ this.config.width }
+        height={ this.config.height }
+      >
+        <g transform={ `translate(${this.config.width / 2},${this.config.height / 2.5})` }>
+          <RadarAxis
+            axisTitles={ titles }
+            radius={ this.config.radius }
+            maxValue={ this.config.maxValue }
+            hideText={ hideAxisText }
+            textColor={ textColor }
+          />
+          <RadarArea rPoints={ transformData }/>
+          <RadarLegend fadeOut={ fadeOutLegend } content={ legendText }/>
+          <RadarTooltipPoints data={ transformData }/>}
+        </g>
+      </svg>
     );
   }
 }
 
-
-AnimatedChart.propTypes = {
-  data: PropTypes.array
+StaticRadarChart.defaultProps = {
+  backgroundColor: '#fdfaf2',
+  legendText: '',
+  fadeOutLegend: false,
+  hideAxisText: false,
 };
+
+StaticRadarChart.propTypes = {
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      axis: PropTypes.string.isRequired,
+      value: PropTypes.number.isRequired
+    })
+  ),
+  legendText: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.element
+  ]),
+  fadeOutLegend: PropTypes.bool,
+  hideAxisText: PropTypes.bool,
+  backgroundColor: PropTypes.string,
+  textColor: PropTypes.string,
+  onClick: PropTypes.func
+};
+

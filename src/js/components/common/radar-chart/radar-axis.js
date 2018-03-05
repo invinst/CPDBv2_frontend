@@ -49,14 +49,12 @@ export default class RadarAxis extends React.Component {
           const yText = radius * labelFactor * Math.sin(angleSlice * i + Math.PI / 2);
 
           return (
-            <g key={ `axis--${i}` } className='test--radar--axis--axis'>
-              <text
-                className='legend' textAnchor='middle' dy='0.35em'
-                x={ xText } y={ yText } style={ { ...radarAxisTextStyle, fill: textColor } }>
+            <text key={ `axis--${i}` } className='test--radar--axis--text'
+              textAnchor='middle' dy='0.35em'
+              x={ xText } y={ yText } style={ { ...radarAxisTextStyle, fill: textColor } }>
 
-                { this.showWords(title, xText, yText) }
-              </text>
-            </g>
+              { this.showWords(title, xText, yText) }
+            </text>
           );
         }) : null }
 

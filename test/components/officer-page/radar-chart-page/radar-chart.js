@@ -3,11 +3,11 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType
 } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
 import { spy } from 'sinon';
 
+import { unmountComponentSuppressError } from 'utils/test';
 import OfficerRadarDemoPage from 'components/officer-page/radar-chart-page';
-import OfficerRadarChart from 'components/common/radar-chart';
+import OfficerRadarChart from 'components/officer-page/radar-chart-page/animated-radar-chart';
 
 
 describe('Officer Radar Page components', function () {

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 
-import OfficerRadarChart from 'components/common/radar-chart';
+import OfficerRadarChart from './animated-radar-chart';
 
 
 export default class OfficerRadarDemoPage extends Component {

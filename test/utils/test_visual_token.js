@@ -1,5 +1,5 @@
 import { getVisualTokenShade, getVisualTokenOIGBackground } from 'utils/visual-token';
-import { OIG_VISUAL_TOKEN_COLOR_SCHEME } from 'utils/constants';
+import { OIG_VISUAL_TOKEN_COLOR_SCHEME, OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
 
 
 describe('VisualToken utils', function () {
@@ -21,16 +21,35 @@ describe('VisualToken utils', function () {
 
   describe('getVisualTokenOIGBackground', () => {
     it('should return correct background colors', () => {
-      getVisualTokenOIGBackground(0, 0, 0).should.eql(
-        OIG_VISUAL_TOKEN_COLOR_SCHEME['000']);
-      getVisualTokenOIGBackground(0, 20, 0).should.eql(
-        OIG_VISUAL_TOKEN_COLOR_SCHEME['010']);
-      getVisualTokenOIGBackground(55, 20, 0).should.eql(
-        OIG_VISUAL_TOKEN_COLOR_SCHEME['210']);
-      getVisualTokenOIGBackground(55, 20, 56).should.eql(
-        OIG_VISUAL_TOKEN_COLOR_SCHEME['212']);
-      getVisualTokenOIGBackground(55, 20, 56).should.eql(
-        OIG_VISUAL_TOKEN_COLOR_SCHEME['222']);
+      getVisualTokenOIGBackground(0, 0, 0).should.eql({
+        backgroundColor: OIG_VISUAL_TOKEN_COLOR_SCHEME['000'],
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      });
+
+      getVisualTokenOIGBackground(0, 20, 0).should.eql({
+        backgroundColor: OIG_VISUAL_TOKEN_COLOR_SCHEME['010'],
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      });
+
+      getVisualTokenOIGBackground(10, 0, 20).should.eql({
+        backgroundColor: OIG_VISUAL_TOKEN_COLOR_SCHEME['101'],
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      });
+
+      getVisualTokenOIGBackground(55, 20, 0).should.eql({
+        backgroundColor: OIG_VISUAL_TOKEN_COLOR_SCHEME['210'],
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      });
+
+      getVisualTokenOIGBackground(55, 20, 56).should.eql({
+        backgroundColor: OIG_VISUAL_TOKEN_COLOR_SCHEME['212'],
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.LIGHT_COLOR,
+      });
+
+      getVisualTokenOIGBackground(55, 80, 56).should.eql({
+        backgroundColor: OIG_VISUAL_TOKEN_COLOR_SCHEME['222'],
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.LIGHT_COLOR,
+      });
     });
   });
 });
