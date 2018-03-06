@@ -6,7 +6,7 @@ import {
   scryRenderedComponentsWithType,
   Simulate
 } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import ReactDOM from 'react-dom';
 import { stub } from 'sinon';
 import _ from 'lodash';
@@ -131,22 +131,12 @@ describe('Carousel components', function () {
   });
 
   it('should update the state of the component when the data prop changed', function () {
-    let node = document.createElement('div');
     const slides = _.range(2).map((i) => (<div key={ i }> { i } </div>));
-    let component = ReactDOM.render(
-      <Carousel>
-        { slides }
-      </Carousel>,
-      node
-    );
-    component.state.displayRightArrow.should.be.false();
+    instance = renderIntoDocument(<Carousel>{ slides }</Carousel>);
+    instance.state.displayRightArrow.should.be.false();
 
     const newSlides = _.range(10).map((i) => (<div key={ i }> { i } </div>));
-    // `component` will be updated instead of remounted
-    ReactDOM.render(
-      <Carousel>{ newSlides }</Carousel>,
-      node
-    );
-    component.state.displayRightArrow.should.be.true();
+    instance = reRender(<Carousel>{ newSlides }</Carousel>, instance);
+    instance.state.displayRightArrow.should.be.true();
   });
 });

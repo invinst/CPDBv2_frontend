@@ -15,7 +15,6 @@ const mockStore = configureStore();
 const store = mockStore({
   cms: {
     pages: {
-
     }
   },
   landingPage: {

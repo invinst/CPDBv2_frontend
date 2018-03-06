@@ -23,7 +23,6 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   queryData: requestOfficersByAllegation,
-
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselAllegationHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselAllegationHeaderEditMode

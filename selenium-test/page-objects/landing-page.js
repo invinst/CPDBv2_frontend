@@ -20,8 +20,6 @@ class CollaborateSection extends Section {
   }
 }
 
-//test--landing--carousel-allegation
-
 class RecentActivityCarouselSection extends Section {
   constructor() {
     super();

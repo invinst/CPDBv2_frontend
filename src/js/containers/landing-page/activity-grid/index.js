@@ -23,7 +23,6 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   requestActivityGrid,
-
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselActivityHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselActivityHeaderEditMode

@@ -19,7 +19,6 @@ import { mergeEditWrapperStateProps } from 'utils/container';
 function mapStateToProps(state, ownProps) {
   return {
     cards: cardsSelector(state),
-
     fields: getCMSFields(constants.LANDING_PAGE_ID)(state),
     sectionEditModeOn: getCarouselComplaintHeaderEditModeOn(state),
   };
@@ -27,7 +26,6 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   queryData: getComplaintSummaries,
-
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselComplaintHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselComplaintHeaderEditMode

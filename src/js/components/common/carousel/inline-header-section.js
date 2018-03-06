@@ -15,22 +15,24 @@ class InlineHeaderSection extends Component {
       return <div/>;
     }
 
-    return <EditWrapperStateProvider { ...editWrapperStateProps }>
-      <HoverableEditWrapper>
-        <h3 style={ headerStyle }>
-          <LinkTextEditable
-            placeholder='Title'
-            fieldname={ `carousel_${type.key.toLowerCase()}_title` }
-          />
-        </h3>
-        <div style={ headerTextStyle }>
-          <RichTextEditable
-            placeholder='Description'
-            fieldname={ `carousel_${type.key.toLowerCase()}_desc` }
-          />
-        </div>
-      </HoverableEditWrapper>
-    </EditWrapperStateProvider>;
+    return (
+      <EditWrapperStateProvider { ...editWrapperStateProps }>
+        <HoverableEditWrapper>
+          <h3 style={ headerStyle }>
+            <LinkTextEditable
+              placeholder='Title'
+              fieldname={ `carousel_${type.key.toLowerCase()}_title` }
+            />
+          </h3>
+          <div style={ headerTextStyle }>
+            <RichTextEditable
+              placeholder='Description'
+              fieldname={ `carousel_${type.key.toLowerCase()}_desc` }
+            />
+          </div>
+        </HoverableEditWrapper>
+      </EditWrapperStateProvider>
+    );
   }
 }
 

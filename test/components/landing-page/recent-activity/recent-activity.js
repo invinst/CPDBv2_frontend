@@ -47,18 +47,13 @@ describe('Recent Activity components', function () {
   it('should render appropriately', function () {
 
     instance = renderIntoDocument(
-      <RecentActivity cards={ data } />
+      <RecentActivity cards={ data }/>
     );
 
     findRenderedDOMComponentWithClass(instance, 'test--landing--carousel-activity');
-    // recentActivtyElement.textContent.should.containEql('Recent Activity');
-    // recentActivtyElement.textContent.should.containEql(
-    //   'based on what other guests are searching on cpdp in addition ' +
-    //   'to officers who are mentioned in conversation with our twitter bot,@cpdpbot'
-    // );
-
     const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
     officerCards.should.have.length(2);
+
     const officerCard1 = findDOMNode(officerCards[0]);
     officerCard1.textContent.should.containEql('Manuel Guzman');
     officerCard1.textContent.should.containEql('More than 84% of other officers');

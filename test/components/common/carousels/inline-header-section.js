@@ -25,7 +25,6 @@ describe('Carousel Inline Edit Header components', function () {
   it('should render inline edit elements', () => {
     instance = renderIntoDocument(<InlineHeaderSection type={ CAROUSEL_TYPES.COMPLAINT }/>);
     findRenderedComponentWithType(instance, LinkTextEditable).should.be.ok();
-
     findRenderedComponentWithType(instance, RichTextEditable).should.be.ok();
   });
 });

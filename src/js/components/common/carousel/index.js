@@ -5,7 +5,6 @@ import {
   wrapperStyle,
   maxSlideWidth,
   spaceSlideWidth,
-  // slideWidth,
   headerSectionWidth,
   headerWrapperStyle,
   mainSliderStyle,
