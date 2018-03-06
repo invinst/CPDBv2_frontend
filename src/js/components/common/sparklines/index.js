@@ -90,8 +90,7 @@ export default class SimpleSparklines extends React.Component {
 
   render() {
     const { data, startYear } = this.props;
-    const endYear = getThisYear();
-    let filledData = this.fillEmptyDataYear(data, startYear, endYear);
+    let filledData = this.fillEmptyDataYear(data, startYear, getThisYear());
     const sparklineData = filledData.map(d => d['aggCount']);
     return (
       <div className='test--sparkline' style={ wrapperStyle(width) }>
