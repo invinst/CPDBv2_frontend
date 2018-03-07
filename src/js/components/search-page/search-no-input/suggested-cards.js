@@ -20,33 +20,32 @@ export default class SuggestedCards extends Component {
     const visualTokenStyle = { height: '100px' };
     const cardStyle = { width: '232px' }; // 144px (visual token) + 32px (text)
     const cardComponents = cards.map(
-      (
-        {
+      ({
          id,
          fullName,
-         visualTokenBackgroundColor,
          complaintCount,
          sustainedCount,
          birthYear,
          race,
          gender,
-         complaintRate
-       }, index
-      ) =>
-        <OfficerCard
-          officerId={ id }
-          fullName={ fullName }
-          key={ index }
-          visualTokenBackgroundColor={ visualTokenBackgroundColor }
-          visualTokenStyle={ visualTokenStyle }
-          cardStyle={ cardStyle }
-          complaintCount={ complaintCount }
-          sustainedCount={ sustainedCount }
-          complaintRate={ complaintRate }
-          birthYear={ birthYear }
-          race={ race }
-          gender={ gender }
+         complaintRate,
+         percentile
+       }, index) => (
+         <OfficerCard
+           officerId={ id }
+           fullName={ fullName }
+           key={ index }
+           visualTokenStyle={ visualTokenStyle }
+           cardStyle={ cardStyle }
+           complaintCount={ complaintCount }
+           sustainedCount={ sustainedCount }
+           complaintRate={ complaintRate }
+           birthYear={ birthYear }
+           race={ race }
+           gender={ gender }
+           percentile={ percentile }
         />
+      )
     );
 
     const availableHeight = viewportHeight() - searchBoxHeight - tagsWrapperHeight;
@@ -71,5 +70,6 @@ SuggestedCards.propTypes = {
 
 SuggestedCards.defaultProps = {
   cards: [],
-  requestActivityGrid: () => {}
+  requestActivityGrid: () => {
+  }
 };

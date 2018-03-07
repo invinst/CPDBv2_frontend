@@ -6,7 +6,7 @@ import { curveLinearClosed, radialLine } from 'd3-shape';
 export default class RadarArea extends Component {
   render() {
 
-    const { rPoints, drawStroke } = this.props;
+    const { rPoints, drawStroke, strokeWidth } = this.props;
     if (!rPoints)
       return <g className='test--radar--wrapper'/>;
 
@@ -30,7 +30,7 @@ export default class RadarArea extends Component {
             <path
               className='test--radar--stroke'
               d={ pathD }
-              style={ radarMainStrokeStyle }/>
+              style={ { ...radarMainStrokeStyle, strokeWidth } }/>
           ) }
         </g>
       </g>
@@ -45,4 +45,5 @@ RadarArea.defaultProps = {
 RadarArea.propTypes = {
   rPoints: PropTypes.array,
   drawStroke: PropTypes.bool,
+  strokeWidth: PropTypes.number
 };
