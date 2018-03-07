@@ -6,7 +6,7 @@ import {
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
-import { stub, spy } from 'sinon';
+import { stub } from 'sinon';
 
 import OfficerCard from 'components/landing-page/activity-grid/officer-card';
 import OfficersByAllegation from 'components/landing-page/officers-by-allegation';
@@ -46,18 +46,15 @@ describe('Officers By Allegation components', function () {
   });
 
   it('should render appropriately', function () {
-    const requestOfficersByAllegationCallback = spy();
     instance = renderIntoDocument(
-      <OfficersByAllegation cards={ data } requestOfficersByAllegation={ requestOfficersByAllegationCallback }/>
+      <OfficersByAllegation cards={ data } />
     );
 
-    requestOfficersByAllegationCallback.calledOnce.should.be.true();
-
-    const recentActivtyElement = findRenderedDOMComponentWithClass(instance, 'test--officers-by-allegation');
-    recentActivtyElement.textContent.should.containEql('Officers by Allegation');
-    recentActivtyElement.textContent.should.containEql(
-      'These are the officers with the most allegations of misconduct in Chicago.'
-    );
+    findRenderedDOMComponentWithClass(instance, 'test--landing--carousel-allegation');
+    // recentActivtyElement.textContent.should.containEql('Officers by Allegation');
+    // recentActivtyElement.textContent.should.containEql(
+    //   'These are the officers with the most allegations of misconduct in Chicago.'
+    // );
 
     const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
     officerCards.should.have.length(2);

@@ -13,6 +13,10 @@ import { unmountComponentSuppressError } from 'utils/test';
 
 const mockStore = configureStore();
 const store = mockStore({
+  cms: {
+    pages: {
+    }
+  },
   landingPage: {
     heatMap: {
       citySummary: {},
@@ -23,26 +27,30 @@ const store = mockStore({
         OfficerCardFactory.build(),
         OfficerCardFactory.build(),
         OfficerCardFactory.build(),
-      ]
+      ],
+      headerEditModeOn: false
     },
     officersByAllegation: {
       cards: [
         OfficerCardFactory.build(),
         OfficerCardFactory.build(),
         OfficerCardFactory.build(),
-      ]
+      ],
+      headerEditModeOn: false
     },
     recentDocument: {
       cards: [
         RawDocumentCardFactory.build(),
         RawDocumentCardFactory.build()
-      ]
+      ],
+      headerEditModeOn: false
     },
     complaintSummaries: {
       cards: [
         ComplaintSummaryFactory.build(),
         ComplaintSummaryFactory.build()
-      ]
+      ],
+      headerEditModeOn: false
     }
   }
 });

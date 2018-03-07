@@ -1,4 +1,3 @@
-import { softBlackColor, clayGray } from 'utils/styles';
 
 export const slideWidth = 232;
 export const spaceSlideWidth = 8;
@@ -13,24 +12,6 @@ export const wrapperStyle = {
 
 export const headerWrapperStyle = {
   width: `${headerSectionWidth}px`
-};
-
-export const headerStyle = {
-  fontSize: '26px',
-  fontWeight: 500,
-  textAlign: 'left',
-  color: softBlackColor,
-  // padding: '16px',
-  padding: '0 16px',
-  marginBottom: '16px'
-};
-
-export const headerTextStyle = {
-  padding: '16px',
-  fontSize: '14px',
-  textAlign: 'left',
-  fontWeight: 500,
-  color: clayGray
 };
 
 export const carouselWrapperStyle = {
