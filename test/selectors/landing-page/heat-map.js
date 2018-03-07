@@ -46,7 +46,7 @@ describe('Heat map selectors', function () {
             disciplineCount: '5',
             medianIncome: '$1,000',
             name: 'Hyde Park',
-            population: '1500',
+            population: '1,500',
             mostComplaintsOfficers: [{
               complaintsCount: 1,
               fullName: 'Jerome Finnigan',
@@ -80,7 +80,7 @@ describe('Heat map selectors', function () {
           disciplineCount: '5',
           medianIncome: '$1,000',
           name: 'Hyde Park',
-          population: '1500',
+          population: '1,500',
           mostComplaintsOfficers: [{
             complaintsCount: 1,
             fullName: 'Jerome Finnigan',

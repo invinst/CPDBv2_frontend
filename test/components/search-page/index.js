@@ -42,7 +42,6 @@ describe('SearchPage component', function () {
   });
 
   beforeEach(function () {
-    this.locationAssign = stub(window.location, 'assign');
     this.browserHistoryPush = stub(browserHistory, 'push');
     // Stub lodash.debounce() so that it returns the input function as-is
     this.debounceStub = stub(lodash, 'debounce').callsFake(func => func);
@@ -52,7 +51,6 @@ describe('SearchPage component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-    this.locationAssign.restore();
     this.browserHistoryPush.restore();
     this.debounceStub.restore();
   });
@@ -137,7 +135,6 @@ describe('SearchPage component', function () {
 
     const input = findRenderedComponentWithType(instance, TextInput);
     input.mousetrap.trigger('enter');
-    this.locationAssign.calledWith('url').should.be.true();
     this.browserHistoryPush.called.should.be.false();
   });
 
@@ -158,20 +155,6 @@ describe('SearchPage component', function () {
     const input = findRenderedComponentWithType(instance, TextInput);
     input.mousetrap.trigger('enter');
     this.browserHistoryPush.calledWith('to').should.be.true();
-    this.locationAssign.called.should.be.false();
-  });
-
-  it('should follow the v1 search url when user hit ENTER but there\'s no results', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage query='something' pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
-      </Provider>
-    );
-
-    const input = findRenderedComponentWithType(instance, TextInput);
-    input.mousetrap.trigger('enter');
-
-    this.locationAssign.calledWith('http://cpdb.lvh.me/s/something').should.be.true();
   });
 
   it('should track recent suggestion when user press ENTER and there are results', function () {
@@ -227,17 +210,15 @@ describe('SearchPage component', function () {
       );
       Mousetrap.trigger('enter');
       this.browserHistoryPush.calledWith('/dummy/url').should.be.true();
-      this.locationAssign.called.should.be.false();
     });
 
-    it('should use window.location.assign() if visiting focused item with external link', function () {
+    it('should not use browserHistoryPush if visiting focused item with external link', function () {
       instance = renderIntoDocument(
         <SearchPage focusedItem={ NavigationItem.build({ url: 'http://whatever.local' }) }
           pushBreadcrumbs={ this.stubPushBreadcrumbs }
         />
       );
       Mousetrap.trigger('enter');
-      this.locationAssign.calledWith('http://whatever.local').should.be.true();
       this.browserHistoryPush.called.should.be.false();
     });
 
