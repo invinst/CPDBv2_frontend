@@ -1,4 +1,8 @@
-import { getRecentDocument } from 'actions/landing-page/recent-document';
+import {
+  getRecentDocument,
+  turnOffCarouselDocumentHeaderEditMode,
+  turnOnCarouselDocumentHeaderEditMode
+} from 'actions/landing-page/recent-document';
 import * as constants from 'utils/constants';
 
 
@@ -21,4 +25,21 @@ describe('getRecentDocument action', function () {
   });
 });
 
+describe('turnOnCarouselDocumentHeaderEditMode action', function () {
+  it('should return correct action', function () {
+    turnOnCarouselDocumentHeaderEditMode().should.eql({
+      type: constants.TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
+      payload: constants.CAROUSEL_TYPES.DOCUMENT
+    });
+  });
+});
+
+describe('turnOffCarouselDocumentHeaderEditMode action', function () {
+  it('should return correct action', function () {
+    turnOffCarouselDocumentHeaderEditMode().should.eql({
+      type: constants.TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
+      payload: constants.CAROUSEL_TYPES.DOCUMENT
+    });
+  });
+});
 

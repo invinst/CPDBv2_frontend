@@ -6,7 +6,7 @@ import {
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
-import { stub, spy } from 'sinon';
+import { stub } from 'sinon';
 
 import OfficerCard from 'components/landing-page/activity-grid/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
@@ -45,23 +45,15 @@ describe('Recent Activity components', function () {
   });
 
   it('should render appropriately', function () {
-    const requestActivityGridCallback = spy();
 
     instance = renderIntoDocument(
-      <RecentActivity cards={ data } requestActivityGrid={ requestActivityGridCallback }/>
+      <RecentActivity cards={ data }/>
     );
 
-    requestActivityGridCallback.calledOnce.should.be.true();
-
-    const recentActivtyElement = findRenderedDOMComponentWithClass(instance, 'test--recent-activity');
-    recentActivtyElement.textContent.should.containEql('Recent Activity');
-    recentActivtyElement.textContent.should.containEql(
-      'based on what other guests are searching on cpdp in addition ' +
-      'to officers who are mentioned in conversation with our twitter bot,@cpdpbot'
-    );
-
+    findRenderedDOMComponentWithClass(instance, 'test--landing--carousel-activity');
     const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
     officerCards.should.have.length(2);
+
     const officerCard1 = findDOMNode(officerCards[0]);
     officerCard1.textContent.should.containEql('Manuel Guzman');
     officerCard1.textContent.should.containEql('More than 84% of other officers');

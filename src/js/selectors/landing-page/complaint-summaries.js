@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 import { shuffle } from 'lodash';
 
 
+export const getCarouselComplaintHeaderEditModeOn = state => state.landingPage.complaintSummaries.headerEditModeOn;
 const getCards = state => state.landingPage.complaintSummaries.cards;
 
 const cardTransform = (card) => ({

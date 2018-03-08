@@ -7,7 +7,9 @@ class FAQSection extends Section {
     this.prepareElementGetters({
       element: '.faq-bottom-sheet',
       question: '.test--faq-rich-text-question',
+      questionPlaceHolder: '.test--faq-rich-text-question .public-DraftEditorPlaceholder-inner',
       answer: '.test--faq-rich-text-answer',
+      answerPlaceHolder: '.test--faq-rich-text-answer .public-DraftEditorPlaceholder-inner',
       boldTextSpan: [
         '//*[contains(@class, "test--faq-rich-text-answer")]',
         'span[@data-offset-key and contains(@style, "font-weight: bold;")]/span'
