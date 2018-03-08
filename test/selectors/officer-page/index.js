@@ -1,10 +1,12 @@
 import {
-  getOfficerName,
-  getComplaintsCount,
-  getComplaintFacetsSelector,
-  summarySelector,
+  DATA_NOT_AVAILABLE,
   getActiveTab,
-  getPathname
+  getComplaintFacetsSelector,
+  getComplaintsCount,
+  getOfficerName,
+  getPathname,
+  metricsSelector,
+  summarySelector,
 } from 'selectors/officer-page';
 
 
@@ -77,7 +79,8 @@ describe('officer page selectors', function () {
       'date_of_appt': '2015-09-23',
       'race': 'race',
       'gender': 'Male',
-      'badge': 'badge'
+      'badge': 'badge',
+      'birth_year': 1991,
     };
 
     it('should return summary', function () {
@@ -88,7 +91,8 @@ describe('officer page selectors', function () {
         race: 'race', gender: 'Male', badge: 'badge',
         dateOfAppt: '2015-09-23',
         careerDescription: '2 years',
-        careerDuration: 'SEP 23, 2015—Present'
+        careerDuration: 'SEP 23, 2015—Present',
+        birthYear: 1991
       });
     });
 
@@ -132,6 +136,35 @@ describe('officer page selectors', function () {
       state.officerPage = { summary: { ...summary, rank: '' } };
 
       summarySelector(state).rank.should.eql('N/A');
+    });
+  });
+
+  describe('metricsSelector', function () {
+    it('should return metrics', function () {
+      const metrics = {
+        'allegation_count': 1,
+        'honorable_mention_count': 3,
+        'sustained_count': 4,
+        'discipline_count': 5,
+        'use_of_force_count': 7,
+        'top_use_of_force_percentile': 9.0,
+        'civilian_compliment_count': 10,
+      };
+
+      state.officerPage = { metrics: metrics };
+
+      metricsSelector(state).should.eql({
+        allegationCount: 1,
+        topAllegationPercentile: DATA_NOT_AVAILABLE,
+        honorableMentionCount: 3,
+        sustainedCount: 4,
+        disciplineCount: 5,
+        topHonorableMentionPercentile: DATA_NOT_AVAILABLE,
+        useOfForceCount: 7,
+        majorAwardCount: DATA_NOT_AVAILABLE,
+        topUseOfForcePercentile: 9.0,
+        civilianComplimentCount: 10,
+      });
     });
   });
 

@@ -3,9 +3,10 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
+  scryRenderedComponentsWithType,
   Simulate
 } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import ReactDOM from 'react-dom';
 import { stub } from 'sinon';
 import _ from 'lodash';
@@ -22,17 +23,15 @@ describe('Carousel components', function () {
 
   before(function () {
     consoleStub = stub(console, 'error'); //suppress console.error `Swiper`
-    renderCarouselSuppressWarningProps = function (data, header = '', description = '') {
+    renderCarouselSuppressWarningProps = function (data, headerNode = '', description = '') {
       const slides = data.map((item) => {
         const attr = _.omit(item, 'id');
         return <OfficerCard key={ item.id } { ...attr } officerId={ item.id }/>;
       });
       return renderIntoDocument(
-        <Carousel
-          header={ header }
-          description={ description }
-          slides={ slides }
-        />
+        <Carousel headerSection={ headerNode }>
+          { slides }
+        </Carousel>
       );
     };
   });
@@ -75,17 +74,16 @@ describe('Carousel components', function () {
       'gender': 'Male'
     }];
 
-    instance = renderCarouselSuppressWarningProps(data, 'HEADER', 'Description of this section');
+    instance = renderCarouselSuppressWarningProps(data, 'HEADER');
 
     findRenderedDOMComponentWithClass(instance, 'test--carousel--wrapper');
     const header = findRenderedDOMComponentWithClass(instance, 'test--carousel--header');
     header.textContent.should.containEql('HEADER');
-    header.textContent.should.containEql('Description of this section');
-    const items = scryRenderedDOMComponentsWithClass(instance, 'test--carousel--item');
+    instance.props.children.should.have.length(2);
+    const items = scryRenderedComponentsWithType(instance, OfficerCard);
     items.should.have.length(2);
-    items[0].textContent.should.containEql('Manuel Guzman');
-    items[1].textContent.should.containEql('Jerome Finnagan');
-
+    ReactDOM.findDOMNode(items[0]).textContent.should.containEql('Manuel Guzman');
+    ReactDOM.findDOMNode(items[1]).textContent.should.containEql('Jerome Finnagan');
     scryRenderedDOMComponentsWithClass(instance, 'test--carousel--arrow--right').should.have.length(0);
   });
 
@@ -133,16 +131,12 @@ describe('Carousel components', function () {
   });
 
   it('should update the state of the component when the data prop changed', function () {
-    let node = document.createElement('div');
     const slides = _.range(2).map((i) => (<div key={ i }> { i } </div>));
-    let component = ReactDOM.render(
-      <Carousel slides={ slides }/>, node
-    );
-    component.state.displayRightArrow.should.be.false();
+    instance = renderIntoDocument(<Carousel>{ slides }</Carousel>);
+    instance.state.displayRightArrow.should.be.false();
 
     const newSlides = _.range(10).map((i) => (<div key={ i }> { i } </div>));
-    // `component` will be updated instead of remounted
-    ReactDOM.render(<Carousel slides={ newSlides }/>, node);
-    component.state.displayRightArrow.should.be.true();
+    instance = reRender(<Carousel>{ newSlides }</Carousel>, instance);
+    instance.state.displayRightArrow.should.be.true();
   });
 });

@@ -1,17 +1,24 @@
-import { mediumGrayColor, accentColor } from 'utils/styles';
+import { clayGray, accentColor, sugarCaneColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
 export const viewUnitButtonWrapperStyle = hovering => ({
+  height: '28px',
+  lineHeight: '28px',
   fontWeight: 300,
-  color: hovering ? accentColor : mediumGrayColor,
-  display: 'inline-block',
+  color: hovering ? accentColor : clayGray,
   cursor: 'pointer',
-  float: 'right'
+  marginTop: '6px',
+  padding: '0 8px 0 9px',
+  backgroundColor: sugarCaneColor,
+  borderRadius: '2px',
 });
 
 export const textStyle = {
-  verticalAlign: 'middle'
+  verticalAlign: 'middle',
+  fontSize: '14px',
+  fontWeight: 300,
+  lineHeight: '28px',
 };
 
 export const arrowStyle = hovering => ({

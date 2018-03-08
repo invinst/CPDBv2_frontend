@@ -3,8 +3,8 @@ import { findDOMNode } from 'react-dom';
 import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
-import ViewUnitProfileButton from 'components/officer-page/summary-page/view-unit-profile-button';
-import { unmountComponentSuppressError } from 'utils/test';
+import ViewUnitProfileButton from 'components/officer-page/summary-page/summary-section/view-unit-profile-button';
+import { unmountComponentSuppressError } from 'utils/test/index';
 
 
 describe('ViewUnitProfileButton component', function () {
@@ -16,7 +16,7 @@ describe('ViewUnitProfileButton component', function () {
 
   it('should render properly', function () {
     instance = renderIntoDocument(<ViewUnitProfileButton />);
-    findDOMNode(instance).innerText.should.containEql('View unit profile');
+    findDOMNode(instance).innerText.should.containEql('View Unit Profile');
   });
 
   it('should handle onClick event', function () {

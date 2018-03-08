@@ -89,8 +89,6 @@ describe('Search Page', function () {
   });
 
   it('should show DataTool suggestions when no result return', function () {
-    this.retries(3);
-
     searchPage.input.waitForVisible();
     searchPage.input.setValue('noresult');
 
@@ -197,8 +195,6 @@ describe('Search Page', function () {
   });
 
   it('should show save recent suggestions when user press Enter and there are results', function () {
-    this.retries(3);
-
     browser.execute(() => {
       window.localStorage.clear();
     });

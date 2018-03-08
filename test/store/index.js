@@ -30,19 +30,23 @@ describe('store', function () {
       landingPage: {
         activityGrid: {
           cards: [],
-          isRequesting: false
+          isRequesting: false,
+          headerEditModeOn: false
         },
         officersByAllegation: {
           cards: [],
-          isRequesting: false
+          isRequesting: false,
+          headerEditModeOn: false
         },
         recentDocument: {
           cards: [],
-          isRequesting: false
+          isRequesting: false,
+          headerEditModeOn: false
         },
         complaintSummaries: {
           cards: [],
-          isRequesting: false
+          isRequesting: false,
+          headerEditModeOn: false
         },
         heatMap: {
           citySummary: {},
@@ -133,6 +137,7 @@ describe('store', function () {
         officerId: null,
         pathname: null,
         summary: {},
+        metrics: {},
         sustainedCount: null,
         socialGraph: {
           isRequesting: false,

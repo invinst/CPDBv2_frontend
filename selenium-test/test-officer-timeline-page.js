@@ -144,7 +144,7 @@ describe('officer timeline page', function () {
 
     it('should resume pagination correctly after switching to another tab and back', function () {
       timelinePage.header.summaryButton.click();
-      summaryPage.aggregateSection.title.waitForVisible();
+      summaryPage.summarySection.officerName.waitForVisible();
 
       summaryPage.header.timelineButton.click();
       const earliestMinimapItem = timelinePage.sidebar.itemAt(2001, 2);

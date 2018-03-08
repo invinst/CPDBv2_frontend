@@ -1,7 +1,6 @@
 import { whiteTwoColor, clayGray, softBlackColor, accentColor } from 'utils/styles';
 
 export const complaintSummaryCardStyle = (hovering) => ({
-  width: '232px',
   height: '266px',
   borderRadius: '2px',
   padding: '11px 16px',

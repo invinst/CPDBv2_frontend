@@ -2,23 +2,25 @@ import { whiteTwoColor, mediumGrayColor, hardBlackColor, accentColor, sanFrancis
 
 
 export const wrapperStyle = {
-  paddingTop: '16px',
-  paddingBottom: '40px',
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
-  fontWeight: 400
+  fontWeight: 400,
+  verticalAlign: 'top',
+  width: '50%',
+  display: 'inline-block',
 };
 
 export const fieldsWrapperStyle = {
-  position: 'relative'
+  display: 'inline-block',
+  width: '100%',
 };
 
 export const unitWrapperStyle = {
-  padding: '11px 0',
+  height: '40px',
+  lineHeight: '39px',
   margin: '0 16px',
   width: 'calc(100% - 32px)',
-  height: '18px',
-  borderBottom: `solid 1px ${whiteTwoColor}`,
+  borderTop: `solid 1px ${whiteTwoColor}`,
   display: 'inline-block'
 };
 
@@ -46,4 +48,12 @@ export const viewUnitProfileButtonStyle = {
     color: accentColor,
     cursor: 'pointer'
   }
+};
+
+export const officerNameStyle = {
+  width: '100%',
+  height: '32px',
+  fontSize: '26px',
+  fontWeight: 500,
+  margin: '48px 0 16px 16px'
 };

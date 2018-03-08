@@ -233,7 +233,7 @@ describe('SearchPage component', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
-           location={ location } params={ params } routes={ routes } pushBreadcrumbs={ stubPushBreadcrumbs }
+          location={ location } params={ params } routes={ routes } pushBreadcrumbs={ stubPushBreadcrumbs }
         />
       </Provider>
     );

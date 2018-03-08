@@ -5,11 +5,8 @@ import {
   wrapperStyle,
   maxSlideWidth,
   spaceSlideWidth,
-  slideWidth,
   headerSectionWidth,
   headerWrapperStyle,
-  headerStyle,
-  headerTextStyle,
   mainSliderStyle,
   carouselWrapperStyle,
 } from './carousel.style';
@@ -39,7 +36,7 @@ class Carousel extends Component {
     this.state = {
       numVisibleSlide: defaultNumVisibleSlides,
       displayLeftArrow: false,
-      displayRightArrow: (props.slides ? props.slides.length : 0) > defaultNumVisibleSlides
+      displayRightArrow: (props.children ? props.children.length : 0) > defaultNumVisibleSlides
     };
   }
 
@@ -50,8 +47,8 @@ class Carousel extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const lenData = this.props.slides ? this.props.slides.length : 0;
-    const nextLenData = nextProps.slides ? nextProps.slides.length : 0;
+    const lenData = this.props.children ? this.props.children.length : 0;
+    const nextLenData = nextProps.children ? nextProps.children.length : 0;
     if (lenData !== nextLenData) {
       this.setState({
         ...this.state,
@@ -101,22 +98,23 @@ class Carousel extends Component {
   }
 
   clickHandler(direction) {
-    const { slides } = this.props;
+    const { children } = this.props;
     let nextSlide;
     if (direction === 'left') {
       nextSlide = Math.max(this.swiper.activeIndex - this.state.numVisibleSlide, 0);
     } else if (direction === 'right') {
       nextSlide = Math.min(
         this.swiper.activeIndex + this.state.numVisibleSlide,
-        slides.length - this.state.numVisibleSlide
+        children.length - this.state.numVisibleSlide
       );
     }
     this.swiper.slideTo(nextSlide);
   }
 
   render() {
-    const { header, description, slides, slideWidth } = this.props;
-    return (typeof slides !== 'undefined' && slides.length > 0) ? (
+    const { headerSection, children } = this.props;
+
+    return (typeof children !== 'undefined' && children.length > 0) ? (
       <div style={ wrapperStyle }>
         <div className='test--carousel--wrapper' style={ carouselWrapperStyle }>
           { this.state.displayLeftArrow && (
@@ -126,17 +124,7 @@ class Carousel extends Component {
             <Swiper { ...this.setting } ref={ node => {
               if (node) this.swiper = node.swiper;
             } }>
-              {
-                slides.map((slide, idx) => (
-                  <div
-                    className='test--carousel--item'
-                    key={ `item-${idx}` }
-                    style={ { width: `${slideWidth}px` } }
-                  >
-                    { slide }
-                  </div>
-                ))
-              }
+              { children }
             </Swiper>
           </div>
           { this.state.displayRightArrow && (
@@ -144,10 +132,7 @@ class Carousel extends Component {
           ) }
         </div>
         <div className='test--carousel--header' style={ headerWrapperStyle }>
-          <h3 style={ headerStyle }>{ header }</h3>
-          <div style={ headerTextStyle }>
-            { description }
-          </div>
+          { headerSection }
         </div>
       </div>
     ) : <div/>;
@@ -155,17 +140,15 @@ class Carousel extends Component {
 }
 
 Carousel.defaultProps = {
-  slideWidth: slideWidth,
+  headerSection: ''
 };
 
 Carousel.propTypes = {
-  header: PropTypes.string,
-  description: PropTypes.oneOfType([
+  headerSection: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element
   ]),
-  slides: PropTypes.array,
-  slideWidth: PropTypes.number
+  children: PropTypes.array,
 };
 
 export default Carousel;
