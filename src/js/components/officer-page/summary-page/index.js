@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
 import { wrapperStyle } from './summary-page.style.js';
-import { pageWrapperStyle, radarChartPlaceholder } from 'components/officer-page/officer-page.style';
+import { pageWrapperStyle, radarChartPlaceholderStyle } from './summary-page.style';
 import SummarySection from './summary-section/index';
-import MetricsSection from 'components/officer-page/summary-page/metrics-section';
+import MetricsSection from './metrics-section';
 
 
 export default class SummaryPage extends Component {
@@ -18,7 +18,7 @@ export default class SummaryPage extends Component {
     return (
       <div style={ wrapperStyle }>
         <div style={ pageWrapperStyle }>
-          <div style={ radarChartPlaceholder }/>
+          <div style={ radarChartPlaceholderStyle }/>
           <SummarySection
             officerName={ officerName }
             officerSummary={ officerSummary }

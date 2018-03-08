@@ -58,18 +58,18 @@ export default class MetricsSection extends Component {
     ];
 
     const metricChunks = chunk(metrics, 2);
-    const firstChunks = metricChunks[0];
-    const secondChunks = metricChunks[1];
-    const thirdChunks = metricChunks[2];
+    const firstChunk = metricChunks[0];
+    const secondChunk = metricChunks[1];
+    const thirdChunk = metricChunks[2];
 
     return (
       <div style={ wrapperStyle }>
         <div style={ metricSectionStyle }>
-          <MetricsColumn metrics={ firstChunks } dashedSeparator={ true }/>
+          <MetricsColumn metrics={ firstChunk } dashedSeparator={ true }/>
           <div style={ verticalLineStyle }/>
-          <MetricsColumn metrics={ secondChunks }/>
+          <MetricsColumn metrics={ secondChunk }/>
           <div style={ verticalLineStyle }/>
-          <MetricsColumn metrics={ thirdChunks }/>
+          <MetricsColumn metrics={ thirdChunk }/>
         </div>
       </div>
     );

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { slice, get } from 'lodash';
+import { get } from 'lodash';
 
 import { wrapperStyle } from './metrics-column.style';
 import MetricPane from 'components/officer-page/summary-page/metrics-section/metric-pane';
@@ -9,8 +9,7 @@ export default class MetricsColumn extends Component {
 
   render() {
     const { metrics, dashedSeparator } = this.props;
-    const firstMetric = metrics[0];
-    const theRest = slice(metrics, 1, metrics.length);
+    const [firstMetric, ...theRest] = metrics;
     return (
       <div style={ wrapperStyle }>
         <MetricPane
