@@ -77,6 +77,7 @@ export default class SearchPage extends Component {
       if (to) {
         browserHistory.push(to);
       } else {
+        /* istanbul ignore next */
         window.location.assign(url);
       }
     }
@@ -134,6 +135,7 @@ export default class SearchPage extends Component {
     let url, to;
 
     if (suggestionGroups.length === 0) {
+      /* istanbul ignore next */
       url = dataToolSearchUrl(query);
     } else {
       const firstGroup = head(suggestionGroups);
@@ -149,6 +151,7 @@ export default class SearchPage extends Component {
     if (to) {
       browserHistory.push(to);
     } else {
+      /* istanbul ignore next */
       window.location.assign(url);
     }
   }
