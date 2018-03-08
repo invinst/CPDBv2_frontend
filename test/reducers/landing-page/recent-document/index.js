@@ -5,7 +5,8 @@ describe('officersByAllegation reducer', function () {
   it('should return initial state', function () {
     recentDocument(undefined, {}).should.eql({
       cards: [],
-      isRequesting: false
+      isRequesting: false,
+      headerEditModeOn: false,
     });
   });
 });

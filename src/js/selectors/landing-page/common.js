@@ -3,6 +3,7 @@ import { toLower } from 'lodash';
 
 export const cardTransform = card => ({
   id: card['id'],
+  officerId: card['id'],
   fullName: card['full_name'],
   visualTokenBackgroundColor: card['visual_token_background_color'],
   complaintCount: card['complaint_count'],

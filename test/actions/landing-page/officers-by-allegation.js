@@ -1,4 +1,8 @@
-import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-allegation';
+import {
+  requestOfficersByAllegation,
+  turnOffCarouselAllegationHeaderEditMode,
+  turnOnCarouselAllegationHeaderEditMode
+} from 'actions/landing-page/officers-by-allegation';
 import * as constants from 'utils/constants';
 
 
@@ -20,3 +24,22 @@ describe('requestOfficersByAllegation action', function () {
     });
   });
 });
+
+describe('turnOnCarouselAllegationHeaderEditMode action', function () {
+  it('should return correct action', function () {
+    turnOnCarouselAllegationHeaderEditMode().should.eql({
+      type: constants.TURN_ON_CAROUSEL_HEADER_EDIT_MODE,
+      payload: constants.CAROUSEL_TYPES.ALLEGATION
+    });
+  });
+});
+
+describe('turnOffCarouselAllegationHeaderEditMode action', function () {
+  it('should return correct action', function () {
+    turnOffCarouselAllegationHeaderEditMode().should.eql({
+      type: constants.TURN_OFF_CAROUSEL_HEADER_EDIT_MODE,
+      payload: constants.CAROUSEL_TYPES.ALLEGATION
+    });
+  });
+});
+
