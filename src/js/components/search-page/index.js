@@ -67,7 +67,10 @@ export default class SearchPage extends Component {
     const { trackRecentSuggestion } = this.props;
     const { to, url, type, id, text } = this.props.focusedItem;
 
-    if (type === MORE_BUTTON) {
+    // handle the case where user focuses on nothing
+    if (type === undefined) {
+      this.handleSearchBoxEnter();
+    } else if (type === MORE_BUTTON) {
       this.handleSelect(id);
     } else {
       trackRecentSuggestion(type, text, url, to);

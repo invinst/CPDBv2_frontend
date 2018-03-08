@@ -117,25 +117,6 @@ describe('SearchPage component', function () {
     this.browserHistoryPush.calledWith('/').should.be.true();
   });
 
-  it('should follow the first result url when user hit ENTER', function () {
-    const suggestionGroups = [
-      {
-        header: 'OFFICER',
-        items: [
-          { url: 'url' }
-        ]
-      }
-    ];
-
-    instance = renderIntoDocument(
-      <SearchPage suggestionGroups={ suggestionGroups } />
-    );
-
-    const input = findRenderedComponentWithType(instance, TextInput);
-    input.mousetrap.trigger('enter');
-    this.browserHistoryPush.called.should.be.false();
-  });
-
   it('should push first result to when user hit ENTER if to is set', function () {
     const suggestionGroups = [
       {
@@ -210,16 +191,6 @@ describe('SearchPage component', function () {
       this.browserHistoryPush.calledWith('/dummy/url').should.be.true();
     });
 
-    it('should not use browserHistoryPush if visiting focused item with external link', function () {
-      instance = renderIntoDocument(
-        <SearchPage focusedItem={ NavigationItem.build({ url: 'http://whatever.local' }) }
-
-        />
-      );
-      Mousetrap.trigger('enter');
-      this.browserHistoryPush.called.should.be.false();
-    });
-
     it('should call handleSelect to show more suggestion items when entering on More button', function () {
       const handleSelectStub = stub(SearchPage.prototype, 'handleSelect');
       instance = renderIntoDocument(
@@ -232,6 +203,23 @@ describe('SearchPage component', function () {
 
       handleSelectStub.restore();
     });
+
+    it('should call handleSearchBoxEnter when user hits ENTER, there is no result and SearchBox is unfocused',
+      function () {
+        const handleSearchBoxEnterStub = stub(SearchPage.prototype, 'handleSearchBoxEnter');
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchPage query='no-result'/>
+          </Provider>
+        );
+        Mousetrap.trigger('down');
+        Mousetrap.trigger('down');
+        Mousetrap.trigger('enter');
+
+        handleSearchBoxEnterStub.calledOnce.should.be.true();
+        handleSearchBoxEnterStub.restore();
+      }
+    );
   });
 
   it('should push search into breadcrumbs', function () {

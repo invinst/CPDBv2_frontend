@@ -191,8 +191,9 @@ describe('Search Page', function () {
     searchPage.input.setValue('noresult');
 
     searchPage.contentWrapper.waitForVisible();
+    browser.pause(500);
     browser.keys('Enter');
-    browser.getUrl().should.be.equal('http://cpdb.lvh.me/s/noresult');
+    browser.getUrl().should.equal('http://cpdb.lvh.me/s/noresult');
   });
 
   it('should show save recent suggestions when user press Enter and there are results', function () {
@@ -254,6 +255,16 @@ describe('Search Page', function () {
     browser.keys('T');
 
     searchPage.input.getValue().should.eql('KeT');
+  });
+
+  it('should follow the first result url when user hit ENTER', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.firstOfficerResult.waitForVisible();
+    browser.keys('Enter');
+
+    searchPage.currentBasePath.should.eql('/officer/1/');
   });
 
   describe('Search box button', function () {

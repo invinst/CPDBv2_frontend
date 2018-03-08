@@ -6,6 +6,8 @@ import searchTermsPage from './page-objects/search-terms-page';
 import searchPage from './page-objects/search-page';
 
 
+should.config.checkProtoEql = false;
+
 describe('Search terms page', function () {
   beforeEach(function () {
     searchTermsPage.open();
