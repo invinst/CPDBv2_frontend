@@ -4,11 +4,7 @@ import React from 'react';
 
 import SummaryPage from 'components/officer-page/summary-page';
 import {
-  complaintsByYearSelector,
-  getComplaintFacetsSelector,
-  getComplaintsCount,
   getOfficerName,
-  getSustainedCount,
   metricsSelector,
   summarySelector
 } from 'selectors/officer-page';
@@ -19,10 +15,6 @@ function mapStateToProps(state, ownProps) {
   return {
     officerName: getOfficerName(state),
     officerSummary: summarySelector(state),
-    complaintsCount: getComplaintsCount(state),
-    sustainedCount: getSustainedCount(state),
-    complaintsByYear: complaintsByYearSelector(state),
-    complaintFacets: getComplaintFacetsSelector(state),
     officerMetrics: metricsSelector(state),
   };
 }

@@ -1,8 +1,6 @@
 import {
   DATA_NOT_AVAILABLE,
   getActiveTab,
-  getComplaintFacetsSelector,
-  getComplaintsCount,
   getOfficerName,
   getPathname,
   metricsSelector,
@@ -25,50 +23,6 @@ describe('officer page selectors', function () {
       state.officerPage = { fullName };
 
       getOfficerName(state).should.eql(fullName);
-    });
-  });
-
-  describe('getComplaintsCount', function () {
-    it('should return complaints count', function () {
-      const complaintsCount = 1;
-      state.officerPage = { complaintsCount };
-
-      getComplaintsCount(state).should.eql(complaintsCount);
-    });
-  });
-
-  describe('getComplaintFacetsSelector', function () {
-    it('should return complaint facets', function () {
-      const complaintFacets = [{
-        name: 'foo',
-        entries: [{
-          'name': 'Illegal Search',
-          'count': 2,
-          'sustained_count': 1,     // eslint-disable-line camelcase
-          items: [{
-            year: 2012,
-            count: 2,
-            'substained_count': 1,    // eslint-disable-line camelcase
-            name: 'Illegal Search'
-          }]
-        }]
-      }];
-      state.officerPage = { complaintFacets };
-
-      getComplaintFacetsSelector(state).should.eql([{
-        name: 'foo',
-        entries: [{
-          name: 'Illegal Search',
-          count: 2,
-          sustainedCount: 1,
-          items: [{
-            year: 2012,
-            count: 2,
-            'substained_count': 1,    // eslint-disable-line camelcase
-            name: 'Illegal Search'
-          }]
-        }]
-      }]);
     });
   });
 

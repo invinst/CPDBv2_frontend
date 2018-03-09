@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map, get } from 'lodash';
+import { get } from 'lodash';
 import moment from 'moment';
 
 import { getThisYear } from 'utils/date';
@@ -42,26 +42,9 @@ const getSummaryRank = summary => {
 
 export const getOfficerName = state => state.officerPage.fullName;
 export const getOfficerId = state => state.officerPage.officerId;
-export const getComplaintsCount = state => state.officerPage.complaintsCount;
-export const getSustainedCount = state => state.officerPage.sustainedCount;
-export const getComplaintsByYear = state => state.officerPage.complaintsByYear;
-const getComplaintFacets = state => state.officerPage.complaintFacets;
 export const getActiveTab = state => state.officerPage.activeTab;
 export const getPathname = state => state.officerPage.pathname;
 export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCachedFullName;
-
-export const getComplaintFacetsSelector = createSelector(
-  getComplaintFacets,
-  complaintFacets => (map(complaintFacets, ({ name, entries }) => ({
-    name,
-    entries: map(entries, entry => ({
-      name: entry['name'],
-      count: entry['count'],
-      sustainedCount: entry['sustained_count'],
-      items: entry['items']
-    }))
-  })
-)));
 
 export const summarySelector = createSelector(
   getSummary,
@@ -94,13 +77,4 @@ export const metricsSelector = createSelector(
     topUseOfForcePercentile: get(metrics, 'top_use_of_force_percentile', DATA_NOT_AVAILABLE),
     civilianComplimentCount: get(metrics, 'civilian_compliment_count', DATA_NOT_AVAILABLE),
   })
-);
-
-export const complaintsByYearSelector = createSelector(
-  getComplaintsByYear,
-  complaints => !complaints ? [] : complaints.map(complaint => ({
-    year: complaint.year,
-    count: complaint.count,
-    sustainedCount: complaint['sustained_count']
-  }))
 );
