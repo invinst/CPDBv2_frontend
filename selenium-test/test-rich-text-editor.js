@@ -35,14 +35,10 @@ describe('Rich text editor', function () {
       });
 
       it('should make text bold when clicked', function () {
-        this.retries(3);
-
         faqPage.bottomSheet.faq.boldTextSpan.waitForVisible();
       });
 
       it('should make text not bold when clicked on again', function () {
-        this.retries(3);
-
         faqPage.richTextToolbar.boldButton.click();
         faqPage.bottomSheet.faq.boldTextSpan.waitForVisible(2000, true);
       });
@@ -55,14 +51,10 @@ describe('Rich text editor', function () {
       });
 
       it('should make text italic when clicked', function () {
-        this.retries(3);
-
         faqPage.bottomSheet.faq.italicTextSpan.waitForVisible();
       });
 
       it('should make text not italic when clicked on again', function () {
-        this.retries(3);
-
         faqPage.richTextToolbar.italicButton.click();
         faqPage.bottomSheet.faq.italicTextSpan.waitForVisible(2000, true);
       });
