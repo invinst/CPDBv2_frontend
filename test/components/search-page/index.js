@@ -197,7 +197,6 @@ describe('SearchPage component', function () {
   });
 
   it('should change to search path when user type in search box', function () {
-    global.location.pathname = '/search/terms/';
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage searchTermsHidden={ false }/>
