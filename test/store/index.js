@@ -134,6 +134,10 @@ describe('store', function () {
         officerId: null,
         pathname: null,
         summary: {},
+        percentile: {
+          isRequesting: false,
+          items: []
+        },
         metrics: {},
         socialGraph: {
           isRequesting: false,

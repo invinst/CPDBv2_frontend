@@ -2,7 +2,7 @@ import Enum from 'enum';
 
 import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
-  galleryColor, lightAltoColor
+  galleryColor, lightAltoColor, visualTokenSchemeColor, greyColor, softBlackColor
 } from 'utils/styles';
 
 export const TOP = 'top';
@@ -263,6 +263,10 @@ export const SEARCH_TERMS_NAVIGATION_DOWN = 'SEARCH_TERMS_NAVIGATION_DOWN';
 export const SEARCH_TERMS_NAVIGATION_RESET = 'SEARCH_TERMS_NAVIGATION_RESET';
 export const SEARCH_TERMS_NAVIGATION_SET = 'SEARCH_TERMS_NAVIGATION_SET';
 
+export const PERCENTILE_REQUEST_START = 'PERCENTILE_REQUEST_START';
+export const PERCENTILE_REQUEST_SUCCESS = 'PERCENTILE_REQUEST_SUCCESS';
+export const PERCENTILE_REQUEST_FAILURE = 'PERCENTILE_REQUEST_FAILURE';
+
 export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
 export const VISUAL_TOKEN_COLOR_SCHEME = {
   '00': '#f5f4f4',
@@ -301,6 +305,42 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
   '54': '#391c6a',
   '45': '#520051',
   '55': '#131313',
+};
+
+export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
+  '000': visualTokenSchemeColor.greyColor,
+  '100': visualTokenSchemeColor.lightYellowColor,
+  '110': visualTokenSchemeColor.lightYellowColor,
+  '120': visualTokenSchemeColor.lightYellowColor,
+  '200': visualTokenSchemeColor.yellowColor,
+  '210': visualTokenSchemeColor.yellowColor,
+  '220': visualTokenSchemeColor.yellowColor,
+  '010': visualTokenSchemeColor.lightBlueColor,
+  '020': visualTokenSchemeColor.blueColor,
+  '001': visualTokenSchemeColor.pinkColor,
+  '011': visualTokenSchemeColor.pinkColor,
+  '021': visualTokenSchemeColor.pinkColor,
+  '101': visualTokenSchemeColor.darkerPinkColor,
+  '111': visualTokenSchemeColor.darkerPinkColor,
+  '121': visualTokenSchemeColor.darkerPinkColor,
+  '002': visualTokenSchemeColor.redColor,
+  '012': visualTokenSchemeColor.redColor,
+  '022': visualTokenSchemeColor.redColor,
+  '102': visualTokenSchemeColor.darkerRedColor,
+  '112': visualTokenSchemeColor.darkerRedColor,
+  '122': visualTokenSchemeColor.darkerRedColor,
+  '201': visualTokenSchemeColor.lightRedColor,
+  '211': visualTokenSchemeColor.lightRedColor,
+  '221': visualTokenSchemeColor.lightRedColor,
+  '202': visualTokenSchemeColor.darkestRedColor,
+  '212': visualTokenSchemeColor.darkestRedColor,
+  '222': visualTokenSchemeColor.darkestRedColor,
+};
+
+export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
+  COLOR_TEXT_LIGHT_SCHEME: ['202', '212', '222'],
+  DARK_COLOR: softBlackColor,
+  LIGHT_COLOR: greyColor
 };
 
 export const RECENT_CONTENT_TYPE = 'RECENT';
