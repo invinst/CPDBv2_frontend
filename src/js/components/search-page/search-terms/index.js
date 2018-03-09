@@ -19,7 +19,7 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import { scrollToElement } from 'utils/dom';
 import PreviewPane from './preview-pane';
-import MinimalScrollBars from 'components/search-page/search-terms/minimal-scroll-bar';
+import MinimalScrollBars from 'components/common/minimal-scroll-bar';
 
 
 export default class SearchTerms extends Component {
