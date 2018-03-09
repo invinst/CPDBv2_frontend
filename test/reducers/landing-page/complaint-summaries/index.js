@@ -5,7 +5,8 @@ describe('complaintSummaries reducer', function () {
   it('should return initial state', function () {
     complaintSummaries(undefined, {}).should.eql({
       cards: [],
-      isRequesting: false
+      isRequesting: false,
+      headerEditModeOn: false,
     });
   });
 });

@@ -3,6 +3,7 @@ import { shuffle } from 'lodash';
 import { cardTransform } from './common';
 
 
+export const getCarouselAllegationHeaderEditModeOn = state => state.landingPage.officersByAllegation.headerEditModeOn;
 const getCards = state => state.landingPage.officersByAllegation.cards;
 
 export const cardsSelector = createSelector(
