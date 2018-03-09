@@ -26,6 +26,12 @@ describe('Search terms page', function () {
     browser.getUrl().should.match(/\/search\/$/);
   });
 
+  it('should navigate to Search page when user type in something in search box', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+    browser.getUrl().should.match(/\/search\/$/);
+  });
+
   it('should navigates between the result when user press the navigation keys', function () {
     const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
     const firstTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 0);

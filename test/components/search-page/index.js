@@ -21,6 +21,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import * as domUtils from 'utils/dom';
 import { NavigationItem } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
+import SearchBox from 'components/search-page/search-box';
 import { MORE_BUTTON } from 'utils/constants';
 
 
@@ -193,6 +194,18 @@ describe('SearchPage component', function () {
     const input = findRenderedComponentWithType(instance, TextInput);
     input.mousetrap.trigger('enter');
     trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url').should.be.true();
+  });
+
+  it('should change to search path when user type in search box', function () {
+    global.location.pathname = '/search/terms/';
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage searchTermsHidden={ false }/>
+      </Provider>
+    );
+    const searchBox = findRenderedComponentWithType(instance, SearchBox);
+    searchBox.props.onChange({ currentTarget: { value: 'jer' } });
+    this.browserHistoryPush.calledWith('/search/').should.be.true();
   });
 
   describe('after keyboard navigation', function () {

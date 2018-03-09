@@ -11,6 +11,7 @@ import {
 } from './search-page.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
+import * as constants from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button';
@@ -102,6 +103,9 @@ export default class SearchPage extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
+    if (!this.props.searchTermsHidden) {
+      browserHistory.push(`/${constants.SEARCH_PATH}`);
+    }
     this.sendSearchRequest(value);
   }
 
