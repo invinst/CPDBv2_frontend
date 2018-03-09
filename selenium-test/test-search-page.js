@@ -66,6 +66,7 @@ describe('Search Page', function () {
 
     times(6, () => browser.keys('ArrowDown'));
     browser.keys('Enter');
+    browser.pause(100);
 
     searchPage.contentWrapper.waitForVisible();
     const content = searchPage.contentWrapper.getText();
@@ -81,6 +82,7 @@ describe('Search Page', function () {
 
     searchPage.suggestionGroup.waitForVisible();
     searchPage.suggestionTags.click();
+    browser.pause(100);
     searchPage.contentWrapper.waitForVisible();
     const content = searchPage.contentWrapper.getText();
     content.should.containEql('OFFICER');
