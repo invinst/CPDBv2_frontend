@@ -62,10 +62,11 @@ export default class StaticRadarChart extends Component {
         onClick={ this.props.onClick }
         className='test--radar'
         style={ { ...radarContaninerStyle, backgroundColor } }
-        width={ width }
-        height={ height }
+        width='100%'
+        height='100%'
+        viewBox={ `0 0 ${width} ${height}` }
       >
-        <g transform={ `translate(${width / 2},${height / 2.5})` }>
+        <g style={ { transform: 'translate(50%,40%)' } }>
           <RadarAxis
             axisTitles={ titles }
             radius={ radius }
@@ -90,7 +91,7 @@ StaticRadarChart.defaultProps = {
   hideAxisText: false,
   width: 512,
   height: 392,
-  radius: 164,
+  radius: 164
 };
 
 StaticRadarChart.propTypes = {

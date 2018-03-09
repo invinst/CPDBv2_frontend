@@ -1,7 +1,7 @@
 import {
   getOfficerPercentile,
   officerYearlyThreePercentile
-} from 'selectors/officer-page/radar-chart';
+} from 'selectors/officer-page';
 
 
 describe('Officer radar chart selectors', function () {
