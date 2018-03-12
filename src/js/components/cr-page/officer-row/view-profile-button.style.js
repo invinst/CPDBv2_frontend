@@ -8,7 +8,7 @@ export const viewOfficerButtonWrapperStyle = hovering => ({
   color: hovering ? accentColor : mediumGrayColor,
   display: 'inline-block',
   cursor: 'pointer',
-  float: 'right'
+  float: 'right',
 });
 
 export const textStyle = {
