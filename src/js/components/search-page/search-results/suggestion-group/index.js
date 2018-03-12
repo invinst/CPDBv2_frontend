@@ -6,7 +6,7 @@ import { groupHeaderStyle, scrollerStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
-import MinimalScrollBars from 'components/common/minimal-scroll-bar';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default class SuggestionGroup extends Component {
@@ -113,5 +113,8 @@ SuggestionGroup.propTypes = {
 SuggestionGroup.defaultProps = {
   suggestions: [],
   focusedItem: {},
-  header: ''
+  header: '',
+  getSuggestionWithContentType: () => {
+    return { catch: () => {} };
+  }
 };

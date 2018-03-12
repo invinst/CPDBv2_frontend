@@ -5,15 +5,17 @@ import {
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import Mousetrap from 'mousetrap';
+
 import { unmountComponentSuppressError } from 'utils/test';
 import { getThisYear } from 'utils/date';
-
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 import SearchResults from 'components/search-page/search-results';
 import SearchNoResult from 'components/search-page/search-results/search-no-result';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
+
 
 describe('SearchResults component', function () {
   let instance;
@@ -104,6 +106,32 @@ describe('SearchResults component', function () {
     unmountComponentSuppressError(instance);
 
     resetNavigation.calledWith(0).should.be.true();
+  });
+
+  it('should render MinimalScrollBars as content-wrapper if it is NOT single content', function () {
+    instance = renderIntoDocument(<SearchResults singleContent={ false }/>);
+    const scrollBars = findRenderedComponentWithType(instance, MinimalScrollBars);
+
+    scrollBars.props.className.should.eql('content-wrapper');
+  });
+
+  it('should render MinimalScrollBars as suggestion-group if it is SINGLE CONTENT', function () {
+    const suggestionGroups = [{
+      canLoadMore: true,
+      header: 'OFFICER'
+    }];
+    const getSuggestionWithContentType = stub().returns({ catch: stub() });
+    instance = renderIntoDocument(
+      <SearchResults
+        singleContent={ true }
+        isEmpty={ false }
+        suggestionGroups={ suggestionGroups }
+        getSuggestionWithContentType={ getSuggestionWithContentType }
+      />
+    );
+    const scrollBars = findRenderedComponentWithType(instance, MinimalScrollBars);
+
+    scrollBars.props.className.should.eql('test--suggestion-group');
   });
 
   describe('Preview Pane', function () {

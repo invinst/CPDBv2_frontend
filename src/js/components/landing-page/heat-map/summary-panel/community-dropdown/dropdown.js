@@ -6,7 +6,7 @@ import TextInput from 'components/common/input';
 import {
   wrapperStyle, arrowUpStyle, inputStyle, dropdownStyle, dropdownItemStyle, inputWrapperStyle
 } from './dropdown.style';
-import MinimalScrollBars from 'components/common/minimal-scroll-bar';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default class Dropdown extends Component {

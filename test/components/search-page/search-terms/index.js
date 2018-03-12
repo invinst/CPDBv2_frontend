@@ -21,7 +21,7 @@ import PreviewPane from 'components/search-page/search-terms/preview-pane';
 import { SearchTermCategory } from 'utils/test/factories/search-terms';
 import * as domUtils from 'utils/dom';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
-import MinimalScrollBars from 'components/common/minimal-scroll-bar';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 describe('SearchTerms component', function () {

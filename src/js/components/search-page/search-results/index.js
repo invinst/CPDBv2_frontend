@@ -18,7 +18,7 @@ import PreviewPane from 'components/search-page/search-results/preview-pane';
 import * as constants from 'utils/constants';
 import { SEARCH_PAGE_NAVIGATION_KEYS } from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import MinimalScrollBars from 'components/common/minimal-scroll-bar';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default class SuggestionResults extends Component {
