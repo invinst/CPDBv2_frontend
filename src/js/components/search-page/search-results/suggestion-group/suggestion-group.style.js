@@ -2,7 +2,7 @@ import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 
 export const scrollerStyle = (singleContent) => ({
-  overflow: 'auto',
+  overflow: 'hidden',
   height: singleContent ? '100%' : 'auto'
 });
 
