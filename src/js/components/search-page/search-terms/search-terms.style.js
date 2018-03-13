@@ -45,7 +45,7 @@ export const maximumStyle = {
 };
 
 export const wrapperStyle = {
-  height: 'calc(100vh - 53px)',
+  height: 'calc(100vh - 54px)',
   width: 'calc(100% - 320px)',
   display: 'inline-block'
 };
