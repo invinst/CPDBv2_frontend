@@ -59,7 +59,7 @@ export default class CommunityDetail extends Component {
           className='test--community-v1-link'
           style={ learnMoreStyle }
           href={ communityUrl(name) }>
-          <span style={ learnMoreTextStyle }>Learn more</span>
+          <span style={ learnMoreTextStyle }>Explore data</span>
           <span style={ rightArrowBlueStyle }/>
         </a>
       </div>
