@@ -17,7 +17,7 @@ export const resultWrapperStyle = {
 };
 
 export const columnWrapperStyle = {
-  overflowX: 'auto',
+  overflow: 'hidden',
   height: '100%'
 };
 
@@ -52,7 +52,7 @@ export const suggestionResultsStyle = aliasEditModeOn => ({
   position: 'relative',
   height: 'calc(100% - 45px)',
   backgroundColor: aliasEditModeOn ? girlyPink : concreteColor,
-  overflowX: 'hidden'
+  overflow: 'hidden'
 });
 
 export const actionBarStyle = {
