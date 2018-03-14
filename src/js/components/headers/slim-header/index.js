@@ -1,8 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Motion, spring } from 'react-motion';
 
-import ConfiguredRadium from 'utils/configured-radium';
-import PropsStateRerender from 'components/common/higher-order/props-state-rerender';
 import { calculatePosition } from 'utils/dom';
 import SlimHeaderContent from './slim-header-content';
 import { fixedStyle } from './slim-header.style';
@@ -107,4 +105,4 @@ SlimHeader.contextTypes = {
   editModeOn: PropTypes.bool
 };
 
-export default PropsStateRerender(ConfiguredRadium(SlimHeader));
+export default SlimHeader;

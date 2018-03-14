@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Header from './header';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import SummaryPageContainer from 'containers/unit-profile-page/summary-page';
 import { pageWrapperStyle } from './unit-profile-page.style';
 
@@ -17,6 +18,7 @@ export default class UnitProfilePage extends Component {
 
     return (
       <div>
+        <ShareableHeaderContainer/>
         <Header
           unitName={ unitName }
           pathname={ pathname }

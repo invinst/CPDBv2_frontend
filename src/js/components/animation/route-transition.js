@@ -27,7 +27,9 @@ export default class RouteTransition extends Component {
     const { styles } = this.state;
     const { pathname, children } = nextProps;
     const newKey = this.getRouteTransitionKey(pathname);
-    if (find(styles, { key: newKey }) === undefined) {
+    const styleObj = find(styles, { key: newKey });
+
+    if (styleObj === undefined) {
       styles.push({
         key: newKey,
         data: {
@@ -40,6 +42,9 @@ export default class RouteTransition extends Component {
       });
       this.setState({ styles });
       setTimeout(this.startAnimation.bind(this), 150);
+    } else {
+      styleObj.data.handler = children;
+      this.setState({ styles });
     }
   }
 
@@ -59,6 +64,7 @@ export default class RouteTransition extends Component {
    *  - Search paths such as /search/ and /search/terms/ should always give the same key
    */
   getRouteTransitionKey(pathname) {
+    pathname = pathname.replace(/^\/edit(.*)/, '$1');
     const patterns = [
       /.*(officer\/\d+).*/,
       /.*(complaint\/\d+).*/,

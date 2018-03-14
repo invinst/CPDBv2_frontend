@@ -5,7 +5,6 @@ export const outerWrapperStyle = {
 
 export const innerWrapperStyle = {
   position: 'absolute',
-  willChange: 'transform',
   width: '100%',
   top: 0,
   left: 0
