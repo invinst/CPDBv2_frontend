@@ -79,7 +79,7 @@
     "wdio-concise-reporter": "^0.1.2",
     "wdio-dot-reporter": "0.0.6",
     "wdio-mocha-framework": "^0.5.8",
-    "wdio-selenium-standalone-service": "^0.0.9",
+    "wdio-selenium-standalone-service": "0.0.10",
     "wdio-spec-reporter": "0.0.5"
   },
   "dependencies": {

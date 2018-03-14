@@ -1,5 +1,4 @@
 import 'polyfill';
-
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
 import {
@@ -10,8 +9,9 @@ import {
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
-
+import MockStore from 'redux-mock-store';
 import { spy } from 'sinon';
+
 import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
 import ShareableHeader from 'components/headers/shareable-header';
@@ -19,7 +19,6 @@ import SlimHeader from 'components/headers/slim-header';
 import SearchPageContainer from 'containers/search-page-container';
 import BottomSheetContainer from 'containers/bottom-sheet';
 import OfficerPageContainer from 'containers/officer-page';
-import MockStore from 'redux-mock-store';
 
 
 describe('App component', function () {
@@ -144,7 +143,9 @@ describe('App component', function () {
         <App
           params={ { reportId: 1 } }
           location={ location }
-          appContent='/' />
+          appContent='/'>
+          <ChildComponent/>
+        </App>
       </Provider>
     );
     const element = findRenderedComponentWithType(instance, BottomSheetContainer);
@@ -159,7 +160,9 @@ describe('App component', function () {
         <App
           toggleEditMode={ toggleEditMode }
           location={ location }
-          appContent='/' />
+          appContent='/'>
+          <ChildComponent/>
+        </App>
       </Provider>
     );
 
@@ -178,8 +181,9 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          appContent='/'
-        />
+          appContent='/'>
+          <ChildComponent/>
+        </App>
       </Provider>
     );
 
@@ -201,8 +205,9 @@ describe('App component', function () {
           toggleSearchMode={ toggleSearchMode }
           changeSearchQuery={ changeSearchQuery }
           location={ location }
-          appContent='/'
-        />
+          appContent='/'>
+          <ChildComponent/>
+        </App>
       </Provider>
     );
 
@@ -233,27 +238,12 @@ describe('App component', function () {
           location={ location }
           appContent='/'
         >
-          <OfficerPageContainer location={ { query: {} } } />
+          <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
         </App>
       </Provider>
     );
     scryRenderedComponentsWithType(instance, SlimHeader).length.should.eql(0);
     findRenderedComponentWithType(instance, ShareableHeader);
-  });
-
-  it('should display SlimHeader by default', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'
-        >
-          asdf
-        </App>
-      </Provider>
-    );
-    scryRenderedComponentsWithType(instance, ShareableHeader).length.should.eql(0);
-    findRenderedComponentWithType(instance, SlimHeader);
   });
 
   it('should not update prevChildren if previous page is a bottom sheet', function () {
