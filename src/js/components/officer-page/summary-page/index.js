@@ -5,6 +5,7 @@ import { pageWrapperStyle, radarChartPlaceholderStyle } from './summary-page.sty
 import OfficerRadarChart from './radar-chart';
 import SummarySection from './summary-section/index';
 import MetricsSection from './metrics-section';
+import BiographySection from './biography-section';
 
 
 export default class SummaryPage extends Component {
@@ -36,6 +37,7 @@ export default class SummaryPage extends Component {
             openPoliceUnitPage={ openPoliceUnitPage }/>
         </div>
         <MetricsSection metrics={ officerMetrics }/>
+        <BiographySection/>
       </div>
     );
   }
