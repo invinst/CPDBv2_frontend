@@ -71,10 +71,12 @@ see how things go.
 
 ### Building & pushing the docker image for CI:
 
+**Important: Current version of Docker image is 0.1.2. Please update this when you make changes to it.**
+
 ```bash
 docker login
-docker build -t cpdbdev/cpdbv2_frontend:0.1.0 .circleci/docker
-docker push cpdbdev/cpdbv2_frontend:0.1.0
+docker build -t cpdbdev/cpdbv2_frontend:0.1.2 .circleci/docker
+docker push cpdbdev/cpdbv2_frontend:0.1.2
 ```
 
 Remember to bump the version of course.
