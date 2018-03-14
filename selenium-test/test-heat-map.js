@@ -28,9 +28,15 @@ describe('Heat map', function () {
       browser.getUrl().should.match(/\/search\/terms\/$/);
     });
 
-    it('should go to v1 when click on the complaints', function () {
+    it('should go to v1 complain category when click on the complaints', function () {
       browser.elements(landingPage.heatMapSection.complaintCategory.selector).value[0].click();
       browser.getUrl().should.match(/\/url-mediator\/session-builder\?cat__category=/);
+    });
+
+    it('should go to v1 datatool when click on allegation count', function () {
+      const v2Url = browser.getUrl();
+      landingPage.heatMapSection.citySummary.allegationDiscipline.click();
+      browser.getUrl().should.not.equal(v2Url);
     });
 
     context('dropdown revealed', function () {

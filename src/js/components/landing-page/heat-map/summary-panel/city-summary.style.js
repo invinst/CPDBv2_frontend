@@ -25,6 +25,12 @@ export const allegationDisciplineStyle = {
   borderBottom: `1px solid ${ whiteTwoColor }`
 };
 
+export const allegationDisciplineCountStyle = {
+  display: 'inline-block',
+  width: 'calc(100% - 8px)',
+  verticalAlign: 'middle'
+};
+
 export const allegationTextStyle = {
   color: softBlackColor,
   fontSize: '26px',
