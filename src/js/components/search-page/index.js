@@ -67,13 +67,17 @@ export default class SearchPage extends Component {
     const { trackRecentSuggestion } = this.props;
     const { to, url, type, id, text } = this.props.focusedItem;
 
-    if (type === MORE_BUTTON) {
+    // handle the case where user focuses on nothing
+    if (type === undefined) {
+      this.handleSearchBoxEnter();
+    } else if (type === MORE_BUTTON) {
       this.handleSelect(id);
     } else {
       trackRecentSuggestion(type, text, url, to);
       if (to) {
         browserHistory.push(to);
       } else {
+        /* istanbul ignore next */
         window.location.assign(url);
       }
     }
@@ -131,6 +135,7 @@ export default class SearchPage extends Component {
     let url, to;
 
     if (suggestionGroups.length === 0) {
+      /* istanbul ignore next */
       url = dataToolSearchUrl(query);
     } else {
       const firstGroup = head(suggestionGroups);
@@ -146,6 +151,7 @@ export default class SearchPage extends Component {
     if (to) {
       browserHistory.push(to);
     } else {
+      /* istanbul ignore next */
       window.location.assign(url);
     }
   }
