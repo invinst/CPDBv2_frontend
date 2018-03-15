@@ -6595,7 +6595,7 @@ selenium-standalone@^6.12.0:
     which "^1.2.12"
     yauzl "^2.5.0"
 
-selenium-standalone@^6.13.0:
+selenium-standalone@^6.5.0:
   version "6.13.0"
   resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-6.13.0.tgz#d61d2994e196b2ff61a19de498c6711375f5a51b"
   dependencies:
@@ -7813,12 +7813,12 @@ wdio-mocha-framework@^0.5.8:
     mocha "^3.1.2"
     wdio-sync "0.6.10"
 
-wdio-selenium-standalone-service@0.0.10:
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/wdio-selenium-standalone-service/-/wdio-selenium-standalone-service-0.0.10.tgz#cdb64d9a53fa3ea0ed3cf0ebf4fd3bdca93dcf05"
+wdio-selenium-standalone-service@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/wdio-selenium-standalone-service/-/wdio-selenium-standalone-service-0.0.9.tgz#c80d4ff489744d5a0b91d5189764916d4c0c8564"
   dependencies:
     fs-extra "^0.30.0"
-    selenium-standalone "^6.13.0"
+    selenium-standalone "^6.5.0"
 
 wdio-spec-reporter@0.0.5:
   version "0.0.5"
