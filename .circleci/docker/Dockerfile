@@ -49,3 +49,13 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
 RUN apt-get update && apt-get install python-dev python-pip
 RUN pip install --upgrade pip
 RUN pip install --upgrade pyOpenSSL ansible
+
+
+############################################################################
+# Run as non root user
+############################################################################
+
+RUN useradd -ms /bin/bash deploy
+
+USER deploy
+WORKDIR /home/deploy
