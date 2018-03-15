@@ -12,7 +12,7 @@ export default class RadarArea extends Component {
 
     const radarLine = radialLine()
       .curve(curveLinearClosed)
-      .radius(d => d.r)
+      .radius(d => d.r - strokeWidth)
       .angle(d => d.angle);
 
     // required the rPoints as follows [{'angle': 0.15, 'r': 2}]

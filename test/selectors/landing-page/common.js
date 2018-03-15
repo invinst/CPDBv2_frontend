@@ -10,9 +10,9 @@ describe('extractPercentile', () => {
     const officerPercentile = {
       'officer_id': 1,
       year: 2015,
-      'percentile_internal': '10.1',
-      'percentile_civilian': '52.5',
-      'percentile_alL_trr': '20.6',
+      'percentile_allegation_internal': '10.1',
+      'percentile_allegation_civilian': '52.5',
+      'percentile_trr': '20.6',
     };
     const expected = {
       officerId: 1,

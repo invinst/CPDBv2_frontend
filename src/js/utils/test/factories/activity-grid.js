@@ -6,9 +6,10 @@ import { internet, name, random } from 'faker';
 const RawOfficerPercentileFactory = Factory.define('OfficerPercentileFactory')
   .sequence('officer_id')
   .attr('year', 2016)
-  .attr('percentile_alL_trr', () => (random.number({ min: 10, max: 1000 }) / 10.0))
-  .attr('percentile_civilian', () => (random.number({ min: 10, max: 1000 }) / 10.0))
-  .attr('percentile_internal', () => (random.number({ min: 10, max: 1000 }) / 10.0));
+  .attr('percentile_trr', () => (random.number({ min: 10, max: 1000 }) / 10.0))
+  .attr('percentile_allegation_civilian', () => (random.number({ min: 10, max: 1000 }) / 10.0))
+  .attr('percentile_allegation_internal', () => (random.number({ min: 10, max: 1000 }) / 10.0))
+  .attr('percentile_allegation', () => (random.number({ min: 10, max: 1000 }) / 10.0));
 
 export const OfficerCardFactory = Factory.define('OfficerCardFactory')
   .sequence('id')

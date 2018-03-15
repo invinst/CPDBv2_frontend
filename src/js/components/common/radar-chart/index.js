@@ -13,7 +13,7 @@ export default class StaticRadarChart extends Component {
   constructor(props) {
     super(props);
     this.maxValue = 100;
-    this.strokeWidth = 2;
+    this.strokeWidth = 0.5;
   }
 
   _embedComputedPosition(data) {
