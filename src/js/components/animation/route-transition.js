@@ -16,8 +16,9 @@ export default class RouteTransition extends Component {
           handler: props.children
         },
         style: {
-          opacity: spring(1, defaultConfig()),
-          scale: spring(1, defaultConfig())
+          opacity: 1,
+          windowScrollY: 1,
+          scale: 1
         }
       }]
     };
@@ -29,6 +30,7 @@ export default class RouteTransition extends Component {
     const newKey = this.getRouteTransitionKey(pathname);
     const styleObj = find(styles, { key: newKey });
 
+    this.windowScrollYAtAnimationStart = window.scrollY;
     if (styleObj === undefined) {
       styles.push({
         key: newKey,
@@ -37,6 +39,7 @@ export default class RouteTransition extends Component {
         },
         style: {
           opacity: 0,
+          windowScrollY: 1,
           scale: 0.95
         }
       });
@@ -53,6 +56,8 @@ export default class RouteTransition extends Component {
     const lastChild = styles[styles.length - 1];
     lastChild.style.opacity = spring(1, defaultConfig());
     lastChild.style.scale = spring(1, defaultConfig());
+    lastChild.style.windowScrollY = spring(0, defaultConfig());
+    this.windowScrollYAtAnimationStart = window.scrollY;
     this.setState({ styles: [lastChild] });
   }
 
@@ -82,6 +87,7 @@ export default class RouteTransition extends Component {
   willEnter() {
     return {
       opacity: 0,
+      windowScrollY: 1,
       scale: 0.95
     };
   }
@@ -107,6 +113,11 @@ export default class RouteTransition extends Component {
           <div style={ outerWrapperStyle }>
             { interpolated.map(config => {
               const { key, style, data } = config;
+
+              if (style.windowScrollY !== undefined) {
+                window.scrollTo(0, this.windowScrollYAtAnimationStart * style.windowScrollY);
+              }
+
               return (
                 <div
                   key={ `${key}-transition` }
