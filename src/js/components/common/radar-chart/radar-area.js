@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { radarMainAreaStyle, radarMainStrokeStyle } from './radar-area.style';
+
 import { curveLinearClosed, radialLine } from 'd3-shape';
+
+import { radarMainAreaStyle, radarMainStrokeStyle } from './radar-area.style';
 
 
 export default class RadarArea extends Component {

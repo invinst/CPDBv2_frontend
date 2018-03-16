@@ -44,7 +44,7 @@ export default class RadarAxis extends React.Component {
 
     return (
       <g className='test--radar--axis-wrapper'>
-        { !hideText ? axisTitles.map((title, i) => {
+        { !hideText && axisTitles.map((title, i) => {
           const xText = radius * labelFactor * Math.cos(angleSlice * i + Math.PI / 2);
           const yText = radius * labelFactor * Math.sin(angleSlice * i + Math.PI / 2);
 
@@ -56,7 +56,7 @@ export default class RadarAxis extends React.Component {
               { this.showWords(title, xText, yText) }
             </text>
           );
-        }) : null }
+        }) }
 
         <path
           className='test--radar--boundary-area'
