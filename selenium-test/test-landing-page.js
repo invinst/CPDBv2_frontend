@@ -1,8 +1,11 @@
 'use strict';
 
-require('should');
+import should from 'should';
 
 import landingPage from './page-objects/landing-page';
+
+
+should.config.checkProtoEql = false;
 
 describe('landing page', function () {
 

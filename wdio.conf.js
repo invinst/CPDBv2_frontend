@@ -76,6 +76,9 @@ exports.config = {
   // bail (default is 0 - don't bail, run all tests).
   bail: 0,
   //
+  // Warns when a deprecated command is used
+  deprecationWarnings: false,
+  //
   // Saves a screenshot to a given path if a command fails.
   screenshotPath: './errorShots/',
   //
@@ -135,7 +138,8 @@ exports.config = {
   mochaOpts: {
     ui: 'bdd',
     timeout: 2000000,
-    compilers: ['js:babel-register']
+    compilers: ['js:babel-register'],
+    retries: 3,
   },
   //
   // =====

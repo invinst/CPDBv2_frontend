@@ -1,45 +1,38 @@
 import React, { Component, PropTypes } from 'react';
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import SummarySection from './summary-section';
-import AggregateSection from './aggregate-section';
 import { wrapperStyle } from './summary-page.style.js';
+import { pageWrapperStyle, radarChartPlaceholderStyle } from './summary-page.style';
+import SummarySection from './summary-section/index';
+import MetricsSection from './metrics-section';
 
 
 export default class SummaryPage extends Component {
   render() {
     const {
       officerSummary,
-      complaintsCount,
-      sustainedCount,
-      complaintFacets,
-      complaintsByYear,
-      openPoliceUnitPage
+      openPoliceUnitPage,
+      officerMetrics,
+      officerName,
     } = this.props;
 
     return (
       <div style={ wrapperStyle }>
-        <ResponsiveFluidWidthComponent>
-          <SummarySection officerSummary={ officerSummary }
+        <div style={ pageWrapperStyle }>
+          <div style={ radarChartPlaceholderStyle }/>
+          <SummarySection
+            officerName={ officerName }
+            officerSummary={ officerSummary }
             openPoliceUnitPage={ openPoliceUnitPage } />
-          <AggregateSection
-            dateOfAppt={ officerSummary ? officerSummary.dateOfAppt : null }
-            title='complaint records (CRs)' count={ complaintsCount } sustainedCount={ sustainedCount }
-            complaintsByYear={ complaintsByYear }
-            aggregateFacets={ complaintFacets }/>
-        </ResponsiveFluidWidthComponent>
+        </div>
+        <MetricsSection metrics={ officerMetrics }/>
       </div>
     );
   }
 }
 
 SummaryPage.propTypes = {
+  officerName: PropTypes.string,
   officerSummary: PropTypes.object,
-  complaintsCount: PropTypes.number,
-  complaintFacets: PropTypes.array,
-  sustainedCount: PropTypes.number,
-  fetchOfficerSummary: PropTypes.func,
-  officerId: PropTypes.number,
+  officerMetrics: PropTypes.object,
   openPoliceUnitPage: PropTypes.func,
-  complaintsByYear: PropTypes.array
 };

@@ -79,7 +79,7 @@ class RouterRoot extends Component {
       </Route>,
 
       <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7' breadcrumb='Search'>
-        <Route path={ SEARCH_TERMS_PATH } component={ SearchTermsContainer }/>
+        <Route path={ SEARCH_TERMS_PATH } component={ SearchTermsContainer } useParentBreadcrumb={ true } />
       </Route>,
 
       <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer } key='13'

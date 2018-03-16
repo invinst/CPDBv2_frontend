@@ -43,7 +43,6 @@ export default class OfficerPage extends Component {
 
 OfficerPage.propTypes = {
   officerName: PropTypes.string,
-  officerId: PropTypes.number,
   officerTimelineUrlParams: PropTypes.string,
   activeTab: PropTypes.string,
   pathname: PropTypes.string,

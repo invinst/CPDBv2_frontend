@@ -17,6 +17,7 @@ describe('OfficerPage component', function () {
   const store = mockStore({
     officerPage: {
       summary: {},
+      metrics: {},
       socialGraph: {
         isRequesting: false,
         links: [],
