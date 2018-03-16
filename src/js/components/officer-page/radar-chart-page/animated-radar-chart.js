@@ -26,8 +26,8 @@ export default class AnimatedRadarChart extends Component {
       this.startTimer();
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.data && nextProps.data.length > 1 && !isEqual(this.props.data, nextProps.data) ) {
+  componentDidUpdate(prevProps) {
+    if (this.props.data && this.props.data.length > 1 && !isEqual(this.props.data, prevProps.data) ) {
       this.startTimer();
     }
   }

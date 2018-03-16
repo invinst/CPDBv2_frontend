@@ -49,7 +49,7 @@ export default class RadarTooltipPoint extends React.Component {
           className='test--radar--tooltip--text' textAnchor='middle' dy='0.35em'
           style={ tooltipStyle(this.state.showTooltip) }
           x={ this.state.activePoint.x }
-          y={ this.state.activePoint.y }>
+          y={ this.state.activePoint.y } >
           { this.state.activePoint.value }
         </text>
       </g>

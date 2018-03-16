@@ -87,7 +87,7 @@ StaticRadarChart.defaultProps = {
   backgroundColor: '#fdfaf2',
   legendText: '',
   fadeOutLegend: false,
-  hideAxisText: false,
+  hideAxisText: false
 };
 
 StaticRadarChart.propTypes = {
