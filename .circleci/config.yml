@@ -15,7 +15,7 @@ jobs:
       - run: cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run: yarn live-test
       - store_artifacts:
-          path: /root/project/errorShots
+          path: /home/deploy/errorShots
 
   deploy:
     docker:
