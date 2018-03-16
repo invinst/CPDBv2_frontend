@@ -3,7 +3,7 @@ jobs:
 
   test:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.1.1
+      - image: cpdbdev/cpdbv2_frontend:0.1.2
     environment:
       NODE_ENV: development
     steps:
@@ -15,7 +15,7 @@ jobs:
       - run: cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run: yarn live-test
       - store_artifacts:
-          path: /root/project/errorShots
+          path: /home/deploy/errorShots
 
   deploy:
     docker:

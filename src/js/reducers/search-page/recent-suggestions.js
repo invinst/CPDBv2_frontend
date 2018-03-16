@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { remove, slice, isEqual } from 'lodash';
+import { remove, slice, isEqual, isEmpty } from 'lodash';
 
 import { TRACK_RECENT_SUGGESTION } from 'actions/search-page';
 
@@ -7,6 +7,7 @@ import { TRACK_RECENT_SUGGESTION } from 'actions/search-page';
 export default handleActions({
   [TRACK_RECENT_SUGGESTION]: (state, action) => {
     remove(state, (suggestion) => (isEqual(suggestion, action.payload)));
+    remove(state, isEmpty);
     return slice([action.payload].concat(state), 0, 10);
   }
 }, []);

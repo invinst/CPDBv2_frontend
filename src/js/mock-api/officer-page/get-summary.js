@@ -7,6 +7,7 @@ export default () => ({
   'race': 'White',
   'badge': '12345',
   'gender': 'Male',
+  'birth_year': 1963,
   'complaint_records': {
     'count': 10,
     'sustained_count': 2,

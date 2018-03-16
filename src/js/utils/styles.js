@@ -74,6 +74,8 @@ export const glitterColor = '#E1EBFD';
 export const lightBlue = '#1775F1';
 export const hawkesBlue = '#CCDFFD'; // rgb(204, 223, 253)
 export const bostonRed = '#CC0000';
+export const linenColor = '#FDFAF2';
+export const cashGreenColor = '#499C21';
 
 export const visualTokenSchemeColor = {
   darkestRedColor: '#700404',

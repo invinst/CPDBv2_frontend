@@ -1,5 +1,5 @@
 import { getOfficerId, hasOfficerIdChanged, isRedirectingToOfficerTimelinePage } from 'utils/location';
-import { fetchOfficerSummary, changeOfficerId } from 'actions/officer-page';
+import { fetchOfficerSummary, changeOfficerId, fetchOfficerMetrics } from 'actions/officer-page';
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import {
   fetchTimelineFirstItems,
@@ -40,6 +40,7 @@ export default store => next => action => {
     const nextOfficerId = getOfficerId(action.payload.pathname);
     store.dispatch(changeOfficerId(nextOfficerId));
     store.dispatch(fetchOfficerSummary(nextOfficerId));
+    store.dispatch(fetchOfficerMetrics(nextOfficerId));
     store.dispatch(fetchSocialGraph(nextOfficerId));
     store.dispatch(fetchTimelineFirstItems(nextOfficerId, getTimelineFilters(store.getState())));
     store.dispatch(

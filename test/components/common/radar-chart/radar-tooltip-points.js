@@ -29,7 +29,7 @@ describe('Radar Tooltip components', function () {
       <RadarToolTipPoint data={ data }/>
     );
 
-    const points = scryRenderedDOMComponentsWithClass(instance, 'test--radar--tooltip--point');
+    const points = scryRenderedDOMComponentsWithClass(instance, 'test--radar-tooltip-point');
     points.should.have.length(3);
     points[0].getAttribute('cx').should.eql('3');
     points[0].getAttribute('cy').should.eql('6');
@@ -40,14 +40,14 @@ describe('Radar Tooltip components', function () {
     points[2].getAttribute('cx').should.eql('5');
     points[2].getAttribute('cy').should.eql('8');
 
-    findRenderedDOMComponentWithClass(instance, 'test--radar--tooltip--text');
+    findRenderedDOMComponentWithClass(instance, 'test--radar-tooltip-text');
   });
 
   it('should change state when hover/leave', function () {
     instance = renderIntoDocument(
       <RadarToolTipPoint data={ data }/>
     );
-    const points = scryRenderedDOMComponentsWithClass(instance, 'test--radar--tooltip--point');
+    const points = scryRenderedDOMComponentsWithClass(instance, 'test--radar-tooltip-point');
     instance.state.should.be.eql({
       showTooltip: false,
       activePoint: { x: 0, y: 0, value: 0 }

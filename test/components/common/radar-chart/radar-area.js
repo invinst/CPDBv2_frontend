@@ -35,22 +35,22 @@ describe('RadarArea components', function () {
     instance = renderIntoDocument(
       <RadarArea rPoints={ rPoints }/>
     );
-    findRenderedDOMComponentWithClass(instance, 'test--radar--wrapper');
-    findRenderedDOMComponentWithClass(instance, 'test--radar--radar-area');
-    findRenderedDOMComponentWithClass(instance, 'test--radar--stroke');
+    findRenderedDOMComponentWithClass(instance, 'test--radar-wrapper');
+    findRenderedDOMComponentWithClass(instance, 'test--radar-radar-area');
+    findRenderedDOMComponentWithClass(instance, 'test--radar-stroke');
   });
 
   it('should hide stroke if drawStroke is false', function () {
     instance = renderIntoDocument(
       <RadarArea rPoints={ rPoints } drawStroke={ false }/>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar--stroke').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'test--radar-stroke').should.have.length(0);
   });
 
   it('should add extra style if extraStyle is defined', function () {
     instance = renderIntoDocument(
       <RadarArea rPoints={ rPoints } drawStroke={ false }/>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar--stroke').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'test--radar-stroke').should.have.length(0);
   });
 });

@@ -43,7 +43,7 @@ describe('OfficerCard component', function () {
     const radarChartElement = findRenderedDOMComponentWithClass(instance, 'test--radar');
     radarChartElement.getAttribute('width').should.eql('230');
     radarChartElement.getAttribute('height').should.eql('100');
-    should(radarChartElement.querySelector('.test--radar--radar-area')).not.be.null();
+    should(radarChartElement.querySelector('.test--radar-radar-area')).not.be.null();
 
     const text = findDOMNode(instance).innerText;
     text.should.containEql('Officersomeone');

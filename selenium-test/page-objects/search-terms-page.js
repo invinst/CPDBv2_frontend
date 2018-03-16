@@ -12,6 +12,7 @@ class PreviewPane extends Section {
     this.prepareElementGetters({
       title: '.test--preview-pane-title',
       description: '.test--preview-pane-description',
+      descriptionLink: '//div[contains(@class, "test--preview-pane-description")]//a',
       callToAction: '.test--preview-pane-action',
     });
   }
@@ -77,7 +78,7 @@ class SearchTermsPage extends Page {
     this.prepareElementGetters({
       input: '.test--search-page-input',
       title: '.test--search-term-title',
-      searchTermToggle: '.test--toggle-button',
+      searchTermsToggle: '.test--toggle-button',
       clearSearchButton: '.test--search-close-button',
     });
   }

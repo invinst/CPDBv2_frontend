@@ -2,14 +2,10 @@ import { connect } from 'react-redux';
 import React from 'react';
 
 import OfficerPage from 'components/officer-page';
-import {
-  getOfficerName,
-  getActiveTab,
-  getPathname,
-  getOfficerId
-} from 'selectors/officer-page';
+import { getActiveTab, getOfficerId, getOfficerName, getPathname, summarySelector } from 'selectors/officer-page';
 import { timelineUrlParamsSelector } from 'selectors/officer-page/timeline';
 import { getShareablePageScrollPosition } from 'selectors/headers/shareable-header';
+import { openPoliceUnitPage } from 'actions/bottom-sheet';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -20,7 +16,12 @@ function mapStateToProps(state, ownProps) {
     officerTimelineUrlParams: timelineUrlParamsSelector(state),
     activeTab: getActiveTab(state),
     scrollPosition: getShareablePageScrollPosition(state),
+    officerSummary: summarySelector(state),
   };
 }
 
-export default connect(mapStateToProps)(OfficerPage);
+const mapDispatchToProps = {
+  openPoliceUnitPage
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OfficerPage);
