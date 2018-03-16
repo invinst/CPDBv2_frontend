@@ -3,7 +3,7 @@ jobs:
 
   test:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.1.1
+      - image: cpdbdev/cpdbv2_frontend:0.1.2
     environment:
       NODE_ENV: development
     steps:
