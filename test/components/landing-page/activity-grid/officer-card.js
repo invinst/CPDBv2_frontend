@@ -25,7 +25,7 @@ describe('OfficerCard component', function () {
         visualTokenBackgroundColor='red'
         complaintCount={ 10 }
         sustainedCount={ 5 }
-        complaintRate={ 20 }
+        complaintPercentile={ 20 }
         birthYear={ 1980 }
         race='white'
         gender='male'
@@ -39,7 +39,7 @@ describe('OfficerCard component', function () {
     const text = findDOMNode(instance).innerText;
     text.should.containEql('Officersomeone');
     text.should.containEql('10 Complaints, 5 Sustained');
-    // text.should.containEql('Less than 20% of other officers');
+    text.should.containEql('More than 20% of other officers');
 
     const age = getThisYear() - 1980 - 1;
     text.should.containEql(`${age} year old white male`);
