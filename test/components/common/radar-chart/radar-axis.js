@@ -35,7 +35,6 @@ describe('RadarAxis components', function () {
     axisElements[0].textContent.should.containEql('Use of ForceReports');
     axisElements[1].textContent.should.containEql('CivilianComplaints');
     axisElements[2].textContent.should.containEql('InternalComplaints');
-    axisElements[0].style.fill.should.eql('#231f20');
 
     findRenderedDOMComponentWithClass(instance, 'test--radar--boundary-area');
   });
