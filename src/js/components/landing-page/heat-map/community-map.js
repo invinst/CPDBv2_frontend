@@ -16,8 +16,7 @@ export default class CommunityMap extends Component {
   shouldComponentUpdate(nextProps) {
     const { communityId, communitySource } = this.props;
     return (
-      communityId !== nextProps.communityId ||
-      !communitySource
+      communityId !== nextProps.communityId || !communitySource
     );
   }
 
