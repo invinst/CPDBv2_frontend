@@ -125,7 +125,7 @@ describe('Search terms page', function () {
 
     firstCategoryHeader.getAttribute('class').should.containEql('focused');
 
-    searchTermsPage.searchTermToggle.click();
+    searchTermsPage.searchTermsToggle.click();
 
     browser.getUrl().should.match(/\/search\/$/);
 
@@ -136,8 +136,8 @@ describe('Search terms page', function () {
     browser.keys('ArrowDown');
 
     searchPage.clearSearchButton.click();
-    searchTermsPage.searchTermToggle.waitForVisible();
-    searchTermsPage.searchTermToggle.click();
+    searchTermsPage.searchTermsToggle.waitForVisible();
+    searchTermsPage.searchTermsToggle.click();
 
     browser.getUrl().should.match(/\/search\/terms\/$/);
 

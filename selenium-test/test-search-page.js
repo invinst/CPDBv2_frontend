@@ -278,12 +278,12 @@ describe('Search Page', function () {
     });
 
     it('should open search terms page when clicked', function () {
-      searchPage.searchTermToggle.getText().should.equal('What can I search?');
-      searchPage.searchTermToggle.click();
-      searchPage.searchTermToggle.getText().should.equal('Hide Search terms');
+      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
+      searchPage.searchTermsToggle.click();
+      searchPage.searchTermsToggle.getText().should.equal('Hide Search terms');
       browser.getUrl().should.match(/\/search\/terms\/$/);
-      searchPage.searchTermToggle.click();
-      searchPage.searchTermToggle.getText().should.equal('What can I search?');
+      searchPage.searchTermsToggle.click();
+      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
       browser.getUrl().should.not.match(/\/search\/terms\/$/);
     });
   });
