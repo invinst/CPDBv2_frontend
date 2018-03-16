@@ -28,15 +28,15 @@ describe('RadarAxis components', function () {
         axisTitles={ ['Use of Force Reports', 'Civilian Complaints', 'Internal Complaints'] }/>
     );
 
-    findRenderedDOMComponentWithClass(instance, 'test--radar--axis-wrapper');
+    findRenderedDOMComponentWithClass(instance, 'test--radar-axis-wrapper');
 
-    let axisElements = scryRenderedDOMComponentsWithClass(instance, 'test--radar--axis--text');
+    let axisElements = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
     axisElements.should.have.length(3);
     axisElements[0].textContent.should.containEql('Use of ForceReports');
     axisElements[1].textContent.should.containEql('CivilianComplaints');
     axisElements[2].textContent.should.containEql('InternalComplaints');
 
-    findRenderedDOMComponentWithClass(instance, 'test--radar--boundary-area');
+    findRenderedDOMComponentWithClass(instance, 'test--radar-boundary-area');
   });
 
   it('should hide axis title when hideText is true', function () {
@@ -53,7 +53,7 @@ describe('RadarAxis components', function () {
     domNode.textContent.should.not.containEql('Civilian');
     domNode.textContent.should.not.containEql('Internal');
     domNode.textContent.should.not.containEql('Complaints');
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar--axis--text').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text').should.have.length(0);
 
   });
 });
