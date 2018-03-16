@@ -18,7 +18,7 @@ export const titleStyle = {
 
 export const descriptionStyle = {
   fontSize: '14px',
-  fontWeight: 500,
+  fontWeight: 400,
   margin: '7px 16px 16px 16px',
   color: clayGray,
   height: 'calc(100% - 96px - 40px)',

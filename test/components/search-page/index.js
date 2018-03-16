@@ -43,17 +43,13 @@ describe('SearchPage component', function () {
   });
 
   beforeEach(function () {
-    this.locationAssign = stub(window.location, 'assign');
     this.browserHistoryPush = stub(browserHistory, 'push');
     // Stub lodash.debounce() so that it returns the input function as-is
     this.debounceStub = stub(lodash, 'debounce').callsFake(func => func);
-
-    this.stubPushBreadcrumbs = stub();
   });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-    this.locationAssign.restore();
     this.browserHistoryPush.restore();
     this.debounceStub.restore();
   });
@@ -62,7 +58,7 @@ describe('SearchPage component', function () {
     const getSuggestion = stub().returns({ catch: spy() });
 
     instance = renderIntoDocument(
-      <SearchPage getSuggestion={ getSuggestion } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
+      <SearchPage getSuggestion={ getSuggestion } />
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = 'a';
@@ -81,7 +77,7 @@ describe('SearchPage component', function () {
       <SearchPage
         contentType={ contentType }
         getSuggestionWithContentType={ getSuggestionWithContentType }
-        pushBreadcrumbs={ this.stubPushBreadcrumbs }
+
       />
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
@@ -95,7 +91,7 @@ describe('SearchPage component', function () {
   it('should clear all tags when user remove all text', function () {
     const selectTag = spy();
     instance = renderIntoDocument(
-      <SearchPage selectTag={ selectTag } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
+      <SearchPage selectTag={ selectTag } />
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = '';
@@ -105,7 +101,7 @@ describe('SearchPage component', function () {
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
     instance = renderIntoDocument(
-      <SearchPage pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
+      <SearchPage />
     );
 
     const backButton = findRenderedDOMComponentWithClass(instance, 'searchbar__button--back');
@@ -115,31 +111,11 @@ describe('SearchPage component', function () {
 
   it('should call router.goBack when user hit ESCAPE', function () {
     instance = renderIntoDocument(
-      <SearchPage pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
+      <SearchPage />
     );
 
     Mousetrap.trigger('esc');
     this.browserHistoryPush.calledWith('/').should.be.true();
-  });
-
-  it('should follow the first result url when user hit ENTER', function () {
-    const suggestionGroups = [
-      {
-        header: 'OFFICER',
-        items: [
-          { url: 'url' }
-        ]
-      }
-    ];
-
-    instance = renderIntoDocument(
-      <SearchPage suggestionGroups={ suggestionGroups } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
-    );
-
-    const input = findRenderedComponentWithType(instance, TextInput);
-    input.mousetrap.trigger('enter');
-    this.locationAssign.calledWith('url').should.be.true();
-    this.browserHistoryPush.called.should.be.false();
   });
 
   it('should push first result to when user hit ENTER if to is set', function () {
@@ -153,26 +129,12 @@ describe('SearchPage component', function () {
     ];
 
     instance = renderIntoDocument(
-      <SearchPage suggestionGroups={ suggestionGroups } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
+      <SearchPage suggestionGroups={ suggestionGroups } />
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
     input.mousetrap.trigger('enter');
     this.browserHistoryPush.calledWith('to').should.be.true();
-    this.locationAssign.called.should.be.false();
-  });
-
-  it('should follow the v1 search url when user hit ENTER but there\'s no results', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <SearchPage query='something' pushBreadcrumbs={ this.stubPushBreadcrumbs }/>
-      </Provider>
-    );
-
-    const input = findRenderedComponentWithType(instance, TextInput);
-    input.mousetrap.trigger('enter');
-
-    this.locationAssign.calledWith('http://cpdb.lvh.me/s/something').should.be.true();
   });
 
   it('should track recent suggestion when user press ENTER and there are results', function () {
@@ -188,7 +150,7 @@ describe('SearchPage component', function () {
 
     instance = renderIntoDocument(
       <SearchPage suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }
-        pushBreadcrumbs={ this.stubPushBreadcrumbs } />
+         />
     );
 
     const input = findRenderedComponentWithType(instance, TextInput);
@@ -219,11 +181,11 @@ describe('SearchPage component', function () {
     it ('should scroll to focused item', function () {
       const domNode = document.createElement('div');
       ReactDOM.render(
-        <SearchPage focusedItem={ { uniqueKey: 'OFFICER-1234' } } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>,
+        <SearchPage focusedItem={ { uniqueKey: 'OFFICER-1234' } } />,
         domNode
       );
       ReactDOM.render(
-        <SearchPage focusedItem={ { uniqueKey: 'OFFICER-5678' } } pushBreadcrumbs={ this.stubPushBreadcrumbs }/>,
+        <SearchPage focusedItem={ { uniqueKey: 'OFFICER-5678' } } />,
         domNode
       );
       this.scrollToElementStub.calledWith('.suggestion-item-OFFICER-5678').should.be.true();
@@ -234,23 +196,11 @@ describe('SearchPage component', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       instance = renderIntoDocument(
         <SearchPage focusedItem={ NavigationItem.build({ to: '/dummy/url' }) }
-          pushBreadcrumbs={ this.stubPushBreadcrumbs }
+
         />
       );
       Mousetrap.trigger('enter');
       this.browserHistoryPush.calledWith('/dummy/url').should.be.true();
-      this.locationAssign.called.should.be.false();
-    });
-
-    it('should use window.location.assign() if visiting focused item with external link', function () {
-      instance = renderIntoDocument(
-        <SearchPage focusedItem={ NavigationItem.build({ url: 'http://whatever.local' }) }
-          pushBreadcrumbs={ this.stubPushBreadcrumbs }
-        />
-      );
-      Mousetrap.trigger('enter');
-      this.locationAssign.calledWith('http://whatever.local').should.be.true();
-      this.browserHistoryPush.called.should.be.false();
     });
 
     it('should call handleSelect to show more suggestion items when entering on More button', function () {
@@ -265,6 +215,23 @@ describe('SearchPage component', function () {
 
       handleSelectStub.restore();
     });
+
+    it('should call handleSearchBoxEnter when user hits ENTER, there is no result and SearchBox is unfocused',
+      function () {
+        const handleSearchBoxEnterStub = stub(SearchPage.prototype, 'handleSearchBoxEnter');
+        instance = renderIntoDocument(
+          <Provider store={ store }>
+            <SearchPage query='no-result'/>
+          </Provider>
+        );
+        Mousetrap.trigger('down');
+        Mousetrap.trigger('down');
+        Mousetrap.trigger('enter');
+
+        handleSearchBoxEnterStub.calledOnce.should.be.true();
+        handleSearchBoxEnterStub.restore();
+      }
+    );
   });
 
   it('should push search into breadcrumbs', function () {
@@ -273,15 +240,16 @@ describe('SearchPage component', function () {
     };
     const params = {};
     const routes = [];
+    const stubPushBreadcrumbs = stub();
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
-          pushBreadcrumbs={ this.stubPushBreadcrumbs } location={ location } params={ params } routes={ routes }
+          location={ location } params={ params } routes={ routes } pushBreadcrumbs={ stubPushBreadcrumbs }
         />
       </Provider>
     );
-    this.stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
+    stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
   });
 
   it('should call api with content type when user select a tag', function () {

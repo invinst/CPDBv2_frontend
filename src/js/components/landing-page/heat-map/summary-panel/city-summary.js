@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 
+import config from 'config';
 import { categoryUrl } from 'utils/v1-url';
 import {
   wrapperStyle, headerStyle, allegationDisciplineStyle, allegationTextStyle, disciplineTextStyle,
   mostCommonComplaintStyle, categoryStyle, categoryNameStyle, rightArrowStyle, categoryTextWrapper,
-  clickReceiver
+  clickReceiver, allegationDisciplineCountStyle
 } from './city-summary.style';
 
 
@@ -29,20 +30,25 @@ export default class CitySummary extends Component {
         <div style={ headerStyle }>CHICAGO 2000 - 2016</div>
         <div style={ allegationDisciplineStyle }
           className='test--allegation-discipline-count'>
-          <div style={ allegationTextStyle }>
-            {
-              allegationCount ?
-                `${allegationCount.toLocaleString()} allegations` :
-                null
-            }
-          </div>
-          <div style={ disciplineTextStyle }>
-            {
-              disciplinePercentage ?
-                `${ disciplinePercentage }% disciplined` :
-                null
-            }
-          </div>
+          <a href={ config.v1Url }>
+            <div style={ allegationDisciplineCountStyle }>
+              <div style={ allegationTextStyle }>
+                {
+                  allegationCount ?
+                    `${allegationCount.toLocaleString()} allegations` :
+                    null
+                }
+              </div>
+              <div style={ disciplineTextStyle }>
+                {
+                  disciplinePercentage ?
+                    `${ disciplinePercentage }% disciplined` :
+                    null
+                }
+              </div>
+            </div>
+            <div style={ rightArrowStyle }/>
+          </a>
         </div>
         <div>
           <div style={ mostCommonComplaintStyle }>MOST COMMON COMPLAINT</div>
