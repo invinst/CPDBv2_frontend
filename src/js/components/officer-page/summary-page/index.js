@@ -20,6 +20,7 @@ export default class SummaryPage extends Component {
       openPoliceUnitPage,
       officerMetrics,
       officerName,
+      newTimelineItems,
       threeCornerPercentile
     } = this.props;
 
@@ -37,7 +38,7 @@ export default class SummaryPage extends Component {
             openPoliceUnitPage={ openPoliceUnitPage }/>
         </div>
         <MetricsSection metrics={ officerMetrics }/>
-        <BiographySection/>
+        <BiographySection timelineItems={ newTimelineItems }/>
       </div>
     );
   }
@@ -50,5 +51,6 @@ SummaryPage.propTypes = {
   officerSummary: PropTypes.object,
   officerMetrics: PropTypes.object,
   openPoliceUnitPage: PropTypes.func,
+  newTimelineItems: PropTypes.array,
   fetchPercentile: PropTypes.func
 };

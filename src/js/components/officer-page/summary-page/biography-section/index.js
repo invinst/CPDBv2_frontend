@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 
 import { biographySectionStyle, menuStyle, menuItemStyle } from './biography-section.style';
@@ -9,6 +9,8 @@ export default class BiographySection extends Component {
 
   constructor(props) {
     super(props);
+
+    this.renderTimeline = this.renderTimeline.bind(this);
 
     this.biographyTabs = [
       { name: 'TIMELINE', renderer: this.renderTimeline },
@@ -36,7 +38,8 @@ export default class BiographySection extends Component {
   }
 
   renderTimeline() {
-    return <Timeline/>;
+    const { timelineItems } = this.props;
+    return <Timeline items={ timelineItems }/>;
   }
 
   renderBiography() {
@@ -54,3 +57,6 @@ export default class BiographySection extends Component {
   }
 }
 
+BiographySection.propTypes = {
+  timelineItems: PropTypes.array
+};

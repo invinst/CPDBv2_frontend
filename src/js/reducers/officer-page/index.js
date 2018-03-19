@@ -4,6 +4,7 @@ import isRequesting from './is-requesting';
 import summary from './summary';
 import fullName from './full-name';
 import timeline from './timeline';
+import newTimeline from './new-timeline';
 import activeTab from './active-tab';
 import pathname from './pathname';
 import socialGraph from './social-graph';
@@ -20,6 +21,7 @@ export default combineReducers({
   activeTab,
   pathname,
   timeline,
+  newTimeline,
   socialGraph,
   officerId,
   breadcrumbCachedFullName,

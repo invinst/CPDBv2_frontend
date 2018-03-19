@@ -6,6 +6,7 @@ import {
   changeTimelineFilters,
   clearSelectedItemIndex,
 } from 'actions/officer-page/timeline';
+import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import {
   fetchMinimapThenSelectTimelineItem,
   selectLatestMinimapItemInYear
@@ -50,6 +51,7 @@ export default store => next => action => {
         action.payload.query.year
       )
     );
+    store.dispatch(fetchNewTimelineItems(nextOfficerId));
   }
 
   return result;
