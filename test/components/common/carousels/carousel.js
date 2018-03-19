@@ -37,7 +37,8 @@ describe('Carousel components', function () {
   });
 
   after(function () {
-    //We ensure that this console.error is belong to `Swiper`. Note that this error only appear first test
+    // TODO: ensure that this console.error is belong to `Swiper` and appear once time only
+    // 'Invalid prop `children` supplied to `ReactIdSwiper`.'
     consoleStub.restore();
   });
 

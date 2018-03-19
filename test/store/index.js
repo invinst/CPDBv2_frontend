@@ -135,6 +135,10 @@ describe('store', function () {
         pathname: null,
         summary: {},
         metrics: {},
+        percentile: {
+          isRequesting: false,
+          items: []
+        },
         socialGraph: {
           isRequesting: false,
           links: [],

@@ -73,6 +73,9 @@ class RouterRoot extends Component {
           useParentBreadcrumb={ true } />
         <Route path={ OFFICER_SOCIAL_GRAPH_SUFFIX } component={ OfficerPageContainer } key='12'
           useParentBreadcrumb={ true } />
+
+        {/* TODO: demo-purpose, merge with officer profile page ready later */}
+        <Route path={ 'radar/' } component={ OfficerPageContainer } key='14' useParentBreadcrumb={ true } />
       </Route>,
 
       <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7' breadcrumb='Search'>

@@ -31,9 +31,31 @@ RUN set -ex \
 
 
 ############################################################################
+# Update Chrome to latest
+############################################################################
+
+# Install Google Chrome
+RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list && \
+    apt-get -yqq update && \
+    apt-get -yqq install google-chrome-stable && \
+    rm -rf /var/lib/apt/lists/*
+
+
+############################################################################
 # We also need ansible for deploying stuff
 ############################################################################
 
 RUN apt-get update && apt-get install python-dev python-pip
 RUN pip install --upgrade pip
 RUN pip install --upgrade pyOpenSSL ansible
+
+
+############################################################################
+# Run as non root user
+############################################################################
+
+RUN useradd -ms /bin/bash deploy
+
+USER deploy
+WORKDIR /home/deploy
