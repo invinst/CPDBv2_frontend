@@ -45,7 +45,6 @@ describe('Search Page', function () {
   });
 
   it('should show filtered result when user clicks "Show more results"', function () {
-    this.retries(3);
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 

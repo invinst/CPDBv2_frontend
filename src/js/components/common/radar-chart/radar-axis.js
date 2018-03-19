@@ -26,7 +26,7 @@ export default class RadarAxis extends React.Component {
   }
 
   render() {
-    const { radius, axisTitles, maxValue, hideText, textColor } = this.props;
+    const { radius, axisTitles, maxValue, hideText, textColor, strokeWidth } = this.props;
 
     if (!axisTitles)
       return <g className='test--radar-axis-wrapper'/>;
@@ -34,7 +34,7 @@ export default class RadarAxis extends React.Component {
     const labelFactor = 1.25; // How much farther than radius of outer circle should labels be placed
 
     const rScale = scaleLinear()
-      .range([0, radius + this.props.strokeWidth])
+      .range([0, radius + strokeWidth])
       .domain([0, maxValue]);
 
     const radarLine = radialLine()
@@ -57,7 +57,7 @@ export default class RadarAxis extends React.Component {
               { this.showWords(title, xText, yText) }
             </text>
           );
-        })} : null }
+        })}
 
         <path
           className='test--radar-boundary-area'

@@ -1,6 +1,7 @@
 import { toLower } from 'lodash';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 
+
 export const extractPercentile = (percentile) => {
   if (!percentile) return null;
   const { backgroundColor, textColor } = getVisualTokenOIGBackground(
