@@ -7,6 +7,5 @@ export const radarMainAreaStyle = {
 
 export const radarMainStrokeStyle = {
   stroke: softBlackColor,
-  strokeWidth: '2px',
   fill: 'none'
 };

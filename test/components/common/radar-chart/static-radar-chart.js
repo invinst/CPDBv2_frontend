@@ -39,7 +39,7 @@ describe('Static Radar Chart components', function () {
     StaticRadarChart.should.be.renderable();
   });
 
-  it('should render if data provided', function () {
+  it('should render if data provided', () => {
 
     instance = renderIntoDocument(<StaticRadarChart data={ data }/>);
     findRenderedComponentWithType(instance, RadarAxis);
@@ -49,6 +49,18 @@ describe('Static Radar Chart components', function () {
 
     findRenderedDOMComponentWithClass(instance, 'test--radar').getAttribute('style')
       .should.containEql('background-color: rgb(253, 250, 242)');
+  });
+
+  it('should render with the given config props', () => {
+    const config = {
+      width: 232,
+      height: 100,
+      radius: 164,
+    };
+    instance = renderIntoDocument(<StaticRadarChart data={ data } { ...config } />);
+    const elementDOM = findRenderedDOMComponentWithClass(instance, 'test--radar');
+    elementDOM.getAttribute('width').should.eql('232');
+    elementDOM.getAttribute('height').should.eql('100');
   });
 
   it('should change background color backgroundColor is true ', () => {
