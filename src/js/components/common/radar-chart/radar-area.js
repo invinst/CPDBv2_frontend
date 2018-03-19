@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { radarMainAreaStyle, radarMainStrokeStyle } from './radar-area.style';
+
 import { curveLinearClosed, radialLine } from 'd3-shape';
+
+import { radarMainAreaStyle, radarMainStrokeStyle } from './radar-area.style';
 
 
 export default class RadarArea extends Component {
@@ -8,7 +10,7 @@ export default class RadarArea extends Component {
 
     const { rPoints, drawStroke, strokeWidth } = this.props;
     if (!rPoints)
-      return <g className='test--radar--wrapper'/>;
+      return <g className='test--radar-wrapper'/>;
 
     const radarLine = radialLine()
       .curve(curveLinearClosed)
@@ -19,16 +21,16 @@ export default class RadarArea extends Component {
     const pathD = radarLine(rPoints);
 
     return (
-      <g className='test--radar--wrapper'>
+      <g className='test--radar-wrapper'>
         <g>
           <path
-            className='test--radar--radar-area'
+            className='test--radar-radar-area'
             d={ pathD }
             style={ radarMainAreaStyle }/>
 
           { drawStroke && (
             <path
-              className='test--radar--stroke'
+              className='test--radar-stroke'
               d={ pathD }
               style={ { ...radarMainStrokeStyle, strokeWidth } }/>
           ) }

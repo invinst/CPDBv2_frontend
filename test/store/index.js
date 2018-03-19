@@ -134,11 +134,11 @@ describe('store', function () {
         officerId: null,
         pathname: null,
         summary: {},
+        metrics: {},
         percentile: {
           isRequesting: false,
           items: []
         },
-        metrics: {},
         socialGraph: {
           isRequesting: false,
           links: [],

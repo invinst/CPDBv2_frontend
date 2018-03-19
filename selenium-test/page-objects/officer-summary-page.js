@@ -31,10 +31,10 @@ class RadarChartSection extends Section {
     super();
     this.prepareElementGetters({
       svg: '.test--radar',
-      axis: '.test--radar--axis-wrapper',
-      wrapper: '.test--radar--wrapper',
-      legend: '.test--radar--legend-content',
-      lastAxisTitle: '.test--radar--axis--text:last-of-type'
+      axis: '.test--radar-axis-wrapper',
+      wrapper: '.test--radar-wrapper',
+      legend: '.test--radar-legend-content',
+      lastAxisTitle: '.test--radar-axis-text:last-of-type'
     });
   }
 }

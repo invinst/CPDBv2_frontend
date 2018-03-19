@@ -70,6 +70,5 @@ SuggestedCards.propTypes = {
 
 SuggestedCards.defaultProps = {
   cards: [],
-  requestActivityGrid: () => {
-  }
+  requestActivityGrid: () => {}
 };

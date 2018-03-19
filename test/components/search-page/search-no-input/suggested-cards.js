@@ -59,6 +59,6 @@ describe('SuggestedCards component', function () {
     instance = renderIntoDocument(<SuggestedCards cards={ cards }/>);
     const svg = findRenderedDOMComponentWithClass(instance, 'test--radar');
     svg.getAttribute('style').should.eql('background-color: rgb(253, 250, 242);');
-    findRenderedDOMComponentWithClass(instance, 'test--radar--radar-area');
+    findRenderedDOMComponentWithClass(instance, 'test--radar-radar-area');
   });
 });

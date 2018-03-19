@@ -10,8 +10,8 @@ import socialGraph from './social-graph';
 import officerId from './officer-id';
 import breadcrumbCachedFullName from './breadcrumb-cached-full-name';
 import metrics from './metrics';
-
 import percentile from './radar-chart';
+
 
 export default combineReducers({
   isRequesting,

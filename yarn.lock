@@ -2285,6 +2285,10 @@ csslint@^1.0.5:
     clone "~2.1.0"
     parserlib "~1.1.1"
 
+cssmin@0.3.x:
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/cssmin/-/cssmin-0.3.2.tgz#ddce4c547b510ae0d594a8f1fbf8aaf8e2c5c00d"
+
 currency-formatter@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/currency-formatter/-/currency-formatter-1.4.1.tgz#3ddc043e506ba522ca79da0473d36df9f5c1f00d"
@@ -2292,10 +2296,6 @@ currency-formatter@^1.4.1:
     accounting "^0.4.1"
     locale-currency "0.0.1"
     object-assign "^4.1.1"
-
-cssmin@0.3.x:
-  version "0.3.2"
-  resolved "https://registry.yarnpkg.com/cssmin/-/cssmin-0.3.2.tgz#ddce4c547b510ae0d594a8f1fbf8aaf8e2c5c00d"
 
 currently-unhandled@^0.4.1:
   version "0.4.1"

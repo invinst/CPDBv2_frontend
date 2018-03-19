@@ -26,15 +26,15 @@ export default class RadarAxis extends React.Component {
   }
 
   render() {
-    const { radius, axisTitles, maxValue, hideText, textColor } = this.props;
+    const { radius, axisTitles, maxValue, hideText, textColor, strokeWidth } = this.props;
 
     if (!axisTitles)
-      return <g className='test--radar--axis-wrapper'/>;
+      return <g className='test--radar-axis-wrapper'/>;
     const angleSlice = Math.PI * 2 / axisTitles.length;
     const labelFactor = 1.25; // How much farther than radius of outer circle should labels be placed
 
     const rScale = scaleLinear()
-      .range([0, radius + this.props.strokeWidth])
+      .range([0, radius + strokeWidth])
       .domain([0, maxValue]);
 
     const radarLine = radialLine()
@@ -43,24 +43,24 @@ export default class RadarAxis extends React.Component {
       .angle((d, i) => i * angleSlice - Math.PI);
 
     return (
-      <g className='test--radar--axis-wrapper'>
-        { !hideText ? axisTitles.map((title, i) => {
+      <g className='test--radar-axis-wrapper'>
+        { !hideText && axisTitles.map((title, i) => {
           const xText = radius * labelFactor * Math.cos(angleSlice * i + Math.PI / 2);
           const yText = radius * labelFactor * Math.sin(angleSlice * i + Math.PI / 2);
 
           return (
             <text
-              key={ `axis--${i}` } className='test--radar--axis--text'
+              key={ `axis--${i}` } className='test--radar-axis-text'
               textAnchor='middle' dy='0.35em'
               x={ xText } y={ yText } style={ { ...radarAxisTextStyle, fill: textColor } }>
 
               { this.showWords(title, xText, yText) }
             </text>
           );
-        }) : null }
+        })}
 
         <path
-          className='test--radar--boundary-area'
+          className='test--radar-boundary-area'
           d={ radarLine(axisTitles.map(() => ({ value: maxValue }))) }
           style={ radarBoundaryAreaStyle }/>
       </g>
@@ -70,7 +70,7 @@ export default class RadarAxis extends React.Component {
 
 RadarAxis.defaultProps = {
   hideText: false,
-  textColor: softBlackColor,
+  textColor: softBlackColor
 };
 
 RadarAxis.propTypes = {

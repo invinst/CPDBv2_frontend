@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
-import { wrapperStyle, lightTextStyle, boldTextStyle } from './officer-card.style.js';
+import { wrapperStyle, lightTextStyle, boldTextStyle } from './officer-card.style';
 import { getThisYear } from 'utils/date';
 import {
   extraInfoStyle, noBorderSectionStyle,

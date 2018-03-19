@@ -19,7 +19,7 @@ export default class ActivityGrid extends Component {
       <ResponsiveFluidWidthComponent>
         {
           rows.map((cards, index) => (
-            <div className='card-row' key={ `row-${index}` }>
+            <div key={ `row-${index}` }>
               {
                 cards.map(
                   ({

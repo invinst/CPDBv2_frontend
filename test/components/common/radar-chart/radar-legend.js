@@ -26,7 +26,7 @@ describe('RadarLegend components', function () {
   it('should render if text is defined', () => {
     instance = renderIntoDocument(<RadarLegend content='legend text'/>);
 
-    const element = findRenderedDOMComponentWithClass(instance, 'test--radar--legend-content');
+    const element = findRenderedDOMComponentWithClass(instance, 'test--radar-legend-content');
     element.textContent.should.containEql('legend text');
   });
 
@@ -38,7 +38,7 @@ describe('RadarLegend components', function () {
     );
     findRenderedComponentWithType(instance, Motion);
     setTimeout(function () {
-      const legendYearElement = findRenderedDOMComponentWithClass(instance, 'test--radar--legend-content');
+      const legendYearElement = findRenderedDOMComponentWithClass(instance, 'test--radar-legend-content');
       legendYearElement.textContent.should.be.eql('2017');
       legendYearElement.getAttribute('style').should.containEql('visibility: hidden');
       done();
