@@ -45,10 +45,11 @@ export default class SearchPage extends Component {
     if (query && query.length >= 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);
     }
-
   }
 
   componentWillReceiveProps(nextProps) {
+    const { location, params, routes, pushBreadcrumbs } = nextProps;
+    pushBreadcrumbs({ location, params, routes });
     // Make sure keyboard-focused item is kept within viewport:
     if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
       scrollToElement(

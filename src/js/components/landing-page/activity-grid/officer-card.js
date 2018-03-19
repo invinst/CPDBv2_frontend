@@ -73,6 +73,7 @@ export class OfficerCard extends Component {
       >
         <OfficerVisualToken
           style={ { ...visualTokenStyle, ...this.props.visualTokenStyle } }
+          officerId={ officerId }
           backgroundColor={ visualTokenBackgroundColor }
         />
         <div>
