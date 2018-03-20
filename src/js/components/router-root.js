@@ -51,7 +51,7 @@ class RouterRoot extends Component {
   render() {
 
     const routes = [
-      <IndexRoute component={ LandingPageContainer } key='1' breadcrumb='cpdp.co'
+      <IndexRoute component={ LandingPageContainer } key='1' breadcrumb='cpdp'
         onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) } />,
 
       <Route path={ STORIES_PATH } component={ ReportingPage } key='2'
