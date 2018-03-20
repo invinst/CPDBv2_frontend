@@ -36,13 +36,13 @@ describe('activity-grid selectors', function () {
         id: '1',
         officerId: '1',
         fullName: 'someone',
-        visualTokenBackgroundColor: 'red',
         complaintCount: 10,
         sustainedCount: 5,
         complaintPercentile: 80,
         birthYear: 1970,
         race: 'black',
-        gender: 'female'
+        gender: 'female',
+        percentile: null,
       }]);
     });
 
