@@ -338,7 +338,7 @@ export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
 };
 
 export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
-  COLOR_TEXT_LIGHT_SCHEME: ['202', '212', '222'],
+  COLOR_TEXT_LIGHT_SCHEME: ['202', '212', '222', '020'],
   DARK_COLOR: softBlackColor,
   LIGHT_COLOR: greyColor
 };

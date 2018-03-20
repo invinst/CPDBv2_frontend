@@ -91,19 +91,6 @@ describe('officer summary page', function () {
   });
 
   describe('Radar Chart', function () {
-    it('should animate properly', function () {
-      summaryPage.radarChartSection.svg.waitForVisible();
-      summaryPage.radarChartSection.legend.waitForVisible(5000, true);
-
-      summaryPage.radarChartSection.svg.click();
-      summaryPage.radarChartSection.svg.getCssProperty('backgroundColor').value.should.equal('rgba(255,187,159,1)');
-      summaryPage.radarChartSection.legend.getText().should.eql('2013');
-
-      browser.pause(500);
-      summaryPage.radarChartSection.legend.getText().should.eql('2016');
-      summaryPage.radarChartSection.svg.getCssProperty('backgroundColor').value.should.equal('rgba(165,30,0,1)');
-    });
-
     it('should responsive', function () {
       browser.setViewportSize({
         width: 300,
