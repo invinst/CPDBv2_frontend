@@ -86,7 +86,7 @@ export const visualTokenSchemeColor = {
   lightYellowColor: '#ffe1b0',
   pinkColor: '#f9cbcb',
   darkerPinkColor: '#ffbb9f',
-  blueColor: '#ffe1b0',
+  blueColor: '#213c8d',
   lightBlueColor: '#d4ddeb',
   greyColor: '#f5f4f4'
 };

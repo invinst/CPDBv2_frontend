@@ -59,8 +59,7 @@ describe('Static Radar Chart components', function () {
     };
     instance = renderIntoDocument(<StaticRadarChart data={ data } { ...config } />);
     const elementDOM = findRenderedDOMComponentWithClass(instance, 'test--radar');
-    elementDOM.getAttribute('width').should.eql('232');
-    elementDOM.getAttribute('height').should.eql('100');
+    elementDOM.getAttribute('viewBox').should.eql('0 0 232 100');
   });
 
   it('should change background color backgroundColor is true ', () => {

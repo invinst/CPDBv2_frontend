@@ -25,9 +25,25 @@ class SummarySection extends Section {
   }
 }
 
+
+class RadarChartSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      svg: '.test--radar',
+      axis: '.test--radar-axis-wrapper',
+      wrapper: '.test--radar-wrapper',
+      legend: '.test--radar-legend-content',
+      lastAxisTitle: '.test--radar-axis-text:last-of-type'
+    });
+  }
+}
+
+
 class OfficerSummaryPage extends Page {
   header = new Header();
   summarySection = new SummarySection();
+  radarChartSection = new RadarChartSection();
 
   constructor() {
     super();

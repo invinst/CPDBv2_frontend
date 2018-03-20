@@ -12,9 +12,9 @@ describe('Radar Chart action', function () {
       type: PERCENTILE_REQUEST_SUCCESS,
       payload: [{
         'year': 2015,
-        'percentile_taser': 90.2
+        'percentile_allegation': 90.2
       }]
     };
-    percentile([], action).should.eql([{ 'year': 2015, 'percentile_taser': 90.2 }]);
+    percentile([], action).should.eql([{ 'year': 2015, 'percentile_allegation': 90.2 }]);
   });
 });
