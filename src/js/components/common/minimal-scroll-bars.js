@@ -1,7 +1,7 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 
-import { thumbStyle } from 'components/search-page/search-terms/minimal-srcoll-bar.style';
+import { thumbStyle } from './minimal-srcoll-bar.style';
 
 
 export default class MinimalScrollBars extends Component {
@@ -23,14 +23,8 @@ export default class MinimalScrollBars extends Component {
       <Scrollbars
         thumbSize={ 120 }
         renderThumbVertical={ this.renderThumb }
-        style={ this.props.style }
-        children={ this.props.children }
+        { ...this.props }
       />
     );
   }
 }
-
-MinimalScrollBars.propTypes = {
-  style: PropTypes.object,
-  children: PropTypes.node,
-};

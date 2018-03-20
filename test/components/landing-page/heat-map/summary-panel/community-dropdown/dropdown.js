@@ -10,6 +10,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { communityFactory } from 'utils/test/factories/heat-map';
 import TextInput from 'components/common/input';
 import Dropdown from 'components/landing-page/heat-map/summary-panel/community-dropdown/dropdown';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 describe('Dropdown component', function () {
@@ -91,5 +92,10 @@ describe('Dropdown component', function () {
     const input = findRenderedComponentWithType(instance, TextInput);
     input.props.keyPressHandlers.enter();
     selectCommunity.calledWith(301).should.be.true();
+  });
+
+  it('should render MinimalScrollBars', function () {
+    instance = renderIntoDocument(<Dropdown/>);
+    findRenderedComponentWithType(instance, MinimalScrollBars).should.be.ok();
   });
 });
