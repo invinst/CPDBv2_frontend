@@ -1,7 +1,7 @@
 import {
   getOfficerPercentile,
   officerYearlyThreePercentile
-} from 'selectors/officer-page/radar-chart';
+} from 'selectors/officer-page';
 
 
 describe('Officer radar chart selectors', function () {
@@ -32,22 +32,18 @@ describe('Officer radar chart selectors', function () {
         {
           'officer_id': 1,
           year: 2006,
-          'percentile_alL_trr': '0.049',
-          'percentile_civilian': '66.251',
-          'percentile_internal': '0.023',
-          'percentile_shooting': '0.000',
-          'percentile_taser': '0.106',
-          'percentile_others': '0.000'
+          'percentile_trr': '0.049',
+          'percentile_allegation_civilian': '66.251',
+          'percentile_allegation_internal': '0.023',
+          'percentile_allegation': '41.001',
         },
         {
           'officer_id': 1,
           year: 2007,
-          'percentile_alL_trr': '0.046',
-          'percentile_civilian': '75.065',
-          'percentile_internal': '0.022',
-          'percentile_shooting': '0.000',
-          'percentile_taser': '0.100',
-          'percentile_others': '0.000'
+          'percentile_trr': '0.046',
+          'percentile_allegation_civilian': '75.065',
+          'percentile_allegation_internal': '0.022',
+          'percentile_allegation': '31.201'
         }];
 
       officerYearlyThreePercentile(state).should.eql([{

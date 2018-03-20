@@ -152,20 +152,27 @@ exports.config = {
   //
   // Gets executed once before all workers get launched.
   onPrepare: function (config, capabilities) {
+    var startTestServer = function (resolve) {
+      browserSync.init({
+        notify: false,
+        port: 4000,
+        open: false,
+        server: {
+          baseDir: ['./live-test-build'],
+          middleware: [historyApiFallback()]
+        },
+        snippetOptions: { blacklist: ['/'] },
+        ui: false
+      }, resolve);
+    };
     return new Promise(function (resolve, reject) {
-      gulp.start('build-live-test', function () {
-        browserSync.init({
-          notify: false,
-          port: 4000,
-          open: false,
-          server: {
-            baseDir: ['./live-test-build'],
-            middleware: [historyApiFallback()]
-          },
-          snippetOptions: { blacklist: ['/'] },
-          ui: false
-        }, resolve);
-      });
+      if (process.argv.indexOf('--no-build')!==-1) {
+        startTestServer(resolve);
+      } else {
+        gulp.start('build-live-test', function () {
+          startTestServer(resolve);
+        });
+      }
     });
   },
   //

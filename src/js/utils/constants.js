@@ -86,7 +86,7 @@ export const MAIL_CHIMP_URL = '/vftg/';
 export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
-export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation`;
+export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
 export const RECENT_DOCUMENT_URL = `${CR_URL}list-by-new-document/`;
 export const RECENT_COMPLAINT_SUMMARIES_URL = `${CR_URL}complaint-summaries/`;
@@ -338,7 +338,7 @@ export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
 };
 
 export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
-  COLOR_TEXT_LIGHT_SCHEME: ['202', '212', '222'],
+  COLOR_TEXT_LIGHT_SCHEME: ['202', '212', '222', '020'],
   DARK_COLOR: softBlackColor,
   LIGHT_COLOR: greyColor
 };

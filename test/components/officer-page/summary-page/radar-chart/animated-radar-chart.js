@@ -7,7 +7,7 @@ import {
 import { useFakeTimers } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import AnimatedRadarChart from 'components/officer-page/radar-chart-page/animated-radar-chart';
+import AnimatedRadarChart from 'components/officer-page/summary-page/radar-chart';
 import StaticRadarChart from 'components/common/radar-chart';
 
 

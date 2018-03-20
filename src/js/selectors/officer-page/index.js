@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
-import { get } from 'lodash';
+import { get, map } from 'lodash';
 import moment from 'moment';
 
 import { getThisYear } from 'utils/date';
+import { extractPercentile } from 'selectors/landing-page/common';
 
 
 const getSummary = state => state.officerPage.summary;
@@ -77,4 +78,11 @@ export const metricsSelector = createSelector(
     topUseOfForcePercentile: get(metrics, 'top_use_of_force_percentile', DATA_NOT_AVAILABLE),
     civilianComplimentCount: get(metrics, 'civilian_compliment_count', DATA_NOT_AVAILABLE),
   })
+);
+
+export const getOfficerPercentile = state => state.officerPage.percentile.items;
+
+export const officerYearlyThreePercentile = createSelector(
+  [getOfficerPercentile],
+  (officerPercentiles) => map(officerPercentiles, extractPercentile)
 );

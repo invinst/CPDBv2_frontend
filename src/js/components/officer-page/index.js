@@ -4,7 +4,6 @@ import Header from './header';
 import SummaryPageContainer from 'containers/officer-page/summary-page-container';
 import TimelinePage from './timeline-page';
 import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
-import OfficerRadarDemoPageContainer from 'containers/officer-page/radar-chart-page'; // TODO: demo purpose
 import { pageWrapperStyle } from './officer-page.style';
 
 
@@ -13,8 +12,6 @@ export default class OfficerPage extends Component {
     const { activeTab, query } = this.props;
     if (activeTab === 'timeline') {
       return <TimelinePage urlParams={ query }/>;
-    } else if (activeTab === 'radar') {
-      return <OfficerRadarDemoPageContainer/>;
     } else if (activeTab === 'social') {
       return <SocialGraphPageContainer/>;
     }

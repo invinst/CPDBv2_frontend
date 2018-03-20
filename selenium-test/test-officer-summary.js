@@ -89,4 +89,14 @@ describe('officer summary page', function () {
 
     browser.getUrl().should.match(/\/unit\/\d+\/$/);
   });
+
+  describe('Radar Chart', function () {
+    it('should responsive', function () {
+      browser.setViewportSize({
+        width: 300,
+        height: 600
+      });
+      summaryPage.radarChartSection.lastAxisTitle.waitForVisible();
+    });
+  });
 });
