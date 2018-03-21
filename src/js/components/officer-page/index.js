@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
-import { pageWrapperStyle } from './officer-page.style';
 import Header from './header';
 import SummaryPageContainer from 'containers/officer-page/summary-page-container';
 import TimelinePage from './timeline-page';
 import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
+import { pageWrapperStyle } from './officer-page.style';
 
 
 export default class OfficerPage extends Component {
-
   renderChildren() {
     const { activeTab, query } = this.props;
     if (activeTab === 'timeline') {

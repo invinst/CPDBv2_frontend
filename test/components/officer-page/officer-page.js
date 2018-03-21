@@ -40,6 +40,10 @@ describe('OfficerPage component', function () {
           next: null,
           previous: null
         }
+      },
+      percentile: {
+        isRequesting: false,
+        items: []
       }
     }
   });

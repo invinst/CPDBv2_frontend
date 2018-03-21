@@ -6,6 +6,7 @@ import TextInput from 'components/common/input';
 import {
   wrapperStyle, arrowUpStyle, inputStyle, dropdownStyle, dropdownItemStyle, inputWrapperStyle
 } from './dropdown.style';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default class Dropdown extends Component {
@@ -63,7 +64,7 @@ export default class Dropdown extends Component {
             onChange={ this.filterDropdown }/>
           <div className='test--dropdown-up-arrow' style={ arrowUpStyle } onClick={ closeDropdown }/>
         </div>
-        <div style={ dropdownStyle }>
+        <MinimalScrollBars style={ dropdownStyle }>
           {
             map(communities, (community, index) => (
               <div
@@ -75,7 +76,7 @@ export default class Dropdown extends Component {
               </div>
             ))
           }
-        </div>
+        </MinimalScrollBars>
       </div>
     );
   }
