@@ -16,7 +16,8 @@ export const searchBoxHeight = searchBoxLineHeight + searchBoxPadding * 2;
 export const searchContentWrapperStyle = (aliasEditModeOn) => ({
   minHeight: '100vh',
   background: aliasEditModeOn ? lightGirlyPink : 'white',
-  fontFamily: sanFranciscoTextFamily
+  fontFamily: sanFranciscoTextFamily,
+  overflow: 'hidden',
 });
 
 export const searchBoxStyle = (aliasEditModeOn) => ({

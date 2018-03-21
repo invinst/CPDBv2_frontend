@@ -6,6 +6,8 @@ import searchTermsPage from './page-objects/search-terms-page';
 import searchPage from './page-objects/search-page';
 
 
+should.config.checkProtoEql = false;
+
 describe('Search terms page', function () {
   beforeEach(function () {
     searchTermsPage.open();
@@ -23,6 +25,12 @@ describe('Search terms page', function () {
 
   it('should navigate to Search page when clicking on backToSearchPageLink', function () {
     searchTermsPage.bottomLinks.backToSearchPageLink.click();
+    browser.getUrl().should.match(/\/search\/$/);
+  });
+
+  it('should navigate to Search page when user type in something in search box', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
     browser.getUrl().should.match(/\/search\/$/);
   });
 
@@ -123,7 +131,7 @@ describe('Search terms page', function () {
 
     firstCategoryHeader.getAttribute('class').should.containEql('focused');
 
-    searchTermsPage.searchTermToggle.click();
+    searchTermsPage.searchTermsToggle.click();
 
     browser.getUrl().should.match(/\/search\/$/);
 
@@ -134,8 +142,8 @@ describe('Search terms page', function () {
     browser.keys('ArrowDown');
 
     searchPage.clearSearchButton.click();
-    searchTermsPage.searchTermToggle.waitForVisible();
-    searchTermsPage.searchTermToggle.click();
+    searchTermsPage.searchTermsToggle.waitForVisible();
+    searchTermsPage.searchTermsToggle.click();
 
     browser.getUrl().should.match(/\/search\/terms\/$/);
 
@@ -156,5 +164,14 @@ describe('Search terms page', function () {
     searchTermsPage.categoryMainPanel.firstCategoryItem.click();
 
     searchTermsPage.previewPane.title.getText().should.eql('Communities');
+  });
+
+  it('should show PreviewPane with markdown', function () {
+    browser.keys('ArrowDown');
+    browser.keys('ArrowDown');
+
+    searchTermsPage.previewPane.descriptionLink.click();
+
+    browser.getUrl().should.containEql('http://www.somelink.cpdp.com');
   });
 });

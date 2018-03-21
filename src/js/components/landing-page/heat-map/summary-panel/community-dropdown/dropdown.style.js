@@ -35,11 +35,11 @@ export const inputStyle = {
 
 export const dropdownStyle = {
   padding: '0 16px',
-  maxHeight: '479px',
   backgroundColor: 'white',
   position: 'relative',
   zIndex: 3,
-  overflow: 'auto'
+  height: '479px',
+  boxSizing: 'border-box',
 };
 
 export const dropdownItemStyle = isLast => ({
@@ -51,5 +51,6 @@ export const dropdownItemStyle = isLast => ({
   height: '40px',
   cursor: 'pointer',
   boxSizing: 'border-box',
-  paddingTop: '11px'
+  paddingTop: '11px',
+  margin: '0 16px',
 });

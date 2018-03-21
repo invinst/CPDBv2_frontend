@@ -55,6 +55,10 @@ describe('App component', function () {
       summary: {},
       timeline: {
         filters: {}
+      },
+      percentile: {
+        isRequesting: false,
+        items: []
       }
     },
     genericModal: {

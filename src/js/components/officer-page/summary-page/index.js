@@ -1,45 +1,52 @@
 import React, { Component, PropTypes } from 'react';
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import SummarySection from './summary-section';
-import AggregateSection from './aggregate-section';
 import { wrapperStyle } from './summary-page.style.js';
+import { pageWrapperStyle, radarChartPlaceholderStyle } from './summary-page.style';
+import OfficerRadarChart from './radar-chart';
+import SummarySection from './summary-section/index';
+import MetricsSection from './metrics-section';
 
 
 export default class SummaryPage extends Component {
+  componentDidMount() {
+    const { fetchPercentile, officerId } = this.props;
+    fetchPercentile && fetchPercentile(officerId);
+  }
+
   render() {
     const {
       officerSummary,
-      complaintsCount,
-      sustainedCount,
-      complaintFacets,
-      complaintsByYear,
-      openPoliceUnitPage
+      openPoliceUnitPage,
+      officerMetrics,
+      officerName,
+      threeCornerPercentile
     } = this.props;
 
     return (
       <div style={ wrapperStyle }>
-        <ResponsiveFluidWidthComponent>
-          <SummarySection officerSummary={ officerSummary }
-            openPoliceUnitPage={ openPoliceUnitPage } />
-          <AggregateSection
-            dateOfAppt={ officerSummary ? officerSummary.dateOfAppt : null }
-            title='complaint records (CRs)' count={ complaintsCount } sustainedCount={ sustainedCount }
-            complaintsByYear={ complaintsByYear }
-            aggregateFacets={ complaintFacets }/>
-        </ResponsiveFluidWidthComponent>
+        <div style={ pageWrapperStyle }>
+
+          <div className='test--officer--radar-chart' style={ radarChartPlaceholderStyle }>
+            <OfficerRadarChart data={ threeCornerPercentile }/>
+          </div>
+
+          <SummarySection
+            officerName={ officerName }
+            officerSummary={ officerSummary }
+            openPoliceUnitPage={ openPoliceUnitPage }/>
+        </div>
+        <MetricsSection metrics={ officerMetrics }/>
       </div>
     );
   }
 }
 
 SummaryPage.propTypes = {
-  officerSummary: PropTypes.object,
-  complaintsCount: PropTypes.number,
-  complaintFacets: PropTypes.array,
-  sustainedCount: PropTypes.number,
-  fetchOfficerSummary: PropTypes.func,
   officerId: PropTypes.number,
+  officerName: PropTypes.string,
+  threeCornerPercentile: PropTypes.array,
+  officerSummary: PropTypes.object,
+  officerMetrics: PropTypes.object,
   openPoliceUnitPage: PropTypes.func,
-  complaintsByYear: PropTypes.array
+  fetchPercentile: PropTypes.func
 };

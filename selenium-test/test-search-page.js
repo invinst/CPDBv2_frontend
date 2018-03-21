@@ -65,6 +65,7 @@ describe('Search Page', function () {
 
     times(6, () => browser.keys('ArrowDown'));
     browser.keys('Enter');
+    browser.pause(100);
 
     searchPage.contentWrapper.waitForVisible();
     const content = searchPage.contentWrapper.getText();
@@ -80,6 +81,7 @@ describe('Search Page', function () {
 
     searchPage.suggestionGroup.waitForVisible();
     searchPage.suggestionTags.click();
+    browser.pause(100);
     searchPage.contentWrapper.waitForVisible();
     const content = searchPage.contentWrapper.getText();
     content.should.containEql('OFFICER');
@@ -89,8 +91,6 @@ describe('Search Page', function () {
   });
 
   it('should show DataTool suggestions when no result return', function () {
-    this.retries(3);
-
     searchPage.input.waitForVisible();
     searchPage.input.setValue('noresult');
 
@@ -191,13 +191,12 @@ describe('Search Page', function () {
     searchPage.input.setValue('noresult');
 
     searchPage.contentWrapper.waitForVisible();
+    browser.pause(500);
     browser.keys('Enter');
-    browser.getUrl().should.be.equal('http://cpdb.lvh.me/s/noresult');
+    browser.getUrl().should.equal('http://cpdb.lvh.me/s/noresult');
   });
 
   it('should show save recent suggestions when user press Enter and there are results', function () {
-    this.retries(3);
-
     browser.execute(() => {
       window.localStorage.clear();
     });
@@ -216,6 +215,8 @@ describe('Search Page', function () {
   });
 
   it('should navigates between the result when user press the navigation keys', function () {
+    this.retries(3);
+
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 
@@ -254,6 +255,16 @@ describe('Search Page', function () {
     searchPage.input.getValue().should.eql('KeT');
   });
 
+  it('should follow the first result url when user hit ENTER', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.firstOfficerResult.waitForVisible();
+    browser.keys('Enter');
+
+    searchPage.currentBasePath.should.eql('/officer/1/');
+  });
+
   describe('Search box button', function () {
     it('should clear the query when clicked', function () {
       searchPage.input.waitForVisible();
@@ -266,12 +277,12 @@ describe('Search Page', function () {
     });
 
     it('should open search terms page when clicked', function () {
-      searchPage.searchTermToggle.getText().should.equal('What can I search?');
-      searchPage.searchTermToggle.click();
-      searchPage.searchTermToggle.getText().should.equal('Hide Search terms');
+      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
+      searchPage.searchTermsToggle.click();
+      searchPage.searchTermsToggle.getText().should.equal('Hide Search terms');
       browser.getUrl().should.match(/\/search\/terms\/$/);
-      searchPage.searchTermToggle.click();
-      searchPage.searchTermToggle.getText().should.equal('What can I search?');
+      searchPage.searchTermsToggle.click();
+      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
       browser.getUrl().should.not.match(/\/search\/terms\/$/);
     });
   });

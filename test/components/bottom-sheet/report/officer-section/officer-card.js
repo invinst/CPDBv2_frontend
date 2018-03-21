@@ -18,7 +18,7 @@ describe('OfficerCard', function () {
   });
 
   it('should be renderable', function () {
-    instance = renderIntoDocument(<OfficerCard />);
+    instance = renderIntoDocument(<OfficerCard/>);
     instance.should.be.ok();
   });
 

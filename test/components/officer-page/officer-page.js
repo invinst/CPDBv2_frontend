@@ -16,6 +16,7 @@ describe('OfficerPage component', function () {
   const store = mockStore({
     officerPage: {
       summary: {},
+      metrics: {},
       socialGraph: {
         isRequesting: false,
         links: [],
@@ -39,6 +40,10 @@ describe('OfficerPage component', function () {
           next: null,
           previous: null
         }
+      },
+      percentile: {
+        isRequesting: false,
+        items: []
       }
     }
   });

@@ -11,6 +11,7 @@ import {
 } from './search-page.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
 import { scrollToElement } from 'utils/dom';
+import * as constants from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button';
@@ -45,10 +46,11 @@ export default class SearchPage extends Component {
     if (query && query.length >= 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);
     }
-
   }
 
   componentWillReceiveProps(nextProps) {
+    const { location, params, routes, pushBreadcrumbs } = nextProps;
+    pushBreadcrumbs({ location, params, routes });
     // Make sure keyboard-focused item is kept within viewport:
     if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
       scrollToElement(
@@ -67,13 +69,17 @@ export default class SearchPage extends Component {
     const { trackRecentSuggestion } = this.props;
     const { to, url, type, id, text } = this.props.focusedItem;
 
-    if (type === MORE_BUTTON) {
+    // handle the case where user focuses on nothing
+    if (type === undefined) {
+      this.handleSearchBoxEnter();
+    } else if (type === MORE_BUTTON) {
       this.handleSelect(id);
     } else {
       trackRecentSuggestion(type, text, url, to);
       if (to) {
         browserHistory.push(to);
       } else {
+        /* istanbul ignore next */
         window.location.assign(url);
       }
     }
@@ -102,6 +108,9 @@ export default class SearchPage extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
+    if (!this.props.searchTermsHidden) {
+      browserHistory.push(`/${constants.SEARCH_PATH}`);
+    }
     this.sendSearchRequest(value);
   }
 
@@ -131,6 +140,7 @@ export default class SearchPage extends Component {
     let url, to;
 
     if (suggestionGroups.length === 0) {
+      /* istanbul ignore next */
       url = dataToolSearchUrl(query);
     } else {
       const firstGroup = head(suggestionGroups);
@@ -146,6 +156,7 @@ export default class SearchPage extends Component {
     if (to) {
       browserHistory.push(to);
     } else {
+      /* istanbul ignore next */
       window.location.assign(url);
     }
   }

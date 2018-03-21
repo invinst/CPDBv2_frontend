@@ -9,49 +9,41 @@ class SummarySection extends Section {
   constructor() {
     super();
 
-    const fields = ['rank', 'dateOfAppt', 'badge', 'race', 'salary', 'sex'];
+    const fields = ['yearOfBirth', 'race', 'sex', 'badge', 'rank', 'unit', 'career'];
+
     const elementGetters = {
-      unitLabel: '//span[@class="test--field-unit-label"]',
-      unitValue: '//span[@class="test--field-unit-value"]',
-      unitLink: '//div[@class="test--view-profile-button"]'
+      officerName: '.test--summary-section-officer-name',
+      viewUnitProfileButton: '.test--view-profile-button',
     };
     each(fields, (field, index) => {
       elementGetters[`${field}Label`] = `(//span[@class="test--field-label"])[${index + 1}]`;
       elementGetters[`${field}Value`] = `(//span[@class="test--field-value"])[${index + 1}]`;
-      elementGetters[`${field}Description`] = `(//span[@class="test--field-description"])[${index + 1}]`;
+      elementGetters[`${field}ExtraInfo`] = `(//span[@class="test--field-extra-info"])[${index + 1}]`;
     });
 
     this.prepareElementGetters(elementGetters);
   }
 }
 
-class AggregateSection extends Section {
+
+class RadarChartSection extends Section {
   constructor() {
     super();
-
-    const facetFields = ['category', 'race', 'age', 'gender'];
-    const facetGetters = {};
-    each(facetFields, (field, index) => {
-      facetGetters[`${field}`] = `(//div[@class="test--aggregate-facet"])[${index + 1}]`;
-      facetGetters[`${field}Name`] = `(//div[@class="test--aggregate-facet-name"])[${index + 1}]`;
-      facetGetters[`${field}EntryCount`] = `(//span[@class="test--entry-count"])[${index + 2}]`;
-      facetGetters[`${field}EntrySustainedCount`] = `(//span[@class="test--entry-sustained-count"])[${index + 2}]`;
-      facetGetters[`${field}EntryName`] = `(//a[@class="test--entry-name"])[${index + 2}]`;
-      facetGetters[`${field}Sparkline`] = `(//div[@class="test--sparkline"])[${index + 2}]`;
-    });
-
     this.prepareElementGetters({
-      title: '.test--aggregate-title',
-      sparklineHoverPoint: '.test--sparkline--hover-point',
-      ...facetGetters
+      svg: '.test--radar',
+      axis: '.test--radar-axis-wrapper',
+      wrapper: '.test--radar-wrapper',
+      legend: '.test--radar-legend-content',
+      lastAxisTitle: '.test--radar-axis-text:last-of-type'
     });
   }
 }
 
+
 class OfficerSummaryPage extends Page {
   header = new Header();
   summarySection = new SummarySection();
-  aggregateSection = new AggregateSection();
+  radarChartSection = new RadarChartSection();
 
   constructor() {
     super();

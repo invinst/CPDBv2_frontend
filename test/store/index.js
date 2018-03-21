@@ -127,17 +127,18 @@ describe('store', function () {
       },
       crs: {},
       officerPage: {
-        complaintsByYear: [],
         activeTab: null,
-        complaintFacets: [],
-        complaintsCount: null,
         fullName: '',
         breadcrumbCachedFullName: '',
         isRequesting: false,
         officerId: null,
         pathname: null,
         summary: {},
-        sustainedCount: null,
+        metrics: {},
+        percentile: {
+          isRequesting: false,
+          items: []
+        },
         socialGraph: {
           isRequesting: false,
           links: [],

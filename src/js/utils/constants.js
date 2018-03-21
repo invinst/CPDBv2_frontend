@@ -2,7 +2,7 @@ import Enum from 'enum';
 
 import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
-  galleryColor, lightAltoColor
+  galleryColor, lightAltoColor, visualTokenSchemeColor, greyColor, softBlackColor
 } from 'utils/styles';
 
 export const TOP = 'top';
@@ -86,7 +86,7 @@ export const MAIL_CHIMP_URL = '/vftg/';
 export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
-export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation`;
+export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
 export const RECENT_DOCUMENT_URL = `${CR_URL}list-by-new-document/`;
 export const RECENT_COMPLAINT_SUMMARIES_URL = `${CR_URL}complaint-summaries/`;
@@ -127,6 +127,10 @@ export const SEARCH_OFFICERS_REQUEST_FAILURE = 'SEARCH_OFFICERS_REQUEST_FAILURE'
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
 export const OFFICER_SUMMARY_REQUEST_FAILURE = 'OFFICER_SUMMARY_REQUEST_FAILURE';
+
+export const OFFICER_METRICS_REQUEST_START = 'OFFICER_METRICS_REQUEST_START';
+export const OFFICER_METRICS_REQUEST_SUCCESS = 'OFFICER_METRICS_REQUEST_SUCCESS';
+export const OFFICER_METRICS_REQUEST_FAILURE = 'OFFICER_METRICS_REQUEST_FAILURE';
 
 export const UNIT_PROFILE_SUMMARY_REQUEST_START = 'UNIT_PROFILE_SUMMARY_REQUEST_START';
 export const UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS = 'UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS';
@@ -259,6 +263,10 @@ export const SEARCH_TERMS_NAVIGATION_DOWN = 'SEARCH_TERMS_NAVIGATION_DOWN';
 export const SEARCH_TERMS_NAVIGATION_RESET = 'SEARCH_TERMS_NAVIGATION_RESET';
 export const SEARCH_TERMS_NAVIGATION_SET = 'SEARCH_TERMS_NAVIGATION_SET';
 
+export const PERCENTILE_REQUEST_START = 'PERCENTILE_REQUEST_START';
+export const PERCENTILE_REQUEST_SUCCESS = 'PERCENTILE_REQUEST_SUCCESS';
+export const PERCENTILE_REQUEST_FAILURE = 'PERCENTILE_REQUEST_FAILURE';
+
 export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
 export const VISUAL_TOKEN_COLOR_SCHEME = {
   '00': '#f5f4f4',
@@ -297,6 +305,42 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
   '54': '#391c6a',
   '45': '#520051',
   '55': '#131313',
+};
+
+export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
+  '000': visualTokenSchemeColor.greyColor,
+  '100': visualTokenSchemeColor.lightYellowColor,
+  '110': visualTokenSchemeColor.lightYellowColor,
+  '120': visualTokenSchemeColor.lightYellowColor,
+  '200': visualTokenSchemeColor.yellowColor,
+  '210': visualTokenSchemeColor.yellowColor,
+  '220': visualTokenSchemeColor.yellowColor,
+  '010': visualTokenSchemeColor.lightBlueColor,
+  '020': visualTokenSchemeColor.blueColor,
+  '001': visualTokenSchemeColor.pinkColor,
+  '011': visualTokenSchemeColor.pinkColor,
+  '021': visualTokenSchemeColor.pinkColor,
+  '101': visualTokenSchemeColor.darkerPinkColor,
+  '111': visualTokenSchemeColor.darkerPinkColor,
+  '121': visualTokenSchemeColor.darkerPinkColor,
+  '002': visualTokenSchemeColor.redColor,
+  '012': visualTokenSchemeColor.redColor,
+  '022': visualTokenSchemeColor.redColor,
+  '102': visualTokenSchemeColor.darkerRedColor,
+  '112': visualTokenSchemeColor.darkerRedColor,
+  '122': visualTokenSchemeColor.darkerRedColor,
+  '201': visualTokenSchemeColor.lightRedColor,
+  '211': visualTokenSchemeColor.lightRedColor,
+  '221': visualTokenSchemeColor.lightRedColor,
+  '202': visualTokenSchemeColor.darkestRedColor,
+  '212': visualTokenSchemeColor.darkestRedColor,
+  '222': visualTokenSchemeColor.darkestRedColor,
+};
+
+export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
+  COLOR_TEXT_LIGHT_SCHEME: ['202', '212', '222', '020'],
+  DARK_COLOR: softBlackColor,
+  LIGHT_COLOR: greyColor
 };
 
 export const RECENT_CONTENT_TYPE = 'RECENT';

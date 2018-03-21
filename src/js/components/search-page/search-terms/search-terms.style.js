@@ -1,16 +1,11 @@
-import { softBlackColor, whiteTwoColor, accentColor, concreteColor } from 'utils/styles';
+import { accentColor, concreteColor, softBlackColor, whiteTwoColor } from 'utils/styles';
+
 
 export const contentWrapperStyle = {
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
   position: 'relative',
-  height: 'calc(100vh - 53px)',
-  width: 'calc(100% - 320px)',
-  overflowX: 'auto',
-  display: 'inline-block',
-};
-
-export const searchTermWrapperStyle = {
+  width: '100%',
   background: concreteColor,
 };
 
@@ -47,4 +42,10 @@ export const mediumStyle = {
 
 export const maximumStyle = {
   maxWidth: '1440px',
+};
+
+export const wrapperStyle = {
+  height: 'calc(100vh - 54px)',
+  width: 'calc(100% - 320px)',
+  display: 'inline-block'
 };
