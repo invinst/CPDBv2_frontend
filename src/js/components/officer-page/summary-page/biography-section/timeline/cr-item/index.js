@@ -1,26 +1,29 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import {
+  attachmentImageStyle,
+  attachmentWrapperStyle,
   categoryStyle,
   coaccusedStyle,
+  dateStyle,
   detailStyle,
   findingStyle,
   kindStyle,
   kindWrapperStyle,
-  rankStyle,
-  showingStyle,
-  wrapperShowingStyle,
-  style,
-  unitStyle,
+  moreAttachmentsStyle,
   rightStyle,
-  attachmentWrapperStyle,
-  dateStyle,
-  attachmentImageStyle,
-  moreAttachmentsStyle
+  showingStyle,
+  wrapperShowingStyle
 } from './cr-item.style';
+import BaseItem from '../base-item';
 
 
-export default class CRItem extends Component {
+export default class CRItem extends BaseItem {
+  constructor(props) {
+    super(props);
+
+    this.height = 58;
+  }
 
   renderAttachments() {
     const { attachments } = this.props.item;
@@ -44,30 +47,26 @@ export default class CRItem extends Component {
     return <span style={ attachmentWrapperStyle }/>;
   }
 
-  render() {
+  renderShowing() {
     const { item } = this.props;
 
     return (
-      <div style={ style }>
-        <span style={ rankStyle }>{ item.rank }</span>
-        <span style={ unitStyle }>{ item.unitDescription }</span>
-        <span style={ wrapperShowingStyle }>
-          <span style={ showingStyle }>
-            <div style={ kindWrapperStyle }>
-              <span style={ kindStyle(item.finding === 'Sustained') }>Complaint</span>
-            </div>
-            <span style={ detailStyle }>
-              <div style={ categoryStyle }>{ item.category }</div>
-              <div style={ findingStyle }>{ item.finding }, { item.outcome }</div>
-            </span>
-            <span style={ rightStyle }>
-              <span style={ coaccusedStyle }>1 of { item.coaccused } coaccused</span>
-              { this.renderAttachments() }
-              <span style={ dateStyle }>{ item.date }</span>
-            </span>
+      <span style={ wrapperShowingStyle }>
+        <span style={ showingStyle }>
+          <div style={ kindWrapperStyle }>
+            <span style={ kindStyle(item.finding === 'Sustained') }>Complaint</span>
+          </div>
+          <span style={ detailStyle }>
+            <div style={ categoryStyle }>{ item.category }</div>
+            <div style={ findingStyle }>{ item.finding }, { item.outcome }</div>
+          </span>
+          <span style={ rightStyle }>
+            <span style={ coaccusedStyle }>1 of { item.coaccused } coaccused</span>
+            { this.renderAttachments() }
+            <span style={ dateStyle }>{ item.date }</span>
           </span>
         </span>
-      </div>
+      </span>
     );
   }
 }

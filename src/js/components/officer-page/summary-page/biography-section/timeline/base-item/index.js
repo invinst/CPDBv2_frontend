@@ -1,0 +1,52 @@
+import React, { Component, PropTypes } from 'react';
+
+import {
+  baseStyle,
+  baseRankStyle,
+  baseUnitStyle,
+} from './base-item.style';
+
+
+export default class BaseItem extends Component {
+  constructor(props) {
+    super(props);
+    this.renderRankAndUnit = this.renderRankAndUnit.bind(this);
+    this.renderShowing = this.renderShowing.bind(this);
+
+    this.height = 58;
+  }
+
+  renderRankAndUnit() {
+    const { isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay, unitDisplay } = this.props.item;
+    return (
+      <span>
+        <span style={ baseRankStyle(this.height, isFirstRank, isLastRank) }>{ rankDisplay }</span>
+        <span style={ baseUnitStyle(this.height, isFirstUnit, isLastUnit) }>{ unitDisplay }</span>
+      </span>
+    );
+  }
+
+  renderShowing() {
+    return null;
+  }
+
+  render() {
+    return (
+      <div style={ baseStyle }>
+        { this.renderRankAndUnit() }
+        { this.renderShowing() }
+      </div>
+    );
+  }
+}
+
+BaseItem.propTypes = {
+  item: PropTypes.shape({
+    isFirstRank: PropTypes.bool,
+    isLastRank: PropTypes.bool,
+    isFirstUnit: PropTypes.bool,
+    isLastUnit: PropTypes.bool,
+    rankDisplay: PropTypes.string,
+    unitDisplay: PropTypes.string,
+  }),
+};

@@ -1,35 +1,35 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import {
   categoryStyle,
   kindStyle,
   kindWrapperStyle,
-  rankStyle,
   showingStyle,
-  style,
-  unitStyle,
   dateStyle,
   wrapperShowingStyle,
 } from './award-item.style';
+import BaseItem from '../base-item';
 
 
-export default class AwardItem extends Component {
-  render() {
+export default class AwardItem extends BaseItem {
+  constructor(props) {
+    super(props);
+
+    this.height = 58;
+  }
+
+  renderShowing() {
     const { item } = this.props;
     return (
-      <div style={ style }>
-        <span style={ rankStyle }>{ item.rank }</span>
-        <span style={ unitStyle }>{ item.unitDescription }</span>
-        <span style={ wrapperShowingStyle }>
-          <span style={ showingStyle }>
-            <div style={ kindWrapperStyle }>
-              <span style={ kindStyle }>Award</span>
-            </div>
-            <span style={ categoryStyle }>{ item.category }</span>
-            <span style={ dateStyle }>{ item.date }</span>
-          </span>
+      <span style={ wrapperShowingStyle }>
+        <span style={ showingStyle }>
+          <div style={ kindWrapperStyle }>
+            <span style={ kindStyle }>Award</span>
+          </div>
+          <span style={ categoryStyle }>{ item.category }</span>
+          <span style={ dateStyle }>{ item.date }</span>
         </span>
-      </div>
+      </span>
     );
   }
 }

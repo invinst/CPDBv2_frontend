@@ -6,39 +6,39 @@ import {
   clayGray,
 } from 'utils/styles';
 import {
-  commonStyle,
-  commonRankStyle,
-  commonUnitStyle,
-  commonWrapperShowingStyle,
-  commonShowingStyle,
-  commonWrapperKindStyle,
-  commonKindStyle,
-  commonCategoryStyle,
-  commonDateStyle,
-} from '../common.style';
+  baseStyle,
+  baseRankStyle,
+  baseUnitStyle,
+  baseWrapperShowingStyle,
+  baseShowingStyle,
+  baseWrapperKindStyle,
+  baseKindStyle,
+  baseCategoryStyle,
+  baseDateStyle,
+} from '../base-item/base-item.style';
 
 
 const height = 58;
 
-export const style = commonStyle;
+export const style = baseStyle;
 
 export const rankStyle = {
-  ...commonRankStyle,
+  ...baseRankStyle,
   lineHeight: `${height}px`,
 };
 
 export const unitStyle = {
-  ...commonUnitStyle,
+  ...baseUnitStyle,
   lineHeight: `${height}px`,
 };
 
 export const wrapperShowingStyle = {
-  ...commonWrapperShowingStyle,
+  ...baseWrapperShowingStyle,
   backgroundColor: snowColor,
 };
 
 export const showingStyle = {
-  ...commonShowingStyle,
+  ...baseShowingStyle,
   backgroundColor: snowColor,
   height: `${height}px`,
   lineHeight: `${height}px`,
@@ -47,10 +47,10 @@ export const showingStyle = {
   boxSizing: 'border-box',
 };
 
-export const kindWrapperStyle = commonWrapperKindStyle;
+export const kindWrapperStyle = baseWrapperKindStyle;
 
 export const kindStyle = {
-  ...commonKindStyle,
+  ...baseKindStyle,
   width: '61px',
   color: clayGray,
   backgroundColor: sugarCaneColor,
@@ -58,14 +58,14 @@ export const kindStyle = {
 };
 
 export const categoryStyle = {
-  ...commonCategoryStyle,
+  ...baseCategoryStyle,
   width: '297px',
   display: 'inline-block',
   verticalAlign: 'middle',
 };
 
 export const dateStyle = {
-  ...commonDateStyle,
+  ...baseDateStyle,
   fontSize: '12px',
   color: softBlackColor,
   fontWeight: 300,

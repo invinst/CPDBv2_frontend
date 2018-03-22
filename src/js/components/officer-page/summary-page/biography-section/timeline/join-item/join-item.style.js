@@ -3,45 +3,28 @@ import {
   clayGray,
 } from 'utils/styles';
 import {
-  commonStyle,
-  commonRankStyle,
-  commonUnitStyle,
-  commonWrapperShowingStyle,
-  commonShowingStyle,
-  commonDateStyle,
-} from '../common.style';
+  baseWrapperShowingStyle,
+  baseShowingStyle,
+  baseDateStyle,
+} from '../base-item/base-item.style';
 
 
 const height = 24;
 
-export const style = commonStyle;
-
-export const rankStyle = {
-  ...commonRankStyle,
-  lineHeight: `${height}px`,
-};
-
-export const unitStyle = {
-  ...commonUnitStyle,
-  color: clayGray,
-  height: `${height}px`,
-  lineHeight: `${height}px`,
-};
-
 export const wrapperShowingStyle = {
-  ...commonWrapperShowingStyle,
+  ...baseWrapperShowingStyle,
   backgroundColor: 'inherit',
 };
 
 export const showingStyle = {
-  ...commonShowingStyle,
+  ...baseShowingStyle,
   height: `${height}px`,
   lineHeight: `${height}px`,
   display: 'inline-block',
 };
 
 export const dateStyle = {
-  ...commonDateStyle,
+  ...baseDateStyle,
   fontSize: '12px',
   color: softBlackColor,
   fontWeight: 300,

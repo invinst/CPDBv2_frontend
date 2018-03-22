@@ -8,59 +8,59 @@ import {
   whiteTwoColor,
 } from 'utils/styles';
 import {
-  commonRankStyle,
-  commonShowingStyle,
-  commonStyle,
-  commonUnitStyle,
-  commonWrapperKindStyle,
-  commonWrapperShowingStyle,
-  commonKindStyle,
-  commonCategoryStyle,
-  commonDetailStyle,
-  commonDateStyle,
-} from '../common.style';
+  baseRankStyle,
+  baseShowingStyle,
+  baseStyle,
+  baseUnitStyle,
+  baseWrapperKindStyle,
+  baseWrapperShowingStyle,
+  baseKindStyle,
+  baseCategoryStyle,
+  baseDetailStyle,
+  baseDateStyle,
+} from '../base-item/base-item.style';
 
 
 const height = 58;
 
-export const style = commonStyle;
+export const style = baseStyle;
 
 export const rankStyle = {
-  ...commonRankStyle,
+  ...baseRankStyle,
   lineHeight: `${height}px`,
 };
 
 export const unitStyle = {
-  ...commonUnitStyle,
+  ...baseUnitStyle,
   lineHeight: `${height}px`,
 };
 
 export const wrapperShowingStyle = {
-  ...commonWrapperShowingStyle,
+  ...baseWrapperShowingStyle,
   backgroundColor: snowColor,
 };
 
 export const showingStyle = {
-  ...commonShowingStyle,
+  ...baseShowingStyle,
   height: `${height}px`,
   lineHeight: `${height}px`,
   borderBottom: `solid 1px ${whiteTwoColor}`,
   boxSizing: 'border-box',
 };
 
-export const kindWrapperStyle = commonWrapperKindStyle;
+export const kindWrapperStyle = baseWrapperKindStyle;
 
 export const kindStyle = (active) => ({
-  ...commonKindStyle,
+  ...baseKindStyle,
   width: '85px',
   border: `solid 1px ${champagneColor}`,
   color: active ? scarletColor : brightOrangeTwoColor,
   backgroundColor: active ? champagneColor : 'inherit',
 });
 
-export const detailStyle = commonDetailStyle;
+export const detailStyle = baseDetailStyle;
 
-export const categoryStyle = commonCategoryStyle;
+export const categoryStyle = baseCategoryStyle;
 
 export const findingStyle = {
   fontWeight: 300,
@@ -85,6 +85,7 @@ export const attachmentWrapperStyle = {
   width: '51px',
   display: 'inline-block',
   margin: '0 8px 0 17px',
+  verticalAlign: 'middle',
 };
 
 export const attachmentImageStyle = {
@@ -101,6 +102,7 @@ export const moreAttachmentsStyle = {
   width: '24px',
   marginLeft: '3px',
   lineHeight: '32px',
+  height: '32px',
   display: 'block-inline',
   border: `solid 1px ${whiteTwoColor}`,
   textAlign: 'center',
@@ -108,7 +110,7 @@ export const moreAttachmentsStyle = {
 };
 
 export const dateStyle = {
-  ...commonDateStyle,
+  ...baseDateStyle,
   fontSize: '12px',
   color: softBlackColor,
   fontWeight: 300,

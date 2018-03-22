@@ -1,32 +1,27 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import {
-  rankStyle,
   showingStyle,
-  style,
-  unitStyle,
   dateStyle,
   wrapperShowingStyle,
   joinStyle,
 } from './join-item.style';
+import BaseItem from '../base-item';
 
 
-export default class JointItem extends Component {
-  render() {
+export default class JointItem extends BaseItem {
+  renderShowing() {
     const { item } = this.props;
+    console.log(item)
     return (
-      <div style={ style }>
-        <span style={ rankStyle }>{ item.rank }</span>
-        <span style={ unitStyle }>{ item.unitDescription }</span>
-        <span style={ wrapperShowingStyle }>
-          <span style={ showingStyle }>
-            <span style={ joinStyle }>
-              Joined Chicago Police Department with Unit {item.unitName} as a {item.rank}
-            </span>
-            <span style={ dateStyle }>{ item.date }</span>
+      <span style={ wrapperShowingStyle }>
+        <span style={ showingStyle }>
+          <span style={ joinStyle }>
+            Joined Chicago Police Department with Unit {item.unitName} as a {item.rank}
           </span>
+          <span style={ dateStyle }>{ item.date }</span>
         </span>
-      </div>
+      </span>
     );
   }
 }

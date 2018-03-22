@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import {
   rankStyle,
@@ -9,27 +9,35 @@ import {
   clearFloatStyle,
   wrapperShowingStyle,
 } from './year-item.style';
+import BaseItem from '../base-item';
 
 
-export default class YearItem extends Component {
-  render() {
-    const { item } = this.props;
-    const hasData = item.hasData;
+export default class YearItem extends BaseItem {
+  constructor(props) {
+    super(props);
+
+    const { hasData } = this.props.item;
+    this.height = hasData ? 64 : 32;
+  }
+
+  renderShowing() {
+    const { date, hasData } = this.props.item;
     return (
-      <div style={ style }>
-        <span style={ rankStyle(hasData) }>{ item.rank }</span>
-        <span style={ unitStyle(hasData) }>{ item.unitDescription }</span>
-        <span style={ wrapperShowingStyle }>
-          <div style={ showingStyle(hasData) }>
-            <span style={ dateStyle(hasData) }>{ item.date }</span>
-            <br style={ clearFloatStyle }/>
-          </div>
-        </span>
-      </div>
+      <span style={ wrapperShowingStyle }>
+        <div style={ showingStyle(hasData) }>
+          <span style={ dateStyle(hasData) }>{ date }</span>
+          <br style={ clearFloatStyle }/>
+        </div>
+      </span>
     );
   }
 }
 
 YearItem.propTypes = {
-  item: PropTypes.object
+  item: PropTypes.shape({
+    rank: PropTypes.string,
+    unitDescription: PropTypes.string,
+    date: PropTypes.string,
+    hasData: PropTypes.bool,
+  })
 };

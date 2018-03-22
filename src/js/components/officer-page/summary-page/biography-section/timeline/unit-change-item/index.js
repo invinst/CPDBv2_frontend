@@ -1,35 +1,47 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 
 import {
-  rankStyle,
   showingStyle,
-  style,
-  unitStyle,
   dateStyle,
   wrapperShowingStyle,
   unitChangeStyle,
   oldUnitStyle,
   newUnitStyle,
+  rankStyle,
+  unitStyle,
 } from './unit-change-item.style';
+import BaseItem from '../base-item';
 
 
-export default class UnitChangeItem extends Component {
-  render() {
+export default class UnitChangeItem extends BaseItem {
+  constructor(props) {
+    super(props);
+
+    this.height = 24;
+  }
+
+  renderRankAndUnit() {
+    const { isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay } = this.props.item;
+    return (
+      <span>
+        <span style={ rankStyle(this.height, isFirstRank, isLastRank) }>{ rankDisplay }</span>
+        <span style={ unitStyle(this.height, isFirstUnit, isLastUnit) }>UNIT CHANGE</span>
+      </span>
+    );
+  }
+
+  renderShowing() {
     const { item, oldUnitName } = this.props;
     return (
-      <div style={ style }>
-        <span style={ rankStyle }>{ item.rank }</span>
-        <span style={ unitStyle }>UNIT CHANGE</span>
-        <span style={ wrapperShowingStyle }>
-          <span style={ showingStyle }>
-            <span style={ unitChangeStyle }>
-              <span style={ oldUnitStyle }>{oldUnitName} → </span>
-              <span style={ newUnitStyle }>Unit {item.unitName} - { item.unitDescription }</span>
-            </span>
-            <span style={ dateStyle }>{ item.date }</span>
+      <span style={ wrapperShowingStyle }>
+        <span style={ showingStyle }>
+          <span style={ unitChangeStyle }>
+            <span style={ oldUnitStyle }>{oldUnitName} → </span>
+            <span style={ newUnitStyle }>Unit {item.unitName} - { item.unitDescription }</span>
           </span>
+          <span style={ dateStyle }>{ item.date }</span>
         </span>
-      </div>
+      </span>
     );
   }
 }
