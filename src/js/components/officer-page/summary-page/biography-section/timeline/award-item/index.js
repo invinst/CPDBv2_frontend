@@ -24,10 +24,10 @@ export default class AwardItem extends BaseItem {
       <span style={ wrapperShowingStyle }>
         <span style={ showingStyle(hasBorderBottom) }>
           <div style={ kindWrapperStyle }>
-            <span style={ kindStyle }>Award</span>
+            <span style={ kindStyle } className='test--award-item-kind'>Award</span>
           </div>
-          <span style={ categoryStyle }>{ item.category }</span>
-          <span style={ dateStyle }>{ item.date }</span>
+          <span style={ categoryStyle } className='test--award-item-category'>{ item.category }</span>
+          <span style={ dateStyle } className='test--award-item-date'>{ item.date }</span>
         </span>
       </span>
     );

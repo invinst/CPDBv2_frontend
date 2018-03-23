@@ -20,8 +20,18 @@ export default class BaseItem extends Component {
     const { isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay, unitDisplay } = this.props.item;
     return (
       <span>
-        <span style={ baseRankStyle(this.height, isFirstRank, isLastRank) }>{ rankDisplay }</span>
-        <span style={ baseUnitStyle(this.height, isFirstUnit, isLastUnit) }>{ unitDisplay }</span>
+        <span
+          style={ baseRankStyle(this.height, isFirstRank, isLastRank) }
+          className='test--base-item-rank'
+        >
+          { rankDisplay }
+        </span>
+        <span
+          style={ baseUnitStyle(this.height, isFirstUnit, isLastUnit) }
+          className='test--base-item-unit'
+        >
+          { unitDisplay }
+        </span>
       </span>
     );
   }

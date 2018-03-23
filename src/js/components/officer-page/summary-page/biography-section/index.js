@@ -14,10 +14,10 @@ export default class BiographySection extends Component {
 
     this.biographyTabs = [
       { name: 'TIMELINE', renderer: this.renderTimeline },
-      { name: 'SUMMARY', renderer: this.renderTimeline },
-      { name: 'MAP', renderer: this.renderTimeline },
-      { name: 'COACCUSALS', renderer: this.renderTimeline },
-      { name: 'ATTACHMENTS', renderer: this.renderTimeline },
+      { name: 'SUMMARY', renderer: () => null },
+      { name: 'MAP', renderer: () => null },
+      { name: 'COACCUSALS', renderer: () => null },
+      { name: 'ATTACHMENTS', renderer: () => null },
     ];
     this.activeTabName = 'TIMELINE';
   }
@@ -25,10 +25,14 @@ export default class BiographySection extends Component {
   renderMenu() {
 
     return (
-      <div style={ menuStyle }>
+      <div style={ menuStyle } className='test--biography-section-menu'>
         {
           this.biographyTabs.map((biographyTab, index) => (
-            <span key={ index } style={ menuItemStyle(biographyTab.name === this.activeTabName) }>
+            <span
+              key={ index }
+              style={ menuItemStyle(biographyTab.name === this.activeTabName) }
+              className='test--biography-tab-name'
+            >
               { biographyTab.name }
             </span>)
           )
@@ -60,3 +64,8 @@ export default class BiographySection extends Component {
 BiographySection.propTypes = {
   timelineItems: PropTypes.array
 };
+
+BiographySection.defaultProps = {
+  timelineItems: []
+};
+

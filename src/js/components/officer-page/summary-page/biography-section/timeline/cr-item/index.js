@@ -34,12 +34,16 @@ export default class CRItem extends BaseItem {
         <span style={ attachmentWrapperStyle }>
           {
             rest.length ?
-              <span style={ moreAttachmentsStyle }>+{rest.length}</span>
+              <span style={ moreAttachmentsStyle } className='test--more-attachment'>+{rest.length}</span>
               :
               null
           }
-          <a href={ firstAttachment.url }>
-            <img style={ attachmentImageStyle } src={ firstAttachment.previewImageUrl }/>
+          <a href={ firstAttachment.url } className='test--attachment-image-href'>
+            <img
+              style={ attachmentImageStyle }
+              src={ firstAttachment.previewImageUrl }
+              className='test--attachment-image'
+            />
           </a>
         </span>
       );
@@ -54,16 +58,16 @@ export default class CRItem extends BaseItem {
       <span style={ wrapperShowingStyle }>
         <span style={ showingStyle(hasBorderBottom) }>
           <div style={ kindWrapperStyle }>
-            <span style={ kindStyle(item.finding === 'Sustained') }>Complaint</span>
+            <span style={ kindStyle(item.finding === 'Sustained') } className='test--cr-item-kind'>Complaint</span>
           </div>
           <span style={ detailStyle }>
-            <div style={ categoryStyle }>{ item.category }</div>
-            <div style={ findingStyle }>{ item.finding }, { item.outcome }</div>
+            <div style={ categoryStyle } className='test--cr-item-category'>{ item.category }</div>
+            <div style={ findingStyle } className='test--cr-item-finding'>{ item.finding }, { item.outcome }</div>
           </span>
           <span style={ rightStyle }>
-            <span style={ coaccusedStyle }>1 of { item.coaccused } coaccused</span>
+            <span style={ coaccusedStyle } className='test--cr-item-coaccused'>1 of { item.coaccused } coaccused</span>
             { this.renderAttachments() }
-            <span style={ dateStyle }>{ item.date }</span>
+            <span style={ dateStyle } className='test--cr-item-date'>{ item.date }</span>
           </span>
         </span>
       </span>
