@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import TwitterWidgetsLoader from 'twitter-widgets';
 import Perf from 'react-addons-perf';
 
 import 'babel-polyfill';
@@ -14,8 +13,6 @@ if (global.DEVELOPMENT) {
 if (global.LIVE_TEST) {
   global.disableAnimation = true;
 }
-
-TwitterWidgetsLoader.load(() => {});
 
 render(
   <RouterRoot />,
