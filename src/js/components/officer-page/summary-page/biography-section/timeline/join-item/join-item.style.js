@@ -16,12 +16,12 @@ export const wrapperShowingStyle = {
   backgroundColor: 'inherit',
 };
 
-export const showingStyle = {
-  ...baseShowingStyle,
+export const showingStyle = (hasBorderBottom) => ({
+  ...baseShowingStyle(hasBorderBottom),
   height: `${height}px`,
   lineHeight: `${height}px`,
   display: 'inline-block',
-};
+});
 
 export const dateStyle = {
   ...baseDateStyle,

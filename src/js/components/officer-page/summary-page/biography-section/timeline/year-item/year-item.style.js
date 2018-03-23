@@ -1,12 +1,9 @@
 import {
-  whiteTwoColor,
   snowColor,
   softBlackColor,
 } from 'utils/styles';
 import {
   baseStyle,
-  baseRankStyle,
-  baseUnitStyle,
   baseWrapperShowingStyle,
   baseShowingStyle,
   baseDateStyle,
@@ -18,28 +15,16 @@ const noDataHeight = 32;
 
 export const style = baseStyle;
 
-export const rankStyle = (hasData) => ({
-  ...baseRankStyle,
-  lineHeight: hasData ? `${hasDataHeight}px` : `${noDataHeight}px`,
-});
-
-export const unitStyle = (hasData) => ({
-  ...baseUnitStyle,
-  lineHeight: hasData ? `${hasDataHeight}px` : `${noDataHeight}px`,
-});
-
 export const wrapperShowingStyle = {
   ...baseWrapperShowingStyle,
   backgroundColor: snowColor,
 };
 
-export const showingStyle = (hasData) => ({
-  ...baseShowingStyle,
+export const showingStyle = (hasData, hasBorderBottom) => ({
+  ...baseShowingStyle(hasBorderBottom),
   backgroundColor: snowColor,
   height: hasData ? `${hasDataHeight}px` : `${noDataHeight}px`,
   lineHeight: hasData ? `${hasDataHeight}px` : `${noDataHeight}px`,
-  borderBottom: `solid 1px ${whiteTwoColor}`,
-  boxSizing: 'border-box',
 });
 
 export const dateStyle = (hasData) => ({
@@ -47,6 +32,7 @@ export const dateStyle = (hasData) => ({
   fontSize: hasData ? '18px' : '14px',
   color: softBlackColor,
   fontWeight: 300,
+  paddingTop: hasData ? '12px' : 0,
 });
 
 export const clearFloatStyle = {

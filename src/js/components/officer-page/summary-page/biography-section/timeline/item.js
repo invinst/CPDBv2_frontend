@@ -12,12 +12,12 @@ import YearItem from './year-item';
 const Item = function (props) {
   const item = props.item;
   const componentMap = {
-    'CR': <CRItem item={ item } />,
-    'FORCE': <TRRItem item={ item } />,
-    'AWARD': <AwardItem item={ item } />,
-    'UNIT_CHANGE': <UnitChangeItem item={ item } />,
-    'JOINED': <JointItem item={ item } />,
-    'YEAR': <YearItem item={ item } />,
+    'CR': <CRItem { ...props }/>,
+    'FORCE': <TRRItem { ...props } />,
+    'AWARD': <AwardItem { ...props } />,
+    'UNIT_CHANGE': <UnitChangeItem { ...props } />,
+    'JOINED': <JointItem { ...props } />,
+    'YEAR': <YearItem { ...props } />,
   };
   return get(componentMap, item.kind, null);
 };

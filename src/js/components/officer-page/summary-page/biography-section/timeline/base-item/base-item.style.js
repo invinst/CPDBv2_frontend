@@ -1,4 +1,4 @@
-import { whiteTwoColor, sugarCaneColor, softBlackColor, } from 'utils/styles';
+import { whiteTwoColor, sugarCaneColor, softBlackColor, clayGray } from 'utils/styles';
 
 const radius = 4;
 
@@ -33,6 +33,7 @@ export const baseUnitStyle = (height, isFirst, isLast) => ({
   whiteSpace: 'pre',
   backgroundColor: '#E8E7E7',
   lineHeight: `${height}px`,
+  color: clayGray,
   ...borderRadiusStyle(isFirst, isLast),
 });
 
@@ -41,11 +42,13 @@ export const baseWrapperShowingStyle = {
   width: 'calc(100% - 209px)',
 };
 
-export const baseShowingStyle = {
+export const baseShowingStyle = (hasBorderBottom) => ({
   width: 'calc(100% - 32px)',
   display: 'inline-block',
   margin: '0 16px',
-};
+  borderBottom: hasBorderBottom ? `solid 2px ${whiteTwoColor}`: 'none',
+  boxSizing: 'border-box',
+});
 
 export const baseWrapperKindStyle = {
   width: '85px',

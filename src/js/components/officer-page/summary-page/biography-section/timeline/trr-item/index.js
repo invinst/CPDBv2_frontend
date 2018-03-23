@@ -19,10 +19,10 @@ export default class TRRItem extends BaseItem {
   }
 
   renderShowing() {
-    const { item } = this.props;
+    const { item, hasBorderBottom } = this.props;
     return (
       <span style={ wrapperShowingStyle }>
-        <span style={ showingStyle }>
+        <span style={ showingStyle(hasBorderBottom) }>
           <div style={ kindWrapperStyle }>
             <span style={ kindStyle }>Force</span>
           </div>
@@ -35,5 +35,6 @@ export default class TRRItem extends BaseItem {
 }
 
 TRRItem.propTypes = {
-  item: PropTypes.object
+  item: PropTypes.object,
+  hasBorderBottom: PropTypes.bool,
 };

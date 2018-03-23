@@ -54,3 +54,7 @@ SummaryPage.propTypes = {
   newTimelineItems: PropTypes.array,
   fetchPercentile: PropTypes.func
 };
+
+SummaryPage.defaultProps = {
+  newTimelineItems: [],
+};

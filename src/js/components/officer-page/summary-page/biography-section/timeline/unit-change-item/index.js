@@ -31,15 +31,15 @@ export default class UnitChangeItem extends BaseItem {
   }
 
   renderShowing() {
-    const { item, oldUnitName } = this.props;
+    const { unitName, oldUnitName, oldUnitDescription, unitDescription, date } = this.props.item;
     return (
       <span style={ wrapperShowingStyle }>
         <span style={ showingStyle }>
           <span style={ unitChangeStyle }>
-            <span style={ oldUnitStyle }>{oldUnitName} → </span>
-            <span style={ newUnitStyle }>Unit {item.unitName} - { item.unitDescription }</span>
+            <span style={ oldUnitStyle }>Unit { oldUnitName } - { oldUnitDescription } → </span>
+            <span style={ newUnitStyle }>Unit { unitName } - { unitDescription }</span>
           </span>
-          <span style={ dateStyle }>{ item.date }</span>
+          <span style={ dateStyle }>{ date }</span>
         </span>
       </span>
     );
@@ -48,9 +48,4 @@ export default class UnitChangeItem extends BaseItem {
 
 UnitChangeItem.propTypes = {
   item: PropTypes.object,
-  oldUnitName: PropTypes.string,
-};
-
-UnitChangeItem.defaultProps = {
-  oldUnitName: '',
 };

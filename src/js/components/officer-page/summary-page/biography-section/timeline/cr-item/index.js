@@ -48,11 +48,11 @@ export default class CRItem extends BaseItem {
   }
 
   renderShowing() {
-    const { item } = this.props;
+    const { item, hasBorderBottom } = this.props;
 
     return (
       <span style={ wrapperShowingStyle }>
-        <span style={ showingStyle }>
+        <span style={ showingStyle(hasBorderBottom) }>
           <div style={ kindWrapperStyle }>
             <span style={ kindStyle(item.finding === 'Sustained') }>Complaint</span>
           </div>
@@ -74,4 +74,5 @@ export default class CRItem extends BaseItem {
 CRItem.propTypes = {
   item: PropTypes.object,
   attachments: PropTypes.array,
+  hasBorderBottom: PropTypes.bool,
 };

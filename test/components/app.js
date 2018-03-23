@@ -56,6 +56,8 @@ describe('App component', function () {
       timeline: {
         filters: {}
       },
+      newTimeline: {},
+      },
       percentile: {
         isRequesting: false,
         items: []

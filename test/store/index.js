@@ -163,6 +163,10 @@ describe('store', function () {
           selectedItemIndex: null,
           sortDescending: true,
           filters: {}
+        },
+        newTimeline: {
+          isRequesting: false,
+          items: []
         }
       },
       unitProfilePage: {

@@ -1,10 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import {
-  rankStyle,
   showingStyle,
-  style,
-  unitStyle,
   dateStyle,
   clearFloatStyle,
   wrapperShowingStyle,
@@ -21,10 +18,12 @@ export default class YearItem extends BaseItem {
   }
 
   renderShowing() {
-    const { date, hasData } = this.props.item;
+    const { hasBorderBottom, item } = this.props;
+    const { date, hasData } = item;
+
     return (
       <span style={ wrapperShowingStyle }>
-        <div style={ showingStyle(hasData) }>
+        <div style={ showingStyle(hasData, hasBorderBottom) }>
           <span style={ dateStyle(hasData) }>{ date }</span>
           <br style={ clearFloatStyle }/>
         </div>
@@ -39,5 +38,6 @@ YearItem.propTypes = {
     unitDescription: PropTypes.string,
     date: PropTypes.string,
     hasData: PropTypes.bool,
-  })
+  }),
+  hasBorderBottom: PropTypes.bool,
 };

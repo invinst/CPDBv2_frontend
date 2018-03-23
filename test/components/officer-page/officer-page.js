@@ -41,6 +41,7 @@ describe('OfficerPage component', function () {
           previous: null
         }
       },
+      newTimeline: {},
       percentile: {
         isRequesting: false,
         items: []

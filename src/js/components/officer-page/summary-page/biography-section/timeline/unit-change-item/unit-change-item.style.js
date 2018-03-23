@@ -35,7 +35,7 @@ export const wrapperShowingStyle = {
 };
 
 export const showingStyle = {
-  ...baseShowingStyle,
+  ...baseShowingStyle(false),
   height: `${height}px`,
   lineHeight: `${height}px`,
   display: 'inline-block',

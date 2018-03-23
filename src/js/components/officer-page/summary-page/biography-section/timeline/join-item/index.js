@@ -11,11 +11,10 @@ import BaseItem from '../base-item';
 
 export default class JointItem extends BaseItem {
   renderShowing() {
-    const { item } = this.props;
-    console.log(item)
+    const { item, hasBorderBottom } = this.props;
     return (
       <span style={ wrapperShowingStyle }>
-        <span style={ showingStyle }>
+        <span style={ showingStyle(hasBorderBottom) }>
           <span style={ joinStyle }>
             Joined Chicago Police Department with Unit {item.unitName} as a {item.rank}
           </span>
@@ -29,4 +28,5 @@ export default class JointItem extends BaseItem {
 JointItem.propTypes = {
   item: PropTypes.object,
   oldUnitName: PropTypes.string,
+  hasBorderBottom: PropTypes.bool,
 };

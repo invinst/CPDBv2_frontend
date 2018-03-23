@@ -31,7 +31,18 @@ export default class Timeline extends Component {
     return (
       <div>
         {
-          items.map((item, index) => <Item item={ item } key={ index }/>)
+          items.map((item, index) => {
+            if (index < items.length - 1) {
+              if (items[index + 1].kind === 'UNIT_CHANGE' || items[index + 1].kind === 'JOINED') {
+                return <Item item={ item } key={ index } hasBorderBottom={ false } />;
+              }
+            }
+            else if (index === items.length - 1) {
+              return <Item item={ item } key={ index } hasBorderBottom={ false } />;
+            }
+
+            return <Item item={ item } key={ index } hasBorderBottom={ true } />;
+          })
         }
       </div>
     );

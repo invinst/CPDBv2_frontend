@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { isEmpty, rangeRight } from 'lodash';
+import { isEmpty, rangeRight, find } from 'lodash';
 
 
 const baseTransform = (item) => ({
@@ -15,6 +15,7 @@ const baseTransform = (item) => ({
   isLastRank: false,
   isFirstUnit: false,
   isLastUnit: false,
+  bottomBorder: true,
 });
 
 const attachmentsTransform = (attachments) => {
@@ -65,7 +66,7 @@ const yearItem = (baseItem, year, hasData) => ({
   unitDescription: baseItem.unitDescription,
   unitDisplay: baseItem.unitDisplay,
   kind: 'YEAR',
-  date: year,
+  date: `${year}`,
   hasData,
 });
 
@@ -124,7 +125,6 @@ const dedupeUnit = (items) => {
     }
     return currentItem;
   });
-  dedupedItems[dedupedItems.length - 1].unitDisplay = dedupedItems[dedupedItems.length - 1].unitDescription;
 
   dedupedItems[0].isFirstUnit = true;
   dedupedItems[dedupedItems.length - 1].isLastUnit = true;
@@ -139,13 +139,30 @@ const dedupeUnit = (items) => {
   return dedupedItems;
 };
 
+const fillUnitChange = (items) => {
+  const joinedItem = find(items, (item) => item.kind === 'JOINED');
+  let lastUnitName = joinedItem.unitName;
+  let lastUnitDescription = joinedItem.unitDescription;
+
+  return items.map((item) => {
+    if (item.kind === 'UNIT_CHANGE') {
+      item.oldUnitName = lastUnitName;
+      item.oldUnitDescription = lastUnitDescription;
+
+      lastUnitName = item.unitName;
+      lastUnitDescription = item.unitDescription;
+    }
+    return item;
+  });
+};
+
 export const getNewTimelineItems = state => {
   const items = state.officerPage.newTimeline.items;
   if (isEmpty(items)) {
     return [];
   }
   const transformedItems = items.map(transform);
-  const processors = [fillGapYears, dedupeRank, dedupeUnit];
+  const processors = [fillGapYears, dedupeRank, dedupeUnit, fillUnitChange];
 
   return processors.reduce((accItems, processor) => processor(accItems), transformedItems);
 };

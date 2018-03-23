@@ -1,9 +1,4 @@
-import {
-  whiteTwoColor,
-  snowColor,
-  softBlackColor,
-  clayGray,
-} from 'utils/styles';
+import { snowColor, softBlackColor, clayGray, } from 'utils/styles';
 import {
   baseWrapperShowingStyle,
   baseShowingStyle,
@@ -21,15 +16,13 @@ export const wrapperShowingStyle = {
   backgroundColor: snowColor,
 };
 
-export const showingStyle = {
-  ...baseShowingStyle,
+export const showingStyle = (hasBorderBottom) => ({
+  ...baseShowingStyle(hasBorderBottom),
   backgroundColor: snowColor,
   height: `${height}px`,
   lineHeight: `${height}px`,
   display: 'inline-block',
-  borderBottom: `solid 1px ${whiteTwoColor}`,
-  boxSizing: 'border-box',
-};
+});
 
 export const kindWrapperStyle = baseWrapperKindStyle;
 

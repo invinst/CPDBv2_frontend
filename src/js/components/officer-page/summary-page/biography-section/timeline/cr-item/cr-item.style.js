@@ -40,13 +40,11 @@ export const wrapperShowingStyle = {
   backgroundColor: snowColor,
 };
 
-export const showingStyle = {
-  ...baseShowingStyle,
+export const showingStyle = (hasBorderBottom) => ({
+  ...baseShowingStyle(hasBorderBottom),
   height: `${height}px`,
   lineHeight: `${height}px`,
-  borderBottom: `solid 1px ${whiteTwoColor}`,
-  boxSizing: 'border-box',
-};
+});
 
 export const kindWrapperStyle = baseWrapperKindStyle;
 

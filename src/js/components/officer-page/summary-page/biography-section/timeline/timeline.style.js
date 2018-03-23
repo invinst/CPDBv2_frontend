@@ -1,4 +1,4 @@
-import { sugarCaneColor, clayGray} from 'utils/styles';
+import { sugarCaneColor, clayGray } from 'utils/styles';
 
 
 export const timelineStyle = {
