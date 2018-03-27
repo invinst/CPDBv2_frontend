@@ -5,6 +5,7 @@ import { openBottomSheetWithReport, openBottomSheetWithFAQ } from 'actions/botto
 import { expandFAQ } from 'actions/faq-page/index';
 import * as trackingUtils from 'utils/tracking';
 
+
 describe('trackingMiddleware', function () {
   beforeEach(function () {
     stub(trackingUtils, 'trackIntercomClickedFaqEvent');
@@ -88,5 +89,22 @@ describe('trackingMiddleware', function () {
     ).should.be.true();
 
     dispatched.should.eql(dispatchAction);
+  });
+
+  it('should send analytic pageview on LOCATION_CHANGE', function () {
+    let dispatched;
+    const dispatchAction = {
+      type: '@@router/LOCATION_CHANGE',
+      payload: {
+        pathname: 'abc'
+      }
+    };
+
+    stub(global, 'ga');
+    trackingMiddleware({})(action => dispatched = action)(dispatchAction);
+
+    dispatched.should.eql(dispatchAction);
+    global.ga.calledWith('send', 'pageview', { page: 'abc' }).should.be.true();
+    global.ga.restore();
   });
 });

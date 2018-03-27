@@ -27,6 +27,10 @@ const EVENTS = {
     const answer = multilineTextValueToArray(getField(faq.fields, 'answer').value).join('\n');
     trackIntercomClickedFaqEvent(faq.id, question, answer);
     trackInternalEvent('faq-click', { 'id': faq.id, 'question': question, 'answer': answer });
+  },
+
+  '@@router/LOCATION_CHANGE': (store, action) => {
+    global.ga('send', 'pageview', { page: action.payload.pathname });
   }
 };
 
