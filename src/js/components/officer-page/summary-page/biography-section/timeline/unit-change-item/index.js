@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 
 import {
-  showingStyle,
   dateStyle,
-  wrapperShowingStyle,
-  unitChangeStyle,
-  oldUnitStyle,
   newUnitStyle,
+  oldUnitStyle,
   rankStyle,
+  showingStyle,
+  unitChangeStyle,
   unitStyle,
+  wrapperShowingStyle,
 } from './unit-change-item.style';
 import BaseItem from '../base-item';
 
@@ -24,22 +24,35 @@ export default class UnitChangeItem extends BaseItem {
     const { isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay } = this.props.item;
     return (
       <span>
-        <span style={ rankStyle(this.height, isFirstRank, isLastRank) }>{ rankDisplay }</span>
-        <span style={ unitStyle(this.height, isFirstUnit, isLastUnit) }>UNIT CHANGE</span>
+        <span
+          style={ rankStyle(this.height, isFirstRank, isLastRank) }
+          className='test--unit-change-item-rank'
+        >
+          { rankDisplay }
+        </span>
+        <span
+          style={ unitStyle(this.height, isFirstUnit, isLastUnit) }
+          className='test--unit-change-item-unit'
+        >
+          UNIT CHANGE
+        </span>
       </span>
     );
   }
 
   renderShowing() {
-    const { unitName, oldUnitName, oldUnitDescription, unitDescription, date } = this.props.item;
+    const {
+      unitName, oldUnitName, oldUnitDescription,
+      unitDescription, date, hasBorderBottom
+    } = this.props.item;
     return (
       <span style={ wrapperShowingStyle }>
-        <span style={ showingStyle }>
-          <span style={ unitChangeStyle }>
+        <span style={ showingStyle(hasBorderBottom) }>
+          <span style={ unitChangeStyle } className='test--unit-change-item-content'>
             <span style={ oldUnitStyle }>Unit { oldUnitName } - { oldUnitDescription } → </span>
             <span style={ newUnitStyle }>Unit { unitName } - { unitDescription }</span>
           </span>
-          <span style={ dateStyle }>{ date }</span>
+          <span style={ dateStyle } className='test--unit-change-item-date'>{ date }</span>
         </span>
       </span>
     );
@@ -48,4 +61,5 @@ export default class UnitChangeItem extends BaseItem {
 
 UnitChangeItem.propTypes = {
   item: PropTypes.object,
+  hasBorderBottom: PropTypes.bool,
 };

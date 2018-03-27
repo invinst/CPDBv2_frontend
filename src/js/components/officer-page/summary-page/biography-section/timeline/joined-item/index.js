@@ -5,27 +5,27 @@ import {
   dateStyle,
   wrapperShowingStyle,
   joinStyle,
-} from './join-item.style';
+} from './joined-item.style';
 import BaseItem from '../base-item';
 
 
-export default class JointItem extends BaseItem {
+export default class JoinedItem extends BaseItem {
   renderShowing() {
     const { item, hasBorderBottom } = this.props;
     return (
       <span style={ wrapperShowingStyle }>
         <span style={ showingStyle(hasBorderBottom) }>
-          <span style={ joinStyle }>
+          <span style={ joinStyle } className='test--joined-item-join'>
             Joined Chicago Police Department with Unit {item.unitName} as a {item.rank}
           </span>
-          <span style={ dateStyle }>{ item.date }</span>
+          <span style={ dateStyle } className='test--joined-item-date'>{ item.date }</span>
         </span>
       </span>
     );
   }
 }
 
-JointItem.propTypes = {
+JoinedItem.propTypes = {
   item: PropTypes.object,
   oldUnitName: PropTypes.string,
   hasBorderBottom: PropTypes.bool,

@@ -16,7 +16,7 @@ export default class Timeline extends Component {
 
   renderHeader() {
     return (
-      <div style={ headerWrapperStyle }>
+      <div className='test--timeline-header' style={ headerWrapperStyle }>
         <div style={ rankHeaderStyle }>RANK</div>
         <div style={ unitHeaderStyle }>UNIT</div>
         <div style={ showingContentHeaderStyle }>SHOWING</div>
@@ -32,12 +32,14 @@ export default class Timeline extends Component {
       <div>
         {
           items.map((item, index) => {
+            if ( item.kind === 'UNIT_CHANGE') {
+              return <Item item={ item } key={ index } hasBorderBottom={ false } />;
+            }
             if (index < items.length - 1) {
               if (items[index + 1].kind === 'UNIT_CHANGE' || items[index + 1].kind === 'JOINED') {
                 return <Item item={ item } key={ index } hasBorderBottom={ false } />;
               }
-            }
-            else if (index === items.length - 1) {
+            } else {
               return <Item item={ item } key={ index } hasBorderBottom={ false } />;
             }
 
@@ -59,5 +61,9 @@ export default class Timeline extends Component {
 }
 
 Timeline.propTypes = {
-  items: PropTypes.array
+  items: PropTypes.array,
+};
+
+Timeline.defaultProps = {
+  items: [],
 };

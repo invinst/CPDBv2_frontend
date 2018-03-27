@@ -8,7 +8,7 @@ import {
 
 export default handleActions({
   [OFFICER_NEW_TIMELINE_ITEMS_REQUEST_SUCCESS]: (state, action) => {
-    return [...state, ...action.payload];
+    return action.payload;
   },
   [CHANGE_OFFICER_ID]: (state, action) => []
 }, []);

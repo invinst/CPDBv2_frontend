@@ -1,8 +1,8 @@
 import moment from 'moment';
-import { isEmpty, rangeRight, find } from 'lodash';
+import { isEmpty, rangeRight, slice } from 'lodash';
 
 
-const baseTransform = (item) => ({
+export const baseTransform = (item) => ({
   year: moment(item.date).year(),
   date: moment(item.date).format('MMM D').toUpperCase(),
   kind: item.kind,
@@ -15,10 +15,9 @@ const baseTransform = (item) => ({
   isLastRank: false,
   isFirstUnit: false,
   isLastUnit: false,
-  bottomBorder: true,
 });
 
-const attachmentsTransform = (attachments) => {
+export const attachmentsTransform = (attachments) => {
   if (attachments) {
     return attachments.map((attachment) => ({
       title: attachment.title,
@@ -29,7 +28,7 @@ const attachmentsTransform = (attachments) => {
   return [];
 };
 
-const crTransform = (item) => ({
+export const crTransform = (item) => ({
   ...baseTransform(item),
   category: item.category,
   crid: item.crid,
@@ -39,12 +38,12 @@ const crTransform = (item) => ({
   attachments: attachmentsTransform(item.attachments),
 });
 
-const trrTransform = (item) => ({
+export const trrTransform = (item) => ({
   ...baseTransform(item),
   category: item['firearm_used'] ? 'Firearm' : item.taser ? 'Taser' : 'Use of Force Report',
 });
 
-const awardTransform = (item) => ({
+export const awardTransform = (item) => ({
   ...baseTransform(item),
   category: item['award_type'],
 });
@@ -59,7 +58,7 @@ const transformMap = {
 
 const transform = (item) => transformMap[item.kind](item);
 
-const yearItem = (baseItem, year, hasData) => ({
+export const yearItem = (baseItem, year, hasData) => ({
   rank: baseItem.rank,
   rankDisplay: baseItem.rankDisplay,
   unitName: baseItem.unitName,
@@ -70,53 +69,45 @@ const yearItem = (baseItem, year, hasData) => ({
   hasData,
 });
 
-const gapYearItems = (fromItem, toItem) => {
-  const years = rangeRight(toItem.year, fromItem.year);
+export const gapYearItems = (fromItem, toItem) => {
+  let years = rangeRight(toItem.year, fromItem.year);
+  years = slice(years, 0, years.length - 1);
 
-  const yearItems = years.map((year) => yearItem(toItem, year, false));
-  if (!isEmpty(yearItems)) {
-    yearItems[yearItems.length - 1].hasData = true;
-  }
-  return yearItems;
+  return years.map((year) => yearItem(toItem, year, false));
 };
 
-const fillGapYears = (items) => {
-  if (isEmpty(items)) {
-    return [];
-  }
-  else {
-    let newItems = [];
-    newItems.push(yearItem(items[0], items[0].year, true));
+export const fillYears = (items) => {
+  let newItems = [];
+  newItems.push(yearItem(items[0], items[0].year, true));
 
-    items.map((currentItem, index) => {
-      newItems.push(currentItem);
+  items.map((currentItem, index) => {
+    newItems.push(currentItem);
 
-      if (index < items.length - 1) {
-        const nextItem = items[index + 1];
-        newItems = newItems.concat(gapYearItems(currentItem, nextItem));
+    if (index < items.length - 1) {
+      const nextItem = items[index + 1];
+      newItems = newItems.concat(gapYearItems(currentItem, nextItem));
+      if (nextItem.year < currentItem.year) {
+        newItems.push(yearItem(nextItem, nextItem.year, true));
       }
-    });
+    }
+  });
 
-    return newItems;
-  }
+  return newItems;
 };
 
-const dedupeRank = (items) => {
-  if (!isEmpty(items)) {
-    items[0].isFirstRank = true;
-    items[items.length - 1].isLastRank = true;
-    items.map((item, index) => {
-      if (index !== 0) {
-        item.rankDisplay = ' ';
-      }
-      return item;
-    });
-  }
-  return items;
+export const dedupeRank = (items) => {
+  items[0].isFirstRank = true;
+  items[items.length - 1].isLastRank = true;
+  return items.map((item, index) => {
+    if (index !== 0) {
+      item.rankDisplay = ' ';
+    }
+    return item;
+  });
 };
 
-const dedupeUnit = (items) => {
-  const dedupedItems = items.map((currentItem, index) => {
+export const dedupeUnit = (items) => {
+  return items.map((currentItem, index) => {
     if (index > 0) {
       const previousItem = items[index - 1];
       if (currentItem.unitDescription === previousItem.unitDescription) {
@@ -125,44 +116,53 @@ const dedupeUnit = (items) => {
     }
     return currentItem;
   });
-
-  dedupedItems[0].isFirstUnit = true;
-  dedupedItems[dedupedItems.length - 1].isLastUnit = true;
-  dedupedItems.map((item, index) => {
-    if (item.kind === 'UNIT_CHANGE') {
-      if (index - 1 >= 0) {
-        dedupedItems[index - 1].isLastUnit = true;
-      }
-      dedupedItems[index + 1].isFirstUnit = true;
-    }
-  });
-  return dedupedItems;
 };
 
-const fillUnitChange = (items) => {
-  const joinedItem = find(items, (item) => item.kind === 'JOINED');
-  let lastUnitName = joinedItem.unitName;
-  let lastUnitDescription = joinedItem.unitDescription;
-
-  return items.map((item) => {
+export const markFirstAndLastUnit = (items) => {
+  items[0].isFirstUnit = true;
+  items[items.length - 1].isLastUnit = true;
+  items.map((item, index) => {
     if (item.kind === 'UNIT_CHANGE') {
-      item.oldUnitName = lastUnitName;
-      item.oldUnitDescription = lastUnitDescription;
-
-      lastUnitName = item.unitName;
-      lastUnitDescription = item.unitDescription;
+      if (index - 1 >= 0) {
+        items[index - 1].isLastUnit = true;
+      }
+      items[index + 1].isFirstUnit = true;
     }
-    return item;
   });
+  return items;
+};
+
+export const fillUnitChange = (items) => {
+  let previousUnitChangeItem = undefined;
+
+  items.map((item) => {
+    if (item.kind === 'UNIT_CHANGE') {
+      if (previousUnitChangeItem !== undefined) {
+        previousUnitChangeItem.oldUnitName = item.unitName;
+        previousUnitChangeItem.oldUnitDescription = item.unitDescription;
+      }
+
+      previousUnitChangeItem = item;
+    }
+  });
+
+  const lastUnitChangeItem = previousUnitChangeItem;
+
+  if (lastUnitChangeItem !== undefined) {
+    lastUnitChangeItem.oldUnitName = items[items.length - 1].unitName;
+    lastUnitChangeItem.oldUnitDescription = items[items.length - 1].unitDescription;
+  }
+  return items;
 };
 
 export const getNewTimelineItems = state => {
   const items = state.officerPage.newTimeline.items;
+
   if (isEmpty(items)) {
     return [];
   }
   const transformedItems = items.map(transform);
-  const processors = [fillGapYears, dedupeRank, dedupeUnit, fillUnitChange];
+  const processors = [fillYears, dedupeRank, dedupeUnit, markFirstAndLastUnit, fillUnitChange];
 
   return processors.reduce((accItems, processor) => processor(accItems), transformedItems);
 };

@@ -24,10 +24,10 @@ export default class TRRItem extends BaseItem {
       <span style={ wrapperShowingStyle }>
         <span style={ showingStyle(hasBorderBottom) }>
           <div style={ kindWrapperStyle }>
-            <span style={ kindStyle }>Force</span>
+            <span style={ kindStyle } className='test--trr-item-kind'>Force</span>
           </div>
-          <span style={ categoryStyle }>{ item.category }</span>
-          <span style={ dateStyle }>{ item.date }</span>
+          <span style={ categoryStyle } className='test--trr-item-category'>{ item.category }</span>
+          <span style={ dateStyle } className='test--trr-item-date'>{ item.date }</span>
         </span>
       </span>
     );

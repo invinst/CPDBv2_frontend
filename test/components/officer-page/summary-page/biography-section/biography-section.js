@@ -28,7 +28,7 @@ describe('BiographySection component', function () {
     scryRenderedDOMComponentsWithClass(instance, 'test--biography-tab-name').length.should.eql(5);
   });
 
-  it('should render Timeline and by default', function () {
+  it('should render Timeline by default', function () {
     instance = renderIntoDocument(<BiographySection />);
 
     findRenderedComponentWithType(instance, Timeline).should.be.ok();

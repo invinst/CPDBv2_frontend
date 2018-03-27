@@ -14,10 +14,10 @@ export default class BiographySection extends Component {
 
     this.biographyTabs = [
       { name: 'TIMELINE', renderer: this.renderTimeline },
-      { name: 'SUMMARY', renderer: () => null },
-      { name: 'MAP', renderer: () => null },
-      { name: 'COACCUSALS', renderer: () => null },
-      { name: 'ATTACHMENTS', renderer: () => null },
+      { name: 'SUMMARY', renderer: null },
+      { name: 'MAP', renderer: null },
+      { name: 'COACCUSALS', renderer: null },
+      { name: 'ATTACHMENTS', renderer: null },
     ];
     this.activeTabName = 'TIMELINE';
   }

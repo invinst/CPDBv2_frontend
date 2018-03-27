@@ -12,6 +12,7 @@ const {
 
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import * as timelineSelectors from 'selectors/officer-page/timeline';
+import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 
 
 describe('preload-officer-page-data-middleware', function () {
@@ -61,6 +62,7 @@ describe('preload-officer-page-data-middleware', function () {
     store.dispatch.calledWith(fetchSocialGraph(2)).should.be.true();
     store.dispatch.calledWith(fetchTimelineFirstItems(2, {})).should.be.true();
     store.dispatch.calledWith('fetchMinimapThenSelectTimelineItemResult').should.be.true();
+    store.dispatch.calledWith(fetchNewTimelineItems(2)).should.be.true();
   });
 
   it('should not dispatch actions if officer id is not changed', function () {
@@ -81,6 +83,7 @@ describe('preload-officer-page-data-middleware', function () {
     store.dispatch.calledWith(fetchSocialGraph(1)).should.be.false();
     store.dispatch.calledWith(fetchTimelineFirstItems(1, {})).should.be.false();
     store.dispatch.calledWith(fetchMinimapThenSelectTimelineItem(1)).should.be.false();
+    store.dispatch.calledWith(fetchNewTimelineItems(1)).should.be.false();
   });
 
   it('should dispatch changeTimelineFilters when navigating to Timeline Page', function () {

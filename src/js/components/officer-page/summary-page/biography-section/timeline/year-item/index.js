@@ -23,8 +23,8 @@ export default class YearItem extends BaseItem {
 
     return (
       <span style={ wrapperShowingStyle }>
-        <div style={ showingStyle(hasData, hasBorderBottom) }>
-          <span style={ dateStyle(hasData) }>{ date }</span>
+        <div style={ showingStyle(hasData, hasBorderBottom) } className='test--year-item-showing'>
+          <span style={ dateStyle(hasData) } className='test--year-item-date'>{ date }</span>
           <br style={ clearFloatStyle }/>
         </div>
       </span>
