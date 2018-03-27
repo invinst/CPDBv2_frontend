@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import {
   renderIntoDocument, findRenderedComponentWithType
 } from 'react-addons-test-utils';
@@ -47,10 +47,15 @@ describe('HeatMap component', function () {
     findRenderedComponentWithType(instance, CommunityMap).should.be.ok();
   });
 
-  it('should set community id when selectCommunity trigger', function () {
+  it('should set community id and send analytic event when selectCommunity trigger', function () {
+    stub(global, 'ga');
+    const communities = [{
+      id: 10,
+      name: 'Westwood'
+    }];
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <HeatMap/>
+        <HeatMap communities={ communities }/>
       </Provider>
     );
     const heatMap = findRenderedComponentWithType(instance, HeatMap);
@@ -59,9 +64,15 @@ describe('HeatMap component', function () {
     const summaryPanel = findRenderedComponentWithType(heatMap, SummaryPanel);
     summaryPanel.props.selectCommunity(10);
     heatMap.state.selectedId.should.eql(10);
+    global.ga.calledWith('send', 'event', {
+      eventCategory: 'community',
+      eventAction: 'click',
+      eventLabel: 'Westwood'
+    }).should.be.true();
 
     const communityMap = findRenderedComponentWithType(heatMap, CommunityMap);
     communityMap.props.selectCommunity(0);
     heatMap.state.selectedId.should.eql(0);
+    global.ga.restore();
   });
 });

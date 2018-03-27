@@ -28,3 +28,11 @@ export function trackInternalEvent(name, data) {
     data: data
   });
 }
+
+export const trackOutboundLink = url => event => {
+  event.preventDefault();
+  global.ga('send', 'event', 'outbound', 'click', url, {
+    transport: 'beacon',
+    hitCallback: () => { document.location = url; }
+  });
+};

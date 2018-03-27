@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { isEmpty } from 'lodash';
 
 import { communityUrl } from 'utils/v1-url';
+import { trackOutboundLink } from 'utils/tracking';
 import {
   communityWrapperStyle, headerStyle, allegationDisciplineStyle,
   allegationTextStyle, disciplineTextStyle, headerTextStyle,
@@ -58,7 +59,7 @@ export default class CommunityDetail extends Component {
         <a
           className='test--community-v1-link'
           style={ learnMoreStyle }
-          href={ communityUrl(name) }>
+          onClick={ trackOutboundLink(communityUrl(name)) }>
           <span style={ learnMoreTextStyle }>Explore data</span>
           <span style={ rightArrowBlueStyle }/>
         </a>
