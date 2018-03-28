@@ -137,16 +137,16 @@ describe('trackingMiddleware', function () {
       }
     };
 
-    stub(trackingUtils, 'throttledGA');
+    stub(global, 'ga');
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
 
     dispatched.should.eql(dispatchAction);
-    trackingUtils.throttledGA.calledWith('send', 'event', {
+    global.ga.calledWith('send', 'event', {
       eventCategory: 'search',
       eventAction: 'num_results',
       eventValue: 203
     }).should.be.true();
-    trackingUtils.throttledGA.restore();
+    global.ga.restore();
   });
 
   it('should send analytic pageview on SUGGESTION_REQUEST_SUCCESS', function () {
@@ -159,15 +159,15 @@ describe('trackingMiddleware', function () {
       }
     };
 
-    stub(trackingUtils, 'throttledGA');
+    stub(global, 'ga');
     trackingMiddleware({})(action => dispatched = action)(dispatchAction);
 
     dispatched.should.eql(dispatchAction);
-    trackingUtils.throttledGA.calledWith('send', 'event', {
+    global.ga.calledWith('send', 'event', {
       eventCategory: 'search',
       eventAction: 'num_results',
       eventValue: 3
     }).should.be.true();
-    trackingUtils.throttledGA.restore();
+    global.ga.restore();
   });
 });

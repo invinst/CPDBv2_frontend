@@ -48,7 +48,7 @@ const EVENTS = {
   },
 
   [SUGGESTION_SINGLE_REQUEST_SUCCESS]: (store, action) => {
-    throttledGA('send', 'event', {
+    global.ga('send', 'event', {
       eventCategory: 'search',
       eventAction: 'num_results',
       eventValue: action.payload.count
@@ -57,7 +57,7 @@ const EVENTS = {
 
   [SUGGESTION_REQUEST_SUCCESS]: (store, action) => {
     const count = reduce(values(action.payload), (sum, array) => sum + array.length, 0);
-    throttledGA('send', 'event', {
+    global.ga('send', 'event', {
       eventCategory: 'search',
       eventAction: 'num_results',
       eventValue: count
