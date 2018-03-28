@@ -1,6 +1,8 @@
 import moment from 'moment';
 import { isEmpty, rangeRight, slice } from 'lodash';
 
+import { NEW_TIMELINE_ITEMS } from 'utils/constants';
+
 
 export const baseTransform = (item) => ({
   year: moment(item.date).year(),
@@ -49,11 +51,11 @@ export const awardTransform = (item) => ({
 });
 
 const transformMap = {
-  'CR': crTransform,
-  'FORCE': trrTransform,
-  'JOINED': baseTransform,
-  'UNIT_CHANGE': baseTransform,
-  'AWARD': awardTransform,
+  [NEW_TIMELINE_ITEMS.CR]: crTransform,
+  [NEW_TIMELINE_ITEMS.FORCE]: trrTransform,
+  [NEW_TIMELINE_ITEMS.JOINED]: baseTransform,
+  [NEW_TIMELINE_ITEMS.UNIT_CHANGE]: baseTransform,
+  [NEW_TIMELINE_ITEMS.AWARD]: awardTransform,
 };
 
 const transform = (item) => transformMap[item.kind](item);
@@ -64,7 +66,7 @@ export const yearItem = (baseItem, year, hasData) => ({
   unitName: baseItem.unitName,
   unitDescription: baseItem.unitDescription,
   unitDisplay: baseItem.unitDisplay,
-  kind: 'YEAR',
+  kind: NEW_TIMELINE_ITEMS.YEAR,
   date: `${year}`,
   hasData,
 });
@@ -122,7 +124,7 @@ export const markFirstAndLastUnit = (items) => {
   items[0].isFirstUnit = true;
   items[items.length - 1].isLastUnit = true;
   items.map((item, index) => {
-    if (item.kind === 'UNIT_CHANGE') {
+    if (item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE) {
       if (index - 1 >= 0) {
         items[index - 1].isLastUnit = true;
       }
@@ -136,7 +138,7 @@ export const fillUnitChange = (items) => {
   let previousUnitChangeItem = undefined;
 
   items.map((item) => {
-    if (item.kind === 'UNIT_CHANGE') {
+    if (item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE) {
       if (previousUnitChangeItem !== undefined) {
         previousUnitChangeItem.oldUnitName = item.unitName;
         previousUnitChangeItem.oldUnitDescription = item.unitDescription;

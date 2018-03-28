@@ -373,3 +373,12 @@ export const CMS_PAGE_REQUEST_FAILURE = 'CMS_PAGE_REQUEST_FAILURE';
 export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
 export const LANDING_PAGE_ID = 'landing-page';
+
+export const NEW_TIMELINE_ITEMS = {
+  CR: 'CR',
+  FORCE: 'FORCE',
+  AWARD: 'AWARD',
+  UNIT_CHANGE: 'UNIT_CHANGE',
+  JOINED: 'JOINED',
+  YEAR: 'YEAR',
+};

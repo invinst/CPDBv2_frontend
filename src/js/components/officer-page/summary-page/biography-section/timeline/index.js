@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { nth, includes } from 'lodash';
 
 import {
   dateHeaderStyle,
@@ -10,6 +11,7 @@ import {
 } from './timeline.style';
 
 import Item from './item';
+import { NEW_TIMELINE_ITEMS } from 'utils/constants';
 
 
 export default class Timeline extends Component {
@@ -32,18 +34,17 @@ export default class Timeline extends Component {
       <div>
         {
           items.map((item, index) => {
-            if ( item.kind === 'UNIT_CHANGE') {
-              return <Item item={ item } key={ index } hasBorderBottom={ false } />;
-            }
-            if (index < items.length - 1) {
-              if (items[index + 1].kind === 'UNIT_CHANGE' || items[index + 1].kind === 'JOINED') {
-                return <Item item={ item } key={ index } hasBorderBottom={ false } />;
-              }
-            } else {
+            if ( item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE) {
               return <Item item={ item } key={ index } hasBorderBottom={ false } />;
             }
 
-            return <Item item={ item } key={ index } hasBorderBottom={ true } />;
+            const nextItem = nth(items, index + 1);
+
+            if ( !nextItem || includes([NEW_TIMELINE_ITEMS.UNIT_CHANGE, NEW_TIMELINE_ITEMS.JOINED], nextItem.kind)) {
+              return <Item item={ item } key={ index } hasBorderBottom={ false } />;
+            } else {
+              return <Item item={ item } key={ index } hasBorderBottom={ true } />;
+            }
           })
         }
       </div>
