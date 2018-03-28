@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import { radarPointStyle, tooltipStyle } from './radar-tooltip-point.style';
+import roundPercentile from '../../../utils/round-percentile';
 
 
 export default class RadarTooltipPoint extends React.Component {
@@ -40,8 +41,8 @@ export default class RadarTooltipPoint extends React.Component {
               key={ i }
               className='test--radar-tooltip-point' r='10' cx={ point.x } cy={ point.y }
               style={ radarPointStyle }
-              onMouseOver={ (e) => this.mouseOver(e, point.value) }
-              onMouseOut={ (e) => this.mouseOut(e, point.value) }
+              onMouseOver={ (e) => this.mouseOver(e, roundPercentile(point.value)) }
+              onMouseOut={ (e) => this.mouseOut(e, roundPercentile(point.value)) }
             />
           )) }
         </g>
