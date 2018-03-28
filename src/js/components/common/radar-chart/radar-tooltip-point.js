@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 
 import { radarPointStyle, tooltipStyle } from './radar-tooltip-point.style';
-import roundPercentile from '../../../utils/round-percentile';
+import roundPercentile from 'utils/round-percentile';
 
 
 export default class RadarTooltipPoint extends React.Component {
