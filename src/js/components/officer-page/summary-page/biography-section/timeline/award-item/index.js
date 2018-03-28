@@ -16,6 +16,7 @@ export default class AwardItem extends BaseItem {
     super(props);
 
     this.height = 58;
+    this.className = 'test--timeline-award-item';
   }
 
   renderShowing() {

@@ -10,6 +10,12 @@ import BaseItem from '../base-item';
 
 
 export default class JoinedItem extends BaseItem {
+  constructor(props) {
+    super(props);
+
+    this.className = 'test--timeline-joined-item';
+  }
+
   renderShowing() {
     const { item, hasBorderBottom } = this.props;
     return (

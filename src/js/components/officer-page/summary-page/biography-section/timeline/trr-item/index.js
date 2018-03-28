@@ -16,6 +16,7 @@ export default class TRRItem extends BaseItem {
     super(props);
 
     this.height = 58;
+    this.className = 'test--timeline-trr-item';
   }
 
   renderShowing() {

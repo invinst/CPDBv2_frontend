@@ -15,6 +15,7 @@ export default class YearItem extends BaseItem {
 
     const { hasData } = this.props.item;
     this.height = hasData ? 64 : 32;
+    this.className = 'test--timeline-year-item';
   }
 
   renderShowing() {
@@ -22,7 +23,7 @@ export default class YearItem extends BaseItem {
     const { date, hasData } = item;
 
     return (
-      <span style={ wrapperShowingStyle }>
+      <span style={ wrapperShowingStyle } className='test--timeline-year-item'>
         <div style={ showingStyle(hasData, hasBorderBottom) } className='test--year-item-showing'>
           <span style={ dateStyle(hasData) } className='test--year-item-date'>{ date }</span>
           <br style={ clearFloatStyle }/>

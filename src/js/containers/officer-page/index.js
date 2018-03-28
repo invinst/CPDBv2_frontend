@@ -14,7 +14,7 @@ function mapStateToProps(state, ownProps) {
     pathname: getPathname(state),
     query: ownProps.location.query,
     officerTimelineUrlParams: timelineUrlParamsSelector(state),
-    activeTabName: getActiveTab(state),
+    activeTab: getActiveTab(state),
     scrollPosition: getShareablePageScrollPosition(state),
     officerSummary: summarySelector(state),
   };

@@ -14,6 +14,7 @@ export default class BaseItem extends Component {
     this.renderShowing = this.renderShowing.bind(this);
 
     this.height = 58;
+    this.className = '.test--timeline-item';
   }
 
   renderRankAndUnit() {
@@ -42,7 +43,7 @@ export default class BaseItem extends Component {
 
   render() {
     return (
-      <div style={ baseStyle }>
+      <div style={ baseStyle } className={ this.className }>
         { this.renderRankAndUnit() }
         { this.renderShowing() }
       </div>

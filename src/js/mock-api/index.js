@@ -19,6 +19,7 @@ import getTimelineItemsData, {
   nextTimelineItems,
   filterTimelineItems
 } from './officer-page/get-timeline-item';
+import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
 import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getUnitSummaryData from './unit-profile-page/get-summary';
@@ -116,6 +117,8 @@ axiosMockClient.onGet(`${OFFICER_URL}1234/timeline-items/`)
 axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-minimap/`).reply(countRequests(() => [200, getMinimapData(5678)]));
 axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-items/`)
   .reply(countRequests(() => [200, getTimelineItemsData(5678)]));
+
+axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData());
 
 axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());
 

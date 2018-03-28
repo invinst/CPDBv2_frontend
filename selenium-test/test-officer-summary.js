@@ -90,6 +90,24 @@ describe('officer summary page', function () {
     browser.getUrl().should.match(/\/unit\/\d+\/$/);
   });
 
+  it('should display the timeline by default', function () {
+    summaryPage.biographySection.menu.waitForVisible();
+
+    summaryPage.biographySection.menu.getText().should.eql('TIMELINESUMMARYMAPCOACCUSALSATTACHMENTS');
+    summaryPage.biographySection.timelineTabName.getCssProperty('background-color').value.should.eql(
+      'rgba(0,94,244,1)'
+    );
+    // Due to float right, we need to add a '\n' here
+    summaryPage.biographySection.timelineSection.header.getText().should.eql('RANKUNITSHOWING\nDATE');
+
+    summaryPage.biographySection.timelineSection.crItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.trrItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.awardItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.unitChangeItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.joinedItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.yearItem.waitForVisible();
+  });
+
   describe('Radar Chart', function () {
     it('should responsive', function () {
       browser.setViewportSize({

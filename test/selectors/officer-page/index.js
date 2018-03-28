@@ -126,7 +126,7 @@ describe('officer page selectors', function () {
     it('should return active tab', function () {
       const state = {
         officerPage: {
-          activeTabName: 'timeline'
+          activeTab: 'timeline'
         }
       };
       getActiveTab(state).should.eql('timeline');

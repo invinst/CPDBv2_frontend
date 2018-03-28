@@ -23,6 +23,7 @@ export default class CRItem extends BaseItem {
     super(props);
 
     this.height = 58;
+    this.className = 'test--timeline-cr-item';
   }
 
   renderAttachments() {

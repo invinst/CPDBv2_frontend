@@ -18,6 +18,7 @@ export default class UnitChangeItem extends BaseItem {
     super(props);
 
     this.height = 24;
+    this.className = 'test--timeline-unit-change-item';
   }
 
   renderRankAndUnit() {
