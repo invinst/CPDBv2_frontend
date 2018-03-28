@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import Row from 'components/common/row';
 import Hoverable from 'components/common/higher-order/hoverable';
+import OutboundLink from 'components/common/outbound-link';
 
 
 class RecentSuggestionItem extends Component {
@@ -32,7 +33,7 @@ class RecentSuggestionItem extends Component {
     }
 
     return (
-      <a href={ entry.url } style={ linkStyle }>{ children }</a>
+      <OutboundLink href={ entry.url } style={ linkStyle }>{ children }</OutboundLink>
     );
   }
 }

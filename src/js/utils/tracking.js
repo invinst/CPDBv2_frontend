@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { throttle } from 'lodash';
 
 import { EVENTS_API_URL } from 'utils/constants';
 
@@ -29,10 +30,12 @@ export function trackInternalEvent(name, data) {
   });
 }
 
-export const trackOutboundLink = url => event => {
-  event.preventDefault();
+export const trackOutboundLink = url => {
+  /* istanbul ignore next */
   global.ga('send', 'event', 'outbound', 'click', url, {
     transport: 'beacon',
     hitCallback: () => { document.location = url; }
   });
 };
+
+export const throttledGA = throttle(global.ga, 500);

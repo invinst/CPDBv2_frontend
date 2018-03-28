@@ -1,4 +1,4 @@
-import { stub, spy } from 'sinon';
+import { stub } from 'sinon';
 import axios from 'axios';
 
 import { EVENTS_API_URL } from 'utils/constants';
@@ -57,13 +57,9 @@ describe('Intercom utils', function () {
   describe('trackOutboundLink', function () {
     it('should send event analytic', function () {
       stub(global, 'ga');
-      const event = {
-        preventDefault: spy()
-      };
 
-      trackOutboundLink('localhost')(event);
+      trackOutboundLink('localhost');
 
-      event.preventDefault.called.should.be.true();
       const args = global.ga.getCall(0).args;
       args.slice(0, 5).should.eql(['send', 'event', 'outbound', 'click', 'localhost']);
       args[5].transport.should.equal('beacon');

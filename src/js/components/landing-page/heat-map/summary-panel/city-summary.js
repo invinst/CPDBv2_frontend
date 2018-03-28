@@ -3,12 +3,12 @@ import { map } from 'lodash';
 
 import config from 'config';
 import { categoryUrl } from 'utils/v1-url';
-import { trackOutboundLink } from 'utils/tracking';
 import {
   wrapperStyle, headerStyle, allegationDisciplineStyle, allegationTextStyle, disciplineTextStyle,
   mostCommonComplaintStyle, categoryStyle, categoryNameStyle, rightArrowStyle, categoryTextWrapper,
   clickReceiver, allegationDisciplineCountStyle
 } from './city-summary.style';
+import OutboundLink from 'components/common/outbound-link';
 
 
 export default class CitySummary extends Component {
@@ -31,7 +31,7 @@ export default class CitySummary extends Component {
         <div style={ headerStyle }>CHICAGO 2000 - 2016</div>
         <div style={ allegationDisciplineStyle }
           className='test--allegation-discipline-count'>
-          <a onClick={ trackOutboundLink(config.v1Url) }>
+          <OutboundLink href={ config.v1Url }>
             <div style={ allegationDisciplineCountStyle }>
               <div style={ allegationTextStyle }>
                 {
@@ -49,16 +49,16 @@ export default class CitySummary extends Component {
               </div>
             </div>
             <div style={ rightArrowStyle }/>
-          </a>
+          </OutboundLink>
         </div>
         <div>
           <div style={ mostCommonComplaintStyle }>MOST COMMON COMPLAINT</div>
           <div className='test--most-common-complaints'>
             {
               map(mostCommonComplaints, ({ name, count }, index) => (
-                <a
+                <OutboundLink
                   className='test--complaint-category'
-                  onClick={ trackOutboundLink(isActive ? categoryUrl(name) : null) }
+                  href={ isActive ? categoryUrl(name) : null }
                   key={ index }
                   style={ categoryStyle(index === mostCommonComplaints.length - 1) }>
                   <div style={ categoryTextWrapper }>
@@ -66,7 +66,7 @@ export default class CitySummary extends Component {
                     <div>{ count.toLocaleString() } allegations</div>
                   </div>
                   <div style={ rightArrowStyle }/>
-                </a>
+                </OutboundLink>
               ))
             }
           </div>
