@@ -381,4 +381,5 @@ export const NEW_TIMELINE_ITEMS = {
   UNIT_CHANGE: 'UNIT_CHANGE',
   JOINED: 'JOINED',
   YEAR: 'YEAR',
+  EMPTY: 'EMPTY',
 };

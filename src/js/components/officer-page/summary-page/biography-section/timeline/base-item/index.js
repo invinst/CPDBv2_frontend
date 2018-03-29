@@ -43,7 +43,7 @@ export default class BaseItem extends Component {
 
   render() {
     return (
-      <div style={ baseStyle } className={ this.className }>
+      <div style={ baseStyle(this.height) } className={ this.className }>
         { this.renderRankAndUnit() }
         { this.renderShowing() }
       </div>

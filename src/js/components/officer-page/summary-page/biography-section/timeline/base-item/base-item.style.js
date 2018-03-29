@@ -2,9 +2,10 @@ import { whiteTwoColor, sugarCaneColor, softBlackColor, clayGray } from 'utils/s
 
 const radius = 4;
 
-export const baseStyle = {
+export const baseStyle = (height) => ({
   fontSize: '14px',
-};
+  height: `${height}px`,
+});
 
 const smallBoxStyle = {
   width: '104px',
@@ -25,6 +26,7 @@ export const baseRankStyle = (height, isFirst, isLast) => ({
   backgroundColor: whiteTwoColor,
   whiteSpace: 'pre',
   lineHeight: `${height}px`,
+  verticalAlign: 'top',
   ...borderRadiusStyle(isFirst, isLast),
 });
 
@@ -34,6 +36,7 @@ export const baseUnitStyle = (height, isFirst, isLast) => ({
   backgroundColor: '#E8E7E7',
   lineHeight: `${height}px`,
   color: clayGray,
+  verticalAlign: 'top',
   ...borderRadiusStyle(isFirst, isLast),
 });
 

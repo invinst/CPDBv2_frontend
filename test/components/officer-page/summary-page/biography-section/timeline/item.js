@@ -14,6 +14,7 @@ import TRRItem from 'components/officer-page/summary-page/biography-section/time
 import AwardItem from 'components/officer-page/summary-page/biography-section/timeline/award-item';
 import UnitChangeItem from 'components/officer-page/summary-page/biography-section/timeline/unit-change-item';
 import JoinedItem from 'components/officer-page/summary-page/biography-section/timeline/joined-item';
+import EmptyItem from 'components/officer-page/summary-page/biography-section/timeline/empty-item';
 
 
 describe('Item component', function () {
@@ -40,7 +41,7 @@ describe('Item component', function () {
   });
 
   it('should not render item with incorrect kind', function () {
-    const components = [CRItem, TRRItem, AwardItem, UnitChangeItem, JoinedItem, YearItem];
+    const components = [CRItem, TRRItem, AwardItem, UnitChangeItem, JoinedItem, YearItem, EmptyItem];
     const someItem = {
       kind: 'SOMEKIND',
     };

@@ -10,7 +10,6 @@ import {
 import {
   baseRankStyle,
   baseShowingStyle,
-  baseStyle,
   baseUnitStyle,
   baseWrapperKindStyle,
   baseWrapperShowingStyle,
@@ -22,8 +21,6 @@ import {
 
 
 const height = 58;
-
-export const style = baseStyle;
 
 export const rankStyle = {
   ...baseRankStyle,

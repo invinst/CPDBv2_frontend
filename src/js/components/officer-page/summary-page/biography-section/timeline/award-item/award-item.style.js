@@ -6,7 +6,6 @@ import {
   clayGray,
 } from 'utils/styles';
 import {
-  baseStyle,
   baseRankStyle,
   baseUnitStyle,
   baseWrapperShowingStyle,
@@ -19,8 +18,6 @@ import {
 
 
 const height = 58;
-
-export const style = baseStyle;
 
 export const rankStyle = {
   ...baseRankStyle,

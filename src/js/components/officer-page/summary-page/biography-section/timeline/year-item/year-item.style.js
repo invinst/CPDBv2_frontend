@@ -3,7 +3,6 @@ import {
   softBlackColor,
 } from 'utils/styles';
 import {
-  baseStyle,
   baseWrapperShowingStyle,
   baseShowingStyle,
   baseDateStyle,
@@ -12,8 +11,6 @@ import {
 
 const hasDataHeight = 64;
 const noDataHeight = 32;
-
-export const style = baseStyle;
 
 export const wrapperShowingStyle = {
   ...baseWrapperShowingStyle,

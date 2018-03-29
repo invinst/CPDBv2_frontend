@@ -9,11 +9,12 @@ import {
   dedupeUnit,
   fillUnitChange,
   fillYears,
+  fillEmptyItems,
   gapYearItems,
   getNewTimelineItems,
   markFirstAndLastUnit,
   trrTransform,
-  yearItem
+  yearItem,
 } from 'selectors/officer-page/new-timeline';
 
 
@@ -268,6 +269,10 @@ describe('officer page selectors', function () {
         unitDescription: 'Mobile Strike Force',
         unitDisplay: 'Mobile Strike Force',
         hasData: true,
+        isFirstRank: false,
+        isLastRank: false,
+        isFirstUnit: false,
+        isLastUnit: false,
       });
     });
   });
@@ -305,6 +310,10 @@ describe('officer page selectors', function () {
           kind: 'YEAR',
           date: '2013',
           hasData: false,
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: false,
+          isLastUnit: false,
         },
         {
           rank: 'Police Officer',
@@ -315,6 +324,10 @@ describe('officer page selectors', function () {
           kind: 'YEAR',
           date: '2012',
           hasData: false,
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: false,
+          isLastUnit: false,
         }
       ]);
     });
@@ -355,6 +368,10 @@ describe('officer page selectors', function () {
           kind: 'YEAR',
           date: '2014',
           hasData: true,
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: false,
+          isLastUnit: false,
         },
         {
           year: 2014,
@@ -375,6 +392,10 @@ describe('officer page selectors', function () {
           kind: 'YEAR',
           date: '2013',
           hasData: false,
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: false,
+          isLastUnit: false,
         },
         {
           rank: 'Police Officer',
@@ -385,6 +406,10 @@ describe('officer page selectors', function () {
           kind: 'YEAR',
           date: '2012',
           hasData: false,
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: false,
+          isLastUnit: false,
         },
         {
           rank: 'Police Officer',
@@ -395,6 +420,10 @@ describe('officer page selectors', function () {
           kind: 'YEAR',
           date: '2011',
           hasData: true,
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: false,
+          isLastUnit: false,
         },
         {
           year: 2011,
@@ -442,6 +471,10 @@ describe('officer page selectors', function () {
           unitDisplay: 'Some Force',
           kind: 'YEAR',
           date: '2014',
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: false,
+          isLastUnit: false,
           hasData: true,
         },
         ...sameYearItems
@@ -663,6 +696,99 @@ describe('officer page selectors', function () {
     });
   });
 
+  describe('fillEmptyItems', function () {
+    it('should fill an empty item if unit change is the very first event of a year', function () {
+      const data = [
+        {
+          rank: 'Some Officer',
+          kind: 'UNIT_CHANGE',
+          unitName: '111',
+          unitDescription: 'Some Force',
+          unitDisplay: 'Some Force',
+          oldUnitName: '222',
+          oldUnitDescription: 'Other Force',
+          date: 'DEC 2016'
+        },
+        {
+          rank: 'Some Officer',
+          kind: 'UNIT_CHANGE',
+          unitName: '222',
+          unitDescription: 'Other Force',
+          unitDisplay: 'Other Force',
+          oldUnitName: '007',
+          oldUnitDescription: 'District 007',
+          date: 'APR 2016'
+        },
+        {
+          date: '2016',
+          hasData: true,
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'YEAR',
+          rank: 'Police Officer',
+          rankDisplay: 'Police Officer',
+          unitDescription: 'District 007',
+          unitDisplay: 'District 007',
+          unitName: '007',
+        },
+      ];
+
+      fillEmptyItems(data).should.eql([
+        {
+          rank: 'Some Officer',
+          kind: 'UNIT_CHANGE',
+          unitName: '111',
+          unitDescription: 'Some Force',
+          unitDisplay: 'Some Force',
+          oldUnitName: '222',
+          oldUnitDescription: 'Other Force',
+          date: 'DEC 2016'
+        },
+        {
+          rank: 'Some Officer',
+          kind: 'UNIT_CHANGE',
+          unitName: '222',
+          unitDescription: 'Other Force',
+          unitDisplay: 'Other Force',
+          oldUnitName: '007',
+          oldUnitDescription: 'District 007',
+          date: 'APR 2016'
+        },
+        {
+          date: '2016',
+          hasData: true,
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'EMPTY',
+          rank: 'Police Officer',
+          rankDisplay: 'Police Officer',
+          unitName: '007',
+          unitDescription: 'District 007',
+          unitDisplay: 'District 007',
+        },
+        {
+          date: '2016',
+          hasData: true,
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'YEAR',
+          rank: 'Police Officer',
+          rankDisplay: 'Police Officer',
+          unitDescription: 'District 007',
+          unitDisplay: 'District 007',
+          unitName: '007',
+        },
+      ]);
+    });
+  });
+
+
   describe('getNewTimelineItems', function () {
     it('should return empty if the state is empty', function () {
       getNewTimelineItems({
@@ -675,111 +801,113 @@ describe('officer page selectors', function () {
     });
 
     it('should process raw items with enough processors', function () {
-      getNewTimelineItems(
-        {
-          officerPage: {
-            newTimeline: {
-              items: [
-                {
-                  'unit_name': '007',
-                  kind: 'AWARD',
-                  'unit_description': 'District 007',
-                  rank: 'Police Officer',
-                  date: '2006-03-01',
-                  'award_type': 'Honorable Mention'
-                },
-                {
-                  'unit_name': '007',
-                  kind: 'FORCE',
-                  taser: true,
-                  'unit_description': 'District 007',
-                  rank: 'Police Officer',
-                  date: '2005-12-17',
-                  'firearm_used': false
-                },
-                {
-                  'unit_name': '007',
-                  kind: 'FORCE',
-                  taser: false,
-                  'unit_description': 'District 007',
-                  rank: 'Police Officer',
-                  date: '2005-03-17',
-                  'firearm_used': false
-                },
-                {
-                  'unit_name': '007',
-                  kind: 'UNIT_CHANGE',
-                  'unit_description': 'District 007',
-                  rank: 'Police Officer',
-                  date: '2005-01-07'
-                },
-                {
-                  'unit_name': '153',
-                  kind: 'FORCE',
-                  taser: false,
-                  'unit_description': 'Mobile Strike Force',
-                  rank: 'Police Officer',
-                  date: '2004-12-17',
-                  'firearm_used': true
-                },
-                {
-                  category: 'Illegal Search',
-                  'unit_name': '153',
-                  kind: 'CR',
-                  subcategory: 'Search Of Premise Without Warrant',
-                  crid: '294088',
-                  'unit_description': 'Mobile Strike Force',
-                  rank: 'Police Officer',
-                  date: '2003-11-26',
-                  coaccused: 8,
-                  finding: 'Exonerated',
-                  outcome: 'No Action Taken',
-                  attachments: [
-                    {
-                      url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
-                      'preview_image_url':
-                        'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
-                      title: 'CRID 294088 CR'
-                    }
-                  ]
-                },
-                {
-                  category: 'Criminal Misconduct',
-                  'unit_name': '153',
-                  kind: 'CR',
-                  subcategory: 'Theft',
-                  crid: '260131',
-                  'unit_description': 'Mobile Strike Force',
-                  rank: 'Police Officer',
-                  date: '2003-02-17',
-                  coaccused: 4,
-                  finding: 'Unfounded',
-                  outcome: 'No Action Taken'
-                },
-                {
-                  'unit_name': '153',
-                  kind: 'UNIT_CHANGE',
-                  'unit_description': 'Mobile Strike Force',
-                  rank: 'Police Officer',
-                  date: '2000-04-28'
-                },
-                {
-                  'unit_name': '044',
-                  kind: 'JOINED',
-                  'unit_description': 'Recruit Training Section',
-                  rank: 'Police Officer',
-                  date: '2000-02-05'
-                }
-              ]
-            }
+      const state = {
+        officerPage: {
+          newTimeline: {
+            items: [
+              {
+                'unit_name': '007',
+                kind: 'AWARD',
+                'unit_description': 'District 007',
+                rank: 'Police Officer',
+                date: '2006-03-01',
+                'award_type': 'Honorable Mention'
+              },
+              {
+                'unit_name': '007',
+                kind: 'FORCE',
+                taser: true,
+                'unit_description': 'District 007',
+                rank: 'Police Officer',
+                date: '2005-12-17',
+                'firearm_used': false
+              },
+              {
+                'unit_name': '007',
+                kind: 'FORCE',
+                taser: false,
+                'unit_description': 'District 007',
+                rank: 'Police Officer',
+                date: '2005-03-17',
+                'firearm_used': false
+              },
+              {
+                'unit_name': '007',
+                kind: 'UNIT_CHANGE',
+                'unit_description': 'District 007',
+                rank: 'Police Officer',
+                date: '2005-01-07'
+              },
+              {
+                'unit_name': '153',
+                kind: 'FORCE',
+                taser: false,
+                'unit_description': 'Mobile Strike Force',
+                rank: 'Police Officer',
+                date: '2004-12-17',
+                'firearm_used': true
+              },
+              {
+                category: 'Illegal Search',
+                'unit_name': '153',
+                kind: 'CR',
+                subcategory: 'Search Of Premise Without Warrant',
+                crid: '294088',
+                'unit_description': 'Mobile Strike Force',
+                rank: 'Police Officer',
+                date: '2003-11-26',
+                coaccused: 8,
+                finding: 'Exonerated',
+                outcome: 'No Action Taken',
+                attachments: [
+                  {
+                    url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+                    'preview_image_url':
+                      'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+                    title: 'CRID 294088 CR'
+                  }
+                ]
+              },
+              {
+                category: 'Criminal Misconduct',
+                'unit_name': '153',
+                kind: 'CR',
+                subcategory: 'Theft',
+                crid: '260131',
+                'unit_description': 'Mobile Strike Force',
+                rank: 'Police Officer',
+                date: '2003-02-17',
+                coaccused: 4,
+                finding: 'Unfounded',
+                outcome: 'No Action Taken'
+              },
+              {
+                'unit_name': '153',
+                kind: 'UNIT_CHANGE',
+                'unit_description': 'Mobile Strike Force',
+                rank: 'Police Officer',
+                date: '2000-04-28'
+              },
+              {
+                'unit_name': '044',
+                kind: 'JOINED',
+                'unit_description': 'Recruit Training Section',
+                rank: 'Police Officer',
+                date: '2000-02-05'
+              }
+            ]
           }
         }
-      ).should.eql([
+      };
+
+      getNewTimelineItems(state).should.eql([
         {
           date: '2006',
           hasData: true,
           isFirstRank: true,
           isFirstUnit: true,
+          isLastRank: false,
+          isLastUnit: false,
           kind: 'YEAR',
           rank: 'Police Officer',
           rankDisplay: 'Police Officer',
@@ -788,7 +916,7 @@ describe('officer page selectors', function () {
           unitName: '007',
         },
         {
-          category: 'Honorable Mention',
+          year: 2006,
           date: 'MAR 1',
           isFirstRank: false,
           isFirstUnit: false,
@@ -800,9 +928,13 @@ describe('officer page selectors', function () {
           unitDescription: 'District 007',
           unitDisplay: ' ',
           unitName: '007',
-          year: 2006,
+          category: 'Honorable Mention',
         },
         {
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
           date: '2005',
           hasData: true,
           kind: 'YEAR',
@@ -859,14 +991,31 @@ describe('officer page selectors', function () {
           year: 2005,
         },
         {
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: true,
+          isLastUnit: false,
           date: '2004',
           hasData: true,
-          isFirstUnit: true,
-          kind: 'YEAR',
+          kind: 'EMPTY',
           rank: 'Police Officer',
           rankDisplay: ' ',
           unitDescription: 'Mobile Strike Force',
           unitDisplay: 'Mobile Strike Force',
+          unitName: '153',
+        },
+        {
+          date: '2004',
+          hasData: true,
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: false,
+          isLastUnit: false,
+          kind: 'YEAR',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitDescription: 'Mobile Strike Force',
+          unitDisplay: ' ',
           unitName: '153',
         },
         {
@@ -887,6 +1036,10 @@ describe('officer page selectors', function () {
         {
           date: '2003',
           hasData: true,
+          isFirstRank: false,
+          isLastRank: false,
+          isFirstUnit: false,
+          isLastUnit: false,
           kind: 'YEAR',
           rank: 'Police Officer',
           rankDisplay: ' ',
@@ -943,6 +1096,10 @@ describe('officer page selectors', function () {
         },
         {
           date: '2002',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
           hasData: false,
           kind: 'YEAR',
           rank: 'Police Officer',
@@ -953,6 +1110,10 @@ describe('officer page selectors', function () {
         },
         {
           date: '2001',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
           hasData: false,
           kind: 'YEAR',
           rank: 'Police Officer',
@@ -964,6 +1125,9 @@ describe('officer page selectors', function () {
         {
           date: '2000',
           hasData: true,
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
           isLastUnit: true,
           kind: 'YEAR',
           rank: 'Police Officer',

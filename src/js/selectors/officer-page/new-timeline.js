@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { isEmpty, rangeRight, slice } from 'lodash';
+import { isEmpty, rangeRight, slice, nth } from 'lodash';
 
 import { NEW_TIMELINE_ITEMS } from 'utils/constants';
 
@@ -66,6 +66,10 @@ export const yearItem = (baseItem, year, hasData) => ({
   unitName: baseItem.unitName,
   unitDescription: baseItem.unitDescription,
   unitDisplay: baseItem.unitDisplay,
+  isFirstRank: false,
+  isLastRank: false,
+  isFirstUnit: false,
+  isLastUnit: false,
   kind: NEW_TIMELINE_ITEMS.YEAR,
   date: `${year}`,
   hasData,
@@ -91,6 +95,26 @@ export const fillYears = (items) => {
       if (nextItem.year < currentItem.year) {
         newItems.push(yearItem(nextItem, nextItem.year, true));
       }
+    }
+  });
+
+  return newItems;
+};
+
+const emptyItem = (baseItem) => ({
+  ...baseItem,
+  kind: NEW_TIMELINE_ITEMS.EMPTY,
+});
+
+export const fillEmptyItems = (items) => {
+  const newItems = [];
+
+  items.map((item, index) => {
+    newItems.push(item);
+
+    const nextItem = nth(items, index + 1);
+    if (nextItem && item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && nextItem.kind === NEW_TIMELINE_ITEMS.YEAR) {
+      newItems.push(emptyItem(nextItem));
     }
   });
 
@@ -164,7 +188,8 @@ export const getNewTimelineItems = state => {
     return [];
   }
   const transformedItems = items.map(transform);
-  const processors = [fillYears, dedupeRank, dedupeUnit, markFirstAndLastUnit, fillUnitChange];
+  // Do not change the order of these processors
+  const processors = [fillYears, fillEmptyItems, dedupeRank, dedupeUnit, markFirstAndLastUnit, fillUnitChange];
 
   return processors.reduce((accItems, processor) => processor(accItems), transformedItems);
 };

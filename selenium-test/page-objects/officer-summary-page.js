@@ -37,6 +37,7 @@ class TimelineSection extends Section {
       unitChangeItem: '.test--timeline-unit-change-item',
       joinedItem: '.test--timeline-joined-item',
       yearItem: '.test--timeline-year-item',
+      emptyItem: '.test--timeline-empty-item',
     });
   }
 }

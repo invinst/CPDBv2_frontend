@@ -106,6 +106,7 @@ describe('officer summary page', function () {
     summaryPage.biographySection.timelineSection.unitChangeItem.waitForVisible();
     summaryPage.biographySection.timelineSection.joinedItem.waitForVisible();
     summaryPage.biographySection.timelineSection.yearItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.emptyItem.waitForVisible();
   });
 
   describe('Radar Chart', function () {

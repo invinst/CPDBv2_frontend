@@ -7,6 +7,7 @@ import AwardItem from './award-item';
 import UnitChangeItem from './unit-change-item';
 import JoinedItem from './joined-item';
 import YearItem from './year-item';
+import EmptyItem from './empty-item';
 import { NEW_TIMELINE_ITEMS } from 'utils/constants';
 
 
@@ -19,6 +20,7 @@ export default class Item extends Component {
       [NEW_TIMELINE_ITEMS.UNIT_CHANGE]: <UnitChangeItem { ...this.props } />,
       [NEW_TIMELINE_ITEMS.JOINED]: <JoinedItem { ...this.props } />,
       [NEW_TIMELINE_ITEMS.YEAR]: <YearItem { ...this.props } />,
+      [NEW_TIMELINE_ITEMS.EMPTY]: <EmptyItem { ...this.props } />,
     };
     return get(componentMap, this.props.item.kind, null);
   }
