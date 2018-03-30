@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 import isRequesting from './is-requesting';
 import summary from './summary';
 import fullName from './full-name';
-import timeline from './timeline';
 import newTimeline from './new-timeline';
 import activeTab from './active-tab';
 import pathname from './pathname';
@@ -20,7 +19,6 @@ export default combineReducers({
   summary,
   activeTab,
   pathname,
-  timeline,
   newTimeline,
   socialGraph,
   officerId,

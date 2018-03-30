@@ -8,8 +8,8 @@ import {
 } from 'utils/constants';
 
 
-describe('officer timeline actions', function () {
-  describe('fetchTimelineItems', function () {
+describe('officer new timeline actions', function () {
+  describe('fetchNewTimelineItems', function () {
     it('should return the right action', function () {
       fetchNewTimelineItems(123).should.eql({
         types: [

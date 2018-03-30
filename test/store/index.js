@@ -148,22 +148,6 @@ describe('store', function () {
             2017
           ]
         },
-        timeline: {
-          hoveredItemIndex: null,
-          isRequesting: false,
-          items: [],
-          minimap: {
-            isRequesting: false,
-            minimap: []
-          },
-          pagination: {
-            next: null,
-            previous: null
-          },
-          selectedItemIndex: null,
-          sortDescending: true,
-          filters: {}
-        },
         newTimeline: {
           isRequesting: false,
           items: []

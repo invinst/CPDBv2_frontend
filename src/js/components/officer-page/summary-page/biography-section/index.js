@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 
 import { biographySectionStyle, menuStyle, menuItemStyle } from './biography-section.style';
-import Timeline from 'components/officer-page/summary-page/biography-section/timeline';
+import Timeline from './timeline';
 
 
 export default class BiographySection extends Component {

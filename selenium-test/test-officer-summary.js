@@ -61,21 +61,6 @@ describe('officer summary page', function () {
     summaryPage.summarySection.sexValue.getText().should.equal('Male');
   });
 
-  it('should launch timeline, summary, minimap requests upon direct visit', function () {
-    getRequestCount('/officers/1/timeline-items/').should.equal(1);
-    getRequestCount('/officers/1/summary/').should.equal(1);
-    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
-  });
-
-  it('should not launch any request when click on Timeline tab', function () {
-    summaryPage.header.timelineButton.waitForVisible();
-    summaryPage.header.timelineButton.click();
-
-    getRequestCount('/officers/1/timeline-items/').should.equal(1);
-    getRequestCount('/officers/1/summary/').should.equal(1);
-    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
-  });
-
   it('should not launch any request when click on Social tab', function () {
     summaryPage.header.socialButton.waitForVisible();
     summaryPage.header.socialButton.click();

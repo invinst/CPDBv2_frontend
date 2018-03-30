@@ -18,7 +18,6 @@ describe('BiographySection component', function () {
     unmountComponentSuppressError(instance);
   });
 
-
   it('should render Header with correct tab names', function () {
     instance = renderIntoDocument(<BiographySection />);
 

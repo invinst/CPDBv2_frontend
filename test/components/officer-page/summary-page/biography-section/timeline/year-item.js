@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { findRenderedDOMComponentWithClass, renderIntoDocument, } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import YearItem from 'components/officer-page/summary-page/biography-section/timeline/year-item';
@@ -14,7 +11,6 @@ describe('YearItem component', function () {
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
-
 
   it('should render item correctly', function () {
     const year = {
