@@ -22,7 +22,7 @@ export default class JoinedItem extends BaseItem {
       <span style={ wrapperShowingStyle }>
         <span style={ showingStyle(hasBorderBottom) }>
           <span style={ joinStyle } className='test--joined-item-join'>
-            Joined Chicago Police Department with Unit {item.unitName} as a {item.rank}
+            Joined Chicago Police Department { item.unitName ? `with Unit ${item.unitName} ` : '' }as a {item.rank}
           </span>
           <span style={ dateStyle } className='test--joined-item-date'>{ item.date }</span>
         </span>

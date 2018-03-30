@@ -50,7 +50,12 @@ export default class UnitChangeItem extends BaseItem {
       <span style={ wrapperShowingStyle }>
         <span style={ showingStyle(hasBorderBottom) }>
           <span style={ unitChangeStyle } className='test--unit-change-item-content'>
-            <span style={ oldUnitStyle }>Unit { oldUnitName } - { oldUnitDescription } → </span>
+            {
+              oldUnitName ?
+                <span style={ oldUnitStyle }>Unit { oldUnitName } - { oldUnitDescription } → </span>
+                :
+                null
+            }
             <span style={ newUnitStyle }>Unit { unitName } - { unitDescription }</span>
           </span>
           <span style={ dateStyle } className='test--unit-change-item-date'>{ date }</span>

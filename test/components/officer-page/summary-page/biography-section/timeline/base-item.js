@@ -25,9 +25,9 @@ describe('BaseItem component', function () {
       rank: 'Police Officer',
       rankDisplay: 'Police Officer Display',
       isFirstRank: true,
-      isLastRank: true,
+      isLastRank: false,
       isFirstUnit: true,
-      isLastUnit: true,
+      isLastUnit: false,
     };
 
     instance = renderIntoDocument(<BaseItem item={ item }/>);
@@ -37,5 +37,25 @@ describe('BaseItem component', function () {
 
     rank.textContent.should.eql('Police Officer Display');
     unit.textContent.should.eql('001 Display');
+  });
+
+  it('should render unit name as a space if it is the first event in that unit duration ' +
+    'and unitDisplay is an empty string', function () {
+    const item = {
+      date: 'Jan 01',
+      kind: 'AWARD',
+      unitName: '001',
+      unitDisplay: '',
+      rank: 'Police Officer',
+      rankDisplay: 'Police Officer Display',
+      isFirstRank: false,
+      isLastRank: false,
+      isFirstUnit: true,
+      isLastUnit: false,
+    };
+
+    instance = renderIntoDocument(<BaseItem item={ item }/>);
+
+    findRenderedDOMComponentWithClass(instance, 'test--base-item-unit').textContent.should.eql(' ');
   });
 });

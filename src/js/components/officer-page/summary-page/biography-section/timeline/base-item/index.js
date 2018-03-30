@@ -31,7 +31,7 @@ export default class BaseItem extends Component {
           style={ baseUnitStyle(this.height, isFirstUnit, isLastUnit) }
           className='test--base-item-unit'
         >
-          { unitDisplay }
+          { (isFirstUnit && unitDisplay) ? unitDisplay : ' ' }
         </span>
       </span>
     );
