@@ -22,12 +22,12 @@ export default class UnitChange extends Component {
         <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
           <span style={ unitChangeStyle } className='test--unit-change-item-content'>
             {
-              oldUnitName ?
-                <span style={ oldUnitStyle }>Unit { oldUnitName } - { oldUnitDescription } → </span>
-                :
-                null
+              oldUnitName === 'Unassigned' ?
+                <span style={ oldUnitStyle }>Unassigned → </span>
+              :
+                <span style={ oldUnitStyle }>{ oldUnitName } - { oldUnitDescription } → </span>
             }
-            <span style={ newUnitStyle }>Unit { unitName } - { unitDescription }</span>
+            <span style={ newUnitStyle }>{ unitName } - { unitDescription }</span>
           </span>
           <span style={ { ...baseDateStyle, ...dateStyle } } className='test--unit-change-item-date'>{ date }</span>
         </span>

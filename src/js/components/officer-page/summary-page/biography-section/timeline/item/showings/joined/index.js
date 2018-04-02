@@ -17,13 +17,13 @@ export default class Joined extends Component {
       baseShowingStyle,
       baseDateStyle,
     } = baseStyles;
-
+    const unitString = item.unitName === 'Unassigned' ? '' : `with ${item.unitName} `;
 
     return (
       <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } }>
         <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
           <span style={ joinStyle } className='test--joined-item-join'>
-            Joined Chicago Police Department { item.unitName ? `with Unit ${item.unitName} ` : '' }as a {item.rank}
+            Joined Chicago Police Department { unitString }as a {item.rank}
           </span>
           <span style={ { ...baseDateStyle, ...dateStyle } } className='test--joined-item-date'>{ item.date }</span>
         </span>

@@ -29,7 +29,7 @@ describe('Joined component', function () {
       rankDisplay: ' ',
       unitDescription: 'Recruit Training Section',
       unitDisplay: ' ',
-      unitName: '044',
+      unitName: 'Unit 044',
       year: 1988,
     };
 
@@ -42,7 +42,7 @@ describe('Joined component', function () {
     date.textContent.should.eql('DEC 5');
   });
 
-  it('should show correct content if unit info is missing for that date', function () {
+  it('should show correct content if unit name is Unassigned', function () {
     const joinedItem = {
       date: 'DEC 5',
       isFirstRank: false,
@@ -52,9 +52,9 @@ describe('Joined component', function () {
       kind: 'JOINED',
       rank: 'Police Officer',
       rankDisplay: ' ',
-      unitDescription: '',
-      unitDisplay: ' ',
-      unitName: '',
+      unitDescription: 'Some description',
+      unitDisplay: 'Unassigned',
+      unitName: 'Unassigned',
       year: 1988,
     };
 

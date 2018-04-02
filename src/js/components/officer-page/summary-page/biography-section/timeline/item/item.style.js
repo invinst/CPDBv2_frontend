@@ -57,7 +57,7 @@ export const baseShowingStyle = (hasBorderBottom) => ({
   width: 'calc(100% - 32px)',
   display: 'inline-block',
   margin: '0 16px',
-  borderBottom: hasBorderBottom ? `solid 2px ${whiteTwoColor}`: 'none',
+  borderBottom: hasBorderBottom ? `solid 1px ${whiteTwoColor}`: 'none',
   boxSizing: 'border-box',
 });
 

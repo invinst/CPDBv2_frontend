@@ -34,7 +34,7 @@ describe('Item component', function () {
       rankDisplay: ' ',
       unitDescription: 'Mobile Strike Force',
       unitDisplay: ' ',
-      unitName: '153',
+      unitName: 'Unit 153',
     };
     instance = renderIntoDocument(<Item item={ year }/>);
     findRenderedComponentWithType(instance, Year);
@@ -55,7 +55,7 @@ describe('Item component', function () {
     const item = {
       date: 'Jan 01',
       kind: 'AWARD',
-      unitName: '001',
+      unitName: 'Unit 001',
       unitDisplay: '001 Display',
       rank: 'Police Officer',
       rankDisplay: 'Police Officer Display',

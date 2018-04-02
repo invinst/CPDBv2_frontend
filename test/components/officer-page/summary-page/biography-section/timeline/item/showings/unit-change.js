@@ -22,12 +22,12 @@ describe('UnitChange component', function () {
       date: 'APR 28',
       kind: 'UNIT_CHANGE',
       oldUnitDescription: 'Airport Enforcement',
-      oldUnitName: '051',
+      oldUnitName: 'Unit 051',
       rank: 'Police Officer',
       rankDisplay: ' ',
       unitDescription: 'Mobile Strike Force',
       unitDisplay: ' ',
-      unitName: '153',
+      unitName: 'Unit 153',
       year: 1994,
     };
 
@@ -42,17 +42,17 @@ describe('UnitChange component', function () {
     date.textContent.should.eql('APR 28');
   });
 
-  it('should render new unit only if the old unit is empty string', function () {
+  it('should render old unit as Unassigned if the old unit is marked with Unassigned', function () {
     const unitChange = {
       date: 'APR 28',
       kind: 'UNIT_CHANGE',
-      oldUnitDescription: '',
-      oldUnitName: '',
+      oldUnitDescription: 'Some description',
+      oldUnitName: 'Unassigned',
       rank: 'Police Officer',
       rankDisplay: ' ',
       unitDescription: 'Mobile Strike Force',
       unitDisplay: ' ',
-      unitName: '153',
+      unitName: 'Unit 153',
       year: 1994,
     };
 
@@ -63,7 +63,7 @@ describe('UnitChange component', function () {
     const content = findRenderedDOMComponentWithClass(instance, 'test--unit-change-item-content');
     const date = findRenderedDOMComponentWithClass(instance, 'test--unit-change-item-date');
 
-    content.textContent.should.eql('Unit 153 - Mobile Strike Force');
+    content.textContent.should.eql('Unassigned → Unit 153 - Mobile Strike Force');
     date.textContent.should.eql('APR 28');
   });
 });

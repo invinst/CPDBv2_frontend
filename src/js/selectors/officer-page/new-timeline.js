@@ -4,20 +4,24 @@ import { isEmpty, rangeRight, slice, nth } from 'lodash';
 import { NEW_TIMELINE_ITEMS } from 'utils/constants';
 
 
-export const baseTransform = (item) => ({
-  year: moment(item.date).year(),
-  date: moment(item.date).format('MMM D').toUpperCase(),
-  kind: item.kind,
-  rank: item.rank,
-  rankDisplay: item.rank,
-  unitName: item['unit_name'],
-  unitDescription: item['unit_description'],
-  unitDisplay: item['unit_description'],
-  isFirstRank: false,
-  isLastRank: false,
-  isFirstUnit: false,
-  isLastUnit: false,
-});
+export const baseTransform = (item) => {
+  const unitName = item['unit_name'] ? `Unit ${item['unit_name']}` : 'Unassigned';
+
+  return {
+    year: moment(item.date).year(),
+    date: moment(item.date).format('MMM D').toUpperCase(),
+    kind: item.kind,
+    rank: item.rank,
+    rankDisplay: item.rank,
+    unitName: unitName,
+    unitDescription: item['unit_description'],
+    unitDisplay: unitName,
+    isFirstRank: false,
+    isLastRank: false,
+    isFirstUnit: false,
+    isLastUnit: false,
+  };
+};
 
 export const attachmentsTransform = (attachments) => {
   if (attachments) {

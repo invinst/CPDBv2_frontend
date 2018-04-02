@@ -23,7 +23,7 @@ export default class Item extends Component {
     const componentMap = {
       [NEW_TIMELINE_ITEMS.CR]: {
         height: 58,
-        className: 'test--timeline-award-item',
+        className: 'test--timeline-cr-item',
         item: <Cr { ...this.props } baseStyles={ baseStyles }/>
       },
       [NEW_TIMELINE_ITEMS.FORCE]: {
