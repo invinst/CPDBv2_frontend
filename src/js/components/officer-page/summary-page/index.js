@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import { wrapperStyle } from './summary-page.style.js';
 import { pageWrapperStyle, radarChartPlaceholderStyle } from './summary-page.style';
 import OfficerRadarChart from './radar-chart';
-import SummarySection from './summary-section/index';
+import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import BiographySection from './biography-section';
 

@@ -10,10 +10,8 @@ export default class BiographySection extends Component {
   constructor(props) {
     super(props);
 
-    this.renderTimeline = this.renderTimeline.bind(this);
-
     this.biographyTabs = [
-      { name: 'TIMELINE', renderer: this.renderTimeline },
+      { name: 'TIMELINE', renderer: () => <Timeline items={ this.props.timelineItems }/> },
       { name: 'SUMMARY', renderer: null },
       { name: 'MAP', renderer: null },
       { name: 'COACCUSALS', renderer: null },
@@ -39,11 +37,6 @@ export default class BiographySection extends Component {
         }
       </div>
     );
-  }
-
-  renderTimeline() {
-    const { timelineItems } = this.props;
-    return <Timeline items={ timelineItems }/>;
   }
 
   renderBiography() {

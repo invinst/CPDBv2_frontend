@@ -8,7 +8,7 @@ import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import SummaryPage from 'components/officer-page/summary-page';
-import SummarySection from 'components/officer-page/summary-page/summary-section/index';
+import SummarySection from 'components/officer-page/summary-page/summary-section';
 import MetricsSection from 'components/officer-page/summary-page/metrics-section';
 import BiographySection from 'components/officer-page/summary-page/biography-section';
 import OfficerRadarChart from 'components/officer-page/summary-page/radar-chart';
