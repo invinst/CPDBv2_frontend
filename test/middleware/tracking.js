@@ -92,7 +92,7 @@ describe('trackingMiddleware', function () {
     dispatched.should.eql(dispatchAction);
   });
 
-  it('should send analytic pageview on LOCATION_CHANGE', function () {
+  it('should send pageview event on LOCATION_CHANGE', function () {
     let dispatched;
     const dispatchAction = {
       type: '@@router/LOCATION_CHANGE',
@@ -109,7 +109,7 @@ describe('trackingMiddleware', function () {
     global.ga.restore();
   });
 
-  it('should send analytic pageview on CHANGE_SEARCH_QUERY', function () {
+  it('should send pageview event on CHANGE_SEARCH_QUERY', function () {
     let dispatched;
     const dispatchAction = {
       type: constants.CHANGE_SEARCH_QUERY,
@@ -128,7 +128,7 @@ describe('trackingMiddleware', function () {
     trackingUtils.throttledGA.restore();
   });
 
-  it('should send analytic pageview on SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
+  it('should send pageview event on SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
     let dispatched;
     const dispatchAction = {
       type: constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
@@ -149,7 +149,7 @@ describe('trackingMiddleware', function () {
     global.ga.restore();
   });
 
-  it('should send analytic pageview on SUGGESTION_REQUEST_SUCCESS', function () {
+  it('should send pageview event on SUGGESTION_REQUEST_SUCCESS', function () {
     let dispatched;
     const dispatchAction = {
       type: constants.SUGGESTION_REQUEST_SUCCESS,

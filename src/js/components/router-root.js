@@ -52,48 +52,70 @@ class RouterRoot extends Component {
     return (
       <Provider store={ store }>
         <Router history={ history }>
-          <Route path='/(edit)' component={ AppContainer }>
-            <IndexRoute component={ LandingPageContainer } breadcrumb='Home' />
-            <Route path={ STORIES_PATH } component={ ReportingPage }>
-              <Route path={ ':reportId' } component={ ReportingPage }/>
+          <Route
+            path='/(edit)'
+            component={ AppContainer }>
+            <IndexRoute
+              component={ LandingPageContainer }
+              breadcrumb='Home'/>
+            <Route
+              path={ STORIES_PATH }
+              component={ ReportingPage }>
+              <Route
+                path={ ':reportId' }
+                component={ ReportingPage }/>
             </Route>
-            <Route path={ COLLAB_PATH } component={ CollaborationPage }/>
-            <Route path={ FAQ_PATH } component={ FAQPage }>
-              <Route path={ ':faqId' } component={ FAQPage }/>
+            <Route
+              path={ COLLAB_PATH }
+              component={ CollaborationPage }/>
+            <Route
+              path={ FAQ_PATH }
+              component={ FAQPage }>
+              <Route
+                path={ ':faqId' }
+                component={ FAQPage }/>
             </Route>
-            <Route path={ OFFICER_PATH } component={ OfficerPageContainer }
+            <Route
+              path={ OFFICER_PATH }
+              component={ OfficerPageContainer }
               breadcrumb={ { componentCacheKey: 'officer' } }>
-              <Route path={ OFFICER_TIMELINE_SUFFIX } component={ OfficerPageContainer }
+              <Route
+                path={ OFFICER_TIMELINE_SUFFIX }
+                component={ OfficerPageContainer }
                 useParentBreadcrumb={ true } />
-              <Route path={ OFFICER_SOCIAL_GRAPH_SUFFIX } component={ OfficerPageContainer }
+              <Route
+                path={ OFFICER_SOCIAL_GRAPH_SUFFIX }
+                component={ OfficerPageContainer }
                 useParentBreadcrumb={ true } />
             </Route>
             <Route
               path={ SEARCH_PATH }
               component={ SearchPageContainer }
-              breadcrumb='Search'
-              >
+              breadcrumb='Search'>
               <Route
                 path={ SEARCH_TERMS_PATH }
                 component={ SearchTermsContainer }
-                useParentBreadcrumb={ true }
-                />
+                useParentBreadcrumb={ true }/>
             </Route>
-            <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer }
+            <Route
+              path={ STANDALONE_CR_PATH }
+              component={ CRPageContainer }
               breadcrumb={ { componentCacheKey: 'cr' } }>
               <Route
                 path={ CR_PATH_SUFFIX }
                 component={ CRPageContainer }
-                useParentBreadcrumb={ true }
-                />
+                useParentBreadcrumb={ true }/>
             </Route>
-            <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer }
+            <Route
+              path={ UNIT_PROFILE_PATH }
+              component={ UnitProfilePageContainer }
               breadcrumb={ { componentCacheKey: 'unit' } }/>
-            <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer }/>
+            <Route
+              path={ SEARCH_ALIAS_EDIT_PATH }
+              component={ SearchPageContainer }/>
             <Route
               path={ INLINE_SEARCH_ALIAS_ADMIN_PATH }
-              component={ InlineAliasAdminContainer }
-             />
+              component={ InlineAliasAdminContainer }/>
           </Route>
         </Router>
       </Provider>

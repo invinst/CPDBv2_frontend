@@ -47,7 +47,7 @@ describe('HeatMap component', function () {
     findRenderedComponentWithType(instance, CommunityMap).should.be.ok();
   });
 
-  it('should set community id and send analytic event when selectCommunity trigger', function () {
+  it('should set community id and send analytic event when selectCommunity triggers', function () {
     stub(global, 'ga');
     const communities = [{
       id: 10,

@@ -3,8 +3,7 @@ import { CancelToken } from 'axios';
 
 import {
   getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion,
-  move, getSuggestionWithContentType,
-  SUGGESTION_URL
+  move, getSuggestionWithContentType, SUGGESTION_URL
 } from 'actions/search-page';
 import * as constants from 'utils/constants';
 import { resetNavigation } from 'actions/search-page';
