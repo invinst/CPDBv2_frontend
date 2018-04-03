@@ -1,6 +1,6 @@
 import preloadOfficerPageDataMiddleware from 'middleware/preload-officer-page-data-middleware';
 import { spy, stub } from 'sinon';
-import { changeOfficerId, fetchOfficerSummary, fetchOfficerMetrics } from 'actions/officer-page';
+import { changeOfficerId, fetchOfficerSummary } from 'actions/officer-page';
 
 import * as timelineActions from 'actions/officer-page/timeline';
 import * as minimapActions from 'actions/officer-page/timeline-minimap';
@@ -57,7 +57,6 @@ describe('preload-officer-page-data-middleware', function () {
     dispatched.should.eql(locationChangeAction);
     store.dispatch.calledWith(changeOfficerId(2)).should.be.true();
     store.dispatch.calledWith(fetchOfficerSummary(2)).should.be.true();
-    store.dispatch.calledWith(fetchOfficerMetrics(2)).should.be.true();
     store.dispatch.calledWith(fetchSocialGraph(2)).should.be.true();
     store.dispatch.calledWith(fetchTimelineFirstItems(2, {})).should.be.true();
     store.dispatch.calledWith('fetchMinimapThenSelectTimelineItemResult').should.be.true();
@@ -77,7 +76,6 @@ describe('preload-officer-page-data-middleware', function () {
     dispatched.should.eql(locationChangeAction);
     store.dispatch.calledWith(changeOfficerId(1)).should.be.false();
     store.dispatch.calledWith(fetchOfficerSummary(1)).should.be.false();
-    store.dispatch.calledWith(fetchOfficerMetrics(1)).should.be.false();
     store.dispatch.calledWith(fetchSocialGraph(1)).should.be.false();
     store.dispatch.calledWith(fetchTimelineFirstItems(1, {})).should.be.false();
     store.dispatch.calledWith(fetchMinimapThenSelectTimelineItem(1)).should.be.false();
