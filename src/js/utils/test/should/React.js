@@ -1,14 +1,13 @@
 import React, { Component, createElement } from 'react';
-
+import should from 'should';
 import { Provider } from 'react-redux';
 import { unmountComponentAtNode, findDOMNode } from 'react-dom';
-import {
-  renderIntoDocument, Simulate, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType
-} from 'react-addons-test-utils';
-import should from 'should';
 import { each, assign } from 'lodash';
 import { spy } from 'sinon';
 
+import {
+  renderIntoDocument, Simulate, scryRenderedDOMComponentsWithClass, findRenderedComponentWithType
+} from 'react-addons-test-utils';
 import { MOBILE, TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 
 

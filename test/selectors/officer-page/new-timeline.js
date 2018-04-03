@@ -42,29 +42,29 @@ describe('officer page selectors', function () {
         isFirstUnit: false,
         isLastUnit: false,
       });
+    });
 
-      it('should mark unitName as Unassigned if it is empty', function () {
-        const item = {
-          date: '1988-12-05',
-          kind: 'JOINED',
-          rank: 'Police Officer',
-          'unit_description': '',
-          'unit_name': '',
-        };
-        baseTransform(item).should.eql({
-          year: 1988,
-          date: 'DEC 5',
-          kind: 'JOINED',
-          rank: 'Police Officer',
-          rankDisplay: 'Police Officer',
-          unitName: 'Unassigned',
-          unitDescription: '',
-          unitDisplay: 'Unassigned',
-          isFirstRank: false,
-          isLastRank: false,
-          isFirstUnit: false,
-          isLastUnit: false,
-        });
+    it('should mark unitName as Unassigned if it is empty', function () {
+      const item = {
+        date: '1988-12-05',
+        kind: 'JOINED',
+        rank: 'Police Officer',
+        'unit_description': '',
+        'unit_name': '',
+      };
+      baseTransform(item).should.eql({
+        year: 1988,
+        date: 'DEC 5',
+        kind: 'JOINED',
+        rank: 'Police Officer',
+        rankDisplay: 'Police Officer',
+        unitName: 'Unassigned',
+        unitDescription: '',
+        unitDisplay: 'Unassigned',
+        isFirstRank: false,
+        isLastRank: false,
+        isFirstUnit: false,
+        isLastUnit: false,
       });
     });
   });
