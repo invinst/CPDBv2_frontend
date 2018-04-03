@@ -4,6 +4,7 @@ import pluralize from 'pluralize';
 
 import { metricSectionStyle, verticalLineStyle, wrapperStyle } from './metrics-section.style';
 import MetricsColumn from 'components/officer-page/summary-page/metrics-section/metrics-column';
+import roundPercentile from 'utils/round-percentile';
 
 
 export default class MetricsSection extends Component {
@@ -27,7 +28,7 @@ export default class MetricsSection extends Component {
       {
         value: allegationCount,
         name: `${pluralize('Allegation', allegationCount)}`,
-        description: `More than ${topAllegationPercentile}% of other officers`,
+        description: `More than ${roundPercentile(topAllegationPercentile)}% of other officers`,
       },
       {
         value: sustainedCount,
@@ -38,7 +39,7 @@ export default class MetricsSection extends Component {
       {
         value: useOfForceCount,
         name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
-        description: `More than ${topUseOfForcePercentile}% of other officers`,
+        description: `More than ${roundPercentile(topUseOfForcePercentile)}% of other officers`,
       },
       {
         value: civilianComplimentCount,
@@ -53,7 +54,7 @@ export default class MetricsSection extends Component {
       {
         value: honorableMentionCount,
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
-        description: `More than ${topHonorableMentionPercentile}% of other officers`,
+        description: `More than ${roundPercentile(topHonorableMentionPercentile)}% of other officers`,
       }
     ];
 
