@@ -23,9 +23,9 @@ export default class UnitChange extends Component {
           <span style={ unitChangeStyle } className='test--unit-change-item-content'>
             {
               oldUnitName === 'Unassigned' ?
-                <span style={ oldUnitStyle }>Unassigned → </span>
+                <span style={ oldUnitStyle(true) }>Unassigned → </span>
               :
-                <span style={ oldUnitStyle }>{ oldUnitName } - { oldUnitDescription } → </span>
+                <span style={ oldUnitStyle(false) }>{ oldUnitName } - { oldUnitDescription } → </span>
             }
             <span style={ newUnitStyle }>{ unitName } - { unitDescription }</span>
           </span>

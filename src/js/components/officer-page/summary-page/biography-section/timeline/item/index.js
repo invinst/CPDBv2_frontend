@@ -67,7 +67,7 @@ export default class Item extends Component {
     const { baseRankStyle, baseUnitStyle, unitChangeStyle } = baseStyles;
 
     return (
-      <span className='fuck'>
+      <span>
         <span
           style={ baseRankStyle(height, isFirstRank, isLastRank) }
           className='test--item-rank'
@@ -84,7 +84,7 @@ export default class Item extends Component {
             </span>
           ) : (
             <span
-              style={ baseUnitStyle(height, isFirstUnit, isLastUnit) }
+              style={ baseUnitStyle(height, isFirstUnit, isLastUnit, unitDisplay === 'Unassigned') }
               className='test--item-unit'
             >
               { (isFirstUnit && unitDisplay) ? unitDisplay : ' ' }

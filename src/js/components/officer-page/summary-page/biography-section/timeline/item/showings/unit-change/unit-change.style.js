@@ -26,9 +26,10 @@ export const unitChangeStyle = {
   fontSize: '12px',
 };
 
-export const oldUnitStyle = {
+export const oldUnitStyle = (unassigned) => ({
   color: clayGray,
-};
+  fontStyle: unassigned ? 'italic' : 'none',
+});
 
 export const newUnitStyle = {
   color: softBlackColor,

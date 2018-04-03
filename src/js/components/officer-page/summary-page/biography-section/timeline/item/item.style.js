@@ -31,13 +31,14 @@ export const baseRankStyle = (height, isFirst, isLast) => ({
   ...borderRadiusStyle(isFirst, isLast),
 });
 
-export const baseUnitStyle = (height, isFirst, isLast) => ({
+export const baseUnitStyle = (height, isFirst, isLast, unassigned) => ({
   ...smallBoxStyle,
   whiteSpace: 'pre',
   backgroundColor: '#E8E7E7',
   lineHeight: `${height}px`,
   color: clayGray,
   verticalAlign: 'top',
+  fontStyle: unassigned ? 'italic' : 'none',
   ...borderRadiusStyle(isFirst, isLast),
 });
 
