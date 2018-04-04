@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { every } from 'lodash';
 
 import { curveLinearClosed, radialLine } from 'd3-shape';
 
@@ -9,7 +10,7 @@ export default class RadarArea extends Component {
   render() {
 
     const { rPoints, drawStroke, strokeWidth } = this.props;
-    if (!rPoints)
+    if (!rPoints || !every(rPoints, (point) => !isNaN(point.r)))
       return <g className='test--radar-wrapper'/>;
 
     const radarLine = radialLine()
