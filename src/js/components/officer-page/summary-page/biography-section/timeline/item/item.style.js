@@ -1,4 +1,5 @@
 import { whiteTwoColor, sugarCaneColor, softBlackColor, clayGray } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
 
 
 const radius = 4;
@@ -8,11 +9,16 @@ export const baseWrapperStyle = (height) => ({
   height: `${height}px`,
 });
 
-const smallBoxStyle = {
+const smallBoxStyle = (height) => ({
   width: '104px',
   display: 'inline-block',
   textAlign: 'center',
-};
+  boxSizing: 'border-box',
+  height: `${height}px`,
+  lineHeight: `${height}px`,
+  verticalAlign: 'top',
+  whiteSpace: 'pre',
+});
 
 const borderRadiusStyle = (isFirst, isLast) => ({
   borderTopLeftRadius: isFirst ? `${radius}px`: 0,
@@ -22,23 +28,19 @@ const borderRadiusStyle = (isFirst, isLast) => ({
 });
 
 export const baseRankStyle = (height, isFirst, isLast) => ({
-  ...smallBoxStyle,
+  ...smallBoxStyle(height),
   borderRight: `solid 1px ${sugarCaneColor}`,
   backgroundColor: whiteTwoColor,
-  whiteSpace: 'pre',
-  lineHeight: `${height}px`,
-  verticalAlign: 'top',
   ...borderRadiusStyle(isFirst, isLast),
 });
 
 export const baseUnitStyle = (height, isFirst, isLast, unassigned) => ({
-  ...smallBoxStyle,
-  whiteSpace: 'pre',
-  backgroundColor: '#E8E7E7',
-  lineHeight: `${height}px`,
+  ...smallBoxStyle(height),
   color: clayGray,
-  verticalAlign: 'top',
   fontStyle: unassigned ? 'italic' : 'none',
+  backgroundImage: `url("${imgUrl('unit-background-pattern.png')}")`,
+  backgroundPosition: 'center',
+  backgroundSize: '100%',
   ...borderRadiusStyle(isFirst, isLast),
 });
 
@@ -47,6 +49,7 @@ export const unitChangeStyle = (height, isFirst, isLast) => ({
   color: clayGray,
   fontSize: '12px',
   backgroundColor: 'inherit',
+  background: 'none',
 });
 
 export const baseWrapperShowingStyle = {
