@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 
-import { biographySectionStyle, menuStyle, menuItemStyle } from './biography-section.style';
+import { biographySectionStyle, menuItemStyle, menuStyle } from './biography-section.style';
 import Timeline from './timeline';
 
 
@@ -11,7 +11,17 @@ export default class BiographySection extends Component {
     super(props);
 
     this.biographyTabs = [
-      { name: 'TIMELINE', renderer: () => <Timeline items={ this.props.timelineItems }/> },
+      {
+        name: 'TIMELINE',
+        renderer: () => {
+          const { timelineItems, changeFilter, selectedFilter } = this.props;
+          return (<Timeline
+            items={ timelineItems }
+            changeFilter={ changeFilter }
+            selectedFilter={ selectedFilter }
+          />);
+        }
+      },
       { name: 'SUMMARY', renderer: null },
       { name: 'MAP', renderer: null },
       { name: 'COACCUSALS', renderer: null },
@@ -55,7 +65,9 @@ export default class BiographySection extends Component {
 }
 
 BiographySection.propTypes = {
-  timelineItems: PropTypes.array
+  timelineItems: PropTypes.array,
+  changeFilter: PropTypes.func,
+  selectedFilter: PropTypes.string,
 };
 
 BiographySection.defaultProps = {

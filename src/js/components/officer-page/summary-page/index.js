@@ -6,6 +6,7 @@ import OfficerRadarChart from './radar-chart';
 import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import BiographySection from './biography-section';
+import { changeFilter } from 'actions/officer-page/new-timeline';
 
 
 export default class SummaryPage extends Component {
@@ -21,7 +22,9 @@ export default class SummaryPage extends Component {
       officerMetrics,
       officerName,
       newTimelineItems,
-      threeCornerPercentile
+      threeCornerPercentile,
+      changeFilter,
+      selectedFilter,
     } = this.props;
 
     return (
@@ -38,7 +41,10 @@ export default class SummaryPage extends Component {
             openPoliceUnitPage={ openPoliceUnitPage }/>
         </div>
         <MetricsSection metrics={ officerMetrics }/>
-        <BiographySection timelineItems={ newTimelineItems }/>
+        <BiographySection
+          timelineItems={ newTimelineItems }
+          changeFilter={ changeFilter }
+          selectedFilter={ selectedFilter }/>
       </div>
     );
   }
@@ -52,7 +58,9 @@ SummaryPage.propTypes = {
   officerMetrics: PropTypes.object,
   openPoliceUnitPage: PropTypes.func,
   newTimelineItems: PropTypes.array,
-  fetchPercentile: PropTypes.func
+  fetchPercentile: PropTypes.func,
+  changeFilter: PropTypes.func,
+  selectedFilter: PropTypes.string,
 };
 
 SummaryPage.defaultProps = {

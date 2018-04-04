@@ -1,4 +1,4 @@
-import { sugarCaneColor, clayGray } from 'utils/styles';
+import { accentColor, clayGray, hawkesBlue, sugarCaneColor } from 'utils/styles';
 
 
 export const timelineStyle = {
@@ -39,7 +39,7 @@ export const unitHeaderStyle = {
 export const showingContentHeaderStyle = {
   display: 'inline-block',
   width: 'calc(100% - 284px)',
-  lineHeight: '64px',
+  height: '64px',
   textAlign: 'center',
   fontSize: '14px',
   fontWeight: '300px',
@@ -56,4 +56,31 @@ export const dateHeaderStyle = {
   fontSize: '14px',
   fontWeight: '300px',
   color: clayGray,
+};
+
+export const showingTextStyle = {
+  display: 'inline-block',
+  lineHeight: '14px',
+  marginRight: '4px',
+};
+
+export const filterWrapperStyle = {
+  display: 'inline-block',
+  // width: '109px',
+  fontSize: '14px',
+  position: 'relative',
+  top: '50%',
+  transform: 'translateY(-50%)',
+};
+
+export const filterStyle = {
+  height: '28px',
+  fontSize: '14px',
+  backgroundColor: hawkesBlue,
+  color: accentColor,
+};
+
+export const filterMenuStyle = {
+  fontSize: '14px',
+  color: accentColor,
 };
