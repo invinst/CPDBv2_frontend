@@ -9,10 +9,10 @@ import {
 
 export default class CommunityRacePopulation extends Component {
   render() {
-    const { population, raceCount, medianIncome } = this.props;
+    const { population, raceCount, medianIncome, extraStyle } = this.props;
 
     return (
-      <div style={ racePopulationStyle } className='test--community-race-population'>
+      <div style={ { ...racePopulationStyle, ...extraStyle } } className='test--community-race-population'>
         <div style={ columnStyle }>
           <div>
             <div style={ labelTextStyle }>Population</div>
@@ -39,8 +39,13 @@ export default class CommunityRacePopulation extends Component {
   }
 }
 
+CommunityRacePopulation.defaultProps = {
+  extraStyle: {}
+};
+
 CommunityRacePopulation.propTypes = {
   population: PropTypes.string,
   raceCount: PropTypes.array,
-  medianIncome: PropTypes.string
+  medianIncome: PropTypes.string,
+  extraStyle: PropTypes.object
 };

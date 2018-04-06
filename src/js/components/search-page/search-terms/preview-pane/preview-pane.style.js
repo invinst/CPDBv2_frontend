@@ -6,6 +6,7 @@ export const wrapperStyle = {
   boxSizing: 'border-box',
   display: 'inline-block',
   verticalAlign: 'top',
+  height: 'calc(100vh - 54px)',
 };
 
 export const titleStyle = {
