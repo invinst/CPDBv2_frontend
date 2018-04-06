@@ -1,6 +1,7 @@
 import should from 'should';
 
 import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
+import { OIG_VISUAL_TOKEN_COLOR_SCHEME, OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
 
 
 describe('CR page selectors', function () {
@@ -30,48 +31,62 @@ describe('CR page selectors', function () {
 
     it('should return list of coaccused', function () {
       const coaccusedObj = {
-        'id': 1, 'full_name': 'Michel Foo', 'gender': 'Male', 'race': 'White', 'final_finding': 'Sustained',
-        'recc_outcome': 'Reprimand', 'final_outcome': 'Reprimand', 'start_date': '2012-02-01',
-        'end_date': '2013-02-01', 'category': 'Operations/Personnel Violation',
-        'subcategory': 'Neglect of duty/conduct unbecoming - on duty'
+        'id': 1, 'full_name': 'Michel Foo', 'gender': 'Male', 'race': 'White', 'final_outcome': 'Reprimand',
+        'start_date': '2012-02-01', 'end_date': '2013-02-01', 'category': 'Operations/Personnel Violation',
+        'rank': 'Officer', 'age': 34, 'allegation_count': 12, 'sustained_count': 1,
+        'percentile_allegation': 1, 'percentile_allegation_civilian': 52.5,
+        'percentile_allegation_internal': 10.1, 'percentile_trr': 20.6
       };
       const state = { crs: { '123': { coaccused: [coaccusedObj] } }, crPage: { crid: 123 } };
 
       contentSelector(state).coaccused.should.eql([{
         id: 1,
-        fullName: 'Michel Foo',
+        fullname: 'Michel Foo',
         gender: 'Male',
         race: 'White',
-        finalFinding: 'Sustained',
-        reccOutcome: 'Reprimand',
-        finalOutcome: 'Reprimand',
+        outcome: 'Reprimand',
         startDate: '2012-02-01',
         endDate: '2013-02-01',
         category: 'Operations/Personnel Violation',
-        subcategory: 'Neglect of duty/conduct unbecoming - on duty',
-        badge: 'Unknown'
+        rank: 'Officer',
+        age: 34,
+        allegationCount: 12,
+        sustainedCount: 1,
+        allegationPercentile: 1,
+        percentile: {
+          items: [
+            {
+              axis: 'Use of Force Reports',
+              value: 20.6,
+            },
+            {
+              axis: 'Internal Allegations',
+              value: 10.1,
+            },
+            {
+              axis: 'Civilian Allegations',
+              value: 52.5,
+            },
+          ],
+          visualTokenBackground: OIG_VISUAL_TOKEN_COLOR_SCHEME['121'],
+          textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+          officerId: undefined,
+          year: undefined
+        }
       }]);
     });
 
-    it('should set coaccused gender, race, finalFinding, finalOutcome, '
-      + 'reccOutcome, category, subcategory to Unknown if missing data', function () {
+    it('should set coaccused gender, race, finalOutcome, '
+      + 'category to default value if missing data', function () {
       const coaccusedObj = { 'id': 1, 'full_name': 'Michel Foo', 'start_date': '2012-02-01', 'end_date': '2013-02-01' };
       const state = { crs: { '123': { coaccused: [coaccusedObj] } }, crPage: { crid: 123 } };
 
-      contentSelector(state).coaccused.should.eql([{
-        id: 1,
-        fullName: 'Michel Foo',
-        gender: 'Unknown',
-        race: 'Unknown',
-        finalFinding: 'Unknown',
-        reccOutcome: 'Unknown',
-        finalOutcome: 'Unknown',
-        startDate: '2012-02-01',
-        endDate: '2013-02-01',
-        category: 'Unknown',
-        subcategory: 'Unknown',
-        badge: 'Unknown'
-      }]);
+      const coaccused = contentSelector(state).coaccused[0];
+      coaccused.rank.should.eql('Officer');
+      coaccused.gender.should.eql('Unknown');
+      coaccused.race.should.eql('Unknown');
+      coaccused.outcome.should.eql('Unknown Outcome');
+      coaccused.category.should.eql('Unknown');
     });
 
     it('should return list of involvements', function () {
@@ -94,7 +109,7 @@ describe('CR page selectors', function () {
       should.not.exists(result.incidentDate);
       should.not.exists(result.address);
       should.not.exists(result.location);
-      result.beat.should.eql({ name: 'Unknown' });
+      result.beat.should.eql('Unknown');
     });
 
     it('should return incidentDate and location data if cr data are available', function () {
@@ -105,7 +120,7 @@ describe('CR page selectors', function () {
             'incident_date': '2011-03-24',
             address: '123 Positiv Ave.',
             location: 'Police Building',
-            beat: { name: '1134' }
+            beat: '1134'
           }
         },
         crPage: { crid: 123 }
@@ -115,7 +130,7 @@ describe('CR page selectors', function () {
       result.incidentDate.should.eql('2011-03-24');
       result.address.should.eql('123 Positiv Ave.');
       result.crLocation.should.eql('Police Building');
-      result.beat.should.eql({ name: '1134' });
+      result.beat.should.eql('1134');
     });
 
     it('should return list of documents', function () {

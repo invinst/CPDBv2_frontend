@@ -1,11 +1,10 @@
 import React from 'react';
 import { spy, stub } from 'sinon';
 import {
-  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
+  renderIntoDocument, scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 
 import CRPage from 'components/cr-page';
-import Header from 'components/cr-page/header';
 import OfficerRow from 'components/cr-page/officer-row';
 import MultiRow from 'components/cr-page/multi-row';
 import FindingRow from 'components/cr-page/finding-row';
@@ -49,23 +48,6 @@ describe('CRPage component', function () {
     instance = renderIntoDocument(<CRPage fetchCR={ fetchCR } crid={ '123' } />);
 
     fetchCR.calledWith('123').should.be.true();
-  });
-
-  it('should reset displayCoaccusedDropdown on rerender', function () {
-    instance = renderIntoDocument(<CRPage officerId={ 1 } />);
-    instance.setState({ displayCoaccusedDropdown: true });
-
-    instance = reRender(<CRPage officerId={ 2 } fetchCR={ spy } />, instance);
-    instance.state.displayCoaccusedDropdown.should.be.false();
-  });
-
-  it('should handle toggle coaccused dropdown', function () {
-    instance = renderIntoDocument(<CRPage />);
-    instance.state.displayCoaccusedDropdown.should.be.false();
-
-    const header = findRenderedComponentWithType(instance, Header);
-    header.props.onDropDownButtonClick();
-    instance.state.displayCoaccusedDropdown.should.be.true();
   });
 
   it('should trigger fetchCR if crid changed', function () {

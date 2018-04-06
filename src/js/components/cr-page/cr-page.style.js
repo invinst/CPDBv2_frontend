@@ -1,28 +1,24 @@
-import { sanFranciscoTextFamily, softBlackColor, mediumGrayColor } from 'utils/styles';
+import {
+  sanFranciscoTextFamily, softBlackColor, mediumGrayColor, whiteTwoColor, sugarCaneColor
+} from 'utils/styles';
 
 
 export const wrapperStyle = {
-  position: 'relative'
+  position: 'relative',
+  backgroundColor: sugarCaneColor,
+  borderBottom: `1px solid ${whiteTwoColor}`
 };
 
 export const headerStyle = {
   backgroundColor: 'white'
 };
 
-export const headerWrapperStyle = {
-  position: 'relative',
-};
-
 export const summarySectionStyle = {
   paddingLeft: '16px'
 };
 
-export const pageWrapperStyle = {
-  boxSizing: 'border-box',
-  paddingTop: '30px',
-  scroll: 'auto',
-  minHeight: `${window.innerHeight - 108}px`,
-  paddingBottom: '74px'
+export const summarySectionWrapperStyle = {
+  padding: '0 16px 16px 16px'
 };
 
 export const titleStyle = {
@@ -64,4 +60,15 @@ export const rightColumnStyle = {
   paddingBottom: '24px',
   paddingLeft: '16px',
   boxSizing: 'border-box'
+};
+
+export const CRIDHeaderStyle = {
+  fontFamily: sanFranciscoTextFamily,
+  fontSize: '26px',
+  fontWeight: 400,
+  color: softBlackColor,
+  paddingTop: '16px',
+  paddingBottom: '16px',
+  margin: '0 16px',
+  borderBottom: `solid 1px ${whiteTwoColor}`
 };

@@ -16,13 +16,13 @@ export default class Location extends Component {
       <div style={ wrapperStyle } className='cr-page-location-section'>
         <BlockTitle>LOCATION</BlockTitle>
         {
-          point ? <CRLocationMap lng={ point.long } lat={ point.lat }/> : null
+          point ? <CRLocationMap lng={ point.lon } lat={ point.lat }/> : null
         }
         <div style={ addressStyle }>
           <span style={ labelStyle }>Address</span>
           <span style={ contentStyle }>{ address }</span>
           {
-            point ? <ViewMapButton lng={ point.long } lat={ point.lat }/> : null
+            point ? <ViewMapButton lng={ point.lon } lat={ point.lat }/> : null
           }
         </div>
         <div style={ locationStyle }>
@@ -31,7 +31,7 @@ export default class Location extends Component {
         </div>
         <div style={ beatStyle }>
           <span style={ labelStyle }>Beat</span>
-          <span style={ contentStyle }>{ beat.name }</span>
+          <span style={ contentStyle }>{ beat }</span>
         </div>
       </div>
     );
@@ -42,9 +42,9 @@ Location.propTypes = {
   point: PropTypes.object,
   address: PropTypes.string,
   location: PropTypes.string,
-  beat: PropTypes.object
+  beat: PropTypes.string
 };
 
 Location.defaultProps = {
-  beat: { name: 'Unknown' }
+  beat: 'Unknown'
 };

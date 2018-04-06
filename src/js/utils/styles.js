@@ -26,6 +26,7 @@ export const mediumBlackColor = 'rgba(0, 0, 0, 0.5)';
 export const silverSandColor = 'rgba(34, 31, 31, 0.2)';
 export const lightBlackColor = 'rgba(0, 0, 0, 0.15)';
 export const whiteTwoColor = '#DBDBDB';
+export const gainsboroColor = '#DEDEDE';
 export const eggPlantColor = '#230D2A';
 export const fashionPinkColor = '#D002CD';
 export const fashionPinkFadedColor = 'rgba(208, 2, 205, .2)';

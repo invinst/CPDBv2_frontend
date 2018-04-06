@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 import { map, get } from 'lodash';
 
+import { extractPercentile } from 'selectors/landing-page/common';
 
 
 const getCoaccused = state => {
@@ -66,17 +67,19 @@ const getCoaccusedSelector = createSelector(
   getCoaccused,
   coaccusedList => map(coaccusedList, coaccused => ({
     id: coaccused.id,
-    fullName: coaccused['full_name'],
+    fullname: coaccused['full_name'],
+    rank: coaccused['rank'] || 'Officer',
     gender: coaccused['gender'] || 'Unknown',
     race: coaccused['race'] || 'Unknown',
-    finalFinding: coaccused['final_finding'] || 'Unknown',
-    reccOutcome: coaccused['recc_outcome'] || 'Unknown',
-    finalOutcome: coaccused['final_outcome'] || 'Unknown',
+    outcome: coaccused['final_outcome'] || 'Unknown Outcome',
+    category: coaccused['category'] || 'Unknown',
+    age: coaccused['age'],
+    allegationCount: coaccused['allegation_count'],
+    sustainedCount: coaccused['sustained_count'],
     startDate: coaccused['start_date'],
     endDate: coaccused['end_date'],
-    category: coaccused['category'] || 'Unknown',
-    subcategory: coaccused['subcategory'] || 'Unknown',
-    badge: coaccused['badge'] || 'Unknown'
+    allegationPercentile: coaccused['percentile_allegation'],
+    percentile: extractPercentile(coaccused)
   }))
 );
 
@@ -107,7 +110,7 @@ export const contentSelector = createSelector(
     incidentDate: cr['incident_date'],
     address: cr.address,
     crLocation: cr.location,
-    beat: cr.beat || { name: 'Unknown' },
+    beat: cr.beat || 'Unknown',
     involvements,
     documents,
     videos,

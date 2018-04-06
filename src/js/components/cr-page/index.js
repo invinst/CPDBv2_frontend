@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { find, isEmpty, cloneDeep, pullAt } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import FadeMotion from 'components/animation/fade-motion';
-import Header from './header';
 import OfficerRow from './officer-row';
 import MultiRow from './multi-row';
 import FindingRow from './finding-row';
@@ -12,23 +10,17 @@ import Timeline from './timeline';
 import Location from './location';
 import Involvement from './involvement';
 import Attachments from './attachments';
+import AccusedOfficers from './accused-officers';
 import BlockTitle from 'components/common/block-title';
 import {
-  wrapperStyle, titleStyle, subtitleStyle, summarySectionStyle, overlayStyle, leftColumnStyle,
-  pageWrapperStyle, rightColumnStyle, headerWrapperStyle
+  wrapperStyle, titleStyle, subtitleStyle, summarySectionStyle, CRIDHeaderStyle, leftColumnStyle,
+  rightColumnStyle, upperSectionWrapperStyle, summarySectionWrapperStyle
 } from './cr-page.style';
 
 
 export default class CRPage extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      displayCoaccusedDropdown: false
-    };
-
-    this.handleToggleCoaccusedDropDown = this.handleToggleCoaccusedDropDown.bind(this);
-    this.renderOverlay = this.renderOverlay.bind(this);
   }
 
   componentDidMount() {
@@ -38,10 +30,6 @@ export default class CRPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.officerId !== nextProps.officerId) {
-      this.setState({ displayCoaccusedDropdown: false });
-    }
-
     const { fetchCR, crid } = nextProps;
     if (this.props.crid !== crid) {
       fetchCR(crid);
@@ -72,26 +60,13 @@ export default class CRPage extends Component {
     return breadcrumb;
   }
 
-  handleToggleCoaccusedDropDown() {
-    this.setState({
-      displayCoaccusedDropdown: !this.state.displayCoaccusedDropdown
-    });
-  }
-
-  renderOverlay(opacity) {
-    return (
-      <div className='test--cr-overlay'
-        style={ { ...overlayStyle, opacity: opacity } } onClick={ this.handleToggleCoaccusedDropDown }/>
-    );
-  }
-
   render() {
     const {
-      crid, coaccused, complainants, officerId, openOfficerPage, openComplaintPage, alreadyRequested,
-      incidentDate, point, address, crLocation, beat, involvements, documents, videos, audios, openRequestDocumentModal,
-      scrollPosition
+      crid, coaccused, complainants, officerId, openOfficerPage, alreadyRequested,
+      incidentDate, point, address, crLocation, beat, involvements, documents,
+      videos, audios, openRequestDocumentModal
     } = this.props;
-    const { displayCoaccusedDropdown } = this.state;
+
     const officer = find(coaccused, officer => officer.id === officerId) || {};
     const {
       category, subcategory, fullName, finalFinding, reccOutcome, finalOutcome, startDate, endDate, badge
@@ -110,14 +85,14 @@ export default class CRPage extends Component {
     );
     return (
       <div style={ wrapperStyle } className='test--cr-page'>
-        <div style={ headerWrapperStyle }>
-          <Header crid={ crid } coaccused={ coaccused } officerId={ officerId } scrollPosition={ scrollPosition }
-            displayCoaccusedDropdown={ displayCoaccusedDropdown }
-            openComplaintPage={ openComplaintPage }
-            onDropDownButtonClick={ this.handleToggleCoaccusedDropDown }/>
-        </div>
         <ResponsiveFluidWidthComponent>
-          <div style={ pageWrapperStyle }>
+          <div style={ upperSectionWrapperStyle }>
+            <h1 style={ CRIDHeaderStyle }>CR { crid }</h1>
+            <AccusedOfficers officers={ coaccused } />
+          </div>
+        </ResponsiveFluidWidthComponent>
+        <ResponsiveFluidWidthComponent>
+          <div style={ summarySectionWrapperStyle }>
             <div style={ summarySectionStyle }>
               <div className='test--cr-category' style={ titleStyle }>{ category }</div>
               <div className='test--cr-subcategory' style={ subtitleStyle }>{ subcategory }</div>
@@ -160,9 +135,6 @@ export default class CRPage extends Component {
             </div>
           </div>
         </ResponsiveFluidWidthComponent>
-        <FadeMotion show={ displayCoaccusedDropdown } maxOpacity={ .5 }>
-          { this.renderOverlay }
-        </FadeMotion>
       </div>
     );
   }
@@ -186,16 +158,14 @@ CRPage.propTypes = {
   point: PropTypes.object,
   address: PropTypes.string,
   crLocation: PropTypes.string,
-  beat: PropTypes.object,
+  beat: PropTypes.string,
   involvements: PropTypes.array,
-  openComplaintPage: PropTypes.func,
   fetchCR: PropTypes.func,
   documents: PropTypes.array,
   videos: PropTypes.array,
   audios: PropTypes.array,
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
-  scrollPosition: PropTypes.string,
   resetBreadcrumbs: PropTypes.func,
   breadcrumb: PropTypes.object,
 };
@@ -203,7 +173,6 @@ CRPage.propTypes = {
 CRPage.defaultProps = {
   fetchCR: () => {},
   coaccused: [],
-  scrollPosition: 'top',
   breadcrumb: {
     breadcrumbs: []
   }
