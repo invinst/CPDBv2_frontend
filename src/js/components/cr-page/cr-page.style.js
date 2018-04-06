@@ -1,5 +1,5 @@
 import {
-  sanFranciscoTextFamily, softBlackColor, mediumGrayColor, whiteTwoColor, sugarCaneColor
+  sanFranciscoTextFamily, softBlackColor, whiteTwoColor, sugarCaneColor, clayGray
 } from 'utils/styles';
 
 
@@ -13,28 +13,11 @@ export const headerStyle = {
   backgroundColor: 'white'
 };
 
-export const summarySectionStyle = {
-  paddingLeft: '16px'
-};
-
 export const summarySectionWrapperStyle = {
-  padding: '0 16px 16px 16px'
-};
-
-export const titleStyle = {
-  color: softBlackColor,
-  fontSize: '30px',
-  fontFamily: sanFranciscoTextFamily,
-  fontWeight: 600
-};
-
-export const subtitleStyle = {
-  color: mediumGrayColor,
-  fontSize: '18px',
-  fontFamily: sanFranciscoTextFamily,
-  fontWeight: 500,
-  paddingTop: '3px',
-  paddingBottom: '36px'
+  padding: '8px 16px 16px 16px',
+  backgroundColor: 'white',
+  margin: '0 16px',
+  border: `1px solid ${whiteTwoColor}`
 };
 
 export const overlayStyle = {
@@ -50,8 +33,7 @@ export const leftColumnStyle = {
   width: '320px',
   display: 'inline-block',
   verticalAlign: 'top',
-  paddingBottom: '24px',
-  paddingLeft: '16px'
+  paddingBottom: '24px'
 };
 
 export const rightColumnStyle = {
@@ -71,4 +53,11 @@ export const CRIDHeaderStyle = {
   paddingBottom: '16px',
   margin: '0 16px',
   borderBottom: `solid 1px ${whiteTwoColor}`
+};
+
+export const summaryTextStyle = {
+  color: clayGray,
+  fontSize: '14px',
+  fontFamily: sanFranciscoTextFamily,
+  fontWeight: 300
 };

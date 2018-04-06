@@ -1,20 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { find, isEmpty, cloneDeep, pullAt } from 'lodash';
+import { isEmpty, cloneDeep, pullAt } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import OfficerRow from './officer-row';
-import MultiRow from './multi-row';
-import FindingRow from './finding-row';
-import Row from 'components/common/row';
+import SummaryRow from './summary-row';
+import Demographics from './demographics';
 import Timeline from './timeline';
 import Location from './location';
 import Involvement from './involvement';
 import Attachments from './attachments';
 import AccusedOfficers from './accused-officers';
-import BlockTitle from 'components/common/block-title';
 import {
-  wrapperStyle, titleStyle, subtitleStyle, summarySectionStyle, CRIDHeaderStyle, leftColumnStyle,
-  rightColumnStyle, upperSectionWrapperStyle, summarySectionWrapperStyle
+  wrapperStyle, CRIDHeaderStyle, leftColumnStyle,
+  rightColumnStyle, upperSectionWrapperStyle, summarySectionWrapperStyle, summaryTextStyle
 } from './cr-page.style';
 
 
@@ -62,27 +59,11 @@ export default class CRPage extends Component {
 
   render() {
     const {
-      crid, coaccused, complainants, officerId, openOfficerPage, alreadyRequested,
-      incidentDate, point, address, crLocation, beat, involvements, documents,
-      videos, audios, openRequestDocumentModal
+      crid, coaccused, complainants, openOfficerPage, alreadyRequested,
+      incidentDate, point, address, crLocation, beat, involvements, attachments,
+      openRequestDocumentModal, summary, victims, startDate, endDate
     } = this.props;
 
-    const officer = find(coaccused, officer => officer.id === officerId) || {};
-    const {
-      category, subcategory, fullName, finalFinding, reccOutcome, finalOutcome, startDate, endDate, badge
-    } = officer;
-
-    const showRequestMessage = (
-      (!videos || videos.length === 0) &&
-      (!audios || audios.length === 0) &&
-      (!documents || documents.length === 0)
-    );
-
-    const officerRow = isEmpty(officer) ? null : (
-      <OfficerRow
-        fullName={ fullName } badge={ badge } officerId={ officerId }
-        openOfficerPage={ openOfficerPage }/>
-    );
     return (
       <div style={ wrapperStyle } className='test--cr-page'>
         <ResponsiveFluidWidthComponent>
@@ -93,45 +74,26 @@ export default class CRPage extends Component {
         </ResponsiveFluidWidthComponent>
         <ResponsiveFluidWidthComponent>
           <div style={ summarySectionWrapperStyle }>
-            <div style={ summarySectionStyle }>
-              <div className='test--cr-category' style={ titleStyle }>{ category }</div>
-              <div className='test--cr-subcategory' style={ subtitleStyle }>{ subcategory }</div>
-              { officerRow }
-              <MultiRow label='COMPLAINANT' contents={ complainants }/>
-            </div>
+            <SummaryRow label='VICTIM'>
+              <Demographics persons={ victims } />
+            </SummaryRow>
+            <SummaryRow label='COMPLAINANT'>
+              <Demographics persons={ complainants } />
+            </SummaryRow>
+            <SummaryRow label='SUMMARY'>
+              <div style={ summaryTextStyle }>{ summary }</div>
+            </SummaryRow>
+            <Attachments
+              items={ attachments }
+              openRequestDocumentModal={ openRequestDocumentModal }
+              alreadyRequested={ alreadyRequested }
+            />
             <div style={ leftColumnStyle }>
-              <BlockTitle>OUTCOME</BlockTitle>
-              <FindingRow label='Final Finding' content={ finalFinding }/>
-              <Row label='Recommended Outcome' content={ reccOutcome }/>
-              <Row label='Final Outcome' content={ finalOutcome } hasBorderBottom={ false } />
-
               <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
               <Involvement involvements={ involvements } openOfficerPage={ openOfficerPage }/>
             </div>
             <div style={ rightColumnStyle }>
               <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
-              <Attachments
-                title='DOCUMENTS'
-                iconName='ic-document.svg'
-                items={ documents }
-                openRequestDocumentModal={ openRequestDocumentModal }
-                showRequestMessage={ showRequestMessage }
-                alreadyRequested={ alreadyRequested }
-              />
-
-              <Attachments
-                title='VIDEO'
-                iconName='ic-video.svg'
-                items={ videos }
-                openRequestDocumentModal={ openRequestDocumentModal }
-              />
-              <Attachments
-                title='AUDIO'
-                iconName='ic-audio.svg'
-                items={ audios }
-                openRequestDocumentModal={ openRequestDocumentModal }
-              />
-
             </div>
           </div>
         </ResponsiveFluidWidthComponent>
@@ -146,6 +108,7 @@ CRPage.propTypes = {
   category: PropTypes.string,
   subcategory: PropTypes.string,
   complainants: PropTypes.array,
+  victims: PropTypes.array,
   finalFinding: PropTypes.string,
   finalOutcome: PropTypes.string,
   recOutcome: PropTypes.string,
@@ -154,16 +117,17 @@ CRPage.propTypes = {
   race: PropTypes.string,
   fullName: PropTypes.string,
   gender: PropTypes.string,
+  summary: PropTypes.string,
   officerId: PropTypes.number,
   point: PropTypes.object,
   address: PropTypes.string,
   crLocation: PropTypes.string,
   beat: PropTypes.string,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
   involvements: PropTypes.array,
   fetchCR: PropTypes.func,
-  documents: PropTypes.array,
-  videos: PropTypes.array,
-  audios: PropTypes.array,
+  attachments: PropTypes.array,
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
   resetBreadcrumbs: PropTypes.func,

@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react';
 import CoaccusedCard from './coaccused-card';
 import { pluralize } from 'utils/language';
 import {
-  wrapperStyle, headerStyle, accusedOfficersWrapperStyle, moreButtonStyle
+  wrapperStyle, headerStyle, accusedOfficersWrapperStyle, moreButtonStyle, bottomMarginStyle
 } from './accused-officers.style';
 
 
@@ -35,6 +35,7 @@ export default class AccusedOfficers extends Component {
             officers.map(officer => <CoaccusedCard key={ officer.id } { ...officer }/>)
           }
         </div>
+        <div style={ bottomMarginStyle }/>
         {
           !expanded
             ? <div

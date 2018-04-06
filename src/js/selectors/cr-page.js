@@ -14,6 +14,11 @@ const getComplainants = state => {
   return !state.crs[crid] ? [] : state.crs[crid].complainants;
 };
 
+const getVictims = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].victims;
+};
+
 const getCR = state => {
   const crid = state.crPage.crid;
   return !state.crs[crid] ? {} : state.crs[crid];
@@ -24,19 +29,9 @@ const getInvolvements = state => {
   return !state.crs[crid] ? [] : state.crs[crid].involvements;
 };
 
-const getDocuments = state => {
+const getAttachments = state => {
   const crid = state.crPage.crid;
-  return !state.crs[crid] ? [] : state.crs[crid].documents;
-};
-
-const getVideos = state => {
-  const crid = state.crPage.crid;
-  return !state.crs[crid] ? [] : state.crs[crid].videos;
-};
-
-const getAudios = state => {
-  const crid = state.crPage.crid;
-  return !state.crs[crid] ? [] : state.crs[crid].audios;
+  return !state.crs[crid] ? [] : state.crs[crid].attachments;
 };
 
 export const getCRID = state => String(state.crPage.crid);
@@ -49,18 +44,25 @@ export const getDocumentAlreadyRequested = state => {
   ));
 };
 
+const getDemographicString = ({ race, gender, age }) => {
+  race = race ? race : 'Unknown';
+  gender = gender ? gender : 'Unknown';
+
+  if (age) {
+    return `${race}, ${gender}, Age ${age}`;
+  } else {
+    return `${race}, ${gender}`;
+  }
+};
+
 const getComplainantStringSelector = createSelector(
   getComplainants,
-  (complainants) => map(complainants, ({ race, gender, age }) => {
-    race = race ? race : 'Unknown';
-    gender = gender ? gender : 'Unknown';
+  (complainants) => map(complainants, (complainant) => getDemographicString(complainant))
+);
 
-    if (age) {
-      return `${race}, ${gender}, Age ${age}`;
-    } else {
-      return `${race}, ${gender}`;
-    }
-  })
+const getVictimStringSelector = createSelector(
+  getVictims,
+  (victims) => map(victims, (victim) => getDemographicString(victim))
 );
 
 const getCoaccusedSelector = createSelector(
@@ -76,8 +78,6 @@ const getCoaccusedSelector = createSelector(
     age: coaccused['age'],
     allegationCount: coaccused['allegation_count'],
     sustainedCount: coaccused['sustained_count'],
-    startDate: coaccused['start_date'],
-    endDate: coaccused['end_date'],
     allegationPercentile: coaccused['percentile_allegation'],
     percentile: extractPercentile(coaccused)
   }))
@@ -98,22 +98,23 @@ const getInvolvementsSelector = createSelector(
 export const contentSelector = createSelector(
   getCoaccusedSelector,
   getComplainantStringSelector,
+  getVictimStringSelector,
   getCR,
   getInvolvementsSelector,
-  getDocuments,
-  getVideos,
-  getAudios,
-  (coaccused, complainants, cr, involvements, documents, videos, audios) => ({
+  getAttachments,
+  (coaccused, complainants, victims, cr, involvements, attachments) => ({
     coaccused,
     complainants,
+    victims,
     point: cr.point,
     incidentDate: cr['incident_date'],
     address: cr.address,
     crLocation: cr.location,
     beat: cr.beat || 'Unknown',
+    summary: cr.summary,
+    startDate: cr['start_date'],
+    endDate: cr['end_date'],
     involvements,
-    documents,
-    videos,
-    audios,
+    attachments
   })
 );

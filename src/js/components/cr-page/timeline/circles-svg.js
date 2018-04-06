@@ -1,24 +1,55 @@
 import React, { PropTypes, Component } from 'react';
+import { uniq } from 'lodash';
 
-import { altoColor, softGreyColor } from 'utils/styles';
+import { whiteTwoColor, greyishColor } from 'utils/styles';
 
 
-export default class SVGComponent extends Component {
+export default class CirclesSVG extends Component {
   render() {
-    const { cy1, cy2, cy3 } = this.props;
+    const { startDate, endDate, incidentDate } = this.props;
+    const dates = uniq([incidentDate, startDate, endDate]);
+    const ind1 = dates.indexOf(incidentDate);
+    const ind2 = dates.indexOf(startDate);
+    const ind3 = dates.indexOf(endDate);
+    const circleRadius = '5.5';
+    const smallCircleRadius = '2.5';
+    const startX = '6';
+    const ySlots = ['8', '68', '128'];
     return (
-      <g>
-        <line x1='9' y1='1' x2='9' y2={ cy3 } stroke={ altoColor } strokeWidth={ 2 } />
-        <circle r='7.5' cx='9' strokeWidth='3' stroke={ softGreyColor } fill='white' cy={ cy1 }/>
-        <circle r='3' cx='9' fill={ softGreyColor } cy={ cy2 }/>
-        <circle r='9' cx='9' fill={ softGreyColor } cy={ cy3 }/>
-      </g>
+      <svg width='12' x='0px' y='0px' viewBox='0 0 12 186'>
+        <g>
+          <line
+            x1={ startX }
+            y1={ circleRadius }
+            x2={ startX }
+            y2={ ySlots[ind3] }
+            stroke={ whiteTwoColor }
+            strokeWidth='1' />
+          <circle
+            r={ circleRadius }
+            cx={ startX }
+            strokeWidth='1'
+            stroke={ greyishColor }
+            fill='white'
+            cy={ ySlots[ind1] }/>
+          <circle
+            r={ smallCircleRadius }
+            cx={ startX }
+            fill={ greyishColor }
+            cy={ ySlots[ind2] }/>
+          <circle
+            r={ circleRadius }
+            cx={ startX }
+            fill={ greyishColor }
+            cy={ ySlots[ind3] }/>
+        </g>
+      </svg>
     );
   }
 }
 
-SVGComponent.propTypes = {
-  cy1: PropTypes.string,
-  cy2: PropTypes.string,
-  cy3: PropTypes.string
+CirclesSVG.propTypes = {
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
+  incidentDate: PropTypes.string
 };

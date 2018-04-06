@@ -22,8 +22,7 @@ export const headerStyle = {
 
 export const accusedOfficersWrapperStyle = {
   boxSizing: 'border-box',
-  padding: '0 16px',
-  borderBottom: `1px solid ${whiteTwoColor}`
+  padding: '0 16px'
 };
 
 export const moreButtonStyle = {
@@ -41,4 +40,10 @@ export const moreButtonStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 400,
   padding: '13px 0'
+};
+
+export const bottomMarginStyle = {
+  borderTop: `1px solid ${whiteTwoColor}`,
+  height: '42px',
+  backgroundColor: sugarCaneColor
 };
