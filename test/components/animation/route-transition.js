@@ -26,7 +26,7 @@ describe('RouteTransition component', function () {
     element.getRouteTransitionKey().should.eql('officer/1');
 
     element = reRender(
-      <RouteTransition pathname='/officer/1/timeline/'>
+      <RouteTransition pathname='/officer/1/social/'>
         some timeline
       </RouteTransition>,
       element

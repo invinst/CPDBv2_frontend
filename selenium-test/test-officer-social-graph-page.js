@@ -46,8 +46,6 @@ describe('officer social graph page', function () {
     socialGraphPage.header.summaryButton.waitForVisible();
     socialGraphPage.header.summaryButton.click();
 
-    getRequestCount('/officers/1/timeline-items/').should.equal(1);
     getRequestCount('/officers/1/summary/').should.equal(1);
-    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
   });
 });

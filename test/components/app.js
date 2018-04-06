@@ -53,9 +53,7 @@ describe('App component', function () {
     },
     officerPage: {
       summary: {},
-      timeline: {
-        filters: {}
-      },
+      newTimeline: {},
       percentile: {
         isRequesting: false,
         items: []
