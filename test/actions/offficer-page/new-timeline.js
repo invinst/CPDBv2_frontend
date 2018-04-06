@@ -1,10 +1,11 @@
-import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
+import { fetchNewTimelineItems, changeFilter } from 'actions/officer-page/new-timeline';
 
 import {
   OFFICER_URL,
   OFFICER_NEW_TIMELINE_ITEMS_REQUEST_START,
   OFFICER_NEW_TIMELINE_ITEMS_REQUEST_SUCCESS,
-  OFFICER_NEW_TIMELINE_ITEMS_REQUEST_FAILURE
+  OFFICER_NEW_TIMELINE_ITEMS_REQUEST_FAILURE,
+  OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER,
 } from 'utils/constants';
 
 
@@ -24,6 +25,15 @@ describe('officer new timeline actions', function () {
             adapter: null,
           }
         }
+      });
+    });
+  });
+
+  describe('changeFilter', function () {
+    it('should return the right action', function () {
+      changeFilter('COMPLAINTS').should.eql({
+        type: OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER,
+        payload: 'COMPLAINTS'
       });
     });
   });

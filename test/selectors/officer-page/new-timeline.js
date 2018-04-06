@@ -15,7 +15,10 @@ import {
   markFirstAndLastUnit,
   trrTransform,
   yearItem,
+  applyFilter,
+  getSelectedFilter,
 } from 'selectors/officer-page/new-timeline';
+import { NEW_TIMELINE_FILTERS } from 'utils/constants';
 
 
 describe('officer page selectors', function () {
@@ -843,6 +846,123 @@ describe('officer page selectors', function () {
     });
   });
 
+  describe('applyFilter', function () {
+    it('should filter correctly', function () {
+      const items = [
+        {
+          year: 2006,
+          date: 'MAR 1',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'AWARD',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          category: 'Honorable Mention',
+          key: 0,
+        },
+        {
+          category: 'Taser',
+          date: 'DEC 17',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'FORCE',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2005,
+          key: 1,
+        },
+        {
+          date: 'JAN 7',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'UNIT_CHANGE',
+          oldUnitDescription: 'Mobile Strike Force',
+          oldUnitName: 'Unit 153',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2005,
+          key: 2,
+        },
+        {
+          attachments: [],
+          category: 'Illegal Search',
+          coaccused: 8,
+          crid: '294088',
+          date: 'NOV 26',
+          finding: 'Exonerated',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'CR',
+          outcome: 'No Action Taken',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          unitDisplay: ' ',
+          year: 2003,
+          key: 3,
+        },
+      ];
+
+      applyFilter(NEW_TIMELINE_FILTERS.CRS, items).should.eql([
+        {
+          date: 'JAN 7',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'UNIT_CHANGE',
+          oldUnitDescription: 'Mobile Strike Force',
+          oldUnitName: 'Unit 153',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2005,
+          key: 2,
+        },
+        {
+          attachments: [],
+          category: 'Illegal Search',
+          coaccused: 8,
+          crid: '294088',
+          date: 'NOV 26',
+          finding: 'Exonerated',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'CR',
+          outcome: 'No Action Taken',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          unitDisplay: ' ',
+          year: 2003,
+          key: 3,
+        },
+      ]);
+    });
+  });
 
   describe('getNewTimelineItems', function () {
     it('should return empty if the state is empty', function () {
@@ -1241,6 +1361,19 @@ describe('officer page selectors', function () {
         }
       ])
       ;
+    });
+  });
+
+  describe('getSelectedFilter', function () {
+    it('should return correct result', function () {
+      const state = {
+        officerPage: {
+          newTimeline: {
+            filter: 'Complaints'
+          }
+        }
+      };
+      getSelectedFilter(state).should.eql('Complaints');
     });
   });
 });

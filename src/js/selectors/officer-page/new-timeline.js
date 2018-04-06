@@ -200,7 +200,7 @@ const filteredKindsMap = {
   [NEW_TIMELINE_FILTERS.ALL]: removableKinds,
 };
 
-const applyFilter = (selectedFilter, items) => {
+export const applyFilter = (selectedFilter, items) => {
   const filteredKinds = filteredKindsMap[selectedFilter];
   const displayKinds = concat(unremovableKinds, filteredKinds);
 

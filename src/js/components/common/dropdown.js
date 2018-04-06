@@ -39,13 +39,14 @@ export default class Dropdown extends Component {
 
     if (this.state.open) {
       return (
-        <div style={ { ...defaultMenuStyle, ...menuStyle } }>
+        <div style={ { ...defaultMenuStyle, ...menuStyle } } className='test--dropdown-menu'>
           {
             options.map((option, index) => (
               <div
                 key={ index }
                 style={ { ...defaultMenuItemStyle, ...menuItemStyle } }
                 onClick={ () => this.onSelect(option) }
+                className='test--dropdown-menu-item'
               >
                 { option }
               </div>
@@ -59,12 +60,13 @@ export default class Dropdown extends Component {
   }
 
   render() {
-    const { buttonStyle } = this.props;
+    const { buttonStyle, className } = this.props;
     const selected = this.state.selected;
 
     return (
-      <div style={ wrapperStyle } onBlur={ this.onBlur } tabIndex={ 0 }>
+      <div style={ wrapperStyle } onBlur={ this.onBlur } className={ className } tabIndex='-1'>
         <a
+          className='test--dropdown-button'
           style={ { ...defaultButtonStyle, ...buttonStyle } }
           onClick={ this.onClick }
         >
@@ -84,6 +86,7 @@ Dropdown.propTypes = {
   onChange: PropTypes.func,
   options: PropTypes.array,
   defaultValue: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Dropdown.defaultProps = {

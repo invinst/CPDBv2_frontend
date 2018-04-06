@@ -1,13 +1,16 @@
 import React from 'react';
 import {
   renderIntoDocument,
+  findRenderedComponentWithType,
   scryRenderedComponentsWithType,
   findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
+import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Timeline from 'components/officer-page/summary-page/biography-section/timeline';
 import Item from 'components/officer-page/summary-page/biography-section/timeline/item';
+import Dropdown from 'components/common/dropdown';
 
 
 describe('Timeline component', function () {
@@ -92,5 +95,19 @@ describe('Timeline component', function () {
     items[2].props.hasBorderBottom.should.be.false();
     items[3].props.hasBorderBottom.should.be.false();
     items[4].props.hasBorderBottom.should.be.false();
+  });
+
+  it('should render dropdown with correct props', function () {
+    const changeFilterStub = stub();
+    instance = renderIntoDocument(
+      <Timeline
+        changeFilter={ changeFilterStub }
+        selectedFilter={ 1 }
+      />
+    );
+    const dropdown = findRenderedComponentWithType(instance, Dropdown);
+    dropdown.props.defaultValue.should.eql(1);
+    dropdown.props.onChange.should.eql(changeFilterStub);
+    dropdown.props.options.should.eql(['ALL EVENTS', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS']);
   });
 });

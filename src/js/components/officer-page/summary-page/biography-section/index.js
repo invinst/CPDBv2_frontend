@@ -15,11 +15,13 @@ export default class BiographySection extends Component {
         name: 'TIMELINE',
         renderer: () => {
           const { timelineItems, changeFilter, selectedFilter } = this.props;
-          return (<Timeline
-            items={ timelineItems }
-            changeFilter={ changeFilter }
-            selectedFilter={ selectedFilter }
-          />);
+          return (
+            <Timeline
+              items={ timelineItems }
+              changeFilter={ changeFilter }
+              selectedFilter={ selectedFilter }
+            />
+          );
         }
       },
       { name: 'SUMMARY', renderer: null },
