@@ -8,8 +8,9 @@ import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import SummaryPage from 'components/officer-page/summary-page';
-import SummarySection from 'components/officer-page/summary-page/summary-section/index';
+import SummarySection from 'components/officer-page/summary-page/summary-section';
 import MetricsSection from 'components/officer-page/summary-page/metrics-section';
+import BiographySection from 'components/officer-page/summary-page/biography-section';
 import OfficerRadarChart from 'components/officer-page/summary-page/radar-chart';
 
 
@@ -25,6 +26,7 @@ describe('SummaryPage component', function () {
 
     scryRenderedComponentsWithType(instance, SummarySection).should.have.length(1);
     scryRenderedComponentsWithType(instance, MetricsSection).should.have.length(1);
+    scryRenderedComponentsWithType(instance, BiographySection).should.have.length(1);
   });
 
   it('should render Radar Chart Component', function () {

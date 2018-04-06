@@ -126,10 +126,10 @@ describe('officer page selectors', function () {
     it('should return active tab', function () {
       const state = {
         officerPage: {
-          activeTab: 'timeline'
+          activeTab: 'social'
         }
       };
-      getActiveTab(state).should.eql('timeline');
+      getActiveTab(state).should.eql('social');
     });
   });
 

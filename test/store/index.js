@@ -143,21 +143,9 @@ describe('store', function () {
             2017
           ]
         },
-        timeline: {
-          hoveredItemIndex: null,
+        newTimeline: {
           isRequesting: false,
-          items: [],
-          minimap: {
-            isRequesting: false,
-            minimap: []
-          },
-          pagination: {
-            next: null,
-            previous: null
-          },
-          selectedItemIndex: null,
-          sortDescending: true,
-          filters: {}
+          items: []
         }
       },
       unitProfilePage: {
