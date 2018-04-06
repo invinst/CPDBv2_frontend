@@ -66,7 +66,7 @@ export const showingTextStyle = {
 
 export const filterWrapperStyle = {
   display: 'inline-block',
-  // width: '109px',
+  width: '146px',
   fontSize: '14px',
   position: 'relative',
   top: '50%',

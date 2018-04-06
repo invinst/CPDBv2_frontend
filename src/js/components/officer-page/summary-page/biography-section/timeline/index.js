@@ -1,23 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { includes, nth, values } from 'lodash';
-import Select from 'react-select';
 
 import {
   dateHeaderStyle,
-  filterWrapperStyle,
   headerWrapperStyle,
   rankHeaderStyle,
   showingContentHeaderStyle,
   showingTextStyle,
   timelineStyle,
   unitHeaderStyle,
-  filterStyle,
-  filterMenuStyle,
 } from './timeline.style';
 import Item from './item';
 import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS } from 'utils/constants';
-import { accentColor } from 'utils/styles';
-
+import Dropdown from 'components/common/dropdown';
 
 export default class Timeline extends Component {
 
@@ -30,22 +25,10 @@ export default class Timeline extends Component {
         <div style={ unitHeaderStyle }>UNIT</div>
         <div style={ showingContentHeaderStyle }>
           <div style={ showingTextStyle }>SHOWING</div>
-          <Select
-            name='form-field-name'
-            value={ selectedFilter }
-            options={
-              values(NEW_TIMELINE_FILTERS).map((filter) => ({
-                value: filter,
-                label: filter
-              }))
-            }
-            clearable={ false }
-            searchable={ false }
-            menuContainerStyle={ { color: accentColor } }
-            wrapperStyle={ filterWrapperStyle }
-            onChange={ (newOption) => changeFilter(newOption.value) }
-            autosize={ true }
-            arrowRenderer={ null }
+          <Dropdown
+            defaultValue={ selectedFilter }
+            onChange={ (newOption) => changeFilter(newOption) }
+            options={ values(NEW_TIMELINE_FILTERS) }
           />
         </div>
         <div style={ dateHeaderStyle }>DATE</div>

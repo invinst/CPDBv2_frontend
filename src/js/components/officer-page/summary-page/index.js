@@ -6,7 +6,6 @@ import OfficerRadarChart from './radar-chart';
 import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import BiographySection from './biography-section';
-import { changeFilter } from 'actions/officer-page/new-timeline';
 
 
 export default class SummaryPage extends Component {
