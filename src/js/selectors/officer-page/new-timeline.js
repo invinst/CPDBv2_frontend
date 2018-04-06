@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { isEmpty, rangeRight, slice, nth, filter, values, includes, concat, difference } from 'lodash';
+import { isEmpty, rangeRight, slice, nth, filter, values, includes, concat, difference, get } from 'lodash';
 
 import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS } from 'utils/constants';
 
@@ -208,7 +208,7 @@ const applyFilter = (selectedFilter, items) => {
 };
 
 export const getNewTimelineItems = state => {
-  const items = state.officerPage.newTimeline.items;
+  const items = get(state.officerPage.newTimeline, 'items', []);
 
   const transformedItems = items.map(transform);
   const filteredItems = applyFilter(getSelectedFilter(state), transformedItems);

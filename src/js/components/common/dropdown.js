@@ -87,5 +87,6 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
-  style: {}
+  style: {},
+  option: [],
 };
