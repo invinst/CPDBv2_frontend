@@ -48,51 +48,69 @@ class RouterRoot extends Component {
   }
 
   render() {
-
-    const routes = [
-      <IndexRoute component={ LandingPageContainer } key='1' breadcrumb='Home'
-        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Landing' }) } />,
-
-      <Route path={ STORIES_PATH } component={ ReportingPage } key='2'
-        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Stories' }) }>
-        <Route path={ ':reportId' } component={ ReportingPage }/>
-      </Route>,
-
-      <Route path={ COLLAB_PATH } component={ CollaborationPage } key='3'
-        onEnter={ () => global.ga('send', 'screenview', { screenName: 'Collaborate' }) }/>,
-
-      <Route path={ FAQ_PATH } component={ FAQPage } key='4'
-        onEnter={ () => global.ga('send', 'screenview', { screenName: 'FAQs' }) }>
-        <Route path={ ':faqId' } component={ FAQPage }/>
-      </Route>,
-
-      <Route path={ OFFICER_PATH } component={ OfficerPageContainer } key='5'
-        breadcrumb={ { componentCacheKey: 'officer' } }>
-        <Route path={ OFFICER_SOCIAL_GRAPH_SUFFIX } component={ OfficerPageContainer } key='12'
-          useParentBreadcrumb={ true } />
-      </Route>,
-
-      <Route path={ SEARCH_PATH } component={ SearchPageContainer } key='7' breadcrumb='Search'>
-        <Route path={ SEARCH_TERMS_PATH } component={ SearchTermsContainer } useParentBreadcrumb={ true } />
-      </Route>,
-
-      <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer } key='13'
-        breadcrumb={ { componentCacheKey: 'cr' } }>
-        <Route path={ CR_PATH_SUFFIX } component={ CRPageContainer } key='8' useParentBreadcrumb={ true } />
-      </Route>,
-
-      <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'
-        breadcrumb={ { componentCacheKey: 'unit' } }/>,
-
-      <Route path={ SEARCH_ALIAS_EDIT_PATH } component={ SearchPageContainer } key='10'/>,
-      <Route path={ INLINE_SEARCH_ALIAS_ADMIN_PATH } component={ InlineAliasAdminContainer } key='11'/>,
-    ];
-
     return (
       <Provider store={ store }>
         <Router history={ history }>
-          <Route path='/(edit)' component={ AppContainer }>
-            { routes }
+          <Route
+            path='/(edit)'
+            component={ AppContainer }>
+            <IndexRoute
+              component={ LandingPageContainer }
+              breadcrumb='Home'/>
+            <Route
+              path={ STORIES_PATH }
+              component={ ReportingPage }>
+              <Route
+                path={ ':reportId' }
+                component={ ReportingPage }/>
+            </Route>
+            <Route
+              path={ COLLAB_PATH }
+              component={ CollaborationPage }/>
+            <Route
+              path={ FAQ_PATH }
+              component={ FAQPage }>
+              <Route
+                path={ ':faqId' }
+                component={ FAQPage }/>
+            </Route>
+            <Route
+              path={ OFFICER_PATH }
+              component={ OfficerPageContainer }
+              breadcrumb={ { componentCacheKey: 'officer' } }>
+              <Route
+                path={ OFFICER_SOCIAL_GRAPH_SUFFIX }
+                component={ OfficerPageContainer }
+                useParentBreadcrumb={ true } />
+            </Route>
+            <Route
+              path={ SEARCH_PATH }
+              component={ SearchPageContainer }
+              breadcrumb='Search'>
+              <Route
+                path={ SEARCH_TERMS_PATH }
+                component={ SearchTermsContainer }
+                useParentBreadcrumb={ true }/>
+            </Route>
+            <Route
+              path={ STANDALONE_CR_PATH }
+              component={ CRPageContainer }
+              breadcrumb={ { componentCacheKey: 'cr' } }>
+              <Route
+                path={ CR_PATH_SUFFIX }
+                component={ CRPageContainer }
+                useParentBreadcrumb={ true }/>
+            </Route>
+            <Route
+              path={ UNIT_PROFILE_PATH }
+              component={ UnitProfilePageContainer }
+              breadcrumb={ { componentCacheKey: 'unit' } }/>
+            <Route
+              path={ SEARCH_ALIAS_EDIT_PATH }
+              component={ SearchPageContainer }/>
+            <Route
+              path={ INLINE_SEARCH_ALIAS_ADMIN_PATH }
+              component={ InlineAliasAdminContainer }/>
           </Route>
         </Router>
       </Provider>

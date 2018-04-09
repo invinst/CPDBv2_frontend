@@ -1,4 +1,4 @@
-import { SUGGESTION_REQUEST_SUCCESS } from 'actions/search-page';
+import { SUGGESTION_REQUEST_SUCCESS } from 'utils/constants';
 
 import tags from 'reducers/search-page/tags';
 
