@@ -215,8 +215,6 @@ describe('Search Page', function () {
   });
 
   it('should navigates between the result when user press the navigation keys', function () {
-    this.retries(3);
-
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 

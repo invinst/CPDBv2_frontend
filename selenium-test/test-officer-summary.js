@@ -61,21 +61,6 @@ describe('officer summary page', function () {
     summaryPage.summarySection.sexValue.getText().should.equal('Male');
   });
 
-  it('should launch timeline, summary, minimap requests upon direct visit', function () {
-    getRequestCount('/officers/1/timeline-items/').should.equal(1);
-    getRequestCount('/officers/1/summary/').should.equal(1);
-    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
-  });
-
-  it('should not launch any request when click on Timeline tab', function () {
-    summaryPage.header.timelineButton.waitForVisible();
-    summaryPage.header.timelineButton.click();
-
-    getRequestCount('/officers/1/timeline-items/').should.equal(1);
-    getRequestCount('/officers/1/summary/').should.equal(1);
-    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
-  });
-
   it('should not launch any request when click on Social tab', function () {
     summaryPage.header.socialButton.waitForVisible();
     summaryPage.header.socialButton.click();
@@ -88,6 +73,25 @@ describe('officer summary page', function () {
     summaryPage.summarySection.viewUnitProfileButton.click();
 
     browser.getUrl().should.match(/\/unit\/\d+\/$/);
+  });
+
+  it('should display the timeline by default', function () {
+    summaryPage.biographySection.menu.waitForVisible();
+
+    summaryPage.biographySection.menu.getText().should.eql('TIMELINESUMMARYMAPCOACCUSALSATTACHMENTS');
+    summaryPage.biographySection.timelineTabName.getCssProperty('background-color').value.should.eql(
+      'rgba(0,94,244,1)'
+    );
+    // Due to float right, we need to add a '\n' here
+    summaryPage.biographySection.timelineSection.header.getText().should.eql('RANKUNITSHOWING\nDATE');
+
+    summaryPage.biographySection.timelineSection.crItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.trrItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.awardItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.unitChangeItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.joinedItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.yearItem.waitForVisible();
+    summaryPage.biographySection.timelineSection.emptyItem.waitForVisible();
   });
 
   describe('Radar Chart', function () {

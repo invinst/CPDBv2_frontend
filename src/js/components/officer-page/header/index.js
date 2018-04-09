@@ -12,14 +12,13 @@ import { scrollToTop } from 'utils/dom';
 
 const OFFICER_BUTTONS = [
   ['Summary', ''],
-  ['Timeline', 'timeline'],
   ['Social Map', 'social']
 ];
 
 
 export default class Header extends Component {
   render() {
-    const { officerName, pathname, activeTab, officerTimelineUrlParams, scrollPosition } = this.props;
+    const { officerName, pathname, activeTab, scrollPosition } = this.props;
 
     return (
       <div>
@@ -31,10 +30,8 @@ export default class Header extends Component {
               {
                 map(OFFICER_BUTTONS, ([label, subpath], ind) => {
                   const path = officerPath(subpath, pathname);
-                  let pathWithParams = (label === 'Timeline' && officerTimelineUrlParams) ?
-                    path + officerTimelineUrlParams : path;
                   return (
-                    <Link to={ pathWithParams } key={ ind }
+                    <Link to={ path } key={ ind }
                       className={ subpath === activeTab ? 'test--header-button-active' : 'test--header-button' }
                       style={ subpath === activeTab ? activeLinkStyle(scrollPosition) : linkStyle(scrollPosition) }
                       onClick={ scrollToTop }
@@ -56,6 +53,5 @@ Header.propTypes = {
   officerName: PropTypes.string,
   activeTab: PropTypes.string,
   pathname: PropTypes.string,
-  officerTimelineUrlParams: PropTypes.string,
   scrollPosition: PropTypes.string,
 };
