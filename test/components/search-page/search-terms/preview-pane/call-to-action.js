@@ -2,7 +2,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { findRenderedDOMComponentWithClass, renderIntoDocument } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 import CallToAction from 'components/search-page/search-terms/preview-pane/call-to-action';
 
 

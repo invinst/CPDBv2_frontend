@@ -28,7 +28,6 @@ import {
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
   STANDALONE_CR_PATH,
-  OFFICER_TIMELINE_SUFFIX,
   OFFICER_SOCIAL_GRAPH_SUFFIX
 } from 'utils/constants';
 import configureStore from 'store';
@@ -79,10 +78,6 @@ class RouterRoot extends Component {
               path={ OFFICER_PATH }
               component={ OfficerPageContainer }
               breadcrumb={ { componentCacheKey: 'officer' } }>
-              <Route
-                path={ OFFICER_TIMELINE_SUFFIX }
-                component={ OfficerPageContainer }
-                useParentBreadcrumb={ true } />
               <Route
                 path={ OFFICER_SOCIAL_GRAPH_SUFFIX }
                 component={ OfficerPageContainer }
