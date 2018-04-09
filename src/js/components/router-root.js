@@ -23,6 +23,7 @@ import {
   SEARCH_PATH,
   SEARCH_TERMS_PATH,
   OFFICER_PATH,
+  CR_PATH_SUFFIX,
   UNIT_PROFILE_PATH,
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
@@ -79,7 +80,9 @@ class RouterRoot extends Component {
       </Route>,
 
       <Route path={ STANDALONE_CR_PATH } component={ CRPageContainer } key='13'
-        breadcrumb={ { componentCacheKey: 'cr' } }/>,
+        breadcrumb={ { componentCacheKey: 'cr' } }>
+        <Route path={ CR_PATH_SUFFIX } component={ CRPageContainer } key='8' useParentBreadcrumb={ true } />
+      </Route>,
 
       <Route path={ UNIT_PROFILE_PATH } component={ UnitProfilePageContainer } key='9'
         breadcrumb={ { componentCacheKey: 'unit' } }/>,

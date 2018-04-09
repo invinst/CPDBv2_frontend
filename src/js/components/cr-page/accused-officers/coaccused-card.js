@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { Link } from 'react-router';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import { pluralize } from 'utils/language';
@@ -16,11 +17,11 @@ export default class CoaccusedCard extends Component {
   render() {
     const {
       rank, fullname, allegationCount, sustainedCount, allegationPercentile, age, race, gender,
-      category, outcome, radarAxes, radarColor
+      category, outcome, radarAxes, radarColor, id
     } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
+      <Link to={ `/officer/${id}/` } style={ wrapperStyle }>
         <div style={ topSectionWrapperStyle }>
           <div>
             <div style={ chartWrapperStyle }>
@@ -54,7 +55,7 @@ export default class CoaccusedCard extends Component {
           <div style={ categoryTextStyle }>{ category }</div>
           <div style={ outcomeTextStyle }>{ outcome }</div>
         </div>
-      </div>
+      </Link>
     );
   }
 }
@@ -71,6 +72,7 @@ CoaccusedCard.propTypes = {
   race: PropTypes.string,
   gender: PropTypes.string,
   category: PropTypes.string,
+  id: PropTypes.number,
   outcome: PropTypes.string
 };
 

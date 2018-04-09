@@ -6,6 +6,7 @@ import {
 export const wrapperStyle = {
   fontFamily: sanFranciscoTextFamily,
   width: '232px',
+  textDecoration: 'none',
   height: '264px',
   borderRadius: '2px',
   border: `1px solid ${whiteTwoColor}`,
