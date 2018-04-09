@@ -5,6 +5,7 @@ import {
 
 export const wrapperStyle = {
   position: 'relative',
+  margin: '0 16px',
   borderBottom: `1px solid ${whiteTwoColor}`
 };
 

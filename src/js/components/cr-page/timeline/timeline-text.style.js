@@ -3,7 +3,7 @@ import { sanFranciscoTextFamily, clayGray, softBlackColor } from 'utils/styles';
 
 export const wrapperStyle = {
   display: 'inline-block',
-  width: '282px',
+  width: '266px',
   verticalAlign: 'top',
   marginLeft: '15px'
 };

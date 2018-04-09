@@ -14,9 +14,9 @@ export const headerStyle = {
 };
 
 export const summarySectionWrapperStyle = {
-  padding: '8px 16px 16px 16px',
+  paddingTop: '8px',
   backgroundColor: 'white',
-  margin: '0 16px',
+  margin: '0 16px 16px 16px',
   border: `1px solid ${whiteTwoColor}`
 };
 
@@ -32,15 +32,15 @@ export const overlayStyle = {
 export const leftColumnStyle = {
   width: '320px',
   display: 'inline-block',
+  paddingLeft: '16px',
+  boxSizing: 'border-box',
   verticalAlign: 'top',
   paddingBottom: '24px'
 };
 
 export const rightColumnStyle = {
-  width: 'calc(100% - 336px)',
+  width: 'calc(100% - 320px)',
   display: 'inline-block',
-  paddingBottom: '24px',
-  paddingLeft: '16px',
   boxSizing: 'border-box'
 };
 
