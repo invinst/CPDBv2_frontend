@@ -33,7 +33,6 @@ export const OFFICER_TIMELINE_SUFFIX = 'timeline/';
 export const OFFICER_SOCIAL_GRAPH_SUFFIX = 'social/';
 export const OFFICER_TIMELINE_PATH = `officer/:officerId/${OFFICER_TIMELINE_SUFFIX}`;
 export const OFFICER_SOCIAL_GRAPH_PATH = `officer/:officerId/${OFFICER_SOCIAL_GRAPH_SUFFIX}`;
-export const CR_PATH_SUFFIX = ':officerId';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 

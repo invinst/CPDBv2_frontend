@@ -1,9 +1,13 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
+import {
+  renderIntoDocument, findRenderedDOMComponentWithClass, Simulate, scryRenderedComponentsWithType
+} from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
+import { CoaccusedFactory } from 'utils/test/factories/officer';
 import AccusedOfficers from 'components/cr-page/accused-officers';
+import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
 
 
 describe('AccusedOfficers component', function () {
@@ -13,8 +17,9 @@ describe('AccusedOfficers component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should be renderable', function () {
-    AccusedOfficers.should.be.renderable();
+  it('should render CoaccusedCard', function () {
+    instance = renderIntoDocument(<AccusedOfficers officers={ CoaccusedFactory.buildList(3) }/>);
+    scryRenderedComponentsWithType(instance, CoaccusedCard).should.have.length(3);
   });
 
   it('should display show more button when accused list is not expanded', function () {

@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import { map, get } from 'lodash';
 
-import { extractPercentile } from 'selectors/landing-page/common';
+import { getVisualTokenOIGBackground } from 'utils/visual-token';
 
 
 const getCoaccused = state => {
@@ -79,7 +79,16 @@ const getCoaccusedSelector = createSelector(
     allegationCount: coaccused['allegation_count'],
     sustainedCount: coaccused['sustained_count'],
     allegationPercentile: coaccused['percentile_allegation'],
-    percentile: extractPercentile(coaccused)
+    radarAxes: [
+      { axis: 'trr', value: parseFloat(coaccused['percentile_trr']) },
+      { axis: 'internal', value: parseFloat(coaccused['percentile_allegation_internal']) },
+      { axis: 'civilian', value: parseFloat(coaccused['percentile_allegation_civilian']) }
+    ],
+    radarColor: getVisualTokenOIGBackground(
+      parseFloat(coaccused['percentile_allegation_internal']),
+      parseFloat(coaccused['percentile_allegation_civilian']),
+      parseFloat(coaccused['percentile_trr'])
+    )
   }))
 );
 
@@ -115,6 +124,10 @@ export const contentSelector = createSelector(
     startDate: cr['start_date'],
     endDate: cr['end_date'],
     involvements,
-    attachments
+    attachments: map(attachments, attachment => ({
+      title: attachment.title,
+      url: attachment.url,
+      previewImageUrl: attachment['preview_image_url']
+    }))
   })
 );

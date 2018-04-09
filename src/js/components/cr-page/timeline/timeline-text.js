@@ -16,7 +16,7 @@ export default class TimelineText extends Component {
       <div style={ wrapperStyle }>
         {
           toPairs(dates).map(([date, events], ind) =>
-            <div key={ ind } style={ dateStyle }>
+            <div className='test--timeline-textblock' key={ ind } style={ dateStyle }>
               { date
                   ? <div>{ moment(date).format('ll') }</div>
                   : null

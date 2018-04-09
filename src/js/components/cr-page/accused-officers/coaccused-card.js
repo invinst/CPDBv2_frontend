@@ -16,7 +16,7 @@ export default class CoaccusedCard extends Component {
   render() {
     const {
       rank, fullname, allegationCount, sustainedCount, allegationPercentile, age, race, gender,
-      category, outcome, percentile
+      category, outcome, radarAxes, radarColor
     } = this.props;
 
     return (
@@ -29,8 +29,8 @@ export default class CoaccusedCard extends Component {
                 height={ 38 }
                 radius={ 18 }
                 hideAxisText={ true }
-                data={ percentile.items }
-                backgroundColor={ percentile.visualTokenBackground }/>
+                data={ radarAxes }
+                { ...radarColor }/>
             </div>
             <div style={ titleWrapperStyle }>
               <div style={ rankStyle }>{ rank }</div>
@@ -65,12 +65,13 @@ CoaccusedCard.propTypes = {
   allegationCount: PropTypes.number,
   sustainedCount: PropTypes.number,
   allegationPercentile: PropTypes.number,
+  radarColor: PropTypes.object,
+  radarAxes: PropTypes.array,
   age: PropTypes.number,
   race: PropTypes.string,
   gender: PropTypes.string,
   category: PropTypes.string,
-  outcome: PropTypes.string,
-  percentile: PropTypes.object
+  outcome: PropTypes.string
 };
 
 CoaccusedCard.defaultProps = {

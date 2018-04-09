@@ -14,7 +14,7 @@ export const thumbnailStyle = imageUrl => ({
   width: '45px',
   height: '60px',
   border: `1px solid ${whiteTwoColor}`,
-  background: `white url(${imageUrl}) no-repeat center center`,
+  background: `white url(${imageUrl}) no-repeat center center/cover`,
   margin: '0 auto 8px'
 });
 

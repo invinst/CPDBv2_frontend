@@ -1,7 +1,6 @@
 import should from 'should';
 
 import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
-import { OIG_VISUAL_TOKEN_COLOR_SCHEME, OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
 
 
 describe('CR page selectors', function () {
@@ -12,10 +11,9 @@ describe('CR page selectors', function () {
 
         contentSelector(state).coaccused.should.eql([]);
         contentSelector(state).complainants.should.eql([]);
+        contentSelector(state).victims.should.eql([]);
         contentSelector(state).involvements.should.eql([]);
-        contentSelector(state).documents.should.eql([]);
-        contentSelector(state).videos.should.eql([]);
-        contentSelector(state).audios.should.eql([]);
+        contentSelector(state).attachments.should.eql([]);
       });
 
     it('should return list of complainants display string', function () {
@@ -31,11 +29,20 @@ describe('CR page selectors', function () {
 
     it('should return list of coaccused', function () {
       const coaccusedObj = {
-        'id': 1, 'full_name': 'Michel Foo', 'gender': 'Male', 'race': 'White', 'final_outcome': 'Reprimand',
-        'start_date': '2012-02-01', 'end_date': '2013-02-01', 'category': 'Operations/Personnel Violation',
-        'rank': 'Officer', 'age': 34, 'allegation_count': 12, 'sustained_count': 1,
-        'percentile_allegation': 1, 'percentile_allegation_civilian': 52.5,
-        'percentile_allegation_internal': 10.1, 'percentile_trr': 20.6
+        'id': 1,
+        'full_name': 'Michel Foo',
+        'gender': 'Male',
+        'race': 'White',
+        'final_outcome': 'Reprimand',
+        'category': 'Operations/Personnel Violation',
+        'rank': 'Officer',
+        'age': 34,
+        'allegation_count': 12,
+        'sustained_count': 1,
+        'percentile_allegation': 1,
+        'percentile_allegation_civilian': 52.5,
+        'percentile_allegation_internal': 10.1,
+        'percentile_trr': 20.6
       };
       const state = { crs: { '123': { coaccused: [coaccusedObj] } }, crPage: { crid: 123 } };
 
@@ -45,33 +52,29 @@ describe('CR page selectors', function () {
         gender: 'Male',
         race: 'White',
         outcome: 'Reprimand',
-        startDate: '2012-02-01',
-        endDate: '2013-02-01',
         category: 'Operations/Personnel Violation',
         rank: 'Officer',
         age: 34,
         allegationCount: 12,
         sustainedCount: 1,
         allegationPercentile: 1,
-        percentile: {
-          items: [
-            {
-              axis: 'Use of Force Reports',
-              value: 20.6,
-            },
-            {
-              axis: 'Internal Allegations',
-              value: 10.1,
-            },
-            {
-              axis: 'Civilian Allegations',
-              value: 52.5,
-            },
-          ],
-          visualTokenBackground: OIG_VISUAL_TOKEN_COLOR_SCHEME['121'],
-          textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
-          officerId: undefined,
-          year: undefined
+        radarAxes: [
+          {
+            axis: 'trr',
+            value: 20.6,
+          },
+          {
+            axis: 'internal',
+            value: 10.1,
+          },
+          {
+            axis: 'civilian',
+            value: 52.5,
+          },
+        ],
+        radarColor: {
+          backgroundColor: '#ffbb9f',
+          textColor: '#231F20'
         }
       }]);
     });
@@ -133,25 +136,15 @@ describe('CR page selectors', function () {
       result.beat.should.eql('1134');
     });
 
-    it('should return list of documents', function () {
-      const doc = { title: 'abc', url: 'def' };
-      const state = { crs: { '123': { documents: [doc] } }, crPage: { crid: 123 } };
+    it('should return list of attachments', function () {
+      const doc = { title: 'abc', url: 'def', 'preview_image_url': 'pre' };
+      const state = { crs: { '123': { attachments: [doc] } }, crPage: { crid: 123 } };
 
-      contentSelector(state).documents.should.eql([doc]);
-    });
-
-    it('should return list of videos', function () {
-      const video = { title: 'abc', url: 'def' };
-      const state = { crs: { '123': { videos: [video] } }, crPage: { crid: 123 } };
-
-      contentSelector(state).videos.should.eql([video]);
-    });
-
-    it('should return list of documents', function () {
-      const audio = { title: 'abc', url: 'def' };
-      const state = { crs: { '123': { audios: [audio] } }, crPage: { crid: 123 } };
-
-      contentSelector(state).audios.should.eql([audio]);
+      contentSelector(state).attachments.should.eql([{
+        title: 'abc',
+        url: 'def',
+        previewImageUrl: 'pre'
+      }]);
     });
   });
 
