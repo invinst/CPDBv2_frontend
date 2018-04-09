@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import isMobile from 'ismobilejs';
 
 
 export default function (ComponentClass, WrapperElement = 'span', display = 'inline') {
@@ -14,9 +13,6 @@ export default function (ComponentClass, WrapperElement = 'span', display = 'inl
     }
 
     handleMouseOver(event) {
-      if (isMobile.any) {
-        return;
-      }
       this.setState({
         hovering: true
       });
@@ -27,9 +23,6 @@ export default function (ComponentClass, WrapperElement = 'span', display = 'inl
     }
 
     handleMouseOut(event) {
-      if (isMobile.any) {
-        return;
-      }
       this.setState({
         hovering: false
       });
