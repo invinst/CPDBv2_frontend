@@ -9,7 +9,6 @@ export default class Dropdown extends Component {
     super(props);
 
     this.onClick = this.onClick.bind(this);
-    this.onSelect = this.onSelect.bind(this);
     this.onBlur = this.onBlur.bind(this);
 
     this.state = {

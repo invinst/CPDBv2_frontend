@@ -8,8 +8,8 @@ import {
 import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Timeline from 'components/officer-page/summary-page/biography-section/timeline';
-import Item from 'components/officer-page/summary-page/biography-section/timeline/item';
+import Timeline from 'components/officer-page/summary-page/tabbed-pane-section/timeline';
+import Item from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item';
 import Dropdown from 'components/common/dropdown';
 
 

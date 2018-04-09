@@ -5,7 +5,7 @@ import { pageWrapperStyle, radarChartPlaceholderStyle } from './summary-page.sty
 import OfficerRadarChart from './radar-chart';
 import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
-import BiographySection from './biography-section';
+import TabbedPaneSection from './tabbed-pane-section';
 
 
 export default class SummaryPage extends Component {
@@ -20,10 +20,7 @@ export default class SummaryPage extends Component {
       openPoliceUnitPage,
       officerMetrics,
       officerName,
-      newTimelineItems,
       threeCornerPercentile,
-      changeFilter,
-      selectedFilter,
     } = this.props;
 
     return (
@@ -40,10 +37,7 @@ export default class SummaryPage extends Component {
             openPoliceUnitPage={ openPoliceUnitPage }/>
         </div>
         <MetricsSection metrics={ officerMetrics }/>
-        <BiographySection
-          timelineItems={ newTimelineItems }
-          changeFilter={ changeFilter }
-          selectedFilter={ selectedFilter }/>
+        <TabbedPaneSection/>
       </div>
     );
   }

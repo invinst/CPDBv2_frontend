@@ -7,14 +7,14 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Item from 'components/officer-page/summary-page/biography-section/timeline/item';
-import Year from 'components/officer-page/summary-page/biography-section/timeline/item/showings/year';
-import CR from 'components/officer-page/summary-page/biography-section/timeline/item/showings/cr';
-import TRR from 'components/officer-page/summary-page/biography-section/timeline/item/showings/trr';
-import Award from 'components/officer-page/summary-page/biography-section/timeline/item/showings/award';
-import UnitChange from 'components/officer-page/summary-page/biography-section/timeline/item/showings/unit-change';
-import Joined from 'components/officer-page/summary-page/biography-section/timeline/item/showings/joined';
-import Empty from 'components/officer-page/summary-page/biography-section/timeline/item/showings/empty';
+import Item from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item';
+import Year from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/year';
+import CR from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/cr';
+import TRR from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/trr';
+import Award from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/award';
+import UnitChange from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/unit-change';
+import Joined from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/joined';
+import Empty from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/empty';
 
 
 describe('Item component', function () {

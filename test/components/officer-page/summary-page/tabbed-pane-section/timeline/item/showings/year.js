@@ -2,8 +2,8 @@ import React from 'react';
 import { findRenderedDOMComponentWithClass, renderIntoDocument, } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Year from 'components/officer-page/summary-page/biography-section/timeline/item/showings/year';
-import * as baseStyles from 'components/officer-page/summary-page/biography-section/timeline/item/item.style';
+import Year from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/year';
+import * as baseStyles from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/item.style';
 
 
 describe('Year component', function () {

@@ -59,15 +59,15 @@ class TimelineSection extends Section {
   }
 }
 
-class BiographySection extends Section {
+class TabbedPaneSection extends Section {
   timelineSection = new TimelineSection();
 
   constructor() {
     super();
 
     this.prepareElementGetters({
-      menu: '.test--biography-section-menu',
-      timelineTabName: '//span[@class="test--biography-tab-name"][1]'
+      menu: '.test--tabbed-pane-section-menu',
+      timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]'
     });
   }
 }
@@ -89,7 +89,7 @@ class RadarChartSection extends Section {
 class OfficerSummaryPage extends Page {
   header = new Header();
   summarySection = new SummarySection();
-  biographySection = new BiographySection();
+  tabbedPaneSection = new TabbedPaneSection();
   radarChartSection = new RadarChartSection();
 
   constructor() {
