@@ -42,5 +42,6 @@ describe('HoverStyleChange component', function () {
       </HoverStyleChange>);
     Simulate.mouseOver(findDOMNode(element));
     findRenderedComponentWithType(element, ArticleContent).props.style.should.deepEqual({ color: 'white' });
+    isMobile.any = false;
   });
 });
