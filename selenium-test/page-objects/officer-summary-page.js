@@ -25,7 +25,24 @@ class SummarySection extends Section {
   }
 }
 
+class Filter extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      button: '.test--timeline-filter .test--dropdown-button',
+      menu: '.test--timeline-filter .test--dropdown-menu',
+      all: '(//div[@class="test--dropdown-menu-item"])[1]',
+      crs: '(//div[@class="test--dropdown-menu-item"])[2]',
+      force: '(//div[@class="test--dropdown-menu-item"])[3]',
+      awards: '(//div[@class="test--dropdown-menu-item"])[4]'
+    });
+  }
+}
+
 class TimelineSection extends Section {
+  filter = new Filter();
+
   constructor() {
     super();
 

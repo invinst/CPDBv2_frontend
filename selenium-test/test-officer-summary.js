@@ -83,7 +83,7 @@ describe('officer summary page', function () {
       'rgba(0,94,244,1)'
     );
     // Due to float right, we need to add a '\n' here
-    summaryPage.biographySection.timelineSection.header.getText().should.eql('RANKUNITSHOWING\nDATE');
+    summaryPage.biographySection.timelineSection.header.getText().should.eql('RANKUNITSHOWINGALL EVENTS\nDATE');
 
     summaryPage.biographySection.timelineSection.crItem.waitForVisible();
     summaryPage.biographySection.timelineSection.trrItem.waitForVisible();
@@ -101,6 +101,57 @@ describe('officer summary page', function () {
         height: 600
       });
       summaryPage.radarChartSection.lastAxisTitle.waitForVisible();
+    });
+  });
+
+  describe('Timeline filter', function () {
+    beforeEach(function () {
+      summaryPage.biographySection.timelineSection.filter.button.waitForVisible();
+      summaryPage.biographySection.timelineSection.filter.button.click();
+    });
+
+    afterEach(function () {
+      summaryPage.biographySection.timelineSection.unitChangeItem.waitForVisible();
+      summaryPage.biographySection.timelineSection.joinedItem.waitForVisible();
+      summaryPage.biographySection.timelineSection.yearItem.waitForVisible();
+      summaryPage.biographySection.timelineSection.emptyItem.waitForVisible();
+    });
+
+    it('should filter all events', function () {
+      summaryPage.biographySection.timelineSection.filter.all.click();
+
+      summaryPage.biographySection.timelineSection.crItem.waitForVisible();
+      summaryPage.biographySection.timelineSection.trrItem.waitForVisible();
+      summaryPage.biographySection.timelineSection.awardItem.waitForVisible();
+    });
+
+    it('should filter complaints', function () {
+      summaryPage.biographySection.timelineSection.filter.crs.click();
+
+      summaryPage.biographySection.timelineSection.crItem.waitForVisible();
+      summaryPage.biographySection.timelineSection.trrItem.waitForVisible(1000, true);
+      summaryPage.biographySection.timelineSection.awardItem.waitForVisible(1000, true);
+    });
+
+    it('should filter TRRs', function () {
+      summaryPage.biographySection.timelineSection.filter.force.click();
+
+      summaryPage.biographySection.timelineSection.crItem.waitForVisible(1000, true);
+      summaryPage.biographySection.timelineSection.trrItem.waitForVisible();
+      summaryPage.biographySection.timelineSection.awardItem.waitForVisible(1000, true);
+    });
+
+    it('should filter awards', function () {
+      summaryPage.biographySection.timelineSection.filter.awards.click();
+
+      summaryPage.biographySection.timelineSection.crItem.waitForVisible(1000, true);
+      summaryPage.biographySection.timelineSection.trrItem.waitForVisible(1000, true);
+      summaryPage.biographySection.timelineSection.awardItem.waitForVisible();
+    });
+
+    it('should close the menu when blurring', function () {
+      summaryPage.biographySection.timelineSection.crItem.click();
+      summaryPage.biographySection.timelineSection.filter.menu.waitForVisible(1000, true);
     });
   });
 });

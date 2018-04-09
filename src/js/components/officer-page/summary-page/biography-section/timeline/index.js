@@ -29,7 +29,7 @@ export default class Timeline extends Component {
             defaultValue={ selectedFilter }
             onChange={ changeFilter }
             options={ values(NEW_TIMELINE_FILTERS) }
-            className='test--timeline-dropdown'
+            className='test--timeline-filter'
           />
         </div>
         <div style={ dateHeaderStyle }>DATE</div>

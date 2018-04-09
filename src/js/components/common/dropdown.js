@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 
 import { wrapperStyle, defaultButtonStyle, defaultMenuStyle, defaultMenuItemStyle, arrowStyle } from './dropdown.style';
 
@@ -64,7 +65,11 @@ export default class Dropdown extends Component {
     const selected = this.state.selected;
 
     return (
-      <div style={ wrapperStyle } onBlur={ this.onBlur } className={ className } tabIndex='-1'>
+      <div
+        style={ wrapperStyle }
+        onBlur={ this.onBlur }
+        className={ classNames('test--dropdown', className) }
+        tabIndex='-1'>
         <a
           className='test--dropdown-button'
           style={ { ...defaultButtonStyle, ...buttonStyle } }
