@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-import { SELECT_TAG } from 'actions/search-page';
+import { SELECT_TAG } from 'utils/constants';
 
 
 export default handleActions({

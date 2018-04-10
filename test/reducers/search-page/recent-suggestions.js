@@ -1,5 +1,5 @@
 import recentSuggestions from 'reducers/search-page/recent-suggestions';
-import { TRACK_RECENT_SUGGESTION } from 'actions/search-page';
+import { TRACK_RECENT_SUGGESTION } from 'utils/constants';
 import recentSuggestionFactory from 'utils/test/factories/recent-suggestion';
 
 

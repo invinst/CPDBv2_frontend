@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { find } from 'lodash';
 
 import SummaryPanel from './summary-panel';
 import CommunityMap from './community-map';
@@ -19,6 +20,15 @@ export default class HeatMap extends Component {
   }
 
   setSelectedCommunity(id) {
+    const { communities } = this.props;
+    const community = find(communities, obj => obj.id === id);
+    if (community) {
+      global.ga('send', 'event', {
+        eventCategory: 'community',
+        eventAction: 'click',
+        eventLabel: community.name
+      });
+    }
     this.setState({
       selectedId: id
     });

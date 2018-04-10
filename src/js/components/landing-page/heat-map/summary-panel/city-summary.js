@@ -8,6 +8,7 @@ import {
   mostCommonComplaintStyle, categoryStyle, categoryNameStyle, rightArrowStyle, categoryTextWrapper,
   clickReceiver, allegationDisciplineCountStyle
 } from './city-summary.style';
+import OutboundLink from 'components/common/outbound-link';
 
 
 export default class CitySummary extends Component {
@@ -30,7 +31,7 @@ export default class CitySummary extends Component {
         <div style={ headerStyle }>CHICAGO 2000 - 2016</div>
         <div style={ allegationDisciplineStyle }
           className='test--allegation-discipline-count'>
-          <a href={ config.v1Url }>
+          <OutboundLink href={ config.v1Url }>
             <div style={ allegationDisciplineCountStyle }>
               <div style={ allegationTextStyle }>
                 {
@@ -48,16 +49,16 @@ export default class CitySummary extends Component {
               </div>
             </div>
             <div style={ rightArrowStyle }/>
-          </a>
+          </OutboundLink>
         </div>
         <div>
           <div style={ mostCommonComplaintStyle }>MOST COMMON COMPLAINT</div>
           <div className='test--most-common-complaints'>
             {
               map(mostCommonComplaints, ({ name, count }, index) => (
-                <a
-                  href={ isActive ? categoryUrl(name) : null }
+                <OutboundLink
                   className='test--complaint-category'
+                  href={ isActive ? categoryUrl(name) : null }
                   key={ index }
                   style={ categoryStyle(index === mostCommonComplaints.length - 1) }>
                   <div style={ categoryTextWrapper }>
@@ -65,7 +66,7 @@ export default class CitySummary extends Component {
                     <div>{ count.toLocaleString() } allegations</div>
                   </div>
                   <div style={ rightArrowStyle }/>
-                </a>
+                </OutboundLink>
               ))
             }
           </div>

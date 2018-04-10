@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { keys, isEmpty, omitBy } from 'lodash';
 
-import { SUGGESTION_REQUEST_SUCCESS } from 'actions/search-page';
+import { SUGGESTION_REQUEST_SUCCESS } from 'utils/constants';
 
 
 export default handleActions({
