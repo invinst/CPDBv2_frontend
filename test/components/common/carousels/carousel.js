@@ -29,7 +29,7 @@ describe('Carousel components', function () {
         return <OfficerCard key={ item.id } { ...attr } officerId={ item.id }/>;
       });
       return renderIntoDocument(
-        <Carousel headerSection={ headerNode }>
+        <Carousel headerSection={ headerNode } type='Activity'>
           { slides }
         </Carousel>
       );
@@ -103,6 +103,7 @@ describe('Carousel components', function () {
   });
 
   it('should show the left arrow if current slide not beginning', function () {
+    stub(global, 'ga');
     const data = OfficerCardFactory.buildList(10);  // larger than viewport-size
     instance = renderCarouselSuppressWarningProps(data);
     scryRenderedDOMComponentsWithClass(instance, 'test--carousel--arrow--left').should.have.length(0);
@@ -111,6 +112,8 @@ describe('Carousel components', function () {
     instance.state.numVisibleSlide.should.equal(6);
     Simulate.click(arrowWrapper);
     scryRenderedDOMComponentsWithClass(instance, 'test--carousel--arrow--left').should.have.length(1);
+    global.ga.calledWith('send', 'event', 'carousel', 'swipe_right', 'Activity');
+    global.ga.restore();
   });
 
   it('should update the number of slide to scroll when window size change', function () {

@@ -3,9 +3,7 @@ import { CancelToken } from 'axios';
 
 import {
   getSuggestion, selectTag, toggleSearchMode, trackRecentSuggestion,
-  SUGGESTION_URL, SELECT_TAG, SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS,
-  SUGGESTION_REQUEST_FAILURE, TRACK_RECENT_SUGGESTION, SEARCH_NAVIGATION_UP,
-  SEARCH_NAVIGATION_DOWN, move, getSuggestionWithContentType, SEARCH_NAVIGATION_RESET
+  move, getSuggestionWithContentType, SUGGESTION_URL
 } from 'actions/search-page';
 import * as constants from 'utils/constants';
 import { resetNavigation } from 'actions/search-page';
@@ -29,7 +27,10 @@ describe('suggestion action', function () {
   describe('getSuggestion', function () {
     it('should return correct action', function () {
       getSuggestion('abc').should.deepEqual({
-        types: [SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE],
+        types: [
+          constants.SUGGESTION_REQUEST_START,
+          constants.SUGGESTION_REQUEST_SUCCESS,
+          constants.SUGGESTION_REQUEST_FAILURE],
         payload: {
           request: {
             url: `${SUGGESTION_URL}abc/`,
@@ -75,7 +76,7 @@ describe('suggestion action', function () {
   describe('selectTag', function () {
     it('should return correct action', function () {
       selectTag('abc').should.deepEqual({
-        type: SELECT_TAG,
+        type: constants.SELECT_TAG,
         payload: 'abc'
       });
     });
@@ -98,7 +99,7 @@ describe('suggestion action', function () {
       const to = 'to';
 
       trackRecentSuggestion(contentType, text, url, to).should.deepEqual({
-        type: TRACK_RECENT_SUGGESTION,
+        type: constants.TRACK_RECENT_SUGGESTION,
         payload: {
           contentType,
           text,
@@ -112,7 +113,7 @@ describe('suggestion action', function () {
   describe('move', function () {
     it('should return SEARCH_NAVIGATION_UP', function () {
       move('up', 2).should.deepEqual({
-        type: SEARCH_NAVIGATION_UP,
+        type: constants.SEARCH_NAVIGATION_UP,
         payload: {
           totalItemCount: 2
         }
@@ -121,7 +122,7 @@ describe('suggestion action', function () {
 
     it('should return SEARCH_NAVIGATION_DOWN', function () {
       move('down', 2).should.deepEqual({
-        type: SEARCH_NAVIGATION_DOWN,
+        type: constants.SEARCH_NAVIGATION_DOWN,
         payload: {
           totalItemCount: 2
         }
@@ -132,7 +133,7 @@ describe('suggestion action', function () {
   describe('resetNavigation', function () {
     it('should return SEARCH_NAVIGATION_RESET', function () {
       resetNavigation().should.deepEqual({
-        type: SEARCH_NAVIGATION_RESET,
+        type: constants.SEARCH_NAVIGATION_RESET,
         payload: undefined
       });
     });
