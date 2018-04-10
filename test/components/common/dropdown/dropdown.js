@@ -1,8 +1,6 @@
 import React from 'react';
 import { stub } from 'sinon';
 import { findDOMNode } from 'react-dom';
-
-import Dropdown from 'components/common/dropdown';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
@@ -10,6 +8,8 @@ import {
   scryRenderedDOMComponentsWithClass,
   Simulate,
 } from 'react-addons-test-utils';
+
+import Dropdown from 'components/common/dropdown';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
@@ -88,6 +88,27 @@ describe('Dropdown component', function () {
 
     dropdown.state.selected.should.eql('2');
     onChangeStub.should.calledWith('2');
+  });
+
+  it('should not invoke onChange when selected item is not changed', function () {
+    const onChangeStub = stub();
+    instance = renderIntoDocument(
+      <Dropdown
+        defaultValue={ '1' }
+        onChange={ onChangeStub }
+        options={ ['1', '2', '3'] }
+      />
+    );
+    const dropdown = findRenderedComponentWithType(instance, Dropdown);
+    dropdown.setState({
+      open: true
+    });
+
+    const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item')[0];
+    Simulate.click(firstMenuItem);
+
+    dropdown.state.selected.should.eql('1');
+    onChangeStub.should.not.be.called();
   });
 
   it('should close menu when losing focus', function () {
