@@ -7,6 +7,7 @@ import {
   scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 
+
 describe('RadarArea components', function () {
   let instance;
 
@@ -52,5 +53,17 @@ describe('RadarArea components', function () {
       <RadarArea rPoints={ rPoints } drawStroke={ false }/>
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--radar-stroke').should.have.length(0);
+  });
+
+  it('should not display radar area and stroke when rPoints is not valid', () => {
+    instance = renderIntoDocument(
+      <RadarArea rPoints={ [
+        { angle: 0, r: NaN },
+        { angle: 0, r: 12 },
+        { angle: 12, r: 12.2 }
+      ] }
+      />
+    );
+    scryRenderedDOMComponentsWithClass(instance, 'test--radar-radar-area').should.have.length(0);
   });
 });

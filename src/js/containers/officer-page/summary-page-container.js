@@ -11,7 +11,6 @@ import {
 import { openPoliceUnitPage } from 'actions/bottom-sheet';
 import { getNewTimelineItems } from 'selectors/officer-page/new-timeline';
 import { getOfficerId, officerYearlyThreePercentile } from 'selectors/officer-page';
-import { fetchPercentile } from 'actions/officer-page/radar-chart';
 
 
 function mapStateToProps(state, ownProps) {
@@ -27,7 +26,6 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   openPoliceUnitPage,
-  fetchPercentile
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SummaryPage));
