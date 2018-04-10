@@ -69,7 +69,8 @@ export default class SuggestionItemBase extends Component {
     );
   }
 
-  handleClick() {
+  handleClick(e) {
+    e.preventDefault();
     const { suggestionClick, suggestion } = this.props;
     const { type, text, url, to } = suggestion;
 
@@ -78,12 +79,12 @@ export default class SuggestionItemBase extends Component {
 
   render() {
     const { aliasEditModeOn, hovering, isFocused, suggestion } = this.props;
-    const { url, to, uniqueKey, text } = suggestion;
+    const { to, uniqueKey, url } = suggestion;
 
     const commonWrapperProps = {
       style: suggestionItemStyle(hovering, isFocused),
       className: classnames(`suggestion-item-${uniqueKey}`, { 'test--focused': isFocused }),
-      onClick: this.handleClick.bind(this, text, url, to)
+      onClick: this.handleClick.bind(this)
     };
 
     let result;

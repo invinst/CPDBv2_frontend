@@ -20,9 +20,10 @@ export default class CallToAction extends Component {
 
   renderLink() {
     const { item } = this.props;
+    const id = item.id || '';
 
     return (
-      <ActionBar>
+      <ActionBar terms={ id } contentType={ id.toUpperCase() }>
         <a href={ item.link } style={ linkStyle } className={ 'test--call-to-action-link' }>
           Enter Data Tool
         </a>
@@ -32,9 +33,10 @@ export default class CallToAction extends Component {
 
   renderViewAll() {
     const { item } = this.props;
+    const id = item.id || '';
 
     return (
-      <ActionBar>
+      <ActionBar terms={ id } contentType={ id.toUpperCase() }>
         <div style={ linkStyle }>
           View ALL { item.name }
         </div>

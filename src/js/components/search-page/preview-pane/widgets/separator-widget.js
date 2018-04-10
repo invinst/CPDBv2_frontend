@@ -7,9 +7,9 @@ export default class SeparatorWidget extends Component {
   render() {
     return (
       <div style={ styles.container }>
-        <div style={ styles.hr } />
+        <div style={ styles.hr }/>
       </div>
-        );
+    );
   }
 }
 

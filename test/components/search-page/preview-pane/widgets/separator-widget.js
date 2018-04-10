@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SeparatorWidget from 'components/search-page/search-terms/preview-pane/widgets/separator-widget';
+import SeparatorWidget from 'components/search-page/preview-pane/widgets/separator-widget';
 
 
 describe('SeparatorWidget component', () => {

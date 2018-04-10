@@ -10,15 +10,28 @@ import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default class SuggestionGroup extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleItemClick = this.handleItemClick.bind(this);
+  }
+
   componentDidMount() {
     const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
     if (singleContent) {
-      getSuggestionWithContentType(searchText, { contentType: header }).catch(() => {});
+      getSuggestionWithContentType(searchText, { contentType: header }).catch(() => {
+      });
     }
   }
 
   renderHeader() {
     return (<div style={ groupHeaderStyle }>{ this.props.header }</div>);
+  }
+
+  handleItemClick(index) {
+    return () => {
+      this.props.setSearchNavigation({ itemIndex: index });
+    };
   }
 
   renderResults() {
@@ -41,15 +54,18 @@ export default class SuggestionGroup extends Component {
         hasMore={ hasMore }
         useWindow={ false }>
         {
-          map(suggestions, (suggestion) => (
-            <SuggestionItem
-              key={ suggestion.uniqueKey }
-              aliasEditModeOn={ aliasEditModeOn }
-              setAliasAdminPageContent={ setAliasAdminPageContent }
-              suggestionClick={ suggestionClick }
-              suggestion={ suggestion }
-              isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey } />
-          ))
+          map(suggestions, (suggestion) => {
+            return (
+              <SuggestionItem
+                onClick={ this.handleItemClick(suggestion.itemIndex) }
+                key={ suggestion.uniqueKey }
+                aliasEditModeOn={ aliasEditModeOn }
+                setAliasAdminPageContent={ setAliasAdminPageContent }
+                suggestionClick={ suggestionClick }
+                suggestion={ suggestion }
+                isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
+            );
+          })
         }
       </InfiniteScroll>
     );
@@ -107,7 +123,8 @@ SuggestionGroup.propTypes = {
   hasMore: PropTypes.bool,
   searchText: PropTypes.string,
   nextParams: PropTypes.object,
-  singleContent: PropTypes.bool
+  singleContent: PropTypes.bool,
+  setSearchNavigation: PropTypes.func,
 };
 
 SuggestionGroup.defaultProps = {
@@ -115,6 +132,9 @@ SuggestionGroup.defaultProps = {
   focusedItem: {},
   header: '',
   getSuggestionWithContentType: () => {
-    return { catch: () => {} };
+    return {
+      catch: () => {
+      }
+    };
   }
 };

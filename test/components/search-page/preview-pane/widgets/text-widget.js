@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderIntoDocument, scryRenderedDOMComponentsWithTag } from 'react-addons-test-utils';
 
-import TextWidget from 'components/search-page/search-terms/preview-pane/widgets/text-widget';
+import TextWidget from 'components/search-page/preview-pane/widgets/text-widget';
 
 
 describe('TextWidget component', () => {

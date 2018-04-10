@@ -7,6 +7,7 @@ import { RawOfficerSuggestion } from 'utils/test/factories/suggestion';
 import { getSvgUrl } from 'utils/visual-token';
 import { MORE_BUTTON, SEARCH_BOX } from 'utils/constants';
 
+
 describe('search page navigation selector', function () {
   describe('focusedResultItemSelector', function () {
     it('should return correct suggestion', function () {
@@ -109,16 +110,20 @@ describe('search page navigation selector', function () {
         }
       };
       const info = {
-        data: [
-          ['unit', '001'],
-          ['rank', null],
-          ['2017 salary', '$99,999'],
-          ['race', 'White'],
-          ['sex', 'Male']
-        ],
-        visualTokenBackgroundColor: '#fafafa',
-        visualTokenImg: getSvgUrl('12345'),
-        text: 'John Wang'
+        data: {
+          officerInfo: {
+            unit: '001',
+            rank: null,
+            salary: '$99,999',
+            race: 'White',
+            sex: 'Male',
+          },
+          visualTokenBackgroundColor: '#fafafa',
+          visualTokenImg: getSvgUrl('12345'),
+          text: 'John Wang',
+          title: 'John Wang',
+        },
+        type: 'OFFICER',
       };
       previewPaneInfoSelector({
         searchPage: {

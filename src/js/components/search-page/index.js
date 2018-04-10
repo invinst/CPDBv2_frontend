@@ -42,14 +42,13 @@ export default class SearchPage extends Component {
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
-
     if (query && query.length >= 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location, params, routes, pushBreadcrumbs } = nextProps;
+    const { location, params, routes, pushBreadcrumbs, query } = nextProps;
     pushBreadcrumbs({ location, params, routes });
     // Make sure keyboard-focused item is kept within viewport:
     if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
@@ -57,6 +56,9 @@ export default class SearchPage extends Component {
         `.suggestion-item-${nextProps.focusedItem.uniqueKey}`,
         { block: 'center', inline: 'nearest' }
       );
+    }
+    if (this.props.location.pathname !== location.pathname && query && query.length > 2) {
+      setTimeout(() => { this.sendSearchRequest(query); }, 500);  // TODO; need refactor
     }
   }
 
@@ -92,9 +94,11 @@ export default class SearchPage extends Component {
 
     if (query) {
       if (contentType) {
-        this.props.getSuggestionWithContentType(query, { contentType }).catch(() => {});
+        this.props.getSuggestionWithContentType(query, { contentType }).catch(() => {
+        });
       } else {
-        this.props.getSuggestion(query, { contentType, limit }).catch(() => {});
+        this.props.getSuggestion(query, { contentType, limit }).catch(() => {
+        });
       }
     } else {
       this.props.selectTag(null);
@@ -247,19 +251,28 @@ SearchPage.defaultProps = {
   suggestionGroups: [],
   contentType: null,
   focusedItem: {},
-  getSuggestion: () => new Promise(() => {}),
-  getSuggestionWithContentType: () => new Promise(() => {}),
-  trackRecentSuggestion: () => {},
-  router: {
-    goBack: () => {}
+  getSuggestion: () => new Promise(() => {
+  }),
+  getSuggestionWithContentType: () => new Promise(() => {
+  }),
+  trackRecentSuggestion: () => {
   },
-  changeSearchQuery: () => {},
+  router: {
+    goBack: () => {
+    }
+  },
+  changeSearchQuery: () => {
+  },
   location: {
     pathname: '/'
   },
   searchTermsHidden: true,
-  selectTag: (...args) => {},
-  pushBreadcrumbs: (...args) => {},
-  resetSearchResultNavigation: () => {},
-  resetSearchTermNavigation: () => {},
+  selectTag: (...args) => {
+  },
+  pushBreadcrumbs: (...args) => {
+  },
+  resetSearchResultNavigation: () => {
+  },
+  resetSearchTermNavigation: () => {
+  },
 };

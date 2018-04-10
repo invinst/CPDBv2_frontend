@@ -63,7 +63,8 @@ describe('search page results selector', function () {
             uniqueKey: 'OFFICER-29033',
             demographicInfo: '48 year old, White, Male',
             complaintCount: 10,
-            sustainedCount: 2
+            sustainedCount: 2,
+            itemIndex: 1,
           }]
         }
       ]);
@@ -92,7 +93,8 @@ describe('search page results selector', function () {
             url: '',
             tags: [],
             uniqueKey: 'CR-1001',
-            subText: 'CRID 1234, Sustained'
+            subText: 'CRID 1234, Sustained',
+            itemIndex: 1,
           }]
         }
       ]);

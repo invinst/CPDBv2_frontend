@@ -6,6 +6,6 @@ import CommunityRacePopulation
 
 export default class GeoInfoWidget extends Component {
   render() {
-    return <CommunityRacePopulation extraStyle={ { margin: '0 -8px' } }/>;
+    return <CommunityRacePopulation { ...this.props } extraStyle={ { margin: '0 -8px' } }/>;
   }
 }

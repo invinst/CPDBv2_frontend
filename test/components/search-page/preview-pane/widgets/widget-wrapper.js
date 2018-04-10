@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 
-import WidgetWrapper, { TextWidget } from 'components/search-page/search-terms/preview-pane/widgets';
+import WidgetWrapper, { TextWidget } from 'components/search-page/preview-pane/widgets';
 
 
 describe('WidgetWrapper component', () => {

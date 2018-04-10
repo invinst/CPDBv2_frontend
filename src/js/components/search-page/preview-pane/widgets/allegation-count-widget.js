@@ -12,8 +12,8 @@ export default class AllegationCountWidget extends Component {
         <p style={ countStyle }>{ pluralize('allegation', this.props.numOfAllegations, true) }</p>
         <img src={ imgUrl('disclosure-indicator.svg') } style={ imgStyle }/>
         { this.props.subTitle && (
-          <p style={ subTitleStyle }>{this.props.subTitle}</p>
-        )}
+          <p style={ subTitleStyle }>{ this.props.subTitle }</p>
+        ) }
       </div>
     );
   }
@@ -21,7 +21,7 @@ export default class AllegationCountWidget extends Component {
 
 AllegationCountWidget.defaultProps = {
   subTitle: null
-}
+};
 
 AllegationCountWidget.propTypes = {
   numOfAllegations: PropTypes.number.isRequired,

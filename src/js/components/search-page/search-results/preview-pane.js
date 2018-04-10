@@ -1,28 +1,41 @@
 import React, { Component, PropTypes } from 'react';
-import ShortList from 'components/common/short-list';
-import { wrapperStyle, titleStyle, visualTokenStyle } from './preview-pane.style.js';
 import { isEmpty } from 'lodash';
 import SlideMotion from 'components/animation/slide-motion';
 
+import OfficerPane from 'components/search-page/preview-pane/officer-pane';
+import CommunityPane from 'components/search-page/preview-pane/community-pane';
+
+import { wrapperStyle } from './preview-pane.style';
+
 
 export default class PreviewPane extends Component {
+  constructor(props) {
+    super(props);
+    this.renderPane = this.renderPane.bind(this);
+  }
+
+  renderPane() {
+    const { data, type } = this.props;
+
+    switch (type) {
+      case 'OFFICER':
+        return <OfficerPane { ...data }/>;
+      case 'COMMUNITY':
+        return <CommunityPane { ...data } />;
+      default:
+        return null;
+    }
+  }
+
   render() {
-    const { data, visualTokenBackgroundColor, visualTokenImg, title } = this.props;
+    const { data } = this.props;
 
     return (
       <SlideMotion show={ !isEmpty(data) } offsetX={ 100 }>
-        <div style={ wrapperStyle }>
-          <div className='test--preview-pane-title' style={ titleStyle }>{ title }</div>
+        <div className='test--preview-pane' style={ wrapperStyle }>
           {
-            visualTokenImg ?
-              <img
-                className='test--preview-pane-visual-token'
-                style={ { ...visualTokenStyle, backgroundColor: visualTokenBackgroundColor } }
-                src={ visualTokenImg }
-              /> :
-              null
+            this.renderPane()
           }
-          <ShortList data={ data }/>
         </div>
       </SlideMotion>
     );
@@ -31,12 +44,10 @@ export default class PreviewPane extends Component {
 }
 
 PreviewPane.propTypes = {
-  visualTokenImg: PropTypes.string,
-  visualTokenBackgroundColor: PropTypes.string,
-  data: PropTypes.array,
-  title: PropTypes.string
+  data: PropTypes.object,
+  type: PropTypes.string
 };
 
 PreviewPane.defaultProps = {
-  data: [],
+  data: {},
 };

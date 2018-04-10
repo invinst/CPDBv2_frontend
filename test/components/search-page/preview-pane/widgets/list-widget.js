@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
-import ListWidget from 'components/search-page/search-terms/preview-pane/widgets/list-widget';
+import ListWidget from 'components/search-page/preview-pane/widgets/list-widget';
 
 
 describe('ListWidget', () => {

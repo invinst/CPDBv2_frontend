@@ -1,7 +1,7 @@
 import React from 'react';
 import {} from 'react-addons-test-utils';
 
-import ViewWiget from 'components/search-page/search-terms/preview-pane/widgets/view-widget';
+import ViewWiget from 'components/search-page/preview-pane/widgets/view-widget';
 
 
 describe('ViewWidget component', () => {

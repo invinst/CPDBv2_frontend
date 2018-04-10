@@ -55,7 +55,8 @@ export default class SuggestionResults extends Component {
       getSuggestionWithContentType,
       hasMore,
       singleContent,
-      nextParams
+      nextParams,
+      setSearchNavigation,
     } = this.props;
 
     if (isEmpty) {
@@ -64,24 +65,27 @@ export default class SuggestionResults extends Component {
       );
     }
 
-    return map(suggestionGroups, (group) => (
-      <SuggestionGroup
-        focusedItem={ focusedItem }
-        onLoadMore={ onLoadMore }
-        key={ `suggestion-group-${group.header}` }
-        navigation={ navigation }
-        setAliasAdminPageContent={ setAliasAdminPageContent }
-        suggestions={ group.items }
-        showMoreButton={ group.canLoadMore }
-        suggestionClick={ suggestionClick }
-        header={ group.header }
-        aliasEditModeOn={ aliasEditModeOn }
-        getSuggestionWithContentType={ getSuggestionWithContentType }
-        hasMore={ hasMore }
-        searchText={ searchText }
-        nextParams={ nextParams }
-        singleContent={ singleContent }/>
-      ));
+    return map(suggestionGroups, (group) => {
+      return (
+        <SuggestionGroup
+          setSearchNavigation={ setSearchNavigation }
+          focusedItem={ focusedItem }
+          onLoadMore={ onLoadMore }
+          key={ `suggestion-group-${group.header}` }
+          navigation={ navigation }
+          setAliasAdminPageContent={ setAliasAdminPageContent }
+          suggestions={ group.items }
+          showMoreButton={ group.canLoadMore }
+          suggestionClick={ suggestionClick }
+          header={ group.header }
+          aliasEditModeOn={ aliasEditModeOn }
+          getSuggestionWithContentType={ getSuggestionWithContentType }
+          hasMore={ hasMore }
+          searchText={ searchText }
+          nextParams={ nextParams }
+          singleContent={ singleContent }/>
+      );
+    });
   }
 
   renderActionBar() {
@@ -165,10 +169,13 @@ SuggestionResults.propTypes = {
   singleContent: PropTypes.bool,
   move: PropTypes.func,
   totalItemCount: PropTypes.number,
+  setSearchNavigation: PropTypes.func,
 };
 
 SuggestionResults.defaultProps = {
   previewPaneInfo: {},
-  getSuggestionWithContentType: () => {},
-  resetNavigation: () => {},
+  getSuggestionWithContentType: () => {
+  },
+  resetNavigation: () => {
+  },
 };

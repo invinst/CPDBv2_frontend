@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
-import AllegationCountWidget from 'components/search-page/search-terms/preview-pane/widgets/allegation-count-widget';
+import AllegationCountWidget from 'components/search-page/preview-pane/widgets/allegation-count-widget';
 
 
 describe('AllegationCountWidget component', () => {

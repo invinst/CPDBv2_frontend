@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 import { columnWrapperStyle, headerStyle, itemsWrapperStyle } from './category-column.style';
 import CategoryItem from './category-item';
-import CategorySubItem from './category-sub-item';
 
 
 export default class CategoryColumn extends Component {
@@ -29,15 +28,7 @@ export default class CategoryColumn extends Component {
                 itemUniqueKey={ uniqueKey }
                 isFocused={ isFocused }
                 handleItemClick={ handleItemClick }
-              >
-                { index === 0 && (
-                  <div>
-                    <CategorySubItem title={ '1st District' }/>
-                    <CategorySubItem title={ '2nd District' }/>
-                  </div>
-                )}
-
-              </CategoryItem>
+              />
             );
           })
         }

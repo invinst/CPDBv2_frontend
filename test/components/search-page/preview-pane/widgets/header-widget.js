@@ -1,8 +1,7 @@
 import React from 'react';
-import should from 'should';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
-import HeaderWidget from 'components/search-page/search-terms/preview-pane/widgets/header-widget';
+import HeaderWidget from 'components/search-page/preview-pane/widgets/header-widget';
 
 
 describe('HeaderWidget component', () => {

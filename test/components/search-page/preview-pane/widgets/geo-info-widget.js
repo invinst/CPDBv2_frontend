@@ -2,7 +2,7 @@ import React from 'react';
 import should from 'should';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 
-import GeoInfoWidget from 'components/search-page/search-terms/preview-pane/widgets/geo-info-widget';
+import GeoInfoWidget from 'components/search-page/preview-pane/widgets/geo-info-widget';
 import CommunityRacePopulation
   from 'components/landing-page/heat-map/summary-panel/community-dropdown/community-race-population';
 

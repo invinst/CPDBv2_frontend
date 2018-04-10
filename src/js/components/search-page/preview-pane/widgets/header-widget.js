@@ -1,11 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
-import { whiteTwoColor } from 'utils/styles';
-
 
 export default class HeaderWidget extends Component {
   render() {
-    const { title, showHR } = this.props;
+    const { title } = this.props;
     return (
       <div className='test--header-widget' style={ styles.container }>
         { title }

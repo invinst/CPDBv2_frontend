@@ -14,5 +14,5 @@ export default class WidgetWrapper extends Component {
 }
 
 WidgetWrapper.propTypes = {
-  children: PropTypes.element.isRequired
+  children: PropTypes.arrayOf(PropTypes.element.isRequired)
 };

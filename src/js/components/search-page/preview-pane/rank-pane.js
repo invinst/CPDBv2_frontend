@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
-  AllegationCountWidget,
   ListWidget,
   ViewWidget,
   SeparatorWidget,

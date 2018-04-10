@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import {
   SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
-  CHANGE_SEARCH_QUERY
+  CHANGE_SEARCH_QUERY, SEARCH_NAVIGATION_SET
 } from 'actions/search-page';
 
 
@@ -28,7 +28,9 @@ export default handleActions({
     return {
       'itemIndex': newItemIndex
     };
-  }
+  },
+
+  [SEARCH_NAVIGATION_SET]: (state, action) => ({ itemIndex: action.payload.itemIndex })
 }, {
   'itemIndex': 0
 });
