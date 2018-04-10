@@ -9,10 +9,9 @@ import {
   summarySelector
 } from 'selectors/officer-page';
 import { openPoliceUnitPage } from 'actions/bottom-sheet';
-import { getNewTimelineItems, getSelectedFilter } from 'selectors/officer-page/new-timeline';
+import { getNewTimelineItems } from 'selectors/officer-page/new-timeline';
 import { getOfficerId, officerYearlyThreePercentile } from 'selectors/officer-page';
 import { fetchPercentile } from 'actions/officer-page/radar-chart';
-import { changeFilter } from 'actions/officer-page/new-timeline';
 
 
 function mapStateToProps(state, ownProps) {
@@ -23,14 +22,12 @@ function mapStateToProps(state, ownProps) {
     newTimelineItems: getNewTimelineItems(state),
     officerId: getOfficerId(state),
     threeCornerPercentile: officerYearlyThreePercentile(state),
-    selectedFilter: getSelectedFilter(state),
   };
 }
 
 const mapDispatchToProps = {
   openPoliceUnitPage,
   fetchPercentile,
-  changeFilter,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SummaryPage));

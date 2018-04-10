@@ -50,12 +50,5 @@ SummaryPage.propTypes = {
   officerSummary: PropTypes.object,
   officerMetrics: PropTypes.object,
   openPoliceUnitPage: PropTypes.func,
-  newTimelineItems: PropTypes.array,
   fetchPercentile: PropTypes.func,
-  changeFilter: PropTypes.func,
-  selectedFilter: PropTypes.string,
-};
-
-SummaryPage.defaultProps = {
-  newTimelineItems: [],
 };

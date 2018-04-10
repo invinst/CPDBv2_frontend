@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { keys, get } from 'lodash';
 
 import { tabbedPaneSectionStyle, menuItemStyle, menuStyle } from './tabbed-pane-section.style';
@@ -47,14 +47,3 @@ export default class TabbedPaneSection extends Component {
     );
   }
 }
-
-TabbedPaneSection.propTypes = {
-  timelineItems: PropTypes.array,
-  changeFilter: PropTypes.func,
-  selectedFilter: PropTypes.string,
-};
-
-TabbedPaneSection.defaultProps = {
-  timelineItems: []
-};
-

@@ -16,7 +16,6 @@ import {
   trrTransform,
   yearItem,
   applyFilter,
-  getSelectedFilter,
 } from 'selectors/officer-page/new-timeline';
 import { NEW_TIMELINE_FILTERS } from 'utils/constants';
 
@@ -1361,19 +1360,6 @@ describe('officer page selectors', function () {
         }
       ])
       ;
-    });
-  });
-
-  describe('getSelectedFilter', function () {
-    it('should return correct result', function () {
-      const state = {
-        officerPage: {
-          newTimeline: {
-            filter: 'Complaints'
-          }
-        }
-      };
-      getSelectedFilter(state).should.eql('Complaints');
     });
   });
 });

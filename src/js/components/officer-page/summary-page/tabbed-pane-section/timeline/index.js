@@ -17,7 +17,7 @@ import Dropdown from 'components/common/dropdown';
 export default class Timeline extends Component {
 
   renderHeader() {
-    const { selectedFilter, changeFilter } = this.props;
+    const { changeFilter } = this.props;
 
     return (
       <div className='test--timeline-header' style={ headerWrapperStyle }>
@@ -26,7 +26,7 @@ export default class Timeline extends Component {
         <div style={ showingContentHeaderStyle }>
           <div style={ showingTextStyle }>SHOWING</div>
           <Dropdown
-            defaultValue={ selectedFilter }
+            defaultValue={ NEW_TIMELINE_FILTERS.ALL }
             onChange={ changeFilter }
             options={ values(NEW_TIMELINE_FILTERS) }
             className='test--timeline-filter'
@@ -74,7 +74,6 @@ export default class Timeline extends Component {
 Timeline.propTypes = {
   items: PropTypes.array,
   changeFilter: PropTypes.func,
-  selectedFilter: PropTypes.string,
 };
 
 Timeline.defaultProps = {

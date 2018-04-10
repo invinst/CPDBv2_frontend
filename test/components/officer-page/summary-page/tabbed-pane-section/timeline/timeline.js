@@ -23,7 +23,7 @@ describe('Timeline component', function () {
   it('should render headers correctly', function () {
     instance = renderIntoDocument(<Timeline />);
     const header = findRenderedDOMComponentWithClass(instance, 'test--timeline-header');
-    header.textContent.should.eql('RANKUNITSHOWINGDATE');
+    header.textContent.should.eql('RANKUNITSHOWINGALL EVENTSDATE');
   });
 
   it('should render items with correct borders', function () {
@@ -102,11 +102,10 @@ describe('Timeline component', function () {
     instance = renderIntoDocument(
       <Timeline
         changeFilter={ changeFilterStub }
-        selectedFilter={ 1 }
       />
     );
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.props.defaultValue.should.eql(1);
+    dropdown.props.defaultValue.should.eql('ALL EVENTS');
     dropdown.props.onChange.should.eql(changeFilterStub);
     dropdown.props.options.should.eql(['ALL EVENTS', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS']);
   });
