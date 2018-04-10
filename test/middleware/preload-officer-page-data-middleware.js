@@ -1,6 +1,6 @@
 import preloadOfficerPageDataMiddleware from 'middleware/preload-officer-page-data-middleware';
 import { spy } from 'sinon';
-import { changeOfficerId, fetchOfficerSummary, fetchOfficerMetrics } from 'actions/officer-page';
+import { changeOfficerId, fetchOfficerSummary } from 'actions/officer-page';
 
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
@@ -34,7 +34,6 @@ describe('preload-officer-page-data-middleware', function () {
     dispatched.should.eql(locationChangeAction);
     store.dispatch.calledWith(changeOfficerId(2)).should.be.true();
     store.dispatch.calledWith(fetchOfficerSummary(2)).should.be.true();
-    store.dispatch.calledWith(fetchOfficerMetrics(2)).should.be.true();
     store.dispatch.calledWith(fetchSocialGraph(2)).should.be.true();
     store.dispatch.calledWith(fetchNewTimelineItems(2)).should.be.true();
   });
@@ -52,7 +51,6 @@ describe('preload-officer-page-data-middleware', function () {
     dispatched.should.eql(locationChangeAction);
     store.dispatch.calledWith(changeOfficerId(1)).should.be.false();
     store.dispatch.calledWith(fetchOfficerSummary(1)).should.be.false();
-    store.dispatch.calledWith(fetchOfficerMetrics(1)).should.be.false();
     store.dispatch.calledWith(fetchSocialGraph(1)).should.be.false();
     store.dispatch.calledWith(fetchNewTimelineItems(1)).should.be.false();
   });

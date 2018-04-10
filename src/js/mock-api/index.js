@@ -11,7 +11,6 @@ import reportingPageGetData from './reporting-page/get-data';
 import FAQPageGetData from './faq-page/get-data';
 import { groupedSuggestions, singleGroupSuggestions } from './landing-page/suggestions';
 import getSummaryData from './officer-page/get-summary';
-import getPercentileData from './officer-page/get-percentile';
 import getSocialGraphData from './officer-page/get-social-graph';
 import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
 import getCRData from './cr-page/get-data';
@@ -79,7 +78,6 @@ axiosMockClient.onGet(`${SEARCH_OFFICER_URL}notfound/`).reply(200, []);
 
 axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(countRequests(() => [200, getSummaryData()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() => [200, getSocialGraphData()]));
-axiosMockClient.onGet(`${OFFICER_URL}1/percentile/`).reply(countRequests(() => [200, getPercentileData()]));
 
 axiosMockClient.onGet(`${CR_URL}1/`).reply(200, getCRData());
 axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());

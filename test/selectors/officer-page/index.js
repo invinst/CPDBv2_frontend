@@ -105,7 +105,7 @@ describe('officer page selectors', function () {
         'civilian_compliment_count': 10,
       };
 
-      state.officerPage = { metrics: metrics };
+      state.officerPage = { summary: { a: 'b', ...metrics } };
 
       metricsSelector(state).should.eql({
         allegationCount: 1,
