@@ -1,6 +1,5 @@
 import {
   DATA_NOT_AVAILABLE,
-  getActiveTab,
   getOfficerName,
   getPathname,
   metricsSelector,
@@ -119,17 +118,6 @@ describe('officer page selectors', function () {
         topUseOfForcePercentile: 9.0,
         civilianComplimentCount: 10,
       });
-    });
-  });
-
-  describe('getActiveTab', function () {
-    it('should return active tab', function () {
-      const state = {
-        officerPage: {
-          activeTab: 'social'
-        }
-      };
-      getActiveTab(state).should.eql('social');
     });
   });
 

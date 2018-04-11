@@ -1,13 +1,17 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import {
+  findRenderedComponentWithType, renderIntoDocument,
+  scryRenderedComponentsWithType
+} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import OfficerPage from 'components/officer-page';
-import SummaryPageContainer from 'containers/officer-page/summary-page-container';
-import Header from 'components/officer-page/header';
-import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
+import SummarySection from 'components/officer-page/summary-section';
+import MetricsSection from 'components/officer-page/metrics-section';
+import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
+import OfficerRadarChart from 'components/officer-page/radar-chart';
 
 
 describe('OfficerPage component', function () {
@@ -16,20 +20,7 @@ describe('OfficerPage component', function () {
     officerPage: {
       summary: {},
       metrics: {},
-      socialGraph: {
-        isRequesting: false,
-        links: [],
-        nodes: [],
-        yearRange: [
-          1984,
-          2017
-        ]
-      },
       newTimeline: {},
-      percentile: {
-        isRequesting: false,
-        items: []
-      }
     }
   });
   let instance;
@@ -38,34 +29,25 @@ describe('OfficerPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render header', function () {
+  it('should render SummarySection and MetricsSection', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Jerome Finnigan' activeTab='social' pathname='timeline'/>
+        <OfficerPage />
       </Provider>
     );
 
-    scryRenderedComponentsWithType(instance, Header).should.have.length(1);
+    scryRenderedComponentsWithType(instance, SummarySection).should.have.length(1);
+    scryRenderedComponentsWithType(instance, MetricsSection).should.have.length(1);
+    scryRenderedComponentsWithType(instance, TabbedPaneSection).should.have.length(1);
   });
 
-  it('should render summary page if active tab is summary', function () {
+  it('should render Radar Chart Component', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage activeTab=''/>
+        <OfficerPage officerId={ 1 }/>
       </Provider>
     );
 
-    scryRenderedComponentsWithType(instance, SummaryPageContainer).should.have.length(1);
-  });
-
-  it('should render Socialgraph when path is social', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage activeTab='social'/>
-      </Provider>
-    );
-
-    scryRenderedComponentsWithType(instance, Header).should.have.length(1);
-    scryRenderedComponentsWithType(instance, SocialGraphPageContainer).should.have.length(1);
+    findRenderedComponentWithType(instance, OfficerRadarChart);
   });
 });

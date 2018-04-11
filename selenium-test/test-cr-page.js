@@ -3,7 +3,7 @@
 require('should');
 
 import crPage from './page-objects/cr-page';
-import summaryPage from './page-objects/officer-summary-page';
+import officerPage from './page-objects/officer-page';
 
 
 describe('CR page', function () {
@@ -80,7 +80,7 @@ describe('CR page', function () {
   it('should navigate to officer page when click on view officer profile button', function () {
     crPage.infoSection.viewOfficerProfileButton.click();
     browser.getUrl().should.match(/\/officer\/1\/$/);
-    summaryPage.header.officerName.waitForVisible();
+    officerPage.summarySection.officerName.waitForVisible();
   });
 
   it('should display list of involvements', function () {
