@@ -46,14 +46,14 @@ export default class Dropdown extends Component {
         onBlur={ this.onBlur }
         className={ classNames('test--dropdown', className) }
         tabIndex='-1'>
-        <a
+        <div
           className='test--dropdown-button'
           style={ { ...defaultButtonStyle, ...buttonStyle } }
           onClick={ this.onClick }
         >
           <span>{ selected }</span>
           <span style={ arrowStyle(this.state.open) }/>
-        </a>
+        </div>
         {
           this.state.open ? (
             <Menu

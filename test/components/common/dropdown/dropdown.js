@@ -87,7 +87,7 @@ describe('Dropdown component', function () {
     Simulate.click(secondMenuItem);
 
     dropdown.state.selected.should.eql('2');
-    onChangeStub.should.calledWith('2');
+    onChangeStub.should.be.calledWith('2');
   });
 
   it('should not invoke onChange when selected item is not changed', function () {
