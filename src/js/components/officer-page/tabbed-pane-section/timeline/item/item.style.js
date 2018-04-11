@@ -34,10 +34,8 @@ export const baseRankStyle = (height, isFirst, isLast) => ({
   ...borderRadiusStyle(isFirst, isLast),
 });
 
-export const baseUnitStyle = (height, isFirst, isLast, unassigned) => ({
+export const baseUnitStyle = (height, isFirst, isLast) => ({
   ...smallBoxStyle(height),
-  color: clayGray,
-  fontStyle: unassigned ? 'italic' : 'none',
   backgroundImage: `url("${imgUrl('unit-background-pattern.png')}")`,
   backgroundPosition: 'center',
   backgroundSize: '100%',
@@ -51,6 +49,18 @@ export const unitChangeStyle = (height, isFirst, isLast) => ({
   backgroundColor: 'inherit',
   background: 'none',
 });
+
+export const unitTextStyle = (unassigned) => ({
+  height: '32px',
+  lineHeight: '32px',
+  color: clayGray,
+  fontStyle: unassigned ? 'italic' : 'none',
+});
+
+export const rankTextStyle = {
+  height: '32px',
+  lineHeight: '32px',
+};
 
 export const baseWrapperShowingStyle = {
   display: 'inline-block',

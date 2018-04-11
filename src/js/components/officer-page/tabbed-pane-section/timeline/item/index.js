@@ -64,7 +64,7 @@ export default class Item extends Component {
   renderRankAndUnit() {
     const { isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay, unitDisplay, kind } = this.props.item;
     const height = this.component.height;
-    const { baseRankStyle, baseUnitStyle, unitChangeStyle } = baseStyles;
+    const { baseRankStyle, baseUnitStyle, unitChangeStyle, unitTextStyle, rankTextStyle } = baseStyles;
 
     return (
       <span>
@@ -72,7 +72,9 @@ export default class Item extends Component {
           style={ baseRankStyle(height, isFirstRank, isLastRank) }
           className='test--item-rank'
         >
-          { rankDisplay }
+          <div style={ rankTextStyle }>
+            { rankDisplay }
+          </div>
         </span>
         {
           kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE ? (
@@ -84,10 +86,12 @@ export default class Item extends Component {
             </span>
           ) : (
             <span
-              style={ baseUnitStyle(height, isFirstUnit, isLastUnit, unitDisplay === 'Unassigned') }
+              style={ baseUnitStyle(height, isFirstUnit, isLastUnit) }
               className='test--item-unit'
             >
-              { (isFirstUnit && unitDisplay) ? unitDisplay : ' ' }
+              <div style={ unitTextStyle(unitDisplay === 'Unassigned') }>
+                { (isFirstUnit && unitDisplay) ? unitDisplay : ' ' }
+              </div>
             </span>
           )
         }

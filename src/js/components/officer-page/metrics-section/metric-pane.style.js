@@ -1,12 +1,12 @@
-import { softBlackColor, clayGray, greyishColor, brightOrangeTwoColor } from 'utils/styles';
+import { softBlackColor, clayGray, greyishColor, brightOrangeTwoColor, whiteTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = (borderTop, dashedBorder) => {
-  const borderType = dashedBorder ? 'dashed' : 'solid';
+  const border = dashedBorder ? `1px dotted ${whiteTwoColor}`: `1px solid ${greyishColor}`;
   return {
     margin: '0 16px',
     padding: '28px 0 27px 0',
-    borderTop: borderTop ? `2px ${borderType} ${greyishColor}` : 'none',
+    borderTop: borderTop ? border : 'none',
   };
 };
 
@@ -28,7 +28,7 @@ export const valueStyle = (active, highlightValue) => {
     height: '32px',
     lineHeight: '32px',
     fontSize: '26px',
-    fontWeight: 500,
+    fontWeight: 400,
     color: color,
     textAlign: 'center',
   };
@@ -39,7 +39,7 @@ export const nameStyle = (active) => ({
   lineHeight: '18px',
   paddingTop: '3px',
   fontSize: '14px',
-  fontWeight: 500,
+  fontWeight: 400,
   color: active ? softBlackColor : clayGray,
   textAlign: 'center',
 });
@@ -49,7 +49,7 @@ export const descriptionStyle = {
   lineHeight: '14px',
   paddingTop: '2px',
   fontSize: '12px',
-  fontWeight: 500,
+  fontWeight: 300,
   color: clayGray,
   textAlign: 'center',
 };

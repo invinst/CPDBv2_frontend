@@ -7,7 +7,6 @@ export const wrapperStyle = {
   height: '40px',
   lineHeight: '39px',
   borderTop: `solid 1px ${whiteTwoColor}`,
-  display: 'inline-block',
   boxSizing: 'border-box',
   overflow: 'auto',
   WebkitOverflowScrolling: 'touch',

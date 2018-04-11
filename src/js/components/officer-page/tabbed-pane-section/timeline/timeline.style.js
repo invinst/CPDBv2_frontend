@@ -1,10 +1,11 @@
-import { accentColor, clayGray, hawkesBlue, sugarCaneColor } from 'utils/styles';
+import { accentColor, clayGray, hawkesBlue, sugarCaneColor, altoColor } from 'utils/styles';
 
 
 export const timelineStyle = {
   backgroundColor: sugarCaneColor,
   margin: '0 16px 128px 16px',
   padding: '0 15px 128px 16px',
+  border: `solid 1px ${altoColor}`,
 };
 
 export const headerWrapperStyle = {
@@ -12,7 +13,7 @@ export const headerWrapperStyle = {
   height: '64px',
   paddingRight: '15px',
   fontSize: '14px',
-  fontWeight: '300px',
+  fontWeight: 300,
 };
 
 export const rankHeaderStyle = {
@@ -22,7 +23,7 @@ export const rankHeaderStyle = {
   textAlign: 'center',
   lineHeight: '64px',
   fontSize: '14px',
-  fontWeight: '300px',
+  fontWeight: 300,
   color: clayGray,
 };
 
@@ -32,7 +33,7 @@ export const unitHeaderStyle = {
   textAlign: 'center',
   lineHeight: '64px',
   fontSize: '14px',
-  fontWeight: '300px',
+  fontWeight: 300,
   color: clayGray,
 };
 
@@ -42,7 +43,7 @@ export const showingContentHeaderStyle = {
   height: '64px',
   textAlign: 'center',
   fontSize: '14px',
-  fontWeight: '300px',
+  fontWeight: 300,
   color: clayGray,
 };
 
@@ -54,7 +55,7 @@ export const dateHeaderStyle = {
   textAlign: 'right',
   lineHeight: '64px',
   fontSize: '14px',
-  fontWeight: '300px',
+  fontWeight: 300,
   color: clayGray,
 };
 

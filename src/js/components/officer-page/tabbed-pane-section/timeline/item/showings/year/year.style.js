@@ -20,7 +20,7 @@ export const showingStyle = (hasData) => ({
 export const dateStyle = (hasData) => ({
   fontSize: hasData ? '18px' : '14px',
   color: softBlackColor,
-  fontWeight: 300,
+  fontWeight: 400,
   paddingTop: hasData ? '12px' : 0,
 });
 
