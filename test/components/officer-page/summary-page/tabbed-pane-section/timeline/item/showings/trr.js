@@ -5,8 +5,8 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Trr from 'components/officer-page/summary-page/biography-section/timeline/item/showings/trr';
-import * as baseStyles from 'components/officer-page/summary-page/biography-section/timeline/item/item.style';
+import Trr from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/trr';
+import * as baseStyles from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/item.style';
 
 
 describe('Trr component', function () {

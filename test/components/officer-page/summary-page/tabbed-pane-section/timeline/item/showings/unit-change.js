@@ -5,8 +5,8 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import UnitChange from 'components/officer-page/summary-page/biography-section/timeline/item/showings/unit-change';
-import * as baseStyles from 'components/officer-page/summary-page/biography-section/timeline/item/item.style';
+import UnitChange from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/unit-change';
+import * as baseStyles from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/item.style';
 
 
 describe('UnitChange component', function () {

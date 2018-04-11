@@ -2176,7 +2176,7 @@ crc@^3.4.4:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/crc/-/crc-3.5.0.tgz#98b8ba7d489665ba3979f59b21381374101a1964"
 
-create-react-class@15.x, create-react-class@^15.5.2:
+create-react-class@15.x:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/create-react-class/-/create-react-class-15.6.0.tgz#ab448497c26566e1e29413e883207d57cfe7bed4"
   dependencies:
@@ -6352,11 +6352,10 @@ react-infinite-scroller@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/react-infinite-scroller/-/react-infinite-scroller-1.0.4.tgz#cb171113c4c8ee6aa44669392a55ad50938e2028"
 
-react-input-autosize@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.4.tgz#cbc45072d4084ddc57806db8e3b34e644b8366ac"
+react-input-autosize@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.1.tgz#ec428fa15b1592994fb5f9aa15bb1eb6baf420f8"
   dependencies:
-    create-react-class "^15.5.2"
     prop-types "^15.5.8"
 
 react-markdown@^3.2.0:

@@ -25,7 +25,24 @@ class SummarySection extends Section {
   }
 }
 
+class Filter extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      button: '.test--timeline-filter .test--dropdown-button',
+      menu: '.test--timeline-filter .test--dropdown-menu',
+      all: '(//div[@class="test--dropdown-menu-item"])[1]',
+      crs: '(//div[@class="test--dropdown-menu-item"])[2]',
+      force: '(//div[@class="test--dropdown-menu-item"])[3]',
+      awards: '(//div[@class="test--dropdown-menu-item"])[4]'
+    });
+  }
+}
+
 class TimelineSection extends Section {
+  filter = new Filter();
+
   constructor() {
     super();
 
@@ -42,15 +59,15 @@ class TimelineSection extends Section {
   }
 }
 
-class BiographySection extends Section {
+class TabbedPaneSection extends Section {
   timelineSection = new TimelineSection();
 
   constructor() {
     super();
 
     this.prepareElementGetters({
-      menu: '.test--biography-section-menu',
-      timelineTabName: '//span[@class="test--biography-tab-name"][1]'
+      menu: '.test--tabbed-pane-section-menu',
+      timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]'
     });
   }
 }
@@ -72,7 +89,7 @@ class RadarChartSection extends Section {
 class OfficerSummaryPage extends Page {
   header = new Header();
   summarySection = new SummarySection();
-  biographySection = new BiographySection();
+  tabbedPaneSection = new TabbedPaneSection();
   radarChartSection = new RadarChartSection();
 
   constructor() {

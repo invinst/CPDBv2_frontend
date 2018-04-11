@@ -5,8 +5,8 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Award from 'components/officer-page/summary-page/biography-section/timeline/item/showings/award';
-import * as baseStyles from 'components/officer-page/summary-page/biography-section/timeline/item/item.style';
+import Award from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/award';
+import * as baseStyles from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/item.style';
 
 
 describe('Award component', function () {

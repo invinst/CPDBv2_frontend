@@ -144,6 +144,7 @@ describe('store', function () {
           ]
         },
         newTimeline: {
+          filter: 'ALL EVENTS',
           isRequesting: false,
           items: []
         }

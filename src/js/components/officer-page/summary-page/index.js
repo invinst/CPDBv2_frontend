@@ -5,7 +5,7 @@ import { pageWrapperStyle, radarChartPlaceholderStyle } from './summary-page.sty
 import OfficerRadarChart from './radar-chart';
 import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
-import BiographySection from './biography-section';
+import TabbedPaneSection from './tabbed-pane-section';
 
 
 export default class SummaryPage extends Component {
@@ -20,8 +20,7 @@ export default class SummaryPage extends Component {
       openPoliceUnitPage,
       officerMetrics,
       officerName,
-      newTimelineItems,
-      threeCornerPercentile
+      threeCornerPercentile,
     } = this.props;
 
     return (
@@ -38,7 +37,7 @@ export default class SummaryPage extends Component {
             openPoliceUnitPage={ openPoliceUnitPage }/>
         </div>
         <MetricsSection metrics={ officerMetrics }/>
-        <BiographySection timelineItems={ newTimelineItems }/>
+        <TabbedPaneSection/>
       </div>
     );
   }
@@ -51,10 +50,5 @@ SummaryPage.propTypes = {
   officerSummary: PropTypes.object,
   officerMetrics: PropTypes.object,
   openPoliceUnitPage: PropTypes.func,
-  newTimelineItems: PropTypes.array,
-  fetchPercentile: PropTypes.func
-};
-
-SummaryPage.defaultProps = {
-  newTimelineItems: [],
+  fetchPercentile: PropTypes.func,
 };

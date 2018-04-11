@@ -20,7 +20,7 @@ function mapStateToProps(state, ownProps) {
     officerMetrics: metricsSelector(state),
     newTimelineItems: getNewTimelineItems(state),
     officerId: getOfficerId(state),
-    threeCornerPercentile: officerYearlyThreePercentile(state)
+    threeCornerPercentile: officerYearlyThreePercentile(state),
   };
 }
 

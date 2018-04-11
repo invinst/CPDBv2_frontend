@@ -5,8 +5,8 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Empty from 'components/officer-page/summary-page/biography-section/timeline/item/showings/empty';
-import * as baseStyles from 'components/officer-page/summary-page/biography-section/timeline/item/item.style';
+import Empty from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/showings/empty';
+import * as baseStyles from 'components/officer-page/summary-page/tabbed-pane-section/timeline/item/item.style';
 
 
 describe('Empty component', function () {

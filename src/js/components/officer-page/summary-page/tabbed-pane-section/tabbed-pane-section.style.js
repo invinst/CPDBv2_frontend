@@ -1,7 +1,7 @@
 import { accentColor } from 'utils/styles';
 
 
-export const biographySectionStyle = {
+export const tabbedPaneSectionStyle = {
   backgroundColor: 'white',
 };
 
