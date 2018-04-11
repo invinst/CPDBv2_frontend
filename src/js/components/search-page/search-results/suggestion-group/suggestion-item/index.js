@@ -29,9 +29,7 @@ export default class SuggestionItem extends Component {
     const ComponentType = Hoverable(get(COMPONENT_MAP, type, SuggestionItemBase));
 
     return (
-      <div onClick={ this.props.onClick }>
-        <ComponentType { ...this.props }/>
-      </div>
+      <ComponentType { ...this.props }/>
     );
   }
 }
@@ -41,7 +39,7 @@ SuggestionItem.propTypes = {
   hovering: PropTypes.bool,
   isFocused: PropTypes.bool,
   aliasEditModeOn: PropTypes.bool,
-  onClick: PropTypes.func,
+  selectItem: PropTypes.func,
 };
 
 SuggestionItem.defaultProps = {

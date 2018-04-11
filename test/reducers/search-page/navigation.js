@@ -3,6 +3,7 @@ import {
   SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
   CHANGE_SEARCH_QUERY
 } from 'actions/search-page';
+import { SEARCH_NAVIGATION_SET } from '../../../src/js/actions/search-page';
 
 
 describe('navigation reducer', function () {
@@ -69,5 +70,14 @@ describe('navigation reducer', function () {
         }
       }).should.deepEqual({ 'itemIndex': 0 });
     });
+  });
+
+  describe('SEARCH_NAVIGATION_SET', function () {
+    navigation(undefined, {
+      type: SEARCH_NAVIGATION_SET,
+      payload: {
+        itemIndex: 1
+      }
+    }).should.eql({ itemIndex: 1 });
   });
 });

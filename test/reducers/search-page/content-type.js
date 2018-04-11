@@ -1,5 +1,6 @@
 import { SELECT_TAG } from 'actions/search-page';
 import contentType from 'reducers/search-page/content-type';
+import { LOCATION_CHANGE } from 'utils/constants';
 
 
 describe('searchPage.contentType reducer', function () {
@@ -12,5 +13,15 @@ describe('searchPage.contentType reducer', function () {
       type: SELECT_TAG,
       payload: 'a'
     }).should.equal('a');
+  });
+  it('should handle LOCATION_CHANGE', function () {
+    contentType(undefined, {
+      type: LOCATION_CHANGE,
+      payload: {
+        query: {
+          type: 'community'
+        }
+      }
+    }).should.eql('community');
   });
 });

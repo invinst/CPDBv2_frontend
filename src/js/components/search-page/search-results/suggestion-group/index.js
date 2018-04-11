@@ -13,7 +13,7 @@ export default class SuggestionGroup extends Component {
   constructor(props) {
     super(props);
 
-    this.handleItemClick = this.handleItemClick.bind(this);
+    this.handleItemClick = this.selectItem.bind(this);
   }
 
   componentDidMount() {
@@ -28,10 +28,8 @@ export default class SuggestionGroup extends Component {
     return (<div style={ groupHeaderStyle }>{ this.props.header }</div>);
   }
 
-  handleItemClick(index) {
-    return () => {
-      this.props.setSearchNavigation({ itemIndex: index });
-    };
+  selectItem(itemIndex) {
+    return () => this.props.setSearchNavigation({ itemIndex });
   }
 
   renderResults() {
@@ -57,7 +55,7 @@ export default class SuggestionGroup extends Component {
           map(suggestions, (suggestion) => {
             return (
               <SuggestionItem
-                onClick={ this.handleItemClick(suggestion.itemIndex) }
+                selectItem={ this.selectItem(suggestion.itemIndex) }
                 key={ suggestion.uniqueKey }
                 aliasEditModeOn={ aliasEditModeOn }
                 setAliasAdminPageContent={ setAliasAdminPageContent }

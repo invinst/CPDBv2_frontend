@@ -4,7 +4,7 @@ import { renderIntoDocument,
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 
-import NeighborhoodPane from 'components/search-page/preview-pane/neighborhood-pane';
+import SchoolGroundPane from 'components/search-page/preview-pane/school-ground-pane';
 import {
   HeaderWidget,
   ListWidget,
@@ -13,11 +13,11 @@ import {
 } from 'components/search-page/preview-pane/widgets';
 
 
-describe('NeighborhoodPane component', () => {
+describe('SchoolGroundPane component', () => {
   let instance;
 
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(<NeighborhoodPane/>);
+    instance = renderIntoDocument(<SchoolGroundPane/>);
     findRenderedComponentWithType(instance, HeaderWidget);
     findRenderedComponentWithType(instance, SeparatorWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);

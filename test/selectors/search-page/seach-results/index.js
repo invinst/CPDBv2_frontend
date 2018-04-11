@@ -151,6 +151,78 @@ describe('search page results selector', function () {
       groups.length.should.equal(1);
       groups[0].header.should.equal('CO-ACCUSED');
     });
+
+    it('should give correct item format for COMMUNITY', function () {
+      const groups = searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            COMMUNITY: [
+              {
+                id: 317,
+                text: 'Roseland',
+                payload: {
+                  name: 'Roseland',
+                  'median_income': '$37,084',
+                  tags: [],
+                  url: 'https://beta.cpdb.co/url-mediator/session-builder?neighborhood=Roseland',
+                  'most_common_complaint': [{
+                    id: 204,
+                    name: 'Operation/Personnel Violations',
+                    count: 227,
+                  }],
+                  'officers_most_complaint': [{
+                    id: 12478,
+                    name: 'Ronald Holt',
+                    count: 26,
+                  }],
+                  'race_count': [
+                    { race: 'Persons of Spanish Language', count: 121 },
+                    { race: 'Black or African-American', count: 131 },
+                    { race: 'Other', count: 100 }
+                  ],
+                  'result_text': 'Roseland',
+                  'allegation_count': 12,
+                },
+              }
+            ]
+          }
+        }
+      });
+      groups.should.eql([{
+        header: 'COMMUNITY',
+        canLoadMore: false,
+        items: [{
+          type: 'COMMUNITY',
+          id: 317,
+          text: 'Roseland',
+          to: undefined,
+          url: 'https://beta.cpdb.co/url-mediator/session-builder?neighborhood=Roseland',
+          tags: [],
+          uniqueKey: 'COMMUNITY-317',
+          itemIndex: 1,
+          name: 'Roseland',
+          allegationCount: 12,
+          mostCommonComplaint: [{
+            id: 204,
+            name: 'Operation/Personnel Violations',
+            count: 227,
+          }],
+          officersMostComplaint: [{
+            id: 12478,
+            name: 'Ronald Holt',
+            count: 26,
+          }],
+          population: '352',
+          medianIncome: '$37,084',
+          raceCount: [
+            { race: 'Hispanic', count: '34.4%' },
+            { race: 'Black', count: '37.2%' },
+            { race: 'Other', count: '28.4%' }
+          ],
+        }],
+      }]);
+    });
   });
 
   describe('suggestionTagsSelector', function () {

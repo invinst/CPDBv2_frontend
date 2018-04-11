@@ -15,7 +15,7 @@ const mappingRace = (race) => {
 
 
 const previewPaneTypeMap = {
-  'OFFICER': (suggestion) => {
+  OFFICER: (suggestion) => {
     const { payload, id, text } = suggestion;
     const visualTokenImg = getSvgUrl(id);
     const visualTokenBackgroundColor = payload['visual_token_background_color'];
@@ -34,17 +34,38 @@ const previewPaneTypeMap = {
     };
     return { type: 'OFFICER', data };
   },
-  'COMMUNITY': (suggestion) => {
-    return {
-      type: 'COMMUNITY',
-      data: get(searchResultTransformMap, 'COMMUNITY', () => {
-      })(suggestion)
-    };
-  }
+  COMMUNITY: (suggestion) => ({
+    type: 'COMMUNITY',
+    data: get(searchResultTransformMap, 'COMMUNITY', () => {
+    })(suggestion)
+  }),
+  NEIGHBORHOOD: (suggestion) => ({
+    type: 'NEIGHBORHOOD',
+    data: get(searchResultTransformMap, 'NEIGHBORHOOD', () => {
+    })(suggestion)
+  })
 };
 
 export const previewPaneTransform = item =>
   get(previewPaneTypeMap, item.type, () => ({}))(item);
+
+const areaTransform = ({ payload }) => {
+  const population = sumBy(payload['race_count'], 'count');
+  return {
+    name: payload['name'] || 'Unknown',
+    allegationCount: payload['allegation_count'] || [],
+    mostCommonComplaint: payload['most_common_complaint'] || [],
+    officersMostComplaint: payload['officers_most_complaint'] || [],
+    population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+    medianIncome: payload['median_income'],
+    raceCount: map(payload['race_count'], (item) => {
+      let result = { race: mappingRace(item.race) };
+      result['count'] = population ? item['count'] / population * 100 : 0;
+      result['count'] = `${result['count'].toFixed(1)}%`;
+      return result;
+    })
+  };
+};
 
 const searchResultTransformMap = {
   OFFICER: ({ payload }) => {
@@ -64,23 +85,8 @@ const searchResultTransformMap = {
       subText: `CRID ${payload.crid}, ${payload.outcome}`
     };
   },
-  COMMUNITY: ({ payload }) => {
-    const population = sumBy(payload['race_count'], 'count');
-    return {
-      name: payload['name'] || 'Unknown',
-      allegationCount: payload['allegation_count'] || [],
-      mostCommonComplaint: payload['most_common_complaint'] || [],
-      officersMostComplaint: payload['officers_most_complaint'] || [],
-      population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-      medianIncome: payload['median_income'],
-      raceCount: map(payload['race_count'], (item) => {
-        let result = { race: mappingRace(item.race) };
-        result['count'] = population ? item['count'] / population * 100 : 0;
-        result['count'] = `${result['count'].toFixed(1)}%`;
-        return result;
-      })
-    };
-  }
+  COMMUNITY: areaTransform,
+  NEIGHBORHOOD: areaTransform,
 };
 
 export const searchResultItemTransform = (item) => ({

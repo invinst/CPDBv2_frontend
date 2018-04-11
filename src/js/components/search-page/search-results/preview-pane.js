@@ -1,9 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, get } from 'lodash';
 import SlideMotion from 'components/animation/slide-motion';
 
-import OfficerPane from 'components/search-page/preview-pane/officer-pane';
-import CommunityPane from 'components/search-page/preview-pane/community-pane';
+import {
+  OfficerPane,
+  CommunityPane,
+  NeighborhoodPane,
+} from 'components/search-page/preview-pane';
+
 
 import { wrapperStyle } from './preview-pane.style';
 
@@ -16,16 +20,14 @@ export default class PreviewPane extends Component {
 
   renderPane() {
     const { data, type } = this.props;
-
-    switch (type) {
-      case 'OFFICER':
-        return <OfficerPane { ...data }/>;
-      case 'COMMUNITY':
-        return <CommunityPane { ...data } />;
-      default:
-        return null;
-    }
+    const paneTypes = {
+      OFFICER: () => <OfficerPane { ...data }/>,
+      COMMUNITY: () => <CommunityPane { ...data } />,
+      NEIGHBORHOOD: () => <NeighborhoodPane { ...data } />
+    };
+    return get(paneTypes, type, () => null)();
   }
+
 
   render() {
     const { data } = this.props;

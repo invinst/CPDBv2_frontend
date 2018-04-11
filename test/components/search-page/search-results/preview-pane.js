@@ -9,7 +9,10 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
 import ShortList from 'components/common/short-list';
-import CommunityPane from 'components/search-page/preview-pane/community-pane';
+import {
+  CommunityPane,
+  NeighborhoodPane,
+} from 'components/search-page/preview-pane';
 
 
 describe('PreviewPane component', function () {
@@ -65,6 +68,16 @@ describe('PreviewPane component', function () {
       />
     );
     findRenderedComponentWithType(instance, CommunityPane);
+  });
+
+  it('should render NeighborhoodPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type={ 'NEIGHBORHOOD' }
+        data={ { name: 'Neighborhood' } }
+      />
+    );
+    findRenderedComponentWithType(instance, NeighborhoodPane);
   });
 
   it('should not display any component if the data is empty', function () {

@@ -9,7 +9,7 @@ import WidgetWrapper, {
 } from './widgets';
 
 
-export default class NeighborhoodPane extends Component {
+export default class SchoolGroundPane extends Component {
   render() {
     const {
       name,
@@ -40,7 +40,7 @@ export default class NeighborhoodPane extends Component {
   }
 }
 
-NeighborhoodPane.propTypes = {
+SchoolGroundPane.propTypes = {
   name: PropTypes.string,
   allegationCount: PropTypes.number,
   mostCommonComplaint: PropTypes.arrayOf(PropTypes.shape({

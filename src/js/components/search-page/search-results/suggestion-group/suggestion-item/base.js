@@ -71,9 +71,9 @@ export default class SuggestionItemBase extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    const { suggestionClick, suggestion } = this.props;
+    const { suggestionClick, suggestion, selectItem } = this.props;
     const { type, text, url, to } = suggestion;
-
+    selectItem();
     suggestionClick(type, text, url, to);
   }
 
@@ -107,10 +107,12 @@ SuggestionItemBase.propTypes = {
   suggestion: PropTypes.object,
   isFocused: PropTypes.bool,
   setAliasAdminPageContent: PropTypes.func,
-  suggestionClick: PropTypes.func
+  suggestionClick: PropTypes.func,
+  selectItem: PropTypes.func,
 };
 
 SuggestionItemBase.defaultProps = {
   suggestion: {},
-  suggestionClick: () => {}
+  suggestionClick: () => {},
+  selectItem: () => {},
 };
