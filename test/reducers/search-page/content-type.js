@@ -1,4 +1,4 @@
-import { SELECT_TAG } from 'actions/search-page';
+import { SELECT_TAG } from 'utils/constants';
 import contentType from 'reducers/search-page/content-type';
 import { LOCATION_CHANGE } from 'utils/constants';
 

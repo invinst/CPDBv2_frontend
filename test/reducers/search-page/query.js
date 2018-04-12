@@ -1,4 +1,4 @@
-import { CHANGE_SEARCH_QUERY } from 'actions/search-page';
+import { CHANGE_SEARCH_QUERY } from 'utils/constants';
 import query from 'reducers/search-page/query';
 import { LOCATION_CHANGE } from 'utils/constants';
 

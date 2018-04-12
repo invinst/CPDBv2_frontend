@@ -1,6 +1,6 @@
 import { handleActions } from 'redux-actions';
-import { CHANGE_SEARCH_QUERY } from 'actions/search-page';
-import { LOCATION_CHANGE } from 'utils/constants';
+
+import { CHANGE_SEARCH_QUERY, LOCATION_CHANGE } from 'utils/constants';
 
 
 export default handleActions({

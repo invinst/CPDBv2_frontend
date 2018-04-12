@@ -27,6 +27,7 @@ export default function withCarousel(CardComponent, type = '', extraCardAttr = {
       return (
         <div className={ `test--landing--carousel-${(type.key || type).toLowerCase()}` }>
           <Carousel
+            type={ type.key || type }
             headerSection={
               <InlineEditHeader editWrapperStateProps={ editWrapperStateProps } type={ type }/>
             }

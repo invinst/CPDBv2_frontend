@@ -1,8 +1,6 @@
 import { handleActions } from 'redux-actions';
 
-import { LOCATION_CHANGE } from 'utils/constants';
-
-import { SELECT_TAG } from 'actions/search-page';
+import { SELECT_TAG, LOCATION_CHANGE } from 'utils/constants';
 
 
 export default handleActions({

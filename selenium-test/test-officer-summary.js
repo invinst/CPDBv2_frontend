@@ -61,21 +61,6 @@ describe('officer summary page', function () {
     summaryPage.summarySection.sexValue.getText().should.equal('Male');
   });
 
-  it('should launch timeline, summary, minimap requests upon direct visit', function () {
-    getRequestCount('/officers/1/timeline-items/').should.equal(1);
-    getRequestCount('/officers/1/summary/').should.equal(1);
-    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
-  });
-
-  it('should not launch any request when click on Timeline tab', function () {
-    summaryPage.header.timelineButton.waitForVisible();
-    summaryPage.header.timelineButton.click();
-
-    getRequestCount('/officers/1/timeline-items/').should.equal(1);
-    getRequestCount('/officers/1/summary/').should.equal(1);
-    getRequestCount('/officers/1/timeline-minimap/').should.equal(1);
-  });
-
   it('should not launch any request when click on Social tab', function () {
     summaryPage.header.socialButton.waitForVisible();
     summaryPage.header.socialButton.click();
@@ -90,6 +75,25 @@ describe('officer summary page', function () {
     browser.getUrl().should.match(/\/unit\/\d+\/$/);
   });
 
+  it('should display the timeline by default', function () {
+    summaryPage.tabbedPaneSection.menu.waitForVisible();
+
+    summaryPage.tabbedPaneSection.menu.getText().should.eql('TIMELINESUMMARYMAPCOACCUSALSATTACHMENTS');
+    summaryPage.tabbedPaneSection.timelineTabName.getCssProperty('background-color').value.should.eql(
+      'rgba(0,94,244,1)'
+    );
+    // Due to float right, we need to add a '\n' here
+    summaryPage.tabbedPaneSection.timelineSection.header.getText().should.eql('RANKUNITSHOWINGALL EVENTS\nDATE');
+
+    summaryPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
+    summaryPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+    summaryPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
+    summaryPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForVisible();
+    summaryPage.tabbedPaneSection.timelineSection.joinedItem.waitForVisible();
+    summaryPage.tabbedPaneSection.timelineSection.yearItem.waitForVisible();
+    summaryPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
+  });
+
   describe('Radar Chart', function () {
     it('should responsive', function () {
       browser.setViewportSize({
@@ -97,6 +101,57 @@ describe('officer summary page', function () {
         height: 600
       });
       summaryPage.radarChartSection.lastAxisTitle.waitForVisible();
+    });
+  });
+
+  describe('Timeline filter', function () {
+    beforeEach(function () {
+      summaryPage.tabbedPaneSection.timelineSection.filter.button.waitForVisible();
+      summaryPage.tabbedPaneSection.timelineSection.filter.button.click();
+    });
+
+    afterEach(function () {
+      summaryPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForVisible();
+      summaryPage.tabbedPaneSection.timelineSection.joinedItem.waitForVisible();
+      summaryPage.tabbedPaneSection.timelineSection.yearItem.waitForVisible();
+      summaryPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
+    });
+
+    it('should filter all events', function () {
+      summaryPage.tabbedPaneSection.timelineSection.filter.all.click();
+
+      summaryPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
+      summaryPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+      summaryPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
+    });
+
+    it('should filter complaints', function () {
+      summaryPage.tabbedPaneSection.timelineSection.filter.crs.click();
+
+      summaryPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
+      summaryPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
+      summaryPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
+    });
+
+    it('should filter TRRs', function () {
+      summaryPage.tabbedPaneSection.timelineSection.filter.force.click();
+
+      summaryPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
+      summaryPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+      summaryPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
+    });
+
+    it('should filter awards', function () {
+      summaryPage.tabbedPaneSection.timelineSection.filter.awards.click();
+
+      summaryPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
+      summaryPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
+      summaryPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
+    });
+
+    it('should close the menu when blurring', function () {
+      summaryPage.tabbedPaneSection.timelineSection.crItem.click();
+      summaryPage.tabbedPaneSection.timelineSection.filter.menu.waitForVisible(1000, true);
     });
   });
 });

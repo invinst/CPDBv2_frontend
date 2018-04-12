@@ -10,5 +10,5 @@ export function isFAQBottomSheetPath(path) {
 }
 
 export function isOfficerPath(path) {
-  return !!path.match(/^(\/edit)?\/officer\/(\d+)\/(timeline\/)?/);
+  return !!path.match(/^(\/edit)?\/officer\/(\d+)/);
 }

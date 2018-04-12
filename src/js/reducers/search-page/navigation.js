@@ -1,8 +1,9 @@
 import { handleActions } from 'redux-actions';
+
 import {
   SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
   CHANGE_SEARCH_QUERY, SEARCH_NAVIGATION_SET
-} from 'actions/search-page';
+} from 'utils/constants';
 
 
 export default handleActions({

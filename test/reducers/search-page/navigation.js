@@ -1,9 +1,8 @@
 import navigation from 'reducers/search-page/navigation';
 import {
   SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
-  CHANGE_SEARCH_QUERY
-} from 'actions/search-page';
-import { SEARCH_NAVIGATION_SET } from '../../../src/js/actions/search-page';
+  CHANGE_SEARCH_QUERY, SEARCH_NAVIGATION_SET
+} from 'utils/constants';
 
 
 describe('navigation reducer', function () {

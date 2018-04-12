@@ -1,6 +1,6 @@
 import {
   SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
-} from 'actions/search-page';
+} from 'utils/constants';
 import isRequesting from 'reducers/search-page/is-requesting';
 
 
