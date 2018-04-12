@@ -50,10 +50,10 @@ export const unitChangeStyle = (height, isFirst, isLast) => ({
   background: 'none',
 });
 
-export const unitTextStyle = (unassigned) => ({
+export const unitTextStyle = (unassigned, isCurrentUnit) => ({
   height: '32px',
   lineHeight: '32px',
-  color: clayGray,
+  color: isCurrentUnit ? softBlackColor : clayGray,
   fontStyle: unassigned ? 'italic' : 'none',
 });
 

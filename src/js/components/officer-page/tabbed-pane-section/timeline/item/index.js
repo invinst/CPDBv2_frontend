@@ -62,7 +62,9 @@ export default class Item extends Component {
   }
 
   renderRankAndUnit() {
-    const { isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay, unitDisplay, kind } = this.props.item;
+    const {
+      isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay, unitDisplay, kind, isCurrentUnit
+    } = this.props.item;
     const height = this.component.height;
     const { baseRankStyle, baseUnitStyle, unitChangeStyle, unitTextStyle, rankTextStyle } = baseStyles;
 
@@ -89,7 +91,7 @@ export default class Item extends Component {
               style={ baseUnitStyle(height, isFirstUnit, isLastUnit) }
               className='test--item-unit'
             >
-              <div style={ unitTextStyle(unitDisplay === 'Unassigned') }>
+              <div style={ unitTextStyle(unitDisplay === 'Unassigned', isCurrentUnit) }>
                 { (isFirstUnit && unitDisplay) ? unitDisplay : ' ' }
               </div>
             </span>
