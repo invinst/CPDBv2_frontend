@@ -73,17 +73,16 @@ describe('PreviewPane component', function () {
   });
 
   it('should call browserHistory.push method when click to CallToAction', function () {
+    let stubBrowserHistory = stub(browserHistory, 'push');
     instance = renderIntoDocument(
       <PreviewPane
-        item={ { id: 'community', name: 'name', 'call_to_action_type': 'view_all' } }
+        item={ { to: 'xxx', id: 'community', name: 'name', 'call_to_action_type': 'view_all' } }
       />
     );
-
     const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--enter-button');
-    let stubBrowserHistory = stub(browserHistory, 'push');
     Simulate.click(instanceDOM);
 
-    stubBrowserHistory.calledWith('/search/?type=COMMUNITY&terms=community').should.be.true();
+    stubBrowserHistory.calledWith('xxx').should.be.true();
     stubBrowserHistory.restore();
   });
 });

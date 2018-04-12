@@ -12,7 +12,7 @@ export default class ActionBar extends Component {
   }
 
   handleClick() {
-    browserHistory.push(`/search/?type=${this.props.contentType}&terms=${this.props.terms}`);
+    browserHistory.push(this.props.to);
   }
 
   render() {
@@ -33,13 +33,8 @@ export default class ActionBar extends Component {
   }
 }
 
-ActionBar.defaultProps = {
-  contentType: ''
-};
-
 ActionBar.propTypes = {
   style: PropTypes.object,
   children: PropTypes.node,
-  terms: PropTypes.string,
-  contentType: PropTypes.string,
+  to: PropTypes.string,
 };

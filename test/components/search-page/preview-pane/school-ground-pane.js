@@ -8,7 +8,7 @@ import SchoolGroundPane from 'components/search-page/preview-pane/school-ground-
 import {
   HeaderWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
   SeparatorWidget,
 } from 'components/search-page/preview-pane/widgets';
 
@@ -21,6 +21,6 @@ describe('SchoolGroundPane component', () => {
     findRenderedComponentWithType(instance, HeaderWidget);
     findRenderedComponentWithType(instance, SeparatorWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);
-    findRenderedComponentWithType(instance, ViewWidget);
+    findRenderedComponentWithType(instance, CallToActionWidget);
   });
 });

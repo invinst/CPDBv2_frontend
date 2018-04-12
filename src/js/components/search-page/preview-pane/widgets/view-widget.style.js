@@ -11,6 +11,7 @@ export const containerStyle = {
 
 export const textStyle = {
   lineHeight: '40px',
+  fontSize: '14px',
 };
 
 export const buttonStyle = {

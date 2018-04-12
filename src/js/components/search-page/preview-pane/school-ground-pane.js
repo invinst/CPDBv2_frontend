@@ -4,7 +4,7 @@ import WidgetWrapper, {
   HeaderWidget,
   AllegationCountWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
   SeparatorWidget,
 } from './widgets';
 
@@ -34,7 +34,7 @@ export default class SchoolGroundPane extends Component {
           showAvatar={ true }
           title={ 'OFFICERS WITH MOST COMPLAINTS' }
         />
-        <ViewWidget/>
+        <CallToActionWidget/>
       </WidgetWrapper>
     );
   }

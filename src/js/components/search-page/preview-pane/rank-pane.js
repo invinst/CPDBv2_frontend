@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import WidgetWrapper, {
   HeaderWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
   SeparatorWidget,
 } from './widgets';
 
@@ -37,7 +37,7 @@ export default class RankPane extends Component {
           showAvatar={ false }
           title={ 'RANK WITH MOST COMPLAINT' }
         />
-        <ViewWidget/>
+        <CallToActionWidget/>
       </WidgetWrapper>
     );
   }

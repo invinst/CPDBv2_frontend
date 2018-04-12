@@ -11,7 +11,7 @@ import {
   TextWidget,
   AllegationCountWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
 } from 'components/search-page/preview-pane/widgets';
 
 
@@ -24,6 +24,6 @@ describe('WardPane component', () => {
     findRenderedComponentWithType(instance, TextWidget);
     findRenderedComponentWithType(instance, AllegationCountWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);
-    findRenderedComponentWithType(instance, ViewWidget);
+    findRenderedComponentWithType(instance, CallToActionWidget);
   });
 });

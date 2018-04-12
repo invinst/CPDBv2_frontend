@@ -31,6 +31,7 @@ const previewPaneTypeMap = {
       visualTokenImg,
       text,
       title: text,
+      to: payload.to,
     };
     return { type: 'OFFICER', data };
   },
@@ -58,6 +59,7 @@ const areaTransform = ({ payload }) => {
     officersMostComplaint: payload['officers_most_complaint'] || [],
     population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
     medianIncome: payload['median_income'],
+    url: payload['url'],
     raceCount: map(payload['race_count'], (item) => {
       let result = { race: mappingRace(item.race) };
       result['count'] = population ? item['count'] / population * 100 : 0;

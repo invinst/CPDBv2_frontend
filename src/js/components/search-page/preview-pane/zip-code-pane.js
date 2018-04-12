@@ -4,7 +4,7 @@ import WidgetWrapper, {
   HeaderWidget,
   AllegationCountWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
 } from './widgets';
 
 
@@ -87,7 +87,7 @@ export default class PoliceDistrictPane extends Component {
           typeName={ 'document' }
           title='OFFICERS WITH MOST COMPLAINTS'
           items={ officersWithDocuments }/>
-        <ViewWidget/>
+        <CallToActionWidget/>
       </WidgetWrapper>
     );
   }

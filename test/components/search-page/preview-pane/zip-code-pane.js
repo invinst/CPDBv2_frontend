@@ -10,7 +10,7 @@ import {
   HeaderWidget,
   AllegationCountWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
 } from 'components/search-page/preview-pane/widgets';
 
 
@@ -22,6 +22,6 @@ describe('ZipCodePane component', () => {
     findRenderedComponentWithType(instance, HeaderWidget);
     findRenderedComponentWithType(instance, AllegationCountWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(3);
-    findRenderedComponentWithType(instance, ViewWidget);
+    findRenderedComponentWithType(instance, CallToActionWidget);
   });
 });

@@ -9,7 +9,7 @@ import {
   HeaderWidget,
   TextWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
   SeparatorWidget,
 } from 'components/search-page/preview-pane/widgets';
 
@@ -23,6 +23,6 @@ describe('PoliceBeatPane component', () => {
     findRenderedComponentWithType(instance, SeparatorWidget);
     findRenderedComponentWithType(instance, TextWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(1);
-    findRenderedComponentWithType(instance, ViewWidget);
+    findRenderedComponentWithType(instance, CallToActionWidget);
   });
 });

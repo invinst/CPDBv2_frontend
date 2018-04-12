@@ -8,7 +8,7 @@ import RankPane from 'components/search-page/preview-pane/rank-pane';
 import {
   HeaderWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
   SeparatorWidget,
 } from 'components/search-page/preview-pane/widgets';
 
@@ -21,6 +21,6 @@ describe('RankPane component', () => {
     findRenderedComponentWithType(instance, HeaderWidget);
     findRenderedComponentWithType(instance, SeparatorWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(1);
-    findRenderedComponentWithType(instance, ViewWidget);
+    findRenderedComponentWithType(instance, CallToActionWidget);
   });
 });

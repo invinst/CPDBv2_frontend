@@ -5,7 +5,7 @@ import WidgetWrapper, {
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
 } from './widgets';
 
 
@@ -18,7 +18,8 @@ export default class CommunityPane extends Component {
       officersMostComplaint,
       population,
       raceCount,
-      medianIncome
+      medianIncome,
+      url,
     } = this.props;
 
     return (
@@ -42,7 +43,7 @@ export default class CommunityPane extends Component {
           typeName={ 'allegation' }
           title='OFFICERS WITH MOST COMPLAINTS'
           items={ officersMostComplaint }/>
-        <ViewWidget/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
@@ -56,4 +57,5 @@ CommunityPane.propTypes = {
   population: PropTypes.string.isRequired,
   raceCount: PropTypes.array.isRequired,
   medianIncome: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };

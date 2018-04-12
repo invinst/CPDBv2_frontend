@@ -5,7 +5,7 @@ import WidgetWrapper, {
   TextWidget,
   AllegationCountWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
 } from './widgets';
 
 
@@ -64,7 +64,7 @@ export default class WardPane extends Component {
           typeName={ 'allegation' }
           title='OFFICERS WITH MOST COMPLAINTS'
           items={ officers }/>
-        <ViewWidget/>
+        <CallToActionWidget/>
       </WidgetWrapper>
     );
   }

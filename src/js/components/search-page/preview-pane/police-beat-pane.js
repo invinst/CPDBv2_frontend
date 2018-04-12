@@ -5,7 +5,7 @@ import WidgetWrapper, {
   AllegationCountWidget,
   TextWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
   SeparatorWidget,
 } from './widgets';
 
@@ -41,7 +41,7 @@ export default class PoliceBeatPane extends Component {
           showAvatar={ false }
           title={ 'MOST COMMON COMPLAINT' }
         />
-        <ViewWidget/>
+        <CallToActionWidget/>
       </WidgetWrapper>
     );
   }

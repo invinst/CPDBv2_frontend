@@ -4,7 +4,7 @@ import WidgetWrapper, {
   HeaderWidget,
   AllegationCountWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
   SeparatorWidget,
 } from './widgets';
 
@@ -21,7 +21,7 @@ export default class NeighborhoodPane extends Component {
       <WidgetWrapper>
         <HeaderWidget title={ name } showBottomBorder={ true }/>
         <SeparatorWidget/>
-        <AllegationCountWidget numOfAllegations={ allegationCount } subTitle={ 'within XX meters of the school' }/>
+        <AllegationCountWidget numOfAllegations={ allegationCount }/>
         <ListWidget
           items={ mostCommonComplaint }
           typeName={ 'allegation' }
@@ -34,7 +34,7 @@ export default class NeighborhoodPane extends Component {
           showAvatar={ true }
           title={ 'OFFICERS WITH MOST COMPLAINTS' }
         />
-        <ViewWidget/>
+        <CallToActionWidget/>
       </WidgetWrapper>
     );
   }

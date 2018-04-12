@@ -106,8 +106,9 @@ describe('search page navigation selector', function () {
           salary: '$99,999',
           race: 'White',
           sex: 'Male',
-          'visual_token_background_color': '#fafafa'
-        }
+          'visual_token_background_color': '#fafafa',
+          to: '/officer/12345',
+        },
       };
       const info = {
         data: {
@@ -122,6 +123,7 @@ describe('search page navigation selector', function () {
           visualTokenImg: getSvgUrl('12345'),
           text: 'John Wang',
           title: 'John Wang',
+          to: '/officer/12345',
         },
         type: 'OFFICER',
       };

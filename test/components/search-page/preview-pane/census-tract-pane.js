@@ -10,7 +10,7 @@ import {
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
-  ViewWidget,
+  CallToActionWidget,
 } from 'components/search-page/preview-pane/widgets';
 
 
@@ -23,6 +23,6 @@ describe('CensusTrackPane component', () => {
     findRenderedComponentWithType(instance, GeoInfoWidget);
     findRenderedComponentWithType(instance, AllegationCountWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(1);
-    findRenderedComponentWithType(instance, ViewWidget);
+    findRenderedComponentWithType(instance, CallToActionWidget);
   });
 });

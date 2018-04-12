@@ -11,7 +11,7 @@ import {
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
-  ViewWidget
+  CallToActionWidget
 } from 'components/search-page/preview-pane/widgets';
 
 
@@ -24,6 +24,6 @@ describe('CommunityPane component', () => {
     findRenderedComponentWithType(instance, GeoInfoWidget);
     findRenderedComponentWithType(instance, AllegationCountWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);
-    findRenderedComponentWithType(instance, ViewWidget);
+    findRenderedComponentWithType(instance, CallToActionWidget);
   });
 });
