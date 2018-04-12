@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { categoryStyle, dateStyle, kindStyle, showingStyle, wrapperShowingStyle, } from './award.style';
+import { categoryStyle, dateStyle, kindStyle, showingStyle } from './award.style';
 
 
 export default class Award extends Component {
@@ -17,7 +17,7 @@ export default class Award extends Component {
     } = baseStyles;
 
     return (
-      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } }>
+      <span style={ { ...baseWrapperShowingStyle } }>
         <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
           <div style={ baseWrapperKindStyle }>
             <span style={ { ...baseKindStyle, ...kindStyle } } className='test--award-item-kind'>Award</span>
@@ -39,4 +39,5 @@ Award.propTypes = {
   item: PropTypes.object,
   hasBorderBottom: PropTypes.bool,
   baseStyles: PropTypes.object,
+  hovering: PropTypes.bool,
 };

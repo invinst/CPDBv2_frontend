@@ -6,25 +6,30 @@ import {
   snowColor,
   softBlackColor,
   whiteTwoColor,
+  accentColor,
 } from 'utils/styles';
 
 
 const height = 58;
 
-export const wrapperShowingStyle = {
-  backgroundColor: snowColor,
-};
-
 export const showingStyle = {
   height: `${height}px`,
-  lineHeight: `${height}px`,
+  lineHeight: `${height - 1}px`,
 };
+
+export const wrapperShowingStyle = (hovering) => ({
+  backgroundColor: hovering ? 'white' : snowColor,
+});
 
 export const kindStyle = (active) => ({
   width: '85px',
   border: `solid 1px ${champagneColor}`,
   color: active ? scarletColor : brightOrangeTwoColor,
   backgroundColor: active ? champagneColor : 'inherit',
+});
+
+export const categoryStyle = (hovering) => ({
+  color: hovering ? accentColor : softBlackColor,
 });
 
 export const findingStyle = {

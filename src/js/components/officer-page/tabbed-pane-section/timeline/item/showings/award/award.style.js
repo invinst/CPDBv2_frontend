@@ -1,6 +1,5 @@
 import {
   whiteTwoColor,
-  snowColor,
   softBlackColor,
   sugarCaneColor,
   clayGray,
@@ -9,15 +8,9 @@ import {
 
 const height = 58;
 
-export const wrapperShowingStyle = {
-
-  backgroundColor: snowColor,
-};
-
 export const showingStyle = {
-  backgroundColor: snowColor,
   height: `${height}px`,
-  lineHeight: `${height}px`,
+  lineHeight: `${height - 1}px`,
   display: 'inline-block',
 };
 

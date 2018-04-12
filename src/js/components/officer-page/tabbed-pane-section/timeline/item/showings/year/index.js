@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { clearFloatStyle, dateStyle, showingStyle, wrapperShowingStyle, } from './year.style';
+import { clearFloatStyle, dateStyle, showingStyle } from './year.style';
 
 
 export default class Year extends Component {
@@ -10,7 +10,7 @@ export default class Year extends Component {
     const { baseWrapperShowingStyle, baseShowingStyle, baseDateStyle, } = baseStyles;
 
     return (
-      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } } className='test--timeline-year-item'>
+      <span style={ baseWrapperShowingStyle } className='test--timeline-year-item'>
         <div
           style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle(hasData) } }
           className='test--year-item-showing'

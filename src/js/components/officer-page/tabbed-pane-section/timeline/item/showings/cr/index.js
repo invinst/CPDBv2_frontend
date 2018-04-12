@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
+import Hoverable from 'components/common/higher-order/hoverable';
 import {
   attachmentImageStyle,
   attachmentWrapperStyle,
@@ -10,11 +11,12 @@ import {
   moreAttachmentsStyle,
   rightStyle,
   showingStyle,
-  wrapperShowingStyle
+  wrapperShowingStyle,
+  categoryStyle,
 } from './cr.style';
 
 
-export default class Cr extends Component {
+class Cr extends Component {
   renderAttachments() {
     const { attachments } = this.props.item;
 
@@ -42,7 +44,7 @@ export default class Cr extends Component {
   }
 
   render() {
-    const { item, hasBorderBottom, baseStyles } = this.props;
+    const { item, hasBorderBottom, baseStyles, hovering } = this.props;
     const {
       baseWrapperShowingStyle,
       baseShowingStyle,
@@ -54,7 +56,7 @@ export default class Cr extends Component {
     } = baseStyles;
 
     return (
-      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } }>
+      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle(hovering) } }>
         <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
           <div style={ baseWrapperKindStyle }>
             <span
@@ -65,7 +67,11 @@ export default class Cr extends Component {
             </span>
           </div>
           <span style={ baseDetailStyle }>
-            <div style={ baseCategoryStyle } className='test--cr-item-category'>{ item.category }</div>
+            <div
+              style={ { ...baseCategoryStyle, ...categoryStyle(hovering) } }
+              className='test--cr-item-category'>
+              { item.category }
+            </div>
             <div style={ findingStyle } className='test--cr-item-finding'>{ item.finding }, { item.outcome }</div>
           </span>
           <span style={ rightStyle }>
@@ -84,4 +90,7 @@ Cr.propTypes = {
   attachments: PropTypes.array,
   hasBorderBottom: PropTypes.bool,
   baseStyles: PropTypes.object,
+  hovering: PropTypes.bool,
 };
+
+export default Hoverable(Cr);

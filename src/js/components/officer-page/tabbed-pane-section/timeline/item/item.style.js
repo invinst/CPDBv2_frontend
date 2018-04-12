@@ -1,4 +1,4 @@
-import { whiteTwoColor, sugarCaneColor, softBlackColor, clayGray } from 'utils/styles';
+import { whiteTwoColor, sugarCaneColor, softBlackColor, clayGray, snowColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
@@ -65,6 +65,7 @@ export const rankTextStyle = {
 export const baseWrapperShowingStyle = {
   display: 'inline-block',
   width: 'calc(100% - 209px)',
+  backgroundColor: snowColor,
 };
 
 export const baseShowingStyle = (hasBorderBottom) => ({

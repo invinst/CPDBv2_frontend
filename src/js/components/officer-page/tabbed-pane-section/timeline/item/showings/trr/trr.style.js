@@ -1,18 +1,17 @@
-import { snowColor, softBlackColor, clayGray, } from 'utils/styles';
+import { softBlackColor, clayGray, snowColor, accentColor, } from 'utils/styles';
 
 
 const height = 58;
 
-export const wrapperShowingStyle = {
-  backgroundColor: snowColor,
-};
-
 export const showingStyle = {
-  backgroundColor: snowColor,
   height: `${height}px`,
-  lineHeight: `${height}px`,
+  lineHeight: `${height - 1}px`,
   display: 'inline-block',
 };
+
+export const wrapperShowingStyle = (hovering) => ({
+  backgroundColor: hovering ? 'white' : snowColor,
+});
 
 export const kindStyle = {
   width: '57px',
@@ -21,11 +20,12 @@ export const kindStyle = {
   fontWeight: 300,
 };
 
-export const categoryStyle = {
+export const categoryStyle = (hovering) => ({
   width: '297px',
   display: 'inline-block',
   verticalAlign: 'middle',
-};
+  color: hovering ? accentColor : softBlackColor,
+});
 
 export const dateStyle = {
   fontSize: '12px',

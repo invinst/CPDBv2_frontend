@@ -12,7 +12,7 @@ export const wrapperShowingStyle = {
 
 export const showingStyle = {
   height: `${height}px`,
-  lineHeight: `${height}px`,
+  lineHeight: `${height - 1}px`,
   display: 'inline-block',
 };
 
