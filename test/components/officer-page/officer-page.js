@@ -4,9 +4,10 @@ import {
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
+import { stub } from 'sinon';
 import { Provider } from 'react-redux';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
 import SummarySection from 'components/officer-page/summary-section';
 import MetricsSection from 'components/officer-page/metrics-section';
@@ -21,6 +22,9 @@ describe('OfficerPage component', function () {
       summary: {},
       metrics: {},
       newTimeline: {},
+    },
+    breadcrumb: {
+      breadcrumbs: []
     }
   });
   let instance;
@@ -49,5 +53,25 @@ describe('OfficerPage component', function () {
     );
 
     findRenderedComponentWithType(instance, OfficerRadarChart);
+  });
+
+  it('should not re-render when officerName havent changed', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage officerName='Shaun Frank'/>
+      </Provider>
+    );
+
+    stub(OfficerPage.prototype, 'render');
+
+    instance = reRender(
+      <Provider store={ store }>
+        <OfficerPage officerName='Shaun Frank'/>
+      </Provider>,
+      instance
+    );
+
+    OfficerPage.prototype.render.called.should.be.false();
+    OfficerPage.prototype.render.restore();
   });
 });

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { find, isEmpty, cloneDeep, pullAt } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import FadeMotion from 'components/animation/fade-motion';
 import Header from './header';
 import OfficerRow from './officer-row';
@@ -110,6 +111,7 @@ export default class CRPage extends Component {
     );
     return (
       <div style={ wrapperStyle } className='test--cr-page'>
+        <ShareableHeaderContainer/>
         <div style={ headerWrapperStyle }>
           <Header crid={ crid } coaccused={ coaccused } officerId={ officerId } scrollPosition={ scrollPosition }
             displayCoaccusedDropdown={ displayCoaccusedDropdown }

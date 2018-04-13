@@ -5,9 +5,17 @@ import OfficerRadarChart from './radar-chart';
 import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
 
 export default class OfficerPage extends Component {
+  shouldComponentUpdate(nextProps) {
+    const { officerName } = this.props;
+    return (
+      officerName !== nextProps.officerName
+    );
+  }
+
   render() {
     const {
       officerSummary,
@@ -19,6 +27,7 @@ export default class OfficerPage extends Component {
 
     return (
       <div style={ wrapperStyle }>
+        <ShareableHeaderContainer/>
         <div style={ pageWrapperStyle }>
 
           <div className='test--officer--radar-chart' style={ radarChartPlaceholderStyle }>
