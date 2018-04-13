@@ -1,38 +1,56 @@
-import React, { Component, PropTypes } from 'react';
-import { map } from 'lodash';
+import React, { Component } from 'react';
+import moment from 'moment';
 
-import { titleStyle, visualTokenStyle } from './officer-pane.style';
-import ShortList from 'components/common/short-list';
-import { CallToActionWidget } from './widgets';
+import WidgetWrapper, {
+  VisualTokenWidget,
+  OfficerInfoWidget,
+  MetricWidget,
+  CallToActionWidget,
+} from './widgets';
 
 
 export default class OfficerPane extends Component {
   render() {
-    const { to, visualTokenBackgroundColor, visualTokenImg, title, officerInfo } = this.props;
-    const convertedData = map(officerInfo, (value, key) => [key, value]);
+    const officerInfo = {
+      fullName: 'Timothy Parker',
+      birthYear: 1981,
+      appointedDate: moment('2017-01-02'),
+    };
+    const metrics = [
+      {
+        name: 'Allegations',
+        value: 1,
+        description: 'More than ##% of other officers',
+      },
+      {
+        name: 'Allegations',
+        value: 1,
+        isHighlight: true,
+        description: 'More than ##% of other officers',
+      },
+      {
+        name: 'Allegations',
+        value: 1,
+        description: 'More than ##% of other officers',
+      },
+      {
+        name: 'Allegations',
+        value: 1,
+        description: 'More than ##% of other officers',
+      },
+      {
+        name: 'Allegations',
+        value: 1,
+        description: 'More than ##% of other officers',
+      },
+    ];
     return (
-      <div>
-        <div className='test--preview-pane-title' style={ titleStyle }>{ title }</div>
-        {
-          visualTokenImg ?
-            <img
-              className='test--preview-pane-visual-token'
-              style={ { ...visualTokenStyle, backgroundColor: visualTokenBackgroundColor } }
-              src={ visualTokenImg }
-            /> :
-            null
-        }
-        <ShortList data={ convertedData }/>
-        <CallToActionWidget text='View Officer Profile' url={ to }/>
-      </div>
+      <WidgetWrapper>
+        <VisualTokenWidget/>
+        <OfficerInfoWidget { ...officerInfo }/>
+        <MetricWidget metrics={ metrics }/>
+        <CallToActionWidget url='/officer/30215'/>
+      </WidgetWrapper>
     );
   }
 }
-
-OfficerPane.propTypes = {
-  visualTokenImg: PropTypes.string,
-  visualTokenBackgroundColor: PropTypes.string,
-  officerInfo: PropTypes.object.isRequired,
-  title: PropTypes.string,
-  to: PropTypes.string
-};
