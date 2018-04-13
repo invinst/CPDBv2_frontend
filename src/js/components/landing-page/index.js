@@ -4,6 +4,7 @@ import ResponsiveStyleComponent from 'components/responsive/responsive-style-com
 import ConfiguredRadium from 'utils/configured-radium';
 
 import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
+import SlimHeader from 'components/headers/slim-header';
 import FooterContainer from 'containers/footer-container';
 import HeatMap from 'containers/landing-page/heat-map';
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
@@ -21,6 +22,7 @@ class LandingPage extends Component {
   renderWithResponsiveStyle(style) {
     return (
       <div>
+        <SlimHeader pathname={ this.props.pathname } />
         <HeatMap/>
         <OfficersByAllegationContainer/>
         <RecentActivityContainer/>
@@ -42,7 +44,8 @@ class LandingPage extends Component {
 }
 
 LandingPage.propTypes = {
-  resetBreadcrumbs: PropTypes.func
+  resetBreadcrumbs: PropTypes.func,
+  pathname: PropTypes.string
 };
 
 export default ConfiguredRadium(LandingPage);
