@@ -25,7 +25,7 @@ export default class Attachments extends Component {
           </div>
           <div style={ requestButtonStyle }>
             <RequestDocumentButton
-              requested={ alreadyRequested }
+              alreadyRequested={ alreadyRequested }
               openRequestDocumentModal={ openRequestDocumentModal } />
           </div>
         </div>

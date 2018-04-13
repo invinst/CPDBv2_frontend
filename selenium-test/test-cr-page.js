@@ -3,7 +3,6 @@
 require('should');
 
 import crPage from './page-objects/cr-page';
-import summaryPage from './page-objects/officer-summary-page';
 
 
 describe('CR page', function () {
@@ -11,142 +10,78 @@ describe('CR page', function () {
     crPage.open();
   });
 
-  it('should display complaint content and overlay', function () {
-    crPage.header.title.getText().should.equal('CR 1');
-    crPage.header.coaccusedDropdownButton.getText().should.equal('Coaccused with Richard Sullivan');
+  it('should display complaint content', function () {
+    crPage.title.getText().should.equal('CR 1000000');
 
-    crPage.infoSection.category.getText().should.equal('Operation/Personnel Violations');
-    crPage.infoSection.subcategory.getText().should.equal('NEGLECT OF DUTY/CONDUCT UNBECOMING - ON DUTY');
+    crPage.accusedOfficers.title.getText().should.equal('25 ACCUSED OFFICERS');
+    crPage.accusedOfficers.cardCount().should.equal(25);
+    crPage.accusedOfficers.firstCard.rank.getText().should.equal('Officer');
+    crPage.accusedOfficers.firstCard.name.getText().should.equal('Ridchard Sullivan');
+    crPage.accusedOfficers.firstCard.metric.getText().should.equal('43 allegations1 sustained');
+    crPage.accusedOfficers.firstCard.percentile.getText().should.equal('More than 99% of other officers');
+    crPage.accusedOfficers.firstCard.demographic.getText().should.equal('41 year old, White, Male.');
+    crPage.accusedOfficers.firstCard.category.getText().should.equal('False Arrest');
+    crPage.accusedOfficers.firstCard.outcome.getText().should.equal('Reprimand');
 
-    crPage.infoSection.officerLabel.getText().should.equal('ACCUSED OFFICER');
-    crPage.infoSection.officerContent.getText().should.equal('Michael Foo\n\nBadge Unknown');
-    crPage.infoSection.viewOfficerProfileButton.getText().should.equal('view officer profile');
+    crPage.summarySection.firstVictim.getText().should.equal('Black, Male, Age 53');
+    crPage.summarySection.firstComplainant.getText().should.equal('Black, Male, Age 53');
+    crPage.summarySection.summary.getText().should.equal('Summary');
 
-    crPage.infoSection.complainantLabel.getText().should.equal('COMPLAINANT');
-    crPage.infoSection.complainantContent.getText().should.equal('White, Male, Age 18\nBlack, Female, Age 20');
-    crPage.infoSection.complainantContentItem.count.should.equal(2);
-    crPage.infoSection.complainantContentItem.getText().should.equal('White, Male, Age 18');
+    crPage.attachments.cardCount().should.equal(10);
+    crPage.attachments.firstCard.title.getText().should.equal('CR Document');
+    crPage.attachments.firstCard.element.getAttribute('href').should.equal('http://cr-document.com/');
 
-
-    crPage.infoSection.finalFindingLabel.getText().should.equal('Final Finding');
-    crPage.infoSection.finalFindingContent.getText().should.equal('Sustained');
-
-    crPage.infoSection.reccOutcomeLabel.getText().should.equal('Recommended Outcome');
-    crPage.infoSection.reccOutcomeContent.getText().should.equal('Separation');
-
-    crPage.infoSection.finalOutcomeLabel.getText().should.equal('Final Outcome');
-    crPage.infoSection.finalOutcomeContent.getText().should.equal('Reprimand');
-  });
-
-  it('should toggle displaying dropdown coaccused list when click on dropdown button', function () {
-    crPage.header.coaccusedDropdownButton.click();
-    crPage.header.overlay.waitForVisible();
-    crPage.header.coaccusedList.coaccusedText.getText().should.equal('Coaccused');
-    crPage.header.coaccusedList.coaccusedItem.count.should.equal(2);
-    crPage.header.coaccusedList.firstListItem.getText().should.equal('Michael Foo\n\nBadge Unknown\nViewing');
-    crPage.header.coaccusedList.secondListItem.getText().should.equal('Richard Sullivan\n\nBadge Unknown\nView');
-
-    crPage.header.coaccusedDropdownButton.click();
-    crPage.header.overlay.waitForVisible(2000, true);
-    crPage.header.coaccusedList.coaccusedItem.waitForVisible(2000, true);
-  });
-
-  it('should hide dropdown coaccused list when click on coaccused list overlay', function () {
-    crPage.header.coaccusedDropdownButton.click();
-    crPage.header.overlay.waitForVisible();
-    crPage.header.coaccusedList.coaccusedItem.count.should.equal(2);
-
-    crPage.header.overlay.click();
-    crPage.header.overlay.waitForVisible(2000, true);
-    crPage.header.coaccusedList.coaccusedItem.waitForVisible(2000, true);
-  });
-
-  it('should do nothing when click on viewing coaccused list item', function () {
-    crPage.header.coaccusedDropdownButton.click();
-    crPage.header.overlay.waitForVisible();
-    crPage.header.coaccusedList.firstListItem.click();
-    browser.getUrl().should.match(/\/complaint\/1\/1\/$/);
-    crPage.header.overlay.waitForVisible();
-    crPage.header.coaccusedList.coaccusedItem.count.should.equal(2);
-  });
-
-  it('should switch to another officer profile when click on non-viewing coaccused list item', function () {
-    crPage.header.coaccusedDropdownButton.click();
-    crPage.header.overlay.waitForVisible();
-    crPage.header.coaccusedList.secondListItem.click();
-    browser.getUrl().should.match(/\/complaint\/1\/2\/$/);
-  });
-
-  it('should navigate to officer page when click on view officer profile button', function () {
-    crPage.infoSection.viewOfficerProfileButton.click();
-    browser.getUrl().should.match(/\/officer\/1\/$/);
-    summaryPage.header.officerName.waitForVisible();
-  });
-
-  it('should display list of involvements', function () {
-    crPage.involvementSection.firstInvolvementType.getText().should.equal('INVESTIGATOR');
-    crPage.involvementSection.secondInvolvementType.getText().should.equal('POLICE WITNESSES');
-    crPage.involvementSection.firstOfficer.getText().should.containEql('L. Skol');
-    crPage.involvementSection.firstOfficer.getText().should.containEql('126 cases');
-    crPage.involvementSection.secondOfficer.getText().should.containEql('R. Piwinicki');
-    crPage.involvementSection.secondOfficer.getText().should.containEql('male, white');
-  });
-
-  it('should navigate to officer page when we click on officer card', function () {
-    crPage.involvementSection.firstOfficer.click();
-    browser.getUrl().should.match(/\/officer\/1\/$/);
-  });
-
-  it('should display list of attachments', function () {
-    crPage.attachmentsSection.attachmentCount('DOCUMENTS').should.equal(2);
-    crPage.attachmentsSection.attachmentCount('VIDEO').should.equal(1);
-    crPage.attachmentsSection.attachmentCount('AUDIO').should.equal(1);
-    crPage.attachmentsSection.getAttachment('DOCUMENTS', 1).getText().should.equal('CR Document 1');
-    crPage.attachmentsSection.getAttachment('VIDEO', 1).getText().should.equal('CR Video');
-    crPage.attachmentsSection.getAttachment('AUDIO', 1).getText().should.equal('CR Audio');
-  });
-
-  it('should navigate to page with attachment item url when we click on', function () {
-    crPage.attachmentsSection.getAttachment('DOCUMENTS', 1).getAttribute('href').should.equal(
-      'http://cr-document.com/'
+    crPage.investigationTimeline.getText().should.equal(
+      'Sep 23, 2003\nIncident Occurs\nComplaint Filed\nMar 16, 2004\nInvestigation Closed'
     );
-    crPage.attachmentsSection.getAttachment('VIDEO', 1).getAttribute('href').should.equal('http://cr-video.com/');
-    crPage.attachmentsSection.getAttachment('AUDIO', 1).getAttribute('href').should.equal('http://cr-audio.com/');
-  });
-});
 
-describe('CR page without attachment', function () {
-  beforeEach(function () {
-    crPage.open(2);
+    // crPage.investigator.itemCount.should.equal(2);
+    // crPage.investigator.firstItemName.getText().should.equal('Lauren Skol');
+
+    // crPage.policeWitness.itemCount.should.equal(2);
+    // crPage.policeWitness.firstItemName.getText().should.equal('Raymond Piwinicki');
+    // crPage.policeWitness.firstItemMetric.getText().should.equal('3 allegations 0 sustained');
+
+    crPage.location.address.getText().should.equal('3510 Michigan Ave, Chicago, IL 60653');
+    crPage.location.locationType.getText().should.equal('Police Building');
+    crPage.location.beat.getText().should.equal('2551');
   });
 
-  it('should show "Request Document" button', function () {
-    crPage.header.title.getText().should.equal('CR 2');
-    crPage.attachmentsSection.documentRequestInput.waitForVisible();
+  it('should show full list of accused officers when click on show more button', function () {
+    // crPage.accusedOfficers.lastCard.isVisibleWithinViewport().should.be.false();
+    crPage.accusedOfficers.showMoreButton.isVisible().should.be.true();
+    crPage.accusedOfficers.showMoreButton.click();
+    // crPage.accusedOfficers.lastCard.isVisibleWithinViewport().should.be.true();
+    crPage.accusedOfficers.showMoreButton.isVisible().should.be.false();
+  });
+
+  it('should navigate to officer page when we click on accused officer card', function () {
+    crPage.accusedOfficers.firstCard.element.click();
+    browser.getUrl().should.match(/\/officer\/1\/$/);
   });
 
   it('should show request document modal when clicks on "Request Document"', function () {
-    crPage.attachmentsSection.documentRequestInput.click();
-    crPage.documentRequestModalSection.emailInput.waitForVisible();
+    crPage.attachments.documentRequestButton.click();
+    crPage.documentRequestModal.emailInput.waitForVisible();
   });
 
   it('should accept valid email, and close modal after 1.5s', function () {
-    crPage.attachmentsSection.documentRequestInput.click();
-    crPage.documentRequestModalSection.emailInput.waitForVisible();
-    crPage.documentRequestModalSection.emailInput.setValue('valid@email.com');
-    crPage.documentRequestModalSection.submitButton.click();
-    crPage.documentRequestModalSection.messageBox.waitForVisible();
-    crPage.documentRequestModalSection.messageBox.getText().should.equal('Thanks for subscribing.');
+    crPage.attachments.documentRequestButton.click();
+    crPage.documentRequestModal.emailInput.waitForVisible();
+    crPage.documentRequestModal.emailInput.setValue('valid@email.com');
+    crPage.documentRequestModal.submitButton.click();
+    crPage.documentRequestModal.messageBox.waitForVisible();
+    crPage.documentRequestModal.messageBox.getText().should.equal('Thanks for subscribing.');
     browser.waitForVisible('.test--generic-modal-content', 2000, true);
-    crPage.attachmentsSection.documentRequestedMessage.waitForVisible();
+    crPage.attachments.documentRequestButton.getText().should.equal('Documents Requested   ✔');
   });
 
   it('should ignore invalid email', function () {
-    crPage.attachmentsSection.documentRequestInput.click();
-    crPage.documentRequestModalSection.emailInput.waitForVisible();
-    crPage.documentRequestModalSection.emailInput.setValue('invalid@email.com');
-    crPage.documentRequestModalSection.submitButton.click();
-    crPage.documentRequestModalSection.messageBox.waitForVisible();
-    crPage.documentRequestModalSection.messageBox.getText().should.equal('Sorry, we can not subscribe your email');
+    crPage.attachments.documentRequestButton.click();
+    crPage.documentRequestModal.emailInput.waitForVisible();
+    crPage.documentRequestModal.emailInput.setValue('invalid@email.com');
+    crPage.documentRequestModal.submitButton.click();
+    crPage.documentRequestModal.messageBox.waitForVisible();
+    crPage.documentRequestModal.messageBox.getText().should.equal('Sorry, we can not subscribe your email');
   });
 });

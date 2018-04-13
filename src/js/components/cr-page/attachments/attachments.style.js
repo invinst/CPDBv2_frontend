@@ -18,7 +18,7 @@ export const headerStyle = {
 
 export const headerLeftColumnStyle = {
   display: 'inline-block',
-  width: 'calc(100% - 150px)'
+  width: 'calc(100% - 200px)'
 };
 
 export const titleStyle = {
@@ -38,6 +38,6 @@ export const emptyMessageStyle = {
 
 export const requestButtonStyle = {
   display: 'inline-block',
-  width: '150px',
+  width: '200px',
   textAlign: 'right'
 };

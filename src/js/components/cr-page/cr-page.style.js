@@ -32,10 +32,9 @@ export const overlayStyle = {
 export const leftColumnStyle = {
   width: '320px',
   display: 'inline-block',
-  paddingLeft: '16px',
+  padding: '0 16px',
   boxSizing: 'border-box',
-  verticalAlign: 'top',
-  paddingBottom: '24px'
+  verticalAlign: 'top'
 };
 
 export const rightColumnStyle = {

@@ -1,26 +1,29 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 
-import { wrapperStyle, lastItemStyle } from './involvement-item.style';
-import BlockTitle from 'components/common/block-title';
 import OfficerRow from './officer-row';
+import { wrapperStyle, lastItemStyle, titleStyle } from './involvement-item.style';
 
 
 export default class InvolvementItem extends Component {
   render() {
     const { involvedType, officers, openOfficerPage, style } = this.props;
+    const involvedTypeMap = {
+      investigator: 'INVESTIGATOR',
+      'police_witness': 'POLICE WITNESSES'
+    };
 
     return (
       <div style={ { ...wrapperStyle, ...style } }>
-        <BlockTitle className='test--involvement-type'>{ involvedType.toUpperCase() }</BlockTitle>
+        <div style={ titleStyle } className='test--involvement-type'>{ involvedTypeMap[involvedType] }</div>
         <div>
           {
-            map(officers, ({ id, abbrName, extraInfo, ...officer }, index) =>
+            map(officers, (officer, index) =>
             {
               return (
                 <OfficerRow style={ index === officers.length - 1 ? lastItemStyle : {} }
                   onClick={ openOfficerPage }
-                  key={ id } officerId={ id } abbrName={ abbrName } extraInfo={ extraInfo } />
+                  key={ officer.id } { ...officer } />
               );
             })
           }

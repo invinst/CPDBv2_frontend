@@ -3,7 +3,6 @@ import { imgUrl } from 'utils/static-assets';
 
 
 export const viewMapButtonStyle = hovering => ({
-  paddingRight: '19px',
   fontWeight: 400,
   color: hovering ? accentColor : mediumGrayColor,
   display: 'inline-block',

@@ -17,7 +17,10 @@ export const wrapperStyle = {
 
 export const topSectionWrapperStyle = {
   padding: '8px 16px 0 16px',
-  backgroundColor: sugarCaneColor
+  backgroundColor: sugarCaneColor,
+  boxSizing: 'border-box',
+  height: '166px',
+  overflow: 'hidden'
 };
 
 export const bottomSectionWrapperStyle = {
@@ -30,7 +33,8 @@ export const categoryTextStyle = {
   fontWeight: 500,
   color: softBlackColor,
   borderBottom: `1px solid ${whiteTwoColor}`,
-  height: '47px'
+  height: '47px',
+  overflow: 'hidden'
 };
 
 export const outcomeTextStyle = {
@@ -83,7 +87,9 @@ export const chartWrapperStyle = {
   verticalAlign: 'middle',
   display: 'inline-block',
   width: '38px',
-  height: '38px'
+  height: '38px',
+  borderRadius: '2px',
+  overflow: 'hidden'
 };
 
 export const fullNameStyle = {

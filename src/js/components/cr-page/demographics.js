@@ -8,7 +8,7 @@ export default class Demographics extends Component {
       <div style={ wrapperStyle }>
         {
           this.props.persons.map((person, ind) => (
-            <div key={ ind } style={ boxStyle }>
+            <div key={ ind } style={ boxStyle } className='test--person-demographic'>
               { person }
             </div>
           ))

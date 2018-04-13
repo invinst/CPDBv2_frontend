@@ -5,10 +5,10 @@ import { wrapperStyle, labelStyle, contentStyle } from './summary-row.style';
 
 export default class SummaryRow extends Component {
   render() {
-    const { label, children } = this.props;
+    const { label, className, children } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
+      <div style={ wrapperStyle } className={ className }>
         <div style={ labelStyle }>{ label }</div>
         <div style={ contentStyle }>{ children }</div>
       </div>
@@ -18,5 +18,6 @@ export default class SummaryRow extends Component {
 
 SummaryRow.propTypes = {
   label: PropTypes.string,
+  className: PropTypes.string,
   children: PropTypes.node
 };

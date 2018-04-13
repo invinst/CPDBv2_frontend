@@ -40,23 +40,23 @@ export default class CRPage extends Component {
     } = this.props;
 
     return (
-      <div style={ wrapperStyle } className='test--cr-page'>
+      <div style={ wrapperStyle }>
         <ResponsiveFluidWidthComponent>
           <div style={ upperSectionWrapperStyle }>
-            <h1 style={ CRIDHeaderStyle }>CR { crid }</h1>
+            <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
             <AccusedOfficers officers={ coaccused } />
           </div>
         </ResponsiveFluidWidthComponent>
         <ResponsiveFluidWidthComponent>
           <div style={ summarySectionWrapperStyle }>
-            <SummaryRow label='VICTIM'>
+            <SummaryRow label='VICTIM' className='test--victims'>
               <Demographics persons={ victims } />
             </SummaryRow>
-            <SummaryRow label='COMPLAINANT'>
+            <SummaryRow label='COMPLAINANT' className='test--complainant'>
               <Demographics persons={ complainants } />
             </SummaryRow>
             <SummaryRow label='SUMMARY'>
-              <div style={ summaryTextStyle }>{ summary }</div>
+              <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
             </SummaryRow>
             <Attachments
               items={ attachments }
@@ -91,7 +91,7 @@ CRPage.propTypes = {
   beat: PropTypes.string,
   startDate: PropTypes.string,
   endDate: PropTypes.string,
-  involvements: PropTypes.array,
+  involvements: PropTypes.object,
   fetchCR: PropTypes.func,
   attachments: PropTypes.array,
   openRequestDocumentModal: PropTypes.func,

@@ -4,6 +4,7 @@ import { sanFranciscoTextFamily, softBlackColor } from 'utils/styles';
 export const wrapperStyle = {
   fontFamily: sanFranciscoTextFamily,
   marginTop: '38px',
+  marginBottom: '20px',
   fontSize: '14px'
 };
 

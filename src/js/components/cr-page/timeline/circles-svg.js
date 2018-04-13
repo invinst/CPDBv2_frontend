@@ -15,8 +15,9 @@ export default class CirclesSVG extends Component {
     const smallCircleRadius = '2.5';
     const startX = '6';
     const ySlots = ['8', '68', '128'];
+    const height = Math.max(15, (dates.length - 1) * 80);
     return (
-      <svg width='12' x='0px' y='0px' viewBox='0 0 12 186'>
+      <svg width='12' x='0px' y='0px' viewBox={ `0 0 12 ${height}` }>
         <g>
           <line
             x1={ startX }

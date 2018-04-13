@@ -15,7 +15,10 @@ export default class RequestDocumentButton extends Component {
   render() {
     const { alreadyRequested } = this.props;
     return (
-      <div className='test--attachment-request' onClick={ this.hanldeClick.bind(this) } style={ buttonStyle }>
+      <div
+        className='test--attachment-request'
+        onClick={ this.hanldeClick.bind(this) }
+        style={ buttonStyle(alreadyRequested) }>
         {
           !alreadyRequested
             ? 'Request Documents'

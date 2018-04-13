@@ -1,7 +1,8 @@
 import { createSelector } from 'reselect';
-import { map, get } from 'lodash';
+import { map, get, reduce, defaults } from 'lodash';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
+import { pluralize } from 'utils/language';
 
 
 const getCoaccused = state => {
@@ -92,16 +93,52 @@ const getCoaccusedSelector = createSelector(
   }))
 );
 
+const getInvestigatorAffiliation = obj => {
+  if (obj['current_rank'].indexOf('IPRA') > -1) {
+    return 'IPRA';
+  }
+
+  return 'CPD';
+};
+
 const getInvolvementsSelector = createSelector(
   getInvolvements,
-  involvements => map(involvements, obj => ({
-    involvedType: obj['involved_type'],
-    officers: map(obj.officers, officer => ({
-      id: officer.id,
-      abbrName: officer['abbr_name'],
-      extraInfo: officer['extra_info']
-    }))
-  }))
+  involvements => reduce(involvements, (accumulator, obj) => {
+    const type = obj['involved_type'];
+    accumulator = defaults(accumulator, { [type]: [] });
+    let officer = {
+      id: obj['officer_id'],
+      fullName: obj['full_name'],
+      radarAxes: [
+        { axis: 'trr', value: parseFloat(obj['percentile_trr']) },
+        { axis: 'internal', value: parseFloat(obj['percentile_allegation_internal']) },
+        { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) }
+      ],
+      radarColor: getVisualTokenOIGBackground(
+        parseFloat(obj['percentile_allegation_internal']),
+        parseFloat(obj['percentile_allegation_civilian']),
+        parseFloat(obj['percentile_trr'])
+      )
+    };
+
+    if (type === 'investigator') {
+      officer = {
+        ...officer,
+        tag: getInvestigatorAffiliation(obj)
+      };
+    } else if (type === 'police_witness') {
+      officer = {
+        ...officer,
+        extraInfo: `
+          ${obj['allegation_count']} ${pluralize('allegation', obj['allegation_count'])}
+          ${obj['sustained_count']} sustained
+        `
+      };
+    }
+
+    accumulator[type].push(officer);
+    return accumulator;
+  }, {})
 );
 
 export const contentSelector = createSelector(

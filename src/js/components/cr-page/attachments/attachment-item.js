@@ -8,9 +8,9 @@ export default class AttachmentItem extends Component {
     const { url, previewImageUrl, title } = this.props;
 
     return (
-      <a style={ wrapperStyle } href={ url }>
+      <a style={ wrapperStyle } href={ url } className='test--attachment-card'>
         <div style={ thumbnailStyle(previewImageUrl) } />
-        <div style={ titleStyle }>{ title }</div>
+        <div style={ titleStyle } className='test--attachment-card-title'>{ title }</div>
       </a>
     );
   }

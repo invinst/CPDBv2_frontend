@@ -53,9 +53,9 @@ axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'valid@email.com' })
 axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, there\'s no account registered with this email address.' });
 
-axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'valid@email.com' })
-  .reply(200, { 'message': 'Thanks for subscribing.', crid: 2 });
-axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'invalid@email.com' })
+axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'valid@email.com' })
+  .reply(200, { 'message': 'Thanks for subscribing.', crid: 1000000 });
+axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
 
 
@@ -86,7 +86,7 @@ axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(countRequests(() => [200
 axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() => [200, getSocialGraphData()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/percentile/`).reply(countRequests(() => [200, getPercentileData()]));
 
-axiosMockClient.onGet(`${CR_URL}1/`).reply(200, getCRData());
+axiosMockClient.onGet(`${CR_URL}1000000/`).reply(200, getCRData());
 axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());
 
 

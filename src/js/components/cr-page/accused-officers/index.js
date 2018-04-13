@@ -27,7 +27,7 @@ export default class AccusedOfficers extends Component {
     const { expanded } = this.state;
     return (
       <div style={ wrapperStyle(expanded) }>
-        <h2 style={ headerStyle }>
+        <h2 style={ headerStyle } className='test--accused-officer-title'>
           { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
         </h2>
         <div style={ accusedOfficersWrapperStyle }>
@@ -39,7 +39,7 @@ export default class AccusedOfficers extends Component {
         {
           !expanded
             ? <div
-              className='test--accused-show-more-button'
+              className='test--accused-officer-show-more'
               style={ moreButtonStyle }
               onClick={ this.handleExpandList.bind(this) }>
                 Show all accused officers

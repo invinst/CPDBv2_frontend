@@ -21,7 +21,7 @@ export default class CoaccusedCard extends Component {
     } = this.props;
 
     return (
-      <Link to={ `/officer/${id}/` } style={ wrapperStyle }>
+      <Link to={ `/officer/${id}/` } style={ wrapperStyle } className='test--accused-card'>
         <div style={ topSectionWrapperStyle }>
           <div>
             <div style={ chartWrapperStyle }>
@@ -34,26 +34,26 @@ export default class CoaccusedCard extends Component {
                 { ...radarColor }/>
             </div>
             <div style={ titleWrapperStyle }>
-              <div style={ rankStyle }>{ rank }</div>
-              <div style={ fullNameStyle }>{ fullname }</div>
+              <div style={ rankStyle } className='test--accused-card-rank'>{ rank }</div>
+              <div style={ fullNameStyle } className='test--accused-card-name'>{ fullname }</div>
             </div>
           </div>
-          <div style={ metricWrapperStyle } >
+          <div style={ metricWrapperStyle } className='test--accused-card-metric'>
             <span style={ allegationTextStyle }>
               { `${allegationCount} ${pluralize('allegation', allegationCount)}` }
             </span>
             <span style={ sustainedTextStyle(sustainedCount) }>{ `${sustainedCount} sustained` }</span>
           </div>
-          <div style={ percentileTextStyle }>
+          <div style={ percentileTextStyle } className='test--accused-card-percentile'>
             More than { roundPercentile(allegationPercentile) }% of other officers
           </div>
-          <div style={ officerInfoTextStyle }>
+          <div style={ officerInfoTextStyle } className='test--accused-card-demographic'>
             { `${age} year old, ${race}, ${gender}.` }
           </div>
         </div>
         <div style={ bottomSectionWrapperStyle }>
-          <div style={ categoryTextStyle }>{ category }</div>
-          <div style={ outcomeTextStyle }>{ outcome }</div>
+          <div style={ categoryTextStyle } className='test--accused-card-category'>{ category }</div>
+          <div style={ outcomeTextStyle } className='test--accused-card-outcome'>{ outcome }</div>
         </div>
       </Link>
     );

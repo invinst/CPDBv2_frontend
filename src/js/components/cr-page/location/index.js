@@ -19,18 +19,18 @@ export default class Location extends Component {
         }
         <div style={ addressStyle }>
           <span style={ labelStyle }>Address</span>
-          <span style={ contentStyle }>{ address }</span>
+          <span style={ contentStyle } className='test--location-address'>{ address }</span>
           {
             point ? <ViewMapButton lng={ point.lon } lat={ point.lat }/> : null
           }
         </div>
         <div style={ locationStyle }>
           <span style={ labelStyle }>Location</span>
-          <span style={ contentStyle }>{ location }</span>
+          <span style={ contentStyle } className='test--location-type'>{ location }</span>
         </div>
         <div style={ beatStyle }>
           <span style={ labelStyle }>Beat</span>
-          <span style={ contentStyle }>{ beat }</span>
+          <span style={ contentStyle } className='test--location-beat'>{ beat }</span>
         </div>
       </div>
     );

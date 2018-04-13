@@ -6,7 +6,7 @@ export const checkMarkStyle = {
   color: accentColor
 };
 
-export const buttonStyle = {
+export const buttonStyle = alreadyRequested => ({
   fontSize: '14px',
   fontWeight: 300,
   color: clayGray,
@@ -14,5 +14,5 @@ export const buttonStyle = {
   border: `1px solid ${whiteTwoColor}`,
   borderRadius: '2px',
   display: 'inline-block',
-  cursor: 'pointer'
-};
+  cursor: alreadyRequested ? 'default' : 'pointer'
+});

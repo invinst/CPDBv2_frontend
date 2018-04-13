@@ -13,10 +13,10 @@ export default class TimelineText extends Component {
     dates[startDate] = concat(get(dates, startDate, []), 'Complaint Filed');
     dates[endDate] = concat(get(dates, endDate, []), 'Investigation Closed');
     return (
-      <div style={ wrapperStyle }>
+      <div style={ wrapperStyle } className='test--investigator-timeline-text'>
         {
           toPairs(dates).map(([date, events], ind) =>
-            <div className='test--timeline-textblock' key={ ind } style={ dateStyle }>
+            <div key={ ind } style={ dateStyle }>
               { date
                   ? <div>{ moment(date).format('ll') }</div>
                   : null
