@@ -1,8 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
-import OfficerVisualToken from 'components/visual-token/officer-visual-token';
-import { wrapperStyle, lightTextStyle, boldTextStyle, visualTokenStyle } from './officer-card.style.js';
+import { wrapperStyle, lightTextStyle, boldTextStyle } from './officer-card.style';
 import { getThisYear } from 'utils/date';
 import {
   extraInfoStyle, noBorderSectionStyle,
@@ -10,6 +9,8 @@ import {
 } from 'components/landing-page/activity-grid/officer-card.style';
 import { pluralize } from 'utils/language';
 import Hoverable from 'components/common/higher-order/hoverable';
+import StaticRadarChart from 'components/common/radar-chart';
+import roundPercentile from 'utils/round-percentile';
 
 
 export class OfficerCard extends Component {
@@ -17,7 +18,6 @@ export class OfficerCard extends Component {
     const {
       officerId,
       fullName,
-      visualTokenBackgroundColor,
       complaintCount,
       sustainedCount,
       birthYear,
@@ -26,6 +26,7 @@ export class OfficerCard extends Component {
       gender,
       cardStyle,
       hovering,
+      percentile,
     } = this.props;
 
     const complaintString = () => {
@@ -57,12 +58,22 @@ export class OfficerCard extends Component {
 
     const complaintPercentileString = (hovering) => {
       if (complaintPercentile) {
-        const complaintFormat = parseFloat(Math.floor(complaintPercentile));
+        const complaintFormat = roundPercentile(complaintPercentile);
         return (
           <p style={ lightTextStyle(hovering) }>More than { complaintFormat }% of other officers</p>
         );
       }
       return '';
+    };
+
+    const chartData = percentile && percentile.items;
+
+    const radarConfig = {
+      width: 230,
+      height: 100,
+      radius: 40,
+      hideAxisText: true,
+      backgroundColor: percentile ? percentile.visualTokenBackground : undefined,
     };
 
     return (
@@ -71,10 +82,7 @@ export class OfficerCard extends Component {
         style={ { ...wrapperStyle(hovering), ...cardStyle } }
         className='test--officer-card'
       >
-        <OfficerVisualToken
-          style={ { ...visualTokenStyle, ...this.props.visualTokenStyle } }
-          backgroundColor={ visualTokenBackgroundColor }
-        />
+        <StaticRadarChart data={ chartData } { ...radarConfig } />
         <div>
           <div style={ sectionStyle }>
             <p style={ lightTextStyle(hovering) }>Officer</p>
@@ -106,6 +114,7 @@ OfficerCard.propTypes = {
   race: PropTypes.string,
   gender: PropTypes.string,
   hovering: PropTypes.bool,
+  percentile: PropTypes.object,
 };
 
 export default Hoverable(OfficerCard);

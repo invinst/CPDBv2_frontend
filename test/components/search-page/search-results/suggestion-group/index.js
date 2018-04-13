@@ -1,17 +1,19 @@
 import React from 'react';
 import { stub } from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
-
 import {
-  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType, findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
+
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
 import { unmountComponentSuppressError } from 'utils/test';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
+
 
 describe('SuggestionGroup component', function () {
   let instance;
@@ -81,5 +83,19 @@ describe('SuggestionGroup component', function () {
 
     getSuggestionWithContentType.calledWith(searchText, { contentType: header }).should.be.true();
     catchSpy.called.should.be.true();
+  });
+
+  it('should render MinimalScrollBars if it is single content', function () {
+    instance = renderIntoDocument(<SuggestionGroup singleContent={ true }/>);
+    const scrollBars = findRenderedComponentWithType(instance, MinimalScrollBars);
+
+    scrollBars.props.className.should.eql('test--suggestion-group');
+  });
+
+  it('should NOT render MinimalScrollBars if it is NOT single content', function () {
+    instance = renderIntoDocument(<SuggestionGroup singleContent={ false }/>);
+
+    scryRenderedComponentsWithType(instance, MinimalScrollBars).should.have.length(0);
+    findRenderedDOMComponentWithClass(instance, 'test--suggestion-group').should.be.ok();
   });
 });

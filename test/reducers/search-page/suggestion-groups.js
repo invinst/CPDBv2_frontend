@@ -1,6 +1,3 @@
-import {
-  SUGGESTION_REQUEST_START, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_REQUEST_FAILURE
-} from 'actions/search-page';
 import * as constants from 'utils/constants';
 import suggestionGroups from 'reducers/search-page/suggestion-groups';
 
@@ -14,7 +11,7 @@ describe('searchPage.suggestionGroups reducer', function () {
 
   it('should handle SUGGESTION_REQUEST_START', function () {
     suggestionGroups(undefined, {
-      type: SUGGESTION_REQUEST_START
+      type: constants.SUGGESTION_REQUEST_START
     }).should.deepEqual({
       meta: {}
     });
@@ -22,7 +19,7 @@ describe('searchPage.suggestionGroups reducer', function () {
 
   it('should handle SUGGESTION_REQUEST_FAILURE', function () {
     suggestionGroups(undefined, {
-      type: SUGGESTION_REQUEST_FAILURE
+      type: constants.SUGGESTION_REQUEST_FAILURE
     }).should.deepEqual({
       meta: {}
     });
@@ -30,7 +27,7 @@ describe('searchPage.suggestionGroups reducer', function () {
 
   it('should handle SUGGESTION_REQUEST_SUCCESS', function () {
     suggestionGroups(undefined, {
-      type: SUGGESTION_REQUEST_SUCCESS,
+      type: constants.SUGGESTION_REQUEST_SUCCESS,
       request: {
         url: 'example.com'
       },

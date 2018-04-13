@@ -4,7 +4,7 @@ import {
   renderIntoDocument, scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
-import SummarySection from 'components/officer-page/summary-page/summary-section/index';
+import SummarySection from 'components/officer-page/summary-page/summary-section';
 import SummaryField from 'components/officer-page/summary-page/summary-section/summary-field';
 import ViewUnitProfileButton from 'components/officer-page/summary-page/summary-section/view-unit-profile-button';
 import Salary from 'components/officer-page/summary-page/summary-section/salary';

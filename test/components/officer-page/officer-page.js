@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
-import TimelinePage from 'components/officer-page/timeline-page';
 import SummaryPageContainer from 'containers/officer-page/summary-page-container';
 import Header from 'components/officer-page/header';
 import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
@@ -27,20 +26,10 @@ describe('OfficerPage component', function () {
           2017
         ]
       },
-      timeline: {
-        items: [],
-        sortDescending: true,
-        filters: {},
-        minimap: {
-          pagination: {
-            next: null,
-            previous: null
-          }
-        },
-        pagination: {
-          next: null,
-          previous: null
-        }
+      newTimeline: {},
+      percentile: {
+        isRequesting: false,
+        items: []
       }
     },
     breadcrumb: {
@@ -56,27 +45,17 @@ describe('OfficerPage component', function () {
   it('should render header', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Jerome Finnigan' activeTab='timeline' location={ { pathname: 'timeline' } }/>
+        <OfficerPage officerName='Jerome Finnigan' activeTab='social' pathname='timeline'/>
       </Provider>
     );
 
     scryRenderedComponentsWithType(instance, Header).should.have.length(1);
   });
 
-  it('should render timeline page if active tab is timeline', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage activeTab='timeline' location={ { pathname: '/' } }/>
-      </Provider>
-    );
-
-    scryRenderedComponentsWithType(instance, TimelinePage).should.have.length(1);
-  });
-
   it('should render summary page if active tab is summary', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage activeTab='' location={ { pathname: '/' } }/>
+        <OfficerPage activeTab=''/>
       </Provider>
     );
 
@@ -86,7 +65,7 @@ describe('OfficerPage component', function () {
   it('should render Socialgraph when path is social', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage activeTab='social' location={ { pathname: '/' } }/>
+        <OfficerPage activeTab='social'/>
       </Provider>
     );
 
@@ -97,7 +76,7 @@ describe('OfficerPage component', function () {
   it('should not re-render when officerName havent changed', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank' location={ { pathname: '/' } }/>
+        <OfficerPage officerName='Shaun Frank'/>
       </Provider>
     );
 
@@ -105,7 +84,7 @@ describe('OfficerPage component', function () {
 
     instance = reRender(
       <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank' location={ { pathname: '/' } }/>
+        <OfficerPage officerName='Shaun Frank'/>
       </Provider>,
       instance
     );

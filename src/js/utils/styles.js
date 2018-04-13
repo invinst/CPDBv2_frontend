@@ -13,7 +13,7 @@ export const concreteColor = '#FAF9F9';
 export const darkerGreyColor = '#4A4A4A';
 export const whiteSmokeColor = 'rgba(255,255,255, 0.7)';
 export const monzaColor = 'rgba(208, 1, 27, 0.1)';
-export const subdueAccentColor= '#D3E4FC';
+export const subdueAccentColor = '#D3E4FC';
 export const subdueAccentTextColor = '#4C8EF8'; // rgb(76, 142, 248)
 export const lightSubdueAccentTextColor = 'rgba(0, 94, 244, 0.6)';
 /* v2 redesign */
@@ -76,9 +76,24 @@ export const hawkesBlue = '#CCDFFD'; // rgb(204, 223, 253)
 export const bostonRed = '#CC0000';
 export const linenColor = '#FDFAF2';
 export const cashGreenColor = '#499C21';
+export const champagneColor = '#FBE2D4';
+export const scarletColor = '#FF1F00';
+
+export const visualTokenSchemeColor = {
+  darkestRedColor: '#700404',
+  darkerRedColor: '#a51e00',
+  redColor: '#cc0000', // red
+  lightRedColor: '#ec492c',
+  yellowColor: '#ffc65f',
+  lightYellowColor: '#ffe1b0',
+  pinkColor: '#f9cbcb',
+  darkerPinkColor: '#ffbb9f',
+  blueColor: '#213c8d',
+  lightBlueColor: '#d4ddeb',
+  greyColor: '#f5f4f4'
+};
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular", sans-serif';
-
 
 export const sidebarWidth = 320;

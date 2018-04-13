@@ -8,95 +8,52 @@ export default () => ({
   'badge': '12345',
   'gender': 'Male',
   'birth_year': 1963,
-  'complaint_records': {
-    'count': 10,
-    'sustained_count': 2,
-    'items': [{
-      'year': 2010,
-      'count': 5,
-      'sustained_count': 1
-    }, {
+  'allegation_count': 1,
+  'complaint_percentile': 2,
+  'honorable_mention_count': 3,
+  'sustained_count': 4,
+  'discipline_count': 5,
+  'civilian_compliment_count': 6,
+  'percentiles': [
+    {
+      'id': 1,
       'year': 2012,
-      'count': 10,
-      'sustained_count': 2
-    }],
-    'facets': [{
-      'name': 'category',
-      'entries': [{
-        'name': 'Illegal Search',
-        'count': 10,
-        'sustained_count': 2,
-        'items': [{
-          'year': 2010,
-          'count': 5,
-          'sustained_count': 1,
-          'name': 'Illegal Search'
-        }, {
-          'year': 2012,
-          'count': 10,
-          'sustained_count': 2,
-          'name': 'Illegal Search'
-        }]
-      }]
-    }, {
-      'name': 'complainant race',
-      'entries': [{
-        'name': 'White',
-        'count': 10,
-        'sustained_count': 2,
-        'items': [{
-          'year': 2010,
-          'count': 4,
-          'sustained_count': 1,
-          'name': 'White'
-        }, {
-          'year': 2012,
-          'count': 10,
-          'sustained_count': 2,
-          'name': 'White'
-        }]
-      }]
-    }, {
-      'name': 'complainant age',
-      'entries': [{
-        'name': '<20',
-        'count': 10,
-        'sustained_count': 2,
-        'items': [{
-          'year': 2010,
-          'count': 4,
-          'sustained_count': 1,
-          'name': 'White'
-        }, {
-          'year': 2012,
-          'count': 10,
-          'sustained_count': 2,
-          'name': 'White'
-        }]
-      }]
-    }, {
-      'name': 'complainant gender',
-      'entries': [{
-        'name': 'Female',
-        'count': 10,
-        'sustained_count': 2,
-        'items': [{
-          'year': 2010,
-          'count': 4,
-          'sustained_count': 1,
-          'name': 'White'
-        }, {
-          'year': 2012,
-          'count': 8,
-          'sustained_count': 1,
-          'name': 'White'
-        }, {
-          'year': 2013,
-          'count': 10,
-          'sustained_count': 2,
-          'name': 'White'
-        }]
-      }]
-    }]
-  }
+      'percentile_trr': '0.049',
+      'percentile_allegation': '43.233',
+      'percentile_allegation_civilian': '0.3',
+      'percentile_allegation_internal': '0.023'
+    },
+    {
+      'id': 1,
+      'year': 2013,
+      'percentile_trr': '0.049',
+      'percentile_allegation': '43.233',
+      'percentile_allegation_civilian': '22.10',
+      'percentile_allegation_internal': '0.023'
+    },
+    {
+      'id': 1,
+      'year': 2014,
+      'percentile_trr': '0.049',
+      'percentile_allegation': '43.233',
+      'percentile_allegation_civilian': '10.10',
+      'percentile_allegation_internal': '0.023'
+    },
+    {
+      'id': 1,
+      'year': 2015,
+      'percentile_trr': '66.046',
+      'percentile_allegation': '43.233',
+      'percentile_allegation_civilian': '75.065',
+      'percentile_allegation_internal': '0.022'
+    },
+    {
+      'id': 1,
+      'year': 2016,
+      'percentile_trr': '66.044',
+      'percentile_allegation': '32.102',
+      'percentile_allegation_civilian': '59.468',
+      'percentile_allegation_internal': '0.021'
+    },
+  ]
 });

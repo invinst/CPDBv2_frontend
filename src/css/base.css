@@ -3,6 +3,10 @@ body {
     font-family: "San Francisco Text", sans-serif;
 }
 
+a {
+    cursor: pointer;
+}
+
 .noscroll {
     overflow: hidden;
 }

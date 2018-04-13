@@ -25,9 +25,72 @@ class SummarySection extends Section {
   }
 }
 
+class Filter extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      button: '.test--timeline-filter .test--dropdown-button',
+      menu: '.test--timeline-filter .test--dropdown-menu',
+      all: '(//div[@class="test--dropdown-menu-item"])[1]',
+      crs: '(//div[@class="test--dropdown-menu-item"])[2]',
+      force: '(//div[@class="test--dropdown-menu-item"])[3]',
+      awards: '(//div[@class="test--dropdown-menu-item"])[4]'
+    });
+  }
+}
+
+class TimelineSection extends Section {
+  filter = new Filter();
+
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      header: '.test--timeline-header',
+      crItem: '.test--timeline-cr-item',
+      trrItem: '.test--timeline-trr-item',
+      awardItem: '.test--timeline-award-item',
+      unitChangeItem: '.test--timeline-unit-change-item',
+      joinedItem: '.test--timeline-joined-item',
+      yearItem: '.test--timeline-year-item',
+      emptyItem: '.test--timeline-empty-item',
+    });
+  }
+}
+
+class TabbedPaneSection extends Section {
+  timelineSection = new TimelineSection();
+
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      menu: '.test--tabbed-pane-section-menu',
+      timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]'
+    });
+  }
+}
+
+class RadarChartSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      svg: '.test--radar',
+      axis: '.test--radar-axis-wrapper',
+      wrapper: '.test--radar-wrapper',
+      legend: '.test--radar-legend-content',
+      lastAxisTitle: '.test--radar-axis-text:last-of-type'
+    });
+  }
+}
+
+
 class OfficerSummaryPage extends Page {
   header = new Header();
   summarySection = new SummarySection();
+  tabbedPaneSection = new TabbedPaneSection();
+  radarChartSection = new RadarChartSection();
 
   constructor() {
     super();

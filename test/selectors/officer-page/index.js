@@ -105,7 +105,7 @@ describe('officer page selectors', function () {
         'civilian_compliment_count': 10,
       };
 
-      state.officerPage = { metrics: metrics };
+      state.officerPage = { summary: { a: 'b', ...metrics } };
 
       metricsSelector(state).should.eql({
         allegationCount: 1,
@@ -126,10 +126,10 @@ describe('officer page selectors', function () {
     it('should return active tab', function () {
       const state = {
         officerPage: {
-          activeTab: 'timeline'
+          activeTab: 'social'
         }
       };
-      getActiveTab(state).should.eql('timeline');
+      getActiveTab(state).should.eql('social');
     });
   });
 

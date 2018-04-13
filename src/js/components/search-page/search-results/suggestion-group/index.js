@@ -6,6 +6,7 @@ import { groupHeaderStyle, scrollerStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default class SuggestionGroup extends Component {
@@ -16,12 +17,13 @@ export default class SuggestionGroup extends Component {
     }
   }
 
-  render() {
+  renderHeader() {
+    return (<div style={ groupHeaderStyle }>{ this.props.header }</div>);
+  }
+
+  renderResults() {
     const {
       suggestions,
-      header,
-      showMoreButton,
-      onLoadMore,
       focusedItem,
       aliasEditModeOn,
       setAliasAdminPageContent,
@@ -30,38 +32,65 @@ export default class SuggestionGroup extends Component {
       searchText,
       nextParams,
       getSuggestionWithContentType,
-      singleContent
     } = this.props;
 
     return (
-      <div style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
-        <div style={ groupHeaderStyle }>{ header }</div>
-        <InfiniteScroll
-          loadMore={ () => getSuggestionWithContentType(searchText, { ...nextParams }) }
-          initialLoad={ false }
-          hasMore={ hasMore }
-          useWindow={ false }>
-          {
-            map(suggestions, (suggestion) => (
-              <SuggestionItem
-                key={ suggestion.uniqueKey }
-                aliasEditModeOn={ aliasEditModeOn }
-                setAliasAdminPageContent={ setAliasAdminPageContent }
-                suggestionClick={ suggestionClick }
-                suggestion={ suggestion }
-                isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
-            ))
-          }
-        </InfiniteScroll>
-        { showMoreButton ?
-          <LoadMoreButton
-            onLoadMore={ onLoadMore }
-            header={ header }
-            isFocused={ focusedItem.uniqueKey === `${MORE_BUTTON}-${header}` }
-          />
-          : null }
-      </div>
+      <InfiniteScroll
+        loadMore={ () => getSuggestionWithContentType(searchText, { ...nextParams }) }
+        initialLoad={ false }
+        hasMore={ hasMore }
+        useWindow={ false }>
+        {
+          map(suggestions, (suggestion) => (
+            <SuggestionItem
+              key={ suggestion.uniqueKey }
+              aliasEditModeOn={ aliasEditModeOn }
+              setAliasAdminPageContent={ setAliasAdminPageContent }
+              suggestionClick={ suggestionClick }
+              suggestion={ suggestion }
+              isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey } />
+          ))
+        }
+      </InfiniteScroll>
     );
+  }
+
+  renderMoreButton() {
+    const { header, focusedItem, onLoadMore, showMoreButton, } = this.props;
+
+    if (showMoreButton)
+      return (
+        <LoadMoreButton
+          onLoadMore={ onLoadMore }
+          header={ header }
+          isFocused={ focusedItem.uniqueKey === `${MORE_BUTTON}-${header}` }
+        />);
+    else
+      return null;
+  }
+
+  render() {
+    const {
+      singleContent
+    } = this.props;
+
+    if (singleContent) {
+      return (
+        <MinimalScrollBars style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
+          { this.renderHeader() }
+          { this.renderResults() }
+        </MinimalScrollBars>
+      );
+    }
+    else {
+      return (
+        <div style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
+          { this.renderHeader() }
+          { this.renderResults() }
+          { this.renderMoreButton() }
+        </div>
+      );
+    }
   }
 }
 
@@ -84,5 +113,8 @@ SuggestionGroup.propTypes = {
 SuggestionGroup.defaultProps = {
   suggestions: [],
   focusedItem: {},
-  header: ''
+  header: '',
+  getSuggestionWithContentType: () => {
+    return { catch: () => {} };
+  }
 };

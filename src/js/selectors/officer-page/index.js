@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
-import { get } from 'lodash';
+import { get, map } from 'lodash';
 import moment from 'moment';
 
 import { getThisYear } from 'utils/date';
+import { extractPercentile } from 'selectors/landing-page/common';
 
 
-const getSummary = state => state.officerPage.summary;
-const getMetrics = state => state.officerPage.metrics;
+const getOfficerInfo = state => state.officerPage.summary;
 const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
 
 const getCareerDuration = (dateOfAppt, dateOfResignation) => {
@@ -47,7 +47,7 @@ export const getPathname = state => state.officerPage.pathname;
 export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCachedFullName;
 
 export const summarySelector = createSelector(
-  getSummary,
+  getOfficerInfo,
   summary => ({
     unitName: summary.unit,
     rank: getSummaryRank(summary),
@@ -64,7 +64,7 @@ export const summarySelector = createSelector(
 export const DATA_NOT_AVAILABLE = 'N/A';
 
 export const metricsSelector = createSelector(
-  getMetrics,
+  getOfficerInfo,
   metrics => ({
     allegationCount: get(metrics, 'allegation_count', DATA_NOT_AVAILABLE),
     topAllegationPercentile: get(metrics, 'complaint_percentile', DATA_NOT_AVAILABLE),
@@ -77,4 +77,11 @@ export const metricsSelector = createSelector(
     topUseOfForcePercentile: get(metrics, 'top_use_of_force_percentile', DATA_NOT_AVAILABLE),
     civilianComplimentCount: get(metrics, 'civilian_compliment_count', DATA_NOT_AVAILABLE),
   })
+);
+
+export const getOfficerPercentile = state => state.officerPage.summary.percentiles;
+
+export const officerYearlyThreePercentile = createSelector(
+  [getOfficerPercentile],
+  (officerPercentiles) => map(officerPercentiles, extractPercentile)
 );

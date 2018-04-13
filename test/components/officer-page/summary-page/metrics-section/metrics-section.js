@@ -47,7 +47,7 @@ describe('MetricsSection', function () {
     scryRenderedComponentsWithType(instance, MetricPane).should.have.length(6);
 
     const metricsPanes = scryRenderedComponentsWithType(instance, MetricPane);
-    checkMetricPaneDataInfo(metricsPanes[0], '90', 'Allegations', 'More than 99.994% of other officers');
+    checkMetricPaneDataInfo(metricsPanes[0], '90', 'Allegations', 'More than 99.9% of other officers');
     checkMetricPaneDataInfo(metricsPanes[1], '4', 'Sustained', '0 Disciplined');
     checkMetricPaneDataInfo(metricsPanes[2], 'N/A', 'Use of Force Reports', 'More than N/A% of other officers');
     checkMetricPaneDataInfo(metricsPanes[3], '0', 'Civilian Compliments', '');

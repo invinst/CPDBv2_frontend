@@ -64,7 +64,7 @@ export default class RouteTransition extends Component {
   /**
    * Return the same key for some paths so that animation won't trigger
    *
-   *  - Officer paths such as /officer/123/ and /officer/123/timeline/ should give the same key
+   *  - Officer paths such as /officer/123/ and /officer/123/social/ should give the same key
    *  - Complaint paths such as /complaint/234/456/ and /complaint/234/789/ should give the same key
    *  - Search paths such as /search/ and /search/terms/ should always give the same key
    */

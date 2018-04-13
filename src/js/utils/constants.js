@@ -2,7 +2,7 @@ import Enum from 'enum';
 
 import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
-  galleryColor, lightAltoColor
+  galleryColor, lightAltoColor, visualTokenSchemeColor, greyColor, softBlackColor
 } from 'utils/styles';
 
 export const TOP = 'top';
@@ -29,9 +29,7 @@ export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
-export const OFFICER_TIMELINE_SUFFIX = 'timeline/';
 export const OFFICER_SOCIAL_GRAPH_SUFFIX = 'social/';
-export const OFFICER_TIMELINE_PATH = `officer/:officerId/${OFFICER_TIMELINE_SUFFIX}`;
 export const OFFICER_SOCIAL_GRAPH_PATH = `officer/:officerId/${OFFICER_SOCIAL_GRAPH_SUFFIX}`;
 export const CR_PATH_SUFFIX = ':officerId';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
@@ -86,7 +84,7 @@ export const MAIL_CHIMP_URL = '/vftg/';
 export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
-export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation`;
+export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
 export const RECENT_DOCUMENT_URL = `${CR_URL}list-by-new-document/`;
 export const RECENT_COMPLAINT_SUMMARIES_URL = `${CR_URL}complaint-summaries/`;
@@ -127,10 +125,6 @@ export const SEARCH_OFFICERS_REQUEST_FAILURE = 'SEARCH_OFFICERS_REQUEST_FAILURE'
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
 export const OFFICER_SUMMARY_REQUEST_FAILURE = 'OFFICER_SUMMARY_REQUEST_FAILURE';
-
-export const OFFICER_METRICS_REQUEST_START = 'OFFICER_METRICS_REQUEST_START';
-export const OFFICER_METRICS_REQUEST_SUCCESS = 'OFFICER_METRICS_REQUEST_SUCCESS';
-export const OFFICER_METRICS_REQUEST_FAILURE = 'OFFICER_METRICS_REQUEST_FAILURE';
 
 export const UNIT_PROFILE_SUMMARY_REQUEST_START = 'UNIT_PROFILE_SUMMARY_REQUEST_START';
 export const UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS = 'UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS';
@@ -182,20 +176,11 @@ export const RECEIVE_TOKEN_FROM_COOKIE = 'RECEIVE_TOKEN_FROM_COOKIE';
 
 export const LOG_OUT = 'LOG_OUT';
 
-export const OFFICER_TIMELINE_MINIMAP_REQUEST_START = 'OFFICER_TIMELINE_MINIMAP_REQUEST_START';
-export const OFFICER_TIMELINE_MINIMAP_REQUEST_SUCCESS = 'OFFICER_TIMELINE_MINIMAP_REQUEST_SUCCESS';
-export const OFFICER_TIMELINE_MINIMAP_REQUEST_FAILURE = 'OFFICER_TIMELINE_MINIMAP_REQUEST_FAILURE';
-export const OFFICER_TIMELINE_ITEMS_REQUEST_START = 'OFFICER_TIMELINE_ITEMS_REQUEST_START';
-export const OFFICER_TIMELINE_FIRST_ITEMS_REQUEST_SUCCESS = 'OFFICER_TIMELINE_FIRST_ITEMS_REQUEST_SUCCESS';
-export const OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS = 'OFFICER_TIMELINE_ITEMS_REQUEST_SUCCESS';
-export const OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE = 'OFFICER_TIMELINE_ITEMS_REQUEST_FAILURE';
-export const OFFICER_TIMELINE_FLIP_SORT_ORDER = 'OFFICER_TIMELINE_FLIP_SORT_ORDER';
-export const OFFICER_TIMELINE_SELECT_MINIMAP_ITEM = 'OFFICER_TIMELINE_SELECT_MINIMAP_ITEM';
-export const OFFICER_TIMELINE_HOVER_MINIMAP_ITEM = 'OFFICER_TIMELINE_HOVER_MINIMAP_ITEM';
-export const OFFICER_TIMELINE_HOVER_TIMELINE_ITEM = 'OFFICER_TIMELINE_HOVER_TIMELINE_ITEM';
-export const OFFICER_TIMELINE_SELECT_TIMELINE_ITEM = 'OFFICER_TIMELINE_SELECT_TIMELINE_ITEM';
-export const OFFICER_TIMELINE_CHANGE_FILTERS = 'OFFICER_TIMELINE_CHANGE_FILTERS';
-export const OFFICER_TIMELINE_CLEAR_SELECTED_ITEM_INDEX = 'OFFICER_TIMELINE_CLEAR_SELECTED_ITEM_INDEX';
+export const OFFICER_NEW_TIMELINE_ITEMS_REQUEST_START = 'OFFICER_NEW_TIMELINE_ITEMS_REQUEST_START';
+export const OFFICER_NEW_TIMELINE_ITEMS_REQUEST_SUCCESS = 'OFFICER_NEW_TIMELINE_ITEMS_REQUEST_SUCCESS';
+export const OFFICER_NEW_TIMELINE_ITEMS_REQUEST_FAILURE = 'OFFICER_NEW_TIMELINE_ITEMS_REQUEST_FAILURE';
+
+export const OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER = 'OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER';
 
 export const SEARCH_TERMS_CATEGORIES_REQUEST_START = 'SEARCH_TERMS_CATEGORIES_REQUEST_START';
 export const SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS = 'SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS';
@@ -206,10 +191,7 @@ export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
 
 export const UPDATE_SHAREABLE_PAGE_SCROLL_POSITION = 'UPDATE_SHAREABLE_PAGE_SCROLL_POSITION';
 
-
 export const BottomSheetContentType = new Enum(['REPORT', 'FAQ', 'OFFICER', 'CR', 'UNIT_PROFILE']);
-
-export const TimelineItemType = new Enum(['CR', 'UNIT', 'JOINED']);
 
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
@@ -263,6 +245,18 @@ export const SEARCH_TERMS_NAVIGATION_DOWN = 'SEARCH_TERMS_NAVIGATION_DOWN';
 export const SEARCH_TERMS_NAVIGATION_RESET = 'SEARCH_TERMS_NAVIGATION_RESET';
 export const SEARCH_TERMS_NAVIGATION_SET = 'SEARCH_TERMS_NAVIGATION_SET';
 
+
+export const SUGGESTION_REQUEST_START = 'SUGGESTION_REQUEST_START';
+export const SUGGESTION_REQUEST_SUCCESS = 'SUGGESTION_REQUEST_SUCCESS';
+export const SUGGESTION_REQUEST_FAILURE = 'SUGGESTION_REQUEST_FAILURE';
+
+export const SELECT_TAG = 'SELECT_TAG';
+export const CHANGE_SEARCH_QUERY = 'CHANGE_SEARCH_QUERY';
+export const TRACK_RECENT_SUGGESTION = 'TRACK_RECENT_SUGGESTION';
+export const SEARCH_NAVIGATION_UP = 'SEARCH_NAVIGATION_UP';
+export const SEARCH_NAVIGATION_DOWN = 'SEARCH_NAVIGATION_DOWN';
+export const SEARCH_NAVIGATION_RESET = 'SEARCH_NAVIGATION_RESET';
+
 export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
 export const VISUAL_TOKEN_COLOR_SCHEME = {
   '00': '#f5f4f4',
@@ -303,6 +297,42 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
   '55': '#131313',
 };
 
+export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
+  '000': visualTokenSchemeColor.greyColor,
+  '100': visualTokenSchemeColor.lightYellowColor,
+  '110': visualTokenSchemeColor.lightYellowColor,
+  '120': visualTokenSchemeColor.lightYellowColor,
+  '200': visualTokenSchemeColor.yellowColor,
+  '210': visualTokenSchemeColor.yellowColor,
+  '220': visualTokenSchemeColor.yellowColor,
+  '010': visualTokenSchemeColor.lightBlueColor,
+  '020': visualTokenSchemeColor.blueColor,
+  '001': visualTokenSchemeColor.pinkColor,
+  '011': visualTokenSchemeColor.pinkColor,
+  '021': visualTokenSchemeColor.pinkColor,
+  '101': visualTokenSchemeColor.darkerPinkColor,
+  '111': visualTokenSchemeColor.darkerPinkColor,
+  '121': visualTokenSchemeColor.darkerPinkColor,
+  '002': visualTokenSchemeColor.redColor,
+  '012': visualTokenSchemeColor.redColor,
+  '022': visualTokenSchemeColor.redColor,
+  '102': visualTokenSchemeColor.darkerRedColor,
+  '112': visualTokenSchemeColor.darkerRedColor,
+  '122': visualTokenSchemeColor.darkerRedColor,
+  '201': visualTokenSchemeColor.lightRedColor,
+  '211': visualTokenSchemeColor.lightRedColor,
+  '221': visualTokenSchemeColor.lightRedColor,
+  '202': visualTokenSchemeColor.darkestRedColor,
+  '212': visualTokenSchemeColor.darkestRedColor,
+  '222': visualTokenSchemeColor.darkestRedColor,
+};
+
+export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
+  COLOR_TEXT_LIGHT_SCHEME: ['202', '212', '222', '020'],
+  DARK_COLOR: softBlackColor,
+  LIGHT_COLOR: greyColor
+};
+
 export const RECENT_CONTENT_TYPE = 'RECENT';
 export const MORE_BUTTON = 'MORE_BUTTON';
 export const SEARCH_BOX = 'SEARCH_BOX';
@@ -329,3 +359,20 @@ export const CMS_PAGE_REQUEST_FAILURE = 'CMS_PAGE_REQUEST_FAILURE';
 export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
 export const LANDING_PAGE_ID = 'landing-page';
+
+export const NEW_TIMELINE_ITEMS = {
+  CR: 'CR',
+  FORCE: 'FORCE',
+  AWARD: 'AWARD',
+  UNIT_CHANGE: 'UNIT_CHANGE',
+  JOINED: 'JOINED',
+  YEAR: 'YEAR',
+  EMPTY: 'EMPTY',
+};
+
+export const NEW_TIMELINE_FILTERS = {
+  ALL: 'ALL EVENTS',
+  CRS: 'COMPLAINTS',
+  FORCE: 'USE OF FORCE',
+  AWARDS: 'AWARDS'
+};
