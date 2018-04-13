@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  findRenderedComponentWithType, renderIntoDocument,
-  scryRenderedComponentsWithType
-} from 'react-addons-test-utils';
+import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
 import { Provider } from 'react-redux';
@@ -33,25 +30,16 @@ describe('OfficerPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render SummarySection and MetricsSection', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage />
-      </Provider>
-    );
-
-    scryRenderedComponentsWithType(instance, SummarySection).should.have.length(1);
-    scryRenderedComponentsWithType(instance, MetricsSection).should.have.length(1);
-    scryRenderedComponentsWithType(instance, TabbedPaneSection).should.have.length(1);
-  });
-
-  it('should render Radar Chart Component', function () {
+  it('should render enough sections', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <OfficerPage officerId={ 1 }/>
       </Provider>
     );
 
+    findRenderedComponentWithType(instance, SummarySection);
+    findRenderedComponentWithType(instance, MetricsSection);
+    findRenderedComponentWithType(instance, TabbedPaneSection);
     findRenderedComponentWithType(instance, OfficerRadarChart);
   });
 

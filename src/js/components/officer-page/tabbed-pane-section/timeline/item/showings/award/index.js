@@ -17,7 +17,7 @@ export default class Award extends Component {
     } = baseStyles;
 
     return (
-      <span style={ { ...baseWrapperShowingStyle } }>
+      <span style={ baseWrapperShowingStyle }>
         <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
           <div style={ baseWrapperKindStyle }>
             <span style={ { ...baseKindStyle, ...kindStyle } } className='test--award-item-kind'>Award</span>
