@@ -1,16 +1,10 @@
-import { sanFranciscoTextFamily, softBlackColor, whiteTwoColor, mediumGrayColor } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor, whiteTwoColor, clayGray } from 'utils/styles';
 
 
 export const wrapperStyle = {
   fontSize: '14px',
   marginTop: '38px',
   fontFamily: sanFranciscoTextFamily
-};
-
-export const locationTextStyle = {
-  padding: '40px 0 5px 16px',
-  color: softBlackColor,
-  fontWeight: 600
 };
 
 export const addressStyle = {
@@ -38,7 +32,7 @@ export const beatStyle = {
 export const labelStyle = {
   display: 'inline-block',
   width: '108px',
-  color: mediumGrayColor,
+  color: clayGray,
   verticalAlign: 'middle',
   float: 'left'
 };

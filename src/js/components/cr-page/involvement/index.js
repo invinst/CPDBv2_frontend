@@ -7,7 +7,7 @@ import InvolvementItem from './involvement-item';
 
 export default class Involvement extends Component {
   render() {
-    const { involvements, openOfficerPage } = this.props;
+    const { involvements } = this.props;
 
     if (!involvements || keys(involvements).length === 0) {
       return null;
@@ -18,8 +18,10 @@ export default class Involvement extends Component {
         {
           map(entries(involvements), ([involvedType, officers], index) => (
             <InvolvementItem
-              openOfficerPage={ openOfficerPage }
-              key={ index } involvedType={ involvedType } officers={ officers } />)
+              key={ index }
+              className={ `test--involvement-${involvedType}` }
+              involvedType={ involvedType }
+              officers={ officers } />)
           )
         }
       </div>
@@ -28,6 +30,5 @@ export default class Involvement extends Component {
 }
 
 Involvement.propTypes = {
-  involvements: PropTypes.object,
-  openOfficerPage: PropTypes.func
+  involvements: PropTypes.object
 };

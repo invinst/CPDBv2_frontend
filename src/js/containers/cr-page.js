@@ -3,7 +3,6 @@ import React from 'react';
 
 import { fetchCR } from 'actions/cr-page';
 import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
-import { openOfficerPage } from 'actions/bottom-sheet';
 import CRPage from 'components/cr-page';
 import { openRequestDocumentModal } from 'actions/generic-modal';
 
@@ -19,7 +18,6 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   fetchCR,
-  openOfficerPage,
   openRequestDocumentModal,
 };
 

@@ -35,12 +35,11 @@ describe('CR page', function () {
       'Sep 23, 2003\nIncident Occurs\nComplaint Filed\nMar 16, 2004\nInvestigation Closed'
     );
 
-    // crPage.investigator.itemCount.should.equal(2);
-    // crPage.investigator.firstItemName.getText().should.equal('Lauren Skol');
+    crPage.investigator.itemCount().should.equal(2);
+    crPage.investigator.firstItem.getText().should.equal('Lauren Skol\nIPRA');
 
-    // crPage.policeWitness.itemCount.should.equal(2);
-    // crPage.policeWitness.firstItemName.getText().should.equal('Raymond Piwinicki');
-    // crPage.policeWitness.firstItemMetric.getText().should.equal('3 allegations 0 sustained');
+    crPage.policeWitness.itemCount().should.equal(2);
+    crPage.policeWitness.firstItem.getText().should.equal('Raymond Piwinicki\n3 allegations 0 sustained');
 
     crPage.location.address.getText().should.equal('3510 Michigan Ave, Chicago, IL 60653');
     crPage.location.locationType.getText().should.equal('Police Building');
@@ -48,16 +47,24 @@ describe('CR page', function () {
   });
 
   it('should show full list of accused officers when click on show more button', function () {
-    // crPage.accusedOfficers.lastCard.isVisibleWithinViewport().should.be.false();
     crPage.accusedOfficers.showMoreButton.isVisible().should.be.true();
     crPage.accusedOfficers.showMoreButton.click();
-    // crPage.accusedOfficers.lastCard.isVisibleWithinViewport().should.be.true();
     crPage.accusedOfficers.showMoreButton.isVisible().should.be.false();
   });
 
   it('should navigate to officer page when we click on accused officer card', function () {
     crPage.accusedOfficers.firstCard.element.click();
     browser.getUrl().should.match(/\/officer\/1\/$/);
+  });
+
+  it('should navigate to officer page when we click on investigator item', function () {
+    crPage.investigator.firstItem.click();
+    browser.getUrl().should.match(/\/officer\/1\/$/);
+  });
+
+  it('should navigate to officer page when we click on police witness item', function () {
+    crPage.policeWitness.firstItem.click();
+    browser.getUrl().should.match(/\/officer\/3\/$/);
   });
 
   it('should show request document modal when clicks on "Request Document"', function () {

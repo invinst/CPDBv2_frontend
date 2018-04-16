@@ -34,7 +34,7 @@ export default class CRPage extends Component {
 
   render() {
     const {
-      crid, coaccused, complainants, openOfficerPage, alreadyRequested,
+      crid, coaccused, complainants, alreadyRequested,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
       openRequestDocumentModal, summary, victims, startDate, endDate
     } = this.props;
@@ -65,7 +65,7 @@ export default class CRPage extends Component {
             />
             <div style={ leftColumnStyle }>
               <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-              <Involvement involvements={ involvements } openOfficerPage={ openOfficerPage }/>
+              <Involvement involvements={ involvements }/>
             </div>
             <div style={ rightColumnStyle }>
               <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
@@ -83,7 +83,6 @@ CRPage.propTypes = {
   complainants: PropTypes.array,
   victims: PropTypes.array,
   incidentDate: PropTypes.string,
-  openOfficerPage: PropTypes.func,
   summary: PropTypes.string,
   point: PropTypes.object,
   address: PropTypes.string,

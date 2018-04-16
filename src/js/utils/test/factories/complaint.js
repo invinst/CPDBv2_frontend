@@ -3,28 +3,33 @@ import { date, lorem, helpers, address, random, internet, name } from 'faker';
 import moment from 'moment';
 
 
+/* istanbul ignore next */
 const dateGenerator = () => (moment(date.past()).format('YYYY-MM-DD'));
+/* istanbul ignore next */
 const percentileGenerator = () => (random.number({ min: 10, max: 1000 }) / 10.0);
 
 
+/* istanbul ignore next */
 export const RawComplaintSummaryFactory = Factory.define('RawComplaintSummaryFactory')
   .attr('crid', () => (helpers.replaceSymbolWithNumber('107####')))
   .attr('summary', lorem.paragraph)
-  .attr('incident_date', () => (moment(date.past()).format('YYYY-MM-DD')))
+  .attr('incident_date', dateGenerator)
   .attr('category_names', () => {
     return [helpers.shuffle(['Use of Force', 'Illegal Search', 'Domestic', 'Unknown'])[0]];
   });
 
+/* istanbul ignore next */
 export const ComplaintSummaryFactory = Factory.define('ComplaintSummaryFactory')
   .attr('crid', () => (helpers.replaceSymbolWithNumber('107####')))
   .attr('summary', lorem.paragraph)
-  .attr('incidentDate', () => (moment(date.past()).format('YYYY-MM-DD')))
+  .attr('incidentDate', dateGenerator)
   .attr('categoryNames', () => {
     return [helpers.shuffle(['Use of Force', 'Illegal Search', 'Domestic', 'Unknown'])[0]];
   });
 
+/* istanbul ignore next */
 export const CoaccusedFactory = Factory.define('CoaccusedFactory')
-  .sequence('id', )
+  .sequence('id')
   .attr('full_name', () => name.firstName())
   .attr('gender', 'Male')
   .attr('race', 'White')
@@ -38,12 +43,14 @@ export const CoaccusedFactory = Factory.define('CoaccusedFactory')
   .attr('percentile_allegation_internal', percentileGenerator)
   .attr('percentile_trr', percentileGenerator);
 
+/* istanbul ignore next */
 const PersonDemographicFactory = Factory.define('PersonDemographicFactory')
   .attr('gender', 'Male')
   .attr('race', 'White')
   .attr('age', () => random.number());
 
-const InvestigatorFactory = Factory.define('InvestigatorFactory')
+/* istanbul ignore next */
+export const InvestigatorFactory = Factory.define('InvestigatorFactory')
   .sequence('officer_id')
   .attr('involved_type', 'investigator')
   .attr('full_name', () => name.firstName())
@@ -52,12 +59,25 @@ const InvestigatorFactory = Factory.define('InvestigatorFactory')
   .attr('percentile_allegation_internal', percentileGenerator)
   .attr('percentile_trr', percentileGenerator);
 
+/* istanbul ignore next */
+export const PoliceWitnessFactory = Factory.define('PoliceWitnessFactory')
+  .sequence('officer_id')
+  .attr('involved_type', 'police_witness')
+  .attr('full_name', () => name.firstName())
+  .attr('allegation_count', () => random.number())
+  .attr('sustained_count', () => random.number())
+  .attr('percentile_allegation_civilian', percentileGenerator)
+  .attr('percentile_allegation_internal', percentileGenerator)
+  .attr('percentile_trr', percentileGenerator);
+
+/* istanbul ignore next */
 export const AttachmentFactory = Factory.define('AttachmentFactory')
   .attr('title', () => lorem.word())
   .attr('url', () => internet.url())
   .attr('preview_image_url', () => internet.url())
   .attr('file_type', 'document');
 
+/* istanbul ignore next */
 export const ComplaintFactory = Factory.define('ComplaintFactory')
   .attr('crid', () => String(random.number({ min: 1000000, max: 2000000 })))
   .attr('coaccused', () => CoaccusedFactory.buildList(1))

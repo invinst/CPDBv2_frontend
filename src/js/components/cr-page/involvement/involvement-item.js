@@ -7,23 +7,23 @@ import { wrapperStyle, lastItemStyle, titleStyle } from './involvement-item.styl
 
 export default class InvolvementItem extends Component {
   render() {
-    const { involvedType, officers, openOfficerPage, style } = this.props;
+    const { involvedType, officers, style, className } = this.props;
     const involvedTypeMap = {
       investigator: 'INVESTIGATOR',
       'police_witness': 'POLICE WITNESSES'
     };
 
     return (
-      <div style={ { ...wrapperStyle, ...style } }>
+      <div className={ className } style={ { ...wrapperStyle, ...style } }>
         <div style={ titleStyle } className='test--involvement-type'>{ involvedTypeMap[involvedType] }</div>
         <div>
           {
             map(officers, (officer, index) =>
             {
               return (
-                <OfficerRow style={ index === officers.length - 1 ? lastItemStyle : {} }
-                  onClick={ openOfficerPage }
-                  key={ officer.id } { ...officer } />
+                <OfficerRow
+                  style={ index === officers.length - 1 ? lastItemStyle : {} }
+                  key={ index } { ...officer } />
               );
             })
           }
@@ -38,5 +38,5 @@ InvolvementItem.propTypes = {
   involvedType: PropTypes.string,
   officers: PropTypes.array,
   style: PropTypes.object,
-  openOfficerPage: PropTypes.func
+  className: PropTypes.string
 };

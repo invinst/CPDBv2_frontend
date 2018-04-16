@@ -1,6 +1,7 @@
 import should from 'should';
 
 import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
+import { InvestigatorFactory, PoliceWitnessFactory } from 'utils/test/factories/complaint';
 
 
 describe('CR page selectors', function () {
@@ -12,7 +13,7 @@ describe('CR page selectors', function () {
         contentSelector(state).coaccused.should.eql([]);
         contentSelector(state).complainants.should.eql([]);
         contentSelector(state).victims.should.eql([]);
-        contentSelector(state).involvements.should.eql([]);
+        contentSelector(state).involvements.should.eql({});
         contentSelector(state).attachments.should.eql([]);
       });
 
@@ -93,16 +94,32 @@ describe('CR page selectors', function () {
     });
 
     it('should return list of involvements', function () {
-      const involvement = {
-        'involved_type': 'Watch Commander',
-        'officers': [{ 'id': 1, 'abbr_name': 'F. Bar', 'extra_info': 'male, white' }]
+      const state = {
+        crs: {
+          '123': {
+            involvements: [
+              InvestigatorFactory.build({
+                'officer_id': 1,
+                'current_rank': 'IPRA investigator'
+              }),
+              InvestigatorFactory.build({
+                'officer_id': 2,
+                'current_rank': 'CPD investigator'
+              }),
+              PoliceWitnessFactory.build({ 'officer_id': 3 }),
+              PoliceWitnessFactory.build({ 'officer_id': 4 })
+            ]
+          }
+        },
+        crPage: { crid: 123 }
       };
-      const state = { crs: { '123': { involvements: [involvement] } }, crPage: { crid: 123 } };
 
-      contentSelector(state).involvements.should.eql([{
-        involvedType: 'Watch Commander',
-        officers: [{ id: 1, abbrName: 'F. Bar', extraInfo: 'male, white' }]
-      }]);
+      const result = contentSelector(state);
+      const investigators = result.involvements.investigator;
+      investigators.map((obj) => obj.id).should.eql([1, 2]);
+      investigators.map((obj) => obj.tag).should.eql(['IPRA', 'CPD']);
+
+      result.involvements['police_witness'].map((obj) => obj.id).should.eql([3, 4]);
     });
 
     it('should return undefined incidentDate and location data if cr data does not exists', function () {
@@ -137,14 +154,42 @@ describe('CR page selectors', function () {
     });
 
     it('should return list of attachments', function () {
-      const doc = { title: 'abc', url: 'def', 'preview_image_url': 'pre' };
+      const doc = { title: 'abc', url: 'def', 'preview_image_url': 'pre', 'file_type': 'document' };
       const state = { crs: { '123': { attachments: [doc] } }, crPage: { crid: 123 } };
 
       contentSelector(state).attachments.should.eql([{
         title: 'abc',
         url: 'def',
-        previewImageUrl: 'pre'
+        previewImageUrl: 'pre',
+        fileType: 'document'
       }]);
+    });
+
+    it('should merge investigators with same officer ids', function () {
+      const state = {
+        crs: {
+          '100': {
+            involvements: InvestigatorFactory.buildList(2, { 'officer_id': 3 })
+          }
+        },
+        crPage: { crid: '100' }
+      };
+      const result = contentSelector(state);
+      result.involvements.investigator.should.have.length(1);
+      result.involvements.investigator[0].id.should.eql(3);
+    });
+
+    it('should not merge investigators with null officer ids', function () {
+      const state = {
+        crs: {
+          '100': {
+            involvements: InvestigatorFactory.buildList(2, { 'officer_id': null })
+          }
+        },
+        crPage: { crid: '100' }
+      };
+      const result = contentSelector(state);
+      result.involvements.investigator.should.have.length(2);
     });
   });
 

@@ -25,7 +25,7 @@ export default class Location extends Component {
           }
         </div>
         <div style={ locationStyle }>
-          <span style={ labelStyle }>Location</span>
+          <span style={ labelStyle }>Location Type</span>
           <span style={ contentStyle } className='test--location-type'>{ location }</span>
         </div>
         <div style={ beatStyle }>

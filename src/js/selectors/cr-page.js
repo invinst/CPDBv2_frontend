@@ -106,37 +106,43 @@ const getInvolvementsSelector = createSelector(
   involvements => reduce(involvements, (accumulator, obj) => {
     const type = obj['involved_type'];
     accumulator = defaults(accumulator, { [type]: [] });
-    let officer = {
-      id: obj['officer_id'],
-      fullName: obj['full_name'],
-      radarAxes: [
-        { axis: 'trr', value: parseFloat(obj['percentile_trr']) },
-        { axis: 'internal', value: parseFloat(obj['percentile_allegation_internal']) },
-        { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) }
-      ],
-      radarColor: getVisualTokenOIGBackground(
-        parseFloat(obj['percentile_allegation_internal']),
-        parseFloat(obj['percentile_allegation_civilian']),
-        parseFloat(obj['percentile_trr'])
-      )
-    };
 
-    if (type === 'investigator') {
-      officer = {
-        ...officer,
-        tag: getInvestigatorAffiliation(obj)
+    if (
+        obj['officer_id'] === null ||
+        map(accumulator[type], 'id').indexOf(obj['officer_id']) === -1
+      ) {
+      let officer = {
+        id: obj['officer_id'],
+        fullName: obj['full_name'],
+        radarAxes: [
+          { axis: 'trr', value: parseFloat(obj['percentile_trr']) },
+          { axis: 'internal', value: parseFloat(obj['percentile_allegation_internal']) },
+          { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) }
+        ],
+        radarColor: getVisualTokenOIGBackground(
+          parseFloat(obj['percentile_allegation_internal']),
+          parseFloat(obj['percentile_allegation_civilian']),
+          parseFloat(obj['percentile_trr'])
+        )
       };
-    } else if (type === 'police_witness') {
-      officer = {
-        ...officer,
-        extraInfo: `
-          ${obj['allegation_count']} ${pluralize('allegation', obj['allegation_count'])}
-          ${obj['sustained_count']} sustained
-        `
-      };
+
+      if (type === 'investigator') {
+        officer = {
+          ...officer,
+          tag: getInvestigatorAffiliation(obj)
+        };
+      } else if (type === 'police_witness') {
+        officer = {
+          ...officer,
+          extraInfo: `
+            ${obj['allegation_count']} ${pluralize('allegation', obj['allegation_count'])}
+            ${obj['sustained_count']} sustained
+          `
+        };
+      }
+
+      accumulator[type].push(officer);
     }
-
-    accumulator[type].push(officer);
     return accumulator;
   }, {})
 );
@@ -164,7 +170,8 @@ export const contentSelector = createSelector(
     attachments: map(attachments, attachment => ({
       title: attachment.title,
       url: attachment.url,
-      previewImageUrl: attachment['preview_image_url']
+      previewImageUrl: attachment['preview_image_url'],
+      fileType: attachment['file_type']
     }))
   })
 );

@@ -6,9 +6,9 @@ export const wrapperStyle = {
   fontFamily: sanFranciscoTextFamily,
   minHeight: '54px',
   boxSizing: 'border-box',
+  display: 'block',
   fontSize: '14px',
-  borderBottom: `solid 1px ${whiteTwoColor}`,
-  cursor: 'pointer'
+  borderBottom: `solid 1px ${whiteTwoColor}`
 };
 
 export const chartWrapperStyle = {
@@ -54,5 +54,7 @@ export const tagStyle = {
   fontWeight: 400,
   padding: '2px 5px',
   overflow: 'hidden',
-  maxWidth: '50px'
+  maxWidth: '50px',
+  display: 'inline-block',
+  boxSizing: 'border-box'
 };

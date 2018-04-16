@@ -1,12 +1,12 @@
-import { mediumGrayColor, accentColor } from 'utils/styles';
+import { greyishColor, accentColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
 export const viewMapButtonStyle = hovering => ({
-  fontWeight: 400,
-  color: hovering ? accentColor : mediumGrayColor,
+  color: hovering ? accentColor : greyishColor,
   display: 'inline-block',
   cursor: 'pointer',
+  fontWeight: 300,
   float: 'right',
   textDecoration: 'none'
 });

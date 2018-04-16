@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import {
@@ -8,10 +9,13 @@ import {
 
 class OfficerRow extends Component {
   render() {
-    const { id, fullName, extraInfo, onClick, style, radarAxes, radarColor, tag } = this.props;
+    const { id, fullName, extraInfo, style, radarAxes, radarColor, tag } = this.props;
 
     return (
-      <div className='test--officer-row' style={ { ...wrapperStyle, ...style } } onClick={ () => onClick(id) }>
+      <Link
+        className='test--officer-row'
+        style={ { ...wrapperStyle, ...style } }
+        to={ id ? `/officer/${id}/` : null }>
         <div style={ chartWrapperStyle }>
           <StaticRadarChart
             width={ 32 }
@@ -32,7 +36,7 @@ class OfficerRow extends Component {
             ) : null
           }
         </div>
-      </div>
+      </Link>
     );
   }
 }
@@ -42,7 +46,6 @@ OfficerRow.propTypes = {
   fullName: PropTypes.string,
   extraInfo: PropTypes.string,
   style: PropTypes.object,
-  onClick: PropTypes.func,
   radarColor: PropTypes.object,
   radarAxes: PropTypes.array,
   tag: PropTypes.string
