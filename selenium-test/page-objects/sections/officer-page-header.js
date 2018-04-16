@@ -6,7 +6,6 @@ export default class Header extends Section {
     super();
     this.prepareElementGetters({
       officerName: '.test--officer-name',
-      timelineButton: '//a[@class="test--header-button"][text()="Timeline"]',
       summaryButton: '//a[@class="test--header-button"][text()="Summary"]',
       socialButton: '//a[@class="test--header-button"][text()="Social Map"]',
       activeButton: '.test--header-button-active'

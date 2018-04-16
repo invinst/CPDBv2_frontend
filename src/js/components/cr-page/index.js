@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import SummaryRow from './summary-row';
 import Demographics from './demographics';
 import Timeline from './timeline';
@@ -41,6 +42,7 @@ export default class CRPage extends Component {
 
     return (
       <div style={ wrapperStyle }>
+        <ShareableHeaderContainer/>
         <ResponsiveFluidWidthComponent>
           <div style={ upperSectionWrapperStyle }>
             <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>

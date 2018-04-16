@@ -2,7 +2,7 @@ import navigation from 'reducers/search-page/navigation';
 import {
   SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
   CHANGE_SEARCH_QUERY
-} from 'actions/search-page';
+} from 'utils/constants';
 
 
 describe('navigation reducer', function () {

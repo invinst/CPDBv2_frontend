@@ -98,7 +98,7 @@ class Carousel extends Component {
   }
 
   clickHandler(direction) {
-    const { children } = this.props;
+    const { children, type } = this.props;
     let nextSlide;
     if (direction === 'left') {
       nextSlide = Math.max(this.swiper.activeIndex - this.state.numVisibleSlide, 0);
@@ -108,6 +108,7 @@ class Carousel extends Component {
         children.length - this.state.numVisibleSlide
       );
     }
+    global.ga('send', 'event', 'carousel', `swipe_${direction}`, type);
     this.swiper.slideTo(nextSlide);
   }
 
@@ -144,6 +145,7 @@ Carousel.defaultProps = {
 };
 
 Carousel.propTypes = {
+  type: PropTypes.string,
   headerSection: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.element

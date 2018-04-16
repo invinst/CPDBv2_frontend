@@ -10,6 +10,7 @@ import {
 } from './community-detail.style';
 import CommunityRacePopulation from './community-race-population';
 import CommunityOfficers from './community-officers';
+import OutboundLink from 'components/common/outbound-link';
 
 
 export default class CommunityDetail extends Component {
@@ -55,13 +56,13 @@ export default class CommunityDetail extends Component {
           <span style={ disciplineTextStyle }>{ disciplineCount } disciplines</span>
         </div>
         <CommunityOfficers mostComplaintsOfficers={ mostComplaintsOfficers } communityName={ name }/>
-        <a
+        <OutboundLink
           className='test--community-v1-link'
           style={ learnMoreStyle }
           href={ communityUrl(name) }>
           <span style={ learnMoreTextStyle }>Explore data</span>
           <span style={ rightArrowBlueStyle }/>
-        </a>
+        </OutboundLink>
       </div>
     );
   }
