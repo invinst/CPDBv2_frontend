@@ -11,24 +11,24 @@ export default class MetricWidget extends Component {
     return (
       <div style={ wrapperStyle }>
         <div style={ nestedWrapperStyle }>
-        {
-          map(metricChunks, (metricChunk, chunkIndex) => (
-            <div
-              className='test--metric-widget-chunk'
-              style={ chunkStyle(chunkIndex === metricChunks.length - 1) }
-              key={ chunkIndex }
-            >
-              { map(metricChunk, (metric, metricIndex) => (
-                <MetricWidgetItem
-                  key={ metricIndex }
-                  { ...metric }
-                  isFirstItem={ metricIndex === 0 }
-                />
-              )) }
-              <div style={ clearfixStyle }/>
-            </div>
-          ))
-        }
+          {
+            map(metricChunks, (metricChunk, chunkIndex) => (
+              <div
+                className='test--metric-widget-chunk'
+                style={ chunkStyle(chunkIndex === metricChunks.length - 1) }
+                key={ chunkIndex }
+              >
+                { map(metricChunk, (metric, metricIndex) => (
+                  <MetricWidgetItem
+                    key={ metricIndex }
+                    { ...metric }
+                    isFirstItem={ metricIndex === 0 }
+                  />
+                )) }
+                <div style={ clearfixStyle }/>
+              </div>
+            ))
+          }
         </div>
       </div>
     );
@@ -37,7 +37,7 @@ export default class MetricWidget extends Component {
 
 MetricWidget.propTypes = {
   metrics: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.node.isRequired,
     value: PropTypes.number.isRequired,
     description: PropTypes.string,
     isHighlight: PropTypes.bool,

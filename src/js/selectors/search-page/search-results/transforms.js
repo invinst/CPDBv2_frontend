@@ -1,7 +1,8 @@
-import { compact, get, sumBy, map } from 'lodash';
+import { compact, get, sumBy, map, last } from 'lodash';
+import { extractPercentile } from 'selectors/landing-page/common';
 
-import { getThisYear } from 'utils/date';
-import { getSvgUrl } from 'utils/visual-token';
+import { getThisYear, formatDate } from 'utils/date';
+import roundPercentile from 'utils/round-percentile';
 
 
 const mappingRace = (race) => {
@@ -15,26 +16,11 @@ const mappingRace = (race) => {
 
 
 const previewPaneTypeMap = {
-  OFFICER: (suggestion) => {
-    const { payload, id, text } = suggestion;
-    const visualTokenImg = getSvgUrl(id);
-    const visualTokenBackgroundColor = payload['visual_token_background_color'];
-    const data = {
-      officerInfo: {
-        unit: payload.unit,
-        rank: payload.rank,
-        salary: payload.salary,
-        race: payload.race,
-        sex: payload.sex,
-      },
-      visualTokenBackgroundColor,
-      visualTokenImg,
-      text,
-      title: text,
-      to: payload.to,
-    };
-    return { type: 'OFFICER', data };
-  },
+  OFFICER: (suggestion) => ({
+    type: 'OFFICER',
+    data: get(searchResultTransformMap, 'OFFICER', () => {
+    })(suggestion)
+  }),
   COMMUNITY: (suggestion) => ({
     type: 'COMMUNITY',
     data: get(searchResultTransformMap, 'COMMUNITY', () => {
@@ -76,10 +62,32 @@ const searchResultTransformMap = {
     const race = payload['race'] === 'Unknown' ? null : payload['race'];
     const sex = payload['sex'] ? payload['sex'] : null;
     const demographicInfo = compact([age, race, sex]).join(', ');
+    const lastPercentile = last(payload['percentiles']);
+    const percentiles = map(payload['percentiles'], (percentile) => extractPercentile(percentile));
     return {
-      demographicInfo,
+      fullName: payload['name'],
+      birthYear: payload['birth_year'],
+      appointedDate: formatDate(payload['appointed_date']),
+      badge: payload['badge'],
       complaintCount: payload['allegation_count'],
-      sustainedCount: payload['sustained_count']
+      complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),
+      civilianComplimentCount: payload['civilian_compliment_count'],
+      gender: payload['gender'],
+      name: payload['name'],
+      lastPercentile: last(percentiles),
+      race: payload['race'],
+      rank: payload['rank'],
+      resignationDate: formatDate(payload['resignation_date']),
+      sustainedCount: payload['sustained_count'],
+      disciplineCount: payload['discipline_count'],
+      to: payload['to'],
+      url: payload['url'],
+      unit: payload['unit'],
+      text: payload['name'],
+      trrCount: payload['trr_count'],
+      trrPercentile: roundPercentile(get(lastPercentile, 'percentile_trr'), true),
+      honorableMentionCount: payload['honorable_mention_count'],
+      demographicInfo,
     };
   },
   CR: ({ payload }) => {

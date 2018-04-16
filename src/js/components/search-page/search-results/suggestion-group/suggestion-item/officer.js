@@ -28,7 +28,11 @@ class OfficerItem extends SuggestionItemBase {
 }
 
 OfficerItem.propTypes = {
-  suggestion: PropTypes.object,
+  suggestion: PropTypes.shape({
+    sustainedCount: PropTypes.number,
+    demographicInfo: PropTypes.string,
+    complaintCount: PropTypes.number,
+  }),
   isFocused: PropTypes.bool,
   hovering: PropTypes.bool
 };

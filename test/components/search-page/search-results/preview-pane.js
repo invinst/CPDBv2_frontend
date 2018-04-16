@@ -8,7 +8,6 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
-import ShortList from 'components/common/short-list';
 import {
   CommunityPane,
   NeighborhoodPane,

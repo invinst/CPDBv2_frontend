@@ -1,32 +1,29 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import StaticRadarChart from 'components/common/radar-chart';
+import { wrapperStyle } from './visual-token-widget.style';
 
 
 export default class VisualTokenWidget extends Component {
   render() {
-    const data = [
-      {
-        axis: 'a',
-        value: 15,
-      },
-      {
-        axis: 'b',
-        value: 50,
-      },
-      {
-        axis: 'c',
-        value: 79.8
-      }
-    ];
+    const { items, visualTokenBackground } = this.props;
     return (
-      <div style={ { height: '120px', margin: '0 -8px' } }>
+      <div style={ wrapperStyle }>
         <StaticRadarChart
-          data={ data }
-          backgroundColor={ '#ec492c' }
+          data={ items }
+          backgroundColor={ visualTokenBackground }
           hideAxisText={ true }
         />
       </div>
     );
   }
 }
+
+VisualTokenWidget.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.shape({
+    axis: PropTypes.string.isRequired,
+    value: PropTypes.number.isRequired,
+  })).isRequired,
+  visualTokenBackground: PropTypes.string.isRequired,
+};
+

@@ -5,7 +5,7 @@ export const wrapperStyle = {
   borderRadius: '2px',
   border: `1px solid ${whiteTwoColor}`,
   backgroundColor: 'white',
-  margin: '0 6px',
+  margin: '8px 0px',
 };
 
 export const chunkStyle = (lastItem) => ({

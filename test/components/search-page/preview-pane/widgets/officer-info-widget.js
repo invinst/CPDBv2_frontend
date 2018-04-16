@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithTag,
@@ -19,7 +18,7 @@ describe('OfficerInfoWidget component', () => {
         birthYear={ 1981 }
         badge={ 23 }
         unit='District 003'
-        appointedDate={ moment('2017-01-07') }
+        appointedDate='JAN 7, 2017'
       />
     );
     findRenderedDOMComponentWithTag(instance, 'h1').textContent.should.eql('Timothy Parker');
@@ -38,8 +37,8 @@ describe('OfficerInfoWidget component', () => {
         birthYear={ 1981 }
         badge={ 23 }
         unit='District 003'
-        appointedDate={ moment('2017-01-07') }
-        resignationDate={ moment('2018-01-08') }
+        appointedDate='JAN 7, 2017'
+        resignationDate='JAN 8, 2018'
       />
     );
     const listItem = scryRenderedDOMComponentsWithTag(instance, 'li');

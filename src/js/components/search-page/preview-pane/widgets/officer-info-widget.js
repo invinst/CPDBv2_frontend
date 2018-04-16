@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import moment from 'moment';
 import { map } from 'lodash';
 
 import {
@@ -8,7 +7,9 @@ import {
   listStyle,
   listItemStyle,
   itemKeyStyle,
+  arrowStyle,
 } from './officer-info-widget.style';
+import { imgUrl } from 'utils/static-assets';
 
 
 export default class OfficerInfoWidget extends Component {
@@ -25,27 +26,43 @@ export default class OfficerInfoWidget extends Component {
       resignationDate,
     } = this.props;
     const age = (new Date()).getFullYear() - birthYear;
-    const appointedDateString = appointedDate.format('ll').toUpperCase();
-    const resignationDateString = resignationDate ?
-      resignationDate.format('ll').toUpperCase() : 'Present';
 
-    const listInfo = {
-      '': `${age} year old (b. ${birthYear}), ${race}, ${gender}.`,
-      'Badge': badge,
-      'Rank': rank,
-      'Unit': unit,
-      'Career': `${appointedDateString} — ${resignationDateString}`,
-    };
+    const listInfo = [
+      {
+        key: '',
+        value: `${age} year old (b. ${birthYear}), ${race.toLowerCase()}, ${gender.toLowerCase()}.`,
+      },
+      {
+        key: 'Badge',
+        value: badge,
+      },
+      {
+        key: 'Rank',
+        value: rank,
+      },
+      {
+        key: 'Unit',
+        value: unit,
+        hasArrow: true,
+      },
+      {
+        key: 'Career',
+        value: `${appointedDate} — ${resignationDate || 'Present'}`,
+      },
+    ];
 
     return (
       <div style={ wrapperStyle }>
         <h1 style={ titleStyle }>{ fullName }</h1>
         <ul style={ listStyle }>
           {
-            map(listInfo, (metricValue, metricKey) => (
-              <li style={ listItemStyle } key={ `item-${metricKey}` }>
-                { metricKey && <span style={ itemKeyStyle }>{ metricKey }</span> }
-                <span>{ metricValue }</span>
+            map(listInfo, (metric) => (
+              <li style={ listItemStyle } key={ `item-${metric.key}` }>
+                { metric.key && <span style={ itemKeyStyle }>{ metric.key }</span> }
+                <span>{ metric.value }</span>
+                { metric.hasArrow === true && (
+                  <img src={ imgUrl('disclosure-indicator.svg') } style={ arrowStyle }/>
+                ) }
               </li>
             ))
           }
@@ -58,7 +75,7 @@ export default class OfficerInfoWidget extends Component {
 OfficerInfoWidget.defaultProps = {
   race: 'white',
   gender: 'male',
-  badge: 0,
+  badge: '',
   rank: 'Police Officer',
   unit: '',
   appointedDate: null,
@@ -70,9 +87,9 @@ OfficerInfoWidget.propTypes = {
   birthYear: PropTypes.number.isRequired,
   race: PropTypes.string,
   gender: PropTypes.string,
-  badge: PropTypes.number,
+  badge: PropTypes.string,
   rank: PropTypes.string,
   unit: PropTypes.string,
-  appointedDate: PropTypes.instanceOf(moment).isRequired,
-  resignationDate: PropTypes.instanceOf(moment),
+  appointedDate: PropTypes.string.isRequired,
+  resignationDate: PropTypes.string,
 };

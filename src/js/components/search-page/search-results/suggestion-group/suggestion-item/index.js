@@ -26,6 +26,7 @@ export default class SuggestionItem extends Component {
 
   render() {
     const { type } = this.props.suggestion;
+
     const ComponentType = Hoverable(get(COMPONENT_MAP, type, SuggestionItemBase));
 
     return (

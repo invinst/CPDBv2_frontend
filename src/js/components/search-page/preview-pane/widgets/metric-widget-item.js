@@ -28,12 +28,12 @@ export default class MetricWidgetItem extends Component {
 
 MetricWidgetItem.defaultProps = {
   isHighlight: false,
-  description: ''
+  description: '',
 };
 
 MetricWidgetItem.propTypes = {
   value: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
+  name: PropTypes.node.isRequired,
   description: PropTypes.string,
   isHighlight: PropTypes.bool,
   isFirstItem: PropTypes.bool,

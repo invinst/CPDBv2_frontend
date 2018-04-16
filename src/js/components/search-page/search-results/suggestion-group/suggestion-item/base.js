@@ -78,6 +78,7 @@ export default class SuggestionItemBase extends Component {
   }
 
   render() {
+
     const { aliasEditModeOn, hovering, isFocused, suggestion } = this.props;
     const { to, uniqueKey, url } = suggestion;
 
@@ -89,6 +90,7 @@ export default class SuggestionItemBase extends Component {
 
     let result;
     const content = this.renderContent();
+
     if (aliasEditModeOn) {
       result = <div { ...commonWrapperProps }>{ content }</div>;
     } else if (to) {
@@ -96,6 +98,7 @@ export default class SuggestionItemBase extends Component {
     } else {
       result = <a { ...commonWrapperProps } href={ url } >{ content }</a>;
     }
+
 
     return result;
   }

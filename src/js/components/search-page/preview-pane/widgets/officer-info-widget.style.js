@@ -3,7 +3,7 @@ import { softBlackColor, clayGray, whiteTwoColor } from 'utils/styles';
 
 export const wrapperStyle = {
   backgroundColor: 'white',
-  margin: '0 -8px 6px',
+  margin: '0 -8px 8px',
 };
 
 export const titleStyle = {
@@ -12,6 +12,7 @@ export const titleStyle = {
   margin: 0,
   padding: '16px 8px',
   lineHeight: '32px',
+  fontWeight: 500,
 };
 
 export const listStyle = {
@@ -24,10 +25,20 @@ export const listItemStyle = {
   lineHeight: '18px',
   borderTop: `1px solid ${whiteTwoColor}`,
   padding: '10px 0',
+  position: 'relative',
 };
 
 export const itemKeyStyle = {
   color: clayGray,
   width: '96px',
   display: 'inline-block',
+};
+
+export const arrowStyle = {
+  position: 'absolute',
+  top: '50%',
+  right: 0,
+  transform: 'translateY(-50%)',
+  width: '7.4px',
+  height: '12px',
 };
