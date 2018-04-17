@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import { keys, get } from 'lodash';
+import { get, keys } from 'lodash';
 
-import { tabbedPaneSectionStyle, menuItemStyle, menuStyle } from './tabbed-pane-section.style';
+import { menuItemStyle, menuStyle, tabbedPaneSectionStyle } from './tabbed-pane-section.style';
 import TimelineContainer from 'containers/officer-page/timeline-container';
 import CoaccusalsContainer from 'containers/officer-page/coaccusals-container';
 
 
 export default class TabbedPaneSection extends Component {
-
   constructor(props) {
     super(props);
-
     this.tabbedPaneMap = {
       'TIMELINE': <TimelineContainer/>,
       'SUMMARY': null,
@@ -18,32 +16,29 @@ export default class TabbedPaneSection extends Component {
       'COACCUSALS': <CoaccusalsContainer/>,
       'ATTACHMENTS': null,
     };
-    this.activeTabName = 'COACCUSALS';
-  }
-
-  renderMenu() {
-    return (
-      <div style={ menuStyle } className='test--tabbed-pane-section-menu'>
-        {
-          keys(this.tabbedPaneMap).map((paneName, index) => (
-            <span
-              key={ index }
-              style={ menuItemStyle(paneName === this.activeTabName) }
-              className='test--tabbed-pane-tab-name'
-            >
-              { paneName }
-            </span>)
-          )
-        }
-      </div>
-    );
+    this.state = {
+      activeTabName: 'TIMELINE'
+    };
   }
 
   render() {
     return (
       <div style={ tabbedPaneSectionStyle }>
-        { this.renderMenu() }
-        { get(this.tabbedPaneMap, this.activeTabName, null) }
+        <div style={ menuStyle } className='test--tabbed-pane-section-menu'>
+          {
+            keys(this.tabbedPaneMap).map((paneName) => (
+              <span
+                key={ paneName }
+                style={ menuItemStyle(paneName === this.state.activeTabName) }
+                className='test--tabbed-pane-tab-name'
+                onClick={ () => this.setState({ activeTabName: paneName }) }
+              >
+                { paneName }
+              </span>)
+            )
+          }
+        </div>
+        { get(this.tabbedPaneMap, this.state.activeTabName, null) }
       </div>
     );
   }

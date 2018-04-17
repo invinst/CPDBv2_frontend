@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import {
   coaccusalsStyle, groupedCoaccusalsStyle, extraCoaccusalCardStyle,
@@ -7,54 +7,16 @@ import {
 import CoaccusalCard from './coaccusal-card';
 
 
-const coaccusalsGroups = [
-  {
-    name: 'COACCUSED 21+ TIMES',
-    coaccusals: [
-      {
-        officerName: 'Donovan Markiewicz',
-        allegationCount: 43,
-        sustainedCount: 1,
-        allegationPercentile: 99.9,
-        age: 41,
-        race: 'white',
-        gender: 'male',
-        coaccusalCount: 22,
-        thumbnail: '',
-      },
-      {
-        officerName: 'Markiewicz',
-        allegationCount: 42,
-        sustainedCount: 1,
-        allegationPercentile: 99.9,
-        age: 41,
-        race: 'white',
-        gender: 'male',
-        coaccusalCount: 22,
-        thumbnail: '',
-      },
-      {
-        officerName: 'Donovan Markiewicz',
-        allegationCount: 43,
-        sustainedCount: 1,
-        allegationPercentile: 99.9,
-        age: 41,
-        race: 'white',
-        gender: 'male',
-        coaccusalCount: 22,
-        thumbnail: '',
-      },
-    ],
-  }
-];
-
 export default class Coaccusals extends Component {
+
   render() {
+    const { coaccusalsGroups } = this.props;
+
     return (
       <div style={ coaccusalsStyle }>
         {
           coaccusalsGroups.map((group, index) => (
-            <div style={ groupedCoaccusalsStyle } key={ index }>
+            <div style={ groupedCoaccusalsStyle } key={ group.name }>
               <div style={ groupTitleWrapperStyle }>
                 <span style={ groupTitleStyle }>{ group.name }</span>
               </div>
@@ -86,6 +48,7 @@ export default class Coaccusals extends Component {
 }
 
 Coaccusals.propTypes = {
+  coaccusalsGroups: PropTypes.array,
 };
 
 Coaccusals.defaultProps = {

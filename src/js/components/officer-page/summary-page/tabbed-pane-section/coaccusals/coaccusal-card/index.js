@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 
+import roundPercentile from 'utils/round-percentile';
+
 
 import {
   coaccusalCardStyle, footerStyle, officerInfoStyle,
@@ -28,9 +30,9 @@ export default class CoaccusalCard extends Component {
         <div style={ allegationStyle }>
           <div>
             <span style={ allegationCountStyle }>{ pluralize('allegation', allegationCount, true) } </span>
-            <span style={ sustainedCountStyle }>{ pluralize('sustained', sustainedCount, true) }</span>
+            <span style={ sustainedCountStyle(sustainedCount) }>{ sustainedCount } sustained</span>
           </div>
-          More than { allegationPercentile } of other officers
+          More than { roundPercentile(allegationPercentile) }% of other officers
         </div>
         <div style={ officerInfoStyle }>
           { age } years old, { race }, { gender }.

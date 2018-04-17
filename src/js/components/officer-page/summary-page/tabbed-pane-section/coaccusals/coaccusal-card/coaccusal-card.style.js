@@ -6,11 +6,13 @@ export const coaccusalCardStyle = {
   border: `solid 1px ${whiteTwoColor}`,
   color: clayGray,
   fontSize: '12px',
+  fontWeight: 300,
 };
 
 export const officerNameStyle = {
   color: softBlackColor,
   fontSize: '14px',
+  fontWeight: 400,
 };
 
 export const headerStyle = {
@@ -39,12 +41,13 @@ export const allegationStyle = {
 export const allegationCountStyle = {
   color: softBlackColor,
   fontSize: '14px',
+  fontWeight: 400,
 };
 
-export const sustainedCountStyle = {
-  color: brightOrangeTwoColor,
+export const sustainedCountStyle = (sustainedCount) => ({
+  color: (sustainedCount > 0) ? brightOrangeTwoColor : clayGray,
   fontSize: '14px',
-};
+});
 
 export const officerInfoStyle = {
   padding: '0 16px',
@@ -56,6 +59,7 @@ export const officerInfoStyle = {
 export const footerStyle = {
   color: softBlackColor,
   fontSize: '14px',
+  fontWeight: 500,
   height: '40px',
   lineHeight: '40px',
   backgroundColor: 'white',

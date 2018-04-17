@@ -1,10 +1,11 @@
-import { sugarCaneColor, whiteTwoColor, softBlackColor } from 'utils/styles';
+import { sugarCaneColor, whiteTwoColor, softBlackColor, altoColor } from 'utils/styles';
 
 
 export const coaccusalsStyle = {
   backgroundColor: sugarCaneColor,
   margin: '0 16px 128px 16px',
   padding: '0 15px 120px 16px',
+  border: `1px solid ${altoColor}`,
 };
 
 export const groupedCoaccusalsStyle = {

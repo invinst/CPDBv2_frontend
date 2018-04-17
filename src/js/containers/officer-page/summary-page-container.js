@@ -6,7 +6,7 @@ import SummaryPage from 'components/officer-page/summary-page';
 import {
   getOfficerName,
   metricsSelector,
-  summarySelector
+  summarySelector,
 } from 'selectors/officer-page';
 import { openPoliceUnitPage } from 'actions/bottom-sheet';
 import { getNewTimelineItems } from 'selectors/officer-page/new-timeline';
