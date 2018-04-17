@@ -12,6 +12,7 @@ export default class OfficerPane extends Component {
   render() {
     const {
       fullName,
+      age,
       birthYear,
       appointedDate,
       unit,
@@ -67,6 +68,7 @@ export default class OfficerPane extends Component {
           fullName={ fullName }
           appointedDate={ appointedDate }
           birthYear={ birthYear }
+          age={ age }
           unit={ unit }
           badge={ badge }
           race={ race }
@@ -96,6 +98,7 @@ OfficerPane.defaultProps = {
 OfficerPane.propTypes = {
   fullName: PropTypes.string.isRequired,
   birthYear: PropTypes.number.isRequired,
+  age: PropTypes.number.isRequired,
   appointedDate: PropTypes.string.isRequired,
   unit: PropTypes.string,
   badge: PropTypes.string,

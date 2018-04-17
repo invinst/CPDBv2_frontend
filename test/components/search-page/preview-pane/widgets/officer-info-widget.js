@@ -16,6 +16,7 @@ describe('OfficerInfoWidget component', () => {
       <OfficerInfoWidget
         fullName='Timothy Parker'
         birthYear={ 1981 }
+        age={ 37 }
         badge={ 23 }
         unit='District 003'
         appointedDate='JAN 7, 2017'
@@ -27,7 +28,7 @@ describe('OfficerInfoWidget component', () => {
     listItem[1].textContent.should.containEql('23');
     listItem[2].textContent.should.containEql('Police Officer');
     listItem[3].textContent.should.containEql('District 003');
-    listItem[4].textContent.should.containEql('JAN 7, 2017 -- Present');
+    listItem[4].textContent.should.containEql('JAN 7, 2017 — Present');
   });
 
   it('should contain resignation date when resignationDate is not null', () => {
@@ -42,6 +43,6 @@ describe('OfficerInfoWidget component', () => {
       />
     );
     const listItem = scryRenderedDOMComponentsWithTag(instance, 'li');
-    listItem[4].textContent.should.containEql('JAN 7, 2017 -- JAN 8, 2018');
+    listItem[4].textContent.should.containEql('JAN 7, 2017 — JAN 8, 2018');
   });
 });

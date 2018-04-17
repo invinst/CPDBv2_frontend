@@ -1,7 +1,7 @@
-import { compact, get, sumBy, map, last } from 'lodash';
+import { get, sumBy, map, last } from 'lodash';
 import { extractPercentile } from 'selectors/landing-page/common';
 
-import { getThisYear, formatDate } from 'utils/date';
+import { getCurrentAge, formatDate } from 'utils/date';
 import roundPercentile from 'utils/round-percentile';
 
 
@@ -57,37 +57,30 @@ const areaTransform = ({ payload }) => {
 
 const searchResultTransformMap = {
   OFFICER: ({ payload }) => {
-    const currentYear = getThisYear();
-    const age = payload['birth_year'] ? `${currentYear - payload['birth_year']} year old` : null;
     const race = payload['race'] === 'Unknown' ? null : payload['race'];
-    const sex = payload['sex'] ? payload['sex'] : null;
-    const demographicInfo = compact([age, race, sex]).join(', ');
     const lastPercentile = last(payload['percentiles']);
     const percentiles = map(payload['percentiles'], (percentile) => extractPercentile(percentile));
     return {
       fullName: payload['name'],
       birthYear: payload['birth_year'],
       appointedDate: formatDate(payload['appointed_date']),
+      resignationDate: formatDate(payload['resignation_date']),
       badge: payload['badge'],
+      gender: payload['gender'],
+      name: payload['name'],
+      age: getCurrentAge(payload['birth_year']),
+      race: race,
+      rank: payload['rank'],
+      unit: payload['unit'],
+      lastPercentile: last(percentiles),
       complaintCount: payload['allegation_count'],
       complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),
       civilianComplimentCount: payload['civilian_compliment_count'],
-      gender: payload['gender'],
-      name: payload['name'],
-      lastPercentile: last(percentiles),
-      race: payload['race'],
-      rank: payload['rank'],
-      resignationDate: formatDate(payload['resignation_date']),
       sustainedCount: payload['sustained_count'],
       disciplineCount: payload['discipline_count'],
-      to: payload['to'],
-      url: payload['url'],
-      unit: payload['unit'],
-      text: payload['name'],
       trrCount: payload['trr_count'],
       trrPercentile: roundPercentile(get(lastPercentile, 'percentile_trr'), true),
       honorableMentionCount: payload['honorable_mention_count'],
-      demographicInfo,
     };
   },
   CR: ({ payload }) => {

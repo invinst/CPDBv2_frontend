@@ -44,7 +44,6 @@ describe('search page results selector', function () {
                 allegationCount: 10,
                 sustainedCount: 2,
                 unit: '018',
-                visualTokenBackgroundColor: '#90b1f5'
               })
             ]
           }
@@ -54,17 +53,53 @@ describe('search page results selector', function () {
           header: 'OFFICER',
           canLoadMore: false,
           items: [{
-            type: 'OFFICER',
-            id: '29033',
-            text: 'Jerome Turbyville',
-            to: '/officer/29033/',
-            url: '',
-            tags: [],
-            uniqueKey: 'OFFICER-29033',
-            demographicInfo: '48 year old, White, Male',
-            complaintCount: 10,
-            sustainedCount: 2,
-            itemIndex: 1,
+            'appointedDate': 'DEC 13, 1999',
+            'badge': '5922',
+            'age': 48,
+            'birthYear': 1969,
+            'civilianComplimentCount': 4,
+            'complaintCount': 10,
+            'complaintPercentile': '93',
+            'disciplineCount': 1,
+            'fullName': 'Jerome Turbyville',
+            'gender': 'Male',
+            'honorableMentionCount': undefined,
+            'id': '29033',
+            'itemIndex': 1,
+            'lastPercentile': {
+              'items': [
+                {
+                  'axis': 'Use of Force Reports',
+                  'value': 90,
+                },
+                {
+                  'axis': 'Internal Allegations',
+                  'value': 91,
+                },
+                {
+                  'axis': 'Civilian Allegations',
+                  'value': 92,
+                },
+              ],
+              'officerId': undefined,
+              'textColor': '#DFDFDF',
+              'visualTokenBackground': '#700404',
+              'year': undefined,
+            },
+            'name': 'Jerome Turbyville',
+            'race': 'White',
+            'rank': 'Police Officer',
+            'resignationDate': null,
+            'sustainedCount': 2,
+            'tags': [],
+            'text': 'Jerome Turbyville',
+            'to': '/officer/29033/',
+            'trrCount': undefined,
+            'trrPercentile': '90',
+            'type': 'OFFICER',
+            'uniqueKey': 'OFFICER-29033',
+            'unit': '018',
+            'url': '',
           }]
         }
       ]);

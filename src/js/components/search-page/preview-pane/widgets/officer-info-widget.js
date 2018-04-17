@@ -16,6 +16,7 @@ export default class OfficerInfoWidget extends Component {
   render() {
     const {
       fullName,
+      age,
       birthYear,
       race,
       gender,
@@ -25,7 +26,6 @@ export default class OfficerInfoWidget extends Component {
       appointedDate,
       resignationDate,
     } = this.props;
-    const age = (new Date()).getFullYear() - birthYear;
 
     const listInfo = [
       {
