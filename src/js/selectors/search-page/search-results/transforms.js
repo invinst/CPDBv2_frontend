@@ -68,6 +68,7 @@ const searchResultTransformMap = {
       badge: payload['badge'],
       gender: payload['gender'],
       name: payload['name'],
+      to: payload['to'],
       age: getCurrentAge(payload['birth_year']),
       race: race,
       rank: payload['rank'],

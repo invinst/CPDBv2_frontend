@@ -27,7 +27,7 @@ export default class OfficerPane extends Component {
       trrPercentile,
       civilianComplimentCount,
       honorableMentionCount,
-      url,
+      to,
       lastPercentile,
     } = this.props;
     const metrics = [
@@ -75,7 +75,7 @@ export default class OfficerPane extends Component {
           gender={ gender }
         />
         <MetricWidget metrics={ metrics }/>
-        <CallToActionWidget url={ url }/>
+        <CallToActionWidget to={ to }/>
       </WidgetWrapper>
     );
   }
@@ -92,7 +92,7 @@ OfficerPane.defaultProps = {
   trrPercentile: null,
   civilianComplimentCount: 0,
   honorableMentionCount: 0,
-  url: '',
+  to: '',
 };
 
 OfficerPane.propTypes = {
@@ -116,7 +116,7 @@ OfficerPane.propTypes = {
   trrPercentile: PropTypes.string,
   civilianComplimentCount: PropTypes.number,
   honorableMentionCount: PropTypes.number,
-  url: PropTypes.string,
+  to: PropTypes.string,
   lastPercentile: PropTypes.shape({
     items: PropTypes.array,
     visualTokenBackground: PropTypes.string,

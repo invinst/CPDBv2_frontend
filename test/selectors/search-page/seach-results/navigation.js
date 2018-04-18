@@ -146,6 +146,7 @@ describe('search page navigation selector', function () {
           trrCount: undefined,
           trrPercentile: '90',
           honorableMentionCount: undefined,
+          to: '/officer/29033/',
         },
         type: 'OFFICER',
       };
