@@ -71,7 +71,11 @@ const searchResultTransformMap = {
       age: getCurrentAge(payload['birth_year']),
       race: race,
       rank: payload['rank'],
-      unit: payload['unit'],
+      unit: {
+        id: get(payload['unit'], 'id'),
+        unitName: get(payload['unit'], 'unit_name'),
+        description: get(payload['unit'], 'description'),
+      },
       lastPercentile: last(percentiles),
       complaintCount: payload['allegation_count'],
       complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),

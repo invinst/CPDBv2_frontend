@@ -103,7 +103,11 @@ describe('search page navigation selector', function () {
         to: '/officer/29033/',
         allegationCount: 10,
         sustainedCount: 2,
-        unit: '018',
+        unit: {
+          id: 1,
+          'unit_name': '018',
+          description: 'District 018',
+        },
         resultText: 'Jerome Turbyville',
       });
       const info = {
@@ -134,7 +138,11 @@ describe('search page navigation selector', function () {
           resignationDate: null,
           sustainedCount: 2,
           disciplineCount: 1,
-          unit: '018',
+          unit: {
+            id: 1,
+            unitName: '018',
+            description: 'District 018',
+          },
           trrCount: undefined,
           trrPercentile: '90',
           honorableMentionCount: undefined,

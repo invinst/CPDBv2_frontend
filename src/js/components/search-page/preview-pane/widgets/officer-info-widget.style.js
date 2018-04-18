@@ -31,7 +31,16 @@ export const listItemStyle = {
 export const itemKeyStyle = {
   color: clayGray,
   width: '96px',
-  display: 'inline-block',
+  float: 'left',
+};
+
+export const itemValueStyle = (hasKey) => ({
+  float: 'left',
+  width: hasKey ? 'calc(100% - 106px)' : '100%',
+});
+
+export const clearfixStyle = {
+  clear: 'both',
 };
 
 export const arrowStyle = {

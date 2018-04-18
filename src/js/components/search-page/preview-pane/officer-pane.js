@@ -82,7 +82,7 @@ export default class OfficerPane extends Component {
 }
 
 OfficerPane.defaultProps = {
-  unit: '',
+  unit: {},
   badge: 0,
   race: '',
   gender: '',
@@ -100,7 +100,11 @@ OfficerPane.propTypes = {
   birthYear: PropTypes.number.isRequired,
   age: PropTypes.number.isRequired,
   appointedDate: PropTypes.string.isRequired,
-  unit: PropTypes.string,
+  unit: PropTypes.shape({
+    id: PropTypes.number,
+    unitName: PropTypes.string,
+    description: PropTypes.string,
+  }),
   badge: PropTypes.string,
   race: PropTypes.string,
   gender: PropTypes.string,

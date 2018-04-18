@@ -18,7 +18,7 @@ describe('OfficerInfoWidget component', () => {
         birthYear={ 1981 }
         age={ 37 }
         badge={ 23 }
-        unit='District 003'
+        unit={ { id: 1, unitName: '018' } }
         appointedDate='JAN 7, 2017'
       />
     );
@@ -27,7 +27,7 @@ describe('OfficerInfoWidget component', () => {
     listItem[0].textContent.should.eql('37 year old (b. 1981), white, male.');
     listItem[1].textContent.should.containEql('23');
     listItem[2].textContent.should.containEql('Police Officer');
-    listItem[3].textContent.should.containEql('District 003');
+    listItem[3].textContent.should.containEql('018');
     listItem[4].textContent.should.containEql('JAN 7, 2017 — Present');
   });
 
@@ -36,8 +36,9 @@ describe('OfficerInfoWidget component', () => {
       <OfficerInfoWidget
         fullName='Timothy Parker'
         birthYear={ 1981 }
+        age={ 1 }
         badge={ 23 }
-        unit='District 003'
+        unit={ { id: 1, description: 'District 003' } }
         appointedDate='JAN 7, 2017'
         resignationDate='JAN 8, 2018'
       />

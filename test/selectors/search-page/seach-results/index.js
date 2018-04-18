@@ -43,7 +43,11 @@ describe('search page results selector', function () {
                 to: '/officer/29033/',
                 allegationCount: 10,
                 sustainedCount: 2,
-                unit: '018',
+                unit: {
+                  id: 1,
+                  'unit_name': '018',
+                  description: 'a',
+                },
               })
             ]
           }
@@ -98,7 +102,11 @@ describe('search page results selector', function () {
             'trrPercentile': '90',
             'type': 'OFFICER',
             'uniqueKey': 'OFFICER-29033',
-            'unit': '018',
+            'unit': {
+              id: 1,
+              unitName: '018',
+              description: 'a',
+            },
             'url': '',
           }]
         }
