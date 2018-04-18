@@ -3,6 +3,8 @@ import { spy, stub } from 'sinon';
 import {
   renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
 } from 'react-addons-test-utils';
+import MockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 import CRPage from 'components/cr-page';
 import Header from 'components/cr-page/header';
@@ -17,13 +19,28 @@ import { unmountComponentSuppressError, reRender } from 'utils/test';
 
 describe('CRPage component', function () {
   let instance;
+  const mockStore = MockStore();
+  const store = mockStore({
+    breadcrumb: {
+      breadcrumbs: []
+    },
+    headers: {
+      shareableHeader: {
+        scrollPosition: 'top'
+      }
+    }
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
   it('should render complaint and officer information', function () {
-    instance = renderIntoDocument(<CRPage coaccused={ [{ id: 1, fullName: 'Foo' }] } officerId={ 1 } />);
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage coaccused={ [{ id: 1, fullName: 'Foo' }] } officerId={ 1 } />
+      </Provider>
+    );
 
     scryRenderedComponentsWithType(instance, OfficerRow).should.have.length(1);
     scryRenderedComponentsWithType(instance, MultiRow).should.have.length(1);
@@ -34,7 +51,11 @@ describe('CRPage component', function () {
   });
 
   it('should not render officer information if there is no officer', function () {
-    instance = renderIntoDocument(<CRPage />);
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage />
+      </Provider>
+    );
 
     scryRenderedComponentsWithType(instance, OfficerRow).should.have.length(0);
     scryRenderedComponentsWithType(instance, MultiRow).should.have.length(1);
@@ -46,33 +67,58 @@ describe('CRPage component', function () {
 
   it('should trigger fetchCR on initial', function () {
     const fetchCR = spy();
-    instance = renderIntoDocument(<CRPage fetchCR={ fetchCR } crid={ '123' } />);
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage fetchCR={ fetchCR } crid={ '123' } />
+      </Provider>
+    );
 
     fetchCR.calledWith('123').should.be.true();
   });
 
   it('should reset displayCoaccusedDropdown on rerender', function () {
-    instance = renderIntoDocument(<CRPage officerId={ 1 } />);
-    instance.setState({ displayCoaccusedDropdown: true });
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage officerId={ 1 } />
+      </Provider>
+    );
+    let crPage = findRenderedComponentWithType(instance, CRPage);
+    crPage.setState({ displayCoaccusedDropdown: true });
 
-    instance = reRender(<CRPage officerId={ 2 } fetchCR={ spy } />, instance);
-    instance.state.displayCoaccusedDropdown.should.be.false();
+    instance = reRender(
+      <Provider store={ store }>
+        <CRPage officerId={ 2 } fetchCR={ spy } />
+      </Provider>, instance);
+    crPage = findRenderedComponentWithType(instance, CRPage);
+    crPage.state.displayCoaccusedDropdown.should.be.false();
   });
 
   it('should handle toggle coaccused dropdown', function () {
-    instance = renderIntoDocument(<CRPage />);
-    instance.state.displayCoaccusedDropdown.should.be.false();
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage />
+      </Provider>
+    );
+    const crPage = findRenderedComponentWithType(instance, CRPage);
+    crPage.state.displayCoaccusedDropdown.should.be.false();
 
     const header = findRenderedComponentWithType(instance, Header);
     header.props.onDropDownButtonClick();
-    instance.state.displayCoaccusedDropdown.should.be.true();
+    crPage.state.displayCoaccusedDropdown.should.be.true();
   });
 
   it('should trigger fetchCR if crid changed', function () {
     const fetchCR = spy();
-    instance = renderIntoDocument(<CRPage crid={ '123' } />);
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage crid={ '123' } />
+      </Provider>
+    );
 
-    instance = reRender(<CRPage crid={ '456' } fetchCR={ fetchCR } />, instance);
+    instance = reRender(
+      <Provider store={ store }>
+        <CRPage crid={ '456' } fetchCR={ fetchCR } />
+      </Provider>, instance);
     fetchCR.calledWith('456').should.be.true();
   });
 
@@ -120,24 +166,34 @@ describe('CRPage component', function () {
     };
 
     instance = renderIntoDocument(
-      <CRPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        breadcrumb={ { breadcrumbs: [firstBreadcrumbItem] } }
-      />
+      <Provider store={ store }>
+        <CRPage
+          resetBreadcrumbs={ stubResetBreadcrumbs }
+          breadcrumb={ { breadcrumbs: [firstBreadcrumbItem] } }
+        />
+      </Provider>
     );
 
     instance = reRender(
-      <CRPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        breadcrumb={ { breadcrumbs: [firstBreadcrumbItem, secondBreadcrumbItem] } }
-      />, instance
+      <Provider store={ store }>
+        <CRPage
+          resetBreadcrumbs={ stubResetBreadcrumbs }
+          breadcrumb={ { breadcrumbs: [firstBreadcrumbItem, secondBreadcrumbItem] } }
+        />
+      </Provider>, instance
     );
     stubResetBreadcrumbs.calledWith({ breadcrumbs: [secondBreadcrumbItem] }).should.be.true();
   });
 
   describe('refineBreadcrumbs', function () {
     beforeEach(function () {
-      instance = renderIntoDocument(<CRPage />);
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <CRPage />
+        </Provider>
+      );
+
+      instance = findRenderedComponentWithType(instance, CRPage);
     });
 
     it('should deduplicate the breadcrumbs when needed', function () {

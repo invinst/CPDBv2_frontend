@@ -1,9 +1,10 @@
 import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
+import { stub } from 'sinon';
 import { Provider } from 'react-redux';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
 import SummaryPageContainer from 'containers/officer-page/summary-page-container';
 import Header from 'components/officer-page/header';
@@ -30,6 +31,9 @@ describe('OfficerPage component', function () {
         isRequesting: false,
         items: []
       }
+    },
+    breadcrumb: {
+      breadcrumbs: []
     }
   });
   let instance;
@@ -67,5 +71,25 @@ describe('OfficerPage component', function () {
 
     scryRenderedComponentsWithType(instance, Header).should.have.length(1);
     scryRenderedComponentsWithType(instance, SocialGraphPageContainer).should.have.length(1);
+  });
+
+  it('should not re-render when officerName havent changed', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage officerName='Shaun Frank'/>
+      </Provider>
+    );
+
+    stub(OfficerPage.prototype, 'render');
+
+    instance = reRender(
+      <Provider store={ store }>
+        <OfficerPage officerName='Shaun Frank'/>
+      </Provider>,
+      instance
+    );
+
+    OfficerPage.prototype.render.called.should.be.false();
+    OfficerPage.prototype.render.restore();
   });
 });

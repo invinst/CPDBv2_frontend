@@ -1,12 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 
+import { pageWrapperStyle } from './officer-page.style';
 import Header from './header';
 import SummaryPageContainer from 'containers/officer-page/summary-page-container';
 import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
-import { pageWrapperStyle } from './officer-page.style';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
 
 export default class OfficerPage extends Component {
+
+  shouldComponentUpdate(nextProps) {
+    const { officerName, activeTab, pathname, scrollPosition } = this.props;
+    return (
+      officerName !== nextProps.officerName ||
+      activeTab !== nextProps.activeTab ||
+      pathname !== nextProps.pathname ||
+      scrollPosition !== nextProps.scrollPosition
+    );
+  }
+
   renderChildren() {
     const { activeTab } = this.props;
     if (activeTab === 'social') {
@@ -20,6 +32,7 @@ export default class OfficerPage extends Component {
 
     return (
       <div>
+        <ShareableHeaderContainer/>
         <Header
           officerName={ officerName }
           activeTab={ activeTab }

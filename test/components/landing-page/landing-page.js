@@ -13,6 +13,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 
 const mockStore = configureStore();
 const store = mockStore({
+  authentication: {},
   cms: {
     pages: {
     }
@@ -51,6 +52,17 @@ const store = mockStore({
         ComplaintSummaryFactory.build()
       ],
       headerEditModeOn: false
+    }
+  },
+  breadcrumb: {
+    breadcrumbs: []
+  },
+  headers: {
+    shareableHeader: {
+      scrollPosition: 'top'
+    },
+    slimHeader: {
+      logoSectionEditModeOn: false
     }
   }
 });
