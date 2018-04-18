@@ -3,7 +3,7 @@ import { altoColor } from 'utils/styles';
 
 export const wrapperStyle = {
   padding: '16px',
-  backgroundColor: '#ffffff',
+  backgroundColor: 'white',
   border: `1px solid ${altoColor}`,
 };
 

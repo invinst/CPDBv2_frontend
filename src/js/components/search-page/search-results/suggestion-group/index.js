@@ -19,8 +19,7 @@ export default class SuggestionGroup extends Component {
   componentDidMount() {
     const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
     if (singleContent) {
-      getSuggestionWithContentType(searchText, { contentType: header }).catch(() => {
-      });
+      getSuggestionWithContentType(searchText, { contentType: header }).catch(() => {});
     }
   }
 
@@ -52,18 +51,16 @@ export default class SuggestionGroup extends Component {
         hasMore={ hasMore }
         useWindow={ false }>
         {
-          map(suggestions, (suggestion) => {
-            return (
-              <SuggestionItem
-                selectItem={ this.selectItem(suggestion.itemIndex) }
-                key={ suggestion.uniqueKey }
-                aliasEditModeOn={ aliasEditModeOn }
-                setAliasAdminPageContent={ setAliasAdminPageContent }
-                suggestionClick={ suggestionClick }
-                suggestion={ suggestion }
-                isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
-            );
-          })
+          map(suggestions, (suggestion) => (
+            <SuggestionItem
+              selectItem={ this.selectItem(suggestion.itemIndex) }
+              key={ suggestion.uniqueKey }
+              aliasEditModeOn={ aliasEditModeOn }
+              setAliasAdminPageContent={ setAliasAdminPageContent }
+              suggestionClick={ suggestionClick }
+              suggestion={ suggestion }
+              isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
+          ))
         }
       </InfiniteScroll>
     );
@@ -129,10 +126,7 @@ SuggestionGroup.defaultProps = {
   suggestions: [],
   focusedItem: {},
   header: '',
-  getSuggestionWithContentType: () => {
-    return {
-      catch: () => {
-      }
-    };
-  }
+  getSuggestionWithContentType: () => ({
+    catch: () => {}
+  })
 };

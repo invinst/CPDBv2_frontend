@@ -17,7 +17,7 @@ const styles = {
   container: {
     height: '1px',
     margin: '0 -8px',
-    backgroundColor: '#ffffff',
+    backgroundColor: 'white',
   },
   hr: {
     background: whiteTwoColor,
