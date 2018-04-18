@@ -15,6 +15,9 @@ describe('UnitProfilePage component', function () {
   const store = mockStore({
     unitProfilePage: {
       summary: {}
+    },
+    breadcrumb: {
+      breadcrumbs: []
     }
   });
   let instance;
