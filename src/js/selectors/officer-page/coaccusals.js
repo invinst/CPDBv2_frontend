@@ -15,7 +15,7 @@ const coaccusalTransform = (coaccusal) => ({
   allegationPercentile: coaccusal['complaint_percentile'],
   race: coaccusal.race.toLowerCase(),
   gender: coaccusal.gender.toLowerCase(),
-  age: getThisYear() - coaccusal['birth_year'] - 1,
+  age: getThisYear() - coaccusal['birth_year'],
   coaccusalCount: coaccusal['coaccusal_count'],
 });
 
@@ -43,7 +43,7 @@ const mapCoaccusalToGroup = (coaccusal) => {
   return groups[firstMatchGroup].name;
 };
 
-export const getCoaccusalsGroups = createSelector(
+export const getCoaccusalGroups = createSelector(
   getCoaccusals,
   (coaccusals) => {
     const sortedCoaccusals = orderBy(coaccusals, 'coaccusalCount', 'desc');

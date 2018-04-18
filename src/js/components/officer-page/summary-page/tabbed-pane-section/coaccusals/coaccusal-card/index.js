@@ -2,8 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 
 import roundPercentile from 'utils/round-percentile';
-
-
 import {
   coaccusalCardStyle, footerStyle, officerInfoStyle,
   headerStyle, thumbnailStyle, officerNameStyle, headerTitleStyle,
@@ -19,25 +17,31 @@ export default class CoaccusalCard extends Component {
     } = this.props;
 
     return (
-      <div style={ { ...coaccusalCardStyle, ...extraStyle } }>
+      <div style={ { ...coaccusalCardStyle, ...extraStyle } } className='test--coaccusal-card'>
         <div style={ headerStyle } >
-          <img style={ thumbnailStyle } src={ thumbnail }/>
+          <img style={ thumbnailStyle } src={ thumbnail } className='test--coaccusal-card-thumbnail'/>
           <div style={ headerTitleStyle }>
             <div>Officer</div>
-            <div style={ officerNameStyle }>{ officerName }</div>
+            <div style={ officerNameStyle } className='test--coaccusal-card-officer-name'>{ officerName }</div>
           </div>
         </div>
         <div style={ allegationStyle }>
           <div>
-            <span style={ allegationCountStyle }>{ pluralize('allegation', allegationCount, true) } </span>
-            <span style={ sustainedCountStyle(sustainedCount) }>{ sustainedCount } sustained</span>
+            <span style={ allegationCountStyle } className='test--coaccusal-card-allegation-count'>
+              { pluralize('allegation', allegationCount, true) }
+            </span>
+            <span style={ sustainedCountStyle(sustainedCount) } className='test--coaccusal-card-sustained-count'>
+              { sustainedCount } sustained
+            </span>
           </div>
-          More than { roundPercentile(allegationPercentile) }% of other officers
+          <span className='test--coaccusal-card-allegation-percentile'>
+            More than { roundPercentile(allegationPercentile) }% of other officers
+          </span>
         </div>
-        <div style={ officerInfoStyle }>
+        <div style={ officerInfoStyle } className='test--coaccusal-card-officer-info'>
           { age } years old, { race }, { gender }.
         </div>
-        <div style={ footerStyle }>
+        <div style={ footerStyle } className='test--coaccusal-card-coaccusal-count'>
           Coaccused in { pluralize('case', coaccusalCount, true) }.
         </div>
       </div>

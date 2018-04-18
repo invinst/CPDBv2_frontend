@@ -10,17 +10,17 @@ import CoaccusalCard from './coaccusal-card';
 export default class Coaccusals extends Component {
 
   render() {
-    const { coaccusalsGroups } = this.props;
+    const { coaccusalGroups } = this.props;
 
     return (
       <div style={ coaccusalsStyle }>
         {
-          coaccusalsGroups.map((group, index) => (
+          coaccusalGroups.map((group, index) => (
             <div style={ groupedCoaccusalsStyle } key={ group.name }>
               <div style={ groupTitleWrapperStyle }>
-                <span style={ groupTitleStyle }>{ group.name }</span>
+                <span style={ groupTitleStyle } className='test--coaccusals-group-name'>{ group.name }</span>
               </div>
-              <div style={ coaccusedCardsWrapperStyle(index === coaccusalsGroups.length - 1) }>
+              <div style={ coaccusedCardsWrapperStyle(index === coaccusalGroups.length - 1) }>
                 {
                   group.coaccusals.map((coaccusal, index) => (
                     <CoaccusalCard
@@ -48,7 +48,7 @@ export default class Coaccusals extends Component {
 }
 
 Coaccusals.propTypes = {
-  coaccusalsGroups: PropTypes.array,
+  coaccusalGroups: PropTypes.array,
 };
 
 Coaccusals.defaultProps = {
