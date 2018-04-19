@@ -10,12 +10,6 @@ import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default class SuggestionGroup extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleItemClick = this.selectItem.bind(this);
-  }
-
   componentDidMount() {
     const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
     if (singleContent) {
@@ -25,10 +19,6 @@ export default class SuggestionGroup extends Component {
 
   renderHeader() {
     return (<div style={ groupHeaderStyle }>{ this.props.header }</div>);
-  }
-
-  selectItem(itemIndex) {
-    return () => this.props.setSearchNavigation({ itemIndex });
   }
 
   renderResults() {
@@ -42,6 +32,7 @@ export default class SuggestionGroup extends Component {
       searchText,
       nextParams,
       getSuggestionWithContentType,
+      setSearchNavigation,
     } = this.props;
 
     return (
@@ -53,7 +44,7 @@ export default class SuggestionGroup extends Component {
         {
           map(suggestions, (suggestion) => (
             <SuggestionItem
-              selectItem={ this.selectItem(suggestion.itemIndex) }
+              selectItem={ () => setSearchNavigation({ itemIndex: suggestion.itemIndex }) }
               key={ suggestion.uniqueKey }
               aliasEditModeOn={ aliasEditModeOn }
               setAliasAdminPageContent={ setAliasAdminPageContent }

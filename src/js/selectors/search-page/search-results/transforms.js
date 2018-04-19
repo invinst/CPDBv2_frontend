@@ -62,8 +62,8 @@ const areaTransform = ({ payload }) => {
     url: payload['url'],
     raceCount: map(payload['race_count'], (item) => {
       let result = { race: mappingRace(item.race) };
-      result['count'] = population ? item['count'] / population * 100 : 0;
-      result['count'] = `${result['count'].toFixed(1)}%`;
+      const racePercentile = population ? item['count'] / population * 100 : 0;
+      result['count'] = `${racePercentile.toFixed(1)}%`;
       return result;
     })
   };
