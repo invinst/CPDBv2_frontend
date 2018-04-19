@@ -1,28 +1,44 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 
+import Hoverable from 'components/common/higher-order/hoverable';
 import roundPercentile from 'utils/round-percentile';
 import {
-  coaccusalCardStyle, footerStyle, officerInfoStyle,
-  headerStyle, thumbnailStyle, officerNameStyle, headerTitleStyle,
-  allegationStyle, allegationCountStyle, sustainedCountStyle,
+  allegationCountStyle,
+  allegationStyle,
+  coaccusalCardStyle,
+  footerStyle,
+  headerStyle,
+  headerTitleStyle,
+  officerInfoStyle,
+  officerNameStyle,
+  sustainedCountStyle,
+  thumbnailStyle,
 } from './coaccusal-card.style';
 
 
-export default class CoaccusalCard extends Component {
+class CoaccusalCard extends Component {
   render() {
     const {
-      officerName, allegationCount, sustainedCount, allegationPercentile,
-      age, race, gender, coaccusalCount, thumbnail, extraStyle
+      officerName, allegationCount, sustainedCount, allegationPercentile, age, race, gender, coaccusalCount, thumbnail,
+      extraStyle, hovering, openOfficerPage, officerId
     } = this.props;
 
     return (
-      <div style={ { ...coaccusalCardStyle, ...extraStyle } } className='test--coaccusal-card'>
+      <div
+        style={ { ...coaccusalCardStyle(hovering), ...extraStyle } }
+        onClick={ () => openOfficerPage(officerId) }
+        className='test--coaccusal-card'
+      >
         <div style={ headerStyle } >
           <img style={ thumbnailStyle } src={ thumbnail } className='test--coaccusal-card-thumbnail'/>
           <div style={ headerTitleStyle }>
             <div>Officer</div>
-            <div style={ officerNameStyle } className='test--coaccusal-card-officer-name'>{ officerName }</div>
+            <div
+              style={ officerNameStyle(hovering) }
+              className='test--coaccusal-card-officer-name'>
+              { officerName }
+            </div>
           </div>
         </div>
         <div style={ allegationStyle }>
@@ -30,6 +46,7 @@ export default class CoaccusalCard extends Component {
             <span style={ allegationCountStyle } className='test--coaccusal-card-allegation-count'>
               { pluralize('allegation', allegationCount, true) }
             </span>
+            <span>&nbsp;</span>
             <span style={ sustainedCountStyle(sustainedCount) } className='test--coaccusal-card-sustained-count'>
               { sustainedCount } sustained
             </span>
@@ -60,8 +77,9 @@ CoaccusalCard.propTypes = {
   coaccusalCount: PropTypes.number,
   thumbnail: PropTypes.string,
   extraStyle: PropTypes.object,
+  hovering: PropTypes.bool,
+  openOfficerPage: PropTypes.func,
+  officerId: PropTypes.number,
 };
 
-CoaccusalCard.defaultProps = {
-
-};
+export default Hoverable(CoaccusalCard);

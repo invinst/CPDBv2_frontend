@@ -1,19 +1,20 @@
-import { whiteTwoColor, softBlackColor, clayGray, brightOrangeTwoColor } from 'utils/styles';
+import { whiteTwoColor, softBlackColor, clayGray, brightOrangeTwoColor, accentColor } from 'utils/styles';
 
 
-export const coaccusalCardStyle = {
+export const coaccusalCardStyle = (hovering) => ({
   width: '232px',
-  border: `solid 1px ${whiteTwoColor}`,
+  border: `solid 1px ${hovering ?accentColor : whiteTwoColor}`,
   color: clayGray,
   fontSize: '12px',
   fontWeight: 300,
-};
+  cursor: 'pointer',
+});
 
-export const officerNameStyle = {
-  color: softBlackColor,
+export const officerNameStyle = (hovering) => ({
+  color: hovering ? accentColor : softBlackColor,
   fontSize: '14px',
   fontWeight: 400,
-};
+});
 
 export const headerStyle = {
   padding: '8px 16px',

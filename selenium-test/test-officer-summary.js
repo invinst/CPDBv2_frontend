@@ -107,6 +107,7 @@ describe('officer summary page', function () {
 
     summaryPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
     summaryPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
+    summaryPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.waitForVisible();
   });
 
   describe('Radar Chart', function () {
@@ -167,6 +168,20 @@ describe('officer summary page', function () {
     it('should close the menu when blurring', function () {
       summaryPage.tabbedPaneSection.timelineSection.crItem.click();
       summaryPage.tabbedPaneSection.timelineSection.filter.menu.waitForVisible(1000, true);
+    });
+  });
+
+  describe('Coaccusals', function () {
+    it('should navigate to officer page when clicking on a CoaccusalCard', function () {
+      summaryPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+
+      browser.getUrl().should.match(/\/officer\/1\/$/);
+
+      summaryPage.tabbedPaneSection.coaccusalsTabName.click();
+      summaryPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
+      summaryPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
+
+      browser.getUrl().should.match(/\/officer\/2\/$/);
     });
   });
 });
