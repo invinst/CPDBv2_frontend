@@ -51,10 +51,6 @@ describe('Officers By Allegation components', function () {
     );
 
     findRenderedDOMComponentWithClass(instance, 'test--landing--carousel-allegation');
-    // recentActivtyElement.textContent.should.containEql('Officers by Allegation');
-    // recentActivtyElement.textContent.should.containEql(
-    //   'These are the officers with the most allegations of misconduct in Chicago.'
-    // );
 
     const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
     officerCards.should.have.length(2);
