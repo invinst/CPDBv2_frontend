@@ -10,10 +10,7 @@ describe('items reducer', function () {
   it('should handle OFFICER_COACCUSALS_REQUEST_SUCCESS', function () {
     items([1, 2], {
       type: OFFICER_COACCUSALS_REQUEST_SUCCESS,
-      payload: {
-        id: 1,
-        coaccusals: [3, 4, 5]
-      },
+      payload: [3, 4, 5],
     }).should.eql([3, 4, 5]);
   });
 

@@ -8,7 +8,7 @@ import {
 
 export default handleActions({
   [OFFICER_COACCUSALS_REQUEST_SUCCESS]: (state, action) => {
-    return action.payload.coaccusals;
+    return action.payload;
   },
   [CHANGE_OFFICER_ID]: (state, action) => []
 }, []);
