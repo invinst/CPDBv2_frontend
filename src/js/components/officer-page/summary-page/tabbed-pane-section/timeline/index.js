@@ -63,7 +63,7 @@ export default class Timeline extends Component {
 
   render() {
     return (
-      <div style={ timelineStyle }>
+      <div style={ timelineStyle } className='test--officer-timeline'>
         { this.renderHeader() }
         { this.renderItems() }
       </div>

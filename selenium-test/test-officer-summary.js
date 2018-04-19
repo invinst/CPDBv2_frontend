@@ -94,6 +94,21 @@ describe('officer summary page', function () {
     summaryPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
   });
 
+  it('should change tab when click on tab name', function () {
+    summaryPage.tabbedPaneSection.menu.waitForVisible();
+    summaryPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+
+    summaryPage.tabbedPaneSection.summaryTabName.click();
+
+    summaryPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
+    summaryPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible(10000, true);
+
+    summaryPage.tabbedPaneSection.coaccusalsTabName.click();
+
+    summaryPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
+    summaryPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
+  });
+
   describe('Radar Chart', function () {
     it('should responsive', function () {
       browser.setViewportSize({

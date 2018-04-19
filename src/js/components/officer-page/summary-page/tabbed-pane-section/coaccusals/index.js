@@ -13,7 +13,7 @@ export default class Coaccusals extends Component {
     const { coaccusalGroups } = this.props;
 
     return (
-      <div style={ coaccusalsStyle }>
+      <div style={ coaccusalsStyle } className='test--officer-coaccusals'>
         {
           coaccusalGroups.map((group, index) => (
             <div style={ groupedCoaccusalsStyle } key={ group.name }>

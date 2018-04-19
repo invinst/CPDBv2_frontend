@@ -13,6 +13,7 @@ import { groupedSuggestions, singleGroupSuggestions } from './landing-page/sugge
 import getSummaryData from './officer-page/get-summary';
 import getSocialGraphData from './officer-page/get-social-graph';
 import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
+import getCoaccusalsData from './officer-page/get-coaccusals';
 import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getUnitSummaryData from './unit-profile-page/get-summary';
@@ -83,6 +84,7 @@ axiosMockClient.onGet(`${CR_URL}1/`).reply(200, getCRData());
 axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());
 
 axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData());
+axiosMockClient.onGet(`${OFFICER_URL}1/coaccusals/`).reply(200, getCoaccusalsData());
 
 axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());
 

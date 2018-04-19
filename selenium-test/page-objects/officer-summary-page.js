@@ -59,15 +59,29 @@ class TimelineSection extends Section {
   }
 }
 
+class CoaccusalsSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      firstCoaccusalGroupName: '//span[@class="test--coaccusals-group-name"][1]',
+      firstCoaccusalCard: '.test--coaccusal-card',
+    });
+  }
+}
+
 class TabbedPaneSection extends Section {
   timelineSection = new TimelineSection();
+  coaccusalsSection = new CoaccusalsSection();
 
   constructor() {
     super();
 
     this.prepareElementGetters({
       menu: '.test--tabbed-pane-section-menu',
-      timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]'
+      timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]',
+      summaryTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
+      coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][4]',
     });
   }
 }
