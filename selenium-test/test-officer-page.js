@@ -85,54 +85,63 @@ describe('officer page', function () {
     });
   });
 
-  describe('Timeline filter', function () {
-    beforeEach(function () {
-      officerPage.tabbedPaneSection.timelineSection.filter.button.waitForVisible();
-      officerPage.tabbedPaneSection.timelineSection.filter.button.click();
-    });
-
-    afterEach(function () {
-      officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForVisible();
-      officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForVisible();
-      officerPage.tabbedPaneSection.timelineSection.yearItem.waitForVisible();
-      officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
-    });
-
-    it('should filter all events', function () {
-      officerPage.tabbedPaneSection.timelineSection.filter.all.click();
-
+  describe('Timeline', function () {
+    it('should go to cr page when clicking on an cr timeline item', function () {
       officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
-      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
-      officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
-    });
-
-    it('should filter complaints', function () {
-      officerPage.tabbedPaneSection.timelineSection.filter.crs.click();
-
-      officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
-      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
-      officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
-    });
-
-    it('should filter TRRs', function () {
-      officerPage.tabbedPaneSection.timelineSection.filter.force.click();
-
-      officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
-      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
-      officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
-    });
-
-    it('should filter awards', function () {
-      officerPage.tabbedPaneSection.timelineSection.filter.awards.click();
-
-      officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
-      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
-      officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
-    });
-
-    it('should close the menu when blurring', function () {
       officerPage.tabbedPaneSection.timelineSection.crItem.click();
-      officerPage.tabbedPaneSection.timelineSection.filter.menu.waitForVisible(1000, true);
+
+      browser.getUrl().should.match(/\/complaint\/\d+\/\d+\/$/);
+    });
+
+    describe('Timeline filter', function () {
+      beforeEach(function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.button.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.filter.button.click();
+      });
+
+      afterEach(function () {
+        officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.yearItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
+      });
+
+      it('should filter all events', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.all.click();
+
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
+      });
+
+      it('should filter complaints', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.crs.click();
+
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
+      });
+
+      it('should filter TRRs', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.force.click();
+
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
+      });
+
+      it('should filter awards', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.awards.click();
+
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
+      });
+
+      it('should close the menu when blurring', function () {
+        officerPage.tabbedPaneSection.timelineSection.yearItem.click();
+        officerPage.tabbedPaneSection.timelineSection.filter.menu.waitForVisible(1000, true);
+      });
     });
   });
 });

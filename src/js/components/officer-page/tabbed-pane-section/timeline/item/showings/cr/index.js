@@ -44,7 +44,7 @@ class Cr extends Component {
   }
 
   render() {
-    const { item, hasBorderBottom, baseStyles, hovering } = this.props;
+    const { item, hasBorderBottom, baseStyles, hovering, officerId, openComplaintPage } = this.props;
     const {
       baseWrapperShowingStyle,
       baseShowingStyle,
@@ -56,7 +56,11 @@ class Cr extends Component {
     } = baseStyles;
 
     return (
-      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle(hovering) } }>
+      <span
+        style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle(hovering) } }
+        onClick={ () => openComplaintPage({ crid: item.crid, officerId: officerId }) }
+        className='test--cr-item'
+      >
         <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
           <div style={ baseWrapperKindStyle }>
             <span
@@ -91,6 +95,8 @@ Cr.propTypes = {
   hasBorderBottom: PropTypes.bool,
   baseStyles: PropTypes.object,
   hovering: PropTypes.bool,
+  officerId: PropTypes.number,
+  openComplaintPage: PropTypes.func,
 };
 
 export default Hoverable(Cr);

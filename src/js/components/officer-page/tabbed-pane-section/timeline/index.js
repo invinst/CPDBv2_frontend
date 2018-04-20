@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { includes, nth, values } from 'lodash';
+import { nth, values } from 'lodash';
 
 import {
   dateHeaderStyle,
@@ -13,6 +13,7 @@ import {
 import Item from './item';
 import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS } from 'utils/constants';
 import Dropdown from 'components/common/dropdown';
+
 
 export default class Timeline extends Component {
 
@@ -38,23 +39,30 @@ export default class Timeline extends Component {
   }
 
   renderItems() {
-    const { items } = this.props;
+    const { items, officerId, openComplaintPage } = this.props;
 
     return (
       <div>
         {
           items.map((item, index) => {
-            if ( item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE) {
-              return <Item item={ item } key={ item.key } hasBorderBottom={ false } />;
-            }
-
             const nextItem = nth(items, index + 1);
 
-            if ( !nextItem || includes([NEW_TIMELINE_ITEMS.UNIT_CHANGE, NEW_TIMELINE_ITEMS.JOINED], nextItem.kind)) {
-              return <Item item={ item } key={ item.key } hasBorderBottom={ false } />;
-            } else {
-              return <Item item={ item } key={ item.key } hasBorderBottom={ true } />;
-            }
+            const hasBorderBottom = (
+              item.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
+              && nextItem !== undefined
+              && nextItem.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
+              && nextItem.kind !== NEW_TIMELINE_ITEMS.JOINED
+            );
+
+            return (
+              <Item
+                item={ item }
+                key={ item.key }
+                officerId={ officerId }
+                hasBorderBottom={ hasBorderBottom }
+                openComplaintPage={ openComplaintPage }
+              />
+            );
           })
         }
       </div>
@@ -74,6 +82,8 @@ export default class Timeline extends Component {
 Timeline.propTypes = {
   items: PropTypes.array,
   changeFilter: PropTypes.func,
+  officerId: PropTypes.number,
+  openComplaintPage: PropTypes.func,
 };
 
 Timeline.defaultProps = {

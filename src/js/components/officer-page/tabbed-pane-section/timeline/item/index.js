@@ -115,4 +115,6 @@ export default class Item extends Component {
 
 Item.propTypes = {
   item: PropTypes.object,
+  officerId: PropTypes.number,
+  openComplaintPage: PropTypes.func,
 };

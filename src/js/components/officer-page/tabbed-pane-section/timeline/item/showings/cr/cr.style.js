@@ -19,6 +19,7 @@ export const showingStyle = {
 
 export const wrapperShowingStyle = (hovering) => ({
   backgroundColor: hovering ? 'white' : snowColor,
+  cursor: 'pointer',
 });
 
 export const kindStyle = (active) => ({

@@ -2,7 +2,9 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
+  Simulate,
 } from 'react-addons-test-utils';
+import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr';
@@ -60,5 +62,44 @@ describe('Cr component', function () {
 
     attachmentImage.getAttribute('src').should.eql('first image url');
     attachmentImageHref.getAttribute('href').should.eql('first url');
+  });
+
+  it('should open the cr page when being clicked', function () {
+    const item = {
+      crid: 123,
+      date: 'Jan 01',
+      kind: 'AWARD',
+      unitName: '001',
+      unitDisplay: '001 Display',
+      rank: 'Police Officer',
+      rankDisplay: 'Police Officer Display',
+      isFirstRank: true,
+      isLastRank: true,
+      isFirstUnit: true,
+      isLastUnit: true,
+      finding: 'Sustained',
+      category: 'Use of Force',
+      outcome: 'Unknown',
+      coaccused: 4,
+      attachments: [
+        { url: 'first url', previewImageUrl: 'first image url' },
+        { url: 'second url', previewImageUrl: 'second image url' },
+        { url: 'third url', previewImageUrl: 'third image url' },
+      ],
+    };
+    const openComplaintPageStub = stub();
+
+    instance = renderIntoDocument(
+      <Cr
+        officerId={ 1 }
+        item={ item }
+        baseStyles={ baseStyles }
+        openComplaintPage={ openComplaintPageStub }/>
+    );
+
+    const crItem = findRenderedDOMComponentWithClass(instance, 'test--cr-item');
+    Simulate.click(crItem);
+
+    openComplaintPageStub.should.be.calledWith({ crid: 123, officerId: 1 });
   });
 });
