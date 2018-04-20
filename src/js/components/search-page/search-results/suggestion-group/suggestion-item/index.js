@@ -5,6 +5,7 @@ import Hoverable from 'components/common/higher-order/hoverable';
 import OfficerItem from './officer';
 import SuggestionItemBase from './base';
 
+
 const COMPONENT_MAP = {
   OFFICER: OfficerItem
 };
@@ -28,9 +29,7 @@ export default class SuggestionItem extends Component {
     const ComponentType = Hoverable(get(COMPONENT_MAP, type, SuggestionItemBase));
 
     return (
-      <div>
-        <ComponentType { ...this.props }/>
-      </div>
+      <ComponentType { ...this.props }/>
     );
   }
 }
@@ -39,7 +38,8 @@ SuggestionItem.propTypes = {
   suggestion: PropTypes.object,
   hovering: PropTypes.bool,
   isFocused: PropTypes.bool,
-  aliasEditModeOn: PropTypes.bool
+  aliasEditModeOn: PropTypes.bool,
+  selectItem: PropTypes.func,
 };
 
 SuggestionItem.defaultProps = {

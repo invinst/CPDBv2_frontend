@@ -9,7 +9,7 @@ import {
   scryRenderedDOMComponentsWithTag,
   Simulate
 } from 'react-addons-test-utils';
-import { spy, stub } from 'sinon';
+import { spy, stub, useFakeTimers } from 'sinon';
 import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
@@ -17,7 +17,7 @@ import MockStore from 'redux-mock-store';
 
 import TextInput from 'components/common/input';
 import SearchPage from 'components/search-page';
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import * as domUtils from 'utils/dom';
 import { NavigationItem } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
@@ -308,4 +308,37 @@ describe('SearchPage component', function () {
       searchBox.resetNavigation(1);
       resetSearchResultNavigation.calledWith(1).should.be.true();
     });
+
+  describe('test re-render', function () {
+    let clock;
+    beforeEach(function () {
+      clock = useFakeTimers();
+    });
+
+    afterEach(function () {
+      clock.restore();
+    });
+
+    it('should called changeSearchQuery when pathname and query changed', function () {
+      const changeSearchQuery = spy();
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchPage location={ { pathname: 'a' } } changeSearchQuery={ changeSearchQuery }/>
+        </Provider>
+      );
+
+      reRender(
+        <Provider store={ store }>
+          <SearchPage
+            query='xxx'
+            location={ { pathname: 'b' } }
+            changeSearchQuery={ changeSearchQuery }
+          />
+        </Provider>,
+        instance
+      );
+      clock.tick(600);
+      changeSearchQuery.calledWith('xxx').should.be.true();
+    });
+  });
 });

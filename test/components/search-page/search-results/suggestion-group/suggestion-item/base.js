@@ -102,6 +102,7 @@ describe('SuggestionItemBase component', function () {
     };
 
     SuggestionItemBase.should.triggerCallbackWhenClick('suggestionClick', null, props, [type, text, url, to]);
+    SuggestionItemBase.should.triggerCallbackWhenClick('selectItem');
   });
 
   context('alias edit mode', function () {

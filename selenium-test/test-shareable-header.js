@@ -13,9 +13,11 @@ describe('shareableHeader', function () {
     it('should show the correct path', function () {
       landingPage.open();
       browser.keys('ke');
+
       searchPage.input.waitForVisible();
       searchPage.firstOfficerResult.waitForVisible();
       searchPage.firstOfficerResult.click();
+      browser.keys('Enter');
       header.breadcrumbs.mainElement.waitForVisible();
 
       const BreadcrumbsItems = header.breadcrumbs.items;
