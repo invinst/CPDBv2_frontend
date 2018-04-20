@@ -65,27 +65,25 @@ export default class SuggestionResults extends Component {
       );
     }
 
-    return map(suggestionGroups, (group) => {
-      return (
-        <SuggestionGroup
-          setSearchNavigation={ setSearchNavigation }
-          focusedItem={ focusedItem }
-          onLoadMore={ onLoadMore }
-          key={ `suggestion-group-${group.header}` }
-          navigation={ navigation }
-          setAliasAdminPageContent={ setAliasAdminPageContent }
-          suggestions={ group.items }
-          showMoreButton={ group.canLoadMore }
-          suggestionClick={ suggestionClick }
-          header={ group.header }
-          aliasEditModeOn={ aliasEditModeOn }
-          getSuggestionWithContentType={ getSuggestionWithContentType }
-          hasMore={ hasMore }
-          searchText={ searchText }
-          nextParams={ nextParams }
-          singleContent={ singleContent }/>
-      );
-    });
+    return map(suggestionGroups, (group) => (
+      <SuggestionGroup
+        setSearchNavigation={ setSearchNavigation }
+        focusedItem={ focusedItem }
+        onLoadMore={ onLoadMore }
+        key={ `suggestion-group-${group.header}` }
+        navigation={ navigation }
+        setAliasAdminPageContent={ setAliasAdminPageContent }
+        suggestions={ group.items }
+        showMoreButton={ group.canLoadMore }
+        suggestionClick={ suggestionClick }
+        header={ group.header }
+        aliasEditModeOn={ aliasEditModeOn }
+        getSuggestionWithContentType={ getSuggestionWithContentType }
+        hasMore={ hasMore }
+        searchText={ searchText }
+        nextParams={ nextParams }
+        singleContent={ singleContent }/>
+    ));
   }
 
   renderActionBar() {

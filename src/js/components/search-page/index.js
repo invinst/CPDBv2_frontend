@@ -251,28 +251,19 @@ SearchPage.defaultProps = {
   suggestionGroups: [],
   contentType: null,
   focusedItem: {},
-  getSuggestion: () => new Promise(() => {
-  }),
-  getSuggestionWithContentType: () => new Promise(() => {
-  }),
-  trackRecentSuggestion: () => {
-  },
+  getSuggestion: () => new Promise(() => {}),
+  getSuggestionWithContentType: () => new Promise(() => {}),
+  trackRecentSuggestion: () => {},
   router: {
-    goBack: () => {
-    }
+    goBack: () => {}
   },
-  changeSearchQuery: () => {
-  },
+  changeSearchQuery: () => {},
   location: {
     pathname: '/'
   },
   searchTermsHidden: true,
-  selectTag: (...args) => {
-  },
-  pushBreadcrumbs: (...args) => {
-  },
-  resetSearchResultNavigation: () => {
-  },
-  resetSearchTermNavigation: () => {
-  },
+  selectTag: (...args) => {},
+  pushBreadcrumbs: (...args) => {},
+  resetSearchResultNavigation: () => {},
+  resetSearchTermNavigation: () => {},
 };

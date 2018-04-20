@@ -10,26 +10,15 @@ import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default class SuggestionGroup extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleItemClick = this.selectItem.bind(this);
-  }
-
   componentDidMount() {
     const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
     if (singleContent) {
-      getSuggestionWithContentType(searchText, { contentType: header }).catch(() => {
-      });
+      getSuggestionWithContentType(searchText, { contentType: header }).catch(() => {});
     }
   }
 
   renderHeader() {
     return (<div style={ groupHeaderStyle }>{ this.props.header }</div>);
-  }
-
-  selectItem(itemIndex) {
-    return () => this.props.setSearchNavigation({ itemIndex });
   }
 
   renderResults() {
@@ -43,6 +32,7 @@ export default class SuggestionGroup extends Component {
       searchText,
       nextParams,
       getSuggestionWithContentType,
+      setSearchNavigation,
     } = this.props;
 
     return (
@@ -52,18 +42,16 @@ export default class SuggestionGroup extends Component {
         hasMore={ hasMore }
         useWindow={ false }>
         {
-          map(suggestions, (suggestion) => {
-            return (
-              <SuggestionItem
-                selectItem={ this.selectItem(suggestion.itemIndex) }
-                key={ suggestion.uniqueKey }
-                aliasEditModeOn={ aliasEditModeOn }
-                setAliasAdminPageContent={ setAliasAdminPageContent }
-                suggestionClick={ suggestionClick }
-                suggestion={ suggestion }
-                isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
-            );
-          })
+          map(suggestions, (suggestion) => (
+            <SuggestionItem
+              selectItem={ () => setSearchNavigation({ itemIndex: suggestion.itemIndex }) }
+              key={ suggestion.uniqueKey }
+              aliasEditModeOn={ aliasEditModeOn }
+              setAliasAdminPageContent={ setAliasAdminPageContent }
+              suggestionClick={ suggestionClick }
+              suggestion={ suggestion }
+              isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
+          ))
         }
       </InfiniteScroll>
     );
@@ -129,10 +117,7 @@ SuggestionGroup.defaultProps = {
   suggestions: [],
   focusedItem: {},
   header: '',
-  getSuggestionWithContentType: () => {
-    return {
-      catch: () => {
-      }
-    };
-  }
+  getSuggestionWithContentType: () => ({
+    catch: () => {}
+  })
 };
