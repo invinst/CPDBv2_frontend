@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import {
-  descriptionStyle, nameStyle, valueStyle,
-  wrapperStyle
+  descriptionStyle,
+  nameStyle,
+  valueStyle,
+  wrapperStyle,
 } from 'components/search-page/preview-pane/widgets/metric-widget-item.style';
 
 

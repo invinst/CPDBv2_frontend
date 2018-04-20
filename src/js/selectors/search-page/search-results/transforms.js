@@ -18,18 +18,15 @@ const mappingRace = (race) => {
 const previewPaneTypeMap = {
   OFFICER: (suggestion) => ({
     type: 'OFFICER',
-    data: get(searchResultTransformMap, 'OFFICER', () => {
-    })(suggestion)
+    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
   }),
   COMMUNITY: (suggestion) => ({
     type: 'COMMUNITY',
-    data: get(searchResultTransformMap, 'COMMUNITY', () => {
-    })(suggestion)
+    data: get(searchResultTransformMap, 'COMMUNITY', () => {})(suggestion)
   }),
   NEIGHBORHOOD: (suggestion) => ({
     type: 'NEIGHBORHOOD',
-    data: get(searchResultTransformMap, 'NEIGHBORHOOD', () => {
-    })(suggestion)
+    data: get(searchResultTransformMap, 'NEIGHBORHOOD', () => {})(suggestion)
   })
 };
 
@@ -59,7 +56,6 @@ const searchResultTransformMap = {
   OFFICER: ({ payload }) => {
     const race = payload['race'] === 'Unknown' ? null : payload['race'];
     const lastPercentile = last(payload['percentiles']);
-    const percentiles = map(payload['percentiles'], (percentile) => extractPercentile(percentile));
     return {
       fullName: payload['name'],
       appointedDate: formatDate(payload['appointed_date']),
@@ -76,7 +72,7 @@ const searchResultTransformMap = {
         unitName: get(payload['unit'], 'unit_name'),
         description: get(payload['unit'], 'description'),
       },
-      lastPercentile: last(percentiles),
+      lastPercentile: extractPercentile(lastPercentile),
       complaintCount: payload['allegation_count'],
       complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),
       civilianComplimentCount: payload['civilian_compliment_count'],

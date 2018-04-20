@@ -108,14 +108,13 @@ export default class SuggestionResults extends Component {
   renderContent() {
     const { singleContent, editModeOn } = this.props;
 
-    if (singleContent) {
+    if (singleContent)
       return (
         <div className='content-wrapper' style={ columnWrapperStyle }>
           { editModeOn ? this.renderActionBar() : null }
           { this.renderGroups() }
         </div>
       );
-    }
     else {
       return (
         <MinimalScrollBars className='content-wrapper' style={ columnWrapperStyle }>

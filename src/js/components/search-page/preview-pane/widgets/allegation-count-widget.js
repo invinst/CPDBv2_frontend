@@ -19,9 +19,7 @@ export default class AllegationCountWidget extends Component {
         <a href={ url } style={ linkStyle }>
           <p style={ countStyle }>{ pluralize('allegation', numOfAllegations, true) }</p>
           <img src={ imgUrl('disclosure-indicator.svg') } style={ imgStyle }/>
-          { this.props.subTitle && (
-            <p style={ subTitleStyle }>{ subTitle }</p>
-          ) }
+          { subTitle && <p style={ subTitleStyle }>{ subTitle }</p> }
         </a>
       </div>
     );

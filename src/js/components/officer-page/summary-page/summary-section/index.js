@@ -30,7 +30,8 @@ export default class SummarySection extends Component {
       ['Badge', badge],
       ['Rank', rank, (<Salary salary={ baseSalary } key='Rank'/>)],
       ['Unit', unitDescription || unitName, (
-        <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>)],
+        <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>
+      )],
       ['Career', careerDuration],
     ];
   }

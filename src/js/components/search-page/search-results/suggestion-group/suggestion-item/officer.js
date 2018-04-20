@@ -12,7 +12,6 @@ class OfficerItem extends SuggestionItemBase {
   renderSecondRow() {
     const { hovering, isFocused } = this.props;
     const { age, race, gender, complaintCount, sustainedCount } = this.props.suggestion;
-
     const officerInfo = compact([`${age} year old`, race, gender]).join(', ');
 
     return (
