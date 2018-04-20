@@ -45,12 +45,12 @@ export default class RelatedComplaints extends Component {
         </ResponsiveFluidWidthComponent>
         <div style={ carouselsWrapperStyle }>
           <RelatedComplaintsCarouselContainer
-            selectedDistance={ selectedDistance }
+            distance={ selectedDistance }
             crid={ crid }
             match='categories'
             title='RELATED BY CATEGORY'/>
           <RelatedComplaintsCarouselContainer
-            selectedDistance={ selectedDistance }
+            distance={ selectedDistance }
             crid={ crid }
             match='officers'
             title='RELATED BECAUSE OF OFFICERS INVOLVED'/>

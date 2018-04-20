@@ -6,7 +6,7 @@ import SwiperJs from 'swiper';
 /* istanbul ignore next */
 export default class Swiper extends Component {
   componentDidMount() {
-    const { spaceBetween, beforeOffsetAtMiddle, onSnapIndexChange } = this.props;
+    const { spaceBetween, beforeOffsetAtMiddle, onSnapIndexChange, onUpdate } = this.props;
     this.swiper = new SwiperJs(this.el, {
       slidesPerView: 'auto',
       direction: 'horizontal',
@@ -14,12 +14,22 @@ export default class Swiper extends Component {
       on: {
         snapIndexChange: () => {
           if (!this.swiper) return;
+          const { activeIndex, isEnd, isBeginning } = this.swiper;
           onSnapIndexChange({
-            isEnd: this.swiper.isEnd,
-            isBeginning: this.swiper.isBeginning
+            activeIndex,
+            isEnd,
+            isBeginning
           });
         },
-        slideChangeTransitionStart: () => {
+        update: () => {
+          if (!this.swiper) return;
+          const { isBeginning, isEnd } = this.swiper;
+          onUpdate({
+            isEnd,
+            isBeginning
+          });
+        },
+        transitionStart: () => {
           if (!this.swiper.isBeginning && !this.swiper.isEnd) {
             this.swiper.setTranslate(this.swiper.translate + beforeOffsetAtMiddle);
           }
@@ -78,5 +88,11 @@ Swiper.propTypes = {
   beforeOffsetAtMiddle: PropTypes.number,
   onSnapIndexChange: PropTypes.func,
   children: PropTypes.node,
+  onUpdate: PropTypes.func,
   slideIndex: PropTypes.number
+};
+
+Swiper.defaultProps = {
+  onUpdate: () => {},
+  onSnapIndexChange: () => {}
 };

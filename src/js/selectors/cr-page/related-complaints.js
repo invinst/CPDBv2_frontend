@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
 import { compact } from 'lodash';
 
+import extractQuery from 'utils/extract-query';
+
 
 const getRelatedComplaintsByCategory = state => state.crPage.relatedComplaints.relatedByCategory;
 
@@ -16,6 +18,16 @@ const getRelatedComplaintsByOfficerCount = createSelector(
   ({ count }) => count
 );
 
+const getRelatedComplaintsByCategoryNextParams = createSelector(
+  getRelatedComplaintsByCategory,
+  ({ pagination }) => extractQuery(pagination.next)
+);
+
+const getRelatedComplaintsByOfficerNextParams = createSelector(
+  getRelatedComplaintsByOfficer,
+  ({ pagination }) => extractQuery(pagination.next)
+);
+
 const cardTransform = (card) => ({
   crid: card.crid,
   lat: card.point.lat,
@@ -27,18 +39,30 @@ const cardTransform = (card) => ({
   accuseds: card['coaccused'].join(', ')
 });
 
-export const cardByCategorySelector = createSelector(
+const cardByCategorySelector = createSelector(
   getRelatedComplaintsByCategory,
   ({ cards }) => {
-    return cards.map(cardTransform);
+    return cards.cards.map(cardTransform);
   }
 );
 
-export const cardByOfficerSelector = createSelector(
+const cardByOfficerSelector = createSelector(
   getRelatedComplaintsByOfficer,
   ({ cards }) => {
-    return cards.map(cardTransform);
+    return cards.cards.map(cardTransform);
   }
+);
+
+const getRelatedComplaintsByCategoryHasMore = createSelector(
+  getRelatedComplaintsByCategoryCount,
+  cardByCategorySelector,
+  (count, cards) => cards.length < count
+);
+
+const getRelatedComplaintsByOfficerHasMore = createSelector(
+  getRelatedComplaintsByOfficerCount,
+  cardByOfficerSelector,
+  (count, cards) => cards.length < count
 );
 
 export const cardSelector = (state, props) => (
@@ -51,4 +75,16 @@ export const countSelector = (state, props) => (
   props.match === 'categories'
     ? getRelatedComplaintsByCategoryCount(state, props)
     : getRelatedComplaintsByOfficerCount(state, props)
+);
+
+export const nextParamsSelector = (state, props) => (
+  props.match === 'categories'
+    ? getRelatedComplaintsByCategoryNextParams(state, props)
+    : getRelatedComplaintsByOfficerNextParams(state, props)
+);
+
+export const hasMoreSelector = (state, props) => (
+  props.match === 'categories'
+    ? getRelatedComplaintsByCategoryHasMore(state, props)
+    : getRelatedComplaintsByOfficerHasMore(state, props)
 );

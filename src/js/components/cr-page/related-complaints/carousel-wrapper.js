@@ -8,21 +8,26 @@ import { wrapperStyle, headerStyle, countStyle, titleStyle, carouselStyle } from
 
 export default class CarouselWrapper extends Component {
   componentDidMount() {
-    const { crid, selectedDistance, match, fetchRelatedComplaints } = this.props;
+    const { crid, distance, match, fetchRelatedComplaints } = this.props;
 
-    fetchRelatedComplaints(crid, match, selectedDistance);
+    fetchRelatedComplaints(crid, { match, distance });
   }
 
   componentWillReceiveProps(nextProps) {
-    const { crid, selectedDistance, match, fetchRelatedComplaints } = this.props;
+    const { crid, distance, match, fetchRelatedComplaints } = this.props;
 
-    if (nextProps.selectedDistance != selectedDistance) {
-      fetchRelatedComplaints(crid, match, nextProps.selectedDistance);
+    if (nextProps.distance != distance) {
+      fetchRelatedComplaints(crid, { match, distance: nextProps.distance });
     }
   }
 
+  loadMore() {
+    const { crid, nextParams, fetchRelatedComplaints } = this.props;
+    fetchRelatedComplaints(crid, nextParams);
+  }
+
   render() {
-    const { count, cards, title } = this.props;
+    const { count, cards, title, hasMore } = this.props;
 
     return (
       <div style={ wrapperStyle }>
@@ -31,6 +36,8 @@ export default class CarouselWrapper extends Component {
           <span style={ titleStyle }>{ title }</span>
         </div>
         <Carousel
+          loadMore={ this.loadMore.bind(this) }
+          hasMore={ hasMore }
           style={ carouselStyle }
           childWidth={ itemWidth }
         >
@@ -48,9 +55,11 @@ export default class CarouselWrapper extends Component {
 CarouselWrapper.propTypes = {
   cards: PropTypes.array,
   count: PropTypes.number,
+  hasMore: PropTypes.bool,
+  nextParams: PropTypes.object,
   title: PropTypes.string,
   crid: PropTypes.string,
-  selectedDistance: PropTypes.string,
+  distance: PropTypes.string,
   match: PropTypes.string,
   fetchRelatedComplaints: PropTypes.func
 };
