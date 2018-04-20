@@ -43,7 +43,8 @@ export const sectionContentStyle = {
   color: 'white',
   textOverflow: 'ellipsis',
   fontSize: '14px',
-  whiteSpace: 'nowrap'
+  whiteSpace: 'nowrap',
+  overflow: 'hidden'
 };
 
 export const accusedStyle = {

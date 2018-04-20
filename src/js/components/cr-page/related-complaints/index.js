@@ -1,9 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import RelatedComplaintsCarouselContainer from 'containers/cr-page/related-complaints-carousel';
+import FooterContainer from 'containers/footer-container';
 import { DISTANCE_OPTIONS } from 'utils/constants';
 import Dropdown from './dropdown';
-import { wrapperStyle, titleStyle, headerStyle, filterStyle } from './related-complaints.style';
+import {
+  wrapperStyle, titleStyle, headerStyle, filterStyle, carouselsWrapperStyle, footerStyle
+} from './related-complaints.style';
 
 
 export default class RelatedComplaints extends Component {
@@ -26,27 +30,32 @@ export default class RelatedComplaints extends Component {
     const { selectedDistance } = this.state;
     return (
       <div style={ wrapperStyle }>
-        <div style={ headerStyle }>
-          <h2 style={ titleStyle }>Related Complaints</h2>
-          <div style={ filterStyle }>
-            WITHIN
-            <Dropdown
-              value={ selectedDistance }
-              options={ DISTANCE_OPTIONS }
-              onChange={ this.handleDistanceChange.bind(this) } />
-            OF CR { crid }
+        <ResponsiveFluidWidthComponent>
+          <div style={ headerStyle }>
+            <h2 style={ titleStyle }>Related Complaints</h2>
+            <div style={ filterStyle }>
+              WITHIN
+              <Dropdown
+                value={ selectedDistance }
+                options={ DISTANCE_OPTIONS }
+                onChange={ this.handleDistanceChange.bind(this) } />
+              OF CR { crid }
+            </div>
           </div>
+        </ResponsiveFluidWidthComponent>
+        <div style={ carouselsWrapperStyle }>
+          <RelatedComplaintsCarouselContainer
+            selectedDistance={ selectedDistance }
+            crid={ crid }
+            match='categories'
+            title='RELATED BY CATEGORY'/>
+          <RelatedComplaintsCarouselContainer
+            selectedDistance={ selectedDistance }
+            crid={ crid }
+            match='officers'
+            title='RELATED BECAUSE OF OFFICERS INVOLVED'/>
         </div>
-        <RelatedComplaintsCarouselContainer
-          selectedDistance={ selectedDistance }
-          crid={ crid }
-          match='categories'
-          title='RELATED BY CATEGORY'/>
-        <RelatedComplaintsCarouselContainer
-          selectedDistance={ selectedDistance }
-          crid={ crid }
-          match='officers'
-          title='RELATED BECAUSE OF OFFICERS INVOLVED'/>
+        <FooterContainer style={ footerStyle }/>
       </div>
     );
   }

@@ -12,7 +12,7 @@ import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import {
   wrapperStyle, CRIDHeaderStyle, leftColumnStyle,
-  rightColumnStyle, upperSectionWrapperStyle, summarySectionWrapperStyle, summaryTextStyle
+  rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle
 } from './cr-page.style';
 
 
@@ -45,11 +45,9 @@ export default class CRPage extends Component {
       <div style={ wrapperStyle }>
         <ShareableHeaderContainer/>
         <ResponsiveFluidWidthComponent>
-          <div style={ upperSectionWrapperStyle }>
-            <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
-            <AccusedOfficers officers={ coaccused } />
-          </div>
+          <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
         </ResponsiveFluidWidthComponent>
+        <AccusedOfficers officers={ coaccused } />
         <ResponsiveFluidWidthComponent>
           <div style={ summarySectionWrapperStyle }>
             <SummaryRow label='VICTIM' className='test--victims'>
@@ -74,8 +72,8 @@ export default class CRPage extends Component {
               <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
             </div>
           </div>
-          <RelatedComplaints crid={ crid } />
         </ResponsiveFluidWidthComponent>
+        <RelatedComplaints crid={ crid } />
       </div>
     );
   }

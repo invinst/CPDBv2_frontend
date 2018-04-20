@@ -2,7 +2,7 @@ import { softBlackColor, clayGray, greyishColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
-  padding: '48px 0 88px 16px',
+  padding: '48px 0 0 0',
   backgroundColor: softBlackColor
 };
 
@@ -16,7 +16,13 @@ export const titleStyle = {
 
 export const headerStyle = {
   borderBottom: `1px solid ${clayGray}`,
-  marginRight: '16px'
+  marginRight: '16px',
+  marginLeft: '16px'
+};
+
+export const carouselsWrapperStyle = {
+  paddingLeft: '16px',
+  marginBottom: '55px'
 };
 
 export const filterStyle = {
@@ -26,4 +32,8 @@ export const filterStyle = {
   textAlign: 'right',
   fontSize: '14px',
   fontWeight: 300
+};
+
+export const footerStyle = {
+  background: softBlackColor
 };

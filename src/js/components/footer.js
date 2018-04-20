@@ -11,7 +11,7 @@ import { imgUrl } from 'utils/static-assets';
 
 class Footer extends React.Component {
   render() {
-    const { openLegalDisclaimerModal } = this.props;
+    const { openLegalDisclaimerModal, style } = this.props;
     const links = [
       {
         name: 'Legal',
@@ -28,18 +28,20 @@ class Footer extends React.Component {
     ];
 
     return (
-      <div style={ sectionStyle }>
+      <div style={ { ...sectionStyle, ...style } }>
         <div style={ wrapperStyle }>
           <div style={ linkWrapperStyle }>
-            <ResponsiveFluidWidthComponent style={ responsiveFixedWidthInnerStyle }>
-              { links.map((link, ind) => (
-                <FooterNavLink
-                  style={ linkStyle }
-                  key={ ind }
-                  { ...link }
-                />
-              )) }
-              <img style={ invistStyle } src={ imgUrl('invist-logo.svg') } />
+            <ResponsiveFluidWidthComponent>
+              <div style={ responsiveFixedWidthInnerStyle }>
+                { links.map((link, ind) => (
+                  <FooterNavLink
+                    style={ linkStyle }
+                    key={ ind }
+                    { ...link }
+                  />
+                )) }
+                <img style={ invistStyle } src={ imgUrl('invist-logo.svg') } />
+              </div>
             </ResponsiveFluidWidthComponent>
           </div>
         </div>
