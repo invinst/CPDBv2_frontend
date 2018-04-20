@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import MediaQuery from 'react-responsive';
 
 import WidgetWrapper, {
   VisualTokenWidget,
@@ -6,6 +7,8 @@ import WidgetWrapper, {
   MetricWidget,
   CallToActionWidget,
 } from './widgets';
+
+import { gradientStyle, responsiveContainerStyle } from './officer-pane.style';
 
 
 export default class OfficerPane extends Component {
@@ -62,17 +65,22 @@ export default class OfficerPane extends Component {
     ];
     return (
       <WidgetWrapper>
-        <VisualTokenWidget { ...lastPercentile }/>
-        <OfficerInfoWidget
-          fullName={ fullName }
-          appointedDate={ appointedDate }
-          age={ age }
-          unit={ unit }
-          badge={ badge }
-          race={ race }
-          gender={ gender }
-        />
-        <MetricWidget metrics={ metrics }/>
+        <div style={ responsiveContainerStyle }>
+          <VisualTokenWidget { ...lastPercentile }/>
+          <OfficerInfoWidget
+            fullName={ fullName }
+            appointedDate={ appointedDate }
+            age={ age }
+            unit={ unit }
+            badge={ badge }
+            race={ race }
+            gender={ gender }
+          />
+          <MetricWidget metrics={ metrics }/>
+          <MediaQuery maxHeight={ 1074 }>
+            <div className='test--gradient' style={ gradientStyle }/>
+          </MediaQuery>
+        </div>
         <CallToActionWidget to={ to }/>
       </WidgetWrapper>
     );
