@@ -20,7 +20,6 @@ export default class OfficerInfoWidget extends Component {
     const {
       fullName,
       age,
-      birthYear,
       race,
       gender,
       badge,
@@ -33,7 +32,7 @@ export default class OfficerInfoWidget extends Component {
     const listInfo = [
       {
         key: '',
-        value: `${age} year old (b. ${birthYear}), ${race.toLowerCase()}, ${gender.toLowerCase()}.`,
+        value: `${age} year old, ${race.toLowerCase()}, ${gender.toLowerCase()}.`,
       },
       {
         key: 'Badge',
@@ -47,7 +46,7 @@ export default class OfficerInfoWidget extends Component {
         key: 'Unit',
         value: unit.description || unit.unitName,
         title: unit.description,
-        url: `/unit/${unit.id}`,
+        url: `/unit/${unit.unitName}`,
       },
       {
         key: 'Career',
@@ -96,7 +95,6 @@ OfficerInfoWidget.defaultProps = {
 
 OfficerInfoWidget.propTypes = {
   fullName: PropTypes.string.isRequired,
-  birthYear: PropTypes.number.isRequired,
   age: PropTypes.number.isRequired,
   race: PropTypes.string,
   gender: PropTypes.string,

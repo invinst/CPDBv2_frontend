@@ -22,7 +22,8 @@ describe('MetricWidget component', () => {
       {
         name: 'name2',
         value: 12,
-        description: 'description2'
+        description: 'description2',
+        isHighlight: true,
       },
     ];
     instance = renderIntoDocument(

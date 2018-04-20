@@ -11,6 +11,7 @@ import PreviewPane from 'components/search-page/search-results/preview-pane';
 import {
   CommunityPane,
   NeighborhoodPane,
+  OfficerPane,
 } from 'components/search-page/preview-pane';
 
 
@@ -39,6 +40,16 @@ describe('PreviewPane component', function () {
       />
     );
     findRenderedComponentWithType(instance, NeighborhoodPane);
+  });
+
+  it('should render OfficerPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='OFFICER'
+        data={ { name: 'Officer' } }
+      />
+    );
+    findRenderedComponentWithType(instance, OfficerPane).should.be.ok();
   });
 
   it('should not display any component if the data is empty', function () {

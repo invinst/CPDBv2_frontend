@@ -60,7 +60,6 @@ describe('search page results selector', function () {
             'appointedDate': 'DEC 13, 1999',
             'badge': '5922',
             'age': 48,
-            'birthYear': 1969,
             'civilianComplimentCount': 4,
             'complaintCount': 10,
             'complaintPercentile': '93',

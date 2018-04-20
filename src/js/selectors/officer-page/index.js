@@ -49,7 +49,8 @@ export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCac
 export const summarySelector = createSelector(
   getOfficerInfo,
   summary => ({
-    unitName: summary.unit,
+    unitName: get(summary.unit, 'unit_name'),
+    unitDescription: get(summary.unit, 'description'),
     rank: getSummaryRank(summary),
     dateOfAppt: summary['date_of_appt'],
     birthYear: summary['birth_year'],

@@ -11,7 +11,7 @@ export default class CallToActionWidget extends Component {
         <span style={ textStyle }>{ text }</span>
         {
           to ? <Link to={ to } style={ buttonStyle }>→</Link> :
-            <a href={ url } style={ buttonStyle }>→</a>
+          <a href={ url } style={ buttonStyle }>→</a>
         }
       </div>
     );

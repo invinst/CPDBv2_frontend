@@ -41,7 +41,7 @@ describe('officer summary page', function () {
     summaryPage.summarySection.yearOfBirthExtraInfo.getText().should.equal('54 years old');
 
     summaryPage.summarySection.unitLabel.getText().should.equal('Unit');
-    summaryPage.summarySection.unitValue.getText().should.equal('001');
+    summaryPage.summarySection.unitValue.getText().should.equal('District 001');
     summaryPage.summarySection.unitExtraInfo.getText().should.equal('View Unit Profile');
 
     summaryPage.summarySection.careerLabel.getText().should.equal('Career');

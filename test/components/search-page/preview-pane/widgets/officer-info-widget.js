@@ -3,7 +3,10 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithTag,
   scryRenderedDOMComponentsWithTag,
+  findRenderedComponentWithType
 } from 'react-addons-test-utils';
+
+import { Link } from 'react-router';
 
 import { OfficerInfoWidget } from 'components/search-page/preview-pane/widgets';
 
@@ -15,27 +18,26 @@ describe('OfficerInfoWidget component', () => {
     instance = renderIntoDocument(
       <OfficerInfoWidget
         fullName='Timothy Parker'
-        birthYear={ 1981 }
         age={ 37 }
         badge={ 23 }
-        unit={ { id: 1, unitName: '018' } }
+        unit={ { id: 1, unitName: '018', description: 'District 018' } }
         appointedDate='JAN 7, 2017'
       />
     );
     findRenderedDOMComponentWithTag(instance, 'h1').textContent.should.eql('Timothy Parker');
     const listItem = scryRenderedDOMComponentsWithTag(instance, 'li');
-    listItem[0].textContent.should.eql('37 year old (b. 1981), white, male.');
+    listItem[0].textContent.should.eql('37 year old, white, male.');
     listItem[1].textContent.should.containEql('23');
     listItem[2].textContent.should.containEql('Police Officer');
-    listItem[3].textContent.should.containEql('018');
+    listItem[3].textContent.should.containEql('District 018');
     listItem[4].textContent.should.containEql('JAN 7, 2017 — Present');
+    findRenderedComponentWithType(instance, Link).props.to.should.be.eql('/unit/018');
   });
 
   it('should contain resignation date when resignationDate is not null', () => {
     instance = renderIntoDocument(
       <OfficerInfoWidget
         fullName='Timothy Parker'
-        birthYear={ 1981 }
         age={ 1 }
         badge={ 23 }
         unit={ { id: 1, description: 'District 003' } }

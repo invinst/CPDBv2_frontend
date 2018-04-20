@@ -113,7 +113,6 @@ describe('search page navigation selector', function () {
       const info = {
         data: {
           fullName: 'Jerome Turbyville',
-          birthYear: 1969,
           age: 48,
           appointedDate: 'DEC 13, 1999',
           badge: '5922',

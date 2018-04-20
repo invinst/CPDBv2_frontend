@@ -62,7 +62,6 @@ const searchResultTransformMap = {
     const percentiles = map(payload['percentiles'], (percentile) => extractPercentile(percentile));
     return {
       fullName: payload['name'],
-      birthYear: payload['birth_year'],
       appointedDate: formatDate(payload['appointed_date']),
       resignationDate: formatDate(payload['resignation_date']),
       badge: payload['badge'],
