@@ -9,6 +9,7 @@ import Location from './location';
 import Involvement from './involvement';
 import Attachments from './attachments';
 import AccusedOfficers from './accused-officers';
+import RelatedComplaints from './related-complaints';
 import {
   wrapperStyle, CRIDHeaderStyle, leftColumnStyle,
   rightColumnStyle, upperSectionWrapperStyle, summarySectionWrapperStyle, summaryTextStyle
@@ -73,6 +74,7 @@ export default class CRPage extends Component {
               <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
             </div>
           </div>
+          <RelatedComplaints crid={ crid } />
         </ResponsiveFluidWidthComponent>
       </div>
     );

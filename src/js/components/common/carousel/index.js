@@ -57,7 +57,7 @@ export default class Carousel extends Component {
     const { displayLeftArrow, displayRightArrow, slideIndex } = this.state;
 
     return (
-      <div ref={ el => this.el = el } style={ { ...wrapperStyle, ...style } }>
+      <div ref={ el => this.el = el } style={ { ...wrapperStyle, ...style.wrapper } }>
         <Swiper
           spaceBetween={ spaceBetween }
           beforeOffsetAtMiddle={ 40 }
@@ -66,10 +66,12 @@ export default class Carousel extends Component {
           { children }
         </Swiper>
         <Arrow
+          style={ style.navigationButton }
           direction='right'
           show={ displayRightArrow }
           onClick={ this.handleNavigate.bind(this) }/>
         <Arrow
+          style={ style.navigationButton }
           direction='left'
           show={ displayLeftArrow }
           onClick={ this.handleNavigate.bind(this) }/>
@@ -88,5 +90,6 @@ Carousel.propTypes = {
 
 Carousel.defaultProps = {
   spaceBetween: 8,
+  style: {},
   onNavigate: () => {}
 };
