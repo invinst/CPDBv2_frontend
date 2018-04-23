@@ -17,6 +17,7 @@ function mapStateToProps(state, ownProps) {
   return {
     cards: cardsSelector(state, ownProps),
     fields: getCMSFields(constants.LANDING_PAGE_ID)(state),
+    pathname: ownProps.pathname,
     sectionEditModeOn: getCarouselActivityHeaderEditModeOn(state)
   };
 }
