@@ -43,14 +43,6 @@ export default class SchoolGroundPane extends Component {
 SchoolGroundPane.propTypes = {
   name: PropTypes.string,
   allegationCount: PropTypes.number,
-  mostCommonComplaint: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-  })),
-  officersMostComplaint: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-  })),
+  mostCommonComplaint: PropTypes.array.isRequired,
+  officersMostComplaint: PropTypes.array.isRequired,
 };

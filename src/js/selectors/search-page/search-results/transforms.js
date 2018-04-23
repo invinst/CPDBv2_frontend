@@ -13,6 +13,13 @@ const mappingRace = (race) => {
   return race;
 };
 
+const areaTypeMap = (areaType) => ({
+  [areaType]: (suggestion) => ({
+    type: areaType,
+    data: get(searchResultTransformMap, areaType, () => {})(suggestion)
+  })
+});
+
 
 const previewPaneTypeMap = {
   OFFICER: (suggestion) => {
@@ -35,16 +42,12 @@ const previewPaneTypeMap = {
     };
     return { type: 'OFFICER', data };
   },
-  COMMUNITY: (suggestion) => ({
-    type: 'COMMUNITY',
-    data: get(searchResultTransformMap, 'COMMUNITY', () => {
-    })(suggestion)
-  }),
-  NEIGHBORHOOD: (suggestion) => ({
-    type: 'NEIGHBORHOOD',
-    data: get(searchResultTransformMap, 'NEIGHBORHOOD', () => {
-    })(suggestion)
-  })
+  ...areaTypeMap('COMMUNITY'),
+  ...areaTypeMap('NEIGHBORHOOD'),
+  ...areaTypeMap('WARD'),
+  ...areaTypeMap('POLICE-DISTRICT'),
+  ...areaTypeMap('SCHOOL-GROUND'),
+  ...areaTypeMap('BEAT'),
 };
 
 export const previewPaneTransform = item =>
@@ -54,7 +57,7 @@ const areaTransform = ({ payload }) => {
   const population = sumBy(payload['race_count'], 'count');
   return {
     name: payload['name'] || 'Unknown',
-    allegationCount: payload['allegation_count'] || [],
+    allegationCount: payload['allegation_count'] || 0,
     mostCommonComplaint: payload['most_common_complaint'] || [],
     officersMostComplaint: payload['officers_most_complaint'] || [],
     population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
@@ -89,6 +92,10 @@ const searchResultTransformMap = {
   },
   COMMUNITY: areaTransform,
   NEIGHBORHOOD: areaTransform,
+  WARD: areaTransform,
+  'POLICE-DISTRICT': areaTransform,
+  BEAT: areaTransform,
+  'SCHOOL-GROUND': areaTransform,
 };
 
 export const searchResultItemTransform = (item) => ({
