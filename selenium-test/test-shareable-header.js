@@ -23,7 +23,7 @@ describe('shareableHeader', function () {
       const BreadcrumbsItems = header.breadcrumbs.items;
       BreadcrumbsItems.count.should.eql(3);
 
-      header.breadcrumbs.mainElement.getText().should.eql('HomeSearchBernadette Kelly');
+      header.breadcrumbs.mainElement.getText().should.eql('cpdpSearchBernadette Kelly');
     });
 
     it('should show breadcrumbs correctly when entering the Search Terms page first', function () {
@@ -39,7 +39,7 @@ describe('shareableHeader', function () {
 
       const BreadcrumbsItems = header.breadcrumbs.items;
       BreadcrumbsItems.count.should.eql(3);
-      header.breadcrumbs.mainElement.getText().should.eql('HomeSearchBernadette Kelly');
+      header.breadcrumbs.mainElement.getText().should.eql('cpdpSearchBernadette Kelly');
     });
   });
 });
