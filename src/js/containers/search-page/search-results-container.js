@@ -6,7 +6,8 @@ import {
   trackRecentSuggestion,
   resetNavigation,
   getSuggestionWithContentType,
-  move
+  move,
+  setSearchNavigation,
 } from 'actions/search-page';
 import { setAliasAdminPageContent } from 'actions/inline-alias-admin-page';
 import {
@@ -53,6 +54,7 @@ const mapDispatchToProps = {
   suggestionClick: trackRecentSuggestion,
   getSuggestionWithContentType,
   move,
+  setSearchNavigation,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

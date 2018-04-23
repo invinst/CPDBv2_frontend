@@ -23,7 +23,7 @@ export default class CallToAction extends Component {
     const { item } = this.props;
 
     return (
-      <ActionBar>
+      <ActionBar to={ item.to } >
         <OutboundLink href={ item.link } style={ linkStyle } className='test--call-to-action-link'>
           Enter Data Tool
         </OutboundLink>
@@ -35,7 +35,7 @@ export default class CallToAction extends Component {
     const { item } = this.props;
 
     return (
-      <ActionBar>
+      <ActionBar to={ item.to }>
         <div style={ linkStyle }>
           View ALL { item.name }
         </div>

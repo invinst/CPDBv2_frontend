@@ -1,7 +1,7 @@
 import navigation from 'reducers/search-page/navigation';
 import {
   SEARCH_NAVIGATION_DOWN, SEARCH_NAVIGATION_UP, SEARCH_NAVIGATION_RESET,
-  CHANGE_SEARCH_QUERY
+  CHANGE_SEARCH_QUERY, SEARCH_NAVIGATION_SET
 } from 'utils/constants';
 
 
@@ -69,5 +69,14 @@ describe('navigation reducer', function () {
         }
       }).should.deepEqual({ 'itemIndex': 0 });
     });
+  });
+
+  describe('SEARCH_NAVIGATION_SET', function () {
+    navigation(undefined, {
+      type: SEARCH_NAVIGATION_SET,
+      payload: {
+        itemIndex: 1
+      }
+    }).should.eql({ itemIndex: 1 });
   });
 });

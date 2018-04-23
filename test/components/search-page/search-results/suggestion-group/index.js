@@ -1,5 +1,5 @@
 import React from 'react';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
 import {
   renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType, findRenderedDOMComponentWithClass
@@ -27,6 +27,23 @@ describe('SuggestionGroup component', function () {
       <SuggestionGroup suggestions={ OfficerSuggestion.buildList(3) }/>
     );
     scryRenderedComponentsWithType(instance, SuggestionItem).should.have.length(3);
+  });
+
+  it('should assign correct selectItem', function () {
+    const setSearchNavigationHandler = spy();
+    let itemIndex = 1;
+    const suggestions = OfficerSuggestion.buildList(2).map((item) => ({ ...item, itemIndex: itemIndex++ }));
+    instance = renderIntoDocument(
+      <SuggestionGroup
+        setSearchNavigation={ setSearchNavigationHandler }
+        suggestions={ suggestions }/>
+    );
+    const items = scryRenderedComponentsWithType(instance, SuggestionItem);
+    items.should.have.length(2);
+    items[0].props.selectItem();
+    setSearchNavigationHandler.withArgs({ itemIndex: 1 }).calledOnce.should.be.true();
+    items[1].props.selectItem();
+    setSearchNavigationHandler.withArgs({ itemIndex: 2 }).calledOnce.should.be.true();
   });
 
   it('should render `More` if showMoreButton is true', function () {
