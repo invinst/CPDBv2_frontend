@@ -16,6 +16,7 @@ import {
 function mapStateToProps(state, ownProps) {
   return {
     cards: cardsSelector(state),
+    pathname: ownProps.pathname,
     fields: getCMSFields(constants.LANDING_PAGE_ID)(state),
     sectionEditModeOn: getCarouselDocumentHeaderEditModeOn(state),
   };
