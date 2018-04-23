@@ -21,13 +21,13 @@ export default class AnimatedRadarChart extends Component {
     this.getCurrentTransitionData = this.getCurrentTransitionData.bind(this);
   }
 
+
   componentDidMount() {
-    if (this.props.data && this.props.data.length > 1)
-      this.startTimer();
+    this.startTimer();
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.data && this.props.data.length > 1 && !isEqual(this.props.data, prevProps.data) ) {
+    if (!isEqual(this.props.data, prevProps.data)) {
       this.startTimer();
     }
   }
@@ -49,7 +49,9 @@ export default class AnimatedRadarChart extends Component {
   }
 
   startTimer() {
-    this.timer = setInterval(this.animate, this.interval);
+    if (this.props.data && this.props.data.length > 1 && !this.timer) {
+      this.timer = setInterval(this.animate, this.interval);
+    }
   }
 
   stopTimer() {

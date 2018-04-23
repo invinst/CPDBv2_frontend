@@ -3,8 +3,9 @@ import React, { Component, PropTypes } from 'react';
 import { wrapperStyle } from './summary-page.style.js';
 import { pageWrapperStyle, radarChartPlaceholderStyle } from './summary-page.style';
 import OfficerRadarChart from './radar-chart';
-import SummarySection from './summary-section/index';
+import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
+import TabbedPaneSection from './tabbed-pane-section';
 
 
 export default class SummaryPage extends Component {
@@ -19,7 +20,7 @@ export default class SummaryPage extends Component {
       openPoliceUnitPage,
       officerMetrics,
       officerName,
-      threeCornerPercentile
+      threeCornerPercentile,
     } = this.props;
 
     return (
@@ -36,6 +37,7 @@ export default class SummaryPage extends Component {
             openPoliceUnitPage={ openPoliceUnitPage }/>
         </div>
         <MetricsSection metrics={ officerMetrics }/>
+        <TabbedPaneSection/>
       </div>
     );
   }
@@ -48,5 +50,5 @@ SummaryPage.propTypes = {
   officerSummary: PropTypes.object,
   officerMetrics: PropTypes.object,
   openPoliceUnitPage: PropTypes.func,
-  fetchPercentile: PropTypes.func
+  fetchPercentile: PropTypes.func,
 };

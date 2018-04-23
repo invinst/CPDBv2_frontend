@@ -7,28 +7,26 @@ import {
 describe('Officer radar chart selectors', function () {
   let state = {
     officerPage: {
-      percentile: {
-        items: []
-      },
+      summary: {
+        percentiles: [],
+      }
     }
   };
 
   beforeEach(function () {
-    state.officerPage.percentile = {};
+    state.officerPage.summary.percentiles = [];
   });
 
   describe('getOfficerPercentile', function () {
     it('should return percentile items', function () {
-      state.officerPage.percentile = {
-        items: [{ a: 1 }, { a: 2 }]
-      };
+      state.officerPage.summary.percentiles = [{ a: 1 }, { a: 2 }];
       getOfficerPercentile(state).should.eql([{ a: 1 }, { a: 2 }]);
     });
   });
 
   describe('officerYearlyThreePercentile', function () {
     it('should return current percentile filter', function () {
-      state.officerPage.percentile.items = [
+      state.officerPage.summary.percentiles = [
         {
           'officer_id': 1,
           year: 2006,

@@ -13,6 +13,13 @@ export default class CommunityMap extends Component {
     };
   }
 
+  shouldComponentUpdate(nextProps) {
+    const { communityId, communitySource } = this.props;
+    return (
+      communityId !== nextProps.communityId || !communitySource
+    );
+  }
+
   render() {
     const { hoverCommunity } = this.state;
     const { selectCommunity, communityId, communitySource } = this.props;
@@ -137,5 +144,8 @@ CommunityMap.propTypes = {
 
 CommunityMap.defaultProps = {
   selectCommunity: () => {},
-  communityName: ''
+  communitySource: {
+    type: 'FeatureCollection',
+    features: []
+  }
 };

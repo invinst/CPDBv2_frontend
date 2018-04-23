@@ -134,11 +134,6 @@ describe('store', function () {
         officerId: null,
         pathname: null,
         summary: {},
-        metrics: {},
-        percentile: {
-          isRequesting: false,
-          items: []
-        },
         socialGraph: {
           isRequesting: false,
           links: [],
@@ -148,21 +143,10 @@ describe('store', function () {
             2017
           ]
         },
-        timeline: {
-          hoveredItemIndex: null,
+        newTimeline: {
+          filter: 'ALL EVENTS',
           isRequesting: false,
-          items: [],
-          minimap: {
-            isRequesting: false,
-            minimap: []
-          },
-          pagination: {
-            next: null,
-            previous: null
-          },
-          selectedItemIndex: null,
-          sortDescending: true,
-          filters: {}
+          items: []
         }
       },
       unitProfilePage: {

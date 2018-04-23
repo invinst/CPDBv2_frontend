@@ -17,13 +17,11 @@ describe('Header component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render 3 links with different urls', function () {
+  it('should render 2 links with different urls', function () {
     instance = renderIntoDocument(<Header pathname='/officer/123/'/>);
     const links = scryRenderedComponentsWithType(instance, Link);
-    links.should.have.length(3);
-    map(links, link => link.props.to).should.eql([
-      '/officer/123/', '/officer/123/timeline/', '/officer/123/social/'
-    ]);
+    links.should.have.length(2);
+    map(links, link => link.props.to).should.eql(['/officer/123/', '/officer/123/social/']);
   });
 
   it('should render summary link as active', function () {
@@ -32,14 +30,6 @@ describe('Header component', function () {
     );
     const activeButton = findRenderedDOMComponentWithClass(instance, 'test--header-button-active');
     activeButton.textContent.should.eql('Summary');
-  });
-
-  it('should render timeline link as active', function () {
-    instance = renderIntoDocument(
-      <Header pathname='/officer/123/timeline' activeTab='timeline'/>
-    );
-    const activeButton = findRenderedDOMComponentWithClass(instance, 'test--header-button-active');
-    activeButton.textContent.should.eql('Timeline');
   });
 
   it('should render social map link as active', function () {

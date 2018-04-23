@@ -1,7 +1,7 @@
 import { handleActions } from 'redux-actions';
 import { remove, slice, isEqual, isEmpty } from 'lodash';
 
-import { TRACK_RECENT_SUGGESTION } from 'actions/search-page';
+import { TRACK_RECENT_SUGGESTION } from 'utils/constants';
 
 
 export default handleActions({

@@ -3,6 +3,7 @@ import { get } from 'lodash';
 
 import { linkStyle } from './call-to-action.style';
 import ActionBar from 'components/search-page/search-terms/preview-pane/action-bar';
+import OutboundLink from 'components/common/outbound-link';
 
 
 export default class CallToAction extends Component {
@@ -22,10 +23,10 @@ export default class CallToAction extends Component {
     const { item } = this.props;
 
     return (
-      <ActionBar>
-        <a href={ item.link } style={ linkStyle } className={ 'test--call-to-action-link' }>
+      <ActionBar to={ item.to } >
+        <OutboundLink href={ item.link } style={ linkStyle } className='test--call-to-action-link'>
           Enter Data Tool
-        </a>
+        </OutboundLink>
       </ActionBar>
     );
   }
@@ -34,7 +35,7 @@ export default class CallToAction extends Component {
     const { item } = this.props;
 
     return (
-      <ActionBar>
+      <ActionBar to={ item.to }>
         <div style={ linkStyle }>
           View ALL { item.name }
         </div>
