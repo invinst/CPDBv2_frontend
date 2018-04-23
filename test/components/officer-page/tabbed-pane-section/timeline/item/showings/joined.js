@@ -6,7 +6,7 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Joined from 'components/officer-page/tabbed-pane-section/timeline/item/showings/joined';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/item.style';
+import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Joined component', function () {

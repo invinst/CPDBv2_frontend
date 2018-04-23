@@ -6,7 +6,7 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Empty from 'components/officer-page/tabbed-pane-section/timeline/item/showings/empty';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/item.style';
+import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Empty component', function () {

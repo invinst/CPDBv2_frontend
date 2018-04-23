@@ -8,7 +8,7 @@ import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/item.style';
+import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Cr component', function () {

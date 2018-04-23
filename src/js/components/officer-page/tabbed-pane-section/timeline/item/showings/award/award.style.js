@@ -22,7 +22,6 @@ export const kindStyle = {
 };
 
 export const categoryStyle = {
-  width: '297px',
   display: 'inline-block',
   verticalAlign: 'middle',
 };

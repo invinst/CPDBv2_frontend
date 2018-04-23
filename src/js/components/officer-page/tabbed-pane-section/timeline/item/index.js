@@ -9,7 +9,15 @@ import Joined from './showings/joined';
 import Year from './showings/year';
 import Empty from './showings/empty';
 import { NEW_TIMELINE_ITEMS } from 'utils/constants';
-import * as baseStyles from './item.style';
+import * as baseStyles from './baseItem.style';
+import {
+  rankStyle,
+  unitStyle,
+  unitChangeStyle,
+  unitTextStyle,
+  rankTextStyle,
+  wrapperStyle,
+} from './item.style';
 
 
 export default class Item extends Component {
@@ -66,12 +74,11 @@ export default class Item extends Component {
       isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay, unitDisplay, kind, isCurrentUnit
     } = this.props.item;
     const height = this.component.height;
-    const { baseRankStyle, baseUnitStyle, unitChangeStyle, unitTextStyle, rankTextStyle } = baseStyles;
 
     return (
       <span>
         <span
-          style={ baseRankStyle(height, isFirstRank, isLastRank) }
+          style={ rankStyle(height, isFirstRank, isLastRank) }
           className='test--item-rank'
         >
           <div style={ rankTextStyle }>
@@ -88,7 +95,7 @@ export default class Item extends Component {
             </span>
           ) : (
             <span
-              style={ baseUnitStyle(height, isFirstUnit, isLastUnit) }
+              style={ unitStyle(height, isFirstUnit, isLastUnit) }
               className='test--item-unit'
             >
               <div style={ unitTextStyle(unitDisplay === 'Unassigned', isCurrentUnit) }>
@@ -104,7 +111,7 @@ export default class Item extends Component {
   render() {
     const { height, className, item } = this.component;
     return (
-      <div style={ baseStyles.baseWrapperStyle(height) } className={ className }>
+      <div style={ wrapperStyle(height) } className={ className }>
         { this.renderRankAndUnit() }
         { item }
       </div>

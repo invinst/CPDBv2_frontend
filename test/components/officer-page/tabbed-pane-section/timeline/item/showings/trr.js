@@ -6,7 +6,7 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Trr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/trr';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/item.style';
+import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Trr component', function () {

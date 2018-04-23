@@ -13,6 +13,7 @@ import {
   showingStyle,
   wrapperShowingStyle,
   categoryStyle,
+  detailStyle,
 } from './cr.style';
 
 
@@ -50,7 +51,6 @@ class Cr extends Component {
       baseShowingStyle,
       baseWrapperKindStyle,
       baseKindStyle,
-      baseDetailStyle,
       baseCategoryStyle,
       baseDateStyle,
     } = baseStyles;
@@ -70,7 +70,7 @@ class Cr extends Component {
               Complaint
             </span>
           </div>
-          <span style={ baseDetailStyle }>
+          <span style={ detailStyle }>
             <div
               style={ { ...baseCategoryStyle, ...categoryStyle(hovering) } }
               className='test--cr-item-category'>

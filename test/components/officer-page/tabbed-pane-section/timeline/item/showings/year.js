@@ -3,7 +3,7 @@ import { findRenderedDOMComponentWithClass, renderIntoDocument, } from 'react-ad
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Year from 'components/officer-page/tabbed-pane-section/timeline/item/showings/year';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/item.style';
+import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Year component', function () {

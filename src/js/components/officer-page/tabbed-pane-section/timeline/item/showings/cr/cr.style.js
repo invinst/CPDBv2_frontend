@@ -29,6 +29,11 @@ export const kindStyle = (active) => ({
   backgroundColor: active ? champagneColor : 'inherit',
 });
 
+export const detailStyle = {
+  display: 'inline-block',
+  verticalAlign: 'middle',
+};
+
 export const categoryStyle = (hovering) => ({
   color: hovering ? accentColor : softBlackColor,
 });

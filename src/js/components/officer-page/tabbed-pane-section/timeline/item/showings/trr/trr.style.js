@@ -21,7 +21,6 @@ export const kindStyle = {
 };
 
 export const categoryStyle = (hovering) => ({
-  width: '297px',
   display: 'inline-block',
   verticalAlign: 'middle',
   color: hovering ? accentColor : softBlackColor,
