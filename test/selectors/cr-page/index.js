@@ -1,26 +1,43 @@
 import should from 'should';
 
 import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
-import { InvestigatorFactory, PoliceWitnessFactory } from 'utils/test/factories/complaint';
+import {
+  InvestigatorFactory, PoliceWitnessFactory, CoaccusedFactory, ComplaintFactory
+} from 'utils/test/factories/complaint';
 
 
 describe('CR page selectors', function () {
   describe('contentSelector', function () {
+    const buildState = obj => ({
+      breadcrumb: {
+        breadcrumbs: []
+      },
+      crs: {},
+      crPage: {},
+      ...obj
+    });
+
     it('should return empty coaccused, complainants, documents, videos and audios array if crid does not exist',
       function () {
-        const state = { crs: {}, crPage: { crid: 123 } };
+        const state = buildState({
+          crPage: { crid: 123 }
+        });
 
         contentSelector(state).coaccused.should.eql([]);
         contentSelector(state).complainants.should.eql([]);
         contentSelector(state).victims.should.eql([]);
         contentSelector(state).involvements.should.eql({});
         contentSelector(state).attachments.should.eql([]);
-      });
+      }
+    );
 
     it('should return list of complainants display string', function () {
       const complainant1 = { race: 'White', gender: 'Male', age: 18 };
       const complainant2 = {};
-      const state = { crs: { '123': { complainants: [complainant1, complainant2] } }, crPage: { crid: 123 } };
+      const state = buildState({
+        crs: { '123': ComplaintFactory.build({ complainants: [complainant1, complainant2] }) },
+        crPage: { crid: 123 }
+      });
 
       contentSelector(state).complainants.should.eql([
         'White, Male, Age 18', ''
@@ -34,6 +51,7 @@ describe('CR page selectors', function () {
         'gender': 'Male',
         'race': 'White',
         'final_outcome': 'Reprimand',
+        'final_finding': 'Sustained',
         'category': 'Operations/Personnel Violation',
         'rank': 'Officer',
         'age': 34,
@@ -44,13 +62,17 @@ describe('CR page selectors', function () {
         'percentile_allegation_internal': 10.1,
         'percentile_trr': 20.6
       };
-      const state = { crs: { '123': { coaccused: [coaccusedObj] } }, crPage: { crid: 123 } };
+      const state = buildState({
+        crs: { '123': { coaccused: [coaccusedObj] } },
+        crPage: { crid: 123 }
+      });
 
       contentSelector(state).coaccused.should.eql([{
         id: 1,
         fullname: 'Michel Foo',
         demographic: '34 year old, White, Male',
         outcome: 'Reprimand',
+        finding: 'Sustained',
         category: 'Operations/Personnel Violation',
         rank: 'Officer',
         allegationCount: 12,
@@ -77,10 +99,104 @@ describe('CR page selectors', function () {
       }]);
     });
 
+    it('should prioritize officers user visited', function () {
+      const officerInBreadcrumb = CoaccusedFactory.build({ id: 1 });
+      const otherOfficer = CoaccusedFactory.build({ id: 2 });
+      const state = buildState({
+        breadcrumb: {
+          breadcrumbs: [{
+            url: '/officer/1/',
+            params: {
+              officerId: '1'
+            }
+          }]
+        },
+        crs: {
+          '123': ComplaintFactory.build({
+            coaccused: [otherOfficer, officerInBreadcrumb]
+          })
+        },
+        crPage: {
+          crid: 123
+        }
+      });
+
+      contentSelector(state).coaccused.map(obj => obj.id).should.eql([1, 2]);
+    });
+
+    it('should prioritize officer user just visited', function () {
+      const officerInBreadcrumb = CoaccusedFactory.build({ id: 1 });
+      const justVisitedOfficer = CoaccusedFactory.build({ id: 2 });
+      const otherOfficer = CoaccusedFactory.build({ id: 3 });
+      const state = buildState({
+        breadcrumb: {
+          breadcrumbs: [
+            {
+              url: '/officer/1/',
+              params: { officerId: '1' }
+            },
+            {
+              url: '/officer/2/',
+              params: { officerId: '2' }
+            }
+          ]
+        },
+        crs: {
+          '123': ComplaintFactory.build({
+            coaccused: [otherOfficer, justVisitedOfficer, officerInBreadcrumb]
+          })
+        },
+        crPage: {
+          crid: 123
+        }
+      });
+
+      contentSelector(state).coaccused.map(obj => obj.id).should.eql([2, 1, 3]);
+    });
+
+    it('should prioritize officer with sustained finding', function () {
+      const state = buildState({
+        crs: {
+          '123': ComplaintFactory.build({
+            coaccused: [
+              CoaccusedFactory.build({ id: 1, 'final_finding': 'Not Sustained' }),
+              CoaccusedFactory.build({ id: 2, 'final_finding': 'Sustained' })
+            ]
+          })
+        },
+        crPage: {
+          crid: 123
+        }
+      });
+
+      contentSelector(state).coaccused.map(obj => obj.id).should.eql([2, 1]);
+    });
+
+    it('should prioritize officers with most complaints', function () {
+      const state = buildState({
+        crs: {
+          '123': ComplaintFactory.build({
+            coaccused: [
+              CoaccusedFactory.build({ id: 1, 'allegation_count': 11 }),
+              CoaccusedFactory.build({ id: 2, 'allegation_count': 21 })
+            ]
+          })
+        },
+        crPage: {
+          crid: 123
+        }
+      });
+
+      contentSelector(state).coaccused.map(obj => obj.id).should.eql([2, 1]);
+    });
+
     it('should set coaccused gender, race, finalOutcome, '
       + 'category to default value if missing data', function () {
       const coaccusedObj = { 'id': 1, 'full_name': 'Michel Foo', 'start_date': '2012-02-01', 'end_date': '2013-02-01' };
-      const state = { crs: { '123': { coaccused: [coaccusedObj] } }, crPage: { crid: 123 } };
+      const state = buildState({
+        crs: { '123': { coaccused: [coaccusedObj] } },
+        crPage: { crid: 123 }
+      });
 
       const coaccused = contentSelector(state).coaccused[0];
       coaccused.rank.should.eql('Officer');
@@ -90,9 +206,9 @@ describe('CR page selectors', function () {
     });
 
     it('should return list of involvements', function () {
-      const state = {
+      const state = buildState({
         crs: {
-          '123': {
+          '123': ComplaintFactory.build({
             involvements: [
               InvestigatorFactory.build({
                 'officer_id': 1,
@@ -105,10 +221,10 @@ describe('CR page selectors', function () {
               PoliceWitnessFactory.build({ 'officer_id': 3 }),
               PoliceWitnessFactory.build({ 'officer_id': 4 })
             ]
-          }
+          })
         },
         crPage: { crid: 123 }
-      };
+      });
 
       const result = contentSelector(state);
       const investigators = result.involvements.investigator;
@@ -119,7 +235,9 @@ describe('CR page selectors', function () {
     });
 
     it('should return undefined incidentDate and location data if cr data does not exists', function () {
-      const state = { crs: {}, crPage: { crid: 123 } };
+      const state = buildState({
+        crPage: { crid: 123 }
+      });
       const result = contentSelector(state);
       should.not.exists(result.point);
       should.not.exists(result.incidentDate);
@@ -129,18 +247,18 @@ describe('CR page selectors', function () {
     });
 
     it('should return incidentDate and location data if cr data are available', function () {
-      const state = {
+      const state = buildState({
         crs: {
-          '123': {
+          '123': ComplaintFactory.build({
             point: [1, 2],
             'incident_date': '2011-03-24',
             address: '123 Positiv Ave.',
             location: 'Police Building',
             beat: '1134'
-          }
+          })
         },
         crPage: { crid: 123 }
-      };
+      });
       const result = contentSelector(state);
       result.point.should.eql([1, 2]);
       result.incidentDate.should.eql('2011-03-24');
@@ -151,7 +269,14 @@ describe('CR page selectors', function () {
 
     it('should return list of attachments', function () {
       const doc = { title: 'abc', url: 'def', 'preview_image_url': 'pre', 'file_type': 'document' };
-      const state = { crs: { '123': { attachments: [doc] } }, crPage: { crid: 123 } };
+      const state = buildState({
+        crs: {
+          '123': ComplaintFactory.build({
+            attachments: [doc]
+          })
+        },
+        crPage: { crid: 123 }
+      });
 
       contentSelector(state).attachments.should.eql([{
         title: 'abc',
@@ -162,28 +287,28 @@ describe('CR page selectors', function () {
     });
 
     it('should merge investigators with same officer ids', function () {
-      const state = {
+      const state = buildState({
         crs: {
-          '100': {
+          '100': ComplaintFactory.build({
             involvements: InvestigatorFactory.buildList(2, { 'officer_id': 3 })
-          }
+          })
         },
         crPage: { crid: '100' }
-      };
+      });
       const result = contentSelector(state);
       result.involvements.investigator.should.have.length(1);
       result.involvements.investigator[0].id.should.eql(3);
     });
 
     it('should not merge investigators with null officer ids', function () {
-      const state = {
+      const state = buildState({
         crs: {
-          '100': {
+          '100': ComplaintFactory.build({
             involvements: InvestigatorFactory.buildList(2, { 'officer_id': null })
-          }
+          })
         },
         crPage: { crid: '100' }
-      };
+      });
       const result = contentSelector(state);
       result.involvements.investigator.should.have.length(2);
     });
