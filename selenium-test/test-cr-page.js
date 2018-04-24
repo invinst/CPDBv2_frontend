@@ -19,7 +19,7 @@ describe('CR page', function () {
     crPage.accusedOfficers.firstCard.name.getText().should.equal('Ridchard Sullivan');
     crPage.accusedOfficers.firstCard.metric.getText().should.equal('43 allegations1 sustained');
     crPage.accusedOfficers.firstCard.percentile.getText().should.equal('More than 99% of other officers');
-    crPage.accusedOfficers.firstCard.demographic.getText().should.equal('41 year old, White, Male.');
+    crPage.accusedOfficers.firstCard.demographic.getText().should.equal('41 year old, White, Male');
     crPage.accusedOfficers.firstCard.category.getText().should.equal('False Arrest');
     crPage.accusedOfficers.firstCard.outcome.getText().should.equal('Reprimand');
 
