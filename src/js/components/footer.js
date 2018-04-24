@@ -7,6 +7,7 @@ import {
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import NoRerender from 'components/common/higher-order/no-rerender';
 import { imgUrl } from 'utils/static-assets';
+import { INVISIBLE_INSTITUTE_URL } from 'utils/constants';
 
 
 class Footer extends React.Component {
@@ -40,7 +41,9 @@ class Footer extends React.Component {
                     { ...link }
                   />
                 )) }
-                <img style={ invistStyle } src={ imgUrl('invist-logo.svg') } />
+                <a href={ INVISIBLE_INSTITUTE_URL }>
+                  <img className='test--footer-invinst-logo' style={ invistStyle } src={ imgUrl('invist-logo.svg') } />
+                </a>
               </div>
             </ResponsiveFluidWidthComponent>
           </div>

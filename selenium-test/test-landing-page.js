@@ -57,6 +57,12 @@ describe('landing page', function () {
     activeWidth.should.eql(initialWidth);
   });
 
+  it('should go to invisible institue site when click on invinst logo in the footer', function () {
+    landingPage.footer.invinstLogo.scroll();
+    landingPage.footer.invinstLogo.click();
+    browser.getUrl().should.equal('https://invisible.institute/introduction');
+  });
+
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
       landingPage.recentActivityCarousel.cards.count.should.equal(40);
