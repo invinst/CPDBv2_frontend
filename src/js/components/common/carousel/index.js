@@ -1,156 +1,92 @@
-import React, { Component, PropTypes } from 'react';
-import Swiper from 'react-id-swiper';
+import React, { PropTypes, Component } from 'react';
 
-import {
-  wrapperStyle,
-  maxSlideWidth,
-  spaceSlideWidth,
-  headerSectionWidth,
-  headerWrapperStyle,
-  mainSliderStyle,
-  carouselWrapperStyle,
-} from './carousel.style';
-import { arrowWrapperWidth } from './carousel-arrow.style' ;
-import Arrow from './carousel-arrow';
+import Arrow, { arrowWidth } from './arrow';
+import Swiper from 'components/common/swiper';
+import { wrapperStyle } from './carousel.style';
 
 
-class Carousel extends Component {
+export default class Carousel extends Component {
   constructor(props) {
     super(props);
-
-    this.updateNumVisibleSlide = this.updateNumVisibleSlide.bind(this);
-    this.clickHandler = this.clickHandler.bind(this);
-
-    const defaultNumVisibleSlides = Math.floor(
-      (window.innerWidth - headerSectionWidth - arrowWrapperWidth) / maxSlideWidth
-    );
-    this.setting = {
-      initialSlide: 0,
-      spaceBetween: spaceSlideWidth,
-      slidesPerView: 'auto',
-      slidesOffsetAfter: arrowWrapperWidth * 2 + 10,
-      // TODO: add `lazy_loading` feature
-    };
-    this._hasEventRegistered = false;
-    this._isMounted = false;
     this.state = {
-      numVisibleSlide: defaultNumVisibleSlides,
-      displayLeftArrow: false,
-      displayRightArrow: (props.children ? props.children.length : 0) > defaultNumVisibleSlides
+      slideIndex: 0,
+      displayRightArrow: true,
+      displayLeftArrow: false
     };
   }
 
   componentDidMount() {
-    this._registerSwiperEvent();
-    window.addEventListener('resize', this.updateNumVisibleSlide);
-    this._isMounted = true;
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const lenData = this.props.children ? this.props.children.length : 0;
-    const nextLenData = nextProps.children ? nextProps.children.length : 0;
-    if (lenData !== nextLenData) {
-      this.setState({
-        ...this.state,
-        displayRightArrow: nextLenData > this.state.numVisibleSlide
-      });
-    }
+    this.updateSlidesPerGroup();
   }
 
   componentDidUpdate() {
-    this._registerSwiperEvent();
+    this.updateSlidesPerGroup();
   }
 
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateNumVisibleSlide);
-    this._isMounted = false;
+  updateSlidesPerGroup() {
+    const { spaceBetween, childWidth } = this.props;
+    const slideWidth = childWidth + spaceBetween;
+    const { width } = this.el.getBoundingClientRect();
+    this.slidesPerGroup = Math.floor((width - arrowWidth) / slideWidth);
   }
 
-  updateNumVisibleSlide() {
-    const newNumVisibleSlide = Math.floor((window.innerWidth - headerSectionWidth - arrowWrapperWidth) / maxSlideWidth);
-
-    if (this._isMounted && newNumVisibleSlide !== this.state.numVisibleSlide) {
+  handleNavigate(direction) {
+    const { slideIndex } = this.state;
+    const { onNavigate } = this.props;
+    if (direction === 'right') {
       this.setState({
-        ...this.state,
-        numVisibleSlide: newNumVisibleSlide
+        slideIndex: slideIndex + this.slidesPerGroup
+      });
+    } else {
+      this.setState({
+        slideIndex: slideIndex - this.slidesPerGroup
       });
     }
+    onNavigate(direction);
   }
 
-  _registerSwiperEvent() {
-    if (this.swiper && !this._hasEventRegistered) {
-      this._hasEventRegistered = true;
-      this.swiper.on('slideChangeTransitionStart', function () {
-        if (this.activeIndex !== 0)
-          this.setTranslate(this.translate + arrowWrapperWidth + spaceSlideWidth);
-      });
-
-      this.swiper.on('slideChange', (a, b) => {
-        const displayLeftArrow = this.swiper.activeIndex !== 0;
-        const displayRightArrow = this.swiper.slides.length - this.swiper.activeIndex - 1 > this.state.numVisibleSlide;
-        this.setState({
-          ...this.state,
-          displayLeftArrow: displayLeftArrow,
-          displayRightArrow: displayRightArrow
-        });
-      });
-    }
-  }
-
-  clickHandler(direction) {
-    const { children, type } = this.props;
-    let nextSlide;
-    if (direction === 'left') {
-      nextSlide = Math.max(this.swiper.activeIndex - this.state.numVisibleSlide, 0);
-    } else if (direction === 'right') {
-      nextSlide = Math.min(
-        this.swiper.activeIndex + this.state.numVisibleSlide,
-        children.length - this.state.numVisibleSlide
-      );
-    }
-    global.ga('send', 'event', 'carousel', `swipe_${direction}`, type);
-    this.swiper.slideTo(nextSlide);
+  handleSnapIndexChange({ isEnd, isBeginning }) {
+    this.setState({
+      displayLeftArrow: !isBeginning,
+      displayRightArrow: !isEnd
+    });
   }
 
   render() {
-    const { headerSection, children } = this.props;
+    const { children, style, spaceBetween } = this.props;
+    const { displayLeftArrow, displayRightArrow, slideIndex } = this.state;
 
-    return (typeof children !== 'undefined' && children.length > 0) ? (
-      <div style={ wrapperStyle }>
-        <div className='test--carousel--wrapper' style={ carouselWrapperStyle }>
-          { this.state.displayLeftArrow && (
-            <Arrow side='left' clickHandler={ this.clickHandler }/>
-          ) }
-          <div style={ { ...mainSliderStyle } }>
-            <Swiper { ...this.setting } ref={ node => {
-              if (node) this.swiper = node.swiper;
-            } }>
-              { children }
-            </Swiper>
-          </div>
-          { this.state.displayRightArrow && (
-            <Arrow side='right' clickHandler={ this.clickHandler }/>
-          ) }
-        </div>
-        <div className='test--carousel--header' style={ headerWrapperStyle }>
-          { headerSection }
-        </div>
+    return (
+      <div ref={ el => this.el = el } style={ { ...wrapperStyle, ...style } }>
+        <Swiper
+          spaceBetween={ spaceBetween }
+          beforeOffsetAtMiddle={ 40 }
+          onSnapIndexChange={ this.handleSnapIndexChange.bind(this) }
+          slideIndex={ slideIndex }>
+          { children }
+        </Swiper>
+        <Arrow
+          direction='right'
+          show={ displayRightArrow }
+          onClick={ this.handleNavigate.bind(this) }/>
+        <Arrow
+          direction='left'
+          show={ displayLeftArrow }
+          onClick={ this.handleNavigate.bind(this) }/>
       </div>
-    ) : <div/>;
+    );
   }
 }
 
-Carousel.defaultProps = {
-  headerSection: ''
-};
-
 Carousel.propTypes = {
-  type: PropTypes.string,
-  headerSection: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.element
-  ]),
-  children: PropTypes.array,
+  children: PropTypes.node,
+  onNavigate: PropTypes.func,
+  childWidth: PropTypes.number,
+  style: PropTypes.object,
+  spaceBetween: PropTypes.number
 };
 
-export default Carousel;
+Carousel.defaultProps = {
+  spaceBetween: 8,
+  onNavigate: () => {}
+};

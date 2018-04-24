@@ -13,6 +13,7 @@ export default class SearchBox extends Component {
     super(props);
 
     this.handleToggleButtonClick = this.handleToggleButtonClick.bind(this);
+    this.handleCloseButtonClick = this.handleCloseButtonClick.bind(this);
   }
 
   handleToggleButtonClick() {
@@ -24,14 +25,19 @@ export default class SearchBox extends Component {
     }
   }
 
+  handleCloseButtonClick() {
+    this.props.changeSearchQuery('');
+    pushPathPreserveEditMode(constants.SEARCH_PATH);
+  }
+
   renderToggleButton() {
-    const { value, searchTermsHidden, changeSearchQuery } = this.props;
+    const { value, searchTermsHidden } = this.props;
 
     if (value !== '') {
       return (
         <CloseButton
           className='test--search-close-button'
-          onClick={ () => changeSearchQuery('') }
+          onClick={ this.handleCloseButtonClick }
         />
       );
     } else {

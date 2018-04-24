@@ -56,7 +56,7 @@ class RouterRoot extends Component {
             component={ AppContainer }>
             <IndexRoute
               component={ LandingPageContainer }
-              breadcrumb='Home'/>
+              breadcrumb='cpdp'/>
             <Route
               path={ STORIES_PATH }
               component={ ReportingPage }>

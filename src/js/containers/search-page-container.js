@@ -62,4 +62,4 @@ const mapDispatchToProps = {
   resetSearchTermNavigation
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SearchPage));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPage));

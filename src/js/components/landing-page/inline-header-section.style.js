@@ -6,6 +6,7 @@ export const headerStyle = {
   textAlign: 'left',
   color: softBlackColor,
   padding: '0 16px',
+  marginTop: 0,
   marginBottom: '16px'
 };
 

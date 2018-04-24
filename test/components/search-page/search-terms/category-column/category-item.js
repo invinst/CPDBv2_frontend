@@ -1,6 +1,10 @@
 import React from 'react';
 import { stub } from 'sinon';
-import { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate } from 'react-addons-test-utils';
+import {
+  findRenderedDOMComponentWithClass,
+  renderIntoDocument,
+  Simulate
+} from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import CategoryItem from 'components/search-page/search-terms/category-column/category-item';
@@ -24,7 +28,7 @@ describe('CategoryItem component', function () {
     const itemUniqueKey = 'itemUniqueKey';
 
     instance = renderIntoDocument(
-      <CategoryItem handleItemClick={ handleItemClickStub } itemUniqueKey={ itemUniqueKey } />
+      <CategoryItem handleItemClick={ handleItemClickStub } itemUniqueKey={ itemUniqueKey }/>
     );
     Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--category-item'));
 
