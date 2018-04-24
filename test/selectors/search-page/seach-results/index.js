@@ -182,6 +182,7 @@ describe('search page results selector', function () {
                     { race: 'Other', count: 100 }
                   ],
                   'result_text': 'Roseland',
+                  'alderman': 'John Wick',
                   'allegation_count': 12,
                 },
               }
@@ -215,6 +216,7 @@ describe('search page results selector', function () {
           }],
           population: '352',
           medianIncome: '$37,084',
+          alderman: 'John Wick',
           raceCount: [
             { race: 'Hispanic', count: '34.4%' },
             { race: 'Black', count: '37.2%' },

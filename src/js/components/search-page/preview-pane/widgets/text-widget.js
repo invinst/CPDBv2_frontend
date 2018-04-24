@@ -5,7 +5,8 @@ import { wrapperStyle, titleStyle, contentStyle } from './text-widget.style';
 
 export default class TextWidget extends Component {
   render() {
-    return (
+    const { content } = this.props;
+    return !!(content) && (
       <div className='test--text-widget' style={ wrapperStyle }>
         <p style={ titleStyle }>{ this.props.title }</p>
         <p style={ contentStyle }>{ this.props.content }</p>
@@ -13,6 +14,10 @@ export default class TextWidget extends Component {
     );
   }
 }
+
+TextWidget.defaultProps = {
+  content: null,
+};
 
 TextWidget.propTypes = {
   title: PropTypes.string.isRequired,

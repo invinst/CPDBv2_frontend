@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
@@ -12,37 +12,34 @@ import WidgetWrapper, {
 
 export default class PoliceBeatPane extends Component {
   render() {
-    const complaintCategories = [
-      {
-        'id': 1,
-        'name': 'Inadequate / Failure to Provide Service',
-        'count': 90,
-      },
-      {
-        'id': 2,
-        'name': 'Search of Premise without Warrant',
-        'count': 90,
-      },
-      {
-        'id': 3,
-        'name': 'Excessive Force / On Duty - Injury',
-        'count': 90,
-      },
-    ];
+    const {
+      name,
+      allegationCount,
+      mostCommonComplaints,
+      to,
+    } = this.props;
+
     return (
       <WidgetWrapper>
-        <HeaderWidget title={ 'POLICE BEAT #269' } showBottomBorder={ true }/>
+        <HeaderWidget title={ name } />
         <SeparatorWidget/>
-        <AllegationCountWidget numOfAllegations={ 465 }/>
+        <AllegationCountWidget numOfAllegations={ allegationCount }/>
         <TextWidget title={ 'THIS BEAT CONTAINS A POLICE HQ' } content={ '11th District Police Station' }/>
         <ListWidget
-          items={ complaintCategories }
+          items={ mostCommonComplaints }
           typeName={ 'allegation' }
           showAvatar={ false }
           title={ 'MOST COMMON COMPLAINT' }
         />
-        <CallToActionWidget/>
+        <CallToActionWidget to={ to }/>
       </WidgetWrapper>
     );
   }
 }
+
+PoliceBeatPane.propTypes = {
+  name: PropTypes.string.isRequired,
+  allegationCount: PropTypes.number.isRequired,
+  mostCommonComplaints: PropTypes.array.isRequired,
+  to: PropTypes.string.isRequired,
+};

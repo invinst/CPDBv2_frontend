@@ -7,6 +7,7 @@ import { renderIntoDocument,
 import PoliceDistrictPane from 'components/search-page/preview-pane/police-district-pane';
 import {
   HeaderWidget,
+  SeparatorWidget,
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
@@ -20,6 +21,7 @@ describe('PoliceDistrictPane component', () => {
   it('should contain the sub components', () => {
     instance = renderIntoDocument(<PoliceDistrictPane/>);
     findRenderedComponentWithType(instance, HeaderWidget);
+    findRenderedComponentWithType(instance, SeparatorWidget);
     findRenderedComponentWithType(instance, GeoInfoWidget);
     findRenderedComponentWithType(instance, AllegationCountWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);

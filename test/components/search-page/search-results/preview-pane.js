@@ -12,6 +12,10 @@ import ShortList from 'components/common/short-list';
 import {
   CommunityPane,
   NeighborhoodPane,
+  WardPane,
+  PoliceBeatPane,
+  PoliceDistrictPane,
+  SchoolGroundPane,
 } from 'components/search-page/preview-pane';
 
 
@@ -78,6 +82,46 @@ describe('PreviewPane component', function () {
       />
     );
     findRenderedComponentWithType(instance, NeighborhoodPane);
+  });
+
+  it('should render WardPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type={ 'WARD' }
+        data={ { name: 'Ward' } }
+      />
+    );
+    findRenderedComponentWithType(instance, WardPane);
+  });
+
+  it('should render PoliceBeatPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type={ 'BEAT' }
+        data={ { name: 'Beat' } }
+      />
+    );
+    findRenderedComponentWithType(instance, PoliceBeatPane);
+  });
+
+  it('should render PoliceDistrictPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type={ 'POLICE-DISTRICT' }
+        data={ { name: 'Police District' } }
+      />
+    );
+    findRenderedComponentWithType(instance, PoliceDistrictPane);
+  });
+
+  it('should render SchoolGroundPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type={ 'SCHOOL-GROUND' }
+        data={ { name: 'School Ground' } }
+      />
+    );
+    findRenderedComponentWithType(instance, SchoolGroundPane);
   });
 
   it('should not display any component if the data is empty', function () {

@@ -68,7 +68,8 @@ const areaTransform = ({ payload }) => {
       const racePercentile = population ? item['count'] / population * 100 : 0;
       result['count'] = `${racePercentile.toFixed(1)}%`;
       return result;
-    })
+    }),
+    alderman: payload['alderman'],
   };
 };
 
