@@ -23,8 +23,7 @@ describe('CR page selectors', function () {
       const state = { crs: { '123': { complainants: [complainant1, complainant2] } }, crPage: { crid: 123 } };
 
       contentSelector(state).complainants.should.eql([
-        'White, Male, Age 18',
-        'Unknown, Unknown'
+        'White, Male, Age 18', ''
       ]);
     });
 
@@ -50,12 +49,10 @@ describe('CR page selectors', function () {
       contentSelector(state).coaccused.should.eql([{
         id: 1,
         fullname: 'Michel Foo',
-        gender: 'Male',
-        race: 'White',
+        demographic: '34 year old, White, Male',
         outcome: 'Reprimand',
         category: 'Operations/Personnel Violation',
         rank: 'Officer',
-        age: 34,
         allegationCount: 12,
         sustainedCount: 1,
         allegationPercentile: 1,
@@ -87,8 +84,7 @@ describe('CR page selectors', function () {
 
       const coaccused = contentSelector(state).coaccused[0];
       coaccused.rank.should.eql('Officer');
-      coaccused.gender.should.eql('Unknown');
-      coaccused.race.should.eql('Unknown');
+      coaccused.demographic.should.eql('');
       coaccused.outcome.should.eql('Unknown Outcome');
       coaccused.category.should.eql('Unknown');
     });

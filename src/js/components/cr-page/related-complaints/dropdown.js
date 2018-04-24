@@ -34,7 +34,10 @@ export default class Dropdown extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <div style={ displayOptionStyle } onClick={ this.handleToggle.bind(this) }>
+        <div
+          className='test--related-complaint-dropdown'
+          style={ displayOptionStyle }
+          onClick={ this.handleToggle.bind(this) }>
           <span style={ displayValueStyle }>{ options[value] }</span>
           <span style={ arrowStyle(expanded) } />
         </div>
@@ -44,6 +47,7 @@ export default class Dropdown extends Component {
               value !== option[0] ? (
                 <div
                   key={ index }
+                  className='test--related-complaint-dropdown-item'
                   style={ optionItemStyle }
                   onClick={ this.handleOptionSelect.bind(this, option[0]) }>
                   { option[1] }
@@ -65,5 +69,6 @@ Dropdown.propTypes = {
 };
 
 Dropdown.defaultProps = {
+  options: {},
   onChange: () => {}
 };

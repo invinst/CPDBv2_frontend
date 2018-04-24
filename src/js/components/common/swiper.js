@@ -30,6 +30,7 @@ export default class Swiper extends Component {
           });
         },
         transitionStart: () => {
+          if (!this.swiper) return;
           if (!this.swiper.isBeginning && !this.swiper.isEnd) {
             this.swiper.setTranslate(this.swiper.translate + beforeOffsetAtMiddle);
           }

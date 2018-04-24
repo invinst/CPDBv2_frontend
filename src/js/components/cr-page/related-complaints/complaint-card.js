@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import classnames from 'classnames';
 
 import {
   wrapperStyle, mapStyle, sectionWithBorderStyle, sectionContentStyle, sectionStyle,
@@ -12,7 +13,10 @@ export default class ComplaintCard extends Component {
     const { crid, lat, lon, categories, complainants, accuseds, className } = this.props;
 
     return (
-      <Link className={ className } style={ wrapperStyle } to={ `/complaint/${crid}/` }>
+      <Link
+        className={ classnames(className, 'test--carousel-card') }
+        style={ wrapperStyle }
+        to={ `/complaint/${crid}/` }>
         <div style={ mapStyle(lat, lon) } />
         <div style={ contentStyle }>
           <div style={ sectionWithBorderStyle }>

@@ -92,3 +92,10 @@ export const ComplaintFactory = Factory.define('ComplaintFactory')
   .attr('beat', '23')
   .attr('involvements', () => InvestigatorFactory.buildList(1))
   .attr('attachments', () => AttachmentFactory.buildList(10));
+
+export const RelatedComplaintFactory = Factory.define('RelatedComplaintFactory')
+  .attr('crid', () => String(random.number({ min: 1000000, max: 2000000 })))
+  .attr('complainants', () => PersonDemographicFactory.buildList(1))
+  .attr('category_names', ['Use Of Force'])
+  .attr('point', { lat: 43.87, lon: -23.43 })
+  .attr('coaccused', [name.firstName()]);

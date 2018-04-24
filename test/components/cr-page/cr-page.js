@@ -13,6 +13,22 @@ describe('CRPage component', function () {
   const store = MockStore()({
     breadcrumb: {
       breadcrumbs: []
+    },
+    crPage: {
+      relatedComplaints: {
+        relatedByCategory: {
+          pagination: {},
+          cards: {
+            cards: []
+          }
+        },
+        relatedByOfficer: {
+          pagination: {},
+          cards: {
+            cards: []
+          }
+        }
+      }
     }
   });
 

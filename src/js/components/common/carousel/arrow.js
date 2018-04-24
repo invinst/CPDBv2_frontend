@@ -9,7 +9,7 @@ class Arrow extends React.Component {
     if (!show) return null;
     return (
       <button
-        className={ `test--carousel--arrow--${direction}` }
+        className={ `test--carousel-arrow-${direction}` }
         style={ { ...buttonStyle(direction, hovering), ...style } }
         onClick={ () => onClick(direction) }/>
     );

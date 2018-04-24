@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults } from 'lodash';
+import { map, get, reduce, defaults, compact } from 'lodash';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { pluralize } from 'utils/language';
@@ -45,16 +45,12 @@ export const getDocumentAlreadyRequested = state => {
   ));
 };
 
-const getDemographicString = ({ race, gender, age }) => {
-  race = race ? race : 'Unknown';
-  gender = gender ? gender : 'Unknown';
+const getDemographicString = ({ race, gender, age }) =>
+  compact([race, gender, age ? `Age ${age}` : null]).join(', ');
 
-  if (age) {
-    return `${race}, ${gender}, Age ${age}`;
-  } else {
-    return `${race}, ${gender}`;
-  }
-};
+
+const getCoaccusedDemographicString = ({ race, gender, age }) =>
+  compact([age ? `${age} year old` : null, race, gender]).join(', ');
 
 const getComplainantStringSelector = createSelector(
   getComplainants,
@@ -72,11 +68,9 @@ const getCoaccusedSelector = createSelector(
     id: coaccused.id,
     fullname: coaccused['full_name'],
     rank: coaccused['rank'] || 'Officer',
-    gender: coaccused['gender'] || 'Unknown',
-    race: coaccused['race'] || 'Unknown',
+    demographic: getCoaccusedDemographicString(coaccused),
     outcome: coaccused['final_outcome'] || 'Unknown Outcome',
     category: coaccused['category'] || 'Unknown',
-    age: coaccused['age'],
     allegationCount: coaccused['allegation_count'],
     sustainedCount: coaccused['sustained_count'],
     allegationPercentile: coaccused['percentile_allegation'],

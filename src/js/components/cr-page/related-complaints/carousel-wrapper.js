@@ -14,10 +14,10 @@ export default class CarouselWrapper extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { crid, distance, match, fetchRelatedComplaints } = this.props;
+    const { crid, distance, match, fetchRelatedComplaints } = nextProps;
 
-    if (nextProps.distance != distance) {
-      fetchRelatedComplaints(crid, { match, distance: nextProps.distance });
+    if (this.props.distance != distance) {
+      fetchRelatedComplaints(crid, { match, distance });
     }
   }
 
@@ -27,10 +27,12 @@ export default class CarouselWrapper extends Component {
   }
 
   render() {
-    const { count, cards, title, hasMore } = this.props;
+    const { count, cards, title, hasMore, match } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
+      <div
+        className={ `test--related-by-${match}-carousel` }
+        style={ wrapperStyle }>
         <div style={ headerStyle }>
           <span style={ countStyle }>{ count } </span>
           <span style={ titleStyle }>{ title }</span>
@@ -62,4 +64,9 @@ CarouselWrapper.propTypes = {
   distance: PropTypes.string,
   match: PropTypes.string,
   fetchRelatedComplaints: PropTypes.func
+};
+
+CarouselWrapper.defaultProps = {
+  cards: [],
+  fetchRelatedComplaints: () => {}
 };
