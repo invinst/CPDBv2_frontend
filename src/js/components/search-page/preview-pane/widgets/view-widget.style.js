@@ -20,10 +20,13 @@ export const buttonStyle = {
   border: `1px solid ${ accentColor }`,
   height: '26px',
   width: '51px',
-  textDecoration: 'none',
   textAlign: 'center',
   lineHeight: '26px',
   display: 'inline-block',
   float: 'right',
   marginTop: '6px',
+};
+
+export const linkStyle = {
+  textDecoration: 'none',
 };
