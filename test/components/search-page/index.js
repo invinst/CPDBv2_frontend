@@ -19,6 +19,7 @@ import TextInput from 'components/common/input';
 import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import * as domUtils from 'utils/dom';
+import * as intercomUtils from 'utils/intercom';
 import { NavigationItem } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
@@ -339,6 +340,32 @@ describe('SearchPage component', function () {
       );
       clock.tick(600);
       changeSearchQuery.calledWith('xxx').should.be.true();
+    });
+  });
+
+  describe('Intercom', function () {
+    beforeEach(function () {
+      stub(intercomUtils, 'showIntercomLauncher');
+    });
+
+    afterEach(function () {
+      intercomUtils.showIntercomLauncher.restore();
+    });
+
+    it('should hide intercom launcher when mounted', function () {
+      instance = renderIntoDocument(
+        <SearchPage />
+      );
+      intercomUtils.showIntercomLauncher.calledWith(false).should.be.true();
+    });
+
+    it('should show intercom launcher again when unmounted', function () {
+      instance = renderIntoDocument(
+        <SearchPage />
+      );
+      intercomUtils.showIntercomLauncher.resetHistory();
+      unmountComponentSuppressError(instance);
+      intercomUtils.showIntercomLauncher.calledWith(true).should.be.true();
     });
   });
 });
