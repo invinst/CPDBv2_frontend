@@ -15,9 +15,10 @@ export default () => ComplaintFactory.build({
       race: 'White',
       gender: 'Male',
       category: 'False Arrest',
-      'final_outcome': 'Reprimand'
+      'final_outcome': 'Reprimand',
+      'final_finding': 'Sustained'
     }),
-    ...CoaccusedFactory.buildList(24)
+    ...CoaccusedFactory.buildList(24, { 'final_finding': 'Not Sustained' })
   ],
   complainants: [
     {
