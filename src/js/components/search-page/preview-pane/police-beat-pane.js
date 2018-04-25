@@ -15,23 +15,23 @@ export default class PoliceBeatPane extends Component {
     const {
       name,
       allegationCount,
-      mostCommonComplaints,
-      to,
+      mostCommonComplaint,
+      url,
     } = this.props;
 
     return (
       <WidgetWrapper>
-        <HeaderWidget title={ name } />
+        <HeaderWidget title={ `POLICE BEAT #${name}` } />
         <SeparatorWidget/>
         <AllegationCountWidget numOfAllegations={ allegationCount }/>
-        <TextWidget title={ 'THIS BEAT CONTAINS A POLICE HQ' } content={ '11th District Police Station' }/>
+        <TextWidget title={ 'THIS BEAT CONTAINS A POLICE HQ' } />
         <ListWidget
-          items={ mostCommonComplaints }
+          items={ mostCommonComplaint }
           typeName={ 'allegation' }
           showAvatar={ false }
           title={ 'MOST COMMON COMPLAINT' }
         />
-        <CallToActionWidget to={ to }/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
@@ -40,6 +40,6 @@ export default class PoliceBeatPane extends Component {
 PoliceBeatPane.propTypes = {
   name: PropTypes.string.isRequired,
   allegationCount: PropTypes.number.isRequired,
-  mostCommonComplaints: PropTypes.array.isRequired,
-  to: PropTypes.string.isRequired,
+  mostCommonComplaint: PropTypes.array.isRequired,
+  url: PropTypes.string.isRequired,
 };

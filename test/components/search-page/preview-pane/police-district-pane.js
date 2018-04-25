@@ -1,5 +1,7 @@
 import React from 'react';
-import { renderIntoDocument,
+import { findDOMNode } from 'react-dom';
+import {
+  renderIntoDocument,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
@@ -19,8 +21,10 @@ describe('PoliceDistrictPane component', () => {
   let instance;
 
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(<PoliceDistrictPane/>);
-    findRenderedComponentWithType(instance, HeaderWidget);
+    instance = renderIntoDocument(<PoliceDistrictPane name={ '1st' }/>);
+
+    const header = findRenderedComponentWithType(instance, HeaderWidget);
+    findDOMNode(header).textContent.should.containEql('POLICE DISTRICT #1');
     findRenderedComponentWithType(instance, SeparatorWidget);
     findRenderedComponentWithType(instance, GeoInfoWidget);
     findRenderedComponentWithType(instance, AllegationCountWidget);

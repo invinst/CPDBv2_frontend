@@ -18,14 +18,16 @@ export default class PoliceDistrictPane extends Component {
       allegationCount,
       officersMostComplaint,
       districtCommander,
-      to,
+      url,
     } = this.props;
+    const match = /\d+/g.exec(name);
+    const district = match ? `#${match[0]}` : name;
 
     return (
       <WidgetWrapper>
-        <HeaderWidget title={ name }/>
+        <HeaderWidget title={ `POLICE DISTRICT ${district}` }/>
         <SeparatorWidget />
-        <GeoInfoWidget { ...raceCount }/>
+        <GeoInfoWidget raceCount={ raceCount } />
         <AllegationCountWidget
           numOfAllegations={ allegationCount }
           subTitle={ 'More than ##% of other districts' }
@@ -39,7 +41,7 @@ export default class PoliceDistrictPane extends Component {
           typeName={ 'allegation' }
           title='DISTRICT COMMANDER'
           items={ districtCommander }/>
-        <CallToActionWidget to={ to }/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
@@ -51,5 +53,5 @@ PoliceDistrictPane.propTypes = {
   allegationCount: PropTypes.number.isRequired,
   officersMostComplaint: PropTypes.array.isRequired,
   districtCommander: PropTypes.array.isRequired,
-  to: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };

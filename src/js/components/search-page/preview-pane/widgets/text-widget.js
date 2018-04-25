@@ -21,5 +21,5 @@ TextWidget.defaultProps = {
 
 TextWidget.propTypes = {
   title: PropTypes.string.isRequired,
-  content: PropTypes.string.content,
+  content: PropTypes.string,
 };

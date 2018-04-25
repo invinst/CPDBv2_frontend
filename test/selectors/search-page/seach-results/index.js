@@ -214,6 +214,7 @@ describe('search page results selector', function () {
             name: 'Ronald Holt',
             count: 26,
           }],
+          districtCommander: [],
           population: '352',
           medianIncome: '$37,084',
           alderman: 'John Wick',

@@ -16,7 +16,7 @@ export default class NeighborhoodPane extends Component {
       allegationCount,
       mostCommonComplaint,
       officersMostComplaint,
-      to,
+      url,
     } = this.props;
     return (
       <WidgetWrapper>
@@ -35,7 +35,7 @@ export default class NeighborhoodPane extends Component {
           showAvatar={ true }
           title={ 'OFFICERS WITH MOST COMPLAINTS' }
         />
-        <CallToActionWidget to={ to }/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
@@ -46,5 +46,5 @@ NeighborhoodPane.propTypes = {
   allegationCount: PropTypes.number.isRequired,
   mostCommonComplaint: PropTypes.array.isRequired,
   officersMostComplaint: PropTypes.array.isRequired,
-  to: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };

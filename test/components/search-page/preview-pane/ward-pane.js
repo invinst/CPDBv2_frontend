@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
@@ -29,7 +30,8 @@ describe('WardPane component', () => {
         to={ 'to' }
       />
     );
-    findRenderedComponentWithType(instance, HeaderWidget);
+    const header = findRenderedComponentWithType(instance, HeaderWidget);
+    findDOMNode(header).textContent.should.containEql('WARD #22');
     findRenderedComponentWithType(instance, SeparatorWidget);
     findRenderedComponentWithType(instance, TextWidget);
     findRenderedComponentWithType(instance, AllegationCountWidget);

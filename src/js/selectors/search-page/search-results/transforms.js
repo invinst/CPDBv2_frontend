@@ -62,13 +62,14 @@ const areaTransform = ({ payload }) => {
     officersMostComplaint: payload['officers_most_complaint'] || [],
     population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
     medianIncome: payload['median_income'],
+    districtCommander: payload['district_commander'] || [],
     url: payload['url'],
     raceCount: map(payload['race_count'], (item) => {
       let result = { race: mappingRace(item.race) };
       const racePercentile = population ? item['count'] / population * 100 : 0;
       result['count'] = `${racePercentile.toFixed(1)}%`;
       return result;
-    }),
+    }) || [],
     alderman: payload['alderman'],
   };
 };

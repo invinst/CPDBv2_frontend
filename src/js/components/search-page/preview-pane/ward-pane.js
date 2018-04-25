@@ -18,11 +18,11 @@ export default class WardPane extends Component {
       mostCommonComplaint,
       officersMostComplaint,
       alderman,
-      to,
+      url,
     } = this.props;
     return (
       <WidgetWrapper>
-        <HeaderWidget title={ name }/>
+        <HeaderWidget title={ `WARD #${name}` }/>
         <SeparatorWidget/>
         <AllegationCountWidget numOfAllegations={ allegationCount }/>
         <TextWidget title={ 'CURRENT ALDERMAN' } content={ alderman }/>
@@ -36,7 +36,7 @@ export default class WardPane extends Component {
           typeName={ 'allegation' }
           title='OFFICERS WITH MOST COMPLAINTS'
           items={ officersMostComplaint }/>
-        <CallToActionWidget to={ to }/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
@@ -52,7 +52,7 @@ WardPane.propTypes = {
   mostCommonComplaint: PropTypes.array.isRequired,
   officersMostComplaint: PropTypes.array.isRequired,
   alderman: PropTypes.string,
-  to: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 
