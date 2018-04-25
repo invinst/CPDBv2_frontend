@@ -1,6 +1,6 @@
 
 export const responsiveContainerStyle = {
-  maxHeight: 'calc(100% - 130px)',
+  maxHeight: 'calc(100% - 50px)',
   overflow: 'hidden',
   position: 'relative',
   width: '100%',

@@ -77,7 +77,7 @@ export default class OfficerPane extends Component {
             gender={ gender }
           />
           <MetricWidget metrics={ metrics }/>
-          <MediaQuery maxHeight={ 1074 }>
+          <MediaQuery maxHeight={ 990 }>
             <div className='test--gradient' style={ gradientStyle }/>
           </MediaQuery>
         </div>
