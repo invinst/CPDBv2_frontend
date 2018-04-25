@@ -1,15 +1,17 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
 import { Link } from 'react-router';
 import {
   renderIntoDocument, findRenderedComponentWithType, findRenderedDOMComponentWithTag,
-  findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass
+  findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass, Simulate
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import SuggestionItemBase from 'components/search-page/search-results/suggestion-group/suggestion-item/base';
 import JumpyMotion from 'components/animation/jumpy-motion';
+
+import Mousestrap from 'mousetrap';
 
 
 describe('SuggestionItemBase component', function () {
@@ -92,18 +94,41 @@ describe('SuggestionItemBase component', function () {
     scryRenderedDOMComponentsWithClass(instance, 'test--second-row').length.should.equal(0);
   });
 
-  it('should trigger suggestionClick if clicked on', function () {
-    const type = 'OFFICER';
-    const text = 'Jerome Finnigan';
-    const url = '';
-    const to = '';
-    const props = {
-      suggestion: { type, text, url, to }
-    };
+  describe('click action', function () {
+    it('should call selectItem if not focused', function () {
+      const suggestion = {
+        uniqueKey: '123'
+      };
+      const selectItemSpy = spy();
+      instance = renderIntoDocument(
+        <SuggestionItemBase
+          suggestion={ suggestion }
+          selectItem={ selectItemSpy }
+          isFocused={ false }/>
+      );
+      const element = findRenderedDOMComponentWithClass(instance, 'suggestion-item-123');
+      Simulate.click(element);
+      selectItemSpy.called.should.be.true();
+    });
 
-    SuggestionItemBase.should.triggerCallbackWhenClick('suggestionClick', null, props, [type, text, url, to]);
-    SuggestionItemBase.should.triggerCallbackWhenClick('selectItem');
+    it('should call trigger if not focused', function () {
+      const suggestion = {
+        uniqueKey: '123'
+      };
+      const triggerStub = stub(Mousestrap, 'trigger');
+      instance = renderIntoDocument(
+        <SuggestionItemBase
+          suggestion={ suggestion }
+          isFocused={ true }/>
+      );
+      const element = findRenderedDOMComponentWithClass(instance, 'suggestion-item-123');
+      Simulate.click(element);
+      triggerStub.withArgs('enter').called.should.be.true();
+
+      triggerStub.restore();
+    });
   });
+
 
   context('alias edit mode', function () {
     it('should render div as wrapper', function () {
