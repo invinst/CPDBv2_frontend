@@ -297,7 +297,6 @@ describe('Search Page', function () {
       searchPage.input.setValue('Ke');
       searchPage.clearSearchButton.waitForVisible();
       searchPage.firstOfficerResult.waitForVisible();
-      searchPage.firstOfficerResult.click();
 
       searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
       searchPage.officerPreviewPaneSection.gradient.waitForVisible();
@@ -312,7 +311,6 @@ describe('Search Page', function () {
       searchPage.input.setValue('Ke');
       searchPage.clearSearchButton.waitForVisible();
       searchPage.firstOfficerResult.waitForVisible();
-      searchPage.firstOfficerResult.click();
 
       searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
       searchPage.officerPreviewPaneSection.gradient.waitForVisible(2000, true);
