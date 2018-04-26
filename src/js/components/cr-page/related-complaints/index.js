@@ -15,7 +15,7 @@ export default class RelatedComplaints extends Component {
     super(props);
 
     this.state = {
-      selectedDistance: '10mi'
+      selectedDistance: '0.5mi'
     };
   }
 
@@ -53,7 +53,7 @@ export default class RelatedComplaints extends Component {
             distance={ selectedDistance }
             crid={ crid }
             match='officers'
-            title='RELATED BECAUSE OF OFFICERS INVOLVED'/>
+            title='RELATED BY OFFICERS INVOLVED'/>
         </div>
         <FooterContainer style={ footerStyle }/>
       </div>
