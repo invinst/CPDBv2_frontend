@@ -10,7 +10,7 @@ import {
 
 export default class ComplaintCard extends Component {
   render() {
-    const { crid, lat, lon, categories, complainants, accuseds, className } = this.props;
+    const { crid, lat, lon, categories, complainants, accused, className } = this.props;
 
     return (
       <Link
@@ -23,14 +23,24 @@ export default class ComplaintCard extends Component {
             <div style={ sectionLabelStyle }>CR { crid }</div>
             <div style={ sectionContentStyle }>{ categories }</div>
           </div>
-          <div style={ sectionWithBorderStyle }>
-            <div style={ sectionLabelStyle }>Complainant</div>
-            <div style={ sectionContentStyle }>{ complainants }</div>
-          </div>
-          <div style={ sectionStyle }>
-            <div style={ sectionLabelStyle }>Accused</div>
-            <div style={ accusedStyle }>{ accuseds }</div>
-          </div>
+          {
+            complainants
+              ? (
+                <div className='test--carousel-card-complainant' style={ sectionWithBorderStyle }>
+                  <div style={ sectionLabelStyle }>Complainant</div>
+                  <div style={ sectionContentStyle }>{ complainants }</div>
+                </div>
+                ) : null
+          }
+          {
+            accused
+              ? (
+                <div className='test--carousel-card-accused' style={ sectionStyle }>
+                  <div style={ sectionLabelStyle }>Accused</div>
+                  <div style={ accusedStyle }>{ accused }</div>
+                </div>
+                ) : null
+          }
         </div>
       </Link>
     );
@@ -43,7 +53,7 @@ ComplaintCard.propTypes = {
   lon: PropTypes.number,
   categories: PropTypes.string,
   complainants: PropTypes.string,
-  accuseds: PropTypes.string,
+  accused: PropTypes.string,
   className: PropTypes.string
 };
 

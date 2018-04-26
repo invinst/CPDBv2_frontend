@@ -36,7 +36,7 @@ const cardTransform = (card) => ({
   complainants: card.complainants.map(
     ({ age, gender, race }) => compact([race, gender, age ? `Age ${age}` : null]).join(' ')
   ).join(', '),
-  accuseds: card['coaccused'].join(', ')
+  accused: card['coaccused'].join(', ')
 });
 
 const cardByCategorySelector = createSelector(

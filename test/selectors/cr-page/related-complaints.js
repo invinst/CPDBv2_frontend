@@ -33,7 +33,7 @@ describe('related complaints selectors', function () {
         lon: 2,
         categories: 'a, b',
         complainants: 'white male Age 43',
-        accuseds: 'c, d'
+        accused: 'c, d'
       }]);
     });
 
