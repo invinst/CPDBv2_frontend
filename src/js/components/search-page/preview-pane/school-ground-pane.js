@@ -22,7 +22,10 @@ export default class SchoolGroundPane extends Component {
       <WidgetWrapper>
         <HeaderWidget title={ name } showBottomBorder={ true }/>
         <SeparatorWidget/>
-        <AllegationCountWidget numOfAllegations={ allegationCount } subTitle={ 'within XX meters of the school' }/>
+        <AllegationCountWidget
+          url={ url }
+          numOfAllegations={ allegationCount }
+          subTitle={ 'within 100 meters of the school' }/>
         <ListWidget
           items={ mostCommonComplaint }
           typeName={ 'allegation' }

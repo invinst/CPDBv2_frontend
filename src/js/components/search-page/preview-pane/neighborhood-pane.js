@@ -22,7 +22,7 @@ export default class NeighborhoodPane extends Component {
       <WidgetWrapper>
         <HeaderWidget title={ name } showBottomBorder={ true }/>
         <SeparatorWidget/>
-        <AllegationCountWidget numOfAllegations={ allegationCount }/>
+        <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
         <ListWidget
           items={ mostCommonComplaint }
           typeName={ 'allegation' }

@@ -21,10 +21,10 @@ export default class PoliceBeatPane extends Component {
 
     return (
       <WidgetWrapper>
-        <HeaderWidget title={ `POLICE BEAT #${name}` } />
+        <HeaderWidget title={ `POLICE BEAT #${name}` }/>
         <SeparatorWidget/>
-        <AllegationCountWidget numOfAllegations={ allegationCount }/>
-        <TextWidget title={ 'THIS BEAT CONTAINS A POLICE HQ' } />
+        <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
+        <TextWidget title={ 'THIS BEAT CONTAINS A POLICE HQ' }/>
         <ListWidget
           items={ mostCommonComplaint }
           typeName={ 'allegation' }

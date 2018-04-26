@@ -24,7 +24,7 @@ export default class WardPane extends Component {
       <WidgetWrapper>
         <HeaderWidget title={ `WARD #${name}` }/>
         <SeparatorWidget/>
-        <AllegationCountWidget numOfAllegations={ allegationCount }/>
+        <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
         <TextWidget title={ 'CURRENT ALDERMAN' } content={ alderman }/>
         <ListWidget
           typeName={ 'allegation' }
