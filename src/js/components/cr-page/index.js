@@ -50,15 +50,30 @@ export default class CRPage extends Component {
         <AccusedOfficers officers={ coaccused } />
         <ResponsiveFluidWidthComponent>
           <div style={ summarySectionWrapperStyle }>
-            <SummaryRow label='VICTIM' className='test--victims'>
-              <Demographics persons={ victims } />
-            </SummaryRow>
-            <SummaryRow label='COMPLAINANT' className='test--complainant'>
-              <Demographics persons={ complainants } />
-            </SummaryRow>
-            <SummaryRow label='SUMMARY'>
-              <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
-            </SummaryRow>
+            {
+              victims.length > 0
+                ? (
+                  <SummaryRow label='VICTIM' className='test--victims'>
+                    <Demographics persons={ victims } />
+                  </SummaryRow>
+                ) : null
+            }
+            {
+              complainants.length > 0
+                ? (
+                  <SummaryRow label='COMPLAINANT' className='test--complainant'>
+                    <Demographics persons={ complainants } />
+                  </SummaryRow>
+                ) : null
+            }
+            {
+              summary
+                ? (
+                  <SummaryRow label='SUMMARY'>
+                    <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
+                  </SummaryRow>
+                ) : null
+            }
             <Attachments
               items={ attachments }
               openRequestDocumentModal={ openRequestDocumentModal }
@@ -101,5 +116,7 @@ CRPage.propTypes = {
 
 CRPage.defaultProps = {
   fetchCR: () => {},
+  victims: [],
+  complainants: [],
   coaccused: []
 };
