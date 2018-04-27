@@ -2,55 +2,40 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
+  findRenderedComponentWithType,
   scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType,
-  Simulate
+  scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import ReactDOM from 'react-dom';
-import { stub } from 'sinon';
-import _ from 'lodash';
+import { spy, stub } from 'sinon';
 
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 import Carousel from 'components/common/carousel';
 import OfficerCard from 'components/landing-page/activity-grid/officer-card';
+import Arrow from 'components/common/carousel/arrow';
+import Swiper from 'components/common/swiper';
 
-
-describe('Carousel components', function () {
+describe('Carousel component', function () {
   let instance;
-  let consoleStub;
-  let renderCarouselSuppressWarningProps;
+  let onNavigateSpy = spy();
+  const carouselComponent = (data, props) => (
+    <Carousel
+      onNavigate={ onNavigateSpy }
+      childWidth={ 232 }
+      style={ { width: '1000px' } } { ...props }>
+      { data.map(({ id, ...attr }) => (
+        <OfficerCard key={ id } { ...attr } officerId={ id }/>
+      )) }
+    </Carousel>
+  );
 
-  before(function () {
-    consoleStub = stub(console, 'error'); //suppress console.error `Swiper`
-    renderCarouselSuppressWarningProps = function (data, headerNode = '', description = '') {
-      const slides = data.map((item) => {
-        const attr = _.omit(item, 'id');
-        return <OfficerCard key={ item.id } { ...attr } officerId={ item.id }/>;
-      });
-      return renderIntoDocument(
-        <Carousel headerSection={ headerNode } type='Activity'>
-          { slides }
-        </Carousel>
-      );
-    };
-  });
-
-  after(function () {
-    // TODO: ensure that this console.error is belong to `Swiper` and appear once time only
-    // 'Invalid prop `children` supplied to `ReactIdSwiper`.'
-    consoleStub.restore();
+  beforeEach(function () {
+    onNavigateSpy.resetHistory();
   });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-  });
-
-  it('should not render if no data', function () {
-    instance = renderIntoDocument(
-      <Carousel/>
-    );
-    scryRenderedDOMComponentsWithClass(instance, 'test--carousel--wrapper').should.be.empty();
   });
 
   it('should render appropriately if few data provided', function () {
@@ -75,72 +60,58 @@ describe('Carousel components', function () {
       'gender': 'Male'
     }];
 
-    instance = renderCarouselSuppressWarningProps(data, 'HEADER');
+    instance = renderIntoDocument(carouselComponent(data));
 
-    findRenderedDOMComponentWithClass(instance, 'test--carousel--wrapper');
-    const header = findRenderedDOMComponentWithClass(instance, 'test--carousel--header');
-    header.textContent.should.containEql('HEADER');
+    findRenderedDOMComponentWithClass(instance, 'swiper-wrapper').should.be.ok();
     instance.props.children.should.have.length(2);
     const items = scryRenderedComponentsWithType(instance, OfficerCard);
     items.should.have.length(2);
     ReactDOM.findDOMNode(items[0]).textContent.should.containEql('Manuel Guzman');
     ReactDOM.findDOMNode(items[1]).textContent.should.containEql('Jerome Finnagan');
-    scryRenderedDOMComponentsWithClass(instance, 'test--carousel--arrow--right').should.have.length(0);
-  });
-
-  it('should show the right arrow if there are many elements', function () {
-    const data = OfficerCardFactory.buildList(10);  // larger than viewport-size
-    instance = renderCarouselSuppressWarningProps(data);
-    findRenderedDOMComponentWithClass(instance, 'test--carousel--arrow--right');
-  });
-
-  it('should hide right arrow if meet the end of items', function () {
-    const data = OfficerCardFactory.buildList(10);  // larger than viewport-size
-    instance = renderCarouselSuppressWarningProps(data);
-    const arrowWrapper = findRenderedDOMComponentWithClass(instance, 'test--carousel--arrow--right');
-    Simulate.click(arrowWrapper);
-    scryRenderedDOMComponentsWithClass(instance, 'test--carousel--arrow--right').should.have.length(0);
-  });
-
-  it('should show the left arrow if current slide not beginning', function () {
-    stub(global, 'ga');
-    const data = OfficerCardFactory.buildList(10);  // larger than viewport-size
-    instance = renderCarouselSuppressWarningProps(data);
     scryRenderedDOMComponentsWithClass(instance, 'test--carousel--arrow--left').should.have.length(0);
-    const arrowWrapper = findRenderedDOMComponentWithClass(instance, 'test--carousel--arrow--right');
-
-    instance.state.numVisibleSlide.should.equal(6);
-    Simulate.click(arrowWrapper);
-    scryRenderedDOMComponentsWithClass(instance, 'test--carousel--arrow--left').should.have.length(1);
-    global.ga.calledWith('send', 'event', 'carousel', 'swipe_right', 'Activity');
-    global.ga.restore();
   });
 
-  it('should update the number of slide to scroll when window size change', function () {
-    const data = OfficerCardFactory.buildList(20);  // larger than viewport-size
-    let instance = renderCarouselSuppressWarningProps(data);
-    instance.state.numVisibleSlide.should.equal(6);
-    instance.swiper.activeIndex.should.equal(0);
-    const rightArrowWrapper = findRenderedDOMComponentWithClass(instance, 'test--carousel--arrow--right');
-    Simulate.click(rightArrowWrapper);
-    instance.swiper.activeIndex.should.equal(6);
-
-    global.innerWidth = 1000; // Change the viewport to 1000px.
-    global.dispatchEvent(new Event('resize')); // Trigger the window resize event.
-
-    instance.state.numVisibleSlide.should.equal(2);
-    const leftArrowWrapper = findRenderedDOMComponentWithClass(instance, 'test--carousel--arrow--left');
-    Simulate.click(leftArrowWrapper);
-    instance.swiper.activeIndex.should.equal(4);
+  it('should call updateSlidesPerGroup when mounted', function () {
+    const data = OfficerCardFactory.buildList(10);
+    const updateSlidesPerGroup = stub(Carousel.prototype, 'updateSlidesPerGroup');
+    instance = renderIntoDocument(carouselComponent(data));
+    updateSlidesPerGroup.called.should.be.true();
+    updateSlidesPerGroup.restore();
   });
 
-  it('should update the state of the component when the data prop changed', function () {
-    const slides = _.range(2).map((i) => (<div key={ i }> { i } </div>));
-    instance = renderIntoDocument(<Carousel>{ slides }</Carousel>);
-    instance.state.displayRightArrow.should.be.false();
+  it('should call updateSlidesPerGroup when updated', function () {
+    const data = OfficerCardFactory.buildList(10);
+    const updateSlidesPerGroup = stub(Carousel.prototype, 'updateSlidesPerGroup');
+    instance = renderIntoDocument(carouselComponent(data));
+    updateSlidesPerGroup.resetHistory();
+    reRender(carouselComponent(data), instance);
+    updateSlidesPerGroup.called.should.be.true();
+    updateSlidesPerGroup.restore();
+  });
 
-    const newSlides = _.range(10).map((i) => (<div key={ i }> { i } </div>));
-    instance = reRender(<Carousel>{ newSlides }</Carousel>, instance);
+  it('should set arrow visibility when snap index change', function () {
+    const data = OfficerCardFactory.buildList(10);
+    instance = renderIntoDocument(carouselComponent(data));
+    instance.state.displayLeftArrow = false;
+    instance.state.displayRightArrow = false;
+    const swiper = findRenderedComponentWithType(instance, Swiper);
+    swiper.props.onSnapIndexChange(true, true);
+    instance.state.displayLeftArrow.should.be.true();
     instance.state.displayRightArrow.should.be.true();
+  });
+
+  it('should change slideIndex when click on arrow buttons', function () {
+    const data = OfficerCardFactory.buildList(10);
+    instance = renderIntoDocument(carouselComponent(data));
+    instance.slidesPerGroup = 5;
+    const arrows = scryRenderedComponentsWithType(instance, Arrow);
+    arrows[1].props.onClick('right');
+    instance.state.slideIndex.should.eql(5);
+    onNavigateSpy.calledWith('right').should.be.true();
+
+    instance.slidesPerGroup = 5;
+    arrows[0].props.onClick('left');
+    instance.state.slideIndex.should.eql(0);
+    onNavigateSpy.calledWith('left').should.be.true();
   });
 });
