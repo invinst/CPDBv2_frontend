@@ -26,7 +26,7 @@ export default class ComplaintCard extends Component {
           {
             complainants
               ? (
-                <div className='test--carousel-card-complainant' style={ sectionWithBorderStyle }>
+                <div className='test--carousel-complainant' style={ sectionWithBorderStyle }>
                   <div style={ sectionLabelStyle }>Complainant</div>
                   <div style={ sectionContentStyle }>{ complainants }</div>
                 </div>
@@ -35,7 +35,7 @@ export default class ComplaintCard extends Component {
           {
             accused
               ? (
-                <div className='test--carousel-card-accused' style={ sectionStyle }>
+                <div className='test--carousel-accused' style={ sectionStyle }>
                   <div style={ sectionLabelStyle }>Accused</div>
                   <div style={ accusedStyle }>{ accused }</div>
                 </div>

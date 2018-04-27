@@ -83,12 +83,12 @@ axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() =>
 axiosMockClient.onGet(`${CR_URL}1000000/`).reply(200, getCRData());
 axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());
 axiosMockClient.onGet(
-  `${CR_URL}1000000/related-complaints/?match=categories&distance=10mi`
-).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '10mi' }));
+  `${CR_URL}1000000/related-complaints/?match=categories&distance=0.5mi`
+).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi' }));
 
 axiosMockClient.onGet(
-  `${CR_URL}1000000/related-complaints/?match=categories&distance=10mi&offset=20`
-).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '10mi', nextOffset: 40 }));
+  `${CR_URL}1000000/related-complaints/?match=categories&distance=0.5mi&offset=20`
+).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi', nextOffset: 40 }));
 
 axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData());
 
