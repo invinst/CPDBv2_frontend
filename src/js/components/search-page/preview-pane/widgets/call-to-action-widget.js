@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+
+import OutboundLink from 'components/common/outbound-link';
 import { containerStyle, buttonStyle, textStyle, linkStyle } from './view-widget.style';
 
 
@@ -10,7 +12,7 @@ export default class CallToActionWidget extends Component {
     const WrapperLink = ({ url, to, children }) => (
       to
         ? <Link style={ linkStyle } to={ to }>{ children }</Link>
-        : <a style={ linkStyle } href={ url }>{ children }</a>
+        : <OutboundLink style={ linkStyle } href={ url }>{ children }</OutboundLink>
     );
     return (
       <WrapperLink url={ url } to={ to }>

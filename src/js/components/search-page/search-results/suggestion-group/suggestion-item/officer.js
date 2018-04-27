@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import pluralize from 'pluralize';
 
-import { compact } from 'lodash';
+import { compact, isEmpty } from 'lodash';
 
 import SuggestionItemBase from './base';
 import { grayTextStyle } from './base.style';
@@ -12,11 +12,12 @@ class OfficerItem extends SuggestionItemBase {
   renderSecondRow() {
     const { hovering, isFocused } = this.props;
     const { age, race, gender, complaintCount, sustainedCount } = this.props.suggestion;
-    const officerInfo = compact([`${age} year old`, race, gender]).join(', ');
+    const ageString = age ? `${age} year old` : null;
+    const demographic = compact([ageString, race, gender]);
 
     return (
       <div style={ grayTextStyle }>
-        <span>{ officerInfo }, </span>
+        { !isEmpty(demographic) && <span>{ demographic.join(', ') }, </span> }
         <span
           style={ complaintsTextStyle((isFocused || hovering) && complaintCount > 0) }>
           { `${pluralize('Complaint', complaintCount, true)}, ` }

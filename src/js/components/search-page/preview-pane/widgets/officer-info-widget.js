@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map } from 'lodash';
+import { map, compact, lowerCase, isEmpty } from 'lodash';
 
 import {
   wrapperStyle,
@@ -29,10 +29,15 @@ export default class OfficerInfoWidget extends Component {
       resignationDate,
     } = this.props;
 
+    const ageString = age ? `${age} year old` : null;
+    const raceString = race ? lowerCase(race) : null;
+    const genderString = gender ? lowerCase(gender) : null;
+    const geographicInfo = compact([ageString, raceString, genderString]);
+
     const listInfo = [
       {
         key: '',
-        value: `${age} year old, ${race.toLowerCase()}, ${gender.toLowerCase()}.`,
+        value: !isEmpty(geographicInfo) ? `${geographicInfo.join(', ')}.` : null,
       },
       {
         key: 'Badge',
@@ -46,11 +51,11 @@ export default class OfficerInfoWidget extends Component {
         key: 'Unit',
         value: unit.description || unit.unitName,
         title: unit.description,
-        url: `/unit/${unit.unitName}`,
+        url: `/unit/${unit.unitName}/`,
       },
       {
         key: 'Career',
-        value: `${appointedDate} — ${resignationDate || 'Present'}`,
+        value: `${appointedDate || 'Unknown'} — ${resignationDate || 'Present'}`,
       },
     ];
 
@@ -59,7 +64,7 @@ export default class OfficerInfoWidget extends Component {
         <h1 style={ titleStyle }>{ fullName }</h1>
         <ul style={ listStyle }>
           {
-            map(listInfo, (metric) => (
+            map(listInfo, (metric) => metric.value ? (
               <li style={ listItemStyle } key={ `item-${metric.key}` }>
                 { metric.key && <div style={ itemKeyStyle }>{ metric.key }</div> }
                 <div
@@ -73,9 +78,9 @@ export default class OfficerInfoWidget extends Component {
                     <img src={ imgUrl('disclosure-indicator.svg') } style={ arrowStyle }/>
                   </Link>
                 ) }
-                <div style={ clearfixStyle } />
+                <div style={ clearfixStyle }/>
               </li>
-            ))
+            ) : null)
           }
         </ul>
       </div>
@@ -84,10 +89,6 @@ export default class OfficerInfoWidget extends Component {
 }
 
 OfficerInfoWidget.defaultProps = {
-  race: 'white',
-  gender: 'male',
-  badge: '',
-  rank: 'Police Officer',
   unit: {},
   appointedDate: null,
   resignationDate: null,
