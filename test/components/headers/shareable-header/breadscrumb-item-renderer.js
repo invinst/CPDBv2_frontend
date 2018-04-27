@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import BreadcrumbsItemContainer from 'containers/headers/shareable-header/breadcrumbs-item-container';
+import BreadcrumbsItemRenderer from 'containers/headers/shareable-header/breadcrumbs-item-renderer-container';
 
 
 describe('BreadcrumbsItem component', function () {
@@ -28,7 +28,7 @@ describe('BreadcrumbsItem component', function () {
   it('should render a string with correct style in top state', function () {
     instance = renderIntoDocument(
       <Provider store={ createStore('top') }>
-        <BreadcrumbsItemContainer>some string</BreadcrumbsItemContainer>
+        <BreadcrumbsItemRenderer>some string</BreadcrumbsItemRenderer>
       </Provider>
     );
     const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-item');
@@ -38,7 +38,7 @@ describe('BreadcrumbsItem component', function () {
   it('should render a string with correct style in middle state', function () {
     instance = renderIntoDocument(
       <Provider store={ createStore('middle') }>
-        <BreadcrumbsItemContainer>some string</BreadcrumbsItemContainer>
+        <BreadcrumbsItemRenderer>some string</BreadcrumbsItemRenderer>
       </Provider>
     );
     const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-item');
@@ -48,7 +48,7 @@ describe('BreadcrumbsItem component', function () {
   it('should render a string with correct style in bottom state', function () {
     instance = renderIntoDocument(
       <Provider store={ createStore('bottom') }>
-        <BreadcrumbsItemContainer>some string</BreadcrumbsItemContainer>
+        <BreadcrumbsItemRenderer>some string</BreadcrumbsItemRenderer>
       </Provider>
     );
     const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-item');
@@ -58,9 +58,9 @@ describe('BreadcrumbsItem component', function () {
   it('should render a link with correct style in top state', function () {
     instance = renderIntoDocument(
       <Provider store={ createStore('top') }>
-        <BreadcrumbsItemContainer>
+        <BreadcrumbsItemRenderer>
           <a className='test--breadcrumbs-link'>some link</a>
-        </BreadcrumbsItemContainer>
+        </BreadcrumbsItemRenderer>
       </Provider>
     );
     const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-link');
@@ -70,9 +70,9 @@ describe('BreadcrumbsItem component', function () {
   it('should render a link with correct style in middle state', function () {
     instance = renderIntoDocument(
       <Provider store={ createStore('middle') }>
-        <BreadcrumbsItemContainer>
+        <BreadcrumbsItemRenderer>
           <a className='test--breadcrumbs-link'>some link</a>
-        </BreadcrumbsItemContainer>
+        </BreadcrumbsItemRenderer>
       </Provider>
     );
     const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-link');
@@ -82,9 +82,9 @@ describe('BreadcrumbsItem component', function () {
   it('should render a link with correct style in bottom state', function () {
     instance = renderIntoDocument(
       <Provider store={ createStore('bottom') }>
-        <BreadcrumbsItemContainer>
+        <BreadcrumbsItemRenderer>
           <a className='test--breadcrumbs-link'>some link</a>
-        </BreadcrumbsItemContainer>
+        </BreadcrumbsItemRenderer>
       </Provider>
     );
     const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-link');
