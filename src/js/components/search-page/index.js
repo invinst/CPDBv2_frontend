@@ -18,6 +18,7 @@ import HoverableButton from 'components/common/hoverable-button';
 import {
   ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE
 } from 'utils/constants';
+import { showIntercomLauncher } from 'utils/intercom';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -45,6 +46,8 @@ export default class SearchPage extends Component {
     if (query && query.length >= 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);
     }
+
+    showIntercomLauncher(false);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,6 +68,7 @@ export default class SearchPage extends Component {
   componentWillUnmount() {
     LayeredKeyBinding.unbind('esc');
     LayeredKeyBinding.unbind('enter');
+    showIntercomLauncher(true);
   }
 
   handleViewItem() {
