@@ -5,6 +5,7 @@ import { map } from 'lodash';
 import { radarContaninerStyle } from './static-radar-chart.style';
 import RadarAxis from './radar-axis';
 import RadarArea from './radar-area';
+import RadarSpineLine from './radar-spine-line';
 import RadarLegend from './radar-legend';
 import RadarTooltipPoints from './radar-tooltip-point';
 
@@ -18,7 +19,7 @@ export default class StaticRadarChart extends Component {
 
   _embedComputedPosition(data) {
     const rScale = scaleLinear()
-      .range([0, this.props.radius])
+      .range([0, this.props.radius - this.strokeWidth])
       .domain([0, this.maxValue]);
 
     const angleSlice = Math.PI * 2 / data.length;
@@ -76,6 +77,7 @@ export default class StaticRadarChart extends Component {
             strokeWidth={ this.strokeWidth }
           />
           <RadarArea rPoints={ transformData } strokeWidth={ this.strokeWidth }/>
+          <RadarSpineLine rPoints={ transformData } />
           <RadarLegend fadeOut={ fadeOutLegend } content={ legendText }/>
           { !hideAxisText && <RadarTooltipPoints data={ transformData }/> }
         </g>
