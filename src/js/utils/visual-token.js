@@ -15,19 +15,20 @@ export const getSvgUrl = officerId => {
   return `https://${config.visualTokenAccount}.blob.core.windows.net/visual-token/officer_${officerId}.svg`;
 };
 
-const scalePercentile = (val) => {
-  return val > 50 ? 2 : (val > 0 ? 1 : 0);
+export const scalePercentile = (val) => {
+  return val !== 0 ? parseInt((val - 0.0001) / 20) + 1: 0;
 };
 
 export const getVisualTokenOIGBackground = (internalPercentile, civilPercentile, useOfForcePercentile) => {
   const { LIGHT_COLOR, DARK_COLOR, COLOR_TEXT_LIGHT_SCHEME } = constants.OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT;
   const key = [
     scalePercentile(internalPercentile),
-    scalePercentile(civilPercentile),
     scalePercentile(useOfForcePercentile)
   ].join('');
   return {
-    backgroundColor: constants.OIG_VISUAL_TOKEN_COLOR_SCHEME[key],
+    backgroundColor: key !== '00' ?
+      constants.OIG_VISUAL_TOKEN_COLOR_SCHEME[key] :
+      constants.OIG_EXTRA_BLUE_COLOR_SCHEME[scalePercentile(civilPercentile)],
     textColor: COLOR_TEXT_LIGHT_SCHEME.indexOf(key) === -1 ? DARK_COLOR : LIGHT_COLOR,
   };
 };
