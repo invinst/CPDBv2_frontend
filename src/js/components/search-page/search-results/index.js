@@ -18,7 +18,6 @@ import PreviewPane from 'components/search-page/search-results/preview-pane';
 import * as constants from 'utils/constants';
 import { SEARCH_PAGE_NAVIGATION_KEYS } from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 export default class SuggestionResults extends Component {
@@ -89,8 +88,8 @@ export default class SuggestionResults extends Component {
   renderActionBar() {
     const { aliasEditModeOn } = this.props;
 
-    return (
-      aliasEditModeOn ?
+    return aliasEditModeOn
+      ? (
         <div style={ actionBarStyle }>
           <Link
             to={ `/edit/${constants.SEARCH_PATH}` }
@@ -98,35 +97,16 @@ export default class SuggestionResults extends Component {
             className='test--cancel-alias-button'>
             Cancel
           </Link>
-        </div> :
+        </div>
+      ) : (
         <div style={ plusWrapperStyle }>
           <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
         </div>
-    );
-  }
-
-  renderContent() {
-    const { singleContent, editModeOn } = this.props;
-
-    if (singleContent)
-      return (
-        <div className='content-wrapper' style={ columnWrapperStyle }>
-          { editModeOn ? this.renderActionBar() : null }
-          { this.renderGroups() }
-        </div>
       );
-    else {
-      return (
-        <MinimalScrollBars className='content-wrapper' style={ columnWrapperStyle }>
-          { editModeOn ? this.renderActionBar() : null }
-          { this.renderGroups() }
-        </MinimalScrollBars>
-      );
-    }
   }
 
   render() {
-    const { isRequesting, aliasEditModeOn, previewPaneInfo } = this.props;
+    const { isRequesting, aliasEditModeOn, previewPaneInfo, editModeOn } = this.props;
 
     return (
       <div style={ suggestionResultsStyle(aliasEditModeOn) }>
@@ -136,7 +116,10 @@ export default class SuggestionResults extends Component {
               Loading...
             </div> :
             <div style={ resultWrapperStyle }>
-              { this.renderContent() }
+              <div style={ columnWrapperStyle }>
+                { editModeOn ? this.renderActionBar() : null }
+                { this.renderGroups() }
+              </div>
             </div>
         }
         <PreviewPane { ...previewPaneInfo }/>

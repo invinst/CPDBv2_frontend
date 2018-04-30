@@ -10,7 +10,6 @@ import {
   searchContentWrapperStyle
 } from './search-page.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
-import { scrollToElement } from 'utils/dom';
 import * as constants from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
@@ -50,13 +49,6 @@ export default class SearchPage extends Component {
   componentWillReceiveProps(nextProps) {
     const { location, params, routes, pushBreadcrumbs, query } = nextProps;
     pushBreadcrumbs({ location, params, routes });
-    // Make sure keyboard-focused item is kept within viewport:
-    if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
-      scrollToElement(
-        `.suggestion-item-${nextProps.focusedItem.uniqueKey}`,
-        { block: 'center', inline: 'nearest' }
-      );
-    }
     if (this.props.location.pathname !== location.pathname && query && query.length > 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);  // TODO; need refactor
     }

@@ -28,8 +28,7 @@ export default class SmoothScroller extends Component {
     const { selectedOffset, direction, directionMargin } = this.props;
     if (selectedOffset !== this.prevSelectedOffset) {
       const offset = this.scrollerEl.getBoundingClientRect()[direction];
-      const scrollOffset = this.scrollerEl[SCROLL_PROPERTY[direction]];
-      this.prevScrollOffset = selectedOffset - offset + scrollOffset - directionMargin;
+      this.prevScrollOffset = selectedOffset - offset - directionMargin;
     }
     return this.prevScrollOffset;
   }

@@ -6,8 +6,9 @@ import { groupHeaderStyle, scrollerStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
-import MinimalScrollBars from 'components/common/minimal-scroll-bars';
+import ScrollIntoView from 'components/common/scroll-into-view';
 
+const headerHeight = 64;
 
 export default class SuggestionGroup extends Component {
   componentDidMount() {
@@ -18,7 +19,7 @@ export default class SuggestionGroup extends Component {
   }
 
   renderHeader() {
-    return (<div style={ groupHeaderStyle }>{ this.props.header }</div>);
+    return (<div style={ groupHeaderStyle(headerHeight) }>{ this.props.header }</div>);
   }
 
   renderResults() {
@@ -73,15 +74,20 @@ export default class SuggestionGroup extends Component {
 
   render() {
     const {
-      singleContent
+      singleContent,
+      focusedItem
     } = this.props;
 
     if (singleContent) {
       return (
-        <MinimalScrollBars style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
+        <ScrollIntoView
+          className='test--suggestion-group'
+          style={ scrollerStyle(singleContent) }
+          focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }
+          initialOffset={ headerHeight }>
           { this.renderHeader() }
           { this.renderResults() }
-        </MinimalScrollBars>
+        </ScrollIntoView>
       );
     }
     else {
