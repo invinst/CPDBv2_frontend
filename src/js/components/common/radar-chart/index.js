@@ -76,8 +76,8 @@ export default class StaticRadarChart extends Component {
             textColor={ textColor }
             strokeWidth={ this.strokeWidth }
           />
-          <RadarArea rPoints={ transformData } strokeWidth={ this.strokeWidth }/>
-          <RadarSpineLine rPoints={ transformData } />
+          <RadarArea showValueText={ !hideAxisText } rPoints={ transformData } strokeWidth={ this.strokeWidth }/>
+          <RadarSpineLine rPoints={ transformData }/>
           <RadarLegend fadeOut={ fadeOutLegend } content={ legendText }/>
           { !hideAxisText && <RadarTooltipPoints data={ transformData }/> }
         </g>
@@ -91,6 +91,7 @@ StaticRadarChart.defaultProps = {
   legendText: '',
   fadeOutLegend: false,
   hideAxisText: false,
+  showValueText: false,
   width: 512,
   height: 392,
   radius: 164
