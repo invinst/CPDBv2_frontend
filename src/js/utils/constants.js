@@ -2,7 +2,7 @@ import Enum from 'enum';
 
 import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
-  galleryColor, lightAltoColor, whiteTwoColor, greyColor, softBlackColor
+  galleryColor, lightAltoColor, greyColor, softBlackColor
 } from 'utils/styles';
 
 export const TOP = 'top';
@@ -341,7 +341,7 @@ export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
 export const OIG_EXTRA_BLUE_COLOR_SCHEME = {
   '0': '#f5f4f4',
   '1': '#d5e5ff',
-  '2': whiteTwoColor,
+  '2': '#c7dbfb',
   '3': '#aec1fa',
   '4': '#6a8cf1',
   '5': '#184cea',

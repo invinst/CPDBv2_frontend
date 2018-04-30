@@ -33,7 +33,7 @@ describe('VisualToken utils', function () {
   });
 
   describe('getVisualTokenOIGBackground', () => {
-    it('should return correct background colors for first percentile', () => {
+    it('should return correct background colors when first percentile is 0', () => {
       getVisualTokenOIGBackground(0, 0, 0).should.eql({
         backgroundColor: '#f5f4f4',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
@@ -65,7 +65,7 @@ describe('VisualToken utils', function () {
       });
     });
 
-    it('should return correct background colors for second percentile', () => {
+    it('should return correct background colors when first percentile is 1', () => {
       getVisualTokenOIGBackground(15, 0, 0).should.eql({
         backgroundColor: '#ffdec1',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
@@ -97,7 +97,7 @@ describe('VisualToken utils', function () {
       });
     });
 
-    it('should return correct background colors for third percentile', () => {
+    it('should return correct background colors when first percentile is 2', () => {
       getVisualTokenOIGBackground(35, 0, 0).should.eql({
         backgroundColor: '#ffc498',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
@@ -129,7 +129,7 @@ describe('VisualToken utils', function () {
       });
     });
 
-    it('should return correct background colors for fourth percentile', () => {
+    it('should return correct background colors when first percentile is 3', () => {
       getVisualTokenOIGBackground(55, 0, 0).should.eql({
         backgroundColor: '#ffb382',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
@@ -161,7 +161,7 @@ describe('VisualToken utils', function () {
       });
     });
 
-    it('should return correct background colors for fifth percentile', () => {
+    it('should return correct background colors when first percentile is 4', () => {
       getVisualTokenOIGBackground(75, 0, 0).should.eql({
         backgroundColor: '#ffa644',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
@@ -193,7 +193,7 @@ describe('VisualToken utils', function () {
       });
     });
 
-    it('should return correct background colors for sixth percentile', () => {
+    it('should return correct background colors when first percentile is 5', () => {
       getVisualTokenOIGBackground(95, 0, 0).should.eql({
         backgroundColor: '#ff8600',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
@@ -222,6 +222,38 @@ describe('VisualToken utils', function () {
       getVisualTokenOIGBackground(95, 95, 100).should.eql({
         backgroundColor: '#ff0000',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.LIGHT_COLOR,
+      });
+    });
+
+    it('should return extra blue background colors when first percentile is 0', () => {
+      getVisualTokenOIGBackground(0, 0, 0).should.eql({
+        backgroundColor: '#f5f4f4',
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      });
+
+      getVisualTokenOIGBackground(0, 15, 0).should.eql({
+        backgroundColor: '#d5e5ff',
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      });
+
+      getVisualTokenOIGBackground(0, 35, 0).should.eql({
+        backgroundColor: '#c7dbfb',
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      });
+
+      getVisualTokenOIGBackground(0, 55, 0).should.eql({
+        backgroundColor: '#aec1fa',
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      });
+
+      getVisualTokenOIGBackground(0, 75, 0).should.eql({
+        backgroundColor: '#6a8cf1',
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
+      });
+
+      getVisualTokenOIGBackground(0, 95, 0).should.eql({
+        backgroundColor: '#184cea',
+        textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
     });
   });
