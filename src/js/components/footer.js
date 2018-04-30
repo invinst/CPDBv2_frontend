@@ -8,6 +8,7 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 import NoRerender from 'components/common/higher-order/no-rerender';
 import { imgUrl } from 'utils/static-assets';
 import { INVISIBLE_INSTITUTE_URL } from 'utils/constants';
+import { showIntercomMessages } from 'utils/intercom';
 
 
 class Footer extends React.Component {
@@ -24,7 +25,7 @@ class Footer extends React.Component {
       },
       {
         name: 'Contact',
-        onClick: () => { window.Intercom('show'); }
+        onClick: () => { showIntercomMessages(true); }
       }
     ];
 
