@@ -22,7 +22,7 @@ describe('RadarArea components', function () {
   }, {
     angle: 1.5,
     r: 1.5,
-    value: 30.22,
+    value: 99.99,
   }];
 
   afterEach(function () {
@@ -51,9 +51,9 @@ describe('RadarArea components', function () {
     );
     const textElements = scryRenderedDOMComponentsWithClass(instance, 'test--radar-value-text');
     textElements.should.have.length(3);
-    textElements[0].textContent.should.eql('11');
+    textElements[0].textContent.should.eql('10');
     textElements[1].textContent.should.eql('20');
-    textElements[2].textContent.should.eql('30');
+    textElements[2].textContent.should.eql('99.9');
   });
 
   it('should hide stroke if drawStroke is false', function () {
