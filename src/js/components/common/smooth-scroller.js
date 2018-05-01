@@ -22,19 +22,15 @@ export default class SmoothScroller extends Component {
   }
 
   getScrollOffset() {
-    if (!this.scrollerEl) {
-      return 0;
-    }
-    const { selectedOffset, direction, directionMargin } = this.props;
+    const { selectedOffset, directionMargin } = this.props;
     if (selectedOffset !== this.prevSelectedOffset) {
-      const offset = this.scrollerEl.getBoundingClientRect()[direction];
-      this.prevScrollOffset = selectedOffset - offset - directionMargin;
+      this.prevScrollOffset = selectedOffset - directionMargin;
     }
     return this.prevScrollOffset;
   }
 
   handleScrollerElementRef(el) {
-    this.scrollerEl = el;
+    this.props.onScrollerRef(el);
   }
 
   render() {
@@ -49,7 +45,7 @@ export default class SmoothScroller extends Component {
             const scrollerProps = {
               style,
               [SCROLL_PROPERTY[direction]]: scrollOffset,
-              onElementRef: this.handleScrollerElementRef
+              onScrollerRef: this.handleScrollerElementRef
             };
 
             return (
@@ -66,7 +62,8 @@ export default class SmoothScroller extends Component {
 
 SmoothScroller.defaultProps = {
   directionMargin: 0,
-  direction: 'top'
+  direction: 'top',
+  onScrollerRef: () => {}
 };
 
 SmoothScroller.propTypes = {
@@ -74,5 +71,6 @@ SmoothScroller.propTypes = {
   children: PropTypes.node,
   selectedOffset: PropTypes.number,
   direction: PropTypes.string,
-  directionMargin: PropTypes.number
+  directionMargin: PropTypes.number,
+  onScrollerRef: PropTypes.func
 };

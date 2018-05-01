@@ -18,6 +18,7 @@ import PreviewPane from 'components/search-page/search-results/preview-pane';
 import * as constants from 'utils/constants';
 import { SEARCH_PAGE_NAVIGATION_KEYS } from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
+import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 export default class SuggestionResults extends Component {
@@ -105,8 +106,31 @@ export default class SuggestionResults extends Component {
       );
   }
 
+  renderContent() {
+    const { singleContent, editModeOn, focusedItem } = this.props;
+
+    if (singleContent)
+      return (
+        <div className='content-wrapper' style={ columnWrapperStyle }>
+          { editModeOn ? this.renderActionBar() : null }
+          { this.renderGroups() }
+        </div>
+      );
+    else {
+      return (
+        <ScrollIntoView
+          className='content-wrapper'
+          style={ columnWrapperStyle }
+          focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
+          { editModeOn ? this.renderActionBar() : null }
+          { this.renderGroups() }
+        </ScrollIntoView>
+      );
+    }
+  }
+
   render() {
-    const { isRequesting, aliasEditModeOn, previewPaneInfo, editModeOn } = this.props;
+    const { isRequesting, aliasEditModeOn, previewPaneInfo } = this.props;
 
     return (
       <div style={ suggestionResultsStyle(aliasEditModeOn) }>
@@ -116,10 +140,7 @@ export default class SuggestionResults extends Component {
               Loading...
             </div> :
             <div style={ resultWrapperStyle }>
-              <div style={ columnWrapperStyle }>
-                { editModeOn ? this.renderActionBar() : null }
-                { this.renderGroups() }
-              </div>
+              { this.renderContent() }
             </div>
         }
         <PreviewPane { ...previewPaneInfo }/>

@@ -8,8 +8,6 @@ import LoadMoreButton from './load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
 import ScrollIntoView from 'components/common/scroll-into-view';
 
-const headerHeight = 64;
-
 export default class SuggestionGroup extends Component {
   componentDidMount() {
     const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
@@ -19,7 +17,7 @@ export default class SuggestionGroup extends Component {
   }
 
   renderHeader() {
-    return (<div style={ groupHeaderStyle(headerHeight) }>{ this.props.header }</div>);
+    return (<div style={ groupHeaderStyle }>{ this.props.header }</div>);
   }
 
   renderResults() {
@@ -83,8 +81,7 @@ export default class SuggestionGroup extends Component {
         <ScrollIntoView
           className='test--suggestion-group'
           style={ scrollerStyle(singleContent) }
-          focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }
-          initialOffset={ headerHeight }>
+          focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
           { this.renderHeader() }
           { this.renderResults() }
         </ScrollIntoView>

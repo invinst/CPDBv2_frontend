@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { omit } from 'lodash';
 
 import { thumbStyle } from './minimal-srcoll-bar.style';
 
@@ -18,13 +19,27 @@ export default class MinimalScrollBars extends Component {
     );
   }
 
+  handleScrollerRef(el) {
+    this.props.onScrollerRef(el);
+  }
+
   render() {
+
     return (
       <Scrollbars
         thumbSize={ 120 }
         renderThumbVertical={ this.renderThumb }
-        { ...this.props }
+        ref={ this.handleScrollerRef.bind(this) }
+        { ...omit(this.props, 'onScrollerRef') }
       />
     );
   }
 }
+
+MinimalScrollBars.defaultProps = {
+  onScrollerRef: () => {}
+};
+
+MinimalScrollBars.propTypes = {
+  onScrollerRef: PropTypes.func
+};
