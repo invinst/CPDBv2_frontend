@@ -12,7 +12,7 @@ import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
-import MinimalScrollBars from 'components/common/minimal-scroll-bars';
+import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 describe('SuggestionGroup component', function () {
@@ -102,17 +102,17 @@ describe('SuggestionGroup component', function () {
     catchSpy.called.should.be.true();
   });
 
-  it('should render MinimalScrollBars if it is single content', function () {
+  it('should render ScrollIntoView if it is single content', function () {
     instance = renderIntoDocument(<SuggestionGroup singleContent={ true }/>);
-    const scrollBars = findRenderedComponentWithType(instance, MinimalScrollBars);
+    const scrollBars = findRenderedComponentWithType(instance, ScrollIntoView);
 
     scrollBars.props.className.should.eql('test--suggestion-group');
   });
 
-  it('should NOT render MinimalScrollBars if it is NOT single content', function () {
+  it('should NOT render ScrollIntoView if it is NOT single content', function () {
     instance = renderIntoDocument(<SuggestionGroup singleContent={ false }/>);
 
-    scryRenderedComponentsWithType(instance, MinimalScrollBars).should.have.length(0);
+    scryRenderedComponentsWithType(instance, ScrollIntoView).should.have.length(0);
     findRenderedDOMComponentWithClass(instance, 'test--suggestion-group').should.be.ok();
   });
 });

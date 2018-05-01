@@ -25,9 +25,7 @@ export default class ScrollIntoView extends Component {
     const focusedItemOffset = childRect.top - parentRect.top;
     if ((focusedItemOffset < 0) || (focusedItemOffset > parentRect.height - childRect.height)) {
       const previousFocusedItem = document.getElementsByClassName(previousFocusedClassName)[0];
-      const scrollOffset = previousFocusedItem
-        ? childRect.top - previousFocusedItem.getBoundingClientRect().top
-        : focusedItemOffset;
+      const scrollOffset = childRect.top - previousFocusedItem.getBoundingClientRect().top;
       const limit = (parentRect.height - childRect.height) / 2;
       const limitedScrollOffset = scrollOffset > 0
         ? Math.min(limit, scrollOffset)
@@ -57,10 +55,6 @@ export default class ScrollIntoView extends Component {
     );
   }
 }
-
-ScrollIntoView.defaultProps = {
-  initialOffset: 0
-};
 
 ScrollIntoView.propTypes = {
   children: PropTypes.node,
