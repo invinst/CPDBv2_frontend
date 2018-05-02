@@ -2,7 +2,7 @@ import React from 'react';
 import { stub, spy } from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
 import {
-  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType, findRenderedDOMComponentWithClass
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
@@ -12,7 +12,6 @@ import { OfficerSuggestion } from 'utils/test/factories/suggestion';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
-import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 describe('SuggestionGroup component', function () {
@@ -102,17 +101,7 @@ describe('SuggestionGroup component', function () {
     catchSpy.called.should.be.true();
   });
 
-  it('should render ScrollIntoView if it is single content', function () {
-    instance = renderIntoDocument(<SuggestionGroup singleContent={ true }/>);
-    const scrollBars = findRenderedComponentWithType(instance, ScrollIntoView);
-
-    scrollBars.props.className.should.eql('test--suggestion-group');
-  });
-
-  it('should NOT render ScrollIntoView if it is NOT single content', function () {
-    instance = renderIntoDocument(<SuggestionGroup singleContent={ false }/>);
-
-    scryRenderedComponentsWithType(instance, ScrollIntoView).should.have.length(0);
-    findRenderedDOMComponentWithClass(instance, 'test--suggestion-group').should.be.ok();
+  it('should be renderable if it is NOT single content', function () {
+    SuggestionGroup.should.be.renderable({ singleContent: false });
   });
 });

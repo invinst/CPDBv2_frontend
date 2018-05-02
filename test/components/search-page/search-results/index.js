@@ -14,7 +14,6 @@ import PreviewPane from 'components/search-page/search-results/preview-pane';
 import SearchResults from 'components/search-page/search-results';
 import SearchNoResult from 'components/search-page/search-results/search-no-result';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
-import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 describe('SearchResults component', function () {
@@ -108,30 +107,22 @@ describe('SearchResults component', function () {
     resetNavigation.calledWith(0).should.be.true();
   });
 
-  it('should render ScrollIntoView as content-wrapper if it is NOT single content', function () {
-    instance = renderIntoDocument(<SearchResults singleContent={ false }/>);
-    const scrollBars = findRenderedComponentWithType(instance, ScrollIntoView);
-
-    scrollBars.props.className.should.eql('content-wrapper');
+  it('should be renderable when there is not single content', function () {
+    SearchResults.should.be.renderable({ singleContent: false });
   });
 
-  it('should render ScrollIntoView as suggestion-group if it is SINGLE CONTENT', function () {
+  it('should be renderable if it is single content', function () {
     const suggestionGroups = [{
       canLoadMore: true,
       header: 'OFFICER'
     }];
     const getSuggestionWithContentType = stub().returns({ catch: stub() });
-    instance = renderIntoDocument(
-      <SearchResults
-        singleContent={ true }
-        isEmpty={ false }
-        suggestionGroups={ suggestionGroups }
-        getSuggestionWithContentType={ getSuggestionWithContentType }
-      />
-    );
-    const scrollBars = findRenderedComponentWithType(instance, ScrollIntoView);
-
-    scrollBars.props.className.should.eql('test--suggestion-group');
+    SearchResults.should.be.renderable({
+      singleContent: true,
+      isEmpty: false,
+      suggestionGroups: suggestionGroups,
+      getSuggestionWithContentType: getSuggestionWithContentType,
+    });
   });
 
   describe('Preview Pane', function () {
@@ -168,3 +159,4 @@ describe('SearchResults component', function () {
     });
   });
 });
+

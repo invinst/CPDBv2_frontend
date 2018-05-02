@@ -12,29 +12,35 @@ export default class ScrollIntoView extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const offset = this.getDesiredOffset(nextProps);
+
+    if (offset !== null) {
+      this.setState({
+        offset
+      });
+    }
+  }
+
+  getDesiredOffset(nextProps) {
     const { focusedClassName } = nextProps;
-    const previousFocusedClassName = this.props.focusedClassName;
 
-    if (!this.scrollerRef || focusedClassName === previousFocusedClassName) return;
-
+    if (!this.scrollerRef || focusedClassName === this.props.focusedClassName) return null;
     const element = document.getElementsByClassName(focusedClassName)[0];
-    if (element === undefined) return;
+    if (element === undefined) return null;
 
     const parentRect = this.scrollerRef.view.getBoundingClientRect();
     const childRect = element.getBoundingClientRect();
-    const focusedItemOffset = childRect.top - parentRect.top;
-    if ((focusedItemOffset < 0) || (focusedItemOffset > parentRect.height - childRect.height)) {
-      const previousFocusedItem = document.getElementsByClassName(previousFocusedClassName)[0];
-      const scrollOffset = childRect.top - previousFocusedItem.getBoundingClientRect().top;
-      const limit = (parentRect.height - childRect.height) / 2;
-      const limitedScrollOffset = scrollOffset > 0
-        ? Math.min(limit, scrollOffset)
-        : Math.max(-limit, scrollOffset);
+    let desiredChildTop;
 
-      this.setState({
-        offset: this.scrollerRef.getScrollTop() + limitedScrollOffset
-      });
+    if (childRect.top - parentRect.top < 0) {
+      desiredChildTop = parentRect.top;
+    } else if (childRect.top - parentRect.top > parentRect.height - childRect.height) {
+      desiredChildTop = parentRect.top + parentRect.height - childRect.height;
+    } else {
+      return null;
     }
+
+    return this.scrollerRef.getScrollTop() - (desiredChildTop - childRect.top);
   }
 
   handleRef(scrollerRef) {

@@ -18,6 +18,6 @@ CallToActionWidget.defaultProps = {
 };
 
 CallToActionWidget.propTypes = {
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
   text: PropTypes.string,
 };

@@ -89,8 +89,8 @@ export default class SuggestionResults extends Component {
   renderActionBar() {
     const { aliasEditModeOn } = this.props;
 
-    return aliasEditModeOn
-      ? (
+    if (aliasEditModeOn) {
+      return (
         <div style={ actionBarStyle }>
           <Link
             to={ `/edit/${constants.SEARCH_PATH}` }
@@ -99,11 +99,14 @@ export default class SuggestionResults extends Component {
             Cancel
           </Link>
         </div>
-      ) : (
+      );
+    } else {
+      return (
         <div style={ plusWrapperStyle }>
           <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
         </div>
       );
+    }
   }
 
   renderContent() {
@@ -118,13 +121,12 @@ export default class SuggestionResults extends Component {
       );
     else {
       return (
-        <ScrollIntoView
-          className='content-wrapper'
-          style={ columnWrapperStyle }
-          focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
-          { editModeOn ? this.renderActionBar() : null }
-          { this.renderGroups() }
-        </ScrollIntoView>
+        <div className='content-wrapper' style={ columnWrapperStyle }>
+          <ScrollIntoView focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
+            { editModeOn ? this.renderActionBar() : null }
+            { this.renderGroups() }
+          </ScrollIntoView>
+        </div>
       );
     }
   }

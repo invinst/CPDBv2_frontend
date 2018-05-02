@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
-import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
@@ -15,9 +14,8 @@ describe('MinimalScrollBars component', function () {
   });
 
   it('should render Custom Scrollbars with received style', function () {
-    const styleStub = stub();
-    instance = renderIntoDocument(<MinimalScrollBars style={ styleStub } />);
+    instance = renderIntoDocument(<MinimalScrollBars style={ { container: 'abc' } } />);
     const scrollbars = findRenderedComponentWithType(instance, Scrollbars);
-    scrollbars.props.style.should.eql(styleStub);
+    scrollbars.props.style.should.eql('abc');
   });
 });
