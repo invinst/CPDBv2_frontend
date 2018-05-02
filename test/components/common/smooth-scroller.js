@@ -4,7 +4,7 @@ import { spy } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import SmoothScroller from 'components/common/smooth-scroller';
-import Scroller from 'components/common/scroller';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 describe('SmoothScroller component', function () {
@@ -34,7 +34,7 @@ describe('SmoothScroller component', function () {
   it('should pass scroller ref', function () {
     const onScrollerRefSpy = spy();
     instance = renderIntoDocument(<SmoothScroller onScrollerRef={ onScrollerRefSpy } />);
-    const scroller = findRenderedComponentWithType(instance, Scroller);
+    const scroller = findRenderedComponentWithType(instance, MinimalScrollBars);
     scroller.props.onScrollerRef('a');
     onScrollerRefSpy.calledWith('a').should.be.true();
   });

@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Motion, spring } from 'react-motion';
 
 import { defaultConfig } from 'utils/spring-presets';
-import Scroller from 'components/common/scroller';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 const SCROLL_PROPERTY = {
   left: 'scrollLeft',
@@ -49,9 +49,9 @@ export default class SmoothScroller extends Component {
             };
 
             return (
-              <Scroller { ...scrollerProps }>
+              <MinimalScrollBars { ...scrollerProps }>
                 { children }
-              </Scroller>
+              </MinimalScrollBars>
             );
           }
         }
