@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { breadcrumbTextStyle, breadcrumbLinkStyle } from 'components/headers/shareable-header/breadcrumbs-item.style';
 import Hoverable from 'components/common/higher-order/hoverable';
 
-class BreadcrumbsItem extends React.Component {
+class BreadcrumbsItemRenderer extends React.Component {
   render() {
     let children;
 
@@ -20,12 +20,12 @@ class BreadcrumbsItem extends React.Component {
       });
     }
     return (
-      <li className='test--breadcrumbs-item' style={ breadcrumbTextStyle(scrollPosition) }>{children}</li>
+      <li className='test--breadcrumbs-item' style={ breadcrumbTextStyle(scrollPosition) }>{ children }</li>
     );
   }
 }
 
-BreadcrumbsItem.propTypes = {
+BreadcrumbsItemRenderer.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
@@ -34,8 +34,8 @@ BreadcrumbsItem.propTypes = {
   hovering: PropTypes.bool,
 };
 
-BreadcrumbsItem.defaultProps = {
+BreadcrumbsItemRenderer.defaultProps = {
   scrollPosition: 'top',
 };
 
-export default Hoverable(BreadcrumbsItem);
+export default Hoverable(BreadcrumbsItemRenderer);
