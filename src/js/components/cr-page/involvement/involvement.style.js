@@ -3,8 +3,8 @@ import { softBlackColor, sanFranciscoTextFamily } from 'utils/styles';
 
 export const wrapperStyle = {
   fontFamily: sanFranciscoTextFamily,
-  fontSize: '14px'
-
+  fontSize: '14px',
+  marginBottom: '-38px'
 };
 
 export const involvedTextStyle = {
