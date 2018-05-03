@@ -48,12 +48,12 @@ export default class RelatedComplaints extends Component {
             distance={ selectedDistance }
             crid={ crid }
             match='categories'
-            title='RELATED BY CATEGORY'/>
+            title='BY CATEGORY'/>
           <RelatedComplaintsCarouselContainer
             distance={ selectedDistance }
             crid={ crid }
             match='officers'
-            title='RELATED BY OFFICERS INVOLVED'/>
+            title='BY OFFICERS INVOLVED'/>
         </div>
         <FooterContainer style={ footerStyle }/>
       </div>
