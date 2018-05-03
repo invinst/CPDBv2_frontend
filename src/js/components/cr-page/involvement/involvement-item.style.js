@@ -1,10 +1,18 @@
-import { sanFranciscoTextFamily } from 'utils/styles';
+import { sanFranciscoTextFamily, softBlackColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
-  fontFamily: sanFranciscoTextFamily
+  fontFamily: sanFranciscoTextFamily,
+  marginBottom: '38px'
 };
 
 export const lastItemStyle = {
   borderBottom: 'none'
+};
+
+export const titleStyle = {
+  fontSize: '14px',
+  fontWeight: '400',
+  color: softBlackColor,
+  marginBottom: '8px'
 };

@@ -1,6 +1,8 @@
 import { createSelector } from 'reselect';
-import { map, get } from 'lodash';
+import { map, get, reduce, defaults } from 'lodash';
 
+import { getVisualTokenOIGBackground } from 'utils/visual-token';
+import { pluralize } from 'utils/language';
 
 
 const getCoaccused = state => {
@@ -13,6 +15,11 @@ const getComplainants = state => {
   return !state.crs[crid] ? [] : state.crs[crid].complainants;
 };
 
+const getVictims = state => {
+  const crid = state.crPage.crid;
+  return !state.crs[crid] ? [] : state.crs[crid].victims;
+};
+
 const getCR = state => {
   const crid = state.crPage.crid;
   return !state.crs[crid] ? {} : state.crs[crid];
@@ -23,19 +30,9 @@ const getInvolvements = state => {
   return !state.crs[crid] ? [] : state.crs[crid].involvements;
 };
 
-const getDocuments = state => {
+const getAttachments = state => {
   const crid = state.crPage.crid;
-  return !state.crs[crid] ? [] : state.crs[crid].documents;
-};
-
-const getVideos = state => {
-  const crid = state.crPage.crid;
-  return !state.crs[crid] ? [] : state.crs[crid].videos;
-};
-
-const getAudios = state => {
-  const crid = state.crPage.crid;
-  return !state.crs[crid] ? [] : state.crs[crid].audios;
+  return !state.crs[crid] ? [] : state.crs[crid].attachments;
 };
 
 export const getCRID = state => String(state.crPage.crid);
@@ -48,69 +45,133 @@ export const getDocumentAlreadyRequested = state => {
   ));
 };
 
+const getDemographicString = ({ race, gender, age }) => {
+  race = race ? race : 'Unknown';
+  gender = gender ? gender : 'Unknown';
+
+  if (age) {
+    return `${race}, ${gender}, Age ${age}`;
+  } else {
+    return `${race}, ${gender}`;
+  }
+};
+
 const getComplainantStringSelector = createSelector(
   getComplainants,
-  (complainants) => map(complainants, ({ race, gender, age }) => {
-    race = race ? race : 'Unknown';
-    gender = gender ? gender : 'Unknown';
+  (complainants) => map(complainants, (complainant) => getDemographicString(complainant))
+);
 
-    if (age) {
-      return `${race}, ${gender}, Age ${age}`;
-    } else {
-      return `${race}, ${gender}`;
-    }
-  })
+const getVictimStringSelector = createSelector(
+  getVictims,
+  (victims) => map(victims, (victim) => getDemographicString(victim))
 );
 
 const getCoaccusedSelector = createSelector(
   getCoaccused,
   coaccusedList => map(coaccusedList, coaccused => ({
     id: coaccused.id,
-    fullName: coaccused['full_name'],
+    fullname: coaccused['full_name'],
+    rank: coaccused['rank'] || 'Officer',
     gender: coaccused['gender'] || 'Unknown',
     race: coaccused['race'] || 'Unknown',
-    finalFinding: coaccused['final_finding'] || 'Unknown',
-    reccOutcome: coaccused['recc_outcome'] || 'Unknown',
-    finalOutcome: coaccused['final_outcome'] || 'Unknown',
-    startDate: coaccused['start_date'],
-    endDate: coaccused['end_date'],
+    outcome: coaccused['final_outcome'] || 'Unknown Outcome',
     category: coaccused['category'] || 'Unknown',
-    subcategory: coaccused['subcategory'] || 'Unknown',
-    badge: coaccused['badge'] || 'Unknown'
+    age: coaccused['age'],
+    allegationCount: coaccused['allegation_count'],
+    sustainedCount: coaccused['sustained_count'],
+    allegationPercentile: coaccused['percentile_allegation'],
+    radarAxes: [
+      { axis: 'trr', value: parseFloat(coaccused['percentile_trr']) },
+      { axis: 'internal', value: parseFloat(coaccused['percentile_allegation_internal']) },
+      { axis: 'civilian', value: parseFloat(coaccused['percentile_allegation_civilian']) }
+    ],
+    radarColor: getVisualTokenOIGBackground(
+      parseFloat(coaccused['percentile_allegation_internal']),
+      parseFloat(coaccused['percentile_allegation_civilian']),
+      parseFloat(coaccused['percentile_trr'])
+    )
   }))
 );
 
+const getInvestigatorAffiliation = obj => {
+  if (obj['current_rank'].indexOf('IPRA') > -1) {
+    return 'IPRA';
+  }
+
+  return 'CPD';
+};
+
 const getInvolvementsSelector = createSelector(
   getInvolvements,
-  involvements => map(involvements, obj => ({
-    involvedType: obj['involved_type'],
-    officers: map(obj.officers, officer => ({
-      id: officer.id,
-      abbrName: officer['abbr_name'],
-      extraInfo: officer['extra_info']
-    }))
-  }))
+  involvements => reduce(involvements, (accumulator, obj) => {
+    const type = obj['involved_type'];
+    accumulator = defaults(accumulator, { [type]: [] });
+
+    if (
+        obj['officer_id'] === null ||
+        map(accumulator[type], 'id').indexOf(obj['officer_id']) === -1
+      ) {
+      let officer = {
+        id: obj['officer_id'],
+        fullName: obj['full_name'],
+        radarAxes: [
+          { axis: 'trr', value: parseFloat(obj['percentile_trr']) },
+          { axis: 'internal', value: parseFloat(obj['percentile_allegation_internal']) },
+          { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) }
+        ],
+        radarColor: getVisualTokenOIGBackground(
+          parseFloat(obj['percentile_allegation_internal']),
+          parseFloat(obj['percentile_allegation_civilian']),
+          parseFloat(obj['percentile_trr'])
+        )
+      };
+
+      if (type === 'investigator') {
+        officer = {
+          ...officer,
+          tag: getInvestigatorAffiliation(obj)
+        };
+      } else if (type === 'police_witness') {
+        officer = {
+          ...officer,
+          extraInfo: `
+            ${obj['allegation_count']} ${pluralize('allegation', obj['allegation_count'])}
+            ${obj['sustained_count']} sustained
+          `
+        };
+      }
+
+      accumulator[type].push(officer);
+    }
+    return accumulator;
+  }, {})
 );
 
 export const contentSelector = createSelector(
   getCoaccusedSelector,
   getComplainantStringSelector,
+  getVictimStringSelector,
   getCR,
   getInvolvementsSelector,
-  getDocuments,
-  getVideos,
-  getAudios,
-  (coaccused, complainants, cr, involvements, documents, videos, audios) => ({
+  getAttachments,
+  (coaccused, complainants, victims, cr, involvements, attachments) => ({
     coaccused,
     complainants,
+    victims,
     point: cr.point,
     incidentDate: cr['incident_date'],
     address: cr.address,
     crLocation: cr.location,
-    beat: cr.beat || { name: 'Unknown' },
+    beat: cr.beat || 'Unknown',
+    summary: cr.summary,
+    startDate: cr['start_date'],
+    endDate: cr['end_date'],
     involvements,
-    documents,
-    videos,
-    audios,
+    attachments: map(attachments, attachment => ({
+      title: attachment.title,
+      url: attachment.url,
+      previewImageUrl: attachment['preview_image_url'],
+      fileType: attachment['file_type']
+    }))
   })
 );
