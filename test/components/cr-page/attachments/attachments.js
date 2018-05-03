@@ -16,26 +16,12 @@ describe('Attachments component', function () {
   it('should show "no documents" message if no items', function () {
     instance = renderIntoDocument(<Attachments />);
     findDOMNode(instance).innerText.should.containEql(
-      'There are no documents publicly available for this incident at this time.'
-    );
-  });
-
-  it('should show "no documents" message if items is empty', function () {
-    instance = renderIntoDocument(<Attachments items={ [] }/>);
-    findDOMNode(instance).innerText.should.containEql(
-      'There are no documents publicly available for this incident at this time.'
-    );
-  });
-
-  it('should show custom "no document" message for each type', function () {
-    instance = renderIntoDocument(<Attachments title='VIDEO' />);
-    findDOMNode(instance).innerText.should.containEql(
-      'There are no video clips publicly available for this incident at this time.'
+      'There are no attachments publicly available for this incident at this time.'
     );
   });
 
   it('should render if has items and items is not empty', function () {
-    const items = [{ title: 'abc', url: 'def' }];
+    const items = [{ title: 'abc', url: 'def', previewImageUrl: 'pre' }];
     instance = renderIntoDocument(<Attachments items={ items }/>);
     scryRenderedComponentsWithType(instance, Attachments).should.have.length(1);
   });
