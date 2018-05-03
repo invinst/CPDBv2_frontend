@@ -7,7 +7,7 @@ import {
 } from 'utils/tracking';
 
 
-describe('Intercom utils', function () {
+describe('tracking utils', function () {
   window.Intercom = function () {};
   let IntercomStub;
 
