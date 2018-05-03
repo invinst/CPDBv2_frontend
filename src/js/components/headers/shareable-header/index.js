@@ -8,7 +8,7 @@ import {
   headerPlaceholderStyle,
   breadcrumbSeparatorStyle
 } from './shareable-header.style';
-import BreadcrumbsItemContainer from 'containers/headers/shareable-header/breadcrumbs-item-container';
+import BreadcrumbsItemRendererContainer from 'containers/headers/shareable-header/breadcrumbs-item-renderer-container';
 import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
 import ShareButton from 'components/headers/shareable-header/share-button';
 import { calculatePosition } from 'utils/dom';
@@ -59,7 +59,7 @@ export default class ShareableHeader extends Component {
               params={ params }
               location={ location }
               separatorRenderer={ separatorRenderer }
-              itemRenderer={ BreadcrumbsItemContainer }
+              itemRenderer={ BreadcrumbsItemRendererContainer }
               style={ breadcrumbsStyle }
             />
           </div>

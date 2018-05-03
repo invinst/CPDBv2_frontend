@@ -189,6 +189,7 @@ describe('store', function () {
       breadcrumb: {
         breadcrumbs: []
       },
+      breadcrumbsMapping: {},
       headers: {
         shareableHeader: {
           scrollPosition: null

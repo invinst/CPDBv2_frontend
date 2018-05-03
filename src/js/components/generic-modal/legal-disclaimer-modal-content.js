@@ -8,6 +8,8 @@ import {
   iUnderstandStyle
 } from './generic-modal.style';
 import { FAQ_PATH } from 'utils/constants';
+import { showIntercomMessages } from 'utils/intercom';
+
 
 class LegalDisclaimerModalContent extends Component {
   render() {
@@ -37,7 +39,7 @@ class LegalDisclaimerModalContent extends Component {
               <a
                 className='test--contact-link'
                 style={ linkStyle }
-                onClick={ () => { window.Intercom('show'); } }
+                onClick={ () => { showIntercomMessages(true); } }
               >
                 contact
               </a>

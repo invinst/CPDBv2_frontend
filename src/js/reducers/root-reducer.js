@@ -19,6 +19,7 @@ import inlineAliasAdminPage from './inline-alias-admin-page';
 import genericModal from './generic-modal';
 import headers from './headers';
 import cms from './cms';
+import breadcrumbsMapping from './breadcrumbs-mapping';
 
 
 export default combineReducers({
@@ -39,6 +40,7 @@ export default combineReducers({
   inlineAliasAdminPage,
   genericModal,
   breadcrumb,
+  breadcrumbsMapping,
   headers,
   cms
 });
