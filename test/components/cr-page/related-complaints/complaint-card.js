@@ -16,24 +16,24 @@ describe('ComplaintCard component', function () {
   });
 
   describe('complainant section', function () {
-    it('should not render when there is no data', function () {
+    it('should not render complainant carousel when there is no data', function () {
       instance = renderIntoDocument(<ComplaintCard />);
       scryRenderedDOMComponentsWithClass(instance, 'test--carousel-complainant').should.have.length(0);
     });
 
-    it('should render if there are some', function () {
+    it('should render complainant carousel if complainant prop is provided', function () {
       instance = renderIntoDocument(<ComplaintCard complainants='R. Rose' />);
       scryRenderedDOMComponentsWithClass(instance, 'test--carousel-complainant').should.have.length(1);
     });
   });
 
   describe('accused section', function () {
-    it('should not render when there is no data', function () {
+    it('should not render complainant carousel when there is no data', function () {
       instance = renderIntoDocument(<ComplaintCard />);
       scryRenderedDOMComponentsWithClass(instance, 'test--carousel-accused').should.have.length(0);
     });
 
-    it('should render if there are some', function () {
+    it('should render accused carousel if accused prop is provided', function () {
       instance = renderIntoDocument(<ComplaintCard accused='B. Bolton' />);
       scryRenderedDOMComponentsWithClass(instance, 'test--carousel-accused').should.have.length(1);
     });
