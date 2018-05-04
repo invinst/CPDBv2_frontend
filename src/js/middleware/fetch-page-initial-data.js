@@ -6,6 +6,10 @@ import { citySummarySelector } from 'selectors/landing-page/city-summary';
 import { getCRID as getCridFromState } from 'selectors/cr-page';
 import { faqsRequested } from 'selectors/faq-page/faqs-selector';
 import { hasLoadingPageContent } from 'selectors/cms';
+import { hasCards as hasOfficerByAllegationData } from 'selectors/landing-page/officers-by-allegation';
+import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activity-grid';
+import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
+import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
 import { getCitySummary } from 'actions/landing-page/city-summary';
 import { fetchOfficerSummary, changeOfficerId } from 'actions/officer-page';
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
@@ -15,7 +19,10 @@ import { fetchCR } from 'actions/cr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { requestFAQs } from 'actions/faq-page';
 import { fetchPage } from 'actions/cms';
-
+import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-allegation';
+import { requestActivityGrid } from 'actions/landing-page/activity-grid';
+import { getRecentDocument } from 'actions/landing-page/recent-document';
+import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
 
 export default store => next => action => {
   const result = next(action);
@@ -46,6 +53,19 @@ export default store => next => action => {
     }
     if (citySummary.allegationCount === undefined) {
       store.dispatch(getCitySummary());
+    }
+    if (!hasOfficerByAllegationData(state)) {
+      store.dispatch(requestOfficersByAllegation());
+    }
+    if (!hasRecentActivityData(state)) {
+      store.dispatch(requestActivityGrid());
+    }
+    if (!hasRecentDocumentData(state)) {
+      store.dispatch(getRecentDocument());
+    }
+
+    if (!hasComplaintSummaryData(state)) {
+      store.dispatch(getComplaintSummaries());
     }
 
   } else if (action.payload.pathname.match(/complaint\/\d+/)) {

@@ -5,6 +5,10 @@ import { cardTransform } from './common';
 
 export const getCarouselAllegationHeaderEditModeOn = state => state.landingPage.officersByAllegation.headerEditModeOn;
 const getCards = state => state.landingPage.officersByAllegation.cards;
+export const hasCards = createSelector(
+  getCards,
+  cards => cards.length > 0
+);
 
 export const cardsSelector = createSelector(
   [getCards],
