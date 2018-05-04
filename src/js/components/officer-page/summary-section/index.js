@@ -10,7 +10,16 @@ import YearOld from './year-old';
 
 export default class SummarySection extends Component {
   summaryFields() {
-    const { rank, race, gender, badge, careerDuration, unitName, birthYear } = this.props.officerSummary;
+    const {
+      rank,
+      race,
+      gender,
+      badge,
+      careerDuration,
+      unitName,
+      unitDescription,
+      birthYear
+    } = this.props.officerSummary;
     const { openPoliceUnitPage } = this.props;
     const baseSalary = 'DATA NOT READY';
 
@@ -20,7 +29,9 @@ export default class SummarySection extends Component {
       ['Sex', gender],
       ['Badge', badge],
       ['Rank', rank, (<Salary salary={ baseSalary } key='Rank'/>)],
-      ['Unit', unitName, (<ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>)],
+      ['Unit', unitDescription || unitName, (
+        <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>
+      )],
       ['Career', careerDuration],
     ];
   }

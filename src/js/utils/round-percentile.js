@@ -1,10 +1,12 @@
-import isNumber from 'lodash/isNumber';
-
-const roundPercentile = (percentile) => {
-  if (!isNumber(percentile)) {
+const roundPercentile = (percentile, toString=false) => {
+  let parsedPercentile = parseFloat(percentile);
+  if (isNaN(parsedPercentile)) {
     return percentile;
   }
-  return percentile >= 99.1 ? parseInt(percentile * 10) / 10 : Math.floor(percentile);
+  parsedPercentile = parsedPercentile >= 99.1 ?
+    parseInt(parsedPercentile * 10) / 10 :
+    Math.floor(parsedPercentile);
+  return toString ? parsedPercentile.toString() : parsedPercentile;
 };
 
 export default roundPercentile;

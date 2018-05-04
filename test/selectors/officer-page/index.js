@@ -27,7 +27,10 @@ describe('officer page selectors', function () {
 
   describe('summarySelector', function () {
     const summary = {
-      'unit': 'unit',
+      'unit': {
+        'unit_name': 'unit',
+        'description': 'description'
+      },
       'rank': 'rank',
       'date_of_appt': '2015-09-23',
       'race': 'race',
@@ -40,8 +43,12 @@ describe('officer page selectors', function () {
       state.officerPage = { summary };
 
       summarySelector(state).should.eql({
-        unitName: 'unit', rank: 'rank',
-        race: 'race', gender: 'Male', badge: 'badge',
+        unitName: 'unit',
+        unitDescription: 'description',
+        rank: 'rank',
+        race: 'race',
+        gender: 'Male',
+        badge: 'badge',
         dateOfAppt: '2015-09-23',
         careerDescription: '2 years',
         careerDuration: 'SEP 23, 2015—Present',

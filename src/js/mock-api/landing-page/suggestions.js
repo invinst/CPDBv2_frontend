@@ -14,7 +14,7 @@ export const groupedSuggestions = {
           sustainedCount: 2,
           birthYear: 1972,
           race: 'White',
-          sex: 'Male'
+          gender: 'Male'
         }
       ),
       RawOfficerSuggestion.build(
@@ -27,7 +27,7 @@ export const groupedSuggestions = {
           sustainedCount: 1,
           birthYear: 1980,
           race: 'White',
-          sex: 'Female'
+          gender: 'Female'
         }),
       ...RawOfficerSuggestion.buildList(8)
     ],
@@ -42,7 +42,7 @@ export const groupedSuggestions = {
           sustainedCount: 2,
           birthYear: 1972,
           race: 'White',
-          sex: 'Male'
+          gender: 'Male'
         }
       )
     ],
