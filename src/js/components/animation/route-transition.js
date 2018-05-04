@@ -25,7 +25,7 @@ export default class RouteTransition extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { styles } = this.state;
-    const { pathname, children } = nextProps;
+    const { pathname, children, pageLoading } = nextProps;
     const newKey = this.getRouteTransitionKey(pathname);
     const styleObj = find(styles, { key: newKey });
 
@@ -42,16 +42,18 @@ export default class RouteTransition extends Component {
         }
       });
       this.setState({ styles });
-      setTimeout(this.startAnimation.bind(this), 150);
+    } else if (!pageLoading && this.props.pageLoading) {
+      this.startAnimation(nextProps);
     } else {
       styleObj.data.handler = children;
       this.setState({ styles });
     }
   }
 
-  startAnimation() {
+  startAnimation(nextProps) {
     const { styles } = this.state;
     const lastChild = styles[styles.length - 1];
+    lastChild.data.handler = nextProps.children;
     lastChild.style.opacity = spring(1, defaultConfig());
     lastChild.style.windowScrollY = spring(0, defaultConfig());
     this.windowScrollYAtAnimationStart = window.scrollY;
@@ -134,5 +136,6 @@ export default class RouteTransition extends Component {
 
 RouteTransition.propTypes = {
   pathname: PropTypes.string.isRequired,
+  pageLoading: PropTypes.bool,
   children: PropTypes.node
 };

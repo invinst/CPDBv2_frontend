@@ -1,9 +1,9 @@
+import { Promise } from 'es6-promise';
+
 import { LANDING_PAGE_ID } from 'utils/constants';
 import { getOfficerId, getCRID, getUnitName } from 'utils/location';
-import { getOfficerId as getOfficerIdFromState } from 'selectors/officer-page';
 import { communitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { citySummarySelector } from 'selectors/landing-page/city-summary';
-import { getCRID as getCridFromState } from 'selectors/cr-page';
 import { faqsRequested } from 'selectors/faq-page/faqs-selector';
 import { hasLoadingPageContent } from 'selectors/cms';
 import { hasCards as hasOfficerByAllegationData } from 'selectors/landing-page/officers-by-allegation';
@@ -23,6 +23,9 @@ import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-al
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import { getRecentDocument } from 'actions/landing-page/recent-document';
 import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
+import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
+
+let prevPathname = '';
 
 export default store => next => action => {
   const result = next(action);
@@ -31,61 +34,71 @@ export default store => next => action => {
   }
 
   const state = store.getState();
+  const dispatches = [];
 
   if (!hasLoadingPageContent(state)) {
-    store.dispatch(fetchPage(LANDING_PAGE_ID)());
+    dispatches.push(store.dispatch(fetchPage(LANDING_PAGE_ID)()));
   }
 
   if (action.payload.pathname.match(/officer\/\d+/)) {
     const officerId = getOfficerId(action.payload.pathname);
-    const oldOfficerId = getOfficerIdFromState(state);
+    const oldOfficerId = getOfficerId(prevPathname);
     if (officerId !== oldOfficerId) {
-      store.dispatch(changeOfficerId(officerId));
-      store.dispatch(fetchOfficerSummary(officerId));
-      store.dispatch(fetchSocialGraph(officerId));
-      store.dispatch(fetchNewTimelineItems(officerId));
+      dispatches.push(store.dispatch(changeOfficerId(officerId)));
+      dispatches.push(store.dispatch(fetchOfficerSummary(officerId)));
+      dispatches.push(store.dispatch(fetchSocialGraph(officerId)));
+      dispatches.push(store.dispatch(fetchNewTimelineItems(officerId)));
     }
   } else if (action.payload.pathname === '/') {
     const communities = communitiesSelector(state);
     const citySummary = citySummarySelector(state);
     if (communities === null) {
-      store.dispatch(getCommunities());
+      dispatches.push(store.dispatch(getCommunities()));
     }
     if (citySummary.allegationCount === undefined) {
-      store.dispatch(getCitySummary());
+      dispatches.push(store.dispatch(getCitySummary()));
     }
     if (!hasClusterGeoJsonData(state)) {
-      store.dispatch(getClusterGeoJson());
+      dispatches.push(store.dispatch(getClusterGeoJson()));
     }
 
     if (!hasOfficerByAllegationData(state)) {
-      store.dispatch(requestOfficersByAllegation());
+      dispatches.push(store.dispatch(requestOfficersByAllegation()));
     }
     if (!hasRecentActivityData(state)) {
-      store.dispatch(requestActivityGrid());
+      dispatches.push(store.dispatch(requestActivityGrid()));
     }
     if (!hasRecentDocumentData(state)) {
-      store.dispatch(getRecentDocument());
+      dispatches.push(store.dispatch(getRecentDocument()));
     }
 
     if (!hasComplaintSummaryData(state)) {
-      store.dispatch(getComplaintSummaries());
+      dispatches.push(store.dispatch(getComplaintSummaries()));
     }
 
   } else if (action.payload.pathname.match(/complaint\/\d+/)) {
     const crid = getCRID(action.payload.pathname);
-    const oldCrid = getCridFromState(state);
+    const oldCrid = getCRID(prevPathname);
     if (crid != oldCrid) {
-      store.dispatch(fetchCR(crid));
+      dispatches.push(store.dispatch(fetchCR(crid)));
     }
   } else if (action.payload.pathname.match(/unit\/\d+/)) {
     const unitName = getUnitName(action.payload.pathname);
-    store.dispatch(fetchUnitProfileSummary(unitName));
+    dispatches.push(store.dispatch(fetchUnitProfileSummary(unitName)));
   } else if (action.payload.pathname.match(/faq/)) {
     if (!faqsRequested(state)) {
-      store.dispatch(requestFAQs());
+      dispatches.push(store.dispatch(requestFAQs()));
     }
   }
+
+  if (dispatches.length > 0) {
+    store.dispatch(pageLoadStart());
+    Promise.all(dispatches).finally(() => {
+      store.dispatch(pageLoadFinish());
+    });
+  }
+
+  prevPathname = action.payload.pathname;
 
   return result;
 };

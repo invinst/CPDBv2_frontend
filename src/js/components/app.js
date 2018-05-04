@@ -7,7 +7,7 @@ import BottomSheetContainer from 'containers/bottom-sheet';
 import EditModeProvider from 'components/edit-mode-provider';
 import LoginModalContainer from 'containers/login-modal-container';
 import GenericModalContainer from 'containers/generic-modal-container';
-import RouteTransition from 'components/animation/route-transition';
+import RouteTransition from 'containers/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 import { ALPHA_NUMBERIC } from 'utils/constants';
