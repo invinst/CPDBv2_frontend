@@ -55,7 +55,8 @@ class Footer extends React.Component {
 }
 
 Footer.propTypes = {
-  openLegalDisclaimerModal: PropTypes.func
+  openLegalDisclaimerModal: PropTypes.func,
+  style: PropTypes.object,
 };
 
 export default NoRerender(Footer);

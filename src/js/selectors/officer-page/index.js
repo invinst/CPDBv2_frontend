@@ -42,7 +42,6 @@ const getSummaryRank = summary => {
 
 export const getOfficerName = state => state.officerPage.fullName;
 export const getOfficerId = state => state.officerPage.officerId;
-export const getActiveTab = state => state.officerPage.activeTab;
 export const getPathname = state => state.officerPage.pathname;
 export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCachedFullName;
 
