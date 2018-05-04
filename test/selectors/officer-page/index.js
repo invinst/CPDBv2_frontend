@@ -1,6 +1,5 @@
 import {
   DATA_NOT_AVAILABLE,
-  getActiveTab,
   getOfficerName,
   getPathname,
   metricsSelector,
@@ -28,12 +27,16 @@ describe('officer page selectors', function () {
 
   describe('summarySelector', function () {
     const summary = {
-      'unit': 'unit',
+      'unit': {
+        'unit_name': 'unit',
+        'description': 'description'
+      },
       'rank': 'rank',
       'date_of_appt': '2015-09-23',
       'race': 'race',
       'gender': 'Male',
       'badge': 'badge',
+      'historic_badges': ['1', '2'],
       'birth_year': 1991,
     };
 
@@ -41,8 +44,13 @@ describe('officer page selectors', function () {
       state.officerPage = { summary };
 
       summarySelector(state).should.eql({
-        unitName: 'unit', rank: 'rank',
-        race: 'race', gender: 'Male', badge: 'badge',
+        unitName: 'unit',
+        unitDescription: 'description',
+        rank: 'rank',
+        race: 'race',
+        gender: 'Male',
+        badge: 'badge',
+        historicBadges: ['1', '2'],
         dateOfAppt: '2015-09-23',
         careerDescription: '2 years',
         careerDuration: 'SEP 23, 2015—Present',
@@ -119,17 +127,6 @@ describe('officer page selectors', function () {
         topUseOfForcePercentile: 9.0,
         civilianComplimentCount: 10,
       });
-    });
-  });
-
-  describe('getActiveTab', function () {
-    it('should return active tab', function () {
-      const state = {
-        officerPage: {
-          activeTab: 'social'
-        }
-      };
-      getActiveTab(state).should.eql('social');
     });
   });
 

@@ -4,12 +4,12 @@ import { random, lorem, name, internet, date } from 'faker';
 /* istanbul ignore next */
 export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
   .option('race', 'White')
-  .option('sex', 'Male')
+  .option('gender', 'Male')
   .option('rank', 'Police Officer')
   .option('resultText', () => `${name.firstName()} ${name.lastName()}`)
   .option('to', '')
   .option('url', '')
-  .option('unit', '001')
+  .option('unit', {})
   .option('tags', [])
   .option('visualTokenBackgroundColor', internet.color)
   .option('birthYear', () => date.between('1950-01-01', '1990-12-31').getFullYear())
@@ -19,25 +19,36 @@ export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
   .attr('text', lorem.words)
   .attr(
     'payload', [
-      'race', 'sex', 'rank', 'resultText', 'to', 'unit', 'sustainedCount',
-      'visualTokenBackgroundColor', 'birthYear', 'allegationCount', 'url', 'tags'
+      'race', 'gender', 'rank', 'resultText', 'to', 'unit', 'sustainedCount',
+      'birthYear', 'allegationCount', 'url', 'tags'
     ],
     (
-      race, sex, rank, resultText, to, unit, sustainedCount,
-      visualTokenBackgroundColor, birthYear, allegationCount, url, tags
+      race, gender, rank, resultText, to, unit, sustainedCount,
+      birthYear, allegationCount, url, tags
     ) => ({
       race,
-      sex,
+      gender,
       rank,
       tags,
-      'sustained_count': sustainedCount,
-      'allegation_count': allegationCount,
       'birth_year': birthYear,
+      name: resultText,
       'result_text': resultText,
       to,
       url,
       unit,
-      'visual_token_background_color': visualTokenBackgroundColor
+      'appointed_date': '1999-12-13',
+      'resignation_date': null,
+      'civilian_compliment_count': 4,
+      'sustained_count': sustainedCount,
+      'allegation_count': allegationCount,
+      'discipline_count': 1,
+      badge: '5922',
+      percentiles: [{
+        'percentile_trr': '90',
+        'percentile_allegation_civilian': '92',
+        'percentile_allegation': '93',
+        'percentile_allegation_internal': '91',
+      }]
     }));
 
 /* istanbul ignore next */
@@ -89,7 +100,9 @@ export const OfficerSuggestion = Factory.define('OfficerSuggestion')
   .attr('url', '')
   .attr('tags', [])
   .attr('uniqueKey', ['type', 'id'], (type, id) => `${type}-${id}`)
-  .attr('demographicInfo', '35 year old, Male, White')
+  .attr('gender', 'Male')
+  .attr('race', 'White')
+  .attr('age', 35)
   .attr('complaintCount', 20)
   .attr('sustainedCount', 0);
 

@@ -1,38 +1,121 @@
 import React, { Component, PropTypes } from 'react';
-import { map } from 'lodash';
 
-import { titleStyle, visualTokenStyle } from './officer-pane.style';
-import ShortList from 'components/common/short-list';
-import { CallToActionWidget } from './widgets';
+import WidgetWrapper, {
+  VisualTokenWidget,
+  OfficerInfoWidget,
+  MetricWidget,
+  CallToActionWidget,
+} from './widgets';
 
 
 export default class OfficerPane extends Component {
   render() {
-    const { to, visualTokenBackgroundColor, visualTokenImg, title, officerInfo } = this.props;
-    const convertedData = map(officerInfo, (value, key) => [key, value]);
+    const {
+      fullName,
+      age,
+      appointedDate,
+      unit,
+      badge,
+      race,
+      gender,
+      complaintCount,
+      complaintPercentile,
+      sustainedCount,
+      disciplineCount,
+      trrCount,
+      trrPercentile,
+      civilianComplimentCount,
+      honorableMentionCount,
+      to,
+      lastPercentile,
+    } = this.props;
+    const metrics = [
+      {
+        name: 'Allegations',
+        value: complaintCount,
+        description: complaintPercentile && `More than ${complaintPercentile}% of other officers`,
+      },
+      {
+        name: 'Sustained',
+        value: sustainedCount,
+        isHighlight: true,
+        description: `${disciplineCount} Disciplined`,
+      },
+      {
+        name: 'Use of Force Reports',
+        value: trrCount,
+        description: trrPercentile && `More than ${trrPercentile}% of other officers`,
+      },
+      {
+        name: <span>Civilian<br/>Compliments</span>,
+        value: civilianComplimentCount,
+      },
+      {
+        name: 'Major Awards',
+        value: 0,
+      },
+      {
+        name: 'Honorable Mentions',
+        value: honorableMentionCount,
+        description: 'More than ##% of other officers',
+      },
+    ];
     return (
-      <div>
-        <div className='test--preview-pane-title' style={ titleStyle }>{ title }</div>
-        {
-          visualTokenImg ?
-            <img
-              className='test--preview-pane-visual-token'
-              style={ { ...visualTokenStyle, backgroundColor: visualTokenBackgroundColor } }
-              src={ visualTokenImg }
-            /> :
-            null
-        }
-        <ShortList data={ convertedData }/>
-        <CallToActionWidget text='View Officer Profile' url={ to }/>
-      </div>
+      <WidgetWrapper>
+        <VisualTokenWidget { ...lastPercentile }/>
+        <OfficerInfoWidget
+          fullName={ fullName }
+          appointedDate={ appointedDate }
+          age={ age }
+          unit={ unit }
+          badge={ badge }
+          race={ race }
+          gender={ gender }
+        />
+        <MetricWidget metrics={ metrics }/>
+        <CallToActionWidget to={ to }/>
+      </WidgetWrapper>
     );
   }
 }
 
+OfficerPane.defaultProps = {
+  unit: {},
+  badge: 0,
+  race: '',
+  gender: '',
+  trrCount: 0,
+  disciplineCount: 0,
+  complaintPercentile: null,
+  trrPercentile: null,
+  civilianComplimentCount: 0,
+  honorableMentionCount: 0,
+  to: '',
+};
+
 OfficerPane.propTypes = {
-  visualTokenImg: PropTypes.string,
-  visualTokenBackgroundColor: PropTypes.string,
-  officerInfo: PropTypes.object.isRequired,
-  title: PropTypes.string,
-  to: PropTypes.string
+  fullName: PropTypes.string.isRequired,
+  age: PropTypes.number.isRequired,
+  appointedDate: PropTypes.string.isRequired,
+  unit: PropTypes.shape({
+    id: PropTypes.number,
+    unitName: PropTypes.string,
+    description: PropTypes.string,
+  }),
+  badge: PropTypes.string,
+  race: PropTypes.string,
+  gender: PropTypes.string,
+  complaintCount: PropTypes.number.isRequired,
+  complaintPercentile: PropTypes.string,
+  sustainedCount: PropTypes.number.isRequired,
+  disciplineCount: PropTypes.number,
+  trrCount: PropTypes.number,
+  trrPercentile: PropTypes.string,
+  civilianComplimentCount: PropTypes.number,
+  honorableMentionCount: PropTypes.number,
+  to: PropTypes.string,
+  lastPercentile: PropTypes.shape({
+    items: PropTypes.array,
+    visualTokenBackground: PropTypes.string,
+  }).isRequired,
 };

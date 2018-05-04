@@ -14,10 +14,10 @@ describe('Involvement component', function () {
   });
 
   it('should render list of involvement items', function () {
-    const involvements = [
-      { involvedType: 'Witness Individual', officers: [{ id: 1 }] },
-      { involvedType: 'Complainant', officers: [{ id: 2 }] }
-    ];
+    const involvements = {
+      'investigator': [{ id: 1 }],
+      'police_witness': [{ id: 2 }]
+    };
     instance = renderIntoDocument(<Involvement involvements={ involvements }/>);
     scryRenderedComponentsWithType(instance, InvolvementItem).should.have.length(2);
   });

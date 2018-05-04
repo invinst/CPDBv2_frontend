@@ -50,7 +50,7 @@ describe('Officers By Allegation components', function () {
       <OfficersByAllegation cards={ data } />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'test--landing--carousel-allegation');
+    findRenderedDOMComponentWithClass(instance, 'test--landing-carousel-allegation');
 
     const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
     officerCards.should.have.length(2);

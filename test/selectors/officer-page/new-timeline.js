@@ -16,6 +16,7 @@ import {
   trrTransform,
   yearItem,
   applyFilter,
+  markLatestUnit,
 } from 'selectors/officer-page/new-timeline';
 import { NEW_TIMELINE_FILTERS } from 'utils/constants';
 
@@ -43,6 +44,7 @@ describe('officer page selectors', function () {
         isLastRank: false,
         isFirstUnit: false,
         isLastUnit: false,
+        isCurrentUnit: false,
         key: 1,
       });
     });
@@ -68,6 +70,7 @@ describe('officer page selectors', function () {
         isLastRank: false,
         isFirstUnit: false,
         isLastUnit: false,
+        isCurrentUnit: false,
         key: 1,
       });
     });
@@ -147,6 +150,7 @@ describe('officer page selectors', function () {
         isLastRank: false,
         isFirstUnit: false,
         isLastUnit: false,
+        isCurrentUnit: false,
         category: 'Use Of Force',
         crid: '303350',
         coaccused: 9,
@@ -212,6 +216,7 @@ describe('officer page selectors', function () {
         isLastRank: false,
         isFirstUnit: false,
         isLastUnit: false,
+        isCurrentUnit: false,
         category: 'Firearm',
         key: 1,
       });
@@ -228,6 +233,7 @@ describe('officer page selectors', function () {
         isLastRank: false,
         isFirstUnit: false,
         isLastUnit: false,
+        isCurrentUnit: false,
         category: 'Taser',
         key: 1,
       });
@@ -244,6 +250,7 @@ describe('officer page selectors', function () {
         isLastRank: false,
         isFirstUnit: false,
         isLastUnit: false,
+        isCurrentUnit: false,
         category: 'Use of Force Report',
         key: 1,
       });
@@ -274,6 +281,7 @@ describe('officer page selectors', function () {
         isLastRank: false,
         isFirstUnit: false,
         isLastUnit: false,
+        isCurrentUnit: false,
         category: 'Honorable Mention',
         key: 1,
       });
@@ -291,6 +299,7 @@ describe('officer page selectors', function () {
         unitName: '153',
         unitDescription: 'Mobile Strike Force',
         unitDisplay: 'Mobile Strike Force',
+        isCurrentUnit: true,
         key: 1,
       };
 
@@ -307,6 +316,7 @@ describe('officer page selectors', function () {
         isLastRank: false,
         isFirstUnit: false,
         isLastUnit: false,
+        isCurrentUnit: true,
         key: '1-YEAR-2010',
       });
     });
@@ -323,6 +333,7 @@ describe('officer page selectors', function () {
         unitName: 'Unit 111',
         unitDescription: 'Some Force',
         unitDisplay: 'Unit 111',
+        isCurrentUnit: true,
         key: 1,
       };
       const toItem = {
@@ -334,6 +345,7 @@ describe('officer page selectors', function () {
         unitName: 'Unit 153',
         unitDescription: 'Mobile Strike Force',
         unitDisplay: 'Unit 153',
+        isCurrentUnit: false,
         key: 2,
       };
 
@@ -351,6 +363,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           key: '2-YEAR-2013',
         },
         {
@@ -366,6 +379,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           key: '2-YEAR-2012',
         }
       ]);
@@ -384,6 +398,7 @@ describe('officer page selectors', function () {
           unitName: 'Unit 111',
           unitDescription: 'Some Force',
           unitDisplay: 'Unit 111',
+          isCurrentUnit: true,
           key: 1,
         },
         {
@@ -395,6 +410,7 @@ describe('officer page selectors', function () {
           unitName: 'Unit 153',
           unitDescription: 'Mobile Strike Force',
           unitDisplay: 'Unit 153',
+          isCurrentUnit: false,
           key: 2,
         }
       ];
@@ -413,6 +429,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: false,
           isLastUnit: false,
+          isCurrentUnit: true,
           key: '1-YEAR-2014',
         },
         {
@@ -424,6 +441,7 @@ describe('officer page selectors', function () {
           unitName: 'Unit 111',
           unitDescription: 'Some Force',
           unitDisplay: 'Unit 111',
+          isCurrentUnit: true,
           key: 1,
         },
         {
@@ -439,6 +457,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           key: '2-YEAR-2013',
         },
         {
@@ -454,6 +473,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           key: '2-YEAR-2012',
         },
         {
@@ -469,6 +489,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           key: '2-YEAR-2011',
         },
         {
@@ -480,6 +501,7 @@ describe('officer page selectors', function () {
           unitName: 'Unit 153',
           unitDescription: 'Mobile Strike Force',
           unitDisplay: 'Unit 153',
+          isCurrentUnit: false,
           key: 2,
         }
       ]);
@@ -496,6 +518,7 @@ describe('officer page selectors', function () {
           unitName: 'Unit 111',
           unitDescription: 'Some Force',
           unitDisplay: 'Unit 111',
+          isCurrentUnit: false,
           key: 1,
         },
         {
@@ -507,6 +530,7 @@ describe('officer page selectors', function () {
           unitName: 'Unit 153',
           unitDescription: 'Mobile Strike Force',
           unitDisplay: 'Unit 153',
+          isCurrentUnit: false,
           key: 2,
         }
       ];
@@ -524,6 +548,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           hasData: true,
           key: '1-YEAR-2014'
         },
@@ -963,6 +988,190 @@ describe('officer page selectors', function () {
     });
   });
 
+  describe('markLatestUnit', function () {
+    it('should handle empty array', function () {
+      markLatestUnit([]).should.be.empty();
+    });
+
+    it('should mark latest unit period only', function () {
+      const items = [
+        {
+          category: 'Taser',
+          date: 'DEC 17',
+          isCurrentUnit: false,
+          kind: 'FORCE',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2005,
+          key: 0,
+        },
+        {
+          category: 'Use of Force Report',
+          date: 'MAR 17',
+          isCurrentUnit: false,
+          kind: 'FORCE',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2005,
+          key: 1,
+        },
+        {
+          date: 'JAN 7',
+          isCurrentUnit: false,
+          kind: 'UNIT_CHANGE',
+          oldUnitDescription: 'Mobile Strike Force',
+          oldUnitName: 'Unit 153',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2005,
+          key: 2,
+        },
+        {
+          category: 'Firearm',
+          date: 'DEC 17',
+          isCurrentUnit: false,
+          kind: 'FORCE',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          unitDisplay: ' ',
+          year: 2004,
+          key: 3,
+        },
+        {
+          date: 'JAN 7',
+          isCurrentUnit: false,
+          kind: 'UNIT_CHANGE',
+          oldUnitDescription: 'District 007',
+          oldUnitName: 'Unit 007',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          unitDisplay: ' ',
+          year: 2004,
+          key: 4,
+        },
+        {
+          attachments: [],
+          category: 'Illegal Search',
+          coaccused: 8,
+          crid: '294088',
+          date: 'NOV 26',
+          finding: 'Exonerated',
+          isCurrentUnit: false,
+          kind: 'CR',
+          outcome: 'No Action Taken',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2003,
+          key: 5,
+        },
+      ];
+
+      markLatestUnit(items).should.eql([
+        {
+          category: 'Taser',
+          date: 'DEC 17',
+          isCurrentUnit: true,
+          kind: 'FORCE',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2005,
+          key: 0,
+        },
+        {
+          category: 'Use of Force Report',
+          date: 'MAR 17',
+          isCurrentUnit: true,
+          kind: 'FORCE',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2005,
+          key: 1,
+        },
+        {
+          date: 'JAN 7',
+          isCurrentUnit: false,
+          kind: 'UNIT_CHANGE',
+          oldUnitDescription: 'Mobile Strike Force',
+          oldUnitName: 'Unit 153',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2005,
+          key: 2,
+        },
+        {
+          category: 'Firearm',
+          date: 'DEC 17',
+          isCurrentUnit: false,
+          kind: 'FORCE',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          unitDisplay: ' ',
+          year: 2004,
+          key: 3,
+        },
+        {
+          date: 'JAN 7',
+          isCurrentUnit: false,
+          kind: 'UNIT_CHANGE',
+          oldUnitDescription: 'District 007',
+          oldUnitName: 'Unit 007',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          unitDisplay: ' ',
+          year: 2004,
+          key: 4,
+        },
+        {
+          attachments: [],
+          category: 'Illegal Search',
+          coaccused: 8,
+          crid: '294088',
+          date: 'NOV 26',
+          finding: 'Exonerated',
+          isCurrentUnit: false,
+          kind: 'CR',
+          outcome: 'No Action Taken',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 007',
+          unitDescription: 'District 007',
+          unitDisplay: ' ',
+          year: 2003,
+          key: 5,
+        },
+      ]);
+    });
+  });
+
   describe('getNewTimelineItems', function () {
     it('should return empty if the state is empty', function () {
       getNewTimelineItems({
@@ -1083,6 +1292,7 @@ describe('officer page selectors', function () {
           isFirstUnit: true,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: true,
           kind: 'YEAR',
           rank: 'Police Officer',
           rankDisplay: 'Police Officer',
@@ -1098,6 +1308,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: true,
           kind: 'AWARD',
           rank: 'Police Officer',
           rankDisplay: ' ',
@@ -1112,6 +1323,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: true,
           date: '2005',
           hasData: true,
           kind: 'YEAR',
@@ -1129,6 +1341,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: true,
           kind: 'FORCE',
           rank: 'Police Officer',
           rankDisplay: ' ',
@@ -1145,6 +1358,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: true,
+          isCurrentUnit: true,
           kind: 'FORCE',
           rank: 'Police Officer',
           rankDisplay: ' ',
@@ -1160,6 +1374,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           kind: 'UNIT_CHANGE',
           oldUnitDescription: 'Mobile Strike Force',
           oldUnitName: 'Unit 153',
@@ -1176,6 +1391,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: true,
           isLastUnit: false,
+          isCurrentUnit: false,
           date: '2004',
           hasData: true,
           kind: 'EMPTY',
@@ -1193,6 +1409,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           kind: 'YEAR',
           rank: 'Police Officer',
           rankDisplay: ' ',
@@ -1208,6 +1425,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           kind: 'FORCE',
           rank: 'Police Officer',
           rankDisplay: ' ',
@@ -1224,6 +1442,7 @@ describe('officer page selectors', function () {
           isLastRank: false,
           isFirstUnit: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           kind: 'YEAR',
           rank: 'Police Officer',
           rankDisplay: ' ',
@@ -1250,6 +1469,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           kind: 'CR',
           outcome: 'No Action Taken',
           rank: 'Police Officer',
@@ -1271,6 +1491,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           kind: 'CR',
           outcome: 'No Action Taken',
           rank: 'Police Officer',
@@ -1287,6 +1508,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           hasData: false,
           kind: 'YEAR',
           rank: 'Police Officer',
@@ -1302,6 +1524,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           hasData: false,
           kind: 'YEAR',
           rank: 'Police Officer',
@@ -1318,6 +1541,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: true,
+          isCurrentUnit: false,
           kind: 'YEAR',
           rank: 'Police Officer',
           rankDisplay: ' ',
@@ -1332,6 +1556,7 @@ describe('officer page selectors', function () {
           isFirstUnit: false,
           isLastRank: false,
           isLastUnit: false,
+          isCurrentUnit: false,
           kind: 'UNIT_CHANGE',
           oldUnitDescription: 'Recruit Training Section',
           oldUnitName: 'Unit 044',
@@ -1349,6 +1574,7 @@ describe('officer page selectors', function () {
           isFirstUnit: true,
           isLastRank: true,
           isLastUnit: true,
+          isCurrentUnit: false,
           kind: 'JOINED',
           rank: 'Police Officer',
           rankDisplay: ' ',
