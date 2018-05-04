@@ -21,7 +21,7 @@ class CoaccusalCard extends Component {
   render() {
     const {
       officerName, allegationCount, sustainedCount, allegationPercentile, age, race, gender, coaccusalCount, thumbnail,
-      extraStyle, hovering, openOfficerPage, officerId
+      extraStyle, hovering, openOfficerPage, officerId, rank,
     } = this.props;
 
     return (
@@ -33,7 +33,7 @@ class CoaccusalCard extends Component {
         <div style={ headerStyle } >
           <img style={ thumbnailStyle } src={ thumbnail } className='test--coaccusal-card-thumbnail'/>
           <div style={ headerTitleStyle }>
-            <div>Officer</div>
+            <div className='test--coaccusal-card-officer-rank'>{ rank }</div>
             <div
               style={ officerNameStyle(hovering) }
               className='test--coaccusal-card-officer-name'>
@@ -80,6 +80,7 @@ CoaccusalCard.propTypes = {
   hovering: PropTypes.bool,
   openOfficerPage: PropTypes.func,
   officerId: PropTypes.number,
+  rank: PropTypes.string,
 };
 
 export default Hoverable(CoaccusalCard);

@@ -23,6 +23,7 @@ describe('CoaccusalCard component', function () {
       race: 'white',
       gender: 'male',
       coaccusalCount: 1,
+      rank: 'Police Officer'
     };
 
     instance = renderIntoDocument(
@@ -36,6 +37,7 @@ describe('CoaccusalCard component', function () {
         gender={ coaccusal.gender }
         coaccusalCount={ coaccusal.coaccusalCount }
         thumbnail='https://via.placeholder.com/38x38'
+        rank={ coaccusal.rank }
       />
     );
 
@@ -43,10 +45,12 @@ describe('CoaccusalCard component', function () {
     const officerName = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-officer-name');
     const allegationCount = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-allegation-count');
     const sustainedCount = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-sustained-count');
-    const allegationPercentile =
-      findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-allegation-percentile');
+    const allegationPercentile = findRenderedDOMComponentWithClass(
+      instance, 'test--coaccusal-card-allegation-percentile'
+    );
     const officerInfo = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-officer-info');
     const coaccusalCount = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-coaccusal-count');
+    const officerRank = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-officer-rank');
 
     officerName.textContent.should.eql('officerName');
     allegationCount.textContent.should.eql('1 allegation');
@@ -54,6 +58,7 @@ describe('CoaccusalCard component', function () {
     allegationPercentile.textContent.should.eql('More than 99% of other officers');
     officerInfo.textContent.should.eql('40 years old, white, male.');
     coaccusalCount.textContent.should.eql('Coaccused in 1 case.');
+    officerRank.textContent.should.eql('Police Officer');
   });
 
   it('should pluralize and round percentile correctly ', function () {
@@ -66,6 +71,7 @@ describe('CoaccusalCard component', function () {
       race: 'white',
       gender: 'male',
       coaccusalCount: 3,
+      rank: 'Police Officer'
     };
 
     instance = renderIntoDocument(
@@ -79,11 +85,11 @@ describe('CoaccusalCard component', function () {
         gender={ coaccusal.gender }
         coaccusalCount={ coaccusal.coaccusalCount }
         thumbnail='https://via.placeholder.com/38x38'
+        rank={ coaccusal.rank }
       />
     );
 
     findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-thumbnail');
-    const officerName = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-officer-name');
     const allegationCount = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-allegation-count');
     const sustainedCount = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-sustained-count');
     const allegationPercentile =
@@ -91,7 +97,6 @@ describe('CoaccusalCard component', function () {
     const officerInfo = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-officer-info');
     const coaccusalCount = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-coaccusal-count');
 
-    officerName.textContent.should.eql('officerName');
     allegationCount.textContent.should.eql('2 allegations');
     sustainedCount.textContent.should.eql('1 sustained');
     allegationPercentile.textContent.should.eql('More than 99.9% of other officers');
@@ -110,6 +115,7 @@ describe('CoaccusalCard component', function () {
       race: 'white',
       gender: 'male',
       coaccusalCount: 3,
+      rank: 'Police Officer'
     };
     const openOfficerPageStub = stub();
 
@@ -126,6 +132,7 @@ describe('CoaccusalCard component', function () {
         coaccusalCount={ coaccusal.coaccusalCount }
         thumbnail='https://via.placeholder.com/38x38'
         openOfficerPage={ openOfficerPageStub }
+        rank={ coaccusal.rank }
       />
     );
 

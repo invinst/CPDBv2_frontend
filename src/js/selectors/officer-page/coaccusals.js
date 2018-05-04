@@ -17,6 +17,7 @@ const coaccusalTransform = (coaccusal) => ({
   gender: coaccusal.gender.toLowerCase(),
   age: getThisYear() - coaccusal['birth_year'],
   coaccusalCount: coaccusal['coaccusal_count'],
+  rank: coaccusal['rank'],
 });
 
 const coaccusalThresholds = [1, 4, 9, 14, 20, -1];

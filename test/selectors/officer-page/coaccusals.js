@@ -30,6 +30,7 @@ describe('officer page selectors', function () {
                 race: 'White',
                 gender: 'Male',
                 'coaccusal_count': 4,
+                rank: 'Po As Detective'
               },
               {
                 id: 2,
@@ -41,6 +42,7 @@ describe('officer page selectors', function () {
                 race: 'white',
                 gender: 'male',
                 'coaccusal_count': 2,
+                rank: 'Po As Detective'
               },
               {
                 id: 3,
@@ -52,6 +54,7 @@ describe('officer page selectors', function () {
                 race: 'white',
                 gender: 'male',
                 'coaccusal_count': 1,
+                rank: 'Police Officer'
               }
             ]
           }
@@ -72,6 +75,7 @@ describe('officer page selectors', function () {
               race: 'white',
               gender: 'male',
               coaccusalCount: 4,
+              rank: 'Po As Detective',
             },
             {
               officerId: 2,
@@ -83,6 +87,7 @@ describe('officer page selectors', function () {
               race: 'white',
               gender: 'male',
               coaccusalCount: 2,
+              rank: 'Po As Detective',
             },
           ],
         },
@@ -99,6 +104,7 @@ describe('officer page selectors', function () {
               race: 'white',
               gender: 'male',
               coaccusalCount: 1,
+              rank: 'Police Officer'
             }
           ]
         },

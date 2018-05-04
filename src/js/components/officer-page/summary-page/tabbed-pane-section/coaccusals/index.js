@@ -37,6 +37,7 @@ export default class Coaccusals extends Component {
                       extraStyle={ extraCoaccusalCardStyle }
                       openOfficerPage={ openOfficerPage }
                       officerId={ coaccusal.officerId }
+                      rank={ coaccusal.rank }
                     />
                   ))
                 }
