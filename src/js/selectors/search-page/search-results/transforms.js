@@ -9,6 +9,8 @@ const mappingRace = (race) => {
     return 'Black';
   } else if (race.indexOf('Spanish') !== -1) {
     return 'Hispanic';
+  } else if (race.indexOf('Native') !== -1) {
+    return 'Native';
   }
   return race;
 };

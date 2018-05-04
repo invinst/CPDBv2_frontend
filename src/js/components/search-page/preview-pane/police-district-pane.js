@@ -15,6 +15,7 @@ export default class PoliceDistrictPane extends Component {
     const {
       name,
       raceCount,
+      population,
       allegationCount,
       officersMostComplaint,
       districtCommander,
@@ -26,8 +27,8 @@ export default class PoliceDistrictPane extends Component {
     return (
       <WidgetWrapper>
         <HeaderWidget title={ `POLICE DISTRICT ${district}` }/>
-        <SeparatorWidget />
-        <GeoInfoWidget raceCount={ raceCount } />
+        <SeparatorWidget/>
+        <GeoInfoWidget raceCount={ raceCount } population={ population }/>
         <AllegationCountWidget
           numOfAllegations={ allegationCount }
           subTitle={ 'More than ##% of other districts' }
@@ -48,10 +49,11 @@ export default class PoliceDistrictPane extends Component {
 }
 
 PoliceDistrictPane.propTypes = {
-  name: PropTypes.string.isRequired,
-  raceCount: PropTypes.array.isRequired,
-  allegationCount: PropTypes.number.isRequired,
-  officersMostComplaint: PropTypes.array.isRequired,
-  districtCommander: PropTypes.array.isRequired,
-  url: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  population: PropTypes.string,
+  raceCount: PropTypes.array,
+  allegationCount: PropTypes.number,
+  officersMostComplaint: PropTypes.array,
+  districtCommander: PropTypes.array,
+  url: PropTypes.string,
 };
