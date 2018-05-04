@@ -17,8 +17,7 @@ export default class RouteTransition extends Component {
         },
         style: {
           opacity: 1,
-          windowScrollY: 1,
-          scale: 1
+          windowScrollY: 1
         }
       }]
     };
@@ -39,8 +38,7 @@ export default class RouteTransition extends Component {
         },
         style: {
           opacity: 0,
-          windowScrollY: 1,
-          scale: 0.95
+          windowScrollY: 1
         }
       });
       this.setState({ styles });
@@ -55,7 +53,6 @@ export default class RouteTransition extends Component {
     const { styles } = this.state;
     const lastChild = styles[styles.length - 1];
     lastChild.style.opacity = spring(1, defaultConfig());
-    lastChild.style.scale = spring(1, defaultConfig());
     lastChild.style.windowScrollY = spring(0, defaultConfig());
     this.windowScrollYAtAnimationStart = window.scrollY;
     this.setState({ styles: [lastChild] });
@@ -87,15 +84,13 @@ export default class RouteTransition extends Component {
   willEnter() {
     return {
       opacity: 0,
-      windowScrollY: 1,
-      scale: 0.95
+      windowScrollY: 1
     };
   }
 
   willLeave(key, value) {
     return {
-      opacity: spring(0, defaultConfig()),
-      scale: spring(0.95, defaultConfig())
+      opacity: spring(0, defaultConfig())
     };
   }
 
@@ -123,8 +118,7 @@ export default class RouteTransition extends Component {
                   key={ `${key}-transition` }
                   style={ {
                     ...innerWrapperStyle,
-                    opacity: style.opacity,
-                    transform: style.scale !== 1 ? `scale(${style.scale})`: 'none'
+                    opacity: style.opacity
                   } }
                 >
                   { data.handler }

@@ -4,7 +4,7 @@ import React, { PropTypes, cloneElement } from 'react';
 
 import { getMockAdapter } from 'mock-api';
 import BottomSheetContainer from 'containers/bottom-sheet';
-import EditModeContainer from 'containers/inline-editable/edit-mode-container';
+import EditModeProvider from 'components/edit-mode-provider';
 import LoginModalContainer from 'containers/login-modal-container';
 import GenericModalContainer from 'containers/generic-modal-container';
 import RouteTransition from 'components/animation/route-transition';
@@ -71,14 +71,14 @@ export default class App extends React.Component {
 
     return (
       <StyleRoot>
-        <EditModeContainer location={ location }>
+        <EditModeProvider location={ location }>
           <RouteTransition pathname={ appContent }>
             { children }
           </RouteTransition>
           <BottomSheetContainer params={ params } location={ location }/>
           <LoginModalContainer location={ location }/>
           <GenericModalContainer location={ location }/>
-        </EditModeContainer>
+        </EditModeProvider>
       </StyleRoot>
     );
   }

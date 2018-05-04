@@ -32,6 +32,7 @@ export default class SuggestionGroup extends Component {
       searchText,
       nextParams,
       getSuggestionWithContentType,
+      setSearchNavigation,
     } = this.props;
 
     return (
@@ -43,12 +44,13 @@ export default class SuggestionGroup extends Component {
         {
           map(suggestions, (suggestion) => (
             <SuggestionItem
+              selectItem={ () => setSearchNavigation({ itemIndex: suggestion.itemIndex }) }
               key={ suggestion.uniqueKey }
               aliasEditModeOn={ aliasEditModeOn }
               setAliasAdminPageContent={ setAliasAdminPageContent }
               suggestionClick={ suggestionClick }
               suggestion={ suggestion }
-              isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey } />
+              isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
           ))
         }
       </InfiniteScroll>
@@ -107,14 +109,15 @@ SuggestionGroup.propTypes = {
   hasMore: PropTypes.bool,
   searchText: PropTypes.string,
   nextParams: PropTypes.object,
-  singleContent: PropTypes.bool
+  singleContent: PropTypes.bool,
+  setSearchNavigation: PropTypes.func,
 };
 
 SuggestionGroup.defaultProps = {
   suggestions: [],
   focusedItem: {},
   header: '',
-  getSuggestionWithContentType: () => {
-    return { catch: () => {} };
-  }
+  getSuggestionWithContentType: () => ({
+    catch: () => {}
+  })
 };

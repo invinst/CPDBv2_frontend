@@ -55,7 +55,8 @@ export default class SuggestionResults extends Component {
       getSuggestionWithContentType,
       hasMore,
       singleContent,
-      nextParams
+      nextParams,
+      setSearchNavigation,
     } = this.props;
 
     if (isEmpty) {
@@ -66,6 +67,7 @@ export default class SuggestionResults extends Component {
 
     return map(suggestionGroups, (group) => (
       <SuggestionGroup
+        setSearchNavigation={ setSearchNavigation }
         focusedItem={ focusedItem }
         onLoadMore={ onLoadMore }
         key={ `suggestion-group-${group.header}` }
@@ -81,7 +83,7 @@ export default class SuggestionResults extends Component {
         searchText={ searchText }
         nextParams={ nextParams }
         singleContent={ singleContent }/>
-      ));
+    ));
   }
 
   renderActionBar() {
@@ -165,10 +167,13 @@ SuggestionResults.propTypes = {
   singleContent: PropTypes.bool,
   move: PropTypes.func,
   totalItemCount: PropTypes.number,
+  setSearchNavigation: PropTypes.func,
 };
 
 SuggestionResults.defaultProps = {
   previewPaneInfo: {},
-  getSuggestionWithContentType: () => {},
-  resetNavigation: () => {},
+  getSuggestionWithContentType: () => {
+  },
+  resetNavigation: () => {
+  },
 };

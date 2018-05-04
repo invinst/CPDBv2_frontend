@@ -1,8 +1,7 @@
 import should from 'should';
 
 import { extractPercentile } from 'selectors/landing-page/common';
-import { OIG_VISUAL_TOKEN_COLOR_SCHEME } from 'utils/constants';
-import { OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
+import { OIG_VISUAL_TOKEN_COLOR_SCHEME, OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
 
 
 describe('extractPercentile', () => {

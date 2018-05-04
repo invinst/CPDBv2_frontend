@@ -90,7 +90,7 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
       officerPage.tabbedPaneSection.timelineSection.crItem.click();
 
-      browser.getUrl().should.match(/\/complaint\/\d+\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
     });
 
     describe('Timeline filter', function () {

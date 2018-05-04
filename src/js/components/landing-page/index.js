@@ -24,10 +24,10 @@ class LandingPage extends Component {
       <div>
         <SlimHeader pathname={ this.props.pathname } />
         <HeatMap/>
-        <OfficersByAllegationContainer/>
-        <RecentActivityContainer/>
-        <RecentDocumentContainer/>
-        <ComplaintSummariesContainer/>
+        <OfficersByAllegationContainer pathname={ this.props.pathname }/>
+        <RecentActivityContainer pathname={ this.props.pathname }/>
+        <RecentDocumentContainer pathname={ this.props.pathname }/>
+        <ComplaintSummariesContainer pathname={ this.props.pathname }/>
         <FooterContainer/>
       </div>
     );
@@ -46,6 +46,10 @@ class LandingPage extends Component {
 LandingPage.propTypes = {
   resetBreadcrumbs: PropTypes.func,
   pathname: PropTypes.string
+};
+
+LandingPage.contextTypes = {
+  editModeOn: PropTypes.bool
 };
 
 export default ConfiguredRadium(LandingPage);
