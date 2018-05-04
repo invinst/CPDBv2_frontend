@@ -15,6 +15,7 @@ import getSocialGraphData from './officer-page/get-social-graph';
 import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
 import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
+import getCRRelatedComplaintsData from './cr-page/get-related-complaint';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import getActivityGridData from './landing-page/activity-grid';
 import getRecentDocument from './landing-page/recent-document';
@@ -81,6 +82,13 @@ axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() =>
 
 axiosMockClient.onGet(`${CR_URL}1000000/`).reply(200, getCRData());
 axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());
+axiosMockClient.onGet(
+  `${CR_URL}1000000/related-complaints/?match=categories&distance=0.5mi`
+).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi' }));
+
+axiosMockClient.onGet(
+  `${CR_URL}1000000/related-complaints/?match=categories&distance=0.5mi&offset=20`
+).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi', nextOffset: 40 }));
 
 axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData());
 

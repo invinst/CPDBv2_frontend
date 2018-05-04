@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 
 import CoaccusedCard from './coaccused-card';
 import { pluralize } from 'utils/language';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   wrapperStyle, headerStyle, accusedOfficersWrapperStyle, moreButtonStyle, bottomMarginStyle
 } from './accused-officers.style';
@@ -27,14 +28,16 @@ export default class AccusedOfficers extends Component {
     const { expanded } = this.state;
     return (
       <div style={ wrapperStyle(expanded) }>
-        <h2 style={ headerStyle } className='test--accused-officer-title'>
-          { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
-        </h2>
-        <div style={ accusedOfficersWrapperStyle }>
-          {
-            officers.map(officer => <CoaccusedCard key={ officer.id } { ...officer }/>)
-          }
-        </div>
+        <ResponsiveFluidWidthComponent>
+          <h2 style={ headerStyle } className='test--accused-officer-title'>
+            { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
+          </h2>
+          <div style={ accusedOfficersWrapperStyle }>
+            {
+              officers.map(officer => <CoaccusedCard key={ officer.id } { ...officer }/>)
+            }
+          </div>
+        </ResponsiveFluidWidthComponent>
         <div style={ bottomMarginStyle }/>
         {
           !expanded

@@ -9,9 +9,10 @@ import Location from './location';
 import Involvement from './involvement';
 import Attachments from './attachments';
 import AccusedOfficers from './accused-officers';
+import RelatedComplaints from './related-complaints';
 import {
   wrapperStyle, CRIDHeaderStyle, leftColumnStyle,
-  rightColumnStyle, upperSectionWrapperStyle, summarySectionWrapperStyle, summaryTextStyle
+  rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle
 } from './cr-page.style';
 
 
@@ -44,22 +45,35 @@ export default class CRPage extends Component {
       <div style={ wrapperStyle }>
         <ShareableHeaderContainer/>
         <ResponsiveFluidWidthComponent>
-          <div style={ upperSectionWrapperStyle }>
-            <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
-            <AccusedOfficers officers={ coaccused } />
-          </div>
+          <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
         </ResponsiveFluidWidthComponent>
+        <AccusedOfficers officers={ coaccused } />
         <ResponsiveFluidWidthComponent>
           <div style={ summarySectionWrapperStyle }>
-            <SummaryRow label='VICTIM' className='test--victims'>
-              <Demographics persons={ victims } />
-            </SummaryRow>
-            <SummaryRow label='COMPLAINANT' className='test--complainant'>
-              <Demographics persons={ complainants } />
-            </SummaryRow>
-            <SummaryRow label='SUMMARY'>
-              <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
-            </SummaryRow>
+            {
+              victims.length > 0
+                ? (
+                  <SummaryRow label='VICTIM' className='test--victims'>
+                    <Demographics persons={ victims } />
+                  </SummaryRow>
+                ) : null
+            }
+            {
+              complainants.length > 0
+                ? (
+                  <SummaryRow label='COMPLAINANT' className='test--complainant'>
+                    <Demographics persons={ complainants } />
+                  </SummaryRow>
+                ) : null
+            }
+            {
+              summary
+                ? (
+                  <SummaryRow label='SUMMARY'>
+                    <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
+                  </SummaryRow>
+                ) : null
+            }
             <Attachments
               items={ attachments }
               openRequestDocumentModal={ openRequestDocumentModal }
@@ -74,6 +88,7 @@ export default class CRPage extends Component {
             </div>
           </div>
         </ResponsiveFluidWidthComponent>
+        <RelatedComplaints crid={ crid } />
       </div>
     );
   }
@@ -101,5 +116,7 @@ CRPage.propTypes = {
 
 CRPage.defaultProps = {
   fetchCR: () => {},
+  victims: [],
+  complainants: [],
   coaccused: []
 };

@@ -124,6 +124,51 @@ class LocationSection extends Section {
 }
 
 
+class CarouselSection extends Section {
+  constructor(match) {
+    super();
+    this.carouselClassName = `test--related-by-${match}-carousel`;
+    this.cardClassName = 'test--carousel-card';
+    this.prepareElementGetters({
+      rightArrow: this.childCSSSelector('.test--carousel-arrow-right'),
+      leftArrow: this.childCSSSelector('.test--carousel-arrow-left'),
+      cards: this.childCSSSelector(`.${this.cardClassName}`),
+    });
+  }
+
+  childCSSSelector(selector) {
+    return `.${this.carouselClassName} ${selector}`;
+  }
+
+  cardAtIndex(index) {
+    return browser.element([
+      `(//*[contains(@class, "${this.carouselClassName}")]`,
+      `//*[contains(@class, "${this.cardClassName}")])`,
+      `[${index}]`
+    ].join(''));
+  }
+}
+
+
+class DistanceDropdown extends Section {
+  constructor() {
+    super();
+    this.optionClassName = 'test--related-complaint-dropdown-item';
+    this.prepareElementGetters({
+      button: '.test--related-complaint-dropdown',
+      options: `.${this.optionClassName}`
+    });
+  }
+
+  getOption(value) {
+    return browser.element([
+      `//*[contains(@class, "${this.optionClassName}")`,
+      ` and text()="${value}"]`
+    ].join(''));
+  }
+}
+
+
 class DocumentRequestModalSection extends Section {
   constructor() {
     super();
@@ -144,6 +189,8 @@ class CRPage extends Page {
   investigator = new InvestigatorSection();
   policeWitness = new PoliceWitnessSection();
   location = new LocationSection();
+  relatedByCategoriesCarousel = new CarouselSection('categories');
+  distanceDropdown = new DistanceDropdown();
   documentRequestModal = new DocumentRequestModalSection();
 
   constructor() {
