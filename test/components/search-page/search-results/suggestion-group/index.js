@@ -9,6 +9,7 @@ import { findDOMNode } from 'react-dom';
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
 import { unmountComponentSuppressError } from 'utils/test';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
+import ScrollIntoView from 'components/common/scroll-into-view';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
@@ -101,7 +102,13 @@ describe('SuggestionGroup component', function () {
     catchSpy.called.should.be.true();
   });
 
-  it('should be renderable if it is NOT single content', function () {
-    SuggestionGroup.should.be.renderable({ singleContent: false });
+  it('should render ScrollIntoView when IS single content', function () {
+    instance = renderIntoDocument(<SuggestionGroup singleContent={ true }/>);
+    findRenderedComponentWithType(instance, ScrollIntoView).should.be.ok();
+  });
+
+  it('should not render ScrollIntoView when is NOT single content', function () {
+    instance = renderIntoDocument(<SuggestionGroup singleContent={ false }/>);
+    scryRenderedComponentsWithType(instance, ScrollIntoView).should.have.length(0);
   });
 });
