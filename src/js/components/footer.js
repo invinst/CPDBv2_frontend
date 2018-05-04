@@ -13,7 +13,7 @@ import { showIntercomMessages } from 'utils/intercom';
 
 class Footer extends React.Component {
   render() {
-    const { openLegalDisclaimerModal } = this.props;
+    const { openLegalDisclaimerModal, style } = this.props;
     const links = [
       {
         name: 'Legal',
@@ -30,20 +30,22 @@ class Footer extends React.Component {
     ];
 
     return (
-      <div style={ sectionStyle }>
+      <div style={ { ...sectionStyle, ...style } }>
         <div style={ wrapperStyle }>
           <div style={ linkWrapperStyle }>
-            <ResponsiveFluidWidthComponent style={ responsiveFixedWidthInnerStyle }>
-              { links.map((link, ind) => (
-                <FooterNavLink
-                  style={ linkStyle }
-                  key={ ind }
-                  { ...link }
-                />
-              )) }
-              <a href={ INVISIBLE_INSTITUTE_URL }>
-                <img className='test--footer-invinst-logo' style={ invistStyle } src={ imgUrl('invist-logo.svg') } />
-              </a>
+            <ResponsiveFluidWidthComponent>
+              <div style={ responsiveFixedWidthInnerStyle }>
+                { links.map((link, ind) => (
+                  <FooterNavLink
+                    style={ linkStyle }
+                    key={ ind }
+                    { ...link }
+                  />
+                )) }
+                <a href={ INVISIBLE_INSTITUTE_URL }>
+                  <img className='test--footer-invinst-logo' style={ invistStyle } src={ imgUrl('invist-logo.svg') } />
+                </a>
+              </div>
             </ResponsiveFluidWidthComponent>
           </div>
         </div>

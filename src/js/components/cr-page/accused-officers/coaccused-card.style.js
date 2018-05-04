@@ -12,7 +12,8 @@ export const wrapperStyle = {
   border: `1px solid ${whiteTwoColor}`,
   display: 'inline-block',
   marginRight: '8px',
-  marginBottom: '8px'
+  marginBottom: '8px',
+  fontWeight: 300
 };
 
 export const topSectionWrapperStyle = {
@@ -94,7 +95,8 @@ export const chartWrapperStyle = {
 
 export const fullNameStyle = {
   fontSize: '14px',
-  color: softBlackColor
+  color: softBlackColor,
+  fontWeight: 400
 };
 
 export const titleWrapperStyle = {

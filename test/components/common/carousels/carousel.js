@@ -4,16 +4,16 @@ import {
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
   scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
+  Simulate
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import ReactDOM from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import { spy, stub } from 'sinon';
 
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 import Carousel from 'components/common/carousel';
 import OfficerCard from 'components/landing-page/activity-grid/officer-card';
-import Arrow from 'components/common/carousel/arrow';
 import Swiper from 'components/common/swiper';
 
 describe('Carousel component', function () {
@@ -66,9 +66,9 @@ describe('Carousel component', function () {
     instance.props.children.should.have.length(2);
     const items = scryRenderedComponentsWithType(instance, OfficerCard);
     items.should.have.length(2);
-    ReactDOM.findDOMNode(items[0]).textContent.should.containEql('Manuel Guzman');
-    ReactDOM.findDOMNode(items[1]).textContent.should.containEql('Jerome Finnagan');
-    scryRenderedDOMComponentsWithClass(instance, 'test--carousel--arrow--left').should.have.length(0);
+    findDOMNode(items[0]).textContent.should.containEql('Manuel Guzman');
+    findDOMNode(items[1]).textContent.should.containEql('Jerome Finnagan');
+    scryRenderedDOMComponentsWithClass(instance, 'test--carousel-arrow-left').should.have.length(0);
   });
 
   it('should call updateSlidesPerGroup when mounted', function () {
@@ -103,15 +103,86 @@ describe('Carousel component', function () {
   it('should change slideIndex when click on arrow buttons', function () {
     const data = OfficerCardFactory.buildList(10);
     instance = renderIntoDocument(carouselComponent(data));
+    instance.setState({
+      displayLeftArrow: true,
+      displayRightArrow: true
+    });
+
+    const rightArrow = findRenderedDOMComponentWithClass(
+      instance, 'test--carousel-arrow-right'
+    );
     instance.slidesPerGroup = 5;
-    const arrows = scryRenderedComponentsWithType(instance, Arrow);
-    arrows[1].props.onClick('right');
+    Simulate.click(rightArrow);
     instance.state.slideIndex.should.eql(5);
     onNavigateSpy.calledWith('right').should.be.true();
 
+    const leftArrow = findRenderedDOMComponentWithClass(
+      instance, 'test--carousel-arrow-left'
+    );
     instance.slidesPerGroup = 5;
-    arrows[0].props.onClick('left');
+    Simulate.click(leftArrow);
     instance.state.slideIndex.should.eql(0);
     onNavigateSpy.calledWith('left').should.be.true();
+  });
+
+  it('should call loadMore when still has more data at threshold', function () {
+    const loadMoreSpy = spy();
+    instance = renderIntoDocument(carouselComponent(
+      OfficerCardFactory.buildList(10),
+      {
+        hasMore: true,
+        loadMore: loadMoreSpy,
+        threshold: 2
+      }
+    ));
+    instance.setState({
+      slideIndex: 7,
+      displayRightArrow: true
+    });
+
+    const rightArrow = findRenderedDOMComponentWithClass(
+      instance, 'test--carousel-arrow-right'
+    );
+    instance.slidesPerGroup = 1;
+    Simulate.click(rightArrow);
+    loadMoreSpy.called.should.be.true();
+  });
+
+  it('should slide back when receive more children but new data', function () {
+    instance = renderIntoDocument(carouselComponent(
+      OfficerCardFactory.buildList(10)
+    ));
+    instance.setState({ slideIndex: 5 });
+
+    instance = reRender(
+      carouselComponent(OfficerCardFactory.buildList(12)),
+      instance
+    );
+    instance.state.slideIndex.should.eql(0);
+  });
+
+  it('should not slide back if new data is added', function () {
+    const initialData = OfficerCardFactory.buildList(10);
+    instance = renderIntoDocument(carouselComponent(initialData));
+    instance.setState({ slideIndex: 5 });
+
+    instance = reRender(
+      carouselComponent(initialData.concat(OfficerCardFactory.buildList(2))),
+      instance
+    );
+    instance.state.slideIndex.should.eql(5);
+  });
+
+  it('should slide back when receive less children', function () {
+    instance = renderIntoDocument(carouselComponent(
+      OfficerCardFactory.buildList(10)
+    ));
+    instance.setState({ slideIndex: 5 });
+
+    instance = reRender(
+      carouselComponent(OfficerCardFactory.buildList(3)),
+      instance
+    );
+    instance.state.slideIndex.should.eql(0);
   });
 });

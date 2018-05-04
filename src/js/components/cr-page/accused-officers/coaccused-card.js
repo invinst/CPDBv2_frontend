@@ -16,7 +16,7 @@ import {
 export default class CoaccusedCard extends Component {
   render() {
     const {
-      rank, fullname, allegationCount, sustainedCount, allegationPercentile, age, race, gender,
+      rank, fullname, allegationCount, sustainedCount, allegationPercentile, demographic,
       category, outcome, radarAxes, radarColor, id
     } = this.props;
 
@@ -48,7 +48,7 @@ export default class CoaccusedCard extends Component {
             More than { roundPercentile(allegationPercentile) }% of other officers
           </div>
           <div style={ officerInfoTextStyle } className='test--accused-card-demographic'>
-            { `${age} year old, ${race}, ${gender}.` }
+            { demographic }
           </div>
         </div>
         <div style={ bottomSectionWrapperStyle }>
@@ -68,9 +68,7 @@ CoaccusedCard.propTypes = {
   allegationPercentile: PropTypes.number,
   radarColor: PropTypes.object,
   radarAxes: PropTypes.array,
-  age: PropTypes.number,
-  race: PropTypes.string,
-  gender: PropTypes.string,
+  demographic: PropTypes.string,
   category: PropTypes.string,
   id: PropTypes.number,
   outcome: PropTypes.string

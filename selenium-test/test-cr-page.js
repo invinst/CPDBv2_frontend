@@ -19,7 +19,7 @@ describe('CR page', function () {
     crPage.accusedOfficers.firstCard.name.getText().should.equal('Ridchard Sullivan');
     crPage.accusedOfficers.firstCard.metric.getText().should.equal('43 allegations1 sustained');
     crPage.accusedOfficers.firstCard.percentile.getText().should.equal('More than 99% of other officers');
-    crPage.accusedOfficers.firstCard.demographic.getText().should.equal('41 year old, White, Male.');
+    crPage.accusedOfficers.firstCard.demographic.getText().should.equal('41 year old, White, Male');
     crPage.accusedOfficers.firstCard.category.getText().should.equal('False Arrest');
     crPage.accusedOfficers.firstCard.outcome.getText().should.equal('Reprimand');
 
@@ -90,5 +90,42 @@ describe('CR page', function () {
     crPage.documentRequestModal.submitButton.click();
     crPage.documentRequestModal.messageBox.waitForVisible();
     crPage.documentRequestModal.messageBox.getText().should.equal('Sorry, we can not subscribe your email');
+  });
+
+  describe('related by categories carousel', function () {
+    it('should show more complaints cards when click right arrow', function () {
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).isVisibleWithinViewport().should.be.false();
+      crPage.relatedByCategoriesCarousel.rightArrow.click();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForVisible(true);
+    });
+
+    it('should show previous complaints when click left arrow', function () {
+      crPage.relatedByCategoriesCarousel.rightArrow.click();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForVisible();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(1).isVisibleWithinViewport().should.be.false();
+      crPage.relatedByCategoriesCarousel.leftArrow.click();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(1).waitForVisible();
+    });
+
+    it('should slide back to beginning when change distance', function () {
+      crPage.relatedByCategoriesCarousel.rightArrow.click();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).waitForVisible();
+      crPage.distanceDropdown.button.click();
+      crPage.distanceDropdown.options.waitForVisible();
+      crPage.distanceDropdown.getOption('5 MILES').click();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(1).waitForVisible();
+      crPage.relatedByCategoriesCarousel.cardAtIndex(6).isVisibleWithinViewport().should.be.false();
+    });
+
+    it('should load more cards when slide to threshold', function () {
+      crPage.relatedByCategoriesCarousel.cards.count.should.equal(20);
+      crPage.relatedByCategoriesCarousel.rightArrow.click();
+      crPage.relatedByCategoriesCarousel.rightArrow.click();
+      crPage.relatedByCategoriesCarousel.rightArrow.click();
+      crPage.relatedByCategoriesCarousel.rightArrow.click();
+      crPage.relatedByCategoriesCarousel.rightArrow.click();
+      crPage.relatedByCategoriesCarousel.rightArrow.waitForVisible();
+      crPage.relatedByCategoriesCarousel.cards.count.should.equal(40);
+    });
   });
 });

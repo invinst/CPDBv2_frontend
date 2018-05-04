@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults } from 'lodash';
+import { map, get, reduce, defaults, compact, sortBy } from 'lodash';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { pluralize } from 'utils/language';
+import { getBreadcrumb } from '../breadcrumbs';
 
 
 const getCoaccused = state => {
@@ -45,16 +46,12 @@ export const getDocumentAlreadyRequested = state => {
   ));
 };
 
-const getDemographicString = ({ race, gender, age }) => {
-  race = race ? race : 'Unknown';
-  gender = gender ? gender : 'Unknown';
+const getDemographicString = ({ race, gender, age }) =>
+  compact([race, gender, age ? `Age ${age}` : null]).join(', ');
 
-  if (age) {
-    return `${race}, ${gender}, Age ${age}`;
-  } else {
-    return `${race}, ${gender}`;
-  }
-};
+
+const getCoaccusedDemographicString = ({ race, gender, age }) =>
+  compact([age ? `${age} year old` : null, race, gender]).join(', ');
 
 const getComplainantStringSelector = createSelector(
   getComplainants,
@@ -66,17 +63,16 @@ const getVictimStringSelector = createSelector(
   (victims) => map(victims, (victim) => getDemographicString(victim))
 );
 
-const getCoaccusedSelector = createSelector(
+const getTransformedCoaccused = createSelector(
   getCoaccused,
-  coaccusedList => map(coaccusedList, coaccused => ({
+  (coaccusedList) => coaccusedList.map(coaccused => ({
     id: coaccused.id,
     fullname: coaccused['full_name'],
     rank: coaccused['rank'] || 'Officer',
-    gender: coaccused['gender'] || 'Unknown',
-    race: coaccused['race'] || 'Unknown',
+    demographic: getCoaccusedDemographicString(coaccused),
     outcome: coaccused['final_outcome'] || 'Unknown Outcome',
+    finding: coaccused['final_finding'],
     category: coaccused['category'] || 'Unknown',
-    age: coaccused['age'],
     allegationCount: coaccused['allegation_count'],
     sustainedCount: coaccused['sustained_count'],
     allegationPercentile: coaccused['percentile_allegation'],
@@ -91,6 +87,34 @@ const getCoaccusedSelector = createSelector(
       parseFloat(coaccused['percentile_trr'])
     )
   }))
+);
+
+const sortByOfficerInBreadcrumb = breadcrumbs => officer => {
+  const officerIdsInBreadcrumb = breadcrumbs
+    .filter(item => item.url.indexOf('officer/') > -1)
+    .map(item => item.params.officerId);
+  return -officerIdsInBreadcrumb.indexOf(String(officer.id));
+};
+
+const sortByOfficerFinding = officer => {
+  return officer.finding === 'Sustained' ? 0 : 1;
+};
+
+const sortByOfficerComplaint = officer => -officer.allegationCount;
+
+const getCoaccusedSelector = createSelector(
+  getTransformedCoaccused,
+  getBreadcrumb,
+  (officers, { breadcrumbs }) => {
+    return sortBy(
+      officers,
+      [
+        sortByOfficerInBreadcrumb(breadcrumbs),
+        sortByOfficerFinding,
+        sortByOfficerComplaint
+      ]
+    );
+  }
 );
 
 const getInvestigatorAffiliation = obj => {

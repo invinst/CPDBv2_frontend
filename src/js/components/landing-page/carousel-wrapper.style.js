@@ -10,9 +10,11 @@ export const wrapperStyle = {
 };
 
 export const carouselStyle = {
-  width: 'calc(100% - 336px)',
-  verticalAlign: 'top',
-  display: 'inline-block'
+  wrapper: {
+    width: 'calc(100% - 336px)',
+    verticalAlign: 'top',
+    display: 'inline-block'
+  }
 };
 
 export const itemStyle = width => ({
