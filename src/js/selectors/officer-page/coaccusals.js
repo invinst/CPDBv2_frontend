@@ -1,4 +1,4 @@
-import { get, groupBy, findIndex, keys, reverse, orderBy } from 'lodash';
+import { get, groupBy, findIndex, keys, reverse } from 'lodash';
 import { createSelector } from 'reselect';
 import pluralize from 'pluralize';
 
@@ -15,7 +15,7 @@ const coaccusalTransform = (coaccusal) => ({
   allegationPercentile: coaccusal['complaint_percentile'],
   race: coaccusal.race.toLowerCase(),
   gender: coaccusal.gender.toLowerCase(),
-  age: getThisYear() - coaccusal['birth_year'],
+  age: coaccusal['birth_year'] ? getThisYear() - coaccusal['birth_year'] : 'N/A',
   coaccusalCount: coaccusal['coaccusal_count'],
   rank: coaccusal['rank'],
 });
@@ -47,8 +47,7 @@ const mapCoaccusalToGroup = (coaccusal) => {
 export const getCoaccusalGroups = createSelector(
   getCoaccusals,
   (coaccusals) => {
-    const sortedCoaccusals = orderBy(coaccusals, 'coaccusalCount', 'desc');
-    const groupedCoaccusals = groupBy(sortedCoaccusals, mapCoaccusalToGroup);
+    const groupedCoaccusals = groupBy(coaccusals, mapCoaccusalToGroup);
     return keys(groupedCoaccusals).map((key) => ({ name: key, coaccusals: groupedCoaccusals[key] }));
   }
 );

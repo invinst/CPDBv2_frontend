@@ -15,29 +15,20 @@ export default class Coaccusals extends Component {
     return (
       <div style={ coaccusalsStyle } className='test--officer-coaccusals'>
         {
-          coaccusalGroups.map((group, index) => (
+          coaccusalGroups.map((group, groupIndex) => (
             <div style={ groupedCoaccusalsStyle } key={ group.name }>
               <div style={ groupTitleWrapperStyle }>
                 <span style={ groupTitleStyle } className='test--coaccusals-group-name'>{ group.name }</span>
               </div>
-              <div style={ coaccusedCardsWrapperStyle(index === coaccusalGroups.length - 1) }>
+              <div style={ coaccusedCardsWrapperStyle(groupIndex === coaccusalGroups.length - 1) }>
                 {
-                  group.coaccusals.map((coaccusal, index) => (
+                  group.coaccusals.map((coaccusal, cardIndex) => (
                     <CoaccusalCard
-                      key={ `coaccusal-${index}` }
-                      officerName={ coaccusal.officerName }
-                      allegationCount={ coaccusal.allegationCount }
-                      sustainedCount={ coaccusal.sustainedCount }
-                      allegationPercentile={ coaccusal.allegationPercentile }
-                      age={ coaccusal.age }
-                      race={ coaccusal.race }
-                      gender={ coaccusal.gender }
-                      coaccusalCount={ coaccusal.coaccusalCount }
+                      key={ `coaccusal-${cardIndex}` }
                       thumbnail='https://via.placeholder.com/38x38'
                       extraStyle={ extraCoaccusalCardStyle }
                       openOfficerPage={ openOfficerPage }
-                      officerId={ coaccusal.officerId }
-                      rank={ coaccusal.rank }
+                      { ...coaccusal }
                     />
                   ))
                 }

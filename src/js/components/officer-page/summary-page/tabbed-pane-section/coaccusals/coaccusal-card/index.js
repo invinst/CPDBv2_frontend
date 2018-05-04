@@ -71,7 +71,7 @@ CoaccusalCard.propTypes = {
   allegationCount: PropTypes.number,
   sustainedCount: PropTypes.number,
   allegationPercentile: PropTypes.number,
-  age: PropTypes.number,
+  age: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   race: PropTypes.string,
   gender: PropTypes.string,
   coaccusalCount: PropTypes.number,
