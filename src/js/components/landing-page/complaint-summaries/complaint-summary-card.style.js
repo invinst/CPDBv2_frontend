@@ -25,7 +25,9 @@ export const categoryStyle = hovering => ({
   fontWeight: 500,
   textAlign: 'left',
   marginTop: '2px',
-  color: hovering ? accentColor : softBlackColor
+  color: hovering ? accentColor : softBlackColor,
+  height: '33px',
+  overflow: 'hidden'
 });
 
 export const summaryWrapperStyle = (hovering) => ({

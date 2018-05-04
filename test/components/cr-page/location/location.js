@@ -15,7 +15,7 @@ describe('Location component', function () {
   });
 
   it('should render map and view map button if point does exist', function () {
-    instance = renderIntoDocument(<Location point={ { lat: 1, long: 1 } } />);
+    instance = renderIntoDocument(<Location point={ { lat: 1, lon: 1 } } />);
     scryRenderedComponentsWithType(instance, CRLocationMap).should.have.length(1);
     scryRenderedComponentsWithType(instance, ViewMapButton).should.have.length(1);
   });

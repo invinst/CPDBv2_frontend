@@ -1,6 +1,5 @@
 import {
   DATA_NOT_AVAILABLE,
-  getActiveTab,
   getOfficerName,
   getPathname,
   metricsSelector,
@@ -28,7 +27,10 @@ describe('officer page selectors', function () {
 
   describe('summarySelector', function () {
     const summary = {
-      'unit': 'unit',
+      'unit': {
+        'unit_name': 'unit',
+        'description': 'description'
+      },
       'rank': 'rank',
       'date_of_appt': '2015-09-23',
       'race': 'race',
@@ -43,6 +45,7 @@ describe('officer page selectors', function () {
 
       summarySelector(state).should.eql({
         unitName: 'unit',
+        unitDescription: 'description',
         rank: 'rank',
         race: 'race',
         gender: 'Male',
@@ -124,17 +127,6 @@ describe('officer page selectors', function () {
         topUseOfForcePercentile: 9.0,
         civilianComplimentCount: 10,
       });
-    });
-  });
-
-  describe('getActiveTab', function () {
-    it('should return active tab', function () {
-      const state = {
-        officerPage: {
-          activeTab: 'social'
-        }
-      };
-      getActiveTab(state).should.eql('social');
     });
   });
 

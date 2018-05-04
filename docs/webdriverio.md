@@ -34,20 +34,19 @@ We need to create a file named `test-{page-name}.js` under selenium-test folder
 
 Example:
 ```javascript
-//selenium-test/test-officer-summary-page.js
+//selenium-test/test-officer-page.js
 
 require('should');
 
-import summaryPage from './page-objects/officer-summary-page';
+import officerPage from './page-objects/officer-page';
 
 
 describe('officer summary page', function () {
     it('should display officer summary', function () {
-        summaryPage.open(/officer/1234/);
-        summaryPage.header.officerName.waitForVisible();
-        summaryPage.header.activeButton.getText().should.equal('Summary');
-    };
-};
+        officerPage.open('/officer/1234/');
+        officerPage.summarySection.officerName.waitForVisible();
+    });
+});
 
 ```
 

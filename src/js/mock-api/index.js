@@ -15,6 +15,7 @@ import getSocialGraphData from './officer-page/get-social-graph';
 import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
 import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
+import getCRRelatedComplaintsData from './cr-page/get-related-complaint';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import getActivityGridData from './landing-page/activity-grid';
 import getRecentDocument from './landing-page/recent-document';
@@ -47,9 +48,9 @@ axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'valid@email.com' })
 axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, there\'s no account registered with this email address.' });
 
-axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'valid@email.com' })
-  .reply(200, { 'message': 'Thanks for subscribing.', crid: 2 });
-axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'invalid@email.com' })
+axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'valid@email.com' })
+  .reply(200, { 'message': 'Thanks for subscribing.', crid: 1000000 });
+axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
 
 
@@ -79,8 +80,15 @@ axiosMockClient.onGet(`${SEARCH_OFFICER_URL}notfound/`).reply(200, []);
 axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(countRequests(() => [200, getSummaryData()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() => [200, getSocialGraphData()]));
 
-axiosMockClient.onGet(`${CR_URL}1/`).reply(200, getCRData());
+axiosMockClient.onGet(`${CR_URL}1000000/`).reply(200, getCRData());
 axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());
+axiosMockClient.onGet(
+  `${CR_URL}1000000/related-complaints/?match=categories&distance=0.5mi`
+).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi' }));
+
+axiosMockClient.onGet(
+  `${CR_URL}1000000/related-complaints/?match=categories&distance=0.5mi&offset=20`
+).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi', nextOffset: 40 }));
 
 axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData());
 
