@@ -6,6 +6,7 @@ import ViewUnitProfileButton from './view-unit-profile-button';
 import { officerNameStyle, wrapperStyle } from './summary-section.style';
 import Salary from './salary';
 import YearOld from './year-old';
+import HistoricBadges from './historic-badges';
 
 
 export default class SummarySection extends Component {
@@ -15,6 +16,7 @@ export default class SummarySection extends Component {
       race,
       gender,
       badge,
+      historicBadges,
       careerDuration,
       unitName,
       unitDescription,
@@ -27,7 +29,7 @@ export default class SummarySection extends Component {
       ['Year of Birth', birthYear, (<YearOld birthYear={ birthYear } key='Year of Birth'/>)],
       ['Race', race],
       ['Sex', gender],
-      ['Badge', badge],
+      ['Badge', badge, (<HistoricBadges historicBadges={ historicBadges } key='Historic Badges'/>)],
       ['Rank', rank, (<Salary salary={ baseSalary } key='Rank'/>)],
       ['Unit', unitDescription || unitName, (
         <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>

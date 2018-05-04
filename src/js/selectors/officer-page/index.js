@@ -56,6 +56,7 @@ export const summarySelector = createSelector(
     race: summary.race,
     gender: summary.gender,
     badge: summary.badge,
+    historicBadges: summary['historic_badges'],
     careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
     careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation']),
   })
