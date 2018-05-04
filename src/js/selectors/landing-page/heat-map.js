@@ -2,7 +2,8 @@ import { createSelector } from 'reselect';
 import { map, reduce, round } from 'lodash';
 
 
-const getRawCommunities = (state) => state.landingPage.heatMap.communities;
+const getRawCommunities = state => state.landingPage.heatMap.communities;
+export const getClusterGeoJson = state => state.landingPage.heatMap.clusterGeoJson;
 
 const transformMostComplaintOfficer = officer => ({
   complaintsCount: officer['complaints_count'],
@@ -29,6 +30,11 @@ const transformCommunity = community => ({
   population: community.population.toLocaleString(),
   raceCount: transformRaceCount(community['race_count'])
 });
+
+export const hasClusterGeoJsonData = createSelector(
+  getClusterGeoJson,
+  data => data !== null
+);
 
 export const communityGeoJSONSelector = createSelector(
   getRawCommunities,

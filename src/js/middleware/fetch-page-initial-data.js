@@ -1,7 +1,7 @@
 import { LANDING_PAGE_ID } from 'utils/constants';
 import { getOfficerId, getCRID, getUnitName } from 'utils/location';
 import { getOfficerId as getOfficerIdFromState } from 'selectors/officer-page';
-import { communitiesSelector } from 'selectors/landing-page/heat-map';
+import { communitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { citySummarySelector } from 'selectors/landing-page/city-summary';
 import { getCRID as getCridFromState } from 'selectors/cr-page';
 import { faqsRequested } from 'selectors/faq-page/faqs-selector';
@@ -14,7 +14,7 @@ import { getCitySummary } from 'actions/landing-page/city-summary';
 import { fetchOfficerSummary, changeOfficerId } from 'actions/officer-page';
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
-import { getCommunities } from 'actions/landing-page/heat-map';
+import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
 import { fetchCR } from 'actions/cr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { requestFAQs } from 'actions/faq-page';
@@ -54,6 +54,10 @@ export default store => next => action => {
     if (citySummary.allegationCount === undefined) {
       store.dispatch(getCitySummary());
     }
+    if (!hasClusterGeoJsonData(state)) {
+      store.dispatch(getClusterGeoJson());
+    }
+
     if (!hasOfficerByAllegationData(state)) {
       store.dispatch(requestOfficersByAllegation());
     }
