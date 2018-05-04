@@ -14,6 +14,10 @@ export const officerNameStyle = (hovering) => ({
   color: hovering ? accentColor : softBlackColor,
   fontSize: '14px',
   fontWeight: 400,
+  width: '150px',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 });
 
 export const headerStyle = {
@@ -54,7 +58,8 @@ export const officerInfoStyle = {
   padding: '0 16px',
   height: '58px',
   fontSize: '14px',
-  lineHeight: '40px',
+  paddingTop: '12px',
+  boxSizing: 'border-box',
 };
 
 export const footerStyle = {
