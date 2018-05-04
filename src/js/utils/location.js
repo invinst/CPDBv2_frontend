@@ -12,6 +12,13 @@ export function getCRID(url) {
   return parseInt(url.replace(/.*complaint\/(\d+).*/, '$1'));
 }
 
+export function getUnitName(url) {
+  if (url === undefined) {
+    return null;
+  }
+  return url.replace(/.*unit\/([^/]+).*/, '$1');
+}
+
 export function getComplaintOfficerId(url) {
   if (url === undefined) {
     return NaN;

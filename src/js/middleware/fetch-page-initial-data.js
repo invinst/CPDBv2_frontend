@@ -1,12 +1,20 @@
-import { getOfficerId } from 'utils/location';
+import { LANDING_PAGE_ID } from 'utils/constants';
+import { getOfficerId, getCRID, getUnitName } from 'utils/location';
 import { getOfficerId as getOfficerIdFromState } from 'selectors/officer-page';
 import { communitiesSelector } from 'selectors/landing-page/heat-map';
 import { citySummarySelector } from 'selectors/landing-page/city-summary';
+import { getCRID as getCridFromState } from 'selectors/cr-page';
+import { faqsRequested } from 'selectors/faq-page/faqs-selector';
+import { hasLoadingPageContent } from 'selectors/cms';
 import { getCitySummary } from 'actions/landing-page/city-summary';
 import { fetchOfficerSummary, changeOfficerId } from 'actions/officer-page';
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { getCommunities } from 'actions/landing-page/heat-map';
+import { fetchCR } from 'actions/cr-page';
+import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
+import { requestFAQs } from 'actions/faq-page';
+import { fetchPage } from 'actions/cms';
 
 
 export default store => next => action => {
@@ -16,6 +24,11 @@ export default store => next => action => {
   }
 
   const state = store.getState();
+
+  if (!hasLoadingPageContent(state)) {
+    store.dispatch(fetchPage(LANDING_PAGE_ID)());
+  }
+
   if (action.payload.pathname.match(/officer\/\d+/)) {
     const officerId = getOfficerId(action.payload.pathname);
     const oldOfficerId = getOfficerIdFromState(state);
@@ -34,6 +47,21 @@ export default store => next => action => {
     if (citySummary.allegationCount === undefined) {
       store.dispatch(getCitySummary());
     }
+
+  } else if (action.payload.pathname.match(/complaint\/\d+/)) {
+    const crid = getCRID(action.payload.pathname);
+    const oldCrid = getCridFromState(state);
+    if (crid != oldCrid) {
+      store.dispatch(fetchCR(crid));
+    }
+  } else if (action.payload.pathname.match(/unit\/\d+/)) {
+    const unitName = getUnitName(action.payload.pathname);
+    store.dispatch(fetchUnitProfileSummary(unitName));
+  } else if (action.payload.pathname.match(/faq/)) {
+    if (!faqsRequested(state)) {
+      store.dispatch(requestFAQs());
+    }
   }
+
   return result;
 };
