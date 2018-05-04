@@ -64,8 +64,8 @@ const areaTransform = ({ payload }) => {
     officersMostComplaint: payload['officers_most_complaint'] || [],
     population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
     medianIncome: payload['median_income'],
-    districtCommander: payload['district_commander'] || [],
     url: payload['url'],
+    allegationPercentile: payload['allegation_percentile'],
     raceCount: map(payload['race_count'], (item) => {
       let result = { race: mappingRace(item.race) };
       const racePercentile = population ? item['count'] / population * 100 : 0;
@@ -73,6 +73,11 @@ const areaTransform = ({ payload }) => {
       return result;
     }) || [],
     alderman: payload['alderman'],
+    districtCommander: payload.commander ? {
+      'id': payload.commander['id'],
+      'name': payload.commander['full_name'],
+      'count': payload.commander['allegation_count']
+    } : null
   };
 };
 

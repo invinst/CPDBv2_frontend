@@ -2,12 +2,12 @@ import React, { Component, PropTypes } from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
-  SeparatorWidget,
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
   CallToActionWidget,
 } from './widgets';
+import roundPercentile from 'utils/round-percentile';
 
 
 export default class PoliceDistrictPane extends Component {
@@ -19,19 +19,19 @@ export default class PoliceDistrictPane extends Component {
       allegationCount,
       officersMostComplaint,
       districtCommander,
+      allegationPercentile,
       url,
     } = this.props;
     const match = /\d+/g.exec(name);
-    const district = match ? `#${match[0]}` : name;
+    const district = match ? `#${match[0]}` : name.toUpperCase();
 
     return (
       <WidgetWrapper>
         <HeaderWidget title={ `POLICE DISTRICT ${district}` }/>
-        <SeparatorWidget/>
         <GeoInfoWidget raceCount={ raceCount } population={ population }/>
         <AllegationCountWidget
           numOfAllegations={ allegationCount }
-          subTitle={ 'More than ##% of other districts' }
+          subTitle={ `More than ${ roundPercentile(allegationPercentile) }% of other districts` }
         />
         <ListWidget
           typeName={ 'allegation' }
@@ -41,7 +41,7 @@ export default class PoliceDistrictPane extends Component {
         <ListWidget
           typeName={ 'allegation' }
           title='DISTRICT COMMANDER'
-          items={ districtCommander }/>
+          items={ districtCommander ? [districtCommander] : [] }/>
         <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
@@ -52,8 +52,9 @@ PoliceDistrictPane.propTypes = {
   name: PropTypes.string,
   population: PropTypes.string,
   raceCount: PropTypes.array,
+  allegationPercentile: PropTypes.number,
   allegationCount: PropTypes.number,
   officersMostComplaint: PropTypes.array,
-  districtCommander: PropTypes.array,
+  districtCommander: PropTypes.object,
   url: PropTypes.string,
 };

@@ -8,7 +8,7 @@ import WidgetWrapper, {
 } from './widgets';
 
 
-export default class PoliceDistrictPane extends Component {
+export default class ZipCodePane extends Component {
   render() {
     const complaintCategories = [
       {
