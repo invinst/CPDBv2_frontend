@@ -1,5 +1,4 @@
 import {
-  DATA_NOT_AVAILABLE,
   getActiveTab,
   getOfficerName,
   getPathname,
@@ -97,25 +96,31 @@ describe('officer page selectors', function () {
     it('should return metrics', function () {
       const metrics = {
         'allegation_count': 1,
+        'complaint_percentile': 4.000,
         'honorable_mention_count': 3,
+        'honorable_mention_percentile': 3.000,
         'sustained_count': 4,
         'discipline_count': 5,
-        'use_of_force_count': 7,
-        'top_use_of_force_percentile': 9.0,
+        'trr_count': 7,
         'civilian_compliment_count': 10,
+        'major_award_count': 5,
+        'percentiles': [
+          { 'year': 2015, 'percentile_trr': 8.0 },
+          { 'year': 2016, 'percentile_trr': 9.0 },
+        ]
       };
 
       state.officerPage = { summary: { a: 'b', ...metrics } };
 
       metricsSelector(state).should.eql({
         allegationCount: 1,
-        topAllegationPercentile: DATA_NOT_AVAILABLE,
+        topAllegationPercentile: 4.000,
         honorableMentionCount: 3,
+        honorableMentionPercentile: 3.000,
         sustainedCount: 4,
         disciplineCount: 5,
-        topHonorableMentionPercentile: DATA_NOT_AVAILABLE,
         useOfForceCount: 7,
-        majorAwardCount: DATA_NOT_AVAILABLE,
+        majorAwardCount: 5,
         topUseOfForcePercentile: 9.0,
         civilianComplimentCount: 10,
       });

@@ -16,11 +16,11 @@ export default class MetricsSection extends Component {
       honorableMentionCount,
       sustainedCount,
       disciplineCount,
-      topHonorableMentionPercentile,
+      honorableMentionPercentile,
       useOfForceCount,
       majorAwardCount,
       topUseOfForcePercentile,
-      civilianComplimentCount
+      civilianComplimentCount,
     } = this.props.metrics;
 
 
@@ -54,7 +54,7 @@ export default class MetricsSection extends Component {
       {
         value: honorableMentionCount,
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
-        description: `More than ${roundPercentile(topHonorableMentionPercentile)}% of other officers`,
+        description: `More than ${roundPercentile(honorableMentionPercentile)}% of other officers`,
       }
     ];
 
