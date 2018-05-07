@@ -286,4 +286,36 @@ describe('Search Page', function () {
       browser.getUrl().should.not.match(/\/search\/terms\/$/);
     });
   });
+
+  describe('PreviewPane', function () {
+    it('should display gradient when window height is small', function () {
+      browser.setViewportSize({
+        width: 1000,
+        height: 800
+      });
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+      searchPage.clearSearchButton.waitForVisible();
+      searchPage.firstOfficerResult.waitForVisible();
+
+      searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
+      searchPage.officerPreviewPaneSection.gradient.waitForVisible();
+    });
+
+    it('should not display gradient when window height is larger than 990', function () {
+      browser.setViewportSize({
+        width: 1000,
+        height: 1200
+      });
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+      searchPage.clearSearchButton.waitForVisible();
+      searchPage.firstOfficerResult.waitForVisible();
+
+      searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
+      searchPage.officerPreviewPaneSection.gradient.waitForVisible(2000, true);
+    });
+  });
 });
+
+
