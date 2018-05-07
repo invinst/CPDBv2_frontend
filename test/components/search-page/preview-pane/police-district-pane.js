@@ -51,6 +51,7 @@ describe('PoliceDistrictPane component', () => {
 
     allegationCount.props.numOfAllegations.should.eql(1);
     allegationCount.props.subTitle.should.eql('More than 10% of other districts');
+    allegationCount.props.url.should.eql('some_url');
 
     widgets.should.have.length(2);
 

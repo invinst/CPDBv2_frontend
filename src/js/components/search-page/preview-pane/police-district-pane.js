@@ -32,6 +32,7 @@ export default class PoliceDistrictPane extends Component {
         <AllegationCountWidget
           numOfAllegations={ allegationCount }
           subTitle={ `More than ${ roundPercentile(allegationPercentile) }% of other districts` }
+          url={ url }
         />
         <ListWidget
           typeName={ 'allegation' }
