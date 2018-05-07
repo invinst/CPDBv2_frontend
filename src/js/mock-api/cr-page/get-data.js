@@ -1,82 +1,67 @@
-export default () => ({
-  'crid': '1',
-  'coaccused': [{
-    'id': 1,
-    'full_name': 'Michael Foo',
-    'gender': 'Male',
-    'race': 'White',
-    'final_finding': 'Sustained',
-    'recc_outcome': 'Separation',
-    'final_outcome': 'Reprimand',
-    'category': 'Operation/Personnel Violations',
-    'subcategory': 'NEGLECT OF DUTY/CONDUCT UNBECOMING - ON DUTY',
-    'start_date': '2003-12-12',
-    'end_date': '2004-12-12'
-  }, {
-    'id': 2,
-    'full_name': 'Richard Sullivan',
-    'gender': 'Female',
-    'race': 'White',
-    'final_finding': 'Sustained',
-    'recc_outcome': 'Separation',
-    'final_outcome': 'Reprimand',
-    'category': 'Use of Force',
-    'subcategory': 'NEGLECT OF DUTY/CONDUCT UNBECOMING - ON DUTY',
-    'start_date': '2003-12-12',
-    'end_date': '2004-12-12'
-  }],
-  'complainants': [{
-    'race': 'White',
-    'gender': 'Male',
-    'age': 18
-  }, {
-    'race': 'Black',
-    'gender': 'Female',
-    'age': 20
-  }],
-  'point': {
-    'long': -87.664606,
-    'lat': 41.68731
-  },
-  'incident_date': '2002-02-28',
-  'address': '3510 Michigan Ave, Chicago, IL 60653',
-  'location': 'Police Building',
-  'beat': 23,
-  'involvements': [{
-    'involved_type': 'investigator',
-    'officers': [{
-      'id': 1,
-      'abbr_name': 'L. Skol',
-      'extra_info': '126 cases'
-    }]
-  }, {
-    'involved_type': 'police witnesses',
-    'officers': [{
-      'id': 2,
-      'abbr_name': 'R. Piwinicki',
-      'extra_info': 'male, white'
-    }]
-  }],
-  'documents': [
+import {
+  ComplaintFactory, CoaccusedFactory, AttachmentFactory, InvestigatorFactory, PoliceWitnessFactory
+} from 'utils/test/factories/complaint';
+
+export default () => ComplaintFactory.build({
+  crid: '1000000',
+  coaccused: [
+    CoaccusedFactory.build({
+      rank: 'Officer',
+      'full_name': 'Ridchard Sullivan',
+      'allegation_count': 43,
+      'sustained_count': 1,
+      'percentile_allegation': 99,
+      age: 41,
+      race: 'White',
+      gender: 'Male',
+      category: 'False Arrest',
+      'final_outcome': 'Reprimand',
+      'final_finding': 'Sustained'
+    }),
+    ...CoaccusedFactory.buildList(24, { 'final_finding': 'Not Sustained' })
+  ],
+  complainants: [
     {
-      'title': 'CR Document 1',
-      'url': 'http://cr-document.com/'
-    },
-    {
-      'title': 'CR Document 2',
-      'url': 'http://cr-document.com/'
+      gender: 'Male',
+      race: 'Black',
+      age: 53
     }
   ],
-  'videos': [
+  victims: [
     {
-      'title': 'CR Video',
-      'url': 'http://cr-video.com/'
+      gender: 'Male',
+      race: 'Black',
+      age: 53
     }
   ],
-  'audios': [
-    {
-      'title': 'CR Audio',
-      'url': 'http://cr-audio.com/'
-    }
+  attachments: [
+    AttachmentFactory.build({
+      title: 'CR Document',
+      url: 'http://cr-document.com',
+      'preview_image_url': null
+    }),
+    ...AttachmentFactory.buildList(9, { 'preview_image_url': null })
+  ],
+  'incident_date': '2003-09-23',
+  'start_date': '2003-09-23',
+  'end_date': '2004-03-16',
+  summary: 'Summary',
+  address: '3510 Michigan Ave, Chicago, IL 60653',
+  location: 'Police Building',
+  beat: '2551',
+  involvements: [
+    InvestigatorFactory.build({
+      'full_name': 'Lauren Skol',
+      'current_rank': 'IPRA investigator',
+      'officer_id': 1
+    }),
+    InvestigatorFactory.build({ 'officer_id': 2 }),
+    PoliceWitnessFactory.build({
+      'full_name': 'Raymond Piwinicki',
+      'allegation_count': 3,
+      'sustained_count': 0,
+      'officer_id': 3
+    }),
+    PoliceWitnessFactory.build({ 'officer_id': 4 })
   ]
 });

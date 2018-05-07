@@ -1,48 +1,95 @@
-import { compact, get } from 'lodash';
+import { get, sumBy, map, last } from 'lodash';
+import { extractPercentile } from 'selectors/landing-page/common';
 
-import { getThisYear } from 'utils/date';
-import { getSvgUrl } from 'utils/visual-token';
+import { getCurrentAge, formatDate } from 'utils/date';
+import roundPercentile from 'utils/round-percentile';
+
+
+const mappingRace = (race) => {
+  if (race.indexOf('Black') !== -1) {
+    return 'Black';
+  } else if (race.indexOf('Spanish') !== -1) {
+    return 'Hispanic';
+  }
+  return race;
+};
 
 
 const previewPaneTypeMap = {
-  'OFFICER': (suggestion) => {
-    const currentYear = getThisYear();
-    const { payload, id, text } = suggestion;
-    const visualTokenImg = getSvgUrl(id);
-    const data = [
-      ['unit', payload.unit],
-      ['rank', payload.rank],
-      [`${currentYear} salary`, payload.salary],
-      ['race', payload.race],
-      ['sex', payload.sex]
-    ];
-    const visualTokenBackgroundColor = payload['visual_token_background_color'];
-    return { data, visualTokenBackgroundColor, visualTokenImg, text };
-  }
+  OFFICER: (suggestion) => ({
+    type: 'OFFICER',
+    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
+  }),
+  COMMUNITY: (suggestion) => ({
+    type: 'COMMUNITY',
+    data: get(searchResultTransformMap, 'COMMUNITY', () => {})(suggestion)
+  }),
+  NEIGHBORHOOD: (suggestion) => ({
+    type: 'NEIGHBORHOOD',
+    data: get(searchResultTransformMap, 'NEIGHBORHOOD', () => {})(suggestion)
+  })
 };
 
 export const previewPaneTransform = item =>
   get(previewPaneTypeMap, item.type, () => ({}))(item);
 
+const areaTransform = ({ payload }) => {
+  const population = sumBy(payload['race_count'], 'count');
+  return {
+    name: payload['name'] || 'Unknown',
+    allegationCount: payload['allegation_count'] || [],
+    mostCommonComplaint: payload['most_common_complaint'] || [],
+    officersMostComplaint: payload['officers_most_complaint'] || [],
+    population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+    medianIncome: payload['median_income'],
+    url: payload['url'],
+    raceCount: map(payload['race_count'], (item) => {
+      let result = { race: mappingRace(item.race) };
+      const racePercentile = population ? item['count'] / population * 100 : 0;
+      result['count'] = `${racePercentile.toFixed(1)}%`;
+      return result;
+    })
+  };
+};
 
 const searchResultTransformMap = {
   OFFICER: ({ payload }) => {
-    const currentYear = getThisYear();
-    const age = payload['birth_year'] ? `${currentYear - payload['birth_year']} year old` : null;
     const race = payload['race'] === 'Unknown' ? null : payload['race'];
-    const sex = payload['sex'] ? payload['sex'] : null;
-    const demographicInfo = compact([age, race, sex]).join(', ');
+    const lastPercentile = last(payload['percentiles']);
     return {
-      demographicInfo,
+      fullName: payload['name'],
+      appointedDate: formatDate(payload['appointed_date']),
+      resignationDate: formatDate(payload['resignation_date']),
+      badge: payload['badge'],
+      gender: payload['gender'] || '',
+      name: payload['name'],
+      to: payload['to'],
+      age: getCurrentAge(payload['birth_year']) || null,
+      race: race || '',
+      rank: payload['rank'],
+      unit: {
+        id: get(payload['unit'], 'id'),
+        unitName: get(payload['unit'], 'unit_name'),
+        description: get(payload['unit'], 'description'),
+      },
+      lastPercentile: extractPercentile(lastPercentile),
       complaintCount: payload['allegation_count'],
-      sustainedCount: payload['sustained_count']
+      complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),
+      civilianComplimentCount: payload['civilian_compliment_count'],
+      sustainedCount: payload['sustained_count'],
+      disciplineCount: payload['discipline_count'],
+      trrCount: payload['trr_count'],
+      trrPercentile: roundPercentile(get(lastPercentile, 'percentile_trr'), true),
+      honorableMentionCount: payload['honorable_mention_count'],
     };
   },
   CR: ({ payload }) => {
     return {
       subText: `CRID ${payload.crid}, ${payload.outcome}`
     };
-  }
+  },
+  COMMUNITY: areaTransform,
+  NEIGHBORHOOD: areaTransform,
 };
 
 export const searchResultItemTransform = (item) => ({
@@ -53,7 +100,9 @@ export const searchResultItemTransform = (item) => ({
   url: get(item, 'payload.url'),
   tags: get(item, 'payload.tags', []),
   uniqueKey: `${item.type}-${item.id}`,
-  ...get(searchResultTransformMap, item.type, () => {})(item)
+  itemIndex: item.itemIndex || 1,
+  ...get(searchResultTransformMap, item.type, () => {
+  })(item)
 });
 
 export const navigationItemTransform = item => ({

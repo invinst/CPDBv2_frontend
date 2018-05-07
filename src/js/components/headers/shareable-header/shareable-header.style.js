@@ -1,4 +1,4 @@
-import { clayGray, sugarCaneColor } from 'utils/styles';
+import { clayGray, sugarCaneColor, gainsboroColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 import { breadcrumbItemStyle } from 'components/headers/shareable-header/breadcrumbs-item.style';
 
@@ -11,6 +11,7 @@ export const outerStyle = {
   left: 0,
   right: 0,
   zIndex: 3,
+  boxShadow: `0 1px 1px 0 ${gainsboroColor}`
 };
 
 export const navBarStyle = {

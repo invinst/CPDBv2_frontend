@@ -4,8 +4,8 @@ import {
   focusedResultItemSelector
 } from 'selectors/search-page/search-results/navigation';
 import { RawOfficerSuggestion } from 'utils/test/factories/suggestion';
-import { getSvgUrl } from 'utils/visual-token';
 import { MORE_BUTTON, SEARCH_BOX } from 'utils/constants';
+
 
 describe('search page navigation selector', function () {
   describe('focusedResultItemSelector', function () {
@@ -95,30 +95,59 @@ describe('search page navigation selector', function () {
 
   describe('previewPaneInfoSelector', function () {
     it('should return correct info', function () {
-      const focusedSuggestion = {
-        header: 'OFFICER',
-        id: '12345',
-        text: 'John Wang',
-        payload: {
-          unit: '001',
-          rank: null,
-          salary: '$99,999',
-          race: 'White',
-          sex: 'Male',
-          'visual_token_background_color': '#fafafa'
-        }
-      };
+
+      const focusedSuggestion = RawOfficerSuggestion.build({ id: '29033' }, {
+        race: 'White',
+        sex: 'Male',
+        birthYear: 1969,
+        to: '/officer/29033/',
+        allegationCount: 10,
+        sustainedCount: 2,
+        unit: {
+          id: 1,
+          'unit_name': '018',
+          description: 'District 018',
+        },
+        resultText: 'Jerome Turbyville',
+      });
       const info = {
-        data: [
-          ['unit', '001'],
-          ['rank', null],
-          ['2017 salary', '$99,999'],
-          ['race', 'White'],
-          ['sex', 'Male']
-        ],
-        visualTokenBackgroundColor: '#fafafa',
-        visualTokenImg: getSvgUrl('12345'),
-        text: 'John Wang'
+        data: {
+          fullName: 'Jerome Turbyville',
+          age: 48,
+          appointedDate: 'DEC 13, 1999',
+          badge: '5922',
+          complaintCount: 10,
+          complaintPercentile: '93',
+          civilianComplimentCount: 4,
+          gender: 'Male',
+          name: 'Jerome Turbyville',
+          lastPercentile: {
+            officerId: undefined,
+            year: undefined,
+            items: [
+              { axis: 'Use of Force Reports', value: 90 },
+              { axis: 'Internal Allegations', value: 91 },
+              { axis: 'Civilian Allegations', value: 92 }
+            ],
+            visualTokenBackground: '#700404',
+            textColor: '#DFDFDF'
+          },
+          race: 'White',
+          rank: 'Police Officer',
+          resignationDate: null,
+          sustainedCount: 2,
+          disciplineCount: 1,
+          unit: {
+            id: 1,
+            unitName: '018',
+            description: 'District 018',
+          },
+          trrCount: undefined,
+          trrPercentile: '90',
+          honorableMentionCount: undefined,
+          to: '/officer/29033/',
+        },
+        type: 'OFFICER',
       };
       previewPaneInfoSelector({
         searchPage: {

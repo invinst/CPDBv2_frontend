@@ -14,10 +14,21 @@ export const groupedSuggestions = {
           sustainedCount: 2,
           birthYear: 1972,
           race: 'White',
-          sex: 'Male'
+          gender: 'Male'
         }
       ),
-      RawOfficerSuggestion.build({ id: '2' }),
+      RawOfficerSuggestion.build(
+        {
+          id: '2'
+        }, {
+          resultText: 'Anna Kelly',
+          to: '/officer/2/',
+          allegationCount: 5,
+          sustainedCount: 1,
+          birthYear: 1980,
+          race: 'White',
+          gender: 'Female'
+        }),
       ...RawOfficerSuggestion.buildList(8)
     ],
     'CO-ACCUSED': [
@@ -31,13 +42,11 @@ export const groupedSuggestions = {
           sustainedCount: 2,
           birthYear: 1972,
           race: 'White',
-          sex: 'Male'
+          gender: 'Male'
         }
       )
     ],
-    'UNIT': [
-
-    ],
+    'UNIT': [],
     'NEIGHBORHOOD': [
       RawNeighborhoodSuggestion.build({ id: '1' }, { resultText: 'Kenwood' })
     ]

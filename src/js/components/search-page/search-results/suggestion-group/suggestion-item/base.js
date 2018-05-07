@@ -69,21 +69,22 @@ export default class SuggestionItemBase extends Component {
     );
   }
 
-  handleClick() {
-    const { suggestionClick, suggestion } = this.props;
+  handleClick(e) {
+    e.preventDefault();
+    const { suggestionClick, suggestion, selectItem } = this.props;
     const { type, text, url, to } = suggestion;
-
+    selectItem();
     suggestionClick(type, text, url, to);
   }
 
   render() {
     const { aliasEditModeOn, hovering, isFocused, suggestion } = this.props;
-    const { url, to, uniqueKey, text } = suggestion;
+    const { to, uniqueKey, url } = suggestion;
 
     const commonWrapperProps = {
       style: suggestionItemStyle(hovering, isFocused),
       className: classnames(`suggestion-item-${uniqueKey}`, { 'test--focused': isFocused }),
-      onClick: this.handleClick.bind(this, text, url, to)
+      onClick: this.handleClick.bind(this)
     };
 
     let result;
@@ -106,10 +107,12 @@ SuggestionItemBase.propTypes = {
   suggestion: PropTypes.object,
   isFocused: PropTypes.bool,
   setAliasAdminPageContent: PropTypes.func,
-  suggestionClick: PropTypes.func
+  suggestionClick: PropTypes.func,
+  selectItem: PropTypes.func,
 };
 
 SuggestionItemBase.defaultProps = {
   suggestion: {},
-  suggestionClick: () => {}
+  suggestionClick: () => {},
+  selectItem: () => {},
 };

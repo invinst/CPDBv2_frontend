@@ -6,7 +6,7 @@ import socialGraphPage from './page-objects/officer-social-graph-page';
 import { getRequestCount } from './utils';
 
 
-describe('officer social graph page', function () {
+describe.skip('officer social graph page', function () {
   beforeEach(function () {
     socialGraphPage.open(1);
   });
