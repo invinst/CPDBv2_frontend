@@ -1,6 +1,5 @@
 import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
-import { spy } from 'sinon';
 
 import FAQListWrapper from 'components/faq-page/faq-list-wrapper';
 import DroppableFAQListSection from 'components/faq-page/droppable-faq-list-section';
@@ -14,15 +13,6 @@ describe('FAQListWrapper component', function () {
 
   beforeEach(function () {
     unmountComponentSuppressError(instance);
-  });
-
-  it('should call requestFAQs if not request yet', function () {
-    const requestFAQs = spy();
-    instance = renderIntoDocument(
-      <FAQListWrapper requested={ false } requestFAQs={ requestFAQs }/>
-    );
-
-    requestFAQs.called.should.be.true();
   });
 
   it('should render DroppableFAQListSection if edit mode on', function () {

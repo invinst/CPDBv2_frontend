@@ -2,10 +2,10 @@ import { Promise } from 'es6-promise';
 
 import { LANDING_PAGE_ID } from 'utils/constants';
 import { getOfficerId, getCRID, getUnitName } from 'utils/location';
-import { communitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
-import { citySummarySelector } from 'selectors/landing-page/city-summary';
+import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
+import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
 import { faqsRequested } from 'selectors/faq-page/faqs-selector';
-import { hasLoadingPageContent } from 'selectors/cms';
+import { hasLandingPageCMSContent } from 'selectors/cms';
 import { hasCards as hasOfficerByAllegationData } from 'selectors/landing-page/officers-by-allegation';
 import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activity-grid';
 import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
@@ -36,7 +36,7 @@ export default store => next => action => {
   const state = store.getState();
   const dispatches = [];
 
-  if (!hasLoadingPageContent(state)) {
+  if (!hasLandingPageCMSContent(state)) {
     dispatches.push(store.dispatch(fetchPage(LANDING_PAGE_ID)()));
   }
 
@@ -50,12 +50,10 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchNewTimelineItems(officerId)));
     }
   } else if (action.payload.pathname === '/') {
-    const communities = communitiesSelector(state);
-    const citySummary = citySummarySelector(state);
-    if (communities === null) {
+    if (!hasCommunitiesSelector(state)) {
       dispatches.push(store.dispatch(getCommunities()));
     }
-    if (citySummary.allegationCount === undefined) {
+    if (!hasCitySummarySelector(state)) {
       dispatches.push(store.dispatch(getCitySummary()));
     }
     if (!hasClusterGeoJsonData(state)) {

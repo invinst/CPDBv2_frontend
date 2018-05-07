@@ -54,3 +54,8 @@ export const communitiesSelector = createSelector(
       map(communityGeoJSON.features, feature => feature.properties) :
       null
 );
+
+export const hasCommunitiesSelector = createSelector(
+  getRawCommunities,
+  communities => communities !== null
+);
