@@ -20,4 +20,5 @@ export const menuItemStyle = (active) => ({
   fontWeight: 300,
   borderRadius: '2px',
   padding: '8px 16px 10px 16px',
+  cursor: 'pointer',
 });

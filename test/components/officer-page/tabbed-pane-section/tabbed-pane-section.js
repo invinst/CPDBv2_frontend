@@ -3,7 +3,9 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
+  scryRenderedComponentsWithType,
+  Simulate
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -11,6 +13,7 @@ import { Provider } from 'react-redux';
 import { unmountComponentSuppressError } from 'utils/test';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
+import Coaccusals from 'components/officer-page/summary-page/tabbed-pane-section/coaccusals';
 
 
 describe('TabbedPaneSection component', function () {
@@ -18,6 +21,7 @@ describe('TabbedPaneSection component', function () {
   const store = mockStore({
     officerPage: {
       newTimeline: {},
+      coaccusals: [],
     }
   });
   let instance;
@@ -47,5 +51,29 @@ describe('TabbedPaneSection component', function () {
     );
 
     findRenderedComponentWithType(instance, Timeline).should.be.ok();
+  });
+
+  it('should change tab when clicking tab name', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <TabbedPaneSection />
+      </Provider>
+    );
+
+    const tabs = scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name');
+    const summaryTab = tabs[1];
+    const coaccusalsTab = tabs[3];
+
+    findRenderedComponentWithType(instance, Timeline).should.be.ok();
+
+    Simulate.click(summaryTab);
+
+    scryRenderedComponentsWithType(instance, Timeline).length.should.eql(0);
+    scryRenderedComponentsWithType(instance, Coaccusals).length.should.eql(0);
+
+    Simulate.click(coaccusalsTab);
+
+    scryRenderedComponentsWithType(instance, Timeline).length.should.eql(0);
+    findRenderedComponentWithType(instance, Coaccusals);
   });
 });

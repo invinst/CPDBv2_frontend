@@ -177,6 +177,10 @@ describe('store', function () {
           filter: 'ALL EVENTS',
           isRequesting: false,
           items: []
+        },
+        coaccusals: {
+          isRequesting: false,
+          items: []
         }
       },
       unitProfilePage: {
