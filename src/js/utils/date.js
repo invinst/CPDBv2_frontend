@@ -14,4 +14,4 @@ export const formatDate = (str) => {
   return date.isValid() ? date.format('ll').toUpperCase() : null;
 };
 
-export const getCurrentAge = (birthYear) => (getThisYear() - birthYear);
+export const getCurrentAge = (birthYear) => (birthYear ? getThisYear() - birthYear : null);

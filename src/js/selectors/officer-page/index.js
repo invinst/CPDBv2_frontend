@@ -42,7 +42,6 @@ const getSummaryRank = summary => {
 
 export const getOfficerName = state => state.officerPage.fullName;
 export const getOfficerId = state => state.officerPage.officerId;
-export const getActiveTab = state => state.officerPage.activeTab;
 export const getPathname = state => state.officerPage.pathname;
 export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCachedFullName;
 
@@ -57,6 +56,7 @@ export const summarySelector = createSelector(
     race: summary.race,
     gender: summary.gender,
     badge: summary.badge,
+    historicBadges: summary['historic_badges'],
     careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
     careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation']),
   })

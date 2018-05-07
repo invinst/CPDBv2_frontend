@@ -8,6 +8,13 @@
 
 - CSS classes that are there for the sole purpose of testing must begin with `test--`.
 
+- Sometime you will see something like: 
+```css
+height: `${height}px`,
+lineHeight: `${height - 1}px`,
+```
+This is to fulfill optical center, for more information please take a look at: https://services.math.duke.edu/education/ccp/resources/write/design/graphic7.html
+
 ## Basic Use Case
 
 We use vanilla inline styles and ES6 object rest/spread syntax to do style merging. A component module `{component-name}.js` will import it's style from a style module `{component-name}.style.js` in the same folder. Also it will import with relative import syntax.

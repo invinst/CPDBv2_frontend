@@ -1,60 +1,56 @@
 import React, { Component, PropTypes } from 'react';
 
-import { pageWrapperStyle } from './officer-page.style';
-import Header from './header';
-import SummaryPageContainer from 'containers/officer-page/summary-page-container';
-import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
+import { pageWrapperStyle, radarChartPlaceholderStyle, wrapperStyle } from './officer-page.style';
+import OfficerRadarChart from './radar-chart';
+import SummarySection from './summary-section';
+import MetricsSection from './metrics-section';
+import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
 
 export default class OfficerPage extends Component {
-
   shouldComponentUpdate(nextProps) {
-    const { officerName, activeTab, pathname, scrollPosition } = this.props;
+    const { officerName } = this.props;
     return (
-      officerName !== nextProps.officerName ||
-      activeTab !== nextProps.activeTab ||
-      pathname !== nextProps.pathname ||
-      scrollPosition !== nextProps.scrollPosition
+      officerName !== nextProps.officerName
     );
   }
 
-  renderChildren() {
-    const { activeTab } = this.props;
-    if (activeTab === 'social') {
-      return <SocialGraphPageContainer/>;
-    }
-    return <SummaryPageContainer/>;
-  }
-
   render() {
-    const { officerName, activeTab, pathname, scrollPosition } = this.props;
+    const {
+      officerSummary,
+      openPoliceUnitPage,
+      officerMetrics,
+      officerName,
+      threeCornerPercentile,
+    } = this.props;
 
     return (
-      <div>
+      <div style={ wrapperStyle }>
         <ShareableHeaderContainer/>
-        <Header
-          officerName={ officerName }
-          activeTab={ activeTab }
-          pathname={ pathname }
-          scrollPosition={ scrollPosition }
-        />
         <div style={ pageWrapperStyle }>
-          { this.renderChildren() }
+
+          <div className='test--officer--radar-chart' style={ radarChartPlaceholderStyle }>
+            <OfficerRadarChart data={ threeCornerPercentile }/>
+          </div>
+
+          <SummarySection
+            officerName={ officerName }
+            officerSummary={ officerSummary }
+            openPoliceUnitPage={ openPoliceUnitPage }/>
         </div>
+        <MetricsSection metrics={ officerMetrics }/>
+        <TabbedPaneSection/>
       </div>
     );
   }
 }
 
 OfficerPage.propTypes = {
+  officerId: PropTypes.number,
   officerName: PropTypes.string,
-  activeTab: PropTypes.string,
-  pathname: PropTypes.string,
-  scrollPosition: PropTypes.string,
-};
-
-OfficerPage.defaultProps = {
-  pathname: '/',
-  scrollPosition: 'top',
+  officerSummary: PropTypes.object,
+  officerMetrics: PropTypes.object,
+  threeCornerPercentile: PropTypes.array,
+  openPoliceUnitPage: PropTypes.func,
 };

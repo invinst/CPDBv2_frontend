@@ -1,19 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { containerStyle, buttonStyle, textStyle } from './view-widget.style';
+
+import OutboundLink from 'components/common/outbound-link';
+import { containerStyle, buttonStyle, textStyle, linkStyle } from './view-widget.style';
 
 
 export default class CallToActionWidget extends Component {
   render() {
     const { url, to, text } = this.props;
+
+    const WrapperLink = ({ url, to, children }) => (
+      to
+        ? <Link style={ linkStyle } to={ to }>{ children }</Link>
+        : <OutboundLink style={ linkStyle } href={ url }>{ children }</OutboundLink>
+    );
     return (
-      <div style={ containerStyle }>
-        <span style={ textStyle }>{ text }</span>
-        {
-          to ? <Link to={ to } style={ buttonStyle }>→</Link> :
-          <a href={ url } style={ buttonStyle }>→</a>
-        }
-      </div>
+      <WrapperLink url={ url } to={ to }>
+        <div style={ containerStyle }>
+          <span style={ textStyle }>{ text }</span>
+          <div style={ buttonStyle }>→</div>
+        </div>
+      </WrapperLink>
     );
   }
 }
@@ -27,5 +34,5 @@ CallToActionWidget.defaultProps = {
 CallToActionWidget.propTypes = {
   url: PropTypes.string,
   to: PropTypes.string,
-  text: PropTypes.string,
+  text: PropTypes.string
 };

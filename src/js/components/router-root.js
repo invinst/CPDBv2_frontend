@@ -3,7 +3,6 @@ import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
-import { componentCache } from 'redux-breadcrumb-trail';
 
 import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
@@ -32,21 +31,12 @@ import {
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
-import OfficerBreadcrumb from 'containers/breadcrumbs/officer-breadcrumb';
-import UnitBreadcrumb from 'containers/breadcrumbs/unit-breadcrumb';
-import CRBreadcrumb from 'containers/breadcrumbs/cr-breadcrumb';
+import BreadcrumbItemContainer from 'containers/breadcrumb-item';
 
 
 const store = configureStore();
 
 class RouterRoot extends Component {
-  constructor(props) {
-    super(props);
-    componentCache.set('officer', OfficerBreadcrumb);
-    componentCache.set('unit', UnitBreadcrumb);
-    componentCache.set('cr', CRBreadcrumb);
-  }
-
   render() {
     return (
       <Provider store={ store }>
@@ -56,7 +46,7 @@ class RouterRoot extends Component {
             component={ AppContainer }>
             <IndexRoute
               component={ LandingPageContainer }
-              breadcrumb='Home'/>
+              breadcrumb='cpdp'/>
             <Route
               path={ STORIES_PATH }
               component={ ReportingPage }>
@@ -77,7 +67,7 @@ class RouterRoot extends Component {
             <Route
               path={ OFFICER_PATH }
               component={ OfficerPageContainer }
-              breadcrumb={ { componentCacheKey: 'officer' } }>
+              breadcrumb={ BreadcrumbItemContainer }>
               <Route
                 path={ OFFICER_SOCIAL_GRAPH_SUFFIX }
                 component={ OfficerPageContainer }
@@ -95,7 +85,7 @@ class RouterRoot extends Component {
             <Route
               path={ STANDALONE_CR_PATH }
               component={ CRPageContainer }
-              breadcrumb={ { componentCacheKey: 'cr' } }>
+              breadcrumb={ BreadcrumbItemContainer }>
               <Route
                 path={ CR_PATH_SUFFIX }
                 component={ CRPageContainer }
@@ -104,7 +94,7 @@ class RouterRoot extends Component {
             <Route
               path={ UNIT_PROFILE_PATH }
               component={ UnitProfilePageContainer }
-              breadcrumb={ { componentCacheKey: 'unit' } }/>
+              breadcrumb={ BreadcrumbItemContainer }/>
             <Route
               path={ SEARCH_ALIAS_EDIT_PATH }
               component={ SearchPageContainer }/>

@@ -1,8 +1,7 @@
 import React from 'react';
 import {
   renderIntoDocument,
-  scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass
+  scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -21,11 +20,5 @@ describe('InvolvementItem component', function () {
     const officers = [{ id: 1, abbrName: 'Foo' }, { id: 2, abbrName: 'Bar' }];
     instance = renderIntoDocument(<InvolvementItem officers={ officers } involvedType='Inmate' />);
     scryRenderedComponentsWithType(instance, OfficerRow).should.have.length(2);
-  });
-
-  it('should render BlockTitle in uppercase', function () {
-    instance = renderIntoDocument(<InvolvementItem officers={ [] } involvedType='Inmate' />);
-    const title = findRenderedDOMComponentWithClass(instance, 'test--involvement-type');
-    title.innerText.should.eql('INMATE');
   });
 });

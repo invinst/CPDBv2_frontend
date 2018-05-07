@@ -123,6 +123,36 @@ describe('store', function () {
             message: ''
           },
           subscribedCRIDs: {}
+        },
+        relatedComplaints: {
+          relatedByCategory: {
+            count: 0,
+            pagination: {
+              next: null,
+              previous: null
+            },
+            cards: {
+              meta: {
+                crPageCrid: null,
+                distance: null
+              },
+              cards: []
+            }
+          },
+          relatedByOfficer: {
+            count: 0,
+            pagination: {
+              next: null,
+              previous: null
+            },
+            cards: {
+              meta: {
+                crPageCrid: null,
+                distance: null
+              },
+              cards: []
+            }
+          }
         }
       },
       crs: {},
@@ -159,6 +189,7 @@ describe('store', function () {
       breadcrumb: {
         breadcrumbs: []
       },
+      breadcrumbsMapping: {},
       headers: {
         shareableHeader: {
           scrollPosition: null
