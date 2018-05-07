@@ -1,25 +1,18 @@
-import { softBlackColor, whiteTwoColor } from 'utils/styles';
 
-
-export const wrapperStyle = {
-  width: '321px',
-  borderLeft: `1px ${whiteTwoColor} solid`,
-  backgroundColor: 'white',
-  height: '100%',
-  boxSizing: 'border-box',
-  display: 'inline-block',
-  verticalAlign: 'top'
+export const responsiveContainerStyle = {
+  maxHeight: 'calc(100% - 50px)',
+  overflow: 'hidden',
+  position: 'relative',
+  width: '100%',
+  left: '-8px',
+  padding: '0 8px',
 };
 
-export const titleStyle = {
-  lineHeight: '32px',
-  fontSize: '26px',
-  fontWeight: 500,
-  color: `${softBlackColor}`,
-  margin: '48px 16px 16px 16px'
-};
-
-export const visualTokenStyle = {
-  width: '320px',
-  height: '320px'
+export const gradientStyle = {
+  position: 'absolute',
+  height: '150px',
+  width: '100%',
+  bottom: 0,
+  left: 0,
+  background: 'linear-gradient(to bottom, rgba(255,255,255,0), rgba(245, 244, 244, 1) 90%)',
 };
