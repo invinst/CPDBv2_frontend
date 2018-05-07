@@ -1,7 +1,8 @@
-import { compact, get, sumBy, map } from 'lodash';
+import { get, sumBy, map, last } from 'lodash';
+import { extractPercentile } from 'selectors/landing-page/common';
 
-import { getThisYear } from 'utils/date';
-import { getSvgUrl } from 'utils/visual-token';
+import { getCurrentAge, formatDate } from 'utils/date';
+import roundPercentile from 'utils/round-percentile';
 
 
 const mappingRace = (race) => {
@@ -24,26 +25,10 @@ const areaTypeMap = (areaType) => ({
 
 
 const previewPaneTypeMap = {
-  OFFICER: (suggestion) => {
-    const { payload, id, text } = suggestion;
-    const visualTokenImg = getSvgUrl(id);
-    const visualTokenBackgroundColor = payload['visual_token_background_color'];
-    const data = {
-      officerInfo: {
-        unit: payload.unit,
-        rank: payload.rank,
-        salary: payload.salary,
-        race: payload.race,
-        sex: payload.sex,
-      },
-      visualTokenBackgroundColor,
-      visualTokenImg,
-      text,
-      title: text,
-      to: payload.to,
-    };
-    return { type: 'OFFICER', data };
-  },
+  OFFICER: (suggestion) => ({
+    type: 'OFFICER',
+    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
+  }),
   ...areaTypeMap('COMMUNITY'),
   ...areaTypeMap('NEIGHBORHOOD'),
   ...areaTypeMap('WARD'),
@@ -83,15 +68,33 @@ const areaTransform = ({ payload }) => {
 
 const searchResultTransformMap = {
   OFFICER: ({ payload }) => {
-    const currentYear = getThisYear();
-    const age = payload['birth_year'] ? `${currentYear - payload['birth_year']} year old` : null;
     const race = payload['race'] === 'Unknown' ? null : payload['race'];
-    const sex = payload['sex'] ? payload['sex'] : null;
-    const demographicInfo = compact([age, race, sex]).join(', ');
+    const lastPercentile = last(payload['percentiles']);
     return {
-      demographicInfo,
+      fullName: payload['name'],
+      appointedDate: formatDate(payload['appointed_date']),
+      resignationDate: formatDate(payload['resignation_date']),
+      badge: payload['badge'],
+      gender: payload['gender'] || '',
+      name: payload['name'],
+      to: payload['to'],
+      age: getCurrentAge(payload['birth_year']) || null,
+      race: race || '',
+      rank: payload['rank'],
+      unit: {
+        id: get(payload['unit'], 'id'),
+        unitName: get(payload['unit'], 'unit_name'),
+        description: get(payload['unit'], 'description'),
+      },
+      lastPercentile: extractPercentile(lastPercentile),
       complaintCount: payload['allegation_count'],
-      sustainedCount: payload['sustained_count']
+      complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),
+      civilianComplimentCount: payload['civilian_compliment_count'],
+      sustainedCount: payload['sustained_count'],
+      disciplineCount: payload['discipline_count'],
+      trrCount: payload['trr_count'],
+      trrPercentile: roundPercentile(get(lastPercentile, 'percentile_trr'), true),
+      honorableMentionCount: payload['honorable_mention_count'],
     };
   },
   CR: ({ payload }) => {

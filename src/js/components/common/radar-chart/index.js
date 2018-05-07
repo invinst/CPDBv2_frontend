@@ -50,8 +50,8 @@ export default class StaticRadarChart extends Component {
 
     if (!data || !data.length)
       return <svg
-        className='test--radar' width={ width }
-        height={ height } style={ { backgroundColor } }/>;
+        className='test--radar' width='100%'
+        height='100%' style={ { backgroundColor } }/>;
 
     const titles = map(data, (d) => d.axis);
 

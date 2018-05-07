@@ -5,18 +5,19 @@ import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons
 import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import FooterNavLink from 'components/common/footer-nav-link';
+import * as intercomUtils from 'utils/intercom';
 
 
 describe('Footer component', function () {
   let element;
 
   beforeEach(function () {
-    spy(window, 'Intercom');
+    spy(intercomUtils, 'showIntercomMessages');
   });
 
   afterEach(function () {
     unmountComponentSuppressError(element);
-    window.Intercom.restore();
+    intercomUtils.showIntercomMessages.restore();
   });
 
   it('should render', function () {
@@ -45,6 +46,6 @@ describe('Footer component', function () {
     const links = scryRenderedComponentsWithType(element, FooterNavLink);
     const contactLink = links.filter(link => link.props.name === 'Contact')[0];
     contactLink.props.onClick();
-    window.Intercom.calledWith('show').should.be.true();
+    intercomUtils.showIntercomMessages.calledWith(true).should.be.true();
   });
 });

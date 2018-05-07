@@ -5,6 +5,7 @@ body {
 
 a {
     cursor: pointer;
+    text-decoration: none;
 }
 
 .noscroll {
@@ -26,4 +27,8 @@ a {
 }
 .subscribe-form__input:-ms-input-placeholder {
     color: #005EF4;
+}
+
+.dropdown:focus {
+    outline: none;
 }

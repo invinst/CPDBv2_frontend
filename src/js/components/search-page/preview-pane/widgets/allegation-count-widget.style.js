@@ -1,4 +1,4 @@
-import { clayGray } from 'utils/styles';
+import { clayGray, softBlackColor } from 'utils/styles';
 
 
 export const containerStyle = {
@@ -28,4 +28,9 @@ export const subTitleStyle = {
   fontSize: '14px',
   marginTop: '8px',
   marginBottom: 0,
+};
+
+export const linkStyle = {
+  textDecoration: 'none',
+  color: softBlackColor,
 };

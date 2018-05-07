@@ -8,7 +8,6 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
-import ShortList from 'components/common/short-list';
 import {
   CommunityPane,
   NeighborhoodPane,
@@ -16,6 +15,7 @@ import {
   PoliceBeatPane,
   PoliceDistrictPane,
   SchoolGroundPane,
+  OfficerPane,
 } from 'components/search-page/preview-pane';
 
 
@@ -24,44 +24,6 @@ describe('PreviewPane component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-  });
-
-  it('should render OfficerPane component', function () {
-    const data = {
-      officerInfo: {
-        unit: '001',
-        rank: null,
-        salary: '$99,999',
-        race: 'White',
-        sex: 'Male',
-      },
-      title: 'Tsumiki Miniwa',
-      visualTokenImg: 'http://test.img'
-    };
-    const convertedData = [
-      ['unit', '001'],
-      ['rank', null],
-      ['salary', '$99,999'],
-      ['race', 'White'],
-      ['sex', 'Male'],
-    ];
-    instance = renderIntoDocument(
-      <PreviewPane
-        data={ data }
-        type={ 'OFFICER' }
-      />
-    );
-
-    const title = findRenderedDOMComponentWithClass(instance, 'test--preview-pane-title');
-    title.textContent.should.eql('Tsumiki Miniwa');
-
-    const visualToken = findRenderedDOMComponentWithClass(instance, 'test--preview-pane-visual-token');
-    visualToken.getAttribute('src').should.eql(
-      'http://test.img'
-    );
-
-    const shortList = findRenderedComponentWithType(instance, ShortList);
-    shortList.props.data.should.eql(convertedData);
   });
 
   it('should render CommunityPane component', function () {
@@ -82,6 +44,16 @@ describe('PreviewPane component', function () {
       />
     );
     findRenderedComponentWithType(instance, NeighborhoodPane);
+  });
+
+  it('should render OfficerPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='OFFICER'
+        data={ { name: 'Officer' } }
+      />
+    );
+    findRenderedComponentWithType(instance, OfficerPane).should.be.ok();
   });
 
   it('should render WardPane', function () {
