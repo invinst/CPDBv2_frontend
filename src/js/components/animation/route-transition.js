@@ -42,6 +42,9 @@ export default class RouteTransition extends Component {
         }
       });
       this.setState({ styles });
+      if (!pageLoading) {
+        this.startAnimation(nextProps);
+      }
     } else if (!pageLoading && this.props.pageLoading) {
       this.startAnimation(nextProps);
     } else {
