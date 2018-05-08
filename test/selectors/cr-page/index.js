@@ -93,7 +93,7 @@ describe('CR page selectors', function () {
           },
         ],
         radarColor: {
-          backgroundColor: '#ffbb9f',
+          backgroundColor: '#fca5a5',
           textColor: '#231F20'
         }
       }]);
