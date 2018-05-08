@@ -11,6 +11,7 @@ import {
 
 import { FAQ_PATH } from 'utils/constants';
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
+import * as intercomUtils from 'utils/intercom';
 
 
 describe('LegalDisclaimerModalContent component', function () {
@@ -61,11 +62,11 @@ describe('LegalDisclaimerModalContent component', function () {
 
   describe('Contact link', function () {
     beforeEach(function () {
-      spy(window, 'Intercom');
+      spy(intercomUtils, 'showIntercomMessages');
     });
 
     afterEach(function () {
-      window.Intercom.restore();
+      intercomUtils.showIntercomMessages.restore();
     });
     it('contact link should open Intercom chat dialog', function () {
       element = renderIntoDocument(
@@ -75,7 +76,7 @@ describe('LegalDisclaimerModalContent component', function () {
       contactLink.innerText.should.eql('contact');
       Simulate.click(contactLink);
 
-      window.Intercom.calledWith('show').should.be.true();
+      intercomUtils.showIntercomMessages.calledWith(true).should.be.true();
     });
   });
 

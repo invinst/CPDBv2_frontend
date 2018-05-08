@@ -36,7 +36,7 @@ export default function withCarousel(
 
       return (
         <div
-          className={ `test--landing--carousel-${(type.key || type).toLowerCase()}` }
+          className={ `test--landing-carousel-${(type.key || type).toLowerCase()}` }
           style={ wrapperStyle }>
           <EditModeProvider
             pathname={ pathname }

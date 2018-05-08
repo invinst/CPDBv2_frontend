@@ -19,7 +19,7 @@ describe('Carousel Arrow component', function () {
     instance = renderIntoDocument(
       <Arrow direction='left' show={ true }/>
     );
-    findRenderedDOMComponentWithClass(instance, 'test--carousel--arrow--left').should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'test--carousel-arrow-left').should.be.ok();
   });
 
   it('should have appropriate click handler', function () {
@@ -27,7 +27,7 @@ describe('Carousel Arrow component', function () {
     instance = renderIntoDocument(
       <Arrow direction='left' onClick={ spyClickHandler } show={ true }/>
     );
-    const arrowWrapper = findRenderedDOMComponentWithClass(instance, 'test--carousel--arrow--left');
+    const arrowWrapper = findRenderedDOMComponentWithClass(instance, 'test--carousel-arrow-left');
     Simulate.click(arrowWrapper);
     spyClickHandler.called.should.be.true();
   });

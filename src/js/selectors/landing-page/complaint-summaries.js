@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { shuffle } from 'lodash';
+import { shuffle, filter } from 'lodash';
 
 
 export const getCarouselComplaintHeaderEditModeOn = state => state.landingPage.complaintSummaries.headerEditModeOn;
@@ -8,7 +8,7 @@ const getCards = state => state.landingPage.complaintSummaries.cards;
 const cardTransform = (card) => ({
   crid: card['crid'],
   incidentDate: card['incident_date'],
-  categoryNames: card['category_names'],
+  categoryNames: filter(card['category_names'], cat => cat !== 'Unknown'),
   summary: card['summary']
 });
 
