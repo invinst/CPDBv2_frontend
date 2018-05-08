@@ -39,8 +39,8 @@ describe('TabbedPaneSection component', function () {
 
     const tabbedPaneMenu = findRenderedDOMComponentWithClass(instance, 'test--tabbed-pane-section-menu');
 
-    tabbedPaneMenu.textContent.should.eql('TIMELINESUMMARYMAPCOACCUSALSATTACHMENTS');
-    scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name').length.should.eql(5);
+    tabbedPaneMenu.textContent.should.eql('TIMELINEMAPCOACCUSALSATTACHMENTS');
+    scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name').length.should.eql(4);
   });
 
   it('should render Timeline by default', function () {
@@ -61,12 +61,12 @@ describe('TabbedPaneSection component', function () {
     );
 
     const tabs = scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name');
-    const summaryTab = tabs[1];
-    const coaccusalsTab = tabs[3];
+    const mapTab = tabs[1];
+    const coaccusalsTab = tabs[2];
 
     findRenderedComponentWithType(instance, Timeline).should.be.ok();
 
-    Simulate.click(summaryTab);
+    Simulate.click(mapTab);
 
     scryRenderedComponentsWithType(instance, Timeline).length.should.eql(0);
     scryRenderedComponentsWithType(instance, Coaccusals).length.should.eql(0);
