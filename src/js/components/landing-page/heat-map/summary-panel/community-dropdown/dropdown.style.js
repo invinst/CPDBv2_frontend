@@ -34,12 +34,14 @@ export const inputStyle = {
 };
 
 export const dropdownStyle = {
-  padding: '0 16px',
-  backgroundColor: 'white',
-  position: 'relative',
-  zIndex: 3,
-  height: '479px',
-  boxSizing: 'border-box',
+  container: {
+    padding: '0 16px',
+    backgroundColor: 'white',
+    position: 'relative',
+    zIndex: 3,
+    height: '479px',
+    boxSizing: 'border-box'
+  }
 };
 
 export const dropdownItemStyle = isLast => ({
