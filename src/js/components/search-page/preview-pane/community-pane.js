@@ -32,6 +32,7 @@ export default class CommunityPane extends Component {
         />
         <AllegationCountWidget
           numOfAllegations={ allegationCount }
+          url={ url }
         />
         <ListWidget
           typeName={ 'allegation' }

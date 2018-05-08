@@ -44,7 +44,7 @@ export default class Dropdown extends Component {
       <div
         style={ wrapperStyle }
         onBlur={ this.onBlur }
-        className={ classNames('test--dropdown', className) }
+        className={ classNames('dropdown', className) }
         tabIndex='-1'>
         <div
           className='test--dropdown-button'

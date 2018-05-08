@@ -1,7 +1,11 @@
 export default () => ({
   'id': 1,
   'full_name': 'Bernadette Kelly',
-  'unit': '001',
+  'unit': {
+    'id': 1,
+    'unit_name': '001',
+    'description': 'District 001'
+  },
   'date_of_appt': '2015-09-23',
   'rank': 'NA',
   'race': 'White',
