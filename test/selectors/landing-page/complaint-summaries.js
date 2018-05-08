@@ -20,6 +20,15 @@ describe('complaint-summaries selectors', function () {
       cardsSelector(state).should.have.length(40);
     });
 
+    it('should drop out unknown category', function () {
+      state.landingPage.complaintSummaries.cards = [RawComplaintSummaryFactory.build({
+        'category_names': ['Use Of Forces', 'Unknown']
+      })];
+      const result = cardsSelector(state);
+      result[0].categoryNames.should.have.length(1);
+      result[0].categoryNames[0].should.eql('Use Of Forces');
+    });
+
     it('should shuffle cards', function () {
       const stubShuffle = spy(lodash, 'shuffle');
       state.landingPage.complaintSummaries.cards = lodash.range(40);

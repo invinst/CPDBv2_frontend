@@ -26,6 +26,7 @@ export const mediumBlackColor = 'rgba(0, 0, 0, 0.5)';
 export const silverSandColor = 'rgba(34, 31, 31, 0.2)';
 export const lightBlackColor = 'rgba(0, 0, 0, 0.15)';
 export const whiteTwoColor = '#DBDBDB';
+export const gainsboroColor = '#DEDEDE';
 export const eggPlantColor = '#230D2A';
 export const fashionPinkColor = '#D002CD';
 export const fashionPinkFadedColor = 'rgba(208, 2, 205, .2)';
@@ -78,6 +79,7 @@ export const linenColor = '#FDFAF2';
 export const cashGreenColor = '#499C21';
 export const champagneColor = '#FBE2D4';
 export const scarletColor = '#FF1F00';
+export const darkSlateGrayColor = '#464243';
 
 export const visualTokenSchemeColor = {
   darkestRedColor: '#700404',

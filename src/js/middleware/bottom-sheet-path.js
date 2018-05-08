@@ -33,7 +33,7 @@ export default store => next => action => {
   }
 
   if (action.type === OPEN_COMPLAINT_PAGE) {
-    pushPathPreserveEditMode(`/complaint/${action.payload.crid}/${action.payload.officerId}/`);
+    pushPathPreserveEditMode(`/complaint/${action.payload.crid}/`);
   }
 
   if (action.type === OPEN_POLICE_UNIT_PAGE) {

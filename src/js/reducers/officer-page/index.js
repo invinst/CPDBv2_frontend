@@ -9,6 +9,7 @@ import pathname from './pathname';
 import socialGraph from './social-graph';
 import officerId from './officer-id';
 import breadcrumbCachedFullName from './breadcrumb-cached-full-name';
+import coaccusals from './coaccusals';
 
 
 export default combineReducers({
@@ -21,4 +22,5 @@ export default combineReducers({
   socialGraph,
   officerId,
   breadcrumbCachedFullName,
+  coaccusals,
 });

@@ -51,9 +51,9 @@ describe('bottomSheetPathMiddleware', function () {
 
   it('should push bottom sheet path on OPEN_COMPLAINT_PAGE', function () {
     let dispatched;
-    const dispatchAction = openComplaintPage({ crid: '1', officerId: 1 });
+    const dispatchAction = openComplaintPage({ crid: '1' });
     bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
-    editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/complaint/1/1/');
+    editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/complaint/1/');
     dispatched.should.eql(dispatchAction);
   });
 
