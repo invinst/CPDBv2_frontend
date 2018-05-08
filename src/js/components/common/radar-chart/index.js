@@ -67,7 +67,7 @@ export default class StaticRadarChart extends Component {
         height='100%'
         viewBox={ `0 0 ${width} ${height}` }
       >
-        <g style={ { transform: 'translate(50%,40%)' } }>
+        <g style={ { transform: `translate(${parseInt(width/2)}px, ${parseInt(height * 0.4)}px)` } }>
           <RadarAxis
             axisTitles={ titles }
             radius={ radius }
