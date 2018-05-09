@@ -20,17 +20,17 @@ export default class SummarySection extends Component {
       careerDuration,
       unitName,
       unitDescription,
-      birthYear
+      birthYear,
+      currentSalary
     } = this.props.officerSummary;
     const { openPoliceUnitPage } = this.props;
-    const baseSalary = 'DATA NOT READY';
 
     return [
       ['Year of Birth', birthYear, (<YearOld birthYear={ birthYear } key='Year of Birth'/>)],
       ['Race', race],
       ['Sex', gender],
       ['Badge', badge, (<HistoricBadges historicBadges={ historicBadges } key='Historic Badges'/>)],
-      ['Rank', rank, (<Salary salary={ baseSalary } key='Rank'/>)],
+      ['Rank', rank, (<Salary salary={ currentSalary } key='Rank'/>)],
       ['Unit', unitDescription || unitName, (
         <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>
       )],

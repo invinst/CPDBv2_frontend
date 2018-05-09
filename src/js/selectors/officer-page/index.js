@@ -59,6 +59,7 @@ export const summarySelector = createSelector(
     historicBadges: summary['historic_badges'],
     careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
     careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation']),
+    currentSalary: get(summary, 'current_salary', DATA_NOT_AVAILABLE),
   })
 );
 
