@@ -20,6 +20,10 @@ const previewPaneTypeMap = {
     type: 'OFFICER',
     data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
   }),
+  'UNIT > OFFICERS': (suggestion) => ({
+    type: 'OFFICER',
+    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
+  }),
   COMMUNITY: (suggestion) => ({
     type: 'COMMUNITY',
     data: get(searchResultTransformMap, 'COMMUNITY', () => {})(suggestion)
@@ -78,9 +82,11 @@ const searchResultTransformMap = {
       civilianComplimentCount: payload['civilian_compliment_count'],
       sustainedCount: payload['sustained_count'],
       disciplineCount: payload['discipline_count'],
-      trrCount: payload['trr_count'],
+      trrCount: get(payload, 'trr_count'),
       trrPercentile: roundPercentile(get(lastPercentile, 'percentile_trr'), true),
-      honorableMentionCount: payload['honorable_mention_count'],
+      majorAwardCount: get(payload, 'major_award_count'),
+      honorableMentionCount: get(payload, 'honorable_mention_count'),
+      honorableMentionPercentile: roundPercentile(get(payload, 'honorable_mention_percentile'), true),
     };
   },
   CR: ({ payload }) => {

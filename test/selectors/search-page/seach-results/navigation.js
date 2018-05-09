@@ -137,6 +137,9 @@ describe('search page navigation selector', function () {
           resignationDate: null,
           sustainedCount: 2,
           disciplineCount: 1,
+          honorableMentionCount: 0,
+          majorAwardCount: 0,
+          honorableMentionPercentile: '10',
           unit: {
             id: 1,
             unitName: '018',
@@ -144,7 +147,6 @@ describe('search page navigation selector', function () {
           },
           trrCount: undefined,
           trrPercentile: '90',
-          honorableMentionCount: undefined,
           to: '/officer/29033/',
         },
         type: 'OFFICER',

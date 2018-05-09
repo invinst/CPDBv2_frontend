@@ -43,6 +43,9 @@ describe('search page results selector', function () {
                 to: '/officer/29033/',
                 allegationCount: 10,
                 sustainedCount: 2,
+                majorAwardCount: 2,
+                honorableMentionCount: 2,
+                honorableMentionPercentile: 72.2,
                 unit: {
                   id: 1,
                   'unit_name': '018',
@@ -66,7 +69,6 @@ describe('search page results selector', function () {
             'disciplineCount': 1,
             'fullName': 'Jerome Turbyville',
             'gender': 'Male',
-            'honorableMentionCount': undefined,
             'id': '29033',
             'itemIndex': 1,
             'lastPercentile': {
@@ -94,6 +96,9 @@ describe('search page results selector', function () {
             'rank': 'Police Officer',
             'resignationDate': null,
             'sustainedCount': 2,
+            'majorAwardCount': 2,
+            'honorableMentionCount': 2,
+            'honorableMentionPercentile': '72',
             'tags': [],
             'text': 'Jerome Turbyville',
             'to': '/officer/29033/',
