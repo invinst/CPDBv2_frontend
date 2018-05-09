@@ -2,12 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import { groupHeaderStyle, scrollerStyle } from './suggestion-group.style';
+import { groupHeaderStyle, scrollerStyle, wrapperStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
-import MinimalScrollBars from 'components/common/minimal-scroll-bars';
-
+import ScrollIntoView from 'components/common/scroll-into-view';
 
 export default class SuggestionGroup extends Component {
   componentDidMount() {
@@ -73,20 +72,25 @@ export default class SuggestionGroup extends Component {
 
   render() {
     const {
-      singleContent
+      singleContent,
+      focusedItem
     } = this.props;
 
     if (singleContent) {
       return (
-        <MinimalScrollBars style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
-          { this.renderHeader() }
-          { this.renderResults() }
-        </MinimalScrollBars>
+        <div className='test--suggestion-group' style={ wrapperStyle(singleContent) }>
+          <ScrollIntoView
+            style={ scrollerStyle }
+            focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
+            { this.renderHeader() }
+            { this.renderResults() }
+          </ScrollIntoView>
+        </div>
       );
     }
     else {
       return (
-        <div style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
+        <div style={ wrapperStyle(singleContent) } className='test--suggestion-group'>
           { this.renderHeader() }
           { this.renderResults() }
           { this.renderMoreButton() }
