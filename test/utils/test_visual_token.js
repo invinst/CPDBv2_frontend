@@ -40,187 +40,187 @@ describe('VisualToken utils', function () {
       });
 
       getVisualTokenOIGBackground(0, 15, 20).should.eql({
-        backgroundColor: '#ffdddd',
+        backgroundColor: '#fce0e0',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(0, 35, 40).should.eql({
-        backgroundColor: '#fbc4cc',
+        backgroundColor: '#f6c9d0',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(0, 55, 60).should.eql({
-        backgroundColor: '#ff9f9f',
+        backgroundColor: '#f6a8a7',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(0, 75, 80).should.eql({
-        backgroundColor: '#ff7373',
+        backgroundColor: '#f28081',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(0, 95, 100).should.eql({
-        backgroundColor: '#ff6161',
+        backgroundColor: '#ef6f70',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
     });
 
     it('should return correct background colors when first percentile is 1', () => {
       getVisualTokenOIGBackground(15, 0, 0).should.eql({
-        backgroundColor: '#ffdec1',
+        backgroundColor: '#f9dec7',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(15, 15, 20).should.eql({
-        backgroundColor: '#ffd0bc',
+        backgroundColor: '#f9d3c3',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(15, 35, 40).should.eql({
-        backgroundColor: '#fca5a5',
+        backgroundColor: '#f3adad',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(15, 55, 60).should.eql({
-        backgroundColor: '#ff9883',
+        backgroundColor: '#f39f8e',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(15, 75, 80).should.eql({
-        backgroundColor: '#ff7567',
+        backgroundColor: '#f18075',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(15, 95, 100).should.eql({
-        backgroundColor: '#ff5240',
+        backgroundColor: '#ed6154',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
     });
 
     it('should return correct background colors when first percentile is 2', () => {
       getVisualTokenOIGBackground(35, 0, 0).should.eql({
-        backgroundColor: '#ffc498',
+        backgroundColor: '#f5c5a2',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(35, 15, 20).should.eql({
-        backgroundColor: '#ffac89',
+        backgroundColor: '#f3b094',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(35, 35, 40).should.eql({
-        backgroundColor: '#ff9b8f',
+        backgroundColor: '#f4a298',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(35, 55, 60).should.eql({
-        backgroundColor: '#ff7a7a',
+        backgroundColor: '#f28687',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(35, 75, 80).should.eql({
-        backgroundColor: '#ff5454',
+        backgroundColor: '#ee6465',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(35, 95, 100).should.eql({
-        backgroundColor: '#fa3e3e',
+        backgroundColor: '#e85050',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
     });
 
     it('should return correct background colors when first percentile is 3', () => {
       getVisualTokenOIGBackground(55, 0, 0).should.eql({
-        backgroundColor: '#ffb382',
+        backgroundColor: '#f3b58e',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(55, 15, 20).should.eql({
-        backgroundColor: '#ffa270',
+        backgroundColor: '#f2a67f',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(55, 35, 40).should.eql({
-        backgroundColor: '#fc7060',
+        backgroundColor: '#ee7b6f',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(55, 55, 60).should.eql({
-        backgroundColor: '#fd5f4c',
+        backgroundColor: '#ec6c5e',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(55, 75, 80).should.eql({
-        backgroundColor: '#fa4040',
+        backgroundColor: '#e75151',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(55, 95, 100).should.eql({
-        backgroundColor: '#f72f2f',
+        backgroundColor: '#e44243',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
     });
 
     it('should return correct background colors when first percentile is 4', () => {
       getVisualTokenOIGBackground(75, 0, 0).should.eql({
-        backgroundColor: '#ffa644',
+        backgroundColor: '#eea558',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(75, 15, 20).should.eql({
-        backgroundColor: '#fb8c43',
+        backgroundColor: '#eb9056',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(75, 35, 40).should.eql({
-        backgroundColor: '#ff6c3a',
+        backgroundColor: '#ed754f',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(75, 55, 60).should.eql({
-        backgroundColor: '#ff522f',
+        backgroundColor: '#eb5f45',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(75, 75, 80).should.eql({
-        backgroundColor: '#ff2d00',
+        backgroundColor: '#ea4029',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.LIGHT_COLOR,
       });
 
       getVisualTokenOIGBackground(75, 95, 100).should.eql({
-        backgroundColor: '#f60000',
+        backgroundColor: '#df1d24',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.LIGHT_COLOR,
       });
     });
 
     it('should return correct background colors when first percentile is 5', () => {
       getVisualTokenOIGBackground(95, 0, 0).should.eql({
-        backgroundColor: '#ff8600',
+        backgroundColor: '#ea872c',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(95, 15, 20).should.eql({
-        backgroundColor: '#ff7000',
+        backgroundColor: '#ea752b',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(95, 35, 40).should.eql({
-        backgroundColor: '#ff5e19',
+        backgroundColor: '#ea6836',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(95, 55, 60).should.eql({
-        backgroundColor: '#ff4a17',
+        backgroundColor: '#ea5734',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(95, 75, 80).should.eql({
-        backgroundColor: '#ff3800',
+        backgroundColor: '#e94829',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.LIGHT_COLOR,
       });
 
       getVisualTokenOIGBackground(95, 95, 100).should.eql({
-        backgroundColor: '#ff0000',
+        backgroundColor: '#e81f25',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.LIGHT_COLOR,
       });
     });
@@ -232,27 +232,27 @@ describe('VisualToken utils', function () {
       });
 
       getVisualTokenOIGBackground(0, 15, 0).should.eql({
-        backgroundColor: '#d5e5ff',
+        backgroundColor: '#dde6f7',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(0, 35, 0).should.eql({
-        backgroundColor: '#c7dbfb',
+        backgroundColor: '#d1ddf1',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(0, 55, 0).should.eql({
-        backgroundColor: '#aec1fa',
+        backgroundColor: '#bdc7ec',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(0, 75, 0).should.eql({
-        backgroundColor: '#6a8cf1',
+        backgroundColor: '#8498d8',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
 
       getVisualTokenOIGBackground(0, 95, 0).should.eql({
-        backgroundColor: '#184cea',
+        backgroundColor: '#405ec3',
         textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
       });
     });
