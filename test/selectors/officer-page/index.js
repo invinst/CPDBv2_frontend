@@ -122,14 +122,14 @@ describe('officer page selectors', function () {
 
       metricsSelector(state).should.eql({
         allegationCount: 1,
-        topAllegationPercentile: 4.000,
+        allegationPercentile: 4.000,
         honorableMentionCount: 3,
         honorableMentionPercentile: 3.000,
         sustainedCount: 4,
         disciplineCount: 5,
         useOfForceCount: 7,
         majorAwardCount: 5,
-        topUseOfForcePercentile: 9.0,
+        useOfForcePercentile: 9.0,
         civilianComplimentCount: 10,
       });
     });

@@ -12,14 +12,14 @@ export default class MetricsSection extends Component {
   render() {
     const {
       allegationCount,
-      topAllegationPercentile,
+      allegationPercentile,
       honorableMentionCount,
       sustainedCount,
       disciplineCount,
       honorableMentionPercentile,
       useOfForceCount,
       majorAwardCount,
-      topUseOfForcePercentile,
+      useOfForcePercentile,
       civilianComplimentCount,
     } = this.props.metrics;
 
@@ -28,7 +28,7 @@ export default class MetricsSection extends Component {
       {
         value: allegationCount,
         name: `${pluralize('Allegation', allegationCount)}`,
-        description: `More than ${roundPercentile(topAllegationPercentile)}% of other officers`,
+        description: `More than ${roundPercentile(allegationPercentile)}% of other officers`,
       },
       {
         value: sustainedCount,
@@ -39,7 +39,7 @@ export default class MetricsSection extends Component {
       {
         value: useOfForceCount,
         name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
-        description: `More than ${roundPercentile(topUseOfForcePercentile)}% of other officers`,
+        description: `More than ${roundPercentile(useOfForcePercentile)}% of other officers`,
       },
       {
         value: civilianComplimentCount,

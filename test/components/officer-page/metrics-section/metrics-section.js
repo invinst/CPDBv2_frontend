@@ -31,14 +31,14 @@ describe('MetricsSection', function () {
   it('should render with correct information', function () {
     const metrics = {
       allegationCount: 90,
-      topAllegationPercentile: 99.994,
+      allegationPercentile: 99.994,
       honorableMentionCount: 1,
       sustainedCount: 4,
       disciplineCount: 0,
       honorableMentionPercentile: 3.000,
       useOfForceCount: 4,
       majorAwardCount: 5,
-      topUseOfForcePercentile: 6.000,
+      useOfForcePercentile: 6.000,
       civilianComplimentCount: 0,
     };
     instance = renderIntoDocument(<MetricsSection metrics={ metrics }/>);
