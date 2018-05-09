@@ -3,10 +3,15 @@ import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-
 
 import { VisualTokenWidget } from 'components/search-page/preview-pane/widgets';
 import StaticRadarChart from 'components/common/radar-chart';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('VisualTokenWidget component', () => {
   let instance;
+
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
+  });
 
   it('should contain StaticRadarChart component', () => {
     instance = renderIntoDocument(

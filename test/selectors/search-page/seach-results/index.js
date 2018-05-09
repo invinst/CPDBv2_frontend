@@ -254,6 +254,7 @@ describe('search page results selector', function () {
             id: 12478,
             name: 'Ronald Holt',
             count: 26,
+            url: '/officer/12478/'
           }],
           population: '352',
           medianIncome: '$37,084',

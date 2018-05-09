@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 import pluralize from 'pluralize';
 
+
+import HoverableLink from 'components/common/hoverable-link';
+
 import {
   containerStyle,
   headerStyle,
@@ -9,29 +12,45 @@ import {
   listItemFirstStyle,
   listItemStyle,
   listStyle,
-  itemNameStyle
+  itemNameStyle,
+  linkStyle,
 } from './list-widget.style';
 
 
 export default class ListWidget extends Component {
   render() {
     const { items, title, typeName, showAvatar } = this.props;
+
+    const WrapperByLink = ({ url, children }) => (
+      url ? (
+        <HoverableLink
+          className='test--list-widget-item-link'
+          style={ linkStyle }
+          to={ url }
+        >
+          { children }
+        </HoverableLink>
+      ): children
+    );
+
     return (
       <div className='test--list-widget' style={ containerStyle }>
         <h5 style={ headerStyle }>{ title }</h5>
         <ul style={ listStyle }>
           { map(items, (item, index) => (
-            <li key={ item.id } style={ listItemStyle(index === items.length - 1) }>
-              { (showAvatar) && (
-                <div style={ listItemFirstStyle }>
-                  <img src={ item.image || 'http://via.placeholder.com/32x32' }/>
+            <WrapperByLink key={ item.id } url={ item.url }>
+              <li style={ listItemStyle(index === items.length - 1) }>
+                { (showAvatar) && (
+                  <div style={ listItemFirstStyle }>
+                    <img src={ item.image || 'http://via.placeholder.com/32x32' }/>
+                  </div>
+                ) }
+                <div>
+                  <p style={ itemNameStyle }>{ item.name }</p>
+                  <p style={ itemCountStyle }>{ pluralize(typeName, item.count, true) }</p>
                 </div>
-              ) }
-              <div>
-                <p style={ itemNameStyle }>{ item.name }</p>
-                <p style={ itemCountStyle }>{ pluralize(typeName, item.count, true) }</p>
-              </div>
-            </li>
+              </li>
+            </WrapperByLink>
           )) }
         </ul>
       </div>

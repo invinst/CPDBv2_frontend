@@ -10,6 +10,9 @@ class OfficerPreviewPaneSection extends Section {
     this.prepareElementGetters({
       wrapper: '.test--preview-pane',
       gradient: '.test--gradient',
+      communityPane: '.test--preview-pane-community',
+      neighborhoodPane: '.test--preview-pane-neighborhood',
+      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"test--list-widget-item-link")]'
     });
   }
 }

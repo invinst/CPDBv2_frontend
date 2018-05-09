@@ -39,7 +39,10 @@ const areaTransform = ({ payload }) => {
     name: payload['name'] || 'Unknown',
     allegationCount: payload['allegation_count'] || [],
     mostCommonComplaint: payload['most_common_complaint'] || [],
-    officersMostComplaint: payload['officers_most_complaint'] || [],
+    officersMostComplaint: map(payload['officers_most_complaint'], (officer) => ({
+      ...officer,
+      url: `/officer/${officer.id}/`
+    })),
     population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
     medianIncome: payload['median_income'],
     url: payload['url'],

@@ -1,4 +1,4 @@
-import { clayGray, altoColor, whiteTwoColor } from 'utils/styles';
+import { clayGray, altoColor, whiteTwoColor, accentColor } from 'utils/styles';
 
 
 export const containerStyle = {
@@ -40,4 +40,15 @@ export const itemNameStyle = {
 export const itemCountStyle = {
   color: clayGray,
   margin: 0,
+};
+
+export const linkStyle = {
+  hover: {
+    textDecoration: 'none',
+    color: accentColor
+  },
+  base: {
+    textDecoration: 'none',
+    color: 'inherit',
+  }
 };

@@ -9,7 +9,7 @@ export default class RadarSpineLine extends React.Component {
 
     return (
       <g className='test--radar-spine-line'>
-        { rPoints.map((point, i) => (
+        { rPoints.map((point, i) => (point.x) && (
           <line
             key={ `line-${i}` }
             x1={ 0 } y1={ 0 }

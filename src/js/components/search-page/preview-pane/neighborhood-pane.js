@@ -18,7 +18,7 @@ export default class NeighborhoodPane extends Component {
       officersMostComplaint,
     } = this.props;
     return (
-      <WidgetWrapper>
+      <WidgetWrapper className='test--preview-pane-neighborhood'>
         <HeaderWidget title={ name } showBottomBorder={ true }/>
         <SeparatorWidget/>
         <AllegationCountWidget numOfAllegations={ allegationCount }/>

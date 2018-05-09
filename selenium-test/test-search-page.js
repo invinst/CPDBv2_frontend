@@ -287,7 +287,7 @@ describe('Search Page', function () {
     });
   });
 
-  describe('PreviewPane', function () {
+  describe.only('PreviewPane', function () {
     it('should display gradient when window height is small', function () {
       browser.setViewportSize({
         width: 1000,
@@ -314,6 +314,18 @@ describe('Search Page', function () {
 
       searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
       searchPage.officerPreviewPaneSection.gradient.waitForVisible(2000, true);
+    });
+
+    it('should redirect to officer profile when clicking on officer item', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+      searchPage.firstNeighborhoodResult.waitForVisible();
+      searchPage.firstNeighborhoodResult.click();
+
+      searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
+      searchPage.officerPreviewPaneSection.listMostOfficers.count.should.eql(2);
+      searchPage.officerPreviewPaneSection.listMostOfficers.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/$/);
     });
   });
 });
