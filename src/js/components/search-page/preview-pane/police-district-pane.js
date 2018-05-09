@@ -36,7 +36,7 @@ export default class PoliceDistrictPane extends Component {
         />
         <ListWidget
           typeName={ 'allegation' }
-          title='MOST COMMON COMPLAINT'
+          title='OFFICERS WITH MOST COMPLAINTS'
           items={ officersMostComplaint }
         />
         <ListWidget

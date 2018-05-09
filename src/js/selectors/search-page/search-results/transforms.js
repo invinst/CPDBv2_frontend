@@ -61,7 +61,8 @@ const areaTransform = ({ payload }) => {
     districtCommander: payload.commander ? {
       'id': payload.commander['id'],
       'name': payload.commander['full_name'],
-      'count': payload.commander['allegation_count']
+      'count': payload.commander['allegation_count'],
+      'url': `/officer/${payload.commander['id']}/`,
     } : null
   };
 };

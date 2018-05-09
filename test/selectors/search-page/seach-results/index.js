@@ -268,6 +268,7 @@ describe('search page results selector', function () {
             id: 123,
             name: 'John Watts',
             count: 10,
+            url: '/officer/123/',
           },
           population: '352',
           medianIncome: '$37,084',

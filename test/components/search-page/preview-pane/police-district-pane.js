@@ -56,7 +56,7 @@ describe('PoliceDistrictPane component', () => {
     widgets.should.have.length(2);
 
     widgets[0].props.typeName.should.eql('allegation');
-    widgets[0].props.title.should.eql('MOST COMMON COMPLAINT');
+    widgets[0].props.title.should.eql('OFFICERS WITH MOST COMPLAINTS');
     widgets[0].props.items.should.eql(
       [
         { id: 1, name: 'Robert Seaberry', count: 59 },

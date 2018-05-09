@@ -24,12 +24,12 @@ export default class PoliceBeatPane extends Component {
         <HeaderWidget title={ `POLICE BEAT #${name}` }/>
         <SeparatorWidget/>
         <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
-        <TextWidget title={ 'THIS BEAT CONTAINS A POLICE HQ' }/>
+        <TextWidget title='THIS BEAT CONTAINS A POLICE HQ'/>
         <ListWidget
           items={ mostCommonComplaint }
-          typeName={ 'allegation' }
+          typeName='allegation'
           showAvatar={ false }
-          title={ 'MOST COMMON COMPLAINT' }
+          title='MOST COMMON COMPLAINT'
         />
         <CallToActionWidget url={ url }/>
       </WidgetWrapper>
