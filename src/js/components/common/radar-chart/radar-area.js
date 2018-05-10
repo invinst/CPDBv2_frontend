@@ -3,13 +3,14 @@ import { every } from 'lodash';
 
 import { curveLinearClosed, radialLine } from 'd3-shape';
 
-import { radarMainAreaStyle, radarMainStrokeStyle } from './radar-area.style';
+import roundPercentile from 'utils/round-percentile';
+import { radarMainAreaStyle, radarMainStrokeStyle, valueTextStyle } from './radar-area.style';
 
 
 export default class RadarArea extends Component {
   render() {
 
-    const { rPoints, drawStroke, strokeWidth } = this.props;
+    const { rPoints, drawStroke, strokeWidth, showValueText } = this.props;
     if (!rPoints || !every(rPoints, (point) => !isNaN(point.r)))
       return <g className='test--radar-wrapper'/>;
 
@@ -20,6 +21,7 @@ export default class RadarArea extends Component {
 
     // required the rPoints as follows [{'angle': 0.15, 'r': 2}]
     const pathD = radarLine(rPoints);
+    const num = rPoints.length;
 
     return (
       <g className='test--radar-wrapper'>
@@ -35,6 +37,19 @@ export default class RadarArea extends Component {
               d={ pathD }
               style={ { ...radarMainStrokeStyle, strokeWidth } }/>
           ) }
+          { showValueText && rPoints.map((point, i) => (
+            <text
+              key={ `value-text-${i}` }
+              className='test--radar-value-text'
+              textAnchor='middle'
+              x={ point.x } y={ point.y }
+              dx={ i > num / 2 ? 8 : -8 }
+              dy={ i === 0 ? 8 : 10 }
+              style={ valueTextStyle }
+            >
+              { roundPercentile(point.value) }
+            </text>
+          )) }
         </g>
       </g>
     );
@@ -42,10 +57,12 @@ export default class RadarArea extends Component {
 }
 
 RadarArea.defaultProps = {
-  drawStroke: true,
+  showValueText: false,
+  drawStroke: true
 };
 
 RadarArea.propTypes = {
+  showValueText: PropTypes.bool,
   rPoints: PropTypes.array,
   drawStroke: PropTypes.bool,
   strokeWidth: PropTypes.number

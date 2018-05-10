@@ -31,14 +31,14 @@ describe('MetricsSection', function () {
   it('should render with correct information', function () {
     const metrics = {
       allegationCount: 90,
-      topAllegationPercentile: 99.994,
+      allegationPercentile: 99.994,
       honorableMentionCount: 1,
       sustainedCount: 4,
       disciplineCount: 0,
-      topHonorableMentionPercentile: 'N/A',
-      useOfForceCount: 'N/A',
-      majorAwardCount: 'N/A',
-      topUseOfForcePercentile: 'N/A',
+      honorableMentionPercentile: 3.000,
+      useOfForceCount: 4,
+      majorAwardCount: 5,
+      useOfForcePercentile: 6.000,
       civilianComplimentCount: 0,
     };
     instance = renderIntoDocument(<MetricsSection metrics={ metrics }/>);
@@ -49,10 +49,10 @@ describe('MetricsSection', function () {
     const metricsPanes = scryRenderedComponentsWithType(instance, MetricPane);
     checkMetricPaneDataInfo(metricsPanes[0], '90', 'Allegations', 'More than 99.9% of other officers');
     checkMetricPaneDataInfo(metricsPanes[1], '4', 'Sustained', '0 Disciplined');
-    checkMetricPaneDataInfo(metricsPanes[2], 'N/A', 'Use of Force Reports', 'More than N/A% of other officers');
+    checkMetricPaneDataInfo(metricsPanes[2], '4', 'Use of Force Reports', 'More than 6% of other officers');
     checkMetricPaneDataInfo(metricsPanes[3], '0', 'Civilian Compliments', '');
-    checkMetricPaneDataInfo(metricsPanes[4], 'N/A', 'Major Awards', '');
-    checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', 'More than N/A% of other officers');
+    checkMetricPaneDataInfo(metricsPanes[4], '5', 'Major Awards', '');
+    checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', 'More than 3% of other officers');
   });
 
 });

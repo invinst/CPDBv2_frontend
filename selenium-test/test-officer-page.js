@@ -75,6 +75,22 @@ describe('officer page', function () {
     officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
   });
 
+  it('should change tab when click on tab name', function () {
+    officerPage.tabbedPaneSection.menu.waitForVisible();
+    officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+
+    officerPage.tabbedPaneSection.summaryTabName.click();
+
+    officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
+    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible(10000, true);
+
+    officerPage.tabbedPaneSection.coaccusalsTabName.click();
+
+    officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
+    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
+    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.waitForVisible();
+  });
+
   describe('Radar Chart', function () {
     it('should responsive', function () {
       browser.setViewportSize({
@@ -142,6 +158,20 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.yearItem.click();
         officerPage.tabbedPaneSection.timelineSection.filter.menu.waitForVisible(1000, true);
       });
+    });
+  });
+
+  describe('Coaccusals', function () {
+    it('should navigate to officer page when clicking on a CoaccusalCard', function () {
+      officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+
+      browser.getUrl().should.match(/\/officer\/1\/$/);
+
+      officerPage.tabbedPaneSection.coaccusalsTabName.click();
+      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
+      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
+
+      browser.getUrl().should.match(/\/officer\/2\/$/);
     });
   });
 });

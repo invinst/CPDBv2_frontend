@@ -86,7 +86,7 @@ describe('search page results selector', function () {
               ],
               'officerId': undefined,
               'textColor': '#DFDFDF',
-              'visualTokenBackground': '#700404',
+              'visualTokenBackground': '#e81f25',
               'year': undefined,
             },
             'name': 'Jerome Turbyville',
