@@ -1,6 +1,7 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { spy, stub } from 'sinon';
+import Mousestrap from 'mousetrap';
 import { Link } from 'react-router';
 import {
   renderIntoDocument, findRenderedComponentWithType, findRenderedDOMComponentWithTag,
@@ -10,8 +11,6 @@ import {
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import SuggestionItemBase from 'components/search-page/search-results/suggestion-group/suggestion-item/base';
 import JumpyMotion from 'components/animation/jumpy-motion';
-
-import Mousestrap from 'mousetrap';
 
 
 describe('SuggestionItemBase component', function () {
@@ -111,7 +110,7 @@ describe('SuggestionItemBase component', function () {
       selectItemSpy.called.should.be.true();
     });
 
-    it('should call trigger if not focused', function () {
+    it('should trigger ENTER event if focused', function () {
       const suggestion = {
         uniqueKey: '123'
       };
@@ -128,7 +127,6 @@ describe('SuggestionItemBase component', function () {
       triggerStub.restore();
     });
   });
-
 
   context('alias edit mode', function () {
     it('should render div as wrapper', function () {
