@@ -14,6 +14,7 @@ import { getCitySummary } from 'actions/landing-page/city-summary';
 import { fetchOfficerSummary, changeOfficerId } from 'actions/officer-page';
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
+import { fetchCoaccusals } from 'actions/officer-page/coaccusals';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
 import { fetchCR } from 'actions/cr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
@@ -48,6 +49,7 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchOfficerSummary(officerId)));
       dispatches.push(store.dispatch(fetchSocialGraph(officerId)));
       dispatches.push(store.dispatch(fetchNewTimelineItems(officerId)));
+      dispatches.push(store.dispatch(fetchCoaccusals(officerId)));
     }
   } else if (action.payload.pathname === '/') {
     if (!hasCommunitiesSelector(state)) {

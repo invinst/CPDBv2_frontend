@@ -6,11 +6,22 @@ import ViewUnitProfileButton from './view-unit-profile-button';
 import { officerNameStyle, wrapperStyle } from './summary-section.style';
 import Salary from './salary';
 import YearOld from './year-old';
+import HistoricBadges from './historic-badges';
 
 
 export default class SummarySection extends Component {
   summaryFields() {
-    const { rank, race, gender, badge, careerDuration, unitName, birthYear } = this.props.officerSummary;
+    const {
+      rank,
+      race,
+      gender,
+      badge,
+      historicBadges,
+      careerDuration,
+      unitName,
+      unitDescription,
+      birthYear
+    } = this.props.officerSummary;
     const { openPoliceUnitPage } = this.props;
     const baseSalary = 'DATA NOT READY';
 
@@ -18,9 +29,11 @@ export default class SummarySection extends Component {
       ['Year of Birth', birthYear, (<YearOld birthYear={ birthYear } key='Year of Birth'/>)],
       ['Race', race],
       ['Sex', gender],
-      ['Badge', badge],
+      ['Badge', badge, (<HistoricBadges historicBadges={ historicBadges } key='Historic Badges'/>)],
       ['Rank', rank, (<Salary salary={ baseSalary } key='Rank'/>)],
-      ['Unit', unitName, (<ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>)],
+      ['Unit', unitDescription || unitName, (
+        <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>
+      )],
       ['Career', careerDuration],
     ];
   }

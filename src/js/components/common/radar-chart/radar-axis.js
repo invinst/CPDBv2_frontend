@@ -8,14 +8,14 @@ import { softBlackColor } from 'utils/styles';
 
 export default class RadarAxis extends React.Component {
 
-  showWords(title, xText, yText) {
+  showWords(title, xText, yText, extraPadding) {
     const words = title.split(' ');
     if (words.length >= 2) {
       return [
-        <tspan key='1' style={ radarAxisTitleStyle } x={ xText } y={ yText } dy='0'>
+        <tspan key='1' style={ radarAxisTitleStyle } x={ xText } y={ yText } dy={ `${extraPadding}em` }>
           { words.slice(0, -1).join(' ') }
         </tspan>,
-        <tspan key='2' style={ radarAxisTitleStyle } x={ xText } y={ yText } dy='1.4em'>
+        <tspan key='2' style={ radarAxisTitleStyle } x={ xText } y={ yText } dy={ `${1.4 + extraPadding}em` }>
           { words[words.length - 1] }
         </tspan>
       ];
@@ -47,6 +47,7 @@ export default class RadarAxis extends React.Component {
         { !hideText && axisTitles.map((title, i) => {
           const xText = radius * labelFactor * Math.cos(angleSlice * i + Math.PI / 2);
           const yText = radius * labelFactor * Math.sin(angleSlice * i + Math.PI / 2);
+          const extraPadding = i === 0 ? -1.1 : 0;
 
           return (
             <text
@@ -54,10 +55,10 @@ export default class RadarAxis extends React.Component {
               textAnchor='middle' dy='0.35em'
               x={ xText } y={ yText } style={ { ...radarAxisTextStyle, fill: textColor } }>
 
-              { this.showWords(title, xText, yText) }
+              { this.showWords(title, xText, yText, extraPadding) }
             </text>
           );
-        })}
+        }) }
 
         <path
           className='test--radar-boundary-area'

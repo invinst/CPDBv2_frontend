@@ -30,7 +30,7 @@ describe('officer page', function () {
     officerPage.summarySection.yearOfBirthExtraInfo.getText().should.equal('54 years old');
 
     officerPage.summarySection.unitLabel.getText().should.equal('Unit');
-    officerPage.summarySection.unitValue.getText().should.equal('001');
+    officerPage.summarySection.unitValue.getText().should.equal('District 001');
     officerPage.summarySection.unitExtraInfo.getText().should.equal('View Unit Profile');
 
     officerPage.summarySection.careerLabel.getText().should.equal('Career');
@@ -73,6 +73,22 @@ describe('officer page', function () {
     officerPage.tabbedPaneSection.timelineSection.joinedItem.waitForVisible();
     officerPage.tabbedPaneSection.timelineSection.yearItem.waitForVisible();
     officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
+  });
+
+  it('should change tab when click on tab name', function () {
+    officerPage.tabbedPaneSection.menu.waitForVisible();
+    officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+
+    officerPage.tabbedPaneSection.summaryTabName.click();
+
+    officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
+    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible(10000, true);
+
+    officerPage.tabbedPaneSection.coaccusalsTabName.click();
+
+    officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
+    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
+    officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.waitForVisible();
   });
 
   describe('Radar Chart', function () {
@@ -142,6 +158,20 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.yearItem.click();
         officerPage.tabbedPaneSection.timelineSection.filter.menu.waitForVisible(1000, true);
       });
+    });
+  });
+
+  describe('Coaccusals', function () {
+    it('should navigate to officer page when clicking on a CoaccusalCard', function () {
+      officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+
+      browser.getUrl().should.match(/\/officer\/1\/$/);
+
+      officerPage.tabbedPaneSection.coaccusalsTabName.click();
+      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
+      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
+
+      browser.getUrl().should.match(/\/officer\/2\/$/);
     });
   });
 });
