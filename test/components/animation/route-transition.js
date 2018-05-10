@@ -23,15 +23,15 @@ describe('RouteTransition component', function () {
         some summary
       </RouteTransition>
     );
-    element.getRouteTransitionKey().should.eql('officer/1');
+    element.getRouteTransitionKey('/officer/1/').should.eql('officer/1');
 
     element = reRender(
-      <RouteTransition pathname='/officer/1/timeline/'>
+      <RouteTransition pathname='/officer/1/social/'>
         some timeline
       </RouteTransition>,
       element
     );
-    element.getRouteTransitionKey().should.eql('officer/1');
+    element.getRouteTransitionKey('/officer/1/timeline/').should.eql('officer/1');
   });
 
   it('should give the same key for same CR path', function () {
@@ -40,7 +40,7 @@ describe('RouteTransition component', function () {
         complaint for some officer
       </RouteTransition>
     );
-    element.getRouteTransitionKey().should.eql('complaint/1');
+    element.getRouteTransitionKey('/complaint/1/2/').should.eql('complaint/1');
 
     element = reRender(
       <RouteTransition pathname='/complaint/1/3/'>
@@ -48,7 +48,7 @@ describe('RouteTransition component', function () {
       </RouteTransition>,
       element
     );
-    element.getRouteTransitionKey().should.eql('complaint/1');
+    element.getRouteTransitionKey('/complaint/1/3/').should.eql('complaint/1');
 
     element = reRender(
       <RouteTransition pathname='/complaint/1/'>
@@ -56,7 +56,7 @@ describe('RouteTransition component', function () {
       </RouteTransition>,
       element
     );
-    element.getRouteTransitionKey().should.eql('complaint/1');
+    element.getRouteTransitionKey('/complaint/1/').should.eql('complaint/1');
   });
 
   it('should give the same key for search paths', function () {
@@ -65,7 +65,7 @@ describe('RouteTransition component', function () {
         complaint for some officer
       </RouteTransition>
     );
-    element.getRouteTransitionKey().should.eql('search');
+    element.getRouteTransitionKey('/search/').should.eql('search');
 
     element = reRender(
       <RouteTransition pathname='/search/terms/'>
@@ -73,7 +73,7 @@ describe('RouteTransition component', function () {
       </RouteTransition>,
       element
     );
-    element.getRouteTransitionKey().should.eql('search');
+    element.getRouteTransitionKey('/search/terms/').should.eql('search');
   });
 
   context('animation disabled', function () {

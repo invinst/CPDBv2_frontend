@@ -50,22 +50,18 @@ describe('Officers By Allegation components', function () {
       <OfficersByAllegation cards={ data } />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'test--landing--carousel-allegation');
-    // recentActivtyElement.textContent.should.containEql('Officers by Allegation');
-    // recentActivtyElement.textContent.should.containEql(
-    //   'These are the officers with the most allegations of misconduct in Chicago.'
-    // );
+    findRenderedDOMComponentWithClass(instance, 'test--landing-carousel-allegation');
 
     const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
     officerCards.should.have.length(2);
     const officerCard1 = findDOMNode(officerCards[0]);
     officerCard1.textContent.should.containEql('Manuel Guzman');
-    officerCard1.textContent.should.containEql('More than 99% of other officers');
+    officerCard1.textContent.should.containEql('More than 99.5% of other officers');
     officerCard1.textContent.should.containEql('56 Complaints, 30 Sustained');
 
     const officerCard2 = findDOMNode(officerCards[1]);
     officerCard2.textContent.should.containEql('Jerome Finnagan');
     officerCard2.textContent.should.containEql('55 Complaints, 22 Sustained');
-    officerCard2.textContent.should.containEql('More than 99% of other officers');
+    officerCard2.textContent.should.containEql('More than 99.1% of other officers');
   });
 });

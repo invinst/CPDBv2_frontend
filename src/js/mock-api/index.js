@@ -11,16 +11,12 @@ import reportingPageGetData from './reporting-page/get-data';
 import FAQPageGetData from './faq-page/get-data';
 import { groupedSuggestions, singleGroupSuggestions } from './landing-page/suggestions';
 import getSummaryData from './officer-page/get-summary';
-import getPercentileData from './officer-page/get-percentile';
-import getMinimapData, { filterMinimapItem } from './officer-page/get-minimap';
 import getSocialGraphData from './officer-page/get-social-graph';
-import getTimelineItemsData, {
-  reversedTimelineItems,
-  nextTimelineItems,
-  filterTimelineItems
-} from './officer-page/get-timeline-item';
+import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
+import getCoaccusalsData from './officer-page/get-coaccusals';
 import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
+import getCRRelatedComplaintsData from './cr-page/get-related-complaint';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import getActivityGridData from './landing-page/activity-grid';
 import getRecentDocument from './landing-page/recent-document';
@@ -53,9 +49,9 @@ axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'valid@email.com' })
 axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, there\'s no account registered with this email address.' });
 
-axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'valid@email.com' })
-  .reply(200, { 'message': 'Thanks for subscribing.', crid: 2 });
-axiosMockClient.onPost(`${CR_URL}2/request-document/`, { email: 'invalid@email.com' })
+axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'valid@email.com' })
+  .reply(200, { 'message': 'Thanks for subscribing.', crid: 1000000 });
+axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
 
 
@@ -84,38 +80,19 @@ axiosMockClient.onGet(`${SEARCH_OFFICER_URL}notfound/`).reply(200, []);
 
 axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(countRequests(() => [200, getSummaryData()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() => [200, getSocialGraphData()]));
-axiosMockClient.onGet(`${OFFICER_URL}1/percentile/`).reply(countRequests(() => [200, getPercentileData()]));
 
-axiosMockClient.onGet(`${CR_URL}1/`).reply(200, getCRData());
+axiosMockClient.onGet(`${CR_URL}1000000/`).reply(200, getCRData());
 axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());
+axiosMockClient.onGet(
+  `${CR_URL}1000000/related-complaints/?match=categories&distance=0.5mi`
+).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi' }));
 
+axiosMockClient.onGet(
+  `${CR_URL}1000000/related-complaints/?match=categories&distance=0.5mi&offset=20`
+).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi', nextOffset: 40 }));
 
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { limit: 20, offset: 10 } })
-  .reply(countRequests(() => [200, nextTimelineItems()]));
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { limit: 0, offset: 10 } })
-  .reply(countRequests(() => [200, nextTimelineItems()]));
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { offset: '10' } })
-  .reply(countRequests(() => [200, nextTimelineItems()]));
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { sort: 'asc' } })
-  .reply(countRequests(() => [200, reversedTimelineItems()]));
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { category: 'Use of Force', race: 'Black' } })
-  .reply(countRequests(() => [200, filterTimelineItems('category=Use%20of%20Force&race=Black')]));
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`, { params: { category: 'Use of Force' } })
-  .reply(countRequests(() => [200, filterTimelineItems('category=Use%20of%20Force')]));
-
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-items/`).reply(countRequests(() => [200, getTimelineItemsData()]));
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-minimap/`, { params: { category: 'Use of Force', race: 'Black' } })
-  .reply(countRequests(() => [200, filterMinimapItem('category=Use%20of%20Force&race=Black')]));
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-minimap/`, { params: { category: 'Use of Force' } })
-  .reply(countRequests(() => [200, filterMinimapItem('category=Use%20of%20Force')]));
-axiosMockClient.onGet(`${OFFICER_URL}1/timeline-minimap/`).reply(countRequests(() => [200, getMinimapData()]));
-axiosMockClient.onGet(`${OFFICER_URL}1234/timeline-minimap/`).reply(countRequests(() => [200, getMinimapData(1234)]));
-axiosMockClient.onGet(`${OFFICER_URL}1234/timeline-items/`)
-  .reply(countRequests(() => [200, getTimelineItemsData(1234)]));
-
-axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-minimap/`).reply(countRequests(() => [200, getMinimapData(5678)]));
-axiosMockClient.onGet(`${OFFICER_URL}5678/timeline-items/`)
-  .reply(countRequests(() => [200, getTimelineItemsData(5678)]));
+axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData());
+axiosMockClient.onGet(`${OFFICER_URL}1/coaccusals/`).reply(200, getCoaccusalsData());
 
 axiosMockClient.onGet(`${UNIT_PROFILE_URL}001/summary/`).reply(200, getUnitSummaryData());
 

@@ -1,9 +1,22 @@
 'use strict';
 
 import Page from './page';
+import Section from './sections/section';
+
+
+class OfficerPreviewPaneSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      wrapper: '.test--preview-pane',
+      gradient: '.test--gradient',
+    });
+  }
+}
 
 
 class SearchPage extends Page {
+  officerPreviewPaneSection = new OfficerPreviewPaneSection();
 
   constructor() {
     super();

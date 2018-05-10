@@ -1,261 +1,127 @@
 import React from 'react';
-import { spy, stub } from 'sinon';
-import {
-  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
-} from 'react-addons-test-utils';
+import { spy } from 'sinon';
+import MockStore from 'redux-mock-store';
+import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import { Provider } from 'react-redux';
 
 import CRPage from 'components/cr-page';
-import Header from 'components/cr-page/header';
-import OfficerRow from 'components/cr-page/officer-row';
-import MultiRow from 'components/cr-page/multi-row';
-import FindingRow from 'components/cr-page/finding-row';
-import Row from 'components/common/row';
-import Location from 'components/cr-page/location';
-import Attachments from 'components/cr-page/attachments';
+import SummaryRow from 'components/cr-page/summary-row';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 
 
 describe('CRPage component', function () {
   let instance;
+  const store = MockStore()({
+    breadcrumb: {
+      breadcrumbs: []
+    },
+    crPage: {
+      relatedComplaints: {
+        relatedByCategory: {
+          pagination: {},
+          cards: {
+            cards: []
+          }
+        },
+        relatedByOfficer: {
+          pagination: {},
+          cards: {
+            cards: []
+          }
+        }
+      }
+    }
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render complaint and officer information', function () {
-    instance = renderIntoDocument(<CRPage coaccused={ [{ id: 1, fullName: 'Foo' }] } officerId={ 1 } />);
-
-    scryRenderedComponentsWithType(instance, OfficerRow).should.have.length(1);
-    scryRenderedComponentsWithType(instance, MultiRow).should.have.length(1);
-    scryRenderedComponentsWithType(instance, FindingRow).should.have.length(1);
-    scryRenderedComponentsWithType(instance, Row).should.have.length(2);
-    scryRenderedComponentsWithType(instance, Location).should.have.length(1);
-    scryRenderedComponentsWithType(instance, Attachments).should.have.length(3);
-  });
-
-  it('should not render officer information if there is no officer', function () {
-    instance = renderIntoDocument(<CRPage />);
-
-    scryRenderedComponentsWithType(instance, OfficerRow).should.have.length(0);
-    scryRenderedComponentsWithType(instance, MultiRow).should.have.length(1);
-    scryRenderedComponentsWithType(instance, FindingRow).should.have.length(1);
-    scryRenderedComponentsWithType(instance, Row).should.have.length(2);
-    scryRenderedComponentsWithType(instance, Location).should.have.length(1);
-    scryRenderedComponentsWithType(instance, Attachments).should.have.length(3);
-  });
-
   it('should trigger fetchCR on initial', function () {
     const fetchCR = spy();
-    instance = renderIntoDocument(<CRPage fetchCR={ fetchCR } crid={ '123' } />);
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage fetchCR={ fetchCR } crid='123' />
+      </Provider>
+    );
 
     fetchCR.calledWith('123').should.be.true();
   });
 
-  it('should reset displayCoaccusedDropdown on rerender', function () {
-    instance = renderIntoDocument(<CRPage officerId={ 1 } />);
-    instance.setState({ displayCoaccusedDropdown: true });
-
-    instance = reRender(<CRPage officerId={ 2 } fetchCR={ spy } />, instance);
-    instance.state.displayCoaccusedDropdown.should.be.false();
-  });
-
-  it('should handle toggle coaccused dropdown', function () {
-    instance = renderIntoDocument(<CRPage />);
-    instance.state.displayCoaccusedDropdown.should.be.false();
-
-    const header = findRenderedComponentWithType(instance, Header);
-    header.props.onDropDownButtonClick();
-    instance.state.displayCoaccusedDropdown.should.be.true();
-  });
-
   it('should trigger fetchCR if crid changed', function () {
     const fetchCR = spy();
-    instance = renderIntoDocument(<CRPage crid={ '123' } />);
-
-    instance = reRender(<CRPage crid={ '456' } fetchCR={ fetchCR } />, instance);
-    fetchCR.calledWith('456').should.be.true();
-  });
-
-  it('should resetBreadcrumbs after the breadcrumbs is refined', function () {
-    const stubResetBreadcrumbs = stub();
-    const firstBreadcrumbItem = {
-      component: {
-        componentCacheKey: 'cr'
-      },
-      breadcrumbKey: 'complaint/:crid',
-      url: '/complaint/1045343/8562/',
-      location: {
-        pathname: '/complaint/1045343/8562/',
-        search: '',
-        hash: '',
-        action: 'PUSH',
-        key: 'ilfuy5',
-        query: {}
-      },
-      params: {
-        crid: '1045343',
-        officerId: '8562'
-      },
-      current: false
-    };
-    const secondBreadcrumbItem = {
-      component: {
-        componentCacheKey: 'cr'
-      },
-      breadcrumbKey: 'complaint/:crid',
-      url: '/complaint/1045343/21850/',
-      location: {
-        pathname: '/complaint/1045343/21850/',
-        search: '',
-        hash: '',
-        action: 'PUSH',
-        key: 'unrsun',
-        query: {}
-      },
-      params: {
-        crid: '1045343',
-        officerId: '21850'
-      },
-      current: true
-    };
-
     instance = renderIntoDocument(
-      <CRPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        breadcrumb={ { breadcrumbs: [firstBreadcrumbItem] } }
-      />
+      <Provider store={ store }>
+        <CRPage crid='123' />
+      </Provider>
     );
 
     instance = reRender(
-      <CRPage
-        resetBreadcrumbs={ stubResetBreadcrumbs }
-        breadcrumb={ { breadcrumbs: [firstBreadcrumbItem, secondBreadcrumbItem] } }
-      />, instance
+      <Provider store={ store }>
+        <CRPage crid='456' fetchCR={ fetchCR } />
+      </Provider>,
+      instance
     );
-    stubResetBreadcrumbs.calledWith({ breadcrumbs: [secondBreadcrumbItem] }).should.be.true();
+    fetchCR.calledWith('456').should.be.true();
   });
 
-  describe('refineBreadcrumbs', function () {
-    beforeEach(function () {
-      instance = renderIntoDocument(<CRPage />);
-    });
+  it('should render victims row when there are victims', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage victims={ ['Black, Male, Age 51'] }/>
+      </Provider>
+    );
+    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
+    rowLabels.indexOf('VICTIM').should.not.eql(-1);
+  });
 
-    it('should deduplicate the breadcrumbs when needed', function () {
-      const breadcrumb = {
-        breadcrumbs: [
-          {
-            component: {
-              componentCacheKey: 'cr'
-            },
-            breadcrumbKey: 'complaint/:crid',
-            url: '/complaint/1045343/8562/',
-            location: {
-              pathname: '/complaint/1045343/8562/',
-              search: '',
-              hash: '',
-              action: 'PUSH',
-              key: 'ilfuy5',
-              query: {}
-            },
-            params: {
-              crid: '1045343',
-              officerId: '8562'
-            },
-            current: false
-          },
-          {
-            component: {
-              componentCacheKey: 'cr'
-            },
-            breadcrumbKey: 'complaint/:crid',
-            url: '/complaint/1045343/21850/',
-            location: {
-              pathname: '/complaint/1045343/21850/',
-              search: '',
-              hash: '',
-              action: 'PUSH',
-              key: 'unrsun',
-              query: {}
-            },
-            params: {
-              crid: '1045343',
-              officerId: '21850'
-            },
-            current: true
-          }
-        ]
-      };
-      const refinedBreadcrumbs = instance.refineBreadcrumb(breadcrumb);
+  it('should render complainants row when there are complainants', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage complainants={ ['Black, Male, Age 51'] }/>
+      </Provider>
+    );
+    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
+    rowLabels.indexOf('COMPLAINANT').should.not.eql(-1);
+  });
 
-      refinedBreadcrumbs.should.eql({
-        breadcrumbs: [
-          {
-            component: {
-              componentCacheKey: 'cr'
-            },
-            breadcrumbKey: 'complaint/:crid',
-            url: '/complaint/1045343/21850/',
-            location: {
-              pathname: '/complaint/1045343/21850/',
-              search: '',
-              hash: '',
-              action: 'PUSH',
-              key: 'unrsun',
-              query: {}
-            },
-            params: {
-              crid: '1045343',
-              officerId: '21850'
-            },
-            current: true
-          }
-        ]
-      });
-    });
+  it('should render summary row when there are summary', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage summary='abc'/>
+      </Provider>
+    );
+    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
+    rowLabels.indexOf('SUMMARY').should.not.eql(-1);
+  });
 
-    it('should leave the breadcrumbs unchanged when needed', function () {
-      const breadcrumb = {
-        breadcrumbs: [
-          {
-            component: 'Search',
-            breadcrumbKey: 'search/',
-            url: '/search/',
-            location: {
-              pathname: '/search/',
-              search: '',
-              hash: '',
-              action: 'PUSH',
-              key: '6pvlgn',
-              query: {}
-            },
-            params: {},
-            current: false
-          },
-          {
-            component: {
-              componentCacheKey: 'cr'
-            },
-            breadcrumbKey: 'complaint/:crid',
-            url: '/complaint/108026/1642/',
-            location: {
-              pathname: '/complaint/108026/1642/',
-              search: '',
-              hash: '',
-              action: 'PUSH',
-              key: '2zsrk1',
-              query: {}
-            },
-            params: {
-              crid: '108026',
-              officerId: '1642'
-            },
-            current: true
-          }
-        ]
-      };
-      const refinedBreadcrumbs = instance.refineBreadcrumb(breadcrumb);
+  it('should not render victims row when there are no victims', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage/>
+      </Provider>
+    );
+    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
+    rowLabels.indexOf('VICTIM').should.eql(-1);
+  });
 
-      refinedBreadcrumbs.should.eql(breadcrumb);
-    });
+  it('should not render complainants row when there are no complainants', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage/>
+      </Provider>
+    );
+    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
+    rowLabels.indexOf('COMPLAINANT').should.eql(-1);
+  });
+
+  it('should not render summary row when there are no summary', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage/>
+      </Provider>
+    );
+    const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
+    rowLabels.indexOf('SUMMARY').should.eql(-1);
   });
 });

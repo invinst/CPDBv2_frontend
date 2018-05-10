@@ -123,6 +123,36 @@ describe('store', function () {
             message: ''
           },
           subscribedCRIDs: {}
+        },
+        relatedComplaints: {
+          relatedByCategory: {
+            count: 0,
+            pagination: {
+              next: null,
+              previous: null
+            },
+            cards: {
+              meta: {
+                crPageCrid: null,
+                distance: null
+              },
+              cards: []
+            }
+          },
+          relatedByOfficer: {
+            count: 0,
+            pagination: {
+              next: null,
+              previous: null
+            },
+            cards: {
+              meta: {
+                crPageCrid: null,
+                distance: null
+              },
+              cards: []
+            }
+          }
         }
       },
       crs: {},
@@ -134,11 +164,6 @@ describe('store', function () {
         officerId: null,
         pathname: null,
         summary: {},
-        metrics: {},
-        percentile: {
-          isRequesting: false,
-          items: []
-        },
         socialGraph: {
           isRequesting: false,
           links: [],
@@ -148,21 +173,14 @@ describe('store', function () {
             2017
           ]
         },
-        timeline: {
-          hoveredItemIndex: null,
+        newTimeline: {
+          filter: 'ALL EVENTS',
           isRequesting: false,
-          items: [],
-          minimap: {
-            isRequesting: false,
-            minimap: []
-          },
-          pagination: {
-            next: null,
-            previous: null
-          },
-          selectedItemIndex: null,
-          sortDescending: true,
-          filters: {}
+          items: []
+        },
+        coaccusals: {
+          isRequesting: false,
+          items: []
         }
       },
       unitProfilePage: {
@@ -175,6 +193,7 @@ describe('store', function () {
       breadcrumb: {
         breadcrumbs: []
       },
+      breadcrumbsMapping: {},
       headers: {
         shareableHeader: {
           scrollPosition: null

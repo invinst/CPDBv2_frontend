@@ -6,6 +6,7 @@ export function defaultConfig() {
   return { stiffness: 120, damping: 17 };
 }
 
+/* istanbul ignore next */
 export function slower() {
   return { stiffness: 300, damping: 100 };
 }

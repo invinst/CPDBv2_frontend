@@ -1,18 +1,18 @@
 import React from 'react';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
 import InfiniteScroll from 'react-infinite-scroller';
 import {
-  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType, findRenderedDOMComponentWithClass
+  renderIntoDocument, scryRenderedComponentsWithType, findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
 import SuggestionGroup from 'components/search-page/search-results/suggestion-group';
 import { unmountComponentSuppressError } from 'utils/test';
 import { OfficerSuggestion } from 'utils/test/factories/suggestion';
+import ScrollIntoView from 'components/common/scroll-into-view';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import LoadMoreButton from 'components/search-page/search-results/suggestion-group/load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
-import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 
 
 describe('SuggestionGroup component', function () {
@@ -27,6 +27,23 @@ describe('SuggestionGroup component', function () {
       <SuggestionGroup suggestions={ OfficerSuggestion.buildList(3) }/>
     );
     scryRenderedComponentsWithType(instance, SuggestionItem).should.have.length(3);
+  });
+
+  it('should assign correct selectItem', function () {
+    const setSearchNavigationHandler = spy();
+    let itemIndex = 1;
+    const suggestions = OfficerSuggestion.buildList(2).map((item) => ({ ...item, itemIndex: itemIndex++ }));
+    instance = renderIntoDocument(
+      <SuggestionGroup
+        setSearchNavigation={ setSearchNavigationHandler }
+        suggestions={ suggestions }/>
+    );
+    const items = scryRenderedComponentsWithType(instance, SuggestionItem);
+    items.should.have.length(2);
+    items[0].props.selectItem();
+    setSearchNavigationHandler.withArgs({ itemIndex: 1 }).calledOnce.should.be.true();
+    items[1].props.selectItem();
+    setSearchNavigationHandler.withArgs({ itemIndex: 2 }).calledOnce.should.be.true();
   });
 
   it('should render `More` if showMoreButton is true', function () {
@@ -85,17 +102,13 @@ describe('SuggestionGroup component', function () {
     catchSpy.called.should.be.true();
   });
 
-  it('should render MinimalScrollBars if it is single content', function () {
+  it('should render ScrollIntoView when IS single content', function () {
     instance = renderIntoDocument(<SuggestionGroup singleContent={ true }/>);
-    const scrollBars = findRenderedComponentWithType(instance, MinimalScrollBars);
-
-    scrollBars.props.className.should.eql('test--suggestion-group');
+    findRenderedComponentWithType(instance, ScrollIntoView).should.be.ok();
   });
 
-  it('should NOT render MinimalScrollBars if it is NOT single content', function () {
+  it('should not render ScrollIntoView when is NOT single content', function () {
     instance = renderIntoDocument(<SuggestionGroup singleContent={ false }/>);
-
-    scryRenderedComponentsWithType(instance, MinimalScrollBars).should.have.length(0);
-    findRenderedDOMComponentWithClass(instance, 'test--suggestion-group').should.be.ok();
+    scryRenderedComponentsWithType(instance, ScrollIntoView).should.have.length(0);
   });
 });

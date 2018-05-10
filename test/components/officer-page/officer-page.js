@@ -1,14 +1,15 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
+import { stub } from 'sinon';
 import { Provider } from 'react-redux';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
-import TimelinePage from 'components/officer-page/timeline-page';
-import SummaryPageContainer from 'containers/officer-page/summary-page-container';
-import Header from 'components/officer-page/header';
-import SocialGraphPageContainer from 'containers/officer-page/social-graph-page';
+import SummarySection from 'components/officer-page/summary-section';
+import MetricsSection from 'components/officer-page/metrics-section';
+import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
+import OfficerRadarChart from 'components/officer-page/radar-chart';
 
 
 describe('OfficerPage component', function () {
@@ -17,34 +18,10 @@ describe('OfficerPage component', function () {
     officerPage: {
       summary: {},
       metrics: {},
-      socialGraph: {
-        isRequesting: false,
-        links: [],
-        nodes: [],
-        yearRange: [
-          1984,
-          2017
-        ]
-      },
-      timeline: {
-        items: [],
-        sortDescending: true,
-        filters: {},
-        minimap: {
-          pagination: {
-            next: null,
-            previous: null
-          }
-        },
-        pagination: {
-          next: null,
-          previous: null
-        }
-      },
-      percentile: {
-        isRequesting: false,
-        items: []
-      }
+      newTimeline: {},
+    },
+    breadcrumb: {
+      breadcrumbs: []
     }
   });
   let instance;
@@ -53,44 +30,36 @@ describe('OfficerPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render header', function () {
+  it('should render enough sections', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Jerome Finnigan' activeTab='timeline' pathname='timeline'/>
+        <OfficerPage officerId={ 1 }/>
       </Provider>
     );
 
-    scryRenderedComponentsWithType(instance, Header).should.have.length(1);
+    findRenderedComponentWithType(instance, SummarySection);
+    findRenderedComponentWithType(instance, MetricsSection);
+    findRenderedComponentWithType(instance, TabbedPaneSection);
+    findRenderedComponentWithType(instance, OfficerRadarChart);
   });
 
-  it('should render timeline page if active tab is timeline', function () {
+  it('should not re-render when officerName havent changed', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage activeTab='timeline'/>
+        <OfficerPage officerName='Shaun Frank'/>
       </Provider>
     );
 
-    scryRenderedComponentsWithType(instance, TimelinePage).should.have.length(1);
-  });
+    stub(OfficerPage.prototype, 'render');
 
-  it('should render summary page if active tab is summary', function () {
-    instance = renderIntoDocument(
+    instance = reRender(
       <Provider store={ store }>
-        <OfficerPage activeTab=''/>
-      </Provider>
+        <OfficerPage officerName='Shaun Frank'/>
+      </Provider>,
+      instance
     );
 
-    scryRenderedComponentsWithType(instance, SummaryPageContainer).should.have.length(1);
-  });
-
-  it('should render Socialgraph when path is social', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage activeTab='social'/>
-      </Provider>
-    );
-
-    scryRenderedComponentsWithType(instance, Header).should.have.length(1);
-    scryRenderedComponentsWithType(instance, SocialGraphPageContainer).should.have.length(1);
+    OfficerPage.prototype.render.called.should.be.false();
+    OfficerPage.prototype.render.restore();
   });
 });

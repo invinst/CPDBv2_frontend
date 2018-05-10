@@ -10,7 +10,6 @@ import {
   searchContentWrapperStyle
 } from './search-page.style.js';
 import { dataToolSearchUrl } from 'utils/v1-url';
-import { scrollToElement } from 'utils/dom';
 import * as constants from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
@@ -18,6 +17,7 @@ import HoverableButton from 'components/common/hoverable-button';
 import {
   ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE
 } from 'utils/constants';
+import { showIntercomLauncher } from 'utils/intercom';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -42,27 +42,25 @@ export default class SearchPage extends Component {
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
-
     if (query && query.length >= 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);
     }
+
+    showIntercomLauncher(false);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location, params, routes, pushBreadcrumbs } = nextProps;
+    const { location, params, routes, pushBreadcrumbs, query } = nextProps;
     pushBreadcrumbs({ location, params, routes });
-    // Make sure keyboard-focused item is kept within viewport:
-    if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey) {
-      scrollToElement(
-        `.suggestion-item-${nextProps.focusedItem.uniqueKey}`,
-        { block: 'center', inline: 'nearest' }
-      );
+    if (this.props.location.pathname !== location.pathname && query && query.length > 2) {
+      setTimeout(() => { this.sendSearchRequest(query); }, 500);  // TODO; need refactor
     }
   }
 
   componentWillUnmount() {
     LayeredKeyBinding.unbind('esc');
     LayeredKeyBinding.unbind('enter');
+    showIntercomLauncher(true);
   }
 
   handleViewItem() {
@@ -92,9 +90,11 @@ export default class SearchPage extends Component {
 
     if (query) {
       if (contentType) {
-        this.props.getSuggestionWithContentType(query, { contentType }).catch(() => {});
+        this.props.getSuggestionWithContentType(query, { contentType }).catch(() => {
+        });
       } else {
-        this.props.getSuggestion(query, { contentType, limit }).catch(() => {});
+        this.props.getSuggestion(query, { contentType, limit }).catch(() => {
+        });
       }
     } else {
       this.props.selectTag(null);

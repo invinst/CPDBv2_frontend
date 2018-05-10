@@ -50,7 +50,7 @@ describe('Recent Activity components', function () {
       <RecentActivity cards={ data }/>
     );
 
-    findRenderedDOMComponentWithClass(instance, 'test--landing--carousel-activity');
+    findRenderedDOMComponentWithClass(instance, 'test--landing-carousel-activity');
     const officerCards = scryRenderedComponentsWithType(instance, OfficerCard);
     officerCards.should.have.length(2);
 

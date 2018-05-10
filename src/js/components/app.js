@@ -1,24 +1,17 @@
-import { includes } from 'lodash';
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
-import React, { PropTypes } from 'react';
+import React, { PropTypes, cloneElement } from 'react';
 
 import { getMockAdapter } from 'mock-api';
 import BottomSheetContainer from 'containers/bottom-sheet';
-import EditModeContainer from 'containers/inline-editable/edit-mode-container';
-import SlimHeader from 'components/headers/slim-header';
+import EditModeProvider from 'components/edit-mode-provider';
 import LoginModalContainer from 'containers/login-modal-container';
 import GenericModalContainer from 'containers/generic-modal-container';
-import SearchPageContainer from 'containers/search-page-container';
-import OfficerPageContainer from 'containers/officer-page';
-import UnitProfilePageContainer from 'containers/unit-profile-page';
-import CRPageContainer from 'containers/cr-page';
-import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
 import RouteTransition from 'components/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 import { ALPHA_NUMBERIC } from 'utils/constants';
-import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -63,30 +56,13 @@ export default class App extends React.Component {
   }
 
   children() {
-    const { children, params } = this.props;
+    const { children, params, location } = this.props;
     const { reportId, faqId } = params;
     if ((reportId || faqId) && this.prevChildren) {
       return this.prevChildren;
     }
-    this.prevChildren = children;
-    return children;
-  }
-
-  renderHeader(children) {
-    const headerlessPages = [SearchPageContainer, InlineAliasAdminContainer];
-    if (!children || includes(headerlessPages, children.type)) {
-      return null;
-    }
-
-    const shareablePages = [OfficerPageContainer, CRPageContainer, UnitProfilePageContainer];
-    if (includes(shareablePages, children.type)) {
-      return <ShareableHeaderContainer/>;
-    }
-
-    const { location } = this.props;
-    return (
-      <SlimHeader pathname={ location.pathname } />
-    );
+    this.prevChildren = cloneElement(children, { pathname: location.pathname });
+    return this.prevChildren;
   }
 
   render() {
@@ -95,15 +71,14 @@ export default class App extends React.Component {
 
     return (
       <StyleRoot>
-        <EditModeContainer location={ location }>
-          { this.renderHeader(children) }
+        <EditModeProvider location={ location }>
           <RouteTransition pathname={ appContent }>
             { children }
           </RouteTransition>
           <BottomSheetContainer params={ params } location={ location }/>
           <LoginModalContainer location={ location }/>
           <GenericModalContainer location={ location }/>
-        </EditModeContainer>
+        </EditModeProvider>
       </StyleRoot>
     );
   }

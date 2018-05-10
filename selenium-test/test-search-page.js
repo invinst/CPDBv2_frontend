@@ -101,21 +101,23 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('Data Tool');
   });
 
-  it('should trigger officer summary page when click on officer', function () {
+  it('should trigger officer summary page when click on officer then press Enter', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 
-    searchPage.firstOfficerResult.waitForVisible();
-    searchPage.firstOfficerResult.click();
-    searchPage.currentBasePath.should.eql('/officer/1/');
+    searchPage.secondOfficerResult.waitForVisible();
+    searchPage.secondOfficerResult.click();
+    browser.keys('Enter');
+    searchPage.currentBasePath.should.eql('/officer/2/');
   });
 
-  it('should trigger officer summary page when click on co-accused', function () {
+  it('should trigger officer summary page when click on co-accused then press Enter', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 
     searchPage.firstCoAccusedResult.waitForVisible();
     searchPage.firstCoAccusedResult.click();
+    browser.keys('Enter');
     searchPage.currentBasePath.should.eql('/officer/1/');
   });
 
@@ -215,8 +217,6 @@ describe('Search Page', function () {
   });
 
   it('should navigates between the result when user press the navigation keys', function () {
-    this.retries(3);
-
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 
@@ -286,4 +286,36 @@ describe('Search Page', function () {
       browser.getUrl().should.not.match(/\/search\/terms\/$/);
     });
   });
+
+  describe('PreviewPane', function () {
+    it('should display gradient when window height is small', function () {
+      browser.setViewportSize({
+        width: 1000,
+        height: 800
+      });
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+      searchPage.clearSearchButton.waitForVisible();
+      searchPage.firstOfficerResult.waitForVisible();
+
+      searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
+      searchPage.officerPreviewPaneSection.gradient.waitForVisible();
+    });
+
+    it('should not display gradient when window height is larger than 990', function () {
+      browser.setViewportSize({
+        width: 1000,
+        height: 1200
+      });
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+      searchPage.clearSearchButton.waitForVisible();
+      searchPage.firstOfficerResult.waitForVisible();
+
+      searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
+      searchPage.officerPreviewPaneSection.gradient.waitForVisible(2000, true);
+    });
+  });
 });
+
+

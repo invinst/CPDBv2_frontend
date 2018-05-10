@@ -6,7 +6,6 @@ import {
   getCRID,
   getComplaintOfficerId,
   getOfficerActiveTab,
-  isRedirectingToOfficerTimelinePage,
   serializeFilterParams,
   officerPath
 } from 'utils/location';
@@ -96,36 +95,6 @@ describe('location utils', function () {
       getOfficerActiveTab('/officer/123/timeline/').should.eql('timeline');
       getOfficerActiveTab('/officer/123/social/').should.eql('social');
       getOfficerActiveTab('/officer/123/').should.eql('');
-    });
-  });
-
-  describe('isRedirectingToOfficerTimelinePage', function () {
-
-    it('should return true if @@router/LOCATION_CHANGE action and current page is Officer Timeline', function () {
-      isRedirectingToOfficerTimelinePage({
-        type: '@@router/LOCATION_CHANGE',
-        payload: {
-          pathname: '/officer/1/timeline/'
-        }
-      }).should.be.true();
-    });
-
-    it('should return false if @@router/LOCATION_CHANGE action and wrong url', function () {
-      isRedirectingToOfficerTimelinePage({
-        type: '@@router/LOCATION_CHANGE',
-        payload: {
-          pathname: '/foo/2/'
-        }
-      }).should.be.false();
-    });
-
-    it('should return false if get another action', function () {
-      isRedirectingToOfficerTimelinePage({
-        type: 'SOME ACTION',
-        payload: {
-          pathname: '/officer/1/timeline/'
-        }
-      }).should.be.false();
     });
   });
 

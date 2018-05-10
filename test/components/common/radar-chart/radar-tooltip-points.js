@@ -8,6 +8,7 @@ import {
   Simulate
 } from 'react-addons-test-utils';
 
+
 describe('Radar Tooltip components', function () {
   let instance;
   const data = [

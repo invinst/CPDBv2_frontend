@@ -6,33 +6,28 @@ import {
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { spy } from 'sinon';
-import Arrow from 'components/common/carousel/carousel-arrow';
+import Arrow from 'components/common/carousel/arrow';
 
-describe('Carousel Arrow components', function () {
+describe('Carousel Arrow component', function () {
   let instance;
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should be renderable', function () {
-    Arrow.should.be.renderable();
-  });
-
   it('should render', function () {
     instance = renderIntoDocument(
-      <Arrow side='left'/>
+      <Arrow direction='left' show={ true }/>
     );
-    const element = findRenderedDOMComponentWithClass(instance, 'test--carousel--arrow--left');
-    element.querySelector('img').getAttribute('src').should.containEql('disclosure-indicator.svg');
+    findRenderedDOMComponentWithClass(instance, 'test--carousel-arrow-left').should.be.ok();
   });
 
   it('should have appropriate click handler', function () {
     const spyClickHandler = spy();
     instance = renderIntoDocument(
-      <Arrow side='left' clickHandler={ spyClickHandler }/>
+      <Arrow direction='left' onClick={ spyClickHandler } show={ true }/>
     );
-    const arrowWrapper = findRenderedDOMComponentWithClass(instance, 'test--carousel--arrow--left');
+    const arrowWrapper = findRenderedDOMComponentWithClass(instance, 'test--carousel-arrow-left');
     Simulate.click(arrowWrapper);
     spyClickHandler.called.should.be.true();
   });

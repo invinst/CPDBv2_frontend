@@ -1,7 +1,6 @@
 import should from 'should';
 
 import { extractPercentile } from 'selectors/landing-page/common';
-import { OIG_VISUAL_TOKEN_COLOR_SCHEME } from 'utils/constants';
 import { OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
 
 
@@ -31,7 +30,7 @@ describe('extractPercentile', () => {
           value: 52.5,
         },
       ],
-      visualTokenBackground: OIG_VISUAL_TOKEN_COLOR_SCHEME['121'],
+      visualTokenBackground: '#f3adad', // corresponding to `132`
       textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
     };
     extractPercentile(officerPercentile).should.eql(expected);

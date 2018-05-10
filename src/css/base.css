@@ -3,6 +3,11 @@ body {
     font-family: "San Francisco Text", sans-serif;
 }
 
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .noscroll {
     overflow: hidden;
 }
@@ -22,4 +27,8 @@ body {
 }
 .subscribe-form__input:-ms-input-placeholder {
     color: #005EF4;
+}
+
+.dropdown:focus {
+    outline: none;
 }

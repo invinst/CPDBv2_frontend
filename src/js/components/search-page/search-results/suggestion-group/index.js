@@ -2,12 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import { groupHeaderStyle, scrollerStyle } from './suggestion-group.style';
+import { groupHeaderStyle, scrollerStyle, wrapperStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
-import MinimalScrollBars from 'components/common/minimal-scroll-bars';
-
+import ScrollIntoView from 'components/common/scroll-into-view';
 
 export default class SuggestionGroup extends Component {
   componentDidMount() {
@@ -32,6 +31,7 @@ export default class SuggestionGroup extends Component {
       searchText,
       nextParams,
       getSuggestionWithContentType,
+      setSearchNavigation,
     } = this.props;
 
     return (
@@ -43,12 +43,13 @@ export default class SuggestionGroup extends Component {
         {
           map(suggestions, (suggestion) => (
             <SuggestionItem
+              selectItem={ () => setSearchNavigation({ itemIndex: suggestion.itemIndex }) }
               key={ suggestion.uniqueKey }
               aliasEditModeOn={ aliasEditModeOn }
               setAliasAdminPageContent={ setAliasAdminPageContent }
               suggestionClick={ suggestionClick }
               suggestion={ suggestion }
-              isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey } />
+              isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
           ))
         }
       </InfiniteScroll>
@@ -71,20 +72,25 @@ export default class SuggestionGroup extends Component {
 
   render() {
     const {
-      singleContent
+      singleContent,
+      focusedItem
     } = this.props;
 
     if (singleContent) {
       return (
-        <MinimalScrollBars style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
-          { this.renderHeader() }
-          { this.renderResults() }
-        </MinimalScrollBars>
+        <div className='test--suggestion-group' style={ wrapperStyle(singleContent) }>
+          <ScrollIntoView
+            style={ scrollerStyle }
+            focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
+            { this.renderHeader() }
+            { this.renderResults() }
+          </ScrollIntoView>
+        </div>
       );
     }
     else {
       return (
-        <div style={ scrollerStyle(singleContent) } className='test--suggestion-group'>
+        <div style={ wrapperStyle(singleContent) } className='test--suggestion-group'>
           { this.renderHeader() }
           { this.renderResults() }
           { this.renderMoreButton() }
@@ -107,14 +113,15 @@ SuggestionGroup.propTypes = {
   hasMore: PropTypes.bool,
   searchText: PropTypes.string,
   nextParams: PropTypes.object,
-  singleContent: PropTypes.bool
+  singleContent: PropTypes.bool,
+  setSearchNavigation: PropTypes.func,
 };
 
 SuggestionGroup.defaultProps = {
   suggestions: [],
   focusedItem: {},
   header: '',
-  getSuggestionWithContentType: () => {
-    return { catch: () => {} };
-  }
+  getSuggestionWithContentType: () => ({
+    catch: () => {}
+  })
 };

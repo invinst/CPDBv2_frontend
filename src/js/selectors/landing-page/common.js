@@ -28,7 +28,7 @@ export const cardTransform = card => ({
   fullName: card['full_name'],
   complaintCount: card['complaint_count'],
   sustainedCount: card['sustained_count'],
-  complaintPercentile: card['complaint_percentile'],
+  complaintPercentile: parseFloat(card['complaint_percentile']),
   birthYear: card['birth_year'],
   race: toLower(card['race']),
   gender: toLower(card['gender']),

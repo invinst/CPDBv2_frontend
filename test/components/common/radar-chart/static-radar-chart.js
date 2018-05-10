@@ -12,6 +12,7 @@ import RadarArea from 'components/common/radar-chart/radar-area';
 import RadarToolTipPoints from 'components/common/radar-chart/radar-tooltip-point';
 import RadarLegend from 'components/common/radar-chart/radar-legend';
 import RadarAxis from 'components/common/radar-chart/radar-axis';
+import RadarSpineLine from 'components/common/radar-chart/radar-spine-line';
 
 
 describe('Static Radar Chart components', function () {
@@ -44,6 +45,7 @@ describe('Static Radar Chart components', function () {
     instance = renderIntoDocument(<StaticRadarChart data={ data }/>);
     findRenderedComponentWithType(instance, RadarAxis);
     findRenderedComponentWithType(instance, RadarArea);
+    findRenderedComponentWithType(instance, RadarSpineLine);
     findRenderedComponentWithType(instance, RadarLegend);
     findRenderedComponentWithType(instance, RadarToolTipPoints);
 
