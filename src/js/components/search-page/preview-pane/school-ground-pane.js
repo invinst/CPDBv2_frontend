@@ -15,19 +15,23 @@ export default class SchoolGroundPane extends Component {
       name,
       allegationCount,
       officersMostComplaint,
+      url,
     } = this.props;
     return (
       <WidgetWrapper>
         <HeaderWidget title={ name } showBottomBorder={ true }/>
         <SeparatorWidget/>
-        <AllegationCountWidget numOfAllegations={ allegationCount } subTitle={ 'within XX meters of the school' }/>
+        <AllegationCountWidget
+          url={ url }
+          numOfAllegations={ allegationCount }
+          subTitle={ 'within 100 meters of the school' }/>
         <ListWidget
           items={ officersMostComplaint }
           typeName={ 'allegation' }
           showAvatar={ true }
           title={ 'OFFICERS WITH MOST COMPLAINTS' }
         />
-        <CallToActionWidget/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
@@ -40,5 +44,7 @@ SchoolGroundPane.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     count: PropTypes.number.isRequired,
+    url: PropTypes.string
   })),
+  url: PropTypes.string,
 };
