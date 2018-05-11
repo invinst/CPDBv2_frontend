@@ -18,7 +18,7 @@ import PreviewPane from 'components/search-page/search-results/preview-pane';
 import * as constants from 'utils/constants';
 import { SEARCH_PAGE_NAVIGATION_KEYS } from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import MinimalScrollBars from 'components/common/minimal-scroll-bars';
+import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 export default class SuggestionResults extends Component {
@@ -89,8 +89,8 @@ export default class SuggestionResults extends Component {
   renderActionBar() {
     const { aliasEditModeOn } = this.props;
 
-    return (
-      aliasEditModeOn ?
+    if (aliasEditModeOn) {
+      return (
         <div style={ actionBarStyle }>
           <Link
             to={ `/edit/${constants.SEARCH_PATH}` }
@@ -98,15 +98,19 @@ export default class SuggestionResults extends Component {
             className='test--cancel-alias-button'>
             Cancel
           </Link>
-        </div> :
+        </div>
+      );
+    } else {
+      return (
         <div style={ plusWrapperStyle }>
           <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
         </div>
-    );
+      );
+    }
   }
 
   renderContent() {
-    const { singleContent, editModeOn } = this.props;
+    const { singleContent, editModeOn, focusedItem } = this.props;
 
     if (singleContent)
       return (
@@ -117,10 +121,12 @@ export default class SuggestionResults extends Component {
       );
     else {
       return (
-        <MinimalScrollBars className='content-wrapper' style={ columnWrapperStyle }>
-          { editModeOn ? this.renderActionBar() : null }
-          { this.renderGroups() }
-        </MinimalScrollBars>
+        <div className='content-wrapper' style={ columnWrapperStyle }>
+          <ScrollIntoView focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
+            { editModeOn ? this.renderActionBar() : null }
+            { this.renderGroups() }
+          </ScrollIntoView>
+        </div>
       );
     }
   }
@@ -172,6 +178,7 @@ SuggestionResults.propTypes = {
 
 SuggestionResults.defaultProps = {
   previewPaneInfo: {},
+  focusedItem: {},
   getSuggestionWithContentType: () => {
   },
   resetNavigation: () => {

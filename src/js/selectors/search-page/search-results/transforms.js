@@ -10,9 +10,18 @@ const mappingRace = (race) => {
     return 'Black';
   } else if (race.indexOf('Spanish') !== -1) {
     return 'Hispanic';
+  } else if (race.indexOf('Native') !== -1) {
+    return 'Native';
   }
   return race;
 };
+
+const areaTypeMap = (areaType) => ({
+  [areaType]: (suggestion) => ({
+    type: areaType,
+    data: get(searchResultTransformMap, areaType, () => {})(suggestion)
+  })
+});
 
 
 const previewPaneTypeMap = {
@@ -24,14 +33,12 @@ const previewPaneTypeMap = {
     type: 'OFFICER',
     data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
   }),
-  COMMUNITY: (suggestion) => ({
-    type: 'COMMUNITY',
-    data: get(searchResultTransformMap, 'COMMUNITY', () => {})(suggestion)
-  }),
-  NEIGHBORHOOD: (suggestion) => ({
-    type: 'NEIGHBORHOOD',
-    data: get(searchResultTransformMap, 'NEIGHBORHOOD', () => {})(suggestion)
-  })
+  ...areaTypeMap('COMMUNITY'),
+  ...areaTypeMap('NEIGHBORHOOD'),
+  ...areaTypeMap('WARD'),
+  ...areaTypeMap('POLICE-DISTRICT'),
+  ...areaTypeMap('SCHOOL-GROUND'),
+  ...areaTypeMap('BEAT'),
 };
 
 export const previewPaneTransform = item =>
@@ -41,18 +48,26 @@ const areaTransform = ({ payload }) => {
   const population = sumBy(payload['race_count'], 'count');
   return {
     name: payload['name'] || 'Unknown',
-    allegationCount: payload['allegation_count'] || [],
+    allegationCount: payload['allegation_count'] || 0,
     mostCommonComplaint: payload['most_common_complaint'] || [],
     officersMostComplaint: payload['officers_most_complaint'] || [],
     population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
     medianIncome: payload['median_income'],
     url: payload['url'],
+    allegationPercentile: payload['allegation_percentile'],
     raceCount: map(payload['race_count'], (item) => {
       let result = { race: mappingRace(item.race) };
       const racePercentile = population ? item['count'] / population * 100 : 0;
       result['count'] = `${racePercentile.toFixed(1)}%`;
       return result;
-    })
+    }) || [],
+    alderman: payload['alderman'],
+    districtCommander: payload.commander ? {
+      'id': payload.commander['id'],
+      'name': payload.commander['full_name'],
+      'count': payload.commander['allegation_count'],
+      'url': `/officer/${payload.commander['id']}/`,
+    } : null
   };
 };
 
@@ -96,6 +111,10 @@ const searchResultTransformMap = {
   },
   COMMUNITY: areaTransform,
   NEIGHBORHOOD: areaTransform,
+  WARD: areaTransform,
+  'POLICE-DISTRICT': areaTransform,
+  BEAT: areaTransform,
+  'SCHOOL-GROUND': areaTransform,
 };
 
 export const searchResultItemTransform = (item) => ({
