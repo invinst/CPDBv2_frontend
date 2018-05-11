@@ -131,27 +131,43 @@ describe('RouteTransition component', function () {
     });
   });
 
-  it('should change styles state when component loading finish', function () {
+  it('should change contents state when component loading finish', function () {
     element = renderIntoDocument(
       <RouteTransition pathname='/p' pageLoading={ false }><p>abc</p></RouteTransition>
     );
 
-    element.state.styles.should.have.length(1);
-    element.state.styles[0].key.should.eql('/p');
+    element.state.contents.should.have.length(1);
+    element.state.contents[0].key.should.eql('/p');
 
     element = reRender(
       <RouteTransition pathname='/span' pageLoading={ true }><span>abc</span></RouteTransition>,
       element
     );
 
-    element.state.styles.should.have.length(2);
+    element.state.contents.should.have.length(2);
 
     element = reRender(
       <RouteTransition pathname='/span' pageLoading={ false }><span>abc</span></RouteTransition>,
       element
     );
 
-    element.state.styles.should.have.length(1);
-    element.state.styles[0].key.should.eql('/span');
+    element.state.contents.should.have.length(1);
+    element.state.contents[0].key.should.eql('/span');
+  });
+
+  it('should hide overlay once animation is done if theres no page loading', function (done) {
+    element = renderIntoDocument(
+      <RouteTransition pathname='/p' pageLoading={ false }><p>abc</p></RouteTransition>
+    );
+    element = reRender(
+      <RouteTransition pathname='/span' pageLoading={ false }><span>abc</span></RouteTransition>,
+      element
+    );
+    element.state.showOverlay.should.be.true();
+    element.handleOverlayTransitionEnd();
+    setTimeout(() => {
+      element.state.showOverlay.should.be.false();
+      done();
+    }, 50);
   });
 });

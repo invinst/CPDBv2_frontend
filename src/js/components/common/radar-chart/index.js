@@ -49,7 +49,7 @@ export default class StaticRadarChart extends Component {
       radius,
     } = this.props;
 
-    if (!data || !data.length)
+    if (!data || !data.length || isNaN(data[0].value))
       return <svg
         className='test--radar' width='100%'
         height='100%' style={ { backgroundColor } }/>;

@@ -70,7 +70,11 @@ export default class MapboxGL extends Component {
     each(sources, ({ name, ...rest }) => {
       let source = this._mapBox.getSource(name);
       if (!source && rest.data !== null) {
-        this._mapBox.addSource(name, rest);
+        try {
+          this._mapBox.addSource(name, rest);
+        } catch (e) {
+          // don't need to do anything. This source will be available in a future render
+        }
       }
     });
   }
