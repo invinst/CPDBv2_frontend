@@ -2,7 +2,7 @@ import { get, sumBy, map, last } from 'lodash';
 import { extractPercentile } from 'selectors/landing-page/common';
 
 import { getCurrentAge, formatDate } from 'utils/date';
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
 
 
 const mappingRace = (race) => {
@@ -78,15 +78,15 @@ const searchResultTransformMap = {
       },
       lastPercentile: extractPercentile(lastPercentile),
       complaintCount: payload['allegation_count'],
-      complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),
+      complaintPercentile: roundedPercentile(get(lastPercentile, 'percentile_allegation')),
       civilianComplimentCount: payload['civilian_compliment_count'],
       sustainedCount: payload['sustained_count'],
       disciplineCount: payload['discipline_count'],
       trrCount: get(payload, 'trr_count'),
-      trrPercentile: roundPercentile(get(lastPercentile, 'percentile_trr'), true),
+      trrPercentile: roundedPercentile(get(lastPercentile, 'percentile_trr')),
       majorAwardCount: get(payload, 'major_award_count'),
       honorableMentionCount: get(payload, 'honorable_mention_count'),
-      honorableMentionPercentile: roundPercentile(get(payload, 'honorable_mention_percentile'), true),
+      honorableMentionPercentile: roundedPercentile(get(payload, 'honorable_mention_percentile')),
     };
   },
   CR: ({ payload }) => {

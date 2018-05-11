@@ -51,7 +51,7 @@ describe('OfficerPane component', () => {
         civilianComplimentCount={ 2 }
         majorAwardCount={ 1 }
         honorableMentionCount={ 3 }
-        honorableMentionPercentile='99.3'
+        honorableMentionPercentile={ 99.3 }
         to='some_url'
         lastPercentile={ lastPercentile }
       />

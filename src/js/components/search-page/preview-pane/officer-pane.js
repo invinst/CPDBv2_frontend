@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
+import { isNil } from 'lodash';
 
 import WidgetWrapper, {
   VisualTokenWidget,
@@ -35,7 +36,7 @@ export default class OfficerPane extends Component {
       lastPercentile,
     } = this.props;
 
-    const formatValue = (value) => (typeof value === 'undefined' || value === null ? 'N/A' : value);
+    const formatValue = (value) => isNil(value) ? 'N/A' : value;
     const metrics = [
       {
         name: 'Allegations',
@@ -46,7 +47,7 @@ export default class OfficerPane extends Component {
         name: 'Sustained',
         value: formatValue(sustainedCount),
         isHighlight: true,
-        description: `${disciplineCount} Disciplined`,
+        description: !isNil(disciplineCount) && `${disciplineCount} Disciplined`,
       },
       {
         name: 'Use of Force Reports',
@@ -104,15 +105,15 @@ OfficerPane.propTypes = {
   race: PropTypes.string,
   gender: PropTypes.string,
   complaintCount: PropTypes.number,
-  complaintPercentile: PropTypes.string,
+  complaintPercentile: PropTypes.number,
   sustainedCount: PropTypes.number,
   disciplineCount: PropTypes.number,
   trrCount: PropTypes.number,
-  trrPercentile: PropTypes.string,
+  trrPercentile: PropTypes.number,
   civilianComplimentCount: PropTypes.number,
   majorAwardCount: PropTypes.number,
   honorableMentionCount: PropTypes.number,
-  honorableMentionPercentile: PropTypes.string,
+  honorableMentionPercentile: PropTypes.number,
   to: PropTypes.string,
   lastPercentile: PropTypes.shape({
     items: PropTypes.array,
