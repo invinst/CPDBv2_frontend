@@ -2,18 +2,19 @@ import { clayGray, altoColor, whiteTwoColor } from 'utils/styles';
 
 
 export const containerStyle = {
-  padding: '16px 16px 8px 16px',
+  padding: '18px 16px 8px 16px',
   backgroundColor: 'white',
   border: `1px solid ${altoColor}`,
   borderRadius: '2px',
-  margin: '6px 0',
+  margin: '8px 0',
+  boxSizing: 'border-box',
 };
 
 export const headerStyle = {
   fontSize: '14px',
   fontWeight: 600,
   lineHeight: '18px',
-  margin: 0,
+  margin: '0 0 6px',
 };
 
 export const listStyle = {
@@ -25,6 +26,7 @@ export const listItemStyle = (lastItem = false) => ({
   padding: '12px 0px',
   borderBottom: lastItem ? 'none' : `1px solid ${whiteTwoColor}`,
   listStyleType: 'none',
+  boxSizing: 'border-box',
 });
 
 export const listItemFirstStyle = {
@@ -39,5 +41,5 @@ export const itemNameStyle = {
 
 export const itemCountStyle = {
   color: clayGray,
-  margin: 0,
+  margin: '1px 0 0',
 };
