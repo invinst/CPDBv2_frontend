@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {
   findRenderedComponentWithType,
@@ -18,7 +17,7 @@ import MockStore from 'redux-mock-store';
 import TextInput from 'components/common/input';
 import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import * as domUtils from 'utils/dom';
+import * as intercomUtils from 'utils/intercom';
 import { NavigationItem } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
@@ -169,29 +168,6 @@ describe('SearchPage component', function () {
     this.browserHistoryPush.calledWith('/search/').should.be.true();
   });
 
-  describe('after keyboard navigation', function () {
-    beforeEach(function () {
-      this.scrollToElementStub = stub(domUtils, 'scrollToElement');
-    });
-
-    afterEach(function () {
-      this.scrollToElementStub.restore();
-    });
-
-    it ('should scroll to focused item', function () {
-      const domNode = document.createElement('div');
-      ReactDOM.render(
-        <SearchPage focusedItem={ { uniqueKey: 'OFFICER-1234' } } />,
-        domNode
-      );
-      ReactDOM.render(
-        <SearchPage focusedItem={ { uniqueKey: 'OFFICER-5678' } } />,
-        domNode
-      );
-      this.scrollToElementStub.calledWith('.suggestion-item-OFFICER-5678').should.be.true();
-    });
-  });
-
   describe('handleViewItem', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       instance = renderIntoDocument(
@@ -339,6 +315,32 @@ describe('SearchPage component', function () {
       );
       clock.tick(600);
       changeSearchQuery.calledWith('xxx').should.be.true();
+    });
+  });
+
+  describe('Intercom', function () {
+    beforeEach(function () {
+      stub(intercomUtils, 'showIntercomLauncher');
+    });
+
+    afterEach(function () {
+      intercomUtils.showIntercomLauncher.restore();
+    });
+
+    it('should hide intercom launcher when mounted', function () {
+      instance = renderIntoDocument(
+        <SearchPage />
+      );
+      intercomUtils.showIntercomLauncher.calledWith(false).should.be.true();
+    });
+
+    it('should show intercom launcher again when unmounted', function () {
+      instance = renderIntoDocument(
+        <SearchPage />
+      );
+      intercomUtils.showIntercomLauncher.resetHistory();
+      unmountComponentSuppressError(instance);
+      intercomUtils.showIntercomLauncher.calledWith(true).should.be.true();
     });
   });
 });

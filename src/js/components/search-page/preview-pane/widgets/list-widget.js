@@ -16,7 +16,7 @@ import {
 export default class ListWidget extends Component {
   render() {
     const { items, title, typeName, showAvatar } = this.props;
-    return (
+    return !!(items && items.length > 0) && (
       <div className='test--list-widget' style={ containerStyle }>
         <h5 style={ headerStyle }>{ title }</h5>
         <ul style={ listStyle }>
@@ -46,6 +46,7 @@ ListWidget.defaultProps = {
 
 ListWidget.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     name: PropTypes.string.isRequired,
     count: PropTypes.number.isRequired,
     image: PropTypes.string.optional,

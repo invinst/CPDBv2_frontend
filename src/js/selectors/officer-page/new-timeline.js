@@ -22,6 +22,7 @@ export const baseTransform = (item, index) => {
     isLastRank: false,
     isFirstUnit: false,
     isLastUnit: false,
+    isCurrentUnit: false,
     key: index,
   };
 };
@@ -73,6 +74,7 @@ export const yearItem = (baseItem, year, hasData) => ({
   unitName: baseItem.unitName,
   unitDescription: baseItem.unitDescription,
   unitDisplay: baseItem.unitDisplay,
+  isCurrentUnit: baseItem.isCurrentUnit,
   isFirstRank: false,
   isLastRank: false,
   isFirstUnit: false,
@@ -207,10 +209,25 @@ export const applyFilter = (selectedFilter, items) => {
   return filter(items, (item) => includes(displayKinds, item.kind));
 };
 
+export const markLatestUnit = (items) => {
+  const latestUnit = items[0] ? items[0].unitName : undefined;
+
+  let inLastUnitPeriod = true;
+
+  return items.map((item) => {
+    if (item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE) {
+      inLastUnitPeriod = false;
+    }
+    item.isCurrentUnit = inLastUnitPeriod && item.unitName === latestUnit;
+    return item;
+  });
+};
+
 export const getNewTimelineItems = state => {
   const items = get(state.officerPage.newTimeline, 'items', []);
 
-  const transformedItems = items.map(transform);
+  const transformedItems = markLatestUnit(items.map(transform));
+
   const filteredItems = applyFilter(getSelectedFilter(state), transformedItems);
   if (isEmpty(filteredItems)) {
     return [];

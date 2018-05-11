@@ -2,7 +2,7 @@ import Enum from 'enum';
 
 import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
-  galleryColor, lightAltoColor, visualTokenSchemeColor, greyColor, softBlackColor
+  galleryColor, lightAltoColor, greyColor, softBlackColor
 } from 'utils/styles';
 
 export const TOP = 'top';
@@ -31,8 +31,8 @@ export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId';
 export const OFFICER_SOCIAL_GRAPH_SUFFIX = 'social/';
 export const OFFICER_SOCIAL_GRAPH_PATH = `officer/:officerId/${OFFICER_SOCIAL_GRAPH_SUFFIX}`;
-export const CR_PATH_SUFFIX = ':officerId';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
+export const CR_PATH_SUFFIX = ':officerId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
@@ -181,6 +181,10 @@ export const OFFICER_NEW_TIMELINE_ITEMS_REQUEST_START = 'OFFICER_NEW_TIMELINE_IT
 export const OFFICER_NEW_TIMELINE_ITEMS_REQUEST_SUCCESS = 'OFFICER_NEW_TIMELINE_ITEMS_REQUEST_SUCCESS';
 export const OFFICER_NEW_TIMELINE_ITEMS_REQUEST_FAILURE = 'OFFICER_NEW_TIMELINE_ITEMS_REQUEST_FAILURE';
 
+export const OFFICER_COACCUSALS_REQUEST_START = 'OFFICER_COACCUSALS_REQUEST_START';
+export const OFFICER_COACCUSALS_REQUEST_SUCCESS = 'OFFICER_COACCUSALS_REQUEST_SUCCESS';
+export const OFFICER_COACCUSALS_REQUEST_FAILURE = 'OFFICER_COACCUSALS_REQUEST_FAILURE';
+
 export const OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER = 'OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER';
 
 export const SEARCH_TERMS_CATEGORIES_REQUEST_START = 'SEARCH_TERMS_CATEGORIES_REQUEST_START';
@@ -259,6 +263,13 @@ export const SEARCH_NAVIGATION_DOWN = 'SEARCH_NAVIGATION_DOWN';
 export const SEARCH_NAVIGATION_RESET = 'SEARCH_NAVIGATION_RESET';
 export const SEARCH_NAVIGATION_SET = 'SEARCH_NAVIGATION_SET';
 
+export const RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_START = 'RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_START';
+export const RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_SUCCESS = 'RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_SUCCESS';
+export const RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_FAILURE = 'RELATED_COMPLAINTS_BY_CATEGORY_REQUEST_FAILURE';
+export const RELATED_COMPLAINTS_BY_OFFICER_REQUEST_START = 'RELATED_COMPLAINTS_BY_OFFICER_REQUEST_START';
+export const RELATED_COMPLAINTS_BY_OFFICER_REQUEST_SUCCESS = 'RELATED_COMPLAINTS_BY_OFFICER_REQUEST_SUCCESS';
+export const RELATED_COMPLAINTS_BY_OFFICER_REQUEST_FAILURE = 'RELATED_COMPLAINTS_BY_OFFICER_REQUEST_FAILURE';
+
 export const VISUAL_TOKEN_CR_DOMAIN = [1, 5, 10, 25, 40];
 export const VISUAL_TOKEN_COLOR_SCHEME = {
   '00': '#f5f4f4',
@@ -300,37 +311,55 @@ export const VISUAL_TOKEN_COLOR_SCHEME = {
 };
 
 export const OIG_VISUAL_TOKEN_COLOR_SCHEME = {
-  '000': visualTokenSchemeColor.greyColor,
-  '100': visualTokenSchemeColor.lightYellowColor,
-  '110': visualTokenSchemeColor.lightYellowColor,
-  '120': visualTokenSchemeColor.lightYellowColor,
-  '200': visualTokenSchemeColor.yellowColor,
-  '210': visualTokenSchemeColor.yellowColor,
-  '220': visualTokenSchemeColor.yellowColor,
-  '010': visualTokenSchemeColor.lightBlueColor,
-  '020': visualTokenSchemeColor.blueColor,
-  '001': visualTokenSchemeColor.pinkColor,
-  '011': visualTokenSchemeColor.pinkColor,
-  '021': visualTokenSchemeColor.pinkColor,
-  '101': visualTokenSchemeColor.darkerPinkColor,
-  '111': visualTokenSchemeColor.darkerPinkColor,
-  '121': visualTokenSchemeColor.darkerPinkColor,
-  '002': visualTokenSchemeColor.redColor,
-  '012': visualTokenSchemeColor.redColor,
-  '022': visualTokenSchemeColor.redColor,
-  '102': visualTokenSchemeColor.darkerRedColor,
-  '112': visualTokenSchemeColor.darkerRedColor,
-  '122': visualTokenSchemeColor.darkerRedColor,
-  '201': visualTokenSchemeColor.lightRedColor,
-  '211': visualTokenSchemeColor.lightRedColor,
-  '221': visualTokenSchemeColor.lightRedColor,
-  '202': visualTokenSchemeColor.darkestRedColor,
-  '212': visualTokenSchemeColor.darkestRedColor,
-  '222': visualTokenSchemeColor.darkestRedColor,
+  '00': '#f5f4f4',
+  '01': '#fce0e0',
+  '02': '#f6c9d0',
+  '03': '#f6a8a7',
+  '04': '#f28081',
+  '05': '#ef6f70',
+  '10': '#f9dec7',
+  '11': '#f9d3c3',
+  '12': '#f3adad',
+  '13': '#f39f8e',
+  '14': '#f18075',
+  '15': '#ed6154',
+  '20': '#f5c5a2',
+  '21': '#f3b094',
+  '22': '#f4a298',
+  '23': '#f28687',
+  '24': '#ee6465',
+  '25': '#e85050',
+  '30': '#f3b58e',
+  '31': '#f2a67f',
+  '32': '#ee7b6f',
+  '33': '#ec6c5e',
+  '34': '#e75151',
+  '35': '#e44243',
+  '40': '#eea558',
+  '41': '#eb9056',
+  '42': '#ed754f',
+  '43': '#eb5f45',
+  '44': '#ea4029',
+  '45': '#df1d24',
+  '50': '#ea872c',
+  '51': '#ea752b',
+  '52': '#ea6836',
+  '53': '#ea5734',
+  '54': '#e94829',
+  '55': '#e81f25',
+};
+
+export const OIG_EXTRA_BLUE_COLOR_SCHEME = {
+  '0': '#f5f4f4',
+  '1': '#dde6f7',
+  '2': '#d1ddf1',
+  '3': '#bdc7ec',
+  '4': '#8498d8',
+  '5': '#405ec3',
 };
 
 export const OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT = {
-  COLOR_TEXT_LIGHT_SCHEME: ['202', '212', '222', '020'],
+  COLOR_TEXT_LIGHT_SCHEME: ['55', '54', '45', '44'],
   DARK_COLOR: softBlackColor,
   LIGHT_COLOR: greyColor
 };
@@ -340,7 +369,8 @@ export const MORE_BUTTON = 'MORE_BUTTON';
 export const SEARCH_BOX = 'SEARCH_BOX';
 
 export const SEARCH_CATEGORIES = [
-  'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR'
+  'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT', 'UNIT > OFFICERS', 'CR',
+  'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND'
 ];
 
 export const TURN_ON_LOGO_EDIT_MODE = 'TURN_ON_LOGO_EDIT_MODE';
@@ -377,4 +407,12 @@ export const NEW_TIMELINE_FILTERS = {
   CRS: 'COMPLAINTS',
   FORCE: 'USE OF FORCE',
   AWARDS: 'AWARDS'
+};
+
+export const DISTANCE_OPTIONS = {
+  '0.5mi': '0.5 MILES',
+  '1mi': '1 MILES',
+  '2.5mi': '2.5 MILES',
+  '5mi': '5 MILES',
+  '10mi': '10 MILES'
 };

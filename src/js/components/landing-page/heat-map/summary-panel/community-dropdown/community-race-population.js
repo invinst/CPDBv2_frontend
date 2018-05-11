@@ -18,10 +18,13 @@ export default class CommunityRacePopulation extends Component {
             <div style={ labelTextStyle }>Population</div>
             <div style={ populationCountStyle }>{ population }</div>
           </div>
-          <div>
-            <div style={ labelTextStyle }>Median Household Income</div>
-            <div style={ medianIncomeStyle }>{ medianIncome }</div>
-          </div>
+          { medianIncome && (
+            <div>
+              <div style={ labelTextStyle }>Median Household Income</div>
+              <div style={ medianIncomeStyle }>{ medianIncome }</div>
+            </div>
+          ) }
+
         </div>
         <div style={ columnStyle }>
           <div style={ labelTextStyle }>Race</div>

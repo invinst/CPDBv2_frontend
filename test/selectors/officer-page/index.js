@@ -1,6 +1,4 @@
 import {
-  DATA_NOT_AVAILABLE,
-  getActiveTab,
   getOfficerName,
   getPathname,
   metricsSelector,
@@ -28,12 +26,16 @@ describe('officer page selectors', function () {
 
   describe('summarySelector', function () {
     const summary = {
-      'unit': 'unit',
+      'unit': {
+        'unit_name': 'unit',
+        'description': 'description'
+      },
       'rank': 'rank',
       'date_of_appt': '2015-09-23',
       'race': 'race',
       'gender': 'Male',
       'badge': 'badge',
+      'historic_badges': ['1', '2'],
       'birth_year': 1991,
     };
 
@@ -41,8 +43,13 @@ describe('officer page selectors', function () {
       state.officerPage = { summary };
 
       summarySelector(state).should.eql({
-        unitName: 'unit', rank: 'rank',
-        race: 'race', gender: 'Male', badge: 'badge',
+        unitName: 'unit',
+        unitDescription: 'description',
+        rank: 'rank',
+        race: 'race',
+        gender: 'Male',
+        badge: 'badge',
+        historicBadges: ['1', '2'],
         dateOfAppt: '2015-09-23',
         careerDescription: '2 years',
         careerDuration: 'SEP 23, 2015—Present',
@@ -97,39 +104,34 @@ describe('officer page selectors', function () {
     it('should return metrics', function () {
       const metrics = {
         'allegation_count': 1,
+        'complaint_percentile': 4.000,
         'honorable_mention_count': 3,
+        'honorable_mention_percentile': 3.000,
         'sustained_count': 4,
         'discipline_count': 5,
-        'use_of_force_count': 7,
-        'top_use_of_force_percentile': 9.0,
+        'trr_count': 7,
         'civilian_compliment_count': 10,
+        'major_award_count': 5,
+        'percentiles': [
+          { 'year': 2015, 'percentile_trr': 8.0 },
+          { 'year': 2016, 'percentile_trr': 9.0 },
+        ]
       };
 
       state.officerPage = { summary: { a: 'b', ...metrics } };
 
       metricsSelector(state).should.eql({
         allegationCount: 1,
-        topAllegationPercentile: DATA_NOT_AVAILABLE,
+        allegationPercentile: 4.000,
         honorableMentionCount: 3,
+        honorableMentionPercentile: 3.000,
         sustainedCount: 4,
         disciplineCount: 5,
-        topHonorableMentionPercentile: DATA_NOT_AVAILABLE,
         useOfForceCount: 7,
-        majorAwardCount: DATA_NOT_AVAILABLE,
-        topUseOfForcePercentile: 9.0,
+        majorAwardCount: 5,
+        useOfForcePercentile: 9.0,
         civilianComplimentCount: 10,
       });
-    });
-  });
-
-  describe('getActiveTab', function () {
-    it('should return active tab', function () {
-      const state = {
-        officerPage: {
-          activeTab: 'social'
-        }
-      };
-      getActiveTab(state).should.eql('social');
     });
   });
 
