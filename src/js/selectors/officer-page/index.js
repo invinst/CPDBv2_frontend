@@ -3,6 +3,7 @@ import { get, map } from 'lodash';
 import moment from 'moment';
 
 import { getThisYear } from 'utils/date';
+import { DATA_NOT_AVAILABLE } from 'utils/constants';
 import { extractPercentile } from 'selectors/landing-page/common';
 
 
@@ -62,8 +63,6 @@ export const summarySelector = createSelector(
     currentSalary: get(summary, 'current_salary', DATA_NOT_AVAILABLE),
   })
 );
-
-export const DATA_NOT_AVAILABLE = 'N/A';
 
 export const metricsSelector = createSelector(
   getOfficerInfo,

@@ -1,5 +1,5 @@
+import { DATA_NOT_AVAILABLE } from 'utils/constants';
 import {
-  DATA_NOT_AVAILABLE,
   getOfficerName,
   getPathname,
   metricsSelector,
