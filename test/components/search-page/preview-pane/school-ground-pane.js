@@ -1,5 +1,6 @@
 import React from 'react';
-import { renderIntoDocument,
+import {
+  renderIntoDocument,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
@@ -22,7 +23,22 @@ describe('SchoolGroundPane component', () => {
   });
 
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(<SchoolGroundPane/>);
+    instance = renderIntoDocument(
+      <SchoolGroundPane
+        officersMostComplaint={ [{
+          id: 1,
+          name: 'name',
+          count: 1,
+        }] }
+        mostCommonComplaint={ [{
+          id: 1,
+          name: 'name',
+          count: 1,
+        }] }
+        allegationCount={ 123 }
+        name={ 'school-ground' }
+      />
+    );
     findRenderedComponentWithType(instance, HeaderWidget);
     findRenderedComponentWithType(instance, SeparatorWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);

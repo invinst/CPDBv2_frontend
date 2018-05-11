@@ -86,7 +86,7 @@ describe('search page results selector', function () {
               ],
               'officerId': undefined,
               'textColor': '#DFDFDF',
-              'visualTokenBackground': '#ff0000',
+              'visualTokenBackground': '#e81f25',
               'year': undefined,
             },
             'name': 'Jerome Turbyville',
@@ -221,10 +221,18 @@ describe('search page results selector', function () {
                   'race_count': [
                     { race: 'Persons of Spanish Language', count: 121 },
                     { race: 'Black or African-American', count: 131 },
-                    { race: 'Other', count: 100 }
+                    { race: 'Other', count: 100 },
+                    { race: 'Native American', count: 0 },
                   ],
                   'result_text': 'Roseland',
+                  alderman: 'John Wick',
                   'allegation_count': 12,
+                  'allegation_percentile': 80.1,
+                  commander: {
+                    id: 123,
+                    'full_name': 'John Watts',
+                    'allegation_count': 10,
+                  }
                 },
               }
             ]
@@ -245,6 +253,7 @@ describe('search page results selector', function () {
           itemIndex: 1,
           name: 'Roseland',
           allegationCount: 12,
+          allegationPercentile: 80.1,
           mostCommonComplaint: [{
             id: 204,
             name: 'Operation/Personnel Violations',
@@ -256,12 +265,20 @@ describe('search page results selector', function () {
             count: 26,
             url: '/officer/12478/'
           }],
+          districtCommander: {
+            id: 123,
+            name: 'John Watts',
+            count: 10,
+            url: '/officer/123/',
+          },
           population: '352',
           medianIncome: '$37,084',
+          alderman: 'John Wick',
           raceCount: [
             { race: 'Hispanic', count: '34.4%' },
             { race: 'Black', count: '37.2%' },
-            { race: 'Other', count: '28.4%' }
+            { race: 'Other', count: '28.4%' },
+            { race: 'Native', count: '0.0%' },
           ],
         }],
       }]);

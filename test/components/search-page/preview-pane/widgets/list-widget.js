@@ -2,7 +2,8 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -68,5 +69,12 @@ describe('ListWidget', () => {
     );
     const firstListItem = findRenderedComponentWithType(instance, HoverableLink);
     firstListItem.props.to.should.eql('url_1');
+  });
+
+  it('should not display when items is empty', () => {
+    instance = renderIntoDocument(
+      <ListWidget items={ [] } typeName={ 'allegation' }/>
+    );
+    scryRenderedDOMComponentsWithClass(instance, 'test--list-widget').should.have.length(0);
   });
 });

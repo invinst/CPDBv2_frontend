@@ -129,7 +129,7 @@ describe('search page navigation selector', function () {
               { axis: 'Internal Allegations', value: 91 },
               { axis: 'Civilian Allegations', value: 92 }
             ],
-            visualTokenBackground: '#ff0000',
+            visualTokenBackground: '#e81f25',
             textColor: '#DFDFDF'
           },
           race: 'White',
