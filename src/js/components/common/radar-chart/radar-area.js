@@ -3,7 +3,7 @@ import { every } from 'lodash';
 
 import { curveLinearClosed, radialLine } from 'd3-shape';
 
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
 import { radarMainAreaStyle, radarMainStrokeStyle, valueTextStyle } from './radar-area.style';
 
 
@@ -47,7 +47,7 @@ export default class RadarArea extends Component {
               dy={ i === 0 ? 8 : 10 }
               style={ valueTextStyle }
             >
-              { roundPercentile(point.value) }
+              { roundedPercentile(point.value) }
             </text>
           )) }
         </g>

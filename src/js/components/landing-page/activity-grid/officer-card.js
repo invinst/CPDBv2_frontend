@@ -10,7 +10,7 @@ import {
 import { pluralize } from 'utils/language';
 import Hoverable from 'components/common/higher-order/hoverable';
 import StaticRadarChart from 'components/common/radar-chart';
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
 
 
 export class OfficerCard extends Component {
@@ -58,7 +58,7 @@ export class OfficerCard extends Component {
 
     const complaintPercentileString = (hovering) => {
       if (complaintPercentile) {
-        const complaintFormat = roundPercentile(complaintPercentile);
+        const complaintFormat = roundedPercentile(complaintPercentile);
         return (
           <p style={ lightTextStyle(hovering) }>More than { complaintFormat }% of other officers</p>
         );
