@@ -232,7 +232,8 @@ describe('search page results selector', function () {
                     id: 123,
                     'full_name': 'John Watts',
                     'allegation_count': 10,
-                  }
+                  },
+                  'police_hq': '22nd',
                 },
               }
             ]
@@ -273,6 +274,7 @@ describe('search page results selector', function () {
           population: '352',
           medianIncome: '$37,084',
           alderman: 'John Wick',
+          policeHQ: '22nd',
           raceCount: [
             { race: 'Hispanic', count: '34.4%' },
             { race: 'Black', count: '37.2%' },
