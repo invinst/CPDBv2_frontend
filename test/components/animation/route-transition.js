@@ -145,7 +145,7 @@ describe('RouteTransition component', function () {
     );
 
     element.state.contents.should.have.length(2);
-
+    element.overlayCompletelyCover = true;
     element = reRender(
       <RouteTransition pathname='/span' pageLoading={ false }><span>abc</span></RouteTransition>,
       element
