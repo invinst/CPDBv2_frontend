@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import { pluralize } from 'utils/language';
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
 
 import {
   wrapperStyle, topSectionWrapperStyle, allegationTextStyle, sustainedTextStyle,
@@ -45,7 +45,7 @@ export default class CoaccusedCard extends Component {
             <span style={ sustainedTextStyle(sustainedCount) }>{ `${sustainedCount} sustained` }</span>
           </div>
           <div style={ percentileTextStyle } className='test--accused-card-percentile'>
-            More than { roundPercentile(allegationPercentile) }% of other officers
+            More than { roundedPercentile(allegationPercentile) }% of other officers
           </div>
           <div style={ officerInfoTextStyle } className='test--accused-card-demographic'>
             { demographic }

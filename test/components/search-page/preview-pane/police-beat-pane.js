@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import { renderIntoDocument,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType
@@ -18,8 +19,11 @@ describe('PoliceBeatPane component', () => {
   let instance;
 
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(<PoliceBeatPane/>);
-    findRenderedComponentWithType(instance, HeaderWidget);
+    instance = renderIntoDocument(
+      <PoliceBeatPane name={ '22' }/>
+    );
+    const header = findRenderedComponentWithType(instance, HeaderWidget);
+    findDOMNode(header).textContent.should.containEql('POLICE BEAT #22');
     findRenderedComponentWithType(instance, SeparatorWidget);
     findRenderedComponentWithType(instance, TextWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(1);

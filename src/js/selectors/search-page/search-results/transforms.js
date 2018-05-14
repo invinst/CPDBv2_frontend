@@ -2,7 +2,7 @@ import { get, sumBy, map, last } from 'lodash';
 import { extractPercentile } from 'selectors/landing-page/common';
 
 import { getCurrentAge, formatDate } from 'utils/date';
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
 
 
 const mappingRace = (race) => {
@@ -10,9 +10,18 @@ const mappingRace = (race) => {
     return 'Black';
   } else if (race.indexOf('Spanish') !== -1) {
     return 'Hispanic';
+  } else if (race.indexOf('Native') !== -1) {
+    return 'Native';
   }
   return race;
 };
+
+const areaTypeMap = (areaType) => ({
+  [areaType]: (suggestion) => ({
+    type: areaType,
+    data: get(searchResultTransformMap, areaType, () => {})(suggestion)
+  })
+});
 
 
 const previewPaneTypeMap = {
@@ -20,14 +29,16 @@ const previewPaneTypeMap = {
     type: 'OFFICER',
     data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
   }),
-  COMMUNITY: (suggestion) => ({
-    type: 'COMMUNITY',
-    data: get(searchResultTransformMap, 'COMMUNITY', () => {})(suggestion)
+  'UNIT > OFFICERS': (suggestion) => ({
+    type: 'OFFICER',
+    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
   }),
-  NEIGHBORHOOD: (suggestion) => ({
-    type: 'NEIGHBORHOOD',
-    data: get(searchResultTransformMap, 'NEIGHBORHOOD', () => {})(suggestion)
-  })
+  ...areaTypeMap('COMMUNITY'),
+  ...areaTypeMap('NEIGHBORHOOD'),
+  ...areaTypeMap('WARD'),
+  ...areaTypeMap('POLICE-DISTRICT'),
+  ...areaTypeMap('SCHOOL-GROUND'),
+  ...areaTypeMap('BEAT'),
 };
 
 export const previewPaneTransform = item =>
@@ -37,18 +48,26 @@ const areaTransform = ({ payload }) => {
   const population = sumBy(payload['race_count'], 'count');
   return {
     name: payload['name'] || 'Unknown',
-    allegationCount: payload['allegation_count'] || [],
+    allegationCount: payload['allegation_count'] || 0,
     mostCommonComplaint: payload['most_common_complaint'] || [],
     officersMostComplaint: payload['officers_most_complaint'] || [],
     population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
     medianIncome: payload['median_income'],
     url: payload['url'],
+    allegationPercentile: payload['allegation_percentile'],
     raceCount: map(payload['race_count'], (item) => {
       let result = { race: mappingRace(item.race) };
       const racePercentile = population ? item['count'] / population * 100 : 0;
       result['count'] = `${racePercentile.toFixed(1)}%`;
       return result;
-    })
+    }) || [],
+    alderman: payload['alderman'],
+    districtCommander: payload.commander ? {
+      'id': payload.commander['id'],
+      'name': payload.commander['full_name'],
+      'count': payload.commander['allegation_count'],
+      'url': `/officer/${payload.commander['id']}/`,
+    } : null
   };
 };
 
@@ -74,13 +93,15 @@ const searchResultTransformMap = {
       },
       lastPercentile: extractPercentile(lastPercentile),
       complaintCount: payload['allegation_count'],
-      complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),
+      complaintPercentile: roundedPercentile(get(lastPercentile, 'percentile_allegation')),
       civilianComplimentCount: payload['civilian_compliment_count'],
       sustainedCount: payload['sustained_count'],
       disciplineCount: payload['discipline_count'],
-      trrCount: payload['trr_count'],
-      trrPercentile: roundPercentile(get(lastPercentile, 'percentile_trr'), true),
-      honorableMentionCount: payload['honorable_mention_count'],
+      trrCount: get(payload, 'trr_count'),
+      trrPercentile: roundedPercentile(get(lastPercentile, 'percentile_trr')),
+      majorAwardCount: get(payload, 'major_award_count'),
+      honorableMentionCount: get(payload, 'honorable_mention_count'),
+      honorableMentionPercentile: roundedPercentile(get(payload, 'honorable_mention_percentile')),
     };
   },
   CR: ({ payload }) => {
@@ -90,6 +111,10 @@ const searchResultTransformMap = {
   },
   COMMUNITY: areaTransform,
   NEIGHBORHOOD: areaTransform,
+  WARD: areaTransform,
+  'POLICE-DISTRICT': areaTransform,
+  BEAT: areaTransform,
+  'SCHOOL-GROUND': areaTransform,
 };
 
 export const searchResultItemTransform = (item) => ({

@@ -1,5 +1,9 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
+} from 'react-addons-test-utils';
 
 import ListWidget from 'components/search-page/preview-pane/widgets/list-widget';
 
@@ -33,5 +37,12 @@ describe('ListWidget', () => {
     categories[0].textContent.should.containEql('90 allegations');
     categories[1].textContent.should.containEql('Category Name 2');
     categories[1].textContent.should.containEql('32 allegations');
+  });
+
+  it('should not display when items is empty', () => {
+    instance = renderIntoDocument(
+      <ListWidget items={ [] } typeName={ 'allegation' }/>
+    );
+    scryRenderedDOMComponentsWithClass(instance, 'test--list-widget').should.have.length(0);
   });
 });
