@@ -28,7 +28,6 @@ describe('App component', function () {
     authentication: {},
     adapter: 'adapter',
     reports: { 1: {} },
-    faqs: { 1: {} },
     landingPage: {
       activityGrid: {
         cards: []
@@ -102,33 +101,6 @@ describe('App component', function () {
       <Provider store={ store }>
         <App
           params={ { reportId: 1 } }
-          location={ location }
-          appContent='/'>
-          abc
-        </App>
-      </Provider>,
-      rootEl
-    );
-    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
-  });
-
-  it('should keep previous children when displaying faq', function () {
-    let rootEl = document.createElement('div');
-    instance = render(
-      <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'>
-          <ChildComponent/>
-        </App>
-      </Provider>,
-      rootEl
-    );
-    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
-    instance = render(
-      <Provider store={ store }>
-        <App
-          params={ { faqId: 1 } }
           location={ location }
           appContent='/'>
           abc
@@ -277,7 +249,7 @@ describe('App component', function () {
     instance = render(
       <Provider store={ store }>
         <App
-          params={ { faqId: 1 } }
+          params={ { reportId: 1 } }
           location={ location }
           appContent='/'>
           abc

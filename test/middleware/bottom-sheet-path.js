@@ -2,8 +2,8 @@ import { stub } from 'sinon';
 
 import bottomSheetPathMiddleware from 'middleware/bottom-sheet-path';
 import {
-  openBottomSheetWithReport, openBottomSheetToCreateReport, closeBottomSheet, openBottomSheetWithFAQ,
-  openBottomSheetToCreateFAQ, openOfficerPage, openComplaintPage, openPoliceUnitPage, openOfficerSocialGraphPage
+  openBottomSheetWithReport, openBottomSheetToCreateReport, closeBottomSheet, openOfficerPage, openComplaintPage,
+  openPoliceUnitPage, openOfficerSocialGraphPage
 } from 'actions/bottom-sheet';
 import * as editPathUtils from 'utils/edit-path';
 
@@ -70,22 +70,6 @@ describe('bottomSheetPathMiddleware', function () {
     const dispatchAction = closeBottomSheet();
     bottomSheetPathMiddleware(store)(action => dispatched = action)(dispatchAction);
     editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/foo/');
-    dispatched.should.eql(dispatchAction);
-  });
-
-  it('should push bottom sheet path on OPEN_BOTTOM_SHEET_WITH_FAQ', function () {
-    let dispatched;
-    const dispatchAction = openBottomSheetWithFAQ(14);
-    bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
-    editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/faq/14/');
-    dispatched.should.eql(dispatchAction);
-  });
-
-  it('should push bottom sheet path on OPEN_BOTTOM_SHEET_TO_CREATE_FAQ', function () {
-    let dispatched;
-    const dispatchAction = openBottomSheetToCreateFAQ();
-    bottomSheetPathMiddleware({})(action => dispatched = action)(dispatchAction);
-    editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/faq/new/');
     dispatched.should.eql(dispatchAction);
   });
 

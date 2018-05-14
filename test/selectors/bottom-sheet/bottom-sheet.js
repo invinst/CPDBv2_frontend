@@ -15,11 +15,5 @@ describe('bottomSheet selector', function () {
         { props: { id: 1 }, type: BottomSheetContentType.REPORT }
       );
     });
-
-    it('should return faq content if content type is FAQ', function () {
-      contentSelector({}, { params: { faqId: 1 } }).should.eql(
-        { props: { id: 1 }, type: BottomSheetContentType.FAQ }
-      );
-    });
   });
 });

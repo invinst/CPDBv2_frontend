@@ -7,7 +7,6 @@ import { DragDropContext } from 'react-dnd';
 import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
-import FAQPage from 'components/faq-page/faq-page';
 import SearchPageContainer from 'containers/search-page-container';
 import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import OfficerPageContainer from 'containers/officer-page';
@@ -17,7 +16,6 @@ import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
 import ReportingPage from 'components/reporting-page';
 import {
   COLLAB_PATH,
-  FAQ_PATH,
   STORIES_PATH,
   SEARCH_PATH,
   SEARCH_TERMS_PATH,
@@ -57,13 +55,6 @@ class RouterRoot extends Component {
             <Route
               path={ COLLAB_PATH }
               component={ CollaborationPage }/>
-            <Route
-              path={ FAQ_PATH }
-              component={ FAQPage }>
-              <Route
-                path={ ':faqId' }
-                component={ FAQPage }/>
-            </Route>
             <Route
               path={ OFFICER_PATH }
               component={ OfficerPageContainer }

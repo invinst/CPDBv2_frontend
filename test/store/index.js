@@ -53,10 +53,6 @@ describe('store', function () {
           communities: null
         }
       },
-      faqPage: {
-        isRequesting: false,
-        faqsRequested: false
-      },
       authentication: {
         loginErrorMessage: null,
         loginSuccessMessage: null,
@@ -88,7 +84,6 @@ describe('store', function () {
         }
       },
       reports: {},
-      faqs: {},
       routing: {
         locationBeforeTransitions: null
       },

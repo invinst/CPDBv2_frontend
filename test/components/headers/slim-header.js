@@ -7,11 +7,9 @@ import {
   findRenderedComponentWithType,
   scryRenderedDOMComponentsWithClass, Simulate
 } from 'react-addons-test-utils';
-import { Link } from 'react-router';
 import MockStore from 'redux-mock-store';
 import { stub, spy } from 'sinon';
 
-import { FAQ_PATH } from 'utils/constants';
 import { SlimHeader } from 'components/headers/slim-header';
 import { unmountComponentSuppressError } from 'utils/test';
 import ContextWrapper from 'utils/test/components/context-wrapper';

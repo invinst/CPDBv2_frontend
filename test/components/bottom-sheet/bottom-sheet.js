@@ -1,11 +1,10 @@
 import React from 'react';
 import { render, findDOMNode } from 'react-dom';
 import {
-  renderIntoDocument, Simulate, findRenderedDOMComponentWithClass,
+  renderIntoDocument,
   scryRenderedDOMComponentsWithClass, scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
-import { spy } from 'sinon';
 import MockStore from 'redux-mock-store';
 import { Motion } from 'react-motion';
 
@@ -13,7 +12,6 @@ import 'polyfill';
 import BottomSheet from 'components/bottom-sheet';
 import { unmountComponentSuppressError, withAnimationDisabled } from 'utils/test';
 import { CuratedReportFactory } from 'utils/test/factories/report';
-import { CuratedFAQFactory } from 'utils/test/factories/faq';
 import { BottomSheetContentType } from 'utils/constants';
 
 
@@ -21,7 +19,6 @@ describe('BottomSheet component', function () {
   let element;
   const mockStore = MockStore();
   const report = CuratedReportFactory.build();
-  const faq = CuratedFAQFactory.build();
   const store = mockStore({
     bottomSheet: { officersAutoSuggest: { isRequesting: false, officers: [] } },
     officerPage: {
@@ -34,7 +31,6 @@ describe('BottomSheet component', function () {
       }
     },
     reports: { [report.id]: report },
-    faqs: { [faq.id]: faq },
     crs: {}
   });
 
@@ -128,16 +124,6 @@ describe('BottomSheet component', function () {
       findDOMNode(element).innerHTML.should.containEql(report.fields.title.value.blocks[0].text);
     });
 
-    it('should render faq when received faq content', function () {
-      element = renderIntoDocument(
-        <Provider store={ store }>
-          <BottomSheet open={ true }
-            content={ { type: BottomSheetContentType.FAQ, props: { id: faq.id } } }/>
-        </Provider>
-      );
-      findDOMNode(element).innerHTML.should.containEql(faq.fields.question.value.blocks[0].text);
-    });
-
     it('should render previous content when receive null content', function () {
       let rootEl = document.createElement('div');
 
@@ -153,18 +139,6 @@ describe('BottomSheet component', function () {
         </Provider>,
         rootEl);
       findDOMNode(element).innerHTML.should.containEql(report.fields.title.value.blocks[0].text);
-    });
-
-    it('should trigger onClose when click on overlay', function () {
-      const onClose = spy();
-      element = renderIntoDocument(
-        <Provider store={ store }>
-          <BottomSheet open={ true } content={ { type: BottomSheetContentType.FAQ } } onClose={ onClose }/>
-        </Provider>
-      );
-      const overlay = findRenderedDOMComponentWithClass(element, 'test--close-bottom-sheet');
-      Simulate.click(overlay);
-      onClose.called.should.be.true();
     });
   });
 });

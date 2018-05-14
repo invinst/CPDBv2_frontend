@@ -1,8 +1,8 @@
 import {
-  openBottomSheetWithReport, closeBottomSheet, openBottomSheetWithFAQ, searchOfficers, openOfficerPage
+  openBottomSheetWithReport, closeBottomSheet, searchOfficers, openOfficerPage
 } from 'actions/bottom-sheet';
 import {
-  OPEN_BOTTOM_SHEET_WITH_REPORT, CLOSE_BOTTOM_SHEET, OPEN_BOTTOM_SHEET_WITH_FAQ,
+  OPEN_BOTTOM_SHEET_WITH_REPORT, CLOSE_BOTTOM_SHEET,
   V2_ROOT_PATH, SEARCH_OFFICERS_REQUEST_START, SEARCH_OFFICERS_REQUEST_SUCCESS, SEARCH_OFFICERS_REQUEST_FAILURE,
   OPEN_OFFICER_PAGE
 } from 'utils/constants';
@@ -14,15 +14,6 @@ describe('bottomSheet actions', function () {
       openBottomSheetWithReport(3).should.eql({
         type: OPEN_BOTTOM_SHEET_WITH_REPORT,
         payload: 3
-      });
-    });
-  });
-
-  describe('openBottomSheetWithFAQ', function () {
-    it('should return right action', function () {
-      openBottomSheetWithFAQ(4).should.eql({
-        type: OPEN_BOTTOM_SHEET_WITH_FAQ,
-        payload: 4
       });
     });
   });

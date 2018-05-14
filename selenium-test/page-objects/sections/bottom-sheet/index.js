@@ -1,11 +1,9 @@
 import Section from '../section';
 import OfficerSection from './officer-section';
-import FAQSection from './faq-section';
 
 
 class BottomSheet extends Section {
   officerSection = new OfficerSection();
-  faq = new FAQSection();
 
   constructor() {
     super();
