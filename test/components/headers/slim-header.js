@@ -72,7 +72,7 @@ describe('SlimHeader component', function () {
     scryRenderedDOMComponentsWithClass(element, 'test--slim-header').length.should.eql(0);
   });
 
-  it('should render FAQ link', function () {
+  it('should render Q&A link', function () {
     const openRequestDocumentModal = spy();
     element = renderIntoDocument(
       <Provider store={ store }>
@@ -82,9 +82,9 @@ describe('SlimHeader component', function () {
       </Provider>
     );
 
-    const links = scryRenderedComponentsWithType(element, Link);
-    const link = links.filter(link => link.props.children === 'FAQ')[0];
-    link.props.to.should.eql('/' + FAQ_PATH);
+    const links = scryRenderedDOMComponentsWithTag(element, 'a');
+    const link = links.filter(link => link.textContent === 'Q&A')[0];
+    link.getAttribute('href').should.eql('http://how.cpdp.works/');
   });
 
   it('should render Data link', function () {

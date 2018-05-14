@@ -13,44 +13,9 @@ describe('Header', function () {
     landingPage.open();
   });
 
-  context('edit mode off', function () {
-    it('should navigate to FAQ path when click on FAQ link', function () {
-      landingPage.topHeader.faq.waitForVisible();
-      landingPage.topHeader.faq.click();
-      browser.pause(500);
-      landingPage.currentBasePath.should.equal('/faq/');
-    });
-
-    it('should navigate to base path when click on header logo', function () {
-      landingPage.topHeader.faq.waitForVisible();
-      landingPage.topHeader.faq.click();
-      browser.pause(500);
-
-      landingPage.topHeader.logo.title.waitForVisible();
-      landingPage.topHeader.logo.title.click();
-
-      landingPage.currentBasePath.should.equal('/');
-    });
-
-    it('should not display log out button', function () {
-      landingPage.topHeader.logOutButton.waitForVisible(2000, true);
-    });
-  });
-
   context('edit mode on', function () {
     beforeEach(function () {
       landingPage.openEditMode();
-    });
-
-    it('should preserve edit mode when go to faq page', function () {
-      landingPage.topHeader.faq.waitForVisible();
-      landingPage.topHeader.faq.click();
-      browser.pause(500);
-      landingPage.currentBasePath.should.equal('/edit/faq/');
-
-      landingPage.topHeader.logo.title.waitForVisible();
-      landingPage.topHeader.logo.title.click();
-      landingPage.currentBasePath.should.equal('/edit/');
     });
 
     it('should display log out button and log out when we click on', function () {
@@ -74,13 +39,13 @@ describe('Header', function () {
           landingPage.topHeader.logo.editButton.click();
         });
 
-        it('should allow editting title', function () {
+        it('should allow editing title', function () {
           landingPage.selectText(landingPage.topHeader.logo.title.selector);
           browser.keys('abcdef');
           includes(landingPage.topHeader.logo.title.getText(), 'abcdef').should.be.true();
         });
 
-        it('should allow editting subtitle with rich text capabilities', function () {
+        it('should allow editing subtitle with rich text capabilities', function () {
           landingPage.selectText(landingPage.topHeader.logo.subtitle.selector);
           landingPage.richTextToolbar.element.waitForVisible();
         });

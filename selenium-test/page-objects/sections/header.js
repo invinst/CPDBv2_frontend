@@ -23,7 +23,7 @@ class TopHeader extends Section {
       mainElement: '.test--top-slim-header',
       closeButtonSelector: '.test--top-slim-header .nav-link__close-btn',
       data: '//*[@class="test--top-slim-header"]//a[text()="Data"]',
-      faq: '//*[@class="test--top-slim-header"]//a[text()="FAQ"]',
+      faq: '//*[@class="test--top-slim-header"]//a[text()="Q&A"]',
       glossary: '//a[text()="Glossary"]',
       logOutButton: '.test--top-slim-header .test--logout-button',
     });
@@ -37,7 +37,7 @@ class StickyHeader extends Section {
       mainElement: '.test--sticky-slim-header',
       closeButtonSelector: '.test--sticky-slim-header .nav-link__close-btn',
       data: '//*[@class="test--sticky-slim-header"]//a[text()="Data"]',
-      faq: '//*[@class="test--sticky-slim-header"]//a[text()="FAQ"]',
+      faq: '//*[@class="test--sticky-slim-header"]//a[text()="Q&A"]',
       glossary: '//a[text()="Glossary"]',
       logOutButton: '.test--sticky-slim-header .test--logout-button',
     });
