@@ -48,7 +48,13 @@ export const groupedSuggestions = {
     ],
     'UNIT': [],
     'NEIGHBORHOOD': [
-      RawNeighborhoodSuggestion.build({ id: '1' }, { resultText: 'Kenwood' })
+      RawNeighborhoodSuggestion.build({ id: '1' }, { resultText: 'Kenwood' }),
+      RawNeighborhoodSuggestion.build({ id: '2' }, { resultText: 'Austin' }),
+      RawNeighborhoodSuggestion.build({ id: '3' }, { resultText: 'Englewood' }),
+      RawNeighborhoodSuggestion.build({ id: '4' }, { resultText: 'Loop' }),
+      RawNeighborhoodSuggestion.build({ id: '5' }, { resultText: 'Garfield Park' }),
+      RawNeighborhoodSuggestion.build({ id: '6' }, { resultText: 'Humboldt Park' }),
+      RawNeighborhoodSuggestion.build({ id: '7' }, { resultText: 'Auburn Gresham' }),
     ]
   },
   'noresult': {},
@@ -68,6 +74,20 @@ export const singleGroupSuggestions = {
       RawOfficerSuggestion.build({}, { resultText: 'Bernadette Kelly' }),
       RawOfficerSuggestion.build({}, { resultText: 'Charles Kelly' }),
       ...RawOfficerSuggestion.buildList(18)
+    ]
+  },
+  neighborhoods: {
+    count: 7,
+    previous: null,
+    next: null,
+    results: [
+      RawNeighborhoodSuggestion.build({ id: '1' }, { resultText: 'Kenwood' }),
+      RawNeighborhoodSuggestion.build({ id: '2' }, { resultText: 'Austin' }),
+      RawNeighborhoodSuggestion.build({ id: '3' }, { resultText: 'Englewood' }),
+      RawNeighborhoodSuggestion.build({ id: '4' }, { resultText: 'Loop' }),
+      RawNeighborhoodSuggestion.build({ id: '5' }, { resultText: 'Garfield Park' }),
+      RawNeighborhoodSuggestion.build({ id: '6' }, { resultText: 'Humboldt Park' }),
+      RawNeighborhoodSuggestion.build({ id: '7' }, { resultText: 'Auburn Gresham' }),
     ]
   },
   offset20: {
