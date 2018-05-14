@@ -42,7 +42,7 @@ export default class RouteTransition extends Component {
           }
         ]
       });
-    } else if (!pageLoading && this.props.pageLoading) {
+    } else if (!pageLoading && this.props.pageLoading && this.overlayCompletelyCover) {
       scrollToTop();
       this.setState({
         showOverlay: false,
@@ -118,8 +118,11 @@ export default class RouteTransition extends Component {
           defaultStyle={ { opacity: showOverlay ? 1 : 0 } }
           style={ { opacity: spring(showOverlay ? 1 : 0, defaultConfig()) } }>
           { ({ opacity }) => {
+            this.overlayCompletelyCover = false;
             if (opacity === 0) {
               return null;
+            } else if (opacity === 1) {
+              this.overlayCompletelyCover = true;
             }
 
             return <div style={ { ...overlayStyle, opacity } } />;
