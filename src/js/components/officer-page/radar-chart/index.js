@@ -1,16 +1,20 @@
 import React, { Component, PropTypes } from 'react';
-import { map, isEqual } from 'lodash';
-
+import { map, isEqual, get, last } from 'lodash';
+import MediaQuery from 'react-responsive';
 import { scaleLinear } from 'd3-scale';
 
 import StaticRadarChart from 'components/common/radar-chart';
+import { questionMarInnerStyle, questionMarkStyle, radarChartPlaceholderStyle } from './radar-chart.style';
+import RadarExplainer from './explainer';
+import { MOBILE_BREAK_POINT } from 'utils/constants';
 
 
 export default class AnimatedRadarChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      transitionValue: 0
+      transitionValue: 0,
+      showExplainer: false,
     };
     this.interval = 20;
     this.velocity = 0.1;
@@ -19,8 +23,9 @@ export default class AnimatedRadarChart extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.animate = this.animate.bind(this);
     this.getCurrentTransitionData = this.getCurrentTransitionData.bind(this);
+    this.openExplainer = this.openExplainer.bind(this);
+    this.closeExplainer = this.closeExplainer.bind(this);
   }
-
 
   componentDidMount() {
     this.startTimer();
@@ -100,22 +105,51 @@ export default class AnimatedRadarChart extends Component {
     }
   }
 
+  openExplainer() {
+    this.setState({
+      ...this.state,
+      showExplainer: true,
+    });
+  }
+
+  closeExplainer() {
+    this.setState({
+      ...this.state,
+      showExplainer: false,
+    });
+  }
+
   render() {
-    const { transitionValue } = this.state;
+    const { transitionValue, showExplainer } = this.state;
     const { data } = this.props;
     if (!data) return null;
 
     const itemData = this.getCurrentTransitionData();
 
     return (!!itemData) && (
-      <StaticRadarChart
-        onClick={ this.handleClick }
-        textColor={ itemData.textColor }
-        backgroundColor={ itemData.visualTokenBackground }
-        fadeOutLegend={ transitionValue >= (data.length - 1) }
-        legendText={ itemData.year }
-        data={ itemData.items }
-      />
+      <div className='test--officer--radar-chart' style={ radarChartPlaceholderStyle }>
+        <StaticRadarChart
+          onClick={ this.handleClick }
+          textColor={ itemData.textColor }
+          backgroundColor={ itemData.visualTokenBackground }
+          fadeOutLegend={ transitionValue >= (data.length - 1) }
+          legendText={ itemData.year }
+          data={ itemData.items }
+        />
+        <MediaQuery minWidth={ MOBILE_BREAK_POINT }>
+          <div
+            className='test--radar-explainer-toggle-button'
+            style={ questionMarkStyle }
+            onClick={ this.openExplainer }>
+            <span style={ questionMarInnerStyle }>?</span>
+          </div>
+          <RadarExplainer
+            show={ showExplainer }
+            closeHandler={ this.closeExplainer }
+            radarChartData={ get(last(data), 'items') }
+          />
+        </MediaQuery>
+      </div>
     );
   }
 }

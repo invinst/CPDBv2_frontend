@@ -3,11 +3,14 @@ import should from 'should';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
+  Simulate,
 } from 'react-addons-test-utils';
 import { useFakeTimers } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import AnimatedRadarChart from 'components/officer-page/radar-chart';
+import RadarExplainer from 'components/officer-page/radar-chart/explainer';
 import StaticRadarChart from 'components/common/radar-chart';
 
 
@@ -53,6 +56,8 @@ describe('AnimatedRadarChart components', function () {
   it('should render if data provided', function () {
     instance = renderIntoDocument(<AnimatedRadarChart data={ data }/>);
     findRenderedComponentWithType(instance, StaticRadarChart);
+    findRenderedComponentWithType(instance, RadarExplainer);
+    findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-toggle-button');
   });
 
   it('should rerender if data change', function () {
@@ -123,6 +128,37 @@ describe('AnimatedRadarChart components', function () {
 
       instance.handleClick();
       instance.state.transitionValue.should.eql(0);
+    });
+  });
+
+  describe('RadarExplainer', function () {
+    it('should be shown when clicking on Question Mark', function () {
+      instance = renderIntoDocument(
+        <AnimatedRadarChart data={ data }/>
+      );
+
+      const questionMark = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-toggle-button');
+
+      instance.state.showExplainer.should.be.false();
+      Simulate.click(questionMark);
+
+      instance.state.showExplainer.should.be.true();
+      findRenderedComponentWithType(instance, RadarExplainer).props.show.should.be.true();
+    });
+
+    it('should be hidden when clicking on close button', function () {
+      instance = renderIntoDocument(
+        <AnimatedRadarChart data={ data }/>
+      );
+
+      const questionMark = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-toggle-button');
+      Simulate.click(questionMark);
+
+      const closeBtn = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
+      Simulate.click(closeBtn);
+
+      instance.state.showExplainer.should.be.false();
+      findRenderedComponentWithType(instance, RadarExplainer).should.displayNothing();
     });
   });
 });
