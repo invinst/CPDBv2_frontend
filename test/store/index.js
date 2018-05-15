@@ -77,12 +77,6 @@ describe('store', function () {
           count: 0
         }
       },
-      bottomSheet: {
-        officersAutoSuggest: {
-          isRequesting: false,
-          officers: []
-        }
-      },
       reports: {},
       routing: {
         locationBeforeTransitions: null

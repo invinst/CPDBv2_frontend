@@ -1,22 +1,9 @@
-import {
-  OPEN_BOTTOM_SHEET_WITH_REPORT,
-  SUGGESTION_SINGLE_REQUEST_SUCCESS,
-  SUGGESTION_REQUEST_SUCCESS,
-  CHANGE_SEARCH_QUERY
-} from 'utils/constants';
-import {
-  trackIntercomClickedReportEvent, trackInternalEvent, throttledGA
-} from 'utils/tracking';
 import { reduce, values } from 'lodash';
+import { CHANGE_SEARCH_QUERY, SUGGESTION_REQUEST_SUCCESS, SUGGESTION_SINGLE_REQUEST_SUCCESS } from 'utils/constants';
+import { throttledGA } from 'utils/tracking';
 
 
 const EVENTS = {
-  [OPEN_BOTTOM_SHEET_WITH_REPORT]: (store, action) => {
-    const report = action.payload;
-    trackIntercomClickedReportEvent(report.id, report.title);
-    trackInternalEvent('report-click', { 'id': report.id, 'title': report.title });
-  },
-
   '@@router/LOCATION_CHANGE': (store, action) => {
     global.ga('send', 'pageview', { page: action.payload.pathname });
   },

@@ -1,7 +1,6 @@
 import { stub } from 'sinon';
 
 import trackingMiddleware from 'middleware/tracking';
-import { openBottomSheetWithReport } from 'actions/bottom-sheet';
 import * as trackingUtils from 'utils/tracking';
 import * as constants from 'utils/constants';
 
@@ -15,20 +14,6 @@ describe('trackingMiddleware', function () {
   afterEach(function () {
     trackingUtils.trackIntercomClickedReportEvent.restore();
     trackingUtils.trackInternalEvent.restore();
-  });
-
-  it('should log event using intercom on OPEN_BOTTOM_SHEET_WITH_REPORT', function () {
-    let dispatched;
-    const dispatchAction = openBottomSheetWithReport({ id: 14, title: 'I am a title' });
-    trackingMiddleware({})(action => dispatched = action)(dispatchAction);
-    trackingUtils.trackIntercomClickedReportEvent.calledOnce.should.be.true();
-    trackingUtils.trackIntercomClickedReportEvent.calledWith(14, 'I am a title').should.be.true();
-
-    trackingUtils.trackInternalEvent.calledOnce.should.be.true();
-    trackingUtils.trackInternalEvent.calledWith('report-click', { 'id': 14, 'title': 'I am a title' })
-      .should.be.true();
-
-    dispatched.should.eql(dispatchAction);
   });
 
   it('should send pageview event on LOCATION_CHANGE', function () {

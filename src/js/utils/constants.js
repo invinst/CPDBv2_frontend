@@ -21,8 +21,6 @@ export const TABLET = 'tablet';
 
 export const ROOT_PATH = '/';
 export const COLLAB_PATH = 'collaborate/';
-export const DATA_PATH = 'data/';
-export const STORIES_PATH = 'reporting/';
 export const SEARCH_PATH = 'search/';
 export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
@@ -81,7 +79,6 @@ export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
 export const REPORTS_API_URL = `${V2_ROOT_PATH}reports/`;
 export const MAIL_CHIMP_URL = '/vftg/';
 export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
-export const SEARCH_OFFICER_URL = `${V2_ROOT_PATH}report-bottomsheet-officer-search/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;
@@ -93,10 +90,6 @@ export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
 export const SEARCH_TERMS_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categories/`;
 export const CITY_SUMMARY_API_URL = `${V2_ROOT_PATH}city-summary/`;
 
-export const SEARCH_OFFICERS_REQUEST_START = 'SEARCH_OFFICERS_REQUEST_START';
-export const SEARCH_OFFICERS_REQUEST_SUCCESS = 'SEARCH_OFFICERS_REQUEST_SUCCESS';
-export const SEARCH_OFFICERS_REQUEST_FAILURE = 'SEARCH_OFFICERS_REQUEST_FAILURE';
-
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
 export const OFFICER_SUMMARY_REQUEST_FAILURE = 'OFFICER_SUMMARY_REQUEST_FAILURE';
@@ -105,12 +98,9 @@ export const UNIT_PROFILE_SUMMARY_REQUEST_START = 'UNIT_PROFILE_SUMMARY_REQUEST_
 export const UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS = 'UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS';
 export const UNIT_PROFILE_SUMMARY_REQUEST_FAILURE = 'UNIT_PROFILE_SUMMARY_REQUEST_FAILURE';
 
-export const OPEN_BOTTOM_SHEET_WITH_REPORT = 'OPEN_BOTTOM_SHEET_WITH_REPORT';
 export const OPEN_OFFICER_PAGE = 'OPEN_OFFICER_PAGE';
 export const OPEN_OFFICER_SOCIAL_GRAPH_PAGE = 'OPEN_OFFICER_SOCIAL_GRAPH_PAGE';
 export const OPEN_COMPLAINT_PAGE = 'OPEN_COMPLAINT_PAGE';
-export const CLOSE_BOTTOM_SHEET = 'CLOSE_BOTTOM_SHEET';
-export const OPEN_BOTTOM_SHEET_TO_CREATE_REPORT = 'OPEN_BOTTOM_SHEET_TO_CREATE_REPORT';
 export const OPEN_POLICE_UNIT_PAGE = 'OPEN_POLICE_UNIT_PAGE';
 
 export const OPEN_SEARCH_PAGE = 'OPEN_SEARCH_PAGE';
@@ -167,8 +157,6 @@ export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an act
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
 
 export const UPDATE_SHAREABLE_PAGE_SCROLL_POSITION = 'UPDATE_SHAREABLE_PAGE_SCROLL_POSITION';
-
-export const BottomSheetContentType = new Enum(['REPORT', 'OFFICER', 'CR', 'UNIT_PROFILE']);
 
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';

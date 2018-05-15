@@ -9,7 +9,6 @@ import appContent from './app-content';
 import reportingPage from './reporting-page';
 import reports from './reports';
 import crs from './crs';
-import bottomSheet from './bottom-sheet';
 import officerPage from './officer-page';
 import crPage from './cr-page';
 import unitProfilePage from './unit-profile-page';
@@ -28,7 +27,6 @@ export default combineReducers({
   reportingPage,
   reports,
   crs,
-  bottomSheet,
   routing: routerReducer,
   officerPage,
   crPage,

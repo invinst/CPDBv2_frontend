@@ -1,29 +1,38 @@
 import axiosMockClient, { countRequests } from 'utils/axios-mock-client';
 import {
-  SIGNIN_URL, RESET_PASSWORD_URL, MAIL_CHIMP_URL, ACTIVITY_GRID_API_URL,
-  REPORTS_API_URL, SEARCH_OFFICER_URL, OFFICER_URL, CR_URL, UNIT_PROFILE_URL,
-  SEARCH_TERMS_CATEGORIES_API_URL, OFFICERS_BY_ALLEGATION_API_URL, CITY_SUMMARY_API_URL,
-  RECENT_DOCUMENT_URL, RECENT_COMPLAINT_SUMMARIES_URL, LANDING_PAGE_API_URL
+  ACTIVITY_GRID_API_URL,
+  CITY_SUMMARY_API_URL,
+  CR_URL,
+  LANDING_PAGE_API_URL,
+  MAIL_CHIMP_URL,
+  OFFICER_URL,
+  OFFICERS_BY_ALLEGATION_API_URL,
+  RECENT_COMPLAINT_SUMMARIES_URL,
+  RECENT_DOCUMENT_URL,
+  REPORTS_API_URL,
+  RESET_PASSWORD_URL,
+  SEARCH_TERMS_CATEGORIES_API_URL,
+  SIGNIN_URL,
+  UNIT_PROFILE_URL
 } from 'utils/constants';
-
-import OfficerFactory from 'utils/test/factories/officer';
-import reportingPageGetData from './reporting-page/get-data';
-import { groupedSuggestions, singleGroupSuggestions } from './landing-page/suggestions';
-import getSummaryData from './officer-page/get-summary';
-import getSocialGraphData from './officer-page/get-social-graph';
-import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
-import getCoaccusalsData from './officer-page/get-coaccusals';
+import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getCRRelatedComplaintsData from './cr-page/get-related-complaint';
-import getUnitSummaryData from './unit-profile-page/get-summary';
 import getActivityGridData from './landing-page/activity-grid';
-import getRecentDocument from './landing-page/recent-document';
-import getComplaintSummaries from './landing-page/complaint-summaries';
-import getSearchTermsData from './search-terms-page';
-import { getCitySummary, getCommunities } from './landing-page/heat-map';
-import { communityGeoJSONPath } from 'utils/static-assets';
 import { getCMSFields } from './landing-page/cms-field';
+import getComplaintSummaries from './landing-page/complaint-summaries';
+import { getCitySummary, getCommunities } from './landing-page/heat-map';
+import getRecentDocument from './landing-page/recent-document';
+import { groupedSuggestions, singleGroupSuggestions } from './landing-page/suggestions';
+import getCoaccusalsData from './officer-page/get-coaccusals';
+import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
+import getSocialGraphData from './officer-page/get-social-graph';
+import getSummaryData from './officer-page/get-summary';
+
+import reportingPageGetData from './reporting-page/get-data';
+import getSearchTermsData from './search-terms-page';
+import getUnitSummaryData from './unit-profile-page/get-summary';
 
 
 const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
@@ -72,9 +81,6 @@ axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
   const matchs = SEARCH_API_URL.exec(config.url);
   return [200, groupedSuggestions[config.params.contentType || matchs[1]] || groupedSuggestions['default']];
 });
-
-axiosMockClient.onGet(`${SEARCH_OFFICER_URL}foo/`).reply(() => [200, OfficerFactory.buildList(3)]);
-axiosMockClient.onGet(`${SEARCH_OFFICER_URL}notfound/`).reply(200, []);
 
 axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(countRequests(() => [200, getSummaryData()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() => [200, getSocialGraphData()]));

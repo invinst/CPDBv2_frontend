@@ -1,6 +1,5 @@
 import RouteTransition from 'components/animation/route-transition';
 import EditModeProvider from 'components/edit-mode-provider';
-import BottomSheetContainer from 'containers/bottom-sheet';
 import GenericModalContainer from 'containers/generic-modal-container';
 import LoginModalContainer from 'containers/login-modal-container';
 
@@ -66,7 +65,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    const { location, appContent, params } = this.props;
+    const { location, appContent } = this.props;
     const children = this.children();
 
     return (
@@ -75,7 +74,6 @@ export default class App extends React.Component {
           <RouteTransition pathname={ appContent }>
             { children }
           </RouteTransition>
-          <BottomSheetContainer params={ params } location={ location }/>
           <LoginModalContainer location={ location }/>
           <GenericModalContainer location={ location }/>
         </EditModeProvider>

@@ -13,10 +13,8 @@ import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
-import ReportingPage from 'components/reporting-page';
 import {
   COLLAB_PATH,
-  STORIES_PATH,
   SEARCH_PATH,
   SEARCH_TERMS_PATH,
   OFFICER_PATH,
@@ -45,13 +43,6 @@ class RouterRoot extends Component {
             <IndexRoute
               component={ LandingPageContainer }
               breadcrumb='cpdp'/>
-            <Route
-              path={ STORIES_PATH }
-              component={ ReportingPage }>
-              <Route
-                path={ ':reportId' }
-                component={ ReportingPage }/>
-            </Route>
             <Route
               path={ COLLAB_PATH }
               component={ CollaborationPage }/>

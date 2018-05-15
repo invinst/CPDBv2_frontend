@@ -17,7 +17,6 @@ import App from 'components/app';
 import ShareableHeader from 'components/headers/shareable-header';
 import SlimHeader from 'components/headers/slim-header';
 import SearchPageContainer from 'containers/search-page-container';
-import BottomSheetContainer from 'containers/bottom-sheet';
 import OfficerPageContainer from 'containers/officer-page';
 
 
@@ -42,12 +41,6 @@ describe('App component', function () {
     },
     cms: {
       pages: {}
-    },
-    bottomSheet: {
-      officersAutoSuggest: {
-        isRequesting: false,
-        officers: []
-      }
     },
     officerPage: {
       summary: {},
@@ -109,21 +102,6 @@ describe('App component', function () {
       rootEl
     );
     scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
-  });
-
-  it('should pass params to BottomSheetContainer', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <App
-          params={ { reportId: 1 } }
-          location={ location }
-          appContent='/'>
-          <ChildComponent/>
-        </App>
-      </Provider>
-    );
-    const element = findRenderedComponentWithType(instance, BottomSheetContainer);
-    element.props.params.should.deepEqual({ reportId: 1 });
   });
 
   it('should toggle edit mode when hit esc', function () {

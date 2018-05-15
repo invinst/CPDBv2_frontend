@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { map, values, mapValues } from 'lodash';
 import { convertToRaw } from 'draft-js';
+import { officersToCamelCase } from 'utils/case-converting-tranform';
 
 import { wrapperStyle } from './editable-section.style';
 import { convertContentStateToEditorState } from 'utils/draft';
-import { officersToCamelCase, officersToSnakeCase } from 'selectors/bottom-sheet/report';
+import { officersToSnakeCase } from 'utils/case-converting-tranform';
 
 
 export default function (SubComponent) {
