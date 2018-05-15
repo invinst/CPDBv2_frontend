@@ -1,16 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
-import { buildMap, buildMarker } from 'utils/mapbox';
 import { wrapperStyle } from './cr-location-map.style';
 import { markerRedColor } from 'utils/styles';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
+import { mapboxgl } from 'utils/vendors';
 
 
 const centerLat = 41.85677;
 const centerLng = -87.6024055;
-const zoom1 = 10;
-const zoom2 = 14;
+const zoom1 = 9;
+const zoom2 = 13;
 
 export default class CRLocationMap extends Component {
   componentWillReceiveProps(nextProps, nextState) {
@@ -20,7 +20,7 @@ export default class CRLocationMap extends Component {
       this.addMarker(nextProps.lat, nextProps.lng);
 
       if (this.map.getZoom() === zoom2) {
-        this.zoomIn();
+        this.zoomOut();
       }
     }
   }
@@ -28,17 +28,12 @@ export default class CRLocationMap extends Component {
   gotRef(el) {
     if (el && !this.map) {
       const { lat, lng } = this.props;
-      this.map = buildMap(el, 'mapbox.streets', {
-        center: [centerLat, centerLng],
+      this.map = new mapboxgl.Map({
+        container: el,
+        style: 'mapbox://styles/mapbox/streets-v10',
         zoom: zoom1,
-        dragging: false,
-        touchZoom: false,
-        scrollWheelZoom: false,
-        boxZoom: false,
-        keyboard: false,
-        doubleClickZoom: false,
-        zoomControl: false,
-        attributionControl: false
+        center: [centerLng, centerLat],
+        interactive: false
       });
       this.map.on('click', this.handleMapClick.bind(this));
       this.addMarker(lat, lng);
@@ -46,21 +41,21 @@ export default class CRLocationMap extends Component {
   }
 
   addMarker(lat, lng) {
-    const geojson = [{
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [lng, lat]
-      },
-      properties: {
-        'marker-color': markerRedColor,
-        'marker-size': 'small'
-      }
-    }];
-    if (this.marker) {
-      this.map.removeLayer(this.marker);
+    if (!this.marker) {
+      const markerEl = document.createElement('div');
+      markerEl.style.backgroundColor = markerRedColor;
+      markerEl.style.backgroundSize = 'cover';
+      markerEl.style.width = '14px';
+      markerEl.style.height = '14px';
+      markerEl.style.borderRadius = '50%';
+      markerEl.style.opacity = 0.5;
+
+      this.marker = new mapboxgl.Marker(markerEl);
+      this.marker.setLngLat([lng, lat]);
+      this.marker.addTo(this.map);
+    } else {
+      this.marker.setLngLat([lng, lat]);
     }
-    this.marker = buildMarker(geojson).addTo(this.map);
   }
 
   handleMapClick(e) {
@@ -72,12 +67,18 @@ export default class CRLocationMap extends Component {
   }
 
   zoomIn() {
-    const { lat, lng } = this.props;
-    this.map.setView([lat, lng], zoom2);
+    const { lng, lat } = this.props;
+    this.map.easeTo({
+      center: [lng, lat],
+      zoom: zoom2
+    });
   }
 
   zoomOut() {
-    this.map.setView([centerLat, centerLng], zoom1);
+    this.map.easeTo({
+      center: [centerLng, centerLat],
+      zoom: zoom1
+    });
   }
 
   renderWithResponsiveStyle(style) {
