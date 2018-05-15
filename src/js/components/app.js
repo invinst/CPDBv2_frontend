@@ -57,7 +57,7 @@ export default class App extends React.Component {
   children() {
     const { children, params, location } = this.props;
     const { reportId } = params;
-    if ((reportId ) && this.prevChildren) {
+    if (reportId && this.prevChildren) {
       return this.prevChildren;
     }
     this.prevChildren = cloneElement(children, { pathname: location.pathname });
