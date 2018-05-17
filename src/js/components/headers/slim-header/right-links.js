@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { QA_LINK } from 'utils/constants';
 
 export default class RightLinks extends Component {
   render() {
@@ -10,7 +11,7 @@ export default class RightLinks extends Component {
       },
       {
         name: 'Q&A',
-        externalHref: 'http://how.cpdp.works/'
+        externalHref: QA_LINK
       },
       {
         name: 'Glossary',

@@ -1,4 +1,6 @@
+import OutboundLink from 'components/common/outbound-link';
 import React, { Component, PropTypes } from 'react';
+import { QA_LINK } from 'utils/constants';
 import {
   instructionStyle,
   paddingWrapperStyle,
@@ -23,16 +25,16 @@ class LegalDisclaimerModalContent extends Component {
           <p>
             We cannot guarantee the accuracy of this data - instead we commit ourselves to being honest about
             flaws (
-              <a href={ 'http://how.cpdp.works/' } style={ linkStyle }>Q&A</a>
+              <OutboundLink href={ QA_LINK } style={ linkStyle }>Q&A</OutboundLink>
             ), transparent in our publishing process (
-              <a
+              <OutboundLink
                 href='https://github.com/invinst/'
                 target='_blank'
                 style={ linkStyle }
                 className='test--github-link'
               >
                 GitHub
-              </a>
+              </OutboundLink>
             ), and welcoming of critiques (
               <a
                 className='test--contact-link'
