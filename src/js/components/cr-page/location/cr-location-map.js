@@ -45,8 +45,8 @@ export default class CRLocationMap extends Component {
       const markerEl = document.createElement('div');
       markerEl.style.backgroundColor = markerRedColor;
       markerEl.style.backgroundSize = 'cover';
-      markerEl.style.width = '14px';
-      markerEl.style.height = '14px';
+      markerEl.style.width = '28px';
+      markerEl.style.height = '28px';
       markerEl.style.borderRadius = '50%';
       markerEl.style.opacity = 0.5;
 
