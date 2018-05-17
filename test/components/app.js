@@ -1,11 +1,9 @@
 import 'polyfill';
 import { Provider } from 'react-redux';
-import { render } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
@@ -26,7 +24,6 @@ describe('App component', function () {
   const store = mockStore({
     authentication: {},
     adapter: 'adapter',
-    reports: { 1: {} },
     landingPage: {
       activityGrid: {
         cards: []
@@ -75,33 +72,6 @@ describe('App component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-  });
-
-  it('should keep previous children when displaying report', function () {
-    let rootEl = document.createElement('div');
-    instance = render(
-      <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'>
-          <ChildComponent/>
-        </App>
-      </Provider>,
-      rootEl
-    );
-    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
-    instance = render(
-      <Provider store={ store }>
-        <App
-          params={ { reportId: 1 } }
-          location={ location }
-          appContent='/'>
-          abc
-        </App>
-      </Provider>,
-      rootEl
-    );
-    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
   });
 
   it('should toggle edit mode when hit esc', function () {
@@ -196,46 +166,5 @@ describe('App component', function () {
     );
     scryRenderedComponentsWithType(instance, SlimHeader).length.should.eql(0);
     findRenderedComponentWithType(instance, ShareableHeader);
-  });
-
-  it('should not update prevChildren if previous page is a bottom sheet', function () {
-    let rootEl = document.createElement('div');
-    instance = render(
-      <Provider store={ store }>
-        <App
-          location={ location }
-          appContent='/'>
-          <ChildComponent/>
-        </App>
-      </Provider>,
-      rootEl
-    );
-    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
-    instance = render(
-      <Provider store={ store }>
-        <App
-          params={ { reportId: 1 } }
-          location={ location }
-          appContent='/'>
-          <div className='test-div'/>
-        </App>
-      </Provider>,
-      rootEl
-    );
-    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
-    scryRenderedDOMComponentsWithClass(instance, 'test-div').length.should.eql(0);
-    instance = render(
-      <Provider store={ store }>
-        <App
-          params={ { reportId: 1 } }
-          location={ location }
-          appContent='/'>
-          abc
-        </App>
-      </Provider>,
-      rootEl
-    );
-    scryRenderedComponentsWithType(instance, ChildComponent).length.should.eql(1);
-    scryRenderedDOMComponentsWithClass(instance, 'test-div').length.should.eql(0);
   });
 });

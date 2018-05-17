@@ -9,7 +9,6 @@ import {
   OFFICERS_BY_ALLEGATION_API_URL,
   RECENT_COMPLAINT_SUMMARIES_URL,
   RECENT_DOCUMENT_URL,
-  REPORTS_API_URL,
   RESET_PASSWORD_URL,
   SEARCH_TERMS_CATEGORIES_API_URL,
   SIGNIN_URL,
@@ -30,15 +29,12 @@ import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
 import getSocialGraphData from './officer-page/get-social-graph';
 import getSummaryData from './officer-page/get-summary';
 
-import reportingPageGetData from './reporting-page/get-data';
 import getSearchTermsData from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 
 
 const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
 const SEARCH_SINGLE_API_URL = /^suggestion\/([^/]*)\/single\/$/;
-/* istanbul ignore next */
-axiosMockClient.onGet(REPORTS_API_URL).reply(() => [200, reportingPageGetData()]);
 /* istanbul ignore next */
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);

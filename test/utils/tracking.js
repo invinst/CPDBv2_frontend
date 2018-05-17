@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { EVENTS_API_URL } from 'utils/constants';
 import {
-  trackIntercomClickedReportEvent, trackInternalEvent, trackOutboundLink
+  trackInternalEvent, trackOutboundLink
 } from 'utils/tracking';
 
 
@@ -19,18 +19,6 @@ describe('tracking utils', function () {
   afterEach(function () {
     IntercomStub.restore();
     axios.post.restore();
-  });
-
-  describe('trackIntercomClickedReportEvent', function () {
-    it('should call Intercom API', function () {
-      trackIntercomClickedReportEvent(11, 'This is a title');
-
-      IntercomStub.calledOnce.should.be.true();
-      IntercomStub.calledWith('trackEvent', 'clicked-reporting-item', {
-        id: 11,
-        title: 'This is a title'
-      }).should.be.true();
-    });
   });
 
   describe('trackInternalEvent', function () {

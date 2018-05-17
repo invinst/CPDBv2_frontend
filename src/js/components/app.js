@@ -43,8 +43,8 @@ export default class App extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { reportId, officerId } = this.props.params;
-    if (this.props.children && !(reportId || officerId)) {
+    const { officerId } = this.props.params;
+    if (this.props.children && !(officerId)) {
       this.prevChildren = this.props.children;
     }
   }
@@ -55,11 +55,7 @@ export default class App extends React.Component {
   }
 
   children() {
-    const { children, params, location } = this.props;
-    const { reportId } = params;
-    if (reportId && this.prevChildren) {
-      return this.prevChildren;
-    }
+    const { children, location } = this.props;
     this.prevChildren = cloneElement(children, { pathname: location.pathname });
     return this.prevChildren;
   }

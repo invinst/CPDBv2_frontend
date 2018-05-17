@@ -7,12 +7,10 @@ import * as constants from 'utils/constants';
 
 describe('trackingMiddleware', function () {
   beforeEach(function () {
-    stub(trackingUtils, 'trackIntercomClickedReportEvent');
     stub(trackingUtils, 'trackInternalEvent');
   });
 
   afterEach(function () {
-    trackingUtils.trackIntercomClickedReportEvent.restore();
     trackingUtils.trackInternalEvent.restore();
   });
 

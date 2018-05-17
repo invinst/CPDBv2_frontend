@@ -64,20 +64,6 @@ describe('store', function () {
       cms: {
         pages: {}
       },
-      reportingPage: {
-        isRequesting: false,
-        reportGrouping: {
-          groups: [],
-          groupingStrategy: 'STRATEGY_RANDOM',
-          existingReportIds: []
-        },
-        pagination: {
-          next: null,
-          previous: null,
-          count: 0
-        }
-      },
-      reports: {},
       routing: {
         locationBeforeTransitions: null
       },
