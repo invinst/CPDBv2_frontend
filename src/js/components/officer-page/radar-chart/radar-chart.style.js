@@ -19,7 +19,7 @@ export const questionMarkStyle = {
   borderRadius: '12px',
   position: 'absolute',
   right: '16px',
-  bottom: '16px',
+  top: '16px',
   boxSizing: 'border-box',
   cursor: 'pointer'
 };

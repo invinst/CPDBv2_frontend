@@ -13,11 +13,12 @@ export default class TriangleExplainer extends Component {
     const radarConfig = {
       hideAxisText: true,
       backgroundColor: sugarCaneColor,
+      showGrid: true,
+      showSpineLine: false,
     };
 
-
     return (
-      <div style={ containerStyle }>
+      <div style={ containerStyle } className='test--triangle-explainer'>
         <div style={ radarContainerStyle }>
           <StaticRadarChart { ...radarConfig } data={ this.props.radarChartData }/>
         </div>

@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
-import { containerStyle, footerStyle, closeButtonInnerStyle, closeButtonStyle } from './radar-chart-explainer.style';
+import { containerStyle, footerStyle } from './radar-chart-explainer.style';
 import TriangleExplainer from './triangle-explainer';
 import ScaleExplainer from './scale-explainer';
-import PercentilesByYearExplainer from './percentiles-by-year';
+import PercentilesByYear from './percentiles-by-year';
 import LeftNavigation from './left-navigation';
 import RightNavigation from './right-navigation';
 
 
 const NAVIGATION_TEXTS = ['What is this triangle?', 'What is the scale?', 'Percentiles by year'];
-const EXPLAINERS = [TriangleExplainer, ScaleExplainer, PercentilesByYearExplainer];
 
 export default class RadarExplainer extends Component {
   constructor(props) {
@@ -18,6 +17,21 @@ export default class RadarExplainer extends Component {
       currentPaneIndex: 0,
     };
 
+    this.navigateLeft = this.navigateLeft.bind(this);
+    this.navigateRight = this.navigateRight.bind(this);
+  }
+
+  renderExplainer() {
+    const { radarChartData, year } = this.props;
+
+    switch (this.state.currentPaneIndex) {
+      case 1:
+        return <ScaleExplainer year={ year } radarChartData={ radarChartData }/>;
+      case 2:
+        return <PercentilesByYear/>;
+      default:
+        return <TriangleExplainer radarChartData={ radarChartData }/>;
+    }
   }
 
   getCurrentNavigationTexts() {
@@ -42,23 +56,15 @@ export default class RadarExplainer extends Component {
   }
 
   render() {
-    const { radarChartData, closeHandler, show } = this.props;
     const [leftNavigationText, rightNavigationText] = this.getCurrentNavigationTexts();
 
-    const Explainer = EXPLAINERS[this.state.currentPaneIndex];
 
-    return show ? (
+    return this.props.show ? (
       <div style={ containerStyle }>
-        <div
-          className='test--radar-explainer-close-button'
-          style={ closeButtonStyle }
-          onClick={ closeHandler }>
-          <span style={ closeButtonInnerStyle }>X</span>
-        </div>
-        <Explainer radarChartData={ radarChartData }/>
+        { this.renderExplainer() }
         <div style={ footerStyle }>
-          <LeftNavigation onClickHandler={ this.navigateLeft.bind(this) } text={ leftNavigationText }/>
-          <RightNavigation onClickHandler={ this.navigateRight.bind(this) } text={ rightNavigationText }/>
+          <LeftNavigation onClickHandler={ this.navigateLeft } text={ leftNavigationText }/>
+          <RightNavigation onClickHandler={ this.navigateRight } text={ rightNavigationText }/>
         </div>
       </div>
     ) : null;
@@ -73,5 +79,5 @@ RadarExplainer.propTypes = {
       value: PropTypes.number.isRequired
     })
   ),
-  closeHandler: PropTypes.func,
+  year: PropTypes.number
 };

@@ -8,6 +8,7 @@ import RadarArea from './radar-area';
 import RadarSpineLine from './radar-spine-line';
 import RadarLegend from './radar-legend';
 import RadarTooltipPoints from './radar-tooltip-point';
+import RadarGrid from './radar-grid';
 
 
 export default class StaticRadarChart extends Component {
@@ -47,14 +48,17 @@ export default class StaticRadarChart extends Component {
       width,
       height,
       radius,
+      showGrid,
+      showSpineLine,
+      showValueInsteadOfTitle,
+      showDataPoints,
+      axisTitleFontSize,
     } = this.props;
 
     if (!data || !data.length)
       return <svg
         className='test--radar' width='100%'
         height='100%' style={ { backgroundColor } }/>;
-
-    const titles = map(data, (d) => d.axis);
 
     const transformData = this._embedComputedPosition(data);
 
@@ -67,17 +71,25 @@ export default class StaticRadarChart extends Component {
         height='100%'
         viewBox={ `0 0 ${width} ${height}` }
       >
-        <g style={ { transform: `translate(${parseInt(width/2)}px, ${parseInt(height * 0.4)}px)` } }>
+        <g style={ { transform: `translate(${parseInt(width / 2)}px, ${parseInt(height * 0.4)}px)` } }>
           <RadarAxis
-            axisTitles={ titles }
+            data={ data }
             radius={ radius }
             maxValue={ this.maxValue }
             hideText={ hideAxisText }
+            showValueInsteadOfTitle={ showValueInsteadOfTitle }
             textColor={ textColor }
             strokeWidth={ this.strokeWidth }
+            axisTitleFontSize={ axisTitleFontSize }
           />
-          <RadarArea showValueText={ !hideAxisText } rPoints={ transformData } strokeWidth={ this.strokeWidth }/>
-          <RadarSpineLine rPoints={ transformData }/>
+          <RadarArea showDataPoints={ showDataPoints } rPoints={ transformData } strokeWidth={ this.strokeWidth }/>
+
+          { showSpineLine && <RadarSpineLine rPoints={ transformData }/> }
+          { showGrid && (
+            <RadarGrid
+              numAxis={ data.length } radius={ radius } maxValue={ this.maxValue }
+              strokeWidth={ this.strokeWidth }/>
+          ) }
           <RadarLegend fadeOut={ fadeOutLegend } content={ legendText }/>
           { !hideAxisText && <RadarTooltipPoints data={ transformData }/> }
         </g>
@@ -92,9 +104,13 @@ StaticRadarChart.defaultProps = {
   fadeOutLegend: false,
   hideAxisText: false,
   showValueText: false,
+  showGrid: false,
   width: 512,
   height: 392,
-  radius: 164
+  radius: 164,
+  showSpineLine: true,
+  showDataPoints: false,
+  axisTitleFontSize: 14,
 };
 
 StaticRadarChart.propTypes = {
@@ -116,6 +132,11 @@ StaticRadarChart.propTypes = {
   width: PropTypes.number,
   height: PropTypes.number,
   onClick: PropTypes.func,
-  radius: PropTypes.number
+  radius: PropTypes.number,
+  showGrid: PropTypes.bool,
+  showValueInsteadOfTitle: PropTypes.bool,
+  showSpineLine: PropTypes.bool,
+  showDataPoints: PropTypes.bool,
+  axisTitleFontSize: PropTypes.number
 };
 

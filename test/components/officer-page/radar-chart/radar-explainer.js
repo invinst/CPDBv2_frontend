@@ -6,7 +6,6 @@ import {
   Simulate
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
-import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import RadarExplainer from 'components/officer-page/radar-chart/explainer';
@@ -56,7 +55,7 @@ describe('RadarExplainer components', function () {
     instanceDOM.textContent.should.containEql('Percentiles by year');
   });
 
-  it('should change to PercentilesByYearExplainer when click to LeftNavigation', function () {
+  it('should change to PercentilesByYear when click to LeftNavigation', function () {
     instance = renderIntoDocument(
       <RadarExplainer show={ true }/>
     );
@@ -72,7 +71,7 @@ describe('RadarExplainer components', function () {
     instanceDOM.textContent.should.containEql('What is the scale?');
   });
 
-  it('should change back to PercentilesByYearExplainer when click to RightNavigation two times', function () {
+  it('should change back to PercentilesByYear when click to RightNavigation two times', function () {
     instance = renderIntoDocument(
       <RadarExplainer show={ true }/>
     );
@@ -83,15 +82,5 @@ describe('RadarExplainer components', function () {
     Simulate.click(rightNavigationElm);
     instance.state.currentPaneIndex.should.eql(2);
     findRenderedComponentWithType(instance, PercentilesByYearExplainer);
-  });
-
-  it('should call closeHandler when click to close button', function () {
-    const closeHandler = spy();
-    instance = renderIntoDocument(
-      <RadarExplainer closeHandler={ closeHandler } show={ true }/>
-    );
-    const closeBtn = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
-    Simulate.click(closeBtn);
-    closeHandler.called.should.be.true();
   });
 });

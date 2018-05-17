@@ -23,8 +23,7 @@ export default class AnimatedRadarChart extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.animate = this.animate.bind(this);
     this.getCurrentTransitionData = this.getCurrentTransitionData.bind(this);
-    this.openExplainer = this.openExplainer.bind(this);
-    this.closeExplainer = this.closeExplainer.bind(this);
+    this.toggleExplainer = this.toggleExplainer.bind(this);
   }
 
   componentDidMount() {
@@ -105,17 +104,11 @@ export default class AnimatedRadarChart extends Component {
     }
   }
 
-  openExplainer() {
-    this.setState({
-      ...this.state,
-      showExplainer: true,
-    });
-  }
 
-  closeExplainer() {
+  toggleExplainer() {
     this.setState({
       ...this.state,
-      showExplainer: false,
+      showExplainer: !this.state.showExplainer,
     });
   }
 
@@ -125,6 +118,7 @@ export default class AnimatedRadarChart extends Component {
     if (!data) return null;
 
     const itemData = this.getCurrentTransitionData();
+    const lastItem = last(data);
 
     return (!!itemData) && (
       <div className='test--officer--radar-chart' style={ radarChartPlaceholderStyle }>
@@ -135,19 +129,20 @@ export default class AnimatedRadarChart extends Component {
           fadeOutLegend={ transitionValue >= (data.length - 1) }
           legendText={ itemData.year }
           data={ itemData.items }
+          showDataPoints={ true }
         />
         <MediaQuery minWidth={ MOBILE_BREAK_POINT }>
+          <RadarExplainer
+            show={ showExplainer }
+            radarChartData={ get(lastItem, 'items') }
+            year={ get(lastItem, 'year') }
+          />
           <div
             className='test--radar-explainer-toggle-button'
             style={ questionMarkStyle }
-            onClick={ this.openExplainer }>
-            <span style={ questionMarInnerStyle }>?</span>
+            onClick={ this.toggleExplainer }>
+            <span style={ questionMarInnerStyle }>{ showExplainer ? 'X' : '?' }</span>
           </div>
-          <RadarExplainer
-            show={ showExplainer }
-            closeHandler={ this.closeExplainer }
-            radarChartData={ get(last(data), 'items') }
-          />
         </MediaQuery>
       </div>
     );

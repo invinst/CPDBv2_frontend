@@ -2,22 +2,31 @@ import React, { Component, PropTypes } from 'react';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import {
-  containerStyle, explainerContainerStyle, radarContainerStyle, subTextStyle, titleTextStyle, textStyle
+  containerStyle, explainerContainerStyle, radarContainerStyle, subTextStyle, titleTextStyle, textStyle, legendStyle
 } from './scale-explainer.style';
 import { sugarCaneColor } from 'utils/styles';
 
 
 export default class ScaleExplainer extends Component {
   render() {
+    const { radarChartData, year } = this.props;
     const radarConfig = {
-      hideAxisText: true,
+      showValueInsteadOfTitle: true,
       backgroundColor: sugarCaneColor,
+      showGrid: true,
+      showSpineLine: false,
+      showDataPoints: false,
+      axisTitleFontSize: 24,
     };
 
     return (
-      <div style={ containerStyle }>
+      <div style={ containerStyle } className='test--scale-explainer'>
         <div style={ radarContainerStyle }>
-          <StaticRadarChart { ...radarConfig } data={ this.props.radarChartData }/>
+          <StaticRadarChart
+            { ...radarConfig }
+            data={ radarChartData }
+          />
+          <div style={ legendStyle }>{ year }</div>
         </div>
         <div style={ explainerContainerStyle }>
           <h5 style={ titleTextStyle }>What is the scale?</h5>
@@ -42,5 +51,6 @@ ScaleExplainer.propTypes = {
       axis: PropTypes.string.isRequired,
       value: PropTypes.number.isRequired
     })
-  )
+  ),
+  year: PropTypes.number,
 };

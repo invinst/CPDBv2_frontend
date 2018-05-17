@@ -1,5 +1,6 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedComponentWithType, } from 'react-addons-test-utils';
+import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import ScaleExplainer from 'components/officer-page/radar-chart/explainer/scale-explainer';
@@ -13,7 +14,7 @@ describe('ScaleExplainer components', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render radar chart', function () {
+  it('should render radar chart with legend', function () {
     const radarChartData = [
       {
         axis: 'axis 1',
@@ -29,9 +30,12 @@ describe('ScaleExplainer components', function () {
       },
     ];
 
-    instance = renderIntoDocument(<ScaleExplainer radarChartData={ radarChartData }/>);
+    instance = renderIntoDocument(
+      <ScaleExplainer radarChartData={ radarChartData } year={ 2016 }/>
+    );
     const radarChart = findRenderedComponentWithType(instance, StaticRadarChart);
 
     radarChart.props.data.should.eql(radarChartData);
+    findDOMNode(instance).textContent.should.containEql('2016');
   });
 });

@@ -41,3 +41,12 @@ export const subTextStyle = {
   color: clayGray,
   margin: 0
 };
+
+export const legendStyle = {
+  position: 'relative',
+  top: '-34px',
+  float: 'right',
+  right: '18px',
+  fontSize: '14px',
+  color: softBlackColor,
+};
