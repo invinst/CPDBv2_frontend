@@ -41,9 +41,9 @@ SchoolGroundPane.propTypes = {
   name: PropTypes.string,
   allegationCount: PropTypes.number,
   officersMostComplaint: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
+    id: PropTypes.string,
+    name: PropTypes.string,
+    count: PropTypes.number,
     url: PropTypes.string
   })),
   url: PropTypes.string,
