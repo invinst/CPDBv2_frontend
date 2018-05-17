@@ -29,7 +29,7 @@ export default class PoliceBeatPane extends Component {
           items={ mostCommonComplaint }
           typeName='allegation'
           showAvatar={ false }
-          title='MOST COMMON COMPLAINT'
+          title='MOST COMMON COMPLAINTS'
         />
         <CallToActionWidget url={ url }/>
       </WidgetWrapper>
