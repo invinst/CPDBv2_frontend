@@ -43,6 +43,9 @@ describe('search page results selector', function () {
                 to: '/officer/29033/',
                 allegationCount: 10,
                 sustainedCount: 2,
+                majorAwardCount: 2,
+                honorableMentionCount: 2,
+                honorableMentionPercentile: 72.2,
                 unit: {
                   id: 1,
                   'unit_name': '018',
@@ -62,11 +65,10 @@ describe('search page results selector', function () {
             'age': 48,
             'civilianComplimentCount': 4,
             'complaintCount': 10,
-            'complaintPercentile': '93',
+            'complaintPercentile': 93,
             'disciplineCount': 1,
             'fullName': 'Jerome Turbyville',
             'gender': 'Male',
-            'honorableMentionCount': undefined,
             'id': '29033',
             'itemIndex': 1,
             'lastPercentile': {
@@ -94,11 +96,14 @@ describe('search page results selector', function () {
             'rank': 'Police Officer',
             'resignationDate': null,
             'sustainedCount': 2,
+            'majorAwardCount': 2,
+            'honorableMentionCount': 2,
+            'honorableMentionPercentile': 72,
             'tags': [],
             'text': 'Jerome Turbyville',
             'to': '/officer/29033/',
             'trrCount': undefined,
-            'trrPercentile': '90',
+            'trrPercentile': 90,
             'type': 'OFFICER',
             'uniqueKey': 'OFFICER-29033',
             'unit': {
@@ -290,13 +295,13 @@ describe('search page results selector', function () {
     it('should output correct order', function () {
       suggestionTagsSelector({
         searchPage: {
-          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY'],
+          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY', 'POLICE-DISTRICT'],
           query: 'something'
         }
-      }).should.deepEqual(['OFFICER', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT']);
+      }).should.deepEqual(['OFFICER', 'COMMUNITY', 'NEIGHBORHOOD', 'POLICE-DISTRICT', 'UNIT']);
     });
 
-    it('should output RECENT tag if theres no query', function () {
+    it('should output RECENT tag if there is no query', function () {
       suggestionTagsSelector({
         searchPage: {
           tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY'],

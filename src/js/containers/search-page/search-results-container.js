@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import SearchResults from 'components/search-page/search-results';
 import {
   getSuggestion,
-  trackRecentSuggestion,
   resetNavigation,
   getSuggestionWithContentType,
   move,
@@ -51,7 +50,6 @@ const mapDispatchToProps = {
   getSuggestion,
   resetNavigation,
   setAliasAdminPageContent,
-  suggestionClick: trackRecentSuggestion,
   getSuggestionWithContentType,
   move,
   setSearchNavigation,
