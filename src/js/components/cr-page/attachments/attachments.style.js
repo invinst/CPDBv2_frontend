@@ -1,19 +1,27 @@
 import {
-  sanFranciscoTextFamily, softBlackColor, greyishColor, whiteTwoColor, clayGray
+  sanFranciscoTextFamily, softBlackColor, whiteTwoColor, clayGray, sugarCaneColor
 } from 'utils/styles';
 
 
-export const wrapperStyle = {
-  position: 'relative',
+export const wrapperStyle = hasData => ({
+  backgroundColor: hasData ? 'white' : sugarCaneColor
+});
+
+export const innerWrapperStyle = hasData => ({
   margin: '0 16px',
-  borderBottom: `1px solid ${whiteTwoColor}`
-};
+  borderBottom: hasData ? `1px solid ${whiteTwoColor}` : null,
+  borderTop: hasData ? `1px solid ${whiteTwoColor}` : null,
+  position: 'relative',
+});
 
 export const headerStyle = {
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
-  paddingTop: '7px',
-  marginBottom: '21px'
+  paddingTop: '8px'
+};
+
+export const attachmentsStyle = {
+  paddingBottom: '8px'
 };
 
 export const headerLeftColumnStyle = {
@@ -31,9 +39,8 @@ export const subTitleStyle = {
 };
 
 export const emptyMessageStyle = {
-  color: greyishColor,
-  fontSize: '14px',
-  padding: '11px 0'
+  color: clayGray,
+  fontSize: '14px'
 };
 
 export const requestButtonStyle = {

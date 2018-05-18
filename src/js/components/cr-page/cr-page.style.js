@@ -14,7 +14,6 @@ export const headerStyle = {
 };
 
 export const summarySectionWrapperStyle = {
-  paddingTop: '8px',
   backgroundColor: 'white',
   margin: '0 16px 16px 16px',
   border: `1px solid ${whiteTwoColor}`

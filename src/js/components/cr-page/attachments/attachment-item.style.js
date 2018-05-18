@@ -7,7 +7,8 @@ import { imgUrl } from 'utils/static-assets';
 export const wrapperStyle = {
   width: '104px',
   marginRight: '16px',
-  marginBottom: '30px',
+  marginTop: '20px',
+  paddingBottom: '8px',
   textDecoration: 'none',
   display: 'inline-block',
   verticalAlign: 'top'
