@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
 
-import { DATA_NOT_AVAILABLE } from 'utils/constants';
 import SummaryField from './summary-field';
 import ViewUnitProfileButton from './view-unit-profile-button';
 import { officerNameStyle, wrapperStyle } from './summary-section.style';
@@ -31,7 +30,7 @@ export default class SummarySection extends Component {
       ['Race', race],
       ['Sex', gender],
       ['Badge', badge, <HistoricBadges historicBadges={ historicBadges } key='Historic Badges'/>],
-      ['Rank', rank, currentSalary !== DATA_NOT_AVAILABLE ? <Salary salary={ currentSalary } key='Rank'/> : null],
+      ['Rank', rank, currentSalary !== null ? <Salary salary={ currentSalary } key='Rank'/> : null],
       ['Unit', unitDescription || unitName, (
         <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>
       )],

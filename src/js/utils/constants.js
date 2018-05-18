@@ -415,5 +415,3 @@ export const DISTANCE_OPTIONS = {
   '5mi': '5 MILES',
   '10mi': '10 MILES'
 };
-
-export const DATA_NOT_AVAILABLE = 'N/A';
