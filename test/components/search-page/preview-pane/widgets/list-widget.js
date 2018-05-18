@@ -28,7 +28,6 @@ describe('ListWidget', () => {
       <ListWidget
         typeName={ 'allegation' }
         items={ complaintCategories }
-        title={ 'TITLE' }
       />
     );
     const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--list-widget');
