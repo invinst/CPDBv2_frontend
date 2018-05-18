@@ -33,9 +33,9 @@ describe('ListWidget', () => {
     ];
     instance = renderIntoDocument(
       <ListWidget
-        typeName={ 'allegation' }
+        typeName='allegation'
         items={ complaintCategories }
-        title={ 'TITLE' }
+        title='TITLE'
       />
     );
     const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--list-widget');
@@ -62,9 +62,9 @@ describe('ListWidget', () => {
     ];
     instance = renderIntoDocument(
       <ListWidget
-        typeName={ 'allegation' }
+        typeName='allegation'
         items={ complaintCategories }
-        title={ 'TITLE' }
+        title='TITLE'
       />
     );
     const firstListItem = findRenderedComponentWithType(instance, HoverableLink);
@@ -73,7 +73,7 @@ describe('ListWidget', () => {
 
   it('should not display when items is empty', () => {
     instance = renderIntoDocument(
-      <ListWidget items={ [] } typeName={ 'allegation' }/>
+      <ListWidget items={ [] } typeName='allegation' />
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--list-widget').should.have.length(0);
   });

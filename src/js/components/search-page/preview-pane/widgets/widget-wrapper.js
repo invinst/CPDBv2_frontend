@@ -19,5 +19,5 @@ WidgetWrapper.defaultProps = {
 
 WidgetWrapper.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element.isRequired)
+  children: PropTypes.arrayOf(PropTypes.element)
 };

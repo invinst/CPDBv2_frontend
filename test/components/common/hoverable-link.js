@@ -20,12 +20,12 @@ describe('HoverableLink component', function () {
   });
 
   it('should render tag a when href is available', function () {
-    instance = renderIntoDocument(<HoverableLink href='123' style={ style }/>);
+    instance = renderIntoDocument(<HoverableLink href='http://link.com' style={ style }/>);
     findRenderedDOMComponentWithTag(instance, 'a');
   });
 
   it('should render Link a when href is not available', function () {
-    instance = renderIntoDocument(<HoverableLink to='123' style={ style }/>);
+    instance = renderIntoDocument(<HoverableLink to='/internal/link/' style={ style }/>);
     findRenderedComponentWithType(instance, Link);
   });
 });

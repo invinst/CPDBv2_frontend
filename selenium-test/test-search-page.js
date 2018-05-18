@@ -287,7 +287,7 @@ describe('Search Page', function () {
     });
   });
 
-  describe.only('PreviewPane', function () {
+  describe('PreviewPane', function () {
     it('should display gradient when window height is small', function () {
       browser.setViewportSize({
         width: 1000,
