@@ -239,20 +239,20 @@ exports.config = {
     browserSync.exit();
   },
 
-  // seleniumArgs: {
-  //   drivers: {
-  //     chrome: {
-  //       version: 2.36,
-  //       baseURL: 'https://chromedriver.storage.googleapis.com'
-  //     }
-  //   }
-  // },
-  // seleniumInstallArgs: {
-  //   drivers: {
-  //     chrome: {
-  //       version: 2.36,
-  //       baseURL: 'https://chromedriver.storage.googleapis.com'
-  //     }
-  //   }
-  // }
+  seleniumArgs: {
+    drivers: {
+      chrome: {
+        version: 2.36,
+        baseURL: 'https://chromedriver.storage.googleapis.com'
+      }
+    }
+  },
+  seleniumInstallArgs: {
+    drivers: {
+      chrome: {
+        version: 2.36,
+        baseURL: 'https://chromedriver.storage.googleapis.com'
+      }
+    }
+  }
 };
