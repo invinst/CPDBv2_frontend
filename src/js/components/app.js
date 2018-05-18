@@ -42,13 +42,6 @@ export default class App extends React.Component {
     fetchLandingPageContent();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { officerId } = this.props.params;
-    if (this.props.children && !(officerId)) {
-      this.prevChildren = this.props.children;
-    }
-  }
-
   componentWillUnmount() {
     LayeredKeyBinding.unbind('esc');
     ALPHA_NUMBERIC.map(LayeredKeyBinding.unbind);

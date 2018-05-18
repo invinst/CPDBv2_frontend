@@ -5,6 +5,7 @@ import { includes } from 'lodash';
 var should = require('should');
 
 import landingPage from './page-objects/landing-page';
+import { selectText } from './utils';
 
 
 describe('Header', function () {
@@ -40,13 +41,13 @@ describe('Header', function () {
         });
 
         it('should allow editing title', function () {
-          landingPage.selectText(landingPage.topHeader.logo.title.selector);
+          selectText(landingPage.topHeader.logo.title.selector);
           browser.keys('abcdef');
           includes(landingPage.topHeader.logo.title.getText(), 'abcdef').should.be.true();
         });
 
         it('should allow editing subtitle with rich text capabilities', function () {
-          landingPage.selectText(landingPage.topHeader.logo.subtitle.selector);
+          selectText(landingPage.topHeader.logo.subtitle.selector);
           landingPage.richTextToolbar.element.waitForVisible();
         });
 
