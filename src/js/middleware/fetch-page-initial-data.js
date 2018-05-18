@@ -51,7 +51,7 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchNewTimelineItems(officerId)));
       dispatches.push(store.dispatch(fetchCoaccusals(officerId)));
     }
-  } else if (action.payload.pathname === '/') {
+  } else if (action.payload.pathname.match(/^\/(edit\/?)?$/)) {
     if (!hasCommunitiesSelector(state)) {
       dispatches.push(store.dispatch(getCommunities()));
     }
