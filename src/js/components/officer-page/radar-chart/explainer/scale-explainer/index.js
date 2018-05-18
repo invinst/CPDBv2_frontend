@@ -48,8 +48,8 @@ export default class ScaleExplainer extends Component {
 ScaleExplainer.propTypes = {
   radarChartData: PropTypes.arrayOf(
     PropTypes.shape({
-      axis: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired
+      axis: PropTypes.string,
+      value: PropTypes.number
     })
   ),
   year: PropTypes.number,

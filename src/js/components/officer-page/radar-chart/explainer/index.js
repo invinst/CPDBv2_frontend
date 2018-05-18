@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
+import { get, last } from 'lodash';
 
 import { containerStyle, footerStyle, questionMarInnerStyle, questionMarkStyle } from './radar-chart-explainer.style';
 import TriangleExplainer from './triangle-explainer';
@@ -26,15 +27,16 @@ export default class RadarExplainer extends Component {
   }
 
   renderExplainer() {
-    const { radarChartData, year } = this.props;
+    const { radarChartData } = this.props;
+    const lastItem = last(radarChartData);
 
     switch (this.state.currentPaneIndex) {
       case 1:
-        return <ScaleExplainer year={ year } radarChartData={ radarChartData }/>;
+        return <ScaleExplainer year={ get(lastItem, 'year') } radarChartData={ get(lastItem, 'items') }/>;
       case 2:
-        return <PercentilesByYear/>;
+        return <PercentilesByYear yearlyRadarChartData={ radarChartData }/>;
       default:
-        return <TriangleExplainer radarChartData={ radarChartData }/>;
+        return <TriangleExplainer radarChartData={ get(lastItem, 'items') }/>;
     }
   }
 
@@ -95,11 +97,5 @@ export default class RadarExplainer extends Component {
 
 RadarExplainer.propTypes = {
   show: PropTypes.bool,
-  radarChartData: PropTypes.arrayOf(
-    PropTypes.shape({
-      axis: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired
-    })
-  ),
-  year: PropTypes.number
+  radarChartData: PropTypes.array,
 };
