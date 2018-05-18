@@ -45,9 +45,9 @@ describe('RadarArea components', function () {
     scryRenderedDOMComponentsWithClass(instance, 'test--radar-value-text').should.have.length(0);
   });
 
-  it('should show value text if showValueText is true', function () {
+  it('should show value text if showDataPoints is true', function () {
     instance = renderIntoDocument(
-      <RadarArea rPoints={ rPoints } showValueText={ true }/>
+      <RadarArea rPoints={ rPoints } showDataPoints={ true }/>
     );
     const textElements = scryRenderedDOMComponentsWithClass(instance, 'test--radar-value-text');
     textElements.should.have.length(3);
