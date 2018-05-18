@@ -4,7 +4,6 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  Simulate,
 } from 'react-addons-test-utils';
 import { useFakeTimers } from 'sinon';
 
@@ -128,39 +127,6 @@ describe('AnimatedRadarChart components', function () {
 
       instance.handleClick();
       instance.state.transitionValue.should.eql(0);
-    });
-  });
-
-  describe('RadarExplainer', function () {
-    it('should be shown when clicking on Question Mark', function () {
-      instance = renderIntoDocument(
-        <AnimatedRadarChart data={ data }/>
-      );
-
-      const questionMark = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-toggle-button');
-
-      questionMark.textContent.should.eql('?');
-
-      instance.state.showExplainer.should.be.false();
-      Simulate.click(questionMark);
-
-      instance.state.showExplainer.should.be.true();
-      findRenderedComponentWithType(instance, RadarExplainer).props.show.should.be.true();
-
-      questionMark.textContent.should.eql('X');
-    });
-
-    it('should hide when clicking on Question Mark again', function () {
-      instance = renderIntoDocument(
-        <AnimatedRadarChart data={ data }/>
-      );
-
-      const questionMark = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-toggle-button');
-      Simulate.click(questionMark);
-      Simulate.click(questionMark);
-
-      instance.state.showExplainer.should.be.false();
-      findRenderedComponentWithType(instance, RadarExplainer).should.displayNothing();
     });
   });
 });

@@ -1,12 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { map, isEqual, get, last } from 'lodash';
-import MediaQuery from 'react-responsive';
 import { scaleLinear } from 'd3-scale';
 
 import StaticRadarChart from 'components/common/radar-chart';
-import { questionMarInnerStyle, questionMarkStyle, radarChartPlaceholderStyle } from './radar-chart.style';
+import { radarChartPlaceholderStyle } from './radar-chart.style';
 import RadarExplainer from './explainer';
-import { MOBILE_BREAK_POINT } from 'utils/constants';
 
 
 export default class AnimatedRadarChart extends Component {
@@ -14,7 +12,6 @@ export default class AnimatedRadarChart extends Component {
     super(props);
     this.state = {
       transitionValue: 0,
-      showExplainer: false,
     };
     this.interval = 20;
     this.velocity = 0.1;
@@ -23,7 +20,6 @@ export default class AnimatedRadarChart extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.animate = this.animate.bind(this);
     this.getCurrentTransitionData = this.getCurrentTransitionData.bind(this);
-    this.toggleExplainer = this.toggleExplainer.bind(this);
   }
 
   componentDidMount() {
@@ -104,14 +100,6 @@ export default class AnimatedRadarChart extends Component {
     }
   }
 
-
-  toggleExplainer() {
-    this.setState({
-      ...this.state,
-      showExplainer: !this.state.showExplainer,
-    });
-  }
-
   render() {
     const { transitionValue, showExplainer } = this.state;
     const { data } = this.props;
@@ -131,19 +119,11 @@ export default class AnimatedRadarChart extends Component {
           data={ itemData.items }
           showDataPoints={ true }
         />
-        <MediaQuery minWidth={ MOBILE_BREAK_POINT }>
-          <RadarExplainer
-            show={ showExplainer }
-            radarChartData={ get(lastItem, 'items') }
-            year={ get(lastItem, 'year') }
-          />
-          <div
-            className='test--radar-explainer-toggle-button'
-            style={ questionMarkStyle }
-            onClick={ this.toggleExplainer }>
-            <span style={ questionMarInnerStyle }>{ showExplainer ? 'X' : '?' }</span>
-          </div>
-        </MediaQuery>
+        <RadarExplainer
+          show={ showExplainer }
+          radarChartData={ get(lastItem, 'items') }
+          year={ get(lastItem, 'year') }
+        />
       </div>
     );
   }

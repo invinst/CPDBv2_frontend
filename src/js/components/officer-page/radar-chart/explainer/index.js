@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
+import MediaQuery from 'react-responsive';
 
-import { containerStyle, footerStyle } from './radar-chart-explainer.style';
+import { containerStyle, footerStyle, questionMarInnerStyle, questionMarkStyle } from './radar-chart-explainer.style';
 import TriangleExplainer from './triangle-explainer';
 import ScaleExplainer from './scale-explainer';
 import PercentilesByYear from './percentiles-by-year';
 import LeftNavigation from './left-navigation';
 import RightNavigation from './right-navigation';
+import { MOBILE_BREAK_POINT } from 'utils/constants';
 
 
 const NAVIGATION_TEXTS = ['What is this triangle?', 'What is the scale?', 'Percentiles by year'];
@@ -15,10 +17,12 @@ export default class RadarExplainer extends Component {
     super(props);
     this.state = {
       currentPaneIndex: 0,
+      show: false,
     };
 
     this.navigateLeft = this.navigateLeft.bind(this);
     this.navigateRight = this.navigateRight.bind(this);
+    this.toggleExplainer = this.toggleExplainer.bind(this);
   }
 
   renderExplainer() {
@@ -55,19 +59,37 @@ export default class RadarExplainer extends Component {
     });
   }
 
+
+  toggleExplainer() {
+    this.setState({ show: !this.state.show });
+  }
+
   render() {
+    const { show } = this.state;
     const [leftNavigationText, rightNavigationText] = this.getCurrentNavigationTexts();
 
 
-    return this.props.show ? (
-      <div style={ containerStyle }>
-        { this.renderExplainer() }
-        <div style={ footerStyle }>
-          <LeftNavigation onClickHandler={ this.navigateLeft } text={ leftNavigationText }/>
-          <RightNavigation onClickHandler={ this.navigateRight } text={ rightNavigationText }/>
+    return (
+      <MediaQuery minWidth={ MOBILE_BREAK_POINT }>
+        {
+          show && (
+            <div className='test--radar-explainer-window' style={ containerStyle }>
+              { this.renderExplainer() }
+              <div style={ footerStyle }>
+                <LeftNavigation onClickHandler={ this.navigateLeft } text={ leftNavigationText }/>
+                <RightNavigation onClickHandler={ this.navigateRight } text={ rightNavigationText }/>
+              </div>
+            </div>
+          )
+        }
+        <div
+          className='test--radar-explainer-toggle-button'
+          style={ questionMarkStyle }
+          onClick={ this.toggleExplainer }>
+          <span style={ questionMarInnerStyle }>{ show ? 'X' : '?' }</span>
         </div>
-      </div>
-    ) : null;
+      </MediaQuery>
+    );
   }
 }
 
