@@ -119,6 +119,7 @@ export default class RouteTransition extends Component {
           style={ { opacity: spring(showOverlay ? 1 : 0, defaultConfig()) } }>
           { ({ opacity }) => {
             this.overlayCompletelyCover = false;
+            /* istanbul ignore next */
             if (opacity === 0) {
               return null;
             } else if (opacity === 1) {
