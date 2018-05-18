@@ -21,37 +21,42 @@ export default class ListWidget extends Component {
   render() {
     const { items, title, typeName, showAvatar } = this.props;
 
-    const WrapperByLink = ({ url, children }) => (
+    const wrapWithLink = (component, url) => (
       url ? (
         <HoverableLink
           className='test--list-widget-item-link'
           style={ linkStyle }
           to={ url }
         >
-          { children }
+          { component }
         </HoverableLink>
-      ): children
+      ): component
     );
 
     return !!(items && items.length > 0) && (
       <div className='test--list-widget' style={ containerStyle }>
         <h5 style={ headerStyle }>{ title }</h5>
         <ul style={ listStyle }>
-          { map(items, (item, index) => (
-            <WrapperByLink key={ item.id } url={ item.url }>
-              <li style={ listItemStyle(index === items.length - 1) }>
-                { (showAvatar) && (
-                  <div style={ listItemFirstStyle }>
-                    <img src={ item.image || 'http://via.placeholder.com/32x32' }/>
-                  </div>
-                ) }
-                <div>
-                  <p style={ itemNameStyle }>{ item.name }</p>
-                  <p style={ itemCountStyle }>{ pluralize(typeName, item.count, true) }</p>
-                </div>
-              </li>
-            </WrapperByLink>
-          )) }
+          {
+            map(items, (item, index) => (
+              wrapWithLink(
+                (
+                  <li style={ listItemStyle(index === items.length - 1) }>
+                    { (showAvatar) && (
+                      <div style={ listItemFirstStyle }>
+                        <img src={ item.image || 'http://via.placeholder.com/32x32' }/>
+                      </div>
+                    ) }
+                    <div>
+                      <p style={ itemNameStyle }>{ item.name }</p>
+                      <p style={ itemCountStyle }>{ pluralize(typeName, item.count, true) }</p>
+                    </div>
+                  </li>
+                ),
+                item.url
+              )
+            ))
+          }
         </ul>
       </div>
     );
