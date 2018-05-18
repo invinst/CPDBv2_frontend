@@ -6,7 +6,7 @@ import {
   tableHeaderStyle,
   tableHeaderItemStyle,
   tableContentStyle,
-  subTextStyle,
+  yearTextStyle,
   radarStyle,
   cellStyle,
 } from './percentiles-by-year.style';
@@ -42,7 +42,7 @@ export default class PercentilesByYear extends Component {
                   data={ yearlyItem.items }
                 />
               </div>
-              <div style={ subTextStyle }>{ yearlyItem.year }</div>
+              <div style={ yearTextStyle }>{ yearlyItem.year }</div>
               <div style={ cellStyle }>{ roundedPercentile(yearlyItem.items[1].value) }</div>
               <div style={ cellStyle }>{ roundedPercentile(yearlyItem.items[2].value) }</div>
               <div style={ cellStyle }>{ roundedPercentile(yearlyItem.items[0].value) }</div>

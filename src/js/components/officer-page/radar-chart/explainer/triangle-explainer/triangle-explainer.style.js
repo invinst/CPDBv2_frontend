@@ -1,4 +1,4 @@
-import { softBlackColor, clayGray } from 'utils/styles';
+import { softBlackColor, boulderColor } from 'utils/styles';
 
 
 export const containerStyle = {
@@ -31,13 +31,16 @@ export const explainerContainerStyle = {
 export const titleTextStyle = {
   fontSize: '14px',
   margin: '10px 0 10px',
+  fontWeight: 600,
 };
 
 export const textStyle = {
+  fontWeight: 300,
   margin: '0 0 18px',
 };
 
 export const subTextStyle = {
-  color: clayGray,
+  color: boulderColor,
+  fontWeight: 200,
   margin: 0
 };

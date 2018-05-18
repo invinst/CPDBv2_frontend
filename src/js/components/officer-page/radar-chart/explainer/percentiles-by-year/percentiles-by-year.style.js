@@ -12,6 +12,7 @@ export const containerStyle = {
 
 export const headerStyle = {
   fontSize: '14px',
+  fontWeight: 600,
   color: softBlackColor,
   margin: 0,
   padding: 0,
@@ -21,7 +22,7 @@ export const headerStyle = {
 export const tableHeaderStyle = {
   fontSize: '12px',
   color: clayGray,
-  fontWeight: 'bold',
+  fontWeight: 500,
   padding: '14px 0 11px 110px',
   boxSizing: 'border-box',
   borderBottom: `1px solid ${whiteTwoColor}`,
@@ -43,7 +44,7 @@ export const tableContentStyle = {
   fontWeight: 400,
 };
 
-export const subTextStyle = {
+export const yearTextStyle = {
   display: 'inline-block',
   color: greyishColor,
   padding: '13px 0 11px',
@@ -52,6 +53,7 @@ export const subTextStyle = {
   width: '62px',
   marginLeft: '16px',
   verticalAlign: 'top',
+  fontWeight: 300,
 };
 
 export const radarStyle = {

@@ -40,7 +40,7 @@ export const questionMarkStyle = {
 
 export const questionMarInnerStyle = {
   opacity: 1,
-  padding: '4px 7px',
+  padding: '4px 9px',
   display: 'block',
   color: 'black',
   fontWeight: 'bold',
