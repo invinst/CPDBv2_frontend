@@ -14,6 +14,12 @@ describe('Header', function () {
     landingPage.open();
   });
 
+  context('edit mode off', function () {
+    it('should not display log out button', function () {
+      landingPage.topHeader.logOutButton.waitForVisible(2000, true);
+    });
+  });
+
   context('edit mode on', function () {
     beforeEach(function () {
       landingPage.openEditMode();
