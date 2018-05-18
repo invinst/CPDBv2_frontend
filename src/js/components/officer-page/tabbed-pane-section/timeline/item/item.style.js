@@ -17,7 +17,7 @@ const smallBoxStyle = (height) => ({
   height: `${height}px`,
   lineHeight: `${height}px`,
   verticalAlign: 'top',
-  whiteSpace: 'pre',
+  whiteSpace: 'word-wrap',
 });
 
 const borderRadiusStyle = (isFirst, isLast) => ({
