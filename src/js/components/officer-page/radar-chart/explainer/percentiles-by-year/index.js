@@ -8,7 +8,7 @@ import {
   tableContentStyle,
   yearTextStyle,
   radarStyle,
-  cellStyle,
+  cellStyle
 } from './percentiles-by-year.style';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
@@ -21,8 +21,10 @@ export default class PercentilesByYear extends Component {
     const radarConfig = {
       hideAxisText: true,
       showGrid: false,
-      showSpineLine: false,
+      showSpineLine: false
     };
+
+    const data = yearlyRadarChartData ? [].concat(yearlyRadarChartData).reverse() : [];
 
     return (
       <div style={ containerStyle } className='test--percentile-by-year'>
@@ -30,10 +32,10 @@ export default class PercentilesByYear extends Component {
         <div style={ tableHeaderStyle }>
           <div style={ tableHeaderItemStyle }>Internal Complaints</div>
           <div style={ tableHeaderItemStyle }>Civilian Complaints</div>
-          <div style={ tableHeaderItemStyle }>Use Of Force</div>
+          <div style={ tableHeaderItemStyle }>Use Of Force Reports</div>
         </div>
         <ul style={ tableContentStyle }>
-          { yearlyRadarChartData && yearlyRadarChartData.map((yearlyItem) => (
+          { data && data.map((yearlyItem) => (
             <li className='test--radar-explainer-percentiles-row' key={ yearlyItem.year }>
               <div style={ radarStyle }>
                 <StaticRadarChart
@@ -60,9 +62,9 @@ PercentilesByYear.propTypes = {
       visualTokenBackground: PropTypes.string,
       items: PropTypes.arrayOf(PropTypes.shape({
         axis: PropTypes.string,
-        value: PropTypes.number,
+        value: PropTypes.number
       })),
-      year: PropTypes.number,
+      year: PropTypes.number
     })
   )
 };

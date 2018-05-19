@@ -19,7 +19,7 @@ describe('PercentilesByYear components', function () {
     PercentilesByYear.should.be.renderable();
   });
 
-  it('should render RadarChart by year', function () {
+  it('should render RadarChart by year (with reverse order)', function () {
     const data = [{
       year: 2015,
       visualTokenBackground: 'white',
@@ -43,8 +43,8 @@ describe('PercentilesByYear components', function () {
 
     const rows = scryRenderedDOMComponentsWithClass(instance, 'test--radar-explainer-percentiles-row');
     rows.should.have.length(2);
-    rows[0].textContent.should.containEql('2015304020');
-    rows[1].textContent.should.containEql('2016506040');
+    rows[0].textContent.should.containEql('2016506040');
+    rows[1].textContent.should.containEql('2015304020');
 
     scryRenderedComponentsWithType(instance, StaticRadarChart).should.have.length(2);
   });
