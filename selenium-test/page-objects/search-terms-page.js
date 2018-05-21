@@ -41,7 +41,7 @@ class CategoryMainPanelSection extends Section {
   getItemInColumn(columnIndex, itemIndex) {
     return browser.elements(`(
         //div[contains(@class, 'test--category-column')][${columnIndex + 1}]
-        //div[contains(@class, 'term-item test--category-item')]
+        //div[contains(@class, 'test--category-item')]
       )[${itemIndex + 1}]
     `);
   }
