@@ -69,6 +69,9 @@ axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
 axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER' } }).reply(() => {
   return [200, singleGroupSuggestions.default];
 });
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'NEIGHBORHOOD' } }).reply(() => {
+  return [200, singleGroupSuggestions.neighborhoods];
+});
 axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER', offset: '20' } }).reply(() => {
   return [200, singleGroupSuggestions.offset20];
 });

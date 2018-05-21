@@ -237,7 +237,8 @@ describe('search page results selector', function () {
                     id: 123,
                     'full_name': 'John Watts',
                     'allegation_count': 10,
-                  }
+                  },
+                  'police_hq': '22nd',
                 },
               }
             ]
@@ -278,6 +279,7 @@ describe('search page results selector', function () {
           population: '352',
           medianIncome: '$37,084',
           alderman: 'John Wick',
+          policeHQ: '22nd',
           raceCount: [
             { race: 'Hispanic', count: '34.4%' },
             { race: 'Black', count: '37.2%' },
@@ -293,13 +295,13 @@ describe('search page results selector', function () {
     it('should output correct order', function () {
       suggestionTagsSelector({
         searchPage: {
-          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY'],
+          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY', 'POLICE-DISTRICT'],
           query: 'something'
         }
-      }).should.deepEqual(['OFFICER', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT']);
+      }).should.deepEqual(['OFFICER', 'COMMUNITY', 'NEIGHBORHOOD', 'POLICE-DISTRICT', 'UNIT']);
     });
 
-    it('should output RECENT tag if theres no query', function () {
+    it('should output RECENT tag if there is no query', function () {
       suggestionTagsSelector({
         searchPage: {
           tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY'],
