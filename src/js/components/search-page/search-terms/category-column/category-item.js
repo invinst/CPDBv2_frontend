@@ -1,20 +1,37 @@
 import React, { PropTypes, Component } from 'react';
 import classnames from 'classnames';
+import { reduce, get } from 'lodash';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import { itemStyle, nameStyle } from './category-item.style';
 
 
-class CategoryItem extends Component {
+export class CategoryItem extends Component {
+  shouldComponentUpdate(nextProps) {
+    const keys = [
+      'hovering',
+      'item.name',
+      'isFocused',
+      'itemUniqueKey'
+    ];
+
+    return reduce(keys, (memo, key) => (
+      memo || get(nextProps, key) !== get(this.props, key)
+    ), false);
+  }
 
   render() {
     const { item, hovering, isFocused, handleItemClick, itemUniqueKey } = this.props;
+    const className = classnames(
+      `term-item-${itemUniqueKey.replace(' ', '-')}`,
+      'test--category-item'
+    );
 
     return (
       <div>
         <div
           style={ itemStyle(isFocused) }
-          className={ classnames('term-item', 'test--category-item', { 'focused': isFocused }) }
+          className={ className }
           onClick={ () => handleItemClick(itemUniqueKey) }
         >
           <div
@@ -23,11 +40,6 @@ class CategoryItem extends Component {
             { item.name }
           </div>
         </div>
-        { (isFocused && this.props.children) && (
-          <div>
-            { this.props.children }
-          </div>
-        ) }
       </div>
     );
   }
@@ -38,8 +50,7 @@ CategoryItem.propTypes = {
   hovering: PropTypes.bool,
   isFocused: PropTypes.bool,
   handleItemClick: PropTypes.func,
-  itemUniqueKey: PropTypes.string,
-  children: PropTypes.node
+  itemUniqueKey: PropTypes.string
 };
 
 CategoryItem.defaultProps = {
