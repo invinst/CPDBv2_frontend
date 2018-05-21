@@ -1,16 +1,16 @@
 import { getComplaintMapUrl } from 'utils/mapbox';
-import { clayGray, darkSlateGrayColor, whiteTwoColor } from 'utils/styles';
+import { clayGray, darkSlateGrayColor, whiteTwoColor, accentColor } from 'utils/styles';
 
 export const itemWidth = 232;
 
-export const wrapperStyle = {
+export const wrapperStyle = hovering => ({
   width: `${itemWidth}px`,
   height: '298px',
-  border: `1px solid ${clayGray}`,
-  backgroundColor: darkSlateGrayColor,
+  border: `1px solid ${hovering ? accentColor : clayGray}`,
+  backgroundColor: hovering ? '#454c59' : darkSlateGrayColor,
   display: 'block',
   marginRight: '8px'
-};
+});
 
 export const mapStyle = (lat, lon) => ({
   width: `${itemWidth}px`,

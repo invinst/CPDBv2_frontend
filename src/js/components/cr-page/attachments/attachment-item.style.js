@@ -1,5 +1,5 @@
 import {
-  whiteTwoColor, clayGray, sugarCaneColor
+  whiteTwoColor, clayGray, sugarCaneColor, accentColor
 } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
@@ -26,17 +26,17 @@ const fileTypeSpecificThumbnailStyle = {
   })
 };
 
-export const thumbnailStyle = (fileType, imageUrl) => ({
+export const thumbnailStyle = (fileType, imageUrl, hovering) => ({
   width: '45px',
   height: '60px',
-  border: `1px solid ${whiteTwoColor}`,
+  border: `1px solid ${hovering ? accentColor : whiteTwoColor}`,
   margin: '0 auto 8px',
   ...fileTypeSpecificThumbnailStyle[fileType](imageUrl),
 });
 
-export const titleStyle = {
-  color: clayGray,
+export const titleStyle = hovering => ({
+  color: hovering ? accentColor : clayGray,
   textAlign: 'center',
   fontSize: '14px',
   fontWeight: 400
-};
+});
