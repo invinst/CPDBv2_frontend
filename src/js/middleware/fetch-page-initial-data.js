@@ -4,7 +4,6 @@ import { LANDING_PAGE_ID } from 'utils/constants';
 import { getOfficerId, getCRID, getUnitName } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
-import { faqsRequested } from 'selectors/faq-page/faqs-selector';
 import { hasLandingPageCMSContent } from 'selectors/cms';
 import { hasCards as hasOfficerByAllegationData } from 'selectors/landing-page/officers-by-allegation';
 import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activity-grid';
@@ -18,7 +17,6 @@ import { fetchCoaccusals } from 'actions/officer-page/coaccusals';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
 import { fetchCR } from 'actions/cr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
-import { requestFAQs } from 'actions/faq-page';
 import { fetchPage } from 'actions/cms';
 import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-allegation';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
@@ -85,10 +83,6 @@ export default store => next => action => {
   } else if (action.payload.pathname.match(/unit\/\d+/)) {
     const unitName = getUnitName(action.payload.pathname);
     dispatches.push(store.dispatch(fetchUnitProfileSummary(unitName)));
-  } else if (action.payload.pathname.match(/faq/)) {
-    if (!faqsRequested(state)) {
-      dispatches.push(store.dispatch(requestFAQs()));
-    }
   }
 
   if (dispatches.length > 0) {

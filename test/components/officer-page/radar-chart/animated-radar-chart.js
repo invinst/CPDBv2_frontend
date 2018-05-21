@@ -3,11 +3,13 @@ import should from 'should';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import { useFakeTimers } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import AnimatedRadarChart from 'components/officer-page/radar-chart';
+import RadarExplainer from 'components/officer-page/radar-chart/explainer';
 import StaticRadarChart from 'components/common/radar-chart';
 
 
@@ -53,6 +55,8 @@ describe('AnimatedRadarChart components', function () {
   it('should render if data provided', function () {
     instance = renderIntoDocument(<AnimatedRadarChart data={ data }/>);
     findRenderedComponentWithType(instance, StaticRadarChart);
+    findRenderedComponentWithType(instance, RadarExplainer);
+    findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-toggle-button');
   });
 
   it('should rerender if data change', function () {

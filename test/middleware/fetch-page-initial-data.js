@@ -15,7 +15,6 @@ import { getRecentDocument } from 'actions/landing-page/recent-document';
 import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
 import { fetchCR } from 'actions/cr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
-import { requestFAQs } from 'actions/faq-page';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 
 
@@ -119,15 +118,6 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(locationChangeAction);
     dispatched.should.eql(locationChangeAction);
     store.dispatch.calledWith(fetchUnitProfileSummary(2)).should.be.true();
-  });
-
-  it('should dispatch fetch faq data if it is not requested yet', function () {
-    const locationChangeAction = createLocationChangeAction('/faq/');
-    let dispatched;
-
-    fetchPageInitialData(store)(action => dispatched = action)(locationChangeAction);
-    dispatched.should.eql(locationChangeAction);
-    store.dispatch.calledWith(requestFAQs()).should.be.true();
   });
 
   it('should dispatch pageLoadStart and pageLoadFinish', function (done) {

@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+
+import { trigger } from 'mousetrap';
 import classnames from 'classnames';
 
 import JumpyMotion from 'components/animation/jumpy-motion';
@@ -71,10 +73,14 @@ export default class SuggestionItemBase extends Component {
 
   handleClick(e) {
     e.preventDefault();
-    const { suggestionClick, suggestion, selectItem } = this.props;
-    const { type, text, url, to } = suggestion;
-    selectItem();
-    suggestionClick(type, text, url, to);
+    const { selectItem, isFocused } = this.props;
+
+    if (!isFocused)
+      selectItem();
+    else
+    // Trigger Enter, so they share behaviour and only search-page handle logic
+    // `components/search-page/index.js` -> handleViewItem()
+      trigger('enter');
   }
 
   render() {
@@ -94,7 +100,7 @@ export default class SuggestionItemBase extends Component {
     } else if (to) {
       result = <Link { ...commonWrapperProps } to={ to }>{ content }</Link>;
     } else {
-      result = <a { ...commonWrapperProps } href={ url } >{ content }</a>;
+      result = <a { ...commonWrapperProps } href={ url }>{ content }</a>;
     }
 
     return result;
@@ -107,12 +113,10 @@ SuggestionItemBase.propTypes = {
   suggestion: PropTypes.object,
   isFocused: PropTypes.bool,
   setAliasAdminPageContent: PropTypes.func,
-  suggestionClick: PropTypes.func,
   selectItem: PropTypes.func,
 };
 
 SuggestionItemBase.defaultProps = {
   suggestion: {},
-  suggestionClick: () => {},
   selectItem: () => {},
 };

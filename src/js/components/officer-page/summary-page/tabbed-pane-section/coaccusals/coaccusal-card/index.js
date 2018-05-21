@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 
 import Hoverable from 'components/common/higher-order/hoverable';
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
 import {
   allegationCountStyle,
   allegationStyle,
@@ -52,7 +52,7 @@ class CoaccusalCard extends Component {
             </span>
           </div>
           <span className='test--coaccusal-card-allegation-percentile'>
-            More than { roundPercentile(allegationPercentile) }% of other officers
+            More than { roundedPercentile(allegationPercentile) }% of other officers
           </span>
         </div>
         <div style={ officerInfoStyle } className='test--coaccusal-card-officer-info'>

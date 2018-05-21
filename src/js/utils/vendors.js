@@ -31,12 +31,18 @@ if (global.LIVE_TEST !== undefined || global.mocha !== undefined) {
   const addControlSpy = spy();
   const navigationControlSpy = spy();
   const removeSpy = spy();
+  const easeToSpy = spy();
+  const getZoomStub = stub();
+  const setLngLatSpy = spy();
+  const addToSpy = spy();
 
   class MockMap {
     constructor() {
       this.addSource = addSourceSpy;
       this.getSource = getSourceSpy;
+      this.getZoom = getZoomStub;
       this.addLayer = addLayerSpy;
+      this.easeTo = easeToSpy;
       this.getLayer = getLayerSpy;
       this.setFilter = setFilterSpy;
       this.addControl = addControlSpy;
@@ -47,7 +53,15 @@ if (global.LIVE_TEST !== undefined || global.mocha !== undefined) {
     }
   }
 
+  class MockMarker {
+    constructor() {
+      this.setLngLat = setLngLatSpy;
+      this.addTo = addToSpy;
+    }
+  }
+
   _mapboxgl.Map = MockMap;
+  _mapboxgl.Marker = MockMarker;
   _mapboxgl._addSourceSpy = addSourceSpy;
   _mapboxgl._getSourceSpy = getSourceSpy;
   _mapboxgl._addLayerSpy = addLayerSpy;

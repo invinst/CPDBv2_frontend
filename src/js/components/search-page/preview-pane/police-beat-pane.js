@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
@@ -12,37 +12,37 @@ import WidgetWrapper, {
 
 export default class PoliceBeatPane extends Component {
   render() {
-    const complaintCategories = [
-      {
-        'id': 1,
-        'name': 'Inadequate / Failure to Provide Service',
-        'count': 90,
-      },
-      {
-        'id': 2,
-        'name': 'Search of Premise without Warrant',
-        'count': 90,
-      },
-      {
-        'id': 3,
-        'name': 'Excessive Force / On Duty - Injury',
-        'count': 90,
-      },
-    ];
+    const {
+      name,
+      allegationCount,
+      mostCommonComplaint,
+      url,
+      policeHQ,
+    } = this.props;
+
+    const beatContent = policeHQ ? `${policeHQ} District Police Station` : '';
     return (
       <WidgetWrapper>
-        <HeaderWidget title={ 'POLICE BEAT #269' } showBottomBorder={ true }/>
+        <HeaderWidget title={ `POLICE BEAT #${name}` }/>
         <SeparatorWidget/>
-        <AllegationCountWidget numOfAllegations={ 465 }/>
-        <TextWidget title={ 'THIS BEAT CONTAINS A POLICE HQ' } content={ '11th District Police Station' }/>
+        <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
+        <TextWidget title='THIS BEAT CONTAINS A POLICE HQ' content={ beatContent }/>
         <ListWidget
-          items={ complaintCategories }
-          typeName={ 'allegation' }
+          items={ mostCommonComplaint }
+          typeName='allegation'
           showAvatar={ false }
-          title={ 'MOST COMMON COMPLAINT' }
+          title='MOST COMMON COMPLAINT'
         />
-        <CallToActionWidget/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
 }
+
+PoliceBeatPane.propTypes = {
+  name: PropTypes.string.isRequired,
+  allegationCount: PropTypes.number.isRequired,
+  mostCommonComplaint: PropTypes.array.isRequired,
+  url: PropTypes.string.isRequired,
+  policeHQ: PropTypes.string,
+};

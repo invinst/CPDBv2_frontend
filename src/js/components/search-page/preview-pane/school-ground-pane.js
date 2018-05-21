@@ -16,12 +16,16 @@ export default class SchoolGroundPane extends Component {
       allegationCount,
       mostCommonComplaint,
       officersMostComplaint,
+      url,
     } = this.props;
     return (
       <WidgetWrapper>
         <HeaderWidget title={ name } showBottomBorder={ true }/>
         <SeparatorWidget/>
-        <AllegationCountWidget numOfAllegations={ allegationCount } subTitle={ 'within XX meters of the school' }/>
+        <AllegationCountWidget
+          url={ url }
+          numOfAllegations={ allegationCount }
+          subTitle={ 'within 100 meters of the school' }/>
         <ListWidget
           items={ mostCommonComplaint }
           typeName={ 'allegation' }
@@ -34,7 +38,7 @@ export default class SchoolGroundPane extends Component {
           showAvatar={ true }
           title={ 'OFFICERS WITH MOST COMPLAINTS' }
         />
-        <CallToActionWidget/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
@@ -43,14 +47,7 @@ export default class SchoolGroundPane extends Component {
 SchoolGroundPane.propTypes = {
   name: PropTypes.string,
   allegationCount: PropTypes.number,
-  mostCommonComplaint: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-  })),
-  officersMostComplaint: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
-  })),
+  mostCommonComplaint: PropTypes.array.isRequired,
+  officersMostComplaint: PropTypes.array.isRequired,
+  url: PropTypes.string.isRequired,
 };

@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
-import HTML5Backend from 'react-dnd-html5-backend';
-import { DragDropContext } from 'react-dnd';
 
 import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
-import FAQPage from 'components/faq-page/faq-page';
 import SearchPageContainer from 'containers/search-page-container';
 import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
-import ReportingPage from 'components/reporting-page';
 import {
   COLLAB_PATH,
-  FAQ_PATH,
-  STORIES_PATH,
   SEARCH_PATH,
   SEARCH_TERMS_PATH,
   OFFICER_PATH,
@@ -36,7 +30,7 @@ import BreadcrumbItemContainer from 'containers/breadcrumb-item';
 
 const store = configureStore();
 
-class RouterRoot extends Component {
+export default class RouterRoot extends Component {
   render() {
     return (
       <Provider store={ store }>
@@ -50,22 +44,8 @@ class RouterRoot extends Component {
               breadcrumbKey='/'
               breadcrumb='cpdp'/>
             <Route
-              path={ STORIES_PATH }
-              component={ ReportingPage }>
-              <Route
-                path={ ':reportId' }
-                component={ ReportingPage }/>
-            </Route>
-            <Route
               path={ COLLAB_PATH }
               component={ CollaborationPage }/>
-            <Route
-              path={ FAQ_PATH }
-              component={ FAQPage }>
-              <Route
-                path={ ':faqId' }
-                component={ FAQPage }/>
-            </Route>
             <Route
               path={ OFFICER_PATH }
               component={ OfficerPageContainer }
@@ -109,5 +89,3 @@ class RouterRoot extends Component {
     );
   }
 }
-
-export default DragDropContext(HTML5Backend)(RouterRoot);

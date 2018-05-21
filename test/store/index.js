@@ -54,10 +54,6 @@ describe('store', function () {
           clusterGeoJson: null
         }
       },
-      faqPage: {
-        isRequesting: false,
-        faqsRequested: false
-      },
       authentication: {
         loginErrorMessage: null,
         loginSuccessMessage: null,
@@ -70,27 +66,6 @@ describe('store', function () {
         pages: {}
       },
       pageLoading: false,
-      reportingPage: {
-        isRequesting: false,
-        reportGrouping: {
-          groups: [],
-          groupingStrategy: 'STRATEGY_RANDOM',
-          existingReportIds: []
-        },
-        pagination: {
-          next: null,
-          previous: null,
-          count: 0
-        }
-      },
-      bottomSheet: {
-        officersAutoSuggest: {
-          isRequesting: false,
-          officers: []
-        }
-      },
-      reports: {},
-      faqs: {},
       routing: {
         locationBeforeTransitions: null
       },
