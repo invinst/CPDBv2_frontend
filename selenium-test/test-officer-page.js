@@ -38,7 +38,7 @@ describe('officer page', function () {
 
     officerPage.summarySection.rankLabel.getText().should.equal('Rank');
     officerPage.summarySection.rankValue.getText().should.equal('NA');
-    officerPage.summarySection.rankExtraInfo.getText().should.equal('DATA NOT READY base salary');
+    officerPage.summarySection.rankExtraInfo.getText().should.equal('$100,000 base salary');
 
     officerPage.summarySection.raceLabel.getText().should.equal('Race');
     officerPage.summarySection.raceValue.getText().should.equal('White');
