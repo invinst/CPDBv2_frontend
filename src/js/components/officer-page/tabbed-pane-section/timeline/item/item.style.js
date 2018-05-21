@@ -59,5 +59,5 @@ export const unitTextStyle = (unassigned, isCurrentUnit) => ({
 
 export const rankTextStyle = {
   height: '32px',
-  lineHeight: '32px',
+  lineHeight: '20px',
 };
