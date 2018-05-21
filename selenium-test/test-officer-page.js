@@ -59,7 +59,7 @@ describe('officer page', function () {
   it('should display the timeline by default', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
 
-    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINESUMMARYMAPCOACCUSALSATTACHMENTS');
+    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINEMAPCOACCUSALSATTACHMENTS');
     officerPage.tabbedPaneSection.timelineTabName.getCssProperty('background-color').value.should.eql(
       'rgba(0,94,244,1)'
     );
@@ -79,7 +79,7 @@ describe('officer page', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
     officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
 
-    officerPage.tabbedPaneSection.summaryTabName.click();
+    officerPage.tabbedPaneSection.mapTabName.click();
 
     officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
     officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible(10000, true);
