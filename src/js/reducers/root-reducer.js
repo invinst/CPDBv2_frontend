@@ -15,6 +15,7 @@ import genericModal from './generic-modal';
 import headers from './headers';
 import cms from './cms';
 import breadcrumbsMapping from './breadcrumbs-mapping';
+import pageLoading from './page-loading';
 
 
 export default combineReducers({
@@ -32,5 +33,6 @@ export default combineReducers({
   breadcrumb,
   breadcrumbsMapping,
   headers,
-  cms
+  cms,
+  pageLoading
 });

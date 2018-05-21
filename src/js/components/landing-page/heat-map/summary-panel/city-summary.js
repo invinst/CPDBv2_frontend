@@ -12,10 +12,6 @@ import OutboundLink from 'components/common/outbound-link';
 
 
 export default class CitySummary extends Component {
-  componentDidMount() {
-    this.props.getCitySummary();
-  }
-
   render() {
     const { citySummary, isActive, onClick } = this.props;
     const { allegationCount, disciplinePercentage, mostCommonComplaints } = citySummary;
@@ -78,12 +74,10 @@ export default class CitySummary extends Component {
 
 CitySummary.propTypes = {
   citySummary: PropTypes.object,
-  getCitySummary: PropTypes.func,
   onClick: PropTypes.func,
   isActive: PropTypes.bool
 };
 
 CitySummary.defaultProps = {
-  citySummary: {},
-  getCitySummary: () => {}
+  citySummary: {}
 };
