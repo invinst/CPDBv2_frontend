@@ -4,6 +4,7 @@ import { get, keys } from 'lodash';
 import { menuItemStyle, menuStyle, tabbedPaneSectionStyle } from './tabbed-pane-section.style';
 import TimelineContainer from 'containers/officer-page/timeline-container';
 import CoaccusalsContainer from 'containers/officer-page/coaccusals-container';
+import AttachmentsContainer from 'containers/officer-page/attachments-container';
 
 
 export default class TabbedPaneSection extends Component {
@@ -13,10 +14,10 @@ export default class TabbedPaneSection extends Component {
       'TIMELINE': <TimelineContainer/>,
       'MAP': null,
       'COACCUSALS': <CoaccusalsContainer/>,
-      'ATTACHMENTS': null,
+      'ATTACHMENTS': <AttachmentsContainer/>,
     };
     this.state = {
-      activeTabName: 'TIMELINE'
+      activeTabName: 'ATTACHMENTS'
     };
   }
 

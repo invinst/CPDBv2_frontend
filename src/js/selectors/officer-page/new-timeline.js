@@ -237,3 +237,8 @@ export const getNewTimelineItems = state => {
 
   return processors.reduce((accItems, processor) => processor(accItems), filteredItems);
 };
+
+export const getComplaintsWithAttachments = state => {
+  const items = get(state.officerPage.newTimeline, 'items', []);
+  return items.filter(item => !isEmpty(get(item, 'attachments')));
+};
