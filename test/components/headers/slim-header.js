@@ -7,11 +7,9 @@ import {
   findRenderedComponentWithType,
   scryRenderedDOMComponentsWithClass, Simulate
 } from 'react-addons-test-utils';
-import { Link } from 'react-router';
 import MockStore from 'redux-mock-store';
 import { stub, spy } from 'sinon';
 
-import { FAQ_PATH } from 'utils/constants';
 import { SlimHeader } from 'components/headers/slim-header';
 import { unmountComponentSuppressError } from 'utils/test';
 import ContextWrapper from 'utils/test/components/context-wrapper';
@@ -72,7 +70,7 @@ describe('SlimHeader component', function () {
     scryRenderedDOMComponentsWithClass(element, 'test--slim-header').length.should.eql(0);
   });
 
-  it('should render FAQ link', function () {
+  it('should render Q&A link', function () {
     const openRequestDocumentModal = spy();
     element = renderIntoDocument(
       <Provider store={ store }>
@@ -82,9 +80,9 @@ describe('SlimHeader component', function () {
       </Provider>
     );
 
-    const links = scryRenderedComponentsWithType(element, Link);
-    const link = links.filter(link => link.props.children === 'FAQ')[0];
-    link.props.to.should.eql('/' + FAQ_PATH);
+    const links = scryRenderedDOMComponentsWithTag(element, 'a');
+    const link = links.filter(link => link.textContent === 'Q&A')[0];
+    link.getAttribute('href').should.eql('http://how.cpdp.works/');
   });
 
   it('should render Data link', function () {
