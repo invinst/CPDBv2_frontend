@@ -31,7 +31,7 @@ export const tableHeaderStyle = {
 
 export const tableHeaderItemStyle = {
   display: 'inline-block',
-  paddingRight: '20px',
+  paddingRight: '10px',
   width: `calc((100%) / ${NUM_RESPONSIVE_COLUMNS})`,
   boxSizing: 'border-box',
   verticalAlign: 'top',

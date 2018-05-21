@@ -2,7 +2,13 @@ import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
 import { get, last } from 'lodash';
 
-import { containerStyle, footerStyle, questionMarkInnerStyle, questionMarkStyle } from './radar-chart-explainer.style';
+import {
+  containerStyle,
+  footerStyle,
+  questionMarkInnerStyle,
+  questionMarkStyle,
+  closeInnerStyle
+} from './radar-chart-explainer.style';
 import TriangleExplainer from './triangle-explainer';
 import ScaleExplainer from './scale-explainer';
 import PercentilesByYear from './percentiles-by-year';
@@ -90,9 +96,9 @@ export default class RadarExplainer extends Component {
           onClick={ this.toggleExplainer }>
           {
             show ? (
-              <i className='fa fa-close' style={ questionMarkInnerStyle(true) }/>
+              <i className='fa fa-close' style={ closeInnerStyle }/>
             ) : (
-              <span style={ questionMarkInnerStyle(false) }>?</span>
+              <span style={ questionMarkInnerStyle }>?</span>
             )
           }
         </div>

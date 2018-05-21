@@ -18,7 +18,7 @@ export const explainerContainerStyle = {
   backgroundColor: 'white',
   color: softBlackColor,
   fontSize: '14px',
-  padding: '16px 16px 6px',
+  padding: '16px 16px 3px',
   boxSizing: 'border-box',
   fontWeight: 400,
   verticalAlign: 'top',
@@ -30,7 +30,7 @@ export const explainerContainerStyle = {
 
 export const titleTextStyle = {
   fontSize: '14px',
-  margin: '10px 0 10px',
+  margin: '7px 0 10px',
   fontWeight: 600,
 };
 

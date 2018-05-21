@@ -38,13 +38,21 @@ export const questionMarkStyle = {
   cursor: 'pointer'
 };
 
-export const questionMarkInnerStyle = (isBold) =>({
+export const questionMarkInnerStyle = {
   opacity: 1,
   display: 'inline-block',
   color: 'black',
-  fontWeight: isBold ? 'bold' : 'normal',
   fontSize: '14px',
   verticalAlign: 'middle',
   textAlign: 'center',
-  width: '100%'
-});
+  width: '100%',
+  lineHeight: 1,
+  fontWeight: 500,
+  paddingTop: '2px',
+};
+
+export const closeInnerStyle = {
+  ...questionMarkInnerStyle,
+  paddingTop: 0,
+  fontWeight: 'normal',
+};

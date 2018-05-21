@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import MediaQuery from 'react-responsive';
 
 import {
   containerStyle,
@@ -32,7 +33,7 @@ export default class PercentilesByYear extends Component {
         <div style={ tableHeaderStyle }>
           <div style={ tableHeaderItemStyle }>Internal Complaints</div>
           <div style={ tableHeaderItemStyle }>Civilian Complaints</div>
-          <div style={ tableHeaderItemStyle }>Use Of Force Reports</div>
+          <div style={ tableHeaderItemStyle }>Use Of Force <MediaQuery minWidth={ 890 }>Reports</MediaQuery></div>
         </div>
         <ul style={ tableContentStyle }>
           { data && data.map((yearlyItem) => (

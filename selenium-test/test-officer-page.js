@@ -154,6 +154,45 @@ describe('officer page', function () {
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
       });
+
+      it('should hide word "Reports" if screen smaller too small', function () {
+        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+        officerPage.radarChartSection.explainerSection.leftNavigation.click();
+
+        const percentileByYear = officerPage.radarChartSection.explainerSection.percentileByYear;
+
+        percentileByYear.getText().should.containEql('Use Of Force\nReports');
+
+        browser.setViewportSize({
+          width: 800,
+          height: 500
+        });
+
+        percentileByYear.getText().should.containEql('Use Of Force');
+        percentileByYear.getText().should.not.containEql('Reports');
+      });
+
+      it('should hide question mark if the view port is too small', function () {
+        browser.setViewportSize({
+          width: 700,
+          height: 500
+        });
+
+        officerPage.radarChartSection.radarChartExplainerToggleButton.waitForVisible(2000, true);
+      });
+
+      it('should hide explainer if the view size is decrease too small', function () {
+        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
+
+        browser.setViewportSize({
+          width: 700,
+          height: 500
+        });
+
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible(2000, true);
+      });
     });
   });
 
