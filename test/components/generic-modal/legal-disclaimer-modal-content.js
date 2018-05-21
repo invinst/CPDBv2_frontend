@@ -1,15 +1,12 @@
 import React from 'react';
 import { spy } from 'sinon';
-import { Link } from 'react-router';
 import { unmountComponentSuppressError } from 'utils/test';
 import {
   Simulate,
   renderIntoDocument,
-  findRenderedComponentWithType,
   findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
-import { FAQ_PATH } from 'utils/constants';
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
 import * as intercomUtils from 'utils/intercom';
 
@@ -35,18 +32,6 @@ describe('LegalDisclaimerModalContent component', function () {
     closeModal.called.should.be.false();
     Simulate.click(iUnderstand);
     closeModal.called.should.be.true();
-  });
-
-  it('should render link to FAQ that also closes modal on click', function () {
-    const closeModal = spy();
-    element = renderIntoDocument(
-      <LegalDisclaimerModalContent closeModal={ closeModal }/>
-    );
-
-    const faqLink = findRenderedComponentWithType(element, Link);
-    faqLink.props.children.should.eql('FAQ');
-    faqLink.props.to.should.eql(`/${FAQ_PATH}`);
-    faqLink.props.onClick.should.equal(closeModal);
   });
 
   it('should render external link to GitHub', function () {
