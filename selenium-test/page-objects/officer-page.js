@@ -79,8 +79,8 @@ class TabbedPaneSection extends Section {
     this.prepareElementGetters({
       menu: '.test--tabbed-pane-section-menu',
       timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]',
-      summaryTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
-      coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][4]',
+      mapTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
+      coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][3]',
     });
   }
 }
