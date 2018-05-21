@@ -10,7 +10,7 @@ import { radarMainAreaStyle, radarMainStrokeStyle, valueTextStyle } from './rada
 export default class RadarArea extends Component {
   render() {
 
-    const { rPoints, drawStroke, strokeWidth, showValueText } = this.props;
+    const { rPoints, drawStroke, strokeWidth, showDataPoints } = this.props;
     if (!rPoints || !every(rPoints, (point) => !isNaN(point.r)))
       return <g className='test--radar-wrapper'/>;
 
@@ -37,7 +37,7 @@ export default class RadarArea extends Component {
               d={ pathD }
               style={ { ...radarMainStrokeStyle, strokeWidth } }/>
           ) }
-          { showValueText && rPoints.map((point, i) => (
+          { showDataPoints && rPoints.map((point, i) => (
             <text
               key={ `value-text-${i}` }
               className='test--radar-value-text'
@@ -57,12 +57,12 @@ export default class RadarArea extends Component {
 }
 
 RadarArea.defaultProps = {
-  showValueText: false,
+  showDataPoints: false,
   drawStroke: true
 };
 
 RadarArea.propTypes = {
-  showValueText: PropTypes.bool,
+  showDataPoints: PropTypes.bool,
   rPoints: PropTypes.array,
   drawStroke: PropTypes.bool,
   strokeWidth: PropTypes.number
