@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { get, map } from 'lodash';
+import { get, last, map } from 'lodash';
 import moment from 'moment';
 
 import { getThisYear } from 'utils/date';
@@ -67,18 +67,21 @@ export const DATA_NOT_AVAILABLE = 'N/A';
 
 export const metricsSelector = createSelector(
   getOfficerInfo,
-  metrics => ({
-    allegationCount: get(metrics, 'allegation_count', DATA_NOT_AVAILABLE),
-    topAllegationPercentile: get(metrics, 'complaint_percentile', DATA_NOT_AVAILABLE),
-    honorableMentionCount: get(metrics, 'honorable_mention_count', DATA_NOT_AVAILABLE),
-    sustainedCount: get(metrics, 'sustained_count', DATA_NOT_AVAILABLE),
-    disciplineCount: get(metrics, 'discipline_count', DATA_NOT_AVAILABLE),
-    topHonorableMentionPercentile: get(metrics, 'top_honorable_mention_percentile', DATA_NOT_AVAILABLE),
-    useOfForceCount: get(metrics, 'use_of_force_count', DATA_NOT_AVAILABLE),
-    majorAwardCount: get(metrics, 'major_award_count', DATA_NOT_AVAILABLE),
-    topUseOfForcePercentile: get(metrics, 'top_use_of_force_percentile', DATA_NOT_AVAILABLE),
-    civilianComplimentCount: get(metrics, 'civilian_compliment_count', DATA_NOT_AVAILABLE),
-  })
+  metrics => {
+    const percentiles = get(metrics, 'percentiles', []);
+    return {
+      allegationCount: get(metrics, 'allegation_count', DATA_NOT_AVAILABLE),
+      allegationPercentile: get(metrics, 'complaint_percentile', DATA_NOT_AVAILABLE),
+      honorableMentionCount: get(metrics, 'honorable_mention_count', DATA_NOT_AVAILABLE),
+      sustainedCount: get(metrics, 'sustained_count', DATA_NOT_AVAILABLE),
+      disciplineCount: get(metrics, 'discipline_count', DATA_NOT_AVAILABLE),
+      honorableMentionPercentile: get(metrics, 'honorable_mention_percentile', DATA_NOT_AVAILABLE),
+      useOfForceCount: get(metrics, 'trr_count', DATA_NOT_AVAILABLE),
+      majorAwardCount: get(metrics, 'major_award_count', DATA_NOT_AVAILABLE),
+      useOfForcePercentile: get(last(percentiles), 'percentile_trr', DATA_NOT_AVAILABLE),
+      civilianComplimentCount: get(metrics, 'civilian_compliment_count', DATA_NOT_AVAILABLE),
+    };
+  }
 );
 
 export const getOfficerPercentile = state => state.officerPage.summary.percentiles;

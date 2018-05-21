@@ -26,7 +26,6 @@ export default class SuggestionGroup extends Component {
       focusedItem,
       aliasEditModeOn,
       setAliasAdminPageContent,
-      suggestionClick,
       hasMore,
       searchText,
       nextParams,
@@ -44,10 +43,9 @@ export default class SuggestionGroup extends Component {
           map(suggestions, (suggestion) => (
             <SuggestionItem
               selectItem={ () => setSearchNavigation({ itemIndex: suggestion.itemIndex }) }
-              key={ suggestion.uniqueKey }
+              key={ suggestion.itemIndex }
               aliasEditModeOn={ aliasEditModeOn }
               setAliasAdminPageContent={ setAliasAdminPageContent }
-              suggestionClick={ suggestionClick }
               suggestion={ suggestion }
               isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }/>
           ))
@@ -106,7 +104,6 @@ SuggestionGroup.propTypes = {
   showMoreButton: PropTypes.bool,
   aliasEditModeOn: PropTypes.bool,
   onLoadMore: PropTypes.func,
-  suggestionClick: PropTypes.func,
   setAliasAdminPageContent: PropTypes.func,
   focusedItem: PropTypes.object,
   getSuggestionWithContentType: PropTypes.func,

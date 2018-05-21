@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
+  SeparatorWidget,
   TextWidget,
   AllegationCountWidget,
   ListWidget,
@@ -11,63 +12,47 @@ import WidgetWrapper, {
 
 export default class WardPane extends Component {
   render() {
-    const complaintCategories = [
-      {
-        'id': 1,
-        'name': 'Inadequate / Failure to Provide Service',
-        'count': 90,
-      },
-      {
-        'id': 2,
-        'name': 'Search of Premise without Warrant',
-        'count': 90,
-      },
-      {
-        'id': 3,
-        'name': 'Excessive Force / On Duty - Injury',
-        'count': 90,
-      },
-    ];
-    const officers = [
-      {
-        'id': 1,
-        'name': 'Jerome Finigan',
-        'image': 'http://via.placeholder.com/32x32',
-        'count': 90,
-      },
-      {
-        'id': 2,
-        'name': 'Raymond Pinnicki',
-        'image': 'http://via.placeholder.com/32x32',
-        'count': 90,
-      },
-      {
-        'id': 3,
-        'name': 'Sean Campbell',
-        'image': 'http://via.placeholder.com/32x32',
-        'count': 90,
-      },
-    ];
-
+    const {
+      name,
+      allegationCount,
+      mostCommonComplaint,
+      officersMostComplaint,
+      alderman,
+      url,
+    } = this.props;
     return (
       <WidgetWrapper>
-        <HeaderWidget title={ 'COMMUNITY NAME' }/>
-        <AllegationCountWidget numOfAllegations={ 465 }/>
-        <TextWidget title={ 'CURRENT ALDERMAN' } content={ 'Firstname Lastname' }/>
+        <HeaderWidget title={ `WARD #${name}` }/>
+        <SeparatorWidget/>
+        <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
+        <TextWidget title={ 'CURRENT ALDERMAN' } content={ alderman }/>
         <ListWidget
           typeName={ 'allegation' }
           showAvatar={ false }
           title='MOST COMMON COMPLAINT'
-          items={ complaintCategories }
+          items={ mostCommonComplaint }
         />
         <ListWidget
           typeName={ 'allegation' }
           title='OFFICERS WITH MOST COMPLAINTS'
-          items={ officers }/>
-        <CallToActionWidget/>
+          items={ officersMostComplaint }/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
 }
+
+WardPane.defaultProps = {
+  alderman: null
+};
+
+WardPane.propTypes = {
+  name: PropTypes.string.isRequired,
+  allegationCount: PropTypes.number.isRequired,
+  mostCommonComplaint: PropTypes.array.isRequired,
+  officersMostComplaint: PropTypes.array.isRequired,
+  alderman: PropTypes.string,
+  url: PropTypes.string.isRequired,
+};
 
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
 import WidgetWrapper, {
   HeaderWidget,
@@ -7,97 +7,55 @@ import WidgetWrapper, {
   ListWidget,
   CallToActionWidget,
 } from './widgets';
+import { roundedPercentile } from 'utils/calculations';
 
 
 export default class PoliceDistrictPane extends Component {
   render() {
-    const complaintCategories = [
-      {
-        'id': 1,
-        'name': 'Inadequate / Failure to Provide Service',
-        'count': 90,
-      },
-      {
-        'id': 2,
-        'name': 'Search of Premise without Warrant',
-        'count': 90,
-      },
-      {
-        'id': 3,
-        'name': 'Excessive Force / On Duty - Injury',
-        'count': 90,
-      },
-    ];
-    const officers = [
-      {
-        'id': 1,
-        'name': 'Jerome Finigan',
-        'image': 'http://via.placeholder.com/32x32',
-        'count': 90,
-      },
-      {
-        'id': 2,
-        'name': 'Raymond Pinnicki',
-        'image': 'http://via.placeholder.com/32x32',
-        'count': 90,
-      },
-      {
-        'id': 3,
-        'name': 'Sean Campbell',
-        'image': 'http://via.placeholder.com/32x32',
-        'count': 90,
-      },
-    ];
-
-    const geoInfo = {
-      population: '9,863',
-      raceCount: [
-        {
-          race: 'White',
-          count: '46.8%'
-        },
-        {
-          race: 'Black',
-          count: '46.8%'
-        },
-        {
-          race: 'Asian',
-          count: '46.8%'
-        },
-        {
-          race: 'Hispanic',
-          count: '46.8%'
-        },
-        {
-          race: 'Others',
-          count: '46.8%'
-        },
-      ],
-      medianIncome: '$60,400',
-    };
+    const {
+      name,
+      raceCount,
+      population,
+      allegationCount,
+      officersMostComplaint,
+      districtCommander,
+      allegationPercentile,
+      url,
+    } = this.props;
+    const match = /\d+/g.exec(name);
+    const district = match ? `#${match[0]}` : name.toUpperCase();
 
     return (
       <WidgetWrapper>
-        <HeaderWidget title={ 'COMMUNITY NAME' }/>
-        <GeoInfoWidget { ...geoInfo }/>
+        <HeaderWidget title={ `POLICE DISTRICT ${district}` }/>
+        <GeoInfoWidget raceCount={ raceCount } population={ population }/>
         <AllegationCountWidget
-          numOfAllegations={ 465 }
-          subTitle={ 'More than ##% of other districts' }
-        />
-        <ListWidget
-          typeName={ 'allegation' }
-          showAvatar={ false }
-          title='MOST COMMON COMPLAINT'
-          items={ complaintCategories }
+          numOfAllegations={ allegationCount }
+          subTitle={ `More than ${ roundedPercentile(allegationPercentile) }% of other districts` }
+          url={ url }
         />
         <ListWidget
           typeName={ 'allegation' }
           title='OFFICERS WITH MOST COMPLAINTS'
-          items={ officers }/>
-        <CallToActionWidget/>
+          items={ officersMostComplaint }
+        />
+        <ListWidget
+          typeName={ 'allegation' }
+          title='DISTRICT COMMANDER'
+          items={ districtCommander ? [districtCommander] : [] }/>
+        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
 }
 
-
+PoliceDistrictPane.propTypes = {
+  name: PropTypes.string,
+  population: PropTypes.string,
+  raceCount: PropTypes.array,
+  allegationPercentile: PropTypes.number,
+  allegationCount: PropTypes.number,
+  officersMostComplaint: PropTypes.array,
+  districtCommander: PropTypes.object,
+  url: PropTypes.string,
+};

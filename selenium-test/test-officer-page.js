@@ -59,7 +59,7 @@ describe('officer page', function () {
   it('should display the timeline by default', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
 
-    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINESUMMARYMAPCOACCUSALSATTACHMENTS');
+    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINEMAPCOACCUSALSATTACHMENTS');
     officerPage.tabbedPaneSection.timelineTabName.getCssProperty('background-color').value.should.eql(
       'rgba(0,94,244,1)'
     );
@@ -79,7 +79,7 @@ describe('officer page', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
     officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
 
-    officerPage.tabbedPaneSection.summaryTabName.click();
+    officerPage.tabbedPaneSection.mapTabName.click();
 
     officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
     officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible(10000, true);
@@ -98,6 +98,62 @@ describe('officer page', function () {
         height: 600
       });
       officerPage.radarChartSection.lastAxisTitle.waitForVisible();
+    });
+
+    it('should open and close radar chart explainer when clicking on the toggle button', function () {
+      officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+
+      officerPage.radarChartSection.explainerSection.leftNavigation.waitForVisible();
+
+      officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+
+      officerPage.radarChartSection.explainerSection.leftNavigation.waitForVisible(10000, true);
+    });
+
+    describe('Radar Chart Explainer', function () {
+      it('should navigate correctly between explainers when clicking on left and right navigations', function () {
+        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
+        officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
+
+        officerPage.radarChartSection.explainerSection.leftNavigation.click();
+
+        officerPage.radarChartSection.explainerSection.percentileByYear.waitForVisible();
+        officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('What is the scale?');
+        officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is this triangle?');
+
+        officerPage.radarChartSection.explainerSection.leftNavigation.click();
+
+        officerPage.radarChartSection.explainerSection.scaleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('What is this triangle?');
+        officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('Percentiles by year');
+
+        officerPage.radarChartSection.explainerSection.leftNavigation.click();
+
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
+        officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
+
+        officerPage.radarChartSection.explainerSection.rightNavigation.click();
+
+        officerPage.radarChartSection.explainerSection.scaleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('What is this triangle?');
+        officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('Percentiles by year');
+
+        officerPage.radarChartSection.explainerSection.rightNavigation.click();
+
+        officerPage.radarChartSection.explainerSection.percentileByYear.waitForVisible();
+        officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('What is the scale?');
+        officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is this triangle?');
+
+        officerPage.radarChartSection.explainerSection.rightNavigation.click();
+
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
+        officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
+        officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
+      });
     });
   });
 

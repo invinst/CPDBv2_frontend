@@ -1,6 +1,10 @@
 import React from 'react';
 import should from 'should';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  findRenderedComponentWithType,
+  scryRenderedComponentsWithType,
+} from 'react-addons-test-utils';
 
 import GeoInfoWidget from 'components/search-page/preview-pane/widgets/geo-info-widget';
 import CommunityRacePopulation
@@ -12,8 +16,22 @@ describe('GeoInfoWidget component', () => {
 
   it('should contain CommunityRacePopulation component', () => {
     instance = renderIntoDocument(
-      <GeoInfoWidget/>
+      <GeoInfoWidget
+        raceCount={ [{
+          race: 'race',
+          count: 1,
+        }] }
+      />
     );
     should(findRenderedComponentWithType(instance, CommunityRacePopulation)).not.be.null();
+  });
+
+  it('should not display when raceCount is empty', () => {
+    instance = renderIntoDocument(
+      <GeoInfoWidget
+        raceCount={ [] }
+      />
+    );
+    scryRenderedComponentsWithType(instance, CommunityRacePopulation).should.have.length(0);
   });
 });

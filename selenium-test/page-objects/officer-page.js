@@ -2,7 +2,6 @@ import { each } from 'lodash';
 
 import Page from './page';
 import Section from './sections/section';
-import Header from './sections/officer-page-header';
 
 
 class SummarySection extends Section {
@@ -80,13 +79,29 @@ class TabbedPaneSection extends Section {
     this.prepareElementGetters({
       menu: '.test--tabbed-pane-section-menu',
       timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]',
-      summaryTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
-      coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][4]',
+      mapTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
+      coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][3]',
+    });
+  }
+}
+
+class RadarChartExplainerSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      triangleExplainer: '.test--triangle-explainer',
+      scaleExplainer: '.test--scale-explainer',
+      percentileByYear: '.test--percentile-by-year',
+      leftNavigation: '.test--radar-explainer-navigation-left',
+      rightNavigation: '.test--radar-explainer-navigation-right',
     });
   }
 }
 
 class RadarChartSection extends Section {
+  explainerSection = new RadarChartExplainerSection();
+
   constructor() {
     super();
     this.prepareElementGetters({
@@ -94,7 +109,8 @@ class RadarChartSection extends Section {
       axis: '.test--radar-axis-wrapper',
       wrapper: '.test--radar-wrapper',
       legend: '.test--radar-legend-content',
-      lastAxisTitle: '.test--radar-axis-text:last-of-type'
+      lastAxisTitle: '.test--radar-axis-text:last-of-type',
+      radarChartExplainerToggleButton: '.test--radar-explainer-toggle-button',
     });
   }
 }
