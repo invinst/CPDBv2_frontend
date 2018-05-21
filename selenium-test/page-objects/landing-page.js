@@ -5,7 +5,6 @@ import Section from './sections/section';
 import { TopHeader, StickyHeader } from './sections/header';
 import Footer from './sections/footer';
 import RichTextToolbar from './sections/rich-text-toolbar';
-import BottomSheet from './sections/bottom-sheet';
 
 class CollaborateSection extends Section {
   constructor() {
@@ -132,7 +131,6 @@ class LandingPage extends Page {
   stickyHeader = new StickyHeader();
   footer = new Footer();
   richTextToolbar = new RichTextToolbar();
-  bottomSheet = new BottomSheet();
   collaborateSection = new CollaborateSection();
   recentActivityCarousel = new RecentActivityCarouselSection();
   officersByAllegationCarousel = new OfficersByAllegationCarouselSection();

@@ -2,7 +2,9 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  Simulate, findRenderedComponentWithType
+  scryRenderedComponentsWithType,
+  findRenderedComponentWithType,
+  Simulate,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
@@ -13,6 +15,7 @@ import RadarToolTipPoints from 'components/common/radar-chart/radar-tooltip-poin
 import RadarLegend from 'components/common/radar-chart/radar-legend';
 import RadarAxis from 'components/common/radar-chart/radar-axis';
 import RadarSpineLine from 'components/common/radar-chart/radar-spine-line';
+import RadarGrid from 'components/common/radar-chart/radar-grid';
 
 
 describe('Static Radar Chart components', function () {
@@ -40,8 +43,7 @@ describe('Static Radar Chart components', function () {
     StaticRadarChart.should.be.renderable();
   });
 
-  it('should render if data provided', () => {
-
+  it('should render if default radar chart if data provided', () => {
     instance = renderIntoDocument(<StaticRadarChart data={ data }/>);
     findRenderedComponentWithType(instance, RadarAxis);
     findRenderedComponentWithType(instance, RadarArea);
@@ -53,7 +55,17 @@ describe('Static Radar Chart components', function () {
       .should.containEql('background-color: rgb(253, 250, 242)');
   });
 
-  it('should render with the given config props', () => {
+  it('should render grid if showGrid is true', function () {
+    instance = renderIntoDocument(<StaticRadarChart data={ data } showGrid={ true }/>);
+    findRenderedComponentWithType(instance, RadarGrid);
+  });
+
+  it('should hide spline line if showSpineLine is set to false', function () {
+    instance = renderIntoDocument(<StaticRadarChart data={ data } showSpineLine={ false }/>);
+    scryRenderedComponentsWithType(instance, RadarSpineLine).should.have.length(0);
+  });
+
+  it('should render with the given aspect ratio config props', () => {
     const config = {
       width: 232,
       height: 100,
