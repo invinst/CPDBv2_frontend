@@ -38,7 +38,7 @@ describe('officer page', function () {
 
     officerPage.summarySection.rankLabel.getText().should.equal('Rank');
     officerPage.summarySection.rankValue.getText().should.equal('NA');
-    officerPage.summarySection.rankExtraInfo.getText().should.equal('DATA NOT READY base salary');
+    officerPage.summarySection.rankExtraInfo.getText().should.equal('$100,000 base salary');
 
     officerPage.summarySection.raceLabel.getText().should.equal('Race');
     officerPage.summarySection.raceValue.getText().should.equal('White');
@@ -59,7 +59,7 @@ describe('officer page', function () {
   it('should display the timeline by default', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
 
-    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINESUMMARYMAPCOACCUSALSATTACHMENTS');
+    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINEMAPCOACCUSALSATTACHMENTS');
     officerPage.tabbedPaneSection.timelineTabName.getCssProperty('background-color').value.should.eql(
       'rgba(0,94,244,1)'
     );
@@ -79,7 +79,7 @@ describe('officer page', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
     officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
 
-    officerPage.tabbedPaneSection.summaryTabName.click();
+    officerPage.tabbedPaneSection.mapTabName.click();
 
     officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
     officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible(10000, true);

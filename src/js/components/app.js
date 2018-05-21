@@ -1,16 +1,15 @@
-import { StyleRoot } from 'radium';
-import { locationShape } from 'react-router/lib/PropTypes';
-import React, { PropTypes, cloneElement } from 'react';
+import RouteTransition from 'components/animation/route-transition';
+import EditModeProvider from 'components/edit-mode-provider';
+import GenericModalContainer from 'containers/generic-modal-container';
+import LoginModalContainer from 'containers/login-modal-container';
 
 import { getMockAdapter } from 'mock-api';
-import BottomSheetContainer from 'containers/bottom-sheet';
-import EditModeProvider from 'components/edit-mode-provider';
-import LoginModalContainer from 'containers/login-modal-container';
-import GenericModalContainer from 'containers/generic-modal-container';
-import RouteTransition from 'components/animation/route-transition';
-import * as LayeredKeyBinding from 'utils/layered-key-binding';
+import { StyleRoot } from 'radium';
+import React, { cloneElement, PropTypes } from 'react';
+import { locationShape } from 'react-router/lib/PropTypes';
 
 import { ALPHA_NUMBERIC } from 'utils/constants';
+import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 
 export default class App extends React.Component {
@@ -43,30 +42,19 @@ export default class App extends React.Component {
     fetchLandingPageContent();
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { reportId, faqId, officerId } = this.props.params;
-    if (this.props.children && !(reportId || faqId || officerId)) {
-      this.prevChildren = this.props.children;
-    }
-  }
-
   componentWillUnmount() {
     LayeredKeyBinding.unbind('esc');
     ALPHA_NUMBERIC.map(LayeredKeyBinding.unbind);
   }
 
   children() {
-    const { children, params, location } = this.props;
-    const { reportId, faqId } = params;
-    if ((reportId || faqId) && this.prevChildren) {
-      return this.prevChildren;
-    }
+    const { children, location } = this.props;
     this.prevChildren = cloneElement(children, { pathname: location.pathname });
     return this.prevChildren;
   }
 
   render() {
-    const { location, appContent, params } = this.props;
+    const { location, appContent } = this.props;
     const children = this.children();
 
     return (
@@ -75,7 +63,6 @@ export default class App extends React.Component {
           <RouteTransition pathname={ appContent }>
             { children }
           </RouteTransition>
-          <BottomSheetContainer params={ params } location={ location }/>
           <LoginModalContainer location={ location }/>
           <GenericModalContainer location={ location }/>
         </EditModeProvider>

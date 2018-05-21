@@ -10,8 +10,7 @@ Example:
 
 ```javascript
   <ExpandMotion show={ displayCoaccusedDropdown }>
-    <CoaccusedList currentOfficerId={ officerId } coaccused={ coaccused }
-      openBottomSheetWithComplaint={ openBottomSheetWithComplaint } crid={ crid }/>
+    <CoaccusedList currentOfficerId={ officerId } coaccused={ coaccused } crid={ crid }/>
   </ExpandMotion>
 ```
 

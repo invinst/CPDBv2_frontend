@@ -1,19 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import { FAQ_PATH } from 'utils/constants';
-import { editMode } from 'utils/edit-path';
+import { QA_LINK } from 'utils/constants';
 
 export default class RightLinks extends Component {
   render() {
-    const { editModeOn, rightLinkStyle } = this.props;
+    const { rightLinkStyle } = this.props;
     const links = [
       {
         name: 'Data',
         externalHref: 'https://beta.cpdb.co/'
       },
       {
-        name: 'FAQ',
-        href: '/' + FAQ_PATH
+        name: 'Q&A',
+        externalHref: QA_LINK
       },
       {
         name: 'Glossary',
@@ -37,19 +35,6 @@ export default class RightLinks extends Component {
           </a>
         );
       }
-
-      const href = link.href && (editModeOn ? editMode(link.href) : link.href);
-
-      return (
-        <Link
-          style={ rightLinkStyle }
-          key={ index }
-          to={ href }
-          onClick={ link.onClick }
-        >
-          { link.name }
-        </Link>
-      );
     });
 
     return <div>{ tags }</div>;

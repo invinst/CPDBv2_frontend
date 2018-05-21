@@ -1,111 +1,116 @@
 'use strict';
 
-import 'should';
 import { includes } from 'lodash';
+import 'should';
 
-import faqPage from './page-objects/faq-page';
+import landingPage from './page-objects/landing-page';
+import { selectText } from './utils';
 
 
 describe('Rich text editor', function () {
-
   beforeEach(function () {
-    faqPage.openItemEditMode();
-    faqPage.selectText(faqPage.bottomSheet.faq.answer.selector);
+    landingPage.open();
+    landingPage.openEditMode();
+    browser.moveToObject(landingPage.topHeader.logo.subtitle.selector);
+    landingPage.topHeader.logo.editButton.click();
+    selectText(landingPage.topHeader.logo.subtitle.selector);
   });
 
   it('text should be editable', function () {
     browser.keys('abcdef');
-    includes(faqPage.bottomSheet.faq.answer.getText(), 'abcdef').should.be.true();
+    includes(landingPage.topHeader.logo.subtitle.getText(), 'abcdef').should.be.true();
   });
 
   describe('Toolbar', function () {
     it('should show when select text', function () {
-      faqPage.richTextToolbar.element.waitForVisible();
+      landingPage.richTextToolbar.element.waitForVisible();
     });
 
     it('should hide when click away', function () {
       browser.element('body').click();
-      faqPage.richTextToolbar.element.waitForVisible(2000, true);
+      landingPage.richTextToolbar.element.waitForVisible(2000, true);
     });
 
     describe('bold button', function () {
       beforeEach(function () {
-        faqPage.richTextToolbar.boldButton.waitForVisible();
-        faqPage.richTextToolbar.boldButton.click();
+        landingPage.richTextToolbar.boldButton.waitForVisible();
+        landingPage.richTextToolbar.boldButton.click();
       });
 
       it('should make text bold when clicked', function () {
-        faqPage.bottomSheet.faq.boldTextSpan.waitForVisible();
+        landingPage.topHeader.logo.boldTextSpan.waitForVisible();
       });
 
       it('should make text not bold when clicked on again', function () {
-        faqPage.richTextToolbar.boldButton.click();
-        faqPage.bottomSheet.faq.boldTextSpan.waitForVisible(2000, true);
+        landingPage.richTextToolbar.boldButton.click();
+        landingPage.topHeader.logo.boldTextSpan.waitForVisible(2000, true);
       });
     });
 
     describe('italic button', function () {
       beforeEach(function () {
-        faqPage.richTextToolbar.italicButton.waitForVisible();
-        faqPage.richTextToolbar.italicButton.click();
+        landingPage.richTextToolbar.italicButton.waitForVisible();
+        landingPage.richTextToolbar.italicButton.click();
       });
 
       it('should make text italic when clicked', function () {
-        faqPage.bottomSheet.faq.italicTextSpan.waitForVisible();
+        landingPage.topHeader.logo.italicTextSpan.waitForVisible();
       });
 
       it('should make text not italic when clicked on again', function () {
-        faqPage.richTextToolbar.italicButton.click();
-        faqPage.bottomSheet.faq.italicTextSpan.waitForVisible(2000, true);
+        landingPage.richTextToolbar.italicButton.click();
+        landingPage.topHeader.logo.italicTextSpan.waitForVisible(2000, true);
       });
     });
 
     describe('link button', function () {
       beforeEach(function () {
-        faqPage.richTextToolbar.linkButton.click();
+        landingPage.expandRootTopMargin(); //preventing the urlInput from hiding away
+        selectText(landingPage.topHeader.logo.subtitleFirstLine.selector);
+        landingPage.richTextToolbar.linkButton.click();
       });
 
       it('should show url input when clicked on', function () {
-        faqPage.richTextToolbar.urlInput.waitForVisible();
+        landingPage.richTextToolbar.urlInput.waitForVisible();
       });
 
       it('should hide url input when clicked on again', function () {
-        faqPage.richTextToolbar.linkButton.click();
-        faqPage.richTextToolbar.urlInput.waitForVisible(2000, true);
+        landingPage.richTextToolbar.linkButton.click();
+        landingPage.richTextToolbar.urlInput.waitForVisible(2000, true);
       });
 
       describe('url input', function () {
         it('should toggle link when url input is add/remove', function () {
-          faqPage.richTextToolbar.urlInput.setValue('h');
-          faqPage.bottomSheet.faq.linkTextSpan.waitForVisible();
+          landingPage.richTextToolbar.urlInput.setValue('h');
+          landingPage.topHeader.logo.linkTextSpan.waitForVisible();
 
           browser.keys('Backspace');
-          faqPage.bottomSheet.faq.linkTextSpan.waitForVisible(2000, true);
+          landingPage.topHeader.logo.linkTextSpan.waitForVisible(2000, true);
         });
 
         it('should show empty input when selecting a fresh block of text', function () {
-          faqPage.richTextToolbar.urlInput.getValue().should.be.empty();
+          landingPage.richTextToolbar.urlInput.getValue().should.be.empty();
         });
 
         it('should show existing url when selecting a link', function () {
-          faqPage.richTextToolbar.urlInput.setValue('h');
-          browser.element('body').click();
+          landingPage.richTextToolbar.urlInput.setValue('h');
+          landingPage.topHeader.logo.subtitle.click();
 
-          faqPage.selectText(faqPage.bottomSheet.faq.answer.selector);
-          faqPage.richTextToolbar.urlInput.getValue().should.equal('h');
+          selectText(landingPage.topHeader.logo.subtitleFirstLine.selector);
+          landingPage.richTextToolbar.urlInput.getValue().should.equal('h');
         });
 
         it('should remove existing url of selected text when click on link button', function () {
-          faqPage.richTextToolbar.urlInput.setValue('h');
-          faqPage.richTextToolbar.linkButton.click();
+          landingPage.richTextToolbar.urlInput.setValue('h');
+          landingPage.richTextToolbar.linkButton.click();
 
-          faqPage.bottomSheet.faq.linkTextSpan.waitForVisible(2000, true);
+          landingPage.topHeader.logo.linkTextSpan.waitForVisible(2000, true);
         });
 
         it('should hide both toolbar and url input when click outside', function () {
           browser.element('body').click();
 
-          faqPage.richTextToolbar.element.waitForVisible(2000, true);
+          landingPage.richTextToolbar.element.waitForVisible(2000, true);
         });
       });
     });
