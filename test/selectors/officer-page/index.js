@@ -1,5 +1,5 @@
-import { DATA_NOT_AVAILABLE } from 'selectors/officer-page';
 import {
+  DATA_NOT_AVAILABLE,
   getOfficerName,
   getPathname,
   metricsSelector,
