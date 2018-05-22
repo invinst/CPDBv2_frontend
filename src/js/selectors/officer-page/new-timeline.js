@@ -238,7 +238,19 @@ export const getNewTimelineItems = state => {
   return processors.reduce((accItems, processor) => processor(accItems), filteredItems);
 };
 
+
+export const attachmentsComplaintTransform = (item, index) => ({
+  date: moment(item.date).format('MMM D').toUpperCase(),
+  category: item.category,
+  crid: item.crid,
+  coaccused: item.coaccused,
+  finding: item.finding,
+  outcome: item.outcome,
+  attachments: attachmentsTransform(item.attachments),
+});
+
 export const getComplaintsWithAttachments = state => {
   const items = get(state.officerPage.newTimeline, 'items', []);
-  return items.filter(item => !isEmpty(get(item, 'attachments')));
+  const complaints = items.filter(item => !isEmpty(get(item, 'attachments')));
+  return complaints.map(attachmentsComplaintTransform);
 };
