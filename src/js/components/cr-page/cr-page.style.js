@@ -59,3 +59,12 @@ export const summaryTextStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 300
 };
+
+export const footerStyle = {
+  wrapper: {
+    backgroundColor: softBlackColor
+  },
+  link: hovering => ({
+    color: hovering ? 'white' : clayGray
+  })
+};
