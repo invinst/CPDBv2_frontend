@@ -17,7 +17,11 @@ export default class Attachment extends Component {
       <div style={ wrapperStyle }>
         <div style={ insideStyle }>
           <OutboundLink href={ url } className='test--attachment-complaints-image-href' style={ outboundLinkStyle }>
-            <img style={ attachmentImageStyle } src={ previewImageUrl } className='test--attachment-complaints-image' />
+            <img
+              style={ attachmentImageStyle }
+              src={ previewImageUrl }
+              className='test--attachment-complaints-image'
+            />
           </OutboundLink>
           <span style={ attachmentNameStyle }>{ title }</span>
         </div>

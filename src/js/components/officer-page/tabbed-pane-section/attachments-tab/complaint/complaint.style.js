@@ -12,8 +12,12 @@ import {
 
 export const baseWrapperShowingStyle = {
   display: 'inline-block',
-  width: 'calc(100% - 209px)',
+  width: '100%',
   backgroundColor: snowColor,
+  borderRadius: '2px',
+  border: `solid 1px ${whiteTwoColor}`,
+  marginTop: '8px',
+  fontSize: '14px',
 };
 
 export const baseShowingStyle = {
@@ -53,11 +57,11 @@ const height = 58;
 export const showingStyle = {
   height: `${height}px`,
   lineHeight: `${height - 1}px`,
+  cursor: 'pointer',
 };
 
 export const wrapperShowingStyle = (hovering) => ({
   backgroundColor: hovering ? 'white' : snowColor,
-  cursor: 'pointer',
 });
 
 export const kindStyle = (active) => ({
@@ -72,9 +76,9 @@ export const detailStyle = {
   verticalAlign: 'middle',
 };
 
-export const categoryStyle = (hovering) => ({
-  color: hovering ? accentColor : softBlackColor,
-});
+export const categoryStyle = {
+  color: softBlackColor,
+};
 
 export const findingStyle = {
   fontWeight: 300,

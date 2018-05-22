@@ -21,7 +21,7 @@ import {
 } from './complaint.style';
 
 
-class Complaint extends Component {
+export default class Complaint extends Component {
   constructor(props) {
     super(props);
 
@@ -47,10 +47,12 @@ class Complaint extends Component {
     return (
       <div
         style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle(hovering) } }
-        onClick={ () => openComplaintPage({ crid: crid, officerId: officerId }) }
         className='test--attachments-complaint'
       >
-        <span style={ { ...baseShowingStyle, ...showingStyle } }>
+        <span
+          style={ { ...baseShowingStyle, ...showingStyle } }
+          onClick={ () => openComplaintPage({ crid: crid, officerId: officerId }) }
+        >
           <div style={ baseWrapperKindStyle }>
             <span
               style={ { ...baseKindStyle, ...kindStyle(finding === 'Sustained') } }
@@ -61,7 +63,7 @@ class Complaint extends Component {
           </div>
           <span style={ detailStyle }>
             <div
-              style={ { ...baseCategoryStyle, ...categoryStyle(hovering) } }
+              style={ { ...baseCategoryStyle, ...categoryStyle } }
               className='test--attachments-complaint-category'>
               { category }
             </div>
@@ -90,5 +92,3 @@ Complaint.propTypes = {
   complaint: PropTypes.object,
   openComplaintPage: PropTypes.func,
 };
-
-export default Hoverable(Complaint);

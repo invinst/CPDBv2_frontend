@@ -24,7 +24,9 @@ export const attachmentNameStyle = {
   width: '104px',
   height: '36px',
   fontWeight: 500,
-  color: clayGray
+  color: clayGray,
+  fontSize: '14px',
+  lineHeight: '26px',
 };
 
 export const insideStyle = {

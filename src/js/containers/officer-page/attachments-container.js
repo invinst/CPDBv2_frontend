@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import React from 'react';
 
-import Attachments from 'components/officer-page/tabbed-pane-section/attachments';
+import Attachments from 'components/officer-page/tabbed-pane-section/attachments-tab';
 import { getComplaintsWithAttachments } from 'selectors/officer-page/new-timeline';
 import { changeFilter } from 'actions/officer-page/new-timeline';
 import { openComplaintPage } from 'actions/bottom-sheet';
