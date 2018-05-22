@@ -22,19 +22,6 @@ export default class CRPage extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    const { crid, fetchCR } = this.props;
-
-    fetchCR(crid);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { fetchCR, crid } = nextProps;
-    if (this.props.crid !== crid) {
-      fetchCR(crid);
-    }
-  }
-
   render() {
     const {
       crid, coaccused, complainants, alreadyRequested,
@@ -110,14 +97,12 @@ CRPage.propTypes = {
   startDate: PropTypes.string,
   endDate: PropTypes.string,
   involvements: PropTypes.object,
-  fetchCR: PropTypes.func,
   attachments: PropTypes.array,
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
 };
 
 CRPage.defaultProps = {
-  fetchCR: () => {},
   victims: [],
   complainants: [],
   coaccused: []

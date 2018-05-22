@@ -4,8 +4,13 @@ import { shuffle } from 'lodash';
 import { cardTransform } from './common';
 
 
-export const getCarouselActivityHeaderEditModeOn = state => state.landingPage.activityGrid.headerEditModeOn;
 const getCards = state => state.landingPage.activityGrid.cards;
+export const getCarouselActivityHeaderEditModeOn = state => state.landingPage.activityGrid.headerEditModeOn;
+
+export const hasCards = createSelector(
+  getCards,
+  cards => cards.length > 0
+);
 
 export const cardsSelector = createSelector(
   [getCards],

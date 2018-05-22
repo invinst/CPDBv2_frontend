@@ -1,6 +1,8 @@
 import should from 'should';
 
-import { communityGeoJSONSelector, communitiesSelector } from 'selectors/landing-page/heat-map';
+import {
+  communityGeoJSONSelector, communitiesSelector, getClusterGeoJson, hasClusterGeoJsonData
+} from 'selectors/landing-page/heat-map';
 import { rawCommunityFactory, raceCountFactory, rawComplaintOfficerFactory } from 'utils/test/factories/heat-map';
 
 describe('Heat map selectors', function () {
@@ -29,7 +31,8 @@ describe('Heat map selectors', function () {
               })]
             })
           }]
-        }
+        },
+        clusterGeoJson: 'abc'
       }
     }
   };
@@ -102,6 +105,28 @@ describe('Heat map selectors', function () {
           }
         }
       })).eql(null);
+    });
+  });
+
+  describe('getClusterGeoJson', function () {
+    it('should return cluster geojson data', function () {
+      getClusterGeoJson(state).should.eql('abc');
+    });
+  });
+
+  describe('hasClusterGeoJsonData', function () {
+    it('should return true if has cluster geojson data', function () {
+      hasClusterGeoJsonData(state).should.be.true();
+    });
+
+    it('should return false if does not have cluster geojson data', function () {
+      hasClusterGeoJsonData({
+        landingPage: {
+          heatMap: {
+            clusterGeoJson: null
+          }
+        }
+      }).should.be.false();
     });
   });
 });
