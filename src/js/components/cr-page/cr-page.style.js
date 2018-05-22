@@ -16,6 +16,7 @@ export const headerStyle = {
 export const summarySectionWrapperStyle = {
   backgroundColor: 'white',
   margin: '0 16px 16px 16px',
+  overflow: 'hidden',
   border: `1px solid ${whiteTwoColor}`
 };
 

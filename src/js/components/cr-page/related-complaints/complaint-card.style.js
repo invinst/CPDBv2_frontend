@@ -4,13 +4,19 @@ import { clayGray, darkSlateGrayColor, whiteTwoColor, accentColor } from 'utils/
 export const itemWidth = 232;
 
 export const wrapperStyle = hovering => ({
-  width: `${itemWidth}px`,
-  height: '298px',
+  width: '100%',
+  height: '100%',
+  boxSizing: 'border-box',
   border: `1px solid ${hovering ? accentColor : clayGray}`,
   backgroundColor: hovering ? '#454c59' : darkSlateGrayColor,
-  display: 'block',
-  marginRight: '8px'
+  display: 'block'
 });
+
+export const hoverableWrapperStyle = {
+  width: `${itemWidth}px`,
+  height: '298px',
+  marginRight: '8px'
+};
 
 export const mapStyle = (lat, lon) => ({
   width: `${itemWidth}px`,
