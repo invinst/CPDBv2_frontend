@@ -22,8 +22,6 @@ export const responsiveFixedWidthInnerStyle = {
 export const invistWrapperStyle = {
   backgroundColor: whiteTwoColor,
   height: '40px',
-  padding: '10px 16px',
-  boxSizing: 'border-box',
-  position: 'relative',
-  left: '-7px'
+  padding: '10px 16px 10px 9px',
+  boxSizing: 'border-box'
 };
