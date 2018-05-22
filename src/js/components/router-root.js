@@ -37,9 +37,11 @@ export default class RouterRoot extends Component {
         <Router history={ history }>
           <Route
             path='/(edit)'
+            breadcrumbKey='/'
             component={ AppContainer }>
             <IndexRoute
               component={ LandingPageContainer }
+              breadcrumbKey='/'
               breadcrumb='cpdp'/>
             <Route
               path={ COLLAB_PATH }

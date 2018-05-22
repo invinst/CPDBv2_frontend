@@ -1,15 +1,15 @@
-import RouteTransition from 'components/animation/route-transition';
-import EditModeProvider from 'components/edit-mode-provider';
-import GenericModalContainer from 'containers/generic-modal-container';
-import LoginModalContainer from 'containers/login-modal-container';
+import { StyleRoot } from 'radium';
+import { locationShape } from 'react-router/lib/PropTypes';
+import React, { PropTypes, cloneElement } from 'react';
 
 import { getMockAdapter } from 'mock-api';
-import { StyleRoot } from 'radium';
-import React, { cloneElement, PropTypes } from 'react';
-import { locationShape } from 'react-router/lib/PropTypes';
+import EditModeProvider from 'components/edit-mode-provider';
+import LoginModalContainer from 'containers/login-modal-container';
+import GenericModalContainer from 'containers/generic-modal-container';
+import RouteTransition from 'containers/animation/route-transition';
+import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 import { ALPHA_NUMBERIC } from 'utils/constants';
-import * as LayeredKeyBinding from 'utils/layered-key-binding';
 
 
 export default class App extends React.Component {
@@ -36,10 +36,9 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    const { receiveTokenFromCookie, fetchLandingPageContent } = this.props;
+    const { receiveTokenFromCookie } = this.props;
 
     receiveTokenFromCookie();
-    fetchLandingPageContent();
   }
 
   componentWillUnmount() {
@@ -77,7 +76,6 @@ App.childContextTypes = {
 
 App.propTypes = {
   children: PropTypes.node,
-  fetchLandingPageContent: PropTypes.func,
   appContent: PropTypes.string,
   params: PropTypes.object,
   receiveTokenFromCookie: PropTypes.func,
@@ -90,7 +88,6 @@ App.propTypes = {
 
 App.defaultProps = {
   params: {},
-  fetchLandingPageContent: () => {},
   location: {
     pathname: ''
   },
