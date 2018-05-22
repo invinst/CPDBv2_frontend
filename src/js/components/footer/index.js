@@ -7,7 +7,6 @@ import FooterNavLink from './footer-nav-link';
 import InvistLogo from './invist-logo';
 import {
   wrapperStyle,
-  linkWrapperStyle,
   sectionStyle,
   responsiveFixedWidthInnerStyle,
   invistWrapperStyle
@@ -34,20 +33,20 @@ class Footer extends React.Component {
     return (
       <div style={ { ...sectionStyle, ...style.wrapper } }>
         <div style={ wrapperStyle }>
-          <div style={ linkWrapperStyle }>
+          <div style={ responsiveFixedWidthInnerStyle }>
             <ResponsiveFluidWidthComponent>
-              <div style={ responsiveFixedWidthInnerStyle }>
-                { links.map((link, ind) => (
-                  <FooterNavLink
-                    style={ style.link }
-                    key={ ind }
-                    { ...link }
-                  />
-                )) }
-              </div>
-              <div style={ invistWrapperStyle }>
-                <InvistLogo />
-              </div>
+              { links.map((link, ind) => (
+                <FooterNavLink
+                  style={ style.link }
+                  key={ ind }
+                  { ...link }
+                />
+              )) }
+            </ResponsiveFluidWidthComponent>
+          </div>
+          <div style={ invistWrapperStyle }>
+            <ResponsiveFluidWidthComponent>
+              <InvistLogo />
             </ResponsiveFluidWidthComponent>
           </div>
         </div>

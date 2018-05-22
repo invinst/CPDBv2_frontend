@@ -10,10 +10,6 @@ export const wrapperStyle = {
   width: '100%'
 };
 
-export const linkWrapperStyle = {
-  height: '40px'
-};
-
 export const responsiveFixedWidthInnerStyle = {
   padding: '12px 16px',
   fontSize: '14px'
@@ -22,6 +18,6 @@ export const responsiveFixedWidthInnerStyle = {
 export const invistWrapperStyle = {
   backgroundColor: whiteTwoColor,
   height: '40px',
-  padding: '10px 16px 10px 9px',
+  padding: '10px 0px',
   boxSizing: 'border-box'
 };
