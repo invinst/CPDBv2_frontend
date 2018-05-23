@@ -22,7 +22,6 @@ export const wrapperStyle = (hovering) => ({
   lineHeight: `${height - 1}px`,
   cursor: 'pointer',
   width: 'calc(100% - 32px)',
-  display: 'inline-block',
   margin: '0 16px',
   borderBottom: `solid 1px ${whiteTwoColor}`,
   boxSizing: 'border-box',

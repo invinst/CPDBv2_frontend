@@ -7,13 +7,14 @@ export const wrapperStyle = (hovering) => ({
   width: '120px',
   display: 'inline-block',
   textAlign: 'center',
+  paddingTop: '14px',
+  verticalAlign: 'bottom'
 });
 
 export const attachmentImageStyle = (hovering) => ({
   border: `solid 1px ${hovering ? accentColor : whiteTwoColor}`,
   height: '60px',
   width: '45px',
-  display: 'block-inline',
   boxSizing: 'border-box',
 });
 
@@ -29,9 +30,3 @@ export const attachmentNameStyle = (hovering) => ({
   fontSize: '14px',
   lineHeight: '26px',
 });
-
-export const insideStyle = {
-  position: 'relative',
-  top: '50%',
-  transform: 'translateY(-50%)'
-};

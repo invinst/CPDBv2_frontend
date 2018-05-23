@@ -28,7 +28,9 @@ export default class Complaint extends Component {
         className='test--attachments-complaint'
       >
         <Heading complaint={ complaint } openComplaintPage={ openComplaintPage } />
-        { this.renderAttachments() }
+        <div>
+          { this.renderAttachments() }
+        </div>
       </div>
     );
   }

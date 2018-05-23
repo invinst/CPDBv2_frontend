@@ -5,7 +5,6 @@ import React, { Component, PropTypes } from 'react';
 import {
   attachmentImageStyle,
   attachmentNameStyle,
-  insideStyle,
   outboundLinkStyle,
   wrapperStyle
 } from './attachment.style';
@@ -17,16 +16,14 @@ class Attachment extends Component {
     const { hovering } = this.props;
     return (
       <div style={ wrapperStyle(hovering) }>
-        <div style={ insideStyle }>
-          <OutboundLink href={ url } className='test--attachment-complaints-image-href' style={ outboundLinkStyle }>
-            <img
-              style={ attachmentImageStyle(hovering) }
-              src={ previewImageUrl }
-              className='test--attachment-complaints-image'
-            />
-          </OutboundLink>
-          <span style={ attachmentNameStyle(hovering) }>{ title }</span>
-        </div>
+        <OutboundLink href={ url } className='test--attachment-complaints-image-href' style={ outboundLinkStyle }>
+          <img
+            style={ attachmentImageStyle(hovering) }
+            src={ previewImageUrl }
+            className='test--attachment-complaints-image'
+          />
+        </OutboundLink>
+        <span style={ attachmentNameStyle(hovering) }>{ title }</span>
       </div>
     );
   }
