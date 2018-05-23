@@ -4,7 +4,6 @@ import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
   galleryColor, lightAltoColor, greyColor, softBlackColor
 } from 'utils/styles';
-import { AttachmentFactory } from 'utils/test/factories/complaint';
 
 export const TOP = 'top';
 export const BOTTOM = 'bottom';

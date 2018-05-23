@@ -15,8 +15,14 @@ class Attachment extends Component {
     const { hovering } = this.props;
     return (
       <OutboundLink href={ url } style={ wrapperStyle(hovering) }>
-        <div style={ attachmentImageStyle(hovering, previewImageUrl, fileType) }/>
-        <span style={ attachmentTitleStyle(hovering) }>{ title }</span>
+        <div
+          className='test--attachment-preview-image'
+          style={ attachmentImageStyle(hovering, previewImageUrl, fileType) }
+        />
+        <span
+          className='test--attachment-title'
+          style={ attachmentTitleStyle(hovering) }>{ title }
+        </span>
       </OutboundLink>
     );
   }

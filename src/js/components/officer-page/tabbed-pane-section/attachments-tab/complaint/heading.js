@@ -26,11 +26,12 @@ class Heading extends Component {
       <div
         style={ wrapperStyle(hovering) }
         onClick={ () => openComplaintPage({ crid: crid, officerId: officerId }) }
+        className='test--attachments-heading'
       >
         <div style={ wrapperKindStyle }>
           <span
             style={ kindStyle(finding === 'Sustained') }
-            className='test--attachments-complaint-kind'
+            className='test--attachments-heading-kind'
           >
             Complaint
           </span>
@@ -38,20 +39,20 @@ class Heading extends Component {
         <span style={ detailStyle }>
           <div
             style={ categoryStyle(hovering) }
-            className='test--attachments-complaint-category'>
+            className='test--attachments-heading-category'>
             { category }
           </div>
-          <div style={ findingStyle } className='test--attachments-complaint-finding'>{ finding }, { outcome }</div>
+          <div style={ findingStyle } className='test--attachments-heading-finding'>{ finding }, { outcome }</div>
         </span>
         <span style={ rightStyle }>
           <span
             style={ coaccusedStyle }
-            className='test--attachments-complaint-coaccused'>
+            className='test--attachments-heading-coaccused'>
             1 of { coaccused } coaccused
           </span>
           <span
             style={ dateStyle }
-            className='test--attachments-complaint-date'>{ date }
+            className='test--attachments-heading-date'>{ date }
           </span>
         </span>
       </div>
@@ -63,6 +64,10 @@ Heading.propTypes = {
   complaint: PropTypes.object,
   openComplaintPage: PropTypes.func,
   hovering: PropTypes.bool,
+};
+
+Heading.defaultProps = {
+  openComplaintPage: () => {}
 };
 
 export default Hoverable(Heading);
