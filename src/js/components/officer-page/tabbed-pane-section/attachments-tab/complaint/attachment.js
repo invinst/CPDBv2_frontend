@@ -4,27 +4,20 @@ import React, { Component, PropTypes } from 'react';
 
 import {
   attachmentImageStyle,
-  attachmentNameStyle,
-  outboundLinkStyle,
+  attachmentTitleStyle,
   wrapperStyle
 } from './attachment.style';
 
 
 class Attachment extends Component {
   render() {
-    const { title, url, previewImageUrl } = this.props.attachment;
+    const { title, url, previewImageUrl, fileType } = this.props.attachment;
     const { hovering } = this.props;
     return (
-      <div style={ wrapperStyle(hovering) }>
-        <OutboundLink href={ url } className='test--attachment-complaints-image-href' style={ outboundLinkStyle }>
-          <img
-            style={ attachmentImageStyle(hovering) }
-            src={ previewImageUrl }
-            className='test--attachment-complaints-image'
-          />
-        </OutboundLink>
-        <span style={ attachmentNameStyle(hovering) }>{ title }</span>
-      </div>
+      <OutboundLink href={ url } style={ wrapperStyle(hovering) }>
+        <div style={ attachmentImageStyle(hovering, previewImageUrl, fileType) }/>
+        <span style={ attachmentTitleStyle(hovering) }>{ title }</span>
+      </OutboundLink>
     );
   }
 }

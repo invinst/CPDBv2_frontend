@@ -4,6 +4,7 @@ import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
   galleryColor, lightAltoColor, greyColor, softBlackColor
 } from 'utils/styles';
+import { AttachmentFactory } from 'utils/test/factories/complaint';
 
 export const TOP = 'top';
 export const BOTTOM = 'bottom';
@@ -377,3 +378,9 @@ export const DISTANCE_OPTIONS = {
 };
 
 export const QA_LINK = 'http://how.cpdp.works/';
+
+export const ATTACHMENT_TYPES = {
+  'VIDEO': 'video',
+  'AUDIO': 'audio',
+  'DOCUMENT': 'document',
+};
