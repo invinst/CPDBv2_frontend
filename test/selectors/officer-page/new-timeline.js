@@ -1,5 +1,3 @@
-import 'should-sinon';
-
 import {
   attachmentsTransform,
   awardTransform,
@@ -21,7 +19,7 @@ import {
 import { NEW_TIMELINE_FILTERS } from 'utils/constants';
 
 
-describe('officer page selectors', function () {
+describe('Officer new timeline selectors', function () {
   describe('baseTransform', function () {
     it('should return correct item', function () {
       const item = {

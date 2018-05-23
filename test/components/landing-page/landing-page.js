@@ -1,5 +1,4 @@
 import React from 'react';
-import 'should';
 import { stub } from 'sinon';
 import { Provider } from 'react-redux';
 

@@ -10,7 +10,7 @@ import {
 import Complaint from './complaint';
 
 
-export default class Attachments extends Component {
+export default class AttachmentsTab extends Component {
 
   render() {
     const { complaints, openComplaintPage } = this.props;
@@ -42,7 +42,11 @@ export default class Attachments extends Component {
   }
 }
 
-Attachments.propTypes = {
+AttachmentsTab.defaultProps = {
+  complaints: () => {},
+};
+
+AttachmentsTab.propTypes = {
   complaints: PropTypes.array,
   openComplaintPage: PropTypes.func,
 };

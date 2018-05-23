@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import React from 'react';
 
-import Attachments from 'components/officer-page/tabbed-pane-section/attachments-tab';
+import AttachmentsTab from 'components/officer-page/tabbed-pane-section/attachments-tab';
 import { getComplaintsWithAttachments } from 'selectors/officer-page/attachments';
 import { changeFilter } from 'actions/officer-page/new-timeline';
 import { openComplaintPage } from 'actions/open-page';
@@ -20,4 +20,4 @@ const mapDispatchToProps = {
   openComplaintPage,
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Attachments));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AttachmentsTab));

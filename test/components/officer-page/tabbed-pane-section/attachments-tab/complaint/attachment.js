@@ -59,4 +59,27 @@ describe('Attachment component', function () {
     const title = findRenderedDOMComponentWithClass(instance, 'test--attachment-title');
     title.style.color.should.eql('rgb(0, 94, 244)');
   });
+
+  it('should render document preview image correctly', function () {
+    instance = renderIntoDocument(
+      <Attachment attachment={ attachment } hovering={ false } />
+    );
+    const previewImage = findRenderedDOMComponentWithClass(instance, 'test--attachment-preview-image');
+    previewImage.style.backgroundSize.should.eql('cover');
+  });
+
+  it('should render other types preview image correctly', function () {
+    const videoAttachment = {
+      title: 'Video Clip',
+      url: 'https://player.vimeo.com/video/165206078',
+      previewImageUrl: '/src/img/ic-video.svg',
+      fileType: 'video'
+    };
+
+    instance = renderIntoDocument(
+      <Attachment attachment={ videoAttachment }/>
+    );
+    const previewImage = findRenderedDOMComponentWithClass(instance, 'test--attachment-preview-image');
+    previewImage.style.backgroundSize.should.eql('auto');
+  });
 });

@@ -1,12 +1,15 @@
 import React from 'react';
 
+import { findDOMNode } from 'react-dom';
 import Heading from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/heading';
 import {
   findRenderedDOMComponentWithClass,
-  renderIntoDocument
+  renderIntoDocument,
+  Simulate,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
+import { stub } from 'sinon';
 
 
 describe('Heading component', function () {
@@ -27,7 +30,7 @@ describe('Heading component', function () {
 
   it('should render with correct content', function () {
     instance = renderIntoDocument(
-      <Heading complaint={ complaint } hovering={ false }/>
+      <Heading complaint={ complaint } hovering={ false }/>,
     );
 
     const complaintCategory = findRenderedDOMComponentWithClass(instance, 'test--attachments-heading-category');
@@ -53,7 +56,7 @@ describe('Heading component', function () {
 
   it('should change style when hovered', function () {
     instance = renderIntoDocument(
-      <Heading complaint={ complaint } hovering={ true }/>
+      <Heading complaint={ complaint } hovering={ true }/>,
     );
 
     const attachments = findRenderedDOMComponentWithClass(instance, 'test--attachments-heading');
@@ -74,11 +77,21 @@ describe('Heading component', function () {
       coaccused: 4,
     };
     instance = renderIntoDocument(
-      <Heading complaint={ complaint } />
+      <Heading complaint={ complaint }/>,
     );
 
     const complaintKind = findRenderedDOMComponentWithClass(instance, 'test--attachments-heading-kind');
     complaintKind.style.color.should.eql('rgb(255, 31, 0)');
     complaintKind.style.backgroundColor.should.eql('rgb(251, 226, 212)');
+  });
+
+  it('should open complaint page when clicked', function () {
+    const stubOpenComplaintPage = stub();
+    instance = renderIntoDocument(
+      <Heading complaint={ complaint } openComplaintPage={ stubOpenComplaintPage }/>,
+    );
+
+    Simulate.click(findDOMNode(instance));
+    stubOpenComplaintPage.calledWith({ crid: 307775, officerId: 12074 });
   });
 });

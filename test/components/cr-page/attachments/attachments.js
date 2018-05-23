@@ -6,7 +6,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import Attachments from 'components/cr-page/attachments';
 
 
-describe('Attachments component', function () {
+describe('AttachmentsTab component', function () {
   let instance;
 
   afterEach(function () {
