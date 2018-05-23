@@ -130,6 +130,11 @@ describe('store', function () {
           }
         }
       },
+      trrPage: {
+        trrId: null,
+        data: {},
+        isRequesting: false,
+      },
       crs: {},
       officerPage: {
         activeTab: null,

@@ -5,6 +5,13 @@ export function getOfficerId(url) {
   return parseInt(url.replace(/.*officers?\/(\d+).*/, '$1'));
 }
 
+export function getTRRId(url) {
+  if (url === undefined) {
+    return NaN;
+  }
+  return parseInt(url.replace(/.*trr?\/(\d+).*/, '$1'));
+}
+
 export function getCRID(url) {
   if (url === undefined) {
     return NaN;

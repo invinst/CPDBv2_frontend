@@ -1,5 +1,5 @@
 import { get, sumBy, map, last } from 'lodash';
-import { extractPercentile } from 'selectors/landing-page/common';
+import { extractPercentile } from 'selectors/common/percentile';
 
 import { getCurrentAge, formatDate } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';

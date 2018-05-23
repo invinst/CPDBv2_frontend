@@ -4,6 +4,7 @@ import {
   getOfficerId,
   hasOfficerIdChanged,
   getCRID,
+  getTRRId,
   getComplaintOfficerId,
   getOfficerActiveTab,
   serializeFilterParams,
@@ -73,6 +74,16 @@ describe('location utils', function () {
 
     it('should return crid', function () {
       getCRID('/complaint/123/').should.eql(123);
+    });
+  });
+
+  describe('getTRRId', function () {
+    it('should return NaN when url is undefined', function () {
+      getTRRId(undefined).should.be.NaN();
+    });
+
+    it('should return trr id', function () {
+      getTRRId('/trr/123/').should.eql(123);
     });
   });
 

@@ -176,6 +176,7 @@ describe('officer page selectors', function () {
   describe('trrTransform', function () {
     it('should transform to correct category', function () {
       const firearmItem = {
+        'trr_id': 1,
         date: '2004-12-17',
         'firearm_used': true,
         kind: 'FORCE',
@@ -185,6 +186,7 @@ describe('officer page selectors', function () {
         'unit_name': '153',
       };
       const taserItem = {
+        'trr_id': 2,
         date: '2004-12-17',
         'firearm_used': false,
         kind: 'FORCE',
@@ -194,6 +196,7 @@ describe('officer page selectors', function () {
         'unit_name': '153',
       };
       const trrItem = {
+        'trr_id': 3,
         date: '2004-12-17',
         'firearm_used': false,
         kind: 'FORCE',
@@ -204,6 +207,7 @@ describe('officer page selectors', function () {
       };
 
       trrTransform(firearmItem, 1).should.eql({
+        trrId: 1,
         year: 2004,
         date: 'DEC 17',
         kind: 'FORCE',
@@ -221,6 +225,7 @@ describe('officer page selectors', function () {
         key: 1,
       });
       trrTransform(taserItem, 1).should.eql({
+        trrId: 2,
         year: 2004,
         date: 'DEC 17',
         kind: 'FORCE',
@@ -238,6 +243,7 @@ describe('officer page selectors', function () {
         key: 1,
       });
       trrTransform(trrItem, 1).should.eql({
+        trrId: 3,
         year: 2004,
         date: 'DEC 17',
         kind: 'FORCE',
@@ -1198,6 +1204,7 @@ describe('officer page selectors', function () {
                 'award_type': 'Honorable Mention'
               },
               {
+                'trr_id': 1,
                 'unit_name': '007',
                 kind: 'FORCE',
                 taser: true,
@@ -1207,6 +1214,7 @@ describe('officer page selectors', function () {
                 'firearm_used': false
               },
               {
+                'trr_id': 2,
                 'unit_name': '007',
                 kind: 'FORCE',
                 taser: false,
@@ -1223,6 +1231,7 @@ describe('officer page selectors', function () {
                 date: '2005-01-07'
               },
               {
+                'trr_id': 3,
                 'unit_name': '153',
                 kind: 'FORCE',
                 taser: false,
@@ -1335,6 +1344,7 @@ describe('officer page selectors', function () {
           key: '1-YEAR-2005',
         },
         {
+          trrId: 1,
           category: 'Taser',
           date: 'DEC 17',
           isFirstRank: false,
@@ -1352,6 +1362,7 @@ describe('officer page selectors', function () {
           key: 1,
         },
         {
+          trrId: 2,
           category: 'Use of Force Report',
           date: 'MAR 17',
           isFirstRank: false,
@@ -1419,6 +1430,7 @@ describe('officer page selectors', function () {
           key: '4-YEAR-2004',
         },
         {
+          trrId: 3,
           category: 'Firearm',
           date: 'DEC 17',
           isFirstRank: false,

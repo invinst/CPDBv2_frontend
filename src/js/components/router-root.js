@@ -10,6 +10,7 @@ import SearchTermsContainer from 'containers/search-page/search-terms-container'
 import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
+import TRRPageContainer from 'containers/trr-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
 import {
   COLLAB_PATH,
@@ -17,6 +18,7 @@ import {
   SEARCH_TERMS_PATH,
   OFFICER_PATH,
   CR_PATH_SUFFIX,
+  TTR_PATH,
   UNIT_PROFILE_PATH,
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
@@ -71,6 +73,10 @@ export default class RouterRoot extends Component {
                 component={ CRPageContainer }
                 useParentBreadcrumb={ true }/>
             </Route>
+            <Route
+              path={ TTR_PATH }
+              component={ TRRPageContainer }
+              breadcrumb={ BreadcrumbItemContainer }/>
             <Route
               path={ UNIT_PROFILE_PATH }
               component={ UnitProfilePageContainer }

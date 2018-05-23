@@ -2,22 +2,11 @@ import { createSelector } from 'reselect';
 import { get, last, map } from 'lodash';
 import moment from 'moment';
 
-import { getThisYear } from 'utils/date';
-import { extractPercentile } from 'selectors/landing-page/common';
+import { getThisYear, getCareerDuration } from 'utils/date';
+import { extractPercentile } from 'selectors/common/percentile';
 
 
 const getOfficerInfo = state => state.officerPage.summary;
-const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
-
-const getCareerDuration = (dateOfAppt, dateOfResignation) => {
-  if (!dateOfAppt && !dateOfResignation) {
-    return '';
-  }
-
-  const careerStart = formatCareerDate(dateOfAppt);
-  const careerEnd = dateOfResignation ? formatCareerDate(dateOfResignation) : 'Present';
-  return `${careerStart}—${careerEnd}`;
-};
 
 const getCareerDescription = (dateOfAppt, dateOfResignation) => {
   if (!dateOfAppt && !dateOfResignation) {
