@@ -1,7 +1,9 @@
-import { cardsSelector, } from 'selectors/landing-page/complaint-summaries';
-import { RawComplaintSummaryFactory } from 'utils/test/factories/complaint';
 import lodash from 'lodash';
 import { spy } from 'sinon';
+
+import { cardsSelector, hasCards } from 'selectors/landing-page/complaint-summaries';
+import { RawComplaintSummaryFactory } from 'utils/test/factories/complaint';
+
 
 describe('complaint-summaries selectors', function () {
   let state;
@@ -41,5 +43,17 @@ describe('complaint-summaries selectors', function () {
       stubShuffle.restore();
     });
 
+  });
+
+  describe('hasCards', function () {
+    it('should return true if complaintSummaries has data', function () {
+      state.landingPage.complaintSummaries.cards = ['abc'];
+      hasCards(state).should.be.true();
+    });
+
+    it('should return false if complaintSummaries does not have data', function () {
+      state.landingPage.complaintSummaries.cards = [];
+      hasCards(state).should.be.false();
+    });
   });
 });

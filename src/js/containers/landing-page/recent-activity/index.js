@@ -8,8 +8,7 @@ import { updatePage } from 'actions/cms';
 import { mergeEditWrapperStateProps } from 'utils/container';
 import {
   turnOffCarouselActivityHeaderEditMode,
-  turnOnCarouselActivityHeaderEditMode,
-  requestActivityGrid
+  turnOnCarouselActivityHeaderEditMode
 } from 'actions/landing-page/activity-grid';
 
 
@@ -23,7 +22,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  queryData: requestActivityGrid,
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselActivityHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselActivityHeaderEditMode
