@@ -37,7 +37,7 @@ export default class CommunityPane extends Component {
         <ListWidget
           typeName={ 'allegation' }
           showAvatar={ false }
-          title='MOST COMMON COMPLAINT'
+          title='MOST COMMON COMPLAINTS'
           items={ mostCommonComplaint }
         />
         <ListWidget

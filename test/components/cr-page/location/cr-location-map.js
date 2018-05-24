@@ -20,30 +20,39 @@ describe('CRLocationMap component', function () {
     scryRenderedDOMComponentsWithClass(instance, 'test--cr-location-map').should.have.length(1);
   });
 
-  it('should re-add marker on rerender', function () {
+  it('should reset marker location on rerender', function () {
     instance = renderIntoDocument(<CRLocationMap lng={ 0 } lat={ 0 } />);
-    const oldMarker = instance.marker;
+    instance.marker.setLngLat.resetHistory();
 
     instance = reRender(<CRLocationMap lng={ 1 } lat={ 1 } />, instance);
-
-    instance.marker.should.not.equal(oldMarker);
+    instance.marker.setLngLat.calledWith([1, 1]).should.be.true();
   });
 
-  it('should zoom in on rerender if it\'s zoom in already', function () {
+  it('should zoom out on rerender if it\'s zoom in already', function () {
     instance = renderIntoDocument(<CRLocationMap lng={ 0 } lat={ 0 } />);
     instance.handleMapClick();
-    const zoomIn = spy(instance, 'zoomIn');
+    const zoomOutSpy = spy(instance, 'zoomOut');
+    instance.map.getZoom.returns(13);
     instance = reRender(<CRLocationMap lng={ 1 } lat={ 1 } />, instance);
-    zoomIn.called.should.be.true();
+    zoomOutSpy.called.should.be.true();
+    instance.map.getZoom.resetHistory();
   });
 
-  it('should handle zoomIn and zoomOut', function () {
+  it('should call zoomIn when click and map is zoomed out', function () {
     instance = renderIntoDocument(<CRLocationMap lng={ 1 } lat={ 1 } />);
     const zoomIn = spy(instance, 'zoomIn');
-    const zoomOut = spy(instance, 'zoomOut');
+    instance.map.getZoom.returns(9);
     instance.handleMapClick();
     zoomIn.called.should.be.true();
+    instance.map.getZoom.resetHistory();
+  });
+
+  it('should call zoomOut when click and map is zoomed in', function () {
+    instance = renderIntoDocument(<CRLocationMap lng={ 1 } lat={ 1 } />);
+    const zoomOut = spy(instance, 'zoomOut');
+    instance.map.getZoom.returns(13);
     instance.handleMapClick();
     zoomOut.called.should.be.true();
+    instance.map.getZoom.resetHistory();
   });
 });

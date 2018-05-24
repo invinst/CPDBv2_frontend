@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 
 import { cardsSelector, getCarouselDocumentHeaderEditModeOn } from 'selectors/landing-page/recent-document';
-import { getRecentDocument } from 'actions/landing-page/recent-document';
 import RecentDocument from 'components/landing-page/recent-document';
 import * as constants from 'utils/constants';
 import { getCMSFields } from 'selectors/cms';
@@ -23,7 +22,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  queryData: getRecentDocument,
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselDocumentHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselDocumentHeaderEditMode

@@ -13,12 +13,6 @@ import OfficersByAllegationContainer from 'containers/landing-page/officers-by-a
 
 
 class LandingPage extends Component {
-  componentDidMount() {
-    this.props.resetBreadcrumbs({
-      breadcrumbs: []
-    });
-  }
-
   renderWithResponsiveStyle(style) {
     return (
       <div>

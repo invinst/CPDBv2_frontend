@@ -5,8 +5,10 @@ import {
 export const wrapperStyle = {
   padding: '7px 0',
   margin: '0 16px',
-  borderBottom: `1px solid ${whiteTwoColor}`,
-  boxSizing: 'border-box'
+  borderTop: `1px solid ${whiteTwoColor}`,
+  boxSizing: 'border-box',
+  position: 'relative',
+  top: '-1px'
 };
 
 export const labelStyle = {

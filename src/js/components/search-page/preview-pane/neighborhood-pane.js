@@ -27,7 +27,7 @@ export default class NeighborhoodPane extends Component {
           items={ mostCommonComplaint }
           typeName={ 'allegation' }
           showAvatar={ false }
-          title={ 'MOST COMMON COMPLAINT' }
+          title={ 'MOST COMMON COMPLAINTS' }
         />
         <ListWidget
           items={ officersMostComplaint }

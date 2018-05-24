@@ -3,12 +3,13 @@ import {
   renderIntoDocument,
   Simulate,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
+  findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Dropdown from 'components/cr-page/related-complaints/dropdown';
+import HoverableDropdown, { Dropdown } from 'components/cr-page/related-complaints/dropdown';
 
 
 describe('Dropdown component', function () {
@@ -19,12 +20,12 @@ describe('Dropdown component', function () {
   });
 
   it('should renderable', function () {
-    Dropdown.should.be.renderable();
+    HoverableDropdown.should.be.renderable();
   });
 
   it('should toggle expand state when clicked', function () {
-    instance = renderIntoDocument(<Dropdown />);
-
+    instance = renderIntoDocument(<HoverableDropdown />);
+    instance = findRenderedComponentWithType(instance, Dropdown);
     const displayValue = findRenderedDOMComponentWithClass(
       instance,
       'test--related-complaint-dropdown'
@@ -45,9 +46,9 @@ describe('Dropdown component', function () {
     };
 
     instance = renderIntoDocument(
-      <Dropdown options={ options } value='c' onChange={ onChangeSpy } />
+      <HoverableDropdown options={ options } value='c' onChange={ onChangeSpy } />
     );
-
+    instance = findRenderedComponentWithType(instance, Dropdown);
     const displayValue = findRenderedDOMComponentWithClass(
       instance,
       'test--related-complaint-dropdown'
