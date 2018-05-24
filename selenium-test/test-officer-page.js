@@ -230,4 +230,22 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/officer\/2\/$/);
     });
   });
+
+  describe('Attachments', function () {
+    beforeEach(function () {
+      officerPage.tabbedPaneSection.attachmentsTabName.click();
+    });
+
+    it('should go to complaint page when clicking on the complaint heading', function () {
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentHeading.click();
+      browser.getUrl().should.match(/\/complaint\/294088\/$/);
+    });
+
+    it('should go to attachment source page when clicking on the complaint attachment', function () {
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
+      browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+    });
+  });
 });

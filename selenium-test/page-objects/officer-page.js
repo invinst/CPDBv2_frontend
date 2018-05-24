@@ -69,9 +69,21 @@ class CoaccusalsSection extends Section {
   }
 }
 
+class AttachmentsSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      attachmentComplaint: '.test--attachments-complaint',
+      attachmentHeading: '.test--attachments-heading',
+      attachment: '.test--attachment',
+    });
+  }
+}
+
 class TabbedPaneSection extends Section {
   timelineSection = new TimelineSection();
   coaccusalsSection = new CoaccusalsSection();
+  attachmentsSection = new AttachmentsSection();
 
   constructor() {
     super();
@@ -81,6 +93,7 @@ class TabbedPaneSection extends Section {
       timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]',
       mapTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
       coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][3]',
+      attachmentsTabName: '//span[@class="test--tabbed-pane-tab-name"][4]',
     });
   }
 }

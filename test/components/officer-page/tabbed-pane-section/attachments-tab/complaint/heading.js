@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { findDOMNode } from 'react-dom';
 import Heading from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/heading';
 import {
   findRenderedDOMComponentWithClass,
