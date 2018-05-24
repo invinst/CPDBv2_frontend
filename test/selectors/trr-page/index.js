@@ -106,7 +106,7 @@ describe('TRR page selectors', function () {
             { axis: 'Internal Allegations', value: 11.1 },
             { axis: 'Civilian Allegations', value: 22.2 }
           ],
-          visualTokenBackground: '#ed6154',
+          visualTokenBackground: '#e85050',
           textColor: '#231F20',
         },
         assignedBeat: 'some beat',

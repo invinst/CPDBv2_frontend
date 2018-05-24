@@ -1,7 +1,9 @@
-import { cardsSelector, } from 'selectors/landing-page/recent-document';
-import { RawDocumentCardFactory } from 'utils/test/factories/attachment';
 import lodash from 'lodash';
 import { spy } from 'sinon';
+
+import { cardsSelector, hasCards } from 'selectors/landing-page/recent-document';
+import { RawDocumentCardFactory } from 'utils/test/factories/attachment';
+
 
 describe('recent-document selectors', function () {
   let state;
@@ -32,5 +34,17 @@ describe('recent-document selectors', function () {
       stubShuffle.restore();
     });
 
+  });
+
+  describe('hasCards', function () {
+    it('should return true if recentDocument has data', function () {
+      state.landingPage.recentDocument.cards = ['abc'];
+      hasCards(state).should.be.true();
+    });
+
+    it('should return false if recentDocument does not have data', function () {
+      state.landingPage.recentDocument.cards = [];
+      hasCards(state).should.be.false();
+    });
   });
 });

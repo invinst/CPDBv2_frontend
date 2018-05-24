@@ -50,7 +50,8 @@ describe('store', function () {
         },
         heatMap: {
           citySummary: {},
-          communities: null
+          communities: null,
+          clusterGeoJson: null
         }
       },
       authentication: {
@@ -64,6 +65,7 @@ describe('store', function () {
       cms: {
         pages: {}
       },
+      pageLoading: false,
       routing: {
         locationBeforeTransitions: null
       },
