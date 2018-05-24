@@ -15,8 +15,8 @@ import { stub } from 'sinon';
 describe('Heading component', function () {
   let instance;
   const complaint = {
-    crid: '307775',
-    officerId: '12074',
+    crid: 307775,
+    officerId: 12074,
     category: 'Use Of Force',
     finding: 'Not Sustained',
     outcome: 'No Action Taken',
@@ -91,7 +91,8 @@ describe('Heading component', function () {
       <Heading complaint={ complaint } openComplaintPage={ stubOpenComplaintPage }/>,
     );
 
-    Simulate.click(findDOMNode(instance));
-    stubOpenComplaintPage.calledWith({ crid: 307775, officerId: 12074 });
+    const heading = findRenderedDOMComponentWithClass(instance, 'test--attachments-heading');
+    Simulate.click(heading);
+    stubOpenComplaintPage.should.be.calledWith({ crid: 307775, officerId: 12074 });
   });
 });

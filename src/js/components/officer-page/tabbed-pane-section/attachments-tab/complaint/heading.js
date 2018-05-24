@@ -19,7 +19,6 @@ class Heading extends Component {
     const {
       crid, officerId, category, finding, outcome, date, coaccused
     } = this.props.complaint;
-
     const { openComplaintPage, hovering } = this.props;
 
     return (
