@@ -9,7 +9,8 @@ import {
   wrapperStyle,
   kindStyle,
   rightStyle,
-  wrapperKindStyle
+  wrapperKindStyle,
+  boxStyle,
 } from './heading.style';
 
 
@@ -27,33 +28,35 @@ class Heading extends Component {
         onClick={ () => openComplaintPage({ crid: crid, officerId: officerId }) }
         className='test--attachments-heading'
       >
-        <div style={ wrapperKindStyle }>
-          <span
-            style={ kindStyle(finding === 'Sustained') }
-            className='test--attachments-heading-kind'
-          >
-            Complaint
+        <div style={ boxStyle }>
+          <div style={ wrapperKindStyle }>
+            <span
+              style={ kindStyle(finding === 'Sustained') }
+              className='test--attachments-heading-kind'
+            >
+              Complaint
+            </span>
+          </div>
+          <span style={ detailStyle }>
+            <div
+              style={ categoryStyle(hovering) }
+              className='test--attachments-heading-category'>
+              { category }
+            </div>
+            <div style={ findingStyle } className='test--attachments-heading-finding'>{ finding }, { outcome }</div>
+          </span>
+          <span style={ rightStyle }>
+            <span
+              style={ coaccusedStyle }
+              className='test--attachments-heading-coaccused'>
+              1 of { coaccused } coaccused
+            </span>
+            <span
+              style={ dateStyle }
+              className='test--attachments-heading-date'>{ date }
+            </span>
           </span>
         </div>
-        <span style={ detailStyle }>
-          <div
-            style={ categoryStyle(hovering) }
-            className='test--attachments-heading-category'>
-            { category }
-          </div>
-          <div style={ findingStyle } className='test--attachments-heading-finding'>{ finding }, { outcome }</div>
-        </span>
-        <span style={ rightStyle }>
-          <span
-            style={ coaccusedStyle }
-            className='test--attachments-heading-coaccused'>
-            1 of { coaccused } coaccused
-          </span>
-          <span
-            style={ dateStyle }
-            className='test--attachments-heading-date'>{ date }
-          </span>
-        </span>
       </div>
     );
   }

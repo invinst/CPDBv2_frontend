@@ -21,11 +21,13 @@ export const wrapperStyle = (hovering) => ({
   height: `${height}px`,
   lineHeight: `${height - 1}px`,
   cursor: 'pointer',
-  width: 'calc(100% - 32px)',
-  margin: '0 16px',
-  borderBottom: `solid 1px ${whiteTwoColor}`,
+  padding: '0 16px',
   boxSizing: 'border-box',
 });
+
+export const boxStyle = {
+  borderBottom: `solid 1px ${whiteTwoColor}`,
+};
 
 export const kindStyle = (active) => ({
   width: '85px',
