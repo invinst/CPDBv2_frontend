@@ -248,8 +248,3 @@ export const getNewTimelineItems = state => {
 
   return processors.reduce((accItems, processor) => processor(accItems), filteredItems);
 };
-
-
-
-
-

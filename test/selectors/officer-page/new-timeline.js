@@ -17,6 +17,7 @@ import {
   markLatestUnit,
 } from 'selectors/officer-page/new-timeline';
 import { NEW_TIMELINE_FILTERS } from 'utils/constants';
+import { imgUrl } from 'utils/static-assets';
 
 
 describe('Officer new timeline selectors', function () {
@@ -88,7 +89,19 @@ describe('Officer new timeline selectors', function () {
           url: 'https://www.documentcloud.org/documents/3518955-CRID-303350-CR.html',
           'preview_image_url': 'https://assets.documentcloud.org/documents/3518955/pages/CRID-303350-CR-p1-normal.gif',
           'file_type': 'document',
-        }
+        },
+        {
+          title: 'Audio Clip',
+          url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/262463136&amp',
+          'preview_image_url': null,
+          'file_type': 'audio',
+        },
+        {
+          title: 'Video Clip',
+          url: 'https://player.vimeo.com/video/165206070',
+          'preview_image_url': null,
+          'file_type': 'video',
+        },
       ];
       attachmentsTransform(attachments).should.eql([
         {
@@ -102,7 +115,19 @@ describe('Officer new timeline selectors', function () {
           url: 'https://www.documentcloud.org/documents/3518955-CRID-303350-CR.html',
           previewImageUrl: 'https://assets.documentcloud.org/documents/3518955/pages/CRID-303350-CR-p1-normal.gif',
           fileType: 'document',
-        }
+        },
+        {
+          title: 'Audio Clip',
+          url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/262463136&amp',
+          previewImageUrl: imgUrl('ic-audio.svg'),
+          fileType: 'audio',
+        },
+        {
+          title: 'Video Clip',
+          url: 'https://player.vimeo.com/video/165206070',
+          previewImageUrl: imgUrl('ic-video.svg'),
+          fileType: 'video',
+        },
       ]);
     });
 
