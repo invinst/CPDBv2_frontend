@@ -1,7 +1,9 @@
-import { cardsSelector } from 'selectors/landing-page/officers-by-allegation';
-import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid';
 import lodash from 'lodash';
 import { spy } from 'sinon';
+
+import { cardsSelector, hasCards } from 'selectors/landing-page/officers-by-allegation';
+import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid';
+
 
 describe('officers-by-allegation selectors', function () {
   let state;
@@ -32,5 +34,17 @@ describe('officers-by-allegation selectors', function () {
       stubShuffle.restore();
     });
 
+  });
+
+  describe('hasCards', function () {
+    it('should return true if officersByAllegation has data', function () {
+      state.landingPage.officersByAllegation.cards = ['abc'];
+      hasCards(state).should.be.true();
+    });
+
+    it('should return false if officersByAllegation does not have data', function () {
+      state.landingPage.officersByAllegation.cards = [];
+      hasCards(state).should.be.false();
+    });
   });
 });

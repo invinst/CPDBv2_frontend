@@ -34,3 +34,41 @@ export const getRequestCount = url => {
   }, url);
   return result.value;
 };
+
+export const selectText = selector => {
+  browser.execute(function (selector) {
+
+    function getElementByXPath(path, contextNode) {
+      return document.evaluate(
+        path, contextNode, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null
+      ).singleNodeValue;
+    }
+
+    function getElementBySelector(selector) {
+      if (selector.startsWith('/') || selector.startsWith('(')) {
+        return getElementByXPath(selector, document);
+      } else {
+        return document.querySelector(selector);
+      }
+    }
+
+    const element = getElementBySelector(selector);
+
+    const firstTextElement = getElementByXPath('.//span[text()]', element);
+    const lastTextElement = getElementByXPath('(.//span[text()])[last()]', element);
+
+    const selection = window.getSelection();
+    const range = document.createRange();
+
+    const startIndex = 0;
+    const endIndex = lastTextElement.childNodes.length;
+
+    range.setStart(firstTextElement, startIndex);
+    range.setEnd(lastTextElement, endIndex);
+
+    selection.empty();
+    selection.addRange(range);
+    selection.empty();
+    selection.addRange(range);
+  }, selector);
+};

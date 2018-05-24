@@ -9,7 +9,7 @@ import {
   officerYearlyThreePercentile,
   summarySelector
 } from 'selectors/officer-page';
-import { openPoliceUnitPage } from 'actions/bottom-sheet';
+import { openPoliceUnitPage } from 'actions/open-page';
 
 
 function mapStateToProps(state, ownProps) {

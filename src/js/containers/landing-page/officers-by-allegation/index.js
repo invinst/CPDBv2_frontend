@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 
 import OfficersByAllegation from 'components/landing-page/officers-by-allegation';
 import { cardsSelector, getCarouselAllegationHeaderEditModeOn } from 'selectors/landing-page/officers-by-allegation';
-import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-allegation';
 import * as constants from 'utils/constants';
 import { getCMSFields } from 'selectors/cms';
 import { updatePage } from 'actions/cms';
@@ -23,7 +22,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  queryData: requestOfficersByAllegation,
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselAllegationHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselAllegationHeaderEditMode

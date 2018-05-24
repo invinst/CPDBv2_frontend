@@ -4,7 +4,7 @@ import Footer from 'components/footer';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
-import FooterNavLink from 'components/common/footer-nav-link';
+import FooterNavLink from 'components/footer/footer-nav-link';
 import * as intercomUtils from 'utils/intercom';
 
 
@@ -27,7 +27,7 @@ describe('Footer component', function () {
   it('should render GitHub external link', function () {
     element = renderIntoDocument(<Footer />);
     const links = scryRenderedComponentsWithType(element, FooterNavLink);
-    const githubLink = links.filter(link => link.props.name === 'Github')[0];
+    const githubLink = links.filter(link => link.props.name === 'GitHub')[0];
     githubLink.props.externalHref.should.eql('https://github.com/invinst/');
   });
 
