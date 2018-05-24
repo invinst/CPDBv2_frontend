@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import FooterContainer from 'containers/footer-container';
 import SummaryRow from './summary-row';
 import Demographics from './demographics';
 import Timeline from './timeline';
@@ -11,7 +12,7 @@ import Attachments from './attachments';
 import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import {
-  wrapperStyle, CRIDHeaderStyle, leftColumnStyle,
+  wrapperStyle, CRIDHeaderStyle, leftColumnStyle, footerStyle,
   rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle
 } from './cr-page.style';
 
@@ -76,6 +77,7 @@ export default class CRPage extends Component {
           </div>
         </ResponsiveFluidWidthComponent>
         <RelatedComplaints crid={ crid } />
+        <FooterContainer style={ footerStyle }/>
       </div>
     );
   }
