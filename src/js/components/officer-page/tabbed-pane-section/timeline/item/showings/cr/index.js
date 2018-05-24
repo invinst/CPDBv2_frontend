@@ -1,49 +1,22 @@
+import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import React, { Component, PropTypes } from 'react';
 
 import Hoverable from 'components/common/higher-order/hoverable';
+
 import {
-  attachmentImageStyle,
-  attachmentWrapperStyle,
+  categoryStyle,
   coaccusedStyle,
   dateStyle,
+  detailStyle,
   findingStyle,
   kindStyle,
-  moreAttachmentsStyle,
   rightStyle,
   showingStyle,
   wrapperShowingStyle,
-  categoryStyle,
-  detailStyle,
 } from './cr.style';
 
 
 class Cr extends Component {
-  renderAttachments() {
-    const { attachments } = this.props.item;
-
-    const [firstAttachment, ...rest] = attachments;
-    if (firstAttachment) {
-      return (
-        <span style={ attachmentWrapperStyle }>
-          {
-            rest.length ?
-              <span style={ moreAttachmentsStyle } className='test--more-attachment'>+{rest.length}</span>
-              :
-              null
-          }
-          <a href={ firstAttachment.url } className='test--attachment-image-href'>
-            <img
-              style={ attachmentImageStyle }
-              src={ firstAttachment.previewImageUrl }
-              className='test--attachment-image'
-            />
-          </a>
-        </span>
-      );
-    }
-    return <span style={ attachmentWrapperStyle }/>;
-  }
-
   render() {
     const { item, hasBorderBottom, baseStyles, hovering, officerId, openComplaintPage } = this.props;
     const {
@@ -80,7 +53,7 @@ class Cr extends Component {
           </span>
           <span style={ rightStyle }>
             <span style={ coaccusedStyle } className='test--cr-item-coaccused'>1 of { item.coaccused } coaccused</span>
-            { this.renderAttachments() }
+            <Attachments attachments={ item.attachments }/>
             <span style={ { ...baseDateStyle, ...dateStyle } } className='test--cr-item-date'>{ item.date }</span>
           </span>
         </span>
@@ -91,7 +64,6 @@ class Cr extends Component {
 
 Cr.propTypes = {
   item: PropTypes.object,
-  attachments: PropTypes.array,
   hasBorderBottom: PropTypes.bool,
   baseStyles: PropTypes.object,
   hovering: PropTypes.bool,
