@@ -37,3 +37,7 @@ export const buttonStyle = {
     backgroundColor: tomatoPinkColor
   }
 };
+
+export const hoverableWrapperStyle = {
+  display: 'inline-block'
+};

@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 
-export default function (ComponentClass, WrapperElement = 'span', display = 'inline') {
+export default function (ComponentClass, WrapperElement = 'span', style, className) {
   class Hoverable extends Component {
     constructor(props) {
       super(props);
@@ -39,7 +39,8 @@ export default function (ComponentClass, WrapperElement = 'span', display = 'inl
         <WrapperElement
           onMouseOver={ this.handleMouseOver }
           onMouseOut={ this.handleMouseOut }
-          style={ { display } }
+          className={ className }
+          style={ style }
         >
           <ComponentClass hovering={ hovering } { ...this.props }/>
         </WrapperElement>

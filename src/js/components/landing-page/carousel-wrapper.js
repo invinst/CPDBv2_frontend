@@ -11,11 +11,6 @@ export default function withCarousel(
   CardComponent, type = '', extraCardAttr = {}, itemWidth = 232
 ) {
   class Wrapper extends Component {
-    componentDidMount() {
-      const { queryData } = this.props;
-      queryData && queryData();
-    }
-
     handleNavigate(direction) {
       global.ga('send', 'event', 'landing_page_carousel', `swipe_${direction}`, type.key || type);
     }
@@ -56,7 +51,6 @@ export default function withCarousel(
   }
 
   Wrapper.propTypes = {
-    queryData: PropTypes.func,
     cards: PropTypes.array,
     pathname: PropTypes.string,
     editWrapperStateProps: PropTypes.object

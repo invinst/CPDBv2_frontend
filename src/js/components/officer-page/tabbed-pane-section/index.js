@@ -11,7 +11,6 @@ export default class TabbedPaneSection extends Component {
     super(props);
     this.tabbedPaneMap = {
       'TIMELINE': <TimelineContainer/>,
-      'SUMMARY': null,
       'MAP': null,
       'COACCUSALS': <CoaccusalsContainer/>,
       'ATTACHMENTS': null,

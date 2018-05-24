@@ -1,5 +1,5 @@
 import { imgUrl } from 'utils/static-assets';
-import { hawkesBlue, accentColor } from 'utils/styles';
+import { hawkesBlue, accentColor, softBlackColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -20,11 +20,12 @@ export const displayOptionStyle = {
   cursor: 'pointer'
 };
 
-export const displayValueStyle = {
+export const displayValueStyle = hovering => ({
   width: '77px',
   textAlign: 'center',
-  display: 'inline-block'
-};
+  display: 'inline-block',
+  color: hovering ? softBlackColor : accentColor
+});
 
 export const optionsStyle = expanded => ({
   display: expanded ? 'block': 'none',

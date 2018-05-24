@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 
 import * as constants from 'utils/constants';
 import {
-  getComplaintSummaries,
   turnOnCarouselComplaintHeaderEditMode,
   turnOffCarouselComplaintHeaderEditMode
 } from 'actions/landing-page/complaint-summaries';
@@ -26,7 +25,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  queryData: getComplaintSummaries,
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselComplaintHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselComplaintHeaderEditMode

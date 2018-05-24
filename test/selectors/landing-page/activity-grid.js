@@ -1,7 +1,9 @@
-import { cardsSelector } from 'selectors/landing-page/activity-grid';
-import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid.js';
 import lodash from 'lodash';
 import { spy } from 'sinon';
+
+import { cardsSelector, hasCards } from 'selectors/landing-page/activity-grid';
+import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid.js';
+
 
 describe('activity-grid selectors', function () {
   let state;
@@ -58,5 +60,17 @@ describe('activity-grid selectors', function () {
       stubShuffle.restore();
     });
 
+  });
+
+  describe('hasCards', function () {
+    it('should return true if activityGrid has data', function () {
+      state.landingPage.activityGrid.cards = ['abc'];
+      hasCards(state).should.be.true();
+    });
+
+    it('should return false if activityGrid does not have data', function () {
+      state.landingPage.activityGrid.cards = [];
+      hasCards(state).should.be.false();
+    });
   });
 });

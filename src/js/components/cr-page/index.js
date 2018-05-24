@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import FooterContainer from 'containers/footer-container';
 import SummaryRow from './summary-row';
 import Demographics from './demographics';
 import Timeline from './timeline';
@@ -11,7 +12,7 @@ import Attachments from './attachments';
 import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import {
-  wrapperStyle, CRIDHeaderStyle, leftColumnStyle,
+  wrapperStyle, CRIDHeaderStyle, leftColumnStyle, footerStyle,
   rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle
 } from './cr-page.style';
 
@@ -19,19 +20,6 @@ import {
 export default class CRPage extends Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
-    const { crid, fetchCR } = this.props;
-
-    fetchCR(crid);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { fetchCR, crid } = nextProps;
-    if (this.props.crid !== crid) {
-      fetchCR(crid);
-    }
   }
 
   render() {
@@ -89,6 +77,7 @@ export default class CRPage extends Component {
           </div>
         </ResponsiveFluidWidthComponent>
         <RelatedComplaints crid={ crid } />
+        <FooterContainer style={ footerStyle }/>
       </div>
     );
   }
@@ -108,14 +97,12 @@ CRPage.propTypes = {
   startDate: PropTypes.string,
   endDate: PropTypes.string,
   involvements: PropTypes.object,
-  fetchCR: PropTypes.func,
   attachments: PropTypes.array,
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
 };
 
 CRPage.defaultProps = {
-  fetchCR: () => {},
   victims: [],
   complainants: [],
   coaccused: []

@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 
-import { clusterGeoJSONPath } from 'utils/static-assets';
 import MapboxGL from 'components/common/mapbox-gl';
 import { mapContainerStyle } from './community-map.style.js';
 
@@ -14,15 +13,15 @@ export default class CommunityMap extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const { communityId, communitySource } = this.props;
+    const { communityId, communitySource, clusterSource } = this.props;
     return (
-      communityId !== nextProps.communityId || !communitySource
+      communityId !== nextProps.communityId || !communitySource || !clusterSource
     );
   }
 
   render() {
     const { hoverCommunity } = this.state;
-    const { selectCommunity, communityId, communitySource } = this.props;
+    const { selectCommunity, communityId, communitySource, clusterSource } = this.props;
 
     /* istanbul ignore next */
     return (
@@ -43,7 +42,7 @@ export default class CommunityMap extends Component {
           ['community-hover', ['==', 'id', hoverCommunity]]
         ] }
         sources={ [
-          { name: 'cluster', type: 'geojson', data: clusterGeoJSONPath },
+          { name: 'cluster', type: 'geojson', data: clusterSource },
           { name: 'community', type: 'geojson', data: communitySource },
         ] }
         layers={ [
@@ -139,7 +138,8 @@ export default class CommunityMap extends Component {
 CommunityMap.propTypes = {
   selectCommunity: PropTypes.func,
   communitySource: PropTypes.object,
-  communityId: PropTypes.number
+  communityId: PropTypes.number,
+  clusterSource: PropTypes.object
 };
 
 CommunityMap.defaultProps = {

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { pageWrapperStyle, radarChartPlaceholderStyle, wrapperStyle } from './officer-page.style';
+import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
 import OfficerRadarChart from './radar-chart';
 import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
@@ -24,15 +24,12 @@ export default class OfficerPage extends Component {
       officerName,
       threeCornerPercentile,
     } = this.props;
-
     return (
       <div style={ wrapperStyle }>
         <ShareableHeaderContainer/>
         <div style={ pageWrapperStyle }>
 
-          <div className='test--officer--radar-chart' style={ radarChartPlaceholderStyle }>
-            <OfficerRadarChart data={ threeCornerPercentile }/>
-          </div>
+          <OfficerRadarChart data={ threeCornerPercentile }/>
 
           <SummarySection
             officerName={ officerName }

@@ -17,14 +17,16 @@ export default class PoliceBeatPane extends Component {
       allegationCount,
       mostCommonComplaint,
       url,
+      policeHQ,
     } = this.props;
 
+    const beatContent = policeHQ ? `${policeHQ} District Police Station` : '';
     return (
       <WidgetWrapper>
         <HeaderWidget title={ `POLICE BEAT #${name}` }/>
         <SeparatorWidget/>
         <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
-        <TextWidget title='THIS BEAT CONTAINS A POLICE HQ'/>
+        <TextWidget title='THIS BEAT CONTAINS A POLICE HQ' content={ beatContent }/>
         <ListWidget
           items={ mostCommonComplaint }
           typeName='allegation'
@@ -42,4 +44,5 @@ PoliceBeatPane.propTypes = {
   allegationCount: PropTypes.number.isRequired,
   mostCommonComplaint: PropTypes.array.isRequired,
   url: PropTypes.string.isRequired,
+  policeHQ: PropTypes.string,
 };

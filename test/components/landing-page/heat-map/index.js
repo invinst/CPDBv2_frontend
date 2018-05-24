@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { spy, stub } from 'sinon';
+import { stub } from 'sinon';
 import {
   renderIntoDocument, findRenderedComponentWithType
 } from 'react-addons-test-utils';
@@ -25,16 +25,6 @@ describe('HeatMap component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-  });
-
-  it('should call getCommunities when mounted', function () {
-    const callback = spy();
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <HeatMap getCommunities={ callback }/>
-      </Provider>
-    );
-    callback.called.should.be.true();
   });
 
   it('should render CommunityMap and SummaryPanel', function () {

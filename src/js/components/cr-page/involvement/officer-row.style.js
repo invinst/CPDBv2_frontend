@@ -1,4 +1,6 @@
-import { whiteTwoColor, sanFranciscoTextFamily, softBlackColor, clayGray, sugarCaneColor } from 'utils/styles';
+import {
+  whiteTwoColor, sanFranciscoTextFamily, softBlackColor, clayGray, sugarCaneColor, accentColor
+} from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -27,11 +29,11 @@ export const rightWrapperStyle = {
   width: 'calc(100% - 92px)'
 };
 
-export const officerNameStyle = {
+export const officerNameStyle = hovering => ({
   fontSize: '14px',
   fontWeight: 400,
-  color: softBlackColor
-};
+  color: hovering ? accentColor : softBlackColor
+});
 
 export const extraInfoStyle = {
   fontSize: '12px',
