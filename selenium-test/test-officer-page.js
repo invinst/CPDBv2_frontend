@@ -165,6 +165,13 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/complaint\/\d+\/$/);
     });
 
+    it('should go to trr page when clicking on an trr timeline item', function () {
+      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.trrItem.click();
+
+      browser.getUrl().should.match(/\/trr\/\d+\/$/);
+    });
+
     describe('Timeline filter', function () {
       beforeEach(function () {
         officerPage.tabbedPaneSection.timelineSection.filter.button.waitForVisible();

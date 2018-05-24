@@ -58,7 +58,7 @@ export default class OfficerSection extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <div style={ fullRowStyle }>
+        <div className='test--trr-officer-section' style={ fullRowStyle }>
           <div style={ visualTokenStyle }>
             <StaticRadarChart { ...visualTokenConfig }/>
           </div>

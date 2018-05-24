@@ -11,6 +11,7 @@ class NavigationButton extends Component {
 
     return (
       <Link
+        className='test--navigation-button'
         style={ wrapperStyle(hovering) }
         to={ to }
       >
