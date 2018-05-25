@@ -13,7 +13,7 @@ import { Provider } from 'react-redux';
 import { unmountComponentSuppressError } from 'utils/test';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
-import Coaccusals from 'components/officer-page/summary-page/tabbed-pane-section/coaccusals';
+import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
 
 
 describe('TabbedPaneSection component', function () {
