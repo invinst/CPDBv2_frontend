@@ -76,7 +76,7 @@ export default class ZipCodePane extends Component {
         <ListWidget
           typeName={ 'allegation' }
           showAvatar={ false }
-          title='MOST COMMON COMPLAINT'
+          title='MOST COMMON COMPLAINTS'
           items={ complaintCategories }
         />
         <ListWidget

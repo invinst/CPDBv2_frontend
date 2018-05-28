@@ -4,7 +4,9 @@ import {
 
 
 export const wrapperStyle = hasData => ({
-  backgroundColor: hasData ? 'white' : sugarCaneColor
+  backgroundColor: hasData ? 'white' : sugarCaneColor,
+  position: 'relative',
+  top: '-1px'
 });
 
 export const innerWrapperStyle = hasData => ({
@@ -17,7 +19,7 @@ export const innerWrapperStyle = hasData => ({
 export const headerStyle = {
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
-  paddingTop: '8px'
+  paddingTop: '9px'
 };
 
 export const attachmentsStyle = {

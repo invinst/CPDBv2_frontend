@@ -2,11 +2,10 @@ import React, { PropTypes, Component } from 'react';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import RelatedComplaintsCarouselContainer from 'containers/cr-page/related-complaints-carousel';
-import FooterContainer from 'containers/footer-container';
 import { DISTANCE_OPTIONS } from 'utils/constants';
 import Dropdown from './dropdown';
 import {
-  wrapperStyle, titleStyle, headerStyle, filterStyle, carouselsWrapperStyle, footerStyle
+  wrapperStyle, titleStyle, headerStyle, filterStyle, carouselsWrapperStyle
 } from './related-complaints.style';
 
 
@@ -55,7 +54,6 @@ export default class RelatedComplaints extends Component {
             match='officers'
             title='BY OFFICERS INVOLVED'/>
         </div>
-        <FooterContainer style={ footerStyle }/>
       </div>
     );
   }
