@@ -4,7 +4,7 @@ import { omit } from 'lodash';
 import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';
 import InlineHeaderSection from './inline-header-section';
-import { headerWrapperStyle, wrapperStyle, carouselStyle, itemStyle } from './carousel-wrapper.style';
+import { headerWrapperStyle, carouselStyle, itemStyle } from './carousel-wrapper.style';
 
 
 export default function withCarousel(
@@ -30,9 +30,7 @@ export default function withCarousel(
       });
 
       return (
-        <div
-          className={ `test--landing-carousel-${(type.key || type).toLowerCase()}` }
-          style={ wrapperStyle }>
+        <div className={ `test--landing-carousel-${(type.key || type).toLowerCase()}` }>
           <EditModeProvider
             pathname={ pathname }
             className='test--carousel--header'
