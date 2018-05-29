@@ -3,7 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import SummaryRow from './summary-row';
-import Demographics from './demographics';
+import Demographics from 'components/common/demographics';
 import Timeline from './timeline';
 import Location from './location';
 import Involvement from './involvement';

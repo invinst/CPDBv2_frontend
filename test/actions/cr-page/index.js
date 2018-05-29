@@ -28,7 +28,7 @@ describe('CRPage actions', function () {
 
   describe('requestDocument', function () {
     it('shoulr return right action', function () {
-      requestDocument({ crid: 123, email: 'valid@email.com' }).should.eql({
+      requestDocument({ id: 123, email: 'valid@email.com' }).should.eql({
         types: [CR_REQUEST_DOC_START, CR_REQUEST_DOC_SUCCESS, CR_REQUEST_DOC_FAILURE],
         payload: {
           request: {

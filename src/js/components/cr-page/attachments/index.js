@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
 import AttachmentItem from './attachment-item';
-import RequestDocumentButton from './request-document-button';
+import RequestDocumentButton from 'components/common/request-document-button';
 import {
   wrapperStyle, headerStyle, titleStyle, subTitleStyle, emptyMessageStyle,
   requestButtonStyle, headerLeftColumnStyle

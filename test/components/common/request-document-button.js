@@ -4,7 +4,7 @@ import { findDOMNode } from 'react-dom';
 import { renderIntoDocument, Simulate } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import RequestDocumentButton from 'components/cr-page/attachments/request-document-button';
+import RequestDocumentButton from 'components/common/request-document-button';
 
 
 describe('RequestDocumentButton component', function () {

@@ -7,7 +7,7 @@ export const wrapperStyle = {
   position: 'relative',
   backgroundColor: sugarCaneColor,
   borderBottom: `1px solid ${whiteTwoColor}`,
-  minHeight: '50vh',
+  minHeight: '100vh',
 };
 
 export const TRRIdHeaderStyle = {
