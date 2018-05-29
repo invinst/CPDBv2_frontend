@@ -1,5 +1,6 @@
 import Page from './page';
 import Section from './sections/section';
+import DocumentRequestModalSection from './sections/document-request-modal';
 
 
 class OfficerSection extends Section {
@@ -14,9 +15,21 @@ class OfficerSection extends Section {
   }
 }
 
+class TRRInfoSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      documentRequestButton: '.test--attachment-request'
+    });
+  }
+}
+
 
 class TRRPage extends Page {
   officerSection = new OfficerSection();
+  trrInfoSection = new TRRInfoSection();
+  documentRequestModal = new DocumentRequestModalSection();
 
   constructor() {
     super();
