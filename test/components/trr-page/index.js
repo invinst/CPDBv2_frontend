@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { unmountComponentSuppressError } from 'utils/test';
 import TRRPage from 'components/trr-page';
 import OfficerSection from 'components/trr-page/officer-section';
+import TRRInfoSection from 'components/trr-page/trr-info-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
 
@@ -30,7 +31,7 @@ describe('TRRPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render trr title and OfficerSection', function () {
+  it('should render trr title, OfficerSection and TRRInfoSection', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <TRRPage trrId={ 123 } officer={ { officerId: 456 } }/>
@@ -38,6 +39,7 @@ describe('TRRPage component', function () {
     );
     findRenderedDOMComponentWithClass(instance, 'test--trr-title').textContent.should.eql('TRR 123');
     findRenderedComponentWithType(instance, OfficerSection).props.officer.should.eql({ officerId: 456 });
+    findRenderedComponentWithType(instance, TRRInfoSection);
     findRenderedComponentWithType(instance, ShareableHeaderContainer);
   });
 });

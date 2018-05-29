@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Demographics from 'components/cr-page/demographics';
+import Demographics from 'components/common/demographics';
 
 
 describe('Demographics component', function () {

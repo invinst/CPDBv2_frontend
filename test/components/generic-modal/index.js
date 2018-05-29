@@ -8,9 +8,13 @@ import {
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
+import MockStore from 'redux-mock-store';
+import { Provider } from 'react-redux';
 
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
 import GenericModal from 'components/generic-modal';
+import RequestDocumentModalContent from 'containers/request-document-modal-container';
+import RequestTRRDocumentModalContent from 'containers/request-trr-document-modal-container';
 
 
 describe('GenericModal component', function () {
@@ -37,6 +41,58 @@ describe('GenericModal component', function () {
     );
 
     findRenderedComponentWithType(element, LegalDisclaimerModalContent).props.closeModal.should.equal(closeModal);
+  });
+
+  it('should render RequestDocumentModalContent when activeModal matches', function () {
+    const store = MockStore()({
+      breadcrumb: {
+        breadcrumbs: []
+      },
+      crPage: {
+        attachmentRequest: {
+          request: {}
+        }
+      }
+    });
+    const closeModal = () => {};
+
+    element = renderIntoDocument(
+      <Provider store={ store }>
+        <GenericModal
+          location={ { pathname: '/complaint/123/' } }
+          activeModal='REQUEST_DOCUMENT'
+          closeModal={ closeModal }
+        />
+      </Provider>
+    );
+
+    findRenderedComponentWithType(element, RequestDocumentModalContent).props.closeModal.should.equal(closeModal);
+  });
+
+  it('should render RequestTRRDocumentModalContent when activeModal matches', function () {
+    const store = MockStore()({
+      breadcrumb: {
+        breadcrumbs: []
+      },
+      crPage: {
+        attachmentRequest: {
+          request: {}
+        }
+      }
+    });
+    const closeModal = () => {};
+
+    element = renderIntoDocument(
+      <Provider store={ store }>
+        <GenericModal
+          location={ { pathname: '/trr/123/' } }
+          activeModal='REQUEST_TRR_DOCUMENT'
+          closeModal={ closeModal }
+        />
+      </Provider>
+    );
+
+    findRenderedComponentWithType(element, RequestTRRDocumentModalContent).props.closeModal.should.equal(closeModal);
   });
 
   it('should dispatch "close modal" action when overlay is clicked on', function () {

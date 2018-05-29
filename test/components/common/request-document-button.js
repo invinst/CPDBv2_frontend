@@ -6,7 +6,7 @@ import { renderIntoDocument, Simulate, findRenderedComponentWithType } from 'rea
 import { unmountComponentSuppressError } from 'utils/test';
 import HoverableRequestDocumentButton, {
   RequestDocumentButton
-} from 'components/cr-page/attachments/request-document-button';
+} from 'components/common/request-document-button';
 
 
 describe('RequestDocumentButton component', function () {
