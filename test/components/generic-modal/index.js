@@ -74,7 +74,7 @@ describe('GenericModal component', function () {
       breadcrumb: {
         breadcrumbs: []
       },
-      crPage: {
+      trrPage: {
         attachmentRequest: {
           request: {}
         }

@@ -1,5 +1,5 @@
 import { Factory } from 'rosie';
-import { date, random, name } from 'faker';
+import { date, random, name, helpers, address } from 'faker';
 import moment from 'moment';
 
 
@@ -35,4 +35,20 @@ export const RawTRRFactory = Factory.define('RawTRRFactory')
   .attr('officer', () => RawTRROfficerFactory.build())
   .attr('officer_in_uniform', () => random.boolean())
   .attr('officer_assigned_beat', '4682E')
-  .attr('officer_duty_status', ()=> random.boolean());
+  .attr('officer_duty_status', ()=> random.boolean())
+  .attr('subject_race', () => helpers.shuffle(
+      ['White', 'Black', 'Hispanic', 'Asian/Pacific', 'Unknown', 'Native American/Alaskan Native']
+    )[0]
+  )
+  .attr('subject_race', () => helpers.shuffle(['Male', 'Female'])[0])
+  .attr('force_category', () => helpers.shuffle(['Taser', 'Firearm', 'Other'])[0])
+  .attr('date_of_incident', dateGenerator)
+  .attr('location_type', 'Street')
+  .attr('address', address.streetAddress)
+  .attr('beat', 331)
+  .attr('actions', [
+    'Imminent Threat Of Battery',
+    'Pulled Away',
+    'Verbal Commands',
+    'Other (Specify)'
+  ]);
