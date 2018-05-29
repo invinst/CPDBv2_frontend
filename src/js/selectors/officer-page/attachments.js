@@ -5,7 +5,7 @@ import { attachmentsTransform } from 'selectors/officer-page/new-timeline';
 
 
 export const attachmentsComplaintTransform = (item, index) => ({
-  date: moment(item.date).format('MMM D').toUpperCase(),
+  date: moment(item.date).format('MMM D, YYYY').toUpperCase(),
   category: item.category,
   crid: item.crid,
   coaccused: item.coaccused,

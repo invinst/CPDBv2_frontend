@@ -33,7 +33,7 @@ describe('Officer attachments selectors', function () {
   };
 
   const result = {
-    date: 'JAN 27',
+    date: 'JAN 27, 2005',
     category: 'CR',
     crid: '303350',
     coaccused: 9,
