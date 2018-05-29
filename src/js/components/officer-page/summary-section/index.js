@@ -74,7 +74,7 @@ SummarySection.propTypes = {
     unitName: PropTypes.string,
     unitDescription: PropTypes.string,
     birthYear: PropTypes.number,
-    currentSalary: PropTypes.string,
+    currentSalary: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }),
   openPoliceUnitPage: PropTypes.func,
   officerName: PropTypes.string,

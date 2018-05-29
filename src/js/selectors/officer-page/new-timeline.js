@@ -5,6 +5,7 @@ import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS } from 'utils/constants';
 
 
 const getSelectedFilter = (state) => state.officerPage.newTimeline.filter;
+export const getItems = (state) => get(state.officerPage.newTimeline, 'items', []);
 
 export const baseTransform = (item, index) => {
   const unitName = item['unit_name'] ? `Unit ${item['unit_name']}` : 'Unassigned';
