@@ -17,7 +17,7 @@ export default class Attachments extends Component {
               ? <span style={ moreStyle } className='test--more-attachment'>+{rest.length}</span>
               : null
           }
-          <OutboundLink href={ url } className='test--attachment-image-href'>
+          <OutboundLink href={ url } className='test--attachment-image-href' target='_blank'>
             <div
               className='test--attachment-image'
               style={ imageStyle(previewImageUrl, fileType) }
