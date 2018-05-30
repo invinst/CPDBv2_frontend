@@ -19,3 +19,13 @@ export const TRRIdHeaderStyle = {
   paddingBottom: '16px',
   margin: '0 16px',
 };
+
+export const contentStyle = {
+  minHeight: 'calc(100vh - 136px)',
+};
+
+export const footerStyle = {
+  wrapper: {
+    backgroundColor: 'transparent'
+  },
+};

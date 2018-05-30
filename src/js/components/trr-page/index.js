@@ -3,10 +3,11 @@ import React, { Component, PropTypes } from 'react';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import {
-  wrapperStyle, TRRIdHeaderStyle,
+  wrapperStyle, TRRIdHeaderStyle, contentStyle, footerStyle
 } from './trr-page.style';
 import OfficerSection from './officer-section';
 import TRRInfoSection from './trr-info-section';
+import FooterContainer from 'containers/footer-container';
 
 
 export default class TRRPage extends Component {
@@ -31,7 +32,7 @@ export default class TRRPage extends Component {
     return (
       <div style={ wrapperStyle }>
         <ShareableHeaderContainer/>
-        <ResponsiveFluidWidthComponent>
+        <ResponsiveFluidWidthComponent style={ contentStyle }>
           <h1 className='test--trr-title' style={ TRRIdHeaderStyle }>TRR { trrId }</h1>
           <OfficerSection officer={ officer }/>
           <TRRInfoSection
@@ -40,6 +41,7 @@ export default class TRRPage extends Component {
             trrDocument={ trrDocument }
             openRequestTRRDocumentModal={ openRequestTRRDocumentModal }/>
         </ResponsiveFluidWidthComponent>
+        <FooterContainer style={ footerStyle }/>
       </div>
     );
   }
