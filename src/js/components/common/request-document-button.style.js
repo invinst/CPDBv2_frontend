@@ -1,4 +1,4 @@
-import { clayGray, whiteTwoColor } from 'utils/styles';
+import { clayGray, whiteTwoColor, accentColor } from 'utils/styles';
 
 
 export const buttonStyle = (alreadyRequested, hovering) => ({

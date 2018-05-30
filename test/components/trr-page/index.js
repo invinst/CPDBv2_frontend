@@ -12,6 +12,7 @@ import TRRPage from 'components/trr-page';
 import OfficerSection from 'components/trr-page/officer-section';
 import TRRInfoSection from 'components/trr-page/trr-info-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import FooterContainer from 'containers/footer-container';
 
 
 describe('TRRPage component', function () {
@@ -41,5 +42,6 @@ describe('TRRPage component', function () {
     findRenderedComponentWithType(instance, OfficerSection).props.officer.should.eql({ officerId: 456 });
     findRenderedComponentWithType(instance, TRRInfoSection);
     findRenderedComponentWithType(instance, ShareableHeaderContainer);
+    findRenderedComponentWithType(instance, FooterContainer);
   });
 });
