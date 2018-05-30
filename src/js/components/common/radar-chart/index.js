@@ -7,7 +7,6 @@ import RadarAxis from './radar-axis';
 import RadarArea from './radar-area';
 import RadarSpineLine from './radar-spine-line';
 import RadarLegend from './radar-legend';
-import RadarTooltipPoints from './radar-tooltip-point';
 import RadarGrid from './radar-grid';
 
 
@@ -91,7 +90,6 @@ export default class StaticRadarChart extends Component {
               strokeWidth={ this.strokeWidth }/>
           ) }
           <RadarLegend fadeOut={ fadeOutLegend } content={ legendText }/>
-          { !hideAxisText && <RadarTooltipPoints data={ transformData }/> }
         </g>
       </svg>
     );
