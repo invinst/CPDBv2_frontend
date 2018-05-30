@@ -62,4 +62,17 @@ describe('TRRDetail component', function () {
 
     forceTypeRow.props.children.should.eql('');
   });
+
+  it('should handle if the subjectDemographic is undefined', function () {
+    const trrDetail = {
+      category: 'Other',
+      actions: ['Stiffened (Dead Weight)'],
+    };
+    instance = renderIntoDocument(<TRRDetail{ ...trrDetail }/>);
+    const rows = scryRenderedComponentsWithType(instance, Row);
+    const subjectRow = rows[0];
+
+    subjectRow.props.borderValue.should.be.false();
+    scryRenderedComponentsWithType(subjectRow, Demographics).should.have.length(0);
+  });
 });

@@ -10,8 +10,8 @@ export default class TRRDetail extends Component {
     const { subjectDemographic, category, actions } = this.props;
     return (
       <div style={ wrapperStyle }>
-        <Row drawBorder={ true } title='SUBJECT' borderValue={ true }>
-          <Demographic persons={ [subjectDemographic] }/>
+        <Row drawBorder={ true } title='SUBJECT' borderValue={ !!subjectDemographic }>
+          { subjectDemographic && <Demographic persons={ [subjectDemographic] }/> }
         </Row>
         <Row drawBorder={ true } title='FORCE CATEGORY'>{ category }</Row>
         <Row title='TYPES OF FORCE'>{ actions ? actions.join(' ← ') : '' }</Row>
