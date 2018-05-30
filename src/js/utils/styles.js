@@ -80,6 +80,7 @@ export const cashGreenColor = '#499C21';
 export const champagneColor = '#FBE2D4';
 export const scarletColor = '#FF1F00';
 export const darkSlateGrayColor = '#464243';
+export const darkSapphireBlue = '#556080';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular", sans-serif';

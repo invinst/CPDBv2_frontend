@@ -20,6 +20,8 @@ export const getMapMarkers = createSelector(
     const filteredItems = items.filter(item => ['CR', 'TRR'].includes(item.kind));
     return filteredItems.map(item => ({
       point: item.point,
+      kind: item.kind,
+      finding: get(item, 'finding'),
     }));
   }
 );

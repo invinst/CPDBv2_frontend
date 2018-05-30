@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 
 import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
 import { wrapperStyle } from './map.style';
-import { markerRedColor } from 'utils/styles';
+import { champagneColor, greyishColor, brightOrangeTwoColor, clayGray, darkSapphireBlue } from 'utils/styles';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import { mapboxgl } from 'utils/vendors';
 
@@ -12,17 +12,18 @@ const centerLng = -87.6024055;
 const zoom1 = 9;
 
 export default class Map extends Component {
-  constructor(state) {
-    super(state);
-    this.gotRef = this.gotRef.bind(this);
-    this.addMarker = this.addMarker.bind(this);
-    this.renderWithResponsiveStyle = this.renderWithResponsiveStyle.bind(this);
+  componentWillReceiveProps(nextProps, nextState) {
+    const { markers } = this.props;
+
+    if (markers !== nextProps.markers) {
+      nextProps.markers.map(marker => {
+        this.addMarker(marker);
+      });
+    }
   }
 
   gotRef(el) {
-    console.log(this.props);
     if (el && !this.map) {
-      const { markers } = this.props;
       this.map = new mapboxgl.Map({
         container: el,
         style: 'mapbox://styles/mapbox/streets-v10',
@@ -30,31 +31,56 @@ export default class Map extends Component {
         center: [centerLng, centerLat],
         interactive: false
       });
-      markers.map(marker => this.addMarker(marker.lat, marker.lon));
     }
   }
 
-  addMarker(lat, lng) {
-    if (!this.marker) {
-      const markerEl = document.createElement('div');
-      markerEl.style.backgroundColor = markerRedColor;
-      markerEl.style.backgroundSize = 'cover';
-      markerEl.style.width = '28px';
-      markerEl.style.height = '28px';
-      markerEl.style.borderRadius = '50%';
-      markerEl.style.opacity = 0.5;
-
-      this.marker = new mapboxgl.Marker(markerEl);
-      this.marker.setLngLat([lng, lat]);
-      this.marker.addTo(this.map);
-    } else {
-      this.marker.setLngLat([lng, lat]);
+  createMarkerHead(marker) {
+    const markerHead = document.createElement('div');
+    if (marker.kind === 'TRR') {
+      markerHead.style.backgroundColor = greyishColor;
+      markerHead.style.border = `solid 1px ${ clayGray }`;
+    } else if (marker.kind === 'CR') {
+      markerHead.style.border = `solid 1px ${ brightOrangeTwoColor }`;
+      if (marker.finding === 'Sustained') {
+        markerHead.style.backgroundColor = champagneColor;
+      } else {
+        markerHead.style.backgroundColor = 'white';
+      }
     }
+    markerHead.style.backgroundSize = 'cover';
+    markerHead.style.width = '14px';
+    markerHead.style.height = '14.2px';
+    markerHead.style.borderRadius = '50%';
+    return markerHead;
+  }
+
+  createMarkerLeg() {
+    const markerLeg = document.createElement('div');
+    markerLeg.style.width = '2px';
+    markerLeg.style.height = '8px';
+    markerLeg.style.border = `solid 1px ${ darkSapphireBlue }`;
+    markerLeg.style.boxSizing = 'border-box';
+    markerLeg.style.margin = '0 auto';
+    return markerLeg;
+  }
+
+  addMarker(marker) {
+    const markerEl = document.createElement('div');
+    const markerHead = this.createMarkerHead(marker);
+    const markerLeg = this.createMarkerLeg();
+
+    markerEl.appendChild(markerHead);
+    markerEl.appendChild(markerLeg);
+    markerEl.style.paddingBottom = '15px';
+
+    this.marker = new mapboxgl.Marker(markerEl);
+    this.marker.setLngLat([marker.point.lon, marker.point.lat]);
+    this.marker.addTo(this.map);
   }
 
   renderWithResponsiveStyle(style) {
     return (
-      <div className='test--officer-map' ref={ this.gotRef } style={ style.wrapper } />
+      <div className='test--officer-map' ref={ this.gotRef.bind(this) } style={ style.wrapper } />
     );
   }
 
@@ -72,7 +98,7 @@ export default class Map extends Component {
             wrapper: wrapperStyle.extraWide
           }
         } }>
-        { this.renderWithResponsiveStyle }
+        { this.renderWithResponsiveStyle.bind(this) }
       </ResponsiveStyleComponent>
     );
   }
