@@ -1,14 +1,10 @@
 export const wrapperStyle = {
-  tablet: {
-    width: '100%',
-    height: '239.87px'
-  },
-  desktop: {
-    width: '100%',
-    height: '364.5px'
-  },
-  extraWide: {
-    width: '100%',
-    height: '480.3px'
-  }
+  width: '100%',
+  height: '625px',
+  position: 'relative',
+};
+
+export const mapStyle = {
+  width: '100%',
+  height: '100%',
 };

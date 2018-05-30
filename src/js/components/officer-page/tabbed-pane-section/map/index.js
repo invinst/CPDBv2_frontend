@@ -1,10 +1,9 @@
-import React, { PropTypes, Component } from 'react';
-
-import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
-import { wrapperStyle } from './map.style';
-import { champagneColor, greyishColor, brightOrangeTwoColor, clayGray, darkSapphireBlue } from 'utils/styles';
-import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
+import React, { Component, PropTypes } from 'react';
+import { brightOrangeTwoColor, champagneColor, clayGray, darkSapphireBlue, greyishColor } from 'utils/styles';
 import { mapboxgl } from 'utils/vendors';
+
+import { mapStyle, wrapperStyle } from './map.style';
+import Legend from './legend';
 
 
 const centerLat = 41.85677;
@@ -78,28 +77,13 @@ export default class Map extends Component {
     this.marker.addTo(this.map);
   }
 
-  renderWithResponsiveStyle(style) {
-    return (
-      <div className='test--officer-map' ref={ this.gotRef.bind(this) } style={ style.wrapper } />
-    );
-  }
-
   render() {
+    const { legend } = this.props;
     return (
-      <ResponsiveStyleComponent
-        responsiveStyle={ {
-          [TABLET]: {
-            wrapper: wrapperStyle.tablet
-          },
-          [DESKTOP]: {
-            wrapper: wrapperStyle.desktop
-          },
-          [EXTRA_WIDE]: {
-            wrapper: wrapperStyle.extraWide
-          }
-        } }>
-        { this.renderWithResponsiveStyle.bind(this) }
-      </ResponsiveStyleComponent>
+      <div className='test--officer-map' style={ wrapperStyle }>
+        <div ref={ this.gotRef.bind(this) } style={ mapStyle }/>
+        <Legend legend={ legend } />
+      </div>
     );
   }
 }
