@@ -4,7 +4,7 @@ import AttachmentItem from './attachment-item';
 import RequestDocumentButton from 'components/common/request-document-button';
 import {
   wrapperStyle, headerStyle, titleStyle, subTitleStyle, emptyMessageStyle,
-  requestButtonStyle, headerLeftColumnStyle
+  requestButtonStyle, headerLeftColumnStyle, innerWrapperStyle, attachmentsStyle
 } from './attachments.style';
 
 
@@ -16,34 +16,48 @@ export default class Attachments extends Component {
       alreadyRequested
     } = this.props;
 
+    const hasData = items.length > 0;
+
     return (
-      <div style={ wrapperStyle }>
-        <div style={ headerStyle }>
-          <div style={ headerLeftColumnStyle }>
-            <span style={ titleStyle }>ATTACHMENTS</span>
-            <span style={ subTitleStyle }>MAY CONTAIN GRAPHIC CONTENT</span>
+      <div style={ wrapperStyle(hasData) }>
+        <div style={ innerWrapperStyle(hasData) }>
+          <div style={ headerStyle }>
+            {
+              hasData
+              ? (
+                <div style={ headerLeftColumnStyle }>
+                  <span style={ titleStyle }>ATTACHMENTS</span>
+                  <span style={ subTitleStyle }>MAY CONTAIN GRAPHIC CONTENT</span>
+                </div>
+              ) : (
+                <div style={ { ...headerLeftColumnStyle, ...emptyMessageStyle } }>
+                  There are no documents that have been made public yet.
+                </div>
+              )
+            }
+
+            <div style={ requestButtonStyle }>
+              <RequestDocumentButton
+                alreadyRequested={ alreadyRequested }
+                openRequestDocumentModal={ openRequestDocumentModal } />
+            </div>
           </div>
-          <div style={ requestButtonStyle }>
-            <RequestDocumentButton
-              alreadyRequested={ alreadyRequested }
-              openRequestDocumentModal={ openRequestDocumentModal } />
-          </div>
-        </div>
-        <div>
-          {
-            items
-              ? items.map((item, ind) => (
+          <div style={ attachmentsStyle }>
+            {
+              items.map((item, ind) => (
                 <AttachmentItem key={ ind } { ...item } />
-                ))
-              : <p style={ emptyMessageStyle }>
-                There are no attachments publicly available for this incident at this time.
-                </p>
-          }
+              ))
+            }
+          </div>
         </div>
       </div>
     );
   }
 }
+
+Attachments.defaultProps = {
+  items: []
+};
 
 Attachments.propTypes = {
   items: PropTypes.array,

@@ -7,7 +7,9 @@ export default class OutboundLink extends Component {
   handleClick(event) {
     event.preventDefault();
     this.props.onClick();
-    trackOutboundLink(this.props.href);
+    if (this.props.href) {
+      trackOutboundLink(this.props.href);
+    }
   }
 
   render() {

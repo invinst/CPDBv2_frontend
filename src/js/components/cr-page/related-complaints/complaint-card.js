@@ -1,21 +1,21 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
-import classnames from 'classnames';
 
+import Hoverable from 'components/common/higher-order/hoverable';
 import {
   wrapperStyle, mapStyle, sectionWithBorderStyle, sectionContentStyle, sectionStyle,
-  contentStyle, sectionLabelStyle, accusedStyle
+  contentStyle, sectionLabelStyle, accusedStyle, hoverableWrapperStyle
 } from './complaint-card.style';
 
 
-export default class ComplaintCard extends Component {
+class ComplaintCard extends Component {
   render() {
-    const { crid, lat, lon, categories, complainants, accused, className } = this.props;
+    const { crid, lat, lon, categories, complainants, accused, hovering } = this.props;
 
     return (
       <Link
-        className={ classnames(className, 'test--carousel-card') }
-        style={ wrapperStyle }
+        className='test--carousel-card'
+        style={ wrapperStyle(hovering) }
         to={ `/complaint/${crid}/` }>
         <div style={ mapStyle(lat, lon) } />
         <div style={ contentStyle }>
@@ -54,7 +54,8 @@ ComplaintCard.propTypes = {
   categories: PropTypes.string,
   complainants: PropTypes.string,
   accused: PropTypes.string,
-  className: PropTypes.string
+  hovering: PropTypes.bool
 };
 
 export { itemWidth } from './complaint-card.style';
+export default Hoverable(ComplaintCard, 'div', hoverableWrapperStyle, 'swiper-slide');
