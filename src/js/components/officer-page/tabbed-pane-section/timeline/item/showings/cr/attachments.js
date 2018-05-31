@@ -12,7 +12,7 @@ export default class Attachments extends Component {
     if (firstAttachment) {
       const { url, previewImageUrl, fileType } = firstAttachment;
       return (
-        <span style={ wrapperStyle } className='test--first-attachment'>
+        <span style={ wrapperStyle }>
           {
             rest.length
               ? (

@@ -5,16 +5,17 @@ import { menuItemStyle, menuStyle, tabbedPaneSectionStyle } from './tabbed-pane-
 import TimelineContainer from 'containers/officer-page/timeline-container';
 import CoaccusalsContainer from 'containers/officer-page/coaccusals-container';
 import AttachmentsContainer from 'containers/officer-page/attachments-container';
+import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
 
 
 export default class TabbedPaneSection extends Component {
   constructor(props) {
     super(props);
     this.tabbedPaneMap = {
-      'TIMELINE': <TimelineContainer/>,
-      'MAP': null,
-      'COACCUSALS': <CoaccusalsContainer/>,
-      'ATTACHMENTS': <AttachmentsContainer/>,
+      [OFFICER_PAGE_TAB_NAMES.TIMELINE]: <TimelineContainer/>,
+      [OFFICER_PAGE_TAB_NAMES.MAP]: null,
+      [OFFICER_PAGE_TAB_NAMES.COACCUSALS]: <CoaccusalsContainer/>,
+      [OFFICER_PAGE_TAB_NAMES.ATTACHMENTS]: <AttachmentsContainer/>,
     };
   }
 

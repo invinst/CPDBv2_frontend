@@ -391,3 +391,11 @@ export const ATTACHMENT_TYPES = {
   'AUDIO': 'audio',
   'DOCUMENT': 'document',
 };
+
+export const OFFICER_PAGE_TAB_NAMES = {
+  TIMELINE: 'TIMELINE',
+  MAP: 'MAP',
+  COACCUSALS: 'COACCUSALS',
+  ATTACHMENTS: 'ATTACHMENTS',
+};
+

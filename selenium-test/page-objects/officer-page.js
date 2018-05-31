@@ -54,7 +54,7 @@ class TimelineSection extends Section {
       joinedItem: '.test--timeline-joined-item',
       yearItem: '.test--timeline-year-item',
       emptyItem: '.test--timeline-empty-item',
-      firstAttachment: '.test--first-attachment',
+      attachmentThumbnail: '.test--attachment-image',
       moreAttachment: '.test--more-attachment',
     });
   }
