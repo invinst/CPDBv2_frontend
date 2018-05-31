@@ -117,15 +117,18 @@ describe('dom utils', function () {
       this.stubQuerySelector = stub(document, 'querySelector');
       this.dummyElement = { scrollIntoView: spy() };
       this.stubQuerySelector.withArgs('#dummy').returns(this.dummyElement);
+      this.stubScrollBy = stub(window, 'scrollBy');
     });
 
     afterEach(function () {
       this.stubQuerySelector.restore();
+      this.stubScrollBy.restore();
     });
 
     it('should call appropriate method on selected element to scroll to it', function () {
-      scrollToElement('#dummy');
-      this.dummyElement.scrollIntoView.called.should.be.true();
+      scrollToElement('#dummy', true, 10);
+      this.dummyElement.scrollIntoView.should.be.called();
+      this.stubScrollBy.should.be.calledWith(0, 10);
     });
 
     it('should abort if element was not found', function () {

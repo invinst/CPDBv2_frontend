@@ -22,7 +22,7 @@ export default class TabbedPaneSection extends Component {
   render() {
     const { currentTab, changeOfficerTab } = this.props;
     return (
-      <div style={ tabbedPaneSectionStyle }>
+      <div style={ tabbedPaneSectionStyle } className='tabbed-pane-section'>
         <div style={ menuStyle } className='test--tabbed-pane-section-menu'>
           {
             keys(this.tabbedPaneMap).map((paneName) => (

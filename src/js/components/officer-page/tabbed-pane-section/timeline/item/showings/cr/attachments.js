@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import OutboundLink from 'components/common/outbound-link';
 import { imageStyle, wrapperStyle, moreStyle } from './attachments.style';
-import { scrollToTop } from 'utils/dom';
+import { scrollToElement } from 'utils/dom';
 
 
 export default class Attachments extends Component {
@@ -22,7 +22,7 @@ export default class Attachments extends Component {
                   onClick={ (e) => {
                     e.stopPropagation();
                     changeOfficerTab('ATTACHMENTS');
-                    scrollToTop();
+                    scrollToElement('.tabbed-pane-section', true, -40);
                   } }
                 >
                   +{ rest.length }
