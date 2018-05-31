@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import ReactDOMServer from 'react-dom/server';
 import { brightOrangeTwoColor, champagneColor, clayGray, darkSapphireBlue, greyishColor } from 'utils/styles';
-import { mapboxgl } from 'utils/vendors';
 
-import { mapStyle, wrapperStyle } from './map.style';
+import { mapboxgl } from 'utils/vendors';
 import Legend from './legend';
+import { mapStyle, wrapperStyle } from './map.style';
+import MarkerTooltip from './marker-tooltip';
 
 
 const centerLat = 41.85677;
@@ -72,8 +74,21 @@ export default class Map extends Component {
     markerEl.appendChild(markerLeg);
     markerEl.style.paddingBottom = '15px';
 
+    const popup = new mapboxgl.Popup({ offset: 25, closeButton: false });
+
+    popup.setHTML(ReactDOMServer.renderToString(
+      <MarkerTooltip
+        kind={ marker.kind }
+        id={ marker.id }
+        category={ marker.category }
+        coaccused={ marker.coaccused }
+        victims={ marker.victims }
+      />
+    ));
+
     this.marker = new mapboxgl.Marker(markerEl);
     this.marker.setLngLat([marker.point.lon, marker.point.lat]);
+    this.marker.setPopup(popup);
     this.marker.addTo(this.map);
   }
 
@@ -99,7 +114,20 @@ Map.propTypes = {
       point: PropTypes.shape({
         lat: PropTypes.number,
         lon: PropTypes.number
-      })
+      }),
+      kind: PropTypes.string,
+      finding: PropTypes.string,
+      id: PropTypes.string,
+      category: PropTypes.string,
+      coaccused: PropTypes.number,
+      victims: PropTypes.arrayOf(
+        PropTypes.shape({
+          gender: PropTypes.string,
+          race: PropTypes.string,
+          age: PropTypes.number,
+
+        })
+      )
     })
   ),
 };

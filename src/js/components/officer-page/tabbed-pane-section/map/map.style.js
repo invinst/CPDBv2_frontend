@@ -5,6 +5,7 @@ export const wrapperStyle = {
 };
 
 export const mapStyle = {
-  width: '100%',
+  width: 'calc(100% - 32px)',
   height: '100%',
+  margin: '0 auto',
 };

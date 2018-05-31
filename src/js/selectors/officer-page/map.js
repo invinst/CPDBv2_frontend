@@ -22,6 +22,10 @@ export const getMapMarkers = createSelector(
       point: item.point,
       kind: item.kind,
       finding: get(item, 'finding'),
+      id: item.crid,
+      category: item.category,
+      victims: item.victims,
+      coaccused: item.coaccused,
     }));
   }
 );
