@@ -9,7 +9,7 @@ import {
 import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import StaticRadarChart from 'components/common/radar-chart/index';
+import StaticRadarChart from 'components/common/radar-chart';
 import RadarArea from 'components/common/radar-chart/radar-area';
 import RadarLegend from 'components/common/radar-chart/radar-legend';
 import RadarAxis from 'components/common/radar-chart/radar-axis';
@@ -42,7 +42,7 @@ describe('Static Radar Chart components', function () {
     StaticRadarChart.should.be.renderable();
   });
 
-  it('should render if default radar chart if data provided', () => {
+  it('should render default radar chart if data provided', () => {
     instance = renderIntoDocument(<StaticRadarChart data={ data }/>);
     findRenderedComponentWithType(instance, RadarAxis);
     findRenderedComponentWithType(instance, RadarArea);

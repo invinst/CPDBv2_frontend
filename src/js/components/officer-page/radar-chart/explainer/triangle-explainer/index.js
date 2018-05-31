@@ -5,15 +5,15 @@ import {
 } from './triangle-explainer.style';
 import StaticRadarChart from 'components/common/radar-chart';
 
-import { sugarCaneColor } from 'utils/styles';
+import { sugarCaneColor, whiteTwoColor } from 'utils/styles';
 
 
 export default class TriangleExplainer extends Component {
   render() {
     const radarConfig = {
-      hideAxisText: true,
       backgroundColor: sugarCaneColor,
       showGrid: true,
+      gridColor: whiteTwoColor,
       showSpineLine: false,
     };
 

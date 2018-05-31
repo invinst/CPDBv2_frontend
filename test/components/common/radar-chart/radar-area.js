@@ -45,17 +45,6 @@ describe('RadarArea components', function () {
     scryRenderedDOMComponentsWithClass(instance, 'test--radar-value-text').should.have.length(0);
   });
 
-  it('should show value text if showDataPoints is true', function () {
-    instance = renderIntoDocument(
-      <RadarArea rPoints={ rPoints } showDataPoints={ true }/>
-    );
-    const textElements = scryRenderedDOMComponentsWithClass(instance, 'test--radar-value-text');
-    textElements.should.have.length(3);
-    textElements[0].textContent.should.eql('10');
-    textElements[1].textContent.should.eql('20');
-    textElements[2].textContent.should.eql('99.9');
-  });
-
   it('should hide stroke if drawStroke is false', function () {
     instance = renderIntoDocument(
       <RadarArea rPoints={ rPoints } drawStroke={ false }/>

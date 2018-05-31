@@ -5,22 +5,18 @@ import { curveLinearClosed, radialLine } from 'd3-shape';
 import { radarBoundaryAreaStyle } from './radar-axis.style';
 import { softBlackColor } from 'utils/styles';
 import RadarAxisText from './radar-axis-text';
-import { roundedPercentile } from 'utils/calculations';
 
 
 export default class RadarAxis extends React.Component {
   render() {
     const {
-      radius, data, maxValue, hideText, textColor, strokeWidth, showValueInsteadOfTitle, axisTitleFontSize
+      radius, data, maxValue, showAxisTitle, textColor, strokeWidth,
+      axisTitleFontSize, axisTitleFontWeight, showAxisValue
     } = this.props;
     if (!data)
       return <g className='test--radar-axis-wrapper'/>;
 
-    const axisTitles = data.map(
-      (item) => showValueInsteadOfTitle ? roundedPercentile(item.value).toString() : item.axis
-    );
-    const labelFactor = showValueInsteadOfTitle ? 1.1 : 1.25;
-    const angleSlice = Math.PI * 2 / axisTitles.length;
+    const angleSlice = Math.PI * 2 / data.length;
 
     const rScale = scaleLinear()
       .range([0, radius + strokeWidth])
@@ -34,20 +30,22 @@ export default class RadarAxis extends React.Component {
     return (
       <g className='test--radar-axis-wrapper'>
         {
-          !hideText && (
+          (showAxisTitle || showAxisValue) && (
             <RadarAxisText
               radius={ radius }
-              axisTitles={ axisTitles }
-              labelFactor={ labelFactor }
+              data={ data }
               textColor={ textColor }
+              showAxisTitle={ showAxisTitle }
+              showAxisValue={ showAxisValue }
               axisTitleFontSize={ axisTitleFontSize }
+              axisTitleFontWeight={ axisTitleFontWeight }
             />
           )
         }
 
         <path
           className='test--radar-boundary-area'
-          d={ radarLine(axisTitles.map(() => ({ value: maxValue }))) }
+          d={ radarLine(data.map(() => ({ value: maxValue }))) }
           style={ radarBoundaryAreaStyle }
         />
       </g>
@@ -56,17 +54,19 @@ export default class RadarAxis extends React.Component {
 }
 
 RadarAxis.defaultProps = {
-  hideText: false,
-  textColor: softBlackColor
+  showAxisTitle: false,
+  showAxisValue: false,
+  textColor: softBlackColor,
 };
 
 RadarAxis.propTypes = {
   radius: PropTypes.number,
   maxValue: PropTypes.number,
   data: PropTypes.array,
-  hideText: PropTypes.bool,
   textColor: PropTypes.string,
   strokeWidth: PropTypes.number,
-  showValueInsteadOfTitle: PropTypes.bool,
-  axisTitleFontSize: PropTypes.number
+  showAxisTitle: PropTypes.bool,
+  showAxisValue: PropTypes.bool,
+  axisTitleFontSize: PropTypes.number,
+  axisTitleFontWeight: PropTypes.number,
 };

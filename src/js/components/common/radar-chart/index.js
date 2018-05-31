@@ -38,20 +38,23 @@ export default class StaticRadarChart extends Component {
 
   render() {
     const {
-      data,
-      legendText,
-      fadeOutLegend,
-      hideAxisText,
-      backgroundColor,
-      textColor,
       width,
       height,
       radius,
-      showGrid,
-      showSpineLine,
-      showValueInsteadOfTitle,
-      showDataPoints,
+      backgroundColor,
+      textColor,
+      data,
+      legendText,
+      fadeOutLegend,
+      showAxisTitle,
+      showAxisValue,
       axisTitleFontSize,
+      axisTitleFontWeight,
+      showGrid,
+      gridColor,
+      gridOpacity,
+      showSpineLine,
+      showSpineLinePoint,
     } = this.props;
 
     if (!data || !data.length || isNaN(data[0].value))
@@ -70,25 +73,30 @@ export default class StaticRadarChart extends Component {
         height='100%'
         viewBox={ `0 0 ${width} ${height}` }
       >
-        <g style={ { transform: `translate(${parseInt(width / 2)}px, ${parseInt(height * 0.4)}px)` } }>
+        <g style={ { transform: `translate(${parseInt(width / 2)}px, ${parseInt(height * 0.34)}px)` } }>
           <RadarAxis
             data={ data }
             radius={ radius }
             maxValue={ this.maxValue }
-            hideText={ hideAxisText }
-            showValueInsteadOfTitle={ showValueInsteadOfTitle }
+            showAxisTitle={ showAxisTitle }
+            showAxisValue={ showAxisValue }
             textColor={ textColor }
             strokeWidth={ this.strokeWidth }
             axisTitleFontSize={ axisTitleFontSize }
+            axisTitleFontWeight={ axisTitleFontWeight }
           />
-          <RadarArea showDataPoints={ showDataPoints } rPoints={ transformData } strokeWidth={ this.strokeWidth }/>
+          <RadarArea rPoints={ transformData } strokeWidth={ this.strokeWidth }/>
 
-          { showSpineLine && <RadarSpineLine rPoints={ transformData }/> }
           { showGrid && (
             <RadarGrid
-              numAxis={ data.length } radius={ radius } maxValue={ this.maxValue }
+              opacity={ gridOpacity }
+              numAxis={ data.length }
+              radius={ radius }
+              maxValue={ this.maxValue }
+              strokeColor={ gridColor || backgroundColor }
               strokeWidth={ this.strokeWidth }/>
           ) }
+          { showSpineLine && <RadarSpineLine rPoints={ transformData } showSpineLinePoint={ showSpineLinePoint }/> }
           <RadarLegend fadeOut={ fadeOutLegend } content={ legendText }/>
         </g>
       </svg>
@@ -96,45 +104,51 @@ export default class StaticRadarChart extends Component {
   }
 }
 
+
 StaticRadarChart.defaultProps = {
-  backgroundColor: '#fdfaf2',
-  legendText: '',
-  fadeOutLegend: false,
-  hideAxisText: false,
-  showValueText: false,
-  showGrid: false,
   width: 512,
   height: 392,
-  radius: 164,
-  showSpineLine: true,
-  showDataPoints: false,
+  radius: 146,
+  legendText: '',
+  backgroundColor: '#fdfaf2',
+  showAxisTitle: false,
+  showAxisValue: false,
   axisTitleFontSize: 14,
+  showGrid: false,
+  gridOpacity: 1,
+  showSpineLine: true,
+  showSpineLinePoint: false,
+  fadeOutLegend: false,
+  axisTitleFontWeight: 400,
 };
 
 StaticRadarChart.propTypes = {
+  width: PropTypes.number,
+  height: PropTypes.number,
+  radius: PropTypes.number,
+  onClick: PropTypes.func,
   data: PropTypes.arrayOf(
     PropTypes.shape({
       axis: PropTypes.string.isRequired,
       value: PropTypes.number.isRequired
     })
   ),
+  backgroundColor: PropTypes.string,
+  textColor: PropTypes.string,
+  showAxisTitle: PropTypes.bool,
+  showAxisValue: PropTypes.bool,
+  axisTitleFontSize: PropTypes.number,
+  axisTitleFontWeight: PropTypes.number,
+  showGrid: PropTypes.bool,
+  gridOpacity: PropTypes.number,
+  gridColor: PropTypes.string,
+  showSpineLine: PropTypes.bool,
+  showSpineLinePoint: PropTypes.bool,
   legendText: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.element
   ]),
   fadeOutLegend: PropTypes.bool,
-  hideAxisText: PropTypes.bool,
-  backgroundColor: PropTypes.string,
-  textColor: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  onClick: PropTypes.func,
-  radius: PropTypes.number,
-  showGrid: PropTypes.bool,
-  showValueInsteadOfTitle: PropTypes.bool,
-  showSpineLine: PropTypes.bool,
-  showDataPoints: PropTypes.bool,
-  axisTitleFontSize: PropTypes.number
 };
 
