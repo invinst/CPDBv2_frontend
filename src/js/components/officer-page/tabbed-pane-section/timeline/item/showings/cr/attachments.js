@@ -2,11 +2,12 @@ import React, { Component, PropTypes } from 'react';
 
 import OutboundLink from 'components/common/outbound-link';
 import { imageStyle, wrapperStyle, moreStyle } from './attachments.style';
+import { scrollToTop } from 'utils/dom';
 
 
 export default class Attachments extends Component {
   render() {
-    const { attachments } = this.props;
+    const { attachments, changeOfficerTab } = this.props;
     const [firstAttachment, ...rest] = attachments;
     if (firstAttachment) {
       const { url, previewImageUrl, fileType } = firstAttachment;
@@ -14,7 +15,19 @@ export default class Attachments extends Component {
         <span style={ wrapperStyle } className='test--first-attachment'>
           {
             rest.length
-              ? <span style={ moreStyle } className='test--more-attachment'>+{rest.length}</span>
+              ? (
+                <span
+                  style={ moreStyle }
+                  className='test--more-attachment'
+                  onClick={ (e) => {
+                    e.stopPropagation();
+                    changeOfficerTab('ATTACHMENTS');
+                    scrollToTop();
+                  } }
+                >
+                  +{ rest.length }
+                </span>
+              )
               : null
           }
           <OutboundLink href={ url } className='test--attachment-image-href' target='_blank'>
@@ -32,4 +45,5 @@ export default class Attachments extends Component {
 
 Attachments.propTypes = {
   attachments: PropTypes.array,
+  changeOfficerTab: PropTypes.func,
 };

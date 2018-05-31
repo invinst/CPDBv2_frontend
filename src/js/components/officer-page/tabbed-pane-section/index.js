@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { get, keys } from 'lodash';
 
 import { menuItemStyle, menuStyle, tabbedPaneSectionStyle } from './tabbed-pane-section.style';
@@ -16,12 +16,10 @@ export default class TabbedPaneSection extends Component {
       'COACCUSALS': <CoaccusalsContainer/>,
       'ATTACHMENTS': <AttachmentsContainer/>,
     };
-    this.state = {
-      activeTabName: 'TIMELINE'
-    };
   }
 
   render() {
+    const { currentTab, changeOfficerTab } = this.props;
     return (
       <div style={ tabbedPaneSectionStyle }>
         <div style={ menuStyle } className='test--tabbed-pane-section-menu'>
@@ -29,17 +27,22 @@ export default class TabbedPaneSection extends Component {
             keys(this.tabbedPaneMap).map((paneName) => (
               <span
                 key={ paneName }
-                style={ menuItemStyle(paneName === this.state.activeTabName) }
+                style={ menuItemStyle(paneName === currentTab) }
                 className='test--tabbed-pane-tab-name'
-                onClick={ () => this.setState({ activeTabName: paneName }) }
+                onClick={ () => changeOfficerTab(paneName) }
               >
                 { paneName }
               </span>)
             )
           }
         </div>
-        { get(this.tabbedPaneMap, this.state.activeTabName, null) }
+        { get(this.tabbedPaneMap, currentTab, null) }
       </div>
     );
   }
 }
+
+TabbedPaneSection.propTypes = {
+  currentTab: PropTypes.string,
+  changeOfficerTab: PropTypes.func,
+};

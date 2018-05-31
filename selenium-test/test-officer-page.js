@@ -175,6 +175,12 @@ describe('officer page', function () {
       );
     });
 
+    it('should go to attachment tab when clicking on the more attachment', function () {
+      officerPage.tabbedPaneSection.timelineSection.firstAttachment.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.firstAttachment.click();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+    });
+
     describe('Timeline filter', function () {
       beforeEach(function () {
         officerPage.tabbedPaneSection.timelineSection.filter.button.waitForVisible();
