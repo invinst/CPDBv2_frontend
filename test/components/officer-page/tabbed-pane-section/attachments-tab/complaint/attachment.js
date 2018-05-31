@@ -32,6 +32,7 @@ describe('Attachment component', function () {
 
     const outboundLink = findRenderedComponentWithType(instance, OutboundLink);
     outboundLink.props.href.should.eql('https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html');
+    outboundLink.props.target.should.eql('_blank');
     findDOMNode(outboundLink).style.backgroundColor.should.eql('inherit');
 
     const previewImage = findRenderedDOMComponentWithClass(instance, 'test--attachment-preview-image');

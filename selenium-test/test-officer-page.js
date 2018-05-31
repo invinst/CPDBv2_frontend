@@ -165,6 +165,16 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/complaint\/\d+\/$/);
     });
 
+    it('should go to attachment source page when clicking on the first attachment', function () {
+      officerPage.tabbedPaneSection.timelineSection.firstAttachment.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.firstAttachment.click();
+      const tabIds = browser.getTabIds();
+      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
+      browser.getUrl().should.eql(
+        'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif'
+      );
+    });
+
     describe('Timeline filter', function () {
       beforeEach(function () {
         officerPage.tabbedPaneSection.timelineSection.filter.button.waitForVisible();
@@ -245,6 +255,8 @@ describe('officer page', function () {
     it('should go to attachment source page when clicking on the complaint attachment', function () {
       officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
       officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
+      const tabIds = browser.getTabIds();
+      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
       browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
     });
   });

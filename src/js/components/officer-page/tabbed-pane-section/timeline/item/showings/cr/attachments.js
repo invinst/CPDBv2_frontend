@@ -11,7 +11,7 @@ export default class Attachments extends Component {
     if (firstAttachment) {
       const { url, previewImageUrl, fileType } = firstAttachment;
       return (
-        <span style={ wrapperStyle }>
+        <span style={ wrapperStyle } className='test--first-attachment'>
           {
             rest.length
               ? <span style={ moreStyle } className='test--more-attachment'>+{rest.length}</span>

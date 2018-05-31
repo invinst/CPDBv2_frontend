@@ -1,8 +1,13 @@
 import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import React from 'react';
-import { findRenderedDOMComponentWithClass, renderIntoDocument } from 'react-addons-test-utils';
+import {
+  findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
+  renderIntoDocument,
+} from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test/index';
+import OutboundLink from 'components/common/outbound-link';
 
 
 describe('Attachments component', function () {
@@ -31,6 +36,7 @@ describe('Attachments component', function () {
     const moreAttachment = findRenderedDOMComponentWithClass(instance, 'test--more-attachment');
     const attachmentImage = findRenderedDOMComponentWithClass(instance, 'test--attachment-image');
     const attachmentImageHref = findRenderedDOMComponentWithClass(instance, 'test--attachment-image-href');
+    const outboundLink = findRenderedComponentWithType(instance, OutboundLink);
 
     moreAttachment.textContent.should.eql('+2');
     attachmentImage.style.backgroundImage.should.eql(
@@ -40,6 +46,8 @@ describe('Attachments component', function () {
     attachmentImageHref.getAttribute('href').should.eql(
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html'
     );
+    outboundLink.props.href.should.eql('https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html');
+    outboundLink.props.target.should.eql('_blank');
   });
 
   it('should render file types of attachments correctly', function () {
