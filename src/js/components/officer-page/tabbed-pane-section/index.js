@@ -17,7 +17,7 @@ export default class TabbedPaneSection extends Component {
       'ATTACHMENTS': null,
     };
     this.state = {
-      activeTabName: 'MAP'
+      activeTabName: 'TIMELINE'
     };
   }
 

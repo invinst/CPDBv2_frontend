@@ -1,6 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { brightOrangeTwoColor, champagneColor, clayGray, darkSapphireBlue, greyishColor, accentColor } from 'utils/styles';
+import {
+  accentColor,
+  brightOrangeTwoColor,
+  champagneColor,
+  clayGray,
+  darkSapphireBlue,
+  greyishColor
+} from 'utils/styles';
 
 import { mapboxgl } from 'utils/vendors';
 import Legend from './legend';
@@ -56,20 +63,21 @@ export default class Map extends Component {
     markerHead.style.height = '14.2px';
     markerHead.style.borderRadius = '50%';
     markerHead.style.cursor = 'pointer';
-    markerHead.style.zIndex = '10';
     return markerHead;
   }
 
-  addMarkerHeadHover(markerHead, marker, kind) {
+  addMarkerHeadHover(markerHead, marker, kind, markerEl) {
     markerHead.addEventListener('mouseenter', () => {
       if (!marker.getPopup().isOpen()) {
         marker.togglePopup();
         markerHead.style.borderColor = accentColor;
+        markerEl.style.zIndex = '10';
       }
     });
     markerHead.addEventListener('mouseleave', () => {
       if (marker.getPopup().isOpen()) {
         marker.togglePopup();
+        markerEl.style.zIndex = '0';
         if (kind === 'CR') {
           markerHead.style.borderColor = brightOrangeTwoColor;
         } else if (kind === 'TRR') {
@@ -116,7 +124,7 @@ export default class Map extends Component {
     this.marker.addTo(this.map);
 
     const markerHeadEl = markerEl.querySelector('.marker-head');
-    this.addMarkerHeadHover(markerHeadEl, this.marker, marker.kind);
+    this.addMarkerHeadHover(markerHeadEl, this.marker, marker.kind, markerEl);
 
     markerEl.addEventListener('click', e => {
       e.preventDefault();
