@@ -30,13 +30,16 @@ export default class Map extends Component {
         style: 'mapbox://styles/mapbox/streets-v10',
         zoom: zoom1,
         center: [centerLng, centerLat],
-        interactive: false
+        interactive: true,
+        scrollZoom: false,
       });
+      this.map.addControl(new mapboxgl.NavigationControl(), 'top-left');
     }
   }
 
   createMarkerHead(marker) {
     const markerHead = document.createElement('div');
+    markerHead.className = 'marker-head';
     if (marker.kind === 'TRR') {
       markerHead.style.backgroundColor = greyishColor;
       markerHead.style.border = `solid 1px ${ clayGray }`;
@@ -53,6 +56,19 @@ export default class Map extends Component {
     markerHead.style.height = '14.2px';
     markerHead.style.borderRadius = '50%';
     return markerHead;
+  }
+
+  addMarkerHeadHover(markerHead, marker) {
+    markerHead.addEventListener('mouseenter', () => {
+      if (!marker.getPopup().isOpen()) {
+        marker.togglePopup();
+      }
+    });
+    markerHead.addEventListener('mouseleave', () => {
+      if (marker.getPopup().isOpen()) {
+        marker.togglePopup();
+      }
+    });
   }
 
   createMarkerLeg() {
@@ -90,6 +106,14 @@ export default class Map extends Component {
     this.marker.setLngLat([marker.point.lon, marker.point.lat]);
     this.marker.setPopup(popup);
     this.marker.addTo(this.map);
+
+    const markerHeadEl = markerEl.querySelector('.marker-head');
+    this.addMarkerHeadHover(markerHeadEl, this.marker);
+
+    markerEl.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
   }
 
   render() {
