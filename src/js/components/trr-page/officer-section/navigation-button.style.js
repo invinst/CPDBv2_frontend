@@ -2,7 +2,7 @@ import { clayGray, accentColor, sugarCaneColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
-export const wrapperStyle = hovering => ({
+export const wrapperStyle = (hovering) => ({
   height: '28px',
   lineHeight: '28px',
   fontWeight: 300,
@@ -14,6 +14,8 @@ export const wrapperStyle = hovering => ({
   borderRadius: '2px',
   display: 'inline-block',
   float: 'right',
+  border: hovering ? `1px solid ${accentColor}` : `1px solid ${sugarCaneColor}`,
+  boxSizing: 'border-box',
 });
 
 export const textStyle = {
