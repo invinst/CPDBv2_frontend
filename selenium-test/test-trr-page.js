@@ -1,7 +1,5 @@
 'use strict';
 
-import crPage from './page-objects/cr-page';
-
 
 require('should');
 
@@ -21,16 +19,16 @@ describe('TRR page', function () {
   });
 
 
-  it('should go to officer profile page when clicking on the View Profile button', function () {
-    trrPage.officerSection.officerProfileButton.waitForVisible();
-    trrPage.officerSection.officerProfileButton.click();
+  it('should go to officer profile page when clicking on the Officer Row', function () {
+    trrPage.officerSection.officerRow.waitForVisible();
+    trrPage.officerSection.officerRow.click();
 
     browser.getUrl().should.match(/\/officer\/1\/$/);
   });
 
-  it('should go to unit profile page when clicking on the View Unit button', function () {
-    trrPage.officerSection.unitProfileButton.waitForVisible();
-    trrPage.officerSection.unitProfileButton.click();
+  it('should go to unit profile page when clicking on Unit row', function () {
+    trrPage.officerSection.unitLinkItem.waitForVisible();
+    trrPage.officerSection.unitLinkItem.click();
 
     browser.getUrl().should.match(/\/unit\/001\/$/);
   });

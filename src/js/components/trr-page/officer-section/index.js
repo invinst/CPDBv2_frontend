@@ -2,20 +2,18 @@ import React, { Component, PropTypes } from 'react';
 
 import { chunk } from 'lodash';
 
-import NavigationButton from './navigation-button';
 import Item from './item';
-import StaticRadarChart from 'components/common/radar-chart';
-import {
-  wrapperStyle,
-  fullRowStyle,
-  officerNameStyle,
-  visualTokenStyle,
-  rankStyle,
-  listWrapperStyle,
-} from './officer-section.style';
+import LinkItem from './link-item';
+import { wrapperStyle, listWrapperStyle, } from './officer-section.style';
+import OfficerRow from './officer-row';
 
 
 export default class OfficerSection extends Component {
+  renderItem(item, isLeft, hideBorder) {
+    const ItemComponent = item.to ? LinkItem : Item;
+    return <ItemComponent { ...item } isLeft={ isLeft } hideBorder={ hideBorder }/>;
+  }
+
   render() {
     const { officer } = this.props;
     if (!officer) return null;
@@ -28,7 +26,8 @@ export default class OfficerSection extends Component {
       }, {
         title: 'UNIT',
         value: officer.unitDescription || officer.unitName,
-        extraComponent: <NavigationButton text='View Unit' to={ `/unit/${officer.unitName}/` }/>
+        to: `/unit/${officer.unitName}/`,
+        navigationText: 'View Unit',
       }, {
         title: 'RACE',
         value: officer.race,
@@ -51,33 +50,20 @@ export default class OfficerSection extends Component {
     ];
     const rows = chunk(officerData, 2);
 
-    const visualTokenConfig = officer.percentile ? {
-      backgroundColor: officer.percentile.visualTokenBackground,
-      data: officer.percentile.items,
-    } : {};
-
     return (
-      <div style={ wrapperStyle }>
-        <div className='test--trr-officer-section' style={ fullRowStyle }>
-          <div style={ visualTokenStyle }>
-            <StaticRadarChart { ...visualTokenConfig }/>
-          </div>
-          <div style={ officerNameStyle }>
-            <div style={ rankStyle }>Officer</div>
-            <div className='test--officer-full-name'>{ officer.fullName }</div>
-          </div>
-          <NavigationButton
-            text='View Profile'
-            to={ `/officer/${officer.officerId}/` }
-          />
-        </div>
+      <div style={ wrapperStyle } className='test--trr-officer-section'>
+        <OfficerRow
+          percentile={ officer.percentile }
+          fullName={ officer.fullName }
+          officerId={ officer.officerId }
+        />
         <ul style={ listWrapperStyle }>
           {
             rows.map(
               ([firstItem, secondItem], index) => (
                 <li key={ `row-${index}` }>
-                  <Item { ...firstItem } isLeft={ true } hideBorder={ index === rows.length - 1 }/>
-                  <Item { ...secondItem } hideBorder={ index === rows.length - 1 }/>
+                  { this.renderItem(firstItem, true, index === rows.length - 1) }
+                  { this.renderItem(secondItem, false, index === rows.length - 1) }
                 </li>
               )
             )

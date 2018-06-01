@@ -9,6 +9,8 @@ class OfficerSection extends Section {
 
     this.prepareElementGetters({
       officerName: '.test--officer-full-name',
+      officerRow: '.test--trr-officer-row',
+      unitLinkItem: '.test--link-item',
       officerProfileButton: ('//*[@class="test--navigation-button" and ./span/text()="View Profile"]'),
       unitProfileButton: ('//*[@class="test--navigation-button" and ./span/text()="View Unit"]')
     });
