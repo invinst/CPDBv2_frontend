@@ -26,7 +26,7 @@ describe('TRRInfoSection component', function () {
     const trrDetail = {
       subjectDemographic: 'Black, Male, 21 years old',
       category: 'Other',
-      actions: ['Stiffened (Dead Weight)', 'Did Not Follow Verbal Direction', 'Imminent Threat Of Battery'],
+      forceTypes: ['Stiffened (Dead Weight)', 'Did Not Follow Verbal Direction', 'Imminent Threat Of Battery'],
     };
     const trrDocument = {
       alreadyRequested: false,
@@ -48,7 +48,7 @@ describe('TRRInfoSection component', function () {
 
     detail.props.subjectDemographic.should.eql('Black, Male, 21 years old');
     detail.props.category.should.eql('Other');
-    detail.props.actions.should.eql([
+    detail.props.forceTypes.should.eql([
       'Stiffened (Dead Weight)',
       'Did Not Follow Verbal Direction',
       'Imminent Threat Of Battery'

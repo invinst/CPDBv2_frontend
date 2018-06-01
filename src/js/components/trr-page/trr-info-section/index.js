@@ -34,7 +34,7 @@ TRRInfoSection.propTypes = {
   trrDetail: PropTypes.shape({
     subjectDemographic: PropTypes.string,
     category: PropTypes.string,
-    actions: PropTypes.arrayOf(PropTypes.string),
+    forceTypes: PropTypes.arrayOf(PropTypes.string),
   }),
   trrDocument: PropTypes.shape({
     alreadyRequested: PropTypes.bool,

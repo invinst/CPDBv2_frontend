@@ -43,7 +43,7 @@ export const trrDetailSelector = createSelector(
     return {
       subjectDemographic: demographic,
       category: get(data, 'force_category'),
-      actions: get(data, 'actions'),
+      forceTypes: get(data, 'force_types'),
     };
   }
 );

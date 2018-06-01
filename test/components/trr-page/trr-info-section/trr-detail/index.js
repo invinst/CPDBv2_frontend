@@ -22,7 +22,7 @@ describe('TRRDetail component', function () {
     const trrDetail = {
       subjectDemographic: 'Black, Male, 21 years old',
       category: 'Other',
-      actions: ['Stiffened (Dead Weight)', 'Did Not Follow Verbal Direction', 'Imminent Threat Of Battery'],
+      forceTypes: ['Stiffened (Dead Weight)', 'Did Not Follow Verbal Direction', 'Imminent Threat Of Battery'],
     };
 
     instance = renderIntoDocument(<TRRDetail{ ...trrDetail }/>);
@@ -50,7 +50,7 @@ describe('TRRDetail component', function () {
     );
   });
 
-  it('should handle if the actions is undefined', function () {
+  it('should handle if the forceTypes is undefined', function () {
     const trrDetail = {
       subjectDemographic: 'Black, Male, 21 years old',
       category: 'Other',
@@ -66,7 +66,7 @@ describe('TRRDetail component', function () {
   it('should handle if the subjectDemographic is undefined', function () {
     const trrDetail = {
       category: 'Other',
-      actions: ['Stiffened (Dead Weight)'],
+      forceTypes: ['Stiffened (Dead Weight)'],
     };
     instance = renderIntoDocument(<TRRDetail{ ...trrDetail }/>);
     const rows = scryRenderedComponentsWithType(instance, Row);

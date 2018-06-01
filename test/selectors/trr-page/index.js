@@ -131,7 +131,7 @@ describe('TRR page selectors', function () {
             'subject_gender': 'Male',
             'subject_age': 37,
             'force_category': 'Other',
-            actions: ['Verbal Commands'],
+            'force_types': ['Verbal Commands'],
           }
         }
       };
@@ -139,7 +139,7 @@ describe('TRR page selectors', function () {
       trrDetailSelector(state).should.eql({
         subjectDemographic: 'White, Male, 37 years old',
         category: 'Other',
-        actions: ['Verbal Commands'],
+        forceTypes: ['Verbal Commands'],
       });
     });
 
@@ -150,13 +150,13 @@ describe('TRR page selectors', function () {
             'subject_race': 'White',
             'subject_gender': 'Male',
             'force_category': 'Other',
-            actions: ['Verbal Commands'],
+            'force_types': ['Verbal Commands'],
           }
         }
       }).should.eql({
         subjectDemographic: 'White, Male',
         category: 'Other',
-        actions: ['Verbal Commands'],
+        forceTypes: ['Verbal Commands'],
       });
 
       trrDetailSelector({
@@ -165,13 +165,13 @@ describe('TRR page selectors', function () {
             'subject_race': 'White',
             'subject_age': 37,
             'force_category': 'Other',
-            actions: ['Verbal Commands'],
+            'force_types': ['Verbal Commands'],
           }
         }
       }).should.eql({
         subjectDemographic: 'White, 37 years old',
         category: 'Other',
-        actions: ['Verbal Commands'],
+        forceTypes: ['Verbal Commands'],
       });
 
       trrDetailSelector({
@@ -180,13 +180,13 @@ describe('TRR page selectors', function () {
             'subject_gender': 'Male',
             'subject_age': 37,
             'force_category': 'Other',
-            actions: ['Verbal Commands'],
+            'force_types': ['Verbal Commands'],
           }
         }
       }).should.eql({
         subjectDemographic: 'Male, 37 years old',
         category: 'Other',
-        actions: ['Verbal Commands'],
+        forceTypes: ['Verbal Commands'],
       });
     });
   });
