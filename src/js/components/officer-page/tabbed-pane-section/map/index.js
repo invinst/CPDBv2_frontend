@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { brightOrangeTwoColor, champagneColor, clayGray, darkSapphireBlue, greyishColor } from 'utils/styles';
+import { brightOrangeTwoColor, champagneColor, clayGray, darkSapphireBlue, greyishColor, accentColor } from 'utils/styles';
 
 import { mapboxgl } from 'utils/vendors';
 import Legend from './legend';
@@ -55,18 +55,26 @@ export default class Map extends Component {
     markerHead.style.width = '14px';
     markerHead.style.height = '14.2px';
     markerHead.style.borderRadius = '50%';
+    markerHead.style.cursor = 'pointer';
+    markerHead.style.zIndex = '10';
     return markerHead;
   }
 
-  addMarkerHeadHover(markerHead, marker) {
+  addMarkerHeadHover(markerHead, marker, kind) {
     markerHead.addEventListener('mouseenter', () => {
       if (!marker.getPopup().isOpen()) {
         marker.togglePopup();
+        markerHead.style.borderColor = accentColor;
       }
     });
     markerHead.addEventListener('mouseleave', () => {
       if (marker.getPopup().isOpen()) {
         marker.togglePopup();
+        if (kind === 'CR') {
+          markerHead.style.borderColor = brightOrangeTwoColor;
+        } else if (kind === 'TRR') {
+          markerHead.style.borderColor = clayGray;
+        }
       }
     });
   }
@@ -90,7 +98,7 @@ export default class Map extends Component {
     markerEl.appendChild(markerLeg);
     markerEl.style.paddingBottom = '15px';
 
-    const popup = new mapboxgl.Popup({ offset: 25, closeButton: false });
+    const popup = new mapboxgl.Popup({ offset: 12, closeButton: false });
 
     popup.setHTML(ReactDOMServer.renderToString(
       <MarkerTooltip
@@ -108,7 +116,7 @@ export default class Map extends Component {
     this.marker.addTo(this.map);
 
     const markerHeadEl = markerEl.querySelector('.marker-head');
-    this.addMarkerHeadHover(markerHeadEl, this.marker);
+    this.addMarkerHeadHover(markerHeadEl, this.marker, marker.kind);
 
     markerEl.addEventListener('click', e => {
       e.preventDefault();
