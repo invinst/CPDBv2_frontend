@@ -46,7 +46,7 @@ export const RawTRRFactory = Factory.define('RawTRRFactory')
   .attr('location_type', 'Street')
   .attr('address', address.streetAddress)
   .attr('beat', 331)
-  .attr('actions', [
+  .attr('forceTypes', [
     'Imminent Threat Of Battery',
     'Pulled Away',
     'Verbal Commands',
