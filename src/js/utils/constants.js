@@ -399,3 +399,9 @@ export const OFFICER_PAGE_TAB_NAMES = {
   ATTACHMENTS: 'ATTACHMENTS',
 };
 
+export const MAP_INFO = {
+  CENTER_LAT: 41.85677,
+  CENTER_LNG: -87.6024055,
+  ZOOM1: 9,
+  ZOOM2: 13,
+};

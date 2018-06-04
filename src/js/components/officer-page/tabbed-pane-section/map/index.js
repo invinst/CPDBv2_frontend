@@ -9,34 +9,21 @@ import {
   greyishColor
 } from 'utils/styles';
 
+import { MAP_INFO } from 'utils/constants';
 import { mapboxgl } from 'utils/vendors';
 import Legend from './legend';
 import { mapStyle, wrapperStyle } from './map.style';
 import MarkerTooltip from './marker-tooltip';
 
 
-const centerLat = 41.85677;
-const centerLng = -87.6024055;
-const zoom1 = 9;
-
 export default class Map extends Component {
-  componentWillReceiveProps(nextProps, nextState) {
-    const { markers } = this.props;
-
-    if (markers !== nextProps.markers) {
-      nextProps.markers.map(marker => {
-        this.addMarker(marker);
-      });
-    }
-  }
-
   gotRef(el) {
     if (el && !this.map) {
       this.map = new mapboxgl.Map({
         container: el,
         style: 'mapbox://styles/mapbox/streets-v10',
-        zoom: zoom1,
-        center: [centerLng, centerLat],
+        zoom: MAP_INFO.ZOOM1,
+        center: [MAP_INFO.CENTER_LNG, MAP_INFO.CENTER_LAT],
         interactive: true,
         scrollZoom: false,
       });
