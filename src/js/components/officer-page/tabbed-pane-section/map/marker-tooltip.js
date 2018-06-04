@@ -16,7 +16,7 @@ export default class MarkerTooltip extends Component {
   render() {
     const { kind, id, category, coaccused, victims } = this.props;
     return (
-      <div style={ wrapperStyle }>
+      <div style={ wrapperStyle } className='test--marker-tooltip'>
         <div style={ rowStyle }>
           <div className='test--marker-tooltip-kind-id' style={ titleStyle }>
             { kind } { id }

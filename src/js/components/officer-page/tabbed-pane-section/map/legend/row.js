@@ -9,10 +9,10 @@ class Row extends Component {
   render() {
     const { ovalColor, ovalBorderColor, text, number, haveMarginBottom, hovering } = this.props;
     return (
-      <div style={ wrapperStyle(haveMarginBottom) }>
+      <div style={ wrapperStyle(haveMarginBottom) } className='test--legend-row'>
         <div style={ ovalStyle(ovalColor, ovalBorderColor) } />
-        <span style={ textStyle(hovering) }>{ text }</span>
-        <span style={ numberStyle }>{ number }</span>
+        <span style={ textStyle(hovering) } className='test--legend-row-text'>{ text }</span>
+        <span style={ numberStyle } className='test--legend-row-number'>{ number }</span>
       </div>
     );
   }

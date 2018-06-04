@@ -21,6 +21,7 @@ const zoom1 = 9;
 
 export default class Map extends Component {
   componentWillReceiveProps(nextProps, nextState) {
+    console.log('new props!')
     const { markers } = this.props;
 
     if (markers !== nextProps.markers) {
@@ -28,6 +29,10 @@ export default class Map extends Component {
         this.addMarker(marker);
       });
     }
+  }
+
+  componentWillUnmount() {
+    console.log('unmount!')
   }
 
   gotRef(el) {
@@ -99,6 +104,7 @@ export default class Map extends Component {
 
   addMarker(marker) {
     const markerEl = document.createElement('div');
+    markerEl.setAttribute('className', 'test--marker');
     const markerHead = this.createMarkerHead(marker);
     const markerLeg = this.createMarkerLeg();
 

@@ -10,7 +10,7 @@ export default class Legend extends Component {
   render() {
     const { legend } = this.props;
     return (
-      <div style={ wrapperStyle }>
+      <div style={ wrapperStyle } className='test--legend'>
         <div style={ titleStyle }>
           LEGEND
         </div>
