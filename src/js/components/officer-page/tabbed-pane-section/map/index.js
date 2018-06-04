@@ -41,6 +41,10 @@ export default class Map extends Component {
         scrollZoom: false,
       });
       this.map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+
+      this.props.markers.map(marker => {
+        this.addMarker(marker);
+      });
     }
   }
 
