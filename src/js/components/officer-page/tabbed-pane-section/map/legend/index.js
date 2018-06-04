@@ -19,7 +19,7 @@ export default class Legend extends Component {
             ovalColor='white'
             ovalBorderColor={ brightOrangeTwoColor }
             text='Unsustained Complaint'
-            number={ legend.allegationCount - legend.sustainedCount }
+            number={ legend.unsustainedCount }
             haveMarginBottom={ true }
           />
           <Row
@@ -44,7 +44,7 @@ export default class Legend extends Component {
 
 Legend.propTypes = {
   legend: PropTypes.shape({
-    allegationCount: PropTypes.number,
+    unsustainedCount: PropTypes.number,
     sustainedCount: PropTypes.number,
     useOfForceCount: PropTypes.number
   }),
@@ -52,7 +52,7 @@ Legend.propTypes = {
 
 Legend.defaultProps = {
   legend: {
-    allegationCount: 0,
+    unsustainedCount: 0,
     sustainedCount: 0,
     useOfForceCount: 0
   },

@@ -8,7 +8,7 @@ import { getItems } from 'selectors/officer-page/new-timeline';
 export const getMapLegend = createSelector(
   getOfficerInfo,
   info => ({
-    allegationCount: get(info, 'allegation_count'),
+    unsustainedCount: get(info, 'unsustained_count'),
     sustainedCount: get(info, 'sustained_count'),
     useOfForceCount: get(info, 'trr_count'),
   })
