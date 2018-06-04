@@ -4,28 +4,39 @@ import {
   champagneColor,
   clayGray,
   scarletColor,
-  snowColor,
   softBlackColor,
+  whiteTwoColor,
 } from 'utils/styles';
 
+export const wrapperKindStyle = {
+  width: '85px',
+  display: 'inline-block',
+  marginRight: '16px',
+};
 
 const height = 58;
 
-export const showingStyle = {
+export const wrapperStyle = (hovering) => ({
+  backgroundColor: hovering ? 'white' : 'inherit',
   height: `${height}px`,
   lineHeight: `${height - 1}px`,
-};
-
-export const wrapperShowingStyle = (hovering) => ({
-  backgroundColor: hovering ? 'white' : snowColor,
   cursor: 'pointer',
+  padding: '0 16px',
+  boxSizing: 'border-box',
 });
+
+export const boxStyle = {
+  borderBottom: `solid 1px ${whiteTwoColor}`,
+};
 
 export const kindStyle = (active) => ({
   width: '85px',
   border: `solid 1px ${champagneColor}`,
   color: active ? scarletColor : brightOrangeTwoColor,
   backgroundColor: active ? champagneColor : 'inherit',
+  lineHeight: '24px',
+  display: 'inline-block',
+  textAlign: 'center',
 });
 
 export const detailStyle = {
@@ -35,6 +46,7 @@ export const detailStyle = {
 
 export const categoryStyle = (hovering) => ({
   color: hovering ? accentColor : softBlackColor,
+  lineHeight: '18px',
 });
 
 export const findingStyle = {
@@ -60,5 +72,8 @@ export const dateStyle = {
   fontSize: '12px',
   color: softBlackColor,
   fontWeight: 300,
-  float: 'none',
+  float: 'right',
+  width: '120px',
+  display: 'inline-block',
+  textAlign: 'right',
 };

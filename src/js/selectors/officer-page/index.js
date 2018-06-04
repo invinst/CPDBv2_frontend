@@ -7,6 +7,7 @@ import { extractPercentile } from 'selectors/landing-page/common';
 
 
 export const getOfficerInfo = state => state.officerPage.summary;
+export const getCurrentTab = state => state.officerPage.currentTab;
 const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
 
 const getCareerDuration = (dateOfAppt, dateOfResignation) => {
