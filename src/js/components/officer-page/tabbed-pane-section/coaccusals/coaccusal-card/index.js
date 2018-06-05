@@ -1,8 +1,8 @@
-import Hoverable from 'components/common/higher-order/hoverable';
-
-import StaticRadarChart from 'components/common/radar-chart';
-import pluralize from 'pluralize';
 import React, { Component, PropTypes } from 'react';
+import pluralize from 'pluralize';
+
+import Hoverable from 'components/common/higher-order/hoverable';
+import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import {
   allegationCountStyle,
