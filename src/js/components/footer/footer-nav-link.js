@@ -14,6 +14,7 @@ class FooterNavLink extends React.Component {
         href={ externalHref }
         style={ { ...navStyle(hovering), ...this.props.style(hovering) } }
         onClick={ onClick }
+        target='_blank'
       >
         { name }
       </OutboundLink>
