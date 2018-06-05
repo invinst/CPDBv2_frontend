@@ -1,11 +1,12 @@
-import { createSelector } from 'reselect';
 import { get } from 'lodash';
+import { createSelector } from 'reselect';
 
 import { getOfficerInfo } from 'selectors/officer-page';
 import { getItems } from 'selectors/officer-page/new-timeline';
+import { NEW_TIMELINE_ITEMS } from 'utils/constants';
 
 
-export const getMapLegend = createSelector(
+export const mapLegendSelector = createSelector(
   getOfficerInfo,
   info => ({
     unsustainedCount: get(info, 'unsustained_count'),
@@ -14,20 +15,35 @@ export const getMapLegend = createSelector(
   })
 );
 
-export const getMapMarkers = createSelector(
+export const rawMapMarkersSelector = createSelector(
   getItems,
   items => {
-    const filteredItems = items.filter(item => ['CR', 'TRR'].includes(item.kind));
-    return filteredItems.map(item => ({
-      point: get(item, 'point', {
-        lon: 0, lat: 0
-      }),
-      kind: item.kind,
-      finding: get(item, 'finding'),
-      id: item.crid,
-      category: item.category,
-      victims: item.victims,
-      coaccused: item.coaccused,
-    }));
+    return items.filter(item => {
+      if (item.kind === NEW_TIMELINE_ITEMS.CR) {
+        if (['Not Sustained', 'Sustained'].includes(item.finding)) {
+          return item;
+        }
+      }
+      if (item.kind === NEW_TIMELINE_ITEMS.FORCE) {
+        return item;
+      }
+    });
   }
+);
+
+export const mapMarkersTransform = item => ({
+  point: get(item, 'point', {
+    lon: 0, lat: 0
+  }),
+  kind: item.kind,
+  finding: item.finding,
+  id: item.crid,
+  category: item.category,
+  victims: item.victims,
+  coaccused: item.coaccused,
+});
+
+export const mapMarkersSelector = createSelector(
+  rawMapMarkersSelector,
+  markers => markers.map(marker => mapMarkersTransform(marker))
 );
