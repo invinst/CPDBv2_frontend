@@ -118,6 +118,10 @@ const getCoaccusedSelector = createSelector(
 );
 
 const getInvestigatorAffiliation = obj => {
+  if (!obj['current_rank']) {
+    return '';
+  }
+
   if (obj['current_rank'].indexOf('IPRA') > -1) {
     return 'IPRA';
   }
@@ -188,6 +192,8 @@ export const contentSelector = createSelector(
     crLocation: cr.location,
     beat: cr.beat || 'Unknown',
     summary: cr.summary,
+    category: get(cr['most_common_category'], 'category', 'Unknown'),
+    subcategory: get(cr['most_common_category'], 'allegation_name', 'Unknown'),
     startDate: cr['start_date'],
     endDate: cr['end_date'],
     involvements,
