@@ -387,9 +387,9 @@ export const DISTANCE_OPTIONS = {
 export const QA_LINK = 'http://how.cpdp.works/';
 
 export const ATTACHMENT_TYPES = {
-  'VIDEO': 'video',
-  'AUDIO': 'audio',
-  'DOCUMENT': 'document',
+  VIDEO: 'video',
+  AUDIO: 'audio',
+  DOCUMENT: 'document',
 };
 
 export const OFFICER_PAGE_TAB_NAMES = {
@@ -398,4 +398,3 @@ export const OFFICER_PAGE_TAB_NAMES = {
   COACCUSALS: 'COACCUSALS',
   ATTACHMENTS: 'ATTACHMENTS',
 };
-

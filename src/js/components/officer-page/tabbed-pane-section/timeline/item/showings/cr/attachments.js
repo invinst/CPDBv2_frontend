@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import OutboundLink from 'components/common/outbound-link';
 import { imageStyle, wrapperStyle, moreStyle } from './attachments.style';
 import { scrollToElement } from 'utils/dom';
+import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
 
 
 export default class Attachments extends Component {
@@ -21,7 +22,7 @@ export default class Attachments extends Component {
                   className='test--more-attachment'
                   onClick={ (e) => {
                     e.stopPropagation();
-                    changeOfficerTab('ATTACHMENTS');
+                    changeOfficerTab(OFFICER_PAGE_TAB_NAMES.ATTACHMENTS);
                     scrollToElement('.tabbed-pane-section', true, -40);
                   } }
                 >

@@ -1,5 +1,6 @@
-import Hoverable from 'components/common/higher-order/hoverable';
 import React, { Component, PropTypes } from 'react';
+
+import Hoverable from 'components/common/higher-order/hoverable';
 import {
   categoryStyle,
   coaccusedStyle,
