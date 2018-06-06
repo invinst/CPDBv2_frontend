@@ -135,6 +135,7 @@ describe('store', function () {
       crs: {},
       officerPage: {
         activeTab: null,
+        currentTab: 'TIMELINE',
         fullName: '',
         breadcrumbCachedFullName: '',
         isRequesting: false,
