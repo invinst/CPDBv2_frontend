@@ -1,6 +1,7 @@
-import { changeOfficerId, fetchOfficerSummary } from 'actions/officer-page';
+import { changeOfficerId, changeOfficerTab, fetchOfficerSummary } from 'actions/officer-page';
 import {
   CHANGE_OFFICER_ID,
+  CHANGE_OFFICER_TAB,
   OFFICER_SUMMARY_REQUEST_FAILURE,
   OFFICER_SUMMARY_REQUEST_START,
   OFFICER_SUMMARY_REQUEST_SUCCESS,
@@ -29,6 +30,15 @@ describe('officerPage actions', function () {
       changeOfficerId(123).should.eql({
         type: CHANGE_OFFICER_ID,
         payload: 123
+      });
+    });
+  });
+
+  describe('changeOfficerTab', function () {
+    it('should return the right action', function () {
+      changeOfficerTab('TIMELINE').should.eql({
+        type: CHANGE_OFFICER_TAB,
+        payload: 'TIMELINE'
       });
     });
   });
