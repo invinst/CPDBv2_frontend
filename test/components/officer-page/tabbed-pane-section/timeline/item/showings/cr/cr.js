@@ -1,18 +1,41 @@
+import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
+import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/index';
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  Simulate,
-} from 'react-addons-test-utils';
+import { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate, } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
+import { unmountComponentSuppressError } from 'utils/test/index';
 
 
 describe('Cr component', function () {
   let instance;
+  const item = {
+    crid: 123,
+    date: 'Jan 01',
+    kind: 'Complaint',
+    unitName: '001',
+    unitDisplay: '001 Display',
+    rank: 'Police Officer',
+    rankDisplay: 'Police Officer Display',
+    isFirstRank: true,
+    isLastRank: true,
+    isFirstUnit: true,
+    isLastUnit: true,
+    finding: 'Sustained',
+    category: 'Use of Force',
+    outcome: 'Unknown',
+    coaccused: 4,
+    attachments: [{
+      url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html',
+      previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif'
+    }, {
+      url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html',
+      previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif'
+    }, {
+      url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html',
+      previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p3-normal.gif'
+    }],
+  };
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
@@ -20,28 +43,6 @@ describe('Cr component', function () {
 
 
   it('should render item correctly', function () {
-    const item = {
-      date: 'Jan 01',
-      kind: 'AWARD',
-      unitName: '001',
-      unitDisplay: '001 Display',
-      rank: 'Police Officer',
-      rankDisplay: 'Police Officer Display',
-      isFirstRank: true,
-      isLastRank: true,
-      isFirstUnit: true,
-      isLastUnit: true,
-      finding: 'Sustained',
-      category: 'Use of Force',
-      outcome: 'Unknown',
-      coaccused: 4,
-      attachments: [
-        { url: 'first url', previewImageUrl: 'first image url' },
-        { url: 'second url', previewImageUrl: 'second image url' },
-        { url: 'third url', previewImageUrl: 'third image url' },
-      ],
-    };
-
     instance = renderIntoDocument(<Cr item={ item } baseStyles={ baseStyles }/>);
 
     const kind = findRenderedDOMComponentWithClass(instance, 'test--cr-item-kind');
@@ -60,33 +61,13 @@ describe('Cr component', function () {
     date.textContent.should.eql('Jan 01');
     moreAttachment.textContent.should.eql('+2');
 
-    attachmentImage.getAttribute('src').should.eql('first image url');
-    attachmentImageHref.getAttribute('href').should.eql('first url');
+    attachmentImage.style.backgroundImage.should.eql(
+      'url("https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif")');
+    attachmentImageHref.getAttribute('href').should.eql(
+      'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html');
   });
 
   it('should open the cr page when being clicked', function () {
-    const item = {
-      crid: 123,
-      date: 'Jan 01',
-      kind: 'AWARD',
-      unitName: '001',
-      unitDisplay: '001 Display',
-      rank: 'Police Officer',
-      rankDisplay: 'Police Officer Display',
-      isFirstRank: true,
-      isLastRank: true,
-      isFirstUnit: true,
-      isLastUnit: true,
-      finding: 'Sustained',
-      category: 'Use of Force',
-      outcome: 'Unknown',
-      coaccused: 4,
-      attachments: [
-        { url: 'first url', previewImageUrl: 'first image url' },
-        { url: 'second url', previewImageUrl: 'second image url' },
-        { url: 'third url', previewImageUrl: 'third image url' },
-      ],
-    };
     const openComplaintPageStub = stub();
 
     instance = renderIntoDocument(

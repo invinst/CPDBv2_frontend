@@ -6,9 +6,13 @@ import { trackOutboundLink } from 'utils/tracking';
 export default class OutboundLink extends Component {
   handleClick(event) {
     event.preventDefault();
-    this.props.onClick();
-    if (this.props.href) {
-      trackOutboundLink(this.props.href);
+    event.stopPropagation();
+
+    const { onClick, href, target } = this.props;
+
+    onClick();
+    if (href) {
+      trackOutboundLink(href, target);
     }
   }
 
@@ -28,7 +32,8 @@ export default class OutboundLink extends Component {
 OutboundLink.propTypes = {
   href: PropTypes.string,
   children: PropTypes.node,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  target: PropTypes.string,
 };
 
 OutboundLink.defaultProps = {
