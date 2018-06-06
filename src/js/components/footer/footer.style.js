@@ -1,8 +1,8 @@
-import { whiteTwoColor } from 'utils/styles';
+import { whiteTwoColor, sugarCaneColor } from 'utils/styles';
 
 
 export const sectionStyle = {
-  background: 'white',
+  background: sugarCaneColor,
   boxSizing: 'border-box'
 };
 
