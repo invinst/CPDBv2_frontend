@@ -36,17 +36,12 @@ export default class CRPage extends Component {
         <ResponsiveFluidWidthComponent>
           <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
         </ResponsiveFluidWidthComponent>
-        {
-          category
-          && (
-            <ResponsiveFluidWidthComponent>
-              <div style={ categoryWrapperStyle }>
-                <div className='test--cr-category' style={ categoryStyle }>{ category }</div>
-                <div style={ subcategoryStyle }>{ subcategory }</div>
-              </div>
-            </ResponsiveFluidWidthComponent>
-          )
-        }
+        <ResponsiveFluidWidthComponent>
+          <div style={ categoryWrapperStyle }>
+            <div style={ categoryStyle }>{ category }</div>
+            <div style={ subcategoryStyle }>{ subcategory }</div>
+          </div>
+        </ResponsiveFluidWidthComponent>
         <AccusedOfficers officers={ coaccused } />
         <ResponsiveFluidWidthComponent>
           <div style={ summarySectionWrapperStyle }>
