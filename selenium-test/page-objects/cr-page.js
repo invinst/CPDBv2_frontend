@@ -198,6 +198,7 @@ class CRPage extends Page {
 
     this.prepareElementGetters({
       title: '.test--cr-title',
+      category: '.test--cr-category',
       investigationTimeline: '.test--investigator-timeline-text'
     });
   }
