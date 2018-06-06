@@ -1,5 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOMServer from 'react-dom/server';
+
+import { MAP_INFO, NEW_TIMELINE_ITEMS } from 'utils/constants';
+import { mapboxgl } from 'utils/vendors';
+import Legend from './legend';
+import { mapStyle, wrapperStyle } from './map.style';
+import MarkerTooltip from './marker-tooltip';
 import {
   accentColor,
   brightOrangeTwoColor,
@@ -8,12 +14,6 @@ import {
   darkSapphireBlue,
   greyishColor
 } from 'utils/styles';
-
-import { MAP_INFO } from 'utils/constants';
-import { mapboxgl } from 'utils/vendors';
-import Legend from './legend';
-import { mapStyle, wrapperStyle } from './map.style';
-import MarkerTooltip from './marker-tooltip';
 
 
 export default class Map extends Component {
@@ -38,10 +38,10 @@ export default class Map extends Component {
   createMarkerHead(marker) {
     const markerHead = document.createElement('div');
     markerHead.className = 'marker-head';
-    if (marker.kind === 'TRR') {
+    if (marker.kind === NEW_TIMELINE_ITEMS.FORCE) {
       markerHead.style.backgroundColor = greyishColor;
       markerHead.style.border = `solid 1px ${ clayGray }`;
-    } else if (marker.kind === 'CR') {
+    } else if (marker.kind === NEW_TIMELINE_ITEMS.CR) {
       markerHead.style.border = `solid 1px ${ brightOrangeTwoColor }`;
       if (marker.finding === 'Sustained') {
         markerHead.style.backgroundColor = champagneColor;
@@ -69,9 +69,9 @@ export default class Map extends Component {
       if (marker.getPopup().isOpen()) {
         marker.togglePopup();
         markerEl.style.zIndex = '0';
-        if (kind === 'CR') {
+        if (kind === NEW_TIMELINE_ITEMS.CR) {
           markerHead.style.borderColor = brightOrangeTwoColor;
-        } else if (kind === 'TRR') {
+        } else if (kind === NEW_TIMELINE_ITEMS.FORCE) {
           markerHead.style.borderColor = clayGray;
         }
       }
