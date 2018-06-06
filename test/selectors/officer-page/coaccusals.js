@@ -1,9 +1,7 @@
-import 'should-sinon';
-
 import { getCoaccusalGroups, } from 'selectors/officer-page/coaccusals';
 
 
-describe('officer page selectors', function () {
+describe('Officer coaccusals selectors', function () {
   describe('getCoaccusalGroups', function () {
     it('should return empty if the state is empty', function () {
       getCoaccusalGroups({

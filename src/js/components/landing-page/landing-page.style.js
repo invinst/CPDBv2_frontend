@@ -1,29 +1,13 @@
-import { darkGreyColor, softBlackColor } from 'utils/styles';
+import { sugarCaneColor, whiteTwoColor } from 'utils/styles';
 
-
-export const bottomSectionsWrapperStyle = {
-  backgroundColor: 'white'
+export const carouselsWrapperStyle = {
+  backgroundColor: sugarCaneColor,
+  padding: '16px 0 112px 16px',
 };
 
-export const sectionStyle = {
-  margin: '16px'
-};
-
-export const divideLineStyle = {
-  margin: '0 16px',
-  backgroundColor: softBlackColor,
-  width: 'calc(100% - 16px)',
-  height: '1px'
-};
-
-export const leftColumnStyle = {
-  borderRight: `1px solid ${darkGreyColor}`
-};
-
-export const lastSectionStyle = {
-  borderBottom: 0
-};
-
-export const vftgSectionStyle = {
-  paddingBottom: 0
+export const carouselStyle = {
+  backgroundColor: 'white',
+  border: `solid 1px ${ whiteTwoColor }`,
+  marginBottom: '16px',
+  padding: '48px 0 32px 0',
 };
