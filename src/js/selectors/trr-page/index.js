@@ -15,7 +15,7 @@ export const officerSelector = createSelector(
   (data) => data.officer ? ({
     ...officerTransform(data.officer),
     assignedBeat: get(data, 'officer_assigned_beat'),
-    onDuty: get(data, 'officer_duty_status'),
+    onDuty: get(data, 'officer_on_duty'),
     inUniform: get(data, 'officer_in_uniform'),
   }) : {}
 );
