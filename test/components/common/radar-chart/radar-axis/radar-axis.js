@@ -40,6 +40,7 @@ describe('RadarAxis components', function () {
         maxValue={ 100 }
         radius={ 145 }
         data={ data }
+        axisValueSuffix='%'
       />
     );
 
@@ -61,6 +62,7 @@ describe('RadarAxis components', function () {
         radius={ 145 }
         data={ data }
         showAxisValue={ true }
+        axisValueSuffix='%'
       />
     );
 

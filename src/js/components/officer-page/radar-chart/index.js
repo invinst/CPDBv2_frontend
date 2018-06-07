@@ -122,6 +122,7 @@ export default class AnimatedRadarChart extends Component {
           gridOpacity={ 0.25 }
           showAxisTitle={ true }
           showAxisValue={ true }
+          axisValueSuffix='%'
         />
         <RadarExplainer
           show={ showExplainer }

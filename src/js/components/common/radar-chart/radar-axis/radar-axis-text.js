@@ -6,7 +6,7 @@ import { roundedPercentile } from 'utils/calculations';
 
 export default class RadarAxisText extends React.Component {
   renderTitleTexts(title, value, xText, yText, extraPadding, fontSize) {
-    const { showAxisTitle, showAxisValue } = this.props;
+    const { showAxisTitle, showAxisValue, axisValueSuffix } = this.props;
 
     const words = title.split(' ');
     const phases = showAxisTitle ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [];
@@ -29,7 +29,7 @@ export default class RadarAxisText extends React.Component {
         y={ yText }
         dy={ `${extraPadding + phases.length * 1.3}em` }
       >
-        { `${roundedPercentile(value)}%` }
+        { `${roundedPercentile(value)}${axisValueSuffix}` }
       </tspan>
     ) : null;
     return [...axisTitles, valueTitle];
@@ -68,6 +68,10 @@ export default class RadarAxisText extends React.Component {
   }
 }
 
+RadarAxisText.defaultProps = {
+  axisValueSuffix: '',
+};
+
 RadarAxisText.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     'axis': PropTypes.string,
@@ -79,4 +83,5 @@ RadarAxisText.propTypes = {
   axisTitleFontWeight: PropTypes.number,
   showAxisTitle: PropTypes.bool,
   showAxisValue: PropTypes.bool,
+  axisValueSuffix: PropTypes.string,
 };
