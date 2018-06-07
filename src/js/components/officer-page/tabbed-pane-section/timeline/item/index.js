@@ -17,6 +17,7 @@ import {
   unitTextStyle,
   rankTextStyle,
   wrapperStyle,
+  rankTextWrapperStyle
 } from './item.style';
 
 
@@ -81,8 +82,10 @@ export default class Item extends Component {
           style={ rankStyle(height, isFirstRank, isLastRank) }
           className='test--item-rank'
         >
-          <div style={ rankTextStyle }>
-            { rankDisplay }
+          <div style={ rankTextWrapperStyle }>
+            <div style={ rankTextStyle }>
+              { rankDisplay }
+            </div>
           </div>
         </span>
         {

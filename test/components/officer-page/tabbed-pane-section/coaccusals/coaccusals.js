@@ -1,8 +1,8 @@
 import React from 'react';
 import { renderIntoDocument, scryRenderedDOMComponentsWithClass, } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import Coaccusals from 'components/officer-page/summary-page/tabbed-pane-section/coaccusals';
+import { unmountComponentSuppressError } from 'utils/test/index';
+import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals/index';
 
 
 describe('Coaccusals component', function () {
