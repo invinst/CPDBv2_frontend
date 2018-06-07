@@ -200,6 +200,10 @@ describe('TRR page selectors', function () {
             address: '34XX Douglas Blvd',
             beat: 1021,
             'location_type': 'Factory',
+            point: {
+              'lat': 41.7508596,
+              'lng': -87.6533166,
+            },
           }
         }
       }).should.eql({
@@ -207,6 +211,10 @@ describe('TRR page selectors', function () {
         address: '34XX Douglas Blvd',
         beat: '1021',
         locationType: 'Factory',
+        point: {
+          'lat': 41.7508596,
+          'lng': -87.6533166,
+        },
       });
     });
   });
