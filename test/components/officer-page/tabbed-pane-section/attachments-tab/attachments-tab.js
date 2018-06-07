@@ -4,7 +4,6 @@ import { stub } from 'sinon';
 import AttachmentsTab from 'components/officer-page/tabbed-pane-section/attachments-tab';
 import Complaint from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
-
 import { unmountComponentSuppressError } from 'utils/test';
 
 

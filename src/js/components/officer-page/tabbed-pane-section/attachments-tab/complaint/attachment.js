@@ -1,6 +1,7 @@
+import React, { Component, PropTypes } from 'react';
+
 import Hoverable from 'components/common/higher-order/hoverable';
 import OutboundLink from 'components/common/outbound-link';
-import React, { Component, PropTypes } from 'react';
 
 import {
   attachmentImageStyle,

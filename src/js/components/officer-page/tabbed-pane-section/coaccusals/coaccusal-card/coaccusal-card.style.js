@@ -24,10 +24,13 @@ export const headerStyle = {
   padding: '8px 16px',
 };
 
-export const thumbnailStyle = {
-  width: '38px',
-  display: 'inline',
+export const chartWrapperStyle = {
   verticalAlign: 'middle',
+  display: 'inline-block',
+  width: '38px',
+  height: '38px',
+  borderRadius: '2px',
+  overflow: 'hidden'
 };
 
 export const headerTitleStyle = {

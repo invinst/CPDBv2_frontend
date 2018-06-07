@@ -1,13 +1,16 @@
-import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import React from 'react';
+import { stub } from 'sinon';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
+  Simulate,
 } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
+import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import OutboundLink from 'components/common/outbound-link';
+import * as domUtils from 'utils/dom';
+import { unmountComponentSuppressError } from 'utils/test/index';
 
 
 describe('Attachments component', function () {
@@ -60,5 +63,21 @@ describe('Attachments component', function () {
 
     const attachmentImage = findRenderedDOMComponentWithClass(instance, 'test--attachment-image');
     attachmentImage.style.backgroundSize.should.eql('auto');
+  });
+
+  it('should call changeOfficerTab and scrollToElement', function () {
+    const stubChangeOfficerTab = stub();
+    const stubScrollToElement = stub(domUtils, 'scrollToElement');
+
+    instance = renderIntoDocument(
+      <Attachments attachments={ attachments } changeOfficerTab={ stubChangeOfficerTab } />
+    );
+    const moreAttachmentEl = findRenderedDOMComponentWithClass(instance, 'test--more-attachment');
+    Simulate.click(moreAttachmentEl);
+
+    stubChangeOfficerTab.should.be.calledWith('ATTACHMENTS');
+    stubScrollToElement.should.be.calledWith('.tabbed-pane-section', true, -40);
+
+    stubScrollToElement.restore();
   });
 });

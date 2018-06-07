@@ -2,10 +2,12 @@ import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 
 import Hoverable from 'components/common/higher-order/hoverable';
+import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import {
   allegationCountStyle,
   allegationStyle,
+  chartWrapperStyle,
   coaccusalCardStyle,
   footerStyle,
   headerStyle,
@@ -13,15 +15,14 @@ import {
   officerInfoStyle,
   officerNameStyle,
   sustainedCountStyle,
-  thumbnailStyle,
 } from './coaccusal-card.style';
 
 
 class CoaccusalCard extends Component {
   render() {
     const {
-      officerName, allegationCount, sustainedCount, allegationPercentile, age, race, gender, coaccusalCount, thumbnail,
-      extraStyle, hovering, openOfficerPage, officerId, rank,
+      officerName, allegationCount, sustainedCount, allegationPercentile, age, race, gender, coaccusalCount, extraStyle,
+      hovering, openOfficerPage, officerId, rank, radarAxes, radarColor
     } = this.props;
 
     return (
@@ -31,7 +32,15 @@ class CoaccusalCard extends Component {
         className='test--coaccusal-card'
       >
         <div style={ headerStyle } >
-          <img style={ thumbnailStyle } src={ thumbnail } className='test--coaccusal-card-thumbnail'/>
+          <div style={ chartWrapperStyle } className='test--coaccusal-card-thumbnail'>
+            <StaticRadarChart
+              width={ 38 }
+              height={ 38 }
+              radius={ 18 }
+              hideAxisText={ true }
+              data={ radarAxes }
+              { ...radarColor } />
+          </div>
           <div style={ headerTitleStyle }>
             <div className='test--coaccusal-card-officer-rank'>{ rank }</div>
             <div
@@ -81,6 +90,8 @@ CoaccusalCard.propTypes = {
   openOfficerPage: PropTypes.func,
   officerId: PropTypes.number,
   rank: PropTypes.string,
+  radarAxes: PropTypes.array,
+  radarColor: PropTypes.object,
 };
 
 export default Hoverable(CoaccusalCard);
