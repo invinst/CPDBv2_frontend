@@ -73,6 +73,7 @@ export class Dropdown extends Component {
               onSelect={ this.onSelect }
               options={ options }
               width={ width }
+              selected={ selected }
             />
           ) : null
         }
@@ -95,6 +96,7 @@ Dropdown.propTypes = {
 
 Dropdown.defaultProps = {
   options: [],
+  onChange: () => {},
 };
 
 export default Hoverable(Dropdown);

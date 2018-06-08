@@ -44,7 +44,7 @@ describe('RelatedComplaints component', function () {
 
     instance = findRenderedComponentWithType(instance, RelatedComplaints);
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.props.onChange('5mi');
+    dropdown.props.onChange('5 MILES');
     instance.state.selectedDistance.should.eql('5mi');
   });
 });
