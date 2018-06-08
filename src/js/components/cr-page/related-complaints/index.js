@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { values, findKey } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import RelatedComplaintsCarouselContainer from 'containers/cr-page/related-complaints-carousel';
@@ -7,7 +8,6 @@ import Dropdown from 'components/common/dropdown';
 import {
   wrapperStyle, titleStyle, headerStyle, filterStyle, carouselsWrapperStyle
 } from './related-complaints.style';
-import { values } from 'lodash';
 
 
 export default class RelatedComplaints extends Component {
@@ -21,7 +21,7 @@ export default class RelatedComplaints extends Component {
 
   handleDistanceChange(value) {
     this.setState({
-      selectedDistance: value
+      selectedDistance: findKey(DISTANCE_OPTIONS, v => v === value)
     });
   }
 
