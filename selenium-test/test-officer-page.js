@@ -192,9 +192,7 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.emptyItem.waitForVisible();
       });
 
-      it('should filter all events', function () {
-        officerPage.tabbedPaneSection.timelineSection.filter.all.click();
-
+      it('should filter all events by by default', function () {
         officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
         officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
