@@ -9,7 +9,7 @@ import {
   Simulate,
 } from 'react-addons-test-utils';
 
-import Dropdown from 'components/common/dropdown';
+import { Dropdown } from 'components/common/dropdown';
 import { unmountComponentSuppressError } from 'utils/test';
 
 

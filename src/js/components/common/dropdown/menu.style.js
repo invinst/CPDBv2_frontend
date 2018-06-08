@@ -6,7 +6,9 @@ export const defaultMenuStyle = width => ({
   width: `${width}px`,
   border: `solid 1px ${whiteTwoColor}`,
   boxSizing: 'border-box',
+  zIndex: 10,
 });
+
 export const defaultMenuItemStyle = {
   fontSize: '14px',
   color: accentColor,

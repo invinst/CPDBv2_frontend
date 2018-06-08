@@ -6,7 +6,7 @@ import Menu from './menu';
 import { arrowStyle, defaultButtonStyle, wrapperStyle, defaultButtonTextStyle } from './dropdown.style';
 
 
-class Dropdown extends Component {
+export class Dropdown extends Component {
   constructor(props) {
     super(props);
 
