@@ -31,6 +31,7 @@ export default class Timeline extends Component {
             onChange={ changeFilter }
             options={ values(NEW_TIMELINE_FILTERS) }
             className='test--timeline-filter'
+            width={ 146 }
           />
         </div>
         <div style={ dateHeaderStyle }>DATE</div>

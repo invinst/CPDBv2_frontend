@@ -3,10 +3,11 @@ import React, { PropTypes, Component } from 'react';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import RelatedComplaintsCarouselContainer from 'containers/cr-page/related-complaints-carousel';
 import { DISTANCE_OPTIONS } from 'utils/constants';
-import Dropdown from './dropdown';
+import Dropdown from 'components/common/dropdown';
 import {
   wrapperStyle, titleStyle, headerStyle, filterStyle, carouselsWrapperStyle
 } from './related-complaints.style';
+import { values } from 'lodash';
 
 
 export default class RelatedComplaints extends Component {
@@ -35,9 +36,11 @@ export default class RelatedComplaints extends Component {
             <div style={ filterStyle }>
               WITHIN
               <Dropdown
-                value={ selectedDistance }
-                options={ DISTANCE_OPTIONS }
-                onChange={ this.handleDistanceChange.bind(this) } />
+                defaultValue={ DISTANCE_OPTIONS[selectedDistance] }
+                options={ values(DISTANCE_OPTIONS) }
+                onChange={ this.handleDistanceChange.bind(this) }
+                width={ 109 }
+              />
               OF CR { crid }
             </div>
           </div>

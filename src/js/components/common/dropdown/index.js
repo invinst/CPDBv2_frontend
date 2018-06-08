@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
-import { arrowStyle, defaultButtonStyle, wrapperStyle } from './dropdown.style';
+import Hoverable from 'components/common/higher-order/hoverable';
 import Menu from './menu';
+import { arrowStyle, defaultButtonStyle, wrapperStyle, defaultButtonTextStyle } from './dropdown.style';
 
 
-export default class Dropdown extends Component {
+class Dropdown extends Component {
   constructor(props) {
     super(props);
 
@@ -20,47 +21,58 @@ export default class Dropdown extends Component {
   }
 
   onClick() {
-    this.setState({ open: !this.state.open });
+    this.setState({
+      open: !this.state.open
+    });
   }
 
   onSelect(option) {
     if ( option !== this.state.selected) {
       this.props.onChange(option);
-      this.setState({ selected: option, open: false });
+      this.setState({
+        selected: option,
+        open: false
+      });
     } else {
-      this.setState({ open: false });
+      this.setState({
+        open: false
+      });
     }
   }
 
   onBlur() {
-    this.setState({ open: false });
+    this.setState({
+      open: false
+    });
   }
 
   render() {
-    const { buttonStyle, className, menuItemStyle, menuStyle, options } = this.props;
-    const selected = this.state.selected;
+    const { buttonStyle, className, menuItemStyle, menuStyle, options, width, hovering } = this.props;
+    const { selected, open } = this.state;
 
     return (
       <div
         style={ wrapperStyle }
         onBlur={ this.onBlur }
         className={ classNames('dropdown', className) }
-        tabIndex='-1'>
+        tabIndex='-1'
+      >
         <div
           className='test--dropdown-button'
-          style={ { ...defaultButtonStyle, ...buttonStyle } }
+          style={ { ...defaultButtonStyle(width, hovering), ...buttonStyle } }
           onClick={ this.onClick }
         >
-          <span>{ selected }</span>
-          <span style={ arrowStyle(this.state.open) }/>
+          <span style={ defaultButtonTextStyle(width - 30) }>{ selected }</span>
+          <span style={ arrowStyle(open) }/>
         </div>
         {
-          this.state.open ? (
+          open ? (
             <Menu
               menuItemStyle={ menuItemStyle }
               menuStyle={ menuStyle }
               onSelect={ this.onSelect }
               options={ options }
+              width={ width }
             />
           ) : null
         }
@@ -77,8 +89,12 @@ Dropdown.propTypes = {
   options: PropTypes.array,
   defaultValue: PropTypes.string,
   className: PropTypes.string,
+  width: PropTypes.number,
+  hovering: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
   options: [],
 };
+
+export default Hoverable(Dropdown);

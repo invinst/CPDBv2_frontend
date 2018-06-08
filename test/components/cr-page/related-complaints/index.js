@@ -7,7 +7,7 @@ import MockStore from 'redux-mock-store';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import RelatedComplaints from 'components/cr-page/related-complaints';
-import Dropdown from 'components/cr-page/related-complaints/dropdown';
+import Dropdown from 'components/common/dropdown';
 
 
 describe('RelatedComplaints component', function () {
