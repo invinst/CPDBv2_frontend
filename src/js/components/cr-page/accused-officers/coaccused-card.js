@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import pluralize from 'pluralize';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import Hoverable from 'components/common/higher-order/hoverable';
-import { pluralize } from 'utils/language';
 import { roundedPercentile } from 'utils/calculations';
 
 import {

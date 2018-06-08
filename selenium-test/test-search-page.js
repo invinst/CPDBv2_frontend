@@ -334,7 +334,7 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.gradient.waitForVisible();
     });
 
-    it('should not display gradient when window height is larger than 990', function () {
+    it.only('should not display gradient when window height is larger than 990', function () {
       browser.setViewportSize({
         width: 1000,
         height: 1200
@@ -343,7 +343,6 @@ describe('Search Page', function () {
       searchPage.input.setValue('Ke');
       searchPage.clearSearchButton.waitForVisible();
       searchPage.firstOfficerResult.waitForVisible();
-
       searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
       searchPage.officerPreviewPaneSection.gradient.waitForVisible(2000, true);
     });
