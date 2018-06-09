@@ -40,7 +40,6 @@ describe('RadarAxis components', function () {
         maxValue={ 100 }
         radius={ 145 }
         data={ data }
-        axisValueSuffix='%'
       />
     );
 
@@ -51,7 +50,6 @@ describe('RadarAxis components', function () {
     domNode.textContent.should.not.containEql('Civilian');
     domNode.textContent.should.not.containEql('Internal');
     domNode.textContent.should.not.containEql('Complaints');
-    domNode.textContent.should.not.containEql('%');
     scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text').should.have.length(0);
   });
 
@@ -62,7 +60,6 @@ describe('RadarAxis components', function () {
         radius={ 145 }
         data={ data }
         showAxisValue={ true }
-        axisValueSuffix='%'
       />
     );
 
@@ -70,9 +67,9 @@ describe('RadarAxis components', function () {
 
     const axisElements = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
     axisElements.should.have.length(3);
-    axisElements[0].textContent.should.eql('22%');
-    axisElements[1].textContent.should.eql('44%');
-    axisElements[2].textContent.should.eql('99.2%');
+    axisElements[0].textContent.should.eql('22');
+    axisElements[1].textContent.should.eql('44');
+    axisElements[2].textContent.should.eql('99.2');
 
     findRenderedDOMComponentWithClass(instance, 'test--radar-boundary-area');
   });
