@@ -74,7 +74,7 @@ export default store => next => action => {
       dispatches.push(store.dispatch(getComplaintSummaries()));
     }
 
-  } else if (action.payload.pathname.match(/complaint\/\d+/)) {
+  } else if (action.payload.pathname.match(/complaint\/\w+/)) {
     const crid = getCRID(action.payload.pathname);
     const oldCrid = getCRID(prevPathname);
     if (crid != oldCrid) {
