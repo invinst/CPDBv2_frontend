@@ -3,6 +3,7 @@ import {
   getPathname,
   metricsSelector,
   summarySelector,
+  getCurrentTab,
 } from 'selectors/officer-page';
 
 
@@ -145,6 +146,16 @@ describe('officer page selectors', function () {
         }
       };
       getPathname(state).should.eql('/some/path/');
+    });
+  });
+
+  describe('getCurrentTab', function () {
+    it('should return current tab', function () {
+      state.officerPage = {
+        currentTab: 'TIMELINE',
+      };
+
+      getCurrentTab(state).should.eql('TIMELINE');
     });
   });
 });
