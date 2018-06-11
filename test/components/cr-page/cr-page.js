@@ -1,12 +1,11 @@
 import React from 'react';
-import { spy } from 'sinon';
 import MockStore from 'redux-mock-store';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 
 import CRPage from 'components/cr-page';
 import SummaryRow from 'components/cr-page/summary-row';
-import { unmountComponentSuppressError, reRender } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('CRPage component', function () {
@@ -35,34 +34,6 @@ describe('CRPage component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
-  });
-
-  it('should trigger fetchCR on initial', function () {
-    const fetchCR = spy();
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage fetchCR={ fetchCR } crid='123' />
-      </Provider>
-    );
-
-    fetchCR.calledWith('123').should.be.true();
-  });
-
-  it('should trigger fetchCR if crid changed', function () {
-    const fetchCR = spy();
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <CRPage crid='123' />
-      </Provider>
-    );
-
-    instance = reRender(
-      <Provider store={ store }>
-        <CRPage crid='456' fetchCR={ fetchCR } />
-      </Provider>,
-      instance
-    );
-    fetchCR.calledWith('456').should.be.true();
   });
 
   it('should render victims row when there are victims', function () {

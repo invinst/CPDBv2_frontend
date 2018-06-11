@@ -6,7 +6,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import Attachments from 'components/cr-page/attachments';
 
 
-describe('Attachments component', function () {
+describe('AttachmentsTab component', function () {
   let instance;
 
   afterEach(function () {
@@ -16,7 +16,7 @@ describe('Attachments component', function () {
   it('should show "no documents" message if no items', function () {
     instance = renderIntoDocument(<Attachments />);
     findDOMNode(instance).innerText.should.containEql(
-      'There are no attachments publicly available for this incident at this time.'
+      'There are no documents that have been made public yet.'
     );
   });
 

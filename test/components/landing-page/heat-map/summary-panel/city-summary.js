@@ -1,6 +1,5 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { spy } from 'sinon';
 import { each } from 'lodash';
 import { renderIntoDocument } from 'react-addons-test-utils';
 
@@ -40,11 +39,5 @@ describe('CitySummary component', function () {
       element.textContent.should.containEql(name);
       element.textContent.should.containEql(`${ count } allegations`);
     });
-  });
-
-  it('should call getCitySummary when mounted', function () {
-    const getCitySummary = spy();
-    instance = renderIntoDocument(<CitySummary getCitySummary={ getCitySummary }/>);
-    getCitySummary.called.should.be.true();
   });
 });

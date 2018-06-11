@@ -13,6 +13,11 @@ const cardTransform = (card) => ({
   numDocuments: card['num_recent_documents']
 });
 
+export const hasCards = createSelector(
+  getCards,
+  cards => cards.length > 0
+);
+
 export const cardsSelector = createSelector(
   [getCards],
   cards => {

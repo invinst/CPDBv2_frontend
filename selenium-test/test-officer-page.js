@@ -38,7 +38,7 @@ describe('officer page', function () {
 
     officerPage.summarySection.rankLabel.getText().should.equal('Rank');
     officerPage.summarySection.rankValue.getText().should.equal('NA');
-    officerPage.summarySection.rankExtraInfo.getText().should.equal('DATA NOT READY base salary');
+    officerPage.summarySection.rankExtraInfo.getText().should.equal('$100,000 base salary');
 
     officerPage.summarySection.raceLabel.getText().should.equal('Race');
     officerPage.summarySection.raceValue.getText().should.equal('White');
@@ -59,7 +59,7 @@ describe('officer page', function () {
   it('should display the timeline by default', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
 
-    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINESUMMARYMAPCOACCUSALSATTACHMENTS');
+    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINEMAPCOACCUSALSATTACHMENTS');
     officerPage.tabbedPaneSection.timelineTabName.getCssProperty('background-color').value.should.eql(
       'rgba(0,94,244,1)'
     );
@@ -79,7 +79,7 @@ describe('officer page', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
     officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
 
-    officerPage.tabbedPaneSection.summaryTabName.click();
+    officerPage.tabbedPaneSection.mapTabName.click();
 
     officerPage.tabbedPaneSection.timelineSection.header.waitForVisible(10000, true);
     officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible(10000, true);
@@ -165,6 +165,20 @@ describe('officer page', function () {
       browser.getUrl().should.match(/\/complaint\/\d+\/$/);
     });
 
+    it('should go to attachment source page when clicking on the attachment thumbnail', function () {
+      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.click();
+      const tabIds = browser.getTabIds();
+      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
+      browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+    });
+
+    it('should go to attachment tab when clicking on the more attachment', function () {
+      officerPage.tabbedPaneSection.timelineSection.moreAttachment.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.moreAttachment.click();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+    });
+
     describe('Timeline filter', function () {
       beforeEach(function () {
         officerPage.tabbedPaneSection.timelineSection.filter.button.waitForVisible();
@@ -228,6 +242,26 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
 
       browser.getUrl().should.match(/\/officer\/2\/$/);
+    });
+  });
+
+  describe('Attachments', function () {
+    beforeEach(function () {
+      officerPage.tabbedPaneSection.attachmentsTabName.click();
+    });
+
+    it('should go to complaint page when clicking on the complaint heading', function () {
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentHeading.click();
+      browser.getUrl().should.match(/\/complaint\/294088\/$/);
+    });
+
+    it('should go to attachment source page when clicking on the complaint attachment', function () {
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
+      const tabIds = browser.getTabIds();
+      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
+      browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
     });
   });
 });

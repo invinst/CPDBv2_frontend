@@ -1,6 +1,6 @@
 import { get } from 'actions/common/async-action';
 import * as constants from 'utils/constants';
-import { communityGeoJSONPath } from 'utils/static-assets';
+import { communityGeoJSONPath, clusterGeoJSONPath } from 'utils/static-assets';
 
 
 export const getCommunities = get(
@@ -9,5 +9,14 @@ export const getCommunities = get(
     constants.COMMUNITY_REQUEST_START,
     constants.COMMUNITY_REQUEST_SUCCESS,
     constants.COMMUNITY_REQUEST_FAILURE
+  ]
+);
+
+export const getClusterGeoJson = get(
+  clusterGeoJSONPath,
+  [
+    constants.CLUSTER_GEO_REQUEST_START,
+    constants.CLUSTER_GEO_REQUEST_SUCCESS,
+    constants.CLUSTER_GEO_REQUEST_FAILURE
   ]
 );

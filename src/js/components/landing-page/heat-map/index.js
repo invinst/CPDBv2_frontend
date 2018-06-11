@@ -15,10 +15,6 @@ export default class HeatMap extends Component {
     this.setSelectedCommunity = this.setSelectedCommunity.bind(this);
   }
 
-  componentDidMount() {
-    this.props.getCommunities();
-  }
-
   setSelectedCommunity(id) {
     const { communities } = this.props;
     const community = find(communities, obj => obj.id === id);
@@ -36,7 +32,7 @@ export default class HeatMap extends Component {
 
   render() {
     const { selectedId } = this.state;
-    const { communities, communityGeoJSON } = this.props;
+    const { communities, communityGeoJSON, clusterGeoJson } = this.props;
 
     return (
       <div style={ wrapperStyle }>
@@ -44,6 +40,7 @@ export default class HeatMap extends Component {
           communitySource={ communityGeoJSON }
           selectCommunity={ this.setSelectedCommunity }
           communityId={ selectedId }
+          clusterSource={ clusterGeoJson }
         />
         <SummaryPanel
           communities={ communities }
@@ -58,9 +55,5 @@ export default class HeatMap extends Component {
 HeatMap.propTypes = {
   communities: PropTypes.array,
   communityGeoJSON: PropTypes.object,
-  getCommunities: PropTypes.func
-};
-
-HeatMap.defaultProps = {
-  getCommunities: () => {}
+  clusterGeoJson: PropTypes.object
 };

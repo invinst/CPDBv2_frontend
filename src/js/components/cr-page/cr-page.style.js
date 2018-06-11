@@ -14,9 +14,9 @@ export const headerStyle = {
 };
 
 export const summarySectionWrapperStyle = {
-  paddingTop: '8px',
   backgroundColor: 'white',
   margin: '0 16px 16px 16px',
+  overflow: 'hidden',
   border: `1px solid ${whiteTwoColor}`
 };
 
@@ -59,4 +59,13 @@ export const summaryTextStyle = {
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 300
+};
+
+export const footerStyle = {
+  wrapper: {
+    backgroundColor: softBlackColor
+  },
+  link: hovering => ({
+    color: hovering ? 'white' : clayGray
+  })
 };

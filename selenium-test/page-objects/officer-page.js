@@ -54,6 +54,8 @@ class TimelineSection extends Section {
       joinedItem: '.test--timeline-joined-item',
       yearItem: '.test--timeline-year-item',
       emptyItem: '.test--timeline-empty-item',
+      attachmentThumbnail: '.test--attachment-image',
+      moreAttachment: '.test--more-attachment',
     });
   }
 }
@@ -69,9 +71,21 @@ class CoaccusalsSection extends Section {
   }
 }
 
+class AttachmentsSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      attachmentComplaint: '.test--attachments-complaint',
+      attachmentHeading: '.test--attachments-heading',
+      attachment: '.test--attachment',
+    });
+  }
+}
+
 class TabbedPaneSection extends Section {
   timelineSection = new TimelineSection();
   coaccusalsSection = new CoaccusalsSection();
+  attachmentsSection = new AttachmentsSection();
 
   constructor() {
     super();
@@ -79,8 +93,9 @@ class TabbedPaneSection extends Section {
     this.prepareElementGetters({
       menu: '.test--tabbed-pane-section-menu',
       timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]',
-      summaryTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
-      coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][4]',
+      mapTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
+      coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][3]',
+      attachmentsTabName: '//span[@class="test--tabbed-pane-tab-name"][4]',
     });
   }
 }

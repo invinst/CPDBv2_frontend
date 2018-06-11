@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import React from 'react';
 
-import Coaccusals from 'components/officer-page/summary-page/tabbed-pane-section/coaccusals';
+import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
 import { getCoaccusalGroups } from 'selectors/officer-page/coaccusals';
-import { openOfficerPage } from 'actions/bottom-sheet';
+import { openOfficerPage } from 'actions/open-page';
 
 
 function mapStateToProps(state, ownProps) {

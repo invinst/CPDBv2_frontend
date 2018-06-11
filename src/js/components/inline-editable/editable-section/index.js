@@ -4,7 +4,7 @@ import { convertToRaw } from 'draft-js';
 
 import { wrapperStyle } from './editable-section.style';
 import { convertContentStateToEditorState } from 'utils/draft';
-import { officersToCamelCase, officersToSnakeCase } from 'selectors/bottom-sheet/report';
+import { officersToSnakeCase, officersToCamelCase } from 'utils/case-converting-tranform';
 
 
 export default function (SubComponent) {
