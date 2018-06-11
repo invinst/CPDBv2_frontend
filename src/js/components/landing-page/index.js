@@ -5,6 +5,7 @@ import ConfiguredRadium from 'utils/configured-radium';
 
 import ComplaintSummariesContainer from 'containers/landing-page/complaint-summaries';
 import SlimHeader from 'components/headers/slim-header';
+import PairingCard from 'components/landing-page/pairing-card';
 import FooterContainer from 'containers/footer-container';
 import HeatMap from 'containers/landing-page/heat-map';
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
@@ -20,6 +21,7 @@ class LandingPage extends Component {
       <div>
         <SlimHeader pathname={ pathname } />
         <HeatMap/>
+        <PairingCard/>
         <div style={ carouselsWrapperStyle }>
           <div style={ carouselStyle }>
             <OfficersByAllegationContainer pathname={ pathname }/>
