@@ -34,6 +34,34 @@ describe('Search terms page', function () {
     browser.getUrl().should.match(/\/search\/$/);
   });
 
+  it('should navigates between the result when user press the navigation keys', function () {
+    const focusedBackground = 'background: rgb(197, 218, 253)';
+    const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
+    const firstTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 0);
+    const secondTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 1);
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedBackground);
+    firstTerm.getAttribute('style').should.not.containEql(focusedBackground);
+    secondTerm.getAttribute('style').should.not.containEql(focusedBackground);
+
+    browser.keys('ArrowDown');
+
+    firstCategoryHeader.getAttribute('style').should.containEql(focusedBackground);
+    firstTerm.getAttribute('style').should.not.containEql(focusedBackground);
+    secondTerm.getAttribute('style').should.not.containEql(focusedBackground);
+
+    browser.keys('ArrowDown');
+
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedBackground);
+    firstTerm.getAttribute('style').should.containEql(focusedBackground);
+    secondTerm.getAttribute('style').should.not.containEql(focusedBackground);
+
+    browser.keys('ArrowDown');
+
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedBackground);
+    firstTerm.getAttribute('style').should.not.containEql(focusedBackground);
+    secondTerm.getAttribute('style').should.containEql(focusedBackground);
+  });
+
   it('should hide PreviewPane when no item is focused', function () {
     browser.keys('ArrowDown');
     browser.keys('ArrowUp');
