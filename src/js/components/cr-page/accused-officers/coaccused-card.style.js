@@ -38,17 +38,26 @@ export const categoryTextStyle = hovering => ({
   overflow: 'hidden'
 });
 
+export const outcomeTextWrapperStyle = {
+  width: '100%',
+  overflow: 'hidden',
+  height: '24px',
+  marginTop: '8px',
+  borderRadius: '2px'
+};
+
 export const outcomeTextStyle = {
   height: '23px',
-  boxSizing: 'border-box',
   fontSize: '14px',
   color: softBlackColor,
   fontWeight: 400,
   backgroundColor: lightAltoColor,
-  padding: '4px 10px',
-  marginTop: '8px',
+  padding: '4px 10px 10px 10px',
   display: 'inline-block',
-  borderRadius: '2px'
+  overflowY: 'scroll',
+  whiteSpace: 'nowrap',
+  boxSizing: 'content-box',
+  width: 'calc(100% - 20px)'
 };
 
 export const allegationTextStyle = {

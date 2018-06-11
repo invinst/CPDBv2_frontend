@@ -10,7 +10,7 @@ import {
   wrapperStyle, topSectionWrapperStyle, allegationTextStyle, sustainedTextStyle,
   percentileTextStyle, officerInfoTextStyle, bottomSectionWrapperStyle, categoryTextStyle,
   outcomeTextStyle, rankStyle, fullNameStyle, titleWrapperStyle, chartWrapperStyle,
-  metricWrapperStyle
+  metricWrapperStyle, outcomeTextWrapperStyle
 } from './coaccused-card.style';
 
 
@@ -54,10 +54,8 @@ class CoaccusedCard extends Component {
         </div>
         <div style={ bottomSectionWrapperStyle }>
           <div style={ categoryTextStyle(hovering) } className='test--accused-card-category'>{ category }</div>
-          <div style={ outcomeTextStyle } className='test--accused-card-outcome'>
-            {
-            findingOutcomeMix.map((label, index) => <div key={ index }>{ label }</div>)
-          }
+          <div style={ outcomeTextWrapperStyle } className='test--accused-card-outcome'>
+            <div style={ outcomeTextStyle }>{ findingOutcomeMix }</div>
           </div>
         </div>
       </Link>
@@ -76,7 +74,7 @@ CoaccusedCard.propTypes = {
   demographic: PropTypes.string,
   category: PropTypes.string,
   id: PropTypes.number,
-  findingOutcomeMix: PropTypes.array,
+  findingOutcomeMix: PropTypes.string,
   hovering: PropTypes.bool
 };
 
@@ -84,7 +82,7 @@ CoaccusedCard.defaultProps = {
   percentile: {
     items: []
   },
-  findingOutcomeMix: []
+  findingOutcomeMix: ''
 };
 
 export default Hoverable(CoaccusedCard);

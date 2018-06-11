@@ -73,7 +73,7 @@ describe('CR page selectors', function () {
         id: 1,
         fullname: 'Michel Foo',
         demographic: '34 year old, White, Male',
-        findingOutcomeMix: ['Reprimand'],
+        findingOutcomeMix: 'Reprimand',
         finding: 'Sustained',
         category: 'Operations/Personnel Violation',
         rank: 'Officer',
