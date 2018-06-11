@@ -1,10 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 
-import {
-  coaccusalsStyle, groupedCoaccusalsStyle, extraCoaccusalCardStyle,
-  groupTitleStyle, coaccusedCardsWrapperStyle, groupTitleWrapperStyle
-} from './coaccusals.style';
 import CoaccusalCard from './coaccusal-card';
+import {
+  coaccusalsStyle,
+  groupedCoaccusalsStyle,
+  extraCoaccusalCardStyle,
+  groupTitleStyle,
+  coaccusedCardsWrapperStyle,
+  groupTitleWrapperStyle,
+} from './coaccusals.style';
 
 
 export default class Coaccusals extends Component {

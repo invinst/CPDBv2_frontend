@@ -1,9 +1,14 @@
+import StaticRadarChart from 'components/common/radar-chart';
+import CoaccusalCard from 'components/officer-page/tabbed-pane-section/coaccusals/coaccusal-card/index';
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
+import {
+  findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
+  renderIntoDocument,
+  Simulate
+} from 'react-addons-test-utils';
 import { stub } from 'sinon';
-
-import { unmountComponentSuppressError } from 'utils/test';
-import CoaccusalCard from 'components/officer-page/summary-page/tabbed-pane-section/coaccusals/coaccusal-card';
+import { unmountComponentSuppressError } from 'utils/test/index';
 
 
 describe('CoaccusalCard component', function () {
@@ -14,6 +19,20 @@ describe('CoaccusalCard component', function () {
   });
 
   it('should render enough contents correctly', function () {
+    const radarAxes = [
+      {
+        axis: 'trr',
+        value: 95.0
+      },
+      {
+        axis: 'internal',
+        value: 94.0
+      },
+      {
+        axis: 'civilian',
+        value: 93.0
+      }
+    ];
     const coaccusal = {
       officerName: 'officerName',
       allegationCount: 1,
@@ -23,7 +42,12 @@ describe('CoaccusalCard component', function () {
       race: 'white',
       gender: 'male',
       coaccusalCount: 1,
-      rank: 'Police Officer'
+      rank: 'Police Officer',
+      radarAxes: radarAxes,
+      radarColor: {
+        backgroundColor: 'white',
+        textColor: 'black'
+      },
     };
 
     instance = renderIntoDocument(
@@ -36,8 +60,9 @@ describe('CoaccusalCard component', function () {
         race={ coaccusal.race }
         gender={ coaccusal.gender }
         coaccusalCount={ coaccusal.coaccusalCount }
-        thumbnail='https://via.placeholder.com/38x38'
         rank={ coaccusal.rank }
+        radarAxes={ coaccusal.radarAxes }
+        radarColor={ coaccusal.radarColor }
       />
     );
 
@@ -51,6 +76,8 @@ describe('CoaccusalCard component', function () {
     const officerInfo = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-officer-info');
     const coaccusalCount = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-coaccusal-count');
     const officerRank = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-officer-rank');
+    const coaccusalThumbnail = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-thumbnail');
+    const staticRadarChart = findRenderedComponentWithType(instance, StaticRadarChart);
 
     officerName.textContent.should.eql('officerName');
     allegationCount.textContent.should.eql('1 allegation');
@@ -59,6 +86,11 @@ describe('CoaccusalCard component', function () {
     officerInfo.textContent.should.eql('40 years old, white, male.');
     coaccusalCount.textContent.should.eql('Coaccused in 1 case.');
     officerRank.textContent.should.eql('Police Officer');
+    coaccusalThumbnail.style.height.should.eql('38px');
+    coaccusalThumbnail.style.width.should.eql('38px');
+    staticRadarChart.props.data.should.eql(radarAxes);
+    staticRadarChart.props.backgroundColor.should.eql('white');
+    staticRadarChart.props.textColor.should.eql('black');
   });
 
   it('should pluralize and round percentile correctly ', function () {
@@ -84,7 +116,6 @@ describe('CoaccusalCard component', function () {
         race={ coaccusal.race }
         gender={ coaccusal.gender }
         coaccusalCount={ coaccusal.coaccusalCount }
-        thumbnail='https://via.placeholder.com/38x38'
         rank={ coaccusal.rank }
       />
     );
@@ -130,7 +161,6 @@ describe('CoaccusalCard component', function () {
         race={ coaccusal.race }
         gender={ coaccusal.gender }
         coaccusalCount={ coaccusal.coaccusalCount }
-        thumbnail='https://via.placeholder.com/38x38'
         openOfficerPage={ openOfficerPageStub }
         rank={ coaccusal.rank }
       />

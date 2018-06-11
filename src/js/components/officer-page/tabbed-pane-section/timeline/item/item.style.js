@@ -58,8 +58,14 @@ export const unitTextStyle = (unassigned, isCurrentUnit) => ({
 });
 
 export const rankTextStyle = {
-  height: '32px',
   lineHeight: '20px',
   display: 'table-cell',
   verticalAlign: 'middle',
+  textAlign: 'center',
+};
+
+export const rankTextWrapperStyle = {
+  height: '32px',
+  display: 'table',
+  width: '100%'
 };

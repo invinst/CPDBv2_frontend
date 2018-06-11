@@ -28,7 +28,10 @@ describe('Officer coaccusals selectors', function () {
                 race: 'White',
                 gender: 'Male',
                 'coaccusal_count': 4,
-                rank: 'Po As Detective'
+                rank: 'Po As Detective',
+                'percentile_trr': 95.0,
+                'percentile_allegation_internal': 94.0,
+                'percentile_allegation_civilian': 93.0,
               },
               {
                 id: 2,
@@ -39,7 +42,10 @@ describe('Officer coaccusals selectors', function () {
                 race: 'white',
                 gender: 'male',
                 'coaccusal_count': 2,
-                rank: 'Po As Detective'
+                rank: 'Po As Detective',
+                'percentile_trr': 85.0,
+                'percentile_allegation_internal': 84.0,
+                'percentile_allegation_civilian': 83.0,
               },
               {
                 id: 3,
@@ -51,7 +57,10 @@ describe('Officer coaccusals selectors', function () {
                 race: 'white',
                 gender: 'male',
                 'coaccusal_count': 1,
-                rank: 'Police Officer'
+                rank: 'Police Officer',
+                'percentile_trr': 75.0,
+                'percentile_allegation_internal': 74.0,
+                'percentile_allegation_civilian': 73.0,
               }
             ]
           }
@@ -73,6 +82,24 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 4,
               rank: 'Po As Detective',
+              radarAxes: [
+                {
+                  axis: 'trr',
+                  value: 95.0
+                },
+                {
+                  axis: 'internal',
+                  value: 94.0
+                },
+                {
+                  axis: 'civilian',
+                  value: 93.0
+                }
+              ],
+              radarColor: {
+                backgroundColor: '#e81f25',
+                textColor: '#DFDFDF'
+              },
             },
             {
               officerId: 2,
@@ -85,6 +112,24 @@ describe('Officer coaccusals selectors', function () {
               gender: 'male',
               coaccusalCount: 2,
               rank: 'Po As Detective',
+              radarAxes: [
+                {
+                  axis: 'trr',
+                  value: 85.0
+                },
+                {
+                  axis: 'internal',
+                  value: 84.0
+                },
+                {
+                  axis: 'civilian',
+                  value: 83.0
+                }
+              ],
+              radarColor: {
+                backgroundColor: '#e81f25',
+                textColor: '#DFDFDF'
+              },
             },
           ],
         },
@@ -101,7 +146,25 @@ describe('Officer coaccusals selectors', function () {
               race: 'white',
               gender: 'male',
               coaccusalCount: 1,
-              rank: 'Police Officer'
+              rank: 'Police Officer',
+              radarAxes: [
+                {
+                  axis: 'trr',
+                  value: 75.0
+                },
+                {
+                  axis: 'internal',
+                  value: 74.0
+                },
+                {
+                  axis: 'civilian',
+                  value: 73.0
+                }
+              ],
+              radarColor: {
+                backgroundColor: '#ea4029',
+                textColor: '#DFDFDF'
+              },
             }
           ]
         },
