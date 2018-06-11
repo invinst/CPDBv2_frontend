@@ -41,9 +41,8 @@ export const categoryTextStyle = hovering => ({
 export const outcomeTextWrapperStyle = {
   width: '100%',
   overflow: 'hidden',
-  height: '24px',
-  marginTop: '8px',
-  borderRadius: '2px'
+  height: '23px',
+  marginTop: '8px'
 };
 
 export const outcomeTextStyle = {
@@ -57,7 +56,8 @@ export const outcomeTextStyle = {
   overflowY: 'scroll',
   whiteSpace: 'nowrap',
   boxSizing: 'content-box',
-  width: 'calc(100% - 20px)'
+  maxWidth: 'calc(100% - 20px)',
+  borderRadius: '2px'
 };
 
 export const allegationTextStyle = {
