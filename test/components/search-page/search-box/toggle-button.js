@@ -3,11 +3,10 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  findRenderedDOMComponentWithTag,
   scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
-import { spy, stub } from 'sinon';
+import { stub } from 'sinon';
 
 import * as editPathUtils from 'utils/edit-path';
 import { unmountComponentSuppressError } from 'utils/test';

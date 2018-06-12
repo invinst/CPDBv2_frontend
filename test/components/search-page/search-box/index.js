@@ -3,18 +3,14 @@ import { browserHistory } from 'react-router';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
   findRenderedDOMComponentWithTag,
-  scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
-import * as editPathUtils from 'utils/edit-path';
 import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
 import { unmountComponentSuppressError } from 'utils/test';
-import CloseButton from 'components/search-page/search-box/close-btn';
 
 
 describe('SearchBox component', function () {
