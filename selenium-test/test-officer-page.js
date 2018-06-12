@@ -155,7 +155,7 @@ describe('officer page', function () {
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
       });
 
-      it('should hide word "Reports" if screen smaller too small', function () {
+      it('should hide word "Reports" if screen is too small', function () {
         officerPage.radarChartSection.radarChartExplainerToggleButton.click();
         officerPage.radarChartSection.explainerSection.leftNavigation.click();
 
@@ -172,7 +172,7 @@ describe('officer page', function () {
         percentileByYear.getText().should.not.containEql('Reports');
       });
 
-      it('should hide question mark if the view port is too small', function () {
+      it('should hide question mark if screen is too small', function () {
         browser.setViewportSize({
           width: 700,
           height: 500
@@ -181,7 +181,7 @@ describe('officer page', function () {
         officerPage.radarChartSection.radarChartExplainerToggleButton.waitForVisible(2000, true);
       });
 
-      it('should hide explainer if the view size is decrease too small', function () {
+      it('should hide explainer if screen is too small', function () {
         officerPage.radarChartSection.radarChartExplainerToggleButton.click();
 
         officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();

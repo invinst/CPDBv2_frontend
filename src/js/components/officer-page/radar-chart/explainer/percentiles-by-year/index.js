@@ -36,21 +36,24 @@ export default class PercentilesByYear extends Component {
           <div style={ tableHeaderItemStyle }>Use Of Force <MediaQuery minWidth={ 890 }>Reports</MediaQuery></div>
         </div>
         <ul style={ tableContentStyle }>
-          { data && data.map((yearlyItem) => (
-            <li className='test--radar-explainer-percentiles-row' key={ yearlyItem.year }>
-              <div style={ radarStyle }>
-                <StaticRadarChart
-                  { ...radarConfig }
-                  backgroundColor={ yearlyItem.visualTokenBackground }
-                  data={ yearlyItem.items }
-                />
-              </div>
-              <div style={ yearTextStyle }>{ yearlyItem.year }</div>
-              <div style={ cellStyle }>{ roundedPercentile(yearlyItem.items[1].value) }</div>
-              <div style={ cellStyle }>{ roundedPercentile(yearlyItem.items[2].value) }</div>
-              <div style={ cellStyle }>{ roundedPercentile(yearlyItem.items[0].value) }</div>
-            </li>
-          )) }
+          { data && data.map((yearlyItem) => {
+            const [trrItem, internalComplaintItem, civilComplaintItem] = yearlyItem.items;
+            return (
+              <li className='test--radar-explainer-percentiles-row' key={ yearlyItem.year }>
+                <div style={ radarStyle }>
+                  <StaticRadarChart
+                    { ...radarConfig }
+                    backgroundColor={ yearlyItem.visualTokenBackground }
+                    data={ yearlyItem.items }
+                  />
+                </div>
+                <div style={ yearTextStyle }>{ yearlyItem.year }</div>
+                <div style={ cellStyle }>{ roundedPercentile(internalComplaintItem.value) }</div>
+                <div style={ cellStyle }>{ roundedPercentile(civilComplaintItem.value) }</div>
+                <div style={ cellStyle }>{ roundedPercentile(trrItem.value) }</div>
+              </li>
+            );
+          }) }
         </ul>
       </div>
     );
