@@ -8,6 +8,7 @@ export const wrapperStyle = {
   minHeight: '200px',
   padding: '0 16px',
   backgroundColor: 'white',
+  boxSizing: 'border-box',
 };
 
 export const listWrapperStyle = {
@@ -25,7 +26,7 @@ export const officerNameStyle = {
 };
 
 export const fullRowStyle = {
-  padding: '8px 0',
+  padding: '7px 0',
   borderBottom: `1px solid ${whiteTwoColor}`
 };
 
@@ -35,6 +36,7 @@ export const visualTokenStyle = {
   verticalAlign: 'middle',
   width: '38px',
   height: '38px',
+  padding: '1px 0',
   overflow: 'hidden',
 };
 

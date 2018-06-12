@@ -15,14 +15,12 @@ export const wrapperStyle = (isLeft, hideBorder) => ({
 export const titleStyle = {
   width: '34%',
   display: 'inline-block',
-  verticalAlign: 'middle',
   color: clayGray,
 };
 
 export const valueStyle = {
   width: '66%',
   display: 'inline-block',
-  verticalAlign: 'middle',
   color: softBlackColor,
   fontWeight: 400,
 };
