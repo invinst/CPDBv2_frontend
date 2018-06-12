@@ -7,6 +7,7 @@ import { extractPercentile } from 'selectors/landing-page/common';
 
 
 const getOfficerInfo = state => state.officerPage.summary;
+export const getCurrentTab = state => state.officerPage.currentTab;
 const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
 
 const getCareerDuration = (dateOfAppt, dateOfResignation) => {
@@ -59,6 +60,7 @@ export const summarySelector = createSelector(
     historicBadges: summary['historic_badges'],
     careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
     careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation']),
+    currentSalary: get(summary, 'current_salary', null),
   })
 );
 

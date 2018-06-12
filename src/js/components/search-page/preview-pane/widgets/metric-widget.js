@@ -37,8 +37,8 @@ export default class MetricWidget extends Component {
 
 MetricWidget.propTypes = {
   metrics: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.node.isRequired,
-    value: PropTypes.number.isRequired,
+    name: PropTypes.node,
+    value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     description: PropTypes.string,
     isHighlight: PropTypes.bool,
   })).isRequired,

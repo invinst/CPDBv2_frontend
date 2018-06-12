@@ -3,6 +3,7 @@ import {
   getPathname,
   metricsSelector,
   summarySelector,
+  getCurrentTab,
 } from 'selectors/officer-page';
 
 
@@ -37,6 +38,7 @@ describe('officer page selectors', function () {
       'badge': 'badge',
       'historic_badges': ['1', '2'],
       'birth_year': 1991,
+      'current_salary': 100000
     };
 
     it('should return summary', function () {
@@ -53,7 +55,8 @@ describe('officer page selectors', function () {
         dateOfAppt: '2015-09-23',
         careerDescription: '2 years',
         careerDuration: 'SEP 23, 2015—Present',
-        birthYear: 1991
+        birthYear: 1991,
+        currentSalary: 100000
       });
     });
 
@@ -143,6 +146,16 @@ describe('officer page selectors', function () {
         }
       };
       getPathname(state).should.eql('/some/path/');
+    });
+  });
+
+  describe('getCurrentTab', function () {
+    it('should return current tab', function () {
+      state.officerPage = {
+        currentTab: 'TIMELINE',
+      };
+
+      getCurrentTab(state).should.eql('TIMELINE');
     });
   });
 });

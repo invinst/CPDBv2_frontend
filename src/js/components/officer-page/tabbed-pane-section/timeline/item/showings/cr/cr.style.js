@@ -1,12 +1,11 @@
 import {
+  accentColor,
   brightOrangeTwoColor,
   champagneColor,
   clayGray,
   scarletColor,
   snowColor,
   softBlackColor,
-  whiteTwoColor,
-  accentColor,
 } from 'utils/styles';
 
 
@@ -55,34 +54,6 @@ export const coaccusedStyle = {
   fontWeight: 300,
   color: clayGray,
   display: 'inline-block',
-};
-
-export const attachmentWrapperStyle = {
-  width: '51px',
-  display: 'inline-block',
-  margin: '0 8px 0 17px',
-  verticalAlign: 'middle',
-};
-
-export const attachmentImageStyle = {
-  float: 'right',
-  height: '32px',
-  width: '24px',
-  display: 'block-inline',
-  border: `solid 1px ${whiteTwoColor}`,
-  boxSizing: 'border-box',
-};
-
-export const moreAttachmentsStyle = {
-  float: 'right',
-  width: '24px',
-  marginLeft: '3px',
-  lineHeight: '32px',
-  height: '32px',
-  display: 'block-inline',
-  border: `solid 1px ${whiteTwoColor}`,
-  textAlign: 'center',
-  boxSizing: 'border-box',
 };
 
 export const dateStyle = {

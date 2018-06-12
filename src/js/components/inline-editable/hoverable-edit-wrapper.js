@@ -2,7 +2,9 @@ import React, { PropTypes, Component } from 'react';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import HoverableButton from 'components/common/hoverable-button';
-import { wrapperStyle, buttonWrapperStyle, buttonStyle } from './hoverable-edit-wrapper.style';
+import {
+  wrapperStyle, buttonWrapperStyle, buttonStyle, hoverableWrapperStyle
+} from './hoverable-edit-wrapper.style';
 
 
 class HoverableEditWrapper extends Component {
@@ -70,4 +72,4 @@ HoverableEditWrapper.contextTypes = {
   onSaveForm: PropTypes.func
 };
 
-export default Hoverable(HoverableEditWrapper, 'div', 'inline-block');
+export default Hoverable(HoverableEditWrapper, 'div', hoverableWrapperStyle);

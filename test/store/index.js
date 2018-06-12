@@ -50,12 +50,9 @@ describe('store', function () {
         },
         heatMap: {
           citySummary: {},
-          communities: null
+          communities: null,
+          clusterGeoJson: null
         }
-      },
-      faqPage: {
-        isRequesting: false,
-        faqsRequested: false
       },
       authentication: {
         loginErrorMessage: null,
@@ -68,27 +65,7 @@ describe('store', function () {
       cms: {
         pages: {}
       },
-      reportingPage: {
-        isRequesting: false,
-        reportGrouping: {
-          groups: [],
-          groupingStrategy: 'STRATEGY_RANDOM',
-          existingReportIds: []
-        },
-        pagination: {
-          next: null,
-          previous: null,
-          count: 0
-        }
-      },
-      bottomSheet: {
-        officersAutoSuggest: {
-          isRequesting: false,
-          officers: []
-        }
-      },
-      reports: {},
-      faqs: {},
+      pageLoading: false,
       routing: {
         locationBeforeTransitions: null
       },
@@ -158,6 +135,7 @@ describe('store', function () {
       crs: {},
       officerPage: {
         activeTab: null,
+        currentTab: 'TIMELINE',
         fullName: '',
         breadcrumbCachedFullName: '',
         isRequesting: false,

@@ -2,7 +2,7 @@ import { get, sumBy, map, last } from 'lodash';
 import { extractPercentile } from 'selectors/landing-page/common';
 
 import { getCurrentAge, formatDate } from 'utils/date';
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
 
 
 const mappingRace = (race) => {
@@ -26,6 +26,10 @@ const areaTypeMap = (areaType) => ({
 
 const previewPaneTypeMap = {
   OFFICER: (suggestion) => ({
+    type: 'OFFICER',
+    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
+  }),
+  'UNIT > OFFICERS': (suggestion) => ({
     type: 'OFFICER',
     data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
   }),
@@ -66,7 +70,8 @@ const areaTransform = ({ payload }) => {
       'name': payload.commander['full_name'],
       'count': payload.commander['allegation_count'],
       'url': `/officer/${payload.commander['id']}/`,
-    } : null
+    } : null,
+    policeHQ: payload['police_hq'],
   };
 };
 
@@ -92,13 +97,15 @@ const searchResultTransformMap = {
       },
       lastPercentile: extractPercentile(lastPercentile),
       complaintCount: payload['allegation_count'],
-      complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),
+      complaintPercentile: roundedPercentile(get(lastPercentile, 'percentile_allegation')),
       civilianComplimentCount: payload['civilian_compliment_count'],
       sustainedCount: payload['sustained_count'],
       disciplineCount: payload['discipline_count'],
-      trrCount: payload['trr_count'],
-      trrPercentile: roundPercentile(get(lastPercentile, 'percentile_trr'), true),
-      honorableMentionCount: payload['honorable_mention_count'],
+      trrCount: get(payload, 'trr_count'),
+      trrPercentile: roundedPercentile(get(lastPercentile, 'percentile_trr')),
+      majorAwardCount: get(payload, 'major_award_count'),
+      honorableMentionCount: get(payload, 'honorable_mention_count'),
+      honorableMentionPercentile: roundedPercentile(get(payload, 'honorable_mention_percentile')),
     };
   },
   CR: ({ payload }) => {

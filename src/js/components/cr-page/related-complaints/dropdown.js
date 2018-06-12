@@ -1,12 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import { entries } from 'lodash';
 
+import Hoverable from 'components/common/higher-order/hoverable';
 import {
   wrapperStyle, displayOptionStyle, optionItemStyle, arrowStyle, optionsStyle, displayValueStyle
 } from './dropdown.style';
 
 
-export default class Dropdown extends Component {
+export class Dropdown extends Component {
   constructor(props) {
     super(props);
 
@@ -29,7 +30,7 @@ export default class Dropdown extends Component {
   }
 
   render() {
-    const { options, value } = this.props;
+    const { options, value, hovering } = this.props;
     const { expanded } = this.state;
 
     return (
@@ -38,7 +39,7 @@ export default class Dropdown extends Component {
           className='test--related-complaint-dropdown'
           style={ displayOptionStyle }
           onClick={ this.handleToggle.bind(this) }>
-          <span style={ displayValueStyle }>{ options[value] }</span>
+          <span style={ displayValueStyle(hovering) }>{ options[value] }</span>
           <span style={ arrowStyle(expanded) } />
         </div>
         <div style={ optionsStyle(expanded) }>
@@ -65,10 +66,13 @@ export default class Dropdown extends Component {
 Dropdown.propTypes = {
   options: PropTypes.object,
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  hovering: PropTypes.bool
 };
 
 Dropdown.defaultProps = {
   options: {},
   onChange: () => {}
 };
+
+export default Hoverable(Dropdown);

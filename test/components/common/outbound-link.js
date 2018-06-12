@@ -22,12 +22,12 @@ describe('OutboundLink component', function () {
 
   it('should call trackOutboundLink when clicked', function () {
     stub(trackingUtils, 'trackOutboundLink');
-    instance = renderIntoDocument(<OutboundLink href='abc' />);
+    instance = renderIntoDocument(<OutboundLink href='abc' target='_blank'/>);
     const link = findDOMNode(instance);
 
     Simulate.click(link);
 
-    trackingUtils.trackOutboundLink.calledWith('abc').should.be.true();
+    trackingUtils.trackOutboundLink.calledWith('abc', '_blank').should.be.true();
     trackingUtils.trackOutboundLink.restore();
   });
 });

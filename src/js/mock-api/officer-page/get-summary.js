@@ -18,6 +18,7 @@ export default () => ({
   'sustained_count': 4,
   'discipline_count': 5,
   'civilian_compliment_count': 6,
+  'current_salary': 100000,
   'percentiles': [
     {
       'id': 1,
