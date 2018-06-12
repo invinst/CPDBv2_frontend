@@ -4,11 +4,10 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
-import { spy } from 'sinon';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 import TRRPage from 'components/trr-page';
 import OfficerSection from 'components/trr-page/officer-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -41,26 +40,4 @@ describe('TRRPage component', function () {
     findRenderedComponentWithType(instance, OfficerSection).props.officer.should.eql({ officerId: 456 });
     findRenderedComponentWithType(instance, ShareableHeaderContainer);
   });
-
-  it('should call fetchTRR with trrId right after being mounted or updated with new props', function () {
-    const fetchTRRSpy = spy();
-
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <TRRPage trrId={ 123 } fetchTRR={ fetchTRRSpy }/>
-      </Provider>
-    );
-
-    fetchTRRSpy.should.be.calledWith(123);
-
-    reRender(
-      <Provider store={ store }>
-        <TRRPage trrId={ 456 } fetchTRR={ fetchTRRSpy }/>
-      </Provider>,
-      instance
-    );
-    fetchTRRSpy.calledTwice.should.be.true();
-    fetchTRRSpy.should.be.calledWith(456);
-  });
-
 });

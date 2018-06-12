@@ -6,7 +6,7 @@ export function getOfficerId(url) {
 }
 
 export function getTRRId(url) {
-  if (url === undefined) {
+  if (!url) {
     return NaN;
   }
   return parseInt(url.replace(/.*trr?\/(\d+).*/, '$1'));

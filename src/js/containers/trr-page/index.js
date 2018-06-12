@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
-import { fetchTRR } from 'actions/trr-page';
 import { getTRRId, officerSelector } from 'selectors/trr-page';
 import TRRPage from 'components/trr-page';
 
@@ -13,8 +12,4 @@ function mapStateToProps(state) {
   };
 }
 
-const mapDispatchToProps = {
-  fetchTRR,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TRRPage);
+export default connect(mapStateToProps, {})(TRRPage);
