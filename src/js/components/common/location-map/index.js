@@ -9,8 +9,18 @@ const centerLat = 41.85677;
 const centerLng = -87.6024055;
 const zoom1 = 9;
 const zoom2 = 13;
+const menuHeight = 50; // this value depends on the height of ShareableHeader
+const epsilon = 30;
 
 export default class LocationMap extends Component {
+  constructor(props) {
+    super(props);
+    this.handleScroll = this.handleScroll.bind(this);
+  }
+
+  componentDidMount() {
+    addEventListener('scroll', this.handleScroll);
+  }
 
   componentWillReceiveProps(nextProps, nextState) {
     const { lat, lng } = this.props;
@@ -20,6 +30,22 @@ export default class LocationMap extends Component {
 
       if (this.map.getZoom() === zoom2) {
         this.zoomOut();
+      }
+    }
+  }
+  componentWillUnmount() {
+    removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(event) {
+    /* istanbul ignore next */
+    // Logic: zoom in the map if it closes to top or bottom of the current window
+    if (this.map) {
+      const { top, bottom } = this.map.getContainer().getBoundingClientRect();
+      const shouldZoomIn = Math.abs(top - menuHeight) < epsilon || Math.abs(bottom - window.innerHeight) < epsilon;
+
+      if (shouldZoomIn) {
+        this.zoomIn();
       }
     }
   }
