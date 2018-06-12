@@ -4,9 +4,9 @@ import {
   TRR_REQUEST_START,
   TRR_REQUEST_SUCCESS,
   TRR_REQUEST_FAILURE,
-  TRR_REQUEST_DOC_START,
-  TRR_REQUEST_DOC_SUCCESS,
-  TRR_REQUEST_DOC_FAILURE,
+  TRR_REQUEST_DOC_REQUEST_START,
+  TRR_REQUEST_DOC_REQUEST_SUCCESS,
+  TRR_REQUEST_DOC_REQUEST_FAILURE,
 } from 'utils/constants';
 
 
@@ -29,7 +29,7 @@ describe('TRRPage actions', function () {
   describe('requestDocument', function () {
     it('shoulr return right action', function () {
       requestDocument({ id: 123, email: 'valid@email.com' }).should.eql({
-        types: [TRR_REQUEST_DOC_START, TRR_REQUEST_DOC_SUCCESS, TRR_REQUEST_DOC_FAILURE],
+        types: [TRR_REQUEST_DOC_REQUEST_START, TRR_REQUEST_DOC_REQUEST_SUCCESS, TRR_REQUEST_DOC_REQUEST_FAILURE],
         payload: {
           request: {
             url: `${TRR_URL}123/request-document/`,
