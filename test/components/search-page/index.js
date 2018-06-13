@@ -278,6 +278,36 @@ describe('SearchPage component', function () {
     });
   });
 
+  it('should deselect tag and call getSuggestion when the selected tag has no data', function () {
+    const selectTagSpy = spy();
+    const getSuggestionSpy = spy();
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage
+          suggestionGroups={ ['abc'] }
+          selectTag={ selectTagSpy }
+          getSuggestion={ getSuggestionSpy } />
+      </Provider>
+    );
+    selectTagSpy.resetHistory();
+    getSuggestionSpy.resetHistory();
+
+    reRender(
+      <Provider store={ store }>
+        <SearchPage
+          suggestionGroups={ [] }
+          query='abc'
+          selectTag={ selectTagSpy }
+          getSuggestion={ getSuggestionSpy } />
+      </Provider>,
+      instance
+    );
+
+    selectTagSpy.calledWith(null).should.be.true();
+    getSuggestionSpy.calledWith('abc', { limit: 9 }).should.be.true();
+  });
+
   describe('Intercom', function () {
     beforeEach(function () {
       stub(intercomUtils, 'showIntercomLauncher');
