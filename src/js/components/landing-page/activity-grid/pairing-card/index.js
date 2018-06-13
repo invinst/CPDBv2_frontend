@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 
-import PairingChart from 'components/landing-page/pairing-card/pairing-chart';
+import PairingChart from 'components/landing-page/activity-grid/pairing-card/pairing-chart';
 import {
   wrapperStyle,
   firstSectionStyle,
@@ -8,23 +8,12 @@ import {
   firstOfficerStyle,
   secondOfficerStyle
 } from './pairing-card.style';
-import OfficerInfo from 'components/landing-page/pairing-card/officer-info';
+import OfficerInfo from 'components/landing-page/activity-grid/pairing-card/officer-info';
 
 
 export default class PairingCard extends Component {
   render() {
-    const firstOfficer = {
-      name: 'John Hurley',
-      age: 29,
-      race: 'asian/pacific islander',
-      gender: 'female'
-    };
-    const secondOfficer = {
-      name: 'John Burzinski',
-      age: 41,
-      race: 'asian/pacific islander',
-      gender: 'male'
-    };
+    const { officer1, officer2 } = this.props;
 
     return (
       <div style={ wrapperStyle }>
@@ -33,11 +22,11 @@ export default class PairingCard extends Component {
         </div>
         <div style={ secondSectionStyle }>
           <OfficerInfo
-            info={ firstOfficer }
+            info={ officer1 }
             style={ firstOfficerStyle }
           />
           <OfficerInfo
-            info={ secondOfficer }
+            info={ officer2 }
             style={ secondOfficerStyle }
           />
         </div>
@@ -45,3 +34,8 @@ export default class PairingCard extends Component {
     );
   }
 }
+
+PairingCard.propTypes = {
+  officer1: PropTypes.object,
+  officer2: PropTypes.object,
+};

@@ -5,7 +5,8 @@ import { rowDividerStyle, textStyle, nameStyle, personaInfoStyle, wrapperStyle }
 export default class OfficerInfo extends Component {
   render() {
     const { info, style } = this.props;
-    const { name, age, race, gender } = info;
+    const { fullName, birthYear, race, gender } = info;
+    const currentYear = (new Date()).getFullYear();
 
     return (
       <div style={ { ...wrapperStyle, ...style } }>
@@ -14,12 +15,12 @@ export default class OfficerInfo extends Component {
             Officer
           </div>
           <div style={ nameStyle }>
-            { name }
+            { fullName }
           </div>
         </div>
         <div style={ rowDividerStyle } />
         <div style={ personaInfoStyle }>
-          { age } year old, { race }, { gender }.
+          { currentYear - birthYear } year old, { race }, { gender }.
         </div>
       </div>
     );
@@ -28,8 +29,8 @@ export default class OfficerInfo extends Component {
 
 OfficerInfo.propTypes = {
   info: PropTypes.shape({
-    name: PropTypes.string,
-    age: PropTypes.number,
+    fullName: PropTypes.string,
+    birthYear: PropTypes.number,
     race: PropTypes.string,
     gender: PropTypes.string,
   }),
