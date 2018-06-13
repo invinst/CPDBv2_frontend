@@ -24,9 +24,11 @@ const officerCardTransform = card => ({
   race: toLower(card['race']),
   gender: toLower(card['gender']),
   percentile: extractPercentile(card['percentile']),
+  type: card['type'],
 });
 
 export const pairingCardTransform = card => ({
+  type: card['type'],
   officer1: {
     id: card.officer1['id'],
     fullName: card.officer1['full_name'],
