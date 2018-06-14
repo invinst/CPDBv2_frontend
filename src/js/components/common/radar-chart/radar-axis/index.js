@@ -11,7 +11,7 @@ export default class RadarAxis extends React.Component {
   render() {
     const {
       radius, data, maxValue, showAxisTitle, textColor, strokeWidth,
-      axisTitleFontSize, axisTitleFontWeight, showAxisValue
+      axisTitleFontSize, axisTitleFontWeight, showAxisValue, axisValueSuffix
     } = this.props;
     if (!data)
       return <g className='test--radar-axis-wrapper'/>;
@@ -37,6 +37,7 @@ export default class RadarAxis extends React.Component {
               textColor={ textColor }
               showAxisTitle={ showAxisTitle }
               showAxisValue={ showAxisValue }
+              axisValueSuffix={ axisValueSuffix }
               axisTitleFontSize={ axisTitleFontSize }
               axisTitleFontWeight={ axisTitleFontWeight }
             />
@@ -56,6 +57,7 @@ export default class RadarAxis extends React.Component {
 RadarAxis.defaultProps = {
   showAxisTitle: false,
   showAxisValue: false,
+  axisValueSuffix: '',
   textColor: softBlackColor,
 };
 
@@ -67,6 +69,7 @@ RadarAxis.propTypes = {
   strokeWidth: PropTypes.number,
   showAxisTitle: PropTypes.bool,
   showAxisValue: PropTypes.bool,
+  axisValueSuffix: PropTypes.string,
   axisTitleFontSize: PropTypes.number,
   axisTitleFontWeight: PropTypes.number,
 };
