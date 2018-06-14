@@ -4,7 +4,7 @@ import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getBreadcrumb } from '../breadcrumbs';
-
+import { getFindingOutcomeMix } from './finding-outcome-mix';
 
 const getCoaccused = state => {
   const crid = state.crPage.crid;
@@ -70,7 +70,7 @@ const getTransformedCoaccused = createSelector(
     fullname: coaccused['full_name'],
     rank: coaccused['rank'] || 'Officer',
     demographic: getCoaccusedDemographicString(coaccused),
-    outcome: coaccused['final_outcome'] || 'Unknown Outcome',
+    findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
     finding: coaccused['final_finding'],
     category: coaccused['category'] || 'Unknown',
     allegationCount: coaccused['allegation_count'],

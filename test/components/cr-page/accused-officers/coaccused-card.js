@@ -12,6 +12,6 @@ describe('CoaccusedCard component', function () {
   });
 
   it('should renderable', function () {
-    CoaccusedCard.should.be.renderable();
+    CoaccusedCard.should.be.renderable({ findingOutcomeMix: ['abc'] });
   });
 });
