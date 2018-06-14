@@ -109,7 +109,7 @@ describe('landing page', function () {
       const firstCard = landingPage.recentDocumentCarousel.cards;
       firstCard.click();
       browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
     });
   });
 
@@ -124,7 +124,7 @@ describe('landing page', function () {
       const firstCard = landingPage.complaintSummariesCarousel.cards;
       firstCard.click();
       browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
     });
   });
 
