@@ -12,11 +12,15 @@ import OfficerInfo from 'components/landing-page/activity-grid/pairing-card/offi
 
 export default class PairingCard extends Component {
   render() {
-    const { officer1, officer2 } = this.props;
+    const { officer1, officer2, coaccusalCount } = this.props;
 
     return (
       <div style={ wrapperStyle }>
-        <PairingChart coaccusalCount={ 10 } />
+        <PairingChart
+          coaccusalCount={ coaccusalCount }
+          background1={ officer1.backgroundColor }
+          background2={ officer2.backgroundColor }
+        />
         <div style={ secondSectionStyle }>
           <OfficerInfo
             info={ officer1 }

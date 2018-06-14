@@ -4,7 +4,7 @@ import { ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
 
 
 export const cardTransform = card => {
-  if (card['type'] === null) {
+  if (!card['type']) {
     return officerCardTransform(card);
   } else if (card['type'] === ACTIVITY_GRID_CARD_TYPES.OFFICER) {
     return officerCardTransform(card);
@@ -27,19 +27,30 @@ const officerCardTransform = card => ({
   type: card['type'],
 });
 
-const simpleOfficerTransform = officer => ({
-  id: officer['id'],
-  fullName: officer['full_name'],
-  birthYear: officer['birth_year'],
-  race: officer['race'],
-  gender: officer['gender'],
-  percentile: {
-    percentileAllegation: officer['percentile']['percentile_allegation'],
-    percentileAllegationCivilian: officer['percentile']['percentile_allegation_civilian'],
-    percentileAllegationInternal: officer['percentile']['percentile_allegation_internal'],
-    percentileTrr: officer['percentile']['percentile_trr'],
-  }
-});
+const simpleOfficerTransform = officer => {
+  const percentile = officer.percentile;
+
+  const background = getVisualTokenOIGBackground(
+    parseFloat(percentile['percentile_allegation_civilian']),
+    parseFloat(percentile['percentile_allegation_internal']),
+    parseFloat(percentile['percentile_trr'])
+  );
+
+  return {
+    id: officer['id'],
+    fullName: officer['full_name'],
+    birthYear: officer['birth_year'],
+    race: officer['race'],
+    gender: officer['gender'],
+    percentile: {
+      percentileAllegation: percentile['percentile_allegation'],
+      percentileAllegationCivilian: percentile['percentile_allegation_civilian'],
+      percentileAllegationInternal: percentile['percentile_allegation_internal'],
+      percentileTrr: percentile['percentile_trr'],
+    },
+    backgroundColor: background.backgroundColor,
+  };
+};
 
 export const pairingCardTransform = card => ({
   type: card['type'],

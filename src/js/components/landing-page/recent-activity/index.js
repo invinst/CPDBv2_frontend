@@ -19,10 +19,16 @@ export default class RecentActivity extends Component {
     const { cards, editWrapperStateProps, pathname } = this.props;
 
     const slideElements = cards.map((card, index) => {
+      let itemWidth;
+      if (card.type === ACTIVITY_GRID_CARD_TYPES.OFFICER) {
+        itemWidth = 232;
+      } else if (card.type === ACTIVITY_GRID_CARD_TYPES.PAIR) {
+        itemWidth = 464;
+      }
       return (
         <div
           key={ index }
-          style={ itemStyle(464) }
+          style={ itemStyle(itemWidth) }
           className='test--carousel--item'>
           {
             card.type === ACTIVITY_GRID_CARD_TYPES.OFFICER ? (
@@ -52,7 +58,7 @@ export default class RecentActivity extends Component {
         </EditModeProvider>
         <Carousel
           style={ carouselStyle }
-          childWidth={ 464 }
+          childWidth={ 232 }
           onNavigate={ this.handleNavigate.bind(this) }>
           { slideElements }
         </Carousel>

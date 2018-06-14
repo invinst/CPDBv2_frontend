@@ -9,12 +9,12 @@ export const wrapperStyle = {
 
 export const coaccusedTextStyle = {
   fontSize: '14px',
-  fontWeight: 500,
+  fontWeight: 400,
   color: softBlackColor,
   position: 'absolute',
   left: 0,
   right: 0,
-  bottom: '10px',
+  bottom: '12px',
   textAlign: 'center',
 };
 
