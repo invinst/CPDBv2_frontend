@@ -29,7 +29,7 @@ const buildHTML = (varBlock, destination, revFilePath) => () => {
 };
 
 const copyStatic = (destination) => () => {
-  gulp.src(['src/**/*', '!src/js', '!src/js/**', '!src/css', '!src/css/**'])
+  return gulp.src(['src/**/*.*', '!src/js', '!src/js/**', '!src/css', '!src/css/**'])
     .pipe(gulp.dest(destination));
 };
 
@@ -96,7 +96,7 @@ gulp.task(
 
 gulp.task('build', ['build-html', 'copy-static']);
 
-const liveTestDir = 'live-test-build';
+const liveTestDir = './live-test-build';
 const testBlock = '<script type="text/javascript">' +
   'var LIVE_TEST=true; var GA_TRACKING_ID = "UA-XXXXX-Y";</script>';
 
