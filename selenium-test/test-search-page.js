@@ -343,7 +343,6 @@ describe('Search Page', function () {
       searchPage.input.setValue('Ke');
       searchPage.clearSearchButton.waitForVisible();
       searchPage.firstOfficerResult.waitForVisible();
-
       searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
       searchPage.officerPreviewPaneSection.gradient.waitForVisible(2000, true);
     });
