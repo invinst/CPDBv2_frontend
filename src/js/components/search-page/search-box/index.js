@@ -1,65 +1,31 @@
 import React, { Component, PropTypes } from 'react';
 
-import { pushPathPreserveEditMode } from 'utils/edit-path';
-import * as constants from 'utils/constants';
-import { searchInputStyle, searchTermsButtonStyle, wrapperStyle } from './search-box.style';
 import TextInput from 'components/common/input';
-import HoverableButton from 'components/common/hoverable-button';
-import CloseButton from './close-btn';
-
+import { navigateToSearchItem } from 'utils/navigate-to-search-item';
+import ToggleButton from './toggle-button';
+import { searchInputStyle, wrapperStyle } from './search-box.style';
 
 export default class SearchBox extends Component {
   constructor(props) {
     super(props);
-
-    this.handleToggleButtonClick = this.handleToggleButtonClick.bind(this);
-    this.handleCloseButtonClick = this.handleCloseButtonClick.bind(this);
+    this.handleEnter = this.handleEnter.bind(this);
   }
 
-  handleToggleButtonClick() {
-    if (this.props.searchTermsHidden) {
-      pushPathPreserveEditMode(`${constants.SEARCH_PATH}${constants.SEARCH_TERMS_PATH}`);
-    }
-    else {
-      pushPathPreserveEditMode(constants.SEARCH_PATH);
-    }
-  }
-
-  handleCloseButtonClick() {
-    this.props.changeSearchQuery('');
-    pushPathPreserveEditMode(constants.SEARCH_PATH);
-  }
-
-  renderToggleButton() {
-    const { value, searchTermsHidden } = this.props;
-
-    if (value !== '') {
-      return (
-        <CloseButton
-          className='test--search-close-button'
-          onClick={ this.handleCloseButtonClick }
-        />
-      );
-    } else {
-      return (
-        <HoverableButton
-          className='test--toggle-button'
-          style={ searchTermsButtonStyle(searchTermsHidden) }
-          onClick={ this.handleToggleButtonClick }>
-          {
-            searchTermsHidden ? 'What can I search?' : 'Hide Search terms'
-          }
-        </HoverableButton>
-      );
-    }
+  handleEnter() {
+    const { trackRecentSuggestion } = this.props;
+    navigateToSearchItem(this.props.firstSuggestionItem, ({ to, url, type, text }) => {
+      trackRecentSuggestion(type, text, url, to);
+    });
   }
 
   render() {
-    const { value, onChange, onEscape, onEnter, focused, resetNavigation } = this.props;
+    const {
+      value, onChange, onEscape, focused, resetNavigation, searchTermsHidden, changeSearchQuery
+    } = this.props;
 
     const keyPressHandlers = {
       esc: onEscape,
-      enter: onEnter,
+      enter: this.handleEnter
     };
 
     const keyPressWithBlurHandlers = {
@@ -82,7 +48,10 @@ export default class SearchBox extends Component {
           className='test--search-page-input'
           focused={ focused }
         />
-        { this.renderToggleButton() }
+        <ToggleButton value={ value }
+          searchTermsHidden={ searchTermsHidden }
+          changeSearchQuery={ changeSearchQuery }
+        />
       </div>
     );
   }
@@ -91,15 +60,17 @@ export default class SearchBox extends Component {
 SearchBox.propTypes = {
   onChange: PropTypes.func,
   onEscape: PropTypes.func,
-  onEnter: PropTypes.func,
+  firstSuggestionItem: PropTypes.object,
   value: PropTypes.string,
   searchTermsHidden: PropTypes.bool,
   changeSearchQuery: PropTypes.func,
   focused: PropTypes.bool,
   resetNavigation: PropTypes.func,
+  trackRecentSuggestion: PropTypes.func
 };
 
 SearchBox.defaultProps = {
   value: '',
-  focused: false
+  focused: false,
+  trackRecentSuggestion: () => {}
 };

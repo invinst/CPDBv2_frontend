@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 import { map, get, reduce, defaults, compact, sortBy } from 'lodash';
+import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
-import { pluralize } from 'utils/language';
 import { getBreadcrumb } from '../breadcrumbs';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 
