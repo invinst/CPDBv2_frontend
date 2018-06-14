@@ -13,11 +13,11 @@ const suspensionDaysMix = (finalFinding, finalOutcome) => {
 };
 
 const unknownMix = (finalFinding, finalOutcome) => {
-  if (finalFinding == 'Unknown') {
+  if (finalFinding === 'Unknown') {
     return finalOutcome;
   }
 
-  if (finalOutcome == 'Unknown') {
+  if (finalOutcome === 'Unknown') {
     return finalFinding;
   }
 
