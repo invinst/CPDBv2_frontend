@@ -9,8 +9,19 @@ const centerLat = 41.85677;
 const centerLng = -87.6024055;
 const zoom1 = 9;
 const zoom2 = 13;
+const scrollTopMargin = 20; // this value depends on the height of ShareableHeader
 
 export default class LocationMap extends Component {
+  constructor(props) {
+    super(props);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.prevTop = 0;
+    this.prevBottom = 0;
+  }
+
+  componentDidMount() {
+    addEventListener('scroll', this.handleScroll);
+  }
 
   componentWillReceiveProps(nextProps, nextState) {
     const { lat, lng } = this.props;
@@ -21,6 +32,32 @@ export default class LocationMap extends Component {
       if (this.map.getZoom() === zoom2) {
         this.zoomOut();
       }
+    }
+  }
+  componentWillUnmount() {
+    removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll(event) {
+    /* istanbul ignore next */
+    // Logic: zoom in the map if it closes to top or bottom of the current window
+    if (this.map) {
+      const { top, bottom } = this.map.getContainer().getBoundingClientRect();
+      const isScrollDown = top - this.prevTop < 0 || this.prevTop == 0;
+      const bottomCrossed = (this.prevBottom != 0) &&
+        (this.prevBottom - window.innerHeight) * (bottom - window.innerHeight) <= 0;
+      const topCrossed = (this.prevTop != 0) && (top - scrollTopMargin) * (this.prevTop - scrollTopMargin) <= 0;
+
+      if (isScrollDown && (bottomCrossed || topCrossed)) {
+        this.zoomIn();
+      }
+
+      if (!isScrollDown && (bottomCrossed || topCrossed)) {
+        this.zoomOut();
+      }
+
+      this.prevTop = top;
+      this.prevBottom = bottom;
     }
   }
 
