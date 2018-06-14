@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import DocumentTitle from 'react-document-title';
 
 import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
 import OfficerRadarChart from './radar-chart';
@@ -25,20 +26,22 @@ export default class OfficerPage extends Component {
       threeCornerPercentile,
     } = this.props;
     return (
-      <div style={ wrapperStyle }>
-        <ShareableHeaderContainer/>
-        <div style={ pageWrapperStyle }>
+      <DocumentTitle title={ `${officerSummary.rank} ${officerName}` }>
+        <div style={ wrapperStyle }>
+          <ShareableHeaderContainer/>
+          <div style={ pageWrapperStyle }>
 
-          <OfficerRadarChart data={ threeCornerPercentile }/>
+            <OfficerRadarChart data={ threeCornerPercentile }/>
 
-          <SummarySection
-            officerName={ officerName }
-            officerSummary={ officerSummary }
-            openPoliceUnitPage={ openPoliceUnitPage }/>
+            <SummarySection
+              officerName={ officerName }
+              officerSummary={ officerSummary }
+              openPoliceUnitPage={ openPoliceUnitPage }/>
+          </div>
+          <MetricsSection metrics={ officerMetrics }/>
+          <TabbedPaneSection/>
         </div>
-        <MetricsSection metrics={ officerMetrics }/>
-        <TabbedPaneSection/>
-      </div>
+      </DocumentTitle>
     );
   }
 }
@@ -50,4 +53,8 @@ OfficerPage.propTypes = {
   officerMetrics: PropTypes.object,
   threeCornerPercentile: PropTypes.array,
   openPoliceUnitPage: PropTypes.func,
+};
+
+OfficerPage.defaultProps = {
+  officerSummary: {}
 };

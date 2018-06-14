@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import DocumentTitle from 'react-document-title';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -30,19 +31,21 @@ export default class TRRPage extends Component {
     } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
-        <ShareableHeaderContainer/>
-        <ResponsiveFluidWidthComponent style={ contentStyle }>
-          <h1 className='test--trr-title' style={ TRRIdHeaderStyle }>TRR { trrId }</h1>
-          <OfficerSection officer={ officer }/>
-          <TRRInfoSection
-            trrLocation={ trrLocation }
-            trrDetail={ trrDetail }
-            trrDocument={ trrDocument }
-            openRequestTRRDocumentModal={ openRequestTRRDocumentModal }/>
-        </ResponsiveFluidWidthComponent>
-        <FooterContainer style={ footerStyle }/>
-      </div>
+      <DocumentTitle title={ `TRR ${trrId}` }>
+        <div style={ wrapperStyle }>
+          <ShareableHeaderContainer/>
+          <ResponsiveFluidWidthComponent style={ contentStyle }>
+            <h1 className='test--trr-title' style={ TRRIdHeaderStyle }>TRR { trrId }</h1>
+            <OfficerSection officer={ officer }/>
+            <TRRInfoSection
+              trrLocation={ trrLocation }
+              trrDetail={ trrDetail }
+              trrDocument={ trrDocument }
+              openRequestTRRDocumentModal={ openRequestTRRDocumentModal }/>
+          </ResponsiveFluidWidthComponent>
+          <FooterContainer style={ footerStyle }/>
+        </div>
+      </DocumentTitle>
     );
   }
 }

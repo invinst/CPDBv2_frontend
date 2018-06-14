@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { debounce, head, isEmpty } from 'lodash';
 import { Promise } from 'es6-promise';
+import DocumentTitle from 'react-document-title';
 
 import SearchBox from './search-box';
 import {
@@ -169,46 +170,48 @@ export default class SearchPage extends Component {
       children, changeSearchQuery, focusedItem
     } = this.props;
     return (
-      <div
-        className='search-page'
-        style={ searchContentWrapperStyle(aliasEditModeOn) }>
-        <div style={ searchBoxStyle(aliasEditModeOn) }>
-          <SearchBox
-            onEscape={ this.handleGoBack }
-            onChange={ this.handleChange }
-            onEnter={ this.handleSearchBoxEnter }
-            value={ query }
-            searchTermsHidden={ searchTermsHidden }
-            changeSearchQuery={ changeSearchQuery }
-            focused={ focusedItem.uniqueKey === SEARCH_BOX }
-            resetNavigation={ this.resetNavigation }
-          />
-          <HoverableButton
-            style={ cancelButtonStyle(searchTermsHidden) }
-            onClick={ this.handleGoBack }
-            className='searchbar__button--back'>
-            Cancel
-          </HoverableButton>
+      <DocumentTitle title='CPDP'>
+        <div
+          className='search-page'
+          style={ searchContentWrapperStyle(aliasEditModeOn) }>
+          <div style={ searchBoxStyle(aliasEditModeOn) }>
+            <SearchBox
+              onEscape={ this.handleGoBack }
+              onChange={ this.handleChange }
+              onEnter={ this.handleSearchBoxEnter }
+              value={ query }
+              searchTermsHidden={ searchTermsHidden }
+              changeSearchQuery={ changeSearchQuery }
+              focused={ focusedItem.uniqueKey === SEARCH_BOX }
+              resetNavigation={ this.resetNavigation }
+            />
+            <HoverableButton
+              style={ cancelButtonStyle(searchTermsHidden) }
+              onClick={ this.handleGoBack }
+              className='searchbar__button--back'>
+              Cancel
+            </HoverableButton>
+          </div>
+          <div>
+            {
+              children ?
+                children :
+                <SearchMainPanel
+                  tags={ tags }
+                  contentType={ contentType }
+                  recentSuggestions={ recentSuggestions }
+                  query={ query }
+                  editModeOn={ editModeOn }
+                  aliasEditModeOn={ aliasEditModeOn }
+                  officerCards={ officerCards }
+                  requestActivityGrid={ requestActivityGrid }
+                  searchTermsHidden={ searchTermsHidden }
+                  handleSelect={ this.handleSelect }
+                />
+            }
+          </div>
         </div>
-        <div>
-          {
-            children ?
-              children :
-              <SearchMainPanel
-                tags={ tags }
-                contentType={ contentType }
-                recentSuggestions={ recentSuggestions }
-                query={ query }
-                editModeOn={ editModeOn }
-                aliasEditModeOn={ aliasEditModeOn }
-                officerCards={ officerCards }
-                requestActivityGrid={ requestActivityGrid }
-                searchTermsHidden={ searchTermsHidden }
-                handleSelect={ this.handleSelect }
-              />
-          }
-        </div>
-      </div>
+      </DocumentTitle>
     );
   }
 }
