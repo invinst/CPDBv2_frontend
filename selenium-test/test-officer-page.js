@@ -162,7 +162,7 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
       officerPage.tabbedPaneSection.timelineSection.crItem.click();
 
-      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
     });
 
     it('should go to attachment source page when clicking on the attachment thumbnail', function () {
