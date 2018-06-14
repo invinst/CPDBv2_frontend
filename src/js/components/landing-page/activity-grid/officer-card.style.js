@@ -1,6 +1,5 @@
 import {
-  softBlackColor, clayGray, whiteTwoColor, brightOrangeTwoColor, lighterAccentColor,
-  accentColor
+  softBlackColor, clayGray, whiteTwoColor, brightOrangeTwoColor, lighterAccentColor, accentColor
 } from 'utils/styles';
 
 

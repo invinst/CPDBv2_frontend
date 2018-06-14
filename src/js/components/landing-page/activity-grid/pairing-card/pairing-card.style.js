@@ -1,4 +1,4 @@
-import { whiteTwoColor, sugarCaneColor } from 'utils/styles';
+import { whiteTwoColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -6,11 +6,6 @@ export const wrapperStyle = {
   height: '266px',
   border: `solid 1px ${whiteTwoColor}`,
   borderRadius: '2px',
-};
-
-export const firstSectionStyle = {
-  height: '154px',
-  backgroundColor: sugarCaneColor,
 };
 
 export const secondSectionStyle = {

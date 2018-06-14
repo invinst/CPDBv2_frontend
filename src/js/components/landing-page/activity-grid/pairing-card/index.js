@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import PairingChart from 'components/landing-page/activity-grid/pairing-card/pairing-chart';
 import {
   wrapperStyle,
-  firstSectionStyle,
   secondSectionStyle,
   firstOfficerStyle,
   secondOfficerStyle
@@ -17,9 +16,7 @@ export default class PairingCard extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <div style={ firstSectionStyle }>
-          <PairingChart coaccused={ 10 } />
-        </div>
+        <PairingChart coaccusalCount={ 10 } />
         <div style={ secondSectionStyle }>
           <OfficerInfo
             info={ officer1 }
@@ -38,4 +35,6 @@ export default class PairingCard extends Component {
 PairingCard.propTypes = {
   officer1: PropTypes.object,
   officer2: PropTypes.object,
+  type: PropTypes.string,
+  coaccusalCount: PropTypes.number,
 };

@@ -27,20 +27,23 @@ const officerCardTransform = card => ({
   type: card['type'],
 });
 
+const simpleOfficerTransform = officer => ({
+  id: officer['id'],
+  fullName: officer['full_name'],
+  birthYear: officer['birth_year'],
+  race: officer['race'],
+  gender: officer['gender'],
+  percentile: {
+    percentileAllegation: officer['percentile']['percentile_allegation'],
+    percentileAllegationCivilian: officer['percentile']['percentile_allegation_civilian'],
+    percentileAllegationInternal: officer['percentile']['percentile_allegation_internal'],
+    percentileTrr: officer['percentile']['percentile_trr'],
+  }
+});
+
 export const pairingCardTransform = card => ({
   type: card['type'],
-  officer1: {
-    id: card.officer1['id'],
-    fullName: card.officer1['full_name'],
-    birthYear: card.officer1['birth_year'],
-    race: card.officer1['race'],
-    gender: card.officer1['gender']
-  },
-  officer2: {
-    id: card.officer2['id'],
-    fullName: card.officer2['full_name'],
-    birthYear: card.officer2['birth_year'],
-    race: card.officer2['race'],
-    gender: card.officer2['gender']
-  }
+  coaccusalCount: card['coaccusal_count'],
+  officer1: simpleOfficerTransform(card['officer1']),
+  officer2: simpleOfficerTransform(card['officer2'])
 });
