@@ -36,4 +36,13 @@ describe('breadcrumbsMapping', function () {
       }
     }).should.eql({ '/unit/001/': '001 Mobile strike force' });
   });
+
+  it('should store trr breadcrumb text', function () {
+    breadcrumbsMapping({}, {
+      type: constants.TRR_REQUEST_SUCCESS,
+      payload: {
+        id: '123',
+      }
+    }).should.eql({ '/trr/123/': 'TRR 123' });
+  });
 });
