@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import { categoryStyle, dateStyle, kindStyle, showingStyle, wrapperShowingStyle, } from './trr.style';
 import Hoverable from 'components/common/higher-order/hoverable';
@@ -17,7 +18,10 @@ class Trr extends Component {
     } = baseStyles;
 
     return (
-      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle(hovering) } }>
+      <Link
+        style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle(hovering) } }
+        to={ `/trr/${item.trrId}/` }
+      >
         <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
           <div style={ baseWrapperKindStyle }>
             <span style={ { ...baseKindStyle, ...kindStyle } } className='test--trr-item-kind'>Force</span>
@@ -30,7 +34,7 @@ class Trr extends Component {
           </span>
           <span style={ { ...baseDateStyle, ...dateStyle } } className='test--trr-item-date'>{ item.date }</span>
         </span>
-      </span>
+      </Link>
     );
   }
 }

@@ -14,4 +14,16 @@ export const formatDate = (str) => {
   return date.isValid() ? date.format('ll').toUpperCase() : null;
 };
 
+const formatCareerDate = inputDate => moment(inputDate).format('ll').toUpperCase();
+
+export const getCareerDuration = (dateOfAppt, dateOfResignation) => {
+  if (!dateOfAppt && !dateOfResignation) {
+    return '';
+  }
+
+  const careerStart = formatCareerDate(dateOfAppt);
+  const careerEnd = dateOfResignation ? formatCareerDate(dateOfResignation) : 'Present';
+  return `${careerStart}—${careerEnd}`;
+};
+
 export const getCurrentAge = (birthYear) => (birthYear ? getThisYear() - birthYear : null);
