@@ -10,9 +10,9 @@ export class Dropdown extends Component {
   constructor(props) {
     super(props);
 
-    this.onClick = this.onClick.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.onSelect = this.onSelect.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
 
     this.state = {
       open: false,
@@ -20,27 +20,23 @@ export class Dropdown extends Component {
     };
   }
 
-  onClick() {
+  handleClick() {
     this.setState({
       open: !this.state.open
     });
   }
 
-  onSelect(option) {
+  handleSelect(option) {
     if ( option !== this.state.selected) {
       this.props.onChange(option);
       this.setState({
         selected: option,
         open: false
       });
-    } else {
-      this.setState({
-        open: false
-      });
     }
   }
 
-  onBlur() {
+  handleBlur() {
     this.setState({
       open: false
     });
@@ -53,14 +49,14 @@ export class Dropdown extends Component {
     return (
       <div
         style={ wrapperStyle }
-        onBlur={ this.onBlur }
+        onBlur={ this.handleBlur }
         className={ classNames('dropdown', className) }
         tabIndex='-1'
       >
         <div
           className='test--dropdown-button'
           style={ { ...defaultButtonStyle(width, hovering), ...buttonStyle } }
-          onClick={ this.onClick }
+          onClick={ this.handleClick }
         >
           <span style={ defaultButtonTextStyle(width - 30) }>{ selected }</span>
           <span style={ arrowStyle(open) }/>
@@ -70,7 +66,7 @@ export class Dropdown extends Component {
             <Menu
               menuItemStyle={ menuItemStyle }
               menuStyle={ menuStyle }
-              onSelect={ this.onSelect }
+              onSelect={ this.handleSelect }
               options={ options }
               width={ width }
               selected={ selected }
