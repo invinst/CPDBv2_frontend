@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 
+import Hoverable from 'components/common/higher-order/hoverable';
 import { buttonStyle } from './request-document-button.style';
 
 
-export default class RequestDocumentButton extends Component {
+export class RequestDocumentButton extends Component {
   hanldeClick() {
     if (this.props.alreadyRequested) {
       return;
@@ -13,12 +14,12 @@ export default class RequestDocumentButton extends Component {
   }
 
   render() {
-    const { alreadyRequested } = this.props;
+    const { alreadyRequested, hovering } = this.props;
     return (
       <div
         className='test--attachment-request'
         onClick={ this.hanldeClick.bind(this) }
-        style={ buttonStyle(alreadyRequested) }>
+        style={ buttonStyle(alreadyRequested, hovering) }>
         {
           !alreadyRequested
             ? 'Request Documents'
@@ -31,5 +32,8 @@ export default class RequestDocumentButton extends Component {
 
 RequestDocumentButton.propTypes = {
   alreadyRequested: PropTypes.bool,
-  openRequestDocumentModal: PropTypes.func
+  openRequestDocumentModal: PropTypes.func,
+  hovering: PropTypes.bool
 };
+
+export default Hoverable(RequestDocumentButton);

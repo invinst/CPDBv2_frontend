@@ -17,7 +17,7 @@ const smallBoxStyle = (height) => ({
   height: `${height}px`,
   lineHeight: `${height}px`,
   verticalAlign: 'top',
-  whiteSpace: 'pre',
+  whiteSpace: 'word-wrap',
 });
 
 const borderRadiusStyle = (isFirst, isLast) => ({
@@ -58,6 +58,14 @@ export const unitTextStyle = (unassigned, isCurrentUnit) => ({
 });
 
 export const rankTextStyle = {
+  lineHeight: '20px',
+  display: 'table-cell',
+  verticalAlign: 'middle',
+  textAlign: 'center',
+};
+
+export const rankTextWrapperStyle = {
   height: '32px',
-  lineHeight: '32px',
+  display: 'table',
+  width: '100%'
 };

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
+import pluralize from 'pluralize';
 
 import CoaccusedCard from './coaccused-card';
-import { pluralize } from 'utils/language';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   wrapperStyle, headerStyle, accusedOfficersWrapperStyle, moreButtonStyle, bottomMarginStyle

@@ -160,6 +160,7 @@ export const SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE = 'SEARCH_TERMS_CATEGORIES_
 
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
+export const CHANGE_OFFICER_TAB = 'CHANGE_OFFICER_TAB';
 
 export const UPDATE_SHAREABLE_PAGE_SCROLL_POSITION = 'UPDATE_SHAREABLE_PAGE_SCROLL_POSITION';
 
@@ -390,3 +391,16 @@ export const DISTANCE_OPTIONS = {
 };
 
 export const QA_LINK = 'http://how.cpdp.works/';
+
+export const ATTACHMENT_TYPES = {
+  VIDEO: 'video',
+  AUDIO: 'audio',
+  DOCUMENT: 'document',
+};
+
+export const OFFICER_PAGE_TAB_NAMES = {
+  TIMELINE: 'TIMELINE',
+  MAP: 'MAP',
+  COACCUSALS: 'COACCUSALS',
+  ATTACHMENTS: 'ATTACHMENTS',
+};

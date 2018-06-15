@@ -1,19 +1,18 @@
 import React from 'react';
 import {
-  renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
-  scryRenderedComponentsWithType,
-  Simulate
+  Simulate,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
-import Coaccusals from 'components/officer-page/summary-page/tabbed-pane-section/coaccusals';
 
 
 describe('TabbedPaneSection component', function () {
@@ -43,37 +42,27 @@ describe('TabbedPaneSection component', function () {
     scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name').length.should.eql(4);
   });
 
-  it('should render Timeline by default', function () {
+  it('should render current tab', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <TabbedPaneSection />
+        <TabbedPaneSection currentTab='TIMELINE'/>
       </Provider>
     );
 
     findRenderedComponentWithType(instance, Timeline).should.be.ok();
   });
 
-  it('should change tab when clicking tab name', function () {
+  it('should call changeOfficerTab when clicking tab name', function () {
+    const stubChangeOfficerTab = stub();
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <TabbedPaneSection />
+        <TabbedPaneSection changeOfficerTab={ stubChangeOfficerTab }/>
       </Provider>
     );
 
-    const tabs = scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name');
-    const mapTab = tabs[1];
-    const coaccusalsTab = tabs[2];
-
-    findRenderedComponentWithType(instance, Timeline).should.be.ok();
-
+    const mapTab = scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name')[1];
     Simulate.click(mapTab);
 
-    scryRenderedComponentsWithType(instance, Timeline).length.should.eql(0);
-    scryRenderedComponentsWithType(instance, Coaccusals).length.should.eql(0);
-
-    Simulate.click(coaccusalsTab);
-
-    scryRenderedComponentsWithType(instance, Timeline).length.should.eql(0);
-    findRenderedComponentWithType(instance, Coaccusals);
+    stubChangeOfficerTab.should.be.calledWith('MAP');
   });
 });

@@ -48,7 +48,7 @@ export default class CitySummary extends Component {
           </OutboundLink>
         </div>
         <div>
-          <div style={ mostCommonComplaintStyle }>MOST COMMON COMPLAINT</div>
+          <div style={ mostCommonComplaintStyle }>MOST COMMON COMPLAINTS</div>
           <div className='test--most-common-complaints'>
             {
               map(mostCommonComplaints, ({ name, count }, index) => (

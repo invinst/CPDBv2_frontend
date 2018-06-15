@@ -10,6 +10,7 @@ import socialGraph from './social-graph';
 import officerId from './officer-id';
 import breadcrumbCachedFullName from './breadcrumb-cached-full-name';
 import coaccusals from './coaccusals';
+import currentTab from './currentTab';
 
 
 export default combineReducers({
@@ -23,4 +24,5 @@ export default combineReducers({
   officerId,
   breadcrumbCachedFullName,
   coaccusals,
+  currentTab,
 });

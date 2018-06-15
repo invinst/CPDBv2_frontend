@@ -162,7 +162,21 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
       officerPage.tabbedPaneSection.timelineSection.crItem.click();
 
-      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
+    });
+
+    it('should go to attachment source page when clicking on the attachment thumbnail', function () {
+      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.click();
+      const tabIds = browser.getTabIds();
+      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
+      browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+    });
+
+    it('should go to attachment tab when clicking on the more attachment', function () {
+      officerPage.tabbedPaneSection.timelineSection.moreAttachment.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.moreAttachment.click();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
     });
 
     it('should go to trr page when clicking on an trr timeline item', function () {
@@ -235,6 +249,26 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
 
       browser.getUrl().should.match(/\/officer\/2\/$/);
+    });
+  });
+
+  describe('Attachments', function () {
+    beforeEach(function () {
+      officerPage.tabbedPaneSection.attachmentsTabName.click();
+    });
+
+    it('should go to complaint page when clicking on the complaint heading', function () {
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentHeading.click();
+      browser.getUrl().should.match(/\/complaint\/294088\/$/);
+    });
+
+    it('should go to attachment source page when clicking on the complaint attachment', function () {
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
+      const tabIds = browser.getTabIds();
+      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
+      browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
     });
   });
 });

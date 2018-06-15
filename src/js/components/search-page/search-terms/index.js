@@ -17,9 +17,8 @@ import {
 import { ROOT_PATH, SEARCH_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import { scrollToElement } from 'utils/dom';
 import PreviewPane from './preview-pane';
-import MinimalScrollBars from 'components/common/minimal-scroll-bars';
+import ScrollIntoView from 'components/common/scroll-into-view';
 
 
 export default class SearchTerms extends Component {
@@ -40,16 +39,6 @@ export default class SearchTerms extends Component {
         move(direction, this.props.totalItemCount);
       }
     )));
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // Make sure keyboard-focused item is kept within viewport:
-    if (this.props.focusedItem.uniqueKey !== nextProps.focusedItem.uniqueKey && nextProps.scrollTo) {
-      scrollToElement(
-        '.term-item.focused',
-        { behavior: 'instant', block: 'center' }
-      );
-    }
   }
 
   componentWillUnmount() {
@@ -82,7 +71,10 @@ export default class SearchTerms extends Component {
     const { focusedItem } = this.props;
     return (
       <div>
-        <MinimalScrollBars style={ wrapperStyle } >
+        <ScrollIntoView
+          style={ wrapperStyle }
+          focusedClassName={ `term-item-${focusedItem.uniqueKey.replace(' ', '-')}` }
+          >
           <ResponsiveFluidWidthComponent
             style={ contentWrapperStyle }
             minimumStyle={ minimumStyle }
@@ -104,7 +96,7 @@ export default class SearchTerms extends Component {
               </div>
             </div>
           </ResponsiveFluidWidthComponent>
-        </MinimalScrollBars>
+        </ScrollIntoView>
         <PreviewPane item={ focusedItem } />
       </div>
     );
@@ -120,7 +112,6 @@ SearchTerms.propTypes = {
   resetNavigation: PropTypes.func,
   setNavigation: PropTypes.func,
   navigationKeys: PropTypes.array,
-  scrollTo: PropTypes.bool,
 };
 
 SearchTerms.defaultProps = {
@@ -129,9 +120,8 @@ SearchTerms.defaultProps = {
   resetNavigation: () => {},
   setNavigation: () => {},
   focusedItem: {
-    uniqueKey: null
+    uniqueKey: ''
   },
   navigationKeys: [],
-  scrollTo: true,
   categories: [],
 };

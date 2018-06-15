@@ -84,8 +84,7 @@ describe('store', function () {
           categories: [],
           hidden: true,
           navigation: {
-            itemIndex: 0,
-            scrollTo: true,
+            itemIndex: 0
           }
         }
       },
@@ -140,6 +139,7 @@ describe('store', function () {
       crs: {},
       officerPage: {
         activeTab: null,
+        currentTab: 'TIMELINE',
         fullName: '',
         breadcrumbCachedFullName: '',
         isRequesting: false,
