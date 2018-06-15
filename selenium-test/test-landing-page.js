@@ -65,6 +65,7 @@ describe('landing page', function () {
 
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
+      browser.pause();
       landingPage.recentActivityCarousel.cards.count.should.equal(40);
       landingPage.recentActivityCarousel.rightArrow.waitForVisible();
       landingPage.recentActivityCarousel.leftArrow.waitForVisible(2000, true);

@@ -24,4 +24,5 @@ export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
   .attr('complaint_count', random.number)
   .attr('visual_token_background_color', internet.color)
   .attr('complaint_percentile', () => (random.number({ min: 10, max: 1000 }) / 10.0))
-  .attr('percentile', () => RawOfficerPercentileFactory.build({ year: 2016 }));
+  .attr('percentile', () => RawOfficerPercentileFactory.build({ year: 2016 }))
+  .attr('type', 'single_officer');

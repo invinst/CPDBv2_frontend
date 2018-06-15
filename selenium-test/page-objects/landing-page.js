@@ -25,7 +25,7 @@ class RecentActivityCarouselSection extends Section {
     this.prepareElementGetters({
       leftArrow: '//div[@class="test--landing-carousel-activity"]//*[@class="test--carousel-arrow-left"]',
       rightArrow: '//div[@class="test--landing-carousel-activity"]//*[@class="test--carousel-arrow-right"]',
-      cards: '//div[@class="test--landing-carousel-activity"]//a[@class="test--officer-card"]'
+      cards: '//div[@class="test--landing-carousel-activity"]//a[@class="test--carousel--item"]'
     });
   }
 }
