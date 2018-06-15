@@ -162,7 +162,7 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
       officerPage.tabbedPaneSection.timelineSection.crItem.click();
 
-      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
     });
 
     it('should go to attachment source page when clicking on the attachment thumbnail', function () {
@@ -177,6 +177,13 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.timelineSection.moreAttachment.waitForVisible();
       officerPage.tabbedPaneSection.timelineSection.moreAttachment.click();
       officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+    });
+
+    it('should go to trr page when clicking on an trr timeline item', function () {
+      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.trrItem.click();
+
+      browser.getUrl().should.match(/\/trr\/\d+\/$/);
     });
 
     describe('Timeline filter', function () {

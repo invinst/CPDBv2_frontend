@@ -41,3 +41,12 @@ export const itemCountStyle = {
   color: clayGray,
   margin: 0,
 };
+
+export const chartWrapperStyle = {
+  verticalAlign: 'middle',
+  display: 'inline-block',
+  width: '38px',
+  height: '38px',
+  borderRadius: '2px',
+  overflow: 'hidden'
+};
