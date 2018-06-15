@@ -24,8 +24,8 @@ const coaccusalTransform = (coaccusal) => ({
       { axis: 'internal', value: parseFloat(coaccusal['percentile_allegation_internal']) },
       { axis: 'civilian', value: parseFloat(coaccusal['percentile_allegation_civilian']) }],
   radarColor: getVisualTokenOIGBackground(
-    parseFloat(coaccusal['percentile_allegation_internal']),
     parseFloat(coaccusal['percentile_allegation_civilian']),
+    parseFloat(coaccusal['percentile_allegation_internal']),
     parseFloat(coaccusal['percentile_trr'])
   )
 });
