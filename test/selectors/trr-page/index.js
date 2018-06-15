@@ -19,7 +19,7 @@ describe('TRR page selectors', function () {
         trrPage: {
           data: {
             'officer_assigned_beat': 'some beat',
-            'officer_duty_status': true,
+            'officer_on_duty': true,
             'officer_in_uniform': true,
           }
         }
@@ -83,7 +83,7 @@ describe('TRR page selectors', function () {
               'percentile_trr': 99.9,
             },
             'officer_assigned_beat': 'some beat',
-            'officer_duty_status': true,
+            'officer_on_duty': true,
             'officer_in_uniform': true,
           }
         }
