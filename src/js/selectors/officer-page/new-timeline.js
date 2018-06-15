@@ -61,6 +61,7 @@ export const crTransform = (item, index) => ({
 
 export const trrTransform = (item, index) => ({
   ...baseTransform(item, index),
+  trrId: item['trr_id'],
   category: item['firearm_used'] ? 'Firearm' : item.taser ? 'Taser' : 'Use of Force Report',
 });
 

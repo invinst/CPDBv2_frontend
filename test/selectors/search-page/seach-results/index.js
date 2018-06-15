@@ -1,9 +1,12 @@
+import { stub } from 'sinon';
+
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
-  hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector
+  hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector,
+  firstItemSelector
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
-
+import * as v1UrlUtils from 'utils/v1-url';
 
 describe('isShowingSingleContentTypeSelector', function () {
   it('should tell if showing single type of content', function () {
@@ -399,6 +402,52 @@ describe('search page results selector', function () {
       }).should.deepEqual({
         limit: '20',
         offset: '20'
+      });
+    });
+  });
+
+  describe('firstItemSelector', function () {
+    it('should return datatool url if there is no suggestion group', function () {
+      stub(v1UrlUtils, 'dataToolSearchUrl').returns('/v1/abc/');
+
+      firstItemSelector({
+        searchPage: {
+          tags: [],
+          query: 'abc',
+          suggestionGroups: {}
+        }
+      }).should.deepEqual({
+        url: '/v1/abc/'
+      });
+
+      v1UrlUtils.dataToolSearchUrl.calledWith('abc').should.be.true();
+      v1UrlUtils.dataToolSearchUrl.restore();
+    });
+
+    it('should return first item of first suggestion group', function () {
+      firstItemSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'OFFICER': [
+              RawOfficerSuggestion.build({ id: '1' }, {
+                to: 'officer1',
+                url: '/officer/1/',
+                resultText: 'officer1',
+                type: 'OFFICER'
+              }),
+              ...RawOfficerSuggestion.buildList(2)
+            ],
+            'CR': [
+              RawCRSuggestion.build()
+            ]
+          }
+        }
+      }).should.deepEqual({
+        to: 'officer1',
+        url: '/officer/1/',
+        text: 'officer1',
+        type: 'OFFICER'
       });
     });
   });
