@@ -1,6 +1,7 @@
 import { toLower } from 'lodash';
 import { extractPercentile } from 'selectors/common/percentile';
 import { ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
+import { getVisualTokenOIGBackground } from 'utils/visual-token';
 
 
 export const cardTransform = card => {
