@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { map } from 'lodash';
 import pluralize from 'pluralize';
 
-
+import StaticRadarChart from 'components/common/radar-chart';
 import HoverableLink from 'components/common/hoverable-link';
+
 
 import {
   containerStyle,
@@ -13,6 +13,7 @@ import {
   listItemStyle,
   listStyle,
   itemNameStyle,
+  chartWrapperStyle,
   linkStyle,
 } from './list-widget.style';
 
@@ -33,18 +34,27 @@ export default class ListWidget extends Component {
       ): component
     );
 
-    return !!(items && items.length > 0) && (
-      <div className='test--list-widget' style={ containerStyle }>
-        <h5 style={ headerStyle }>{ title }</h5>
-        <ul style={ listStyle }>
-          {
-            map(items, (item, index) => (
+    return (
+      items && items.length > 0 ? (
+        <div className='test--list-widget' style={ containerStyle }>
+          <h5 style={ headerStyle }>{ title }</h5>
+          <ul style={ listStyle }>
+            { items.map((item, index) => (
               wrapWithLink(
                 (
-                  <li style={ listItemStyle(index === items.length - 1) }>
+                  <li key={ item.id } style={ listItemStyle(index === items.length - 1) }>
                     { (showAvatar) && (
                       <div style={ listItemFirstStyle }>
-                        <img src={ item.image || 'http://via.placeholder.com/32x32' }/>
+                        <div style={ chartWrapperStyle } className='test--preview-pane-thumbnail'>
+                          <StaticRadarChart
+                            width={ 38 }
+                            height={ 38 }
+                            radius={ 18 }
+                            hideAxisText={ true }
+                            data={ item.radarAxes }
+                            key={ index }
+                            { ...item.radarColor } />
+                        </div>
                       </div>
                     ) }
                     <div>
@@ -55,10 +65,10 @@ export default class ListWidget extends Component {
                 ),
                 item.url
               )
-            ))
-          }
-        </ul>
-      </div>
+            )) }
+          </ul>
+        </div>
+      ) : null
     );
   }
 }
@@ -70,13 +80,13 @@ ListWidget.defaultProps = {
 
 ListWidget.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    name: PropTypes.string.isRequired,
-    count: PropTypes.number.isRequired,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    name: PropTypes.string,
+    count: PropTypes.number,
     image: PropTypes.string.optional,
     url: PropTypes.string.optional
-  })).isRequired,
+  })),
   title: PropTypes.string,
-  typeName: PropTypes.string.isRequired,
+  typeName: PropTypes.string,
   showAvatar: PropTypes.bool,
 };

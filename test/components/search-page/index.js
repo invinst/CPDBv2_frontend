@@ -14,7 +14,7 @@ import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
 import MockStore from 'redux-mock-store';
 
-import TextInput from 'components/common/input';
+import * as navigateUtils from 'utils/navigate-to-search-item';
 import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import * as intercomUtils from 'utils/intercom';
@@ -117,46 +117,6 @@ describe('SearchPage component', function () {
     this.browserHistoryPush.calledWith('/').should.be.true();
   });
 
-  it('should push first result to when user hit ENTER if to is set', function () {
-    const suggestionGroups = [
-      {
-        header: 'OFFICER',
-        items: [
-          { url: 'url', to: 'to' }
-        ]
-      }
-    ];
-
-    instance = renderIntoDocument(
-      <SearchPage suggestionGroups={ suggestionGroups } />
-    );
-
-    const input = findRenderedComponentWithType(instance, TextInput);
-    input.mousetrap.trigger('enter');
-    this.browserHistoryPush.calledWith('to').should.be.true();
-  });
-
-  it('should track recent suggestion when user press ENTER and there are results', function () {
-    const trackRecentSuggestion = spy();
-    const suggestionGroups = [
-      {
-        header: 'OFFICER',
-        items: [
-          { url: 'url', to: 'to', 'text': 'Kevin' }
-        ]
-      }
-    ];
-
-    instance = renderIntoDocument(
-      <SearchPage suggestionGroups={ suggestionGroups } trackRecentSuggestion={ trackRecentSuggestion }
-         />
-    );
-
-    const input = findRenderedComponentWithType(instance, TextInput);
-    input.mousetrap.trigger('enter');
-    trackRecentSuggestion.calledWith('OFFICER', 'Kevin', 'url').should.be.true();
-  });
-
   it('should change to search path when user type in search box', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -194,7 +154,7 @@ describe('SearchPage component', function () {
 
     it('should call handleSearchBoxEnter when user hits ENTER, there is no result and SearchBox is unfocused',
       function () {
-        const handleSearchBoxEnterStub = stub(SearchPage.prototype, 'handleSearchBoxEnter');
+        const navigateToSearchItem = stub(navigateUtils, 'navigateToSearchItem');
         instance = renderIntoDocument(
           <Provider store={ store }>
             <SearchPage query='no-result'/>
@@ -204,8 +164,8 @@ describe('SearchPage component', function () {
         Mousetrap.trigger('down');
         Mousetrap.trigger('enter');
 
-        handleSearchBoxEnterStub.calledOnce.should.be.true();
-        handleSearchBoxEnterStub.restore();
+        navigateToSearchItem.calledOnce.should.be.true();
+        navigateToSearchItem.restore();
       }
     );
   });
@@ -316,6 +276,36 @@ describe('SearchPage component', function () {
       clock.tick(600);
       changeSearchQuery.calledWith('xxx').should.be.true();
     });
+  });
+
+  it('should deselect tag and call getSuggestion when the selected tag has no data', function () {
+    const selectTagSpy = spy();
+    const getSuggestionSpy = spy();
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage
+          suggestionGroups={ ['abc'] }
+          selectTag={ selectTagSpy }
+          getSuggestion={ getSuggestionSpy } />
+      </Provider>
+    );
+    selectTagSpy.resetHistory();
+    getSuggestionSpy.resetHistory();
+
+    reRender(
+      <Provider store={ store }>
+        <SearchPage
+          suggestionGroups={ [] }
+          query='abc'
+          selectTag={ selectTagSpy }
+          getSuggestion={ getSuggestionSpy } />
+      </Provider>,
+      instance
+    );
+
+    selectTagSpy.calledWith(null).should.be.true();
+    getSuggestionSpy.calledWith('abc', { limit: 9 }).should.be.true();
   });
 
   describe('Intercom', function () {

@@ -8,6 +8,7 @@ const timelineItems = [
     'award_type': 'Honorable Mention'
   },
   {
+    'trr_id': 1,
     'unit_name': '007',
     kind: 'FORCE',
     taser: true,
@@ -17,6 +18,7 @@ const timelineItems = [
     'firearm_used': false
   },
   {
+    'trr_id': 2,
     'unit_name': '007',
     kind: 'FORCE',
     taser: false,
@@ -33,6 +35,7 @@ const timelineItems = [
     date: '2005-01-07'
   },
   {
+    'trr_id': 3,
     'unit_name': '153',
     kind: 'FORCE',
     taser: false,
