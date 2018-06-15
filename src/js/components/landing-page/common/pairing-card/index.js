@@ -1,13 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
-import PairingChart from 'components/landing-page/activity-grid/pairing-card/pairing-chart';
+import PairingChart from 'components/landing-page/common/pairing-card/pairing-chart/index';
 import {
   wrapperStyle,
   secondSectionStyle,
   firstOfficerStyle,
   secondOfficerStyle
 } from './pairing-card.style';
-import OfficerInfo from 'components/landing-page/activity-grid/pairing-card/officer-info';
+import OfficerInfo from 'components/landing-page/common/pairing-card/officer-info';
 
 
 export default class PairingCard extends Component {

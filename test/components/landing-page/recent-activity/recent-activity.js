@@ -8,7 +8,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import OfficerCard from 'components/landing-page/activity-grid/officer-card';
+import OfficerCard from 'components/landing-page/common/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
 
 
@@ -23,7 +23,8 @@ describe('Recent Activity components', function () {
     'birthYear': 1974,
     'complaintPercentile': 84.5,
     'race': 'Hispanic',
-    'gender': 'Male'
+    'gender': 'Male',
+    'type': 'single_officer',
   }, {
     'id': 2,
     'fullName': 'Jerome Finnagan',
@@ -32,7 +33,8 @@ describe('Recent Activity components', function () {
     'birthYear': 1979,
     'complaintPercentile': 94.5,
     'race': 'White',
-    'gender': 'Male'
+    'gender': 'Male',
+    'type': 'single_officer',
   }];
 
   beforeEach(function () {
