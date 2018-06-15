@@ -225,6 +225,9 @@ describe('search page results selector', function () {
                     id: 12478,
                     name: 'Ronald Holt',
                     count: 26,
+                    'percentile_trr': 95.0,
+                    'percentile_allegation_internal': 82.0,
+                    'percentile_allegation_civilian': 97.0
                   }],
                   'race_count': [
                     { race: 'Persons of Spanish Language', count: 121 },
@@ -272,6 +275,20 @@ describe('search page results selector', function () {
             id: 12478,
             name: 'Ronald Holt',
             count: 26,
+            radarAxes: [{
+              axis: 'trr',
+              value: 95
+            }, {
+              axis: 'internal',
+              value: 82
+            }, {
+              axis: 'civilian',
+              value: 97
+            }],
+            radarColor: {
+              backgroundColor: '#e81f25',
+              textColor: '#DFDFDF'
+            }
           }],
           districtCommander: {
             id: 123,
