@@ -46,7 +46,7 @@ describe('RadarExplainer components', function () {
 
     it('should render TriangleExplainer and change button "?" to "X" as default', function () {
       instance.state.show.should.be.true();
-      questionMarkElement.textContent.should.eql('X');
+      questionMarkElement.querySelectorAll('.fa-close').should.have.length(1);
 
       findRenderedComponentWithType(instance, LeftNavigation);
       findRenderedComponentWithType(instance, RightNavigation);
