@@ -20,17 +20,17 @@ export default class SummarySection extends Component {
       careerDuration,
       unitName,
       unitDescription,
-      birthYear
+      birthYear,
+      currentSalary
     } = this.props.officerSummary;
     const { openPoliceUnitPage } = this.props;
-    const baseSalary = 'DATA NOT READY';
 
     return [
-      ['Year of Birth', birthYear, (<YearOld birthYear={ birthYear } key='Year of Birth'/>)],
+      ['Year of Birth', birthYear, <YearOld birthYear={ birthYear } key='Year of Birth'/>],
       ['Race', race],
       ['Sex', gender],
-      ['Badge', badge, (<HistoricBadges historicBadges={ historicBadges } key='Historic Badges'/>)],
-      ['Rank', rank, (<Salary salary={ baseSalary } key='Rank'/>)],
+      ['Badge', badge, <HistoricBadges historicBadges={ historicBadges } key='Historic Badges'/>],
+      ['Rank', rank, currentSalary !== null ? <Salary salary={ currentSalary } key='Rank'/> : null],
       ['Unit', unitDescription || unitName, (
         <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>
       )],
@@ -64,7 +64,18 @@ export default class SummarySection extends Component {
 }
 
 SummarySection.propTypes = {
-  officerSummary: PropTypes.object,
+  officerSummary: PropTypes.shape({
+    rank: PropTypes.string,
+    race: PropTypes.string,
+    gender: PropTypes.string,
+    badge: PropTypes.string,
+    historicBadges: PropTypes.arrayOf(PropTypes.string),
+    careerDuration: PropTypes.string,
+    unitName: PropTypes.string,
+    unitDescription: PropTypes.string,
+    birthYear: PropTypes.number,
+    currentSalary: PropTypes.string,
+  }),
   openPoliceUnitPage: PropTypes.func,
   officerName: PropTypes.string,
 };

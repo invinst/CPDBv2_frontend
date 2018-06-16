@@ -5,10 +5,6 @@ export const headerWrapperStyle = {
   boxSizing: 'border-box'
 };
 
-export const wrapperStyle = {
-  marginTop: '48px'
-};
-
 export const carouselStyle = {
   wrapper: {
     width: 'calc(100% - 336px)',

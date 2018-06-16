@@ -6,7 +6,7 @@ import {
 } from 'selectors/officer-page/social-graph';
 import { getOfficerId } from 'selectors/officer-page';
 import SocialGraphPage from 'components/officer-page/social-graph-page';
-import { openOfficerSocialGraphPage } from 'actions/bottom-sheet';
+import { openOfficerSocialGraphPage } from 'actions/open-page';
 
 
 function mapStateToProps(state) {

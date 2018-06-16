@@ -1,8 +1,12 @@
+import { stub } from 'sinon';
+
 import {
   isEmptySelector, suggestionTagsSelector, searchResultGroupsSelector,
-  hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector
+  hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector,
+  firstItemSelector
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
+import * as v1UrlUtils from 'utils/v1-url';
 
 
 describe('isShowingSingleContentTypeSelector', function () {
@@ -222,6 +226,9 @@ describe('search page results selector', function () {
                     id: 12478,
                     name: 'Ronald Holt',
                     count: 26,
+                    'percentile_trr': 95.0,
+                    'percentile_allegation_internal': 82.0,
+                    'percentile_allegation_civilian': 97.0
                   }],
                   'race_count': [
                     { race: 'Persons of Spanish Language', count: 121 },
@@ -237,7 +244,8 @@ describe('search page results selector', function () {
                     id: 123,
                     'full_name': 'John Watts',
                     'allegation_count': 10,
-                  }
+                  },
+                  'police_hq': '22nd',
                 },
               }
             ]
@@ -268,6 +276,21 @@ describe('search page results selector', function () {
             id: 12478,
             name: 'Ronald Holt',
             count: 26,
+            radarAxes: [{
+              axis: 'trr',
+              value: 95
+            }, {
+              axis: 'internal',
+              value: 82
+            }, {
+              axis: 'civilian',
+              value: 97
+            }],
+            radarColor: {
+              backgroundColor: '#e81f25',
+              textColor: '#DFDFDF'
+            },
+            url: '/officer/12478/'
           }],
           districtCommander: {
             id: 123,
@@ -278,6 +301,7 @@ describe('search page results selector', function () {
           population: '352',
           medianIncome: '$37,084',
           alderman: 'John Wick',
+          policeHQ: '22nd',
           raceCount: [
             { race: 'Hispanic', count: '34.4%' },
             { race: 'Black', count: '37.2%' },
@@ -293,13 +317,13 @@ describe('search page results selector', function () {
     it('should output correct order', function () {
       suggestionTagsSelector({
         searchPage: {
-          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY'],
+          tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY', 'POLICE-DISTRICT'],
           query: 'something'
         }
-      }).should.deepEqual(['OFFICER', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT']);
+      }).should.deepEqual(['OFFICER', 'COMMUNITY', 'NEIGHBORHOOD', 'POLICE-DISTRICT', 'UNIT']);
     });
 
-    it('should output RECENT tag if theres no query', function () {
+    it('should output RECENT tag if there is no query', function () {
       suggestionTagsSelector({
         searchPage: {
           tags: ['NEIGHBORHOOD', 'OFFICER', 'UNIT', 'COMMUNITY'],
@@ -380,6 +404,52 @@ describe('search page results selector', function () {
       }).should.deepEqual({
         limit: '20',
         offset: '20'
+      });
+    });
+  });
+
+  describe('firstItemSelector', function () {
+    it('should return datatool url if there is no suggestion group', function () {
+      stub(v1UrlUtils, 'dataToolSearchUrl').returns('/v1/abc/');
+
+      firstItemSelector({
+        searchPage: {
+          tags: [],
+          query: 'abc',
+          suggestionGroups: {}
+        }
+      }).should.deepEqual({
+        url: '/v1/abc/'
+      });
+
+      v1UrlUtils.dataToolSearchUrl.calledWith('abc').should.be.true();
+      v1UrlUtils.dataToolSearchUrl.restore();
+    });
+
+    it('should return first item of first suggestion group', function () {
+      firstItemSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'OFFICER': [
+              RawOfficerSuggestion.build({ id: '1' }, {
+                to: 'officer1',
+                url: '/officer/1/',
+                resultText: 'officer1',
+                type: 'OFFICER'
+              }),
+              ...RawOfficerSuggestion.buildList(2)
+            ],
+            'CR': [
+              RawCRSuggestion.build()
+            ]
+          }
+        }
+      }).should.deepEqual({
+        to: 'officer1',
+        url: '/officer/1/',
+        text: 'officer1',
+        type: 'OFFICER'
       });
     });
   });

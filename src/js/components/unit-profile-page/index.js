@@ -7,11 +7,6 @@ import { pageWrapperStyle } from './unit-profile-page.style';
 
 
 export default class UnitProfilePage extends Component {
-  componentDidMount() {
-    const { fetchUnitProfileSummary, unitName } = this.props;
-    fetchUnitProfileSummary(unitName);
-  }
-
   render() {
     const { location, unitName, summary, scrollPosition } = this.props;
     const { pathname } = location;
@@ -37,12 +32,10 @@ UnitProfilePage.propTypes = {
   location: PropTypes.object,
   unitName: PropTypes.string,
   summary: PropTypes.object,
-  fetchUnitProfileSummary: PropTypes.func,
   scrollPosition: PropTypes.string
 };
 
 UnitProfilePage.defaultProps = {
   location: { pathname: '/' },
-  summary: {},
-  fetchUnitProfileSummary: () => {}
+  summary: {}
 };

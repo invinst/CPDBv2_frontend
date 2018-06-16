@@ -2,12 +2,13 @@ import should from 'should';
 
 import {
   getOfficerId,
-  hasOfficerIdChanged,
   getCRID,
+  getTRRId,
   getComplaintOfficerId,
   getOfficerActiveTab,
   serializeFilterParams,
-  officerPath
+  officerPath,
+  getUnitName
 } from 'utils/location';
 
 
@@ -35,44 +36,23 @@ describe('location utils', function () {
     });
   });
 
-  describe('hasOfficerIdChanged', function () {
-    const locationChangeAction = {
-      type: '@@router/LOCATION_CHANGE',
-      payload: {
-        pathname: '/officer/1/'
-      }
-    };
-    it('should return true if location and officer id changed', function () {
-      hasOfficerIdChanged(locationChangeAction, 2).should.be.true();
-    });
-
-    it('should return false if officer id not changed', function () {
-      hasOfficerIdChanged(locationChangeAction, 1).should.be.false();
-    });
-
-    it('should return false if not @@router/LOCATION_CHANGE action', function () {
-      hasOfficerIdChanged({
-        type: 'ANY'
-      }, 2).should.be.false();
-    });
-
-    it('should return false if @@router/LOCATION_CHANGE action and wrong url', function () {
-      hasOfficerIdChanged({
-        type: '@@router/LOCATION_CHANGE',
-        payload: {
-          pathname: '/foo/2/'
-        }
-      }, 2).should.be.false();
-    });
-  });
-
   describe('getCRID', function () {
-    it('should return NaN when url is undefined', function () {
-      getCRID(undefined).should.be.NaN();
+    it('should return null when url is undefined', function () {
+      should(getCRID(undefined)).be.null();
     });
 
     it('should return crid', function () {
-      getCRID('/complaint/123/').should.eql(123);
+      getCRID('/complaint/C123/').should.eql('C123');
+    });
+  });
+
+  describe('getTRRId', function () {
+    it('should return NaN when url is undefined', function () {
+      getTRRId(undefined).should.be.NaN();
+    });
+
+    it('should return trr id', function () {
+      getTRRId('/trr/123/').should.eql(123);
     });
   });
 
@@ -110,6 +90,16 @@ describe('location utils', function () {
         'age': '41-50',
         'category': 'Illegal Search'
       }, '?').should.eql('?age=41-50&category=Illegal%20Search');
+    });
+  });
+
+  describe('getUnitName', function () {
+    it('should return null when url is undefined', function () {
+      should(getUnitName(undefined)).eql(null);
+    });
+
+    it('should return unit name', function () {
+      getUnitName('/unit/123/').should.eql('123');
     });
   });
 });

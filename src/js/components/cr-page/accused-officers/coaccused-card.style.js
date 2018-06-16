@@ -1,20 +1,20 @@
 import {
   whiteTwoColor, sugarCaneColor, sanFranciscoTextFamily, softBlackColor, lightAltoColor, brightOrangeTwoColor,
-  clayGray
+  clayGray, accentColor
 } from 'utils/styles';
 
-export const wrapperStyle = {
+export const wrapperStyle = hovering => ({
   fontFamily: sanFranciscoTextFamily,
   width: '232px',
   textDecoration: 'none',
   height: '264px',
   borderRadius: '2px',
-  border: `1px solid ${whiteTwoColor}`,
+  border: `1px solid ${hovering ? accentColor : whiteTwoColor}`,
   display: 'inline-block',
   marginRight: '8px',
   marginBottom: '8px',
   fontWeight: 300
-};
+});
 
 export const topSectionWrapperStyle = {
   padding: '8px 16px 0 16px',
@@ -29,25 +29,34 @@ export const bottomSectionWrapperStyle = {
   backgroundColor: 'white'
 };
 
-export const categoryTextStyle = {
+export const categoryTextStyle = hovering => ({
   fontSize: '14px',
   fontWeight: 500,
-  color: softBlackColor,
+  color: hovering ? accentColor : softBlackColor,
   borderBottom: `1px solid ${whiteTwoColor}`,
   height: '47px',
   overflow: 'hidden'
+});
+
+export const outcomeTextWrapperStyle = {
+  width: '100%',
+  overflow: 'hidden',
+  height: '23px',
+  marginTop: '8px'
 };
 
 export const outcomeTextStyle = {
   height: '23px',
-  boxSizing: 'border-box',
   fontSize: '14px',
   color: softBlackColor,
   fontWeight: 400,
   backgroundColor: lightAltoColor,
-  padding: '4px 10px',
-  marginTop: '8px',
+  padding: '4px 10px 10px 10px',
   display: 'inline-block',
+  overflowY: 'scroll',
+  whiteSpace: 'nowrap',
+  boxSizing: 'content-box',
+  maxWidth: 'calc(100% - 20px)',
   borderRadius: '2px'
 };
 
@@ -93,11 +102,11 @@ export const chartWrapperStyle = {
   overflow: 'hidden'
 };
 
-export const fullNameStyle = {
+export const fullNameStyle = hovering => ({
   fontSize: '14px',
-  color: softBlackColor,
+  color: hovering ? accentColor : softBlackColor,
   fontWeight: 400
-};
+});
 
 export const titleWrapperStyle = {
   display: 'inline-block',
