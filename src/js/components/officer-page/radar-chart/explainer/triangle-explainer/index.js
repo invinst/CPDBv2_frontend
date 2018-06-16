@@ -41,8 +41,8 @@ export default class TriangleExplainer extends Component {
 TriangleExplainer.propTypes = {
   radarChartData: PropTypes.arrayOf(
     PropTypes.shape({
-      axis: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired
+      axis: PropTypes.string,
+      value: PropTypes.number
     })
   )
 };

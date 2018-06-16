@@ -5,11 +5,19 @@ export function getOfficerId(url) {
   return parseInt(url.replace(/.*officers?\/(\d+).*/, '$1'));
 }
 
-export function getCRID(url) {
-  if (url === undefined) {
+export function getTRRId(url) {
+  if (!url) {
     return NaN;
   }
-  return parseInt(url.replace(/.*complaint\/(\d+).*/, '$1'));
+  return parseInt(url.replace(/.*trr?\/(\d+).*/, '$1'));
+}
+
+export function getCRID(url) {
+  const crPattern = /.*complaint\/(\w+).*/;
+  if (url === undefined || !url.match(crPattern)) {
+    return null;
+  }
+  return url.replace(crPattern, '$1');
 }
 
 export function getUnitName(url) {
@@ -23,7 +31,7 @@ export function getComplaintOfficerId(url) {
   if (url === undefined) {
     return NaN;
   }
-  return parseInt(url.replace(/.*complaint\/\d+\/(\d+).*/, '$1'));
+  return parseInt(url.replace(/.*complaint\/\w+\/(\d+).*/, '$1'));
 }
 
 export function getOfficerActiveTab(url) {

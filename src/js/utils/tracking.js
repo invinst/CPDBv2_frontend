@@ -11,11 +11,17 @@ export function trackInternalEvent(name, data) {
   });
 }
 
-export const trackOutboundLink = url => {
+export const trackOutboundLink = (url, windowName) => {
   /* istanbul ignore next */
   global.ga('send', 'event', 'outbound', 'click', url, {
     transport: 'beacon',
-    hitCallback: () => { document.location = url; }
+    hitCallback: () => {
+      if (windowName) {
+        window.open(url, windowName);
+      } else {
+        document.location = url;
+      }
+    }
   });
 };
 

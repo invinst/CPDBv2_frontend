@@ -17,7 +17,7 @@ import {
 } from 'actions/search-page/search-terms';
 import { getFocusedItem } from 'selectors/search-page';
 import {
-  suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector
+  suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector, firstItemSelector
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { cardsSelector } from 'selectors/landing-page/activity-grid';
@@ -45,6 +45,7 @@ function mapStateToProps(state, ownProps) {
     officerCards: cardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
+    firstItem: firstItemSelector(state)
   };
 }
 

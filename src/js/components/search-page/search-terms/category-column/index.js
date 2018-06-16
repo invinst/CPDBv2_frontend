@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { map } from 'lodash';
+import { map, isEqual, find } from 'lodash';
 import classnames from 'classnames';
 
 import { columnWrapperStyle, headerStyle, itemsWrapperStyle } from './category-column.style';
@@ -7,6 +7,30 @@ import CategoryItem from './category-item';
 
 
 export default class CategoryColumn extends Component {
+
+  shouldComponentUpdate(nextProps) {
+    const rerender = this.focusKey(this.props) !== this.focusKey(nextProps) ||
+      !isEqual(this.props.items, nextProps.items) ||
+      this.props.name != nextProps.name ||
+      this.props.index != nextProps.index;
+    return rerender;
+  }
+
+  focusKey(props) {
+    const { name, items, focusedItem } = props;
+    const headerUniqueKey = `category-${name}`;
+    if (focusedItem.uniqueKey === headerUniqueKey) {
+      return focusedItem.uniqueKey;
+    }
+    const item = find(items, obj => {
+      const key = `${name}-${obj.id}`;
+      return key === focusedItem.uniqueKey;
+    });
+    if (item) {
+      return focusedItem.uniqueKey;
+    }
+    return null;
+  }
 
   onGetRef(el) {
     this.element = el;
@@ -40,15 +64,17 @@ export default class CategoryColumn extends Component {
     const { name, focusedItem, handleItemClick } = this.props;
     const headerUniqueKey = `category-${name}`;
     const isFocusedHeader = focusedItem.uniqueKey === headerUniqueKey;
+    const className = classnames(
+      `term-item-${headerUniqueKey.replace(' ', '-')}`,
+      'test--category-header'
+    );
 
     return (
       <div style={ columnWrapperStyle } className='test--category-column'>
         <div
           style={ headerStyle(isFocusedHeader) }
           onClick={ () => handleItemClick(headerUniqueKey) }
-          className={
-            classnames('term-item', 'test--category-header', { 'focused': isFocusedHeader })
-          }
+          className={ className }
         >
           { name }
         </div>

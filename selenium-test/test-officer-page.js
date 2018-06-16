@@ -154,6 +154,45 @@ describe('officer page', function () {
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
       });
+
+      it('should hide word "Reports" if screen is too small', function () {
+        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+        officerPage.radarChartSection.explainerSection.leftNavigation.click();
+
+        const percentileByYear = officerPage.radarChartSection.explainerSection.percentileByYear;
+
+        percentileByYear.getText().should.containEql('Use Of Force\nReports');
+
+        browser.setViewportSize({
+          width: 800,
+          height: 500
+        });
+
+        percentileByYear.getText().should.containEql('Use Of Force');
+        percentileByYear.getText().should.not.containEql('Reports');
+      });
+
+      it('should hide question mark if screen is too small', function () {
+        browser.setViewportSize({
+          width: 700,
+          height: 500
+        });
+
+        officerPage.radarChartSection.radarChartExplainerToggleButton.waitForVisible(2000, true);
+      });
+
+      it('should hide explainer if screen is too small', function () {
+        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
+
+        browser.setViewportSize({
+          width: 700,
+          height: 500
+        });
+
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible(2000, true);
+      });
     });
   });
 
@@ -162,7 +201,28 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
       officerPage.tabbedPaneSection.timelineSection.crItem.click();
 
-      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
+    });
+
+    it('should go to attachment source page when clicking on the attachment thumbnail', function () {
+      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.attachmentThumbnail.click();
+      const tabIds = browser.getTabIds();
+      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
+      browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+    });
+
+    it('should go to attachment tab when clicking on the more attachment', function () {
+      officerPage.tabbedPaneSection.timelineSection.moreAttachment.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.moreAttachment.click();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+    });
+
+    it('should go to trr page when clicking on an trr timeline item', function () {
+      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.trrItem.click();
+
+      browser.getUrl().should.match(/\/trr\/\d+\/$/);
     });
 
     describe('Timeline filter', function () {
@@ -228,6 +288,26 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
 
       browser.getUrl().should.match(/\/officer\/2\/$/);
+    });
+  });
+
+  describe('Attachments', function () {
+    beforeEach(function () {
+      officerPage.tabbedPaneSection.attachmentsTabName.click();
+    });
+
+    it('should go to complaint page when clicking on the complaint heading', function () {
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentHeading.click();
+      browser.getUrl().should.match(/\/complaint\/294088\/$/);
+    });
+
+    it('should go to attachment source page when clicking on the complaint attachment', function () {
+      officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
+      const tabIds = browser.getTabIds();
+      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
+      browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
     });
   });
 });

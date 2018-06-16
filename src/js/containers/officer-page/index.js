@@ -7,9 +7,11 @@ import {
   getOfficerName,
   metricsSelector,
   officerYearlyThreePercentile,
-  summarySelector
+  summarySelector,
+  getCurrentTab,
 } from 'selectors/officer-page';
 import { openPoliceUnitPage } from 'actions/open-page';
+import { changeOfficerTab } from 'actions/officer-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -19,11 +21,13 @@ function mapStateToProps(state, ownProps) {
     officerSummary: summarySelector(state),
     officerMetrics: metricsSelector(state),
     threeCornerPercentile: officerYearlyThreePercentile(state),
+    currentTab: getCurrentTab(state),
   };
 }
 
 const mapDispatchToProps = {
-  openPoliceUnitPage
+  openPoliceUnitPage,
+  changeOfficerTab,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OfficerPage);

@@ -1,6 +1,8 @@
 import should from 'should';
 
-import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
+import {
+  contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested
+} from 'selectors/cr-page';
 import {
   InvestigatorFactory, PoliceWitnessFactory, CoaccusedFactory, ComplaintFactory
 } from 'utils/test/factories/complaint';
@@ -71,7 +73,7 @@ describe('CR page selectors', function () {
         id: 1,
         fullname: 'Michel Foo',
         demographic: '34 year old, White, Male',
-        outcome: 'Reprimand',
+        findingOutcomeMix: 'Reprimand',
         finding: 'Sustained',
         category: 'Operations/Personnel Violation',
         rank: 'Officer',
@@ -93,7 +95,7 @@ describe('CR page selectors', function () {
           },
         ],
         radarColor: {
-          backgroundColor: '#f3adad',
+          backgroundColor: '#ee7b6f',
           textColor: '#231F20'
         }
       }]);
@@ -192,7 +194,13 @@ describe('CR page selectors', function () {
 
     it('should set coaccused gender, race, finalOutcome, '
       + 'category to default value if missing data', function () {
-      const coaccusedObj = { 'id': 1, 'full_name': 'Michel Foo', 'start_date': '2012-02-01', 'end_date': '2013-02-01' };
+      const coaccusedObj = {
+        'id': 1,
+        'full_name': 'Michel Foo',
+        'start_date': '2012-02-01',
+        'end_date': '2013-02-01',
+        'final_outcome': 'abc'
+      };
       const state = buildState({
         crs: { '123': { coaccused: [coaccusedObj] } },
         crPage: { crid: 123 }
@@ -201,7 +209,6 @@ describe('CR page selectors', function () {
       const coaccused = contentSelector(state).coaccused[0];
       coaccused.rank.should.eql('Officer');
       coaccused.demographic.should.eql('');
-      coaccused.outcome.should.eql('Unknown Outcome');
       coaccused.category.should.eql('Unknown');
     });
 
