@@ -26,7 +26,7 @@ class CategoryMainPanelSection extends Section {
       categoryColumns: '.test--category-column',
       firstCategoryItem: '.test--category-item',
       firstCategoryHeader: '.test--category-header',
-      focusedItem: '(//div[contains(@class, \'focused\')])[1]',
+      focusedItem: '(//div[@class="test--category-column"]//div[contains(@style,"background: rgb(197, 218, 253)")])[1]',
     });
   }
 
@@ -41,7 +41,7 @@ class CategoryMainPanelSection extends Section {
   getItemInColumn(columnIndex, itemIndex) {
     return browser.elements(`(
         //div[contains(@class, 'test--category-column')][${columnIndex + 1}]
-        //div[contains(@class, 'term-item test--category-item')]
+        //div[contains(@class, 'test--category-item')]
       )[${itemIndex + 1}]
     `);
   }

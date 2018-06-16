@@ -8,6 +8,7 @@ const timelineItems = [
     'award_type': 'Honorable Mention'
   },
   {
+    'trr_id': 1,
     'unit_name': '007',
     kind: 'FORCE',
     taser: true,
@@ -17,6 +18,7 @@ const timelineItems = [
     'firearm_used': false
   },
   {
+    'trr_id': 2,
     'unit_name': '007',
     kind: 'FORCE',
     taser: false,
@@ -33,6 +35,7 @@ const timelineItems = [
     date: '2005-01-07'
   },
   {
+    'trr_id': 3,
     'unit_name': '153',
     kind: 'FORCE',
     taser: false,
@@ -56,9 +59,19 @@ const timelineItems = [
     attachments: [
       {
         url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
-        'preview_image_url':
-          'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
-        title: 'CRID 294088 CR'
+        'preview_image_url': 'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+        title: 'CRID 294088 CR',
+        'file_type': 'document',
+      },
+      {
+        url: 'https://player.vimeo.com/video/165206078',
+        title: 'Video Clip',
+        'file_type': 'video',
+      },
+      {
+        url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/262463136&amp',
+        title: 'Audio Clip',
+        'file_type': 'audio',
       }
     ]
   },
@@ -73,7 +86,25 @@ const timelineItems = [
     date: '2003-02-17',
     coaccused: 4,
     finding: 'Unfounded',
-    outcome: 'No Action Taken'
+    outcome: 'No Action Taken',
+    attachments: [
+      {
+        url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/262463125&amp',
+        title: 'Audio Clip',
+        'file_type': 'audio',
+      },
+      {
+        url: 'https://player.vimeo.com/video/165213573',
+        title: 'Video Clip',
+        'file_type': 'video',
+      },
+      {
+        url: 'https://www.documentcloud.org/documents/3518954-CRID-299780-CR.html',
+        'preview_image_url': 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
+        title: 'CRID 294088 CR',
+        'file_type': 'document',
+      }
+    ]
   },
   {
     'unit_name': '153',

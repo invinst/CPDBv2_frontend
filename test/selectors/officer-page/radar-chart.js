@@ -30,17 +30,17 @@ describe('Officer radar chart selectors', function () {
         {
           'officer_id': 1,
           year: 2006,
-          'percentile_trr': '0.049',
           'percentile_allegation_civilian': '66.251',
           'percentile_allegation_internal': '0.023',
+          'percentile_trr': '0.049',
           'percentile_allegation': '41.001',
         },
         {
           'officer_id': 1,
           year: 2007,
-          'percentile_trr': '0.046',
           'percentile_allegation_civilian': '75.065',
           'percentile_allegation_internal': '0.022',
+          'percentile_trr': '0.046',
           'percentile_allegation': '31.201'
         }];
 
@@ -57,7 +57,7 @@ describe('Officer radar chart selectors', function () {
         }],
         'officerId': 1,
         textColor: '#231F20',
-        visualTokenBackground: '#f9d3c3',
+        visualTokenBackground: '#eb9056',
         'year': 2006
       }, {
         'items': [{
@@ -72,7 +72,7 @@ describe('Officer radar chart selectors', function () {
         }],
         'officerId': 1,
         textColor: '#231F20',
-        visualTokenBackground: '#f9d3c3',
+        visualTokenBackground: '#eb9056',
         'year': 2007
       }]);
     });

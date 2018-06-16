@@ -49,7 +49,7 @@ describe('Search Page', function () {
     searchPage.input.setValue('Ke');
 
     searchPage.suggestionGroup.waitForVisible();
-    searchPage.loadMoreButton.click();
+    searchPage.firstLoadMoreButton.click();
     searchPage.contentWrapper.waitForVisible();
     searchPage.contentWrapper.getText().should.containEql('OFFICER');
     searchPage.contentWrapper.getText().should.containEql('Bernadette Kelly');
@@ -119,6 +119,38 @@ describe('Search Page', function () {
     searchPage.firstCoAccusedResult.click();
     browser.keys('Enter');
     searchPage.currentBasePath.should.eql('/officer/1/');
+  });
+
+  it('should focus on clicked item', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.secondOfficerResult.waitForVisible();
+
+    searchPage.secondOfficerResult.getAttribute('class').should.not.containEql('test--focused');
+
+    searchPage.secondOfficerResult.click();
+
+    searchPage.secondOfficerResult.getAttribute('class').should.containEql('test--focused');
+  });
+
+  it('should focus on search result items correctly after changing to single content result page', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.secondLoadMoreButton.waitForVisible();
+    searchPage.secondLoadMoreButton.click();
+
+    searchPage.secondLoadMoreButton.waitForVisible(1000, true);
+    searchPage.secondNeighborhoodResult.waitForVisible();
+
+    searchPage.secondNeighborhoodResult.getAttribute('class').should.not.containEql('test--focused');
+
+    searchPage.secondNeighborhoodResult.click();
+
+    searchPage.secondNeighborhoodResult.getAttribute('class').should.containEql('test--focused');
   });
 
   describe('should show the recent search', function () {
@@ -239,11 +271,11 @@ describe('Search Page', function () {
     searchPage.suggestionGroup.waitForVisible();
     searchPage.contentWrapper.waitForVisible();
 
-    searchPage.loadMoreButton.getAttribute('class').should.not.containEql('test--focused');
+    searchPage.firstLoadMoreButton.getAttribute('class').should.not.containEql('test--focused');
 
     times(6, () => browser.keys('ArrowDown'));
 
-    searchPage.loadMoreButton.getAttribute('class').should.containEql('test--focused');
+    searchPage.firstLoadMoreButton.getAttribute('class').should.containEql('test--focused');
   });
 
   it('should focus on the search box by default', function () {
@@ -311,9 +343,20 @@ describe('Search Page', function () {
       searchPage.input.setValue('Ke');
       searchPage.clearSearchButton.waitForVisible();
       searchPage.firstOfficerResult.waitForVisible();
-
       searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
       searchPage.officerPreviewPaneSection.gradient.waitForVisible(2000, true);
+    });
+
+    it('should redirect to officer profile when clicking on officer item', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+      searchPage.firstNeighborhoodResult.waitForVisible();
+      searchPage.firstNeighborhoodResult.click();
+
+      searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
+      searchPage.officerPreviewPaneSection.listMostOfficers.count.should.eql(2);
+      searchPage.officerPreviewPaneSection.listMostOfficers.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/$/);
     });
   });
 });

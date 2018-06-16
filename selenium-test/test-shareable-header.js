@@ -5,7 +5,9 @@ require('should');
 import landingPage from './page-objects/landing-page';
 import searchPage from './page-objects/search-page';
 import searchTermsPage from './page-objects/search-terms-page';
+import trrPage from './page-objects/trr-page';
 import header from './page-objects/shareable-header';
+import officerPage from './page-objects/officer-page';
 
 
 describe('shareableHeader', function () {
@@ -41,5 +43,28 @@ describe('shareableHeader', function () {
       BreadcrumbsItems.count.should.eql(3);
       header.breadcrumbs.mainElement.getText().should.eql('cpdpSearchBernadette Kelly');
     });
+
+    it('should show breadcrumbs correctly when entering the TRR page first', function () {
+      trrPage.open();
+
+      const BreadcrumbsItems = header.breadcrumbs.items;
+      BreadcrumbsItems.count.should.eql(2);
+      header.breadcrumbs.mainElement.getText().should.eql('cpdpTRR 1');
+    });
+
+    it(
+      'should show breadcrumb Officer > TRR when click TRR row through officer timeline',
+      function () {
+        officerPage.open();
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.trrItem.click();
+
+        trrPage.title.waitForVisible();
+
+        const BreadcrumbsItems = header.breadcrumbs.items;
+        BreadcrumbsItems.count.should.eql(3);
+        header.breadcrumbs.mainElement.getText().should.eql('cpdpBernadette KellyTRR 1');
+      }
+    );
   });
 });

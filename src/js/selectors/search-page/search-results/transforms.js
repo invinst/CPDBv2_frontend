@@ -1,8 +1,9 @@
 import { get, sumBy, map, last } from 'lodash';
-import { extractPercentile } from 'selectors/landing-page/common';
+import { extractPercentile } from 'selectors/common/percentile';
 
 import { getCurrentAge, formatDate } from 'utils/date';
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
+import { getVisualTokenOIGBackground } from 'utils/visual-token';
 
 
 const mappingRace = (race) => {
@@ -29,6 +30,10 @@ const previewPaneTypeMap = {
     type: 'OFFICER',
     data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
   }),
+  'UNIT > OFFICERS': (suggestion) => ({
+    type: 'OFFICER',
+    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
+  }),
   ...areaTypeMap('COMMUNITY'),
   ...areaTypeMap('NEIGHBORHOOD'),
   ...areaTypeMap('WARD'),
@@ -40,13 +45,31 @@ const previewPaneTypeMap = {
 export const previewPaneTransform = item =>
   get(previewPaneTypeMap, item.type, () => ({}))(item);
 
+const officerMostComplaintTransform = officer => ({
+  id: officer.id,
+  count: officer.count,
+  name: officer.name,
+  url: `/officer/${officer.id}/`,
+  radarAxes: [
+      { axis: 'trr', value: parseFloat(officer['percentile_trr']) },
+      { axis: 'internal', value: parseFloat(officer['percentile_allegation_internal']) },
+      { axis: 'civilian', value: parseFloat(officer['percentile_allegation_civilian']) }],
+  radarColor: getVisualTokenOIGBackground(
+    parseFloat(officer['percentile_allegation_internal']),
+    parseFloat(officer['percentile_allegation_civilian']),
+    parseFloat(officer['percentile_trr'])
+  ),
+});
+
 const areaTransform = ({ payload }) => {
   const population = sumBy(payload['race_count'], 'count');
+  const officersMostComplaint = get(payload, 'officers_most_complaint', []);
+  const transformedOfficersMostComplaint = officersMostComplaint.map(officer => officerMostComplaintTransform(officer));
   return {
     name: payload['name'] || 'Unknown',
     allegationCount: payload['allegation_count'] || 0,
     mostCommonComplaint: payload['most_common_complaint'] || [],
-    officersMostComplaint: payload['officers_most_complaint'] || [],
+    officersMostComplaint: transformedOfficersMostComplaint,
     population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
     medianIncome: payload['median_income'],
     url: payload['url'],
@@ -63,7 +86,8 @@ const areaTransform = ({ payload }) => {
       'name': payload.commander['full_name'],
       'count': payload.commander['allegation_count'],
       'url': `/officer/${payload.commander['id']}/`,
-    } : null
+    } : null,
+    policeHQ: payload['police_hq'],
   };
 };
 
@@ -89,13 +113,15 @@ const searchResultTransformMap = {
       },
       lastPercentile: extractPercentile(lastPercentile),
       complaintCount: payload['allegation_count'],
-      complaintPercentile: roundPercentile(get(lastPercentile, 'percentile_allegation'), true),
+      complaintPercentile: roundedPercentile(get(lastPercentile, 'percentile_allegation')),
       civilianComplimentCount: payload['civilian_compliment_count'],
       sustainedCount: payload['sustained_count'],
       disciplineCount: payload['discipline_count'],
-      trrCount: payload['trr_count'],
-      trrPercentile: roundPercentile(get(lastPercentile, 'percentile_trr'), true),
-      honorableMentionCount: payload['honorable_mention_count'],
+      trrCount: get(payload, 'trr_count'),
+      trrPercentile: roundedPercentile(get(lastPercentile, 'percentile_trr')),
+      majorAwardCount: get(payload, 'major_award_count'),
+      honorableMentionCount: get(payload, 'honorable_mention_count'),
+      honorableMentionPercentile: roundedPercentile(get(payload, 'honorable_mention_percentile')),
     };
   },
   CR: ({ payload }) => {

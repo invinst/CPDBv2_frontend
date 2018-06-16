@@ -19,7 +19,7 @@ export default class NeighborhoodPane extends Component {
       url,
     } = this.props;
     return (
-      <WidgetWrapper>
+      <WidgetWrapper className='test--preview-pane-neighborhood'>
         <HeaderWidget title={ name } showBottomBorder={ true }/>
         <SeparatorWidget/>
         <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
@@ -27,7 +27,7 @@ export default class NeighborhoodPane extends Component {
           items={ mostCommonComplaint }
           typeName={ 'allegation' }
           showAvatar={ false }
-          title={ 'MOST COMMON COMPLAINT' }
+          title={ 'MOST COMMON COMPLAINTS' }
         />
         <ListWidget
           items={ officersMostComplaint }

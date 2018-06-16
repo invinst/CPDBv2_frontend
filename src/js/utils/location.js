@@ -5,18 +5,33 @@ export function getOfficerId(url) {
   return parseInt(url.replace(/.*officers?\/(\d+).*/, '$1'));
 }
 
-export function getCRID(url) {
-  if (url === undefined) {
+export function getTRRId(url) {
+  if (!url) {
     return NaN;
   }
-  return parseInt(url.replace(/.*complaint\/(\d+).*/, '$1'));
+  return parseInt(url.replace(/.*trr?\/(\d+).*/, '$1'));
+}
+
+export function getCRID(url) {
+  const crPattern = /.*complaint\/(\w+).*/;
+  if (url === undefined || !url.match(crPattern)) {
+    return null;
+  }
+  return url.replace(crPattern, '$1');
+}
+
+export function getUnitName(url) {
+  if (url === undefined) {
+    return null;
+  }
+  return url.replace(/.*unit\/([^/]+).*/, '$1');
 }
 
 export function getComplaintOfficerId(url) {
   if (url === undefined) {
     return NaN;
   }
-  return parseInt(url.replace(/.*complaint\/\d+\/(\d+).*/, '$1'));
+  return parseInt(url.replace(/.*complaint\/\w+\/(\d+).*/, '$1'));
 }
 
 export function getOfficerActiveTab(url) {
@@ -25,14 +40,6 @@ export function getOfficerActiveTab(url) {
     return null;
   }
   return url.match(pattern)[1];
-}
-
-export function hasOfficerIdChanged(action, officerId) {
-  if (action.type === '@@router/LOCATION_CHANGE') {
-    const nextOfficerId = getOfficerId(action.payload.pathname);
-    return !isNaN(nextOfficerId) && (officerId !== nextOfficerId);
-  }
-  return false;
 }
 
 export function serializeFilterParams(obj, startWith = '') {

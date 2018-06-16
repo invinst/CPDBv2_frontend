@@ -82,10 +82,11 @@ export function changePageDescription(description) {
   setMetaAttribute('description', description);
 }
 
-export function scrollToElement(selector, alignToTop=true) {
+export function scrollToElement(selector, alignToTop=true, offset=0) {
   const element = document.querySelector(selector);
   if (element) {
     element.scrollIntoView(alignToTop);
+    window.scrollBy(0, offset);
   }
 }
 

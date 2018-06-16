@@ -7,7 +7,7 @@ import WidgetWrapper, {
   ListWidget,
   CallToActionWidget,
 } from './widgets';
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
 
 
 export default class PoliceDistrictPane extends Component {
@@ -31,7 +31,7 @@ export default class PoliceDistrictPane extends Component {
         <GeoInfoWidget raceCount={ raceCount } population={ population }/>
         <AllegationCountWidget
           numOfAllegations={ allegationCount }
-          subTitle={ `More than ${ roundPercentile(allegationPercentile) }% of other districts` }
+          subTitle={ `More than ${ roundedPercentile(allegationPercentile) }% of other districts` }
           url={ url }
         />
         <ListWidget

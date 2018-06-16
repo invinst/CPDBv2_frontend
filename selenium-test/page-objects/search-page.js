@@ -10,6 +10,9 @@ class OfficerPreviewPaneSection extends Section {
     this.prepareElementGetters({
       wrapper: '.test--preview-pane',
       gradient: '.test--gradient',
+      communityPane: '.test--preview-pane-community',
+      neighborhoodPane: '.test--preview-pane-neighborhood',
+      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"test--list-widget-item-link")]'
     });
   }
 }
@@ -33,9 +36,11 @@ class SearchPage extends Page {
       firstOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-1',
       secondOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-2',
       firstNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-1',
+      secondNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-2',
       firstCoAccusedResult: '.test--suggestion-group .suggestion-item-CO-ACCUSED-1',
       searchHint: '.search-hint',
-      loadMoreButton: '.test--load-more-button'
+      firstLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[1]',
+      secondLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[2]',
     });
   }
 

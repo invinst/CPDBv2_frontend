@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 import { map, get, reduce, defaults, compact, sortBy } from 'lodash';
+import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
-import { pluralize } from 'utils/language';
 import { getBreadcrumb } from '../breadcrumbs';
-
+import { getFindingOutcomeMix } from './finding-outcome-mix';
 
 const getCoaccused = state => {
   const crid = state.crPage.crid;
@@ -70,7 +70,7 @@ const getTransformedCoaccused = createSelector(
     fullname: coaccused['full_name'],
     rank: coaccused['rank'] || 'Officer',
     demographic: getCoaccusedDemographicString(coaccused),
-    outcome: coaccused['final_outcome'] || 'Unknown Outcome',
+    findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
     finding: coaccused['final_finding'],
     category: coaccused['category'] || 'Unknown',
     allegationCount: coaccused['allegation_count'],
@@ -82,8 +82,8 @@ const getTransformedCoaccused = createSelector(
       { axis: 'civilian', value: parseFloat(coaccused['percentile_allegation_civilian']) }
     ],
     radarColor: getVisualTokenOIGBackground(
-      parseFloat(coaccused['percentile_allegation_internal']),
       parseFloat(coaccused['percentile_allegation_civilian']),
+      parseFloat(coaccused['percentile_allegation_internal']),
       parseFloat(coaccused['percentile_trr'])
     )
   }))
@@ -144,8 +144,8 @@ const getInvolvementsSelector = createSelector(
           { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) }
         ],
         radarColor: getVisualTokenOIGBackground(
-          parseFloat(obj['percentile_allegation_internal']),
           parseFloat(obj['percentile_allegation_civilian']),
+          parseFloat(obj['percentile_allegation_internal']),
           parseFloat(obj['percentile_trr'])
         )
       };

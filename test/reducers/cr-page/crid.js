@@ -16,7 +16,7 @@ describe('crid reducer', function () {
       }
     };
 
-    crid('some state', action).should.eql(1);
+    crid('some state', action).should.eql('1');
   });
 
   it('should handle @@router/LOCATION_CHANGE and return state when pathname is incorrect', function () {

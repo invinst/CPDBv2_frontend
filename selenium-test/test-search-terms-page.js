@@ -35,30 +35,31 @@ describe('Search terms page', function () {
   });
 
   it('should navigates between the result when user press the navigation keys', function () {
+    const focusedBackground = 'background: rgb(197, 218, 253)';
     const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
     const firstTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 0);
     const secondTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 1);
-    firstCategoryHeader.getAttribute('class').should.not.containEql('focused');
-    firstTerm.getAttribute('class').should.not.containEql('focused');
-    secondTerm.getAttribute('class').should.not.containEql('focused');
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedBackground);
+    firstTerm.getAttribute('style').should.not.containEql(focusedBackground);
+    secondTerm.getAttribute('style').should.not.containEql(focusedBackground);
 
     browser.keys('ArrowDown');
 
-    firstCategoryHeader.getAttribute('class').should.containEql('focused');
-    firstTerm.getAttribute('class').should.not.containEql('focused');
-    secondTerm.getAttribute('class').should.not.containEql('focused');
+    firstCategoryHeader.getAttribute('style').should.containEql(focusedBackground);
+    firstTerm.getAttribute('style').should.not.containEql(focusedBackground);
+    secondTerm.getAttribute('style').should.not.containEql(focusedBackground);
 
     browser.keys('ArrowDown');
 
-    firstCategoryHeader.getAttribute('class').should.not.containEql('focused');
-    firstTerm.getAttribute('class').should.containEql('focused');
-    secondTerm.getAttribute('class').should.not.containEql('focused');
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedBackground);
+    firstTerm.getAttribute('style').should.containEql(focusedBackground);
+    secondTerm.getAttribute('style').should.not.containEql(focusedBackground);
 
     browser.keys('ArrowDown');
 
-    firstCategoryHeader.getAttribute('class').should.not.containEql('focused');
-    firstTerm.getAttribute('class').should.not.containEql('focused');
-    secondTerm.getAttribute('class').should.containEql('focused');
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedBackground);
+    firstTerm.getAttribute('style').should.not.containEql(focusedBackground);
+    secondTerm.getAttribute('style').should.containEql(focusedBackground);
   });
 
   it('should hide PreviewPane when no item is focused', function () {
@@ -125,11 +126,8 @@ describe('Search terms page', function () {
 
   it('should focus back to search box when go to search page', function () {
     searchTermsPage.input.waitForVisible();
-    const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
 
     browser.keys('ArrowDown');
-
-    firstCategoryHeader.getAttribute('class').should.containEql('focused');
 
     searchTermsPage.searchTermsToggle.click();
 

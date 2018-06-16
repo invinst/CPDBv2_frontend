@@ -3,6 +3,7 @@ import { createSelector } from 'reselect';
 import pluralize from 'pluralize';
 
 import { getThisYear } from 'utils/date';
+import { getVisualTokenOIGBackground } from 'utils/visual-token';
 
 
 const getCoaccusals = (state) => get(state.officerPage.coaccusals, 'items', []).map(coaccusalTransform);
@@ -18,6 +19,15 @@ const coaccusalTransform = (coaccusal) => ({
   age: coaccusal['birth_year'] ? getThisYear() - coaccusal['birth_year'] : 'N/A',
   coaccusalCount: coaccusal['coaccusal_count'],
   rank: coaccusal['rank'],
+  radarAxes: [
+      { axis: 'trr', value: parseFloat(coaccusal['percentile_trr']) },
+      { axis: 'internal', value: parseFloat(coaccusal['percentile_allegation_internal']) },
+      { axis: 'civilian', value: parseFloat(coaccusal['percentile_allegation_civilian']) }],
+  radarColor: getVisualTokenOIGBackground(
+    parseFloat(coaccusal['percentile_allegation_civilian']),
+    parseFloat(coaccusal['percentile_allegation_internal']),
+    parseFloat(coaccusal['percentile_trr'])
+  )
 });
 
 const coaccusalThresholds = [1, 4, 9, 14, 20, -1];

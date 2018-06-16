@@ -1,4 +1,4 @@
-import { clayGray, altoColor, whiteTwoColor } from 'utils/styles';
+import { clayGray, altoColor, whiteTwoColor, accentColor } from 'utils/styles';
 
 
 export const containerStyle = {
@@ -42,4 +42,24 @@ export const itemNameStyle = {
 export const itemCountStyle = {
   color: clayGray,
   margin: '1px 0 0',
+};
+
+export const chartWrapperStyle = {
+  verticalAlign: 'middle',
+  display: 'inline-block',
+  width: '38px',
+  height: '38px',
+  borderRadius: '2px',
+  overflow: 'hidden'
+};
+
+export const linkStyle = {
+  hover: {
+    textDecoration: 'none',
+    color: accentColor
+  },
+  base: {
+    textDecoration: 'none',
+    color: 'inherit',
+  }
 };

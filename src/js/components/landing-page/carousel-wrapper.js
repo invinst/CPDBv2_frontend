@@ -4,18 +4,13 @@ import { omit } from 'lodash';
 import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';
 import InlineHeaderSection from './inline-header-section';
-import { headerWrapperStyle, wrapperStyle, carouselStyle, itemStyle } from './carousel-wrapper.style';
+import { headerWrapperStyle, carouselStyle, itemStyle } from './carousel-wrapper.style';
 
 
 export default function withCarousel(
   CardComponent, type = '', extraCardAttr = {}, itemWidth = 232
 ) {
   class Wrapper extends Component {
-    componentDidMount() {
-      const { queryData } = this.props;
-      queryData && queryData();
-    }
-
     handleNavigate(direction) {
       global.ga('send', 'event', 'landing_page_carousel', `swipe_${direction}`, type.key || type);
     }
@@ -35,9 +30,7 @@ export default function withCarousel(
       });
 
       return (
-        <div
-          className={ `test--landing-carousel-${(type.key || type).toLowerCase()}` }
-          style={ wrapperStyle }>
+        <div className={ `test--landing-carousel-${(type.key || type).toLowerCase()}` }>
           <EditModeProvider
             pathname={ pathname }
             className='test--carousel--header'
@@ -56,7 +49,6 @@ export default function withCarousel(
   }
 
   Wrapper.propTypes = {
-    queryData: PropTypes.func,
     cards: PropTypes.array,
     pathname: PropTypes.string,
     editWrapperStateProps: PropTypes.object
