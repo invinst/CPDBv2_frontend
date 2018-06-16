@@ -14,7 +14,6 @@ export default class SchoolGroundPane extends Component {
     const {
       name,
       allegationCount,
-      mostCommonComplaint,
       officersMostComplaint,
       url,
     } = this.props;
@@ -26,12 +25,6 @@ export default class SchoolGroundPane extends Component {
           url={ url }
           numOfAllegations={ allegationCount }
           subTitle={ 'within 100 meters of the school' }/>
-        <ListWidget
-          items={ mostCommonComplaint }
-          typeName={ 'allegation' }
-          showAvatar={ false }
-          title={ 'MOST COMMON COMPLAINTS' }
-        />
         <ListWidget
           items={ officersMostComplaint }
           typeName={ 'allegation' }
@@ -47,7 +40,11 @@ export default class SchoolGroundPane extends Component {
 SchoolGroundPane.propTypes = {
   name: PropTypes.string,
   allegationCount: PropTypes.number,
-  mostCommonComplaint: PropTypes.array.isRequired,
-  officersMostComplaint: PropTypes.array.isRequired,
-  url: PropTypes.string.isRequired,
+  officersMostComplaint: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+    count: PropTypes.number,
+    url: PropTypes.string
+  })),
+  url: PropTypes.string,
 };

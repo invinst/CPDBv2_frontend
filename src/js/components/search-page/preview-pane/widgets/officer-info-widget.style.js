@@ -4,6 +4,7 @@ import { softBlackColor, clayGray, whiteTwoColor } from 'utils/styles';
 export const wrapperStyle = {
   backgroundColor: 'white',
   margin: '0 -8px 8px',
+  boxShadow: `0 2px ${whiteTwoColor}`,
 };
 
 export const titleStyle = {

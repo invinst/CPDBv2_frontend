@@ -1,9 +1,6 @@
 import React from 'react';
 import {
-  renderIntoDocument,
-  findRenderedComponentWithType,
-  scryRenderedComponentsWithType
-} from 'react-addons-test-utils';
+  renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 
 import SchoolGroundPane from 'components/search-page/preview-pane/school-ground-pane';
 import {
@@ -41,7 +38,7 @@ describe('SchoolGroundPane component', () => {
     );
     findRenderedComponentWithType(instance, HeaderWidget);
     findRenderedComponentWithType(instance, SeparatorWidget);
-    scryRenderedComponentsWithType(instance, ListWidget).should.have.length(2);
+    findRenderedComponentWithType(instance, ListWidget);
     findRenderedComponentWithType(instance, CallToActionWidget);
   });
 });

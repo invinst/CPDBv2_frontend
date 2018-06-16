@@ -75,7 +75,7 @@ export default class OfficerInfoWidget extends Component {
                 </div>
                 { metric.url && (
                   <Link to={ metric.url }>
-                    <img src={ imgUrl('disclosure-indicator.svg') } style={ arrowStyle }/>
+                    <img src={ imgUrl('disclosure-indicator-darker.svg') } style={ arrowStyle }/>
                   </Link>
                 ) }
                 <div style={ clearfixStyle }/>
