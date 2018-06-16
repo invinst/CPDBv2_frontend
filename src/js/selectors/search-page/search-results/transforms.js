@@ -49,6 +49,7 @@ const officerMostComplaintTransform = officer => ({
   id: officer.id,
   count: officer.count,
   name: officer.name,
+  url: `/officer/${officer.id}/`,
   radarAxes: [
       { axis: 'trr', value: parseFloat(officer['percentile_trr']) },
       { axis: 'internal', value: parseFloat(officer['percentile_allegation_internal']) },

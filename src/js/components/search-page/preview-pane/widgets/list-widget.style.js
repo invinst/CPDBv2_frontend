@@ -1,4 +1,4 @@
-import { clayGray, altoColor, whiteTwoColor } from 'utils/styles';
+import { clayGray, altoColor, whiteTwoColor, accentColor } from 'utils/styles';
 
 
 export const containerStyle = {
@@ -49,4 +49,15 @@ export const chartWrapperStyle = {
   height: '38px',
   borderRadius: '2px',
   overflow: 'hidden'
+};
+
+export const linkStyle = {
+  hover: {
+    textDecoration: 'none',
+    color: accentColor
+  },
+  base: {
+    textDecoration: 'none',
+    color: 'inherit',
+  }
 };

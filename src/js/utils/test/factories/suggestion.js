@@ -100,6 +100,10 @@ export const RawNeighborhoodSuggestion = Factory.define('RawNeighborhoodSuggesti
       to,
       url,
       tags,
+      'officers_most_complaint': [
+        { id: 1, count: 2, name: 'Hulk' },
+        { id: 2, count: 1, name: 'Peter Parker' },
+      ]
     })
   );
 
