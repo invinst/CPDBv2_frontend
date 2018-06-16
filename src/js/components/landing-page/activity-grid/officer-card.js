@@ -72,7 +72,6 @@ export class OfficerCard extends Component {
       width: 230,
       height: 100,
       radius: 40,
-      hideAxisText: true,
       backgroundColor: percentile ? percentile.visualTokenBackground : undefined,
     };
 

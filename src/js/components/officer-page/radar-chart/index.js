@@ -116,7 +116,11 @@ export default class AnimatedRadarChart extends Component {
           fadeOutLegend={ transitionValue >= (data.length - 1) }
           legendText={ itemData.year }
           data={ itemData.items }
-          showDataPoints={ true }
+          showSpineLinePoint={ true }
+          showGrid={ true }
+          gridOpacity={ 0.25 }
+          showAxisTitle={ true }
+          showAxisValue={ true }
         />
         <RadarExplainer
           show={ showExplainer }

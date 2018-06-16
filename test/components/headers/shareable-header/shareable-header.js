@@ -10,7 +10,7 @@ import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 import { stub } from 'sinon';
 import * as domUtils from 'utils/dom';
 
