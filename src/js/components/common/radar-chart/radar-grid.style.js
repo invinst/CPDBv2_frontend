@@ -1,9 +1,6 @@
-import { whiteTwoColor } from 'utils/styles';
-
-
-export const radarGridStyle = {
+export const radarGridStyle = (opacity) => ({
   fill: 'none',
   fillOpacity: 0,
-  stroke: whiteTwoColor,
+  strokeOpacity: opacity,
   strokeWidth: '1px'
-};
+});

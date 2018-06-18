@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import pluralize from 'pluralize';
 
 import { wrapperStyle, lightTextStyle, boldTextStyle } from './officer-card.style';
 import { getThisYear } from 'utils/date';
@@ -7,7 +8,6 @@ import {
   extraInfoStyle, noBorderSectionStyle,
   sectionStyle, sustainedStyle
 } from 'components/landing-page/activity-grid/officer-card.style';
-import { pluralize } from 'utils/language';
 import Hoverable from 'components/common/higher-order/hoverable';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
@@ -72,7 +72,6 @@ export class OfficerCard extends Component {
       width: 230,
       height: 100,
       radius: 40,
-      hideAxisText: true,
       backgroundColor: percentile ? percentile.visualTokenBackground : undefined,
     };
 

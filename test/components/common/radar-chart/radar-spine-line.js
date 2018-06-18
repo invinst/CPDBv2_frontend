@@ -27,4 +27,15 @@ describe('RadarSpineLine component', function () {
     findRenderedDOMComponentWithClass(instance, 'test--radar-spine-line');
     scryRenderedDOMComponentsWithTag(instance, 'line').should.have.length(3);
   });
+
+  it('should draw circles if showSpineLinePoint is true', function () {
+    const data = [
+      { x: 1, y: 4 },
+      { x: 2, y: 5 },
+      { x: 3, y: 6 }
+    ];
+    instance = renderIntoDocument(<RadarSpineLine rPoints={ data } showSpineLinePoint={ true }/>);
+
+    scryRenderedDOMComponentsWithTag(instance, 'circle').should.have.length(3);
+  });
 });

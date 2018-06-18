@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
-import { indexOf, isEmpty, keys, map, omitBy, pick, sortBy } from 'lodash';
+import { indexOf, isEmpty, head, keys, map, omitBy, pick, sortBy } from 'lodash';
 
 import * as constants from 'utils/constants';
 import { searchResultItemTransform } from './transforms';
 import extractQuery from 'utils/extract-query';
+import { dataToolSearchUrl } from 'utils/v1-url';
 
 
 const itemsPerCategory = 5;
@@ -87,6 +88,28 @@ export const searchResultGroupsSelector = createSelector(
     canLoadMore,
     items: map(items, item => searchResultItemTransform(item))
   }))
+);
+
+export const firstItemSelector = createSelector(
+  searchResultGroupsSelector,
+  getQuery,
+  (suggestionGroups, query) => {
+    if (suggestionGroups.length === 0) {
+      return {
+        url: dataToolSearchUrl(query)
+      };
+    } else {
+      const firstGroup = head(suggestionGroups);
+      const firstRecord = head(firstGroup.items);
+
+      return {
+        to: firstRecord.to,
+        url: firstRecord.url,
+        text: firstRecord.text,
+        type: firstGroup.header
+      };
+    }
+  }
 );
 
 export const hasMoreSelector = createSelector(

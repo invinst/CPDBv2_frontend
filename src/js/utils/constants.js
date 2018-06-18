@@ -30,6 +30,7 @@ export const OFFICER_SOCIAL_GRAPH_SUFFIX = 'social/';
 export const OFFICER_SOCIAL_GRAPH_PATH = `officer/:officerId/${OFFICER_SOCIAL_GRAPH_SUFFIX}`;
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const CR_PATH_SUFFIX = ':officerId';
+export const TTR_PATH = 'trr/:trrId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
@@ -88,6 +89,7 @@ export const UPDATE_ALIAS_URL = `${V2_ROOT_PATH}aliases/`;
 export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
 export const SEARCH_TERMS_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categories/`;
 export const CITY_SUMMARY_API_URL = `${V2_ROOT_PATH}city-summary/`;
+export const TRR_URL = `${V2_ROOT_PATH}trr/`;
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
@@ -111,6 +113,10 @@ export const CR_REQUEST_FAILURE = 'CR_REQUEST_FAILURE';
 export const CR_REQUEST_DOC_FAILURE = 'CR_REQUEST_DOC_FAILURE';
 export const CR_REQUEST_DOC_SUCCESS = 'CR_REQUEST_DOC_SUCCESS';
 export const CR_REQUEST_DOC_START = 'CR_REQUEST_DOC_START';
+
+export const TRR_REQUEST_START = 'TRR_REQUEST_START';
+export const TRR_REQUEST_SUCCESS = 'TRR_REQUEST_SUCCESS';
+export const TRR_REQUEST_FAILURE = 'TRR_REQUEST_FAILURE';
 
 
 

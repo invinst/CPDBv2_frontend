@@ -22,7 +22,6 @@ class OfficerRow extends Component {
             width={ 32 }
             height={ 32 }
             radius={ 15 }
-            hideAxisText={ true }
             data={ radarAxes }
             { ...radarColor }/>
         </div>

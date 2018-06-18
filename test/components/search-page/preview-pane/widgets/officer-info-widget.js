@@ -11,10 +11,15 @@ import { findDOMNode } from 'react-dom';
 import { Link } from 'react-router';
 
 import { OfficerInfoWidget } from 'components/search-page/preview-pane/widgets';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('OfficerInfoWidget component', () => {
   let instance;
+
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
+  });
 
   it('should display officer info', () => {
     instance = renderIntoDocument(

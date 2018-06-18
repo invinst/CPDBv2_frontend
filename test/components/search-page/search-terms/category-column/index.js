@@ -2,11 +2,7 @@ import React from 'react';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
-import { SearchTermCategory } from 'utils/test/factories/search-terms';
+import { renderIntoDocument } from 'react-addons-test-utils';
 
 
 describe('CategoryColumn component', function () {
@@ -20,21 +16,50 @@ describe('CategoryColumn component', function () {
     CategoryColumn.should.be.renderable();
   });
 
-  it('should be able to focus to header', function () {
-    const items = SearchTermCategory.buildList(1);
-    const name = items[0].name;
-    const focusedItem = { uniqueKey: `category-${name}` };
-    instance = renderIntoDocument(
-      <CategoryColumn
-        key={ name }
-        name={ name }
-        items={ items }
-        focusedItem={ focusedItem } />
-    );
+  describe('shouldComponentUpdate', function () {
+    it('should return true if focused item was changed to the category', function () {
+      instance = renderIntoDocument(<CategoryColumn/>);
+      instance.shouldComponentUpdate({
+        name: 'Geography',
+        focusedItem: {
+          uniqueKey: 'category-Geography'
+        }
+      }).should.be.true();
 
-    const header = findRenderedDOMComponentWithClass(instance, 'test--category-header');
+      instance.shouldComponentUpdate({
+        name: 'Geography',
+        items: [{
+          id: 1
+        }],
+        focusedItem: {
+          uniqueKey: 'Geography-1'
+        }
+      }).should.be.true();
+    });
 
-    header.textContent.should.eql(name);
-    header.className.should.containEql('focused');
+    it('should return true if other props are changed', function () {
+      instance = renderIntoDocument(<CategoryColumn focusedItem={ {} }/>);
+      instance.shouldComponentUpdate({ name: 'Ward', focusedItem: {} }).should.be.true();
+      instance.shouldComponentUpdate({ index: 1, focusedItem: {} }).should.be.true();
+      instance.shouldComponentUpdate({ items: [name: 'Ward'], focusedItem: {} }).should.be.true();
+    });
+
+    it('should return false if focused item was changed to the other category', function () {
+      instance = renderIntoDocument(<CategoryColumn name='Geography' items={ [{ id: 1 }] }/>);
+      instance.shouldComponentUpdate({
+        name: 'Geography',
+        items: [{
+          id: 1
+        }],
+        focusedItem: {
+          uniqueKey: 'Geography-2'
+        }
+      }).should.be.false();
+    });
+
+    it('should return false if props are unchanged', function () {
+      instance = renderIntoDocument(<CategoryColumn focusedItem={ {} } />);
+      instance.shouldComponentUpdate({ focusedItem: {} }).should.be.false();
+    });
   });
 });

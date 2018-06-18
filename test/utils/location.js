@@ -3,6 +3,7 @@ import should from 'should';
 import {
   getOfficerId,
   getCRID,
+  getTRRId,
   getComplaintOfficerId,
   getOfficerActiveTab,
   serializeFilterParams,
@@ -36,12 +37,22 @@ describe('location utils', function () {
   });
 
   describe('getCRID', function () {
-    it('should return NaN when url is undefined', function () {
-      getCRID(undefined).should.be.NaN();
+    it('should return null when url is undefined', function () {
+      should(getCRID(undefined)).be.null();
     });
 
     it('should return crid', function () {
-      getCRID('/complaint/123/').should.eql(123);
+      getCRID('/complaint/C123/').should.eql('C123');
+    });
+  });
+
+  describe('getTRRId', function () {
+    it('should return NaN when url is undefined', function () {
+      getTRRId(undefined).should.be.NaN();
+    });
+
+    it('should return trr id', function () {
+      getTRRId('/trr/123/').should.eql(123);
     });
   });
 
