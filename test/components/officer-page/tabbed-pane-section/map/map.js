@@ -1,7 +1,10 @@
-import Map from 'components/officer-page/tabbed-pane-section/map';
 import React from 'react';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass } from 'react-addons-test-utils';
+import { renderIntoDocument, scryRenderedDOMComponentsWithClass, Simulate } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
+import { stub } from 'sinon';
+import { findDOMNode } from 'react-dom';
+
+import Map from 'components/officer-page/tabbed-pane-section/map';
 
 
 describe('Map component', function () {
@@ -33,12 +36,12 @@ describe('Map component', function () {
   });
 
   it('should render officer map', function () {
-    instance = renderIntoDocument(<Map legend={ legend } markers={ markers }/>);
+    instance = renderIntoDocument(<Map legend={ legend } markers={ markers } />);
     scryRenderedDOMComponentsWithClass(instance, 'test--officer-map').should.have.length(1);
   });
 
   it('should render map legend', function () {
-    instance = renderIntoDocument(<Map legend={ legend } markers={ markers }/>);
+    instance = renderIntoDocument(<Map legend={ legend } markers={ markers } />);
     scryRenderedDOMComponentsWithClass(instance, 'test--legend').should.have.length(1);
   });
 });

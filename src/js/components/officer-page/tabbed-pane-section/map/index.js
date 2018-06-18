@@ -11,6 +11,12 @@ import SimpleMarkerTooltip from './simple-marker-tooltip';
 
 
 export default class Map extends Component {
+  componentWillReceiveProps(nextProps, nextState) {
+    nextProps.markers.map(marker => {
+      this.addMarker(marker);
+    });
+  }
+
   gotRef(el) {
     if (el && !this.map) {
       this.map = new mapboxgl.Map({
@@ -96,6 +102,7 @@ export default class Map extends Component {
   }
 
   addMarker(marker) {
+    const { openComplaintPage, openTRRPage } = this.props;
     const markerEl = document.createElement('div');
     markerEl.setAttribute('className', 'test--marker');
     const markerHead = this.createMarkerHead(marker);
@@ -118,6 +125,11 @@ export default class Map extends Component {
     markerEl.addEventListener('click', e => {
       e.preventDefault();
       e.stopPropagation();
+      if (marker.kind === MAP_ITEMS.CR) {
+        openComplaintPage({ crid: marker.id });
+      } else if (marker.kind === MAP_ITEMS.FORCE) {
+        openTRRPage({ trrId: marker.id });
+      }
     });
   }
 
@@ -125,7 +137,7 @@ export default class Map extends Component {
     const { legend } = this.props;
     return (
       <div className='test--officer-map' style={ wrapperStyle }>
-        <div ref={ this.gotRef.bind(this) } style={ mapStyle }/>
+        <div ref={ this.gotRef.bind(this) } style={ mapStyle } />
         <Legend legend={ legend } />
       </div>
     );
@@ -138,27 +150,41 @@ Map.propTypes = {
     sustainedCount: PropTypes.number,
     useOfForceCount: PropTypes.number
   }),
-  markers: PropTypes.arrayOf(
-    PropTypes.shape({
-      point: PropTypes.shape({
-        lat: PropTypes.number,
-        lon: PropTypes.number
-      }),
-      kind: PropTypes.string,
-      finding: PropTypes.string,
-      id: PropTypes.string,
-      category: PropTypes.string,
-      coaccused: PropTypes.number,
-      victims: PropTypes.arrayOf(
-        PropTypes.shape({
-          gender: PropTypes.string,
-          race: PropTypes.string,
-          age: PropTypes.number,
-
-        })
-      )
-    })
-  ),
+  openComplaintPage: PropTypes.func,
+  openTRRPage: PropTypes.func,
+  markers: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        point: PropTypes.shape({
+          lat: PropTypes.number,
+          lon: PropTypes.number
+        }),
+        kind: PropTypes.string,
+        finding: PropTypes.string,
+        id: PropTypes.string,
+        category: PropTypes.string,
+        coaccused: PropTypes.number,
+        victims: PropTypes.arrayOf(
+          PropTypes.shape({
+            gender: PropTypes.string,
+            race: PropTypes.string,
+            age: PropTypes.number,
+          })
+        )
+      })
+    ),
+    PropTypes.arrayOf(
+      PropTypes.shape({
+        point: PropTypes.shape({
+          lat: PropTypes.number,
+          lon: PropTypes.number
+        }),
+        kind: PropTypes.string,
+        id: PropTypes.string,
+        category: PropTypes.string,
+      })
+    ),
+  ])
 };
 
 Map.defaultProps = {

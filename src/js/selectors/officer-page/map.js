@@ -48,7 +48,7 @@ export const trrMapMarkerTransform = item => ({
     lon: 0, lat: 0
   }),
   kind: item.kind,
-  id: item.trr_id,
+  id: item.trr_id.toString(),
   category: item['firearm_used'] ? 'Firearm' : item.taser ? 'Taser' : 'Use of Force Report',
 });
 

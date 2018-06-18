@@ -2,6 +2,7 @@ import {
   mapLegendSelector,
   mapMarkersSelector,
   crMapMarkersTransform,
+  trrMapMarkerTransform,
   rawMapMarkersSelector
 } from 'selectors/officer-page/map';
 
@@ -74,9 +75,10 @@ describe('Officer map selectors', function () {
     rank: 'Police Officer',
     date: '1993-01-07'
   };
-  describe('mapMarkersTransform', function () {
+
+  describe('crMapMarkersTransform', function () {
     it('should return correct item', function () {
-      const item = {
+      const crItem = {
         category: 'Conduct Unbecoming (Off-Duty)',
         'unit_name': '153',
         kind: 'CR',
@@ -110,7 +112,7 @@ describe('Officer map selectors', function () {
           }
         ]
       };
-      crMapMarkersTransform(item).should.eql({
+      crMapMarkersTransform(crItem).should.eql({
         point: {
           lat: 41.887673,
           lon: -87.62355
@@ -137,6 +139,31 @@ describe('Officer map selectors', function () {
           },
         ],
         coaccused: 1,
+      });
+    });
+  });
+
+  describe('trrMapMarkersTransform', function () {
+    it('should return correct item', function () {
+      const trrItem = {
+        'trr_id': '56789',
+        kind: 'FORCE',
+        taser: true,
+        rank: 'Police Officer',
+        'firearm_used': false,
+        point: {
+          lat: 50,
+          lon: -87
+        }
+      };
+      trrMapMarkerTransform(trrItem).should.eql({
+        point: {
+          lat: 50,
+          lon: -87
+        },
+        kind: 'FORCE',
+        id: '56789',
+        category: 'Taser',
       });
     });
   });
