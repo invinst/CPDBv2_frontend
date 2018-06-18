@@ -1,19 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOMServer from 'react-dom/server';
 
-import { MAP_INFO, NEW_TIMELINE_ITEMS } from 'utils/constants';
+import { MAP_INFO, MAP_ITEMS } from 'utils/constants';
 import { mapboxgl } from 'utils/vendors';
 import Legend from './legend';
 import { mapStyle, wrapperStyle } from './map.style';
 import MarkerTooltip from './marker-tooltip';
-import {
-  accentColor,
-  brightOrangeTwoColor,
-  champagneColor,
-  clayGray,
-  darkSapphireBlue,
-  greyishColor
-} from 'utils/styles';
+import { accentColor, brightOrangeTwoColor, champagneColor, clayGray, greyishColor } from 'utils/styles';
+import SimpleMarkerTooltip from './simple-marker-tooltip';
 
 
 export default class Map extends Component {
@@ -21,7 +15,7 @@ export default class Map extends Component {
     if (el && !this.map) {
       this.map = new mapboxgl.Map({
         container: el,
-        style: 'mapbox://styles/mapbox/streets-v10',
+        style: 'mapbox://styles/mapbox/light-v9',
         zoom: MAP_INFO.ZOOM1,
         center: [MAP_INFO.CENTER_LNG, MAP_INFO.CENTER_LAT],
         interactive: true,
@@ -38,10 +32,10 @@ export default class Map extends Component {
   createMarkerHead(marker) {
     const markerHead = document.createElement('div');
     markerHead.className = 'marker-head';
-    if (marker.kind === NEW_TIMELINE_ITEMS.FORCE) {
+    if (marker.kind === MAP_ITEMS.FORCE) {
       markerHead.style.backgroundColor = greyishColor;
       markerHead.style.border = `solid 1px ${ clayGray }`;
-    } else if (marker.kind === NEW_TIMELINE_ITEMS.CR) {
+    } else if (marker.kind === MAP_ITEMS.CR) {
       markerHead.style.border = `solid 1px ${ brightOrangeTwoColor }`;
       if (marker.finding === 'Sustained') {
         markerHead.style.backgroundColor = champagneColor;
@@ -53,6 +47,7 @@ export default class Map extends Component {
     markerHead.style.width = '14px';
     markerHead.style.height = '14.2px';
     markerHead.style.borderRadius = '50%';
+    markerHead.style.boxSizing = 'border-box';
     markerHead.style.cursor = 'pointer';
     return markerHead;
   }
@@ -69,45 +64,47 @@ export default class Map extends Component {
       if (marker.getPopup().isOpen()) {
         marker.togglePopup();
         markerEl.style.zIndex = '0';
-        if (kind === NEW_TIMELINE_ITEMS.CR) {
+        if (kind === MAP_ITEMS.CR) {
           markerHead.style.borderColor = brightOrangeTwoColor;
-        } else if (kind === NEW_TIMELINE_ITEMS.FORCE) {
+        } else if (kind === MAP_ITEMS.FORCE) {
           markerHead.style.borderColor = clayGray;
         }
       }
     });
   }
 
-  createMarkerLeg() {
-    const markerLeg = document.createElement('div');
-    markerLeg.style.width = '2px';
-    markerLeg.style.height = '8px';
-    markerLeg.style.border = `solid 1px ${ darkSapphireBlue }`;
-    markerLeg.style.boxSizing = 'border-box';
-    markerLeg.style.margin = '0 auto';
-    return markerLeg;
+  addTooltip(marker) {
+    if (marker.kind === MAP_ITEMS.CR) {
+      return (
+        <MarkerTooltip
+          kind={ marker.kind }
+          id={ marker.id }
+          category={ marker.category }
+          coaccused={ marker.coaccused }
+          victims={ marker.victims }
+        />
+      );
+    } else if (marker.kind === MAP_ITEMS.FORCE) {
+      return (
+        <SimpleMarkerTooltip
+          kind='TRR'
+          id={ marker.id }
+          category={ marker.category }
+        />
+      );
+    }
   }
 
   addMarker(marker) {
     const markerEl = document.createElement('div');
     markerEl.setAttribute('className', 'test--marker');
     const markerHead = this.createMarkerHead(marker);
-    const markerLeg = this.createMarkerLeg();
 
     markerEl.appendChild(markerHead);
-    markerEl.appendChild(markerLeg);
-    markerEl.style.paddingBottom = '15px';
 
-    const popup = new mapboxgl.Popup({ offset: 12, closeButton: false });
-
+    const popup = new mapboxgl.Popup({ offset: 0, closeButton: false });
     popup.setHTML(ReactDOMServer.renderToString(
-      <MarkerTooltip
-        kind={ marker.kind }
-        id={ marker.id }
-        category={ marker.category }
-        coaccused={ marker.coaccused }
-        victims={ marker.victims }
-      />
+      this.addTooltip(marker)
     ));
 
     this.marker = new mapboxgl.Marker(markerEl);

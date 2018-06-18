@@ -1,7 +1,7 @@
 import {
   mapLegendSelector,
   mapMarkersSelector,
-  mapMarkersTransform,
+  crMapMarkersTransform,
   rawMapMarkersSelector
 } from 'selectors/officer-page/map';
 
@@ -54,6 +54,7 @@ describe('Officer map selectors', function () {
     ]
   };
   const trr = {
+    'trr_id': '123456',
     'unit_name': '153',
     kind: 'FORCE',
     taser: false,
@@ -61,6 +62,10 @@ describe('Officer map selectors', function () {
     rank: 'Police Officer',
     date: '2004-12-17',
     'firearm_used': true,
+    point: {
+      lat: 35.3,
+      lon: 50.5
+    },
   };
   const unitChange = {
     'unit_name': '007',
@@ -105,7 +110,7 @@ describe('Officer map selectors', function () {
           }
         ]
       };
-      mapMarkersTransform(item).should.eql({
+      crMapMarkersTransform(item).should.eql({
         point: {
           lat: 41.887673,
           lon: -87.62355
@@ -218,15 +223,12 @@ describe('Officer map selectors', function () {
         coaccused: 6,
       }, {
         point: {
-          lat: 0,
-          lon: 0
+          lat: 35.3,
+          lon: 50.5
         },
         kind: 'FORCE',
-        finding: undefined,
-        id: undefined,
-        category: undefined,
-        victims: undefined,
-        coaccused: undefined,
+        id: '123456',
+        category: 'Firearm',
       }]);
     });
   });

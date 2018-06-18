@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 
 import { getOfficerInfo } from 'selectors/officer-page';
 import { getItems } from 'selectors/officer-page/new-timeline';
-import { NEW_TIMELINE_ITEMS } from 'utils/constants';
+import { MAP_ITEMS } from 'utils/constants';
 
 
 export const mapLegendSelector = createSelector(
@@ -19,19 +19,19 @@ export const rawMapMarkersSelector = createSelector(
   getItems,
   items => {
     return items.filter(item => {
-      if (item.kind === NEW_TIMELINE_ITEMS.CR) {
+      if (item.kind === MAP_ITEMS.CR) {
         if (['Not Sustained', 'Sustained'].includes(item.finding)) {
           return item;
         }
       }
-      if (item.kind === NEW_TIMELINE_ITEMS.FORCE) {
+      if (item.kind === MAP_ITEMS.FORCE) {
         return item;
       }
     });
   }
 );
 
-export const mapMarkersTransform = item => ({
+export const crMapMarkersTransform = item => ({
   point: get(item, 'point', {
     lon: 0, lat: 0
   }),
@@ -43,7 +43,23 @@ export const mapMarkersTransform = item => ({
   coaccused: item.coaccused,
 });
 
+export const trrMapMarkerTransform = item => ({
+  point: get(item, 'point', {
+    lon: 0, lat: 0
+  }),
+  kind: item.kind,
+  id: item.trr_id,
+  category: item['firearm_used'] ? 'Firearm' : item.taser ? 'Taser' : 'Use of Force Report',
+});
+
 export const mapMarkersSelector = createSelector(
   rawMapMarkersSelector,
-  markers => markers.map(marker => mapMarkersTransform(marker))
+  markers => markers.map(marker => {
+    if (marker.kind === MAP_ITEMS.CR) {
+      return crMapMarkersTransform(marker);
+    }
+    if (marker.kind === MAP_ITEMS.FORCE) {
+      return trrMapMarkerTransform(marker);
+    }
+  })
 );

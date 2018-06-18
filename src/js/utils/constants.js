@@ -411,3 +411,8 @@ export const MAP_INFO = {
   ZOOM1: 9,
   ZOOM2: 13,
 };
+
+export const MAP_ITEMS = {
+  CR: 'CR',
+  FORCE: 'FORCE',
+};
