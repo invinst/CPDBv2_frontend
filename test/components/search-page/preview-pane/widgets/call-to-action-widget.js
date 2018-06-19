@@ -7,10 +7,15 @@ import { Link } from 'react-router';
 
 import OutboundLink from 'components/common/outbound-link';
 import CallToActionWidget from 'components/search-page/preview-pane/widgets/call-to-action-widget';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('CallToActionWidget component', () => {
   let instance;
+
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
+  });
 
   it('should be renderable', () => {
     CallToActionWidget.should.be.renderable();

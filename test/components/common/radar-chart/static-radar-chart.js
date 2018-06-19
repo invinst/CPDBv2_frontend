@@ -9,9 +9,8 @@ import {
 import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import StaticRadarChart from 'components/common/radar-chart/index';
+import StaticRadarChart from 'components/common/radar-chart';
 import RadarArea from 'components/common/radar-chart/radar-area';
-import RadarToolTipPoints from 'components/common/radar-chart/radar-tooltip-point';
 import RadarLegend from 'components/common/radar-chart/radar-legend';
 import RadarAxis from 'components/common/radar-chart/radar-axis';
 import RadarSpineLine from 'components/common/radar-chart/radar-spine-line';
@@ -43,13 +42,12 @@ describe('Static Radar Chart components', function () {
     StaticRadarChart.should.be.renderable();
   });
 
-  it('should render if default radar chart if data provided', () => {
+  it('should render default radar chart if data provided', () => {
     instance = renderIntoDocument(<StaticRadarChart data={ data }/>);
     findRenderedComponentWithType(instance, RadarAxis);
     findRenderedComponentWithType(instance, RadarArea);
     findRenderedComponentWithType(instance, RadarSpineLine);
     findRenderedComponentWithType(instance, RadarLegend);
-    findRenderedComponentWithType(instance, RadarToolTipPoints);
 
     findRenderedDOMComponentWithClass(instance, 'test--radar').getAttribute('style')
       .should.containEql('background-color: rgb(253, 250, 242)');

@@ -1,4 +1,4 @@
 export const radarBoundaryAreaStyle = {
   fill: 'white',
-  fillOpacity: 0.5
+  fillOpacity: 0.6
 };

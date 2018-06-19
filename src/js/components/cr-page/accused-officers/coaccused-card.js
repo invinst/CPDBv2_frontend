@@ -30,7 +30,6 @@ class CoaccusedCard extends Component {
                 width={ 38 }
                 height={ 38 }
                 radius={ 18 }
-                hideAxisText={ true }
                 data={ radarAxes }
                 { ...radarColor }/>
             </div>

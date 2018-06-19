@@ -7,10 +7,15 @@ import {
 
 import { MetricWidget } from 'components/search-page/preview-pane/widgets';
 import MetricWidgetItem from 'components/search-page/preview-pane/widgets/metric-widget-item';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('MetricWidget component', () => {
   let instance;
+
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
+  });
 
   it('should contain number of MetricWidgetItem components', () => {
     const metrics = [

@@ -154,6 +154,45 @@ describe('officer page', function () {
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
         officerPage.radarChartSection.explainerSection.rightNavigation.getText().should.eql('What is the scale?');
       });
+
+      it('should hide word "Reports" if screen is too small', function () {
+        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+        officerPage.radarChartSection.explainerSection.leftNavigation.click();
+
+        const percentileByYear = officerPage.radarChartSection.explainerSection.percentileByYear;
+
+        percentileByYear.getText().should.containEql('Use Of Force\nReports');
+
+        browser.setViewportSize({
+          width: 800,
+          height: 500
+        });
+
+        percentileByYear.getText().should.containEql('Use Of Force');
+        percentileByYear.getText().should.not.containEql('Reports');
+      });
+
+      it('should hide question mark if screen is too small', function () {
+        browser.setViewportSize({
+          width: 700,
+          height: 500
+        });
+
+        officerPage.radarChartSection.radarChartExplainerToggleButton.waitForVisible(2000, true);
+      });
+
+      it('should hide explainer if screen is too small', function () {
+        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
+
+        browser.setViewportSize({
+          width: 700,
+          height: 500
+        });
+
+        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible(2000, true);
+      });
     });
   });
 
@@ -177,6 +216,13 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.timelineSection.moreAttachment.waitForVisible();
       officerPage.tabbedPaneSection.timelineSection.moreAttachment.click();
       officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
+    });
+
+    it('should go to trr page when clicking on an trr timeline item', function () {
+      officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
+      officerPage.tabbedPaneSection.timelineSection.trrItem.click();
+
+      browser.getUrl().should.match(/\/trr\/\d+\/$/);
     });
 
     describe('Timeline filter', function () {

@@ -8,6 +8,7 @@ import {
 import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
 import * as v1UrlUtils from 'utils/v1-url';
 
+
 describe('isShowingSingleContentTypeSelector', function () {
   it('should tell if showing single type of content', function () {
     isShowingSingleContentTypeSelector({
@@ -225,6 +226,9 @@ describe('search page results selector', function () {
                     id: 12478,
                     name: 'Ronald Holt',
                     count: 26,
+                    'percentile_trr': 95.0,
+                    'percentile_allegation_internal': 82.0,
+                    'percentile_allegation_civilian': 97.0
                   }],
                   'race_count': [
                     { race: 'Persons of Spanish Language', count: 121 },
@@ -272,6 +276,21 @@ describe('search page results selector', function () {
             id: 12478,
             name: 'Ronald Holt',
             count: 26,
+            radarAxes: [{
+              axis: 'trr',
+              value: 95
+            }, {
+              axis: 'internal',
+              value: 82
+            }, {
+              axis: 'civilian',
+              value: 97
+            }],
+            radarColor: {
+              backgroundColor: '#e81f25',
+              textColor: '#DFDFDF'
+            },
+            url: '/officer/12478/'
           }],
           districtCommander: {
             id: 123,

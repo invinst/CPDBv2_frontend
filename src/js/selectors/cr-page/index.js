@@ -82,8 +82,8 @@ const getTransformedCoaccused = createSelector(
       { axis: 'civilian', value: parseFloat(coaccused['percentile_allegation_civilian']) }
     ],
     radarColor: getVisualTokenOIGBackground(
-      parseFloat(coaccused['percentile_allegation_internal']),
       parseFloat(coaccused['percentile_allegation_civilian']),
+      parseFloat(coaccused['percentile_allegation_internal']),
       parseFloat(coaccused['percentile_trr'])
     )
   }))
@@ -148,8 +148,8 @@ const getInvolvementsSelector = createSelector(
           { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) }
         ],
         radarColor: getVisualTokenOIGBackground(
-          parseFloat(obj['percentile_allegation_internal']),
           parseFloat(obj['percentile_allegation_civilian']),
+          parseFloat(obj['percentile_allegation_internal']),
           parseFloat(obj['percentile_trr'])
         )
       };
