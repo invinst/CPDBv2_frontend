@@ -1,8 +1,6 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass, Simulate } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
-import { stub } from 'sinon';
-import { findDOMNode } from 'react-dom';
+import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 
 import Map from 'components/officer-page/tabbed-pane-section/map';
 
@@ -28,20 +26,49 @@ describe('Map component', function () {
       gender: 'male',
       race: 'White',
       age: 32,
+    }]
+  }, {
+    point: {
+      lat: 42.112567,
+      lon: -87.180291,
+    },
+    kind: 'CR',
+    finding: 'Sustained',
+    id: '654321',
+    category: 'False Arrest',
+    coaccused: 1,
+    victims: [{
+      gender: 'male',
+      race: 'White',
+      age: 32,
     }],
+  }, {
+    point: {
+      lat: 42.212567,
+      lon: -87.280291,
+    },
+    kind: 'FORCE',
+    id: '1234',
+    category: 'Use of Force Report',
   }];
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render officer map', function () {
+  it('should render officer map and legend', function () {
     instance = renderIntoDocument(<Map legend={ legend } markers={ markers } />);
-    scryRenderedDOMComponentsWithClass(instance, 'test--officer-map').should.have.length(1);
+    findRenderedDOMComponentWithClass(instance, 'test--officer-map');
+    findRenderedDOMComponentWithClass(instance, 'test--legend');
   });
 
-  it('should render map legend', function () {
+  it('should rerender', function () {
     instance = renderIntoDocument(<Map legend={ legend } markers={ markers } />);
-    scryRenderedDOMComponentsWithClass(instance, 'test--legend').should.have.length(1);
+    findRenderedDOMComponentWithClass(instance, 'test--officer-map');
+    findRenderedDOMComponentWithClass(instance, 'test--legend');
+
+    instance = reRender(<Map legend={ legend } markers={ markers } />, instance);
+    findRenderedDOMComponentWithClass(instance, 'test--officer-map');
+    findRenderedDOMComponentWithClass(instance, 'test--legend');
   });
 });
