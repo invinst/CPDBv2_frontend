@@ -18,7 +18,7 @@ export const explainerContainerStyle = {
   backgroundColor: 'white',
   color: softBlackColor,
   fontSize: '14px',
-  padding: '16px 16px 6px',
+  padding: '16px 16px 3px',
   boxSizing: 'border-box',
   fontWeight: 400,
   verticalAlign: 'top',
@@ -30,16 +30,19 @@ export const explainerContainerStyle = {
 
 export const titleTextStyle = {
   fontSize: '14px',
-  margin: '10px 0 10px',
+  margin: '7px 0 10px',
+  fontWeight: 600,
 };
 
 export const textStyle = {
   margin: '0 0 18px',
+  fontWeight: 300,
 };
 
 export const subTextStyle = {
   color: clayGray,
-  margin: 0
+  margin: 0,
+  fontWeight: 200,
 };
 
 export const legendStyle = {
@@ -48,5 +51,6 @@ export const legendStyle = {
   float: 'right',
   right: '18px',
   fontSize: '14px',
+  fontWeight: 300,
   color: softBlackColor,
 };

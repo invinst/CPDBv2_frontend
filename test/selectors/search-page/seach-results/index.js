@@ -8,6 +8,7 @@ import {
 import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
 import * as v1UrlUtils from 'utils/v1-url';
 
+
 describe('isShowingSingleContentTypeSelector', function () {
   it('should tell if showing single type of content', function () {
     isShowingSingleContentTypeSelector({
@@ -288,7 +289,8 @@ describe('search page results selector', function () {
             radarColor: {
               backgroundColor: '#e81f25',
               textColor: '#DFDFDF'
-            }
+            },
+            url: '/officer/12478/'
           }],
           districtCommander: {
             id: 123,

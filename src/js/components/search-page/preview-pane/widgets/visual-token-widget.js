@@ -12,7 +12,6 @@ export default class VisualTokenWidget extends Component {
         <StaticRadarChart
           data={ items }
           backgroundColor={ visualTokenBackground }
-          hideAxisText={ true }
         />
       </div>
     );

@@ -13,7 +13,8 @@ import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import {
   wrapperStyle, CRIDHeaderStyle, leftColumnStyle, footerStyle,
-  rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle
+  rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle,
+  subcategoryStyle, categoryStyle, categoryWrapperStyle
 } from './cr-page.style';
 
 
@@ -24,7 +25,7 @@ export default class CRPage extends Component {
 
   render() {
     const {
-      crid, coaccused, complainants, alreadyRequested,
+      crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
       openRequestDocumentModal, summary, victims, startDate, endDate
     } = this.props;
@@ -34,6 +35,12 @@ export default class CRPage extends Component {
         <ShareableHeaderContainer/>
         <ResponsiveFluidWidthComponent>
           <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
+        </ResponsiveFluidWidthComponent>
+        <ResponsiveFluidWidthComponent>
+          <div className='test--cr-category' style={ categoryWrapperStyle }>
+            <div style={ categoryStyle }>{ category }</div>
+            <div style={ subcategoryStyle }>{ subcategory }</div>
+          </div>
         </ResponsiveFluidWidthComponent>
         <AccusedOfficers officers={ coaccused } />
         <ResponsiveFluidWidthComponent>
@@ -85,6 +92,8 @@ export default class CRPage extends Component {
 
 CRPage.propTypes = {
   crid: PropTypes.string,
+  category: PropTypes.string,
+  subcategory: PropTypes.string,
   coaccused: PropTypes.array,
   complainants: PropTypes.array,
   victims: PropTypes.array,

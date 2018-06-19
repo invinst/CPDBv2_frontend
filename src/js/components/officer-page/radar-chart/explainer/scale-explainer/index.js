@@ -4,7 +4,7 @@ import StaticRadarChart from 'components/common/radar-chart';
 import {
   containerStyle, explainerContainerStyle, radarContainerStyle, subTextStyle, titleTextStyle, textStyle, legendStyle
 } from './scale-explainer.style';
-import { sugarCaneColor } from 'utils/styles';
+import { sugarCaneColor, whiteTwoColor } from 'utils/styles';
 
 
 export default class ScaleExplainer extends Component {
@@ -14,9 +14,11 @@ export default class ScaleExplainer extends Component {
       showValueInsteadOfTitle: true,
       backgroundColor: sugarCaneColor,
       showGrid: true,
+      gridColor: whiteTwoColor,
       showSpineLine: false,
-      showDataPoints: false,
-      axisTitleFontSize: 24,
+      showAxisValue: true,
+      axisTitleFontSize: 28,
+      axisTitleFontWeight: 500,
     };
 
     return (
@@ -48,8 +50,8 @@ export default class ScaleExplainer extends Component {
 ScaleExplainer.propTypes = {
   radarChartData: PropTypes.arrayOf(
     PropTypes.shape({
-      axis: PropTypes.string.isRequired,
-      value: PropTypes.number.isRequired
+      axis: PropTypes.string,
+      value: PropTypes.number
     })
   ),
   year: PropTypes.number,

@@ -11,7 +11,7 @@ export const containerStyle = {
   position: 'absolute',
   top: '16px',
   left: '16px',
-  minWidth: `${MOBILE_BREAK_POINT / 2 - 32}px`,
+  minWidth: `${MOBILE_BREAK_POINT / 2 - 32}px`
 };
 
 export const footerStyle = {
@@ -22,7 +22,7 @@ export const footerStyle = {
   boxSizing: 'border-box',
   position: 'relative',
   bottom: 0,
-  fontSize: '14px',
+  fontSize: '14px'
 };
 
 export const questionMarkStyle = {
@@ -32,17 +32,27 @@ export const questionMarkStyle = {
   opacity: 0.6,
   borderRadius: '12px',
   position: 'absolute',
-  right: '16px',
-  top: '16px',
+  right: '18px',
+  top: '18px',
   boxSizing: 'border-box',
   cursor: 'pointer'
 };
 
-export const questionMarInnerStyle = {
+export const questionMarkInnerStyle = {
   opacity: 1,
-  padding: '4px 7px',
-  display: 'block',
+  display: 'inline-block',
   color: 'black',
-  fontWeight: 'bold',
-  fontSize: '14px'
+  fontSize: '14px',
+  verticalAlign: 'middle',
+  textAlign: 'center',
+  width: '100%',
+  lineHeight: 1,
+  fontWeight: 500,
+  paddingTop: '2px',
+};
+
+export const closeInnerStyle = {
+  ...questionMarkInnerStyle,
+  paddingTop: 0,
+  fontWeight: 'normal',
 };
