@@ -12,7 +12,7 @@ import OfficerInfo from 'components/landing-page/common/pairing-card/officer-inf
 
 export default class PairingCard extends Component {
   render() {
-    const { officer1, officer2, coaccusalCount } = this.props;
+    const { officer1, officer2, coaccusalCount, openOfficerPage } = this.props;
 
     return (
       <div style={ wrapperStyle }>
@@ -25,10 +25,12 @@ export default class PairingCard extends Component {
           <OfficerInfo
             info={ officer1 }
             style={ firstOfficerStyle }
+            openOfficerPage={ openOfficerPage }
           />
           <OfficerInfo
             info={ officer2 }
             style={ secondOfficerStyle }
+            openOfficerPage={ openOfficerPage }
           />
         </div>
       </div>
@@ -41,4 +43,5 @@ PairingCard.propTypes = {
   officer2: PropTypes.object,
   type: PropTypes.string,
   coaccusalCount: PropTypes.number,
+  openOfficerPage: PropTypes.func,
 };

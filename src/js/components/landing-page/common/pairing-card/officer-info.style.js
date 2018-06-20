@@ -1,8 +1,9 @@
-import { whiteTwoColor, clayGray, softBlackColor } from 'utils/styles';
+import { whiteTwoColor, clayGray, softBlackColor, accentColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
   display: 'inline-block',
+  cursor: 'pointer',
 };
 
 export const textStyle = {
@@ -13,13 +14,13 @@ export const textStyle = {
   height: '14px',
 };
 
-export const nameStyle = {
+export const nameStyle = (hovering) => ({
   fontWeight: 500,
   fontSize: '14px',
-  color: softBlackColor,
+  color: hovering ? accentColor : softBlackColor,
   width: '200px',
   height: '18px',
-};
+});
 
 export const personaInfoStyle = {
   fontWeight: 300,

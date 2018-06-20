@@ -16,7 +16,7 @@ export default class RecentActivity extends Component {
   }
 
   render() {
-    const { cards, editWrapperStateProps, pathname } = this.props;
+    const { cards, editWrapperStateProps, pathname, openOfficerPage } = this.props;
 
     const slideElements = cards.map((card, index) => {
       let itemWidth;
@@ -40,6 +40,7 @@ export default class RecentActivity extends Component {
             ) : card.type === ACTIVITY_GRID_CARD_TYPES.PAIR ? (
               <PairingCard
                 { ...card }
+                openOfficerPage={ openOfficerPage }
               />
             ) : null
           }
@@ -70,5 +71,6 @@ export default class RecentActivity extends Component {
 RecentActivity.propTypes = {
   cards: PropTypes.array,
   pathname: PropTypes.string,
-  editWrapperStateProps: PropTypes.object
+  editWrapperStateProps: PropTypes.object,
+  openOfficerPage: PropTypes.func,
 };

@@ -1,22 +1,33 @@
 import React, { Component, PropTypes } from 'react';
+
+import Hoverable from 'components/common/higher-order/hoverable';
 import { rowDividerStyle, textStyle, nameStyle, personaInfoStyle, wrapperStyle } from './officer-info.style';
 
 
-export default class OfficerInfo extends Component {
+class OfficerInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { openOfficerPage } = this.props;
+    const { id } = this.props.info;
+    openOfficerPage(id);
+  }
+
   render() {
-    const { info, style } = this.props;
+    const { info, style, hovering } = this.props;
     const { fullName, birthYear, race, gender } = info;
     const currentYear = (new Date()).getFullYear();
 
     return (
-      <div style={ { ...wrapperStyle, ...style } }>
-        <div>
-          <div style={ textStyle }>
-            Officer
-          </div>
-          <div style={ nameStyle }>
-            { fullName }
-          </div>
+      <div style={ { ...wrapperStyle, ...style } } onClick={ this.handleClick }>
+        <div style={ textStyle }>
+          Officer
+        </div>
+        <div style={ nameStyle(hovering) }>
+          { fullName }
         </div>
         <div style={ rowDividerStyle } />
         <div style={ personaInfoStyle }>
@@ -29,10 +40,15 @@ export default class OfficerInfo extends Component {
 
 OfficerInfo.propTypes = {
   info: PropTypes.shape({
+    id: PropTypes.string,
     fullName: PropTypes.string,
     birthYear: PropTypes.number,
     race: PropTypes.string,
     gender: PropTypes.string,
   }),
   style: PropTypes.object,
+  hovering: PropTypes.bool,
+  openOfficerPage: PropTypes.func,
 };
+
+export default Hoverable(OfficerInfo);
