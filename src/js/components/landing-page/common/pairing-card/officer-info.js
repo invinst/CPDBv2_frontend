@@ -22,15 +22,15 @@ class OfficerInfo extends Component {
     const currentYear = (new Date()).getFullYear();
 
     return (
-      <div style={ { ...wrapperStyle, ...style } } onClick={ this.handleClick }>
+      <div style={ { ...wrapperStyle, ...style } } onClick={ this.handleClick } className='test--officer-info'>
         <div style={ textStyle }>
           Officer
         </div>
-        <div style={ nameStyle(hovering) }>
+        <div style={ nameStyle(hovering) } className='test--officer-name'>
           { fullName }
         </div>
         <div style={ rowDividerStyle } />
-        <div style={ personaInfoStyle }>
+        <div style={ personaInfoStyle } className='test--officer-personal-info'>
           { currentYear - birthYear } year old, { race }, { gender }.
         </div>
       </div>
@@ -40,7 +40,7 @@ class OfficerInfo extends Component {
 
 OfficerInfo.propTypes = {
   info: PropTypes.shape({
-    id: PropTypes.string,
+    id: PropTypes.number,
     fullName: PropTypes.string,
     birthYear: PropTypes.number,
     race: PropTypes.string,

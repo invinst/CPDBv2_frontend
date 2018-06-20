@@ -8,6 +8,8 @@ import { clayGray } from 'utils/styles';
 
 export default class Diagram extends Component {
   componentDidMount() {
+    // We have to make sure that the component's wrapper (div) is rendered before the Diagram generating code,
+    // so that has something to draw in.
     const { background1, background2, coaccusalCount } = this.props;
     const sets = [
       { sets: ['A'], size: 4 },
@@ -22,12 +24,15 @@ export default class Diagram extends Component {
     // Style two circles
     const d3Circles = d3Diagram.selectAll('.venn-circle');
     d3Circles.selectAll('text').text('');
-
     const d3CirclesPaths = d3Circles.selectAll('path');
     d3CirclesPaths.style('fill-opacity', 1);
     d3CirclesPaths.style('stroke', 'white');
-    d3CirclesPaths.filter((d, i) => i === 0).style('fill', background1);
-    d3CirclesPaths.filter((d, i) => i === 1).style('fill', background2);
+
+    //style each circles
+    const d3Circle1 = d3Circles.filter((d, i) => i === 0);
+    d3Circle1.select('path').style('fill', background1);
+    const d3Circle2 = d3Circles.filter((d, i) => i === 1);
+    d3Circle2.select('path').style('fill', background2);
 
     //Style the intersection
     const d3Intersection = d3Diagram.selectAll('.venn-intersection');
@@ -41,12 +46,15 @@ export default class Diagram extends Component {
     const d3IntersectionPath = d3Intersection.selectAll('path');
     d3IntersectionPath.style('fill', clayGray);
     d3IntersectionPath.style('fill-opacity', 1);
-
   }
 
   render() {
     return (
-      <div style={ wrapperStyle } ref={ diagram => this.diagram = diagram } />
+      <div
+        style={ wrapperStyle }
+        ref={ diagram => this.diagram = diagram }
+        className='test-venn-diagram'
+      />
     );
   }
 }

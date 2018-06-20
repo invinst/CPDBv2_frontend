@@ -14,7 +14,7 @@ export const cardTransform = card => {
   }
 };
 
-const officerCardTransform = card => ({
+export const officerCardTransform = card => ({
   id: card['id'],
   officerId: card['id'],
   fullName: card['full_name'],
@@ -28,7 +28,7 @@ const officerCardTransform = card => ({
   type: card['type'],
 });
 
-const simpleOfficerTransform = officer => {
+export const simpleOfficerTransform = officer => {
   const percentile = officer.percentile;
 
   const background = getVisualTokenOIGBackground(

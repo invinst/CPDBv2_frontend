@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import VennDiagram from './venn-diagram';
 import { wrapperStyle, coaccusedTextStyle } from './pairing-chart.style';
 
+
 export default class PairingChart extends Component {
   render() {
     const { coaccusalCount, background1, background2 } = this.props;
@@ -13,7 +14,11 @@ export default class PairingChart extends Component {
           background1={ background1 }
           background2={ background2 }
         />
-        <div style={ coaccusedTextStyle }> Coaccused { coaccusalCount } times </div>
+        <div
+          style={ coaccusedTextStyle }
+          className='test--pairing-chart-coaccusal-text'
+        > Coaccused { coaccusalCount } times
+        </div>
       </div>
     );
   }

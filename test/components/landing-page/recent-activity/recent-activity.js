@@ -2,7 +2,8 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
+  findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
@@ -10,6 +11,8 @@ import { stub } from 'sinon';
 
 import OfficerCard from 'components/landing-page/common/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
+import PairingCard from 'components/landing-page/common/pairing-card';
+import Carousel from 'components/common/carousel';
 
 
 describe('Recent Activity components', function () {
@@ -36,6 +39,38 @@ describe('Recent Activity components', function () {
     'gender': 'Male',
     'type': 'single_officer',
   }];
+  const pairCardData = [{
+    'type': 'coaccused_pair',
+    'coaccusalCount': 23,
+    'officer1': {
+      'id': 8562,
+      'fullName': 'Jerome Finnigan',
+      'birthYear': 1963,
+      'race': 'White',
+      'gender': 'Male',
+      'percentile': {
+        'percentileAllegation': '99.987',
+        'percentileAllegationCivilian': '99.984',
+        'percentileAllegationInternal': '99.675',
+        'percentileTrr': '70.069'
+      },
+      'backgroundColor': '#e94829'
+    },
+    'officer2': {
+      'id': 3454,
+      'fullName': 'John Burzinski',
+      'birthYear': 1961,
+      'race': 'White',
+      'gender': 'Male',
+      'percentile': {
+        'percentileAllegation': '99.924',
+        'percentileAllegationCivilian': '99.908',
+        'percentileAllegationInternal': '99.566',
+        'percentileTrr': '74.440'
+      },
+      'backgroundColor': '#e94829'
+    }
+  }];
 
   beforeEach(function () {
     consoleStub = stub(console, 'error'); // suppress console.error `Carousel`
@@ -47,9 +82,8 @@ describe('Recent Activity components', function () {
   });
 
   it('should render appropriately', function () {
-
     instance = renderIntoDocument(
-      <RecentActivity cards={ data }/>
+      <RecentActivity cards={ data } />
     );
 
     findRenderedDOMComponentWithClass(instance, 'test--landing-carousel-activity');
@@ -65,5 +99,29 @@ describe('Recent Activity components', function () {
     officerCard2.textContent.should.containEql('Jerome Finnagan');
     officerCard2.textContent.should.containEql('55 Complaints, 22 Sustained');
     officerCard2.textContent.should.containEql('More than 94% of other officers');
+  });
+
+  it('should render the pair card of two officers', function () {
+    instance = renderIntoDocument(
+      <RecentActivity cards={ pairCardData } />
+    );
+
+    const pairingCard = findDOMNode(findRenderedComponentWithType(instance, PairingCard));
+    pairingCard.textContent.should.containEql('Jerome Finnigan');
+    pairingCard.textContent.should.containEql('55 year old, White, Male.');
+    pairingCard.textContent.should.containEql('John Burzinski');
+    pairingCard.textContent.should.containEql('57 year old, White, Male.');
+    pairingCard.textContent.should.containEql('Coaccused 23 times');
+  });
+
+  it('should send ga event when navigate on carousel', function () {
+    stub(global, 'ga');
+    instance = renderIntoDocument(
+      <RecentActivity cards={ [1, 2, 3] } />
+    );
+    const carousel = findRenderedComponentWithType(instance, Carousel);
+    carousel.props.onNavigate('left');
+    global.ga.calledWith('send', 'event', 'landing_page_carousel', 'swipe_left', 'ACTIVITY').should.be.true();
+    global.ga.restore();
   });
 });

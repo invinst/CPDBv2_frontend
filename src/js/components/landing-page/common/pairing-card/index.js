@@ -41,7 +41,10 @@ export default class PairingCard extends Component {
 PairingCard.propTypes = {
   officer1: PropTypes.object,
   officer2: PropTypes.object,
-  type: PropTypes.string,
   coaccusalCount: PropTypes.number,
   openOfficerPage: PropTypes.func,
+};
+
+PairingCard.defaultProps = {
+  openOfficerPage: () => {},
 };
