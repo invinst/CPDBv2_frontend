@@ -9,7 +9,7 @@ import {
   Simulate,
 } from 'react-addons-test-utils';
 
-import Dropdown from 'components/common/dropdown';
+import { Dropdown } from 'components/common/dropdown';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
@@ -37,20 +37,22 @@ describe('Dropdown component', function () {
     });
   });
 
-  it('should render menu with enough items when opened', function () {
+  it('should render menu items with options that are not selected', function () {
     instance = renderIntoDocument(
       <Dropdown
         defaultValue={ '1' }
         options={ ['1', '2', '3'] }
       />
     );
-    const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.setState({
+    instance.setState({
       open: true
     });
-
     findRenderedDOMComponentWithClass(instance, 'test--dropdown-menu');
-    scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item').should.have.length(3);
+
+    const menuItems = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item');
+    menuItems.should.have.length(2);
+    menuItems[0].textContent.should.eql('2');
+    menuItems[1].textContent.should.eql('3');
   });
 
   it('should close menu when clicked on an item', function () {
@@ -83,32 +85,11 @@ describe('Dropdown component', function () {
       open: true
     });
 
-    const secondMenuItem = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item')[1];
-    Simulate.click(secondMenuItem);
-
-    dropdown.state.selected.should.eql('2');
-    onChangeStub.should.be.calledWith('2');
-  });
-
-  it('should not invoke onChange when selected item is not changed', function () {
-    const onChangeStub = stub();
-    instance = renderIntoDocument(
-      <Dropdown
-        defaultValue={ '1' }
-        onChange={ onChangeStub }
-        options={ ['1', '2', '3'] }
-      />
-    );
-    const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.setState({
-      open: true
-    });
-
     const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item')[0];
     Simulate.click(firstMenuItem);
 
-    dropdown.state.selected.should.eql('1');
-    onChangeStub.should.not.be.called();
+    dropdown.state.selected.should.eql('2');
+    onChangeStub.should.be.calledWith('2');
   });
 
   it('should close menu when losing focus', function () {
