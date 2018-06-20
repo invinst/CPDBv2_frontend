@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { brightOrangeTwoColor, champagneColor, clayGray, greyishColor } from 'utils/styles';
-import { contentStyle, titleStyle, wrapperStyle, } from './legend.style';
+import { wrapperStyle, } from './legend.style';
 
 import Row from './row';
 
@@ -11,32 +11,24 @@ export default class Legend extends Component {
     const { legend } = this.props;
     return (
       <div style={ wrapperStyle } className='test--legend'>
-        <div style={ titleStyle }>
-          LEGEND
-        </div>
-        <div style={ contentStyle }>
-          <Row
-            ovalColor='white'
-            ovalBorderColor={ brightOrangeTwoColor }
-            text='Unsustained Complaint'
-            number={ legend.unsustainedCount }
-            haveMarginBottom={ true }
-          />
-          <Row
-            ovalColor={ champagneColor }
-            ovalBorderColor={ brightOrangeTwoColor }
-            text='Sustained Allegation'
-            number={ legend.sustainedCount }
-            haveMarginBottom={ true }
-          />
-          <Row
-            ovalColor={ greyishColor }
-            ovalBorderColor={ clayGray }
-            text='Use of Force Report'
-            number={ legend.useOfForceCount }
-            haveMarginBottom={ false }
-          />
-        </div>
+        <Row
+          ovalColor='white'
+          ovalBorderColor={ brightOrangeTwoColor }
+          text='Unsustained Complaint'
+          number={ legend.unsustainedCount }
+        />
+        <Row
+          ovalColor={ champagneColor }
+          ovalBorderColor={ brightOrangeTwoColor }
+          text='Sustained Allegation'
+          number={ legend.sustainedCount }
+        />
+        <Row
+          ovalColor={ greyishColor }
+          ovalBorderColor={ clayGray }
+          text='Use of Force Report'
+          number={ legend.useOfForceCount }
+        />
       </div>
     );
   }

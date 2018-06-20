@@ -1,10 +1,11 @@
 import { clayGray, softBlackColor, accentColor } from 'utils/styles';
 
 
-export const wrapperStyle = (haveMarginBottom) => ({
-  marginBottom: haveMarginBottom ? '16px' : 0,
+export const wrapperStyle = {
   cursor: 'pointer',
-});
+  height: '32px',
+  lineHeight: '32px',
+};
 
 export const textStyle = (hovering) => ({
   textAlign: 'left',
