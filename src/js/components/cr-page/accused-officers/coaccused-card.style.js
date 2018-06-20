@@ -1,6 +1,6 @@
 import {
-  whiteTwoColor, sugarCaneColor, sanFranciscoTextFamily, softBlackColor, lightAltoColor, brightOrangeTwoColor,
-  clayGray, accentColor
+  whiteTwoColor, sugarCaneColor, sanFranciscoTextFamily, softBlackColor, azaleaColor, brightOrangeTwoColor,
+  clayGray, accentColor, champagneColor
 } from 'utils/styles';
 
 export const wrapperStyle = hovering => ({
@@ -45,19 +45,26 @@ export const outcomeTextWrapperStyle = {
   marginTop: '8px'
 };
 
-export const outcomeTextStyle = {
-  height: '23px',
-  fontSize: '14px',
-  color: softBlackColor,
-  fontWeight: 400,
-  backgroundColor: lightAltoColor,
-  padding: '4px 10px 10px 10px',
-  display: 'inline-block',
-  overflowY: 'scroll',
-  whiteSpace: 'nowrap',
-  boxSizing: 'content-box',
-  maxWidth: 'calc(100% - 20px)',
-  borderRadius: '2px'
+export const findingOutcomeMixStyle = (finding, disciplined) => {
+  const borderColor = (finding == 'Sustained' && disciplined) ? azaleaColor : champagneColor;
+  const backgroundColor = finding !== 'Sustained' ? 'transparent' : borderColor;
+
+  return {
+    backgroundColor,
+    border: `1px solid ${borderColor}`,
+    height: '21px',
+    fontSize: '14px',
+    color: softBlackColor,
+    fontWeight: 400,
+    padding: '0px 10px',
+    lineHeight: '21px',
+    display: 'inline-block',
+    overflowY: 'scroll',
+    whiteSpace: 'nowrap',
+    boxSizing: 'content-box',
+    maxWidth: 'calc(100% - 20px)',
+    borderRadius: '2px'
+  };
 };
 
 export const allegationTextStyle = {

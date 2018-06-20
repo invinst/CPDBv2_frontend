@@ -9,7 +9,7 @@ import { roundedPercentile } from 'utils/calculations';
 import {
   wrapperStyle, topSectionWrapperStyle, allegationTextStyle, sustainedTextStyle,
   percentileTextStyle, officerInfoTextStyle, bottomSectionWrapperStyle, categoryTextStyle,
-  outcomeTextStyle, rankStyle, fullNameStyle, titleWrapperStyle, chartWrapperStyle,
+  findingOutcomeMixStyle, rankStyle, fullNameStyle, titleWrapperStyle, chartWrapperStyle,
   metricWrapperStyle, outcomeTextWrapperStyle
 } from './coaccused-card.style';
 
@@ -18,7 +18,7 @@ class CoaccusedCard extends Component {
   render() {
     const {
       rank, fullname, allegationCount, sustainedCount, allegationPercentile, demographic,
-      category, findingOutcomeMix, radarAxes, radarColor, id, hovering
+      category, findingOutcomeMix, radarAxes, radarColor, id, hovering, finding, disciplined
     } = this.props;
 
     return (
@@ -55,7 +55,7 @@ class CoaccusedCard extends Component {
         <div style={ bottomSectionWrapperStyle }>
           <div style={ categoryTextStyle(hovering) } className='test--accused-card-category'>{ category }</div>
           <div style={ outcomeTextWrapperStyle } className='test--accused-card-outcome'>
-            <div style={ outcomeTextStyle }>{ findingOutcomeMix }</div>
+            <div style={ findingOutcomeMixStyle(finding, disciplined) }>{ findingOutcomeMix }</div>
           </div>
         </div>
       </Link>
@@ -75,7 +75,9 @@ CoaccusedCard.propTypes = {
   category: PropTypes.string,
   id: PropTypes.number,
   findingOutcomeMix: PropTypes.string,
-  hovering: PropTypes.bool
+  hovering: PropTypes.bool,
+  finding: PropTypes.string,
+  disciplined: PropTypes.bool
 };
 
 CoaccusedCard.defaultProps = {
