@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 import StaticRadarChart from 'components/common/radar-chart';
+import Hoverable from 'components/common/higher-order/hoverable';
 import {
   wrapperStyle, chartWrapperStyle, officerNameStyle, extraInfoStyle, rightWrapperStyle, tagStyle, tagWrapperStyle
 } from './officer-row.style';
@@ -9,7 +10,7 @@ import {
 
 class OfficerRow extends Component {
   render() {
-    const { id, fullName, extraInfo, style, radarAxes, radarColor, tag } = this.props;
+    const { id, fullName, extraInfo, style, radarAxes, radarColor, tag, hovering } = this.props;
 
     return (
       <Link
@@ -21,12 +22,11 @@ class OfficerRow extends Component {
             width={ 32 }
             height={ 32 }
             radius={ 15 }
-            hideAxisText={ true }
             data={ radarAxes }
             { ...radarColor }/>
         </div>
         <div style={ rightWrapperStyle }>
-          <div style={ officerNameStyle }>{ fullName }</div>
+          <div style={ officerNameStyle(hovering) }>{ fullName }</div>
           <div style={ extraInfoStyle }>{ extraInfo }</div>
         </div>
         <div style={ tagWrapperStyle }>
@@ -48,7 +48,8 @@ OfficerRow.propTypes = {
   style: PropTypes.object,
   radarColor: PropTypes.object,
   radarAxes: PropTypes.array,
-  tag: PropTypes.string
+  tag: PropTypes.string,
+  hovering: PropTypes.bool
 };
 
-export default OfficerRow;
+export default Hoverable(OfficerRow);

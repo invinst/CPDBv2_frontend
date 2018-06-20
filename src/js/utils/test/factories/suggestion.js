@@ -14,17 +14,26 @@ export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
   .option('visualTokenBackgroundColor', internet.color)
   .option('birthYear', () => date.between('1950-01-01', '1990-12-31').getFullYear())
   .option('allegationCount', 20)
+  .option('civilianComplimentCount', 4)
   .option('sustainedCount', 0)
+  .option('disciplineCount', 1)
+  .option('majorAwardCount', 0)
+  .option('honorableMentionCount', 0)
+  .option('honorableMentionPercentile', 10.01)
   .attr('id', () => String(random.number()))
   .attr('text', lorem.words)
   .attr(
     'payload', [
       'race', 'gender', 'rank', 'resultText', 'to', 'unit', 'sustainedCount',
-      'birthYear', 'allegationCount', 'url', 'tags'
+      'birthYear', 'allegationCount', 'url', 'tags',
+      'disciplineCount', 'civilianComplimentCount',
+      'majorAwardCount', 'honorableMentionCount', 'honorableMentionPercentile'
     ],
     (
       race, gender, rank, resultText, to, unit, sustainedCount,
-      birthYear, allegationCount, url, tags
+      birthYear, allegationCount, url, tags,
+      disciplineCount, civilianComplimentCount,
+      majorAwardCount, honorableMentionCount, honorableMentionPercentile
     ) => ({
       race,
       gender,
@@ -38,10 +47,13 @@ export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
       unit,
       'appointed_date': '1999-12-13',
       'resignation_date': null,
-      'civilian_compliment_count': 4,
+      'civilian_compliment_count': civilianComplimentCount,
       'sustained_count': sustainedCount,
       'allegation_count': allegationCount,
-      'discipline_count': 1,
+      'discipline_count': disciplineCount,
+      'major_award_count': majorAwardCount,
+      'honorable_mention_count': honorableMentionCount,
+      'honorable_mention_percentile': honorableMentionPercentile,
       badge: '5922',
       percentiles: [{
         'percentile_trr': '90',
@@ -88,6 +100,10 @@ export const RawNeighborhoodSuggestion = Factory.define('RawNeighborhoodSuggesti
       to,
       url,
       tags,
+      'officers_most_complaint': [
+        { id: 1, count: 2, name: 'Hulk' },
+        { id: 2, count: 1, name: 'Peter Parker' },
+      ]
     })
   );
 

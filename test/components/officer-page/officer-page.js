@@ -43,10 +43,10 @@ describe('OfficerPage component', function () {
     findRenderedComponentWithType(instance, OfficerRadarChart);
   });
 
-  it('should not re-render when officerName havent changed', function () {
+  it('should not re-render when officerName and currentTab haven\'t changed', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank'/>
+        <OfficerPage officerName='Shaun Frank' currentTab='TIMELINE'/>
       </Provider>
     );
 
@@ -54,7 +54,7 @@ describe('OfficerPage component', function () {
 
     instance = reRender(
       <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank'/>
+        <OfficerPage officerName='Shaun Frank' currentTab='TIMELINE'/>
       </Provider>,
       instance
     );

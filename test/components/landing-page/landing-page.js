@@ -1,14 +1,11 @@
 import React from 'react';
-import 'should';
 import { stub } from 'sinon';
-import { Provider } from 'react-redux';
 
 import LandingPage from 'components/landing-page';
 import configureStore from 'redux-mock-store';
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 import { RawDocumentCardFactory } from 'utils/test/factories/attachment';
 import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
-import { renderIntoDocument } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 
 const mockStore = configureStore();
@@ -81,16 +78,5 @@ describe('LandingPage component', function () {
       store: store,
       resetBreadcrumbs: stubResetBreadcrumbs
     });
-  });
-
-  it('should reset breadcrumbs', function () {
-    const stubResetBreadcrumbs = stub();
-
-    element = renderIntoDocument(
-      <Provider store={ store }>
-        <LandingPage resetBreadcrumbs={ stubResetBreadcrumbs }/>
-      </Provider>
-    );
-    stubResetBreadcrumbs.calledOnce.should.be.true();
   });
 });

@@ -8,7 +8,7 @@ import WidgetWrapper, {
 } from './widgets';
 
 
-export default class PoliceDistrictPane extends Component {
+export default class ZipCodePane extends Component {
   render() {
     const complaintCategories = [
       {
@@ -76,7 +76,7 @@ export default class PoliceDistrictPane extends Component {
         <ListWidget
           typeName={ 'allegation' }
           showAvatar={ false }
-          title='MOST COMMON COMPLAINT'
+          title='MOST COMMON COMPLAINTS'
           items={ complaintCategories }
         />
         <ListWidget

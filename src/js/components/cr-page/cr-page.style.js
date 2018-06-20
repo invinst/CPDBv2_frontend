@@ -1,5 +1,5 @@
 import {
-  sanFranciscoTextFamily, softBlackColor, whiteTwoColor, sugarCaneColor, clayGray
+  sanFranciscoTextFamily, softBlackColor, whiteTwoColor, sugarCaneColor, clayGray, mediumGrayColor
 } from 'utils/styles';
 
 
@@ -14,9 +14,9 @@ export const headerStyle = {
 };
 
 export const summarySectionWrapperStyle = {
-  paddingTop: '8px',
   backgroundColor: 'white',
   margin: '0 16px 16px 16px',
+  overflow: 'hidden',
   border: `1px solid ${whiteTwoColor}`
 };
 
@@ -59,4 +59,32 @@ export const summaryTextStyle = {
   fontSize: '14px',
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 300
+};
+
+export const footerStyle = {
+  wrapper: {
+    backgroundColor: softBlackColor
+  },
+  link: hovering => ({
+    color: hovering ? 'white' : clayGray
+  })
+};
+
+export const categoryWrapperStyle = {
+  margin: '0 16px',
+  padding: '16px 0',
+  borderBottom: `solid 1px ${whiteTwoColor}`
+};
+
+export const categoryStyle = {
+  fontSize: '26px',
+  fontWeight: 400,
+  color: softBlackColor
+};
+
+export const subcategoryStyle = {
+  fontSize: '18px',
+  lineHeigh: '25px',
+  fontWeight: 300,
+  color: mediumGrayColor
 };

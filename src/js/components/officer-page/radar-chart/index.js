@@ -1,16 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { map, isEqual } from 'lodash';
-
 import { scaleLinear } from 'd3-scale';
 
 import StaticRadarChart from 'components/common/radar-chart';
+import { radarChartPlaceholderStyle } from './radar-chart.style';
+import RadarExplainer from './explainer';
 
 
 export default class AnimatedRadarChart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      transitionValue: 0
+      transitionValue: 0,
     };
     this.interval = 20;
     this.velocity = 0.1;
@@ -20,7 +21,6 @@ export default class AnimatedRadarChart extends Component {
     this.animate = this.animate.bind(this);
     this.getCurrentTransitionData = this.getCurrentTransitionData.bind(this);
   }
-
 
   componentDidMount() {
     this.startTimer();
@@ -101,21 +101,32 @@ export default class AnimatedRadarChart extends Component {
   }
 
   render() {
-    const { transitionValue } = this.state;
+    const { transitionValue, showExplainer } = this.state;
     const { data } = this.props;
     if (!data) return null;
 
     const itemData = this.getCurrentTransitionData();
 
     return (!!itemData) && (
-      <StaticRadarChart
-        onClick={ this.handleClick }
-        textColor={ itemData.textColor }
-        backgroundColor={ itemData.visualTokenBackground }
-        fadeOutLegend={ transitionValue >= (data.length - 1) }
-        legendText={ itemData.year }
-        data={ itemData.items }
-      />
+      <div className='test--officer--radar-chart' style={ radarChartPlaceholderStyle }>
+        <StaticRadarChart
+          onClick={ this.handleClick }
+          textColor={ itemData.textColor }
+          backgroundColor={ itemData.visualTokenBackground }
+          fadeOutLegend={ transitionValue >= (data.length - 1) }
+          legendText={ itemData.year }
+          data={ itemData.items }
+          showSpineLinePoint={ true }
+          showGrid={ true }
+          gridOpacity={ 0.25 }
+          showAxisTitle={ true }
+          showAxisValue={ true }
+        />
+        <RadarExplainer
+          show={ showExplainer }
+          radarChartData={ data }
+        />
+      </div>
     );
   }
 }

@@ -35,4 +35,5 @@ export const descriptionStyle = {
   width: '100%',
   lineHeight: '14px',
   color: clayGray,
+  marginTop: '2px',
 };

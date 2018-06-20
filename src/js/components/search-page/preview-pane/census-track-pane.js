@@ -63,7 +63,7 @@ export default class CensusTrackPane extends Component {
           items={ complaintCategories }
           typeName={ 'allegation' }
           showAvatar={ false }
-          title={ 'MOST COMMON COMPLAINT' }
+          title={ 'MOST COMMON COMPLAINTS' }
         />
         <CallToActionWidget/>
       </WidgetWrapper>

@@ -5,8 +5,9 @@ import React from 'react';
 import TimeLine from 'components/officer-page/tabbed-pane-section/timeline';
 import { getNewTimelineItems } from 'selectors/officer-page/new-timeline';
 import { changeFilter } from 'actions/officer-page/new-timeline';
-import { openComplaintPage } from 'actions/bottom-sheet';
+import { openComplaintPage } from 'actions/open-page';
 import { getOfficerId } from 'selectors/officer-page';
+import { changeOfficerTab } from 'actions/officer-page';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -18,6 +19,7 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   changeFilter,
   openComplaintPage,
+  changeOfficerTab,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TimeLine));

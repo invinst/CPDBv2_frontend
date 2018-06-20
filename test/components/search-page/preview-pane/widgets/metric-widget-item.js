@@ -2,10 +2,15 @@ import React from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
 import MetricWidgetItem from 'components/search-page/preview-pane/widgets/metric-widget-item';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('MetricWidgetItem component', () => {
   let instance;
+
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
+  });
 
   it('should show correct info', () => {
     instance = renderIntoDocument(

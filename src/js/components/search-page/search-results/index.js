@@ -46,7 +46,6 @@ export default class SuggestionResults extends Component {
       suggestionGroups,
       searchText,
       isEmpty,
-      suggestionClick,
       navigation,
       onLoadMore,
       aliasEditModeOn,
@@ -75,7 +74,6 @@ export default class SuggestionResults extends Component {
         setAliasAdminPageContent={ setAliasAdminPageContent }
         suggestions={ group.items }
         showMoreButton={ group.canLoadMore }
-        suggestionClick={ suggestionClick }
         header={ group.header }
         aliasEditModeOn={ aliasEditModeOn }
         getSuggestionWithContentType={ getSuggestionWithContentType }
@@ -156,7 +154,6 @@ SuggestionResults.propTypes = {
   searchText: PropTypes.string,
   suggestionGroups: PropTypes.array,
   isRequesting: PropTypes.bool,
-  suggestionClick: PropTypes.func,
   editModeOn: PropTypes.bool,
   getSuggestion: PropTypes.func,
   onLoadMore: PropTypes.func,

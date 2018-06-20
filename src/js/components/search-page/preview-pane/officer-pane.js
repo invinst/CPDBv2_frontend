@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
+import { isNil } from 'lodash';
 
 import WidgetWrapper, {
   VisualTokenWidget,
@@ -29,38 +30,42 @@ export default class OfficerPane extends Component {
       trrPercentile,
       civilianComplimentCount,
       honorableMentionCount,
+      majorAwardCount,
+      honorableMentionPercentile,
       to,
       lastPercentile,
     } = this.props;
+
+    const formatValue = (value) => isNil(value) ? 'N/A' : value;
     const metrics = [
       {
         name: 'Allegations',
-        value: complaintCount,
+        value: formatValue(complaintCount),
         description: complaintPercentile && `More than ${complaintPercentile}% of other officers`,
       },
       {
         name: 'Sustained',
-        value: sustainedCount,
+        value: formatValue(sustainedCount),
         isHighlight: true,
-        description: `${disciplineCount} Disciplined`,
+        description: !isNil(disciplineCount) && `${disciplineCount} Disciplined`,
       },
       {
         name: 'Use of Force Reports',
-        value: trrCount,
+        value: formatValue(trrCount),
         description: trrPercentile && `More than ${trrPercentile}% of other officers`,
       },
       {
         name: <span>Civilian<br/>Compliments</span>,
-        value: civilianComplimentCount,
+        value: formatValue(civilianComplimentCount),
       },
       {
         name: 'Major Awards',
-        value: 0,
+        value: formatValue(majorAwardCount),
       },
       {
         name: 'Honorable Mentions',
-        value: honorableMentionCount,
-        description: 'More than ##% of other officers',
+        value: formatValue(honorableMentionCount),
+        description: honorableMentionPercentile && `More than ${honorableMentionPercentile}% of other officers`,
       },
     ];
     return (
@@ -81,30 +86,16 @@ export default class OfficerPane extends Component {
             <div className='test--gradient' style={ gradientStyle }/>
           </MediaQuery>
         </div>
-        <CallToActionWidget to={ to }/>
+        <CallToActionWidget to={ to } text='View Officer Profile'/>
       </WidgetWrapper>
     );
   }
 }
 
-OfficerPane.defaultProps = {
-  unit: {},
-  badge: 0,
-  race: '',
-  gender: '',
-  trrCount: 0,
-  disciplineCount: 0,
-  complaintPercentile: null,
-  trrPercentile: null,
-  civilianComplimentCount: 0,
-  honorableMentionCount: 0,
-  to: '',
-};
-
 OfficerPane.propTypes = {
-  fullName: PropTypes.string.isRequired,
-  age: PropTypes.number.isRequired,
-  appointedDate: PropTypes.string.isRequired,
+  fullName: PropTypes.string,
+  age: PropTypes.number,
+  appointedDate: PropTypes.string,
   unit: PropTypes.shape({
     id: PropTypes.number,
     unitName: PropTypes.string,
@@ -113,17 +104,19 @@ OfficerPane.propTypes = {
   badge: PropTypes.string,
   race: PropTypes.string,
   gender: PropTypes.string,
-  complaintCount: PropTypes.number.isRequired,
-  complaintPercentile: PropTypes.string,
-  sustainedCount: PropTypes.number.isRequired,
+  complaintCount: PropTypes.number,
+  complaintPercentile: PropTypes.number,
+  sustainedCount: PropTypes.number,
   disciplineCount: PropTypes.number,
   trrCount: PropTypes.number,
-  trrPercentile: PropTypes.string,
+  trrPercentile: PropTypes.number,
   civilianComplimentCount: PropTypes.number,
+  majorAwardCount: PropTypes.number,
   honorableMentionCount: PropTypes.number,
+  honorableMentionPercentile: PropTypes.number,
   to: PropTypes.string,
   lastPercentile: PropTypes.shape({
     items: PropTypes.array,
     visualTokenBackground: PropTypes.string,
-  }).isRequired,
+  }),
 };

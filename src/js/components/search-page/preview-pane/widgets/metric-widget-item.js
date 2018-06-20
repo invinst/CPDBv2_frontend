@@ -34,8 +34,8 @@ MetricWidgetItem.defaultProps = {
 };
 
 MetricWidgetItem.propTypes = {
-  value: PropTypes.number.isRequired,
-  name: PropTypes.node.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  name: PropTypes.node,
   description: PropTypes.string,
   isHighlight: PropTypes.bool,
   isFirstItem: PropTypes.bool,

@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import pluralize from 'pluralize';
 
 import { wrapperStyle, lightTextStyle, boldTextStyle } from './officer-card.style';
 import { getThisYear } from 'utils/date';
@@ -7,10 +8,9 @@ import {
   extraInfoStyle, noBorderSectionStyle,
   sectionStyle, sustainedStyle
 } from 'components/landing-page/activity-grid/officer-card.style';
-import { pluralize } from 'utils/language';
 import Hoverable from 'components/common/higher-order/hoverable';
 import StaticRadarChart from 'components/common/radar-chart';
-import roundPercentile from 'utils/round-percentile';
+import { roundedPercentile } from 'utils/calculations';
 
 
 export class OfficerCard extends Component {
@@ -58,7 +58,7 @@ export class OfficerCard extends Component {
 
     const complaintPercentileString = (hovering) => {
       if (complaintPercentile) {
-        const complaintFormat = roundPercentile(complaintPercentile);
+        const complaintFormat = roundedPercentile(complaintPercentile);
         return (
           <p style={ lightTextStyle(hovering) }>More than { complaintFormat }% of other officers</p>
         );
@@ -72,7 +72,6 @@ export class OfficerCard extends Component {
       width: 230,
       height: 100,
       radius: 40,
-      hideAxisText: true,
       backgroundColor: percentile ? percentile.visualTokenBackground : undefined,
     };
 

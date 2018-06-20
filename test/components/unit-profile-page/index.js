@@ -7,7 +7,6 @@ import UnitProfilePage from 'components/unit-profile-page';
 import Header from 'components/unit-profile-page/header';
 import SummaryPage from 'components/unit-profile-page/summary-page';
 import { unmountComponentSuppressError } from 'utils/test';
-import { spy } from 'sinon';
 
 
 describe('UnitProfilePage component', function () {
@@ -35,16 +34,5 @@ describe('UnitProfilePage component', function () {
 
     scryRenderedComponentsWithType(instance, Header).should.have.length(1);
     scryRenderedComponentsWithType(instance, SummaryPage).should.have.length(1);
-  });
-
-  it('should trigger fetchUnitProfileSummary on initialize', function () {
-    const fetchUnitProfileSummary = spy();
-    const unitName = '001';
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <UnitProfilePage unitName={ unitName } fetchUnitProfileSummary={ fetchUnitProfileSummary } />
-      </Provider>
-    );
-    fetchUnitProfileSummary.calledWith(unitName).should.be.true();
   });
 });

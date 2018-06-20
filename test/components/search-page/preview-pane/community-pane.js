@@ -13,13 +13,37 @@ import {
   ListWidget,
   CallToActionWidget
 } from 'components/search-page/preview-pane/widgets';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('CommunityPane component', () => {
   let instance;
 
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
+  });
+
   it('should contain the sub components', () => {
-    instance = renderIntoDocument(<CommunityPane/>);
+    instance = renderIntoDocument(
+      <CommunityPane
+        officersMostComplaint={ [{
+          id: 1,
+          name: 'name',
+          count: 1,
+        }] }
+        medianIncome={ '1000' }
+        population={ '100' }
+        raceCount={ [] }
+        allegationCount={ 100 }
+        mostCommonComplaint={ [{
+          id: 1,
+          name: 'name',
+          count: 1,
+        }] }
+        name={ 'community' }
+        url={ 'url' }
+      />
+    );
     findRenderedComponentWithType(instance, HeaderWidget);
     findRenderedComponentWithType(instance, GeoInfoWidget);
     findRenderedComponentWithType(instance, AllegationCountWidget);

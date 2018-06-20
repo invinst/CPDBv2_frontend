@@ -1,5 +1,3 @@
-import 'should-sinon';
-
 import {
   attachmentsTransform,
   awardTransform,
@@ -19,9 +17,10 @@ import {
   markLatestUnit,
 } from 'selectors/officer-page/new-timeline';
 import { NEW_TIMELINE_FILTERS } from 'utils/constants';
+import { imgUrl } from 'utils/static-assets';
 
 
-describe('officer page selectors', function () {
+describe('Officer new timeline selectors', function () {
   describe('baseTransform', function () {
     it('should return correct item', function () {
       const item = {
@@ -83,24 +82,52 @@ describe('officer page selectors', function () {
           title: 'CRID 1004717 CR',
           url: 'https://www.documentcloud.org/documents/3518956-CRID-1004717-CR.html',
           'preview_image_url': 'https://assets.documentcloud.org/documents/3518956/pages/CRID-1004717-CR-p1-normal.gif',
+          'file_type': 'document',
         },
         {
           title: 'CRID 303350 CR',
           url: 'https://www.documentcloud.org/documents/3518955-CRID-303350-CR.html',
           'preview_image_url': 'https://assets.documentcloud.org/documents/3518955/pages/CRID-303350-CR-p1-normal.gif',
-        }
+          'file_type': 'document',
+        },
+        {
+          title: 'Audio Clip',
+          url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/262463136&amp',
+          'preview_image_url': null,
+          'file_type': 'audio',
+        },
+        {
+          title: 'Video Clip',
+          url: 'https://player.vimeo.com/video/165206070',
+          'preview_image_url': null,
+          'file_type': 'video',
+        },
       ];
       attachmentsTransform(attachments).should.eql([
         {
           title: 'CRID 1004717 CR',
           url: 'https://www.documentcloud.org/documents/3518956-CRID-1004717-CR.html',
           previewImageUrl: 'https://assets.documentcloud.org/documents/3518956/pages/CRID-1004717-CR-p1-normal.gif',
+          fileType: 'document',
         },
         {
           title: 'CRID 303350 CR',
           url: 'https://www.documentcloud.org/documents/3518955-CRID-303350-CR.html',
           previewImageUrl: 'https://assets.documentcloud.org/documents/3518955/pages/CRID-303350-CR-p1-normal.gif',
-        }
+          fileType: 'document',
+        },
+        {
+          title: 'Audio Clip',
+          url: 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/262463136&amp',
+          previewImageUrl: imgUrl('ic-audio.svg'),
+          fileType: 'audio',
+        },
+        {
+          title: 'Video Clip',
+          url: 'https://player.vimeo.com/video/165206070',
+          previewImageUrl: imgUrl('ic-video.svg'),
+          fileType: 'video',
+        },
       ]);
     });
 
@@ -128,11 +155,13 @@ describe('officer page selectors', function () {
             title: 'CRID 1004717 CR',
             url: 'https://www.documentcloud.org/documents/3518956-CRID-1004717-CR.html',
             'preview_image_url': 'https://assets.documentcloud.org/documents/3518956/pages/CRID-1004717-CR-p1.gif',
+            'file_type': 'document',
           },
           {
             title: 'CRID 303350 CR',
             url: 'https://www.documentcloud.org/documents/3518955-CRID-303350-CR.html',
             'preview_image_url': 'https://assets.documentcloud.org/documents/3518955/pages/CRID-303350-CR-p1.gif',
+            'file_type': 'document',
           }
         ]
       };
@@ -162,11 +191,13 @@ describe('officer page selectors', function () {
             title: 'CRID 1004717 CR',
             url: 'https://www.documentcloud.org/documents/3518956-CRID-1004717-CR.html',
             previewImageUrl: 'https://assets.documentcloud.org/documents/3518956/pages/CRID-1004717-CR-p1.gif',
+            fileType: 'document',
           },
           {
             title: 'CRID 303350 CR',
             url: 'https://www.documentcloud.org/documents/3518955-CRID-303350-CR.html',
             previewImageUrl: 'https://assets.documentcloud.org/documents/3518955/pages/CRID-303350-CR-p1.gif',
+            fileType: 'document',
           }
         ]
       });
@@ -176,6 +207,7 @@ describe('officer page selectors', function () {
   describe('trrTransform', function () {
     it('should transform to correct category', function () {
       const firearmItem = {
+        'trr_id': 1,
         date: '2004-12-17',
         'firearm_used': true,
         kind: 'FORCE',
@@ -185,6 +217,7 @@ describe('officer page selectors', function () {
         'unit_name': '153',
       };
       const taserItem = {
+        'trr_id': 2,
         date: '2004-12-17',
         'firearm_used': false,
         kind: 'FORCE',
@@ -194,6 +227,7 @@ describe('officer page selectors', function () {
         'unit_name': '153',
       };
       const trrItem = {
+        'trr_id': 3,
         date: '2004-12-17',
         'firearm_used': false,
         kind: 'FORCE',
@@ -204,6 +238,7 @@ describe('officer page selectors', function () {
       };
 
       trrTransform(firearmItem, 1).should.eql({
+        trrId: 1,
         year: 2004,
         date: 'DEC 17',
         kind: 'FORCE',
@@ -221,6 +256,7 @@ describe('officer page selectors', function () {
         key: 1,
       });
       trrTransform(taserItem, 1).should.eql({
+        trrId: 2,
         year: 2004,
         date: 'DEC 17',
         kind: 'FORCE',
@@ -238,6 +274,7 @@ describe('officer page selectors', function () {
         key: 1,
       });
       trrTransform(trrItem, 1).should.eql({
+        trrId: 3,
         year: 2004,
         date: 'DEC 17',
         kind: 'FORCE',
@@ -1198,6 +1235,7 @@ describe('officer page selectors', function () {
                 'award_type': 'Honorable Mention'
               },
               {
+                'trr_id': 1,
                 'unit_name': '007',
                 kind: 'FORCE',
                 taser: true,
@@ -1207,6 +1245,7 @@ describe('officer page selectors', function () {
                 'firearm_used': false
               },
               {
+                'trr_id': 2,
                 'unit_name': '007',
                 kind: 'FORCE',
                 taser: false,
@@ -1223,6 +1262,7 @@ describe('officer page selectors', function () {
                 date: '2005-01-07'
               },
               {
+                'trr_id': 3,
                 'unit_name': '153',
                 kind: 'FORCE',
                 taser: false,
@@ -1248,7 +1288,8 @@ describe('officer page selectors', function () {
                     url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
                     'preview_image_url':
                       'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
-                    title: 'CRID 294088 CR'
+                    title: 'CRID 294088 CR',
+                    'file_type': 'document',
                   }
                 ]
               },
@@ -1335,6 +1376,7 @@ describe('officer page selectors', function () {
           key: '1-YEAR-2005',
         },
         {
+          trrId: 1,
           category: 'Taser',
           date: 'DEC 17',
           isFirstRank: false,
@@ -1352,6 +1394,7 @@ describe('officer page selectors', function () {
           key: 1,
         },
         {
+          trrId: 2,
           category: 'Use of Force Report',
           date: 'MAR 17',
           isFirstRank: false,
@@ -1419,6 +1462,7 @@ describe('officer page selectors', function () {
           key: '4-YEAR-2004',
         },
         {
+          trrId: 3,
           category: 'Firearm',
           date: 'DEC 17',
           isFirstRank: false,
@@ -1454,10 +1498,11 @@ describe('officer page selectors', function () {
         {
           attachments: [
             {
-              'previewImageUrl':
+              previewImageUrl:
                 'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
-              'title': 'CRID 294088 CR',
-              'url': 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+              title: 'CRID 294088 CR',
+              url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+              fileType: 'document',
             }
           ],
           category: 'Illegal Search',

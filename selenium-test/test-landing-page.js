@@ -109,7 +109,7 @@ describe('landing page', function () {
       const firstCard = landingPage.recentDocumentCarousel.cards;
       firstCard.click();
       browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
     });
   });
 
@@ -124,7 +124,7 @@ describe('landing page', function () {
       const firstCard = landingPage.complaintSummariesCarousel.cards;
       firstCard.click();
       browser.pause(500);
-      browser.getUrl().should.match(/\/complaint\/\d+\/$/);
+      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
     });
   });
 
@@ -135,7 +135,7 @@ describe('landing page', function () {
 
     it('should have blue nav links in default non-sticky state', function () {
       landingPage.topHeader.mainElement.getCssProperty('position').value.should.eql('static');
-      landingPage.topHeader.faq.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
+      landingPage.topHeader.qa.getCssProperty('color').value.should.eql('rgba(0,94,244,1)');
       landingPage.topHeader.mainElement.getCssProperty('box-shadow').value.should.eql('none');
     });
 
@@ -143,7 +143,7 @@ describe('landing page', function () {
       browser.scroll(0, 20);
       browser.pause(1000);
       landingPage.stickyHeader.mainElement.getCssProperty('position').value.should.eql('fixed');
-      landingPage.stickyHeader.faq.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
+      landingPage.stickyHeader.qa.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
       landingPage.stickyHeader.mainElement.getCssProperty('box-shadow').value.should.eql(
         'rgba(0,0,0,0.13)0px1px1px0px'
       );
@@ -153,7 +153,7 @@ describe('landing page', function () {
       browser.scroll(0, 99999);
       browser.pause(10000);
       landingPage.stickyHeader.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
-      landingPage.stickyHeader.faq.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      landingPage.stickyHeader.qa.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       landingPage.stickyHeader.mainElement.getCssProperty('box-shadow').value.should.eql('none');
     });
   });

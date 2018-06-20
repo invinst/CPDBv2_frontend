@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import FooterContainer from 'containers/footer-container';
 import SummaryRow from './summary-row';
 import Demographics from './demographics';
 import Timeline from './timeline';
@@ -11,8 +12,9 @@ import Attachments from './attachments';
 import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import {
-  wrapperStyle, CRIDHeaderStyle, leftColumnStyle,
-  rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle
+  wrapperStyle, CRIDHeaderStyle, leftColumnStyle, footerStyle,
+  rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle,
+  subcategoryStyle, categoryStyle, categoryWrapperStyle
 } from './cr-page.style';
 
 
@@ -21,22 +23,9 @@ export default class CRPage extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    const { crid, fetchCR } = this.props;
-
-    fetchCR(crid);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { fetchCR, crid } = nextProps;
-    if (this.props.crid !== crid) {
-      fetchCR(crid);
-    }
-  }
-
   render() {
     const {
-      crid, coaccused, complainants, alreadyRequested,
+      crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
       openRequestDocumentModal, summary, victims, startDate, endDate
     } = this.props;
@@ -46,6 +35,12 @@ export default class CRPage extends Component {
         <ShareableHeaderContainer/>
         <ResponsiveFluidWidthComponent>
           <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
+        </ResponsiveFluidWidthComponent>
+        <ResponsiveFluidWidthComponent>
+          <div className='test--cr-category' style={ categoryWrapperStyle }>
+            <div style={ categoryStyle }>{ category }</div>
+            <div style={ subcategoryStyle }>{ subcategory }</div>
+          </div>
         </ResponsiveFluidWidthComponent>
         <AccusedOfficers officers={ coaccused } />
         <ResponsiveFluidWidthComponent>
@@ -89,6 +84,7 @@ export default class CRPage extends Component {
           </div>
         </ResponsiveFluidWidthComponent>
         <RelatedComplaints crid={ crid } />
+        <FooterContainer style={ footerStyle }/>
       </div>
     );
   }
@@ -96,6 +92,8 @@ export default class CRPage extends Component {
 
 CRPage.propTypes = {
   crid: PropTypes.string,
+  category: PropTypes.string,
+  subcategory: PropTypes.string,
   coaccused: PropTypes.array,
   complainants: PropTypes.array,
   victims: PropTypes.array,
@@ -108,14 +106,12 @@ CRPage.propTypes = {
   startDate: PropTypes.string,
   endDate: PropTypes.string,
   involvements: PropTypes.object,
-  fetchCR: PropTypes.func,
   attachments: PropTypes.array,
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
 };
 
 CRPage.defaultProps = {
-  fetchCR: () => {},
   victims: [],
   complainants: [],
   coaccused: []
