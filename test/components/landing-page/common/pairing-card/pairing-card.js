@@ -2,13 +2,16 @@ import React from 'react';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
+  Simulate
 } from 'react-addons-test-utils';
+import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import PairingCard from 'components/landing-page/common/pairing-card';
 import PairingChart from 'components/landing-page/common/pairing-card/pairing-chart';
 import OfficerInfo from 'components/landing-page/common/pairing-card/officer-info';
+import should from 'should';
 
 
 describe('PairingCard component', function () {
@@ -42,5 +45,28 @@ describe('PairingCard component', function () {
     );
     findRenderedComponentWithType(instance, PairingChart);
     scryRenderedComponentsWithType(instance, OfficerInfo).should.have.length(2);
+  });
+
+  it('should change gradient when hovering', function () {
+    instance = renderIntoDocument(
+      <PairingCard
+        officer1={ officer1 }
+        officer2={ officer2 }
+        coaccusalCount={ 47 }
+      />
+    );
+    const officerInfos = scryRenderedComponentsWithType(instance, OfficerInfo);
+    const officerInfo1 = findDOMNode(officerInfos[0]);
+    const officerInfo2 = findDOMNode(officerInfos[1]);
+
+    Simulate.mouseOver(officerInfo1);
+    instance.state.direction.should.eql('right');
+    Simulate.mouseOut(officerInfo1);
+    should(instance.state.direction).be.null();
+
+    Simulate.mouseOver(officerInfo2);
+    instance.state.direction.should.eql('left');
+    Simulate.mouseOut(officerInfo2);
+    should(instance.state.direction).be.null();
   });
 });

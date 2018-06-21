@@ -1,12 +1,15 @@
-import { whiteTwoColor } from 'utils/styles';
+import { whiteTwoColor, accentColor } from 'utils/styles';
 
 
-export const wrapperStyle = {
+export const wrapperStyle = (direction) => ({
   width: '464px',
   height: '266px',
-  border: `solid 1px ${whiteTwoColor}`,
+  border: `solid 1px ${direction ? 'transparent' : whiteTwoColor}`,
   borderRadius: '2px',
-};
+  backgroundImage: `linear-gradient(white, white), linear-gradient(to ${direction}, ${accentColor}, ${whiteTwoColor})`,
+  backgroundOrigin: 'border-box',
+  backgroundClip: 'content-box, border-box',
+});
 
 export const secondSectionStyle = {
   height: '112px',
