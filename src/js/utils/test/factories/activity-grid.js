@@ -1,6 +1,6 @@
 import { Factory } from 'rosie';
 
-import { internet, name, random } from 'faker';
+import { internet, name, random, date, helpers } from 'faker';
 
 
 const RawOfficerPercentileFactory = Factory.define('OfficerPercentileFactory')
@@ -26,3 +26,17 @@ export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
   .attr('complaint_percentile', () => (random.number({ min: 10, max: 1000 }) / 10.0))
   .attr('percentile', () => RawOfficerPercentileFactory.build({ year: 2016 }))
   .attr('type', 'single_officer');
+
+export const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
+  .sequence('id')
+  .attr('birth_year', () => date.past().getFullYear())
+  .attr('full_name', name.findName)
+  .attr('gender', helpers.randomize(['Male', 'Female']))
+  .attr('race', helpers.randomize(['Black', 'White', 'Asian']))
+  .attr('percentile', () => RawOfficerPercentileFactory.build({ year: 2016 }));
+
+export const RawOfficersPairCardFactory = Factory.define('RawOfficersPairCardFactory')
+  .attr('type', 'coaccused_pair')
+  .attr('coaccusal_count', () => (random.number({ min: 0, max: 50 })))
+  .attr('officer1', () => RawPairCardOfficerFactory.build())
+  .attr('officer2', () => RawPairCardOfficerFactory.build());
