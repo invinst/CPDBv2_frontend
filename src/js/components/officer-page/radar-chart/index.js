@@ -50,7 +50,7 @@ export default class AnimatedRadarChart extends Component {
 
   startTimer() {
     if (this.props.data && this.props.data.length > 1 && !this.timer) {
-      this.timer = setInterval((() => this.animate(), this.interval));
+      this.timer = setInterval(() => this.animate(), this.interval);
     }
   }
 
