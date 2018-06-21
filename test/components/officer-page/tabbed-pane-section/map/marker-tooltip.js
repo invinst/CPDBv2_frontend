@@ -41,8 +41,8 @@ describe('MarkerTooltip component', function () {
     tooltipKindId.textContent.should.eql('CR 12345');
     tooltipCategory.textContent.should.eql('test category');
     tooltipCoaccused.textContent.should.eql('Accused with 5 others');
-    tooltipVictims[0].textContent.should.eql('Whitemaleage 35');
-    tooltipVictims[1].textContent.should.eql('Blackfemaleage 42');
+    tooltipVictims[0].textContent.should.eql('White male age 35');
+    tooltipVictims[1].textContent.should.eql('Black female age 42');
   });
 
   it('should not render age and race of victim if they are null', function () {
@@ -50,7 +50,7 @@ describe('MarkerTooltip component', function () {
       <MarkerTooltip
         victims={ [{
           'gender': 'male',
-          'race': null,
+          'race': 'Unknown',
           'age': 35
         }, {
           'gender': 'female',
@@ -60,8 +60,8 @@ describe('MarkerTooltip component', function () {
       />
     );
     const tooltipVictims = scryRenderedDOMComponentsWithClass(instance, 'test--marker-tooltip-victim');
-    tooltipVictims[0].textContent.should.eql('maleage 35');
-    tooltipVictims[1].textContent.should.eql('Blackfemale');
+    tooltipVictims[0].textContent.should.eql('male age 35');
+    tooltipVictims[1].textContent.should.eql('Black female ');
   });
 
   it('should not render victim if there are no victims', function () {

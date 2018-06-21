@@ -37,9 +37,9 @@ export default class MarkerTooltip extends Component {
                   { victims.map((victim, index) => {
                     return (
                       <div className='test--marker-tooltip-victim' key={ index }>
-                        { victim.race !== 'Unknown' ? victim.race : null}
-                        { victim.gender }
-                        { victim.age ? 'age ' + victim.age : null }
+                        <span>{ victim.race !== 'Unknown' ? victim.race + ' ' : null}</span>
+                        <span>{ victim.gender + ' ' }</span>
+                        <span>{ victim.age ? 'age ' + victim.age : null }</span>
                       </div>
                     );
                   }) }
