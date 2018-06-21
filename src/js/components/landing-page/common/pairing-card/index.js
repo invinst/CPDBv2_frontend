@@ -23,7 +23,7 @@ export default class PairingCard extends Component {
     const { direction } = this.state;
 
     return (
-      <div style={ wrapperStyle(direction) }>
+      <div className='test--pair-card' style={ wrapperStyle(direction) }>
         <PairingChart
           coaccusalCount={ coaccusalCount }
           background1={ officer1.backgroundColor }

@@ -24,19 +24,19 @@ export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
   .attr('complaint_count', random.number)
   .attr('visual_token_background_color', internet.color)
   .attr('complaint_percentile', () => (random.number({ min: 10, max: 1000 }) / 10.0))
-  .attr('percentile', () => RawOfficerPercentileFactory.build({ year: 2016 }))
+  .attr('percentile', () => RawOfficerPercentileFactory.build())
   .attr('type', 'single_officer');
 
-export const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
+const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
   .sequence('id')
   .attr('birth_year', () => date.past().getFullYear())
   .attr('full_name', name.findName)
   .attr('gender', helpers.randomize(['Male', 'Female']))
   .attr('race', helpers.randomize(['Black', 'White', 'Asian']))
-  .attr('percentile', () => RawOfficerPercentileFactory.build({ year: 2016 }));
+  .attr('percentile', () => RawOfficerPercentileFactory.build());
 
 export const RawOfficersPairCardFactory = Factory.define('RawOfficersPairCardFactory')
   .attr('type', 'coaccused_pair')
-  .attr('coaccusal_count', () => (random.number({ min: 0, max: 50 })))
+  .attr('coaccusal_count', () => random.number({ min: 0, max: 50 }))
   .attr('officer1', () => RawPairCardOfficerFactory.build())
   .attr('officer2', () => RawPairCardOfficerFactory.build());
