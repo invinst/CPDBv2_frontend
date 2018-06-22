@@ -1,4 +1,10 @@
-import { getTRRId, officerSelector } from 'selectors/trr-page';
+import {
+  getTRRId,
+  officerSelector,
+  trrDetailSelector,
+  trrDocumentSelector,
+  trrLocationSelector,
+} from 'selectors/trr-page';
 
 
 describe('TRR page selectors', function () {
@@ -113,6 +119,121 @@ describe('TRR page selectors', function () {
         onDuty: true,
         inUniform: true,
       });
+    });
+  });
+
+  describe('trrDetailSelector', function () {
+    it('should select correctly', function () {
+      const state = {
+        trrPage: {
+          data: {
+            'subject_race': 'White',
+            'subject_gender': 'Male',
+            'subject_age': 37,
+            'force_category': 'Other',
+            'force_types': ['Verbal Commands'],
+          }
+        }
+      };
+
+      trrDetailSelector(state).should.eql({
+        subjectDemographic: 'White, Male, 37 years old',
+        category: 'Other',
+        forceTypes: ['Verbal Commands'],
+      });
+    });
+
+    it('should cover missing data cases', function () {
+      trrDetailSelector({
+        trrPage: {
+          data: {
+            'subject_race': 'White',
+            'subject_gender': 'Male',
+            'force_category': 'Other',
+            'force_types': ['Verbal Commands'],
+          }
+        }
+      }).should.eql({
+        subjectDemographic: 'White, Male',
+        category: 'Other',
+        forceTypes: ['Verbal Commands'],
+      });
+
+      trrDetailSelector({
+        trrPage: {
+          data: {
+            'subject_race': 'White',
+            'subject_age': 37,
+            'force_category': 'Other',
+            'force_types': ['Verbal Commands'],
+          }
+        }
+      }).should.eql({
+        subjectDemographic: 'White, 37 years old',
+        category: 'Other',
+        forceTypes: ['Verbal Commands'],
+      });
+
+      trrDetailSelector({
+        trrPage: {
+          data: {
+            'subject_gender': 'Male',
+            'subject_age': 37,
+            'force_category': 'Other',
+            'force_types': ['Verbal Commands'],
+          }
+        }
+      }).should.eql({
+        subjectDemographic: 'Male, 37 years old',
+        category: 'Other',
+        forceTypes: ['Verbal Commands'],
+      });
+    });
+  });
+
+  describe('trrLocationSelector', function () {
+    it('should select correctly', function () {
+      trrLocationSelector({
+        trrPage: {
+          data: {
+            'date_of_incident': '2001-01-01',
+            address: '34XX Douglas Blvd',
+            beat: 1021,
+            'location_type': 'Factory',
+          }
+        }
+      }).should.eql({
+        incidentDate: 'JAN 1, 2001',
+        address: '34XX Douglas Blvd',
+        beat: '1021',
+        locationType: 'Factory',
+      });
+    });
+  });
+
+  describe('trrDocumentSelector', function () {
+    it('should select correctly', function () {
+      trrDocumentSelector({
+        trrPage: {
+          trrId: 123,
+          attachmentRequest: {
+            subscribedTRRIds: {
+              123: true,
+            }
+          },
+        }
+      }).should.eql({ alreadyRequested: true });
+
+      trrDocumentSelector({
+        trrPage: {
+          trrId: 456,
+          attachmentRequest: {
+            subscribedTRRIds: {
+              123: true,
+            }
+          },
+        }
+      }).should.eql({ alreadyRequested: false });
     });
   });
 });

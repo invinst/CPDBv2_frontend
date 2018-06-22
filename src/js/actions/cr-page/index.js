@@ -16,7 +16,7 @@ export const fetchCR = crid => (get(
   [CR_REQUEST_START, CR_REQUEST_SUCCESS, CR_REQUEST_FAILURE]
 )());
 
-export const requestDocument = ({ crid, email }) => post(
-  `${CR_URL}${crid}/request-document/`,
+export const requestDocument = ({ id, email }) => post(
+  `${CR_URL}${id}/request-document/`,
   [CR_REQUEST_DOC_START, CR_REQUEST_DOC_SUCCESS, CR_REQUEST_DOC_FAILURE]
 )({ email: email });

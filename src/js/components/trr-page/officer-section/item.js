@@ -5,7 +5,7 @@ import { wrapperStyle, titleStyle, valueStyle, subValueStyle } from './item.styl
 
 export default class Item extends Component {
   render() {
-    const { title, value, subValue, extraComponent, isLeft, hideBorder } = this.props;
+    const { title, value, subValue, isLeft, hideBorder } = this.props;
 
     return (
       <div style={ wrapperStyle(isLeft, hideBorder) }>
@@ -15,7 +15,6 @@ export default class Item extends Component {
         <div className='test--item-value' style={ valueStyle }>
           { value }
           { subValue && <span className='test--item-sub-value' style={ subValueStyle }>{ subValue }</span> }
-          { extraComponent }
         </div>
       </div>
     );
@@ -26,7 +25,6 @@ Item.propTypes = {
   title: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   subValue: PropTypes.string,
-  extraComponent: PropTypes.node,
   isLeft: PropTypes.bool,
   hideBorder: PropTypes.bool,
 };

@@ -21,9 +21,9 @@ class RequestDocumentModalContent extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { onRequestDocument, crid, closeModal } = this.props;
+    const { onRequestDocument, id, closeModal } = this.props;
 
-    return onRequestDocument({ crid, email: this.refs.email.value }).then((action) => {
+    return onRequestDocument({ id, email: this.refs.email.value }).then((action) => {
       this.setState({ warning: false });
       setTimeout(closeModal, 1500);  // auto close modal if success
     }).catch(e => {
@@ -63,6 +63,6 @@ RequestDocumentModalContent.propTypes = {
   onRequestDocument: PropTypes.func,
   message: PropTypes.string,
   closeModal: PropTypes.func,
-  crid: PropTypes.number,
+  id: PropTypes.number,
   isRequested: PropTypes.bool
 };

@@ -1,10 +1,5 @@
-import {
-  accentColor, clayGray, whiteTwoColor
-} from 'utils/styles';
+import { clayGray, whiteTwoColor, accentColor } from 'utils/styles';
 
-export const checkMarkStyle = {
-  color: accentColor
-};
 
 export const buttonStyle = (alreadyRequested, hovering) => ({
   fontSize: '14px',

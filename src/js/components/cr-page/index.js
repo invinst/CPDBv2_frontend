@@ -4,7 +4,7 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import FooterContainer from 'containers/footer-container';
 import SummaryRow from './summary-row';
-import Demographics from './demographics';
+import Demographics from 'components/common/demographics';
 import Timeline from './timeline';
 import Location from './location';
 import Involvement from './involvement';

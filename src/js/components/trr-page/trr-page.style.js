@@ -7,7 +7,7 @@ export const wrapperStyle = {
   position: 'relative',
   backgroundColor: sugarCaneColor,
   borderBottom: `1px solid ${whiteTwoColor}`,
-  minHeight: '50vh',
+  minHeight: '100vh',
 };
 
 export const TRRIdHeaderStyle = {
@@ -18,4 +18,14 @@ export const TRRIdHeaderStyle = {
   paddingTop: '16px',
   paddingBottom: '16px',
   margin: '0 16px',
+};
+
+export const contentStyle = {
+  minHeight: 'calc(100vh - 136px)',
+};
+
+export const footerStyle = {
+  wrapper: {
+    backgroundColor: 'transparent'
+  },
 };
