@@ -1,16 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 
-import { TABLET, DESKTOP, EXTRA_WIDE } from 'utils/constants';
+import { TABLET, DESKTOP, EXTRA_WIDE, MAP_INFO } from 'utils/constants';
 import { wrapperStyle } from './cr-location-map.style';
 import { markerRedColor } from 'utils/styles';
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import { mapboxgl } from 'utils/vendors';
 
-
-const centerLat = 41.85677;
-const centerLng = -87.6024055;
-const zoom1 = 9;
-const zoom2 = 13;
 
 export default class CRLocationMap extends Component {
   componentWillReceiveProps(nextProps, nextState) {
@@ -19,7 +14,7 @@ export default class CRLocationMap extends Component {
     if (lat !== nextProps.lat || lng !== nextProps.lng) {
       this.addMarker(nextProps.lat, nextProps.lng);
 
-      if (this.map.getZoom() === zoom2) {
+      if (this.map.getZoom() === MAP_INFO.ZOOM2) {
         this.zoomOut();
       }
     }
@@ -31,8 +26,8 @@ export default class CRLocationMap extends Component {
       this.map = new mapboxgl.Map({
         container: el,
         style: 'mapbox://styles/mapbox/streets-v10',
-        zoom: zoom1,
-        center: [centerLng, centerLat],
+        zoom: MAP_INFO.ZOOM1,
+        center: [MAP_INFO.CENTER_LNG, MAP_INFO.CENTER_LAT],
         interactive: false
       });
       this.map.on('click', this.handleMapClick.bind(this));
@@ -59,7 +54,7 @@ export default class CRLocationMap extends Component {
   }
 
   handleMapClick(e) {
-    if (this.map.getZoom() === zoom1) {
+    if (this.map.getZoom() === MAP_INFO.ZOOM1) {
       this.zoomIn();
     } else {
       this.zoomOut();
@@ -70,14 +65,14 @@ export default class CRLocationMap extends Component {
     const { lng, lat } = this.props;
     this.map.easeTo({
       center: [lng, lat],
-      zoom: zoom2
+      zoom: MAP_INFO.ZOOM2
     });
   }
 
   zoomOut() {
     this.map.easeTo({
-      center: [centerLng, centerLat],
-      zoom: zoom1
+      center: [MAP_INFO.CENTER_LNG, MAP_INFO.CENTER_LAT],
+      zoom: MAP_INFO.ZOOM1
     });
   }
 

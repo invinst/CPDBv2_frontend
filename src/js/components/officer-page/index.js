@@ -28,7 +28,7 @@ export default class OfficerPage extends Component {
       currentTab
     } = this.props;
     return (
-      <div style={ wrapperStyle }>
+      <div style={ wrapperStyle } className='officer-page'>
         <ShareableHeaderContainer/>
         <div style={ pageWrapperStyle }>
           <OfficerRadarChart data={ threeCornerPercentile }/>
