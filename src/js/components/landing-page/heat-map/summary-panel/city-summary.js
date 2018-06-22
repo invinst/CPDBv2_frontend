@@ -24,7 +24,7 @@ export default class CitySummary extends Component {
             null :
             <div style={ clickReceiver } onClick={ onClick }/>
         }
-        <div style={ headerStyle }>CHICAGO 2000 - 2016</div>
+        <div style={ headerStyle }>CHICAGO 1988 - 2018</div>
         <div style={ allegationDisciplineStyle }
           className='test--allegation-discipline-count'>
           <OutboundLink href={ config.v1Url }>
