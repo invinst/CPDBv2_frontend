@@ -7,8 +7,7 @@ describe('searchTerms reducer', function () {
       categories: [],
       hidden: true,
       navigation: {
-        itemIndex: 0,
-        scrollTo: true,
+        itemIndex: 0
       }
     });
   });

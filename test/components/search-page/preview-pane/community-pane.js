@@ -13,10 +13,15 @@ import {
   ListWidget,
   CallToActionWidget
 } from 'components/search-page/preview-pane/widgets';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('CommunityPane component', () => {
   let instance;
+
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
+  });
 
   it('should contain the sub components', () => {
     instance = renderIntoDocument(

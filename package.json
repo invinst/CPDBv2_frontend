@@ -11,6 +11,7 @@
     "test-debug": "yarn run test --debug",
     "test-watch": "yarn run test --watch",
     "cover": "yarn run test -- --plugin [ mochify-istanbul --instrumenter babel-istanbul --report text --exclude **/mock-api/** --exclude **/utils/vendors.js ] --timeout 10000",
+    "cover-html": "yarn run test -- --plugin [ mochify-istanbul --instrumenter babel-istanbul --report html --exclude **/mock-api/** --exclude **/utils/vendors.js ] --timeout 10000",
     "cover-watch": "yarn run test -- --watch --plugin [ mochify-istanbul --instrumenter babel-istanbul --report text --exclude **/mock-api/** --exclude **/utils/vendors.js ] --timeout 10000",
     "cover-circle": "yarn run test -- --plugin [ mochify-istanbul --instrumenter babel-istanbul --report lcovonly --exclude **/mock-api/** --exclude **/utils/vendors.js ] --timeout 10000",
     "live-test": "CPDB_APP_ENV=test wdio wdio.conf.js",
@@ -20,7 +21,7 @@
     "type": "git",
     "url": ""
   },
-  "author": "***REMOVED***",
+  "author": "CPDP Team",
   "bugs": {
     "url": "/issues"
   },

@@ -86,7 +86,7 @@ export default class OfficerPane extends Component {
             <div className='test--gradient' style={ gradientStyle }/>
           </MediaQuery>
         </div>
-        <CallToActionWidget to={ to }/>
+        <CallToActionWidget to={ to } text='View Officer Profile'/>
       </WidgetWrapper>
     );
   }

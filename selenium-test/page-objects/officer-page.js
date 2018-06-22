@@ -31,10 +31,9 @@ class Filter extends Section {
     this.prepareElementGetters({
       button: '.test--timeline-filter .test--dropdown-button',
       menu: '.test--timeline-filter .test--dropdown-menu',
-      all: '(//div[@class="test--dropdown-menu-item"])[1]',
-      crs: '(//div[@class="test--dropdown-menu-item"])[2]',
-      force: '(//div[@class="test--dropdown-menu-item"])[3]',
-      awards: '(//div[@class="test--dropdown-menu-item"])[4]'
+      crs: '(//div[@class="test--dropdown-menu-item"])[1]',
+      force: '(//div[@class="test--dropdown-menu-item"])[2]',
+      awards: '(//div[@class="test--dropdown-menu-item"])[3]'
     });
   }
 }
@@ -54,6 +53,8 @@ class TimelineSection extends Section {
       joinedItem: '.test--timeline-joined-item',
       yearItem: '.test--timeline-year-item',
       emptyItem: '.test--timeline-empty-item',
+      attachmentThumbnail: '.test--attachment-image',
+      moreAttachment: '.test--more-attachment',
     });
   }
 }
@@ -69,9 +70,21 @@ class CoaccusalsSection extends Section {
   }
 }
 
+class AttachmentsSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      attachmentComplaint: '.test--attachments-complaint',
+      attachmentHeading: '.test--attachments-heading',
+      attachment: '.test--attachment',
+    });
+  }
+}
+
 class TabbedPaneSection extends Section {
   timelineSection = new TimelineSection();
   coaccusalsSection = new CoaccusalsSection();
+  attachmentsSection = new AttachmentsSection();
 
   constructor() {
     super();
@@ -81,6 +94,7 @@ class TabbedPaneSection extends Section {
       timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]',
       mapTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
       coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][3]',
+      attachmentsTabName: '//span[@class="test--tabbed-pane-tab-name"][4]',
     });
   }
 }

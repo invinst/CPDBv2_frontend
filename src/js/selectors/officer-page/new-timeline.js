@@ -1,10 +1,12 @@
+import { concat, difference, filter, get, includes, isEmpty, nth, rangeRight, slice, values } from 'lodash';
 import moment from 'moment';
-import { isEmpty, rangeRight, slice, nth, filter, values, includes, concat, difference, get } from 'lodash';
 
-import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS } from 'utils/constants';
+import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, ATTACHMENT_TYPES } from 'utils/constants';
+import { imgUrl } from 'utils/static-assets';
 
 
 const getSelectedFilter = (state) => state.officerPage.newTimeline.filter;
+export const getItems = (state) => get(state.officerPage.newTimeline, 'items', []);
 
 export const baseTransform = (item, index) => {
   const unitName = item['unit_name'] ? `Unit ${item['unit_name']}` : 'Unassigned';
@@ -29,11 +31,21 @@ export const baseTransform = (item, index) => {
 
 export const attachmentsTransform = (attachments) => {
   if (attachments) {
-    return attachments.map((attachment) => ({
-      title: attachment.title,
-      url: attachment.url,
-      previewImageUrl: attachment['preview_image_url'],
-    }));
+    return attachments.map((attachment) => {
+      const fileType = attachment['file_type'];
+      let previewImageUrl = attachment['preview_image_url'];
+      if (fileType === ATTACHMENT_TYPES.AUDIO) {
+        previewImageUrl = imgUrl('ic-audio.svg');
+      } else if (fileType === ATTACHMENT_TYPES.VIDEO) {
+        previewImageUrl = imgUrl('ic-video.svg');
+      }
+      return {
+        title: attachment.title,
+        url: attachment.url,
+        previewImageUrl: previewImageUrl,
+        fileType: fileType,
+      };
+    });
   }
   return [];
 };

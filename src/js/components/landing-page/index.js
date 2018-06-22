@@ -11,18 +11,30 @@ import HeatMap from 'containers/landing-page/heat-map';
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
+import { carouselsWrapperStyle, carouselStyle } from './landing-page.style';
 
 
 class LandingPage extends Component {
   renderWithResponsiveStyle(style) {
+    const { pathname } = this.props;
     return (
       <div>
-        <SlimHeader pathname={ this.props.pathname } />
+        <SlimHeader pathname={ pathname } />
         <HeatMap/>
-        <OfficersByAllegationContainer pathname={ this.props.pathname }/>
-        <RecentActivityContainer pathname={ this.props.pathname }/>
-        <RecentDocumentContainer pathname={ this.props.pathname }/>
-        <ComplaintSummariesContainer pathname={ this.props.pathname }/>
+        <div style={ carouselsWrapperStyle }>
+          <div style={ carouselStyle }>
+            <OfficersByAllegationContainer pathname={ pathname }/>
+          </div>
+          <div style={ carouselStyle }>
+            <RecentActivityContainer pathname={ pathname }/>
+          </div>
+          <div style={ carouselStyle }>
+            <RecentDocumentContainer pathname={ pathname }/>
+          </div>
+          <div style={ carouselStyle }>
+            <ComplaintSummariesContainer pathname={ pathname }/>
+          </div>
+        </div>
         <FooterContainer/>
       </div>
     );

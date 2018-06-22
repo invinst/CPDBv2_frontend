@@ -12,6 +12,7 @@ describe('CR page', function () {
 
   it('should display complaint content', function () {
     crPage.title.getText().should.equal('CR 1000000');
+    crPage.category.getText().should.equal('Use Of Force\nMiscellaneous');
 
     crPage.accusedOfficers.title.getText().should.equal('25 ACCUSED OFFICERS');
     crPage.accusedOfficers.cardCount().should.equal(25);

@@ -6,7 +6,8 @@ import { getThisYear, getCareerDuration } from 'utils/date';
 import { extractPercentile } from 'selectors/common/percentile';
 
 
-const getOfficerInfo = state => state.officerPage.summary;
+export const getOfficerInfo = state => state.officerPage.summary;
+export const getCurrentTab = state => state.officerPage.currentTab;
 
 const getCareerDescription = (dateOfAppt, dateOfResignation) => {
   if (!dateOfAppt && !dateOfResignation) {

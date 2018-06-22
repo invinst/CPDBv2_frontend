@@ -16,7 +16,6 @@ export default class CRLocationMap extends Component {
   }
 
   render() {
-
     return (
       <ResponsiveStyleComponent
         responsiveStyle={ {

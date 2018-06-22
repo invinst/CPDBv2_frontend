@@ -2,7 +2,7 @@ import { clayGray, softBlackColor } from 'utils/styles';
 
 export const headerStyle = {
   fontSize: '26px',
-  fontWeight: 500,
+  fontWeight: 400,
   textAlign: 'left',
   color: softBlackColor,
   padding: '0 16px',
@@ -14,6 +14,6 @@ export const headerTextStyle = {
   padding: '16px',
   fontSize: '14px',
   textAlign: 'left',
-  fontWeight: 500,
+  fontWeight: 300,
   color: clayGray
 };

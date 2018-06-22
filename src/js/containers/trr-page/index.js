@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
-import { fetchTRR } from 'actions/trr-page';
 import {
   getTRRId,
   officerSelector,
@@ -24,7 +23,6 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  fetchTRR,
   openRequestTRRDocumentModal,
 };
 

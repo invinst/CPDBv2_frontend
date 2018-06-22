@@ -8,7 +8,7 @@ import {
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
 
-import { reRender, unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 import SearchTerms from 'components/search-page/search-terms';
 import {
   contentWrapperStyle,
@@ -150,27 +150,12 @@ describe('SearchTerms component', function () {
       this.scrollToElementStub.restore();
     });
 
-    it('should scroll to focused item', function () {
-      instance = renderIntoDocument(<SearchTerms focusedItem={ { uniqueKey: null } } />);
-      instance = reRender(<SearchTerms focusedItem={ { uniqueKey: 'OFFICER-RACE' } } />, instance);
-
-      this.scrollToElementStub.calledWith(
-        '.term-item.focused', { behavior: 'instant', block: 'center' }
-      ).should.be.true();
-    });
-
-    it('should not scroll to if scrollTo is false', function () {
-      instance = renderIntoDocument(<SearchTerms focusedItem={ { uniqueKey: null } } scrollTo={ true }/>);
-      instance = reRender(<SearchTerms focusedItem={ { uniqueKey: 'OFFICER-RACE' } } scrollTo={ false } />, instance);
-
-      this.scrollToElementStub.called.should.be.false();
-    });
-
     it('should render preview pane for the focused item', function () {
       const focusedItem = {
         id: 'category',
         name: 'Some item',
-        description: 'This is item for testing'
+        description: 'This is item for testing',
+        uniqueKey: 'category-some-item'
       };
 
       instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
@@ -182,7 +167,8 @@ describe('SearchTerms component', function () {
       const focusedItem = {
         id: 'category',
         name: 'Some item',
-        description: 'This is item for testing. [Google](http://www.google.com)'
+        description: 'This is item for testing. [Google](http://www.google.com)',
+        uniqueKey: 'category-some-item'
       };
 
       instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);

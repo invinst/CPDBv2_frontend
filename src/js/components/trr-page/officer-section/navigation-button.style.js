@@ -19,7 +19,6 @@ export const wrapperStyle = (hovering) => ({
 });
 
 export const textStyle = {
-  verticalAlign: 'middle',
   fontSize: '14px',
   fontWeight: 300,
   lineHeight: '28px',
@@ -31,7 +30,8 @@ export const arrowStyle = hovering => ({
     `url("${imgUrl('disclosure-indicator.svg')}") 8px 0 no-repeat scroll`,
   width: '8px',
   height: '13px',
-  verticalAlign: 'middle',
   paddingRight: '14px',
-  display: 'inline-block'
+  display: 'inline-block',
+  position: 'relative',
+  top: '1px',
 });

@@ -4,7 +4,7 @@ import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 
 import { spy } from 'sinon';
 
 import ViewUnitProfileButton from 'components/officer-page/summary-section/view-unit-profile-button';
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('ViewUnitProfileButton component', function () {

@@ -1,7 +1,7 @@
 import { Promise } from 'es6-promise';
 
 import { LANDING_PAGE_ID } from 'utils/constants';
-import { getOfficerId, getCRID, getUnitName } from 'utils/location';
+import { getOfficerId, getCRID, getTRRId, getUnitName } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
 import { hasLandingPageCMSContent } from 'selectors/cms';
@@ -16,6 +16,7 @@ import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { fetchCoaccusals } from 'actions/officer-page/coaccusals';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
 import { fetchCR } from 'actions/cr-page';
+import { fetchTRR } from 'actions/trr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { fetchPage } from 'actions/cms';
 import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-allegation';
@@ -74,7 +75,7 @@ export default store => next => action => {
       dispatches.push(store.dispatch(getComplaintSummaries()));
     }
 
-  } else if (action.payload.pathname.match(/complaint\/\d+/)) {
+  } else if (action.payload.pathname.match(/complaint\/\w+/)) {
     const crid = getCRID(action.payload.pathname);
     const oldCrid = getCRID(prevPathname);
     if (crid != oldCrid) {
@@ -83,6 +84,12 @@ export default store => next => action => {
   } else if (action.payload.pathname.match(/unit\/\d+/)) {
     const unitName = getUnitName(action.payload.pathname);
     dispatches.push(store.dispatch(fetchUnitProfileSummary(unitName)));
+  } else if (action.payload.pathname.match(/trr\/\d+/)) {
+    const trrId = getTRRId(action.payload.pathname);
+    const oldtrrId = getTRRId(prevPathname);
+    if (trrId !== oldtrrId) {
+      dispatches.push(store.dispatch(fetchTRR(trrId)));
+    }
   }
 
   if (dispatches.length > 0) {

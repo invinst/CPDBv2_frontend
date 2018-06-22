@@ -34,6 +34,7 @@ if (global.LIVE_TEST !== undefined || global.mocha !== undefined) {
   const easeToSpy = spy();
   const getZoomStub = stub();
   const setLngLatSpy = spy();
+  const setPopupSpy = spy();
   const addToSpy = spy();
 
   class MockMap {
@@ -57,6 +58,7 @@ if (global.LIVE_TEST !== undefined || global.mocha !== undefined) {
     constructor() {
       this.setLngLat = setLngLatSpy;
       this.addTo = addToSpy;
+      this.setPopup = setPopupSpy;
     }
   }
 

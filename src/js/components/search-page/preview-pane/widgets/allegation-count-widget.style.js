@@ -1,11 +1,13 @@
-import { clayGray, softBlackColor } from 'utils/styles';
+import { clayGray, softBlackColor, whiteTwoColor } from 'utils/styles';
 
 
 export const containerStyle = {
-  padding: '20px 16px',
+  padding: '20px 16px 18px',
   backgroundColor: 'white',
   position: 'relative',
-  margin: '0 -8px 6px',
+  margin: '0 -8px 8px',
+  boxShadow: `0 2px ${whiteTwoColor}`,
+  boxSizing: 'border-box',
 };
 
 export const countStyle = {

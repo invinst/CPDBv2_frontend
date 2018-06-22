@@ -10,7 +10,7 @@ const LEVEL = 5;
 
 export default class RadarGrid extends Component {
   render() {
-    const { radius, maxValue, numAxis, strokeWidth } = this.props;
+    const { radius, maxValue, numAxis, strokeWidth, strokeColor, opacity } = this.props;
 
     if (!numAxis)
       return <g className='test--radar-grid-wrapper'/>;
@@ -32,10 +32,11 @@ export default class RadarGrid extends Component {
       <g className='test--radar-grid-wrapper'>
         { range(LEVEL).map((i) => (
           <path
+            stroke={ strokeColor }
             key={ `radar-grid-${i + 1}` }
             className={ `test--radar-grid-${i + 1}` }
             d={ radarLine(range(numAxis).map(() => ({ value: maxValueScaled * (i + 1) / LEVEL }))) }
-            style={ radarGridStyle }
+            style={ radarGridStyle(opacity) }
           />
         )) }
       </g>
@@ -48,4 +49,6 @@ RadarGrid.propTypes = {
   maxValue: PropTypes.number,
   numAxis: PropTypes.number,
   strokeWidth: PropTypes.number,
+  strokeColor: PropTypes.string,
+  opacity: PropTypes.number,
 };

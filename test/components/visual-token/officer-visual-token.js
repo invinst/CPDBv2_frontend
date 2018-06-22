@@ -4,7 +4,7 @@ import {
   findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 import OfficerVisualToken from 'components/visual-token/officer-visual-token';
 
 describe('OfficerVisualToken component', function () {

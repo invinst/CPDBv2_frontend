@@ -12,19 +12,6 @@ import FooterContainer from 'containers/footer-container';
 
 
 export default class TRRPage extends Component {
-  componentDidMount() {
-    const { trrId, fetchTRR } = this.props;
-
-    fetchTRR(trrId);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { fetchTRR, trrId } = nextProps;
-    if (this.props.trrId !== trrId) {
-      fetchTRR(trrId);
-    }
-  }
-
   render() {
     const {
       trrId, officer, trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal
@@ -55,12 +42,6 @@ TRRPage.propTypes = {
   officer: PropTypes.object,
   trrLocation: PropTypes.object,
   trrDetail: PropTypes.object,
-  fetchTRR: PropTypes.func,
   trrDocument: PropTypes.object,
   openRequestTRRDocumentModal: PropTypes.func,
-};
-
-TRRPage.defaultProps = {
-  fetchTRR: () => {
-  },
 };

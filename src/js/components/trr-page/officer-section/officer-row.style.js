@@ -2,7 +2,7 @@ import { whiteTwoColor, softBlackColor, clayGray, accentColor } from 'utils/styl
 
 
 export const officerRowStyle = {
-  padding: '8px 0',
+  padding: '7px 0',
   borderBottom: `1px solid ${whiteTwoColor}`,
   display: 'block',
 };
@@ -22,6 +22,7 @@ export const visualTokenStyle = {
   width: '38px',
   height: '38px',
   overflow: 'hidden',
+  padding: '1px 0',
 };
 
 export const rankStyle = {

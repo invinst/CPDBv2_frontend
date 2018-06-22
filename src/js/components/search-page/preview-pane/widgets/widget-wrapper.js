@@ -6,13 +6,18 @@ import { wrapperStyle } from './widget-wrapper.style';
 export default class WidgetWrapper extends Component {
   render() {
     return (
-      <div style={ wrapperStyle }>
+      <div className={ this.props.className } style={ wrapperStyle }>
         { this.props.children }
       </div>
     );
   }
 }
 
+WidgetWrapper.defaultProps = {
+  className: ''
+};
+
 WidgetWrapper.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.element.isRequired)
+  className: PropTypes.string,
+  children: PropTypes.arrayOf(PropTypes.element)
 };

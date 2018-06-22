@@ -11,12 +11,20 @@ export function trackInternalEvent(name, data) {
   });
 }
 
-export const trackOutboundLink = url => {
-  /* istanbul ignore next */
+/* istanbul ignore next */
+export const trackOutboundLink = (url, windowName) => {
   global.ga('send', 'event', 'outbound', 'click', url, {
     transport: 'beacon',
-    hitCallback: () => { document.location = url; }
+    hitCallback: () => {
+      if (!windowName) {
+        document.location = url;
+      }
+    }
   });
+
+  if (windowName) {
+    window.open(url, windowName);
+  }
 };
 
 export const throttledGA = throttle(global.ga, 500);

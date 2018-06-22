@@ -1,6 +1,8 @@
 import should from 'should';
 
-import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
+import {
+  contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested
+} from 'selectors/cr-page';
 import {
   InvestigatorFactory, PoliceWitnessFactory, CoaccusedFactory, ComplaintFactory
 } from 'utils/test/factories/complaint';
@@ -71,7 +73,7 @@ describe('CR page selectors', function () {
         id: 1,
         fullname: 'Michel Foo',
         demographic: '34 year old, White, Male',
-        outcome: 'Reprimand',
+        findingOutcomeMix: 'Reprimand',
         finding: 'Sustained',
         category: 'Operations/Personnel Violation',
         rank: 'Officer',
@@ -93,7 +95,7 @@ describe('CR page selectors', function () {
           },
         ],
         radarColor: {
-          backgroundColor: '#f3adad',
+          backgroundColor: '#ee7b6f',
           textColor: '#231F20'
         }
       }]);
@@ -192,7 +194,13 @@ describe('CR page selectors', function () {
 
     it('should set coaccused gender, race, finalOutcome, '
       + 'category to default value if missing data', function () {
-      const coaccusedObj = { 'id': 1, 'full_name': 'Michel Foo', 'start_date': '2012-02-01', 'end_date': '2013-02-01' };
+      const coaccusedObj = {
+        'id': 1,
+        'full_name': 'Michel Foo',
+        'start_date': '2012-02-01',
+        'end_date': '2013-02-01',
+        'final_outcome': 'abc'
+      };
       const state = buildState({
         crs: { '123': { coaccused: [coaccusedObj] } },
         crPage: { crid: 123 }
@@ -201,7 +209,6 @@ describe('CR page selectors', function () {
       const coaccused = contentSelector(state).coaccused[0];
       coaccused.rank.should.eql('Officer');
       coaccused.demographic.should.eql('');
-      coaccused.outcome.should.eql('Unknown Outcome');
       coaccused.category.should.eql('Unknown');
     });
 
@@ -218,6 +225,10 @@ describe('CR page selectors', function () {
                 'officer_id': 2,
                 'current_rank': 'CPD investigator'
               }),
+              InvestigatorFactory.build({
+                'officer_id': 5,
+                'current_rank': null
+              }),
               PoliceWitnessFactory.build({ 'officer_id': 3 }),
               PoliceWitnessFactory.build({ 'officer_id': 4 })
             ]
@@ -228,13 +239,13 @@ describe('CR page selectors', function () {
 
       const result = contentSelector(state);
       const investigators = result.involvements.investigator;
-      investigators.map((obj) => obj.id).should.eql([1, 2]);
-      investigators.map((obj) => obj.tag).should.eql(['IPRA', 'CPD']);
+      investigators.map((obj) => obj.id).should.eql([1, 2, 5]);
+      investigators.map((obj) => obj.tag).should.eql(['IPRA', 'CPD', '']);
 
       result.involvements['police_witness'].map((obj) => obj.id).should.eql([3, 4]);
     });
 
-    it('should return undefined incidentDate and location data if cr data does not exists', function () {
+    it('should return default data if cr data does not exists', function () {
       const state = buildState({
         crPage: { crid: 123 }
       });
@@ -244,6 +255,8 @@ describe('CR page selectors', function () {
       should.not.exists(result.address);
       should.not.exists(result.location);
       result.beat.should.eql('Unknown');
+      result.category.should.eql('Unknown');
+      result.subcategory.should.eql('Unknown');
     });
 
     it('should return incidentDate and location data if cr data are available', function () {

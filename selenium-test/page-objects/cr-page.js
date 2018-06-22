@@ -23,7 +23,7 @@ class AccusedOfficerCard extends Section {
 }
 
 class AccusedOfficerSection extends Section {
-  firstCard = new AccusedOfficerCard()
+  firstCard = new AccusedOfficerCard();
 
   constructor() {
     super();
@@ -66,7 +66,7 @@ class AttachmentCard extends Section {
 }
 
 class AttachmentsSection extends Section {
-  firstCard = new AttachmentCard()
+  firstCard = new AttachmentCard();
 
   constructor() {
     super();
@@ -154,9 +154,9 @@ class CarouselSection extends Section {
 class DistanceDropdown extends Section {
   constructor() {
     super();
-    this.optionClassName = 'test--related-complaint-dropdown-item';
+    this.optionClassName = 'test--dropdown-menu-item';
     this.prepareElementGetters({
-      button: '.test--related-complaint-dropdown',
+      button: '.test--dropdown-button',
       options: `.${this.optionClassName}`
     });
   }
@@ -186,6 +186,7 @@ class CRPage extends Page {
 
     this.prepareElementGetters({
       title: '.test--cr-title',
+      category: '.test--cr-category',
       investigationTimeline: '.test--investigator-timeline-text'
     });
   }

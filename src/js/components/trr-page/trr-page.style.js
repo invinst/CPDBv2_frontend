@@ -22,6 +22,7 @@ export const TRRIdHeaderStyle = {
 
 export const contentStyle = {
   minHeight: 'calc(100vh - 136px)',
+  paddingBottom: '128px',
 };
 
 export const footerStyle = {
