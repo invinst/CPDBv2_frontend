@@ -48,4 +48,11 @@ describe('Footer component', function () {
     contactLink.props.onClick();
     intercomUtils.showIntercomMessages.calledWith(true).should.be.true();
   });
+
+  it('should render Roadmap link', function () {
+    element = renderIntoDocument(<Footer />);
+    const links = scryRenderedComponentsWithType(element, FooterNavLink);
+    const githubLink = links.filter(link => link.props.name === 'Roadmap')[0];
+    githubLink.props.externalHref.should.eql('http://roadmap.cpdp.co/');
+  });
 });

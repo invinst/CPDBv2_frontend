@@ -31,10 +31,9 @@ class Filter extends Section {
     this.prepareElementGetters({
       button: '.test--timeline-filter .test--dropdown-button',
       menu: '.test--timeline-filter .test--dropdown-menu',
-      all: '(//div[@class="test--dropdown-menu-item"])[1]',
-      crs: '(//div[@class="test--dropdown-menu-item"])[2]',
-      force: '(//div[@class="test--dropdown-menu-item"])[3]',
-      awards: '(//div[@class="test--dropdown-menu-item"])[4]'
+      crs: '(//div[@class="test--dropdown-menu-item"])[1]',
+      force: '(//div[@class="test--dropdown-menu-item"])[2]',
+      awards: '(//div[@class="test--dropdown-menu-item"])[3]'
     });
   }
 }

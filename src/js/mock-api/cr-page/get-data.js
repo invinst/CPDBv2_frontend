@@ -46,6 +46,10 @@ export default () => ComplaintFactory.build({
   'start_date': '2003-09-23',
   'end_date': '2004-03-16',
   summary: 'Summary',
+  'most_common_category': {
+    category: 'Use Of Force',
+    'allegation_name': 'Miscellaneous'
+  },
   address: '3510 Michigan Ave, Chicago, IL 60653',
   location: 'Police Building',
   beat: '2551',

@@ -1,17 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
 
-import { arrowStyle, defaultButtonStyle, wrapperStyle } from './dropdown.style';
+import Hoverable from 'components/common/higher-order/hoverable';
 import Menu from './menu';
+import { arrowStyle, defaultButtonStyle, wrapperStyle, defaultButtonTextStyle } from './dropdown.style';
 
 
-export default class Dropdown extends Component {
+export class Dropdown extends Component {
   constructor(props) {
     super(props);
 
-    this.onClick = this.onClick.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-    this.onSelect = this.onSelect.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
 
     this.state = {
       open: false,
@@ -19,48 +20,56 @@ export default class Dropdown extends Component {
     };
   }
 
-  onClick() {
-    this.setState({ open: !this.state.open });
+  handleClick() {
+    this.setState({
+      open: !this.state.open
+    });
   }
 
-  onSelect(option) {
+  handleSelect(option) {
     if ( option !== this.state.selected) {
       this.props.onChange(option);
-      this.setState({ selected: option, open: false });
-    } else {
-      this.setState({ open: false });
+      this.setState({
+        selected: option,
+        open: false
+      });
     }
   }
 
-  onBlur() {
-    this.setState({ open: false });
+  handleBlur() {
+    this.setState({
+      open: false
+    });
   }
 
   render() {
-    const { buttonStyle, className, menuItemStyle, menuStyle, options } = this.props;
-    const selected = this.state.selected;
+    const { buttonStyle, className, menuItemStyle, menuStyle, options, width, hovering } = this.props;
+    const { selected, open } = this.state;
 
     return (
       <div
         style={ wrapperStyle }
-        onBlur={ this.onBlur }
+        onBlur={ this.handleBlur }
         className={ classNames('dropdown', className) }
-        tabIndex='-1'>
+        tabIndex='-1'
+      >
         <div
           className='test--dropdown-button'
-          style={ { ...defaultButtonStyle, ...buttonStyle } }
-          onClick={ this.onClick }
+          style={ { ...defaultButtonStyle(width, hovering), ...buttonStyle } }
+          onClick={ this.handleClick }
         >
-          <span>{ selected }</span>
-          <span style={ arrowStyle(this.state.open) }/>
+          <span style={ defaultButtonTextStyle(width - 30) }>{ selected }</span>
+          <span style={ arrowStyle(open) }/>
         </div>
         {
-          this.state.open ? (
+          open ? (
             <Menu
               menuItemStyle={ menuItemStyle }
               menuStyle={ menuStyle }
-              onSelect={ this.onSelect }
+              onSelect={ this.handleSelect }
               options={ options }
+              width={ width }
+              selected={ selected }
             />
           ) : null
         }
@@ -77,8 +86,13 @@ Dropdown.propTypes = {
   options: PropTypes.array,
   defaultValue: PropTypes.string,
   className: PropTypes.string,
+  width: PropTypes.number,
+  hovering: PropTypes.bool,
 };
 
 Dropdown.defaultProps = {
   options: [],
+  onChange: () => {},
 };
+
+export default Hoverable(Dropdown);
