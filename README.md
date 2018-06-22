@@ -19,12 +19,11 @@
 
 ## Development
 
-First create a symlink to let the local devserver serve fonts correctly:
+First copy the font folder from `src/fonts` to `src/dist` so that the local server can serve fonts correctly:
 
 ```bash
 mkdir src/dist
-cd src/dist
-ln -s ../fonts fonts
+cp -r src/fonts src/dist
 ```
 
 Then:
