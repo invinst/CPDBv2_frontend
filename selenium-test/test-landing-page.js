@@ -111,7 +111,7 @@ describe('landing page', function () {
     });
 
     it('should go to officer summary page when click to card', function () {
-      const firstCard = landingPage.recentActivityCarousel.cards;
+      const firstCard = landingPage.officersByAllegationCarousel.cards;
       firstCard.click();
       browser.pause(500);
       browser.getUrl().should.match(/\/officer\/\d+\/$/);
