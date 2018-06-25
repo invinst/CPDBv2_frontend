@@ -27,6 +27,7 @@ export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
   .attr('percentile', () => RawOfficerPercentileFactory.build())
   .attr('type', 'single_officer');
 
+/* istanbul ignore next */
 const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
   .sequence('id')
   .attr('birth_year', () => date.past().getFullYear())
@@ -35,6 +36,7 @@ const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
   .attr('race', helpers.randomize(['Black', 'White', 'Asian']))
   .attr('percentile', () => RawOfficerPercentileFactory.build());
 
+/* istanbul ignore next */
 export const RawOfficersPairCardFactory = Factory.define('RawOfficersPairCardFactory')
   .attr('type', 'coaccused_pair')
   .attr('coaccusal_count', () => random.number({ min: 0, max: 50 }))
