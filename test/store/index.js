@@ -135,6 +135,13 @@ describe('store', function () {
         trrId: null,
         data: {},
         isRequesting: false,
+        attachmentRequest: {
+          request: {
+            isRequested: false,
+            message: '',
+          },
+          subscribedTRRIds: {},
+        },
       },
       crs: {},
       officerPage: {

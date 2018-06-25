@@ -58,6 +58,11 @@ axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'valid@ema
 axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
 
+axiosMockClient.onPost(`${TRR_URL}1/request-document/`, { email: 'valid@email.com' })
+  .reply(200, { 'message': 'Thanks for subscribing.', 'trr_id': 1 });
+axiosMockClient.onPost(`${TRR_URL}1/request-document/`, { email: 'invalid@email.com' })
+  .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
+
 
 // remove "/" from beginning of any v1 path for axios mock adapter to work.
 let mailChimpUrl = MAIL_CHIMP_URL.slice(1);

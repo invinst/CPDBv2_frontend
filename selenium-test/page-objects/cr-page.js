@@ -1,5 +1,6 @@
 import Page from './page';
 import Section from './sections/section';
+import DocumentRequestModalSection from './sections/document-request-modal';
 
 
 class AccusedOfficerCard extends Section {
@@ -168,19 +169,6 @@ class DistanceDropdown extends Section {
   }
 }
 
-
-class DocumentRequestModalSection extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      overlay: '//div[@class="test--generic-modal-overlay"]',
-      content: '.test--generic-modal-content',
-      emailInput: '//div[@class="test--generic-modal-content"]//input[@placeholder="Your email"]',
-      submitButton: '//div[@class="test--generic-modal-content"]//input[@type="submit"]',
-      messageBox: '.test--request-document-modal--message',
-    });
-  }
-}
 
 class CRPage extends Page {
   accusedOfficers = new AccusedOfficerSection();

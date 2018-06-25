@@ -112,7 +112,7 @@ describe('RequestDocumentModalContent component', function () {
         <StyleRoot>
           <RequestDocumentModalContent
             message={ 'Default message' }
-            crid={ 1 }
+            id={ 1 }
             closeModal={ closeCallback }
             onRequestDocument={ requestDocumentCallback }
           />
@@ -126,7 +126,7 @@ describe('RequestDocumentModalContent component', function () {
       let formElement = findRenderedDOMComponentWithTag(requestForm, 'form');
       Simulate.submit(formElement);
 
-      requestDocumentCallback.calledWith({ crid: 1, email: 'abc@xyz.com' }).should.be.true();
+      requestDocumentCallback.calledWith({ id: 1, email: 'abc@xyz.com' }).should.be.true();
     }
 
     // TODO: BUG - when one case failed, then other case failed as well !
