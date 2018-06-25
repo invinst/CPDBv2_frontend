@@ -28,6 +28,10 @@ export default class AnimatedRadarChart extends Component {
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props.data, prevProps.data)) {
+      /* istanbul ignore next */
+      if (this.timer) {
+        this.stopTimer();
+      }
       this.startTimer();
     }
   }
