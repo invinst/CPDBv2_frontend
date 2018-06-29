@@ -4,6 +4,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  scryRenderedComponentsWithType, Simulate
 } from 'react-addons-test-utils';
 import { useFakeTimers } from 'sinon';
 
@@ -55,8 +56,8 @@ describe('AnimatedRadarChart components', function () {
   it('should render if data provided', function () {
     instance = renderIntoDocument(<AnimatedRadarChart data={ data }/>);
     findRenderedComponentWithType(instance, StaticRadarChart);
-    findRenderedComponentWithType(instance, RadarExplainer);
-    findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-toggle-button');
+    findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-question-mark');
+    scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
   });
 
   it('should rerender if data change', function () {
@@ -67,6 +68,15 @@ describe('AnimatedRadarChart components', function () {
       instance
     );
     should(instance.timer).not.be.null();
+  });
+
+  it('should open the explainer clicking on the radar chart', function () {
+    instance = renderIntoDocument(<AnimatedRadarChart data={ data }/>);
+    scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
+
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--officer--radar-chart-placeholder'));
+
+    findRenderedComponentWithType(instance, RadarExplainer);
   });
 
   describe('test animate', function () {
@@ -108,25 +118,26 @@ describe('AnimatedRadarChart components', function () {
 
     });
 
-    it('should stop when click, then resume if click again', function () {
-      instance = renderIntoDocument(
-        <AnimatedRadarChart data={ data }/>
-      );
-      clock.tick(25);
-      instance.state.transitionValue.should.eql(instance.velocity);
+    it('should end animation and start animation again when the explainer is closed', function () {
+      instance = renderIntoDocument(<AnimatedRadarChart data={ data }/>);
+      scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
 
-      // STOP
-      instance.handleClick();
-      clock.tick(500);
-      instance.state.transitionValue.should.eql(instance.velocity);
+      Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--officer--radar-chart-placeholder'));
 
-      // RESUME
-      instance.handleClick();
-      clock.tick(500);
       instance.state.transitionValue.should.eql(2);
 
-      instance.handleClick();
+      const explainer = findRenderedComponentWithType(instance, RadarExplainer);
+      const closeButton = findRenderedDOMComponentWithClass(explainer, 'test--radar-explainer-close-button');
+
+      closeButton.querySelectorAll('.fa-close').should.have.length(1);
+
+      Simulate.click(closeButton);
+
       instance.state.transitionValue.should.eql(0);
+      scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
+
+      clock.tick(25);
+      instance.state.transitionValue.should.eql(instance.velocity);
     });
   });
 });

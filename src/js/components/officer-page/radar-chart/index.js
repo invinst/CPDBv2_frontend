@@ -3,7 +3,12 @@ import { map, isEqual } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
 import StaticRadarChart from 'components/common/radar-chart';
-import { radarChartPlaceholderStyle } from './radar-chart.style';
+import {
+  animatedRadarChartStyle,
+  radarChartPlaceholderStyle,
+  openExplainerButtonStyle,
+  questionMarkStyle
+} from './radar-chart.style';
 import RadarExplainer from './explainer';
 
 
@@ -12,12 +17,14 @@ export default class AnimatedRadarChart extends Component {
     super(props);
     this.state = {
       transitionValue: 0,
+      showExplainer: false
     };
     this.interval = 20;
     this.velocity = 0.1;
     this.timer = null;
 
-    this.handleClick = this.handleClick.bind(this);
+    this.openExplainer = this.openExplainer.bind(this);
+    this.closeExplainer = this.closeExplainer.bind(this);
     this.animate = this.animate.bind(this);
     this.getCurrentTransitionData = this.getCurrentTransitionData.bind(this);
   }
@@ -34,6 +41,16 @@ export default class AnimatedRadarChart extends Component {
 
   componentWillUnmount() {
     this.stopTimer();
+  }
+
+  openExplainer() {
+    this.endAnimation();
+    this.setState({ showExplainer: true });
+  }
+
+  closeExplainer() {
+    this.setState({ showExplainer: false });
+    this.startAnimation();
   }
 
   animate() {
@@ -87,45 +104,56 @@ export default class AnimatedRadarChart extends Component {
     };
   }
 
-  handleClick() {
+  startAnimation() {
     if (this.timer) {
       this.stopTimer();
-    } else {
-      if (this.state.transitionValue === this.props.data.length - 1) {
-        this.setState({
-          transitionValue: 0,
-        });
-      }
-      this.startTimer();
     }
+
+    this.setState({ transitionValue: 0 });
+    this.startTimer();
+  }
+
+  endAnimation() {
+    if (this.timer) {
+      this.stopTimer();
+    }
+    const maxValue = this.props.data.length - 1;
+    this.setState({ transitionValue: maxValue });
+    this.startTimer();
   }
 
   render() {
     const { transitionValue, showExplainer } = this.state;
     const { data } = this.props;
     if (!data) return null;
-
     const itemData = this.getCurrentTransitionData();
 
     return (!!itemData) && (
-      <div className='test--officer--radar-chart' style={ radarChartPlaceholderStyle }>
-        <StaticRadarChart
-          onClick={ this.handleClick }
-          textColor={ itemData.textColor }
-          backgroundColor={ itemData.visualTokenBackground }
-          fadeOutLegend={ transitionValue >= (data.length - 1) }
-          legendText={ itemData.year }
-          data={ itemData.items }
-          showSpineLinePoint={ true }
-          showGrid={ true }
-          gridOpacity={ 0.25 }
-          showAxisTitle={ true }
-          showAxisValue={ true }
-        />
-        <RadarExplainer
-          show={ showExplainer }
-          radarChartData={ data }
-        />
+      <div
+        className='test--officer--radar-chart'
+        style={ animatedRadarChartStyle }
+      >
+        <div
+          style={ radarChartPlaceholderStyle }
+          onClick={ this.openExplainer }
+          className='test--officer--radar-chart-placeholder'
+        >
+          <StaticRadarChart
+            textColor={ itemData.textColor }
+            backgroundColor={ itemData.visualTokenBackground }
+            fadeOutLegend={ transitionValue >= (data.length - 1) }
+            legendText={ itemData.year }
+            data={ itemData.items }
+            showSpineLinePoint={ true }
+            showGrid={ true }
+            gridOpacity={ 0.25 }
+            showAxisTitle={ true }
+          />
+          <div style={ openExplainerButtonStyle } className='test--radar-explainer-question-mark'>
+            <span style={ questionMarkStyle }>?</span>
+          </div>
+        </div>
+        { showExplainer && <RadarExplainer closeExplainer={ this.closeExplainer } radarChartData={ data }/> }
       </div>
     );
   }
