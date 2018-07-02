@@ -1,7 +1,9 @@
 import { toLower } from 'lodash';
+
 import { extractPercentile } from 'selectors/common/percentile';
 import { ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
+import { getCurrentAge } from 'utils/date';
 
 
 export const cardTransform = card => {
@@ -22,8 +24,8 @@ export const officerCardTransform = card => ({
   sustainedCount: card['sustained_count'],
   complaintPercentile: parseFloat(card['complaint_percentile']),
   birthYear: card['birth_year'],
-  race: toLower(card['race']),
-  gender: toLower(card['gender']),
+  race: card['race'] ? toLower(card['race']) : 'N/A',
+  gender: card['gender'] ? toLower(card['gender']) : 'N/A',
   percentile: extractPercentile(card['percentile']),
   type: card['type'],
 });
@@ -40,9 +42,9 @@ export const simpleOfficerTransform = officer => {
   return {
     id: officer['id'],
     fullName: officer['full_name'],
-    birthYear: officer['birth_year'],
-    race: officer['race'],
-    gender: officer['gender'],
+    age: officer['birth_year'] ? getCurrentAge(officer['birth_year']) : 'N/A',
+    race: officer['race'] ? toLower(officer['race']) : 'N/A',
+    gender: officer['gender'] ? toLower(officer['gender']) : 'N/A',
     percentile: {
       percentileAllegation: percentile['percentile_allegation'],
       percentileAllegationCivilian: percentile['percentile_allegation_civilian'],

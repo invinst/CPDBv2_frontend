@@ -93,6 +93,18 @@ describe('common selectors', function () {
       'officer_id': 8562,
     },
   };
+  const missingOfficerInfo = {
+    id: '8562',
+    'full_name': 'Jerome Finnigan',
+    percentile: {
+      'percentile_trr': '70.069',
+      'percentile_allegation_civilian': '99.984',
+      'percentile_allegation': '99.987',
+      'percentile_allegation_internal': '99.675',
+      year: 2018,
+      'officer_id': 8562,
+    },
+  };
 
   describe('officerCardTransform', function () {
     it('should return an officer information', function () {
@@ -136,9 +148,26 @@ describe('common selectors', function () {
       simpleOfficerTransform(officerInfo).should.eql({
         id: '8562',
         fullName: 'Jerome Finnigan',
-        birthYear: 1963,
-        race: 'White',
-        gender: 'Male',
+        age: 54,
+        race: 'white',
+        gender: 'male',
+        percentile: {
+          percentileAllegation: '99.987',
+          percentileAllegationCivilian: '99.984',
+          percentileAllegationInternal: '99.675',
+          percentileTrr: '70.069'
+        },
+        backgroundColor: '#e94829'
+      });
+    });
+
+    it('should return correct information of an officer with missing info', function () {
+      simpleOfficerTransform(missingOfficerInfo).should.eql({
+        id: '8562',
+        fullName: 'Jerome Finnigan',
+        age: 'N/A',
+        race: 'N/A',
+        gender: 'N/A',
         percentile: {
           percentileAllegation: '99.987',
           percentileAllegationCivilian: '99.984',
@@ -158,9 +187,9 @@ describe('common selectors', function () {
         officer1: {
           id: 8562,
           fullName: 'Jerome Finnigan',
-          birthYear: 1963,
-          race: 'White',
-          gender: 'Male',
+          age: 54,
+          race: 'white',
+          gender: 'male',
           percentile: {
             percentileAllegation: '99.987',
             percentileAllegationCivilian: '99.984',
@@ -172,9 +201,9 @@ describe('common selectors', function () {
         officer2: {
           id: 3454,
           fullName: 'John Burzinski',
-          birthYear: 1961,
-          race: 'White',
-          gender: 'Male',
+          age: 56,
+          race: 'white',
+          gender: 'male',
           percentile: {
             percentileAllegation: '99.924',
             percentileAllegationCivilian: '99.908',
@@ -265,9 +294,9 @@ describe('common selectors', function () {
         officer1: {
           id: 8562,
           fullName: 'Jerome Finnigan',
-          birthYear: 1963,
-          race: 'White',
-          gender: 'Male',
+          age: 54,
+          race: 'white',
+          gender: 'male',
           percentile: {
             percentileAllegation: '99.987',
             percentileAllegationCivilian: '99.984',
@@ -279,9 +308,9 @@ describe('common selectors', function () {
         officer2: {
           id: 3454,
           fullName: 'John Burzinski',
-          birthYear: 1961,
-          race: 'White',
-          gender: 'Male',
+          age: 56,
+          race: 'white',
+          gender: 'male',
           percentile: {
             percentileAllegation: '99.924',
             percentileAllegationCivilian: '99.908',

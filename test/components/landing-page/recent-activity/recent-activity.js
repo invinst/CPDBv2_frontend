@@ -45,7 +45,7 @@ describe('Recent Activity components', function () {
     'officer1': {
       'id': 8562,
       'fullName': 'Jerome Finnigan',
-      'birthYear': 1963,
+      'age': 54,
       'race': 'White',
       'gender': 'Male',
       'percentile': {
@@ -59,7 +59,7 @@ describe('Recent Activity components', function () {
     'officer2': {
       'id': 3454,
       'fullName': 'John Burzinski',
-      'birthYear': 1961,
+      'age': 56,
       'race': 'White',
       'gender': 'Male',
       'percentile': {
@@ -108,9 +108,9 @@ describe('Recent Activity components', function () {
 
     const pairingCard = findDOMNode(findRenderedComponentWithType(instance, PairingCard));
     pairingCard.textContent.should.containEql('Jerome Finnigan');
-    pairingCard.textContent.should.containEql('55 year old, White, Male.');
+    pairingCard.textContent.should.containEql('54 year old, White, Male.');
     pairingCard.textContent.should.containEql('John Burzinski');
-    pairingCard.textContent.should.containEql('57 year old, White, Male.');
+    pairingCard.textContent.should.containEql('56 year old, White, Male.');
     pairingCard.textContent.should.containEql('Coaccused 23 times');
   });
 
