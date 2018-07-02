@@ -67,7 +67,6 @@ describe('landing page', function () {
     it('should show initial carousel', function () {
       browser.pause();
       landingPage.recentActivityCarousel.officerCards.count.should.equal(20);
-      landingPage.recentActivityCarousel.officerCards.count.should.equal(20);
       landingPage.recentActivityCarousel.rightArrow.waitForVisible();
       landingPage.recentActivityCarousel.leftArrow.waitForVisible(2000, true);
     });

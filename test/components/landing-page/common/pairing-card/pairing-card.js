@@ -1,3 +1,4 @@
+import should from 'should';
 import React from 'react';
 import {
   renderIntoDocument,
@@ -11,7 +12,6 @@ import { unmountComponentSuppressError } from 'utils/test';
 import PairingCard from 'components/landing-page/common/pairing-card';
 import PairingChart from 'components/landing-page/common/pairing-card/pairing-chart';
 import OfficerInfo from 'components/landing-page/common/pairing-card/officer-info';
-import should from 'should';
 
 
 describe('PairingCard component', function () {

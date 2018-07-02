@@ -6,6 +6,7 @@ import { TopHeader, StickyHeader } from './sections/header';
 import Footer from './sections/footer';
 import RichTextToolbar from './sections/rich-text-toolbar';
 
+
 class CollaborateSection extends Section {
   constructor() {
     super();
@@ -29,13 +30,13 @@ class RecentActivityCarouselSection extends Section {
       pairCards: '//div[@class="test--landing-carousel-activity"]//div[@class="test--pair-card"]',
       firstPairCard: '(//div[@class="test--landing-carousel-activity"]//div[@class="test--pair-card"])[1]',
       firstPairCardLeftHalf: '' +
-      '((//div[@class="test--landing-carousel-activity"]' +
-      '//div[@class="test--pair-card"])[1]' +
-      '//div[@class="test--officer-info"])[1]',
+        '((//div[@class="test--landing-carousel-activity"]' +
+        '//div[@class="test--pair-card"])[1]' +
+        '//div[@class="test--officer-info"])[1]',
       firstPairCardRightHalf: '' +
-      '((//div[@class="test--landing-carousel-activity"]' +
-      '//div[@class="test--pair-card"])[1]' +
-      '//div[@class="test--officer-info"])[2]',
+        '((//div[@class="test--landing-carousel-activity"]' +
+        '//div[@class="test--pair-card"])[1]' +
+        '//div[@class="test--officer-info"])[2]',
     });
   }
 }

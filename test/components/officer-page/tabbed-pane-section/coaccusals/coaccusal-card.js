@@ -1,5 +1,5 @@
 import StaticRadarChart from 'components/common/radar-chart';
-import CoaccusalCard from 'components/officer-page/tabbed-pane-section/coaccusals/coaccusal-card/index';
+import CoaccusalCard from 'components/officer-page/tabbed-pane-section/coaccusals/coaccusal-card;
 import React from 'react';
 import {
   findRenderedComponentWithType,
@@ -8,7 +8,7 @@ import {
   Simulate
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test;
 
 
 describe('CoaccusalCard component', function () {

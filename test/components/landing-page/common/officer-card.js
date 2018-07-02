@@ -7,7 +7,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test;
 
 import OfficerCard from 'components/landing-page/common/officer-card';
 import { getThisYear } from 'utils/date';

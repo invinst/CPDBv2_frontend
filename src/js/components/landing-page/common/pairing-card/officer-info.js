@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import { rowDividerStyle, textStyle, nameStyle, personaInfoStyle, wrapperStyle } from './officer-info.style';
+import { getThisYear } from 'utils/date';
 
 
 class OfficerInfo extends Component {
@@ -19,7 +20,6 @@ class OfficerInfo extends Component {
   render() {
     const { info, style, hovering } = this.props;
     const { fullName, birthYear, race, gender } = info;
-    const currentYear = (new Date()).getFullYear();
 
     return (
       <div style={ { ...wrapperStyle, ...style } } onClick={ this.handleClick } className='test--officer-info'>
@@ -31,7 +31,7 @@ class OfficerInfo extends Component {
         </div>
         <div style={ rowDividerStyle } />
         <div style={ personaInfoStyle } className='test--officer-personal-info'>
-          { currentYear - birthYear } year old, { race }, { gender }.
+          { getThisYear() - birthYear } year old, { race }, { gender }.
         </div>
       </div>
     );

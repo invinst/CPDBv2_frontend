@@ -222,6 +222,7 @@ describe('common selectors', function () {
         type: undefined
       });
     });
+
     it('should return the information of a single officer', function () {
       cardTransform(singleOfficerCard).should.eql({
         id: '8562',
@@ -256,6 +257,7 @@ describe('common selectors', function () {
         type: 'single_officer'
       });
     });
+
     it('should return the information of the two officers in the pairing card', function () {
       cardTransform(pairOfficerCard).should.eql({
         type: 'coaccused_pair',

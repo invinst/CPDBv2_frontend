@@ -9,15 +9,9 @@ export default class PairingChart extends Component {
     const { coaccusalCount, background1, background2 } = this.props;
     return (
       <div style={ wrapperStyle }>
-        <VennDiagram
-          coaccusalCount={ coaccusalCount }
-          background1={ background1 }
-          background2={ background2 }
-        />
-        <div
-          style={ coaccusedTextStyle }
-          className='test--pairing-chart-coaccusal-text'
-        > Coaccused { coaccusalCount } times
+        <VennDiagram coaccusalCount={ coaccusalCount } background1={ background1 } background2={ background2 } />
+        <div style={ coaccusedTextStyle } className='test--pairing-chart-coaccusal-text'>
+          Coaccused { coaccusalCount } times
         </div>
       </div>
     );

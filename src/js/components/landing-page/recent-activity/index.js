@@ -8,6 +8,8 @@ import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';
 import InlineHeaderSection from '../inline-header-section';
 import { headerWrapperStyle, carouselStyle, itemStyle } from '../carousel-wrapper.style';
+import { cardStyle, visualTokenStyle } from './recent-activity.style';
+
 
 
 export default class RecentActivity extends Component {
@@ -34,8 +36,8 @@ export default class RecentActivity extends Component {
             card.type === ACTIVITY_GRID_CARD_TYPES.OFFICER ? (
               <OfficerCard
                 { ...omit(card, 'id') }
-                cardStyle={ { width: '232px', margin: 0 } }
-                visualTokenStyle={ { height: '100px' } }
+                cardStyle={ cardStyle }
+                visualTokenStyle={ visualTokenStyle }
               />
             ) : card.type === ACTIVITY_GRID_CARD_TYPES.PAIR ? (
               <PairingCard

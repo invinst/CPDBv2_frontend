@@ -1,9 +1,10 @@
 import React from 'react';
 
 import { stub } from 'sinon';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate, } from 'react-addons-test-utils';
+import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import OfficerInfo from 'components/landing-page/common/pairing-card/officer-info';
+import { getCurrentAge } from 'utils/date';
 
 
 describe('OfficerInfo component', function () {
@@ -27,8 +28,7 @@ describe('OfficerInfo component', function () {
     );
     const officerFullName = findRenderedDOMComponentWithClass(instance, 'test--officer-name');
     const officerPersonalInfo = findRenderedDOMComponentWithClass(instance, 'test--officer-personal-info');
-    const currentYear = (new Date()).getFullYear();
-    const age = currentYear - 1963;
+    const age = getCurrentAge(1963);
     officerPersonalInfo.textContent.should.eql(age + ' year old, White, Male.');
     officerFullName.textContent.should.eql('Jerome Finnigan');
   });
