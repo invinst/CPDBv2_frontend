@@ -10,7 +10,7 @@ import {
 import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import OutboundLink from 'components/common/outbound-link';
 import * as domUtils from 'utils/dom';
-import { unmountComponentSuppressError } from 'utils/test;
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('Attachments component', function () {
