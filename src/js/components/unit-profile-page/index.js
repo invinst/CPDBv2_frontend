@@ -8,15 +8,13 @@ import { pageWrapperStyle } from './unit-profile-page.style';
 
 export default class UnitProfilePage extends Component {
   render() {
-    const { location, unitName, summary, scrollPosition } = this.props;
-    const { pathname } = location;
+    const { unitName, summary, scrollPosition } = this.props;
 
     return (
       <div>
         <ShareableHeaderContainer/>
         <Header
           unitName={ unitName }
-          pathname={ pathname }
           unitDescription={ summary.description }
           scrollPosition={ scrollPosition }
         />
@@ -29,13 +27,11 @@ export default class UnitProfilePage extends Component {
 }
 
 UnitProfilePage.propTypes = {
-  location: PropTypes.object,
   unitName: PropTypes.string,
   summary: PropTypes.object,
   scrollPosition: PropTypes.string
 };
 
 UnitProfilePage.defaultProps = {
-  location: { pathname: '/' },
   summary: {}
 };
