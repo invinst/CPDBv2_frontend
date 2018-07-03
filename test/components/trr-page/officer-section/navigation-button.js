@@ -1,8 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router';
 import {
   renderIntoDocument,
-  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
@@ -17,10 +15,8 @@ describe('NavigationButton component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render Link with correct text', function () {
-    instance = renderIntoDocument(<NavigationButton text='Some text' to='/path/to/'/>);
-    const navigationButton = findRenderedComponentWithType(instance, Link);
-    navigationButton.props.to.should.eql('/path/to/');
-    findDOMNode(navigationButton).textContent.should.eql('Some text');
+  it('should render correct text', function () {
+    instance = renderIntoDocument(<NavigationButton text='Some text'/>);
+    findDOMNode(instance).textContent.should.eql('Some text');
   });
 });

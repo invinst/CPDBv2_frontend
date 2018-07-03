@@ -6,5 +6,5 @@ export const invistStyle = hovering => ({
   height: '20px',
   width: '155px',
   marginLeft: '-9px',
-  background: `url(${imgUrl(hovering ? 'invist-logo-blue.svg' : 'invist-logo.svg')}) no-repeat center/cover`
+  background: `url(${imgUrl(hovering ? 'invist-logo-black.svg' : 'invist-logo.svg')}) no-repeat center/cover`
 });

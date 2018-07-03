@@ -1,5 +1,5 @@
 import { Factory } from 'rosie';
-import { date, random, name } from 'faker';
+import { date, random, name, helpers, address } from 'faker';
 import moment from 'moment';
 
 
@@ -26,7 +26,8 @@ export const RawTRROfficerFactory = Factory.define('RawTRROfficerFactory')
   })
   .attr('percentile_allegation_civilian', percentileGenerator)
   .attr('percentile_allegation_internal', percentileGenerator)
-  .attr('percentile_trr', percentileGenerator);
+  .attr('percentile_trr', percentileGenerator)
+  .attr('point', { lat: 41.7508596, lng: -87.6533166 });
 
 
 /* istanbul ignore next */
@@ -35,4 +36,20 @@ export const RawTRRFactory = Factory.define('RawTRRFactory')
   .attr('officer', () => RawTRROfficerFactory.build())
   .attr('officer_in_uniform', () => random.boolean())
   .attr('officer_assigned_beat', '4682E')
-  .attr('officer_on_duty', ()=> random.boolean());
+  .attr('officer_on_duty', ()=> random.boolean())
+  .attr('subject_race', () => helpers.shuffle(
+      ['White', 'Black', 'Hispanic', 'Asian/Pacific', 'Unknown', 'Native American/Alaskan Native']
+    )[0]
+  )
+  .attr('subject_race', () => helpers.shuffle(['Male', 'Female'])[0])
+  .attr('force_category', () => helpers.shuffle(['Taser', 'Firearm', 'Other'])[0])
+  .attr('date_of_incident', dateGenerator)
+  .attr('location_type', 'Street')
+  .attr('address', address.streetAddress)
+  .attr('beat', 331)
+  .attr('forceTypes', [
+    'Imminent Threat Of Battery',
+    'Pulled Away',
+    'Verbal Commands',
+    'Other (Specify)'
+  ]);

@@ -225,6 +225,10 @@ describe('CR page selectors', function () {
                 'officer_id': 2,
                 'current_rank': 'CPD investigator'
               }),
+              InvestigatorFactory.build({
+                'officer_id': 5,
+                'current_rank': null
+              }),
               PoliceWitnessFactory.build({ 'officer_id': 3 }),
               PoliceWitnessFactory.build({ 'officer_id': 4 })
             ]
@@ -235,13 +239,13 @@ describe('CR page selectors', function () {
 
       const result = contentSelector(state);
       const investigators = result.involvements.investigator;
-      investigators.map((obj) => obj.id).should.eql([1, 2]);
-      investigators.map((obj) => obj.tag).should.eql(['IPRA', 'CPD']);
+      investigators.map((obj) => obj.id).should.eql([1, 2, 5]);
+      investigators.map((obj) => obj.tag).should.eql(['IPRA', 'CPD', '']);
 
       result.involvements['police_witness'].map((obj) => obj.id).should.eql([3, 4]);
     });
 
-    it('should return undefined incidentDate and location data if cr data does not exists', function () {
+    it('should return default data if cr data does not exists', function () {
       const state = buildState({
         crPage: { crid: 123 }
       });
@@ -251,6 +255,8 @@ describe('CR page selectors', function () {
       should.not.exists(result.address);
       should.not.exists(result.location);
       result.beat.should.eql('Unknown');
+      result.category.should.eql('Unknown');
+      result.subcategory.should.eql('Unknown');
     });
 
     it('should return incidentDate and location data if cr data are available', function () {

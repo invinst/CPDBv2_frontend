@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import RecentSuggestionItem from './recent-suggestion-item';
-import { suggestionGroupStyle } from './recent-suggestion.style.js';
+import { suggestionGroupStyle } from './recent-suggestion.style';
 import BlockTitle from 'components/common/block-title';
 
 

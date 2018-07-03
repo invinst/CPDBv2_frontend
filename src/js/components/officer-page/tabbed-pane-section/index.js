@@ -6,6 +6,7 @@ import TimelineContainer from 'containers/officer-page/timeline-container';
 import CoaccusalsContainer from 'containers/officer-page/coaccusals-container';
 import AttachmentsContainer from 'containers/officer-page/attachments-container';
 import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
+import MapContainer from 'containers/officer-page/map-container';
 
 
 export default class TabbedPaneSection extends Component {
@@ -13,7 +14,7 @@ export default class TabbedPaneSection extends Component {
     super(props);
     this.tabbedPaneMap = {
       [OFFICER_PAGE_TAB_NAMES.TIMELINE]: <TimelineContainer/>,
-      [OFFICER_PAGE_TAB_NAMES.MAP]: null,
+      [OFFICER_PAGE_TAB_NAMES.MAP]: <MapContainer/>,
       [OFFICER_PAGE_TAB_NAMES.COACCUSALS]: <CoaccusalsContainer/>,
       [OFFICER_PAGE_TAB_NAMES.ATTACHMENTS]: <AttachmentsContainer/>,
     };
