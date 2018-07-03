@@ -9,11 +9,12 @@ import {
   dateStyle,
 } from './trr-location.style';
 import Row from './row';
+import TRRMap from './trr_map';
 
 
 export default class TRRLocation extends Component {
   render() {
-    const { address, incidentDate, beat, locationType } = this.props;
+    const { address, incidentDate, beat, locationType, point } = this.props;
     return (
       <div style={ wrapperStyle }>
         <div style={ infoStyle }>
@@ -31,7 +32,9 @@ export default class TRRLocation extends Component {
             </div>
           </div>
         </div>
-        <div style={ mapWrapperStyle }/>
+        <div style={ mapWrapperStyle }>
+          { point ? <TRRMap lng={ point.lng } lat={ point.lat }/> : null }
+        </div>
       </div>
     );
   }
@@ -42,4 +45,5 @@ TRRLocation.propTypes = {
   incidentDate: PropTypes.string,
   beat: PropTypes.string,
   locationType: PropTypes.string,
+  point: PropTypes.object,
 };

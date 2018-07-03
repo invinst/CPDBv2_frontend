@@ -97,4 +97,30 @@ describe('RadarAxisText component', function () {
     items[1].textContent.should.be.eql('50');
     items[2].textContent.should.be.eql('20');
   });
+
+  it('should be able to show axis values with custom suffix', function () {
+    const data = [
+      {
+        axis: 'Title is 1',
+        value: 10,
+      },
+      {
+        axis: 'b',
+        value: 50,
+      },
+      {
+        axis: 'c',
+        value: 20,
+      }
+    ];
+    instance = renderIntoDocument(
+      <RadarAxisText radius={ 100 } data={ data } showAxisValue={ true } axisValueSuffix='###'/>
+    );
+
+    const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
+    items.should.have.length(3);
+    items[0].textContent.should.be.eql('10###');
+    items[1].textContent.should.be.eql('50###');
+    items[2].textContent.should.be.eql('20###');
+  });
 });
