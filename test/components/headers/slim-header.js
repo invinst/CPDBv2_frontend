@@ -97,7 +97,7 @@ describe('SlimHeader component', function () {
 
     const links = scryRenderedDOMComponentsWithTag(element, 'a');
     const link = links.filter(link => link.textContent === 'Data')[0];
-    link.getAttribute('href').should.eql('https://beta.cpdb.co/');
+    link.getAttribute('href').should.eql('http://cpdb.lvh.me');
   });
 
   it('should render Glossary link', function () {
@@ -112,7 +112,7 @@ describe('SlimHeader component', function () {
 
     const links = scryRenderedDOMComponentsWithTag(element, 'a');
     const link = links.filter(link => link.textContent === 'Glossary')[0];
-    link.getAttribute('href').should.eql('https://beta.cpdb.co/glossary/');
+    link.getAttribute('href').should.eql('http://cpdb.lvh.me/glossary/');
   });
 
   describe('External links', function () {
