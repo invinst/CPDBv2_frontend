@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { CAROUSEL_TYPES } from 'utils/constants';
-import OfficerCard from 'components/landing-page/activity-grid/officer-card';
+import OfficerCard from 'components/landing-page/common/officer-card';
 import CarouselWrapper from '../carousel-wrapper';
 
 export default CarouselWrapper(OfficerCard, CAROUSEL_TYPES.ALLEGATION, {

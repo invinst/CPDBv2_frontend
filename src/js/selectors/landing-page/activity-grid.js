@@ -20,4 +20,3 @@ export const cardsSelector = createSelector(
     return upperHalf.concat(lowerHalf).map(cardTransform);
   }
 );
-
