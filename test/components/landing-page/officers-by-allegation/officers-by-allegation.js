@@ -8,7 +8,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import OfficerCard from 'components/landing-page/activity-grid/officer-card';
+import OfficerCard from 'components/landing-page/common/officer-card';
 import OfficersByAllegation from 'components/landing-page/officers-by-allegation';
 
 

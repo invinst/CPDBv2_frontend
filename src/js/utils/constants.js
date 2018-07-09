@@ -421,3 +421,8 @@ export const MAP_ITEMS = {
   CR: 'CR',
   FORCE: 'FORCE',
 };
+
+export const ACTIVITY_GRID_CARD_TYPES = {
+  OFFICER: 'single_officer',
+  PAIR: 'coaccused_pair'
+};

@@ -3,11 +3,13 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   scryRenderedComponentsWithType,
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import TRRLocation from 'components/trr-page/trr-info-section/trr-location';
 import Row from 'components/trr-page/trr-info-section/trr-location/row';
+import TRRMap from 'components/trr-page/trr-info-section/trr-location/trr_map';
 
 
 describe('TRRLocation component', function () {
@@ -23,6 +25,10 @@ describe('TRRLocation component', function () {
       incidentDate: 'APR 18, 2004',
       beat: '1034',
       locationType: 'Police Facility/Veh Parking Lot',
+      point: {
+        lat: 41.7508596,
+        lng: -87.6533166,
+      },
     };
 
     instance = renderIntoDocument(<TRRLocation { ...trrLocation }/>);
@@ -45,5 +51,10 @@ describe('TRRLocation component', function () {
     beat.props.title.should.eql('BEAT');
     beat.props.value.should.eql('1034');
     beat.props.hideBorder.should.be.true();
+
+    const map = findRenderedComponentWithType(instance, TRRMap);
+
+    map.props.lat.should.eql(41.7508596);
+    map.props.lng.should.eql(-87.6533166);
   });
 });

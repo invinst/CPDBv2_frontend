@@ -126,8 +126,8 @@ export default class AnimatedRadarChart extends Component {
     const { transitionValue, showExplainer } = this.state;
     const { data } = this.props;
     if (!data) return null;
-    const itemData = this.getCurrentTransitionData();
 
+    const itemData = this.getCurrentTransitionData();
     return (!!itemData) && (
       <div
         className='test--officer--radar-chart'

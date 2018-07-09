@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import config from 'config';
+
 import { QA_LINK } from 'utils/constants';
 
 export default class RightLinks extends Component {
@@ -7,7 +9,7 @@ export default class RightLinks extends Component {
     const links = [
       {
         name: 'Data',
-        externalHref: 'https://beta.cpdb.co/'
+        externalHref: config.v1Url
       },
       {
         name: 'Q&A',
@@ -15,7 +17,7 @@ export default class RightLinks extends Component {
       },
       {
         name: 'Glossary',
-        externalHref: 'https://beta.cpdb.co/glossary/'
+        externalHref: `${config.v1Url}/glossary/`
       }
     ];
 

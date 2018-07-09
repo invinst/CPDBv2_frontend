@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import DocumentTitle from 'react-document-title';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -31,61 +32,63 @@ export default class CRPage extends Component {
     } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
-        <ShareableHeaderContainer/>
-        <ResponsiveFluidWidthComponent>
-          <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
-        </ResponsiveFluidWidthComponent>
-        <ResponsiveFluidWidthComponent>
-          <div className='test--cr-category' style={ categoryWrapperStyle }>
-            <div style={ categoryStyle }>{ category }</div>
-            <div style={ subcategoryStyle }>{ subcategory }</div>
-          </div>
-        </ResponsiveFluidWidthComponent>
-        <AccusedOfficers officers={ coaccused } />
-        <ResponsiveFluidWidthComponent>
-          <div style={ summarySectionWrapperStyle }>
-            {
-              victims.length > 0
-                ? (
-                  <SummaryRow label='VICTIM' className='test--victims'>
-                    <Demographics persons={ victims } />
-                  </SummaryRow>
-                ) : null
-            }
-            {
-              complainants.length > 0
-                ? (
-                  <SummaryRow label='COMPLAINANT' className='test--complainant'>
-                    <Demographics persons={ complainants } />
-                  </SummaryRow>
-                ) : null
-            }
-            {
-              summary
-                ? (
-                  <SummaryRow label='SUMMARY'>
-                    <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
-                  </SummaryRow>
-                ) : null
-            }
-            <Attachments
-              items={ attachments }
-              openRequestDocumentModal={ openRequestDocumentModal }
-              alreadyRequested={ alreadyRequested }
-            />
-            <div style={ leftColumnStyle }>
-              <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-              <Involvement involvements={ involvements }/>
+      <DocumentTitle title={ `CR ${crid}` }>
+        <div style={ wrapperStyle }>
+          <ShareableHeaderContainer/>
+          <ResponsiveFluidWidthComponent>
+            <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
+          </ResponsiveFluidWidthComponent>
+          <ResponsiveFluidWidthComponent>
+            <div className='test--cr-category' style={ categoryWrapperStyle }>
+              <div style={ categoryStyle }>{ category }</div>
+              <div style={ subcategoryStyle }>{ subcategory }</div>
             </div>
-            <div style={ rightColumnStyle }>
-              <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
+          </ResponsiveFluidWidthComponent>
+          <AccusedOfficers officers={ coaccused } />
+          <ResponsiveFluidWidthComponent>
+            <div style={ summarySectionWrapperStyle }>
+              {
+                victims.length > 0
+                  ? (
+                    <SummaryRow label='VICTIM' className='test--victims'>
+                      <Demographics persons={ victims } />
+                    </SummaryRow>
+                  ) : null
+              }
+              {
+                complainants.length > 0
+                  ? (
+                    <SummaryRow label='COMPLAINANT' className='test--complainant'>
+                      <Demographics persons={ complainants } />
+                    </SummaryRow>
+                  ) : null
+              }
+              {
+                summary
+                  ? (
+                    <SummaryRow label='SUMMARY'>
+                      <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
+                    </SummaryRow>
+                  ) : null
+              }
+              <Attachments
+                items={ attachments }
+                openRequestDocumentModal={ openRequestDocumentModal }
+                alreadyRequested={ alreadyRequested }
+              />
+              <div style={ leftColumnStyle }>
+                <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
+                <Involvement involvements={ involvements }/>
+              </div>
+              <div style={ rightColumnStyle }>
+                <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
+              </div>
             </div>
-          </div>
-        </ResponsiveFluidWidthComponent>
-        <RelatedComplaints crid={ crid } />
-        <FooterContainer style={ footerStyle }/>
-      </div>
+          </ResponsiveFluidWidthComponent>
+          <RelatedComplaints crid={ crid } />
+          <FooterContainer style={ footerStyle }/>
+        </div>
+      </DocumentTitle>
     );
   }
 }
