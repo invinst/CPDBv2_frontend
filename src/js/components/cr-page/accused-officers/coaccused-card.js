@@ -54,8 +54,8 @@ class CoaccusedCard extends Component {
         </div>
         <div style={ bottomSectionWrapperStyle }>
           <div style={ categoryTextStyle(hovering) } className='test--accused-card-category'>{ category }</div>
-          <div style={ outcomeTextWrapperStyle } className='test--accused-card-outcome'>
-            <div style={ findingOutcomeMixStyle(finding, disciplined) }>{ findingOutcomeMix }</div>
+          <div style={ outcomeTextWrapperStyle(finding, disciplined) } className='test--accused-card-outcome'>
+            <div style={ findingOutcomeMixStyle }>{ findingOutcomeMix }</div>
           </div>
         </div>
       </Link>

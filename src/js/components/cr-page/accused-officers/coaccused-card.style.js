@@ -25,7 +25,7 @@ export const topSectionWrapperStyle = {
 };
 
 export const bottomSectionWrapperStyle = {
-  padding: '11px 16px 8px 16px',
+  padding: '11px 16px 4px',
   backgroundColor: 'white'
 };
 
@@ -38,33 +38,35 @@ export const categoryTextStyle = hovering => ({
   overflow: 'hidden'
 });
 
-export const outcomeTextWrapperStyle = {
-  width: '100%',
-  overflow: 'hidden',
-  height: '23px',
-  marginTop: '8px'
-};
-
-export const findingOutcomeMixStyle = (finding, disciplined) => {
+export const outcomeTextWrapperStyle = (finding, disciplined) => {
   const borderColor = (finding == 'Sustained' && disciplined) ? azaleaColor : champagneColor;
   const backgroundColor = finding !== 'Sustained' ? 'transparent' : borderColor;
 
   return {
     backgroundColor,
-    border: `1px solid ${borderColor}`,
-    height: '21px',
-    fontSize: '14px',
-    color: softBlackColor,
-    fontWeight: 400,
-    padding: '0px 10px',
-    lineHeight: '21px',
     display: 'inline-block',
-    overflowY: 'scroll',
-    whiteSpace: 'nowrap',
-    boxSizing: 'content-box',
-    maxWidth: 'calc(100% - 20px)',
+    border: `1px solid ${borderColor}`,
+    overflow: 'hidden',
+    height: '21px',
+    marginTop: '8px',
+    maxWidth: '100%',
     borderRadius: '2px'
   };
+};
+
+export const findingOutcomeMixStyle = {
+  height: '21px',
+  fontSize: '14px',
+  color: softBlackColor,
+  fontWeight: 400,
+  padding: '0px 10px 16px',
+  lineHeight: '21px',
+  display: 'inline-block',
+  overflowX: 'scroll',
+  overflowY: 'hidden',
+  whiteSpace: 'nowrap',
+  boxSizing: 'content-box',
+  maxWidth: 'calc(100% - 20px)'
 };
 
 export const allegationTextStyle = {
