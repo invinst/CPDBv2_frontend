@@ -54,7 +54,7 @@ describe('Recent Activity components', function () {
         'percentileAllegationInternal': '99.675',
         'percentileTrr': '70.069'
       },
-      'backgroundColor': '#e94829'
+      'backgroundColor': '#f0201e'
     },
     'officer2': {
       'id': 3454,
@@ -68,7 +68,7 @@ describe('Recent Activity components', function () {
         'percentileAllegationInternal': '99.566',
         'percentileTrr': '74.440'
       },
-      'backgroundColor': '#e94829'
+      'backgroundColor': '#f0201e'
     }
   }];
 

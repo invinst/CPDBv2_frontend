@@ -135,7 +135,7 @@ describe('common selectors', function () {
           ],
           officerId: 8562,
           textColor: '#DFDFDF',
-          visualTokenBackground: '#e94829',
+          visualTokenBackground: '#f0201e',
           year: 2018
         },
         type: 'single_officer'
@@ -157,7 +157,7 @@ describe('common selectors', function () {
           percentileAllegationInternal: '99.675',
           percentileTrr: '70.069'
         },
-        backgroundColor: '#e94829'
+        backgroundColor: '#f0201e'
       });
     });
 
@@ -174,7 +174,7 @@ describe('common selectors', function () {
           percentileAllegationInternal: '99.675',
           percentileTrr: '70.069'
         },
-        backgroundColor: '#e94829'
+        backgroundColor: '#f0201e'
       });
     });
   });
@@ -196,7 +196,7 @@ describe('common selectors', function () {
             percentileAllegationInternal: '99.675',
             percentileTrr: '70.069'
           },
-          backgroundColor: '#e94829'
+          backgroundColor: '#f0201e'
         },
         officer2: {
           id: 3454,
@@ -210,7 +210,7 @@ describe('common selectors', function () {
             percentileAllegationInternal: '99.566',
             percentileTrr: '74.440'
           },
-          backgroundColor: '#e94829'
+          backgroundColor: '#f0201e'
         }
       });
     });
@@ -245,7 +245,7 @@ describe('common selectors', function () {
           ],
           officerId: 8562,
           textColor: '#DFDFDF',
-          visualTokenBackground: '#e94829',
+          visualTokenBackground: '#f0201e',
           year: 2018
         },
         type: undefined
@@ -280,7 +280,7 @@ describe('common selectors', function () {
           ],
           officerId: 8562,
           textColor: '#DFDFDF',
-          visualTokenBackground: '#e94829',
+          visualTokenBackground: '#f0201e',
           year: 2018
         },
         type: 'single_officer'
@@ -303,7 +303,7 @@ describe('common selectors', function () {
             percentileAllegationInternal: '99.675',
             percentileTrr: '70.069'
           },
-          backgroundColor: '#e94829'
+          backgroundColor: '#f0201e'
         },
         officer2: {
           id: 3454,
@@ -317,7 +317,7 @@ describe('common selectors', function () {
             percentileAllegationInternal: '99.566',
             percentileTrr: '74.440'
           },
-          backgroundColor: '#e94829'
+          backgroundColor: '#f0201e'
         }
       });
     });

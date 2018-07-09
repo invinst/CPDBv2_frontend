@@ -109,6 +109,7 @@ class RadarChartExplainerSection extends Section {
       percentileByYear: '.test--percentile-by-year',
       leftNavigation: '.test--radar-explainer-navigation-left',
       rightNavigation: '.test--radar-explainer-navigation-right',
+      closeExplainerButton: '.test--radar-explainer-close-button',
     });
   }
 }
@@ -124,7 +125,7 @@ class RadarChartSection extends Section {
       wrapper: '.test--radar-wrapper',
       legend: '.test--radar-legend-content',
       lastAxisTitle: '.test--radar-axis-text:last-of-type',
-      radarChartExplainerToggleButton: '.test--radar-explainer-toggle-button',
+      radarChartPlaceHolder: '.test--officer--radar-chart-placeholder',
     });
   }
 }
