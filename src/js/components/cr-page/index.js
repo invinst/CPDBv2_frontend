@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
+import DocumentTitle from 'react-document-title';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import FooterContainer from 'containers/footer-container';
 import SummaryRow from './summary-row';
-import Demographics from './demographics';
+import Demographics from 'components/common/demographics';
 import Timeline from './timeline';
 import Location from './location';
 import Involvement from './involvement';
@@ -13,7 +14,8 @@ import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import {
   wrapperStyle, CRIDHeaderStyle, leftColumnStyle, footerStyle,
-  rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle
+  rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle,
+  subcategoryStyle, categoryStyle, categoryWrapperStyle
 } from './cr-page.style';
 
 
@@ -24,67 +26,77 @@ export default class CRPage extends Component {
 
   render() {
     const {
-      crid, coaccused, complainants, alreadyRequested,
+      crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
       openRequestDocumentModal, summary, victims, startDate, endDate
     } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
-        <ShareableHeaderContainer/>
-        <ResponsiveFluidWidthComponent>
-          <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
-        </ResponsiveFluidWidthComponent>
-        <AccusedOfficers officers={ coaccused } />
-        <ResponsiveFluidWidthComponent>
-          <div style={ summarySectionWrapperStyle }>
-            {
-              victims.length > 0
-                ? (
-                  <SummaryRow label='VICTIM' className='test--victims'>
-                    <Demographics persons={ victims } />
-                  </SummaryRow>
-                ) : null
-            }
-            {
-              complainants.length > 0
-                ? (
-                  <SummaryRow label='COMPLAINANT' className='test--complainant'>
-                    <Demographics persons={ complainants } />
-                  </SummaryRow>
-                ) : null
-            }
-            {
-              summary
-                ? (
-                  <SummaryRow label='SUMMARY'>
-                    <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
-                  </SummaryRow>
-                ) : null
-            }
-            <Attachments
-              items={ attachments }
-              openRequestDocumentModal={ openRequestDocumentModal }
-              alreadyRequested={ alreadyRequested }
-            />
-            <div style={ leftColumnStyle }>
-              <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-              <Involvement involvements={ involvements }/>
+      <DocumentTitle title={ `CR ${crid}` }>
+        <div style={ wrapperStyle }>
+          <ShareableHeaderContainer/>
+          <ResponsiveFluidWidthComponent>
+            <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
+          </ResponsiveFluidWidthComponent>
+          <ResponsiveFluidWidthComponent>
+            <div className='test--cr-category' style={ categoryWrapperStyle }>
+              <div style={ categoryStyle }>{ category }</div>
+              <div style={ subcategoryStyle }>{ subcategory }</div>
             </div>
-            <div style={ rightColumnStyle }>
-              <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
+          </ResponsiveFluidWidthComponent>
+          <AccusedOfficers officers={ coaccused } />
+          <ResponsiveFluidWidthComponent>
+            <div style={ summarySectionWrapperStyle }>
+              {
+                victims.length > 0
+                  ? (
+                    <SummaryRow label='VICTIM' className='test--victims'>
+                      <Demographics persons={ victims } />
+                    </SummaryRow>
+                  ) : null
+              }
+              {
+                complainants.length > 0
+                  ? (
+                    <SummaryRow label='COMPLAINANT' className='test--complainant'>
+                      <Demographics persons={ complainants } />
+                    </SummaryRow>
+                  ) : null
+              }
+              {
+                summary
+                  ? (
+                    <SummaryRow label='SUMMARY'>
+                      <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
+                    </SummaryRow>
+                  ) : null
+              }
+              <Attachments
+                items={ attachments }
+                openRequestDocumentModal={ openRequestDocumentModal }
+                alreadyRequested={ alreadyRequested }
+              />
+              <div style={ leftColumnStyle }>
+                <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
+                <Involvement involvements={ involvements }/>
+              </div>
+              <div style={ rightColumnStyle }>
+                <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
+              </div>
             </div>
-          </div>
-        </ResponsiveFluidWidthComponent>
-        <RelatedComplaints crid={ crid } />
-        <FooterContainer style={ footerStyle }/>
-      </div>
+          </ResponsiveFluidWidthComponent>
+          <RelatedComplaints crid={ crid } />
+          <FooterContainer style={ footerStyle }/>
+        </div>
+      </DocumentTitle>
     );
   }
 }
 
 CRPage.propTypes = {
   crid: PropTypes.string,
+  category: PropTypes.string,
+  subcategory: PropTypes.string,
   coaccused: PropTypes.array,
   complainants: PropTypes.array,
   victims: PropTypes.array,

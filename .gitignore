@@ -62,3 +62,4 @@ live-test-build/
 errorShots/
 
 /src/dist/fonts
+/html-report/

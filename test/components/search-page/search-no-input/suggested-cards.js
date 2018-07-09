@@ -7,9 +7,9 @@ import {
   scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 import SuggestedCards from 'components/search-page/search-no-input/suggested-cards';
-import OfficerCard from 'components/landing-page/activity-grid/officer-card';
+import OfficerCard from 'components/landing-page/common/officer-card';
 
 
 describe('SuggestedCards component', function () {

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { map, isEqual, get, last } from 'lodash';
+import { map, isEqual } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
 import StaticRadarChart from 'components/common/radar-chart';
@@ -106,7 +106,6 @@ export default class AnimatedRadarChart extends Component {
     if (!data) return null;
 
     const itemData = this.getCurrentTransitionData();
-    const lastItem = last(data);
 
     return (!!itemData) && (
       <div className='test--officer--radar-chart' style={ radarChartPlaceholderStyle }>
@@ -117,12 +116,16 @@ export default class AnimatedRadarChart extends Component {
           fadeOutLegend={ transitionValue >= (data.length - 1) }
           legendText={ itemData.year }
           data={ itemData.items }
-          showDataPoints={ true }
+          showSpineLinePoint={ true }
+          showGrid={ true }
+          gridOpacity={ 0.25 }
+          showAxisTitle={ true }
+          showAxisValue={ true }
+          axisValueSuffix='%'
         />
         <RadarExplainer
           show={ showExplainer }
-          radarChartData={ get(lastItem, 'items') }
-          year={ get(lastItem, 'year') }
+          radarChartData={ data }
         />
       </div>
     );

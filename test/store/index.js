@@ -131,6 +131,18 @@ describe('store', function () {
           }
         }
       },
+      trrPage: {
+        trrId: null,
+        data: {},
+        isRequesting: false,
+        attachmentRequest: {
+          request: {
+            isRequested: false,
+            message: '',
+          },
+          subscribedTRRIds: {},
+        },
+      },
       crs: {},
       officerPage: {
         activeTab: null,

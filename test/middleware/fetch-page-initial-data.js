@@ -14,6 +14,7 @@ import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import { getRecentDocument } from 'actions/landing-page/recent-document';
 import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
 import { fetchCR } from 'actions/cr-page';
+import { fetchTRR } from 'actions/trr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 
@@ -84,6 +85,15 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchOfficerSummary(2)).should.be.true();
     store.dispatch.calledWith(fetchSocialGraph(2)).should.be.true();
     store.dispatch.calledWith(fetchNewTimelineItems(2)).should.be.true();
+  });
+
+  it('should dispatch fetchTRR if trr id change', function () {
+    const locationChangeAction = createLocationChangeAction('/trr/2/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(locationChangeAction);
+    dispatched.should.eql(locationChangeAction);
+    store.dispatch.calledWith(fetchTRR(2)).should.be.true();
   });
 
   it('should dispatch fetch data for landing page when they do not exist', function () {

@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-import OfficerCard from 'components/landing-page/activity-grid/officer-card';
+import OfficerCard from 'components/landing-page/common/officer-card';
 import FixedHeightGrid from 'components/common/fixed-height-grid';
 import { searchBoxHeight } from 'components/search-page/search-page.style';
 import { tagsWrapperHeight } from 'components/search-page/search-tags.style';

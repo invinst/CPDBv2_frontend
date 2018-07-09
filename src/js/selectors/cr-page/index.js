@@ -83,8 +83,8 @@ const getTransformedCoaccused = createSelector(
       { axis: 'civilian', value: parseFloat(coaccused['percentile_allegation_civilian']) }
     ],
     radarColor: getVisualTokenOIGBackground(
-      parseFloat(coaccused['percentile_allegation_internal']),
       parseFloat(coaccused['percentile_allegation_civilian']),
+      parseFloat(coaccused['percentile_allegation_internal']),
       parseFloat(coaccused['percentile_trr'])
     )
   }))
@@ -119,6 +119,10 @@ const getCoaccusedSelector = createSelector(
 );
 
 const getInvestigatorAffiliation = obj => {
+  if (!obj['current_rank']) {
+    return '';
+  }
+
   if (obj['current_rank'].indexOf('IPRA') > -1) {
     return 'IPRA';
   }
@@ -145,8 +149,8 @@ const getInvolvementsSelector = createSelector(
           { axis: 'civilian', value: parseFloat(obj['percentile_allegation_civilian']) }
         ],
         radarColor: getVisualTokenOIGBackground(
-          parseFloat(obj['percentile_allegation_internal']),
           parseFloat(obj['percentile_allegation_civilian']),
+          parseFloat(obj['percentile_allegation_internal']),
           parseFloat(obj['percentile_trr'])
         )
       };
@@ -189,6 +193,8 @@ export const contentSelector = createSelector(
     crLocation: cr.location,
     beat: cr.beat || 'Unknown',
     summary: cr.summary,
+    category: get(cr, 'most_common_category.category') || 'Unknown',
+    subcategory: get(cr, 'most_common_category.allegation_name') || 'Unknown',
     startDate: cr['start_date'],
     endDate: cr['end_date'],
     involvements,

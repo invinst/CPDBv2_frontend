@@ -6,6 +6,7 @@ import { imgUrl } from 'utils/static-assets';
 
 
 const getSelectedFilter = (state) => state.officerPage.newTimeline.filter;
+export const getItems = (state) => get(state.officerPage.newTimeline, 'items', []);
 
 export const baseTransform = (item, index) => {
   const unitName = item['unit_name'] ? `Unit ${item['unit_name']}` : 'Unassigned';
@@ -61,6 +62,7 @@ export const crTransform = (item, index) => ({
 
 export const trrTransform = (item, index) => ({
   ...baseTransform(item, index),
+  trrId: item['trr_id'],
   category: item['firearm_used'] ? 'Firearm' : item.taser ? 'Taser' : 'Use of Force Report',
 });
 

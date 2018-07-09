@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import DocumentTitle from 'react-document-title';
 
 import Header from './header';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -12,18 +13,20 @@ export default class UnitProfilePage extends Component {
     const { pathname } = location;
 
     return (
-      <div>
-        <ShareableHeaderContainer/>
-        <Header
-          unitName={ unitName }
-          pathname={ pathname }
-          unitDescription={ summary.description }
-          scrollPosition={ scrollPosition }
-        />
-        <div style={ pageWrapperStyle }>
-          <SummaryPageContainer unitName={ unitName } summary={ summary }/>;
+      <DocumentTitle title={ `Unit ${unitName}` }>
+        <div>
+          <ShareableHeaderContainer/>
+          <Header
+            unitName={ unitName }
+            pathname={ pathname }
+            unitDescription={ summary.description }
+            scrollPosition={ scrollPosition }
+          />
+          <div style={ pageWrapperStyle }>
+            <SummaryPageContainer unitName={ unitName } summary={ summary }/>;
+          </div>
         </div>
-      </div>
+      </DocumentTitle>
     );
   }
 }

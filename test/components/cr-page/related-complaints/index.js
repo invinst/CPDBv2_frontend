@@ -7,7 +7,7 @@ import MockStore from 'redux-mock-store';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import RelatedComplaints from 'components/cr-page/related-complaints';
-import Dropdown from 'components/cr-page/related-complaints/dropdown';
+import Dropdown from 'components/common/dropdown';
 
 
 describe('RelatedComplaints component', function () {
@@ -44,7 +44,7 @@ describe('RelatedComplaints component', function () {
 
     instance = findRenderedComponentWithType(instance, RelatedComplaints);
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.props.onChange('5mi');
+    dropdown.props.onChange('5 MILES');
     instance.state.selectedDistance.should.eql('5mi');
   });
 });

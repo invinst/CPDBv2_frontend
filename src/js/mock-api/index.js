@@ -12,13 +12,15 @@ import {
   RESET_PASSWORD_URL,
   SEARCH_TERMS_CATEGORIES_API_URL,
   SIGNIN_URL,
-  UNIT_PROFILE_URL
+  UNIT_PROFILE_URL,
+  TRR_URL
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getCRRelatedComplaintsData from './cr-page/get-related-complaint';
 import getActivityGridData from './landing-page/activity-grid';
+import getTopByAllegationData from './landing-page/top-by-allegation';
 import { getCMSFields } from './landing-page/cms-field';
 import getComplaintSummaries from './landing-page/complaint-summaries';
 import { getCitySummary, getCommunities } from './landing-page/heat-map';
@@ -28,7 +30,7 @@ import getCoaccusalsData from './officer-page/get-coaccusals';
 import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
 import getSocialGraphData from './officer-page/get-social-graph';
 import getSummaryData from './officer-page/get-summary';
-
+import getTRRData from './trr-page/get-data';
 import getSearchTermsData from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 
@@ -38,7 +40,7 @@ const SEARCH_SINGLE_API_URL = /^suggestion\/([^/]*)\/single\/$/;
 /* istanbul ignore next */
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
-axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getActivityGridData(48)]);
+axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getTopByAllegationData()]);
 axiosMockClient.onGet(RECENT_DOCUMENT_URL).reply(() => [200, getRecentDocument(24)]);
 axiosMockClient.onGet(RECENT_COMPLAINT_SUMMARIES_URL).reply(() => [200, getComplaintSummaries(20)]);
 
@@ -55,6 +57,11 @@ axiosMockClient.onPost(RESET_PASSWORD_URL, { email: 'invalid@email.com' })
 axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'valid@email.com' })
   .reply(200, { 'message': 'Thanks for subscribing.', crid: 1000000 });
 axiosMockClient.onPost(`${CR_URL}1000000/request-document/`, { email: 'invalid@email.com' })
+  .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
+
+axiosMockClient.onPost(`${TRR_URL}1/request-document/`, { email: 'valid@email.com' })
+  .reply(200, { 'message': 'Thanks for subscribing.', 'trr_id': 1 });
+axiosMockClient.onPost(`${TRR_URL}1/request-document/`, { email: 'invalid@email.com' })
   .reply(400, { 'message': 'Sorry, we can not subscribe your email' });
 
 
@@ -83,6 +90,8 @@ axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
 
 axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(countRequests(() => [200, getSummaryData()]));
 axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() => [200, getSocialGraphData()]));
+
+axiosMockClient.onGet(`${TRR_URL}1/`).reply(200, getTRRData());
 
 axiosMockClient.onGet(`${CR_URL}1000000/`).reply(200, getCRData());
 axiosMockClient.onGet(`${CR_URL}2/`).reply(200, getCRDataNoAttachment());

@@ -2,6 +2,7 @@ import React from 'react';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
+import { unmountComponentSuppressError } from 'utils/test';
 import { OfficerPane } from 'components/search-page/preview-pane';
 import {
   VisualTokenWidget,
@@ -9,7 +10,6 @@ import {
   MetricWidget,
   CallToActionWidget,
 } from 'components/search-page/preview-pane/widgets';
-import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('OfficerPane component', () => {
@@ -106,5 +106,13 @@ describe('OfficerPane component', () => {
     findDOMNode(metric).textContent.should.containEql('2CivilianCompliments');
 
     callToAction.props.to.should.eql('some_url');
+  });
+
+  it('should render CallToActionWidget with "View Officer Profile" text', () => {
+    instance = renderIntoDocument(
+      <OfficerPane/>
+    );
+
+    findRenderedComponentWithType(instance, CallToActionWidget).props.text.should.eql('View Officer Profile');
   });
 });
