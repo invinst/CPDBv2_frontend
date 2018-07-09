@@ -1,10 +1,10 @@
 import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
-import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/index';
+import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr';
 import React from 'react';
 import { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate, } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('Cr component', function () {

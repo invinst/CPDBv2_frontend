@@ -32,7 +32,8 @@ describe('activity-grid selectors', function () {
         'complaint_percentile': 80,
         'birth_year': 1970,
         race: 'Black',
-        gender: 'Female'
+        gender: 'Female',
+        type: 'single_officer',
       }];
       cardsSelector(state).should.eql([{
         id: '1',
@@ -45,6 +46,7 @@ describe('activity-grid selectors', function () {
         race: 'black',
         gender: 'female',
         percentile: null,
+        type: 'single_officer',
       }]);
     });
 

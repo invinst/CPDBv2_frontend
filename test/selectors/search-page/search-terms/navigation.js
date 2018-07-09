@@ -19,14 +19,14 @@ describe('Search term navigation selector', function () {
                 name: 'Communities',
                 description: 'Chicago is divided into 77 community areas.',
                 'call_to_action_type': 'view_all',
-                link: 'http://beta.cpdb.co/url-mediator/session-builder?community=<name>'
+                link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>'
               },
               {
                 id: 'police-beats',
                 name: 'Police Beat',
                 description: 'Police beats are the smallest area patrolled by officers.',
                 'call_to_action_type': 'view_all',
-                link: 'http://beta.cpdb.co/url-mediator/session-builder?beat=<name>'
+                link: 'https://data.cpdp.co/url-mediator/session-builder?beat=<name>'
               },
 
             ]
@@ -39,14 +39,14 @@ describe('Search term navigation selector', function () {
                 name: 'Conduct Unbecoming (Off Duty)',
                 description: 'This category (09) is made up of a wide range of non-physical misbehavior.',
                 'call_to_action_type': 'link',
-                link: 'http://beta.cpdb.co/url-mediator/session-builder?cat__category=Conduct+Unbecoming'
+                link: 'https://data.cpdp.co/url-mediator/session-builder?cat__category=Conduct+Unbecoming'
               },
               {
                 id: 'criminal-misconduct',
                 name: 'Criminal Misconduct',
                 description: 'This group of complaints (08) is comprised of categories where a police officer',
                 'call_to_action_type': 'link',
-                link: 'http://beta.cpdb.co/url-mediator/session-builder?cat__category=Criminal+Misconduct'
+                link: 'https://data.cpdp.co/url-mediator/session-builder?cat__category=Criminal+Misconduct'
               },
             ]
           }
@@ -100,7 +100,7 @@ describe('Search term navigation selector', function () {
         name: 'Communities',
         description: 'Chicago is divided into 77 community areas.',
         'call_to_action_type': 'view_all',
-        link: 'http://beta.cpdb.co/url-mediator/session-builder?community=<name>',
+        link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>',
         to: '/search/?terms=community&type=COMMUNITY',
         type: 'Geography',
         uniqueKey: 'Geography-community'

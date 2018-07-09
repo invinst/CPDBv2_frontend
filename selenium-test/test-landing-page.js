@@ -65,21 +65,40 @@ describe('landing page', function () {
 
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
-      landingPage.recentActivityCarousel.cards.count.should.equal(40);
+      browser.pause();
+      landingPage.recentActivityCarousel.officerCards.count.should.equal(20);
       landingPage.recentActivityCarousel.rightArrow.waitForVisible();
       landingPage.recentActivityCarousel.leftArrow.waitForVisible(2000, true);
     });
 
-    it('should change next group of slides when click to right arrow', function () {
+    it('should change next group of slides when clicking on right arrow', function () {
       landingPage.recentActivityCarousel.rightArrow.click();
       landingPage.recentActivityCarousel.leftArrow.waitForVisible(1000);
     });
 
-    it('should go to officer summary page when click to card', function () {
-      const firstCard = landingPage.recentActivityCarousel.cards;
-      firstCard.click();
-      browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/\d+\/$/);
+    describe('Officer cards', function () {
+      it('should go to officer summary page when clicking on officer card', function () {
+        const firstCard = landingPage.recentActivityCarousel.officerCards;
+        firstCard.click();
+        browser.pause(500);
+        browser.getUrl().should.match(/\/officer\/\d+\/$/);
+      });
+    });
+
+    describe('Pair cards', function () {
+      it('should go to officer summary page when clicking on left half of the pair card', function () {
+        const firstPairCardLeftHalf = landingPage.recentActivityCarousel.firstPairCardLeftHalf;
+        firstPairCardLeftHalf.click();
+        browser.pause(500);
+        browser.getUrl().should.match(/\/officer\/\d+\/$/);
+      });
+
+      it('should go to officer summary page when clicking on right half of the pair card', function () {
+        const firstPairCardRightHalf = landingPage.recentActivityCarousel.firstPairCardRightHalf;
+        firstPairCardRightHalf.click();
+        browser.pause(500);
+        browser.getUrl().should.match(/\/officer\/\d+\/$/);
+      });
     });
   });
 
@@ -91,7 +110,7 @@ describe('landing page', function () {
     });
 
     it('should go to officer summary page when click to card', function () {
-      const firstCard = landingPage.recentActivityCarousel.cards;
+      const firstCard = landingPage.officersByAllegationCarousel.cards;
       firstCard.click();
       browser.pause(500);
       browser.getUrl().should.match(/\/officer\/\d+\/$/);

@@ -13,7 +13,7 @@ import { spy, stub } from 'sinon';
 
 import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 import Carousel from 'components/common/carousel';
-import OfficerCard from 'components/landing-page/activity-grid/officer-card';
+import OfficerCard from 'components/landing-page/common/officer-card';
 import Swiper from 'components/common/swiper';
 
 describe('Carousel component', function () {
