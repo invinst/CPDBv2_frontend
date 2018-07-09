@@ -5,8 +5,7 @@ import { get, last } from 'lodash';
 import {
   containerStyle,
   footerStyle,
-  questionMarkInnerStyle,
-  questionMarkStyle,
+  closeButtonStyle,
   closeInnerStyle
 } from './radar-chart-explainer.style';
 import TriangleExplainer from './triangle-explainer';
@@ -24,12 +23,10 @@ export default class RadarExplainer extends Component {
     super(props);
     this.state = {
       currentPaneIndex: 0,
-      show: false
     };
 
     this.navigateLeft = this.navigateLeft.bind(this);
     this.navigateRight = this.navigateRight.bind(this);
-    this.toggleExplainer = this.toggleExplainer.bind(this);
   }
 
   renderExplainer() {
@@ -67,39 +64,24 @@ export default class RadarExplainer extends Component {
     });
   }
 
-
-  toggleExplainer() {
-    this.setState({ show: !this.state.show });
-  }
-
   render() {
-    const { show } = this.state;
     const [leftNavigationText, rightNavigationText] = this.getCurrentNavigationTexts();
-
 
     return (
       <MediaQuery minWidth={ MOBILE_BREAK_POINT }>
-        {
-          show && (
-            <div className='test--radar-explainer-window' style={ containerStyle }>
-              { this.renderExplainer() }
-              <div style={ footerStyle }>
-                <LeftNavigation onClickHandler={ this.navigateLeft } text={ leftNavigationText }/>
-                <RightNavigation onClickHandler={ this.navigateRight } text={ rightNavigationText }/>
-              </div>
-            </div>
-          )
-        }
+        <div className='test--radar-explainer-window' style={ containerStyle }>
+          { this.renderExplainer() }
+          <div style={ footerStyle }>
+            <LeftNavigation onClickHandler={ this.navigateLeft } text={ leftNavigationText }/>
+            <RightNavigation onClickHandler={ this.navigateRight } text={ rightNavigationText }/>
+          </div>
+        </div>
         <div
-          className='test--radar-explainer-toggle-button'
-          style={ questionMarkStyle }
-          onClick={ this.toggleExplainer }>
+          className='test--radar-explainer-close-button'
+          style={ closeButtonStyle }
+          onClick={ this.props.closeExplainer }>
           {
-            show ? (
-              <i className='fa fa-close' style={ closeInnerStyle }/>
-            ) : (
-              <span style={ questionMarkInnerStyle }>?</span>
-            )
+            <i className='fa fa-close' style={ closeInnerStyle }/>
           }
         </div>
       </MediaQuery>
@@ -108,6 +90,6 @@ export default class RadarExplainer extends Component {
 }
 
 RadarExplainer.propTypes = {
-  show: PropTypes.bool,
-  radarChartData: PropTypes.array
+  radarChartData: PropTypes.array,
+  closeExplainer: PropTypes.func,
 };

@@ -96,7 +96,7 @@ describe('CR page selectors', function () {
           },
         ],
         radarColor: {
-          backgroundColor: '#ee7b6f',
+          backgroundColor: '#ed7467',
           textColor: '#231F20'
         },
         disciplined: true
