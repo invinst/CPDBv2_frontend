@@ -93,11 +93,11 @@ describe('Recent Activity components', function () {
     const officerCard1 = findDOMNode(officerCards[0]);
     officerCard1.textContent.should.containEql('Manuel Guzman');
     officerCard1.textContent.should.containEql('More than 84% of other officers');
-    officerCard1.textContent.should.containEql('13 Complaints');
+    officerCard1.textContent.should.containEql('13 Allegations');
 
     const officerCard2 = findDOMNode(officerCards[1]);
     officerCard2.textContent.should.containEql('Jerome Finnagan');
-    officerCard2.textContent.should.containEql('55 Complaints, 22 Sustained');
+    officerCard2.textContent.should.containEql('55 Allegations, 22 Sustained');
     officerCard2.textContent.should.containEql('More than 94% of other officers');
   });
 
