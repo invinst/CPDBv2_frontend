@@ -37,7 +37,7 @@ describe('ShareMenu component', function () {
 
   it('should render tweet link', function () {
     const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--tweet-link');
-    link.textContent.should.containEql('Twitter');
+    link.textContent.should.eql('Twitter');
     const href = `https://twitter.com/intent/tweet?url=${this.encodedLink}&via=${config.twitterBotName}`;
     link.getAttribute('href').should.eql(href);
 
@@ -48,7 +48,7 @@ describe('ShareMenu component', function () {
 
   it('should render facebook share link', function () {
     const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--facebook-link');
-    link.textContent.should.containEql('Facebook');
+    link.textContent.should.eql('Facebook');
     link.getAttribute('href').should.eql('https://www.facebook.com/sharer/sharer.php?u=' + this.encodedLink);
 
     // should close menu on click
