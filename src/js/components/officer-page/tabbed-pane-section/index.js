@@ -10,35 +10,53 @@ import MapContainer from 'containers/officer-page/map-container';
 
 
 export default class TabbedPaneSection extends Component {
-  constructor(props) {
-    super(props);
-    this.tabbedPaneMap = {
-      [OFFICER_PAGE_TAB_NAMES.TIMELINE]: <TimelineContainer/>,
-      [OFFICER_PAGE_TAB_NAMES.MAP]: <MapContainer/>,
-      [OFFICER_PAGE_TAB_NAMES.COACCUSALS]: <CoaccusalsContainer/>,
-      [OFFICER_PAGE_TAB_NAMES.ATTACHMENTS]: <AttachmentsContainer/>,
-    };
-  }
-
   render() {
-    const { currentTab, changeOfficerTab } = this.props;
+    const {
+      currentTab,
+      changeOfficerTab,
+      attachmentComplaintCount,
+      mapMarkerCount,
+      coaccusalCount
+    } = this.props;
+    const tabbedPaneMap = {
+      [OFFICER_PAGE_TAB_NAMES.TIMELINE]: {
+        component: <TimelineContainer />,
+      },
+      [OFFICER_PAGE_TAB_NAMES.MAP]: {
+        component: <MapContainer />,
+        count: mapMarkerCount,
+      },
+      [OFFICER_PAGE_TAB_NAMES.COACCUSALS]: {
+        component: <CoaccusalsContainer />,
+        count: coaccusalCount,
+      },
+      [OFFICER_PAGE_TAB_NAMES.ATTACHMENTS]: {
+        component: <AttachmentsContainer />,
+        count: attachmentComplaintCount,
+      },
+    };
     return (
       <div style={ tabbedPaneSectionStyle } className='tabbed-pane-section'>
         <div style={ menuStyle } className='test--tabbed-pane-section-menu'>
           {
-            keys(this.tabbedPaneMap).map((paneName) => (
-              <span
-                key={ paneName }
-                style={ menuItemStyle(paneName === currentTab) }
-                className='test--tabbed-pane-tab-name'
-                onClick={ () => changeOfficerTab(paneName) }
-              >
-                { paneName }
-              </span>)
-            )
+            keys(tabbedPaneMap).map((paneName) => {
+              if (get(tabbedPaneMap, paneName).count !== 0) {
+                return (
+                  <span
+                    key={ paneName }
+                    style={ menuItemStyle(paneName === currentTab) }
+                    className='test--tabbed-pane-tab-name'
+                    onClick={ () => changeOfficerTab(paneName) }
+                  >
+                    { paneName }
+                  </span>
+                );
+              }
+              return null;
+            })
           }
         </div>
-        { get(this.tabbedPaneMap, currentTab, null) }
+        { get(tabbedPaneMap, currentTab + '.component', null) }
       </div>
     );
   }
@@ -47,4 +65,7 @@ export default class TabbedPaneSection extends Component {
 TabbedPaneSection.propTypes = {
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
+  attachmentComplaintCount: PropTypes.number,
+  mapMarkerCount: PropTypes.number,
+  coaccusalCount: PropTypes.number,
 };

@@ -11,10 +11,19 @@ import ShareableHeaderContainer from 'containers/headers/shareable-header/sharea
 
 export default class OfficerPage extends Component {
   shouldComponentUpdate(nextProps) {
-    const { officerName, currentTab } = this.props;
+    const {
+      officerName,
+      currentTab,
+      attachmentComplaintCount,
+      mapMarkerCount,
+      coaccusalCount
+    } = this.props;
     return (
       officerName !== nextProps.officerName
       || currentTab !== nextProps.currentTab
+      || attachmentComplaintCount !== nextProps.attachmentComplaintCount
+      || mapMarkerCount !== nextProps.mapMarkerCount
+      || coaccusalCount !== nextProps.coaccusalCount
     );
   }
 
@@ -26,21 +35,30 @@ export default class OfficerPage extends Component {
       officerName,
       threeCornerPercentile,
       changeOfficerTab,
-      currentTab
+      currentTab,
+      attachmentComplaintCount,
+      mapMarkerCount,
+      coaccusalCount,
     } = this.props;
     return (
       <DocumentTitle title={ `${officerSummary.rank} ${officerName}` }>
         <div style={ wrapperStyle } className='officer-page'>
-          <ShareableHeaderContainer/>
+          <ShareableHeaderContainer />
           <div style={ pageWrapperStyle }>
-            <OfficerRadarChart data={ threeCornerPercentile }/>
+            <OfficerRadarChart data={ threeCornerPercentile } />
             <SummarySection
               officerName={ officerName }
               officerSummary={ officerSummary }
-              openPoliceUnitPage={ openPoliceUnitPage }/>
+              openPoliceUnitPage={ openPoliceUnitPage } />
           </div>
-          <MetricsSection metrics={ officerMetrics }/>
-          <TabbedPaneSection changeOfficerTab={ changeOfficerTab } currentTab={ currentTab }/>
+          <MetricsSection metrics={ officerMetrics } />
+          <TabbedPaneSection
+            changeOfficerTab={ changeOfficerTab }
+            currentTab={ currentTab }
+            attachmentComplaintCount={ attachmentComplaintCount }
+            mapMarkerCount={ mapMarkerCount }
+            coaccusalCount={ coaccusalCount }
+          />
         </div>
       </DocumentTitle>
     );
@@ -56,6 +74,9 @@ OfficerPage.propTypes = {
   openPoliceUnitPage: PropTypes.func,
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
+  attachmentComplaintCount: PropTypes.number,
+  mapMarkerCount: PropTypes.number,
+  coaccusalCount: PropTypes.number,
 };
 
 OfficerPage.defaultProps = {
