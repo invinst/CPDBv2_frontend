@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import DocumentTitle from 'react-document-title';
 
 import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
 import OfficerRadarChart from './radar-chart';
@@ -28,18 +29,20 @@ export default class OfficerPage extends Component {
       currentTab
     } = this.props;
     return (
-      <div style={ wrapperStyle } className='officer-page'>
-        <ShareableHeaderContainer/>
-        <div style={ pageWrapperStyle }>
-          <OfficerRadarChart data={ threeCornerPercentile }/>
-          <SummarySection
-            officerName={ officerName }
-            officerSummary={ officerSummary }
-            openPoliceUnitPage={ openPoliceUnitPage }/>
+      <DocumentTitle title={ `${officerSummary.rank} ${officerName}` }>
+        <div style={ wrapperStyle } className='officer-page'>
+          <ShareableHeaderContainer/>
+          <div style={ pageWrapperStyle }>
+            <OfficerRadarChart data={ threeCornerPercentile }/>
+            <SummarySection
+              officerName={ officerName }
+              officerSummary={ officerSummary }
+              openPoliceUnitPage={ openPoliceUnitPage }/>
+          </div>
+          <MetricsSection metrics={ officerMetrics }/>
+          <TabbedPaneSection changeOfficerTab={ changeOfficerTab } currentTab={ currentTab }/>
         </div>
-        <MetricsSection metrics={ officerMetrics }/>
-        <TabbedPaneSection changeOfficerTab={ changeOfficerTab } currentTab={ currentTab }/>
-      </div>
+      </DocumentTitle>
     );
   }
 }
@@ -57,4 +60,5 @@ OfficerPage.propTypes = {
 
 OfficerPage.defaultProps = {
   changeOfficerTab: () => {},
+  officerSummary: {}
 };

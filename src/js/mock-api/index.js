@@ -20,6 +20,7 @@ import getCRData from './cr-page/get-data';
 import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getCRRelatedComplaintsData from './cr-page/get-related-complaint';
 import getActivityGridData from './landing-page/activity-grid';
+import getTopByAllegationData from './landing-page/top-by-allegation';
 import { getCMSFields } from './landing-page/cms-field';
 import getComplaintSummaries from './landing-page/complaint-summaries';
 import { getCitySummary, getCommunities } from './landing-page/heat-map';
@@ -39,7 +40,7 @@ const SEARCH_SINGLE_API_URL = /^suggestion\/([^/]*)\/single\/$/;
 /* istanbul ignore next */
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
-axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getActivityGridData(48)]);
+axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getTopByAllegationData()]);
 axiosMockClient.onGet(RECENT_DOCUMENT_URL).reply(() => [200, getRecentDocument(24)]);
 axiosMockClient.onGet(RECENT_COMPLAINT_SUMMARIES_URL).reply(() => [200, getComplaintSummaries(20)]);
 

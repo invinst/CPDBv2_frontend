@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import DocumentTitle from 'react-document-title';
 
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
@@ -41,9 +42,11 @@ class LandingPage extends Component {
 
   render() {
     return (
-      <ResponsiveStyleComponent responsiveStyle={ {} }>
-        { this.renderWithResponsiveStyle.bind(this) }
-      </ResponsiveStyleComponent>
+      <DocumentTitle title='CPDP'>
+        <ResponsiveStyleComponent responsiveStyle={ {} }>
+          { this.renderWithResponsiveStyle.bind(this) }
+        </ResponsiveStyleComponent>
+      </DocumentTitle>
     );
   }
 }
