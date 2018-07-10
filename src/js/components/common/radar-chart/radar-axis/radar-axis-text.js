@@ -1,38 +1,81 @@
 import React, { PropTypes } from 'react';
-import { radarAxisTextStyle, radarAxisTitleStyle, radarAxisValueTitleStyle } from './radar-axis-text.style';
+import { ordinalSuffix } from 'ordinal-js';
 
 import { roundedPercentile } from 'utils/calculations';
+import {
+  radarAxisTextStyle,
+  radarAxisTitleStyle,
+  radarAxisValueTitleStyle
+} from './radar-axis-text.style';
 
+
+const LINE_HEIGHT = 1.275;
 
 export default class RadarAxisText extends React.Component {
   renderTitleTexts(title, value, xText, yText, extraPadding, fontSize) {
-    const { showAxisTitle, showAxisValue, axisValueSuffix } = this.props;
-
+    const { showAxisTitle, showAxisValue } = this.props;
     const words = title.split(' ');
-    const phases = showAxisTitle ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [];
-    const axisTitles = phases.map((phase, idx) => (
+    const titlePhases = showAxisTitle ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [];
+    const axisTitles = titlePhases.map((phase, idx) => (
       <tspan
         key={ `text-${title}-${idx}` }
         style={ { ...radarAxisTitleStyle, fontSize: `${fontSize}px` } }
         x={ xText }
         y={ yText }
-        dy={ `${extraPadding + idx * 1.25}em` }
+        dy={ `${extraPadding + idx * LINE_HEIGHT}em` }
       >
         { phase }
       </tspan>
     ));
-    const valueTitle = showAxisValue ? (
+
+    if (showAxisValue) {
+      const valueTitles = this.renderValueTitles(
+        title, value, xText, yText, extraPadding + axisTitles.length * LINE_HEIGHT, fontSize
+      );
+      return [...axisTitles, ...valueTitles];
+    } else {
+      return axisTitles;
+    }
+  }
+
+  renderValueTitles(title, value, xText, yText, extraPadding, fontSize) {
+    const { showOrdinalSuffix } = this.props;
+    const roundedValue = roundedPercentile(value);
+
+    const valueTitle = (
       <tspan
         key={ `text-value-${title}` }
         style={ { ...radarAxisValueTitleStyle, fontSize: `${fontSize}px` } }
         x={ xText }
         y={ yText }
-        dy={ `${extraPadding + phases.length * 1.3}em` }
+        dy={ `${extraPadding}em` }
       >
-        { `${roundedPercentile(value)}${axisValueSuffix}` }
+        { roundedValue }
+        {
+          showOrdinalSuffix ? (
+            <tspan
+              style={ { fontSize: `${fontSize * 0.7}px` } }
+              baselineShift='super'
+            >
+              { ordinalSuffix(roundedValue) }
+            </tspan>
+          ) : null
+        }
+      </tspan>
+    );
+
+    const suffix = showOrdinalSuffix? (
+      <tspan
+        key={ `text-value-${title}-suffix` }
+        style={ { ...radarAxisValueTitleStyle, fontSize: `${fontSize}px` } }
+        x={ xText }
+        y={ yText }
+        dy={ `${extraPadding + LINE_HEIGHT}em` }
+      >
+        percentile
       </tspan>
     ) : null;
-    return [...axisTitles, valueTitle];
+    return [valueTitle, suffix];
   }
 
   render() {
@@ -68,10 +111,6 @@ export default class RadarAxisText extends React.Component {
   }
 }
 
-RadarAxisText.defaultProps = {
-  axisValueSuffix: '',
-};
-
 RadarAxisText.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     'axis': PropTypes.string,
@@ -83,5 +122,5 @@ RadarAxisText.propTypes = {
   axisTitleFontWeight: PropTypes.number,
   showAxisTitle: PropTypes.bool,
   showAxisValue: PropTypes.bool,
-  axisValueSuffix: PropTypes.string,
+  showOrdinalSuffix: PropTypes.bool,
 };

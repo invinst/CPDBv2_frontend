@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { map, isEqual } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
+
 import StaticRadarChart from 'components/common/radar-chart';
 import {
   animatedRadarChartStyle,
@@ -148,6 +149,8 @@ export default class AnimatedRadarChart extends Component {
             showGrid={ true }
             gridOpacity={ 0.25 }
             showAxisTitle={ true }
+            showAxisValue={ true }
+            showOrdinalSuffix={ true }
           />
           <div style={ openExplainerButtonStyle } className='test--radar-explainer-question-mark'>
             <span style={ questionMarkStyle }>?</span>

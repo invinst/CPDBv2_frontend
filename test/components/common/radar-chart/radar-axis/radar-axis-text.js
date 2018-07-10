@@ -98,29 +98,29 @@ describe('RadarAxisText component', function () {
     items[2].textContent.should.be.eql('20');
   });
 
-  it('should be able to show axis values with custom suffix', function () {
+  it('should be able to show percentile suffix', function () {
     const data = [
       {
         axis: 'Title is 1',
-        value: 10,
+        value: 11,
       },
       {
         axis: 'b',
-        value: 50,
+        value: 21,
       },
       {
         axis: 'c',
-        value: 20,
+        value: 22,
       }
     ];
     instance = renderIntoDocument(
-      <RadarAxisText radius={ 100 } data={ data } showAxisValue={ true } axisValueSuffix='###'/>
+      <RadarAxisText radius={ 100 } data={ data } showAxisValue={ true } showOrdinalSuffix={ true }/>
     );
 
     const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
     items.should.have.length(3);
-    items[0].textContent.should.be.eql('10###');
-    items[1].textContent.should.be.eql('50###');
-    items[2].textContent.should.be.eql('20###');
+    items[0].textContent.should.be.eql('11thpercentile');
+    items[1].textContent.should.be.eql('21stpercentile');
+    items[2].textContent.should.be.eql('22ndpercentile');
   });
 });
