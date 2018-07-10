@@ -1,5 +1,4 @@
 import { sugarCaneColor, whiteTwoColor } from 'utils/styles';
-import { MOBILE_BREAK_POINT } from 'utils/constants';
 
 
 export const containerStyle = {
@@ -8,10 +7,7 @@ export const containerStyle = {
   height: '361px',
   backgroundColor: sugarCaneColor,
   boxSizing: 'border-box',
-  position: 'absolute',
-  top: '16px',
-  left: '16px',
-  minWidth: `${MOBILE_BREAK_POINT / 2 - 32}px`
+  margin: '16px',
 };
 
 export const footerStyle = {
@@ -26,27 +22,24 @@ export const footerStyle = {
 };
 
 export const closeButtonStyle = {
-  width: '24px',
-  height: '24px',
-  backgroundColor: 'white',
-  opacity: 0.6,
-  borderRadius: '12px',
+  width: '48px',
+  height: '48px',
   position: 'absolute',
-  right: '18px',
-  top: '18px',
-  boxSizing: 'border-box',
-  cursor: 'pointer'
+  right: '16px',
+  top: '16px',
+  cursor: 'pointer',
 };
 
 export const closeInnerStyle = {
-  opacity: 1,
-  display: 'inline-block',
-  color: 'black',
-  fontSize: '14px',
   verticalAlign: 'middle',
   textAlign: 'center',
-  width: '100%',
-  lineHeight: 1,
   paddingTop: 0,
-  fontWeight: 'normal',
+  margin: '12px',
+  width: '24px',
+  height: '24px',
+  lineHeight: '22px',
+  boxSizing: 'border-box',
+  color: 'black',
+  fontSize: '24px',
+  fontWeight: 100
 };
