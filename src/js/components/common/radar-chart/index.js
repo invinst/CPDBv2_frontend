@@ -48,7 +48,7 @@ export default class StaticRadarChart extends Component {
       fadeOutLegend,
       showAxisTitle,
       showAxisValue,
-      showOrdinalSuffix,
+      showValueWithSuffix,
       axisTitleFontSize,
       axisTitleFontWeight,
       showGrid,
@@ -81,7 +81,7 @@ export default class StaticRadarChart extends Component {
             maxValue={ this.maxValue }
             showAxisTitle={ showAxisTitle }
             showAxisValue={ showAxisValue }
-            showOrdinalSuffix={ showOrdinalSuffix }
+            showValueWithSuffix={ showValueWithSuffix }
             textColor={ textColor }
             strokeWidth={ this.strokeWidth }
             axisTitleFontSize={ axisTitleFontSize }
@@ -139,7 +139,7 @@ StaticRadarChart.propTypes = {
   textColor: PropTypes.string,
   showAxisTitle: PropTypes.bool,
   showAxisValue: PropTypes.bool,
-  showOrdinalSuffix: PropTypes.bool,
+  showValueWithSuffix: PropTypes.bool,
   axisTitleFontSize: PropTypes.number,
   axisTitleFontWeight: PropTypes.number,
   showGrid: PropTypes.bool,

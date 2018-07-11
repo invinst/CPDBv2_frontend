@@ -149,8 +149,7 @@ export default class AnimatedRadarChart extends Component {
             showGrid={ true }
             gridOpacity={ 0.25 }
             showAxisTitle={ true }
-            showAxisValue={ true }
-            showOrdinalSuffix={ true }
+            showValueWithSuffix={ true }
           />
           <div style={ openExplainerButtonStyle } className='test--radar-explainer-question-mark'>
             <span style={ questionMarkStyle }>?</span>

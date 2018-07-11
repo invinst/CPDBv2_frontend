@@ -76,7 +76,7 @@ describe('RadarAxisText component', function () {
     const data = [
       {
         axis: 'Title is 1',
-        value: 10,
+        value: 0,
       },
       {
         axis: 'b',
@@ -93,12 +93,12 @@ describe('RadarAxisText component', function () {
 
     const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
     items.should.have.length(3);
-    items[0].textContent.should.be.eql('10');
+    items[0].textContent.should.be.eql('0');
     items[1].textContent.should.be.eql('50');
     items[2].textContent.should.be.eql('20');
   });
 
-  it('should be able to show percentile suffix', function () {
+  it('should be able to show percentile suffix and hide if value is zero', function () {
     const data = [
       {
         axis: 'Title is 1',
@@ -110,17 +110,16 @@ describe('RadarAxisText component', function () {
       },
       {
         axis: 'c',
-        value: 22,
+        value: 0,
       }
     ];
     instance = renderIntoDocument(
-      <RadarAxisText radius={ 100 } data={ data } showAxisValue={ true } showOrdinalSuffix={ true }/>
+      <RadarAxisText radius={ 100 } data={ data } showAxisValue={ true } showValueWithSuffix={ true }/>
     );
 
     const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
-    items.should.have.length(3);
-    items[0].textContent.should.be.eql('11thpercentile');
-    items[1].textContent.should.be.eql('21stpercentile');
-    items[2].textContent.should.be.eql('22ndpercentile');
+    items.should.have.length(2);
+    items[0].textContent.should.be.eql('11th percentile');
+    items[1].textContent.should.be.eql('21st percentile');
   });
 });
