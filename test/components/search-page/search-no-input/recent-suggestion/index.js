@@ -12,7 +12,7 @@ import RecentSuggestionItem from 'components/search-page/search-no-input/recent-
 import Row from 'components/common/row';
 
 
-describe('<RecentSuggestion />', function () {
+describe('RecentSuggestion component', function () {
   let instance;
 
   afterEach(function () {
