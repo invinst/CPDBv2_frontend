@@ -7,6 +7,7 @@ export const wrapperStyle = (borderTop, dashedBorder) => {
     margin: '0 16px',
     padding: '28px 0 27px 0',
     borderTop: borderTop ? border : 'none',
+    position: 'relative',
   };
 };
 

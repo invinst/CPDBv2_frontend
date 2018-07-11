@@ -35,6 +35,7 @@ export default class MetricsSection extends Component {
         name: 'Sustained',
         description: `${disciplineCount} Disciplined`,
         highlightValue: true,
+        popupText: 'Some thing'
       },
       {
         value: useOfForceCount,

@@ -18,6 +18,7 @@ export default class MetricsColumn extends Component {
           description={ firstMetric.description }
           highlightValue={ get(firstMetric, 'highlightValue', false) }
           borderTop={ false }
+          popupText={ firstMetric.popupText }
         />
         {
           theRest.map((metric, index) => (
@@ -29,6 +30,7 @@ export default class MetricsColumn extends Component {
               borderTop={ true }
               highlightValue={ get(metric, 'highlightValue', false) }
               dashedBorder={ dashedSeparator }
+              popupText={ metric.popupText }
             />
           ))
         }
