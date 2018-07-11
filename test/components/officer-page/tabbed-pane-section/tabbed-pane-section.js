@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
   Simulate,
@@ -29,7 +28,7 @@ describe('TabbedPaneSection component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render Header with correct tab names', function () {
+  it('should render Header with correct tab names with correct order', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <TabbedPaneSection
@@ -41,13 +40,13 @@ describe('TabbedPaneSection component', function () {
       </Provider>
     );
 
-    const tabbedPaneMenu = findRenderedDOMComponentWithClass(instance, 'test--tabbed-pane-section-menu');
+    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name');
 
-    tabbedPaneMenu.textContent.should.containEql('TIMELINE');
-    tabbedPaneMenu.textContent.should.containEql('COACCUSALS');
-    tabbedPaneMenu.textContent.should.containEql('ATTACHMENTS');
-    tabbedPaneMenu.textContent.should.containEql('MAP');
-    scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name').length.should.eql(4);
+    tabNames.should.have.length(4);
+    tabNames[0].textContent.should.be.eql('TIMELINE');
+    tabNames[1].textContent.should.be.eql('MAP');
+    tabNames[2].textContent.should.be.eql('COACCUSALS');
+    tabNames[3].textContent.should.be.eql('ATTACHMENTS');
   });
 
   it('should hide the tabs with no data', function () {
@@ -62,13 +61,10 @@ describe('TabbedPaneSection component', function () {
       </Provider>
     );
 
-    const tabbedPaneMenu = findRenderedDOMComponentWithClass(instance, 'test--tabbed-pane-section-menu');
+    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name');
 
-    tabbedPaneMenu.textContent.should.containEql('TIMELINE');
-    tabbedPaneMenu.textContent.should.not.containEql('COACCUSALS');
-    tabbedPaneMenu.textContent.should.not.containEql('ATTACHMENTS');
-    tabbedPaneMenu.textContent.should.not.containEql('MAP');
-    scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name').length.should.eql(1);
+    tabNames.should.have.length(1);
+    tabNames[0].textContent.should.be.eql('TIMELINE');
   });
 
   it('should render current tab', function () {
