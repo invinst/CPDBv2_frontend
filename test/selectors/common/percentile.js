@@ -30,7 +30,7 @@ describe('extractPercentile', () => {
           value: 52.5,
         },
       ],
-      visualTokenBackground: '#ee7b6f', // corresponding to `312`
+      visualTokenBackground: '#ed7467', // corresponding to `312`
       textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
     };
     extractPercentile(officerPercentile).should.eql(expected);

@@ -100,19 +100,19 @@ describe('officer page', function () {
       officerPage.radarChartSection.lastAxisTitle.waitForVisible();
     });
 
-    it('should open and close radar chart explainer when clicking on the toggle button', function () {
-      officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+    it('should open radar chart explainer when being clicked and closeable', function () {
+      officerPage.radarChartSection.radarChartPlaceHolder.click();
 
       officerPage.radarChartSection.explainerSection.leftNavigation.waitForVisible();
 
-      officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+      officerPage.radarChartSection.explainerSection.closeExplainerButton.click();
 
       officerPage.radarChartSection.explainerSection.leftNavigation.waitForVisible(10000, true);
     });
 
     describe('Radar Chart Explainer', function () {
       it('should navigate correctly between explainers when clicking on left and right navigations', function () {
-        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+        officerPage.radarChartSection.radarChartPlaceHolder.click();
 
         officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
         officerPage.radarChartSection.explainerSection.leftNavigation.getText().should.eql('Percentiles by year');
@@ -156,7 +156,7 @@ describe('officer page', function () {
       });
 
       it('should hide word "Reports" if screen is too small', function () {
-        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+        officerPage.radarChartSection.radarChartPlaceHolder.click();
         officerPage.radarChartSection.explainerSection.leftNavigation.click();
 
         const percentileByYear = officerPage.radarChartSection.explainerSection.percentileByYear;
@@ -172,17 +172,8 @@ describe('officer page', function () {
         percentileByYear.getText().should.not.containEql('Reports');
       });
 
-      it('should hide question mark if screen is too small', function () {
-        browser.setViewportSize({
-          width: 700,
-          height: 500
-        });
-
-        officerPage.radarChartSection.radarChartExplainerToggleButton.waitForVisible(2000, true);
-      });
-
       it('should hide explainer if screen is too small', function () {
-        officerPage.radarChartSection.radarChartExplainerToggleButton.click();
+        officerPage.radarChartSection.radarChartPlaceHolder.click();
 
         officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
 

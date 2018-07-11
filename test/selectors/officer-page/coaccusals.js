@@ -97,7 +97,7 @@ describe('Officer coaccusals selectors', function () {
                 }
               ],
               radarColor: {
-                backgroundColor: '#e81f25',
+                backgroundColor: '#f52524',
                 textColor: '#DFDFDF'
               },
             },
@@ -127,7 +127,7 @@ describe('Officer coaccusals selectors', function () {
                 }
               ],
               radarColor: {
-                backgroundColor: '#e81f25',
+                backgroundColor: '#f52524',
                 textColor: '#DFDFDF'
               },
             },
@@ -162,7 +162,7 @@ describe('Officer coaccusals selectors', function () {
                 }
               ],
               radarColor: {
-                backgroundColor: '#ea4029',
+                backgroundColor: '#f32a29',
                 textColor: '#DFDFDF'
               },
             }

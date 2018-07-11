@@ -25,7 +25,7 @@ export const footerStyle = {
   fontSize: '14px'
 };
 
-export const questionMarkStyle = {
+export const closeButtonStyle = {
   width: '24px',
   height: '24px',
   backgroundColor: 'white',
@@ -38,7 +38,7 @@ export const questionMarkStyle = {
   cursor: 'pointer'
 };
 
-export const questionMarkInnerStyle = {
+export const closeInnerStyle = {
   opacity: 1,
   display: 'inline-block',
   color: 'black',
@@ -47,12 +47,6 @@ export const questionMarkInnerStyle = {
   textAlign: 'center',
   width: '100%',
   lineHeight: 1,
-  fontWeight: 500,
-  paddingTop: '2px',
-};
-
-export const closeInnerStyle = {
-  ...questionMarkInnerStyle,
   paddingTop: 0,
   fontWeight: 'normal',
 };
