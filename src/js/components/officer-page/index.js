@@ -30,7 +30,11 @@ export default class OfficerPage extends Component {
       currentTab
     } = this.props;
 
-    const pageTitle = compact([officerSummary.rank, officerName]).join(' ');
+    const pageTitle = compact([
+      officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
+      officerName
+    ]).join(' ');
+
     return (
       <DocumentTitle title={ pageTitle }>
         <div style={ wrapperStyle } className='officer-page'>

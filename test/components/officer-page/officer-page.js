@@ -76,7 +76,7 @@ describe('OfficerPage component', function () {
 
     instance = reRender(
       <Provider store={ store }>
-        <OfficerPage officerName='Jerome Finigan' officerSummary={ {} }/>
+        <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>
       </Provider>,
       instance
     );
