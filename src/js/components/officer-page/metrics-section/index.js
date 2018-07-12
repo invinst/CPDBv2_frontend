@@ -29,6 +29,14 @@ export default class MetricsSection extends Component {
         value: allegationCount,
         name: `${pluralize('Allegation', allegationCount)}`,
         description: `More than ${roundedPercentile(allegationPercentile)}% of other officers`,
+        popup: {
+          title: 'Complaint Category',
+          text: 'Due to limitations in the data systems used by the CPD and its oversight agencies, most complaints ' +
+          'are given a single complaint category, typically the most serious allegation. This means that if one ' +
+          'officer is accused of excessive force and two fellow officers are accused of not reporting the excessive ' +
+          'force, all three officers may have a complaint marked as excessive force.',
+          style: popupStyle,
+        },
       },
       {
         value: sustainedCount,

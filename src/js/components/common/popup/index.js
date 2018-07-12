@@ -10,7 +10,7 @@ export default class Popup extends Component {
     const { text, title, style } = this.props;
     const tooltipId = `tooltip-${uuid()}`;
     return (
-      <div>
+      <span>
         <ReactTooltip id={ tooltipId } effect='solid' type='light' className='popup' offset={ { top: -10 } }>
           <div style={ titleStyle }>{ title }</div>
           <div style={ textStyle }>{ text }</div>
@@ -18,7 +18,7 @@ export default class Popup extends Component {
         <div style={ { ...wrapperStyle, ...style } } data-tip data-for={ tooltipId }>
           <span style={ innerStyle }>i</span>
         </div>
-      </div>
+      </span>
     );
   }
 }
