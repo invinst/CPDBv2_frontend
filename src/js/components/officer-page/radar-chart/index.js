@@ -7,7 +7,8 @@ import {
   animatedRadarChartStyle,
   radarChartPlaceholderStyle,
   openExplainerButtonStyle,
-  questionMarkStyle
+  questionMarkStyle,
+  radarChartOverlayStyle
 } from './radar-chart.style';
 import RadarExplainer from './explainer';
 
@@ -157,7 +158,12 @@ export default class AnimatedRadarChart extends Component {
             <span style={ questionMarkStyle }>?</span>
           </div>
         </div>
-        { showExplainer && <RadarExplainer closeExplainer={ this.closeExplainer } radarChartData={ data }/> }
+        { showExplainer && (
+          <div style={ radarChartOverlayStyle }>
+            <RadarExplainer closeExplainer={ this.closeExplainer } radarChartData={ data }/>
+          </div>
+          )
+        }
       </div>
     );
   }
