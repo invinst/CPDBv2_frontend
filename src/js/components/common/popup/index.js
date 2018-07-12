@@ -15,7 +15,7 @@ export default class Popup extends Component {
           <div style={ titleStyle }>{ title }</div>
           <div style={ textStyle }>{ text }</div>
         </ReactTooltip>
-        <div style={ { ...wrapperStyle, ...style } } data-tip data-for={ tooltipId }>
+        <div style={ { ...wrapperStyle, ...style } } data-tip={ true } data-for={ tooltipId }>
           <span style={ innerStyle }>i</span>
         </div>
       </span>

@@ -24,8 +24,8 @@ export default class Timeline extends Component {
 
     return (
       <div className='test--timeline-header' style={ headerWrapperStyle }>
-        <div style={ rankHeaderStyle }>RANK</div>
-        <div style={ unitHeaderStyle }>
+        <div style={ rankHeaderStyle } className='test--timeline-header-col'>RANK</div>
+        <div style={ unitHeaderStyle } className='test--timeline-header-col'>
           UNIT
           <Popup
             title='Unit Details'
@@ -36,7 +36,7 @@ export default class Timeline extends Component {
             style={ popupStyle }
           />
         </div>
-        <div style={ showingContentHeaderStyle }>
+        <div style={ showingContentHeaderStyle } className='test--timeline-header-col'>
           <div style={ showingTextStyle }>SHOWING</div>
           <Dropdown
             defaultValue={ NEW_TIMELINE_FILTERS.ALL }
@@ -46,7 +46,7 @@ export default class Timeline extends Component {
             width={ 146 }
           />
         </div>
-        <div style={ dateHeaderStyle }>DATE</div>
+        <div style={ dateHeaderStyle } className='test--timeline-header-col'>DATE</div>
       </div>
     );
   }
