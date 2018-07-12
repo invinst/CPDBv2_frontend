@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { chunk } from 'lodash';
 import pluralize from 'pluralize';
 
-import { metricSectionStyle, verticalLineStyle, wrapperStyle } from './metrics-section.style';
+import { metricSectionStyle, verticalLineStyle, wrapperStyle, popupStyle } from './metrics-section.style';
 import MetricsColumn from 'components/officer-page/metrics-section/metrics-column';
 import { roundedPercentile } from 'utils/calculations';
 
@@ -35,12 +35,15 @@ export default class MetricsSection extends Component {
         name: 'Sustained',
         description: `${disciplineCount} Disciplined`,
         highlightValue: true,
-        popupTitle: 'Sustained Complaints',
-        popupText: 'Due to limitations in the data systems used by the CPD and its oversight agencies, ' +
-        'if any part of a complaint against an officer is marked as “sustained” then the entire allegation against ' +
-        'an officer is also marked as “sustained.” This means that if an officer receives a complaint alleging ' +
-        'improper use of force, and illegal search, and incorrect paperwork, and only the paperwork violation ' +
-        'is upheld, then the entire complaint is marked as “sustained.”'
+        popup: {
+          title: 'Sustained Complaints',
+          text: 'Due to limitations in the data systems used by the CPD and its oversight agencies, ' +
+          'if any part of a complaint against an officer is marked as “sustained” then the entire allegation against ' +
+          'an officer is also marked as “sustained.” This means that if an officer receives a complaint alleging ' +
+          'improper use of force, and illegal search, and incorrect paperwork, and only the paperwork violation ' +
+          'is upheld, then the entire complaint is marked as “sustained.”',
+          style: popupStyle,
+        },
       },
       {
         value: useOfForceCount,

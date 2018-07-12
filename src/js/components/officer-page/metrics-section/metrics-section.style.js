@@ -22,3 +22,9 @@ export const verticalLineStyle = {
   display: 'inline-block',
   verticalAlign: 'top',
 };
+
+export const popupStyle = {
+  position: 'absolute',
+  top: '10px',
+  right: 0,
+};

@@ -7,7 +7,7 @@ import { wrapperStyle, innerStyle, titleStyle, textStyle } from './popup.style';
 
 export default class Popup extends Component {
   render() {
-    const { text, title } = this.props;
+    const { text, title, style } = this.props;
     const tooltipId = `tooltip-${uuid()}`;
     return (
       <div>
@@ -15,7 +15,7 @@ export default class Popup extends Component {
           <div style={ titleStyle }>{ title }</div>
           <div style={ textStyle }>{ text }</div>
         </ReactTooltip>
-        <div style={ wrapperStyle } data-tip data-for={ tooltipId }>
+        <div style={ { ...wrapperStyle, ...style } } data-tip data-for={ tooltipId }>
           <span style={ innerStyle }>i</span>
         </div>
       </div>
@@ -26,4 +26,5 @@ export default class Popup extends Component {
 Popup.propTypes = {
   text: PropTypes.string,
   title: PropTypes.string,
+  style: PropTypes.object,
 };

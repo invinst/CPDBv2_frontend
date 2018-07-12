@@ -7,10 +7,7 @@ export const wrapperStyle = {
   backgroundColor: sugarCaneColor,
   border: `solid 1px ${whiteTwoColor}`,
   borderRadius: '7.5px',
-  position: 'absolute',
   boxSizing: 'border-box',
-  top: '10px',
-  right: 0,
   cursor: 'help',
 };
 
