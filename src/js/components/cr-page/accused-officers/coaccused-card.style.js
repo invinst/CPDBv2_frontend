@@ -39,7 +39,7 @@ export const categoryTextStyle = hovering => ({
 });
 
 export const outcomeTextWrapperStyle = (finding, disciplined) => {
-  const borderColor = (finding == 'Sustained' && disciplined) ? azaleaColor : champagneColor;
+  const borderColor = (finding === 'Sustained' && disciplined) ? azaleaColor : champagneColor;
   const backgroundColor = finding !== 'Sustained' ? 'transparent' : borderColor;
 
   return {
@@ -59,7 +59,7 @@ export const findingOutcomeMixStyle = {
   fontSize: '14px',
   color: softBlackColor,
   fontWeight: 400,
-  padding: '0px 10px 16px',
+  padding: '0 10px 16px',
   lineHeight: '21px',
   display: 'inline-block',
   overflowX: 'scroll',
@@ -76,7 +76,7 @@ export const allegationTextStyle = {
 };
 
 export const sustainedTextStyle = sustainedCount => ({
-  color: sustainedCount == 0 ? clayGray : brightOrangeTwoColor,
+  color: sustainedCount === 0 ? clayGray : brightOrangeTwoColor,
   fontWeight: 400,
   fontSize: '14px',
   marginLeft: '4px'
