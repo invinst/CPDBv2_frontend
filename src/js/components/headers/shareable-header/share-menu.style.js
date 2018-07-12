@@ -23,7 +23,8 @@ const itemStyle = {
 export const imgStyle = {
   float: 'right',
   width: '16px',
-  height: '16px'
+  height: '16px',
+  paddingTop: '3px',
 };
 
 export const buttonItemStyle = {

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import S from 'string';
 import { Link } from 'react-router';
+import { capitalize } from 'lodash';
 
 import Row from 'components/common/row';
 import Hoverable from 'components/common/higher-order/hoverable';
@@ -13,7 +13,7 @@ class RecentSuggestionItem extends Component {
 
     const children = (
       <Row
-        label={ S(entry.contentType).capitalize().s }
+        label={ capitalize(entry.contentType) }
         labelWidth={ 115 }
         content={ entry.text }
         contentWidth={ 900 }

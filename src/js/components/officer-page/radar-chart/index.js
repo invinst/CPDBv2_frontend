@@ -36,6 +36,10 @@ export default class AnimatedRadarChart extends Component {
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props.data, prevProps.data)) {
+      /* istanbul ignore next */
+      if (this.timer) {
+        this.stopTimer();
+      }
       this.startTimer();
     }
   }
@@ -68,7 +72,7 @@ export default class AnimatedRadarChart extends Component {
 
   startTimer() {
     if (this.props.data && this.props.data.length > 1 && !this.timer) {
-      this.timer = setInterval(this.animate, this.interval);
+      this.timer = setInterval(() => this.animate(), this.interval);
     }
   }
 
