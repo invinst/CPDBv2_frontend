@@ -1,0 +1,13 @@
+.__react_component_tooltip.type-light.popup {
+    background-color: white;
+    border-radius: 2px;
+    border: solid 1px #D8D8D8;
+    color: black;
+    opacity: 1;
+    width: 400px;
+}
+
+.__react_component_tooltip.popup.type-light::after {
+    border-top: none;
+}
+

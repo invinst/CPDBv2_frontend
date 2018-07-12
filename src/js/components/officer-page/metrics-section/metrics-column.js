@@ -30,6 +30,7 @@ export default class MetricsColumn extends Component {
               borderTop={ true }
               highlightValue={ get(metric, 'highlightValue', false) }
               dashedBorder={ dashedSeparator }
+              popupTitle={ metric.popupTitle }
               popupText={ metric.popupText }
             />
           ))

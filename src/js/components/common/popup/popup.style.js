@@ -1,4 +1,4 @@
-import { sugarCaneColor, whiteTwoColor, clayGray } from 'utils/styles';
+import { sugarCaneColor, whiteTwoColor, clayGray, boulderColor, softBlackColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -11,6 +11,7 @@ export const wrapperStyle = {
   boxSizing: 'border-box',
   top: '10px',
   right: 0,
+  cursor: 'help',
 };
 
 export const innerStyle = {
@@ -22,4 +23,18 @@ export const innerStyle = {
   textAlign: 'center',
   width: '100%',
   fontWeight: 600,
+};
+
+export const titleStyle = {
+  fontSize: '14px',
+  fontWeight: 500,
+  color: softBlackColor,
+  marginBottom: '16px',
+};
+
+export const textStyle = {
+  fontSize: '14px',
+  fontWeight: 300,
+  color: boulderColor,
+  lineHeight: '18px',
 };

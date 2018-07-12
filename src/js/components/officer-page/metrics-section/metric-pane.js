@@ -7,7 +7,7 @@ import Popup from 'components/common/popup';
 export default class MetricPane extends Component {
 
   render() {
-    const { value, name, description, borderTop, dashedBorder, highlightValue, popupText } = this.props;
+    const { value, name, description, borderTop, dashedBorder, highlightValue, popupText, popupTitle } = this.props;
     const active = value !== 0;
 
     return (
@@ -21,7 +21,7 @@ export default class MetricPane extends Component {
         <div className='test--metrics-pane-description' style={ descriptionStyle }>
           { description }
         </div>
-        { popupText ? <Popup text={ popupText }/> : null }
+        { popupText ? <Popup text={ popupText } title={ popupTitle }/> : null }
       </div>
     );
   }
@@ -35,6 +35,7 @@ MetricPane.propTypes = {
   dashedBorder: PropTypes.bool,
   highlightValue: PropTypes.bool,
   popupText: PropTypes.string,
+  popupTitle: PropTypes.string,
 };
 
 MetricPane.defaultProps = {
