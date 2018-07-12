@@ -27,6 +27,7 @@ export const titleStyle = {
   fontWeight: 500,
   color: softBlackColor,
   marginBottom: '16px',
+  lineHeight: '18px',
 };
 
 export const textStyle = {

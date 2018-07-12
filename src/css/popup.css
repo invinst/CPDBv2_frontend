@@ -5,9 +5,10 @@
     color: black;
     opacity: 1;
     width: 400px;
+    text-align: left;
 }
 
 .__react_component_tooltip.popup.type-light::after {
-    border-top: none;
+    border: none;
 }
 

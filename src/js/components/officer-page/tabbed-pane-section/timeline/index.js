@@ -9,10 +9,12 @@ import {
   showingTextStyle,
   timelineStyle,
   unitHeaderStyle,
+  popupStyle,
 } from './timeline.style';
 import Item from './item';
 import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS } from 'utils/constants';
 import Dropdown from 'components/common/dropdown';
+import Popup from 'components/common/popup';
 
 
 export default class Timeline extends Component {
@@ -23,7 +25,17 @@ export default class Timeline extends Component {
     return (
       <div className='test--timeline-header' style={ headerWrapperStyle }>
         <div style={ rankHeaderStyle }>RANK</div>
-        <div style={ unitHeaderStyle }>UNIT</div>
+        <div style={ unitHeaderStyle }>
+          UNIT
+          <Popup
+            title='Unit Details'
+            text='This field provides the CPD unit an officer was assigned to at a given point in time.
+            Officers are often detailed from their assigned unit to a second unit for periods of time ranging from a
+            few days to months at a time. This means that an officer assigned to the Third District (Unit 003) might
+            spend weeks outside of the district while detailed to the Narcotics Division (Unit 189).'
+            style={ popupStyle }
+          />
+        </div>
         <div style={ showingContentHeaderStyle }>
           <div style={ showingTextStyle }>SHOWING</div>
           <Dropdown
