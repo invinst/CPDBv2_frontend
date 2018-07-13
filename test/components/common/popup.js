@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
+import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
 import Popup from 'components/common/popup';
 import { unmountComponentSuppressError } from 'utils/test';

@@ -12,7 +12,7 @@ import {
   popupStyle,
 } from './timeline.style';
 import Item from './item';
-import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS } from 'utils/constants';
+import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, POPUP_NAMES } from 'utils/constants';
 import Dropdown from 'components/common/dropdown';
 import Popup from 'components/common/popup';
 
@@ -20,19 +20,21 @@ import Popup from 'components/common/popup';
 export default class Timeline extends Component {
 
   renderHeader() {
-    const { changeFilter } = this.props;
+    const { changeFilter, popup } = this.props;
 
     return (
       <div className='test--timeline-header' style={ headerWrapperStyle }>
-        <div style={ rankHeaderStyle } className='test--timeline-header-col'>RANK</div>
+        <div style={ rankHeaderStyle } className='test--timeline-header-col'>
+          RANK
+          <Popup
+            { ...popup[POPUP_NAMES.OFFICER.RANK] }
+            style={ popupStyle }
+          />
+        </div>
         <div style={ unitHeaderStyle } className='test--timeline-header-col'>
           UNIT
           <Popup
-            title='Unit Details'
-            text='This field provides the CPD unit an officer was assigned to at a given point in time.
-            Officers are often detailed from their assigned unit to a second unit for periods of time ranging from a
-            few days to months at a time. This means that an officer assigned to the Third District (Unit 003) might
-            spend weeks outside of the district while detailed to the Narcotics Division (Unit 189).'
+            { ...popup[POPUP_NAMES.OFFICER.UNIT] }
             style={ popupStyle }
           />
         </div>
@@ -99,6 +101,7 @@ Timeline.propTypes = {
   officerId: PropTypes.number,
   openComplaintPage: PropTypes.func,
   changeOfficerTab: PropTypes.func,
+  popup: PropTypes.object,
 };
 
 Timeline.defaultProps = {

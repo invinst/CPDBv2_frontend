@@ -433,6 +433,15 @@ export const ACTIVITY_GRID_CARD_TYPES = {
 };
 
 export const POPUP_NAMES = {
-  ALLEGATION: 'allegation',
-  SUSTAINED: 'sustained',
+  OFFICER: {
+    ALLEGATION: 'allegation',
+    SUSTAINED: 'sustained',
+    TRR: 'trr',
+    MAJOR_AWARD: 'major_award',
+    CIVILIAN_COMPLIMENT: 'civilian_compliment',
+    HONORABLE_MENTION: 'honorable_mention',
+    UNIT: 'unit',
+    RANK: 'rank',
+    SALARY: 'salary',
+  }
 };

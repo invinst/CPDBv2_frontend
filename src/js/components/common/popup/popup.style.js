@@ -1,13 +1,13 @@
-import { sugarCaneColor, whiteTwoColor, clayGray, boulderColor, softBlackColor } from 'utils/styles';
+import { whiteTwoColor, clayGray, boulderColor, softBlackColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
 export const wrapperStyle = {
-  width: '15px',
-  height: '15px',
-  backgroundColor: sugarCaneColor,
+  width: '18px',
+  height: '18px',
+  backgroundColor: 'inherit',
   border: `solid 1px ${whiteTwoColor}`,
-  borderRadius: '7.5px',
+  borderRadius: '9px',
   boxSizing: 'border-box',
   cursor: 'pointer',
 };
@@ -16,7 +16,7 @@ export const innerStyle = {
   display: 'inline-block',
   color: clayGray,
   fontSize: '10px',
-  lineHeight: '12px',
+  lineHeight: '14px',
   verticalAlign: 'top',
   textAlign: 'center',
   width: '100%',
@@ -49,4 +49,5 @@ export const textStyle = {
   fontWeight: 300,
   color: boulderColor,
   lineHeight: '18px',
+  whiteSpace: 'pre-line',
 };

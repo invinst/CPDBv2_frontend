@@ -38,6 +38,7 @@ MetricPane.propTypes = {
   popup: PropTypes.shape({
     title: PropTypes.string,
     text: PropTypes.string,
+    style: PropTypes.object,
   }),
 };
 

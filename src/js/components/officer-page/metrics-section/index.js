@@ -32,7 +32,7 @@ export default class MetricsSection extends Component {
         name: `${pluralize('Allegation', allegationCount)}`,
         description: `More than ${roundedPercentile(allegationPercentile)}% of other officers`,
         popup: {
-          ...popup[POPUP_NAMES.ALLEGATION],
+          ...popup[POPUP_NAMES.OFFICER.ALLEGATION],
           style: popupStyle,
         }
       },
@@ -42,12 +42,7 @@ export default class MetricsSection extends Component {
         description: `${disciplineCount} Disciplined`,
         highlightValue: true,
         popup: {
-          title: 'Sustained Complaints',
-          text: 'Due to limitations in the data systems used by the CPD and its oversight agencies, ' +
-          'if any part of a complaint against an officer is marked as “sustained” then the entire allegation against ' +
-          'an officer is also marked as “sustained.” This means that if an officer receives a complaint alleging ' +
-          'improper use of force, and illegal search, and incorrect paperwork, and only the paperwork violation ' +
-          'is upheld, then the entire complaint is marked as “sustained.”',
+          ...popup[POPUP_NAMES.OFFICER.SUSTAINED],
           style: popupStyle,
         },
       },
@@ -55,21 +50,37 @@ export default class MetricsSection extends Component {
         value: useOfForceCount,
         name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
         description: `More than ${roundedPercentile(useOfForcePercentile)}% of other officers`,
+        popup: {
+          ...popup[POPUP_NAMES.OFFICER.TRR],
+          style: popupStyle,
+        }
       },
       {
         value: civilianComplimentCount,
         name: `Civilian ${pluralize('Compliment', civilianComplimentCount)}`,
         description: '',
+        popup: {
+          ...popup[POPUP_NAMES.OFFICER.CIVILIAN_COMPLIMENT],
+          style: popupStyle,
+        }
       },
       {
         value: majorAwardCount,
         name: `Major ${pluralize('Award', majorAwardCount)}`,
         description: '',
+        popup: {
+          ...popup[POPUP_NAMES.OFFICER.MAJOR_AWARD],
+          style: popupStyle,
+        }
       },
       {
         value: honorableMentionCount,
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
         description: `More than ${roundedPercentile(honorableMentionPercentile)}% of other officers`,
+        popup: {
+          ...popup[POPUP_NAMES.OFFICER.HONORABLE_MENTION],
+          style: popupStyle,
+        }
       }
     ];
 
