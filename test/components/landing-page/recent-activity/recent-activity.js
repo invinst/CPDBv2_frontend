@@ -54,7 +54,7 @@ describe('Recent Activity components', function () {
         'percentileAllegationInternal': '99.675',
         'percentileTrr': '70.069'
       },
-      'backgroundColor': '#e94829'
+      'backgroundColor': '#f0201e'
     },
     'officer2': {
       'id': 3454,
@@ -68,7 +68,7 @@ describe('Recent Activity components', function () {
         'percentileAllegationInternal': '99.566',
         'percentileTrr': '74.440'
       },
-      'backgroundColor': '#e94829'
+      'backgroundColor': '#f0201e'
     }
   }];
 
@@ -93,11 +93,11 @@ describe('Recent Activity components', function () {
     const officerCard1 = findDOMNode(officerCards[0]);
     officerCard1.textContent.should.containEql('Manuel Guzman');
     officerCard1.textContent.should.containEql('More than 84% of other officers');
-    officerCard1.textContent.should.containEql('13 Complaints');
+    officerCard1.textContent.should.containEql('13 Allegations');
 
     const officerCard2 = findDOMNode(officerCards[1]);
     officerCard2.textContent.should.containEql('Jerome Finnagan');
-    officerCard2.textContent.should.containEql('55 Complaints, 22 Sustained');
+    officerCard2.textContent.should.containEql('55 Allegations, 22 Sustained');
     officerCard2.textContent.should.containEql('More than 94% of other officers');
   });
 

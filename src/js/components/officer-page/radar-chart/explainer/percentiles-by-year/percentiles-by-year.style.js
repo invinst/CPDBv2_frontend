@@ -7,7 +7,8 @@ export const containerStyle = {
   height: '305px',
   padding: '26px 16px 6px',
   overflow: 'auto',
-  boxSizing: 'border-box'
+  boxSizing: 'border-box',
+  backgroundColor: 'white'
 };
 
 export const headerStyle = {

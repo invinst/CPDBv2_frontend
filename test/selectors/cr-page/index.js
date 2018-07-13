@@ -62,7 +62,8 @@ describe('CR page selectors', function () {
         'percentile_allegation': 1,
         'percentile_allegation_civilian': 52.5,
         'percentile_allegation_internal': 10.1,
-        'percentile_trr': 20.6
+        'percentile_trr': 20.6,
+        'disciplined': true
       };
       const state = buildState({
         crs: { '123': { coaccused: [coaccusedObj] } },
@@ -95,9 +96,10 @@ describe('CR page selectors', function () {
           },
         ],
         radarColor: {
-          backgroundColor: '#ee7b6f',
+          backgroundColor: '#ed7467',
           textColor: '#231F20'
-        }
+        },
+        disciplined: true
       }]);
     });
 
