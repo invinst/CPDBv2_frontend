@@ -1,4 +1,5 @@
 import { sugarCaneColor, whiteTwoColor, clayGray, boulderColor, softBlackColor } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
 
 
 export const wrapperStyle = {
@@ -8,7 +9,7 @@ export const wrapperStyle = {
   border: `solid 1px ${whiteTwoColor}`,
   borderRadius: '7.5px',
   boxSizing: 'border-box',
-  cursor: 'help',
+  cursor: 'pointer',
 };
 
 export const innerStyle = {
@@ -23,11 +24,24 @@ export const innerStyle = {
 };
 
 export const titleStyle = {
+  marginBottom: '8px',
+  lineHeight: '18px',
+};
+
+export const titleTextStyle = {
   fontSize: '14px',
   fontWeight: 500,
   color: softBlackColor,
-  marginBottom: '16px',
-  lineHeight: '18px',
+  verticalAlign: 'top',
+};
+
+export const titleCloseButtonStyle = {
+  display: 'inline-block',
+  width: '18px',
+  height: '18px',
+  background: `url("${imgUrl('ic-grey-close.svg')}") no-repeat scroll center transparent`,
+  marginRight: '6px',
+  cursor: 'pointer',
 };
 
 export const textStyle = {

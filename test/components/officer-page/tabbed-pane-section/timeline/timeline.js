@@ -35,7 +35,7 @@ describe('Timeline component', function () {
     cols[3].textContent.should.containEql('DATE');
   });
 
-  it.only('should render unit popup', function () {
+  it('should render unit popup', function () {
     instance = renderIntoDocument(<Timeline />);
     const popup = scryRenderedComponentsWithType(instance, Popup);
     popup[0].props.title.should.eql('Unit Details');
