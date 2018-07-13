@@ -5,11 +5,13 @@ import pluralize from 'pluralize';
 import { metricSectionStyle, verticalLineStyle, wrapperStyle, popupStyle } from './metrics-section.style';
 import MetricsColumn from 'components/officer-page/metrics-section/metrics-column';
 import { roundedPercentile } from 'utils/calculations';
+import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class MetricsSection extends Component {
 
   render() {
+    const { popup } = this.props;
     const {
       allegationCount,
       allegationPercentile,
@@ -30,13 +32,9 @@ export default class MetricsSection extends Component {
         name: `${pluralize('Allegation', allegationCount)}`,
         description: `More than ${roundedPercentile(allegationPercentile)}% of other officers`,
         popup: {
-          title: 'Complaint Category',
-          text: 'Due to limitations in the data systems used by the CPD and its oversight agencies, most complaints ' +
-          'are given a single complaint category, typically the most serious allegation. This means that if one ' +
-          'officer is accused of excessive force and two fellow officers are accused of not reporting the excessive ' +
-          'force, all three officers may have a complaint marked as excessive force.',
+          ...popup[POPUP_NAMES.ALLEGATION],
           style: popupStyle,
-        },
+        }
       },
       {
         value: sustainedCount,
@@ -96,6 +94,7 @@ export default class MetricsSection extends Component {
 
 MetricsSection.propTypes = {
   metrics: PropTypes.object,
+  popup: PropTypes.object,
 };
 
 MetricsSection.defaultProps = {

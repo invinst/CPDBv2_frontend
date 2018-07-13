@@ -24,6 +24,7 @@ import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import { getRecentDocument } from 'actions/landing-page/recent-document';
 import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
+import { fetchPopup } from 'actions/popup';
 
 let prevPathname = '';
 
@@ -49,6 +50,7 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchSocialGraph(officerId)));
       dispatches.push(store.dispatch(fetchNewTimelineItems(officerId)));
       dispatches.push(store.dispatch(fetchCoaccusals(officerId)));
+      dispatches.push(store.dispatch(fetchPopup('officer')));
     }
   } else if (action.payload.pathname.match(/^\/(edit\/?)?$/)) {
     if (!hasCommunitiesSelector(state)) {
