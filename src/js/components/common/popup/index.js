@@ -11,11 +11,16 @@ export default class Popup extends Component {
     const tooltipId = `tooltip-${uuid()}`;
     return (
       <span>
-        <ReactTooltip id={ tooltipId } effect='solid' type='light' className='popup' offset={ { top: -10 } }>
+        <ReactTooltip id={ tooltipId } className='popup' effect='solid' type='light' offset={ { top: -10 } }>
           <div style={ titleStyle }>{ title }</div>
           <div style={ textStyle }>{ text }</div>
         </ReactTooltip>
-        <div style={ { ...wrapperStyle, ...style } } data-tip={ true } data-for={ tooltipId }>
+        <div
+          style={ { ...wrapperStyle, ...style } }
+          data-tip={ true }
+          data-for={ tooltipId }
+          className='test--popup-button'
+        >
           <span style={ innerStyle }>i</span>
         </div>
       </span>
@@ -24,7 +29,11 @@ export default class Popup extends Component {
 }
 
 Popup.propTypes = {
-  text: PropTypes.string,
   title: PropTypes.string,
+  text: PropTypes.string,
   style: PropTypes.object,
+};
+
+Popup.defaultProps = {
+  style: {},
 };

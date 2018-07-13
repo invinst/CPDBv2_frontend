@@ -38,7 +38,7 @@ describe('officer page', function () {
 
     officerPage.summarySection.rankLabel.getText().should.equal('Rank');
     officerPage.summarySection.rankValue.getText().should.equal('NA');
-    officerPage.summarySection.rankExtraInfo.getText().should.equal('$100,000 base salary');
+    officerPage.summarySection.rankExtraInfo.getText().should.containEql('$100,000 base salary');
 
     officerPage.summarySection.raceLabel.getText().should.equal('Race');
     officerPage.summarySection.raceValue.getText().should.equal('White');
@@ -64,7 +64,11 @@ describe('officer page', function () {
       'rgba(0,94,244,1)'
     );
     // Due to float right, we need to add a '\n' here
-    officerPage.tabbedPaneSection.timelineSection.header.getText().should.eql('RANKUNITSHOWINGALL EVENTS\nDATE');
+    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('RANK');
+    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('UNIT');
+    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('SHOWING');
+    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('ALL EVENTS');
+    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('DATE');
 
     officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
     officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();

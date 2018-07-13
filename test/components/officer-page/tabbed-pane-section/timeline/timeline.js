@@ -12,6 +12,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
 import Item from 'components/officer-page/tabbed-pane-section/timeline/item';
 import Dropdown from 'components/common/dropdown';
+import Popup from 'components/common/popup';
 
 
 describe('Timeline component', function () {
@@ -32,6 +33,23 @@ describe('Timeline component', function () {
     cols[2].textContent.should.containEql('SHOWING');
     cols[2].textContent.should.containEql('ALL EVENTS');
     cols[3].textContent.should.containEql('DATE');
+  });
+
+  it.only('should render unit popup', function () {
+    instance = renderIntoDocument(<Timeline />);
+    const popup = scryRenderedComponentsWithType(instance, Popup);
+    popup[0].props.title.should.eql('Unit Details');
+    popup[0].props.text.should.eql(
+      'This field provides the CPD unit an officer was assigned to at a given point in time. ' +
+      'Officers are often detailed from their assigned unit to a second unit for periods of time ranging from a ' +
+      'few days to months at a time. This means that an officer assigned to the Third District (Unit 003) might ' +
+      'spend weeks outside of the district while detailed to the Narcotics Division (Unit 189).'
+    );
+    popup[0].props.style.should.eql({
+      display: 'inline-block',
+      verticalAlign: 'middle',
+      marginLeft: '6px',
+    });
   });
 
   it('should render items with correct borders', function () {
