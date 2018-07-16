@@ -437,11 +437,15 @@ export const POPUP_NAMES = {
     ALLEGATION: 'allegation',
     SUSTAINED: 'sustained',
     TRR: 'trr',
-    MAJOR_AWARD: 'major_award',
-    CIVILIAN_COMPLIMENT: 'civilian_compliment',
-    HONORABLE_MENTION: 'honorable_mention',
+    MAJOR_AWARD: 'majorAward',
+    CIVILIAN_COMPLIMENT: 'civilianCompliment',
+    HONORABLE_MENTION: 'honorableMention',
     UNIT: 'unit',
     RANK: 'rank',
     SALARY: 'salary',
+  },
+  COMPLAINT: {
+    CATEGORY: 'category',
+    ACCUSED_OFFICER: 'accusedOfficer',
   }
 };

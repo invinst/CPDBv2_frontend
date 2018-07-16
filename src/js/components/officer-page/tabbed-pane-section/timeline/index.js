@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { nth, values } from 'lodash';
+import { nth, values, get } from 'lodash';
 
 import {
   dateHeaderStyle,
@@ -27,14 +27,14 @@ export default class Timeline extends Component {
         <div style={ rankHeaderStyle } className='test--timeline-header-col'>
           RANK
           <Popup
-            { ...popup[POPUP_NAMES.OFFICER.RANK] }
+            { ...get(popup, POPUP_NAMES.OFFICER.RANK) }
             style={ popupStyle }
           />
         </div>
         <div style={ unitHeaderStyle } className='test--timeline-header-col'>
           UNIT
           <Popup
-            { ...popup[POPUP_NAMES.OFFICER.UNIT] }
+            { ...get(popup, POPUP_NAMES.OFFICER.UNIT) }
             style={ popupStyle }
           />
         </div>

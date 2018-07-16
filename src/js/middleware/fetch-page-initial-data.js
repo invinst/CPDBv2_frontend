@@ -82,6 +82,7 @@ export default store => next => action => {
     const oldCrid = getCRID(prevPathname);
     if (crid != oldCrid) {
       dispatches.push(store.dispatch(fetchCR(crid)));
+      dispatches.push(store.dispatch(fetchPopup('complaint')));
     }
   } else if (action.payload.pathname.match(/unit\/\d+/)) {
     const unitName = getUnitName(action.payload.pathname);

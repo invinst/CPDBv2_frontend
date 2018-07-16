@@ -88,3 +88,9 @@ export const subcategoryStyle = {
   fontWeight: 300,
   color: mediumGrayColor
 };
+
+export const popupStyle = {
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  marginLeft: '6px',
+};

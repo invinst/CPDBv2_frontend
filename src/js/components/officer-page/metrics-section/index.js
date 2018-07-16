@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { chunk } from 'lodash';
+import { chunk, get } from 'lodash';
 import pluralize from 'pluralize';
 
 import { metricSectionStyle, verticalLineStyle, wrapperStyle, popupStyle } from './metrics-section.style';
@@ -32,7 +32,7 @@ export default class MetricsSection extends Component {
         name: `${pluralize('Allegation', allegationCount)}`,
         description: `More than ${roundedPercentile(allegationPercentile)}% of other officers`,
         popup: {
-          ...popup[POPUP_NAMES.OFFICER.ALLEGATION],
+          ...get(popup, POPUP_NAMES.OFFICER.ALLEGATION),
           style: popupStyle,
         }
       },
@@ -42,7 +42,7 @@ export default class MetricsSection extends Component {
         description: `${disciplineCount} Disciplined`,
         highlightValue: true,
         popup: {
-          ...popup[POPUP_NAMES.OFFICER.SUSTAINED],
+          ...get(popup, POPUP_NAMES.OFFICER.SUSTAINED),
           style: popupStyle,
         },
       },
@@ -51,7 +51,7 @@ export default class MetricsSection extends Component {
         name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
         description: `More than ${roundedPercentile(useOfForcePercentile)}% of other officers`,
         popup: {
-          ...popup[POPUP_NAMES.OFFICER.TRR],
+          ...get(popup, POPUP_NAMES.OFFICER.TRR),
           style: popupStyle,
         }
       },
@@ -60,7 +60,7 @@ export default class MetricsSection extends Component {
         name: `Civilian ${pluralize('Compliment', civilianComplimentCount)}`,
         description: '',
         popup: {
-          ...popup[POPUP_NAMES.OFFICER.CIVILIAN_COMPLIMENT],
+          ...get(popup, POPUP_NAMES.OFFICER.CIVILIAN_COMPLIMENT),
           style: popupStyle,
         }
       },
@@ -69,7 +69,7 @@ export default class MetricsSection extends Component {
         name: `Major ${pluralize('Award', majorAwardCount)}`,
         description: '',
         popup: {
-          ...popup[POPUP_NAMES.OFFICER.MAJOR_AWARD],
+          ...get(popup, POPUP_NAMES.OFFICER.MAJOR_AWARD),
           style: popupStyle,
         }
       },
@@ -78,7 +78,7 @@ export default class MetricsSection extends Component {
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
         description: `More than ${roundedPercentile(honorableMentionPercentile)}% of other officers`,
         popup: {
-          ...popup[POPUP_NAMES.OFFICER.HONORABLE_MENTION],
+          ...get(popup, POPUP_NAMES.OFFICER.HONORABLE_MENTION),
           style: popupStyle,
         }
       }

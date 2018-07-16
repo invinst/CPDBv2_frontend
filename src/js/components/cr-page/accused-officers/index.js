@@ -1,11 +1,19 @@
 import React, { PropTypes, Component } from 'react';
 import pluralize from 'pluralize';
+import { get } from 'lodash';
 
 import CoaccusedCard from './coaccused-card';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
-  wrapperStyle, headerStyle, accusedOfficersWrapperStyle, moreButtonStyle, bottomMarginStyle
+  wrapperStyle,
+  headerStyle,
+  accusedOfficersWrapperStyle,
+  moreButtonStyle,
+  bottomMarginStyle,
+  popupStyle,
 } from './accused-officers.style';
+import { POPUP_NAMES } from 'utils/constants';
+import Popup from 'components/common/popup';
 
 
 export default class AccusedOfficers extends Component {
@@ -24,13 +32,17 @@ export default class AccusedOfficers extends Component {
   }
 
   render() {
-    const { officers } = this.props;
+    const { officers, popup } = this.props;
     const { expanded } = this.state;
     return (
       <div style={ wrapperStyle(expanded) }>
         <ResponsiveFluidWidthComponent>
           <h2 style={ headerStyle } className='test--accused-officer-title'>
             { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
+            <Popup
+              { ...get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
+              style={ popupStyle }
+            />
           </h2>
           <div style={ accusedOfficersWrapperStyle }>
             {
@@ -56,7 +68,8 @@ export default class AccusedOfficers extends Component {
 
 AccusedOfficers.propTypes = {
   officers: PropTypes.array,
-  expanded: PropTypes.bool
+  expanded: PropTypes.bool,
+  popup: PropTypes.object,
 };
 
 AccusedOfficers.defaultProps = {
