@@ -92,6 +92,7 @@ export default store => next => action => {
     const oldtrrId = getTRRId(prevPathname);
     if (trrId !== oldtrrId) {
       dispatches.push(store.dispatch(fetchTRR(trrId)));
+      dispatches.push(store.dispatch(fetchPopup('trr')));
     }
   }
 

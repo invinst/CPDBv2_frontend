@@ -448,5 +448,9 @@ export const POPUP_NAMES = {
     CATEGORY: 'category',
     ACCUSED_OFFICER: 'accusedOfficer',
     INVESTIGATOR: 'investigator',
+  },
+  TRR: {
+    FORCE_CATEGORY: 'forceCategory',
+    TYPES_OF_FORCE: 'typeOfForce',
   }
 };
