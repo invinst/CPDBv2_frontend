@@ -22,20 +22,18 @@ describe('Salary', function () {
   });
 
   it('should render correctly', function () {
-    instance = renderIntoDocument(<Salary salary={ 1000000 }/>);
+    const popup = {
+      'salary': {
+        title: 'Salary',
+        text: 'Some salary explanation',
+      },
+    };
+    instance = renderIntoDocument(<Salary salary={ 1000000 } popup={ popup }/>);
 
     const salaryAmount = findRenderedDOMComponentWithClass(instance, 'test--salary-amount');
     salaryAmount.textContent.should.eql('$1,000,000');
-    const popup = findRenderedComponentWithType(instance, Popup);
-    popup.props.title.should.eql('Salary Figures');
-    popup.props.text.should.eql(
-      'Salary information is based on data provided by the Chicago Department of Human Resources. Salary ' +
-      'data reflects base pay, but not overtime pay, which can make up a substantial amount of an officer’s pay.'
-    );
-    popup.props.style.should.eql({
-      display: 'inline-block',
-      verticalAlign: 'middle',
-      marginLeft: '6px',
-    });
+    const salaryPopup = findRenderedComponentWithType(instance, Popup);
+    salaryPopup.props.title.should.eql('Salary');
+    salaryPopup.props.text.should.eql('Some salary explanation');
   });
 });

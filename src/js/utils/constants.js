@@ -447,5 +447,6 @@ export const POPUP_NAMES = {
   COMPLAINT: {
     CATEGORY: 'category',
     ACCUSED_OFFICER: 'accusedOfficer',
+    INVESTIGATOR: 'investigator',
   }
 };

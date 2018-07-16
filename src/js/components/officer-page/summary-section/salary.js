@@ -1,13 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import currencyFormatter from 'currency-formatter';
+import { get } from 'lodash';
 
 import { salaryStyle, salaryAmountStyle, popupStyle } from './salary.style';
 import Popup from 'components/common/popup';
+import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class Salary extends Component {
   render() {
-    const { salary } = this.props;
+    const { salary, popup } = this.props;
 
     return (
       <div className='test--salary'>
@@ -16,9 +18,7 @@ export default class Salary extends Component {
         </span>
         <span style={ salaryStyle }> base salary</span>
         <Popup
-          title='Salary Figures'
-          text='Salary information is based on data provided by the Chicago Department of Human Resources. Salary
-          data reflects base pay, but not overtime pay, which can make up a substantial amount of an officer’s pay.'
+          { ...get(popup, POPUP_NAMES.OFFICER.SALARY) }
           style={ popupStyle }
         />
       </div>
@@ -28,4 +28,5 @@ export default class Salary extends Component {
 
 Salary.propTypes = {
   salary: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  popup: PropTypes.object,
 };

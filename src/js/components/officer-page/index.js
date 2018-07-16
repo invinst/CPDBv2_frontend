@@ -39,7 +39,9 @@ export default class OfficerPage extends Component {
             <SummarySection
               officerName={ officerName }
               officerSummary={ officerSummary }
-              openPoliceUnitPage={ openPoliceUnitPage }/>
+              openPoliceUnitPage={ openPoliceUnitPage }
+              popup={ popup }
+            />
           </div>
           <MetricsSection metrics={ officerMetrics } popup={ popup }/>
           <TabbedPaneSection changeOfficerTab={ changeOfficerTab } currentTab={ currentTab }/>

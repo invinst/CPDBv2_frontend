@@ -60,7 +60,8 @@ describe('App component', function () {
       slimHeader: {
         logoSectionEditModeOn: false
       }
-    }
+    },
+    popups: [],
   });
   const location = { pathname: '/', search: '/', action: 'POP' };
 

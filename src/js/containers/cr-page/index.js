@@ -8,7 +8,6 @@ import { popupSelector } from 'selectors/popup';
 
 
 function mapStateToProps(state) {
-  console.log(popupSelector(state))
   return {
     crid: getCRID(state),
     officerId: getOfficerId(state),
