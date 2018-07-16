@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import CRPage from 'components/cr-page';
 import SummaryRow from 'components/cr-page/summary-row';
 import { unmountComponentSuppressError } from 'utils/test';
+import Popup from 'components/common/popup';
 
 
 describe('CRPage component', function () {
@@ -29,7 +30,23 @@ describe('CRPage component', function () {
           }
         }
       }
-    }
+    },
+    popups: [{
+      name: 'category',
+      page: 'complaint',
+      title: 'Complaint Category',
+      text: 'Some complaint category explanation',
+    }, {
+      name: 'accused_officer',
+      page: 'complaint',
+      title: 'Accused Officer',
+      text: 'Some accused officer explanation',
+    }, {
+      name: 'investigator',
+      page: 'complaint',
+      title: 'Investigator',
+      text: 'Some investigator explanation'
+    }],
   });
 
   afterEach(function () {
@@ -94,5 +111,16 @@ describe('CRPage component', function () {
     );
     const rowLabels = scryRenderedComponentsWithType(instance, SummaryRow).map(element => element.props.label);
     rowLabels.indexOf('SUMMARY').should.eql(-1);
+  });
+
+  it('should render popups', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage/>
+      </Provider>
+    );
+    const popup = scryRenderedComponentsWithType(instance, Popup);
+    popup[0].props.title.should.eql('Complaint Category');
+    popup[0].props.text.should.eql('Some complaint category explanation');
   });
 });
