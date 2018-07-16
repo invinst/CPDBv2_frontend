@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { map } from 'lodash';
+import { map, get } from 'lodash';
 
 import SummaryField from './summary-field';
 import ViewUnitProfileButton from './view-unit-profile-button';
@@ -7,6 +7,7 @@ import { officerNameStyle, wrapperStyle } from './summary-section.style';
 import Salary from './salary';
 import YearOld from './year-old';
 import HistoricBadges from './historic-badges';
+import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class SummarySection extends Component {
@@ -30,7 +31,10 @@ export default class SummarySection extends Component {
       ['Race', race],
       ['Sex', gender],
       ['Badge', badge, <HistoricBadges historicBadges={ historicBadges } key='Historic Badges'/>],
-      ['Rank', rank, currentSalary !== null ? <Salary salary={ currentSalary } key='Rank' popup={ popup }/> : null],
+      ['Rank', rank, currentSalary !== null
+        ? <Salary salary={ currentSalary } key='Rank' popup={ get(popup, POPUP_NAMES.OFFICER.SALARY) }/>
+        : null
+      ],
       ['Unit', unitDescription || unitName, (
         <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>
       )],

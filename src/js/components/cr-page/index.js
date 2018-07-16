@@ -61,7 +61,7 @@ export default class CRPage extends Component {
               <div style={ subcategoryStyle }>{ subcategory }</div>
             </div>
           </ResponsiveFluidWidthComponent>
-          <AccusedOfficers officers={ coaccused } popup={ popup }/>
+          <AccusedOfficers officers={ coaccused } popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }/>
           <ResponsiveFluidWidthComponent>
             <div style={ summarySectionWrapperStyle }>
               {
@@ -95,7 +95,7 @@ export default class CRPage extends Component {
               />
               <div style={ leftColumnStyle }>
                 <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-                <Involvement involvements={ involvements } popup={ popup } />
+                <Involvement involvements={ involvements } popup={ popup }/>
               </div>
               <div style={ rightColumnStyle }>
                 <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>

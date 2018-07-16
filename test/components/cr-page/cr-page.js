@@ -31,22 +31,6 @@ describe('CRPage component', function () {
         }
       }
     },
-    popups: [{
-      name: 'category',
-      page: 'complaint',
-      title: 'Complaint Category',
-      text: 'Some complaint category explanation',
-    }, {
-      name: 'accused_officer',
-      page: 'complaint',
-      title: 'Accused Officer',
-      text: 'Some accused officer explanation',
-    }, {
-      name: 'investigator',
-      page: 'complaint',
-      title: 'Investigator',
-      text: 'Some investigator explanation'
-    }],
   });
 
   afterEach(function () {
@@ -114,13 +98,35 @@ describe('CRPage component', function () {
   });
 
   it('should render popups', function () {
+    const popup = {
+      'category': {
+        title: 'Complaint Category',
+        text: 'Some complaint category explanation',
+      },
+      'accusedOfficer': {
+        title: 'Accused Officer',
+        text: 'Some accused officer explanation',
+      },
+      'investigator': {
+        title: 'Investigator',
+        text: 'Some investigator explanation',
+      },
+    };
+    const involvements = {
+      'investigator': [{ id: 1 }],
+      'police_witness': [{ id: 2 }]
+    };
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <CRPage/>
+        <CRPage popup={ popup } involvements={ involvements }/>
       </Provider>
     );
-    const popup = scryRenderedComponentsWithType(instance, Popup);
-    popup[0].props.title.should.eql('Complaint Category');
-    popup[0].props.text.should.eql('Some complaint category explanation');
+    const crPopup = scryRenderedComponentsWithType(instance, Popup);
+    crPopup[0].props.title.should.eql('Complaint Category');
+    crPopup[0].props.text.should.eql('Some complaint category explanation');
+    crPopup[1].props.title.should.eql('Accused Officer');
+    crPopup[1].props.text.should.eql('Some accused officer explanation');
+    crPopup[2].props.title.should.eql('Investigator');
+    crPopup[2].props.text.should.eql('Some investigator explanation');
   });
 });

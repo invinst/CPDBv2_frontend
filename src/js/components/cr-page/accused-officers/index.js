@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import pluralize from 'pluralize';
-import { get } from 'lodash';
 
 import CoaccusedCard from './coaccused-card';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
@@ -12,7 +11,6 @@ import {
   bottomMarginStyle,
   popupStyle,
 } from './accused-officers.style';
-import { POPUP_NAMES } from 'utils/constants';
 import Popup from 'components/common/popup';
 
 
@@ -40,7 +38,7 @@ export default class AccusedOfficers extends Component {
           <h2 style={ headerStyle } className='test--accused-officer-title'>
             { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
             <Popup
-              { ...get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
+              { ...popup }
               style={ popupStyle }
             />
           </h2>

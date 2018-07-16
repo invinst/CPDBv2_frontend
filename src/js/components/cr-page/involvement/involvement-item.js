@@ -8,18 +8,28 @@ import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class InvolvementItem extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const { involvedType, officers, style, className, popup } = this.props;
     const involvedTypeMap = {
-      investigator: 'INVESTIGATOR',
-      'police_witness': 'POLICE WITNESSES'
+      investigator: {
+        name: 'INVESTIGATOR',
+        popupName: POPUP_NAMES.COMPLAINT.INVESTIGATOR,
+      },
+      'police_witness': {
+        name: 'POLICE WITNESSES',
+        popupName: POPUP_NAMES.COMPLAINT.INVESTIGATOR.POLICE_WITNESS,
+      }
     };
 
     return (
       <div className={ className } style={ { ...wrapperStyle, ...style } }>
-        <div style={ titleStyle } className='test--involvement-type'>{ involvedTypeMap[involvedType] }
+        <div style={ titleStyle } className='test--involvement-type'>{ involvedTypeMap[involvedType].name }
           <Popup
-            { ...get(popup, POPUP_NAMES.COMPLAINT.INVESTIGATOR) }
+            { ...get(popup, involvedTypeMap[involvedType].popupName) }
             style={ popupStyle }
           />
         </div>
