@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid/v4';
+import ReactMarkdown from 'react-markdown';
 
 import { buttonStyle, titleStyle, textStyle, titleCloseButtonStyle, titleTextStyle } from './popup.style';
+import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 
 
 export default class Popup extends Component {
@@ -28,7 +30,9 @@ export default class Popup extends Component {
             />
             <span style={ titleTextStyle } className='test--popup-title-text'>{ title }</span>
           </div>
-          <div style={ textStyle } className='test--popup-text'>{ text }</div>
+          <div style={ textStyle } className='test--popup-text'>
+            <ReactMarkdown source={ text } renderers={ { link: MarkdownLink } }/>
+          </div>
         </ReactTooltip>
         <div
           style={ { ...buttonStyle, ...style } }
