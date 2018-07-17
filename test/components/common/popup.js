@@ -14,7 +14,9 @@ describe('Popup', function () {
 
   it('should render the button', function () {
     instance = renderIntoDocument(<Popup title='Some title' text='Some text' />);
-    const popupButton = findRenderedDOMComponentWithClass(instance, 'test--popup-button');
-    popupButton.textContent.should.eql('i');
+    const popupTitle = findRenderedDOMComponentWithClass(instance, 'test--popup-title-text');
+    popupTitle.textContent.should.eql('Some title');
+    const popupText = findRenderedDOMComponentWithClass(instance, 'test--popup-text');
+    popupText.textContent.should.eql('Some text');
   });
 });

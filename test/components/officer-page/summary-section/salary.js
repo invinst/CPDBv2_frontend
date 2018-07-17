@@ -23,12 +23,10 @@ describe('Salary', function () {
 
   it('should render correctly', function () {
     const popup = {
-      'salary': {
-        title: 'Salary',
-        text: 'Some salary explanation',
-      },
+      title: 'Salary',
+      text: 'Some salary explanation',
     };
-    instance = renderIntoDocument(<Salary salary={ 1000000 } popup={ popup }/>);
+    instance = renderIntoDocument(<Salary salary={ 1000000 } popup={ popup } />);
 
     const salaryAmount = findRenderedDOMComponentWithClass(instance, 'test--salary-amount');
     salaryAmount.textContent.should.eql('$1,000,000');

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid/v4';
 
-import { wrapperStyle, innerStyle, titleStyle, textStyle, titleCloseButtonStyle, titleTextStyle } from './popup.style';
+import { buttonStyle, titleStyle, textStyle, titleCloseButtonStyle, titleTextStyle } from './popup.style';
 
 
 export default class Popup extends Component {
@@ -26,19 +26,17 @@ export default class Popup extends Component {
               data-event={ true }
               data-event-off='click'
             />
-            <span style={ titleTextStyle }>{ title }</span>
+            <span style={ titleTextStyle } className='test--popup-title-text'>{ title }</span>
           </div>
-          <div style={ textStyle }>{ text }</div>
+          <div style={ textStyle } className='test--popup-text'>{ text }</div>
         </ReactTooltip>
         <div
-          style={ { ...wrapperStyle, ...style } }
+          style={ { ...buttonStyle, ...style } }
           data-tip={ true }
           data-for={ tooltipId }
           data-event='click'
           className='test--popup-button'
-        >
-          <span style={ innerStyle }>i</span>
-        </div>
+        />
       </span>
     );
   }

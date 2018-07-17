@@ -1,8 +1,8 @@
-import { whiteTwoColor, clayGray, boulderColor, softBlackColor } from 'utils/styles';
+import { whiteTwoColor, boulderColor, softBlackColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
-export const wrapperStyle = {
+export const buttonStyle = {
   width: '18px',
   height: '18px',
   backgroundColor: 'inherit',
@@ -10,17 +10,7 @@ export const wrapperStyle = {
   borderRadius: '9px',
   boxSizing: 'border-box',
   cursor: 'pointer',
-};
-
-export const innerStyle = {
-  display: 'inline-block',
-  color: clayGray,
-  fontSize: '10px',
-  lineHeight: '14px',
-  verticalAlign: 'top',
-  textAlign: 'center',
-  width: '100%',
-  fontWeight: 600,
+  background: `url("${imgUrl('ic-info.svg')}") no-repeat scroll center transparent`,
 };
 
 export const titleStyle = {
