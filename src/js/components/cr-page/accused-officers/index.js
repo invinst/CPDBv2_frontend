@@ -33,7 +33,7 @@ export default class AccusedOfficers extends Component {
     const { officers, popup } = this.props;
     const { expanded } = this.state;
     return (
-      <div style={ wrapperStyle(expanded) }>
+      <div style={ wrapperStyle(expanded) } className='test--accused-officer'>
         <ResponsiveFluidWidthComponent>
           <h2 style={ headerStyle } className='test--accused-officer-title'>
             { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }

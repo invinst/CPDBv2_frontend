@@ -31,7 +31,11 @@ class AccusedOfficerSection extends Section {
     this.prepareElementGetters({
       title: '.test--accused-officer-title',
       lastCard: '(//*[@class="test--accused-card"])[last()]',
-      showMoreButton: '.test--accused-officer-show-more'
+      showMoreButton: '.test--accused-officer-show-more',
+      popup: '.test--accused-officer .popup',
+      popupButton: '.test--accused-officer .test--popup-button',
+      popupTitle: '.test--accused-officer .test--popup-title-text',
+      popupText: '.test--accused-officer .test--popup-text'
     });
   }
 
