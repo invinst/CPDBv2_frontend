@@ -79,10 +79,9 @@ export default class RadarExplainer extends Component {
         <div
           className='test--radar-explainer-close-button'
           style={ closeButtonStyle }
-          onClick={ this.props.closeExplainer }>
-          {
-            <i className='fa fa-close' style={ closeInnerStyle }/>
-          }
+          onClick={ this.props.closeExplainer }
+        >
+          <div style={ closeInnerStyle }>&times;</div>
         </div>
       </MediaQuery>
     );

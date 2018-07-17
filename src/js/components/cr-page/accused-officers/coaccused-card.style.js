@@ -1,6 +1,6 @@
 import {
-  whiteTwoColor, sugarCaneColor, sanFranciscoTextFamily, softBlackColor, lightAltoColor, brightOrangeTwoColor,
-  clayGray, accentColor
+  whiteTwoColor, sugarCaneColor, sanFranciscoTextFamily, softBlackColor, azaleaColor, brightOrangeTwoColor,
+  clayGray, accentColor, champagneColor
 } from 'utils/styles';
 
 export const wrapperStyle = hovering => ({
@@ -25,7 +25,7 @@ export const topSectionWrapperStyle = {
 };
 
 export const bottomSectionWrapperStyle = {
-  padding: '11px 16px 8px 16px',
+  padding: '11px 16px 4px',
   backgroundColor: 'white'
 };
 
@@ -38,26 +38,35 @@ export const categoryTextStyle = hovering => ({
   overflow: 'hidden'
 });
 
-export const outcomeTextWrapperStyle = {
-  width: '100%',
-  overflow: 'hidden',
-  height: '23px',
-  marginTop: '8px'
+export const outcomeTextWrapperStyle = (finding, disciplined) => {
+  const borderColor = (finding === 'Sustained' && disciplined) ? azaleaColor : champagneColor;
+  const backgroundColor = finding !== 'Sustained' ? 'transparent' : borderColor;
+
+  return {
+    backgroundColor,
+    display: 'inline-block',
+    border: `1px solid ${borderColor}`,
+    overflow: 'hidden',
+    height: '21px',
+    marginTop: '8px',
+    maxWidth: '100%',
+    borderRadius: '2px'
+  };
 };
 
-export const outcomeTextStyle = {
-  height: '23px',
+export const findingOutcomeMixStyle = {
+  height: '21px',
   fontSize: '14px',
   color: softBlackColor,
   fontWeight: 400,
-  backgroundColor: lightAltoColor,
-  padding: '4px 10px 10px 10px',
+  padding: '0 10px 16px',
+  lineHeight: '21px',
   display: 'inline-block',
-  overflowY: 'scroll',
+  overflowX: 'scroll',
+  overflowY: 'hidden',
   whiteSpace: 'nowrap',
   boxSizing: 'content-box',
-  maxWidth: 'calc(100% - 20px)',
-  borderRadius: '2px'
+  maxWidth: 'calc(100% - 20px)'
 };
 
 export const allegationTextStyle = {
@@ -67,7 +76,7 @@ export const allegationTextStyle = {
 };
 
 export const sustainedTextStyle = sustainedCount => ({
-  color: sustainedCount == 0 ? clayGray : brightOrangeTwoColor,
+  color: sustainedCount === 0 ? clayGray : brightOrangeTwoColor,
   fontWeight: 400,
   fontSize: '14px',
   marginLeft: '4px'
