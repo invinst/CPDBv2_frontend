@@ -9,7 +9,6 @@ import MetricsSection from 'components/officer-page/metrics-section';
 import MetricPane from 'components/officer-page/metrics-section/metric-pane';
 import MetricsColumn from 'components/officer-page/metrics-section/metrics-column';
 import { unmountComponentSuppressError } from 'utils/test';
-import Popup from 'components/common/popup';
 
 
 const checkMetricPaneDataInfo = (metricPane, value, name, description) => {
@@ -54,48 +53,5 @@ describe('MetricsSection', function () {
     checkMetricPaneDataInfo(metricsPanes[3], '0', 'Civilian Compliments', '');
     checkMetricPaneDataInfo(metricsPanes[4], '5', 'Major Awards', '');
     checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', 'More than 3% of other officers');
-  });
-
-  it('should render popups for each cell', function () {
-    const popup = {
-      'allegation': {
-        title: 'Allegations',
-        text: 'Some allegation explanation',
-      },
-      'sustained': {
-        title: 'Sustained',
-        text: 'Some sustained explanation',
-      },
-      'trr': {
-        title: 'Use of Force Report',
-        text: 'Some use of force report explanation',
-      },
-      'majorAward': {
-        title: 'Major Award',
-        text: 'Some major award explanation',
-      },
-      'civilianCompliment': {
-        title: 'Civilian Compliments',
-        text: 'Some civilian compliment explanation',
-      },
-      'honorableMention': {
-        title: 'Honorable Mention',
-        text: 'Some honorable mention explanation',
-      },
-    };
-    instance = renderIntoDocument(<MetricsSection popup={ popup }/>);
-    const metricPopup = scryRenderedComponentsWithType(instance, Popup);
-    metricPopup[0].props.title.should.eql('Allegations');
-    metricPopup[0].props.text.should.eql('Some allegation explanation');
-    metricPopup[1].props.title.should.eql('Sustained');
-    metricPopup[1].props.text.should.eql('Some sustained explanation');
-    metricPopup[2].props.title.should.eql('Use of Force Report');
-    metricPopup[2].props.text.should.eql('Some use of force report explanation');
-    metricPopup[3].props.title.should.eql('Civilian Compliments');
-    metricPopup[3].props.text.should.eql('Some civilian compliment explanation');
-    metricPopup[4].props.title.should.eql('Major Award');
-    metricPopup[4].props.text.should.eql('Some major award explanation');
-    metricPopup[5].props.title.should.eql('Honorable Mention');
-    metricPopup[5].props.text.should.eql('Some honorable mention explanation');
   });
 });
