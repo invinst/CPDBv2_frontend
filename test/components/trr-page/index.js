@@ -3,7 +3,6 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -14,7 +13,6 @@ import OfficerSection from 'components/trr-page/officer-section';
 import TRRInfoSection from 'components/trr-page/trr-info-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import FooterContainer from 'containers/footer-container';
-import Popup from 'components/common/popup';
 
 
 describe('TRRPage component', function () {
@@ -28,17 +26,6 @@ describe('TRRPage component', function () {
         officer: {},
       },
     },
-    popups: [{
-      name: 'force_category',
-      page: 'trr',
-      title: 'Force Category',
-      text: 'Some force category explanation',
-    }, {
-      name: 'type_of_force',
-      page: 'trr',
-      title: 'Type Of Force',
-      text: 'Some type of force explanation',
-    }],
   });
 
   afterEach(function () {
@@ -56,18 +43,5 @@ describe('TRRPage component', function () {
     findRenderedComponentWithType(instance, TRRInfoSection);
     findRenderedComponentWithType(instance, ShareableHeaderContainer);
     findRenderedComponentWithType(instance, FooterContainer);
-  });
-
-  it('should render popups', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <TRRPage trrId={ 123 } officer={ { officerId: 456 } }/>
-      </Provider>
-    );
-    const popup = scryRenderedComponentsWithType(instance, Popup);
-    popup[0].props.title.should.eql('Force Category');
-    popup[0].props.text.should.eql('Some force category explanation');
-    popup[1].props.title.should.eql('Type Of Force');
-    popup[1].props.text.should.eql('Some type of force explanation');
   });
 });

@@ -21,7 +21,7 @@ export default class InvolvementItem extends Component {
       },
       'police_witness': {
         name: 'POLICE WITNESSES',
-        popupName: POPUP_NAMES.COMPLAINT.INVESTIGATOR.POLICE_WITNESS,
+        popupName: POPUP_NAMES.COMPLAINT.POLICE_WITNESS,
       }
     };
 

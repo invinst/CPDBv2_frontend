@@ -13,19 +13,15 @@ import Involvement from './involvement';
 import Attachments from './attachments';
 import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
-import Popup from 'components/common/popup';
+import ComplaintCategory from 'components/cr-page/complaint-category';
 import {
-  wrapperStyle,
-  CRIDHeaderStyle,
-  leftColumnStyle,
-  footerStyle,
-  rightColumnStyle,
-  summarySectionWrapperStyle,
-  summaryTextStyle,
-  subcategoryStyle,
-  categoryStyle,
-  categoryWrapperStyle,
-  popupStyle,
+wrapperStyle,
+CRIDHeaderStyle,
+leftColumnStyle,
+footerStyle,
+rightColumnStyle,
+summarySectionWrapperStyle,
+summaryTextStyle,
 } from './cr-page.style';
 import { POPUP_NAMES } from 'utils/constants';
 
@@ -49,18 +45,11 @@ export default class CRPage extends Component {
           <ResponsiveFluidWidthComponent>
             <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
           </ResponsiveFluidWidthComponent>
-          <ResponsiveFluidWidthComponent>
-            <div className='test--cr-category' style={ categoryWrapperStyle }>
-              <div style={ categoryStyle }>
-                { category }
-                <Popup
-                  { ...get(popup, POPUP_NAMES.COMPLAINT.CATEGORY) }
-                  style={ popupStyle }
-                />
-              </div>
-              <div style={ subcategoryStyle }>{ subcategory }</div>
-            </div>
-          </ResponsiveFluidWidthComponent>
+          <ComplaintCategory
+            category={ category }
+            subcategory={ subcategory }
+            popup={ get(popup, POPUP_NAMES.COMPLAINT.CATEGORY) }
+          />
           <AccusedOfficers officers={ coaccused } popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }/>
           <ResponsiveFluidWidthComponent>
             <div style={ summarySectionWrapperStyle }>
