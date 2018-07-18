@@ -71,18 +71,4 @@ describe('PreviewPane component', function () {
     const slideMotion = findRenderedComponentWithType(instance, SlideMotion);
     slideMotion.props.show.should.eql(false);
   });
-
-  it('should call browserHistory.push method when click to CallToAction', function () {
-    let stubBrowserHistory = stub(browserHistory, 'push');
-    instance = renderIntoDocument(
-      <PreviewPane
-        item={ { to: 'xxx', id: 'community', name: 'name', 'call_to_action_type': 'view_all' } }
-      />
-    );
-    const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--enter-button');
-    Simulate.click(instanceDOM);
-
-    stubBrowserHistory.calledWith('xxx').should.be.true();
-    stubBrowserHistory.restore();
-  });
 });

@@ -1,58 +1,33 @@
 import React, { Component, PropTypes } from 'react';
-import { get } from 'lodash';
+import { Link } from 'react-router';
 
-import { linkStyle } from './call-to-action.style';
-import ActionBar from 'components/search-page/search-terms/preview-pane/action-bar';
+import { linkStyle, textStyle, buttonStyle } from './call-to-action.style';
 import OutboundLink from 'components/common/outbound-link';
 
 
 export default class CallToAction extends Component {
-  constructor(props) {
-    super(props);
-
-    this.renderLink = this.renderLink.bind(this);
-    this.renderViewAll = this.renderViewAll.bind(this);
-    this.renderDefault = this.renderDefault.bind(this);
-    this.typeMapping = {
-      'link': this.renderLink,
-      'view_all': this.renderViewAll
-    };
-  }
-
-  renderLink() {
-    const { item } = this.props;
-
-    return (
-      <ActionBar to={ item.to } >
-        <OutboundLink href={ item.link } style={ linkStyle } className='test--call-to-action-link'>
-          Enter Data Tool
-        </OutboundLink>
-      </ActionBar>
-    );
-  }
-
-  renderViewAll() {
-    const { item } = this.props;
-
-    return (
-      <ActionBar to={ item.to }>
-        <div style={ linkStyle }>
-          View ALL { item.name }
-        </div>
-      </ActionBar>
-    );
-  }
-
-  renderDefault() {
-    return null;
-  }
-
   render() {
     const { item } = this.props;
 
-    const renderFunction = get(this.typeMapping, item['call_to_action_type'], this.renderDefault);
+    if (item['call_to_action_type'] === 'view_all') {
+      return (
+        <Link style={ linkStyle } to={ item.to } className='test--call-to-action'>
+          <span style={ textStyle }>View ALL { item.name }</span>
+          <div style={ buttonStyle } className='test--enter-button'>enter</div>
+        </Link>
+      );
+    }
 
-    return renderFunction();
+    if (item['call_to_action_type'] === 'link') {
+      return (
+        <OutboundLink style={ linkStyle } href={ item.link } className='test--call-to-action'>
+          <span style={ textStyle }>Enter Data Tool</span>
+          <div style={ buttonStyle } className='test--enter-button'>enter</div>
+        </OutboundLink>
+      );
+    }
+
+    return null;
   }
 }
 
