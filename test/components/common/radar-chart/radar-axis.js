@@ -1,14 +1,14 @@
 import React from 'react';
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test/index';
 import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
-import RadarAxisText from 'components/common/radar-chart/radar-axis/radar-axis-text';
+import RadarAxis from 'components/common/radar-chart/radar-axis';
 
 
-describe('RadarAxisText component', function () {
+describe('RadarAxis component', function () {
   let instance;
 
   afterEach(function () {
@@ -33,7 +33,7 @@ describe('RadarAxisText component', function () {
       }
     ];
     instance = renderIntoDocument(
-      <RadarAxisText radius={ 100 } data={ data } showAxisTitle={ true }/>
+      <RadarAxis radius={ 100 } data={ data } showAxisTitle={ true }/>
     );
 
     const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
@@ -59,7 +59,7 @@ describe('RadarAxisText component', function () {
       }
     ];
     instance = renderIntoDocument(
-      <RadarAxisText radius={ 100 } data={ data } showAxisTitle={ true }/>
+      <RadarAxis radius={ 100 } data={ data } showAxisTitle={ true }/>
     );
 
     const texts = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
@@ -88,7 +88,7 @@ describe('RadarAxisText component', function () {
       }
     ];
     instance = renderIntoDocument(
-      <RadarAxisText radius={ 100 } data={ data } showAxisValue={ true }/>
+      <RadarAxis radius={ 100 } data={ data } showAxisValue={ true }/>
     );
 
     const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
@@ -96,6 +96,32 @@ describe('RadarAxisText component', function () {
     items[0].textContent.should.be.eql('0');
     items[1].textContent.should.be.eql('50');
     items[2].textContent.should.be.eql('20');
+  });
+
+  it('should show axis titles if showAxisTitle is true', function () {
+    const data = [
+      {
+        axis: 'Title is 1',
+        value: 0,
+      },
+      {
+        axis: 'b',
+        value: 50,
+      },
+      {
+        axis: 'c',
+        value: 20,
+      }
+    ];
+    instance = renderIntoDocument(
+      <RadarAxis radius={ 100 } data={ data } showAxisTitle={ true }/>
+    );
+
+    const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');
+    items.should.have.length(3);
+    items[0].textContent.should.be.eql('Title is1');
+    items[1].textContent.should.be.eql('b');
+    items[2].textContent.should.be.eql('c');
   });
 
   it('should be able to show percentile suffix and hide if value is zero', function () {
@@ -114,7 +140,7 @@ describe('RadarAxisText component', function () {
       }
     ];
     instance = renderIntoDocument(
-      <RadarAxisText radius={ 100 } data={ data } showAxisValue={ true } showValueWithSuffix={ true }/>
+      <RadarAxis radius={ 100 } data={ data } showAxisValue={ true } showValueWithSuffix={ true }/>
     );
 
     const items = scryRenderedDOMComponentsWithClass(instance, 'test--radar-axis-text');

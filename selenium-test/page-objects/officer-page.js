@@ -104,6 +104,7 @@ class RadarChartExplainerSection extends Section {
     super();
 
     this.prepareElementGetters({
+      component: '.test--radar-explainer-window',
       triangleExplainer: '.test--triangle-explainer',
       scaleExplainer: '.test--scale-explainer',
       percentileByYear: '.test--percentile-by-year',
@@ -114,12 +115,26 @@ class RadarChartExplainerSection extends Section {
   }
 }
 
+class NoDataRadarChartSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      component: '.test--no-data-radar-chart',
+      noDataText: '.test--no-data-text',
+      radarChart: '.test--radar',
+    });
+  }
+}
+
 class RadarChartSection extends Section {
   explainerSection = new RadarChartExplainerSection();
+  noDataRadarChartSection = new NoDataRadarChartSection();
 
   constructor() {
     super();
     this.prepareElementGetters({
+      component: '.test--officer--radar-chart',
       svg: '.test--radar',
       axis: '.test--radar-axis-wrapper',
       wrapper: '.test--radar-wrapper',
@@ -144,8 +159,8 @@ class OfficerPage extends Page {
     });
   }
 
-  open() {
-    super.open('/officer/1/');
+  open(id=1) {
+    super.open(`/officer/${id}/`);
     browser.element('body').waitForVisible();
   }
 }

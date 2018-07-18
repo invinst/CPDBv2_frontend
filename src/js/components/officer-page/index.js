@@ -26,14 +26,15 @@ export default class OfficerPage extends Component {
       officerName,
       threeCornerPercentile,
       changeOfficerTab,
-      currentTab
+      currentTab,
+      isRequesting
     } = this.props;
     return (
       <DocumentTitle title={ `${officerSummary.rank} ${officerName}` }>
         <div style={ wrapperStyle } className='officer-page'>
           <ShareableHeaderContainer/>
           <div style={ pageWrapperStyle }>
-            <OfficerRadarChart data={ threeCornerPercentile }/>
+            <OfficerRadarChart data={ threeCornerPercentile } isRequesting={ isRequesting }/>
             <SummarySection
               officerName={ officerName }
               officerSummary={ officerSummary }
@@ -56,6 +57,7 @@ OfficerPage.propTypes = {
   openPoliceUnitPage: PropTypes.func,
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
+  isRequesting: PropTypes.bool,
 };
 
 OfficerPage.defaultProps = {

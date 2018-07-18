@@ -45,18 +45,12 @@ describe('RadarArea components', function () {
     scryRenderedDOMComponentsWithClass(instance, 'test--radar-value-text').should.have.length(0);
   });
 
-  it('should hide stroke if drawStroke is false', function () {
+  it('should be able to render stroke with custom strokeWidth', function () {
     instance = renderIntoDocument(
-      <RadarArea rPoints={ rPoints } drawStroke={ false }/>
+      <RadarArea rPoints={ rPoints } strokeWidth={ 12 }/>
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar-stroke').should.have.length(0);
-  });
-
-  it('should add extra style if extraStyle is defined', function () {
-    instance = renderIntoDocument(
-      <RadarArea rPoints={ rPoints } drawStroke={ false }/>
-    );
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar-stroke').should.have.length(0);
+    const radarStroke = findRenderedDOMComponentWithClass(instance, 'test--radar-stroke');
+    radarStroke.getAttribute('style').should.containEql('stroke-width: 12');
   });
 
   it('should not display radar area and stroke when rPoints is not valid', () => {

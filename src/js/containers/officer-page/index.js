@@ -22,6 +22,7 @@ function mapStateToProps(state, ownProps) {
     officerMetrics: metricsSelector(state),
     threeCornerPercentile: officerYearlyThreePercentile(state),
     currentTab: getCurrentTab(state),
+    isRequesting: state.officerPage.isRequesting
   };
 }
 

@@ -110,6 +110,32 @@ describe('officer page', function () {
       officerPage.radarChartSection.explainerSection.leftNavigation.waitForVisible(10000, true);
     });
 
+    context('not enough data for radar chart', function () {
+      beforeEach(function () {
+        browser.setViewportSize({
+          width: 1000,
+          height: 500
+        });
+        officerPage.open(2);
+      });
+
+      it('should show NoDataRadarChart', function () {
+        officerPage.radarChartSection.noDataRadarChartSection.component.waitForVisible();
+        officerPage.radarChartSection.noDataRadarChartSection.noDataText.getText().should.eql(
+          'There is not enough data to construct a radar graph for this officer.'
+        );
+      });
+
+      it('should not open radar chart explainer when being clicked', function () {
+        officerPage.radarChartSection.noDataRadarChartSection.component.waitForVisible();
+        officerPage.radarChartSection.radarChartPlaceHolder.waitForVisible(2000, true);
+
+        officerPage.radarChartSection.noDataRadarChartSection.component.click();
+        officerPage.radarChartSection.component.click();
+        officerPage.radarChartSection.explainerSection.component.waitForVisible(10000, true);
+      });
+    });
+
     describe('Radar Chart Explainer', function () {
       it('should navigate correctly between explainers when clicking on left and right navigations', function () {
         officerPage.radarChartSection.radarChartPlaceHolder.click();

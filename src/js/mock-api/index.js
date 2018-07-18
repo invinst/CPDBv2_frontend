@@ -29,7 +29,7 @@ import { groupedSuggestions, singleGroupSuggestions } from './landing-page/sugge
 import getCoaccusalsData from './officer-page/get-coaccusals';
 import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
 import getSocialGraphData from './officer-page/get-social-graph';
-import getSummaryData from './officer-page/get-summary';
+import getSummaryData, { noPercentileOfficerSummary } from './officer-page/get-summary';
 import getTRRData from './trr-page/get-data';
 import getSearchTermsData from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
@@ -88,7 +88,8 @@ axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
   return [200, groupedSuggestions[config.params.contentType || matchs[1]] || groupedSuggestions['default']];
 });
 
-axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(countRequests(() => [200, getSummaryData()]));
+axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(200, getSummaryData());
+axiosMockClient.onGet(`${OFFICER_URL}2/summary/`).reply(200, noPercentileOfficerSummary);
 axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() => [200, getSocialGraphData()]));
 
 axiosMockClient.onGet(`${TRR_URL}1/`).reply(200, getTRRData());
