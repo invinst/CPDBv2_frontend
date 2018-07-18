@@ -25,6 +25,6 @@ export const verticalLineStyle = {
 
 export const popupStyle = {
   position: 'absolute',
-  top: '10px',
+  top: '16px',
   right: 0,
 };
