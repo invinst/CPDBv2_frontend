@@ -19,10 +19,3 @@ export const categoryWrapperStyle = {
   padding: '16px 0',
   borderBottom: `solid 1px ${whiteTwoColor}`
 };
-
-export const popupStyle = {
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  marginLeft: '6px',
-};
-
