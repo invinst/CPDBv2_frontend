@@ -42,6 +42,14 @@ export const unitStyle = (height, isFirst, isLast) => ({
   ...borderRadiusStyle(isFirst, isLast),
 });
 
+export const rankChangeStyle = (height, isFirst, isLast) => ({
+  ...rankStyle(height, isFirst, isLast),
+  color: clayGray,
+  fontSize: '12px',
+  backgroundColor: 'inherit',
+  background: 'none',
+});
+
 export const unitChangeStyle = (height, isFirst, isLast) => ({
   ...unitStyle(height, isFirst, isLast),
   color: clayGray,
@@ -50,22 +58,16 @@ export const unitChangeStyle = (height, isFirst, isLast) => ({
   background: 'none',
 });
 
+export const rankTextStyle = (unassigned, isCurrentRank) => ({
+  height: '32px',
+  lineHeight: '32px',
+  color: isCurrentRank ? softBlackColor : clayGray,
+  fontStyle: unassigned ? 'italic' : 'none',
+});
+
 export const unitTextStyle = (unassigned, isCurrentUnit) => ({
   height: '32px',
   lineHeight: '32px',
   color: isCurrentUnit ? softBlackColor : clayGray,
   fontStyle: unassigned ? 'italic' : 'none',
 });
-
-export const rankTextStyle = {
-  lineHeight: '20px',
-  display: 'table-cell',
-  verticalAlign: 'middle',
-  textAlign: 'center',
-};
-
-export const rankTextWrapperStyle = {
-  height: '32px',
-  display: 'table',
-  width: '100%'
-};

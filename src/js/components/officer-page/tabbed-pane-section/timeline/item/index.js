@@ -5,6 +5,7 @@ import Cr from './showings/cr';
 import Trr from './showings/trr';
 import Award from './showings/award';
 import UnitChange from './showings/unit-change';
+import RankChange from './showings/rank-change';
 import Joined from './showings/joined';
 import Year from './showings/year';
 import Empty from './showings/empty';
@@ -14,10 +15,10 @@ import {
   rankStyle,
   unitStyle,
   unitChangeStyle,
+  rankChangeStyle,
   unitTextStyle,
   rankTextStyle,
   wrapperStyle,
-  rankTextWrapperStyle
 } from './item.style';
 
 
@@ -50,6 +51,11 @@ export default class Item extends Component {
         className: 'test--timeline-unit-change-item',
         item: <UnitChange { ...this.props } baseStyles={ baseStyles }/>
       },
+      [NEW_TIMELINE_ITEMS.RANK_CHANGE]: {
+        height: 24,
+        className: 'test--timeline-rank-change-item',
+        item: <RankChange { ...this.props } baseStyles={ baseStyles }/>
+      },
       [NEW_TIMELINE_ITEMS.JOINED]: {
         height: 24,
         className: 'test--timeline-joined-item',
@@ -72,22 +78,31 @@ export default class Item extends Component {
 
   renderRankAndUnit() {
     const {
-      isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay, unitDisplay, kind, isCurrentUnit
+      isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay, unitDisplay, kind, isCurrentUnit, isCurrentRank
     } = this.props.item;
     const height = this.component.height;
 
     return (
       <span>
-        <span
-          style={ rankStyle(height, isFirstRank, isLastRank) }
-          className='test--item-rank'
-        >
-          <div style={ rankTextWrapperStyle }>
-            <div style={ rankTextStyle }>
-              { rankDisplay }
-            </div>
-          </div>
-        </span>
+        {
+          kind === NEW_TIMELINE_ITEMS.RANK_CHANGE ? (
+            <span
+              style={ rankChangeStyle(height, isFirstRank, isLastRank) }
+              className='test--rank-change-item-unit'
+            >
+              RANK CHANGE
+            </span>
+          ) : (
+            <span
+              style={ rankStyle(height, isFirstRank, isLastRank) }
+              className='test--item-rank'
+            >
+              <div style={ rankTextStyle(rankDisplay === 'Unassigned', isCurrentRank) }>
+                { (isFirstRank && rankDisplay) ? rankDisplay : ' ' }
+              </div>
+            </span>
+          )
+        }
         {
           kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE ? (
             <span

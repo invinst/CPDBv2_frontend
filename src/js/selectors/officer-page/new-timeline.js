@@ -10,12 +10,13 @@ export const getItems = (state) => get(state.officerPage.newTimeline, 'items', [
 
 export const baseTransform = (item, index) => {
   const unitName = item['unit_name'] ? `Unit ${item['unit_name']}` : 'Unassigned';
+  const rank = get(item, 'rank', 'Unassigned');
 
   return {
     year: moment(item.date).year(),
     date: moment(item.date).format('MMM D').toUpperCase(),
     kind: item.kind,
-    rank: item.rank,
+    rank: rank,
     rankDisplay: item.rank,
     unitName: unitName,
     unitDescription: item['unit_description'],
@@ -76,6 +77,7 @@ const transformMap = {
   [NEW_TIMELINE_ITEMS.FORCE]: trrTransform,
   [NEW_TIMELINE_ITEMS.JOINED]: baseTransform,
   [NEW_TIMELINE_ITEMS.UNIT_CHANGE]: baseTransform,
+  [NEW_TIMELINE_ITEMS.RANK_CHANGE]: baseTransform,
   [NEW_TIMELINE_ITEMS.AWARD]: awardTransform,
 };
 
@@ -146,13 +148,14 @@ export const fillEmptyItems = (items) => {
 };
 
 export const dedupeRank = (items) => {
-  items[0].isFirstRank = true;
-  items[items.length - 1].isLastRank = true;
-  return items.map((item, index) => {
-    if (index !== 0) {
-      item.rankDisplay = ' ';
+  return items.map((currentItem, index) => {
+    if (index > 0) {
+      const previousItem = items[index - 1];
+      if (currentItem.rank === previousItem.rank) {
+        currentItem.rankDisplay = ' ';
+      }
     }
-    return item;
+    return currentItem;
   });
 };
 
@@ -182,6 +185,20 @@ export const markFirstAndLastUnit = (items) => {
   return items;
 };
 
+export const markFirstAndLastRank = (items) => {
+  items[0].isFirstRank = true;
+  items[items.length - 1].isLastRank = true;
+  items.map((item, index) => {
+    if (item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE) {
+      if (index - 1 >= 0) {
+        items[index - 1].isLastRank = true;
+      }
+      items[index + 1].isFirstRank = true;
+    }
+  });
+  return items;
+};
+
 export const fillUnitChange = (items) => {
   let previousUnitChangeItem = undefined;
 
@@ -201,6 +218,27 @@ export const fillUnitChange = (items) => {
   if (lastUnitChangeItem !== undefined) {
     lastUnitChangeItem.oldUnitName = items[items.length - 1].unitName;
     lastUnitChangeItem.oldUnitDescription = items[items.length - 1].unitDescription;
+  }
+  return items;
+};
+
+export const fillRankChange = (items) => {
+  let previousRankChangeItem = undefined;
+
+  items.map((item) => {
+    if (item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE) {
+      if (previousRankChangeItem !== undefined) {
+        previousRankChangeItem.oldRank = item.rank;
+      }
+
+      previousRankChangeItem = item;
+    }
+  });
+
+  const lastRankChangeItem = previousRankChangeItem;
+
+  if (lastRankChangeItem !== undefined) {
+    lastRankChangeItem.oldRank = items[items.length - 1].rank;
   }
   return items;
 };
@@ -236,17 +274,40 @@ export const markLatestUnit = (items) => {
   });
 };
 
+export const markLatestRank = (items) => {
+  const latestRank = items[0] ? items[0].unitName : undefined;
+
+  let inLastRankPeriod = true;
+
+  return items.map((item) => {
+    if (item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE) {
+      inLastRankPeriod = false;
+    }
+    item.isCurrentRank = inLastRankPeriod && item.rank === latestRank;
+    return item;
+  });
+};
+
 export const getNewTimelineItems = state => {
   const items = get(state.officerPage.newTimeline, 'items', []);
 
-  const transformedItems = markLatestUnit(items.map(transform));
+  const transformedItems = markLatestRank(markLatestUnit(items.map(transform)));
 
   const filteredItems = applyFilter(getSelectedFilter(state), transformedItems);
   if (isEmpty(filteredItems)) {
     return [];
   }
   // Do not change the order of these processors
-  const processors = [fillYears, fillEmptyItems, dedupeRank, dedupeUnit, markFirstAndLastUnit, fillUnitChange];
+  const processors = [
+    fillYears,
+    fillEmptyItems,
+    dedupeRank,
+    dedupeUnit,
+    markFirstAndLastRank,
+    markFirstAndLastUnit,
+    fillRankChange,
+    fillUnitChange,
+  ];
 
   return processors.reduce((accItems, processor) => processor(accItems), filteredItems);
 };
