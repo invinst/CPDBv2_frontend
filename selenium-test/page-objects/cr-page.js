@@ -35,7 +35,8 @@ class AccusedOfficerSection extends Section {
       popup: '.test--accused-officer .popup',
       popupButton: '.test--accused-officer .test--popup-button',
       popupTitle: '.test--accused-officer .test--popup-title',
-      popupText: '.test--accused-officer .test--popup-text'
+      popupText: '.test--accused-officer .test--popup-text',
+      popupCloseButton: '.test--accused-officer .test--popup-close-button'
     });
   }
 
@@ -89,7 +90,12 @@ class InvestigatorSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      firstItem: '(//*[@class="test--involvement-investigator"]//*[@class="test--officer-row"])[1]'
+      firstItem: '(//*[@class="test--involvement-investigator"]//*[@class="test--officer-row"])[1]',
+      popup: '.test--involvement-investigator .popup',
+      popupButton: '.test--involvement-investigator .test--popup-button',
+      popupTitle: '.test--involvement-investigator .test--popup-title',
+      popupText: '.test--involvement-investigator .test--popup-text',
+      popupCloseButton: '.test--involvement-investigator .test--popup-close-button'
     });
   }
 
@@ -105,7 +111,12 @@ class PoliceWitnessSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      firstItem: '(//*[@class="test--involvement-police_witness"]//*[@class="test--officer-row"])[1]'
+      firstItem: '(//*[@class="test--involvement-police_witness"]//*[@class="test--officer-row"])[1]',
+      popup: '.test--involvement-police_witness .popup',
+      popupButton: '.test--involvement-police_witness .test--popup-button',
+      popupTitle: '.test--involvement-police_witness .test--popup-title',
+      popupText: '.test--involvement-police_witness .test--popup-text',
+      popupCloseButton: '.test--involvement-police_witness .test--popup-close-button'
     });
   }
 

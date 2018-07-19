@@ -24,6 +24,7 @@ export default class Popup extends Component {
           <div className='test--popup-content' onClick={ e => e.stopPropagation() }>
             <div
               style={ tooltipCloseButtonStyle }
+              className='test--popup-close-button'
               data-tip={ true }
               data-for={ tooltipId }
               data-event={ true }
