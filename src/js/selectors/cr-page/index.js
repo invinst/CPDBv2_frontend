@@ -76,6 +76,7 @@ const getTransformedCoaccused = createSelector(
     allegationCount: coaccused['allegation_count'],
     sustainedCount: coaccused['sustained_count'],
     allegationPercentile: coaccused['percentile_allegation'],
+    disciplined: coaccused['disciplined'],
     radarAxes: [
       { axis: 'trr', value: parseFloat(coaccused['percentile_trr']) },
       { axis: 'internal', value: parseFloat(coaccused['percentile_allegation_internal']) },
