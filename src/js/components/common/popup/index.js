@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid/v4';
 import ReactMarkdown from 'react-markdown';
 
-import { buttonStyle, titleStyle, textStyle, titleCloseButtonStyle, titleTextStyle } from './popup.style';
+import { buttonStyle, tooltipTitleStyle, tooltipTextStyle, tooltipCloseButtonStyle } from './popup.style';
 import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 
 
@@ -19,19 +19,20 @@ export default class Popup extends Component {
           effect='solid'
           type='light'
           offset={ { top: -10 } }
+          globalEventOff='click'
         >
-          <div style={ titleStyle }>
-            <span
-              style={ titleCloseButtonStyle }
+          <div className='test--popup-content' onClick={ e => e.stopPropagation() }>
+            <div
+              style={ tooltipCloseButtonStyle }
               data-tip={ true }
               data-for={ tooltipId }
               data-event={ true }
               data-event-off='click'
             />
-            <span style={ titleTextStyle } className='test--popup-title-text'>{ title }</span>
-          </div>
-          <div style={ textStyle } className='test--popup-text'>
-            <ReactMarkdown source={ text } renderers={ { link: MarkdownLink } }/>
+            <div style={ tooltipTitleStyle } className='test--popup-title'>{ title }</div>
+            <div style={ tooltipTextStyle } className='test--popup-text'>
+              <ReactMarkdown source={ text } renderers={ { link: MarkdownLink } }/>
+            </div>
           </div>
         </ReactTooltip>
         <div

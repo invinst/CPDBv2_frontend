@@ -34,7 +34,7 @@ class AccusedOfficerSection extends Section {
       showMoreButton: '.test--accused-officer-show-more',
       popup: '.test--accused-officer .popup',
       popupButton: '.test--accused-officer .test--popup-button',
-      popupTitle: '.test--accused-officer .test--popup-title-text',
+      popupTitle: '.test--accused-officer .test--popup-title',
       popupText: '.test--accused-officer .test--popup-text'
     });
   }
