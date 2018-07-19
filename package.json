@@ -112,6 +112,7 @@
     "mapbox-gl": "^0.42.2",
     "moment": "^2.14.1",
     "mousetrap": "^1.6.1",
+    "ordinal-js": "^1.1.0",
     "pluralize": "^7.0.0",
     "query-string": "^4.2.3",
     "radium": "^0.18.1",
