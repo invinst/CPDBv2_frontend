@@ -1,12 +1,14 @@
 import { concat, difference, filter, get, includes, isEmpty, nth, rangeRight, slice, values } from 'lodash';
 import moment from 'moment';
+import { createSelector } from 'reselect';
 
 import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, ATTACHMENT_TYPES } from 'utils/constants';
 import { imgUrl } from 'utils/static-assets';
 
 
-const getSelectedFilter = (state) => state.officerPage.newTimeline.filter;
-export const getItems = (state) => get(state.officerPage.newTimeline, 'items', []);
+const getSelectedFilter = (state) => get(state, 'officerPage.newTimeline.filter', '');
+export const getItems = (state) => get(state, 'officerPage.newTimeline.items', []);
+
 
 export const baseTransform = (item, index) => {
   const unitName = item['unit_name'] ? `Unit ${item['unit_name']}` : 'Unassigned';
@@ -288,26 +290,34 @@ export const markLatestRank = (items) => {
   });
 };
 
-export const getNewTimelineItems = state => {
-  const items = get(state.officerPage.newTimeline, 'items', []);
 
-  const transformedItems = markLatestRank(markLatestUnit(items.map(transform)));
+export const newTimelineItemsSelector = createSelector(
+  getItems,
+  getSelectedFilter,
+  (items, filter) => {
+    const preProcessors = [
+      markLatestRank,
+      markLatestUnit,
+    ];
 
-  const filteredItems = applyFilter(getSelectedFilter(state), transformedItems);
-  if (isEmpty(filteredItems)) {
-    return [];
+    const preProcessedItems = preProcessors.reduce((accItems, processor) => processor(accItems), items);
+    const transformedItems = preProcessedItems.map(transform);
+    const filteredItems = applyFilter(filter, transformedItems);
+    if (isEmpty(filteredItems)) {
+      return [];
+    }
+    // Do not change the order of these processors
+    const postProcessors = [
+      fillYears,
+      fillEmptyItems,
+      dedupeRank,
+      dedupeUnit,
+      markFirstAndLastRank,
+      markFirstAndLastUnit,
+      fillRankChange,
+      fillUnitChange,
+    ];
+
+    return postProcessors.reduce((accItems, processor) => processor(accItems), filteredItems);
   }
-  // Do not change the order of these processors
-  const processors = [
-    fillYears,
-    fillEmptyItems,
-    dedupeRank,
-    dedupeUnit,
-    markFirstAndLastRank,
-    markFirstAndLastUnit,
-    fillRankChange,
-    fillUnitChange,
-  ];
-
-  return processors.reduce((accItems, processor) => processor(accItems), filteredItems);
-};
+);

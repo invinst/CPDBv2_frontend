@@ -9,7 +9,7 @@ import {
   fillUnitChange,
   fillYears,
   gapYearItems,
-  getNewTimelineItems,
+  newTimelineItemsSelector,
   markFirstAndLastUnit,
   trrTransform,
   yearItem,
@@ -1211,7 +1211,7 @@ describe('Officer new timeline selectors', function () {
 
   describe('getNewTimelineItems', function () {
     it('should return empty if the state is empty', function () {
-      getNewTimelineItems({
+      newTimelineItemsSelector({
         officerPage: {
           newTimeline: {
             items: []
@@ -1325,7 +1325,7 @@ describe('Officer new timeline selectors', function () {
         }
       };
 
-      getNewTimelineItems(state).should.eql([
+      newTimelineItemsSelector(state).should.eql([
         {
           date: '2006',
           hasData: true,
