@@ -49,7 +49,9 @@ export default class Timeline extends Component {
             const nextItem = nth(items, index + 1);
 
             const hasBorderBottom = (
-              item.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
+              item.isFirstMutual
+              || item.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
+              && item.kind !== NEW_TIMELINE_ITEMS.RANK_CHANGE
               && nextItem !== undefined
               && nextItem.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
               && nextItem.kind !== NEW_TIMELINE_ITEMS.JOINED

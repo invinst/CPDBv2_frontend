@@ -28,6 +28,8 @@ export const baseTransform = (item, index) => {
     isFirstUnit: false,
     isLastUnit: false,
     isCurrentUnit: false,
+    isMutual: false,
+    isFirstMutual: false,
     key: index,
   };
 };
@@ -290,6 +292,39 @@ export const markLatestRank = (items) => {
   });
 };
 
+export const markMutualRankUnit = (items) => {
+  return items.map((item, index) => {
+    if (
+      item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && item.isLastRank
+      || item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && item.isLastUnit
+    ) {
+      item.isMutual = true;
+      item.isFirstMutual = true;
+      item.isFirstUnit = false;
+      item.isFirstRank = false;
+      item.isLastUnit = false;
+      item.isLastRank = false;
+      items[index - 1].isLastRank = true;
+      items[index - 1].isLastUnit = true;
+    }
+    else if (
+      item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && item.isFirstUnit
+      || item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && item.isLastRank
+    ) {
+      item.isMutual = true;
+      item.isFirstUnit = false;
+      item.isFirstRank = false;
+      item.isLastUnit = false;
+      item.isLastRank = false;
+      items[index + 1].isFirstUnit = true;
+      items[index + 1].isFirstRank = true;
+      items[index + 1].rankDisplay = items[index + 1].rank;
+      items[index + 1].unitDisplay = items[index + 1].unitName;
+    }
+    return item;
+  });
+};
+
 
 export const newTimelineItemsSelector = createSelector(
   getItems,
@@ -316,6 +351,7 @@ export const newTimelineItemsSelector = createSelector(
       markFirstAndLastUnit,
       fillRankChange,
       fillUnitChange,
+      markMutualRankUnit,
     ];
 
     return postProcessors.reduce((accItems, processor) => processor(accItems), filteredItems);

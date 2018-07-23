@@ -12,7 +12,8 @@ import {
 
 export default class RankChange extends Component {
   render() {
-    const { rank, oldRank, date, hasBorderBottom, } = this.props.item;
+    const { hasBorderBottom } = this.props;
+    const { rank, oldRank, date } = this.props.item;
     const { baseWrapperShowingStyle, baseShowingStyle, baseDateStyle } = this.props.baseStyles;
 
     return (

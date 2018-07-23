@@ -11,113 +11,92 @@ import Year from './showings/year';
 import Empty from './showings/empty';
 import { NEW_TIMELINE_ITEMS } from 'utils/constants';
 import * as baseStyles from './baseItem.style';
-import {
-  rankStyle,
-  unitStyle,
-  unitChangeStyle,
-  rankChangeStyle,
-  unitTextStyle,
-  rankTextStyle,
-  wrapperStyle,
-} from './item.style';
+import { rankStyle, unitStyle, wrapperStyle, changeStyle, textStyle } from './item.style';
 
 
 export default class Item extends Component {
 
   constructor(props) {
     super(props);
-    this.renderRankAndUnit = this.renderRankAndUnit.bind(this);
+    this.renderChange = this.renderChange.bind(this);
 
     const { item } = props;
 
-    const componentMap = {
+    const componentInfoMap = {
       [NEW_TIMELINE_ITEMS.CR]: {
         height: 58,
         className: 'test--timeline-cr-item',
-        item: <Cr { ...this.props } baseStyles={ baseStyles }/>
+        component: <Cr { ...this.props } baseStyles={ baseStyles }/>
       },
       [NEW_TIMELINE_ITEMS.FORCE]: {
         height: 58,
         className: 'test--timeline-trr-item',
-        item: <Trr { ...this.props } baseStyles={ baseStyles }/>
+        component: <Trr { ...this.props } baseStyles={ baseStyles }/>
       },
       [NEW_TIMELINE_ITEMS.AWARD]: {
         height: 58,
         className: 'test--timeline-award-item',
-        item: <Award { ...this.props } baseStyles={ baseStyles }/>
+        component: <Award { ...this.props } baseStyles={ baseStyles }/>
       },
       [NEW_TIMELINE_ITEMS.UNIT_CHANGE]: {
         height: 24,
         className: 'test--timeline-unit-change-item',
-        item: <UnitChange { ...this.props } baseStyles={ baseStyles }/>
+        component: <UnitChange { ...this.props } baseStyles={ baseStyles }/>
       },
       [NEW_TIMELINE_ITEMS.RANK_CHANGE]: {
         height: 24,
         className: 'test--timeline-rank-change-item',
-        item: <RankChange { ...this.props } baseStyles={ baseStyles }/>
+        component: <RankChange { ...this.props } baseStyles={ baseStyles }/>
       },
       [NEW_TIMELINE_ITEMS.JOINED]: {
         height: 24,
         className: 'test--timeline-joined-item',
-        item: <Joined { ...this.props } baseStyles={ baseStyles }/>
+        component: <Joined { ...this.props } baseStyles={ baseStyles }/>
       },
       [NEW_TIMELINE_ITEMS.YEAR]: {
         height: item.hasData ? 64 : 32,
         className: 'test--timeline-year-item',
-        item: <Year { ...this.props } baseStyles={ baseStyles }/>
+        component: <Year { ...this.props } baseStyles={ baseStyles }/>
       },
       [NEW_TIMELINE_ITEMS.EMPTY]: {
         height: 32,
         className: 'test--timeline-empty-item',
-        item: <Empty { ...this.props } baseStyles={ baseStyles }/>
+        component: <Empty { ...this.props } baseStyles={ baseStyles }/>
       },
     };
 
-    this.component = get(componentMap, item.kind, {});
+    this.componentInfo = get(componentInfoMap, item.kind, {});
   }
 
-  renderRankAndUnit() {
+  renderChange(changeKind, kindStyle, first, last, current, display, text) {
     const {
-      isFirstRank, isLastRank, isFirstUnit, isLastUnit, rankDisplay, unitDisplay, kind, isCurrentUnit, isCurrentRank
+      kind,
+      isFirstMutual,
+      isMutual,
     } = this.props.item;
-    const height = this.component.height;
-
+    const height = this.componentInfo.height;
     return (
       <span>
         {
-          kind === NEW_TIMELINE_ITEMS.RANK_CHANGE ? (
+          isFirstMutual || kind === changeKind && !isMutual ? (
             <span
-              style={ rankChangeStyle(height, isFirstRank, isLastRank) }
-              className='test--rank-change-item-unit'
+              style={ changeStyle(height, first, last) }
+              className='test--item-change'
             >
-              RANK CHANGE
+              { text }
             </span>
+          ) : isMutual && !isFirstMutual ? (
+            <span
+              style={ changeStyle(height, first, last) }
+              className='test--item-change'
+            />
           ) : (
             <span
-              style={ rankStyle(height, isFirstRank, isLastRank) }
-              className='test--item-rank'
+              style={ kindStyle(height, first, last) }
+              className='test--item-rank-unit'
             >
-              <div style={ rankTextStyle(rankDisplay === 'Unassigned', isCurrentRank) }>
-                { (isFirstRank && rankDisplay) ? rankDisplay : ' ' }
-              </div>
-            </span>
-          )
-        }
-        {
-          kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE ? (
-            <span
-              style={ unitChangeStyle(height, isFirstUnit, isLastUnit) }
-              className='test--unit-change-item-unit'
-            >
-              UNIT CHANGE
-            </span>
-          ) : (
-            <span
-              style={ unitStyle(height, isFirstUnit, isLastUnit) }
-              className='test--item-unit'
-            >
-              <div style={ unitTextStyle(unitDisplay === 'Unassigned', isCurrentUnit) }>
-                { (isFirstUnit && unitDisplay) ? unitDisplay : ' ' }
+              <div style={ textStyle(display === 'Unassigned', current) }>
+                { display }
               </div>
             </span>
           )
@@ -127,11 +106,27 @@ export default class Item extends Component {
   }
 
   render() {
-    const { height, className, item } = this.component;
+    const { height, className, component } = this.componentInfo;
+    const {
+      isFirstRank,
+      isLastRank,
+      isFirstUnit,
+      isLastUnit,
+      rankDisplay,
+      unitDisplay,
+      isCurrentUnit,
+      isCurrentRank,
+    } = this.props.item;
+
     return (
       <div style={ wrapperStyle(height) } className={ className }>
-        { this.renderRankAndUnit() }
-        { item }
+        { this.renderChange(
+          NEW_TIMELINE_ITEMS.RANK_CHANGE, rankStyle, isFirstRank, isLastRank, isCurrentRank, rankDisplay, 'RANK CHANGE'
+        ) }
+        { this.renderChange(
+          NEW_TIMELINE_ITEMS.UNIT_CHANGE, unitStyle, isFirstUnit, isLastUnit, isCurrentUnit, unitDisplay, 'UNIT CHANGE'
+        ) }
+        { component }
       </div>
     );
   }
