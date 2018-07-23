@@ -71,9 +71,7 @@ export default class AnimatedRadarChart extends Component {
   }
 
   animate() {
-    const { data } = this.props;
-
-    const maxValue = data.length - 1;
+    const maxValue = this.animatedData.length - 1;
     this.setState({
       transitionValue: Math.min(this.state.transitionValue + this.velocity, maxValue),
     });
@@ -83,7 +81,7 @@ export default class AnimatedRadarChart extends Component {
   }
 
   startTimer() {
-    if (this.props.data && this.props.data.length > 1 && !this.timer) {
+    if (this.animatedData.length > 1 && !this.timer) {
       this.timer = setInterval(() => this.animate(), this.interval);
     }
   }
@@ -132,7 +130,7 @@ export default class AnimatedRadarChart extends Component {
     if (this.timer) {
       this.stopTimer();
     }
-    const maxValue = this.props.data.length - 1;
+    const maxValue = this.animatedData.length - 1;
     this.setState({ transitionValue: maxValue });
     this.startTimer();
   }
@@ -142,7 +140,6 @@ export default class AnimatedRadarChart extends Component {
     const { data, noDataText, isRequesting } = this.props;
 
     const itemData = this.getCurrentTransitionData();
-
     if (itemData) {
       return (
         <div
