@@ -304,8 +304,10 @@ export const markMutualRankUnit = (items) => {
       item.isFirstRank = false;
       item.isLastUnit = false;
       item.isLastRank = false;
-      items[index - 1].isLastRank = true;
-      items[index - 1].isLastUnit = true;
+      if (index - 1 >= 0) {
+        items[index - 1].isLastRank = true;
+        items[index - 1].isLastUnit = true;
+      }
     }
     else if (
       item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && item.isFirstUnit
@@ -316,10 +318,12 @@ export const markMutualRankUnit = (items) => {
       item.isFirstRank = false;
       item.isLastUnit = false;
       item.isLastRank = false;
-      items[index + 1].isFirstUnit = true;
-      items[index + 1].isFirstRank = true;
-      items[index + 1].rankDisplay = items[index + 1].rank;
-      items[index + 1].unitDisplay = items[index + 1].unitName;
+      if (index + 1 < items.length) {
+        items[index + 1].isFirstUnit = true;
+        items[index + 1].isFirstRank = true;
+        items[index + 1].rankDisplay = items[index + 1].rank;
+        items[index + 1].unitDisplay = items[index + 1].unitName;
+      }
     }
     return item;
   });

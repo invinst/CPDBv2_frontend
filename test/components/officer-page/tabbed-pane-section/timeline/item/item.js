@@ -3,7 +3,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -67,8 +67,8 @@ describe('Item component', function () {
 
     instance = renderIntoDocument(<Item item={ item }/>);
 
-    const rank = findRenderedDOMComponentWithClass(instance, 'test--item-rank');
-    const unit = findRenderedDOMComponentWithClass(instance, 'test--item-unit');
+    const rank = scryRenderedDOMComponentsWithClass(instance, 'test--item-rank-unit')[0];
+    const unit = scryRenderedDOMComponentsWithClass(instance, 'test--item-rank-unit')[1];
 
     rank.textContent.should.eql('Police Officer Display');
     unit.textContent.should.eql('001 Display');
@@ -91,6 +91,6 @@ describe('Item component', function () {
 
     instance = renderIntoDocument(<Item item={ item }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'test--item-unit').textContent.should.eql(' ');
+    scryRenderedDOMComponentsWithClass(instance, 'test--item-rank-unit')[1].textContent.should.eql('');
   });
 });
