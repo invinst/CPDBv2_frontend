@@ -309,7 +309,7 @@ export const markMutualRankUnit = (items) => {
     }
     else if (
       item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && item.isFirstUnit
-      || item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && item.isLastRank
+      || item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && item.isFirstRank
     ) {
       item.isMutual = true;
       item.isFirstUnit = false;

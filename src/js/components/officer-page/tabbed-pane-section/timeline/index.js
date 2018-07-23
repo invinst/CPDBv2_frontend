@@ -54,6 +54,7 @@ export default class Timeline extends Component {
               && item.kind !== NEW_TIMELINE_ITEMS.RANK_CHANGE
               && nextItem !== undefined
               && nextItem.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
+              && nextItem.kind !== NEW_TIMELINE_ITEMS.RANK_CHANGE
               && nextItem.kind !== NEW_TIMELINE_ITEMS.JOINED
             );
 
