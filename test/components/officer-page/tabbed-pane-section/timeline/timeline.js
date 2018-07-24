@@ -4,6 +4,7 @@ import {
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
   findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
@@ -11,6 +12,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
 import Item from 'components/officer-page/tabbed-pane-section/timeline/item';
 import Dropdown from 'components/common/dropdown';
+import Popup from 'components/common/popup';
 
 
 describe('Timeline component', function () {
@@ -22,8 +24,35 @@ describe('Timeline component', function () {
 
   it('should render headers correctly', function () {
     instance = renderIntoDocument(<Timeline />);
-    const header = findRenderedDOMComponentWithClass(instance, 'test--timeline-header');
-    header.textContent.should.eql('RANKUNITSHOWINGALL EVENTSDATE');
+    findRenderedDOMComponentWithClass(instance, 'test--timeline-header');
+    const cols = scryRenderedDOMComponentsWithClass(instance, 'test--timeline-header-col');
+
+    cols.should.have.length(4);
+    cols[0].textContent.should.containEql('RANK');
+    cols[1].textContent.should.containEql('UNIT');
+    cols[2].textContent.should.containEql('SHOWING');
+    cols[2].textContent.should.containEql('ALL EVENTS');
+    cols[3].textContent.should.containEql('DATE');
+  });
+
+  it('should render rank and unit popups', function () {
+    const popup = {
+      'rank': {
+        title: 'Rank',
+        text: 'Some rank explanation',
+      },
+      'unit': {
+        title: 'Unit',
+        text: 'Some unit explanation',
+      },
+    };
+
+    instance = renderIntoDocument(<Timeline popup={ popup } />);
+    const timelinePopup = scryRenderedComponentsWithType(instance, Popup);
+    timelinePopup[0].props.title.should.eql('Rank');
+    timelinePopup[0].props.text.should.eql('Some rank explanation');
+    timelinePopup[1].props.title.should.eql('Unit');
+    timelinePopup[1].props.text.should.eql('Some unit explanation');
   });
 
   it('should render items with correct borders', function () {

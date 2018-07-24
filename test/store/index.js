@@ -66,6 +66,7 @@ describe('store', function () {
         pages: {}
       },
       pageLoading: false,
+      popups: [],
       routing: {
         locationBeforeTransitions: null
       },

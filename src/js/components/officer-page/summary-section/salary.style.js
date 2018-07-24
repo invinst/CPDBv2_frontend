@@ -14,3 +14,9 @@ export const salaryAmountStyle = {
   fontSize: '14px',
   fontWeight: 300,
 };
+
+export const popupStyle = {
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  marginLeft: '6px',
+};

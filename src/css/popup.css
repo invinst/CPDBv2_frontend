@@ -1,0 +1,15 @@
+.__react_component_tooltip.popup.type-light {
+    background-color: white;
+    border-radius: 2px;
+    border: solid 1px #D8D8D8;
+    color: black;
+    opacity: 1;
+    width: 285px;
+    text-align: left;
+    padding: 20px 15px 18px 15px;
+    pointer-events: unset;
+}
+
+.__react_component_tooltip.popup.type-light::after {
+    border: none;
+}
