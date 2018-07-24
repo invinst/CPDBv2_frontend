@@ -22,6 +22,7 @@ export default class OfficerPage extends Component {
       hasComplaint,
       hasMapMarker,
       hasCoaccusal,
+      popup,
     } = this.props;
     return (
       <DocumentTitle title={ `${officerSummary.rank} ${officerName}` }>
@@ -32,9 +33,11 @@ export default class OfficerPage extends Component {
             <SummarySection
               officerName={ officerName }
               officerSummary={ officerSummary }
-              openPoliceUnitPage={ openPoliceUnitPage } />
+              openPoliceUnitPage={ openPoliceUnitPage }
+              popup={ popup }
+            />
           </div>
-          <MetricsSection metrics={ officerMetrics } />
+          <MetricsSection metrics={ officerMetrics } popup={ popup }/>
           <TabbedPaneSection
             changeOfficerTab={ changeOfficerTab }
             currentTab={ currentTab }
@@ -60,6 +63,7 @@ OfficerPage.propTypes = {
   hasComplaint: PropTypes.bool,
   hasMapMarker: PropTypes.bool,
   hasCoaccusal: PropTypes.bool,
+  popup: PropTypes.object,
 };
 
 OfficerPage.defaultProps = {

@@ -15,6 +15,7 @@ import { changeOfficerTab } from 'actions/officer-page';
 import { hasComplaintSelector } from 'selectors/officer-page/attachments';
 import { hasMapMarkersSelector } from 'selectors/officer-page/map';
 import { hasCoaccusalSelector } from 'selectors/officer-page/coaccusals';
+import { popupSelector } from 'selectors/popup';
 
 
 function mapStateToProps(state, ownProps) {
@@ -27,7 +28,8 @@ function mapStateToProps(state, ownProps) {
     currentTab: getCurrentTab(state),
     hasComplaint: hasComplaintSelector(state),
     hasMapMarker: hasMapMarkersSelector(state),
-    hasCoaccusal: hasCoaccusalSelector(state)
+    hasCoaccusal: hasCoaccusalSelector(state),
+    popup: popupSelector(state),
   };
 }
 

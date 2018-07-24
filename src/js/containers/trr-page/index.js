@@ -8,6 +8,7 @@ import {
   trrDetailSelector,
   trrDocumentSelector,
 } from 'selectors/trr-page';
+import { popupSelector } from 'selectors/popup';
 import TRRPage from 'components/trr-page';
 import { openRequestTRRDocumentModal } from 'actions/generic-modal';
 
@@ -19,6 +20,7 @@ function mapStateToProps(state) {
     trrDetail: trrDetailSelector(state),
     trrLocation: trrLocationSelector(state),
     trrDocument: trrDocumentSelector(state),
+    popup: popupSelector(state),
   };
 }
 
