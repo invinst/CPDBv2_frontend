@@ -129,8 +129,6 @@ describe('AnimatedRadarChart components', function () {
       const explainer = findRenderedComponentWithType(instance, RadarExplainer);
       const closeButton = findRenderedDOMComponentWithClass(explainer, 'test--radar-explainer-close-button');
 
-      closeButton.querySelectorAll('.fa-close').should.have.length(1);
-
       Simulate.click(closeButton);
 
       instance.state.transitionValue.should.eql(0);

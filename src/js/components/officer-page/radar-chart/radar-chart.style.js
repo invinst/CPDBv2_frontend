@@ -23,8 +23,8 @@ export const openExplainerButtonStyle = {
   opacity: 0.6,
   borderRadius: '12px',
   position: 'absolute',
-  right: '18px',
-  top: '18px',
+  right: '16px',
+  top: '16px',
   boxSizing: 'border-box',
 };
 
@@ -39,4 +39,13 @@ export const questionMarkStyle = {
   lineHeight: 1,
   fontWeight: 500,
   paddingTop: '2px',
+};
+
+export const radarChartOverlayStyle = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'transparent'
 };
