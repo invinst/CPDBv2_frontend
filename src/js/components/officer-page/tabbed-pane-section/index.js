@@ -14,25 +14,26 @@ export default class TabbedPaneSection extends Component {
     const {
       currentTab,
       changeOfficerTab,
-      attachmentComplaintCount,
-      mapMarkerCount,
-      coaccusalCount
+      hasComplaint,
+      hasMapMarker,
+      hasCoaccusal
     } = this.props;
     const tabbedPaneMap = {
       [OFFICER_PAGE_TAB_NAMES.TIMELINE]: {
         component: TimelineContainer,
+        show: true,
       },
       [OFFICER_PAGE_TAB_NAMES.MAP]: {
         component: MapContainer,
-        count: mapMarkerCount,
+        show: hasMapMarker,
       },
       [OFFICER_PAGE_TAB_NAMES.COACCUSALS]: {
         component: CoaccusalsContainer,
-        count: coaccusalCount,
+        show: hasCoaccusal,
       },
       [OFFICER_PAGE_TAB_NAMES.ATTACHMENTS]: {
         component: AttachmentsContainer,
-        count: attachmentComplaintCount,
+        show: hasComplaint,
       },
     };
     const CurrentComponent = get(tabbedPaneMap, `${currentTab}.component`, null);
@@ -41,7 +42,7 @@ export default class TabbedPaneSection extends Component {
         <div style={ menuStyle } className='test--tabbed-pane-section-menu'>
           {
             keys(tabbedPaneMap).map(paneName => (
-              get(tabbedPaneMap, paneName).count !== 0 ? (
+              get(tabbedPaneMap, `${paneName}.show`) ? (
                 <span
                   key={ paneName }
                   style={ menuItemStyle(paneName === currentTab) }
@@ -63,7 +64,7 @@ export default class TabbedPaneSection extends Component {
 TabbedPaneSection.propTypes = {
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
-  attachmentComplaintCount: PropTypes.number,
-  mapMarkerCount: PropTypes.number,
-  coaccusalCount: PropTypes.number,
+  hasComplaint: PropTypes.bool,
+  hasMapMarker: PropTypes.bool,
+  hasCoaccusal: PropTypes.bool,
 };

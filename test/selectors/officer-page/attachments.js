@@ -1,6 +1,6 @@
 import {
   attachmentsComplaintTransform,
-  getComplaintsWithAttachments,
+  complaintsWithAttachmentsSelector,
 } from 'selectors/officer-page/attachments.js';
 
 describe('Officer attachments selectors', function () {
@@ -61,7 +61,7 @@ describe('Officer attachments selectors', function () {
     });
   });
 
-  describe('getComplaintsWithAttachments', function () {
+  describe('complaintsWithAttachmentsSelector', function () {
     it('should return correct result', function () {
       const complaintWithoutAttachment = {
         category: 'CR',
@@ -85,7 +85,7 @@ describe('Officer attachments selectors', function () {
         },
       };
 
-      getComplaintsWithAttachments(state).should.eql([result]);
+      complaintsWithAttachmentsSelector(state).should.eql([result]);
     });
   });
 });

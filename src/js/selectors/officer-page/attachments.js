@@ -1,4 +1,4 @@
-import { get, isEmpty } from 'lodash';
+import { get, isEmpty, isUndefined } from 'lodash';
 import moment from 'moment/moment';
 import { createSelector } from 'reselect';
 
@@ -17,10 +17,14 @@ export const attachmentsComplaintTransform = (item, index) => ({
 
 const getItems = state => get(state.officerPage.newTimeline, 'items', []);
 
-export const getComplaintsWithAttachments = createSelector(
+const attachedComplaint = item => !isEmpty(get(item, 'attachments'));
+
+export const complaintsWithAttachmentsSelector = createSelector(
   getItems,
-  (items) => {
-    const complaints = items.filter(item => !isEmpty(get(item, 'attachments')));
-    return complaints.map(attachmentsComplaintTransform);
-  }
+  items => items.filter(attachedComplaint).map(attachmentsComplaintTransform)
+);
+
+export const hasComplaintSelector = createSelector(
+  getItems,
+  items => !isUndefined(items.find(attachedComplaint))
 );

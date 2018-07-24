@@ -1,10 +1,10 @@
-import { getCoaccusalGroups, } from 'selectors/officer-page/coaccusals';
+import { coaccusalGroupsSelector, } from 'selectors/officer-page/coaccusals';
 
 
 describe('Officer coaccusals selectors', function () {
-  describe('getCoaccusalGroups', function () {
+  describe('coaccusalGroupsSelector', function () {
     it('should return empty if the state is empty', function () {
-      getCoaccusalGroups({
+      coaccusalGroupsSelector({
         officerPage: {
           coaccusals: {
             items: []
@@ -67,7 +67,7 @@ describe('Officer coaccusals selectors', function () {
         }
       };
 
-      getCoaccusalGroups(state).should.eql([
+      coaccusalGroupsSelector(state).should.eql([
         {
           name: 'COACCUSED 2-4 TIMES',
           coaccusals: [

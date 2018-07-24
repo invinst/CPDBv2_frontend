@@ -19,9 +19,9 @@ export default class OfficerPage extends Component {
       threeCornerPercentile,
       changeOfficerTab,
       currentTab,
-      attachmentComplaintCount,
-      mapMarkerCount,
-      coaccusalCount,
+      hasComplaint,
+      hasMapMarker,
+      hasCoaccusal,
     } = this.props;
     return (
       <DocumentTitle title={ `${officerSummary.rank} ${officerName}` }>
@@ -38,9 +38,9 @@ export default class OfficerPage extends Component {
           <TabbedPaneSection
             changeOfficerTab={ changeOfficerTab }
             currentTab={ currentTab }
-            attachmentComplaintCount={ attachmentComplaintCount }
-            mapMarkerCount={ mapMarkerCount }
-            coaccusalCount={ coaccusalCount }
+            hasComplaint={ hasComplaint }
+            hasMapMarker={ hasMapMarker }
+            hasCoaccusal={ hasCoaccusal }
           />
         </div>
       </DocumentTitle>
@@ -57,9 +57,9 @@ OfficerPage.propTypes = {
   openPoliceUnitPage: PropTypes.func,
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
-  attachmentComplaintCount: PropTypes.number,
-  mapMarkerCount: PropTypes.number,
-  coaccusalCount: PropTypes.number,
+  hasComplaint: PropTypes.bool,
+  hasMapMarker: PropTypes.bool,
+  hasCoaccusal: PropTypes.bool,
 };
 
 OfficerPage.defaultProps = {
