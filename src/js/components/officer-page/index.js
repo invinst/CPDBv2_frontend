@@ -10,23 +10,6 @@ import ShareableHeaderContainer from 'containers/headers/shareable-header/sharea
 
 
 export default class OfficerPage extends Component {
-  shouldComponentUpdate(nextProps) {
-    const {
-      officerName,
-      currentTab,
-      attachmentComplaintCount,
-      mapMarkerCount,
-      coaccusalCount
-    } = this.props;
-    return (
-      officerName !== nextProps.officerName
-      || currentTab !== nextProps.currentTab
-      || attachmentComplaintCount !== nextProps.attachmentComplaintCount
-      || mapMarkerCount !== nextProps.mapMarkerCount
-      || coaccusalCount !== nextProps.coaccusalCount
-    );
-  }
-
   render() {
     const {
       officerSummary,

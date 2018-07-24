@@ -20,43 +20,41 @@ export default class TabbedPaneSection extends Component {
     } = this.props;
     const tabbedPaneMap = {
       [OFFICER_PAGE_TAB_NAMES.TIMELINE]: {
-        component: <TimelineContainer />,
+        component: TimelineContainer,
       },
       [OFFICER_PAGE_TAB_NAMES.MAP]: {
-        component: <MapContainer />,
+        component: MapContainer,
         count: mapMarkerCount,
       },
       [OFFICER_PAGE_TAB_NAMES.COACCUSALS]: {
-        component: <CoaccusalsContainer />,
+        component: CoaccusalsContainer,
         count: coaccusalCount,
       },
       [OFFICER_PAGE_TAB_NAMES.ATTACHMENTS]: {
-        component: <AttachmentsContainer />,
+        component: AttachmentsContainer,
         count: attachmentComplaintCount,
       },
     };
+    const CurrentComponent = get(tabbedPaneMap, `${currentTab}.component`, null);
     return (
       <div style={ tabbedPaneSectionStyle } className='tabbed-pane-section'>
         <div style={ menuStyle } className='test--tabbed-pane-section-menu'>
           {
-            keys(tabbedPaneMap).map((paneName) => {
-              if (get(tabbedPaneMap, paneName).count !== 0) {
-                return (
-                  <span
-                    key={ paneName }
-                    style={ menuItemStyle(paneName === currentTab) }
-                    className='test--tabbed-pane-tab-name'
-                    onClick={ () => changeOfficerTab(paneName) }
-                  >
-                    { paneName }
-                  </span>
-                );
-              }
-              return null;
-            })
+            keys(tabbedPaneMap).map(paneName => (
+              get(tabbedPaneMap, paneName).count !== 0 ? (
+                <span
+                  key={ paneName }
+                  style={ menuItemStyle(paneName === currentTab) }
+                  className='test--tabbed-pane-tab-name'
+                  onClick={ () => changeOfficerTab(paneName) }
+                >
+                  { paneName }
+                </span>
+              ) : null
+            ))
           }
         </div>
-        { get(tabbedPaneMap, currentTab + '.component', null) }
+        { CurrentComponent ? <CurrentComponent /> : null }
       </div>
     );
   }
