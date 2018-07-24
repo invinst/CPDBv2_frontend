@@ -1,4 +1,4 @@
-import { coaccusalGroupsSelector, } from 'selectors/officer-page/coaccusals';
+import { coaccusalGroupsSelector, hasCoaccusalSelector } from 'selectors/officer-page/coaccusals';
 
 
 describe('Officer coaccusals selectors', function () {
@@ -169,6 +169,44 @@ describe('Officer coaccusals selectors', function () {
           ]
         },
       ]);
+    });
+  });
+
+  describe('hasCoaccusalSelector', function () {
+    it('should return false when there is no data', function () {
+      const state = {
+        officerPage: {
+          coaccusals: {
+            items: []
+          }
+        }
+      };
+      hasCoaccusalSelector(state).should.be.false();
+    });
+
+    it('should return true when have data', function () {
+      const state = {
+        officerPage: {
+          coaccusals: {
+            items: [{
+              id: 1,
+              'full_name': 'officerName 1',
+              'allegation_count': 15,
+              'sustained_count': 1,
+              'complaint_percentile': 59.0,
+              'birth_year': 1977,
+              race: 'White',
+              gender: 'Male',
+              'coaccusal_count': 4,
+              rank: 'Po As Detective',
+              'percentile_trr': 95.0,
+              'percentile_allegation_internal': 94.0,
+              'percentile_allegation_civilian': 93.0,
+            }]
+          }
+        }
+      };
+      hasCoaccusalSelector(state).should.be.true();
     });
   });
 });

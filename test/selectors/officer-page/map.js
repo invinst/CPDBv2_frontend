@@ -3,7 +3,8 @@ import {
   mapMarkersSelector,
   crMapMarkersTransform,
   trrMapMarkerTransform,
-  rawMapMarkersSelector
+  rawMapMarkersSelector,
+  hasMapMarkersSelector
 } from 'selectors/officer-page/map';
 
 
@@ -257,6 +258,30 @@ describe('Officer map selectors', function () {
         id: '123456',
         category: 'Firearm',
       }]);
+    });
+  });
+
+  describe('hasMapMarkersSelector', function () {
+    it('should return false if there is no marker', function () {
+      const state = {
+        officerPage: {
+          newTimeline: {
+            items: []
+          }
+        }
+      };
+      hasMapMarkersSelector(state).should.be.false();
+    });
+
+    it('should return true if have marker', function () {
+      const state = {
+        officerPage: {
+          newTimeline: {
+            items: [sustainedCr, exoneratedCr, trr, unitChange]
+          }
+        }
+      };
+      hasMapMarkersSelector(state).should.be.true();
     });
   });
 });

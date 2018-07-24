@@ -33,9 +33,9 @@ describe('TabbedPaneSection component', function () {
       <Provider store={ store }>
         <TabbedPaneSection
           currentTab='TIMELINE'
-          attachmentComplaintCount={ 1 }
-          mapMarkerCount={ 1 }
-          coaccusalCount={ 1 }
+          hasComplaint={ true }
+          hasMapMarker={ true }
+          hasCoaccusal={ true }
         />
       </Provider>
     );
@@ -54,9 +54,9 @@ describe('TabbedPaneSection component', function () {
       <Provider store={ store }>
         <TabbedPaneSection
           currentTab='TIMELINE'
-          attachmentComplaintCount={ 0 }
-          mapMarkerCount={ 0 }
-          coaccusalCount={ 0 }
+          hasComplaint={ false }
+          hasMapMarker={ false }
+          hasCoaccusal={ false }
         />
       </Provider>
     );
@@ -83,7 +83,9 @@ describe('TabbedPaneSection component', function () {
       <Provider store={ store }>
         <TabbedPaneSection
           changeOfficerTab={ stubChangeOfficerTab }
-          mapMarkerCount={ 1 }
+          hasCoaccusal={ true }
+          hasComplaint={ true }
+          hasMapMarker={ true }
         />
       </Provider>
     );
