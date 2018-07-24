@@ -59,16 +59,22 @@ describe('officer page', function () {
   it('should display the timeline by default', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
 
-    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINEMAPCOACCUSALSATTACHMENTS');
+    const tabbedPaneMenuText = officerPage.tabbedPaneSection.menu.getText();
+    tabbedPaneMenuText.should.containEql('TIMELINE');
+    tabbedPaneMenuText.should.containEql('MAP');
+    tabbedPaneMenuText.should.containEql('COACCUSALS');
+    tabbedPaneMenuText.should.containEql('ATTACHMENTS');
+
     officerPage.tabbedPaneSection.timelineTabName.getCssProperty('background-color').value.should.eql(
       'rgba(0,94,244,1)'
     );
-    // Due to float right, we need to add a '\n' here
-    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('RANK');
-    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('UNIT');
-    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('SHOWING');
-    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('ALL EVENTS');
-    officerPage.tabbedPaneSection.timelineSection.header.getText().should.containEql('DATE');
+
+    const headerText = officerPage.tabbedPaneSection.timelineSection.header.getText();
+    headerText.should.containEql('RANK');
+    headerText.should.containEql('UNIT');
+    headerText.should.containEql('SHOWING');
+    headerText.should.containEql('ALL EVENTS');
+    headerText.should.containEql('DATE');
 
     officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
     officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
