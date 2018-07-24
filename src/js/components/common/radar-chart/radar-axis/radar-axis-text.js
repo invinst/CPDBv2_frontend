@@ -1,38 +1,71 @@
 import React, { PropTypes } from 'react';
-import { radarAxisTextStyle, radarAxisTitleStyle, radarAxisValueTitleStyle } from './radar-axis-text.style';
+import { ordinalSuffix } from 'ordinal-js';
+import { isEmpty, compact } from 'lodash';
 
 import { roundedPercentile } from 'utils/calculations';
+import {
+  radarAxisTextStyle,
+  radarAxisTitleStyle,
+  radarAxisValueTitleStyle
+} from './radar-axis-text.style';
 
+
+const LINE_HEIGHT = 1.275;
 
 export default class RadarAxisText extends React.Component {
   renderTitleTexts(title, value, xText, yText, extraPadding, fontSize) {
-    const { showAxisTitle, showAxisValue, axisValueSuffix } = this.props;
-
+    const { showAxisTitle } = this.props;
     const words = title.split(' ');
-    const phases = showAxisTitle ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [];
-    const axisTitles = phases.map((phase, idx) => (
+    const titlePhases = showAxisTitle ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [];
+    const axisTitles = titlePhases.map((phase, idx) => (
       <tspan
         key={ `text-${title}-${idx}` }
         style={ { ...radarAxisTitleStyle, fontSize: `${fontSize}px` } }
         x={ xText }
         y={ yText }
-        dy={ `${extraPadding + idx * 1.25}em` }
+        dy={ `${extraPadding + idx * LINE_HEIGHT}em` }
       >
         { phase }
       </tspan>
     ));
-    const valueTitle = showAxisValue ? (
+
+    const valueTitle = this.renderValueTitles(
+      title, value, xText, yText, extraPadding + axisTitles.length * LINE_HEIGHT, fontSize
+    );
+    return compact([...axisTitles, valueTitle]);
+  }
+
+  renderValueTitles(title, value, xText, yText, extraPadding, fontSize) {
+    const { showAxisValue, showValueWithSuffix } = this.props;
+    const roundedValue = roundedPercentile(value);
+    let content;
+
+    if (showValueWithSuffix) {
+      const thSuffix = (
+        <tspan
+          key={ `text-value-${title}-suffix` }
+          style={ { fontSize: `${fontSize * 0.7}px` } }
+          baselineShift='super'
+        >
+          { ordinalSuffix(roundedValue) }
+        </tspan>
+      );
+      content = (roundedValue !== 0) ? [roundedValue, thSuffix, ' percentile'] : null;
+    } else if (showAxisValue) {
+      content = [roundedValue];
+    }
+
+    return !isEmpty(content) ? (
       <tspan
         key={ `text-value-${title}` }
         style={ { ...radarAxisValueTitleStyle, fontSize: `${fontSize}px` } }
         x={ xText }
         y={ yText }
-        dy={ `${extraPadding + phases.length * 1.3}em` }
+        dy={ `${extraPadding}em` }
       >
-        { `${roundedPercentile(value)}${axisValueSuffix}` }
+        { content }
       </tspan>
     ) : null;
-    return [...axisTitles, valueTitle];
   }
 
   render() {
@@ -47,8 +80,8 @@ export default class RadarAxisText extends React.Component {
             const xText = radius * labelFactor * Math.cos(angleSlice * i + Math.PI / 2);
             const yText = radius * labelFactor * Math.sin(angleSlice * i + Math.PI / 2);
             const extraPadding = +xText.toFixed(4) === 0 ? 0.7 : 1.4;
-
-            return (
+            const content = this.renderTitleTexts(item.axis, item.value, xText, yText, extraPadding, axisTitleFontSize);
+            return !isEmpty(content) ? (
               <text
                 key={ `axis--${i}` }
                 className='test--radar-axis-text'
@@ -58,19 +91,15 @@ export default class RadarAxisText extends React.Component {
                 y={ yText }
                 style={ { ...radarAxisTextStyle, fill: textColor, fontWeight: axisTitleFontWeight } }
               >
-                { this.renderTitleTexts(item.axis, item.value, xText, yText, extraPadding, axisTitleFontSize) }
+                { content }
               </text>
-            );
+            ) : null;
           })
         }
       </g>
     );
   }
 }
-
-RadarAxisText.defaultProps = {
-  axisValueSuffix: '',
-};
 
 RadarAxisText.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
@@ -83,5 +112,5 @@ RadarAxisText.propTypes = {
   axisTitleFontWeight: PropTypes.number,
   showAxisTitle: PropTypes.bool,
   showAxisValue: PropTypes.bool,
-  axisValueSuffix: PropTypes.string,
+  showValueWithSuffix: PropTypes.bool,
 };

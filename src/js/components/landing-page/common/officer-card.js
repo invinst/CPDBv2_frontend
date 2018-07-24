@@ -30,7 +30,7 @@ export class OfficerCard extends Component {
     } = this.props;
 
     const complaintString = () => {
-      const complaint = `${complaintCount} ${pluralize('Complaint', complaintCount)}`;
+      const complaint = `${complaintCount} ${pluralize('Allegation', complaintCount)}`;
       const sustained = `${sustainedCount} Sustained`;
       if (sustainedCount) {
         return (

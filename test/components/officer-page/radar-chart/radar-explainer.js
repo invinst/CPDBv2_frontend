@@ -30,10 +30,8 @@ describe('RadarExplainer components', function () {
 
   it('should render close button and TriangleExplainer as default', function () {
     instance = renderIntoDocument(<RadarExplainer/>);
-    const closeButton = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
 
-    closeButton.querySelectorAll('.fa-close').should.have.length(1);
-
+    findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
     findRenderedComponentWithType(instance, LeftNavigation);
     findRenderedComponentWithType(instance, RightNavigation);
     findRenderedComponentWithType(instance, TriangleExplainer);
@@ -87,9 +85,6 @@ describe('RadarExplainer components', function () {
     const closeExplainerSpy = spy();
     instance = renderIntoDocument(<RadarExplainer closeExplainer={ closeExplainerSpy }/>);
     const closeButton = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
-
-    closeButton.querySelectorAll('.fa-close').should.have.length(1);
-
     Simulate.click(closeButton);
 
     closeExplainerSpy.should.be.calledOnce();

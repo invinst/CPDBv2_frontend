@@ -2,12 +2,14 @@ import React, { Component, PropTypes } from 'react';
 import { map, isEqual } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
+
 import StaticRadarChart from 'components/common/radar-chart';
 import {
   animatedRadarChartStyle,
   radarChartPlaceholderStyle,
   openExplainerButtonStyle,
-  questionMarkStyle
+  questionMarkStyle,
+  radarChartOverlayStyle
 } from './radar-chart.style';
 import RadarExplainer from './explainer';
 
@@ -35,6 +37,10 @@ export default class AnimatedRadarChart extends Component {
 
   componentDidUpdate(prevProps) {
     if (!isEqual(this.props.data, prevProps.data)) {
+      /* istanbul ignore next */
+      if (this.timer) {
+        this.stopTimer();
+      }
       this.startTimer();
     }
   }
@@ -67,7 +73,7 @@ export default class AnimatedRadarChart extends Component {
 
   startTimer() {
     if (this.props.data && this.props.data.length > 1 && !this.timer) {
-      this.timer = setInterval(this.animate, this.interval);
+      this.timer = setInterval(() => this.animate(), this.interval);
     }
   }
 
@@ -148,12 +154,18 @@ export default class AnimatedRadarChart extends Component {
             showGrid={ true }
             gridOpacity={ 0.25 }
             showAxisTitle={ true }
+            showValueWithSuffix={ true }
           />
           <div style={ openExplainerButtonStyle } className='test--radar-explainer-question-mark'>
             <span style={ questionMarkStyle }>?</span>
           </div>
         </div>
-        { showExplainer && <RadarExplainer closeExplainer={ this.closeExplainer } radarChartData={ data }/> }
+        { showExplainer && (
+          <div style={ radarChartOverlayStyle }>
+            <RadarExplainer closeExplainer={ this.closeExplainer } radarChartData={ data }/>
+          </div>
+          )
+        }
       </div>
     );
   }
