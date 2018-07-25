@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-} from 'react-addons-test-utils';
+import { renderIntoDocument, findRenderedDOMComponentWithClass, } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Joined from 'components/officer-page/tabbed-pane-section/timeline/item/showings/joined';
@@ -65,5 +62,23 @@ describe('Joined component', function () {
 
     join.textContent.should.eql('Joined Chicago Police Department as a Police Officer');
     date.textContent.should.eql('DEC 5');
+  });
+
+  it('should show correct content if there is no rank', function () {
+    const joinedItem = {
+      date: 'DEC 5',
+      isFirstRank: false,
+      isFirstUnit: false,
+      isLastRank: true,
+      isLastUnit: true,
+      kind: 'JOINED',
+      unitDescription: 'Some description',
+      unitDisplay: 'Unassigned',
+      unitName: 'Unassigned',
+      year: 1988,
+    };
+    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } baseStyles={ baseStyles } />);
+    const join = findRenderedDOMComponentWithClass(instance, 'test--joined-item-join');
+    join.textContent.should.eql('Joined Chicago Police Department');
   });
 });

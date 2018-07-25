@@ -27,7 +27,7 @@ export default class AnimatedRadarChart extends Component {
     this.velocity = 0.1;
     this.timer = null;
 
-    this.animatedData = filter(props.data, item => hasEnoughRadarChartData(item.items));
+    this.animatedData = this.getAnimatedData(props.data);
 
     this.openExplainer = this.openExplainer.bind(this);
     this.closeExplainer = this.closeExplainer.bind(this);
@@ -41,7 +41,7 @@ export default class AnimatedRadarChart extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.data, nextProps.data)) {
-      this.animatedData = filter(nextProps.data, item => hasEnoughRadarChartData(item.items));
+      this.animatedData = this.getAnimatedData(nextProps.data);
     }
   }
 
@@ -58,6 +58,10 @@ export default class AnimatedRadarChart extends Component {
 
   componentWillUnmount() {
     this.stopTimer();
+  }
+
+  getAnimatedData(data) {
+    return filter(data, item => hasEnoughRadarChartData(item.items));
   }
 
   openExplainer() {
