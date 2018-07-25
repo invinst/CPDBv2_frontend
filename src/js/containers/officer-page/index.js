@@ -30,6 +30,7 @@ function mapStateToProps(state, ownProps) {
     hasMapMarker: hasMapMarkersSelector(state),
     hasCoaccusal: hasCoaccusalSelector(state),
     popup: popupSelector(state),
+    isRequesting: state.officerPage.isRequesting
   };
 }
 

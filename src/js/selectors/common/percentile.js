@@ -3,18 +3,23 @@ import { getVisualTokenOIGBackground } from 'utils/visual-token';
 
 export const extractPercentile = (percentile) => {
   if (!percentile) return null;
+
+  const internalPercentile = parseFloat(percentile['percentile_allegation_internal']);
+  const civilianPercentile = parseFloat(percentile['percentile_allegation_civilian']);
+  const trrPercentile = parseFloat(percentile['percentile_trr']);
+
   const { backgroundColor, textColor } = getVisualTokenOIGBackground(
-    parseFloat(percentile['percentile_allegation_civilian']),
-    parseFloat(percentile['percentile_allegation_internal']),
-    parseFloat(percentile['percentile_trr'])
+    civilianPercentile,
+    internalPercentile,
+    trrPercentile
   );
   return {
     officerId: percentile['officer_id'],
     year: percentile['year'],
     items: [
-      { axis: 'Use of Force Reports', value: parseFloat(percentile['percentile_trr']) },
-      { axis: 'Internal Allegations', value: parseFloat(percentile['percentile_allegation_internal']) },
-      { axis: 'Civilian Allegations', value: parseFloat(percentile['percentile_allegation_civilian']) }
+      { axis: 'Use of Force Reports', value: trrPercentile },
+      { axis: 'Internal Allegations', value: internalPercentile },
+      { axis: 'Civilian Allegations', value: civilianPercentile }
     ],
     visualTokenBackground: backgroundColor,
     textColor,
