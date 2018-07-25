@@ -54,5 +54,4 @@ describe('MetricsSection', function () {
     checkMetricPaneDataInfo(metricsPanes[4], '5', 'Major Awards', '');
     checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', 'More than 3% of other officers');
   });
-
 });

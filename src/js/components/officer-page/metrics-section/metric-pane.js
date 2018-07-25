@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
+import { isEmpty } from 'lodash';
 
 import { wrapperStyle, valueStyle, nameStyle, descriptionStyle } from './metric-pane.style';
+import Popup from 'components/common/popup';
 
 
 export default class MetricPane extends Component {
 
   render() {
-    const { value, name, description, borderTop, dashedBorder, highlightValue } = this.props;
+    const { value, name, description, borderTop, dashedBorder, highlightValue, popup } = this.props;
     const active = value !== 0;
 
     return (
@@ -20,6 +22,7 @@ export default class MetricPane extends Component {
         <div className='test--metrics-pane-description' style={ descriptionStyle }>
           { description }
         </div>
+        { !isEmpty(popup) ? <Popup { ...popup } /> : null }
       </div>
     );
   }
@@ -32,6 +35,11 @@ MetricPane.propTypes = {
   borderTop: PropTypes.bool,
   dashedBorder: PropTypes.bool,
   highlightValue: PropTypes.bool,
+  popup: PropTypes.shape({
+    title: PropTypes.string,
+    text: PropTypes.string,
+    style: PropTypes.object,
+  }),
 };
 
 MetricPane.defaultProps = {

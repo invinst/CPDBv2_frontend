@@ -8,16 +8,16 @@ import InvolvementItem from 'components/cr-page/involvement/involvement-item';
 
 describe('Involvement component', function () {
   let instance;
+  const involvements = {
+    'investigator': [{ id: 1 }],
+    'police_witness': [{ id: 2 }]
+  };
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
   it('should render list of involvement items', function () {
-    const involvements = {
-      'investigator': [{ id: 1 }],
-      'police_witness': [{ id: 2 }]
-    };
     instance = renderIntoDocument(<Involvement involvements={ involvements }/>);
     scryRenderedComponentsWithType(instance, InvolvementItem).should.have.length(2);
   });
