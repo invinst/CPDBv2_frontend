@@ -7,12 +7,12 @@ import {
   radarAxisTextStyle,
   radarAxisTitleStyle,
   radarAxisValueTitleStyle
-} from './radar-axis-text.style';
+} from './radar-axis.style';
 
 
 const LINE_HEIGHT = 1.275;
 
-export default class RadarAxisText extends React.Component {
+export default class RadarAxis extends React.Component {
   renderTitleTexts(title, value, xText, yText, extraPadding, fontSize) {
     const { showAxisTitle } = this.props;
     const words = title.split(' ');
@@ -101,7 +101,7 @@ export default class RadarAxisText extends React.Component {
   }
 }
 
-RadarAxisText.propTypes = {
+RadarAxis.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     'axis': PropTypes.string,
     'value': PropTypes.number,

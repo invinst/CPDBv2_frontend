@@ -13,17 +13,17 @@ export default class UnitProfilePage extends Component {
 
     return (
       <DocumentTitle title={ `Unit ${unitName}` }>
-      <div>
-        <ShareableHeaderContainer/>
-        <Header
-          unitName={ unitName }
-          unitDescription={ summary.description }
-          scrollPosition={ scrollPosition }
-        />
-        <div style={ pageWrapperStyle }>
-          <SummaryPageContainer unitName={ unitName } summary={ summary }/>;
+        <div>
+          <ShareableHeaderContainer/>
+          <Header
+            unitName={ unitName }
+            unitDescription={ summary.description }
+            scrollPosition={ scrollPosition }
+          />
+          <div style={ pageWrapperStyle }>
+            <SummaryPageContainer unitName={ unitName } summary={ summary }/>;
+          </div>
         </div>
-      </div>
       </DocumentTitle>
     );
   }

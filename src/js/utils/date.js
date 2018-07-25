@@ -10,7 +10,7 @@ export const getThisYear = () => {
 };
 
 export const formatDate = (str) => {
-  let date = moment(str);
+  const date = moment(str);
   return date.isValid() ? date.format('ll').toUpperCase() : null;
 };
 

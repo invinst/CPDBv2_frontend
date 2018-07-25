@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
-import { get, last } from 'lodash';
+import { get, findLast } from 'lodash';
 
 import {
   containerStyle,
@@ -14,6 +14,7 @@ import PercentilesByYear from './percentiles-by-year';
 import LeftNavigation from './left-navigation';
 import RightNavigation from './right-navigation';
 import { MOBILE_BREAK_POINT } from 'utils/constants';
+import { hasEnoughRadarChartData } from 'utils/radar-chart';
 
 
 const NAVIGATION_TEXTS = ['What is this triangle?', 'What is the scale?', 'Percentiles by year'];
@@ -31,15 +32,17 @@ export default class RadarExplainer extends Component {
 
   renderExplainer() {
     const { radarChartData } = this.props;
-    const lastItem = last(radarChartData);
+    const lastData = findLast(radarChartData, (yearlyData) => hasEnoughRadarChartData(yearlyData.items));
+    const lastDataItems = get(lastData, 'items');
+    const lastDataYear = get(lastDataItems, 'year');
 
     switch (this.state.currentPaneIndex) {
       case 1:
-        return <ScaleExplainer year={ get(lastItem, 'year') } radarChartData={ get(lastItem, 'items') }/>;
+        return <ScaleExplainer year={ lastDataYear } radarChartData={ lastDataItems }/>;
       case 2:
         return <PercentilesByYear yearlyRadarChartData={ radarChartData }/>;
       default:
-        return <TriangleExplainer radarChartData={ get(lastItem, 'items') }/>;
+        return <TriangleExplainer radarChartData={ lastDataItems }/>;
     }
   }
 

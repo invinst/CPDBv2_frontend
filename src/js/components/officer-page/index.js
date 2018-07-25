@@ -30,6 +30,7 @@ export default class OfficerPage extends Component {
       changeOfficerTab,
       currentTab,
       popup,
+      isRequesting
     } = this.props;
 
     const pageTitle = compact([
@@ -42,7 +43,7 @@ export default class OfficerPage extends Component {
         <div style={ wrapperStyle } className='officer-page'>
           <ShareableHeaderContainer/>
           <div style={ pageWrapperStyle }>
-            <OfficerRadarChart data={ threeCornerPercentile }/>
+            <OfficerRadarChart data={ threeCornerPercentile } isRequesting={ isRequesting }/>
             <SummarySection
               officerName={ officerName }
               officerSummary={ officerSummary }
@@ -67,6 +68,7 @@ OfficerPage.propTypes = {
   openPoliceUnitPage: PropTypes.func,
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
+  isRequesting: PropTypes.bool,
   popup: PropTypes.object,
 };
 

@@ -24,6 +24,7 @@ function mapStateToProps(state, ownProps) {
     threeCornerPercentile: officerYearlyThreePercentile(state),
     currentTab: getCurrentTab(state),
     popup: popupSelector(state),
+    isRequesting: state.officerPage.isRequesting
   };
 }
 
