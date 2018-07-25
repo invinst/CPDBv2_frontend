@@ -10,10 +10,6 @@ describe('unit summary page', function () {
     summaryPage.open();
   });
 
-  it('should highlight summary header button', function () {
-    summaryPage.header.activeButton.getText().should.equal('Summary');
-  });
-
   it('should display unit summary', function () {
     summaryPage.header.unitName.getText().should.equal('Unit 001');
 

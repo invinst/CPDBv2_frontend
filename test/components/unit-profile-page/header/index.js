@@ -1,18 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router';
-import { map } from 'lodash';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
 import Header from 'components/unit-profile-page/header';
 
 
 describe('Header component', function () {
-  it('should render 3 links with different urls', function () {
-    const instance = renderIntoDocument(<Header pathname='/unit/123/'/>);
-    const links = scryRenderedComponentsWithType(instance, Link);
-    links.should.have.length(3);
-    map(links, link => link.props.to).should.eql([
-      '/unit/123/', '/unit/123/timeline/', '/unit/123/social/'
-    ]);
+  it('should render unit name and unit description', function () {
+    const instance = renderIntoDocument(<Header unitName='004' unitDescription='District 004'/>);
+    const unitName = findRenderedDOMComponentWithClass(instance, 'test--unit-name');
+    unitName.textContent.should.eql('Unit 004');
+    const unitDescription = findRenderedDOMComponentWithClass(instance, 'test--unit-description');
+    unitDescription.textContent.should.eql('District 004');
   });
 });
