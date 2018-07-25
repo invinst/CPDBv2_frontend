@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import { descriptionStyle, titleStyle, wrapperStyle } from './preview-pane.style.js';
 import SlideMotion from 'components/animation/slide-motion';
 import CallToAction from './call-to-action';
-import MarkdownLink from './markdown-renderers/markdown-link';
+import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 
 
 export default class PreviewPane extends Component {
