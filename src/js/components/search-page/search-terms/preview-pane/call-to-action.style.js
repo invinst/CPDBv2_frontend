@@ -24,7 +24,6 @@ export const buttonStyle = {
   width: '51px',
   textAlign: 'center',
   lineHeight: '26px',
-  display: 'inline-block',
   float: 'right',
   marginTop: '6px',
   fontSize: '14px'

@@ -88,6 +88,8 @@ describe('Search terms page', function () {
 
     browser.keys('ArrowDown');
     searchTermsPage.previewPane.callToAction.getText().should.containEql('View ALL');
+    searchTermsPage.previewPane.callToAction.click();
+    browser.getUrl().should.match(/\/search\/\?terms=community&type=COMMUNITY$/);
   });
 
   it('should show PreviewPane when a SearchTerms category is clicked', function () {
