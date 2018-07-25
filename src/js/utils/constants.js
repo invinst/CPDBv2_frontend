@@ -90,6 +90,7 @@ export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
 export const SEARCH_TERMS_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categories/`;
 export const CITY_SUMMARY_API_URL = `${V2_ROOT_PATH}city-summary/`;
 export const TRR_URL = `${V2_ROOT_PATH}trr/`;
+export const POPUP_API_URL = `${V2_ROOT_PATH}popup/`;
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
@@ -158,6 +159,10 @@ export const OFFICER_COACCUSALS_REQUEST_SUCCESS = 'OFFICER_COACCUSALS_REQUEST_SU
 export const OFFICER_COACCUSALS_REQUEST_FAILURE = 'OFFICER_COACCUSALS_REQUEST_FAILURE';
 
 export const OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER = 'OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER';
+
+export const POPUP_REQUEST_START = 'POPUP_REQUEST_START';
+export const POPUP_REQUEST_SUCCESS = 'POPUP_REQUEST_SUCCESS';
+export const POPUP_REQUEST_FAILURE = 'POPUP_REQUEST_FAILURE';
 
 export const SEARCH_TERMS_CATEGORIES_REQUEST_START = 'SEARCH_TERMS_CATEGORIES_REQUEST_START';
 export const SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS = 'SEARCH_TERMS_CATEGORIES_REQUEST_SUCCESS';
@@ -425,4 +430,28 @@ export const MAP_ITEMS = {
 export const ACTIVITY_GRID_CARD_TYPES = {
   OFFICER: 'single_officer',
   PAIR: 'coaccused_pair'
+};
+
+export const POPUP_NAMES = {
+  OFFICER: {
+    ALLEGATION: 'allegation',
+    SUSTAINED: 'sustained',
+    TRR: 'trr',
+    MAJOR_AWARD: 'majorAward',
+    CIVILIAN_COMPLIMENT: 'civilianCompliment',
+    HONORABLE_MENTION: 'honorableMention',
+    UNIT: 'unit',
+    RANK: 'rank',
+    SALARY: 'salary',
+  },
+  COMPLAINT: {
+    CATEGORY: 'category',
+    ACCUSED_OFFICER: 'accusedOfficer',
+    INVESTIGATOR: 'investigator',
+    POLICE_WITNESS: 'policeWitness',
+  },
+  TRR: {
+    FORCE_CATEGORY: 'forceCategory',
+    TYPES_OF_FORCE: 'typeOfForce',
+  }
 };

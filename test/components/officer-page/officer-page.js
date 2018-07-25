@@ -22,7 +22,8 @@ describe('OfficerPage component', function () {
     },
     breadcrumb: {
       breadcrumbs: []
-    }
+    },
+    popups: [],
   });
   let instance;
 
