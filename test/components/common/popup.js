@@ -26,7 +26,7 @@ describe('Popup', function () {
       stopPropagation: spy()
     };
     instance = renderIntoDocument(<Popup title='Some title' text='Some text' />);
-    const popupButton = findRenderedDOMComponentWithClass(instance, 'test--popup-button');
+    const popupButton = findRenderedDOMComponentWithClass(instance, 'popup-button');
     Simulate.click(popupButton);
     const popup = findRenderedDOMComponentWithClass(instance, 'test--popup-content');
     Simulate.click(popup, dummyEvent);

@@ -8,6 +8,19 @@ import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 
 
 export default class Popup extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  hideOtherPopups(id) {
+    const popups = document.getElementsByClassName('popup-button');
+    for (let i = 0; i < popups.length; i++) {
+      if (popups[i].getAttribute('data-for') !== id) {
+        ReactTooltip.hide(popups[i]);
+      }
+    }
+  }
+
   render() {
     const { text, title, style } = this.props;
     const tooltipId = `tooltip-${uuid()}`;
@@ -20,6 +33,7 @@ export default class Popup extends Component {
           type='light'
           offset={ { top: -10 } }
           globalEventOff='click'
+          afterShow={ () => this.hideOtherPopups(tooltipId) }
         >
           <div className='test--popup-content' onClick={ e => e.stopPropagation() }>
             <div
@@ -41,7 +55,7 @@ export default class Popup extends Component {
           data-tip={ true }
           data-for={ tooltipId }
           data-event='click'
-          className='test--popup-button'
+          className='popup-button'
         />
       </span>
     );
