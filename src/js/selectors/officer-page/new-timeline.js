@@ -294,37 +294,42 @@ export const markLatestRank = (items) => {
 
 export const markMutualRankUnit = (items) => {
   return items.map((item, index) => {
-    if (
-      item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && item.isLastRank
-      || item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && item.isLastUnit
-    ) {
-      item.isMutual = true;
-      item.isFirstMutual = true;
-      item.isFirstUnit = false;
-      item.isFirstRank = false;
-      item.isLastUnit = false;
-      item.isLastRank = false;
-      if (index - 1 >= 0) {
-        items[index - 1].isLastRank = true;
-        items[index - 1].isLastUnit = true;
+    if (index + 1 < items.length && item.date === items[index + 1].date) {
+      if (
+        item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && items[index + 1].kind === NEW_TIMELINE_ITEMS.RANK_CHANGE
+        || item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && items[index + 1].kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE
+      ) {
+        item.isMutual = true;
+        item.isFirstMutual = true;
+        item.isFirstUnit = false;
+        item.isFirstRank = false;
+        item.isLastUnit = false;
+        item.isLastRank = false;
+        if (index - 1 >= 0) {
+          items[index - 1].isLastRank = true;
+          items[index - 1].isLastUnit = true;
+        }
       }
     }
-    else if (
-      item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && item.isFirstUnit
-      || item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && item.isFirstRank
-    ) {
-      item.isMutual = true;
-      item.isFirstUnit = false;
-      item.isFirstRank = false;
-      item.isLastUnit = false;
-      item.isLastRank = false;
-      if (index + 1 < items.length) {
-        items[index + 1].isFirstUnit = true;
-        items[index + 1].isFirstRank = true;
-        items[index + 1].rankDisplay = items[index + 1].rank;
-        items[index + 1].unitDisplay = items[index + 1].unitName;
+    if (index - 1 >= 0 && item.date === items[index - 1].date) {
+      if (
+        item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && items[index - 1].kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE
+        || item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && items[index -1].kind === NEW_TIMELINE_ITEMS.RANK_CHANGE
+      ) {
+        item.isMutual = true;
+        item.isFirstUnit = false;
+        item.isFirstRank = false;
+        item.isLastUnit = false;
+        item.isLastRank = false;
+        if (index + 1 < items.length) {
+          items[index + 1].isFirstUnit = true;
+          items[index + 1].isFirstRank = true;
+          items[index + 1].rankDisplay = items[index + 1].rank;
+          items[index + 1].unitDisplay = items[index + 1].unitName;
+        }
       }
     }
+
     return item;
   });
 };
