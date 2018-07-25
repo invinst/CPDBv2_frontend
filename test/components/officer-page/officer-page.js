@@ -3,6 +3,7 @@ import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons
 import MockStore from 'redux-mock-store';
 import { stub } from 'sinon';
 import { Provider } from 'react-redux';
+import DocumentTitle from 'react-document-title';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
@@ -62,5 +63,26 @@ describe('OfficerPage component', function () {
 
     OfficerPage.prototype.render.called.should.be.false();
     OfficerPage.prototype.render.restore();
+  });
+
+  it('should render correct document title', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage officerName='Shaun Frank' officerSummary={ { rank: 'Officer' } }/>
+      </Provider>
+    );
+
+    let documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
+    documentTitle.props.title.should.eql('Officer Shaun Frank');
+
+    instance = reRender(
+      <Provider store={ store }>
+        <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>
+      </Provider>,
+      instance
+    );
+
+    documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
+    documentTitle.props.title.should.eql('Jerome Finigan');
   });
 });
