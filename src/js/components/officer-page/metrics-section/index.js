@@ -1,15 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-import { chunk } from 'lodash';
+import { chunk, get } from 'lodash';
 import pluralize from 'pluralize';
 
-import { metricSectionStyle, verticalLineStyle, wrapperStyle } from './metrics-section.style';
+import { metricSectionStyle, verticalLineStyle, wrapperStyle, popupStyle } from './metrics-section.style';
 import MetricsColumn from 'components/officer-page/metrics-section/metrics-column';
 import { roundedPercentile } from 'utils/calculations';
+import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class MetricsSection extends Component {
 
   render() {
+    const { popup } = this.props;
     const {
       allegationCount,
       allegationPercentile,
@@ -29,32 +31,56 @@ export default class MetricsSection extends Component {
         value: allegationCount,
         name: `${pluralize('Allegation', allegationCount)}`,
         description: `More than ${roundedPercentile(allegationPercentile)}% of other officers`,
+        popup: {
+          ...get(popup, POPUP_NAMES.OFFICER.ALLEGATION),
+          style: popupStyle,
+        }
       },
       {
         value: sustainedCount,
         name: 'Sustained',
         description: `${disciplineCount} Disciplined`,
         highlightValue: true,
+        popup: {
+          ...get(popup, POPUP_NAMES.OFFICER.SUSTAINED),
+          style: popupStyle,
+        },
       },
       {
         value: useOfForceCount,
         name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
         description: `More than ${roundedPercentile(useOfForcePercentile)}% of other officers`,
+        popup: {
+          ...get(popup, POPUP_NAMES.OFFICER.TRR),
+          style: popupStyle,
+        }
       },
       {
         value: civilianComplimentCount,
         name: `Civilian ${pluralize('Compliment', civilianComplimentCount)}`,
         description: '',
+        popup: {
+          ...get(popup, POPUP_NAMES.OFFICER.CIVILIAN_COMPLIMENT),
+          style: popupStyle,
+        }
       },
       {
         value: majorAwardCount,
         name: `Major ${pluralize('Award', majorAwardCount)}`,
         description: '',
+        popup: {
+          ...get(popup, POPUP_NAMES.OFFICER.MAJOR_AWARD),
+          style: popupStyle,
+        }
       },
       {
         value: honorableMentionCount,
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
         description: `More than ${roundedPercentile(honorableMentionPercentile)}% of other officers`,
+        popup: {
+          ...get(popup, POPUP_NAMES.OFFICER.HONORABLE_MENTION),
+          style: popupStyle,
+        }
       }
     ];
 
@@ -79,6 +105,7 @@ export default class MetricsSection extends Component {
 
 MetricsSection.propTypes = {
   metrics: PropTypes.object,
+  popup: PropTypes.object,
 };
 
 MetricsSection.defaultProps = {

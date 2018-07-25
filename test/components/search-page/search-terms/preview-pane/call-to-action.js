@@ -21,7 +21,7 @@ describe('CallToAction component', function () {
       } } />
     );
 
-    const a = findRenderedDOMComponentWithClass(instance, 'test--call-to-action-link');
+    const a = findRenderedDOMComponentWithClass(instance, 'test--call-to-action');
     a.href.should.eql('http://mylink.com/');
   });
 

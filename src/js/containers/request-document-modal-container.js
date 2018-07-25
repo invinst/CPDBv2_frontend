@@ -5,13 +5,14 @@ import { requestDocument } from 'actions/cr-page';
 import { getCRID } from 'utils/location';
 import RequestDocumentModalContent from 'components/generic-modal/request-document-modal-content';
 
+
 const mapDispatchToProps = {
   onRequestDocument: requestDocument
 };
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    crid: getCRID(ownProps.location.pathname),
+    id: getCRID(ownProps.location.pathname),
     message: state.crPage.attachmentRequest.request.message,
     isRequested: state.crPage.attachmentRequest.request.isRequested
   };

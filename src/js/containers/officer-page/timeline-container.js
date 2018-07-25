@@ -8,11 +8,14 @@ import { changeFilter } from 'actions/officer-page/new-timeline';
 import { openComplaintPage } from 'actions/open-page';
 import { getOfficerId } from 'selectors/officer-page';
 import { changeOfficerTab } from 'actions/officer-page';
+import { popupSelector } from 'selectors/popup';
+
 
 function mapStateToProps(state, ownProps) {
   return {
     items: getNewTimelineItems(state),
     officerId: getOfficerId(state),
+    popup: popupSelector(state),
   };
 }
 

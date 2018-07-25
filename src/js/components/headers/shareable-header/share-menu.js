@@ -38,7 +38,7 @@ export default class ShareMenu extends React.Component {
           target='_blank'
           onClick={ closeShareMenu }
         >
-          Tweet <img style={ imgStyle } src={ imgUrl('ic-twitter.svg') } />
+          Twitter<img style={ imgStyle } src={ imgUrl('ic-twitter.svg') } />
         </a>
 
         <a
@@ -48,7 +48,7 @@ export default class ShareMenu extends React.Component {
           target='_blank'
           onClick={ closeShareMenu }
         >
-          Share <img style={ imgStyle } src={ imgUrl('ic-facebook.svg') } />
+          Facebook<img style={ imgStyle } src={ imgUrl('ic-facebook.svg') } />
         </a>
       </div>
     );

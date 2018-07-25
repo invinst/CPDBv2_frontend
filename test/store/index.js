@@ -66,6 +66,7 @@ describe('store', function () {
         pages: {}
       },
       pageLoading: false,
+      popups: [],
       routing: {
         locationBeforeTransitions: null
       },
@@ -135,6 +136,13 @@ describe('store', function () {
         trrId: null,
         data: {},
         isRequesting: false,
+        attachmentRequest: {
+          request: {
+            isRequested: false,
+            message: '',
+          },
+          subscribedTRRIds: {},
+        },
       },
       crs: {},
       officerPage: {

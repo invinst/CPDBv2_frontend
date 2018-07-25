@@ -1,6 +1,6 @@
 import currentTab from 'reducers/officer-page/currentTab';
 
-import { CHANGE_OFFICER_TAB } from 'utils/constants';
+import { CHANGE_OFFICER_TAB, CHANGE_OFFICER_ID } from 'utils/constants';
 
 
 describe('currentTab reducer', function () {
@@ -13,5 +13,12 @@ describe('currentTab reducer', function () {
       type: CHANGE_OFFICER_TAB,
       payload: 'ATTACHMENTS'
     }).should.eql('ATTACHMENTS');
+  });
+
+  it('should handle CHANGE_OFFICER_ID', function () {
+    currentTab(undefined, {
+      type: CHANGE_OFFICER_ID,
+      payload: 'ATTACHMENTS'
+    }).should.eql('TIMELINE');
   });
 });

@@ -92,7 +92,7 @@ describe('search page results selector', function () {
               ],
               'officerId': undefined,
               'textColor': '#DFDFDF',
-              'visualTokenBackground': '#e81f25',
+              'visualTokenBackground': '#f52524',
               'year': undefined,
             },
             'name': 'Jerome Turbyville',
@@ -216,7 +216,7 @@ describe('search page results selector', function () {
                   name: 'Roseland',
                   'median_income': '$37,084',
                   tags: [],
-                  url: 'https://beta.cpdb.co/url-mediator/session-builder?neighborhood=Roseland',
+                  url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
                   'most_common_complaint': [{
                     id: 204,
                     name: 'Operation/Personnel Violations',
@@ -260,7 +260,7 @@ describe('search page results selector', function () {
           id: 317,
           text: 'Roseland',
           to: undefined,
-          url: 'https://beta.cpdb.co/url-mediator/session-builder?neighborhood=Roseland',
+          url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
           tags: [],
           uniqueKey: 'COMMUNITY-317',
           itemIndex: 1,
@@ -287,7 +287,7 @@ describe('search page results selector', function () {
               value: 97
             }],
             radarColor: {
-              backgroundColor: '#e81f25',
+              backgroundColor: '#f52524',
               textColor: '#DFDFDF'
             },
             url: '/officer/12478/'

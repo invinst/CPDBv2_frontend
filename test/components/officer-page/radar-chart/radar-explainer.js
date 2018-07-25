@@ -3,10 +3,10 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
   Simulate,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
+import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import RadarExplainer from 'components/officer-page/radar-chart/explainer';
@@ -28,72 +28,65 @@ describe('RadarExplainer components', function () {
     RadarExplainer.should.be.renderable();
   });
 
-  it('should only render Question Mark as default', function () {
+  it('should render close button and TriangleExplainer as default', function () {
     instance = renderIntoDocument(<RadarExplainer/>);
-    instance.state.show.should.be.false();
-    scryRenderedDOMComponentsWithClass(instance, 'test--radar-explainer-window').should.have.length(0);
-    findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-toggle-button').textContent.should.eql('?');
+
+    findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
+    findRenderedComponentWithType(instance, LeftNavigation);
+    findRenderedComponentWithType(instance, RightNavigation);
+    findRenderedComponentWithType(instance, TriangleExplainer);
+
+    const instanceDOM = findDOMNode(instance);
+    instanceDOM.textContent.should.containEql('What is the scale?');
+    instanceDOM.textContent.should.containEql('Percentiles by year');
   });
 
-  describe('clicking Question mark', function () {
-    let questionMarkElement;
-    beforeEach(function () {
-      instance = renderIntoDocument(<RadarExplainer/>);
+  it('should change to ScaleExplainer when click to RightNavigation', function () {
+    instance = renderIntoDocument(<RadarExplainer/>);
+    findRenderedComponentWithType(instance, TriangleExplainer);
+    instance.state.currentPaneIndex.should.eql(0);
+    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-right');
+    Simulate.click(rightNavigationElm);
+    instance.state.currentPaneIndex.should.eql(1);
+    findRenderedComponentWithType(instance, ScaleExplainer);
 
-      questionMarkElement = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-toggle-button');
-      Simulate.click(questionMarkElement);
-    });
+    const instanceDOM = findDOMNode(instance);
+    instanceDOM.textContent.should.containEql('What is this triangle?');
+    instanceDOM.textContent.should.containEql('Percentiles by year');
+  });
 
-    it('should render TriangleExplainer and change button "?" to "X" as default', function () {
-      instance.state.show.should.be.true();
-      questionMarkElement.querySelectorAll('.fa-close').should.have.length(1);
+  it('should change to PercentilesByYear when click to LeftNavigation', function () {
+    instance = renderIntoDocument(<RadarExplainer/>);
+    findRenderedComponentWithType(instance, TriangleExplainer);
+    instance.state.currentPaneIndex.should.eql(0);
+    const leftNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-left');
+    Simulate.click(leftNavigationElm);
+    instance.state.currentPaneIndex.should.eql(2);
+    findRenderedComponentWithType(instance, PercentilesByYearExplainer);
 
-      findRenderedComponentWithType(instance, LeftNavigation);
-      findRenderedComponentWithType(instance, RightNavigation);
-      findRenderedComponentWithType(instance, TriangleExplainer);
+    const instanceDOM = findDOMNode(instance);
+    instanceDOM.textContent.should.containEql('What is this triangle?');
+    instanceDOM.textContent.should.containEql('What is the scale?');
+  });
 
-      const instanceDOM = findDOMNode(instance);
-      instanceDOM.textContent.should.containEql('What is the scale?');
-      instanceDOM.textContent.should.containEql('Percentiles by year');
-    });
+  it('should change to PercentilesByYear when click to RightNavigation two times', function () {
+    instance = renderIntoDocument(<RadarExplainer/>);
+    findRenderedComponentWithType(instance, TriangleExplainer);
+    instance.state.currentPaneIndex.should.eql(0);
+    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-right');
+    Simulate.click(rightNavigationElm);
+    Simulate.click(rightNavigationElm);
+    instance.state.currentPaneIndex.should.eql(2);
+    findRenderedComponentWithType(instance, PercentilesByYearExplainer);
+  });
 
-    it('should change to ScaleExplainer when click to RightNavigation', function () {
 
-      findRenderedComponentWithType(instance, TriangleExplainer);
-      instance.state.currentPaneIndex.should.eql(0);
-      const rightNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-right');
-      Simulate.click(rightNavigationElm);
-      instance.state.currentPaneIndex.should.eql(1);
-      findRenderedComponentWithType(instance, ScaleExplainer);
+  it('should invoke closeExplainer when clicking on close button', function () {
+    const closeExplainerSpy = spy();
+    instance = renderIntoDocument(<RadarExplainer closeExplainer={ closeExplainerSpy }/>);
+    const closeButton = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
+    Simulate.click(closeButton);
 
-      const instanceDOM = findDOMNode(instance);
-      instanceDOM.textContent.should.containEql('What is this triangle?');
-      instanceDOM.textContent.should.containEql('Percentiles by year');
-    });
-
-    it('should change to PercentilesByYear when click to LeftNavigation', function () {
-
-      findRenderedComponentWithType(instance, TriangleExplainer);
-      instance.state.currentPaneIndex.should.eql(0);
-      const leftNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-left');
-      Simulate.click(leftNavigationElm);
-      instance.state.currentPaneIndex.should.eql(2);
-      findRenderedComponentWithType(instance, PercentilesByYearExplainer);
-
-      const instanceDOM = findDOMNode(instance);
-      instanceDOM.textContent.should.containEql('What is this triangle?');
-      instanceDOM.textContent.should.containEql('What is the scale?');
-    });
-
-    it('should change back to PercentilesByYear when click to RightNavigation two times', function () {
-
-      findRenderedComponentWithType(instance, TriangleExplainer);
-      instance.state.currentPaneIndex.should.eql(0);
-      const rightNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-right');
-      Simulate.click(rightNavigationElm);
-      Simulate.click(rightNavigationElm);
-      instance.state.currentPaneIndex.should.eql(2);
-      findRenderedComponentWithType(instance, PercentilesByYearExplainer);
-    });
+    closeExplainerSpy.should.be.calledOnce();
   });
 });

@@ -47,3 +47,9 @@ export const bottomMarginStyle = {
   height: '42px',
   backgroundColor: sugarCaneColor
 };
+
+export const popupStyle = {
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  marginLeft: '6px',
+};

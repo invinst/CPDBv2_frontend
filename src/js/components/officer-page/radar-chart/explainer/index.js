@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
-import { get, last } from 'lodash';
+import { get, findLast } from 'lodash';
 
 import {
   containerStyle,
   footerStyle,
-  questionMarkInnerStyle,
-  questionMarkStyle,
+  closeButtonStyle,
   closeInnerStyle
 } from './radar-chart-explainer.style';
 import TriangleExplainer from './triangle-explainer';
@@ -15,6 +14,7 @@ import PercentilesByYear from './percentiles-by-year';
 import LeftNavigation from './left-navigation';
 import RightNavigation from './right-navigation';
 import { MOBILE_BREAK_POINT } from 'utils/constants';
+import { hasEnoughRadarChartData } from 'utils/radar-chart';
 
 
 const NAVIGATION_TEXTS = ['What is this triangle?', 'What is the scale?', 'Percentiles by year'];
@@ -24,25 +24,25 @@ export default class RadarExplainer extends Component {
     super(props);
     this.state = {
       currentPaneIndex: 0,
-      show: false
     };
 
     this.navigateLeft = this.navigateLeft.bind(this);
     this.navigateRight = this.navigateRight.bind(this);
-    this.toggleExplainer = this.toggleExplainer.bind(this);
   }
 
   renderExplainer() {
     const { radarChartData } = this.props;
-    const lastItem = last(radarChartData);
+    const lastData = findLast(radarChartData, (yearlyData) => hasEnoughRadarChartData(yearlyData.items));
+    const lastDataItems = get(lastData, 'items');
+    const lastDataYear = get(lastDataItems, 'year');
 
     switch (this.state.currentPaneIndex) {
       case 1:
-        return <ScaleExplainer year={ get(lastItem, 'year') } radarChartData={ get(lastItem, 'items') }/>;
+        return <ScaleExplainer year={ lastDataYear } radarChartData={ lastDataItems }/>;
       case 2:
         return <PercentilesByYear yearlyRadarChartData={ radarChartData }/>;
       default:
-        return <TriangleExplainer radarChartData={ get(lastItem, 'items') }/>;
+        return <TriangleExplainer radarChartData={ lastDataItems }/>;
     }
   }
 
@@ -67,40 +67,24 @@ export default class RadarExplainer extends Component {
     });
   }
 
-
-  toggleExplainer() {
-    this.setState({ show: !this.state.show });
-  }
-
   render() {
-    const { show } = this.state;
     const [leftNavigationText, rightNavigationText] = this.getCurrentNavigationTexts();
-
 
     return (
       <MediaQuery minWidth={ MOBILE_BREAK_POINT }>
-        {
-          show && (
-            <div className='test--radar-explainer-window' style={ containerStyle }>
-              { this.renderExplainer() }
-              <div style={ footerStyle }>
-                <LeftNavigation onClickHandler={ this.navigateLeft } text={ leftNavigationText }/>
-                <RightNavigation onClickHandler={ this.navigateRight } text={ rightNavigationText }/>
-              </div>
-            </div>
-          )
-        }
+        <div className='test--radar-explainer-window' style={ containerStyle }>
+          { this.renderExplainer() }
+          <div style={ footerStyle }>
+            <LeftNavigation onClickHandler={ this.navigateLeft } text={ leftNavigationText }/>
+            <RightNavigation onClickHandler={ this.navigateRight } text={ rightNavigationText }/>
+          </div>
+        </div>
         <div
-          className='test--radar-explainer-toggle-button'
-          style={ questionMarkStyle }
-          onClick={ this.toggleExplainer }>
-          {
-            show ? (
-              <i className='fa fa-close' style={ closeInnerStyle }/>
-            ) : (
-              <span style={ questionMarkInnerStyle }>?</span>
-            )
-          }
+          className='test--radar-explainer-close-button'
+          style={ closeButtonStyle }
+          onClick={ this.props.closeExplainer }
+        >
+          <div style={ closeInnerStyle }>&times;</div>
         </div>
       </MediaQuery>
     );
@@ -108,6 +92,6 @@ export default class RadarExplainer extends Component {
 }
 
 RadarExplainer.propTypes = {
-  show: PropTypes.bool,
-  radarChartData: PropTypes.array
+  radarChartData: PropTypes.array,
+  closeExplainer: PropTypes.func,
 };

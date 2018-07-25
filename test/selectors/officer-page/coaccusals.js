@@ -1,10 +1,10 @@
-import { getCoaccusalGroups, } from 'selectors/officer-page/coaccusals';
+import { coaccusalGroupsSelector, hasCoaccusalSelector } from 'selectors/officer-page/coaccusals';
 
 
 describe('Officer coaccusals selectors', function () {
-  describe('getCoaccusalGroups', function () {
+  describe('coaccusalGroupsSelector', function () {
     it('should return empty if the state is empty', function () {
-      getCoaccusalGroups({
+      coaccusalGroupsSelector({
         officerPage: {
           coaccusals: {
             items: []
@@ -67,7 +67,7 @@ describe('Officer coaccusals selectors', function () {
         }
       };
 
-      getCoaccusalGroups(state).should.eql([
+      coaccusalGroupsSelector(state).should.eql([
         {
           name: 'COACCUSED 2-4 TIMES',
           coaccusals: [
@@ -97,7 +97,7 @@ describe('Officer coaccusals selectors', function () {
                 }
               ],
               radarColor: {
-                backgroundColor: '#e81f25',
+                backgroundColor: '#f52524',
                 textColor: '#DFDFDF'
               },
             },
@@ -127,7 +127,7 @@ describe('Officer coaccusals selectors', function () {
                 }
               ],
               radarColor: {
-                backgroundColor: '#e81f25',
+                backgroundColor: '#f52524',
                 textColor: '#DFDFDF'
               },
             },
@@ -162,13 +162,51 @@ describe('Officer coaccusals selectors', function () {
                 }
               ],
               radarColor: {
-                backgroundColor: '#ea4029',
+                backgroundColor: '#f32a29',
                 textColor: '#DFDFDF'
               },
             }
           ]
         },
       ]);
+    });
+  });
+
+  describe('hasCoaccusalSelector', function () {
+    it('should return false when there is no data', function () {
+      const state = {
+        officerPage: {
+          coaccusals: {
+            items: []
+          }
+        }
+      };
+      hasCoaccusalSelector(state).should.be.false();
+    });
+
+    it('should return true when have data', function () {
+      const state = {
+        officerPage: {
+          coaccusals: {
+            items: [{
+              id: 1,
+              'full_name': 'officerName 1',
+              'allegation_count': 15,
+              'sustained_count': 1,
+              'complaint_percentile': 59.0,
+              'birth_year': 1977,
+              race: 'White',
+              gender: 'Male',
+              'coaccusal_count': 4,
+              rank: 'Po As Detective',
+              'percentile_trr': 95.0,
+              'percentile_allegation_internal': 94.0,
+              'percentile_allegation_civilian': 93.0,
+            }]
+          }
+        }
+      };
+      hasCoaccusalSelector(state).should.be.true();
     });
   });
 });

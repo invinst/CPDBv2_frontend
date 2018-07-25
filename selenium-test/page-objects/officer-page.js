@@ -104,27 +104,43 @@ class RadarChartExplainerSection extends Section {
     super();
 
     this.prepareElementGetters({
+      component: '.test--radar-explainer-window',
       triangleExplainer: '.test--triangle-explainer',
       scaleExplainer: '.test--scale-explainer',
       percentileByYear: '.test--percentile-by-year',
       leftNavigation: '.test--radar-explainer-navigation-left',
       rightNavigation: '.test--radar-explainer-navigation-right',
+      closeExplainerButton: '.test--radar-explainer-close-button',
+    });
+  }
+}
+
+class NoDataRadarChartSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      component: '.test--no-data-radar-chart',
+      noDataText: '.test--no-data-text',
+      radarChart: '.test--radar',
     });
   }
 }
 
 class RadarChartSection extends Section {
   explainerSection = new RadarChartExplainerSection();
+  noDataRadarChartSection = new NoDataRadarChartSection();
 
   constructor() {
     super();
     this.prepareElementGetters({
+      component: '.test--officer--radar-chart',
       svg: '.test--radar',
       axis: '.test--radar-axis-wrapper',
       wrapper: '.test--radar-wrapper',
       legend: '.test--radar-legend-content',
       lastAxisTitle: '.test--radar-axis-text:last-of-type',
-      radarChartExplainerToggleButton: '.test--radar-explainer-toggle-button',
+      radarChartPlaceHolder: '.test--officer--radar-chart-placeholder',
     });
   }
 }
@@ -143,8 +159,8 @@ class OfficerPage extends Page {
     });
   }
 
-  open() {
-    super.open('/officer/1/');
+  open(id=1) {
+    super.open(`/officer/${id}/`);
     browser.element('body').waitForVisible();
   }
 }

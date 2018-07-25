@@ -6,7 +6,8 @@ export default () => ([
       {
         name: 'Communities',
         description: 'Whatever [SomeLink](http://www.somelink.cpdp.com)',
-        'call_to_action_type': 'view_all'
+        'call_to_action_type': 'view_all',
+        id: 'community'
       }
     ),
     ...SearchTermCategoryItem.buildList(12)]
