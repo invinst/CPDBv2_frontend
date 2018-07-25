@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
+import { compact } from 'lodash';
 
 import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
 import OfficerRadarChart from './radar-chart';
@@ -30,8 +31,14 @@ export default class OfficerPage extends Component {
       currentTab,
       popup,
     } = this.props;
+
+    const pageTitle = compact([
+      officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
+      officerName
+    ]).join(' ');
+
     return (
-      <DocumentTitle title={ `${officerSummary.rank} ${officerName}` }>
+      <DocumentTitle title={ pageTitle }>
         <div style={ wrapperStyle } className='officer-page'>
           <ShareableHeaderContainer/>
           <div style={ pageWrapperStyle }>
