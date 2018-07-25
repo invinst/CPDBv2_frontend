@@ -12,6 +12,7 @@ import {
 } from 'selectors/officer-page';
 import { openPoliceUnitPage } from 'actions/open-page';
 import { changeOfficerTab } from 'actions/officer-page';
+import { popupSelector } from 'selectors/popup';
 
 
 function mapStateToProps(state, ownProps) {
@@ -22,6 +23,7 @@ function mapStateToProps(state, ownProps) {
     officerMetrics: metricsSelector(state),
     threeCornerPercentile: officerYearlyThreePercentile(state),
     currentTab: getCurrentTab(state),
+    popup: popupSelector(state),
     isRequesting: state.officerPage.isRequesting
   };
 }

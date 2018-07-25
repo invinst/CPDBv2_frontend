@@ -11,10 +11,11 @@ import ShareableHeaderContainer from 'containers/headers/shareable-header/sharea
 
 export default class OfficerPage extends Component {
   shouldComponentUpdate(nextProps) {
-    const { officerName, currentTab } = this.props;
+    const { officerName, currentTab, popup } = this.props;
     return (
       officerName !== nextProps.officerName
       || currentTab !== nextProps.currentTab
+      || popup !== nextProps.popup
     );
   }
 
@@ -27,6 +28,7 @@ export default class OfficerPage extends Component {
       threeCornerPercentile,
       changeOfficerTab,
       currentTab,
+      popup,
       isRequesting
     } = this.props;
     return (
@@ -38,9 +40,11 @@ export default class OfficerPage extends Component {
             <SummarySection
               officerName={ officerName }
               officerSummary={ officerSummary }
-              openPoliceUnitPage={ openPoliceUnitPage }/>
+              openPoliceUnitPage={ openPoliceUnitPage }
+              popup={ popup }
+            />
           </div>
-          <MetricsSection metrics={ officerMetrics }/>
+          <MetricsSection metrics={ officerMetrics } popup={ popup }/>
           <TabbedPaneSection changeOfficerTab={ changeOfficerTab } currentTab={ currentTab }/>
         </div>
       </DocumentTitle>
@@ -58,6 +62,7 @@ OfficerPage.propTypes = {
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
   isRequesting: PropTypes.bool,
+  popup: PropTypes.object,
 };
 
 OfficerPage.defaultProps = {

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
+import { get } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -12,11 +13,17 @@ import Involvement from './involvement';
 import Attachments from './attachments';
 import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
+import ComplaintCategory from 'components/cr-page/complaint-category';
 import {
-  wrapperStyle, CRIDHeaderStyle, leftColumnStyle, footerStyle,
-  rightColumnStyle, summarySectionWrapperStyle, summaryTextStyle,
-  subcategoryStyle, categoryStyle, categoryWrapperStyle
+wrapperStyle,
+CRIDHeaderStyle,
+leftColumnStyle,
+footerStyle,
+rightColumnStyle,
+summarySectionWrapperStyle,
+summaryTextStyle,
 } from './cr-page.style';
+import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class CRPage extends Component {
@@ -28,7 +35,7 @@ export default class CRPage extends Component {
     const {
       crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
-      openRequestDocumentModal, summary, victims, startDate, endDate
+      openRequestDocumentModal, summary, victims, startDate, endDate, popup
     } = this.props;
 
     return (
@@ -38,13 +45,12 @@ export default class CRPage extends Component {
           <ResponsiveFluidWidthComponent>
             <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
           </ResponsiveFluidWidthComponent>
-          <ResponsiveFluidWidthComponent>
-            <div className='test--cr-category' style={ categoryWrapperStyle }>
-              <div style={ categoryStyle }>{ category }</div>
-              <div style={ subcategoryStyle }>{ subcategory }</div>
-            </div>
-          </ResponsiveFluidWidthComponent>
-          <AccusedOfficers officers={ coaccused } />
+          <ComplaintCategory
+            category={ category }
+            subcategory={ subcategory }
+            popup={ get(popup, POPUP_NAMES.COMPLAINT.CATEGORY) }
+          />
+          <AccusedOfficers officers={ coaccused } popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }/>
           <ResponsiveFluidWidthComponent>
             <div style={ summarySectionWrapperStyle }>
               {
@@ -78,7 +84,7 @@ export default class CRPage extends Component {
               />
               <div style={ leftColumnStyle }>
                 <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-                <Involvement involvements={ involvements }/>
+                <Involvement involvements={ involvements } popup={ popup }/>
               </div>
               <div style={ rightColumnStyle }>
                 <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
@@ -112,6 +118,7 @@ CRPage.propTypes = {
   attachments: PropTypes.array,
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
+  popup: PropTypes.object,
 };
 
 CRPage.defaultProps = {

@@ -13,7 +13,8 @@ import {
   SEARCH_TERMS_CATEGORIES_API_URL,
   SIGNIN_URL,
   UNIT_PROFILE_URL,
-  TRR_URL
+  TRR_URL,
+  POPUP_API_URL,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -33,6 +34,7 @@ import getSummaryData, { noPercentileOfficerSummary } from './officer-page/get-s
 import getTRRData from './trr-page/get-data';
 import getSearchTermsData from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
+import { getCRPopup } from './popup';
 
 
 const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
@@ -115,6 +117,8 @@ axiosMockClient.onGet(CITY_SUMMARY_API_URL).reply(200, getCitySummary());
 axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
 
 axiosMockClient.onGet(LANDING_PAGE_API_URL).reply(200, getCMSFields());
+
+axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

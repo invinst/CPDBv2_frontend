@@ -63,3 +63,9 @@ export const showingTextStyle = {
   display: 'inline-block',
   lineHeight: '14px',
 };
+
+export const popupStyle = {
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  marginLeft: '6px',
+};

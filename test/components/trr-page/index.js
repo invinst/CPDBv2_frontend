@@ -25,7 +25,7 @@ describe('TRRPage component', function () {
       data: {
         officer: {},
       },
-    }
+    },
   });
 
   afterEach(function () {
