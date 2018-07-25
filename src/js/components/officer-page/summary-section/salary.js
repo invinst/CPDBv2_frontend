@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import currencyFormatter from 'currency-formatter';
 
-import { salaryStyle, salaryAmountStyle } from './salary.style';
+import { salaryStyle, salaryAmountStyle, popupStyle } from './salary.style';
+import Popup from 'components/common/popup';
 
 
 export default class Salary extends Component {
   render() {
-    const { salary } = this.props;
+    const { salary, popup } = this.props;
 
     return (
       <div className='test--salary'>
@@ -14,6 +15,10 @@ export default class Salary extends Component {
           { typeof salary === 'string' ? salary : currencyFormatter.format(salary, { code: 'USD', precision: 0 }) }
         </span>
         <span style={ salaryStyle }> base salary</span>
+        <Popup
+          { ...popup }
+          style={ popupStyle }
+        />
       </div>
     );
   }
@@ -21,4 +26,5 @@ export default class Salary extends Component {
 
 Salary.propTypes = {
   salary: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  popup: PropTypes.object,
 };

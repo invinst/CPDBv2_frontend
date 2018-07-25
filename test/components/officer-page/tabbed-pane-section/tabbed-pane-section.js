@@ -21,7 +21,8 @@ describe('TabbedPaneSection component', function () {
     officerPage: {
       newTimeline: {},
       coaccusals: [],
-    }
+    },
+    popups: [],
   });
   let instance;
 

@@ -17,6 +17,7 @@ import headers from './headers';
 import cms from './cms';
 import breadcrumbsMapping from './breadcrumbs-mapping';
 import pageLoading from './page-loading';
+import popups from './popups';
 
 
 export default combineReducers({
@@ -36,5 +37,6 @@ export default combineReducers({
   breadcrumbsMapping,
   headers,
   cms,
-  pageLoading
+  pageLoading,
+  popups,
 });
