@@ -1,7 +1,6 @@
 import React from 'react';
 import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
-import { stub } from 'sinon';
 import { Provider } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 
@@ -43,26 +42,6 @@ describe('OfficerPage component', function () {
     findRenderedComponentWithType(instance, MetricsSection);
     findRenderedComponentWithType(instance, TabbedPaneSection);
     findRenderedComponentWithType(instance, OfficerRadarChart);
-  });
-
-  it('should not re-render when officerName and currentTab haven\'t changed', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank' currentTab='TIMELINE'/>
-      </Provider>
-    );
-
-    stub(OfficerPage.prototype, 'render');
-
-    instance = reRender(
-      <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank' currentTab='TIMELINE'/>
-      </Provider>,
-      instance
-    );
-
-    OfficerPage.prototype.render.called.should.be.false();
-    OfficerPage.prototype.render.restore();
   });
 
   it('should render correct document title', function () {

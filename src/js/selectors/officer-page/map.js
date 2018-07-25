@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get, isUndefined } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { getOfficerInfo } from 'selectors/officer-page';
@@ -15,20 +15,19 @@ export const mapLegendSelector = createSelector(
   })
 );
 
+const isMapMarker = item => (
+  item.kind === MAP_ITEMS.CR && ['Not Sustained', 'Sustained'].includes(item.finding)
+  || item.kind === MAP_ITEMS.FORCE
+);
+
 export const rawMapMarkersSelector = createSelector(
   getItems,
-  items => {
-    return items.filter(item => {
-      if (item.kind === MAP_ITEMS.CR) {
-        if (['Not Sustained', 'Sustained'].includes(item.finding)) {
-          return item;
-        }
-      }
-      if (item.kind === MAP_ITEMS.FORCE) {
-        return item;
-      }
-    });
-  }
+  items => items.filter(isMapMarker)
+);
+
+export const hasMapMarkersSelector = createSelector(
+  getItems,
+  items => !isUndefined(items.find(isMapMarker))
 );
 
 export const crMapMarkersTransform = item => ({

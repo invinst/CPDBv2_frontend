@@ -14,14 +14,14 @@ export default class UnitProfilePage extends Component {
     return (
       <DocumentTitle title={ `Unit ${unitName}` }>
         <div>
-          <ShareableHeaderContainer/>
+          <ShareableHeaderContainer />
           <Header
             unitName={ unitName }
             unitDescription={ summary.description }
             scrollPosition={ scrollPosition }
           />
           <div style={ pageWrapperStyle }>
-            <SummaryPageContainer unitName={ unitName } summary={ summary }/>;
+            <SummaryPageContainer unitName={ unitName } summary={ summary } />;
           </div>
         </div>
       </DocumentTitle>
