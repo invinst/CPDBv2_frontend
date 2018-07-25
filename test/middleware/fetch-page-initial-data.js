@@ -17,6 +17,7 @@ import { fetchCR } from 'actions/cr-page';
 import { fetchTRR } from 'actions/trr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
+import { fetchPopup } from 'actions/popup';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -85,6 +86,7 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchOfficerSummary(2)).should.be.true();
     store.dispatch.calledWith(fetchSocialGraph(2)).should.be.true();
     store.dispatch.calledWith(fetchNewTimelineItems(2)).should.be.true();
+    store.dispatch.calledWith(fetchPopup('officer')).should.be.true();
   });
 
   it('should dispatch fetchTRR if trr id change', function () {
@@ -94,6 +96,7 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(locationChangeAction);
     dispatched.should.eql(locationChangeAction);
     store.dispatch.calledWith(fetchTRR(2)).should.be.true();
+    store.dispatch.calledWith(fetchPopup('trr')).should.be.true();
   });
 
   it('should dispatch fetch data for landing page when they do not exist', function () {
@@ -119,6 +122,7 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(locationChangeAction);
     dispatched.should.eql(locationChangeAction);
     store.dispatch.calledWith(fetchCR(2)).should.be.true();
+    store.dispatch.calledWith(fetchPopup('complaint')).should.be.true();
   });
 
   it('should dispatch fetch unit data when location change to unit page', function () {

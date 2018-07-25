@@ -67,5 +67,5 @@ export default () => ComplaintFactory.build({
       'officer_id': 3
     }),
     PoliceWitnessFactory.build({ 'officer_id': 4 })
-  ]
+  ],
 });
