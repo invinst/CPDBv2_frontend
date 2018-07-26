@@ -1,7 +1,11 @@
 import React from 'react';
 
 import Footer from 'components/footer';
-import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  scryRenderedComponentsWithType,
+  findRenderedDOMComponentWithClass
+} from 'react-addons-test-utils';
 import { spy } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import FooterNavLink from 'components/footer/footer-nav-link';
@@ -54,5 +58,11 @@ describe('Footer component', function () {
     const links = scryRenderedComponentsWithType(element, FooterNavLink);
     const githubLink = links.filter(link => link.props.name === 'Roadmap')[0];
     githubLink.props.externalHref.should.eql('http://roadmap.cpdp.co/');
+  });
+
+  it('should render Roadmap link', function () {
+    element = renderIntoDocument(<Footer />);
+    const links = findRenderedDOMComponentWithClass(element, 'test--footer-invinst-logo');
+    links.getAttribute('href').should.eql('https://invisible.institute/introduction');
   });
 });

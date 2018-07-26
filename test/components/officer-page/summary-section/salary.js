@@ -1,7 +1,12 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  findRenderedDOMComponentWithClass,
+  findRenderedComponentWithType
+} from 'react-addons-test-utils';
 
 import Salary from 'components/officer-page/summary-section/salary';
+import Popup from 'components/common/popup';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
@@ -16,10 +21,17 @@ describe('Salary', function () {
     Salary.should.be.renderable({ salary: 'DATA NOT READY' });
   });
 
-  it('should render with correct USD currency format', function () {
-    instance = renderIntoDocument(<Salary salary={ 1000000 }/>);
+  it('should render correctly', function () {
+    const popup = {
+      title: 'Salary',
+      text: 'Some salary explanation',
+    };
+    instance = renderIntoDocument(<Salary salary={ 1000000 } popup={ popup } />);
 
     const salaryAmount = findRenderedDOMComponentWithClass(instance, 'test--salary-amount');
     salaryAmount.textContent.should.eql('$1,000,000');
+    const salaryPopup = findRenderedComponentWithType(instance, Popup);
+    salaryPopup.props.title.should.eql('Salary');
+    salaryPopup.props.text.should.eql('Some salary explanation');
   });
 });

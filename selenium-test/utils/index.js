@@ -72,3 +72,8 @@ export const selectText = selector => {
     selection.addRange(range);
   }, selector);
 };
+
+export const switchToRecentTab = () => {
+  const handles = browser.windowHandles().value;
+  browser.switchTab(handles[handles.length - 1]);
+};

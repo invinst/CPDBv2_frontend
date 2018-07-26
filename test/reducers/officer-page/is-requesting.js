@@ -1,5 +1,6 @@
 import {
-  OFFICER_SUMMARY_REQUEST_START, OFFICER_SUMMARY_REQUEST_SUCCESS, OFFICER_SUMMARY_REQUEST_FAILURE
+  OFFICER_SUMMARY_REQUEST_START, OFFICER_SUMMARY_REQUEST_SUCCESS, OFFICER_SUMMARY_REQUEST_FAILURE,
+  CHANGE_OFFICER_ID
 } from 'utils/constants';
 import isRequesting from 'reducers/officer-page/is-requesting';
 
@@ -12,6 +13,12 @@ describe('isRequesting reducer', function () {
   it('should handle OFFICER_SUMMARY_REQUEST_START', function () {
     isRequesting(undefined, {
       type: OFFICER_SUMMARY_REQUEST_START
+    }).should.be.true();
+  });
+
+  it('should handle CHANGE_OFFICER_ID', function () {
+    isRequesting(undefined, {
+      type: CHANGE_OFFICER_ID
     }).should.be.true();
   });
 

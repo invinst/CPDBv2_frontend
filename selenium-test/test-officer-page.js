@@ -38,7 +38,7 @@ describe('officer page', function () {
 
     officerPage.summarySection.rankLabel.getText().should.equal('Rank');
     officerPage.summarySection.rankValue.getText().should.equal('NA');
-    officerPage.summarySection.rankExtraInfo.getText().should.equal('$100,000 base salary');
+    officerPage.summarySection.rankExtraInfo.getText().should.containEql('$100,000 base salary');
 
     officerPage.summarySection.raceLabel.getText().should.equal('Race');
     officerPage.summarySection.raceValue.getText().should.equal('White');
@@ -59,12 +59,22 @@ describe('officer page', function () {
   it('should display the timeline by default', function () {
     officerPage.tabbedPaneSection.menu.waitForVisible();
 
-    officerPage.tabbedPaneSection.menu.getText().should.eql('TIMELINEMAPCOACCUSALSATTACHMENTS');
+    const tabbedPaneMenuText = officerPage.tabbedPaneSection.menu.getText();
+    tabbedPaneMenuText.should.containEql('TIMELINE');
+    tabbedPaneMenuText.should.containEql('MAP');
+    tabbedPaneMenuText.should.containEql('COACCUSALS');
+    tabbedPaneMenuText.should.containEql('ATTACHMENTS');
+
     officerPage.tabbedPaneSection.timelineTabName.getCssProperty('background-color').value.should.eql(
       'rgba(0,94,244,1)'
     );
-    // Due to float right, we need to add a '\n' here
-    officerPage.tabbedPaneSection.timelineSection.header.getText().should.eql('RANKUNITSHOWINGALL EVENTS\nDATE');
+
+    const headerText = officerPage.tabbedPaneSection.timelineSection.header.getText();
+    headerText.should.containEql('RANK');
+    headerText.should.containEql('UNIT');
+    headerText.should.containEql('SHOWING');
+    headerText.should.containEql('ALL EVENTS');
+    headerText.should.containEql('DATE');
 
     officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
     officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible();
@@ -108,6 +118,32 @@ describe('officer page', function () {
       officerPage.radarChartSection.explainerSection.closeExplainerButton.click();
 
       officerPage.radarChartSection.explainerSection.leftNavigation.waitForVisible(10000, true);
+    });
+
+    context('not enough data for radar chart', function () {
+      beforeEach(function () {
+        browser.setViewportSize({
+          width: 1000,
+          height: 500
+        });
+        officerPage.open(2);
+      });
+
+      it('should show NoDataRadarChart', function () {
+        officerPage.radarChartSection.noDataRadarChartSection.component.waitForVisible();
+        officerPage.radarChartSection.noDataRadarChartSection.noDataText.getText().should.eql(
+          'There is not enough data to construct a radar graph for this officer.'
+        );
+      });
+
+      it('should not open radar chart explainer when being clicked', function () {
+        officerPage.radarChartSection.noDataRadarChartSection.component.waitForVisible();
+        officerPage.radarChartSection.radarChartPlaceHolder.waitForVisible(2000, true);
+
+        officerPage.radarChartSection.noDataRadarChartSection.component.click();
+        officerPage.radarChartSection.component.click();
+        officerPage.radarChartSection.explainerSection.component.waitForVisible(10000, true);
+      });
     });
 
     describe('Radar Chart Explainer', function () {

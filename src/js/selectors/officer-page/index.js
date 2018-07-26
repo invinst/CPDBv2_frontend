@@ -57,19 +57,19 @@ export const DATA_NOT_AVAILABLE = 'N/A';
 
 export const metricsSelector = createSelector(
   getOfficerInfo,
-  metrics => {
-    const percentiles = get(metrics, 'percentiles', []);
+  summary => {
+    const percentiles = get(summary, 'percentiles', []);
     return {
-      allegationCount: get(metrics, 'allegation_count', DATA_NOT_AVAILABLE),
-      allegationPercentile: get(metrics, 'complaint_percentile', DATA_NOT_AVAILABLE),
-      honorableMentionCount: get(metrics, 'honorable_mention_count', DATA_NOT_AVAILABLE),
-      sustainedCount: get(metrics, 'sustained_count', DATA_NOT_AVAILABLE),
-      disciplineCount: get(metrics, 'discipline_count', DATA_NOT_AVAILABLE),
-      honorableMentionPercentile: get(metrics, 'honorable_mention_percentile', DATA_NOT_AVAILABLE),
-      useOfForceCount: get(metrics, 'trr_count', DATA_NOT_AVAILABLE),
-      majorAwardCount: get(metrics, 'major_award_count', DATA_NOT_AVAILABLE),
+      allegationCount: get(summary, 'allegation_count', DATA_NOT_AVAILABLE),
+      allegationPercentile: get(summary, 'complaint_percentile', DATA_NOT_AVAILABLE),
+      honorableMentionCount: get(summary, 'honorable_mention_count', DATA_NOT_AVAILABLE),
+      sustainedCount: get(summary, 'sustained_count', DATA_NOT_AVAILABLE),
+      disciplineCount: get(summary, 'discipline_count', DATA_NOT_AVAILABLE),
+      honorableMentionPercentile: get(summary, 'honorable_mention_percentile', DATA_NOT_AVAILABLE),
+      useOfForceCount: get(summary, 'trr_count', DATA_NOT_AVAILABLE),
+      majorAwardCount: get(summary, 'major_award_count', DATA_NOT_AVAILABLE),
       useOfForcePercentile: get(last(percentiles), 'percentile_trr', DATA_NOT_AVAILABLE),
-      civilianComplimentCount: get(metrics, 'civilian_compliment_count', DATA_NOT_AVAILABLE),
+      civilianComplimentCount: get(summary, 'civilian_compliment_count', DATA_NOT_AVAILABLE),
     };
   }
 );

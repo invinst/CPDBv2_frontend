@@ -3,13 +3,13 @@ import { spy } from 'sinon';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
-  findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
+  findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import SuggestedCards from 'components/search-page/search-no-input/suggested-cards';
 import OfficerCard from 'components/landing-page/common/officer-card';
+import NoDataRadarChart from 'components/common/radar-chart/no-data-radar-chart';
 
 
 describe('SuggestedCards component', function () {
@@ -37,13 +37,11 @@ describe('SuggestedCards component', function () {
     cards.should.have.length(4);
   });
 
-  it('should should only background when cards has no percentiles ', () => {
+  it('should should NoDataRadarChart when cards has no percentiles ', () => {
     instance = renderIntoDocument(
       <SuggestedCards cards={ ['one', 'two', 'three', 'four'] }/>
     );
-    const svg = scryRenderedDOMComponentsWithClass(instance, 'test--radar')[0];
-    svg.getAttribute('style').should.eql('background-color: rgb(253, 250, 242);');
-    svg.childNodes.should.have.length(0);
+    scryRenderedComponentsWithType(instance, NoDataRadarChart).should.have.length(4);
   });
 
   it('should render radar chart when cards has percentile', () => {

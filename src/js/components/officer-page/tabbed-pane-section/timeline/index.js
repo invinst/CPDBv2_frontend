@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { nth, values } from 'lodash';
+import { nth, values, get } from 'lodash';
 
 import {
   dateHeaderStyle,
@@ -9,22 +9,36 @@ import {
   showingTextStyle,
   timelineStyle,
   unitHeaderStyle,
+  popupStyle,
 } from './timeline.style';
 import Item from './item';
-import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS } from 'utils/constants';
+import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, POPUP_NAMES } from 'utils/constants';
 import Dropdown from 'components/common/dropdown';
+import Popup from 'components/common/popup';
 
 
 export default class Timeline extends Component {
 
   renderHeader() {
-    const { changeFilter } = this.props;
+    const { changeFilter, popup } = this.props;
 
     return (
       <div className='test--timeline-header' style={ headerWrapperStyle }>
-        <div style={ rankHeaderStyle }>RANK</div>
-        <div style={ unitHeaderStyle }>UNIT</div>
-        <div style={ showingContentHeaderStyle }>
+        <div style={ rankHeaderStyle } className='test--timeline-header-col'>
+          RANK
+          <Popup
+            { ...get(popup, POPUP_NAMES.OFFICER.RANK) }
+            style={ popupStyle }
+          />
+        </div>
+        <div style={ unitHeaderStyle } className='test--timeline-header-col'>
+          UNIT
+          <Popup
+            { ...get(popup, POPUP_NAMES.OFFICER.UNIT) }
+            style={ popupStyle }
+          />
+        </div>
+        <div style={ showingContentHeaderStyle } className='test--timeline-header-col'>
           <div style={ showingTextStyle }>SHOWING</div>
           <Dropdown
             defaultValue={ NEW_TIMELINE_FILTERS.ALL }
@@ -34,7 +48,7 @@ export default class Timeline extends Component {
             width={ 146 }
           />
         </div>
-        <div style={ dateHeaderStyle }>DATE</div>
+        <div style={ dateHeaderStyle } className='test--timeline-header-col'>DATE</div>
       </div>
     );
   }
@@ -90,6 +104,7 @@ Timeline.propTypes = {
   officerId: PropTypes.number,
   openComplaintPage: PropTypes.func,
   changeOfficerTab: PropTypes.func,
+  popup: PropTypes.object,
 };
 
 Timeline.defaultProps = {

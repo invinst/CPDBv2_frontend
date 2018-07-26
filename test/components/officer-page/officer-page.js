@@ -1,8 +1,8 @@
 import React from 'react';
 import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
-import { stub } from 'sinon';
 import { Provider } from 'react-redux';
+import DocumentTitle from 'react-document-title';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
@@ -22,7 +22,8 @@ describe('OfficerPage component', function () {
     },
     breadcrumb: {
       breadcrumbs: []
-    }
+    },
+    popups: [],
   });
   let instance;
 
@@ -43,23 +44,24 @@ describe('OfficerPage component', function () {
     findRenderedComponentWithType(instance, OfficerRadarChart);
   });
 
-  it('should not re-render when officerName and currentTab haven\'t changed', function () {
+  it('should render correct document title', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank' currentTab='TIMELINE'/>
+        <OfficerPage officerName='Shaun Frank' officerSummary={ { rank: 'Officer' } }/>
       </Provider>
     );
 
-    stub(OfficerPage.prototype, 'render');
+    let documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
+    documentTitle.props.title.should.eql('Officer Shaun Frank');
 
     instance = reRender(
       <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank' currentTab='TIMELINE'/>
+        <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>
       </Provider>,
       instance
     );
 
-    OfficerPage.prototype.render.called.should.be.false();
-    OfficerPage.prototype.render.restore();
+    documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
+    documentTitle.props.title.should.eql('Jerome Finigan');
   });
 });
