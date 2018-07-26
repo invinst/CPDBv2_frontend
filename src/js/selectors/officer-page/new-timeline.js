@@ -19,7 +19,7 @@ export const baseTransform = (item, index) => {
     date: moment(item.date).format('MMM D').toUpperCase(),
     kind: item.kind,
     rank: rank,
-    rankDisplay: item.rank,
+    rankDisplay: rank,
     unitName: unitName,
     unitDescription: item['unit_description'],
     unitDisplay: unitName,
@@ -28,6 +28,7 @@ export const baseTransform = (item, index) => {
     isFirstUnit: false,
     isLastUnit: false,
     isCurrentUnit: false,
+    isCurrentRank: false,
     isMutual: false,
     isFirstMutual: false,
     key: index,
@@ -94,6 +95,7 @@ export const yearItem = (baseItem, year, hasData) => ({
   unitDescription: baseItem.unitDescription,
   unitDisplay: baseItem.unitDisplay,
   isCurrentUnit: baseItem.isCurrentUnit,
+  isCurrentRank: baseItem.isCurrentRank,
   isFirstRank: false,
   isLastRank: false,
   isFirstUnit: false,
@@ -279,7 +281,7 @@ export const markLatestUnit = (items) => {
 };
 
 export const markLatestRank = (items) => {
-  const latestRank = items[0] ? items[0].unitName : undefined;
+  const latestRank = items[0] ? items[0].rank : undefined;
 
   let inLastRankPeriod = true;
 
@@ -339,14 +341,15 @@ export const newTimelineItemsSelector = createSelector(
   getItems,
   getSelectedFilter,
   (items, filter) => {
+    const transformedItems = items.map(transform);
+
     const preProcessors = [
       markLatestRank,
       markLatestUnit,
     ];
+    const preProcessedItems = preProcessors.reduce((accItems, processor) => processor(accItems), transformedItems);
 
-    const preProcessedItems = preProcessors.reduce((accItems, processor) => processor(accItems), items);
-    const transformedItems = preProcessedItems.map(transform);
-    const filteredItems = applyFilter(filter, transformedItems);
+    const filteredItems = applyFilter(filter, preProcessedItems);
     if (isEmpty(filteredItems)) {
       return [];
     }
