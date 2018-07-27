@@ -22,8 +22,8 @@ describe('WidgetWrapper component', () => {
     findRenderedComponentWithType(instance, TextWidget).should.not.be.null();
     const callToAction = findRenderedComponentWithType(instance, CallToActionWidget);
     callToAction.props.url.should.equal('path');
-    callToAction.props.death.should.equal('death');
-    callToAction.props.back.should.equal('back');
+    callToAction.props.to.should.equal('death');
+    callToAction.props.text.should.equal('back');
 
     const mediaQuery = findRenderedComponentWithType(instance, MediaQuery);
     mediaQuery.props.maxHeight.should.equal(500);
