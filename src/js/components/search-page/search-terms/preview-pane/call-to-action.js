@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import pluralize from 'pluralize';
 
 import { linkStyle, textStyle, buttonStyle } from './call-to-action.style';
 import OutboundLink from 'components/common/outbound-link';
@@ -12,7 +13,7 @@ export default class CallToAction extends Component {
     if (item['call_to_action_type'] === 'view_all') {
       return (
         <Link style={ linkStyle } to={ item.to } className='test--call-to-action'>
-          <span style={ textStyle }>View ALL { item.name }</span>
+          <span style={ textStyle }>View ALL { pluralize(item.name, 2) }</span>
           <div style={ buttonStyle } className='test--enter-button'>enter</div>
         </Link>
       );
