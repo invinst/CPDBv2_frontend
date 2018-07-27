@@ -9,7 +9,6 @@ import {
   showingTextStyle,
   timelineStyle,
   unitHeaderStyle,
-  popupStyle,
 } from './timeline.style';
 import Item from './item';
 import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, POPUP_NAMES } from 'utils/constants';
@@ -28,14 +27,14 @@ export default class Timeline extends Component {
           RANK
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.RANK) }
-            style={ popupStyle }
+            position='relative'
           />
         </div>
         <div style={ unitHeaderStyle } className='test--timeline-header-col'>
           UNIT
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.UNIT) }
-            style={ popupStyle }
+            position='relative'
           />
         </div>
         <div style={ showingContentHeaderStyle } className='test--timeline-header-col'>

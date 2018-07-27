@@ -1,4 +1,4 @@
-import { whiteTwoColor, boulderColor, softBlackColor } from 'utils/styles';
+import { boulderColor, softBlackColor } from 'utils/styles';
 import { imgUrl } from 'utils/static-assets';
 
 
@@ -30,14 +30,16 @@ export const tooltipTextStyle = {
   whiteSpace: 'pre-line',
 };
 
-export const buttonStyle = {
+export const buttonStyle = position => ({
   width: '18px',
   height: '18px',
-  backgroundColor: 'inherit',
-  border: `solid 1px ${whiteTwoColor}`,
-  borderRadius: '9px',
-  boxSizing: 'border-box',
   cursor: 'pointer',
   background: `url("${imgUrl('ic-info.svg')}") no-repeat scroll center transparent`,
-};
-
+  display: 'inline-block',
+  position: position,
+  padding: '13px',
+  margin: position === 'absolute' ? '-13px -13px -13px -13px' : '0 -26px 0 -4px',
+  top: position === 'absolute' ? '16px' : null,
+  right: position === 'absolute' ? 0 : null,
+  verticalAlign: position === 'relative' ? 'middle' : null,
+});

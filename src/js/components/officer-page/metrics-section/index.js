@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { chunk, get } from 'lodash';
 import pluralize from 'pluralize';
 
-import { metricSectionStyle, verticalLineStyle, wrapperStyle, popupStyle } from './metrics-section.style';
+import { metricSectionStyle, verticalLineStyle, wrapperStyle } from './metrics-section.style';
 import MetricsColumn from 'components/officer-page/metrics-section/metrics-column';
 import { roundedPercentile } from 'utils/calculations';
 import { POPUP_NAMES } from 'utils/constants';
@@ -33,7 +33,7 @@ export default class MetricsSection extends Component {
         description: `More than ${roundedPercentile(allegationPercentile)}% of other officers`,
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.ALLEGATION),
-          style: popupStyle,
+          position: 'absolute',
         }
       },
       {
@@ -43,7 +43,7 @@ export default class MetricsSection extends Component {
         highlightValue: true,
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.SUSTAINED),
-          style: popupStyle,
+          position: 'absolute',
         },
       },
       {
@@ -52,7 +52,7 @@ export default class MetricsSection extends Component {
         description: `More than ${roundedPercentile(useOfForcePercentile)}% of other officers`,
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.TRR),
-          style: popupStyle,
+          position: 'absolute',
         }
       },
       {
@@ -61,7 +61,7 @@ export default class MetricsSection extends Component {
         description: '',
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.CIVILIAN_COMPLIMENT),
-          style: popupStyle,
+          position: 'absolute',
         }
       },
       {
@@ -70,7 +70,7 @@ export default class MetricsSection extends Component {
         description: '',
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.MAJOR_AWARD),
-          style: popupStyle,
+          position: 'absolute',
         }
       },
       {
@@ -79,7 +79,7 @@ export default class MetricsSection extends Component {
         description: `More than ${roundedPercentile(honorableMentionPercentile)}% of other officers`,
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.HONORABLE_MENTION),
-          style: popupStyle,
+          position: 'absolute',
         }
       }
     ];
