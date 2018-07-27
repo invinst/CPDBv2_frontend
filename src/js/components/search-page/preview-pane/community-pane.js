@@ -5,7 +5,6 @@ import WidgetWrapper, {
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget,
 } from './widgets';
 
 
@@ -23,7 +22,7 @@ export default class CommunityPane extends Component {
     } = this.props;
 
     return (
-      <WidgetWrapper>
+      <WidgetWrapper callToAction={ { url } } maxHeight={ 890 }>
         <HeaderWidget title={ name }/>
         <GeoInfoWidget
           medianIncome={ medianIncome }
@@ -44,7 +43,6 @@ export default class CommunityPane extends Component {
           typeName={ 'allegation' }
           title='OFFICERS WITH MOST COMPLAINTS'
           items={ officersMostComplaint }/>
-        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }

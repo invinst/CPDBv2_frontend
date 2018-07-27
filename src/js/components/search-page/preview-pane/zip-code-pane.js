@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import WidgetWrapper, {
   HeaderWidget,
   AllegationCountWidget,
-  ListWidget,
-  CallToActionWidget,
+  ListWidget
 } from './widgets';
 
 
@@ -87,7 +86,6 @@ export default class ZipCodePane extends Component {
           typeName={ 'document' }
           title='OFFICERS WITH MOST COMPLAINTS'
           items={ officersWithDocuments }/>
-        <CallToActionWidget/>
       </WidgetWrapper>
     );
   }
