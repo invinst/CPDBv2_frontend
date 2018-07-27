@@ -24,13 +24,18 @@ export default class MetricsSection extends Component {
       useOfForcePercentile,
       civilianComplimentCount,
     } = this.props.metrics;
-
+    const allegationDescription = roundedPercentile(allegationPercentile) !== 'N/A' ?
+      `More than ${roundedPercentile(allegationPercentile)}% of other officers` : null;
+    const trrDescription = roundedPercentile(useOfForcePercentile) !== 'N/A' ?
+      `More than ${roundedPercentile(useOfForcePercentile)}% of other officers` : null;
+    const honorableMentionDescription = roundedPercentile(honorableMentionPercentile) !== 'N/A' ?
+      `More than ${roundedPercentile(honorableMentionPercentile)}% of other officers` : null;
 
     const metrics = [
       {
         value: allegationCount,
         name: `${pluralize('Allegation', allegationCount)}`,
-        description: `More than ${roundedPercentile(allegationPercentile)}% of other officers`,
+        description: allegationDescription,
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.ALLEGATION),
           style: popupStyle,
@@ -49,7 +54,7 @@ export default class MetricsSection extends Component {
       {
         value: useOfForceCount,
         name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
-        description: `More than ${roundedPercentile(useOfForcePercentile)}% of other officers`,
+        description: trrDescription,
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.TRR),
           style: popupStyle,
@@ -76,7 +81,7 @@ export default class MetricsSection extends Component {
       {
         value: honorableMentionCount,
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
-        description: `More than ${roundedPercentile(honorableMentionPercentile)}% of other officers`,
+        description: honorableMentionDescription,
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.HONORABLE_MENTION),
           style: popupStyle,
