@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import SearchTerms from 'components/search-page/search-terms';
-import { requestSearchTermCategories, move, resetNavigation, setNavigation } from 'actions/search-page/search-terms';
+import { move, resetNavigation, setNavigation } from 'actions/search-page/search-terms';
 import {
   focusedSearchTermItemSelector,
   totalItemCountSelector,
@@ -20,7 +20,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  requestSearchTermCategories,
   move,
   resetNavigation,
   setNavigation,

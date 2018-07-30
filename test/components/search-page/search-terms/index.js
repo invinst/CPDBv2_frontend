@@ -65,14 +65,6 @@ describe('SearchTerms component', function () {
     findRenderedComponentWithType(instance, MinimalScrollBars).should.be.ok();
   });
 
-  it('should fire request when mounted', function () {
-    const callback = spy();
-    instance = renderIntoDocument(
-      <SearchTerms requestSearchTermCategories={ callback } />
-    );
-    callback.called.should.be.true();
-  });
-
   it('should render ResponsiveFluidWidthComponent with correct props', function () {
     instance = renderIntoDocument(
       <SearchTerms />
