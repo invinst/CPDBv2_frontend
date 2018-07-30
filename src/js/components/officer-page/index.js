@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
+import { compact } from 'lodash';
 
 import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
 import OfficerRadarChart from './radar-chart';
@@ -10,15 +11,6 @@ import ShareableHeaderContainer from 'containers/headers/shareable-header/sharea
 
 
 export default class OfficerPage extends Component {
-  shouldComponentUpdate(nextProps) {
-    const { officerName, currentTab, popup } = this.props;
-    return (
-      officerName !== nextProps.officerName
-      || currentTab !== nextProps.currentTab
-      || popup !== nextProps.popup
-    );
-  }
-
   render() {
     const {
       officerSummary,
@@ -28,14 +20,24 @@ export default class OfficerPage extends Component {
       threeCornerPercentile,
       changeOfficerTab,
       currentTab,
+      hasComplaint,
+      hasMapMarker,
+      hasCoaccusal,
       popup,
+      isRequesting
     } = this.props;
+
+    const pageTitle = compact([
+      officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
+      officerName
+    ]).join(' ');
+
     return (
-      <DocumentTitle title={ `${officerSummary.rank} ${officerName}` }>
+      <DocumentTitle title={ pageTitle }>
         <div style={ wrapperStyle } className='officer-page'>
-          <ShareableHeaderContainer/>
+          <ShareableHeaderContainer />
           <div style={ pageWrapperStyle }>
-            <OfficerRadarChart data={ threeCornerPercentile }/>
+            <OfficerRadarChart data={ threeCornerPercentile }isRequesting={ isRequesting }/>
             <SummarySection
               officerName={ officerName }
               officerSummary={ officerSummary }
@@ -44,7 +46,13 @@ export default class OfficerPage extends Component {
             />
           </div>
           <MetricsSection metrics={ officerMetrics } popup={ popup }/>
-          <TabbedPaneSection changeOfficerTab={ changeOfficerTab } currentTab={ currentTab }/>
+          <TabbedPaneSection
+            changeOfficerTab={ changeOfficerTab }
+            currentTab={ currentTab }
+            hasComplaint={ hasComplaint }
+            hasMapMarker={ hasMapMarker }
+            hasCoaccusal={ hasCoaccusal }
+          />
         </div>
       </DocumentTitle>
     );
@@ -60,6 +68,10 @@ OfficerPage.propTypes = {
   openPoliceUnitPage: PropTypes.func,
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
+  hasComplaint: PropTypes.bool,
+  hasMapMarker: PropTypes.bool,
+  hasCoaccusal: PropTypes.bool,
+  isRequesting: PropTypes.bool,
   popup: PropTypes.object,
 };
 

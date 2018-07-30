@@ -3,16 +3,13 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
-  Simulate,
 } from 'react-addons-test-utils';
 
-import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import PreviewPane from 'components/search-page/search-terms/preview-pane';
 import CallToAction from 'components/search-page/search-terms/preview-pane/call-to-action';
 import SlideMotion from 'components/animation/slide-motion';
-import { browserHistory } from 'react-router';
 
 
 describe('PreviewPane component', function () {
@@ -70,19 +67,5 @@ describe('PreviewPane component', function () {
 
     const slideMotion = findRenderedComponentWithType(instance, SlideMotion);
     slideMotion.props.show.should.eql(false);
-  });
-
-  it('should call browserHistory.push method when click to CallToAction', function () {
-    let stubBrowserHistory = stub(browserHistory, 'push');
-    instance = renderIntoDocument(
-      <PreviewPane
-        item={ { to: 'xxx', id: 'community', name: 'name', 'call_to_action_type': 'view_all' } }
-      />
-    );
-    const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--enter-button');
-    Simulate.click(instanceDOM);
-
-    stubBrowserHistory.calledWith('xxx').should.be.true();
-    stubBrowserHistory.restore();
   });
 });

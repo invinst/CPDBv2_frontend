@@ -1,4 +1,4 @@
-import { get, groupBy, findIndex, keys, reverse } from 'lodash';
+import { get, groupBy, findIndex, keys, reverse, isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
 import pluralize from 'pluralize';
 
@@ -6,7 +6,7 @@ import { getThisYear } from 'utils/date';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 
 
-const getCoaccusals = (state) => get(state.officerPage.coaccusals, 'items', []).map(coaccusalTransform);
+const getCoaccusals = (state) => get(state.officerPage.coaccusals, 'items', []);
 
 const coaccusalTransform = (coaccusal) => ({
   officerId: coaccusal.id,
@@ -54,10 +54,16 @@ const mapCoaccusalToGroup = (coaccusal) => {
   return groups[firstMatchGroup].name;
 };
 
-export const getCoaccusalGroups = createSelector(
+export const coaccusalGroupsSelector = createSelector(
   getCoaccusals,
-  (coaccusals) => {
-    const groupedCoaccusals = groupBy(coaccusals, mapCoaccusalToGroup);
+  coaccusals => {
+    const transformedCoaccusals = coaccusals.map(coaccusalTransform);
+    const groupedCoaccusals = groupBy(transformedCoaccusals, mapCoaccusalToGroup);
     return keys(groupedCoaccusals).map((key) => ({ name: key, coaccusals: groupedCoaccusals[key] }));
   }
+);
+
+export const hasCoaccusalSelector = createSelector(
+  getCoaccusals,
+  coaccusals => !isEmpty(coaccusals)
 );

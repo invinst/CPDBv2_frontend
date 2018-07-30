@@ -11,6 +11,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 
 import OfficerCard from 'components/landing-page/common/officer-card';
 import { getThisYear } from 'utils/date';
+import NoDataRadarChart from 'components/common/radar-chart/no-data-radar-chart';
 
 
 describe('OfficerCard component', function () {
@@ -54,10 +55,8 @@ describe('OfficerCard component', function () {
     text.should.containEql(`${age} year old white male`);
   });
 
-  it('should show only default background when no percentile', () => {
+  it('should show NoDataRadarChart when no percentile', () => {
     instance = renderIntoDocument(<OfficerCard officerId={ 3 }/>);
-    const svg = findRenderedDOMComponentWithClass(instance, 'test--radar');
-    svg.getAttribute('style').should.eql('background-color: rgb(253, 250, 242);');
-    svg.childNodes.should.have.length(0);
+    findRenderedComponentWithType(instance, NoDataRadarChart);
   });
 });

@@ -22,6 +22,19 @@ export default () => ({
   'percentiles': [
     {
       'id': 1,
+      'year': 2001,
+      'percentile_trr': '0.049',
+      'percentile_allegation': '43.233',
+    },
+    {
+      'id': 1,
+      'year': 2002,
+      'percentile_allegation': '43.233',
+      'percentile_allegation_civilian': '0.3',
+      'percentile_allegation_internal': '0.023'
+    },
+    {
+      'id': 1,
       'year': 2012,
       'percentile_trr': '0.049',
       'percentile_allegation': '43.233',
@@ -60,5 +73,53 @@ export default () => ({
       'percentile_allegation_civilian': '59.468',
       'percentile_allegation_internal': '0.021'
     },
+    {
+      'id': 1,
+      'year': 2017,
+      'percentile_allegation': '32.102',
+    },
   ]
 });
+
+export const noPercentileOfficerSummary = {
+  'id': 2,
+  'full_name': 'John Kelly',
+  'unit': {
+    'id': 1,
+    'unit_name': '001',
+    'description': 'District 001'
+  },
+  'date_of_appt': '2015-09-23',
+  'rank': 'NA',
+  'race': 'White',
+  'badge': '12345',
+  'gender': 'Male',
+  'birth_year': 1963,
+  'allegation_count': 1,
+  'complaint_percentile': 2,
+  'honorable_mention_count': 3,
+  'sustained_count': 4,
+  'discipline_count': 5,
+  'civilian_compliment_count': 6,
+  'current_salary': 100000,
+  'percentiles': [
+    {
+      'id': 2,
+      'year': 2001,
+      'percentile_trr': '0.049',
+      'percentile_allegation': '43.233',
+    },
+    {
+      'id': 2,
+      'year': 2002,
+      'percentile_allegation': '43.233',
+      'percentile_allegation_civilian': '0.3',
+      'percentile_allegation_internal': '0.023'
+    },
+    {
+      'id': 2,
+      'year': 2017,
+      'percentile_allegation': '32.102',
+    },
+  ]
+};
