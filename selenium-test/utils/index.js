@@ -74,6 +74,6 @@ export const selectText = selector => {
 };
 
 export const switchToRecentTab = () => {
-  const handles = browser.windowHandles().value;
-  browser.switchTab(handles[handles.length - 1]);
+  const handles = browser.getTabIds();
+  browser.switchTab(handles[handles.length - 1]).pause(2000);
 };
