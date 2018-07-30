@@ -20,12 +20,7 @@ export default class RankChange extends Component {
       <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } }>
         <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
           <span style={ rankChangeStyle } className='test--rank-change-item-content'>
-            {
-              oldRank === 'Unassigned' ?
-                <span style={ oldRankStyle(true) }>Unassigned → </span>
-              :
-                <span style={ oldRankStyle(false) }>{ oldRank } → </span>
-            }
+            <span style={ oldRankStyle(oldRank === 'Unassigned') }>{ oldRank } → </span>
             <span style={ newRankStyle }>{ rank }</span>
           </span>
           <span style={ { ...baseDateStyle, ...dateStyle } } className='test--rank-change-item-date'>{ date }</span>

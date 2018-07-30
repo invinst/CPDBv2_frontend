@@ -7,6 +7,7 @@ import {
   dedupeUnit,
   fillEmptyItems,
   fillUnitChange,
+  fillRankChange,
   fillYears,
   gapYearItems,
   newTimelineItemsSelector,
@@ -799,51 +800,93 @@ describe('Officer new timeline selectors', function () {
 
   describe('fillUnitChange', function () {
     it('should add old unit name and description into unit change item', function () {
-      const sameUnitItems = [
-        {
-          rank: 'Some Officer',
-          unitName: 'Unit 111',
-          unitDescription: 'Some Force',
-          unitDisplay: 'Unit 111',
-        },
-        {
-          rank: 'Some Officer',
-          kind: 'UNIT_CHANGE',
-          unitName: 'Unit 111',
-          unitDescription: 'Some Force',
-          unitDisplay: 'Unit 111',
-        },
-        {
-          rank: 'Some Officer',
-          unitName: 'Unit 153',
-          unitDescription: 'Mobile Strike Force',
-          unitDisplay: 'Unit 153',
-        }
-      ];
+      const sameUnitItems = [{
+        kind: 'CR',
+        unitName: 'Unit 3',
+        unitDescription: 'Third Unit',
+      }, {
+        kind: 'UNIT_CHANGE',
+        unitName: 'Unit 3',
+        unitDescription: 'Third Unit',
+      }, {
+        kind: 'CR',
+        unitName: 'Unit 2',
+        unitDescription: 'Second Unit',
+      }, {
+        kind: 'UNIT_CHANGE',
+        unitName: 'Unit 2',
+        unitDescription: 'Second Unit',
+      }, {
+        kind: 'JOINED',
+        unitName: 'Unit 1',
+        unitDescription: 'First Unit',
+      }];
 
-      fillUnitChange(sameUnitItems).should.eql([
-        {
-          rank: 'Some Officer',
-          unitName: 'Unit 111',
-          unitDescription: 'Some Force',
-          unitDisplay: 'Unit 111',
-        },
-        {
-          rank: 'Some Officer',
-          kind: 'UNIT_CHANGE',
-          unitName: 'Unit 111',
-          unitDescription: 'Some Force',
-          unitDisplay: 'Unit 111',
-          oldUnitName: 'Unit 153',
-          oldUnitDescription: 'Mobile Strike Force',
-        },
-        {
-          rank: 'Some Officer',
-          unitName: 'Unit 153',
-          unitDescription: 'Mobile Strike Force',
-          unitDisplay: 'Unit 153',
-        },
-      ]);
+      fillUnitChange(sameUnitItems).should.eql([{
+        kind: 'CR',
+        unitName: 'Unit 3',
+        unitDescription: 'Third Unit',
+      }, {
+        kind: 'UNIT_CHANGE',
+        unitName: 'Unit 3',
+        unitDescription: 'Third Unit',
+        oldUnitName: 'Unit 2',
+        oldUnitDescription: 'Second Unit',
+      }, {
+        kind: 'CR',
+        unitName: 'Unit 2',
+        unitDescription: 'Second Unit',
+      }, {
+        kind: 'UNIT_CHANGE',
+        unitName: 'Unit 2',
+        unitDescription: 'Second Unit',
+        oldUnitName: 'Unit 1',
+        oldUnitDescription: 'First Unit',
+      }, {
+        kind: 'JOINED',
+        unitName: 'Unit 1',
+        unitDescription: 'First Unit',
+      }]);
+    });
+  });
+
+  describe('fillRankChange', function () {
+    it('should add old rank into rank change item', function () {
+      const sameRankItems = [{
+        kind: 'CR',
+        rank: 'Third Rank',
+      }, {
+        kind: 'RANK_CHANGE',
+        rank: 'Third Rank',
+      }, {
+        kind: 'CR',
+        rank: 'Second Rank',
+      }, {
+        kind: 'RANK_CHANGE',
+        rank: 'Second Rank',
+      }, {
+        kind: 'JOINED',
+        rank: 'First Rank',
+      }];
+
+      fillRankChange(sameRankItems).should.eql([{
+        kind: 'CR',
+        rank: 'Third Rank',
+      }, {
+        kind: 'RANK_CHANGE',
+        rank: 'Third Rank',
+        oldRank: 'Second Rank',
+      }, {
+        kind: 'CR',
+        rank: 'Second Rank',
+      }, {
+        kind: 'RANK_CHANGE',
+        rank: 'Second Rank',
+        oldRank: 'First Rank',
+      }, {
+        kind: 'JOINED',
+        rank: 'First Rank',
+      }]);
     });
   });
 
