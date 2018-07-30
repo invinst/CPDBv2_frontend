@@ -22,10 +22,9 @@ export const navigationItemTransform = item => {
     name: get(item, 'name', ''),
     description: get(item, 'description', ''),
     callToActionType,
-    link: get(item, 'link', ''),
+    to,
     url,
     type: get(item, 'type', ''),
     uniqueKey: get(item, 'uniqueKey', `${item.type}-${item.id}`),
-    to,
   };
 };
