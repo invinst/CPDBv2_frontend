@@ -10,12 +10,16 @@ import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 export default class Popup extends Component {
   constructor(props) {
     super(props);
+    this.tooltipId = `tooltip-${uuid()}`;
+    this.hideOtherPopups = this.hideOtherPopups.bind(this);
   }
 
-  hideOtherPopups(id) {
+  /* istanbul ignore next */
+  hideOtherPopups() {
+    // We have live test for this function, so it's safe to ignore it
     const popups = document.getElementsByClassName('popup-button');
     for (let i = 0; i < popups.length; i++) {
-      if (popups[i].getAttribute('data-for') !== id) {
+      if (popups[i].getAttribute('data-for') !== this.tooltipId) {
         ReactTooltip.hide(popups[i]);
       }
     }
@@ -23,24 +27,23 @@ export default class Popup extends Component {
 
   render() {
     const { text, title, style } = this.props;
-    const tooltipId = `tooltip-${uuid()}`;
     return (
       <span>
         <ReactTooltip
-          id={ tooltipId }
+          id={ this.tooltipId }
           className='popup'
           effect='solid'
           type='light'
           offset={ { top: -10 } }
           globalEventOff='click'
-          afterShow={ () => this.hideOtherPopups(tooltipId) }
+          afterShow={ this.hideOtherPopups }
         >
           <div className='test--popup-content' onClick={ e => e.stopPropagation() }>
             <div
               style={ tooltipCloseButtonStyle }
               className='test--popup-close-button'
               data-tip={ true }
-              data-for={ tooltipId }
+              data-for={ this.tooltipId }
               data-event={ true }
               data-event-off='click'
             />
@@ -53,7 +56,7 @@ export default class Popup extends Component {
         <div
           style={ { ...buttonStyle, ...style } }
           data-tip={ true }
-          data-for={ tooltipId }
+          data-for={ this.tooltipId }
           data-event='click'
           className='popup-button'
         />
