@@ -34,7 +34,7 @@ describe('SearchTerms component', function () {
           id: 'community',
           name: 'Communities',
           description: 'Chicago is divided.',
-          'call_to_action_type': 'view_all',
+          callToActionType: 'view_all',
           link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>'
         }
       ]

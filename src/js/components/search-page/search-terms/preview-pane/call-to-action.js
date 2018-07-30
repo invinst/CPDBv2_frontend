@@ -10,7 +10,7 @@ export default class CallToAction extends Component {
   render() {
     const { item } = this.props;
 
-    if (item['call_to_action_type'] === CALL_TO_ACTION_TYPES.VIEW_ALL) {
+    if (item.callToActionType === CALL_TO_ACTION_TYPES.VIEW_ALL) {
       return (
         <Link style={ linkStyle } to={ item.to } className='test--call-to-action'>
           <span style={ textStyle }>View ALL { item.name }</span>
@@ -19,7 +19,7 @@ export default class CallToAction extends Component {
       );
     }
 
-    if (item['call_to_action_type'] === CALL_TO_ACTION_TYPES.LINK) {
+    if (item.callToActionType === CALL_TO_ACTION_TYPES.LINK) {
       return (
         <OutboundLink style={ linkStyle } href={ item.url } className='test--call-to-action'>
           <span style={ textStyle }>Enter Data Tool</span>
