@@ -75,6 +75,8 @@ describe('Joined component', function () {
       unitDescription: 'Some description',
       unitDisplay: 'Unassigned',
       unitName: 'Unassigned',
+      rank: 'Unassigned',
+      rankDisplay: 'Unassigned',
       year: 1988,
     };
     instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } baseStyles={ baseStyles } />);
