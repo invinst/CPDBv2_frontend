@@ -9,6 +9,12 @@ import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class MetricsSection extends Component {
+  getDescription(percentile) {
+    if (percentile !== 'N/A') {
+      return `More than ${roundedPercentile(percentile)}% of other officers`;
+    }
+    return null;
+  }
 
   render() {
     const { popup } = this.props;
@@ -24,18 +30,12 @@ export default class MetricsSection extends Component {
       useOfForcePercentile,
       civilianComplimentCount,
     } = this.props.metrics;
-    const allegationDescription = roundedPercentile(allegationPercentile) !== 'N/A' ?
-      `More than ${roundedPercentile(allegationPercentile)}% of other officers` : null;
-    const trrDescription = roundedPercentile(useOfForcePercentile) !== 'N/A' ?
-      `More than ${roundedPercentile(useOfForcePercentile)}% of other officers` : null;
-    const honorableMentionDescription = roundedPercentile(honorableMentionPercentile) !== 'N/A' ?
-      `More than ${roundedPercentile(honorableMentionPercentile)}% of other officers` : null;
 
     const metrics = [
       {
         value: allegationCount,
         name: `${pluralize('Allegation', allegationCount)}`,
-        description: allegationDescription,
+        description: this.getDescription(allegationPercentile),
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.ALLEGATION),
           style: popupStyle,
@@ -54,7 +54,7 @@ export default class MetricsSection extends Component {
       {
         value: useOfForceCount,
         name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
-        description: trrDescription,
+        description: this.getDescription(useOfForcePercentile),
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.TRR),
           style: popupStyle,
@@ -81,7 +81,7 @@ export default class MetricsSection extends Component {
       {
         value: honorableMentionCount,
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
-        description: honorableMentionDescription,
+        description: this.getDescription(honorableMentionPercentile),
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.HONORABLE_MENTION),
           style: popupStyle,
