@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import classNames from 'classnames';
+import { indexOf } from 'lodash';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import Menu from './menu';
@@ -27,7 +28,7 @@ export class Dropdown extends Component {
   }
 
   handleSelect(option) {
-    if ( option !== this.state.selected) {
+    if (option !== this.state.selected) {
       this.props.onChange(option);
       this.setState({
         selected: option,
@@ -43,7 +44,7 @@ export class Dropdown extends Component {
   }
 
   render() {
-    const { buttonStyle, className, menuItemStyle, menuStyle, options, width, hovering } = this.props;
+    const { buttonStyle, className, menuItemStyle, menuStyle, options, width, hovering, labels } = this.props;
     const { selected, open } = this.state;
 
     return (
@@ -58,8 +59,10 @@ export class Dropdown extends Component {
           style={ { ...defaultButtonStyle(width, hovering), ...buttonStyle } }
           onClick={ this.handleClick }
         >
-          <span style={ defaultButtonTextStyle(width - 30) }>{ selected }</span>
-          <span style={ arrowStyle(open) }/>
+          <span style={ defaultButtonTextStyle(width - 30) }>
+            { labels ? labels[indexOf(options, selected)] : selected }
+          </span>
+          <span style={ arrowStyle(open) } />
         </div>
         {
           open ? (
@@ -70,6 +73,7 @@ export class Dropdown extends Component {
               options={ options }
               width={ width }
               selected={ selected }
+              labels={ labels }
             />
           ) : null
         }
@@ -88,6 +92,7 @@ Dropdown.propTypes = {
   className: PropTypes.string,
   width: PropTypes.number,
   hovering: PropTypes.bool,
+  labels: PropTypes.array,
 };
 
 Dropdown.defaultProps = {

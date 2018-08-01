@@ -5,7 +5,7 @@ import { defaultMenuItemStyle, defaultMenuStyle } from './menu.style';
 
 export default class Menu extends Component {
   render() {
-    const { menuItemStyle, menuStyle, options, onSelect, width, selected } = this.props;
+    const { menuItemStyle, menuStyle, options, onSelect, width, selected, labels } = this.props;
     return (
       <div style={ { ...defaultMenuStyle(width), ...menuStyle } } className='test--dropdown-menu'>
         {
@@ -17,7 +17,7 @@ export default class Menu extends Component {
                 onClick={ () => onSelect(option) }
                 className='test--dropdown-menu-item'
               >
-                { option }
+                { labels ? labels[index] : option }
               </div>
             ) : null
           ))
@@ -34,6 +34,7 @@ Menu.propTypes = {
   options: PropTypes.array,
   width: PropTypes.number,
   selected: PropTypes.string,
+  labels: PropTypes.array,
 };
 
 Menu.defaultProps = {
