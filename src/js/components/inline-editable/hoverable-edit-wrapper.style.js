@@ -7,12 +7,23 @@ export const wrapperStyle = (hovering=false) => ({
     : 0
 });
 
-export const buttonWrapperStyle = hovering => ({
+export const topButtonWrapperStyle = hovering => ({
   position: 'absolute',
   zIndex: 1,
   display: hovering ? 'block' : 'none',
   top: 0,
   right: 0
+});
+
+const bottomButtonWrapperWidth = 105;
+
+export const bottomButtonWrapperStyle = hovering => ({
+  position: 'absolute',
+  zIndex: 1,
+  display: hovering ? 'block' : 'none',
+  right: `calc(50% - ${bottomButtonWrapperWidth / 2}px)`,
+  bottom: '-30px',
+  minWidth: `${bottomButtonWrapperWidth}px`
 });
 
 const _buttonStyle = {

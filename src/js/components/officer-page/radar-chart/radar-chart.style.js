@@ -1,4 +1,5 @@
-import { linenColor } from 'utils/styles';
+import { linenColor, whiteTwoColor } from 'utils/styles';
+import { imgUrl } from 'utils/static-assets';
 
 
 export const animatedRadarChartStyle = {
@@ -48,4 +49,24 @@ export const radarChartOverlayStyle = {
   width: '100%',
   height: '100%',
   backgroundColor: 'transparent'
+};
+
+export const noDataRadarTextStyle = {
+  backgroundColor: 'transparent',
+  color: whiteTwoColor,
+  position: 'absolute',
+  padding: '0 16px',
+  top: '300px',
+  fontSize: '14px',
+  textAlign: 'center',
+  width: '100%',
+  boxSizing: 'border-box',
+  fontWeight: 300
+};
+
+export const noDataPopupStyle = {
+  display: 'inline-block',
+  verticalAlign: 'middle',
+  marginLeft: '5px',
+  background: `url("${imgUrl('ic-info-white.svg')}") no-repeat scroll center transparent`,
 };

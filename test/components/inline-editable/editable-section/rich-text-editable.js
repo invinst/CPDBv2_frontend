@@ -26,6 +26,7 @@ describe('RichTextEditable component', function () {
   it('should render with given props', function () {
     const style = {};
     const onChange = () => {};
+    const lastBlockChild = <div className='test--last-block-child'/>;
 
     instance = renderIntoDocument(
       <RichTextEditable
@@ -33,7 +34,9 @@ describe('RichTextEditable component', function () {
         style={ style }
         onChange={ onChange }
         value={ editorState }
-        placeholder='123'/>
+        placeholder='123'
+        lastBlockChild={ lastBlockChild }
+      />
     );
     const editable = findRenderedComponentWithType(instance, Editable);
     editable.props.editModeOn.should.be.true();
@@ -41,6 +44,7 @@ describe('RichTextEditable component', function () {
     paragraph.props.style.should.eql(style);
     paragraph.props.editorState.should.eql(editorState);
     paragraph.props.readOnly.should.be.true();
+    paragraph.props.lastBlockChild.should.eql(lastBlockChild);
     const editor = editable.props.editorElement;
     editor.props.style.should.eql(style);
     editor.props.onChange.should.eql(onChange);

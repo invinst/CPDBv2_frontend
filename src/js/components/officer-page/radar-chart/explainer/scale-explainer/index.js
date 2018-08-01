@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 
 import StaticRadarChart from 'components/common/radar-chart';
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import {
   containerStyle, explainerContainerStyle, radarContainerStyle, subTextStyle, titleTextStyle, textStyle, legendStyle
 } from './scale-explainer.style';
@@ -9,7 +12,7 @@ import { sugarCaneColor, whiteTwoColor } from 'utils/styles';
 
 export default class ScaleExplainer extends Component {
   render() {
-    const { radarChartData, year } = this.props;
+    const { radarChartData, year, editWrapperStateProps } = this.props;
     const radarConfig = {
       showValueInsteadOfTitle: true,
       backgroundColor: sugarCaneColor,
@@ -32,15 +35,22 @@ export default class ScaleExplainer extends Component {
         </div>
         <div style={ explainerContainerStyle }>
           <h5 style={ titleTextStyle }>What is the scale?</h5>
-          <p style={ textStyle }>
-            The scale is based on this officer’s percentile rank.
-            This is relative to all other officers for whom data is available during the same years.
-          </p>
-          <p style={ subTextStyle }>
-            If an officer’s percentile rank for civilian complaints is 99%
-            then this means that they were accused in more civilian complaints per year than 99 % of other officers
-            for whom data is available during the same years.
-          </p>
+          <EditWrapperStateProvider { ...editWrapperStateProps }>
+            <HoverableEditWrapper>
+              <RichTextEditable
+                style={ textStyle }
+                className='test--scale-explain-text'
+                placeholder='scale explain text'
+                fieldname='scale_description'
+              />
+              <RichTextEditable
+                style={ subTextStyle }
+                className='test--scale-explain-sub-text'
+                placeholder='scale explain sub text'
+                fieldname='scale_sub_description'
+              />
+            </HoverableEditWrapper>
+          </EditWrapperStateProvider>
         </div>
       </div>
     );
@@ -55,4 +65,5 @@ ScaleExplainer.propTypes = {
     })
   ),
   year: PropTypes.number,
+  editWrapperStateProps: PropTypes.object
 };

@@ -35,6 +35,8 @@ export const getOfficerId = state => state.officerPage.officerId;
 export const getPathname = state => state.officerPage.pathname;
 export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCachedFullName;
 
+export const getEditModeOn = state => state.officerPage.editModeOn;
+
 export const summarySelector = createSelector(
   getOfficerInfo,
   summary => ({
