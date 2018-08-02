@@ -8,6 +8,7 @@
     text-align: left;
     padding: 20px 15px 18px 15px;
     pointer-events: unset;
+    margin: 0;
 }
 
 .__react_component_tooltip.popup.type-light::after {

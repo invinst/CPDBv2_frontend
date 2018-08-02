@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { map, get } from 'lodash';
 
 import OfficerRow from './officer-row';
-import { wrapperStyle, lastItemStyle, titleStyle, popupStyle } from './involvement-item.style';
+import { wrapperStyle, lastItemStyle, titleStyle } from './involvement-item.style';
 import Popup from 'components/common/popup';
 import { POPUP_NAMES } from 'utils/constants';
 
@@ -30,7 +30,7 @@ export default class InvolvementItem extends Component {
         <div style={ titleStyle } className='test--involvement-type'>{ involvedTypeMap[involvedType].name }
           <Popup
             { ...get(popup, involvedTypeMap[involvedType].popupName) }
-            style={ popupStyle }
+            position='relative'
           />
         </div>
         <div>
