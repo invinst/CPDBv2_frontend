@@ -46,7 +46,7 @@ export default class Timeline extends Component {
             onChange={ changeFilter }
             options={ options }
             className='test--timeline-filter'
-            width={ 146 }
+            width={ 156 }
             labels={ labels }
           />
         </div>
