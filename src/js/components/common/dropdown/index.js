@@ -11,13 +11,15 @@ export class Dropdown extends Component {
   constructor(props) {
     super(props);
 
+    const { options, defaultValue } = props;
+
     this.handleClick = this.handleClick.bind(this);
     this.handleBlur = this.handleBlur.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
 
     this.state = {
       open: false,
-      selected: props.defaultValue,
+      selectedIndex: indexOf(options, defaultValue)
     };
   }
 
@@ -27,11 +29,13 @@ export class Dropdown extends Component {
     });
   }
 
-  handleSelect(option) {
-    if (option !== this.state.selected) {
-      this.props.onChange(option);
+  handleSelect(index) {
+    const { onChange, options } = this.props;
+
+    if (index !== this.state.selectedIndex) {
+      onChange(options[index]);
       this.setState({
-        selected: option,
+        selectedIndex: index,
         open: false
       });
     }
@@ -45,7 +49,7 @@ export class Dropdown extends Component {
 
   render() {
     const { buttonStyle, className, menuItemStyle, menuStyle, options, width, hovering, labels } = this.props;
-    const { selected, open } = this.state;
+    const { selectedIndex, open } = this.state;
 
     return (
       <div
@@ -60,7 +64,7 @@ export class Dropdown extends Component {
           onClick={ this.handleClick }
         >
           <span style={ defaultButtonTextStyle(width - 30) }>
-            { labels ? labels[indexOf(options, selected)] : selected }
+            { labels ? labels[selectedIndex] : options[selectedIndex] }
           </span>
           <span style={ arrowStyle(open) } />
         </div>
@@ -72,7 +76,7 @@ export class Dropdown extends Component {
               onSelect={ this.handleSelect }
               options={ options }
               width={ width }
-              selected={ selected }
+              selectedIndex={ selectedIndex }
               labels={ labels }
             />
           ) : null

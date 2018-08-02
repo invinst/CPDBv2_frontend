@@ -1,4 +1,4 @@
-import { concat, difference, filter, get, includes, isEmpty, nth, rangeRight, slice, values } from 'lodash';
+import { concat, difference, filter, get, includes, isEmpty, nth, rangeRight, slice, values, invert } from 'lodash';
 import moment from 'moment';
 import { createSelector } from 'reselect';
 
@@ -373,21 +373,23 @@ export const newTimelineItemsSelector = createSelector(
 export const filterCount = createSelector(
   getItems,
   items => {
-    const kindCount = {
-      [NEW_TIMELINE_FILTERS.CRS]: 0,
-      [NEW_TIMELINE_FILTERS.FORCE]: 0,
-      [NEW_TIMELINE_FILTERS.AWARDS]: 0,
-      [NEW_TIMELINE_FILTERS.ALL]: items.length,
-    };
-    items.map((item) => {
-      if (includes(filteredKindsMap[NEW_TIMELINE_FILTERS.CRS], item.kind)) {
-        kindCount[NEW_TIMELINE_FILTERS.CRS]++;
-      } else if (includes(filteredKindsMap[NEW_TIMELINE_FILTERS.FORCE], item.kind)) {
-        kindCount[NEW_TIMELINE_FILTERS.FORCE]++;
-      } else if (includes(filteredKindsMap[NEW_TIMELINE_FILTERS.AWARDS], item.kind)) {
-        kindCount[NEW_TIMELINE_FILTERS.AWARDS]++;
-      }
+    let count = Object.assign({}, NEW_TIMELINE_FILTERS);
+    delete count.ALL;
+    count = invert(count);
+
+    let allCount = 0;
+
+    Object.keys(count).map(kind => {
+      count[kind] = 0;
+      items.map(item => {
+        if (includes(filteredKindsMap[kind], item.kind)) {
+          count[kind]++;
+        }
+      });
+      allCount += count[kind];
     });
-    return kindCount;
+
+    count[NEW_TIMELINE_FILTERS.ALL] = allCount;
+    return count;
   }
 );
