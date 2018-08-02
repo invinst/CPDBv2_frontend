@@ -75,5 +75,7 @@ export const selectText = selector => {
 
 export const switchToRecentTab = () => {
   const handles = browser.getTabIds();
-  browser.switchTab(handles[handles.length - 1]).pause(2000);
+  const oldUrl = browser.getUrl();
+  browser.switchTab(handles[handles.length - 1]);
+  browser.waitUntil(() => browser.getUrl() !== oldUrl, 5000, 'Cannot switch to the recent tab.');
 };
