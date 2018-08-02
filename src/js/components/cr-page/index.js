@@ -48,7 +48,6 @@ export default class CRPage extends Component {
           <ComplaintCategory
             category={ category }
             subcategory={ subcategory }
-            popup={ get(popup, POPUP_NAMES.COMPLAINT.CATEGORY) }
           />
           <AccusedOfficers officers={ coaccused } popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }/>
           <ResponsiveFluidWidthComponent>
