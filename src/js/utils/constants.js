@@ -456,3 +456,8 @@ export const POPUP_NAMES = {
     TYPES_OF_FORCE: 'typeOfForce',
   }
 };
+
+export const CALL_TO_ACTION_TYPES = {
+  VIEW_ALL: 'view_all',
+  LINK: 'link',
+};
