@@ -25,6 +25,7 @@ import { getRecentDocument } from 'actions/landing-page/recent-document';
 import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
+import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 
 let prevPathname = '';
 
@@ -99,6 +100,8 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchTRR(trrId)));
       dispatches.push(store.dispatch(fetchPopup('trr')));
     }
+  } else if (action.payload.pathname.match(/search\/terms/)) {
+    dispatches.push(store.dispatch(requestSearchTermCategories()));
   }
 
   if (dispatches.length > 0) {

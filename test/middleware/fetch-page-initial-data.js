@@ -18,6 +18,7 @@ import { fetchTRR } from 'actions/trr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
+import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -178,5 +179,14 @@ describe('fetchPageInitialData middleware', function () {
       store.dispatch.calledWith(pageLoadFinish()).should.be.true();
       done();
     }, 0);
+  });
+
+  it('should dispatch requestSearchTermCategories', function () {
+    const action = createLocationChangeAction('/search/terms/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
   });
 });
