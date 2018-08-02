@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { chunk, get } from 'lodash';
+import { chunk, get, includes } from 'lodash';
 import pluralize from 'pluralize';
 
 import { metricSectionStyle, verticalLineStyle, wrapperStyle } from './metrics-section.style';
@@ -9,8 +9,8 @@ import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class MetricsSection extends Component {
-  getDescription(percentile) {
-    if (percentile !== 'N/A') {
+  getDescription(percentile, exclusives) {
+    if (!includes(exclusives, percentile)) {
       return `More than ${roundedPercentile(percentile)}% of other officers`;
     }
     return null;
@@ -35,7 +35,7 @@ export default class MetricsSection extends Component {
       {
         value: allegationCount,
         name: `${pluralize('Allegation', allegationCount)}`,
-        description: this.getDescription(allegationPercentile),
+        description: this.getDescription(allegationPercentile, ['N/A']),
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.ALLEGATION),
           position: 'absolute',
@@ -54,7 +54,7 @@ export default class MetricsSection extends Component {
       {
         value: useOfForceCount,
         name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
-        description: this.getDescription(useOfForcePercentile),
+        description: this.getDescription(useOfForcePercentile, ['N/A']),
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.TRR),
           position: 'absolute',
@@ -81,7 +81,7 @@ export default class MetricsSection extends Component {
       {
         value: honorableMentionCount,
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
-        description: this.getDescription(honorableMentionPercentile),
+        description: this.getDescription(honorableMentionPercentile, ['N/A', 0]),
         popup: {
           ...get(popup, POPUP_NAMES.OFFICER.HONORABLE_MENTION),
           position: 'absolute',
