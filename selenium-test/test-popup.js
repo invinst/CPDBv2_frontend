@@ -31,13 +31,18 @@ describe('Popup', function () {
     crPage.accusedOfficers.popup.waitForVisible();
   });
 
-  it('should close itself only when clicking on its close button', function () {
+  it('should close when clicking on the close button', function () {
+    crPage.policeWitness.popupButton.click();
+    crPage.policeWitness.popup.waitForVisible();
+    crPage.policeWitness.popupCloseButton.click();
+    crPage.policeWitness.popup.waitForVisible(1000, true);
+  });
+
+  it('should close the previous popup when open new popup', function () {
     crPage.policeWitness.popupButton.click();
     crPage.policeWitness.popup.waitForVisible();
     crPage.investigator.popupButton.click();
     crPage.investigator.popup.waitForVisible();
-    crPage.policeWitness.popupCloseButton.click();
     crPage.policeWitness.popup.waitForVisible(1000, true);
-    crPage.investigator.popup.waitForVisible();
   });
 });

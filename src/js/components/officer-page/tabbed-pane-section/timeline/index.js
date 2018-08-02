@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { nth, values, get } from 'lodash';
+import { nth, values, get, includes } from 'lodash';
 
 import {
   dateHeaderStyle,
@@ -60,12 +60,15 @@ export default class Timeline extends Component {
         {
           items.map((item, index) => {
             const nextItem = nth(items, index + 1);
+            const excludedKinds = [
+              NEW_TIMELINE_ITEMS.UNIT_CHANGE, NEW_TIMELINE_ITEMS.RANK_CHANGE, NEW_TIMELINE_ITEMS.JOINED
+            ];
 
             const hasBorderBottom = (
-              item.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
+              item.isFirstMutual
+              || !includes(excludedKinds, item.kind)
               && nextItem !== undefined
-              && nextItem.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
-              && nextItem.kind !== NEW_TIMELINE_ITEMS.JOINED
+              && !includes(excludedKinds, nextItem.kind)
             );
 
             return (
