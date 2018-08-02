@@ -1587,7 +1587,7 @@ describe('Officer new timeline selectors', function () {
       const state = {
         officerPage: {
           newTimeline: {
-            filter: 'ALL EVENTS',
+            filter: 'ALL',
             items: [
               {
                 'unit_name': '007',
@@ -2102,7 +2102,7 @@ describe('Officer new timeline selectors', function () {
       const state = {
         officerPage: {
           newTimeline: {
-            filter: 'ALL EVENTS',
+            filter: 'ALL',
             items: [
               {
                 'unit_name': '007',
@@ -2226,7 +2226,7 @@ describe('Officer new timeline selectors', function () {
         'COMPLAINTS': 3,
         'USE OF FORCE': 3,
         'AWARDS': 1,
-        'ALL EVENTS': 11,
+        'ALL': 7,
       });
     });
   });
