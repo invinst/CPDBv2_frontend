@@ -67,6 +67,6 @@ export const noDataRadarTextStyle = {
 export const noDataPopupStyle = {
   display: 'inline-block',
   verticalAlign: 'middle',
-  marginLeft: '5px',
+  margin: '-13px -13px -13px -8px',
   background: `url("${imgUrl('ic-info-white.svg')}") no-repeat scroll center transparent`,
 };

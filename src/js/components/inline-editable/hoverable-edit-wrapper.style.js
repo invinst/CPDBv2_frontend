@@ -22,7 +22,7 @@ export const bottomButtonWrapperStyle = hovering => ({
   zIndex: 1,
   display: hovering ? 'block' : 'none',
   right: `calc(50% - ${bottomButtonWrapperWidth / 2}px)`,
-  bottom: '-30px',
+  bottom: '-28px',
   minWidth: `${bottomButtonWrapperWidth}px`
 });
 
