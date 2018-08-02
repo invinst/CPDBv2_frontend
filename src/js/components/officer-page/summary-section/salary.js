@@ -17,6 +17,7 @@ export default class Salary extends Component {
         <span style={ salaryStyle }> base salary</span>
         <Popup
           { ...popup }
+          position='relative'
           style={ popupStyle }
         />
       </div>

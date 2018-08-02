@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { nth, values, get } from 'lodash';
+import { nth, values, get, includes } from 'lodash';
 
 import {
   dateHeaderStyle,
@@ -9,7 +9,6 @@ import {
   showingTextStyle,
   timelineStyle,
   unitHeaderStyle,
-  popupStyle,
 } from './timeline.style';
 import Item from './item';
 import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, POPUP_NAMES } from 'utils/constants';
@@ -28,14 +27,14 @@ export default class Timeline extends Component {
           RANK
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.RANK) }
-            style={ popupStyle }
+            position='relative'
           />
         </div>
         <div style={ unitHeaderStyle } className='test--timeline-header-col'>
           UNIT
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.UNIT) }
-            style={ popupStyle }
+            position='relative'
           />
         </div>
         <div style={ showingContentHeaderStyle } className='test--timeline-header-col'>
@@ -61,12 +60,15 @@ export default class Timeline extends Component {
         {
           items.map((item, index) => {
             const nextItem = nth(items, index + 1);
+            const excludedKinds = [
+              NEW_TIMELINE_ITEMS.UNIT_CHANGE, NEW_TIMELINE_ITEMS.RANK_CHANGE, NEW_TIMELINE_ITEMS.JOINED
+            ];
 
             const hasBorderBottom = (
-              item.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
+              item.isFirstMutual
+              || !includes(excludedKinds, item.kind)
               && nextItem !== undefined
-              && nextItem.kind !== NEW_TIMELINE_ITEMS.UNIT_CHANGE
-              && nextItem.kind !== NEW_TIMELINE_ITEMS.JOINED
+              && !includes(excludedKinds, nextItem.kind)
             );
 
             return (

@@ -1,23 +1,26 @@
 import { concat, difference, filter, get, includes, isEmpty, nth, rangeRight, slice, values } from 'lodash';
 import moment from 'moment';
+import { createSelector } from 'reselect';
 
 import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, ATTACHMENT_TYPES } from 'utils/constants';
 import { imgUrl } from 'utils/static-assets';
 
 
-const getSelectedFilter = (state) => state.officerPage.newTimeline.filter;
-export const getItems = (state) => get(state.officerPage.newTimeline, 'items', []);
+const getSelectedFilter = (state) => get(state, 'officerPage.newTimeline.filter', '');
+export const getItems = (state) => get(state, 'officerPage.newTimeline.items', []);
+
 
 export const baseTransform = (item, index) => {
   const unitName = item['unit_name'] ? `Unit ${item['unit_name']}` : 'Unassigned';
+  const rank = get(item, 'rank', 'Unassigned');
 
   return {
     year: moment(item.date).year(),
     date: moment(item.date).format('MMM D').toUpperCase(),
     kind: item.kind,
-    rank: item.rank,
-    rankDisplay: item.rank,
-    unitName: unitName,
+    rank,
+    rankDisplay: rank,
+    unitName,
     unitDescription: item['unit_description'],
     unitDisplay: unitName,
     isFirstRank: false,
@@ -25,6 +28,9 @@ export const baseTransform = (item, index) => {
     isFirstUnit: false,
     isLastUnit: false,
     isCurrentUnit: false,
+    isCurrentRank: false,
+    isMutual: false,
+    isFirstMutual: false,
     key: index,
   };
 };
@@ -76,6 +82,7 @@ const transformMap = {
   [NEW_TIMELINE_ITEMS.FORCE]: trrTransform,
   [NEW_TIMELINE_ITEMS.JOINED]: baseTransform,
   [NEW_TIMELINE_ITEMS.UNIT_CHANGE]: baseTransform,
+  [NEW_TIMELINE_ITEMS.RANK_CHANGE]: baseTransform,
   [NEW_TIMELINE_ITEMS.AWARD]: awardTransform,
 };
 
@@ -88,6 +95,7 @@ export const yearItem = (baseItem, year, hasData) => ({
   unitDescription: baseItem.unitDescription,
   unitDisplay: baseItem.unitDisplay,
   isCurrentUnit: baseItem.isCurrentUnit,
+  isCurrentRank: baseItem.isCurrentRank,
   isFirstRank: false,
   isLastRank: false,
   isFirstUnit: false,
@@ -146,13 +154,14 @@ export const fillEmptyItems = (items) => {
 };
 
 export const dedupeRank = (items) => {
-  items[0].isFirstRank = true;
-  items[items.length - 1].isLastRank = true;
-  return items.map((item, index) => {
-    if (index !== 0) {
-      item.rankDisplay = ' ';
+  return items.map((currentItem, index) => {
+    if (index > 0) {
+      const previousItem = items[index - 1];
+      if (currentItem.rank === previousItem.rank) {
+        currentItem.rankDisplay = ' ';
+      }
     }
-    return item;
+    return currentItem;
   });
 };
 
@@ -182,6 +191,20 @@ export const markFirstAndLastUnit = (items) => {
   return items;
 };
 
+export const markFirstAndLastRank = (items) => {
+  items[0].isFirstRank = true;
+  items[items.length - 1].isLastRank = true;
+  items.map((item, index) => {
+    if (item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE) {
+      if (index - 1 >= 0) {
+        items[index - 1].isLastRank = true;
+      }
+      items[index + 1].isFirstRank = true;
+    }
+  });
+  return items;
+};
+
 export const fillUnitChange = (items) => {
   let previousUnitChangeItem = undefined;
 
@@ -201,6 +224,27 @@ export const fillUnitChange = (items) => {
   if (lastUnitChangeItem !== undefined) {
     lastUnitChangeItem.oldUnitName = items[items.length - 1].unitName;
     lastUnitChangeItem.oldUnitDescription = items[items.length - 1].unitDescription;
+  }
+  return items;
+};
+
+export const fillRankChange = (items) => {
+  let previousRankChangeItem = undefined;
+
+  items.map((item) => {
+    if (item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE) {
+      if (previousRankChangeItem !== undefined) {
+        previousRankChangeItem.oldRank = item.rank;
+      }
+
+      previousRankChangeItem = item;
+    }
+  });
+
+  const lastRankChangeItem = previousRankChangeItem;
+
+  if (lastRankChangeItem !== undefined) {
+    lastRankChangeItem.oldRank = items[items.length - 1].rank;
   }
   return items;
 };
@@ -236,17 +280,92 @@ export const markLatestUnit = (items) => {
   });
 };
 
-export const getNewTimelineItems = state => {
-  const items = get(state.officerPage.newTimeline, 'items', []);
+export const markLatestRank = (items) => {
+  const latestRank = items[0] ? items[0].rank : undefined;
 
-  const transformedItems = markLatestUnit(items.map(transform));
+  let inLastRankPeriod = true;
 
-  const filteredItems = applyFilter(getSelectedFilter(state), transformedItems);
-  if (isEmpty(filteredItems)) {
-    return [];
-  }
-  // Do not change the order of these processors
-  const processors = [fillYears, fillEmptyItems, dedupeRank, dedupeUnit, markFirstAndLastUnit, fillUnitChange];
-
-  return processors.reduce((accItems, processor) => processor(accItems), filteredItems);
+  return items.map((item) => {
+    if (item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE) {
+      inLastRankPeriod = false;
+    }
+    item.isCurrentRank = inLastRankPeriod && item.rank === latestRank;
+    return item;
+  });
 };
+
+export const markMutualRankUnit = (items) => {
+  return items.map((item, index) => {
+    if (index + 1 < items.length && item.date === items[index + 1].date) {
+      if (
+        item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && items[index + 1].kind === NEW_TIMELINE_ITEMS.RANK_CHANGE
+        || item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && items[index + 1].kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE
+      ) {
+        item.isMutual = true;
+        item.isFirstMutual = true;
+        item.isFirstUnit = false;
+        item.isFirstRank = false;
+        item.isLastUnit = false;
+        item.isLastRank = false;
+        if (index - 1 >= 0) {
+          items[index - 1].isLastRank = true;
+          items[index - 1].isLastUnit = true;
+        }
+      }
+    }
+    if (index - 1 >= 0 && item.date === items[index - 1].date) {
+      if (
+        item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && items[index - 1].kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE
+        || item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && items[index -1].kind === NEW_TIMELINE_ITEMS.RANK_CHANGE
+      ) {
+        item.isMutual = true;
+        item.isFirstUnit = false;
+        item.isFirstRank = false;
+        item.isLastUnit = false;
+        item.isLastRank = false;
+        if (index + 1 < items.length) {
+          items[index + 1].isFirstUnit = true;
+          items[index + 1].isFirstRank = true;
+          items[index + 1].rankDisplay = items[index + 1].rank;
+          items[index + 1].unitDisplay = items[index + 1].unitName;
+        }
+      }
+    }
+
+    return item;
+  });
+};
+
+
+export const newTimelineItemsSelector = createSelector(
+  getItems,
+  getSelectedFilter,
+  (items, filter) => {
+    const transformedItems = items.map(transform);
+
+    const preProcessors = [
+      markLatestRank,
+      markLatestUnit,
+    ];
+    const preProcessedItems = preProcessors.reduce((accItems, processor) => processor(accItems), transformedItems);
+
+    const filteredItems = applyFilter(filter, preProcessedItems);
+    if (isEmpty(filteredItems)) {
+      return [];
+    }
+    // Do not change the order of these processors
+    const postProcessors = [
+      fillYears,
+      fillEmptyItems,
+      dedupeRank,
+      dedupeUnit,
+      markFirstAndLastRank,
+      markFirstAndLastUnit,
+      fillRankChange,
+      fillUnitChange,
+      markMutualRankUnit,
+    ];
+
+    return postProcessors.reduce((accItems, processor) => processor(accItems), filteredItems);
+  }
+);

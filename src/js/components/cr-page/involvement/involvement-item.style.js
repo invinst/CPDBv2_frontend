@@ -16,9 +16,3 @@ export const titleStyle = {
   color: softBlackColor,
   marginBottom: '8px'
 };
-
-export const popupStyle = {
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  marginLeft: '6px',
-};

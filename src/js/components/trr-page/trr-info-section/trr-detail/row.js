@@ -5,7 +5,6 @@ import {
   rowStyle,
   rowTitleItemStyle,
   rowValueItemStyle,
-  popupStyle,
 } from './row.style';
 import Popup from 'components/common/popup';
 
@@ -17,7 +16,7 @@ export default class Row extends Component {
       <div style={ rowStyle(drawBorder) }>
         <div style={ rowTitleItemStyle }>
           { title }
-          { !isEmpty(popup) ? <Popup { ...popup } style={ popupStyle } /> : null }
+          { !isEmpty(popup) ? <Popup { ...popup } position='relative' /> : null }
         </div>
         <div style={ rowValueItemStyle(borderValue) }>
           { children }

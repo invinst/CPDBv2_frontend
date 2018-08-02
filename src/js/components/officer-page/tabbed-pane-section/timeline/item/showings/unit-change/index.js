@@ -12,9 +12,8 @@ import {
 
 export default class UnitChange extends Component {
   render() {
-    const {
-      unitName, oldUnitName, oldUnitDescription, unitDescription, date, hasBorderBottom,
-    } = this.props.item;
+    const { hasBorderBottom } = this.props;
+    const { unitName, oldUnitName, oldUnitDescription, unitDescription, date } = this.props.item;
     const { baseWrapperShowingStyle, baseShowingStyle, baseDateStyle } = this.props.baseStyles;
 
     return (
