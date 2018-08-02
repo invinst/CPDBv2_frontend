@@ -158,7 +158,7 @@ export default class AnimatedRadarChart extends Component {
             <StaticRadarChart
               textColor={ itemData.textColor }
               backgroundColor={ itemData.visualTokenBackground }
-              fadeOutLegend={ transitionValue >= (data.length - 1) }
+              fadeOutLegend={ transitionValue >= (this.animatedData.length - 1) }
               legendText={ itemData.year }
               data={ itemData.items }
               showSpineLinePoint={ true }

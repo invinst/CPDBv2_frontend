@@ -222,9 +222,11 @@ describe('AnimatedRadarChart components', function () {
       clock.tick(25);
       instance.state.transitionValue.should.eql(instance.velocity);
       findRenderedComponentWithType(instance, StaticRadarChart).props.legendText.should.equal(2016);
+      findRenderedComponentWithType(instance, StaticRadarChart).props.fadeOutLegend.should.be.false();
 
-      clock.tick(500);
+      clock.tick(200);
       findRenderedComponentWithType(instance, StaticRadarChart).props.legendText.should.equal(2016);
+      findRenderedComponentWithType(instance, StaticRadarChart).props.fadeOutLegend.should.be.true();
     });
   });
 });
