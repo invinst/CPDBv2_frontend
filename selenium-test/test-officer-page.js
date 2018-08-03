@@ -3,6 +3,7 @@
 require('should');
 
 import officerPage from './page-objects/officer-page';
+import { switchToRecentTab } from './utils';
 
 
 describe('officer page', function () {
@@ -330,8 +331,7 @@ describe('officer page', function () {
     it('should go to attachment source page when clicking on the complaint attachment', function () {
       officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
       officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
-      const tabIds = browser.getTabIds();
-      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
+      switchToRecentTab();
       browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
     });
   });

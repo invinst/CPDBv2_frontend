@@ -62,9 +62,9 @@ describe('Search term navigation selector', function () {
     id: '',
     name: '',
     description: '',
-    'call_to_action_type': '',
-    link: '',
-    to: '/search/?terms=&type=',
+    callToActionType: '',
+    to: '',
+    url: '',
     type: '',
     uniqueKey: SEARCH_BOX
   };
@@ -86,11 +86,11 @@ describe('Search term navigation selector', function () {
         id: 'Geography',
         name: 'Geography',
         description: '',
-        'call_to_action_type': '',
-        link: '',
-        to: '/search/?terms=Geography&type=GEOGRAPHY',
+        callToActionType: '',
+        to: '',
         type: 'category',
-        uniqueKey: 'category-Geography'
+        uniqueKey: 'category-Geography',
+        url: ''
       });
     });
 
@@ -99,11 +99,11 @@ describe('Search term navigation selector', function () {
         id: 'community',
         name: 'Communities',
         description: 'Chicago is divided into 77 community areas.',
-        'call_to_action_type': 'view_all',
-        link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>',
+        callToActionType: 'view_all',
         to: '/search/?terms=community&type=COMMUNITY',
         type: 'Geography',
-        uniqueKey: 'Geography-community'
+        uniqueKey: 'Geography-community',
+        url: '',
       });
     });
 
