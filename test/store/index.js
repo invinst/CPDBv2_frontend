@@ -164,7 +164,10 @@ describe('store', function () {
           ]
         },
         newTimeline: {
-          filter: 'ALL',
+          filter: {
+            label: 'ALL',
+            kind: ['CR', 'FORCE', 'AWARD']
+          },
           isRequesting: false,
           items: []
         },

@@ -1587,7 +1587,10 @@ describe('Officer new timeline selectors', function () {
       const state = {
         officerPage: {
           newTimeline: {
-            filter: 'ALL',
+            filter: {
+              label: 'ALL',
+              kind: ['CR', 'FORCE', 'AWARD']
+            },
             items: [
               {
                 'unit_name': '007',
@@ -2223,10 +2226,11 @@ describe('Officer new timeline selectors', function () {
         }
       };
       filterCount(state).should.eql({
-        'COMPLAINTS': 3,
-        'USE OF FORCE': 3,
+        'CRS': 3,
+        'FORCE': 3,
         'AWARDS': 1,
         'ALL': 7,
+        'SUSTAINED': 0,
       });
     });
   });

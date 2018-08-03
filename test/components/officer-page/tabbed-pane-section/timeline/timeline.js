@@ -6,7 +6,6 @@ import {
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
-import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
@@ -127,15 +126,11 @@ describe('Timeline component', function () {
   });
 
   it('should render dropdown with correct props', function () {
-    const changeFilterStub = stub();
     instance = renderIntoDocument(
-      <Timeline
-        changeFilter={ changeFilterStub }
-      />
+      <Timeline />
     );
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
     dropdown.props.defaultValue.should.eql('ALL');
-    dropdown.props.onChange.should.eql(changeFilterStub);
-    dropdown.props.options.should.eql(['ALL', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS']);
+    dropdown.props.options.should.eql(['ALL', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS', 'SUSTAINED']);
   });
 });
