@@ -387,10 +387,22 @@ export const NEW_TIMELINE_ITEMS = {
 };
 
 export const NEW_TIMELINE_FILTERS = {
-  ALL: 'ALL',
-  CRS: 'COMPLAINTS',
-  FORCE: 'USE OF FORCE',
-  AWARDS: 'AWARDS'
+  ALL: {
+    label: 'ALL',
+    kind: [NEW_TIMELINE_ITEMS.CR, NEW_TIMELINE_ITEMS.FORCE, NEW_TIMELINE_ITEMS.AWARD],
+  },
+  CRS: {
+    label: 'COMPLAINTS',
+    kind: [NEW_TIMELINE_ITEMS.CR],
+  },
+  FORCE: {
+    label: 'USE OF FORCE',
+    kind: [NEW_TIMELINE_ITEMS.FORCE],
+  },
+  AWARDS: {
+    label: 'AWARDS',
+    kind: [NEW_TIMELINE_ITEMS.AWARD],
+  },
 };
 
 export const DISTANCE_OPTIONS = {

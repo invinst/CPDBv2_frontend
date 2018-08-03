@@ -249,18 +249,9 @@ export const fillRankChange = (items) => {
   return items;
 };
 
-const removableKinds = [NEW_TIMELINE_ITEMS.CR, NEW_TIMELINE_ITEMS.FORCE, NEW_TIMELINE_ITEMS.AWARD];
-const unremovableKinds = difference(values(NEW_TIMELINE_ITEMS), removableKinds);
-
-const filteredKindsMap = {
-  [NEW_TIMELINE_FILTERS.CRS]: [NEW_TIMELINE_ITEMS.CR],
-  [NEW_TIMELINE_FILTERS.FORCE]: [NEW_TIMELINE_ITEMS.FORCE],
-  [NEW_TIMELINE_FILTERS.AWARDS]: [NEW_TIMELINE_ITEMS.AWARD],
-  [NEW_TIMELINE_FILTERS.ALL]: removableKinds,
-};
-
 export const applyFilter = (selectedFilter, items) => {
-  const filteredKinds = filteredKindsMap[selectedFilter];
+  const unremovableKinds = difference(values(NEW_TIMELINE_ITEMS), NEW_TIMELINE_FILTERS.ALL.kind);
+  const filteredKinds = selectedFilter.kind;
   const displayKinds = concat(unremovableKinds, filteredKinds);
 
   return filter(items, (item) => includes(displayKinds, item.kind));
@@ -375,21 +366,20 @@ export const filterCount = createSelector(
   items => {
     let count = Object.assign({}, NEW_TIMELINE_FILTERS);
     delete count.ALL;
-    count = invert(count);
 
     let allCount = 0;
 
-    Object.keys(count).map(kind => {
-      count[kind] = 0;
+    Object.keys(count).map(key => {
+      count[key] = 0;
       items.map(item => {
-        if (includes(filteredKindsMap[kind], item.kind)) {
-          count[kind]++;
+        if (includes(NEW_TIMELINE_FILTERS[key].kind, item.kind)) {
+          count[key]++;
         }
       });
-      allCount += count[kind];
+      allCount += count[key];
     });
 
-    count[NEW_TIMELINE_FILTERS.ALL] = allCount;
+    count.ALL = allCount;
     return count;
   }
 );
