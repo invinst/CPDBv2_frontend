@@ -1,4 +1,17 @@
-import { concat, difference, filter, get, includes, isEmpty, nth, rangeRight, slice, values, invert } from 'lodash';
+import {
+  concat,
+  difference,
+  filter,
+  get,
+  includes,
+  isEmpty,
+  nth,
+  rangeRight,
+  slice,
+  values,
+  isUndefined,
+  cloneDeep,
+} from 'lodash';
 import moment from 'moment';
 import { createSelector } from 'reselect';
 
@@ -249,12 +262,35 @@ export const fillRankChange = (items) => {
   return items;
 };
 
-export const applyFilter = (selectedFilter, items) => {
+const filterByKind = (selectedFilter, items) => {
   const unremovableKinds = difference(values(NEW_TIMELINE_ITEMS), NEW_TIMELINE_FILTERS.ALL.kind);
   const filteredKinds = selectedFilter.kind;
   const displayKinds = concat(unremovableKinds, filteredKinds);
 
   return filter(items, (item) => includes(displayKinds, item.kind));
+};
+
+export const applyFilter = (selectedFilter, items) => {
+  let results = [];
+  let cloneSelectedFilter = cloneDeep(selectedFilter);
+  delete cloneSelectedFilter.label;
+  delete cloneSelectedFilter.kind;
+
+  if (!isUndefined(selectedFilter.kind)) {
+    results = filterByKind(selectedFilter, items);
+  }
+
+  const keys = Object.keys(cloneSelectedFilter);
+
+  if (isEmpty(keys)) {
+    return results;
+  }
+
+  keys.map(key => {
+    results = filter(results, result => includes(selectedFilter[key], result[key]));
+  });
+
+  return results;
 };
 
 export const markLatestUnit = (items) => {
@@ -365,21 +401,25 @@ export const filterCount = createSelector(
   getItems,
   items => {
     let count = Object.assign({}, NEW_TIMELINE_FILTERS);
-    delete count.ALL;
+    let CLONE_NEW_TIMELINE_FILTERS = cloneDeep(NEW_TIMELINE_FILTERS);
 
-    let allCount = 0;
+    Object.keys(CLONE_NEW_TIMELINE_FILTERS).map(key => delete CLONE_NEW_TIMELINE_FILTERS[key].label);
 
     Object.keys(count).map(key => {
       count[key] = 0;
       items.map(item => {
-        if (includes(NEW_TIMELINE_FILTERS[key].kind, item.kind)) {
+        let excluded = false;
+        Object.keys(CLONE_NEW_TIMELINE_FILTERS[key]).map(subKey => {
+          if (!includes(CLONE_NEW_TIMELINE_FILTERS[key][subKey], item[subKey])) {
+            excluded = true;
+          }
+        });
+        if (!excluded) {
           count[key]++;
         }
       });
-      allCount += count[key];
     });
 
-    count.ALL = allCount;
     return count;
   }
 );

@@ -403,6 +403,11 @@ export const NEW_TIMELINE_FILTERS = {
     label: 'AWARDS',
     kind: [NEW_TIMELINE_ITEMS.AWARD],
   },
+  SUSTAINED: {
+    label: 'SUSTAINED',
+    kind: [NEW_TIMELINE_ITEMS.CR],
+    finding: ['Sustained']
+  }
 };
 
 export const DISTANCE_OPTIONS = {

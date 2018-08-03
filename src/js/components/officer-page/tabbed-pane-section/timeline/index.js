@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { nth, values, get, includes, mapValues, findKey} from 'lodash';
+import { nth, values, get, includes, mapValues, findKey } from 'lodash';
 
 import {
   dateHeaderStyle,
