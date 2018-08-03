@@ -4,8 +4,10 @@ import {
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
+  Simulate,
 } from 'react-addons-test-utils';
+import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
@@ -126,11 +128,23 @@ describe('Timeline component', function () {
   });
 
   it('should render dropdown with correct props', function () {
+    const changeFilterStub = stub();
     instance = renderIntoDocument(
-      <Timeline />
+      <Timeline
+        changeFilter={ changeFilterStub }
+      />
     );
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
     dropdown.props.defaultValue.should.eql('ALL');
     dropdown.props.options.should.eql(['ALL', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS', 'SUSTAINED']);
+
+    const dropdownButton = findRenderedDOMComponentWithClass(instance, 'test--dropdown-button');
+    Simulate.click(dropdownButton);
+    const options = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item');
+    Simulate.click(options[0]);
+    changeFilterStub.calledWith({
+      label: 'COMPLAINTS',
+      kind: ['CR'],
+    }).should.be.true();
   });
 });
