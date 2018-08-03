@@ -74,7 +74,7 @@ describe('officer page', function () {
     headerText.should.containEql('RANK');
     headerText.should.containEql('UNIT');
     headerText.should.containEql('SHOWING');
-    headerText.should.containEql('ALL EVENTS');
+    headerText.should.containEql('ALL');
     headerText.should.containEql('DATE');
 
     officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();

@@ -29,6 +29,6 @@ describe('Dropdown component', function () {
     const secondMenuItem = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item')[1];
     Simulate.click(secondMenuItem);
 
-    onSelectStub.should.be.calledWith('2');
+    onSelectStub.should.be.calledWith(1);
   });
 });
