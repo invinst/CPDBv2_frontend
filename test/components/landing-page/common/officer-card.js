@@ -59,4 +59,11 @@ describe('OfficerCard component', function () {
     instance = renderIntoDocument(<OfficerCard officerId={ 3 }/>);
     findRenderedComponentWithType(instance, NoDataRadarChart);
   });
+
+  it('should render link with target _blank when openCardInNewPage is true', () => {
+    instance = renderIntoDocument(<OfficerCard officerId={ 3 } openCardInNewPage={ true }/>);
+
+    const link = findRenderedComponentWithType(instance, Link);
+    link.props.target.should.eql('_blank');
+  });
 });

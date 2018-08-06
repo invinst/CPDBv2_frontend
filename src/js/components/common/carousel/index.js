@@ -38,7 +38,7 @@ export default class Carousel extends Component {
     const { spaceBetween, childWidth } = this.props;
     const slideWidth = childWidth + spaceBetween;
     const { width } = this.el.getBoundingClientRect();
-    this.slidesPerGroup = Math.floor((width - arrowWidth) / slideWidth);
+    this.slidesPerGroup = Math.max(Math.floor((width - arrowWidth) / slideWidth), 1);
   }
 
   handleNavigate(direction) {
