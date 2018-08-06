@@ -97,6 +97,16 @@ export default store => next => action => {
     }
   } else if (action.payload.pathname.match(/search\/terms/)) {
     dispatches.push(store.dispatch(requestSearchTermCategories()));
+  } else if (action.payload.pathname.match(/embeddable-map/)) {
+    if (!hasCommunitiesSelector(state)) {
+      dispatches.push(store.dispatch(getCommunities()));
+    }
+    if (!hasClusterGeoJsonData(state)) {
+      dispatches.push(store.dispatch(getClusterGeoJson()));
+    }
+    if (!hasCitySummarySelector(state)) {
+      dispatches.push(store.dispatch(getCitySummary()));
+    }
   }
 
   if (dispatches.length > 0) {

@@ -12,6 +12,7 @@ import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
 import TRRPageContainer from 'containers/trr-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
+import HeatMapContainer from 'containers/landing-page/heat-map';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -23,7 +24,8 @@ import {
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
   STANDALONE_CR_PATH,
-  OFFICER_SOCIAL_GRAPH_SUFFIX
+  OFFICER_SOCIAL_GRAPH_SUFFIX,
+  EMBEDABLE_MAP_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -89,6 +91,9 @@ export default class RouterRoot extends Component {
             <Route
               path={ INLINE_SEARCH_ALIAS_ADMIN_PATH }
               component={ InlineAliasAdminContainer }/>
+            <Route
+              path={ EMBEDABLE_MAP_PATH }
+              component={ HeatMapContainer }/>
           </Route>
         </Router>
       </Provider>
