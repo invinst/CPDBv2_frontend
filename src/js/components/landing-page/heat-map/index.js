@@ -47,7 +47,7 @@ export default class HeatMap extends Component {
           minimumStyle={ minimumStyle }
           mediumStyle={ mediumStyle }
           maximumStyle={ maximumStyle }
-          minWidthThreshold={ 769 }
+          minWidthThreshold={ 768  }
           maxWidthThreshold={ 1024 }
         >
           <SummaryPanel
