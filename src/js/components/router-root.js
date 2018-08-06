@@ -12,7 +12,7 @@ import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
 import TRRPageContainer from 'containers/trr-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
-import HeatMapContainer from 'containers/landing-page/heat-map';
+import HeatMapContainer from 'containers/embeddable-heat-map';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
