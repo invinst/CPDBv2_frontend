@@ -1,3 +1,4 @@
 export const mapContainerStyle = {
-  height: '630px'
+  // height: '480px'
+  height: '100%',
 };

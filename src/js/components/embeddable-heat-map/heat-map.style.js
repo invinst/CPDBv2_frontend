@@ -3,20 +3,34 @@ export const wrapperStyle = {
   overflow: 'hidden'
 };
 
-export const minimumStyle = {
+export const summaryPanelMinimumStyle = {
+  top: '106px',
+  width: '100%',
+};
+
+export const summaryPanelMediumStyle = {
   position: 'absolute',
-  top: 0,
+  top: '50px',
   right: '16px',
+  width: '320px',
 };
 
-export const mediumStyle = {
+export const summaryPanelMaximumStyle = {
   position: 'absolute',
-  top: 0,
-  right: '60px',
-};
-
-export const maximumStyle = {
-  position: 'absolute',
-  top: 0,
+  top: '50px',
   left: 'calc(50% + 130px)',
+  width: '320px',
+};
+
+export const communityMapMinimumStyle = {
+  position: 'relative',
+  height: '140px'
+};
+
+export const communityMapMediumStyle = {
+  position: 'relative',
+};
+
+export const communityMapMaximumStyle = {
+  position: 'relative',
 };

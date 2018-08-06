@@ -4,11 +4,24 @@ import { map } from 'lodash';
 import config from 'config';
 import { categoryUrl } from 'utils/v1-url';
 import {
-  wrapperStyle, headerStyle, allegationDisciplineStyle, allegationTextStyle, disciplineTextStyle,
-  mostCommonComplaintStyle, categoryStyle, categoryNameStyle, rightArrowStyle, categoryTextWrapper,
-  clickReceiver, allegationDisciplineCountStyle
+  wrapperStyle,
+  headerStyle,
+  allegationDisciplineStyle,
+  allegationTextStyle,
+  disciplineTextStyle,
+  mostCommonComplaintStyle,
+  categoryStyle,
+  categoryNameStyle,
+  rightArrowStyle,
+  categoryTextWrapper,
+  clickReceiver,
+  allegationDisciplineCountStyle,
+  minimumStyle,
+  mediumStyle,
+  maximumStyle
 } from './city-summary.style';
 import OutboundLink from 'components/common/outbound-link';
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 
 
 export default class CitySummary extends Component {
@@ -17,34 +30,46 @@ export default class CitySummary extends Component {
     const { allegationCount, disciplinePercentage, mostCommonComplaints } = citySummary;
 
     return (
-      <div style={ wrapperStyle(isActive) }
-        className='link--transition test--city-summary'>
+      <div
+        style={ wrapperStyle(isActive) }
+        className='link--transition test--city-summary'
+      >
         {
           isActive ?
             null :
-            <div style={ clickReceiver } onClick={ onClick }/>
+            <div style={ clickReceiver } onClick={ onClick } />
         }
         <div style={ headerStyle }>CHICAGO 1988 - 2018</div>
-        <div style={ allegationDisciplineStyle }
-          className='test--allegation-discipline-count'>
+        <div
+          style={ allegationDisciplineStyle }
+          className='test--allegation-discipline-count'
+        >
           <OutboundLink href={ config.v1Url }>
             <div style={ allegationDisciplineCountStyle }>
-              <div style={ allegationTextStyle }>
-                {
-                  allegationCount ?
-                    `${allegationCount.toLocaleString()} allegations` :
-                    null
-                }
-              </div>
-              <div style={ disciplineTextStyle }>
-                {
-                  disciplinePercentage ?
-                    `${ disciplinePercentage }% disciplined` :
-                    null
-                }
-              </div>
+              <ResponsiveFluidWidthComponent
+                minimumStyle={ minimumStyle }
+                mediumStyle={ mediumStyle }
+                maximumStyle={ maximumStyle }
+                minWidthThreshold={ 768 }
+                maxWidthThreshold={ 1024 }
+              >
+                <div style={ allegationTextStyle }>
+                  {
+                    allegationCount ?
+                      `${allegationCount.toLocaleString()} allegations` :
+                      null
+                  }
+                </div>
+                <div style={ disciplineTextStyle }>
+                  {
+                    disciplinePercentage ?
+                      `${ disciplinePercentage }% disciplined` :
+                      null
+                  }
+                </div>
+              </ResponsiveFluidWidthComponent>
             </div>
-            <div style={ rightArrowStyle }/>
+            <div style={ rightArrowStyle } />
           </OutboundLink>
         </div>
         <div>
@@ -61,7 +86,7 @@ export default class CitySummary extends Component {
                     <div style={ categoryNameStyle }>{ name }</div>
                     <div>{ count.toLocaleString() } allegations</div>
                   </div>
-                  <div style={ rightArrowStyle }/>
+                  <div style={ rightArrowStyle } />
                 </OutboundLink>
               ))
             }

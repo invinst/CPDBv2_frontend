@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Motion, spring } from 'react-motion';
 
 import { defaultConfig } from 'utils/spring-presets';
-import { panelStyle } from './summary-panel.style';
+import { panelStyle, minimumStyle, mediumStyle, maximumStyle } from './summary-panel.style';
 import CommunityDropdown from './community-dropdown';
 import CitySummary from 'containers/landing-page/heat-map/city-summary-container';
 
@@ -23,17 +23,17 @@ export default class SummaryPanel extends Component {
         <CitySummary isActive={ !(showDropdown || communityId) } onClick={ () => {
           selectCommunity(0);
           this.setState({ showDropdown: false });
-        } }/>
-        <CommunityDropdown
-          communityId={ communityId }
-          communities={ communities }
-          showDropdown={ showDropdown }
-          openDropdown={ () => this.setState({ showDropdown: true }) }
-          closeDropdown={ () => this.setState({ showDropdown: false }) }
-          selectCommunity={ community => {
-            selectCommunity(community);
-            this.setState({ showDropdown: false });
-          } }/>
+        } } />
+        {/*<CommunityDropdown*/}
+          {/*communityId={ communityId }*/}
+          {/*communities={ communities }*/}
+          {/*showDropdown={ showDropdown }*/}
+          {/*openDropdown={ () => this.setState({ showDropdown: true }) }*/}
+          {/*closeDropdown={ () => this.setState({ showDropdown: false }) }*/}
+          {/*selectCommunity={ community => {*/}
+            {/*selectCommunity(community);*/}
+            {/*this.setState({ showDropdown: false });*/}
+          {/*} }/>*/}
       </div>
     );
   }
@@ -41,7 +41,7 @@ export default class SummaryPanel extends Component {
   render() {
     const { showDropdown } = this.state;
     const { communityId } = this.props;
-    const topValue = (showDropdown || communityId) ? -322 : 60;
+    const topValue = (showDropdown || communityId) ? -382 : 0;
 
     return (
       <Motion

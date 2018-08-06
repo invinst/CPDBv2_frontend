@@ -9,7 +9,7 @@ export const wrapperStyle = {
   fontSize: '14px',
   fontWeight: 300,
   color: accentColor,
-  padding: '23px 16px 11px 16px',
+  padding: '23px 16px',
   cursor: 'pointer'
 };
 
