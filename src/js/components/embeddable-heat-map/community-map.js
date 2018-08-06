@@ -130,6 +130,7 @@ export default class CommunityMap extends Component {
             }
           }
         ] }
+        center={ [-87.629315, 41.877473] }
       />
     );
   }

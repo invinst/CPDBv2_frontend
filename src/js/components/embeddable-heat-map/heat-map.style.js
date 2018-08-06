@@ -23,14 +23,13 @@ export const summaryPanelMaximumStyle = {
 };
 
 export const communityMapMinimumStyle = {
-  position: 'relative',
   height: '140px'
 };
 
 export const communityMapMediumStyle = {
-  position: 'relative',
+  height: '480px',
 };
 
 export const communityMapMaximumStyle = {
-  position: 'relative',
+  height: '480px',
 };

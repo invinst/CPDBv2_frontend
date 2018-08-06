@@ -49,7 +49,7 @@ export default class HeatMap extends Component {
           minimumStyle={ communityMapMinimumStyle }
           mediumStyle={ communityMapMediumStyle }
           maximumStyle={ communityMapMaximumStyle }
-          minWidthThreshold={ 768 }
+          minWidthThreshold={ 680 }
           maxWidthThreshold={ 1024 }
         >
           <CommunityMap
@@ -63,7 +63,7 @@ export default class HeatMap extends Component {
           minimumStyle={ summaryPanelMinimumStyle }
           mediumStyle={ summaryPanelMediumStyle }
           maximumStyle={ summaryPanelMaximumStyle }
-          minWidthThreshold={ 768 }
+          minWidthThreshold={ 680 }
           maxWidthThreshold={ 1024 }
         >
           <SummaryPanel

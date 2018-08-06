@@ -90,3 +90,18 @@ export const clickReceiver = {
   top: 0,
   left: 0
 };
+
+export const minimumStyle = {
+  fontSize: '14px',
+  display: 'inline',
+};
+
+export const mediumStyle = {
+  fontSize: '26px',
+  display: 'block',
+};
+
+export const maximumStyle = {
+  fontSize: '26px',
+  display: 'block',
+};
