@@ -3,7 +3,7 @@ import {
   ACTIVITY_GRID_API_URL,
   CITY_SUMMARY_API_URL,
   CR_URL,
-  LANDING_PAGE_API_URL,
+  SLUG_PAGE_API_URL,
   MAIL_CHIMP_URL,
   OFFICER_URL,
   OFFICERS_BY_ALLEGATION_API_URL,
@@ -22,7 +22,7 @@ import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getCRRelatedComplaintsData from './cr-page/get-related-complaint';
 import getActivityGridData from './landing-page/activity-grid';
 import getTopByAllegationData from './landing-page/top-by-allegation';
-import { getCMSFields } from './landing-page/cms-field';
+import { landingPageCMSFields, officerPageCMSFields } from './cms-field';
 import getComplaintSummaries from './landing-page/complaint-summaries';
 import { getCitySummary, getCommunities } from './landing-page/heat-map';
 import getRecentDocument from './landing-page/recent-document';
@@ -116,7 +116,8 @@ axiosMockClient.onGet(SEARCH_TERMS_CATEGORIES_API_URL).reply(200, getSearchTerms
 axiosMockClient.onGet(CITY_SUMMARY_API_URL).reply(200, getCitySummary());
 axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
 
-axiosMockClient.onGet(LANDING_PAGE_API_URL).reply(200, getCMSFields());
+axiosMockClient.onGet(`${SLUG_PAGE_API_URL}landing-page/`).reply(200, landingPageCMSFields);
+axiosMockClient.onGet(`${SLUG_PAGE_API_URL}officer-page/`).reply(200, officerPageCMSFields);
 
 axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
 
