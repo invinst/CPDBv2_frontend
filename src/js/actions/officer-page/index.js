@@ -8,6 +8,8 @@ import {
   OFFICER_SUMMARY_REQUEST_SUCCESS,
   OFFICER_URL,
   CHANGE_OFFICER_TAB,
+  OFFICER_EDIT_MODE,
+  OFFICER_EDIT_TYPES,
 } from 'utils/constants';
 
 
@@ -19,3 +21,20 @@ export const fetchOfficerSummary = officerId => (get(
 export const changeOfficerId = createAction(CHANGE_OFFICER_ID);
 
 export const changeOfficerTab = createAction(CHANGE_OFFICER_TAB);
+
+
+const createChangeEditModeAction = (editType, mode) => createAction(
+  OFFICER_EDIT_MODE,
+  () => ({ editType, mode })
+);
+
+export const turnOnTriangleExplainEditMode = createChangeEditModeAction(OFFICER_EDIT_TYPES.TRIANGLE, true);
+export const turnOffTriangleExplainEditMode = createChangeEditModeAction(OFFICER_EDIT_TYPES.TRIANGLE, false);
+
+export const turnOnScaleExplainEditMode = createChangeEditModeAction(OFFICER_EDIT_TYPES.SCALE, true);
+export const turnOffScaleExplainEditMode = createChangeEditModeAction(OFFICER_EDIT_TYPES.SCALE, false);
+
+export const turnOnNoDataRadarChartExplainEditMode = createChangeEditModeAction(
+  OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART, true);
+export const turnOffNoDataRadarChartExplainEditMode = createChangeEditModeAction(
+  OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART, false);

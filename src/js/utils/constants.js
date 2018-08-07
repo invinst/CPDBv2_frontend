@@ -352,6 +352,9 @@ export const SEARCH_CATEGORIES = [
   'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT'
 ];
 
+export const OFFICER_EDIT_MODE = 'OFFICER_EDIT_MODE';
+export const OFFICER_EDIT_TYPES = new Enum(['TRIANGLE', 'SCALE', 'NO_DATA_RADAR_CHART']);
+
 export const TURN_ON_LOGO_EDIT_MODE = 'TURN_ON_LOGO_EDIT_MODE';
 export const TURN_OFF_LOGO_EDIT_MODE = 'TURN_OFF_LOGO_EDIT_MODE';
 
@@ -374,6 +377,7 @@ export const CLUSTER_GEO_REQUEST_FAILURE = 'CLUSTER_GEO_REQUEST_FAILURE';
 export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
 export const LANDING_PAGE_ID = 'landing-page';
+export const OFFICER_PAGE_ID = 'officer-page';
 
 export const NEW_TIMELINE_ITEMS = {
   CR: 'CR',
@@ -387,7 +391,7 @@ export const NEW_TIMELINE_ITEMS = {
 };
 
 export const NEW_TIMELINE_FILTERS = {
-  ALL: 'ALL EVENTS',
+  ALL: 'ALL',
   CRS: 'COMPLAINTS',
   FORCE: 'USE OF FORCE',
   AWARDS: 'AWARDS'
@@ -444,6 +448,7 @@ export const POPUP_NAMES = {
     UNIT: 'unit',
     RANK: 'rank',
     SALARY: 'salary',
+    NO_DATA_RADAR_CHART: 'noDataRadarChart',
   },
   COMPLAINT: {
     CATEGORY: 'category',

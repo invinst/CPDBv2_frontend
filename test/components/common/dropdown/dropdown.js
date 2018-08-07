@@ -33,7 +33,7 @@ describe('Dropdown component', function () {
     );
     instance.state.should.eql({
       open: false,
-      selected: '1'
+      selectedIndex: 0
     });
   });
 
@@ -88,7 +88,7 @@ describe('Dropdown component', function () {
     const firstMenuItem = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item')[0];
     Simulate.click(firstMenuItem);
 
-    dropdown.state.selected.should.eql('2');
+    dropdown.state.selectedIndex.should.eql(1);
     onChangeStub.should.be.calledWith('2');
   });
 
