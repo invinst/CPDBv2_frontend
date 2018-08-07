@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { map, isEqual, find } from 'lodash';
-import classnames from 'classnames';
 
 import { columnWrapperStyle, headerStyle, itemsWrapperStyle } from './category-column.style';
 import CategoryItem from './category-item';
@@ -61,22 +60,13 @@ export default class CategoryColumn extends Component {
   }
 
   render() {
-    const { name, focusedItem, handleItemClick } = this.props;
-    const headerUniqueKey = `category-${name}`;
-    const isFocusedHeader = focusedItem.uniqueKey === headerUniqueKey;
-    const className = classnames(
-      `term-item-${headerUniqueKey.replace(' ', '-')}`,
-      'test--category-header'
-    );
-
     return (
       <div style={ columnWrapperStyle } className='test--category-column'>
         <div
-          style={ headerStyle(isFocusedHeader) }
-          onClick={ () => handleItemClick(headerUniqueKey) }
-          className={ className }
+          style={ headerStyle }
+          className='test--category-header'
         >
-          { name }
+          { this.props.name }
         </div>
         {
           this.renderItems()
