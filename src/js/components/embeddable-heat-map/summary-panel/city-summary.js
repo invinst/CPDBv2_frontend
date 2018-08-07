@@ -16,12 +16,8 @@ import {
   categoryTextWrapper,
   clickReceiver,
   allegationDisciplineCountStyle,
-  minimumStyle,
-  mediumStyle,
-  maximumStyle,
 } from './city-summary.style';
 import OutboundLink from 'components/common/outbound-link';
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 
 
 export default class CitySummary extends Component {
@@ -40,28 +36,20 @@ export default class CitySummary extends Component {
         <div style={ allegationDisciplineStyle } className='test--allegation-discipline-count'>
           <OutboundLink href={ config.v1Url }>
             <div style={ allegationDisciplineCountStyle }>
-              <ResponsiveFluidWidthComponent
-                minimumStyle={ minimumStyle }
-                mediumStyle={ mediumStyle }
-                maximumStyle={ maximumStyle }
-                minWidthThreshold={ 680 }
-                maxWidthThreshold={ 1024 }
-              >
-                <div style={ allegationTextStyle }>
-                  {
-                    allegationCount ?
-                      `${allegationCount.toLocaleString()} allegations` :
-                      null
-                  }
-                </div>
-                <div style={ disciplineTextStyle }>
-                  {
-                    disciplinePercentage ?
-                      `${ disciplinePercentage }% disciplined` :
-                      null
-                  }
-                </div>
-              </ResponsiveFluidWidthComponent>
+              <div style={ allegationTextStyle }>
+                {
+                  allegationCount ?
+                    `${allegationCount.toLocaleString()} allegations` :
+                    null
+                }
+              </div>
+              <div style={ disciplineTextStyle }>
+                {
+                  disciplinePercentage ?
+                    `${ disciplinePercentage }% disciplined` :
+                    null
+                }
+              </div>
             </div>
             <div style={ rightArrowStyle } />
           </OutboundLink>

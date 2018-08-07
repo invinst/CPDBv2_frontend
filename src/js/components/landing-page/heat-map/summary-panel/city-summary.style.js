@@ -33,17 +33,16 @@ export const allegationDisciplineCountStyle = {
 
 export const allegationTextStyle = {
   color: softBlackColor,
+  fontSize: '26px',
   fontWeight: 400,
-  fontFamily: sanFranciscoTextFamily,
-  display: 'inherit',
-  marginRight: '6px',
+  fontFamily: sanFranciscoTextFamily
 };
 
 export const disciplineTextStyle = {
   color: bostonRed,
+  fontSize: '26px',
   fontWeight: 400,
-  fontFamily: sanFranciscoTextFamily,
-  display: 'inherit',
+  fontFamily: sanFranciscoTextFamily
 };
 
 export const mostCommonComplaintStyle = {

@@ -23,7 +23,7 @@ export const summaryPanelMaximumStyle = {
 };
 
 export const communityMapMinimumStyle = {
-  height: '140px'
+  height: '148px'
 };
 
 export const communityMapMediumStyle = {

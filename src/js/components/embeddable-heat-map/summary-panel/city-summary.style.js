@@ -5,23 +5,23 @@ import { imgUrl } from 'utils/static-assets';
 
 
 export const wrapperStyle = isActive => ({
-  padding: '0 16px',
+  padding: '10px 16px 0 16px',
   border: `1px solid ${whiteTwoColor}`,
   background: isActive ? 'white' : sugarCaneColor,
-  cursor: !isActive ? 'pointer' : 'default'
+  cursor: !isActive ? 'pointer' : 'default',
 });
 
 export const headerStyle = {
-  padding: '23px 0',
   fontWeight: 400,
   fontFamily: sanFranciscoTextFamily,
   fontSize: '14px',
   color: softBlackColor,
-  borderBottom: `1px solid ${ whiteTwoColor }`
+  borderBottom: `1px solid ${ whiteTwoColor }`,
+  padding: '7px 0',
 };
 
 export const allegationDisciplineStyle = {
-  padding: '20px 0',
+  padding: '10px 0',
   borderBottom: `1px solid ${ whiteTwoColor }`
 };
 
@@ -89,19 +89,4 @@ export const clickReceiver = {
   height: '100%',
   top: 0,
   left: 0
-};
-
-export const minimumStyle = {
-  fontSize: '14px',
-  display: 'inline',
-};
-
-export const mediumStyle = {
-  fontSize: '26px',
-  display: 'block',
-};
-
-export const maximumStyle = {
-  fontSize: '26px',
-  display: 'block',
 };

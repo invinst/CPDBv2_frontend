@@ -1,11 +1,11 @@
 export const dropdownWrapperStyle = {
-  marginTop: '8px',
+  marginTop: '2px',
   position: 'relative'
 };
 
 export const childStyle = {
   position: 'absolute',
   left: 0,
-  top: 0,
+  top: '148px',
   width: '100%'
 };

@@ -6,7 +6,7 @@ import { imgUrl } from 'utils/static-assets';
 
 
 export const communityWrapperStyle = {
-  padding: '0 16px',
+  padding: '16px 16px 0 16px',
   backgroundColor: 'white'
 };
 
@@ -15,7 +15,6 @@ export const headerStyle = {
   fontFamily: sanFranciscoTextFamily,
   fontWeight: 400,
   fontSize: '14px',
-  padding: '23px 0',
   textTransform: 'uppercase'
 };
 

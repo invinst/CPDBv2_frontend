@@ -4,7 +4,6 @@ import { TransitionMotion, spring } from 'react-motion';
 
 import { defaultConfig } from 'utils/spring-presets';
 import CommunityDetail from './community-detail';
-import DropdownPlaceHolder from './dropdown-placeholder';
 import Dropdown from './dropdown';
 import { dropdownWrapperStyle, childStyle } from './community-dropdown.style';
 
@@ -50,10 +49,7 @@ export default class CommunityDropdown extends Component {
         key: 'dropdown',
         style: { opacity: spring(1, defaultConfig()) },
         data: {
-          getElement: () => (
-            <DropdownPlaceHolder
-              openDropdown={ this.props.openDropdown }/>
-          )
+          getElement: () => null
         }
       }];
     }

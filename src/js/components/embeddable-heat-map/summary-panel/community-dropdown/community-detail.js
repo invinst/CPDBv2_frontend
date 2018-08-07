@@ -8,7 +8,6 @@ import {
   learnMoreStyle, learnMoreTextStyle, rightArrowBlueStyle,
   closeButtonStyle
 } from './community-detail.style';
-import CommunityRacePopulation from './community-race-population';
 import CommunityOfficers from './community-officers';
 import OutboundLink from 'components/common/outbound-link';
 
@@ -38,10 +37,7 @@ export default class CommunityDetail extends Component {
 
   render() {
     const { closeDetail } = this.props;
-    const {
-      name, allegationCount, disciplineCount, population, medianIncome,
-      raceCount, mostComplaintsOfficers
-    } = this.getCommunity();
+    const { name, allegationCount, disciplineCount, mostComplaintsOfficers } = this.getCommunity();
 
     return (
       <div style={ communityWrapperStyle }>
@@ -49,7 +45,6 @@ export default class CommunityDetail extends Component {
           <span style={ headerTextStyle }>{ name }</span>
           <span className='test--community-close-btn' style={ closeButtonStyle } onClick={ closeDetail }/>
         </div>
-        <CommunityRacePopulation population={ population } medianIncome={ medianIncome } raceCount={ raceCount }/>
         <div style={ allegationDisciplineStyle }
           className='test--community-allegation-discipline'>
           <span style={ allegationTextStyle }>{ allegationCount } allegations </span>
