@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import { map } from 'lodash';
 
+import OutboundLink from 'components/common/outbound-link';
 import {
   officersWrapperStyle, officersHeaderStyle, officerTextStyle, officerNameTextStyle,
   officerItemStyle, complaintsCountStyle, rightArrowStyle
@@ -17,8 +17,8 @@ export default class CommunityOfficers extends Component {
         <div>
           {
             map(mostComplaintsOfficers, (officer, index) => (
-              <Link
-                to={ `/officer/${officer.id}/` }
+              <OutboundLink
+                href={ `/officer/${officer.id}/` }
                 style={ officerItemStyle(index === mostComplaintsOfficers.length - 1) }
                 key={ officer.id }>
                 <span style={ officerTextStyle }>
@@ -26,7 +26,7 @@ export default class CommunityOfficers extends Component {
                   <div style={ complaintsCountStyle }>{ officer.complaintsCount } complaints in { communityName }</div>
                 </span>
                 <span style={ rightArrowStyle }/>
-              </Link>
+              </OutboundLink>
             ))
           }
         </div>
