@@ -25,7 +25,7 @@ import {
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
   STANDALONE_CR_PATH,
   OFFICER_SOCIAL_GRAPH_SUFFIX,
-  EMBEDABLE_MAP_PATH,
+  EMBED_MAP_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -92,7 +92,7 @@ export default class RouterRoot extends Component {
               path={ INLINE_SEARCH_ALIAS_ADMIN_PATH }
               component={ InlineAliasAdminContainer }/>
             <Route
-              path={ EMBEDABLE_MAP_PATH }
+              path={ EMBED_MAP_PATH }
               component={ HeatMapContainer }/>
           </Route>
         </Router>

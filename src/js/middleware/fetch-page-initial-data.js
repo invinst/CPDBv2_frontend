@@ -37,17 +37,13 @@ export default store => next => action => {
 
   const state = store.getState();
   const dispatches = [];
-  const notRequiredLandingPageContent = [/embeddable-map/];
+  const notRequiredLandingPageContent = [/embed\/map/];
 
   notRequiredLandingPageContent.map(item => {
     if (!action.payload.pathname.match(item) && !hasLandingPageCMSContent(state)) {
       dispatches.push(store.dispatch(fetchPage(LANDING_PAGE_ID)()));
     }
   });
-
-  // if (!hasLandingPageCMSContent(state)) {
-  //   dispatches.push(store.dispatch(fetchPage(LANDING_PAGE_ID)()));
-  // }
 
   if (action.payload.pathname.match(/officer\/\d+/)) {
     const officerId = getOfficerId(action.payload.pathname);
@@ -104,7 +100,7 @@ export default store => next => action => {
     }
   } else if (action.payload.pathname.match(/search\/terms/)) {
     dispatches.push(store.dispatch(requestSearchTermCategories()));
-  } else if (action.payload.pathname.match(/embeddable-map/)) {
+  } else if (action.payload.pathname.match(/embed\/map/)) {
     if (!hasCommunitiesSelector(state)) {
       dispatches.push(store.dispatch(getCommunities()));
     }
