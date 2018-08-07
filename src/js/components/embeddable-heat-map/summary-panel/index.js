@@ -4,7 +4,7 @@ import { Motion, spring } from 'react-motion';
 import { defaultConfig } from 'utils/spring-presets';
 import { panelStyle } from './summary-panel.style';
 import CommunityDropdown from './community-dropdown';
-import CitySummary from 'containers/landing-page/heat-map/city-summary-container';
+import CitySummary from 'containers/embeddable-heat-map/city-summary-container';
 
 
 export default class SummaryPanel extends Component {
