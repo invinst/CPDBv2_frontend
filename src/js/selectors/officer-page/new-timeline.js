@@ -1,4 +1,4 @@
-import { concat, difference, filter, get, includes, isEmpty, nth, rangeRight, slice, values } from 'lodash';
+import { concat, difference, filter, get, includes, isEmpty, nth, rangeRight, slice, values, invert } from 'lodash';
 import moment from 'moment';
 import { createSelector } from 'reselect';
 
@@ -367,5 +367,29 @@ export const newTimelineItemsSelector = createSelector(
     ];
 
     return postProcessors.reduce((accItems, processor) => processor(accItems), filteredItems);
+  }
+);
+
+export const filterCount = createSelector(
+  getItems,
+  items => {
+    let count = Object.assign({}, NEW_TIMELINE_FILTERS);
+    delete count.ALL;
+    count = invert(count);
+
+    let allCount = 0;
+
+    Object.keys(count).map(kind => {
+      count[kind] = 0;
+      items.map(item => {
+        if (includes(filteredKindsMap[kind], item.kind)) {
+          count[kind]++;
+        }
+      });
+      allCount += count[kind];
+    });
+
+    count[NEW_TIMELINE_FILTERS.ALL] = allCount;
+    return count;
   }
 );

@@ -4,6 +4,7 @@ import {
   metricsSelector,
   summarySelector,
   getCurrentTab,
+  getEditModeOn
 } from 'selectors/officer-page';
 
 
@@ -22,6 +23,14 @@ describe('officer page selectors', function () {
       state.officerPage = { fullName };
 
       getOfficerName(state).should.eql(fullName);
+    });
+  });
+
+  describe('getEditModeOn', function () {
+    it('should return officer name', function () {
+      getEditModeOn({
+        officerPage: { editModeOn: { a: true } }
+      }).should.eql({ a: true });
     });
   });
 

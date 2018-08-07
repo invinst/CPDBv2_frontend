@@ -81,21 +81,37 @@ describe('Draft utils', function () {
 
   describe('createBlock', function () {
     it('should return block give text string', function () {
-      createBlock('abc').should.eql({
+      const block = createBlock('abc');
+      block.should.containEql({
         data: {},
         depth: 0,
         entityRanges: [],
         inlineStyleRanges: [],
-        key: 'abc12',
         type: 'unstyled',
         text: 'abc'
       });
+      block.key.should.not.undefined();
     });
   });
 
   describe('createEmptyEditorState', function () {
     it('should create empty raw content state', function () {
-      createEmptyEditorState().should.eql(RawContentStateFactory.build({}, { blockTexts: [''] }));
+      createEmptyEditorState().should.eql(
+        {
+          entityMap: {},
+          blocks: [
+            {
+              text: '',
+              entityRanges: [],
+              depth: 0,
+              key: 'abc12',
+              type: 'unstyled',
+              inlineStyleRanges: [],
+              data: {}
+            }
+          ]
+        }
+      );
     });
   });
 
@@ -104,7 +120,20 @@ describe('Draft utils', function () {
       createFieldWithEmptyEditorState('a', 'b').should.eql({
         name: 'a',
         type: 'b',
-        value: RawContentStateFactory.build({}, { blockTexts: [''] })
+        value: {
+          entityMap: {},
+          blocks: [
+            {
+              text: '',
+              entityRanges: [],
+              depth: 0,
+              key: 'abc12',
+              type: 'unstyled',
+              inlineStyleRanges: [],
+              data: {}
+            }
+          ]
+        }
       });
     });
   });
@@ -141,7 +170,20 @@ describe('Draft utils', function () {
       ], 'b', 'c').should.eql({
         name: 'b',
         type: 'c',
-        value: RawContentStateFactory.build({}, { blockTexts: [''] })
+        value: {
+          entityMap: {},
+          blocks: [
+            {
+              text: '',
+              entityRanges: [],
+              depth: 0,
+              key: 'abc12',
+              type: 'unstyled',
+              inlineStyleRanges: [],
+              data: {}
+            }
+          ]
+        }
       });
     });
 
