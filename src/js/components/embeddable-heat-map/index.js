@@ -13,6 +13,7 @@ import {
   communityMapMediumStyle,
   communityMapMaximumStyle
 } from './heat-map.style';
+import { showIntercomLauncher } from 'utils/intercom';
 
 
 export default class HeatMap extends Component {
@@ -22,6 +23,14 @@ export default class HeatMap extends Component {
       selectedId: 0
     };
     this.setSelectedCommunity = this.setSelectedCommunity.bind(this);
+  }
+
+  componentDidMount() {
+    showIntercomLauncher(false);
+  }
+
+  componentWillUnmount() {
+    showIntercomLauncher(true);
   }
 
   setSelectedCommunity(id) {
