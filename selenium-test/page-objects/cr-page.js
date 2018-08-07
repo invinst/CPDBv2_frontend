@@ -202,6 +202,7 @@ class CRPage extends Page {
     this.prepareElementGetters({
       title: '.test--cr-title',
       category: '.test--cr-category',
+      incidentDate: '.test--cr-incident-date',
       investigationTimeline: '.test--investigator-timeline-text'
     });
   }
