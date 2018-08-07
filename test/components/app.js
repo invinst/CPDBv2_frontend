@@ -16,6 +16,7 @@ import ShareableHeader from 'components/headers/shareable-header';
 import SlimHeader from 'components/headers/slim-header';
 import SearchPageContainer from 'containers/search-page-container';
 import OfficerPageContainer from 'containers/officer-page';
+import { OFFICER_EDIT_TYPES } from 'utils/constants';
 
 
 describe('App component', function () {
@@ -45,6 +46,11 @@ describe('App component', function () {
       percentile: {
         isRequesting: false,
         items: []
+      },
+      editModeOn: {
+        [OFFICER_EDIT_TYPES.TRIANGLE]: false,
+        [OFFICER_EDIT_TYPES.SCALE]: false,
+        [OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART]: false,
       }
     },
     genericModal: {

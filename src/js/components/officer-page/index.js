@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
-import { compact } from 'lodash';
+import { compact, get } from 'lodash';
 
 import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
 import OfficerRadarChart from './radar-chart';
@@ -8,6 +8,7 @@ import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class OfficerPage extends Component {
@@ -24,7 +25,10 @@ export default class OfficerPage extends Component {
       hasMapMarker,
       hasCoaccusal,
       popup,
-      isRequesting
+      isRequesting,
+      triangleEditWrapperStateProps,
+      scaleEditWrapperStateProps,
+      noDataRadarChartEditWrapperStateProps,
     } = this.props;
 
     const pageTitle = compact([
@@ -37,7 +41,14 @@ export default class OfficerPage extends Component {
         <div style={ wrapperStyle } className='officer-page'>
           <ShareableHeaderContainer />
           <div style={ pageWrapperStyle }>
-            <OfficerRadarChart data={ threeCornerPercentile }isRequesting={ isRequesting }/>
+            <OfficerRadarChart
+              data={ threeCornerPercentile }
+              isRequesting={ isRequesting }
+              triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
+              scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
+              noDataRadarChartEditWrapperStateProps={ noDataRadarChartEditWrapperStateProps }
+              noDataPopup={ get(popup, POPUP_NAMES.OFFICER.NO_DATA_RADAR_CHART) }
+            />
             <SummarySection
               officerName={ officerName }
               officerSummary={ officerSummary }
@@ -73,6 +84,9 @@ OfficerPage.propTypes = {
   hasCoaccusal: PropTypes.bool,
   isRequesting: PropTypes.bool,
   popup: PropTypes.object,
+  triangleEditWrapperStateProps: PropTypes.object,
+  scaleEditWrapperStateProps: PropTypes.object,
+  noDataRadarChartEditWrapperStateProps: PropTypes.object,
 };
 
 OfficerPage.defaultProps = {

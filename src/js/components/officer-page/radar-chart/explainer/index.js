@@ -31,18 +31,29 @@ export default class RadarExplainer extends Component {
   }
 
   renderExplainer() {
-    const { radarChartData } = this.props;
+    const { radarChartData, scaleEditWrapperStateProps, triangleEditWrapperStateProps } = this.props;
     const lastData = findLast(radarChartData, (yearlyData) => hasEnoughRadarChartData(yearlyData.items));
     const lastDataItems = get(lastData, 'items');
     const lastDataYear = get(lastDataItems, 'year');
 
     switch (this.state.currentPaneIndex) {
       case 1:
-        return <ScaleExplainer year={ lastDataYear } radarChartData={ lastDataItems }/>;
+        return (
+          <ScaleExplainer
+            year={ lastDataYear }
+            radarChartData={ lastDataItems }
+            editWrapperStateProps={ scaleEditWrapperStateProps }
+          />
+        );
       case 2:
         return <PercentilesByYear yearlyRadarChartData={ radarChartData }/>;
       default:
-        return <TriangleExplainer radarChartData={ lastDataItems }/>;
+        return (
+          <TriangleExplainer
+            radarChartData={ lastDataItems }
+            editWrapperStateProps={ triangleEditWrapperStateProps }
+          />
+        );
     }
   }
 
@@ -94,4 +105,6 @@ export default class RadarExplainer extends Component {
 RadarExplainer.propTypes = {
   radarChartData: PropTypes.array,
   closeExplainer: PropTypes.func,
+  triangleEditWrapperStateProps: PropTypes.object,
+  scaleEditWrapperStateProps: PropTypes.object,
 };

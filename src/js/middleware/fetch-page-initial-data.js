@@ -1,10 +1,10 @@
 import { Promise } from 'es6-promise';
 
-import { LANDING_PAGE_ID } from 'utils/constants';
+import { LANDING_PAGE_ID, OFFICER_PAGE_ID } from 'utils/constants';
 import { getOfficerId, getCRID, getTRRId, getUnitName } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
-import { hasLandingPageCMSContent } from 'selectors/cms';
+import { hasCMSContent } from 'selectors/cms';
 import { hasCards as hasOfficerByAllegationData } from 'selectors/landing-page/officers-by-allegation';
 import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activity-grid';
 import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
@@ -39,11 +39,15 @@ export default store => next => action => {
   const dispatches = [];
   const notRequiredLandingPageContent = [/embed\/map/];
 
-  notRequiredLandingPageContent.map(item => {
-    if (!action.payload.pathname.match(item) && !hasLandingPageCMSContent(state)) {
-      dispatches.push(store.dispatch(fetchPage(LANDING_PAGE_ID)()));
-    }
-  });
+  const getCMSContent = (pageId) => {
+    notRequiredLandingPageContent.map(item => {
+      if (!action.payload.pathname.match(item) && !hasCMSContent(pageId)(state)) {
+        dispatches.push(store.dispatch(fetchPage(pageId)()));
+      }
+    });
+  };
+
+  getCMSContent(LANDING_PAGE_ID);
 
   if (action.payload.pathname.match(/officer\/\d+/)) {
     const officerId = getOfficerId(action.payload.pathname);
@@ -56,6 +60,7 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchCoaccusals(officerId)));
       dispatches.push(store.dispatch(fetchPopup('officer')));
     }
+    getCMSContent(OFFICER_PAGE_ID);
   } else if (action.payload.pathname.match(/^\/(edit\/?)?$/)) {
     if (!hasCommunitiesSelector(state)) {
       dispatches.push(store.dispatch(getCommunities()));
