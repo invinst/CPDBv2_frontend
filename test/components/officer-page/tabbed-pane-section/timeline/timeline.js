@@ -31,7 +31,7 @@ describe('Timeline component', function () {
     cols[0].textContent.should.containEql('RANK');
     cols[1].textContent.should.containEql('UNIT');
     cols[2].textContent.should.containEql('SHOWING');
-    cols[2].textContent.should.containEql('ALL EVENTS');
+    cols[2].textContent.should.containEql('ALL');
     cols[3].textContent.should.containEql('DATE');
   });
 
@@ -134,8 +134,8 @@ describe('Timeline component', function () {
       />
     );
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.props.defaultValue.should.eql('ALL EVENTS');
+    dropdown.props.defaultValue.should.eql('ALL');
     dropdown.props.onChange.should.eql(changeFilterStub);
-    dropdown.props.options.should.eql(['ALL EVENTS', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS']);
+    dropdown.props.options.should.eql(['ALL', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS']);
   });
 });

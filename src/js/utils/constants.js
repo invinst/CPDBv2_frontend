@@ -391,7 +391,7 @@ export const NEW_TIMELINE_ITEMS = {
 };
 
 export const NEW_TIMELINE_FILTERS = {
-  ALL: 'ALL EVENTS',
+  ALL: 'ALL',
   CRS: 'COMPLAINTS',
   FORCE: 'USE OF FORCE',
   AWARDS: 'AWARDS'
