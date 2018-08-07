@@ -37,10 +37,17 @@ export default store => next => action => {
 
   const state = store.getState();
   const dispatches = [];
+  const notRequiredLandingPageContent = [/embeddable-map/];
 
-  if (!hasLandingPageCMSContent(state)) {
-    dispatches.push(store.dispatch(fetchPage(LANDING_PAGE_ID)()));
-  }
+  notRequiredLandingPageContent.map(item => {
+    if (!action.payload.pathname.match(item) && !hasLandingPageCMSContent(state)) {
+      dispatches.push(store.dispatch(fetchPage(LANDING_PAGE_ID)()));
+    }
+  });
+
+  // if (!hasLandingPageCMSContent(state)) {
+  //   dispatches.push(store.dispatch(fetchPage(LANDING_PAGE_ID)()));
+  // }
 
   if (action.payload.pathname.match(/officer\/\d+/)) {
     const officerId = getOfficerId(action.payload.pathname);
