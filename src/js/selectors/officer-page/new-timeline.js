@@ -11,6 +11,7 @@ import {
   values,
   isUndefined,
   cloneDeep,
+  map
 } from 'lodash';
 import moment from 'moment';
 import { createSelector } from 'reselect';
@@ -280,13 +281,11 @@ export const applyFilter = (selectedFilter, items) => {
     results = filterByKind(selectedFilter, items);
   }
 
-  const keys = Object.keys(cloneSelectedFilter);
-
-  if (isEmpty(keys)) {
+  if (isEmpty(cloneSelectedFilter)) {
     return results;
   }
 
-  keys.map(key => {
+  Object.keys(cloneSelectedFilter).map(key => {
     results = filter(results, result => includes(selectedFilter[key], result[key]));
   });
 
@@ -400,17 +399,17 @@ export const newTimelineItemsSelector = createSelector(
 export const filterCount = createSelector(
   getItems,
   items => {
-    let count = Object.assign({}, NEW_TIMELINE_FILTERS);
+    let count = cloneDeep(NEW_TIMELINE_FILTERS);
     let CLONE_NEW_TIMELINE_FILTERS = cloneDeep(NEW_TIMELINE_FILTERS);
 
-    Object.keys(CLONE_NEW_TIMELINE_FILTERS).map(key => delete CLONE_NEW_TIMELINE_FILTERS[key].label);
+    map(CLONE_NEW_TIMELINE_FILTERS, filter => delete filter.label);
 
     Object.keys(count).map(key => {
       count[key] = 0;
       items.map(item => {
         let excluded = false;
-        Object.keys(CLONE_NEW_TIMELINE_FILTERS[key]).map(subKey => {
-          if (!includes(CLONE_NEW_TIMELINE_FILTERS[key][subKey], item[subKey])) {
+        map(CLONE_NEW_TIMELINE_FILTERS[key], (filter, subKey) => {
+          if (!includes(filter, item[subKey])) {
             excluded = true;
           }
         });

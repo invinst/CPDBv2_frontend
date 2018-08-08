@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { nth, values, get, includes, mapValues, findKey } from 'lodash';
+import { nth, values, get, includes, mapValues, findKey, map } from 'lodash';
 
 import {
   dateHeaderStyle,
@@ -31,9 +31,7 @@ export default class Timeline extends Component {
   renderHeader() {
     const { popup, filterCount } = this.props;
     const options = values(mapValues(NEW_TIMELINE_FILTERS, 'label'));
-    const labels = Object.keys(NEW_TIMELINE_FILTERS).map(
-      key => `${NEW_TIMELINE_FILTERS[key].label} (${filterCount[key]})`
-    );
+    const labels = map(NEW_TIMELINE_FILTERS, (filter, key) => `${filter.label} (${filterCount[key]})`);
 
     return (
       <div className='test--timeline-header' style={ headerWrapperStyle }>
