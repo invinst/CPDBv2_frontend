@@ -13,11 +13,11 @@ describe('CallToAction component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render link when call_to_action_type is link', function () {
+  it('should render link when callToActionType is link', function () {
     instance = renderIntoDocument(
       <CallToAction item={ {
-        'call_to_action_type': 'link',
-        link: 'http://mylink.com/'
+        callToActionType: 'link',
+        url: 'http://mylink.com/'
       } } />
     );
 
@@ -25,10 +25,10 @@ describe('CallToAction component', function () {
     a.href.should.eql('http://mylink.com/');
   });
 
-  it('should render view all button when call_to_action_type is view_all', function () {
+  it('should render view all button when callToActionType is view_all', function () {
     instance = renderIntoDocument(
       <CallToAction item={ {
-        'call_to_action_type': 'view_all',
+        callToActionType: 'view_all',
         name: 'police districts'
       } } />
     );
@@ -37,10 +37,10 @@ describe('CallToAction component', function () {
     element.textContent.indexOf('View ALL police districts').should.not.eql(-1);
   });
 
-  it('should not render anything if call_to_action_type does not match', function () {
+  it('should not render anything if callToActionType does not match', function () {
     instance = renderIntoDocument(
       <CallToAction item={ {
-        'call_to_action_type': 'abc'
+        callToActionType: 'abc'
       } } />
     );
     instance.should.displayNothing();
@@ -49,7 +49,7 @@ describe('CallToAction component', function () {
   it('should render enter button', function () {
     instance = renderIntoDocument(
       <CallToAction item={ {
-        'call_to_action_type': 'view_all',
+        callToActionType: 'view_all',
         name: 'police districts'
       } } />
     );

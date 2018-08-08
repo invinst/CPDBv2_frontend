@@ -106,7 +106,13 @@ class RadarChartExplainerSection extends Section {
     this.prepareElementGetters({
       component: '.test--radar-explainer-window',
       triangleExplainer: '.test--triangle-explainer',
+      triangleExplainerText: '.test--triangle-explain-text',
+      triangleExplainerSubText: '.test--triangle-explain-sub-text',
+      triangleEditButton: '.test--triangle-explainer .test--edit-wrapper-edit-button',
       scaleExplainer: '.test--scale-explainer',
+      scaleExplainerText: '.test--scale-explain-text',
+      scaleExplainerSubText: '.test--scale-explain-sub-text',
+      scaleEditButton: '.test--scale-explainer .test--edit-wrapper-edit-button',
       percentileByYear: '.test--percentile-by-year',
       leftNavigation: '.test--radar-explainer-navigation-left',
       rightNavigation: '.test--radar-explainer-navigation-right',
@@ -120,9 +126,10 @@ class NoDataRadarChartSection extends Section {
     super();
 
     this.prepareElementGetters({
-      component: '.test--no-data-radar-chart',
+      component: '.test--officer--radar-chart',
       noDataText: '.test--no-data-text',
       radarChart: '.test--radar',
+      editButton: '.test--officer--radar-chart .test--edit-wrapper-edit-button'
     });
   }
 }

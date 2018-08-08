@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary } from 'actions/officer-page';
-import { LANDING_PAGE_ID } from 'utils/constants';
+import { LANDING_PAGE_ID, OFFICER_PAGE_ID } from 'utils/constants';
 import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { fetchPage } from 'actions/cms';
@@ -18,6 +18,7 @@ import { fetchTRR } from 'actions/trr-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
+import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -62,6 +63,8 @@ describe('fetchPageInitialData middleware', function () {
   };
 
   beforeEach(function () {
+    const action = createLocationChangeAction('');
+    fetchPageInitialData(store)(action => action)(action);
     store.dispatch.resetHistory();
   });
 
@@ -74,6 +77,37 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.called.should.be.false();
+  });
+
+  it('should dispatch officer cms fetchPage action if officer page and cms is empty', function () {
+    const action = createLocationChangeAction('/officer/1/');
+    let dispatched;
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchPage(OFFICER_PAGE_ID)()).should.be.true();
+  });
+
+  it('should not dispatch officer cms fetchPage action if officer page and cms is present', function () {
+    const cmsStore = {
+      getState() {
+        return {
+          cms: {
+            pages: {
+              'officer-page': {}
+            },
+          },
+        };
+      },
+      dispatch: stub().usingPromise(Promise).resolves('abc')
+    };
+
+    const action = createLocationChangeAction('/officer/2/');
+    let dispatched;
+    fetchPageInitialData(cmsStore)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    cmsStore.dispatch.calledWith(fetchPage(OFFICER_PAGE_ID)()).should.be.false();
   });
 
   it('should dispatch officer actions if officer id change', function () {
@@ -145,5 +179,14 @@ describe('fetchPageInitialData middleware', function () {
       store.dispatch.calledWith(pageLoadFinish()).should.be.true();
       done();
     }, 0);
+  });
+
+  it('should dispatch requestSearchTermCategories', function () {
+    const action = createLocationChangeAction('/search/terms/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
   });
 });

@@ -16,7 +16,6 @@ export const salaryAmountStyle = {
 };
 
 export const popupStyle = {
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  marginLeft: '6px',
+  padding: '10px',
+  margin: '0 -9px 0 -2px',
 };

@@ -7,7 +7,7 @@ import { EditorBlock } from 'draft-js';
 
 class EditorBlockWithStyle extends EditorBlock {
   render() {
-    const { style, element } = this.props.blockProps;
+    const { style, element, child } = this.props.blockProps;
     const { offsetKey } = this.props;
     const { draftEditorBlockStyle } = this.context;
     const _style = assign({}, style, draftEditorBlockStyle);
@@ -15,7 +15,7 @@ class EditorBlockWithStyle extends EditorBlock {
     return React.createElement(
       element,
       { 'data-offset-key': offsetKey, style: _style },
-      this._renderChildren()
+      [...this._renderChildren(), child]
     );
   }
 }

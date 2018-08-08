@@ -1,10 +1,11 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import StaticRadarChart from 'components/common/radar-chart';
 import RadarChart from 'components/common/radar-chart/radar-chart';
-import NoDataRadarChart from 'components/common/radar-chart/no-data-radar-chart';
+import RadarArea from 'components/common/radar-chart/radar-area';
 
 
 describe('StaticRadarChart component', function () {
@@ -43,7 +44,7 @@ describe('StaticRadarChart component', function () {
     radarChart.props.should.containEql(props);
   });
 
-  it('should be able to render NoDataRadarChart', () => {
+  it('should render no data radar chart if some data is missing', () => {
     const missingData = [
       {
         axis: 'A',
@@ -68,11 +69,8 @@ describe('StaticRadarChart component', function () {
 
     instance = renderIntoDocument(<StaticRadarChart { ...props }/>);
 
-    const noDataRadarChart = findRenderedComponentWithType(instance, NoDataRadarChart);
-    noDataRadarChart.props.should.eql({
-      width: 456,
-      height: 432,
-      radius: 123
-    });
+    const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
+    should(noDataRadarChart.props.data).be.undefined();
+    findRenderedComponentWithType(instance, RadarArea);
   });
 });

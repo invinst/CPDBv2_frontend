@@ -2,18 +2,22 @@ import React, { Component, PropTypes } from 'react';
 import { map, isEqual, filter } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
-
+import Popup from 'components/common/popup';
 import StaticRadarChart from 'components/common/radar-chart';
 import {
   animatedRadarChartStyle,
   radarChartPlaceholderStyle,
   openExplainerButtonStyle,
   questionMarkStyle,
-  radarChartOverlayStyle
+  radarChartOverlayStyle,
+  noDataRadarTextStyle,
+  noDataPopupStyle
 } from './radar-chart.style';
 import RadarExplainer from './explainer';
-import NoDataRadarChart from 'components/common/radar-chart/no-data-radar-chart';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 export default class AnimatedRadarChart extends Component {
@@ -141,7 +145,17 @@ export default class AnimatedRadarChart extends Component {
 
   render() {
     const { transitionValue, showExplainer } = this.state;
-    const { data, noDataText, isRequesting } = this.props;
+    const {
+      data,
+      isRequesting,
+      triangleEditWrapperStateProps,
+      scaleEditWrapperStateProps,
+      noDataRadarChartEditWrapperStateProps,
+      noDataPopup,
+    } = this.props;
+
+    if (isRequesting)
+      return <div className='test--officer--radar-chart' style={ animatedRadarChartStyle }/>;
 
     const itemData = this.getCurrentTransitionData();
     if (itemData) {
@@ -173,7 +187,12 @@ export default class AnimatedRadarChart extends Component {
           </div>
           { showExplainer && (
             <div style={ radarChartOverlayStyle }>
-              <RadarExplainer closeExplainer={ this.closeExplainer } radarChartData={ data }/>
+              <RadarExplainer
+                closeExplainer={ this.closeExplainer }
+                radarChartData={ data }
+                triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
+                scaleEditWrapperStateProps={ scaleEditWrapperStateProps }
+              />
             </div>
             )
           }
@@ -185,21 +204,32 @@ export default class AnimatedRadarChart extends Component {
           className='test--officer--radar-chart'
           style={ animatedRadarChartStyle }
         >
-          {
-            !isRequesting && <NoDataRadarChart noDataText={ noDataText }/>
-          }
+          <StaticRadarChart/>
+          <div style={ noDataRadarTextStyle }>
+            <EditWrapperStateProvider { ...noDataRadarChartEditWrapperStateProps }>
+              <HoverableEditWrapper>
+                <RichTextEditable
+                  className='test--no-data-text'
+                  placeholder='no data radar chart text'
+                  fieldname='no_data_explain_text'
+                  lastBlockChild={
+                    noDataPopup && <Popup key='no-data-radar-chart' { ...noDataPopup } style={ noDataPopupStyle }/>
+                  }
+                />
+              </HoverableEditWrapper>
+            </EditWrapperStateProvider>
+          </div>
         </div>
       );
     }
   }
 }
 
-AnimatedRadarChart.defaultProps = {
-  noDataText: 'There is not enough data to construct a radar graph for this officer.'
-};
-
 AnimatedRadarChart.propTypes = {
   data: PropTypes.array,
-  noDataText: PropTypes.string,
   isRequesting: PropTypes.bool,
+  triangleEditWrapperStateProps: PropTypes.object,
+  scaleEditWrapperStateProps: PropTypes.object,
+  noDataRadarChartEditWrapperStateProps: PropTypes.object,
+  noDataPopup: PropTypes.object,
 };

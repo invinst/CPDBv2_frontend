@@ -39,6 +39,7 @@ MetricPane.propTypes = {
     title: PropTypes.string,
     text: PropTypes.string,
     style: PropTypes.object,
+    position: PropTypes.string,
   }),
 };
 
