@@ -4,7 +4,10 @@ import { OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER } from 'utils/constants';
 
 describe('filter reducer', function () {
   it('should have initial state', function () {
-    items(undefined, {}).should.eql('ALL');
+    items(undefined, {}).should.eql({
+      label: 'ALL',
+      kind: ['CR', 'FORCE', 'AWARD'],
+    });
   });
 
   it('should handle OFFICER_NEW_TIMELINE_ITEMS_CHANGE_FILTER', function () {
