@@ -25,7 +25,7 @@ export default class CitySummary extends Component {
             <div style={ clickReceiver } onClick={ onClick }/>
         }
         <div style={ headerStyle } className='test--city-summary-header'>
-          CHICAGO { startYear ? `${startYear} - ${endYear}` : '' }
+          CHICAGO{ startYear ? ` ${startYear} - ${endYear}` : '' }
         </div>
         <div style={ allegationDisciplineStyle }
           className='test--allegation-discipline-count'>
