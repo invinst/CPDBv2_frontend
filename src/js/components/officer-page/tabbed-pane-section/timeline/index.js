@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { nth, values, get, includes } from 'lodash';
+import { nth, values, get, includes, mapValues, findKey, map } from 'lodash';
 
 import {
   dateHeaderStyle,
@@ -15,11 +15,22 @@ import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, POPUP_NAMES } from 'utils/con
 import Dropdown from 'components/common/dropdown';
 import Popup from 'components/common/popup';
 
-
 export default class Timeline extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleDropdownChange = this.handleDropdownChange.bind(this);
+  }
+
+  handleDropdownChange(label) {
+    const key = findKey(NEW_TIMELINE_FILTERS, ['label', label]);
+    this.props.changeFilter(NEW_TIMELINE_FILTERS[key]);
+  }
 
   renderHeader() {
-    const { changeFilter, popup } = this.props;
+    const { popup, filterCount } = this.props;
+    const options = values(mapValues(NEW_TIMELINE_FILTERS, 'label'));
+    const labels = map(NEW_TIMELINE_FILTERS, (filter, key) => `${filter.label} (${filterCount[key]})`);
 
     return (
       <div className='test--timeline-header' style={ headerWrapperStyle }>
@@ -40,11 +51,12 @@ export default class Timeline extends Component {
         <div style={ showingContentHeaderStyle } className='test--timeline-header-col'>
           <div style={ showingTextStyle }>SHOWING</div>
           <Dropdown
-            defaultValue={ NEW_TIMELINE_FILTERS.ALL }
-            onChange={ changeFilter }
-            options={ values(NEW_TIMELINE_FILTERS) }
+            defaultValue={ NEW_TIMELINE_FILTERS.ALL.label }
+            onChange={ this.handleDropdownChange }
+            options={ options }
             className='test--timeline-filter'
-            width={ 146 }
+            width={ 156 }
+            labels={ labels }
           />
         </div>
         <div style={ dateHeaderStyle } className='test--timeline-header-col'>DATE</div>
@@ -104,8 +116,10 @@ Timeline.propTypes = {
   openComplaintPage: PropTypes.func,
   changeOfficerTab: PropTypes.func,
   popup: PropTypes.object,
+  filterCount: PropTypes.object,
 };
 
 Timeline.defaultProps = {
   items: [],
+  filterCount: {},
 };

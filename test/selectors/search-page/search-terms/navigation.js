@@ -71,7 +71,7 @@ describe('Search term navigation selector', function () {
 
   describe('totalItemCountSelector', function () {
     it('should return total suggestions count', function () {
-      totalItemCountSelector(makeStore()).should.equal(7);
+      totalItemCountSelector(makeStore()).should.equal(5);
     });
   });
 
@@ -81,21 +81,8 @@ describe('Search term navigation selector', function () {
       focusedSearchTermItemSelector(makeStore(0)).should.deepEqual(searchBoxItem);
     });
 
-    it('should return category item when it is focused', function () {
+    it('should skip category and return correct term', function () {
       focusedSearchTermItemSelector(makeStore(1)).should.deepEqual({
-        id: 'Geography',
-        name: 'Geography',
-        description: '',
-        callToActionType: '',
-        to: '',
-        type: 'category',
-        uniqueKey: 'category-Geography',
-        url: ''
-      });
-    });
-
-    it('should return correct term', function () {
-      focusedSearchTermItemSelector(makeStore(2)).should.deepEqual({
         id: 'community',
         name: 'Communities',
         description: 'Chicago is divided into 77 community areas.',
@@ -116,10 +103,8 @@ describe('Search term navigation selector', function () {
     it('should return all item uniqueKeys in order with the first item is SEARCH_BOX ', function () {
       navigationKeySelector(makeStore(0)).should.deepEqual([
         SEARCH_BOX,
-        'category-Geography',
         'Geography-community',
         'Geography-police-beats',
-        'category-Complaint Categories',
         'Complaint Categories-conduct-unbecoming-off-duty',
         'Complaint Categories-criminal-misconduct',
       ]);

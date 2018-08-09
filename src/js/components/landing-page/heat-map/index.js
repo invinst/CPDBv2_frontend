@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { find } from 'lodash';
 
+import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import SummaryPanel from './summary-panel';
 import CommunityMap from './community-map';
-import { wrapperStyle } from './heat-map.style';
+import { wrapperStyle, minimumStyle, mediumStyle, maximumStyle } from './heat-map.style';
 
 
 export default class HeatMap extends Component {
@@ -42,11 +43,19 @@ export default class HeatMap extends Component {
           communityId={ selectedId }
           clusterSource={ clusterGeoJson }
         />
-        <SummaryPanel
-          communities={ communities }
-          communityId={ selectedId }
-          selectCommunity={ this.setSelectedCommunity }
-        />
+        <ResponsiveFluidWidthComponent
+          minimumStyle={ minimumStyle }
+          mediumStyle={ mediumStyle }
+          maximumStyle={ maximumStyle }
+          minWidthThreshold={ 769 }
+          maxWidthThreshold={ 1024 }
+        >
+          <SummaryPanel
+            communities={ communities }
+            communityId={ selectedId }
+            selectCommunity={ this.setSelectedCommunity }
+          />
+        </ResponsiveFluidWidthComponent>
       </div>
     );
   }

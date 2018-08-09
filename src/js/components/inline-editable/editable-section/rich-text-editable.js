@@ -19,7 +19,7 @@ class RichTextEditable extends Component {
 
   render() {
     const {
-      style, placeholder, className
+      style, placeholder, className, lastBlockChild
     } = this.props;
 
     const { editModeOn, value, onChange } = this.getEditorProps();
@@ -33,14 +33,17 @@ class RichTextEditable extends Component {
             style={ style }
             onChange={ onChange }
             editorState={ value }
-            placeholder={ placeholder }/>
+            placeholder={ placeholder }
+          />
         }
         presenterElement={
           <RichTextEditor
             className={ className }
             style={ style }
             editorState={ value }
-            readOnly={ true }/>
+            readOnly={ true }
+            lastBlockChild={ lastBlockChild }
+          />
         }/>
     );
   }
@@ -53,7 +56,8 @@ RichTextEditable.propTypes = {
   onChange: PropTypes.func,
   editModeOn: PropTypes.bool,
   placeholder: PropTypes.string,
-  fieldname: PropTypes.string
+  fieldname: PropTypes.string,
+  lastBlockChild: PropTypes.node
 };
 
 RichTextEditable.contextTypes = {

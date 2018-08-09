@@ -17,6 +17,7 @@ import {
   applyFilter,
   markLatestUnit,
   markMutualRankUnit,
+  filterCount,
 } from 'selectors/officer-page/new-timeline';
 import { NEW_TIMELINE_FILTERS } from 'utils/constants';
 import { imgUrl } from 'utils/static-assets';
@@ -990,80 +991,101 @@ describe('Officer new timeline selectors', function () {
   });
 
   describe('applyFilter', function () {
-    it('should filter correctly', function () {
-      const items = [
-        {
-          year: 2006,
-          date: 'MAR 1',
-          isFirstRank: false,
-          isFirstUnit: false,
-          isLastRank: false,
-          isLastUnit: false,
-          kind: 'AWARD',
-          rank: 'Police Officer',
-          rankDisplay: ' ',
-          unitName: 'Unit 007',
-          unitDescription: 'District 007',
-          unitDisplay: ' ',
-          category: 'Honorable Mention',
-          key: 0,
-        },
-        {
-          category: 'Taser',
-          date: 'DEC 17',
-          isFirstRank: false,
-          isFirstUnit: false,
-          isLastRank: false,
-          isLastUnit: false,
-          kind: 'FORCE',
-          rank: 'Police Officer',
-          rankDisplay: ' ',
-          unitName: 'Unit 007',
-          unitDescription: 'District 007',
-          unitDisplay: ' ',
-          year: 2005,
-          key: 1,
-        },
-        {
-          date: 'JAN 7',
-          isFirstRank: false,
-          isFirstUnit: false,
-          isLastRank: false,
-          isLastUnit: false,
-          kind: 'UNIT_CHANGE',
-          oldUnitDescription: 'Mobile Strike Force',
-          oldUnitName: 'Unit 153',
-          rank: 'Police Officer',
-          rankDisplay: ' ',
-          unitName: 'Unit 007',
-          unitDescription: 'District 007',
-          unitDisplay: ' ',
-          year: 2005,
-          key: 2,
-        },
-        {
-          attachments: [],
-          category: 'Illegal Search',
-          coaccused: 8,
-          crid: '294088',
-          date: 'NOV 26',
-          finding: 'Exonerated',
-          isFirstRank: false,
-          isFirstUnit: false,
-          isLastRank: false,
-          isLastUnit: false,
-          kind: 'CR',
-          outcome: 'No Action Taken',
-          rank: 'Police Officer',
-          rankDisplay: ' ',
-          unitName: 'Unit 153',
-          unitDescription: 'Mobile Strike Force',
-          unitDisplay: ' ',
-          year: 2003,
-          key: 3,
-        },
-      ];
+    const items = [
+      {
+        year: 2006,
+        date: 'MAR 1',
+        isFirstRank: false,
+        isFirstUnit: false,
+        isLastRank: false,
+        isLastUnit: false,
+        kind: 'AWARD',
+        rank: 'Police Officer',
+        rankDisplay: ' ',
+        unitName: 'Unit 007',
+        unitDescription: 'District 007',
+        unitDisplay: ' ',
+        category: 'Honorable Mention',
+        key: 0,
+      },
+      {
+        category: 'Taser',
+        date: 'DEC 17',
+        isFirstRank: false,
+        isFirstUnit: false,
+        isLastRank: false,
+        isLastUnit: false,
+        kind: 'FORCE',
+        rank: 'Police Officer',
+        rankDisplay: ' ',
+        unitName: 'Unit 007',
+        unitDescription: 'District 007',
+        unitDisplay: ' ',
+        year: 2005,
+        key: 1,
+      },
+      {
+        date: 'JAN 7',
+        isFirstRank: false,
+        isFirstUnit: false,
+        isLastRank: false,
+        isLastUnit: false,
+        kind: 'UNIT_CHANGE',
+        oldUnitDescription: 'Mobile Strike Force',
+        oldUnitName: 'Unit 153',
+        rank: 'Police Officer',
+        rankDisplay: ' ',
+        unitName: 'Unit 007',
+        unitDescription: 'District 007',
+        unitDisplay: ' ',
+        year: 2005,
+        key: 2,
+      },
+      {
+        attachments: [],
+        category: 'Illegal Search',
+        coaccused: 8,
+        crid: '294088',
+        date: 'NOV 26',
+        finding: 'Exonerated',
+        isFirstRank: false,
+        isFirstUnit: false,
+        isLastRank: false,
+        isLastUnit: false,
+        kind: 'CR',
+        outcome: 'No Action Taken',
+        rank: 'Police Officer',
+        rankDisplay: ' ',
+        unitName: 'Unit 153',
+        unitDescription: 'Mobile Strike Force',
+        unitDisplay: ' ',
+        year: 2003,
+        key: 3,
+      },
+      {
+        attachments: [],
+        category: 'Illegal Search',
+        coaccused: 8,
+        crid: '294088',
+        date: 'NOV 26',
+        finding: 'Sustained',
+        isFirstRank: false,
+        isFirstUnit: false,
+        isLastRank: false,
+        isLastUnit: false,
+        kind: 'CR',
+        outcome: 'No Action Taken',
+        rank: 'Police Officer',
+        rankDisplay: ' ',
+        unitName: 'Unit 153',
+        unitDescription: 'Mobile Strike Force',
+        unitDisplay: ' ',
+        year: 2003,
+        key: 3,
+      },
+    ];
 
+    it('should filter correctly', function () {
       applyFilter(NEW_TIMELINE_FILTERS.CRS, items).should.eql([
         {
           date: 'JAN 7',
@@ -1103,6 +1125,53 @@ describe('Officer new timeline selectors', function () {
           year: 2003,
           key: 3,
         },
+        {
+          attachments: [],
+          category: 'Illegal Search',
+          coaccused: 8,
+          crid: '294088',
+          date: 'NOV 26',
+          finding: 'Sustained',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'CR',
+          outcome: 'No Action Taken',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          unitDisplay: ' ',
+          year: 2003,
+          key: 3,
+        }
+      ]);
+    });
+
+    it('should render sustained complaint items only', function () {
+      applyFilter(NEW_TIMELINE_FILTERS.SUSTAINED, items).should.eql([
+        {
+          attachments: [],
+          category: 'Illegal Search',
+          coaccused: 8,
+          crid: '294088',
+          date: 'NOV 26',
+          finding: 'Sustained',
+          isFirstRank: false,
+          isFirstUnit: false,
+          isLastRank: false,
+          isLastUnit: false,
+          kind: 'CR',
+          outcome: 'No Action Taken',
+          rank: 'Police Officer',
+          rankDisplay: ' ',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          unitDisplay: ' ',
+          year: 2003,
+          key: 3,
+        }
       ]);
     });
   });
@@ -1586,7 +1655,10 @@ describe('Officer new timeline selectors', function () {
       const state = {
         officerPage: {
           newTimeline: {
-            filter: 'ALL EVENTS',
+            filter: {
+              label: 'ALL',
+              kind: ['CR', 'FORCE', 'AWARD']
+            },
             items: [
               {
                 'unit_name': '007',
@@ -2093,6 +2165,141 @@ describe('Officer new timeline selectors', function () {
         }
       ])
       ;
+    });
+  });
+
+  describe('filterCount', function () {
+    it('should return correct kindCount', function () {
+      const state = {
+        officerPage: {
+          newTimeline: {
+            filter: 'ALL',
+            items: [
+              {
+                'unit_name': '007',
+                kind: 'AWARD',
+                'unit_description': 'District 007',
+                rank: 'Police Officer',
+                date: '2006-03-01',
+                'award_type': 'Honorable Mention'
+              },
+              {
+                'trr_id': 1,
+                'unit_name': '007',
+                kind: 'FORCE',
+                taser: true,
+                'unit_description': 'District 007',
+                rank: 'Police Officer',
+                date: '2005-12-17',
+                'firearm_used': false
+              },
+              {
+                'trr_id': 2,
+                'unit_name': '007',
+                kind: 'FORCE',
+                taser: false,
+                'unit_description': 'District 007',
+                rank: 'Police Officer',
+                date: '2005-03-17',
+                'firearm_used': false
+              },
+              {
+                'unit_name': '007',
+                kind: 'UNIT_CHANGE',
+                'unit_description': 'District 007',
+                rank: 'Police Officer',
+                date: '2005-01-07'
+              },
+              {
+                'trr_id': 3,
+                'unit_name': '153',
+                kind: 'FORCE',
+                taser: false,
+                'unit_description': 'Mobile Strike Force',
+                rank: 'Police Officer',
+                date: '2004-12-17',
+                'firearm_used': true
+              },
+              {
+                category: 'Illegal Search',
+                'unit_name': '153',
+                kind: 'CR',
+                subcategory: 'Search Of Premise Without Warrant',
+                crid: '294088',
+                'unit_description': 'Mobile Strike Force',
+                rank: 'Police Officer',
+                date: '2003-11-26',
+                coaccused: 8,
+                finding: 'Exonerated',
+                outcome: 'No Action Taken',
+                attachments: [
+                  {
+                    url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html',
+                    'preview_image_url':
+                      'https://assets.documentcloud.org/documents/3518950/pages/CRID-294088-CR-p1-normal.gif',
+                    title: 'CRID 294088 CR',
+                    'file_type': 'document',
+                  }
+                ]
+              },
+              {
+                category: 'Criminal Misconduct',
+                'unit_name': '153',
+                kind: 'CR',
+                subcategory: 'Theft',
+                crid: '260131',
+                'unit_description': 'Mobile Strike Force',
+                rank: 'Police Officer',
+                date: '2003-02-17',
+                coaccused: 4,
+                finding: 'Unfounded',
+                outcome: 'No Action Taken'
+              },
+              {
+                'unit_name': '153',
+                kind: 'UNIT_CHANGE',
+                'unit_description': 'Mobile Strike Force',
+                rank: 'Police Officer',
+                date: '2000-04-28'
+              },
+              {
+                'unit_name': '153',
+                kind: 'RANK_CHANGE',
+                'unit_description': 'Mobile Strike Force',
+                rank: 'Police Officer',
+                date: '2000-04-28',
+              },
+              {
+                category: 'Criminal Misconduct',
+                'unit_name': '044',
+                kind: 'CR',
+                subcategory: 'Theft',
+                crid: '260122',
+                'unit_description': 'Recruit Training Section',
+                rank: 'Detective',
+                date: '2000-02-17',
+                coaccused: 4,
+                finding: 'Unfounded',
+                outcome: 'No Action Taken'
+              },
+              {
+                'unit_name': '044',
+                kind: 'JOINED',
+                'unit_description': 'Recruit Training Section',
+                rank: 'Detective',
+                date: '2000-02-05'
+              }
+            ]
+          }
+        }
+      };
+      filterCount(state).should.eql({
+        'CRS': 3,
+        'FORCE': 3,
+        'AWARDS': 1,
+        'ALL': 7,
+        'SUSTAINED': 0,
+      });
     });
   });
 });

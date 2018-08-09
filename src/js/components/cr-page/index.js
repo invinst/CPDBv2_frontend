@@ -14,6 +14,7 @@ import Attachments from './attachments';
 import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import ComplaintCategory from 'components/cr-page/complaint-category';
+import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 import {
 wrapperStyle,
 CRIDHeaderStyle,
@@ -49,6 +50,7 @@ export default class CRPage extends Component {
             category={ category }
             subcategory={ subcategory }
           />
+          <ComplaintIncidentDate incidentDate={ incidentDate }/>
           <AccusedOfficers officers={ coaccused } popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }/>
           <ResponsiveFluidWidthComponent>
             <div style={ summarySectionWrapperStyle }>

@@ -41,7 +41,7 @@ describe('CategoryColumn component', function () {
       instance = renderIntoDocument(<CategoryColumn focusedItem={ {} }/>);
       instance.shouldComponentUpdate({ name: 'Ward', focusedItem: {} }).should.be.true();
       instance.shouldComponentUpdate({ index: 1, focusedItem: {} }).should.be.true();
-      instance.shouldComponentUpdate({ items: [name: 'Ward'], focusedItem: {} }).should.be.true();
+      instance.shouldComponentUpdate({ items: [], focusedItem: {} }).should.be.true();
     });
 
     it('should return false if focused item was changed to the other category', function () {
