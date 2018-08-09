@@ -353,6 +353,9 @@ export const SEARCH_CATEGORIES = [
   'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT'
 ];
 
+export const OFFICER_EDIT_MODE = 'OFFICER_EDIT_MODE';
+export const OFFICER_EDIT_TYPES = new Enum(['TRIANGLE', 'SCALE', 'NO_DATA_RADAR_CHART']);
+
 export const TURN_ON_LOGO_EDIT_MODE = 'TURN_ON_LOGO_EDIT_MODE';
 export const TURN_OFF_LOGO_EDIT_MODE = 'TURN_OFF_LOGO_EDIT_MODE';
 
@@ -375,6 +378,7 @@ export const CLUSTER_GEO_REQUEST_FAILURE = 'CLUSTER_GEO_REQUEST_FAILURE';
 export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
 export const LANDING_PAGE_ID = 'landing-page';
+export const OFFICER_PAGE_ID = 'officer-page';
 
 export const NEW_TIMELINE_ITEMS = {
   CR: 'CR',
@@ -388,10 +392,27 @@ export const NEW_TIMELINE_ITEMS = {
 };
 
 export const NEW_TIMELINE_FILTERS = {
-  ALL: 'ALL',
-  CRS: 'COMPLAINTS',
-  FORCE: 'USE OF FORCE',
-  AWARDS: 'AWARDS'
+  ALL: {
+    label: 'ALL',
+    kind: [NEW_TIMELINE_ITEMS.CR, NEW_TIMELINE_ITEMS.FORCE, NEW_TIMELINE_ITEMS.AWARD],
+  },
+  CRS: {
+    label: 'COMPLAINTS',
+    kind: [NEW_TIMELINE_ITEMS.CR],
+  },
+  FORCE: {
+    label: 'USE OF FORCE',
+    kind: [NEW_TIMELINE_ITEMS.FORCE],
+  },
+  AWARDS: {
+    label: 'AWARDS',
+    kind: [NEW_TIMELINE_ITEMS.AWARD],
+  },
+  SUSTAINED: {
+    label: 'SUSTAINED',
+    kind: [NEW_TIMELINE_ITEMS.CR],
+    finding: ['Sustained']
+  }
 };
 
 export const DISTANCE_OPTIONS = {
@@ -445,6 +466,7 @@ export const POPUP_NAMES = {
     UNIT: 'unit',
     RANK: 'rank',
     SALARY: 'salary',
+    NO_DATA_RADAR_CHART: 'noDataRadarChart',
   },
   COMPLAINT: {
     CATEGORY: 'category',

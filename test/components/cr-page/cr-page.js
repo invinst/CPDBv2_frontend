@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import CRPage from 'components/cr-page';
 import SummaryRow from 'components/cr-page/summary-row';
 import ComplaintCategory from 'components/cr-page/complaint-category';
+import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
@@ -108,5 +109,15 @@ describe('CRPage component', function () {
       </Provider>
     );
     findRenderedComponentWithType(instance, ComplaintCategory);
+  });
+
+  it('should render incident date', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage incidentDate='2012-12-05' />
+      </Provider>
+    );
+
+    findRenderedComponentWithType(instance, ComplaintIncidentDate).should.be.ok();
   });
 });
