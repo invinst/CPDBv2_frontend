@@ -8,7 +8,8 @@ export const wrapperStyle = {
   lineHeight: '39px',
   borderTop: `solid 1px ${whiteTwoColor}`,
   boxSizing: 'border-box',
-  overflow: 'auto',
+  overflowX: 'hidden',
+  overflowY: 'auto',
   WebkitOverflowScrolling: 'touch',
 };
 

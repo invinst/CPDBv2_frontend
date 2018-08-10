@@ -3,6 +3,9 @@
 require('should');
 
 import officerPage from './page-objects/officer-page';
+import { selectText, switchToRecentTab } from './utils';
+
+const noDataRadarChartOfficerId = 2;
 
 
 describe('officer page', function () {
@@ -73,7 +76,7 @@ describe('officer page', function () {
     headerText.should.containEql('RANK');
     headerText.should.containEql('UNIT');
     headerText.should.containEql('SHOWING');
-    headerText.should.containEql('ALL EVENTS');
+    headerText.should.containEql('ALL');
     headerText.should.containEql('DATE');
 
     officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible();
@@ -126,14 +129,12 @@ describe('officer page', function () {
           width: 1000,
           height: 500
         });
-        officerPage.open(2);
+        officerPage.open(noDataRadarChartOfficerId);
       });
 
       it('should show NoDataRadarChart', function () {
         officerPage.radarChartSection.noDataRadarChartSection.component.waitForVisible();
-        officerPage.radarChartSection.noDataRadarChartSection.noDataText.getText().should.eql(
-          'There is not enough data to construct a radar graph for this officer.'
-        );
+        officerPage.radarChartSection.noDataRadarChartSection.noDataText.getText().should.eql('no data explain text');
       });
 
       it('should not open radar chart explainer when being clicked', function () {
@@ -330,9 +331,63 @@ describe('officer page', function () {
     it('should go to attachment source page when clicking on the complaint attachment', function () {
       officerPage.tabbedPaneSection.attachmentsSection.attachmentComplaint.waitForVisible();
       officerPage.tabbedPaneSection.attachmentsSection.attachment.click();
-      const tabIds = browser.getTabIds();
-      browser.switchTab(tabIds[tabIds.length - 1]).pause(2000);
+      switchToRecentTab();
       browser.getUrl().should.eql('https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html');
+    });
+  });
+
+  describe('Officer CMS text editor', function () {
+    context('no data radar chart', function () {
+      beforeEach(function () {
+        officerPage.open(noDataRadarChartOfficerId);
+        officerPage.openEditMode();
+        browser.moveToObject(officerPage.radarChartSection.noDataRadarChartSection.noDataText.selector);
+        officerPage.radarChartSection.noDataRadarChartSection.editButton.click();
+      });
+
+      it('should be editable', function () {
+        selectText(officerPage.radarChartSection.noDataRadarChartSection.noDataText.selector);
+        browser.keys('No Data Text');
+        officerPage.radarChartSection.noDataRadarChartSection.noDataText.getText().should.containEql('No Data Text');
+      });
+    });
+
+    context('triangle & scale explainer', function () {
+      beforeEach(function () {
+        officerPage.open();
+        officerPage.openEditMode();
+        officerPage.radarChartSection.radarChartPlaceHolder.click();
+      });
+
+      it('should be editable', function () {
+        browser.moveToObject(officerPage.radarChartSection.explainerSection.triangleExplainerText.selector);
+        officerPage.radarChartSection.explainerSection.triangleEditButton.click();
+
+        const triangleExplainerText = officerPage.radarChartSection.explainerSection.triangleExplainerText;
+        selectText(triangleExplainerText.selector);
+        browser.keys('triangle explain updated');
+        triangleExplainerText.getText().should.containEql('triangle explain updated');
+
+        const triangleExplainerSubText = officerPage.radarChartSection.explainerSection.triangleExplainerSubText;
+        selectText(triangleExplainerSubText.selector);
+        browser.keys('triangle explain sub updated');
+        triangleExplainerSubText.getText().should.containEql('triangle explain sub updated');
+
+
+        officerPage.radarChartSection.explainerSection.rightNavigation.click();
+        browser.moveToObject(officerPage.radarChartSection.explainerSection.scaleExplainerText.selector);
+        officerPage.radarChartSection.explainerSection.scaleEditButton.click();
+
+        const scaleExplainerText = officerPage.radarChartSection.explainerSection.scaleExplainerText;
+        selectText(scaleExplainerText.selector);
+        browser.keys('scale explain updated');
+        scaleExplainerText.getText().should.containEql('scale explain updated');
+
+        const scaleExplainerSubText = officerPage.radarChartSection.explainerSection.scaleExplainerSubText;
+        selectText(scaleExplainerSubText.selector);
+        browser.keys('scale explain sub updated');
+        scaleExplainerSubText.getText().should.containEql('scale explain sub updated');
+      });
     });
   });
 });

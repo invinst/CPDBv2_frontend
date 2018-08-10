@@ -26,5 +26,4 @@ export default class ComplaintCategory extends Component {
 ComplaintCategory.propTypes = {
   category: PropTypes.string,
   subcategory: PropTypes.string,
-  popup: PropTypes.object,
 };

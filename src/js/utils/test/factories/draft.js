@@ -17,7 +17,7 @@ export const RawContentBlockFactory = new Factory()
   .attr('text', '')
   .attr('entityRanges', [])
   .attr('depth', 0)
-  .attr('key', 'abc12')
+  .sequence('key', (i) => `key${i}`)
   .attr('type', 'unstyled')
   .attr('inlineStyleRanges', [])
   .attr('data', {});
