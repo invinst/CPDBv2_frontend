@@ -128,7 +128,7 @@ describe('search page results selector', function () {
           suggestionGroups: {
             'CR': [RawCRSuggestion.build(
               { id: '1001' },
-              { crid: '1234', 'outcome': 'Sustained', resultText: 'Lorem' }
+              { crid: '1234', resultText: 'Lorem' }
             )]
           }
         }
@@ -144,7 +144,6 @@ describe('search page results selector', function () {
             url: '',
             tags: [],
             uniqueKey: 'CR-1001',
-            subText: 'CRID 1234, Sustained',
             itemIndex: 1,
           }]
         }
