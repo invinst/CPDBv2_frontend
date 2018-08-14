@@ -14,11 +14,7 @@ const flattenItems = createSelector(
     return concat(
       [{ uniqueKey: constants.SEARCH_BOX }],
       flatten(categories.map(category => {
-        const items = map(category.items, item => ({ ...item, type: category.name }));
-        return [
-          { id: category.name, name: category.name, type: 'category' },
-          ...items,
-        ];
+        return map(category.items, item => ({ ...item, type: category.name }));
       })));
   }
 );

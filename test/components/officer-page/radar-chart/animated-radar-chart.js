@@ -12,7 +12,7 @@ import { unmountComponentSuppressError, reRender } from 'utils/test';
 import AnimatedRadarChart from 'components/officer-page/radar-chart';
 import RadarExplainer from 'components/officer-page/radar-chart/explainer';
 import StaticRadarChart from 'components/common/radar-chart';
-import NoDataRadarChart from 'components/common/radar-chart/no-data-radar-chart';
+import RadarChart from 'components/common/radar-chart/radar-chart';
 
 
 describe('AnimatedRadarChart components', function () {
@@ -52,7 +52,8 @@ describe('AnimatedRadarChart components', function () {
 
   it('should render NoDataRadarChart if no data', function () {
     instance = renderIntoDocument(<AnimatedRadarChart/>);
-    findRenderedComponentWithType(instance, NoDataRadarChart);
+    const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
+    should(noDataRadarChart.props.data).be.undefined();
   });
 
   it('should render NoDataRadarChart if some data is missing', function () {
@@ -76,7 +77,8 @@ describe('AnimatedRadarChart components', function () {
       visualTokenBackground: 'white'
     }];
     instance = renderIntoDocument(<AnimatedRadarChart data={ missingData }/>);
-    findRenderedComponentWithType(instance, NoDataRadarChart);
+    const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
+    should(noDataRadarChart.props.data).be.undefined();
   });
 
   it('should render if data provided', function () {
@@ -105,7 +107,10 @@ describe('AnimatedRadarChart components', function () {
     findRenderedComponentWithType(instance, RadarExplainer);
   });
 
-
+  it('should not render StaticRadarChart if content is being requested', function () {
+    instance = renderIntoDocument(<AnimatedRadarChart isRequesting={ true }/>);
+    scryRenderedComponentsWithType(instance, StaticRadarChart).should.have.length(0);
+  });
 
   describe('test animate', function () {
     let clock;
@@ -222,9 +227,11 @@ describe('AnimatedRadarChart components', function () {
       clock.tick(25);
       instance.state.transitionValue.should.eql(instance.velocity);
       findRenderedComponentWithType(instance, StaticRadarChart).props.legendText.should.equal(2016);
+      findRenderedComponentWithType(instance, StaticRadarChart).props.fadeOutLegend.should.be.false();
 
-      clock.tick(500);
+      clock.tick(200);
       findRenderedComponentWithType(instance, StaticRadarChart).props.legendText.should.equal(2016);
+      findRenderedComponentWithType(instance, StaticRadarChart).props.fadeOutLegend.should.be.true();
     });
   });
 });

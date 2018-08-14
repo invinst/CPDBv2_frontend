@@ -54,4 +54,45 @@ describe('MetricsSection', function () {
     checkMetricPaneDataInfo(metricsPanes[4], '5', 'Major Awards', '');
     checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', 'More than 3% of other officers');
   });
+
+  it('should not show More than N/A% officers when there is no percentile calculated', function () {
+    const metrics = {
+      allegationCount: 90,
+      allegationPercentile: 'N/A',
+      honorableMentionCount: 1,
+      sustainedCount: 4,
+      disciplineCount: 0,
+      honorableMentionPercentile: 'N/A',
+      useOfForceCount: 4,
+      majorAwardCount: 5,
+      useOfForcePercentile: 'N/A',
+      civilianComplimentCount: 0,
+    };
+    instance = renderIntoDocument(<MetricsSection metrics={ metrics } />);
+    const metricsPanes = scryRenderedComponentsWithType(instance, MetricPane);
+    checkMetricPaneDataInfo(metricsPanes[0], '90', 'Allegations', '');
+    checkMetricPaneDataInfo(metricsPanes[1], '4', 'Sustained', '0 Disciplined');
+    checkMetricPaneDataInfo(metricsPanes[2], '4', 'Use of Force Reports', '');
+    checkMetricPaneDataInfo(metricsPanes[3], '0', 'Civilian Compliments', '');
+    checkMetricPaneDataInfo(metricsPanes[4], '5', 'Major Awards', '');
+    checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', '');
+  });
+
+  it('should not show More than 0% of other officers for Honorable Mention', function () {
+    const metrics = {
+      allegationCount: 90,
+      allegationPercentile: 'N/A',
+      honorableMentionCount: 1,
+      sustainedCount: 4,
+      disciplineCount: 0,
+      honorableMentionPercentile: 0,
+      useOfForceCount: 4,
+      majorAwardCount: 5,
+      useOfForcePercentile: 'N/A',
+      civilianComplimentCount: 0,
+    };
+    instance = renderIntoDocument(<MetricsSection metrics={ metrics } />);
+    const metricsPanes = scryRenderedComponentsWithType(instance, MetricPane);
+    checkMetricPaneDataInfo(metricsPanes[5], '1', 'Honorable Mention', '');
+  });
 });

@@ -1,7 +1,13 @@
 import React from 'react';
 import { findDOMNode, render } from 'react-dom';
 import { Editor, SelectionState, EditorState } from 'draft-js';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
+  scryRenderedComponentsWithType
+} from 'react-addons-test-utils';
 import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -9,6 +15,7 @@ import { convertContentStateToEditorState } from 'utils/draft';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
 import Toolbar from 'components/inline-editable/rich-text-editor/toolbar';
 import RichTextEditor from 'components/inline-editable/rich-text-editor';
+import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor-block-with-style';
 
 describe('RichTextEditor component', function () {
   let instance;
@@ -33,6 +40,31 @@ describe('RichTextEditor component', function () {
     editor.props.readOnly.should.be.false();
     editor.props.editorState.should.eql(editorState);
     editor.props.placeholder.should.eql('abc');
+  });
+
+  it('should add child to last block', function () {
+    const editorState = convertContentStateToEditorState(
+      RawContentStateFactory.build({}, { blockTexts: ['a', 'b'] })
+    );
+
+    const lastBlockChild = <div className='test--last-block-child'/>;
+
+    instance = renderIntoDocument(
+      <RichTextEditor
+        placeholder='abc'
+        readOnly={ false }
+        editorState={
+          editorState
+        }
+        lastBlockChild={ lastBlockChild }
+      />
+    );
+
+    const contentBlocks = scryRenderedComponentsWithType(instance, EditorBlockWithStyle);
+    contentBlocks.should.have.length(2);
+
+    scryRenderedDOMComponentsWithClass(contentBlocks[0], 'test--last-block-child').should.have.length(0);
+    findRenderedDOMComponentWithClass(contentBlocks[1], 'test--last-block-child');
   });
 
   it('should not show toolbar when become readOnly', function () {

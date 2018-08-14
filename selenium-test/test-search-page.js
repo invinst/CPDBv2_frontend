@@ -6,6 +6,7 @@ import { times } from 'lodash';
 
 import searchPage from './page-objects/search-page';
 import landingPage from './page-objects/landing-page';
+import { switchToRecentTab } from './utils';
 
 
 describe('Landing Page to Search Page', function () {
@@ -227,6 +228,7 @@ describe('Search Page', function () {
     searchPage.contentWrapper.waitForVisible();
     browser.pause(500);
     browser.keys('Enter');
+    switchToRecentTab();
     browser.getUrl().should.equal('http://cpdb.lvh.me/s/noresult');
   });
 

@@ -72,7 +72,7 @@ export default class RichTextEditor extends Component {
   }
 
   render() {
-    const { placeholder, style, readOnly, editorState, className, disableToolbar } = this.props;
+    const { placeholder, style, readOnly, editorState, className, disableToolbar, lastBlockChild } = this.props;
     const { showToolbar, editorLeft, editorTop } = this.state;
     const { wrapper, paragraph } = style;
 
@@ -84,6 +84,7 @@ export default class RichTextEditor extends Component {
     const blockRenderMap = DefaultDraftBlockRenderMap
       .set('unstyled', paragraphBlockRender);
 
+    const lastContentBlockKey = editorState.getCurrentContent().getLastBlock().getKey();
     function blockRendererFn(contentBlock) {
       if (contentBlock.getType() === 'unstyled') {
         return {
@@ -91,7 +92,8 @@ export default class RichTextEditor extends Component {
           editable: !readOnly,
           props: {
             style: { ...paragraph, ...(readOnly ? {} : textEditorStyle) },
-            element: 'div'
+            element: 'div',
+            child: contentBlock.getKey() === lastContentBlockKey ? lastBlockChild : null
           }
         };
       }
@@ -137,7 +139,8 @@ RichTextEditor.propTypes = {
   onChange: PropTypes.func,
   readOnly: PropTypes.bool,
   disableToolbar: PropTypes.bool,
-  editorState: PropTypes.object
+  editorState: PropTypes.object,
+  lastBlockChild: PropTypes.node
 };
 
 RichTextEditor.defaultProps = {

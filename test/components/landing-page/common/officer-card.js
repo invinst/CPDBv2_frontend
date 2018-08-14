@@ -11,7 +11,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 
 import OfficerCard from 'components/landing-page/common/officer-card';
 import { getThisYear } from 'utils/date';
-import NoDataRadarChart from 'components/common/radar-chart/no-data-radar-chart';
+import RadarChart from 'components/common/radar-chart/radar-chart';
 
 
 describe('OfficerCard component', function () {
@@ -57,6 +57,14 @@ describe('OfficerCard component', function () {
 
   it('should show NoDataRadarChart when no percentile', () => {
     instance = renderIntoDocument(<OfficerCard officerId={ 3 }/>);
-    findRenderedComponentWithType(instance, NoDataRadarChart);
+    const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
+    should(noDataRadarChart.props.data).be.undefined();
+  });
+
+  it('should render link with target _blank when openCardInNewPage is true', () => {
+    instance = renderIntoDocument(<OfficerCard officerId={ 3 } openCardInNewPage={ true }/>);
+
+    const link = findRenderedComponentWithType(instance, Link);
+    link.props.target.should.eql('_blank');
   });
 });

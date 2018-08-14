@@ -1,10 +1,10 @@
 import { Promise } from 'es6-promise';
 
-import { LANDING_PAGE_ID } from 'utils/constants';
+import { LANDING_PAGE_ID, OFFICER_PAGE_ID } from 'utils/constants';
 import { getOfficerId, getCRID, getTRRId, getUnitName } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
-import { hasLandingPageCMSContent } from 'selectors/cms';
+import { hasCMSContent } from 'selectors/cms';
 import { hasCards as hasOfficerByAllegationData } from 'selectors/landing-page/officers-by-allegation';
 import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activity-grid';
 import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
@@ -25,6 +25,7 @@ import { getRecentDocument } from 'actions/landing-page/recent-document';
 import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
+import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 
 let prevPathname = '';
 
@@ -37,9 +38,13 @@ export default store => next => action => {
   const state = store.getState();
   const dispatches = [];
 
-  if (!hasLandingPageCMSContent(state)) {
-    dispatches.push(store.dispatch(fetchPage(LANDING_PAGE_ID)()));
-  }
+  const getCMSContent = (pageId) => {
+    if (!hasCMSContent(pageId)(state)) {
+      dispatches.push(store.dispatch(fetchPage(pageId)()));
+    }
+  };
+
+  getCMSContent(LANDING_PAGE_ID);
 
   if (action.payload.pathname.match(/officer\/\d+/)) {
     const officerId = getOfficerId(action.payload.pathname);
@@ -52,6 +57,7 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchCoaccusals(officerId)));
       dispatches.push(store.dispatch(fetchPopup('officer')));
     }
+    getCMSContent(OFFICER_PAGE_ID);
   } else if (action.payload.pathname.match(/^\/(edit\/?)?$/)) {
     if (!hasCommunitiesSelector(state)) {
       dispatches.push(store.dispatch(getCommunities()));
@@ -76,7 +82,6 @@ export default store => next => action => {
     if (!hasComplaintSummaryData(state)) {
       dispatches.push(store.dispatch(getComplaintSummaries()));
     }
-
   } else if (action.payload.pathname.match(/complaint\/\w+/)) {
     const crid = getCRID(action.payload.pathname);
     const oldCrid = getCRID(prevPathname);
@@ -93,6 +98,12 @@ export default store => next => action => {
     if (trrId !== oldtrrId) {
       dispatches.push(store.dispatch(fetchTRR(trrId)));
       dispatches.push(store.dispatch(fetchPopup('trr')));
+    }
+  } else if (action.payload.pathname.match(/search\/terms/)) {
+    dispatches.push(store.dispatch(requestSearchTermCategories()));
+  } else if (action.payload.pathname.match(/embed\/top-officers/)) {
+    if (!hasOfficerByAllegationData(state)) {
+      dispatches.push(store.dispatch(requestOfficersByAllegation()));
     }
   }
 
