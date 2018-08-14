@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 import { EditorBlock } from 'draft-js';
 import { stub } from 'sinon';
 import { findDOMNode } from 'react-dom';
@@ -19,13 +19,16 @@ describe('EditorBlockWithStyle component', function () {
     stub(EditorBlock.prototype, 'componentDidMount');
     stub(EditorBlock.prototype, '_renderChildren').returns(<div/>);
     const style = { color: 'blue' };
+    const child = <div className='test-editor-block-with-style-child'>some text</div>;
     instance = renderIntoDocument(
       <EditorBlockWithStyle
         offsetKey='abc'
         blockProps={ {
           style,
-          element: 'div'
-        } }/>
+          element: 'div',
+          child: child
+        } }
+      />
     );
     const divEl = findDOMNode(instance);
     divEl.tagName.should.eql('DIV');
@@ -34,5 +37,7 @@ describe('EditorBlockWithStyle component', function () {
     divEl.children[0].tagName.should.eql('DIV');
     EditorBlock.prototype._renderChildren.restore();
     EditorBlock.prototype.componentDidMount.restore();
+
+    findRenderedDOMComponentWithClass(instance, 'test-editor-block-with-style-child');
   });
 });

@@ -34,7 +34,7 @@ describe('SearchTerms component', function () {
           id: 'community',
           name: 'Communities',
           description: 'Chicago is divided.',
-          'call_to_action_type': 'view_all',
+          callToActionType: 'view_all',
           link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>'
         }
       ]
@@ -63,14 +63,6 @@ describe('SearchTerms component', function () {
       <SearchTerms categories={ SearchTermCategory.buildList(1) } />
     );
     findRenderedComponentWithType(instance, MinimalScrollBars).should.be.ok();
-  });
-
-  it('should fire request when mounted', function () {
-    const callback = spy();
-    instance = renderIntoDocument(
-      <SearchTerms requestSearchTermCategories={ callback } />
-    );
-    callback.called.should.be.true();
   });
 
   it('should render ResponsiveFluidWidthComponent with correct props', function () {
@@ -119,16 +111,6 @@ describe('SearchTerms component', function () {
 
     Simulate.click(findRenderedDOMComponentWithClass(searchTerms, 'test--category-item'));
     setNavigation.calledWith({ navigationKeys, uniqueKey: 'Geography-community' }).should.be.true();
-  });
-
-  it('should be able to setNavigation on a category header', function () {
-    const setNavigation = spy();
-    instance = renderIntoDocument(
-      <SearchTerms setNavigation={ setNavigation } categories={ categories } navigationKeys={ navigationKeys }/>
-    );
-
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--category-header'));
-    setNavigation.calledWith({ navigationKeys, uniqueKey: 'category-Geography' }).should.be.true();
   });
 
   it('should resetNavigation to 0 when unmounted', function () {

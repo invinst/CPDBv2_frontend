@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react';
 import Hoverable from 'components/common/higher-order/hoverable';
 import HoverableButton from 'components/common/hoverable-button';
 import {
-  wrapperStyle, buttonWrapperStyle, buttonStyle, hoverableWrapperStyle
+  wrapperStyle, bottomButtonWrapperStyle, topButtonWrapperStyle, buttonStyle, hoverableWrapperStyle
 } from './hoverable-edit-wrapper.style';
 
 
@@ -22,7 +22,7 @@ class HoverableEditWrapper extends Component {
           {
             sectionEditModeOn
               ? (
-                <span style={ buttonWrapperStyle(hovering) }>
+                <span style={ bottomButtonWrapperStyle(hovering) }>
                   <HoverableButton
                     className='test--edit-wrapper-save-button'
                     style={ buttonStyle }
@@ -38,7 +38,7 @@ class HoverableEditWrapper extends Component {
                 </span>
                 )
               : (
-                <span style={ buttonWrapperStyle(hovering) }>
+                <span style={ topButtonWrapperStyle(hovering) }>
                   <HoverableButton
                     className='test--edit-wrapper-edit-button'
                     style={ buttonStyle }

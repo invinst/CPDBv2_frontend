@@ -21,9 +21,3 @@ export const rowValueItemStyle = (haveBox) => ({
   display: 'inline-block',
   padding: haveBox ? '8px 0' : '12px 0',
 });
-
-export const popupStyle = {
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  marginLeft: '6px',
-};

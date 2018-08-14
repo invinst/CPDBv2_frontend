@@ -16,7 +16,7 @@ export default function withCarousel(
     }
 
     render() {
-      const { cards, editWrapperStateProps, pathname } = this.props;
+      const { cards, editWrapperStateProps, pathname, openCardInNewPage } = this.props;
 
       const slideElements = cards.map((card, index) => {
         return (
@@ -24,7 +24,7 @@ export default function withCarousel(
             key={ index }
             style={ itemStyle(itemWidth) }
             className='test--carousel--item'>
-            <CardComponent { ...omit(card, 'id') } { ...extraCardAttr } />
+            <CardComponent { ...omit(card, 'id') } { ...extraCardAttr } openCardInNewPage={ openCardInNewPage } />
           </div>
         );
       });
@@ -51,10 +51,13 @@ export default function withCarousel(
   Wrapper.propTypes = {
     cards: PropTypes.array,
     pathname: PropTypes.string,
-    editWrapperStateProps: PropTypes.object
+    editWrapperStateProps: PropTypes.object,
+    openCardInNewPage: PropTypes.bool,
+  };
+
+  Wrapper.defaultProps = {
+    openCardInNewPage: false
   };
 
   return Wrapper;
 }
-
-

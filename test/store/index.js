@@ -1,4 +1,5 @@
 import configureStore from 'store';
+import { OFFICER_EDIT_TYPES } from 'utils/constants';
 
 
 function setUp() {
@@ -164,13 +165,21 @@ describe('store', function () {
           ]
         },
         newTimeline: {
-          filter: 'ALL EVENTS',
+          filter: {
+            label: 'ALL',
+            kind: ['CR', 'FORCE', 'AWARD']
+          },
           isRequesting: false,
           items: []
         },
         coaccusals: {
           isRequesting: false,
           items: []
+        },
+        editModeOn: {
+          [OFFICER_EDIT_TYPES.TRIANGLE]: false,
+          [OFFICER_EDIT_TYPES.SCALE]: false,
+          [OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART]: false,
         }
       },
       unitProfilePage: {

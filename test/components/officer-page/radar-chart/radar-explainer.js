@@ -29,12 +29,14 @@ describe('RadarExplainer components', function () {
   });
 
   it('should render close button and TriangleExplainer as default', function () {
-    instance = renderIntoDocument(<RadarExplainer/>);
+    const triangleEditWrapperStateProps = spy();
+    instance = renderIntoDocument(<RadarExplainer triangleEditWrapperStateProps={ triangleEditWrapperStateProps }/>);
 
     findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
     findRenderedComponentWithType(instance, LeftNavigation);
     findRenderedComponentWithType(instance, RightNavigation);
-    findRenderedComponentWithType(instance, TriangleExplainer);
+    const triangleExplainer = findRenderedComponentWithType(instance, TriangleExplainer);
+    triangleExplainer.props.editWrapperStateProps.should.eql(triangleEditWrapperStateProps);
 
     const instanceDOM = findDOMNode(instance);
     instanceDOM.textContent.should.containEql('What is the scale?');
@@ -42,13 +44,15 @@ describe('RadarExplainer components', function () {
   });
 
   it('should change to ScaleExplainer when click to RightNavigation', function () {
-    instance = renderIntoDocument(<RadarExplainer/>);
+    const scaleEditWrapperStateProps = spy();
+    instance = renderIntoDocument(<RadarExplainer scaleEditWrapperStateProps={ scaleEditWrapperStateProps }/>);
     findRenderedComponentWithType(instance, TriangleExplainer);
     instance.state.currentPaneIndex.should.eql(0);
     const rightNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-right');
     Simulate.click(rightNavigationElm);
     instance.state.currentPaneIndex.should.eql(1);
-    findRenderedComponentWithType(instance, ScaleExplainer);
+    const scaleExplainer = findRenderedComponentWithType(instance, ScaleExplainer);
+    scaleExplainer.props.editWrapperStateProps.should.eql(scaleEditWrapperStateProps);
 
     const instanceDOM = findDOMNode(instance);
     instanceDOM.textContent.should.containEql('What is this triangle?');

@@ -4,7 +4,8 @@ import {
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
+  Simulate,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
@@ -31,7 +32,7 @@ describe('Timeline component', function () {
     cols[0].textContent.should.containEql('RANK');
     cols[1].textContent.should.containEql('UNIT');
     cols[2].textContent.should.containEql('SHOWING');
-    cols[2].textContent.should.containEql('ALL EVENTS');
+    cols[2].textContent.should.containEql('ALL');
     cols[3].textContent.should.containEql('DATE');
   });
 
@@ -134,8 +135,16 @@ describe('Timeline component', function () {
       />
     );
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.props.defaultValue.should.eql('ALL EVENTS');
-    dropdown.props.onChange.should.eql(changeFilterStub);
-    dropdown.props.options.should.eql(['ALL EVENTS', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS']);
+    dropdown.props.defaultValue.should.eql('ALL');
+    dropdown.props.options.should.eql(['ALL', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS', 'SUSTAINED']);
+
+    const dropdownButton = findRenderedDOMComponentWithClass(instance, 'test--dropdown-button');
+    Simulate.click(dropdownButton);
+    const options = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item');
+    Simulate.click(options[0]);
+    changeFilterStub.calledWith({
+      label: 'COMPLAINTS',
+      kind: ['CR'],
+    }).should.be.true();
   });
 });
