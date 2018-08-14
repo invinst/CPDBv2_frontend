@@ -200,4 +200,14 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(getClusterGeoJson()).should.be.true();
     store.dispatch.calledWith(getCitySummary()).should.be.true();
   });
+
+  it('should dispatch fetch data for embedded top officers page when they do not exist', function () {
+    const action = createLocationChangeAction('/embed/top-officers');
+    let dispatched;
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
+    store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
+  });
 });

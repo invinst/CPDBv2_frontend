@@ -7,6 +7,8 @@ describe('citySummarySelector', function () {
       landingPage: {
         heatMap: {
           citySummary: {
+            'start_year': 1999,
+            'end_year': 2017,
             'allegation_count': 10,
             'discipline_count': 5,
             'most_common_complaints': [
@@ -18,6 +20,8 @@ describe('citySummarySelector', function () {
         }
       }
     }).should.eql({
+      startYear: 1999,
+      endYear: 2017,
       allegationCount: 10,
       disciplinePercentage: 50,
       mostCommonComplaints: [

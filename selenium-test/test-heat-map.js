@@ -13,6 +13,7 @@ describe('Heat map', function () {
 
   describe('summary panel', function () {
     it('should display city summary', function () {
+      landingPage.heatMapSection.citySummary.header.getText().should.equal('CHICAGO 1988 - 2017');
       landingPage.heatMapSection.citySummary.allegationDiscipline.getText().should.containEql('10 allegations');
       landingPage.heatMapSection.citySummary.allegationDiscipline.getText().should.containEql('50% disciplined');
     });

@@ -88,6 +88,7 @@ class CitySummary extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
+      header: '.test--city-summary-header',
       allegationDiscipline: '.test--allegation-discipline-count',
       mostCommonComplaints: '.test--most-common-complaints'
     });

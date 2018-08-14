@@ -113,16 +113,6 @@ describe('SearchTerms component', function () {
     setNavigation.calledWith({ navigationKeys, uniqueKey: 'Geography-community' }).should.be.true();
   });
 
-  it('should be able to setNavigation on a category header', function () {
-    const setNavigation = spy();
-    instance = renderIntoDocument(
-      <SearchTerms setNavigation={ setNavigation } categories={ categories } navigationKeys={ navigationKeys }/>
-    );
-
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--category-header'));
-    setNavigation.calledWith({ navigationKeys, uniqueKey: 'category-Geography' }).should.be.true();
-  });
-
   it('should resetNavigation to 0 when unmounted', function () {
     const resetNavigation = spy();
     instance = renderIntoDocument(

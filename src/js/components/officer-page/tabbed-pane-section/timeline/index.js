@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { nth, values, get, includes } from 'lodash';
+import { nth, values, get, includes, mapValues, findKey, map } from 'lodash';
 
 import {
   dateHeaderStyle,
@@ -16,11 +16,21 @@ import Dropdown from 'components/common/dropdown';
 import Popup from 'components/common/popup';
 
 export default class Timeline extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleDropdownChange = this.handleDropdownChange.bind(this);
+  }
+
+  handleDropdownChange(label) {
+    const key = findKey(NEW_TIMELINE_FILTERS, ['label', label]);
+    this.props.changeFilter(NEW_TIMELINE_FILTERS[key]);
+  }
 
   renderHeader() {
-    const { changeFilter, popup, filterCount } = this.props;
-    const options = values(NEW_TIMELINE_FILTERS);
-    const labels = options.map(option => `${option} (${filterCount[option]})`);
+    const { popup, filterCount } = this.props;
+    const options = values(mapValues(NEW_TIMELINE_FILTERS, 'label'));
+    const labels = map(NEW_TIMELINE_FILTERS, (filter, key) => `${filter.label} (${filterCount[key]})`);
 
     return (
       <div className='test--timeline-header' style={ headerWrapperStyle }>
@@ -41,8 +51,8 @@ export default class Timeline extends Component {
         <div style={ showingContentHeaderStyle } className='test--timeline-header-col'>
           <div style={ showingTextStyle }>SHOWING</div>
           <Dropdown
-            defaultValue={ NEW_TIMELINE_FILTERS.ALL }
-            onChange={ changeFilter }
+            defaultValue={ NEW_TIMELINE_FILTERS.ALL.label }
+            onChange={ this.handleDropdownChange }
             options={ options }
             className='test--timeline-filter'
             width={ 156 }

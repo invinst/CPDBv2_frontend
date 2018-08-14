@@ -23,7 +23,7 @@ import OutboundLink from 'components/common/outbound-link';
 export default class CitySummary extends Component {
   render() {
     const { citySummary, isActive, onClick } = this.props;
-    const { allegationCount, disciplinePercentage, mostCommonComplaints } = citySummary;
+    const { startYear, endYear, allegationCount, disciplinePercentage, mostCommonComplaints } = citySummary;
 
     return (
       <div
@@ -35,7 +35,9 @@ export default class CitySummary extends Component {
             null :
             <div style={ clickReceiver } onClick={ onClick } />
         }
-        <div style={ headerStyle }>CHICAGO 1988 - 2018</div>
+        <div style={ headerStyle } className='test--city-summary-header'>
+          CHICAGO{ startYear ? ` ${startYear} - ${endYear}` : '' }
+        </div>
         <div
           style={ allegationDisciplineStyle }
           className='test--allegation-discipline-count'

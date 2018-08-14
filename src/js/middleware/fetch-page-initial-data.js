@@ -85,7 +85,6 @@ export default store => next => action => {
     if (!hasComplaintSummaryData(state)) {
       dispatches.push(store.dispatch(getComplaintSummaries()));
     }
-
   } else if (action.payload.pathname.match(/complaint\/\w+/)) {
     const crid = getCRID(action.payload.pathname);
     const oldCrid = getCRID(prevPathname);
@@ -105,6 +104,10 @@ export default store => next => action => {
     }
   } else if (action.payload.pathname.match(/search\/terms/)) {
     dispatches.push(store.dispatch(requestSearchTermCategories()));
+  } else if (action.payload.pathname.match(/embed\/top-officers/)) {
+    if (!hasOfficerByAllegationData(state)) {
+      dispatches.push(store.dispatch(requestOfficersByAllegation()));
+    }
   } else if (action.payload.pathname.match(/embed\/map/)) {
     if (!hasCommunitiesSelector(state)) {
       dispatches.push(store.dispatch(getCommunities()));

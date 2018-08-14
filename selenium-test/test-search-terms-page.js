@@ -45,19 +45,12 @@ describe('Search terms page', function () {
 
     browser.keys('ArrowDown');
 
-    firstCategoryHeader.getAttribute('style').should.containEql(focusedBackground);
-    firstTerm.getAttribute('style').should.not.containEql(focusedBackground);
-    secondTerm.getAttribute('style').should.not.containEql(focusedBackground);
-
-    browser.keys('ArrowDown');
-
     firstCategoryHeader.getAttribute('style').should.not.containEql(focusedBackground);
     firstTerm.getAttribute('style').should.containEql(focusedBackground);
     secondTerm.getAttribute('style').should.not.containEql(focusedBackground);
 
     browser.keys('ArrowDown');
 
-    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedBackground);
     firstTerm.getAttribute('style').should.not.containEql(focusedBackground);
     secondTerm.getAttribute('style').should.containEql(focusedBackground);
   });
@@ -72,30 +65,15 @@ describe('Search terms page', function () {
   it('should show PreviewPane when navigating to SearchTerms items', function () {
     browser.keys('ArrowDown');
 
-    searchTermsPage.previewPane.title.getText().should.eql('Geography');
-
-    browser.keys('ArrowDown');
-
     searchTermsPage.previewPane.title.getText().should.not.eql('Geography');
     searchTermsPage.previewPane.title.getText().should.not.eql('');
   });
 
   it('should show callToAction bar when it is available', function () {
     browser.keys('ArrowDown');
-
-    searchTermsPage.previewPane.title.getText().should.eql('Geography');
-    searchTermsPage.previewPane.callToAction.waitForVisible(2000, true);
-
-    browser.keys('ArrowDown');
     searchTermsPage.previewPane.callToAction.getText().should.containEql('View ALL');
     searchTermsPage.previewPane.callToAction.click();
     browser.getUrl().should.match(/\/search\/\?terms=community&type=COMMUNITY$/);
-  });
-
-  it('should show PreviewPane when a SearchTerms category is clicked', function () {
-    searchTermsPage.categoryMainPanel.firstCategoryHeader.click();
-
-    searchTermsPage.previewPane.title.getText().should.eql('Geography');
   });
 
   it('should show PreviewPane when a SearchTerms item is clicked', function () {
@@ -154,12 +132,6 @@ describe('Search terms page', function () {
     searchTermsPage.input.getValue().should.eql('Some other T');
   });
 
-  it('should show PreviewPane when a SearchTerms category is clicked', function () {
-    searchTermsPage.categoryMainPanel.firstCategoryHeader.click();
-
-    searchTermsPage.previewPane.title.getText().should.eql('Geography');
-  });
-
   it('should show PreviewPane when a SearchTerms item is clicked', function () {
     searchTermsPage.categoryMainPanel.firstCategoryItem.click();
 
@@ -167,7 +139,6 @@ describe('Search terms page', function () {
   });
 
   it('should show PreviewPane with markdown', function () {
-    browser.keys('ArrowDown');
     browser.keys('ArrowDown');
 
     searchTermsPage.previewPane.descriptionLink.click();
