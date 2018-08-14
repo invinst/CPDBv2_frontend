@@ -485,3 +485,5 @@ export const CALL_TO_ACTION_TYPES = {
   VIEW_ALL: 'view_all',
   LINK: 'link',
 };
+
+export const FULL_MONTH_DATE_FORMAT = 'MMMM D, YYYY';
