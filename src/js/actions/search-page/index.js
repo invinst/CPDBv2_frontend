@@ -19,27 +19,27 @@ const cancelOldRequest = (newRequest) => (...args) => {
 export const SUGGESTION_URL = 'suggestion/';
 
 export const getSuggestion = cancelOldRequest(
-  (text, params, adapter) => get(
-    `${SUGGESTION_URL}${text}/`,
+  (term, params, adapter) => get(
+    SUGGESTION_URL,
     [
       constants.SUGGESTION_REQUEST_START,
       constants.SUGGESTION_REQUEST_SUCCESS,
       constants.SUGGESTION_REQUEST_FAILURE
     ],
     source.token
-  )(params, adapter)
+  )({ term, ...params }, adapter)
 );
 
 export const getSuggestionWithContentType = cancelOldRequest(
-  (text, params, adapter) => get(
-    `${SUGGESTION_URL}${text}/single/`,
+  (term, params, adapter) => get(
+    `${SUGGESTION_URL}single/`,
     [
       constants.SUGGESTION_SINGLE_REQUEST_START,
       constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
       constants.SUGGESTION_SINGLE_REQUEST_FAILURE
     ],
     source.token
-  )(params, adapter)
+  )({ term, ...params }, adapter)
 );
 
 
