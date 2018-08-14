@@ -26,10 +26,7 @@ export default class CitySummary extends Component {
     const { startYear, endYear, allegationCount, disciplinePercentage, mostCommonComplaints } = citySummary;
 
     return (
-      <div
-        style={ wrapperStyle(isActive) }
-        className='link--transition test--city-summary'
-      >
+      <div style={ wrapperStyle(isActive) } className='link--transition test--city-summary'>
         {
           isActive ?
             null :
@@ -38,10 +35,7 @@ export default class CitySummary extends Component {
         <div style={ headerStyle } className='test--city-summary-header'>
           CHICAGO{ startYear ? ` ${startYear} - ${endYear}` : '' }
         </div>
-        <div
-          style={ allegationDisciplineStyle }
-          className='test--allegation-discipline-count'
-        >
+        <div style={ allegationDisciplineStyle } className='test--allegation-discipline-count'>
           <OutboundLink href={ config.v1Url }>
             <div style={ allegationDisciplineCountStyle }>
               <div style={ allegationTextStyle }>

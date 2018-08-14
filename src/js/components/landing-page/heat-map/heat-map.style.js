@@ -12,7 +12,7 @@ export const minimumStyle = {
 export const mediumStyle = {
   position: 'absolute',
   top: 0,
-  right: '60px',
+  right: '16px',
 };
 
 export const maximumStyle = {

@@ -4,7 +4,16 @@ import { find } from 'lodash';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import SummaryPanel from './summary-panel';
 import CommunityMap from './community-map';
-import { wrapperStyle, minimumStyle, mediumStyle, maximumStyle } from './heat-map.style';
+import {
+  wrapperStyle,
+  summaryPanelMinimumStyle,
+  summaryPanelMediumStyle,
+  summaryPanelMaximumStyle,
+  communityMapMinimumStyle,
+  communityMapMediumStyle,
+  communityMapMaximumStyle
+} from './heat-map.style';
+import { showIntercomLauncher } from 'utils/intercom';
 
 
 export default class HeatMap extends Component {
@@ -14,6 +23,14 @@ export default class HeatMap extends Component {
       selectedId: 0
     };
     this.setSelectedCommunity = this.setSelectedCommunity.bind(this);
+  }
+
+  componentDidMount() {
+    showIntercomLauncher(false);
+  }
+
+  componentWillUnmount() {
+    showIntercomLauncher(true);
   }
 
   setSelectedCommunity(id) {
@@ -37,17 +54,25 @@ export default class HeatMap extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <CommunityMap
-          communitySource={ communityGeoJSON }
-          selectCommunity={ this.setSelectedCommunity }
-          communityId={ selectedId }
-          clusterSource={ clusterGeoJson }
-        />
         <ResponsiveFluidWidthComponent
-          minimumStyle={ minimumStyle }
-          mediumStyle={ mediumStyle }
-          maximumStyle={ maximumStyle }
-          minWidthThreshold={ 768 }
+          minimumStyle={ communityMapMinimumStyle }
+          mediumStyle={ communityMapMediumStyle }
+          maximumStyle={ communityMapMaximumStyle }
+          minWidthThreshold={ 680 }
+          maxWidthThreshold={ 1024 }
+        >
+          <CommunityMap
+            communitySource={ communityGeoJSON }
+            selectCommunity={ this.setSelectedCommunity }
+            communityId={ selectedId }
+            clusterSource={ clusterGeoJson }
+          />
+        </ResponsiveFluidWidthComponent>
+        <ResponsiveFluidWidthComponent
+          minimumStyle={ summaryPanelMinimumStyle }
+          mediumStyle={ summaryPanelMediumStyle }
+          maximumStyle={ summaryPanelMaximumStyle }
+          minWidthThreshold={ 680 }
           maxWidthThreshold={ 1024 }
         >
           <SummaryPanel
