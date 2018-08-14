@@ -14,7 +14,7 @@ export default class CallToAction extends Component {
     if (item.callToActionType === CALL_TO_ACTION_TYPES.VIEW_ALL) {
       return (
         <Link style={ linkStyle } to={ item.to } className='test--call-to-action'>
-          <span style={ textStyle }>View ALL { pluralize(item.name, 2) }</span>
+          <span style={ textStyle }>View ALL { pluralize.plural(item.name) }</span>
           <div style={ buttonStyle } className='test--enter-button'>enter</div>
         </Link>
       );

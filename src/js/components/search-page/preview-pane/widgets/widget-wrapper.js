@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
 
-import { CallToActionWidget } from './index';
+import CallToActionWidget from './call-to-action-widget';
 import { wrapperStyle, responsiveContainerStyle, gradientStyle } from './widget-wrapper.style';
 
 

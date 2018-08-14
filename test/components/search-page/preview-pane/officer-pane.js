@@ -7,7 +7,7 @@ import { OfficerPane } from 'components/search-page/preview-pane';
 import {
   VisualTokenWidget,
   OfficerInfoWidget,
-  MetricWidget
+  MetricWidget,
 } from 'components/search-page/preview-pane/widgets';
 
 
