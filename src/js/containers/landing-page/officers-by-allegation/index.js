@@ -16,6 +16,7 @@ function mapStateToProps(state, ownProps) {
   return {
     cards: cardsSelector(state, ownProps),
     pathname: ownProps.pathname,
+    openCardInNewPage: ownProps.openCardInNewPage,
     fields: getCMSFields(constants.LANDING_PAGE_ID)(state),
     sectionEditModeOn: getCarouselAllegationHeaderEditModeOn(state)
   };

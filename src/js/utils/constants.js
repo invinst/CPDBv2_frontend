@@ -32,6 +32,7 @@ export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const CR_PATH_SUFFIX = ':officerId';
 export const TTR_PATH = 'trr/:trrId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
+export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
