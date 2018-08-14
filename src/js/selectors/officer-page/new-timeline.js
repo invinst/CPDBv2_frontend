@@ -1,4 +1,18 @@
-import { concat, difference, filter, get, includes, isEmpty, nth, rangeRight, slice, values, invert } from 'lodash';
+import {
+  concat,
+  difference,
+  filter,
+  get,
+  includes,
+  isEmpty,
+  nth,
+  rangeRight,
+  slice,
+  values,
+  isUndefined,
+  cloneDeep,
+  map
+} from 'lodash';
 import moment from 'moment';
 import { createSelector } from 'reselect';
 
@@ -249,21 +263,33 @@ export const fillRankChange = (items) => {
   return items;
 };
 
-const removableKinds = [NEW_TIMELINE_ITEMS.CR, NEW_TIMELINE_ITEMS.FORCE, NEW_TIMELINE_ITEMS.AWARD];
-const unremovableKinds = difference(values(NEW_TIMELINE_ITEMS), removableKinds);
-
-const filteredKindsMap = {
-  [NEW_TIMELINE_FILTERS.CRS]: [NEW_TIMELINE_ITEMS.CR],
-  [NEW_TIMELINE_FILTERS.FORCE]: [NEW_TIMELINE_ITEMS.FORCE],
-  [NEW_TIMELINE_FILTERS.AWARDS]: [NEW_TIMELINE_ITEMS.AWARD],
-  [NEW_TIMELINE_FILTERS.ALL]: removableKinds,
-};
-
-export const applyFilter = (selectedFilter, items) => {
-  const filteredKinds = filteredKindsMap[selectedFilter];
+const filterByKind = (selectedFilter, items) => {
+  const unremovableKinds = difference(values(NEW_TIMELINE_ITEMS), NEW_TIMELINE_FILTERS.ALL.kind);
+  const filteredKinds = selectedFilter.kind;
   const displayKinds = concat(unremovableKinds, filteredKinds);
 
   return filter(items, (item) => includes(displayKinds, item.kind));
+};
+
+export const applyFilter = (selectedFilter, items) => {
+  let results = [];
+  let cloneSelectedFilter = cloneDeep(selectedFilter);
+  delete cloneSelectedFilter.label;
+  delete cloneSelectedFilter.kind;
+
+  if (!isUndefined(selectedFilter.kind)) {
+    results = filterByKind(selectedFilter, items);
+  }
+
+  if (isEmpty(cloneSelectedFilter)) {
+    return results;
+  }
+
+  Object.keys(cloneSelectedFilter).map(key => {
+    results = filter(results, result => includes(selectedFilter[key], result[key]));
+  });
+
+  return results;
 };
 
 export const markLatestUnit = (items) => {
@@ -373,23 +399,26 @@ export const newTimelineItemsSelector = createSelector(
 export const filterCount = createSelector(
   getItems,
   items => {
-    let count = Object.assign({}, NEW_TIMELINE_FILTERS);
-    delete count.ALL;
-    count = invert(count);
+    let count = cloneDeep(NEW_TIMELINE_FILTERS);
+    let CLONE_NEW_TIMELINE_FILTERS = cloneDeep(NEW_TIMELINE_FILTERS);
 
-    let allCount = 0;
+    map(CLONE_NEW_TIMELINE_FILTERS, filter => delete filter.label);
 
-    Object.keys(count).map(kind => {
-      count[kind] = 0;
+    Object.keys(count).map(key => {
+      count[key] = 0;
       items.map(item => {
-        if (includes(filteredKindsMap[kind], item.kind)) {
-          count[kind]++;
+        let excluded = false;
+        map(CLONE_NEW_TIMELINE_FILTERS[key], (filter, subKey) => {
+          if (!includes(filter, item[subKey])) {
+            excluded = true;
+          }
+        });
+        if (!excluded) {
+          count[key]++;
         }
       });
-      allCount += count[kind];
     });
 
-    count[NEW_TIMELINE_FILTERS.ALL] = allCount;
     return count;
   }
 );

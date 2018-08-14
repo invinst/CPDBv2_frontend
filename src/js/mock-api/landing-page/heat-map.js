@@ -4,6 +4,8 @@ import { CitySummaryFactory, rawCommunityFactory } from 'utils/test/factories/he
 
 
 export const getCitySummary = () => CitySummaryFactory.build({
+  'start_year': 1988,
+  'end_year': 2017,
   'allegation_count': 10,
   'discipline_count': 5,
   'most_common_complaints': [

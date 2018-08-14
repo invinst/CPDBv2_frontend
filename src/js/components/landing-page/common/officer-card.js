@@ -27,6 +27,7 @@ export class OfficerCard extends Component {
       cardStyle,
       hovering,
       percentile,
+      openCardInNewPage,
     } = this.props;
 
     const complaintString = () => {
@@ -79,6 +80,7 @@ export class OfficerCard extends Component {
       <Link
         to={ `/officer/${officerId}/` }
         style={ { ...wrapperStyle(hovering), ...cardStyle } }
+        target={ openCardInNewPage ? '_blank' : null }
         className='test--officer-card'
       >
         <StaticRadarChart data={ chartData } { ...radarConfig } />
@@ -114,6 +116,11 @@ OfficerCard.propTypes = {
   gender: PropTypes.string,
   hovering: PropTypes.bool,
   percentile: PropTypes.object,
+  openCardInNewPage: PropTypes.bool,
+};
+
+OfficerCard.defaultProps = {
+  openCardInNewPage: false
 };
 
 export default Hoverable(OfficerCard);
