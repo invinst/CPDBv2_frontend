@@ -336,7 +336,7 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.gradient.waitForVisible();
     });
 
-    it('should not display gradient when window height is larger than 990', function () {
+    it('should not display gradient when content is fully shown', function () {
       browser.setViewportSize({
         width: 1000,
         height: 1200
