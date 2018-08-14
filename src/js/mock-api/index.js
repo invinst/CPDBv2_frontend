@@ -37,8 +37,8 @@ import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
 
 
-const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
-const SEARCH_SINGLE_API_URL = /^suggestion\/([^/]*)\/single\/$/;
+const SEARCH_API_URL = /^suggestion\/$/;
+const SEARCH_SINGLE_API_URL = /^suggestion\/single\/$/;
 /* istanbul ignore next */
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
