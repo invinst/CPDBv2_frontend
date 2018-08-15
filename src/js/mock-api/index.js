@@ -37,8 +37,8 @@ import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
 
 
-const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
-const SEARCH_SINGLE_API_URL = /^suggestion\/([^/]*)\/single\/$/;
+const SEARCH_API_URL = /^suggestion\/$/;
+const SEARCH_SINGLE_API_URL = /^suggestion\/single\/$/;
 /* istanbul ignore next */
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
@@ -75,19 +75,17 @@ axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
     'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false
   });
 
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER' } }).reply(() => {
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER' } }).reply(() => {
   return [200, singleGroupSuggestions.default];
 });
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'NEIGHBORHOOD' } }).reply(() => {
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'NEIGHBORHOOD' } }).reply(() => {
   return [200, singleGroupSuggestions.neighborhoods];
 });
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER', offset: '20' } }).reply(() => {
-  return [200, singleGroupSuggestions.offset20];
-});
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER', offset: '20' } })
+  .reply(() => { return [200, singleGroupSuggestions.offset20]; });
 
 axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
-  const matchs = SEARCH_API_URL.exec(config.url);
-  return [200, groupedSuggestions[config.params.contentType || matchs[1]] || groupedSuggestions['default']];
+  return [200, groupedSuggestions[config.params.contentType || config.params.term] || groupedSuggestions['default']];
 });
 
 axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(200, getSummaryData());

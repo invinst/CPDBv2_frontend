@@ -33,8 +33,8 @@ describe('suggestion action', function () {
           constants.SUGGESTION_REQUEST_FAILURE],
         payload: {
           request: {
-            url: `${SUGGESTION_URL}abc/`,
-            params: undefined,
+            url: SUGGESTION_URL,
+            params: { term: 'abc' },
             adapter: null,
             cancelToken: 'token'
           }
@@ -61,9 +61,10 @@ describe('suggestion action', function () {
         ],
         payload: {
           request: {
-            url: `${SUGGESTION_URL}abc/single/`,
+            url: `${SUGGESTION_URL}single/`,
             params: {
-              contentType: 'xyz'
+              contentType: 'xyz',
+              term: 'abc'
             },
             adapter: null,
             cancelToken: 'token'

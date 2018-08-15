@@ -17,9 +17,33 @@ class OfficerPreviewPaneSection extends Section {
   }
 }
 
+class CRResults extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      results: '//a[contains(@class, "suggestion-item-CR")]',
+      firstResult: '(//a[contains(@class, "suggestion-item-CR")])[1]',
+      secondResult: '(//a[contains(@class, "suggestion-item-CR")])[2]',
+    });
+  }
+}
+
+class TRRResults extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      results: '//a[contains(@class, "suggestion-item-TRR")]',
+      firstResult: '(//a[contains(@class, "suggestion-item-TRR")])[1]',
+      secondResult: '(//a[contains(@class, "suggestion-item-TRR")])[2]',
+    });
+  }
+}
+
 
 class SearchPage extends Page {
   officerPreviewPaneSection = new OfficerPreviewPaneSection();
+  crResultsSection = new CRResults();
+  trrResultsSection = new TRRResults();
 
   constructor() {
     super();
@@ -27,7 +51,8 @@ class SearchPage extends Page {
       input: '.test--search-page-input',
       page: '.search-page',
       suggestionGroup: '.test--suggestion-group',
-      suggestionTags: '.suggestion-tags span',
+      suggestionTags: '.suggestion-tags',
+      firstSuggestionTag: '.suggestion-tags span',
       contentWrapper: '.content-wrapper',
       recentSuggestions: '.recent-suggestions',
       backButton: '.searchbar__button--back',

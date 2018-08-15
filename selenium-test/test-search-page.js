@@ -45,6 +45,23 @@ describe('Search Page', function () {
     searchPage.firstNeighborhoodResult.getText().should.containEql('Kenwood'); // neighborhood
   });
 
+  it('should able to show trr and cr results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Ke');
+
+    searchPage.suggestionTags.waitForVisible();
+    searchPage.suggestionTags.getText().should.containEql('CR');
+    searchPage.suggestionTags.getText().should.containEql('TRR');
+
+    searchPage.crResultsSection.results.count.should.equal(2);
+    searchPage.crResultsSection.firstResult.getText().should.equal('CR123');
+    searchPage.crResultsSection.secondResult.getText().should.equal('CR456');
+
+    searchPage.trrResultsSection.results.count.should.equal(2);
+    searchPage.trrResultsSection.firstResult.getText().should.equal('TRR123');
+    searchPage.trrResultsSection.secondResult.getText().should.equal('TRR456');
+  });
+
   it('should show filtered result when user clicks "Show more results"', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
@@ -81,7 +98,7 @@ describe('Search Page', function () {
     searchPage.input.setValue('Ke');
 
     searchPage.suggestionGroup.waitForVisible();
-    searchPage.suggestionTags.click();
+    searchPage.firstSuggestionTag.click();
     browser.pause(100);
     searchPage.contentWrapper.waitForVisible();
     const content = searchPage.contentWrapper.getText();
@@ -99,7 +116,7 @@ describe('Search Page', function () {
     searchPage.suggestionTags.waitForVisible();
     browser.pause(100);
     searchPage.contentWrapper.getText().should.containEql('DATA TOOL');
-    searchPage.suggestionTags.getText().should.containEql('Data Tool');
+    searchPage.firstSuggestionTag.getText().should.containEql('Data Tool');
   });
 
   it('should trigger officer summary page when click on officer then press Enter', function () {
