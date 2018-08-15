@@ -20,7 +20,7 @@ import {
   suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector, firstItemSelector
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
-import { cardsSelector } from 'selectors/landing-page/activity-grid';
+import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import editModeOnSelector from 'selectors/edit-mode-on';
 
@@ -42,7 +42,7 @@ function mapStateToProps(state, ownProps) {
     isEmpty: isEmptySelector(state),
     focusedItem: focusedItem,
     recentSuggestions,
-    officerCards: cardsSelector(state),
+    officerCards: singleCardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
     firstItem: firstItemSelector(state)

@@ -189,4 +189,25 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
     store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
   });
+
+  it('should dispatch getCommunities, getClusterGeoJson and getCitySummary', function () {
+    const action = createLocationChangeAction('/embed/map/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(getCommunities()).should.be.true();
+    store.dispatch.calledWith(getClusterGeoJson()).should.be.true();
+    store.dispatch.calledWith(getCitySummary()).should.be.true();
+  });
+
+  it('should dispatch fetch data for embedded top officers page when they do not exist', function () {
+    const action = createLocationChangeAction('/embed/top-officers');
+    let dispatched;
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
+    store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
+  });
 });

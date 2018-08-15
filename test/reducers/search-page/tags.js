@@ -1,4 +1,4 @@
-import { SUGGESTION_REQUEST_SUCCESS } from 'utils/constants';
+import { SUGGESTION_REQUEST_SUCCESS, SUGGESTION_SINGLE_REQUEST_SUCCESS } from 'utils/constants';
 
 import tags from 'reducers/search-page/tags';
 
@@ -31,5 +31,20 @@ describe('searchPage.tags reducer', function () {
         }
       }
     }).should.deepEqual(['a', 'b']);
+  });
+
+  it('should return content type when SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
+    tags(['a', 'b'], {
+      type: SUGGESTION_SINGLE_REQUEST_SUCCESS,
+      payload: {
+        'a': [{}],
+        'b': [{}]
+      },
+      request: {
+        params: {
+          contentType: 'c'
+        }
+      }
+    }).should.deepEqual(['c']);
   });
 });

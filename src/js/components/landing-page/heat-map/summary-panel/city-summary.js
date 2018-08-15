@@ -4,9 +4,18 @@ import { map } from 'lodash';
 import config from 'config';
 import { categoryUrl } from 'utils/v1-url';
 import {
-  wrapperStyle, headerStyle, allegationDisciplineStyle, allegationTextStyle, disciplineTextStyle,
-  mostCommonComplaintStyle, categoryStyle, categoryNameStyle, rightArrowStyle, categoryTextWrapper,
-  clickReceiver, allegationDisciplineCountStyle
+  wrapperStyle,
+  headerStyle,
+  allegationDisciplineStyle,
+  allegationTextStyle,
+  disciplineTextStyle,
+  mostCommonComplaintStyle,
+  categoryStyle,
+  categoryNameStyle,
+  rightArrowStyle,
+  categoryTextWrapper,
+  clickReceiver,
+  allegationDisciplineCountStyle,
 } from './city-summary.style';
 import OutboundLink from 'components/common/outbound-link';
 
@@ -17,18 +26,22 @@ export default class CitySummary extends Component {
     const { startYear, endYear, allegationCount, disciplinePercentage, mostCommonComplaints } = citySummary;
 
     return (
-      <div style={ wrapperStyle(isActive) }
-        className='link--transition test--city-summary'>
+      <div
+        style={ wrapperStyle(isActive) }
+        className='link--transition test--city-summary'
+      >
         {
           isActive ?
             null :
-            <div style={ clickReceiver } onClick={ onClick }/>
+            <div style={ clickReceiver } onClick={ onClick } />
         }
         <div style={ headerStyle } className='test--city-summary-header'>
           CHICAGO{ startYear ? ` ${startYear} - ${endYear}` : '' }
         </div>
-        <div style={ allegationDisciplineStyle }
-          className='test--allegation-discipline-count'>
+        <div
+          style={ allegationDisciplineStyle }
+          className='test--allegation-discipline-count'
+        >
           <OutboundLink href={ config.v1Url }>
             <div style={ allegationDisciplineCountStyle }>
               <div style={ allegationTextStyle }>
@@ -46,7 +59,7 @@ export default class CitySummary extends Component {
                 }
               </div>
             </div>
-            <div style={ rightArrowStyle }/>
+            <div style={ rightArrowStyle } />
           </OutboundLink>
         </div>
         <div>
@@ -63,7 +76,7 @@ export default class CitySummary extends Component {
                     <div style={ categoryNameStyle }>{ name }</div>
                     <div>{ count.toLocaleString() } allegations</div>
                   </div>
-                  <div style={ rightArrowStyle }/>
+                  <div style={ rightArrowStyle } />
                 </OutboundLink>
               ))
             }
