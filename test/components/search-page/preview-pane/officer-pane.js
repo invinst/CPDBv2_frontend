@@ -8,7 +8,6 @@ import {
   VisualTokenWidget,
   OfficerInfoWidget,
   MetricWidget,
-  CallToActionWidget,
 } from 'components/search-page/preview-pane/widgets';
 
 
@@ -60,7 +59,6 @@ describe('OfficerPane component', () => {
     const visualToken = findRenderedComponentWithType(instance, VisualTokenWidget);
     const officerInfo = findRenderedComponentWithType(instance, OfficerInfoWidget);
     const metric = findRenderedComponentWithType(instance, MetricWidget);
-    const callToAction = findRenderedComponentWithType(instance, CallToActionWidget);
 
 
     visualToken.props.items.should.eql([
@@ -104,15 +102,5 @@ describe('OfficerPane component', () => {
       description: 'More than 99.3% of other officers',
     });
     findDOMNode(metric).textContent.should.containEql('2CivilianCompliments');
-
-    callToAction.props.to.should.eql('some_url');
-  });
-
-  it('should render CallToActionWidget with "View Officer Profile" text', () => {
-    instance = renderIntoDocument(
-      <OfficerPane/>
-    );
-
-    findRenderedComponentWithType(instance, CallToActionWidget).props.text.should.eql('View Officer Profile');
   });
 });

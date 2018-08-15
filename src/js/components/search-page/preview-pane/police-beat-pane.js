@@ -5,7 +5,6 @@ import WidgetWrapper, {
   AllegationCountWidget,
   TextWidget,
   ListWidget,
-  CallToActionWidget,
   SeparatorWidget,
 } from './widgets';
 
@@ -22,7 +21,7 @@ export default class PoliceBeatPane extends Component {
 
     const beatContent = policeHQ ? `${policeHQ} District Police Station` : '';
     return (
-      <WidgetWrapper>
+      <WidgetWrapper callToAction={ { url } } maxHeight={ 520 }>
         <HeaderWidget title={ `POLICE BEAT #${name}` }/>
         <SeparatorWidget/>
         <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
@@ -33,7 +32,6 @@ export default class PoliceBeatPane extends Component {
           showAvatar={ false }
           title='MOST COMMON COMPLAINTS'
         />
-        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
