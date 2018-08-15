@@ -22,8 +22,10 @@ class CRResults extends Section {
     super();
     this.prepareElementGetters({
       results: '//a[contains(@class, "suggestion-item-CR")]',
-      firstResult: '(//a[contains(@class, "suggestion-item-CR")])[1]',
-      secondResult: '(//a[contains(@class, "suggestion-item-CR")])[2]',
+      firstResultText: '(//a[contains(@class, "suggestion-item-CR")]//div[@class="test--first-row"])[1]',
+      firstResultSubText: '(//a[contains(@class, "suggestion-item-CR")]//div[@class="test--second-row"])[1]',
+      secondResultText: '(//a[contains(@class, "suggestion-item-CR")]//div[@class="test--first-row"])[2]',
+      secondResultSubText: '(//a[contains(@class, "suggestion-item-CR")]//div[@class="test--second-row"])[2]',
     });
   }
 }
@@ -33,8 +35,10 @@ class TRRResults extends Section {
     super();
     this.prepareElementGetters({
       results: '//a[contains(@class, "suggestion-item-TRR")]',
-      firstResult: '(//a[contains(@class, "suggestion-item-TRR")])[1]',
-      secondResult: '(//a[contains(@class, "suggestion-item-TRR")])[2]',
+      firstResultText: '(//a[contains(@class, "suggestion-item-TRR")]//div[@class="test--first-row"])[1]',
+      firstResultSubText: '(//a[contains(@class, "suggestion-item-TRR")]//div[@class="test--second-row"])[1]',
+      secondResultText: '(//a[contains(@class, "suggestion-item-TRR")]//div[@class="test--first-row"])[2]',
+      secondResultSubText: '(//a[contains(@class, "suggestion-item-TRR")]//div[@class="test--second-row"])[2]',
     });
   }
 }

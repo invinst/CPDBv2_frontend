@@ -54,12 +54,16 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('TRR');
 
     searchPage.crResultsSection.results.count.should.equal(2);
-    searchPage.crResultsSection.firstResult.getText().should.equal('CR123');
-    searchPage.crResultsSection.secondResult.getText().should.equal('CR456');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('Lockup Procedures');
+    searchPage.crResultsSection.firstResultSubText.getText().should.equal('CRID CR123 - April 23, 2004');
+    searchPage.crResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.crResultsSection.secondResultSubText.getText().should.equal('CRID CR456');
 
     searchPage.trrResultsSection.results.count.should.equal(2);
-    searchPage.trrResultsSection.firstResult.getText().should.equal('TRR123');
-    searchPage.trrResultsSection.secondResult.getText().should.equal('TRR456');
+    searchPage.trrResultsSection.firstResultText.getText().should.equal('Member Presence');
+    searchPage.trrResultsSection.firstResultSubText.getText().should.equal('TRRID 123 - April 27, 2004');
+    searchPage.trrResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.trrResultsSection.secondResultSubText.getText().should.equal('TRRID 456');
   });
 
   it('should show filtered result when user clicks "Show more results"', function () {

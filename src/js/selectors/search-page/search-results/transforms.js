@@ -103,7 +103,6 @@ const searchResultTransformMap = {
       resignationDate: formatDate(item['resignation_date']),
       badge: item['badge'],
       gender: item['gender'] || '',
-      name: item['name'],
       to: item['to'],
       age: getCurrentAge(item['birth_year']) || null,
       race: race || '',
@@ -127,13 +126,15 @@ const searchResultTransformMap = {
     };
   },
   CR: (item) => {
+    const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
     return {
-      subText: `CRID ${item.crid} - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT) }`
+      subText: `CRID ${item.crid}${dateText}`
     };
   },
   TRR: (item) => {
+    const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
     return {
-      subText: `TRRID ${item.id} - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT) }`
+      subText: `TRRID ${item.id}${dateText}`
     };
   },
   COMMUNITY: areaTransform,
@@ -144,7 +145,7 @@ const searchResultTransformMap = {
   'SCHOOL-GROUND': areaTransform,
 };
 
-const getBaseTexts = (area) => ({ text: area.name, recentText: area.name });
+const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
 
 const textsMap = {
   CR: item => ({ text: item.category || 'Unknown', recentText: item.crid }),
@@ -157,13 +158,13 @@ const baseItemTransform = (item) => ({
   id: item.id,
   to: get(item, 'to'),
   url: get(item, 'url'),
-  tags: get(item, 'tags', []),
-  itemIndex: item.itemIndex || 1,
   ...get(textsMap, item.type, getBaseTexts)(item)
 });
 
 export const searchResultItemTransform = (item) => ({
   ...baseItemTransform(item),
+  tags: get(item, 'tags', []),
+  itemIndex: item.itemIndex || 1,
   uniqueKey: `${item.type}-${item.id}`,
   ...get(searchResultTransformMap, item.type, () => {})(item)
 });

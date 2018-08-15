@@ -5,7 +5,7 @@ import {
   hasMoreSelector, nextParamsSelector, isShowingSingleContentTypeSelector,
   firstItemSelector
 } from 'selectors/search-page/search-results/suggestion-groups';
-import { RawOfficerSuggestion, RawCRSuggestion } from 'utils/test/factories/suggestion';
+import { RawOfficerSuggestion, RawCRSuggestion, RawTRRSuggestion } from 'utils/test/factories/suggestion';
 import * as v1UrlUtils from 'utils/v1-url';
 
 
@@ -39,17 +39,18 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'OFFICER': [
-              RawOfficerSuggestion.build({ id: '29033' }, {
+              RawOfficerSuggestion.build({
+                id: '29033',
                 race: 'White',
-                resultText: 'Jerome Turbyville',
+                name: 'Jerome Turbyville',
                 sex: 'Male',
-                birthYear: 1969,
+                'birth_year': 1969,
                 to: '/officer/29033/',
-                allegationCount: 10,
-                sustainedCount: 2,
-                majorAwardCount: 2,
-                honorableMentionCount: 2,
-                honorableMentionPercentile: 72.2,
+                'allegation_count': 10,
+                'sustained_count': 2,
+                'major_award_count': 2,
+                'honorable_mention_count': 2,
+                'honorable_mention_percentile': 72.2,
                 unit: {
                   id: 1,
                   'unit_name': '018',
@@ -95,7 +96,6 @@ describe('search page results selector', function () {
               'visualTokenBackground': '#f52524',
               'year': undefined,
             },
-            'name': 'Jerome Turbyville',
             'race': 'White',
             'rank': 'Police Officer',
             'resignationDate': null,
@@ -105,6 +105,7 @@ describe('search page results selector', function () {
             'honorableMentionPercentile': 72,
             'tags': [],
             'text': 'Jerome Turbyville',
+            'recentText': 'Jerome Turbyville',
             'to': '/officer/29033/',
             'trrCount': undefined,
             'trrPercentile': 90,
@@ -127,8 +128,7 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'CR': [RawCRSuggestion.build(
-              { id: '1001' },
-              { crid: '1234', resultText: 'Lorem' }
+              { id: '1001', crid: '1234', category: 'Lorem', 'incident_date': '2004-04-23' }
             )]
           }
         }
@@ -140,10 +140,131 @@ describe('search page results selector', function () {
             type: 'CR',
             id: '1001',
             text: 'Lorem',
+            recentText: '1234',
+            subText: 'CRID 1234 - April 23, 2004',
             to: '',
             url: '',
             tags: [],
             uniqueKey: 'CR-1001',
+            itemIndex: 1,
+          }]
+        }
+      ]);
+    });
+
+    it('should give correct item format for CR with missing category and incident_date', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'CR': [RawCRSuggestion.build(
+              { id: '1001', crid: '1234', category: null, 'incident_date': null }
+            )]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'CR',
+          canLoadMore: false,
+          items: [{
+            type: 'CR',
+            id: '1001',
+            text: 'Unknown',
+            recentText: '1234',
+            subText: 'CRID 1234',
+            to: '',
+            url: '',
+            tags: [],
+            uniqueKey: 'CR-1001',
+            itemIndex: 1,
+          }]
+        }
+      ]);
+    });
+
+    it('should give correct item format for TRR', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'TRR': [RawTRRSuggestion.build(
+              { id: '1001', 'force_type': null, 'trr_datetime': null }
+            )]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'TRR',
+          canLoadMore: false,
+          items: [{
+            type: 'TRR',
+            id: '1001',
+            text: 'Unknown',
+            recentText: '1001',
+            subText: 'TRRID 1001',
+            to: '',
+            url: '',
+            tags: [],
+            uniqueKey: 'TRR-1001',
+            itemIndex: 1,
+          }]
+        }
+      ]);
+    });
+
+    it('should give correct item format for TRR with missing force_type and trr_datetime', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'TRR': [RawTRRSuggestion.build(
+              { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
+            )]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'TRR',
+          canLoadMore: false,
+          items: [{
+            type: 'TRR',
+            id: '1001',
+            text: 'Member Presence',
+            recentText: '1001',
+            subText: 'TRRID 1001 - April 23, 2004',
+            to: '',
+            url: '',
+            tags: [],
+            uniqueKey: 'TRR-1001',
+            itemIndex: 1,
+          }]
+        }
+      ]);
+    });
+
+    it('should give correct item format for UNIT', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'UNIT': [
+              { id: '1001', to: 'to', url: 'url', description: 'description' }
+            ]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'UNIT',
+          canLoadMore: false,
+          items: [{
+            type: 'UNIT',
+            id: '1001',
+            text: 'description',
+            recentText: 'description',
+            to: 'to',
+            url: 'url',
+            tags: [],
+            uniqueKey: 'UNIT-1001',
             itemIndex: 1,
           }]
         }
@@ -210,42 +331,38 @@ describe('search page results selector', function () {
             COMMUNITY: [
               {
                 id: 317,
-                text: 'Roseland',
-                payload: {
-                  name: 'Roseland',
-                  'median_income': '$37,084',
-                  tags: [],
-                  url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
-                  'most_common_complaint': [{
-                    id: 204,
-                    name: 'Operation/Personnel Violations',
-                    count: 227,
-                  }],
-                  'officers_most_complaint': [{
-                    id: 12478,
-                    name: 'Ronald Holt',
-                    count: 26,
-                    'percentile_trr': 95.0,
-                    'percentile_allegation_internal': 82.0,
-                    'percentile_allegation_civilian': 97.0
-                  }],
-                  'race_count': [
-                    { race: 'Persons of Spanish Language', count: 121 },
-                    { race: 'Black or African-American', count: 131 },
-                    { race: 'Other', count: 100 },
-                    { race: 'Native American', count: 0 },
-                  ],
-                  'result_text': 'Roseland',
-                  alderman: 'John Wick',
-                  'allegation_count': 12,
-                  'allegation_percentile': 80.1,
-                  commander: {
-                    id: 123,
-                    'full_name': 'John Watts',
-                    'allegation_count': 10,
-                  },
-                  'police_hq': '22nd',
+                name: 'Roseland',
+                'median_income': '$37,084',
+                tags: [],
+                url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
+                'most_common_complaint': [{
+                  id: 204,
+                  name: 'Operation/Personnel Violations',
+                  count: 227,
+                }],
+                'officers_most_complaint': [{
+                  id: 12478,
+                  name: 'Ronald Holt',
+                  count: 26,
+                  'percentile_trr': 95.0,
+                  'percentile_allegation_internal': 82.0,
+                  'percentile_allegation_civilian': 97.0
+                }],
+                'race_count': [
+                  { race: 'Persons of Spanish Language', count: 121 },
+                  { race: 'Black or African-American', count: 131 },
+                  { race: 'Other', count: 100 },
+                  { race: 'Native American', count: 0 },
+                ],
+                alderman: 'John Wick',
+                'allegation_count': 12,
+                'allegation_percentile': 80.1,
+                commander: {
+                  id: 123,
+                  'full_name': 'John Watts',
+                  'allegation_count': 10,
                 },
+                'police_hq': '22nd',
               }
             ]
           }
@@ -258,6 +375,7 @@ describe('search page results selector', function () {
           type: 'COMMUNITY',
           id: 317,
           text: 'Roseland',
+          recentText: 'Roseland',
           to: undefined,
           url: 'https://data.cpdp.co/url-mediator/session-builder?neighborhood=Roseland',
           tags: [],
@@ -431,10 +549,11 @@ describe('search page results selector', function () {
           tags: [],
           suggestionGroups: {
             'OFFICER': [
-              RawOfficerSuggestion.build({ id: '1' }, {
+              RawOfficerSuggestion.build({
+                id: '1',
                 to: 'officer1',
                 url: '/officer/1/',
-                resultText: 'officer1',
+                name: 'officer1',
                 type: 'OFFICER'
               }),
               ...RawOfficerSuggestion.buildList(2)
@@ -447,7 +566,7 @@ describe('search page results selector', function () {
       }).should.deepEqual({
         to: 'officer1',
         url: '/officer/1/',
-        text: 'officer1',
+        recentText: 'officer1',
         type: 'OFFICER'
       });
     });

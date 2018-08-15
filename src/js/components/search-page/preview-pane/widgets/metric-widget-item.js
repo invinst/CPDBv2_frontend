@@ -36,7 +36,7 @@ MetricWidgetItem.defaultProps = {
 MetricWidgetItem.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.node,
-  description: PropTypes.string,
+  description: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   isHighlight: PropTypes.bool,
   isFirstItem: PropTypes.bool,
 };
