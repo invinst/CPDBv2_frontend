@@ -29,8 +29,7 @@ export default class SearchTerms extends Component {
   }
 
   componentDidMount() {
-    const { requestSearchTermCategories, move } = this.props;
-    requestSearchTermCategories();
+    const { move } = this.props;
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
       direction,
       (event) => {
@@ -104,7 +103,6 @@ export default class SearchTerms extends Component {
 }
 
 SearchTerms.propTypes = {
-  requestSearchTermCategories: PropTypes.func,
   move: PropTypes.func,
   categories: PropTypes.array,
   focusedItem: PropTypes.object,
@@ -115,7 +113,6 @@ SearchTerms.propTypes = {
 };
 
 SearchTerms.defaultProps = {
-  requestSearchTermCategories: () => {},
   move: () => {},
   resetNavigation: () => {},
   setNavigation: () => {},

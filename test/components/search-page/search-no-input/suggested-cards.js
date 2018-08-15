@@ -1,5 +1,6 @@
 import React from 'react';
 import { spy } from 'sinon';
+import should from 'should';
 import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
@@ -9,7 +10,7 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import SuggestedCards from 'components/search-page/search-no-input/suggested-cards';
 import OfficerCard from 'components/landing-page/common/officer-card';
-import NoDataRadarChart from 'components/common/radar-chart/no-data-radar-chart';
+import RadarChart from 'components/common/radar-chart/radar-chart';
 
 
 describe('SuggestedCards component', function () {
@@ -41,7 +42,13 @@ describe('SuggestedCards component', function () {
     instance = renderIntoDocument(
       <SuggestedCards cards={ ['one', 'two', 'three', 'four'] }/>
     );
-    scryRenderedComponentsWithType(instance, NoDataRadarChart).should.have.length(4);
+    const noDataRadarCharts = scryRenderedComponentsWithType(instance, RadarChart);
+    noDataRadarCharts.should.have.length(4);
+
+    should(noDataRadarCharts[0].props.data).be.undefined();
+    should(noDataRadarCharts[1].props.data).be.undefined();
+    should(noDataRadarCharts[2].props.data).be.undefined();
+    should(noDataRadarCharts[3].props.data).be.undefined();
   });
 
   it('should render radar chart when cards has percentile', () => {

@@ -3,7 +3,7 @@ import {
   ACTIVITY_GRID_API_URL,
   CITY_SUMMARY_API_URL,
   CR_URL,
-  LANDING_PAGE_API_URL,
+  SLUG_PAGE_API_URL,
   MAIL_CHIMP_URL,
   OFFICER_URL,
   OFFICERS_BY_ALLEGATION_API_URL,
@@ -22,7 +22,7 @@ import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getCRRelatedComplaintsData from './cr-page/get-related-complaint';
 import getActivityGridData from './landing-page/activity-grid';
 import getTopByAllegationData from './landing-page/top-by-allegation';
-import { getCMSFields } from './landing-page/cms-field';
+import { landingPageCMSFields, officerPageCMSFields } from './cms-field';
 import getComplaintSummaries from './landing-page/complaint-summaries';
 import { getCitySummary, getCommunities } from './landing-page/heat-map';
 import getRecentDocument from './landing-page/recent-document';
@@ -37,8 +37,8 @@ import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
 
 
-const SEARCH_API_URL = /^suggestion\/([^/]*)\/$/;
-const SEARCH_SINGLE_API_URL = /^suggestion\/([^/]*)\/single\/$/;
+const SEARCH_API_URL = /^suggestion\/$/;
+const SEARCH_SINGLE_API_URL = /^suggestion\/single\/$/;
 /* istanbul ignore next */
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
@@ -75,19 +75,17 @@ axiosMockClient.onPost(mailChimpUrl, { email: 'invalid@email.com' })
     'detail': 'invalid@email.com looks fake or invalid, please enter a real email address.', 'success': false
   });
 
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER' } }).reply(() => {
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER' } }).reply(() => {
   return [200, singleGroupSuggestions.default];
 });
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'NEIGHBORHOOD' } }).reply(() => {
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'NEIGHBORHOOD' } }).reply(() => {
   return [200, singleGroupSuggestions.neighborhoods];
 });
-axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { contentType: 'OFFICER', offset: '20' } }).reply(() => {
-  return [200, singleGroupSuggestions.offset20];
-});
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'Ke', contentType: 'OFFICER', offset: '20' } })
+  .reply(() => { return [200, singleGroupSuggestions.offset20]; });
 
 axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
-  const matchs = SEARCH_API_URL.exec(config.url);
-  return [200, groupedSuggestions[config.params.contentType || matchs[1]] || groupedSuggestions['default']];
+  return [200, groupedSuggestions[config.params.contentType || config.params.term] || groupedSuggestions['default']];
 });
 
 axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(200, getSummaryData());
@@ -116,7 +114,8 @@ axiosMockClient.onGet(SEARCH_TERMS_CATEGORIES_API_URL).reply(200, getSearchTerms
 axiosMockClient.onGet(CITY_SUMMARY_API_URL).reply(200, getCitySummary());
 axiosMockClient.onGet(communityGeoJSONPath).reply(200, getCommunities());
 
-axiosMockClient.onGet(LANDING_PAGE_API_URL).reply(200, getCMSFields());
+axiosMockClient.onGet(`${SLUG_PAGE_API_URL}landing-page/`).reply(200, landingPageCMSFields);
+axiosMockClient.onGet(`${SLUG_PAGE_API_URL}officer-page/`).reply(200, officerPageCMSFields);
 
 axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
 

@@ -66,6 +66,7 @@ export const RawOfficerSuggestion = Factory.define('RawOfficerSuggestion')
 /* istanbul ignore next */
 export const RawCRSuggestion = Factory.define('RawCRSuggestion')
   .attr('id', () => String(random.number()))
+  .attr('text', lorem.sentence)
   .option('resultText', lorem.sentence)
   .option('to', '')
   .option('url', '')
@@ -82,6 +83,21 @@ export const RawCRSuggestion = Factory.define('RawCRSuggestion')
       tags,
       crid,
       outcome
+    })
+  );
+
+/* istanbul ignore next */
+export const RawTRRSuggestion = Factory.define('RawTRRSuggestion')
+  .attr('id', () => String(random.number()))
+  .attr('text', lorem.sentence)
+  .option('resultText', lorem.sentence)
+  .option('to', '')
+  .attr(
+    'payload',
+    ['resultText', 'to'],
+    (resultText, to) => ({
+      'result_text': resultText,
+      to,
     })
   );
 

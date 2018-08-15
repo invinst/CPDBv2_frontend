@@ -32,11 +32,11 @@ class RecentActivityCarouselSection extends Section {
       firstPairCardLeftHalf: '' +
         '((//div[@class="test--landing-carousel-activity"]' +
         '//div[@class="test--pair-card"])[1]' +
-        '//div[@class="test--officer-info"])[1]',
+        '//div[@class="test--pair-card-half"])[1]',
       firstPairCardRightHalf: '' +
         '((//div[@class="test--landing-carousel-activity"]' +
         '//div[@class="test--pair-card"])[1]' +
-        '//div[@class="test--officer-info"])[2]',
+        '//div[@class="test--pair-card-half"])[2]',
     });
   }
 }
@@ -88,6 +88,7 @@ class CitySummary extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
+      header: '.test--city-summary-header',
       allegationDiscipline: '.test--allegation-discipline-count',
       mostCommonComplaints: '.test--most-common-complaints'
     });
