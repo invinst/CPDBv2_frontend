@@ -17,37 +17,25 @@ class OfficerPreviewPaneSection extends Section {
   }
 }
 
-class CRResults extends Section {
-  constructor() {
+class ResultsSection extends Section {
+  constructor(key) {
     super();
     this.prepareElementGetters({
-      results: '//a[contains(@class, "suggestion-item-CR")]',
-      firstResultText: '(//a[contains(@class, "suggestion-item-CR")]//div[@class="test--first-row"])[1]',
-      firstResultSubText: '(//a[contains(@class, "suggestion-item-CR")]//div[@class="test--second-row"])[1]',
-      secondResultText: '(//a[contains(@class, "suggestion-item-CR")]//div[@class="test--first-row"])[2]',
-      secondResultSubText: '(//a[contains(@class, "suggestion-item-CR")]//div[@class="test--second-row"])[2]',
+      results: `//a[contains(@class, "suggestion-item-${key}")]`,
+      firstResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--first-row"])[1]`,
+      firstResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--second-row"])[1]`,
+      secondResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--first-row"])[2]`,
+      secondResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--second-row"])[2]`,
     });
   }
 }
-
-class TRRResults extends Section {
-  constructor() {
-    super();
-    this.prepareElementGetters({
-      results: '//a[contains(@class, "suggestion-item-TRR")]',
-      firstResultText: '(//a[contains(@class, "suggestion-item-TRR")]//div[@class="test--first-row"])[1]',
-      firstResultSubText: '(//a[contains(@class, "suggestion-item-TRR")]//div[@class="test--second-row"])[1]',
-      secondResultText: '(//a[contains(@class, "suggestion-item-TRR")]//div[@class="test--first-row"])[2]',
-      secondResultSubText: '(//a[contains(@class, "suggestion-item-TRR")]//div[@class="test--second-row"])[2]',
-    });
-  }
-}
-
 
 class SearchPage extends Page {
   officerPreviewPaneSection = new OfficerPreviewPaneSection();
-  crResultsSection = new CRResults();
-  trrResultsSection = new TRRResults();
+  dateCRResultsSection = new ResultsSection('DATE-CR');
+  dateTRRResultsSection = new ResultsSection('DATE-TRR');
+  crResultsSection = new ResultsSection('CR');
+  trrResultsSection = new ResultsSection('TRR');
 
   constructor() {
     super();

@@ -102,6 +102,46 @@ export const groupedSuggestions = {
     'OFFICER': [
       RawOfficerSuggestion.build({ name: 'Laurence Lanners', to: '/officer/5678/' })
     ]
+  },
+  '2004/04/23': {
+    'DATE > CR': [
+      RawCRSuggestion.build(
+        {
+          id: '1',
+          crid: 'CR123',
+          to: '/complaint/CR123/',
+          category: 'Lockup Procedures',
+          'incident_date': '2004-04-23'
+        }
+      ),
+      RawCRSuggestion.build(
+        {
+          id: '2',
+          crid: 'CR456',
+          to: '/complaint/CR456/',
+          category: null,
+          'incident_date': '2004-04-23'
+        }
+      ),
+    ],
+    'DATE > TRR': [
+      RawTRRSuggestion.build(
+        {
+          id: '123',
+          to: '/trr/123/',
+          'force_type': 'Member Presence',
+          'trr_datetime': '2004-04-23'
+        }
+      ),
+      RawTRRSuggestion.build(
+        {
+          id: '456',
+          to: '/trr/456/',
+          'force_type': null,
+          'trr_datetime': '2004-04-23'
+        }
+      )
+    ]
   }
 };
 

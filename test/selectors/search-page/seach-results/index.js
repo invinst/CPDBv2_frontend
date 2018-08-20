@@ -182,6 +182,66 @@ describe('search page results selector', function () {
       ]);
     });
 
+    it('should give correct item format for DATE > CR', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'DATE > CR': [RawCRSuggestion.build(
+              { id: '1001', crid: '1234', category: 'Lorem', 'incident_date': '2004-04-23' }
+            )]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'DATE > CR',
+          canLoadMore: false,
+          items: [{
+            type: 'DATE > CR',
+            id: '1001',
+            text: 'Lorem',
+            recentText: '1234',
+            subText: 'CRID 1234 - April 23, 2004',
+            to: '',
+            url: '',
+            tags: [],
+            uniqueKey: 'DATE-CR-1001',
+            itemIndex: 1,
+          }]
+        }
+      ]);
+    });
+
+    it('should give correct item format for DATE > CR with missing category and incident_date', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'DATE > CR': [RawCRSuggestion.build(
+              { id: '1001', crid: '1234', category: null, 'incident_date': null }
+            )]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'DATE > CR',
+          canLoadMore: false,
+          items: [{
+            type: 'DATE > CR',
+            id: '1001',
+            text: 'Unknown',
+            recentText: '1234',
+            subText: 'CRID 1234',
+            to: '',
+            url: '',
+            tags: [],
+            uniqueKey: 'DATE-CR-1001',
+            itemIndex: 1,
+          }]
+        }
+      ]);
+    });
+
     it('should give correct item format for TRR', function () {
       searchResultGroupsSelector({
         searchPage: {
@@ -236,6 +296,66 @@ describe('search page results selector', function () {
             url: '',
             tags: [],
             uniqueKey: 'TRR-1001',
+            itemIndex: 1,
+          }]
+        }
+      ]);
+    });
+
+    it('should give correct item format for DATE > TRR', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'DATE > TRR': [RawTRRSuggestion.build(
+              { id: '1001', 'force_type': null, 'trr_datetime': null }
+            )]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'DATE > TRR',
+          canLoadMore: false,
+          items: [{
+            type: 'DATE > TRR',
+            id: '1001',
+            text: 'Unknown',
+            recentText: '1001',
+            subText: 'TRRID 1001',
+            to: '',
+            url: '',
+            tags: [],
+            uniqueKey: 'DATE-TRR-1001',
+            itemIndex: 1,
+          }]
+        }
+      ]);
+    });
+
+    it('should give correct item format for DATE > TRR with missing force_type and trr_datetime', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'DATE > TRR': [RawTRRSuggestion.build(
+              { id: '1001', 'force_type': 'Member Presence', 'trr_datetime': '2004-04-23' }
+            )]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'DATE > TRR',
+          canLoadMore: false,
+          items: [{
+            type: 'DATE > TRR',
+            id: '1001',
+            text: 'Member Presence',
+            recentText: '1001',
+            subText: 'TRRID 1001 - April 23, 2004',
+            to: '',
+            url: '',
+            tags: [],
+            uniqueKey: 'DATE-TRR-1001',
             itemIndex: 1,
           }]
         }
