@@ -80,7 +80,6 @@ export const LANDING_PAGE_API_URL = `${SLUG_PAGE_API_URL}landing-page/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
 export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
 export const MAIL_CHIMP_URL = '/vftg/';
-export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;

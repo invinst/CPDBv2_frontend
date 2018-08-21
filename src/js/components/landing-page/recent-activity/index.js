@@ -9,12 +9,12 @@ import EditModeProvider from 'components/edit-mode-provider';
 import InlineHeaderSection from '../inline-header-section';
 import { headerWrapperStyle, carouselStyle, itemStyle } from '../carousel-wrapper.style';
 import { cardStyle, visualTokenStyle } from './recent-activity.style';
-
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 export default class RecentActivity extends Component {
   handleNavigate(direction) {
-    global.ga('send', 'event', 'landing_page_carousel', `swipe_${direction}`, CAROUSEL_TYPES.ACTIVITY.key);
+    GATracking.trackSwipeLanddingPageCarousel(direction, CAROUSEL_TYPES.ACTIVITY.key);
   }
 
   render() {

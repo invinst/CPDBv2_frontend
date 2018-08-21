@@ -31,6 +31,7 @@ export function reRender(component, element, ...args) {
 }
 
 global.ga = () => {};
+window.Intercom = () => {};
 
 export function wrapWithContext(context, component) {
   class ContextWrapper extends Component {
