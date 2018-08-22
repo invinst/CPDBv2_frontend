@@ -3,6 +3,7 @@ import { each } from 'lodash';
 import { Promise } from 'es6-promise';
 
 import { mapboxgl } from 'utils/vendors';
+import { MAPBOX_STYLE } from 'utils/constants';
 
 
 export default class MapboxGL extends Component {
@@ -115,7 +116,7 @@ MapboxGL.propTypes = {
 };
 
 MapboxGL.defaultProps = {
-  mapStyle: 'mapbox://styles/mapbox/light-v9',
+  mapStyle: MAPBOX_STYLE,
   minZoom: 9.5,
   maxZoom: 17,
   scrollZoom: false,
