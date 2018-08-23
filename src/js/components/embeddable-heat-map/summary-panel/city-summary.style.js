@@ -20,6 +20,10 @@ export const headerStyle = {
   padding: '7px 0',
 };
 
+export const allegationDisciplineLinkStyle = {
+  display: 'block'
+};
+
 export const allegationDisciplineStyle = {
   padding: '10px 0',
   borderBottom: `1px solid ${ whiteTwoColor }`

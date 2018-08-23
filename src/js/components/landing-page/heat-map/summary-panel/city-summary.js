@@ -6,6 +6,7 @@ import { categoryUrl } from 'utils/v1-url';
 import {
   wrapperStyle,
   headerStyle,
+  allegationDisciplineLinkStyle,
   allegationDisciplineStyle,
   allegationTextStyle,
   disciplineTextStyle,
@@ -38,11 +39,11 @@ export default class CitySummary extends Component {
         <div style={ headerStyle } className='test--city-summary-header'>
           CHICAGO{ startYear ? ` ${startYear} - ${endYear}` : '' }
         </div>
-        <div
-          style={ allegationDisciplineStyle }
-          className='test--allegation-discipline-count'
-        >
-          <OutboundLink href={ config.v1Url }>
+        <OutboundLink href={ config.v1Url } style={ allegationDisciplineLinkStyle }>
+           <div
+              style={ allegationDisciplineStyle }
+              className='test--allegation-discipline-count'
+           >
             <div style={ allegationDisciplineCountStyle }>
               <div style={ allegationTextStyle }>
                 {
@@ -60,8 +61,9 @@ export default class CitySummary extends Component {
               </div>
             </div>
             <div style={ rightArrowStyle } />
-          </OutboundLink>
-        </div>
+          </div>
+        </OutboundLink>
+
         <div>
           <div style={ mostCommonComplaintStyle }>MOST COMMON COMPLAINTS</div>
           <div className='test--most-common-complaints'>
