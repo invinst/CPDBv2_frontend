@@ -66,6 +66,28 @@ describe('Search Page', function () {
     searchPage.trrResultsSection.secondResultSubText.getText().should.equal('TRRID 456');
   });
 
+
+  it('should able to show date > trr and date > cr results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('2004/04/23');
+
+    searchPage.suggestionTags.waitForVisible();
+    searchPage.suggestionTags.getText().should.containEql('DATE > CR');
+    searchPage.suggestionTags.getText().should.containEql('DATE > TRR');
+
+    searchPage.dateCRResultsSection.results.count.should.equal(2);
+    searchPage.dateCRResultsSection.firstResultText.getText().should.equal('Lockup Procedures');
+    searchPage.dateCRResultsSection.firstResultSubText.getText().should.equal('CRID CR123 - April 23, 2004');
+    searchPage.dateCRResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.dateCRResultsSection.secondResultSubText.getText().should.equal('CRID CR456 - April 23, 2004');
+
+    searchPage.dateTRRResultsSection.results.count.should.equal(2);
+    searchPage.dateTRRResultsSection.firstResultText.getText().should.equal('Member Presence');
+    searchPage.dateTRRResultsSection.firstResultSubText.getText().should.equal('TRRID 123 - April 23, 2004');
+    searchPage.dateTRRResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.dateTRRResultsSection.secondResultSubText.getText().should.equal('TRRID 456 - April 23, 2004');
+  });
+
   it('should show filtered result when user clicks "Show more results"', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');

@@ -93,7 +93,23 @@ const areaTransform = (item) => {
   };
 };
 
+const crTransform = (item) => {
+  const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  return {
+    subText: `CRID ${item.crid}${dateText}`
+  };
+};
+
+const trrTransform = (item) => {
+  const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  return {
+    subText: `TRRID ${item.id}${dateText}`
+  };
+};
+
 const searchResultTransformMap = {
+  'DATE > CR': crTransform,
+  'DATE > TRR': trrTransform,
   OFFICER: (item) => {
     const race = item['race'] === 'Unknown' ? null : item['race'];
     const lastPercentile = last(item['percentiles']);
@@ -125,18 +141,8 @@ const searchResultTransformMap = {
       honorableMentionPercentile: roundedPercentile(get(item, 'honorable_mention_percentile')),
     };
   },
-  CR: (item) => {
-    const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
-    return {
-      subText: `CRID ${item.crid}${dateText}`
-    };
-  },
-  TRR: (item) => {
-    const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
-    return {
-      subText: `TRRID ${item.id}${dateText}`
-    };
-  },
+  CR: crTransform,
+  TRR: trrTransform,
   COMMUNITY: areaTransform,
   NEIGHBORHOOD: areaTransform,
   WARD: areaTransform,
@@ -146,11 +152,21 @@ const searchResultTransformMap = {
 };
 
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
+const getCRTexts = (item) => ({ text: item.category || 'Unknown', recentText: item.crid });
+const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
 
 const textsMap = {
-  CR: item => ({ text: item.category || 'Unknown', recentText: item.crid }),
-  TRR: item => ({ text: item['force_type'] || 'Unknown', recentText: item.id }),
+  'DATE > CR': getCRTexts,
+  'DATE > TRR': getTRRTexts,
+  CR: getCRTexts,
+  TRR: getTRRTexts,
   UNIT: item => ({ text: item.description, recentText: item.description }),
+};
+
+const uniqueKeyMap = {
+  'DATE > CR': 'DATE-CR',
+  'DATE > TRR': 'DATE-TRR',
+  'UNIT > OFFICERS': 'UNIT-OFFICERS'
 };
 
 const baseItemTransform = (item) => ({
@@ -158,6 +174,7 @@ const baseItemTransform = (item) => ({
   id: item.id,
   to: get(item, 'to'),
   url: get(item, 'url'),
+  uniqueKey: get(item, 'uniqueKey', `${uniqueKeyMap[item.type] || item.type}-${item.id}`),
   ...get(textsMap, item.type, getBaseTexts)(item)
 });
 
@@ -165,11 +182,9 @@ export const searchResultItemTransform = (item) => ({
   ...baseItemTransform(item),
   tags: get(item, 'tags', []),
   itemIndex: item.itemIndex || 1,
-  uniqueKey: `${item.type}-${item.id}`,
   ...get(searchResultTransformMap, item.type, () => {})(item)
 });
 
 export const navigationItemTransform = item => ({
   ...baseItemTransform(item),
-  uniqueKey: get(item, 'uniqueKey', `${item.type}-${item.id}`),
 });
