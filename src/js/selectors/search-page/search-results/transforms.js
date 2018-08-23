@@ -96,14 +96,14 @@ const areaTransform = (item) => {
 const crTransform = (item) => {
   const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
   return {
-    subText: `CRID ${item.crid}${dateText}`
+    subText: `CR # ${item.crid}${dateText}`
   };
 };
 
 const trrTransform = (item) => {
   const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
   return {
-    subText: `TRRID ${item.id}${dateText}`
+    subText: `TRR # ${item.id}${dateText}`
   };
 };
 
