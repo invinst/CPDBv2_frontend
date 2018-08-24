@@ -27,7 +27,7 @@ import {
   STANDALONE_CR_PATH,
   OFFICER_SOCIAL_GRAPH_SUFFIX,
   EMBED_MAP_PATH,
-  EMBED_TOP_OFFICERS_PATH
+  EMBED_TOP_OFFICERS_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';

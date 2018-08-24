@@ -29,6 +29,7 @@ export class OfficerCard extends Component {
       percentile,
       openCardInNewPage,
     } = this.props;
+    const slugFullName = fullName.toLowerCase().replace(' ', '-');
 
     const complaintString = () => {
       const complaint = `${complaintCount} ${pluralize('Allegation', complaintCount)}`;
@@ -78,7 +79,7 @@ export class OfficerCard extends Component {
 
     return (
       <Link
-        to={ `/officer/${officerId}/` }
+        to={ `/officer/${officerId}/${slugFullName}/` }
         style={ { ...wrapperStyle(hovering), ...cardStyle } }
         target={ openCardInNewPage ? '_blank' : null }
         className='test--officer-card'
