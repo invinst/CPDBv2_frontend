@@ -14,7 +14,7 @@ import Hoverable from 'components/common/higher-order/hoverable';
 
 class OfficerRow extends Component {
   render() {
-    const { percentile, fullName, officerId, hovering } = this.props;
+    const { percentile, fullName, officerSlug, officerId, hovering } = this.props;
 
     const visualTokenConfig = percentile ? {
       backgroundColor: percentile.visualTokenBackground,
@@ -25,7 +25,7 @@ class OfficerRow extends Component {
       <Link
         className='test--trr-officer-row'
         style={ officerRowStyle }
-        to={ `/officer/${officerId}/` }
+        to={ `/officer/${officerId}/${officerSlug}/` }
       >
         <div style={ visualTokenStyle }>
           <StaticRadarChart { ...visualTokenConfig }/>
@@ -48,6 +48,7 @@ OfficerRow.propTypes = {
   officerId: PropTypes.number,
   fullName: PropTypes.string,
   hovering: PropTypes.bool,
+  officerSlug: PropTypes.string,
 };
 
 export default Hoverable(OfficerRow);

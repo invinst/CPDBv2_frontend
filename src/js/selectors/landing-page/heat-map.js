@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map, reduce, round } from 'lodash';
+import { map, reduce, round, kebabCase } from 'lodash';
 
 
 const getRawCommunities = state => state.landingPage.heatMap.communities;
@@ -8,7 +8,8 @@ export const getClusterGeoJson = state => state.landingPage.heatMap.clusterGeoJs
 const transformMostComplaintOfficer = officer => ({
   complaintsCount: officer['complaints_count'],
   fullName: officer['full_name'],
-  id: officer['id']
+  officerSlug: kebabCase(officer['full_name']),
+  id: officer['id'],
 });
 
 const transformRaceCount = raceCount => {

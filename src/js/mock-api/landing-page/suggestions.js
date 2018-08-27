@@ -14,7 +14,7 @@ export const groupedSuggestions = {
           id: '1'
         }, {
           resultText: 'Bernadette Kelly',
-          to: '/officer/1/',
+          to: '/officer/1/bernadette-kelly/',
           allegationCount: 10,
           sustainedCount: 2,
           birthYear: 1972,
@@ -27,7 +27,7 @@ export const groupedSuggestions = {
           id: '2'
         }, {
           resultText: 'Anna Kelly',
-          to: '/officer/2/',
+          to: '/officer/2/anna-kelly/',
           allegationCount: 5,
           sustainedCount: 1,
           birthYear: 1980,
@@ -42,7 +42,7 @@ export const groupedSuggestions = {
           id: '1'
         }, {
           resultText: 'Bernadette Kelly',
-          to: '/officer/1/',
+          to: '/officer/1/bernadette-kelly/',
           allegationCount: 10,
           sustainedCount: 2,
           birthYear: 1972,
@@ -73,7 +73,7 @@ export const groupedSuggestions = {
   'noresult': {},
   'foo': {
     'OFFICER': [
-      RawOfficerSuggestion.build({}, { resultText: 'Laurence Lanners', to: '/officer/5678/' })
+      RawOfficerSuggestion.build({}, { resultText: 'Laurence Lanners', to: '/officer/5678/laurence-lanners/' })
     ]
   }
 };

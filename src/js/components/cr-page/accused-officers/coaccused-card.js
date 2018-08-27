@@ -18,11 +18,11 @@ class CoaccusedCard extends Component {
   render() {
     const {
       rank, fullname, allegationCount, sustainedCount, allegationPercentile, demographic,
-      category, findingOutcomeMix, radarAxes, radarColor, id, hovering, finding, disciplined
+      category, findingOutcomeMix, radarAxes, radarColor, id, hovering, finding, disciplined, officerSlug,
     } = this.props;
 
     return (
-      <Link to={ `/officer/${id}/` } style={ wrapperStyle(hovering) } className='test--accused-card'>
+      <Link to={ `/officer/${id}/${officerSlug}/` } style={ wrapperStyle(hovering) } className='test--accused-card'>
         <div style={ topSectionWrapperStyle }>
           <div>
             <div style={ chartWrapperStyle }>
@@ -76,7 +76,8 @@ CoaccusedCard.propTypes = {
   findingOutcomeMix: PropTypes.string,
   hovering: PropTypes.bool,
   finding: PropTypes.string,
-  disciplined: PropTypes.bool
+  disciplined: PropTypes.bool,
+  officerSlug: PropTypes.string,
 };
 
 CoaccusedCard.defaultProps = {

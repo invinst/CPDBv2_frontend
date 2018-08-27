@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, compact, sortBy } from 'lodash';
+import { map, get, reduce, defaults, compact, sortBy, kebabCase } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
@@ -68,6 +68,7 @@ const getTransformedCoaccused = createSelector(
   (coaccusedList) => coaccusedList.map(coaccused => ({
     id: coaccused.id,
     fullname: coaccused['full_name'],
+    officerSlug: kebabCase(coaccused['full_name']),
     rank: coaccused['rank'] || 'Officer',
     demographic: getCoaccusedDemographicString(coaccused),
     findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
@@ -143,6 +144,7 @@ const getInvolvementsSelector = createSelector(
       let officer = {
         id: obj['officer_id'],
         fullName: obj['full_name'],
+        officerSlug: kebabCase(obj['full_name']),
         radarAxes: [
           { axis: 'trr', value: parseFloat(obj['percentile_trr']) },
           { axis: 'internal', value: parseFloat(obj['percentile_allegation_internal']) },
