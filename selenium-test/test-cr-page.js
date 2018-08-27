@@ -56,17 +56,17 @@ describe('CR page', function () {
 
   it('should navigate to officer page when we click on accused officer card', function () {
     crPage.accusedOfficers.firstCard.element.click();
-    browser.getUrl().should.match(/\/officer\/1\/$/);
+    browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
   });
 
   it('should navigate to officer page when we click on investigator item', function () {
     crPage.investigator.firstItem.click();
-    browser.getUrl().should.match(/\/officer\/1\/$/);
+    browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
   });
 
   it('should navigate to officer page when we click on police witness item', function () {
     crPage.policeWitness.firstItem.click();
-    browser.getUrl().should.match(/\/officer\/3\/$/);
+    browser.getUrl().should.match(/\/officer\/3\/[\-A-Za-z]+\/?$/);
   });
 
   it('should show request document modal when clicks on "Request Document"', function () {

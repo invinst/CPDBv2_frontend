@@ -23,7 +23,7 @@ describe('TRR page', function () {
     trrPage.officerSection.officerRow.waitForVisible();
     trrPage.officerSection.officerRow.click();
 
-    browser.getUrl().should.match(/\/officer\/1\/$/);
+    browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
   });
 
   it('should go to unit profile page when clicking on Unit row', function () {
