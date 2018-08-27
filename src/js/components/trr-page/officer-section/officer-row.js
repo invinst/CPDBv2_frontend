@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { kebabCase } from 'lodash';
 
 import NavigationButton from './navigation-button';
 import StaticRadarChart from 'components/common/radar-chart';
@@ -14,7 +15,8 @@ import Hoverable from 'components/common/higher-order/hoverable';
 
 class OfficerRow extends Component {
   render() {
-    const { percentile, fullName, officerSlug, officerId, hovering } = this.props;
+    const { percentile, fullName, officerId, hovering } = this.props;
+    const officerSlug = kebabCase(fullName);
 
     const visualTokenConfig = percentile ? {
       backgroundColor: percentile.visualTokenBackground,
