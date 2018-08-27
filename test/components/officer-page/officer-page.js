@@ -66,7 +66,10 @@ describe('OfficerPage component', function () {
   it('should render correct document title', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank' officerSummary={ { rank: 'Officer' } }/>
+        <OfficerPage
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer' } }
+        />
       </Provider>
     );
 

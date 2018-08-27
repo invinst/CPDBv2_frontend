@@ -40,10 +40,10 @@ export default class CitySummary extends Component {
           CHICAGO{ startYear ? ` ${startYear} - ${endYear}` : '' }
         </div>
         <OutboundLink href={ config.v1Url } style={ allegationDisciplineLinkStyle }>
-           <div
-              style={ allegationDisciplineStyle }
-              className='test--allegation-discipline-count'
-           >
+          <div
+            style={ allegationDisciplineStyle }
+            className='test--allegation-discipline-count'
+          >
             <div style={ allegationDisciplineCountStyle }>
               <div style={ allegationTextStyle }>
                 {

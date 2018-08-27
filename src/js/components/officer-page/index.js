@@ -8,7 +8,7 @@ import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import { POPUP_NAMES } from 'utils/constants';
+import { POPUP_NAMES, REDIRECTING_SUFFIX } from 'utils/constants';
 
 
 export default class OfficerPage extends Component {
@@ -20,7 +20,8 @@ export default class OfficerPage extends Component {
   changeToCorrectURL() {
     const { officerId, pathName, officerSlug } = this.props;
     const correctPathName = `/officer/${officerId}/${officerSlug}/`;
-    if (!isEmpty(officerSlug) && pathName !== correctPathName) {
+    let redirectingOfficerPath = new RegExp('\/officer\/\\d+\/' + REDIRECTING_SUFFIX + '\/?');
+    if (pathName.match(redirectingOfficerPath) && !isEmpty(officerSlug)) {
       window.history.replaceState(window.history.state, document.title, correctPathName);
     }
   }
@@ -107,5 +108,6 @@ OfficerPage.propTypes = {
 
 OfficerPage.defaultProps = {
   changeOfficerTab: () => {},
-  officerSummary: {}
+  officerSummary: {},
+  pathName: '',
 };

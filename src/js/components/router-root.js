@@ -28,6 +28,7 @@ import {
   EMBED_MAP_PATH,
   EMBED_TOP_OFFICERS_PATH,
   OFFICER_PATH_WITHOUT_SLUG,
+  REDIRECTING_SUFFIX
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -56,7 +57,7 @@ export default class RouterRoot extends Component {
               path={ OFFICER_PATH }
               component={ OfficerPageContainer }
               breadcrumb={ BreadcrumbItemContainer } />
-            <Redirect from={ OFFICER_PATH_WITHOUT_SLUG } to={ `/${OFFICER_PATH_WITHOUT_SLUG}/redirecting` } />
+            <Redirect from={ OFFICER_PATH_WITHOUT_SLUG } to={ `/${OFFICER_PATH_WITHOUT_SLUG}/${REDIRECTING_SUFFIX}` } />
             <Route
               path={ SEARCH_PATH }
               component={ SearchPageContainer }

@@ -33,6 +33,7 @@ export const TTR_PATH = 'trr/:trrId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 export const EMBED_MAP_PATH = 'embed/map';
 export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
+export const REDIRECTING_SUFFIX = 'redirecting';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
