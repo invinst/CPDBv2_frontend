@@ -22,7 +22,7 @@ describe('TRRMap component', function () {
     const locationMap = findRenderedComponentWithType(instance, LocationMap);
     locationMap.props.lng.should.eql(1.1);
     locationMap.props.lat.should.eql(1.2);
-    locationMap.props.mapboxStyle.should.eql('mapbox://styles/mapbox/light-v9');
+    locationMap.props.mapboxStyle.should.eql('mapbox://styles/invisibleinstitute/cj8ugtswqe8dx2ss2kwhfnvte');
 
     locationMap.props.markerEl.props.className.should.eql('test--trr-map-marker');
   });

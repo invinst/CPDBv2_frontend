@@ -5,7 +5,6 @@ import WidgetWrapper, {
   GeoInfoWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget,
 } from './widgets';
 
 
@@ -65,7 +64,6 @@ export default class CensusTrackPane extends Component {
           showAvatar={ false }
           title={ 'MOST COMMON COMPLAINTS' }
         />
-        <CallToActionWidget/>
       </WidgetWrapper>
     );
   }

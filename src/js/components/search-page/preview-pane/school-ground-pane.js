@@ -4,7 +4,6 @@ import WidgetWrapper, {
   HeaderWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget,
   SeparatorWidget,
 } from './widgets';
 
@@ -18,7 +17,7 @@ export default class SchoolGroundPane extends Component {
       url,
     } = this.props;
     return (
-      <WidgetWrapper>
+      <WidgetWrapper callToAction={ { url } } maxHeight={ 530 }>
         <HeaderWidget title={ name } showBottomBorder={ true }/>
         <SeparatorWidget/>
         <AllegationCountWidget
@@ -31,7 +30,6 @@ export default class SchoolGroundPane extends Component {
           showAvatar={ true }
           title={ 'OFFICERS WITH MOST COMPLAINTS' }
         />
-        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }

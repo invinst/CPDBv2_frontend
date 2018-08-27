@@ -32,6 +32,7 @@ export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const CR_PATH_SUFFIX = ':officerId';
 export const TTR_PATH = 'trr/:trrId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
+export const EMBED_MAP_PATH = 'embed/map';
 export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
@@ -177,6 +178,7 @@ export const UPDATE_SHAREABLE_PAGE_SCROLL_POSITION = 'UPDATE_SHAREABLE_PAGE_SCRO
 
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
+export const MAPBOX_STYLE = 'mapbox://styles/invisibleinstitute/cj8ugtswqe8dx2ss2kwhfnvte';
 
 export const FINDING_COLORS = {
   'Unfounded': darkSilverSandColor,
@@ -349,8 +351,8 @@ export const MORE_BUTTON = 'MORE_BUTTON';
 export const SEARCH_BOX = 'SEARCH_BOX';
 
 export const SEARCH_CATEGORIES = [
-  'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT > OFFICERS', 'CR',
-  'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT'
+  'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT > OFFICERS', 'CR', 'TRR',
+  'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT', 'RANK'
 ];
 
 export const OFFICER_EDIT_MODE = 'OFFICER_EDIT_MODE';

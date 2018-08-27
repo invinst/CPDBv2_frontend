@@ -124,11 +124,6 @@ const searchResultTransformMap = {
       honorableMentionPercentile: roundedPercentile(get(payload, 'honorable_mention_percentile')),
     };
   },
-  CR: ({ payload }) => {
-    return {
-      subText: `CRID ${payload.crid}, ${payload.outcome}`
-    };
-  },
   COMMUNITY: areaTransform,
   NEIGHBORHOOD: areaTransform,
   WARD: areaTransform,
@@ -146,8 +141,7 @@ export const searchResultItemTransform = (item) => ({
   tags: get(item, 'payload.tags', []),
   uniqueKey: `${item.type}-${item.id}`,
   itemIndex: item.itemIndex || 1,
-  ...get(searchResultTransformMap, item.type, () => {
-  })(item)
+  ...get(searchResultTransformMap, item.type, () => {})(item)
 });
 
 export const navigationItemTransform = item => ({

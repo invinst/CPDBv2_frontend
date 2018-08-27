@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { stub } from 'sinon';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
+import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import OfficerInfo from 'components/landing-page/common/pairing-card/officer-info';
 
@@ -15,7 +14,6 @@ describe('OfficerInfo component', function () {
     race: 'White',
     gender: 'Male',
   };
-  const stubOpenOfficerPage = stub();
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
@@ -37,14 +35,5 @@ describe('OfficerInfo component', function () {
     );
     const officerFullName = findRenderedDOMComponentWithClass(instance, 'test--officer-name');
     officerFullName.style.color.should.eql('rgb(0, 94, 244)');
-  });
-
-  it('should redirect to the officer page when click on the OfficerInfo component', function () {
-    instance = renderIntoDocument(
-      <OfficerInfo info={ info } openOfficerPage={ stubOpenOfficerPage } />
-    );
-    const officerInfo = findRenderedDOMComponentWithClass(instance, 'test--officer-info');
-    Simulate.click(officerInfo);
-    stubOpenOfficerPage.should.be.calledWith(info.id);
   });
 });

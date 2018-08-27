@@ -37,11 +37,14 @@ export default store => next => action => {
 
   const state = store.getState();
   const dispatches = [];
+  const notRequiredLandingPageContent = [/embed\/map/];
 
   const getCMSContent = (pageId) => {
-    if (!hasCMSContent(pageId)(state)) {
-      dispatches.push(store.dispatch(fetchPage(pageId)()));
-    }
+    notRequiredLandingPageContent.map(item => {
+      if (!action.payload.pathname.match(item) && !hasCMSContent(pageId)(state)) {
+        dispatches.push(store.dispatch(fetchPage(pageId)()));
+      }
+    });
   };
 
   getCMSContent(LANDING_PAGE_ID);
@@ -104,6 +107,16 @@ export default store => next => action => {
   } else if (action.payload.pathname.match(/embed\/top-officers/)) {
     if (!hasOfficerByAllegationData(state)) {
       dispatches.push(store.dispatch(requestOfficersByAllegation()));
+    }
+  } else if (action.payload.pathname.match(/embed\/map/)) {
+    if (!hasCommunitiesSelector(state)) {
+      dispatches.push(store.dispatch(getCommunities()));
+    }
+    if (!hasClusterGeoJsonData(state)) {
+      dispatches.push(store.dispatch(getClusterGeoJson()));
+    }
+    if (!hasCitySummarySelector(state)) {
+      dispatches.push(store.dispatch(getCitySummary()));
     }
   }
 

@@ -4,7 +4,6 @@ import WidgetWrapper, {
   HeaderWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget,
   SeparatorWidget,
 } from './widgets';
 
@@ -19,7 +18,10 @@ export default class NeighborhoodPane extends Component {
       url,
     } = this.props;
     return (
-      <WidgetWrapper className='test--preview-pane-neighborhood'>
+      <WidgetWrapper
+        className='test--preview-pane-neighborhood'
+        callToAction={ { url } }
+        maxHeight={ 750 }>
         <HeaderWidget title={ name } showBottomBorder={ true }/>
         <SeparatorWidget/>
         <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
@@ -35,7 +37,6 @@ export default class NeighborhoodPane extends Component {
           showAvatar={ true }
           title={ 'OFFICERS WITH MOST COMPLAINTS' }
         />
-        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }

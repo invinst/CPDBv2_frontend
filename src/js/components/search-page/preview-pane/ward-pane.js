@@ -6,7 +6,6 @@ import WidgetWrapper, {
   TextWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget,
 } from './widgets';
 
 
@@ -21,7 +20,7 @@ export default class WardPane extends Component {
       url,
     } = this.props;
     return (
-      <WidgetWrapper>
+      <WidgetWrapper callToAction={ { url } } maxHeight={ 830 }>
         <HeaderWidget title={ `WARD #${name}` }/>
         <SeparatorWidget/>
         <AllegationCountWidget url={ url } numOfAllegations={ allegationCount }/>
@@ -36,7 +35,6 @@ export default class WardPane extends Component {
           typeName={ 'allegation' }
           title='OFFICERS WITH MOST COMPLAINTS'
           items={ officersMostComplaint }/>
-        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }

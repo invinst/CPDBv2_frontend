@@ -4,8 +4,7 @@ import WidgetWrapper, {
   HeaderWidget,
   GeoInfoWidget,
   AllegationCountWidget,
-  ListWidget,
-  CallToActionWidget,
+  ListWidget
 } from './widgets';
 import { roundedPercentile } from 'utils/calculations';
 
@@ -26,7 +25,7 @@ export default class PoliceDistrictPane extends Component {
     const district = match ? `#${match[0]}` : name.toUpperCase();
 
     return (
-      <WidgetWrapper>
+      <WidgetWrapper callToAction={ { url } } maxHeight={ 830 }>
         <HeaderWidget title={ `POLICE DISTRICT ${district}` }/>
         <GeoInfoWidget raceCount={ raceCount } population={ population }/>
         <AllegationCountWidget
@@ -43,7 +42,6 @@ export default class PoliceDistrictPane extends Component {
           typeName={ 'allegation' }
           title='DISTRICT COMMANDER'
           items={ districtCommander ? [districtCommander] : [] }/>
-        <CallToActionWidget url={ url }/>
       </WidgetWrapper>
     );
   }
