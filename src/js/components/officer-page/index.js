@@ -21,7 +21,7 @@ export default class OfficerPage extends Component {
     const { officerId, pathName, officerSlug } = this.props;
     const correctPathName = `/officer/${officerId}/${officerSlug}/`;
     let redirectingOfficerPath = new RegExp('\/officer\/\\d+\/' + REDIRECTING_SUFFIX + '\/?');
-    if (pathName.match(redirectingOfficerPath) && !isEmpty(officerSlug)) {
+    if (!isEmpty(officerSlug) && pathName.match(redirectingOfficerPath)) {
       window.history.replaceState(window.history.state, document.title, correctPathName);
     }
   }

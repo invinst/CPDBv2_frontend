@@ -3,6 +3,7 @@
 require('should');
 
 import officerPage from './page-objects/officer-page';
+import header from './page-objects/shareable-header';
 import { selectText, switchToRecentTab } from './utils';
 
 const noDataRadarChartOfficerId = 2;
@@ -230,6 +231,9 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.timelineSection.crItem.click();
 
       browser.getUrl().should.match(/\/complaint\/\w+\/$/);
+
+      header.breadcrumbs.secondItem.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-A-Za-z]+\/?$/);
     });
 
     it('should go to attachment source page when clicking on the attachment thumbnail', function () {
@@ -251,6 +255,9 @@ describe('officer page', function () {
       officerPage.tabbedPaneSection.timelineSection.trrItem.click();
 
       browser.getUrl().should.match(/\/trr\/\d+\/$/);
+
+      header.breadcrumbs.secondItem.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-A-Za-z]+\/?$/);
     });
 
     describe('Timeline filter', function () {
@@ -307,13 +314,13 @@ describe('officer page', function () {
     it('should navigate to officer page when clicking on a CoaccusalCard', function () {
       officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
 
-      browser.getUrl().should.match(/\/officer\/1\/$/);
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
 
       officerPage.tabbedPaneSection.coaccusalsTabName.click();
       officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalGroupName.waitForVisible();
       officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.click();
 
-      browser.getUrl().should.match(/\/officer\/2\/$/);
+      browser.getUrl().should.match(/\/officer\/2\/john-kelly\/$/);
     });
   });
 

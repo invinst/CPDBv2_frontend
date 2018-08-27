@@ -8,7 +8,10 @@ class Breadcrumbs extends Section {
     super();
     this.prepareElementGetters({
       mainElement: '.test--breadcrumbs',
-      items: '.test--breadcrumbs-item'
+      items: '.test--breadcrumbs-item',
+      firstItem: '(//li[@class="test--breadcrumbs-item"])[1]',
+      secondItem: '(//li[@class="test--breadcrumbs-item"])[2]',
+      thirdItem: '(//li[@class="test--breadcrumbs-item"])[3]',
     });
   }
 }
