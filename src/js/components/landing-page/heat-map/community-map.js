@@ -137,7 +137,7 @@ export default class CommunityMap extends Component {
     );
   }
   render() {
-    const resolutions = [768, 992, 1024, 1200, 1440];
+    const resolutions = [768, 992, 1024, 1200];
     return (
       <div>
         <MediaQuery maxWidth={ resolutions[0] }>
@@ -152,10 +152,7 @@ export default class CommunityMap extends Component {
         <MediaQuery minWidth={ resolutions[2] + 1 } maxWidth={ resolutions[3] }>
           { this.renderMap([-87.50531065944494, 41.851330986659406]) }
         </MediaQuery>
-        <MediaQuery minWidth={ resolutions[3] + 1 } maxWidth={ resolutions[4] }>
-          { this.renderMap([-87.43069204745467, 41.84894137599454]) }
-        </MediaQuery>
-        <MediaQuery minWidth={ resolutions[4] + 1 }>
+        <MediaQuery minWidth={ resolutions[3] + 1 }>
           { this.renderMap([-87.43069204745467, 41.84894137599454]) }
         </MediaQuery>
       </div>
