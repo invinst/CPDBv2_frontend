@@ -154,13 +154,17 @@ const searchResultTransformMap = {
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
 const getCRTexts = (item) => ({ text: item.category || 'Unknown', recentText: item.crid });
 const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
+const getUnitTexts = (item) => {
+  const text = item.description || `Unit ${item.name}`;
+  return { text, recentText: text };
+};
 
 const textsMap = {
   'DATE > CR': getCRTexts,
   'DATE > TRR': getTRRTexts,
   CR: getCRTexts,
   TRR: getTRRTexts,
-  UNIT: item => ({ text: item.description, recentText: item.description }),
+  UNIT: getUnitTexts
 };
 
 const uniqueKeyMap = {

@@ -391,6 +391,35 @@ describe('search page results selector', function () {
       ]);
     });
 
+    it('should give correct item format for missing description UNIT', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'UNIT': [
+              { id: '1001', to: 'to', url: 'url', name: '001' }
+            ]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'UNIT',
+          canLoadMore: false,
+          items: [{
+            type: 'UNIT',
+            id: '1001',
+            text: 'Unit 001',
+            recentText: 'Unit 001',
+            to: 'to',
+            url: 'url',
+            tags: [],
+            uniqueKey: 'UNIT-1001',
+            itemIndex: 1,
+          }]
+        }
+      ]);
+    });
+
     it('should limit items per category to 5', function () {
       const [officerGroup, coaccusedGroup] = searchResultGroupsSelector({
         searchPage: {
