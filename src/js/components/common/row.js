@@ -28,7 +28,7 @@ export default class Row extends Component {
 
 Row.propTypes = {
   label: PropTypes.string,
-  content: PropTypes.string,
+  content: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   hasBorderBottom: PropTypes.bool,
   labelWidth: PropTypes.number,
   contentWidth: PropTypes.number,

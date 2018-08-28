@@ -351,7 +351,7 @@ export const MORE_BUTTON = 'MORE_BUTTON';
 export const SEARCH_BOX = 'SEARCH_BOX';
 
 export const SEARCH_CATEGORIES = [
-  'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT > OFFICERS', 'CR', 'TRR',
+  'DATE > CR', 'DATE > TRR', 'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT > OFFICERS', 'CR', 'TRR',
   'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT', 'RANK'
 ];
 
@@ -486,3 +486,5 @@ export const CALL_TO_ACTION_TYPES = {
   VIEW_ALL: 'view_all',
   LINK: 'link',
 };
+
+export const FULL_MONTH_DATE_FORMAT = 'MMMM D, YYYY';

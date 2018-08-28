@@ -11,26 +11,24 @@ export const groupedSuggestions = {
     'OFFICER': [
       RawOfficerSuggestion.build(
         {
-          id: '1'
-        }, {
-          resultText: 'Bernadette Kelly',
+          id: '1',
+          name: 'Bernadette Kelly',
           to: '/officer/1/',
-          allegationCount: 10,
-          sustainedCount: 2,
-          birthYear: 1972,
+          'allegation_count': 10,
+          'sustained_count': 2,
+          'birth_year': 1972,
           race: 'White',
           gender: 'Male'
         }
       ),
       RawOfficerSuggestion.build(
         {
-          id: '2'
-        }, {
-          resultText: 'Anna Kelly',
+          id: '2',
+          name: 'Anna Kelly',
           to: '/officer/2/',
-          allegationCount: 5,
-          sustainedCount: 1,
-          birthYear: 1980,
+          'allegation_count': 5,
+          'sustained_count': 1,
+          'birth_year': 1980,
           race: 'White',
           gender: 'Female'
         }),
@@ -39,13 +37,12 @@ export const groupedSuggestions = {
     'CO-ACCUSED': [
       RawOfficerSuggestion.build(
         {
-          id: '1'
-        }, {
-          resultText: 'Bernadette Kelly',
+          id: '1',
+          name: 'Bernadette Kelly',
           to: '/officer/1/',
-          allegationCount: 10,
-          sustainedCount: 2,
-          birthYear: 1972,
+          'allegation_count': 10,
+          'sustained_count': 2,
+          'birth_year': 1972,
           race: 'White',
           gender: 'Male'
         }
@@ -53,27 +50,97 @@ export const groupedSuggestions = {
     ],
     'UNIT': [],
     'NEIGHBORHOOD': [
-      RawNeighborhoodSuggestion.build({ id: '1' }, { resultText: 'Kenwood' }),
-      RawNeighborhoodSuggestion.build({ id: '2' }, { resultText: 'Austin' }),
-      RawNeighborhoodSuggestion.build({ id: '3' }, { resultText: 'Englewood' }),
-      RawNeighborhoodSuggestion.build({ id: '4' }, { resultText: 'Loop' }),
-      RawNeighborhoodSuggestion.build({ id: '5' }, { resultText: 'Garfield Park' }),
-      RawNeighborhoodSuggestion.build({ id: '6' }, { resultText: 'Humboldt Park' }),
-      RawNeighborhoodSuggestion.build({ id: '7' }, { resultText: 'Auburn Gresham' }),
+      RawNeighborhoodSuggestion.build({ id: '1', name: 'Kenwood' }),
+      RawNeighborhoodSuggestion.build({ id: '2', name: 'Austin' }),
+      RawNeighborhoodSuggestion.build({ id: '3', name: 'Englewood' }),
+      RawNeighborhoodSuggestion.build({ id: '4', name: 'Loop' }),
+      RawNeighborhoodSuggestion.build({ id: '5', name: 'Garfield Park' }),
+      RawNeighborhoodSuggestion.build({ id: '6', name: 'Humboldt Park' }),
+      RawNeighborhoodSuggestion.build({ id: '7', name: 'Auburn Gresham' }),
     ],
     'CR': [
-      RawCRSuggestion.build({ id: '1' }, { resultText: 'CR123', to: '/complaint/CR123/' }),
-      RawCRSuggestion.build({ id: '2' }, { resultText: 'CR456', to: '/complaint/CR456/' }),
+      RawCRSuggestion.build(
+        {
+          id: '1',
+          crid: 'CR123',
+          to: '/complaint/CR123/',
+          category: 'Lockup Procedures',
+          'incident_date': '2004-04-23'
+        }
+      ),
+      RawCRSuggestion.build(
+        {
+          id: '2',
+          crid: 'CR456',
+          to: '/complaint/CR456/',
+          category: null,
+          'incident_date': null
+        }
+      ),
     ],
     'TRR': [
-      RawTRRSuggestion.build({ id: '123' }, { resultText: 'TRR123', to: '/trr/TRR123/' }),
-      RawTRRSuggestion.build({ id: '456' }, { resultText: 'TRR456', to: '/trr/TRR456/' })
+      RawTRRSuggestion.build(
+        {
+          id: '123',
+          to: '/trr/123/',
+          'force_type': 'Member Presence',
+          'trr_datetime': '2004-04-27'
+        }
+      ),
+      RawTRRSuggestion.build(
+        {
+          id: '456',
+          to: '/trr/456/',
+          'force_type': null,
+          'trr_datetime': null
+        }
+      )
     ]
   },
   'noresult': {},
   'foo': {
     'OFFICER': [
-      RawOfficerSuggestion.build({}, { resultText: 'Laurence Lanners', to: '/officer/5678/' })
+      RawOfficerSuggestion.build({ name: 'Laurence Lanners', to: '/officer/5678/' })
+    ]
+  },
+  '2004/04/23': {
+    'DATE > CR': [
+      RawCRSuggestion.build(
+        {
+          id: '1',
+          crid: 'CR123',
+          to: '/complaint/CR123/',
+          category: 'Lockup Procedures',
+          'incident_date': '2004-04-23'
+        }
+      ),
+      RawCRSuggestion.build(
+        {
+          id: '2',
+          crid: 'CR456',
+          to: '/complaint/CR456/',
+          category: null,
+          'incident_date': '2004-04-23'
+        }
+      ),
+    ],
+    'DATE > TRR': [
+      RawTRRSuggestion.build(
+        {
+          id: '123',
+          to: '/trr/123/',
+          'force_type': 'Member Presence',
+          'trr_datetime': '2004-04-23'
+        }
+      ),
+      RawTRRSuggestion.build(
+        {
+          id: '456',
+          to: '/trr/456/',
+          'force_type': null,
+          'trr_datetime': '2004-04-23'
+        }
+      )
     ]
   }
 };
@@ -84,8 +151,8 @@ export const singleGroupSuggestions = {
     previous: null,
     next: 'http://my/api/?contentType=OFFICER&offset=20',
     results: [
-      RawOfficerSuggestion.build({}, { resultText: 'Bernadette Kelly' }),
-      RawOfficerSuggestion.build({}, { resultText: 'Charles Kelly' }),
+      RawOfficerSuggestion.build({ name: 'Bernadette Kelly' }),
+      RawOfficerSuggestion.build({ name: 'Charles Kelly' }),
       ...RawOfficerSuggestion.buildList(18)
     ]
   },
@@ -94,13 +161,13 @@ export const singleGroupSuggestions = {
     previous: null,
     next: null,
     results: [
-      RawNeighborhoodSuggestion.build({ id: '1' }, { resultText: 'Kenwood' }),
-      RawNeighborhoodSuggestion.build({ id: '2' }, { resultText: 'Austin' }),
-      RawNeighborhoodSuggestion.build({ id: '3' }, { resultText: 'Englewood' }),
-      RawNeighborhoodSuggestion.build({ id: '4' }, { resultText: 'Loop' }),
-      RawNeighborhoodSuggestion.build({ id: '5' }, { resultText: 'Garfield Park' }),
-      RawNeighborhoodSuggestion.build({ id: '6' }, { resultText: 'Humboldt Park' }),
-      RawNeighborhoodSuggestion.build({ id: '7' }, { resultText: 'Auburn Gresham' }),
+      RawNeighborhoodSuggestion.build({ id: '1', name: 'Kenwood' }),
+      RawNeighborhoodSuggestion.build({ id: '2', name: 'Austin' }),
+      RawNeighborhoodSuggestion.build({ id: '3', name: 'Englewood' }),
+      RawNeighborhoodSuggestion.build({ id: '4', name: 'Loop' }),
+      RawNeighborhoodSuggestion.build({ id: '5', name: 'Garfield Park' }),
+      RawNeighborhoodSuggestion.build({ id: '6', name: 'Humboldt Park' }),
+      RawNeighborhoodSuggestion.build({ id: '7', name: 'Auburn Gresham' }),
     ]
   },
   offset20: {

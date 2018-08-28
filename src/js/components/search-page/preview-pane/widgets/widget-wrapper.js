@@ -31,7 +31,7 @@ WidgetWrapper.defaultProps = {
 
 WidgetWrapper.propTypes = {
   className: PropTypes.string,
-  children: PropTypes.arrayOf(PropTypes.element).string,
+  children: PropTypes.arrayOf(PropTypes.element),
   callToAction: PropTypes.object,
   maxHeight: PropTypes.number
 };
