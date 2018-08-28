@@ -16,12 +16,16 @@ describe('search page navigation selector', function () {
           suggestionGroups: {
             'OFFICER': RawOfficerSuggestion.buildList(2),
             'UNIT': [],
-            'CO-ACCUSED': [RawOfficerSuggestion.build(), RawOfficerSuggestion.build({ id: '29033' }, {
-              race: 'White',
-              resultText: 'Jerome Turbyville',
-              url: 'https://example.com',
-              to: '/officer/29033'
-            })]
+            'CO-ACCUSED': [
+              RawOfficerSuggestion.build(),
+              RawOfficerSuggestion.build({
+                id: '29033',
+                name: 'Jerome Turbyville',
+                race: 'White',
+                url: 'https://example.com',
+                to: '/officer/29033'
+              })
+            ]
           },
           navigation: {
             itemIndex: 4
@@ -35,6 +39,7 @@ describe('search page navigation selector', function () {
         to: '/officer/29033',
         type: 'CO-ACCUSED',
         text: 'Jerome Turbyville',
+        recentText: 'Jerome Turbyville',
         uniqueKey: 'CO-ACCUSED-29033',
         url: 'https://example.com'
       });
@@ -61,6 +66,7 @@ describe('search page navigation selector', function () {
         to: undefined,
         type: undefined,
         text: undefined,
+        recentText: undefined,
         uniqueKey: SEARCH_BOX,
         url: undefined
       });
@@ -86,6 +92,7 @@ describe('search page navigation selector', function () {
         id: 'OFFICER',
         to: undefined,
         text: undefined,
+        recentText: undefined,
         type: MORE_BUTTON,
         uniqueKey: `${MORE_BUTTON}-OFFICER`,
         url: undefined,
@@ -95,20 +102,20 @@ describe('search page navigation selector', function () {
 
   describe('previewPaneInfoSelector', function () {
     it('should return correct info', function () {
-
-      const focusedSuggestion = RawOfficerSuggestion.build({ id: '29033' }, {
+      const focusedSuggestion = RawOfficerSuggestion.build({
+        id: '29033',
+        name: 'Jerome Turbyville',
         race: 'White',
         sex: 'Male',
-        birthYear: 1969,
+        'birth_year': 1969,
         to: '/officer/29033/',
-        allegationCount: 10,
-        sustainedCount: 2,
+        'allegation_count': 10,
+        'sustained_count': 2,
         unit: {
           id: 1,
           'unit_name': '018',
           description: 'District 018',
         },
-        resultText: 'Jerome Turbyville',
       });
       const info = {
         data: {
@@ -120,7 +127,6 @@ describe('search page navigation selector', function () {
           complaintPercentile: 93,
           civilianComplimentCount: 4,
           gender: 'Male',
-          name: 'Jerome Turbyville',
           lastPercentile: {
             officerId: undefined,
             year: undefined,

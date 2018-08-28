@@ -1,16 +1,24 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { capitalize, lowerCase } from 'lodash';
+import { capitalize } from 'lodash';
 
 import Row from 'components/common/row';
 import Hoverable from 'components/common/higher-order/hoverable';
 import OutboundLink from 'components/common/outbound-link';
 
 
+const labelMapping = {
+  'CR': 'CR',
+  'TRR': 'TRR',
+  'DATE > CR': 'Date > CR',
+  'DATE > TRR': 'Date > TRR'
+};
+
 class RecentSuggestionItem extends Component {
   render() {
     const { entry, hovering, isLast } = this.props;
-    const labelText = lowerCase(entry.contentType) === 'cr' ? 'CR' : capitalize(entry.contentType);
+
+    const labelText = labelMapping[entry.contentType] || capitalize(entry.contentType);
 
     const children = (
       <Row

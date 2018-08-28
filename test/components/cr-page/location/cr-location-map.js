@@ -22,7 +22,7 @@ describe('CRLocationMap component', function () {
     const locationMap = findRenderedComponentWithType(instance, LocationMap);
     locationMap.props.lng.should.eql(1.1);
     locationMap.props.lat.should.eql(1.2);
-    locationMap.props.mapboxStyle.should.eql('mapbox://styles/mapbox/streets-v10');
+    locationMap.props.mapboxStyle.should.eql('mapbox://styles/invisibleinstitute/cj8ugtswqe8dx2ss2kwhfnvte');
 
     should(locationMap.props.markerEl).be.null();
   });
