@@ -20,7 +20,9 @@ export default class CommunityOfficers extends Component {
               <Link
                 to={ `/officer/${officer.id}/${officer.officerSlug}/` }
                 style={ officerItemStyle(index === mostComplaintsOfficers.length - 1) }
-                key={ officer.id }>
+                key={ officer.id }
+                className='test--community-officer'
+              >
                 <span style={ officerTextStyle }>
                   <div style={ officerNameTextStyle }>{ officer.fullName }</div>
                   <div style={ complaintsCountStyle }>{ officer.complaintsCount } complaints in { communityName }</div>

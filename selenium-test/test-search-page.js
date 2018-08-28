@@ -126,7 +126,7 @@ describe('Search Page', function () {
     searchPage.secondOfficerResult.waitForVisible();
     searchPage.secondOfficerResult.click();
     browser.keys('Enter');
-    searchPage.currentBasePath.should.eql('/officer/2/john-kelly/');
+    searchPage.currentBasePath.should.eql('/officer/2/anna-kelly/');
   });
 
   it('should trigger officer summary page when click on co-accused then press Enter', function () {
@@ -375,7 +375,7 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
       searchPage.officerPreviewPaneSection.listMostOfficers.count.should.eql(2);
       searchPage.officerPreviewPaneSection.listMostOfficers.click();
-      browser.getUrl().should.match(/\/officer\/\d+\/[\-A-Za-z]+\/$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
     });
   });
 });
