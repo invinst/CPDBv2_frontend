@@ -105,6 +105,18 @@ describe('officer page', function () {
     officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.waitForVisible();
   });
 
+  it('should redirect to correct path name when only officer id is provided', function () {
+    officerPage.open(1);
+    officerPage.summarySection.officerName.waitForVisible();
+    browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/?$/);
+  });
+
+  it('should redirect to correct path name when the officer name is incorrect', function () {
+    browser.url('/officer/1/somethingwrong/');
+    officerPage.summarySection.officerName.waitForVisible();
+    browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/?$/);
+  });
+
   describe('Radar Chart', function () {
     it('should responsive', function () {
       browser.setViewportSize({

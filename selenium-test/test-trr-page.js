@@ -15,7 +15,7 @@ describe('TRR page', function () {
     trrPage.title.waitForVisible();
 
     trrPage.title.getText().should.equal('TRR 1');
-    trrPage.officerSection.officerName.getText().should.equal('Marvel Avengers');
+    trrPage.officerSection.officerName.getText().should.equal('Bernadette Kelly');
   });
 
 
@@ -23,7 +23,7 @@ describe('TRR page', function () {
     trrPage.officerSection.officerRow.waitForVisible();
     trrPage.officerSection.officerRow.click();
 
-    browser.getUrl().should.match(/\/officer\/1\/marvel-avengers\/$/);
+    browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
   });
 
   it('should go to unit profile page when clicking on Unit row', function () {

@@ -126,7 +126,7 @@ describe('Search Page', function () {
     searchPage.secondOfficerResult.waitForVisible();
     searchPage.secondOfficerResult.click();
     browser.keys('Enter');
-    searchPage.currentBasePath.should.eql('/officer/2/anna-kelly/');
+    searchPage.currentBasePath.should.eql('/officer/2/john-kelly/');
   });
 
   it('should trigger officer summary page when click on co-accused then press Enter', function () {

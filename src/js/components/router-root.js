@@ -57,7 +57,10 @@ export default class RouterRoot extends Component {
               path={ OFFICER_PATH }
               component={ OfficerPageContainer }
               breadcrumb={ BreadcrumbItemContainer } />
-            <Redirect from={ OFFICER_PATH_WITHOUT_SLUG } to={ `/${OFFICER_PATH_WITHOUT_SLUG}/${REDIRECTING_SUFFIX}` } />
+            <Redirect
+              from={ OFFICER_PATH_WITHOUT_SLUG }
+              to={ `/${OFFICER_PATH_WITHOUT_SLUG}/${REDIRECTING_SUFFIX}/` }
+            />
             <Route
               path={ SEARCH_PATH }
               component={ SearchPageContainer }

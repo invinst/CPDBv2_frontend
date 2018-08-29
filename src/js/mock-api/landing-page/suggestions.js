@@ -26,8 +26,8 @@ export const groupedSuggestions = {
         {
           id: '2'
         }, {
-          resultText: 'Anna Kelly',
-          to: '/officer/2/anna-kelly/',
+          resultText: 'John Kelly',
+          to: '/officer/2/john-kelly/',
           allegationCount: 5,
           sustainedCount: 1,
           birthYear: 1980,
