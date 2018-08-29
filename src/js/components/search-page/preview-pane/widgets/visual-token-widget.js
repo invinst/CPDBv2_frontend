@@ -22,7 +22,7 @@ VisualTokenWidget.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
     axis: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
-  })).isRequired,
-  visualTokenBackground: PropTypes.string.isRequired,
+  })),
+  visualTokenBackground: PropTypes.string,
 };
 

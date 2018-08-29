@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import ReactDOM from 'react-dom';
 
-import { MAP_INFO, MAP_ITEMS } from 'utils/constants';
+import { MAP_INFO, MAP_ITEMS, MAPBOX_STYLE } from 'utils/constants';
 import { mapboxgl } from 'utils/vendors';
 import Legend from './legend';
 import { mapStyle, wrapperStyle } from './map.style';
@@ -22,7 +22,7 @@ export default class Map extends Component {
     if (el && !this.map) {
       this.map = new mapboxgl.Map({
         container: el,
-        style: 'mapbox://styles/mapbox/light-v9',
+        style: MAPBOX_STYLE,
         zoom: MAP_INFO.ZOOM1,
         center: [MAP_INFO.CENTER_LNG, MAP_INFO.CENTER_LAT],
         interactive: true,

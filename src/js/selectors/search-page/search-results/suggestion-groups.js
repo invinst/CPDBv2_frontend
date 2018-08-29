@@ -105,7 +105,7 @@ export const firstItemSelector = createSelector(
       return {
         to: firstRecord.to,
         url: firstRecord.url,
-        text: firstRecord.text,
+        recentText: firstRecord.recentText,
         type: firstGroup.header
       };
     }

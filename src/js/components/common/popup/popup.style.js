@@ -38,7 +38,7 @@ export const buttonStyle = position => ({
   display: 'inline-block',
   position: position,
   padding: '13px',
-  margin: position === 'absolute' ? '-13px -13px -13px -13px' : '0 -26px 0 -4px',
+  margin: position === 'absolute' ? '-13px -13px -13px -13px' : '-13px -26px -13px -4px',
   top: position === 'absolute' ? '16px' : null,
   right: position === 'absolute' ? 0 : null,
   verticalAlign: position === 'relative' ? 'middle' : null,

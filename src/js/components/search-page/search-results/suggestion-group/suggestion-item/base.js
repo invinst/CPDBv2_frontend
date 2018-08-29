@@ -20,7 +20,7 @@ export default class SuggestionItemBase extends Component {
     const { text, id, type, subText, tags } = this.props.suggestion;
 
     return (
-      <div style={ blackTextStyle(hovering, isFocused) }>
+      <div style={ blackTextStyle(hovering, isFocused) } className='test--first-row'>
         { text }
         {
           aliasEditModeOn ?

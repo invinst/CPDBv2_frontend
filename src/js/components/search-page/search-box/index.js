@@ -13,8 +13,8 @@ export default class SearchBox extends Component {
 
   handleEnter() {
     const { trackRecentSuggestion } = this.props;
-    navigateToSearchItem(this.props.firstSuggestionItem, ({ to, url, type, text }) => {
-      trackRecentSuggestion(type, text, url, to);
+    navigateToSearchItem(this.props.firstSuggestionItem, ({ to, url, type, recentText }) => {
+      trackRecentSuggestion(type, recentText, url, to);
     });
   }
 
