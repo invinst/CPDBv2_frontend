@@ -25,15 +25,13 @@ export const SEARCH_PATH = 'search/';
 export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
-export const OFFICER_PATH = 'officer/:officerId/:fullName';
-export const OFFICER_PATH_WITHOUT_SLUG = 'officer/:officerId';
+export const OFFICER_PATH = 'officer/:officerId(/:fullName)';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const CR_PATH_SUFFIX = ':officerId';
 export const TTR_PATH = 'trr/:trrId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 export const EMBED_MAP_PATH = 'embed/map';
 export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
-export const REDIRECTING_SUFFIX = 'redirecting';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 

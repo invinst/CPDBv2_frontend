@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, IndexRoute, Redirect } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 
 import AppContainer from 'containers/app-container';
@@ -27,8 +27,6 @@ import {
   STANDALONE_CR_PATH,
   EMBED_MAP_PATH,
   EMBED_TOP_OFFICERS_PATH,
-  OFFICER_PATH_WITHOUT_SLUG,
-  REDIRECTING_SUFFIX
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -57,7 +55,6 @@ export default class RouterRoot extends Component {
               path={ OFFICER_PATH }
               component={ OfficerPageContainer }
               breadcrumb={ BreadcrumbItemContainer } />
-
             <Route
               path={ SEARCH_PATH }
               component={ SearchPageContainer }

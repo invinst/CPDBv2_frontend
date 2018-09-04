@@ -16,7 +16,7 @@ export default class OfficerPage extends Component {
   componentWillReceiveProps(nextProps) {
     const { officerId, pathName, officerSlug } = nextProps;
     const correctPathName = `/officer/${officerId}/${officerSlug}/`;
-    if (!isEmpty(officerSlug) && pathName.match(/\/officer\/\d+\/[\-a-z]+\/?$/) && pathName !== correctPathName) {
+    if (!isEmpty(officerSlug) && pathName.match(/\/officer\/\d+\/?([\-a-z]+)?\/?$/) && pathName !== correctPathName) {
       window.history.replaceState(window.history.state, document.title, correctPathName);
     }
   }
