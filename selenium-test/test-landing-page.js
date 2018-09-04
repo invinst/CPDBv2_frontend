@@ -61,7 +61,7 @@ describe('landing page', function () {
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
       browser.pause();
-      landingPage.recentActivityCarousel.officerCards.count.should.equal(20);
+      landingPage.recentActivityCarousel.officerCards.count.should.equal(2);
       landingPage.recentActivityCarousel.rightArrow.waitForVisible();
       landingPage.recentActivityCarousel.leftArrow.waitForVisible(2000, true);
     });
