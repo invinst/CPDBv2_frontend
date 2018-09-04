@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import MediaQuery from 'react-responsive';
 
 import MapboxGL from 'components/common/mapbox-gl';
 import { mapContainerStyle } from './community-map.style.js';
@@ -10,6 +11,7 @@ export default class CommunityMap extends Component {
     this.state = {
       hoverCommunity: 0
     };
+    this.renderMap = this.renderMap.bind(this);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -19,7 +21,7 @@ export default class CommunityMap extends Component {
     );
   }
 
-  render() {
+  renderMap(center) {
     const { hoverCommunity } = this.state;
     const { selectCommunity, communityId, communitySource, clusterSource } = this.props;
 
@@ -27,6 +29,7 @@ export default class CommunityMap extends Component {
     return (
       <MapboxGL
         style={ mapContainerStyle }
+        center={ center }
         onClick={ [
           [() => selectCommunity(0)],
           ['community-fill', e => selectCommunity(e.features[0].properties.id)]
@@ -131,6 +134,28 @@ export default class CommunityMap extends Component {
           }
         ] }
       />
+    );
+  }
+  render() {
+    const resolutions = [768, 992, 1024, 1200];
+    return (
+      <div>
+        <MediaQuery maxWidth={ resolutions[0] }>
+          { this.renderMap([-87.47907983271159, 41.86012230755162]) }
+        </MediaQuery>
+        <MediaQuery minWidth={ resolutions[0] + 1 } maxWidth={ resolutions[1] }>
+          { this.renderMap([-87.5632245630726, 41.853104149715875]) }
+        </MediaQuery>
+        <MediaQuery minWidth={ resolutions[1] + 1 } maxWidth={ resolutions[2] }>
+          { this.renderMap([-87.53747434840545, 41.8538337882795]) }
+        </MediaQuery>
+        <MediaQuery minWidth={ resolutions[2] + 1 } maxWidth={ resolutions[3] }>
+          { this.renderMap([-87.50531065944494, 41.851330986659406]) }
+        </MediaQuery>
+        <MediaQuery minWidth={ resolutions[3] + 1 }>
+          { this.renderMap([-87.43069204745467, 41.84894137599454]) }
+        </MediaQuery>
+      </div>
     );
   }
 }
