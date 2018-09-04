@@ -5,7 +5,7 @@ export default () => ([
     SearchTermCategoryItem.build(
       {
         name: 'Communities',
-        description: 'Whatever [SomeLink](http://www.somelink.cpdp.com)',
+        description: 'Whatever [SomeLink](http://some/link/)',
         'call_to_action_type': 'view_all',
         id: 'community'
       }

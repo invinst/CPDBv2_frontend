@@ -143,6 +143,6 @@ describe('Search terms page', function () {
 
     searchTermsPage.previewPane.descriptionLink.click();
 
-    browser.getUrl().should.containEql('http://www.somelink.cpdp.com');
+    browser.getUrl().should.eql('http://some/link/');
   });
 });
