@@ -12,13 +12,9 @@ import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class OfficerPage extends Component {
-  constructor(props) {
-    super(props);
-    this.changeToCorrectURL = this.changeToCorrectURL.bind(this);
-  }
 
-  changeToCorrectURL() {
-    const { officerId, pathName, officerSlug } = this.props;
+  componentWillReceiveProps(nextProps) {
+    const { officerId, pathName, officerSlug } = nextProps;
     const correctPathName = `/officer/${officerId}/${officerSlug}/`;
     if (!isEmpty(officerSlug) && pathName.match(/\/officer\/\d+\/[\-a-z]+\/?$/) && pathName !== correctPathName) {
       window.history.replaceState(window.history.state, document.title, correctPathName);
@@ -26,7 +22,6 @@ export default class OfficerPage extends Component {
   }
 
   render() {
-    this.changeToCorrectURL();
     const {
       officerSummary,
       openPoliceUnitPage,
