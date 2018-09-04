@@ -93,10 +93,20 @@ describe('OfficerPage component', function () {
         <OfficerPage
           officerName='Shaun Frank'
           officerSummary={ { rank: 'Officer' } }
-          officerSlug='shaun-frank'
-          pathName='/officer/123456/redirecting/'
         />
       </Provider>
+    );
+
+    instance = reRender(
+      <Provider store={ store }>
+        <OfficerPage
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer' } }
+          officerSlug='shaun-frank'
+          pathName='/officer/123456/'
+        />
+      </Provider>,
+      instance
     );
 
     let documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
