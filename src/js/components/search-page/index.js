@@ -71,8 +71,8 @@ export default class SearchPage extends Component {
 
   goToItem(item) {
     const { trackRecentSuggestion } = this.props;
-    navigateToSearchItem(item, ({ to, url, type, text }) => {
-      trackRecentSuggestion(type, text, url, to);
+    navigateToSearchItem(item, ({ to, url, type, recentText }) => {
+      trackRecentSuggestion(type, recentText, url, to);
     });
   }
 

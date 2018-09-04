@@ -1,9 +1,11 @@
 import { get, sumBy, map, last } from 'lodash';
-import { extractPercentile } from 'selectors/common/percentile';
+import moment from 'moment/moment';
 
+import { extractPercentile } from 'selectors/common/percentile';
 import { getCurrentAge, formatDate } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
+import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 
 
 const mappingRace = (race) => {
@@ -61,69 +63,86 @@ const officerMostComplaintTransform = officer => ({
   ),
 });
 
-const areaTransform = ({ payload }) => {
-  const population = sumBy(payload['race_count'], 'count');
-  const officersMostComplaint = get(payload, 'officers_most_complaint', []);
+const areaTransform = (item) => {
+  const population = sumBy(item['race_count'], 'count');
+  const officersMostComplaint = get(item, 'officers_most_complaint', []);
   const transformedOfficersMostComplaint = officersMostComplaint.map(officer => officerMostComplaintTransform(officer));
   return {
-    name: payload['name'] || 'Unknown',
-    allegationCount: payload['allegation_count'] || 0,
-    mostCommonComplaint: payload['most_common_complaint'] || [],
+    name: item['name'] || 'Unknown',
+    allegationCount: item['allegation_count'] || 0,
+    mostCommonComplaint: item['most_common_complaint'] || [],
     officersMostComplaint: transformedOfficersMostComplaint,
     population: population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-    medianIncome: payload['median_income'],
-    url: payload['url'],
-    allegationPercentile: payload['allegation_percentile'],
-    raceCount: map(payload['race_count'], (item) => {
+    medianIncome: item['median_income'],
+    url: item['url'],
+    allegationPercentile: item['allegation_percentile'],
+    raceCount: map(item['race_count'], (item) => {
       let result = { race: mappingRace(item.race) };
       const racePercentile = population ? item['count'] / population * 100 : 0;
       result['count'] = `${racePercentile.toFixed(1)}%`;
       return result;
     }) || [],
-    alderman: payload['alderman'],
-    districtCommander: payload.commander ? {
-      'id': payload.commander['id'],
-      'name': payload.commander['full_name'],
-      'count': payload.commander['allegation_count'],
-      'url': `/officer/${payload.commander['id']}/`,
+    alderman: item['alderman'],
+    districtCommander: item.commander ? {
+      'id': item.commander['id'],
+      'name': item.commander['full_name'],
+      'count': item.commander['allegation_count'],
+      'url': `/officer/${item.commander['id']}/`,
     } : null,
-    policeHQ: payload['police_hq'],
+    policeHQ: item['police_hq'],
+  };
+};
+
+const crTransform = (item) => {
+  const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  return {
+    subText: `CR # ${item.crid}${dateText}`
+  };
+};
+
+const trrTransform = (item) => {
+  const dateText = item['trr_datetime'] ? ` - ${moment(item['trr_datetime']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  return {
+    subText: `TRR # ${item.id}${dateText}`
   };
 };
 
 const searchResultTransformMap = {
-  OFFICER: ({ payload }) => {
-    const race = payload['race'] === 'Unknown' ? null : payload['race'];
-    const lastPercentile = last(payload['percentiles']);
+  'DATE > CR': crTransform,
+  'DATE > TRR': trrTransform,
+  OFFICER: (item) => {
+    const race = item['race'] === 'Unknown' ? null : item['race'];
+    const lastPercentile = last(item['percentiles']);
     return {
-      fullName: payload['name'],
-      appointedDate: formatDate(payload['appointed_date']),
-      resignationDate: formatDate(payload['resignation_date']),
-      badge: payload['badge'],
-      gender: payload['gender'] || '',
-      name: payload['name'],
-      to: payload['to'],
-      age: getCurrentAge(payload['birth_year']) || null,
+      fullName: item['name'],
+      appointedDate: formatDate(item['appointed_date']),
+      resignationDate: formatDate(item['resignation_date']),
+      badge: item['badge'],
+      gender: item['gender'] || '',
+      to: item['to'],
+      age: getCurrentAge(item['birth_year']) || null,
       race: race || '',
-      rank: payload['rank'],
+      rank: item['rank'],
       unit: {
-        id: get(payload['unit'], 'id'),
-        unitName: get(payload['unit'], 'unit_name'),
-        description: get(payload['unit'], 'description'),
+        id: get(item['unit'], 'id'),
+        unitName: get(item['unit'], 'unit_name'),
+        description: get(item['unit'], 'description'),
       },
       lastPercentile: extractPercentile(lastPercentile),
-      complaintCount: payload['allegation_count'],
+      complaintCount: item['allegation_count'],
       complaintPercentile: roundedPercentile(get(lastPercentile, 'percentile_allegation')),
-      civilianComplimentCount: payload['civilian_compliment_count'],
-      sustainedCount: payload['sustained_count'],
-      disciplineCount: payload['discipline_count'],
-      trrCount: get(payload, 'trr_count'),
+      civilianComplimentCount: item['civilian_compliment_count'],
+      sustainedCount: item['sustained_count'],
+      disciplineCount: item['discipline_count'],
+      trrCount: get(item, 'trr_count'),
       trrPercentile: roundedPercentile(get(lastPercentile, 'percentile_trr')),
-      majorAwardCount: get(payload, 'major_award_count'),
-      honorableMentionCount: get(payload, 'honorable_mention_count'),
-      honorableMentionPercentile: roundedPercentile(get(payload, 'honorable_mention_percentile')),
+      majorAwardCount: get(item, 'major_award_count'),
+      honorableMentionCount: get(item, 'honorable_mention_count'),
+      honorableMentionPercentile: roundedPercentile(get(item, 'honorable_mention_percentile')),
     };
   },
+  CR: crTransform,
+  TRR: trrTransform,
   COMMUNITY: areaTransform,
   NEIGHBORHOOD: areaTransform,
   WARD: areaTransform,
@@ -132,23 +151,44 @@ const searchResultTransformMap = {
   'SCHOOL-GROUND': areaTransform,
 };
 
-export const searchResultItemTransform = (item) => ({
+const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
+const getCRTexts = (item) => ({ text: item.category || 'Unknown', recentText: item.crid });
+const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
+const getUnitTexts = (item) => {
+  const text = item.description || `Unit ${item.name}`;
+  return { text, recentText: text };
+};
+
+const textsMap = {
+  'DATE > CR': getCRTexts,
+  'DATE > TRR': getTRRTexts,
+  CR: getCRTexts,
+  TRR: getTRRTexts,
+  UNIT: getUnitTexts
+};
+
+const uniqueKeyMap = {
+  'DATE > CR': 'DATE-CR',
+  'DATE > TRR': 'DATE-TRR',
+  'UNIT > OFFICERS': 'UNIT-OFFICERS'
+};
+
+const baseItemTransform = (item) => ({
   type: item.type,
   id: item.id,
-  text: get(item, 'payload.result_text'),
-  to: get(item, 'payload.to'),
-  url: get(item, 'payload.url'),
-  tags: get(item, 'payload.tags', []),
-  uniqueKey: `${item.type}-${item.id}`,
+  to: get(item, 'to'),
+  url: get(item, 'url'),
+  uniqueKey: get(item, 'uniqueKey', `${uniqueKeyMap[item.type] || item.type}-${item.id}`),
+  ...get(textsMap, item.type, getBaseTexts)(item)
+});
+
+export const searchResultItemTransform = (item) => ({
+  ...baseItemTransform(item),
+  tags: get(item, 'tags', []),
   itemIndex: item.itemIndex || 1,
   ...get(searchResultTransformMap, item.type, () => {})(item)
 });
 
 export const navigationItemTransform = item => ({
-  type: item.type,
-  id: item.id,
-  text: get(item, 'payload.result_text'),
-  uniqueKey: get(item, 'uniqueKey', `${item.type}-${item.id}`),
-  to: get(item, 'payload.to'),
-  url: get(item, 'payload.url'),
+  ...baseItemTransform(item),
 });
