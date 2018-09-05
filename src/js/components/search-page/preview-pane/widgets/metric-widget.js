@@ -39,7 +39,7 @@ MetricWidget.propTypes = {
   metrics: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.node,
     value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    description: PropTypes.string,
+    description: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     isHighlight: PropTypes.bool,
   })).isRequired,
 };

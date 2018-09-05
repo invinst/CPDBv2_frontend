@@ -11,6 +11,7 @@ import CRPage from 'components/cr-page';
 import SummaryRow from 'components/cr-page/summary-row';
 import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
+import RelatedComplaints from 'components/cr-page/related-complaints';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
@@ -119,5 +120,23 @@ describe('CRPage component', function () {
     );
 
     findRenderedComponentWithType(instance, ComplaintIncidentDate).should.be.ok();
+  });
+
+  it('should render RelatedComplaints when there is address', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage address='3000 Michigan Ave, Chicago IL'/>
+      </Provider>
+    );
+    findRenderedComponentWithType(instance, RelatedComplaints);
+  });
+
+  it('should not render RelatedComplaints when there is no address', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage address=''/>
+      </Provider>
+    );
+    scryRenderedComponentsWithType(instance, RelatedComplaints).should.have.length(0);
   });
 });

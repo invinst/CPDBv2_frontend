@@ -54,12 +54,38 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('TRR');
 
     searchPage.crResultsSection.results.count.should.equal(2);
-    searchPage.crResultsSection.firstResult.getText().should.equal('CR123');
-    searchPage.crResultsSection.secondResult.getText().should.equal('CR456');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('Lockup Procedures');
+    searchPage.crResultsSection.firstResultSubText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.crResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.crResultsSection.secondResultSubText.getText().should.equal('CR # CR456');
 
     searchPage.trrResultsSection.results.count.should.equal(2);
-    searchPage.trrResultsSection.firstResult.getText().should.equal('TRR123');
-    searchPage.trrResultsSection.secondResult.getText().should.equal('TRR456');
+    searchPage.trrResultsSection.firstResultText.getText().should.equal('Member Presence');
+    searchPage.trrResultsSection.firstResultSubText.getText().should.equal('TRR # 123 - April 27, 2004');
+    searchPage.trrResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.trrResultsSection.secondResultSubText.getText().should.equal('TRR # 456');
+  });
+
+
+  it('should able to show date > trr and date > cr results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('2004/04/23');
+
+    searchPage.suggestionTags.waitForVisible();
+    searchPage.suggestionTags.getText().should.containEql('DATE > CR');
+    searchPage.suggestionTags.getText().should.containEql('DATE > TRR');
+
+    searchPage.dateCRResultsSection.results.count.should.equal(2);
+    searchPage.dateCRResultsSection.firstResultText.getText().should.equal('Lockup Procedures');
+    searchPage.dateCRResultsSection.firstResultSubText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.dateCRResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.dateCRResultsSection.secondResultSubText.getText().should.equal('CR # CR456 - April 23, 2004');
+
+    searchPage.dateTRRResultsSection.results.count.should.equal(2);
+    searchPage.dateTRRResultsSection.firstResultText.getText().should.equal('Member Presence');
+    searchPage.dateTRRResultsSection.firstResultSubText.getText().should.equal('TRR # 123 - April 23, 2004');
+    searchPage.dateTRRResultsSection.secondResultText.getText().should.equal('Unknown');
+    searchPage.dateTRRResultsSection.secondResultSubText.getText().should.equal('TRR # 456 - April 23, 2004');
   });
 
   it('should show filtered result when user clicks "Show more results"', function () {

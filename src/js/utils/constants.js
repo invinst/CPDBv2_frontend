@@ -176,6 +176,7 @@ export const UPDATE_SHAREABLE_PAGE_SCROLL_POSITION = 'UPDATE_SHAREABLE_PAGE_SCRO
 
 export const MAPBOX_ACCESS_TOKEN =
   'pk.eyJ1IjoiaW52aXNpYmxlaW5zdGl0dXRlIiwiYSI6ImNpZ256bXRqMDAwMDBzeGtud3VoZGplNHMifQ.ky2VSGEYU5KritRMArHY-w';
+export const MAPBOX_STYLE = 'mapbox://styles/invisibleinstitute/cj8ugtswqe8dx2ss2kwhfnvte';
 
 export const FINDING_COLORS = {
   'Unfounded': darkSilverSandColor,
@@ -348,8 +349,8 @@ export const MORE_BUTTON = 'MORE_BUTTON';
 export const SEARCH_BOX = 'SEARCH_BOX';
 
 export const SEARCH_CATEGORIES = [
-  'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT > OFFICERS', 'CR', 'TRR',
-  'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT'
+  'DATE > CR', 'DATE > TRR', 'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT > OFFICERS', 'CR', 'TRR',
+  'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT', 'RANK'
 ];
 
 export const OFFICER_EDIT_MODE = 'OFFICER_EDIT_MODE';
@@ -483,3 +484,5 @@ export const CALL_TO_ACTION_TYPES = {
   VIEW_ALL: 'view_all',
   LINK: 'link',
 };
+
+export const FULL_MONTH_DATE_FORMAT = 'MMMM D, YYYY';

@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -92,7 +92,7 @@ export default class CRPage extends Component {
               </div>
             </div>
           </ResponsiveFluidWidthComponent>
-          <RelatedComplaints crid={ crid } />
+          { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
           <FooterContainer style={ footerStyle }/>
         </div>
       </DocumentTitle>
