@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import pluralize from 'pluralize';
+import { kebabCase } from 'lodash';
 
 import { wrapperStyle, lightTextStyle, boldTextStyle } from './officer-card.style';
 import { getThisYear } from 'utils/date';
@@ -29,6 +30,7 @@ export class OfficerCard extends Component {
       percentile,
       openCardInNewPage,
     } = this.props;
+    const officerSlug = kebabCase(fullName);
 
     const complaintString = () => {
       const complaint = `${complaintCount} ${pluralize('Allegation', complaintCount)}`;
@@ -78,7 +80,7 @@ export class OfficerCard extends Component {
 
     return (
       <Link
-        to={ `/officer/${officerId}/` }
+        to={ `/officer/${officerId}/${officerSlug}/` }
         style={ { ...wrapperStyle(hovering), ...cardStyle } }
         target={ openCardInNewPage ? '_blank' : null }
         className='test--officer-card'

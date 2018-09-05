@@ -1,5 +1,5 @@
 import { Factory } from 'rosie';
-import { random, finance, lorem } from 'faker';
+import { random, finance, lorem, name } from 'faker';
 
 
 export const CitySummaryFactory = new Factory()
@@ -9,7 +9,7 @@ export const CitySummaryFactory = new Factory()
 
 export const mostComplaintOfficerFactory = new Factory()
   .attr('complaintsCount', random.number)
-  .attr('fullName', name.firstName)
+  .attr('fullName', name.findName)
   .sequence('id');
 
 export const raceCountFactory = new Factory()
@@ -31,7 +31,7 @@ export const communityFactory = new Factory()
 
 export const rawComplaintOfficerFactory = new Factory()
   .attr('complaints_count', random.number)
-  .attr('full_name', name.firstName)
+  .attr('full_name', name.findName)
   .sequence('id');
 
 /* istanbul ignore next */

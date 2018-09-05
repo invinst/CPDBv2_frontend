@@ -25,7 +25,7 @@ describe('embed top officers page', function () {
       const firstCard = embedTopOfficersPage.officersByAllegationCarousel.cards;
       firstCard.click();
       switchToRecentTab();
-      browser.getUrl().should.match(/\/officer\/\d+\/$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
     });
   });
 });
