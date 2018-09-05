@@ -25,9 +25,8 @@ import {
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
   STANDALONE_CR_PATH,
-  OFFICER_SOCIAL_GRAPH_SUFFIX,
   EMBED_MAP_PATH,
-  EMBED_TOP_OFFICERS_PATH
+  EMBED_TOP_OFFICERS_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -55,12 +54,7 @@ export default class RouterRoot extends Component {
             <Route
               path={ OFFICER_PATH }
               component={ OfficerPageContainer }
-              breadcrumb={ BreadcrumbItemContainer }>
-              <Route
-                path={ OFFICER_SOCIAL_GRAPH_SUFFIX }
-                component={ OfficerPageContainer }
-                useParentBreadcrumb={ true } />
-            </Route>
+              breadcrumb={ BreadcrumbItemContainer } />
             <Route
               path={ SEARCH_PATH }
               component={ SearchPageContainer }

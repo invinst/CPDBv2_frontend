@@ -39,7 +39,7 @@ describe('OfficerCard component', function () {
       />
     );
     const link = findRenderedComponentWithType(instance, Link);
-    link.props.to.should.eql('/officer/1/');
+    link.props.to.should.eql('/officer/1/someone/');
 
     const radarChartElement = findRenderedDOMComponentWithClass(instance, 'test--radar');
     radarChartElement.getAttribute('width').should.eql('100%');
