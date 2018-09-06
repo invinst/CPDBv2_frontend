@@ -23,4 +23,26 @@ describe('IntercomTracking utils', function () {
       );
     });
   });
+
+  describe('trackSearchPage', function () {
+    it('should send event analytic', function () {
+      IntercomTracking.trackSearchPage();
+
+      global.Intercom.should.be.calledWith(
+        'trackEvent',
+        'search_page'
+      );
+    });
+  });
+
+  describe('trackSearchTerms', function () {
+    it('should send event analytic', function () {
+      IntercomTracking.trackSearchTerms();
+
+      global.Intercom.should.be.calledWith(
+        'trackEvent',
+        'search_terms'
+      );
+    });
+  });
 });
