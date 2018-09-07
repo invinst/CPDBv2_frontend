@@ -403,6 +403,17 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.listMostOfficers.click();
       browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
     });
+
+    it('should go to data tool when click anywhere', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+      searchPage.firstNeighborhoodResult.waitForVisible();
+      searchPage.firstNeighborhoodResult.click();
+
+      searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
+      searchPage.officerPreviewPaneSection.neighborhoodPane.click();
+      browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
+    });
   });
 });
 
