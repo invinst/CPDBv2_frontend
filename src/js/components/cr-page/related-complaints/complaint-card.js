@@ -6,9 +6,24 @@ import {
   wrapperStyle, mapStyle, sectionWithBorderStyle, sectionContentStyle, sectionStyle,
   contentStyle, sectionLabelStyle, accusedStyle, hoverableWrapperStyle
 } from './complaint-card.style';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 class ComplaintCard extends Component {
+  constructor(props) {
+    super(props);
+    this.clickRelatedComplaint = this.clickRelatedComplaint.bind(this);
+  }
+
+  clickRelatedComplaint() {
+    const { sourceCRID, crid, match } = this.props;
+    if (match === 'categories') {
+      GATracking.trackRelatedByCategoryClick(sourceCRID, crid);
+    } else if (match === 'officers') {
+      GATracking.trackRelatedByAccusedClick(sourceCRID, crid);
+    }
+  }
+
   render() {
     const { crid, lat, lon, categories, complainants, accused, hovering } = this.props;
 
@@ -18,7 +33,7 @@ class ComplaintCard extends Component {
         style={ wrapperStyle(hovering) }
         to={ `/complaint/${crid}/` }>
         <div style={ mapStyle(lat, lon) } />
-        <div style={ contentStyle }>
+        <div style={ contentStyle } onClick={ this.clickRelatedComplaint }>
           <div style={ sectionWithBorderStyle }>
             <div style={ sectionLabelStyle }>CR { crid }</div>
             <div style={ sectionContentStyle }>{ categories }</div>
@@ -54,7 +69,9 @@ ComplaintCard.propTypes = {
   categories: PropTypes.string,
   complainants: PropTypes.string,
   accused: PropTypes.string,
-  hovering: PropTypes.bool
+  hovering: PropTypes.bool,
+  match: PropTypes.string,
+  sourceCRID: PropTypes.string,
 };
 
 export { itemWidth } from './complaint-card.style';
