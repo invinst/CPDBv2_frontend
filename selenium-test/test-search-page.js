@@ -412,6 +412,7 @@ describe('Search Page', function () {
 
       searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
       searchPage.officerPreviewPaneSection.neighborhoodPane.click();
+      switchToRecentTab();
       browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
     });
   });
