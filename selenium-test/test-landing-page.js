@@ -58,6 +58,14 @@ describe('landing page', function () {
     activeWidth.should.eql(initialWidth);
   });
 
+  it('should go to the landing page when the url does not match any route', function () {
+    browser.url('/url-mediator/session-builder/');
+    landingPage.currentBasePath.should.eql('/');
+
+    browser.url('/something/really/wrong/');
+    landingPage.currentBasePath.should.eql('/');
+  });
+
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
       browser.pause();
