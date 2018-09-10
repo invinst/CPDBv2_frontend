@@ -60,12 +60,20 @@ export default class Carousel extends Component {
     this.setState({ slideIndex });
   }
 
-  updateArrowsAndSlideIndex({ isEnd, isBeginning, activeIndex }) {
+  onSnapIndexChange({ isEnd, isBeginning, activeIndex }) {
+    const { onNavigate } = this.props;
+    const previousIndex = this.state.slideIndex;
+
     this.setState({
       slideIndex: activeIndex,
       displayLeftArrow: !isBeginning,
       displayRightArrow: !isEnd
     });
+
+    if (previousIndex < this.state.slideIndex)
+      onNavigate('right');
+    else if (previousIndex > this.state.slideIndex)
+      onNavigate('left');
   }
 
   updateArrows({ isEnd, isBeginning }) {
@@ -84,7 +92,7 @@ export default class Carousel extends Component {
         <Swiper
           spaceBetween={ spaceBetween }
           beforeOffsetAtMiddle={ 40 }
-          onSnapIndexChange={ this.updateArrowsAndSlideIndex.bind(this) }
+          onSnapIndexChange={ this.onSnapIndexChange.bind(this) }
           onUpdate={ this.updateArrows.bind(this) }
           slideIndex={ slideIndex }>
           { children }

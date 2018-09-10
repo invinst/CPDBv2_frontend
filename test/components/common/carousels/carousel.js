@@ -16,6 +16,7 @@ import Carousel from 'components/common/carousel';
 import OfficerCard from 'components/landing-page/common/officer-card';
 import Swiper from 'components/common/swiper';
 
+
 describe('Carousel component', function () {
   let instance;
   let onNavigateSpy = spy();
@@ -121,6 +122,20 @@ describe('Carousel component', function () {
     );
     instance.slidesPerGroup = 5;
     Simulate.click(leftArrow);
+    instance.state.slideIndex.should.eql(0);
+    onNavigateSpy.calledWith('left').should.be.true();
+  });
+
+  it('should call onNavigate with correct direction when slideIndex is changed', function () {
+    const data = OfficerCardFactory.buildList(5);
+    instance = renderIntoDocument(carouselComponent(data));
+    const swiper = findRenderedComponentWithType(instance, Swiper);
+
+    swiper.swiper.slideNext();
+    instance.state.slideIndex.should.eql(1);
+    onNavigateSpy.calledWith('right').should.be.true();
+
+    swiper.swiper.slidePrev();
     instance.state.slideIndex.should.eql(0);
     onNavigateSpy.calledWith('left').should.be.true();
   });

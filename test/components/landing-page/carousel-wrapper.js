@@ -7,6 +7,7 @@ import { stub } from 'sinon';
 import Carousel from 'components/common/carousel';
 import { unmountComponentSuppressError } from 'utils/test';
 import withCarousel from 'components/landing-page/carousel-wrapper';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 describe('CarouselWrapper component', function () {
@@ -26,13 +27,13 @@ describe('CarouselWrapper component', function () {
   });
 
   it('should send ga event when navigate on carousel', function () {
-    stub(global, 'ga');
+    stub(GATracking, 'trackSwipeLanddingPageCarousel');
     instance = renderIntoDocument(
       <CarouselComponent cards={ [1, 2, 3] }/>
     );
     const carousel = findRenderedComponentWithType(instance, Carousel);
     carousel.props.onNavigate('left');
-    global.ga.calledWith('send', 'event', 'landing_page_carousel', 'swipe_left', 'abc').should.be.true();
-    global.ga.restore();
+    GATracking.trackSwipeLanddingPageCarousel.should.be.calledWith('left', 'abc');
+    GATracking.trackSwipeLanddingPageCarousel.restore();
   });
 });
