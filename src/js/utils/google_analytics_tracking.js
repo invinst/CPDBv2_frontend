@@ -18,6 +18,7 @@ export const trackOutboundLink = (url, windowName) => {
     eventLabel: url,
     transport: 'beacon',
     hitCallback: () => {
+      /* istanbul ignore next */
       if (!windowName) {
         document.location = url;
       }
@@ -25,6 +26,7 @@ export const trackOutboundLink = (url, windowName) => {
   });
 
   if (windowName) {
+    /* istanbul ignore next */
     window.open(url, windowName);
   }
 };
