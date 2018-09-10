@@ -12,6 +12,7 @@ describe('Rich text editor', function () {
     landingPage.open();
     landingPage.openEditMode();
     browser.moveToObject(landingPage.topHeader.logo.subtitle.selector);
+    landingPage.topHeader.logo.editButton.waitForVisible();
     landingPage.topHeader.logo.editButton.click();
     selectText(landingPage.topHeader.logo.subtitle.selector);
   });
@@ -42,6 +43,11 @@ describe('Rich text editor', function () {
       });
 
       it('should make text not bold when clicked on again', function () {
+        // There is a rare case when the text barely fills one line that when it is bold, it becomes 2 lines. And
+        // sometime when this happens, the whole Toolbar disappears. This should be fixed in the future. For now, we
+        // just reselect the text to make the toolbar appear again.
+        selectText(landingPage.topHeader.logo.subtitle.selector);
+        landingPage.richTextToolbar.boldButton.waitForVisible();
         landingPage.richTextToolbar.boldButton.click();
         landingPage.topHeader.logo.boldTextSpan.waitForVisible(2000, true);
       });

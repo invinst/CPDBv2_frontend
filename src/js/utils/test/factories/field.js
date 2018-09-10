@@ -23,7 +23,7 @@ export const LinkFieldFactory = Factory.define('linkField').extend('field')
 
 export const DraftFieldFactory = Factory.define('draftFieldFactory')
   .extend('field')
-  .option('blockTexts', [lorem.sentence()])
+  .option('blockTexts', [lorem.sentence(5)])
   .attr('value', ['blockTexts'], (blockTexts) => RawContentStateFactory.build({}, { blockTexts }));
 
 export const RichTextFieldFactory = Factory.define('richTextField')
