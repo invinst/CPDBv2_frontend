@@ -12,10 +12,10 @@ import * as GATracking from 'utils/google_analytics_tracking';
 class ComplaintCard extends Component {
   constructor(props) {
     super(props);
-    this.clickRelatedComplaint = this.clickRelatedComplaint.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  clickRelatedComplaint() {
+  handleClick() {
     const { sourceCRID, crid, match } = this.props;
     if (match === 'categories') {
       GATracking.trackRelatedByCategoryClick(sourceCRID, crid);
@@ -31,9 +31,10 @@ class ComplaintCard extends Component {
       <Link
         className='test--carousel-card'
         style={ wrapperStyle(hovering) }
-        to={ `/complaint/${crid}/` }>
+        to={ `/complaint/${crid}/` }
+        onClick={ this.handleClick } >
         <div style={ mapStyle(lat, lon) } />
-        <div style={ contentStyle } onClick={ this.clickRelatedComplaint }>
+        <div style={ contentStyle } >
           <div style={ sectionWithBorderStyle }>
             <div style={ sectionLabelStyle }>CR { crid }</div>
             <div style={ sectionContentStyle }>{ categories }</div>
