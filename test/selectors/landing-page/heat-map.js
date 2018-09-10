@@ -53,7 +53,8 @@ describe('Heat map selectors', function () {
             mostComplaintsOfficers: [{
               complaintsCount: 1,
               fullName: 'Jerome Finnigan',
-              id: 1
+              id: 1,
+              officerSlug: 'jerome-finnigan',
             }],
             raceCount: [{
               race: 'Black',
@@ -87,7 +88,8 @@ describe('Heat map selectors', function () {
           mostComplaintsOfficers: [{
             complaintsCount: 1,
             fullName: 'Jerome Finnigan',
-            id: 1
+            id: 1,
+            officerSlug: 'jerome-finnigan',
           }],
           raceCount: [{
             race: 'Black',

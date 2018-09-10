@@ -25,9 +25,7 @@ export const SEARCH_PATH = 'search/';
 export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
-export const OFFICER_PATH = 'officer/:officerId';
-export const OFFICER_SOCIAL_GRAPH_SUFFIX = 'social/';
-export const OFFICER_SOCIAL_GRAPH_PATH = `officer/:officerId/${OFFICER_SOCIAL_GRAPH_SUFFIX}`;
+export const OFFICER_PATH = 'officer/:officerId(/:fullName)';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const CR_PATH_SUFFIX = ':officerId';
 export const TTR_PATH = 'trr/:trrId';
@@ -351,7 +349,7 @@ export const SEARCH_BOX = 'SEARCH_BOX';
 
 export const SEARCH_CATEGORIES = [
   'DATE > CR', 'DATE > TRR', 'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT > OFFICERS', 'CR', 'TRR',
-  'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT', 'RANK'
+  'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT', 'RANK', 'ZIP-CODE'
 ];
 
 export const OFFICER_EDIT_MODE = 'OFFICER_EDIT_MODE';

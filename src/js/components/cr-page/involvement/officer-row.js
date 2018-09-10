@@ -10,13 +10,13 @@ import {
 
 class OfficerRow extends Component {
   render() {
-    const { id, fullName, extraInfo, style, radarAxes, radarColor, tag, hovering } = this.props;
+    const { id, fullName, officerSlug, extraInfo, style, radarAxes, radarColor, tag, hovering } = this.props;
 
     return (
       <Link
         className='test--officer-row'
         style={ { ...wrapperStyle, ...style } }
-        to={ id ? `/officer/${id}/` : null }>
+        to={ id ? `/officer/${id}/${officerSlug}/` : null }>
         <div style={ chartWrapperStyle }>
           <StaticRadarChart
             width={ 32 }
@@ -49,7 +49,8 @@ OfficerRow.propTypes = {
   radarColor: PropTypes.object,
   radarAxes: PropTypes.array,
   tag: PropTypes.string,
-  hovering: PropTypes.bool
+  hovering: PropTypes.bool,
+  officerSlug: PropTypes.string,
 };
 
 export default Hoverable(OfficerRow);

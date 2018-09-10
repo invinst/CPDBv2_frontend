@@ -1,6 +1,5 @@
-import { get, sumBy, map, last } from 'lodash';
+import { get, sumBy, map, last, kebabCase } from 'lodash';
 import moment from 'moment/moment';
-
 import { extractPercentile } from 'selectors/common/percentile';
 import { getCurrentAge, formatDate } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
@@ -51,7 +50,7 @@ const officerMostComplaintTransform = officer => ({
   id: officer.id,
   count: officer.count,
   name: officer.name,
-  url: `/officer/${officer.id}/`,
+  url: `/officer/${officer.id}/${kebabCase(officer.name)}/`,
   radarAxes: [
       { axis: 'trr', value: parseFloat(officer['percentile_trr']) },
       { axis: 'internal', value: parseFloat(officer['percentile_allegation_internal']) },
@@ -87,7 +86,7 @@ const areaTransform = (item) => {
       'id': item.commander['id'],
       'name': item.commander['full_name'],
       'count': item.commander['allegation_count'],
-      'url': `/officer/${item.commander['id']}/`,
+      'url': `/officer/${item.commander['id']}/${kebabCase(item.commander['full_name'])}/`,
     } : null,
     policeHQ: item['police_hq'],
   };

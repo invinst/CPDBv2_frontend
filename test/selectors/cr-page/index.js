@@ -73,6 +73,7 @@ describe('CR page selectors', function () {
       contentSelector(state).coaccused.should.eql([{
         id: 1,
         fullname: 'Michel Foo',
+        officerSlug: 'michel-foo',
         demographic: '34 year old, White, Male',
         findingOutcomeMix: 'Reprimand',
         finding: 'Sustained',

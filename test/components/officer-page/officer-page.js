@@ -66,7 +66,10 @@ describe('OfficerPage component', function () {
   it('should render correct document title', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <OfficerPage officerName='Shaun Frank' officerSummary={ { rank: 'Officer' } }/>
+        <OfficerPage
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer' } }
+        />
       </Provider>
     );
 
@@ -82,5 +85,31 @@ describe('OfficerPage component', function () {
 
     documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
     documentTitle.props.title.should.eql('Jerome Finigan');
+  });
+
+  it('should render correct officer page in redirecting case', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer' } }
+        />
+      </Provider>
+    );
+
+    instance = reRender(
+      <Provider store={ store }>
+        <OfficerPage
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer' } }
+          officerSlug='shaun-frank'
+          pathName='/officer/123456/'
+        />
+      </Provider>,
+      instance
+    );
+
+    let documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
+    documentTitle.props.title.should.eql('Officer Shaun Frank');
   });
 });

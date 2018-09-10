@@ -67,7 +67,7 @@ describe('OfficerSection component', function () {
     officerProfileButton.props.text.should.eql('View Profile');
 
     const officerRow = findRenderedComponentWithType(instance, OfficerRow);
-    findRenderedComponentWithType(officerRow, Link).props.to.should.eql('/officer/123/');
+    findRenderedComponentWithType(officerRow, Link).props.to.should.eql('/officer/123/ronald-watts/');
   });
 
   it('should render officer info correctly', function () {

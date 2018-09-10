@@ -556,13 +556,13 @@ describe('search page results selector', function () {
               backgroundColor: '#f52524',
               textColor: '#DFDFDF'
             },
-            url: '/officer/12478/'
+            url: '/officer/12478/ronald-holt/'
           }],
           districtCommander: {
             id: 123,
             name: 'John Watts',
             count: 10,
-            url: '/officer/123/',
+            url: '/officer/123/john-watts/',
           },
           population: '352',
           medianIncome: '$37,084',

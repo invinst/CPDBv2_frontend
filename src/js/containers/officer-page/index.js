@@ -10,6 +10,8 @@ import {
   summarySelector,
   getCurrentTab,
   getEditModeOn,
+  getPathname,
+  getOfficerSlug,
 } from 'selectors/officer-page';
 import { openPoliceUnitPage } from 'actions/open-page';
 import {
@@ -46,6 +48,9 @@ function mapStateToProps(state, ownProps) {
     isRequesting: state.officerPage.isRequesting,
     editableFields: getCMSFields(OFFICER_PAGE_ID)(state),
     editModeOn: getEditModeOn(state),
+    pathName: getPathname(state),
+    officerSlug: getOfficerSlug(state),
+    breadcrumbs: state.breadscrumbs,
   };
 }
 

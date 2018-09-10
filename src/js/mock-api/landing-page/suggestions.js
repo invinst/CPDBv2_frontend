@@ -13,7 +13,7 @@ export const groupedSuggestions = {
         {
           id: '1',
           name: 'Bernadette Kelly',
-          to: '/officer/1/',
+          to: '/officer/1/bernadette-kelly/',
           'allegation_count': 10,
           'sustained_count': 2,
           'birth_year': 1972,
@@ -24,8 +24,8 @@ export const groupedSuggestions = {
       RawOfficerSuggestion.build(
         {
           id: '2',
-          name: 'Anna Kelly',
-          to: '/officer/2/',
+          name: 'John Kelly',
+          to: '/officer/2/john-kelly/',
           'allegation_count': 5,
           'sustained_count': 1,
           'birth_year': 1980,
@@ -39,7 +39,7 @@ export const groupedSuggestions = {
         {
           id: '1',
           name: 'Bernadette Kelly',
-          to: '/officer/1/',
+          to: '/officer/1/bernadette-kelly/',
           'allegation_count': 10,
           'sustained_count': 2,
           'birth_year': 1972,
@@ -100,7 +100,7 @@ export const groupedSuggestions = {
   'noresult': {},
   'foo': {
     'OFFICER': [
-      RawOfficerSuggestion.build({ name: 'Laurence Lanners', to: '/officer/5678/' })
+      RawOfficerSuggestion.build({ name: 'Laurence Lanners', to: '/officer/5678/laurence-lanners/' })
     ]
   },
   '2004/04/23': {

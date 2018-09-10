@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { get, last, map } from 'lodash';
+import { get, last, map, kebabCase } from 'lodash';
 import moment from 'moment';
 
 import { getThisYear, getCareerDuration } from 'utils/date';
@@ -31,6 +31,7 @@ const getSummaryRank = summary => {
 };
 
 export const getOfficerName = state => state.officerPage.fullName;
+export const getOfficerSlug = state => kebabCase(getOfficerName(state));
 export const getOfficerId = state => state.officerPage.officerId;
 export const getPathname = state => state.officerPage.pathname;
 export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCachedFullName;

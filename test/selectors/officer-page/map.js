@@ -189,7 +189,7 @@ describe('Officer map selectors', function () {
             'major_award_count': 0,
             'date_of_appt': '1988-12-05',
             'unsustained_count': 36,
-            to: '/officer/8562/',
+            to: '/officer/8562/jerome-finnigan/',
             'discipline_count': 0,
             badge: '5167',
             'birth_year': 1963,
