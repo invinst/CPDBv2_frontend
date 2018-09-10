@@ -22,6 +22,7 @@ import { NavigationItem } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
 import { MORE_BUTTON } from 'utils/constants';
+import * as IntercomTracking from 'utils/intercom-tracking';
 
 
 describe('SearchPage component', function () {
@@ -309,28 +310,47 @@ describe('SearchPage component', function () {
   });
 
   describe('Intercom', function () {
-    beforeEach(function () {
-      stub(intercomUtils, 'showIntercomLauncher');
+    describe('Intercom launcher', function () {
+      beforeEach(function () {
+        stub(intercomUtils, 'showIntercomLauncher');
+      });
+
+      afterEach(function () {
+        intercomUtils.showIntercomLauncher.restore();
+      });
+
+      it('should hide intercom launcher when mounted', function () {
+        instance = renderIntoDocument(
+          <SearchPage/>
+        );
+        intercomUtils.showIntercomLauncher.calledWith(false).should.be.true();
+      });
+
+      it('should show intercom launcher again when unmounted', function () {
+        instance = renderIntoDocument(
+          <SearchPage/>
+        );
+        intercomUtils.showIntercomLauncher.resetHistory();
+        unmountComponentSuppressError(instance);
+        intercomUtils.showIntercomLauncher.calledWith(true).should.be.true();
+      });
     });
 
-    afterEach(function () {
-      intercomUtils.showIntercomLauncher.restore();
-    });
+    describe('Intercom tracking', function () {
+      beforeEach(function () {
+        stub(IntercomTracking, 'trackSearchPage');
+      });
 
-    it('should hide intercom launcher when mounted', function () {
-      instance = renderIntoDocument(
-        <SearchPage />
-      );
-      intercomUtils.showIntercomLauncher.calledWith(false).should.be.true();
-    });
+      afterEach(function () {
+        IntercomTracking.trackSearchPage.restore();
+      });
 
-    it('should show intercom launcher again when unmounted', function () {
-      instance = renderIntoDocument(
-        <SearchPage />
-      );
-      intercomUtils.showIntercomLauncher.resetHistory();
-      unmountComponentSuppressError(instance);
-      intercomUtils.showIntercomLauncher.calledWith(true).should.be.true();
+      it('should track Intercom with search page', function () {
+        instance = renderIntoDocument(
+          <SearchPage/>
+        );
+        IntercomTracking.trackSearchPage.called.should.be.true();
+      });
     });
   });
 });

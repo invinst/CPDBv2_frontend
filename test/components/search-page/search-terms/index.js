@@ -22,6 +22,7 @@ import { SearchTermCategory } from 'utils/test/factories/search-terms';
 import * as domUtils from 'utils/dom';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
+import * as IntercomTracking from 'utils/intercom-tracking';
 
 
 describe('SearchTerms component', function () {
@@ -157,6 +158,23 @@ describe('SearchTerms component', function () {
       const previewPaneDescription = findRenderedComponentWithType(instance, PreviewPane);
       const description = findRenderedDOMComponentWithTag(previewPaneDescription, 'a');
       description.getAttribute('href').should.containEql('http://www.google.com');
+    });
+  });
+
+  describe('Intercom tracking', function () {
+    beforeEach(function () {
+      stub(IntercomTracking, 'trackSearchTerms');
+    });
+
+    afterEach(function () {
+      IntercomTracking.trackSearchTerms.restore();
+    });
+
+    it('should track Intercom with search page', function () {
+      instance = renderIntoDocument(
+        <SearchTerms/>
+      );
+      IntercomTracking.trackSearchTerms.called.should.be.true();
     });
   });
 });
