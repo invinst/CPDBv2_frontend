@@ -1,8 +1,9 @@
 import React, { PropTypes, Component } from 'react';
+import { render } from 'react-dom';
 
 import { wrapperStyle, defaultMarkerStyle } from './location-map.style';
 import { mapboxgl } from 'utils/vendors';
-import { render } from 'react-dom';
+import { MAPBOX_STYLE } from 'utils/constants';
 
 
 const centerLat = 41.85677;
@@ -137,7 +138,7 @@ LocationMap.propTypes = {
 };
 
 LocationMap.defaultProps = {
-  mapboxStyle: 'mapbox://styles/mapbox/streets-v10',
+  mapboxStyle: MAPBOX_STYLE,
   extraStyle: {},
   markerEl: null,
 };

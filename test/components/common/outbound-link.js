@@ -5,7 +5,7 @@ import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import OutboundLink from 'components/common/outbound-link';
-import * as trackingUtils from 'utils/tracking';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 describe('OutboundLink component', function () {
@@ -21,13 +21,13 @@ describe('OutboundLink component', function () {
   });
 
   it('should call trackOutboundLink when clicked', function () {
-    stub(trackingUtils, 'trackOutboundLink');
+    stub(GATracking, 'trackOutboundLink');
     instance = renderIntoDocument(<OutboundLink href='abc' target='_blank'/>);
     const link = findDOMNode(instance);
 
     Simulate.click(link);
 
-    trackingUtils.trackOutboundLink.calledWith('abc', '_blank').should.be.true();
-    trackingUtils.trackOutboundLink.restore();
+    GATracking.trackOutboundLink.calledWith('abc', '_blank').should.be.true();
+    GATracking.trackOutboundLink.restore();
   });
 });

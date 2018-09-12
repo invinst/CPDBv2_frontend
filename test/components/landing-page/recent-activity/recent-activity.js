@@ -13,6 +13,7 @@ import OfficerCard from 'components/landing-page/common/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
 import PairingCard from 'components/landing-page/common/pairing-card';
 import Carousel from 'components/common/carousel';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 describe('Recent Activity components', function () {
@@ -115,13 +116,13 @@ describe('Recent Activity components', function () {
   });
 
   it('should send ga event when navigate on carousel', function () {
-    stub(global, 'ga');
+    stub(GATracking, 'trackSwipeLanddingPageCarousel');
     instance = renderIntoDocument(
       <RecentActivity cards={ [1, 2, 3] } />
     );
     const carousel = findRenderedComponentWithType(instance, Carousel);
     carousel.props.onNavigate('left');
-    global.ga.calledWith('send', 'event', 'landing_page_carousel', 'swipe_left', 'ACTIVITY').should.be.true();
-    global.ga.restore();
+    GATracking.trackSwipeLanddingPageCarousel.should.be.calledWith('left', 'ACTIVITY');
+    GATracking.trackSwipeLanddingPageCarousel.restore();
   });
 });

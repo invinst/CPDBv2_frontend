@@ -103,7 +103,8 @@ describe('SearchBox component', function () {
           type: 'OFFICER',
           url: 'url',
           to: 'to',
-          text: 'Kevin'
+          text: 'officer 1',
+          recentText: 'Kevin'
         };
 
 

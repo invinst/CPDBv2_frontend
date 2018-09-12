@@ -7,10 +7,11 @@ import {
 import MockStore from 'redux-mock-store';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import HeatMap from 'components/embeddable-heat-map/';
+import HeatMap from 'components/embeddable-heat-map';
 import SummaryPanel from 'components/embeddable-heat-map/summary-panel';
 import CommunityMap from 'components/embeddable-heat-map/community-map';
 import { CitySummaryFactory } from 'utils/test/factories/heat-map';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 describe('HeatMap component', function () {
@@ -38,7 +39,7 @@ describe('HeatMap component', function () {
   });
 
   it('should set community id and send analytic event when selectCommunity triggers', function () {
-    stub(global, 'ga');
+    stub(GATracking, 'trackCommunityClick');
     const communities = [{
       id: 10,
       name: 'Westwood'
@@ -54,15 +55,11 @@ describe('HeatMap component', function () {
     const summaryPanel = findRenderedComponentWithType(heatMap, SummaryPanel);
     summaryPanel.props.selectCommunity(10);
     heatMap.state.selectedId.should.eql(10);
-    global.ga.calledWith('send', 'event', {
-      eventCategory: 'community',
-      eventAction: 'click',
-      eventLabel: 'Westwood'
-    }).should.be.true();
+    GATracking.trackCommunityClick.should.calledWith('Westwood');
 
     const communityMap = findRenderedComponentWithType(heatMap, CommunityMap);
     communityMap.props.selectCommunity(0);
     heatMap.state.selectedId.should.eql(0);
-    global.ga.restore();
+    GATracking.trackCommunityClick.restore();
   });
 });

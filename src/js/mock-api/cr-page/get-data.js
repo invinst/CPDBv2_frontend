@@ -55,7 +55,7 @@ export default () => ComplaintFactory.build({
   beat: '2551',
   involvements: [
     InvestigatorFactory.build({
-      'full_name': 'Lauren Skol',
+      'full_name': 'Bernadette Kelly',
       'current_rank': 'IPRA investigator',
       'officer_id': 1
     }),

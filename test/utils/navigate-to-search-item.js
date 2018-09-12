@@ -2,7 +2,7 @@ import { spy, stub } from 'sinon';
 import { browserHistory } from 'react-router';
 
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
-import * as trackingUtils from 'utils/tracking';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 
@@ -21,7 +21,7 @@ describe('navigate to search item utils', function () {
     });
 
     it('should call trackOutboundLink if item has url', function () {
-      const trackOutboundLinkStub = stub(trackingUtils, 'trackOutboundLink');
+      const trackOutboundLinkStub = stub(GATracking, 'trackOutboundLink');
       const beforeHookSpy = spy();
 
       navigateToSearchItem({ url: 'some/url' }, beforeHookSpy);

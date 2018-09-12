@@ -3,6 +3,7 @@
 import should from 'should';
 
 import landingPage from './page-objects/landing-page';
+import header from './page-objects/shareable-header';
 
 
 should.config.checkProtoEql = false;
@@ -57,10 +58,18 @@ describe('landing page', function () {
     activeWidth.should.eql(initialWidth);
   });
 
+  it('should go to the landing page when the url does not match any route', function () {
+    browser.url('/url-mediator/session-builder/');
+    landingPage.currentBasePath.should.eql('/');
+
+    browser.url('/something/really/wrong/');
+    landingPage.currentBasePath.should.eql('/');
+  });
+
   describe('Recent Activity carousel', function () {
     it('should show initial carousel', function () {
       browser.pause();
-      landingPage.recentActivityCarousel.officerCards.count.should.equal(20);
+      landingPage.recentActivityCarousel.officerCards.count.should.equal(2);
       landingPage.recentActivityCarousel.rightArrow.waitForVisible();
       landingPage.recentActivityCarousel.leftArrow.waitForVisible(2000, true);
     });
@@ -75,7 +84,17 @@ describe('landing page', function () {
         const firstCard = landingPage.recentActivityCarousel.officerCards;
         firstCard.click();
         browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/$/);
+        browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+      });
+
+      it('should go back to the landing page when click on the cpdp breadcrumb', function () {
+        const firstCard = landingPage.recentActivityCarousel.officerCards;
+        firstCard.click();
+        browser.pause(500);
+        browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
+
+        header.breadcrumbs.firstItem.click();
+        browser.getUrl().should.match(/\//);
       });
     });
 
@@ -84,14 +103,14 @@ describe('landing page', function () {
         const firstPairCardLeftHalf = landingPage.recentActivityCarousel.firstPairCardLeftHalf;
         firstPairCardLeftHalf.click();
         browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/$/);
+        browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
       });
 
       it('should go to officer summary page when clicking on right half of the pair card', function () {
         const firstPairCardRightHalf = landingPage.recentActivityCarousel.firstPairCardRightHalf;
         firstPairCardRightHalf.click();
         browser.pause(500);
-        browser.getUrl().should.match(/\/officer\/\d+\/$/);
+        browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
       });
     });
   });
@@ -107,7 +126,7 @@ describe('landing page', function () {
       const firstCard = landingPage.officersByAllegationCarousel.cards;
       firstCard.click();
       browser.pause(500);
-      browser.getUrl().should.match(/\/officer\/\d+\/$/);
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/?$/);
     });
   });
 

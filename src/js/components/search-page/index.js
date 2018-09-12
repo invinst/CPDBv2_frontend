@@ -19,6 +19,7 @@ import {
   ROOT_PATH, SEARCH_ALIAS_EDIT_PATH, SEARCH_BOX, MORE_BUTTON, RECENT_CONTENT_TYPE
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
+import * as IntercomTracking from 'utils/intercom-tracking';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -47,6 +48,7 @@ export default class SearchPage extends Component {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);
     }
 
+    IntercomTracking.trackSearchPage();
     showIntercomLauncher(false);
   }
 
@@ -71,8 +73,8 @@ export default class SearchPage extends Component {
 
   goToItem(item) {
     const { trackRecentSuggestion } = this.props;
-    navigateToSearchItem(item, ({ to, url, type, text }) => {
-      trackRecentSuggestion(type, text, url, to);
+    navigateToSearchItem(item, ({ to, url, type, recentText }) => {
+      trackRecentSuggestion(type, recentText, url, to);
     });
   }
 

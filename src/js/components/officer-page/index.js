@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
-import { compact, get } from 'lodash';
+import { compact, get, isEmpty } from 'lodash';
 
 import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
-import OfficerRadarChart from './radar-chart';
+import AnimatedRadarChart from './radar-chart';
 import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
@@ -12,8 +12,18 @@ import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class OfficerPage extends Component {
+
+  componentWillReceiveProps(nextProps) {
+    const { officerId, pathName, officerSlug } = nextProps;
+    const correctPathName = `/officer/${officerId}/${officerSlug}/`;
+    if (!isEmpty(officerSlug) && pathName.match(/\/officer\/\d+\/?([\-a-z]+)?\/?$/) && pathName !== correctPathName) {
+      window.history.replaceState(window.history.state, document.title, correctPathName);
+    }
+  }
+
   render() {
     const {
+      officerId,
       officerSummary,
       openPoliceUnitPage,
       officerMetrics,
@@ -41,7 +51,8 @@ export default class OfficerPage extends Component {
         <div style={ wrapperStyle } className='officer-page'>
           <ShareableHeaderContainer />
           <div style={ pageWrapperStyle }>
-            <OfficerRadarChart
+            <AnimatedRadarChart
+              officerId={ officerId }
               data={ threeCornerPercentile }
               isRequesting={ isRequesting }
               triangleEditWrapperStateProps={ triangleEditWrapperStateProps }
@@ -87,9 +98,12 @@ OfficerPage.propTypes = {
   triangleEditWrapperStateProps: PropTypes.object,
   scaleEditWrapperStateProps: PropTypes.object,
   noDataRadarChartEditWrapperStateProps: PropTypes.object,
+  pathName: PropTypes.string,
+  officerSlug: PropTypes.string,
 };
 
 OfficerPage.defaultProps = {
   changeOfficerTab: () => {},
-  officerSummary: {}
+  officerSummary: {},
+  pathName: '',
 };

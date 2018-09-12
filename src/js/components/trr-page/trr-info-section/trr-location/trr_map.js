@@ -19,7 +19,6 @@ export default class TRRMap extends Component {
       <LocationMap
         lat={ lat }
         lng={ lng }
-        mapboxStyle='mapbox://styles/mapbox/light-v9'
         markerEl={ marker }
       />
     );

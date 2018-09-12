@@ -107,7 +107,7 @@ class CommunityDetail extends Section {
       closeBtn: '.test--community-close-btn',
       allegationDiscipline: '.test--community-allegation-discipline',
       v1Link: '.test--community-v1-link',
-      officers: '.test--community-officers'
+      firstOfficer: '(//a[@class="test--community-officer"])[1]'
     });
   }
 }

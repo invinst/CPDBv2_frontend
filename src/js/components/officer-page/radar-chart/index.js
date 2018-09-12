@@ -18,6 +18,8 @@ import { hasEnoughRadarChartData } from 'utils/radar-chart';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
+import * as IntercomTracking from 'utils/intercom-tracking';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 export default class AnimatedRadarChart extends Component {
@@ -69,6 +71,11 @@ export default class AnimatedRadarChart extends Component {
   }
 
   openExplainer() {
+    const { officerId } = this.props;
+
+    GATracking.trackOpenExplainer(officerId);
+    IntercomTracking.trackOpenExplainer(officerId);
+
     this.endAnimation();
     this.setState({ showExplainer: true });
   }
@@ -226,6 +233,7 @@ export default class AnimatedRadarChart extends Component {
 }
 
 AnimatedRadarChart.propTypes = {
+  officerId: PropTypes.number,
   data: PropTypes.array,
   isRequesting: PropTypes.bool,
   triangleEditWrapperStateProps: PropTypes.object,
