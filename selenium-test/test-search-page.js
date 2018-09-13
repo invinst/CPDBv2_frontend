@@ -406,4 +406,20 @@ describe('Search Page', function () {
   });
 });
 
+describe('Search Page in edit mode', function () {
 
+  beforeEach(function () {
+    searchPage.openWithEditMode();
+    searchPage.loginScreen.login();
+  });
+
+  it('should go to alias admin page when click on alias button of current item', function () {
+    searchPage.input.setValue('Ke');
+    searchPage.plusSign.waitForVisible();
+    searchPage.plusSign.click();
+    searchPage.input.setValue('Ke');
+    searchPage.firstAliasButton.waitForVisible();
+    searchPage.firstAliasButton.click();
+    browser.getUrl().should.match(/\/edit\/search\/alias\/form\/$/);
+  });
+});
