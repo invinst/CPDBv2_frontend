@@ -56,5 +56,5 @@ InvolvementItem.propTypes = {
   officers: PropTypes.array,
   style: PropTypes.object,
   className: PropTypes.string,
-  popup: PropTypes.popup,
+  popup: PropTypes.object,
 };
