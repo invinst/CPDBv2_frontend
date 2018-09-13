@@ -44,6 +44,7 @@ export default class SuggestionItemBase extends Component {
         {
           aliasEditModeOn ?
             <Link
+              className='test--create-alias-link'
               style={ aliasLinkStyle }
               to={ `/edit/${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}` }
               onClick={ this.handleAliasButtonClick }
