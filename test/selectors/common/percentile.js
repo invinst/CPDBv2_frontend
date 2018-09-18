@@ -22,7 +22,7 @@ describe('extractPercentile', () => {
           value: 20.6,
         },
         {
-          axis: 'Internal Allegations',
+          axis: 'Officer Allegations',
           value: 10.1,
         },
         {

@@ -83,7 +83,7 @@ describe('search page results selector', function () {
                   'value': 90,
                 },
                 {
-                  'axis': 'Internal Allegations',
+                  'axis': 'Officer Allegations',
                   'value': 91,
                 },
                 {
