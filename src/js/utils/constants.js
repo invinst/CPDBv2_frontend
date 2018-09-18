@@ -71,7 +71,7 @@ export const BASE_PATH = basePath;
 
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;
-export const INVISIBLE_INSTITUTE_URL = 'https://invisible.institute/introduction';
+export const INVISIBLE_INSTITUTE_URL = 'https://invisible.institute/cpdp';
 
 export const SLUG_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/`;
 export const LANDING_PAGE_API_URL = `${SLUG_PAGE_API_URL}landing-page/`;
