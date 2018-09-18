@@ -19,6 +19,7 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import PreviewPane from './preview-pane';
 import ScrollIntoView from 'components/common/scroll-into-view';
+import * as IntercomTracking from 'utils/intercom-tracking';
 
 
 export default class SearchTerms extends Component {
@@ -38,6 +39,7 @@ export default class SearchTerms extends Component {
         move(direction, this.props.totalItemCount);
       }
     )));
+    IntercomTracking.trackSearchTerms();
   }
 
   componentWillUnmount() {

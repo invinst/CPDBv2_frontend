@@ -71,14 +71,13 @@ export const BASE_PATH = basePath;
 
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;
-export const INVISIBLE_INSTITUTE_URL = 'https://invisible.institute/introduction';
+export const INVISIBLE_INSTITUTE_URL = 'https://invisible.institute/cpdp';
 
 export const SLUG_PAGE_API_URL = `${V2_ROOT_PATH}cms-pages/`;
 export const LANDING_PAGE_API_URL = `${SLUG_PAGE_API_URL}landing-page/`;
 export const SIGNIN_URL = `${V2_ROOT_PATH}users/sign-in/`;
 export const RESET_PASSWORD_URL = `${V2_ROOT_PATH}users/forgot-password/`;
 export const MAIL_CHIMP_URL = '/vftg/';
-export const EVENTS_API_URL = `${V2_ROOT_PATH}events/`;
 export const OFFICER_URL = `${V2_ROOT_PATH}officers/`;
 export const OFFICERS_BY_ALLEGATION_API_URL = `${OFFICER_URL}top-by-allegation/`;
 export const CR_URL = `${V2_ROOT_PATH}cr/`;

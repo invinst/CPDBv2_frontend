@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, IndexRoute } from 'react-router';
+import { Router, Route, IndexRoute, Redirect } from 'react-router';
 import { Provider } from 'react-redux';
 
 import AppContainer from 'containers/app-container';
@@ -93,6 +93,7 @@ export default class RouterRoot extends Component {
             <Route
               path={ EMBED_TOP_OFFICERS_PATH }
               component={ EmbedTopOfficersPage }/>
+            <Redirect from='*' to='/'/>
           </Route>
         </Router>
       </Provider>
