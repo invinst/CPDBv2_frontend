@@ -27,7 +27,7 @@ export default class CarouselWrapper extends Component {
   }
 
   render() {
-    const { count, cards, title, hasMore, match } = this.props;
+    const { count, cards, title, hasMore, match, crid } = this.props;
 
     return (
       <div
@@ -45,7 +45,7 @@ export default class CarouselWrapper extends Component {
         >
           {
             cards.map(card => (
-              <ComplaintCard key={ card.crid } { ...card } />
+              <ComplaintCard key={ card.crid } { ...card } match={ match } sourceCRID={ crid } />
             ))
           }
         </Carousel>
