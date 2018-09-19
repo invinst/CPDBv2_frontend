@@ -63,6 +63,6 @@ describe('Footer component', function () {
   it('should render Roadmap link', function () {
     element = renderIntoDocument(<Footer />);
     const links = findRenderedDOMComponentWithClass(element, 'test--footer-invinst-logo');
-    links.getAttribute('href').should.eql('https://invisible.institute/introduction');
+    links.getAttribute('href').should.eql('https://invisible.institute/cpdp');
   });
 });
