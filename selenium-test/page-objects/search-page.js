@@ -12,7 +12,8 @@ class OfficerPreviewPaneSection extends Section {
       gradient: '.test--gradient',
       communityPane: '.test--preview-pane-community',
       neighborhoodPane: '.test--preview-pane-neighborhood',
-      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"test--list-widget-item-link")]'
+      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"test--list-widget-item-link")]',
+      previewPane: '.test--preview-pane',
     });
   }
 }

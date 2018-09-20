@@ -26,7 +26,3 @@ export const buttonStyle = {
   float: 'right',
   marginTop: '6px',
 };
-
-export const linkStyle = {
-  textDecoration: 'none',
-};
