@@ -18,7 +18,17 @@ import {
 
 class Cr extends Component {
   render() {
-    const { item, hasBorderBottom, baseStyles, hovering, officerId, openComplaintPage, changeOfficerTab } = this.props;
+    const {
+      item,
+      hasBorderBottom,
+      baseStyles,
+      hovering,
+      officerId,
+      openComplaintPage,
+      changeOfficerTab,
+      pathname,
+    } = this.props;
+
     const {
       baseWrapperShowingStyle,
       baseShowingStyle,
@@ -53,7 +63,7 @@ class Cr extends Component {
           </span>
           <span style={ rightStyle }>
             <span style={ coaccusedStyle } className='test--cr-item-coaccused'>1 of { item.coaccused } coaccused</span>
-            <Attachments attachments={ item.attachments } changeOfficerTab={ changeOfficerTab }/>
+            <Attachments attachments={ item.attachments } changeOfficerTab={ changeOfficerTab } pathname={ pathname } />
             <span style={ { ...baseDateStyle, ...dateStyle } } className='test--cr-item-date'>{ item.date }</span>
           </span>
         </span>
@@ -70,6 +80,7 @@ Cr.propTypes = {
   officerId: PropTypes.number,
   openComplaintPage: PropTypes.func,
   changeOfficerTab: PropTypes.func,
+  pathname: PropTypes.string,
 };
 
 export default Hoverable(Cr);

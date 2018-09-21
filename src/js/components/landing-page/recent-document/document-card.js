@@ -9,13 +9,25 @@ import {
   descriptionDocumentStyle
 } from './document-card.style';
 import Hoverable from 'components/common/higher-order/hoverable';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 class DocumentCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { crid, pathname } = this.props;
+    const url = `/complaint/${crid}/`;
+    GATracking.trackAttachmentClick(pathname, url);
+  }
+
   render() {
     const { numDocuments, previewImageUrl, crid, hovering } = this.props;
     return (
-      <div style={ documentCardWrapperStyle(hovering) }>
+      <div style={ documentCardWrapperStyle(hovering) } onClick={ this.handleClick }>
         <Link
           style={ { textDecoration: 'none' } }
           to={ `/complaint/${crid}/` }
@@ -40,7 +52,8 @@ DocumentCard.propTypes = {
   previewImageUrl: PropTypes.string,
   url: PropTypes.string,
   crid: PropTypes.string,
-  hovering: PropTypes.bool
+  hovering: PropTypes.bool,
+  pathname: PropTypes.string,
 };
 
 export default Hoverable(DocumentCard);
