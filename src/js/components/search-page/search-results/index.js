@@ -100,7 +100,7 @@ export default class SuggestionResults extends Component {
       );
     } else {
       return (
-        <div style={ plusWrapperStyle }>
+        <div style={ plusWrapperStyle } className='test--plus-sign'>
           <Link to={ `/edit/${constants.SEARCH_ALIAS_EDIT_PATH}` } style={ plusSignStyle }>[+]</Link>
         </div>
       );
