@@ -56,7 +56,7 @@ describe('TRR page selectors', function () {
           year: undefined,
           items: [
             { axis: 'Use of Force Reports', value: NaN },
-            { axis: 'Internal Allegations', value: NaN },
+            { axis: 'Officer Allegations', value: NaN },
             { axis: 'Civilian Allegations', value: NaN }
           ],
           visualTokenBackground: undefined,
@@ -109,7 +109,7 @@ describe('TRR page selectors', function () {
           year: undefined,
           items: [
             { axis: 'Use of Force Reports', value: 99.9 },
-            { axis: 'Internal Allegations', value: 11.1 },
+            { axis: 'Officer Allegations', value: 11.1 },
             { axis: 'Civilian Allegations', value: 22.2 }
           ],
           visualTokenBackground: '#e85050',

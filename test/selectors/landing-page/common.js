@@ -125,7 +125,7 @@ describe('common selectors', function () {
               'value': 70.069
             },
             {
-              'axis': 'Internal Allegations',
+              'axis': 'Officer Allegations',
               'value': 99.675
             },
             {
@@ -235,7 +235,7 @@ describe('common selectors', function () {
               'value': 70.069
             },
             {
-              'axis': 'Internal Allegations',
+              'axis': 'Officer Allegations',
               'value': 99.675
             },
             {
@@ -270,7 +270,7 @@ describe('common selectors', function () {
               'value': 70.069
             },
             {
-              'axis': 'Internal Allegations',
+              'axis': 'Officer Allegations',
               'value': 99.675
             },
             {
