@@ -1,7 +1,8 @@
 import React from 'react';
+import { Router, Route, createMemoryHistory } from 'react-router';
 import {
   renderIntoDocument,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType, Simulate, findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
@@ -9,6 +10,7 @@ import { stub } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import RecentDocument from 'components/landing-page/recent-document';
 import DocumentCard from 'components/landing-page/recent-document/document-card';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 describe('Recent Document components', function () {
@@ -56,5 +58,28 @@ describe('Recent Document components', function () {
     const images2 = recentDocumentCard2.querySelectorAll('.test--document-card--thumbnail');
     images2.should.have.length(1);
     images2[0].getAttribute('src').should.eql('http://preview.com/url3');
+  });
+
+  it('should track click event', function () {
+    const stubTrackAttachmentClick = stub(GATracking, 'trackAttachmentClick');
+    const data = [{
+      'crid': '123456',
+      'title': 'CR document 1',
+      'numDocuments': 2,
+    }];
+    const recentDocument = () => (
+      <RecentDocument cards={ data } pathname='/' />
+    );
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ recentDocument } />
+      </Router>
+    );
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--document-card'));
+    stubTrackAttachmentClick.should.be.calledWith(
+      '/',
+      '/complaint/123456/'
+    );
+    stubTrackAttachmentClick.restore();
   });
 });
