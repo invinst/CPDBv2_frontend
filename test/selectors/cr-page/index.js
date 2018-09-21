@@ -1,10 +1,12 @@
 import should from 'should';
+import { map } from 'lodash';
 
+import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
 import {
-  contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested
-} from 'selectors/cr-page';
-import {
-  InvestigatorFactory, PoliceWitnessFactory, CoaccusedFactory, ComplaintFactory
+  InvestigatorFactory,
+  PoliceWitnessFactory,
+  CoaccusedFactory,
+  ComplaintFactory
 } from 'utils/test/factories/complaint';
 
 
@@ -246,6 +248,53 @@ describe('CR page selectors', function () {
       investigators.map((obj) => obj.tag).should.eql(['IPRA', 'CPD', '']);
 
       result.involvements['police_witness'].map((obj) => obj.id).should.eql([3, 4]);
+    });
+
+    it('should return list of involvements with officer_id is null or undefined', function () {
+      const state = buildState({
+        crs: {
+          '123': ComplaintFactory.build({
+            involvements: [{
+              'full_name': 'Robert Coleman',
+              'officer_id': 1,
+              'involved_type': 'investigator'
+            }, {
+              'full_name': 'Brian Killen',
+              'officer_id': 2,
+              'involved_type': 'investigator'
+            }, {
+              'full_name': 'Joshua Hunt',
+              'involved_type': 'investigator'
+            }, {
+              'full_name': 'Sherry Daun',
+              'officer_id': null,
+              'involved_type': 'investigator'
+            }, {
+              'full_name': 'Jerome Finnigan',
+              'officer_id': 5,
+              'involved_type': 'investigator'
+            }, {
+              'full_name': 'Mazyar Hariri',
+              'involved_type': 'police_witness'
+            }, {
+              'full_name': 'Bradley Hespe',
+              'officer_id': 4,
+              'involved_type': 'police_witness'
+            }]
+          })
+        },
+        crPage: { crid: 123 }
+      });
+      const result = contentSelector(state);
+      const investigators = result.involvements.investigator;
+      const policeWitnesses = result.involvements['police_witness'];
+
+      investigators.should.have.length(5);
+      map(investigators, 'fullName').should.eql([
+        'Robert Coleman', 'Brian Killen', 'Joshua Hunt', 'Sherry Daun', 'Jerome Finnigan'
+      ]);
+      policeWitnesses.should.have.length(2);
+      map(policeWitnesses, 'fullName').should.eql(['Mazyar Hariri', 'Bradley Hespe']);
     });
 
     it('should return default data if cr data does not exists', function () {
