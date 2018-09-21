@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, compact, sortBy, kebabCase } from 'lodash';
+import { map, get, reduce, defaults, compact, sortBy, kebabCase, isNil } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
@@ -138,7 +138,7 @@ const getInvolvementsSelector = createSelector(
     accumulator = defaults(accumulator, { [type]: [] });
 
     if (
-        obj['officer_id'] === null ||
+        isNil(obj['officer_id']) ||
         map(accumulator[type], 'id').indexOf(obj['officer_id']) === -1
       ) {
       let officer = {

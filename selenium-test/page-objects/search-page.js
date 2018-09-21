@@ -12,7 +12,8 @@ class OfficerPreviewPaneSection extends Section {
       gradient: '.test--gradient',
       communityPane: '.test--preview-pane-community',
       neighborhoodPane: '.test--preview-pane-neighborhood',
-      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"test--list-widget-item-link")]'
+      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"test--list-widget-item-link")]',
+      previewPane: '.test--preview-pane',
     });
   }
 }
@@ -58,11 +59,18 @@ class SearchPage extends Page {
       searchHint: '.search-hint',
       firstLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[1]',
       secondLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[2]',
+      plusSign: '(//div[contains(@class, "test--plus-sign")])',
+      firstAliasButton: '(//a[contains(@class, "test--create-alias-link")])[1]',
     });
   }
 
   open() {
     super.open('/search/');
+    browser.element('body').waitForVisible();
+  }
+
+  openWithEditMode() {
+    super.open('/edit/search/');
     browser.element('body').waitForVisible();
   }
 }

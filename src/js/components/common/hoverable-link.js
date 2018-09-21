@@ -6,20 +6,34 @@ import Hoverable from 'components/common/higher-order/hoverable';
 
 
 class HoverableLink extends Component {
+  handleClick(e) {
+    e.stopPropagation();
+  }
+
   render() {
     const { to, href, hovering, style, children } = this.props;
     const className = classnames(this.props.className, 'link--transition');
 
     if (href) {
       return (
-        <a href={ href } style={ hovering ? style.hover : style.base } className={ className }>
+        <a
+          href={ href }
+          style={ hovering ? style.hover : style.base }
+          className={ className }
+          onClick={ this.handleClick }
+        >
           { children }
         </a>
       );
     }
 
     return (
-      <Link to={ to } style={ hovering ? style.hover : style.base } className={ className }>
+      <Link
+        to={ to }
+        style={ hovering ? style.hover : style.base }
+        className={ className }
+        onClick={ this.handleClick }
+      >
         { children }
       </Link>
     );

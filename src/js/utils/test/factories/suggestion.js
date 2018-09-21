@@ -53,7 +53,7 @@ export const RawNeighborhoodSuggestion = Factory.define('RawNeighborhoodSuggesti
   .attr('id', () => String(random.number()))
   .attr('name', lorem.words)
   .attr('to', '')
-  .attr('url', '')
+  .attr('url', 'http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood')
   .attr('tags', [])
   .attr('officers_most_complaint', [
     { id: 1, count: 2, name: 'Hulk' },
