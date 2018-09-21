@@ -17,7 +17,6 @@ export default class Attachments extends Component {
     const { pathname, attachments } = this.props;
     const [firstAttachment] = attachments;
     const { url } = firstAttachment;
-    console.log(pathname, url)
     GATracking.trackAttachmentClick(pathname, url);
   }
 
