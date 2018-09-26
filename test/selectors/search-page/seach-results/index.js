@@ -685,7 +685,8 @@ describe('search page results selector', function () {
           suggestionGroups: {}
         }
       }).should.deepEqual({
-        url: '/v1/abc/'
+        url: '/v1/abc/',
+        isDataToolSearchUrl: true,
       });
 
       v1UrlUtils.dataToolSearchUrl.calledWith('abc').should.be.true();
