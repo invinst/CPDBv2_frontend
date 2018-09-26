@@ -14,7 +14,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
 import ShareableHeader from 'components/headers/shareable-header';
 import SlimHeader from 'components/headers/slim-header';
-import SearchPageContainer from 'containers/search-page-container';
+import SearchPageContainer from 'containers/search-page';
 import OfficerPageContainer from 'containers/officer-page';
 import { OFFICER_EDIT_TYPES } from 'utils/constants';
 

@@ -264,15 +264,15 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.equal('/officer/1/bernadette-kelly/');
   });
 
-  it('should follow the v1 url when user press enter and there is no results', function () {
+  it('should not follow the v1 url when user press enter and there is no results', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('noresult');
 
     searchPage.contentWrapper.waitForVisible();
     browser.pause(500);
+    const url = browser.getUrl();
     browser.keys('Enter');
-    switchToRecentTab();
-    browser.getUrl().should.equal('http://cpdb.lvh.me/s/noresult');
+    browser.getUrl().should.equal(url);
   });
 
   it('should show save recent suggestions when user press Enter and there are results', function () {
