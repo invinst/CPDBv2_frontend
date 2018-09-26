@@ -11,6 +11,7 @@ import Attachments from 'components/officer-page/tabbed-pane-section/timeline/it
 import OutboundLink from 'components/common/outbound-link';
 import * as domUtils from 'utils/dom';
 import { unmountComponentSuppressError } from 'utils/test';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 describe('Attachments component', function () {
@@ -79,5 +80,26 @@ describe('Attachments component', function () {
     stubScrollToElement.should.be.calledWith('.tabbed-pane-section', true, -40);
 
     stubScrollToElement.restore();
+  });
+
+  it('should track click event', function () {
+    const stubTrackAttachmentClick = stub(GATracking, 'trackAttachmentClick');
+    const attachments = [{
+      url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html',
+      previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif',
+      fileType: 'document',
+    }];
+    instance = renderIntoDocument(
+      <Attachments
+        attachments={ attachments }
+        pathname='/complaint/123456/'
+      />
+    );
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--attachment-image-href'));
+    stubTrackAttachmentClick.should.be.calledWith(
+      '/complaint/123456/',
+      'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html'
+    );
+    stubTrackAttachmentClick.restore();
   });
 });
