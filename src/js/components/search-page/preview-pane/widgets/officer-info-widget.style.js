@@ -43,12 +43,3 @@ export const itemValueStyle = (hasKey) => ({
 export const clearfixStyle = {
   clear: 'both',
 };
-
-export const arrowStyle = {
-  position: 'absolute',
-  top: '50%',
-  right: 0,
-  transform: 'translateY(-50%)',
-  width: '7.4px',
-  height: '12px',
-};
