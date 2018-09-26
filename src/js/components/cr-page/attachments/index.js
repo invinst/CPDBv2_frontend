@@ -13,7 +13,8 @@ export default class Attachments extends Component {
     const {
       items,
       openRequestDocumentModal,
-      alreadyRequested
+      alreadyRequested,
+      pathname,
     } = this.props;
 
     const hasData = items.length > 0;
@@ -45,7 +46,7 @@ export default class Attachments extends Component {
           <div style={ attachmentsStyle }>
             {
               items.map((item, ind) => (
-                <AttachmentItem key={ ind } { ...item } />
+                <AttachmentItem key={ ind } { ...item } pathname={ pathname } />
               ))
             }
           </div>
@@ -62,5 +63,6 @@ Attachments.defaultProps = {
 Attachments.propTypes = {
   items: PropTypes.array,
   openRequestDocumentModal: PropTypes.func,
-  alreadyRequested: PropTypes.bool
+  alreadyRequested: PropTypes.bool,
+  pathname: PropTypes.string,
 };

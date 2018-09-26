@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
 import { map, compact, lowerCase, isEmpty } from 'lodash';
 
 import {
@@ -9,10 +8,8 @@ import {
   listItemStyle,
   itemKeyStyle,
   itemValueStyle,
-  arrowStyle,
   clearfixStyle,
 } from './officer-info-widget.style';
-import { imgUrl } from 'utils/static-assets';
 
 
 export default class OfficerInfoWidget extends Component {
@@ -51,7 +48,6 @@ export default class OfficerInfoWidget extends Component {
         key: 'Unit',
         value: unit.description || unit.unitName,
         title: unit.description,
-        url: `/unit/${unit.unitName}/`,
       },
       {
         key: 'Career',
@@ -73,11 +69,6 @@ export default class OfficerInfoWidget extends Component {
                 >
                   { metric.value }
                 </div>
-                { metric.url && (
-                  <Link to={ metric.url }>
-                    <img src={ imgUrl('disclosure-indicator-darker.svg') } style={ arrowStyle }/>
-                  </Link>
-                ) }
                 <div style={ clearfixStyle }/>
               </li>
             ) : null)
@@ -96,7 +87,7 @@ OfficerInfoWidget.defaultProps = {
 
 OfficerInfoWidget.propTypes = {
   fullName: PropTypes.string.isRequired,
-  age: PropTypes.number.isRequired,
+  age: PropTypes.number,
   race: PropTypes.string,
   gender: PropTypes.string,
   badge: PropTypes.string,

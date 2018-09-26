@@ -3,12 +3,8 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithTag,
   scryRenderedDOMComponentsWithTag,
-  findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
-
-
-import { Link } from 'react-router';
 
 import { OfficerInfoWidget } from 'components/search-page/preview-pane/widgets';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -28,7 +24,7 @@ describe('OfficerInfoWidget component', () => {
         race='white'
         gender='male'
         age={ 37 }
-        badge={ 23 }
+        badge='23'
         rank='Police Officer'
         unit={ { id: 1, unitName: '018', description: 'District 018' } }
         appointedDate='JAN 7, 2017'
@@ -42,7 +38,6 @@ describe('OfficerInfoWidget component', () => {
     listItem[2].textContent.should.containEql('Police Officer');
     listItem[3].textContent.should.containEql('District 018');
     listItem[4].textContent.should.containEql('JAN 7, 2017 — Present');
-    findRenderedComponentWithType(instance, Link).props.to.should.be.eql('/unit/018/');
   });
 
   it('should contain resignation date when resignationDate is not null', () => {
@@ -52,7 +47,7 @@ describe('OfficerInfoWidget component', () => {
         race='white'
         gender='male'
         age={ 37 }
-        badge={ 23 }
+        badge='23'
         rank='Police Officer'
         unit={ { id: 1, description: 'District 003' } }
         appointedDate='JAN 7, 2017'
@@ -69,7 +64,7 @@ describe('OfficerInfoWidget component', () => {
         fullName='Timothy Parker'
         age={ 37 }
         gender='Male'
-        badge={ 23 }
+        badge='23'
         unit={ { id: 1, unitName: '018', description: 'District 018' } }
         appointedDate='JAN 7, 2017'
       />
@@ -85,7 +80,7 @@ describe('OfficerInfoWidget component', () => {
     instance = renderIntoDocument(
       <OfficerInfoWidget
         fullName='Timothy Parker'
-        badge={ 23 }
+        badge='23'
         unit={ { id: 1, unitName: '018', description: 'District 018' } }
         appointedDate='JAN 7, 2017'
       />
