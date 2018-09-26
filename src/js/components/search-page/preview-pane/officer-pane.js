@@ -14,7 +14,9 @@ export default class OfficerPane extends Component {
       fullName,
       age,
       appointedDate,
+      resignationDate,
       unit,
+      rank,
       badge,
       race,
       gender,
@@ -37,7 +39,7 @@ export default class OfficerPane extends Component {
       {
         name: 'Allegations',
         value: formatValue(complaintCount),
-        description: complaintPercentile && `More than ${complaintPercentile}% of other officers`,
+        description: complaintPercentile > 0 ? `More than ${complaintPercentile}% of other officers` : '',
       },
       {
         name: 'Sustained',
@@ -48,7 +50,7 @@ export default class OfficerPane extends Component {
       {
         name: 'Use of Force Reports',
         value: formatValue(trrCount),
-        description: trrPercentile && `More than ${trrPercentile}% of other officers`,
+        description: trrPercentile > 0 ? `More than ${trrPercentile}% of other officers` : '',
       },
       {
         name: <span>Civilian<br/>Compliments</span>,
@@ -61,7 +63,7 @@ export default class OfficerPane extends Component {
       {
         name: 'Honorable Mentions',
         value: formatValue(honorableMentionCount),
-        description: honorableMentionPercentile && `More than ${honorableMentionPercentile}% of other officers`,
+        description: honorableMentionPercentile > 0 ? `More than ${honorableMentionPercentile}% of other officers` : '',
       },
     ];
     return (
@@ -70,8 +72,10 @@ export default class OfficerPane extends Component {
         <OfficerInfoWidget
           fullName={ fullName }
           appointedDate={ appointedDate }
+          resignationDate={ resignationDate }
           age={ age }
           unit={ unit }
+          rank={ rank }
           badge={ badge }
           race={ race }
           gender={ gender }
@@ -86,11 +90,13 @@ OfficerPane.propTypes = {
   fullName: PropTypes.string,
   age: PropTypes.number,
   appointedDate: PropTypes.string,
+  resignationDate: PropTypes.string,
   unit: PropTypes.shape({
     id: PropTypes.number,
     unitName: PropTypes.string,
     description: PropTypes.string,
   }),
+  rank: PropTypes.string,
   badge: PropTypes.string,
   race: PropTypes.string,
   gender: PropTypes.string,
