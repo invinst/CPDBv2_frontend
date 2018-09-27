@@ -21,7 +21,7 @@ describe('OfficerRow component', function () {
       year: undefined,
       items: [
         { axis: 'Use of Force Reports', value: 99.9 },
-        { axis: 'Internal Allegations', value: 11.1 },
+        { axis: 'Officer Allegations', value: 11.1 },
         { axis: 'Civilian Allegations', value: 22.2 }
       ],
       visualTokenBackground: '#ed6154',
@@ -40,7 +40,7 @@ describe('OfficerRow component', function () {
     radarChart.props.backgroundColor.should.eql('#ed6154');
     radarChart.props.data.should.eql([
       { axis: 'Use of Force Reports', value: 99.9 },
-      { axis: 'Internal Allegations', value: 11.1 },
+      { axis: 'Officer Allegations', value: 11.1 },
       { axis: 'Civilian Allegations', value: 22.2 }
     ]);
 

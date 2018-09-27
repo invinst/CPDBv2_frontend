@@ -114,4 +114,40 @@ describe('GATracking utils', function () {
       });
     });
   });
+
+  describe('trackRelatedByCategoryClick', function () {
+    it('should send event analytic', function () {
+      GATracking.trackRelatedByCategoryClick('01234', '56789');
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'related_by_category',
+        eventAction: 'click',
+        eventLabel: 'Source CRID: 01234 - Target CRID: 56789'
+      });
+    });
+  });
+
+  describe('trackRelatedByAccusedClick', function () {
+    it('should send event analytic', function () {
+      GATracking.trackRelatedByAccusedClick('01234', '56789');
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'related_by_accused',
+        eventAction: 'click',
+        eventLabel: 'Source CRID: 01234 - Target CRID: 56789'
+      });
+    });
+  });
+
+  describe('trackAttachmentClick', function () {
+    it('should send event analytic', function () {
+      GATracking.trackAttachmentClick('/', '/complaint/123456/');
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'attachment_click',
+        eventAction: 'click',
+        eventLabel: 'Source URL: / - Target URL: /complaint/123456/'
+      });
+    });
+  });
 });

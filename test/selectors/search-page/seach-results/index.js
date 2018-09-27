@@ -83,7 +83,7 @@ describe('search page results selector', function () {
                   'value': 90,
                 },
                 {
-                  'axis': 'Internal Allegations',
+                  'axis': 'Officer Allegations',
                   'value': 91,
                 },
                 {
@@ -685,7 +685,8 @@ describe('search page results selector', function () {
           suggestionGroups: {}
         }
       }).should.deepEqual({
-        url: '/v1/abc/'
+        url: '/v1/abc/',
+        isDataToolSearchUrl: true,
       });
 
       v1UrlUtils.dataToolSearchUrl.calledWith('abc').should.be.true();

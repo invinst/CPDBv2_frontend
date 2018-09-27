@@ -9,7 +9,7 @@ import { openComplaintPage } from 'actions/open-page';
 import { getOfficerId } from 'selectors/officer-page';
 import { changeOfficerTab } from 'actions/officer-page';
 import { popupSelector } from 'selectors/popup';
-
+import { getPathname } from 'selectors/officer-page';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -17,6 +17,7 @@ function mapStateToProps(state, ownProps) {
     officerId: getOfficerId(state),
     popup: popupSelector(state),
     filterCount: filterCount(state),
+    pathname: getPathname(state),
   };
 }
 

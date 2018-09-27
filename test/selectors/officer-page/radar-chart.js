@@ -49,7 +49,7 @@ describe('Officer radar chart selectors', function () {
           'axis': 'Use of Force Reports',
           'value': 0.049
         }, {
-          'axis': 'Internal Allegations',
+          'axis': 'Officer Allegations',
           'value': 0.023
         }, {
           'axis': 'Civilian Allegations',
@@ -64,7 +64,7 @@ describe('Officer radar chart selectors', function () {
           'axis': 'Use of Force Reports',
           'value': 0.046
         }, {
-          'axis': 'Internal Allegations',
+          'axis': 'Officer Allegations',
           'value': 0.022
         }, {
           'axis': 'Civilian Allegations',

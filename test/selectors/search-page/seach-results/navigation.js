@@ -132,7 +132,7 @@ describe('search page navigation selector', function () {
             year: undefined,
             items: [
               { axis: 'Use of Force Reports', value: 90 },
-              { axis: 'Internal Allegations', value: 91 },
+              { axis: 'Officer Allegations', value: 91 },
               { axis: 'Civilian Allegations', value: 92 }
             ],
             visualTokenBackground: '#f52524',

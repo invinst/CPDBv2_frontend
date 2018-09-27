@@ -2,7 +2,7 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { spy, stub } from 'sinon';
 import Mousestrap from 'mousetrap';
-import { Link } from 'react-router';
+import { Link, Router, Route, createMemoryHistory } from 'react-router';
 import {
   renderIntoDocument, findRenderedComponentWithType, findRenderedDOMComponentWithTag,
   findRenderedDOMComponentWithClass, scryRenderedDOMComponentsWithClass, Simulate
@@ -151,11 +151,21 @@ describe('SuggestionItemBase component', function () {
         suggestion: { id, text, type, subText, tags },
         aliasEditModeOn: true
       };
-
-      instance = renderIntoDocument(
+      const dummyEvent = {
+        stopPropagation: spy()
+      };
+      const suggestionItemBaseRenderer = () => (
         <SuggestionItemBase { ...props }/>
       );
-      findRenderedComponentWithType(instance, Link).props.onClick();
+
+      instance = renderIntoDocument(
+        <Router history={ createMemoryHistory() }>
+          <Route path='/' component={ suggestionItemBaseRenderer } />
+        </Router>
+      );
+      const aliasLink = findRenderedDOMComponentWithClass(instance, 'test--create-alias-link');
+      Simulate.click(aliasLink, dummyEvent);
+
       setAliasAdminPageContent.calledWith({
         id, text,
         type: 'officer',

@@ -264,15 +264,15 @@ describe('Search Page', function () {
     searchPage.currentBasePath.should.equal('/officer/1/bernadette-kelly/');
   });
 
-  it('should follow the v1 url when user press enter and there is no results', function () {
+  it('should not follow the v1 url when user press enter and there is no results', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('noresult');
 
     searchPage.contentWrapper.waitForVisible();
     browser.pause(500);
+    const url = browser.getUrl();
     browser.keys('Enter');
-    switchToRecentTab();
-    browser.getUrl().should.equal('http://cpdb.lvh.me/s/noresult');
+    browser.getUrl().should.equal(url);
   });
 
   it('should show save recent suggestions when user press Enter and there are results', function () {
@@ -403,7 +403,35 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.listMostOfficers.click();
       browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
     });
+
+    it('should go to data tool when click anywhere', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('Ke');
+      searchPage.firstNeighborhoodResult.waitForVisible();
+      searchPage.firstNeighborhoodResult.click();
+
+      searchPage.officerPreviewPaneSection.neighborhoodPane.waitForVisible();
+      searchPage.officerPreviewPaneSection.neighborhoodPane.click();
+      switchToRecentTab();
+      browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
+    });
   });
 });
 
+describe('Search Page in edit mode', function () {
 
+  beforeEach(function () {
+    searchPage.openWithEditMode();
+    searchPage.loginScreen.login();
+  });
+
+  it('should go to alias admin page when click on alias button of current item', function () {
+    searchPage.input.setValue('Ke');
+    searchPage.plusSign.waitForVisible();
+    searchPage.plusSign.click();
+    searchPage.input.setValue('Ke');
+    searchPage.firstAliasButton.waitForVisible();
+    searchPage.firstAliasButton.click();
+    browser.getUrl().should.match(/\/edit\/search\/alias\/form\/$/);
+  });
+});

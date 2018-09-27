@@ -10,14 +10,33 @@ import { suggestionItemStyle, blackTextStyle, grayTextStyle, innerWrapperStyle, 
 
 
 export default class SuggestionItemBase extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleAliasButtonClick = this.handleAliasButtonClick.bind(this);
+  }
+
   shouldComponentUpdate(nextProps) {
     const { isFocused, hovering } = this.props;
     return nextProps.isFocused !== isFocused || nextProps.hovering !== hovering;
   }
 
-  renderFirstRow() {
-    const { hovering, isFocused, aliasEditModeOn, setAliasAdminPageContent } = this.props;
+  handleAliasButtonClick(e) {
+    e.stopPropagation();
+    const { setAliasAdminPageContent } = this.props;
     const { text, id, type, subText, tags } = this.props.suggestion;
+
+    setAliasAdminPageContent({
+      id, text,
+      type: type.toLowerCase(),
+      description: subText,
+      existingAliases: tags
+    });
+  }
+
+  renderFirstRow() {
+    const { hovering, isFocused, aliasEditModeOn } = this.props;
+    const { text } = this.props.suggestion;
 
     return (
       <div style={ blackTextStyle(hovering, isFocused) } className='test--first-row'>
@@ -25,16 +44,10 @@ export default class SuggestionItemBase extends Component {
         {
           aliasEditModeOn ?
             <Link
+              className='test--create-alias-link'
               style={ aliasLinkStyle }
               to={ `/edit/${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}` }
-              onClick={
-                () => setAliasAdminPageContent({
-                  id, text,
-                  type: type.toLowerCase(),
-                  description: subText,
-                  existingAliases: tags
-                })
-              }
+              onClick={ this.handleAliasButtonClick }
             >
               Alias
             </Link> :

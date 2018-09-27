@@ -7,13 +7,14 @@ import { openRequestDocumentModal } from 'actions/generic-modal';
 import { popupSelector } from 'selectors/popup';
 
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
     crid: getCRID(state),
     officerId: getOfficerId(state),
     ...contentSelector(state),
     alreadyRequested: getDocumentAlreadyRequested(state),
     popup: popupSelector(state),
+    pathname: ownProps.pathname,
   };
 }
 

@@ -75,3 +75,29 @@ export const trackOpenExplainer = (officerId) => {
   });
 };
 
+export const trackRelatedByCategoryClick = (sourceCRID, targetCRID) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: 'related_by_category',
+    eventAction: 'click',
+    eventLabel: `Source CRID: ${sourceCRID} - Target CRID: ${targetCRID}`,
+  });
+};
+
+export const trackRelatedByAccusedClick = (sourceCRID, targetCRID) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: 'related_by_accused',
+    eventAction: 'click',
+    eventLabel: `Source CRID: ${sourceCRID} - Target CRID: ${targetCRID}`,
+  });
+};
+
+export const trackAttachmentClick = (sourceUrl, targetUrl) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: 'attachment_click',
+    eventAction: 'click',
+    eventLabel: `Source URL: ${sourceUrl} - Target URL: ${targetUrl}`,
+  });
+};

@@ -34,7 +34,7 @@ describe('OfficerSection component', function () {
       year: undefined,
       items: [
         { axis: 'Use of Force Reports', value: 99.9 },
-        { axis: 'Internal Allegations', value: 11.1 },
+        { axis: 'Officer Allegations', value: 11.1 },
         { axis: 'Civilian Allegations', value: 22.2 }
       ],
       visualTokenBackground: '#ed6154',
@@ -54,7 +54,7 @@ describe('OfficerSection component', function () {
     const radarChart = findRenderedComponentWithType(instance, StaticRadarChart);
     radarChart.props.data.should.eql([
       { axis: 'Use of Force Reports', value: 99.9 },
-      { axis: 'Internal Allegations', value: 11.1 },
+      { axis: 'Officer Allegations', value: 11.1 },
       { axis: 'Civilian Allegations', value: 22.2 }
     ]);
 
@@ -131,7 +131,7 @@ describe('OfficerSection component', function () {
         year: undefined,
         items: [
           { axis: 'Use of Force Reports', value: 99.9 },
-          { axis: 'Internal Allegations', value: 11.1 },
+          { axis: 'Officer Allegations', value: 11.1 },
           { axis: 'Civilian Allegations', value: 22.2 }
         ],
         visualTokenBackground: '#ed6154',
