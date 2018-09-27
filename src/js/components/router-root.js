@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
-import SearchPageContainer from 'containers/search-page-container';
+import SearchPageContainer from 'containers/search-page';
 import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';

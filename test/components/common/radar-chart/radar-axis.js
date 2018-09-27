@@ -1,5 +1,5 @@
 import React from 'react';
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,

@@ -36,7 +36,7 @@ export default class CRPage extends Component {
     const {
       crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
-      openRequestDocumentModal, summary, victims, startDate, endDate, popup
+      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname
     } = this.props;
 
     return (
@@ -82,6 +82,7 @@ export default class CRPage extends Component {
                 items={ attachments }
                 openRequestDocumentModal={ openRequestDocumentModal }
                 alreadyRequested={ alreadyRequested }
+                pathname={ pathname }
               />
               <div style={ leftColumnStyle }>
                 <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
@@ -120,6 +121,7 @@ CRPage.propTypes = {
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
   popup: PropTypes.object,
+  pathname: PropTypes.string,
 };
 
 CRPage.defaultProps = {

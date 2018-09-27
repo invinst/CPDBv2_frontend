@@ -25,7 +25,12 @@ export default function withCarousel(
             key={ index }
             style={ itemStyle(itemWidth) }
             className='test--carousel--item'>
-            <CardComponent { ...omit(card, 'id') } { ...extraCardAttr } openCardInNewPage={ openCardInNewPage } />
+            <CardComponent
+              { ...omit(card, 'id') }
+              { ...extraCardAttr }
+              openCardInNewPage={ openCardInNewPage }
+              pathname={ pathname }
+            />
           </div>
         );
       });

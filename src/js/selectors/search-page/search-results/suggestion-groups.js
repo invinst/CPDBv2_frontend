@@ -96,7 +96,8 @@ export const firstItemSelector = createSelector(
   (suggestionGroups, query) => {
     if (suggestionGroups.length === 0) {
       return {
-        url: dataToolSearchUrl(query)
+        url: dataToolSearchUrl(query),
+        isDataToolSearchUrl: true,
       };
     } else {
       const firstGroup = head(suggestionGroups);
