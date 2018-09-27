@@ -15,7 +15,7 @@ export const textStyle = {
 };
 
 export const nameStyle = (hovering) => ({
-  fontWeight: 500,
+  fontWeight: 400,
   fontSize: '14px',
   color: hovering ? accentColor : softBlackColor,
   width: '200px',
