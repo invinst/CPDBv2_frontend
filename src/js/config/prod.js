@@ -1,5 +1,5 @@
 export default {
-  appEnv: 'production',
+  appEnv: 'prod',
   visualTokenAccount: 'cpdbvisualtoken',
   v1Url: 'https://data.cpdp.co',
   twitterBotName: 'CPDPbot',

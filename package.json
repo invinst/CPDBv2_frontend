@@ -5,8 +5,8 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "scripts": {
-    "build": "gulp build",
-    "start": "CPDB_APP_ENV=development NODE_PATH=src/js budo src/js/index.js:dist/bundle.js --pushstate --host 0.0.0.0 --live -- --transform [ babelify --presets [ es2015 react ] ] --transform envify",
+    "build": "CPDB_APP_ENV=prod webpack",
+    "start": "webpack-dev-server",
     "test": "CPDB_APP_ENV=test NODE_PATH=src/js mochify --viewport-height 2000 --viewport-width 2000 --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --transform envify --https-server 3000 --allow-chrome-as-root",
     "test-debug": "yarn run test --debug",
     "test-watch": "yarn run test --watch",
@@ -83,7 +83,12 @@
     "wdio-dot-reporter": "0.0.6",
     "wdio-mocha-framework": "^0.5.8",
     "wdio-selenium-standalone-service": "^0.0.9",
-    "wdio-spec-reporter": "0.0.5"
+    "wdio-spec-reporter": "0.0.5",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.1",
+    "webpack-dev-server": "^3.1.9",
+    "react-hot-loader": "^4.3.11",
+    "babel-loader": "7"
   },
   "dependencies": {
     "array.prototype.find": "^2.0.0",
