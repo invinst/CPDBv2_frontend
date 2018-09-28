@@ -1,29 +1,42 @@
 'use strict';
 
-let path = require('path');
-let webpack = require('webpack');
-let baseConfig = require('./base');
+const path = require('path');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-let config = Object.assign({}, baseConfig, {
+const baseConfig = require('./base');
+
+const config = Object.assign({}, baseConfig, {
   mode: 'development',
+  output: {
+    path: path.join(__dirname, '../dist'),
+    filename: 'bundle.js',
+    publicPath: '/'
+  },
   devServer: {
     contentBase: path.join(__dirname, '..'),
     historyApiFallback: true,
     hot: true,
-    open: true,
     port: 9966,
-    publicPath: '/dist/',
+    publicPath: '/',
     noInfo: false,
     index: 'index.html'
   },
   cache: true,
   devtool: 'eval-source-map',
   plugins: [
+    ...baseConfig.plugins,
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.EnvironmentPlugin([
-      'CPDB_APP_ENV'
-    ])
+    new HtmlWebpackPlugin({
+      template: 'index.html.template',
+      filename: 'index.html',
+      templateParameters: {
+        'GA_TRACKING_ID': 'UA-XXXXX-Y',
+        'INTERCOM_ID': 'gbsby1ik'
+      }
+    })
   ],
   module: {
     rules: [
@@ -38,6 +51,18 @@ let config = Object.assign({}, baseConfig, {
             presets: ['es2015', 'react']
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          }
+        ]
       }
     ]
   }

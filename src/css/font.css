@@ -3,103 +3,103 @@
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 100;
-  src: url("../dist/fonts/SF-Compact-Text-Light.woff2") format('woff2'),
-       url("../dist/fonts/SF-Compact-Text-Light.woff") format('woff'),
-       url("../dist/fonts/SF-Compact-Text-Light.otf") format('otf'); }
+  src: url("/src/fonts/SF-Compact-Text-Light.woff2") format('woff2'),
+       url("/src/fonts/SF-Compact-Text-Light.woff") format('woff'),
+       url("/src/fonts/SF-Compact-Text-Light.otf") format('otf'); }
 
 /** Regular */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 300;
-  src: url("../dist/fonts/SF-Compact-Text-Regular.woff2") format('woff2'),
-       url("../dist/fonts/SF-Compact-Text-Regular.woff") format('woff'),
-       url("../dist/fonts/SF-Compact-Text-Regular.otf") format('otf'); }
+  src: url("/src/fonts/SF-Compact-Text-Regular.woff2") format('woff2'),
+       url("/src/fonts/SF-Compact-Text-Regular.woff") format('woff'),
+       url("/src/fonts/SF-Compact-Text-Regular.otf") format('otf'); }
 
 /** Normal */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 400;
-  src: url("../dist/fonts/SF-Compact-Text-Medium.woff2") format('woff2'),
-       url("../dist/fonts/SF-Compact-Text-Medium.woff") format('woff'),
-       url("../dist/fonts/SF-Compact-Text-Medium.otf") format('otf'); }
+  src: url("/src/fonts/SF-Compact-Text-Medium.woff2") format('woff2'),
+       url("/src/fonts/SF-Compact-Text-Medium.woff") format('woff'),
+       url("/src/fonts/SF-Compact-Text-Medium.otf") format('otf'); }
 
 /** Semi Bold */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 500;
-  src: url("../dist/fonts/SF-Compact-Text-Semibold.woff2") format('woff2'),
-       url("../dist/fonts/SF-Compact-Text-Semibold.woff") format('woff'),
-       url("../dist/fonts/SF-Compact-Text-Semibold.otf") format('otf'); }
+  src: url("/src/fonts/SF-Compact-Text-Semibold.woff2") format('woff2'),
+       url("/src/fonts/SF-Compact-Text-Semibold.woff") format('woff'),
+       url("/src/fonts/SF-Compact-Text-Semibold.otf") format('otf'); }
 
 /** Bold */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 600;
-  src: url("../dist/fonts/SF-Compact-Text-Bold.woff2") format('woff2'),
-       url("../dist/fonts/SF-Compact-Text-Bold.woff") format('woff'),
-       url("../dist/fonts/SF-Compact-Text-Bold.otf") format('otf'); }
+  src: url("/src/fonts/SF-Compact-Text-Bold.woff2") format('woff2'),
+       url("/src/fonts/SF-Compact-Text-Bold.woff") format('woff'),
+       url("/src/fonts/SF-Compact-Text-Bold.otf") format('otf'); }
 
 /** Bold */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 700;
-  src: url("../dist/fonts/SF-Compact-Text-Heavy.woff2") format('woff2'),
-       url("../dist/fonts/SF-Compact-Text-Heavy.woff") format('woff'),
-       url("../dist/fonts/SF-Compact-Text-Heavy.otf") format('otf'); }
+  src: url("/src/fonts/SF-Compact-Text-Heavy.woff2") format('woff2'),
+       url("/src/fonts/SF-Compact-Text-Heavy.woff") format('woff'),
+       url("/src/fonts/SF-Compact-Text-Heavy.otf") format('otf'); }
 
 /** Light Italic */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 100;
   font-style: italic;
-  src: url("../dist/fonts/sf-compact-text-light-italic.woff2") format('woff2'),
-       url("../dist/fonts/sf-compact-text-light-italic.woff") format('woff'),
-       url("../dist/fonts/sf-compact-text-light-italic.otf") format('otf'); }
+  src: url("/src/fonts/sf-compact-text-light-italic.woff2") format('woff2'),
+       url("/src/fonts/sf-compact-text-light-italic.woff") format('woff'),
+       url("/src/fonts/sf-compact-text-light-italic.otf") format('otf'); }
 
 /** Regular Italic */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 300;
   font-style: italic;
-  src: url("../dist/fonts/sf-compact-text-italic.woff2") format('woff2'),
-       url("../dist/fonts/sf-compact-text-italic.woff") format('woff'),
-       url("../dist/fonts/sf-compact-text-italic.otf") format('otf'); }
+  src: url("/src/fonts/sf-compact-text-italic.woff2") format('woff2'),
+       url("/src/fonts/sf-compact-text-italic.woff") format('woff'),
+       url("/src/fonts/sf-compact-text-italic.otf") format('otf'); }
 
 /** Normal Italic */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 400;
   font-style: italic;
-  src: url("../dist/fonts/sf-compact-text-medium-italic.woff2") format('woff2'),
-       url("../dist/fonts/sf-compact-text-medium-italic.woff") format('woff'),
-       url("../dist/fonts/sf-compact-text-medium-italic.otf") format('otf'); }
+  src: url("/src/fonts/sf-compact-text-medium-italic.woff2") format('woff2'),
+       url("/src/fonts/sf-compact-text-medium-italic.woff") format('woff'),
+       url("/src/fonts/sf-compact-text-medium-italic.otf") format('otf'); }
 
 /** Semi Bold Italic */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 500;
   font-style: italic;
-  src: url("../dist/fonts/sf-compact-text-semibold-italic.woff2") format('woff2'),
-       url("../dist/fonts/sf-compact-text-semibold-italic.woff") format('woff'),
-       url("../dist/fonts/sf-compact-text-semibold-italic.otf") format('otf'); }
+  src: url("/src/fonts/sf-compact-text-semibold-italic.woff2") format('woff2'),
+       url("/src/fonts/sf-compact-text-semibold-italic.woff") format('woff'),
+       url("/src/fonts/sf-compact-text-semibold-italic.otf") format('otf'); }
 
 /** Bold Italic */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 600;
   font-style: italic;
-  src: url("../dist/fonts/sf-compact-text-bold-italic.woff2") format('woff2'),
-       url("../dist/fonts/sf-compact-text-bold-italic.woff") format('woff'),
-       url("../dist/fonts/sf-compact-text-bold-italic.otf") format('otf'); }
+  src: url("/src/fonts/sf-compact-text-bold-italic.woff2") format('woff2'),
+       url("/src/fonts/sf-compact-text-bold-italic.woff") format('woff'),
+       url("/src/fonts/sf-compact-text-bold-italic.otf") format('otf'); }
 
 /** Bold Italic */
 @font-face {
   font-family: "San Francisco Text";
   font-weight: 700;
   font-style: italic;
-  src: url("../dist/fonts/sf-compact-text-heavy-italic.woff2") format('woff2'),
-       url("../dist/fonts/sf-compact-text-heavy-italic.woff") format('woff'),
-       url("../dist/fonts/sf-compact-text-heavy-italic.otf") format('otf'); }
+  src: url("/src/fonts/sf-compact-text-heavy-italic.woff2") format('woff2'),
+       url("/src/fonts/sf-compact-text-heavy-italic.woff") format('woff'),
+       url("/src/fonts/sf-compact-text-heavy-italic.otf") format('otf'); }
 
 
 
@@ -114,41 +114,41 @@
 @font-face {
   font-family: "San Francisco Display";
   font-weight: 100;
-  src: local("SF UI Display"), local(".SFNSDisplay-Light"), url("../dist/fonts/SF-Compact-Display-Light.otf"); }
+  src: local("SF UI Display"), local(".SFNSDisplay-Light"), url("/src/fonts/SF-Compact-Display-Light.otf"); }
 
 /** Regular */
 @font-face {
   font-family: "San Francisco Display";
   font-weight: 300;
-  src: local("SF UI Display"), local(".SFNSDisplay-Regular"), url("../dist/fonts/SF-Compact-Display-Regular.otf"); }
+  src: local("SF UI Display"), local(".SFNSDisplay-Regular"), url("/src/fonts/SF-Compact-Display-Regular.otf"); }
 
 /** Normal */
 @font-face {
   font-family: "San Francisco Display";
   font-weight: 400;
-  src: local("SF UI Display"), local(".SFNSDisplay-Medium"), url("../dist/fonts/SF-Compact-Display-Medium.otf"); }
+  src: local("SF UI Display"), local(".SFNSDisplay-Medium"), url("/src/fonts/SF-Compact-Display-Medium.otf"); }
 
 /** Semi Bold */
 @font-face {
   font-family: "San Francisco Display";
   font-weight: 500;
-  src: local("SF UI Display"), local(".SFNSDisplay-Semibold"), url("../dist/fonts/SF-Compact-Display-Semibold.otf"); }
+  src: local("SF UI Display"), local(".SFNSDisplay-Semibold"), url("/src/fonts/SF-Compact-Display-Semibold.otf"); }
 
 /** Bold */
 @font-face {
   font-family: "San Francisco Display";
   font-weight: 600;
-  src: local("SF UI Display"), local(".SFNSDisplay-Bold"), url("../dist/fonts/SF-Compact-Display-Bold.otf"); }
+  src: local("SF UI Display"), local(".SFNSDisplay-Bold"), url("/src/fonts/SF-Compact-Display-Bold.otf"); }
 
 /** Bold */
 @font-face {
   font-family: "San Francisco Display";
   font-weight: 700;
-  src: local("SF UI Display"), local(".SFNSDisplay-Bold"), url("../dist/fonts/SF-Compact-Display-Bold.otf"); }
+  src: local("SF UI Display"), local(".SFNSDisplay-Bold"), url("/src/fonts/SF-Compact-Display-Bold.otf"); }
 
 /** Minion Pro */
 /** Regular */
 @font-face {
   font-family: "Minion Pro Regular";
   font-weight: 400;
-  src: url("../dist/fonts/Minion_Pro_Regular.ttf"); }
+  src: url("/src/fonts/Minion_Pro_Regular.ttf"); }

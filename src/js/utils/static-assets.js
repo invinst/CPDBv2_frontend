@@ -2,7 +2,7 @@ import config from 'config';
 
 
 export function imgUrl(path) {
-  if (global.DEVELOPMENT) {
+  if (config.appEnv === 'dev') {
     return `/src/img/${path}`;
   } else {
     return `/dist/img/${path}`;
@@ -10,7 +10,7 @@ export function imgUrl(path) {
 }
 
 export function mediaUrl(path) {
-  if (global.DEVELOPMENT) {
+  if (config.appEnv === 'dev') {
     return `http://localhost:8000${path}`;
   } else {
     return path;

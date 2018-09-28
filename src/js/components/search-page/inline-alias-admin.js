@@ -1,3 +1,6 @@
+import 'react-tagsinput/react-tagsinput.css';
+import 'tagsinput.css';
+
 import React, { Component, PropTypes } from 'react';
 import TagsInput from 'react-tagsinput';
 import AutosizeInput from 'react-input-autosize';

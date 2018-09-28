@@ -4,6 +4,7 @@ import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
   galleryColor, lightAltoColor, greyColor, softBlackColor
 } from 'utils/styles';
+import config from 'config';
 
 export const TOP = 'top';
 export const BOTTOM = 'bottom';
@@ -61,7 +62,7 @@ let API_ROOT_V2 = `${global.location.origin}/api/v2/`;
 let basePath = global.location.origin;
 
 /* istanbul ignore next */
-if (global.DEVELOPMENT) {
+if (config.appEnv === 'dev') {
   basePath = 'http://localhost:8000';
   API_ROOT = `${basePath}/api/v1/`;
   API_ROOT_V2 = `${basePath}/api/v2/`;

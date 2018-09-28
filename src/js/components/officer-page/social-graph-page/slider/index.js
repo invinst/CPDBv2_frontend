@@ -1,3 +1,5 @@
+import 'rc-slider/dist/rc-slider.css';
+
 import React, { Component, PropTypes } from 'react';
 import { Range } from 'rc-slider';
 import { greyishColor } from 'utils/styles';

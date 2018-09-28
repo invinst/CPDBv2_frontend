@@ -1,3 +1,5 @@
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 /* istanbul ignore next */
 import TwitterWidgetsLoader from 'twitter-widgets';
 import _mapboxgl from 'mapbox-gl';

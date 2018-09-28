@@ -10,7 +10,7 @@ if (config.localStorageVersion !== localStorageVersion) {
 
 let configureStore = configureProd;
 
-if (global.DEVELOPMENT) {
+if (config.appEnv === 'dev') {
   /* istanbul ignore next */
   configureStore = configureDev;
 }

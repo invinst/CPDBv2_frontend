@@ -1,3 +1,5 @@
+import 'popup.css';
+
 import React, { Component, PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid/v4';

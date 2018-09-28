@@ -1,42 +1,36 @@
 'use strict';
-let path = require('path');
-let webpack = require('webpack');
+const path = require('path');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const srcPath = path.join(__dirname, '/../src');
+const context = path.join(__dirname, '../');
 
 module.exports = {
-  context: path.join(__dirname, '../'),
+  context: context,
   devtool: 'eval',
   output: {
     path: path.join(__dirname, '../dist'),
-    filename: 'bundle.js',
-    publicPath: './dist/'
+    filename: 'bundle-[contenthash].js',
+    publicPath: '/'
   },
   mode: 'production',
   entry: [
-    './src/js/index'
+    `${srcPath}/js/index`
   ],
   resolve: {
     extensions: ['.js'],
-    alias: {
-      actions: `${srcPath}/js/actions/`,
-      components: `${srcPath}/js/components/`,
-      config: `${srcPath}/js/config`,
-      containers: `${srcPath}/js/containers/`,
-      middleware: `${srcPath}/js/middleware/`,
-      'mock-api': `${srcPath}/js/mock-api/`,
-      polyfill: `${srcPath}/js/polyfill/`,
-      reducers: `${srcPath}/js/reducers/`,
-      selectors: `${srcPath}/js/selectors/`,
-      store: `${srcPath}/js/store/`,
-      utils: `${srcPath}/js/utils/`,
-      decorators: `${srcPath}/js/decorators.js`
-    }
+    modules: [path.resolve(__dirname, '../src/css'), path.resolve(__dirname, '../src/js'), 'node_modules']
   },
   plugins: [
+    new CleanWebpackPlugin(['dist'], { root: context }),
     new webpack.EnvironmentPlugin([
       'CPDB_APP_ENV'
-    ])
+    ]),
+    new MiniCssExtractPlugin({
+      filename: 'bundle-[contenthash].css',
+    })
   ],
   module: {
     rules: [
@@ -50,6 +44,18 @@ module.exports = {
             presets: ['es2015', 'react']
           }
         }
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              url: false
+            }
+          }
+        ]
       }
     ]
   }

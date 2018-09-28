@@ -1,3 +1,5 @@
+import 'officer-page.css';
+
 import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 import { compact, get, isEmpty } from 'lodash';
