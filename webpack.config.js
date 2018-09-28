@@ -2,7 +2,7 @@
 
 const path = require('path');
 
-const allowedEnvs = ['dev', 'prod'];
+const allowedEnvs = ['dev', 'prod', 'staging'];
 
 const isDevServer = process.argv.find(v => v.includes('webpack-dev-server'));
 if (isDevServer) {

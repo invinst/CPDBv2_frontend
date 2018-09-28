@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "CPDB_APP_ENV=prod webpack",
+    "build-staging": "CPDB_APP_ENV=staging webpack",
     "start": "webpack-dev-server",
     "test": "CPDB_APP_ENV=test NODE_PATH=src/js mochify --viewport-height 2000 --viewport-width 2000 --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --transform envify --https-server 3000 --allow-chrome-as-root",
     "test-debug": "yarn run test --debug",
