@@ -19,4 +19,12 @@ describe('AllegationCountWidget component', () => {
     const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--allegation-widget');
     instanceDOM.textContent.should.containEql('465 allegations');
   });
+
+  it('should have thousands separator comma', function () {
+    instance = renderIntoDocument(
+      <AllegationCountWidget numOfAllegations={ 6789 }/>
+    );
+    const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--allegation-widget');
+    instanceDOM.textContent.should.containEql('6,789 allegations');
+  });
 });
