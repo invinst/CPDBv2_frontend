@@ -399,6 +399,11 @@ export const NEW_TIMELINE_FILTERS = {
     label: 'COMPLAINTS',
     kind: [NEW_TIMELINE_ITEMS.CR],
   },
+  SUSTAINED: {
+    label: 'SUSTAINED',
+    kind: [NEW_TIMELINE_ITEMS.CR],
+    finding: ['Sustained']
+  },
   FORCE: {
     label: 'USE OF FORCE',
     kind: [NEW_TIMELINE_ITEMS.FORCE],
@@ -407,11 +412,6 @@ export const NEW_TIMELINE_FILTERS = {
     label: 'AWARDS',
     kind: [NEW_TIMELINE_ITEMS.AWARD],
   },
-  SUSTAINED: {
-    label: 'SUSTAINED',
-    kind: [NEW_TIMELINE_ITEMS.CR],
-    finding: ['Sustained']
-  }
 };
 
 export const DISTANCE_OPTIONS = {
