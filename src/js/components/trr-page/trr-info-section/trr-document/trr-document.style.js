@@ -2,22 +2,19 @@ import { sugarCaneColor, clayGray } from 'utils/styles';
 
 
 export const wrapperStyle = {
-  height: '40px',
-  lineHeight: '40px',
-  fontSize: '14px',
   fontWeight: 300,
-  color: clayGray,
   backgroundColor: sugarCaneColor,
 };
 
 export const textStyle = {
-  paddingLeft: '16px',
+  textAlign: 'center',
+  color: clayGray,
+  fontSize: '14px',
+  lineHeight: '18px',
+  padding: '11px 0',
 };
 
 export const requestDocumentButtonStyle = {
-  float: 'right',
-  margin: '6px 16px',
-  lineHeight: '14px',
-  color: clayGray,
-  boxSizing: 'border-box',
+  height: '40px',
+  textAlign: 'center',
 };
