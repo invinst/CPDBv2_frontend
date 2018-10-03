@@ -6,7 +6,7 @@ import { requestButtonStyle, messageStyle } from './no-attachment-header.style';
 
 export default class NoAttachmentHeader extends Component {
   render() {
-    const { openRequestDocumentModal, alreadyRequested, } = this.props;
+    const { openRequestDocumentModal, alreadyRequested } = this.props;
 
     return (
       <div>
@@ -24,10 +24,6 @@ export default class NoAttachmentHeader extends Component {
     );
   }
 }
-
-NoAttachmentHeader.defaultProps = {
-  items: []
-};
 
 NoAttachmentHeader.propTypes = {
   openRequestDocumentModal: PropTypes.func,

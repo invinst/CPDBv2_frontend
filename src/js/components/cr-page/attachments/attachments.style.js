@@ -15,7 +15,7 @@ export const innerWrapperStyle = hasData => ({
 });
 
 export const attachmentsStyle = hasData => ({
-  paddingBottom: hasData ?'8px' : 0
+  paddingBottom: hasData ? '8px' : 0
 });
 
 export const titleStyle = {

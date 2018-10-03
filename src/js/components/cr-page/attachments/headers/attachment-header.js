@@ -26,10 +26,6 @@ export default class AttachmentHeader extends Component {
   }
 }
 
-AttachmentHeader.defaultProps = {
-  items: []
-};
-
 AttachmentHeader.propTypes = {
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
