@@ -155,15 +155,6 @@ describe('store', function () {
         officerId: null,
         pathname: null,
         summary: {},
-        socialGraph: {
-          isRequesting: false,
-          links: [],
-          nodes: [],
-          yearRange: [
-            2000,
-            2017
-          ]
-        },
         newTimeline: {
           filter: {
             label: 'ALL',

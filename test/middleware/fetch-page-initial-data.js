@@ -4,7 +4,6 @@ import { stub } from 'sinon';
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary } from 'actions/officer-page';
 import { LANDING_PAGE_ID, OFFICER_PAGE_ID } from 'utils/constants';
-import { fetchSocialGraph } from 'actions/officer-page/social-graph';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { fetchPage } from 'actions/cms';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
@@ -118,7 +117,6 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(locationChangeAction);
     store.dispatch.calledWith(changeOfficerId(2)).should.be.true();
     store.dispatch.calledWith(fetchOfficerSummary(2)).should.be.true();
-    store.dispatch.calledWith(fetchSocialGraph(2)).should.be.true();
     store.dispatch.calledWith(fetchNewTimelineItems(2)).should.be.true();
     store.dispatch.calledWith(fetchPopup('officer')).should.be.true();
   });
