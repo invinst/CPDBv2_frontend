@@ -2,12 +2,7 @@
 
 const path = require('path');
 
-const allowedEnvs = ['dev', 'prod', 'staging'];
-
-const isDevServer = process.argv.find(v => v.includes('webpack-dev-server'));
-if (isDevServer) {
-  process.env['CPDB_APP_ENV'] = 'dev';
-}
+const allowedEnvs = ['dev', 'prod', 'staging', 'test'];
 
 let env = process.env['CPDB_APP_ENV'];
 let isValid = env && env.length > 0 && allowedEnvs.indexOf(env) !== -1;

@@ -232,14 +232,8 @@ describe('SlimHeader component', function () {
         slimHeaderContent.props.pathname.should.eql('/');
         slimHeaderContent.props.editModeOn.should.eql(false);
         slimHeaderContent.props.disableTop.should.eql(true);
-        slimHeaderContent.props.style.should.eql({
-          transform: 'translateY(-0%)',
-          backgroundColor: 'rgb(0, 94, 244)',
-          height: '102px',
-          ...fixedStyle
-        });
         done();
-      }, 1900);
+      }, 1000);
 
     });
   });

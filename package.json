@@ -8,13 +8,10 @@
     "build": "CPDB_APP_ENV=prod webpack",
     "build-staging": "CPDB_APP_ENV=staging webpack",
     "start": "webpack-dev-server",
-    "test": "CPDB_APP_ENV=test NODE_PATH=src/js mochify --viewport-height 2000 --viewport-width 2000 --require ./test/setup.js --recursive test --transform [ babelify --presets [ es2015 react ] ] --transform envify --https-server 3000 --allow-chrome-as-root",
-    "test-debug": "yarn run test --debug",
-    "test-watch": "yarn run test --watch",
-    "cover": "yarn run test -- --plugin [ mochify-istanbul --instrumenter babel-istanbul --report text --exclude **/mock-api/** --exclude **/utils/vendors.js ] --timeout 10000",
-    "cover-html": "yarn run test -- --plugin [ mochify-istanbul --instrumenter babel-istanbul --report html --exclude **/mock-api/** --exclude **/utils/vendors.js ] --timeout 10000",
-    "cover-watch": "yarn run test -- --watch --plugin [ mochify-istanbul --instrumenter babel-istanbul --report text --exclude **/mock-api/** --exclude **/utils/vendors.js ] --timeout 10000",
-    "cover-circle": "yarn run test -- --plugin [ mochify-istanbul --instrumenter babel-istanbul --report lcovonly --exclude **/mock-api/** --exclude **/utils/vendors.js ] --timeout 10000",
+    "test": "CPDB_APP_ENV=test webpack-dev-server",
+    "test-watch": "yarn test --pm-watch",
+    "cover": "CPDB_APP_ENV=test nyc webpack-dev-server",
+    "cover-circle": "yarn cover && nyc report --reporter=text-lcov | coveralls",
     "live-test": "CPDB_APP_ENV=test wdio wdio.conf.js",
     "lint": "eslint ./src ./test"
   },
@@ -28,11 +25,13 @@
   },
   "homepage": "#readme",
   "devDependencies": {
+    "arg": "^2.0.0",
     "async": "^2.0.0-rc.3",
     "babel-core": "^6.7.6",
     "babel-eslint": "^7.2.3",
     "babel-istanbul": "^0.12.2",
     "babel-loader": "7",
+    "babel-plugin-istanbul": "^5.0.1",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-es2015-block-scoping": "^6.15.0",
     "babel-plugin-transform-es2015-classes": "^6.14.0",
@@ -70,9 +69,9 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.4.3",
     "mocha": "^5.0.3",
-    "mochify": "5.3.1",
-    "mochify-istanbul": "^2.4.2",
-    "puppeteer": "^1.1.1",
+    "null-loader": "^0.1.1",
+    "nyc": "^13.0.1",
+    "puppeteer": "^1.8.0",
     "react-addons-perf": "^15.3.2",
     "react-addons-test-utils": "^15.3.2",
     "react-hot-loader": "^4.3.11",
@@ -81,7 +80,7 @@
     "rosie": "^1.3.0",
     "selenium-server-standalone-jar": "^2.53.0",
     "selenium-standalone": "^6.12.0",
-    "should": "^13.2.1",
+    "should": "^12.0.0",
     "should-sinon": "^0.0.6",
     "sinon": "^4.4.8",
     "vinyl-buffer": "^1.0.0",
@@ -94,7 +93,8 @@
     "wdio-spec-reporter": "0.0.5",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1",
-    "webpack-dev-server": "^3.1.9"
+    "webpack-dev-server": "^3.1.9",
+    "webpack-log": "^2.0.0"
   },
   "dependencies": {
     "array.prototype.find": "^2.0.0",
@@ -103,7 +103,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "bricks.js": "^1.7.0",
     "browserify": "^16.1.1",
-    "budo": "8.2.1",
     "chroma-js": "^1.2.1",
     "classnames": "^2.2.5",
     "clipboard": "^1.5.10",
@@ -158,5 +157,15 @@
     "twitter-widgets": "^1.0.0",
     "venn.js": "^0.2.20",
     "webdriverio": "^4.10.2"
+  },
+  "nyc": {
+    "exclude": [
+      "**/mock-api/**",
+      "**/utils/vendors.js",
+      "**/utils/test/**"
+    ],
+    "include": [
+      "**/src/**"
+    ]
   }
 }

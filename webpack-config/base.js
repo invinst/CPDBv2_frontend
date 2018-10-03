@@ -9,16 +9,13 @@ const context = path.join(__dirname, '../');
 
 module.exports = {
   context: context,
-  devtool: 'eval',
   output: {
     path: path.join(__dirname, '../dist'),
     filename: 'bundle-[contenthash].js',
     publicPath: '/'
   },
   mode: 'production',
-  entry: [
-    `${srcPath}/js/index`
-  ],
+  entry: `${srcPath}/js/index`,
   resolve: {
     extensions: ['.js'],
     modules: [path.resolve(__dirname, '../src/css'), path.resolve(__dirname, '../src/js'), 'node_modules']
