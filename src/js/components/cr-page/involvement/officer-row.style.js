@@ -3,15 +3,16 @@ import {
 } from 'utils/styles';
 
 
-export const wrapperStyle = {
+export const wrapperStyle = hasInfo => ({
   padding: '12px 0 12px 0',
   fontFamily: sanFranciscoTextFamily,
   minHeight: '54px',
   boxSizing: 'border-box',
   display: 'block',
   fontSize: '14px',
-  borderBottom: `solid 1px ${whiteTwoColor}`
-};
+  borderBottom: `solid 1px ${whiteTwoColor}`,
+  cursor: hasInfo ? 'pointer' : 'default',
+});
 
 export const chartWrapperStyle = {
   display: 'inline-block',
@@ -29,10 +30,10 @@ export const rightWrapperStyle = {
   width: 'calc(100% - 92px)'
 };
 
-export const officerNameStyle = hovering => ({
+export const officerNameStyle = (hovering, hasInfo) => ({
   fontSize: '14px',
   fontWeight: 400,
-  color: hovering ? accentColor : softBlackColor
+  color: hovering && hasInfo ? accentColor : softBlackColor,
 });
 
 export const extraInfoStyle = {
