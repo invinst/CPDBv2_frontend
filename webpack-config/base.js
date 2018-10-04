@@ -7,10 +7,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const srcPath = path.join(__dirname, '/../src');
 const context = path.join(__dirname, '../');
 
-module.exports = {
+module.exports = distFolder => ({
   context: context,
   output: {
-    path: path.join(__dirname, '../dist'),
+    path: path.join(__dirname, '..', distFolder),
     filename: 'bundle-[contenthash].js',
     publicPath: '/'
   },
@@ -21,7 +21,7 @@ module.exports = {
     modules: [path.resolve(__dirname, '../src/css'), path.resolve(__dirname, '../src/js'), 'node_modules']
   },
   plugins: [
-    new CleanWebpackPlugin(['dist'], { root: context }),
+    new CleanWebpackPlugin([distFolder], { root: context }),
     new webpack.EnvironmentPlugin([
       'CPDB_APP_ENV'
     ]),
@@ -33,7 +33,7 @@ module.exports = {
     rules: [
       {
         test: /\.(js)$/,
-        include: [path.join(__dirname, '/../src')],
+        include: [path.join(__dirname, '../src')],
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -56,4 +56,4 @@ module.exports = {
       }
     ]
   }
-};
+});

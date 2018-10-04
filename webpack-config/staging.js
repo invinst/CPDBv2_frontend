@@ -3,7 +3,7 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const baseConfig = require('./base');
+const baseConfig = require('./base')('dist');
 
 let config = Object.assign({}, baseConfig, {
   plugins: [

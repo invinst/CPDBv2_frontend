@@ -3,9 +3,11 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const baseConfig = require('./base')('dist');
+const baseConfig = require('./base')('live-test-build');
 
-let config = Object.assign({}, baseConfig, {
+module.exports = Object.assign({}, baseConfig, {
+  mode: 'development',
+  devtool: 'eval-source-map',
   plugins: [
     ...baseConfig.plugins,
     new CopyWebpackPlugin([
@@ -16,10 +18,9 @@ let config = Object.assign({}, baseConfig, {
       template: 'index.html.template',
       filename: 'index.html',
       templateParameters: {
-        'GA_TRACKING_ID': 'UA-63671047-2',
-        'INTERCOM_ID': 'p51vy1rb'
+        'GA_TRACKING_ID': 'UA-XXXXX-Y',
+        'INTERCOM_ID': 'gbsby1ik'
       }
     })
   ]
 });
-module.exports = config;

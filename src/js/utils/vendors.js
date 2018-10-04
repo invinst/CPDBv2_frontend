@@ -5,6 +5,7 @@ import TwitterWidgetsLoader from 'twitter-widgets';
 import _mapboxgl from 'mapbox-gl';
 import { spy, stub } from 'sinon';
 
+import config from 'config';
 import { MAPBOX_ACCESS_TOKEN } from 'utils/constants';
 
 
@@ -24,7 +25,7 @@ export function loadTwitter(cb) {
 
 _mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
 
-if (global.LIVE_TEST !== undefined || global.mocha !== undefined) {
+if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   const addSourceSpy = spy();
   const getSourceSpy = stub().returns(undefined);
   const addLayerSpy = spy();

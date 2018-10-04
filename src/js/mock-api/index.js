@@ -1,3 +1,4 @@
+import config from 'config';
 import axiosMockClient, { countRequests } from 'utils/axios-mock-client';
 import {
   ACTIVITY_GRID_API_URL,
@@ -101,7 +102,7 @@ axiosMockClient.onGet(
 ).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi' }));
 
 axiosMockClient.onGet(
-  `${CR_URL}1000000/related-complaints/?match=categories&distance=0.5mi&offset=20`
+  `${CR_URL}1000000/related-complaints/?distance=0.5mi&match=categories&offset=20`
 ).reply(200, getCRRelatedComplaintsData({ match: 'categories', distance: '0.5mi', nextOffset: 40 }));
 
 axiosMockClient.onGet(`${OFFICER_URL}1/new-timeline-items/`).reply(200, getNewTimelineItemsData());
@@ -121,7 +122,7 @@ axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup()
 
 /*istanbul ignore next*/
 export function getMockAdapter() {
-  if (global.LIVE_TEST !== undefined) {
+  if (config.appEnv === 'live-test') {
     return axiosMockClient.adapter();
   }
   return null;

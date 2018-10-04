@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const _ = require('lodash');
 
 const PuppeteerMochaPlugin = require('./puppeteer-mocha-plugin');
-const baseConfig = require('./base');
+const baseConfig = require('./base')('dist');
 
 const config = Object.assign(
   _.pick(baseConfig, ['context', 'resolve']),

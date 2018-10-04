@@ -6,7 +6,8 @@ const configs = {
   'dev': require('./dev'),
   'prod': require('./prod'),
   'staging': require('./staging'),
-  'test': require('./test')
+  'test': require('./test'),
+  'live-test': require('./live-test')
 };
 
 export default {

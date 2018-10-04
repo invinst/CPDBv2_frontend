@@ -31,7 +31,7 @@ describe('Popup', function () {
     crPage.accusedOfficers.popup.waitForVisible();
   });
 
-  it('should close when clicking on the close button', function () {
+  it.only('should close when clicking on the close button', function () {
     crPage.policeWitness.popupButton.click();
     crPage.policeWitness.popup.waitForVisible();
     crPage.policeWitness.popupCloseButton.click();

@@ -16,7 +16,7 @@ if (config.appEnv === 'dev') {
   global.Perf = Perf;
 }
 
-if (global.LIVE_TEST) {
+if (config.appEnv === 'live-test') {
   global.disableAnimation = true;
 }
 

@@ -12,7 +12,7 @@
     "test-watch": "yarn test --pm-watch",
     "cover": "CPDB_APP_ENV=test nyc webpack-dev-server",
     "cover-circle": "yarn cover && nyc report --reporter=text-lcov | coveralls",
-    "live-test": "CPDB_APP_ENV=test wdio wdio.conf.js",
+    "live-test": "CPDB_APP_ENV=live-test wdio wdio.conf.js",
     "lint": "eslint ./src ./test"
   },
   "repository": {
@@ -85,7 +85,6 @@
     "sinon": "^4.4.8",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.11.0",
     "wdio-concise-reporter": "^0.1.2",
     "wdio-dot-reporter": "0.0.6",
     "wdio-mocha-framework": "^0.5.8",
@@ -143,7 +142,7 @@
     "react-router": "^3.0.5",
     "react-router-redux": "4.0.8",
     "react-tagsinput": "^3.17.0",
-    "react-tooltip": "^3.6.1",
+    "react-tooltip": "3.6.1",
     "redux": "^3.5.2",
     "redux-actions": "^0.9.1",
     "redux-axios-middleware": "4.0.0",
@@ -157,6 +156,9 @@
     "twitter-widgets": "^1.0.0",
     "venn.js": "^0.2.20",
     "webdriverio": "^4.10.2"
+  },
+  "resolutions": {
+    "react-tooltip": "3.6.1"
   },
   "nyc": {
     "exclude": [
