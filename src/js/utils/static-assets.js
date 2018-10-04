@@ -9,13 +9,5 @@ export function imgUrl(path) {
   }
 }
 
-export function mediaUrl(path) {
-  if (config.appEnv === 'dev') {
-    return `http://localhost:8000${path}`;
-  } else {
-    return path;
-  }
-}
-
 export const clusterGeoJSONPath = `${config.heatMapContainer}cluster.geojson`;
 export const communityGeoJSONPath = `${config.heatMapContainer}community.geojson`;

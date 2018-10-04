@@ -3,28 +3,58 @@ jobs:
 
   test:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.1.2
+      - image: cpdbdev/cpdbv2_frontend:0.2.0
     environment:
       NODE_ENV: development
     steps:
       - checkout
-      - run: pwd
-      - run: yarn install
+      - restore_cache:
+          keys:
+            - v1-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+            - v1-node-modules-{{ checksum "package.json" }}-
+            - v1-node-modules-
+      - run: yarn
       - run: yarn lint
       - run: yarn cover-circle
       - run: cat lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run: yarn live-test
       - store_artifacts:
           path: /home/deploy/errorShots
+      - save_cache:
+          key: v1-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+          paths:
+            - "/home/deploy/node_modules"
 
   deploy:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.1.1
+      - image: cpdbdev/cpdbv2_frontend:0.2.0
     environment:
       NODE_ENV: development
     steps:
       - checkout
-      - run: bin/circle-deploy-staging
+      - restore_cache:
+          keys:
+            - v1-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+            - v1-node-modules-{{ checksum "package.json" }}-
+            - v1-node-modules-
+      - run: yarn
+      - run:
+          name: Build assets
+          command: |
+            if [ $CIRCLE_BRANCH == "master" ]
+            then
+              yarn build
+            else
+              yarn build-staging
+            fi
+      - run:
+          name: Copy all dist files to Azure blob storage
+          command: |
+            azcopy \
+              --source ./dist \
+              --destination https://$AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/$CONTAINER_PREFIX-$CIRCLE_BRANCH \
+              --dest-key $AZURE_STORAGE_ACCOUNT_KEY \
+              --recursive
 
 workflows:
   version: 2
@@ -36,4 +66,6 @@ workflows:
             - test
           filters:
             branches:
-              only: staging
+              only:
+                - staging
+                - master
