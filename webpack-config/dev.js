@@ -56,12 +56,15 @@ const config = Object.assign({}, baseConfig, {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              url: false
-            }
-          }
+          { loader: 'css-loader', options: { url: false } }
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { modules: true } },
+          { loader: 'sass-loader' }
         ]
       }
     ]

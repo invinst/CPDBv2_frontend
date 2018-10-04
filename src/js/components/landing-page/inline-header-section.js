@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { headerStyle, headerTextStyle } from './inline-header-section.style';
+import styles from './inline-header-section.scss';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
@@ -18,13 +18,13 @@ class InlineHeaderSection extends Component {
     return (
       <EditWrapperStateProvider { ...editWrapperStateProps }>
         <HoverableEditWrapper>
-          <h3 style={ headerStyle }>
+          <h3 className={ styles.header }>
             <LinkTextEditable
               placeholder='Title'
               fieldname={ `carousel_${type.key.toLowerCase()}_title` }
             />
           </h3>
-          <div style={ headerTextStyle }>
+          <div className={ styles.headerText }>
             <RichTextEditable
               placeholder='Description'
               fieldname={ `carousel_${type.key.toLowerCase()}_desc` }
