@@ -69,3 +69,4 @@ workflows:
               only:
                 - staging
                 - master
+                - feature/255-switch-to-webpack
