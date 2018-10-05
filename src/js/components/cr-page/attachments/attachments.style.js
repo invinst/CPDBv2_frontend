@@ -1,6 +1,4 @@
-import {
-  sanFranciscoTextFamily, softBlackColor, whiteTwoColor, clayGray, sugarCaneColor
-} from 'utils/styles';
+import { softBlackColor, whiteTwoColor, sugarCaneColor } from 'utils/styles';
 
 
 export const wrapperStyle = hasData => ({
@@ -16,37 +14,10 @@ export const innerWrapperStyle = hasData => ({
   position: 'relative',
 });
 
-export const headerStyle = {
-  fontSize: '14px',
-  fontFamily: sanFranciscoTextFamily,
-  paddingTop: '9px'
-};
-
-export const attachmentsStyle = {
-  paddingBottom: '8px'
-};
-
-export const headerLeftColumnStyle = {
-  display: 'inline-block',
-  width: 'calc(100% - 200px)'
-};
+export const attachmentsStyle = hasData => ({
+  paddingBottom: hasData ? '8px' : 0
+});
 
 export const titleStyle = {
   color: softBlackColor,
-};
-
-export const subTitleStyle = {
-  color: clayGray,
-  marginLeft: '8px',
-};
-
-export const emptyMessageStyle = {
-  color: clayGray,
-  fontSize: '14px'
-};
-
-export const requestButtonStyle = {
-  display: 'inline-block',
-  width: '200px',
-  textAlign: 'right'
 };
