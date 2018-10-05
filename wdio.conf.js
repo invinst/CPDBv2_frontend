@@ -275,5 +275,5 @@ exports.config = {
       }
     }
   },
-  seleniumLogs: '/tmp/selenium.log'
+  seleniumLogs: '/tmp'
 };

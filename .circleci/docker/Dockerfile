@@ -50,6 +50,10 @@ RUN set -ex \
     && rm -rf azcopy
 
 
+# Install miscelaneous tools
+RUN apt-get update && apt-get install vim
+
+
 # Run as non root user
 RUN useradd -ms /bin/bash deploy
 
