@@ -73,7 +73,6 @@ describe('location utils', function () {
 
     it('should return officer active tab', function () {
       getOfficerActiveTab('/officer/123/timeline/').should.eql('timeline');
-      getOfficerActiveTab('/officer/123/social/').should.eql('social');
       getOfficerActiveTab('/officer/123/').should.eql('');
     });
   });
