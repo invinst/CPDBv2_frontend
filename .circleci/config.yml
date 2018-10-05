@@ -10,19 +10,20 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
-            - v1-node-modules-{{ checksum "package.json" }}-
-            - v1-node-modules-
+            - v2-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+            - v2-node-modules-{{ checksum "package.json" }}-
+            - v2-node-modules-
       - run: yarn
       - run: yarn lint
-      - run: yarn cover-circle
+      - run: yarn cover
+      - run: yarn cover-report
       - run: yarn live-test
       - store_artifacts:
           path: /home/deploy/errorShots
       - save_cache:
           key: v1-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
           paths:
-            - "/home/deploy/node_modules"
+            - "/home/deploy/project/node_modules"
 
   deploy:
     docker:
@@ -33,9 +34,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v1-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
-            - v1-node-modules-{{ checksum "package.json" }}-
-            - v1-node-modules-
+            - v2-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+            - v2-node-modules-{{ checksum "package.json" }}-
+            - v2-node-modules-
       - run: yarn
       - run:
           name: Build assets
@@ -68,4 +69,3 @@ workflows:
               only:
                 - staging
                 - master
-                - feature/255-switch-to-webpack

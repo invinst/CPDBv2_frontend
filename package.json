@@ -11,7 +11,7 @@
     "test": "CPDB_APP_ENV=test webpack-dev-server",
     "test-watch": "yarn test --pm-watch",
     "cover": "CPDB_APP_ENV=test nyc webpack-dev-server",
-    "cover-circle": "yarn cover && nyc report --reporter=text-lcov | coveralls",
+    "cover-report": "nyc report --reporter=text-lcov | coveralls",
     "live-test": "CPDB_APP_ENV=live-test wdio wdio.conf.js",
     "lint": "eslint ./src ./test"
   },
