@@ -2,11 +2,7 @@ import config from 'config';
 
 
 export function imgUrl(path) {
-  if (config.appEnv === 'dev') {
-    return `/src/img/${path}`;
-  } else {
-    return `/dist/img/${path}`;
-  }
+  return `${config.staticBase}/img/${path}`;
 }
 
 export const clusterGeoJSONPath = `${config.heatMapContainer}cluster.geojson`;

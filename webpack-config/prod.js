@@ -3,9 +3,13 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const utils = require('./utils');
 const baseConfig = require('./base')('dist');
 
 let config = Object.assign({}, baseConfig, {
+  output: Object.assign({}, baseConfig.output, {
+    publicPath: utils.staticFileBase()
+  }),
   plugins: [
     ...baseConfig.plugins,
     new CopyWebpackPlugin([

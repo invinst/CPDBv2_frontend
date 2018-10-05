@@ -3,5 +3,5 @@ export default {
   visualTokenAccount: 'cpdbvisualtoken',
   v1Url: 'https://data.cpdp.co',
   twitterBotName: 'CPDPbot',
-  heatMapContainer: 'https://cpdbv21777.blob.core.windows.net/heatmap/',
+  heatMapContainer: 'https://cpdbv21777.blob.core.windows.net/heatmap/'
 };

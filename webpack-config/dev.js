@@ -3,6 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const baseConfig = require('./base')('dist');
@@ -27,6 +28,10 @@ const config = Object.assign({}, baseConfig, {
   devtool: 'eval-source-map',
   plugins: [
     ...baseConfig.plugins,
+    new CopyWebpackPlugin([
+      { from: 'src/fonts', to: 'fonts' },
+      { from: 'src/img', to: 'img' }
+    ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({

@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const utils = require('./utils');
 
 const srcPath = path.join(__dirname, '/../src');
 const context = path.join(__dirname, '../');
@@ -22,9 +23,10 @@ module.exports = distFolder => ({
   },
   plugins: [
     new CleanWebpackPlugin([distFolder], { root: context }),
-    new webpack.EnvironmentPlugin([
-      'CPDB_APP_ENV'
-    ]),
+    new webpack.EnvironmentPlugin({
+      'CPDB_APP_ENV': 'dev',
+      'STATIC_FILE_BASE': utils.staticFileBase()
+    }),
     new MiniCssExtractPlugin({
       filename: 'bundle-[contenthash].css',
     })
