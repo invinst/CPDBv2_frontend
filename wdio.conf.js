@@ -274,5 +274,6 @@ exports.config = {
         baseURL: 'https://chromedriver.storage.googleapis.com'
       }
     }
-  }
+  },
+  seleniumLogs: '/var/log/selenium.log'
 };

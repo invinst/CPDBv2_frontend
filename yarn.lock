@@ -8891,7 +8891,7 @@ selenium-server-standalone-jar@^2.53.0:
   resolved "https://registry.yarnpkg.com/selenium-server-standalone-jar/-/selenium-server-standalone-jar-2.53.1.tgz#4fc3fafa4b4268bdad0dbb2deca0b06b34f548ae"
   integrity sha1-T8P6+ktCaL2tDbst7KCwazT1SK4=
 
-selenium-standalone@^6.12.0, selenium-standalone@^6.5.0:
+selenium-standalone@^6.12.0, selenium-standalone@^6.13.0:
   version "6.15.3"
   resolved "https://registry.yarnpkg.com/selenium-standalone/-/selenium-standalone-6.15.3.tgz#c89e676f6e5acf54a212bcea985d02880564b008"
   integrity sha512-BFzdXRB8yYPfCRcLxpJDBLWM0akTBP/x0hB0g+8AR7N/PEvbW39dM/hq0Yp1R0hihVQTPI3KkAJpW6h/f41S4g==
@@ -10611,13 +10611,13 @@ wdio-mocha-framework@^0.5.8:
     mocha "^5.0.0"
     wdio-sync "0.7.1"
 
-wdio-selenium-standalone-service@^0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/wdio-selenium-standalone-service/-/wdio-selenium-standalone-service-0.0.9.tgz#c80d4ff489744d5a0b91d5189764916d4c0c8564"
-  integrity sha1-yA1P9Il0TVoLkdUYl2SRbUwMhWQ=
+wdio-selenium-standalone-service@^0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/wdio-selenium-standalone-service/-/wdio-selenium-standalone-service-0.0.10.tgz#cdb64d9a53fa3ea0ed3cf0ebf4fd3bdca93dcf05"
+  integrity sha512-PnpY6r8DcMwU2ZVk5y1d8vKhqOq6bXJILy/g5O5ncMpFaxIZcLkFA1u/11XBJwgzWXgUAXPPnIchkb+/t1dbXA==
   dependencies:
     fs-extra "^0.30.0"
-    selenium-standalone "^6.5.0"
+    selenium-standalone "^6.13.0"
 
 wdio-spec-reporter@0.0.5:
   version "0.0.5"
