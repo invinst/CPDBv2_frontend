@@ -127,21 +127,28 @@ describe('Timeline component', function () {
     items[4].props.hasBorderBottom.should.be.false();
   });
 
-  it('should render dropdown with correct props', function () {
+  it('should render dropdown with correct order', function () {
+    instance = renderIntoDocument(
+      <Timeline />
+    );
+    const dropdown = findRenderedComponentWithType(instance, Dropdown);
+    dropdown.props.defaultValue.should.eql('ALL');
+    dropdown.props.options.should.eql(['ALL', 'COMPLAINTS', 'SUSTAINED', 'USE OF FORCE', 'AWARDS']);
+  });
+
+  it('should call changeFilter when clicking dropdown items', function () {
     const changeFilterStub = stub();
     instance = renderIntoDocument(
       <Timeline
         changeFilter={ changeFilterStub }
       />
     );
-    const dropdown = findRenderedComponentWithType(instance, Dropdown);
-    dropdown.props.defaultValue.should.eql('ALL');
-    dropdown.props.options.should.eql(['ALL', 'COMPLAINTS', 'USE OF FORCE', 'AWARDS', 'SUSTAINED']);
 
     const dropdownButton = findRenderedDOMComponentWithClass(instance, 'test--dropdown-button');
     Simulate.click(dropdownButton);
     const options = scryRenderedDOMComponentsWithClass(instance, 'test--dropdown-menu-item');
     Simulate.click(options[0]);
+
     changeFilterStub.calledWith({
       label: 'COMPLAINTS',
       kind: ['CR'],
