@@ -5,7 +5,7 @@ const staticFileBase = () => {
       'https://',
       process.env.AZURE_STORAGE_ACCOUNT_NAME,
       '.blob.core.windows.net/',
-      process.env.CONTAINER_PREFIX, '-', process.env.CIRCLE_BRANCH
+      process.env.AZURE_STATICFILES_CONTAINER
     ].join('');
   }
 
