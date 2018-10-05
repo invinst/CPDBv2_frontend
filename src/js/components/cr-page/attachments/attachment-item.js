@@ -22,7 +22,7 @@ class AttachmentItem extends Component {
 
     return (
       <OutboundLink style={ wrapperStyle } href={ url } className='test--attachment-card' onClick={ this.handleClick }>
-        <div style={ thumbnailStyle(fileType, previewImageUrl, hovering) } />
+        <div style={ thumbnailStyle(fileType, previewImageUrl, hovering) } className='test--attachment-card-thumbnail' />
         <div style={ titleStyle(hovering) } className='test--attachment-card-title'>{ title }</div>
       </OutboundLink>
     );

@@ -11,40 +11,42 @@ export function innerHeight(el) {
   return sumBy(el.children, child => child.getBoundingClientRect().height);
 }
 
-/* istanbul ignore next */
 export function viewportHeight() {
+/* istanbul ignore next */
   return Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
 }
 
 /* istanbul ignore next */
-export function fullDocumentHeight() {
+function _fullDocumentHeight() {
   // height of whole document including parts outside the visible viewport
   const body = document.body;
   const html = document.documentElement;
   return Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
 }
 
-/* istanbul ignore next */
+export const fullDocumentHeight = _fullDocumentHeight;
+
 export function bodyScrollPosition() {
+  /* istanbul ignore next */
   return Math.max(document.documentElement.scrollTop, window.scrollY);
 }
 
-/* istanbul ignore next */
 export function isScrolledToBottom() {
   // +20 px to be more lenient, which also works around the edge case
   // where the horizontal scrollbar causes a false negative
+  /* istanbul ignore next */
   return viewportHeight() + bodyScrollPosition() + 20 >= fullDocumentHeight();
 }
 
-/* istanbul ignore next */
 export function calculatePosition() {
+  /* istanbul ignore next */
   if (bodyScrollPosition() === 0) {
     return 'top';
   } else if (isScrolledToBottom()) {
     return 'bottom';
+  } else {
+    return 'middle';
   }
-
-  return 'middle';
 }
 
 export function disableBodyScroll() {
