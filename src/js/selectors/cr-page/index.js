@@ -193,7 +193,7 @@ export const contentSelector = createSelector(
     incidentDate: cr['incident_date'],
     address: cr.address,
     crLocation: cr.location,
-    beat: cr.beat || 'Unknown',
+    beat: cr.beat,
     summary: cr.summary,
     category: get(cr, 'most_common_category.category') || 'Unknown',
     subcategory: get(cr, 'most_common_category.allegation_name') || 'Unknown',
