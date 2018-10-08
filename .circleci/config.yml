@@ -43,10 +43,10 @@ jobs:
           command: |
             if [ $CIRCLE_BRANCH == "master" ]
             then
-              export AZURE_STORAGE_ACCOUNT_NAME=AZURE_STORAGE_PROD_ACCOUNT_NAME
+              export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_PROD_ACCOUNT_NAME
               yarn build
             else
-              export AZURE_STORAGE_ACCOUNT_NAME=AZURE_STORAGE_STAGING_ACCOUNT_NAME
+              export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_STAGING_ACCOUNT_NAME
               yarn build-staging
             fi
       - run:
@@ -54,17 +54,18 @@ jobs:
           command: |
             if [ $CIRCLE_BRANCH == "master" ]
             then
-              export AZURE_STORAGE_ACCOUNT_NAME=AZURE_STORAGE_PROD_ACCOUNT_NAME
-              export AZURE_STORAGE_ACCOUNT_KEY=AZURE_STORAGE_PROD_ACCOUNT_KEY
+              export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_PROD_ACCOUNT_NAME
+              export AZURE_STORAGE_ACCOUNT_KEY=$AZURE_STORAGE_PROD_ACCOUNT_KEY
             else
-              export AZURE_STORAGE_ACCOUNT_NAME=AZURE_STORAGE_STAGING_ACCOUNT_NAME
-              export AZURE_STORAGE_ACCOUNT_KEY=AZURE_STORAGE_STAGING_ACCOUNT_KEY
+              export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_STAGING_ACCOUNT_NAME
+              export AZURE_STORAGE_ACCOUNT_KEY=$AZURE_STORAGE_STAGING_ACCOUNT_KEY
             fi && \
             azcopy \
               --source ./dist \
-              --destination https://${!AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER \
-              --dest-key ${!AZURE_STORAGE_ACCOUNT_KEY} \
-              --recursive
+              --destination https://$AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER \
+              --dest-key $AZURE_STORAGE_ACCOUNT_KEY \
+              --recursive \
+              --quiet
 
 workflows:
   version: 2
