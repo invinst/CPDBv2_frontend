@@ -21,7 +21,7 @@ jobs:
       - store_artifacts:
           path: /home/deploy/errorShots
       - save_cache:
-          key: v1-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+          key: v2-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
           paths:
             - "/home/deploy/project/node_modules"
 
