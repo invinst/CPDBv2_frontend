@@ -50,9 +50,6 @@ jobs:
               yarn build-staging
             fi
       - run:
-          name: List open files
-          command: lsof | grep /home/deploy/project
-      - run:
           name: Copy all dist files to Azure blob storage
           command: |
             if [ $CIRCLE_BRANCH == "master" ]
