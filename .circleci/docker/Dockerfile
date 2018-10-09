@@ -51,11 +51,11 @@ RUN set -ex \
 
 
 # Install miscelaneous tools
-RUN apt-get update && apt-get install vim
+RUN apt-get update && apt-get install vim lsof
 
 
 # Run as non root user
-RUN useradd -ms /bin/bash deploy
+RUN useradd -m deploy && echo "deploy:deploy" | chpasswd && adduser deploy sudo
 
 USER deploy
 WORKDIR /home/deploy

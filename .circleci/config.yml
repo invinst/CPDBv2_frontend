@@ -49,6 +49,7 @@ jobs:
               export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_STAGING_ACCOUNT_NAME
               yarn build-staging
             fi
+      - run: lsof | grep /home/deploy/project/dist
       - run:
           name: Copy all dist files to Azure blob storage
           command: |
