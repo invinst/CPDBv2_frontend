@@ -10,6 +10,7 @@ let config = Object.assign({}, baseConfig, {
   output: Object.assign({}, baseConfig.output, {
     publicPath: utils.staticFileBase()
   }),
+  devtool: 'eval-source-map',
   plugins: [
     ...baseConfig.plugins,
     new CopyWebpackPlugin([
