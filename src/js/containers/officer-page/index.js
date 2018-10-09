@@ -13,7 +13,6 @@ import {
   getPathname,
   getOfficerSlug,
 } from 'selectors/officer-page';
-import { openPoliceUnitPage } from 'actions/open-page';
 import {
   changeOfficerTab,
   turnOnTriangleExplainEditMode,
@@ -93,7 +92,6 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
 };
 
 const mapDispatchToProps = {
-  openPoliceUnitPage,
   changeOfficerTab,
   onSaveForm: updatePage(OFFICER_PAGE_ID),
   turnOnTriangleExplainEditMode,
