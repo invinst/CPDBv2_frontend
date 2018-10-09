@@ -53,7 +53,7 @@ jobs:
           name: Copy file index
           command: |
             azcopy \
-              --source ./dist/index.html
+              --source ./dist/index.html \
               --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/index.html \
               --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
               --quiet
@@ -63,7 +63,7 @@ jobs:
           command: |
             export JSFILE=`ls dist | grep .js` && \
             azcopy \
-              --source ./dist/$JSFILE
+              --source ./dist/$JSFILE \
               --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/$JSFILE \
               --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
               --quiet
@@ -73,7 +73,7 @@ jobs:
           command: |
             export CSSFILE=`ls dist | grep .css` && \
             azcopy \
-              --source ./dist/$CSSFILE
+              --source ./dist/$CSSFILE \
               --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/$CSSFILE \
               --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
               --quiet
@@ -82,7 +82,7 @@ jobs:
           name: Copy fonts
           command: |
             azcopy \
-              --source ./dist/fonts
+              --source ./dist/fonts \
               --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/fonts \
               --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
               --recursive \
@@ -92,7 +92,7 @@ jobs:
           name: Copy img
           command: |
             azcopy \
-              --source ./dist/img
+              --source ./dist/img \
               --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/img \
               --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
               --recursive \
