@@ -13,4 +13,4 @@ azcopy \
   --destination https://$AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER \
   --dest-key $AZURE_STORAGE_ACCOUNT_KEY \
   --recursive \
-  --quiet
+  --quiet || true
