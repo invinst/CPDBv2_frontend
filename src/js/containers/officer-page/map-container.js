@@ -3,7 +3,6 @@ import { withRouter } from 'react-router';
 
 import Map from 'components/officer-page/tabbed-pane-section/map';
 import { mapLegendSelector, mapMarkersSelector } from 'selectors/officer-page/map';
-import { openTRRPage } from 'actions/open-page';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -12,8 +11,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = {
-  openTRRPage,
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Map));
+export default withRouter(connect(mapStateToProps)(Map));

@@ -57,12 +57,10 @@ Marker.propTypes = {
   finding: PropTypes.string,
   mapboxMarker: PropTypes.object,
   hovering: PropTypes.bool,
-  openTRRPage: PropTypes.func,
 };
 
 Marker.defaultProps = {
   mapboxMarker: stub(),
-  openTRRPage: () => {},
 };
 
 export default Hoverable(Marker);
