@@ -49,24 +49,55 @@ jobs:
               export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_STAGING_ACCOUNT_NAME
               yarn build-staging
             fi
-      - run: sleep 10
       - run:
-          name: Copy all dist files to Azure blob storage
-          command: |
-            if [ $CIRCLE_BRANCH == "master" ]
-            then
-              export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_PROD_ACCOUNT_NAME
-              export AZURE_STORAGE_ACCOUNT_KEY=$AZURE_STORAGE_PROD_ACCOUNT_KEY
-            else
-              export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_STAGING_ACCOUNT_NAME
-              export AZURE_STORAGE_ACCOUNT_KEY=$AZURE_STORAGE_STAGING_ACCOUNT_KEY
-            fi && \
-            azcopy \
-              --source /home/deploy/project/dist \
-              --destination https://$AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER \
-              --dest-key $AZURE_STORAGE_ACCOUNT_KEY \
-              --recursive \
-              --quiet
+        name: Copy file index
+        command: |
+          azcopy \
+            --source ./dist/index.html
+            --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/index.html \
+            --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
+            --quiet
+        when: always
+      - run:
+        name: Copy js file
+        command: |
+          export JSFILE=`ls dist | grep .js` && \
+          azcopy \
+            --source ./dist/$JSFILE
+            --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/$JSFILE \
+            --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
+            --quiet
+        when: always
+      - run:
+        name: Copy css file
+        command: |
+          export CSSFILE=`ls dist | grep .css` && \
+          azcopy \
+            --source ./dist/$CSSFILE
+            --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/$CSSFILE \
+            --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
+            --quiet
+        when: always
+      - run:
+        name: Copy fonts
+        command: |
+          azcopy \
+            --source ./dist/fonts
+            --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/fonts \
+            --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
+            --recursive \
+            --quiet
+        when: always
+      - run:
+        name: Copy img
+        command: |
+          azcopy \
+            --source ./dist/img
+            --destination https://$AZURE_STORAGE_STAGING_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER/img \
+            --dest-key $AZURE_STORAGE_STAGING_ACCOUNT_KEY \
+            --recursive \
+            --quiet
+        when: always
 
 workflows:
   version: 2
