@@ -7,10 +7,40 @@ else
   AZURE_STORAGE_ACCOUNT_KEY=$AZURE_STORAGE_STAGING_ACCOUNT_KEY
 fi
 
-azcopy \
-  --verbose \
-  --source ./dist \
-  --destination https://$AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/$AZURE_STATICFILES_CONTAINER \
-  --dest-key $AZURE_STORAGE_ACCOUNT_KEY \
-  --recursive \
-  --quiet || true
+JSFILE=`ls dist | grep .js`
+CSSFILE=`ls dist | grep .css`
+
+base_args=(
+  --verbose
+  --dest-key $AZURE_STORAGE_ACCOUNT_KEY
+  --quiet
+)
+
+copy () {
+  args=(
+    --verbose \
+    --source $1 \
+    --destination https://$AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net/$2 \
+    --dest-key $AZURE_STORAGE_ACCOUNT_KEY \
+    --set-content-type $3
+    --quiet
+  )
+
+  if [[ $4 ]]; then
+    args+=(--include $4)
+  fi
+  azcopy "${args[@]}" || true
+}
+
+copy ./dist/index.html $AZURE_TEMPLATE_CONTAINER/index.html text/html
+
+copy ./dist/$JSFILE $AZURE_STATICFILES_CONTAINER/$JSFILE application/javascript
+copy ./dist/$CSSFILE $AZURE_STATICFILES_CONTAINER/$CSSFILE text/css
+
+copy ./dist/fonts $AZURE_STATICFILES_CONTAINER/fonts font/otf *.otf
+copy ./dist/fonts $AZURE_STATICFILES_CONTAINER/fonts font/ttf *.ttf
+copy ./dist/fonts $AZURE_STATICFILES_CONTAINER/fonts font/woff *.woff
+copy ./dist/fonts $AZURE_STATICFILES_CONTAINER/fonts font/woff2 *.woff2
+
+copy ./dist/img $AZURE_STATICFILES_CONTAINER/img image/svg+xml *.svg
+copy ./dist/img $AZURE_STATICFILES_CONTAINER/img image/png *.png
