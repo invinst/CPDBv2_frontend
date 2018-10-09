@@ -14,7 +14,7 @@ import {
 export default class Coaccusals extends Component {
 
   render() {
-    const { coaccusalGroups, openOfficerPage } = this.props;
+    const { coaccusalGroups } = this.props;
 
     return (
       <div style={ coaccusalsStyle } className='test--officer-coaccusals'>
@@ -31,7 +31,6 @@ export default class Coaccusals extends Component {
                       key={ `coaccusal-${cardIndex}` }
                       thumbnail='https://via.placeholder.com/38x38'
                       extraStyle={ extraCoaccusalCardStyle }
-                      openOfficerPage={ openOfficerPage }
                       { ...coaccusal }
                     />
                   ))
@@ -47,5 +46,4 @@ export default class Coaccusals extends Component {
 
 Coaccusals.propTypes = {
   coaccusalGroups: PropTypes.array,
-  openOfficerPage: PropTypes.func,
 };

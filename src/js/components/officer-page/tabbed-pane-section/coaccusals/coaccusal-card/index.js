@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 import pluralize from 'pluralize';
 
 import Hoverable from 'components/common/higher-order/hoverable';
@@ -22,13 +23,13 @@ class CoaccusalCard extends Component {
   render() {
     const {
       officerName, allegationCount, sustainedCount, allegationPercentile, age, race, gender, coaccusalCount, extraStyle,
-      hovering, openOfficerPage, officerId, rank, radarAxes, radarColor
+      hovering, officerId, rank, radarAxes, radarColor
     } = this.props;
 
     return (
-      <div
+      <Link
         style={ { ...coaccusalCardStyle(hovering), ...extraStyle } }
-        onClick={ () => openOfficerPage(officerId) }
+        to={ `/officer/${officerId}/` }
         className='test--coaccusal-card'
       >
         <div style={ headerStyle } >
@@ -70,7 +71,7 @@ class CoaccusalCard extends Component {
         <div style={ footerStyle } className='test--coaccusal-card-coaccusal-count'>
           Coaccused in { pluralize('case', coaccusalCount, true) }.
         </div>
-      </div>
+      </Link>
     );
   }
 }
@@ -87,7 +88,6 @@ CoaccusalCard.propTypes = {
   thumbnail: PropTypes.string,
   extraStyle: PropTypes.object,
   hovering: PropTypes.bool,
-  openOfficerPage: PropTypes.func,
   officerId: PropTypes.number,
   rank: PropTypes.string,
   radarAxes: PropTypes.array,

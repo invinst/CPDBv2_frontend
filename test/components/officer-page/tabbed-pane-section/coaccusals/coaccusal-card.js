@@ -1,14 +1,14 @@
-import StaticRadarChart from 'components/common/radar-chart';
-import CoaccusalCard from 'components/officer-page/tabbed-pane-section/coaccusals/coaccusal-card';
 import React from 'react';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
-  Simulate
 } from 'react-addons-test-utils';
-import { stub } from 'sinon';
+import { Link } from 'react-router';
+
 import { unmountComponentSuppressError } from 'utils/test';
+import StaticRadarChart from 'components/common/radar-chart';
+import CoaccusalCard from 'components/officer-page/tabbed-pane-section/coaccusals/coaccusal-card';
 
 
 describe('CoaccusalCard component', function () {
@@ -63,6 +63,7 @@ describe('CoaccusalCard component', function () {
         rank={ coaccusal.rank }
         radarAxes={ coaccusal.radarAxes }
         radarColor={ coaccusal.radarColor }
+        officerId={ 123456 }
       />
     );
 
@@ -78,6 +79,7 @@ describe('CoaccusalCard component', function () {
     const officerRank = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-officer-rank');
     const coaccusalThumbnail = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card-thumbnail');
     const staticRadarChart = findRenderedComponentWithType(instance, StaticRadarChart);
+    const link = findRenderedComponentWithType(instance, Link);
 
     officerName.textContent.should.eql('officerName');
     allegationCount.textContent.should.eql('1 allegation');
@@ -91,6 +93,7 @@ describe('CoaccusalCard component', function () {
     staticRadarChart.props.data.should.eql(radarAxes);
     staticRadarChart.props.backgroundColor.should.eql('white');
     staticRadarChart.props.textColor.should.eql('black');
+    link.props.to.should.eql('/officer/123456/');
   });
 
   it('should pluralize and round percentile correctly ', function () {
@@ -133,42 +136,5 @@ describe('CoaccusalCard component', function () {
     allegationPercentile.textContent.should.eql('More than 99.9% of other officers');
     officerInfo.textContent.should.eql('40 years old, white, male.');
     coaccusalCount.textContent.should.eql('Coaccused in 3 cases.');
-  });
-
-  it('should call openOfficerPage action with coaccused officer id when clicking on it', function () {
-    const coaccusal = {
-      officerId: 1234,
-      officerName: 'officerName',
-      allegationCount: 2,
-      sustainedCount: 1,
-      allegationPercentile: 99.999,
-      age: 40,
-      race: 'white',
-      gender: 'male',
-      coaccusalCount: 3,
-      rank: 'Police Officer'
-    };
-    const openOfficerPageStub = stub();
-
-    instance = renderIntoDocument(
-      <CoaccusalCard
-        officerId={ coaccusal.officerId }
-        officerName={ coaccusal.officerName }
-        allegationCount={ coaccusal.allegationCount }
-        sustainedCount={ coaccusal.sustainedCount }
-        allegationPercentile={ coaccusal.allegationPercentile }
-        age={ coaccusal.age }
-        race={ coaccusal.race }
-        gender={ coaccusal.gender }
-        coaccusalCount={ coaccusal.coaccusalCount }
-        openOfficerPage={ openOfficerPageStub }
-        rank={ coaccusal.rank }
-      />
-    );
-
-    const coaccusalCard = findRenderedDOMComponentWithClass(instance, 'test--coaccusal-card');
-    Simulate.click(coaccusalCard);
-
-    openOfficerPageStub.should.be.calledWith(1234);
   });
 });
