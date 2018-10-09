@@ -65,7 +65,7 @@ export default class Timeline extends Component {
   }
 
   renderItems() {
-    const { items, officerId, openComplaintPage, changeOfficerTab, pathname } = this.props;
+    const { items, officerId, changeOfficerTab, pathname } = this.props;
 
     return (
       <div>
@@ -89,7 +89,6 @@ export default class Timeline extends Component {
                 key={ item.key }
                 officerId={ officerId }
                 hasBorderBottom={ hasBorderBottom }
-                openComplaintPage={ openComplaintPage }
                 changeOfficerTab={ changeOfficerTab }
                 pathname={ pathname }
               />
@@ -114,7 +113,6 @@ Timeline.propTypes = {
   items: PropTypes.array,
   changeFilter: PropTypes.func,
   officerId: PropTypes.number,
-  openComplaintPage: PropTypes.func,
   changeOfficerTab: PropTypes.func,
   popup: PropTypes.object,
   filterCount: PropTypes.object,

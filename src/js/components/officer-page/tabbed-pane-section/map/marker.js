@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-
+import { Link } from 'react-router';
 import { stub } from 'sinon';
+
 import Hoverable from 'components/common/higher-order/hoverable';
 import { wrapperStyle } from './marker.style';
 import { MAP_ITEMS } from 'utils/constants';
@@ -9,7 +10,7 @@ import { MAP_ITEMS } from 'utils/constants';
 export class Marker extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.buildUrl = this.buildUrl.bind(this);
   }
 
   componentDidUpdate() {
@@ -28,25 +29,23 @@ export class Marker extends Component {
     }
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const { id, kind, openComplaintPage, openTRRPage } = this.props;
+  buildUrl() {
+    const { id, kind } = this.props;
     if (kind === MAP_ITEMS.CR) {
-      openComplaintPage({ crid: id });
+      return `/complaint/${id}/`;
     } else if (kind === MAP_ITEMS.FORCE) {
-      openTRRPage({ trrId: id });
+      return `/trr/${id}/`;
     }
   }
 
   render() {
     const { kind, finding, hovering } = this.props;
+
     return (
-      <div
+      <Link
+        to={ this.buildUrl() }
         className='test--marker'
         style={ wrapperStyle(kind, finding, hovering) }
-        onClick={ this.handleClick }
       />
     );
   }
@@ -58,13 +57,11 @@ Marker.propTypes = {
   finding: PropTypes.string,
   mapboxMarker: PropTypes.object,
   hovering: PropTypes.bool,
-  openComplaintPage: PropTypes.func,
   openTRRPage: PropTypes.func,
 };
 
 Marker.defaultProps = {
   mapboxMarker: stub(),
-  openComplaintPage: () => {},
   openTRRPage: () => {},
 };
 

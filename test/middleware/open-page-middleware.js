@@ -1,5 +1,4 @@
 import {
-  openComplaintPage,
   openPoliceUnitPage,
   openTRRPage
 } from 'actions/open-page';
@@ -16,14 +15,6 @@ describe('openPageMiddleware', function () {
 
   afterEach(function () {
     editPathUtils.pushPathPreserveEditMode.restore();
-  });
-
-  it('should push bottom sheet path on OPEN_COMPLAINT_PAGE', function () {
-    let dispatched;
-    const dispatchAction = openComplaintPage({ crid: '1' });
-    openPageMiddleware({})(action => dispatched = action)(dispatchAction);
-    editPathUtils.pushPathPreserveEditMode.args[0][0].should.eql('/complaint/1/');
-    dispatched.should.eql(dispatchAction);
   });
 
   it('should push bottom sheet path on OPEN_POLICE_UNIT_PAGE', function () {

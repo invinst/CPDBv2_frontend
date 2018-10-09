@@ -63,7 +63,7 @@ export default class Map extends Component {
   }
 
   addMarker(marker) {
-    const { openComplaintPage, openTRRPage } = this.props;
+    const { openTRRPage } = this.props;
     const popup = this.createPopup(marker);
 
     const markerEl = document.createElement('div');
@@ -78,7 +78,6 @@ export default class Map extends Component {
         kind={ marker.kind }
         finding={ marker.finding }
         mapboxMarker={ this.marker }
-        openComplaintPage={ openComplaintPage }
         openTRRPage={ openTRRPage }
       />,
       markerEl
@@ -102,7 +101,6 @@ Map.propTypes = {
     sustainedCount: PropTypes.number,
     useOfForceCount: PropTypes.number
   }),
-  openComplaintPage: PropTypes.func,
   openTRRPage: PropTypes.func,
   markers: PropTypes.oneOfType([
     PropTypes.arrayOf(
