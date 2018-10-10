@@ -224,15 +224,15 @@ describe('CR page selectors', function () {
             involvements: [
               InvestigatorFactory.build({
                 'officer_id': 1,
-                'current_rank': 'IPRA investigator'
+                'badge': 'CPD'
               }),
               InvestigatorFactory.build({
                 'officer_id': 2,
-                'current_rank': 'CPD investigator'
+                'badge': 'CPD'
               }),
               InvestigatorFactory.build({
                 'officer_id': 5,
-                'current_rank': null
+                'badge': ''
               }),
               PoliceWitnessFactory.build({ 'officer_id': 3 }),
               PoliceWitnessFactory.build({ 'officer_id': 4 })
@@ -245,7 +245,7 @@ describe('CR page selectors', function () {
       const result = contentSelector(state);
       const investigators = result.involvements.investigator;
       investigators.map((obj) => obj.id).should.eql([1, 2, 5]);
-      investigators.map((obj) => obj.tag).should.eql(['IPRA', 'CPD', '']);
+      investigators.map((obj) => obj.tag).should.eql(['CPD', 'CPD', '']);
 
       result.involvements['police_witness'].map((obj) => obj.id).should.eql([3, 4]);
     });
