@@ -11,6 +11,7 @@ let config = Object.assign({}, baseConfig, {
     publicPath: utils.staticFileBase()
   }),
   devtool: 'eval-source-map',
+  mode: 'development',
   plugins: [
     ...baseConfig.plugins,
     new CopyWebpackPlugin([

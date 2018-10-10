@@ -50,8 +50,8 @@ jobs:
               yarn build-staging
             fi
       - run:
-          name: Copy static files
-          command: ./bin/copy_static_files
+          name: Copy static files to azure storage
+          command: ./bin/copy-to-azure-storage.js
 
 workflows:
   version: 2
