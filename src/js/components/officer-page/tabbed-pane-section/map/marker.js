@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { stub } from 'sinon';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import { wrapperStyle } from './marker.style';
@@ -58,10 +57,6 @@ Marker.propTypes = {
   finding: PropTypes.string,
   mapboxMarker: PropTypes.object,
   hovering: PropTypes.bool,
-};
-
-Marker.defaultProps = {
-  mapboxMarker: stub(),
 };
 
 export default Hoverable(Marker);

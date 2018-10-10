@@ -1,11 +1,8 @@
 import React from 'react';
 import { stub } from 'sinon';
-import {
-  renderIntoDocument,
-  scryRenderedDOMComponentsWithClass,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-import { Link } from 'react-router';
+import { renderIntoDocument, scryRenderedDOMComponentsWithClass, Simulate } from 'react-addons-test-utils';
+import { browserHistory } from 'react-router';
+import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import HoverableMarker, { Marker } from 'components/officer-page/tabbed-pane-section/map/marker';
@@ -18,29 +15,45 @@ describe('Marker component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render CR marker component', function () {
+  it('should render marker component', function () {
     instance = renderIntoDocument(
       <HoverableMarker
         id={ '123' }
         kind={ 'CR' }
         finding={ 'Sustained' }
+        hovering={ false }
       />
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--marker').should.have.length(1);
-    const crLink = findRenderedComponentWithType(instance, Link);
-    crLink.props.to.should.eql('/complaint/123/');
   });
 
-  it('should render TRR marker component', function () {
+  it('should open CR page when clicked', function () {
+    const stubPush = stub(browserHistory, 'push');
     instance = renderIntoDocument(
-      <HoverableMarker
-        id={ '456' }
-        kind={ 'FORCE' }
+      <Marker
+        id={ '123' }
+        kind={ 'CR' }
+        finding={ 'Sustained' }
+        hovering={ false }
       />
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--marker').should.have.length(1);
-    const trrLink = findRenderedComponentWithType(instance, Link);
-    trrLink.props.to.should.eql('/trr/456/');
+    Simulate.click(findDOMNode(instance));
+    stubPush.should.be.calledWith('/complaint/123/');
+    stubPush.restore();
+  });
+
+  it('should open TRR page when clicked', function () {
+    const stubPush = stub(browserHistory, 'push');
+    instance = renderIntoDocument(
+      <Marker
+        id={ '123' }
+        kind={ 'FORCE' }
+        hovering={ false }
+      />
+    );
+    Simulate.click(findDOMNode(instance));
+    stubPush.should.be.calledWith('/trr/123/');
+    stubPush.restore();
   });
 
   it('should toggle popup and set zIndex when hovering', function () {
