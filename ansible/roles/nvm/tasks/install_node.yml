@@ -1,5 +1,0 @@
----
-- name: Install Node {{ nvm_node_version }}
-  shell: source {{ ansible_env.HOME }}/.nvm/nvm.sh && nvm install {{ nvm_node_version }}
-  args:
-    executable: /bin/bash
