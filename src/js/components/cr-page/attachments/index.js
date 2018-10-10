@@ -1,11 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 
+import AttachmentHeader from './headers/attachment-header';
+import NoAttachmentHeader from './headers/no-attachment-header';
 import AttachmentItem from './attachment-item';
-import RequestDocumentButton from 'components/common/request-document-button';
-import {
-  wrapperStyle, headerStyle, titleStyle, subTitleStyle, emptyMessageStyle,
-  requestButtonStyle, headerLeftColumnStyle, innerWrapperStyle, attachmentsStyle
-} from './attachments.style';
+import { wrapperStyle, innerWrapperStyle, attachmentsStyle } from './attachments.style';
 
 
 export default class Attachments extends Component {
@@ -22,28 +20,21 @@ export default class Attachments extends Component {
     return (
       <div style={ wrapperStyle(hasData) }>
         <div style={ innerWrapperStyle(hasData) }>
-          <div style={ headerStyle }>
-            {
-              hasData
-              ? (
-                <div style={ headerLeftColumnStyle }>
-                  <span style={ titleStyle }>ATTACHMENTS</span>
-                  <span style={ subTitleStyle }>MAY CONTAIN GRAPHIC CONTENT</span>
-                </div>
-              ) : (
-                <div style={ { ...headerLeftColumnStyle, ...emptyMessageStyle } }>
-                  There are no documents that have been made public yet.
-                </div>
-              )
-            }
-
-            <div style={ requestButtonStyle }>
-              <RequestDocumentButton
+          {
+            hasData
+            ? (
+              <AttachmentHeader
+                openRequestDocumentModal={ openRequestDocumentModal }
                 alreadyRequested={ alreadyRequested }
-                openRequestDocumentModal={ openRequestDocumentModal } />
-            </div>
-          </div>
-          <div style={ attachmentsStyle }>
+              />
+            ) : (
+              <NoAttachmentHeader
+                openRequestDocumentModal={ openRequestDocumentModal }
+                alreadyRequested={ alreadyRequested }
+              />
+            )
+          }
+          <div style={ attachmentsStyle(hasData) }>
             {
               items.map((item, ind) => (
                 <AttachmentItem key={ ind } { ...item } pathname={ pathname } />

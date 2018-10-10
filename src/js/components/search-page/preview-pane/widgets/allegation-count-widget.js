@@ -19,7 +19,9 @@ export default class AllegationCountWidget extends Component {
     return (
       <div className='test--allegation-widget' style={ containerStyle }>
         <OutboundLink href={ url } style={ linkStyle }>
-          <p style={ countStyle }>{ pluralize('allegation', numOfAllegations, true) }</p>
+          <p style={ countStyle }>
+            { `${numOfAllegations.toLocaleString()} ${pluralize('allegation', numOfAllegations)}` }
+          </p>
           <img src={ imgUrl('disclosure-indicator.svg') } style={ imgStyle }/>
           { subTitle && <p style={ subTitleStyle }>{ subTitle }</p> }
         </OutboundLink>
@@ -31,6 +33,7 @@ export default class AllegationCountWidget extends Component {
 AllegationCountWidget.defaultProps = {
   subTitle: null,
   url: '#',
+  numOfAllegations: 0
 };
 
 AllegationCountWidget.propTypes = {

@@ -13,14 +13,16 @@ export default class TRRDocument extends Component {
     const { alreadyRequested, openRequestTRRDocumentModal } = this.props;
     return (
       <div style={ wrapperStyle }>
-        <span style={ textStyle } className='test--no-document'>
+        <div style={ textStyle } className='test--no-document'>
           There are no documents that have been made public yet.
-        </span>
+        </div>
 
         <div style={ requestDocumentButtonStyle }>
           <RequestDocumentButton
             alreadyRequested={ alreadyRequested }
-            openRequestDocumentModal={ openRequestTRRDocumentModal }/>
+            openRequestDocumentModal={ openRequestTRRDocumentModal }
+            hasData={ false }
+          />
         </div>
       </div>
     );
