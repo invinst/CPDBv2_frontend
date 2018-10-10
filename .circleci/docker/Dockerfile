@@ -35,23 +35,8 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
     rm -rf /var/lib/apt/lists/*
 
 
-# Install azcopy to copy static content to cdn
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-         rsync \
-         libunwind8 \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN set -ex \
-    && curl -L -o azcopy.tar.gz \
-    https://aka.ms/downloadazcopylinux64 \
-    && tar -xf azcopy.tar.gz && rm -f azcopy.tar.gz \
-    && ./install.sh && rm -f install.sh \
-    && rm -rf azcopy
-
-
 # Install miscelaneous tools
-RUN apt-get update && apt-get install vim lsof
+RUN apt-get update && apt-get install vim
 
 
 # Run as non root user
