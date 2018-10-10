@@ -23,6 +23,7 @@ export const wrapperStyle = (hovering) => ({
   cursor: 'pointer',
   padding: '0 16px',
   boxSizing: 'border-box',
+  display: 'block',
 });
 
 export const boxStyle = {
