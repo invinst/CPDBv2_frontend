@@ -10,6 +10,7 @@ const context = path.join(__dirname, '../');
 
 module.exports = distFolder => ({
   context: context,
+  target: 'web',
   output: {
     path: path.join(__dirname, '..', distFolder),
     filename: 'bundle-[contenthash].js',
