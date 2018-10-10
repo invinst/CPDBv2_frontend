@@ -27,6 +27,5 @@ export const wrapperStyle = (kind, finding, hovering) => {
     backgroundColor: backgroundColor,
     border: border,
     position: 'relative',
-    display: 'block',
   };
 };

@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { stub } from 'sinon';
 
 import Hoverable from 'components/common/higher-order/hoverable';
@@ -10,7 +10,7 @@ import { MAP_ITEMS } from 'utils/constants';
 export class Marker extends Component {
   constructor(props) {
     super(props);
-    this.buildUrl = this.buildUrl.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidUpdate() {
@@ -29,12 +29,13 @@ export class Marker extends Component {
     }
   }
 
-  buildUrl() {
+  handleClick() {
+    // This is a work-around as Mapbox does not support react-router's Link.
     const { id, kind } = this.props;
     if (kind === MAP_ITEMS.CR) {
-      return `/complaint/${id}/`;
+      browserHistory.push(`/complaint/${id}/`);
     } else if (kind === MAP_ITEMS.FORCE) {
-      return `/trr/${id}/`;
+      browserHistory.push(`/trr/${id}/`);
     }
   }
 
@@ -42,10 +43,10 @@ export class Marker extends Component {
     const { kind, finding, hovering } = this.props;
 
     return (
-      <Link
-        to={ this.buildUrl() }
+      <div
         className='test--marker'
         style={ wrapperStyle(kind, finding, hovering) }
+        onClick={ this.handleClick }
       />
     );
   }
