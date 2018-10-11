@@ -38,8 +38,8 @@ describe('CR page', function () {
     );
 
     crPage.investigator.itemCount().should.equal(2);
-    crPage.investigator.firstItem.getText().should.equal('Bernadette Kelly\nIPRA');
-``
+    crPage.investigator.firstItem.getText().should.equal('Bernadette Kelly\nCPD');
+
     crPage.policeWitness.itemCount().should.equal(2);
     crPage.policeWitness.firstItem.getText().should.equal('Raymond Piwinicki\n3 allegations 0 sustained');
 
