@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { get } from 'lodash';
+import { get, includes } from 'lodash';
 
 import Cr from './showings/cr';
 import Trr from './showings/trr';
@@ -69,11 +69,7 @@ export default class Item extends Component {
   }
 
   renderChange(changeKind, kindStyle, first, last, current, display, text) {
-    const {
-      kind,
-      isFirstMutual,
-      isMutual,
-    } = this.props.item;
+    const { kind, isFirstMutual, isMutual } = this.props.item;
     const height = this.componentInfo.height;
     return (
       <span>
@@ -95,7 +91,7 @@ export default class Item extends Component {
               style={ kindStyle(height, first, last) }
               className='test--item-rank-unit'
             >
-              <div style={ textStyle(display === 'Unassigned', current) }>
+              <div style={ textStyle(includes(['Unassigned', 'Unknown'], display), current) }>
                 { display }
               </div>
             </span>
