@@ -142,7 +142,8 @@
     "swiper": "^4.2.2",
     "titleize": "^1.0.0",
     "twitter-widgets": "^1.0.0",
-    "venn.js": "^0.2.20"
+    "venn.js": "^0.2.20",
+    "webworkify-webpack": "^2.1.3"
   },
   "resolutions": {
     "react-tooltip": "3.6.1"

@@ -20,7 +20,12 @@ module.exports = distFolder => ({
   entry: `${srcPath}/js/index`,
   resolve: {
     extensions: ['.js'],
-    modules: [path.resolve(__dirname, '../src/css'), path.resolve(__dirname, '../src/js'), 'node_modules']
+    modules: [path.resolve(__dirname, '../src/css'), path.resolve(__dirname, '../src/js'), 'node_modules'],
+    alias: {
+      webworkify: 'webworkify-webpack',
+      'mapbox-gl.css': path.resolve(__dirname, '../node_modules/mapbox-gl/dist/mapbox-gl.css'),
+      'mapbox-gl': path.resolve(__dirname, '../node_modules/mapbox-gl/dist/mapbox-gl.js')
+    }
   },
   plugins: [
     new CleanWebpackPlugin([distFolder], { root: context }),
@@ -33,6 +38,7 @@ module.exports = distFolder => ({
     })
   ],
   module: {
+    noParse: /node_modules\/mapbox-gl\/dist\/mapbox-gl\.js$/,
     rules: [
       {
         test: /\.(js)$/,
