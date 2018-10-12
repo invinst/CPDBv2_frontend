@@ -48,11 +48,11 @@ describe('OfficerCard component', function () {
 
     const text = findDOMNode(instance).innerText;
     text.should.containEql('Officersomeone');
-    text.should.containEql('10 Allegations, 5 Sustained');
+    text.should.containEql('10 Allegations 5 Sustained');
     text.should.containEql('More than 20% of other officers');
 
     const age = getThisYear() - 1980 - 1;
-    text.should.containEql(`${age} year old white male`);
+    text.should.containEql(`${age}-years-old white male`);
   });
 
   it('should show NoDataRadarChart when no percentile', () => {

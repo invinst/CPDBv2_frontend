@@ -35,16 +35,11 @@ export class OfficerCard extends Component {
     const complaintString = () => {
       const complaint = `${complaintCount} ${pluralize('Allegation', complaintCount)}`;
       const sustained = `${sustainedCount} Sustained`;
-      if (sustainedCount) {
-        return (
-          <span>
-            <span>{ complaint }</span>, <span style={ sustainedStyle(hovering) }>{ sustained }</span>
-          </span>
-        );
-      }
-      else {
-        return complaint;
-      }
+      return (
+        <span>
+          <span>{ complaint }</span> <span style={ sustainedStyle(hovering) }>{ sustained }</span>
+        </span>
+      );
     };
 
     const ageString = () => {
@@ -52,7 +47,7 @@ export class OfficerCard extends Component {
         return '';
       }
       const age = getThisYear() - birthYear - 1;
-      return `${age} year old`;
+      return `${age}-years-old`;
     };
 
     const extraInfo = () => {

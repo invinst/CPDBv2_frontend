@@ -1,5 +1,5 @@
 import {
-  softBlackColor, clayGray, whiteTwoColor, brightOrangeTwoColor, lighterAccentColor, accentColor
+  softBlackColor, whiteTwoColor, boulderColor, lighterAccentColor, accentColor
 } from 'utils/styles';
 
 
@@ -20,8 +20,8 @@ export const visualTokenStyle = {
 export const lightTextStyle = (hovering) => ({
   fontSize: '12px',
   lineHeight: 1.17,
-  fontWeight: 400,
-  color: hovering ? lighterAccentColor : clayGray,
+  fontWeight: 300,
+  color: hovering ? lighterAccentColor : boulderColor,
   marginTop: 0,
   marginBottom: 0,
   height: '14px',
@@ -33,7 +33,7 @@ export const lightTextStyle = (hovering) => ({
 export const boldTextStyle = (hovering) => ({
   lineHeight: '18px',
   fontSize: '14px',
-  fontWeight: 400,
+  fontWeight: 300,
   color: hovering ? accentColor : softBlackColor,
   marginTop: 0,
   marginBottom: 0
@@ -43,7 +43,7 @@ export const extraInfoStyle = (hovering) => ({
   fontSize: '14px',
   lineHeight: '18px',
   margin: 0,
-  color: hovering ? lighterAccentColor : clayGray
+  color: hovering ? lighterAccentColor : boulderColor
 });
 
 export const sectionStyle = {
@@ -60,6 +60,6 @@ export const noBorderSectionStyle = {
 };
 
 export const sustainedStyle = (hovering) => ({
-  color: hovering ? 'inherit' : brightOrangeTwoColor,
+  color: hovering ? 'inherit' : boulderColor,
   whiteSpace: 'nowrap'
 });
