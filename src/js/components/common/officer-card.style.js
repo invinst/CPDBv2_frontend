@@ -5,12 +5,13 @@ import {
 
 export const wrapperStyle = (hovering) => ({
   display: 'inline-block',
-  margin: '16px',
+  margin: 0,
   boxSizing: 'border-box',
   textDecoration: 'none',
   verticalAlign: 'top',
   border: `solid 1px ${hovering ? accentColor : whiteTwoColor}`,
-  borderRadius: '2px'
+  borderRadius: '2px',
+  width: '232px',
 });
 
 export const lightTextStyle = (hovering) => ({

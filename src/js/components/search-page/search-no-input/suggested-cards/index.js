@@ -5,6 +5,7 @@ import FixedHeightGrid from 'components/common/fixed-height-grid';
 import { searchBoxHeight } from 'components/search-page/search-page.style';
 import { tagsWrapperHeight } from 'components/search-page/search-tags.style';
 import { viewportHeight } from 'utils/dom';
+import { wrapperStyle, cardStyle } from './suggested-cards.style';
 
 
 export default class SuggestedCards extends Component {
@@ -17,13 +18,12 @@ export default class SuggestedCards extends Component {
 
   render() {
     const { cards } = this.props;
-    const cardStyle = { width: '232px' }; // 144px (visual token) + 32px (text)
     const cardComponents = cards.map(
       (card, index) => (
         <OfficerCard
           { ...card }
-          cardStyle={ cardStyle }
           key={ index }
+          style={ cardStyle }
         />
       )
     );
@@ -32,7 +32,7 @@ export default class SuggestedCards extends Component {
 
     return (
       <FixedHeightGrid
-        style={ { display: 'inline-block', paddingTop: '32px' } }
+        style={ wrapperStyle }
         childHeight={ 314 } // 282 + 16*2
         childWidth={ 264 } // 232 + 16*2
         availableHeight={ availableHeight }

@@ -27,7 +27,7 @@ export class OfficerCard extends Component {
       complaintPercentile,
       race,
       gender,
-      cardStyle,
+      style,
       hovering,
       percentile,
       openCardInNewPage,
@@ -78,7 +78,7 @@ export class OfficerCard extends Component {
     return (
       <Link
         to={ `/officer/${officerId}/${officerSlug}/` }
-        style={ { ...wrapperStyle(hovering), ...cardStyle } }
+        style={ { ...wrapperStyle(hovering), ...style } }
         target={ openCardInNewPage ? '_blank' : null }
         className='test--officer-card'
       >
@@ -105,7 +105,7 @@ OfficerCard.propTypes = {
   officerId: PropTypes.number,
   fullName: PropTypes.string,
   visualTokenBackgroundColor: PropTypes.string,
-  cardStyle: PropTypes.object,
+  style: PropTypes.object,
   complaintCount: PropTypes.number,
   sustainedCount: PropTypes.number,
   complaintPercentile: PropTypes.number,
