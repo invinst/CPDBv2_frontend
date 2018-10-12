@@ -17,13 +17,11 @@ export default class SuggestedCards extends Component {
 
   render() {
     const { cards } = this.props;
-    const visualTokenStyle = { height: '100px' };
     const cardStyle = { width: '232px' }; // 144px (visual token) + 32px (text)
     const cardComponents = cards.map(
       (card, index) => (
         <OfficerCard
           { ...card }
-          visualTokenStyle={ visualTokenStyle }
           cardStyle={ cardStyle }
           key={ index }
         />

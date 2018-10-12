@@ -8,7 +8,7 @@ import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';
 import InlineHeaderSection from '../inline-header-section';
 import { headerWrapperStyle, carouselStyle, itemStyle } from '../carousel-wrapper.style';
-import { cardStyle, visualTokenStyle } from './recent-activity.style';
+import { cardStyle } from './recent-activity.style';
 import * as GATracking from 'utils/google_analytics_tracking';
 
 
@@ -37,7 +37,6 @@ export default class RecentActivity extends Component {
               <OfficerCard
                 { ...omit(card, 'id') }
                 cardStyle={ cardStyle }
-                visualTokenStyle={ visualTokenStyle }
               />
             ) : card.type === ACTIVITY_GRID_CARD_TYPES.PAIR ? (
               <PairingCard

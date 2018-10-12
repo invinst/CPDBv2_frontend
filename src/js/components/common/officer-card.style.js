@@ -13,10 +13,6 @@ export const wrapperStyle = (hovering) => ({
   borderRadius: '2px'
 });
 
-export const visualTokenStyle = {
-  display: 'block',
-};
-
 export const lightTextStyle = (hovering) => ({
   fontSize: '12px',
   lineHeight: 1.17,

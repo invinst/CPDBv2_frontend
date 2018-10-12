@@ -6,8 +6,10 @@ import { kebabCase } from 'lodash';
 import { wrapperStyle, lightTextStyle, boldTextStyle } from './officer-card.style';
 import { getThisYear } from 'utils/date';
 import {
-  extraInfoStyle, noBorderSectionStyle,
-  sectionStyle, sustainedStyle
+  extraInfoStyle,
+  noBorderSectionStyle,
+  sectionStyle,
+  sustainedStyle,
 } from 'components/common/officer-card.style';
 import Hoverable from 'components/common/higher-order/hoverable';
 import StaticRadarChart from 'components/common/radar-chart/index';
@@ -104,7 +106,6 @@ OfficerCard.propTypes = {
   fullName: PropTypes.string,
   visualTokenBackgroundColor: PropTypes.string,
   cardStyle: PropTypes.object,
-  visualTokenStyle: PropTypes.object,
   complaintCount: PropTypes.number,
   sustainedCount: PropTypes.number,
   complaintPercentile: PropTypes.number,
