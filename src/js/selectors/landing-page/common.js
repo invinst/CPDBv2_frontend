@@ -27,6 +27,7 @@ export const officerCardTransform = card => ({
   race: card['race'] ? toLower(card['race']) : 'N/A',
   gender: card['gender'] ? toLower(card['gender']) : 'N/A',
   percentile: extractPercentile(card['percentile']),
+  rank: card['rank'],
   type: card['type'],
 });
 

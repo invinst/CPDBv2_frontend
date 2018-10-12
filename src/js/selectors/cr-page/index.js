@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, compact, sortBy, kebabCase, isNil } from 'lodash';
+import { map, get, reduce, defaults, compact, sortBy, kebabCase, isNil, toLower } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getBreadcrumb } from '../breadcrumbs';
-import { getFindingOutcomeMix } from './finding-outcome-mix';
+import { extractPercentile } from 'selectors/common/percentile';
 
 const getCoaccused = state => {
   const crid = state.crPage.crid;
@@ -49,10 +49,6 @@ export const getDocumentAlreadyRequested = state => {
 const getDemographicString = ({ race, gender, age }) =>
   compact([race, gender, age ? `Age ${age}` : null]).join(', ');
 
-
-const getCoaccusedDemographicString = ({ race, gender, age }) =>
-  compact([age ? `${age} year old` : null, race, gender]).join(', ');
-
 const getComplainantStringSelector = createSelector(
   getComplainants,
   (complainants) => map(complainants, (complainant) => getDemographicString(complainant))
@@ -66,28 +62,18 @@ const getVictimStringSelector = createSelector(
 const getTransformedCoaccused = createSelector(
   getCoaccused,
   (coaccusedList) => coaccusedList.map(coaccused => ({
-    id: coaccused.id,
-    fullname: coaccused['full_name'],
-    officerSlug: kebabCase(coaccused['full_name']),
-    rank: coaccused['rank'] || 'Officer',
-    demographic: getCoaccusedDemographicString(coaccused),
-    findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
-    finding: coaccused['final_finding'],
-    category: coaccused['category'] || 'Unknown',
-    allegationCount: coaccused['allegation_count'],
+    id: coaccused['id'],
+    officerId: coaccused['id'],
+    fullName: coaccused['full_name'],
+    complaintCount: coaccused['complaint_count'],
     sustainedCount: coaccused['sustained_count'],
-    allegationPercentile: coaccused['percentile_allegation'],
-    disciplined: coaccused['disciplined'],
-    radarAxes: [
-      { axis: 'trr', value: parseFloat(coaccused['percentile_trr']) },
-      { axis: 'internal', value: parseFloat(coaccused['percentile_allegation_internal']) },
-      { axis: 'civilian', value: parseFloat(coaccused['percentile_allegation_civilian']) }
-    ],
-    radarColor: getVisualTokenOIGBackground(
-      parseFloat(coaccused['percentile_allegation_civilian']),
-      parseFloat(coaccused['percentile_allegation_internal']),
-      parseFloat(coaccused['percentile_trr'])
-    )
+    complaintPercentile: parseFloat(coaccused['complaint_percentile']),
+    birthYear: coaccused['birth_year'],
+    race: coaccused['race'] ? toLower(coaccused['race']) : 'N/A',
+    gender: coaccused['gender'] ? toLower(coaccused['gender']) : 'N/A',
+    percentile: extractPercentile(coaccused['percentile']),
+    coaccusedCount: coaccused['coaccused_count'],
+    rank: coaccused['rank'],
   }))
 );
 

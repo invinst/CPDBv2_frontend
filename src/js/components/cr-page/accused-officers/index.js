@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import pluralize from 'pluralize';
 
-import CoaccusedCard from './coaccused-card';
+import OfficerCard from '../../common/officer-card';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   wrapperStyle,
@@ -43,7 +43,7 @@ export default class AccusedOfficers extends Component {
           </h2>
           <div style={ accusedOfficersWrapperStyle }>
             {
-              officers.map(officer => <CoaccusedCard key={ officer.id } { ...officer }/>)
+              officers.map(officer => <OfficerCard key={ officer.id } { ...officer }/>)
             }
           </div>
         </ResponsiveFluidWidthComponent>

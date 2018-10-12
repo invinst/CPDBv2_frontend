@@ -31,6 +31,7 @@ export class OfficerCard extends Component {
       hovering,
       percentile,
       openCardInNewPage,
+      rank,
     } = this.props;
     const officerSlug = kebabCase(fullName);
 
@@ -85,7 +86,7 @@ export class OfficerCard extends Component {
         <StaticRadarChart data={ chartData } { ...radarConfig } />
         <div>
           <div style={ sectionStyle }>
-            <p style={ lightTextStyle(hovering) }>Officer</p>
+            <p style={ lightTextStyle(hovering) }>{ rank }</p>
             <p style={ boldTextStyle(hovering) }>{ fullName }</p>
           </div>
           <div style={ sectionStyle }>
@@ -115,6 +116,7 @@ OfficerCard.propTypes = {
   hovering: PropTypes.bool,
   percentile: PropTypes.object,
   openCardInNewPage: PropTypes.bool,
+  rank: PropTypes.string,
 };
 
 OfficerCard.defaultProps = {
