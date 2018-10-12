@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
-import OfficerCard from 'components/landing-page/common/officer-card';
+import OfficerCard from 'components/common/officer-card';
 import FixedHeightGrid from 'components/common/fixed-height-grid';
 import { searchBoxHeight } from 'components/search-page/search-page.style';
 import { tagsWrapperHeight } from 'components/search-page/search-tags.style';
@@ -20,30 +20,12 @@ export default class SuggestedCards extends Component {
     const visualTokenStyle = { height: '100px' };
     const cardStyle = { width: '232px' }; // 144px (visual token) + 32px (text)
     const cardComponents = cards.map(
-      ({
-         id,
-         fullName,
-         complaintCount,
-         sustainedCount,
-         birthYear,
-         race,
-         gender,
-         complaintRate,
-         percentile
-       }, index) => (
-         <OfficerCard
-           officerId={ id }
-           fullName={ fullName }
-           key={ index }
-           visualTokenStyle={ visualTokenStyle }
-           cardStyle={ cardStyle }
-           complaintCount={ complaintCount }
-           sustainedCount={ sustainedCount }
-           complaintRate={ complaintRate }
-           birthYear={ birthYear }
-           race={ race }
-           gender={ gender }
-           percentile={ percentile }
+      (card, index) => (
+        <OfficerCard
+          { ...card }
+          visualTokenStyle={ visualTokenStyle }
+          cardStyle={ cardStyle }
+          key={ index }
         />
       )
     );
