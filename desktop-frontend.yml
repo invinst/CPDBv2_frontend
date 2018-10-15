@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: desktop-frontend
+  labels:
+    app: desktop-frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: desktop-frontend
+    spec:
+      containers:
+      - name: desktop-frontend
+        image: cpdbdev/desktop-frontend:${IMAGE_TAG}
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 250m
+            memory: 256Mi
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: desktop-frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+  selector:
+    app: desktop-frontend

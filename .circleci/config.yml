@@ -50,11 +50,19 @@ jobs:
               yarn build-staging
             fi
       - run:
-          name: Clean old builds on azure storage
-          command: ./bin/clean-old-build-on-azure-storage.js
+          name: Build desktop-frontend image
+          command: docker build -t cpdbdev/desktop-frontend:$(cat VERSION) .
       - run:
-          name: Copy static files to azure storage
-          command: ./bin/copy-to-azure-storage.js
+          name: Login to Docker hub
+          command: docker login -u cpdbdev -p $DOCKER_PASSWORD
+      - run:
+          name: Upload image
+          command: docker push cpdbdev/desktop-frontend:$(cat VERSION)
+      - run:
+          name: Apply deployment
+          command: |
+            echo $KUBECONFIG_JSON | /home/deploy/.kube/config.json
+            sed -e "s/\${IMAGE_TAG}/$(cat VERSION)/" desktop-frontend.yml | kubectl --kubeconfig /home/deploy/.kube/config.json apply -f -
 
 workflows:
   version: 2

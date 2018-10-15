@@ -36,8 +36,26 @@ RUN curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-ke
 
 
 # Install miscelaneous tools
-RUN apt-get update && apt-get install vim
+RUN apt-get update && apt-get install \
+  vim \
+  apt-transport-https \
+  ca-certificates \
+  software-properties-common
 
+# Install docker ce
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - \
+  && add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/debian \
+    $(lsb_release -cs) \
+    stable" \
+  && apt-get update \
+  && apt-get install docker-ce
+
+# Install kubectl
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
+  && echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
+  && apt-get update \
+  && apt-get install -y kubectl
 
 # Run as non root user
 RUN useradd -m deploy && echo "deploy:deploy" | chpasswd && adduser deploy sudo
