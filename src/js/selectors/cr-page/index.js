@@ -73,7 +73,7 @@ const getTransformedCoaccused = createSelector(
     gender: coaccused['gender'] ? toLower(coaccused['gender']) : 'N/A',
     percentile: extractPercentile(coaccused['percentile']),
     coaccusedCount: coaccused['coaccused_count'],
-    rank: coaccused['rank'],
+    rank: coaccused['rank'] || 'Officer',
   }))
 );
 

@@ -15,6 +15,7 @@ describe('common selectors', function () {
     'complaint_percentile': '99.987',
     'birth_year': 1963,
     race: 'White',
+    rank: 'Police Officer',
     gender: 'Male',
     percentile: {
       'percentile_trr': '70.069',
@@ -34,6 +35,7 @@ describe('common selectors', function () {
     'complaint_percentile': '99.987',
     'birth_year': 1963,
     race: 'White',
+    rank: 'Police Officer',
     gender: 'Male',
     percentile: {
       'percentile_trr': '70.069',
@@ -117,6 +119,7 @@ describe('common selectors', function () {
         complaintPercentile: 99.987,
         birthYear: 1963,
         race: 'white',
+        rank: 'Police Officer',
         gender: 'male',
         percentile: {
           'items': [
@@ -227,6 +230,7 @@ describe('common selectors', function () {
         complaintPercentile: 99.987,
         birthYear: 1963,
         race: 'white',
+        rank: 'Police Officer',
         gender: 'male',
         percentile: {
           'items': [
@@ -262,6 +266,7 @@ describe('common selectors', function () {
         complaintPercentile: 99.987,
         birthYear: 1963,
         race: 'white',
+        rank: 'Police Officer',
         gender: 'male',
         percentile: {
           'items': [
