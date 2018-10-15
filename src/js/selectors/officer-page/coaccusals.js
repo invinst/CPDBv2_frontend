@@ -1,24 +1,15 @@
-import { get, groupBy, findIndex, keys, reverse, isEmpty, toLower } from 'lodash';
+import { get, groupBy, findIndex, keys, reverse, isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
 import pluralize from 'pluralize';
-import { extractPercentile } from 'selectors/common/percentile';
+
+import { officerCardTransform } from 'selectors/common/officer-card';
 
 
 const getCoaccusals = (state) => get(state.officerPage.coaccusals, 'items', []);
 
-const coaccusalTransform = (coaccusal) => ({
-  id: coaccusal['id'],
-  officerId: coaccusal['id'],
-  fullName: coaccusal['full_name'],
-  complaintCount: coaccusal['complaint_count'],
-  sustainedCount: coaccusal['sustained_count'],
-  complaintPercentile: parseFloat(coaccusal['complaint_percentile']),
-  birthYear: coaccusal['birth_year'],
-  race: coaccusal['race'] ? toLower(coaccusal['race']) : 'N/A',
-  gender: coaccusal['gender'] ? toLower(coaccusal['gender']) : 'N/A',
-  percentile: extractPercentile(coaccusal['percentile']),
+const coaccusalTransform = coaccusal => ({
+  ...officerCardTransform(coaccusal),
   coaccusalCount: coaccusal['coaccusal_count'],
-  rank: coaccusal['rank'],
 });
 
 const coaccusalThresholds = [1, 4, 9, 14, 20, -1];

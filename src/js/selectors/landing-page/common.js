@@ -1,6 +1,6 @@
 import { toLower } from 'lodash';
 
-import { extractPercentile } from 'selectors/common/percentile';
+import { officerCardTransform } from 'selectors/common/officer-card';
 import { ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getCurrentAge } from 'utils/date';
@@ -8,26 +8,16 @@ import { getCurrentAge } from 'utils/date';
 
 export const cardTransform = card => {
   if (!card['type']) {
-    return officerCardTransform(card);
+    return singleCardTransform(card);
   } else if (card['type'] === ACTIVITY_GRID_CARD_TYPES.OFFICER) {
-    return officerCardTransform(card);
+    return singleCardTransform(card);
   } else if (card['type'] === ACTIVITY_GRID_CARD_TYPES.PAIR) {
     return pairingCardTransform(card);
   }
 };
 
-export const officerCardTransform = card => ({
-  id: card['id'],
-  officerId: card['id'],
-  fullName: card['full_name'],
-  complaintCount: card['complaint_count'],
-  sustainedCount: card['sustained_count'],
-  complaintPercentile: parseFloat(card['complaint_percentile']),
-  birthYear: card['birth_year'],
-  race: card['race'] ? toLower(card['race']) : 'N/A',
-  gender: card['gender'] ? toLower(card['gender']) : 'N/A',
-  percentile: extractPercentile(card['percentile']),
-  rank: card['rank'],
+export const singleCardTransform = card => ({
+  ...officerCardTransform(card),
   type: card['type'],
 });
 

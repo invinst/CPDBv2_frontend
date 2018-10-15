@@ -1,11 +1,11 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, compact, sortBy, kebabCase, isNil, toLower } from 'lodash';
+import { map, get, reduce, defaults, compact, sortBy, kebabCase, isNil } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getBreadcrumb } from '../breadcrumbs';
-import { extractPercentile } from 'selectors/common/percentile';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
+import { officerCardTransform } from 'selectors/common/officer-card';
 
 const getCoaccused = state => {
   const crid = state.crPage.crid;
@@ -63,18 +63,8 @@ const getVictimStringSelector = createSelector(
 const getTransformedCoaccused = createSelector(
   getCoaccused,
   (coaccusedList) => coaccusedList.map(coaccused => ({
-    id: coaccused['id'],
-    officerId: coaccused['id'],
-    fullName: coaccused['full_name'],
-    complaintCount: coaccused['complaint_count'],
-    sustainedCount: coaccused['sustained_count'],
-    complaintPercentile: parseFloat(coaccused['complaint_percentile']),
-    birthYear: coaccused['birth_year'],
-    race: coaccused['race'] ? toLower(coaccused['race']) : 'N/A',
-    gender: coaccused['gender'] ? toLower(coaccused['gender']) : 'N/A',
-    percentile: extractPercentile(coaccused['percentile']),
+    ...officerCardTransform(coaccused),
     coaccusedCount: coaccused['coaccused_count'],
-    rank: coaccused['rank'] || 'Officer',
     findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
     finding: coaccused['final_finding'],
     category: coaccused['category'] || 'Unknown',

@@ -1,5 +1,5 @@
 import {
-  officerCardTransform,
+  singleCardTransform,
   simpleOfficerTransform,
   pairingCardTransform,
   cardTransform
@@ -108,9 +108,9 @@ describe('common selectors', function () {
     },
   };
 
-  describe('officerCardTransform', function () {
+  describe('singleCardTransform', function () {
     it('should return an officer information', function () {
-      officerCardTransform(singleOfficerCard).should.eql({
+      singleCardTransform(singleOfficerCard).should.eql({
         id: '8562',
         officerId: '8562',
         fullName: 'Jerome Finnigan',
