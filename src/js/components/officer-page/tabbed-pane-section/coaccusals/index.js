@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+
 import {
   coaccusalsStyle,
   groupedCoaccusalsStyle,
@@ -8,6 +9,7 @@ import {
   officerCardStyle,
 } from './coaccusals.style';
 import OfficerCard from 'components/common/officer-card';
+import OfficerCardFooter from './officer-card-footer';
 
 
 export default class Coaccusals extends Component {
@@ -26,7 +28,11 @@ export default class Coaccusals extends Component {
               <div style={ coaccusedCardsWrapperStyle(groupIndex === coaccusalGroups.length - 1) }>
                 {
                   group.coaccusals.map((coaccusal, cardIndex) => (
-                    <OfficerCard { ...coaccusal } key={ cardIndex } style={ officerCardStyle } />
+                    <OfficerCard
+                      { ...coaccusal }
+                      key={ cardIndex }
+                      style={ officerCardStyle }
+                      footer={ <OfficerCardFooter coaccusalCount={ coaccusal.coaccusalCount } /> }/>
                   ))
                 }
               </div>

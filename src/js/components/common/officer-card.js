@@ -32,6 +32,7 @@ export class OfficerCard extends Component {
       percentile,
       openCardInNewPage,
       rank,
+      footer,
     } = this.props;
     const officerSlug = kebabCase(fullName);
 
@@ -96,6 +97,7 @@ export class OfficerCard extends Component {
           <div style={ noBorderSectionStyle }>
             <p style={ extraInfoStyle(hovering) }>{ extraInfo() }</p>
           </div>
+          { footer }
         </div>
       </Link>
     );
@@ -117,6 +119,7 @@ OfficerCard.propTypes = {
   percentile: PropTypes.object,
   openCardInNewPage: PropTypes.bool,
   rank: PropTypes.string,
+  footer: PropTypes.object,
 };
 
 OfficerCard.defaultProps = {
