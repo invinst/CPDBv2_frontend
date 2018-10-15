@@ -9,8 +9,10 @@ import {
   accusedOfficersWrapperStyle,
   moreButtonStyle,
   bottomMarginStyle,
+  officerCardStyle,
 } from './accused-officers.style';
 import Popup from 'components/common/popup';
+import CoaccusedCardFooter from './coaccused-card-footer';
 
 
 export default class AccusedOfficers extends Component {
@@ -43,7 +45,20 @@ export default class AccusedOfficers extends Component {
           </h2>
           <div style={ accusedOfficersWrapperStyle }>
             {
-              officers.map(officer => <OfficerCard key={ officer.id } { ...officer }/>)
+              officers.map(officer => (
+                <OfficerCard
+                  style={ officerCardStyle }
+                  key={ officer.id } { ...officer }
+                  footer={
+                    <CoaccusedCardFooter
+                      finding={ officer.finding }
+                      disciplined={ officer.disciplined }
+                      category={ officer.category }
+                      findingOutcomeMix={ officer.findingOutcomeMix }
+                    />
+                  }
+                />
+              ))
             }
           </div>
         </ResponsiveFluidWidthComponent>

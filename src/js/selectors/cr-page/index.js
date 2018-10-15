@@ -5,6 +5,7 @@ import pluralize from 'pluralize';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getBreadcrumb } from '../breadcrumbs';
 import { extractPercentile } from 'selectors/common/percentile';
+import { getFindingOutcomeMix } from './finding-outcome-mix';
 
 const getCoaccused = state => {
   const crid = state.crPage.crid;
@@ -74,6 +75,10 @@ const getTransformedCoaccused = createSelector(
     percentile: extractPercentile(coaccused['percentile']),
     coaccusedCount: coaccused['coaccused_count'],
     rank: coaccused['rank'] || 'Officer',
+    findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
+    finding: coaccused['final_finding'],
+    category: coaccused['category'] || 'Unknown',
+    disciplined: coaccused['disciplined'],
   }))
 );
 
