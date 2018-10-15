@@ -76,10 +76,10 @@ jobs:
     steps:
       - checkout
       - run:
-        name: Apply deployment
-        command: |
-          echo $KUBECONFIG_JSON | /home/deploy/.kube/config.json
-          sed -e "s/\${IMAGE_TAG}/$(cat VERSION)/" desktop-frontend.yml | kubectl --kubeconfig /home/deploy/.kube/config.json apply -f -
+          name: Apply deployment
+          command: |
+            echo $KUBECONFIG_JSON | /home/deploy/.kube/config.json
+            sed -e "s/\${IMAGE_TAG}/$(cat VERSION)/" desktop-frontend.yml | kubectl --kubeconfig /home/deploy/.kube/config.json apply -f -
 
 workflows:
   version: 2
