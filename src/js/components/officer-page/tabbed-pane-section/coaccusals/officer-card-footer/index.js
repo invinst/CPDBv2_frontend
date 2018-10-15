@@ -13,7 +13,7 @@ export default class OfficerCardFooter extends Component {
       </div>
     );
   }
-};
+}
 
 OfficerCardFooter.propTypes = {
   coaccusalCount: PropTypes.number,

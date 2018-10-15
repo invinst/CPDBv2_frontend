@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import pluralize from 'pluralize';
 
-import OfficerCard from '../../common/officer-card';
+import OfficerCard from 'components/common/officer-card';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   wrapperStyle,
