@@ -25,7 +25,7 @@ jobs:
           paths:
             - "/home/deploy/project/node_modules"
 
-  deploy:
+  build:
     docker:
       - image: cpdbdev/cpdbv2_frontend:0.2.0
     environment:
@@ -49,25 +49,40 @@ jobs:
               export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_STAGING_ACCOUNT_NAME
               yarn build-staging
             fi
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - dist
+
+  push_image:
+    docker:
+      - image: docker:18.06.1-ce-git
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cp -R /tmp/workspace/dist ./dist
+      - run: docker build -t cpdbdev/desktop-frontend:$(cat VERSION) .
+      - run: docker login -u cpdbdev -p $DOCKER_PASSWORD
+      - run: docker push cpdbdev/desktop-frontend:$(cat VERSION)
+
+  deploy:
+    docker:
+      - image: lachlanevenson/k8s-kubectl:v1.12.1
+    steps:
+      - checkout
       - run:
-          name: Build desktop-frontend image
-          command: |
-            dockerd &
-            docker build -t cpdbdev/desktop-frontend:$(cat VERSION) .
-            docker login -u cpdbdev -p $DOCKER_PASSWORD
-            docker push cpdbdev/desktop-frontend:$(cat VERSION)
-      - run:
-          name: Apply deployment
-          command: |
-            echo $KUBECONFIG_JSON | /home/deploy/.kube/config.json
-            sed -e "s/\${IMAGE_TAG}/$(cat VERSION)/" desktop-frontend.yml | kubectl --kubeconfig /home/deploy/.kube/config.json apply -f -
+        name: Apply deployment
+        command: |
+          echo $KUBECONFIG_JSON | /home/deploy/.kube/config.json
+          sed -e "s/\${IMAGE_TAG}/$(cat VERSION)/" desktop-frontend.yml | kubectl --kubeconfig /home/deploy/.kube/config.json apply -f -
 
 workflows:
   version: 2
   test_and_deploy:
     jobs:
       - test
-      - deploy:
+      - build:
           requires:
             - test
           filters:
@@ -75,3 +90,9 @@ workflows:
               only:
                 - staging
                 - master
+      - push_image:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - push_image
