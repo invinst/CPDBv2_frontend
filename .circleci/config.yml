@@ -51,13 +51,11 @@ jobs:
             fi
       - run:
           name: Build desktop-frontend image
-          command: docker build -t cpdbdev/desktop-frontend:$(cat VERSION) .
-      - run:
-          name: Login to Docker hub
-          command: docker login -u cpdbdev -p $DOCKER_PASSWORD
-      - run:
-          name: Upload image
-          command: docker push cpdbdev/desktop-frontend:$(cat VERSION)
+          command: |
+            dockerd &
+            docker build -t cpdbdev/desktop-frontend:$(cat VERSION) .
+            docker login -u cpdbdev -p $DOCKER_PASSWORD
+            docker push cpdbdev/desktop-frontend:$(cat VERSION)
       - run:
           name: Apply deployment
           command: |
