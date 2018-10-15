@@ -59,12 +59,16 @@ jobs:
       - image: docker:18.06.1-ce-git
     steps:
       - checkout
+      - setup_remote_docker
       - attach_workspace:
           at: /tmp/workspace
       - run: cp -R /tmp/workspace/dist ./dist
-      - run: docker build -t cpdbdev/desktop-frontend:$(cat VERSION) .
-      - run: docker login -u cpdbdev -p $DOCKER_PASSWORD
-      - run: docker push cpdbdev/desktop-frontend:$(cat VERSION)
+      - run:
+          name: Build and push image
+          command: |
+            docker build -t cpdbdev/desktop-frontend:$(cat VERSION) .
+            docker login -u cpdbdev -p $DOCKER_PASSWORD
+            docker push cpdbdev/desktop-frontend:$(cat VERSION)
 
   deploy:
     docker:
