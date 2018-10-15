@@ -60,6 +60,10 @@ describe('CR page selectors', function () {
         gender: 'Male',
         'coaccused_count': 4,
         rank: 'Po As Detective',
+        'final_outcome': 'Reprimand',
+        'final_finding': 'Sustained',
+        'disciplined': true,
+        'category': 'Operations/Personnel Violation',
         'percentile': {
           'officer_id': 1,
           'year': 2007,
@@ -86,6 +90,10 @@ describe('CR page selectors', function () {
         gender: 'male',
         coaccusedCount: 4,
         rank: 'Po As Detective',
+        findingOutcomeMix: 'Reprimand',
+        finding: 'Sustained',
+        category: 'Operations/Personnel Violation',
+        disciplined: true,
         percentile: {
           items: [
             {
@@ -104,7 +112,7 @@ describe('CR page selectors', function () {
           officerId: 1,
           textColor: '#DFDFDF',
           visualTokenBackground: '#f52524',
-          year: 2007
+          year: 2007,
         },
       }]);
     });
