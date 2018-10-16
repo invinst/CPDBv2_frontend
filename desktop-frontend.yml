@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: desktop-frontend
-        image: cpdbdev/desktop-frontend:${IMAGE_TAG}
+        image: cpdbdev/desktop-frontend:{{IMAGE_TAG}}
         resources:
           requests:
             cpu: 100m

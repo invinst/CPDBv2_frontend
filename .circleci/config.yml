@@ -76,10 +76,21 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Install templater
+          command: |
+            curl -L https://raw.githubusercontent.com/johanhaleby/bash-templater/master/templater.sh -o /usr/local/bin/templater
+            chmod +x /usr/local/bin/templater
+      - run:
           name: Apply deployment
           command: |
+            if [ $CIRCLE_BRANCH == "master" ]
+            then
+              export NAMESPACE=production
+            else
+              export NAMESPACE=staging
+            fi
             echo $KUBECONFIG_JSON > /root/project/config.json
-            sed -e "s/\${IMAGE_TAG}/$(cat VERSION)/" desktop-frontend.yml | kubectl --kubeconfig /root/project/config.json apply -f -
+            IMAGE_TAG=$(cat VERSION) templater desktop-frontend.yml | kubectl --kubeconfig /root/project/config.json apply -f - --namespace=$NAMESPACE
 
 workflows:
   version: 2
