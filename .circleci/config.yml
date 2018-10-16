@@ -72,14 +72,9 @@ jobs:
 
   deploy:
     docker:
-      - image: lachlanevenson/k8s-kubectl:v1.12.1
+      - image: cpdbdev/kubectl:v1.11.3
     steps:
       - checkout
-      - run:
-          name: Install templater
-          command: |
-            curl -L https://raw.githubusercontent.com/johanhaleby/bash-templater/master/templater.sh -o /usr/local/bin/templater
-            chmod +x /usr/local/bin/templater
       - run:
           name: Apply deployment
           command: |
