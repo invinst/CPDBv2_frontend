@@ -109,9 +109,9 @@ describe('Recent Activity components', function () {
 
     const pairingCard = findDOMNode(findRenderedComponentWithType(instance, PairingCard));
     pairingCard.textContent.should.containEql('Jerome Finnigan');
-    pairingCard.textContent.should.containEql('54 year old, White, Male.');
+    pairingCard.textContent.should.containEql('54-year-old White Male');
     pairingCard.textContent.should.containEql('John Burzinski');
-    pairingCard.textContent.should.containEql('56 year old, White, Male.');
+    pairingCard.textContent.should.containEql('56-year-old White Male');
     pairingCard.textContent.should.containEql('Coaccused 23 times');
   });
 

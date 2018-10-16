@@ -51,7 +51,7 @@ export class OfficerCard extends Component {
         return '';
       }
       const age = getThisYear() - birthYear - 1;
-      return `${age}-years-old`;
+      return `${age}-year-old`;
     };
 
     const extraInfo = () => {

@@ -18,7 +18,7 @@ class OfficerInfo extends Component {
         </div>
         <div style={ rowDividerStyle } />
         <div style={ personaInfoStyle } className='test--officer-personal-info'>
-          { age } year old, { race }, { gender }.
+          { age }-year-old { race } { gender }
         </div>
       </div>
     );

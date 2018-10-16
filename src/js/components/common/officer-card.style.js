@@ -40,7 +40,8 @@ export const extraInfoStyle = (hovering) => ({
   fontSize: '14px',
   lineHeight: '18px',
   margin: 0,
-  color: hovering ? lighterAccentColor : boulderColor
+  color: hovering ? lighterAccentColor : boulderColor,
+  fontWeight: 300,
 });
 
 export const sectionStyle = {
