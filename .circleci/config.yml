@@ -43,10 +43,8 @@ jobs:
           command: |
             if [ $CIRCLE_BRANCH == "master" ]
             then
-              export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_PROD_ACCOUNT_NAME
               yarn build
             else
-              export AZURE_STORAGE_ACCOUNT_NAME=$AZURE_STORAGE_STAGING_ACCOUNT_NAME
               yarn build-staging
             fi
       - persist_to_workspace:
