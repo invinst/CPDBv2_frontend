@@ -56,19 +56,10 @@ export const FORM_FAILURE = 'FORM_FAILURE';
 
 export const ENTITY_LINK = 'LINK';
 
-let API_ROOT = `${global.location.origin}/api/v1/`;
-let API_ROOT_V2 = `${global.location.origin}/api/v2/`;
+let API_ROOT = `${config.apiDomain}/api/v1/`;
+let API_ROOT_V2 = `${config.apiDomain}/api/v2/`;
 
-let basePath = global.location.origin;
-
-/* istanbul ignore next */
-if (config.appEnv === 'dev') {
-  basePath = 'http://localhost:8000';
-  API_ROOT = `${basePath}/api/v1/`;
-  API_ROOT_V2 = `${basePath}/api/v2/`;
-}
-
-export const BASE_PATH = basePath;
+export const BASE_PATH = config.apiDomain;
 
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;

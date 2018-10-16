@@ -233,7 +233,7 @@ describe('SlimHeader component', function () {
         slimHeaderContent.props.editModeOn.should.eql(false);
         slimHeaderContent.props.disableTop.should.eql(true);
         done();
-      }, 1000);
+      }, 500);
 
     });
   });
