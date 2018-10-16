@@ -83,7 +83,7 @@ const sortByOfficerFinding = officer => {
   return officer.finding === 'Sustained' ? 0 : 1;
 };
 
-const sortByOfficerComplaint = officer => -officer.allegationCount;
+const sortByOfficerComplaint = officer => -officer.complaintCount;
 
 const getCoaccusedSelector = createSelector(
   getTransformedCoaccused,
