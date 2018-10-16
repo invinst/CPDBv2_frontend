@@ -40,7 +40,7 @@ export class OfficerCard extends Component {
       const complaint = `${complaintCount} ${pluralize('Allegation', complaintCount)}`;
       const sustained = `${sustainedCount} Sustained`;
       return (
-        <span>
+        <span className='test--officer-card-metric'>
           <span>{ complaint }</span> <span style={ sustainedStyle(hovering) }>{ sustained }</span>
         </span>
       );
@@ -62,7 +62,12 @@ export class OfficerCard extends Component {
       if (complaintPercentile) {
         const complaintFormat = roundedPercentile(complaintPercentile);
         return (
-          <p style={ lightTextStyle(hovering) }>More than { complaintFormat }% of other officers</p>
+          <p
+            style={ lightTextStyle(hovering) }
+            className='test--officer-card-percentile'
+          >
+            More than { complaintFormat }% of other officers
+          </p>
         );
       }
       return '';
@@ -87,14 +92,14 @@ export class OfficerCard extends Component {
         <StaticRadarChart data={ chartData } { ...radarConfig } />
         <div>
           <div style={ sectionStyle }>
-            <p style={ lightTextStyle(hovering) }>{ rank }</p>
-            <p style={ boldTextStyle(hovering) }>{ fullName }</p>
+            <p style={ lightTextStyle(hovering) } className='test--officer-card-rank'>{ rank }</p>
+            <p style={ boldTextStyle(hovering) } className='test--officer-card-name'>{ fullName }</p>
           </div>
           <div style={ sectionStyle }>
             <p style={ boldTextStyle(hovering) }>{ complaintString() }</p>
             { complaintPercentileString(hovering) }
           </div>
-          <div style={ noBorderSectionStyle }>
+          <div style={ noBorderSectionStyle } className='test--officer-card-demographic'>
             <p style={ extraInfoStyle(hovering) }>{ extraInfo() }</p>
           </div>
           { footer }
