@@ -4,7 +4,6 @@
 
 ## Getting Started
 
-- Make sure your node version match: (node v6.10.3 and yarn v0.23.4)
 - `yarn`
 
 ## Run Tests

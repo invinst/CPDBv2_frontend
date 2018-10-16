@@ -4,6 +4,9 @@
   "description": "Frontend for cpdb v2",
   "main": "index.js",
   "license": "UNLICENSED",
+  "engines": {
+    "node": ">=6.14 <7"
+  },
   "scripts": {
     "build": "CPDB_APP_ENV=prod webpack",
     "build-staging": "CPDB_APP_ENV=staging webpack",
