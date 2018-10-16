@@ -195,8 +195,8 @@ describe('CR page selectors', function () {
         crs: {
           '123': ComplaintFactory.build({
             coaccused: [
-              CoaccusedFactory.build({ id: 1, 'allegation_count': 11 }),
-              CoaccusedFactory.build({ id: 2, 'allegation_count': 21 })
+              CoaccusedFactory.build({ id: 1, 'complaint_count': 11 }),
+              CoaccusedFactory.build({ id: 2, 'complaint_count': 21 })
             ]
           })
         },
