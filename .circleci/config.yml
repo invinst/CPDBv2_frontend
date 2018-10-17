@@ -61,18 +61,25 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run: cp -R /tmp/workspace/dist ./dist
+      - run: echo "build-$CIRCLE_BUILD_NUM" > buildnum
+      - persist_to_workspace:
+          root: .
+          paths:
+            - buildnum
       - run:
           name: Build and push image
           command: |
-            docker build -t cpdbdev/desktop-frontend:$(cat VERSION) .
+            docker build -t cpdbdev/desktop-frontend:$(cat buildnum) .
             docker login -u cpdbdev -p $DOCKER_PASSWORD
-            docker push cpdbdev/desktop-frontend:$(cat VERSION)
+            docker push cpdbdev/desktop-frontend:$(cat buildnum)
 
   deploy:
     docker:
       - image: cpdbdev/kubectl:v1.11.3
     steps:
       - checkout
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: Apply deployment
           command: |
@@ -83,7 +90,7 @@ jobs:
               export NAMESPACE=staging
             fi
             echo $KUBECONFIG_JSON > /root/project/config.json
-            IMAGE_TAG=$(cat VERSION) templater desktop-frontend.yml | kubectl --kubeconfig /root/project/config.json apply -f - --namespace=$NAMESPACE
+            IMAGE_TAG=$(cat /tmp/workspace/buildnum) templater desktop-frontend.yml | kubectl --kubeconfig /root/project/config.json apply -f - --namespace=$NAMESPACE
 
 workflows:
   version: 2
