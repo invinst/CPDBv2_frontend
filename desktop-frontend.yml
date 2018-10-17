@@ -14,6 +14,7 @@ spec:
       containers:
       - name: desktop-frontend
         image: cpdbdev/desktop-frontend:{{IMAGE_TAG}}
+        imagePullPolicy: Always
         resources:
           requests:
             cpu: 100m
