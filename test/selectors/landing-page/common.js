@@ -55,6 +55,7 @@ describe('common selectors', function () {
       'birth_year': 1961,
       race: 'White',
       gender: 'Male',
+      rank: 'Police Officer',
       percentile: {
         'percentile_trr': '74.440',
         'percentile_allegation_civilian': '99.908',
@@ -70,6 +71,7 @@ describe('common selectors', function () {
       'birth_year': 1963,
       race: 'White',
       gender: 'Male',
+      rank: 'Police Officer',
       percentile: {
         'percentile_trr': '70.069',
         'percentile_allegation_civilian': '99.984',
@@ -86,6 +88,7 @@ describe('common selectors', function () {
     'birth_year': 1963,
     race: 'White',
     gender: 'Male',
+    rank: 'Police Officer',
     percentile: {
       'percentile_trr': '70.069',
       'percentile_allegation_civilian': '99.984',
@@ -98,6 +101,7 @@ describe('common selectors', function () {
   const missingOfficerInfo = {
     id: '8562',
     'full_name': 'Jerome Finnigan',
+    rank: '',
     percentile: {
       'percentile_trr': '70.069',
       'percentile_allegation_civilian': '99.984',
@@ -154,6 +158,7 @@ describe('common selectors', function () {
         age: 54,
         race: 'white',
         gender: 'male',
+        rank: 'Police Officer',
         percentile: {
           percentileAllegation: '99.987',
           percentileAllegationCivilian: '99.984',
@@ -171,6 +176,7 @@ describe('common selectors', function () {
         age: 'N/A',
         race: 'N/A',
         gender: 'N/A',
+        rank: '',
         percentile: {
           percentileAllegation: '99.987',
           percentileAllegationCivilian: '99.984',
@@ -193,6 +199,7 @@ describe('common selectors', function () {
           age: 54,
           race: 'white',
           gender: 'male',
+          rank: 'Police Officer',
           percentile: {
             percentileAllegation: '99.987',
             percentileAllegationCivilian: '99.984',
@@ -207,6 +214,7 @@ describe('common selectors', function () {
           age: 56,
           race: 'white',
           gender: 'male',
+          rank: 'Police Officer',
           percentile: {
             percentileAllegation: '99.924',
             percentileAllegationCivilian: '99.908',
@@ -302,6 +310,7 @@ describe('common selectors', function () {
           age: 54,
           race: 'white',
           gender: 'male',
+          rank: 'Police Officer',
           percentile: {
             percentileAllegation: '99.987',
             percentileAllegationCivilian: '99.984',
@@ -316,6 +325,7 @@ describe('common selectors', function () {
           age: 56,
           race: 'white',
           gender: 'male',
+          rank: 'Police Officer',
           percentile: {
             percentileAllegation: '99.924',
             percentileAllegationCivilian: '99.908',

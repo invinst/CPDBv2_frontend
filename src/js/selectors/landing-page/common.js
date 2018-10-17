@@ -36,6 +36,7 @@ export const simpleOfficerTransform = officer => {
     age: officer['birth_year'] ? getCurrentAge(officer['birth_year']) : 'N/A',
     race: officer['race'] ? toLower(officer['race']) : 'N/A',
     gender: officer['gender'] ? toLower(officer['gender']) : 'N/A',
+    rank: officer['rank'],
     percentile: {
       percentileAllegation: percentile['percentile_allegation'],
       percentileAllegationCivilian: percentile['percentile_allegation_civilian'],
