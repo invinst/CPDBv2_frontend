@@ -20,7 +20,7 @@ import styles from './component.scss';
 
 - CSS classes that are there for the sole purpose of testing must begin with `test--`.
 
-- `.css` files can also be imported like `.scss` files but are not localized with CSS modules. They are global styles including those that are use by 3rd party libraries.
+- `.css` files can also be imported like `.sass` files but are not localized with CSS modules. They are global styles including those that are use by 3rd party libraries.
 
 - Inline styles can be used when more programmatic approach is required.
 

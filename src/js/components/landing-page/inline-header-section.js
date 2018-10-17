@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import styles from './inline-header-section.scss';
+import styles from './inline-header-section.sass';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import LinkTextEditable from 'components/inline-editable/editable-section/link-text-editable';
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';

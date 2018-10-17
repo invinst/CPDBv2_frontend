@@ -50,7 +50,7 @@ const config = Object.assign(
           ]
         },
         {
-          test: /\.scss$/,
+          test: /\.sass$/,
           use: [
             MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { modules: true } },

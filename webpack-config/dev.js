@@ -65,7 +65,7 @@ const config = Object.assign({}, baseConfig, {
         ]
       },
       {
-        test: /\.scss$/,
+        test: /\.sass$/,
         use: [
           MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: { modules: true } },

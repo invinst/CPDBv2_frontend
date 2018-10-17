@@ -1,7 +1,5 @@
 var historyApiFallback = require('connect-history-api-fallback');
 var browserSync = require('browser-sync').create();
-// var gulp = require('gulp');
-// require('./gulpfile.js');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
 
