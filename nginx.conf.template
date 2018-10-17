@@ -31,6 +31,27 @@ http {
         listen 80 default_server;
         server_name _;
         root /usr/share/nginx/html;
+
+        if ($request_uri ~ '^\/embed\/map') {
+            set $is_embedded_map E;
+        }
+
+        if ($request_uri ~ '^\/fonts\/') {
+            set $is_fonts F;
+        }
+
+        if ($request_uri ~ '^\/img\/') {
+            set $is_img I;
+        }
+
+        if ($http_user_agent ~* '(iPhone|iPod|Android|Blackberry|Windows Phone|Opera Mini|WebOS|SymbianOS|IEMobile|Maemo)') {
+            set $is_redirect "${is_fonts}${is_img}${is_embedded_map}C";
+        }
+
+        if ($is_redirect = C) {
+            return 301 https://{{MOBILE_SERVER_NAME}}$request_uri;
+        }
+
         location / {
             try_files $uri /index.html;
         }
