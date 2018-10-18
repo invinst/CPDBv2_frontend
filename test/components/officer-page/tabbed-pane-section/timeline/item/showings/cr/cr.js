@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-findRenderedDOMComponentWithClass,
-renderIntoDocument,
-findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
+  renderIntoDocument,
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { Link } from 'react-router';
 
