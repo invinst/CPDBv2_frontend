@@ -8,8 +8,6 @@ import { extractPercentile } from 'selectors/common/percentile';
 
 export const getTRRId = state => String(state.trrPage.trrId);
 
-export const getPathname = state => state.trrPage.pathname;
-
 const getData = state => state.trrPage.data;
 
 export const officerSelector = createSelector(

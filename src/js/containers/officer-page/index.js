@@ -1,5 +1,7 @@
-import { connect } from 'react-redux';
 import React from 'react';
+import { connect } from 'react-redux';
+import { omit } from 'lodash';
+
 
 import OfficerPage from 'components/officer-page';
 import {
@@ -10,7 +12,6 @@ import {
   summarySelector,
   getCurrentTab,
   getEditModeOn,
-  getPathname,
   getOfficerSlug,
 } from 'selectors/officer-page';
 import { openPoliceUnitPage } from 'actions/open-page';
@@ -30,7 +31,7 @@ import { popupSelector } from 'selectors/popup';
 import { getCMSFields } from 'selectors/cms';
 import { OFFICER_PAGE_ID, OFFICER_EDIT_TYPES } from 'utils/constants';
 import { updatePage } from 'actions/cms';
-import { omit } from 'lodash';
+import { getPathname } from 'selectors/common/pathname';
 
 
 function mapStateToProps(state, ownProps) {
