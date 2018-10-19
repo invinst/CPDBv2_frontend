@@ -13,7 +13,7 @@ export default class InvolvementItem extends Component {
   }
 
   render() {
-    const { involvedType, officers, style, className, popup } = this.props;
+    const { involvedType, officers, style, className, popup, pathName } = this.props;
     const involvedTypeMap = {
       investigator: {
         name: 'INVESTIGATOR',
@@ -31,6 +31,7 @@ export default class InvolvementItem extends Component {
           <Popup
             { ...get(popup, involvedTypeMap[involvedType].popupName) }
             position='relative'
+            url={ pathName }
           />
         </div>
         <div>
@@ -57,4 +58,5 @@ InvolvementItem.propTypes = {
   style: PropTypes.object,
   className: PropTypes.string,
   popup: PropTypes.object,
+  pathName: PropTypes.string,
 };

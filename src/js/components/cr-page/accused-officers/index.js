@@ -29,7 +29,7 @@ export default class AccusedOfficers extends Component {
   }
 
   render() {
-    const { officers, popup } = this.props;
+    const { officers, popup, pathName } = this.props;
     const { expanded } = this.state;
     return (
       <div style={ wrapperStyle(expanded) } className='test--accused-officer'>
@@ -39,6 +39,7 @@ export default class AccusedOfficers extends Component {
             <Popup
               { ...popup }
               position='relative'
+              url={ pathName }
             />
           </h2>
           <div style={ accusedOfficersWrapperStyle }>
@@ -67,6 +68,7 @@ AccusedOfficers.propTypes = {
   officers: PropTypes.array,
   expanded: PropTypes.bool,
   popup: PropTypes.object,
+  pathName: PropTypes.string,
 };
 
 AccusedOfficers.defaultProps = {

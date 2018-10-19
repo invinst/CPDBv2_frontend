@@ -7,6 +7,7 @@ import {
   trrLocationSelector,
   trrDetailSelector,
   trrDocumentSelector,
+  getPathname,
 } from 'selectors/trr-page';
 import { popupSelector } from 'selectors/popup';
 import TRRPage from 'components/trr-page';
@@ -21,6 +22,7 @@ function mapStateToProps(state) {
     trrLocation: trrLocationSelector(state),
     trrDocument: trrDocumentSelector(state),
     popup: popupSelector(state),
+    pathName: getPathname(state),
   };
 }
 
