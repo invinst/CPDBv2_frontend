@@ -1,5 +1,17 @@
-import configureProd from './configureStore.prod';
-import configureDev from './configureStore.dev';
+import persistState from 'redux-localstorage';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { routerMiddleware } from 'react-router-redux';
+import { browserHistory } from 'react-router';
+
+import rootReducer from 'reducers/root-reducer';
+import configuredAxiosMiddleware from 'middleware/configured-axios-middleware';
+import searchPath from 'middleware/search-path';
+import openPage from 'middleware/open-page-middleware';
+import tracking from 'middleware/tracking';
+import localStorageConfig from './local-storage-config';
+import fetchPageInitialData from 'middleware/fetch-page-initial-data';
+import redirectOfficerAlias from 'middleware/redirect-officer-alias';
 import config from 'config';
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
@@ -8,11 +20,25 @@ if (config.localStorageVersion !== localStorageVersion) {
   localStorage.setItem('CPDB_LOCALSTORAGE_VERSION', config.localStorageVersion);
 }
 
-let configureStore = configureProd;
+function configureStore(initialState) {
+  const composeArgs = [
+    applyMiddleware(
+      thunk, configuredAxiosMiddleware, openPage, searchPath, tracking,
+      routerMiddleware(browserHistory), fetchPageInitialData, redirectOfficerAlias
+    ),
+    persistState(()=>{}, localStorageConfig)
+  ];
 
-if (config.appEnv === 'dev') {
   /* istanbul ignore next */
-  configureStore = configureDev;
+  if (config.appEnv === 'dev') {
+    composeArgs.push(window.devToolsExtension ? window.devToolsExtension() : f => f);
+  }
+
+  return createStore(
+    rootReducer,
+    initialState,
+    compose(...composeArgs)
+  );
 }
 
 let store;
