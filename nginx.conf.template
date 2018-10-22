@@ -53,20 +53,20 @@ http {
         }
 
         location /embed {
-            try_files /index.html;
+            try_files $uri /index.html;
         }
 
         location ~ ^\/(fonts|img)\/ {
-            try_files $uri
+            try_files $uri /index.html;
         }
 
         location ~ \.(js|css)$ {
-            try_files $uri
+            try_files $uri /index.html;
         }
 
         location / {
             add_header X-Frame-Options SAMEORIGIN;
-            try_files /index.html;
+            try_files $uri /index.html;
         }
     }
 }
