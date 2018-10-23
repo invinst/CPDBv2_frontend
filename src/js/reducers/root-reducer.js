@@ -18,6 +18,7 @@ import cms from './cms';
 import breadcrumbsMapping from './breadcrumbs-mapping';
 import pageLoading from './page-loading';
 import popups from './popups';
+import pathname from './pathname';
 
 
 export default combineReducers({
@@ -39,4 +40,5 @@ export default combineReducers({
   cms,
   pageLoading,
   popups,
+  pathname,
 });

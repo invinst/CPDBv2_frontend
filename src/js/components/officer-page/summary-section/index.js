@@ -24,19 +24,23 @@ export default class SummarySection extends Component {
       birthYear,
       currentSalary
     } = this.props.officerSummary;
-    const { openPoliceUnitPage, popup } = this.props;
+    const { popup, pathName } = this.props;
 
     return [
       ['Year of Birth', birthYear, <YearOld birthYear={ birthYear } key='Year of Birth'/>],
       ['Race', race],
       ['Sex', gender],
       ['Badge', badge, <HistoricBadges historicBadges={ historicBadges } key='Historic Badges'/>],
-      ['Rank', rank, currentSalary !== null
-        ? <Salary salary={ currentSalary } key='Rank' popup={ get(popup, POPUP_NAMES.OFFICER.SALARY) }/>
-        : null
-      ],
+      ['Rank', rank, currentSalary !== null ? (
+        <Salary
+          salary={ currentSalary }
+          key='Rank'
+          popup={ get(popup, POPUP_NAMES.OFFICER.SALARY) }
+          pathName={ pathName }
+        />
+      ) : null],
       ['Unit', unitDescription || unitName, (
-        <ViewUnitProfileButton unitName={ unitName } onClick={ openPoliceUnitPage } key='Unit'/>
+        <ViewUnitProfileButton unitName={ unitName } key='Unit'/>
       )],
       ['Career', careerDuration],
     ];
@@ -80,9 +84,9 @@ SummarySection.propTypes = {
     birthYear: PropTypes.number,
     currentSalary: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }),
-  openPoliceUnitPage: PropTypes.func,
   officerName: PropTypes.string,
   popup: PropTypes.object,
+  pathName: PropTypes.string,
 };
 
 SummarySection.defaultProps = {

@@ -49,9 +49,10 @@ describe('AccusedOfficers component', function () {
       title: 'Accused Officer',
       text: 'Some accused officer explanation',
     };
-    instance = renderIntoDocument(<AccusedOfficers popup={ popup } />);
+    instance = renderIntoDocument(<AccusedOfficers popup={ popup } pathName='/complaint/1086235/'/>);
     const accusedOfficersPopup = findRenderedComponentWithType(instance, Popup);
     accusedOfficersPopup.props.title.should.eql('Accused Officer');
     accusedOfficersPopup.props.text.should.eql('Some accused officer explanation');
+    accusedOfficersPopup.props.url.should.eql('/complaint/1086235/');
   });
 });

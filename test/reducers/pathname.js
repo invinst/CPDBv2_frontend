@@ -1,6 +1,6 @@
 import should from 'should';
 
-import pathname from 'reducers/officer-page/pathname';
+import pathname from 'reducers/pathname';
 
 
 describe('pathname reducer', function () {

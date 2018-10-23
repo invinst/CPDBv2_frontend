@@ -19,7 +19,7 @@ export default class PairingCard extends Component {
   }
 
   render() {
-    const { officer1, officer2, coaccusalCount, openOfficerPage } = this.props;
+    const { officer1, officer2, coaccusalCount } = this.props;
     const { hoveredPart } = this.state;
 
     return (
@@ -45,12 +45,12 @@ export default class PairingCard extends Component {
         <HalfPane
           position='left'
           onHovering={ (hovering) => this.handleHover(hovering ? 'left' : null) }
-          onClick={ () => openOfficerPage(officer1.id) }
+          officerId={ officer1.id }
         />
         <HalfPane
           position='right'
           onHovering={ (hovering) => this.handleHover(hovering ? 'right': null) }
-          onClick={ () => openOfficerPage(officer2.id) }
+          officerId={ officer2.id }
         />
       </div>
     );
@@ -61,9 +61,4 @@ PairingCard.propTypes = {
   officer1: PropTypes.object,
   officer2: PropTypes.object,
   coaccusalCount: PropTypes.number,
-  openOfficerPage: PropTypes.func,
-};
-
-PairingCard.defaultProps = {
-  openOfficerPage: () => {},
 };

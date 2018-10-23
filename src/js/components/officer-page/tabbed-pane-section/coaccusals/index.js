@@ -46,5 +46,4 @@ export default class Coaccusals extends Component {
 
 Coaccusals.propTypes = {
   coaccusalGroups: PropTypes.array,
-  openOfficerPage: PropTypes.func,
 };

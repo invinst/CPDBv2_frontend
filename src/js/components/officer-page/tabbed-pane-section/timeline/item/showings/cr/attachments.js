@@ -34,6 +34,7 @@ export default class Attachments extends Component {
                   style={ moreStyle }
                   className='test--more-attachment'
                   onClick={ (e) => {
+                    e.preventDefault();
                     e.stopPropagation();
                     changeOfficerTab(OFFICER_PAGE_TAB_NAMES.ATTACHMENTS);
                     scrollToElement('.tabbed-pane-section', true, -40);

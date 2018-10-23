@@ -48,12 +48,14 @@ describe('Timeline component', function () {
       },
     };
 
-    instance = renderIntoDocument(<Timeline popup={ popup } />);
+    instance = renderIntoDocument(<Timeline popup={ popup } pathname='/officer/8562/jerome-finnigan/'/>);
     const timelinePopup = scryRenderedComponentsWithType(instance, Popup);
     timelinePopup[0].props.title.should.eql('Rank');
     timelinePopup[0].props.text.should.eql('Some rank explanation');
+    timelinePopup[0].props.url.should.eql('/officer/8562/jerome-finnigan/');
     timelinePopup[1].props.title.should.eql('Unit');
     timelinePopup[1].props.text.should.eql('Some unit explanation');
+    timelinePopup[1].props.url.should.eql('/officer/8562/jerome-finnigan/');
   });
 
   it('should render items with correct borders', function () {

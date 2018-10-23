@@ -1,5 +1,4 @@
 import React from 'react';
-import { stub } from 'sinon';
 
 import AttachmentsTab from 'components/officer-page/tabbed-pane-section/attachments-tab';
 import Complaint from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint';
@@ -48,9 +47,8 @@ describe('AttachmentsTab component', function () {
   });
 
   it('should render Complaints', function () {
-    const stubOpenComplaintPage = stub();
     instance = renderIntoDocument(
-      <AttachmentsTab complaints={ complaints } openComplaintPage={ stubOpenComplaintPage }/>,
+      <AttachmentsTab complaints={ complaints }/>,
     );
 
     const complaintComponents = scryRenderedComponentsWithType(instance, Complaint);
@@ -58,10 +56,8 @@ describe('AttachmentsTab component', function () {
 
     const complaintComponent0 = complaintComponents[0];
     complaintComponent0.props.complaint.should.eql(complaint0);
-    complaintComponent0.props.openComplaintPage.should.eql(stubOpenComplaintPage);
 
     const complaintComponent1 = complaintComponents[1];
     complaintComponent1.props.complaint.should.eql(complaint1);
-    complaintComponent1.props.openComplaintPage.should.eql(stubOpenComplaintPage);
   });
 });

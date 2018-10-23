@@ -10,13 +10,13 @@ export default class Complaint extends Component {
   }
 
   render() {
-    const { complaint, openComplaintPage } = this.props;
+    const { complaint } = this.props;
     return (
       <div
         style={ wrapperStyle }
         className='test--attachments-complaint'
       >
-        <Heading complaint={ complaint } openComplaintPage={ openComplaintPage }/>
+        <Heading complaint={ complaint } />
         <div>
           {
             complaint.attachments.map((attachment, index) =>
@@ -31,5 +31,4 @@ export default class Complaint extends Component {
 
 Complaint.propTypes = {
   complaint: PropTypes.object,
-  openComplaintPage: PropTypes.func,
 };
