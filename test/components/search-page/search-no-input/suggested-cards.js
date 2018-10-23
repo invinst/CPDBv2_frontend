@@ -9,7 +9,7 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import SuggestedCards from 'components/search-page/search-no-input/suggested-cards';
-import OfficerCard from 'components/landing-page/common/officer-card';
+import OfficerCard from 'components/common/officer-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 
 

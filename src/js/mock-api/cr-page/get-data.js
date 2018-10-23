@@ -8,10 +8,10 @@ export default () => ComplaintFactory.build({
     CoaccusedFactory.build({
       rank: 'Officer',
       'full_name': 'Ridchard Sullivan',
-      'allegation_count': 43,
+      'complaint_count': 43,
       'sustained_count': 1,
-      'percentile_allegation': 99,
-      age: 41,
+      'complaint_percentile': 99,
+      'birth_year': 1975,
       race: 'White',
       gender: 'Male',
       category: 'False Arrest',
