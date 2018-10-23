@@ -306,7 +306,6 @@ describe('CR page selectors', function () {
       should.not.exists(result.incidentDate);
       should.not.exists(result.address);
       should.not.exists(result.location);
-      result.beat.should.eql('Unknown');
       result.category.should.eql('Unknown');
       result.subcategory.should.eql('Unknown');
     });
