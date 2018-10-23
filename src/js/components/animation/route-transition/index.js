@@ -72,7 +72,6 @@ export default class RouteTransition extends Component {
   getRouteTransitionKey(pathname) {
     pathname = pathname.replace(/^\/edit(.*)/, '$1');
     const patterns = [
-      /.*(officer\/\d+).*/,
       /.*(complaint\/\d+).*/,
       /.*(search)\/.*/
     ];

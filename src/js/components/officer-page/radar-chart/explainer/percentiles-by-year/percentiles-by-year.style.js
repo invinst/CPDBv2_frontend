@@ -73,4 +73,6 @@ export const cellStyle = {
   borderBottom: `1px solid ${whiteTwoColor}`,
   width: `calc((100% - 110px) / ${NUM_RESPONSIVE_COLUMNS})`,
   verticalAlign: 'top',
+  height: '40px',
+  boxSizing: 'border-box',
 };

@@ -1,4 +1,4 @@
-import axiosMockClient, { countRequests } from 'utils/axios-mock-client';
+import axiosMockClient from 'utils/axios-mock-client';
 import {
   ACTIVITY_GRID_API_URL,
   CITY_SUMMARY_API_URL,
@@ -29,7 +29,6 @@ import getRecentDocument from './landing-page/recent-document';
 import { groupedSuggestions, singleGroupSuggestions } from './landing-page/suggestions';
 import getCoaccusalsData from './officer-page/get-coaccusals';
 import getNewTimelineItemsData from './officer-page/get-new-timeline-item';
-import getSocialGraphData from './officer-page/get-social-graph';
 import getSummaryData, { noPercentileOfficerSummary } from './officer-page/get-summary';
 import getTRRData from './trr-page/get-data';
 import getSearchTermsData from './search-terms-page';
@@ -90,7 +89,6 @@ axiosMockClient.onGet(SEARCH_API_URL).reply(function (config) {
 
 axiosMockClient.onGet(`${OFFICER_URL}1/summary/`).reply(200, getSummaryData());
 axiosMockClient.onGet(`${OFFICER_URL}2/summary/`).reply(200, noPercentileOfficerSummary);
-axiosMockClient.onGet(`${OFFICER_URL}1/social-graph/`).reply(countRequests(() => [200, getSocialGraphData()]));
 
 axiosMockClient.onGet(`${TRR_URL}1/`).reply(200, getTRRData());
 
