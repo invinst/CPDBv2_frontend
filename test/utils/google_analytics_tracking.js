@@ -150,4 +150,16 @@ describe('GATracking utils', function () {
       });
     });
   });
+
+  describe('trackPopupButtonClick', function () {
+    it('should send event analytic', function () {
+      GATracking.trackPopupButtonClick('/officer/8562/jerome-finnigan/', 'Rank');
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'popup_click',
+        eventAction: 'click',
+        eventLabel: '/officer/8562/jerome-finnigan/ - Rank',
+      });
+    });
+  });
 });

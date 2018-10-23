@@ -8,7 +8,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import OfficerCard from 'components/landing-page/common/officer-card';
+import OfficerCard from 'components/common/officer-card';
 import OfficersByAllegation from 'components/landing-page/officers-by-allegation';
 
 
@@ -57,11 +57,11 @@ describe('Officers By Allegation components', function () {
     const officerCard1 = findDOMNode(officerCards[0]);
     officerCard1.textContent.should.containEql('Manuel Guzman');
     officerCard1.textContent.should.containEql('More than 99.5% of other officers');
-    officerCard1.textContent.should.containEql('56 Allegations, 30 Sustained');
+    officerCard1.textContent.should.containEql('56 Allegations 30 Sustained');
 
     const officerCard2 = findDOMNode(officerCards[1]);
     officerCard2.textContent.should.containEql('Jerome Finnagan');
-    officerCard2.textContent.should.containEql('55 Allegations, 22 Sustained');
+    officerCard2.textContent.should.containEql('55 Allegations 22 Sustained');
     officerCard2.textContent.should.containEql('More than 99.1% of other officers');
   });
 });

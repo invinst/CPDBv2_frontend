@@ -7,7 +7,7 @@ import InvolvementItem from './involvement-item';
 
 export default class Involvement extends Component {
   render() {
-    const { involvements, popup } = this.props;
+    const { involvements, popup, pathName } = this.props;
 
     if (!involvements || keys(involvements).length === 0) {
       return null;
@@ -23,6 +23,7 @@ export default class Involvement extends Component {
               involvedType={ involvedType }
               officers={ officers }
               popup={ popup }
+              pathName={ pathName }
             />)
           )
         }
@@ -34,4 +35,5 @@ export default class Involvement extends Component {
 Involvement.propTypes = {
   involvements: PropTypes.object,
   popup: PropTypes.object,
+  pathName: PropTypes.string,
 };

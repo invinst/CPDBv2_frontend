@@ -11,6 +11,7 @@ import {
 import { popupSelector } from 'selectors/popup';
 import TRRPage from 'components/trr-page';
 import { openRequestTRRDocumentModal } from 'actions/generic-modal';
+import { getPathname } from 'selectors/common/pathname';
 
 
 function mapStateToProps(state) {
@@ -21,6 +22,7 @@ function mapStateToProps(state) {
     trrLocation: trrLocationSelector(state),
     trrDocument: trrDocumentSelector(state),
     popup: popupSelector(state),
+    pathName: getPathname(state),
   };
 }
 

@@ -8,7 +8,7 @@ import { changeFilter } from 'actions/officer-page/new-timeline';
 import { getOfficerId } from 'selectors/officer-page';
 import { changeOfficerTab } from 'actions/officer-page';
 import { popupSelector } from 'selectors/popup';
-import { getPathname } from 'selectors/officer-page';
+import { getPathname } from 'selectors/common/pathname';
 
 function mapStateToProps(state, ownProps) {
   return {

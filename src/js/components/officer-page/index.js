@@ -38,6 +38,7 @@ export default class OfficerPage extends Component {
       triangleEditWrapperStateProps,
       scaleEditWrapperStateProps,
       noDataRadarChartEditWrapperStateProps,
+      pathName,
     } = this.props;
 
     const pageTitle = compact([
@@ -63,9 +64,10 @@ export default class OfficerPage extends Component {
               officerName={ officerName }
               officerSummary={ officerSummary }
               popup={ popup }
+              pathName={ pathName }
             />
           </div>
-          <MetricsSection metrics={ officerMetrics } popup={ popup }/>
+          <MetricsSection metrics={ officerMetrics } popup={ popup } pathName={ pathName }/>
           <TabbedPaneSection
             changeOfficerTab={ changeOfficerTab }
             currentTab={ currentTab }

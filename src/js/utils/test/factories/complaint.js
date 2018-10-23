@@ -33,16 +33,22 @@ export const CoaccusedFactory = Factory.define('CoaccusedFactory')
   .attr('full_name', () => name.firstName())
   .attr('gender', 'Male')
   .attr('race', 'White')
-  .attr('allegation_count', () => random.number())
+  .attr('complaint_count', () => random.number())
   .attr('sustained_count', () => random.number())
-  .attr('age', () => random.number())
+  .attr('birth_year', () => random.number({ min: 1950, max: 1990 }))
+  .attr('complaint_percentile', percentileGenerator)
+  .attr('rank', lorem.word)
+  .attr('percentile', [{
+    'percentile_trr': String(percentileGenerator),
+    'percentile_allegation_civilian': String(percentileGenerator),
+    'percentile_allegation': String(percentileGenerator),
+    'percentile_allegation_internal': String(percentileGenerator),
+  }])
   .attr('final_outcome', lorem.word)
   .attr('final_finding', lorem.word)
   .attr('category', lorem.words)
-  .attr('percentile_allegation', percentileGenerator)
-  .attr('percentile_allegation_civilian', percentileGenerator)
-  .attr('percentile_allegation_internal', percentileGenerator)
-  .attr('percentile_trr', percentileGenerator);
+  .attr('disciplined', () => random.boolean())
+  .attr('coaccused_count', () => random.number());
 
 /* istanbul ignore next */
 const PersonDemographicFactory = Factory.define('PersonDemographicFactory')
