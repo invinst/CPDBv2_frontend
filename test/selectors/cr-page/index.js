@@ -50,22 +50,28 @@ describe('CR page selectors', function () {
 
     it('should return list of coaccused', function () {
       const coaccusedObj = {
-        'id': 1,
+        id: 1,
         'full_name': 'Michel Foo',
-        'gender': 'Male',
-        'race': 'White',
+        'complaint_count': 15,
+        'sustained_count': 1,
+        'complaint_percentile': 59.0,
+        'birth_year': 1977,
+        race: 'White',
+        gender: 'Male',
+        'coaccused_count': 4,
+        rank: 'Po As Detective',
         'final_outcome': 'Reprimand',
         'final_finding': 'Sustained',
+        'disciplined': true,
         'category': 'Operations/Personnel Violation',
-        'rank': 'Officer',
-        'age': 34,
-        'allegation_count': 12,
-        'sustained_count': 1,
-        'percentile_allegation': 1,
-        'percentile_allegation_civilian': 52.5,
-        'percentile_allegation_internal': 10.1,
-        'percentile_trr': 20.6,
-        'disciplined': true
+        'percentile': {
+          'officer_id': 1,
+          'year': 2007,
+          'percentile_allegation': '91.5',
+          'percentile_allegation_civilian': '97.0',
+          'percentile_allegation_internal': '82.0',
+          'percentile_trr': '92.3'
+        },
       };
       const state = buildState({
         crs: { '123': { coaccused: [coaccusedObj] } },
@@ -74,35 +80,40 @@ describe('CR page selectors', function () {
 
       contentSelector(state).coaccused.should.eql([{
         id: 1,
-        fullname: 'Michel Foo',
-        officerSlug: 'michel-foo',
-        demographic: '34 year old, White, Male',
+        officerId: 1,
+        fullName: 'Michel Foo',
+        complaintCount: 15,
+        sustainedCount: 1,
+        complaintPercentile: 59.0,
+        birthYear: 1977,
+        race: 'white',
+        gender: 'male',
+        coaccusedCount: 4,
+        rank: 'Po As Detective',
         findingOutcomeMix: 'Reprimand',
         finding: 'Sustained',
         category: 'Operations/Personnel Violation',
-        rank: 'Officer',
-        allegationCount: 12,
-        sustainedCount: 1,
-        allegationPercentile: 1,
-        radarAxes: [
-          {
-            axis: 'trr',
-            value: 20.6,
-          },
-          {
-            axis: 'internal',
-            value: 10.1,
-          },
-          {
-            axis: 'civilian',
-            value: 52.5,
-          },
-        ],
-        radarColor: {
-          backgroundColor: '#ed7467',
-          textColor: '#231F20'
+        disciplined: true,
+        percentile: {
+          items: [
+            {
+              'axis': 'Use of Force Reports',
+              'value': 92.3
+            },
+            {
+              'axis': 'Officer Allegations',
+              'value': 82
+            },
+            {
+              'axis': 'Civilian Allegations',
+              'value': 97
+            }
+          ],
+          officerId: 1,
+          textColor: '#DFDFDF',
+          visualTokenBackground: '#f52524',
+          year: 2007,
         },
-        disciplined: true
       }]);
     });
 
@@ -184,8 +195,8 @@ describe('CR page selectors', function () {
         crs: {
           '123': ComplaintFactory.build({
             coaccused: [
-              CoaccusedFactory.build({ id: 1, 'allegation_count': 11 }),
-              CoaccusedFactory.build({ id: 2, 'allegation_count': 21 })
+              CoaccusedFactory.build({ id: 1, 'complaint_count': 11 }),
+              CoaccusedFactory.build({ id: 2, 'complaint_count': 21 })
             ]
           })
         },
@@ -195,26 +206,6 @@ describe('CR page selectors', function () {
       });
 
       contentSelector(state).coaccused.map(obj => obj.id).should.eql([2, 1]);
-    });
-
-    it('should set coaccused gender, race, finalOutcome, '
-      + 'category to default value if missing data', function () {
-      const coaccusedObj = {
-        'id': 1,
-        'full_name': 'Michel Foo',
-        'start_date': '2012-02-01',
-        'end_date': '2013-02-01',
-        'final_outcome': 'abc'
-      };
-      const state = buildState({
-        crs: { '123': { coaccused: [coaccusedObj] } },
-        crPage: { crid: 123 }
-      });
-
-      const coaccused = contentSelector(state).coaccused[0];
-      coaccused.rank.should.eql('Officer');
-      coaccused.demographic.should.eql('');
-      coaccused.category.should.eql('Unknown');
     });
 
     it('should return list of involvements', function () {

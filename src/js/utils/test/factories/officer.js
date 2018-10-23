@@ -15,17 +15,19 @@ export const CoaccusedFactory = Factory.define('coaccused')
   .sequence('id')
   .attr('rank', 'Officer')
   .attr('fullname', () => `${name.firstName()} ${name.lastName}`)
-  .attr('allegationCount', () => random.number())
+  .attr('complaintCount', () => random.number())
   .attr('sustainedCount', () => random.number())
-  .attr('allegationPercentile', 99)
-  .attr('age', 40)
+  .attr('complaintPercentile', 99)
+  .attr('birthYear', 1970)
   .attr('race', 'white')
-  .attr('radarAxes', () => [
-    { axis: 'trr', value: Math.random() * 100 },
-    { axis: 'internal', value: Math.random() * 100 },
-    { axis: 'civilian', value: Math.random() * 100 }
-  ])
-  .attr('radarColor', {
-    backgroundColor: '#700404',
-    textColor: '#f5f4f4'
-  });
+  .attr('percentile', () => ({
+    officerId: random.number(),
+    year: 2016,
+    items: [
+      { axis: 'Use of Force Reports', value: Math.random() * 100 },
+      { axis: 'Officer Allegations', value: Math.random() * 100 },
+      { axis: 'Civilian Allegations', value: Math.random() * 100 }
+    ],
+    visualTokenBackground: '#f5f4f4',
+    textColor: '#231F20',
+  }));

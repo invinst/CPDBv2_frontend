@@ -11,7 +11,7 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import { CoaccusedFactory } from 'utils/test/factories/officer';
 import AccusedOfficers from 'components/cr-page/accused-officers';
-import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
+import OfficerCard from 'components/common/officer-card';
 import Popup from 'components/common/popup';
 
 
@@ -22,9 +22,9 @@ describe('AccusedOfficers component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render CoaccusedCard', function () {
+  it('should render OfficerCard', function () {
     instance = renderIntoDocument(<AccusedOfficers officers={ CoaccusedFactory.buildList(3) } />);
-    scryRenderedComponentsWithType(instance, CoaccusedCard).should.have.length(3);
+    scryRenderedComponentsWithType(instance, OfficerCard).should.have.length(3);
   });
 
   it('should display show more button when accused list is not expanded', function () {

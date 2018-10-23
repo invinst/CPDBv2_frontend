@@ -9,7 +9,7 @@ export const wrapperStyle = {
 
 export const coaccusedTextStyle = {
   fontSize: '14px',
-  fontWeight: 400,
+  fontWeight: 300,
   color: softBlackColor,
   position: 'absolute',
   left: 0,
