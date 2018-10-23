@@ -1,4 +1,4 @@
-import { whiteTwoColor, clayGray, softBlackColor, accentColor } from 'utils/styles';
+import { whiteTwoColor, boulderColor, softBlackColor, accentColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -9,13 +9,13 @@ export const wrapperStyle = {
 export const textStyle = {
   fontWeight: 300,
   fontSize: '12px',
-  color: clayGray,
+  color: boulderColor,
   width: '200px',
   height: '14px',
 };
 
 export const nameStyle = (hovering) => ({
-  fontWeight: 400,
+  fontWeight: 300,
   fontSize: '14px',
   color: hovering ? accentColor : softBlackColor,
   width: '200px',
@@ -25,7 +25,7 @@ export const nameStyle = (hovering) => ({
 export const personaInfoStyle = {
   fontWeight: 300,
   fontSize: '14px',
-  color: clayGray,
+  color: boulderColor,
   width: '200px',
   height: '36px',
 };

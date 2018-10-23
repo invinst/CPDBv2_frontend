@@ -66,7 +66,7 @@ class CoaccusalsSection extends Section {
 
     this.prepareElementGetters({
       firstCoaccusalGroupName: '//span[@class="test--coaccusals-group-name"][1]',
-      firstCoaccusalCard: '.test--coaccusal-card',
+      firstCoaccusalCard: '.test--officer-card',
     });
   }
 }

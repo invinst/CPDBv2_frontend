@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import { isNil } from 'lodash';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import Hoverable from 'components/common/higher-order/hoverable';
@@ -15,7 +16,7 @@ class OfficerRow extends Component {
     return (
       <Link
         className='test--officer-row'
-        style={ { ...wrapperStyle, ...style } }
+        style={ { ...wrapperStyle(!isNil(id)), ...style } }
         to={ id ? `/officer/${id}/${officerSlug}/` : null }>
         <div style={ chartWrapperStyle }>
           <StaticRadarChart
@@ -26,7 +27,7 @@ class OfficerRow extends Component {
             { ...radarColor }/>
         </div>
         <div style={ rightWrapperStyle }>
-          <div style={ officerNameStyle(hovering) }>{ fullName }</div>
+          <div style={ officerNameStyle(hovering && !isNil(id)) }>{ fullName }</div>
           <div style={ extraInfoStyle }>{ extraInfo }</div>
         </div>
         <div style={ tagWrapperStyle }>

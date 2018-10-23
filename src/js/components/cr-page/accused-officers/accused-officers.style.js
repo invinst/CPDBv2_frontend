@@ -48,8 +48,6 @@ export const bottomMarginStyle = {
   backgroundColor: sugarCaneColor
 };
 
-export const popupStyle = {
-  display: 'inline-block',
-  verticalAlign: 'middle',
-  marginLeft: '6px',
+export const officerCardStyle = {
+  margin: '0 8px 8px 0',
 };
