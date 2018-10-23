@@ -10,7 +10,6 @@ import {
   turnOffCarouselActivityHeaderEditMode,
   turnOnCarouselActivityHeaderEditMode
 } from 'actions/landing-page/activity-grid';
-import { openOfficerPage } from 'actions/open-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -26,7 +25,6 @@ const mapDispatchToProps = {
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselActivityHeaderEditMode,
   turnOffSectionEditMode: turnOffCarouselActivityHeaderEditMode,
-  openOfficerPage
 };
 
 export default connect(

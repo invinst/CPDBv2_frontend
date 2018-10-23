@@ -13,7 +13,7 @@ import Complaint from './complaint';
 export default class AttachmentsTab extends Component {
 
   render() {
-    const { complaints, openComplaintPage } = this.props;
+    const { complaints } = this.props;
     return (
       <div style={ wrapperStyle }>
         <div style={ titleStyle }>
@@ -32,7 +32,6 @@ export default class AttachmentsTab extends Component {
               <Complaint
                 complaint={ complaint }
                 key={ index }
-                openComplaintPage={ openComplaintPage }
               />
             );
           })
@@ -48,5 +47,4 @@ AttachmentsTab.defaultProps = {
 
 AttachmentsTab.propTypes = {
   complaints: PropTypes.array,
-  openComplaintPage: PropTypes.func,
 };

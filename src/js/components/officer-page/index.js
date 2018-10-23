@@ -25,7 +25,6 @@ export default class OfficerPage extends Component {
     const {
       officerId,
       officerSummary,
-      openPoliceUnitPage,
       officerMetrics,
       officerName,
       threeCornerPercentile,
@@ -64,7 +63,6 @@ export default class OfficerPage extends Component {
             <SummarySection
               officerName={ officerName }
               officerSummary={ officerSummary }
-              openPoliceUnitPage={ openPoliceUnitPage }
               popup={ popup }
               pathName={ pathName }
             />
@@ -89,7 +87,6 @@ OfficerPage.propTypes = {
   officerSummary: PropTypes.object,
   officerMetrics: PropTypes.object,
   threeCornerPercentile: PropTypes.array,
-  openPoliceUnitPage: PropTypes.func,
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
   hasComplaint: PropTypes.bool,
