@@ -1,5 +1,4 @@
 import {
-  officerCardTransform,
   simpleOfficerTransform,
   pairingCardTransform,
   cardTransform
@@ -105,43 +104,6 @@ describe('common selectors', function () {
       'officer_id': 8562,
     },
   };
-
-  describe('officerCardTransform', function () {
-    it('should return an officer information', function () {
-      officerCardTransform(singleOfficerCard).should.eql({
-        id: '8562',
-        officerId: '8562',
-        fullName: 'Jerome Finnigan',
-        complaintCount: 175,
-        sustainedCount: 6,
-        complaintPercentile: 99.987,
-        birthYear: 1963,
-        race: 'white',
-        gender: 'male',
-        percentile: {
-          'items': [
-            {
-              'axis': 'Use of Force Reports',
-              'value': 70.069
-            },
-            {
-              'axis': 'Officer Allegations',
-              'value': 99.675
-            },
-            {
-              'axis': 'Civilian Allegations',
-              'value': 99.984
-            }
-          ],
-          officerId: 8562,
-          textColor: '#DFDFDF',
-          visualTokenBackground: '#f0201e',
-          year: 2018
-        },
-        type: 'single_officer'
-      });
-    });
-  });
 
   describe('simpleOfficerTransform', function () {
     it('should return specific information of an officer', function () {

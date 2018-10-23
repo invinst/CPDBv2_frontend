@@ -14,6 +14,7 @@ import TRRPageContainer from 'containers/trr-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
 import HeatMapContainer from 'containers/embeddable-heat-map';
 import EmbedTopOfficersPage from 'components/landing-page/embed/top-officers-page';
+import EmbedOfficersContainer from 'containers/embed/officers';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -27,6 +28,7 @@ import {
   STANDALONE_CR_PATH,
   EMBED_MAP_PATH,
   EMBED_TOP_OFFICERS_PATH,
+  EMBED_OFFICERS_PATH,
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -93,6 +95,9 @@ export default class RouterRoot extends Component {
             <Route
               path={ EMBED_TOP_OFFICERS_PATH }
               component={ EmbedTopOfficersPage }/>
+            <Route
+              path={ EMBED_OFFICERS_PATH }
+              component={ EmbedOfficersContainer }/>
             <Redirect from='*' to='/'/>
           </Route>
         </Router>

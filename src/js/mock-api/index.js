@@ -22,6 +22,7 @@ import getCRDataNoAttachment from './cr-page/get-data-no-attachment';
 import getCRRelatedComplaintsData from './cr-page/get-related-complaint';
 import getActivityGridData from './landing-page/activity-grid';
 import getTopByAllegationData from './landing-page/top-by-allegation';
+import { getOfficersData } from './embed/officers';
 import { landingPageCMSFields, officerPageCMSFields } from './cms-field';
 import getComplaintSummaries from './landing-page/complaint-summaries';
 import { getCitySummary, getCommunities } from './landing-page/heat-map';
@@ -42,6 +43,7 @@ const SEARCH_SINGLE_API_URL = /^suggestion\/single\/$/;
 
 axiosMockClient.onGet(ACTIVITY_GRID_API_URL).reply(() => [200, getActivityGridData()]);
 axiosMockClient.onGet(OFFICERS_BY_ALLEGATION_API_URL).reply(() => [200, getTopByAllegationData()]);
+axiosMockClient.onGet(OFFICER_URL, { params: { ids: '1,2,3' } }).reply(() => [200, getOfficersData('1,2,3')]);
 axiosMockClient.onGet(RECENT_DOCUMENT_URL).reply(() => [200, getRecentDocument(24)]);
 axiosMockClient.onGet(RECENT_COMPLAINT_SUMMARIES_URL).reply(() => [200, getComplaintSummaries(20)]);
 

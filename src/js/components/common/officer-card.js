@@ -8,7 +8,7 @@ import { getThisYear } from 'utils/date';
 import {
   extraInfoStyle, noBorderSectionStyle,
   sectionStyle, sustainedStyle
-} from 'components/landing-page/common/officer-card.style';
+} from 'components/common/officer-card.style';
 import Hoverable from 'components/common/higher-order/hoverable';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { omit } from 'lodash';
 
 import { CAROUSEL_TYPES, ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
-import OfficerCard from 'components/landing-page/common/officer-card';
+import OfficerCard from 'components/common/officer-card';
 import PairingCard from 'components/landing-page/common/pairing-card';
 import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';

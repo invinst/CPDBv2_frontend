@@ -9,7 +9,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import OfficerCard from 'components/landing-page/common/officer-card';
+import OfficerCard from 'components/common/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
 import PairingCard from 'components/landing-page/common/pairing-card';
 import Carousel from 'components/common/carousel';
