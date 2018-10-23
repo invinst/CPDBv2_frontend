@@ -29,7 +29,7 @@ describe('breadcrumbs selectors', function () {
           }
         },
         {
-          url: '/edit/officer/1234/social-graph/'
+          url: '/edit/officer/1234/ronald-hernandez/'
         }
       ).should.eql('Ronald Hernandez');
     });
