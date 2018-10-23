@@ -5,11 +5,6 @@ import { searchSectionStyle, searchTermsLinkStyle, magnifyingGlassStyle } from '
 import MagnifyingGlass from 'components/common/icons/magnifying-glass';
 
 export default class SearchSection extends Component {
-  goToSearch(e) {
-    pushPathPreserveEditMode(`/${SEARCH_PATH}`);
-    e.stopPropagation();
-  }
-
   goToSearchTerms(e) {
     pushPathPreserveEditMode(`/${SEARCH_PATH}${SEARCH_TERMS_PATH}`);
     e.stopPropagation();
@@ -21,12 +16,11 @@ export default class SearchSection extends Component {
       <div style={ searchSectionStyle }>
         <div
           style={ searchBoxStyle }
-          onClick={ this.goToSearch }
+          onClick={ this.goToSearchTerms }
           className='test--search-section-search-box'>
           <MagnifyingGlass style={ magnifyingGlassStyle } color={ magnifyingGlassColor }/>
           <span
             style={ searchTermsLinkStyle }
-            onClick={ this.goToSearchTerms }
             className='test--search-section-term'>
             What can I search?
           </span>

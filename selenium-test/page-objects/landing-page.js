@@ -138,6 +138,16 @@ class HeatMapSection extends Section {
   dropdown = new Dropdown();
 }
 
+class SearchSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      sectionSearchBox: '.test--search-section-search-box',
+      sectionSearchTerm: '.test--search-section-term',
+    });
+  }
+}
+
 class LandingPage extends Page {
   topHeader = new TopHeader();
   stickyHeader = new StickyHeader();
@@ -150,6 +160,7 @@ class LandingPage extends Page {
   recentDocumentCarousel = new RecentDocumentCarouselSection();
   genericModalSection = new GenericModalSection();
   heatMapSection = new HeatMapSection();
+  searchSection = new SearchSection();
 
   open() {
     super.open('/');
