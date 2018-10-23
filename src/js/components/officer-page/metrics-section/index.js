@@ -17,7 +17,7 @@ export default class MetricsSection extends Component {
   }
 
   render() {
-    const { popup } = this.props;
+    const { popup, pathName } = this.props;
     const {
       allegationCount,
       allegationPercentile,
@@ -97,11 +97,11 @@ export default class MetricsSection extends Component {
     return (
       <div style={ wrapperStyle }>
         <div style={ metricSectionStyle }>
-          <MetricsColumn metrics={ firstChunk } dashedSeparator={ true }/>
+          <MetricsColumn metrics={ firstChunk } dashedSeparator={ true } pathName={ pathName }/>
           <div style={ verticalLineStyle }/>
-          <MetricsColumn metrics={ secondChunk }/>
+          <MetricsColumn metrics={ secondChunk } pathName={ pathName }/>
           <div style={ verticalLineStyle }/>
-          <MetricsColumn metrics={ thirdChunk }/>
+          <MetricsColumn metrics={ thirdChunk } pathName={ pathName }/>
         </div>
       </div>
     );
@@ -111,6 +111,7 @@ export default class MetricsSection extends Component {
 MetricsSection.propTypes = {
   metrics: PropTypes.object,
   popup: PropTypes.object,
+  pathName: PropTypes.string,
 };
 
 MetricsSection.defaultProps = {

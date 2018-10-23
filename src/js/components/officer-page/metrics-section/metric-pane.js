@@ -8,7 +8,7 @@ import Popup from 'components/common/popup';
 export default class MetricPane extends Component {
 
   render() {
-    const { value, name, description, borderTop, dashedBorder, highlightValue, popup } = this.props;
+    const { value, name, description, borderTop, dashedBorder, highlightValue, popup, pathName } = this.props;
     const active = value !== 0;
 
     return (
@@ -22,7 +22,7 @@ export default class MetricPane extends Component {
         <div className='test--metrics-pane-description' style={ descriptionStyle }>
           { description }
         </div>
-        { !isEmpty(popup) ? <Popup { ...popup } /> : null }
+        { !isEmpty(popup) ? <Popup { ...popup } url={ pathName } /> : null }
       </div>
     );
   }
@@ -41,6 +41,7 @@ MetricPane.propTypes = {
     style: PropTypes.object,
     position: PropTypes.string,
   }),
+  pathName: PropTypes.string,
 };
 
 MetricPane.defaultProps = {
