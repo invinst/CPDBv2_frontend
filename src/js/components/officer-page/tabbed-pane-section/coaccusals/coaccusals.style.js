@@ -28,7 +28,7 @@ export const coaccusedCardsWrapperStyle = (isLast) => ({
   borderBottom: isLast ? 'none' : `1px solid ${whiteTwoColor}`
 });
 
-export const extraCoaccusalCardStyle = {
+export const officerCardStyle = {
   display: 'inline-block',
   margin: '0 8px 8px 0',
 };

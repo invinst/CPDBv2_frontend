@@ -18,23 +18,6 @@ describe('RouteTransition component', function () {
   });
 
   describe('getRouteTransitionKey', function () {
-    it('should give the same key for same officer path', function () {
-      element = renderIntoDocument(
-        <RouteTransition pathname='/officer/1/'>
-          some summary
-        </RouteTransition>
-      );
-      element.getRouteTransitionKey('/officer/1/').should.eql('officer/1');
-
-      element = reRender(
-        <RouteTransition pathname='/officer/1/social/'>
-          some timeline
-        </RouteTransition>,
-        element
-      );
-      element.getRouteTransitionKey('/officer/1/timeline/').should.eql('officer/1');
-    });
-
     it('should give the same key for same CR path', function () {
       element = renderIntoDocument(
         <RouteTransition pathname='/complaint/1/2/'>

@@ -32,8 +32,9 @@ class Filter extends Section {
       button: '.test--timeline-filter .test--dropdown-button',
       menu: '.test--timeline-filter .test--dropdown-menu',
       crs: '(//div[@class="test--dropdown-menu-item"])[1]',
-      force: '(//div[@class="test--dropdown-menu-item"])[2]',
-      awards: '(//div[@class="test--dropdown-menu-item"])[3]'
+      sustained: '(//div[@class="test--dropdown-menu-item"])[2]',
+      force: '(//div[@class="test--dropdown-menu-item"])[3]',
+      awards: '(//div[@class="test--dropdown-menu-item"])[4]'
     });
   }
 }
@@ -65,7 +66,7 @@ class CoaccusalsSection extends Section {
 
     this.prepareElementGetters({
       firstCoaccusalGroupName: '//span[@class="test--coaccusals-group-name"][1]',
-      firstCoaccusalCard: '.test--coaccusal-card',
+      firstCoaccusalCard: '.test--officer-card',
     });
   }
 }

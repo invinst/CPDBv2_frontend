@@ -35,9 +35,10 @@ describe('MetricPane', function () {
       title: 'Allegations',
       text: 'Some allegation explanation',
     };
-    instance = renderIntoDocument(<MetricPane popup={ popup } />);
+    instance = renderIntoDocument(<MetricPane popup={ popup } pathName='/officer/8562/jerome-finnigan/'/>);
     const metricPanePopup = findRenderedComponentWithType(instance, Popup);
     metricPanePopup.props.title.should.eql('Allegations');
     metricPanePopup.props.text.should.eql('Some allegation explanation');
+    metricPanePopup.props.url.should.eql('/officer/8562/jerome-finnigan/');
   });
 });

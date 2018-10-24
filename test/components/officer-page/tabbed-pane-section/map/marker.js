@@ -1,9 +1,10 @@
 import React from 'react';
-import { renderIntoDocument, scryRenderedDOMComponentsWithClass, Simulate, } from 'react-addons-test-utils';
+import { stub } from 'sinon';
+import { renderIntoDocument, scryRenderedDOMComponentsWithClass, Simulate } from 'react-addons-test-utils';
+import { browserHistory } from 'react-router';
 import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import { stub } from 'sinon';
 import HoverableMarker, { Marker } from 'components/officer-page/tabbed-pane-section/map/marker';
 
 
@@ -20,9 +21,39 @@ describe('Marker component', function () {
         id={ '123' }
         kind={ 'CR' }
         finding={ 'Sustained' }
+        hovering={ false }
       />
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--marker').should.have.length(1);
+  });
+
+  it('should open CR page when clicked', function () {
+    const stubPush = stub(browserHistory, 'push');
+    instance = renderIntoDocument(
+      <Marker
+        id={ '123' }
+        kind={ 'CR' }
+        finding={ 'Sustained' }
+        hovering={ false }
+      />
+    );
+    Simulate.click(findDOMNode(instance));
+    stubPush.should.be.calledWith('/complaint/123/');
+    stubPush.restore();
+  });
+
+  it('should open TRR page when clicked', function () {
+    const stubPush = stub(browserHistory, 'push');
+    instance = renderIntoDocument(
+      <Marker
+        id={ '123' }
+        kind={ 'FORCE' }
+        hovering={ false }
+      />
+    );
+    Simulate.click(findDOMNode(instance));
+    stubPush.should.be.calledWith('/trr/123/');
+    stubPush.restore();
   });
 
   it('should toggle popup and set zIndex when hovering', function () {
@@ -95,34 +126,5 @@ describe('Marker component', function () {
     );
     stubMapboxMarker.togglePopup.should.be.calledOnce();
     stubMapboxMarker.getElement().style.zIndex.should.eql('0');
-  });
-
-  it('should open CR page when clicked', function () {
-    const stubOpenComplaintPage = stub();
-    instance = renderIntoDocument(
-      <Marker
-        id={ '123' }
-        kind={ 'CR' }
-        finding={ 'Sustained' }
-        hovering={ false }
-        openComplaintPage={ stubOpenComplaintPage }
-      />
-    );
-    Simulate.click(findDOMNode(instance));
-    stubOpenComplaintPage.should.be.calledWith({ crid: '123' });
-  });
-
-  it('should open TRR page when clicked', function () {
-    const stubOpenTRRPage = stub();
-    instance = renderIntoDocument(
-      <Marker
-        id={ '123' }
-        kind={ 'FORCE' }
-        hovering={ false }
-        openTRRPage={ stubOpenTRRPage }
-      />
-    );
-    Simulate.click(findDOMNode(instance));
-    stubOpenTRRPage.should.be.calledWith({ trrId: '123' });
   });
 });

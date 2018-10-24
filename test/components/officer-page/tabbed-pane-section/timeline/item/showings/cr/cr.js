@@ -1,9 +1,13 @@
+import React from 'react';
+import {
+  findRenderedDOMComponentWithClass,
+  renderIntoDocument,
+  findRenderedComponentWithType,
+} from 'react-addons-test-utils';
+import { Link } from 'react-router';
+
 import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr';
-import React from 'react';
-import { findRenderedDOMComponentWithClass, renderIntoDocument, Simulate, } from 'react-addons-test-utils';
-import { stub } from 'sinon';
-
 import { unmountComponentSuppressError } from 'utils/test';
 
 
@@ -43,7 +47,7 @@ describe('Cr component', function () {
 
 
   it('should render item correctly', function () {
-    instance = renderIntoDocument(<Cr item={ item } baseStyles={ baseStyles }/>);
+    instance = renderIntoDocument(<Cr item={ item } baseStyles={ baseStyles } />);
 
     const kind = findRenderedDOMComponentWithClass(instance, 'test--cr-item-kind');
     const category = findRenderedDOMComponentWithClass(instance, 'test--cr-item-category');
@@ -53,6 +57,7 @@ describe('Cr component', function () {
     const attachmentImage = findRenderedDOMComponentWithClass(instance, 'test--attachment-image');
     const attachmentImageHref = findRenderedDOMComponentWithClass(instance, 'test--attachment-image-href');
     const moreAttachment = findRenderedDOMComponentWithClass(instance, 'test--more-attachment');
+    const link = findRenderedComponentWithType(instance, Link);
 
     kind.textContent.should.eql('Complaint');
     category.textContent.should.eql('Use of Force');
@@ -65,22 +70,6 @@ describe('Cr component', function () {
       'url("https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif")');
     attachmentImageHref.getAttribute('href').should.eql(
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html');
-  });
-
-  it('should open the cr page when being clicked', function () {
-    const openComplaintPageStub = stub();
-
-    instance = renderIntoDocument(
-      <Cr
-        officerId={ 1 }
-        item={ item }
-        baseStyles={ baseStyles }
-        openComplaintPage={ openComplaintPageStub }/>
-    );
-
-    const crItem = findRenderedDOMComponentWithClass(instance, 'test--cr-item');
-    Simulate.click(crItem);
-
-    openComplaintPageStub.should.be.calledWith({ crid: 123, officerId: 1 });
+    link.props.to.should.eql('/complaint/123/');
   });
 });

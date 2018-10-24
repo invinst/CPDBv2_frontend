@@ -1,14 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 import Heading from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/heading';
 import {
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
-  Simulate,
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import { stub } from 'sinon';
 
 
 describe('Heading component', function () {
@@ -51,6 +51,9 @@ describe('Heading component', function () {
     const complaintKind = findRenderedDOMComponentWithClass(instance, 'test--attachments-heading-kind');
     complaintKind.style.color.should.eql('rgb(255, 96, 0)');
     complaintKind.style.backgroundColor.should.eql('inherit');
+
+    const link = findRenderedComponentWithType(instance, Link);
+    link.props.to.should.eql('/complaint/307775/');
   });
 
   it('should change style when hovered', function () {
@@ -82,16 +85,5 @@ describe('Heading component', function () {
     const complaintKind = findRenderedDOMComponentWithClass(instance, 'test--attachments-heading-kind');
     complaintKind.style.color.should.eql('rgb(255, 31, 0)');
     complaintKind.style.backgroundColor.should.eql('rgb(251, 226, 212)');
-  });
-
-  it('should open complaint page when clicked', function () {
-    const stubOpenComplaintPage = stub();
-    instance = renderIntoDocument(
-      <Heading complaint={ complaint } openComplaintPage={ stubOpenComplaintPage }/>,
-    );
-
-    const heading = findRenderedDOMComponentWithClass(instance, 'test--attachments-heading');
-    Simulate.click(heading);
-    stubOpenComplaintPage.should.be.calledWith({ crid: 307775, officerId: 12074 });
   });
 });

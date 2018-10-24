@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
+import { includes } from 'lodash';
 
 import {
   containerStyle,
@@ -16,6 +17,11 @@ import { roundedPercentile } from 'utils/calculations';
 
 
 export default class PercentilesByYear extends Component {
+  getItemValue(item) {
+    const roundedValue = roundedPercentile(item.value);
+    return includes([0, NaN], roundedValue) ? null : roundedValue;
+  }
+
   render() {
     const { yearlyRadarChartData } = this.props;
 
@@ -48,9 +54,9 @@ export default class PercentilesByYear extends Component {
                   />
                 </div>
                 <div style={ yearTextStyle }>{ yearlyItem.year }</div>
-                <div style={ cellStyle }>{ roundedPercentile(internalComplaintItem.value) }</div>
-                <div style={ cellStyle }>{ roundedPercentile(civilComplaintItem.value) }</div>
-                <div style={ cellStyle }>{ roundedPercentile(trrItem.value) }</div>
+                <div style={ cellStyle }>{ this.getItemValue(internalComplaintItem) }</div>
+                <div style={ cellStyle }>{ this.getItemValue(civilComplaintItem) }</div>
+                <div style={ cellStyle }>{ this.getItemValue(trrItem) }</div>
               </li>
             );
           }) }

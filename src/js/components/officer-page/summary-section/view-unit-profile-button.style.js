@@ -12,6 +12,7 @@ export const viewUnitButtonWrapperStyle = hovering => ({
   padding: '0 8px 0 9px',
   backgroundColor: sugarCaneColor,
   borderRadius: '2px',
+  display: 'block',
 });
 
 export const textStyle = {

@@ -7,15 +7,15 @@ class AccusedOfficerCard extends Section {
   constructor() {
     super();
 
-    const firstCardSelector = '(//*[@class="test--accused-card"])[1]';
+    const firstCardSelector = '(//*[@class="test--officer-card"])[1]';
 
     this.prepareElementGetters({
       element: firstCardSelector,
-      rank: `${firstCardSelector}//div[@class="test--accused-card-rank"]`,
-      name: `${firstCardSelector}//div[@class="test--accused-card-name"]`,
-      metric: `${firstCardSelector}//div[@class="test--accused-card-metric"]`,
-      percentile: `${firstCardSelector}//div[@class="test--accused-card-percentile"]`,
-      demographic: `${firstCardSelector}//div[@class="test--accused-card-demographic"]`,
+      rank: `${firstCardSelector}//p[@class="test--officer-card-rank"]`,
+      name: `${firstCardSelector}//p[@class="test--officer-card-name"]`,
+      metric: `${firstCardSelector}//span[@class="test--officer-card-metric"]`,
+      percentile: `${firstCardSelector}//p[@class="test--officer-card-percentile"]`,
+      demographic: `${firstCardSelector}//div[@class="test--officer-card-demographic"]`,
       category: `${firstCardSelector}//div[@class="test--accused-card-category"]`,
       outcome: `${firstCardSelector}//div[@class="test--accused-card-outcome"]`,
     });
@@ -30,7 +30,7 @@ class AccusedOfficerSection extends Section {
 
     this.prepareElementGetters({
       title: '.test--accused-officer-title',
-      lastCard: '(//*[@class="test--accused-card"])[last()]',
+      lastCard: '(//*[@class="test--officer-card"])[last()]',
       showMoreButton: '.test--accused-officer-show-more',
       popup: '.test--accused-officer .popup',
       popupButton: '.test--accused-officer .popup-button',
@@ -41,7 +41,7 @@ class AccusedOfficerSection extends Section {
   }
 
   cardCount() {
-    return browser.elements('.test--accused-card').value.length;
+    return browser.elements('.test--officer-card').value.length;
   }
 }
 
