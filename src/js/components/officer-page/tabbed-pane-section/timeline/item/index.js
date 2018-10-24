@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { get, includes } from 'lodash';
+import { get } from 'lodash';
 
 import Cr from './showings/cr';
 import Trr from './showings/trr';
@@ -91,7 +91,7 @@ export default class Item extends Component {
               style={ kindStyle(height, first, last) }
               className='test--item-rank-unit'
             >
-              <div style={ textStyle(includes(['Unassigned', 'Unknown'], display), current) }>
+              <div style={ textStyle(current) }>
                 { display }
               </div>
             </span>
