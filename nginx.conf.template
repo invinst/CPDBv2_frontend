@@ -52,19 +52,16 @@ http {
             return 301 https://{{MOBILE_SERVER_NAME}}$request_uri;
         }
 
-        location /embed {
-            try_files $uri /index.html;
-        }
-
         location ~ ^\/(fonts|img)\/ {
-            try_files $uri /index.html;
         }
 
         location ~ \.(js|css)$ {
-            try_files $uri /index.html;
         }
 
         location / {
+            if ($is_embedded != E) {
+                add_header X-Frame-Options SAMEORIGIN;
+            }
             try_files $uri /index.html;
         }
     }
