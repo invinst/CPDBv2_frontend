@@ -543,19 +543,16 @@ describe('search page results selector', function () {
             name: 'Ronald Holt',
             count: 26,
             radarAxes: [{
-              axis: 'trr',
+              axis: 'Use of Force Reports',
               value: 95
             }, {
-              axis: 'internal',
+              axis: 'Officer Allegations',
               value: 82
             }, {
-              axis: 'civilian',
+              axis: 'Civilian Allegations',
               value: 97
             }],
-            radarColor: {
-              backgroundColor: '#f52524',
-              textColor: '#DFDFDF'
-            },
+            radarColor: '#f52524',
             url: '/officer/12478/ronald-holt/'
           }],
           districtCommander: {

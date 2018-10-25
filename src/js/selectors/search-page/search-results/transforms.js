@@ -1,9 +1,9 @@
 import { get, sumBy, map, last, kebabCase } from 'lodash';
-import moment from 'moment/moment';
+import moment from 'moment';
+
 import { extractPercentile } from 'selectors/common/percentile';
 import { getCurrentAge, formatDate } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
-import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
 
 
@@ -46,21 +46,17 @@ const previewPaneTypeMap = {
 export const previewPaneTransform = item =>
   get(previewPaneTypeMap, item.type, () => ({}))(item);
 
-const officerMostComplaintTransform = officer => ({
-  id: officer.id,
-  count: officer.count,
-  name: officer.name,
-  url: `/officer/${officer.id}/${kebabCase(officer.name)}/`,
-  radarAxes: [
-      { axis: 'trr', value: parseFloat(officer['percentile_trr']) },
-      { axis: 'internal', value: parseFloat(officer['percentile_allegation_internal']) },
-      { axis: 'civilian', value: parseFloat(officer['percentile_allegation_civilian']) }],
-  radarColor: getVisualTokenOIGBackground(
-    parseFloat(officer['percentile_allegation_internal']),
-    parseFloat(officer['percentile_allegation_civilian']),
-    parseFloat(officer['percentile_trr'])
-  ),
-});
+const officerMostComplaintTransform = officer => {
+  const percentile = extractPercentile(officer);
+  return {
+    id: officer.id,
+    count: officer.count,
+    name: officer.name,
+    url: `/officer/${officer.id}/${kebabCase(officer.name)}/`,
+    radarAxes: percentile.items,
+    radarColor: percentile.visualTokenBackground,
+  };
+};
 
 const areaTransform = (item) => {
   const population = sumBy(item['race_count'], 'count');
