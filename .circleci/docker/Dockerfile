@@ -41,5 +41,5 @@ RUN apt-get update && apt-get install vim
 # Run as non root user
 RUN useradd -m deploy && echo "deploy:deploy" | chpasswd && adduser deploy sudo
 
-USER deploy
-WORKDIR /home/deploy
+USER circleci
+WORKDIR /home/circleci

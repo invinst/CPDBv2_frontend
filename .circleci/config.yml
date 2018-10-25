@@ -3,40 +3,40 @@ jobs:
 
   test:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.2.0
+      - image: cpdbdev/cpdbv2_frontend:0.2.1
     environment:
       NODE_ENV: development
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v2-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
-            - v2-node-modules-{{ checksum "package.json" }}-
-            - v2-node-modules-
+            - v3-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+            - v3-node-modules-{{ checksum "package.json" }}-
+            - v3-node-modules-
       - run: yarn
       - run: yarn lint
       - run: yarn cover
       - run: yarn cover-report
       - run: yarn live-test
       - store_artifacts:
-          path: /home/deploy/errorShots
+          path: /home/circleci/errorShots
       - save_cache:
-          key: v2-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+          key: v3-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
           paths:
-            - "/home/deploy/project/node_modules"
+            - "/home/circleci/project/node_modules"
 
   build:
     docker:
-      - image: cpdbdev/cpdbv2_frontend:0.2.0
+      - image: cpdbdev/cpdbv2_frontend:0.2.1
     environment:
       NODE_ENV: development
     steps:
       - checkout
       - restore_cache:
           keys:
-            - v2-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
-            - v2-node-modules-{{ checksum "package.json" }}-
-            - v2-node-modules-
+            - v3-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+            - v3-node-modules-{{ checksum "package.json" }}-
+            - v3-node-modules-
       - run: yarn
       - run:
           name: Build assets
@@ -58,9 +58,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - v2-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
-            - v2-node-modules-{{ checksum "package.json" }}-
-            - v2-node-modules-
+            - v3-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+            - v3-node-modules-{{ checksum "package.json" }}-
+            - v3-node-modules-
       - attach_workspace:
           at: /tmp/workspace
       - run: cp -R /tmp/workspace/dist ./dist
@@ -76,7 +76,7 @@ jobs:
             sed -e "s/{{MOBILE_SERVER_NAME}}/$MOBILE_SERVER_NAME/" nginx.conf.template > nginx.conf
             docker build -t cpdbdev/desktop-frontend:latest .
             docker run --rm -d --name desktop-frontend cpdbdev/desktop-frontend:latest
-            docker run --rm -v /root/project:/app -w /app --link desktop-frontend -e "FRONTEND_DOMAIN=desktop-frontend" -e "MOBILE_SERVER_NAME=$MOBILE_SERVER_NAME" cpdbdev/cpdbv2_frontend:0.2.0 yarn test-nginx
+            docker run --rm -v /root/project:/app -w /app --link desktop-frontend -e "FRONTEND_DOMAIN=desktop-frontend" -e "MOBILE_SERVER_NAME=$MOBILE_SERVER_NAME" cpdbdev/cpdbv2_frontend:0.2.1 yarn test-nginx
 
   push_image:
     docker:
