@@ -14,6 +14,10 @@ export default class Carousel extends Component {
       displayRightArrow: true,
       displayLeftArrow: false
     };
+
+    this.onSnapIndexChange = this.onSnapIndexChange.bind(this);
+    this.handleSlideNext = this.handleSlideNext.bind(this);
+    this.handleSlidePrev = this.handleSlidePrev.bind(this);
   }
 
   componentDidMount() {
@@ -43,13 +47,21 @@ export default class Carousel extends Component {
 
   handleNavigate(direction) {
     const { slideIndex } = this.state;
-    const { onNavigate } = this.props;
     if (direction === 'right') {
       this.slideTo(slideIndex + this.slidesPerGroup);
     } else {
       this.slideTo(slideIndex - this.slidesPerGroup);
     }
-    onNavigate(direction);
+  }
+
+  handleSlideNext() {
+    const { onNavigate } = this.props;
+    onNavigate('right');
+  }
+
+  handleSlidePrev() {
+    const { onNavigate } = this.props;
+    onNavigate('left');
   }
 
   slideTo(slideIndex) {
@@ -61,19 +73,11 @@ export default class Carousel extends Component {
   }
 
   onSnapIndexChange({ isEnd, isBeginning, activeIndex }) {
-    const { onNavigate } = this.props;
-    const previousIndex = this.state.slideIndex;
-
     this.setState({
-      slideIndex: activeIndex,
+      slideIndex: isEnd ? this.state.slideIndex : activeIndex,
       displayLeftArrow: !isBeginning,
       displayRightArrow: !isEnd
     });
-
-    if (previousIndex < this.state.slideIndex)
-      onNavigate('right');
-    else if (previousIndex > this.state.slideIndex)
-      onNavigate('left');
   }
 
   updateArrows({ isEnd, isBeginning }) {
@@ -92,7 +96,9 @@ export default class Carousel extends Component {
         <Swiper
           spaceBetween={ spaceBetween }
           beforeOffsetAtMiddle={ 40 }
-          onSnapIndexChange={ this.onSnapIndexChange.bind(this) }
+          onSnapIndexChange={ this.onSnapIndexChange }
+          slideNextTransitionStart={ this.handleSlideNext }
+          slidePrevTransitionStart={ this.handleSlidePrev }
           onUpdate={ this.updateArrows.bind(this) }
           slideIndex={ slideIndex }>
           { children }

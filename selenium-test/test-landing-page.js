@@ -158,6 +158,20 @@ describe('landing page', function () {
       browser.pause(500);
       browser.getUrl().should.match(/\/complaint\/\w+\/$/);
     });
+
+    it('should navigate to the last slide by clicking right arrow', function () {
+      browser.setViewportSize({
+        width: 1200,
+        height: 1000
+      });
+
+      landingPage.complaintSummariesCarousel.cards.count.should.equal(20);
+      landingPage.complaintSummariesCarousel.rightArrow.waitForVisible();
+      for (let i = 0; i < 6; i++) {
+        landingPage.complaintSummariesCarousel.rightArrow.click();
+      }
+      landingPage.complaintSummariesCarousel.rightArrow.waitForVisible(2000, true);
+    });
   });
 
   describe('Header', function () {

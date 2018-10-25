@@ -142,7 +142,7 @@
     "redux-thunk": "^2.0.1",
     "reselect": "^2.5.1",
     "shallow-equals": "^1.0.0",
-    "swiper": "^4.2.2",
+    "swiper": "^4.4.1",
     "titleize": "^1.0.0",
     "twitter-widgets": "^1.0.0",
     "venn.js": "^0.2.20",
