@@ -67,12 +67,7 @@ jobs:
       - run:
           name: Test nginx config
           command: |
-            if [ $CIRCLE_BRANCH == "master" ]
-            then
-              export MOBILE_SERVER_NAME=m.cpdp.co
-            else
-              export MOBILE_SERVER_NAME=ms.cpdp.co
-            fi
+            export MOBILE_SERVER_NAME=ms.cpdp.co
             sed -e "s/{{MOBILE_SERVER_NAME}}/$MOBILE_SERVER_NAME/" nginx.conf.template > nginx.conf
             docker build -t cpdbdev/desktop-frontend:latest .
             docker run --rm -d --name desktop-frontend cpdbdev/desktop-frontend:latest
