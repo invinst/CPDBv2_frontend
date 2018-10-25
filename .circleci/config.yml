@@ -52,6 +52,34 @@ jobs:
           paths:
             - dist
 
+  test_nginx:
+    docker:
+      - image: docker:18.06.1-ce-git
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-node-modules-{{ checksum "package.json" }}-{{ checksum "yarn.lock" }}
+            - v2-node-modules-{{ checksum "package.json" }}-
+            - v2-node-modules-
+      - setup_remote_docker
+      - attach_workspace:
+          at: /tmp/workspace
+      - run: cp -R /tmp/workspace/dist ./dist
+      - run:
+          name: Test nginx config
+          command: |
+            if [ $CIRCLE_BRANCH == "master" ]
+            then
+              export MOBILE_SERVER_NAME=m.cpdp.co
+            else
+              export MOBILE_SERVER_NAME=ms.cpdp.co
+            fi
+            sed -e "s/{{MOBILE_SERVER_NAME}}/$MOBILE_SERVER_NAME/" nginx.conf.template > nginx.conf
+            docker build -t cpdbdev/desktop-frontend:latest .
+            docker run --rm -d --name desktop-frontend cpdbdev/desktop-frontend:latest
+            docker run --rm -v $(pwd):/app -w /app --link desktop-frontend -e "FRONTEND_DOMAIN=desktop-frontend" -e "MOBILE_SERVER_NAME=$MOBILE_SERVER_NAME" cpdbdev/cpdbv2_frontend:0.2.0 yarn test-nginx
+
   push_image:
     docker:
       - image: docker:18.06.1-ce-git
@@ -107,14 +135,17 @@ workflows:
       - build:
           requires:
             - test
+      - test_nginx:
+          requires:
+            - build
+      - push_image:
+          requires:
+            - test_nginx
           filters:
             branches:
               only:
                 - staging
                 - master
-      - push_image:
-          requires:
-            - build
       - deploy:
           requires:
             - push_image

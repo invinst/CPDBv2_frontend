@@ -16,7 +16,12 @@
     "cover": "CPDB_APP_ENV=test nyc webpack-dev-server",
     "cover-report": "nyc report --reporter=text-lcov | coveralls",
     "live-test": "CPDB_APP_ENV=live-test wdio wdio.conf.js",
-    "lint": "eslint ./src ./test"
+    "lint": "eslint ./src ./test",
+    "docker-build": "sed -e \"s/{{MOBILE_SERVER_NAME}}/$MOBILE_SERVER_NAME/\" nginx.conf.template > nginx.conf && docker build -t cpdbdev/desktop-frontend:latest . && rm nginx.conf",
+    "docker-run": "docker run --rm -d --name desktop-frontend -p $FRONTEND_PORT:80 cpdbdev/desktop-frontend:latest",
+    "docker-kill": "docker kill desktop-frontend",
+    "test-nginx": "mocha test_nginx.js",
+    "local-test-nginx": "export MOBILE_SERVER_NAME=m.cpdp.co && export FRONTEND_PORT=8090 && export FRONTEND_DOMAIN=localhost:$FRONTEND_PORT && yarn docker-build && yarn docker-run && yarn test-nginx && yarn docker-kill"
   },
   "repository": {
     "type": "git",
@@ -68,6 +73,7 @@
     "react-hot-loader": "^4.3.11",
     "recursive-readdir-sync": "^1.0.6",
     "redux-mock-store": "1.0.4",
+    "request": "^2.88.0",
     "rosie": "^1.3.0",
     "sass-loader": "^7.1.0",
     "selenium-server-standalone-jar": "^2.53.0",
