@@ -88,6 +88,24 @@ describe('Search Page', function () {
     searchPage.dateTRRResultsSection.secondResultSubText.getText().should.equal('TRR # 456 - April 23, 2004');
   });
 
+  it('should able to show DATE > OFFICERS results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('2004/04/23');
+
+    searchPage.suggestionTags.waitForVisible();
+    searchPage.suggestionTags.getText().should.containEql('DATE > OFFICERS');
+    searchPage.dateOfficerResultsSection.results.count.should.equal(2);
+    searchPage.dateOfficerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
+    searchPage.dateOfficerResultsSection.firstResultSubText.getText().should.containEql('42 year old, White, Male,');
+    searchPage.dateOfficerResultsSection.firstResultSubText.getText().should.containEql('20 Complaints');
+    searchPage.dateOfficerResultsSection.firstResultSubText.getText().should.containEql('0 Sustained');
+
+    searchPage.dateOfficerResultsSection.secondResultText.getText().should.equal('Edward May');
+    searchPage.dateOfficerResultsSection.secondResultSubText.getText().should.containEql('48 year old, White, Male,');
+    searchPage.dateOfficerResultsSection.secondResultSubText.getText().should.containEql('20 Complaints');
+    searchPage.dateOfficerResultsSection.secondResultSubText.getText().should.containEql('0 Sustained');
+  });
+
   it('should show filtered result when user clicks "Show more results"', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
