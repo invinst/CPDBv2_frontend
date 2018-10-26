@@ -1,4 +1,3 @@
-import React from 'react';
 import { breadcrumbify } from 'redux-breadcrumb-trail';
 import { connect } from 'react-redux';
 

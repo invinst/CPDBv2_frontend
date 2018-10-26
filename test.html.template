@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mocha Tests</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <div id="mocha"></div>
+    </body>
+</html>

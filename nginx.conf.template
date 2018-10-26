@@ -1,0 +1,74 @@
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  /var/log/nginx/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    server {
+        listen 80 default_server;
+        server_name _;
+        root /usr/share/nginx/html;
+
+        if ($request_uri ~ '^\/embed\/map') {
+            set $is_embedded_map M;
+        }
+
+        if ($request_uri ~ '^/(fonts|img)/') {
+            set $is_assets F;
+        }
+
+        if ($request_uri ~ '\.(js|css)$') {
+            set $is_bundle B;
+        }
+
+        if ($http_user_agent ~* '(iPhone|iPod|Android|Blackberry|Windows Phone|Opera Mini|WebOS|SymbianOS|IEMobile|Maemo)') {
+            set $is_redirect "${is_assets}${is_bundle}${is_embedded_map}C";
+        }
+
+        if ($is_redirect = C) {
+            return 301 https://{{MOBILE_SERVER_NAME}}$request_uri;
+        }
+
+        location /embed/map {
+            alias /usr/share/nginx/html/;
+        }
+
+        location /embed/top-officers-page {
+            alias /usr/share/nginx/html/;
+        }
+
+        location ~* ^/(img|fonts) {
+            try_files $uri /index.html;
+        }
+
+        location ~* \.(js|css)$ {
+            try_files $uri /index.html;
+        }
+
+        location / {
+            add_header X-Frame-Options SAMEORIGIN;
+            try_files $uri /index.html;
+        }
+    }
+}

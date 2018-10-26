@@ -1,10 +1,13 @@
+import 'react-tagsinput/react-tagsinput.css';
+import 'tagsinput.css';
+
 import React, { Component, PropTypes } from 'react';
 import TagsInput from 'react-tagsinput';
 import AutosizeInput from 'react-input-autosize';
+import { Link } from 'react-router';
 
 import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import { imgUrl } from 'utils/static-assets';
-import Link from 'components/common/react-router-link';
 import {
   inlineAliasAdminStyle,
   centerContentStyle,
