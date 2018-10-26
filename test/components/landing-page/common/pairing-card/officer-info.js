@@ -25,7 +25,7 @@ describe('OfficerInfo component', function () {
     );
     const officerFullName = findRenderedDOMComponentWithClass(instance, 'test--officer-name');
     const officerPersonalInfo = findRenderedDOMComponentWithClass(instance, 'test--officer-personal-info');
-    officerPersonalInfo.textContent.should.eql('54 year old, White, Male.');
+    officerPersonalInfo.textContent.should.eql('54-year-old White Male');
     officerFullName.textContent.should.eql('Jerome Finnigan');
   });
 

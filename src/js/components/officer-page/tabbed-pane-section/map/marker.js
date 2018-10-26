@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { browserHistory } from 'react-router';
 
-import { stub } from 'sinon';
 import Hoverable from 'components/common/higher-order/hoverable';
 import { wrapperStyle } from './marker.style';
 import { MAP_ITEMS } from 'utils/constants';
@@ -28,20 +28,19 @@ export class Marker extends Component {
     }
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const { id, kind, openComplaintPage, openTRRPage } = this.props;
+  handleClick() {
+    // This is a work-around as Mapbox does not support react-router's Link.
+    const { id, kind } = this.props;
     if (kind === MAP_ITEMS.CR) {
-      openComplaintPage({ crid: id });
+      browserHistory.push(`/complaint/${id}/`);
     } else if (kind === MAP_ITEMS.FORCE) {
-      openTRRPage({ trrId: id });
+      browserHistory.push(`/trr/${id}/`);
     }
   }
 
   render() {
     const { kind, finding, hovering } = this.props;
+
     return (
       <div
         className='test--marker'
@@ -58,14 +57,6 @@ Marker.propTypes = {
   finding: PropTypes.string,
   mapboxMarker: PropTypes.object,
   hovering: PropTypes.bool,
-  openComplaintPage: PropTypes.func,
-  openTRRPage: PropTypes.func,
-};
-
-Marker.defaultProps = {
-  mapboxMarker: stub(),
-  openComplaintPage: () => {},
-  openTRRPage: () => {},
 };
 
 export default Hoverable(Marker);

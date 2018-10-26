@@ -188,5 +188,14 @@ describe('landing page', function () {
       landingPage.stickyHeader.qa.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       landingPage.stickyHeader.mainElement.getCssProperty('box-shadow').value.should.eql('none');
     });
+
+    it('should go to search term page when clicking anywhere in the search box', function () {
+      landingPage.searchSection.sectionSearchBox.click();
+      browser.getUrl().should.containEql('/search/terms/');
+
+      landingPage.open();
+      landingPage.searchSection.sectionSearchTerm.click();
+      browser.getUrl().should.containEql('/search/terms/');
+    });
   });
 });

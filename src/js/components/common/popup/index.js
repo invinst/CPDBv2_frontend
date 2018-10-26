@@ -12,6 +12,7 @@ import {
   tooltipCloseButtonStyle,
 } from './popup.style';
 import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 export default class Popup extends Component {
@@ -19,6 +20,7 @@ export default class Popup extends Component {
     super(props);
     this.tooltipId = `tooltip-${uuid()}`;
     this.hideOtherPopups = this.hideOtherPopups.bind(this);
+    this.afterShow = this.afterShow.bind(this);
   }
 
   /* istanbul ignore next */
@@ -32,6 +34,12 @@ export default class Popup extends Component {
     }
   }
 
+  afterShow() {
+    const { url, title } = this.props;
+    this.hideOtherPopups();
+    GATracking.trackPopupButtonClick(url, title);
+  }
+
   render() {
     const { text, title, position, style } = this.props;
     return (
@@ -42,7 +50,7 @@ export default class Popup extends Component {
           effect='solid'
           type='light'
           globalEventOff='click'
-          afterShow={ this.hideOtherPopups }
+          afterShow={ this.afterShow }
         >
           <div className='test--popup-content' onClick={ e => e.stopPropagation() }>
             <div
@@ -76,6 +84,7 @@ Popup.propTypes = {
   text: PropTypes.string,
   style: PropTypes.object,
   position: PropTypes.string,
+  url: PropTypes.string,
 };
 
 Popup.defaultProps = {

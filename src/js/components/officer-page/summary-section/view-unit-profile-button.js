@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import { viewUnitButtonWrapperStyle, textStyle, arrowStyle } from './view-unit-profile-button.style';
@@ -6,29 +7,24 @@ import { viewUnitButtonWrapperStyle, textStyle, arrowStyle } from './view-unit-p
 
 class ViewUnitProfileButton extends Component {
   render() {
-    const { unitName, hovering, onClick } = this.props;
+    const { unitName, hovering } = this.props;
 
     return (
-      <div
+      <Link
         className='test--view-profile-button'
         style={ viewUnitButtonWrapperStyle(hovering) }
-        onClick={ () => onClick(unitName)
-      }>
+        to={ `/unit/${unitName}/` }
+      >
         <span style={ textStyle }>View Unit Profile</span>
         <div style={ arrowStyle(hovering) } />
-      </div>
+      </Link>
     );
   }
 }
 
 ViewUnitProfileButton.propTypes = {
   hovering: PropTypes.bool,
-  onClick: PropTypes.func,
   unitName: PropTypes.string
-};
-
-ViewUnitProfileButton.defaultProps = {
-  onClick: () => {}
 };
 
 export default Hoverable(ViewUnitProfileButton);

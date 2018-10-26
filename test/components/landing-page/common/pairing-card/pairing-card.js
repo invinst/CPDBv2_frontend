@@ -4,11 +4,10 @@ import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
   findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
-import { spy } from 'sinon';
+import { Link } from 'react-router';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import PairingCard from 'components/landing-page/common/pairing-card';
@@ -49,6 +48,9 @@ describe('PairingCard component', function () {
     );
     findRenderedComponentWithType(instance, PairingChart);
     scryRenderedComponentsWithType(instance, OfficerInfo).should.have.length(2);
+    const links = scryRenderedComponentsWithType(instance, Link);
+    links[0].props.to.should.eql('/officer/123/');
+    links[1].props.to.should.eql('/officer/456/');
   });
 
   it('should change state when hovered', function () {
@@ -72,28 +74,5 @@ describe('PairingCard component', function () {
     instance.state.hoveredPart.should.eql('right');
     Simulate.mouseOut(halfPane2);
     should(instance.state.hoveredPart).be.null();
-  });
-
-  it('should redirect to officer page when click on half pane', function () {
-    const openOfficerPageSpy = spy();
-    instance = renderIntoDocument(
-      <PairingCard
-        officer1={ officer1 }
-        officer2={ officer2 }
-        coaccusalCount={ 23 }
-        openOfficerPage={ openOfficerPageSpy }
-      />
-    );
-
-    const halfPanes = scryRenderedDOMComponentsWithClass(instance, 'test--pair-card-half');
-    const halfPane1 = halfPanes[0];
-    const halfPane2 = halfPanes[1];
-
-    Simulate.click(halfPane1);
-    openOfficerPageSpy.called.should.be.true();
-    openOfficerPageSpy.resetHistory();
-
-    Simulate.click(halfPane2);
-    openOfficerPageSpy.called.should.be.true();
   });
 });

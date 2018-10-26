@@ -18,9 +18,10 @@ describe('Row component', function () {
       title: 'Force Category',
       text: 'Some force category explanation',
     };
-    instance = renderIntoDocument(<Row popup={ popup } />);
+    instance = renderIntoDocument(<Row popup={ popup } pathName='/trr/62131/' />);
     const rowPopup = findRenderedComponentWithType(instance, Popup);
     rowPopup.props.title.should.eql('Force Category');
     rowPopup.props.text.should.eql('Some force category explanation');
+    rowPopup.props.url.should.eql('/trr/62131/');
   });
 });
