@@ -39,9 +39,9 @@ describe.only('OfficerPage component', function () {
   });
 
   it('should render enough sections', function () {
-    const triangleEditWrapperStateProps = spy();
-    const scaleEditWrapperStateProps = spy();
-    const noDataRadarChartEditWrapperStateProps = spy();
+    const triangleEditWrapperStateProps = { a: 1 };
+    const scaleEditWrapperStateProps = { b: 2 };
+    const noDataRadarChartEditWrapperStateProps = { c: 3 };
 
     instance = renderIntoDocument(
       <Provider store={ store }>

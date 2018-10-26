@@ -29,5 +29,5 @@ export default class Salary extends Component {
 Salary.propTypes = {
   salary: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   popup: PropTypes.object,
-  pathName: PropTypes.strings,
+  pathName: PropTypes.string,
 };
