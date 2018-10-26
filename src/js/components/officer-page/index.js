@@ -47,8 +47,15 @@ export default class OfficerPage extends Component {
       officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
       officerName
     ]).join(' ');
-    const pageDescription = `Officer ${officerName} of the Chicago Police Department has ` +
-      `${pluralize('complaint', officerMetrics.allegationCount, true)}, ` +
+
+    const hasUnknownBadge = (officerSummary.badge || 'Unknown') === 'Unknown';
+    const withBadge = officerSummary.hasUniqueName || hasUnknownBadge ?
+      '' :
+      `with Badge Number ${officerSummary.badge} `;
+
+    const pageDescription = `Officer ${officerName} of the Chicago Police Department ` +
+       withBadge +
+      `has ${pluralize('complaint', officerMetrics.allegationCount, true)}, ` +
       `${pluralize('use of force report', officerMetrics.useOfForceCount, true)}, ` +
       `and ${pluralize('original document', numAttachments, true)} available.`;
 

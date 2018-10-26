@@ -3,7 +3,6 @@ import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
-import { spy } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
@@ -14,7 +13,7 @@ import OfficerRadarChart from 'components/officer-page/radar-chart';
 import { OFFICER_EDIT_TYPES } from 'utils/constants';
 
 
-describe.only('OfficerPage component', function () {
+describe('OfficerPage component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     officerPage: {
@@ -85,6 +84,56 @@ describe.only('OfficerPage component', function () {
       '5 complaints, 10 use of force reports, and 3 original documents available.'
     );
   });
+
+  it('should add badge number into document description if officer name is not unique and badge is not Unknown',
+    function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <OfficerPage
+            officerName='Shaun Frank'
+            officerSummary={ { rank: 'Officer', badge: '1424', hasUniqueName: false } }
+            officerMetrics={ {
+              allegationCount: 1,
+              useOfForceCount: 0,
+            } }
+            numAttachments={ 3 }
+          />
+        </Provider>
+      );
+
+      const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+      documentMeta.props.title.should.eql('Officer Shaun Frank');
+      documentMeta.props.description.should.eql(
+        'Officer Shaun Frank of the Chicago Police Department with Badge Number 1424 has ' +
+        '1 complaint, 0 use of force reports, and 3 original documents available.'
+      );
+    }
+  );
+
+  it('should not add badge number into document description if badge is Unknown',
+    function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <OfficerPage
+            officerName='Shaun Frank'
+            officerSummary={ { rank: 'Officer', badge: 'Unknown', hasUniqueName: false } }
+            officerMetrics={ {
+              allegationCount: 1,
+              useOfForceCount: 0,
+            } }
+            numAttachments={ 3 }
+          />
+        </Provider>
+      );
+
+      const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+      documentMeta.props.title.should.eql('Officer Shaun Frank');
+      documentMeta.props.description.should.eql(
+        'Officer Shaun Frank of the Chicago Police Department has ' +
+        '1 complaint, 0 use of force reports, and 3 original documents available.'
+      );
+    }
+  );
 
   it('should handle N/A rank', function () {
     instance = renderIntoDocument(
