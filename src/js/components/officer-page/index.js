@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import DocumentTitle from 'react-document-title';
 import { compact, get, isEmpty } from 'lodash';
+import DocumentMeta from 'react-document-meta';
+import pluralize from 'pluralize';
 
 import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
 import AnimatedRadarChart from './radar-chart';
@@ -26,6 +27,7 @@ export default class OfficerPage extends Component {
       officerId,
       officerSummary,
       officerMetrics,
+      numAttachments,
       officerName,
       threeCornerPercentile,
       changeOfficerTab,
@@ -45,9 +47,13 @@ export default class OfficerPage extends Component {
       officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
       officerName
     ]).join(' ');
+    const pageDescription = `Officer ${officerName} of the Chicago Police Department has ` +
+      `${pluralize('complaint', officerMetrics.allegationCount, true)}, ` +
+      `${pluralize('use of force report', officerMetrics.useOfForceCount, true)}, ` +
+      `and ${pluralize('original document', numAttachments, true)} available.`;
 
     return (
-      <DocumentTitle title={ pageTitle }>
+      <DocumentMeta title={ pageTitle } description={ pageDescription }>
         <div style={ wrapperStyle } className='officer-page'>
           <ShareableHeaderContainer />
           <div style={ pageWrapperStyle }>
@@ -76,7 +82,7 @@ export default class OfficerPage extends Component {
             hasCoaccusal={ hasCoaccusal }
           />
         </div>
-      </DocumentTitle>
+      </DocumentMeta>
     );
   }
 }
@@ -86,6 +92,7 @@ OfficerPage.propTypes = {
   officerName: PropTypes.string,
   officerSummary: PropTypes.object,
   officerMetrics: PropTypes.object,
+  numAttachments: PropTypes.number,
   threeCornerPercentile: PropTypes.array,
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
@@ -105,4 +112,9 @@ OfficerPage.defaultProps = {
   changeOfficerTab: () => {},
   officerSummary: {},
   pathName: '',
+  officerMetrics: {
+    allegationCount: 0,
+    useOfForceCount: 0,
+  },
+  numAttachments: 0,
 };

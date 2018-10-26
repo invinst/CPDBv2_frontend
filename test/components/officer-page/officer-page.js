@@ -2,7 +2,7 @@ import React from 'react';
 import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import DocumentTitle from 'react-document-title';
+import DocumentMeta from 'react-document-meta';
 import { spy } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
@@ -14,7 +14,7 @@ import OfficerRadarChart from 'components/officer-page/radar-chart';
 import { OFFICER_EDIT_TYPES } from 'utils/constants';
 
 
-describe('OfficerPage component', function () {
+describe.only('OfficerPage component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     officerPage: {
@@ -63,28 +63,38 @@ describe('OfficerPage component', function () {
     officerRadarChart.props.noDataRadarChartEditWrapperStateProps.should.eql(noDataRadarChartEditWrapperStateProps);
   });
 
-  it('should render correct document title', function () {
+  it('should render correct document title and description', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <OfficerPage
           officerName='Shaun Frank'
           officerSummary={ { rank: 'Officer' } }
+          officerMetrics={ {
+            allegationCount: 5,
+            useOfForceCount: 10,
+          } }
+          numAttachments={ 3 }
         />
       </Provider>
     );
 
-    let documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
-    documentTitle.props.title.should.eql('Officer Shaun Frank');
+    const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+    documentMeta.props.title.should.eql('Officer Shaun Frank');
+    documentMeta.props.description.should.eql(
+      'Officer Shaun Frank of the Chicago Police Department has ' +
+      '5 complaints, 10 use of force reports, and 3 original documents available.'
+    );
+  });
 
-    instance = reRender(
+  it('should handle N/A rank', function () {
+    instance = renderIntoDocument(
       <Provider store={ store }>
         <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>
-      </Provider>,
-      instance
+      </Provider>
     );
 
-    documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
-    documentTitle.props.title.should.eql('Jerome Finigan');
+    const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+    documentMeta.props.title.should.eql('Jerome Finigan');
   });
 
   it('should render correct officer page in redirecting case', function () {
@@ -109,7 +119,7 @@ describe('OfficerPage component', function () {
       instance
     );
 
-    let documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
+    let documentTitle = findRenderedComponentWithType(instance, DocumentMeta);
     documentTitle.props.title.should.eql('Officer Shaun Frank');
   });
 });
