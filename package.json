@@ -12,6 +12,7 @@
     "build-staging": "CPDB_APP_ENV=staging webpack",
     "start": "CPDB_APP_ENV=dev webpack-dev-server",
     "test": "CPDB_APP_ENV=test webpack-dev-server",
+    "test-grep": "yarn test --pm-grep",
     "test-watch": "yarn test --pm-watch",
     "cover": "CPDB_APP_ENV=test nyc webpack-dev-server",
     "cover-report": "nyc report --reporter=text-lcov | coveralls",
