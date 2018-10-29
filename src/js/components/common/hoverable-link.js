@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
+import { Link } from 'react-router';
 
-import Link from './react-router-link';
 import Hoverable from 'components/common/higher-order/hoverable';
 
 

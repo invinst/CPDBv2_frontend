@@ -2,10 +2,10 @@ import React from 'react';
 import {
   renderIntoDocument, findRenderedComponentWithType, findRenderedDOMComponentWithTag
 } from 'react-addons-test-utils';
+import { Link } from 'react-router';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import MoreLink from 'components/common/more-link';
-import Link from 'components/common/react-router-link';
 
 
 describe('MoreLink component', function () {

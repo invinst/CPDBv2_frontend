@@ -389,7 +389,7 @@ describe('Search Page', function () {
       searchPage.clearSearchButton.waitForVisible();
       searchPage.firstOfficerResult.waitForVisible();
       searchPage.officerPreviewPaneSection.wrapper.waitForVisible();
-      searchPage.officerPreviewPaneSection.gradient.waitForVisible(2000, true);
+      searchPage.officerPreviewPaneSection.gradient.waitForVisible(1000, true);
     });
 
     it('should redirect to officer profile when clicking on officer item', function () {
