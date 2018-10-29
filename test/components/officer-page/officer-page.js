@@ -168,7 +168,7 @@ describe('OfficerPage component', function () {
       instance
     );
 
-    let documentTitle = findRenderedComponentWithType(instance, DocumentMeta);
-    documentTitle.props.title.should.eql('Officer Shaun Frank');
+    let documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+    documentMeta.props.title.should.eql('Officer Shaun Frank');
   });
 });
