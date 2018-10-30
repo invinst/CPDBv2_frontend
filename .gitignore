@@ -63,3 +63,6 @@ errorShots/
 
 /src/dist/fonts
 /html-report/
+dist
+
+.nyc_output

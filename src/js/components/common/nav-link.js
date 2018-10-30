@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
-import Link from 'components/common/react-router-link';
 import ConfiguredRadium from 'utils/configured-radium';
 import { navStyle } from './nav-link.style';
 
@@ -12,7 +12,7 @@ class NavigationLink extends React.Component {
     return (
       <Link className='link--transition'
         to={ href }
-        style={ isActive ? [navStyle.base, navStyle.active] : navStyle.base }>
+        style={ isActive ? { ...navStyle.base, ...navStyle.active } : navStyle.base }>
         { children }
       </Link>
     );

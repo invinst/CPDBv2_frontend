@@ -66,12 +66,14 @@ export default class AccusedOfficers extends Component {
         <div style={ bottomMarginStyle }/>
         {
           !expanded
-            ? <div
-              className='test--accused-officer-show-more'
-              style={ moreButtonStyle }
-              onClick={ this.handleExpandList.bind(this) }>
+            ? (
+              <div
+                className='test--accused-officer-show-more'
+                style={ moreButtonStyle }
+                onClick={ this.handleExpandList.bind(this) }>
                 Show all accused officers
               </div>
+            )
             : null
         }
       </div>
