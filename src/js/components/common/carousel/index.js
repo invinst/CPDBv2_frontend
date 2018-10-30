@@ -18,6 +18,8 @@ export default class Carousel extends Component {
     this.onSnapIndexChange = this.onSnapIndexChange.bind(this);
     this.handleSlideNext = this.handleSlideNext.bind(this);
     this.handleSlidePrev = this.handleSlidePrev.bind(this);
+    this.handleNavigate = this.handleNavigate.bind(this);
+    this.updateArrows = this.updateArrows.bind(this);
   }
 
   componentDidMount() {
@@ -99,7 +101,7 @@ export default class Carousel extends Component {
           onSnapIndexChange={ this.onSnapIndexChange }
           slideNextTransitionStart={ this.handleSlideNext }
           slidePrevTransitionStart={ this.handleSlidePrev }
-          onUpdate={ this.updateArrows.bind(this) }
+          onUpdate={ this.updateArrows }
           slideIndex={ slideIndex }>
           { children }
         </Swiper>
@@ -107,12 +109,12 @@ export default class Carousel extends Component {
           style={ style.navigationButton }
           direction='right'
           show={ displayRightArrow }
-          onClick={ this.handleNavigate.bind(this) }/>
+          onClick={ this.handleNavigate }/>
         <Arrow
           style={ style.navigationButton }
           direction='left'
           show={ displayLeftArrow }
-          onClick={ this.handleNavigate.bind(this) }/>
+          onClick={ this.handleNavigate }/>
       </div>
     );
   }

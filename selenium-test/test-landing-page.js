@@ -1,6 +1,7 @@
 'use strict';
 
 import should from 'should';
+import { times } from 'lodash';
 
 import landingPage from './page-objects/landing-page';
 import header from './page-objects/shareable-header';
@@ -167,9 +168,7 @@ describe('landing page', function () {
 
       landingPage.complaintSummariesCarousel.cards.count.should.equal(20);
       landingPage.complaintSummariesCarousel.rightArrow.waitForVisible();
-      for (let i = 0; i < 6; i++) {
-        landingPage.complaintSummariesCarousel.rightArrow.click();
-      }
+      times(6, () => landingPage.complaintSummariesCarousel.rightArrow.click());
       landingPage.complaintSummariesCarousel.rightArrow.waitForVisible(2000, true);
     });
   });
