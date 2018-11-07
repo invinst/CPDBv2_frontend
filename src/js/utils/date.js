@@ -1,8 +1,9 @@
 import moment from 'moment';
 
+import config from 'config';
 
 export const getThisYear = () => {
-  if (global.LIVE_TEST !== undefined || global.mocha !== undefined) {
+  if (config.appEnv === 'live-test' || global.mocha !== undefined) {
     return 2017;
   }
   /* istanbul ignore next */

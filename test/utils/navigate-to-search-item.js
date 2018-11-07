@@ -30,5 +30,20 @@ describe('navigate to search item utils', function () {
 
       trackOutboundLinkStub.restore();
     });
+
+    it('should not do anything if the item is datatool search url', function () {
+      const beforeHookSpy = spy();
+      spy(browserHistory, 'push');
+      const trackOutboundLinkStub = stub(GATracking, 'trackOutboundLink');
+
+      navigateToSearchItem({ isDataToolSearchUrl: true }, beforeHookSpy);
+
+      beforeHookSpy.called.should.be.true();
+      browserHistory.push.called.should.be.false();
+      trackOutboundLinkStub.called.should.be.false();
+
+      browserHistory.push.restore();
+      trackOutboundLinkStub.restore();
+    });
   });
 });

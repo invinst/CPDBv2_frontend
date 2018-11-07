@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import Hoverable from 'components/common/higher-order/hoverable';
-import Link from 'components/common/react-router-link';
 import ConfiguredRadium from 'utils/configured-radium';
 import UnderlineText from 'components/common/underline-text';
 import { linkStyle } from './more-link.style';
