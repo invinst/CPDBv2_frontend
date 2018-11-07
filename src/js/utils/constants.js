@@ -26,7 +26,7 @@ export const SEARCH_PATH = 'search/';
 export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
-export const OFFICER_PATH = 'officer/:officerId(/:fullName)';
+export const OFFICER_PATH = 'officer/:officerId(/:fullName)(/:tab)';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const CR_PATH_SUFFIX = ':officerId';
 export const TTR_PATH = 'trr/:trrId';
@@ -416,6 +416,13 @@ export const OFFICER_PAGE_TAB_NAMES = {
   MAP: 'MAP',
   COACCUSALS: 'COACCUSALS',
   ATTACHMENTS: 'ATTACHMENTS',
+};
+
+export const OFFICER_PAGE_TAB_ROUTE = {
+  documents: OFFICER_PAGE_TAB_NAMES.ATTACHMENTS,
+  map: OFFICER_PAGE_TAB_NAMES.MAP,
+  coaccusals: OFFICER_PAGE_TAB_NAMES.COACCUSALS,
+  timeline: OFFICER_PAGE_TAB_NAMES.TIMELINE,
 };
 
 export const MAP_INFO = {
