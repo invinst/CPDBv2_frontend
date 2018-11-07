@@ -242,6 +242,95 @@ describe('search page results selector', function () {
       ]);
     });
 
+    it('should give correct item format for DATE > OFFICERS', function () {
+      searchResultGroupsSelector({
+        searchPage: {
+          tags: [],
+          suggestionGroups: {
+            'DATE > OFFICERS': [
+              RawOfficerSuggestion.build({
+                id: '29033',
+                race: 'White',
+                name: 'Jerome Finnigan',
+                sex: 'Male',
+                'birth_year': 1969,
+                to: '/officer/29033/',
+                'allegation_count': 23,
+                'sustained_count': 7,
+                'major_award_count': 5,
+                'honorable_mention_count': 2,
+                'honorable_mention_percentile': 78.2,
+                unit: {
+                  id: 1,
+                  'unit_name': '018',
+                  description: 'a',
+                },
+              })
+            ]
+          }
+        }
+      }).should.deepEqual([
+        {
+          header: 'DATE > OFFICERS',
+          canLoadMore: false,
+          items: [{
+            'appointedDate': 'DEC 13, 1999',
+            'badge': '5922',
+            'age': 48,
+            'civilianComplimentCount': 4,
+            'complaintCount': 23,
+            'complaintPercentile': 93,
+            'disciplineCount': 1,
+            'fullName': 'Jerome Finnigan',
+            'gender': 'Male',
+            'id': '29033',
+            'itemIndex': 1,
+            'lastPercentile': {
+              'items': [
+                {
+                  'axis': 'Use of Force Reports',
+                  'value': 90,
+                },
+                {
+                  'axis': 'Officer Allegations',
+                  'value': 91,
+                },
+                {
+                  'axis': 'Civilian Allegations',
+                  'value': 92,
+                },
+              ],
+              'officerId': undefined,
+              'textColor': '#DFDFDF',
+              'visualTokenBackground': '#f52524',
+              'year': undefined,
+            },
+            'race': 'White',
+            'rank': 'Police Officer',
+            'resignationDate': null,
+            'sustainedCount': 7,
+            'majorAwardCount': 5,
+            'honorableMentionCount': 2,
+            'honorableMentionPercentile': 78,
+            'tags': [],
+            'text': 'Jerome Finnigan',
+            'recentText': 'Jerome Finnigan',
+            'to': '/officer/29033/',
+            'trrCount': undefined,
+            'trrPercentile': 90,
+            'type': 'DATE > OFFICERS',
+            'uniqueKey': 'DATE-OFFICERS-29033',
+            'unit': {
+              id: 1,
+              unitName: '018',
+              description: 'a',
+            },
+            'url': '',
+          }]
+        }
+      ]);
+    });
+
     it('should give correct item format for TRR', function () {
       searchResultGroupsSelector({
         searchPage: {
