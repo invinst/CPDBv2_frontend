@@ -2,32 +2,14 @@ import { get, groupBy, findIndex, keys, reverse, isEmpty } from 'lodash';
 import { createSelector } from 'reselect';
 import pluralize from 'pluralize';
 
-import { getThisYear } from 'utils/date';
-import { getVisualTokenOIGBackground } from 'utils/visual-token';
+import { officerCardTransform } from 'selectors/common/officer-card';
 
 
 const getCoaccusals = (state) => get(state.officerPage.coaccusals, 'items', []);
 
-const coaccusalTransform = (coaccusal) => ({
-  officerId: coaccusal.id,
-  officerName: coaccusal['full_name'],
-  allegationCount: coaccusal['allegation_count'],
-  sustainedCount: coaccusal['sustained_count'],
-  allegationPercentile: coaccusal['complaint_percentile'],
-  race: coaccusal.race.toLowerCase(),
-  gender: coaccusal.gender.toLowerCase(),
-  age: coaccusal['birth_year'] ? getThisYear() - coaccusal['birth_year'] : 'N/A',
+const coaccusalTransform = coaccusal => ({
+  ...officerCardTransform(coaccusal),
   coaccusalCount: coaccusal['coaccusal_count'],
-  rank: coaccusal['rank'],
-  radarAxes: [
-      { axis: 'trr', value: parseFloat(coaccusal['percentile_trr']) },
-      { axis: 'internal', value: parseFloat(coaccusal['percentile_allegation_internal']) },
-      { axis: 'civilian', value: parseFloat(coaccusal['percentile_allegation_civilian']) }],
-  radarColor: getVisualTokenOIGBackground(
-    parseFloat(coaccusal['percentile_allegation_civilian']),
-    parseFloat(coaccusal['percentile_allegation_internal']),
-    parseFloat(coaccusal['percentile_trr'])
-  )
 });
 
 const coaccusalThresholds = [1, 4, 9, 14, 20, -1];

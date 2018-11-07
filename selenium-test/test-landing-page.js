@@ -1,6 +1,7 @@
 'use strict';
 
 import should from 'should';
+import { times } from 'lodash';
 
 import landingPage from './page-objects/landing-page';
 import header from './page-objects/shareable-header';
@@ -158,6 +159,18 @@ describe('landing page', function () {
       browser.pause(500);
       browser.getUrl().should.match(/\/complaint\/\w+\/$/);
     });
+
+    it('should navigate to the last slide by clicking right arrow', function () {
+      browser.setViewportSize({
+        width: 1200,
+        height: 1000
+      });
+
+      landingPage.complaintSummariesCarousel.cards.count.should.equal(20);
+      landingPage.complaintSummariesCarousel.rightArrow.waitForVisible();
+      times(6, () => landingPage.complaintSummariesCarousel.rightArrow.click());
+      landingPage.complaintSummariesCarousel.rightArrow.waitForVisible(2000, true);
+    });
   });
 
   describe('Header', function () {
@@ -187,6 +200,15 @@ describe('landing page', function () {
       landingPage.stickyHeader.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
       landingPage.stickyHeader.qa.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
       landingPage.stickyHeader.mainElement.getCssProperty('box-shadow').value.should.eql('none');
+    });
+
+    it('should go to search term page when clicking anywhere in the search box', function () {
+      landingPage.searchSection.sectionSearchBox.click();
+      browser.getUrl().should.containEql('/search/terms/');
+
+      landingPage.open();
+      landingPage.searchSection.sectionSearchTerm.click();
+      browser.getUrl().should.containEql('/search/terms/');
     });
   });
 });

@@ -32,7 +32,7 @@ describe('SearchSection component', function () {
     );
     const searchBox = findRenderedDOMComponentWithClass(instance, 'test--search-section-search-box');
     Simulate.click(searchBox);
-    this.stubPushPathPreserveEditMode.calledWith('/search/').should.be.true();
+    this.stubPushPathPreserveEditMode.calledWith('/search/terms/').should.be.true();
   });
 
   it('should call pushPathPreserveEditMode with search term path when user click on the search term', function () {

@@ -16,13 +16,13 @@ import RelatedComplaints from './related-complaints';
 import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 import {
-wrapperStyle,
-CRIDHeaderStyle,
-leftColumnStyle,
-footerStyle,
-rightColumnStyle,
-summarySectionWrapperStyle,
-summaryTextStyle,
+  wrapperStyle,
+  CRIDHeaderStyle,
+  leftColumnStyle,
+  footerStyle,
+  rightColumnStyle,
+  summarySectionWrapperStyle,
+  summaryTextStyle,
 } from './cr-page.style';
 import { POPUP_NAMES } from 'utils/constants';
 
@@ -51,7 +51,11 @@ export default class CRPage extends Component {
             subcategory={ subcategory }
           />
           <ComplaintIncidentDate incidentDate={ incidentDate }/>
-          <AccusedOfficers officers={ coaccused } popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }/>
+          <AccusedOfficers
+            officers={ coaccused }
+            popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
+            pathName={ pathname }
+          />
           <ResponsiveFluidWidthComponent>
             <div style={ summarySectionWrapperStyle }>
               {
@@ -86,7 +90,7 @@ export default class CRPage extends Component {
               />
               <div style={ leftColumnStyle }>
                 <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-                <Involvement involvements={ involvements } popup={ popup }/>
+                <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>
               </div>
               <div style={ rightColumnStyle }>
                 <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>

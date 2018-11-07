@@ -19,9 +19,9 @@ describe('CR page', function () {
     crPage.accusedOfficers.cardCount().should.equal(25);
     crPage.accusedOfficers.firstCard.rank.getText().should.equal('Officer');
     crPage.accusedOfficers.firstCard.name.getText().should.equal('Ridchard Sullivan');
-    crPage.accusedOfficers.firstCard.metric.getText().should.equal('43 allegations1 sustained');
+    crPage.accusedOfficers.firstCard.metric.getText().should.equal('43 Allegations 1 Sustained');
     crPage.accusedOfficers.firstCard.percentile.getText().should.equal('More than 99% of other officers');
-    crPage.accusedOfficers.firstCard.demographic.getText().should.equal('41 year old, White, Male');
+    crPage.accusedOfficers.firstCard.demographic.getText().should.equal('41-year-old white male');
     crPage.accusedOfficers.firstCard.category.getText().should.equal('False Arrest');
     crPage.accusedOfficers.firstCard.outcome.getText().should.equal('Reprimand');
 
@@ -39,7 +39,7 @@ describe('CR page', function () {
 
     crPage.investigator.itemCount().should.equal(2);
     crPage.investigator.firstItem.getText().should.equal('Bernadette Kelly\nIPRA');
-``
+
     crPage.policeWitness.itemCount().should.equal(2);
     crPage.policeWitness.firstItem.getText().should.equal('Raymond Piwinicki\n3 allegations 0 sustained');
 

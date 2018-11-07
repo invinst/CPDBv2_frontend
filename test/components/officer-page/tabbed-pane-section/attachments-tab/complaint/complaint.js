@@ -1,5 +1,4 @@
 import React from 'react';
-import { stub } from 'sinon';
 
 import Complaint from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint';
 import Heading from 'components/officer-page/tabbed-pane-section/attachments-tab/complaint/heading';
@@ -43,14 +42,12 @@ describe('Complaint component', function () {
   });
 
   it('should render Heading and AttachmentsTab', function () {
-    const stubOpenComplaintPage = stub();
     instance = renderIntoDocument(
-      <Complaint complaint={ complaint } openComplaintPage={ stubOpenComplaintPage }/>
+      <Complaint complaint={ complaint } />
     );
 
     const heading = findRenderedComponentWithType(instance, Heading);
     heading.props.complaint.should.eql(complaint);
-    heading.props.openComplaintPage.should.eql(stubOpenComplaintPage);
 
     const attachments = scryRenderedComponentsWithType(instance, Attachment);
     attachments.should.have.length(2);

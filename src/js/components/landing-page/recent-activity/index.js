@@ -8,7 +8,6 @@ import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';
 import InlineHeaderSection from '../inline-header-section';
 import { headerWrapperStyle, carouselStyle, itemStyle } from '../carousel-wrapper.style';
-import { cardStyle, visualTokenStyle } from './recent-activity.style';
 import * as GATracking from 'utils/google_analytics_tracking';
 
 
@@ -18,7 +17,7 @@ export default class RecentActivity extends Component {
   }
 
   render() {
-    const { cards, editWrapperStateProps, pathname, openOfficerPage } = this.props;
+    const { cards, editWrapperStateProps, pathname } = this.props;
 
     const slideElements = cards.map((card, index) => {
       let itemWidth;
@@ -36,13 +35,10 @@ export default class RecentActivity extends Component {
             card.type === ACTIVITY_GRID_CARD_TYPES.OFFICER ? (
               <OfficerCard
                 { ...omit(card, 'id') }
-                cardStyle={ cardStyle }
-                visualTokenStyle={ visualTokenStyle }
               />
             ) : card.type === ACTIVITY_GRID_CARD_TYPES.PAIR ? (
               <PairingCard
                 { ...card }
-                openOfficerPage={ openOfficerPage }
               />
             ) : null
           }
@@ -74,5 +70,4 @@ RecentActivity.propTypes = {
   cards: PropTypes.array,
   pathname: PropTypes.string,
   editWrapperStateProps: PropTypes.object,
-  openOfficerPage: PropTypes.func,
 };

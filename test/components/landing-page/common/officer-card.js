@@ -25,7 +25,7 @@ describe('OfficerCard component', function () {
     instance = renderIntoDocument(
       <OfficerCard
         officerId={ 1 }
-        fullName='someone'
+        fullName='Jerome Finnigan'
         visualTokenBackgroundColor='red'
         complaintCount={ 10 }
         sustainedCount={ 5 }
@@ -33,13 +33,14 @@ describe('OfficerCard component', function () {
         birthYear={ 1980 }
         race='white'
         gender='male'
+        rank='Police Officer'
         percentile={ {
           items: [{ 'axis': 'a', value: 1 }]
         } }
       />
     );
     const link = findRenderedComponentWithType(instance, Link);
-    link.props.to.should.eql('/officer/1/someone/');
+    link.props.to.should.eql('/officer/1/jerome-finnigan/');
 
     const radarChartElement = findRenderedDOMComponentWithClass(instance, 'test--radar');
     radarChartElement.getAttribute('width').should.eql('100%');
@@ -47,12 +48,13 @@ describe('OfficerCard component', function () {
     should(radarChartElement.querySelector('.test--radar-radar-area')).not.be.null();
 
     const text = findDOMNode(instance).innerText;
-    text.should.containEql('Officersomeone');
-    text.should.containEql('10 Allegations, 5 Sustained');
+    text.should.containEql('Police Officer');
+    text.should.containEql('Jerome Finnigan');
+    text.should.containEql('10 Allegations 5 Sustained');
     text.should.containEql('More than 20% of other officers');
 
     const age = getThisYear() - 1980 - 1;
-    text.should.containEql(`${age} year old white male`);
+    text.should.containEql(`${age}-year-old white male`);
   });
 
   it('should show NoDataRadarChart when no percentile', () => {

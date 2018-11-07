@@ -1,4 +1,5 @@
 import {
+  singleCardTransform,
   simpleOfficerTransform,
   pairingCardTransform,
   cardTransform
@@ -14,6 +15,7 @@ describe('common selectors', function () {
     'complaint_percentile': '99.987',
     'birth_year': 1963,
     race: 'White',
+    rank: 'Police Officer',
     gender: 'Male',
     percentile: {
       'percentile_trr': '70.069',
@@ -33,6 +35,7 @@ describe('common selectors', function () {
     'complaint_percentile': '99.987',
     'birth_year': 1963,
     race: 'White',
+    rank: 'Police Officer',
     gender: 'Male',
     percentile: {
       'percentile_trr': '70.069',
@@ -52,6 +55,7 @@ describe('common selectors', function () {
       'birth_year': 1961,
       race: 'White',
       gender: 'Male',
+      rank: 'Police Officer',
       percentile: {
         'percentile_trr': '74.440',
         'percentile_allegation_civilian': '99.908',
@@ -67,6 +71,7 @@ describe('common selectors', function () {
       'birth_year': 1963,
       race: 'White',
       gender: 'Male',
+      rank: 'Police Officer',
       percentile: {
         'percentile_trr': '70.069',
         'percentile_allegation_civilian': '99.984',
@@ -83,6 +88,7 @@ describe('common selectors', function () {
     'birth_year': 1963,
     race: 'White',
     gender: 'Male',
+    rank: 'Police Officer',
     percentile: {
       'percentile_trr': '70.069',
       'percentile_allegation_civilian': '99.984',
@@ -95,6 +101,7 @@ describe('common selectors', function () {
   const missingOfficerInfo = {
     id: '8562',
     'full_name': 'Jerome Finnigan',
+    rank: '',
     percentile: {
       'percentile_trr': '70.069',
       'percentile_allegation_civilian': '99.984',
@@ -105,38 +112,40 @@ describe('common selectors', function () {
     },
   };
 
-  describe('simpleOfficerTransform', function () {
-    it('should return specific information of an officer', function () {
-      simpleOfficerTransform(officerInfo).should.eql({
+  describe('singleCardTransform', function () {
+    it('should return an officer information', function () {
+      singleCardTransform(singleOfficerCard).should.eql({
         id: '8562',
+        officerId: '8562',
         fullName: 'Jerome Finnigan',
-        age: 54,
+        complaintCount: 175,
+        sustainedCount: 6,
+        complaintPercentile: 99.987,
+        birthYear: 1963,
         race: 'white',
+        rank: 'Police Officer',
         gender: 'male',
         percentile: {
-          percentileAllegation: '99.987',
-          percentileAllegationCivilian: '99.984',
-          percentileAllegationInternal: '99.675',
-          percentileTrr: '70.069'
+          'items': [
+            {
+              'axis': 'Use of Force Reports',
+              'value': 70.069
+            },
+            {
+              'axis': 'Officer Allegations',
+              'value': 99.675
+            },
+            {
+              'axis': 'Civilian Allegations',
+              'value': 99.984
+            }
+          ],
+          officerId: 8562,
+          textColor: '#DFDFDF',
+          visualTokenBackground: '#f0201e',
+          year: 2018
         },
-        backgroundColor: '#f0201e'
-      });
-    });
-
-    it('should return correct information of an officer with missing info', function () {
-      simpleOfficerTransform(missingOfficerInfo).should.eql({
-        id: '8562',
-        fullName: 'Jerome Finnigan',
-        age: 'N/A',
-        race: 'N/A',
-        gender: 'N/A',
-        percentile: {
-          percentileAllegation: '99.987',
-          percentileAllegationCivilian: '99.984',
-          percentileAllegationInternal: '99.675',
-          percentileTrr: '70.069'
-        },
-        backgroundColor: '#f0201e'
+        type: 'single_officer'
       });
     });
   });
@@ -152,6 +161,7 @@ describe('common selectors', function () {
           age: 54,
           race: 'white',
           gender: 'male',
+          rank: 'Police Officer',
           percentile: {
             percentileAllegation: '99.987',
             percentileAllegationCivilian: '99.984',
@@ -166,6 +176,7 @@ describe('common selectors', function () {
           age: 56,
           race: 'white',
           gender: 'male',
+          rank: 'Police Officer',
           percentile: {
             percentileAllegation: '99.924',
             percentileAllegationCivilian: '99.908',
@@ -189,6 +200,7 @@ describe('common selectors', function () {
         complaintPercentile: 99.987,
         birthYear: 1963,
         race: 'white',
+        rank: 'Police Officer',
         gender: 'male',
         percentile: {
           'items': [
@@ -224,6 +236,7 @@ describe('common selectors', function () {
         complaintPercentile: 99.987,
         birthYear: 1963,
         race: 'white',
+        rank: 'Police Officer',
         gender: 'male',
         percentile: {
           'items': [
@@ -259,6 +272,7 @@ describe('common selectors', function () {
           age: 54,
           race: 'white',
           gender: 'male',
+          rank: 'Police Officer',
           percentile: {
             percentileAllegation: '99.987',
             percentileAllegationCivilian: '99.984',
@@ -273,6 +287,7 @@ describe('common selectors', function () {
           age: 56,
           race: 'white',
           gender: 'male',
+          rank: 'Police Officer',
           percentile: {
             percentileAllegation: '99.924',
             percentileAllegationCivilian: '99.908',

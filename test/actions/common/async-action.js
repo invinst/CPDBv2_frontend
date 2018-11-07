@@ -1,4 +1,10 @@
-import { get, post, patch, authenticatedPost, authenticatedPatch } from 'actions/common/async-action';
+import Cookies from 'js-cookie';
+import { stub } from 'sinon';
+
+import {
+  get, post, patch, put,
+  authenticatedPost, authenticatedPatch, authenticatedPut
+} from 'actions/common/async-action';
 
 
 describe('async-action', function () {
@@ -103,6 +109,52 @@ describe('async-action', function () {
           }
         }
       });
+    });
+  });
+
+  describe('put', function () {
+    it('should return the right action', function () {
+      const url = '/url';
+      const types = ['a', 'b', 'c'];
+      const data = { data: 'data' };
+
+      put(url, types)(data).should.eql({
+        types,
+        payload: {
+          request: {
+            url,
+            method: 'put',
+            data,
+            adapter: null
+          }
+        }
+      });
+    });
+  });
+
+  describe('authenticatedPut', function () {
+    it('should return the right action', function () {
+      const url = '/url';
+      const types = ['a', 'b', 'c'];
+      const data = { data: 'data' };
+      stub(Cookies, 'get').returns('authenticated_token');
+
+      authenticatedPut(url, types)(data).should.eql({
+        types,
+        payload: {
+          request: {
+            url,
+            method: 'put',
+            data,
+            adapter: null,
+            headers: {
+              Authorization: 'Token authenticated_token'
+            }
+          }
+        }
+      });
+
+      Cookies.get.restore();
     });
   });
 });

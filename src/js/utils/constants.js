@@ -4,6 +4,7 @@ import {
   darkSilverSandColor, skepticColor, jaggedIceColor, romanticColor, porcelainColor, botticelliColor,
   galleryColor, lightAltoColor, greyColor, softBlackColor
 } from 'utils/styles';
+import config from 'config';
 
 export const TOP = 'top';
 export const BOTTOM = 'bottom';
@@ -56,19 +57,10 @@ export const FORM_FAILURE = 'FORM_FAILURE';
 
 export const ENTITY_LINK = 'LINK';
 
-let API_ROOT = `${global.location.origin}/api/v1/`;
-let API_ROOT_V2 = `${global.location.origin}/api/v2/`;
+let API_ROOT = `${config.apiDomain}/api/v1/`;
+let API_ROOT_V2 = `${config.apiDomain}/api/v2/`;
 
-let basePath = global.location.origin;
-
-/* istanbul ignore next */
-if (global.DEVELOPMENT) {
-  basePath = 'http://localhost:8000';
-  API_ROOT = `${basePath}/api/v1/`;
-  API_ROOT_V2 = `${basePath}/api/v2/`;
-}
-
-export const BASE_PATH = basePath;
+export const BASE_PATH = config.apiDomain;
 
 export const V2_ROOT_PATH = API_ROOT_V2;
 export const V1_ROOT_PATH = API_ROOT;
@@ -99,11 +91,6 @@ export const OFFICER_SUMMARY_REQUEST_FAILURE = 'OFFICER_SUMMARY_REQUEST_FAILURE'
 export const UNIT_PROFILE_SUMMARY_REQUEST_START = 'UNIT_PROFILE_SUMMARY_REQUEST_START';
 export const UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS = 'UNIT_PROFILE_SUMMARY_REQUEST_SUCCESS';
 export const UNIT_PROFILE_SUMMARY_REQUEST_FAILURE = 'UNIT_PROFILE_SUMMARY_REQUEST_FAILURE';
-
-export const OPEN_OFFICER_PAGE = 'OPEN_OFFICER_PAGE';
-export const OPEN_COMPLAINT_PAGE = 'OPEN_COMPLAINT_PAGE';
-export const OPEN_TRR_PAGE = 'OPEN_TRR_PAGE';
-export const OPEN_POLICE_UNIT_PAGE = 'OPEN_POLICE_UNIT_PAGE';
 
 export const OPEN_SEARCH_PAGE = 'OPEN_SEARCH_PAGE';
 
@@ -347,8 +334,8 @@ export const MORE_BUTTON = 'MORE_BUTTON';
 export const SEARCH_BOX = 'SEARCH_BOX';
 
 export const SEARCH_CATEGORIES = [
-  'DATE > CR', 'DATE > TRR', 'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD', 'UNIT > OFFICERS', 'CR', 'TRR',
-  'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT', 'RANK', 'ZIP-CODE'
+  'DATE > CR', 'DATE > TRR', 'DATE > OFFICERS', 'OFFICER', 'CO-ACCUSED', 'COMMUNITY', 'NEIGHBORHOOD',
+  'UNIT > OFFICERS', 'CR', 'TRR', 'BEAT', 'POLICE-DISTRICT', 'WARD', 'SCHOOL-GROUND', 'UNIT', 'RANK', 'ZIP-CODE'
 ];
 
 export const OFFICER_EDIT_MODE = 'OFFICER_EDIT_MODE';
