@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { officerCardTransform } from 'selectors/common/officer';
+import { officerCardTransform } from 'selectors/common/officer-card';
 
 
 const getOfficers = state => state.embed.officers;

@@ -150,6 +150,44 @@ describe('common selectors', function () {
     });
   });
 
+  describe('simpleOfficerTransform', function () {
+    it('should return specific information of an officer', function () {
+      simpleOfficerTransform(officerInfo).should.eql({
+        id: '8562',
+        fullName: 'Jerome Finnigan',
+        age: 54,
+        race: 'white',
+        gender: 'male',
+        rank: 'Police Officer',
+        percentile: {
+          percentileAllegation: '99.987',
+          percentileAllegationCivilian: '99.984',
+          percentileAllegationInternal: '99.675',
+          percentileTrr: '70.069'
+        },
+        backgroundColor: '#f0201e'
+      });
+    });
+
+    it('should return correct information of an officer with missing info', function () {
+      simpleOfficerTransform(missingOfficerInfo).should.eql({
+        id: '8562',
+        fullName: 'Jerome Finnigan',
+        age: 'N/A',
+        race: 'N/A',
+        gender: 'N/A',
+        rank: '',
+        percentile: {
+          percentileAllegation: '99.987',
+          percentileAllegationCivilian: '99.984',
+          percentileAllegationInternal: '99.675',
+          percentileTrr: '70.069'
+        },
+        backgroundColor: '#f0201e'
+      });
+    });
+  });
+
   describe('pairingCardTransform', function () {
     it('should return the information of the two officers in the pairing card', function () {
       pairingCardTransform(pairOfficerCard).should.eql({
