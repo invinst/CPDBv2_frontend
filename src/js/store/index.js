@@ -11,6 +11,7 @@ import tracking from 'middleware/tracking';
 import localStorageConfig from './local-storage-config';
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import redirectOfficerAlias from 'middleware/redirect-officer-alias';
+import updatePathName from 'middleware/path-name';
 import config from 'config';
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
@@ -23,7 +24,7 @@ function configureStore(initialState) {
   const composeArgs = [
     applyMiddleware(
       thunk, configuredAxiosMiddleware, searchPath, tracking,
-      routerMiddleware(browserHistory), fetchPageInitialData, redirectOfficerAlias
+      routerMiddleware(browserHistory), fetchPageInitialData, redirectOfficerAlias, updatePathName
     ),
     persistState(()=>{}, localStorageConfig)
   ];

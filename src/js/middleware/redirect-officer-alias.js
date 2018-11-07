@@ -5,6 +5,7 @@ import { getOfficerId } from 'utils/location';
 import { OFFICER_SUMMARY_REQUEST_SUCCESS, OFFICER_PAGE_TAB_ROUTE, CHANGE_OFFICER_TAB } from 'utils/constants';
 import { getBreadcrumb } from 'selectors/breadcrumbs';
 import { changeOfficerTab } from 'actions/officer-page';
+import { updatePathName } from 'actions/path-name';
 
 
 const officerURLRegex = /(officer\/\d+)\/([\w-]+?)\/([\w-]+)?/;
@@ -22,7 +23,7 @@ const getOfficerURLWithoutTabName = (pathname) => {
 };
 
 
-const redirectOfficerAliasMiddelware = store => next => action => {
+const redirectOfficerAliasMiddleware = store => next => action => {
   if (action.type === OFFICER_SUMMARY_REQUEST_SUCCESS) {
     const state = store.getState();
     let officerId = getOfficerId(action.request.url);
@@ -38,8 +39,7 @@ const redirectOfficerAliasMiddelware = store => next => action => {
 
     const tabNameSuffix = tabName ? `${tabName}/` : '';
     const officerPath = `/officer/${officerId}/${fullnameSlug}/${tabNameSuffix}`;
-
-    global.history.replaceState(global.history.state, document.title, officerPath);
+    store.dispatch(updatePathName(officerPath));
 
     const { breadcrumbs } = getBreadcrumb(state);
     const breadcrumbLen = breadcrumbs.length;
@@ -58,10 +58,10 @@ const redirectOfficerAliasMiddelware = store => next => action => {
   if (action.type === CHANGE_OFFICER_TAB) {
     const tabName = invert(OFFICER_PAGE_TAB_ROUTE)[action.payload];
     const officerURLWithoutTabName = getOfficerURLWithoutTabName(store.getState().pathname);
-    const officerPath = `${officerURLWithoutTabName}${tabName}/`;
-    global.history.replaceState(global.history.state, document.title, officerPath);
+    const officerPath = tabName ? `${officerURLWithoutTabName}${tabName}/` : officerURLWithoutTabName;
+    store.dispatch(updatePathName(officerPath));
   }
   return next(action);
 };
 
-export default redirectOfficerAliasMiddelware;
+export default redirectOfficerAliasMiddleware;
