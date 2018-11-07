@@ -26,6 +26,7 @@ const config = Object.assign(
     },
     mode: 'development',
     module: {
+      exprContextCritical: false,
       rules: [
         {
           test: /\.js$/,
