@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { render } from 'react-dom';
+import cx from 'classnames';
 
-import { wrapperStyle, defaultMarkerStyle } from './location-map.style';
 import { mapboxgl } from 'utils/vendors';
 import { MAPBOX_STYLE } from 'utils/constants';
+import styles from './location-map.sass';
 
 
 const centerLat = 41.85677;
@@ -82,7 +83,7 @@ export default class LocationMap extends Component {
     if (!this.marker) {
       const placeholder = document.createElement('div');
       const markerDOM = render(
-        markerEl || <div className='test--default-marker' style={ defaultMarkerStyle } />,
+        markerEl || <div className='default-marker' />,
         placeholder
       );
 
@@ -121,9 +122,8 @@ export default class LocationMap extends Component {
 
     return (
       <div
-        className='test--location-map'
+        className={ cx(styles.locationMap, this.props.className, 'test--location-map') }
         ref={ this.gotRef.bind(this) }
-        style={ { ...wrapperStyle, ...this.props.extraStyle } }
       />
     );
   }
@@ -132,13 +132,12 @@ export default class LocationMap extends Component {
 LocationMap.propTypes = {
   lat: PropTypes.number,
   lng: PropTypes.number,
-  extraStyle: PropTypes.object,
+  className: PropTypes.string,
   mapboxStyle: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   markerEl: PropTypes.element,
 };
 
 LocationMap.defaultProps = {
   mapboxStyle: MAPBOX_STYLE,
-  extraStyle: {},
   markerEl: null,
 };

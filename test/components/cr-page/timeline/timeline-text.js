@@ -9,7 +9,7 @@ describe('TimelineText component', function () {
   let instance;
 
   const assertTextBlockContent = (instance, textBlocks) => {
-    const elements = scryRenderedDOMComponentsWithClass(instance, 'test--timeline-textblock');
+    const elements = scryRenderedDOMComponentsWithClass(instance, 'timeline-textblock');
     elements.should.have.length(textBlocks.length);
     for (let ind in elements) {
       elements[ind].textContent.should.eql(textBlocks[ind].join(''));

@@ -7,17 +7,17 @@ class AccusedOfficerCard extends Section {
   constructor() {
     super();
 
-    const firstCardSelector = '(//*[@class="test--officer-card"])[1]';
+    const firstCardSelector = '(//*[contains(@class, "test--officer-card")])[1]';
 
     this.prepareElementGetters({
       element: firstCardSelector,
-      rank: `${firstCardSelector}//p[@class="test--officer-card-rank"]`,
-      name: `${firstCardSelector}//p[@class="test--officer-card-name"]`,
+      rank: `${firstCardSelector}//p[contains(@class, "test--officer-card-rank")]`,
+      name: `${firstCardSelector}//p[contains(@class, "test--officer-card-name")]`,
       metric: `${firstCardSelector}//span[@class="test--officer-card-metric"]`,
-      percentile: `${firstCardSelector}//p[@class="test--officer-card-percentile"]`,
-      demographic: `${firstCardSelector}//div[@class="test--officer-card-demographic"]`,
-      category: `${firstCardSelector}//div[@class="test--accused-card-category"]`,
-      outcome: `${firstCardSelector}//div[@class="test--accused-card-outcome"]`,
+      percentile: `${firstCardSelector}//p[contains(@class, "test--officer-card-percentile")]`,
+      demographic: `${firstCardSelector}//div[contains(@class, "test--officer-card-demographic")]`,
+      category: `${firstCardSelector}//div[@class="accused-card-category"]`,
+      outcome: `${firstCardSelector}//div[contains(@class, "accused-card-outcome")]`,
     });
   }
 }
@@ -29,9 +29,9 @@ class AccusedOfficerSection extends Section {
     super();
 
     this.prepareElementGetters({
-      title: '.test--accused-officer-title',
+      title: '.accused-officer-title',
       lastCard: '(//*[@class="test--officer-card"])[last()]',
-      showMoreButton: '.test--accused-officer-show-more',
+      showMoreButton: '.show-more-button',
       popup: '.test--accused-officer .popup',
       popupButton: '.test--accused-officer .popup-button',
       popupTitle: '.test--accused-officer .test--popup-title',
@@ -50,9 +50,10 @@ class SummarySection extends Section {
     super();
 
     this.prepareElementGetters({
-      firstVictim: '(//*[@class="test--victims"])//div[@class="test--person-demographic"][1]',
-      firstComplainant: '(//*[@class="test--complainant"])//div[@class="test--person-demographic"][1]',
-      summary: '.test--summary'
+      firstVictim: '(//*[contains(@class, "test--victims")])//div[contains(@class, "test--person-demographic")][1]',
+      firstComplainant: '(//*[contains(@class, "test--complainant")])' +
+        '//div[contains(@class, "test--person-demographic")][1]',
+      summary: '.cr-summary'
     });
   }
 }
@@ -61,10 +62,10 @@ class AttachmentCard extends Section {
   constructor() {
     super();
 
-    const firstCardSelector = '(//*[@class="test--attachment-card"])[1]';
+    const firstCardSelector = '(//*[contains(@class, "test--attachment-card")])[1]';
 
     this.prepareElementGetters({
-      title: `${firstCardSelector}//div[@class="test--attachment-card-title"]`,
+      title: `${firstCardSelector}//div[contains(@class, "attachment-card-title")]`,
       element: firstCardSelector
     });
   }
@@ -90,7 +91,8 @@ class InvestigatorSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      firstItem: '(//*[@class="test--involvement-investigator"]//*[@class="test--officer-row"])[1]',
+      firstItem: '(//*[contains(@class, "test--involvement-investigator")]' +
+        '//*[contains(@class, "test--officer-row")])[1]',
       popup: '.test--involvement-investigator .popup',
       popupButton: '.test--involvement-investigator .popup-button',
       popupTitle: '.test--involvement-investigator .test--popup-title',
@@ -101,7 +103,7 @@ class InvestigatorSection extends Section {
 
   itemCount() {
     return browser.elements(
-      '(//*[@class="test--involvement-investigator"]//*[@class="test--officer-row"])'
+      '(//*[contains(@class, "test--involvement-investigator")]//*[contains(@class, "test--officer-row")])'
     ).value.length;
   }
 }
@@ -111,7 +113,8 @@ class PoliceWitnessSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      firstItem: '(//*[@class="test--involvement-police_witness"]//*[@class="test--officer-row"])[1]',
+      firstItem: '(//*[contains(@class, "test--involvement-police_witness")]' +
+        '//*[contains(@class, "test--officer-row")])[1]',
       popup: '.test--involvement-police_witness .popup',
       popupButton: '.test--involvement-police_witness .popup-button',
       popupTitle: '.test--involvement-police_witness .test--popup-title',
@@ -122,7 +125,7 @@ class PoliceWitnessSection extends Section {
 
   itemCount() {
     return browser.elements(
-      '(//*[@class="test--involvement-police_witness"]//*[@class="test--officer-row"])'
+      '(//*[contains(@class, "test--involvement-police_witness")]//*[contains(@class, "test--officer-row")])'
     ).value.length;
   }
 }
@@ -200,10 +203,10 @@ class CRPage extends Page {
     super();
 
     this.prepareElementGetters({
-      title: '.test--cr-title',
-      category: '.test--cr-category',
-      incidentDate: '.test--cr-incident-date',
-      investigationTimeline: '.test--investigator-timeline-text'
+      title: '.cr-title',
+      category: '.test--cr-category-wrapper',
+      incidentDate: '.cr-incident-date-value',
+      investigationTimeline: '.investigator-timeline-text'
     });
   }
 

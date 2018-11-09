@@ -1,10 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { map, get } from 'lodash';
+import cx from 'classnames';
 
 import OfficerRow from './officer-row';
-import { wrapperStyle, lastItemStyle, titleStyle } from './involvement-item.style';
 import Popup from 'components/common/popup';
 import { POPUP_NAMES } from 'utils/constants';
+import styles from './involvement-item.sass';
 
 
 export default class InvolvementItem extends Component {
@@ -13,7 +14,7 @@ export default class InvolvementItem extends Component {
   }
 
   render() {
-    const { involvedType, officers, style, className, popup, pathName } = this.props;
+    const { involvedType, officers, className, popup, pathName } = this.props;
     const involvedTypeMap = {
       investigator: {
         name: 'INVESTIGATOR',
@@ -26,8 +27,8 @@ export default class InvolvementItem extends Component {
     };
 
     return (
-      <div className={ className } style={ { ...wrapperStyle, ...style } }>
-        <div style={ titleStyle } className='test--involvement-type'>{ involvedTypeMap[involvedType].name }
+      <div className={ cx(styles.involvementItem, className) }>
+        <div className='involvement-type'>{ involvedTypeMap[involvedType].name }
           <Popup
             { ...get(popup, involvedTypeMap[involvedType].popupName) }
             position='relative'
@@ -39,9 +40,7 @@ export default class InvolvementItem extends Component {
             map(officers, (officer, index) =>
             {
               return (
-                <OfficerRow
-                  style={ index === officers.length - 1 ? lastItemStyle : {} }
-                  key={ index } { ...officer } />
+                <OfficerRow key={ index } { ...officer } />
               );
             })
           }

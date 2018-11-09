@@ -5,9 +5,7 @@ import ResponsiveFluidWidthComponent from 'components/responsive/responsive-flui
 import RelatedComplaintsCarouselContainer from 'containers/cr-page/related-complaints-carousel';
 import { DISTANCE_OPTIONS } from 'utils/constants';
 import Dropdown from 'components/common/dropdown';
-import {
-  wrapperStyle, titleStyle, headerStyle, filterStyle, carouselsWrapperStyle
-} from './related-complaints.style';
+import styles from './related-complaints.sass';
 
 
 export default class RelatedComplaints extends Component {
@@ -29,11 +27,11 @@ export default class RelatedComplaints extends Component {
     const { crid } = this.props;
     const { selectedDistance } = this.state;
     return (
-      <div style={ wrapperStyle }>
+      <div className={ styles.relatedComplaints }>
         <ResponsiveFluidWidthComponent>
-          <div style={ headerStyle }>
-            <h2 style={ titleStyle }>Related Complaints</h2>
-            <div style={ filterStyle }>
+          <div className='related-complaints-header'>
+            <h2 className='related-complaints-title'>Related Complaints</h2>
+            <div className='related-complaints-filter'>
               WITHIN
               <Dropdown
                 defaultValue={ DISTANCE_OPTIONS[selectedDistance] }
@@ -45,7 +43,7 @@ export default class RelatedComplaints extends Component {
             </div>
           </div>
         </ResponsiveFluidWidthComponent>
-        <div style={ carouselsWrapperStyle }>
+        <div className='carousels-wrapper'>
           <RelatedComplaintsCarouselContainer
             distance={ selectedDistance }
             crid={ crid }

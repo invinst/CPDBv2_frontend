@@ -3,9 +3,7 @@ import DocumentTitle from 'react-document-title';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import {
-  wrapperStyle, TRRIdHeaderStyle, contentStyle, footerStyle
-} from './trr-page.style';
+import { wrapperStyle, TRRIdHeaderStyle, contentStyle } from './trr-page.style';
 import OfficerSection from './officer-section';
 import TRRInfoSection from './trr-info-section';
 import FooterContainer from 'containers/footer-container';
@@ -33,7 +31,7 @@ export default class TRRPage extends Component {
               pathName={ pathName }
             />
           </ResponsiveFluidWidthComponent>
-          <FooterContainer style={ footerStyle }/>
+          <FooterContainer/>
         </div>
       </DocumentTitle>
     );

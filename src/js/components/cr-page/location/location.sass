@@ -1,0 +1,36 @@
+@import 'variables'
+
+\:local(.location)
+  font-size: 14px
+  margin-top: 38px
+  font-family: $san-francisco-text-family
+
+  .location-header
+    font-size: 14px
+    margin-left: 16px
+    margin-bottom: 8px
+    font-weight: 400
+    color: $soft-black-color
+
+  .location-row
+    padding: 11px 0
+    border-bottom: solid 1px $white-two-color
+    margin: 0 16px
+    font-weight: 400
+    min-height: 18px
+
+    &:last-child
+      border-bottom: none
+
+    .label
+      display: inline-block
+      width: 108px
+      color: $clay-gray
+      vertical-align: middle
+      float: left
+
+    .content
+      display: inline-block
+      color: $soft-black-color
+      vertical-align: middle
+      float: left

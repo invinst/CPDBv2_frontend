@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
-import { wrapperStyle, labelStyle, contentStyle } from './summary-row.style';
+import styles from './summary-row.sass';
+import cx from 'classnames';
 
 
 export default class SummaryRow extends Component {
@@ -8,9 +9,9 @@ export default class SummaryRow extends Component {
     const { label, className, children } = this.props;
 
     return (
-      <div style={ wrapperStyle } className={ className }>
-        <div style={ labelStyle }>{ label }</div>
-        <div style={ contentStyle }>{ children }</div>
+      <div className={ cx(styles.summaryRow, className) }>
+        <div className='summary-label'>{ label }</div>
+        <div className='summary-content'>{ children }</div>
       </div>
     );
   }

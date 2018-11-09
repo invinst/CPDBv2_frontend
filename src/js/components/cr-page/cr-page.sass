@@ -1,0 +1,49 @@
+@import 'variables'
+
+\:local(.cr-page)
+  position: relative
+  background-color: $sugar-cane-color
+  border-bottom: 1px solid $white-two-color
+
+  .complaint-info
+    background-color: white
+    margin: 0 16px 16px 16px
+    overflow: hidden
+    border: 1px solid $white-two-color
+
+  .investigation-timeline
+    width: 320px
+    display: inline-block
+    padding: 0 16px
+    box-sizing: border-box
+    vertical-align: top
+
+  .cr-location
+    width: calc(100% - 320px)
+    display: inline-block
+    box-sizing: border-box
+
+  .cr-title
+    font-family: $san-francisco-text-family
+    font-size: 26px
+    font-weight: 400
+    color: $soft-black-color
+    padding-top: 16px
+    padding-bottom: 16px
+    margin: 0 16px
+    border-bottom: solid 1px $white-two-color
+
+  .cr-summary
+    color: $clay-gray
+    font-size: 14px
+    font-family: $san-francisco-text-family
+    font-weight: 300
+
+\:local(.cr-page-footer)
+  background-color: $soft-black-color
+
+  .footer-nav-link
+    color: $clay-gray
+
+    &:hover
+      color: white

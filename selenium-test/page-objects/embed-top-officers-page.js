@@ -8,9 +8,11 @@ class OfficersByAllegationCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-allegation"]//*[@class="test--carousel-arrow-left"]',
-      rightArrow: '//div[@class="test--landing-carousel-allegation"]//*[@class="test--carousel-arrow-right"]',
-      cards: '//div[@class="test--landing-carousel-allegation"]//a[@class="test--officer-card"]'
+      leftArrow: '//div[contains(@class, "test--landing-carousel-allegation")]' +
+        '//*[contains(@class, "test--carousel-arrow-left")]',
+      rightArrow: '//div[contains(@class, "test--landing-carousel-allegation")]' +
+        '//*[contains(@class, "test--carousel-arrow-right")]',
+      cards: '//div[contains(@class, "test--landing-carousel-allegation")]//a[contains(@class, "test--officer-card")]'
     });
   }
 }

@@ -17,12 +17,12 @@ describe('ComplaintIncidentDate component', function () {
 
   it('should render incident-date', function () {
     instance = renderIntoDocument(<ComplaintIncidentDate incidentDate='2012-12-05' />);
-    const incidentDateValue = findRenderedDOMComponentWithClass(instance, 'test--cr-incident-date');
+    const incidentDateValue = findRenderedDOMComponentWithClass(instance, 'cr-incident-date-value');
     incidentDateValue.textContent.should.eql('Dec 5, 2012');
   });
 
   it('should render nothing if incident date is not present', function () {
     instance = renderIntoDocument(<ComplaintIncidentDate />);
-    scryRenderedComponentsWithType(instance, 'test--cr-incident-date').should.have.length(0);
+    scryRenderedComponentsWithType(instance, 'cr-incident-date-value').should.have.length(0);
   });
 });

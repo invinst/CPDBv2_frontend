@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
 import RequestDocumentButton from 'components/common/request-document-button';
-import { wrapperStyle, titleStyle, subTitleStyle, requestButtonStyle, messageStyle } from './attachment-header.style';
+import styles from './attachment-header.sass';
 
 
 export default class AttachmentHeader extends Component {
@@ -9,12 +9,12 @@ export default class AttachmentHeader extends Component {
     const { openRequestDocumentModal, alreadyRequested } = this.props;
 
     return (
-      <div style={ wrapperStyle }>
-        <div style={ messageStyle }>
-          <span style={ titleStyle }>ATTACHMENTS</span>
-          <span style={ subTitleStyle }>MAY CONTAIN GRAPHIC CONTENT</span>
+      <div className={ styles.attachmentHeader }>
+        <div className='attachment-message'>
+          <span className='attachment-title'>ATTACHMENTS</span>
+          <span className='attachment-subtitle'>MAY CONTAIN GRAPHIC CONTENT</span>
         </div>
-        <div style={ requestButtonStyle }>
+        <div className='attachment-request-button'>
           <RequestDocumentButton
             alreadyRequested={ alreadyRequested }
             openRequestDocumentModal={ openRequestDocumentModal }

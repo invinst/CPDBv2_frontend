@@ -21,8 +21,8 @@ describe('CoaccusedCardFooter component', function () {
         findingOutcomeMix='Reprimand'
       />
     );
-    const category = findRenderedDOMComponentWithClass(instance, 'test--accused-card-category');
-    const outcome = findRenderedDOMComponentWithClass(instance, 'test--accused-card-outcome');
+    const category = findRenderedDOMComponentWithClass(instance, 'accused-card-category');
+    const outcome = findRenderedDOMComponentWithClass(instance, 'accused-card-outcome');
     category.textContent.should.eql('Operations/Personnel Violation');
     outcome.textContent.should.eql('Reprimand');
   });

@@ -1,0 +1,33 @@
+@import 'variables'
+
+\:local(.attachment-item)
+  width: 104px
+  margin-right: 16px
+  margin-top: 20px
+  padding-bottom: 8px
+  text-decoration: none
+  display: inline-block
+  vertical-align: top
+
+  .attachment-card-thumbnail
+    width: 45px
+    height: 60px
+    border: 1px solid $white-two-color
+    margin: 0 auto 8px
+    background: $sugar-cane-color no-repeat center center
+
+    &.document
+      background-size: cover
+
+  .attachment-card-title
+    color: $clay-gray
+    text-align: center
+    font-size: 14px
+    font-weight: 400
+
+  &:hover
+    .attachment-card-thumbnail
+      border: 1px solid $accent-color
+
+    .attachment-card-title
+      color: $accent-color

@@ -1,18 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import pluralize from 'pluralize';
+import cx from 'classnames';
 
 import OfficerCard from 'components/common/officer-card';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import {
-  wrapperStyle,
-  headerStyle,
-  accusedOfficersWrapperStyle,
-  moreButtonStyle,
-  bottomMarginStyle,
-  officerCardStyle,
-} from './accused-officers.style';
 import Popup from 'components/common/popup';
 import CoaccusedCardFooter from './coaccused-card-footer';
+import styles from './accused-officers.sass';
 
 
 export default class AccusedOfficers extends Component {
@@ -34,9 +28,9 @@ export default class AccusedOfficers extends Component {
     const { officers, popup, pathName } = this.props;
     const { expanded } = this.state;
     return (
-      <div style={ wrapperStyle(expanded) } className='test--accused-officer'>
+      <div className={ cx(styles.accusedOfficers, 'test--accused-officer', { 'expanded': expanded }) }>
         <ResponsiveFluidWidthComponent>
-          <h2 style={ headerStyle } className='test--accused-officer-title'>
+          <h2 className='accused-officer-title'>
             { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
             <Popup
               { ...popup }
@@ -44,12 +38,12 @@ export default class AccusedOfficers extends Component {
               url={ pathName }
             />
           </h2>
-          <div style={ accusedOfficersWrapperStyle }>
+          <div className='accused-officers-wrapper'>
             {
               officers.map(officer => (
                 <OfficerCard
-                  style={ officerCardStyle }
                   key={ officer.id } { ...officer }
+                  className={ styles.officerCard }
                   footer={
                     <CoaccusedCardFooter
                       finding={ officer.finding }
@@ -63,13 +57,11 @@ export default class AccusedOfficers extends Component {
             }
           </div>
         </ResponsiveFluidWidthComponent>
-        <div style={ bottomMarginStyle }/>
         {
           !expanded
             ? (
               <div
-                className='test--accused-officer-show-more'
-                style={ moreButtonStyle }
+                className='show-more-button'
                 onClick={ this.handleExpandList.bind(this) }>
                 Show all accused officers
               </div>
