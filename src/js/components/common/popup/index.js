@@ -13,6 +13,7 @@ import {
 } from './popup.style';
 import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 import * as GATracking from 'utils/google_analytics_tracking';
+import printStyles from 'components/common/print.sass';
 
 
 export default class Popup extends Component {
@@ -43,7 +44,7 @@ export default class Popup extends Component {
   render() {
     const { text, title, position, style } = this.props;
     return (
-      <span>
+      <span className={ printStyles.hideForPrint }>
         <ReactTooltip
           id={ this.tooltipId }
           className='popup'

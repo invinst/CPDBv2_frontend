@@ -8,6 +8,7 @@ import styles from './footer.sass';
 import { INVISIBLE_INSTITUTE_URL } from '../../utils/constants';
 import OutboundLink from 'components/common/outbound-link';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import printStyles from 'components/common/print.sass';
 
 class Footer extends React.Component {
   render() {
@@ -32,7 +33,7 @@ class Footer extends React.Component {
     ];
 
     return (
-      <div className={ cx(styles.footer, className) }>
+      <div className={ cx(styles.footer, className, printStyles.hideForPrint) }>
         <div className='footer-wrapper'>
           <div className={ cx(responsiveContainerStyles.responsiveContainer, 'responsive-fixed-width-inner') }>
             { links.map((link, ind) => (

@@ -22,10 +22,10 @@
     ga('create', GA_TRACKING_ID, 'auto');
     </script>
     <!-- End Google Analytics -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css'>
     <link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css">
-    
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css'>
+    <link rel='stylesheet' type='text/css' href='/src/css/print.css' media='print'>
   </head>
   <body>
     <div id='root'>

@@ -5,6 +5,7 @@ import { thumbnailStyle } from './attachment-item.style';
 import * as GATracking from 'utils/google_analytics_tracking';
 import OutboundLink from 'components/common/outbound-link';
 import styles from './attachment-item.sass';
+import printStyles from 'components/common/print.sass';
 
 
 class AttachmentItem extends Component {
@@ -29,7 +30,7 @@ class AttachmentItem extends Component {
       >
         <div
           style={ thumbnailStyle(fileType, previewImageUrl) }
-          className={ cx('attachment-card-thumbnail', fileType) } />
+          className={ cx('attachment-card-thumbnail', fileType, printStyles.hideForPrint) } />
         <div className='attachment-card-title'>{ title }</div>
       </OutboundLink>
     );

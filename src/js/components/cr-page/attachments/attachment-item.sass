@@ -2,12 +2,21 @@
 
 \:local(.attachment-item)
   width: 104px
-  margin-right: 16px
-  margin-top: 20px
+  margin: 20px 16px 0 0
   padding-bottom: 8px
   text-decoration: none
   display: inline-block
   vertical-align: top
+
+  @media print
+    width: auto
+    margin: 0
+    display: block
+    padding-bottom: 0
+    border-bottom: 1px solid $white-two-color
+
+    &:last-child
+      border: none
 
   .attachment-card-thumbnail
     width: 45px
@@ -24,6 +33,12 @@
     text-align: center
     font-size: 14px
     font-weight: 400
+
+    @media print
+      font-size: 12px
+      font-weight: 500
+      padding: 11px 0 11px 0
+      text-align: left
 
   &:hover
     .attachment-card-thumbnail

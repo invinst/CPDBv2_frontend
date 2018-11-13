@@ -4,6 +4,7 @@ import cx from 'classnames';
 import ViewMapButton from './view-map-button';
 import CRLocationMap from './cr-location-map';
 import styles from './location.sass';
+import printStyles from 'components/common/print.sass';
 
 
 export default class Location extends Component {
@@ -19,7 +20,7 @@ export default class Location extends Component {
         {
           address ? (
             <div className='location-row'>
-              <span className='label'>Address</span>
+              <span className={ cx(printStyles.hideForPrint, 'label') }>Address</span>
               <span className={ cx('content', 'test--location-address') }>{ address }</span>
               {
                 point ? <ViewMapButton lng={ point.lon } lat={ point.lat }/> : null
@@ -30,7 +31,7 @@ export default class Location extends Component {
         {
           location ? (
             <div className='location-row'>
-              <span className='label'>Location Type</span>
+              <span className={ cx(printStyles.hideForPrint, 'label') }>Location Type</span>
               <span className={ cx('content', 'test--location-type') }>{ location }</span>
             </div>
           ) : null

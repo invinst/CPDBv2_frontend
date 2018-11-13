@@ -5,6 +5,9 @@
   position: relative
   top: -1px
 
+  @media print
+    display: none
+
   .attachments-content
     margin: 0 16px
     position: relative
@@ -12,9 +15,15 @@
   &.has-data
     background-color: white
 
+    @media print
+      display: block
+
     .attachments-content
       border-bottom: 1px solid $white-two-color
       border-top: 1px solid $white-two-color
 
       .attachments
         padding-bottom: 8px
+
+        @media print
+          padding-bottom: 0

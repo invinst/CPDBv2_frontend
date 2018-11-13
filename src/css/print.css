@@ -1,0 +1,5 @@
+@media print {
+    div, span, p {
+        color: #231F20 !important;
+    }
+}

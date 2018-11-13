@@ -5,6 +5,7 @@ import cx from 'classnames';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import styles from './officer-row.sass';
+import printStyles from 'components/common/print.sass';
 
 
 class OfficerRow extends Component {
@@ -15,7 +16,7 @@ class OfficerRow extends Component {
       <Link
         className={ cx(styles.officerRow, 'test--officer-row', { 'hoverable': !isNil(id) }) }
         to={ id ? `/officer/${id}/${officerSlug}/` : null }>
-        <div className='chart-wrapper'>
+        <div className={ cx('chart-wrapper', printStyles.hideForPrint) }>
           <StaticRadarChart
             width={ 32 }
             height={ 32 }

@@ -8,10 +8,22 @@
   border-bottom: solid 1px $white-two-color
   display: flex
 
+  @media print
+    padding: 9px 0
+    border-bottom: solid 1px $purple-brown
+
   .cr-incident-date-label
     color: $soft-black-color
     flex-grow: 1
 
+    @media print
+      font-size: 12px
+      font-weight: 500
+
   .cr-incident-date-value
     color: $clay-gray
     flex-grow: 4
+
+    @media print
+      font-size: 12px
+      font-weight: 500

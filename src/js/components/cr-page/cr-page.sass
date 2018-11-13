@@ -1,9 +1,15 @@
 @import 'variables'
 
+$investigator-timeline-width: 320px
+$print-investigator-timeline-width: 200px
+
 \:local(.cr-page)
   position: relative
   background-color: $sugar-cane-color
   border-bottom: 1px solid $white-two-color
+
+  @media print
+    background-color: white
 
   .complaint-info
     background-color: white
@@ -11,33 +17,55 @@
     overflow: hidden
     border: 1px solid $white-two-color
 
+    @media print
+      border: none
+      margin: 0
+
   .investigation-timeline
-    width: 320px
+    width: $investigator-timeline-width
     display: inline-block
     padding: 0 16px
     box-sizing: border-box
     vertical-align: top
 
+    @media print
+      width: $print-investigator-timeline-width
+
   .cr-location
-    width: calc(100% - 320px)
+    width: calc(100% - #{$investigator-timeline-width})
     display: inline-block
     box-sizing: border-box
+
+    @media print
+      padding: 0 11px
+      width: calc(100% - #{$print-investigator-timeline-width})
 
   .cr-title
     font-family: $san-francisco-text-family
     font-size: 26px
     font-weight: 400
     color: $soft-black-color
-    padding-top: 16px
-    padding-bottom: 16px
+    padding: 16px 0
     margin: 0 16px
     border-bottom: solid 1px $white-two-color
+
+    @media print
+      border-bottom: none
+      padding: 0
+      font-size: 12px
+      font-weight: 500
+
 
   .cr-summary
     color: $clay-gray
     font-size: 14px
     font-family: $san-francisco-text-family
     font-weight: 300
+
+    @media print
+      font-size: 12px
+      padding: 11px 0
+      width: 70%
 
 \:local(.cr-page-footer)
   background-color: $soft-black-color

@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 
 import styles from './view-map-button.sass';
+import printStyles from 'components/common/print.sass';
 
 
 class ViewMapButton extends Component {
@@ -10,7 +11,10 @@ class ViewMapButton extends Component {
     const url = `http://maps.google.com/maps?&z=${zoom}&q=${lat}+${lng}&ll=${lat}+${lng}`;
 
     return (
-      <a className={ cx(styles.viewMapButton, 'test--view-map-button') } href={ url } target='_blank'>
+      <a
+        className={ cx(styles.viewMapButton, printStyles.hideForPrint, 'test--view-map-button') }
+        href={ url } target='_blank'
+      >
         View on google maps
         <div className='view-map-button-arrow' />
       </a>

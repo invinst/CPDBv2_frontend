@@ -8,6 +8,10 @@
   position: relative
   top: -1px
 
+  @media print
+    border-top: none
+    padding: 0
+
   .summary-label
     font-size: 14px
     font-family: $san-francisco-text-family
@@ -18,7 +22,19 @@
     vertical-align: top
     padding-top: 4px
 
+    @media print
+      width: auto
+      display: block
+      font-size: 10px
+      font-weight: bold
+      padding-top: 13px
+
   .summary-content
     display: inline-block
     width: 520px
     margin-left: 10px
+
+    @media print
+      width: auto
+      display: block
+      margin-left: 0

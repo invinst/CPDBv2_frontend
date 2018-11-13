@@ -4,8 +4,23 @@
   font-family: $san-francisco-text-family
   margin-bottom: 38px
 
+  &:last-child
+    margin-bottom: 0
+
+  @media print
+    margin-bottom: 0
+    border-bottom: 1px solid $purple-brown
+
+    &:last-child
+      border: none
+
   .involvement-type
     font-size: 14px
     font-weight: 400
     color: $soft-black-color
     margin-bottom: 8px
+
+    @media print
+      font-size: 10px
+      font-weight: bold
+      margin: 13px 0 11px 0
