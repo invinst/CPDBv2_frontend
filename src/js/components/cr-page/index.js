@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import DocumentTitle from 'react-document-title';
 import { get, isEmpty } from 'lodash';
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import FooterContainer from 'containers/footer-container';
 import SummaryRow from './summary-row';
@@ -17,6 +16,7 @@ import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 import { POPUP_NAMES } from 'utils/constants';
 import styles from './cr-page.sass';
+import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
 
 export default class CRPage extends Component {
@@ -35,20 +35,18 @@ export default class CRPage extends Component {
       <DocumentTitle title={ `CR ${crid}` }>
         <div className={ styles.crPage }>
           <ShareableHeaderContainer/>
-          <ResponsiveFluidWidthComponent>
+          <div className={ responsiveContainerStyles.responsiveContainer }>
             <h1 className='cr-title'>CR { crid }</h1>
-          </ResponsiveFluidWidthComponent>
-          <ComplaintCategory
-            category={ category }
-            subcategory={ subcategory }
-          />
-          <ComplaintIncidentDate incidentDate={ incidentDate }/>
-          <AccusedOfficers
-            officers={ coaccused }
-            popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
-            pathName={ pathname }
-          />
-          <ResponsiveFluidWidthComponent>
+            <ComplaintCategory
+              category={ category }
+              subcategory={ subcategory }
+            />
+            <ComplaintIncidentDate incidentDate={ incidentDate }/>
+            <AccusedOfficers
+              officers={ coaccused }
+              popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
+              pathName={ pathname }
+            />
             <div className='complaint-info'>
               {
                 victims.length > 0
@@ -88,7 +86,7 @@ export default class CRPage extends Component {
                 <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
               </div>
             </div>
-          </ResponsiveFluidWidthComponent>
+          </div>
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
           <FooterContainer className={ styles.crPageFooter }/>
         </div>

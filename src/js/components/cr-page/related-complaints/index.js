@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { values, findKey } from 'lodash';
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import RelatedComplaintsCarouselContainer from 'containers/cr-page/related-complaints-carousel';
 import { DISTANCE_OPTIONS } from 'utils/constants';
 import Dropdown from 'components/common/dropdown';
 import styles from './related-complaints.sass';
+import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
 
 export default class RelatedComplaints extends Component {
@@ -28,7 +28,7 @@ export default class RelatedComplaints extends Component {
     const { selectedDistance } = this.state;
     return (
       <div className={ styles.relatedComplaints }>
-        <ResponsiveFluidWidthComponent>
+        <div className={ responsiveContainerStyles.responsiveContainer }>
           <div className='related-complaints-header'>
             <h2 className='related-complaints-title'>Related Complaints</h2>
             <div className='related-complaints-filter'>
@@ -42,7 +42,7 @@ export default class RelatedComplaints extends Component {
               OF CR { crid }
             </div>
           </div>
-        </ResponsiveFluidWidthComponent>
+        </div>
         <div className='carousels-wrapper'>
           <RelatedComplaintsCarouselContainer
             distance={ selectedDistance }
