@@ -24,25 +24,24 @@ class LegalDisclaimerModalContent extends Component {
           </p>
           <p>
             We cannot guarantee the accuracy of this data - instead we commit ourselves to being honest about
-            flaws (
-              <OutboundLink href={ QA_LINK } style={ linkStyle }>Q&A</OutboundLink>
+            flaws (<OutboundLink href={ QA_LINK } style={ linkStyle }>Q&A</OutboundLink>
             ), transparent in our publishing process (
-              <OutboundLink
-                href='https://github.com/invinst/'
-                target='_blank'
-                style={ linkStyle }
-                className='test--github-link'
-              >
-                GitHub
-              </OutboundLink>
+            <OutboundLink
+              href='https://github.com/invinst/'
+              target='_blank'
+              style={ linkStyle }
+              className='test--github-link'
+            >
+              GitHub
+            </OutboundLink>
             ), and welcoming of critiques (
-              <a
-                className='test--contact-link'
-                style={ linkStyle }
-                onClick={ () => { showIntercomMessages(true); } }
-              >
-                contact
-              </a>
+            <a
+              className='test--contact-link'
+              style={ linkStyle }
+              onClick={ () => { showIntercomMessages(true); } }
+            >
+              contact
+            </a>
             ).
           </p>
         </div>

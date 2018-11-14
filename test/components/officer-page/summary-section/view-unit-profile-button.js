@@ -1,7 +1,7 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { Link } from 'react-router';
 
 import ViewUnitProfileButton from 'components/officer-page/summary-section/view-unit-profile-button';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -15,17 +15,9 @@ describe('ViewUnitProfileButton component', function () {
   });
 
   it('should render properly', function () {
-    instance = renderIntoDocument(<ViewUnitProfileButton />);
+    instance = renderIntoDocument(<ViewUnitProfileButton unitName='localUnit' />);
     findDOMNode(instance).innerText.should.containEql('View Unit Profile');
-  });
-
-  it('should handle onClick event', function () {
-    const onClick = spy();
-    instance = renderIntoDocument(<ViewUnitProfileButton onClick={ onClick } unitName='001'/>);
-
-    const element = findRenderedDOMComponentWithClass(instance, 'test--view-profile-button');
-    Simulate.click(element);
-
-    onClick.calledWith('001').should.be.true();
+    const link = findRenderedComponentWithType(instance, Link);
+    link.props.to.should.eql('/unit/localUnit/');
   });
 });

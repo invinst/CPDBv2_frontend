@@ -28,6 +28,7 @@ describe('store', function () {
   it('should have initial state', function () {
     const { getCurrentState } = setUp();
     getCurrentState().should.eql({
+      pathname: null,
       landingPage: {
         activityGrid: {
           cards: [],
@@ -153,7 +154,6 @@ describe('store', function () {
         breadcrumbCachedFullName: '',
         isRequesting: false,
         officerId: null,
-        pathname: null,
         summary: {},
         newTimeline: {
           filter: {
@@ -191,6 +191,9 @@ describe('store', function () {
         slimHeader: {
           logoSectionEditModeOn: false
         }
+      },
+      embed: {
+        officers: []
       }
     });
   });

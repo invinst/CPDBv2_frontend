@@ -1,6 +1,7 @@
-import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
+import Attachments from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments';
 import Hoverable from 'components/common/higher-order/hoverable';
 
 import {
@@ -23,8 +24,6 @@ class Cr extends Component {
       hasBorderBottom,
       baseStyles,
       hovering,
-      officerId,
-      openComplaintPage,
       changeOfficerTab,
       pathname,
     } = this.props;
@@ -39,9 +38,9 @@ class Cr extends Component {
     } = baseStyles;
 
     return (
-      <span
+      <Link
         style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle(hovering) } }
-        onClick={ () => openComplaintPage({ crid: item.crid, officerId: officerId }) }
+        to={ `/complaint/${item.crid}/` }
         className='test--cr-item'
       >
         <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
@@ -67,7 +66,7 @@ class Cr extends Component {
             <span style={ { ...baseDateStyle, ...dateStyle } } className='test--cr-item-date'>{ item.date }</span>
           </span>
         </span>
-      </span>
+      </Link>
     );
   }
 }
@@ -78,7 +77,6 @@ Cr.propTypes = {
   baseStyles: PropTypes.object,
   hovering: PropTypes.bool,
   officerId: PropTypes.number,
-  openComplaintPage: PropTypes.func,
   changeOfficerTab: PropTypes.func,
   pathname: PropTypes.string,
 };

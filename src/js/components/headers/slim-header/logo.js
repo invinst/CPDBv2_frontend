@@ -22,19 +22,23 @@ class Logo extends Component {
           <MediaQuery minWidth={ 830 }>
             { (matches) => (
               matches
-                ? <LinkTextEditable
-                  style={ titleStyle[position] }
-                  className='test--header-logo-title'
-                  placeholder='Title'
-                  to={ titleLink }
-                  fieldname='navbar_title'
+                ? (
+                  <LinkTextEditable
+                    style={ titleStyle[position] }
+                    className='test--header-logo-title'
+                    placeholder='Title'
+                    to={ titleLink }
+                    fieldname='navbar_title'
                   />
-                : <Link
-                  style={ titleStyle[position] }
-                  to={ titleLink }
-                  className='test--header-logo-title'>
+                )
+                : (
+                  <Link
+                    style={ titleStyle[position] }
+                    to={ titleLink }
+                    className='test--header-logo-title'>
                     CPDP
                   </Link>
+                )
             ) }
           </MediaQuery>
           <MediaQuery minWidth={ 950 }>

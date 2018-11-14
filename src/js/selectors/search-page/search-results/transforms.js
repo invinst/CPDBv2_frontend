@@ -25,16 +25,17 @@ const areaTypeMap = (areaType) => ({
   })
 });
 
+const officerTypeMap = (type) => ({
+  [type]: (suggestion) => ({
+    type: 'OFFICER',
+    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
+  })
+});
 
 const previewPaneTypeMap = {
-  OFFICER: (suggestion) => ({
-    type: 'OFFICER',
-    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
-  }),
-  'UNIT > OFFICERS': (suggestion) => ({
-    type: 'OFFICER',
-    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
-  }),
+  ...officerTypeMap('OFFICER'),
+  ...officerTypeMap('DATE > OFFICERS'),
+  ...officerTypeMap('UNIT > OFFICERS'),
   ...areaTypeMap('COMMUNITY'),
   ...areaTypeMap('NEIGHBORHOOD'),
   ...areaTypeMap('WARD'),
@@ -106,40 +107,44 @@ const trrTransform = (item) => {
   };
 };
 
+const officerTransform = (item) => {
+  const race = item['race'] === 'Unknown' ? null : item['race'];
+  const lastPercentile = last(item['percentiles']);
+  return {
+    fullName: item['name'],
+    appointedDate: formatDate(item['appointed_date']),
+    resignationDate: formatDate(item['resignation_date']),
+    badge: item['badge'],
+    gender: item['gender'] || '',
+    to: item['to'],
+    age: getCurrentAge(item['birth_year']) || null,
+    race: race || '',
+    rank: item['rank'],
+    unit: {
+      id: get(item['unit'], 'id'),
+      unitName: get(item['unit'], 'unit_name'),
+      description: get(item['unit'], 'description'),
+    },
+    lastPercentile: extractPercentile(lastPercentile),
+    complaintCount: item['allegation_count'],
+    complaintPercentile: roundedPercentile(get(lastPercentile, 'percentile_allegation')),
+    civilianComplimentCount: item['civilian_compliment_count'],
+    sustainedCount: item['sustained_count'],
+    disciplineCount: item['discipline_count'],
+    trrCount: get(item, 'trr_count'),
+    trrPercentile: roundedPercentile(get(lastPercentile, 'percentile_trr')),
+    majorAwardCount: get(item, 'major_award_count'),
+    honorableMentionCount: get(item, 'honorable_mention_count'),
+    honorableMentionPercentile: roundedPercentile(get(item, 'honorable_mention_percentile')),
+  };
+};
+
 const searchResultTransformMap = {
   'DATE > CR': crTransform,
   'DATE > TRR': trrTransform,
-  OFFICER: (item) => {
-    const race = item['race'] === 'Unknown' ? null : item['race'];
-    const lastPercentile = last(item['percentiles']);
-    return {
-      fullName: item['name'],
-      appointedDate: formatDate(item['appointed_date']),
-      resignationDate: formatDate(item['resignation_date']),
-      badge: item['badge'],
-      gender: item['gender'] || '',
-      to: item['to'],
-      age: getCurrentAge(item['birth_year']) || null,
-      race: race || '',
-      rank: item['rank'],
-      unit: {
-        id: get(item['unit'], 'id'),
-        unitName: get(item['unit'], 'unit_name'),
-        description: get(item['unit'], 'description'),
-      },
-      lastPercentile: extractPercentile(lastPercentile),
-      complaintCount: item['allegation_count'],
-      complaintPercentile: roundedPercentile(get(lastPercentile, 'percentile_allegation')),
-      civilianComplimentCount: item['civilian_compliment_count'],
-      sustainedCount: item['sustained_count'],
-      disciplineCount: item['discipline_count'],
-      trrCount: get(item, 'trr_count'),
-      trrPercentile: roundedPercentile(get(lastPercentile, 'percentile_trr')),
-      majorAwardCount: get(item, 'major_award_count'),
-      honorableMentionCount: get(item, 'honorable_mention_count'),
-      honorableMentionPercentile: roundedPercentile(get(item, 'honorable_mention_percentile')),
-    };
-  },
+  'DATE > OFFICERS': officerTransform,
+  'UNIT > OFFICERS': officerTransform,
+  OFFICER: officerTransform,
   CR: crTransform,
   TRR: trrTransform,
   COMMUNITY: areaTransform,
@@ -169,7 +174,8 @@ const textsMap = {
 const uniqueKeyMap = {
   'DATE > CR': 'DATE-CR',
   'DATE > TRR': 'DATE-TRR',
-  'UNIT > OFFICERS': 'UNIT-OFFICERS'
+  'UNIT > OFFICERS': 'UNIT-OFFICERS',
+  'DATE > OFFICERS': 'DATE-OFFICERS'
 };
 
 const baseItemTransform = (item) => ({

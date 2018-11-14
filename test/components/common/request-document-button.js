@@ -35,4 +35,14 @@ describe('RequestDocumentButton component', function () {
     Simulate.click(findDOMNode(instance));
     func.called.should.be.true();
   });
+
+  it('should do nothing when clicked on if the document is requested', function () {
+    const func = spy();
+    instance = renderIntoDocument(
+      <HoverableRequestDocumentButton alreadyRequested={ true } openRequestDocumentModal={ func }/>
+    );
+    instance = findRenderedComponentWithType(instance, RequestDocumentButton);
+    Simulate.click(findDOMNode(instance));
+    func.called.should.be.false();
+  });
 });

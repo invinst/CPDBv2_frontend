@@ -1,6 +1,5 @@
 import {
   getOfficerName,
-  getPathname,
   metricsSelector,
   summarySelector,
   getCurrentTab,
@@ -149,17 +148,6 @@ describe('officer page selectors', function () {
         useOfForcePercentile: 9.0,
         civilianComplimentCount: 10,
       });
-    });
-  });
-
-  describe('getPathname', function () {
-    it('should return pathname', function () {
-      const state = {
-        officerPage: {
-          pathname: '/some/path/'
-        }
-      };
-      getPathname(state).should.eql('/some/path/');
     });
   });
 

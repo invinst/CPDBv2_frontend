@@ -19,9 +19,9 @@ describe('Coaccusals component', function () {
         coaccusals: [
           {
             officerName: 'officerName 1',
-            allegationCount: 15,
+            complaintCount: 15,
             sustainedCount: 1,
-            allegationPercentile: 59.0,
+            complaintPercentile: 59.0,
             age: 40,
             race: 'white',
             gender: 'male',
@@ -29,9 +29,9 @@ describe('Coaccusals component', function () {
           },
           {
             officerName: 'officerName 2',
-            allegationCount: 10,
+            complaintCount: 10,
             sustainedCount: 1,
-            allegationPercentile: 39.0,
+            complaintPercentile: 39.0,
             age: 40,
             race: 'white',
             gender: 'male',
@@ -44,9 +44,9 @@ describe('Coaccusals component', function () {
         coaccusals: [
           {
             officerName: 'officerName 3',
-            allegationCount: 5,
+            complaintCount: 5,
             sustainedCount: 1,
-            allegationPercentile: 19.0,
+            complaintPercentile: 19.0,
             age: 40,
             race: 'white',
             gender: 'male',
@@ -59,7 +59,7 @@ describe('Coaccusals component', function () {
     instance = renderIntoDocument(<Coaccusals coaccusalGroups={ coaccusalGroups }/>);
 
     const groups = scryRenderedDOMComponentsWithClass(instance, 'test--coaccusals-group-name');
-    const coaccusalCards = scryRenderedDOMComponentsWithClass(instance, 'test--coaccusal-card');
+    const coaccusalCards = scryRenderedDOMComponentsWithClass(instance, 'test--officer-card');
 
     groups.length.should.eql(2);
     coaccusalCards.length.should.eql(3);

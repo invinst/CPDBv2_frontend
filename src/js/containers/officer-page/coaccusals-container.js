@@ -4,7 +4,6 @@ import React from 'react';
 
 import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
 import { coaccusalGroupsSelector } from 'selectors/officer-page/coaccusals';
-import { openOfficerPage } from 'actions/open-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -13,8 +12,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-const mapDispatchToProps = {
-  openOfficerPage
-};
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Coaccusals));
+export default withRouter(connect(mapStateToProps)(Coaccusals));

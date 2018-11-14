@@ -32,6 +32,7 @@ describe('activity-grid selectors', function () {
         'complaint_percentile': 80,
         'birth_year': 1970,
         race: 'Black',
+        rank: 'Police Officer',
         gender: 'Female',
         type: 'single_officer',
       }];
@@ -44,6 +45,7 @@ describe('activity-grid selectors', function () {
         complaintPercentile: 80,
         birthYear: 1970,
         race: 'black',
+        rank: 'Police Officer',
         gender: 'female',
         percentile: null,
         type: 'single_officer',
@@ -87,6 +89,7 @@ describe('activity-grid selectors', function () {
         'complaint_percentile': 80,
         'birth_year': 1970,
         race: 'Black',
+        rank: 'Police Officer',
         gender: 'Female',
         type: 'single_officer',
       }];
@@ -99,6 +102,7 @@ describe('activity-grid selectors', function () {
         complaintPercentile: 80,
         birthYear: 1970,
         race: 'black',
+        rank: 'Police Officer',
         gender: 'female',
         percentile: null,
         type: 'single_officer',

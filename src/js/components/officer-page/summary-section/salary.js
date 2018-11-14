@@ -7,7 +7,7 @@ import Popup from 'components/common/popup';
 
 export default class Salary extends Component {
   render() {
-    const { salary, popup } = this.props;
+    const { salary, popup, pathName } = this.props;
 
     return (
       <div className='test--salary'>
@@ -19,6 +19,7 @@ export default class Salary extends Component {
           { ...popup }
           position='relative'
           style={ popupStyle }
+          url={ pathName }
         />
       </div>
     );
@@ -28,4 +29,5 @@ export default class Salary extends Component {
 Salary.propTypes = {
   salary: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   popup: PropTypes.object,
+  pathName: PropTypes.strings,
 };

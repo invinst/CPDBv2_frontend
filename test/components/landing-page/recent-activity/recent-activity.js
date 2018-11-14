@@ -9,7 +9,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import OfficerCard from 'components/landing-page/common/officer-card';
+import OfficerCard from 'components/common/officer-card';
 import RecentActivity from 'components/landing-page/recent-activity';
 import PairingCard from 'components/landing-page/common/pairing-card';
 import Carousel from 'components/common/carousel';
@@ -28,6 +28,7 @@ describe('Recent Activity components', function () {
     'complaintPercentile': 84.5,
     'race': 'Hispanic',
     'gender': 'Male',
+    'rank': 'Police Officer',
     'type': 'single_officer',
   }, {
     'id': 2,
@@ -38,6 +39,7 @@ describe('Recent Activity components', function () {
     'complaintPercentile': 94.5,
     'race': 'White',
     'gender': 'Male',
+    'rank': 'Police Officer',
     'type': 'single_officer',
   }];
   const pairCardData = [{
@@ -49,6 +51,7 @@ describe('Recent Activity components', function () {
       'age': 54,
       'race': 'White',
       'gender': 'Male',
+      'rank': 'Police Officer',
       'percentile': {
         'percentileAllegation': '99.987',
         'percentileAllegationCivilian': '99.984',
@@ -63,6 +66,7 @@ describe('Recent Activity components', function () {
       'age': 56,
       'race': 'White',
       'gender': 'Male',
+      'rank': 'Police Officer',
       'percentile': {
         'percentileAllegation': '99.924',
         'percentileAllegationCivilian': '99.908',
@@ -92,13 +96,14 @@ describe('Recent Activity components', function () {
     officerCards.should.have.length(2);
 
     const officerCard1 = findDOMNode(officerCards[0]);
+    officerCard1.textContent.should.containEql('Police Officer');
     officerCard1.textContent.should.containEql('Manuel Guzman');
     officerCard1.textContent.should.containEql('More than 84% of other officers');
     officerCard1.textContent.should.containEql('13 Allegations');
 
     const officerCard2 = findDOMNode(officerCards[1]);
     officerCard2.textContent.should.containEql('Jerome Finnagan');
-    officerCard2.textContent.should.containEql('55 Allegations, 22 Sustained');
+    officerCard2.textContent.should.containEql('55 Allegations 22 Sustained');
     officerCard2.textContent.should.containEql('More than 94% of other officers');
   });
 
@@ -108,10 +113,11 @@ describe('Recent Activity components', function () {
     );
 
     const pairingCard = findDOMNode(findRenderedComponentWithType(instance, PairingCard));
+    pairingCard.textContent.should.containEql('Police Officer');
     pairingCard.textContent.should.containEql('Jerome Finnigan');
-    pairingCard.textContent.should.containEql('54 year old, White, Male.');
+    pairingCard.textContent.should.containEql('54-year-old White Male');
     pairingCard.textContent.should.containEql('John Burzinski');
-    pairingCard.textContent.should.containEql('56 year old, White, Male.');
+    pairingCard.textContent.should.containEql('56-year-old White Male');
     pairingCard.textContent.should.containEql('Coaccused 23 times');
   });
 

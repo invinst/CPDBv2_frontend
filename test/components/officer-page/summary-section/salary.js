@@ -26,12 +26,19 @@ describe('Salary', function () {
       title: 'Salary',
       text: 'Some salary explanation',
     };
-    instance = renderIntoDocument(<Salary salary={ 1000000 } popup={ popup } />);
+    instance = renderIntoDocument(
+      <Salary
+        salary={ 1000000 }
+        popup={ popup }
+        pathName='/officer/8562/jerome-finnigan/'
+      />
+    );
 
     const salaryAmount = findRenderedDOMComponentWithClass(instance, 'test--salary-amount');
     salaryAmount.textContent.should.eql('$1,000,000');
     const salaryPopup = findRenderedComponentWithType(instance, Popup);
     salaryPopup.props.title.should.eql('Salary');
     salaryPopup.props.text.should.eql('Some salary explanation');
+    salaryPopup.props.url.should.eql('/officer/8562/jerome-finnigan/');
   });
 });

@@ -21,7 +21,7 @@ import * as intercomUtils from 'utils/intercom';
 import { NavigationItem } from 'utils/test/factories/suggestion';
 import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
-import { MORE_BUTTON } from 'utils/constants';
+import { MORE_BUTTON, RECENT_CONTENT_TYPE } from 'utils/constants';
 import * as IntercomTracking from 'utils/intercom-tracking';
 
 
@@ -209,6 +209,27 @@ describe('SearchPage component', function () {
     getSuggestionWithContentType.calledWith('a', {
       contentType: 'a'
     }).should.be.true();
+  });
+
+  it('should not call api when select recent content', function () {
+    const getSuggestionWithContentType = spy();
+    const getSuggestion = spy();
+    const tags = [RECENT_CONTENT_TYPE, 'b'];
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage
+          getSuggestionWithContentType={ getSuggestionWithContentType }
+          getSuggestion={ getSuggestion }
+          tags={ tags }
+          query='a'
+        />
+      </Provider>
+    );
+    const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
+    const tagElements = scryRenderedDOMComponentsWithTag(suggestionTagsElement, 'span');
+    Simulate.click(tagElements[0]);
+    getSuggestionWithContentType.called.should.be.false();
+    getSuggestion.called.should.be.false();
   });
 
   it('should call api when user deselect a tag', function () {
