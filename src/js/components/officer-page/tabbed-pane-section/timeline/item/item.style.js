@@ -50,9 +50,8 @@ export const changeStyle = (height, isFirst, isLast) => ({
   background: 'none',
 });
 
-export const textStyle = (unassigned, current) => ({
+export const textStyle = current => ({
   height: '32px',
   lineHeight: '32px',
   color: current ? softBlackColor : clayGray,
-  fontStyle: unassigned ? 'italic' : 'none',
 });

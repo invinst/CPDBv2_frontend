@@ -18,7 +18,7 @@ export default class Joined extends Component {
       baseDateStyle,
     } = baseStyles;
     const unitString = item.unitName === 'Unassigned' ? '' : ` with ${item.unitName}`;
-    const rankString = item.rank === 'Unassigned' ? '' : ` as a ${item.rank}`;
+    const rankString = item.rank === 'Unknown' ? '' : ` as a ${item.rank}`;
 
     return (
       <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } }>

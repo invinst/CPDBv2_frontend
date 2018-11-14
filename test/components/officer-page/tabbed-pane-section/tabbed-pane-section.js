@@ -9,9 +9,13 @@ import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { stub } from 'sinon';
 
+import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
 import { unmountComponentSuppressError } from 'utils/test';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
+import MapTab from 'components/officer-page/tabbed-pane-section/map';
+import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
+import AttachmentsTab from 'components/officer-page/tabbed-pane-section/attachments-tab';
 
 
 describe('TabbedPaneSection component', function () {
@@ -68,14 +72,44 @@ describe('TabbedPaneSection component', function () {
     tabNames[0].textContent.should.be.eql('TIMELINE');
   });
 
-  it('should render current tab', function () {
+  it('should render timeline tab', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <TabbedPaneSection currentTab='TIMELINE'/>
+        <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.TIMELINE }/>
       </Provider>
     );
 
     findRenderedComponentWithType(instance, Timeline).should.be.ok();
+  });
+
+  it('should render map tab', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.MAP }/>
+      </Provider>
+    );
+
+    findRenderedComponentWithType(instance, MapTab).should.be.ok();
+  });
+
+  it('should render coaccusals tab', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.COACCUSALS }/>
+      </Provider>
+    );
+
+    findRenderedComponentWithType(instance, Coaccusals).should.be.ok();
+  });
+
+  it('should render attachment tab', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <TabbedPaneSection currentTab={ OFFICER_PAGE_TAB_NAMES.ATTACHMENTS }/>
+      </Provider>
+    );
+
+    findRenderedComponentWithType(instance, AttachmentsTab).should.be.ok();
   });
 
   it('should call changeOfficerTab when clicking tab name', function () {

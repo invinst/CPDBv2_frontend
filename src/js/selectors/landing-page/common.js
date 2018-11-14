@@ -1,10 +1,15 @@
 import { toLower } from 'lodash';
 
-import { officerCardTransform } from 'selectors/common/officer-card';
 import { ACTIVITY_GRID_CARD_TYPES } from 'utils/constants';
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getCurrentAge } from 'utils/date';
+import { officerCardTransform } from 'selectors/common/officer-card';
 
+
+export const singleCardTransform = card => ({
+  ...officerCardTransform(card),
+  type: card['type'],
+});
 
 export const cardTransform = card => {
   if (!card['type']) {
@@ -15,11 +20,6 @@ export const cardTransform = card => {
     return pairingCardTransform(card);
   }
 };
-
-export const singleCardTransform = card => ({
-  ...officerCardTransform(card),
-  type: card['type'],
-});
 
 export const simpleOfficerTransform = officer => {
   const percentile = officer.percentile;

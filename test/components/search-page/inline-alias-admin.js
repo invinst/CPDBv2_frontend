@@ -1,6 +1,5 @@
 import React from 'react';
 import TagsInput from 'react-tagsinput';
-import Link from 'components/common/react-router-link';
 import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
@@ -10,6 +9,7 @@ import {
   findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
+import { Link } from 'react-router';
 
 import { SEARCH_ALIAS_EDIT_PATH } from 'utils/constants';
 import InlineAliasAdmin from 'components/search-page/inline-alias-admin';

@@ -11,7 +11,8 @@ const labelMapping = {
   'CR': 'CR',
   'TRR': 'TRR',
   'DATE > CR': 'Date > CR',
-  'DATE > TRR': 'Date > TRR'
+  'DATE > TRR': 'Date > TRR',
+  'DATE > OFFICERS': 'Date > Officers',
 };
 
 class RecentSuggestionItem extends Component {

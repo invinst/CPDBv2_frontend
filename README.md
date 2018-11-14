@@ -4,7 +4,6 @@
 
 ## Getting Started
 
-- Make sure your node version match: (node v6.10.3 and yarn v0.23.4)
 - `yarn`
 
 ## Run Tests
@@ -19,16 +18,7 @@
 
 ## Development
 
-First copy the font folder from `src/fonts` to `src/dist` so that the local server can serve fonts correctly:
-
-```bash
-mkdir src/dist
-cp -r src/fonts src/dist
-```
-
-Then:
-
-- `yarn start` to run development server (powered by [budo](https://github.com/mattdesl/budo))
+- `yarn start` to run development server.
 - visit `localhost:9966` to see live changes.
 
 ## Deployment

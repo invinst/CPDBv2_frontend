@@ -1,7 +1,7 @@
 var historyApiFallback = require('connect-history-api-fallback');
 var browserSync = require('browser-sync').create();
-var gulp = require('gulp');
-require('./gulpfile.js');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config');
 
 
 exports.config = {
@@ -169,7 +169,25 @@ exports.config = {
       if (process.argv.indexOf('--no-build')!==-1) {
         startTestServer(resolve);
       } else {
-        gulp.start('build-live-test', function () {
+        webpack(webpackConfig, (err, stats) => {
+          if (err) {
+            console.error(err.stack || err);
+            if (err.details) {
+              console.error(err.details);
+            }
+            return;
+          }
+
+          const info = stats.toJson();
+
+          if (stats.hasErrors()) {
+            console.error(info.errors);
+          }
+
+          if (stats.hasWarnings()) {
+            console.warn(info.warnings);
+          }
+
           startTestServer(resolve);
         });
       }
@@ -242,7 +260,7 @@ exports.config = {
   seleniumArgs: {
     drivers: {
       chrome: {
-        version: 2.36,
+        version: '2.36',
         baseURL: 'https://chromedriver.storage.googleapis.com'
       }
     }
@@ -250,9 +268,10 @@ exports.config = {
   seleniumInstallArgs: {
     drivers: {
       chrome: {
-        version: 2.36,
+        version: '2.36',
         baseURL: 'https://chromedriver.storage.googleapis.com'
       }
     }
-  }
+  },
+  seleniumLogs: '/tmp'
 };
