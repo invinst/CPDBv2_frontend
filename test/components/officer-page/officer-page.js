@@ -2,8 +2,7 @@ import React from 'react';
 import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import DocumentTitle from 'react-document-title';
-import { spy } from 'sinon';
+import DocumentMeta from 'react-document-meta';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
@@ -39,9 +38,9 @@ describe('OfficerPage component', function () {
   });
 
   it('should render enough sections', function () {
-    const triangleEditWrapperStateProps = spy();
-    const scaleEditWrapperStateProps = spy();
-    const noDataRadarChartEditWrapperStateProps = spy();
+    const triangleEditWrapperStateProps = { a: 1 };
+    const scaleEditWrapperStateProps = { b: 2 };
+    const noDataRadarChartEditWrapperStateProps = { c: 3 };
 
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -63,28 +62,88 @@ describe('OfficerPage component', function () {
     officerRadarChart.props.noDataRadarChartEditWrapperStateProps.should.eql(noDataRadarChartEditWrapperStateProps);
   });
 
-  it('should render correct document title', function () {
+  it('should render correct document title and description', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <OfficerPage
           officerName='Shaun Frank'
           officerSummary={ { rank: 'Officer' } }
+          officerMetrics={ {
+            allegationCount: 5,
+            useOfForceCount: 10,
+          } }
+          numAttachments={ 3 }
         />
       </Provider>
     );
 
-    let documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
-    documentTitle.props.title.should.eql('Officer Shaun Frank');
+    const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+    documentMeta.props.title.should.eql('Officer Shaun Frank');
+    documentMeta.props.description.should.eql(
+      'Officer Shaun Frank of the Chicago Police Department has ' +
+      '5 complaints, 10 use of force reports, and 3 original documents available.'
+    );
+  });
 
-    instance = reRender(
+  it('should add badge number into document description if officer name is not unique and badge is not Unknown',
+    function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <OfficerPage
+            officerName='Shaun Frank'
+            officerSummary={ { rank: 'Officer', badge: '1424', hasUniqueName: false } }
+            officerMetrics={ {
+              allegationCount: 1,
+              useOfForceCount: 0,
+            } }
+            numAttachments={ 3 }
+          />
+        </Provider>
+      );
+
+      const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+      documentMeta.props.title.should.eql('Officer Shaun Frank');
+      documentMeta.props.description.should.eql(
+        'Officer Shaun Frank of the Chicago Police Department with Badge Number 1424 has ' +
+        '1 complaint, 0 use of force reports, and 3 original documents available.'
+      );
+    }
+  );
+
+  it('should not add badge number into document description if badge is Unknown',
+    function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <OfficerPage
+            officerName='Shaun Frank'
+            officerSummary={ { rank: 'Officer', badge: 'Unknown', hasUniqueName: false } }
+            officerMetrics={ {
+              allegationCount: 1,
+              useOfForceCount: 0,
+            } }
+            numAttachments={ 3 }
+          />
+        </Provider>
+      );
+
+      const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+      documentMeta.props.title.should.eql('Officer Shaun Frank');
+      documentMeta.props.description.should.eql(
+        'Officer Shaun Frank of the Chicago Police Department has ' +
+        '1 complaint, 0 use of force reports, and 3 original documents available.'
+      );
+    }
+  );
+
+  it('should handle N/A rank', function () {
+    instance = renderIntoDocument(
       <Provider store={ store }>
         <OfficerPage officerName='Jerome Finigan' officerSummary={ { rank: 'N/A' } }/>
-      </Provider>,
-      instance
+      </Provider>
     );
 
-    documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
-    documentTitle.props.title.should.eql('Jerome Finigan');
+    const documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+    documentMeta.props.title.should.eql('Jerome Finigan');
   });
 
   it('should render correct officer page in redirecting case', function () {
@@ -109,7 +168,7 @@ describe('OfficerPage component', function () {
       instance
     );
 
-    let documentTitle = findRenderedComponentWithType(instance, DocumentTitle);
-    documentTitle.props.title.should.eql('Officer Shaun Frank');
+    let documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
+    documentMeta.props.title.should.eql('Officer Shaun Frank');
   });
 });
