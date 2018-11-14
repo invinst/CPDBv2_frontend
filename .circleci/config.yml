@@ -103,11 +103,25 @@ jobs:
 
   deploy:
     docker:
-      - image: cpdbdev/kubectl:v1.11.3
+      - image: google/cloud-sdk
+    environment:
+      PROJECT_NAME: "CPDB"
+      GOOGLE_PROJECT_ID: "twitterbot-180604"
+      GOOGLE_COMPUTE_ZONE: "us-central1-a"
+      GOOGLE_CLUSTER_NAME: "cpdp-gke"
     steps:
       - checkout
       - attach_workspace:
           at: /tmp/workspace
+      - run: 
+          name: Setup Google Cloud SDK
+          command: |
+            apt-get install -qq -y gettext
+            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
       - run:
           name: Apply deployment
           command: |
@@ -117,8 +131,8 @@ jobs:
             else
               export NAMESPACE=staging
             fi
-            echo $KUBECONFIG_JSON > /root/project/config.json
-            IMAGE_TAG=$(cat /tmp/workspace/buildnum) templater desktop-frontend.yml | kubectl --kubeconfig /root/project/config.json apply -f - --namespace=$NAMESPACE
+            export IMAGE_TAG=$(cat /tmp/workspace/buildnum)
+            cat desktop-frontend.yml | envsubst | kubectl apply -f - --namespace=$NAMESPACE
 
 workflows:
   version: 2
