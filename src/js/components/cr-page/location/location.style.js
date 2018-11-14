@@ -7,21 +7,21 @@ export const wrapperStyle = {
   fontFamily: sanFranciscoTextFamily
 };
 
-export const addressStyle = {
+export const addressStyle = isBottom => ({
   padding: '11px 0',
-  borderBottom: `solid 1px ${whiteTwoColor}`,
+  borderBottom: isBottom ? null : `solid 1px ${whiteTwoColor}`,
   margin: '0 16px',
   fontWeight: 400,
   minHeight: '18px'
-};
+});
 
-export const locationStyle = {
+export const locationStyle = isBottom => ({
   padding: '11px 0',
-  borderBottom: `solid 1px ${whiteTwoColor}`,
+  borderBottom: isBottom ? null : `solid 1px ${whiteTwoColor}`,
   margin: '0 16px',
   fontWeight: 400,
   minHeight: '18px'
-};
+});
 
 export const beatStyle = {
   padding: '11px 0',

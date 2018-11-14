@@ -32,11 +32,17 @@ describe('InvolvementItem component', function () {
       },
     };
     instance = renderIntoDocument(
-      <InvolvementItem officers={ officers } involvedType='investigator' popup={ popup } />
+      <InvolvementItem
+        officers={ officers }
+        involvedType='investigator'
+        popup={ popup }
+        pathName='/complaint/1086235/'
+      />
     );
     const involvementItemPopup = findRenderedComponentWithType(instance, Popup);
     involvementItemPopup.props.title.should.eql('Investigator');
     involvementItemPopup.props.text.should.eql('Some investigator explanation');
+    involvementItemPopup.props.url.should.eql('/complaint/1086235/');
   });
 
   it('should render policeWitness popup', function () {
@@ -47,10 +53,16 @@ describe('InvolvementItem component', function () {
       },
     };
     instance = renderIntoDocument(
-      <InvolvementItem officers={ officers } involvedType='police_witness' popup={ popup } />
+      <InvolvementItem
+        officers={ officers }
+        involvedType='police_witness'
+        popup={ popup }
+        pathName='/complaint/1086235/'
+      />
     );
     const involvementItemPopup = findRenderedComponentWithType(instance, Popup);
     involvementItemPopup.props.title.should.eql('Police Witness');
     involvementItemPopup.props.text.should.eql('Some police witness explanation');
+    involvementItemPopup.props.url.should.eql('/complaint/1086235/');
   });
 });

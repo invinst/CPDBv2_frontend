@@ -28,7 +28,7 @@ export default class Timeline extends Component {
   }
 
   renderHeader() {
-    const { popup, filterCount } = this.props;
+    const { popup, filterCount, pathname } = this.props;
     const options = values(mapValues(NEW_TIMELINE_FILTERS, 'label'));
     const labels = map(NEW_TIMELINE_FILTERS, (filter, key) => `${filter.label} (${filterCount[key]})`);
 
@@ -39,6 +39,7 @@ export default class Timeline extends Component {
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.RANK) }
             position='relative'
+            url={ pathname }
           />
         </div>
         <div style={ unitHeaderStyle } className='test--timeline-header-col'>
@@ -46,6 +47,7 @@ export default class Timeline extends Component {
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.UNIT) }
             position='relative'
+            url={ pathname }
           />
         </div>
         <div style={ showingContentHeaderStyle } className='test--timeline-header-col'>
@@ -65,7 +67,7 @@ export default class Timeline extends Component {
   }
 
   renderItems() {
-    const { items, officerId, openComplaintPage, changeOfficerTab, pathname } = this.props;
+    const { items, officerId, changeOfficerTab, pathname } = this.props;
 
     return (
       <div>
@@ -89,7 +91,6 @@ export default class Timeline extends Component {
                 key={ item.key }
                 officerId={ officerId }
                 hasBorderBottom={ hasBorderBottom }
-                openComplaintPage={ openComplaintPage }
                 changeOfficerTab={ changeOfficerTab }
                 pathname={ pathname }
               />
@@ -114,7 +115,6 @@ Timeline.propTypes = {
   items: PropTypes.array,
   changeFilter: PropTypes.func,
   officerId: PropTypes.number,
-  openComplaintPage: PropTypes.func,
   changeOfficerTab: PropTypes.func,
   popup: PropTypes.object,
   filterCount: PropTypes.object,

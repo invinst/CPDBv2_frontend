@@ -1,9 +1,9 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import { Link } from 'react-router';
 
 import NavLink from 'components/common/nav-link';
-import Link from 'components/common/react-router-link';
 import { unmountComponentSuppressError } from 'utils/test';
 
 

@@ -16,7 +16,7 @@ class OfficerItem extends SuggestionItemBase {
     const demographic = compact([ageString, race, gender]);
 
     return (
-      <div style={ grayTextStyle }>
+      <div style={ grayTextStyle } className='test--second-row'>
         { !isEmpty(demographic) && <span>{ demographic.join(', ') }, </span> }
         <span
           style={ complaintsTextStyle((isFocused || hovering) && complaintCount > 0) }>

@@ -6,19 +6,15 @@ import { rowDividerStyle, textStyle, nameStyle, personaInfoStyle, wrapperStyle }
 class OfficerInfo extends Component {
   render() {
     const { info, style, hovering } = this.props;
-    const { fullName, age, race, gender } = info;
+    const { fullName, age, race, gender, rank } = info;
 
     return (
       <div style={ { ...wrapperStyle, ...style } } onClick={ this.handleClick } className='test--officer-info'>
-        <div style={ textStyle }>
-          Officer
-        </div>
-        <div style={ nameStyle(hovering) } className='test--officer-name'>
-          { fullName }
-        </div>
+        <div style={ textStyle }>{ rank }</div>
+        <div style={ nameStyle(hovering) } className='test--officer-name'>{ fullName }</div>
         <div style={ rowDividerStyle } />
         <div style={ personaInfoStyle } className='test--officer-personal-info'>
-          { age } year old, { race }, { gender }.
+          { age }-year-old { race } { gender }
         </div>
       </div>
     );
@@ -35,6 +31,7 @@ OfficerInfo.propTypes = {
       PropTypes.number,
     ]),
     gender: PropTypes.string,
+    rank: PropTypes.string,
   }),
   style: PropTypes.object,
   hovering: PropTypes.bool

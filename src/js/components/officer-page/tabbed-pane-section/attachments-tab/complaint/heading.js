@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import {
@@ -18,15 +19,13 @@ import {
 class Heading extends Component {
 
   render() {
-    const {
-      crid, officerId, category, finding, outcome, date, coaccused
-    } = this.props.complaint;
-    const { openComplaintPage, hovering } = this.props;
+    const { crid, category, finding, outcome, date, coaccused } = this.props.complaint;
+    const { hovering } = this.props;
 
     return (
-      <div
+      <Link
         style={ wrapperStyle(hovering) }
-        onClick={ () => openComplaintPage({ crid: crid, officerId: officerId }) }
+        to={ `/complaint/${crid}/` }
         className='test--attachments-heading'
       >
         <div style={ boxStyle }>
@@ -58,19 +57,14 @@ class Heading extends Component {
             </span>
           </span>
         </div>
-      </div>
+      </Link>
     );
   }
 }
 
 Heading.propTypes = {
   complaint: PropTypes.object,
-  openComplaintPage: PropTypes.func,
   hovering: PropTypes.bool,
-};
-
-Heading.defaultProps = {
-  openComplaintPage: () => {}
 };
 
 export default Hoverable(Heading);

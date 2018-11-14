@@ -14,7 +14,7 @@ import FooterContainer from 'containers/footer-container';
 export default class TRRPage extends Component {
   render() {
     const {
-      trrId, officer, trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal, popup
+      trrId, officer, trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal, popup, pathName,
     } = this.props;
 
     return (
@@ -30,6 +30,7 @@ export default class TRRPage extends Component {
               trrDocument={ trrDocument }
               openRequestTRRDocumentModal={ openRequestTRRDocumentModal }
               popup={ popup }
+              pathName={ pathName }
             />
           </ResponsiveFluidWidthComponent>
           <FooterContainer style={ footerStyle }/>
@@ -47,4 +48,5 @@ TRRPage.propTypes = {
   trrDocument: PropTypes.object,
   openRequestTRRDocumentModal: PropTypes.func,
   popup: PropTypes.object,
+  pathName: PropTypes.string,
 };

@@ -101,3 +101,12 @@ export const trackAttachmentClick = (sourceUrl, targetUrl) => {
     eventLabel: `Source URL: ${sourceUrl} - Target URL: ${targetUrl}`,
   });
 };
+
+export const trackPopupButtonClick = (sourceUrl, popupName) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: 'popup_click',
+    eventAction: 'click',
+    eventLabel: `${sourceUrl} - ${popupName}`,
+  });
+};

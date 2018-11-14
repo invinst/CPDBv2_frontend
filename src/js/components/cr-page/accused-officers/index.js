@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import pluralize from 'pluralize';
 
-import CoaccusedCard from './coaccused-card';
+import OfficerCard from 'components/common/officer-card';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import {
   wrapperStyle,
@@ -9,8 +9,10 @@ import {
   accusedOfficersWrapperStyle,
   moreButtonStyle,
   bottomMarginStyle,
+  officerCardStyle,
 } from './accused-officers.style';
 import Popup from 'components/common/popup';
+import CoaccusedCardFooter from './coaccused-card-footer';
 
 
 export default class AccusedOfficers extends Component {
@@ -29,7 +31,7 @@ export default class AccusedOfficers extends Component {
   }
 
   render() {
-    const { officers, popup } = this.props;
+    const { officers, popup, pathName } = this.props;
     const { expanded } = this.state;
     return (
       <div style={ wrapperStyle(expanded) } className='test--accused-officer'>
@@ -39,23 +41,39 @@ export default class AccusedOfficers extends Component {
             <Popup
               { ...popup }
               position='relative'
+              url={ pathName }
             />
           </h2>
           <div style={ accusedOfficersWrapperStyle }>
             {
-              officers.map(officer => <CoaccusedCard key={ officer.id } { ...officer }/>)
+              officers.map(officer => (
+                <OfficerCard
+                  style={ officerCardStyle }
+                  key={ officer.id } { ...officer }
+                  footer={
+                    <CoaccusedCardFooter
+                      finding={ officer.finding }
+                      disciplined={ officer.disciplined }
+                      category={ officer.category }
+                      findingOutcomeMix={ officer.findingOutcomeMix }
+                    />
+                  }
+                />
+              ))
             }
           </div>
         </ResponsiveFluidWidthComponent>
         <div style={ bottomMarginStyle }/>
         {
           !expanded
-            ? <div
-              className='test--accused-officer-show-more'
-              style={ moreButtonStyle }
-              onClick={ this.handleExpandList.bind(this) }>
+            ? (
+              <div
+                className='test--accused-officer-show-more'
+                style={ moreButtonStyle }
+                onClick={ this.handleExpandList.bind(this) }>
                 Show all accused officers
               </div>
+            )
             : null
         }
       </div>
@@ -67,6 +85,7 @@ AccusedOfficers.propTypes = {
   officers: PropTypes.array,
   expanded: PropTypes.bool,
   popup: PropTypes.object,
+  pathName: PropTypes.string,
 };
 
 AccusedOfficers.defaultProps = {
