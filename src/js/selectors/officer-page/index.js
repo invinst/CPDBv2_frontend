@@ -45,6 +45,7 @@ export const summarySelector = createSelector(
     rank: getSummaryRank(summary),
     dateOfAppt: summary['date_of_appt'],
     birthYear: summary['birth_year'],
+    hasUniqueName: summary['has_unique_name'],
     race: summary.race,
     gender: summary.gender,
     badge: isEmpty(summary.badge) ? 'Unknown' : summary.badge,
