@@ -141,7 +141,25 @@ export const groupedSuggestions = {
           'trr_datetime': '2004-04-23'
         }
       )
-    ]
+    ],
+    'DATE > OFFICERS': [
+      RawOfficerSuggestion.build(
+        {
+          id: '123',
+          name: 'Jerome Finnigan',
+          to: '/officer/123/jerome-finnigan/',
+          'birth_year': '1975'
+        }
+      ),
+      RawOfficerSuggestion.build(
+        {
+          id: '456',
+          name: 'Edward May',
+          to: '/officer/456/edward-may/',
+          'birth_year': '1969'
+        }
+      ),
+    ],
   }
 };
 

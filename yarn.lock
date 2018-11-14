@@ -9541,7 +9541,7 @@ supports-color@~5.0.0:
   dependencies:
     has-flag "^2.0.0"
 
-swiper@^4.2.2:
+swiper@^4.4.1:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/swiper/-/swiper-4.4.1.tgz#9eeca17c5bfa4a27663963b2640119e5fc668255"
   integrity sha512-SONgpB1mFh++eFiUDOCggwW2ZzsWMEf3+SEROcQ+qXPYUnyD423l3uDsk+0jdo/a4pXeOJmH0oN3XK5maMqQyQ==
