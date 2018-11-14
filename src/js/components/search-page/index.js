@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import { debounce, isEmpty, isEqual } from 'lodash';
 import { Promise } from 'es6-promise';
-import DocumentTitle from 'react-document-title';
+import DocumentMeta from 'react-document-meta';
 
 import SearchBox from './search-box';
 import {
@@ -152,7 +152,7 @@ export default class SearchPage extends Component {
     } = this.props;
 
     return (
-      <DocumentTitle title='CPDP'>
+      <DocumentMeta title='CPDP'>
         <div
           className='search-page'
           style={ searchContentWrapperStyle(aliasEditModeOn) }>
@@ -194,7 +194,7 @@ export default class SearchPage extends Component {
             }
           </div>
         </div>
-      </DocumentTitle>
+      </DocumentMeta>
     );
   }
 }

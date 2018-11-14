@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import DocumentTitle from 'react-document-title';
+import DocumentMeta from 'react-document-meta';
 
 import ResponsiveStyleComponent from 'components/responsive/responsive-style-component';
 import ConfiguredRadium from 'utils/configured-radium';
@@ -15,6 +15,12 @@ import { carouselsWrapperStyle, carouselStyle } from './landing-page.style';
 
 
 class LandingPage extends Component {
+  componentDidMount() {
+    this.props.resetBreadcrumbs({
+      breadcrumbs: []
+    });
+  }
+
   renderWithResponsiveStyle(style) {
     const { pathname } = this.props;
     return (
@@ -42,11 +48,11 @@ class LandingPage extends Component {
 
   render() {
     return (
-      <DocumentTitle title='CPDP'>
+      <DocumentMeta title='CPDP'>
         <ResponsiveStyleComponent responsiveStyle={ {} }>
           { this.renderWithResponsiveStyle.bind(this) }
         </ResponsiveStyleComponent>
-      </DocumentTitle>
+      </DocumentMeta>
     );
   }
 }

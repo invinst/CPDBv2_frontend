@@ -46,7 +46,8 @@ describe('officer page selectors', function () {
       'badge': 'badge',
       'historic_badges': ['1', '2'],
       'birth_year': 1991,
-      'current_salary': 100000
+      'current_salary': 100000,
+      'has_unique_name': true
     };
 
     it('should return summary', function () {
@@ -64,7 +65,8 @@ describe('officer page selectors', function () {
         careerDescription: '2 years',
         careerDuration: 'SEP 23, 2015—Present',
         birthYear: 1991,
-        currentSalary: 100000
+        currentSalary: 100000,
+        hasUniqueName: true
       });
     });
 

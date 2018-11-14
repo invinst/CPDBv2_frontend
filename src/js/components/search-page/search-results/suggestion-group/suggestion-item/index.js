@@ -7,7 +7,9 @@ import SuggestionItemBase from './base';
 
 
 const COMPONENT_MAP = {
-  OFFICER: OfficerItem
+  OFFICER: OfficerItem,
+  'DATE > OFFICERS': OfficerItem,
+  'UNIT > OFFICERS': OfficerItem,
 };
 
 export default class SuggestionItem extends Component {
