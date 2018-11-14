@@ -100,18 +100,6 @@ const getCoaccusedSelector = createSelector(
   }
 );
 
-const getInvestigatorAffiliation = obj => {
-  if (!obj['current_rank']) {
-    return '';
-  }
-
-  if (obj['current_rank'].indexOf('IPRA') > -1) {
-    return 'IPRA';
-  }
-
-  return 'CPD';
-};
-
 const getInvolvementsSelector = createSelector(
   getInvolvements,
   involvements => reduce(involvements, (accumulator, obj) => {
@@ -141,7 +129,7 @@ const getInvolvementsSelector = createSelector(
       if (type === 'investigator') {
         officer = {
           ...officer,
-          tag: getInvestigatorAffiliation(obj)
+          tag: obj.badge,
         };
       } else if (type === 'police_witness') {
         officer = {

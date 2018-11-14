@@ -1,6 +1,9 @@
+import 'officer-page.css';
+
 import React, { Component, PropTypes } from 'react';
-import DocumentTitle from 'react-document-title';
-import { compact, get, isEmpty } from 'lodash';
+import { compact, get } from 'lodash';
+import DocumentMeta from 'react-document-meta';
+import pluralize from 'pluralize';
 
 import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
 import AnimatedRadarChart from './radar-chart';
@@ -12,20 +15,12 @@ import { POPUP_NAMES } from 'utils/constants';
 
 
 export default class OfficerPage extends Component {
-
-  componentWillReceiveProps(nextProps) {
-    const { officerId, pathName, officerSlug } = nextProps;
-    const correctPathName = `/officer/${officerId}/${officerSlug}/`;
-    if (!isEmpty(officerSlug) && pathName.match(/\/officer\/\d+\/?([\-a-z]+)?\/?$/) && pathName !== correctPathName) {
-      window.history.replaceState(window.history.state, document.title, correctPathName);
-    }
-  }
-
   render() {
     const {
       officerId,
       officerSummary,
       officerMetrics,
+      numAttachments,
       officerName,
       threeCornerPercentile,
       changeOfficerTab,
@@ -46,8 +41,19 @@ export default class OfficerPage extends Component {
       officerName
     ]).join(' ');
 
+    const hasUnknownBadge = (officerSummary.badge || 'Unknown') === 'Unknown';
+    const withBadge = officerSummary.hasUniqueName || hasUnknownBadge ?
+      '' :
+      `with Badge Number ${officerSummary.badge} `;
+
+    const pageDescription = `Officer ${officerName} of the Chicago Police Department ` +
+       withBadge +
+      `has ${pluralize('complaint', officerMetrics.allegationCount, true)}, ` +
+      `${pluralize('use of force report', officerMetrics.useOfForceCount, true)}, ` +
+      `and ${pluralize('original document', numAttachments, true)} available.`;
+
     return (
-      <DocumentTitle title={ pageTitle }>
+      <DocumentMeta title={ pageTitle } description={ pageDescription }>
         <div style={ wrapperStyle } className='officer-page'>
           <ShareableHeaderContainer />
           <div style={ pageWrapperStyle }>
@@ -76,7 +82,7 @@ export default class OfficerPage extends Component {
             hasCoaccusal={ hasCoaccusal }
           />
         </div>
-      </DocumentTitle>
+      </DocumentMeta>
     );
   }
 }
@@ -86,6 +92,7 @@ OfficerPage.propTypes = {
   officerName: PropTypes.string,
   officerSummary: PropTypes.object,
   officerMetrics: PropTypes.object,
+  numAttachments: PropTypes.number,
   threeCornerPercentile: PropTypes.array,
   currentTab: PropTypes.string,
   changeOfficerTab: PropTypes.func,
@@ -98,11 +105,16 @@ OfficerPage.propTypes = {
   scaleEditWrapperStateProps: PropTypes.object,
   noDataRadarChartEditWrapperStateProps: PropTypes.object,
   pathName: PropTypes.string,
-  officerSlug: PropTypes.string,
+  officerSlug: PropTypes.string
 };
 
 OfficerPage.defaultProps = {
   changeOfficerTab: () => {},
   officerSummary: {},
   pathName: '',
+  officerMetrics: {
+    allegationCount: 0,
+    useOfForceCount: 0,
+  },
+  numAttachments: 0,
 };

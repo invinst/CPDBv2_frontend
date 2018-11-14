@@ -26,7 +26,7 @@ export const getItems = (state) => get(state, 'officerPage.newTimeline.items', [
 
 export const baseTransform = (item, index) => {
   const unitName = item['unit_name'] ? `Unit ${item['unit_name']}` : 'Unassigned';
-  const rank = get(item, 'rank', 'Unassigned');
+  const rank = get(item, 'rank', 'Unknown');
 
   return {
     year: moment(item.date).year(),

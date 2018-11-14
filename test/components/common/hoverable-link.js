@@ -7,10 +7,10 @@ import {
   findRenderedComponentWithType,
   Simulate, findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
+import { Link } from 'react-router';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import HoverableLink from 'components/common/hoverable-link';
-import Link from 'components/common/react-router-link';
 
 
 describe('HoverableLink component', function () {

@@ -1,6 +1,10 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, Simulate } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import {
+  renderIntoDocument, findRenderedDOMComponentWithClass, Simulate, findRenderedComponentWithType
+} from 'react-addons-test-utils';
+import { spy, stub } from 'sinon';
+import ReactTooltip from 'react-tooltip';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 import Popup from 'components/common/popup';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -35,5 +39,17 @@ describe('Popup', function () {
     Simulate.click(popup, dummyEvent);
 
     dummyEvent.stopPropagation.should.be.called();
+  });
+
+  it('should hide other popups after shown', function () {
+    const hideOtherPopups = stub(Popup.prototype, 'hideOtherPopups');
+    const trackPopupButtonClick = stub(GATracking, 'trackPopupButtonClick');
+    instance = renderIntoDocument(<Popup title='Some title' text='Some text' />);
+    const tooltip = findRenderedComponentWithType(instance, ReactTooltip);
+    tooltip.props.afterShow();
+    hideOtherPopups.called.should.be.true();
+    trackPopupButtonClick.called.should.be.true();
+    hideOtherPopups.restore();
+    trackPopupButtonClick.restore();
   });
 });

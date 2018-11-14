@@ -2,7 +2,8 @@ import {
   attachmentsComplaintTransform,
   complaintsWithAttachmentsSelector,
   hasComplaintSelector,
-} from 'selectors/officer-page/attachments.js';
+  numAttachmentsSelector,
+} from 'selectors/officer-page/attachments';
 
 
 describe('Officer attachments selectors', function () {
@@ -32,6 +33,20 @@ describe('Officer attachments selectors', function () {
         'file_type': 'document',
       },
     ],
+  };
+
+  const complaintWithoutAttachment = {
+    category: 'CR',
+    coaccused: 8,
+    crid: '303345',
+    date: '2005-01-27',
+    finding: 'Unfounded',
+    kind: 'CR',
+    outcome: 'No Action Taken',
+    rank: 'Police Officer',
+    subcategory: 'Unnecessary Display Of Weapon / Off Duty',
+    'unit_description': 'Mobile Strike Force',
+    'unit_name': '153',
   };
 
   const result = {
@@ -65,20 +80,6 @@ describe('Officer attachments selectors', function () {
 
   describe('complaintsWithAttachmentsSelector', function () {
     it('should return correct result', function () {
-      const complaintWithoutAttachment = {
-        category: 'CR',
-        coaccused: 8,
-        crid: '303345',
-        date: '2005-01-27',
-        finding: 'Unfounded',
-        kind: 'CR',
-        outcome: 'No Action Taken',
-        rank: 'Police Officer',
-        subcategory: 'Unnecessary Display Of Weapon / Off Duty',
-        'unit_description': 'Mobile Strike Force',
-        'unit_name': '153',
-      };
-
       const state = {
         officerPage: {
           newTimeline: {
@@ -93,20 +94,6 @@ describe('Officer attachments selectors', function () {
 
   describe('hasComplaintSelector', function () {
     it('should return false if complaint has no attachment', function () {
-      const complaintWithoutAttachment = {
-        category: 'CR',
-        coaccused: 8,
-        crid: '303345',
-        date: '2005-01-27',
-        finding: 'Unfounded',
-        kind: 'CR',
-        outcome: 'No Action Taken',
-        rank: 'Police Officer',
-        subcategory: 'Unnecessary Display Of Weapon / Off Duty',
-        'unit_description': 'Mobile Strike Force',
-        'unit_name': '153',
-      };
-
       const state = {
         officerPage: {
           newTimeline: {
@@ -126,6 +113,20 @@ describe('Officer attachments selectors', function () {
         },
       };
       hasComplaintSelector(state).should.be.true();
+    });
+  });
+
+  describe('numAttachmentsSelector', function () {
+    it('should return the number of attachments', function () {
+      const state = {
+        officerPage: {
+          newTimeline: {
+            items: [complaint, complaintWithoutAttachment, complaint],
+          },
+        },
+      };
+
+      numAttachmentsSelector(state).should.eql(4);
     });
   });
 });

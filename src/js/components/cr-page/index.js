@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import DocumentTitle from 'react-document-title';
+import DocumentMeta from 'react-document-meta';
 import { get, isEmpty } from 'lodash';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
@@ -40,7 +40,7 @@ export default class CRPage extends Component {
     } = this.props;
 
     return (
-      <DocumentTitle title={ `CR ${crid}` }>
+      <DocumentMeta title={ `CR ${crid}` }>
         <div style={ wrapperStyle }>
           <ShareableHeaderContainer/>
           <ResponsiveFluidWidthComponent>
@@ -100,7 +100,7 @@ export default class CRPage extends Component {
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
           <FooterContainer style={ footerStyle }/>
         </div>
-      </DocumentTitle>
+      </DocumentMeta>
     );
   }
 }

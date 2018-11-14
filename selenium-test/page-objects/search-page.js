@@ -35,6 +35,7 @@ class SearchPage extends Page {
   officerPreviewPaneSection = new OfficerPreviewPaneSection();
   dateCRResultsSection = new ResultsSection('DATE-CR');
   dateTRRResultsSection = new ResultsSection('DATE-TRR');
+  dateOfficerResultsSection = new ResultsSection('DATE-OFFICERS');
   crResultsSection = new ResultsSection('CR');
   trrResultsSection = new ResultsSection('TRR');
 

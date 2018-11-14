@@ -22,12 +22,13 @@ export default class ListWidget extends Component {
   render() {
     const { items, title, typeName, showAvatar } = this.props;
 
-    const wrapWithLink = (component, url) => (
+    const wrapWithLink = (component, url, key) => (
       url ? (
         <HoverableLink
           className='test--list-widget-item-link'
           style={ linkStyle }
           to={ url }
+          key={ key }
         >
           { component }
         </HoverableLink>
@@ -52,8 +53,8 @@ export default class ListWidget extends Component {
                             radius={ 18 }
                             hideAxisText={ true }
                             data={ item.radarAxes }
-                            key={ index }
-                            { ...item.radarColor } />
+                            backgroundColor={ item.radarColor }
+                          />
                         </div>
                       </div>
                     ) }
@@ -63,7 +64,7 @@ export default class ListWidget extends Component {
                     </div>
                   </li>
                 ),
-                item.url
+                item.url, item.id
               )
             )) }
           </ul>
