@@ -114,10 +114,17 @@ const timelineItems = [
     date: '2000-04-28'
   },
   {
+    'unit_name': '153',
+    kind: 'RANK_CHANGE',
+    'unit_description': 'Mobile Strike Force',
+    rank: 'Police Officer',
+    date: '2000-04-28',
+  },
+  {
     'unit_name': '044',
     kind: 'JOINED',
     'unit_description': 'Recruit Training Section',
-    rank: 'Police Officer',
+    rank: 'Detective',
     date: '2000-02-05'
   }
 ];

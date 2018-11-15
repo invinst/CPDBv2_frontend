@@ -2299,6 +2299,7 @@ describe('Officer new timeline selectors', function () {
         'AWARDS': 1,
         'ALL': 7,
         'SUSTAINED': 0,
+        'RANK_UNIT_CHANGES': 0,
       });
     });
   });
