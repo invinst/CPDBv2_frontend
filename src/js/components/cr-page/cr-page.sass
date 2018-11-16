@@ -6,14 +6,21 @@ $print-investigator-timeline-width: 200px
 \:local(.cr-page)
   position: relative
   background-color: $sugar-cane-color
-  border-bottom: 1px solid $white-two-color
 
   @media print
     background-color: white
+    padding-bottom: 60px
+
+  .top-content
+    box-sizing: border-box
+    padding: 0 16px
+
+    @media print
+      padding: 0 $print-side-margin
 
   .complaint-info
     background-color: white
-    margin: 0 16px 16px 16px
+    margin-bottom: 16px
     overflow: hidden
     border: 1px solid $white-two-color
 
@@ -23,22 +30,28 @@ $print-investigator-timeline-width: 200px
 
   .investigation-timeline
     width: $investigator-timeline-width
-    display: inline-block
+    display: block
     padding: 0 16px
     box-sizing: border-box
     vertical-align: top
+    float: left
 
     @media print
+      padding: 0 16px 0 0
       width: $print-investigator-timeline-width
 
   .cr-location
     width: calc(100% - #{$investigator-timeline-width})
-    display: inline-block
+    display: block
     box-sizing: border-box
+    float: left
 
     @media print
-      padding: 0 11px
       width: calc(100% - #{$print-investigator-timeline-width})
+      page-break-inside: avoid
+
+  .clearfix
+    clear: both
 
   .cr-title
     font-family: $san-francisco-text-family
@@ -46,7 +59,6 @@ $print-investigator-timeline-width: 200px
     font-weight: 400
     color: $soft-black-color
     padding: 16px 0
-    margin: 0 16px
     border-bottom: solid 1px $white-two-color
 
     @media print

@@ -13,6 +13,7 @@ import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 import RelatedComplaints from 'components/cr-page/related-complaints';
 import { unmountComponentSuppressError } from 'utils/test';
+import Notes from 'components/common/notes';
 
 
 describe('CRPage component', function () {
@@ -138,5 +139,23 @@ describe('CRPage component', function () {
       </Provider>
     );
     scryRenderedComponentsWithType(instance, RelatedComplaints).should.have.length(0);
+  });
+
+  it('should not render Notes component when isPrinting is false', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage isPrinting={ false } />
+      </Provider>
+    );
+    scryRenderedComponentsWithType(instance, Notes).should.have.length(0);
+  });
+
+  it('should render Notes component when isPrinting is true', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <CRPage isPrinting={ true } />
+      </Provider>
+    );
+    scryRenderedComponentsWithType(instance, Notes).should.have.length(1);
   });
 });

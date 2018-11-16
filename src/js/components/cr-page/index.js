@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 import { get, isEmpty } from 'lodash';
+import cx from 'classnames';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import FooterContainer from 'containers/footer-container';
@@ -17,25 +18,29 @@ import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
 import { POPUP_NAMES } from 'utils/constants';
 import styles from './cr-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import Printable from 'components/common/higher-order/printable';
+import NoteContainer from 'containers/cr-page/notes';
 
 
-export default class CRPage extends Component {
-  constructor(props) {
-    super(props);
+class CRPage extends Component {
+  getChildContext() {
+    return {
+      isPrinting: this.props.isPrinting,
+    };
   }
 
   render() {
     const {
       crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
-      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname
+      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, isPrinting
     } = this.props;
 
     return (
       <DocumentMeta title={ `CR ${crid}` }>
         <div className={ styles.crPage }>
           <ShareableHeaderContainer/>
-          <div className={ responsiveContainerStyles.responsiveContainer }>
+          <div className={ cx(responsiveContainerStyles.responsiveContainer, 'top-content') }>
             <h1 className='cr-title'>CR { crid }</h1>
             <ComplaintCategory
               category={ category }
@@ -85,6 +90,8 @@ export default class CRPage extends Component {
               <div className='cr-location'>
                 <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
               </div>
+              <div className='clearfix'/>
+              { isPrinting ? <NoteContainer /> : null }
             </div>
           </div>
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
@@ -116,6 +123,7 @@ CRPage.propTypes = {
   alreadyRequested: PropTypes.bool,
   popup: PropTypes.object,
   pathname: PropTypes.string,
+  isPrinting: PropTypes.bool,
 };
 
 CRPage.defaultProps = {
@@ -123,3 +131,9 @@ CRPage.defaultProps = {
   complainants: [],
   coaccused: []
 };
+
+CRPage.childContextTypes = {
+  isPrinting: PropTypes.bool,
+};
+
+export default Printable(CRPage);
