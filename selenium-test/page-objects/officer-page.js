@@ -82,10 +82,20 @@ class AttachmentsSection extends Section {
   }
 }
 
+class MapSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      map: '.test--officer-map',
+    });
+  }
+}
+
 class TabbedPaneSection extends Section {
   timelineSection = new TimelineSection();
   coaccusalsSection = new CoaccusalsSection();
   attachmentsSection = new AttachmentsSection();
+  mapSection = new MapSection();
 
   constructor() {
     super();
@@ -167,8 +177,9 @@ class OfficerPage extends Page {
     });
   }
 
-  open(id=1) {
-    super.open(`/officer/${id}/`);
+  open(id=1, name, tab) {
+    const url = ['/officer', id, name, tab].filter(Boolean).join('/') + '/';
+    super.open(url);
     browser.element('body').waitForVisible();
   }
 }

@@ -26,13 +26,14 @@ export const SEARCH_PATH = 'search/';
 export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
-export const OFFICER_PATH = 'officer/:officerId(/:fullName)';
+export const OFFICER_PATH = 'officer/:officerId(/:fullName)(/:tab)';
 export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const CR_PATH_SUFFIX = ':officerId';
 export const TTR_PATH = 'trr/:trrId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
 export const EMBED_MAP_PATH = 'embed/map';
 export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
+export const EMBED_OFFICERS_PATH = 'embed/officers';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
@@ -109,6 +110,10 @@ export const TRR_REQUEST_DOC_REQUEST_FAILURE = 'TRR_REQUEST_DOC_REQUEST_FAILURE'
 export const TRR_REQUEST_DOC_REQUEST_SUCCESS = 'TRR_REQUEST_DOC_REQUEST_SUCCESS';
 export const TRR_REQUEST_DOC_REQUEST_START = 'TRR_REQUEST_DOC_REQUEST_START';
 
+export const EMBED_OFFICERS_REQUEST_START = 'EMBED_OFFICERS_REQUEST_START';
+export const EMBED_OFFICERS_REQUEST_SUCCESS = 'EMBED_OFFICERS_REQUEST_SUCCESS';
+export const EMBED_OFFICERS_REQUEST_FAILURE = 'EMBED_OFFICERS_REQUEST_FAILURE';
+
 
 
 export const ALPHA_NUMBERIC = [
@@ -156,6 +161,7 @@ export const SEARCH_TERMS_CATEGORIES_REQUEST_FAILURE = 'SEARCH_TERMS_CATEGORIES_
 export const DO_NOTHING_ACTION = 'DO_NOTHING_ACTION';  // To be used when an action that do nothing is needed
 export const CHANGE_OFFICER_ID = 'CHANGE_OFFICER_ID';
 export const CHANGE_OFFICER_TAB = 'CHANGE_OFFICER_TAB';
+export const UPDATE_PATH_NAME = 'UPDATE_PATH_NAME';
 
 export const UPDATE_SHAREABLE_PAGE_SCROLL_POSITION = 'UPDATE_SHAREABLE_PAGE_SCROLL_POSITION';
 
@@ -416,6 +422,13 @@ export const OFFICER_PAGE_TAB_NAMES = {
   MAP: 'MAP',
   COACCUSALS: 'COACCUSALS',
   ATTACHMENTS: 'ATTACHMENTS',
+};
+
+export const OFFICER_PAGE_TAB_ROUTE = {
+  documents: OFFICER_PAGE_TAB_NAMES.ATTACHMENTS,
+  map: OFFICER_PAGE_TAB_NAMES.MAP,
+  coaccusals: OFFICER_PAGE_TAB_NAMES.COACCUSALS,
+  // No route for timeline because it is the default tab
 };
 
 export const MAP_INFO = {

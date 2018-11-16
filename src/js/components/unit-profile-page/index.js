@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import DocumentTitle from 'react-document-title';
+import DocumentMeta from 'react-document-meta';
 
 import Header from './header';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -12,7 +12,7 @@ export default class UnitProfilePage extends Component {
     const { unitName, summary, scrollPosition } = this.props;
 
     return (
-      <DocumentTitle title={ `Unit ${unitName}` }>
+      <DocumentMeta title={ `Unit ${unitName}` }>
         <div>
           <ShareableHeaderContainer />
           <Header
@@ -24,7 +24,7 @@ export default class UnitProfilePage extends Component {
             <SummaryPageContainer unitName={ unitName } summary={ summary } />;
           </div>
         </div>
-      </DocumentTitle>
+      </DocumentMeta>
     );
   }
 }

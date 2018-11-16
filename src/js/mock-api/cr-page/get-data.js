@@ -56,7 +56,7 @@ export default () => ComplaintFactory.build({
   involvements: [
     InvestigatorFactory.build({
       'full_name': 'Bernadette Kelly',
-      'current_rank': 'IPRA investigator',
+      'badge': 'CPD',
       'officer_id': 1
     }),
     InvestigatorFactory.build({ 'officer_id': 2 }),

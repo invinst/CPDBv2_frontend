@@ -191,6 +191,9 @@ describe('store', function () {
         slimHeader: {
           logoSectionEditModeOn: false
         }
+      },
+      embed: {
+        officers: []
       }
     });
   });

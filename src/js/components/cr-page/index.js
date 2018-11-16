@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import DocumentTitle from 'react-document-title';
+import DocumentMeta from 'react-document-meta';
 import { get, isEmpty } from 'lodash';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -32,7 +32,7 @@ export default class CRPage extends Component {
     } = this.props;
 
     return (
-      <DocumentTitle title={ `CR ${crid}` }>
+      <DocumentMeta title={ `CR ${crid}` }>
         <div className={ styles.crPage }>
           <ShareableHeaderContainer/>
           <div className={ responsiveContainerStyles.responsiveContainer }>
@@ -90,7 +90,7 @@ export default class CRPage extends Component {
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
           <FooterContainer className={ styles.crPageFooter }/>
         </div>
-      </DocumentTitle>
+      </DocumentMeta>
     );
   }
 }

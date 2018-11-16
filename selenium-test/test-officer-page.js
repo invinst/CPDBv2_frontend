@@ -409,4 +409,48 @@ describe('officer page', function () {
       });
     });
   });
+
+  describe('Route tab', function () {
+    it('should open tab corresponding to url suffix', function () {
+      officerPage.open(1, 'bernadette-kelly', 'map');
+      officerPage.tabbedPaneSection.mapSection.map.waitForVisible();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/map\/$/);
+
+      officerPage.open(1, 'bernadette-kelly', 'coaccusals');
+      officerPage.tabbedPaneSection.coaccusalsSection.firstCoaccusalCard.waitForVisible();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/coaccusals\/$/);
+
+      officerPage.open(1, 'bernadette-kelly', 'documents');
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForVisible();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
+
+      officerPage.open(1, '', 'documents');
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForVisible();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
+
+      officerPage.open(1, 'bernadette-wrong-name', 'documents');
+      officerPage.tabbedPaneSection.attachmentsSection.attachment.waitForVisible();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
+
+      officerPage.open(1, 'bernadette-kelly', 'wrong-tab');
+      officerPage.tabbedPaneSection.timelineSection.header.waitForVisible();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
+    });
+
+    it('should change the url corresponding to current tab', function () {
+      officerPage.open(1);
+
+      officerPage.tabbedPaneSection.mapTabName.click();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/map\/$/);
+
+      officerPage.tabbedPaneSection.coaccusalsTabName.click();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/coaccusals\/$/);
+
+      officerPage.tabbedPaneSection.attachmentsTabName.click();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/documents\/$/);
+
+      officerPage.tabbedPaneSection.timelineTabName.click();
+      browser.getUrl().should.match(/\/officer\/1\/bernadette-kelly\/$/);
+    });
+  });
 });

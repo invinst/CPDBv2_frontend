@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import DocumentTitle from 'react-document-title';
+import DocumentMeta from 'react-document-meta';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -16,7 +16,7 @@ export default class TRRPage extends Component {
     } = this.props;
 
     return (
-      <DocumentTitle title={ `TRR ${trrId}` }>
+      <DocumentMeta title={ `TRR ${trrId}` }>
         <div style={ wrapperStyle }>
           <ShareableHeaderContainer/>
           <ResponsiveFluidWidthComponent style={ contentStyle }>
@@ -33,7 +33,7 @@ export default class TRRPage extends Component {
           </ResponsiveFluidWidthComponent>
           <FooterContainer/>
         </div>
-      </DocumentTitle>
+      </DocumentMeta>
     );
   }
 }
