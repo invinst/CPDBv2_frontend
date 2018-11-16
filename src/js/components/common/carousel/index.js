@@ -3,7 +3,7 @@ import { isEqual } from 'lodash';
 
 import Arrow, { arrowWidth } from './arrow';
 import Swiper from 'components/common/swiper';
-import { wrapperStyle } from './carousel.style';
+import styles from './carousel.sass';
 
 
 export default class Carousel extends Component {
@@ -90,11 +90,11 @@ export default class Carousel extends Component {
   }
 
   render() {
-    const { children, style, spaceBetween } = this.props;
+    const { children, style, spaceBetween, arrowClassName } = this.props;
     const { displayLeftArrow, displayRightArrow, slideIndex } = this.state;
 
     return (
-      <div ref={ el => this.el = el } style={ { ...wrapperStyle, ...style.wrapper } }>
+      <div className={ styles.carousel } ref={ el => this.el = el } style={ { ...style.wrapper } }>
         <Swiper
           spaceBetween={ spaceBetween }
           beforeOffsetAtMiddle={ 40 }
@@ -107,11 +107,13 @@ export default class Carousel extends Component {
         </Swiper>
         <Arrow
           style={ style.navigationButton }
+          className={ arrowClassName }
           direction='right'
           show={ displayRightArrow }
           onClick={ this.handleNavigate }/>
         <Arrow
           style={ style.navigationButton }
+          className={ arrowClassName }
           direction='left'
           show={ displayLeftArrow }
           onClick={ this.handleNavigate }/>
@@ -128,7 +130,8 @@ Carousel.propTypes = {
   loadMore: PropTypes.func,
   hasMore: PropTypes.bool,
   threshold: PropTypes.number,
-  spaceBetween: PropTypes.number
+  spaceBetween: PropTypes.number,
+  arrowClassName: PropTypes.string,
 };
 
 Carousel.defaultProps = {

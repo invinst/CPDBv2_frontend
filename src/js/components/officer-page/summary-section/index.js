@@ -52,7 +52,7 @@ export default class SummarySection extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <div className='test--summary-section-officer-name' style={ officerNameStyle }>
+        <div className='cr-summary-section-officer-name' style={ officerNameStyle }>
           { officerName }
         </div>
         {

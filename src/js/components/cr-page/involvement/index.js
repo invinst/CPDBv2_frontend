@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { map, keys, entries } from 'lodash';
 
-import { wrapperStyle } from './involvement.style';
 import InvolvementItem from './involvement-item';
+import styles from './involvement.sass';
 
 
 export default class Involvement extends Component {
@@ -14,7 +14,7 @@ export default class Involvement extends Component {
     }
 
     return (
-      <div style={ wrapperStyle }>
+      <div className={ styles.involvement }>
         {
           map(entries(involvements), ([involvedType, officers], index) => (
             <InvolvementItem

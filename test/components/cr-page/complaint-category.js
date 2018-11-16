@@ -17,9 +17,9 @@ describe('ComplaintCategory component', function () {
 
   it('should render category and subcategory', function () {
     instance = renderIntoDocument(<ComplaintCategory category='some category' subcategory='some subcategory' />);
-    const category = findRenderedDOMComponentWithClass(instance, 'test--cr-category-category');
+    const category = findRenderedDOMComponentWithClass(instance, 'cr-category');
     category.textContent.should.containEql('some category');
-    const subCategory = findRenderedDOMComponentWithClass(instance, 'test--cr-category-subcategory');
+    const subCategory = findRenderedDOMComponentWithClass(instance, 'cr-subcategory');
     subCategory.textContent.should.eql('some subcategory');
   });
 });

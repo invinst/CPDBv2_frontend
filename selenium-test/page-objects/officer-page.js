@@ -11,7 +11,7 @@ class SummarySection extends Section {
     const fields = ['yearOfBirth', 'race', 'sex', 'badge', 'rank', 'unit', 'career'];
 
     const elementGetters = {
-      officerName: '.test--summary-section-officer-name',
+      officerName: '.cr-summary-section-officer-name',
       viewUnitProfileButton: '.test--view-profile-button',
     };
     each(fields, (field, index) => {

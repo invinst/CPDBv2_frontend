@@ -1,18 +1,18 @@
 import React, { PropTypes } from 'react';
+import cx from 'classnames';
 
 import OutboundLink from 'components/common/outbound-link';
-import Hoverable from 'components/common/higher-order/hoverable';
-import { navStyle } from './footer-nav-link.style';
+import styles from './foot-nav-link.sass';
 
 
 class FooterNavLink extends React.Component {
   render() {
-    const { name, externalHref, onClick, hovering } = this.props;
+    const { name, externalHref, onClick, className } = this.props;
 
     return (
       <OutboundLink
         href={ externalHref }
-        style={ { ...navStyle(hovering), ...this.props.style(hovering) } }
+        className={ cx(styles.footerNavLink, className) }
         onClick={ onClick }
         target='_blank'
       >
@@ -27,12 +27,7 @@ FooterNavLink.propTypes = {
   externalHref: PropTypes.string,
   name: PropTypes.string,
   onClick: PropTypes.func,
-  style: PropTypes.func,
-  hovering: PropTypes.bool
+  className: PropTypes.string,
 };
 
-FooterNavLink.defaultProps = {
-  style: () => null
-};
-
-export default Hoverable(FooterNavLink);
+export default FooterNavLink;

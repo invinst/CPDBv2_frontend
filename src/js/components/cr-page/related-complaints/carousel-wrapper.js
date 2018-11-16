@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
 import Carousel from 'components/common/carousel';
 import ComplaintCard, { itemWidth } from './complaint-card';
 
-import { wrapperStyle, headerStyle, countStyle, titleStyle, carouselStyle } from './carousel-wrapper.style';
+import styles from './carousel-wrapper.sass';
 
 
 export default class CarouselWrapper extends Component {
@@ -30,18 +31,16 @@ export default class CarouselWrapper extends Component {
     const { count, cards, title, hasMore, match, crid } = this.props;
 
     return (
-      <div
-        className={ `test--related-by-${match}-carousel` }
-        style={ wrapperStyle }>
-        <div style={ headerStyle }>
-          <span style={ countStyle }>{ count } </span>
-          <span style={ titleStyle }>{ title }</span>
+      <div className={ cx(styles.carouselWrapper, `test--related-by-${match}-carousel`) }>
+        <div className='carousel-wrapper-header'>
+          <span className='carousel-wrapper-count'>{ count } </span>
+          <span className='carousel-wrapper-title'>{ title }</span>
         </div>
         <Carousel
           loadMore={ this.loadMore.bind(this) }
           hasMore={ hasMore }
-          style={ carouselStyle }
           childWidth={ itemWidth }
+          arrowClassName={ styles.carouselArrow }
         >
           {
             cards.map(card => (

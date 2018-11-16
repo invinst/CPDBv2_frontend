@@ -1,21 +1,19 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
-import {
-  bottomSectionWrapperStyle,
-  categoryTextStyle,
-  outcomeTextWrapperStyle,
-  findingOutcomeMixStyle
-} from './coaccused-card-footer.style';
+import styles from './coaccused-card-footer.sass';
 
 
 export default class CoaccusedCardFooter extends Component {
   render() {
-    const { category, finding, disciplined, findingOutcomeMix, hovering } = this.props;
+    const { category, finding, disciplined, findingOutcomeMix } = this.props;
     return (
-      <div style={ bottomSectionWrapperStyle }>
-        <div style={ categoryTextStyle(hovering) } className='test--accused-card-category'>{ category }</div>
-        <div style={ outcomeTextWrapperStyle(finding, disciplined) } className='test--accused-card-outcome'>
-          <div style={ findingOutcomeMixStyle }>{ findingOutcomeMix }</div>
+      <div className={ styles.coaccusedCardFooter }>
+        <div className='accused-card-category'>{ category }</div>
+        <div
+          className={ cx('accused-card-outcome', { 'sustained': finding === 'Sustained', 'disciplined': disciplined }) }
+        >
+          <div className='finding-outcome-mix'>{ findingOutcomeMix }</div>
         </div>
       </div>
     );
@@ -26,6 +24,5 @@ CoaccusedCardFooter.propTypes = {
   finding: PropTypes.string,
   disciplined: PropTypes.bool,
   category: PropTypes.string,
-  hovering: PropTypes.bool,
   findingOutcomeMix: PropTypes.string,
 };

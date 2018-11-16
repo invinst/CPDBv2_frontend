@@ -1,8 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { concat, get, toPairs } from 'lodash';
 import moment from 'moment';
+import cx from 'classnames';
 
-import { dateStyle, eventStyle, wrapperStyle } from './timeline-text.style';
+import styles from './timeline-text.sass';
 
 
 export default class TimelineText extends Component {
@@ -13,17 +14,17 @@ export default class TimelineText extends Component {
     dates[startDate] = concat(get(dates, startDate, []), 'Complaint Filed');
     dates[endDate] = concat(get(dates, endDate, []), 'Investigation Closed');
     return (
-      <div style={ wrapperStyle } className='test--investigator-timeline-text'>
+      <div className={ cx(styles.timelineText, 'investigator-timeline-text') }>
         {
           toPairs(dates).map(([date, events], ind) =>
-            <div key={ ind } style={ dateStyle } className='test--timeline-textblock'>
+            <div key={ ind } className='timeline-textblock'>
               { date
                   ? <div>{ moment(date).format('ll') }</div>
                   : null
               }
               {
                 events.map((event, ind2) =>
-                  <div key={ ind2 } style={ eventStyle }>{ event }</div>
+                  <div key={ ind2 } className='timeline-event'>{ event }</div>
                 )
               }
             </div>

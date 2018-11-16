@@ -1,11 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
+import cx from 'classnames';
 
 import ViewMapButton from './view-map-button';
 import CRLocationMap from './cr-location-map';
-import {
-  wrapperStyle, addressStyle, locationStyle, beatStyle, labelStyle, contentStyle, headerStyle
-} from './location.style';
+import styles from './location.sass';
 
 
 export default class Location extends Component {
@@ -13,16 +11,16 @@ export default class Location extends Component {
     const { point, address, location, beat } = this.props;
 
     return point || address || location || beat ? (
-      <div style={ wrapperStyle } className='cr-page-location-section'>
-        <div style={ headerStyle }>LOCATION</div>
+      <div className={ cx(styles.location, 'cr-page-location-section') }>
+        <div className='location-header'>LOCATION</div>
         {
           point ? <CRLocationMap lng={ point.lon } lat={ point.lat }/> : null
         }
         {
           address ? (
-            <div style={ addressStyle(isEmpty(location) && isEmpty(beat)) }>
-              <span style={ labelStyle }>Address</span>
-              <span style={ contentStyle } className='test--location-address'>{ address }</span>
+            <div className='location-row'>
+              <span className='label'>Address</span>
+              <span className={ cx('content', 'test--location-address') }>{ address }</span>
               {
                 point ? <ViewMapButton lng={ point.lon } lat={ point.lat }/> : null
               }
@@ -31,17 +29,17 @@ export default class Location extends Component {
         }
         {
           location ? (
-            <div style={ locationStyle(isEmpty(beat)) }>
-              <span style={ labelStyle }>Location Type</span>
-              <span style={ contentStyle } className='test--location-type'>{ location }</span>
+            <div className='location-row'>
+              <span className='label'>Location Type</span>
+              <span className={ cx('content', 'test--location-type') }>{ location }</span>
             </div>
           ) : null
         }
         {
           beat ? (
-            <div style={ beatStyle }>
-              <span style={ labelStyle }>Beat</span>
-              <span style={ contentStyle } className='test--location-beat'>{ beat }</span>
+            <div className='location-row'>
+              <span className='label'>Beat</span>
+              <span className={ cx('content', 'test--location-beat') }>{ beat }</span>
             </div>
           ) : null
         }

@@ -54,8 +54,20 @@ const config = Object.assign(
           test: /\.sass$/,
           use: [
             MiniCssExtractPlugin.loader,
-            { loader: 'css-loader', options: { modules: true } },
-            { loader: 'sass-loader' }
+            {
+              loader: 'css-loader',
+              options: {
+                modules: false,
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+                camelCase: true,
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                includePaths: [path.join(__dirname, '/../src/css')]
+              }
+            }
           ]
         }
       ]

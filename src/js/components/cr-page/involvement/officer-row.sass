@@ -1,0 +1,61 @@
+@import ../../../../css/variables
+
+\:local(.officer-row)
+  padding: 12px 0 12px 0
+  font-family: $san-francisco-text-family
+  min-height: 54px
+  box-sizing: border-box
+  display: block
+  font-size: 14px
+  border-bottom: solid 1px $white-two-color
+
+  &:last-child
+    border-bottom: none
+
+  &.hoverable
+    cursor: pointer
+
+    .officer-name:hover
+      color: $accent-color
+
+  .chart-wrapper
+    display: inline-block
+    margin-right: 10px
+    vertical-align: middle
+    border-radius: 2px
+    overflow: hidden
+    width: 32px
+    height: 32px
+
+  .right-wrapper
+    display: inline-block
+    vertical-align: middle
+    width: calc(100% - 92px)
+
+    .officer-name
+      font-size: 14px
+      font-weight: 400
+      color: $soft-black-color
+
+    .extra-info
+      font-size: 12px
+      font-weight: 300
+      color: $clay-gray
+
+  .tag-wrapper
+    display: inline-block
+    vertical-align: middle
+    width: 50px
+    text-align: right
+
+    .tag
+      color: $soft-black-color
+      background-color: $sugar-cane-color
+      border-radius: 2px
+      font-size: 14px
+      font-weight: 400
+      padding: 2px 5px
+      overflow: hidden
+      max-width: 50px
+      display: inline-block
+      box-sizing: border-box

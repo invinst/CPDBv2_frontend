@@ -38,7 +38,7 @@ describe('AccusedOfficers component', function () {
   it('should expand accused officers when click on show more button', function () {
     instance = renderIntoDocument(<AccusedOfficers />);
 
-    const showMoreButton = findRenderedDOMComponentWithClass(instance, 'test--accused-officer-show-more');
+    const showMoreButton = findRenderedDOMComponentWithClass(instance, 'show-more-button');
     Simulate.click(showMoreButton);
 
     instance.state.expanded.should.be.true();

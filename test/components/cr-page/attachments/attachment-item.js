@@ -32,8 +32,8 @@ describe('AttachmentItem component', function () {
       <AttachmentItem fileType='audio' />
     );
 
-    const thumbnail = findRenderedDOMComponentWithClass(instance, 'test--attachment-card-thumbnail');
-    thumbnail.style.background.should.containEql('ic-audio.svg');
+    const thumbnail = findRenderedDOMComponentWithClass(instance, 'attachment-card-thumbnail');
+    thumbnail.style.backgroundImage.should.containEql('ic-audio.svg');
   });
 
   it('should render video background correctly', function () {
@@ -41,8 +41,8 @@ describe('AttachmentItem component', function () {
       <AttachmentItem fileType='video' />
     );
 
-    const thumbnail = findRenderedDOMComponentWithClass(instance, 'test--attachment-card-thumbnail');
-    thumbnail.style.background.should.containEql('ic-video.svg');
+    const thumbnail = findRenderedDOMComponentWithClass(instance, 'attachment-card-thumbnail');
+    thumbnail.style.backgroundImage.should.containEql('ic-video.svg');
   });
 
   it('should render document background correctly', function () {
@@ -50,7 +50,7 @@ describe('AttachmentItem component', function () {
       <AttachmentItem fileType='document' previewImageUrl='http://url/image'/>
     );
 
-    const thumbnail = findRenderedDOMComponentWithClass(instance, 'test--attachment-card-thumbnail');
-    thumbnail.style.background.should.containEql('http://url/image');
+    const thumbnail = findRenderedDOMComponentWithClass(instance, 'attachment-card-thumbnail');
+    thumbnail.style.backgroundImage.should.containEql('http://url/image');
   });
 });

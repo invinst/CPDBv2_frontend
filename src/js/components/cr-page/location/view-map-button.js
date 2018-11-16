@@ -1,25 +1,24 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
-import Hoverable from 'components/common/higher-order/hoverable';
-import { viewMapButtonStyle, textStyle, arrowStyle } from './view-map-button.style';
+import styles from './view-map-button.sass';
 
 
 class ViewMapButton extends Component {
   render() {
-    const { hovering, lat, lng, zoom } = this.props;
+    const { lat, lng, zoom } = this.props;
     const url = `http://maps.google.com/maps?&z=${zoom}&q=${lat}+${lng}&ll=${lat}+${lng}`;
 
     return (
-      <a className='test--view-map-button' style={ viewMapButtonStyle(hovering) } href={ url } target='_blank'>
-        <span style={ textStyle }>View on google maps</span>
-        <div style={ arrowStyle(hovering) } />
+      <a className={ cx(styles.viewMapButton, 'test--view-map-button') } href={ url } target='_blank'>
+        View on google maps
+        <div className='view-map-button-arrow' />
       </a>
     );
   }
 }
 
 ViewMapButton.propTypes = {
-  hovering: PropTypes.bool,
   lng: PropTypes.number,
   lat: PropTypes.number,
   zoom: PropTypes.number
@@ -29,4 +28,4 @@ ViewMapButton.defaultProps = {
   zoom: 10
 };
 
-export default Hoverable(ViewMapButton);
+export default ViewMapButton;

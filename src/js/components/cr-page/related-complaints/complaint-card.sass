@@ -1,0 +1,49 @@
+@import 'variables'
+
+$item-width: 232px
+
+\:local(.complaint-card)
+  box-sizing: border-box
+  border: 1px solid $clay-gray
+  background-color: $dark-slate-gray-color
+  display: block
+  width: $item-width
+  height: 298px
+  margin-right: 8px
+
+  &:hover
+    border: 1px solid $accent-color
+    background-color: $light-steel-blue
+
+  .complaint-card-map
+    width: $item-width
+    height: 100px
+
+  .content
+    padding: 0 16px
+    max-height: 178px
+    overflow: hidden
+    font-weight: 200
+
+  .section
+    border-bottom: 1px solid $clay-gray
+    padding: 10px 0 12px
+
+    &:last-child
+      border: none
+
+    .section-label
+      color: $white-two-color
+      font-size: 12px
+
+    .section-content
+      color: white
+      font-size: 14px
+      overflow: hidden
+
+      &.accused
+        color: $white-two-color
+
+      &.nowrap-text
+        text-overflow: ellipsis
+        white-space: nowrap
