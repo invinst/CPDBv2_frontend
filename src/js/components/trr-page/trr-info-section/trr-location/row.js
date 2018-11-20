@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import style from './row.sass';
 
 
 export default class Row extends Component {
   render() {
-    const { title, value, hideBorder } = this.props;
+    const { title, value } = this.props;
 
     return (
-      <div className={ cx(style.trrLocationRow, { border: !hideBorder }) }>
+      <div className={ style.trrLocationRow }>
         <div className='trr-location-row-title'>
           { title }
         </div>
@@ -24,9 +23,4 @@ export default class Row extends Component {
 Row.propTypes = {
   title: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  hideBorder: PropTypes.bool,
-};
-
-Row.defaultProps = {
-  hideBorder: false,
 };

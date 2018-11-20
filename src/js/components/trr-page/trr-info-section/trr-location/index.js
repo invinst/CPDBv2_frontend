@@ -21,7 +21,7 @@ export default class TRRLocation extends Component {
             <div>
               <Row title='LOCATION TYPE' value={ locationType }/>
               <Row title='ADDRESS' value={ address }/>
-              <Row title='BEAT' value={ beat } hideBorder={ true }/>
+              <Row title='BEAT' value={ beat }/>
             </div>
           </div>
         </div>

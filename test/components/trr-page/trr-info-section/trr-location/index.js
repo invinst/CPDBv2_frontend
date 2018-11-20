@@ -50,7 +50,6 @@ describe('TRRLocation component', function () {
 
     beat.props.title.should.eql('BEAT');
     beat.props.value.should.eql('1034');
-    beat.props.hideBorder.should.be.true();
 
     const map = findRenderedComponentWithType(instance, TRRMap);
 

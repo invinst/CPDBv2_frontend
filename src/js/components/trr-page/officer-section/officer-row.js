@@ -19,7 +19,7 @@ export default class OfficerRow extends Component {
 
     return (
       <Link
-        className={ `navigation-button-parent ${style.trrOfficerRow}` }
+        className={ `navigation-button-container ${style.trrOfficerRow}` }
         to={ `/officer/${officerId}/${officerSlug}/` }
       >
         <div className='trr-officer-row-visual-token'>

@@ -12,11 +12,10 @@ export default class TRRDetail extends Component {
     const { subjectDemographic, category, forceTypes, popup, pathName } = this.props;
     return (
       <div className={ style.trrDetail }>
-        <Row drawBorder={ true } title='SUBJECT' borderValue={ !!subjectDemographic }>
+        <Row title='SUBJECT' borderValue={ !!subjectDemographic }>
           { subjectDemographic && <Demographic persons={ [subjectDemographic] } /> }
         </Row>
         <Row
-          drawBorder={ true }
           title='FORCE CATEGORY'
           popup={ get(popup, POPUP_NAMES.TRR.FORCE_CATEGORY) }
           pathName={ pathName }

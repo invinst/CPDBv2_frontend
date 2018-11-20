@@ -9,9 +9,9 @@ import OfficerRow from './officer-row';
 
 
 export default class OfficerSection extends Component {
-  renderItem(item, isLeft, hideBorder) {
+  renderItem(item) {
     const ItemComponent = item.to ? LinkItem : Item;
-    return <ItemComponent { ...item } isLeft={ isLeft } hideBorder={ hideBorder }/>;
+    return <ItemComponent { ...item } />;
   }
 
   render() {
@@ -57,13 +57,13 @@ export default class OfficerSection extends Component {
           fullName={ officer.fullName }
           officerId={ officer.officerId }
         />
-        <ul className='list-wrapper'>
+        <ul className='officer-section-list'>
           {
             rows.map(
               ([firstItem, secondItem], index) => (
-                <li key={ `row-${index}` }>
-                  { this.renderItem(firstItem, true, index === rows.length - 1) }
-                  { this.renderItem(secondItem, false, index === rows.length - 1) }
+                <li className='officer-section-row' key={ `row-${index}` }>
+                  { this.renderItem(firstItem) }
+                  { this.renderItem(secondItem) }
                 </li>
               )
             )

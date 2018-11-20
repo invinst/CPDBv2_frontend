@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import style from './item.sass';
 
 
 export default class Item extends Component {
   render() {
-    const { title, value, subValue, isLeft, hideBorder } = this.props;
+    const { title, value, subValue } = this.props;
 
     return (
-      <div className={ cx(style.item, { left: isLeft, border: !hideBorder }) }>
+      <div className={ style.item }>
         <div className='item-title'>
           { title }
         </div>
@@ -26,10 +25,4 @@ Item.propTypes = {
   title: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   subValue: PropTypes.string,
-  isLeft: PropTypes.bool,
-  hideBorder: PropTypes.bool,
-};
-
-Item.defaultProps = {
-  hideBorder: false,
 };
