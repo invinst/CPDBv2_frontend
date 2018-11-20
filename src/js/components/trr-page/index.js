@@ -1,12 +1,12 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import { wrapperStyle, TRRIdHeaderStyle, contentStyle } from './trr-page.style';
+import style from './trr-page.sass';
 import OfficerSection from './officer-section';
 import TRRInfoSection from './trr-info-section';
 import FooterContainer from 'containers/footer-container';
+import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
 
 export default class TRRPage extends Component {
@@ -17,10 +17,10 @@ export default class TRRPage extends Component {
 
     return (
       <DocumentMeta title={ `TRR ${trrId}` }>
-        <div style={ wrapperStyle }>
+        <div className={ style.trrPage }>
           <ShareableHeaderContainer/>
-          <ResponsiveFluidWidthComponent style={ contentStyle }>
-            <h1 className='test--trr-title' style={ TRRIdHeaderStyle }>TRR { trrId }</h1>
+          <div className={ `${responsiveContainerStyles.responsiveContainer} trr-content` }>
+            <h1 className='trr-title'>TRR { trrId }</h1>
             <OfficerSection officer={ officer }/>
             <TRRInfoSection
               trrLocation={ trrLocation }
@@ -30,7 +30,7 @@ export default class TRRPage extends Component {
               popup={ popup }
               pathName={ pathName }
             />
-          </ResponsiveFluidWidthComponent>
+          </div>
           <FooterContainer/>
         </div>
       </DocumentMeta>

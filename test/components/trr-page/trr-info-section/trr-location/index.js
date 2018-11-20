@@ -9,7 +9,7 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import TRRLocation from 'components/trr-page/trr-info-section/trr-location';
 import Row from 'components/trr-page/trr-info-section/trr-location/row';
-import TRRMap from 'components/trr-page/trr-info-section/trr-location/trr_map';
+import TRRMap from 'components/trr-page/trr-info-section/trr-location/trr-map';
 
 
 describe('TRRLocation component', function () {

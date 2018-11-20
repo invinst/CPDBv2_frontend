@@ -1,0 +1,24 @@
+@import 'variables'
+
+\:local(.trr-detail-row)
+  margin: 0 16px
+  color: $soft-black-color
+  font-size: 14px
+  box-sizing: border-box
+
+  &.border-bottom
+    border-bottom: 1px solid $white-two-color
+
+  .trr-detail-row-title
+    vertical-align: top
+    width: calc((50% - 16px) * 0.34)
+    display: inline-block
+    padding: 12px 0
+
+  .trr-detail-row-value
+    width: calc(83% + 16px * 0.34)
+    display: inline-block
+    padding: 12px 0
+
+    &.box
+      padding: 8px 0

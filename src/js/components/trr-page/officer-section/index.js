@@ -4,7 +4,7 @@ import { chunk } from 'lodash';
 
 import Item from './item';
 import LinkItem from './link-item';
-import { wrapperStyle, listWrapperStyle, } from './officer-section.style';
+import style from './officer-section.sass';
 import OfficerRow from './officer-row';
 
 
@@ -51,13 +51,13 @@ export default class OfficerSection extends Component {
     const rows = chunk(officerData, 2);
 
     return (
-      <div style={ wrapperStyle } className='test--trr-officer-section'>
+      <div className={ style.officerSection }>
         <OfficerRow
           percentile={ officer.percentile }
           fullName={ officer.fullName }
           officerId={ officer.officerId }
         />
-        <ul style={ listWrapperStyle }>
+        <ul className='list-wrapper'>
           {
             rows.map(
               ([firstItem, secondItem], index) => (

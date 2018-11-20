@@ -1,10 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import {
-  wrapperStyle,
-  textStyle,
-  requestDocumentButtonStyle,
-} from './trr-document.style';
+import style from './trr-document.sass';
 import RequestDocumentButton from 'components/common/request-document-button';
 
 
@@ -12,12 +8,12 @@ export default class TRRDocument extends Component {
   render() {
     const { alreadyRequested, openRequestTRRDocumentModal } = this.props;
     return (
-      <div style={ wrapperStyle }>
-        <div style={ textStyle } className='test--no-document'>
+      <div className={ style.trrDocument }>
+        <div className='trr-document-text'>
           There are no documents that have been made public yet.
         </div>
 
-        <div style={ requestDocumentButtonStyle }>
+        <div className='trr-request-document-button'>
           <RequestDocumentButton
             alreadyRequested={ alreadyRequested }
             openRequestDocumentModal={ openRequestTRRDocumentModal }

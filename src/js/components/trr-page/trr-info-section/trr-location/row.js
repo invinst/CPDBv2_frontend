@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
-import { wrapperStyle, titleStyle, valueStyle } from './row.style';
+import style from './row.sass';
 
 
 export default class Row extends Component {
@@ -8,11 +9,11 @@ export default class Row extends Component {
     const { title, value, hideBorder } = this.props;
 
     return (
-      <div style={ wrapperStyle(hideBorder) }>
-        <div className='test--trr-location-row-title' style={ titleStyle }>
+      <div className={ cx(style.trrLocationRow, { border: !hideBorder }) }>
+        <div className='trr-location-row-title'>
           { title }
         </div>
-        <div className='test--trr-location-row-value' style={ valueStyle }>
+        <div className='trr-location-row-value'>
           { value }
         </div>
       </div>

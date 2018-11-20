@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
-import { wrapperStyle, titleStyle, valueStyle, subValueStyle } from './item.style';
+import style from './item.sass';
 
 
 export default class Item extends Component {
@@ -8,13 +9,13 @@ export default class Item extends Component {
     const { title, value, subValue, isLeft, hideBorder } = this.props;
 
     return (
-      <div style={ wrapperStyle(isLeft, hideBorder) }>
-        <div className='test--item-title' style={ titleStyle }>
+      <div className={ cx(style.item, { left: isLeft, border: !hideBorder }) }>
+        <div className='item-title'>
           { title }
         </div>
-        <div className='test--item-value' style={ valueStyle }>
+        <div className='item-value'>
           { value }
-          { subValue && <span className='test--item-sub-value' style={ subValueStyle }>{ subValue }</span> }
+          { subValue && <span className='item-sub-value'>{ subValue }</span> }
         </div>
       </div>
     );
