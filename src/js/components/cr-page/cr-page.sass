@@ -28,34 +28,29 @@ $print-investigator-timeline-width: 200px
       margin: 0
 
   .timeline-location-container
-    @media print
-      page-break-inside: avoid
+    page-break-inside: avoid
 
-  .cr-timeline, .cr-involvements
-    width: $investigator-timeline-width
-    display: block
-    padding: 0 16px
-    box-sizing: border-box
-    vertical-align: top
-    float: left
+    .investigation-timeline
+      width: $investigator-timeline-width
+      display: block
+      padding: 0 16px
+      box-sizing: border-box
+      vertical-align: top
+      float: left
 
-    @media print
-      padding: 0 16px 0 0
-      width: $print-investigator-timeline-width
+      @media print
+        padding: 0 16px 0 0
+        width: $print-investigator-timeline-width
 
-  .cr-involvements
-    @media print
-      width: 100%
+    .cr-location
+      width: calc(100% - #{$investigator-timeline-width})
+      display: block
+      box-sizing: border-box
+      float: left
 
-  .cr-location
-    width: calc(100% - #{$investigator-timeline-width})
-    display: block
-    box-sizing: border-box
-    float: right
-
-    @media print
-      width: calc(100% - #{$print-investigator-timeline-width})
-      page-break-inside: avoid
+      @media print
+        width: calc(100% - #{$print-investigator-timeline-width})
+        page-break-inside: avoid
 
   .clearfix
     clear: both

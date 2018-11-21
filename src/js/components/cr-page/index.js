@@ -36,6 +36,8 @@ class CRPage extends Component {
       openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, isPrinting
     } = this.props;
 
+    const involvementItem = <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>
+
     return (
       <DocumentMeta title={ `CR ${crid}` }>
         <div className={ styles.crPage }>
@@ -83,16 +85,21 @@ class CRPage extends Component {
                 alreadyRequested={ alreadyRequested }
                 pathname={ pathname }
               />
-              <div className='cr-timeline'>
-                <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
+              <div className='timeline-location-container'>
+                <div className='investigation-timeline'>
+                  <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
+                  {
+                    isPrinting ?
+                    null : involvementItem
+
+                  }
+                </div>
+                <div className='cr-location'>
+                  <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
+                </div>
+                <div className='clearfix'/>
               </div>
-              <div className='cr-location'>
-                <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
-              </div>
-              <div className='cr-involvements'>
-                <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>
-              </div>
-              <div className='clearfix'/>
+              { isPrinting ? involvementItem : null }
               { isPrinting ? <PrintNoteContainer /> : null }
             </div>
           </div>
