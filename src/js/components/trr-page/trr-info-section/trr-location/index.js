@@ -12,7 +12,7 @@ class TRRLocation extends Component {
     const { address, incidentDate, beat, locationType, point, isPrinting } = this.props;
     const infoBlock = (
       <div className='info-block'>
-        <h3 className={ `test--location-title info-block-title ${printStyles.hideForPrint}` }>
+        <h3 className={ `info-block-title ${printStyles.hideForPrint}` }>
           LOCATION
         </h3>
         <div>
@@ -28,8 +28,8 @@ class TRRLocation extends Component {
         { isPrinting ? <h3 className='location-title-print'>LOCATION</h3> : null }
         <div className={ `trr-location-info ${printStyles.hideForPrint}` }>
           <div className='info-block'>
-            <h3 className='test--date-title info-block-title'>DATE OF INCIDENT</h3>
-            <div className='test--date-value info-block-date'>{ incidentDate }</div>
+            <h3 className='info-block-title'>DATE OF INCIDENT</h3>
+            <div className='info-block-date'>{ incidentDate }</div>
           </div>
           { infoBlock }
         </div>

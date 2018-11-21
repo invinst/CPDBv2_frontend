@@ -103,7 +103,7 @@ describe('TRR page selectors', function () {
         yearOld: 57,
         race: 'White',
         gender: 'Male',
-        careerDuration: 'DEC 13, 1999—DEC 23, 2015',
+        careerDuration: 'DEC 13, 1999 — DEC 23, 2015',
         percentile: {
           officerId: undefined,
           year: undefined,

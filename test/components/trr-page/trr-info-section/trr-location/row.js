@@ -17,11 +17,11 @@ describe('Row component', function () {
 
   it('should render title and value correctly', function () {
     instance = renderIntoDocument(
-      <Row title='LOCATION TYPE' value='Police Facility/Veh Parking Lot'/>
+      <Row title='location type' value='Police Facility/Veh Parking Lot'/>
     );
 
     findRenderedDOMComponentWithClass(instance, 'trr-location-row-title').textContent.should.eql(
-      'LOCATION TYPE'
+      'location type'
     );
     findRenderedDOMComponentWithClass(instance, 'trr-location-row-value').textContent.should.eql(
       'Police Facility/Veh Parking Lot'
@@ -30,10 +30,10 @@ describe('Row component', function () {
 
   it('should renderable with int value', function () {
     instance = renderIntoDocument(
-      <Row title='BEAT' value={ 1034 } hideBorder={ true }/>
+      <Row title='beat' value={ 1034 } hideBorder={ true }/>
     );
 
-    findRenderedDOMComponentWithClass(instance, 'trr-location-row-title').textContent.should.eql('BEAT');
+    findRenderedDOMComponentWithClass(instance, 'trr-location-row-title').textContent.should.eql('beat');
     findRenderedDOMComponentWithClass(instance, 'trr-location-row-value').textContent.should.eql('1034');
   });
 });

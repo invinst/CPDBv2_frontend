@@ -28,7 +28,7 @@ describe('OfficerSection component', function () {
     yearOld: 57,
     race: 'White',
     gender: 'Male',
-    careerDuration: 'DEC 13, 1999—DEC 23, 2015',
+    careerDuration: 'DEC 13, 1999 — DEC 23, 2015',
     percentile: {
       officerId: undefined,
       year: undefined,
@@ -83,20 +83,20 @@ describe('OfficerSection component', function () {
     const career = items[5];
     const inUniform = items[6];
 
-    yearOfBirth.props.title.should.eql('YEAR OF BIRTH');
-    race.props.title.should.eql('RACE');
-    assignedBeat.props.title.should.eql('ASSIGNED BEAT');
-    sex.props.title.should.eql('SEX');
-    onDuty.props.title.should.eql('ON DUTY');
-    career.props.title.should.eql('CAREER');
-    inUniform.props.title.should.eql('IN UNIFORM');
+    yearOfBirth.props.title.should.eql('year of birth');
+    race.props.title.should.eql('race');
+    assignedBeat.props.title.should.eql('assigned beat');
+    sex.props.title.should.eql('sex');
+    onDuty.props.title.should.eql('on duty');
+    career.props.title.should.eql('career');
+    inUniform.props.title.should.eql('in uniform');
 
     yearOfBirth.props.value.should.eql(1960);
     race.props.value.should.eql('White');
     assignedBeat.props.value.should.eql('Beat 1');
     sex.props.value.should.eql('Male');
     onDuty.props.value.should.eql('Yes');
-    career.props.value.should.eql('DEC 13, 1999—DEC 23, 2015');
+    career.props.value.should.eql('DEC 13, 1999 — DEC 23, 2015');
     inUniform.props.value.should.eql('Yes');
 
     yearOfBirth.props.subValue.should.eql('57 years old');
@@ -108,7 +108,7 @@ describe('OfficerSection component', function () {
     should(inUniform.props.subValue).be.undefined();
 
     const unit = findRenderedComponentWithType(instance, LinkItem);
-    unit.props.title.should.eql('UNIT');
+    unit.props.title.should.eql('unit');
     unit.props.value.should.eql('Unit 001');
     unit.props.to.should.eql('/unit/001/');
     const unitProfileButton = findRenderedComponentWithType(unit, NavigationButton);
@@ -125,7 +125,7 @@ describe('OfficerSection component', function () {
       yearOld: undefined,
       race: 'White',
       gender: 'Male',
-      careerDuration: 'DEC 13, 1999—DEC 23, 2015',
+      careerDuration: 'DEC 13, 1999 — DEC 23, 2015',
       percentile: {
         officerId: undefined,
         year: undefined,

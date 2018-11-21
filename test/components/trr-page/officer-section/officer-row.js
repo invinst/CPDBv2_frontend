@@ -49,4 +49,11 @@ describe('OfficerRow component', function () {
     const navigationButton = findRenderedComponentWithType(instance, NavigationButton);
     navigationButton.props.text.should.eql('View Profile');
   });
+
+  it('should hide visual token when printing', function () {
+    instance = renderIntoDocument(<OfficerRow { ...officerData }/>);
+    findRenderedDOMComponentWithClass(instance, 'trr-officer-row-visual-token').className.should.containEql(
+      'hide-for-print'
+    );
+  });
 });
