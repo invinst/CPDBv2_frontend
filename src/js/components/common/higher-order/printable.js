@@ -13,6 +13,7 @@ export default function (ComponentClass) {
 
     componentDidMount() {
       const query = window.matchMedia('print');
+      this._mediaPrintListener(query);
       query.addListener(this._mediaPrintListener);
     }
 

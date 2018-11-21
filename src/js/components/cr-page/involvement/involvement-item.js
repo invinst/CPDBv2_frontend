@@ -45,6 +45,7 @@ export default class InvolvementItem extends Component {
             })
           }
         </div>
+        <div className='clearfix'/>
       </div>
     );
   }

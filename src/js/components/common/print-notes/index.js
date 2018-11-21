@@ -1,13 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 
-import styles from './notes.sass';
+import styles from './print-notes.sass';
 
 
-export default class Notes extends Component {
+export default class PrintNotes extends Component {
   render() {
     const { notes } = this.props;
     return (
-      <div className={ styles.notes }>
+      <div className={ styles.printNotes }>
         <div className='notes-title'>Notes</div>
         {
           notes.map((note, index) => (
@@ -21,10 +21,10 @@ export default class Notes extends Component {
   }
 }
 
-Notes.propTypes = {
+PrintNotes.propTypes = {
   notes: PropTypes.array,
 };
 
-Notes.defaultProps = {
+PrintNotes.defaultProps = {
   notes: [],
 };

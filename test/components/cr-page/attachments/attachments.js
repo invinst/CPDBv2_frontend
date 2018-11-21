@@ -2,8 +2,9 @@ import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import Attachments from 'components/cr-page/attachments';
+import PrintAttachments from 'components/cr-page/attachments/print-attachments';
 
 
 describe('AttachmentsTab component', function () {
@@ -24,5 +25,12 @@ describe('AttachmentsTab component', function () {
     const items = [{ title: 'abc', url: 'def', previewImageUrl: 'pre' }];
     instance = renderIntoDocument(<Attachments items={ items }/>);
     scryRenderedComponentsWithType(instance, Attachments).should.have.length(1);
+  });
+
+  it('should render PrintAttachment if isPrinting is true', function () {
+    const items = [{ title: 'abc', url: 'def', previewImageUrl: 'pre' }];
+    const context = { isPrinting: true };
+    instance = renderWithContext(context, <Attachments items={ items }/>);
+    scryRenderedComponentsWithType(instance, PrintAttachments).should.have.length(1);
   });
 });

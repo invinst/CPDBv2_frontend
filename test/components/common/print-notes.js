@@ -6,10 +6,10 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test/index';
-import Notes from 'components/common/notes';
+import PrintNotes from 'components/common/print-notes';
 
 
-describe('Notes component', function () {
+describe('PrintNotes component', function () {
   let instance;
 
   afterEach(function () {
@@ -31,7 +31,7 @@ describe('Notes component', function () {
         text: 'this is accused officer note.'
       }
     ];
-    instance = renderIntoDocument(<Notes notes={ notes }/>);
+    instance = renderIntoDocument(<PrintNotes notes={ notes }/>);
     findRenderedDOMComponentWithClass(instance, 'notes-title').textContent.should.eql('Notes');
     const noteContents = scryRenderedDOMComponentsWithClass(instance, 'notes-content');
     noteContents.should.have.length(2);

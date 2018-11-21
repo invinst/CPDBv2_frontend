@@ -19,7 +19,7 @@ import { POPUP_NAMES } from 'utils/constants';
 import styles from './cr-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import Printable from 'components/common/higher-order/printable';
-import NoteContainer from 'containers/cr-page/notes';
+import PrintNoteContainer from 'containers/cr-page/print-notes';
 
 
 class CRPage extends Component {
@@ -83,15 +83,17 @@ class CRPage extends Component {
                 alreadyRequested={ alreadyRequested }
                 pathname={ pathname }
               />
-              <div className='investigation-timeline'>
+              <div className='cr-timeline'>
                 <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-                <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>
               </div>
               <div className='cr-location'>
                 <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
               </div>
+              <div className='cr-involvements'>
+                <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>
+              </div>
               <div className='clearfix'/>
-              { isPrinting ? <NoteContainer /> : null }
+              { isPrinting ? <PrintNoteContainer /> : null }
             </div>
           </div>
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }

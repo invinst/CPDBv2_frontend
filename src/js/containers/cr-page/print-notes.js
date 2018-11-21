@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 
-import Notes from 'components/common/notes';
+import PrintNotes from 'components/common/print-notes';
 
 
 function mapStateToProps(state, ownProps) {
@@ -10,4 +10,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps)(Notes);
+export default connect(mapStateToProps)(PrintNotes);

@@ -9,7 +9,6 @@ $print-investigator-timeline-width: 200px
 
   @media print
     background-color: white
-    padding-bottom: 60px
 
   .top-content
     box-sizing: border-box
@@ -28,7 +27,11 @@ $print-investigator-timeline-width: 200px
       border: none
       margin: 0
 
-  .investigation-timeline
+  .timeline-location-container
+    @media print
+      page-break-inside: avoid
+
+  .cr-timeline, .cr-involvements
     width: $investigator-timeline-width
     display: block
     padding: 0 16px
@@ -40,11 +43,15 @@ $print-investigator-timeline-width: 200px
       padding: 0 16px 0 0
       width: $print-investigator-timeline-width
 
+  .cr-involvements
+    @media print
+      width: 100%
+
   .cr-location
     width: calc(100% - #{$investigator-timeline-width})
     display: block
     box-sizing: border-box
-    float: left
+    float: right
 
     @media print
       width: calc(100% - #{$print-investigator-timeline-width})

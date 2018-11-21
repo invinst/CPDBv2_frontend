@@ -1,4 +1,4 @@
-@import ../../../../css/variables
+@import 'variables'
 
 \:local(.officer-row)
   padding: 12px 0
@@ -12,9 +12,14 @@
   @media print
     padding: 6px 0
     min-height: auto
+    width: 25%
+    float: left
 
   &:last-child
     border-bottom: none
+
+    @media print
+      border-bottom: solid 1px $white-two-color
 
   &.hoverable
     cursor: pointer

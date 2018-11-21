@@ -1,4 +1,4 @@
-@import ../../../../css/variables
+@import 'variables'
 
 \:local(.involvement-item)
   font-family: $san-francisco-text-family
@@ -7,9 +7,11 @@
   &:last-child
     margin-bottom: 0
 
+  .clearfix
+    clear: both
+
   @media print
     margin-bottom: 0
-    border-bottom: 1px solid $purple-brown
 
     &:last-child
       border: none
