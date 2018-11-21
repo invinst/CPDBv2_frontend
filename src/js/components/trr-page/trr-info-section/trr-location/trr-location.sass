@@ -14,29 +14,25 @@
     width: calc(100% - 704px)
     margin: 16px
 
+  .info-block
+    padding: 16px 0
+
     @media print
-      display: block
-      width: 100%
+      padding: 0
+      page-break-inside: avoid
+
+    .info-block-title
+      color: $soft-black-color
+      font-weight: 500
+      font-size: 14px
+      height: 32px
+      line-height: 32px
       margin: 0
 
-    .info-block
-      padding: 16px 0
-
-      @media print
-        padding: 0
-
-      .info-block-title
-        color: $soft-black-color
-        font-weight: 500
-        font-size: 14px
-        height: 32px
-        line-height: 32px
-        margin: 0
-
-      .info-block-date
-        color: $clay-gray
-        height: 40px
-        line-height: 40px
+    .info-block-date
+      color: $clay-gray
+      height: 40px
+      line-height: 40px
 
   .trr-location-map
     display: inline-block
