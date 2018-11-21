@@ -5,6 +5,7 @@ import { kebabCase } from 'lodash';
 import NavigationButton from './navigation-button';
 import StaticRadarChart from 'components/common/radar-chart';
 import style from './officer-row.sass';
+import printStyles from 'components/common/print.sass';
 
 
 export default class OfficerRow extends Component {
@@ -22,16 +23,14 @@ export default class OfficerRow extends Component {
         className={ `navigation-button-container ${style.trrOfficerRow}` }
         to={ `/officer/${officerId}/${officerSlug}/` }
       >
-        <div className='trr-officer-row-visual-token'>
+        <div className={ `trr-officer-row-visual-token ${printStyles.hideForPrint}` }>
           <StaticRadarChart { ...visualTokenConfig }/>
         </div>
         <div className='trr-officer-row-name'>
           <div className='trr-officer-row-rank'>Officer</div>
           <div className='trr-officer-full-name'>{ fullName }</div>
         </div>
-        <NavigationButton
-          text='View Profile'
-        />
+        <NavigationButton text='View Profile'/>
       </Link>
     );
   }

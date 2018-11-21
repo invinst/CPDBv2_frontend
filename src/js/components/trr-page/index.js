@@ -7,12 +7,14 @@ import OfficerSection from './officer-section';
 import TRRInfoSection from './trr-info-section';
 import FooterContainer from 'containers/footer-container';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import Printable from 'components/common/higher-order/printable';
 
 
-export default class TRRPage extends Component {
+class TRRPage extends Component {
   render() {
     const {
-      trrId, officer, trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal, popup, pathName,
+      trrId, officer, trrLocation, trrDetail, trrDocument,
+      openRequestTRRDocumentModal, popup, pathName, isPrinting
     } = this.props;
 
     return (
@@ -21,6 +23,15 @@ export default class TRRPage extends Component {
           <ShareableHeaderContainer/>
           <div className={ `${responsiveContainerStyles.responsiveContainer} trr-content` }>
             <h1 className='trr-title'>TRR { trrId }</h1>
+            { isPrinting ? <div className='trr-category-print'>{ trrDetail.category }</div> : null }
+            {
+              isPrinting ? (
+                <div className='incident-date-print'>
+                  <h3 className='incident-date-title-print'>DATE OF INCIDENT</h3>
+                  <div className='incident-date-value-print'>{ trrLocation.incidentDate }</div>
+                </div>
+              ) : null
+            }
             <OfficerSection officer={ officer }/>
             <TRRInfoSection
               trrLocation={ trrLocation }
@@ -47,4 +58,7 @@ TRRPage.propTypes = {
   openRequestTRRDocumentModal: PropTypes.func,
   popup: PropTypes.object,
   pathName: PropTypes.string,
+  isPrinting: PropTypes.bool,
 };
+
+export default Printable(TRRPage);

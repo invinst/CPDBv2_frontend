@@ -13,8 +13,8 @@ export default class Item extends Component {
           { title }
         </div>
         <div className='item-value'>
-          { value }
-          { subValue && <span className='item-sub-value'>{ subValue }</span> }
+          <div className='value'>{ value }</div>
+          { subValue && <div className='item-sub-value'>{ subValue }</div> }
         </div>
       </div>
     );

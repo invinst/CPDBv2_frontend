@@ -6,9 +6,15 @@
   border-bottom: 1px solid $white-two-color
   min-height: 100vh
 
+  @media print
+    background-color: white
+
   .trr-content
     min-height: calc(100vh - 136px)
     padding-bottom: 128px
+
+    @media print
+      padding-bottom: 0
 
     .trr-title
       font-size: 26px
@@ -17,3 +23,34 @@
       padding-top: 16px
       padding-bottom: 16px
       margin: 0 16px
+
+      @media print
+        margin: 0 26px
+        font-size: 12px
+        padding-top: 0px
+        padding-bottom: 0px
+
+    .trr-category-print
+      margin: 0 26px
+      border-bottom: 2px solid $soft-black-color
+      font-size: 24px
+      padding-bottom: 12px
+      color: $soft-black-color
+
+    .incident-date-print
+      margin: 0 26px
+      border-bottom: 2px solid $soft-black-color
+      color: $soft-black-color
+
+      .incident-date-title-print
+        display: inline-block
+        font-weight: 400
+        margin: 0
+        line-height: 37px
+        font-size: 12px
+
+      .incident-date-value-print
+        display: inline-block
+        padding-left: 16px
+        line-height: 37px
+        font-size: 12px

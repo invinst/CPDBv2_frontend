@@ -8,6 +8,9 @@
   font-weight: 300
   border-bottom: 1px solid $white-two-color
 
+  @media print
+    margin: 0
+
   &:last-child
     border-bottom: none
 
@@ -16,6 +19,13 @@
     display: inline-block
     width: 34%
     color: $clay-gray
+    text-transform: uppercase
+
+    @media print
+      font-size: 12px
+      width: 80px
+      text-transform: capitalize
+      padding-right: 8px
 
   .trr-location-row-value
     vertical-align: top
@@ -24,3 +34,7 @@
     width: 66%
     color: $soft-black-color
     font-weight: 400
+
+    @media print
+      font-size: 12px
+      width: calc(100% - 88px)

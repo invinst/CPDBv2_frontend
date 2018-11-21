@@ -13,6 +13,10 @@
   font-weight: 300
   border-bottom: 1px solid $white-two-color
 
+  @media print
+    font-size: 12px
+    font-weight: 400
+
   &:first-child
     margin: 0 16px 0 0
 
@@ -23,6 +27,12 @@
     width: 34%
     display: inline-block
     color: $clay-gray
+    text-transform: uppercase
+
+    @media print
+      font-size: 12px
+      vertical-align: middle
+      text-transform: capitalize
 
   .item-value
     width: 66%
@@ -30,7 +40,24 @@
     color: $soft-black-color
     font-weight: 400
 
+    @media print
+      vertical-align: middle
+
+    .value
+      display: inline-block
+
+      @media print
+        line-height: 15px
+        display: block
+
     .item-sub-value
+      display: inline-block
       color: $clay-gray
       margin-left: 4px
       font-weight: 300
+
+      @media print
+        display: block
+        font-size: 10px
+        line-height: 13px
+        margin-left: 0
