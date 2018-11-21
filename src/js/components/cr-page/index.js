@@ -36,7 +36,7 @@ class CRPage extends Component {
       openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, isPrinting
     } = this.props;
 
-    const involvementItem = <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>
+    const involvementItem = <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>;
 
     return (
       <DocumentMeta title={ `CR ${crid}` }>
