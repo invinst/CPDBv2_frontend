@@ -36,6 +36,12 @@ describe('Printable component', function () {
     addListenerSpy.calledWith(instance._mediaPrintListener).should.be.true();
   });
 
+  it('should add onbeforeprint & onafterprint listener', function () {
+    instance = renderIntoDocument(<PrintableDummy/>);
+    window.onbeforeprint.should.be.eql(instance._beforePrint);
+    window.onafterprint.should.be.eql(instance._afterPrint);
+  });
+
   it('should set isPrinting state when _mediaPrintListener is called', function () {
     instance = renderIntoDocument(<PrintableDummy/>);
 
@@ -43,6 +49,16 @@ describe('Printable component', function () {
     instance.state.isPrinting.should.be.true();
 
     instance._mediaPrintListener({ matches: false });
+    instance.state.isPrinting.should.be.false();
+  });
+
+  it('should set isPrinting when _beforePrint & _afterPrint is called', function () {
+    instance = renderIntoDocument(<PrintableDummy/>);
+
+    instance._beforePrint();
+    instance.state.isPrinting.should.be.true();
+
+    instance._afterPrint();
     instance.state.isPrinting.should.be.false();
   });
 });

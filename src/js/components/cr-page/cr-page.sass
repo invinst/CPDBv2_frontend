@@ -28,7 +28,11 @@ $print-investigator-timeline-width: 200px
       margin: 0
 
   .timeline-location-container
-    page-break-inside: avoid
+    @media print
+      page-break-inside: avoid
+      display: -webkit-inline-flex
+      display: inline-flex
+      width: 100%
 
     .investigation-timeline
       width: $investigator-timeline-width

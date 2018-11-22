@@ -88,11 +88,7 @@ class CRPage extends Component {
               <div className='timeline-location-container'>
                 <div className='investigation-timeline'>
                   <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-                  {
-                    isPrinting ?
-                    null : involvementItem
-
-                  }
+                  { isPrinting ? null : involvementItem }
                 </div>
                 <div className='cr-location'>
                   <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
@@ -100,6 +96,7 @@ class CRPage extends Component {
                 <div className='clearfix'/>
               </div>
               { isPrinting ? involvementItem : null }
+              { isPrinting ? <div className='clearfix'/> : null }
               { isPrinting ? <PrintNoteContainer /> : null }
             </div>
           </div>
