@@ -1,0 +1,20 @@
+@import 'variables'
+
+\:local(.attachments-container)
+  background-color: $sugar-cane-color
+  position: relative
+  top: -1px
+
+  .attachments-content
+    margin: 0 16px
+    position: relative
+
+  &.has-data
+    background-color: white
+
+    .attachments-content
+      border-bottom: 1px solid $white-two-color
+      border-top: 1px solid $white-two-color
+
+      .attachments
+        padding-bottom: 8px

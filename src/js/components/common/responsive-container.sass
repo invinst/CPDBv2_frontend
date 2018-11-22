@@ -1,0 +1,13 @@
+@import 'variables'
+
+\:local(.responsive-container)
+  @media screen and (max-width: $min-width-threshold)
+    width: $min-width-threshold
+    margin: 0 auto
+
+  @media screen and (min-width: $min-width-threshold) and (max-width: $max-width-threshold)
+    width: 100%
+
+  @media screen and (min-width: $max-width-threshold)
+    width: $max-width-threshold
+    margin: 0 auto

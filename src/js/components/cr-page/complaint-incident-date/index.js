@@ -1,12 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import moment from 'moment';
 
-import {
-  incidentDateWrapperStyle,
-  incidentDateStyleLabel,
-  incidentDateStyleValue,
-} from 'components/cr-page/complaint-incident-date/complaint-incident-date.style';
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
+import styles from './complaint-incident-date.sass';
 
 
 export default class ComplaintIncidentDate extends Component {
@@ -15,14 +10,12 @@ export default class ComplaintIncidentDate extends Component {
     if (!incidentDate) return null;
 
     return (
-      <ResponsiveFluidWidthComponent>
-        <div style={ incidentDateWrapperStyle }>
-          <div style={ incidentDateStyleLabel }>DATE</div>
-          <div className='test--cr-incident-date' style={ incidentDateStyleValue }>
-            { moment(incidentDate).format('ll') }
-          </div>
+      <div className={ styles.complaintIncidentDate }>
+        <div className='cr-incident-date-label'>DATE</div>
+        <div className='cr-incident-date-value'>
+          { moment(incidentDate).format('ll') }
         </div>
-      </ResponsiveFluidWidthComponent>
+      </div>
     );
   }
 }

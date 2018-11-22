@@ -1,12 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
+import cx from 'classnames';
 
-import Hoverable from 'components/common/higher-order/hoverable';
-import {
-  wrapperStyle, mapStyle, sectionWithBorderStyle, sectionContentStyle, sectionStyle,
-  contentStyle, sectionLabelStyle, accusedStyle, hoverableWrapperStyle
-} from './complaint-card.style';
+import { mapStyle } from './complaint-card.style';
 import * as GATracking from 'utils/google_analytics_tracking';
+import styles from './complaint-card.sass';
 
 
 class ComplaintCard extends Component {
@@ -25,35 +23,34 @@ class ComplaintCard extends Component {
   }
 
   render() {
-    const { crid, lat, lon, categories, complainants, accused, hovering } = this.props;
+    const { crid, lat, lon, categories, complainants, accused } = this.props;
 
     return (
       <Link
-        className='test--carousel-card'
-        style={ wrapperStyle(hovering) }
+        className={ cx(styles.complaintCard, 'swiper-slide', 'test--carousel-card') }
         to={ `/complaint/${crid}/` }
         onClick={ this.handleClick } >
-        <div style={ mapStyle(lat, lon) } />
-        <div style={ contentStyle } >
-          <div style={ sectionWithBorderStyle }>
-            <div style={ sectionLabelStyle }>CR { crid }</div>
-            <div style={ sectionContentStyle }>{ categories }</div>
+        <div className='complaint-card-map' style={ mapStyle(lat, lon) } />
+        <div className='content'>
+          <div className='section'>
+            <div className='section-label'>CR { crid }</div>
+            <div className='section-content nowrap-text'>{ categories }</div>
           </div>
           {
             complainants
               ? (
-                <div className='test--carousel-complainant' style={ sectionWithBorderStyle }>
-                  <div style={ sectionLabelStyle }>Complainant</div>
-                  <div style={ sectionContentStyle }>{ complainants }</div>
+                <div className='section test--carousel-complainant'>
+                  <div className='section-label'>Complainant</div>
+                  <div className='section-content nowrap-text'>{ complainants }</div>
                 </div>
                 ) : null
           }
           {
             accused
               ? (
-                <div className='test--carousel-accused' style={ sectionStyle }>
-                  <div style={ sectionLabelStyle }>Accused</div>
-                  <div style={ accusedStyle }>{ accused }</div>
+                <div className='section test--carousel-accused'>
+                  <div className='section-label'>Accused</div>
+                  <div className='section-content accused'>{ accused }</div>
                 </div>
                 ) : null
           }
@@ -70,10 +67,9 @@ ComplaintCard.propTypes = {
   categories: PropTypes.string,
   complainants: PropTypes.string,
   accused: PropTypes.string,
-  hovering: PropTypes.bool,
   match: PropTypes.string,
   sourceCRID: PropTypes.string,
 };
 
 export { itemWidth } from './complaint-card.style';
-export default Hoverable(ComplaintCard, 'div', hoverableWrapperStyle, 'swiper-slide');
+export default ComplaintCard;

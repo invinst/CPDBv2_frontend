@@ -1,0 +1,24 @@
+@import 'variables'
+
+\:local(.view-map-button)
+  color: $greyish-color
+  display: inline-block
+  cursor: pointer
+  font-weight: 300
+  float: right
+  text-decoration: none
+  vertical-align: middle
+
+  .view-map-button-arrow
+    background: url('/img/disclosure-indicator.svg') 14px 0 no-repeat scroll
+    width: 8px
+    height: 13px
+    vertical-align: middle
+    padding-right: 14px
+    display: inline-block
+
+  &:hover
+    color: $accent-color
+
+    .view-map-button-arrow
+      background: url('/img/disclosure-indicator-blue.svg') 14px 0 no-repeat scroll

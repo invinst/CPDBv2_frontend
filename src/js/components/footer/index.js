@@ -1,20 +1,17 @@
 import React, { PropTypes } from 'react';
+import cx from 'classnames';
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import NoRerender from 'components/common/higher-order/no-rerender';
 import { showIntercomMessages } from 'utils/intercom';
 import FooterNavLink from './footer-nav-link';
-import InvistLogo from './invist-logo';
-import {
-  wrapperStyle,
-  sectionStyle,
-  responsiveFixedWidthInnerStyle,
-  invistWrapperStyle
-} from './footer.style';
+import styles from './footer.sass';
+import { INVISIBLE_INSTITUTE_URL } from '../../utils/constants';
+import OutboundLink from 'components/common/outbound-link';
+import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
 class Footer extends React.Component {
   render() {
-    const { openLegalDisclaimerModal, style } = this.props;
+    const { openLegalDisclaimerModal, className } = this.props;
     const links = [
       {
         name: 'Legal',
@@ -35,23 +32,24 @@ class Footer extends React.Component {
     ];
 
     return (
-      <div style={ { ...sectionStyle, ...style.wrapper } }>
-        <div style={ wrapperStyle }>
-          <div style={ responsiveFixedWidthInnerStyle }>
-            <ResponsiveFluidWidthComponent>
-              { links.map((link, ind) => (
-                <FooterNavLink
-                  style={ style.link }
-                  key={ ind }
-                  { ...link }
-                />
-              )) }
-            </ResponsiveFluidWidthComponent>
+      <div className={ cx(styles.footer, className) }>
+        <div className='footer-wrapper'>
+          <div className={ cx(responsiveContainerStyles.responsiveContainer, 'responsive-fixed-width-inner') }>
+            { links.map((link, ind) => (
+              <FooterNavLink
+                className='footer-nav-link'
+                key={ ind }
+                { ...link }
+              />
+            )) }
           </div>
-          <div style={ invistWrapperStyle }>
-            <ResponsiveFluidWidthComponent>
-              <InvistLogo />
-            </ResponsiveFluidWidthComponent>
+          <div className='invist-wrapper'>
+            <div className={ responsiveContainerStyles.responsiveContainer }>
+              <OutboundLink
+                className='invist-logo test--footer-invinst-logo'
+                href={ INVISIBLE_INSTITUTE_URL }
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -61,7 +59,7 @@ class Footer extends React.Component {
 
 Footer.propTypes = {
   openLegalDisclaimerModal: PropTypes.func,
-  style: PropTypes.object,
+  className: PropTypes.string,
 };
 
 Footer.defaultProps = {

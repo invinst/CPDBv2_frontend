@@ -24,9 +24,9 @@ class RecentActivityCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-activity"]//*[@class="test--carousel-arrow-left"]',
-      rightArrow: '//div[@class="test--landing-carousel-activity"]//*[@class="test--carousel-arrow-right"]',
-      officerCards: '//div[@class="test--landing-carousel-activity"]//a[@class="test--officer-card"]',
+      leftArrow: '//div[@class="test--landing-carousel-activity"]//*[contains(@class, "test--carousel-arrow-left")]',
+      rightArrow: '//div[@class="test--landing-carousel-activity"]//*[contains(@class, "test--carousel-arrow-right")]',
+      officerCards: '//div[@class="test--landing-carousel-activity"]//a[contains(@class, "test--officer-card")]',
       pairCards: '//div[@class="test--landing-carousel-activity"]//div[@class="test--pair-card"]',
       firstPairCard: '(//div[@class="test--landing-carousel-activity"]//div[@class="test--pair-card"])[1]',
       firstPairCardLeftHalf: '' +
@@ -45,9 +45,10 @@ class OfficersByAllegationCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-allegation"]//*[@class="test--carousel-arrow-left"]',
-      rightArrow: '//div[@class="test--landing-carousel-allegation"]//*[@class="test--carousel-arrow-right"]',
-      cards: '//div[@class="test--landing-carousel-allegation"]//a[@class="test--officer-card"]'
+      leftArrow: '//div[@class="test--landing-carousel-allegation"]//*[contains(@class, "test--carousel-arrow-left")]',
+      rightArrow: '//div[@class="test--landing-carousel-allegation"]' +
+        '//*[contains(@class, "test--carousel-arrow-right")]',
+      cards: '//div[@class="test--landing-carousel-allegation"]//a[contains(@class, "test--officer-card")]'
     });
   }
 }
@@ -56,8 +57,8 @@ class RecentDocumentCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-document"]//*[@class="test--carousel-arrow-left"]',
-      rightArrow: '//div[@class="test--landing-carousel-document"]//*[@class="test--carousel-arrow-right"]',
+      leftArrow: '//div[@class="test--landing-carousel-document"]//*[contains(@class, "test--carousel-arrow-left")]',
+      rightArrow: '//div[@class="test--landing-carousel-document"]//*[contains(@class, "test--carousel-arrow-right")]',
       cards: '//div[@class="test--landing-carousel-document"]//a[@class="test--document-card"]'
     });
   }
@@ -67,8 +68,8 @@ class ComplaintSummariesCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-complaint"]//*[@class="test--carousel-arrow-left"]',
-      rightArrow: '//div[@class="test--landing-carousel-complaint"]//*[@class="test--carousel-arrow-right"]',
+      leftArrow: '//div[@class="test--landing-carousel-complaint"]//*[contains(@class, "test--carousel-arrow-left")]',
+      rightArrow: '//div[@class="test--landing-carousel-complaint"]//*[contains(@class, "test--carousel-arrow-right")]',
       cards: '//div[@class="test--landing-carousel-complaint"]//a[@class="test--complaint-summary-card"]'
     });
   }

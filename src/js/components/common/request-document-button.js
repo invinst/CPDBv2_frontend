@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
-import Hoverable from 'components/common/higher-order/hoverable';
-import { buttonStyle } from './request-document-button.style';
+import styles from './request-document-button.sass';
 
 
 export class RequestDocumentButton extends Component {
@@ -14,12 +14,21 @@ export class RequestDocumentButton extends Component {
   }
 
   render() {
-    const { alreadyRequested, hovering, hasData } = this.props;
+    const { alreadyRequested, hasData } = this.props;
     return (
       <div
-        className='test--attachment-request'
+        className={
+          cx(
+            styles.requestDocumentButton,
+            'test--attachment-request',
+            {
+              'has-data': hasData,
+              'already-requested': alreadyRequested
+            }
+          )
+        }
         onClick={ this.handleClick.bind(this) }
-        style={ buttonStyle(alreadyRequested, hovering, hasData) }>
+      >
         {
           !alreadyRequested
             ? 'Request Documents'
@@ -37,4 +46,4 @@ RequestDocumentButton.propTypes = {
   hasData: PropTypes.bool,
 };
 
-export default Hoverable(RequestDocumentButton);
+export default RequestDocumentButton;

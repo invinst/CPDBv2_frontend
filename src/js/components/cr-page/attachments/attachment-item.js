@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
-import Hoverable from 'components/common/higher-order/hoverable';
-import { wrapperStyle, thumbnailStyle, titleStyle } from './attachment-item.style';
+import { thumbnailStyle } from './attachment-item.style';
 import * as GATracking from 'utils/google_analytics_tracking';
 import OutboundLink from 'components/common/outbound-link';
+import styles from './attachment-item.sass';
 
 
 class AttachmentItem extends Component {
@@ -18,14 +19,18 @@ class AttachmentItem extends Component {
   }
 
   render() {
-    const { url, previewImageUrl, title, fileType, hovering } = this.props;
+    const { url, previewImageUrl, title, fileType } = this.props;
 
     return (
-      <OutboundLink style={ wrapperStyle } href={ url } className='test--attachment-card' onClick={ this.handleClick }>
+      <OutboundLink
+        href={ url }
+        className={ cx(styles.attachmentItem, 'test--attachment-card') }
+        onClick={ this.handleClick }
+      >
         <div
-          style={ thumbnailStyle(fileType, previewImageUrl, hovering) }
-          className='test--attachment-card-thumbnail' />
-        <div style={ titleStyle(hovering) } className='test--attachment-card-title'>{ title }</div>
+          style={ thumbnailStyle(fileType, previewImageUrl) }
+          className={ cx('attachment-card-thumbnail', fileType) } />
+        <div className='attachment-card-title'>{ title }</div>
       </OutboundLink>
     );
   }
@@ -44,4 +49,4 @@ AttachmentItem.defaultProps = {
   fileType: 'audio'
 };
 
-export default Hoverable(AttachmentItem);
+export default AttachmentItem;

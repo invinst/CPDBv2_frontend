@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
 import RequestDocumentButton from 'components/common/request-document-button';
-import { requestButtonStyle, messageStyle } from './no-attachment-header.style';
+import styles from './no-attachment-header.sass';
 
 
 export default class NoAttachmentHeader extends Component {
@@ -9,11 +9,11 @@ export default class NoAttachmentHeader extends Component {
     const { openRequestDocumentModal, alreadyRequested } = this.props;
 
     return (
-      <div>
-        <div style={ messageStyle }>
+      <div className={ styles.noHeaderMessage }>
+        <div className='message'>
           There are no documents that have been made public yet.
         </div>
-        <div style={ requestButtonStyle }>
+        <div className='request-button'>
           <RequestDocumentButton
             alreadyRequested={ alreadyRequested }
             openRequestDocumentModal={ openRequestDocumentModal }
