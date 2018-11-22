@@ -13,7 +13,6 @@
     padding: 6px 0
     min-height: auto
     width: 25%
-    float: left
 
   &:last-child
     border-bottom: none
@@ -81,3 +80,8 @@
       max-width: 50px
       display: inline-block
       box-sizing: border-box
+
+.columns-layout
+  \:local(.officer-row)
+    @media print
+      float: left

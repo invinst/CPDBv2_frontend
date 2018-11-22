@@ -9,12 +9,9 @@ import styles from './involvement-item.sass';
 
 
 export default class InvolvementItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { involvedType, officers, className, popup, pathName } = this.props;
+    const INVOLVEMENT_NUM_OF_COLUMNS = 4;
     const involvedTypeMap = {
       investigator: {
         name: 'INVESTIGATOR',
@@ -35,7 +32,7 @@ export default class InvolvementItem extends Component {
             url={ pathName }
           />
         </div>
-        <div>
+        <div className={ cx({ 'columns-layout': officers.length > INVOLVEMENT_NUM_OF_COLUMNS }) }>
           {
             map(officers, (officer, index) =>
             {
@@ -51,6 +48,9 @@ export default class InvolvementItem extends Component {
   }
 }
 
+InvolvementItem.defaultProps = {
+  officers: [],
+};
 
 InvolvementItem.propTypes = {
   involvedType: PropTypes.string,
