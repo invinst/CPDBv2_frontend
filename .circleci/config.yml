@@ -134,14 +134,14 @@ jobs:
             export IMAGE_TAG=$(cat /tmp/workspace/buildnum)
             cat desktop-frontend.yml | envsubst | kubectl apply -f - --namespace=$NAMESPACE
 
-  notfiy_slack:
+  notify_slack:
     docker:
       - image: python:3.7-alpine
     steps:
       - run: apk add git
       - run: pip install requests
       - checkout
-      - run: bin/notfiy_slack.py
+      - run: bin/notify_slack.py
 
 workflows:
   version: 2
@@ -165,7 +165,7 @@ workflows:
       - deploy:
           requires:
             - push_image
-      - notfiy_slack:
+      - notify_slack:
           requires:
             - deploy
           filters:
