@@ -35,9 +35,4 @@ describe('Row component', function () {
       findRenderedDOMComponentWithClass(instance, 'trr-detail-row-value').className.should.containEql('inline-print');
     }
   );
-
-  it('should render empty DOM component with font-preload class name to preload bold font', function () {
-    instance = renderIntoDocument(<Row popup={ popup } pathName='/trr/62131/'/>);
-    findRenderedDOMComponentWithClass(instance, 'font-preload').textContent.should.eql(' ');
-  });
 });

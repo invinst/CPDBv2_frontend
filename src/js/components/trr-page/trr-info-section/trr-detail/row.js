@@ -18,7 +18,6 @@ export default class Row extends Component {
         <div className={ cx('trr-detail-row-value', { box: borderValue, 'inline-print': twoRowsWhenPrint }) }>
           { children }
         </div>
-        <span className='font-preload'>&nbsp;</span>
       </div>
     );
   }

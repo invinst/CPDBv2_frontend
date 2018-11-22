@@ -3,10 +3,11 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass, scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import TRRPage from 'components/trr-page';
@@ -15,12 +16,29 @@ import TRRInfoSection from 'components/trr-page/trr-info-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import FooterContainer from 'containers/footer-container';
 import TRRPageContainer from 'containers/trr-page';
+import Notes from 'components/common/notes';
+import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 
 
 describe('TRRPage component', function () {
   let instance;
   const store = MockStore()({
-    popups: [],
+    popups: [
+      {
+        name: 'force_category',
+        page: 'trr',
+        title: 'Force Category',
+        text: 'See CPD\'s official [Use of Force Model]' +
+          '(http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html)'
+      },
+      {
+        name: 'type_of_force',
+        page: 'trr',
+        title: 'Type of Force',
+        text: 'See CPD\'s official [Use of Force Model]' +
+          '(http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html)'
+      }
+    ],
     breadcrumb: {
       breadcrumbs: []
     },
@@ -96,7 +114,7 @@ describe('TRRPage component', function () {
     findRenderedComponentWithType(instance, FooterContainer);
   });
 
-  it('should render category header and incident date header when printing', function () {
+  it('should render category header, incident date and notes header when printing', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <TRRPage
@@ -112,6 +130,27 @@ describe('TRRPage component', function () {
     findRenderedDOMComponentWithClass(instance, 'incident-date-print');
     findRenderedDOMComponentWithClass(instance, 'incident-date-title-print').textContent.should.eql('DATE OF INCIDENT');
     findRenderedDOMComponentWithClass(instance, 'incident-date-value-print').textContent.should.eql('Sep 23, 2003');
+
+    findRenderedComponentWithType(instance, Notes);
+    findRenderedDOMComponentWithClass(instance, 'notes-wrapper');
+
+    findRenderedDOMComponentWithClass(instance, 'notes-title').textContent.should.eql('Notes');
+
+    const noteContents = scryRenderedDOMComponentsWithClass(instance, 'notes-content');
+    noteContents.should.have.length(2);
+    noteContents[0].textContent.should.eql('Force Category: See CPD\'s official Use of Force Model');
+    noteContents[1].textContent.should.eql('Type of Force: See CPD\'s official Use of Force Model');
+
+    const noteContentMarkdownLinks = scryRenderedComponentsWithType(instance, MarkdownLink).map(findDOMNode);
+    noteContentMarkdownLinks.should.have.length(2);
+    noteContentMarkdownLinks[0].textContent.should.eql('Use of Force Model');
+    noteContentMarkdownLinks[0].href.should.eql(
+      'http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html'
+    );
+    noteContentMarkdownLinks[1].textContent.should.eql('Use of Force Model');
+    noteContentMarkdownLinks[1].href.should.eql(
+      'http://directives.chicagopolice.org/directives/data/a7a57be2-128ff3f0-ae912-8fff-cec11383d806e05f.html'
+    );
   });
 
   it('should not render category header and incident date header when is not printing', function () {

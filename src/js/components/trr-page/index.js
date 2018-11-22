@@ -8,6 +8,7 @@ import TRRInfoSection from './trr-info-section';
 import FooterContainer from 'containers/footer-container';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import Printable from 'components/common/higher-order/printable';
+import NotesContainer from 'containers/trr-page/notes';
 
 
 class TRRPage extends Component {
@@ -42,6 +43,7 @@ class TRRPage extends Component {
               pathName={ pathName }
             />
           </div>
+          { isPrinting ? <div className='notes-wrapper'><NotesContainer/></div> : null }
           <FooterContainer/>
         </div>
       </DocumentMeta>
