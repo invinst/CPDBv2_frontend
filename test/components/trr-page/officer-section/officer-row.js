@@ -16,6 +16,7 @@ describe('OfficerRow component', function () {
   const officerData = {
     officerId: 123,
     fullName: 'Ronald Watts',
+    rank: 'Police Officer',
     percentile: {
       officerId: undefined,
       year: undefined,
@@ -44,6 +45,7 @@ describe('OfficerRow component', function () {
       { axis: 'Civilian Allegations', value: 22.2 }
     ]);
 
+    findRenderedDOMComponentWithClass(instance, 'trr-officer-row-rank').textContent.should.eql('Police Officer');
     const officerName = findRenderedDOMComponentWithClass(instance, 'trr-officer-full-name');
     officerName.textContent.should.containEql('Ronald Watts');
     const navigationButton = findRenderedComponentWithType(instance, NavigationButton);

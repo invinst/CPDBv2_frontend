@@ -55,6 +55,7 @@ export default class OfficerSection extends Component {
         <OfficerRow
           percentile={ officer.percentile }
           fullName={ officer.fullName }
+          rank={ officer.rank }
           officerId={ officer.officerId }
         />
         <ul className='officer-section-list'>

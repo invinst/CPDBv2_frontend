@@ -21,6 +21,7 @@ describe('OfficerSection component', function () {
   let instance;
   const officer = {
     officerId: 123,
+    rank: 'Police Officer',
     fullName: 'Ronald Watts',
     unitName: '001',
     unitDescription: 'Unit 001',
@@ -67,6 +68,7 @@ describe('OfficerSection component', function () {
     officerProfileButton.props.text.should.eql('View Profile');
 
     const officerRow = findRenderedComponentWithType(instance, OfficerRow);
+    officerRow.props.rank.should.eql('Police Officer');
     findRenderedComponentWithType(officerRow, Link).props.to.should.eql('/officer/123/ronald-watts/');
   });
 

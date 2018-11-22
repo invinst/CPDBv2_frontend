@@ -48,6 +48,7 @@ describe('TRRPage component', function () {
         officer: {
           id: 456,
           'full_name': 'Ronald Watts',
+          'rank': 'Police Officer',
           unit: {
             'unit_name': '001',
             'description': 'Unit 001',
@@ -86,6 +87,7 @@ describe('TRRPage component', function () {
     findRenderedDOMComponentWithClass(instance, 'trr-title').textContent.should.eql('TRR 123');
     findRenderedComponentWithType(instance, OfficerSection).props.officer.should.eql({
       officerId: 456,
+      rank: 'Police Officer',
       assignedBeat: 'some beat',
       birthYear: 1960,
       careerDuration: 'DEC 13, 1999 — DEC 23, 2015',
