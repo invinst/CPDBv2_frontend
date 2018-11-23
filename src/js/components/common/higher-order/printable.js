@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './printable.sass';
 
 
 export default function (ComponentClass) {
@@ -15,6 +16,7 @@ export default function (ComponentClass) {
 
     componentDidMount() {
       const query = window.matchMedia('print');
+      this._mediaPrintListener(query);
       query.addListener(this._mediaPrintListener);
       window.onbeforeprint = this._beforePrint;
       window.onafterprint = this._afterPrint;
@@ -31,14 +33,42 @@ export default function (ComponentClass) {
     }
 
     _mediaPrintListener(media) {
-      if (this.state.isPrinting != media.matches)
+      if (this.state.isPrinting !== media.matches)
         this.setState({ isPrinting: media.matches });
     }
 
     render() {
       const { isPrinting } = this.state;
+      const today = new Date().toLocaleDateString();
 
-      return <ComponentClass isPrinting={ isPrinting } { ...this.props }/>;
+      return (
+        isPrinting ?
+          <table className={ styles.printable }>
+            <thead>
+              <tr>
+                <th>
+                  <div className='printable-header'>
+                    <span className='left-header'>{ document.title }</span>
+                    <div className='right-header'>
+                      <span className='printable-as-of'>AS OF</span>
+                      <br/>
+                      <span className='printable-date'>{ today }</span>
+                    </div>
+                    <div className='clearfix'></div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <ComponentClass isPrinting={ isPrinting } { ...this.props }/>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          : <ComponentClass isPrinting={ isPrinting } { ...this.props }/>
+      );
     }
   };
 }

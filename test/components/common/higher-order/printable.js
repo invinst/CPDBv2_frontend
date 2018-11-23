@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { spy } from 'sinon';
-import { renderIntoDocument } from 'react-addons-test-utils';
+import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Printable from 'components/common/higher-order/printable';
@@ -14,12 +14,26 @@ describe('Printable component', function () {
   });
 
   class Dummy extends Component {
+    componentDidMount() {
+      document.title = 'Dummy title';
+    }
+
     render() {
       return <div/>;
     }
   }
 
   const PrintableDummy = Printable(Dummy);
+
+  it.only('should render header correctly', function () {
+    const today = new Date().toLocaleDateString();
+
+    instance = renderIntoDocument(<PrintableDummy/>);
+    instance._mediaPrintListener({ matches: true });
+    findRenderedDOMComponentWithClass(instance, 'left-header').textContent.should.eql('Dummy title');
+    findRenderedDOMComponentWithClass(instance, 'printable-as-of').textContent.should.eql('AS OF');
+    findRenderedDOMComponentWithClass(instance, 'printable-date').textContent.should.eql(`${today}`);
+  });
 
   it('should add media listener', function () {
     const addListenerSpy = spy();

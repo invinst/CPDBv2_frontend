@@ -1,0 +1,33 @@
+@import 'variables'
+
+\:local(.printable)
+  .printable-header
+    font-weight: 500
+    margin: 25px 25px 0 25px
+    padding-top: 25px
+    border-bottom: 1px solid $purple-brown
+
+    .right-header
+      float: right
+      text-align: right
+
+      .printable-as-of
+        font-size: 10px
+
+      .printable-date
+        font-size: 12px
+
+    .left-header
+      float: left
+      text-align: left
+      font-size: 12px
+      line-height: 38px
+
+    .clearfix
+      clear: both
+
+  thead
+    display: table-header-group
+
+  tbody
+    display: table-row-group
