@@ -25,16 +25,20 @@ class TRRLocation extends Component {
 
     return (
       <div className={ style.trrLocation }>
-        { isPrinting ? <h3 className='location-title-print'>LOCATION</h3> : null }
-        <div className={ `trr-location-info ${printStyles.hideForPrint}` }>
-          <div className='info-block'>
-            <h3 className='info-block-title'>DATE OF INCIDENT</h3>
-            <div className='info-block-date'>{ incidentDate }</div>
+        { isPrinting ? null : (
+          <div className='trr-location-info'>
+            <div className='info-block'>
+              <h3 className='info-block-title'>DATE OF INCIDENT</h3>
+              <div className='info-block-date'>{ incidentDate }</div>
+            </div>
+            { infoBlock }
           </div>
-          { infoBlock }
-        </div>
-        <div className='trr-location-map'>
-          { point ? <TRRMap lng={ point.lng } lat={ point.lat }/> : null }
+        )}
+        <div className='trr-location-map-wrapper'>
+          { isPrinting ? <h3 className='location-title-print'>LOCATION</h3> : null }
+          <div className='trr-location-map'>
+            { point ? <TRRMap lng={ point.lng } lat={ point.lat } /> : null }
+          </div>
         </div>
         { isPrinting ? infoBlock : null }
       </div>

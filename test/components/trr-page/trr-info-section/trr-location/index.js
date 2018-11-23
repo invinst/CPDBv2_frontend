@@ -7,7 +7,7 @@ import {
   findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import TRRLocation from 'components/trr-page/trr-info-section/trr-location';
 import Row from 'components/trr-page/trr-info-section/trr-location/row';
 import TRRMap from 'components/trr-page/trr-info-section/trr-location/trr-map';
@@ -59,16 +59,12 @@ describe('TRRLocation component', function () {
     map.props.lng.should.eql(-87.6533166);
   });
 
-  it('should show change location title and location info block position when printing', function () {
-    instance = renderIntoDocument(<TRRLocation { ...trrLocation } isPrinting={ true }/>);
+  it('should show hide and rearrange contents when printing', function () {
+    instance = renderWithContext({ isPrinting: true }, <TRRLocation { ...trrLocation }/>);
 
     findRenderedDOMComponentWithClass(instance, 'location-title-print').textContent.should.eql('LOCATION');
-    findRenderedDOMComponentWithClass(instance, 'trr-location-info').className.should.containEql('hide-for-print');
-    scryRenderedDOMComponentsWithClass(instance, 'info-block').should.have.length(3);
-    const blockTitles = scryRenderedDOMComponentsWithClass(instance, 'info-block-title');
-    blockTitles.should.have.length(3);
-    const locationBlockTitles = blockTitles.slice(1, 3);
-    locationBlockTitles[0].className.should.containEql('hide-for-print');
-    locationBlockTitles[1].className.should.containEql('hide-for-print');
+    scryRenderedDOMComponentsWithClass(instance, 'trr-location-info').should.have.length(0);
+    findRenderedDOMComponentWithClass(instance, 'info-block');
+    findRenderedDOMComponentWithClass(instance, 'info-block-title').className.should.containEql('hide-for-print');
   });
 });

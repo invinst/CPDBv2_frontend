@@ -1,14 +1,11 @@
 @import 'variables'
 
 \:local(.trr-location)
-  height: 394px
   background-color: white
   font-size: 14px
 
-  @media print
-    height: fit-content
-
   .trr-location-info
+    vertical-align: top
     min-width: calc(40% - 32px)
     display: inline-block
     width: calc(100% - 704px)
@@ -34,22 +31,23 @@
       height: 40px
       line-height: 40px
 
-  .trr-location-map
+  .trr-location-map-wrapper
     display: inline-block
-    max-width: 672px
     width: 60%
-    height: 394px
-    background-color: $silver-chalice
-    float: right
+    max-width: 672px
 
     @media print
+      max-width: 100%
       display: block
       width: 100%
-      max-width: 100%
-      float: none
+      page-break-inside: avoid
 
-  .location-title-print
-    font-size: 10px
-    font-weight: 500
-    padding: 13px 0 11px 0
-    margin: 0
+    .location-title-print
+      font-size: 10px
+      font-weight: 500
+      padding: 13px 0 11px 0
+      margin: 0
+
+    .trr-location-map
+      height: 394px
+      background-color: $silver-chalice
