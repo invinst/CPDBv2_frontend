@@ -12,6 +12,12 @@ import NotesContainer from 'containers/trr-page/notes';
 
 
 class TRRPage extends Component {
+  getChildContext() {
+    return {
+      isPrinting: this.props.isPrinting,
+    };
+  }
+
   render() {
     const {
       trrId, officer, trrLocation, trrDetail, trrDocument,
@@ -63,4 +69,7 @@ TRRPage.propTypes = {
   isPrinting: PropTypes.bool,
 };
 
+TRRPage.childContextTypes = {
+  isPrinting: PropTypes.bool,
+};
 export default Printable(TRRPage);

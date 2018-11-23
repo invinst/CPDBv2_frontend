@@ -4,12 +4,12 @@ import style from './trr-location.sass';
 import Row from './row';
 import TRRMap from './trr-map';
 import printStyles from 'components/common/print.sass';
-import Printable from 'components/common/higher-order/printable';
 
 
 class TRRLocation extends Component {
   render() {
-    const { address, incidentDate, beat, locationType, point, isPrinting } = this.props;
+    const { address, incidentDate, beat, locationType, point } = this.props;
+    const { isPrinting } = this.context;
     const infoBlock = (
       <div className='info-block'>
         <h3 className={ `info-block-title ${printStyles.hideForPrint}` }>
@@ -47,8 +47,10 @@ TRRLocation.propTypes = {
   incidentDate: PropTypes.string,
   beat: PropTypes.string,
   locationType: PropTypes.string,
-  point: PropTypes.object,
-  isPrinting: PropTypes.bool,
+  point: PropTypes.object
 };
 
-export default Printable(TRRLocation);
+TRRLocation.contextTypes = {
+  isPrinting: PropTypes.bool
+};
+export default TRRLocation;
