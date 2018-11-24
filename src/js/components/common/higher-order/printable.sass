@@ -1,15 +1,21 @@
 @import 'variables'
 
 \:local(.printable)
+  width: 100%
+
   .printable-header
     font-weight: 500
     margin: 25px 25px 0 25px
     padding-top: 25px
-    border-bottom: 1px solid $purple-brown
+    display: none
+
+    @media print
+      display: flex
 
     .right-header
-      float: right
+      flex-grow: 1
       text-align: right
+      border-bottom: 1px solid $purple-brown
 
       .printable-as-of
         font-size: 10px
@@ -18,13 +24,14 @@
         font-size: 12px
 
     .left-header
-      float: left
+      flex-grow: 1
       text-align: left
+      border-bottom: 1px solid $purple-brown
       font-size: 12px
       line-height: 38px
 
-    .clearfix
-      clear: both
+  .main-content
+    max-width: 100vh
 
   thead
     display: table-header-group

@@ -23,18 +23,14 @@ import PrintNoteContainer from 'containers/cr-page/print-notes';
 
 
 class CRPage extends Component {
-  getChildContext() {
-    return {
-      isPrinting: this.props.isPrinting,
-    };
-  }
-
   render() {
     const {
       crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
-      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, isPrinting
+      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname
     } = this.props;
+
+    const { isPrinting } = this.context;
 
     const involvementItem = <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>;
 
@@ -129,7 +125,6 @@ CRPage.propTypes = {
   alreadyRequested: PropTypes.bool,
   popup: PropTypes.object,
   pathname: PropTypes.string,
-  isPrinting: PropTypes.bool,
 };
 
 CRPage.defaultProps = {
@@ -138,7 +133,7 @@ CRPage.defaultProps = {
   coaccused: []
 };
 
-CRPage.childContextTypes = {
+CRPage.contextTypes = {
   isPrinting: PropTypes.bool,
 };
 

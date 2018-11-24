@@ -13,6 +13,10 @@
     width: 100%
     height: 364.5px
 
-  @media print
-    width: 100%
-    height: 300px
+  &.print-map
+    display: none
+
+    @media print
+      display: block
+      width: 100%
+      height: 300px

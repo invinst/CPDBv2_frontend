@@ -11,3 +11,12 @@ export const getComplaintMapUrl = (lat, lon, width, height) => [
   `${lon},${lat},12,0,0`,
   `${width}x${height}@2x?access_token=${MAPBOX_ACCESS_TOKEN}`,
 ].join('/');
+
+export const getPrintMapUrl = (lat, lon, width, height) => [
+  MAPBOX_API_URL,
+  'light-v9',
+  'static',
+  `url-${encodeURIComponent(MARKER_URL)}(${lon},${lat})`,
+  `${lon},${lat},14,0,0`,
+  `${width}x${height}@2x?access_token=${MAPBOX_ACCESS_TOKEN}`,
+].join('/');

@@ -1,6 +1,8 @@
 @import 'variables'
 
 \:local(.print-notes)
+  display: none
+
   font-size: 10px
   font-weight: 500
   border-top: 1px solid $purple-brown
@@ -13,3 +15,6 @@
   .notes-content
     width: 50%
     padding-top: 11px
+
+  @media print
+    display: block

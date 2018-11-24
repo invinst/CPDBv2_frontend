@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { spy } from 'sinon';
+import { spy, useFakeTimers } from 'sinon';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -26,13 +26,15 @@ describe('Printable component', function () {
   const PrintableDummy = Printable(Dummy);
 
   it.only('should render header correctly', function () {
-    const today = new Date().toLocaleDateString();
+    const clock = useFakeTimers(new Date(2018, 9, 27));
 
     instance = renderIntoDocument(<PrintableDummy/>);
     instance._mediaPrintListener({ matches: true });
     findRenderedDOMComponentWithClass(instance, 'left-header').textContent.should.eql('Dummy title');
     findRenderedDOMComponentWithClass(instance, 'printable-as-of').textContent.should.eql('AS OF');
-    findRenderedDOMComponentWithClass(instance, 'printable-date').textContent.should.eql(`${today}`);
+    findRenderedDOMComponentWithClass(instance, 'printable-date').textContent.should.eql('10/27/2018');
+
+    clock.restore();
   });
 
   it('should add media listener', function () {

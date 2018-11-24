@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import styles from './printable.sass';
 
 
 export default function (ComponentClass) {
-  return class Printable extends Component {
+  class Printable extends Component {
     constructor(props) {
       super(props);
       this._mediaPrintListener = this._mediaPrintListener.bind(this);
@@ -11,6 +11,12 @@ export default function (ComponentClass) {
       this._afterPrint = this._afterPrint.bind(this);
       this.state = {
         isPrinting: false
+      };
+    }
+
+    getChildContext() {
+      return {
+        isPrinting: this.state.isPrinting,
       };
     }
 
@@ -54,14 +60,13 @@ export default function (ComponentClass) {
                       <br/>
                       <span className='printable-date'>{ today }</span>
                     </div>
-                    <div className='clearfix'></div>
                   </div>
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>
+                <td className='main-content'>
                   <ComponentClass isPrinting={ isPrinting } { ...this.props }/>
                 </td>
               </tr>
@@ -70,5 +75,11 @@ export default function (ComponentClass) {
           : <ComponentClass isPrinting={ isPrinting } { ...this.props }/>
       );
     }
+  }
+
+  Printable.childContextTypes = {
+    isPrinting: PropTypes.bool,
   };
+
+  return Printable;
 }

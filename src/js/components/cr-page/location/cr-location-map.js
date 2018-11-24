@@ -1,7 +1,10 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
 import LocationMap from 'components/common/location-map';
 import styles from './cr-location-map.sass';
+import { mapStyle } from './cr-location-map.style';
+import printStyles from 'components/common/print.sass';
 
 
 export default class CRLocationMap extends Component {
@@ -9,7 +12,10 @@ export default class CRLocationMap extends Component {
     const { lat, lng } = this.props;
 
     return (
-      <LocationMap lat={ lat } lng={ lng } className={ styles.crLocationMap } />
+      <div>
+        <div className={ cx(styles.crLocationMap, 'print-map') } style={ mapStyle(lat, lng) } />
+        <LocationMap lat={ lat } lng={ lng } className={ cx(styles.crLocationMap, printStyles.hideForPrint) } />
+      </div>
     );
   }
 }
