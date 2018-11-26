@@ -399,6 +399,10 @@ export const NEW_TIMELINE_FILTERS = {
     label: 'AWARDS',
     kind: [NEW_TIMELINE_ITEMS.AWARD],
   },
+  RANK_UNIT_CHANGES: {
+    label: 'RANK/UNIT CHANGES',
+    kind: [],
+  }
 };
 
 export const DISTANCE_OPTIONS = {

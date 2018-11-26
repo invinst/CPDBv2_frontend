@@ -30,7 +30,10 @@ export default class Timeline extends Component {
   renderHeader() {
     const { popup, filterCount, pathname } = this.props;
     const options = values(mapValues(NEW_TIMELINE_FILTERS, 'label'));
-    const labels = map(NEW_TIMELINE_FILTERS, (filter, key) => `${filter.label} (${filterCount[key]})`);
+    const labels = map(
+      NEW_TIMELINE_FILTERS,
+      (filter, key) => key === 'RANK_UNIT_CHANGES' ? filter.label :`${filter.label} (${filterCount[key]})`
+    );
 
     return (
       <div className='test--timeline-header' style={ headerWrapperStyle }>
@@ -57,7 +60,7 @@ export default class Timeline extends Component {
             onChange={ this.handleDropdownChange }
             options={ options }
             className='test--timeline-filter'
-            width={ 156 }
+            width={ 176 }
             labels={ labels }
           />
         </div>
