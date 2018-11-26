@@ -59,7 +59,7 @@ export default class AccusedOfficers extends Component {
           !expanded
             ? (
               <div
-                className={ cx('show-more-button', printStyles.hideForPrint) }
+                className={ cx('show-more-button', printStyles.noPrint) }
                 onClick={ this.handleExpandList.bind(this) }>
                 Show all accused officers
               </div>

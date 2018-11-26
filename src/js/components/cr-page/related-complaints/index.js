@@ -29,7 +29,7 @@ export default class RelatedComplaints extends Component {
     const { crid } = this.props;
     const { selectedDistance } = this.state;
     return (
-      <div className={ cx(styles.relatedComplaints, printStyles.hideForPrint) }>
+      <div className={ cx(styles.relatedComplaints, printStyles.noPrint) }>
         <div className={ responsiveContainerStyles.responsiveContainer }>
           <div className='related-complaints-header'>
             <h2 className='related-complaints-title'>Related Complaints</h2>

@@ -17,12 +17,12 @@ export default class Attachments extends Component {
       pathname,
     } = this.props;
 
-    const { isPrinting } = this.context;
+    const { printMode } = this.context;
 
     const hasData = items.length > 0;
 
     return (
-      isPrinting
+      printMode
       ? (
         <PrintAttachments items={ items }/>
       ) : (
@@ -68,5 +68,5 @@ Attachments.propTypes = {
 };
 
 Attachments.contextTypes = {
-  isPrinting: PropTypes.bool,
+  printMode: PropTypes.bool,
 };

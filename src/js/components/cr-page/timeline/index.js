@@ -12,7 +12,7 @@ export default class Timeline extends Component {
 
     return (
       <div>
-        <span className={ printStyles.hideForPrint }>
+        <span className={ printStyles.noPrint }>
           <CirclesSVG
             startDate={ startDate }
             endDate={ endDate }

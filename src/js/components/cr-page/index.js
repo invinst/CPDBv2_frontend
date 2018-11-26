@@ -30,7 +30,7 @@ class CRPage extends Component {
       openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname
     } = this.props;
 
-    const { isPrinting } = this.context;
+    const { printMode } = this.context;
 
     const involvementItem = <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>;
 
@@ -84,16 +84,16 @@ class CRPage extends Component {
               <div className='timeline-location-container'>
                 <div className='investigation-timeline'>
                   <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
-                  { isPrinting ? null : involvementItem }
+                  { printMode ? null : involvementItem }
                 </div>
                 <div className='cr-location'>
                   <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
                 </div>
                 <div className='clearfix'/>
               </div>
-              { isPrinting ? involvementItem : null }
-              { isPrinting ? <div className='clearfix'/> : null }
-              { isPrinting ? <PrintNoteContainer /> : null }
+              { printMode ? involvementItem : null }
+              { printMode ? <div className='clearfix'/> : null }
+              { printMode ? <PrintNoteContainer /> : null }
             </div>
           </div>
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
@@ -134,7 +134,7 @@ CRPage.defaultProps = {
 };
 
 CRPage.contextTypes = {
-  isPrinting: PropTypes.bool,
+  printMode: PropTypes.bool,
 };
 
 export default Printable(CRPage);

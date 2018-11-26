@@ -14,7 +14,7 @@ export default class CRLocationMap extends Component {
     return (
       <div>
         <div className={ cx(styles.crLocationMap, 'print-map') } style={ mapStyle(lat, lng) } />
-        <LocationMap lat={ lat } lng={ lng } className={ cx(styles.crLocationMap, printStyles.hideForPrint) } />
+        <LocationMap lat={ lat } lng={ lng } className={ cx(styles.crLocationMap, printStyles.noPrint) } />
       </div>
     );
   }

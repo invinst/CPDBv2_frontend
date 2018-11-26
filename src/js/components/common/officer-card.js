@@ -58,7 +58,7 @@ export class OfficerCard extends Component {
       if (complaintPercentile) {
         const complaintFormat = roundedPercentile(complaintPercentile);
         return (
-          <p className={ cx(printStyles.hideForPrint, 'light-text', 'test--officer-card-percentile') }>
+          <p className={ cx(printStyles.noPrint, 'light-text', 'test--officer-card-percentile') }>
             More than { complaintFormat }% of other officers
           </p>
         );

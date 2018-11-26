@@ -14,9 +14,9 @@ export default class AttachmentHeader extends Component {
       <div className={ styles.attachmentHeader }>
         <div className='attachment-message'>
           <span className='attachment-title'>ATTACHMENTS</span>
-          <span className={ cx(printStyles.hideForPrint, 'attachment-subtitle') }>MAY CONTAIN GRAPHIC CONTENT</span>
+          <span className={ cx(printStyles.noPrint, 'attachment-subtitle') }>MAY CONTAIN GRAPHIC CONTENT</span>
         </div>
-        <div className={ cx(printStyles.hideForPrint, 'attachment-request-button') }>
+        <div className={ cx(printStyles.noPrint, 'attachment-request-button') }>
           <RequestDocumentButton
             alreadyRequested={ alreadyRequested }
             openRequestDocumentModal={ openRequestDocumentModal }

@@ -12,7 +12,7 @@ class ViewMapButton extends Component {
 
     return (
       <a
-        className={ cx(styles.viewMapButton, printStyles.hideForPrint, 'test--view-map-button') }
+        className={ cx(styles.viewMapButton, printStyles.noPrint, 'test--view-map-button') }
         href={ url } target='_blank'
       >
         View on google maps

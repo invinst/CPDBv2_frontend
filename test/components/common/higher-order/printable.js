@@ -58,23 +58,23 @@ describe('Printable component', function () {
     window.onafterprint.should.be.eql(instance._afterPrint);
   });
 
-  it('should set isPrinting state when _mediaPrintListener is called', function () {
+  it('should set printMode state when _mediaPrintListener is called', function () {
     instance = renderIntoDocument(<PrintableDummy/>);
 
     instance._mediaPrintListener({ matches: true });
-    instance.state.isPrinting.should.be.true();
+    instance.state.printMode.should.be.true();
 
     instance._mediaPrintListener({ matches: false });
-    instance.state.isPrinting.should.be.false();
+    instance.state.printMode.should.be.false();
   });
 
-  it('should set isPrinting when _beforePrint & _afterPrint is called', function () {
+  it('should set printMode when _beforePrint & _afterPrint is called', function () {
     instance = renderIntoDocument(<PrintableDummy/>);
 
     instance._beforePrint();
-    instance.state.isPrinting.should.be.true();
+    instance.state.printMode.should.be.true();
 
     instance._afterPrint();
-    instance.state.isPrinting.should.be.false();
+    instance.state.printMode.should.be.false();
   });
 });

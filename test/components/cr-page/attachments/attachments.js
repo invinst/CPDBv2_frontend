@@ -27,9 +27,9 @@ describe('AttachmentsTab component', function () {
     scryRenderedComponentsWithType(instance, Attachments).should.have.length(1);
   });
 
-  it('should render PrintAttachment if isPrinting is true', function () {
+  it('should render PrintAttachment if printMode is true', function () {
     const items = [{ title: 'abc', url: 'def', previewImageUrl: 'pre' }];
-    const context = { isPrinting: true };
+    const context = { printMode: true };
     instance = renderWithContext(context, <Attachments items={ items }/>);
     scryRenderedComponentsWithType(instance, PrintAttachments).should.have.length(1);
   });

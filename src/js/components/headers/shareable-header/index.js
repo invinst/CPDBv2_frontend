@@ -53,7 +53,7 @@ export default class ShareableHeader extends Component {
         <div style={ headerPlaceholderStyle }/>
         <ResponsiveFluidWidthComponent style={ outerStyle }>
           <div
-            className={ printStyles.hideForPrint }
+            className={ printStyles.noPrint }
             style={ navBarStyle }
             ref={ el => { this.placeholderElement = el; } }
           >

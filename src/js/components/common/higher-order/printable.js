@@ -10,13 +10,13 @@ export default function (ComponentClass) {
       this._beforePrint = this._beforePrint.bind(this);
       this._afterPrint = this._afterPrint.bind(this);
       this.state = {
-        isPrinting: false
+        printMode: false
       };
     }
 
     getChildContext() {
       return {
-        isPrinting: this.state.isPrinting,
+        printMode: this.state.printMode,
       };
     }
 
@@ -29,26 +29,26 @@ export default function (ComponentClass) {
     }
 
     _beforePrint() {
-      if (!this.state.isPrinting)
-        this.setState({ isPrinting: true });
+      if (!this.state.printMode)
+        this.setState({ printMode: true });
     }
 
     _afterPrint() {
-      if (this.state.isPrinting)
-        this.setState({ isPrinting: false });
+      if (this.state.printMode)
+        this.setState({ printMode: false });
     }
 
     _mediaPrintListener(media) {
-      if (this.state.isPrinting !== media.matches)
-        this.setState({ isPrinting: media.matches });
+      if (this.state.printMode !== media.matches)
+        this.setState({ printMode: media.matches });
     }
 
     render() {
-      const { isPrinting } = this.state;
+      const { printMode } = this.state;
       const today = new Date().toLocaleDateString();
 
       return (
-        isPrinting ?
+        printMode ?
           <table className={ styles.printable }>
             <thead>
               <tr>
@@ -67,18 +67,18 @@ export default function (ComponentClass) {
             <tbody>
               <tr>
                 <td className='main-content'>
-                  <ComponentClass isPrinting={ isPrinting } { ...this.props }/>
+                  <ComponentClass printMode={ printMode } { ...this.props }/>
                 </td>
               </tr>
             </tbody>
           </table>
-          : <ComponentClass isPrinting={ isPrinting } { ...this.props }/>
+          : <ComponentClass printMode={ printMode } { ...this.props }/>
       );
     }
   }
 
   Printable.childContextTypes = {
-    isPrinting: PropTypes.bool,
+    printMode: PropTypes.bool,
   };
 
   return Printable;

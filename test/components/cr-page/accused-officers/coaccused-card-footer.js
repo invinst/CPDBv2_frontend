@@ -27,8 +27,8 @@ describe('CoaccusedCardFooter component', function () {
     outcome.textContent.should.eql('Reprimand');
   });
 
-  it('should render disciplined if both isPrinting and disciplined are true', function () {
-    const context = { isPrinting: true };
+  it('should render disciplined if both printMode and disciplined are true', function () {
+    const context = { printMode: true };
     instance = renderWithContext(context,
       <CoaccusedCardFooter
         finding='Sustained'
@@ -40,8 +40,8 @@ describe('CoaccusedCardFooter component', function () {
     findingOutcome.textContent.should.eql('Reprimand, Disciplined');
   });
 
-  it('should only render disciplined if isPrinting & disciplined are true and findingOutcomeMix is null', function () {
-    const context = { isPrinting: true };
+  it('should only render disciplined if printMode & disciplined are true and findingOutcomeMix is null', function () {
+    const context = { printMode: true };
     instance = renderWithContext(context,
       <CoaccusedCardFooter
         finding='Sustained'

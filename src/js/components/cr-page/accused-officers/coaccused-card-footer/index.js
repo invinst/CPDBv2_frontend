@@ -8,8 +8,8 @@ import styles from './coaccused-card-footer.sass';
 export default class CoaccusedCardFooter extends Component {
   render() {
     const { category, finding, disciplined, findingOutcomeMix } = this.props;
-    const { isPrinting } = this.context;
-    const outcomeDisciplined = isPrinting && disciplined ? 'Disciplined' : null;
+    const { printMode } = this.context;
+    const outcomeDisciplined = printMode && disciplined ? 'Disciplined' : null;
     return (
       <div className={ styles.coaccusedCardFooter }>
         <div className='accused-card-category'>{ category }</div>
@@ -31,5 +31,5 @@ CoaccusedCardFooter.propTypes = {
 };
 
 CoaccusedCardFooter.contextTypes = {
-  isPrinting: PropTypes.bool,
+  printMode: PropTypes.bool,
 };

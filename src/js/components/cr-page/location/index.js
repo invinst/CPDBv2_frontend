@@ -20,7 +20,7 @@ export default class Location extends Component {
         {
           address ? (
             <div className='location-row'>
-              <span className={ cx(printStyles.hideForPrint, 'label') }>Address</span>
+              <span className={ cx(printStyles.noPrint, 'label') }>Address</span>
               <span className={ cx('content', 'test--location-address') }>{ address }</span>
               {
                 point ? <ViewMapButton lng={ point.lon } lat={ point.lat }/> : null
@@ -31,7 +31,7 @@ export default class Location extends Component {
         {
           location ? (
             <div className='location-row'>
-              <span className={ cx(printStyles.hideForPrint, 'label') }>Location Type</span>
+              <span className={ cx(printStyles.noPrint, 'label') }>Location Type</span>
               <span className={ cx('content', 'test--location-type') }>{ location }</span>
             </div>
           ) : null
