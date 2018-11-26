@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 import { get, isEmpty } from 'lodash';
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import FooterContainer from 'containers/footer-container';
 import SummaryRow from './summary-row';
@@ -15,16 +14,9 @@ import AccusedOfficers from './accused-officers';
 import RelatedComplaints from './related-complaints';
 import ComplaintCategory from 'components/cr-page/complaint-category';
 import ComplaintIncidentDate from 'components/cr-page/complaint-incident-date';
-import {
-  wrapperStyle,
-  CRIDHeaderStyle,
-  leftColumnStyle,
-  footerStyle,
-  rightColumnStyle,
-  summarySectionWrapperStyle,
-  summaryTextStyle,
-} from './cr-page.style';
 import { POPUP_NAMES } from 'utils/constants';
+import styles from './cr-page.sass';
+import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
 
 export default class CRPage extends Component {
@@ -41,23 +33,21 @@ export default class CRPage extends Component {
 
     return (
       <DocumentMeta title={ `CR ${crid}` }>
-        <div style={ wrapperStyle }>
+        <div className={ styles.crPage }>
           <ShareableHeaderContainer/>
-          <ResponsiveFluidWidthComponent>
-            <h1 className='test--cr-title' style={ CRIDHeaderStyle }>CR { crid }</h1>
-          </ResponsiveFluidWidthComponent>
-          <ComplaintCategory
-            category={ category }
-            subcategory={ subcategory }
-          />
-          <ComplaintIncidentDate incidentDate={ incidentDate }/>
-          <AccusedOfficers
-            officers={ coaccused }
-            popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
-            pathName={ pathname }
-          />
-          <ResponsiveFluidWidthComponent>
-            <div style={ summarySectionWrapperStyle }>
+          <div className={ responsiveContainerStyles.responsiveContainer }>
+            <h1 className='cr-title'>CR { crid }</h1>
+            <ComplaintCategory
+              category={ category }
+              subcategory={ subcategory }
+            />
+            <ComplaintIncidentDate incidentDate={ incidentDate }/>
+            <AccusedOfficers
+              officers={ coaccused }
+              popup={ get(popup, POPUP_NAMES.COMPLAINT.ACCUSED_OFFICER) }
+              pathName={ pathname }
+            />
+            <div className='complaint-info'>
               {
                 victims.length > 0
                   ? (
@@ -78,7 +68,7 @@ export default class CRPage extends Component {
                 summary
                   ? (
                     <SummaryRow label='SUMMARY'>
-                      <div className='test--summary' style={ summaryTextStyle }>{ summary }</div>
+                      <div className='cr-summary'>{ summary }</div>
                     </SummaryRow>
                   ) : null
               }
@@ -88,17 +78,17 @@ export default class CRPage extends Component {
                 alreadyRequested={ alreadyRequested }
                 pathname={ pathname }
               />
-              <div style={ leftColumnStyle }>
+              <div className='investigation-timeline'>
                 <Timeline startDate={ startDate } endDate={ endDate } incidentDate={ incidentDate }/>
                 <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>
               </div>
-              <div style={ rightColumnStyle }>
+              <div className='cr-location'>
                 <Location point={ point } address={ address } location={ crLocation } beat={ beat }/>
               </div>
             </div>
-          </ResponsiveFluidWidthComponent>
+          </div>
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
-          <FooterContainer style={ footerStyle }/>
+          <FooterContainer className={ styles.crPageFooter }/>
         </div>
       </DocumentMeta>
     );

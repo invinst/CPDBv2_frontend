@@ -1,0 +1,47 @@
+@import 'variables'
+
+\:local(.coaccused-card-footer)
+  padding: 11px 16px 4px
+  background-color: white
+
+  .accused-card-category
+    font-size: 14px
+    font-weight: 500
+    color: $soft-black-color
+    border-bottom: 1px solid $white-two-color
+    height: 47px
+    overflow: hidden
+
+    &:hover
+      color: $accent-color
+
+  .accused-card-outcome
+    background-color: transparent
+    display: inline-block
+    border: 1px solid $champagne-color
+    overflow: hidden
+    height: 21px
+    margin-top: 8px
+    max-width: 100%
+    border-radius: 2px
+
+    &.sustained
+      background-color: $champagne-color
+
+      &.disciplined
+        background-color: $azalea-color
+        border: 1px solid $azalea-color
+
+    .finding-outcome-mix
+      height: 21px
+      font-size: 14px
+      color: $soft-black-color
+      font-weight: 400
+      padding: 0 10px 16px
+      line-height: 21px
+      display: inline-block
+      overflow-x: scroll
+      overflow-y: hidden
+      white-space: nowrap
+      box-sizing: content-box
+      max-width: calc(100% - 20px)

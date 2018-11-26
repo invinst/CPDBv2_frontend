@@ -1,0 +1,31 @@
+@import 'variables'
+
+$arrow-width: 40px
+
+\:local(.arrow)
+  width: $arrow-width
+  background-image: url('/img/disclosure-indicator.svg')
+  transform: none
+  left: auto
+  right: auto
+  height: 100%
+  position: absolute
+  top: 0
+  margin-top: 0
+  border: 0
+  outline: 0
+  z-index: 10
+  background-color: rgba(255, 255, 255, 0.9)
+  background-repeat: no-repeat
+  background-position: center
+  background-size: 15px 24px
+
+  &:hover
+    background-image: url('/img/disclosure-indicator-blue.svg')
+
+  &.left
+    transform: scaleX(-1)
+    left: 0
+
+  &.right
+    right: 0

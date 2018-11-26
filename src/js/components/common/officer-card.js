@@ -2,18 +2,12 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import pluralize from 'pluralize';
 import { kebabCase } from 'lodash';
+import cx from 'classnames';
 
-import { wrapperStyle, lightTextStyle, boldTextStyle } from './officer-card.style';
 import { getThisYear } from 'utils/date';
-import {
-  extraInfoStyle,
-  noBorderSectionStyle,
-  sectionStyle,
-  sustainedStyle,
-} from 'components/common/officer-card.style';
-import Hoverable from 'components/common/higher-order/hoverable';
 import StaticRadarChart from 'components/common/radar-chart/index';
 import { roundedPercentile } from 'utils/calculations';
+import styles from './officer-card.sass';
 
 
 export class OfficerCard extends Component {
@@ -28,11 +22,11 @@ export class OfficerCard extends Component {
       race,
       gender,
       style,
-      hovering,
       percentile,
       openCardInNewPage,
       rank,
       footer,
+      className,
     } = this.props;
     const officerSlug = kebabCase(fullName);
 
@@ -41,7 +35,7 @@ export class OfficerCard extends Component {
       const sustained = `${sustainedCount} Sustained`;
       return (
         <span className='test--officer-card-metric'>
-          <span>{ complaint }</span> <span style={ sustainedStyle(hovering) }>{ sustained }</span>
+          <span>{ complaint }</span> <span className='officer-card-sustained'>{ sustained }</span>
         </span>
       );
     };
@@ -58,13 +52,12 @@ export class OfficerCard extends Component {
       return `${ageString()} ${race} ${gender}`;
     };
 
-    const complaintPercentileString = (hovering) => {
+    const complaintPercentileString = () => {
       if (complaintPercentile) {
         const complaintFormat = roundedPercentile(complaintPercentile);
         return (
           <p
-            style={ lightTextStyle(hovering) }
-            className='test--officer-card-percentile'
+            className='light-text test--officer-card-percentile'
           >
             More than { complaintFormat }% of other officers
           </p>
@@ -85,22 +78,22 @@ export class OfficerCard extends Component {
     return (
       <Link
         to={ `/officer/${officerId}/${officerSlug}/` }
-        style={ { ...wrapperStyle(hovering), ...style } }
+        style={ { ...style } }
         target={ openCardInNewPage ? '_blank' : null }
-        className='test--officer-card'
+        className={ cx(styles.officerCard, className, 'test--officer-card') }
       >
         <StaticRadarChart data={ chartData } { ...radarConfig } />
         <div>
-          <div style={ sectionStyle }>
-            <p style={ lightTextStyle(hovering) } className='test--officer-card-rank'>{ rank }</p>
-            <p style={ boldTextStyle(hovering) } className='test--officer-card-name'>{ fullName }</p>
+          <div className='officer-card-section'>
+            <p className='light-text test--officer-card-rank'>{ rank }</p>
+            <p className='bold-text test--officer-card-name'>{ fullName }</p>
           </div>
-          <div style={ sectionStyle }>
-            <p style={ boldTextStyle(hovering) }>{ complaintString() }</p>
-            { complaintPercentileString(hovering) }
+          <div className='officer-card-section'>
+            <p className='bold-text'>{ complaintString() }</p>
+            { complaintPercentileString() }
           </div>
-          <div style={ noBorderSectionStyle } className='test--officer-card-demographic'>
-            <p style={ extraInfoStyle(hovering) }>{ extraInfo() }</p>
+          <div className='officer-card-section test--officer-card-demographic'>
+            <p className='extra-info'>{ extraInfo() }</p>
           </div>
           { footer }
         </div>
@@ -120,15 +113,15 @@ OfficerCard.propTypes = {
   birthYear: PropTypes.number,
   race: PropTypes.string,
   gender: PropTypes.string,
-  hovering: PropTypes.bool,
   percentile: PropTypes.object,
   openCardInNewPage: PropTypes.bool,
   rank: PropTypes.string,
   footer: PropTypes.object,
+  className: PropTypes.string,
 };
 
 OfficerCard.defaultProps = {
   openCardInNewPage: false
 };
 
-export default Hoverable(OfficerCard);
+export default OfficerCard;

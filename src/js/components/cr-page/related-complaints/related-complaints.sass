@@ -1,0 +1,29 @@
+@import 'variables'
+
+$title-width: 288px
+
+\:local(.related-complaints)
+  padding: 48px 0 88px 0
+  background-color: $soft-black-color
+
+  .related-complaints-header
+    border-bottom: 1px solid $clay-gray
+    margin: 0 16px
+
+    .related-complaints-title
+      color: white
+      font-size: 26px
+      font-weight: 300
+      display: inline-block
+      width: $title-width
+
+    .related-complaints-filter
+      display: inline-block
+      color: $greyish-color
+      width: calc(100% - #{$title-width})
+      text-align: right
+      font-size: 14px
+      font-weight: 300
+
+  .carousels-wrapper
+    padding-left: 16px

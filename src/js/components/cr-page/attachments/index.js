@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
 import AttachmentHeader from './headers/attachment-header';
 import NoAttachmentHeader from './headers/no-attachment-header';
 import AttachmentItem from './attachment-item';
-import { wrapperStyle, innerWrapperStyle, attachmentsStyle } from './attachments.style';
+import styles from './attachments.sass';
 
 
 export default class Attachments extends Component {
@@ -18,8 +19,8 @@ export default class Attachments extends Component {
     const hasData = items.length > 0;
 
     return (
-      <div style={ wrapperStyle(hasData) }>
-        <div style={ innerWrapperStyle(hasData) }>
+      <div className={ cx(styles.attachmentsContainer, { 'has-data': hasData }) }>
+        <div className='attachments-content'>
           {
             hasData
             ? (
@@ -34,7 +35,7 @@ export default class Attachments extends Component {
               />
             )
           }
-          <div style={ attachmentsStyle(hasData) }>
+          <div className='attachments'>
             {
               items.map((item, ind) => (
                 <AttachmentItem key={ ind } { ...item } pathname={ pathname } />

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
-import { wrapperStyle, titleStyle } from './timeline.style';
 import CirclesSVG from './circles-svg';
 import TimelineText from './timeline-text';
+import styles from './timeline.sass';
 
 
 export default class Timeline extends Component {
@@ -25,8 +25,8 @@ export default class Timeline extends Component {
 
   render() {
     return (
-      <div style={ wrapperStyle }>
-        <div style={ titleStyle }>INVESTIGATION TIMELINE</div>
+      <div className={ styles.timeline }>
+        <div className='timeline-title'>INVESTIGATION TIMELINE</div>
         { this.renderTimeline() }
       </div>
     );
