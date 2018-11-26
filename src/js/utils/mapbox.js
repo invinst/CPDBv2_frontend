@@ -14,8 +14,8 @@ const getMapUrl = (lat, lon, width, height, mapStyle, zoom) => [
 
 export const getComplaintMapUrl = (lat, lon, width, height) => {
   return getMapUrl(lat, lon, width, height, 'streets-v10', 12);
-}
+};
 
 export const getPrintMapUrl = (lat, lon, width, height) => {
   return getMapUrl(lat, lon, width, height, 'light-v9', 14);
-}
+};
