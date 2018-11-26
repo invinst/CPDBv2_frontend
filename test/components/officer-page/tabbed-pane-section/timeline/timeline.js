@@ -135,7 +135,9 @@ describe('Timeline component', function () {
     );
     const dropdown = findRenderedComponentWithType(instance, Dropdown);
     dropdown.props.defaultValue.should.eql('ALL');
-    dropdown.props.options.should.eql(['ALL', 'COMPLAINTS', 'SUSTAINED', 'USE OF FORCE', 'AWARDS']);
+    dropdown.props.options.should.eql([
+      'ALL', 'COMPLAINTS', 'SUSTAINED', 'USE OF FORCE', 'AWARDS', 'RANK/UNIT CHANGES'
+    ]);
   });
 
   it('should call changeFilter when clicking dropdown items', function () {

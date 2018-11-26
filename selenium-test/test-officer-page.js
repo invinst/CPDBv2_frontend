@@ -315,6 +315,16 @@ describe('officer page', function () {
         officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible();
       });
 
+      it('should filter rank/unit changes', function () {
+        officerPage.tabbedPaneSection.timelineSection.filter.changes.click();
+
+        officerPage.tabbedPaneSection.timelineSection.crItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.trrItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.awardItem.waitForVisible(1000, true);
+        officerPage.tabbedPaneSection.timelineSection.rankChangeItem.waitForVisible();
+        officerPage.tabbedPaneSection.timelineSection.unitChangeItem.waitForVisible();
+      });
+
       it('should close the menu when blurring', function () {
         officerPage.tabbedPaneSection.timelineSection.yearItem.click();
         officerPage.tabbedPaneSection.timelineSection.filter.menu.waitForVisible(1000, true);
