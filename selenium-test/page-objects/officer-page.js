@@ -34,7 +34,8 @@ class Filter extends Section {
       crs: '(//div[@class="test--dropdown-menu-item"])[1]',
       sustained: '(//div[@class="test--dropdown-menu-item"])[2]',
       force: '(//div[@class="test--dropdown-menu-item"])[3]',
-      awards: '(//div[@class="test--dropdown-menu-item"])[4]'
+      awards: '(//div[@class="test--dropdown-menu-item"])[4]',
+      changes: '(//div[@class="test--dropdown-menu-item"])[5]',
     });
   }
 }
@@ -51,6 +52,7 @@ class TimelineSection extends Section {
       trrItem: '.test--timeline-trr-item',
       awardItem: '.test--timeline-award-item',
       unitChangeItem: '.test--timeline-unit-change-item',
+      rankChangeItem: '.test--timeline-rank-change-item',
       joinedItem: '.test--timeline-joined-item',
       yearItem: '.test--timeline-year-item',
       emptyItem: '.test--timeline-empty-item',
