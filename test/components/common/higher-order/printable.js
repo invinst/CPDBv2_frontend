@@ -25,7 +25,7 @@ describe('Printable component', function () {
 
   const PrintableDummy = Printable(Dummy);
 
-  it.only('should render header correctly', function () {
+  it('should render header correctly', function () {
     const clock = useFakeTimers(new Date(2018, 9, 27));
 
     instance = renderIntoDocument(<PrintableDummy/>);

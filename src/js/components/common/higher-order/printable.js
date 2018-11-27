@@ -67,12 +67,12 @@ export default function (ComponentClass) {
             <tbody>
               <tr>
                 <td className='main-content'>
-                  <ComponentClass printMode={ printMode } { ...this.props }/>
+                  <ComponentClass { ...this.props }/>
                 </td>
               </tr>
             </tbody>
           </table>
-          : <ComponentClass printMode={ printMode } { ...this.props }/>
+          : <ComponentClass { ...this.props }/>
       );
     }
   }

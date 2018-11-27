@@ -144,18 +144,20 @@ describe('CRPage component', function () {
   it('should not render PrintNotes component when printMode is false', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <CRPage printMode={ false } />
+        <CRPage />
       </Provider>
     );
+    findRenderedComponentWithType(instance, CRPage).setState({ printMode: false });
     scryRenderedComponentsWithType(instance, PrintNotes).should.have.length(0);
   });
 
   it('should render PrintNotes component when printMode is true', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <CRPage printMode={ true } />
+        <CRPage />
       </Provider>
     );
+    findRenderedComponentWithType(instance, CRPage).setState({ printMode: true });
     scryRenderedComponentsWithType(instance, PrintNotes).should.have.length(1);
   });
 });
