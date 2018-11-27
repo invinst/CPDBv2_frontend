@@ -12,6 +12,18 @@
     border: solid 1px $white-two-color
     pointer-events: none
 
+  .half-pane
+    position: absolute
+    width: 50%
+    height: 100%
+    top: 0
+    left: 0
+    cursor: pointer
+
+    &.officer-info-right-hover-sibling
+      left: auto
+      right: 0
+
   .officer-info-left-hover-sibling:hover ~ .pairing-card-content
     border: solid 1px transparent
     background-image: linear-gradient(white, white), linear-gradient(to right, $accent_color, $white-two-color)

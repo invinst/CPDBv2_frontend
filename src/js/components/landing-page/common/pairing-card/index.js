@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import PairingChart from 'components/landing-page/common/pairing-card/pairing-chart';
 import style from './pairing-card.sass';
 import OfficerInfo from 'components/landing-page/common/pairing-card/officer-info';
-import HalfPane from './half-pane';
 
 
 export default class PairingCard extends Component {
@@ -12,14 +12,13 @@ export default class PairingCard extends Component {
 
     return (
       <div className={ style.pairingCard }>
-        <HalfPane
-          className='officer-info-left-hover-sibling'
-          officerId={ officer1.id }
+        <Link
+          to={ `/officer/${officer1.id}/` }
+          className='half-pane officer-info-left-hover-sibling'
         />
-        <HalfPane
-          className='officer-info-right-hover-sibling'
-          rightHalf={ true }
-          officerId={ officer2.id }
+        <Link
+          to={ `/officer/${officer2.id}/` }
+          className='half-pane officer-info-right-hover-sibling'
         />
         <div className='pairing-card-content'>
           <PairingChart

@@ -32,12 +32,12 @@ class RecentActivityCarouselSection extends Section {
         '(//div[@class="test--landing-carousel-activity"]//div[contains(@class, "pairing-card__pairing-card")])[1]',
       firstPairCardLeftHalf: '' +
         '((//div[@class="test--landing-carousel-activity"]' +
-        '//div[@class="pairing-card"])[1]' +
-        '//a[@class="pairing-card-half"])[1]',
+        '//div[contains(@class, "pairing-card__pairing-card")])[1]' +
+        '//a[contains(@class, "half-pane")])[1]',
       firstPairCardRightHalf: '' +
         '((//div[@class="test--landing-carousel-activity"]' +
-        '//div[@class="pairing-card"])[1]' +
-        '//a[@class="pairing-card-half"])[2]',
+        '//div[contains(@class, "pairing-card__pairing-card")])[1]' +
+        '//a[contains(@class, "half-pane")])[2]',
     });
   }
 }
