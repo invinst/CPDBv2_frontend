@@ -23,8 +23,8 @@ describe('LinkItem component', function () {
     instance = renderIntoDocument(<LinkItem to='/path/to/' title='Some title' value='Some value'/>);
     findRenderedComponentWithType(instance, Link).props.to.should.eql('/path/to/');
 
-    findRenderedDOMComponentWithClass(instance, 'test--link-item-title').textContent.should.containEql('Some title');
-    findRenderedDOMComponentWithClass(instance, 'test--link-item-value').textContent.should.containEql('Some value');
+    findRenderedDOMComponentWithClass(instance, 'link-item-title').textContent.should.containEql('Some title');
+    findRenderedDOMComponentWithClass(instance, 'link-item-value').textContent.should.containEql('Some value');
     scryRenderedComponentsWithType(instance, NavigationButton).should.have.length(0);
   });
 

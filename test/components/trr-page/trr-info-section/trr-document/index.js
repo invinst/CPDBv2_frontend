@@ -27,7 +27,7 @@ describe('Row component', function () {
       />
     );
 
-    findRenderedDOMComponentWithClass(instance, 'test--no-document').textContent.should.eql(
+    findRenderedDOMComponentWithClass(instance, 'trr-document-text').textContent.should.eql(
       'There are no documents that have been made public yet.'
     );
 
