@@ -1,0 +1,26 @@
+@import 'variables'
+
+\:local(.pairing-card)
+  width: 464px
+  height: 266px
+
+  .pairing-card-content
+    width: 100%
+    border-radius: 2px
+    background-origin: border-box
+    background-clip: content-box, border-box
+    border: solid 1px $white-two-color
+    pointer-events: none
+
+  .officer-info-left-hover-sibling:hover ~ .pairing-card-content
+    border: solid 1px transparent
+    background-image: linear-gradient(white, white), linear-gradient(to right, $accent_color, $white-two-color)
+
+  .officer-info-right-hover-sibling:hover ~ .pairing-card-content
+    border: solid 1px transparent
+    background-image: linear-gradient(white, white), linear-gradient(to left, $accent_color, $white-two-color)
+
+  .second-section
+    height: 112px
+    background-color: white
+    box-sizing: border-box

@@ -2,16 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 
 import VennDiagram from './venn-diagram';
-import { wrapperStyle, coaccusedTextStyle } from './pairing-chart.style';
+import style from './pairing-chart.sass';
 
 
 export default class PairingChart extends Component {
   render() {
     const { coaccusalCount, background1, background2 } = this.props;
     return (
-      <div style={ wrapperStyle }>
+      <div className={ style.pairingChart }>
         <VennDiagram coaccusalCount={ coaccusalCount } background1={ background1 } background2={ background2 } />
-        <div style={ coaccusedTextStyle } className='test--pairing-chart-coaccusal-text'>
+        <div className='pairing-chart-coaccused-text'>
           Coaccused { coaccusalCount } { pluralize('time', coaccusalCount) }
         </div>
       </div>

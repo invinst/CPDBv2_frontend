@@ -27,16 +27,17 @@ class RecentActivityCarouselSection extends Section {
       leftArrow: '//div[@class="test--landing-carousel-activity"]//*[contains(@class, "test--carousel-arrow-left")]',
       rightArrow: '//div[@class="test--landing-carousel-activity"]//*[contains(@class, "test--carousel-arrow-right")]',
       officerCards: '//div[@class="test--landing-carousel-activity"]//a[contains(@class, "test--officer-card")]',
-      pairCards: '//div[@class="test--landing-carousel-activity"]//div[@class="test--pair-card"]',
-      firstPairCard: '(//div[@class="test--landing-carousel-activity"]//div[@class="test--pair-card"])[1]',
+      pairCards: '//div[@class="test--landing-carousel-activity"]//div[contains(@class, "pairing-card__pairing-card")]',
+      firstPairCard:
+        '(//div[@class="test--landing-carousel-activity"]//div[contains(@class, "pairing-card__pairing-card")])[1]',
       firstPairCardLeftHalf: '' +
         '((//div[@class="test--landing-carousel-activity"]' +
-        '//div[@class="test--pair-card"])[1]' +
-        '//a[@class="test--pair-card-half"])[1]',
+        '//div[@class="pairing-card"])[1]' +
+        '//a[@class="pairing-card-half"])[1]',
       firstPairCardRightHalf: '' +
         '((//div[@class="test--landing-carousel-activity"]' +
-        '//div[@class="test--pair-card"])[1]' +
-        '//a[@class="test--pair-card-half"])[2]',
+        '//div[@class="pairing-card"])[1]' +
+        '//a[@class="pairing-card-half"])[2]',
     });
   }
 }

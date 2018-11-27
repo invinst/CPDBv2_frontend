@@ -1,0 +1,47 @@
+@import 'variables'
+
+\:local(.officer-info)
+  display: inline-block
+  cursor: pointer
+
+  &.left-officer
+    text-align: left
+    padding: 11px 16px
+
+  &.right-officer
+    text-align: right
+    padding: 11px 16px
+
+  .officer-info-text
+    font-weight: 300
+    font-size: 12px
+    color: $boulder-color
+    width: 200px
+    height: 14px
+
+  .officer-info-name
+    font-weight: 300
+    font-size: 14px
+    color: $soft-black-color
+    width: 200px
+    height: 18px
+
+  .officer-info-personal-info
+    font-weight: 300
+    font-size: 14px
+    color: $boulder-color
+    width: 200px
+    height: 36px
+
+  .officer-info-row-divider
+    width: 200px
+    border: solid 1px $white-two-color
+    box-sizing: border-box
+    margin: 11px 0
+
+.officer-info-left-hover-sibling:hover ~ .pairing-card-content .left-officer .officer-info-name
+    color: $accent-color
+
+.officer-info-right-hover-sibling:hover ~ .pairing-card-content .right-officer .officer-info-name
+    color: $accent-color
+

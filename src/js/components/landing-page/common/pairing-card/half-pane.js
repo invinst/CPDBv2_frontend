@@ -1,28 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import cx from 'classnames';
 
-import Hoverable from 'components/common/higher-order/hoverable';
-import { wrapper } from './half-pane.style';
+import style from './half-pane.sass';
 
-class HalfPane extends Component {
-  componentWillReceiveProps(nextProps) {
-    const { hovering, onHovering } = nextProps;
-    if (this.props.hovering != nextProps.hovering) {
-      onHovering(hovering);
-    }
-  }
-
+export default class HalfPane extends Component {
   render() {
-    const { position, officerId } = this.props;
-    return <Link to={ `/officer/${officerId}/` } className='test--pair-card-half' style={ wrapper(position) } />;
+    const { className, rightHalf, officerId } = this.props;
+    return (
+      <Link
+        to={ `/officer/${officerId}/` }
+        className={ cx(`${style.halfPane} ${className}`, { 'right-half': rightHalf }) }
+      />
+    );
   }
 }
 
 HalfPane.propTypes = {
-  hovering: PropTypes.bool,
-  position: PropTypes.string,
-  onHovering: PropTypes.func,
+  rightHalf: PropTypes.bool,
   officerId: PropTypes.number,
+  className: PropTypes.string,
 };
 
-export default Hoverable(HalfPane);
+HalfPane.defaultProps = {
+  rightHalf: false
+};
