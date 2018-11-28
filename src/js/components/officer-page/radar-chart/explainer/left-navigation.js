@@ -1,20 +1,19 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
-import { leftArrowStyle, leftNavigationStyle } from './left-navigation.style';
-import Hoverable from 'components/common/higher-order/hoverable';
+import styles from './left-navigation.sass';
 
 
-class LeftNavigation extends Component {
+export default class LeftNavigation extends Component {
   render() {
-    const { text, onClickHandler, hovering } = this.props;
+    const { text, onClickHandler } = this.props;
 
     return (
       <span
-        className='test--radar-explainer-navigation-left'
-        style={ leftNavigationStyle(hovering) }
+        className={ cx(styles.leftNavigation, 'test--radar-explainer-navigation-left') }
         onClick={ onClickHandler }
       >
-        <div style={ leftArrowStyle(hovering) }/>
+        <div className='left-arrow'/>
         { text }
       </span>
     );
@@ -26,5 +25,3 @@ LeftNavigation.propTypes = {
   onClickHandler: PropTypes.func,
   hovering: PropTypes.bool,
 };
-
-export default Hoverable(LeftNavigation);

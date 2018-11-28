@@ -8,7 +8,6 @@ import { Link } from 'react-router';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Trr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/trr';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Trr component', function () {
@@ -32,11 +31,11 @@ describe('Trr component', function () {
       unitName: '153',
     };
 
-    instance = renderIntoDocument(<Trr item={ trrItem } hasBorderBottom={ false } baseStyles={ baseStyles }/>);
+    instance = renderIntoDocument(<Trr item={ trrItem } hasBorderBottom={ false } />);
 
-    const kind = findRenderedDOMComponentWithClass(instance, 'test--trr-item-kind');
-    const category = findRenderedDOMComponentWithClass(instance, 'test--trr-item-category');
-    const date = findRenderedDOMComponentWithClass(instance, 'test--trr-item-date');
+    const kind = findRenderedDOMComponentWithClass(instance, 'trr-item-kind');
+    const category = findRenderedDOMComponentWithClass(instance, 'trr-item-category');
+    const date = findRenderedDOMComponentWithClass(instance, 'trr-item-date');
 
     kind.textContent.should.eql('Force');
     category.textContent.should.eql('Use of Force Report');

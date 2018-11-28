@@ -4,15 +4,11 @@ import React, { Component, PropTypes } from 'react';
 import ReactTooltip from 'react-tooltip';
 import uuid from 'uuid/v4';
 import ReactMarkdown from 'react-markdown';
+import cx from 'classnames';
 
-import {
-  buttonStyle,
-  tooltipTitleStyle,
-  tooltipTextStyle,
-  tooltipCloseButtonStyle,
-} from './popup.style';
 import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 import * as GATracking from 'utils/google_analytics_tracking';
+import styles from './popup.sass';
 
 
 export default class Popup extends Component {
@@ -26,7 +22,7 @@ export default class Popup extends Component {
   /* istanbul ignore next */
   hideOtherPopups() {
     // We have live test for this function, so it's safe to ignore it
-    const popups = document.getElementsByClassName('popup-button');
+    const popups = document.getElementsByClassName('tooltip-button');
     for (let i = 0; i < popups.length; i++) {
       if (popups[i].getAttribute('data-for') !== this.tooltipId) {
         ReactTooltip.hide(popups[i]);
@@ -41,9 +37,9 @@ export default class Popup extends Component {
   }
 
   render() {
-    const { text, title, position, style } = this.props;
+    const { text, title, position, className } = this.props;
     return (
-      <span>
+      <span className={ cx(styles.popup, className) }>
         <ReactTooltip
           id={ this.tooltipId }
           className='popup'
@@ -54,25 +50,23 @@ export default class Popup extends Component {
         >
           <div className='test--popup-content' onClick={ e => e.stopPropagation() }>
             <div
-              style={ tooltipCloseButtonStyle }
-              className='test--popup-close-button'
+              className='tooltip-close-button'
               data-tip={ true }
               data-for={ this.tooltipId }
               data-event={ true }
               data-event-off='click'
             />
-            <div style={ tooltipTitleStyle } className='test--popup-title'>{ title }</div>
-            <div style={ tooltipTextStyle } className='test--popup-text'>
+            <div className='tooltip-title'>{ title }</div>
+            <div className='tooltip-text'>
               <ReactMarkdown source={ text } renderers={ { link: MarkdownLink } } />
             </div>
           </div>
         </ReactTooltip>
         <div
-          style={ { ...buttonStyle(position), ...style } }
           data-tip={ true }
           data-for={ this.tooltipId }
           data-event='click'
-          className='popup-button'
+          className={ cx('tooltip-button', position) }
         />
       </span>
     );
@@ -82,9 +76,9 @@ export default class Popup extends Component {
 Popup.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
-  style: PropTypes.object,
   position: PropTypes.string,
   url: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Popup.defaultProps = {

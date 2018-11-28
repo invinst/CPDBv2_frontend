@@ -1,34 +1,25 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
-import { categoryStyle, dateStyle, kindStyle, showingStyle } from './award.style';
+import baseStyles from '../base-item.sass';
+import styles from './award.sass';
 
 
 export default class Award extends Component {
 
   render() {
-    const { item, hasBorderBottom, baseStyles } = this.props;
-    const {
-      baseWrapperShowingStyle,
-      baseShowingStyle,
-      baseWrapperKindStyle,
-      baseKindStyle,
-      baseCategoryStyle,
-      baseDateStyle,
-    } = baseStyles;
+    const { item } = this.props;
 
     return (
-      <span style={ baseWrapperShowingStyle }>
-        <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
-          <div style={ baseWrapperKindStyle }>
-            <span style={ { ...baseKindStyle, ...kindStyle } } className='test--award-item-kind'>Award</span>
+      <span className={ baseStyles.baseItem }>
+        <span className={ cx('item-content', styles.award) }>
+          <div className='item-wrapper-kind'>
+            <span className='item-kind award-item-kind'>Award</span>
           </div>
-          <span
-            style={ { ...baseCategoryStyle, ...categoryStyle } }
-            className='test--award-item-category'
-          >
+          <span className='item-category award-item-category'>
             { item.category }
           </span>
-          <span style={ { ...baseDateStyle, ...dateStyle } } className='test--award-item-date'>{ item.date }</span>
+          <span className='item-date award-item-date'>{ item.date }</span>
         </span>
       </span>
     );
@@ -37,7 +28,5 @@ export default class Award extends Component {
 
 Award.propTypes = {
   item: PropTypes.object,
-  hasBorderBottom: PropTypes.bool,
-  baseStyles: PropTypes.object,
   hovering: PropTypes.bool,
 };

@@ -1,0 +1,45 @@
+@import 'variables'
+
+\:local(.attachments)
+  height: 132px
+  width: 120px
+  display: inline-block
+  text-align: center
+  padding-top: 14px
+  vertical-align: bottom
+  overflow: hidden
+
+  .attachment-preview-image
+    border: solid 1px $white-two-color
+    height: 60px
+    width: 45px
+    box-sizing: border-box
+    display: block
+    margin: 0px auto 12px auto
+    background: $sugar-cane-color no-repeat center center
+
+    &.audio
+      background-size: auto
+
+    &.video
+      background-size: auto
+
+    &.document
+      background-size: cover
+
+  .attachment-title
+    color: $clay-gray
+    width: 104px
+    height: 36px
+    font-weight: 500
+    font-size: 14px
+    line-height: 18px
+
+  &:hover
+    background-color: white
+
+    .attachment-preview-image
+      border: solid 1px $accent-color
+
+    .attachment-title
+      color: $accent-color

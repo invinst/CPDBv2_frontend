@@ -6,7 +6,6 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Empty from 'components/officer-page/tabbed-pane-section/timeline/item/showings/empty';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Empty component', function () {
@@ -33,7 +32,7 @@ describe('Empty component', function () {
       unitName: '153',
     };
 
-    instance = renderIntoDocument(<Empty item={ emptyItem } hasBorderBottom={ false } baseStyles={ baseStyles }/>);
+    instance = renderIntoDocument(<Empty item={ emptyItem } hasBorderBottom={ false } />);
 
     const showing = findRenderedDOMComponentWithClass(instance, 'test--empty-item-showing');
     showing.textContent.should.eql('');

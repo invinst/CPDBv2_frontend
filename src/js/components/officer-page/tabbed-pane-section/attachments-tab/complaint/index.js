@@ -1,7 +1,9 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
+
 import Attachment from './attachment';
-import { wrapperStyle } from './complaint.style';
 import Heading from './heading';
+import styles from './complaint.sass';
 
 
 export default class Complaint extends Component {
@@ -13,8 +15,7 @@ export default class Complaint extends Component {
     const { complaint } = this.props;
     return (
       <div
-        style={ wrapperStyle }
-        className='test--attachments-complaint'
+        className={ cx(styles.complaint, 'test--attachments-complaint') }
       >
         <Heading complaint={ complaint } />
         <div>

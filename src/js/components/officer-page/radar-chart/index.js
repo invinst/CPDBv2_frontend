@@ -1,18 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { map, isEqual, filter } from 'lodash';
 import { scaleLinear } from 'd3-scale';
+import cx from 'classnames';
 
 import Popup from 'components/common/popup';
 import StaticRadarChart from 'components/common/radar-chart';
-import {
-  animatedRadarChartStyle,
-  radarChartPlaceholderStyle,
-  openExplainerButtonStyle,
-  questionMarkStyle,
-  radarChartOverlayStyle,
-  noDataRadarTextStyle,
-  noDataPopupStyle
-} from './radar-chart.style';
 import RadarExplainer from './explainer';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
@@ -20,6 +12,7 @@ import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-st
 import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 import * as IntercomTracking from 'utils/intercom-tracking';
 import * as GATracking from 'utils/google_analytics_tracking';
+import styles from './radar-chart.sass';
 
 
 export default class AnimatedRadarChart extends Component {
@@ -162,19 +155,15 @@ export default class AnimatedRadarChart extends Component {
     } = this.props;
 
     if (isRequesting)
-      return <div className='test--officer--radar-chart' style={ animatedRadarChartStyle }/>;
+      return <div className={ cx(styles.radarChart, 'test--officer--radar-chart') }/>;
 
     const itemData = this.getCurrentTransitionData();
     if (itemData) {
       return (
-        <div
-          className='test--officer--radar-chart'
-          style={ animatedRadarChartStyle }
-        >
+        <div className={ cx(styles.radarChart, 'test--officer--radar-chart') }>
           <div
-            style={ radarChartPlaceholderStyle }
             onClick={ this.openExplainer }
-            className='test--officer--radar-chart-placeholder'
+            className='officer-radar-chart-placeholder'
           >
             <StaticRadarChart
               textColor={ itemData.textColor }
@@ -188,12 +177,12 @@ export default class AnimatedRadarChart extends Component {
               showAxisTitle={ true }
               showValueWithSuffix={ true }
             />
-            <div style={ openExplainerButtonStyle } className='test--radar-explainer-question-mark'>
-              <span style={ questionMarkStyle }>?</span>
+            <div className='open-explainer-button'>
+              <span className='radar-chart-question-mark'>?</span>
             </div>
           </div>
           { showExplainer && (
-            <div style={ radarChartOverlayStyle }>
+            <div className='radar-chart-overlay'>
               <RadarExplainer
                 closeExplainer={ this.closeExplainer }
                 radarChartData={ data }
@@ -207,12 +196,9 @@ export default class AnimatedRadarChart extends Component {
       );
     } else {
       return (
-        <div
-          className='test--officer--radar-chart'
-          style={ animatedRadarChartStyle }
-        >
+        <div className={ cx(styles.radarChart, 'test--officer--radar-chart') }>
           <StaticRadarChart/>
-          <div style={ noDataRadarTextStyle }>
+          <div className='no-data-radar-chart-text'>
             <EditWrapperStateProvider { ...noDataRadarChartEditWrapperStateProps }>
               <HoverableEditWrapper>
                 <RichTextEditable
@@ -220,7 +206,7 @@ export default class AnimatedRadarChart extends Component {
                   placeholder='no data radar chart text'
                   fieldname='no_data_explain_text'
                   lastBlockChild={
-                    noDataPopup && <Popup key='no-data-radar-chart' { ...noDataPopup } style={ noDataPopupStyle }/>
+                    noDataPopup && <Popup key='no-data-radar-chart' { ...noDataPopup } className='radar-chart-popup' />
                   }
                 />
               </HoverableEditWrapper>

@@ -1,59 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import cx from 'classnames';
 
-import Hoverable from 'components/common/higher-order/hoverable';
-import {
-  categoryStyle,
-  coaccusedStyle,
-  dateStyle,
-  detailStyle,
-  findingStyle,
-  wrapperStyle,
-  kindStyle,
-  rightStyle,
-  wrapperKindStyle,
-  boxStyle,
-} from './heading.style';
+import styles from './heading.sass';
 
 
-class Heading extends Component {
+export default class Heading extends Component {
 
   render() {
     const { crid, category, finding, outcome, date, coaccused } = this.props.complaint;
-    const { hovering } = this.props;
 
     return (
-      <Link
-        style={ wrapperStyle(hovering) }
-        to={ `/complaint/${crid}/` }
-        className='test--attachments-heading'
-      >
-        <div style={ boxStyle }>
-          <div style={ wrapperKindStyle }>
-            <span
-              style={ kindStyle(finding === 'Sustained') }
-              className='test--attachments-heading-kind'
-            >
+      <Link to={ `/complaint/${crid}/` } className={ cx(styles.heading, 'test--attachments-heading') }>
+        <div className='heading-box'>
+          <div className='heading-kind-wrapper'>
+            <span className={ cx('attachments-heading-kind', { 'active': finding === 'Sustained' }) }>
               Complaint
             </span>
           </div>
-          <span style={ detailStyle }>
-            <div
-              style={ categoryStyle(hovering) }
-              className='test--attachments-heading-category'>
+          <span className='heading-detail'>
+            <div className='attachments-heading-category'>
               { category }
             </div>
-            <div style={ findingStyle } className='test--attachments-heading-finding'>{ finding }, { outcome }</div>
+            <div className='attachments-heading-finding'>{ finding }, { outcome }</div>
           </span>
-          <span style={ rightStyle }>
-            <span
-              style={ coaccusedStyle }
-              className='test--attachments-heading-coaccused'>
+          <span className='heading-right'>
+            <span className='attachments-heading-coaccused'>
               1 of { coaccused } coaccused
             </span>
-            <span
-              style={ dateStyle }
-              className='test--attachments-heading-date'>{ date }
+            <span className='attachments-heading-date'>
+              { date }
             </span>
           </span>
         </div>
@@ -64,7 +40,4 @@ class Heading extends Component {
 
 Heading.propTypes = {
   complaint: PropTypes.object,
-  hovering: PropTypes.bool,
 };
-
-export default Hoverable(Heading);

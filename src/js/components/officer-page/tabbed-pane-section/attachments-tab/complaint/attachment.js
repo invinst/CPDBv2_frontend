@@ -1,28 +1,22 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
-import Hoverable from 'components/common/higher-order/hoverable';
 import OutboundLink from 'components/common/outbound-link';
-
-import {
-  attachmentImageStyle,
-  attachmentTitleStyle,
-  wrapperStyle
-} from './attachment.style';
+import styles from './attachments.sass';
+import { imageStyle } from 'components/common/shared.style';
 
 
-class Attachment extends Component {
+export default class Attachment extends Component {
   render() {
     const { title, url, previewImageUrl, fileType } = this.props.attachment;
-    const { hovering } = this.props;
     return (
-      <OutboundLink href={ url } style={ wrapperStyle(hovering) } target='_blank' className='test--attachment'>
+      <OutboundLink href={ url } target='_blank' className={ cx(styles.attachments, 'test--attachment') }>
         <div
-          className='test--attachment-preview-image'
-          style={ attachmentImageStyle(hovering, previewImageUrl, fileType) }
+          className={ cx('attachment-preview-image', fileType) }
+          style={ imageStyle(previewImageUrl) }
         />
-        <span
-          className='test--attachment-title'
-          style={ attachmentTitleStyle(hovering) }>{ title }
+        <span className='attachment-title'>
+          { title }
         </span>
       </OutboundLink>
     );
@@ -31,7 +25,4 @@ class Attachment extends Component {
 
 Attachment.propTypes = {
   attachment: PropTypes.object,
-  hovering: PropTypes.bool,
 };
-
-export default Hoverable(Attachment);

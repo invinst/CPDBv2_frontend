@@ -1,13 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
-import {
-  wrapperStyle,
-  attachmentsTextStyle,
-  titleStyle,
-  graphicContentTextStyle,
-  titleTextStyle
-} from './attachments-tab.style';
 import Complaint from './complaint';
+import styles from './attachments-tab.sass';
 
 
 export default class AttachmentsTab extends Component {
@@ -15,13 +9,13 @@ export default class AttachmentsTab extends Component {
   render() {
     const { complaints } = this.props;
     return (
-      <div style={ wrapperStyle }>
-        <div style={ titleStyle }>
-          <div style={ titleTextStyle }>
-            <span style={ attachmentsTextStyle }>
+      <div className={ styles.attachmentsTab }>
+        <div className='attachments-tab-title'>
+          <div className='title-text'>
+            <span className='attachments-text'>
               ATTACHMENTS &nbsp;
             </span>
-            <span style={ graphicContentTextStyle }>
+            <span className='graphic-content-text'>
               MAY CONTAIN GRAPHIC CONTENT
             </span>
           </div>

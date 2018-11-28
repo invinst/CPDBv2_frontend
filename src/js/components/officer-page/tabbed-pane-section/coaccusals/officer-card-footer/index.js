@@ -1,14 +1,15 @@
 import React, { PropTypes, Component } from 'react';
 import pluralize from 'pluralize';
+import cx from 'classnames';
 
-import { footerStyle } from './officer-card-footer.style';
+import styles from './officer-card-footer.sass';
 
 
 export default class OfficerCardFooter extends Component {
   render() {
     const { coaccusalCount } = this.props;
     return (
-      <div style={ footerStyle } className='test--officer-card-footer'>
+      <div className={ cx(styles.officerCardFooter, 'test--officer-card-footer') }>
         Coaccused in { pluralize('case', coaccusalCount, true) }.
       </div>
     );

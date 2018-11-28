@@ -32,7 +32,7 @@ describe('RadarExplainer components', function () {
     const triangleEditWrapperStateProps = spy();
     instance = renderIntoDocument(<RadarExplainer triangleEditWrapperStateProps={ triangleEditWrapperStateProps }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
+    findRenderedDOMComponentWithClass(instance, 'radar-explainer-close-button');
     findRenderedComponentWithType(instance, LeftNavigation);
     findRenderedComponentWithType(instance, RightNavigation);
     const triangleExplainer = findRenderedComponentWithType(instance, TriangleExplainer);
@@ -88,7 +88,7 @@ describe('RadarExplainer components', function () {
   it('should invoke closeExplainer when clicking on close button', function () {
     const closeExplainerSpy = spy();
     instance = renderIntoDocument(<RadarExplainer closeExplainer={ closeExplainerSpy }/>);
-    const closeButton = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-close-button');
+    const closeButton = findRenderedDOMComponentWithClass(instance, 'radar-explainer-close-button');
     Simulate.click(closeButton);
 
     closeExplainerSpy.should.be.calledOnce();

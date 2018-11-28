@@ -33,10 +33,10 @@ class AccusedOfficerSection extends Section {
       lastCard: '(//*[@class="test--officer-card"])[last()]',
       showMoreButton: '.show-more-button',
       popup: '.test--accused-officer .popup',
-      popupButton: '.test--accused-officer .popup-button',
-      popupTitle: '.test--accused-officer .test--popup-title',
-      popupText: '.test--accused-officer .test--popup-text',
-      popupCloseButton: '.test--accused-officer .test--popup-close-button'
+      popupButton: '.test--accused-officer .tooltip-button',
+      popupTitle: '.test--accused-officer .tooltip-title',
+      popupText: '.test--accused-officer .tooltip-text',
+      popupCloseButton: '.test--accused-officer .tooltip-close-button'
     });
   }
 
@@ -94,10 +94,10 @@ class InvestigatorSection extends Section {
       firstItem: '(//*[contains(@class, "test--involvement-investigator")]' +
         '//*[contains(@class, "test--officer-row")])[1]',
       popup: '.test--involvement-investigator .popup',
-      popupButton: '.test--involvement-investigator .popup-button',
-      popupTitle: '.test--involvement-investigator .test--popup-title',
-      popupText: '.test--involvement-investigator .test--popup-text',
-      popupCloseButton: '.test--involvement-investigator .test--popup-close-button'
+      popupButton: '.test--involvement-investigator .tooltip-button',
+      popupTitle: '.test--involvement-investigator .tooltip-title',
+      popupText: '.test--involvement-investigator .tooltip-text',
+      popupCloseButton: '.test--involvement-investigator .tooltip-close-button'
     });
   }
 
@@ -116,10 +116,10 @@ class PoliceWitnessSection extends Section {
       firstItem: '(//*[contains(@class, "test--involvement-police_witness")]' +
         '//*[contains(@class, "test--officer-row")])[1]',
       popup: '.test--involvement-police_witness .popup',
-      popupButton: '.test--involvement-police_witness .popup-button',
-      popupTitle: '.test--involvement-police_witness .test--popup-title',
-      popupText: '.test--involvement-police_witness .test--popup-text',
-      popupCloseButton: '.test--involvement-police_witness .test--popup-close-button'
+      popupButton: '.test--involvement-police_witness .tooltip-button',
+      popupTitle: '.test--involvement-police_witness .tooltip-title',
+      popupText: '.test--involvement-police_witness .tooltip-text',
+      popupCloseButton: '.test--involvement-police_witness .tooltip-close-button'
     });
   }
 

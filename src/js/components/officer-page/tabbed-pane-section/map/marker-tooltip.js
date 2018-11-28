@@ -1,14 +1,7 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
-import {
-  contentStyle,
-  dividerStyle,
-  footerStyle,
-  footerTextStyle,
-  rowStyle,
-  titleStyle,
-  wrapperStyle
-} from './marker-tooltip.style';
+import styles from './marker-tooltip.sass';
 
 
 export default class MarkerTooltip extends Component {
@@ -16,24 +9,24 @@ export default class MarkerTooltip extends Component {
   render() {
     const { kind, id, category, coaccused, victims } = this.props;
     return (
-      <div style={ wrapperStyle } className='test--marker-tooltip'>
-        <div style={ rowStyle }>
-          <div className='test--marker-tooltip-kind-id' style={ titleStyle }>
+      <div className={ cx(styles.markerTooltip, 'test--marker-tooltip') }>
+        <div className='marker-tooltip-row'>
+          <div className='marker-tooltip-title'>
             { kind } { id }
           </div>
-          <div className='test--marker-tooltip-category' style={ contentStyle }>
+          <div className='marker-tooltip-category'>
             { category }
           </div>
         </div>
         {
           victims ? (
             <div>
-              <div style={ dividerStyle } />
-              <div style={ rowStyle }>
-                <div style={ titleStyle }>
+              <div className='divider'/>
+              <div className='marker-tooltip-row'>
+                <div className='marker-tooltip-title'>
                   Victim
                 </div>
-                <div className='test--marker-tooltip-victims' style={ contentStyle }>
+                <div className={ cx('marker-tooltip-category', 'test--marker-tooltip-victims') }>
                   { victims.map((victim, index) => {
                     return (
                       <div className='test--marker-tooltip-victim' key={ index }>
@@ -48,8 +41,8 @@ export default class MarkerTooltip extends Component {
             </div>
           ) : null
         }
-        <div className='test--marker-tooltip-coaccused' style={ footerStyle }>
-          <div style={ footerTextStyle }>
+        <div className='marker-tooltip-footer'>
+          <div className='footer-text'>
             Accused with { coaccused } others
           </div>
         </div>

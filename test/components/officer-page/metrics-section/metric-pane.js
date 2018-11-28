@@ -21,9 +21,9 @@ describe('MetricPane', function () {
     instance = renderIntoDocument(
       <MetricPane value={ 1 } name={ 'some name' } description={ 'some description' } />
     );
-    const value = findRenderedDOMComponentWithClass(instance, 'test--metrics-pane-value');
-    const name = findRenderedDOMComponentWithClass(instance, 'test--metrics-pane-name');
-    const description = findRenderedDOMComponentWithClass(instance, 'test--metrics-pane-description');
+    const value = findRenderedDOMComponentWithClass(instance, 'metrics-pane-value');
+    const name = findRenderedDOMComponentWithClass(instance, 'metrics-pane-name');
+    const description = findRenderedDOMComponentWithClass(instance, 'metrics-pane-description');
 
     value.textContent.should.eql('1');
     name.textContent.should.eql('some name');

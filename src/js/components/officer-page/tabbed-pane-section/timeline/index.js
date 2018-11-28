@@ -1,19 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-import { nth, values, get, includes, mapValues, findKey, map } from 'lodash';
+import { values, get, mapValues, findKey, map } from 'lodash';
+import cx from 'classnames';
 
-import {
-  dateHeaderStyle,
-  headerWrapperStyle,
-  rankHeaderStyle,
-  showingContentHeaderStyle,
-  showingTextStyle,
-  timelineStyle,
-  unitHeaderStyle,
-} from './timeline.style';
 import Item from './item';
-import { NEW_TIMELINE_FILTERS, NEW_TIMELINE_ITEMS, POPUP_NAMES } from 'utils/constants';
+import { NEW_TIMELINE_FILTERS, POPUP_NAMES } from 'utils/constants';
 import Dropdown from 'components/common/dropdown';
 import Popup from 'components/common/popup';
+import styles from './timeline.sass';
 
 export default class Timeline extends Component {
   constructor(props) {
@@ -36,25 +29,23 @@ export default class Timeline extends Component {
     );
 
     return (
-      <div className='test--timeline-header' style={ headerWrapperStyle }>
-        <div style={ rankHeaderStyle } className='test--timeline-header-col'>
+      <div className='timeline-header'>
+        <div className='rank-header test--timeline-header-col'>
           RANK
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.RANK) }
-            position='relative'
             url={ pathname }
           />
         </div>
-        <div style={ unitHeaderStyle } className='test--timeline-header-col'>
+        <div className='unit-header test--timeline-header-col'>
           UNIT
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.UNIT) }
-            position='relative'
             url={ pathname }
           />
         </div>
-        <div style={ showingContentHeaderStyle } className='test--timeline-header-col'>
-          <div style={ showingTextStyle }>SHOWING</div>
+        <div className='showing-content-header test--timeline-header-col'>
+          <div className='showing-text'>SHOWING</div>
           <Dropdown
             defaultValue={ NEW_TIMELINE_FILTERS.ALL.label }
             onChange={ this.handleDropdownChange }
@@ -64,7 +55,7 @@ export default class Timeline extends Component {
             labels={ labels }
           />
         </div>
-        <div style={ dateHeaderStyle } className='test--timeline-header-col'>DATE</div>
+        <div className='date-header test--timeline-header-col'>DATE</div>
       </div>
     );
   }
@@ -75,25 +66,12 @@ export default class Timeline extends Component {
     return (
       <div>
         {
-          items.map((item, index) => {
-            const nextItem = nth(items, index + 1);
-            const excludedKinds = [
-              NEW_TIMELINE_ITEMS.UNIT_CHANGE, NEW_TIMELINE_ITEMS.RANK_CHANGE, NEW_TIMELINE_ITEMS.JOINED
-            ];
-
-            const hasBorderBottom = (
-              item.isFirstMutual
-              || !includes(excludedKinds, item.kind)
-              && nextItem !== undefined
-              && !includes(excludedKinds, nextItem.kind)
-            );
-
+          items.map(item => {
             return (
               <Item
                 item={ item }
                 key={ item.key }
                 officerId={ officerId }
-                hasBorderBottom={ hasBorderBottom }
                 changeOfficerTab={ changeOfficerTab }
                 pathname={ pathname }
               />
@@ -106,7 +84,7 @@ export default class Timeline extends Component {
 
   render() {
     return (
-      <div style={ timelineStyle } className='test--officer-timeline'>
+      <div className={ cx(styles.timeline, 'test--officer-timeline') }>
         { this.renderHeader() }
         { this.renderItems() }
       </div>

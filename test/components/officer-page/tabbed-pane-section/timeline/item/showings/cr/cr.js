@@ -6,7 +6,6 @@ import {
 } from 'react-addons-test-utils';
 import { Link } from 'react-router';
 
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 import Cr from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -47,16 +46,16 @@ describe('Cr component', function () {
 
 
   it('should render item correctly', function () {
-    instance = renderIntoDocument(<Cr item={ item } baseStyles={ baseStyles } />);
+    instance = renderIntoDocument(<Cr item={ item } />);
 
-    const kind = findRenderedDOMComponentWithClass(instance, 'test--cr-item-kind');
-    const category = findRenderedDOMComponentWithClass(instance, 'test--cr-item-category');
-    const finding = findRenderedDOMComponentWithClass(instance, 'test--cr-item-finding');
-    const coaccused = findRenderedDOMComponentWithClass(instance, 'test--cr-item-coaccused');
-    const date = findRenderedDOMComponentWithClass(instance, 'test--cr-item-date');
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'test--attachment-image');
-    const attachmentImageHref = findRenderedDOMComponentWithClass(instance, 'test--attachment-image-href');
-    const moreAttachment = findRenderedDOMComponentWithClass(instance, 'test--more-attachment');
+    const kind = findRenderedDOMComponentWithClass(instance, 'cr-item-kind');
+    const category = findRenderedDOMComponentWithClass(instance, 'cr-item-category');
+    const finding = findRenderedDOMComponentWithClass(instance, 'cr-item-finding');
+    const coaccused = findRenderedDOMComponentWithClass(instance, 'cr-item-coaccused');
+    const date = findRenderedDOMComponentWithClass(instance, 'cr-item-date');
+    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'attachment-image');
+    const attachmentImageHref = findRenderedDOMComponentWithClass(instance, 'attachment-image-href');
+    const moreAttachment = findRenderedDOMComponentWithClass(instance, 'more-attachment');
     const link = findRenderedComponentWithType(instance, Link);
 
     kind.textContent.should.eql('Complaint');

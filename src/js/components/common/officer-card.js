@@ -95,8 +95,8 @@ export class OfficerCard extends Component {
           <div className='officer-card-section test--officer-card-demographic'>
             <p className='extra-info'>{ extraInfo() }</p>
           </div>
-          { footer }
         </div>
+        { footer }
       </Link>
     );
   }

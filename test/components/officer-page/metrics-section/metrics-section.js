@@ -12,9 +12,9 @@ import { unmountComponentSuppressError } from 'utils/test';
 
 
 const checkMetricPaneDataInfo = (metricPane, value, name, description) => {
-  const _value = findRenderedDOMComponentWithClass(metricPane, 'test--metrics-pane-value');
-  const _name = findRenderedDOMComponentWithClass(metricPane, 'test--metrics-pane-name');
-  const _description = findRenderedDOMComponentWithClass(metricPane, 'test--metrics-pane-description');
+  const _value = findRenderedDOMComponentWithClass(metricPane, 'metrics-pane-value');
+  const _name = findRenderedDOMComponentWithClass(metricPane, 'metrics-pane-name');
+  const _description = findRenderedDOMComponentWithClass(metricPane, 'metrics-pane-description');
 
   _value.textContent.should.eql(value);
   _name.textContent.should.eql(name);

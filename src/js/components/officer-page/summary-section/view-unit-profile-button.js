@@ -1,22 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
+import cx from 'classnames';
 
-import Hoverable from 'components/common/higher-order/hoverable';
-import { viewUnitButtonWrapperStyle, textStyle, arrowStyle } from './view-unit-profile-button.style';
+import styles from './view-unit-profile-button.sass';
 
 
-class ViewUnitProfileButton extends Component {
+export default class ViewUnitProfileButton extends Component {
   render() {
-    const { unitName, hovering } = this.props;
+    const { unitName } = this.props;
 
     return (
       <Link
-        className='test--view-profile-button'
-        style={ viewUnitButtonWrapperStyle(hovering) }
+        className={ cx(styles.viewUnitProfileButton, 'test--view-profile-button') }
         to={ `/unit/${unitName}/` }
       >
-        <span style={ textStyle }>View Unit Profile</span>
-        <div style={ arrowStyle(hovering) } />
+        <span className='view-unit-profile-button-text'>View Unit Profile</span>
+        <div className='view-unit-profile-button-arrow'/>
       </Link>
     );
   }
@@ -26,5 +25,3 @@ ViewUnitProfileButton.propTypes = {
   hovering: PropTypes.bool,
   unitName: PropTypes.string
 };
-
-export default Hoverable(ViewUnitProfileButton);

@@ -1,9 +1,12 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass
+} from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import RankChange from 'components/officer-page/tabbed-pane-section/timeline/item/showings/rank-change';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('RankChange component', function () {
@@ -22,11 +25,11 @@ describe('RankChange component', function () {
     };
 
     instance = renderIntoDocument(
-      <RankChange item={ rankChange } hasBorderBottom={ false } baseStyles={ baseStyles }/>
+      <RankChange item={ rankChange } hasBorderBottom={ false } />
     );
 
-    const content = findRenderedDOMComponentWithClass(instance, 'test--rank-change-item-content');
-    const date = findRenderedDOMComponentWithClass(instance, 'test--rank-change-item-date');
+    const content = scryRenderedDOMComponentsWithClass(instance, 'rank-change-item-content')[1];
+    const date = findRenderedDOMComponentWithClass(instance, 'rank-change-item-date');
 
     content.textContent.should.eql('Officer → Detective');
     date.textContent.should.eql('APR 28');

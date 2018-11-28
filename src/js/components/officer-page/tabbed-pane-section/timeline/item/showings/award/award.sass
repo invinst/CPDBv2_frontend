@@ -1,0 +1,23 @@
+@import 'variables'
+
+$height: 58px
+
+\:local(.award)
+  height: $height
+  line-height: calc(#{$height} - 1px)
+  display: inline-block
+
+  .award-item-kind
+    width: 61px
+    color: $clay-gray
+    background-color: $sugar-cane-color
+    border: solid 1px $white-two-color
+
+  .award-item-category
+    display: inline-block
+    vertical-align: middle
+
+  .award-item-date
+    font-size: 12px
+    color: $soft-black-color
+    font-weight: 300

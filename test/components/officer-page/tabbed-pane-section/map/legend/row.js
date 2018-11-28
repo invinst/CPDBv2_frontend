@@ -26,9 +26,9 @@ describe('Row component', function () {
         hovering={ false }
       />
     );
-    const rowText = findRenderedDOMComponentWithClass(instance, 'test--legend-row-text');
+    const rowText = findRenderedDOMComponentWithClass(instance, 'legend-row-text');
     rowText.textContent.should.eql('Test Row');
-    const rowNumber = findRenderedDOMComponentWithClass(instance, 'test--legend-row-number');
+    const rowNumber = findRenderedDOMComponentWithClass(instance, 'legend-row-number');
     rowNumber.textContent.should.eql('20');
   });
 });

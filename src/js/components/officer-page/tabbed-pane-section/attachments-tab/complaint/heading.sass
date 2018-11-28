@@ -1,0 +1,74 @@
+@import 'variables'
+
+$height: 58px
+
+\:local(.heading)
+  background-color: inherit
+  height: $height
+  line-height: calc(#{$height} - 1px)
+  cursor: pointer
+  padding: 0 16px
+  box-sizing: border-box
+  display: block
+
+  .heading-box
+    border-bottom: solid 1px $white-two-color
+
+    .heading-kind-wrapper
+      width: 85px
+      display: inline-block
+      margin-right: 16px
+
+      .attachments-heading-kind
+        width: 85px
+        border: solid 1px $champagne-color
+        color: $bright-orange-two-color
+        background-color: inherit
+        line-height: 24px
+        display: inline-block
+        text-align: center
+
+        &.active
+          color: $scarlet-color
+          background-color: $champagne-color
+
+    .heading-detail
+      display: inline-block
+      vertical-align: middle
+
+      .attachments-heading-category
+        color: $soft-black-color
+        line-height: 18px
+
+      .attachments-heading-finding
+        font-weight: 300
+        line-height: 14px
+        font-size: 12px
+        color: $clay-gray
+
+    .heading-right
+      display: inline-block
+      float: right
+
+      .attachments-heading-coaccused
+        font-size: 14px
+        font-weight: 300
+        color: $clay-gray
+        display: inline-block
+
+      .attachments-heading-date
+        font-size: 12px
+        color: $soft-black-color
+        font-weight: 300
+        float: right
+        width: 120px
+        display: inline-block
+        text-align: right
+
+  &:hover
+    background-color: white
+
+    .heading-box
+      .heading-detail
+        .attachments-heading-category
+          color: $accent-color

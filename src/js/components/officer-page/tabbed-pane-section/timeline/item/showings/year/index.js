@@ -1,22 +1,19 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
-import { clearFloatStyle, dateStyle, showingStyle } from './year.style';
+import baseStyles from '../base-item.sass';
+import styles from './year.sass';
 
 
 export default class Year extends Component {
   render() {
-    const { hasBorderBottom, item, baseStyles } = this.props;
-    const { date, hasData } = item;
-    const { baseWrapperShowingStyle, baseShowingStyle, baseDateStyle, } = baseStyles;
+    const { date, hasData } = this.props.item;
 
     return (
-      <span style={ baseWrapperShowingStyle } className='test--timeline-year-item'>
-        <div
-          style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle(hasData) } }
-          className='test--year-item-showing'
-        >
-          <span style={ { ...baseDateStyle, ...dateStyle(hasData) } } className='test--year-item-date'>{ date }</span>
-          <br style={ clearFloatStyle } />
+      <span className={ cx(baseStyles.baseItem, styles.year, { 'has-data': hasData }, 'test--timeline-year-item') }>
+        <div className='item-content year-item-item-content'>
+          <span className='item-date year-item-date'>{ date }</span>
+          <br className='year-clear-float' />
         </div>
       </span>
     );
@@ -28,6 +25,4 @@ Year.propTypes = {
     date: PropTypes.string,
     hasData: PropTypes.bool,
   }),
-  hasBorderBottom: PropTypes.bool,
-  baseStyles: PropTypes.object,
 };

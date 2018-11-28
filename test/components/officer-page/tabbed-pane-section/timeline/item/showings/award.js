@@ -6,7 +6,6 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Award from 'components/officer-page/tabbed-pane-section/timeline/item/showings/award';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Award component', function () {
@@ -32,11 +31,11 @@ describe('Award component', function () {
       category: 'Honorable Mention',
     };
 
-    instance = renderIntoDocument(<Award item={ awardItem } hasBorderBottom={ true } baseStyles={ baseStyles }/>);
+    instance = renderIntoDocument(<Award item={ awardItem } hasBorderBottom={ true } />);
 
-    const kind = findRenderedDOMComponentWithClass(instance, 'test--award-item-kind');
-    const category = findRenderedDOMComponentWithClass(instance, 'test--award-item-category');
-    const date = findRenderedDOMComponentWithClass(instance, 'test--award-item-date');
+    const kind = findRenderedDOMComponentWithClass(instance, 'award-item-kind');
+    const category = findRenderedDOMComponentWithClass(instance, 'award-item-category');
+    const date = findRenderedDOMComponentWithClass(instance, 'award-item-date');
 
     kind.textContent.should.eql('Award');
     category.textContent.should.eql('Honorable Mention');

@@ -13,7 +13,7 @@ export default class Row extends Component {
       <div className={ style.trrDetailRow }>
         <div className='trr-detail-row-title'>
           { title }
-          { !isEmpty(popup) ? <Popup { ...popup } position='relative' url={ pathName }/> : null }
+          { !isEmpty(popup) ? <Popup { ...popup } url={ pathName }/> : null }
         </div>
         <div className={ cx('trr-detail-row-value', { box: borderValue }) }>
           { children }

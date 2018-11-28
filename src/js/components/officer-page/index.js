@@ -5,13 +5,13 @@ import { compact, get } from 'lodash';
 import DocumentMeta from 'react-document-meta';
 import pluralize from 'pluralize';
 
-import { pageWrapperStyle, wrapperStyle } from './officer-page.style';
 import AnimatedRadarChart from './radar-chart';
 import SummarySection from './summary-section';
 import MetricsSection from './metrics-section';
 import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import { POPUP_NAMES } from 'utils/constants';
+import styles from './officer-page.sass';
 
 
 export default class OfficerPage extends Component {
@@ -54,9 +54,9 @@ export default class OfficerPage extends Component {
 
     return (
       <DocumentMeta title={ pageTitle } description={ pageDescription }>
-        <div style={ wrapperStyle } className='officer-page'>
+        <div className={ styles.officerPage }>
           <ShareableHeaderContainer />
-          <div style={ pageWrapperStyle }>
+          <div className='page-wrapper'>
             <AnimatedRadarChart
               officerId={ officerId }
               data={ threeCornerPercentile }

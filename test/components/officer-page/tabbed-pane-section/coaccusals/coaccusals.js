@@ -58,7 +58,7 @@ describe('Coaccusals component', function () {
 
     instance = renderIntoDocument(<Coaccusals coaccusalGroups={ coaccusalGroups }/>);
 
-    const groups = scryRenderedDOMComponentsWithClass(instance, 'test--coaccusals-group-name');
+    const groups = scryRenderedDOMComponentsWithClass(instance, 'coaccusals-group-name');
     const coaccusalCards = scryRenderedDOMComponentsWithClass(instance, 'test--officer-card');
 
     groups.length.should.eql(2);

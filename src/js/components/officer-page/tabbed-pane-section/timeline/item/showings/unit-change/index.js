@@ -1,34 +1,27 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
-import {
-  dateStyle,
-  newUnitStyle,
-  oldUnitStyle,
-  showingStyle,
-  unitChangeStyle,
-  wrapperShowingStyle,
-} from './unit-change.style';
+import baseStyles from '../base-item.sass';
+import styles from './unit-change.sass';
 
 
 export default class UnitChange extends Component {
   render() {
-    const { hasBorderBottom } = this.props;
     const { unitName, oldUnitName, oldUnitDescription, unitDescription, date } = this.props.item;
-    const { baseWrapperShowingStyle, baseShowingStyle, baseDateStyle } = this.props.baseStyles;
 
     return (
-      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } }>
-        <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
-          <span style={ unitChangeStyle } className='test--unit-change-item-content'>
+      <span className={ cx(baseStyles.baseItem, styles.unitChange) }>
+        <span className='item-content unit-change-item-content'>
+          <span className='unit-change-info'>
             {
               oldUnitName === 'Unassigned' ?
-                <span style={ oldUnitStyle(true) }>Unassigned → </span>
+                <span className='old-unit unassigned'>Unassigned → </span>
               :
-                <span style={ oldUnitStyle(false) }>{ oldUnitName } - { oldUnitDescription } → </span>
+                <span className='old-unit'>{ oldUnitName } - { oldUnitDescription } → </span>
             }
-            <span style={ newUnitStyle }>{ unitName } - { unitDescription }</span>
+            <span className='new-unit'>{ unitName } - { unitDescription }</span>
           </span>
-          <span style={ { ...baseDateStyle, ...dateStyle } } className='test--unit-change-item-date'>{ date }</span>
+          <span className='item-date unit-change-item-date'>{ date }</span>
         </span>
       </span>
     );
@@ -37,6 +30,4 @@ export default class UnitChange extends Component {
 
 UnitChange.propTypes = {
   item: PropTypes.object,
-  hasBorderBottom: PropTypes.bool,
-  baseStyles: PropTypes.object,
 };

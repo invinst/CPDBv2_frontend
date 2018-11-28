@@ -1,0 +1,19 @@
+@import 'variables'
+
+\:local(.right-navigation)
+  float: right
+  cursor: pointer
+  color: $accent-color
+
+  .right-arrow
+    background: url('/img/disclosure-indicator-blue.svg') 10px 0 no-repeat scroll
+    width: 7px
+    height: 13px
+    padding-left: 26px
+    display: inline-block
+
+  &:hover
+    color: $soft-black-color
+
+    .right-arrow
+      background: url('/img/disclosure-indicator-black.svg') 10px 0 no-repeat scroll

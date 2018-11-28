@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
-import { yearOldStyle } from './year-old.style';
 import { getThisYear } from 'utils/date';
+import styles from './year-old.sass';
 
 
 export default class YearOld extends Component {
@@ -9,7 +10,7 @@ export default class YearOld extends Component {
     const { birthYear } = this.props;
 
     return (
-      <span className='test--year-old' style={ yearOldStyle }>
+      <span className={ cx(styles.yearOld, 'test--year-old') }>
         { `${getThisYear() - birthYear} years old` }
       </span>
     );

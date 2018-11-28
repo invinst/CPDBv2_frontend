@@ -33,18 +33,12 @@ export const baseTransform = (item, index) => {
     date: moment(item.date).format('MMM D').toUpperCase(),
     kind: item.kind,
     rank,
-    rankDisplay: rank,
     unitName,
     unitDescription: item['unit_description'],
-    unitDisplay: unitName,
-    isFirstRank: false,
-    isLastRank: false,
-    isFirstUnit: false,
-    isLastUnit: false,
+    isAfterRankChange: false,
+    isAfterUnitChange: false,
     isCurrentUnit: false,
     isCurrentRank: false,
-    isMutual: false,
-    isFirstMutual: false,
     key: index,
   };
 };
@@ -104,16 +98,12 @@ const transform = (item, index) => transformMap[item.kind](item, index);
 
 export const yearItem = (baseItem, year, hasData) => ({
   rank: baseItem.rank,
-  rankDisplay: baseItem.rankDisplay,
   unitName: baseItem.unitName,
   unitDescription: baseItem.unitDescription,
-  unitDisplay: baseItem.unitDisplay,
   isCurrentUnit: baseItem.isCurrentUnit,
   isCurrentRank: baseItem.isCurrentRank,
-  isFirstRank: false,
-  isLastRank: false,
-  isFirstUnit: false,
-  isLastUnit: false,
+  isAfterRankChange: false,
+  isAfterUnitChange: false,
   kind: NEW_TIMELINE_ITEMS.YEAR,
   date: `${year}`,
   key: `${baseItem.key}-${NEW_TIMELINE_ITEMS.YEAR}-${year}`,
@@ -165,58 +155,6 @@ export const fillEmptyItems = (items) => {
   });
 
   return newItems;
-};
-
-export const dedupeRank = (items) => {
-  return items.map((currentItem, index) => {
-    if (index > 0) {
-      const previousItem = items[index - 1];
-      if (currentItem.rank === previousItem.rank) {
-        currentItem.rankDisplay = ' ';
-      }
-    }
-    return currentItem;
-  });
-};
-
-export const dedupeUnit = (items) => {
-  return items.map((currentItem, index) => {
-    if (index > 0) {
-      const previousItem = items[index - 1];
-      if (currentItem.unitDescription === previousItem.unitDescription) {
-        currentItem.unitDisplay = ' ';
-      }
-    }
-    return currentItem;
-  });
-};
-
-export const markFirstAndLastUnit = (items) => {
-  items[0].isFirstUnit = true;
-  items[items.length - 1].isLastUnit = true;
-  items.map((item, index) => {
-    if (item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE) {
-      if (index - 1 >= 0) {
-        items[index - 1].isLastUnit = true;
-      }
-      items[index + 1].isFirstUnit = true;
-    }
-  });
-  return items;
-};
-
-export const markFirstAndLastRank = (items) => {
-  items[0].isFirstRank = true;
-  items[items.length - 1].isLastRank = true;
-  items.map((item, index) => {
-    if (item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE) {
-      if (index - 1 >= 0) {
-        items[index - 1].isLastRank = true;
-      }
-      items[index + 1].isFirstRank = true;
-    }
-  });
-  return items;
 };
 
 export const fillUnitChange = (items) => {
@@ -320,41 +258,14 @@ export const markLatestRank = (items) => {
   });
 };
 
-export const markMutualRankUnit = (items) => {
+export const markIsAfterRankUnitChange = (items) => {
   return items.map((item, index) => {
-    if (index + 1 < items.length && item.date === items[index + 1].date) {
-      if (
-        item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && items[index + 1].kind === NEW_TIMELINE_ITEMS.RANK_CHANGE
-        || item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && items[index + 1].kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE
-      ) {
-        item.isMutual = true;
-        item.isFirstMutual = true;
-        item.isFirstUnit = false;
-        item.isFirstRank = false;
-        item.isLastUnit = false;
-        item.isLastRank = false;
-        if (index - 1 >= 0) {
-          items[index - 1].isLastRank = true;
-          items[index - 1].isLastUnit = true;
-        }
+    if (index + 1 < items.length) {
+      if (items[index + 1].kind === NEW_TIMELINE_ITEMS.RANK_CHANGE) {
+        items[index].isAfterRankChange = true;
       }
-    }
-    if (index - 1 >= 0 && item.date === items[index - 1].date) {
-      if (
-        item.kind === NEW_TIMELINE_ITEMS.RANK_CHANGE && items[index - 1].kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE
-        || item.kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE && items[index -1].kind === NEW_TIMELINE_ITEMS.RANK_CHANGE
-      ) {
-        item.isMutual = true;
-        item.isFirstUnit = false;
-        item.isFirstRank = false;
-        item.isLastUnit = false;
-        item.isLastRank = false;
-        if (index + 1 < items.length) {
-          items[index + 1].isFirstUnit = true;
-          items[index + 1].isFirstRank = true;
-          items[index + 1].rankDisplay = items[index + 1].rank;
-          items[index + 1].unitDisplay = items[index + 1].unitName;
-        }
+      if (items[index + 1].kind === NEW_TIMELINE_ITEMS.UNIT_CHANGE) {
+        items[index].isAfterUnitChange = true;
       }
     }
 
@@ -383,13 +294,9 @@ export const newTimelineItemsSelector = createSelector(
     const postProcessors = [
       fillYears,
       fillEmptyItems,
-      dedupeRank,
-      dedupeUnit,
-      markFirstAndLastRank,
-      markFirstAndLastUnit,
       fillRankChange,
       fillUnitChange,
-      markMutualRankUnit,
+      markIsAfterRankUnitChange,
     ];
 
     return postProcessors.reduce((accItems, processor) => processor(accItems), filteredItems);

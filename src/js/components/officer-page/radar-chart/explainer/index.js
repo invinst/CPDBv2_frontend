@@ -1,20 +1,13 @@
 import React, { Component, PropTypes } from 'react';
-import MediaQuery from 'react-responsive';
 import { get, findLast } from 'lodash';
 
-import {
-  containerStyle,
-  footerStyle,
-  closeButtonStyle,
-  closeInnerStyle
-} from './radar-chart-explainer.style';
 import TriangleExplainer from './triangle-explainer';
 import ScaleExplainer from './scale-explainer';
 import PercentilesByYear from './percentiles-by-year';
 import LeftNavigation from './left-navigation';
 import RightNavigation from './right-navigation';
-import { MOBILE_BREAK_POINT } from 'utils/constants';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
+import styles from './explainer.sass';
 
 
 const NAVIGATION_TEXTS = ['What is this triangle?', 'What is the scale?', 'Percentiles by year'];
@@ -82,22 +75,21 @@ export default class RadarExplainer extends Component {
     const [leftNavigationText, rightNavigationText] = this.getCurrentNavigationTexts();
 
     return (
-      <MediaQuery minWidth={ MOBILE_BREAK_POINT }>
-        <div className='test--radar-explainer-window' style={ containerStyle }>
+      <div className={ styles.explainer }>
+        <div className='radar-explainer-window'>
           { this.renderExplainer() }
-          <div style={ footerStyle }>
+          <div className='explainer-footer'>
             <LeftNavigation onClickHandler={ this.navigateLeft } text={ leftNavigationText }/>
             <RightNavigation onClickHandler={ this.navigateRight } text={ rightNavigationText }/>
           </div>
         </div>
         <div
-          className='test--radar-explainer-close-button'
-          style={ closeButtonStyle }
+          className='radar-explainer-close-button'
           onClick={ this.props.closeExplainer }
         >
-          <div style={ closeInnerStyle }>&times;</div>
+          <div className='close-inner'>&times;</div>
         </div>
-      </MediaQuery>
+      </div>
     );
   }
 }

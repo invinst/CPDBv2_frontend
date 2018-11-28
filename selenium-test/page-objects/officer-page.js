@@ -11,13 +11,13 @@ class SummarySection extends Section {
     const fields = ['yearOfBirth', 'race', 'sex', 'badge', 'rank', 'unit', 'career'];
 
     const elementGetters = {
-      officerName: '.cr-summary-section-officer-name',
+      officerName: '.summary-section-officer-name',
       viewUnitProfileButton: '.test--view-profile-button',
     };
     each(fields, (field, index) => {
-      elementGetters[`${field}Label`] = `(//span[@class="test--field-label"])[${index + 1}]`;
-      elementGetters[`${field}Value`] = `(//span[@class="test--field-value"])[${index + 1}]`;
-      elementGetters[`${field}ExtraInfo`] = `(//span[@class="test--field-extra-info"])[${index + 1}]`;
+      elementGetters[`${field}Label`] = `(//span[@class="summary-field-label"])[${index + 1}]`;
+      elementGetters[`${field}Value`] = `(//span[@class="summary-field-value"])[${index + 1}]`;
+      elementGetters[`${field}ExtraInfo`] = `(//span[@class="summary-field-extra-info"])[${index + 1}]`;
     });
 
     this.prepareElementGetters(elementGetters);
@@ -47,17 +47,17 @@ class TimelineSection extends Section {
     super();
 
     this.prepareElementGetters({
-      header: '.test--timeline-header',
-      crItem: '.test--timeline-cr-item',
-      trrItem: '.test--timeline-trr-item',
-      awardItem: '.test--timeline-award-item',
-      unitChangeItem: '.test--timeline-unit-change-item',
-      rankChangeItem: '.test--timeline-rank-change-item',
-      joinedItem: '.test--timeline-joined-item',
-      yearItem: '.test--timeline-year-item',
-      emptyItem: '.test--timeline-empty-item',
-      attachmentThumbnail: '.test--attachment-image',
-      moreAttachment: '.test--more-attachment',
+      header: '.timeline-header',
+      crItem: '.timeline-cr-item',
+      trrItem: '.timeline-trr-item',
+      awardItem: '.timeline-award-item',
+      unitChangeItem: '.timeline-unit-change-item',
+      rankChangeItem: '.timeline-rank-change-item',
+      joinedItem: '.timeline-joined-item',
+      yearItem: '.timeline-year-item',
+      emptyItem: '.timeline-empty-item',
+      attachmentThumbnail: '.attachment-image',
+      moreAttachment: '.more-attachment',
     });
   }
 }
@@ -67,7 +67,7 @@ class CoaccusalsSection extends Section {
     super();
 
     this.prepareElementGetters({
-      firstCoaccusalGroupName: '//span[@class="test--coaccusals-group-name"][1]',
+      firstCoaccusalGroupName: '//span[@class="coaccusals-group-name"][1]',
       firstCoaccusalCard: '.test--officer-card',
     });
   }
@@ -103,11 +103,11 @@ class TabbedPaneSection extends Section {
     super();
 
     this.prepareElementGetters({
-      menu: '.test--tabbed-pane-section-menu',
-      timelineTabName: '//span[@class="test--tabbed-pane-tab-name"][1]',
-      mapTabName: '//span[@class="test--tabbed-pane-tab-name"][2]',
-      coaccusalsTabName: '//span[@class="test--tabbed-pane-tab-name"][3]',
-      attachmentsTabName: '//span[@class="test--tabbed-pane-tab-name"][4]',
+      menu: '.tabbed-pane-section-menu',
+      timelineTabName: '//span[@class="tabbed-pane-tab-name"][1]',
+      mapTabName: '//span[@class="tabbed-pane-tab-name"][2]',
+      coaccusalsTabName: '//span[@class="tabbed-pane-tab-name"][3]',
+      attachmentsTabName: '//span[@class="tabbed-pane-tab-name"][4]',
     });
   }
 }
@@ -117,7 +117,7 @@ class RadarChartExplainerSection extends Section {
     super();
 
     this.prepareElementGetters({
-      component: '.test--radar-explainer-window',
+      component: '.radar-explainer-window',
       triangleExplainer: '.test--triangle-explainer',
       triangleExplainerText: '.test--triangle-explain-text',
       triangleExplainerSubText: '.test--triangle-explain-sub-text',
@@ -129,7 +129,7 @@ class RadarChartExplainerSection extends Section {
       percentileByYear: '.test--percentile-by-year',
       leftNavigation: '.test--radar-explainer-navigation-left',
       rightNavigation: '.test--radar-explainer-navigation-right',
-      closeExplainerButton: '.test--radar-explainer-close-button',
+      closeExplainerButton: '.radar-explainer-close-button',
     });
   }
 }
@@ -160,7 +160,7 @@ class RadarChartSection extends Section {
       wrapper: '.test--radar-wrapper',
       legend: '.test--radar-legend-content',
       lastAxisTitle: '.test--radar-axis-text:last-of-type',
-      radarChartPlaceHolder: '.test--officer--radar-chart-placeholder',
+      radarChartPlaceHolder: '.officer-radar-chart-placeholder',
     });
   }
 }

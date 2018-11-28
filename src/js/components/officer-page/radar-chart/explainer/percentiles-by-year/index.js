@@ -1,19 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
 import { includes } from 'lodash';
+import cx from 'classnames';
 
-import {
-  containerStyle,
-  headerStyle,
-  tableHeaderStyle,
-  tableHeaderItemStyle,
-  tableContentStyle,
-  yearTextStyle,
-  radarStyle,
-  cellStyle
-} from './percentiles-by-year.style';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
+import styles from './percentiles-by-year.sass';
 
 
 export default class PercentilesByYear extends Component {
@@ -34,29 +26,29 @@ export default class PercentilesByYear extends Component {
     const data = yearlyRadarChartData ? [].concat(yearlyRadarChartData).reverse() : [];
 
     return (
-      <div style={ containerStyle } className='test--percentile-by-year'>
-        <h4 style={ headerStyle }>CUMULATIVE PERCENTILES BY YEAR</h4>
-        <div style={ tableHeaderStyle }>
-          <div style={ tableHeaderItemStyle }>Internal Complaints</div>
-          <div style={ tableHeaderItemStyle }>Civilian Complaints</div>
-          <div style={ tableHeaderItemStyle }>Use Of Force <MediaQuery minWidth={ 890 }>Reports</MediaQuery></div>
+      <div className={ cx(styles.percentilesByYear, 'test--percentile-by-year') }>
+        <h4 className='percentiles-by-year-header'>CUMULATIVE PERCENTILES BY YEAR</h4>
+        <div className='table-header'>
+          <div className='table-header-item'>Internal Complaints</div>
+          <div className='table-header-item'>Civilian Complaints</div>
+          <div className='table-header-item'>Use Of Force <MediaQuery minWidth={ 890 }>Reports</MediaQuery></div>
         </div>
-        <ul style={ tableContentStyle }>
+        <ul className='table-content'>
           { data && data.map((yearlyItem) => {
             const [trrItem, internalComplaintItem, civilComplaintItem] = yearlyItem.items;
             return (
               <li className='test--radar-explainer-percentiles-row' key={ yearlyItem.year }>
-                <div style={ radarStyle }>
+                <div className='percentiles-by-year-radar'>
                   <StaticRadarChart
                     { ...radarConfig }
                     backgroundColor={ yearlyItem.visualTokenBackground }
                     data={ yearlyItem.items }
                   />
                 </div>
-                <div style={ yearTextStyle }>{ yearlyItem.year }</div>
-                <div style={ cellStyle }>{ this.getItemValue(internalComplaintItem) }</div>
-                <div style={ cellStyle }>{ this.getItemValue(civilComplaintItem) }</div>
-                <div style={ cellStyle }>{ this.getItemValue(trrItem) }</div>
+                <div className='percentiles-by-year-text'>{ yearlyItem.year }</div>
+                <div className='percentiles-by-year-cell'>{ this.getItemValue(internalComplaintItem) }</div>
+                <div className='percentiles-by-year-cell'>{ this.getItemValue(civilComplaintItem) }</div>
+                <div className='percentiles-by-year-cell'>{ this.getItemValue(trrItem) }</div>
               </li>
             );
           }) }
