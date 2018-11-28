@@ -12,7 +12,6 @@ import BreadcrumbsItemRendererContainer from 'containers/headers/shareable-heade
 import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
 import ShareButton from 'components/headers/shareable-header/share-button';
 import { calculatePosition } from 'utils/dom';
-import printStyles from 'components/common/print.sass';
 
 
 export default class ShareableHeader extends Component {
@@ -53,7 +52,7 @@ export default class ShareableHeader extends Component {
         <div style={ headerPlaceholderStyle }/>
         <ResponsiveFluidWidthComponent style={ outerStyle }>
           <div
-            className={ printStyles.noPrint }
+            className='no-print'
             style={ navBarStyle }
             ref={ el => { this.placeholderElement = el; } }
           >

@@ -6,7 +6,6 @@ import OfficerCard from 'components/common/officer-card';
 import Popup from 'components/common/popup';
 import CoaccusedCardFooter from './coaccused-card-footer';
 import styles from './accused-officers.sass';
-import printStyles from 'components/common/print.sass';
 
 
 export default class AccusedOfficers extends Component {
@@ -59,7 +58,7 @@ export default class AccusedOfficers extends Component {
           !expanded
             ? (
               <div
-                className={ cx('show-more-button', printStyles.noPrint) }
+                className='show-more-button no-print'
                 onClick={ this.handleExpandList.bind(this) }>
                 Show all accused officers
               </div>

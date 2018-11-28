@@ -8,7 +8,6 @@ import { getThisYear } from 'utils/date';
 import StaticRadarChart from 'components/common/radar-chart/index';
 import { roundedPercentile } from 'utils/calculations';
 import styles from './officer-card.sass';
-import printStyles from 'components/common/print.sass';
 
 
 export class OfficerCard extends Component {
@@ -58,7 +57,7 @@ export class OfficerCard extends Component {
       if (complaintPercentile) {
         const complaintFormat = roundedPercentile(complaintPercentile);
         return (
-          <p className={ cx(printStyles.noPrint, 'light-text', 'test--officer-card-percentile') }>
+          <p className='light-text no-print test--officer-card-percentile'>
             More than { complaintFormat }% of other officers
           </p>
         );

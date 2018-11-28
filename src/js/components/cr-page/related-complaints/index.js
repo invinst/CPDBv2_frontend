@@ -7,7 +7,6 @@ import { DISTANCE_OPTIONS } from 'utils/constants';
 import Dropdown from 'components/common/dropdown';
 import styles from './related-complaints.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-import printStyles from 'components/common/print.sass';
 
 
 export default class RelatedComplaints extends Component {
@@ -29,7 +28,7 @@ export default class RelatedComplaints extends Component {
     const { crid } = this.props;
     const { selectedDistance } = this.state;
     return (
-      <div className={ cx(styles.relatedComplaints, printStyles.noPrint) }>
+      <div className={ cx(styles.relatedComplaints, 'no-print') }>
         <div className={ responsiveContainerStyles.responsiveContainer }>
           <div className='related-complaints-header'>
             <h2 className='related-complaints-title'>Related Complaints</h2>

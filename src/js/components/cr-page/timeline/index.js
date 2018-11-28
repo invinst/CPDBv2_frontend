@@ -3,7 +3,6 @@ import React, { Component, PropTypes } from 'react';
 import CirclesSVG from './circles-svg';
 import TimelineText from './timeline-text';
 import styles from './timeline.sass';
-import printStyles from 'components/common/print.sass';
 
 
 export default class Timeline extends Component {
@@ -12,7 +11,7 @@ export default class Timeline extends Component {
 
     return (
       <div>
-        <span className={ printStyles.noPrint }>
+        <span className='no-print'>
           <CirclesSVG
             startDate={ startDate }
             endDate={ endDate }

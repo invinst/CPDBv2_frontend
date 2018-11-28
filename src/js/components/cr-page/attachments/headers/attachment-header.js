@@ -1,9 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import cx from 'classnames';
 
 import RequestDocumentButton from 'components/common/request-document-button';
 import styles from './attachment-header.sass';
-import printStyles from 'components/common/print.sass';
 
 
 export default class AttachmentHeader extends Component {
@@ -14,9 +12,9 @@ export default class AttachmentHeader extends Component {
       <div className={ styles.attachmentHeader }>
         <div className='attachment-message'>
           <span className='attachment-title'>ATTACHMENTS</span>
-          <span className={ cx(printStyles.noPrint, 'attachment-subtitle') }>MAY CONTAIN GRAPHIC CONTENT</span>
+          <span className='attachment-subtitle no-print'>MAY CONTAIN GRAPHIC CONTENT</span>
         </div>
-        <div className={ cx(printStyles.noPrint, 'attachment-request-button') }>
+        <div className='attachment-request-button no-print'>
           <RequestDocumentButton
             alreadyRequested={ alreadyRequested }
             openRequestDocumentModal={ openRequestDocumentModal }
