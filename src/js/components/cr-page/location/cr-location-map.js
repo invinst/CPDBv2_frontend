@@ -4,7 +4,7 @@ import cx from 'classnames';
 import LocationMap from 'components/common/location-map';
 import styles from './cr-location-map.sass';
 import printStyles from 'components/common/print.sass';
-import { getPrintMapUrl } from 'utils/mapbox';
+import PrintMap from 'components/common/print-map';
 
 
 export default class CRLocationMap extends Component {
@@ -13,7 +13,7 @@ export default class CRLocationMap extends Component {
 
     return (
       <div>
-        <img src={ getPrintMapUrl(lat, lng, 1000, 600) } className={ cx(styles.crLocationMap, 'print-map') }/>
+        <PrintMap lat={ lat } lng={ lng } width={ 1000 } height={ 600 } className={ styles.crPrintMap } />
         <LocationMap lat={ lat } lng={ lng } className={ cx(styles.crLocationMap, printStyles.noPrint) } />
       </div>
     );
