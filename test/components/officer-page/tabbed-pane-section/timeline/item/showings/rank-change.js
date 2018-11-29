@@ -2,7 +2,6 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -28,7 +27,7 @@ describe('RankChange component', function () {
       <RankChange item={ rankChange } hasBorderBottom={ false } />
     );
 
-    const content = scryRenderedDOMComponentsWithClass(instance, 'rank-change-item-content')[1];
+    const content = findRenderedDOMComponentWithClass(instance, 'rank-change-info');
     const date = findRenderedDOMComponentWithClass(instance, 'rank-change-item-date');
 
     content.textContent.should.eql('Officer → Detective');

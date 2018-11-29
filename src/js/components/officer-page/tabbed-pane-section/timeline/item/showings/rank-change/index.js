@@ -12,7 +12,7 @@ export default class RankChange extends Component {
     return (
       <span className={ cx(styles.rankChange, baseStyles.baseItem) }>
         <span className='item-content rank-change-item-content'>
-          <span className='rank-change-item-content'>
+          <span className='rank-change-info'>
             <span className={ cx('old-rank', { 'unassigned': oldRank === 'Unknown' }) }>{ oldRank } → </span>
             <span className='new-rank'>{ rank }</span>
           </span>

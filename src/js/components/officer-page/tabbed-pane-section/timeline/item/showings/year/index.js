@@ -10,7 +10,7 @@ export default class Year extends Component {
     const { date, hasData } = this.props.item;
 
     return (
-      <span className={ cx(baseStyles.baseItem, styles.year, { 'has-data': hasData }, 'test--timeline-year-item') }>
+      <span className={ cx(baseStyles.baseItem, styles.year, { 'has-data': hasData }) }>
         <div className='item-content year-item-item-content'>
           <span className='item-date year-item-date'>{ date }</span>
           <br className='year-clear-float' />

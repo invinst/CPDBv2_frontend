@@ -69,9 +69,7 @@ describe('officer page', function () {
     tabbedPaneMenuText.should.containEql('COACCUSALS');
     tabbedPaneMenuText.should.containEql('ATTACHMENTS');
 
-    officerPage.tabbedPaneSection.timelineTabName.getCssProperty('background-color').value.should.eql(
-      'rgba(0,94,244,1)'
-    );
+    officerPage.tabbedPaneSection.timelineTabName.getAttribute('class').should.containEql('active');
 
     const headerText = officerPage.tabbedPaneSection.timelineSection.header.getText();
     headerText.should.containEql('RANK');
@@ -220,19 +218,6 @@ describe('officer page', function () {
 
         percentileByYear.getText().should.containEql('Use Of Force');
         percentileByYear.getText().should.not.containEql('Reports');
-      });
-
-      it('should hide explainer if screen is too small', function () {
-        officerPage.radarChartSection.radarChartPlaceHolder.click();
-
-        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible();
-
-        browser.setViewportSize({
-          width: 700,
-          height: 500
-        });
-
-        officerPage.radarChartSection.explainerSection.triangleExplainer.waitForVisible(2000, true);
       });
     });
   });

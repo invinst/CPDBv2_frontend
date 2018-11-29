@@ -45,17 +45,16 @@ class TimelineSection extends Section {
 
   constructor() {
     super();
-
     this.prepareElementGetters({
       header: '.timeline-header',
-      crItem: '.timeline-cr-item',
-      trrItem: '.timeline-trr-item',
-      awardItem: '.timeline-award-item',
-      unitChangeItem: '.timeline-unit-change-item',
-      rankChangeItem: '.timeline-rank-change-item',
-      joinedItem: '.timeline-joined-item',
-      yearItem: '.timeline-year-item',
-      emptyItem: '.timeline-empty-item',
+      crItem: '//div[contains(@class, "test--timeline-cr-item")]',
+      trrItem: '//div[contains(@class, "test--timeline-force-item")]',
+      awardItem: '//div[contains(@class, "test--timeline-award-item")]',
+      unitChangeItem: '//div[contains(@class, "test--timeline-unit-change-item")]',
+      rankChangeItem: '//div[contains(@class, "test--timeline-rank-change-item")]',
+      joinedItem: '//div[contains(@class, "test--timeline-joined-item")]',
+      yearItem: '//div[contains(@class, "test--timeline-year-item")]',
+      emptyItem: '//div[contains(@class, "test--timeline-empty-item")]',
       attachmentThumbnail: '.attachment-image',
       moreAttachment: '.more-attachment',
     });
@@ -67,7 +66,7 @@ class CoaccusalsSection extends Section {
     super();
 
     this.prepareElementGetters({
-      firstCoaccusalGroupName: '//span[@class="coaccusals-group-name"][1]',
+      firstCoaccusalGroupName: '//span[contains(@class, "coaccusals-group-name")][1]',
       firstCoaccusalCard: '.test--officer-card',
     });
   }
@@ -104,10 +103,10 @@ class TabbedPaneSection extends Section {
 
     this.prepareElementGetters({
       menu: '.tabbed-pane-section-menu',
-      timelineTabName: '//span[@class="tabbed-pane-tab-name"][1]',
-      mapTabName: '//span[@class="tabbed-pane-tab-name"][2]',
-      coaccusalsTabName: '//span[@class="tabbed-pane-tab-name"][3]',
-      attachmentsTabName: '//span[@class="tabbed-pane-tab-name"][4]',
+      timelineTabName: '//span[contains(@class, "tabbed-pane-tab-name")][1]',
+      mapTabName: '//span[contains(@class, "tabbed-pane-tab-name")][2]',
+      coaccusalsTabName: '//span[contains(@class, "tabbed-pane-tab-name")][3]',
+      attachmentsTabName: '//span[contains(@class, "tabbed-pane-tab-name")][4]',
     });
   }
 }
@@ -115,10 +114,9 @@ class TabbedPaneSection extends Section {
 class RadarChartExplainerSection extends Section {
   constructor() {
     super();
-
     this.prepareElementGetters({
       component: '.radar-explainer-window',
-      triangleExplainer: '.test--triangle-explainer',
+      triangleExplainer: '//div[contains(@class, "test--triangle-explainer")]',
       triangleExplainerText: '.test--triangle-explain-text',
       triangleExplainerSubText: '.test--triangle-explain-sub-text',
       triangleEditButton: '.test--triangle-explainer .test--edit-wrapper-edit-button',

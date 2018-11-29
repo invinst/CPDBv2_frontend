@@ -104,7 +104,7 @@ export default class Item extends Component {
             styles.item,
             className,
             'timeline-item',
-            `timeline-${kebabCase(kind)}-item`
+            `test--timeline-${kebabCase(kind)}-item`
           )
         }
       >

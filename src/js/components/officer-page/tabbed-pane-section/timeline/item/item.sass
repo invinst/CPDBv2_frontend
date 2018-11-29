@@ -6,21 +6,6 @@ $border-radius: 4px
   display: flex
   font-size: 14px
 
-  &.timeline-cr-item, &.timeline-trr-item, &.timeline-award-item
-    height: 58px
-
-  &.timeline-special-item
-    height: 24px
-
-  &.timeline-year-item
-    height: 32px
-
-    &.has-data
-      height: 64px
-
-  &.timeline-empty-item
-    height: 32px
-
   .rank-change-content, .unit-change-content
     width: 104px
     display: inline-block
@@ -83,3 +68,8 @@ $border-radius: 4px
 
     &.current
       color: $soft-black-color
+
+  &.timeline-special-item
+    .item-text
+      height: 24px
+      line-height: 24px
