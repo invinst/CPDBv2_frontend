@@ -72,7 +72,7 @@ export default class LocationMap extends Component {
         style: mapboxStyle,
         zoom: zoom1,
         center: [centerLng, centerLat],
-        interactive: false,
+        interactive: false
       });
       this.map.on('click', this.handleMapClick.bind(this));
       this.addMarker(lat, lng, markerEl);

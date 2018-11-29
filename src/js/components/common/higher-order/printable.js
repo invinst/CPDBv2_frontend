@@ -29,18 +29,20 @@ export default function (ComponentClass) {
     }
 
     _beforePrint() {
-      if (!this.state.printMode)
-        this.setState({ printMode: true });
+      this._updatePrintMode(true);
     }
 
     _afterPrint() {
-      if (this.state.printMode)
-        this.setState({ printMode: false });
+      this._updatePrintMode(false);
     }
 
     _mediaPrintListener(media) {
-      if (this.state.printMode !== media.matches)
-        this.setState({ printMode: media.matches });
+      this._updatePrintMode(media.matches);
+    }
+
+    _updatePrintMode(printMode) {
+      if (this.state.printMode !== printMode)
+        this.setState({ printMode: printMode });
     }
 
     render() {

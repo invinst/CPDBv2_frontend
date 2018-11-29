@@ -27,6 +27,5 @@ describe('PrintMap component', function () {
     const content = findRenderedDOMComponentWithClass(instance, 'map-attribution');
     content.textContent.should.containEql('© Mapbox');
     content.textContent.should.containEql('© OpenStreetMap');
-    content.textContent.should.containEql('Improve this map');
   });
 });

@@ -14,9 +14,6 @@ export default class PrintMap extends Component {
         <div className='map-attribution'>
           © <a href='https://www.mapbox.com/about/maps/'>Mapbox</a>&nbsp;
           © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>&nbsp;
-          <a href='https://www.mapbox.com/map-feedback/' target='_blank' className='improve-this-map'>
-            Improve this map
-          </a>
         </div>
       </div>
     );
