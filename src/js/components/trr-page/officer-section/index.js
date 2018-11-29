@@ -4,14 +4,14 @@ import { chunk } from 'lodash';
 
 import Item from './item';
 import LinkItem from './link-item';
-import { wrapperStyle, listWrapperStyle, } from './officer-section.style';
+import style from './officer-section.sass';
 import OfficerRow from './officer-row';
 
 
 export default class OfficerSection extends Component {
-  renderItem(item, isLeft, hideBorder) {
+  renderItem(item) {
     const ItemComponent = item.to ? LinkItem : Item;
-    return <ItemComponent { ...item } isLeft={ isLeft } hideBorder={ hideBorder }/>;
+    return <ItemComponent { ...item } />;
   }
 
   render() {
@@ -51,19 +51,19 @@ export default class OfficerSection extends Component {
     const rows = chunk(officerData, 2);
 
     return (
-      <div style={ wrapperStyle } className='test--trr-officer-section'>
+      <div className={ style.officerSection }>
         <OfficerRow
           percentile={ officer.percentile }
           fullName={ officer.fullName }
           officerId={ officer.officerId }
         />
-        <ul style={ listWrapperStyle }>
+        <ul className='officer-section-list'>
           {
             rows.map(
               ([firstItem, secondItem], index) => (
-                <li key={ `row-${index}` }>
-                  { this.renderItem(firstItem, true, index === rows.length - 1) }
-                  { this.renderItem(secondItem, false, index === rows.length - 1) }
+                <li className='officer-section-row' key={ `row-${index}` }>
+                  { this.renderItem(firstItem) }
+                  { this.renderItem(secondItem) }
                 </li>
               )
             )
