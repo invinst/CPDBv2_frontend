@@ -53,7 +53,7 @@ export default class Attachments extends Component {
             onClick={ this.handleClick }
           >
             <div
-              className={ cx('attachment-image', fileType) }
+              className={ cx('attachment-image', fileType, 'no-print') }
               style={ imageStyle(previewImageUrl) }
             />
           </OutboundLink>

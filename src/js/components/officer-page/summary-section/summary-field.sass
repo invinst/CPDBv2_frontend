@@ -1,15 +1,14 @@
 @import 'variables'
 
 \:local(.summary-field)
-  margin: 0 16px
-  width: calc(100% - 32px)
   height: 40px
-  line-height: 39px
   border-top: solid 1px $white-two-color
   box-sizing: border-box
   overflow-x: hidden
   overflow-y: auto
   -webkit-overflow-scrolling: touch
+  display: flex
+  align-items: center
 
   .summary-field-label
     display: inline-block
@@ -19,10 +18,30 @@
     font-family: $san-francisco-text-family
     width: 117px
 
-  .summary-field-value
-    display: inline-block
-    color: $hard-black-color
+    @media print
+      font-size: 12px
+      font-weight: 500
 
-  .summary-field-extra-info
-    display: inline-block
-    float: right
+  .summary-field-info
+    flex-grow: 1
+    display: flex
+    align-items: center
+
+    @media print
+      display: block
+
+    .summary-field-value
+      color: $hard-black-color
+      flex-grow: 1
+
+      @media print
+        font-size: 12px
+        font-weight: 500
+        line-height: 20px
+
+    .summary-field-extra-info
+      @media print
+        display: block
+        line-height: 10px
+
+

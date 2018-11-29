@@ -12,9 +12,10 @@ import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import { POPUP_NAMES } from 'utils/constants';
 import styles from './officer-page.sass';
+import Printable from 'components/common/higher-order/printable';
 
 
-export default class OfficerPage extends Component {
+class OfficerPage extends Component {
   render() {
     const {
       officerId,
@@ -118,3 +119,5 @@ OfficerPage.defaultProps = {
   },
   numAttachments: 0,
 };
+
+export default Printable(OfficerPage);

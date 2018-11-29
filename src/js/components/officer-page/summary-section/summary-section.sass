@@ -7,9 +7,18 @@
   vertical-align: top
   width: 50%
   display: inline-block
+  padding: 0 16px
+  box-sizing: border-box
+
+  @media print
+    padding: 0 0 0 16px
 
   .summary-section-officer-name
     height: 32px
     font-size: 26px
     font-weight: 500
-    margin: 48px 0 16px 16px
+    margin: 48px 0 16px 0
+
+    @media print
+      margin: 8px 0 8px 0
+      font-size: 24px

@@ -2,13 +2,17 @@
 
 \:local(.base-item)
   display: inline-block
-  width: calc(100% - 209px)
   background-color: $snow-color
+  padding: 0 16px
+  flex-grow: 1
+
+  @media print
+    background-color: unset
+    padding: 0
 
   .item-content
-    width: calc(100% - 32px)
-    display: inline-block
-    margin: 0 16px
+    width: 100%
+    display: block
     border-top: 1px solid $white-two-color
     box-sizing: border-box
 
@@ -22,9 +26,18 @@
       display: inline-block
       text-align: center
 
+      @media print
+        font-size: 10px
+        font-weight: 500
+        line-height: 18px
+
     .item-category
       line-height: 18px
       color: $soft-black-color
+
+      @media print
+        font-size: 12px
+        font-weight: 500
 
     .item-date
       float: right
@@ -42,10 +55,16 @@
       .item-content
         border-top: none
 
+        @media print
+          border-top: 1px solid $white-two-color
+
   &+ .timeline-special-item
     \:local(.base-item)
       .item-content
         border-top: 1px solid $white-two-color
+
+        @media print
+          border-top: none
 
 .timeline-item:first-child
   \:local(.base-item)

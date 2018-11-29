@@ -3,7 +3,6 @@
 $height: 58px
 
 \:local(.cr)
-  background-color: $snow-color
   cursor: pointer
 
   .cr-item-content
@@ -16,9 +15,16 @@ $height: 58px
       color: $bright-orange-two-color
       background-color: inherit
 
+      @media print
+        border: solid 1px $white-two-color
+
       &.active
         color: $scarlet-color
         background-color: $champagne-color
+
+        @media print
+          border: solid 1px $purple-brown
+          background-color: unset
 
     .cr-detail
       display: inline-block
@@ -32,6 +38,10 @@ $height: 58px
         line-height: 14px
         font-size: 12px
         color: $clay-gray
+
+        @media print
+          font-size: 10px
+          font-weight: 500
 
     .cr-right
       display: inline-block
@@ -48,6 +58,10 @@ $height: 58px
         color: $soft-black-color
         font-weight: 300
         float: none
+
+        @media print
+          font-size: 10px
+          font-weight: 400
 
   &:hover
     background-color: white

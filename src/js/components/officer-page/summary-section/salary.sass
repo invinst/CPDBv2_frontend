@@ -1,17 +1,20 @@
 @import 'variables'
 
 \:local(.salary)
+  font-size: 14px
+  font-weight: 300
+
+  @media print
+    font-size: 10px
+    font-weight: 500
+
   .base-salary
     display: inline
     color: $clay-gray
-    font-size: 14px
-    font-weight: 300
 
   .salary-amount
     color: $cash-green-color
     display: inline
-    font-size: 14px
-    font-weight: 300
 
 \:local(.popup)
   padding: 10px

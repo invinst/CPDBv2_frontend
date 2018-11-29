@@ -10,8 +10,10 @@ export default class SummaryField extends Component {
     return (
       <div className={ styles.summaryField } style={ { ...style } }>
         <span className='summary-field-label'>{ label }</span>
-        <span className='summary-field-value'>{ value }</span>
-        <span className='summary-field-extra-info'> { children } </span>
+        <div className='summary-field-info'>
+          <span className='summary-field-value'>{ value }</span>
+          <span className='summary-field-extra-info'>{ children }</span>
+        </div>
       </div>
     );
   }

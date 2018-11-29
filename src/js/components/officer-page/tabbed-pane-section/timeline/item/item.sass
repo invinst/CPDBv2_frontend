@@ -6,6 +6,9 @@ $border-radius: 4px
   display: flex
   font-size: 14px
 
+  @media print
+    page-break-inside: avoid
+
   .rank-change-content, .unit-change-content
     width: 104px
     display: inline-block
@@ -13,12 +16,23 @@ $border-radius: 4px
     box-sizing: border-box
     vertical-align: top
 
+    @media print
+      display: none
+
     &.changed-item
       color: $clay-gray
       font-size: 12px
       background-color: inherit
       background: none
       line-height: 24px
+
+      @media print
+        display: inline-block
+        text-align: left
+        width: 85px
+        margin-right: 16px
+        font-size: 10px
+        font-weight: 500
 
     &.after-changed-item
       border-bottom-left-radius: $border-radius
@@ -70,6 +84,9 @@ $border-radius: 4px
       color: $soft-black-color
 
   &.timeline-special-item
+    @media print
+      border-top: 1px solid $white-two-color
+
     .item-text
       height: 24px
       line-height: 24px

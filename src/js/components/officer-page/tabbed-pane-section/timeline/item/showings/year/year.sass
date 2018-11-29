@@ -14,6 +14,10 @@ $no-data-height: 32px
       font-weight: 400
       padding-top: 0
 
+      @media print
+        font-size: 12px
+        font-weight: 500
+
   &.has-data
     .year-item-item-content
       height: $has-data-height
@@ -22,3 +26,7 @@ $no-data-height: 32px
       .year-item-date
         font-size: 18px
         padding-top: 13px
+
+        @media print
+          font-size: 14px
+          font-weight: 500

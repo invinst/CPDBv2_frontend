@@ -11,7 +11,7 @@ export default class ViewUnitProfileButton extends Component {
 
     return (
       <Link
-        className={ cx(styles.viewUnitProfileButton, 'test--view-profile-button') }
+        className={ cx(styles.viewUnitProfileButton, 'no-print', 'test--view-profile-button') }
         to={ `/unit/${unitName}/` }
       >
         <span className='view-unit-profile-button-text'>View Unit Profile</span>
