@@ -38,7 +38,7 @@ describe('TRRPage component', function () {
         <TRRPage trrId={ 123 } officer={ { officerId: 456 } }/>
       </Provider>
     );
-    findRenderedDOMComponentWithClass(instance, 'test--trr-title').textContent.should.eql('TRR 123');
+    findRenderedDOMComponentWithClass(instance, 'trr-title').textContent.should.eql('TRR 123');
     findRenderedComponentWithType(instance, OfficerSection).props.officer.should.eql({ officerId: 456 });
     findRenderedComponentWithType(instance, TRRInfoSection);
     findRenderedComponentWithType(instance, ShareableHeaderContainer);

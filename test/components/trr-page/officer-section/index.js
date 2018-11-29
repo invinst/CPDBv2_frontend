@@ -58,7 +58,7 @@ describe('OfficerSection component', function () {
       { axis: 'Civilian Allegations', value: 22.2 }
     ]);
 
-    findRenderedDOMComponentWithClass(instance, 'test--officer-full-name').textContent.should.eql('Ronald Watts');
+    findRenderedDOMComponentWithClass(instance, 'trr-officer-full-name').textContent.should.eql('Ronald Watts');
 
     const navigationButtons = scryRenderedComponentsWithType(instance, NavigationButton);
     navigationButtons.should.have.length(2);

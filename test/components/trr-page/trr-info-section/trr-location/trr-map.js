@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import TRRMap from 'components/trr-page/trr-info-section/trr-location/trr_map';
+import TRRMap from 'components/trr-page/trr-info-section/trr-location/trr-map';
 import LocationMap from 'components/common/location-map';
 
 
@@ -24,6 +24,6 @@ describe('TRRMap component', function () {
     locationMap.props.lat.should.eql(1.2);
     locationMap.props.mapboxStyle.should.eql('mapbox://styles/invisibleinstitute/cj8ugtswqe8dx2ss2kwhfnvte');
 
-    locationMap.props.markerEl.props.className.should.eql('test--trr-map-marker');
+    locationMap.props.markerEl.props.className.should.containEql('trr-map-marker');
   });
 });

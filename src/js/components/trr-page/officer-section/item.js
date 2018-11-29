@@ -1,20 +1,20 @@
 import React, { Component, PropTypes } from 'react';
 
-import { wrapperStyle, titleStyle, valueStyle, subValueStyle } from './item.style';
+import style from './item.sass';
 
 
 export default class Item extends Component {
   render() {
-    const { title, value, subValue, isLeft, hideBorder } = this.props;
+    const { title, value, subValue } = this.props;
 
     return (
-      <div style={ wrapperStyle(isLeft, hideBorder) }>
-        <div className='test--item-title' style={ titleStyle }>
+      <div className={ style.item }>
+        <div className='item-title'>
           { title }
         </div>
-        <div className='test--item-value' style={ valueStyle }>
+        <div className='item-value'>
           { value }
-          { subValue && <span className='test--item-sub-value' style={ subValueStyle }>{ subValue }</span> }
+          { subValue && <span className='item-sub-value'>{ subValue }</span> }
         </div>
       </div>
     );
@@ -25,10 +25,4 @@ Item.propTypes = {
   title: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   subValue: PropTypes.string,
-  isLeft: PropTypes.bool,
-  hideBorder: PropTypes.bool,
-};
-
-Item.defaultProps = {
-  hideBorder: false,
 };

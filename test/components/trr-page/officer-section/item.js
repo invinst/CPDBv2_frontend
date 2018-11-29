@@ -18,9 +18,9 @@ describe('Item component', function () {
 
   it('should render title and value only if subValue and additionalComponent are not passed in', function () {
     instance = renderIntoDocument(<Item title='Some title' value='Some value'/>);
-    findRenderedDOMComponentWithClass(instance, 'test--item-title').textContent.should.containEql('Some title');
-    findRenderedDOMComponentWithClass(instance, 'test--item-value').textContent.should.containEql('Some value');
-    scryRenderedDOMComponentsWithClass(instance, 'test--item-sub-value').should.have.length(0);
+    findRenderedDOMComponentWithClass(instance, 'item-title').textContent.should.containEql('Some title');
+    findRenderedDOMComponentWithClass(instance, 'item-value').textContent.should.containEql('Some value');
+    scryRenderedDOMComponentsWithClass(instance, 'item-sub-value').should.have.length(0);
   });
 
   it('should render subValue if they are available', function () {
@@ -32,6 +32,6 @@ describe('Item component', function () {
         hideBorder={ true }
       />
     );
-    findRenderedDOMComponentWithClass(instance, 'test--item-sub-value').textContent.should.containEql('Some subValue');
+    findRenderedDOMComponentWithClass(instance, 'item-sub-value').textContent.should.containEql('Some subValue');
   });
 });

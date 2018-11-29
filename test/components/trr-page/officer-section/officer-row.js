@@ -44,7 +44,7 @@ describe('OfficerRow component', function () {
       { axis: 'Civilian Allegations', value: 22.2 }
     ]);
 
-    const officerName = findRenderedDOMComponentWithClass(instance, 'test--officer-full-name');
+    const officerName = findRenderedDOMComponentWithClass(instance, 'trr-officer-full-name');
     officerName.textContent.should.containEql('Ronald Watts');
     const navigationButton = findRenderedComponentWithType(instance, NavigationButton);
     navigationButton.props.text.should.eql('View Profile');

@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import {
-  wrapperStyle,
-} from './trr-info-section.style';
+import style from './trr-info-section.sass';
 import TRRDetail from './trr-detail';
 import TRRDocument from './trr-document';
 import TRRLocation from './trr-location';
@@ -12,7 +10,7 @@ export default class TRRInfoSection extends Component {
   render() {
     const { trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal, popup, pathName } = this.props;
     return (
-      <div style={ wrapperStyle }>
+      <div className={ style.trrInfoSection }>
         <TRRDetail { ...trrDetail } popup={ popup } pathName={ pathName }/>
         <TRRDocument
           { ...trrDocument }
