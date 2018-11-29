@@ -50,6 +50,19 @@ module.exports = distFolder => ({
         }
       },
       {
+        test: /\.(js)$/,
+        include: [
+          path.join(__dirname, '/../node_modules/swiper'),
+          path.join(__dirname, '/../node_modules/dom7')
+        ],
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['transform-exponentiation-operator'],
+          }
+        }
+      },
+      {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
