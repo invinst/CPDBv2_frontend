@@ -4,18 +4,12 @@ import { kebabCase } from 'lodash';
 
 import NavigationButton from './navigation-button';
 import StaticRadarChart from 'components/common/radar-chart';
-import {
-  officerRowStyle,
-  officerNameStyle,
-  visualTokenStyle,
-  rankStyle,
-} from './officer-row.style';
-import Hoverable from 'components/common/higher-order/hoverable';
+import style from './officer-row.sass';
 
 
-class OfficerRow extends Component {
+export default class OfficerRow extends Component {
   render() {
-    const { percentile, fullName, officerId, hovering } = this.props;
+    const { percentile, fullName, officerId } = this.props;
     const officerSlug = kebabCase(fullName);
 
     const visualTokenConfig = percentile ? {
@@ -25,20 +19,18 @@ class OfficerRow extends Component {
 
     return (
       <Link
-        className='test--trr-officer-row'
-        style={ officerRowStyle }
+        className={ `navigation-button-container ${style.trrOfficerRow}` }
         to={ `/officer/${officerId}/${officerSlug}/` }
       >
-        <div style={ visualTokenStyle }>
+        <div className='trr-officer-row-visual-token'>
           <StaticRadarChart { ...visualTokenConfig }/>
         </div>
-        <div style={ officerNameStyle(hovering) }>
-          <div style={ rankStyle }>Officer</div>
-          <div className='test--officer-full-name'>{ fullName }</div>
+        <div className='trr-officer-row-name'>
+          <div className='trr-officer-row-rank'>Officer</div>
+          <div className='trr-officer-full-name'>{ fullName }</div>
         </div>
         <NavigationButton
           text='View Profile'
-          hovering={ hovering }
         />
       </Link>
     );
@@ -49,8 +41,5 @@ OfficerRow.propTypes = {
   percentile: PropTypes.object,
   officerId: PropTypes.number,
   fullName: PropTypes.string,
-  hovering: PropTypes.bool,
   officerSlug: PropTypes.string,
 };
-
-export default Hoverable(OfficerRow);

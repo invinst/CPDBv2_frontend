@@ -8,11 +8,11 @@ class OfficerSection extends Section {
     super();
 
     this.prepareElementGetters({
-      officerName: '.test--officer-full-name',
-      officerRow: '.test--trr-officer-row',
-      unitLinkItem: '.test--link-item',
-      officerProfileButton: ('//*[@class="test--navigation-button" and ./span/text()="View Profile"]'),
-      unitProfileButton: ('//*[@class="test--navigation-button" and ./span/text()="View Unit"]')
+      officerName: '.trr-officer-full-name',
+      officerRow: '//a[contains(@class, "trr-officer-row")]',
+      unitLinkItem: '//a[contains(@class, "link-item")]',
+      officerProfileButton: ('//div[contains(@class, "navigation-button") and ./span/text()="View Profile"]'),
+      unitProfileButton: ('//div[contains(@class, "navigation-button") and ./span/text()="View Unit"]')
     });
   }
 }
@@ -37,7 +37,7 @@ class TRRPage extends Page {
     super();
 
     this.prepareElementGetters({
-      title: '.test--trr-title',
+      title: '.trr-title',
     });
   }
 
