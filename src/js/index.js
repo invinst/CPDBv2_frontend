@@ -2,6 +2,7 @@ import 'base.css';
 import 'draft.css';
 import 'font.css';
 import 'leaflet.css';
+import 'print.css';
 
 import React from 'react';
 import { render } from 'react-dom';

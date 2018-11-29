@@ -1,16 +1,18 @@
-body {
-    -webkit-print-color-adjust: exact !important;
-    color-adjust: exact;
-}
+@media print {
+    body {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact;
+    }
 
-div, span, p {
-    color: #231F20 !important;
-}
+    div, span, p {
+        color: #231F20 !important;
+    }
 
-@page {
-    margin: 0;
-}
+    @page {
+        margin: 0;
+    }
 
-.no-print {
-    display: none !important;
+    .no-print {
+        display: none !important;
+    }
 }
