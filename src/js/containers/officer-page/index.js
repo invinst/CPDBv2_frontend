@@ -30,6 +30,7 @@ import { getCMSFields } from 'selectors/cms';
 import { OFFICER_PAGE_ID, OFFICER_EDIT_TYPES } from 'utils/constants';
 import { updatePage } from 'actions/cms';
 import { getPathname } from 'selectors/common/pathname';
+import { getInfoNotes, getTimelineNotes } from 'selectors/officer-page/print-notes';
 
 
 function mapStateToProps(state, ownProps) {
@@ -51,6 +52,8 @@ function mapStateToProps(state, ownProps) {
     pathName: getPathname(state),
     officerSlug: getOfficerSlug(state),
     breadcrumbs: state.breadscrumbs,
+    infoNotes: getInfoNotes(state),
+    timelineNotes: getTimelineNotes(state),
   };
 }
 

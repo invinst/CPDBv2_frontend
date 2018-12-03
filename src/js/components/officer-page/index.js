@@ -13,6 +13,7 @@ import ShareableHeaderContainer from 'containers/headers/shareable-header/sharea
 import { POPUP_NAMES } from 'utils/constants';
 import styles from './officer-page.sass';
 import Printable from 'components/common/higher-order/printable';
+import PrintNotes from 'components/common/print-notes';
 
 
 class OfficerPage extends Component {
@@ -35,7 +36,10 @@ class OfficerPage extends Component {
       scaleEditWrapperStateProps,
       noDataRadarChartEditWrapperStateProps,
       pathName,
+      infoNotes,
+      timelineNotes,
     } = this.props;
+    const { printMode } = this.context;
 
     const pageTitle = compact([
       officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
@@ -75,6 +79,7 @@ class OfficerPage extends Component {
             />
           </div>
           <MetricsSection metrics={ officerMetrics } popup={ popup } pathName={ pathName }/>
+          { printMode ? <PrintNotes notes={ infoNotes } /> : null }
           <TabbedPaneSection
             changeOfficerTab={ changeOfficerTab }
             currentTab={ currentTab }
@@ -82,6 +87,7 @@ class OfficerPage extends Component {
             hasMapMarker={ hasMapMarker }
             hasCoaccusal={ hasCoaccusal }
           />
+          { printMode ? <PrintNotes notes={ timelineNotes } /> : null }
         </div>
       </DocumentMeta>
     );
@@ -106,7 +112,9 @@ OfficerPage.propTypes = {
   scaleEditWrapperStateProps: PropTypes.object,
   noDataRadarChartEditWrapperStateProps: PropTypes.object,
   pathName: PropTypes.string,
-  officerSlug: PropTypes.string
+  officerSlug: PropTypes.string,
+  infoNotes: PropTypes.array,
+  timelineNotes: PropTypes.array,
 };
 
 OfficerPage.defaultProps = {
@@ -118,6 +126,10 @@ OfficerPage.defaultProps = {
     useOfForceCount: 0,
   },
   numAttachments: 0,
+};
+
+OfficerPage.contextTypes = {
+  printMode: PropTypes.bool,
 };
 
 export default Printable(OfficerPage);
