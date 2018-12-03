@@ -47,14 +47,14 @@ class TimelineSection extends Section {
     super();
     this.prepareElementGetters({
       header: '.timeline-header',
-      crItem: '//div[contains(@class, "test--timeline-cr-item")]',
-      trrItem: '//div[contains(@class, "test--timeline-force-item")]',
-      awardItem: '//div[contains(@class, "test--timeline-award-item")]',
-      unitChangeItem: '//div[contains(@class, "test--timeline-unit-change-item")]',
-      rankChangeItem: '//div[contains(@class, "test--timeline-rank-change-item")]',
-      joinedItem: '//div[contains(@class, "test--timeline-joined-item")]',
-      yearItem: '//div[contains(@class, "test--timeline-year-item")]',
-      emptyItem: '//div[contains(@class, "test--timeline-empty-item")]',
+      crItem: '//div[contains(@class, "timeline-cr-item")]',
+      trrItem: '//div[contains(@class, "timeline-force-item")]',
+      awardItem: '//div[contains(@class, "timeline-award-item")]',
+      unitChangeItem: '//div[contains(@class, "timeline-unit-change-item")]',
+      rankChangeItem: '//div[contains(@class, "timeline-rank-change-item")]',
+      joinedItem: '//div[contains(@class, "timeline-joined-item")]',
+      yearItem: '//div[contains(@class, "timeline-year-item")]',
+      emptyItem: '//div[contains(@class, "timeline-empty-item")]',
       attachmentThumbnail: '.attachment-image',
       moreAttachment: '.more-attachment',
     });
