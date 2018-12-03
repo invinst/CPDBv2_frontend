@@ -143,6 +143,15 @@ jobs:
       - checkout
       - run: bin/notify_slack.py
 
+  reset_staging_branch:
+    docker:
+      - image: alpine/git:latest
+    steps:
+      - checkout
+      - run: git checkout staging
+      - run: git reset --hard origin/develop
+      - run: git push --force origin staging
+
 workflows:
   version: 2
   test_and_deploy:
@@ -166,6 +175,13 @@ workflows:
           requires:
             - push_image
       - notify_slack:
+          requires:
+            - deploy
+          filters:
+            branches:
+              only: master
+
+      - reset_staging_branch:
           requires:
             - deploy
           filters:
