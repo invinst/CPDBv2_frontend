@@ -19,7 +19,7 @@ import { POPUP_NAMES } from 'utils/constants';
 import styles from './cr-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import Printable from 'components/common/higher-order/printable';
-import PrintNoteContainer from 'containers/cr-page/print-notes';
+import PrintNotes from 'components/common/print-notes';
 
 
 class CRPage extends Component {
@@ -27,7 +27,7 @@ class CRPage extends Component {
     const {
       crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
-      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname
+      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes
     } = this.props;
 
     const { printMode } = this.context;
@@ -93,7 +93,7 @@ class CRPage extends Component {
               </div>
               { printMode ? involvementItem : null }
               { printMode ? <div className='clearfix'/> : null }
-              { printMode ? <PrintNoteContainer /> : null }
+              { printMode ? <PrintNotes notes={ notes } /> : null }
             </div>
           </div>
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
@@ -125,6 +125,7 @@ CRPage.propTypes = {
   alreadyRequested: PropTypes.bool,
   popup: PropTypes.object,
   pathname: PropTypes.string,
+  notes: PropTypes.array,
 };
 
 CRPage.defaultProps = {

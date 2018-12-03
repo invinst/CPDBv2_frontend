@@ -11,13 +11,11 @@ export default class Timeline extends Component {
 
     return (
       <div>
-        <span className='no-print'>
-          <CirclesSVG
-            startDate={ startDate }
-            endDate={ endDate }
-            incidentDate={ incidentDate }
-          />
-        </span>
+        <CirclesSVG
+          startDate={ startDate }
+          endDate={ endDate }
+          incidentDate={ incidentDate }
+        />
         <TimelineText
           startDate={ startDate }
           endDate={ endDate }

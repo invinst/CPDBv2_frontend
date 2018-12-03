@@ -81,7 +81,7 @@ export class OfficerCard extends Component {
         target={ openCardInNewPage ? '_blank' : null }
         className={ cx(styles.officerCard, className, 'test--officer-card') }
       >
-        <div className='officer-card-static-radar-chart'>
+        <div className='no-print'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
         </div>
         <div>
