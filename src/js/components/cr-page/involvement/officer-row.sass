@@ -1,7 +1,7 @@
-@import ../../../../css/variables
+@import 'variables'
 
 \:local(.officer-row)
-  padding: 12px 0 12px 0
+  padding: 12px 0
   font-family: $san-francisco-text-family
   min-height: 54px
   box-sizing: border-box
@@ -9,8 +9,16 @@
   font-size: 14px
   border-bottom: solid 1px $white-two-color
 
+  @media print
+    padding: 6px 0
+    min-height: auto
+    width: 25%
+
   &:last-child
     border-bottom: none
+
+    @media print
+      border-bottom: solid 1px $white-two-color
 
   &.hoverable
     cursor: pointer
@@ -32,21 +40,34 @@
     vertical-align: middle
     width: calc(100% - 92px)
 
+    @media print
+      width: 100%
+
     .officer-name
       font-size: 14px
       font-weight: 400
       color: $soft-black-color
+
+      @media print
+        font-size: 12px
+        font-weight: 500
 
     .extra-info
       font-size: 12px
       font-weight: 300
       color: $clay-gray
 
+      @media print
+        font-size: 10px
+
   .tag-wrapper
     display: inline-block
     vertical-align: middle
     width: 50px
     text-align: right
+
+    @media print
+      width: auto
 
     .tag
       color: $soft-black-color
@@ -59,3 +80,8 @@
       max-width: 50px
       display: inline-block
       box-sizing: border-box
+
+.columns-layout
+  \:local(.officer-row)
+    @media print
+      float: left

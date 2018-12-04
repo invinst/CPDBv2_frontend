@@ -15,7 +15,7 @@ class OfficerRow extends Component {
       <Link
         className={ cx(styles.officerRow, 'test--officer-row', { 'hoverable': !isNil(id) }) }
         to={ id ? `/officer/${id}/${officerSlug}/` : null }>
-        <div className='chart-wrapper'>
+        <div className='chart-wrapper no-print'>
           <StaticRadarChart
             width={ 32 }
             height={ 32 }

@@ -32,3 +32,7 @@ a {
 .dropdown:focus {
     outline: none;
 }
+
+.clearfix {
+    clear: both;
+}

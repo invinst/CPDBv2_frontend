@@ -17,7 +17,7 @@ export default class CirclesSVG extends Component {
     const ySlots = ['8', '68', '128'];
     const height = Math.max(15, (dates.length - 1) * 80);
     return (
-      <svg width='12' x='0px' y='0px' viewBox={ `0 0 12 ${height}` }>
+      <svg width='12' x='0px' y='0px' viewBox={ `0 0 12 ${height}` } className='no-print'>
         <g>
           <line
             x1={ startX }

@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { values, findKey } from 'lodash';
+import cx from 'classnames';
 
 import RelatedComplaintsCarouselContainer from 'containers/cr-page/related-complaints-carousel';
 import { DISTANCE_OPTIONS } from 'utils/constants';
@@ -27,7 +28,7 @@ export default class RelatedComplaints extends Component {
     const { crid } = this.props;
     const { selectedDistance } = this.state;
     return (
-      <div className={ styles.relatedComplaints }>
+      <div className={ cx(styles.relatedComplaints, 'no-print') }>
         <div className={ responsiveContainerStyles.responsiveContainer }>
           <div className='related-complaints-header'>
             <h2 className='related-complaints-title'>Related Complaints</h2>
