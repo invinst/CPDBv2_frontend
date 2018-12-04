@@ -4,6 +4,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
+  scryRenderedDOMComponentsWithClass,
   Simulate,
 } from 'react-addons-test-utils';
 
@@ -100,5 +101,10 @@ describe('Attachments component', function () {
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html'
     );
     stubTrackAttachmentClick.restore();
+  });
+
+  it('should render an empty span when attachments is empty', function () {
+    instance = renderIntoDocument(<Attachments attachments={ [] }/>);
+    scryRenderedDOMComponentsWithClass(instance, 'test--empty-attachment').should.have.length(1);
   });
 });

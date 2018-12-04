@@ -13,6 +13,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
 import Dropdown from 'components/common/dropdown';
 import Popup from 'components/common/popup';
+import Item from 'components/officer-page/tabbed-pane-section/timeline/item';
 
 
 describe('Timeline component', function () {
@@ -85,5 +86,36 @@ describe('Timeline component', function () {
       label: 'COMPLAINTS',
       kind: ['CR'],
     }).should.be.true();
+  });
+
+  it('should render items correctly', function () {
+    const items = [
+      {
+        date: '1988-12-05',
+        kind: 'JOINED',
+        rank: 'Police Officer',
+        'unit_description': 'Recruit Training Section',
+        'unit_name': '044',
+      },
+      {
+        date: 'Jan 01',
+        kind: 'AWARD',
+        unitName: 'Unit 001',
+        unitDescription: 'Mobile Strike Force',
+        rank: 'Police Officer',
+        isAfterRankChange: true,
+        isAfterUnitChange: true,
+      },
+      {
+        date: '1994',
+        hasData: true,
+        kind: 'YEAR',
+        rank: 'Police Officer',
+        unitDescription: 'Mobile Strike Force',
+        unitName: 'Unit 153',
+      }
+    ];
+    instance = renderIntoDocument(<Timeline items={ items } />);
+    scryRenderedComponentsWithType(instance, Item).should.have.length(3);
   });
 });
