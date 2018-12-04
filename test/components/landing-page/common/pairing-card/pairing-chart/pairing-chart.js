@@ -26,7 +26,7 @@ describe('PairingChart component', function () {
       />
     );
     const vennDiagram = scryRenderedComponentsWithType(instance, Diagram);
-    const coaccusalText = findRenderedDOMComponentWithClass(instance, 'test--pairing-chart-coaccusal-text');
+    const coaccusalText = findRenderedDOMComponentWithClass(instance, 'pairing-chart-coaccused-text');
     vennDiagram.should.have.length(1);
     coaccusalText.textContent.should.eql('Coaccused 27 times');
   });

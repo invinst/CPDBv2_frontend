@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import CoaccusedCardFooter from 'components/cr-page/accused-officers/coaccused-card-footer';
 
 
@@ -25,5 +25,31 @@ describe('CoaccusedCardFooter component', function () {
     const outcome = findRenderedDOMComponentWithClass(instance, 'accused-card-outcome');
     category.textContent.should.eql('Operations/Personnel Violation');
     outcome.textContent.should.eql('Reprimand');
+  });
+
+  it('should render disciplined if both printMode and disciplined are true', function () {
+    const context = { printMode: true };
+    instance = renderWithContext(context,
+      <CoaccusedCardFooter
+        finding='Sustained'
+        disciplined={ true }
+        category='Operations/Personnel Violation'
+        findingOutcomeMix='Reprimand'
+      />);
+    const findingOutcome = findRenderedDOMComponentWithClass(instance, 'finding-outcome-mix');
+    findingOutcome.textContent.should.eql('Reprimand, Disciplined');
+  });
+
+  it('should only render disciplined if printMode & disciplined are true and findingOutcomeMix is null', function () {
+    const context = { printMode: true };
+    instance = renderWithContext(context,
+      <CoaccusedCardFooter
+        finding='Sustained'
+        disciplined={ true }
+        category='Operations/Personnel Violation'
+        findingOutcomeMix={ null }
+      />);
+    const findingOutcome = findRenderedDOMComponentWithClass(instance, 'finding-outcome-mix');
+    findingOutcome.textContent.should.eql('Disciplined');
   });
 });

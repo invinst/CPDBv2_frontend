@@ -32,7 +32,7 @@ class Footer extends React.Component {
     ];
 
     return (
-      <div className={ cx(styles.footer, className) }>
+      <div className={ cx(styles.footer, className, 'no-print') }>
         <div className='footer-wrapper'>
           <div className={ cx(responsiveContainerStyles.responsiveContainer, 'responsive-fixed-width-inner') }>
             { links.map((link, ind) => (

@@ -5,7 +5,7 @@ import { kebabCase } from 'lodash';
 import cx from 'classnames';
 
 import { getThisYear } from 'utils/date';
-import StaticRadarChart from 'components/common/radar-chart/index';
+import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import styles from './officer-card.sass';
 
@@ -35,7 +35,8 @@ export class OfficerCard extends Component {
       const sustained = `${sustainedCount} Sustained`;
       return (
         <span className='test--officer-card-metric'>
-          <span>{ complaint }</span> <span className='officer-card-sustained'>{ sustained }</span>
+          <span className='officer-card-allegation'>{ complaint }</span>&nbsp;
+          <span className='officer-card-sustained'>{ sustained }</span>
         </span>
       );
     };
@@ -56,9 +57,7 @@ export class OfficerCard extends Component {
       if (complaintPercentile) {
         const complaintFormat = roundedPercentile(complaintPercentile);
         return (
-          <p
-            className='light-text test--officer-card-percentile'
-          >
+          <p className='light-text no-print test--officer-card-percentile'>
             More than { complaintFormat }% of other officers
           </p>
         );
@@ -82,18 +81,22 @@ export class OfficerCard extends Component {
         target={ openCardInNewPage ? '_blank' : null }
         className={ cx(styles.officerCard, className, 'test--officer-card') }
       >
-        <StaticRadarChart data={ chartData } { ...radarConfig } />
+        <div className='no-print radar-chart-wrapper'>
+          <StaticRadarChart data={ chartData } { ...radarConfig } />
+        </div>
         <div>
-          <div className='officer-card-section'>
-            <p className='light-text test--officer-card-rank'>{ rank }</p>
-            <p className='bold-text test--officer-card-name'>{ fullName }</p>
-          </div>
-          <div className='officer-card-section'>
-            <p className='bold-text'>{ complaintString() }</p>
-            { complaintPercentileString() }
-          </div>
-          <div className='officer-card-section test--officer-card-demographic'>
-            <p className='extra-info'>{ extraInfo() }</p>
+          <div className='officer-card-info'>
+            <div className='officer-card-section'>
+              <p className='light-text officer-card-rank'>{ rank }</p>
+              <p className='bold-text officer-card-name'>{ fullName }</p>
+            </div>
+            <div className='officer-card-section'>
+              <p className='bold-text'>{ complaintString() }</p>
+              { complaintPercentileString() }
+            </div>
+            <div className='officer-card-section test--officer-card-demographic'>
+              <p className='extra-info'>{ extraInfo() }</p>
+            </div>
           </div>
         </div>
         { footer }

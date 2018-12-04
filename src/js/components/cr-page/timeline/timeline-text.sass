@@ -6,6 +6,10 @@
   vertical-align: top
   margin-left: 15px
 
+  @media print
+    margin-left: 0
+    width: 100%
+
   .timeline-textblock
     font-family: $san-francisco-text-family
     font-size: 14px
@@ -13,7 +17,20 @@
     height: 60px
     font-weight: 300
 
+    @media print
+      font-size: 12px
+      font-weight: 500
+      border-bottom: 1px solid $white-two-color
+      height: auto
+      padding: 4px 0
+
+      &:last-child
+        border-bottom: none
+
     .timeline-event
       font-size: 12px
       color: $soft-black-color
       font-weight: 400
+
+      @media print
+        font-size: 10px

@@ -14,7 +14,8 @@ export default class Timeline extends Component {
         <CirclesSVG
           startDate={ startDate }
           endDate={ endDate }
-          incidentDate={ incidentDate }/>
+          incidentDate={ incidentDate }
+        />
         <TimelineText
           startDate={ startDate }
           endDate={ endDate }

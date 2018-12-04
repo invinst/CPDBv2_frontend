@@ -29,7 +29,7 @@ class AttachmentItem extends Component {
       >
         <div
           style={ thumbnailStyle(fileType, previewImageUrl) }
-          className={ cx('attachment-card-thumbnail', fileType) } />
+          className={ cx('attachment-card-thumbnail', fileType, 'no-print') } />
         <div className='attachment-card-title'>{ title }</div>
       </OutboundLink>
     );

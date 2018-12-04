@@ -39,7 +39,7 @@ export default class Popup extends Component {
   render() {
     const { text, title, position, className } = this.props;
     return (
-      <span className={ cx(styles.popup, className) }>
+      <span className={ cx(styles.popup, className, 'no-print') }>
         <ReactTooltip
           id={ this.tooltipId }
           className='popup'

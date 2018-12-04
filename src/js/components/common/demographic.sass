@@ -9,3 +9,14 @@
   font-size: 14px
   display: inline-block
   margin-right: 1px
+
+  @media print
+    display: block
+    border: none
+    padding: 11px 0
+    border-bottom: 1px solid $white-two-color
+    font-size: 12px
+    font-weight: 500
+
+    &:last-child
+      border-bottom: none

@@ -10,12 +10,34 @@
   border-radius: 2px
   width: 232px
 
+  @media print
+    display: block
+    width: 100%
+    border: none
+    border-bottom: solid 1px $white-two-color
+    padding: 4px 0
+
+  .officer-card-info
+    @media print
+      display: inline-block
+      width: 40%
+
+  .radar-chart-wrapper
+    width: 230px
+    height: 100px
+
   .officer-card-section
     margin: 0 16px
     padding: 11px 0
     border-bottom: solid 1px $white-two-color
     height: 54px
     box-sizing: border-box
+
+    @media print
+      border-bottom: none
+      margin: 0
+      padding: 0
+      height: auto
 
     &:last-child
       border-bottom: none
@@ -50,6 +72,17 @@
     .officer-card-sustained
       color: $boulder-color
       white-space: nowrap
+
+    .extra-info, .officer-card-sustained, .officer-card-allegation
+      @media print
+        font-size: 10px
+
+    .officer-card-rank, .officer-card-name
+      @media print
+        display: inline
+        font-size: 12px
+        font-weight: 500
+        padding-right: 5px
 
   &:hover
     border: solid 1px $accent-color

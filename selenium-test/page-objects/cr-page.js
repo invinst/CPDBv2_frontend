@@ -11,8 +11,8 @@ class AccusedOfficerCard extends Section {
 
     this.prepareElementGetters({
       element: firstCardSelector,
-      rank: `${firstCardSelector}//p[contains(@class, "test--officer-card-rank")]`,
-      name: `${firstCardSelector}//p[contains(@class, "test--officer-card-name")]`,
+      rank: `${firstCardSelector}//p[contains(@class, "officer-card-rank")]`,
+      name: `${firstCardSelector}//p[contains(@class, "officer-card-name")]`,
       metric: `${firstCardSelector}//span[@class="test--officer-card-metric"]`,
       percentile: `${firstCardSelector}//p[contains(@class, "test--officer-card-percentile")]`,
       demographic: `${firstCardSelector}//div[contains(@class, "test--officer-card-demographic")]`,

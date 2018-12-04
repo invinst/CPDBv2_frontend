@@ -98,6 +98,7 @@
     "array.prototype.find": "^2.0.0",
     "axios": "^0.17.1",
     "axios-mock-adapter": "1.8.1",
+    "babel-plugin-transform-exponentiation-operator": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
     "bricks.js": "^1.7.0",
     "chroma-js": "^1.2.1",

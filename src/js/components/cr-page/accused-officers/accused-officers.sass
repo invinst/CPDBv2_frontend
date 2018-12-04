@@ -9,20 +9,30 @@
   &.expanded
     max-height: none
 
+  @media print
+    padding-top: 13px
+    max-height: none
+
   .accused-officer-title
     font-family: $san-francisco-text-family
     font-size: 14px
     font-weight: 400
-    padding: 0 16px
     color: $soft-black-color
     margin-top: 0
     margin-bottom: 16px
 
+    @media print
+      font-size: 10px
+      font-weight: bold
+      margin-bottom: 11px
+
   .accused-officers-wrapper
     box-sizing: border-box
-    padding: 0 16px
-    border-bottom: 1px solid $white-two-color
-    margin-bottom: 42px
+    margin-bottom: 16px
+
+    @media print
+      border-bottom: none
+      margin-bottom: 0
 
   .show-more-button
     border-top: 1px solid $white-two-color
@@ -42,3 +52,6 @@
 
 \:local(.officer-card)
   margin: 0 8px 8px 0
+
+  @media print
+    margin: 0

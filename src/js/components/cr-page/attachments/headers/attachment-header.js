@@ -12,9 +12,9 @@ export default class AttachmentHeader extends Component {
       <div className={ styles.attachmentHeader }>
         <div className='attachment-message'>
           <span className='attachment-title'>ATTACHMENTS</span>
-          <span className='attachment-subtitle'>MAY CONTAIN GRAPHIC CONTENT</span>
+          <span className='attachment-subtitle no-print'>MAY CONTAIN GRAPHIC CONTENT</span>
         </div>
-        <div className='attachment-request-button'>
+        <div className='attachment-request-button no-print'>
           <RequestDocumentButton
             alreadyRequested={ alreadyRequested }
             openRequestDocumentModal={ openRequestDocumentModal }
