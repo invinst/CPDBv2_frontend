@@ -5,7 +5,7 @@ import { kebabCase } from 'lodash';
 import cx from 'classnames';
 
 import { getThisYear } from 'utils/date';
-import StaticRadarChart from 'components/common/radar-chart/index';
+import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import styles from './officer-card.sass';
 
@@ -81,7 +81,7 @@ export class OfficerCard extends Component {
         target={ openCardInNewPage ? '_blank' : null }
         className={ cx(styles.officerCard, className, 'test--officer-card') }
       >
-        <div className='no-print'>
+        <div className='no-print radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
         </div>
         <div>

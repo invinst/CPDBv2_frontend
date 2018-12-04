@@ -1,0 +1,37 @@
+@import 'variables'
+
+.officer-section-row:last-child
+  \:local(.link-item)
+    border-bottom: none
+
+\:local(.link-item)
+  display: inline-block
+  width: calc(50% - 16px)
+  height: 40px
+  line-height: 40px
+  font-size: 14px
+  font-weight: 300
+  border-bottom: 1px solid $white-two-color
+
+  &:first-child
+    margin: 0 16px 0 0
+
+  &:last-child
+    margin: 0 0 0 16px
+
+  .link-item-title
+    width: 34%
+    display: inline-block
+    vertical-align: middle
+    color: $clay-gray
+
+  .link-item-value
+    width: 66%
+    display: inline-block
+    vertical-align: middle
+    color: $soft-black-color
+    font-weight: 400
+
+  &:hover
+    .link-item-value
+      color: $accent-color

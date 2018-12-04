@@ -1,38 +1,31 @@
 import React, { Component, PropTypes } from 'react';
 
-import {
-  wrapperStyle,
-  mapWrapperStyle,
-  infoStyle,
-  infoBlockStyle,
-  titleStyle,
-  dateStyle,
-} from './trr-location.style';
+import style from './trr-location.sass';
 import Row from './row';
-import TRRMap from './trr_map';
+import TRRMap from './trr-map';
 
 
 export default class TRRLocation extends Component {
   render() {
     const { address, incidentDate, beat, locationType, point } = this.props;
     return (
-      <div style={ wrapperStyle }>
-        <div style={ infoStyle }>
-          <div style={ infoBlockStyle }>
-            <h3 className='test--date-title' style={ titleStyle }>DATE OF INCIDENT</h3>
-            <div className='test--date-value' style={ dateStyle }>{ incidentDate }</div>
+      <div className={ style.trrLocation }>
+        <div className='trr-location-info'>
+          <div className='info-block'>
+            <h3 className='test--date-title info-block-title'>DATE OF INCIDENT</h3>
+            <div className='test--date-value info-block-date'>{ incidentDate }</div>
           </div>
 
-          <div style={ infoBlockStyle }>
-            <h3 className='test--location-title' style={ titleStyle }>LOCATION</h3>
+          <div className='info-block'>
+            <h3 className='test--location-title info-block-title'>LOCATION</h3>
             <div>
               <Row title='LOCATION TYPE' value={ locationType }/>
               <Row title='ADDRESS' value={ address }/>
-              <Row title='BEAT' value={ beat } hideBorder={ true }/>
+              <Row title='BEAT' value={ beat }/>
             </div>
           </div>
         </div>
-        <div style={ mapWrapperStyle }>
+        <div className='trr-location-map'>
           { point ? <TRRMap lng={ point.lng } lat={ point.lat }/> : null }
         </div>
       </div>

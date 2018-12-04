@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 
 import { VennDiagram } from 'venn.js';
 import { select } from 'd3-selection';
-import { wrapperStyle } from './venn-diagram.style';
+import style from './venn-diagram.sass';
 import { clayGray } from 'utils/styles';
 
 
@@ -51,9 +51,8 @@ export default class Diagram extends Component {
   render() {
     return (
       <div
-        style={ wrapperStyle }
+        className={ style.vennDiagram }
         ref={ diagram => this.diagram = diagram }
-        className='test-venn-diagram'
       />
     );
   }

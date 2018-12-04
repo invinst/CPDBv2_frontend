@@ -1,29 +1,21 @@
 import React, { Component, PropTypes } from 'react';
 
-import { wrapperStyle, textStyle, arrowStyle } from './navigation-button.style';
+import style from './navigation-button.sass';
 
 
 export default class NavigationButton extends Component {
   render() {
-    const { text, hovering } = this.props;
+    const { text } = this.props;
 
     return (
-      <div
-        className='test--navigation-button'
-        style={ wrapperStyle(hovering) }
-      >
-        <span style={ textStyle }>{ text }</span>
-        <div style={ arrowStyle(hovering) }/>
+      <div className={ `${style.navigationButton}` }>
+        <span className='navigation-button-text'>{ text }</span>
+        <div className='navigation-button-arrow'/>
       </div>
     );
   }
 }
 
-NavigationButton.defaultProps = {
-  hovering: false,
-};
-
 NavigationButton.propTypes = {
-  hovering: PropTypes.bool,
   text: PropTypes.string
 };

@@ -1,27 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import { wrapperStyle, titleStyle, valueStyle } from './link-item.style';
+import style from './link-item.sass';
 import NavigationButton from './navigation-button';
-import Hoverable from 'components/common/higher-order/hoverable';
 
 
-class LinkItem extends Component {
+export default class LinkItem extends Component {
   render() {
-    const { title, value, navigationText, isLeft, hideBorder, hovering, to } = this.props;
+    const { title, value, navigationText, to } = this.props;
 
     return (
       <Link
-        className='test--link-item'
+        className={ `${style.linkItem} navigation-button-container` }
         to={ to }
-        style={ wrapperStyle(isLeft, hideBorder) }
       >
-        <div className='test--link-item-title' style={ titleStyle }>
+        <div className='link-item-title'>
           { title }
         </div>
-        <div className='test--link-item-value' style={ valueStyle(hovering) }>
+        <div className='link-item-value'>
           { value }
-          { navigationText && <NavigationButton text={ navigationText } hovering={ hovering }/> }
+          { navigationText && <NavigationButton text={ navigationText }/> }
         </div>
       </Link>
     );
@@ -31,15 +29,6 @@ class LinkItem extends Component {
 LinkItem.propTypes = {
   title: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  isLeft: PropTypes.bool,
-  hideBorder: PropTypes.bool,
   to: PropTypes.string,
   navigationText: PropTypes.string,
-  hovering: PropTypes.bool,
 };
-
-LinkItem.defaultProps = {
-  hideBorder: false,
-};
-
-export default Hoverable(LinkItem);
