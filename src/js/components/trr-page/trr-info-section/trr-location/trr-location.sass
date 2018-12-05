@@ -43,10 +43,14 @@
       page-break-inside: avoid
 
     .location-title-print
+      display: none
       font-size: 10px
       font-weight: 500
       padding: 13px 0 11px 0
       margin: 0
+
+      @media print
+        display: block
 
     .trr-location-map
       height: 394px

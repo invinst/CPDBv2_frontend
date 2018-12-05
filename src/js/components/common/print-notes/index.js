@@ -19,9 +19,10 @@ export default class PrintNotes extends Component {
               <div className='notes-column' key={ index }>
                 {
                   chunkNote.map((note, index) => (
-                    <div className='notes-content' key={ index }>
+                    <div
+                      className='notes-content'key={ index }>
                       { `${note.title}: ${note.text}` }
-                    </div>
+                      </div>
                   ))
                 }
               </div>
