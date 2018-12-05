@@ -8,14 +8,14 @@ import TRRInfoSection from './trr-info-section';
 import FooterContainer from 'containers/footer-container';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import Printable from 'components/common/higher-order/printable';
-import NotesContainer from 'containers/trr-page/notes';
+import PrintNotes from 'components/common/print-notes';
 
 
-class TRRPage extends Component {
+export class TRRPage extends Component {
   render() {
     const {
       trrId, officer, trrLocation, trrDetail, trrDocument,
-      openRequestTRRDocumentModal, popup, pathName
+      openRequestTRRDocumentModal, popup, pathName, notes
     } = this.props;
     const { printMode } = this.context;
 
@@ -44,7 +44,7 @@ class TRRPage extends Component {
               pathName={ pathName }
             />
           </div>
-          { printMode ? <div className='notes-wrapper'><NotesContainer/></div> : null }
+          { printMode ? <PrintNotes className='notes-wrapper' notes={ notes }/> : null }
           <FooterContainer/>
         </div>
       </DocumentMeta>
@@ -61,9 +61,11 @@ TRRPage.propTypes = {
   openRequestTRRDocumentModal: PropTypes.func,
   popup: PropTypes.object,
   pathName: PropTypes.string,
+  notes: PropTypes.array,
 };
 
-TRRPage.childContextTypes = {
+TRRPage.contextTypes = {
   printMode: PropTypes.bool,
 };
+
 export default Printable(TRRPage);

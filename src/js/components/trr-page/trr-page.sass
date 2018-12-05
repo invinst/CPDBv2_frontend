@@ -9,12 +9,14 @@
   @media print
     background-color: white
     border-bottom: none
+    min-height: unset
 
   .trr-content
     min-height: calc(100vh - 136px)
     padding-bottom: 128px
 
     @media print
+      min-height: unset
       padding-bottom: 0
 
     .trr-title
@@ -57,4 +59,5 @@
         font-size: 12px
 
   .notes-wrapper
-    margin: 0 26px
+    @media print
+      margin: 0 26px

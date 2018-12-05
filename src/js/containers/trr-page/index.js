@@ -23,6 +23,7 @@ function mapStateToProps(state) {
     trrDocument: trrDocumentSelector(state),
     popup: popupSelector(state),
     pathName: getPathname(state),
+    notes: state.popups,
   };
 }
 

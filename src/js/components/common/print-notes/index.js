@@ -6,13 +6,12 @@ import styles from './print-notes.sass';
 
 export default class PrintNotes extends Component {
   render() {
-    const { notes } = this.props;
+    const { notes, className } = this.props;
     const notesLength = notes.length;
     const numberOfNotePerColumn = notesLength > 4 ? Math.round(notesLength / 2) : notesLength;
     const chunkNotes = chunk(notes, numberOfNotePerColumn);
-
     return (
-      <div className={ styles.printNotes }>
+      <div className={ `${styles.printNotes} ${className}` }>
         <div className='notes-title'>Notes</div>
         <div>
           {
@@ -36,6 +35,7 @@ export default class PrintNotes extends Component {
 
 PrintNotes.propTypes = {
   notes: PropTypes.array,
+  className: PropTypes.string,
 };
 
 PrintNotes.defaultProps = {
