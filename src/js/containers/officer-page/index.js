@@ -54,6 +54,7 @@ function mapStateToProps(state, ownProps) {
     breadcrumbs: state.breadscrumbs,
     infoNotes: getInfoNotes(state),
     timelineNotes: getTimelineNotes(state),
+    printHeader: getOfficerName(state),
   };
 }
 
