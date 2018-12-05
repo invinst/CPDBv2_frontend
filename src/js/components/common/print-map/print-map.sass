@@ -1,0 +1,20 @@
+@import 'variables'
+
+\:local(.print-map)
+  display: none
+  position: relative
+
+  @media print
+    display: block
+
+  .map-attribution
+    font-weight: 300
+    position: absolute
+    bottom: 0
+    right: 0
+    padding: 2px 5px
+    background-color: $white-smoke-color
+    font-size: 10px
+
+    .improve-this-map
+      font-weight: 500

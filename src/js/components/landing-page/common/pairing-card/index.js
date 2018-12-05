@@ -1,57 +1,36 @@
 import React, { Component, PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import PairingChart from 'components/landing-page/common/pairing-card/pairing-chart';
-import { wrapperStyle, secondSectionStyle, firstOfficerStyle, secondOfficerStyle } from './pairing-card.style';
+import style from './pairing-card.sass';
 import OfficerInfo from 'components/landing-page/common/pairing-card/officer-info';
-import HalfPane from './half-pane';
 
 
 export default class PairingCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hoveredPart: null
-    };
-  }
-
-  handleHover(hoveredPart) {
-    this.setState({ hoveredPart: hoveredPart });
-  }
-
   render() {
     const { officer1, officer2, coaccusalCount } = this.props;
-    const { hoveredPart } = this.state;
 
     return (
-      <div className='test--pair-card' style={ wrapperStyle(hoveredPart) }>
-        <PairingChart
-          coaccusalCount={ coaccusalCount }
-          background1={ officer1.backgroundColor }
-          background2={ officer2.backgroundColor }
+      <div className={ style.pairingCard }>
+        <Link
+          to={ `/officer/${officer1.id}/` }
+          className='half-pane officer-info-left-hover-sibling'
         />
-        <div style={ secondSectionStyle }>
-          <OfficerInfo
-            hovering={ hoveredPart === 'left' }
-            info={ officer1 }
-            style={ firstOfficerStyle }
+        <Link
+          to={ `/officer/${officer2.id}/` }
+          className='half-pane officer-info-right-hover-sibling'
+        />
+        <div className='pairing-card-content'>
+          <PairingChart
+            coaccusalCount={ coaccusalCount }
+            background1={ officer1.backgroundColor }
+            background2={ officer2.backgroundColor }
           />
-          <OfficerInfo
-            hovering={ hoveredPart === 'right' }
-            info={ officer2 }
-            style={ secondOfficerStyle }
-          />
+          <div className='second-section'>
+            <OfficerInfo info={ officer1 }/>
+            <OfficerInfo rightOfficer={ true } info={ officer2 }/>
+          </div>
         </div>
-
-        <HalfPane
-          position='left'
-          onHovering={ (hovering) => this.handleHover(hovering ? 'left' : null) }
-          officerId={ officer1.id }
-        />
-        <HalfPane
-          position='right'
-          onHovering={ (hovering) => this.handleHover(hovering ? 'right': null) }
-          officerId={ officer2.id }
-        />
       </div>
     );
   }

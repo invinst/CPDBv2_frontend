@@ -51,7 +51,11 @@ export default class ShareableHeader extends Component {
       <div>
         <div style={ headerPlaceholderStyle }/>
         <ResponsiveFluidWidthComponent style={ outerStyle }>
-          <div style={ navBarStyle } ref={ el => { this.placeholderElement = el; } }>
+          <div
+            className='no-print'
+            style={ navBarStyle }
+            ref={ el => { this.placeholderElement = el; } }
+          >
             <ShareButton scrollPosition={ this.state.position }/>
             <Breadcrumbs
               className='test--breadcrumbs'

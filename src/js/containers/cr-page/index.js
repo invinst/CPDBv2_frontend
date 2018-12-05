@@ -15,6 +15,7 @@ function mapStateToProps(state, ownProps) {
     alreadyRequested: getDocumentAlreadyRequested(state),
     popup: popupSelector(state),
     pathname: ownProps.pathname,
+    notes: state.popups,
   };
 }
 

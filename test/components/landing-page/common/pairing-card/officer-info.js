@@ -23,17 +23,9 @@ describe('OfficerInfo component', function () {
     instance = renderIntoDocument(
       <OfficerInfo info={ info }/>
     );
-    const officerFullName = findRenderedDOMComponentWithClass(instance, 'test--officer-name');
-    const officerPersonalInfo = findRenderedDOMComponentWithClass(instance, 'test--officer-personal-info');
+    const officerFullName = findRenderedDOMComponentWithClass(instance, 'officer-info-name');
+    const officerPersonalInfo = findRenderedDOMComponentWithClass(instance, 'officer-info-personal-info');
     officerPersonalInfo.textContent.should.eql('54-year-old White Male');
     officerFullName.textContent.should.eql('Jerome Finnigan');
-  });
-
-  it('should change the color of full name of the officer when hovering', function () {
-    instance = renderIntoDocument(
-      <OfficerInfo info={ info } hovering={ true } />
-    );
-    const officerFullName = findRenderedDOMComponentWithClass(instance, 'test--officer-name');
-    officerFullName.style.color.should.eql('rgb(0, 94, 244)');
   });
 });

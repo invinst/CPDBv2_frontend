@@ -50,7 +50,8 @@ describe('OfficerCard component', function () {
     const text = findDOMNode(instance).innerText;
     text.should.containEql('Police Officer');
     text.should.containEql('Jerome Finnigan');
-    text.should.containEql('10 Allegations 5 Sustained');
+    text.should.containEql('10 Allegations');
+    text.should.containEql('5 Sustained');
     text.should.containEql('More than 20% of other officers');
 
     const age = getThisYear() - 1980 - 1;
