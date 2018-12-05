@@ -44,7 +44,7 @@ export class TRRPage extends Component {
               pathName={ pathName }
             />
           </div>
-          { printMode ? <PrintNotes className='notes-wrapper' notes={ notes }/> : null }
+          { printMode ? <PrintNotes notes={ notes }/> : null }
           <FooterContainer/>
         </div>
       </DocumentMeta>

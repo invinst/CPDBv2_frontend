@@ -135,8 +135,6 @@ describe('TRRPage component', function () {
     findRenderedDOMComponentWithClass(instance, 'incident-date-value-print').textContent.should.eql('Sep 23, 2003');
 
     findRenderedComponentWithType(instance, Notes);
-    findRenderedDOMComponentWithClass(instance, 'notes-wrapper');
-
     findRenderedDOMComponentWithClass(instance, 'notes-title').textContent.should.eql('Notes');
 
     const noteContents = scryRenderedDOMComponentsWithClass(instance, 'notes-content');
