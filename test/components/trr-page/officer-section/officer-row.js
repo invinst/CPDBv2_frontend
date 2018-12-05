@@ -55,7 +55,7 @@ describe('OfficerRow component', function () {
   it('should hide visual token when printing', function () {
     instance = renderIntoDocument(<OfficerRow { ...officerData }/>);
     findRenderedDOMComponentWithClass(instance, 'trr-officer-row-visual-token').className.should.containEql(
-      'hide-for-print'
+      'no-print'
     );
   });
 });

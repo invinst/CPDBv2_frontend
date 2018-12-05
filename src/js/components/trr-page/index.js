@@ -12,17 +12,12 @@ import NotesContainer from 'containers/trr-page/notes';
 
 
 class TRRPage extends Component {
-  getChildContext() {
-    return {
-      isPrinting: this.props.isPrinting,
-    };
-  }
-
   render() {
     const {
       trrId, officer, trrLocation, trrDetail, trrDocument,
-      openRequestTRRDocumentModal, popup, pathName, isPrinting
+      openRequestTRRDocumentModal, popup, pathName
     } = this.props;
+    const { printMode } = this.context;
 
     return (
       <DocumentMeta title={ `TRR ${trrId}` }>
@@ -30,9 +25,9 @@ class TRRPage extends Component {
           <ShareableHeaderContainer/>
           <div className={ `${responsiveContainerStyles.responsiveContainer} trr-content` }>
             <h1 className='trr-title'>TRR { trrId }</h1>
-            { isPrinting ? <div className='trr-category-print'>{ trrDetail.category }</div> : null }
+            { printMode ? <div className='trr-category-print'>{ trrDetail.category }</div> : null }
             {
-              isPrinting ? (
+              printMode ? (
                 <div className='incident-date-print'>
                   <h3 className='incident-date-title-print'>DATE OF INCIDENT</h3>
                   <div className='incident-date-value-print'>{ trrLocation.incidentDate }</div>
@@ -49,7 +44,7 @@ class TRRPage extends Component {
               pathName={ pathName }
             />
           </div>
-          { isPrinting ? <div className='notes-wrapper'><NotesContainer/></div> : null }
+          { printMode ? <div className='notes-wrapper'><NotesContainer/></div> : null }
           <FooterContainer/>
         </div>
       </DocumentMeta>
@@ -66,10 +61,9 @@ TRRPage.propTypes = {
   openRequestTRRDocumentModal: PropTypes.func,
   popup: PropTypes.object,
   pathName: PropTypes.string,
-  isPrinting: PropTypes.bool,
 };
 
 TRRPage.childContextTypes = {
-  isPrinting: PropTypes.bool,
+  printMode: PropTypes.bool,
 };
 export default Printable(TRRPage);

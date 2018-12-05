@@ -2,14 +2,13 @@ import React, { Component, PropTypes } from 'react';
 
 import style from './trr-document.sass';
 import RequestDocumentButton from 'components/common/request-document-button';
-import printStyles from 'components/common/print.sass';
 
 
 export default class TRRDocument extends Component {
   render() {
     const { alreadyRequested, openRequestTRRDocumentModal } = this.props;
     return (
-      <div className={ `${style.trrDocument} ${printStyles.hideForPrint}` }>
+      <div className={ `${style.trrDocument} no-print` }>
         <div className='trr-document-text'>
           There are no documents that have been made public yet.
         </div>

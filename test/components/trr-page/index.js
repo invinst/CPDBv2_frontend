@@ -124,7 +124,7 @@ describe('TRRPage component', function () {
           officer={ { officerId: 456 } }
           trrDetail={ { category: 'Firearm' } }
           trrLocation={ { incidentDate: 'Sep 23, 2003' } }
-          isPrinting={ true }
+          printMode={ true }
         />
       </Provider>
     );
@@ -163,7 +163,7 @@ describe('TRRPage component', function () {
           officer={ { officerId: 456 } }
           trrDetail={ { category: 'Firearm' } }
           trrLocation={ { incidentDate: 'Sep 23, 2003' } }
-          isPrinting={ false }
+          printMode={ false }
         />
       </Provider>
     );

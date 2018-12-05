@@ -3,16 +3,15 @@ import React, { Component, PropTypes } from 'react';
 import style from './trr-location.sass';
 import Row from './row';
 import TRRMap from './trr-map';
-import printStyles from 'components/common/print.sass';
 
 
 class TRRLocation extends Component {
   render() {
     const { address, incidentDate, beat, locationType, point } = this.props;
-    const { isPrinting } = this.context;
+    const { printMode } = this.context;
     const infoBlock = (
       <div className='info-block'>
-        <h3 className={ `info-block-title ${printStyles.hideForPrint}` }>
+        <h3 className={ 'info-block-title no-print' }>
           LOCATION
         </h3>
         <div>
@@ -25,7 +24,7 @@ class TRRLocation extends Component {
 
     return (
       <div className={ style.trrLocation }>
-        { isPrinting ? null : (
+        { printMode ? null : (
           <div className='trr-location-info'>
             <div className='info-block'>
               <h3 className='info-block-title'>DATE OF INCIDENT</h3>
@@ -35,12 +34,12 @@ class TRRLocation extends Component {
           </div>
         )}
         <div className='trr-location-map-wrapper'>
-          { isPrinting ? <h3 className='location-title-print'>LOCATION</h3> : null }
+          { printMode ? <h3 className='location-title-print'>LOCATION</h3> : null }
           <div className='trr-location-map'>
             { point ? <TRRMap lng={ point.lng } lat={ point.lat } /> : null }
           </div>
         </div>
-        { isPrinting ? infoBlock : null }
+        { printMode ? infoBlock : null }
       </div>
     );
   }
@@ -55,6 +54,6 @@ TRRLocation.propTypes = {
 };
 
 TRRLocation.contextTypes = {
-  isPrinting: PropTypes.bool
+  printMode: PropTypes.bool
 };
 export default TRRLocation;

@@ -31,7 +31,7 @@ describe('TRRLocation component', function () {
   });
 
   it('should render date and location info correctly', function () {
-    instance = renderIntoDocument(<TRRLocation { ...trrLocation } isPrinting={ false }/>);
+    instance = renderIntoDocument(<TRRLocation { ...trrLocation } printMode={ false }/>);
 
     const titles = scryRenderedDOMComponentsWithClass(instance, 'info-block-title');
     titles.should.have.length(2);
@@ -60,11 +60,11 @@ describe('TRRLocation component', function () {
   });
 
   it('should show hide and rearrange contents when printing', function () {
-    instance = renderWithContext({ isPrinting: true }, <TRRLocation { ...trrLocation }/>);
+    instance = renderWithContext({ printMode: true }, <TRRLocation { ...trrLocation }/>);
 
     findRenderedDOMComponentWithClass(instance, 'location-title-print').textContent.should.eql('LOCATION');
     scryRenderedDOMComponentsWithClass(instance, 'trr-location-info').should.have.length(0);
     findRenderedDOMComponentWithClass(instance, 'info-block');
-    findRenderedDOMComponentWithClass(instance, 'info-block-title').className.should.containEql('hide-for-print');
+    findRenderedDOMComponentWithClass(instance, 'info-block-title').className.should.containEql('no-print');
   });
 });

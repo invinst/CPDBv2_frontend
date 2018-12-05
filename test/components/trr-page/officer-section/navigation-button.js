@@ -22,6 +22,6 @@ describe('NavigationButton component', function () {
 
   it('should hide when printing', function () {
     instance = renderIntoDocument(<NavigationButton text='Some text'/>);
-    findDOMNode(instance).className.should.containEql('hide-for-print');
+    findDOMNode(instance).className.should.containEql('no-print');
   });
 });

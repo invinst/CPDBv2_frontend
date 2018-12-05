@@ -39,6 +39,6 @@ describe('Row component', function () {
 
   it('should hide when printing', function () {
     instance = renderIntoDocument(<TRRDocument alreadyRequested={ true }/>);
-    findDOMNode(instance).className.should.containEql('hide-for-print');
+    findDOMNode(instance).className.should.containEql('no-print');
   });
 });
