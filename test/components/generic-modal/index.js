@@ -13,8 +13,8 @@ import { Provider } from 'react-redux';
 
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
 import GenericModal from 'components/generic-modal';
-import RequestDocumentModalContent from 'containers/request-document-modal-container';
-import RequestTRRDocumentModalContent from 'containers/request-trr-document-modal-container';
+import RequestDocumentModalContent from 'containers/cr-page/request-document-modal-container';
+import RequestTRRDocumentModalContent from 'containers/trr-page/request-document-modal-container';
 
 
 describe('GenericModal component', function () {

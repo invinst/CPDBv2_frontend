@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { requestDocument } from 'actions/cr-page';
-import { getCRID } from 'utils/location';
+import { requestDocument } from 'actions/trr-page/index';
+import { getTRRId } from 'utils/location';
 import RequestDocumentModalContent from 'components/generic-modal/request-document-modal-content';
 
 
@@ -12,9 +12,9 @@ const mapDispatchToProps = {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    id: getCRID(ownProps.location.pathname),
-    message: state.crPage.attachmentRequest.request.message,
-    isRequested: state.crPage.attachmentRequest.request.isRequested
+    id: getTRRId(ownProps.location.pathname),
+    message: state.trrPage.attachmentRequest.request.message,
+    isRequested: state.trrPage.attachmentRequest.request.isRequested
   };
 };
 
