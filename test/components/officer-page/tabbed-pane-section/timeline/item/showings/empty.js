@@ -6,6 +6,7 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Empty from 'components/officer-page/tabbed-pane-section/timeline/item/showings/empty';
+import styles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/empty/empty.sass';
 
 
 describe('Empty component', function () {
@@ -26,15 +27,12 @@ describe('Empty component', function () {
       isLastUnit: false,
       kind: 'EMPTY',
       rank: 'Police Officer',
-      rankDisplay: ' ',
-      unitDescription: 'Mobile Strike Force',
-      unitDisplay: ' ',
       unitName: '153',
     };
 
     instance = renderIntoDocument(<Empty item={ emptyItem } hasBorderBottom={ false } />);
 
-    const showing = findRenderedDOMComponentWithClass(instance, 'test--empty-item-showing');
+    const showing = findRenderedDOMComponentWithClass(instance, styles.empty);
     showing.textContent.should.eql('');
   });
 });

@@ -18,7 +18,7 @@ export default class Cr extends Component {
     return (
       <Link
         to={ `/complaint/${item.crid}/` }
-        className={ cx(baseStyles.baseItem, styles.cr, 'test--cr-item') }
+        className={ cx(baseStyles.baseItem, styles.cr) }
       >
         <span className='item-content cr-item-content'>
           <div className='item-wrapper-kind'>

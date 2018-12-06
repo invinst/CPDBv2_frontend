@@ -41,7 +41,6 @@ AttachmentItem.propTypes = {
   previewImageUrl: PropTypes.string,
   title: PropTypes.string,
   fileType: PropTypes.string,
-  hovering: PropTypes.bool,
   pathname: PropTypes.string,
 };
 

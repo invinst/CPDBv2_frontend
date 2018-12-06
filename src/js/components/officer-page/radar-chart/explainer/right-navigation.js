@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import styles from './right-navigation.sass';
 
@@ -10,7 +9,7 @@ export default class RightNavigation extends Component {
 
     return (
       <span
-        className={ cx(styles.rightNavigation, 'test--radar-explainer-navigation-right') }
+        className={ styles.rightNavigation }
         onClick={ onClickHandler }
       >
         { text }
@@ -23,5 +22,4 @@ export default class RightNavigation extends Component {
 RightNavigation.propTypes = {
   text: PropTypes.string,
   onClickHandler: PropTypes.func,
-  hovering: PropTypes.bool,
 };

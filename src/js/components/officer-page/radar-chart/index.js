@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { map, isEqual, filter } from 'lodash';
 import { scaleLinear } from 'd3-scale';
-import cx from 'classnames';
 
 import Popup from 'components/common/popup';
 import StaticRadarChart from 'components/common/radar-chart';
@@ -155,12 +154,12 @@ export default class AnimatedRadarChart extends Component {
     } = this.props;
 
     if (isRequesting)
-      return <div className={ cx(styles.radarChart, 'test--officer--radar-chart') }/>;
+      return <div className={ styles.radarChart }/>;
 
     const itemData = this.getCurrentTransitionData();
     if (itemData) {
       return (
-        <div className={ cx(styles.radarChart, 'test--officer--radar-chart') }>
+        <div className={ styles.radarChart }>
           <div
             onClick={ this.openExplainer }
             className='officer-radar-chart-placeholder'
@@ -196,7 +195,7 @@ export default class AnimatedRadarChart extends Component {
       );
     } else {
       return (
-        <div className={ cx(styles.radarChart, 'test--officer--radar-chart') }>
+        <div className={ styles.radarChart }>
           <StaticRadarChart/>
           <div className='no-data-radar-chart-text'>
             <EditWrapperStateProvider { ...noDataRadarChartEditWrapperStateProps }>

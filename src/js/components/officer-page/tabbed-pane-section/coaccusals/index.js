@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import OfficerCard from 'components/common/officer-card';
 import OfficerCardFooter from './officer-card-footer';
@@ -12,10 +11,10 @@ export default class Coaccusals extends Component {
     const { coaccusalGroups } = this.props;
 
     return (
-      <div className={ cx(styles.coaccusals, 'test--officer-coaccusals') }>
+      <div className={ styles.coaccusals }>
         {
           coaccusalGroups.map(group => (
-            <div className='grouped-coaccusals' key={ group.name }>
+            <div className='coaccusal-group' key={ group.name }>
               <div className='group-title-wrapper'>
                 <span className='coaccusals-group-name'>{ group.name }</span>
               </div>

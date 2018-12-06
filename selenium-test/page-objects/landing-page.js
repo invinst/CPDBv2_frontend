@@ -26,7 +26,7 @@ class RecentActivityCarouselSection extends Section {
     this.prepareElementGetters({
       leftArrow: '//div[@class="test--landing-carousel-activity"]//*[contains(@class, "test--carousel-arrow-left")]',
       rightArrow: '//div[@class="test--landing-carousel-activity"]//*[contains(@class, "test--carousel-arrow-right")]',
-      officerCards: '//div[@class="test--landing-carousel-activity"]//a[contains(@class, "test--officer-card")]',
+      officerCards: '//div[@class="test--landing-carousel-activity"]//a[contains(@class, "officer-card")]',
       pairCards: '//div[@class="test--landing-carousel-activity"]//div[contains(@class, "pairing-card__pairing-card")]',
       firstPairCard:
         '(//div[@class="test--landing-carousel-activity"]//div[contains(@class, "pairing-card__pairing-card")])[1]',
@@ -49,7 +49,7 @@ class OfficersByAllegationCarouselSection extends Section {
       leftArrow: '//div[@class="test--landing-carousel-allegation"]//*[contains(@class, "test--carousel-arrow-left")]',
       rightArrow: '//div[@class="test--landing-carousel-allegation"]' +
         '//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--landing-carousel-allegation"]//a[contains(@class, "test--officer-card")]'
+      cards: '//div[@class="test--landing-carousel-allegation"]//a[contains(@class, "officer-card")]'
     });
   }
 }

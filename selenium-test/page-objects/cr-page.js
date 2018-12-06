@@ -7,7 +7,7 @@ class AccusedOfficerCard extends Section {
   constructor() {
     super();
 
-    const firstCardSelector = '(//*[contains(@class, "test--officer-card")])[1]';
+    const firstCardSelector = '(//*[contains(@class, "officer-card__officer-card")])[1]';
 
     this.prepareElementGetters({
       element: firstCardSelector,
@@ -30,7 +30,7 @@ class AccusedOfficerSection extends Section {
 
     this.prepareElementGetters({
       title: '.accused-officer-title',
-      lastCard: '(//*[@class="test--officer-card"])[last()]',
+      lastCard: '(//*[contains(@class, "officer-card")])[last()]',
       showMoreButton: '.show-more-button',
       popup: '.test--accused-officer .popup',
       popupButton: '.test--accused-officer .tooltip-button',
@@ -41,7 +41,7 @@ class AccusedOfficerSection extends Section {
   }
 
   cardCount() {
-    return browser.elements('.test--officer-card').value.length;
+    return browser.elements('//a[contains(@class, "officer-card")]').value.length;
   }
 }
 

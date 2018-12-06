@@ -15,6 +15,8 @@ import RightNavigation from 'components/officer-page/radar-chart/explainer/right
 import TriangleExplainer from 'components/officer-page/radar-chart/explainer/triangle-explainer';
 import ScaleExplainer from 'components/officer-page/radar-chart/explainer/scale-explainer';
 import PercentilesByYearExplainer from 'components/officer-page/radar-chart/explainer/percentiles-by-year';
+import leftNavigationStyles from 'components/officer-page/radar-chart/explainer/left-navigation.sass';
+import rightNavigationStyles from 'components/officer-page/radar-chart/explainer/right-navigation.sass';
 
 
 describe('RadarExplainer components', function () {
@@ -48,7 +50,7 @@ describe('RadarExplainer components', function () {
     instance = renderIntoDocument(<RadarExplainer scaleEditWrapperStateProps={ scaleEditWrapperStateProps }/>);
     findRenderedComponentWithType(instance, TriangleExplainer);
     instance.state.currentPaneIndex.should.eql(0);
-    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-right');
+    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, rightNavigationStyles.rightNavigation);
     Simulate.click(rightNavigationElm);
     instance.state.currentPaneIndex.should.eql(1);
     const scaleExplainer = findRenderedComponentWithType(instance, ScaleExplainer);
@@ -63,7 +65,7 @@ describe('RadarExplainer components', function () {
     instance = renderIntoDocument(<RadarExplainer/>);
     findRenderedComponentWithType(instance, TriangleExplainer);
     instance.state.currentPaneIndex.should.eql(0);
-    const leftNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-left');
+    const leftNavigationElm = findRenderedDOMComponentWithClass(instance, leftNavigationStyles.leftNavigation);
     Simulate.click(leftNavigationElm);
     instance.state.currentPaneIndex.should.eql(2);
     findRenderedComponentWithType(instance, PercentilesByYearExplainer);
@@ -77,7 +79,7 @@ describe('RadarExplainer components', function () {
     instance = renderIntoDocument(<RadarExplainer/>);
     findRenderedComponentWithType(instance, TriangleExplainer);
     instance.state.currentPaneIndex.should.eql(0);
-    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-right');
+    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, rightNavigationStyles.rightNavigation);
     Simulate.click(rightNavigationElm);
     Simulate.click(rightNavigationElm);
     instance.state.currentPaneIndex.should.eql(2);

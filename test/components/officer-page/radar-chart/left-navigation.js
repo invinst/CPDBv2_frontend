@@ -9,6 +9,7 @@ import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import LeftNavigation from 'components/officer-page/radar-chart/explainer/left-navigation';
+import styles from 'components/officer-page/radar-chart/explainer/left-navigation.sass';
 
 
 describe('LeftNavigation components', function () {
@@ -31,7 +32,7 @@ describe('LeftNavigation components', function () {
       <LeftNavigation onClickHandler={ onClickHandlerStub } text='Some text'/>
     );
 
-    const leftNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-left');
+    const leftNavigationElm = findRenderedDOMComponentWithClass(instance, styles.leftNavigation);
     Simulate.click(leftNavigationElm);
 
     onClickHandlerStub.calledOnce.should.be.true();

@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import currencyFormatter from 'currency-formatter';
-import cx from 'classnames';
 
 import Popup from 'components/common/popup';
 import styles from './salary.sass';
@@ -11,7 +10,7 @@ export default class Salary extends Component {
     const { salary, popup, pathName } = this.props;
 
     return (
-      <div className={ cx(styles.salary, 'test--salary') }>
+      <div className={ styles.salary }>
         <span className='salary-amount'>
           { typeof salary === 'string' ? salary : currencyFormatter.format(salary, { code: 'USD', precision: 0 }) }
         </span>

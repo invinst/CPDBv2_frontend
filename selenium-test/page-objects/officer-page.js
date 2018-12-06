@@ -12,7 +12,7 @@ class SummarySection extends Section {
 
     const elementGetters = {
       officerName: '.summary-section-officer-name',
-      viewUnitProfileButton: '.test--view-profile-button',
+      viewUnitProfileButton: '//a[contains(@class, "view-unit-profile-button")]',
     };
     each(fields, (field, index) => {
       elementGetters[`${field}Label`] = `(//span[@class="summary-field-label"])[${index + 1}]`;
@@ -67,7 +67,7 @@ class CoaccusalsSection extends Section {
 
     this.prepareElementGetters({
       firstCoaccusalGroupName: '//span[contains(@class, "coaccusals-group-name")][1]',
-      firstCoaccusalCard: '.test--officer-card',
+      firstCoaccusalCard: '//a[contains(@class, "officer-card")]',
     });
   }
 }
@@ -76,9 +76,9 @@ class AttachmentsSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      attachmentComplaint: '.test--attachments-complaint',
-      attachmentHeading: '.test--attachments-heading',
-      attachment: '.test--attachment',
+      attachmentComplaint: '//div[contains(@class, "complaint__complaint")]',
+      attachmentHeading: '//div[contains(@class, "complaint__complaint")]//a[contains(@class, "heading__heading")]',
+      attachment: '//a[contains(@class, "attachment__attachment")]',
     });
   }
 }
@@ -87,7 +87,7 @@ class MapSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      map: '.test--officer-map',
+      map: '//div[contains(@class, "map")]',
     });
   }
 }
@@ -116,17 +116,19 @@ class RadarChartExplainerSection extends Section {
     super();
     this.prepareElementGetters({
       component: '.radar-explainer-window',
-      triangleExplainer: '//div[contains(@class, "test--triangle-explainer")]',
-      triangleExplainerText: '.test--triangle-explain-text',
-      triangleExplainerSubText: '.test--triangle-explain-sub-text',
-      triangleEditButton: '.test--triangle-explainer .test--edit-wrapper-edit-button',
-      scaleExplainer: '.test--scale-explainer',
-      scaleExplainerText: '.test--scale-explain-text',
-      scaleExplainerSubText: '.test--scale-explain-sub-text',
-      scaleEditButton: '.test--scale-explainer .test--edit-wrapper-edit-button',
-      percentileByYear: '.test--percentile-by-year',
-      leftNavigation: '.test--radar-explainer-navigation-left',
-      rightNavigation: '.test--radar-explainer-navigation-right',
+      triangleExplainer: '//div[contains(@class, "triangle-explainer")]',
+      triangleExplainerText: '//div[contains(@class, "triangle-explainer-text")]',
+      triangleExplainerSubText: '//div[contains(@class, "triangle-explainer-subtext")]',
+      triangleEditButton: '//div[contains(@class, "triangle-explainer")]' +
+        '//a[contains(@class, "test--edit-wrapper-edit-button")]',
+      scaleExplainer: '//div[contains(@class, "scale-explainer")]',
+      scaleExplainerText: '//div[contains(@class, "scale-explainer-text")]',
+      scaleExplainerSubText: '//div[contains(@class, "scale-explainer-subtext")]',
+      scaleEditButton: '//div[contains(@class, "scale-explainer")]' +
+        '//a[contains(@class, "test--edit-wrapper-edit-button")]',
+      percentileByYear: '//div[contains(@class, "percentiles-by-year")]',
+      leftNavigation: '//span[contains(@class, "left-navigation")]',
+      rightNavigation: '//span[contains(@class, "right-navigation")]',
       closeExplainerButton: '.radar-explainer-close-button',
     });
   }
@@ -137,10 +139,10 @@ class NoDataRadarChartSection extends Section {
     super();
 
     this.prepareElementGetters({
-      component: '.test--officer--radar-chart',
+      component: '//div[contains(@class, "radar-chart")]',
       noDataText: '.test--no-data-text',
       radarChart: '.test--radar',
-      editButton: '.test--officer--radar-chart .test--edit-wrapper-edit-button'
+      editButton: '//div[contains(@class, "radar-chart")]//a[contains(@class, "test--edit-wrapper-edit-button")]'
     });
   }
 }
@@ -152,7 +154,7 @@ class RadarChartSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      component: '.test--officer--radar-chart',
+      component: '//div[contains(@class, "radar-chart")]',
       svg: '.test--radar',
       axis: '.test--radar-axis-wrapper',
       wrapper: '.test--radar-wrapper',

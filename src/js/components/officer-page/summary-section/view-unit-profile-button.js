@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import cx from 'classnames';
 
 import styles from './view-unit-profile-button.sass';
 
@@ -11,7 +10,7 @@ export default class ViewUnitProfileButton extends Component {
 
     return (
       <Link
-        className={ cx(styles.viewUnitProfileButton, 'test--view-profile-button') }
+        className={ styles.viewUnitProfileButton }
         to={ `/unit/${unitName}/` }
       >
         <span className='view-unit-profile-button-text'>View Unit Profile</span>
@@ -22,6 +21,5 @@ export default class ViewUnitProfileButton extends Component {
 }
 
 ViewUnitProfileButton.propTypes = {
-  hovering: PropTypes.bool,
   unitName: PropTypes.string
 };

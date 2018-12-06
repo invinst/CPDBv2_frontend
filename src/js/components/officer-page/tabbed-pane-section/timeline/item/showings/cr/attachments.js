@@ -60,7 +60,7 @@ export default class Attachments extends Component {
         </span>
       );
     }
-    return <span className={ cx(styles.attachments, 'test--empty-attachment') }/>;
+    return <span className={ styles.attachments }/>;
   }
 }
 

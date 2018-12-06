@@ -28,5 +28,4 @@ export default class Award extends Component {
 
 Award.propTypes = {
   item: PropTypes.object,
-  hovering: PropTypes.bool,
 };

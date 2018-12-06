@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import Row from './row';
 import styles from './legend.sass';
@@ -10,7 +9,7 @@ export default class Legend extends Component {
   render() {
     const { legend } = this.props;
     return (
-      <div className={ cx(styles.legend, 'test--legend') }>
+      <div className={ styles.legend }>
         <Row
           className='unsustained-complaint'
           text='Unsustained Complaint'
