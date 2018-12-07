@@ -7,6 +7,9 @@ import { getBreadcrumb } from '../breadcrumbs';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 
+
+export const getEditModeOn = state => state.crPage.editModeOn;
+
 const getCoaccused = state => {
   const crid = state.crPage.crid;
   return !state.crs[crid] ? [] : state.crs[crid].coaccused;

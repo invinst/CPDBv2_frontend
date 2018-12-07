@@ -3,6 +3,9 @@ import cx from 'classnames';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import style from './request-document-modal-content.sass';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 class RequestDocumentModalContent extends Component {
@@ -25,13 +28,21 @@ class RequestDocumentModalContent extends Component {
   }
 
   render() {
-    const { closeModal, message, isRequested } = this.props;
+    const { closeModal, message, isRequested, instructionEditWrapperStateProps } = this.props;
     const showMessage = message && (isRequested || this.state.warning);
 
     return (
       <form onSubmit={ this.handleSubmit }>
         <div className={ style.requestDocumentModalContent }>
-          <p className='request-document-instruction'>We’ll notify you when the document is made available.</p>
+          <EditWrapperStateProvider { ...instructionEditWrapperStateProps }>
+            <HoverableEditWrapper>
+              <RichTextEditable
+                className='request-document-instruction'
+                placeholder='We’ll notify you when the document is made available.'
+                fieldname='document_request_instruction'
+              />
+            </HoverableEditWrapper>
+          </EditWrapperStateProvider>
           <input
             ref='email'
             className={ cx('request-document-input', { emphasis: this.state.warning }) }
@@ -52,6 +63,7 @@ RequestDocumentModalContent.propTypes = {
   onRequestDocument: PropTypes.func,
   message: PropTypes.string,
   closeModal: PropTypes.func,
-  id: PropTypes.number,
-  isRequested: PropTypes.bool
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  isRequested: PropTypes.bool,
+  instructionEditWrapperStateProps: PropTypes.object,
 };

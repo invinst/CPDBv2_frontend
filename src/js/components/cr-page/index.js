@@ -27,7 +27,8 @@ class CRPage extends Component {
     const {
       crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
-      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes
+      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes,
+      noAttachmentTextEditWrapperStateProps
     } = this.props;
 
     const { printMode } = this.context;
@@ -80,6 +81,7 @@ class CRPage extends Component {
                 openRequestDocumentModal={ openRequestDocumentModal }
                 alreadyRequested={ alreadyRequested }
                 pathname={ pathname }
+                noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
               />
               <div className='timeline-location-container'>
                 <div className='investigation-timeline'>
@@ -126,6 +128,7 @@ CRPage.propTypes = {
   popup: PropTypes.object,
   pathname: PropTypes.string,
   notes: PropTypes.array,
+  noAttachmentTextEditWrapperStateProps: PropTypes.object,
 };
 
 CRPage.defaultProps = {
