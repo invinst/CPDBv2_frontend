@@ -54,7 +54,7 @@ describe('RequestDocumentModalContent component', function () {
     element = renderIntoDocument(
       <RequestDocumentModalContent message={ 'Thanks you' } isRequested={ true } />
     );
-    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'test--request-document-modal--message');
+    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'request-document-message-box');
     messageBoxElement.textContent.should.be.eql('Thanks you');
   });
 
@@ -62,13 +62,12 @@ describe('RequestDocumentModalContent component', function () {
     element = renderIntoDocument(
       <RequestDocumentModalContent message={ 'Thanks you' } />
     );
-    scryRenderedDOMComponentsWithClass(element, 'test--request-document-modal--message').length.should.eql(0);
+    scryRenderedDOMComponentsWithClass(element, 'request-document-message-box').length.should.eql(0);
     element.setState({ warning: true });
-    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'test--request-document-modal--message');
+    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'request-document-message-box');
     messageBoxElement.textContent.should.eql('Thanks you');
 
-    // skip the alpha part, since this is round 0.1 ~ 0.0983...
-    element.refs.email.style.backgroundColor.should.containEql('rgba(255, 96, 0');
+    element.refs.email.className.should.containEql('emphasis');
   });
 
   describe('Submit', function () {
@@ -135,8 +134,7 @@ describe('RequestDocumentModalContent component', function () {
       assertInCallbackTest = function (requestForm) {
         requestForm.state.should.containEql( { warning: true } );
 
-        const messageBoxElement = findRenderedDOMComponentWithClass(requestForm,
-          'test--request-document-modal--message');
+        const messageBoxElement = findRenderedDOMComponentWithClass(requestForm, 'request-document-message-box');
         messageBoxElement.textContent.should.be.eql('Default message');
       };
       submitRequestDocumentTest(assertInCallbackTest, done, true);

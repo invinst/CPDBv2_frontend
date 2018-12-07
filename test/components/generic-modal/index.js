@@ -1,6 +1,6 @@
 import React from 'react';
 import { spy } from 'sinon';
-import { unmountComponentSuppressError } from 'utils/test';
+import { findDOMNode } from 'react-dom';
 import {
   Simulate,
   renderIntoDocument,
@@ -11,6 +11,7 @@ import {
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
+import { unmountComponentSuppressError } from 'utils/test';
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
 import GenericModal from 'components/generic-modal';
 import RequestDocumentModalContent from 'containers/cr-page/request-document-modal-container';
@@ -31,7 +32,7 @@ describe('GenericModal component', function () {
       <GenericModal activeModal={ null }/>
     );
 
-    scryRenderedDOMComponentsWithClass(element, 'test--generic-modal-overlay').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(element, 'generic-modal-content').should.have.length(0);
   });
 
   it('should render Legal Disclaimer when activeModal matches', function () {
@@ -101,8 +102,7 @@ describe('GenericModal component', function () {
       <GenericModal activeModal='LEGAL_DISCLAIMER' closeModal={ closeModal } />
     );
 
-    const overlay = findRenderedDOMComponentWithClass(element, 'test--generic-modal-overlay');
-    Simulate.click(overlay);
+    Simulate.click(findDOMNode(element));
 
     closeModal.called.should.be.true();
   });
@@ -113,7 +113,7 @@ describe('GenericModal component', function () {
       <GenericModal activeModal='LEGAL_DISCLAIMER' closeModal={ closeModal } />
     );
 
-    const content = findRenderedDOMComponentWithClass(element, 'test--generic-modal-content');
+    const content = findRenderedDOMComponentWithClass(element, 'generic-modal-content');
     Simulate.click(content);
 
     closeModal.called.should.be.false();

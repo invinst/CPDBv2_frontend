@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Style } from 'radium';
 
-import { overlayStyle, contentStyle } from './generic-modal.style';
+import style from './generic-modal.sass';
 import RequestDocumentModalContent from 'containers/cr-page/request-document-modal-container';
 import RequestTRRDocumentModalContent from 'containers/trr-page/request-document-modal-container';
 import LegalDisclaimerModalContent from './legal-disclaimer-modal-content';
@@ -33,8 +33,8 @@ class GenericModal extends React.Component {
     const ContentClass = contentMappings[activeModal];
 
     return (
-      <div className='test--generic-modal-overlay' style={ overlayStyle } onClick={ closeModal }>
-        <div className='test--generic-modal-content' style={ contentStyle } onClick={ this.preventCloseModal }>
+      <div className={ style.genericModal } onClick={ closeModal }>
+        <div className='generic-modal-content' onClick={ this.preventCloseModal }>
           <ContentClass closeModal={ closeModal } location={ location } />
         </div>
         <Style scopeSelector='body' rules={ bodyStyleRules } />
