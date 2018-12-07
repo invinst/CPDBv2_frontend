@@ -13,24 +13,26 @@
   display: inline-block
 
 \:local(.request-document-modal-content)
-  padding: 0 16px 8px 16px
 
-  .request-document-input
-    width: 100%
-    padding: 6px 12px 7px 12px
-    box-sizing: border-box
-    background-color: $sugar-cane-color
-    border-radius: 2px
-    font-size: 13px
-    font-weight: 500
-    color: $clay-gray
-    border: none
+  .request-document-content
+    padding: 0 16px 8px 16px
 
-    &.emphasis
-      background-color: $bright-orange-two-color-10-percent
+    .request-document-input
+      width: 100%
+      padding: 6px 12px 7px 12px
+      box-sizing: border-box
+      background-color: $sugar-cane-color
+      border-radius: 2px
+      font-size: 13px
+      font-weight: 500
+      color: $clay-gray
+      border: none
 
-  .request-document-instruction
-    @extend %instruction-shared
+      &.emphasis
+        background-color: $bright-orange-two-color-10-percent
+
+    .request-document-instruction
+      @extend %instruction-shared
 
   .request-document-link-button
     @extend %link-button-shared

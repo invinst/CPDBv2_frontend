@@ -32,12 +32,11 @@ class RequestDocumentModalContent extends Component {
     const showMessage = message && (isRequested || this.state.warning);
 
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <div className={ style.requestDocumentModalContent }>
+      <form onSubmit={ this.handleSubmit } className={ style.requestDocumentModalContent }>
+        <div className='request-document-content'>
           <EditWrapperStateProvider { ...instructionEditWrapperStateProps }>
-            <HoverableEditWrapper>
+            <HoverableEditWrapper className='request-document-instruction'>
               <RichTextEditable
-                className='request-document-instruction'
                 placeholder='We’ll notify you when the document is made available.'
                 fieldname='document_request_instruction'
               />
