@@ -14,6 +14,7 @@ import { spy, stub, useFakeTimers } from 'sinon';
 import { StyleRoot } from 'radium';
 
 import RequestDocumentModalContent from 'components/generic-modal/request-document-modal-content';
+import { RawContentStateFactory } from 'utils/test/factories/draft';
 
 
 describe('RequestDocumentModalContent component', function () {
@@ -26,12 +27,27 @@ describe('RequestDocumentModalContent component', function () {
   });
 
   it('should initial render form with text box and "Enter", "Cancel" button', function () {
+    const instructionEditWrapperStateProps = {
+      fields: {
+        'document_request_instruction': {
+          type: 'rich_text',
+          name: 'document_request_instruction',
+          value: RawContentStateFactory.build(
+            {}, { blockTexts: ['We’ll notify you when the document is made available.'] }
+          )
+        }
+      },
+      sectionEditModeOn: false,
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy()
+    };
     element = renderIntoDocument(
-      <RequestDocumentModalContent/>
+      <RequestDocumentModalContent instructionEditWrapperStateProps={ instructionEditWrapperStateProps }/>
     );
     const domElement = findDOMNode(element);
 
-    domElement.textContent.should.containEql('We’ll notify you when the document is made available');
+    domElement.textContent.should.containEql('We’ll notify you when the document is made available.');
     element.state.warning.should.be.false();
     let inputDOMElements = scryRenderedDOMComponentsWithTag(element, 'input');
     inputDOMElements[0].getAttribute('placeholder').should.be.eql('Your email');

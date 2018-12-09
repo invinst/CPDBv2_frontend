@@ -10,6 +10,7 @@ import { findDOMNode } from 'react-dom';
 import { unmountComponentSuppressError } from 'utils/test';
 import TRRDocument from 'components/trr-page/trr-info-section/trr-document';
 import RequestDocumentButton from 'components/common/request-document-button';
+import { RawContentStateFactory } from 'utils/test/factories/draft';
 
 
 describe('Row component', function () {
@@ -20,11 +21,27 @@ describe('Row component', function () {
   });
 
   it('should render no document title and RequestDocumentButton', function () {
+    const noAttachmentTextEditWrapperStateProps = {
+      fields: {
+        'no_attachment_text': {
+          type: 'rich_text',
+          name: 'no_attachment_text',
+          value: RawContentStateFactory.build(
+            {}, { blockTexts: ['There are no documents that have been made public yet.'] }
+          )
+        }
+      },
+      sectionEditModeOn: false,
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy()
+    };
     const openRequestTRRDocumentModal = spy();
     instance = renderIntoDocument(
       <TRRDocument
         alreadyRequested={ true }
         openRequestTRRDocumentModal={ openRequestTRRDocumentModal }
+        noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
       />
     );
 
