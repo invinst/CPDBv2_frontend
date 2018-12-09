@@ -13,7 +13,7 @@ export default class HoverableEditWrapper extends Component {
       return (
         <div
           style={ { ...style } }
-          className={ `${ baseStyle.hoverableEditWrapper } ${ className }` }
+          className={ `${ baseStyle.hoverableEditWrapper } hoverable ${ className }` }
         >
           {
             sectionEditModeOn
@@ -45,10 +45,13 @@ export default class HoverableEditWrapper extends Component {
 }
 
 HoverableEditWrapper.propTypes = {
-  hovering: PropTypes.bool,
   style: PropTypes.object,
   children: PropTypes.node,
   className: PropTypes.string,
+};
+
+HoverableEditWrapper.defaultProps = {
+  className: '',
 };
 
 HoverableEditWrapper.contextTypes = {

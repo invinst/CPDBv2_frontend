@@ -15,6 +15,9 @@ import { StyleRoot } from 'radium';
 
 import RequestDocumentModalContent from 'components/generic-modal/request-document-modal-content';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 describe('RequestDocumentModalContent component', function () {
@@ -53,6 +56,11 @@ describe('RequestDocumentModalContent component', function () {
     inputDOMElements[0].getAttribute('placeholder').should.be.eql('Your email');
     inputDOMElements[1].getAttribute('value').should.be.eql('Request');
     findRenderedDOMComponentWithTag(element, 'a').textContent.should.be.eql('Cancel');
+
+    const editWrapperStateProvider = findRenderedComponentWithType(element, EditWrapperStateProvider);
+    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
+    const editableNoDocumentText = findRenderedComponentWithType(hoverableEditWrapper, RichTextEditable);
+    editableNoDocumentText.props.fieldname.should.equal('document_request_instruction');
   });
 
   it('should call closeEvent when click to Close link', function () {
