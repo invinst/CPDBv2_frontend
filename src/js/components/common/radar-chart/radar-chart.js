@@ -9,7 +9,7 @@ import RadarSpineLine from './radar-spine-line';
 import RadarLegend from './radar-legend';
 import RadarGrid from './radar-grid';
 import { curveLinearClosed, radialLine } from 'd3-shape';
-import { oldLaceColor } from 'utils/styles';
+import { linenColor } from 'utils/styles';
 
 
 export default class RadarChart extends Component {
@@ -138,7 +138,7 @@ RadarChart.defaultProps = {
   height: 392,
   radius: 146,
   legendText: '',
-  backgroundColor: oldLaceColor,
+  backgroundColor: linenColor,
   showAxisTitle: false,
   showAxisValue: false,
   showArea: false,

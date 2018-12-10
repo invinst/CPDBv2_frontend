@@ -2,14 +2,14 @@ import React, { Component, PropTypes } from 'react';
 
 import RadarChart from './radar-chart';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
-import { boulderColor, clayGray, greyishColor, aubergineColor, culturedColor } from 'utils/styles';
+import { boulderColor, clayGray, greyishColor, softBlackColor, sugarCaneColor } from 'utils/styles';
 
 
 const PRINT_RADAR_CHART_STYLES = {
-  textColor: aubergineColor,
-  backgroundColor: culturedColor,
-  gridColor: aubergineColor,
-  boundaryAreaColor: culturedColor,
+  textColor: softBlackColor,
+  backgroundColor: sugarCaneColor,
+  gridColor: softBlackColor,
+  boundaryAreaColor: sugarCaneColor,
   gridOpacity: 0.5,
   strokeWidth: 0,
   radarMainAreaOpacity: 0.4,
