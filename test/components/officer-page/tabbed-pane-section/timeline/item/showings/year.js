@@ -19,9 +19,7 @@ describe('Year component', function () {
       isLastUnit: true,
       kind: 'YEAR',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Mobile Strike Force',
-      unitDisplay: ' ',
       unitName: '153',
     };
 

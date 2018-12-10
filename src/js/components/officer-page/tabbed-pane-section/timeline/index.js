@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { values, get, mapValues, findKey, map } from 'lodash';
-import cx from 'classnames';
 
 import Item from './item';
 import { NEW_TIMELINE_FILTERS, POPUP_NAMES } from 'utils/constants';
@@ -30,21 +29,21 @@ export default class Timeline extends Component {
 
     return (
       <div className='timeline-header no-print'>
-        <div className='rank-header test--timeline-header-col'>
+        <div className='rank-header'>
           RANK
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.RANK) }
             url={ pathname }
           />
         </div>
-        <div className='unit-header test--timeline-header-col'>
+        <div className='unit-header'>
           UNIT
           <Popup
             { ...get(popup, POPUP_NAMES.OFFICER.UNIT) }
             url={ pathname }
           />
         </div>
-        <div className='showing-content-header test--timeline-header-col'>
+        <div className='showing-content-header'>
           <div className='showing-text'>SHOWING</div>
           <Dropdown
             defaultValue={ NEW_TIMELINE_FILTERS.ALL.label }
@@ -55,7 +54,7 @@ export default class Timeline extends Component {
             labels={ labels }
           />
         </div>
-        <div className='date-header test--timeline-header-col'>DATE</div>
+        <div className='date-header'>DATE</div>
       </div>
     );
   }
@@ -84,7 +83,7 @@ export default class Timeline extends Component {
 
   render() {
     return (
-      <div className={ cx(styles.timeline, 'test--officer-timeline') }>
+      <div className={ styles.timeline }>
         { this.renderHeader() }
         { this.renderItems() }
       </div>

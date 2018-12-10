@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import ReactDOM from 'react-dom';
-import cx from 'classnames';
 
 import { MAP_INFO, MAP_ITEMS, MAPBOX_STYLE } from 'utils/constants';
 import { mapboxgl } from 'utils/vendors';
@@ -85,7 +84,7 @@ export default class Map extends Component {
   render() {
     const { legend } = this.props;
     return (
-      <div className={ cx(styles.map, 'test--officer-map') }>
+      <div className={ styles.map }>
         <div ref={ this.gotRef.bind(this) } className='map-tab'/>
         <Legend legend={ legend } />
       </div>

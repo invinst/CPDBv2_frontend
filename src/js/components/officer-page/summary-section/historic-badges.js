@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import styles from './history-badges.sass';
 
@@ -9,7 +8,7 @@ export default class HistoricBadges extends Component {
     const { historicBadges } = this.props;
 
     return (historicBadges && historicBadges.length > 0) ? (
-      <span className={ cx(styles.historicBadges, 'test--historic-badges') }>
+      <span className={ styles.historicBadges }>
         Historic: { historicBadges.join(', ') }
       </span>
     ) : null;

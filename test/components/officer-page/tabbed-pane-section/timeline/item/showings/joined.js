@@ -22,9 +22,7 @@ describe('Joined component', function () {
       isLastUnit: true,
       kind: 'JOINED',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Recruit Training Section',
-      unitDisplay: ' ',
       unitName: 'Unit 044',
       year: 1988,
     };
@@ -47,9 +45,7 @@ describe('Joined component', function () {
       isLastUnit: true,
       kind: 'JOINED',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Some description',
-      unitDisplay: 'Unassigned',
       unitName: 'Unassigned',
       year: 1988,
     };
@@ -72,10 +68,8 @@ describe('Joined component', function () {
       isLastUnit: true,
       kind: 'JOINED',
       unitDescription: 'Some description',
-      unitDisplay: 'Unassigned',
       unitName: 'Unassigned',
       rank: 'Unknown',
-      rankDisplay: 'Unknown',
       year: 1988,
     };
     instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } />);

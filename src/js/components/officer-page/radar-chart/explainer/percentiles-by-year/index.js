@@ -1,7 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import MediaQuery from 'react-responsive';
 import { includes } from 'lodash';
-import cx from 'classnames';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
@@ -26,7 +25,7 @@ export default class PercentilesByYear extends Component {
     const data = yearlyRadarChartData ? [].concat(yearlyRadarChartData).reverse() : [];
 
     return (
-      <div className={ cx(styles.percentilesByYear, 'test--percentile-by-year') }>
+      <div className={ styles.percentilesByYear }>
         <h4 className='percentiles-by-year-header'>CUMULATIVE PERCENTILES BY YEAR</h4>
         <div className='table-header'>
           <div className='table-header-item'>Internal Complaints</div>

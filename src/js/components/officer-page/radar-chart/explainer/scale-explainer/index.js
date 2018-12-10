@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
@@ -24,7 +23,7 @@ export default class ScaleExplainer extends Component {
     };
 
     return (
-      <div className={ cx(styles.scaleExplainer, 'test--scale-explainer') }>
+      <div className={ styles.scaleExplainer }>
         <div className='radar-container'>
           <StaticRadarChart
             { ...radarConfig }
@@ -37,12 +36,12 @@ export default class ScaleExplainer extends Component {
           <EditWrapperStateProvider { ...editWrapperStateProps }>
             <HoverableEditWrapper>
               <RichTextEditable
-                className={ cx(styles.scaleExplainerText, 'test--scale-explain-text') }
+                className={ styles.scaleExplainerText }
                 placeholder='scale explain text'
                 fieldname='scale_description'
               />
               <RichTextEditable
-                className={ cx(styles.scaleExplainerSubtext, 'test--scale-explain-sub-text') }
+                className={ styles.scaleExplainerSubtext }
                 placeholder='scale explain sub text'
                 fieldname='scale_sub_description'
               />

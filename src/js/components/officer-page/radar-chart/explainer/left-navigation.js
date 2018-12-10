@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import styles from './left-navigation.sass';
 
@@ -10,7 +9,7 @@ export default class LeftNavigation extends Component {
 
     return (
       <span
-        className={ cx(styles.leftNavigation, 'test--radar-explainer-navigation-left') }
+        className={ styles.leftNavigation }
         onClick={ onClickHandler }
       >
         <div className='left-arrow'/>
@@ -23,5 +22,4 @@ export default class LeftNavigation extends Component {
 LeftNavigation.propTypes = {
   text: PropTypes.string,
   onClickHandler: PropTypes.func,
-  hovering: PropTypes.bool,
 };

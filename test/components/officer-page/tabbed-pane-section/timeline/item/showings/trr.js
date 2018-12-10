@@ -25,9 +25,7 @@ describe('Trr component', function () {
       kind: 'FORCE',
       category: 'Use of Force Report',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Recruit Training Section',
-      unitDisplay: ' ',
       unitName: '153',
     };
 

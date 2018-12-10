@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import styles from './marker-tooltip.sass';
 
@@ -9,7 +8,7 @@ export default class MarkerTooltip extends Component {
   render() {
     const { kind, id, category, coaccused, victims } = this.props;
     return (
-      <div className={ cx(styles.markerTooltip, 'test--marker-tooltip') }>
+      <div className={ styles.markerTooltip }>
         <div className='marker-tooltip-row'>
           <div className='marker-tooltip-title'>
             { kind } { id }
@@ -26,7 +25,7 @@ export default class MarkerTooltip extends Component {
                 <div className='marker-tooltip-title'>
                   Victim
                 </div>
-                <div className={ cx('marker-tooltip-category', 'test--marker-tooltip-victims') }>
+                <div className='marker-tooltip-category'>
                   { victims.map((victim, index) => {
                     return (
                       <div className='test--marker-tooltip-victim' key={ index }>

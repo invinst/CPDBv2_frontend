@@ -11,7 +11,7 @@ export default class ViewUnitProfileButton extends Component {
 
     return (
       <Link
-        className={ cx(styles.viewUnitProfileButton, 'no-print', 'test--view-profile-button') }
+        className={ cx(styles.viewUnitProfileButton, 'no-print') }
         to={ `/unit/${unitName}/` }
       >
         <span className='view-unit-profile-button-text'>View Unit Profile</span>
@@ -22,6 +22,5 @@ export default class ViewUnitProfileButton extends Component {
 }
 
 ViewUnitProfileButton.propTypes = {
-  hovering: PropTypes.bool,
   unitName: PropTypes.string
 };

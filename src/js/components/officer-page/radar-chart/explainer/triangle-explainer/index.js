@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
@@ -20,7 +19,7 @@ export default class TriangleExplainer extends Component {
     };
 
     return (
-      <div className={ cx(styles.triangleExplainer, 'test--triangle-explainer') }>
+      <div className={ styles.triangleExplainer }>
         <div className='radar-container'>
           <StaticRadarChart { ...radarConfig } data={ radarChartData }/>
         </div>
@@ -29,12 +28,12 @@ export default class TriangleExplainer extends Component {
           <EditWrapperStateProvider { ...editWrapperStateProps }>
             <HoverableEditWrapper>
               <RichTextEditable
-                className={ cx(styles.triangleExplainerText, 'test--triangle-explain-text') }
+                className={ styles.triangleExplainerText }
                 placeholder='triangle explain text'
                 fieldname='triangle_description'
               />
               <RichTextEditable
-                className={ cx(styles.triangleExplainerSubtext, 'test--triangle-explain-sub-text') }
+                className={ styles.triangleExplainerSubtext }
                 placeholder='triangle explain sub text'
                 fieldname='triangle_sub_description'
               />

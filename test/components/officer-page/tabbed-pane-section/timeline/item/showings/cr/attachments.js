@@ -13,6 +13,7 @@ import OutboundLink from 'components/common/outbound-link';
 import * as domUtils from 'utils/dom';
 import { unmountComponentSuppressError } from 'utils/test';
 import * as GATracking from 'utils/google_analytics_tracking';
+import styles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments.sass';
 
 
 describe('Attachments component', function () {
@@ -105,6 +106,6 @@ describe('Attachments component', function () {
 
   it('should render an empty span when attachments is empty', function () {
     instance = renderIntoDocument(<Attachments attachments={ [] }/>);
-    scryRenderedDOMComponentsWithClass(instance, 'test--empty-attachment').should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, styles.attachments).should.have.length(1);
   });
 });

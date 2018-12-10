@@ -11,7 +11,7 @@ export default class Heading extends Component {
     const { crid, category, finding, outcome, date, coaccused } = this.props.complaint;
 
     return (
-      <Link to={ `/complaint/${crid}/` } className={ cx(styles.heading, 'test--attachments-heading') }>
+      <Link to={ `/complaint/${crid}/` } className={ styles.heading }>
         <div className='heading-box'>
           <div className='heading-kind-wrapper'>
             <span className={ cx('attachments-heading-kind', { 'active': finding === 'Sustained' }) }>

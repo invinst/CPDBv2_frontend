@@ -25,15 +25,12 @@ describe('Timeline component', function () {
 
   it('should render headers correctly', function () {
     instance = renderIntoDocument(<Timeline />);
-    findRenderedDOMComponentWithClass(instance, 'timeline-header');
-    const cols = scryRenderedDOMComponentsWithClass(instance, 'test--timeline-header-col');
-
-    cols.should.have.length(4);
-    cols[0].textContent.should.containEql('RANK');
-    cols[1].textContent.should.containEql('UNIT');
-    cols[2].textContent.should.containEql('SHOWING');
-    cols[2].textContent.should.containEql('ALL');
-    cols[3].textContent.should.containEql('DATE');
+    findRenderedDOMComponentWithClass(instance, 'rank-header').textContent.should.containEql('RANK');
+    findRenderedDOMComponentWithClass(instance, 'unit-header').textContent.should.containEql('UNIT');
+    const contentHeader = findRenderedDOMComponentWithClass(instance, 'showing-content-header');
+    contentHeader.textContent.should.containEql('SHOWING');
+    contentHeader.textContent.should.containEql('ALL');
+    findRenderedDOMComponentWithClass(instance, 'date-header').textContent.should.containEql('DATE');
   });
 
   it('should render rank and unit popups', function () {

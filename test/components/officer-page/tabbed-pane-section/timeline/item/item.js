@@ -53,7 +53,6 @@ describe('Item component', function () {
       date: 'Jan 01',
       kind: 'AWARD',
       unitName: 'Unit 001',
-      unitDescription: 'Mobile Strike Force',
       rank: 'Police Officer',
       isAfterRankChange: true,
       isAfterUnitChange: true,

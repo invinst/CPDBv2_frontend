@@ -9,7 +9,7 @@ export default class Row extends Component {
   render() {
     const { text, number, className } = this.props;
     return (
-      <div className={ cx(styles.row, 'test--legend-row') }>
+      <div className={ styles.row }>
         <span className={ cx('legend-row-oval', className) } />
         <span className='legend-row-text'>{ text }</span>
         <span className='legend-row-number'>{ number }</span>
