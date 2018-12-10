@@ -40,7 +40,7 @@ export default class TabbedPaneSection extends Component {
     const CurrentComponent = get(tabbedPaneMap, `${currentTab}.component`, null);
     return (
       <div className={ cx(styles.tabbedPaneSection, 'tabbed-pane-section') }>
-        <div className='tabbed-pane-section-menu'>
+        <div className='tabbed-pane-section-menu no-print'>
           {
             keys(tabbedPaneMap).map(paneName => (
               get(tabbedPaneMap, `${paneName}.show`) ? (

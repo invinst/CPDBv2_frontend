@@ -9,12 +9,13 @@ import styles from './trr.sass';
 export default class Trr extends Component {
   render() {
     const { item } = this.props;
+    const { printMode } = this.context;
 
     return (
       <Link className={ cx(baseStyles.baseItem, styles.trr) } to={ `/trr/${item.trrId}/` }>
         <span className='item-content trr-item-content'>
           <div className='item-wrapper-kind'>
-            <span className='item-kind trr-item-kind'>Force</span>
+            <span className='item-kind trr-item-kind'>{ printMode ? `TRR ${item.trrId}` : 'Force' }</span>
           </div>
           <span className='item-category trr-item-category'>
             { item.category }
@@ -28,4 +29,8 @@ export default class Trr extends Component {
 
 Trr.propTypes = {
   item: PropTypes.object,
+};
+
+Trr.contextTypes = {
+  printMode: PropTypes.bool,
 };

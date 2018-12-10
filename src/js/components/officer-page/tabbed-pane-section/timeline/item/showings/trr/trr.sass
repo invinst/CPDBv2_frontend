@@ -3,8 +3,6 @@
 $height: 58px
 
 \:local(.trr)
-  background-color: $snow-color
-
   .trr-item-content
     height: $height
     line-height: calc(#{$height} - 1px)
@@ -16,6 +14,10 @@ $height: 58px
       background-color: $clay-gray
       font-weight: 300
 
+      @media print
+        background-color: $white-two-color
+        width: 85px
+
     .trr-item-category
       display: inline-block
       vertical-align: middle
@@ -25,6 +27,10 @@ $height: 58px
     font-size: 12px
     color: $soft-black-color
     font-weight: 300
+
+    @media print
+      font-size: 10px
+      font-weight: 400
 
   &:hover
     background-color: white

@@ -1,10 +1,10 @@
 import { softBlackColor } from 'utils/styles';
 
 
-export const radarMainAreaStyle = {
+export const radarMainAreaStyle = (radarMainAreaOpacity) => ({
   fill: softBlackColor,
-  fillOpacity: 1
-};
+  fillOpacity: radarMainAreaOpacity
+});
 
 export const radarMainStrokeStyle = {
   stroke: softBlackColor,

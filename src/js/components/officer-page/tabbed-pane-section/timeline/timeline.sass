@@ -5,6 +5,13 @@
   margin: 0 16px 128px 16px
   padding: 0 15px 128px 16px
   border: solid 1px $alto-color
+  page-break-before: always
+
+  @media print
+    background-color: unset
+    border: none
+    margin: 0
+    padding: 0
 
   .timeline-header
     width: 100%

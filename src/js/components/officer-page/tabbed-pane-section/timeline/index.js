@@ -28,7 +28,7 @@ export default class Timeline extends Component {
     );
 
     return (
-      <div className='timeline-header'>
+      <div className='timeline-header no-print'>
         <div className='rank-header'>
           RANK
           <Popup

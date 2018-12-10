@@ -9,6 +9,7 @@ export default class Joined extends Component {
 
   render() {
     const { item } = this.props;
+    const { printMode } = this.context;
 
     const unitString = item.unitName === 'Unassigned' ? '' : ` with ${item.unitName}`;
     const rankString = item.rank === 'Unknown' ? '' : ` as a ${item.rank}`;
@@ -16,6 +17,7 @@ export default class Joined extends Component {
     return (
       <span className={ cx(baseStyles.baseItem, styles.joined) }>
         <span className='item-content joined-item-content'>
+          { printMode ? <span className='joined-item-text'>JOINED</span> : null }
           <span className='joined-item-join'>
             Joined Chicago Police Department{ unitString }{ rankString }
           </span>
@@ -28,4 +30,8 @@ export default class Joined extends Component {
 
 Joined.propTypes = {
   item: PropTypes.object,
+};
+
+Joined.contextTypes = {
+  printMode: PropTypes.bool,
 };

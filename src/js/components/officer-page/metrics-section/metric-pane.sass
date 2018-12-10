@@ -12,6 +12,9 @@
   &.dashed-border
     border-top: 1px dotted $white-two-color
 
+  @media print
+    padding: 19px 0 18px 0
+
   .metrics-pane-value
     height: 32px
     line-height: 32px
@@ -19,6 +22,10 @@
     font-weight: 400
     text-align: center
     color: $clay-gray
+
+    @media print
+      font-size: 24px
+      font-weight: 500
 
   .metrics-pane-name
     height: 18px
@@ -29,6 +36,10 @@
     color: $clay-gray
     text-align: center
 
+    @media print
+      font-size: 12px
+      font-weight: 500
+
   .metrics-pane-description
     height: 14px
     line-height: 14px
@@ -37,6 +48,10 @@
     font-weight: 300
     color: $clay-gray
     text-align: center
+
+    @media print
+      font-size: 10px
+      font-weight: 500
 
   &.active
     .metrics-pane-value

@@ -9,11 +9,8 @@ import styles from './cr.sass';
 
 export default class Cr extends Component {
   render() {
-    const {
-      item,
-      changeOfficerTab,
-      pathname,
-    } = this.props;
+    const { item, changeOfficerTab, pathname, } = this.props;
+    const { printMode } = this.context;
 
     return (
       <Link
@@ -23,7 +20,7 @@ export default class Cr extends Component {
         <span className='item-content cr-item-content'>
           <div className='item-wrapper-kind'>
             <span className={ cx('cr-item-kind', 'item-kind', { 'active': item.finding === 'Sustained' }) }>
-              Complaint
+              { printMode ? `CR ${item.crid}` : 'Complaint' }
             </span>
           </div>
           <span className='cr-detail'>
@@ -34,7 +31,7 @@ export default class Cr extends Component {
             <div className='cr-item-finding'>{ item.finding }, { item.outcome }</div>
           </span>
           <span className='cr-right'>
-            <span className='cr-item-coaccused'>1 of { item.coaccused } coaccused</span>
+            <span className='cr-item-coaccused no-print'>1 of { item.coaccused } coaccused</span>
             <Attachments attachments={ item.attachments } changeOfficerTab={ changeOfficerTab } pathname={ pathname } />
             <span className='item-date cr-item-date'>{ item.date }</span>
           </span>
@@ -49,4 +46,8 @@ Cr.propTypes = {
   officerId: PropTypes.number,
   changeOfficerTab: PropTypes.func,
   pathname: PropTypes.string,
+};
+
+Cr.contextTypes = {
+  printMode: PropTypes.bool,
 };

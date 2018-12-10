@@ -83,6 +83,9 @@ export const darkSlateGrayColor = '#464243';
 export const darkSapphireBlue = '#556080';
 export const boulderColor = '#767676';
 export const azaleaColor = '#F5CCCC';
+export const aubergineColor = '#231F20';
+export const culturedColor = '#F5F4F4';
+export const oldLaceColor = '#FDFAF2';
 
 export const sanFranciscoTextFamily = '"San Francisco Text", sans-serif';
 export const minionProFamily = '"Minion Pro Regular", sans-serif';

@@ -2,12 +2,25 @@ import React, { Component, PropTypes } from 'react';
 
 import RadarChart from './radar-chart';
 import { hasEnoughRadarChartData } from 'utils/radar-chart';
-import { boulderColor, clayGray, greyishColor } from 'utils/styles';
+import { boulderColor, clayGray, greyishColor, aubergineColor, culturedColor } from 'utils/styles';
 
+
+const PRINT_RADAR_CHART_STYLES = {
+  textColor: aubergineColor,
+  backgroundColor: culturedColor,
+  gridColor: aubergineColor,
+  boundaryAreaColor: culturedColor,
+  gridOpacity: 0.5,
+  strokeWidth: 0,
+  radarMainAreaOpacity: 0.4,
+};
 
 export default class StaticRadarChart extends Component {
   render() {
     const { data, width, height, radius } = this.props;
+
+    const { printMode } = this.context;
+    const radarChartPrintStyle = printMode ? PRINT_RADAR_CHART_STYLES : {};
 
     if (!hasEnoughRadarChartData(data)) {
       return (
@@ -20,11 +33,12 @@ export default class StaticRadarChart extends Component {
           showGrid={ true }
           gridColor={ clayGray }
           boundaryAreaColor={ greyishColor }
+          { ...radarChartPrintStyle }
         />
       );
     }
 
-    return <RadarChart{ ...this.props }/>;
+    return <RadarChart{ ...this.props } { ...radarChartPrintStyle }/>;
   }
 }
 
@@ -59,3 +73,6 @@ StaticRadarChart.propTypes = {
   fadeOutLegend: PropTypes.bool,
 };
 
+StaticRadarChart.contextTypes = {
+  printMode: PropTypes.bool,
+};
