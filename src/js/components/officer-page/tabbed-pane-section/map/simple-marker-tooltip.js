@@ -1,24 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 
-import {
-  contentStyle,
-  rowStyle,
-  titleStyle,
-  wrapperStyle
-} from './simple-marker-tooltip.style';
+import styles from './simple-marker-tooltip.sass';
 
 
 export default class SimpleMarkerTooltip extends Component {
-
   render() {
     const { kind, id, category } = this.props;
     return (
-      <div style={ wrapperStyle } className='test--marker-tooltip'>
-        <div style={ rowStyle }>
-          <div className='test--marker-tooltip-kind-id' style={ titleStyle }>
+      <div className={ styles.simpleMarkerTooltip }>
+        <div className='simple-marker-tooltip-row'>
+          <div className='simple-marker-tooltip-title'>
             { kind } { id }
           </div>
-          <div className='test--marker-tooltip-category' style={ contentStyle }>
+          <div className='simple-marker-tooltip-category'>
             { category }
           </div>
         </div>

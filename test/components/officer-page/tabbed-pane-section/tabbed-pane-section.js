@@ -45,7 +45,7 @@ describe('TabbedPaneSection component', function () {
       </Provider>
     );
 
-    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name');
+    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'tabbed-pane-tab-name');
 
     tabNames.should.have.length(4);
     tabNames[0].textContent.should.be.eql('TIMELINE');
@@ -66,7 +66,7 @@ describe('TabbedPaneSection component', function () {
       </Provider>
     );
 
-    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name');
+    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'tabbed-pane-tab-name');
 
     tabNames.should.have.length(1);
     tabNames[0].textContent.should.be.eql('TIMELINE');
@@ -125,7 +125,7 @@ describe('TabbedPaneSection component', function () {
       </Provider>
     );
 
-    const mapTab = scryRenderedDOMComponentsWithClass(instance, 'test--tabbed-pane-tab-name')[1];
+    const mapTab = scryRenderedDOMComponentsWithClass(instance, 'tabbed-pane-tab-name')[1];
     Simulate.click(mapTab);
 
     stubChangeOfficerTab.should.be.calledWith('MAP');

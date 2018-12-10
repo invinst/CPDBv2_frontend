@@ -1,0 +1,33 @@
+@import 'variables'
+
+\:local(.view-unit-profile-button)
+  height: 28px
+  line-height: 28px
+  font-weight: 300
+  color: $clay-gray
+  cursor: pointer
+  margin-top: 6px
+  padding: 0 8px 0 9px
+  background-color: $sugar-cane-color
+  border-radius: 2px
+  display: block
+
+  .view-unit-profile-button-text
+    vertical-align: middle
+    font-size: 14px
+    font-weight: 300
+    line-height: 28px
+
+  .view-unit-profile-button-arrow
+    background: url('/img/disclosure-indicator.svg') 14px 0 no-repeat scroll
+    width: 8px
+    height: 13px
+    vertical-align: middle
+    padding-right: 14px
+    display: inline-block
+
+  &:hover
+    color: $accent-color
+
+    .view-unit-profile-button-arrow
+      background: url('/img/disclosure-indicator-hover.svg') 14px 0 no-repeat scroll

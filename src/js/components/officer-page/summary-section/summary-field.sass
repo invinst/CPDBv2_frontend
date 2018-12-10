@@ -1,0 +1,28 @@
+@import 'variables'
+
+\:local(.summary-field)
+  margin: 0 16px
+  width: calc(100% - 32px)
+  height: 40px
+  line-height: 39px
+  border-top: solid 1px $white-two-color
+  box-sizing: border-box
+  overflow-x: hidden
+  overflow-y: auto
+  -webkit-overflow-scrolling: touch
+
+  .summary-field-label
+    display: inline-block
+    color: $medium-gray-color
+    font-weight: 300
+    font-size: 14px
+    font-family: $san-francisco-text-family
+    width: 117px
+
+  .summary-field-value
+    display: inline-block
+    color: $hard-black-color
+
+  .summary-field-extra-info
+    display: inline-block
+    float: right

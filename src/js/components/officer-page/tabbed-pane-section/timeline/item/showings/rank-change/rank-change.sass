@@ -1,0 +1,32 @@
+@import 'variables'
+
+$height: 24px
+
+\:local(.rank-change)
+  background-color: inherit
+
+  .rank-change-item-content
+    height: $height
+    line-height: calc(#{$height} - 1px)
+    display: inline-block
+
+    .rank-change-info
+      display: inline-block
+      width: calc(100% - 44px)
+      text-align: center
+      font-size: 12px
+
+      .old-rank
+        color: $clay-gray
+
+        &.unassigned
+          font-style: italic
+
+      .new-rank
+        color: $soft-black-color
+
+
+    .rank-change-item-date
+      font-size: 12px
+      color: $soft-black-color
+      font-weight: 300

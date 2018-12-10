@@ -1,26 +1,17 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import cx from 'classnames';
 
-import {
-  showingStyle,
-  wrapperShowingStyle,
-} from './empty.style';
+import baseStyles from '../base-item.sass';
+import styles from './empty.sass';
 
 
 export default class Empty extends Component {
 
   render() {
-    const { hasBorderBottom, baseStyles } = this.props;
-    const { baseShowingStyle, baseWrapperShowingStyle } = baseStyles;
-
     return (
-      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } } className='test--empty-item-showing'>
-        <div style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }/>
+      <span className={ cx(baseStyles.baseItem, styles.empty) }>
+        <div className='item-content empty-showing'/>
       </span>
     );
   }
 }
-
-Empty.propTypes = {
-  hasBorderBottom: PropTypes.bool,
-  baseStyles: PropTypes.object,
-};

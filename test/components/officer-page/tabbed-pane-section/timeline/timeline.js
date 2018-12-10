@@ -11,9 +11,9 @@ import { stub } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Timeline from 'components/officer-page/tabbed-pane-section/timeline';
-import Item from 'components/officer-page/tabbed-pane-section/timeline/item';
 import Dropdown from 'components/common/dropdown';
 import Popup from 'components/common/popup';
+import Item from 'components/officer-page/tabbed-pane-section/timeline/item';
 
 
 describe('Timeline component', function () {
@@ -25,15 +25,12 @@ describe('Timeline component', function () {
 
   it('should render headers correctly', function () {
     instance = renderIntoDocument(<Timeline />);
-    findRenderedDOMComponentWithClass(instance, 'test--timeline-header');
-    const cols = scryRenderedDOMComponentsWithClass(instance, 'test--timeline-header-col');
-
-    cols.should.have.length(4);
-    cols[0].textContent.should.containEql('RANK');
-    cols[1].textContent.should.containEql('UNIT');
-    cols[2].textContent.should.containEql('SHOWING');
-    cols[2].textContent.should.containEql('ALL');
-    cols[3].textContent.should.containEql('DATE');
+    findRenderedDOMComponentWithClass(instance, 'rank-header').textContent.should.containEql('RANK');
+    findRenderedDOMComponentWithClass(instance, 'unit-header').textContent.should.containEql('UNIT');
+    const contentHeader = findRenderedDOMComponentWithClass(instance, 'showing-content-header');
+    contentHeader.textContent.should.containEql('SHOWING');
+    contentHeader.textContent.should.containEql('ALL');
+    findRenderedDOMComponentWithClass(instance, 'date-header').textContent.should.containEql('DATE');
   });
 
   it('should render rank and unit popups', function () {
@@ -56,77 +53,6 @@ describe('Timeline component', function () {
     timelinePopup[1].props.title.should.eql('Unit');
     timelinePopup[1].props.text.should.eql('Some unit explanation');
     timelinePopup[1].props.url.should.eql('/officer/8562/jerome-finnigan/');
-  });
-
-  it('should render items with correct borders', function () {
-    const year = {
-      date: '1994',
-      hasData: true,
-      isLastUnit: true,
-      kind: 'YEAR',
-      rank: 'Police Officer',
-      rankDisplay: ' ',
-      unitDescription: 'Mobile Strike Force',
-      unitDisplay: ' ',
-      unitName: '153',
-    };
-    const cr = {
-      attachments: [],
-      category: 'Illegal Search',
-      coaccused: 8,
-      crid: '267098',
-      date: 'NOV 8',
-      finding: 'Not Sustained',
-      isFirstRank: false,
-      isFirstUnit: false,
-      isLastRank: false,
-      isLastUnit: false,
-      kind: 'CR',
-      outcome: 'No Action Taken',
-      rank: 'Police Officer',
-      rankDisplay: ' ',
-      unitDescription: 'Mobile Strike Force',
-      unitDisplay: ' ',
-      unitName: '153',
-      year: 2000,
-    };
-    const joined = {
-      date: 'DEC 5',
-      isFirstRank: false,
-      isFirstUnit: false,
-      isLastRank: true,
-      isLastUnit: true,
-      kind: 'JOINED',
-      rank: 'Police Officer',
-      rankDisplay: ' ',
-      unitDescription: 'Recruit Training Section',
-      unitDisplay: ' ',
-      unitName: '044',
-      year: 1988,
-    };
-    const unitChange = {
-      date: 'APR 28',
-      isFirstRank: false,
-      isFirstUnit: false,
-      isLastRank: false,
-      isLastUnit: false,
-      kind: 'UNIT_CHANGE',
-      oldUnitDescription: 'Airport Law Enforcement Section - South',
-      oldUnitName: '051',
-      rank: 'Police Officer',
-      rankDisplay: ' ',
-      unitDescription: 'Mobile Strike Force',
-      unitDisplay: ' ',
-      unitName: '153',
-      year: 1994,
-    };
-    instance = renderIntoDocument(<Timeline items={ [cr, year, unitChange, year, joined] }/>);
-    const items = scryRenderedComponentsWithType(instance, Item);
-    items[0].props.hasBorderBottom.should.be.true();
-    items[1].props.hasBorderBottom.should.be.false();
-    items[2].props.hasBorderBottom.should.be.false();
-    items[3].props.hasBorderBottom.should.be.false();
-    items[4].props.hasBorderBottom.should.be.false();
   });
 
   it('should render dropdown with correct order', function () {
@@ -157,5 +83,36 @@ describe('Timeline component', function () {
       label: 'COMPLAINTS',
       kind: ['CR'],
     }).should.be.true();
+  });
+
+  it('should render items correctly', function () {
+    const items = [
+      {
+        date: '1988-12-05',
+        kind: 'JOINED',
+        rank: 'Police Officer',
+        'unit_description': 'Recruit Training Section',
+        'unit_name': '044',
+      },
+      {
+        date: 'Jan 01',
+        kind: 'AWARD',
+        unitName: 'Unit 001',
+        unitDescription: 'Mobile Strike Force',
+        rank: 'Police Officer',
+        isAfterRankChange: true,
+        isAfterUnitChange: true,
+      },
+      {
+        date: '1994',
+        hasData: true,
+        kind: 'YEAR',
+        rank: 'Police Officer',
+        unitDescription: 'Mobile Strike Force',
+        unitName: 'Unit 153',
+      }
+    ];
+    instance = renderIntoDocument(<Timeline items={ items } />);
+    scryRenderedComponentsWithType(instance, Item).should.have.length(3);
   });
 });

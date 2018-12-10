@@ -1,0 +1,57 @@
+@import 'variables'
+
+$height: 58px
+
+\:local(.cr)
+  background-color: $snow-color
+  cursor: pointer
+
+  .cr-item-content
+    height: $height
+    line-height: calc(#{$height} - 1px)
+
+    .cr-item-kind
+      width: 85px
+      border: solid 1px $champagne-color
+      color: $bright-orange-two-color
+      background-color: inherit
+
+      &.active
+        color: $scarlet-color
+        background-color: $champagne-color
+
+    .cr-detail
+      display: inline-block
+      vertical-align: middle
+
+      .cr-item-category
+        color: $soft-black-color
+
+      .cr-item-finding
+        font-weight: 300
+        line-height: 14px
+        font-size: 12px
+        color: $clay-gray
+
+    .cr-right
+      display: inline-block
+      float: right
+
+      .cr-item-coaccused
+        font-size: 14px
+        font-weight: 300
+        color: $clay-gray
+        display: inline-block
+
+      .cr-item-date
+        font-size: 12px
+        color: $soft-black-color
+        font-weight: 300
+        float: none
+
+  &:hover
+    background-color: white
+
+    .cr-item-content
+      .cr-detail
+        color: $accent-color

@@ -6,6 +6,7 @@ import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import HoverableMarker, { Marker } from 'components/officer-page/tabbed-pane-section/map/marker';
+import styles from 'components/officer-page/tabbed-pane-section/map/marker.sass';
 
 
 describe('Marker component', function () {
@@ -24,7 +25,7 @@ describe('Marker component', function () {
         hovering={ false }
       />
     );
-    scryRenderedDOMComponentsWithClass(instance, 'test--marker').should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, styles.marker).should.have.length(1);
   });
 
   it('should open CR page when clicked', function () {

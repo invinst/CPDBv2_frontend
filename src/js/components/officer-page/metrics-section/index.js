@@ -2,10 +2,10 @@ import React, { Component, PropTypes } from 'react';
 import { chunk, get, includes } from 'lodash';
 import pluralize from 'pluralize';
 
-import { metricSectionStyle, verticalLineStyle, wrapperStyle } from './metrics-section.style';
 import MetricsColumn from 'components/officer-page/metrics-section/metrics-column';
 import { roundedPercentile } from 'utils/calculations';
 import { POPUP_NAMES } from 'utils/constants';
+import styles from './metrics-section.sass';
 
 
 export default class MetricsSection extends Component {
@@ -95,12 +95,12 @@ export default class MetricsSection extends Component {
     const thirdChunk = metricChunks[2];
 
     return (
-      <div style={ wrapperStyle }>
-        <div style={ metricSectionStyle }>
+      <div className={ styles.metricsSection }>
+        <div className='metric-cells'>
           <MetricsColumn metrics={ firstChunk } dashedSeparator={ true } pathName={ pathName }/>
-          <div style={ verticalLineStyle }/>
+          <div className='vertical-line'/>
           <MetricsColumn metrics={ secondChunk } pathName={ pathName }/>
-          <div style={ verticalLineStyle }/>
+          <div className='vertical-line'/>
           <MetricsColumn metrics={ thirdChunk } pathName={ pathName }/>
         </div>
       </div>

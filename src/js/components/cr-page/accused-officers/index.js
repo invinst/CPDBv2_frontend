@@ -32,7 +32,6 @@ export default class AccusedOfficers extends Component {
           { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
           <Popup
             { ...popup }
-            position='relative'
             url={ pathName }
           />
         </h2>

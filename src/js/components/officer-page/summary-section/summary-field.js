@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import { wrapperStyle, labelStyle, valueStyle, extraInfoStyle } from './summary-field.style';
+import styles from './summary-field.sass';
 
 
 export default class SummaryField extends Component {
@@ -8,10 +8,10 @@ export default class SummaryField extends Component {
     const { label, value, style, children } = this.props;
 
     return (
-      <div style={ { ...wrapperStyle, ...style } }>
-        <span className='test--field-label' style={ labelStyle }>{ label }</span>
-        <span className='test--field-value' style={ valueStyle }>{ value }</span>
-        <span className='test--field-extra-info' style={ extraInfoStyle }> { children } </span>
+      <div className={ styles.summaryField } style={ { ...style } }>
+        <span className='summary-field-label'>{ label }</span>
+        <span className='summary-field-value'>{ value }</span>
+        <span className='summary-field-extra-info'> { children } </span>
       </div>
     );
   }

@@ -1,0 +1,50 @@
+@import 'variables'
+
+\:local(.metric-pane)
+  margin: 0 16px
+  padding: 28px 0 27px 0
+  border-top: none
+  position: relative
+
+  &:last-child
+    border-top: 1px solid $greyish-color
+
+  &.dashed-border
+    border-top: 1px dotted $white-two-color
+
+  .metrics-pane-value
+    height: 32px
+    line-height: 32px
+    font-size: 26px
+    font-weight: 400
+    text-align: center
+    color: $clay-gray
+
+  .metrics-pane-name
+    height: 18px
+    line-height: 18px
+    padding-top: 3px
+    font-size: 14px
+    font-weight: 400
+    color: $clay-gray
+    text-align: center
+
+  .metrics-pane-description
+    height: 14px
+    line-height: 14px
+    padding-top: 2px
+    font-size: 12px
+    font-weight: 300
+    color: $clay-gray
+    text-align: center
+
+  &.active
+    .metrics-pane-value
+      color: $soft-black-color
+
+    &.highlight-value
+      .metrics-pane-value
+        color: $bright-orange-two-color
+
+    .metrics-pane-name
+      color: $soft-black-color

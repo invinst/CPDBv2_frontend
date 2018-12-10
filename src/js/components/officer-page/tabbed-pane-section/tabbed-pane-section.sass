@@ -1,0 +1,23 @@
+@import 'variables'
+
+\:local(.tabbed-pane-section)
+  background-color: white
+
+  .tabbed-pane-section-menu
+    height: 64px
+    line-height: 64px
+    text-align: center
+
+  .tabbed-pane-tab-name
+    height: 36px
+    background-color: white
+    color: $accent-color
+    font-size: 14px
+    font-weight: 300
+    border-radius: 2px
+    padding: 8px 16px 10px 16px
+    cursor: pointer
+
+    &.active
+      background-color: $accent-color
+      color: white

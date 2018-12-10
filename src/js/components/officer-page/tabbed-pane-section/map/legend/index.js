@@ -1,8 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-import { brightOrangeTwoColor, champagneColor, clayGray, greyishColor } from 'utils/styles';
-import { wrapperStyle, } from './legend.style';
 
 import Row from './row';
+import styles from './legend.sass';
 
 
 export default class Legend extends Component {
@@ -10,22 +9,19 @@ export default class Legend extends Component {
   render() {
     const { legend } = this.props;
     return (
-      <div style={ wrapperStyle } className='test--legend'>
+      <div className={ styles.legend }>
         <Row
-          ovalColor='white'
-          ovalBorderColor={ brightOrangeTwoColor }
+          className='unsustained-complaint'
           text='Unsustained Complaint'
           number={ legend.unsustainedCount }
         />
         <Row
-          ovalColor={ champagneColor }
-          ovalBorderColor={ brightOrangeTwoColor }
+          className='sustained-complaint'
           text='Sustained Allegation'
           number={ legend.sustainedCount }
         />
         <Row
-          ovalColor={ greyishColor }
-          ovalBorderColor={ clayGray }
+          className='use-of-force-report'
           text='Use of Force Report'
           number={ legend.useOfForceCount }
         />

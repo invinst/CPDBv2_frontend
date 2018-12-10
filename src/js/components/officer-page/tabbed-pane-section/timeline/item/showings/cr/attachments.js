@@ -1,10 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
 import OutboundLink from 'components/common/outbound-link';
-import { imageStyle, wrapperStyle, moreStyle } from './attachments.style';
+import { imageStyle } from 'components/common/shared.style';
 import { scrollToElement } from 'utils/dom';
 import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
 import * as GATracking from 'utils/google_analytics_tracking';
+import styles from './attachments.sass';
 
 
 export default class Attachments extends Component {
@@ -26,13 +28,12 @@ export default class Attachments extends Component {
     if (firstAttachment) {
       const { url, previewImageUrl, fileType } = firstAttachment;
       return (
-        <span style={ wrapperStyle }>
+        <span className={ styles.attachments }>
           {
             rest.length
               ? (
                 <span
-                  style={ moreStyle }
-                  className='test--more-attachment'
+                  className='more-attachment'
                   onClick={ (e) => {
                     e.preventDefault();
                     e.stopPropagation();
@@ -47,19 +48,19 @@ export default class Attachments extends Component {
           }
           <OutboundLink
             href={ url }
-            className='test--attachment-image-href'
+            className='attachment-image-href'
             target='_blank'
             onClick={ this.handleClick }
           >
             <div
-              className='test--attachment-image'
-              style={ imageStyle(previewImageUrl, fileType) }
+              className={ cx('attachment-image', fileType) }
+              style={ imageStyle(previewImageUrl) }
             />
           </OutboundLink>
         </span>
       );
     }
-    return <span style={ wrapperStyle }/>;
+    return <span className={ styles.attachments }/>;
   }
 }
 
