@@ -7,13 +7,17 @@ import OfficerSection from './officer-section';
 import TRRInfoSection from './trr-info-section';
 import FooterContainer from 'containers/footer-container';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import Printable from 'components/common/higher-order/printable';
+import PrintNotes from 'components/common/print-notes';
 
 
-export default class TRRPage extends Component {
+export class TRRPage extends Component {
   render() {
     const {
-      trrId, officer, trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal, popup, pathName,
+      trrId, officer, trrLocation, trrDetail, trrDocument,
+      openRequestTRRDocumentModal, popup, pathName, notes
     } = this.props;
+    const { printMode } = this.context;
 
     return (
       <DocumentMeta title={ `TRR ${trrId}` }>
@@ -21,6 +25,15 @@ export default class TRRPage extends Component {
           <ShareableHeaderContainer/>
           <div className={ `${responsiveContainerStyles.responsiveContainer} trr-content` }>
             <h1 className='trr-title'>TRR { trrId }</h1>
+            { printMode ? <div className='trr-category-print'>{ trrDetail.category }</div> : null }
+            {
+              printMode ? (
+                <div className='incident-date-print'>
+                  <h3 className='incident-date-title-print'>DATE OF INCIDENT</h3>
+                  <div className='incident-date-value-print'>{ trrLocation.incidentDate }</div>
+                </div>
+              ) : null
+            }
             <OfficerSection officer={ officer }/>
             <TRRInfoSection
               trrLocation={ trrLocation }
@@ -31,6 +44,7 @@ export default class TRRPage extends Component {
               pathName={ pathName }
             />
           </div>
+          <PrintNotes notes={ notes }/>
           <FooterContainer/>
         </div>
       </DocumentMeta>
@@ -47,4 +61,11 @@ TRRPage.propTypes = {
   openRequestTRRDocumentModal: PropTypes.func,
   popup: PropTypes.object,
   pathName: PropTypes.string,
+  notes: PropTypes.array,
 };
+
+TRRPage.contextTypes = {
+  printMode: PropTypes.bool,
+};
+
+export default Printable(TRRPage);

@@ -24,7 +24,7 @@ export const getCareerDuration = (dateOfAppt, dateOfResignation) => {
 
   const careerStart = formatCareerDate(dateOfAppt);
   const careerEnd = dateOfResignation ? formatCareerDate(dateOfResignation) : 'Present';
-  return `${careerStart}—${careerEnd}`;
+  return `${careerStart} — ${careerEnd}`;
 };
 
 export const getCurrentAge = (birthYear) => (birthYear ? getThisYear() - birthYear : null);

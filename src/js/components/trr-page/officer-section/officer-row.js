@@ -9,7 +9,7 @@ import style from './officer-row.sass';
 
 export default class OfficerRow extends Component {
   render() {
-    const { percentile, fullName, officerId } = this.props;
+    const { percentile, fullName, officerId, rank } = this.props;
     const officerSlug = kebabCase(fullName);
 
     const visualTokenConfig = percentile ? {
@@ -22,16 +22,14 @@ export default class OfficerRow extends Component {
         className={ `navigation-button-container ${style.trrOfficerRow}` }
         to={ `/officer/${officerId}/${officerSlug}/` }
       >
-        <div className='trr-officer-row-visual-token'>
+        <div className={ 'trr-officer-row-visual-token no-print' }>
           <StaticRadarChart { ...visualTokenConfig }/>
         </div>
         <div className='trr-officer-row-name'>
-          <div className='trr-officer-row-rank'>Officer</div>
+          <div className='trr-officer-row-rank'>{ rank }</div>
           <div className='trr-officer-full-name'>{ fullName }</div>
         </div>
-        <NavigationButton
-          text='View Profile'
-        />
+        <NavigationButton text='View Profile'/>
       </Link>
     );
   }
@@ -41,5 +39,6 @@ OfficerRow.propTypes = {
   percentile: PropTypes.object,
   officerId: PropTypes.number,
   fullName: PropTypes.string,
+  rank: PropTypes.string,
   officerSlug: PropTypes.string,
 };

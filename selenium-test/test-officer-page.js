@@ -38,7 +38,7 @@ describe('officer page', function () {
     officerPage.summarySection.unitExtraInfo.getText().should.equal('View Unit Profile');
 
     officerPage.summarySection.careerLabel.getText().should.equal('Career');
-    officerPage.summarySection.careerValue.getText().should.equal('SEP 23, 2015—Present');
+    officerPage.summarySection.careerValue.getText().should.equal('SEP 23, 2015 — Present');
 
     officerPage.summarySection.rankLabel.getText().should.equal('Rank');
     officerPage.summarySection.rankValue.getText().should.equal('NA');

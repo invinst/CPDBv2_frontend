@@ -8,7 +8,7 @@ export default class TRRDocument extends Component {
   render() {
     const { alreadyRequested, openRequestTRRDocumentModal } = this.props;
     return (
-      <div className={ style.trrDocument }>
+      <div className={ `${style.trrDocument} no-print` }>
         <div className='trr-document-text'>
           There are no documents that have been made public yet.
         </div>
