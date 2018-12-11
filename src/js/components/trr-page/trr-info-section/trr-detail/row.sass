@@ -7,6 +7,9 @@
   box-sizing: border-box
   border-bottom: 1px solid $white-two-color
 
+  @media print
+    margin: 0
+
   &:last-child
     border-bottom: none
 
@@ -15,11 +18,34 @@
     width: calc((50% - 16px) * 0.34)
     display: inline-block
     padding: 12px 0
+    text-transform: uppercase
+
+    @media print
+      font-size: 12px
+      text-transform: capitalize
+
+    &.inline-print
+      @media print
+        display: block
+        color: black
+        font-size: 10px
+        font-weight: 600
+        padding: 13px 0 0 0
+        text-transform: uppercase
 
   .trr-detail-row-value
     width: calc(83% + 16px * 0.34)
     display: inline-block
     padding: 12px 0
 
+    @media print
+      font-size: 12px
+
     &.box
       padding: 8px 0
+
+    &.inline-print
+      @media print
+        display: block
+        font-size: 12px
+        padding: 0

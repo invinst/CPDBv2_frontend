@@ -1,25 +1,37 @@
 import React, { Component, PropTypes } from 'react';
 import { isEmpty } from 'lodash';
+import cx from 'classnames';
 
-import { wrapperStyle, valueStyle, nameStyle, descriptionStyle } from './metric-pane.style';
 import Popup from 'components/common/popup';
+import styles from './metric-pane.sass';
 
 
 export default class MetricPane extends Component {
 
   render() {
-    const { value, name, description, borderTop, dashedBorder, highlightValue, popup, pathName } = this.props;
+    const { value, name, description, dashedBorder, highlightValue, popup, pathName } = this.props;
     const active = value !== 0;
 
     return (
-      <div style={ wrapperStyle(borderTop, dashedBorder) }>
-        <div className='test--metrics-pane-value' style={ valueStyle(active, highlightValue) }>
+      <div
+        className={
+          cx(
+            styles.metricPane,
+            {
+              'active': active,
+              'dashed-border': dashedBorder,
+              'highlight-value': highlightValue
+            }
+          )
+        }
+      >
+        <div className='metrics-pane-value'>
           { value }
         </div>
-        <div className='test--metrics-pane-name' style={ nameStyle(active) }>
+        <div className='metrics-pane-name'>
           { name }
         </div>
-        <div className='test--metrics-pane-description' style={ descriptionStyle }>
+        <div className='metrics-pane-description'>
           { description }
         </div>
         { !isEmpty(popup) ? <Popup { ...popup } url={ pathName } /> : null }
@@ -32,7 +44,6 @@ MetricPane.propTypes = {
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   name: PropTypes.string,
   description: PropTypes.string,
-  borderTop: PropTypes.bool,
   dashedBorder: PropTypes.bool,
   highlightValue: PropTypes.bool,
   popup: PropTypes.shape({
@@ -45,7 +56,6 @@ MetricPane.propTypes = {
 };
 
 MetricPane.defaultProps = {
-  borderTop: false,
   dashedBorder: false,
   highlightValue: false,
 };

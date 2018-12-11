@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { get } from 'lodash';
 
-import { wrapperStyle } from './metrics-column.style';
 import MetricPane from 'components/officer-page/metrics-section/metric-pane';
+import styles from './metrics-column.sass';
 
 
 export default class MetricsColumn extends Component {
@@ -11,13 +11,12 @@ export default class MetricsColumn extends Component {
     const { metrics, dashedSeparator, pathName } = this.props;
     const [firstMetric, ...theRest] = metrics;
     return (
-      <div style={ wrapperStyle }>
+      <div className={ styles.metricsColumn }>
         <MetricPane
           value={ firstMetric.value }
           name={ firstMetric.name }
           description={ firstMetric.description }
           highlightValue={ get(firstMetric, 'highlightValue', false) }
-          borderTop={ false }
           popup={ firstMetric.popup }
           pathName={ pathName }
         />
@@ -28,7 +27,6 @@ export default class MetricsColumn extends Component {
               value={ metric.value }
               name={ metric.name }
               description={ metric.description }
-              borderTop={ true }
               highlightValue={ get(metric, 'highlightValue', false) }
               dashedBorder={ dashedSeparator }
               popup={ metric.popup }

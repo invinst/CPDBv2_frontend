@@ -9,6 +9,7 @@ import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import RightNavigation from 'components/officer-page/radar-chart/explainer/right-navigation';
+import styles from 'components/officer-page/radar-chart/explainer/right-navigation.sass';
 
 
 describe('RightNavigation components', function () {
@@ -31,7 +32,7 @@ describe('RightNavigation components', function () {
       <RightNavigation onClickHandler={ onClickHandlerStub } text='Some text'/>
     );
 
-    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-navigation-right');
+    const rightNavigationElm = findRenderedDOMComponentWithClass(instance, styles.rightNavigation);
     Simulate.click(rightNavigationElm);
 
     onClickHandlerStub.calledOnce.should.be.true();

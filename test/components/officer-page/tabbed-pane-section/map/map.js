@@ -3,6 +3,8 @@ import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-add
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 
 import Map from 'components/officer-page/tabbed-pane-section/map';
+import mapStyles from 'components/officer-page/tabbed-pane-section/map/map.sass';
+import legendStyles from 'components/officer-page/tabbed-pane-section/map/legend/legend.sass';
 
 
 describe('Map component', function () {
@@ -58,17 +60,17 @@ describe('Map component', function () {
 
   it('should render officer map and legend', function () {
     instance = renderIntoDocument(<Map legend={ legend } markers={ markers } />);
-    findRenderedDOMComponentWithClass(instance, 'test--officer-map');
-    findRenderedDOMComponentWithClass(instance, 'test--legend');
+    findRenderedDOMComponentWithClass(instance, mapStyles.map);
+    findRenderedDOMComponentWithClass(instance, legendStyles.legend);
   });
 
   it('should rerender', function () {
     instance = renderIntoDocument(<Map legend={ legend } markers={ markers } />);
-    findRenderedDOMComponentWithClass(instance, 'test--officer-map');
-    findRenderedDOMComponentWithClass(instance, 'test--legend');
+    findRenderedDOMComponentWithClass(instance, mapStyles.map);
+    findRenderedDOMComponentWithClass(instance, legendStyles.legend);
 
     instance = reRender(<Map legend={ legend } markers={ markers } />, instance);
-    findRenderedDOMComponentWithClass(instance, 'test--officer-map');
-    findRenderedDOMComponentWithClass(instance, 'test--legend');
+    findRenderedDOMComponentWithClass(instance, mapStyles.map);
+    findRenderedDOMComponentWithClass(instance, legendStyles.legend);
   });
 });

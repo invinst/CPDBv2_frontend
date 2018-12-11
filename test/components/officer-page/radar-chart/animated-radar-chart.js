@@ -86,7 +86,7 @@ describe('AnimatedRadarChart components', function () {
   it('should render if data provided', function () {
     instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
     findRenderedComponentWithType(instance, StaticRadarChart);
-    findRenderedDOMComponentWithClass(instance, 'test--radar-explainer-question-mark');
+    findRenderedDOMComponentWithClass(instance, 'open-explainer-button');
     scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
   });
 
@@ -107,7 +107,7 @@ describe('AnimatedRadarChart components', function () {
     instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
     scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
 
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--officer--radar-chart-placeholder'));
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'officer-radar-chart-placeholder'));
 
     findRenderedComponentWithType(instance, RadarExplainer);
     GATracking.trackOpenExplainer.should.be.calledWith(123);
@@ -165,12 +165,12 @@ describe('AnimatedRadarChart components', function () {
       instance = renderIntoDocument(<AnimatedRadarChart officerId={ 123 } data={ data }/>);
       scryRenderedComponentsWithType(instance, RadarExplainer).should.have.length(0);
 
-      Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--officer--radar-chart-placeholder'));
+      Simulate.click(findRenderedDOMComponentWithClass(instance, 'officer-radar-chart-placeholder'));
 
       instance.state.transitionValue.should.eql(2);
 
       const explainer = findRenderedComponentWithType(instance, RadarExplainer);
-      const closeButton = findRenderedDOMComponentWithClass(explainer, 'test--radar-explainer-close-button');
+      const closeButton = findRenderedDOMComponentWithClass(explainer, 'radar-explainer-close-button');
 
       Simulate.click(closeButton);
 

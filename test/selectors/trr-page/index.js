@@ -43,6 +43,7 @@ describe('TRR page selectors', function () {
       };
       officerSelector(state).should.eql({
         officerId: undefined,
+        rank: undefined,
         fullName: undefined,
         unitName: undefined,
         unitDescription: undefined,
@@ -75,6 +76,7 @@ describe('TRR page selectors', function () {
             officer: {
               id: 123,
               'full_name': 'Ronald Watts',
+              rank: 'Detective',
               unit: {
                 'unit_name': '001',
                 'description': 'Unit 001',
@@ -97,13 +99,14 @@ describe('TRR page selectors', function () {
       officerSelector(state).should.eql({
         officerId: 123,
         fullName: 'Ronald Watts',
+        rank: 'Detective',
         unitName: '001',
         unitDescription: 'Unit 001',
         birthYear: 1960,
         yearOld: 57,
         race: 'White',
         gender: 'Male',
-        careerDuration: 'DEC 13, 1999—DEC 23, 2015',
+        careerDuration: 'DEC 13, 1999 — DEC 23, 2015',
         percentile: {
           officerId: undefined,
           year: undefined,

@@ -1,0 +1,69 @@
+@import 'variables'
+
+$num-responsive-columns: 3
+
+\:local(.percentiles-by-year)
+  height: 305px
+  padding: 26px 16px 6px
+  overflow: auto
+  box-sizing: border-box
+  background-color: white
+
+  .percentiles-by-year-header
+    font-size: 14px
+    font-weight: 600
+    color: $soft-black-color
+    margin: 0
+    padding: 0
+    text-align: center
+
+  .table-header
+    font-size: 12px
+    color: $clay-gray
+    font-weight: 500
+    padding: 14px 0 11px 110px
+    box-sizing: border-box
+    border-bottom: 1px solid $white-two-color
+    line-height: 15px
+
+    .table-header-item
+      display: inline-block
+      padding-right: 10px
+      width: calc((100%) / #{$num-responsive-columns})
+      box-sizing: border-box
+      vertical-align: top
+
+  .table-content
+    list-type: none
+    margin: 0
+    padding: 0
+    font-weight: 400
+
+    .percentiles-by-year-text
+      display: inline-block
+      color: $greyish-color
+      padding: 13px 0 11px
+      font-size: 13px
+      border-bottom: 1px solid $white-two-color
+      width: 62px
+      margin-left: 16px
+      vertical-align: top
+      font-weight: 300
+
+    .percentiles-by-year-radar
+      display: inline-block
+      margin-top: 5px
+      width: 32px
+      height: 32px
+      border-radius: 3px
+      overflow: hidden
+
+    .percentiles-by-year-cell
+      display: inline-block
+      padding: 12px 0 11px
+      font-size: 14px
+      border-bottom: 1px solid $white-two-color
+      width: calc((100% - 110px) / #{$num-responsive-columns})
+      vertical-align: top
+      height: 40px
+      box-sizing: border-box

@@ -32,15 +32,16 @@ describe('TRRDetail component', function () {
     const categoryRow = rows[1];
     const forceTypeRow = rows[2];
 
-    subjectRow.props.title.should.eql('SUBJECT');
+    subjectRow.props.title.should.eql('subject');
     subjectRow.props.borderValue.should.be.true();
+    subjectRow.props.twoRowsWhenPrint.should.be.true();
     findRenderedComponentWithType(subjectRow, Demographics).props.persons.should.eql(['Black, Male, 21 years old']);
 
-    categoryRow.props.title.should.eql('FORCE CATEGORY');
+    categoryRow.props.title.should.eql('force category');
     categoryRow.props.borderValue.should.be.false();
     categoryRow.props.children.should.eql('Other');
 
-    forceTypeRow.props.title.should.eql('TYPES OF FORCE');
+    forceTypeRow.props.title.should.eql('types of force');
     forceTypeRow.props.borderValue.should.be.false();
     forceTypeRow.props.children.should.eql(
       'Stiffened (Dead Weight) ← Did Not Follow Verbal Direction ← Imminent Threat Of Battery'

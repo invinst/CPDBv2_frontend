@@ -79,7 +79,7 @@ export class OfficerCard extends Component {
         to={ `/officer/${officerId}/${officerSlug}/` }
         style={ { ...style } }
         target={ openCardInNewPage ? '_blank' : null }
-        className={ cx(styles.officerCard, className, 'test--officer-card') }
+        className={ cx(styles.officerCard, className) }
       >
         <div className='no-print radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
@@ -98,8 +98,8 @@ export class OfficerCard extends Component {
               <p className='extra-info'>{ extraInfo() }</p>
             </div>
           </div>
-          { footer }
         </div>
+        { footer }
       </Link>
     );
   }

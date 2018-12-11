@@ -64,4 +64,10 @@ describe('RadarArea components', function () {
     );
     scryRenderedDOMComponentsWithClass(instance, 'test--radar-radar-area').should.have.length(0);
   });
+
+  it('should render radar area with custom radarMainAreaOpacity', function () {
+    instance = renderIntoDocument(<RadarArea rPoints={ rPoints } radarMainAreaOpacity={ 0.5 }/>);
+    const radarArea = findRenderedDOMComponentWithClass(instance, 'test--radar-radar-area');
+    radarArea.getAttribute('style').should.containEql('fill-opacity: 0.5');
+  });
 });

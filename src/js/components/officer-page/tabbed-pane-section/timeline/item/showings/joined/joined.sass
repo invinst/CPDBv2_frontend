@@ -1,0 +1,41 @@
+@import 'variables'
+
+$height: 24px
+
+\:local(.joined)
+  background-color: inherit
+
+  .joined-item-content
+    height: $height
+    line-height: calc(#{$height} - 1px)
+    display: inline-block
+
+    .joined-item-text
+      width: 85px
+      display: inline-block
+      font-size: 10px
+      font-weight: 500
+      text-align: left
+      margin-right: 16px
+
+    .joined-item-join
+      display: inline-block
+      width: calc(100% - 44px)
+      text-align: center
+      font-size: 12px
+      color: $clay-gray
+
+      @media print
+        font-size: 10px
+        font-weight: 500
+        width: calc(100% - 145px)
+        text-align: left
+
+    .joined-item-date
+      font-size: 12px
+      color: $soft-black-color
+      font-weight: 300
+
+      @media print
+        font-size: 10px
+        font-weight: 400

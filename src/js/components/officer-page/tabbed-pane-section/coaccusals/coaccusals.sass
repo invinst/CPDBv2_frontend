@@ -1,0 +1,33 @@
+@import 'variables'
+
+\:local(.coaccusals)
+  background-color: $sugar-cane-color
+  margin: 0 16px 128px 16px
+  padding: 0 15px 120px 16px
+  border: 1px solid $alto-color
+
+  .coaccusal-group
+    color: $soft-black-color
+    font-size: 14px
+    border-bottom: 1px solid $white-two-color
+
+    .group-title-wrapper
+      position: relative
+      height: 64px
+
+      .coaccusals-group-name
+        bottom: 8px
+        position: absolute
+
+    .coaccused-cards-wrapper
+      padding: 8px 0
+
+    &:last-child
+      border-bottom: none
+
+      .coaccused-cards-wrapper
+        padding: 8px 0 0
+
+\:local(.officer-card)
+  display: inline-block
+  margin: 0 8px 8px 0

@@ -1,0 +1,72 @@
+@import 'variables'
+
+\:local(.base-item)
+  display: inline-block
+  background-color: $snow-color
+  padding: 0 16px
+  flex-grow: 1
+
+  @media print
+    background-color: unset
+    padding: 0
+
+  .item-content
+    width: 100%
+    display: block
+    border-top: 1px solid $white-two-color
+    box-sizing: border-box
+
+    .item-wrapper-kind
+      width: 85px
+      display: inline-block
+      margin-right: 16px
+
+    .item-kind
+      line-height: 24px
+      display: inline-block
+      text-align: center
+
+      @media print
+        font-size: 10px
+        font-weight: 500
+        line-height: 18px
+
+    .item-category
+      line-height: 18px
+      color: $soft-black-color
+
+      @media print
+        font-size: 12px
+        font-weight: 500
+
+    .item-date
+      float: right
+      width: 44px
+      display: inline-block
+      text-align: right
+
+.timeline-special-item
+  \:local(.base-item)
+    .item-content
+      border-top: none
+
+  &+ .timeline-item
+    \:local(.base-item)
+      .item-content
+        border-top: none
+
+        @media print
+          border-top: 1px solid $white-two-color
+
+  &+ .timeline-special-item
+    \:local(.base-item)
+      .item-content
+        border-top: 1px solid $white-two-color
+
+        @media print
+          border-top: none
+
+.timeline-item:first-child
+  \:local(.base-item)
+    .item-content
+      border-top: none

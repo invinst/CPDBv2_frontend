@@ -28,7 +28,6 @@ export default class InvolvementItem extends Component {
         <div className='involvement-type'>{ involvedTypeMap[involvedType].name }
           <Popup
             { ...get(popup, involvedTypeMap[involvedType].popupName) }
-            position='relative'
             url={ pathName }
           />
         </div>

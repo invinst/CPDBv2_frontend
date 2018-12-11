@@ -1,0 +1,47 @@
+@import 'variables'
+
+\:local(.summary-field)
+  height: 36px
+  border-top: solid 1px $white-two-color
+  box-sizing: border-box
+  overflow-x: hidden
+  overflow-y: auto
+  -webkit-overflow-scrolling: touch
+  display: flex
+  align-items: center
+
+  .summary-field-label
+    display: inline-block
+    color: $medium-gray-color
+    font-weight: 300
+    font-size: 14px
+    font-family: $san-francisco-text-family
+    width: 117px
+
+    @media print
+      font-size: 12px
+      font-weight: 500
+
+  .summary-field-info
+    flex-grow: 1
+    display: flex
+    align-items: center
+
+    @media print
+      display: block
+
+    .summary-field-value
+      color: $hard-black-color
+      flex-grow: 1
+
+      @media print
+        font-size: 12px
+        font-weight: 500
+        line-height: 20px
+
+    .summary-field-extra-info
+      @media print
+        display: block
+        line-height: 10px
+
+

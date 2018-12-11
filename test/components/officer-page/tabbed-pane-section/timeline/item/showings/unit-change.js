@@ -6,7 +6,6 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import UnitChange from 'components/officer-page/tabbed-pane-section/timeline/item/showings/unit-change';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('UnitChange component', function () {
@@ -24,21 +23,19 @@ describe('UnitChange component', function () {
       oldUnitDescription: 'Airport Enforcement',
       oldUnitName: 'Unit 051',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Mobile Strike Force',
-      unitDisplay: ' ',
       unitName: 'Unit 153',
       year: 1994,
     };
 
     instance = renderIntoDocument(
-      <UnitChange item={ unitChange } hasBorderBottom={ false } baseStyles={ baseStyles }/>
+      <UnitChange item={ unitChange } hasBorderBottom={ false } />
     );
 
-    const content = findRenderedDOMComponentWithClass(instance, 'test--unit-change-item-content');
-    const date = findRenderedDOMComponentWithClass(instance, 'test--unit-change-item-date');
+    const info = findRenderedDOMComponentWithClass(instance, 'unit-change-info');
+    const date = findRenderedDOMComponentWithClass(instance, 'unit-change-item-date');
 
-    content.textContent.should.eql('Unit 051 - Airport Enforcement → Unit 153 - Mobile Strike Force');
+    info.textContent.should.eql('Unit 051 - Airport Enforcement → Unit 153 - Mobile Strike Force');
     date.textContent.should.eql('APR 28');
   });
 
@@ -49,21 +46,19 @@ describe('UnitChange component', function () {
       oldUnitDescription: 'Some description',
       oldUnitName: 'Unassigned',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Mobile Strike Force',
-      unitDisplay: ' ',
       unitName: 'Unit 153',
       year: 1994,
     };
 
     instance = renderIntoDocument(
-      <UnitChange item={ unitChange } hasBorderBottom={ false } baseStyles={ baseStyles }/>
+      <UnitChange item={ unitChange } hasBorderBottom={ false } />
     );
 
-    const content = findRenderedDOMComponentWithClass(instance, 'test--unit-change-item-content');
-    const date = findRenderedDOMComponentWithClass(instance, 'test--unit-change-item-date');
+    const info = findRenderedDOMComponentWithClass(instance, 'unit-change-info');
+    const date = findRenderedDOMComponentWithClass(instance, 'unit-change-item-date');
 
-    content.textContent.should.eql('Unassigned → Unit 153 - Mobile Strike Force');
+    info.textContent.should.eql('Unassigned → Unit 153 - Mobile Strike Force');
     date.textContent.should.eql('APR 28');
   });
 });

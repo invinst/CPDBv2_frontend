@@ -1,0 +1,92 @@
+@import 'variables'
+
+$border-radius: 4px
+
+\:local(.item)
+  display: flex
+  font-size: 14px
+
+  @media print
+    page-break-inside: avoid
+
+  .rank-change-content, .unit-change-content
+    width: 104px
+    display: inline-block
+    text-align: center
+    box-sizing: border-box
+    vertical-align: top
+
+    @media print
+      display: none
+
+    &.changed-item
+      color: $clay-gray
+      font-size: 12px
+      background-color: inherit
+      background: none
+      line-height: 24px
+
+      @media print
+        display: inline-block
+        text-align: left
+        width: 85px
+        margin-right: 16px
+        font-size: 10px
+        font-weight: 500
+
+    &.after-changed-item
+      border-bottom-left-radius: $border-radius
+      border-bottom-right-radius: $border-radius
+
+  .rank-change-content
+    border-right: solid 1px $sugar-cane-color
+    background-color: $white-two-color
+
+  .unit-change-content
+    background: url('/img/unit-background-pattern.png') center/100%
+
+  &:first-child
+    .rank-change-content, .unit-change-content
+      border-top-left-radius: $border-radius
+      border-top-right-radius: $border-radius
+
+  &:last-child
+    .rank-change-content, .unit-change-content
+      border-bottom-left-radius: $border-radius
+      border-bottom-right-radius: $border-radius
+
+  &:not(.timeline-rank-change-item) + &
+    .rank-change-content
+      .item-text
+        color: transparent
+
+  &:not(.timeline-unit-change-item) + &
+    .unit-change-content
+      .item-text
+        color: transparent
+
+  &.timeline-rank-change-item + &
+    .rank-change-content
+      border-top-left-radius: $border-radius
+      border-top-right-radius: $border-radius
+
+  &.timeline-unit-change-item + &
+    .unit-change-content
+      border-top-left-radius: $border-radius
+      border-top-right-radius: $border-radius
+
+  .item-text
+    height: 32px
+    line-height: 32px
+    color: $clay-gray
+
+    &.current
+      color: $soft-black-color
+
+  &.timeline-special-item
+    @media print
+      border-top: 1px solid $white-two-color
+
+    .item-text
+      height: 24px
+      line-height: 24px

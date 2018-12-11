@@ -34,7 +34,7 @@ describe('Salary', function () {
       />
     );
 
-    const salaryAmount = findRenderedDOMComponentWithClass(instance, 'test--salary-amount');
+    const salaryAmount = findRenderedDOMComponentWithClass(instance, 'salary-amount');
     salaryAmount.textContent.should.eql('$1,000,000');
     const salaryPopup = findRenderedComponentWithType(instance, Popup);
     salaryPopup.props.title.should.eql('Salary');
