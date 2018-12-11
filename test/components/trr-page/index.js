@@ -17,7 +17,7 @@ import TRRInfoSection from 'components/trr-page/trr-info-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import FooterContainer from 'containers/footer-container';
 import TRRPageContainer from 'containers/trr-page';
-import Notes from 'components/common/notes';
+import PrintNotes from 'components/common/print-notes';
 import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 
 
@@ -134,7 +134,7 @@ describe('TRRPage component', function () {
     findRenderedDOMComponentWithClass(instance, 'incident-date-title-print').textContent.should.eql('DATE OF INCIDENT');
     findRenderedDOMComponentWithClass(instance, 'incident-date-value-print').textContent.should.eql('Sep 23, 2003');
 
-    findRenderedComponentWithType(instance, Notes);
+    findRenderedComponentWithType(instance, PrintNotes);
     findRenderedDOMComponentWithClass(instance, 'notes-title').textContent.should.eql('Notes');
 
     const noteContents = scryRenderedDOMComponentsWithClass(instance, 'notes-content');
