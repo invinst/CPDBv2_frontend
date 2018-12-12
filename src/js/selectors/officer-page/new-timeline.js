@@ -96,7 +96,7 @@ const transformMap = {
 
 const transform = (item, index) => transformMap[item.kind](item, index);
 
-export const yearItem = (baseItem, year, hasData) => ({
+export const yearItem = (baseItem, year, hasData, hasFirstChangedItem) => ({
   rank: baseItem.rank,
   unitName: baseItem.unitName,
   unitDescription: baseItem.unitDescription,
@@ -108,18 +108,19 @@ export const yearItem = (baseItem, year, hasData) => ({
   date: `${year}`,
   key: `${baseItem.key}-${NEW_TIMELINE_ITEMS.YEAR}-${year}`,
   hasData,
+  hasFirstChangedItem,
 });
 
 export const gapYearItems = (fromItem, toItem) => {
   let years = rangeRight(toItem.year, fromItem.year);
   years = slice(years, 0, years.length - 1);
 
-  return years.map((year) => yearItem(toItem, year, false));
+  return years.map((year) => yearItem(toItem, year, false, false));
 };
 
 export const fillYears = (items) => {
   let newItems = [];
-  newItems.push(yearItem(items[0], items[0].year, true));
+  newItems.push(yearItem(items[0], items[0].year, true, false));
 
   items.map((currentItem, index) => {
     newItems.push(currentItem);
@@ -128,7 +129,14 @@ export const fillYears = (items) => {
       const nextItem = items[index + 1];
       newItems = newItems.concat(gapYearItems(currentItem, nextItem));
       if (nextItem.year < currentItem.year) {
-        newItems.push(yearItem(nextItem, nextItem.year, true));
+        const specialItems = [
+          NEW_TIMELINE_ITEMS.UNIT_CHANGE,
+          NEW_TIMELINE_ITEMS.RANK_CHANGE,
+          NEW_TIMELINE_ITEMS.JOINED
+        ];
+        const hasFirstChangedItem = includes(specialItems, nextItem.kind);
+
+        newItems.push(yearItem(nextItem, nextItem.year, true, hasFirstChangedItem));
       }
     }
   });
