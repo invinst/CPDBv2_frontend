@@ -44,7 +44,7 @@ export default store => next => action => {
     }
   };
 
-  const notRequiredLandingPageContent = [/embed\/map/, /something/];
+  const notRequiredLandingPageContent = [/embed\/map/];
   if (every(notRequiredLandingPageContent, item => !action.payload.pathname.match(item))) {
     getCMSContent(LANDING_PAGE_ID);
   }
