@@ -9,6 +9,7 @@ import FooterContainer from 'containers/footer-container';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
+import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 
 export class TRRPage extends Component {
@@ -46,6 +47,7 @@ export class TRRPage extends Component {
           </div>
           <PrintNotes notes={ notes }/>
           <FooterContainer/>
+          <PrintPreloadFonts/>
         </div>
       </DocumentMeta>
     );

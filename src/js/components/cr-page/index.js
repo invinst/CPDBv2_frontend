@@ -20,6 +20,7 @@ import styles from './cr-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
+import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 
 class CRPage extends Component {
@@ -98,6 +99,7 @@ class CRPage extends Component {
           </div>
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
           <FooterContainer className={ styles.crPageFooter }/>
+          <PrintPreloadFonts/>
         </div>
       </DocumentMeta>
     );
