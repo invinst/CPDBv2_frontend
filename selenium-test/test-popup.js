@@ -3,6 +3,7 @@
 require('should');
 
 import crPage from './page-objects/cr-page';
+import officerPage from './page-objects/officer-page';
 
 
 describe('Popup', function () {
@@ -32,17 +33,18 @@ describe('Popup', function () {
   });
 
   it('should close when clicking on the close button', function () {
-    crPage.policeWitness.popupButton.click();
-    crPage.policeWitness.popup.waitForVisible();
-    crPage.policeWitness.popupCloseButton.click();
-    crPage.policeWitness.popup.waitForVisible(1000, true);
+    crPage.accusedOfficers.popupButton.click();
+    crPage.accusedOfficers.popup.waitForVisible();
+    crPage.accusedOfficers.popupCloseButton.click();
+    crPage.accusedOfficers.popup.waitForVisible(1000, true);
   });
 
   it('should close the previous popup when open new popup', function () {
-    crPage.policeWitness.popupButton.click();
-    crPage.policeWitness.popup.waitForVisible();
-    crPage.investigator.popupButton.click();
-    crPage.investigator.popup.waitForVisible();
-    crPage.policeWitness.popup.waitForVisible(1000, true);
+    officerPage.open();
+    officerPage.tabbedPaneSection.timelineSection.rankPopupButton.click();
+    officerPage.tabbedPaneSection.timelineSection.rankPopup.waitForVisible();
+    officerPage.tabbedPaneSection.timelineSection.salaryPopupButton.click();
+    officerPage.tabbedPaneSection.timelineSection.salaryPopup.waitForVisible();
+    officerPage.tabbedPaneSection.timelineSection.rankPopup.waitForVisible(1000, true);
   });
 });
