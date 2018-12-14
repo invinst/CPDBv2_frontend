@@ -5,29 +5,41 @@ import Row from './row';
 import TRRMap from './trr-map';
 
 
-export default class TRRLocation extends Component {
+class TRRLocation extends Component {
   render() {
     const { address, incidentDate, beat, locationType, point } = this.props;
+    const { printMode } = this.context;
+    const infoBlock = (
+      <div className='info-block'>
+        <h3 className={ 'info-block-title no-print' }>
+          LOCATION
+        </h3>
+        <div>
+          <Row title='location type' value={ locationType } />
+          <Row title='address' value={ address } />
+          <Row title='beat' value={ beat } />
+        </div>
+      </div>
+    );
+
     return (
       <div className={ style.trrLocation }>
-        <div className='trr-location-info'>
-          <div className='info-block'>
-            <h3 className='test--date-title info-block-title'>DATE OF INCIDENT</h3>
-            <div className='test--date-value info-block-date'>{ incidentDate }</div>
-          </div>
-
-          <div className='info-block'>
-            <h3 className='test--location-title info-block-title'>LOCATION</h3>
-            <div>
-              <Row title='LOCATION TYPE' value={ locationType }/>
-              <Row title='ADDRESS' value={ address }/>
-              <Row title='BEAT' value={ beat }/>
+        { printMode ? null : (
+          <div className='trr-location-info'>
+            <div className='info-block'>
+              <h3 className='info-block-title'>DATE OF INCIDENT</h3>
+              <div className='info-block-date'>{ incidentDate }</div>
             </div>
+            { infoBlock }
+          </div>
+        )}
+        <div className='trr-location-map-wrapper'>
+          { printMode ? <h3 className='location-title-print'>LOCATION</h3> : null }
+          <div className='trr-location-map'>
+            { point ? <TRRMap lng={ point.lng } lat={ point.lat } /> : null }
           </div>
         </div>
-        <div className='trr-location-map'>
-          { point ? <TRRMap lng={ point.lng } lat={ point.lat }/> : null }
-        </div>
+        { printMode ? infoBlock : null }
       </div>
     );
   }
@@ -38,5 +50,10 @@ TRRLocation.propTypes = {
   incidentDate: PropTypes.string,
   beat: PropTypes.string,
   locationType: PropTypes.string,
-  point: PropTypes.object,
+  point: PropTypes.object
 };
+
+TRRLocation.contextTypes = {
+  printMode: PropTypes.bool
+};
+export default TRRLocation;

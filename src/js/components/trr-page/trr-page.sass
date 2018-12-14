@@ -1,19 +1,70 @@
 @import 'variables'
 
 \:local(.trr-page)
-  position: relative
   background-color: $sugar-cane-color
   border-bottom: 1px solid $white-two-color
   min-height: 100vh
+
+  @media print
+    background-color: white
+    border-bottom: none
+    min-height: unset
 
   .trr-content
     min-height: calc(100vh - 136px)
     padding-bottom: 128px
 
+    @media print
+      min-height: unset
+      padding-bottom: 0
+      border-bottom: 1px solid $soft-black-color
+
     .trr-title
       font-size: 26px
       font-weight: 400
       color: $soft-black-color
-      padding-top: 16px
-      padding-bottom: 16px
+      padding: 16px 0
       margin: 0 16px
+
+      @media print
+        margin: 0
+        font-size: 12px
+        padding: 16px 0 0 0
+
+    .trr-category-print
+      display: none
+      border-bottom: 1px solid $soft-black-color
+      font-size: 24px
+      padding-bottom: 12px
+      color: $soft-black-color
+
+      @media print
+        display: block
+
+    .incident-date-print
+      display: none
+      border-bottom: 1px solid $soft-black-color
+      color: $soft-black-color
+
+      @media print
+        display: block
+
+      .incident-date-title-print
+        display: none
+        font-weight: 400
+        margin: 0
+        line-height: 37px
+        font-size: 12px
+
+        @media print
+          display: inline-block
+
+
+      .incident-date-value-print
+        display: none
+        padding-left: 16px
+        line-height: 37px
+        font-size: 12px
+
+        @media print
+          display: inline-block

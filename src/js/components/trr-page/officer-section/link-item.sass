@@ -13,6 +13,10 @@
   font-weight: 300
   border-bottom: 1px solid $white-two-color
 
+  @media print
+    font-size: 12px
+    font-weight: 400
+
   &:first-child
     margin: 0 16px 0 0
 
@@ -24,6 +28,11 @@
     display: inline-block
     vertical-align: middle
     color: $clay-gray
+    text-transform: uppercase
+
+    @media print
+      color: $soft-black-color
+      text-transform: capitalize
 
   .link-item-value
     width: 66%

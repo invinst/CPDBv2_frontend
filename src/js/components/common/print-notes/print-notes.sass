@@ -2,19 +2,34 @@
 
 \:local(.print-notes)
   display: none
-
   font-size: 10px
   font-weight: 500
-  border-top: 1px solid $soft-black-color
-  margin-top: 20px
   page-break-inside: avoid
 
   .notes-title
-    padding-top: 15px
+    padding-top: 16px
 
-  .notes-content
+  .notes-column
     width: 50%
-    padding-top: 11px
+    display: inline-block
+    vertical-align: top
+    box-sizing: border-box
+
+    &:first-child
+      padding-right: 8px
+
+    & + .notes-column
+      padding-left: 8px
+
+    .notes-content
+      padding-top: 11px
+
+    p
+      margin: 0
 
   @media print
     display: block
+
+.complaint-info
+  \:local(.print-notes)
+      border-top: 1px solid $soft-black-color

@@ -8,14 +8,14 @@ import Popup from 'components/common/popup';
 
 export default class Row extends Component {
   render() {
-    const { title, children, borderValue, popup, pathName } = this.props;
+    const { title, children, borderValue, popup, pathName, twoRowsWhenPrint } = this.props;
     return (
       <div className={ style.trrDetailRow }>
-        <div className='trr-detail-row-title'>
+        <div className={ cx('trr-detail-row-title', { 'inline-print': twoRowsWhenPrint }) }>
           { title }
           { !isEmpty(popup) ? <Popup { ...popup } url={ pathName }/> : null }
         </div>
-        <div className={ cx('trr-detail-row-value', { box: borderValue }) }>
+        <div className={ cx('trr-detail-row-value', { box: borderValue, 'inline-print': twoRowsWhenPrint }) }>
           { children }
         </div>
       </div>
@@ -31,6 +31,7 @@ Row.defaultProps = {
 Row.propTypes = {
   title: PropTypes.string,
   borderValue: PropTypes.bool,
+  twoRowsWhenPrint: PropTypes.bool,
   children: PropTypes.node,
   popup: PropTypes.object,
   pathName: PropTypes.string,

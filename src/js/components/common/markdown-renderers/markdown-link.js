@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
 
+import style from './markdown-link.sass';
+
+
 export default class MarkdownLink extends Component {
   render() {
-    const style = {
-      textDecoration: 'none',
-      color: 'blue',
-    };
-
     return (
-      <a style={ style } { ...this.props } />
+      <a className={ style.markdownLink } { ...this.props } />
     );
   }
 }

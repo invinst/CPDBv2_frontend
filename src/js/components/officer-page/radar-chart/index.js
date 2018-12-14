@@ -15,12 +15,8 @@ import styles from './radar-chart.sass';
 
 
 export default class AnimatedRadarChart extends Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
-    this.state = {
-      transitionValue: 0,
-      showExplainer: false
-    };
     this.interval = 20;
     this.velocity = 0.1;
     this.timer = null;
@@ -31,6 +27,12 @@ export default class AnimatedRadarChart extends Component {
     this.closeExplainer = this.closeExplainer.bind(this);
     this.animate = this.animate.bind(this);
     this.getCurrentTransitionData = this.getCurrentTransitionData.bind(this);
+
+    const transitionValue = context.printMode ? Math.max(this.animatedData.length - 1, 0) : 0;
+    this.state = {
+      transitionValue: transitionValue,
+      showExplainer: false
+    };
   }
 
   componentDidMount() {
@@ -176,7 +178,7 @@ export default class AnimatedRadarChart extends Component {
               showAxisTitle={ true }
               showValueWithSuffix={ true }
             />
-            <div className='open-explainer-button'>
+            <div className='open-explainer-button no-print'>
               <span className='radar-chart-question-mark'>?</span>
             </div>
           </div>
@@ -225,4 +227,8 @@ AnimatedRadarChart.propTypes = {
   scaleEditWrapperStateProps: PropTypes.object,
   noDataRadarChartEditWrapperStateProps: PropTypes.object,
   noDataPopup: PropTypes.object,
+};
+
+AnimatedRadarChart.contextTypes = {
+  printMode: PropTypes.bool,
 };

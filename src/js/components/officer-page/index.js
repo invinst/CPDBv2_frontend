@@ -12,9 +12,11 @@ import TabbedPaneSection from './tabbed-pane-section';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import { POPUP_NAMES } from 'utils/constants';
 import styles from './officer-page.sass';
+import Printable from 'components/common/higher-order/printable';
+import PrintNotes from 'components/common/print-notes';
 
 
-export default class OfficerPage extends Component {
+class OfficerPage extends Component {
   render() {
     const {
       officerId,
@@ -34,7 +36,10 @@ export default class OfficerPage extends Component {
       scaleEditWrapperStateProps,
       noDataRadarChartEditWrapperStateProps,
       pathName,
+      infoNotes,
+      timelineNotes,
     } = this.props;
+    const { printMode } = this.context;
 
     const pageTitle = compact([
       officerSummary.rank === 'N/A' ? '' : officerSummary.rank,
@@ -74,6 +79,7 @@ export default class OfficerPage extends Component {
             />
           </div>
           <MetricsSection metrics={ officerMetrics } popup={ popup } pathName={ pathName }/>
+          { printMode ? <PrintNotes notes={ infoNotes } /> : null }
           <TabbedPaneSection
             changeOfficerTab={ changeOfficerTab }
             currentTab={ currentTab }
@@ -81,6 +87,7 @@ export default class OfficerPage extends Component {
             hasMapMarker={ hasMapMarker }
             hasCoaccusal={ hasCoaccusal }
           />
+          { printMode ? <PrintNotes notes={ timelineNotes } /> : null }
         </div>
       </DocumentMeta>
     );
@@ -105,7 +112,9 @@ OfficerPage.propTypes = {
   scaleEditWrapperStateProps: PropTypes.object,
   noDataRadarChartEditWrapperStateProps: PropTypes.object,
   pathName: PropTypes.string,
-  officerSlug: PropTypes.string
+  officerSlug: PropTypes.string,
+  infoNotes: PropTypes.array,
+  timelineNotes: PropTypes.array,
 };
 
 OfficerPage.defaultProps = {
@@ -118,3 +127,9 @@ OfficerPage.defaultProps = {
   },
   numAttachments: 0,
 };
+
+OfficerPage.contextTypes = {
+  printMode: PropTypes.bool,
+};
+
+export default Printable(OfficerPage);

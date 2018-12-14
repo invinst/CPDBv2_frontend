@@ -48,6 +48,7 @@ export default function (ComponentClass) {
     render() {
       const { printMode } = this.state;
       const today = new Date().toLocaleDateString();
+      const { printHeader } = this.props;
 
       return (
         printMode ?
@@ -56,7 +57,7 @@ export default function (ComponentClass) {
               <tr>
                 <th>
                   <div className='printable-header'>
-                    <span className='left-header'>{ document.title }</span>
+                    <span className='left-header'>{ printHeader }</span>
                     <div className='right-header'>
                       <span className='printable-as-of'>AS OF</span>
                       <br/>

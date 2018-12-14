@@ -48,11 +48,10 @@ export default class ShareableHeader extends Component {
     const separatorRenderer = () => <li style={ breadcrumbSeparatorStyle }/>;
 
     return (
-      <div>
+      <div className='no-print'>
         <div style={ headerPlaceholderStyle }/>
         <ResponsiveFluidWidthComponent style={ outerStyle }>
           <div
-            className='no-print'
             style={ navBarStyle }
             ref={ el => { this.placeholderElement = el; } }
           >

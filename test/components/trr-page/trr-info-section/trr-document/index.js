@@ -5,6 +5,7 @@ import {
   findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import { spy } from 'sinon';
+import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import TRRDocument from 'components/trr-page/trr-info-section/trr-document';
@@ -34,5 +35,10 @@ describe('Row component', function () {
     const requestDocumentButton = findRenderedComponentWithType(instance, RequestDocumentButton);
     requestDocumentButton.props.alreadyRequested.should.be.true();
     requestDocumentButton.props.openRequestDocumentModal.should.eql(openRequestTRRDocumentModal);
+  });
+
+  it('should hide when printing', function () {
+    instance = renderIntoDocument(<TRRDocument alreadyRequested={ true }/>);
+    findDOMNode(instance).className.should.containEql('no-print');
   });
 });

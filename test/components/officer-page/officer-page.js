@@ -1,5 +1,8 @@
 import React from 'react';
-import { findRenderedComponentWithType, renderIntoDocument, } from 'react-addons-test-utils';
+import {
+  findRenderedComponentWithType, renderIntoDocument,
+  scryRenderedComponentsWithType,
+} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
@@ -11,6 +14,7 @@ import MetricsSection from 'components/officer-page/metrics-section';
 import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import OfficerRadarChart from 'components/officer-page/radar-chart';
 import { OFFICER_EDIT_TYPES } from 'utils/constants';
+import PrintNotes from 'components/common/print-notes';
 
 
 describe('OfficerPage component', function () {
@@ -170,5 +174,18 @@ describe('OfficerPage component', function () {
 
     let documentMeta = findRenderedComponentWithType(instance, DocumentMeta);
     documentMeta.props.title.should.eql('Officer Shaun Frank');
+  });
+
+  it('should render PrintNotes component when printMode is true', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer' } }
+        />
+      </Provider>
+    );
+    findRenderedComponentWithType(instance, OfficerPage).setState({ printMode: true });
+    scryRenderedComponentsWithType(instance, PrintNotes).should.have.length(2);
   });
 });
