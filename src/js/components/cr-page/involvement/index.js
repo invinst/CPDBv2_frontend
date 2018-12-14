@@ -7,7 +7,7 @@ import styles from './involvement.sass';
 
 export default class Involvement extends Component {
   render() {
-    const { involvements, popup, pathName } = this.props;
+    const { involvements } = this.props;
 
     if (!involvements || keys(involvements).length === 0) {
       return null;
@@ -22,8 +22,6 @@ export default class Involvement extends Component {
               className={ `test--involvement-${involvedType}` }
               involvedType={ involvedType }
               officers={ officers }
-              popup={ popup }
-              pathName={ pathName }
             />)
           )
         }
@@ -34,6 +32,4 @@ export default class Involvement extends Component {
 
 Involvement.propTypes = {
   involvements: PropTypes.object,
-  popup: PropTypes.object,
-  pathName: PropTypes.string,
 };
