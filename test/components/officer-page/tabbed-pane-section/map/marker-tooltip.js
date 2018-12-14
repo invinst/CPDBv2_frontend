@@ -4,7 +4,7 @@ import MarkerTooltip from 'components/officer-page/tabbed-pane-section/map/marke
 import {
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -34,9 +34,9 @@ describe('MarkerTooltip component', function () {
         }] }
       />
     );
-    const tooltipKindId = findRenderedDOMComponentWithClass(instance, 'test--marker-tooltip-kind-id');
-    const tooltipCategory = findRenderedDOMComponentWithClass(instance, 'test--marker-tooltip-category');
-    const tooltipCoaccused = findRenderedDOMComponentWithClass(instance, 'test--marker-tooltip-coaccused');
+    const tooltipKindId = scryRenderedDOMComponentsWithClass(instance, 'marker-tooltip-title')[0];
+    const tooltipCategory = scryRenderedDOMComponentsWithClass(instance, 'marker-tooltip-category')[0];
+    const tooltipCoaccused = findRenderedDOMComponentWithClass(instance, 'marker-tooltip-footer');
     const tooltipVictims = scryRenderedDOMComponentsWithClass(instance, 'test--marker-tooltip-victim');
     tooltipKindId.textContent.should.eql('CR 12345');
     tooltipCategory.textContent.should.eql('test category');

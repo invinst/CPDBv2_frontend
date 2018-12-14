@@ -1,29 +1,22 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
-import {
-  dateStyle,
-  newRankStyle,
-  oldRankStyle,
-  showingStyle,
-  rankChangeStyle,
-  wrapperShowingStyle,
-} from './rank-change.style';
+import baseStyles from '../base-item.sass';
+import styles from './rank-change.sass';
 
 
 export default class RankChange extends Component {
   render() {
-    const { hasBorderBottom } = this.props;
     const { rank, oldRank, date } = this.props.item;
-    const { baseWrapperShowingStyle, baseShowingStyle, baseDateStyle } = this.props.baseStyles;
 
     return (
-      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } }>
-        <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
-          <span style={ rankChangeStyle } className='test--rank-change-item-content'>
-            <span style={ oldRankStyle(oldRank === 'Unknown') }>{ oldRank } → </span>
-            <span style={ newRankStyle }>{ rank }</span>
+      <span className={ cx(styles.rankChange, baseStyles.baseItem) }>
+        <span className='item-content rank-change-item-content'>
+          <span className='rank-change-info'>
+            <span className={ cx('old-rank', { 'unassigned': oldRank === 'Unknown' }) }>{ oldRank } → </span>
+            <span className='new-rank'>{ rank }</span>
           </span>
-          <span style={ { ...baseDateStyle, ...dateStyle } } className='test--rank-change-item-date'>{ date }</span>
+          <span className='item-date rank-change-item-date'>{ date }</span>
         </span>
       </span>
     );
@@ -32,6 +25,4 @@ export default class RankChange extends Component {
 
 RankChange.propTypes = {
   item: PropTypes.object,
-  hasBorderBottom: PropTypes.bool,
-  baseStyles: PropTypes.object,
 };

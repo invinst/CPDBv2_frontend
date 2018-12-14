@@ -5,6 +5,9 @@
   border-bottom: 1px solid $white-two-color
   display: block
 
+  @media print
+    padding: 0
+
   &:hover
     .trr-officer-row-name
       color: $accent-color
@@ -16,11 +19,27 @@
     margin-left: 8px
     vertical-align: middle
 
+    @media print
+      margin-left: 0
+
     .trr-officer-row-rank
       font-size: 12px
       color: $clay-gray
       line-height: 1.17
       font-weight: 300
+
+      @media print
+        font-size: 10px
+        font-weight: 600
+        line-height: 13px
+        text-transform: uppercase
+        padding: 13px 0 11px 0
+
+    .trr-officer-full-name
+      @media print
+        font-size: 12px
+        line-height: 15px
+        padding-bottom: 11px
 
   .trr-officer-row-visual-token
     border-radius: 2px

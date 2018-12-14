@@ -3,11 +3,11 @@ import { map, get } from 'lodash';
 
 import SummaryField from './summary-field';
 import ViewUnitProfileButton from './view-unit-profile-button';
-import { officerNameStyle, wrapperStyle } from './summary-section.style';
 import Salary from './salary';
 import YearOld from './year-old';
 import HistoricBadges from './historic-badges';
 import { POPUP_NAMES } from 'utils/constants';
+import styles from './summary-section.sass';
 
 
 export default class SummarySection extends Component {
@@ -51,8 +51,8 @@ export default class SummarySection extends Component {
     const summaryFields = this.summaryFields();
 
     return (
-      <div style={ wrapperStyle }>
-        <div className='cr-summary-section-officer-name' style={ officerNameStyle }>
+      <div className={ styles.summarySection }>
+        <div className='summary-section-officer-name'>
           { officerName }
         </div>
         {

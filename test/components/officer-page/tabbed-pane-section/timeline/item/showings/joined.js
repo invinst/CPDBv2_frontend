@@ -3,7 +3,6 @@ import { renderIntoDocument, findRenderedDOMComponentWithClass, } from 'react-ad
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Joined from 'components/officer-page/tabbed-pane-section/timeline/item/showings/joined';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Joined component', function () {
@@ -23,17 +22,15 @@ describe('Joined component', function () {
       isLastUnit: true,
       kind: 'JOINED',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Recruit Training Section',
-      unitDisplay: ' ',
       unitName: 'Unit 044',
       year: 1988,
     };
 
-    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } baseStyles={ baseStyles }/>);
+    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } />);
 
-    const join = findRenderedDOMComponentWithClass(instance, 'test--joined-item-join');
-    const date = findRenderedDOMComponentWithClass(instance, 'test--joined-item-date');
+    const join = findRenderedDOMComponentWithClass(instance, 'joined-item-join');
+    const date = findRenderedDOMComponentWithClass(instance, 'joined-item-date');
 
     join.textContent.should.eql('Joined Chicago Police Department with Unit 044 as a Police Officer');
     date.textContent.should.eql('DEC 5');
@@ -48,17 +45,15 @@ describe('Joined component', function () {
       isLastUnit: true,
       kind: 'JOINED',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Some description',
-      unitDisplay: 'Unassigned',
       unitName: 'Unassigned',
       year: 1988,
     };
 
-    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } baseStyles={ baseStyles }/>);
+    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } />);
 
-    const join = findRenderedDOMComponentWithClass(instance, 'test--joined-item-join');
-    const date = findRenderedDOMComponentWithClass(instance, 'test--joined-item-date');
+    const join = findRenderedDOMComponentWithClass(instance, 'joined-item-join');
+    const date = findRenderedDOMComponentWithClass(instance, 'joined-item-date');
 
     join.textContent.should.eql('Joined Chicago Police Department as a Police Officer');
     date.textContent.should.eql('DEC 5');
@@ -73,14 +68,12 @@ describe('Joined component', function () {
       isLastUnit: true,
       kind: 'JOINED',
       unitDescription: 'Some description',
-      unitDisplay: 'Unassigned',
       unitName: 'Unassigned',
       rank: 'Unknown',
-      rankDisplay: 'Unknown',
       year: 1988,
     };
-    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } baseStyles={ baseStyles } />);
-    const join = findRenderedDOMComponentWithClass(instance, 'test--joined-item-join');
+    instance = renderIntoDocument(<Joined item={ joinedItem } hasBorderBottom={ false } />);
+    const join = findRenderedDOMComponentWithClass(instance, 'joined-item-join');
     join.textContent.should.eql('Joined Chicago Police Department');
   });
 });

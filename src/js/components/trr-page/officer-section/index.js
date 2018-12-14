@@ -20,31 +20,31 @@ export default class OfficerSection extends Component {
 
     const officerData = [
       {
-        title: 'YEAR OF BIRTH',
+        title: 'year of birth',
         value: officer.birthYear || '',
         subValue: officer.yearOld ? `${officer.yearOld} years old` : '',
       }, {
-        title: 'UNIT',
+        title: 'unit',
         value: officer.unitDescription || officer.unitName,
         to: `/unit/${officer.unitName}/`,
         navigationText: 'View Unit',
       }, {
-        title: 'RACE',
+        title: 'race',
         value: officer.race,
       }, {
-        title: 'ASSIGNED BEAT',
+        title: 'assigned beat',
         value: officer.assignedBeat,
       }, {
-        title: 'SEX',
+        title: 'sex',
         value: officer.gender,
       }, {
-        title: 'ON DUTY',
+        title: 'on duty',
         value: officer.onDuty ? 'Yes' : 'No',
       }, {
-        title: 'CAREER',
+        title: 'career',
         value: officer.careerDuration,
       }, {
-        title: 'IN UNIFORM',
+        title: 'in uniform',
         value: officer.inUniform ? 'Yes' : 'No',
       }
     ];
@@ -55,6 +55,7 @@ export default class OfficerSection extends Component {
         <OfficerRow
           percentile={ officer.percentile }
           fullName={ officer.fullName }
+          rank={ officer.rank }
           officerId={ officer.officerId }
         />
         <ul className='officer-section-list'>

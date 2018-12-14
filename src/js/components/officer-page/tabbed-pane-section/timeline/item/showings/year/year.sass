@@ -1,0 +1,32 @@
+@import 'variables'
+
+$has-data-height: 64px
+$no-data-height: 32px
+
+\:local(.year)
+  .year-item-item-content
+    height: $no-data-height
+    line-height: calc(#{$no-data-height} - 1px)
+
+    .year-item-date
+      font-size: 14px
+      color: $soft-black-color
+      font-weight: 400
+      padding-top: 0
+
+      @media print
+        font-size: 12px
+        font-weight: 500
+
+  &.has-data
+    .year-item-item-content
+      height: $has-data-height
+      line-height: calc(#{$has-data-height} - 1px)
+
+      .year-item-date
+        font-size: 18px
+        padding-top: 13px
+
+        @media print
+          font-size: 14px
+          font-weight: 500

@@ -3,6 +3,7 @@ import { renderIntoDocument, scryRenderedDOMComponentsWithClass, } from 'react-a
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Coaccusals from 'components/officer-page/tabbed-pane-section/coaccusals';
+import officerStyles from 'components/common/officer-card.sass';
 
 
 describe('Coaccusals component', function () {
@@ -58,8 +59,8 @@ describe('Coaccusals component', function () {
 
     instance = renderIntoDocument(<Coaccusals coaccusalGroups={ coaccusalGroups }/>);
 
-    const groups = scryRenderedDOMComponentsWithClass(instance, 'test--coaccusals-group-name');
-    const coaccusalCards = scryRenderedDOMComponentsWithClass(instance, 'test--officer-card');
+    const groups = scryRenderedDOMComponentsWithClass(instance, 'coaccusals-group-name');
+    const coaccusalCards = scryRenderedDOMComponentsWithClass(instance, officerStyles.officerCard);
 
     groups.length.should.eql(2);
     coaccusalCards.length.should.eql(3);

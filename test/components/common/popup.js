@@ -20,9 +20,9 @@ describe('Popup', function () {
   it('should render the button', function () {
     instance = renderIntoDocument(<Popup title='Some title' text='Some text' />);
 
-    const popupTitle = findRenderedDOMComponentWithClass(instance, 'test--popup-title');
+    const popupTitle = findRenderedDOMComponentWithClass(instance, 'tooltip-title');
     popupTitle.textContent.should.eql('Some title');
-    const popupText = findRenderedDOMComponentWithClass(instance, 'test--popup-text');
+    const popupText = findRenderedDOMComponentWithClass(instance, 'tooltip-text');
 
     popupText.textContent.should.eql('Some text');
   });
@@ -33,7 +33,7 @@ describe('Popup', function () {
     };
     instance = renderIntoDocument(<Popup title='Some title' text='Some text' />);
 
-    const popupButton = findRenderedDOMComponentWithClass(instance, 'popup-button');
+    const popupButton = findRenderedDOMComponentWithClass(instance, 'tooltip-button');
     Simulate.click(popupButton);
     const popup = findRenderedDOMComponentWithClass(instance, 'test--popup-content');
     Simulate.click(popup, dummyEvent);

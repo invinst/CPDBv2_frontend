@@ -16,6 +16,7 @@ function mapStateToProps(state, ownProps) {
     popup: popupSelector(state),
     pathname: ownProps.pathname,
     notes: state.popups,
+    printHeader: `CR ${getCRID(state)}`
   };
 }
 

@@ -1,0 +1,29 @@
+@import 'variables'
+
+\:local(.metrics-section)
+  background-color: $sugar-cane-color
+  height: 280px
+  padding: 16px
+  box-sizing: border-box
+
+  @media print
+    background-color: unset
+    padding: 0
+    height: 212px
+
+  .metric-cells
+    background-color: white
+    border: 1px solid $alto-color
+
+  .vertical-line
+    margin: 16px 0
+    height: 216px
+    width: 2px
+    box-sizing: border-box
+    border: 1px solid $greyish-color
+    display: inline-block
+    vertical-align: top
+
+    @media print
+      background-color: $white-two-color
+      height: 180px

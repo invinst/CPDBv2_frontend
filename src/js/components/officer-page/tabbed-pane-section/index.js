@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { get, keys } from 'lodash';
+import cx from 'classnames';
 
-import { menuItemStyle, menuStyle, tabbedPaneSectionStyle } from './tabbed-pane-section.style';
 import TimelineContainer from 'containers/officer-page/timeline-container';
 import CoaccusalsContainer from 'containers/officer-page/coaccusals-container';
 import AttachmentsContainer from 'containers/officer-page/attachments-container';
 import { OFFICER_PAGE_TAB_NAMES } from 'utils/constants';
 import MapContainer from 'containers/officer-page/map-container';
+import styles from './tabbed-pane-section.sass';
 
 
 export default class TabbedPaneSection extends Component {
@@ -38,15 +39,14 @@ export default class TabbedPaneSection extends Component {
     };
     const CurrentComponent = get(tabbedPaneMap, `${currentTab}.component`, null);
     return (
-      <div style={ tabbedPaneSectionStyle } className='tabbed-pane-section'>
-        <div style={ menuStyle } className='test--tabbed-pane-section-menu'>
+      <div className={ cx(styles.tabbedPaneSection, 'tabbed-pane-section') }>
+        <div className='tabbed-pane-section-menu no-print'>
           {
             keys(tabbedPaneMap).map(paneName => (
               get(tabbedPaneMap, `${paneName}.show`) ? (
                 <span
                   key={ paneName }
-                  style={ menuItemStyle(paneName === currentTab) }
-                  className='test--tabbed-pane-tab-name'
+                  className={ cx('tabbed-pane-tab-name', { 'active': paneName === currentTab }) }
                   onClick={ () => changeOfficerTab(paneName) }
                 >
                   { paneName }

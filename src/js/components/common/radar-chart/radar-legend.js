@@ -10,7 +10,7 @@ export default class RadarLegend extends React.Component {
 
     const legendYearText = (content, opacity) => content ? (
       <text
-        className='test--radar-legend-content' textAnchor='middle' dy='0.35em'
+        className='test--radar-legend-content no-print' textAnchor='middle' dy='0.35em'
         style={ { ...radarLegendTextStyle, opacity, visibility: opacity ? 'visible' : 'hidden' } }
         x={ 180 }
         y={ 180 }>

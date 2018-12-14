@@ -3,7 +3,6 @@ import { findRenderedDOMComponentWithClass, renderIntoDocument, } from 'react-ad
 
 import { unmountComponentSuppressError } from 'utils/test';
 import Year from 'components/officer-page/tabbed-pane-section/timeline/item/showings/year';
-import * as baseStyles from 'components/officer-page/tabbed-pane-section/timeline/item/baseItem.style';
 
 
 describe('Year component', function () {
@@ -20,16 +19,14 @@ describe('Year component', function () {
       isLastUnit: true,
       kind: 'YEAR',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Mobile Strike Force',
-      unitDisplay: ' ',
       unitName: '153',
     };
 
-    instance = renderIntoDocument(<Year item={ year } hasBorderBottom={ false } baseStyles={ baseStyles }/>);
+    instance = renderIntoDocument(<Year item={ year } hasBorderBottom={ false } />);
 
-    const showing = findRenderedDOMComponentWithClass(instance, 'test--year-item-showing');
-    const date = findRenderedDOMComponentWithClass(instance, 'test--year-item-date');
+    const showing = findRenderedDOMComponentWithClass(instance, 'year-item-item-content');
+    const date = findRenderedDOMComponentWithClass(instance, 'year-item-date');
 
     showing.textContent.should.eql('1994');
     date.textContent.should.eql('1994');

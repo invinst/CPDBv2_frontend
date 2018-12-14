@@ -23,6 +23,7 @@ export const officerSelector = createSelector(
 const officerTransform = (officer) => ({
   officerId: officer['id'],
   fullName: officer['full_name'],
+  rank: officer['rank'],
   unitName: get(officer.unit, 'unit_name'),
   unitDescription: get(officer.unit, 'description'),
   birthYear: officer['birth_year'],

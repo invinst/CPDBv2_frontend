@@ -1,32 +1,27 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
-import {
-  showingStyle,
-  dateStyle,
-  wrapperShowingStyle,
-  joinStyle,
-} from './joined.style';
+import baseStyles from '../base-item.sass';
+import styles from './joined.sass';
 
 
 export default class Joined extends Component {
 
   render() {
-    const { item, hasBorderBottom, baseStyles } = this.props;
-    const {
-      baseWrapperShowingStyle,
-      baseShowingStyle,
-      baseDateStyle,
-    } = baseStyles;
+    const { item } = this.props;
+    const { printMode } = this.context;
+
     const unitString = item.unitName === 'Unassigned' ? '' : ` with ${item.unitName}`;
     const rankString = item.rank === 'Unknown' ? '' : ` as a ${item.rank}`;
 
     return (
-      <span style={ { ...baseWrapperShowingStyle, ...wrapperShowingStyle } }>
-        <span style={ { ...baseShowingStyle(hasBorderBottom), ...showingStyle } }>
-          <span style={ joinStyle } className='test--joined-item-join'>
+      <span className={ cx(baseStyles.baseItem, styles.joined) }>
+        <span className='item-content joined-item-content'>
+          { printMode ? <span className='joined-item-text'>JOINED</span> : null }
+          <span className='joined-item-join'>
             Joined Chicago Police Department{ unitString }{ rankString }
           </span>
-          <span style={ { ...baseDateStyle, ...dateStyle } } className='test--joined-item-date'>{ item.date }</span>
+          <span className='item-date joined-item-date'>{ item.date }</span>
         </span>
       </span>
     );
@@ -35,6 +30,8 @@ export default class Joined extends Component {
 
 Joined.propTypes = {
   item: PropTypes.object,
-  hasBorderBottom: PropTypes.bool,
-  baseStyles: PropTypes.object,
+};
+
+Joined.contextTypes = {
+  printMode: PropTypes.bool,
 };

@@ -5,11 +5,10 @@ import ReactDOM from 'react-dom';
 import { MAP_INFO, MAP_ITEMS, MAPBOX_STYLE } from 'utils/constants';
 import { mapboxgl } from 'utils/vendors';
 import Legend from './legend';
-import { mapStyle, wrapperStyle } from './map.style';
 import MarkerTooltip from './marker-tooltip';
 import SimpleMarkerTooltip from './simple-marker-tooltip';
 import Marker from './marker';
-
+import styles from './map.sass';
 
 export default class Map extends Component {
   componentWillReceiveProps(nextProps, nextState) {
@@ -85,8 +84,8 @@ export default class Map extends Component {
   render() {
     const { legend } = this.props;
     return (
-      <div className='test--officer-map' style={ wrapperStyle }>
-        <div ref={ this.gotRef.bind(this) } style={ mapStyle } />
+      <div className={ styles.map }>
+        <div ref={ this.gotRef.bind(this) } className='map-tab'/>
         <Legend legend={ legend } />
       </div>
     );

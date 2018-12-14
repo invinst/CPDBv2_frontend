@@ -9,13 +9,13 @@ import RadarSpineLine from './radar-spine-line';
 import RadarLegend from './radar-legend';
 import RadarGrid from './radar-grid';
 import { curveLinearClosed, radialLine } from 'd3-shape';
+import { linenColor } from 'utils/styles';
 
 
 export default class RadarChart extends Component {
   constructor(props) {
     super(props);
     this.maxValue = 100;
-    this.strokeWidth = 0.5;
   }
 
   getNumMetrics() {
@@ -24,8 +24,8 @@ export default class RadarChart extends Component {
   }
 
   rScale(value) {
-    const { radius } = this.props;
-    return scaleLinear().range([0, radius - this.strokeWidth]).domain([0, this.maxValue])(value);
+    const { radius, strokeWidth } = this.props;
+    return scaleLinear().range([0, radius - strokeWidth]).domain([0, this.maxValue])(value);
   }
 
   angle(i) {
@@ -69,7 +69,9 @@ export default class RadarChart extends Component {
       gridOpacity,
       showSpineLine,
       showSpineLinePoint,
-      boundaryAreaColor
+      boundaryAreaColor,
+      strokeWidth,
+      radarMainAreaOpacity,
     } = this.props;
 
     const transformData = this.embedComputedPosition();
@@ -110,7 +112,8 @@ export default class RadarChart extends Component {
           />
           <RadarArea
             rPoints={ transformData }
-            strokeWidth={ this.strokeWidth }
+            strokeWidth={ strokeWidth }
+            radarMainAreaOpacity={ radarMainAreaOpacity }
           />
           { showGrid && (
             <RadarGrid
@@ -119,7 +122,7 @@ export default class RadarChart extends Component {
               radius={ radius }
               maxValue={ this.maxValue }
               strokeColor={ gridColor || backgroundColor }
-              strokeWidth={ this.strokeWidth }/>
+              strokeWidth={ strokeWidth }/>
           ) }
           { showSpineLine && <RadarSpineLine rPoints={ transformData } showSpineLinePoint={ showSpineLinePoint }/> }
           <RadarLegend fadeOut={ fadeOutLegend } content={ legendText }/>
@@ -135,7 +138,7 @@ RadarChart.defaultProps = {
   height: 392,
   radius: 146,
   legendText: '',
-  backgroundColor: '#fdfaf2',
+  backgroundColor: linenColor,
   showAxisTitle: false,
   showAxisValue: false,
   showArea: false,
@@ -147,6 +150,7 @@ RadarChart.defaultProps = {
   fadeOutLegend: false,
   axisTitleFontWeight: 400,
   numMetrics: 3,
+  strokeWidth: 0.5,
 };
 
 RadarChart.propTypes = {
@@ -177,8 +181,10 @@ RadarChart.propTypes = {
     PropTypes.number,
     PropTypes.element
   ]),
+  strokeWidth: PropTypes.number,
   fadeOutLegend: PropTypes.bool,
   boundaryAreaColor: PropTypes.string,
-  numMetrics: PropTypes.number
+  numMetrics: PropTypes.number,
+  radarMainAreaOpacity: PropTypes.number,
 };
 

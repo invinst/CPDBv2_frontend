@@ -63,7 +63,7 @@ describe('officer page selectors', function () {
         historicBadges: ['1', '2'],
         dateOfAppt: '2015-09-23',
         careerDescription: '2 years',
-        careerDuration: 'SEP 23, 2015—Present',
+        careerDuration: 'SEP 23, 2015 — Present',
         birthYear: 1991,
         currentSalary: 100000,
         hasUniqueName: true
@@ -73,7 +73,7 @@ describe('officer page selectors', function () {
     it('should return summary with resignation date in career duration', function () {
       state.officerPage = { summary: { ...summary, 'date_of_resignation': '2016-01-02' } };
 
-      summarySelector(state).careerDuration.should.eql('SEP 23, 2015—JAN 2, 2016');
+      summarySelector(state).careerDuration.should.eql('SEP 23, 2015 — JAN 2, 2016');
     });
 
     it('should return summary with 1 year in career description', function () {

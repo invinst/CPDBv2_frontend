@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { spy, useFakeTimers } from 'sinon';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
 
@@ -14,21 +14,21 @@ describe('Printable component', function () {
   });
 
   class Dummy extends Component {
-    componentDidMount() {
-      document.title = 'Dummy title';
-    }
-
     render() {
-      return <div/>;
+      return <div />;
     }
   }
+
+  Dummy.propTypes = {
+    printHeader: PropTypes.string,
+  };
 
   const PrintableDummy = Printable(Dummy);
 
   it('should render header correctly', function () {
     const clock = useFakeTimers(new Date(2018, 9, 27));
 
-    instance = renderIntoDocument(<PrintableDummy/>);
+    instance = renderIntoDocument(<PrintableDummy printHeader='Dummy title'/>);
     instance._mediaPrintListener({ matches: true });
     findRenderedDOMComponentWithClass(instance, 'left-header').textContent.should.eql('Dummy title');
     findRenderedDOMComponentWithClass(instance, 'printable-as-of').textContent.should.eql('AS OF');

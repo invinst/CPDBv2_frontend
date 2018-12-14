@@ -1,0 +1,63 @@
+@import 'variables'
+
+\:local(.radar-chart)
+  width: 50%
+  height: 392px
+  display: inline-block
+  background-color: $linen-color
+  vertical-align: top
+  position: relative
+
+  @media print
+    height: 300px
+
+  .officer-radar-chart-placeholder
+    width: 100%
+    height: 100%
+    cursor: pointer
+
+    .open-explainer-button
+      width: 24px
+      height: 24px
+      background-color: white
+      opacity: 0.6
+      border-radius: 12px
+      position: absolute
+      right: 16px
+      top: 16px
+      box-sizing: border-box
+
+      .radar-chart-question-mark
+        opacity: 1
+        display: inline-block
+        color: black
+        font-size: 14px
+        vertical-align: middle
+        text-align: center
+        width: 100%
+        line-height: 1
+        font-weight: 500
+        padding-top: 2px
+
+  .radar-chart-overlay
+    position: absolute
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: transparent
+
+  .no-data-radar-chart-text
+    background-color: transparent
+    color: $white-two-color
+    position: absolute
+    padding: 0 16px
+    top: 300px
+    font-size: 14px
+    text-align: center
+    width: 100%
+    box-sizing: border-box
+    font-weight: 300
+
+    @media print
+      top: 250px

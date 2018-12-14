@@ -4,6 +4,7 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
+  scryRenderedDOMComponentsWithClass,
   Simulate,
 } from 'react-addons-test-utils';
 
@@ -12,6 +13,7 @@ import OutboundLink from 'components/common/outbound-link';
 import * as domUtils from 'utils/dom';
 import { unmountComponentSuppressError } from 'utils/test';
 import * as GATracking from 'utils/google_analytics_tracking';
+import styles from 'components/officer-page/tabbed-pane-section/timeline/item/showings/cr/attachments.sass';
 
 
 describe('Attachments component', function () {
@@ -37,16 +39,15 @@ describe('Attachments component', function () {
   it('should render attachments correctly', function () {
     instance = renderIntoDocument(<Attachments attachments={ attachments } />);
 
-    const moreAttachment = findRenderedDOMComponentWithClass(instance, 'test--more-attachment');
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'test--attachment-image');
-    const attachmentImageHref = findRenderedDOMComponentWithClass(instance, 'test--attachment-image-href');
+    const moreAttachment = findRenderedDOMComponentWithClass(instance, 'more-attachment');
+    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'attachment-image');
+    const attachmentImageHref = findRenderedDOMComponentWithClass(instance, 'attachment-image-href');
     const outboundLink = findRenderedComponentWithType(instance, OutboundLink);
 
     moreAttachment.textContent.should.eql('+2');
     attachmentImage.style.backgroundImage.should.eql(
       'url("https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif")'
     );
-    attachmentImage.style.backgroundSize.should.eql('cover');
     attachmentImageHref.getAttribute('href').should.eql(
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-1-of-3.html'
     );
@@ -62,8 +63,8 @@ describe('Attachments component', function () {
     }];
     const instance = renderIntoDocument(<Attachments attachments={ videoAttachments } />);
 
-    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'test--attachment-image');
-    attachmentImage.style.backgroundSize.should.eql('auto');
+    const attachmentImage = findRenderedDOMComponentWithClass(instance, 'attachment-image');
+    attachmentImage.style.backgroundImage.should.eql('url("/src/img/ic-video.svg")');
   });
 
   it('should call changeOfficerTab and scrollToElement', function () {
@@ -73,7 +74,7 @@ describe('Attachments component', function () {
     instance = renderIntoDocument(
       <Attachments attachments={ attachments } changeOfficerTab={ stubChangeOfficerTab } />
     );
-    const moreAttachmentEl = findRenderedDOMComponentWithClass(instance, 'test--more-attachment');
+    const moreAttachmentEl = findRenderedDOMComponentWithClass(instance, 'more-attachment');
     Simulate.click(moreAttachmentEl);
 
     stubChangeOfficerTab.should.be.calledWith('ATTACHMENTS');
@@ -95,11 +96,16 @@ describe('Attachments component', function () {
         pathname='/complaint/123456/'
       />
     );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--attachment-image-href'));
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'attachment-image-href'));
     stubTrackAttachmentClick.should.be.calledWith(
       '/complaint/123456/',
       'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-2-of-3.html'
     );
     stubTrackAttachmentClick.restore();
+  });
+
+  it('should render an empty span when attachments is empty', function () {
+    instance = renderIntoDocument(<Attachments attachments={ [] }/>);
+    scryRenderedDOMComponentsWithClass(instance, styles.attachments).should.have.length(1);
   });
 });

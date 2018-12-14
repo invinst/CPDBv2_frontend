@@ -13,14 +13,14 @@ import {
 const LINE_HEIGHT = 1.275;
 
 export default class RadarAxis extends React.Component {
-  renderTitleTexts(title, value, xText, yText, extraPadding, fontSize) {
+  renderTitleTexts(title, value, xText, yText, extraPadding, fontSize, textColor) {
     const { showAxisTitle } = this.props;
     const words = title.split(' ');
     const titlePhases = showAxisTitle ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [];
     const axisTitles = titlePhases.map((phase, idx) => (
       <tspan
         key={ `text-${title}-${idx}` }
-        style={ { ...radarAxisTitleStyle, fontSize: `${fontSize}px` } }
+        style={ { ...radarAxisTitleStyle(textColor), fontSize: `${fontSize}px` } }
         x={ xText }
         y={ yText }
         dy={ `${extraPadding + idx * LINE_HEIGHT}em` }
@@ -80,7 +80,9 @@ export default class RadarAxis extends React.Component {
             const xText = radius * labelFactor * Math.cos(angleSlice * i + Math.PI / 2);
             const yText = radius * labelFactor * Math.sin(angleSlice * i + Math.PI / 2);
             const extraPadding = +xText.toFixed(4) === 0 ? 0.7 : 1.4;
-            const content = this.renderTitleTexts(item.axis, item.value, xText, yText, extraPadding, axisTitleFontSize);
+            const content = this.renderTitleTexts(
+              item.axis, item.value, xText, yText, extraPadding, axisTitleFontSize, textColor
+            );
             return !isEmpty(content) ? (
               <text
                 key={ `axis--${i}` }
@@ -89,7 +91,7 @@ export default class RadarAxis extends React.Component {
                 dy='0.35em'
                 x={ xText }
                 y={ yText }
-                style={ { ...radarAxisTextStyle, fill: textColor, fontWeight: axisTitleFontWeight } }
+                style={ { ...radarAxisTextStyle, fontWeight: axisTitleFontWeight } }
               >
                 { content }
               </text>

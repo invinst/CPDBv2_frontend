@@ -8,7 +8,7 @@ export default class NavigationButton extends Component {
     const { text } = this.props;
 
     return (
-      <div className={ `${style.navigationButton}` }>
+      <div className={ `${style.navigationButton} no-print` }>
         <span className='navigation-button-text'>{ text }</span>
         <div className='navigation-button-arrow'/>
       </div>

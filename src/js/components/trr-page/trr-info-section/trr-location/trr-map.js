@@ -1,26 +1,27 @@
 import React, { PropTypes, Component } from 'react';
+import cx from 'classnames';
 
 import LocationMap from 'components/common/location-map';
+import PrintMap from 'components/common/print-map';
 import markerStyle from './trr-map-marker.sass';
+import styles from './trr-map.sass';
 
+const marker = (
+  <div className={ markerStyle.trrMapMarker }>
+    <div className='outer-circle'/>
+    <div className='inner-circle'/>
+  </div>
+);
 
 export default class TRRMap extends Component {
 
   render() {
     const { lng, lat } = this.props;
-    const marker = (
-      <div className={ markerStyle.trrMapMarker }>
-        <div className='outer-circle'/>
-        <div className='inner-circle'/>
-      </div>
-    );
-
     return (
-      <LocationMap
-        lat={ lat }
-        lng={ lng }
-        markerEl={ marker }
-      />
+      <div>
+        <PrintMap lat={ lat } lng={ lng } width={ 1000 } height={ 394 } className={ styles.trrPrintMap }/>
+        <LocationMap lat={ lat } lng={ lng } markerEl={ marker } className={ cx(styles.trrMap, 'no-print') }/>
+      </div>
     );
   }
 }

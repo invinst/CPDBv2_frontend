@@ -3,7 +3,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   scryRenderedComponentsWithType,
-  scryRenderedDOMComponentsWithClass,
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -28,12 +28,9 @@ describe('Item component', function () {
     const year = {
       date: '1994',
       hasData: true,
-      isLastUnit: true,
       kind: 'YEAR',
       rank: 'Police Officer',
-      rankDisplay: ' ',
       unitDescription: 'Mobile Strike Force',
-      unitDisplay: ' ',
       unitName: 'Unit 153',
     };
     instance = renderIntoDocument(<Item item={ year }/>);
@@ -56,41 +53,17 @@ describe('Item component', function () {
       date: 'Jan 01',
       kind: 'AWARD',
       unitName: 'Unit 001',
-      unitDisplay: '001 Display',
       rank: 'Police Officer',
-      rankDisplay: 'Police Officer Display',
-      isFirstRank: true,
-      isLastRank: false,
-      isFirstUnit: true,
-      isLastUnit: false,
+      isAfterRankChange: true,
+      isAfterUnitChange: true,
     };
 
     instance = renderIntoDocument(<Item item={ item }/>);
 
-    const rank = scryRenderedDOMComponentsWithClass(instance, 'test--item-rank-unit')[0];
-    const unit = scryRenderedDOMComponentsWithClass(instance, 'test--item-rank-unit')[1];
+    const rank = findRenderedDOMComponentWithClass(instance, 'rank-change-content');
+    const unit = findRenderedDOMComponentWithClass(instance, 'unit-change-content');
 
-    rank.textContent.should.eql('Police Officer Display');
-    unit.textContent.should.eql('001 Display');
-  });
-
-  it('should render unit name as a space if it is the first event in that unit duration ' +
-    'and unitDisplay is an empty string', function () {
-    const item = {
-      date: 'Jan 01',
-      kind: 'AWARD',
-      unitName: '001',
-      unitDisplay: '',
-      rank: 'Police Officer',
-      rankDisplay: 'Police Officer Display',
-      isFirstRank: false,
-      isLastRank: false,
-      isFirstUnit: true,
-      isLastUnit: false,
-    };
-
-    instance = renderIntoDocument(<Item item={ item }/>);
-
-    scryRenderedDOMComponentsWithClass(instance, 'test--item-rank-unit')[1].textContent.should.eql('');
+    rank.textContent.should.eql('Police Officer');
+    unit.textContent.should.eql('Unit 001');
   });
 });

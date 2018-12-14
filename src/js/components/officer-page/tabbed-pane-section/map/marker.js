@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
+import cx from 'classnames';
 
 import Hoverable from 'components/common/higher-order/hoverable';
-import { wrapperStyle } from './marker.style';
 import { MAP_ITEMS } from 'utils/constants';
+import styles from './marker.sass';
 
 
 export class Marker extends Component {
@@ -39,12 +40,18 @@ export class Marker extends Component {
   }
 
   render() {
-    const { kind, finding, hovering } = this.props;
+    const { kind, finding } = this.props;
 
     return (
       <div
-        className='test--marker'
-        style={ wrapperStyle(kind, finding, hovering) }
+        className={ cx(
+          styles.marker,
+          {
+            'force': kind === MAP_ITEMS.FORCE,
+            'complaint': kind === MAP_ITEMS.CR,
+            'sustained-finding': finding === 'Sustained'
+          }
+        ) }
         onClick={ this.handleClick }
       />
     );
