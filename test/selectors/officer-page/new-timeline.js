@@ -494,7 +494,7 @@ describe('Officer new timeline selectors', function () {
       ]);
     });
 
-    it.only('should return correct value of hasFirstChangedItem', function () {
+    it('should return correct value of hasFirstChangedItem', function () {
       const items = [
         {
           year: 2015,
