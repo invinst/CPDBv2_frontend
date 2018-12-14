@@ -24,7 +24,7 @@ export class TRRPage extends Component {
         <div className={ style.trrPage }>
           <ShareableHeaderContainer/>
           <div className={ `${responsiveContainerStyles.responsiveContainer} trr-content` }>
-            <h1 className='trr-title'>TRR { trrId }</h1>
+            <h1 className='trr-title no-print'>TRR { trrId }</h1>
             { printMode ? <div className='trr-category-print'>{ trrDetail.category }</div> : null }
             {
               printMode ? (
