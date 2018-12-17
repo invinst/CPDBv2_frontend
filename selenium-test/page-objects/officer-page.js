@@ -57,6 +57,10 @@ class TimelineSection extends Section {
       emptyItem: '//div[contains(@class, "timeline-empty-item")]',
       attachmentThumbnail: '.attachment-image',
       moreAttachment: '.more-attachment',
+      rankPopup: '.rank-header .popup',
+      rankPopupButton: '.rank-header .tooltip-button',
+      salaryPopup: '//div[contains(@class, "salary__salary")]//div[contains(@class, "popup")]',
+      salaryPopupButton: '//div[contains(@class, "salary__salary")]//div[@class="tooltip-button"]',
     });
   }
 }

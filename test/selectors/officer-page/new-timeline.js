@@ -317,7 +317,7 @@ describe('Officer new timeline selectors', function () {
         key: 1,
       };
 
-      yearItem(baseItem, 2010, true).should.eql({
+      yearItem(baseItem, 2010, true, false).should.eql({
         date: '2010',
         kind: 'YEAR',
         rank: 'Police Officer',
@@ -329,6 +329,7 @@ describe('Officer new timeline selectors', function () {
         key: '1-YEAR-2010',
         isAfterRankChange: false,
         isAfterUnitChange: false,
+        hasFirstChangedItem: false,
       });
     });
   });
@@ -371,6 +372,7 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2013',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           rank: 'Police Officer',
@@ -384,6 +386,7 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2012',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         }
       ]);
     });
@@ -429,6 +432,7 @@ describe('Officer new timeline selectors', function () {
           key: '1-YEAR-2014',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           year: 2014,
@@ -453,6 +457,7 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2013',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           rank: 'Police Officer',
@@ -466,6 +471,7 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2012',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           rank: 'Police Officer',
@@ -479,6 +485,7 @@ describe('Officer new timeline selectors', function () {
           key: '2-YEAR-2011',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           year: 2011,
@@ -490,6 +497,266 @@ describe('Officer new timeline selectors', function () {
           isCurrentUnit: false,
           isCurrentRank: true,
           key: 2,
+        }
+      ]);
+    });
+
+    it('should return correct value of hasFirstChangedItem', function () {
+      const items = [
+        {
+          year: 2015,
+          date: 'MAR 1',
+          kind: 'CR',
+          rank: 'Police Officer',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          isCurrentUnit: false,
+          isCurrentRank: true,
+          key: 1,
+        },
+        {
+          year: 2014,
+          date: 'MAR 1',
+          kind: 'UNIT_CHANGE',
+          rank: 'Police Officer',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          isCurrentUnit: false,
+          isCurrentRank: true,
+          key: 2,
+        },
+        {
+          year: 2013,
+          date: 'MAR 1',
+          kind: 'AWARD',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 3,
+        },
+        {
+          year: 2012,
+          date: 'MAR 1',
+          kind: 'FORCE',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 4,
+        },
+        {
+          year: 2011,
+          date: 'MAR 1',
+          kind: 'RANK_CHANGE',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 5,
+        },
+        {
+          year: 2010,
+          date: 'MAR 1',
+          kind: 'CR',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 6,
+        },
+        {
+          year: 2009,
+          date: 'MAR 1',
+          kind: 'JOINED',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 7,
+        },
+      ];
+
+      fillYears(items).should.eql([
+        {
+          rank: 'Police Officer',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          isCurrentUnit: false,
+          isCurrentRank: true,
+          isAfterRankChange: false,
+          isAfterUnitChange: false,
+          kind: 'YEAR',
+          date: '2015',
+          key: '1-YEAR-2015',
+          hasData: true,
+          hasFirstChangedItem: false
+        },
+        {
+          year: 2015,
+          date: 'MAR 1',
+          kind: 'CR',
+          rank: 'Police Officer',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          isCurrentUnit: false,
+          isCurrentRank: true,
+          key: 1
+        },
+        {
+          rank: 'Police Officer',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          isCurrentUnit: false,
+          isCurrentRank: true,
+          isAfterRankChange: false,
+          isAfterUnitChange: false,
+          kind: 'YEAR',
+          date: '2014',
+          key: '2-YEAR-2014',
+          hasData: true,
+          hasFirstChangedItem: true
+        },
+        {
+          year: 2014,
+          date: 'MAR 1',
+          kind: 'UNIT_CHANGE',
+          rank: 'Police Officer',
+          unitName: 'Unit 153',
+          unitDescription: 'Mobile Strike Force',
+          isCurrentUnit: false,
+          isCurrentRank: true,
+          key: 2
+        },
+        {
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          isAfterRankChange: false,
+          isAfterUnitChange: false,
+          kind: 'YEAR',
+          date: '2013',
+          key: '3-YEAR-2013',
+          hasData: true,
+          hasFirstChangedItem: false
+        },
+        {
+          year: 2013,
+          date: 'MAR 1',
+          kind: 'AWARD',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 3
+        },
+        {
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          isAfterRankChange: false,
+          isAfterUnitChange: false,
+          kind: 'YEAR',
+          date: '2012',
+          key: '4-YEAR-2012',
+          hasData: true,
+          hasFirstChangedItem: false
+        },
+        {
+          year: 2012,
+          date: 'MAR 1',
+          kind: 'FORCE',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 4
+        },
+        {
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          isAfterRankChange: false,
+          isAfterUnitChange: false,
+          kind: 'YEAR',
+          date: '2011',
+          key: '5-YEAR-2011',
+          hasData: true,
+          hasFirstChangedItem: true
+        },
+        {
+          year: 2011,
+          date: 'MAR 1',
+          kind: 'RANK_CHANGE',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 5
+        },
+        {
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          isAfterRankChange: false,
+          isAfterUnitChange: false,
+          kind: 'YEAR',
+          date: '2010',
+          key: '6-YEAR-2010',
+          hasData: true,
+          hasFirstChangedItem: false
+        },
+        {
+          year: 2010,
+          date: 'MAR 1',
+          kind: 'CR',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 6
+        },
+        {
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          isAfterRankChange: false,
+          isAfterUnitChange: false,
+          kind: 'YEAR',
+          date: '2009',
+          key: '7-YEAR-2009',
+          hasData: true,
+          hasFirstChangedItem: true
+        },
+        {
+          year: 2009,
+          date: 'MAR 1',
+          kind: 'JOINED',
+          rank: 'Some Officer',
+          unitName: 'Unit 111',
+          unitDescription: 'Some Force',
+          isCurrentUnit: true,
+          isCurrentRank: false,
+          key: 7
         }
       ]);
     });
@@ -537,6 +804,7 @@ describe('Officer new timeline selectors', function () {
           key: '1-YEAR-2014',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         ...sameYearItems
       ]);
@@ -1156,6 +1424,7 @@ describe('Officer new timeline selectors', function () {
           key: '0-YEAR-2006',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           year: 2006,
@@ -1183,6 +1452,7 @@ describe('Officer new timeline selectors', function () {
           key: '1-YEAR-2005',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           trrId: 1,
@@ -1241,6 +1511,7 @@ describe('Officer new timeline selectors', function () {
           key: '4-YEAR-2004-EMPTY',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           date: '2004',
@@ -1254,6 +1525,7 @@ describe('Officer new timeline selectors', function () {
           key: '4-YEAR-2004',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           trrId: 3,
@@ -1282,6 +1554,7 @@ describe('Officer new timeline selectors', function () {
           key: '5-YEAR-2003',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           attachments: [
@@ -1341,6 +1614,7 @@ describe('Officer new timeline selectors', function () {
           key: '7-YEAR-2002',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           date: '2001',
@@ -1354,6 +1628,7 @@ describe('Officer new timeline selectors', function () {
           key: '7-YEAR-2001',
           isAfterRankChange: false,
           isAfterUnitChange: false,
+          hasFirstChangedItem: false
         },
         {
           date: '2000',
@@ -1367,6 +1642,7 @@ describe('Officer new timeline selectors', function () {
           key: '7-YEAR-2000',
           isAfterRankChange: false,
           isAfterUnitChange: true,
+          hasFirstChangedItem: true
         },
         {
           date: 'APR 28',
