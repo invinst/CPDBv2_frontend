@@ -45,6 +45,29 @@ describe('search page transforms', function () {
       });
     });
 
+    it('should transform SEARCH-TERMS data correctly', function () {
+      previewPaneTransform({
+        type: 'SEARCH-TERMS',
+        name: 'Communities',
+        description: 'This is community description',
+        id: '123456abcd',
+        'call_to_action_type': 'view_all',
+        link: '/url-mediator/session-builder?community=<name>',
+      }).should.deepEqual({
+        data: {
+          id: '123456abcd',
+          name: 'Communities',
+          description: 'This is community description',
+          callToActionType: 'view_all',
+          to: '/search/?terms=123456abcd&type=123456ABCD',
+          url: '',
+          type: 'SEARCH-TERMS',
+          uniqueKey: 'SEARCH-TERMS-123456abcd'
+        },
+        type: 'SEARCH-TERMS'
+      });
+    });
+
     it('should transform UNIT > OFFICERS data correctly', function () {
       const focusedSuggestion = RawOfficerSuggestion.build({
         id: '29033',

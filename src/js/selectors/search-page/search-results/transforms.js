@@ -5,6 +5,9 @@ import { extractPercentile } from 'selectors/common/percentile';
 import { getCurrentAge, formatDate } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
+import {
+  navigationItemTransform as searchTermNavigationItemTransform
+} from 'selectors/search-page/search-terms/transforms';
 
 
 const mappingRace = (race) => {
@@ -42,6 +45,7 @@ const previewPaneTypeMap = {
   ...areaTypeMap('POLICE-DISTRICT'),
   ...areaTypeMap('SCHOOL-GROUND'),
   ...areaTypeMap('BEAT'),
+  ...areaTypeMap('SEARCH-TERMS'),
 };
 
 export const previewPaneTransform = item =>
@@ -136,6 +140,7 @@ const officerTransform = (item) => {
 };
 
 const searchResultTransformMap = {
+  'SEARCH-TERMS': searchTermNavigationItemTransform,
   'DATE > CR': crTransform,
   'DATE > TRR': trrTransform,
   'DATE > OFFICERS': officerTransform,
@@ -158,8 +163,13 @@ const getUnitTexts = (item) => {
   const text = item.description || `Unit ${item.name}`;
   return { text, recentText: text };
 };
+const getSearchTermTexts = (item) => {
+  const text = `${item.category_name} - ${item.name}`;
+  return { text, recentText: text };
+};
 
 const textsMap = {
+  'SEARCH-TERMS': getSearchTermTexts,
   'DATE > CR': getCRTexts,
   'DATE > TRR': getTRRTexts,
   CR: getCRTexts,

@@ -27,6 +27,8 @@ class ResultsSection extends Section {
       firstResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--second-row"])[1]`,
       secondResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--first-row"])[2]`,
       secondResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--second-row"])[2]`,
+      previewPaneTitle: '(//div[@class="test--preview-pane-title"])',
+      previewPaneButton: '(//a[@class="test--call-to-action"])',
     });
   }
 }
@@ -38,6 +40,7 @@ class SearchPage extends Page {
   dateOfficerResultsSection = new ResultsSection('DATE-OFFICERS');
   crResultsSection = new ResultsSection('CR');
   trrResultsSection = new ResultsSection('TRR');
+  searchTermsResultsSection = new ResultsSection('SEARCH-TERMS');
 
   constructor() {
     super();

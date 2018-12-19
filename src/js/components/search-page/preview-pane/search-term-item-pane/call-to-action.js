@@ -9,20 +9,20 @@ import { CALL_TO_ACTION_TYPES } from 'utils/constants';
 
 export default class CallToAction extends Component {
   render() {
-    const { item } = this.props;
+    const { name, url, to, callToActionType } = this.props;
 
-    if (item.callToActionType === CALL_TO_ACTION_TYPES.VIEW_ALL) {
+    if (callToActionType === CALL_TO_ACTION_TYPES.VIEW_ALL) {
       return (
-        <Link style={ linkStyle } to={ item.to } className='test--call-to-action'>
-          <span style={ textStyle }>View ALL { pluralize.plural(item.name) }</span>
+        <Link style={ linkStyle } to={ to } className='test--call-to-action'>
+          <span style={ textStyle }>View ALL { pluralize.plural(name) }</span>
           <div style={ buttonStyle } className='test--enter-button'>enter</div>
         </Link>
       );
     }
 
-    if (item.callToActionType === CALL_TO_ACTION_TYPES.LINK) {
+    if (callToActionType === CALL_TO_ACTION_TYPES.LINK) {
       return (
-        <OutboundLink style={ linkStyle } href={ item.url } className='test--call-to-action'>
+        <OutboundLink style={ linkStyle } href={ url } className='test--call-to-action'>
           <span style={ textStyle }>Enter Data Tool</span>
           <div style={ buttonStyle } className='test--enter-button'>enter</div>
         </OutboundLink>
@@ -34,5 +34,8 @@ export default class CallToAction extends Component {
 }
 
 CallToAction.propTypes = {
-  item: PropTypes.object
+  name: PropTypes.string,
+  to: PropTypes.string,
+  url: PropTypes.string,
+  callToActionType: PropTypes.string,
 };

@@ -10,6 +10,7 @@ import {
   PoliceBeatPane,
   PoliceDistrictPane,
   SchoolGroundPane,
+  SearchTermItemPane
 } from 'components/search-page/preview-pane';
 
 
@@ -25,6 +26,7 @@ export default class PreviewPane extends Component {
   renderPane() {
     const { data, type } = this.props;
     const paneTypes = {
+      'SEARCH-TERMS': () => <SearchTermItemPane { ...data } />,
       OFFICER: () => <OfficerPane { ...data }/>,
       COMMUNITY: () => <CommunityPane { ...data } />,
       NEIGHBORHOOD: () => <NeighborhoodPane { ...data } />,

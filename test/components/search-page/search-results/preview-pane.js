@@ -16,6 +16,7 @@ import {
   PoliceDistrictPane,
   SchoolGroundPane,
   OfficerPane,
+  SearchTermItemPane
 } from 'components/search-page/preview-pane';
 
 
@@ -94,6 +95,16 @@ describe('PreviewPane component', function () {
       />
     );
     findRenderedComponentWithType(instance, SchoolGroundPane);
+  });
+
+  it('should render SearchTermItemPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type={ 'SEARCH-TERMS' }
+        data={ { name: 'Search Terms' } }
+      />
+    );
+    findRenderedComponentWithType(instance, SearchTermItemPane);
   });
 
   it('should not display any component if the data is empty', function () {

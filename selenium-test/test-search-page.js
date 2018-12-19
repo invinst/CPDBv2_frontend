@@ -106,6 +106,19 @@ describe('Search Page', function () {
     searchPage.dateOfficerResultsSection.secondResultSubText.getText().should.containEql('0 Sustained');
   });
 
+  it('should able to show SEARCH-TERMS results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Geography');
+
+    searchPage.suggestionTags.waitForVisible();
+
+    searchPage.searchTermsResultsSection.results.count.should.equal(1);
+    searchPage.searchTermsResultsSection.firstResultText.getText().should.equal('Geography - Communities');
+    searchPage.searchTermsResultsSection.firstResultText.click();
+    searchPage.searchTermsResultsSection.previewPaneTitle.getText().should.containEql('Communities');
+    searchPage.searchTermsResultsSection.previewPaneButton.getText().should.containEql('View ALL Communities');
+  });
+
   it('should show filtered result when user clicks "Show more results"', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
