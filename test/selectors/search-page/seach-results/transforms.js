@@ -99,7 +99,7 @@ describe('search page transforms', function () {
           trrPercentile: 90,
           to: '/officer/29033/',
         },
-        type: 'OFFICER',
+        type: 'UNIT > OFFICERS',
       };
       previewPaneTransform({
         type: 'UNIT > OFFICERS',

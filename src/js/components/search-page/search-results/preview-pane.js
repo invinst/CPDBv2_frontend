@@ -24,8 +24,12 @@ export default class PreviewPane extends Component {
 
   renderPane() {
     const { data, type } = this.props;
+    const officerPaneFunc = () => <OfficerPane { ...data }/>;
+
     const paneTypes = {
-      OFFICER: () => <OfficerPane { ...data }/>,
+      OFFICER: officerPaneFunc,
+      'DATE > OFFICERS': officerPaneFunc,
+      'UNIT > OFFICERS': officerPaneFunc,
       COMMUNITY: () => <CommunityPane { ...data } />,
       NEIGHBORHOOD: () => <NeighborhoodPane { ...data } />,
       WARD: () => <WardPane { ...data }/>,

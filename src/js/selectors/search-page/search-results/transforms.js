@@ -18,34 +18,14 @@ const mappingRace = (race) => {
   return race;
 };
 
-const areaTypeMap = (areaType) => ({
-  [areaType]: (suggestion) => ({
-    type: areaType,
-    data: get(searchResultTransformMap, areaType, () => {})(suggestion)
-  })
-});
-
-const officerTypeMap = (type) => ({
-  [type]: (suggestion) => ({
-    type: 'OFFICER',
-    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
-  })
-});
-
-const previewPaneTypeMap = {
-  ...officerTypeMap('OFFICER'),
-  ...officerTypeMap('DATE > OFFICERS'),
-  ...officerTypeMap('UNIT > OFFICERS'),
-  ...areaTypeMap('COMMUNITY'),
-  ...areaTypeMap('NEIGHBORHOOD'),
-  ...areaTypeMap('WARD'),
-  ...areaTypeMap('POLICE-DISTRICT'),
-  ...areaTypeMap('SCHOOL-GROUND'),
-  ...areaTypeMap('BEAT'),
+export const previewPaneTransform = item => {
+  const { type } = item;
+  const transform = get(searchResultTransformMap, type, () => {});
+  return {
+    type,
+    data: transform(item)
+  };
 };
-
-export const previewPaneTransform = item =>
-  get(previewPaneTypeMap, item.type, () => ({}))(item);
 
 const officerMostComplaintTransform = officer => {
   const percentile = extractPercentile(officer);
