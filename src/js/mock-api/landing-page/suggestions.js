@@ -2,7 +2,8 @@ import {
   RawOfficerSuggestion,
   RawNeighborhoodSuggestion,
   RawCRSuggestion,
-  RawTRRSuggestion
+  RawTRRSuggestion,
+  RawRankSuggestion,
 } from 'utils/test/factories/suggestion';
 
 
@@ -160,6 +161,22 @@ export const groupedSuggestions = {
         }
       ),
     ],
+  },
+  'rank': {
+    'RANK': [
+      RawRankSuggestion.build(
+        {
+          name: 'Officer',
+          'active_officers_count': 2,
+        }
+      ),
+      RawRankSuggestion.build(
+        {
+          name: 'Chief',
+          'active_officers_count': 3,
+        }
+      ),
+    ]
   }
 };
 

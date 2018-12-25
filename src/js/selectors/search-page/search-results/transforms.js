@@ -69,6 +69,17 @@ const areaTransform = (item) => {
   };
 };
 
+const rankTransform = item => {
+  const officersMostComplaints = get(
+    item, 'officers_most_complaints', []
+  ).map(officer => officerMostComplaintTransform(officer));
+  return {
+    name: item.name,
+    activeOfficersCount: item['active_officers_count'],
+    officersMostComplaints,
+  };
+};
+
 const crTransform = (item) => {
   const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
   return {
@@ -129,6 +140,7 @@ const searchResultTransformMap = {
   'POLICE-DISTRICT': areaTransform,
   BEAT: areaTransform,
   'SCHOOL-GROUND': areaTransform,
+  RANK: rankTransform,
 };
 
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });

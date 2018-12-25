@@ -10,6 +10,7 @@ import {
   PoliceBeatPane,
   PoliceDistrictPane,
   SchoolGroundPane,
+  RankPane,
 } from 'components/search-page/preview-pane';
 
 
@@ -36,6 +37,7 @@ export default class PreviewPane extends Component {
       BEAT: () => <PoliceBeatPane { ...data } />,
       'POLICE-DISTRICT': () => <PoliceDistrictPane { ...data } />,
       'SCHOOL-GROUND': () => <SchoolGroundPane { ...data } />,
+      RANK: () => <RankPane { ...data } />,
     };
     return get(paneTypes, type, () => null)();
   }

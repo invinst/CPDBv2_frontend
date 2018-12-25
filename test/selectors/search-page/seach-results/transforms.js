@@ -1,5 +1,5 @@
 import { previewPaneTransform } from 'selectors/search-page/search-results/transforms';
-import { RawOfficerSuggestion } from 'utils/test/factories/suggestion';
+import { RawOfficerSuggestion, RawRankSuggestion } from 'utils/test/factories/suggestion';
 
 
 describe('search page transforms', function () {
@@ -103,6 +103,52 @@ describe('search page transforms', function () {
       };
       previewPaneTransform({
         type: 'UNIT > OFFICERS',
+        ...focusedSuggestion
+      }).should.deepEqual(info);
+    });
+
+    it('should transform RANK data correctly', function () {
+      const focusedSuggestion = RawRankSuggestion.build({
+        id: '29033',
+        name: 'Chief',
+        'active_officers_count': 11,
+        'officers_most_complaints': [
+          { id: 1, count: 2, name: 'Hulk' },
+          { id: 2, count: 1, name: 'Peter Parker' }
+        ]
+      });
+      const info = {
+        data: {
+          name: 'Chief',
+          activeOfficersCount: 11,
+          officersMostComplaints: [{
+            'count': 2,
+            'id': 1,
+            'name': 'Hulk',
+            'radarAxes': [
+              { 'axis': 'Use of Force Reports', 'value': NaN },
+              { 'axis': 'Officer Allegations', 'value': NaN },
+              { 'axis': 'Civilian Allegations', 'value': NaN }
+            ],
+            'radarColor': undefined,
+            'url': '/officer/1/hulk/',
+          }, {
+            'count': 1,
+            'id': 2,
+            'name': 'Peter Parker',
+            'radarAxes': [
+              { 'axis': 'Use of Force Reports', 'value': NaN },
+              { 'axis': 'Officer Allegations', 'value': NaN },
+              { 'axis': 'Civilian Allegations', 'value': NaN }
+            ],
+            'radarColor': undefined,
+            'url': '/officer/2/peter-parker/'
+          }]
+        },
+        type: 'RANK',
+      };
+      previewPaneTransform({
+        type: 'RANK',
         ...focusedSuggestion
       }).should.deepEqual(info);
     });
