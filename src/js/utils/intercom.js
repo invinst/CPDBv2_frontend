@@ -5,3 +5,7 @@ export const showIntercomLauncher = show => {
 export const showIntercomMessages = show => {
   window.Intercom(show ? 'show' : 'hide');
 };
+
+export const updateIntercomEmail = email => {
+  window.Intercom('update', { email });
+};

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import ConfiguredRadium from 'utils/configured-radium';
+import { updateIntercomEmail } from 'utils/intercom';
 import {
   paddingWrapperStyle,
   inputStyle,
@@ -22,8 +23,10 @@ class RequestDocumentModalContent extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { onRequestDocument, id, closeModal } = this.props;
+    const email = this.refs.email.value;
 
-    return onRequestDocument({ id, email: this.refs.email.value }).then((action) => {
+    return onRequestDocument({ id, email }).then((action) => {
+      updateIntercomEmail(email);
       this.setState({ warning: false });
       setTimeout(closeModal, 1500);  // auto close modal if success
     }).catch(e => {
