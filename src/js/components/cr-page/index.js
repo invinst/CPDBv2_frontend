@@ -40,7 +40,7 @@ class CRPage extends Component {
         <div className={ styles.crPage }>
           <ShareableHeaderContainer/>
           <div className={ cx(responsiveContainerStyles.responsiveContainer, 'top-content') }>
-            <h1 className='cr-title'>CR { crid }</h1>
+            <h1 className='cr-title no-print'>CR { crid }</h1>
             <ComplaintCategory
               category={ category }
               subcategory={ subcategory }
