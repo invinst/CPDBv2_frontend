@@ -20,6 +20,7 @@ import styles from './cr-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
+import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 
 class CRPage extends Component {
@@ -39,7 +40,7 @@ class CRPage extends Component {
         <div className={ styles.crPage }>
           <ShareableHeaderContainer/>
           <div className={ cx(responsiveContainerStyles.responsiveContainer, 'top-content') }>
-            <h1 className='cr-title'>CR { crid }</h1>
+            <h1 className='cr-title no-print'>CR { crid }</h1>
             <ComplaintCategory
               category={ category }
               subcategory={ subcategory }
@@ -98,6 +99,7 @@ class CRPage extends Component {
           </div>
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
           <FooterContainer className={ styles.crPageFooter }/>
+          <PrintPreloadFonts/>
         </div>
       </DocumentMeta>
     );
