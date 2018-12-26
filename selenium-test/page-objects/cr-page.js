@@ -93,11 +93,6 @@ class InvestigatorSection extends Section {
     this.prepareElementGetters({
       firstItem: '(//*[contains(@class, "test--involvement-investigator")]' +
         '//*[contains(@class, "test--officer-row")])[1]',
-      popup: '.test--involvement-investigator .popup',
-      popupButton: '.test--involvement-investigator .tooltip-button',
-      popupTitle: '.test--involvement-investigator .tooltip-title',
-      popupText: '.test--involvement-investigator .tooltip-text',
-      popupCloseButton: '.test--involvement-investigator .tooltip-close-button'
     });
   }
 
@@ -115,11 +110,6 @@ class PoliceWitnessSection extends Section {
     this.prepareElementGetters({
       firstItem: '(//*[contains(@class, "test--involvement-police_witness")]' +
         '//*[contains(@class, "test--officer-row")])[1]',
-      popup: '.test--involvement-police_witness .popup',
-      popupButton: '.test--involvement-police_witness .tooltip-button',
-      popupTitle: '.test--involvement-police_witness .tooltip-title',
-      popupText: '.test--involvement-police_witness .tooltip-text',
-      popupCloseButton: '.test--involvement-police_witness .tooltip-close-button'
     });
   }
 

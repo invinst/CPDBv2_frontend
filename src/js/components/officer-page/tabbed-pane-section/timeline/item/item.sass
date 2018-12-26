@@ -10,7 +10,7 @@ $border-radius: 4px
     page-break-inside: avoid
 
   .rank-change-content, .unit-change-content
-    width: 104px
+    flex: 0 0 104px
     display: inline-block
     text-align: center
     box-sizing: border-box
@@ -90,3 +90,14 @@ $border-radius: 4px
     .item-text
       height: 24px
       line-height: 24px
+
+  &.timeline-year-item
+    &.has-data
+      @media print
+        padding-bottom: 58px
+        margin-bottom: -58px
+
+      &.has-first-changed-item
+        @media print
+          padding-bottom: 24px
+          margin-bottom: -24px

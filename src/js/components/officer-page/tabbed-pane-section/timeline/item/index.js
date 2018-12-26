@@ -23,39 +23,32 @@ export default class Item extends Component {
 
     const componentInfoMap = {
       [NEW_TIMELINE_ITEMS.CR]: {
-        height: 58,
         component: <Cr { ...this.props }/>
       },
       [NEW_TIMELINE_ITEMS.FORCE]: {
-        height: 58,
         component: <Trr { ...this.props }/>
       },
       [NEW_TIMELINE_ITEMS.AWARD]: {
-        height: 58,
         component: <Award { ...this.props }/>
       },
       [NEW_TIMELINE_ITEMS.UNIT_CHANGE]: {
-        height: 24,
         className: 'timeline-special-item',
         component: <UnitChange { ...this.props }/>
       },
       [NEW_TIMELINE_ITEMS.RANK_CHANGE]: {
-        height: 24,
         className: 'timeline-special-item',
         component: <RankChange { ...this.props }/>
       },
       [NEW_TIMELINE_ITEMS.JOINED]: {
-        height: 24,
         className: 'timeline-special-item',
         component: <Joined { ...this.props }/>
       },
       [NEW_TIMELINE_ITEMS.YEAR]: {
         className: item.hasData ? 'has-data' : '',
-        height: item.hasData ? 64 : 32,
         component: <Year { ...this.props }/>
       },
       [NEW_TIMELINE_ITEMS.EMPTY]: {
-        height: 32,
+        className: 'no-print',
         component: <Empty { ...this.props }/>
       },
     };
@@ -95,6 +88,7 @@ export default class Item extends Component {
       unitName,
       isAfterRankChange,
       isAfterUnitChange,
+      hasFirstChangedItem,
     } = this.props.item;
 
     return (
@@ -104,7 +98,8 @@ export default class Item extends Component {
             styles.item,
             className,
             'timeline-item',
-            `timeline-${kebabCase(kind)}-item`
+            `timeline-${kebabCase(kind)}-item`,
+            { 'has-first-changed-item': hasFirstChangedItem }
           )
         }
       >

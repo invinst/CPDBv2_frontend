@@ -33,7 +33,7 @@ class CRPage extends Component {
 
     const { printMode } = this.context;
 
-    const involvementItem = <Involvement involvements={ involvements } popup={ popup } pathName={ pathname }/>;
+    const involvementItem = <Involvement involvements={ involvements }/>;
 
     return (
       <DocumentMeta title={ `CR ${crid}` }>
