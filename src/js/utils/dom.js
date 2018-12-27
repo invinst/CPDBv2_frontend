@@ -28,7 +28,7 @@ export const fullDocumentHeight = _fullDocumentHeight;
 
 export function bodyScrollPosition() {
   /* istanbul ignore next */
-  return Math.max(document.documentElement.scrollTop, window.scrollY);
+  return Math.max(document.documentElement.scrollTop, (window.scrollY || 0));
 }
 
 export function isScrolledToBottom() {
