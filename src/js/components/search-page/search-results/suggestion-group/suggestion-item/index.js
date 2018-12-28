@@ -1,8 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import { get, reduce } from 'lodash';
 
-import Hoverable from 'components/common/higher-order/hoverable';
 import OfficerItem from './officer';
+import CRItem from './cr';
 import SuggestionItemBase from './base';
 
 
@@ -10,6 +10,7 @@ const COMPONENT_MAP = {
   OFFICER: OfficerItem,
   'DATE > OFFICERS': OfficerItem,
   'UNIT > OFFICERS': OfficerItem,
+  CR: CRItem,
 };
 
 export default class SuggestionItem extends Component {
@@ -28,7 +29,7 @@ export default class SuggestionItem extends Component {
 
   render() {
     const { type } = this.props.suggestion;
-    const ComponentType = Hoverable(get(COMPONENT_MAP, type, SuggestionItemBase));
+    const ComponentType = get(COMPONENT_MAP, type, SuggestionItemBase);
 
     return (
       <ComponentType { ...this.props }/>

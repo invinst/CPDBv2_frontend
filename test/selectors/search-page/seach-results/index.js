@@ -127,9 +127,15 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           suggestionGroups: {
-            'CR': [RawCRSuggestion.build(
-              { id: '1001', crid: '1234', category: 'Lorem', 'incident_date': '2004-04-23' }
-            )]
+            'CR': [RawCRSuggestion.build({
+              id: '1001',
+              crid: '1234',
+              category: 'Lorem',
+              'incident_date': '2004-04-23',
+              highlight: {
+                summary: ['the officer pointed a gun at the victim']
+              }
+            })]
           }
         }
       }).should.deepEqual([
@@ -139,9 +145,9 @@ describe('search page results selector', function () {
           items: [{
             type: 'CR',
             id: '1001',
-            text: 'Lorem',
-            recentText: '1234',
-            subText: 'CR # 1234 - April 23, 2004',
+            text: 'CR # 1234 - April 23, 2004',
+            recentText: 'CR # 1234 - April 23, 2004',
+            subText: 'the officer pointed a gun at the victim',
             to: '',
             url: '',
             tags: [],
@@ -152,14 +158,17 @@ describe('search page results selector', function () {
       ]);
     });
 
-    it('should give correct item format for CR with missing category and incident_date', function () {
+    it('should give correct item format for CR with missing category, incident_date and highlight', function () {
       searchResultGroupsSelector({
         searchPage: {
           tags: [],
           suggestionGroups: {
-            'CR': [RawCRSuggestion.build(
-              { id: '1001', crid: '1234', category: null, 'incident_date': null }
-            )]
+            'CR': [RawCRSuggestion.build({
+              id: '1001',
+              crid: '1234',
+              category: null,
+              'incident_date': null,
+            })]
           }
         }
       }).should.deepEqual([
@@ -169,9 +178,9 @@ describe('search page results selector', function () {
           items: [{
             type: 'CR',
             id: '1001',
-            text: 'Unknown',
-            recentText: '1234',
-            subText: 'CR # 1234',
+            text: 'CR # 1234',
+            recentText: 'CR # 1234',
+            subText: '',
             to: '',
             url: '',
             tags: [],
@@ -187,9 +196,12 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           suggestionGroups: {
-            'DATE > CR': [RawCRSuggestion.build(
-              { id: '1001', crid: '1234', category: 'Lorem', 'incident_date': '2004-04-23' }
-            )]
+            'DATE > CR': [RawCRSuggestion.build({
+              id: '1001',
+              crid: '1234',
+              category: 'Lorem',
+              'incident_date': '2004-04-23',
+            })]
           }
         }
       }).should.deepEqual([
@@ -199,9 +211,9 @@ describe('search page results selector', function () {
           items: [{
             type: 'DATE > CR',
             id: '1001',
-            text: 'Lorem',
-            recentText: '1234',
-            subText: 'CR # 1234 - April 23, 2004',
+            text: 'CR # 1234 - April 23, 2004',
+            recentText: 'CR # 1234 - April 23, 2004',
+            subText: '',
             to: '',
             url: '',
             tags: [],
@@ -229,9 +241,9 @@ describe('search page results selector', function () {
           items: [{
             type: 'DATE > CR',
             id: '1001',
-            text: 'Unknown',
-            recentText: '1234',
-            subText: 'CR # 1234',
+            text: 'CR # 1234',
+            recentText: 'CR # 1234',
+            subText: '',
             to: '',
             url: '',
             tags: [],

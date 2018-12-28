@@ -1,8 +1,34 @@
-import { previewPaneTransform } from 'selectors/search-page/search-results/transforms';
+import { previewPaneTransform, searchResultItemTransform } from 'selectors/search-page/search-results/transforms';
 import { RawOfficerSuggestion } from 'utils/test/factories/suggestion';
 
 
 describe('search page transforms', function () {
+  describe('searchResultTransform', function () {
+    it('should transform cr data correctly', function () {
+      searchResultItemTransform({
+        type: 'CR',
+        id: 1,
+        crid: 123,
+        to: '/complaint/123/',
+        'incident_date': '2012-07-02',
+        highlight: {
+          summary: ['the officer pointed a gun at the victim']
+        }
+      }).should.deepEqual({
+        type: 'CR',
+        id: 1,
+        to: '/complaint/123/',
+        url: undefined,
+        uniqueKey: 'CR-1',
+        tags: [],
+        itemIndex: 1,
+        text: 'CR # 123 - July 2, 2012',
+        subText: 'the officer pointed a gun at the victim',
+        recentText: 'CR # 123 - July 2, 2012',
+      });
+    });
+  });
+
   describe('previewPaneTransform', function () {
     it('should transform area data correctly', function () {
       previewPaneTransform({

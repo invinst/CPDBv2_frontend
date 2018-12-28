@@ -2,11 +2,11 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
 import { trigger } from 'mousetrap';
-import classnames from 'classnames';
+import cx from 'classnames';
 
 import JumpyMotion from 'components/animation/jumpy-motion';
 import * as constants from 'utils/constants';
-import { suggestionItemStyle, blackTextStyle, grayTextStyle, innerWrapperStyle, aliasLinkStyle } from './base.style';
+import styles from './base.sass';
 
 
 export default class SuggestionItemBase extends Component {
@@ -35,20 +35,18 @@ export default class SuggestionItemBase extends Component {
   }
 
   renderFirstRow() {
-    const { hovering, isFocused, aliasEditModeOn } = this.props;
+    const { isFocused, aliasEditModeOn } = this.props;
     const { text } = this.props.suggestion;
 
     return (
-      <div style={ blackTextStyle(hovering, isFocused) } className='test--first-row'>
+      <div className={ cx(styles.blackText, { 'active': isFocused }, 'test--first-row') }>
         { text }
         {
           aliasEditModeOn ?
             <Link
-              className='test--create-alias-link'
-              style={ aliasLinkStyle }
+              className={ cx(styles.aliasLink, 'test--create-alias-link') }
               to={ `/edit/${constants.INLINE_SEARCH_ALIAS_ADMIN_PATH}` }
-              onClick={ this.handleAliasButtonClick }
-            >
+              onClick={ this.handleAliasButtonClick }>
               Alias
             </Link> :
             null
@@ -65,17 +63,21 @@ export default class SuggestionItemBase extends Component {
     }
 
     return (
-      <div style={ grayTextStyle } className='test--second-row'>
+      <div className={ cx(styles.grayText, 'test--second-row') }>
         { subText }
       </div>
     );
+  }
+
+  getExtraInnerWrapperClassName() {
+    return null;
   }
 
   renderContent() {
     const { isFocused } = this.props;
 
     return (
-      <div style={ innerWrapperStyle }>
+      <div className={ cx(styles.innerWrapper, this.getExtraInnerWrapperClassName()) }>
         <JumpyMotion isActive={ isFocused }>
           { this.renderFirstRow() }
           { this.renderSecondRow() }
@@ -97,12 +99,16 @@ export default class SuggestionItemBase extends Component {
   }
 
   render() {
-    const { aliasEditModeOn, hovering, isFocused, suggestion } = this.props;
+    const { aliasEditModeOn, isFocused, suggestion } = this.props;
     const { to, uniqueKey, url } = suggestion;
 
     const commonWrapperProps = {
-      style: suggestionItemStyle(hovering, isFocused),
-      className: classnames(`suggestion-item-${uniqueKey}`, { 'test--focused': isFocused }),
+      className: cx(
+        styles.suggestionItem,
+        { 'active': isFocused },
+        `suggestion-item-${uniqueKey}`,
+        { 'test--focused': isFocused }
+      ),
       onClick: this.handleClick.bind(this)
     };
 
@@ -121,7 +127,6 @@ export default class SuggestionItemBase extends Component {
 }
 
 SuggestionItemBase.propTypes = {
-  hovering: PropTypes.bool,
   aliasEditModeOn: PropTypes.bool,
   suggestion: PropTypes.object,
   isFocused: PropTypes.bool,
