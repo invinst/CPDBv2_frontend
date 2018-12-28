@@ -3,6 +3,7 @@ import { map } from 'lodash';
 import {
   renderIntoDocument, scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
+import { findDOMNode } from 'react-dom';
 
 import SummarySection from 'components/officer-page/summary-section';
 import SummaryField from 'components/officer-page/summary-section/summary-field';
@@ -24,5 +25,45 @@ describe('SummarySection component', function () {
     map(summaryFields, field => field.props.label).should.eql([
       'Year of Birth', 'Race', 'Sex', 'Badge', 'Rank', 'Unit', 'Career'
     ]);
+  });
+
+  it('should render correct badge row', function () {
+    const officerSummary = {
+      badge: '1234',
+      historicBadges: ['4321, 5678'],
+    };
+    const instance = renderIntoDocument(<SummarySection officerSummary={ officerSummary }/>);
+    const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
+    findDOMNode(summaryFields[3]).textContent.should.containEql('1234, 4321, 5678');
+  });
+
+  it('should only render historic badge when badge is empty', function () {
+    const officerSummary = {
+      badge: '',
+      historicBadges: ['4321, 5678'],
+    };
+    const instance = renderIntoDocument(<SummarySection officerSummary={ officerSummary }/>);
+    const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
+    findDOMNode(summaryFields[3]).textContent.should.containEql('4321, 5678');
+  });
+
+  it('should only render badge when historic badge is empty', function () {
+    const officerSummary = {
+      badge: '1234',
+      historicBadges: [],
+    };
+    const instance = renderIntoDocument(<SummarySection officerSummary={ officerSummary }/>);
+    const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
+    findDOMNode(summaryFields[3]).textContent.should.containEql('1234');
+  });
+
+  it('should render Unknown when both badge and historic badge are empty', function () {
+    const officerSummary = {
+      badge: '',
+      historicBadges: [],
+    };
+    const instance = renderIntoDocument(<SummarySection officerSummary={ officerSummary }/>);
+    const summaryFields = scryRenderedComponentsWithType(instance, SummaryField);
+    findDOMNode(summaryFields[3]).textContent.should.containEql('Unknown');
   });
 });
