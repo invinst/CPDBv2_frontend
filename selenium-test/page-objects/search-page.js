@@ -41,6 +41,7 @@ class SearchPage extends Page {
   crResultsSection = new ResultsSection('CR');
   trrResultsSection = new ResultsSection('TRR');
   searchTermsResultsSection = new ResultsSection('SEARCH-TERMS');
+  searchCommunityResultsSection = new ResultsSection('COMMUNITY');
 
   constructor() {
     super();
