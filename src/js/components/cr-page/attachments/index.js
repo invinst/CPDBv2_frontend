@@ -15,6 +15,7 @@ export default class Attachments extends Component {
       openRequestDocumentModal,
       alreadyRequested,
       pathname,
+      noAttachmentTextEditWrapperStateProps,
     } = this.props;
 
     const { printMode } = this.context;
@@ -39,6 +40,7 @@ export default class Attachments extends Component {
                 <NoAttachmentHeader
                   openRequestDocumentModal={ openRequestDocumentModal }
                   alreadyRequested={ alreadyRequested }
+                  editWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
                 />
               )
             }
@@ -65,6 +67,7 @@ Attachments.propTypes = {
   openRequestDocumentModal: PropTypes.func,
   alreadyRequested: PropTypes.bool,
   pathname: PropTypes.string,
+  noAttachmentTextEditWrapperStateProps: PropTypes.object,
 };
 
 Attachments.contextTypes = {

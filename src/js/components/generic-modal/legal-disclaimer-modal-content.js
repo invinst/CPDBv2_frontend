@@ -1,22 +1,16 @@
 import OutboundLink from 'components/common/outbound-link';
 import React, { Component, PropTypes } from 'react';
 import { QA_LINK } from 'utils/constants';
-import {
-  instructionStyle,
-  paddingWrapperStyle,
-  legalBodyStyle,
-  linkStyle,
-  iUnderstandStyle
-} from './generic-modal.style';
+import style from './legal-disclaimer-modal-content.sass';
 import { showIntercomMessages } from 'utils/intercom';
 
 
 class LegalDisclaimerModalContent extends Component {
   render() {
     return (
-      <div style={ paddingWrapperStyle }>
-        <p style={ instructionStyle }>LEGAL DISCLAIMER</p>
-        <div style={ legalBodyStyle }>
+      <div className={ style.legalDisclaimerModalContent }>
+        <p className='legal-disclaimer-instruction'>LEGAL DISCLAIMER</p>
+        <div className='legal-disclaimer-body'>
           <p>
             The information we provide comes primarily from data provided by the City of Chicago in response to
             litigation and Freedom Of Information Act (FOIA) requests. We have incorporated other publicly available
@@ -24,20 +18,18 @@ class LegalDisclaimerModalContent extends Component {
           </p>
           <p>
             We cannot guarantee the accuracy of this data - instead we commit ourselves to being honest about
-            flaws (<OutboundLink href={ QA_LINK } style={ linkStyle }>Q&A</OutboundLink>
+            flaws (<OutboundLink href={ QA_LINK } className='legal-disclaimer-body-link'>Q&A</OutboundLink>
             ), transparent in our publishing process (
             <OutboundLink
               href='https://github.com/invinst/'
               target='_blank'
-              style={ linkStyle }
-              className='test--github-link'
+              className='legal-disclaimer-body-link'
             >
               GitHub
             </OutboundLink>
             ), and welcoming of critiques (
             <a
-              className='test--contact-link'
-              style={ linkStyle }
+              className='legal-disclaimer-body-link'
               onClick={ () => { showIntercomMessages(true); } }
             >
               contact
@@ -45,7 +37,7 @@ class LegalDisclaimerModalContent extends Component {
             ).
           </p>
         </div>
-        <a onClick={ this.props.closeModal } style={ iUnderstandStyle } className='test--i-understand-link'>
+        <a onClick={ this.props.closeModal } className='i-understand-link'>
           I understand
         </a>
       </div>

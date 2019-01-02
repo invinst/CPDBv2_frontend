@@ -1,5 +1,5 @@
 import configureStore from 'store';
-import { OFFICER_EDIT_TYPES } from 'utils/constants';
+import { OFFICER_EDIT_TYPES, CR_EDIT_TYPES, TRR_EDIT_TYPES } from 'utils/constants';
 
 
 function setUp() {
@@ -132,6 +132,10 @@ describe('store', function () {
               cards: []
             }
           }
+        },
+        editModeOn: {
+          [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+          [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
         }
       },
       trrPage: {
@@ -145,6 +149,10 @@ describe('store', function () {
           },
           subscribedTRRIds: {},
         },
+        editModeOn: {
+          [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+          [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+        }
       },
       crs: {},
       officerPage: {
