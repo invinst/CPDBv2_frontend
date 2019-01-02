@@ -73,7 +73,3 @@ PopupWrapper.propTypes = {
   className: PropTypes.string,
   popupButtonClassName: PropTypes.string,
 };
-
-PopupWrapper.defaultProps = {
-  style: {},
-};
