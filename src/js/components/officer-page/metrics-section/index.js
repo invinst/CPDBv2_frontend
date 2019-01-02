@@ -36,56 +36,38 @@ export default class MetricsSection extends Component {
         value: allegationCount,
         name: `${pluralize('Allegation', allegationCount)}`,
         description: this.getDescription(allegationPercentile, ['N/A']),
-        popup: {
-          ...get(popup, POPUP_NAMES.OFFICER.ALLEGATION),
-          position: 'absolute',
-        }
+        popup: get(popup, POPUP_NAMES.OFFICER.ALLEGATION),
       },
       {
         value: sustainedCount,
         name: 'Sustained',
         description: `${disciplineCount} Disciplined`,
         highlightValue: true,
-        popup: {
-          ...get(popup, POPUP_NAMES.OFFICER.SUSTAINED),
-          position: 'absolute',
-        },
+        popup: get(popup, POPUP_NAMES.OFFICER.SUSTAINED),
       },
       {
         value: useOfForceCount,
         name: `Use of Force ${pluralize('Report', useOfForceCount)}`,
         description: this.getDescription(useOfForcePercentile, ['N/A']),
-        popup: {
-          ...get(popup, POPUP_NAMES.OFFICER.TRR),
-          position: 'absolute',
-        }
+        popup: get(popup, POPUP_NAMES.OFFICER.TRR),
       },
       {
         value: civilianComplimentCount,
         name: `Civilian ${pluralize('Compliment', civilianComplimentCount)}`,
         description: '',
-        popup: {
-          ...get(popup, POPUP_NAMES.OFFICER.CIVILIAN_COMPLIMENT),
-          position: 'absolute',
-        }
+        popup: get(popup, POPUP_NAMES.OFFICER.CIVILIAN_COMPLIMENT),
       },
       {
         value: majorAwardCount,
         name: `Major ${pluralize('Award', majorAwardCount)}`,
         description: '',
-        popup: {
-          ...get(popup, POPUP_NAMES.OFFICER.MAJOR_AWARD),
-          position: 'absolute',
-        }
+        popup: get(popup, POPUP_NAMES.OFFICER.MAJOR_AWARD),
       },
       {
         value: honorableMentionCount,
         name: `Honorable ${pluralize('Mention', honorableMentionCount)}`,
         description: this.getDescription(honorableMentionPercentile, ['N/A', 0]),
-        popup: {
-          ...get(popup, POPUP_NAMES.OFFICER.HONORABLE_MENTION),
-          position: 'absolute',
-        }
+        popup: get(popup, POPUP_NAMES.OFFICER.HONORABLE_MENTION),
       }
     ];
 

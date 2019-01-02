@@ -5,7 +5,8 @@ import cx from 'classnames';
 import OfficerCard from 'components/common/officer-card';
 import Popup from 'components/common/popup';
 import CoaccusedCardFooter from './coaccused-card-footer';
-import styles from './accused-officers.sass';
+import style from './accused-officers.sass';
+import CoaccusedPopup from './coaccused-popup';
 
 
 export default class AccusedOfficers extends Component {
@@ -27,7 +28,7 @@ export default class AccusedOfficers extends Component {
     const { officers, popup, pathName } = this.props;
     const { expanded } = this.state;
     return (
-      <div className={ cx(styles.accusedOfficers, 'test--accused-officer', { 'expanded': expanded }) }>
+      <div className={ cx(style.accusedOfficers, 'test--accused-officer', { 'expanded': expanded }) }>
         <h2 className='accused-officer-title'>
           { `${officers.length} ${pluralize('accused officer', officers.length).toUpperCase()}` }
           <Popup
@@ -38,18 +39,24 @@ export default class AccusedOfficers extends Component {
         <div className='accused-officers-wrapper'>
           {
             officers.map(officer => (
-              <OfficerCard
-                key={ officer.id } { ...officer }
-                className={ styles.officerCard }
-                footer={
-                  <CoaccusedCardFooter
-                    finding={ officer.finding }
-                    disciplined={ officer.disciplined }
-                    category={ officer.category }
-                    findingOutcomeMix={ officer.findingOutcomeMix }
-                  />
-                }
-              />
+              <div key={ officer.id } className='accused-officer-card'>
+                <CoaccusedPopup
+                  finding={ officer.finding }
+                  outcome={ officer.outcome }
+                  recommendedOutcome={ officer.recommendedOutcome }
+                />
+                <OfficerCard
+                  { ...officer }
+                  footer={
+                    <CoaccusedCardFooter
+                      finding={ officer.finding }
+                      disciplined={ officer.disciplined }
+                      category={ officer.category }
+                      findingOutcomeMix={ officer.findingOutcomeMix }
+                    />
+                  }
+                />
+              </div>
             ))
           }
         </div>

@@ -58,9 +58,9 @@ class TimelineSection extends Section {
       attachmentThumbnail: '.attachment-image',
       moreAttachment: '.more-attachment',
       rankPopup: '.rank-header .popup',
-      rankPopupButton: '.rank-header .tooltip-button',
+      rankPopupButton: '.rank-header .popup-button',
       salaryPopup: '//div[contains(@class, "salary__salary")]//div[contains(@class, "popup")]',
-      salaryPopupButton: '//div[contains(@class, "salary__salary")]//div[@class="tooltip-button"]',
+      salaryPopupButton: '//div[contains(@class, "salary__salary")]//div[@class="popup-button"]',
     });
   }
 }
