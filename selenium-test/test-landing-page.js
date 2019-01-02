@@ -187,9 +187,9 @@ describe('landing page', function () {
     it('should have fixed position, grey nav links and bottom shadow in sticky state', function () {
       browser.scroll(0, 20);
       browser.pause(1000);
-      landingPage.stickyHeader.mainElement.getCssProperty('position').value.should.eql('fixed');
-      landingPage.stickyHeader.qa.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
-      landingPage.stickyHeader.mainElement.getCssProperty('box-shadow').value.should.eql(
+      landingPage.slimHeader.mainElement.getCssProperty('position').value.should.eql('fixed');
+      landingPage.slimHeader.qa.getCssProperty('color').value.should.eql('rgba(143,143,143,1)');
+      landingPage.slimHeader.mainElement.getCssProperty('box-shadow').value.should.eql(
         'rgba(0,0,0,0.13)0px1px1px0px'
       );
     });
@@ -197,9 +197,9 @@ describe('landing page', function () {
     it('should have blue background when scrolled all the way to bottom of page', function () {
       browser.scroll(0, 99999);
       browser.pause(10000);
-      landingPage.stickyHeader.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
-      landingPage.stickyHeader.qa.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
-      landingPage.stickyHeader.mainElement.getCssProperty('box-shadow').value.should.eql('none');
+      landingPage.slimHeader.mainElement.getCssProperty('background-color').value.should.eql('rgba(0,94,244,1)');
+      landingPage.slimHeader.qa.getCssProperty('color').value.should.eql('rgba(255,255,255,1)');
+      landingPage.slimHeader.mainElement.getCssProperty('box-shadow').value.should.eql('none');
     });
 
     it('should go to search term page when clicking anywhere in the search box', function () {

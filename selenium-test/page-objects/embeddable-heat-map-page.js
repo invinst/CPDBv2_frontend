@@ -2,7 +2,7 @@
 
 import Page from './page';
 import Section from './sections/section';
-import { TopHeader, StickyHeader } from './sections/header';
+import { TopHeader } from './sections/header';
 import Footer from './sections/footer';
 import RichTextToolbar from './sections/rich-text-toolbar';
 
@@ -62,7 +62,6 @@ class HeatMapSection extends Section {
 
 class EmbeddableHeatMapPage extends Page {
   topHeader = new TopHeader();
-  stickyHeader = new StickyHeader();
   footer = new Footer();
   richTextToolbar = new RichTextToolbar();
   heatMapSection = new HeatMapSection();

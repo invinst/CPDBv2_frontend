@@ -52,7 +52,7 @@ class TopHeader extends Section {
   }
 }
 
-class StickyHeader extends Section {
+class SlimHeader extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
@@ -68,5 +68,5 @@ class StickyHeader extends Section {
 
 module.exports = {
   TopHeader,
-  StickyHeader
+  SlimHeader
 };
