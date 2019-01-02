@@ -1,5 +1,5 @@
 import { Factory } from 'rosie';
-import { name, random, internet } from 'faker';
+import { name, random, internet, lorem } from 'faker';
 
 
 /* istanbul ignore next */
@@ -17,6 +17,9 @@ export const CoaccusedFactory = Factory.define('coaccused')
   .attr('fullname', () => `${name.firstName()} ${name.lastName}`)
   .attr('complaintCount', () => random.number())
   .attr('sustainedCount', () => random.number())
+  .attr('finding', () => lorem.word())
+  .attr('outcome', () => lorem.word())
+  .attr('recommendedOutcome', () => lorem.word())
   .attr('complaintPercentile', 99)
   .attr('birthYear', 1970)
   .attr('race', 'white')
