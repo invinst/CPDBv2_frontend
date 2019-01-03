@@ -4,7 +4,8 @@ import { unmountComponentSuppressError } from 'utils/test';
 import {
   Simulate,
   renderIntoDocument,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass
 } from 'react-addons-test-utils';
 
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
@@ -26,7 +27,7 @@ describe('LegalDisclaimerModalContent component', function () {
       <LegalDisclaimerModalContent closeModal={ closeModal }/>
     );
 
-    const iUnderstand = findRenderedDOMComponentWithClass(element, 'test--i-understand-link');
+    const iUnderstand = findRenderedDOMComponentWithClass(element, 'i-understand-link');
     iUnderstand.innerText.should.eql('I understand');
 
     closeModal.called.should.be.false();
@@ -38,8 +39,8 @@ describe('LegalDisclaimerModalContent component', function () {
     element = renderIntoDocument(
       <LegalDisclaimerModalContent />
     );
-
-    const githubLink = findRenderedDOMComponentWithClass(element, 'test--github-link');
+    const links = scryRenderedDOMComponentsWithClass(element, 'legal-disclaimer-body-link');
+    const githubLink = links[1];
     githubLink.innerText.should.eql('GitHub');
     githubLink.getAttribute('href').should.eql('https://github.com/invinst/');
     githubLink.getAttribute('target').should.eql('_blank');
@@ -57,7 +58,8 @@ describe('LegalDisclaimerModalContent component', function () {
       element = renderIntoDocument(
         <LegalDisclaimerModalContent />
       );
-      const contactLink = findRenderedDOMComponentWithClass(element, 'test--contact-link');
+      const links = scryRenderedDOMComponentsWithClass(element, 'legal-disclaimer-body-link');
+      const contactLink = links[2];
       contactLink.innerText.should.eql('contact');
       Simulate.click(contactLink);
 

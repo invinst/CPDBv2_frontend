@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary } from 'actions/officer-page';
-import { LANDING_PAGE_ID, OFFICER_PAGE_ID } from 'utils/constants';
+import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID } from 'utils/constants';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { fetchPage } from 'actions/cms';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
@@ -107,6 +107,24 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
 
     cmsStore.dispatch.calledWith(fetchPage(OFFICER_PAGE_ID)()).should.be.false();
+  });
+
+  it('should dispatch cr cms fetchPage action if cr page and cms is empty', function () {
+    const action = createLocationChangeAction('/complaint/1/');
+    let dispatched;
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchPage(CR_PAGE_ID)()).should.be.true();
+  });
+
+  it('should dispatch trr cms fetchPage action if trr page and cms is empty', function () {
+    const action = createLocationChangeAction('/trr/1/');
+    let dispatched;
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.calledWith(fetchPage(TRR_PAGE_ID)()).should.be.true();
   });
 
   it('should dispatch officer actions if officer id change', function () {

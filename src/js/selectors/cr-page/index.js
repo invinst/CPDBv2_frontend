@@ -7,6 +7,9 @@ import { getBreadcrumb } from '../breadcrumbs';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
 
+
+export const getEditModeOn = state => state.crPage.editModeOn;
+
 const getCoaccused = state => {
   const crid = state.crPage.crid;
   return !state.crs[crid] ? [] : state.crs[crid].coaccused;
@@ -67,6 +70,8 @@ const getTransformedCoaccused = createSelector(
     coaccusedCount: coaccused['coaccused_count'],
     findingOutcomeMix: getFindingOutcomeMix(coaccused['final_finding'], coaccused['final_outcome']),
     finding: coaccused['final_finding'],
+    outcome: coaccused['final_outcome'],
+    recommendedOutcome: coaccused['recommended_outcome'],
     category: coaccused['category'] || 'Unknown',
     disciplined: coaccused['disciplined'],
   }))

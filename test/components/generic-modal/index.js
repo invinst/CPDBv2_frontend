@@ -1,6 +1,6 @@
 import React from 'react';
 import { spy } from 'sinon';
-import { unmountComponentSuppressError } from 'utils/test';
+import { findDOMNode } from 'react-dom';
 import {
   Simulate,
   renderIntoDocument,
@@ -11,10 +11,12 @@ import {
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 
+import { unmountComponentSuppressError } from 'utils/test';
 import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaimer-modal-content';
 import GenericModal from 'components/generic-modal';
-import RequestDocumentModalContent from 'containers/request-document-modal-container';
-import RequestTRRDocumentModalContent from 'containers/request-trr-document-modal-container';
+import RequestDocumentModalContent from 'containers/cr-page/request-document-modal-container';
+import RequestTRRDocumentModalContent from 'containers/trr-page/request-document-modal-container';
+import { CR_EDIT_TYPES, TRR_EDIT_TYPES } from 'utils/constants';
 
 
 describe('GenericModal component', function () {
@@ -31,7 +33,7 @@ describe('GenericModal component', function () {
       <GenericModal activeModal={ null }/>
     );
 
-    scryRenderedDOMComponentsWithClass(element, 'test--generic-modal-overlay').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(element, 'generic-modal-content').should.have.length(0);
   });
 
   it('should render Legal Disclaimer when activeModal matches', function () {
@@ -45,12 +47,17 @@ describe('GenericModal component', function () {
 
   it('should render RequestDocumentModalContent when activeModal matches', function () {
     const store = MockStore()({
+      cms: { pages: {} },
       breadcrumb: {
         breadcrumbs: []
       },
       crPage: {
         attachmentRequest: {
           request: {}
+        },
+        editModeOn: {
+          [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+          [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
         }
       }
     });
@@ -71,12 +78,17 @@ describe('GenericModal component', function () {
 
   it('should render RequestTRRDocumentModalContent when activeModal matches', function () {
     const store = MockStore()({
+      cms: { pages: {} },
       breadcrumb: {
         breadcrumbs: []
       },
       trrPage: {
         attachmentRequest: {
           request: {}
+        },
+        editModeOn: {
+          [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+          [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
         }
       }
     });
@@ -101,8 +113,7 @@ describe('GenericModal component', function () {
       <GenericModal activeModal='LEGAL_DISCLAIMER' closeModal={ closeModal } />
     );
 
-    const overlay = findRenderedDOMComponentWithClass(element, 'test--generic-modal-overlay');
-    Simulate.click(overlay);
+    Simulate.click(findDOMNode(element));
 
     closeModal.called.should.be.true();
   });
@@ -113,7 +124,7 @@ describe('GenericModal component', function () {
       <GenericModal activeModal='LEGAL_DISCLAIMER' closeModal={ closeModal } />
     );
 
-    const content = findRenderedDOMComponentWithClass(element, 'test--generic-modal-content');
+    const content = findRenderedDOMComponentWithClass(element, 'generic-modal-content');
     Simulate.click(content);
 
     closeModal.called.should.be.false();

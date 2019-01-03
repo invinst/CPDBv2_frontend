@@ -64,6 +64,7 @@ describe('Header', function () {
 
         it('should turn off section edit mode when click on cancel button', function () {
           landingPage.topHeader.logo.cancelButton.click();
+          browser.moveToObject(landingPage.topHeader.logo.title.selector);
           landingPage.topHeader.logo.editButton.waitForVisible();
           landingPage.topHeader.logo.saveButton.waitForVisible(2000, true);
           landingPage.topHeader.logo.cancelButton.waitForVisible(2000, true);

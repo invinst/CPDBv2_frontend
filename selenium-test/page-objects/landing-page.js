@@ -2,7 +2,7 @@
 
 import Page from './page';
 import Section from './sections/section';
-import { TopHeader, StickyHeader } from './sections/header';
+import { TopHeader, SlimHeader } from './sections/header';
 import Footer from './sections/footer';
 import RichTextToolbar from './sections/rich-text-toolbar';
 
@@ -80,7 +80,7 @@ class GenericModalSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      overlay: '//div[@class="test--generic-modal-overlay"]',
+      overlay: '//div[contains(@class, "generic-modal__generic-modal")]',
       legalDisclaimerTitle: '//p[text()="LEGAL DISCLAIMER"]'
     });
   }
@@ -152,7 +152,7 @@ class SearchSection extends Section {
 
 class LandingPage extends Page {
   topHeader = new TopHeader();
-  stickyHeader = new StickyHeader();
+  slimHeader = new SlimHeader();
   footer = new Footer();
   richTextToolbar = new RichTextToolbar();
   collaborateSection = new CollaborateSection();

@@ -4,6 +4,7 @@ import isRequesting from './is-requesting';
 import trrId from './trr-id';
 import data from './data';
 import attachmentRequest from './attachment-request';
+import editModeOn from './edit-mode-on';
 
 
 export default combineReducers({
@@ -11,4 +12,5 @@ export default combineReducers({
   trrId,
   data,
   attachmentRequest,
+  editModeOn,
 });

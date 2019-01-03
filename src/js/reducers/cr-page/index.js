@@ -5,6 +5,7 @@ import attachmentRequest from './attachment-request';
 import crid from './crid';
 import officerId from './officer-id';
 import relatedComplaints from './related-complaints';
+import editModeOn from './edit-mode-on';
 
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   crid,
   officerId,
   attachmentRequest,
-  relatedComplaints
+  relatedComplaints,
+  editModeOn,
 });
