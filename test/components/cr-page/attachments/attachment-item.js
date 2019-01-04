@@ -36,13 +36,22 @@ describe('AttachmentItem component', function () {
     thumbnail.style.backgroundImage.should.containEql('ic-audio.svg');
   });
 
-  it('should render video background correctly', function () {
+  it('should render video default background when preview image url is None', function () {
     const instance = renderIntoDocument(
       <AttachmentItem fileType='video' />
     );
 
     const thumbnail = findRenderedDOMComponentWithClass(instance, 'attachment-card-thumbnail');
     thumbnail.style.backgroundImage.should.containEql('ic-video.svg');
+  });
+
+  it('should render video background correctly', function () {
+    const instance = renderIntoDocument(
+      <AttachmentItem fileType='video' previewImageUrl='https://vimeo.com/123456'/>
+    );
+
+    const thumbnail = findRenderedDOMComponentWithClass(instance, 'attachment-card-thumbnail');
+    thumbnail.style.backgroundImage.should.containEql('https://vimeo.com/123456');
   });
 
   it('should render document background correctly', function () {
