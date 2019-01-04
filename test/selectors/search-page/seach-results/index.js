@@ -168,6 +168,7 @@ describe('search page results selector', function () {
               crid: '1234',
               category: null,
               'incident_date': null,
+              highlight: {}
             })]
           }
         }
@@ -201,6 +202,9 @@ describe('search page results selector', function () {
               crid: '1234',
               category: 'Lorem',
               'incident_date': '2004-04-23',
+              highlight: {
+                summary: ['the police pointed a knife at the victim']
+              }
             })]
           }
         }
@@ -213,7 +217,7 @@ describe('search page results selector', function () {
             id: '1001',
             text: 'CR # 1234 - April 23, 2004',
             recentText: 'CR # 1234 - April 23, 2004',
-            subText: '',
+            subText: 'the police pointed a knife at the victim',
             to: '',
             url: '',
             tags: [],
@@ -229,9 +233,15 @@ describe('search page results selector', function () {
         searchPage: {
           tags: [],
           suggestionGroups: {
-            'DATE > CR': [RawCRSuggestion.build(
-              { id: '1001', crid: '1234', category: null, 'incident_date': null }
-            )]
+            'DATE > CR': [RawCRSuggestion.build({
+              id: '1001',
+              crid: '1234',
+              category: null,
+              'incident_date': null,
+              highlight: {
+                summary: ['the police pointed a knife at the victim']
+              }
+            })]
           }
         }
       }).should.deepEqual([
@@ -243,7 +253,7 @@ describe('search page results selector', function () {
             id: '1001',
             text: 'CR # 1234',
             recentText: 'CR # 1234',
-            subText: '',
+            subText: 'the police pointed a knife at the victim',
             to: '',
             url: '',
             tags: [],

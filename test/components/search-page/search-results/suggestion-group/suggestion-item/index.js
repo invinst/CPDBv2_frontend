@@ -34,7 +34,6 @@ describe('SuggestionItem component', function () {
   describe('shouldComponentUpdate', function () {
     it('should return true if props are changed', function () {
       instance = renderIntoDocument(<SuggestionItem/>);
-      instance.shouldComponentUpdate({ hovering: true }).should.be.true();
       instance.shouldComponentUpdate({ isFocused: true }).should.be.true();
       instance.shouldComponentUpdate({ aliasEditModeOn: true }).should.be.true();
       instance.shouldComponentUpdate({ suggestion: { uniqueKey: 'OFFICER-123' } }).should.be.true();
