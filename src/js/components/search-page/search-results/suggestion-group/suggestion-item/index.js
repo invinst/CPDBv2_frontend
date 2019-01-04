@@ -16,7 +16,6 @@ const COMPONENT_MAP = {
 export default class SuggestionItem extends Component {
   shouldComponentUpdate(nextProps) {
     const keys = [
-      'hovering',
       'isFocused',
       'aliasEditModeOn',
       'suggestion.uniqueKey'
@@ -39,7 +38,6 @@ export default class SuggestionItem extends Component {
 
 SuggestionItem.propTypes = {
   suggestion: PropTypes.object,
-  hovering: PropTypes.bool,
   isFocused: PropTypes.bool,
   aliasEditModeOn: PropTypes.bool,
   selectItem: PropTypes.func,

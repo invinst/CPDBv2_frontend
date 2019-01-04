@@ -23,10 +23,10 @@ class ResultsSection extends Section {
     super();
     this.prepareElementGetters({
       results: `//a[contains(@class, "suggestion-item-${key}")]`,
-      firstResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--first-row"])[1]`,
-      firstResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--second-row"])[1]`,
-      secondResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--first-row"])[2]`,
-      secondResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--second-row"])[2]`,
+      firstResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--first-row")])[1]`,
+      firstResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--second-row")])[1]`,
+      secondResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--first-row")])[2]`,
+      secondResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--second-row")])[2]`,
     });
   }
 }

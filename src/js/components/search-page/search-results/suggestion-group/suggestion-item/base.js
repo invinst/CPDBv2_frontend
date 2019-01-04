@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { isEqual } from 'lodash';
 import { Link } from 'react-router';
 
 import { trigger } from 'mousetrap';
@@ -17,8 +18,8 @@ export default class SuggestionItemBase extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    const { isFocused, hovering } = this.props;
-    return nextProps.isFocused !== isFocused || nextProps.hovering !== hovering;
+    const { isFocused, suggestion } = this.props;
+    return nextProps.isFocused !== isFocused || !isEqual(suggestion, nextProps.suggestion);
   }
 
   handleAliasButtonClick(e) {
