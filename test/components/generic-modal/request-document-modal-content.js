@@ -14,6 +14,10 @@ import { spy, stub, useFakeTimers } from 'sinon';
 import { StyleRoot } from 'radium';
 
 import RequestDocumentModalContent from 'components/generic-modal/request-document-modal-content';
+import { RawContentStateFactory } from 'utils/test/factories/draft';
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 describe('RequestDocumentModalContent component', function () {
@@ -26,17 +30,37 @@ describe('RequestDocumentModalContent component', function () {
   });
 
   it('should initial render form with text box and "Enter", "Cancel" button', function () {
+    const instructionEditWrapperStateProps = {
+      fields: {
+        'document_request_instruction': {
+          type: 'rich_text',
+          name: 'document_request_instruction',
+          value: RawContentStateFactory.build(
+            {}, { blockTexts: ['We’ll notify you when the document is made available.'] }
+          )
+        }
+      },
+      sectionEditModeOn: false,
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy()
+    };
     element = renderIntoDocument(
-      <RequestDocumentModalContent/>
+      <RequestDocumentModalContent instructionEditWrapperStateProps={ instructionEditWrapperStateProps }/>
     );
     const domElement = findDOMNode(element);
 
-    domElement.textContent.should.containEql('We’ll notify you when the document is made available');
+    domElement.textContent.should.containEql('We’ll notify you when the document is made available.');
     element.state.warning.should.be.false();
     let inputDOMElements = scryRenderedDOMComponentsWithTag(element, 'input');
     inputDOMElements[0].getAttribute('placeholder').should.be.eql('Your email');
     inputDOMElements[1].getAttribute('value').should.be.eql('Request');
     findRenderedDOMComponentWithTag(element, 'a').textContent.should.be.eql('Cancel');
+
+    const editWrapperStateProvider = findRenderedComponentWithType(element, EditWrapperStateProvider);
+    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
+    const editableNoDocumentText = findRenderedComponentWithType(hoverableEditWrapper, RichTextEditable);
+    editableNoDocumentText.props.fieldname.should.equal('document_request_instruction');
   });
 
   it('should call closeEvent when click to Close link', function () {
@@ -54,7 +78,7 @@ describe('RequestDocumentModalContent component', function () {
     element = renderIntoDocument(
       <RequestDocumentModalContent message={ 'Thanks you' } isRequested={ true } />
     );
-    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'test--request-document-modal--message');
+    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'request-document-message-box');
     messageBoxElement.textContent.should.be.eql('Thanks you');
   });
 
@@ -62,13 +86,12 @@ describe('RequestDocumentModalContent component', function () {
     element = renderIntoDocument(
       <RequestDocumentModalContent message={ 'Thanks you' } />
     );
-    scryRenderedDOMComponentsWithClass(element, 'test--request-document-modal--message').length.should.eql(0);
+    scryRenderedDOMComponentsWithClass(element, 'request-document-message-box').length.should.eql(0);
     element.setState({ warning: true });
-    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'test--request-document-modal--message');
+    const messageBoxElement = findRenderedDOMComponentWithClass(element, 'request-document-message-box');
     messageBoxElement.textContent.should.eql('Thanks you');
 
-    // skip the alpha part, since this is round 0.1 ~ 0.0983...
-    element.refs.email.style.backgroundColor.should.containEql('rgba(255, 96, 0');
+    element.refs.email.className.should.containEql('emphasis');
   });
 
   describe('Submit', function () {
@@ -135,8 +158,7 @@ describe('RequestDocumentModalContent component', function () {
       assertInCallbackTest = function (requestForm) {
         requestForm.state.should.containEql( { warning: true } );
 
-        const messageBoxElement = findRenderedDOMComponentWithClass(requestForm,
-          'test--request-document-modal--message');
+        const messageBoxElement = findRenderedDOMComponentWithClass(requestForm, 'request-document-message-box');
         messageBoxElement.textContent.should.be.eql('Default message');
       };
       submitRequestDocumentTest(assertInCallbackTest, done, true);

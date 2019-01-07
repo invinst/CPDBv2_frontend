@@ -7,7 +7,7 @@ import EditorBlockWithStyle from 'components/inline-editable/custom-block/editor
 import { removeSelection, hasSelection } from 'utils/draft';
 import Toolbar from './toolbar';
 import { textEditorStyle } from 'components/inline-editable/editor.style';
-import { wrapperStyle } from './rich-text-editor.style';
+import baseStyle from './rich-text-editor.sass';
 
 
 export default class RichTextEditor extends Component {
@@ -101,8 +101,7 @@ export default class RichTextEditor extends Component {
 
     return (
       <div
-        style={ wrapperStyle }
-        className={ className }
+        className={ `${baseStyle.richTextEditor} ${className}` }
         ref={ el => {
           if (el) {
             this.rootEl = el;

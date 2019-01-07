@@ -40,5 +40,6 @@ describe('MetricPane', function () {
     metricPanePopup.props.title.should.eql('Allegations');
     metricPanePopup.props.text.should.eql('Some allegation explanation');
     metricPanePopup.props.url.should.eql('/officer/8562/jerome-finnigan/');
+    metricPanePopup.props.popupButtonClassName.should.eql('metric-pane-popup-button');
   });
 });

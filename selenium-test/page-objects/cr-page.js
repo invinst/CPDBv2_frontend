@@ -33,10 +33,10 @@ class AccusedOfficerSection extends Section {
       lastCard: '(//*[contains(@class, "officer-card")])[last()]',
       showMoreButton: '.show-more-button',
       popup: '.test--accused-officer .popup',
-      popupButton: '.test--accused-officer .tooltip-button',
+      popupButton: '.test--accused-officer .popup-button',
       popupTitle: '.test--accused-officer .tooltip-title',
       popupText: '.test--accused-officer .tooltip-text',
-      popupCloseButton: '.test--accused-officer .tooltip-close-button'
+      popupCloseButton: '.test--accused-officer .popup-close-button'
     });
   }
 
