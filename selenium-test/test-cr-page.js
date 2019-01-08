@@ -80,7 +80,7 @@ describe('CR page', function () {
     crPage.documentRequestModal.submitButton.click();
     crPage.documentRequestModal.messageBox.waitForVisible();
     crPage.documentRequestModal.messageBox.getText().should.equal('Thanks for subscribing.');
-    browser.waitForVisible('.test--generic-modal-content', 2000, true);
+    browser.waitForVisible('.generic-modal-content', 2000, true);
     crPage.attachments.documentRequestButton.getText().should.equal('Documents Requested   ✔');
   });
 

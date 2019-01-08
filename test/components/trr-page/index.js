@@ -43,6 +43,7 @@ describe('TRRPage component', function () {
       breadcrumbs: []
     },
     trrPage: {
+      editModeOn: false,
       trrId: 123,
       data: {
         officer: {

@@ -58,9 +58,9 @@ class TimelineSection extends Section {
       attachmentThumbnail: '.attachment-image',
       moreAttachment: '.more-attachment',
       rankPopup: '.rank-header .popup',
-      rankPopupButton: '.rank-header .tooltip-button',
+      rankPopupButton: '.rank-header .popup-button',
       salaryPopup: '//div[contains(@class, "salary__salary")]//div[contains(@class, "popup")]',
-      salaryPopupButton: '//div[contains(@class, "salary__salary")]//div[@class="tooltip-button"]',
+      salaryPopupButton: '//div[contains(@class, "salary__salary")]//div[@class="popup-button"]',
     });
   }
 }
@@ -124,12 +124,12 @@ class RadarChartExplainerSection extends Section {
       triangleExplainerText: '//div[contains(@class, "triangle-explainer-text")]',
       triangleExplainerSubText: '//div[contains(@class, "triangle-explainer-subtext")]',
       triangleEditButton: '//div[contains(@class, "triangle-explainer")]' +
-        '//a[contains(@class, "test--edit-wrapper-edit-button")]',
+        '//a[contains(@class, "hoverable-edit-wrapper-button")]',
       scaleExplainer: '//div[contains(@class, "scale-explainer")]',
       scaleExplainerText: '//div[contains(@class, "scale-explainer-text")]',
       scaleExplainerSubText: '//div[contains(@class, "scale-explainer-subtext")]',
       scaleEditButton: '//div[contains(@class, "scale-explainer")]' +
-        '//a[contains(@class, "test--edit-wrapper-edit-button")]',
+        '//a[contains(@class, "hoverable-edit-wrapper-button")]',
       percentileByYear: '//div[contains(@class, "percentiles-by-year")]',
       leftNavigation: '//span[contains(@class, "left-navigation")]',
       rightNavigation: '//span[contains(@class, "right-navigation")]',
@@ -146,7 +146,7 @@ class NoDataRadarChartSection extends Section {
       component: '//div[contains(@class, "radar-chart")]',
       noDataText: '.test--no-data-text',
       radarChart: '.test--radar',
-      editButton: '//div[contains(@class, "radar-chart")]//a[contains(@class, "test--edit-wrapper-edit-button")]'
+      editButton: '//div[contains(@class, "radar-chart")]//a[contains(@class, "hoverable-edit-wrapper-button")]'
     });
   }
 }
