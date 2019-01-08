@@ -5,4 +5,5 @@ export const wrapperStyle = {
   padding: '23px 16px',
   backgroundColor: 'white',
   margin: '0 -8px',
+  textTransform: 'uppercase',
 };

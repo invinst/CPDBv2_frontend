@@ -10,7 +10,6 @@ import {
   HeaderWidget,
   AllegationCountWidget,
   ListWidget,
-  CallToActionWidget,
 } from 'components/search-page/preview-pane/widgets';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -27,6 +26,5 @@ describe('ZipCodePane component', () => {
     findRenderedComponentWithType(instance, HeaderWidget);
     findRenderedComponentWithType(instance, AllegationCountWidget);
     scryRenderedComponentsWithType(instance, ListWidget).should.have.length(3);
-    findRenderedComponentWithType(instance, CallToActionWidget);
   });
 });
