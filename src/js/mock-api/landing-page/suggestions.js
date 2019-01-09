@@ -66,7 +66,10 @@ export const groupedSuggestions = {
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
-          'incident_date': '2004-04-23'
+          'incident_date': '2004-04-23',
+          highlight: {
+            summary: ['an officer named Kelly caught the victim']
+          }
         }
       ),
       RawCRSuggestion.build(
@@ -75,7 +78,8 @@ export const groupedSuggestions = {
           crid: 'CR456',
           to: '/complaint/CR456/',
           category: null,
-          'incident_date': null
+          'incident_date': null,
+          highlight: {}
         }
       ),
     ],
@@ -112,7 +116,8 @@ export const groupedSuggestions = {
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
-          'incident_date': '2004-04-23'
+          'incident_date': '2004-04-23',
+          highlight: {}
         }
       ),
       RawCRSuggestion.build(
@@ -121,7 +126,8 @@ export const groupedSuggestions = {
           crid: 'CR456',
           to: '/complaint/CR456/',
           category: null,
-          'incident_date': '2004-04-23'
+          'incident_date': '2004-04-23',
+          highlight: {}
         }
       ),
     ],

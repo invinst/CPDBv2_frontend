@@ -81,9 +81,12 @@ const rankTransform = item => {
 };
 
 const crTransform = (item) => {
-  const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  let subText = '';
+  if (item.highlight && item.highlight.summary) {
+    subText = item.highlight.summary[0];
+  }
   return {
-    subText: `CR # ${item.crid}${dateText}`
+    subText: subText
   };
 };
 
@@ -144,7 +147,13 @@ const searchResultTransformMap = {
 };
 
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
-const getCRTexts = (item) => ({ text: item.category || 'Unknown', recentText: item.crid });
+const getCRTexts = (item) => {
+  const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  return {
+    text: `CR # ${item.crid}${dateText}`,
+    recentText: `CR # ${item.crid}${dateText}`
+  };
+};
 const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
 const getUnitTexts = (item) => {
   const text = item.description || `Unit ${item.name}`;
