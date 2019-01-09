@@ -24,21 +24,6 @@ describe('SuggestionItemBase component', function () {
     SuggestionItemBase.should.be.renderable();
   });
 
-  it('should rerender when hovering change', function () {
-    instance = renderIntoDocument(<SuggestionItemBase/>);
-    let called = false;
-
-    const oldRender = SuggestionItemBase.prototype.render;
-    SuggestionItemBase.prototype.render = (...args) => {
-      called = true;
-      return oldRender.apply(instance, args);
-    };
-
-    instance = reRender(<SuggestionItemBase hovering={ true }/>, instance);
-    called.should.be.true();
-    SuggestionItemBase.prototype.render = oldRender;
-  });
-
   it('should rerender when isFocused change', function () {
     instance = renderIntoDocument(<SuggestionItemBase/>);
     let called = false;

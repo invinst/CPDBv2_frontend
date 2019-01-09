@@ -8,13 +8,17 @@ import TRRLocation from './trr-location';
 
 export default class TRRInfoSection extends Component {
   render() {
-    const { trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal, popup, pathName } = this.props;
+    const {
+      trrLocation, trrDetail, trrDocument, openRequestTRRDocumentModal,
+      popup, pathName, noAttachmentTextEditWrapperStateProps
+    } = this.props;
     return (
       <div className={ style.trrInfoSection }>
         <TRRDetail { ...trrDetail } popup={ popup } pathName={ pathName }/>
         <TRRDocument
           { ...trrDocument }
           openRequestTRRDocumentModal={ openRequestTRRDocumentModal }
+          noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
         />
         <TRRLocation { ...trrLocation } />
       </div>
@@ -40,6 +44,7 @@ TRRInfoSection.propTypes = {
   openRequestTRRDocumentModal: PropTypes.func,
   popup: PropTypes.object,
   pathName: PropTypes.string,
+  noAttachmentTextEditWrapperStateProps: PropTypes.object,
 };
 
 TRRInfoSection.defaultProps = {

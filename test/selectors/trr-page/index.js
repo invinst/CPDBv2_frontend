@@ -4,6 +4,7 @@ import {
   trrDetailSelector,
   trrDocumentSelector,
   trrLocationSelector,
+  getEditModeOn
 } from 'selectors/trr-page';
 
 
@@ -16,6 +17,14 @@ describe('TRR page selectors', function () {
         }
       };
       getTRRId(state).should.eql('123');
+    });
+  });
+
+  describe('getEditModeOn', function () {
+    it('should return officer name', function () {
+      getEditModeOn({
+        trrPage: { editModeOn: { a: true } }
+      }).should.eql({ a: true });
     });
   });
 

@@ -111,11 +111,6 @@ describe('officer page selectors', function () {
 
       summarySelector(state).rank.should.eql('N/A');
     });
-
-    it('should return summary with Unknown badge if there is unknown badge', function () {
-      state.officerPage = { summary: { ...summary, badge: '' } };
-      summarySelector(state).badge.should.eql('Unknown');
-    });
   });
 
   describe('metricsSelector', function () {

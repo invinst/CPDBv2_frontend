@@ -2,28 +2,40 @@ import React, { PropTypes } from 'react';
 import pluralize from 'pluralize';
 
 import { compact, isEmpty } from 'lodash';
+import cx from 'classnames';
 
 import SuggestionItemBase from './base';
-import { grayTextStyle } from './base.style';
-import { complaintsTextStyle, sustainedTextStyle } from './officer.style';
+import styles from './officer.sass';
 
 
 class OfficerItem extends SuggestionItemBase {
+  getExtraInnerWrapperClassName() {
+    return styles.innerWrapper;
+  }
+
   renderSecondRow() {
-    const { hovering, isFocused } = this.props;
+    const { isFocused } = this.props;
     const { age, race, gender, complaintCount, sustainedCount } = this.props.suggestion;
     const ageString = age ? `${age} year old` : null;
     const demographic = compact([ageString, race, gender]);
 
     return (
-      <div style={ grayTextStyle } className='test--second-row'>
+      <div className={ cx('test--second-row', styles.grayText) }>
         { !isEmpty(demographic) && <span>{ demographic.join(', ') }, </span> }
         <span
-          style={ complaintsTextStyle((isFocused || hovering) && complaintCount > 0) }>
+          className={ cx(
+            'complaints-text',
+            { active: isFocused, 'non-zero-count': complaintCount > 0 }
+          ) }
+        >
           { `${pluralize('Complaint', complaintCount, true)}, ` }
         </span>
         <span
-          style={ sustainedTextStyle((isFocused || hovering) && sustainedCount > 0) }>
+          className={ cx(
+            'sustained-text',
+            { 'active': isFocused, 'non-zero-count': sustainedCount > 0 }
+          ) }
+        >
           { sustainedCount } Sustained
         </span>
       </div>
@@ -39,8 +51,7 @@ OfficerItem.propTypes = {
     gender: PropTypes.string,
     complaintCount: PropTypes.number,
   }),
-  isFocused: PropTypes.bool,
-  hovering: PropTypes.bool
+  isFocused: PropTypes.bool
 };
 
 OfficerItem.defaultProps = {
