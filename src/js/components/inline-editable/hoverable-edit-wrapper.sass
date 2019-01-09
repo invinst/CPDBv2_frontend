@@ -1,0 +1,47 @@
+@import 'variables'
+
+$bottom-button-wrapper-width: 105px
+
+\:local(.hoverable-edit-wrapper)
+  position: relative
+
+  &.hoverable:hover
+    border: 1px solid $fashion-pink-color
+
+    .bottom-button-wrapper
+      display: block
+      position: absolute
+      z-index: 1
+      right: calc(50% - #{$bottom-button-wrapper-width} / 2)
+      bottom: -28px
+      min-width: $bottom-button-wrapper-width
+
+    .top-button-wrapper
+      position: absolute
+      z-index: 1
+      display: block
+      top: 0
+      right: 0
+
+  .bottom-button-wrapper
+    display: none
+
+  .top-button-wrapper
+    display: none
+
+  .hoverable-edit-wrapper-button
+    background-color: $misty-rose-color
+    pointer-events: auto
+    padding: 5px 7px
+    border-radius: 3px
+    border-left: 1px solid $fashion-pink-color
+    border-bottom: 1px solid $fashion-pink-color
+    color: white
+    font-family: $san-francisco-text-family
+    font-size: 14px
+    cursor: pointer
+    font-weight: 300
+    display: inline-block
+
+    &:hover
+      background-color: $tomato-pink-color

@@ -1,0 +1,30 @@
+@import 'variables'
+@import 'generic-modal'
+
+%link-shared
+  color: $soft-black-color
+  font-weight: 400
+  text-decoration: none
+  cursor: pointer
+  font-size: 14px
+
+\:local(.legal-disclaimer-modal-content)
+  padding: 0 16px 8px 16px
+
+  .legal-disclaimer-instruction
+    @extend %instruction-shared
+
+  .legal-disclaimer-body
+    font-size: 14px
+    font-weight: 300
+    text-align: left
+    color: $greyish-color
+
+    .legal-disclaimer-body-link
+       @extend %link-shared
+
+  .i-understand-link
+    @extend %link-shared
+    display: inline-block
+    margin: 11px 0
+

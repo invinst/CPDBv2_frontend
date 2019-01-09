@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { isEmpty } from 'lodash';
 
 import styles from './marker-tooltip.sass';
 
@@ -18,7 +19,7 @@ export default class MarkerTooltip extends Component {
           </div>
         </div>
         {
-          victims ? (
+          !isEmpty(victims) ? (
             <div>
               <div className='divider'/>
               <div className='marker-tooltip-row'>

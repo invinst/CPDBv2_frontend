@@ -15,6 +15,7 @@ export const headerStyle = {
   fontWeight: 600,
   lineHeight: '18px',
   margin: '0 0 6px',
+  textTransform: 'uppercase',
 };
 
 export const listStyle = {

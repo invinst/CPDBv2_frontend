@@ -18,26 +18,38 @@ class OfficerPreviewPaneSection extends Section {
   }
 }
 
+class RankPreviewPaneSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      previewPane: '.test--preview-pane',
+      listMostOfficers: '//*[@class="test--preview-pane"]//*[contains(@class,"test--list-widget-item-link")]',
+    });
+  }
+}
+
 class ResultsSection extends Section {
   constructor(key) {
     super();
     this.prepareElementGetters({
       results: `//a[contains(@class, "suggestion-item-${key}")]`,
-      firstResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--first-row"])[1]`,
-      firstResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--second-row"])[1]`,
-      secondResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--first-row"])[2]`,
-      secondResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[@class="test--second-row"])[2]`,
+      firstResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--first-row")])[1]`,
+      firstResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--second-row")])[1]`,
+      secondResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--first-row")])[2]`,
+      secondResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--second-row")])[2]`,
     });
   }
 }
 
 class SearchPage extends Page {
   officerPreviewPaneSection = new OfficerPreviewPaneSection();
+  rankPreviewPaneSection = new RankPreviewPaneSection();
   dateCRResultsSection = new ResultsSection('DATE-CR');
   dateTRRResultsSection = new ResultsSection('DATE-TRR');
   dateOfficerResultsSection = new ResultsSection('DATE-OFFICERS');
   crResultsSection = new ResultsSection('CR');
   trrResultsSection = new ResultsSection('TRR');
+  rankResultsSection = new ResultsSection('RANK');
 
   constructor() {
     super();
@@ -57,6 +69,7 @@ class SearchPage extends Page {
       firstNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-1',
       secondNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-2',
       firstCoAccusedResult: '.test--suggestion-group .suggestion-item-CO-ACCUSED-1',
+      firstRankResult: '.test--suggestion-group .suggestion-item-RANK-1',
       searchHint: '.search-hint',
       firstLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[1]',
       secondLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[2]',

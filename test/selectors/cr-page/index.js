@@ -1,7 +1,13 @@
 import should from 'should';
 import { map } from 'lodash';
 
-import { contentSelector, getCRID, getOfficerId, getDocumentAlreadyRequested } from 'selectors/cr-page';
+import {
+  contentSelector,
+  getCRID,
+  getEditModeOn,
+  getOfficerId,
+  getDocumentAlreadyRequested
+} from 'selectors/cr-page';
 import {
   InvestigatorFactory,
   PoliceWitnessFactory,
@@ -62,6 +68,7 @@ describe('CR page selectors', function () {
         rank: 'Po As Detective',
         'final_outcome': 'Reprimand',
         'final_finding': 'Sustained',
+        'recommended_outcome': '365 Day Suspension',
         'disciplined': true,
         'category': 'Operations/Personnel Violation',
         'percentile': {
@@ -91,6 +98,8 @@ describe('CR page selectors', function () {
         coaccusedCount: 4,
         rank: 'Po As Detective',
         findingOutcomeMix: 'Reprimand',
+        recommendedOutcome: '365 Day Suspension',
+        outcome: 'Reprimand',
         finding: 'Sustained',
         category: 'Operations/Personnel Violation',
         disciplined: true,
@@ -418,6 +427,14 @@ describe('CR page selectors', function () {
         }
       };
       getDocumentAlreadyRequested(state).should.be.false();
+    });
+  });
+
+  describe('getEditModeOn', function () {
+    it('should return officer name', function () {
+      getEditModeOn({
+        crPage: { editModeOn: { a: true } }
+      }).should.eql({ a: true });
     });
   });
 });

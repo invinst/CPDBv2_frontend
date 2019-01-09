@@ -22,6 +22,7 @@ describe('SchoolGroundPane component', () => {
   it('should contain the sub components', () => {
     instance = renderIntoDocument(
       <SchoolGroundPane
+        url='https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
         officersMostComplaint={ [{
           id: 1,
           name: 'name',
