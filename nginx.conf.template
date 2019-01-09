@@ -50,6 +50,10 @@ http {
             return 301 https://{{MOBILE_SERVER_NAME}}$request_uri;
         }
 
+        location ~* ^/officer/(?<officer_name>[a-z-]+)/(?<officer_id>\d+) {
+            return 301 /officer/$officer_id/$officer_name/;
+        }
+
         location /embed/map {
             alias /usr/share/nginx/html/;
         }
