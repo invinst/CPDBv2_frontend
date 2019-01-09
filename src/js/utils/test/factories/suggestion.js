@@ -38,7 +38,10 @@ export const RawCRSuggestion = Factory.define('RawCRSuggestion')
   .attr('url', '')
   .attr('tags', [])
   .attr('category', lorem.words)
-  .attr('incident_date', '1999-12-13');
+  .attr('incident_date', '1999-12-13')
+  .attr('highlight', {
+    summary: [String(lorem.sentence)]
+  });
 
 /* istanbul ignore next */
 export const RawTRRSuggestion = Factory.define('RawTRRSuggestion')
@@ -91,3 +94,19 @@ export const NavigationItem = Factory.define('NavigationItem')
   .attr('to', '')
   .attr('url', '')
   .attr('uniqueKey', ['type', 'id'], (type, id) => `${type}-${id}`);
+
+/* istanbul ignore next */
+export const CRSuggestion = Factory.define('CRSuggestion')
+  .attr('id', () => String(random.number()))
+  .attr('type', 'CR')
+  .attr('crid', () => String(random.number()))
+  .attr('to', '')
+  .attr('url', '')
+  .attr('tags', [])
+  .attr('category', lorem.words)
+  .attr('incident_date', '1999-12-13')
+  .attr('highlight', {
+    summary: [String(lorem.sentence)]
+  });
+
+
