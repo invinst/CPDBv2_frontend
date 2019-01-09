@@ -8,19 +8,19 @@ import WrapperLink from './wrapper-link';
 
 export default class WidgetWrapper extends Component {
   render() {
-    const { maxHeight, callToAction } = this.props;
+    const { maxHeight, callToAction, className, children } = this.props;
     const { to, url, text } = callToAction;
 
     return (
       <WrapperLink url={ url } to={ to }>
-        <div className={ this.props.className } style={ wrapperStyle }>
+        <div className={ className } style={ wrapperStyle }>
           <div style={ responsiveContainerStyle }>
-            { this.props.children }
+            { children }
             <MediaQuery maxHeight={ maxHeight }>
               <div className='test--gradient' style={ gradientStyle }/>
             </MediaQuery>
           </div>
-          <CallToActionWidget to={ to } url={ url } text={ text }/>
+          { url || to ? <CallToActionWidget text={ text }/> : null }
         </div>
       </WrapperLink>
     );

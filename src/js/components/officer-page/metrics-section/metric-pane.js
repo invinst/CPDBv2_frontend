@@ -34,7 +34,15 @@ export default class MetricPane extends Component {
         <div className='metrics-pane-description'>
           { description }
         </div>
-        { !isEmpty(popup) ? <Popup { ...popup } url={ pathName } /> : null }
+        {
+          !isEmpty(popup) ? (
+            <Popup
+              { ...popup }
+              popupButtonClassName='metric-pane-popup-button'
+              url={ pathName }
+            />
+          ) : null
+        }
       </div>
     );
   }

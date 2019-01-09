@@ -80,7 +80,7 @@ class GenericModalSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      overlay: '//div[@class="test--generic-modal-overlay"]',
+      overlay: '//div[contains(@class, "generic-modal__generic-modal")]',
       legalDisclaimerTitle: '//p[text()="LEGAL DISCLAIMER"]'
     });
   }

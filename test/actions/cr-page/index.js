@@ -1,4 +1,11 @@
-import { fetchCR, requestDocument } from 'actions/cr-page';
+import {
+  fetchCR,
+  requestDocument,
+  turnOnNoAttachmentTextEditMode,
+  turnOffNoAttachmentTextEditMode,
+  turnOnDocumentRequestInstructionEditMode,
+  turnOffDocumentRequestInstructionEditMode
+} from 'actions/cr-page';
 import {
   CR_URL,
   CR_REQUEST_START,
@@ -6,7 +13,9 @@ import {
   CR_REQUEST_FAILURE,
   CR_REQUEST_DOC_START,
   CR_REQUEST_DOC_SUCCESS,
-  CR_REQUEST_DOC_FAILURE
+  CR_REQUEST_DOC_FAILURE,
+  CR_EDIT_MODE,
+  CR_EDIT_TYPES
 } from 'utils/constants';
 
 
@@ -40,6 +49,42 @@ describe('CRPage actions', function () {
             adapter: null
           }
         }
+      });
+    });
+  });
+
+  describe('turnOnNoAttachmentTextEditMode action', function () {
+    it('should return correct action', function () {
+      turnOnNoAttachmentTextEditMode().should.eql({
+        type: CR_EDIT_MODE,
+        payload: { editType: CR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: true }
+      });
+    });
+  });
+
+  describe('turnOffTriangleExplainEditMode action', function () {
+    it('should return correct action', function () {
+      turnOffNoAttachmentTextEditMode().should.eql({
+        type: CR_EDIT_MODE,
+        payload: { editType: CR_EDIT_TYPES.NO_ATTACHMENT_TEXT, mode: false }
+      });
+    });
+  });
+
+  describe('turnOnDocumentRequestInstructionEditMode action', function () {
+    it('should return correct action', function () {
+      turnOnDocumentRequestInstructionEditMode().should.eql({
+        type: CR_EDIT_MODE,
+        payload: { editType: CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: true }
+      });
+    });
+  });
+
+  describe('turnOffDocumentRequestInstructionEditMode action', function () {
+    it('should return correct action', function () {
+      turnOffDocumentRequestInstructionEditMode().should.eql({
+        type: CR_EDIT_MODE,
+        payload: { editType: CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: false }
       });
     });
   });

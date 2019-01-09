@@ -16,7 +16,8 @@ export class TRRPage extends Component {
   render() {
     const {
       trrId, officer, trrLocation, trrDetail, trrDocument,
-      openRequestTRRDocumentModal, popup, pathName, notes
+      openRequestTRRDocumentModal, popup, pathName, notes,
+      noAttachmentTextEditWrapperStateProps,
     } = this.props;
     const { printMode } = this.context;
 
@@ -43,6 +44,7 @@ export class TRRPage extends Component {
               openRequestTRRDocumentModal={ openRequestTRRDocumentModal }
               popup={ popup }
               pathName={ pathName }
+              noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
             />
           </div>
           <PrintNotes notes={ notes }/>
@@ -64,6 +66,7 @@ TRRPage.propTypes = {
   popup: PropTypes.object,
   pathName: PropTypes.string,
   notes: PropTypes.array,
+  noAttachmentTextEditWrapperStateProps: PropTypes.object,
 };
 
 TRRPage.contextTypes = {

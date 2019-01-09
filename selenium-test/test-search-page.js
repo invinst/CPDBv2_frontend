@@ -106,6 +106,16 @@ describe('Search Page', function () {
     searchPage.dateOfficerResultsSection.secondResultSubText.getText().should.containEql('0 Sustained');
   });
 
+  it('should able to show RANK results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('rank');
+
+    searchPage.suggestionTags.waitForVisible();
+    searchPage.rankResultsSection.results.count.should.equal(2);
+    searchPage.rankResultsSection.firstResultText.getText().should.equal('Officer');
+    searchPage.rankResultsSection.secondResultText.getText().should.equal('Chief');
+  });
+
   it('should show filtered result when user clicks "Show more results"', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
@@ -382,7 +392,7 @@ describe('Search Page', function () {
     });
   });
 
-  describe('PreviewPane', function () {
+  describe('OfficerPreviewPane', function () {
     it('should display gradient when window height is small', function () {
       browser.setViewportSize({
         width: 1000,
@@ -432,6 +442,20 @@ describe('Search Page', function () {
       searchPage.officerPreviewPaneSection.neighborhoodPane.click();
       switchToRecentTab();
       browser.getUrl().should.eql('http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood');
+    });
+  });
+
+  describe('RankPreviewPane', function () {
+    it('should redirect to officer profile when clicking on officer item', function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('rank');
+      searchPage.rankResultsSection.firstResultText.waitForVisible();
+      searchPage.rankResultsSection.firstResultText.click();
+
+      searchPage.rankPreviewPaneSection.previewPane.waitForVisible();
+      searchPage.rankPreviewPaneSection.listMostOfficers.count.should.eql(2);
+      searchPage.rankPreviewPaneSection.listMostOfficers.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
     });
   });
 });
