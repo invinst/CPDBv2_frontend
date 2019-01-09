@@ -20,6 +20,7 @@ import styles from './cr-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
+import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 
 class CRPage extends Component {
@@ -27,7 +28,8 @@ class CRPage extends Component {
     const {
       crid, coaccused, complainants, alreadyRequested, category, subcategory,
       incidentDate, point, address, crLocation, beat, involvements, attachments,
-      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes
+      openRequestDocumentModal, summary, victims, startDate, endDate, popup, pathname, notes,
+      noAttachmentTextEditWrapperStateProps
     } = this.props;
 
     const { printMode } = this.context;
@@ -39,7 +41,7 @@ class CRPage extends Component {
         <div className={ styles.crPage }>
           <ShareableHeaderContainer/>
           <div className={ cx(responsiveContainerStyles.responsiveContainer, 'top-content') }>
-            <h1 className='cr-title'>CR { crid }</h1>
+            <h1 className='cr-title no-print'>CR { crid }</h1>
             <ComplaintCategory
               category={ category }
               subcategory={ subcategory }
@@ -80,6 +82,7 @@ class CRPage extends Component {
                 openRequestDocumentModal={ openRequestDocumentModal }
                 alreadyRequested={ alreadyRequested }
                 pathname={ pathname }
+                noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
               />
               <div className='timeline-location-container'>
                 <div className='investigation-timeline'>
@@ -98,6 +101,7 @@ class CRPage extends Component {
           </div>
           { !isEmpty(address) ? <RelatedComplaints crid={ crid } /> : null }
           <FooterContainer className={ styles.crPageFooter }/>
+          <PrintPreloadFonts/>
         </div>
       </DocumentMeta>
     );
@@ -126,6 +130,7 @@ CRPage.propTypes = {
   popup: PropTypes.object,
   pathname: PropTypes.string,
   notes: PropTypes.array,
+  noAttachmentTextEditWrapperStateProps: PropTypes.object,
 };
 
 CRPage.defaultProps = {

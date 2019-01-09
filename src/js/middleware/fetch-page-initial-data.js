@@ -1,6 +1,7 @@
 import { Promise } from 'es6-promise';
+import { every } from 'lodash';
 
-import { LANDING_PAGE_ID, OFFICER_PAGE_ID } from 'utils/constants';
+import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID } from 'utils/constants';
 import { getOfficerId, getCRID, getTRRId, getUnitName } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
@@ -36,17 +37,17 @@ export default store => next => action => {
 
   const state = store.getState();
   const dispatches = [];
-  const notRequiredLandingPageContent = [/embed\/map/];
 
   const getCMSContent = (pageId) => {
-    notRequiredLandingPageContent.map(item => {
-      if (!action.payload.pathname.match(item) && !hasCMSContent(pageId)(state)) {
-        dispatches.push(store.dispatch(fetchPage(pageId)()));
-      }
-    });
+    if (!hasCMSContent(pageId)(state)) {
+      dispatches.push(store.dispatch(fetchPage(pageId)()));
+    }
   };
 
-  getCMSContent(LANDING_PAGE_ID);
+  const notRequiredLandingPageContent = [/embed\/map/];
+  if (every(notRequiredLandingPageContent, item => !action.payload.pathname.match(item))) {
+    getCMSContent(LANDING_PAGE_ID);
+  }
 
   if (action.payload.pathname.match(/officer\/\d+/)) {
     const officerId = getOfficerId(action.payload.pathname);
@@ -59,7 +60,9 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchPopup('officer')));
     }
     getCMSContent(OFFICER_PAGE_ID);
-  } else if (action.payload.pathname.match(/^\/(edit\/?)?$/)) {
+  }
+
+  else if (action.payload.pathname.match(/^\/(edit\/?)?$/)) {
     if (!hasCommunitiesSelector(state)) {
       dispatches.push(store.dispatch(getCommunities()));
     }
@@ -83,30 +86,44 @@ export default store => next => action => {
     if (!hasComplaintSummaryData(state)) {
       dispatches.push(store.dispatch(getComplaintSummaries()));
     }
-  } else if (action.payload.pathname.match(/complaint\/\w+/)) {
+  }
+
+  else if (action.payload.pathname.match(/complaint\/\w+/)) {
     const crid = getCRID(action.payload.pathname);
     const oldCrid = getCRID(prevPathname);
-    if (crid != oldCrid) {
+    if (crid !== oldCrid) {
       dispatches.push(store.dispatch(fetchCR(crid)));
       dispatches.push(store.dispatch(fetchPopup('complaint')));
     }
-  } else if (action.payload.pathname.match(/unit\/\d+/)) {
+    getCMSContent(CR_PAGE_ID);
+  }
+
+  else if (action.payload.pathname.match(/unit\/\d+/)) {
     const unitName = getUnitName(action.payload.pathname);
     dispatches.push(store.dispatch(fetchUnitProfileSummary(unitName)));
-  } else if (action.payload.pathname.match(/trr\/\d+/)) {
+  }
+
+  else if (action.payload.pathname.match(/trr\/\d+/)) {
     const trrId = getTRRId(action.payload.pathname);
-    const oldtrrId = getTRRId(prevPathname);
-    if (trrId !== oldtrrId) {
+    const oldTrrId = getTRRId(prevPathname);
+    if (trrId !== oldTrrId) {
       dispatches.push(store.dispatch(fetchTRR(trrId)));
       dispatches.push(store.dispatch(fetchPopup('trr')));
     }
-  } else if (action.payload.pathname.match(/search\/terms/)) {
+    getCMSContent(TRR_PAGE_ID);
+  }
+
+  else if (action.payload.pathname.match(/search\/terms/)) {
     dispatches.push(store.dispatch(requestSearchTermCategories()));
-  } else if (action.payload.pathname.match(/embed\/top-officers/)) {
+  }
+
+  else if (action.payload.pathname.match(/embed\/top-officers/)) {
     if (!hasOfficerByAllegationData(state)) {
       dispatches.push(store.dispatch(requestOfficersByAllegation()));
     }
-  } else if (action.payload.pathname.match(/embed\/map/)) {
+  }
+
+  else if (action.payload.pathname.match(/embed\/map/)) {
     if (!hasCommunitiesSelector(state)) {
       dispatches.push(store.dispatch(getCommunities()));
     }

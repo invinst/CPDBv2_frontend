@@ -45,7 +45,7 @@ describe('TRR page', function () {
     trrPage.documentRequestModal.submitButton.click();
     trrPage.documentRequestModal.messageBox.waitForVisible();
     trrPage.documentRequestModal.messageBox.getText().should.equal('Thanks for subscribing.');
-    browser.waitForVisible('.test--generic-modal-content', 2000, true);
+    browser.waitForVisible('.generic-modal-content', 2000, true);
     trrPage.trrInfoSection.documentRequestButton.getText().should.equal('Documents Requested   ✔');
   });
 

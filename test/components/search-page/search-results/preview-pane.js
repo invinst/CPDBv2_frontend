@@ -16,6 +16,7 @@ import {
   PoliceDistrictPane,
   SchoolGroundPane,
   OfficerPane,
+  RankPane,
 } from 'components/search-page/preview-pane';
 
 
@@ -29,7 +30,7 @@ describe('PreviewPane component', function () {
   it('should render CommunityPane component', function () {
     instance = renderIntoDocument(
       <PreviewPane
-        type={ 'COMMUNITY' }
+        type='COMMUNITY'
         data={ { name: 'Community' } }
       />
     );
@@ -39,7 +40,7 @@ describe('PreviewPane component', function () {
   it('should render NeighborhoodPane', function () {
     instance = renderIntoDocument(
       <PreviewPane
-        type={ 'NEIGHBORHOOD' }
+        type='NEIGHBORHOOD'
         data={ { name: 'Neighborhood' } }
       />
     );
@@ -59,7 +60,7 @@ describe('PreviewPane component', function () {
   it('should render WardPane', function () {
     instance = renderIntoDocument(
       <PreviewPane
-        type={ 'WARD' }
+        type='WARD'
         data={ { name: 'Ward' } }
       />
     );
@@ -69,7 +70,7 @@ describe('PreviewPane component', function () {
   it('should render PoliceBeatPane', function () {
     instance = renderIntoDocument(
       <PreviewPane
-        type={ 'BEAT' }
+        type='BEAT'
         data={ { name: 'Beat' } }
       />
     );
@@ -79,7 +80,7 @@ describe('PreviewPane component', function () {
   it('should render PoliceDistrictPane', function () {
     instance = renderIntoDocument(
       <PreviewPane
-        type={ 'POLICE-DISTRICT' }
+        type='POLICE-DISTRICT'
         data={ { name: 'Police District' } }
       />
     );
@@ -89,11 +90,21 @@ describe('PreviewPane component', function () {
   it('should render SchoolGroundPane', function () {
     instance = renderIntoDocument(
       <PreviewPane
-        type={ 'SCHOOL-GROUND' }
+        type='SCHOOL-GROUND'
         data={ { name: 'School Ground' } }
       />
     );
     findRenderedComponentWithType(instance, SchoolGroundPane);
+  });
+
+  it('should render RankPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='RANK'
+        data={ { name: 'Chief' } }
+      />
+    );
+    findRenderedComponentWithType(instance, RankPane);
   });
 
   it('should not display any component if the data is empty', function () {
@@ -107,7 +118,7 @@ describe('PreviewPane component', function () {
     instance = renderIntoDocument(
       <PreviewPane
         data={ { name: 'Community' } }
-        type={ 'NOT_FOUND' }
+        type='NOT_FOUND'
       />
     );
     const instanceDOM = findRenderedDOMComponentWithClass(instance, 'test--preview-pane');

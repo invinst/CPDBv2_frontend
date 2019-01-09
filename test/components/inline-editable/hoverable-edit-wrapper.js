@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { findRenderedComponentWithType, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+import { findRenderedDOMComponentWithTag, scryRenderedDOMComponentsWithTag } from 'react-addons-test-utils';
 
 import { renderWithContext, unmountComponentSuppressError } from 'utils/test';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
-import HoverableButton from 'components/common/hoverable-button';
+
 
 describe('HoverableEditWrapper component', function () {
   let instance;
@@ -44,7 +44,7 @@ describe('HoverableEditWrapper component', function () {
           <HoverableEditWrapper />
         );
 
-        const editButton = findRenderedComponentWithType(instance, HoverableButton);
+        const editButton = findRenderedDOMComponentWithTag(instance, 'a');
         ReactDOM.findDOMNode(editButton).textContent.should.equal('Edit');
       });
     });
@@ -59,7 +59,7 @@ describe('HoverableEditWrapper component', function () {
           <HoverableEditWrapper />
         );
 
-        const buttons = scryRenderedComponentsWithType(instance, HoverableButton);
+        const buttons = scryRenderedDOMComponentsWithTag(instance, 'a');
         buttons.should.have.length(2);
         buttons.map((button) => ReactDOM.findDOMNode(button).textContent).should.eql(['Save', 'Cancel']);
       });

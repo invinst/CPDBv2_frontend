@@ -28,6 +28,7 @@ describe('WardPane component', () => {
   it('should contain the sub components', () => {
     instance = renderIntoDocument(
       <WardPane
+        url='https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
         name={ '22' }
         allegationCount={ 123 }
         mostCommonComplaint={ [] }

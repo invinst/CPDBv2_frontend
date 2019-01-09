@@ -1,0 +1,23 @@
+@import 'variables'
+
+%instruction-shared
+  color: $clay-gray
+  font-weight: 300
+  padding-top: 38px
+  font-size: 14px
+  margin-bottom: 15px
+
+\:local(.generic-modal)
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  z-index: 2000
+  background-color: rgba(255, 255, 255, 0.8)
+
+  .generic-modal-content
+    background-color: white
+    border: 1px solid $white-two-color
+    margin: auto
+    width: 500px

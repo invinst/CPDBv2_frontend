@@ -9,19 +9,10 @@ export default class MetricsColumn extends Component {
 
   render() {
     const { metrics, dashedSeparator, pathName } = this.props;
-    const [firstMetric, ...theRest] = metrics;
     return (
       <div className={ styles.metricsColumn }>
-        <MetricPane
-          value={ firstMetric.value }
-          name={ firstMetric.name }
-          description={ firstMetric.description }
-          highlightValue={ get(firstMetric, 'highlightValue', false) }
-          popup={ firstMetric.popup }
-          pathName={ pathName }
-        />
         {
-          theRest.map((metric, index) => (
+          metrics.map((metric, index) => (
             <MetricPane
               key={ index }
               value={ metric.value }
