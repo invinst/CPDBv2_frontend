@@ -25,6 +25,7 @@ describe('NeighborhoodPane component', () => {
   it('should contain the sub components', () => {
     instance = renderIntoDocument(
       <NeighborhoodPane
+        url='https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
         mostCommonComplaint={ [{
           id: 1,
           name: 'name',

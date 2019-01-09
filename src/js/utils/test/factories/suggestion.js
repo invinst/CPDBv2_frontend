@@ -64,6 +64,16 @@ export const RawNeighborhoodSuggestion = Factory.define('RawNeighborhoodSuggesti
   ]);
 
 /* istanbul ignore next */
+export const RawRankSuggestion = Factory.define('RankSuggestion')
+  .attr('name', null, lorem.words)
+  .attr('id', ['name'], name => name)
+  .attr('active_officers_count', null, () => random.number())
+  .attr('officers_most_complaints', null, [
+    { id: 1, count: 2, name: 'Hulk' },
+    { id: 2, count: 1, name: 'Peter Parker' },
+  ]);
+
+/* istanbul ignore next */
 export const OfficerSuggestion = Factory.define('OfficerSuggestion')
   .attr('id', () => String(random.number()))
   .attr('type', 'OFFICER')
