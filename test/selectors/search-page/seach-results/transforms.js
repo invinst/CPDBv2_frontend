@@ -27,6 +27,30 @@ describe('search page transforms', function () {
         recentText: 'CR # 123 - July 2, 2012',
       });
     });
+
+    it('should transform search term data correctly', function () {
+      searchResultItemTransform({
+        type: 'SEARCH-TERMS',
+        id: '1234abcd',
+        name: 'Communities',
+        description: 'This is community description',
+        'category_name': 'Geography',
+        'call_to_action_type': 'view_all',
+      }).should.deepEqual({
+        type: 'SEARCH-TERMS',
+        id: '1234abcd',
+        to: '/search/?terms=1234abcd&type=1234ABCD',
+        url: '',
+        uniqueKey: 'SEARCH-TERMS-1234-abcd',
+        name: 'Communities',
+        tags: [],
+        itemIndex: 1,
+        description: 'This is community description',
+        callToActionType: 'view_all',
+        text: 'Geography - Communities',
+        recentText: 'Geography - Communities',
+      });
+    });
   });
 
   describe('previewPaneTransform', function () {
