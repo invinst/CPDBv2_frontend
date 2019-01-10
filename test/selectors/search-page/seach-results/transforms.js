@@ -1,8 +1,34 @@
-import { previewPaneTransform } from 'selectors/search-page/search-results/transforms';
-import { RawOfficerSuggestion } from 'utils/test/factories/suggestion';
+import { previewPaneTransform, searchResultItemTransform } from 'selectors/search-page/search-results/transforms';
+import { RawOfficerSuggestion, RawRankSuggestion } from 'utils/test/factories/suggestion';
 
 
 describe('search page transforms', function () {
+  describe('searchResultTransform', function () {
+    it('should transform cr data correctly', function () {
+      searchResultItemTransform({
+        type: 'CR',
+        id: 1,
+        crid: 123,
+        to: '/complaint/123/',
+        'incident_date': '2012-07-02',
+        highlight: {
+          summary: ['the officer pointed a gun at the victim']
+        }
+      }).should.deepEqual({
+        type: 'CR',
+        id: 1,
+        to: '/complaint/123/',
+        url: undefined,
+        uniqueKey: 'CR-1',
+        tags: [],
+        itemIndex: 1,
+        text: 'CR # 123 - July 2, 2012',
+        subText: 'the officer pointed a gun at the victim',
+        recentText: 'CR # 123 - July 2, 2012',
+      });
+    });
+  });
+
   describe('previewPaneTransform', function () {
     it('should transform area data correctly', function () {
       previewPaneTransform({
@@ -99,10 +125,56 @@ describe('search page transforms', function () {
           trrPercentile: 90,
           to: '/officer/29033/',
         },
-        type: 'OFFICER',
+        type: 'UNIT > OFFICERS',
       };
       previewPaneTransform({
         type: 'UNIT > OFFICERS',
+        ...focusedSuggestion
+      }).should.deepEqual(info);
+    });
+
+    it('should transform RANK data correctly', function () {
+      const focusedSuggestion = RawRankSuggestion.build({
+        id: '29033',
+        name: 'Chief',
+        'active_officers_count': 11,
+        'officers_most_complaints': [
+          { id: 1, count: 2, name: 'Hulk' },
+          { id: 2, count: 1, name: 'Peter Parker' }
+        ]
+      });
+      const info = {
+        data: {
+          name: 'Chief',
+          activeOfficersCount: 11,
+          officersMostComplaints: [{
+            'count': 2,
+            'id': 1,
+            'name': 'Hulk',
+            'radarAxes': [
+              { 'axis': 'Use of Force Reports', 'value': NaN },
+              { 'axis': 'Officer Allegations', 'value': NaN },
+              { 'axis': 'Civilian Allegations', 'value': NaN }
+            ],
+            'radarColor': undefined,
+            'url': '/officer/1/hulk/',
+          }, {
+            'count': 1,
+            'id': 2,
+            'name': 'Peter Parker',
+            'radarAxes': [
+              { 'axis': 'Use of Force Reports', 'value': NaN },
+              { 'axis': 'Officer Allegations', 'value': NaN },
+              { 'axis': 'Civilian Allegations', 'value': NaN }
+            ],
+            'radarColor': undefined,
+            'url': '/officer/2/peter-parker/'
+          }]
+        },
+        type: 'RANK',
+      };
+      previewPaneTransform({
+        type: 'RANK',
         ...focusedSuggestion
       }).should.deepEqual(info);
     });

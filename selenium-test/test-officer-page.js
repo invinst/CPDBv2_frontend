@@ -48,7 +48,7 @@ describe('officer page', function () {
     officerPage.summarySection.raceValue.getText().should.equal('White');
 
     officerPage.summarySection.badgeLabel.getText().should.equal('Badge');
-    officerPage.summarySection.badgeValue.getText().should.equal('12345');
+    officerPage.summarySection.badgeValue.getText().should.equal('12345, 54321, 56789');
 
     officerPage.summarySection.sexLabel.getText().should.equal('Sex');
     officerPage.summarySection.sexValue.getText().should.equal('Male');

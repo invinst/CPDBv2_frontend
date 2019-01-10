@@ -10,6 +10,7 @@ import {
   PoliceBeatPane,
   PoliceDistrictPane,
   SchoolGroundPane,
+  RankPane,
 } from 'components/search-page/preview-pane';
 
 
@@ -24,14 +25,19 @@ export default class PreviewPane extends Component {
 
   renderPane() {
     const { data, type } = this.props;
+    const officerPaneFunc = () => <OfficerPane { ...data }/>;
+
     const paneTypes = {
-      OFFICER: () => <OfficerPane { ...data }/>,
+      OFFICER: officerPaneFunc,
+      'DATE > OFFICERS': officerPaneFunc,
+      'UNIT > OFFICERS': officerPaneFunc,
       COMMUNITY: () => <CommunityPane { ...data } />,
       NEIGHBORHOOD: () => <NeighborhoodPane { ...data } />,
       WARD: () => <WardPane { ...data }/>,
       BEAT: () => <PoliceBeatPane { ...data } />,
       'POLICE-DISTRICT': () => <PoliceDistrictPane { ...data } />,
       'SCHOOL-GROUND': () => <SchoolGroundPane { ...data } />,
+      RANK: () => <RankPane { ...data } />,
     };
     return get(paneTypes, type, () => null)();
   }

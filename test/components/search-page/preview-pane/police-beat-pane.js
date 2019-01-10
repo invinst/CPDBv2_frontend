@@ -26,7 +26,10 @@ describe('PoliceBeatPane component', () => {
 
   it('should contain the sub components', () => {
     instance = renderIntoDocument(
-      <PoliceBeatPane name='22'/>
+      <PoliceBeatPane
+        url='https://staging.cpdb.co/data/L2B5ML/citizens-police-data-project'
+        name='22'
+      />
     );
     const header = findRenderedComponentWithType(instance, HeaderWidget);
     findDOMNode(header).textContent.should.containEql('POLICE BEAT #22');

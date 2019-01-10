@@ -1,23 +1,36 @@
 import React, { Component, PropTypes } from 'react';
-import { map, get } from 'lodash';
+import { map, get, clone, reduce, isEmpty } from 'lodash';
 
 import SummaryField from './summary-field';
 import ViewUnitProfileButton from './view-unit-profile-button';
 import Salary from './salary';
 import YearOld from './year-old';
-import HistoricBadges from './historic-badges';
 import { POPUP_NAMES } from 'utils/constants';
 import styles from './summary-section.sass';
 
 
 export default class SummarySection extends Component {
+  badges() {
+    const { badge, historicBadges } = this.props.officerSummary;
+    let allBadges = clone(historicBadges) || [];
+    if (badge)
+      allBadges.unshift(<span className='current-badge'>{ badge }</span>);
+
+    if (isEmpty(allBadges))
+      allBadges.unshift('Unknown');
+
+    return (
+      <span>
+        { reduce(allBadges, (prev, curr) => [prev, ', ', curr]) }
+      </span>
+    );
+  }
+
   summaryFields() {
     const {
       rank,
       race,
       gender,
-      badge,
-      historicBadges,
       careerDuration,
       unitName,
       unitDescription,
@@ -30,7 +43,7 @@ export default class SummarySection extends Component {
       ['Year of Birth', birthYear, <YearOld birthYear={ birthYear } key='Year of Birth'/>],
       ['Race', race],
       ['Sex', gender],
-      ['Badge', badge, <HistoricBadges historicBadges={ historicBadges } key='Historic Badges'/>],
+      ['Badge', this.badges()],
       ['Rank', rank, currentSalary !== null ? (
         <Salary
           salary={ currentSalary }

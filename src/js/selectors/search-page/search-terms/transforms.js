@@ -1,4 +1,4 @@
-import { get } from 'lodash';
+import { get, kebabCase } from 'lodash';
 
 import { CALL_TO_ACTION_TYPES } from 'utils/constants';
 
@@ -25,6 +25,6 @@ export const navigationItemTransform = item => {
     to,
     url,
     type: get(item, 'type', ''),
-    uniqueKey: get(item, 'uniqueKey', `${item.type}-${item.id}`),
+    uniqueKey: get(item, 'uniqueKey', `${item.type}-${kebabCase(item.id)}`),
   };
 };
