@@ -22,7 +22,7 @@
     "docker-run": "docker run --rm -d --name desktop-frontend -p $FRONTEND_PORT:80 cpdbdev/desktop-frontend:latest",
     "docker-kill": "docker kill desktop-frontend",
     "test-nginx": "mocha test_nginx.js",
-    "local-test-nginx": "export MOBILE_SERVER_NAME=m.cpdp.co && export FRONTEND_PORT=8090 && export FRONTEND_DOMAIN=localhost:$FRONTEND_PORT && yarn docker-build && yarn docker-run && yarn test-nginx && yarn docker-kill"
+    "local-test-nginx": "export MOBILE_SERVER_NAME=m.cpdp.co && export FRONTEND_PORT=80 && export FRONTEND_DOMAIN=localhost && yarn docker-build && yarn docker-run && yarn test-nginx ; yarn docker-kill"
   },
   "repository": {
     "type": "git",

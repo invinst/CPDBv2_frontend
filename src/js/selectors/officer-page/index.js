@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { get, last, map, kebabCase, isEmpty } from 'lodash';
+import { get, last, map, kebabCase } from 'lodash';
 import moment from 'moment';
 
 import { getThisYear, getCareerDuration } from 'utils/date';
@@ -48,7 +48,7 @@ export const summarySelector = createSelector(
     hasUniqueName: summary['has_unique_name'],
     race: summary.race,
     gender: summary.gender,
-    badge: isEmpty(summary.badge) ? 'Unknown' : summary.badge,
+    badge: summary.badge,
     historicBadges: summary['historic_badges'],
     careerDuration: getCareerDuration(summary['date_of_appt'], summary['date_of_resignation']),
     careerDescription: getCareerDescription(summary['date_of_appt'], summary['date_of_resignation']),

@@ -7,7 +7,7 @@ import {
 } from 'react-addons-test-utils';
 
 import PoliceDistrictPane from 'components/search-page/preview-pane/police-district-pane';
-import {
+import WidgetWrapper, {
   HeaderWidget,
   GeoInfoWidget,
   AllegationCountWidget,
@@ -41,13 +41,17 @@ describe('PoliceDistrictPane component', () => {
         officersMostComplaint={ mostComplaintOfficers }
         districtCommander={ commander }
         url='some_url'
-      />);
+      />
+    );
+
+    const wrapper = findRenderedComponentWithType(instance, WidgetWrapper);
+    wrapper.props.callToAction.url.should.eql('some_url');
 
     const header = findRenderedComponentWithType(instance, HeaderWidget);
     const geo = findRenderedComponentWithType(instance, GeoInfoWidget);
     const allegationCount = findRenderedComponentWithType(instance, AllegationCountWidget);
     const widgets = scryRenderedComponentsWithType(instance, ListWidget);
-    const callToAction = findRenderedComponentWithType(instance, CallToActionWidget);
+    findRenderedComponentWithType(instance, CallToActionWidget);
 
     findDOMNode(header).textContent.should.containEql('POLICE DISTRICT AUSTIN');
 
@@ -72,8 +76,6 @@ describe('PoliceDistrictPane component', () => {
     widgets[1].props.typeName.should.eql('allegation');
     widgets[1].props.title.should.eql('DISTRICT COMMANDER');
     widgets[1].props.items.should.eql([{ id: 123, name: 'Ernest Cato', count: 3 }]);
-
-    callToAction.props.url.should.eql('some_url');
   });
 
 

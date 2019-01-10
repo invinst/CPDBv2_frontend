@@ -2,7 +2,8 @@ import {
   RawOfficerSuggestion,
   RawNeighborhoodSuggestion,
   RawCRSuggestion,
-  RawTRRSuggestion
+  RawTRRSuggestion,
+  RawRankSuggestion,
 } from 'utils/test/factories/suggestion';
 import { SearchTermCategoryItem } from 'utils/test/factories/search-terms';
 
@@ -66,7 +67,10 @@ export const groupedSuggestions = {
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
-          'incident_date': '2004-04-23'
+          'incident_date': '2004-04-23',
+          highlight: {
+            summary: ['an officer named Kelly caught the victim']
+          }
         }
       ),
       RawCRSuggestion.build(
@@ -75,7 +79,8 @@ export const groupedSuggestions = {
           crid: 'CR456',
           to: '/complaint/CR456/',
           category: null,
-          'incident_date': null
+          'incident_date': null,
+          highlight: {}
         }
       ),
     ],
@@ -112,7 +117,8 @@ export const groupedSuggestions = {
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
-          'incident_date': '2004-04-23'
+          'incident_date': '2004-04-23',
+          highlight: {}
         }
       ),
       RawCRSuggestion.build(
@@ -121,7 +127,8 @@ export const groupedSuggestions = {
           crid: 'CR456',
           to: '/complaint/CR456/',
           category: null,
-          'incident_date': '2004-04-23'
+          'incident_date': '2004-04-23',
+          highlight: {}
         }
       ),
     ],
@@ -161,6 +168,22 @@ export const groupedSuggestions = {
         }
       ),
     ],
+  },
+  'rank': {
+    'RANK': [
+      RawRankSuggestion.build(
+        {
+          name: 'Officer',
+          'active_officers_count': 2,
+        }
+      ),
+      RawRankSuggestion.build(
+        {
+          name: 'Chief',
+          'active_officers_count': 3,
+        }
+      ),
+    ]
   },
   'Geography': {
     'SEARCH-TERMS': [

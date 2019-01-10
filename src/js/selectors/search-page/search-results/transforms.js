@@ -21,35 +21,14 @@ const mappingRace = (race) => {
   return race;
 };
 
-const areaTypeMap = (areaType) => ({
-  [areaType]: (suggestion) => ({
-    type: areaType,
-    data: get(searchResultTransformMap, areaType, () => {})(suggestion)
-  })
-});
-
-const officerTypeMap = (type) => ({
-  [type]: (suggestion) => ({
-    type: 'OFFICER',
-    data: get(searchResultTransformMap, 'OFFICER', () => {})(suggestion)
-  })
-});
-
-const previewPaneTypeMap = {
-  ...officerTypeMap('OFFICER'),
-  ...officerTypeMap('DATE > OFFICERS'),
-  ...officerTypeMap('UNIT > OFFICERS'),
-  ...areaTypeMap('COMMUNITY'),
-  ...areaTypeMap('NEIGHBORHOOD'),
-  ...areaTypeMap('WARD'),
-  ...areaTypeMap('POLICE-DISTRICT'),
-  ...areaTypeMap('SCHOOL-GROUND'),
-  ...areaTypeMap('BEAT'),
-  ...areaTypeMap('SEARCH-TERMS'),
+export const previewPaneTransform = item => {
+  const { type } = item;
+  const transform = get(searchResultTransformMap, type, () => {});
+  return {
+    type,
+    data: transform(item)
+  };
 };
-
-export const previewPaneTransform = item =>
-  get(previewPaneTypeMap, item.type, () => ({}))(item);
 
 const officerMostComplaintTransform = officer => {
   const percentile = extractPercentile(officer);
@@ -93,10 +72,24 @@ const areaTransform = (item) => {
   };
 };
 
-const crTransform = (item) => {
-  const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+const rankTransform = item => {
+  const officersMostComplaints = get(
+    item, 'officers_most_complaints', []
+  ).map(officer => officerMostComplaintTransform(officer));
   return {
-    subText: `CR # ${item.crid}${dateText}`
+    name: item.name,
+    activeOfficersCount: item['active_officers_count'],
+    officersMostComplaints,
+  };
+};
+
+const crTransform = (item) => {
+  let subText = '';
+  if (item.highlight && item.highlight.summary) {
+    subText = item.highlight.summary[0];
+  }
+  return {
+    subText: subText
   };
 };
 
@@ -154,10 +147,17 @@ const searchResultTransformMap = {
   'POLICE-DISTRICT': areaTransform,
   BEAT: areaTransform,
   'SCHOOL-GROUND': areaTransform,
+  RANK: rankTransform,
 };
 
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
-const getCRTexts = (item) => ({ text: item.category || 'Unknown', recentText: item.crid });
+const getCRTexts = (item) => {
+  const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  return {
+    text: `CR # ${item.crid}${dateText}`,
+    recentText: `CR # ${item.crid}${dateText}`
+  };
+};
 const getTRRTexts = (item) => ({ text: item['force_type'] || 'Unknown', recentText: item.id });
 const getUnitTexts = (item) => {
   const text = item.description || `Unit ${item.name}`;
