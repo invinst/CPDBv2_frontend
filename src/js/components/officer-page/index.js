@@ -14,6 +14,7 @@ import { POPUP_NAMES } from 'utils/constants';
 import styles from './officer-page.sass';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
+import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 
 class OfficerPage extends Component {
@@ -88,6 +89,7 @@ class OfficerPage extends Component {
             hasCoaccusal={ hasCoaccusal }
           />
           { printMode ? <PrintNotes notes={ timelineNotes } /> : null }
+          <PrintPreloadFonts/>
         </div>
       </DocumentMeta>
     );

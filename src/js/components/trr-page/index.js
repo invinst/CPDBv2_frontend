@@ -9,13 +9,15 @@ import FooterContainer from 'containers/footer-container';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
+import PrintPreloadFonts from 'components/common/print-preload-fonts';
 
 
 export class TRRPage extends Component {
   render() {
     const {
       trrId, officer, trrLocation, trrDetail, trrDocument,
-      openRequestTRRDocumentModal, popup, pathName, notes
+      openRequestTRRDocumentModal, popup, pathName, notes,
+      noAttachmentTextEditWrapperStateProps,
     } = this.props;
     const { printMode } = this.context;
 
@@ -24,7 +26,7 @@ export class TRRPage extends Component {
         <div className={ style.trrPage }>
           <ShareableHeaderContainer/>
           <div className={ `${responsiveContainerStyles.responsiveContainer} trr-content` }>
-            <h1 className='trr-title'>TRR { trrId }</h1>
+            <h1 className='trr-title no-print'>TRR { trrId }</h1>
             { printMode ? <div className='trr-category-print'>{ trrDetail.category }</div> : null }
             {
               printMode ? (
@@ -42,10 +44,12 @@ export class TRRPage extends Component {
               openRequestTRRDocumentModal={ openRequestTRRDocumentModal }
               popup={ popup }
               pathName={ pathName }
+              noAttachmentTextEditWrapperStateProps={ noAttachmentTextEditWrapperStateProps }
             />
           </div>
           <PrintNotes notes={ notes }/>
           <FooterContainer/>
+          <PrintPreloadFonts/>
         </div>
       </DocumentMeta>
     );
@@ -62,6 +66,7 @@ TRRPage.propTypes = {
   popup: PropTypes.object,
   pathName: PropTypes.string,
   notes: PropTypes.array,
+  noAttachmentTextEditWrapperStateProps: PropTypes.object,
 };
 
 TRRPage.contextTypes = {

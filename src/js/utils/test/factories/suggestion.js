@@ -38,7 +38,10 @@ export const RawCRSuggestion = Factory.define('RawCRSuggestion')
   .attr('url', '')
   .attr('tags', [])
   .attr('category', lorem.words)
-  .attr('incident_date', '1999-12-13');
+  .attr('incident_date', '1999-12-13')
+  .attr('highlight', {
+    summary: [String(lorem.sentence)]
+  });
 
 /* istanbul ignore next */
 export const RawTRRSuggestion = Factory.define('RawTRRSuggestion')
@@ -56,6 +59,16 @@ export const RawNeighborhoodSuggestion = Factory.define('RawNeighborhoodSuggesti
   .attr('url', 'http://lvh.me/url-mediator/session-builder?neighborhood=SomeNeighborhood')
   .attr('tags', [])
   .attr('officers_most_complaint', [
+    { id: 1, count: 2, name: 'Hulk' },
+    { id: 2, count: 1, name: 'Peter Parker' },
+  ]);
+
+/* istanbul ignore next */
+export const RawRankSuggestion = Factory.define('RankSuggestion')
+  .attr('name', null, lorem.words)
+  .attr('id', ['name'], name => name)
+  .attr('active_officers_count', null, () => random.number())
+  .attr('officers_most_complaints', null, [
     { id: 1, count: 2, name: 'Hulk' },
     { id: 2, count: 1, name: 'Peter Parker' },
   ]);
@@ -81,3 +94,19 @@ export const NavigationItem = Factory.define('NavigationItem')
   .attr('to', '')
   .attr('url', '')
   .attr('uniqueKey', ['type', 'id'], (type, id) => `${type}-${id}`);
+
+/* istanbul ignore next */
+export const CRSuggestion = Factory.define('CRSuggestion')
+  .attr('id', () => String(random.number()))
+  .attr('type', 'CR')
+  .attr('crid', () => String(random.number()))
+  .attr('to', '')
+  .attr('url', '')
+  .attr('tags', [])
+  .attr('category', lorem.words)
+  .attr('incident_date', '1999-12-13')
+  .attr('highlight', {
+    summary: [String(lorem.sentence)]
+  });
+
+

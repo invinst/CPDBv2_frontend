@@ -1,16 +1,12 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
 import ConfiguredRadium from 'utils/configured-radium';
 import { updateIntercomEmail } from 'utils/intercom';
-import {
-  paddingWrapperStyle,
-  inputStyle,
-  instructionStyle,
-  linkButtonStyle,
-  submitButtonStyle,
-  messageBoxStyle,
-  emphasisTextboxStyle
-} from './generic-modal.style';
+import style from './request-document-modal-content.sass';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import RichTextEditable from 'components/inline-editable/editable-section/rich-text-editable';
 
 
 class RequestDocumentModalContent extends Component {
@@ -35,26 +31,29 @@ class RequestDocumentModalContent extends Component {
   }
 
   render() {
-    const { closeModal, message, isRequested } = this.props;
+    const { closeModal, message, isRequested, instructionEditWrapperStateProps } = this.props;
     const showMessage = message && (isRequested || this.state.warning);
 
     return (
-      <form onSubmit={ this.handleSubmit }>
-        <div style={ paddingWrapperStyle }>
-          <p style={ instructionStyle }>We’ll notify you when the document is made available.</p>
-          { this.state.warning ? (
-            <input ref='email' style={ { ...inputStyle, ...emphasisTextboxStyle } } placeholder='Your email'/>
-          ) : (
-            <input ref='email' style={ inputStyle } placeholder='Your email'/>
-          ) }
+      <form onSubmit={ this.handleSubmit } className={ style.requestDocumentModalContent }>
+        <div className='request-document-content'>
+          <EditWrapperStateProvider { ...instructionEditWrapperStateProps }>
+            <HoverableEditWrapper className='request-document-instruction'>
+              <RichTextEditable
+                placeholder='We’ll notify you when the document is made available.'
+                fieldname='document_request_instruction'
+              />
+            </HoverableEditWrapper>
+          </EditWrapperStateProvider>
+          <input
+            ref='email'
+            className={ cx('request-document-input', { emphasis: this.state.warning }) }
+            placeholder='Your email'
+          />
         </div>
-        <input type='submit' style={ submitButtonStyle } value='Request'/>
-        <a style={ linkButtonStyle } onClick={ closeModal }>Cancel</a>
-        { showMessage && (
-          <div className='test--request-document-modal--message' style={ messageBoxStyle }>
-            { message }
-          </div>
-        ) }
+        <input type='submit' className='request-document-submit-button' value='Request'/>
+        <a className='request-document-link-button' onClick={ closeModal }>Cancel</a>
+        { showMessage && <div className='request-document-message-box'>{ message }</div> }
       </form>
     );
   }
@@ -66,6 +65,7 @@ RequestDocumentModalContent.propTypes = {
   onRequestDocument: PropTypes.func,
   message: PropTypes.string,
   closeModal: PropTypes.func,
-  id: PropTypes.number,
-  isRequested: PropTypes.bool
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  isRequested: PropTypes.bool,
+  instructionEditWrapperStateProps: PropTypes.object,
 };

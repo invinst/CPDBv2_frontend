@@ -69,7 +69,7 @@
         "react/jsx-no-undef": 1,
         "react/jsx-pascal-case": 1,
         "react/jsx-uses-vars": 1,
-        "react/no-danger": 1,
+        "react/no-danger": 0,
         "react/no-did-mount-set-state": 1,
         "react/no-did-update-set-state": 1,
         "react/no-direct-mutation-state": 1,

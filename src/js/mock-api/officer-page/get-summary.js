@@ -10,6 +10,7 @@ export default () => ({
   'rank': 'NA',
   'race': 'White',
   'badge': '12345',
+  'historic_badges': ['54321', '56789'],
   'gender': 'Male',
   'birth_year': 1963,
   'allegation_count': 1,

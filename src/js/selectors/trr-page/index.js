@@ -7,6 +7,7 @@ import { extractPercentile } from 'selectors/common/percentile';
 
 
 export const getTRRId = state => String(state.trrPage.trrId);
+export const getEditModeOn = state => state.trrPage.editModeOn;
 
 const getData = state => state.trrPage.data;
 

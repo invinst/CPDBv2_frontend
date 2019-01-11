@@ -1,6 +1,10 @@
 import React from 'react';
 import MediaQuery from 'react-responsive';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  findRenderedComponentWithType,
+  scryRenderedComponentsWithType
+} from 'react-addons-test-utils';
 
 import WidgetWrapper, { TextWidget, CallToActionWidget } from 'components/search-page/preview-pane/widgets';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -19,13 +23,20 @@ describe('WidgetWrapper component', () => {
         <TextWidget title={ 'title' }/>
       </WidgetWrapper>
     );
-    findRenderedComponentWithType(instance, TextWidget).should.not.be.null();
+    findRenderedComponentWithType(instance, TextWidget);
     const callToAction = findRenderedComponentWithType(instance, CallToActionWidget);
-    callToAction.props.url.should.equal('path');
-    callToAction.props.to.should.equal('death');
     callToAction.props.text.should.equal('back');
 
     const mediaQuery = findRenderedComponentWithType(instance, MediaQuery);
     mediaQuery.props.maxHeight.should.equal(500);
+  });
+
+  it('should hide call to action if both url and to are missing', function () {
+    instance = renderIntoDocument(
+      <WidgetWrapper maxHeight={ 500 } callToAction={ { text: 'back' } }>
+        <TextWidget title={ 'title' } />
+      </WidgetWrapper>
+    );
+    scryRenderedComponentsWithType(instance, CallToActionWidget).should.have.length(0);
   });
 });
