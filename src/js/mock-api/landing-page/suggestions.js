@@ -5,6 +5,7 @@ import {
   RawTRRSuggestion,
   RawRankSuggestion,
 } from 'utils/test/factories/suggestion';
+import { SearchTermCategoryItem } from 'utils/test/factories/search-terms';
 
 
 export const groupedSuggestions = {
@@ -183,6 +184,19 @@ export const groupedSuggestions = {
         }
       ),
     ]
+  },
+  'Geography': {
+    'SEARCH-TERMS': [
+      SearchTermCategoryItem.build(
+        {
+          name: 'Communities',
+          'category_name': 'Geography',
+          description: 'Whatever [SomeLink](http://www.somelink.lvh.me)',
+          'call_to_action_type': 'view_all',
+          id: 'community'
+        }
+      )
+    ],
   }
 };
 

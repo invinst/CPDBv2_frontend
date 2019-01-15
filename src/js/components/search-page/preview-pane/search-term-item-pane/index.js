@@ -8,21 +8,20 @@ import CallToAction from './call-to-action';
 import MarkdownLink from 'components/common/markdown-renderers/markdown-link';
 
 
-export default class PreviewPane extends Component {
-
+export default class SearchTermItemPane extends Component {
   render() {
-    const { item } = this.props;
+    const { name, description, to, url, callToActionType } = this.props;
 
     return (
-      <SlideMotion show={ !isEmpty(item.name) } offsetX={ 100 }>
+      <SlideMotion show={ !isEmpty(name) } offsetX={ 100 }>
         <div style={ wrapperStyle }>
           <div className='test--preview-pane-title' style={ titleStyle }>
-            { item.name }
+            { name }
           </div>
           <div className='test--preview-pane-description' style={ descriptionStyle }>
-            <ReactMarkdown source={ item.description } renderers={ { link: MarkdownLink } }/>
+            <ReactMarkdown source={ description } renderers={ { link: MarkdownLink } }/>
           </div>
-          <CallToAction item={ item }/>
+          <CallToAction to={ to } url={ url } name={ name } callToActionType={ callToActionType } />
         </div>
       </SlideMotion>
     );
@@ -30,10 +29,10 @@ export default class PreviewPane extends Component {
   }
 }
 
-PreviewPane.propTypes = {
-  item: PropTypes.object,
-};
-
-PreviewPane.defaultProps = {
-  item: {},
+SearchTermItemPane.propTypes = {
+  name: PropTypes.string,
+  description: PropTypes.string,
+  to: PropTypes.string,
+  url: PropTypes.string,
+  callToActionType: PropTypes.string,
 };

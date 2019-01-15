@@ -33,10 +33,16 @@ class ResultsSection extends Section {
     super();
     this.prepareElementGetters({
       results: `//a[contains(@class, "suggestion-item-${key}")]`,
-      firstResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--first-row")])[1]`,
-      firstResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--second-row")])[1]`,
-      secondResultText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--first-row")])[2]`,
-      secondResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]//div[contains(@class, "test--second-row")])[2]`,
+      firstResultText: `(//a[contains(@class, "suggestion-item-${key}")]
+        //div[contains(@class, "test--first-row")])[1]`,
+      firstResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]
+        //div[contains(@class, "test--second-row")])[1]`,
+      secondResultText: `(//a[contains(@class, "suggestion-item-${key}")]
+        //div[contains(@class, "test--first-row")])[2]`,
+      secondResultSubText: `(//a[contains(@class, "suggestion-item-${key}")]
+        //div[contains(@class, "test--second-row")])[2]`,
+      previewPaneTitle: '(//div[@class="test--preview-pane-title"])',
+      previewPaneButton: '(//a[@class="test--call-to-action"])',
     });
   }
 }
@@ -50,6 +56,8 @@ class SearchPage extends Page {
   crResultsSection = new ResultsSection('CR');
   trrResultsSection = new ResultsSection('TRR');
   rankResultsSection = new ResultsSection('RANK');
+  searchTermsResultsSection = new ResultsSection('SEARCH-TERMS');
+  searchCommunityResultsSection = new ResultsSection('COMMUNITY');
 
   constructor() {
     super();

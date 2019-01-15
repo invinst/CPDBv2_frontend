@@ -7,7 +7,7 @@ export const extractText = function (elements) {
   return map(elements.value, function (element) { return browser.elementIdText(element.ELEMENT).value; });
 };
 
-export const retry = function (action, valid, retries=3) {
+export const retry = function (action, valid, retries=1) {
   let attempts = 0;
   while (attempts < retries) {
     try {

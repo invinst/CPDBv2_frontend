@@ -116,6 +116,23 @@ describe('Search Page', function () {
     searchPage.rankResultsSection.secondResultText.getText().should.equal('Chief');
   });
 
+  it('should able to show SEARCH-TERMS results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Geography');
+
+    searchPage.suggestionTags.waitForVisible();
+
+    searchPage.searchTermsResultsSection.results.count.should.equal(1);
+    searchPage.searchTermsResultsSection.firstResultText.getText().should.equal('Geography - Communities');
+    searchPage.searchTermsResultsSection.firstResultText.click();
+    searchPage.searchTermsResultsSection.previewPaneTitle.getText().should.containEql('Communities');
+    searchPage.searchTermsResultsSection.previewPaneButton.getText().should.containEql('View ALL Communities');
+    searchPage.searchTermsResultsSection.previewPaneButton.click();
+    browser.pause(600);
+    browser.getUrl().should.containEql('/search/?terms=community&type=COMMUNITY');
+    searchPage.searchCommunityResultsSection.firstResultText.getText().should.equal('Austin');
+  });
+
   it('should show filtered result when user clicks "Show more results"', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
