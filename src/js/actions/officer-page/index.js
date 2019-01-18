@@ -57,20 +57,20 @@ export const requestCreateOfficerZipFile = officerId => (get(
   ]
 )());
 
-export const fetchOfficerZipWithDocsFileUrl = officerId => (get(
+export const fetchOfficerZipWithDocsFileUrl = (officerId, retryCounter=0) => (get(
   `${ OFFICER_URL }${ officerId }/request_download/`,
   [
     OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
     OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
     OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE
   ]
-)({ 'with-docs': true }));
+)({ 'with-docs': true, 'retry-counter': retryCounter }));
 
-export const fetchOfficerZipFileUrl = officerId => (get(
+export const fetchOfficerZipFileUrl = (officerId, retryCounter=0) => (get(
   `${ OFFICER_URL }${ officerId }/request_download/`,
   [
     OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
     OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
     OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE
   ]
-)());
+)({ 'with-docs': false, 'retry-counter': retryCounter }));
