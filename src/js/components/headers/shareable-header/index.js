@@ -2,12 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import {
-  outerStyle,
-  navBarStyle,
-  headerPlaceholderStyle,
-  breadcrumbSeparatorStyle
-} from './shareable-header.style';
+import { outerStyle, navBarStyle, headerPlaceholderStyle, breadcrumbSeparatorStyle } from './shareable-header.style';
 import BreadcrumbsItemRendererContainer from 'containers/headers/shareable-header/breadcrumbs-item-renderer-container';
 import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
 import ShareButton from 'components/headers/shareable-header/share-button';
@@ -43,7 +38,7 @@ export default class ShareableHeader extends Component {
   }
 
   render() {
-    const { location, routes, params } = this.props;
+    const { location, routes, params, Menu, buttonText } = this.props;
 
     const separatorRenderer = () => <li style={ breadcrumbSeparatorStyle }/>;
 
@@ -55,7 +50,7 @@ export default class ShareableHeader extends Component {
             style={ navBarStyle }
             ref={ el => { this.placeholderElement = el; } }
           >
-            <ShareButton scrollPosition={ this.state.position }/>
+            <ShareButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
             <Breadcrumbs
               className='test--breadcrumbs'
               routes={ routes }

@@ -37,6 +37,8 @@ export const breadcrumbCachedFullName = state => state.officerPage.breadcrumbCac
 
 export const getEditModeOn = state => state.officerPage.editModeOn;
 
+export const getZipFileUrl = state => state.officerPage.zipFileUrl;
+
 export const summarySelector = createSelector(
   getOfficerInfo,
   summary => ({

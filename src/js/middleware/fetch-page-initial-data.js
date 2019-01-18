@@ -11,7 +11,7 @@ import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activi
 import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
 import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
 import { getCitySummary } from 'actions/landing-page/city-summary';
-import { fetchOfficerSummary, changeOfficerId } from 'actions/officer-page';
+import { fetchOfficerSummary, changeOfficerId, requestCreateOfficerZipFile } from 'actions/officer-page';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { fetchCoaccusals } from 'actions/officer-page/coaccusals';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
@@ -57,6 +57,7 @@ export default store => next => action => {
       dispatches.push(store.dispatch(fetchOfficerSummary(officerId)));
       dispatches.push(store.dispatch(fetchNewTimelineItems(officerId)));
       dispatches.push(store.dispatch(fetchCoaccusals(officerId)));
+      dispatches.push(store.dispatch(requestCreateOfficerZipFile(officerId)));
       dispatches.push(store.dispatch(fetchPopup('officer')));
     }
     getCMSContent(OFFICER_PAGE_ID);

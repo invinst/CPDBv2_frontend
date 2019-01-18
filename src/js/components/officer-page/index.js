@@ -15,6 +15,7 @@ import styles from './officer-page.sass';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
+import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
 
 
 class OfficerPage extends Component {
@@ -39,6 +40,8 @@ class OfficerPage extends Component {
       pathName,
       infoNotes,
       timelineNotes,
+      fetchOfficerZipFileUrl,
+      zipFileUrl
     } = this.props;
     const { printMode } = this.context;
 
@@ -61,7 +64,7 @@ class OfficerPage extends Component {
     return (
       <DocumentMeta title={ pageTitle } description={ pageDescription }>
         <div className={ styles.officerPage }>
-          <ShareableHeaderContainer />
+          <ShareableHeaderContainer Menu={ DownloadMenuContainer } buttonText='Download' />
           <div className='page-wrapper'>
             <AnimatedRadarChart
               officerId={ officerId }
@@ -117,6 +120,8 @@ OfficerPage.propTypes = {
   officerSlug: PropTypes.string,
   infoNotes: PropTypes.array,
   timelineNotes: PropTypes.array,
+  fetchOfficerZipFileUrl: PropTypes.func,
+  zipFileUrl: PropTypes.string,
 };
 
 OfficerPage.defaultProps = {

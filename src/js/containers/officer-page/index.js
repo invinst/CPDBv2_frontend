@@ -12,6 +12,7 @@ import {
   getCurrentTab,
   getEditModeOn,
   getOfficerSlug,
+  getZipFileUrl,
 } from 'selectors/officer-page';
 import {
   changeOfficerTab,
@@ -20,7 +21,8 @@ import {
   turnOnScaleExplainEditMode,
   turnOffScaleExplainEditMode,
   turnOnNoDataRadarChartExplainEditMode,
-  turnOffNoDataRadarChartExplainEditMode
+  turnOffNoDataRadarChartExplainEditMode,
+  fetchOfficerZipFileUrl
 } from 'actions/officer-page';
 import { hasComplaintSelector, numAttachmentsSelector } from 'selectors/officer-page/attachments';
 import { hasMapMarkersSelector } from 'selectors/officer-page/map';
@@ -55,6 +57,7 @@ function mapStateToProps(state, ownProps) {
     infoNotes: getInfoNotes(state),
     timelineNotes: getTimelineNotes(state),
     printHeader: getOfficerName(state),
+    zipFileUrl: getZipFileUrl(state),
   };
 }
 
@@ -98,6 +101,7 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
 
 const mapDispatchToProps = {
   changeOfficerTab,
+  fetchOfficerZipFileUrl,
   onSaveForm: updatePage(OFFICER_PAGE_ID),
   turnOnTriangleExplainEditMode,
   turnOffTriangleExplainEditMode,

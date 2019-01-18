@@ -31,32 +31,35 @@ export class ShareButton extends React.Component {
 
   render() {
     const { shareMenuIsOpen } = this.state;
-    const { hovering, scrollPosition } = this.props;
-    const shareButtonClickHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
+    const { hovering, scrollPosition, shareButtonClickHandler, buttonText, Menu } = this.props;
+    const shareButtonHandler = shareButtonClickHandler || (shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu);
 
     return (
       <div style={ wrapperStyle }>
         <span
           style={ buttonStyle(shareMenuIsOpen, scrollPosition, hovering) }
-          onClick={ shareButtonClickHandler }
+          onClick={ shareButtonHandler }
           className='test--shareable-header--share-link'
         >
-          Share
+          { buttonText }
         </span>
-        <ShareMenu open={ shareMenuIsOpen } closeShareMenu={ this.closeShareMenu }/>
+        <Menu open={ shareMenuIsOpen } closeShareMenu={ this.closeShareMenu }/>
       </div>
     );
   }
 }
 
 ShareButton.propTypes = {
+  shareButtonClickHandler: PropTypes.func,
   hovering: PropTypes.bool,
   scrollPosition: PropTypes.string,
 };
 
 ShareButton.defaultProps = {
   scrollPosition: 'top',
-  hovering: false
+  hovering: false,
+  buttonText: 'Share',
+  Menu: ShareMenu,
 };
 
 export default Hoverable(ShareButton);
