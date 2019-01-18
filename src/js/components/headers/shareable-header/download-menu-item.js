@@ -12,21 +12,20 @@ export default class DownloadMenuItem extends React.Component {
   clickHandler() {
     const { fetchOfficerZipFileUrl, officerId } = this.props;
     fetchOfficerZipFileUrl(officerId);
-    this.setState({
-      requested: true
-    });
+    this.setState({ requested: true });
   }
 
   render() {
-    const { zipFileUrl, isRequestingZipURL, text } = this.props;
+    const { zipFileUrl, text } = this.props;
     return (
       <div>
         <div onClick={ this.clickHandler }>{ text }</div>
-        <div> { (isRequestingZipURL && this.state.requested) ? 'Downloading' : ''} </div>
         {
-          (zipFileUrl && this.state.requested) ? (
-            <a download={ true } href={ zipFileUrl } > Click here to download </a>
-          ) : null
+          zipFileUrl ? (
+            <a download={ true } href={ zipFileUrl }> Click here to download </a>
+          ) : (
+            this.state.requested ? <div> { this.state.requested ? 'Downloading' : '' } </div> : null
+          )
         }
       </div>
     );
@@ -37,7 +36,6 @@ DownloadMenuItem.propTypes = {
   fetchOfficerZipFileUrl: PropTypes.func,
   zipFileUrl: PropTypes.string,
   officerId: PropTypes.number,
-  isRequestingZipURL: PropTypes.bool,
 };
 
 DownloadMenuItem.defaultProps = {

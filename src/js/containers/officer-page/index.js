@@ -57,7 +57,6 @@ function mapStateToProps(state, ownProps) {
     infoNotes: getInfoNotes(state),
     timelineNotes: getTimelineNotes(state),
     printHeader: getOfficerName(state),
-    zipFileUrl: getZipFileUrl(state),
   };
 }
 
@@ -101,7 +100,6 @@ const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
 
 const mapDispatchToProps = {
   changeOfficerTab,
-  fetchOfficerZipFileUrl,
   onSaveForm: updatePage(OFFICER_PAGE_ID),
   turnOnTriangleExplainEditMode,
   turnOffTriangleExplainEditMode,

@@ -3,14 +3,15 @@ import { withRouter } from 'react-router';
 
 import DownloadMenu from 'components/headers/shareable-header/download-menu';
 
-import { fetchOfficerZipFileUrl } from 'actions/officer-page';
+import { fetchOfficerZipFileUrl, fetchOfficerZipWithDocsFileUrl } from 'actions/officer-page';
 import { getZipFileUrl, getOfficerId } from 'selectors/officer-page';
 
 
 function mapStateToProps(state, ownProps) {
   return {
     ...ownProps,
-    zipFileUrl: getZipFileUrl(state),
+    zipFileUrlWithDocs: getZipFileUrl(state, true),
+    zipFileUrl: getZipFileUrl(state, false),
     isRequestingZipURL: state.officerPage.isRequestingZipURL,
     officerId: getOfficerId(state),
   };
@@ -18,6 +19,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   fetchOfficerZipFileUrl,
+  fetchOfficerZipWithDocsFileUrl,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DownloadMenu));

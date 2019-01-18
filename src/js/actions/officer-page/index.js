@@ -16,6 +16,9 @@ import {
   OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
   OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
   OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE,
+  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
+  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
+  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE
 } from 'utils/constants';
 
 
@@ -53,6 +56,15 @@ export const requestCreateOfficerZipFile = officerId => (get(
     OFFICER_CREATE_ZIP_FILE_REQUEST_FAILURE
   ]
 )());
+
+export const fetchOfficerZipWithDocsFileUrl = officerId => (get(
+  `${ OFFICER_URL }${ officerId }/request_download/`,
+  [
+    OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
+    OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
+    OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE
+  ]
+)({ 'with-docs': true }));
 
 export const fetchOfficerZipFileUrl = officerId => (get(
   `${ OFFICER_URL }${ officerId }/request_download/`,
