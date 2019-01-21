@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import cx from 'classnames';
+import download from 'downloadjs';
+import { throttle } from 'lodash';
 
 import style from './download-menu-item.sass';
 import { imgUrl } from 'utils/static-assets';
@@ -11,38 +12,40 @@ export default class DownloadMenuItem extends React.Component {
     this.state = {
       requested: false,
     };
-    this.clickHandler = this.clickHandler.bind(this);
+    this.clickHandler = throttle(this.clickHandler.bind(this), 1000, { 'trailing': false });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { zipFileUrl } = this.props;
+    if (nextProps.zipFileUrl && !zipFileUrl && this.state.requested) {
+      download(nextProps.zipFileUrl);
+      this.setState({ requested: false });
+    }
   }
 
   clickHandler() {
     const { fetchOfficerZipFileUrl, officerId, zipFileUrl } = this.props;
-    if (zipFileUrl)
-      return;
-
-    fetchOfficerZipFileUrl(officerId);
     this.setState({ requested: true });
+    if (zipFileUrl) {
+      download(zipFileUrl);
+      this.setState({ requested: false });
+    }
+    else {
+      fetchOfficerZipFileUrl(officerId);
+    }
   }
 
   render() {
-    const { zipFileUrl, text } = this.props;
     return (
-      <div className={ style.downloadMenuItem }>
-        <div
-          className={ cx('request-download', { 'disable-pointer': zipFileUrl }) }
-          onClick={ this.clickHandler }>{ text }
-        </div>
+      <div className={ style.downloadMenuItem } onClick={ this.clickHandler }>
+        <div className='request-download'>{ this.props.text }</div>
         {
-          zipFileUrl ? (
-            <a download={ true } href={ zipFileUrl }>
-              <img className='download-menu-item-img' src={ imgUrl('download.svg') } alt='download' />
-            </a>
+          this.state.requested ? (
+            <img className='download-menu-item-img' src={ imgUrl('loading.svg') } alt='downloading' />
           ) : (
-            this.state.requested ? (
-              <img className='download-menu-item-img' src={ imgUrl('loading.svg') } alt='downloading' />
-            ): null
+            <img className='download-menu-item-img' src={ imgUrl('download.svg') } alt='download' />
           )
         }
-
       </div>
     );
   }

@@ -18,14 +18,14 @@ export default class DownloadMenu extends React.Component {
     return (
       <div className={ style.downloadMenu }>
         <DownloadMenuItem
-          text='Request download data + docs'
+          text='Data + docs'
           fetchOfficerZipFileUrl={ fetchOfficerZipWithDocsFileUrl }
           officerId={ officerId }
           zipFileUrl={ zipFileUrlWithDocs }
         />
 
         <DownloadMenuItem
-          text='Request download data only'
+          text='Data only'
           fetchOfficerZipFileUrl={ fetchOfficerZipFileUrl }
           officerId={ officerId }
           zipFileUrl={ zipFileUrl }

@@ -12,7 +12,6 @@ import {
   getCurrentTab,
   getEditModeOn,
   getOfficerSlug,
-  getZipFileUrl,
 } from 'selectors/officer-page';
 import {
   changeOfficerTab,
@@ -22,7 +21,6 @@ import {
   turnOffScaleExplainEditMode,
   turnOnNoDataRadarChartExplainEditMode,
   turnOffNoDataRadarChartExplainEditMode,
-  fetchOfficerZipFileUrl
 } from 'actions/officer-page';
 import { hasComplaintSelector, numAttachmentsSelector } from 'selectors/officer-page/attachments';
 import { hasMapMarkersSelector } from 'selectors/officer-page/map';

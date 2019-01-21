@@ -53,6 +53,8 @@ ShareButton.propTypes = {
   shareButtonClickHandler: PropTypes.func,
   hovering: PropTypes.bool,
   scrollPosition: PropTypes.string,
+  buttonText: PropTypes.string,
+  Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
 };
 
 ShareButton.defaultProps = {

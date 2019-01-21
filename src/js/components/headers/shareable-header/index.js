@@ -75,6 +75,8 @@ ShareableHeader.propTypes = {
   openShareMenu: PropTypes.func,
   shareMenuIsOpen: PropTypes.bool,
   updateShareablePageScrollPosition: PropTypes.func,
+  Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  buttonText: PropTypes.string,
 };
 
 ShareableHeader.defaultProps = {

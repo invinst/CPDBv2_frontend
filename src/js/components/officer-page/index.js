@@ -40,8 +40,6 @@ class OfficerPage extends Component {
       pathName,
       infoNotes,
       timelineNotes,
-      fetchOfficerZipFileUrl,
-      zipFileUrl
     } = this.props;
     const { printMode } = this.context;
 
