@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-import { wrapperStyle, } from './share-menu.style';
+import style from './download-menu.sass';
 import DownloadMenuItem from './download-menu-item';
 
 
@@ -16,7 +16,7 @@ export default class DownloadMenu extends React.Component {
     }
 
     return (
-      <div style={ wrapperStyle } className='test--shareable-header--share-menu'>
+      <div className={ style.downloadMenu }>
         <DownloadMenuItem
           text='Request download data + docs'
           fetchOfficerZipFileUrl={ fetchOfficerZipWithDocsFileUrl }

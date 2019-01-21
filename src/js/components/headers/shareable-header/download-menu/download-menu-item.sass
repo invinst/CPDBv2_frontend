@@ -1,0 +1,28 @@
+@import 'variables'
+
+\:local(.download-menu-item)
+  margin: 0 16px
+  display: block
+  border-bottom: 2px solid $white-two-color
+  color: inherit
+  text-decoration: none
+  vertical-align: middle
+
+  &:last-child
+    border-bottom: none
+
+  .download-menu-item-img
+    float: right
+    width: 32px
+    height: 32px
+    padding-top: 4px
+    cursor: pointer
+
+  .request-download
+    display: inline-block
+    vertical-align: middle
+    padding: 9px 0
+    cursor: pointer
+
+  .disable-pointer
+    cursor: default
