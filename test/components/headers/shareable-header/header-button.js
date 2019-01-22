@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import { ShareButton } from 'components/headers/shareable-header/share-button';
+import HeaderButton from 'components/headers/shareable-header/header-button';
 import {
   renderIntoDocument,
   Simulate,
@@ -10,11 +10,11 @@ import {
 } from 'react-addons-test-utils';
 
 
-describe('ShareButton component', function () {
+describe('HeaderButton component', function () {
   let element;
 
   beforeEach(function () {
-    element = renderIntoDocument(<ShareButton scrollPosition='top'/>);
+    element = renderIntoDocument(<HeaderButton scrollPosition='top'/>);
   });
 
   afterEach(function () {
@@ -22,7 +22,7 @@ describe('ShareButton component', function () {
   });
 
   it('should be renderable', function () {
-    ShareButton.should.be.renderable();
+    HeaderButton.should.be.renderable();
   });
 
   it('should close "share" menu by default', function () {

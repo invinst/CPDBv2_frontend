@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import cx from 'classnames';
 
-import styles from './share-button.sass';
+import styles from './header-button.sass';
 import ShareMenu from 'components/headers/shareable-header/share-menu';
 
-export default class ShareButton extends React.Component {
+export default class HeaderButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,7 +32,7 @@ export default class ShareButton extends React.Component {
     const shareButtonHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
 
     return (
-      <div className={ styles.shareButton }>
+      <div className={ styles.headerButton }>
         <span
           className={ cx('button', shareMenuIsOpen ? 'focus' : scrollPosition) }
           onClick={ shareButtonHandler }
@@ -45,13 +45,13 @@ export default class ShareButton extends React.Component {
   }
 }
 
-ShareButton.propTypes = {
+HeaderButton.propTypes = {
   scrollPosition: PropTypes.string,
   buttonText: PropTypes.string,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
 };
 
-ShareButton.defaultProps = {
+HeaderButton.defaultProps = {
   scrollPosition: 'top',
   hovering: false,
   buttonText: 'Share',

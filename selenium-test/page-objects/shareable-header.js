@@ -16,7 +16,7 @@ class Breadcrumbs extends Section {
   }
 }
 
-class ShareButton extends Section {
+class HeaderButton extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
@@ -29,7 +29,7 @@ class ShareButton extends Section {
 
 class ShareableHeader extends Page {
   breadcrumbs = new Breadcrumbs();
-  shareButton = new ShareButton();
+  headerButton = new HeaderButton();
 }
 
 

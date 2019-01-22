@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
 import BreadcrumbsItemRendererContainer from 'containers/headers/shareable-header/breadcrumbs-item-renderer-container';
-import ShareButton from 'components/headers/shareable-header/share-button';
+import HeaderButton from 'components/headers/shareable-header/header-button';
 import { calculatePosition } from 'utils/dom';
 import styles from './shareable-header.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
@@ -49,7 +49,7 @@ export default class ShareableHeader extends Component {
             className='shareable-header-nav-bar'
             ref={ el => { this.placeholderElement = el; } }
           >
-            <ShareButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
+            <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
             <Breadcrumbs
               className='breadcrumbs'
               routes={ routes }
