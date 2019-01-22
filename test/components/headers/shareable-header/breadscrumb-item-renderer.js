@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
+import { renderIntoDocument, findRenderedDOMComponentWithClass, findRenderedDOMComponentWithTag } from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 
@@ -31,8 +31,8 @@ describe('BreadcrumbsItem component', function () {
         <BreadcrumbsItemRenderer>some string</BreadcrumbsItemRenderer>
       </Provider>
     );
-    const item = findRenderedDOMComponentWithClass(instance, 'breadcrumbs-item');
-    item.style.getPropertyValue('color').should.eql('rgb(35, 31, 32)');
+    const item = findRenderedDOMComponentWithTag(instance, 'li');
+    item.className.should.not.containEql('bottom');
   });
 
   it('should render a string with correct style in middle state', function () {
@@ -41,8 +41,8 @@ describe('BreadcrumbsItem component', function () {
         <BreadcrumbsItemRenderer>some string</BreadcrumbsItemRenderer>
       </Provider>
     );
-    const item = findRenderedDOMComponentWithClass(instance, 'breadcrumbs-item');
-    item.style.getPropertyValue('color').should.eql('rgb(35, 31, 32)');
+    const item = findRenderedDOMComponentWithTag(instance, 'li');
+    item.className.should.not.containEql('bottom');
   });
 
   it('should render a string with correct style in bottom state', function () {
@@ -51,8 +51,8 @@ describe('BreadcrumbsItem component', function () {
         <BreadcrumbsItemRenderer>some string</BreadcrumbsItemRenderer>
       </Provider>
     );
-    const item = findRenderedDOMComponentWithClass(instance, 'breadcrumbs-item');
-    item.style.getPropertyValue('color').should.eql('rgb(143, 143, 143)');
+    const item = findRenderedDOMComponentWithTag(instance, 'li');
+    item.className.should.containEql('bottom');
   });
 
   it('should render a link with correct style in top state', function () {
@@ -64,7 +64,7 @@ describe('BreadcrumbsItem component', function () {
       </Provider>
     );
     const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-link');
-    item.style.getPropertyValue('color').should.eql('rgb(143, 143, 143)');
+    item.className.should.not.containEql('bottom');
   });
 
   it('should render a link with correct style in middle state', function () {
@@ -76,7 +76,7 @@ describe('BreadcrumbsItem component', function () {
       </Provider>
     );
     const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-link');
-    item.style.getPropertyValue('color').should.eql('rgb(143, 143, 143)');
+    item.className.should.not.containEql('bottom');
   });
 
   it('should render a link with correct style in bottom state', function () {
@@ -88,6 +88,6 @@ describe('BreadcrumbsItem component', function () {
       </Provider>
     );
     const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-link');
-    item.style.getPropertyValue('color').should.eql('rgb(0, 94, 244)');
+    item.className.should.containEql('bottom');
   });
 });

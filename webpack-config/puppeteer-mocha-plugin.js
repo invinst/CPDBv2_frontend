@@ -48,6 +48,7 @@ PuppeteerMochaPlugin.prototype.ready = function () {
 };
 
 PuppeteerMochaPlugin.prototype.endTest = function (testsPassed, coverage) {
+  this.page.goto('http://lvh.me')
   if (!this.watchTest) {
     this.coverageReport(coverage);
     this.quit(testsPassed);
