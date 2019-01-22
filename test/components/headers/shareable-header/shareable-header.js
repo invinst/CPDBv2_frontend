@@ -38,7 +38,7 @@ describe('ShareableHeader component', function () {
   });
 
   it('should render Share link', function () {
-    findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
+    findRenderedDOMComponentWithClass(element, 'share-button-link');
   });
 
   it('should render the breadCrumbs', function () {

@@ -5,7 +5,8 @@ import ClipboardButton from 'react-clipboard.js';
 import { unmountComponentSuppressError } from 'utils/test';
 import ShareMenu from 'components/headers/shareable-header/share-menu';
 import {
-  findRenderedComponentWithType, findRenderedDOMComponentWithClass, renderIntoDocument, scryRenderedComponentsWithType,
+  findRenderedComponentWithType, renderIntoDocument,
+  scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
 import config from 'config';
@@ -36,7 +37,7 @@ describe('ShareMenu component', function () {
   });
 
   it('should render tweet link', function () {
-    const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--tweet-link');
+    const link = scryRenderedDOMComponentsWithClass(element, 'share-button-link-item')[0];
     link.textContent.should.eql('Twitter');
     const href = `https://twitter.com/intent/tweet?url=${this.encodedLink}&via=${config.twitterBotName}`;
     link.getAttribute('href').should.eql(href);
@@ -47,7 +48,7 @@ describe('ShareMenu component', function () {
   });
 
   it('should render facebook share link', function () {
-    const link = findRenderedDOMComponentWithClass(element, 'test--shareable-header--facebook-link');
+    const link = scryRenderedDOMComponentsWithClass(element, 'share-button-link-item')[1];
     link.textContent.should.eql('Facebook');
     link.getAttribute('href').should.eql('https://www.facebook.com/sharer/sharer.php?u=' + this.encodedLink);
 

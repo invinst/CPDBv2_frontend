@@ -7,11 +7,11 @@ class Breadcrumbs extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      mainElement: '.test--breadcrumbs',
-      items: '.test--breadcrumbs-item',
-      firstItem: '(//li[@class="test--breadcrumbs-item"])[1]',
-      secondItem: '(//li[@class="test--breadcrumbs-item"])[2]',
-      thirdItem: '(//li[@class="test--breadcrumbs-item"])[3]',
+      mainElement: '.breadcrumbs',
+      items: '.breadcrumbs-item',
+      firstItem: '(//li[@class="breadcrumbs-item"])[1]',
+      secondItem: '(//li[@class="breadcrumbs-item"])[2]',
+      thirdItem: '(//li[@class="breadcrumbs-item"])[3]',
     });
   }
 }
@@ -20,7 +20,7 @@ class ShareButton extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      mainElement: '.test--shareable-header--share-link',
+      mainElement: '.share-button-link',
       menu: '.test--shareable-header--share-menu'
     });
   }

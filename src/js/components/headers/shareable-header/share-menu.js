@@ -1,12 +1,7 @@
 import React, { PropTypes } from 'react';
 import ClipboardButton from 'react-clipboard.js/dist/react-clipboard';
 
-import {
-  wrapperStyle,
-  imgStyle,
-  buttonItemStyle,
-  linkItemStyle,
-} from './share-menu.style';
+import styles from './share-menu.sass';
 import { imgUrl } from 'utils/static-assets';
 import config from 'config';
 
@@ -22,9 +17,9 @@ export default class ShareMenu extends React.Component {
     const encodedLink = encodeURIComponent(window.location.href);
 
     return (
-      <div style={ wrapperStyle } className='test--shareable-header--share-menu'>
+      <div className={ `${styles.shareMenu} test--shareable-header--share-menu` }>
         <ClipboardButton
-          style={ buttonItemStyle }
+          className='share-button-item'
           onClick={ closeShareMenu }
           data-clipboard-text={ window.location.href }
         >
@@ -32,23 +27,21 @@ export default class ShareMenu extends React.Component {
         </ClipboardButton>
 
         <a
-          style={ linkItemStyle }
-          className='test--shareable-header--tweet-link'
+          className='share-button-link-item'
           href={ `https://twitter.com/intent/tweet?url=${encodedLink}&via=${config.twitterBotName}` }
           target='_blank'
           onClick={ closeShareMenu }
         >
-          Twitter<img style={ imgStyle } src={ imgUrl('ic-twitter.svg') } />
+          Twitter<img className='share-menu-img' src={ imgUrl('ic-twitter.svg') } />
         </a>
 
         <a
-          style={ { ...linkItemStyle, border: 0 } }
-          className='test--shareable-header--facebook-link'
+          className='share-button-link-item'
           href={ 'https://www.facebook.com/sharer/sharer.php?u=' + encodedLink }
           target='_blank'
           onClick={ closeShareMenu }
         >
-          Facebook<img style={ imgStyle } src={ imgUrl('ic-facebook.svg') } />
+          Facebook<img className='share-menu-img' src={ imgUrl('ic-facebook.svg') } />
         </a>
       </div>
     );

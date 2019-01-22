@@ -31,7 +31,7 @@ describe('BreadcrumbsItem component', function () {
         <BreadcrumbsItemRenderer>some string</BreadcrumbsItemRenderer>
       </Provider>
     );
-    const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-item');
+    const item = findRenderedDOMComponentWithClass(instance, 'breadcrumbs-item');
     item.style.getPropertyValue('color').should.eql('rgb(35, 31, 32)');
   });
 
@@ -41,7 +41,7 @@ describe('BreadcrumbsItem component', function () {
         <BreadcrumbsItemRenderer>some string</BreadcrumbsItemRenderer>
       </Provider>
     );
-    const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-item');
+    const item = findRenderedDOMComponentWithClass(instance, 'breadcrumbs-item');
     item.style.getPropertyValue('color').should.eql('rgb(35, 31, 32)');
   });
 
@@ -51,7 +51,7 @@ describe('BreadcrumbsItem component', function () {
         <BreadcrumbsItemRenderer>some string</BreadcrumbsItemRenderer>
       </Provider>
     );
-    const item = findRenderedDOMComponentWithClass(instance, 'test--breadcrumbs-item');
+    const item = findRenderedDOMComponentWithClass(instance, 'breadcrumbs-item');
     item.style.getPropertyValue('color').should.eql('rgb(143, 143, 143)');
   });
 

@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import { outerStyle, navBarStyle, headerPlaceholderStyle, breadcrumbSeparatorStyle } from './shareable-header.style';
 import BreadcrumbsItemRendererContainer from 'containers/headers/shareable-header/breadcrumbs-item-renderer-container';
-import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
 import ShareButton from 'components/headers/shareable-header/share-button';
 import { calculatePosition } from 'utils/dom';
+import styles from './shareable-header.sass';
+import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
 
 export default class ShareableHeader extends Component {
@@ -40,28 +39,27 @@ export default class ShareableHeader extends Component {
   render() {
     const { location, routes, params, Menu, buttonText } = this.props;
 
-    const separatorRenderer = () => <li style={ breadcrumbSeparatorStyle }/>;
+    const separatorRenderer = <li className='shareable-header-breadcrumb-separator'/>;
 
     return (
-      <div className='no-print'>
-        <div style={ headerPlaceholderStyle }/>
-        <ResponsiveFluidWidthComponent style={ outerStyle }>
+      <div className={ `${styles.shareableHeader} no-print` }>
+        <div className='shareable-header-header-placeholder'/>
+        <div className={ `${responsiveContainerStyles.responsiveContainer} shareable-header-outer` }>
           <div
-            style={ navBarStyle }
+            className='shareable-header-nav-bar'
             ref={ el => { this.placeholderElement = el; } }
           >
             <ShareButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
             <Breadcrumbs
-              className='test--breadcrumbs'
+              className='breadcrumbs'
               routes={ routes }
               params={ params }
               location={ location }
               separatorRenderer={ separatorRenderer }
               itemRenderer={ BreadcrumbsItemRendererContainer }
-              style={ breadcrumbsStyle }
             />
           </div>
-        </ResponsiveFluidWidthComponent>
+        </div>
       </div>
     );
   }

@@ -1,13 +1,10 @@
 import React, { PropTypes } from 'react';
+import cx from 'classnames';
 
-import {
-  buttonStyle,
-  wrapperStyle
-} from './share-button.style';
-import Hoverable from 'components/common/higher-order/hoverable';
+import styles from './share-button.sass';
 import ShareMenu from 'components/headers/shareable-header/share-menu';
 
-export class ShareButton extends React.Component {
+export default class ShareButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -31,15 +28,14 @@ export class ShareButton extends React.Component {
 
   render() {
     const { shareMenuIsOpen } = this.state;
-    const { hovering, scrollPosition, shareButtonClickHandler, buttonText, Menu } = this.props;
-    const shareButtonHandler = shareButtonClickHandler || (shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu);
+    const { scrollPosition, buttonText, Menu } = this.props;
+    const shareButtonHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
 
     return (
-      <div style={ wrapperStyle }>
+      <div className={ styles.shareButton }>
         <span
-          style={ buttonStyle(shareMenuIsOpen, scrollPosition, hovering) }
+          className={ cx('button', shareMenuIsOpen ? 'focus' : scrollPosition) }
           onClick={ shareButtonHandler }
-          className='test--shareable-header--share-link'
         >
           { buttonText }
         </span>
@@ -50,8 +46,6 @@ export class ShareButton extends React.Component {
 }
 
 ShareButton.propTypes = {
-  shareButtonClickHandler: PropTypes.func,
-  hovering: PropTypes.bool,
   scrollPosition: PropTypes.string,
   buttonText: PropTypes.string,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
@@ -63,5 +57,3 @@ ShareButton.defaultProps = {
   buttonText: 'Share',
   Menu: ShareMenu,
 };
-
-export default Hoverable(ShareButton);

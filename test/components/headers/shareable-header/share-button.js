@@ -30,7 +30,7 @@ describe('ShareButton component', function () {
   });
 
   it('should toggle menu when being clicked', function () {
-    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
+    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'share-button-link');
     scryRenderedDOMComponentsWithClass(element, 'test--shareable-header--share-menu').should.have.length(0);
     Simulate.click(shareButtonDOMElement);
     findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-menu');
