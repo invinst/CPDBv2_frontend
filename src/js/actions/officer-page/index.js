@@ -49,7 +49,7 @@ export const turnOffNoDataRadarChartExplainEditMode = createChangeEditModeAction
   OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART, false);
 
 export const requestCreateOfficerZipFile = officerId => (get(
-  `${ OFFICER_URL }${ officerId }/create_zip_file/`,
+  `${ OFFICER_URL }${ officerId }/create-zip-file/`,
   [
     OFFICER_CREATE_ZIP_FILE_REQUEST_START,
     OFFICER_CREATE_ZIP_FILE_REQUEST_SUCCESS,
@@ -58,7 +58,7 @@ export const requestCreateOfficerZipFile = officerId => (get(
 )());
 
 export const fetchOfficerZipWithDocsFileUrl = (officerId, retryCounter=0) => (get(
-  `${ OFFICER_URL }${ officerId }/request_download/`,
+  `${ OFFICER_URL }${ officerId }/request-download/`,
   [
     OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
     OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
@@ -67,7 +67,7 @@ export const fetchOfficerZipWithDocsFileUrl = (officerId, retryCounter=0) => (ge
 )({ 'with-docs': true, 'retry-counter': retryCounter }));
 
 export const fetchOfficerZipFileUrl = (officerId, retryCounter=0) => (get(
-  `${ OFFICER_URL }${ officerId }/request_download/`,
+  `${ OFFICER_URL }${ officerId }/request-download/`,
   [
     OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
     OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,

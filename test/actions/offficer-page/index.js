@@ -131,7 +131,7 @@ describe('officerPage actions', function () {
         ],
         payload: {
           request: {
-            url: `${OFFICER_URL}123/create_zip_file/`,
+            url: `${OFFICER_URL}123/create-zip-file/`,
             params: undefined,
             adapter: null
           }
@@ -150,7 +150,7 @@ describe('officerPage actions', function () {
         ],
         payload: {
           request: {
-            url: `${OFFICER_URL}123/request_download/`,
+            url: `${OFFICER_URL}123/request-download/`,
             params: { 'with-docs': true, 'retry-counter': 1 },
             adapter: null
           }
@@ -169,7 +169,7 @@ describe('officerPage actions', function () {
         ],
         payload: {
           request: {
-            url: `${OFFICER_URL}123/request_download/`,
+            url: `${OFFICER_URL}123/request-download/`,
             params: { 'with-docs': false, 'retry-counter': 1 },
             adapter: null
           }
