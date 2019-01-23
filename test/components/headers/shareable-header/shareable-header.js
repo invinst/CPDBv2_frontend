@@ -1,18 +1,16 @@
 import React from 'react';
-import ShareableHeader from 'components/headers/shareable-header';
-import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import {
-  renderIntoDocument,
-  findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType,
-} from 'react-addons-test-utils';
-import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import MockStore from 'redux-mock-store';
 import Breadcrumbs from 'redux-breadcrumb-trail';
-
 import { unmountComponentSuppressError } from 'utils/test';
 import { stub } from 'sinon';
 import * as domUtils from 'utils/dom';
+
+import ShareableHeader from 'components/headers/shareable-header';
+import HeaderButton from 'components/headers/shareable-header/header-button';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+
 
 describe('ShareableHeader component', function () {
   let element;
@@ -37,8 +35,8 @@ describe('ShareableHeader component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render Share link', function () {
-    findRenderedDOMComponentWithClass(element, 'share-button-link');
+  it('should render HeaderButton', function () {
+    findRenderedComponentWithType(element, HeaderButton);
   });
 
   it('should render the breadCrumbs', function () {

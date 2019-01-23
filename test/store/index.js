@@ -179,7 +179,8 @@ describe('store', function () {
           [OFFICER_EDIT_TYPES.TRIANGLE]: false,
           [OFFICER_EDIT_TYPES.SCALE]: false,
           [OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART]: false,
-        }
+        },
+        zipFileUrl: { withDocs: false, withoutDocs: false }
       },
       unitProfilePage: {
         isRequesting: false,

@@ -8,16 +8,11 @@ import config from 'config';
 
 export default class ShareMenu extends React.Component {
   render() {
-    const { open, closeShareMenu } = this.props;
-
-    if (!open) {
-      return null;
-    }
-
+    const { closeShareMenu } = this.props;
     const encodedLink = encodeURIComponent(window.location.href);
 
     return (
-      <div className={ `${styles.shareMenu} test--shareable-header--share-menu` }>
+      <div className={ styles.shareMenu }>
         <ClipboardButton
           className='share-button-item'
           onClick={ closeShareMenu }
@@ -52,8 +47,4 @@ ShareMenu.propTypes = {
   hovering: PropTypes.bool,
   open: PropTypes.bool,
   closeShareMenu: PropTypes.func,
-};
-
-ShareMenu.defaultProps = {
-  open: true
 };

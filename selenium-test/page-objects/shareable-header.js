@@ -20,8 +20,8 @@ class HeaderButton extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      mainElement: '.share-button-link',
-      menu: '.test--shareable-header--share-menu'
+      mainElement: '//div[contains(@class, "header-button")]',
+      menu: '//div[contains(@class, "share-menu")]'
     });
   }
 }

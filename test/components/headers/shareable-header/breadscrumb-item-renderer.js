@@ -1,5 +1,9 @@
 import React from 'react';
-import { renderIntoDocument, findRenderedDOMComponentWithClass, findRenderedDOMComponentWithTag } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  findRenderedDOMComponentWithClass,
+  findRenderedDOMComponentWithTag
+} from 'react-addons-test-utils';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 

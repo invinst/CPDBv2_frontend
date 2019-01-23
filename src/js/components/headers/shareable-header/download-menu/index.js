@@ -7,13 +7,9 @@ import DownloadMenuItem from './download-menu-item';
 export default class DownloadMenu extends React.Component {
   render() {
     const {
-      open, officerId, zipFileUrl, zipFileUrlWithDocs,
+      officerId, zipFileUrl, zipFileUrlWithDocs,
       fetchOfficerZipFileUrl, fetchOfficerZipWithDocsFileUrl
     } = this.props;
-
-    if (!open) {
-      return null;
-    }
 
     return (
       <div className={ style.downloadMenu }>
@@ -44,8 +40,4 @@ DownloadMenu.propTypes = {
   zipFileUrlWithDocs: PropTypes.string,
   fetchOfficerZipFileUrl: PropTypes.func,
   fetchOfficerZipWithDocsFileUrl: PropTypes.func,
-};
-
-DownloadMenu.defaultProps = {
-  open: true
 };

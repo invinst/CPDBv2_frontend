@@ -11,7 +11,6 @@ import coaccusals from './coaccusals';
 import currentTab from './currentTab';
 import editModeOn from './edit-mode-on';
 import zipFileUrl from './zip-file-url';
-import isRequestingZipURL from './is_requesting_zip_url';
 
 
 export default combineReducers({
@@ -26,5 +25,4 @@ export default combineReducers({
   currentTab,
   editModeOn,
   zipFileUrl,
-  isRequestingZipURL,
 });

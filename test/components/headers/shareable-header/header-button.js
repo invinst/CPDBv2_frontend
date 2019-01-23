@@ -1,20 +1,22 @@
 import React from 'react';
-
 import { unmountComponentSuppressError } from 'utils/test';
-import HeaderButton from 'components/headers/shareable-header/header-button';
 import {
   renderIntoDocument,
   Simulate,
-  scryRenderedDOMComponentsWithClass,
   findRenderedDOMComponentWithClass,
+  findRenderedComponentWithType,
+  scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
+
+import HeaderButton from 'components/headers/shareable-header/header-button';
+import ShareMenu from 'components/headers/shareable-header/share-menu';
 
 
 describe('HeaderButton component', function () {
   let element;
 
   beforeEach(function () {
-    element = renderIntoDocument(<HeaderButton scrollPosition='top'/>);
+    element = renderIntoDocument(<HeaderButton scrollPosition='top' buttonText='Header button'/>);
   });
 
   afterEach(function () {
@@ -30,11 +32,11 @@ describe('HeaderButton component', function () {
   });
 
   it('should toggle menu when being clicked', function () {
-    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'share-button-link');
-    scryRenderedDOMComponentsWithClass(element, 'test--shareable-header--share-menu').should.have.length(0);
+    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'button');
+    scryRenderedComponentsWithType(element, ShareMenu).should.have.length(0);
     Simulate.click(shareButtonDOMElement);
-    findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-menu');
+    findRenderedComponentWithType(element, ShareMenu);
     Simulate.click(shareButtonDOMElement);
-    scryRenderedDOMComponentsWithClass(element, 'test--shareable-header--share-menu').should.have.length(0);
+    scryRenderedComponentsWithType(element, ShareMenu).should.have.length(0);
   });
 });

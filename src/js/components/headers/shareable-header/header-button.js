@@ -39,7 +39,7 @@ export default class HeaderButton extends React.Component {
         >
           { buttonText }
         </span>
-        <Menu open={ shareMenuIsOpen } closeShareMenu={ this.closeShareMenu }/>
+        { shareMenuIsOpen ? <Menu closeShareMenu={ this.closeShareMenu }/> : null }
       </div>
     );
   }

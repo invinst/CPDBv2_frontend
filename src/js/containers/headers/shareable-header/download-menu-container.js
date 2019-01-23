@@ -12,7 +12,6 @@ function mapStateToProps(state, ownProps) {
     ...ownProps,
     zipFileUrlWithDocs: getZipFileUrl(state, true),
     zipFileUrl: getZipFileUrl(state, false),
-    isRequestingZipURL: state.officerPage.isRequestingZipURL,
     officerId: getOfficerId(state),
   };
 }

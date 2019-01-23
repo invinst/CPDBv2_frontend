@@ -1,15 +1,15 @@
 import React from 'react';
 import { stub } from 'sinon';
 import ClipboardButton from 'react-clipboard.js';
-
-import { unmountComponentSuppressError } from 'utils/test';
-import ShareMenu from 'components/headers/shareable-header/share-menu';
 import {
   findRenderedComponentWithType, renderIntoDocument,
   scryRenderedComponentsWithType, scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
 import config from 'config';
+
+import { unmountComponentSuppressError } from 'utils/test';
+import ShareMenu from 'components/headers/shareable-header/share-menu';
 
 
 describe('ShareMenu component', function () {
@@ -44,7 +44,7 @@ describe('ShareMenu component', function () {
 
     // should close menu on click
     Simulate.click(link);
-    scryRenderedComponentsWithType(element, 'test--shareable-header--share-menu').should.have.length(0);
+    scryRenderedComponentsWithType(element, 'share-button-item').should.have.length(0);
   });
 
   it('should render facebook share link', function () {
@@ -54,6 +54,6 @@ describe('ShareMenu component', function () {
 
     // should close menu on click
     Simulate.click(link);
-    scryRenderedComponentsWithType(element, 'test--shareable-header--share-menu').should.have.length(0);
+    scryRenderedComponentsWithType(element, 'share-button-item').should.have.length(0);
   });
 });
