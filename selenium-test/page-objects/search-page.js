@@ -51,6 +51,7 @@ class SearchPage extends Page {
   officerPreviewPaneSection = new OfficerPreviewPaneSection();
   rankPreviewPaneSection = new RankPreviewPaneSection();
   dateCRResultsSection = new ResultsSection('DATE-CR');
+  investigatorCRResultsSection = new ResultsSection('INVESTIGATOR-CR');
   dateTRRResultsSection = new ResultsSection('DATE-TRR');
   dateOfficerResultsSection = new ResultsSection('DATE-OFFICERS');
   crResultsSection = new ResultsSection('CR');

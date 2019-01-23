@@ -148,6 +148,7 @@ const searchResultTransformMap = {
   BEAT: areaTransform,
   'SCHOOL-GROUND': areaTransform,
   RANK: rankTransform,
+  'INVESTIGATOR > CR': crTransform,
 };
 
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
@@ -174,14 +175,16 @@ const textsMap = {
   'DATE > TRR': getTRRTexts,
   CR: getCRTexts,
   TRR: getTRRTexts,
-  UNIT: getUnitTexts
+  UNIT: getUnitTexts,
+  'INVESTIGATOR > CR': getCRTexts,
 };
 
 const uniqueKeyMap = {
   'DATE > CR': 'DATE-CR',
   'DATE > TRR': 'DATE-TRR',
   'UNIT > OFFICERS': 'UNIT-OFFICERS',
-  'DATE > OFFICERS': 'DATE-OFFICERS'
+  'DATE > OFFICERS': 'DATE-OFFICERS',
+  'INVESTIGATOR > CR': 'INVESTIGATOR-CR'
 };
 
 const baseItemTransform = (item) => ({

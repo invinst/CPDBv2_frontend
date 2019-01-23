@@ -66,6 +66,22 @@ describe('Search Page', function () {
     searchPage.trrResultsSection.secondResultSubText.getText().should.equal('TRR # 456');
   });
 
+  it('should able to show INVESTIGATOR > CR results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Kelly');
+
+    searchPage.suggestionTags.waitForVisible();
+    searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
+
+    searchPage.investigatorCRResultsSection.results.count.should.equal(2);
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
+      'an officer named Kelly caught the victim'
+    );
+    searchPage.investigatorCRResultsSection.secondResultText.getText().should.equal('CR # CR654321');
+    searchPage.investigatorCRResultsSection.secondResultSubText.getText().should.equal('');
+  });
+
 
   it('should able to show date > trr and date > cr results', function () {
     searchPage.input.waitForVisible();
