@@ -44,20 +44,22 @@ export default class ShareableHeader extends Component {
     return (
       <div className={ `${styles.shareableHeader} no-print` }>
         <div className='shareable-header-header-placeholder'/>
-        <div className={ `${responsiveContainerStyles.responsiveContainer} shareable-header-outer` }>
-          <div
-            className='shareable-header-nav-bar'
-            ref={ el => { this.placeholderElement = el; } }
-          >
-            <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
-            <Breadcrumbs
-              className='breadcrumbs'
-              routes={ routes }
-              params={ params }
-              location={ location }
-              separatorRenderer={ separatorRenderer }
-              itemRenderer={ BreadcrumbsItemRendererContainer }
-            />
+        <div className='shareable-header-outer'>
+          <div className={ responsiveContainerStyles.responsiveContainer }>
+            <div
+              className='shareable-header-nav-bar'
+              ref={ el => { this.placeholderElement = el; } }
+            >
+              <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
+              <Breadcrumbs
+                className='breadcrumbs'
+                routes={ routes }
+                params={ params }
+                location={ location }
+                separatorRenderer={ separatorRenderer }
+                itemRenderer={ BreadcrumbsItemRendererContainer }
+              />
+            </div>
           </div>
         </div>
       </div>
