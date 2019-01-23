@@ -15,4 +15,4 @@ export default handleActions({
   [OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS]: (state, action) => ({ ...state, withoutDocs: action.payload }),
   [OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START]: (state, action) => ({ ...state, withDocs: '' }),
   [OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS]: (state, action) => ({ ...state, withDocs: action.payload }),
-}, { withDocs: false, withoutDocs: false });
+}, { withDocs: '', withoutDocs: '' });

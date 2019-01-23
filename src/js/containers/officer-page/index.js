@@ -20,7 +20,7 @@ import {
   turnOnScaleExplainEditMode,
   turnOffScaleExplainEditMode,
   turnOnNoDataRadarChartExplainEditMode,
-  turnOffNoDataRadarChartExplainEditMode,
+  turnOffNoDataRadarChartExplainEditMode
 } from 'actions/officer-page';
 import { hasComplaintSelector, numAttachmentsSelector } from 'selectors/officer-page/attachments';
 import { hasMapMarkersSelector } from 'selectors/officer-page/map';

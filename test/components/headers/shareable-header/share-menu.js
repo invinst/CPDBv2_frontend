@@ -17,7 +17,7 @@ describe('ShareMenu component', function () {
 
   beforeEach(function () {
     this.stubCloseShareMenu = stub();
-    element = renderIntoDocument(<ShareMenu open={ true } closeShareMenu={ this.stubCloseShareMenu }/>);
+    element = renderIntoDocument(<ShareMenu closeShareMenu={ this.stubCloseShareMenu }/>);
     this.encodedLink = encodeURIComponent(window.location.href);
   });
 

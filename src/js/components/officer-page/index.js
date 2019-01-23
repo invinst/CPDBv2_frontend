@@ -118,8 +118,6 @@ OfficerPage.propTypes = {
   officerSlug: PropTypes.string,
   infoNotes: PropTypes.array,
   timelineNotes: PropTypes.array,
-  fetchOfficerZipFileUrl: PropTypes.func,
-  zipFileUrl: PropTypes.string,
 };
 
 OfficerPage.defaultProps = {

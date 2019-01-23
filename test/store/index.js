@@ -180,7 +180,7 @@ describe('store', function () {
           [OFFICER_EDIT_TYPES.SCALE]: false,
           [OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART]: false,
         },
-        zipFileUrl: { withDocs: false, withoutDocs: false }
+        zipFileUrl: { withDocs: '', withoutDocs: '' }
       },
       unitProfilePage: {
         isRequesting: false,

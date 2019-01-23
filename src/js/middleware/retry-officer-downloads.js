@@ -18,7 +18,7 @@ const retryOfficerDownloadMiddleware = store => next => action => {
   if (includes(keys(actionMap), action.type)) {
     const officerId = getOfficerId(action.request.url);
     const counter = action.request.params['retry-counter'];
-    if (!action.payload && action.counter < MAX_RETRIES) {
+    if (!action.payload && counter < MAX_RETRIES) {
       const retryAction = actionMap[action.type];
       setTimeout(
         () => store.dispatch(retryAction(officerId, counter + 1)),

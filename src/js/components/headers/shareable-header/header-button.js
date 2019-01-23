@@ -53,7 +53,6 @@ HeaderButton.propTypes = {
 
 HeaderButton.defaultProps = {
   scrollPosition: 'top',
-  hovering: false,
   buttonText: 'Share',
   Menu: ShareMenu,
 };

@@ -17,22 +17,22 @@ export default class DownloadMenuItem extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { zipFileUrl } = this.props;
-    if (nextProps.zipFileUrl && !zipFileUrl && this.state.requested) {
-      download(nextProps.zipFileUrl);
-      this.setState({ requested: false });
-    }
+    if (nextProps.zipFileUrl && !zipFileUrl && this.state.requested)
+      this.triggerDownload(nextProps.zipFileUrl);
+  }
+
+  triggerDownload(zipFileUrl) {
+    download(zipFileUrl);
+    this.setState({ requested: false });
   }
 
   clickHandler() {
     const { fetchOfficerZipFileUrl, officerId, zipFileUrl } = this.props;
     this.setState({ requested: true });
-    if (zipFileUrl) {
-      download(zipFileUrl);
-      this.setState({ requested: false });
-    }
-    else {
+    if (zipFileUrl)
+      this.triggerDownload(zipFileUrl);
+    else
       fetchOfficerZipFileUrl(officerId);
-    }
   }
 
   render() {

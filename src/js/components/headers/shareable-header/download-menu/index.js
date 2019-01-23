@@ -32,9 +32,6 @@ export default class DownloadMenu extends React.Component {
 }
 
 DownloadMenu.propTypes = {
-  hovering: PropTypes.bool,
-  open: PropTypes.bool,
-  closeShareMenu: PropTypes.func,
   officerId: PropTypes.number,
   zipFileUrl: PropTypes.string,
   zipFileUrlWithDocs: PropTypes.string,

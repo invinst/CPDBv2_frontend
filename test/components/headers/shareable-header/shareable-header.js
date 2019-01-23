@@ -1,6 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
+import {
+  renderIntoDocument,
+  findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass
+} from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -22,10 +26,16 @@ describe('ShareableHeader component', function () {
     }
   });
 
+  class CustomMenu extends React.Component {
+    render() {
+      return <div/>;
+    }
+  }
+
   beforeEach (function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <ShareableHeaderContainer />
+        <ShareableHeaderContainer Menu={ CustomMenu }/>
       </Provider>
     );
     element = findRenderedComponentWithType(instance, ShareableHeader);
@@ -35,12 +45,15 @@ describe('ShareableHeader component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render HeaderButton', function () {
-    findRenderedComponentWithType(element, HeaderButton);
-  });
+  it('should render HeaderButton, breadCrumbs and other contents', function () {
+    const headerButton = findRenderedComponentWithType(element, HeaderButton);
+    headerButton.props.Menu.should.eql(CustomMenu);
 
-  it('should render the breadCrumbs', function () {
-    findRenderedComponentWithType(element, Breadcrumbs);
+    const breadcrumbs = findRenderedComponentWithType(element, Breadcrumbs);
+    breadcrumbs.props.className.should.eql('breadcrumbs');
+
+    findRenderedDOMComponentWithClass(element, 'shareable-header-header-placeholder');
+    findRenderedDOMComponentWithClass(element, 'shareable-header-nav-bar');
   });
 
   describe('handleScroll', function () {
