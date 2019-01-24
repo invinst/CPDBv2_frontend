@@ -23,7 +23,6 @@ describe('Landing Page to Search Page', function () {
 });
 
 describe('Search Page', function () {
-
   beforeEach(function () {
     searchPage.open();
   });
@@ -81,7 +80,6 @@ describe('Search Page', function () {
     searchPage.investigatorCRResultsSection.secondResultText.getText().should.equal('CR # CR654321');
     searchPage.investigatorCRResultsSection.secondResultSubText.getText().should.equal('');
   });
-
 
   it('should able to show date > trr and date > cr results', function () {
     searchPage.input.waitForVisible();
@@ -494,7 +492,6 @@ describe('Search Page', function () {
 });
 
 describe('Search Page in edit mode', function () {
-
   beforeEach(function () {
     searchPage.openWithEditMode();
     searchPage.loginScreen.login();
@@ -508,5 +505,21 @@ describe('Search Page in edit mode', function () {
     searchPage.firstAliasButton.waitForVisible();
     searchPage.firstAliasButton.click();
     browser.getUrl().should.match(/\/edit\/search\/alias\/form\/$/);
+  });
+});
+
+describe('Search Page with query parameter', function () {
+  it('should able to show INVESTIGATOR > CR results via query parameter', function () {
+    browser.url('/search/?terms=Kelly');
+    searchPage.investigatorCRResultsSection.results.waitForVisible();
+    searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
+
+    searchPage.investigatorCRResultsSection.results.count.should.equal(2);
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
+      'an officer named Kelly caught the victim'
+    );
+    searchPage.investigatorCRResultsSection.secondResultText.getText().should.equal('CR # CR654321');
+    searchPage.investigatorCRResultsSection.secondResultSubText.getText().should.equal('');
   });
 });
