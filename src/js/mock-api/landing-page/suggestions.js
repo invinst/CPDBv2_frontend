@@ -84,6 +84,30 @@ export const groupedSuggestions = {
         }
       ),
     ],
+    'INVESTIGATOR > CR': [
+      RawCRSuggestion.build(
+        {
+          id: '1',
+          crid: 'CR123456',
+          to: '/complaint/CR123456/',
+          category: 'Lockup Procedures',
+          'incident_date': '2004-04-23',
+          highlight: {
+            summary: ['an officer named Kelly caught the victim']
+          }
+        }
+      ),
+      RawCRSuggestion.build(
+        {
+          id: '2',
+          crid: 'CR654321',
+          to: '/complaint/CR654321/',
+          category: null,
+          'incident_date': null,
+          highlight: {}
+        }
+      ),
+    ],
     'TRR': [
       RawTRRSuggestion.build(
         {
