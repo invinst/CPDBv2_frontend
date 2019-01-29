@@ -84,30 +84,6 @@ export const groupedSuggestions = {
         }
       ),
     ],
-    'INVESTIGATOR > CR': [
-      RawCRSuggestion.build(
-        {
-          id: '1',
-          crid: 'CR123456',
-          to: '/complaint/CR123456/',
-          category: 'Lockup Procedures',
-          'incident_date': '2004-04-23',
-          highlight: {
-            summary: ['an officer named Kelly caught the victim']
-          }
-        }
-      ),
-      RawCRSuggestion.build(
-        {
-          id: '2',
-          crid: 'CR654321',
-          to: '/complaint/CR654321/',
-          category: null,
-          'incident_date': null,
-          highlight: {}
-        }
-      ),
-    ],
     'TRR': [
       RawTRRSuggestion.build(
         {
@@ -221,6 +197,46 @@ export const groupedSuggestions = {
         }
       )
     ],
+  },
+  'Kelly': {
+    'OFFICER': [
+      RawOfficerSuggestion.build(
+        {
+          id: '1',
+          name: 'Bernadette Kelly',
+          to: '/officer/1/bernadette-kelly/',
+          'allegation_count': 10,
+          'sustained_count': 2,
+          'birth_year': 1972,
+          race: 'White',
+          gender: 'Male'
+        }
+      )
+    ],
+    'INVESTIGATOR > CR': [
+      RawCRSuggestion.build(
+        {
+          id: '1',
+          crid: 'CR123456',
+          to: '/complaint/CR123456/',
+          category: 'Lockup Procedures',
+          'incident_date': '2004-04-23',
+          highlight: {
+            summary: ['an officer named Kelly caught the victim']
+          }
+        }
+      ),
+      RawCRSuggestion.build(
+        {
+          id: '2',
+          crid: 'CR654321',
+          to: '/complaint/CR654321/',
+          category: null,
+          'incident_date': null,
+          highlight: {}
+        }
+      ),
+    ]
   }
 };
 
