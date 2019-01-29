@@ -87,8 +87,12 @@ class SearchPage extends Page {
     });
   }
 
-  open() {
-    super.open('/search/');
+  open(query = '') {
+    let result = '/search/';
+    if (query) {
+      result = `${result}?terms=${query}`;
+    }
+    super.open(result);
     browser.element('body').waitForVisible();
   }
 

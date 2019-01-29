@@ -510,10 +510,9 @@ describe('Search Page in edit mode', function () {
 
 describe('Search Page with query parameter', function () {
   it('should able to show INVESTIGATOR > CR results via query parameter', function () {
-    browser.url('/search/?terms=Kelly');
+    searchPage.open('Kelly');
     searchPage.investigatorCRResultsSection.results.waitForVisible();
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
-
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
     searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
     searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
