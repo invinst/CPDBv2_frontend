@@ -17,7 +17,7 @@ import {
   minimumStyle
 } from 'components/search-page/search-terms/search-terms.style';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import PreviewPane from 'components/search-page/search-terms/preview-pane';
+import SearchTermItemPane from 'components/search-page/preview-pane/search-term-item-pane';
 import { SearchTermCategory } from 'utils/test/factories/search-terms';
 import * as domUtils from 'utils/dom';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
@@ -142,7 +142,7 @@ describe('SearchTerms component', function () {
       };
 
       instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
-      const previewPane = findRenderedComponentWithType(instance, PreviewPane);
+      const previewPane = findRenderedComponentWithType(instance, SearchTermItemPane);
       previewPane.should.be.ok();
     });
 
@@ -155,7 +155,7 @@ describe('SearchTerms component', function () {
       };
 
       instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
-      const previewPaneDescription = findRenderedComponentWithType(instance, PreviewPane);
+      const previewPaneDescription = findRenderedComponentWithType(instance, SearchTermItemPane);
       const description = findRenderedDOMComponentWithTag(previewPaneDescription, 'a');
       description.getAttribute('href').should.containEql('http://www.google.com');
     });

@@ -11,6 +11,7 @@ import {
   PoliceDistrictPane,
   SchoolGroundPane,
   RankPane,
+  SearchTermItemPane
 } from 'components/search-page/preview-pane';
 
 
@@ -28,6 +29,7 @@ export default class PreviewPane extends Component {
     const officerPaneFunc = () => <OfficerPane { ...data }/>;
 
     const paneTypes = {
+      'SEARCH-TERMS': () => <SearchTermItemPane { ...data } />,
       OFFICER: officerPaneFunc,
       'DATE > OFFICERS': officerPaneFunc,
       'UNIT > OFFICERS': officerPaneFunc,

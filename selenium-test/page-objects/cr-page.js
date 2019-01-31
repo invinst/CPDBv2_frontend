@@ -93,6 +93,8 @@ class InvestigatorSection extends Section {
     this.prepareElementGetters({
       firstItem: '(//*[contains(@class, "test--involvement-investigator")]' +
         '//*[contains(@class, "test--officer-row")])[1]',
+      secondItem: '(//*[contains(@class, "test--involvement-investigator")]' +
+        '//*[contains(@class, "test--officer-row")])[2]',
     });
   }
 
