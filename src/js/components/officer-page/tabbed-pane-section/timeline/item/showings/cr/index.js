@@ -9,7 +9,7 @@ import styles from './cr.sass';
 
 export default class Cr extends Component {
   render() {
-    const { item, changeOfficerTab, pathname, } = this.props;
+    const { item, changeOfficerTab, pathname, onTrackingAttachment } = this.props;
     const { printMode } = this.context;
 
     return (
@@ -32,7 +32,12 @@ export default class Cr extends Component {
           </span>
           <span className='cr-right'>
             <span className='cr-item-coaccused no-print'>1 of { item.coaccused } coaccused</span>
-            <Attachments attachments={ item.attachments } changeOfficerTab={ changeOfficerTab } pathname={ pathname } />
+            <Attachments
+              attachments={ item.attachments }
+              changeOfficerTab={ changeOfficerTab }
+              pathname={ pathname }
+              onTrackingAttachment={ onTrackingAttachment }
+            />
             <span className='item-date cr-item-date'>{ item.date }</span>
           </span>
         </span>
@@ -46,6 +51,7 @@ Cr.propTypes = {
   officerId: PropTypes.number,
   changeOfficerTab: PropTypes.func,
   pathname: PropTypes.string,
+  onTrackingAttachment: PropTypes.func
 };
 
 Cr.contextTypes = {
