@@ -7,21 +7,21 @@ class Breadcrumbs extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      mainElement: '.test--breadcrumbs',
-      items: '.test--breadcrumbs-item',
-      firstItem: '(//li[@class="test--breadcrumbs-item"])[1]',
-      secondItem: '(//li[@class="test--breadcrumbs-item"])[2]',
-      thirdItem: '(//li[@class="test--breadcrumbs-item"])[3]',
+      mainElement: '.breadcrumbs',
+      items: '//li[contains(@class, "breadcrumbs-item")]',
+      firstItem: '(//li[contains(@class, "breadcrumbs-item")])[1]',
+      secondItem: '(//li[contains(@class, "breadcrumbs-item")])[2]',
+      thirdItem: '(//li[contains(@class, "breadcrumbs-item")])[3]',
     });
   }
 }
 
-class ShareButton extends Section {
+class HeaderButton extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      mainElement: '.test--shareable-header--share-link',
-      menu: '.test--shareable-header--share-menu'
+      mainElement: '//div[contains(@class, "header-button")]',
+      menu: '//div[contains(@class, "share-menu")]'
     });
   }
 }
@@ -29,7 +29,7 @@ class ShareButton extends Section {
 
 class ShareableHeader extends Page {
   breadcrumbs = new Breadcrumbs();
-  shareButton = new ShareButton();
+  headerButton = new HeaderButton();
 }
 
 

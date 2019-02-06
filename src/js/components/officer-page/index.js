@@ -15,6 +15,7 @@ import styles from './officer-page.sass';
 import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
+import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
 
 
 class OfficerPage extends Component {
@@ -61,7 +62,7 @@ class OfficerPage extends Component {
     return (
       <DocumentMeta title={ pageTitle } description={ pageDescription }>
         <div className={ styles.officerPage }>
-          <ShareableHeaderContainer />
+          <ShareableHeaderContainer Menu={ DownloadMenuContainer } buttonText='Download' />
           <div className='page-wrapper'>
             <AnimatedRadarChart
               officerId={ officerId }

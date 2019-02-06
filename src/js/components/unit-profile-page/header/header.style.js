@@ -2,10 +2,12 @@ import {
   sanFranciscoTextFamily, softBlackColor, mediumGrayColor, whiteTwoColor,
   sugarCaneColor, accentColor
 } from 'utils/styles';
-import { shareableHeaderHeight } from 'components/headers/shareable-header/shareable-header.style';
 
 
 const height = 64;
+
+// Todo: when converting this file into SASS, please use the constant $shareable-header-height in variables
+const shareableHeaderHeight = 40;
 
 export const unitNameWrapperStyle = (scrollPosition) => ({
   fontSize: '26px',

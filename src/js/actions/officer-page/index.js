@@ -10,6 +10,15 @@ import {
   CHANGE_OFFICER_TAB,
   OFFICER_EDIT_MODE,
   OFFICER_EDIT_TYPES,
+  OFFICER_CREATE_ZIP_FILE_REQUEST_START,
+  OFFICER_CREATE_ZIP_FILE_REQUEST_SUCCESS,
+  OFFICER_CREATE_ZIP_FILE_REQUEST_FAILURE,
+  OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
+  OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
+  OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE,
+  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
+  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
+  OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE
 } from 'utils/constants';
 
 
@@ -38,3 +47,30 @@ export const turnOnNoDataRadarChartExplainEditMode = createChangeEditModeAction(
   OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART, true);
 export const turnOffNoDataRadarChartExplainEditMode = createChangeEditModeAction(
   OFFICER_EDIT_TYPES.NO_DATA_RADAR_CHART, false);
+
+export const requestCreateOfficerZipFile = officerId => (get(
+  `${ OFFICER_URL }${ officerId }/create-zip-file/`,
+  [
+    OFFICER_CREATE_ZIP_FILE_REQUEST_START,
+    OFFICER_CREATE_ZIP_FILE_REQUEST_SUCCESS,
+    OFFICER_CREATE_ZIP_FILE_REQUEST_FAILURE
+  ]
+)());
+
+export const fetchOfficerZipWithDocsFileUrl = (officerId, retryCounter=0) => (get(
+  `${ OFFICER_URL }${ officerId }/request-download/`,
+  [
+    OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_START,
+    OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_SUCCESS,
+    OFFICER_FETCH_ZIP_WITH_DOCS_FILE_URL_REQUEST_FAILURE
+  ]
+)({ 'with-docs': true, 'retry-counter': retryCounter }));
+
+export const fetchOfficerZipFileUrl = (officerId, retryCounter=0) => (get(
+  `${ OFFICER_URL }${ officerId }/request-download/`,
+  [
+    OFFICER_FETCH_ZIP_FILE_URL_REQUEST_START,
+    OFFICER_FETCH_ZIP_FILE_URL_REQUEST_SUCCESS,
+    OFFICER_FETCH_ZIP_FILE_URL_REQUEST_FAILURE
+  ]
+)({ 'with-docs': false, 'retry-counter': retryCounter }));

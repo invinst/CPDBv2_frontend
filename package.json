@@ -110,6 +110,7 @@
     "d3-scale": "^1.0.6",
     "d3-selection": "^1.1.0",
     "d3-shape": "^1.2.0",
+    "downloadjs": "^1.4.7",
     "draft-js": "^0.9.1",
     "enum": "^2.4.0",
     "es6-promise": "^4.2.2",

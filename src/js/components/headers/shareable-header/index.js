@@ -1,17 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
-import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import {
-  outerStyle,
-  navBarStyle,
-  headerPlaceholderStyle,
-  breadcrumbSeparatorStyle
-} from './shareable-header.style';
 import BreadcrumbsItemRendererContainer from 'containers/headers/shareable-header/breadcrumbs-item-renderer-container';
-import { breadcrumbsStyle } from 'components/headers/shareable-header/shareable-header.style';
-import ShareButton from 'components/headers/shareable-header/share-button';
+import HeaderButton from 'components/headers/shareable-header/header-button';
 import { calculatePosition } from 'utils/dom';
+import styles from './shareable-header.sass';
+import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
 
 export default class ShareableHeader extends Component {
@@ -43,30 +37,31 @@ export default class ShareableHeader extends Component {
   }
 
   render() {
-    const { location, routes, params } = this.props;
+    const { location, routes, params, Menu, buttonText } = this.props;
 
-    const separatorRenderer = () => <li style={ breadcrumbSeparatorStyle }/>;
+    const separatorRenderer = <li className='shareable-header-breadcrumb-separator'/>;
 
     return (
-      <div className='no-print'>
-        <div style={ headerPlaceholderStyle }/>
-        <ResponsiveFluidWidthComponent style={ outerStyle }>
-          <div
-            style={ navBarStyle }
-            ref={ el => { this.placeholderElement = el; } }
-          >
-            <ShareButton scrollPosition={ this.state.position }/>
-            <Breadcrumbs
-              className='test--breadcrumbs'
-              routes={ routes }
-              params={ params }
-              location={ location }
-              separatorRenderer={ separatorRenderer }
-              itemRenderer={ BreadcrumbsItemRendererContainer }
-              style={ breadcrumbsStyle }
-            />
+      <div className={ `${styles.shareableHeader} no-print` }>
+        <div className='shareable-header-header-placeholder'/>
+        <div className='shareable-header-outer'>
+          <div className={ responsiveContainerStyles.responsiveContainer }>
+            <div
+              className='shareable-header-nav-bar'
+              ref={ el => { this.placeholderElement = el; } }
+            >
+              <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
+              <Breadcrumbs
+                className='breadcrumbs'
+                routes={ routes }
+                params={ params }
+                location={ location }
+                separatorRenderer={ separatorRenderer }
+                itemRenderer={ BreadcrumbsItemRendererContainer }
+              />
+            </div>
           </div>
-        </ResponsiveFluidWidthComponent>
+        </div>
       </div>
     );
   }
@@ -80,6 +75,8 @@ ShareableHeader.propTypes = {
   openShareMenu: PropTypes.func,
   shareMenuIsOpen: PropTypes.bool,
   updateShareablePageScrollPosition: PropTypes.func,
+  Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  buttonText: PropTypes.string,
 };
 
 ShareableHeader.defaultProps = {
