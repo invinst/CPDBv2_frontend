@@ -1,26 +1,26 @@
 import React, { PropTypes } from 'react';
-import { breadcrumbTextStyle, breadcrumbLinkStyle } from 'components/headers/shareable-header/breadcrumbs-item.style';
-import Hoverable from 'components/common/higher-order/hoverable';
+import cx from 'classnames';
 
-class BreadcrumbsItemRenderer extends React.Component {
+import styles from './breadcrumbs-item.sass';
+
+
+export default class BreadcrumbsItemRenderer extends React.Component {
   render() {
-    let children;
+    let newChildren;
+    const { scrollPosition, children } = this.props;
+    const atBottom = scrollPosition === 'bottom';
 
-    const scrollPosition = this.props.scrollPosition;
-    if (typeof this.props.children === 'string') {
-      children = this.props.children;
+    if (typeof children === 'string') {
+      newChildren = children;
     }
     else {
-      const { hovering } = this.props;
-      children = React.cloneElement(this.props.children, {
-        style: {
-          ...this.props.children.props.style,
-          ...breadcrumbLinkStyle(scrollPosition, hovering)
-        }
+      newChildren = React.cloneElement(children, {
+        style: children.props.style,
+        className: cx(children.props.className, 'breadcrumbs-item-link', { 'bottom': atBottom })
       });
     }
     return (
-      <li className='test--breadcrumbs-item' style={ breadcrumbTextStyle(scrollPosition) }>{ children }</li>
+      <li className={ cx(styles.breadcrumbsItem, { 'bottom': atBottom }) } >{ newChildren }</li>
     );
   }
 }
@@ -31,11 +31,8 @@ BreadcrumbsItemRenderer.propTypes = {
     PropTypes.object
   ]),
   scrollPosition: PropTypes.string,
-  hovering: PropTypes.bool,
 };
 
 BreadcrumbsItemRenderer.defaultProps = {
   scrollPosition: 'top',
 };
-
-export default Hoverable(BreadcrumbsItemRenderer);

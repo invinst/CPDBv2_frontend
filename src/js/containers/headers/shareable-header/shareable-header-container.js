@@ -6,9 +6,7 @@ import { updateShareablePageScrollPosition } from 'actions/headers/shareable-hea
 
 
 function mapStateToProps(state, ownProps) {
-  return {
-    ...ownProps
-  };
+  return ownProps;
 }
 
 const mapDispatchToProps = {
