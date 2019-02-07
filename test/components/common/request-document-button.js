@@ -21,6 +21,11 @@ describe('RequestDocumentButton component', function () {
     findDOMNode(instance).textContent.should.containEql('Request Documents');
   });
 
+  it('should render "New Document Notifications" if not alreadyRequested and hasData', function () {
+    instance = renderIntoDocument(<HoverableRequestDocumentButton alreadyRequested={ false } hasData={ true }/>);
+    findDOMNode(instance).textContent.should.containEql('New Document Notifications');
+  });
+
   it('should render "Documents Requested" if alreadyRequested', function () {
     instance = renderIntoDocument(<HoverableRequestDocumentButton alreadyRequested={ true }/>);
     findDOMNode(instance).textContent.should.containEql('Documents Requested');

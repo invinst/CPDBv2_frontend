@@ -19,7 +19,7 @@ class RequestDocumentModalContent extends Component {
     e.preventDefault();
     const { onRequestDocument, id, closeModal } = this.props;
 
-    return onRequestDocument({ id, email: this.refs.email.value }).then((action) => {
+    return onRequestDocument({ id, email: this.refs.email.value }).then(() => {
       this.setState({ warning: false });
       setTimeout(closeModal, 1500);  // auto close modal if success
     }).catch(e => {
@@ -28,8 +28,11 @@ class RequestDocumentModalContent extends Component {
   }
 
   render() {
-    const { closeModal, message, isRequested, instructionEditWrapperStateProps } = this.props;
+    const { closeModal, message, isRequested, instructionEditWrapperStateProps, hasData } = this.props;
     const showMessage = message && (isRequested || this.state.warning);
+    const placeholderMessage = hasData ? 'We’ll notify you when we have new documents.' :
+      'We’ll notify you when the document is made available.';
+    const fieldName = hasData ? 'new_document_notification' : 'document_request_instruction';
 
     return (
       <form onSubmit={ this.handleSubmit } className={ style.requestDocumentModalContent }>
@@ -37,8 +40,8 @@ class RequestDocumentModalContent extends Component {
           <EditWrapperStateProvider { ...instructionEditWrapperStateProps }>
             <HoverableEditWrapper className='request-document-instruction'>
               <RichTextEditable
-                placeholder='We’ll notify you when the document is made available.'
-                fieldname='document_request_instruction'
+                placeholder={ placeholderMessage }
+                fieldname={ fieldName }
               />
             </HoverableEditWrapper>
           </EditWrapperStateProvider>
@@ -65,4 +68,5 @@ RequestDocumentModalContent.propTypes = {
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   isRequested: PropTypes.bool,
   instructionEditWrapperStateProps: PropTypes.object,
+  hasData: PropTypes.bool,
 };

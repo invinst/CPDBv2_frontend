@@ -35,7 +35,7 @@ const getInvolvements = state => {
   return !state.crs[crid] ? [] : state.crs[crid].involvements;
 };
 
-const getAttachments = state => {
+export const getAttachments = state => {
   const crid = state.crPage.crid;
   return !state.crs[crid] ? [] : state.crs[crid].attachments;
 };

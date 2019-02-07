@@ -16,7 +16,7 @@ import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaim
 import GenericModal from 'components/generic-modal';
 import RequestDocumentModalContent from 'containers/cr-page/request-document-modal-container';
 import RequestTRRDocumentModalContent from 'containers/trr-page/request-document-modal-container';
-import { CR_EDIT_TYPES, TRR_EDIT_TYPES } from 'utils/constants';
+import { CR_EDIT_TYPES } from 'utils/constants';
 
 
 describe('GenericModal component', function () {
@@ -52,12 +52,18 @@ describe('GenericModal component', function () {
         breadcrumbs: []
       },
       crPage: {
+        crid: '123456',
         attachmentRequest: {
           request: {}
         },
         editModeOn: {
-          [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-          [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+          [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+          [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+        }
+      },
+      crs: {
+        '123456': {
+          attachments: []
         }
       }
     });

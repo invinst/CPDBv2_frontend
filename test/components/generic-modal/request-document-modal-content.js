@@ -29,7 +29,7 @@ describe('RequestDocumentModalContent component', function () {
     }
   });
 
-  it('should initial render form with text box and "Enter", "Cancel" button', function () {
+  it('should initial render form with text box for request document button', function () {
     const instructionEditWrapperStateProps = {
       fields: {
         'document_request_instruction': {
@@ -46,7 +46,10 @@ describe('RequestDocumentModalContent component', function () {
       turnOffSectionEditMode: spy()
     };
     element = renderIntoDocument(
-      <RequestDocumentModalContent instructionEditWrapperStateProps={ instructionEditWrapperStateProps }/>
+      <RequestDocumentModalContent
+        instructionEditWrapperStateProps={ instructionEditWrapperStateProps }
+        hasData={ false }
+      />
     );
     const domElement = findDOMNode(element);
 
@@ -61,6 +64,43 @@ describe('RequestDocumentModalContent component', function () {
     const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
     const editableNoDocumentText = findRenderedComponentWithType(hoverableEditWrapper, RichTextEditable);
     editableNoDocumentText.props.fieldname.should.equal('document_request_instruction');
+  });
+
+  it('should initial render form with text box for new document notifications button', function () {
+    const instructionEditWrapperStateProps = {
+      fields: {
+        'new_document_notification': {
+          type: 'rich_text',
+          name: 'new_document_notification',
+          value: RawContentStateFactory.build(
+            {}, { blockTexts: ['We’ll notify you when we have new documents.'] }
+          )
+        }
+      },
+      sectionEditModeOn: false,
+      onSaveForm: spy(),
+      turnOnSectionEditMode: spy(),
+      turnOffSectionEditMode: spy()
+    };
+    element = renderIntoDocument(
+      <RequestDocumentModalContent
+        instructionEditWrapperStateProps={ instructionEditWrapperStateProps }
+        hasData={ true }
+      />
+    );
+    const domElement = findDOMNode(element);
+
+    domElement.textContent.should.containEql('We’ll notify you when we have new documents.');
+    element.state.warning.should.be.false();
+    let inputDOMElements = scryRenderedDOMComponentsWithTag(element, 'input');
+    inputDOMElements[0].getAttribute('placeholder').should.be.eql('Your email');
+    inputDOMElements[1].getAttribute('value').should.be.eql('Request');
+    findRenderedDOMComponentWithTag(element, 'a').textContent.should.be.eql('Cancel');
+
+    const editWrapperStateProvider = findRenderedComponentWithType(element, EditWrapperStateProvider);
+    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
+    const editableNoDocumentText = findRenderedComponentWithType(hoverableEditWrapper, RichTextEditable);
+    editableNoDocumentText.props.fieldname.should.equal('new_document_notification');
   });
 
   it('should call closeEvent when click to Close link', function () {
