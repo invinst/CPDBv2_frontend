@@ -28,6 +28,28 @@ class RankPreviewPaneSection extends Section {
   }
 }
 
+class CRPreviewPaneSection extends Section {
+  constructor() {
+    super();
+    this.prepareElementGetters({
+      callToAction: '//div[contains(@class, "new-call-to-action-widget")]',
+      wrapper: '.test--preview-pane',
+      gradient: '.widget-wrapper-gradient',
+      title: '.cr-preview-pane-title-title',
+      subtitle: '.cr-preview-pane-title-subtitle',
+      previewPane: '.test--preview-pane',
+      incidentDate: '//div[@class="cr-preview-pane-info-row"][1]',
+      address: '//div[@class="cr-preview-pane-info-row"][2]',
+      victimText: '.cr-preview-pane-victims-text',
+      victims: '//div[contains(@class, "demographic__demographic")]',
+      firstVictim: '//div[contains(@class, "demographic__demographic")][1]',
+      secondVictim: '//div[contains(@class, "demographic__demographic")][2]',
+      accusedText: '.list-widget-header',
+      accusedOfficers: '.list-widget-item-link',
+    });
+  }
+}
+
 class ResultsSection extends Section {
   constructor(key) {
     super();
@@ -50,6 +72,7 @@ class ResultsSection extends Section {
 class SearchPage extends Page {
   officerPreviewPaneSection = new OfficerPreviewPaneSection();
   rankPreviewPaneSection = new RankPreviewPaneSection();
+  crPreviewPaneSection = new CRPreviewPaneSection();
   dateCRResultsSection = new ResultsSection('DATE-CR');
   investigatorCRResultsSection = new ResultsSection('INVESTIGATOR-CR');
   dateTRRResultsSection = new ResultsSection('DATE-TRR');

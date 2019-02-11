@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 
 import styles from './demographic.sass';
-import cx from 'classnames';
 
 export default class Demographics extends Component {
   render() {
@@ -11,7 +10,7 @@ export default class Demographics extends Component {
       <div className={ className }>
         {
           persons.map((person, ind) => (
-            <div key={ ind } className={ cx(styles.demographic, 'test--person-demographic') }>
+            <div key={ ind } className={ styles.demographic }>
               { person }
             </div>
           ))

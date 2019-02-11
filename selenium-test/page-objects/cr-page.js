@@ -50,9 +50,8 @@ class SummarySection extends Section {
     super();
 
     this.prepareElementGetters({
-      firstVictim: '(//*[contains(@class, "test--victims")])//div[contains(@class, "test--person-demographic")][1]',
-      firstComplainant: '(//*[contains(@class, "test--complainant")])' +
-        '//div[contains(@class, "test--person-demographic")][1]',
+      firstVictim: '(//*[contains(@class, "test--victims")])//div[contains(@class, "demographic")][1]',
+      firstComplainant: '(//*[contains(@class, "test--complainant")])//div[contains(@class, "demographic")][1]',
       summary: '.cr-summary'
     });
   }
