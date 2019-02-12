@@ -60,7 +60,7 @@ class RecentDocumentCarouselSection extends Section {
     this.prepareElementGetters({
       leftArrow: '//div[@class="test--landing-carousel-document"]//*[contains(@class, "test--carousel-arrow-left")]',
       rightArrow: '//div[@class="test--landing-carousel-document"]//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--landing-carousel-document"]//a[@class="test--document-card"]'
+      cards: '//div[@class="test--landing-carousel-document"]//a[contains(@class, "document-card__document-card")]'
     });
   }
 }
@@ -71,7 +71,7 @@ class ComplaintSummariesCarouselSection extends Section {
     this.prepareElementGetters({
       leftArrow: '//div[@class="test--landing-carousel-complaint"]//*[contains(@class, "test--carousel-arrow-left")]',
       rightArrow: '//div[@class="test--landing-carousel-complaint"]//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--landing-carousel-complaint"]//a[@class="test--complaint-summary-card"]'
+      cards: '//div[@class="test--landing-carousel-complaint"]//a[contains(@class, "complaint-summary-card")]'
     });
   }
 }

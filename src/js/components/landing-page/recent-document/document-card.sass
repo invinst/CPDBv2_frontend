@@ -1,0 +1,37 @@
+@import 'variables'
+
+\:local(.document-card)
+  display: block
+  width: 232px
+  height: 266px
+  border-radius: 2px
+  border: solid 1px $white-two-color
+  box-sizing: border-box
+
+  &:hover
+    border: solid 1px $accent-color
+
+  .document-card-thumbnail
+    height: 209px
+    border-radius: 2px
+    background-color: $sugar-cane-color
+
+    .document-card-thumbnail-img
+      width: 133px
+      height: 176px
+      margin-left: 49px
+      margin-top: 16px
+      border: solid 1px $greyish-color
+
+  .document-card-description
+    width: 200px
+    height: 36px
+    font-size: 14px
+    font-weight: 300
+    text-align: left
+    margin-left: 16px
+    margin-top: 10px
+    color: $clay-gray
+
+    &:hover
+      color: $accent-color
