@@ -17,7 +17,7 @@ export default function withCarousel(
     }
 
     render() {
-      const { cards, editWrapperStateProps, pathname, openCardInNewPage } = this.props;
+      const { className, cards, editWrapperStateProps, pathname, openCardInNewPage } = this.props;
 
       const slideElements = cards.map((card, index) => {
         return (
@@ -36,7 +36,7 @@ export default function withCarousel(
       });
 
       return (
-        <div className={ `test--landing-carousel-${(type.key || type).toLowerCase()}` }>
+        <div className={ `test--landing-carousel-${(type.key || type).toLowerCase()} ${className}` }>
           <EditModeProvider
             pathname={ pathname }
             className='test--carousel--header'
@@ -59,6 +59,7 @@ export default function withCarousel(
     pathname: PropTypes.string,
     editWrapperStateProps: PropTypes.object,
     openCardInNewPage: PropTypes.bool,
+    className: PropTypes.string
   };
 
   Wrapper.defaultProps = {
