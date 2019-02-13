@@ -16,7 +16,8 @@ export const OfficerCardFactory = Factory.define('OfficerCardFactory')
   .attr('fullName', name.findName)
   .attr('complaintCount', random.number)
   .attr('visualTokenBackgroundColor', internet.color)
-  .attr('complaintPercentile', () => (random.number({ min: 10, max: 1000 }) / 10.0));
+  .attr('complaintPercentile', () => (random.number({ min: 10, max: 1000 }) / 10.0))
+  .attr('type', '');
 
 export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
   .sequence('id')

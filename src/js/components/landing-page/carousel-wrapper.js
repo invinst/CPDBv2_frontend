@@ -9,7 +9,7 @@ import * as GATracking from 'utils/google_analytics_tracking';
 
 
 export default function withCarousel(
-  CardComponent, type = '', extraCardAttr = {}, itemWidth = 232
+  CardComponentMap, type = '', extraCardAttr = {}
 ) {
   class Wrapper extends Component {
     handleNavigate(direction) {
@@ -20,6 +20,7 @@ export default function withCarousel(
       const { className, cards, editWrapperStateProps, pathname, openCardInNewPage } = this.props;
 
       const slideElements = cards.map((card, index) => {
+        const { CardComponent, itemWidth } = CardComponentMap[card.type || type];
         return (
           <div
             key={ index }
@@ -45,7 +46,7 @@ export default function withCarousel(
           </EditModeProvider>
           <Carousel
             style={ carouselStyle }
-            childWidth={ itemWidth }
+            childWidth={ 232 }
             onNavigate={ this.handleNavigate.bind(this) }>
             { slideElements }
           </Carousel>

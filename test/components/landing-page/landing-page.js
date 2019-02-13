@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 
 import LandingPage from 'components/landing-page';
 import configureStore from 'redux-mock-store';
-import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
+import { RawOfficerCardFactory } from 'utils/test/factories/activity-grid';
 import { RawDocumentCardFactory } from 'utils/test/factories/attachment';
 import { ComplaintSummaryFactory } from 'utils/test/factories/complaint';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -22,17 +22,17 @@ const store = mockStore({
     },
     activityGrid: {
       cards: [
-        OfficerCardFactory.build(),
-        OfficerCardFactory.build(),
-        OfficerCardFactory.build(),
+        RawOfficerCardFactory.build(),
+        RawOfficerCardFactory.build(),
+        RawOfficerCardFactory.build(),
       ],
       headerEditModeOn: false
     },
     officersByAllegation: {
       cards: [
-        OfficerCardFactory.build(),
-        OfficerCardFactory.build(),
-        OfficerCardFactory.build(),
+        RawOfficerCardFactory.build({ type: '' }),
+        RawOfficerCardFactory.build({ type: '' }),
+        RawOfficerCardFactory.build({ type: '' }),
       ],
       headerEditModeOn: false
     },
