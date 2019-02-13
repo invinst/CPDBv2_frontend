@@ -4,6 +4,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import styles from './documents-table.sass';
+import Counter from './counter.js';
 
 export default class DocumentsTable extends Component {
   handleClick(id) {
@@ -41,7 +42,10 @@ export default class DocumentsTable extends Component {
                     } : null }/>
                   <span className='document-title'>{ row.title }</span>
                   <span className='document-source'>{ row.source }</span>
-                  <span className='document-counts'>{ row.viewsCount }&nbsp;{ row.downloadsCount }</span>
+                  <Counter
+                    className='document-counts'
+                    viewsCount={ row.viewsCount }
+                    downloadsCount={ row.downloadsCount } />
                   <span className='document-date'>{ row.date }</span>
                   <span className='document-toggle'/>
                 </div>

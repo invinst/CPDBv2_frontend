@@ -1,0 +1,37 @@
+%span-image
+    background-position: center
+    background-repeat: no-repeat
+    background-size: contain
+    box-sizing: border-box
+    display: inline-block
+
+
+\:local(.wrapper)
+    font-weight: 300
+    
+    .count-group
+        display: inline-block
+
+    .view-icon
+        @extend %span-image
+        background-image: url('/img/views@2x.png')
+        width: 14px
+        height: 14px
+
+    .download-icon
+        @extend %span-image
+        background-image: url('/img/download@2x.png')
+        width: 14px
+        height: 14px
+
+    .view-icon, .download-icon
+        margin-right: 4.7px
+
+    .view-count, .download-count
+        display: inline-block
+
+    .view-icon, .download-icon, .view-count, .download-count
+        vertical-align: middle
+
+    .view-count
+        margin-right: 11px

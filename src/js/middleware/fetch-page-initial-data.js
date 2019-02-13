@@ -26,6 +26,7 @@ import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries'
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
+import { fetchTrackerDocuments } from 'actions/tracker/documents-page';
 
 let prevPathname = '';
 
@@ -134,6 +135,10 @@ export default store => next => action => {
     if (!hasCitySummarySelector(state)) {
       dispatches.push(store.dispatch(getCitySummary()));
     }
+  }
+
+  else if (action.payload.pathname.match(/tracker\/documents/)) {
+    dispatches.push(store.dispatch(fetchTrackerDocuments()));
   }
 
   if (dispatches.length > 0) {

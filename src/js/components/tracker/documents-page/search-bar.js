@@ -16,11 +16,15 @@ export default class SearchBar extends Component {
       <div className={ styles.wrapper }>
         <div className={ responsiveContainerStyles.responsiveContainer }>
           <div className={ styles.innerWrapper }>
-            <input
-              value={ value }
-              onChange={ this.handleChange.bind(this) }
-              type='text'
-              className={ styles.searchBox }/>
+            <div className='search-box-parent'>
+              <input
+                value={ value }
+                onChange={ this.handleChange.bind(this) }
+                type='text'
+                className={ styles.searchBox }
+                placeholder='Search' />
+              <span className='search-icon' />
+            </div>
           </div>
         </div>
       </div>

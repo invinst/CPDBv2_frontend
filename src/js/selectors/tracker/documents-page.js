@@ -20,7 +20,9 @@ export const documentsSelector = createSelector(
     title: doc.title,
     thumbnail: doc['preview_image_url'],
     source: sourceMap[doc['source_type']],
-    date: moment(doc['created_at']).format('MMM D, YYYY')
+    date: moment(doc['created_at']).format('MMM D, YYYY'),
+    viewsCount: doc['views_count'],
+    downloadsCount: doc['downloads_count']
   })));
 
 export const hasMoreSelector = createSelector(

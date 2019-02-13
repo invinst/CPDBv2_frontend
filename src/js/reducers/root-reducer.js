@@ -20,6 +20,7 @@ import pageLoading from './page-loading';
 import popups from './popups';
 import embed from './embed';
 import pathname from './pathname';
+import tracker from './tracker';
 
 
 export default combineReducers({
@@ -43,4 +44,5 @@ export default combineReducers({
   popups,
   embed,
   pathname,
+  tracker
 });
