@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import { shuffle } from 'lodash';
 
 
 export const getCarouselDocumentHeaderEditModeOn = state => state.landingPage.recentDocument.headerEditModeOn;
@@ -20,9 +19,5 @@ export const hasCards = createSelector(
 
 export const cardsSelector = createSelector(
   [getCards],
-  cards => {
-    const upperHalf = shuffle(cards.slice(0, 12));
-    const lowerHalf = shuffle(cards.slice(12));
-    return upperHalf.concat(lowerHalf).map(cardTransform);
-  }
+  cards => cards.map(cardTransform)
 );
