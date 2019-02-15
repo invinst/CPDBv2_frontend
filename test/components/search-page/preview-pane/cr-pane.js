@@ -3,7 +3,7 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
-  scryRenderedDOMComponentsWithClass
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import CRPane from 'components/search-page/preview-pane/cr-pane';
@@ -12,7 +12,7 @@ import Demographics from 'components/common/demographics';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe('CRPane component', () => {
+describe.only('CRPane component', () => {
   let instance;
 
   afterEach(function () {
@@ -113,5 +113,64 @@ describe('CRPane component', () => {
     victimsText.textContent.should.eql('VICTIM');
     const accused = findRenderedComponentWithType(instance, ListWidget);
     accused.props.title.should.eql('ACCUSED OFFICER');
+  });
+
+  it('should not display victims section if there are victims are not passed in', function () {
+    instance = renderIntoDocument(
+      <CRPane
+        to='/complaint/123/'
+        category='Use Of Force'
+        subCategory='Excessive Force - Use Of Firearm / Off Duty - No Injury'
+        incidentDate='JUL 2, 2012'
+        address='14XX W 63RD ST, CHICAGO IL 60636'
+        coaccused={ [{
+          id: 16567,
+          name: 'Baudilio Lopez',
+          url: '/officer/16567/baudilio-lopez/',
+          radarAxes: [
+            { axis: 'Use of Force Reports', value: 72.1094 },
+            { axis: 'Officer Allegations', value: 61.1521 },
+            { axis: 'Civilian Allegations', value: 98.5549 }
+          ],
+          radarColor: '#f0201e',
+          count: 93
+        }] }
+      />
+    );
+
+    const victimsText = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-victims-text');
+    victimsText.length.should.eql(0);
+    const accused = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-victims');
+    accused.length.should.eql(0);
+  });
+
+  it('should not display victims section if there are no victims', function () {
+    instance = renderIntoDocument(
+      <CRPane
+        to='/complaint/123/'
+        category='Use Of Force'
+        subCategory='Excessive Force - Use Of Firearm / Off Duty - No Injury'
+        incidentDate='JUL 2, 2012'
+        address='14XX W 63RD ST, CHICAGO IL 60636'
+        victims={ [] }
+        coaccused={ [{
+          id: 16567,
+          name: 'Baudilio Lopez',
+          url: '/officer/16567/baudilio-lopez/',
+          radarAxes: [
+            { axis: 'Use of Force Reports', value: 72.1094 },
+            { axis: 'Officer Allegations', value: 61.1521 },
+            { axis: 'Civilian Allegations', value: 98.5549 }
+          ],
+          radarColor: '#f0201e',
+          count: 93
+        }] }
+      />
+    );
+
+    const victimsText = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-victims-text');
+    victimsText.length.should.eql(0);
+    const accused = scryRenderedDOMComponentsWithClass(instance, 'cr-preview-pane-victims');
+    accused.length.should.eql(0);
   });
 });

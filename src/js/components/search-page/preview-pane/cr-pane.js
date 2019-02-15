@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import pluralize from 'pluralize';
+import { isEmpty } from 'lodash';
 
 import { NewWidgetWrapper, ListWidget } from './widgets';
 import Demographics from 'components/common/demographics';
@@ -27,8 +28,14 @@ export default class CRPane extends Component {
           </div>
           <div className='cr-preview-pane-info-row'>{ incidentDate }</div>
           <div className='cr-preview-pane-info-row'>{ address }</div>
-          <div className='cr-preview-pane-victims-text'>{ pluralize('VICTIM', victims.length) }</div>
-          <Demographics className='cr-preview-pane-victims' persons={ victims } />
+          {
+            !isEmpty(victims) ? (
+              <div>
+                <div className='cr-preview-pane-victims-text'>{ pluralize('VICTIM', victims.length) }</div>
+                <Demographics className='cr-preview-pane-victims' persons={ victims } />
+              </div>
+            ): <div/>
+          }
           <ListWidget
             typeName='allegation'
             title={ pluralize('ACCUSED OFFICER', coaccused.length) }
@@ -43,11 +50,11 @@ export default class CRPane extends Component {
 }
 
 CRPane.propTypes = {
-  category: PropTypes.string.isRequired,
-  subCategory: PropTypes.string.isRequired,
-  incidentDate: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  victims: PropTypes.array.isRequired,
-  coaccused: PropTypes.array.isRequired,
-  to: PropTypes.string.isRequired,
+  category: PropTypes.string,
+  subCategory: PropTypes.string,
+  incidentDate: PropTypes.string,
+  address: PropTypes.string,
+  victims: PropTypes.array,
+  coaccused: PropTypes.array,
+  to: PropTypes.string,
 };
