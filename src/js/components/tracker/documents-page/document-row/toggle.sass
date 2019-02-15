@@ -1,0 +1,45 @@
+@import 'variables'
+
+\:local(.wrapper)
+    display: inline-block
+    width: 52px
+    height: 20px
+    position: relative
+    display: inline-block
+    margin-right: .5rem
+    width: 52px
+    height: 20px
+    background-color: $light-alto-color
+    border-radius: 23px
+    vertical-align: text-bottom
+
+    .toggle-icon
+        position: absolute
+        top: 2px
+        left: 2px
+        width: 16px
+        height: 16px
+        background-color: #fff
+        border-radius: 11px
+        transition: all 0.2s ease-in-out
+
+    .toggle-text
+        color: white
+        font-family: $san-francisco-text-family
+        font-size: 8px
+        font-weight: 400
+        text-transform: uppercase
+        margin-left: 23px
+        margin-top: 6px
+
+    &.toggle-on
+        background-color: $hawkes-blue
+
+        .toggle-icon
+            left: 34px
+
+        .toggle-text
+            color: $accent-color
+            margin-left: 8px
+            margin-top: 6px
+

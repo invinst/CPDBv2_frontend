@@ -6,7 +6,7 @@ import {
   nextParamsSelector
 } from 'selectors/tracker/documents-page';
 import DocumentsPage from 'components/tracker/documents-page';
-import { fetchTrackerDocuments } from 'actions/tracker/documents-page';
+import { fetchTrackerDocuments, setDocumentShow } from 'actions/tracker/documents-page';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -18,7 +18,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  fetchTrackerDocuments
+  fetchTrackerDocuments,
+  setDocumentShow
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentsPage);

@@ -15,6 +15,7 @@ export default class DocumentsPage extends Component {
       nextParams,
       hasMore,
       fetchTrackerDocuments,
+      setDocumentShow
     } = this.props;
 
     return (
@@ -25,6 +26,7 @@ export default class DocumentsPage extends Component {
           rows={ documents }
           nextParams={ nextParams }
           hasMore={ hasMore }
+          setDocumentShow={ setDocumentShow }
           fetchTrackerDocuments={ fetchTrackerDocuments }/>
       </div>
     );

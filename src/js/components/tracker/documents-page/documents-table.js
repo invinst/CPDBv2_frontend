@@ -3,15 +3,12 @@ import { map } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import DocumentRow from './document-row';
 import styles from './documents-table.sass';
-import Counter from './counter.js';
 
 export default class DocumentsTable extends Component {
-  handleClick(id) {
-  }
-
   render() {
-    const { rows, nextParams, hasMore, fetchTrackerDocuments } = this.props;
+    const { rows, nextParams, hasMore, fetchTrackerDocuments, setDocumentShow } = this.props;
 
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
@@ -31,24 +28,7 @@ export default class DocumentsTable extends Component {
             useWindow={ true }>
             {
               map(rows, row => (
-                <div
-                  key={ row.id }
-                  onClick={ this.handleClick.bind(this, row.id) }
-                  className={ styles.row }>
-                  <span
-                    className='document-thumbnail'
-                    style={ row.thumbnail !== null ? {
-                      backgroundImage: `url(${row.thumbnail})`
-                    } : null }/>
-                  <span className='document-title'>{ row.title }</span>
-                  <span className='document-source'>{ row.source }</span>
-                  <Counter
-                    className='document-counts'
-                    viewsCount={ row.viewsCount }
-                    downloadsCount={ row.downloadsCount } />
-                  <span className='document-date'>{ row.date }</span>
-                  <span className='document-toggle'/>
-                </div>
+                <DocumentRow { ...row } key={ row.id } setDocumentShow={ setDocumentShow }/>
               ))
             }
           </InfiniteScroll>
@@ -62,5 +42,6 @@ DocumentsTable.propTypes = {
   rows: PropTypes.array,
   hasMore: PropTypes.bool,
   nextParams: PropTypes.object,
+  setDocumentShow: PropTypes.func,
   fetchTrackerDocuments: PropTypes.func
 };

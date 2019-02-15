@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import styles from './counter.sass';
 
 
 export default class Counter extends Component {
   render() {
-    const { viewsCount, downloadsCount, className } = this.props;
+    const { viewsCount, downloadsCount } = this.props;
 
     return (
-      <span className={ cx(styles.wrapper, className) }>
+      <span className={ styles.wrapper }>
         <span className='view-icon' />
         <span className='view-count'>{ Number(viewsCount).toLocaleString() }</span>
         <span className='download-icon' />
@@ -21,7 +20,6 @@ export default class Counter extends Component {
 
 Counter.propTypes = {
   viewsCount: PropTypes.number,
-  downloadsCount: PropTypes.number,
-  className: PropTypes.string
+  downloadsCount: PropTypes.number
 };
 

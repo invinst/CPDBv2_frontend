@@ -1,0 +1,95 @@
+@import 'variables'
+
+%thumbnailCol
+  width: 84px
+
+%largeCol
+  min-width: 252px
+  width: calc((100% - 162px) * 0.3)
+
+%countsCol
+  min-width: 185px
+  width: calc((100% - 162px) * 0.2)
+
+%dateCol
+  min-width: 139px
+  width: calc((100% - 162px) * 0.2)
+
+%toggleCol
+  width: 77px
+
+%cell
+  overflow: hidden
+  display: inline-block
+  vertical-align: top
+  box-sizing: border-box
+  transition: color 0.2s ease-in-out
+
+\:local(.row)
+  background-color: $sugar-cane-color
+  height: 80px
+  width: 100%
+  text-align: left
+  margin-bottom: 2px
+  cursor: pointer
+  transition: background-color 0.2s ease-in-out
+
+  &.document-faded
+    background-color: $snow-color
+
+  .document-thumbnail
+    @extend %cell
+    @extend %thumbnailCol
+    margin-top: 14px
+    margin-left: 13px
+    margin-right: 19px
+    height: 52px
+    width: 52px
+    background-position: center
+    background-repeat: no-repeat
+    background-size: contain
+
+  .document-title
+    @extend %cell
+    @extend %largeCol
+    color: $soft-black-color
+    height: 100%
+    display: inline-flex
+    flex-direction: column
+    justify-content: center
+    padding-right: 50px
+
+    &.document-faded
+      color: $light-grey-color
+
+  .document-source
+    @extend %cell
+    @extend %largeCol
+    margin-top: 31px
+    padding-right: 50px
+
+    &.document-faded
+      color: $light-grey-color
+
+  .document-counts
+    @extend %cell
+    @extend %countsCol
+    margin-top: 31px
+    padding-right: 50px
+
+    &.document-faded
+      color: $light-grey-color
+
+  .document-date
+    @extend %cell
+    @extend %dateCol
+    margin-top: 31px
+    padding-right: 50px
+
+    &.document-faded
+      color: $light-grey-color
+
+  .document-toggle
+    @extend %cell
+    @extend %toggleCol
+    margin-top: 31px

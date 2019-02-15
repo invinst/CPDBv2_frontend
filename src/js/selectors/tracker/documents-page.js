@@ -6,6 +6,7 @@ import extractQuery from 'utils/extract-query';
 
 const getTrackerDocuments = state => state.tracker.documents;
 const getPagination = state => state.tracker.pagination;
+const getDocumentsOrder = state => state.tracker.documentsOrder;
 
 const sourceMap = {
   DOCUMENTCLOUD: 'https://www.documentcloud.org/',
@@ -15,15 +16,21 @@ const sourceMap = {
 
 export const documentsSelector = createSelector(
   getTrackerDocuments,
-  documents => map(documents, doc => ({
-    id: doc.id,
-    title: doc.title,
-    thumbnail: doc['preview_image_url'],
-    source: sourceMap[doc['source_type']],
-    date: moment(doc['created_at']).format('MMM D, YYYY'),
-    viewsCount: doc['views_count'],
-    downloadsCount: doc['downloads_count']
-  })));
+  getDocumentsOrder,
+  (documents, orders) => map(orders, (id) => {
+    const doc = documents[id];
+    return {
+      id: doc.id,
+      title: doc.title,
+      thumbnail: doc['preview_image_url'],
+      source: sourceMap[doc['source_type']],
+      date: moment(doc['created_at']).format('MMM D, YYYY'),
+      viewsCount: doc['views_count'],
+      downloadsCount: doc['downloads_count'],
+      show: doc.show
+    };
+  })
+);
 
 export const hasMoreSelector = createSelector(
   getPagination,
