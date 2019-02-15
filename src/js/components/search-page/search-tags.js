@@ -14,10 +14,6 @@ class SearchTags extends Component {
       );
     }
 
-    if (tags.length === 1) {
-      return null;
-    }
-
     return map(tags, (tag, key) => (
       <span style={ tagStyle(selected === tag) } key={ key } onClick={ onSelect.bind(this, tag) }>
         { tag.toUpperCase() }

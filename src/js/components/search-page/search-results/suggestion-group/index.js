@@ -9,13 +9,6 @@ import { MORE_BUTTON } from 'utils/constants';
 import ScrollIntoView from 'components/common/scroll-into-view';
 
 export default class SuggestionGroup extends Component {
-  componentDidMount() {
-    const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
-    if (singleContent) {
-      getSuggestionWithContentType(searchText, { contentType: header }).catch(() => {});
-    }
-  }
-
   renderHeader() {
     return (<div style={ groupHeaderStyle }>{ this.props.header }</div>);
   }

@@ -39,30 +39,27 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const { query, location, params, routes, pushBreadcrumbs } = this.props;
+    const { location, params, routes, pushBreadcrumbs } = this.props;
     pushBreadcrumbs({ location, params, routes });
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
-    if (query && query.length >= 2) {
-      setTimeout(() => { this.sendSearchRequest(query); }, 500);
-    }
 
     IntercomTracking.trackSearchPage();
     showIntercomLauncher(false);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location, params, routes, pushBreadcrumbs, query, selectTag, getSuggestion } = nextProps;
+    const { location, params, routes, pushBreadcrumbs, query, isRequesting } = nextProps;
     pushBreadcrumbs({ location, params, routes });
-    if ((this.props.location.pathname !== location.pathname || this.props.contentType !== nextProps.contentType)
-      && query && query.length > 2) {
-      setTimeout(() => { this.sendSearchRequest(query); }, 500);  // TODO; need refactor
-    }
 
-    if (!isEqual(this.props.suggestionGroups, nextProps.suggestionGroups) && nextProps.suggestionGroups.length == 0) {
-      selectTag(null);
-      getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
+    if (
+      !isRequesting &&
+      !isEqual(this.props.suggestionGroups, nextProps.suggestionGroups) &&
+      nextProps.suggestionGroups.length === 0 &&
+      query
+    ) {
+      this.sendSearchRequest(query);
     }
   }
 
@@ -83,7 +80,7 @@ export default class SearchPage extends Component {
     const { focusedItem, firstItem } = this.props;
 
     // handle the case where user focuses on nothing
-    if (focusedItem.type == undefined) {
+    if (typeof focusedItem.type === 'undefined') {
       this.goToItem(firstItem);
     } else if (focusedItem.type === MORE_BUTTON) {
       this.handleSelect(focusedItem.id);
@@ -93,20 +90,13 @@ export default class SearchPage extends Component {
   }
 
   sendSearchRequest(query) {
-    const { contentType, changeSearchQuery } = this.props;
-    const limit = contentType ? null : DEFAULT_SUGGESTION_LIMIT;
+    const { changeSearchQuery, getSuggestion, selectTag } = this.props;
+
     changeSearchQuery(query);
+    selectTag(null);
 
     if (query) {
-      if (contentType) {
-        this.props.getSuggestionWithContentType(query, { contentType }).catch(() => {
-        });
-      } else {
-        this.props.getSuggestion(query, { contentType, limit }).catch(() => {
-        });
-      }
-    } else {
-      this.props.selectTag(null);
+      getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
     }
   }
 
@@ -136,10 +126,9 @@ export default class SearchPage extends Component {
       return;
     } else if (newContentType === contentType) {
       selectTag(null);
-      this.getSuggestion(query, { limit: 9 });
     } else {
       selectTag(newContentType);
-      this.getSuggestionWithContentType(this.props.query, { contentType: newContentType });
+      this.getSuggestionWithContentType(query, { contentType: newContentType });
     }
     this.resetNavigation();
   }
@@ -222,6 +211,7 @@ SearchPage.propTypes = {
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   searchTermsHidden: PropTypes.bool,
+  isRequesting: PropTypes.bool,
   params: PropTypes.object,
   routes: PropTypes.array,
   pushBreadcrumbs: PropTypes.func,

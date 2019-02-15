@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 
 import SearchResults from 'components/search-page/search-results';
 import {
-  getSuggestion,
   resetNavigation,
   getSuggestionWithContentType,
   move,
@@ -47,7 +46,6 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  getSuggestion,
   resetNavigation,
   setAliasAdminPageContent,
   getSuggestionWithContentType,

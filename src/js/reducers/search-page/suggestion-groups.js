@@ -14,9 +14,8 @@ export default handleActions({
   [constants.SUGGESTION_SINGLE_REQUEST_SUCCESS]: (state, action) => {
     const { contentType } = action.request.params;
     return {
-      [contentType]: action.request.url === state.meta.url ?
-        unionBy(state[contentType], action.payload.results, 'id') :
-        action.payload.results,
+      ...state,
+      [contentType]: unionBy(state[contentType], action.payload.results, 'id'),
       meta: { url: action.request.url }
     };
   },

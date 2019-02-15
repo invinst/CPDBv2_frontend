@@ -27,12 +27,13 @@ import editModeOnSelector from 'selectors/edit-mode-on';
 
 function mapStateToProps(state, ownProps) {
   const {
-    contentType, recentSuggestions, query, itemsPerColumn
+    contentType, recentSuggestions, query, itemsPerColumn, isRequesting
   } = state.searchPage;
   const { children } = ownProps;
   const focusedItem = getFocusedItem(state);
 
   return {
+    isRequesting,
     itemsPerColumn,
     query,
     children,

@@ -155,7 +155,6 @@ SuggestionResults.propTypes = {
   suggestionGroups: PropTypes.array,
   isRequesting: PropTypes.bool,
   editModeOn: PropTypes.bool,
-  getSuggestion: PropTypes.func,
   onLoadMore: PropTypes.func,
   resetNavigation: PropTypes.func,
   setAliasAdminPageContent: PropTypes.func,
