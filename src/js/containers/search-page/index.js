@@ -17,7 +17,7 @@ import {
 } from 'actions/search-page/search-terms';
 import { getFocusedItem } from 'selectors/search-page';
 import {
-  suggestionTagsSelector, searchResultGroupsSelector, isEmptySelector, firstItemSelector
+  suggestionTagsSelector, isEmptySelector, firstItemSelector
 } from 'selectors/search-page/search-results/suggestion-groups';
 import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
@@ -27,18 +27,16 @@ import editModeOnSelector from 'selectors/edit-mode-on';
 
 function mapStateToProps(state, ownProps) {
   const {
-    contentType, recentSuggestions, query, itemsPerColumn, isRequesting
+    contentType, recentSuggestions, query, isRequesting
   } = state.searchPage;
   const { children } = ownProps;
   const focusedItem = getFocusedItem(state);
 
   return {
     isRequesting,
-    itemsPerColumn,
     query,
     children,
     tags: suggestionTagsSelector(state),
-    suggestionGroups: searchResultGroupsSelector(state),
     contentType,
     isEmpty: isEmptySelector(state),
     focusedItem: focusedItem,

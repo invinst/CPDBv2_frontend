@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { debounce, isEmpty, isEqual } from 'lodash';
+import { debounce, isEmpty } from 'lodash';
 import { Promise } from 'es6-promise';
 import DocumentMeta from 'react-document-meta';
 
@@ -35,29 +35,32 @@ export default class SearchPage extends Component {
     this.resetNavigation = this.resetNavigation.bind(this);
 
     this.getSuggestion = debounce(this.props.getSuggestion, 100);
-    this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
   }
 
   componentDidMount() {
-    const { location, params, routes, pushBreadcrumbs } = this.props;
+    const { query, location, params, routes, pushBreadcrumbs } = this.props;
     pushBreadcrumbs({ location, params, routes });
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
+
+    query && this.sendSearchRequest(query);
 
     IntercomTracking.trackSearchPage();
     showIntercomLauncher(false);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location, params, routes, pushBreadcrumbs, query, isRequesting } = nextProps;
+    const { location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty } = nextProps;
     pushBreadcrumbs({ location, params, routes });
 
+    const queryChanged = query !== this.props.query;
+    const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;
+
     if (
+      query &&
       !isRequesting &&
-      !isEqual(this.props.suggestionGroups, nextProps.suggestionGroups) &&
-      nextProps.suggestionGroups.length === 0 &&
-      query
+      (queryChanged || suggestionGroupsEmpty)
     ) {
       this.sendSearchRequest(query);
     }
@@ -90,13 +93,13 @@ export default class SearchPage extends Component {
   }
 
   sendSearchRequest(query) {
-    const { changeSearchQuery, getSuggestion, selectTag } = this.props;
+    const { changeSearchQuery, selectTag } = this.props;
 
     changeSearchQuery(query);
     selectTag(null);
 
     if (query) {
-      getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
+      this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
     }
   }
 
@@ -120,7 +123,7 @@ export default class SearchPage extends Component {
   }
 
   handleSelect(newContentType) {
-    const { contentType, query, selectTag } = this.props;
+    const { contentType, selectTag } = this.props;
 
     if (newContentType === RECENT_CONTENT_TYPE) {
       return;
@@ -128,7 +131,6 @@ export default class SearchPage extends Component {
       selectTag(null);
     } else {
       selectTag(newContentType);
-      this.getSuggestionWithContentType(query, { contentType: newContentType });
     }
     this.resetNavigation();
   }
@@ -195,11 +197,9 @@ SearchPage.propTypes = {
     pathname: PropTypes.string
   }),
   focusedItem: PropTypes.object,
-  suggestionGroups: PropTypes.array,
   tags: PropTypes.array,
   recentSuggestions: PropTypes.array,
   getSuggestion: PropTypes.func,
-  getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
   trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
@@ -223,15 +223,10 @@ SearchPage.propTypes = {
 
 /* istanbul ignore next */
 SearchPage.defaultProps = {
-  suggestionGroups: [],
   contentType: null,
   focusedItem: {},
   getSuggestion: () => new Promise(() => {}),
-  getSuggestionWithContentType: () => new Promise(() => {}),
   trackRecentSuggestion: () => {},
-  router: {
-    goBack: () => {}
-  },
   changeSearchQuery: () => {},
   location: {
     pathname: '/'

@@ -52,20 +52,22 @@ export const isShowingSingleContentTypeSelector = createSelector(
 */
 export const slicedSuggestionGroupsSelector = createSelector(
   getSuggestionGroups,
+  isShowingSingleContentTypeSelector,
   getSuggestionContentType,
-  (suggestionGroups, contentType) => {
+  (suggestionGroups, isSingle, contentType) => {
     let groups = pick(omitBy(suggestionGroups, isEmpty), contentType || constants.SEARCH_CATEGORIES);
 
     let lastIndex = 1;
     return keys(groups).map((key) => {
-      let items = contentType ? groups[key] : groups[key].slice(0, itemsPerCategory);
+      let items = isSingle ? groups[key] : groups[key].slice(0, itemsPerCategory);
       items = map(items, item => ({
         ...item,
         type: key,
         itemIndex: lastIndex++
       }));
 
-      const canLoadMore = !contentType && items.length >= itemsPerCategory;
+      const canLoadMore = !isSingle && items.length >= itemsPerCategory;
+      canLoadMore && lastIndex++;
       return {
         header: key,
         items,

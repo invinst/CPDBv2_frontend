@@ -24,7 +24,7 @@ import { getFocusedItem } from 'selectors/search-page';
 
 function mapStateToProps(state, ownProps) {
   const { onLoadMore, aliasEditModeOn, editModeOn } = ownProps;
-  const { isRequesting, navigation, query, contentType } = state.searchPage;
+  const { isRequesting, navigation, query } = state.searchPage;
 
   return {
     navigation,
@@ -32,7 +32,6 @@ function mapStateToProps(state, ownProps) {
     aliasEditModeOn,
     isEmpty: isEmptySelector(state),
     searchText: query,
-    contentType,
     editModeOn,
     suggestionGroups: searchResultGroupsSelector(state),
     isRequesting,
