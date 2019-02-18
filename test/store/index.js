@@ -204,10 +204,13 @@ describe('store', function () {
       embed: {
         officers: []
       },
-      tracker: {
+      documentsOverviewPage: {
         documents: {},
         documentsOrder: [],
         pagination: {}
+      },
+      documentDeduplicatorPage: {
+        documents: []
       }
     });
   });

@@ -2,7 +2,7 @@ import { Promise } from 'es6-promise';
 import { every } from 'lodash';
 
 import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID } from 'utils/constants';
-import { getOfficerId, getCRID, getTRRId, getUnitName } from 'utils/location';
+import { getOfficerId, getCRID, getTRRId, getUnitName, getDocDedupCRID } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
 import { hasCMSContent } from 'selectors/cms';
@@ -26,7 +26,7 @@ import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries'
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
-import { fetchTrackerDocuments } from 'actions/tracker/documents-page';
+import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 
 let prevPathname = '';
 
@@ -137,8 +137,9 @@ export default store => next => action => {
     }
   }
 
-  else if (action.payload.pathname.match(/tracker\/documents/)) {
-    dispatches.push(store.dispatch(fetchTrackerDocuments()));
+  else if (action.payload.pathname.match(/\/doc-deduplicator\//)) {
+    const crid = getDocDedupCRID(action.payload.pathname);
+    dispatches.push(store.dispatch(fetchDocumentsByCRID(crid)));
   }
 
   if (dispatches.length > 0) {

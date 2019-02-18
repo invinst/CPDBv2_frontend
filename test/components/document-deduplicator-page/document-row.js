@@ -9,9 +9,9 @@ import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 
-import DocumentRow from 'components/tracker/documents-page/document-row';
-import Toggle from 'components/tracker/documents-page/document-row/toggle';
-import Counter from 'components/tracker/documents-page/document-row/counter';
+import DocumentRow from 'components/document-deduplicator-page/document-row';
+import Toggle from 'components/document-deduplicator-page/document-row/toggle';
+import Counter from 'components/document-deduplicator-page/document-row/counter';
 
 describe('Document-row component', function () {
   let instance;

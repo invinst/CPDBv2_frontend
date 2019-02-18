@@ -1,0 +1,65 @@
+@import 'variables'
+
+\:local(.table)
+  width: calc(100% - 36px)
+  min-width: 989px
+  margin-left: 18px
+  margin-right: 18px
+  font-size: 14px
+  color: $clay-gray
+
+%headerCol
+  font-weight: 300
+  text-align: left
+  display: inline-block
+  height: 100%
+  vertical-align: top
+
+%thumbnailCol
+  width: 84px
+
+%largeCol
+  min-width: 252px
+  width: calc((100% - 162px) * 0.3)
+
+%countsCol
+  min-width: 185px
+  width: calc((100% - 162px) * 0.2)
+
+%dateCol
+  min-width: 139px
+  width: calc((100% - 162px) * 0.2)
+
+%toggleCol
+  width: 77px
+
+\:local(.headerRow)
+  background-color: white
+  text-transform: uppercase
+  height: 69px
+  box-sizing: border-box
+  padding-top: 26px
+
+  .header-thumbnail
+    @extend %headerCol
+    @extend %thumbnailCol
+
+  .header-title
+    @extend %headerCol
+    @extend %largeCol
+
+  .header-source
+    @extend %headerCol
+    @extend %largeCol
+
+  .header-counts
+    @extend %headerCol
+    @extend %countsCol
+
+  .header-date
+    @extend %headerCol
+    @extend %dateCol
+
+  .header-toggle
+    @extend %headerCol
+    @extend %toggleCol

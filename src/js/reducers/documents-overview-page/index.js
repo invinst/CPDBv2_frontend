@@ -5,10 +5,10 @@ import pagination from './pagination';
 import documentsOrder from './documents-order';
 
 
-const tracker = combineReducers({
+const documentsOverviewPage = combineReducers({
   documents,
   pagination,
   documentsOrder,
 });
 
-export default tracker;
+export default documentsOverviewPage;

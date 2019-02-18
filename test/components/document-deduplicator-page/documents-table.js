@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import DocumentsTable from 'components/tracker/documents-page/documents-table';
+import DocumentsTable from 'components/document-deduplicator-page/documents-table';
 
 describe('DocumentsTable component', function () {
   it('should render rows');

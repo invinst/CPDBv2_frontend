@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Counter from 'components/tracker/documents-page/document-row/counter';
+import Counter from 'components/document-deduplicator-page/document-row/counter';
 
 describe('Counter component', function () {
   let instance;

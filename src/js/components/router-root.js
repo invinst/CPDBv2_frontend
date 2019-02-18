@@ -15,7 +15,7 @@ import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
 import HeatMapContainer from 'containers/embeddable-heat-map';
 import EmbedTopOfficersPage from 'components/landing-page/embed/top-officers-page';
 import EmbedOfficersContainer from 'containers/embed/officers';
-import DocumentListContainer from 'containers/tracker/documents-page-container';
+import DocumentDeduplicatorContainer from 'containers/document-deduplicator-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -102,8 +102,8 @@ export default class RouterRoot extends Component {
               component={ EmbedOfficersContainer }/>
             <Route
               path={ TRACKER_ALL_DOCUMENTS_PATH }
-              component={ DocumentListContainer }
-              breadcrumb='Documents' />
+              component={ DocumentDeduplicatorContainer }
+              breadcrumb={ BreadcrumbItemContainer }/>
             <Redirect from='*' to='/'/>
           </Route>
         </Router>

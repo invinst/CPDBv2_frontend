@@ -3,7 +3,7 @@ import { handleActions } from 'redux-actions';
 import * as constants from 'utils/constants';
 
 export default handleActions({
-  [constants.TRACKER_DOCUMENTS_REQUEST_SUCCESS]:
+  [constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS]:
     (state, action) => {
       let docsDict = {};
       for (let i = 0; i < action.payload.results.length; i++) {
@@ -12,12 +12,5 @@ export default handleActions({
       }
 
       return { ...state, ...docsDict };
-    },
-  [constants.TRACKER_DOCUMENTS_TOGGLE_SHOW_REQUEST_SUCCESS]:
-    (state, action) => {
-      const id = parseInt(action.request.url.replace(/.+attachments\/(\d+).*/, '$1'));
-      state[id].show = action.payload.show;
-
-      return { ...state };
     }
 }, {});

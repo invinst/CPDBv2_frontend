@@ -2,17 +2,12 @@ import { createSelector } from 'reselect';
 import { map } from 'lodash';
 import moment from 'moment';
 
+import * as constants from 'utils/constants';
 import extractQuery from 'utils/extract-query';
 
 const getTrackerDocuments = state => state.tracker.documents;
 const getPagination = state => state.tracker.pagination;
 const getDocumentsOrder = state => state.tracker.documentsOrder;
-
-const sourceMap = {
-  DOCUMENTCLOUD: 'https://www.documentcloud.org/',
-  COPA: 'https://www.chicagocopa.org/',
-  COPA_DOCUMENTCLOUD: 'https://www.chicagocopa.org/',
-};
 
 export const documentsSelector = createSelector(
   getTrackerDocuments,
@@ -23,7 +18,7 @@ export const documentsSelector = createSelector(
       id: doc.id,
       title: doc.title,
       thumbnail: doc['preview_image_url'],
-      source: sourceMap[doc['source_type']],
+      source: constants.DOCUMENT_SOURCE_MAP[doc['source_type']],
       date: moment(doc['created_at']).format('MMM D, YYYY'),
       viewsCount: doc['views_count'],
       downloadsCount: doc['downloads_count'],

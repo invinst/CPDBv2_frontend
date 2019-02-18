@@ -1,21 +1,21 @@
 import Cookies from 'js-cookie';
 import { stub } from 'sinon';
 
-import { fetchTrackerDocuments, setDocumentShow } from 'actions/tracker/documents-page';
+import { fetchDocumentsByCRID, setDocumentShow } from 'actions/document-deduplicator-page.js';
 import * as constants from 'utils/constants';
 
-describe('documents page actions', function () {
-  describe('fetchTrackerDocuments', function () {
+describe('document decuplicator page actions', function () {
+  describe('fetchDocumentsByCRID', function () {
     it('should return correct action', function () {
-      fetchTrackerDocuments({ offset: 20 }).should.deepEqual({
+      fetchDocumentsByCRID(1).should.deepEqual({
         types: [
-          constants.TRACKER_DOCUMENTS_REQUEST_START,
-          constants.TRACKER_DOCUMENTS_REQUEST_SUCCESS,
-          constants.TRACKER_DOCUMENTS_REQUEST_FAILURE],
+          constants.DOCUMENT_DEDUPLICATOR_REQUEST_START,
+          constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
+          constants.DOCUMENT_DEDUPLICATOR_REQUEST_FAILURE],
         payload: {
           request: {
-            url: constants.TRACKER_DOCUMENTS_URL,
-            params: { offset: 20 },
+            url: constants.DOCUMENTS_URL,
+            params: { crid: 1, limit: 100 },
             adapter: null
           }
         }
@@ -28,12 +28,12 @@ describe('documents page actions', function () {
       stub(Cookies, 'get').returns('authenticated_token');
       setDocumentShow(3001, true).should.deepEqual({
         types: [
-          constants.TRACKER_DOCUMENTS_TOGGLE_SHOW_REQUEST_START,
-          constants.TRACKER_DOCUMENTS_TOGGLE_SHOW_REQUEST_SUCCESS,
-          constants.TRACKER_DOCUMENTS_TOGGLE_SHOW_REQUEST_FAILURE],
+          constants.DOCUMENT_VISIBILITY_TOGGLE_REQUEST_START,
+          constants.DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS,
+          constants.DOCUMENT_VISIBILITY_TOGGLE_REQUEST_FAILURE],
         payload: {
           request: {
-            url: `${constants.TRACKER_DOCUMENTS_URL}3001/`,
+            url: `${constants.DOCUMENTS_URL}3001/`,
             data: { show: true },
             adapter: null,
             method: 'patch',

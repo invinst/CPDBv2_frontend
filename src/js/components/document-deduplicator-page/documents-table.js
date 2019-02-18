@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 import { map } from 'lodash';
-import InfiniteScroll from 'react-infinite-scroller';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import DocumentRow from './document-row';
@@ -8,7 +7,7 @@ import styles from './documents-table.sass';
 
 export default class DocumentsTable extends Component {
   render() {
-    const { rows, nextParams, hasMore, fetchTrackerDocuments, setDocumentShow } = this.props;
+    const { rows, setDocumentShow } = this.props;
 
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
@@ -21,17 +20,11 @@ export default class DocumentsTable extends Component {
             <span className='header-date'>Date</span>
             <span className='header-toggle'/>
           </div>
-          <InfiniteScroll
-            loadMore={ () => fetchTrackerDocuments({ ...nextParams }) }
-            initialLoad={ false }
-            hasMore={ hasMore }
-            useWindow={ true }>
-            {
-              map(rows, row => (
-                <DocumentRow { ...row } key={ row.id } setDocumentShow={ setDocumentShow }/>
-              ))
-            }
-          </InfiniteScroll>
+          {
+            map(rows, row => (
+              <DocumentRow { ...row } key={ row.id } setDocumentShow={ setDocumentShow }/>
+            ))
+          }
         </div>
       </div>
     );
@@ -40,8 +33,5 @@ export default class DocumentsTable extends Component {
 
 DocumentsTable.propTypes = {
   rows: PropTypes.array,
-  hasMore: PropTypes.bool,
-  nextParams: PropTypes.object,
-  setDocumentShow: PropTypes.func,
-  fetchTrackerDocuments: PropTypes.func
+  setDocumentShow: PropTypes.func
 };

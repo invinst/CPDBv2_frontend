@@ -3,7 +3,7 @@ import { renderIntoDocument, Simulate } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { spy, stub } from 'sinon';
 
-import Toggle from 'components/tracker/documents-page/document-row/toggle';
+import Toggle from 'components/document-deduplicator-page/document-row/toggle';
 
 import { unmountComponentSuppressError } from 'utils/test';
 
