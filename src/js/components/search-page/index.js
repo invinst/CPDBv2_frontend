@@ -138,7 +138,7 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
       editModeOn, officerCards, requestActivityGrid,
-      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion
+      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, isRequesting
     } = this.props;
 
     return (
@@ -180,6 +180,7 @@ export default class SearchPage extends Component {
                   requestActivityGrid={ requestActivityGrid }
                   searchTermsHidden={ searchTermsHidden }
                   handleSelect={ this.handleSelect }
+                  isRequesting={ isRequesting }
                 />
             }
           </div>

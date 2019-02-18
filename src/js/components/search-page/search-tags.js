@@ -6,9 +6,9 @@ import { tagStyle, tagsWrapperStyle, dataToolTagStyle } from './search-tags.styl
 
 class SearchTags extends Component {
   renderTags() {
-    const { tags, selected, onSelect } = this.props;
+    const { tags, selected, onSelect, isRequesting } = this.props;
 
-    if (isEmpty(tags)) {
+    if (isEmpty(tags) && !isRequesting) {
       return (
         <span style={ dataToolTagStyle }>Data Tool</span>
       );
@@ -33,7 +33,8 @@ class SearchTags extends Component {
 SearchTags.propTypes = {
   tags: PropTypes.array,
   selected: PropTypes.string,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  isRequesting: PropTypes.bool,
 };
 
 export default SearchTags;
