@@ -38,20 +38,20 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const { query, location, params, routes, pushBreadcrumbs } = this.props;
+    const { query, location, params, routes, pushBreadcrumbs, contentType } = this.props;
     pushBreadcrumbs({ location, params, routes });
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
 
-    query && this.sendSearchRequest(query);
+    this.getSuggestion(query, { contentType, limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
 
     IntercomTracking.trackSearchPage();
     showIntercomLauncher(false);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty } = nextProps;
+    const { location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType } = nextProps;
     pushBreadcrumbs({ location, params, routes });
 
     const queryChanged = query !== this.props.query;
@@ -62,7 +62,7 @@ export default class SearchPage extends Component {
       !isRequesting &&
       (queryChanged || suggestionGroupsEmpty)
     ) {
-      this.sendSearchRequest(query);
+      this.getSuggestion(query, { contentType, limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
     }
   }
 
@@ -92,17 +92,6 @@ export default class SearchPage extends Component {
     }
   }
 
-  sendSearchRequest(query) {
-    const { changeSearchQuery, selectTag } = this.props;
-
-    changeSearchQuery(query);
-    selectTag(null);
-
-    if (query) {
-      this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
-    }
-  }
-
   resetNavigation(payload) {
     const { resetSearchResultNavigation, resetSearchTermNavigation, searchTermsHidden } = this.props;
     const resetNavigation = searchTermsHidden ? resetSearchResultNavigation : resetSearchTermNavigation;
@@ -110,10 +99,17 @@ export default class SearchPage extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
-    if (!this.props.searchTermsHidden) {
+    const { changeSearchQuery, selectTag, searchTermsHidden } = this.props;
+
+    if (!searchTermsHidden) {
       browserHistory.push(`/${constants.SEARCH_PATH}`);
     }
-    this.sendSearchRequest(value);
+    changeSearchQuery(value);
+    selectTag(null);
+
+    if (value) {
+      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
+    }
   }
 
   handleGoBack(e) {
