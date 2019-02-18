@@ -10,7 +10,7 @@ let source;
 
 const cancelOldRequest = (newRequest) => (...args) => {
   if (source) {
-    source.cancel('Cancelled by user');
+    source.cancel(constants.SUGGESTION_REQUEST_CANCEL_MESSAGE);
   }
   source = CancelToken.source();
   return newRequest(...args);
