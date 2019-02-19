@@ -37,7 +37,7 @@ export default class ShareableHeader extends Component {
   }
 
   render() {
-    const { location, routes, params, Menu, buttonText } = this.props;
+    const { location, routes, params, Menu, buttonText, hasHeaderButton } = this.props;
 
     const separatorRenderer = <li className='shareable-header-breadcrumb-separator'/>;
 
@@ -50,7 +50,13 @@ export default class ShareableHeader extends Component {
               className='shareable-header-nav-bar'
               ref={ el => { this.placeholderElement = el; } }
             >
-              <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
+              {
+                hasHeaderButton ?
+                  <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
+                  :
+                  null
+              }
+
               <Breadcrumbs
                 className='breadcrumbs'
                 routes={ routes }
@@ -77,6 +83,7 @@ ShareableHeader.propTypes = {
   updateShareablePageScrollPosition: PropTypes.func,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   buttonText: PropTypes.string,
+  hasHeaderButton: PropTypes.bool,
 };
 
 ShareableHeader.defaultProps = {
@@ -84,5 +91,6 @@ ShareableHeader.defaultProps = {
   location: {
     pathname: ''
   },
-  routes: []
+  routes: [],
+  hasHeaderButton: true,
 };

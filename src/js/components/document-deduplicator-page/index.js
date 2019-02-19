@@ -13,7 +13,7 @@ export default class DocumentDeduplicatorPage extends Component {
 
     return (
       <div>
-        <ShareableHeaderContainer/>
+        <ShareableHeaderContainer hasHeaderButton={ false }/>
         <DocumentsTable
           rows={ documents }
           setDocumentShow={ setDocumentShow }/>

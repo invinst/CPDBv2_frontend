@@ -3,7 +3,8 @@ import { Provider } from 'react-redux';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
+  scryRenderedComponentsWithType
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import Breadcrumbs from 'redux-breadcrumb-trail';
@@ -82,6 +83,35 @@ describe('ShareableHeader component', function () {
       element.handleScroll();
       element.state.position.should.eql('bottom');
     });
+  });
+});
+
+describe('ShareableHeader component no HeaderButton', function () {
+  let element;
+  let instance;
+  const mockStore = MockStore();
+  const store = mockStore({
+    breadcrumb: {
+      breadcrumbs: []
+    }
+  });
+
+  beforeEach (function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <ShareableHeaderContainer hasHeaderButton={ false }/>
+      </Provider>
+    );
+    element = findRenderedComponentWithType(instance, ShareableHeader);
+  });
+
+  afterEach(function () {
+    unmountComponentSuppressError(instance);
+  });
+
+  it('should not render HeaderButton if hasHeaderButton is False', function () {
+    const headerButtons = scryRenderedComponentsWithType(element, HeaderButton);
+    headerButtons.length.should.eql(0);
   });
 });
 
