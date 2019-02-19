@@ -35,6 +35,7 @@ export default class SearchPage extends Component {
     this.resetNavigation = this.resetNavigation.bind(this);
 
     this.getSuggestion = debounce(this.props.getSuggestion, 100);
+    this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
   }
 
   componentDidMount() {
@@ -44,7 +45,13 @@ export default class SearchPage extends Component {
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
 
-    this.getSuggestion(query, { contentType, limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
+    if (query) {
+      if (contentType) {
+        this.getSuggestionWithContentType(query, { contentType });
+      } else {
+        this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
+      }
+    }
 
     IntercomTracking.trackSearchPage();
     showIntercomLauncher(false);
@@ -62,7 +69,11 @@ export default class SearchPage extends Component {
       !isRequesting &&
       (queryChanged || suggestionGroupsEmpty)
     ) {
-      this.getSuggestion(query, { contentType, limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
+      if (contentType) {
+        this.getSuggestionWithContentType(query, { contentType });
+      } else {
+        this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
+      }
     }
   }
 
@@ -196,6 +207,7 @@ SearchPage.propTypes = {
   tags: PropTypes.array,
   recentSuggestions: PropTypes.array,
   getSuggestion: PropTypes.func,
+  getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
   trackRecentSuggestion: PropTypes.func,
   contentType: PropTypes.string,
@@ -222,6 +234,7 @@ SearchPage.defaultProps = {
   contentType: null,
   focusedItem: {},
   getSuggestion: () => new Promise(() => {}),
+  getSuggestionWithContentType: () => new Promise(() => {}),
   trackRecentSuggestion: () => {},
   changeSearchQuery: () => {},
   location: {

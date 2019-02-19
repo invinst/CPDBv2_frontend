@@ -2,9 +2,11 @@ import { handleActions } from 'redux-actions';
 import { unionBy, omitBy, isEmpty } from 'lodash';
 
 import * as constants from 'utils/constants';
+import { LOCATION_CHANGE } from 'utils/constants';
 
 
 export default handleActions({
+  [LOCATION_CHANGE]: () => ({ meta: {} }),
   [constants.SUGGESTION_REQUEST_START]: (state, action) => ({ meta: {} }),
   [constants.SUGGESTION_REQUEST_SUCCESS]: (state, action) => ({
     ...omitBy(action.payload, isEmpty), meta: { url: action.request.url }
