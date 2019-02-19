@@ -45,6 +45,36 @@ export default class SearchPage extends Component {
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
 
+    this.sendSearchQuery(query, contentType);
+
+    IntercomTracking.trackSearchPage();
+    showIntercomLauncher(false);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const {
+      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType, selectTag
+    } = nextProps;
+    pushBreadcrumbs({ location, params, routes });
+
+    const queryChanged = query !== this.props.query;
+    const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;
+
+    if (!isRequesting && (queryChanged || suggestionGroupsEmpty)) {
+      this.sendSearchQuery(query, contentType);
+    }
+
+    if (!isRequesting && suggestionGroupsEmpty)
+      selectTag(null);
+  }
+
+  componentWillUnmount() {
+    LayeredKeyBinding.unbind('esc');
+    LayeredKeyBinding.unbind('enter');
+    showIntercomLauncher(true);
+  }
+
+  sendSearchQuery(query, contentType) {
     if (query) {
       if (contentType) {
         this.getSuggestionWithContentType(query, { contentType });
@@ -52,35 +82,6 @@ export default class SearchPage extends Component {
         this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
       }
     }
-
-    IntercomTracking.trackSearchPage();
-    showIntercomLauncher(false);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType } = nextProps;
-    pushBreadcrumbs({ location, params, routes });
-
-    const queryChanged = query !== this.props.query;
-    const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;
-
-    if (
-      query &&
-      !isRequesting &&
-      (queryChanged || suggestionGroupsEmpty)
-    ) {
-      if (contentType) {
-        this.getSuggestionWithContentType(query, { contentType });
-      } else {
-        this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    LayeredKeyBinding.unbind('esc');
-    LayeredKeyBinding.unbind('enter');
-    showIntercomLauncher(true);
   }
 
   goToItem(item) {
