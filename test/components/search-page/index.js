@@ -54,38 +54,21 @@ describe('SearchPage component', function () {
     this.debounceStub.restore();
   });
 
-  it('should call get suggestion api when no contentType selected', function () {
-    const getSuggestion = stub().returns({ catch: spy() });
-
-    instance = renderIntoDocument(
-      <SearchPage getSuggestion={ getSuggestion } />
-    );
-    const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
-    searchInput.value = 'a';
-    Simulate.change(searchInput);
-    getSuggestion.calledWith('a', {
-      contentType: null,
-      limit: 9
-    }).should.be.true();
-  });
-
   it('should call get suggestion api when contentType is selected', function () {
-    const getSuggestionWithContentType = stub().returns({ catch: spy() });
+    const getSuggestion = stub().returns({ catch: spy() });
     const contentType = 'OFFICER';
-
     instance = renderIntoDocument(
       <SearchPage
         contentType={ contentType }
-        getSuggestionWithContentType={ getSuggestionWithContentType }
-
+        getSuggestion={ getSuggestion }
       />
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = 'a';
+
     Simulate.change(searchInput);
-    getSuggestionWithContentType.calledWith('a', {
-      contentType
-    }).should.be.true();
+
+    getSuggestion.should.be.calledWith('a', { limit: 9 });
   });
 
   it('should clear all tags when user remove all text', function () {
@@ -190,14 +173,15 @@ describe('SearchPage component', function () {
   });
 
   it('should call api with content type when user select a tag', function () {
-    const getSuggestionWithContentType = spy();
+    const selectTagSpy = spy();
     const tags = ['a', 'b'];
 
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage
-          getSuggestionWithContentType={ getSuggestionWithContentType }
-          tags={ tags } query={ 'a' }
+          selectTag={ selectTagSpy }
+          tags={ tags }
+          query={ 'a' }
         />
       </Provider>
     );
@@ -206,14 +190,12 @@ describe('SearchPage component', function () {
     const tagElements = scryRenderedDOMComponentsWithTag(suggestionTagsElement, 'span');
     Simulate.click(tagElements[0]);
 
-    getSuggestionWithContentType.calledWith('a', {
-      contentType: 'a'
-    }).should.be.true();
+    selectTagSpy.calledWith('a').should.be.true();
   });
 
   it('should not call api when select recent content', function () {
     const getSuggestionWithContentType = spy();
-    const getSuggestion = spy();
+    const getSuggestion = stub().returns({ catch: spy() });
     const tags = [RECENT_CONTENT_TYPE, 'b'];
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -227,25 +209,28 @@ describe('SearchPage component', function () {
     );
     const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
     const tagElements = scryRenderedDOMComponentsWithTag(suggestionTagsElement, 'span');
+
+    getSuggestion.reset();
+
     Simulate.click(tagElements[0]);
     getSuggestionWithContentType.called.should.be.false();
     getSuggestion.called.should.be.false();
   });
 
-  it('should call api when user deselect a tag', function () {
-    const getSuggestion = spy();
+  it('should call selectTag(null) when user deselect a tag', function () {
     const tags = ['a', 'b'];
+    const selectTagSpy = spy();
 
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <SearchPage getSuggestion={ getSuggestion } tags={ tags } contentType='a' query='c' />
+        <SearchPage tags={ tags } selectTag={ selectTagSpy } contentType='a' query='c' />
       </Provider>
     );
 
     const suggestionTagsElement = findRenderedComponentWithType(instance, SearchTags);
     const tagElements = scryRenderedDOMComponentsWithTag(suggestionTagsElement, 'span');
     Simulate.click(tagElements[0]);
-    getSuggestion.calledWith('c').should.be.true();
+    selectTagSpy.calledWith(null).should.be.true();
   });
 
   it('should call resetSearchResultNavigation if SearchPage resetNavigation is called when Search Term is hidden',
@@ -276,33 +261,11 @@ describe('SearchPage component', function () {
     afterEach(function () {
       clock.restore();
     });
-
-    it('should called changeSearchQuery when pathname and query changed', function () {
-      const changeSearchQuery = spy();
-      instance = renderIntoDocument(
-        <Provider store={ store }>
-          <SearchPage location={ { pathname: 'a' } } changeSearchQuery={ changeSearchQuery }/>
-        </Provider>
-      );
-
-      reRender(
-        <Provider store={ store }>
-          <SearchPage
-            query='xxx'
-            location={ { pathname: 'b' } }
-            changeSearchQuery={ changeSearchQuery }
-          />
-        </Provider>,
-        instance
-      );
-      clock.tick(600);
-      changeSearchQuery.calledWith('xxx').should.be.true();
-    });
   });
 
   it('should deselect tag and call getSuggestion when the selected tag has no data', function () {
     const selectTagSpy = spy();
-    const getSuggestionSpy = spy();
+    const getSuggestionSpy = stub().returns({ catch: spy() });
 
     instance = renderIntoDocument(
       <Provider store={ store }>
@@ -326,7 +289,6 @@ describe('SearchPage component', function () {
       instance
     );
 
-    selectTagSpy.calledWith(null).should.be.true();
     getSuggestionSpy.calledWith('abc', { limit: 9 }).should.be.true();
   });
 
