@@ -40,7 +40,7 @@ export default class DocumentRow extends Component {
           <Toggle
             on={ show }
             onChange={ visible => setDocumentShow(id, !visible) }>
-            show
+            { show ? 'show' : 'hide' }
           </Toggle>
         </span>
       </div>

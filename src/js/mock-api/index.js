@@ -16,6 +16,7 @@ import {
   UNIT_PROFILE_URL,
   TRR_URL,
   POPUP_API_URL,
+  DOCUMENTS_URL
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -37,6 +38,7 @@ import getSearchTermsData from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
 import { getCommunity } from './community';
+import getDocumentsByCRIDData from './document-deduplicator-page/get-documents-by-crid';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -123,6 +125,10 @@ axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup()
 
 axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'community', contentType: 'COMMUNITY' } })
   .reply(() => { return [200, getCommunity()]; });
+
+axiosMockClient.onGet(DOCUMENTS_URL).reply(200, getDocumentsByCRIDData());
+
+axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`).reply(200, { show: false });
 
 /*istanbul ignore next*/
 export function getMockAdapter() {
