@@ -5,9 +5,9 @@ import moment from 'moment';
 import * as constants from 'utils/constants';
 import extractQuery from 'utils/extract-query';
 
-const getTrackerDocuments = state => state.tracker.documents;
-const getPagination = state => state.tracker.pagination;
-const getDocumentsOrder = state => state.tracker.documentsOrder;
+const getTrackerDocuments = state => state.documentsOverviewPage.documents;
+const getPagination = state => state.documentsOverviewPage.pagination;
+const getDocumentsOrder = state => state.documentsOverviewPage.documentsOrder;
 
 export const documentsSelector = createSelector(
   getTrackerDocuments,

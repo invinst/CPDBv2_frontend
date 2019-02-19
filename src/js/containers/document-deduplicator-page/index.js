@@ -4,7 +4,7 @@ import {
   documentsSelector
 } from 'selectors/document-deduplicator-page';
 import DocumentsPage from 'components/document-deduplicator-page';
-import { setDocumentShow } from 'actions/document-deduplicator-page.js';
+import { setDocumentShow } from 'actions/document-deduplicator-page';
 
 function mapStateToProps(state, ownProps) {
   return {

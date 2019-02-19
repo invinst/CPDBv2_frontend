@@ -1,8 +1,9 @@
 import Cookies from 'js-cookie';
 import { stub } from 'sinon';
 
-import { fetchDocumentsByCRID, setDocumentShow } from 'actions/document-deduplicator-page.js';
+import { fetchDocumentsByCRID, setDocumentShow } from 'actions/document-deduplicator-page';
 import * as constants from 'utils/constants';
+
 
 describe('document decuplicator page actions', function () {
   describe('fetchDocumentsByCRID', function () {

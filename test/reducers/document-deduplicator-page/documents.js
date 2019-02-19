@@ -4,7 +4,7 @@ import * as constants from 'utils/constants';
 
 describe('documents reducer', function () {
   it('should have initial state', function () {
-    documents(undefined, []).should.deepEqual([]);
+    documents(undefined, {}).should.deepEqual([]);
   });
 
   it('should handle DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS', function () {
