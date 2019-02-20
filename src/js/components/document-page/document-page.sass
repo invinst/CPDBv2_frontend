@@ -1,0 +1,108 @@
+@import 'variables'
+
+
+\:local(.document-page)
+  .document-wrapper
+    padding: 36px 0 64px 0
+
+    .document-side-bar
+      width: 285px
+      padding: 0 17px
+      display: inline-block
+      vertical-align: top
+
+      .document-thumbnail
+        display: block
+        width: 285px
+        height: 375px
+        margin-bottom: 24px
+        position: relative
+        border: 1px solid $white-two-color
+
+        img
+          margin: auto
+          display: inline-block
+          position: absolute
+          top: 0
+          left: 0
+          right: 0
+          bottom: 0
+          max-width: 100%
+          max-height: 100%
+          width: auto
+          height: auto
+
+        .document-thumbnail-page-count
+          display: inline-block
+          position: absolute
+          height: 22px
+          line-height: 22px
+          color: white
+          font-size: 12px
+          background-color: $clay-gray
+          opacity: 0.8
+          border-radius: 2px
+          padding: 0 8px
+          bottom: 11px
+          left: 10px
+
+      .document-info
+        padding-bottom: 42px
+
+      .linked-documents
+        margin-left: -8px
+
+        .linked-documents-title
+          color: $clay-gray
+          margin-bottom: 1px
+          font-size: 14px
+          margin-left: 8px
+
+        .linked-documents-thumbnail
+          margin: 9px 0 0 8px
+          display: inline-block
+          vertical-align: top
+          width: 40px
+          height: 58px
+
+
+          &.linked-documents-more
+            width: 40px
+            height: 58px
+            line-height: 58px
+            border: 1px solid $white-two-color
+            text-align: center
+            box-sizing: border-box
+            font-size: 14px
+            color: $clay-gray
+
+    .main-section
+      height: 888px
+      display: inline-block
+      position: relative
+      width: calc(100% - 353px)
+      background-color: $sugar-cane-color
+      padding: 20px 21px 0 23px
+      box-sizing: border-box
+      vertical-align: top
+      border-radius: 2px
+      border: 1px solid $white-two-color
+
+      .main-section-last-edited
+        position: absolute
+        bottom: 0
+        left: 0
+        right: 0
+        background-color: $hawkes-blue
+        color: $soft-black-color
+        padding: 12px 23px 13px 23px
+        font-size: 12px
+        height: 40px
+        line-height: 15px
+        border-radius: 2px
+        box-sizing: border-box
+        font-weight: 300
+
+        .last-edited-highlight
+          color: $accent-color
+          font-weight: 500

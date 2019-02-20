@@ -1,0 +1,24 @@
+@import 'variables'
+
+\:local(.simple-list-widget)
+  .list-item
+    display: block
+    padding: 11px 0 12px 0
+    line-height: 18px
+    font-size: 14px
+    border-bottom: 1px solid $white-two-color
+
+    .list-item-name
+      display: inline-block
+      width: 115px
+      color: $clay-gray
+      padding-right: 11px
+
+    .list-item-value
+      display: inline-block
+      width: calc(100% - 126px)
+      color: $soft-black-color
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+      vertical-align: bottom
