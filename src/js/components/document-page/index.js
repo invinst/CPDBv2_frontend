@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 import { Link } from 'react-router';
 
-import { slice } from 'lodash';
+import { slice, isUndefined } from 'lodash';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import styles from './document-page.sass';
@@ -37,10 +37,17 @@ export default class DocumentPage extends Component {
       { name: 'Source', value: source, url: source },
       { name: 'Crawler', value: crawlerName },
       { name: 'Date', value: createdAt },
-      { name: 'Views', value: viewCount.toLocaleString() },
-      { name: 'Downloads', value: downloadCount.toLocaleString() },
-      { name: 'Notifications', value: notificationCount.toLocaleString() },
     ];
+
+    if (!isUndefined(viewCount)) {
+      infoItems.push({ name: 'Views', value: viewCount.toLocaleString() });
+    }
+    if (!isUndefined(downloadCount)) {
+      infoItems.push({ name: 'Downloads', value: downloadCount.toLocaleString() });
+    }
+    if (!isUndefined(notificationCount)) {
+      infoItems.push({ name: 'Notifications', value: notificationCount.toLocaleString() });
+    }
 
     const displayedDocuments = slice(linkedDocuments, 0, 11);
     const restDocumentsCount = linkedDocuments.length - displayedDocuments.length;
@@ -92,7 +99,7 @@ export default class DocumentPage extends Component {
 }
 
 DocumentPage.propTypes = {
-  attachmentId: PropTypes.string,
+  attachmentId: PropTypes.number,
   title: PropTypes.string,
   fullText: PropTypes.string,
   comment: PropTypes.string,

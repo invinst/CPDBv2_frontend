@@ -2,11 +2,20 @@ import Cookies from 'js-cookie';
 import { getMockAdapter } from 'mock-api';
 
 
-export const get = (url, types, cancelToken) => ((params, adapter=getMockAdapter()) => {
+const authorizationHeaders = () => ({
+  headers: {
+    'Authorization': Cookies.get('apiAccessToken') ?
+        `Token ${Cookies.get('apiAccessToken')}`
+        : null
+  }
+});
+
+const getWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((params, adapter=getMockAdapter()) => {
   const request = {
     url,
     params,
-    adapter
+    adapter,
+    ...config()
   };
 
   if (cancelToken) {
@@ -19,13 +28,9 @@ export const get = (url, types, cancelToken) => ((params, adapter=getMockAdapter
   };
 });
 
-const authorizationHeaders = () => ({
-  headers: {
-    'Authorization': Cookies.get('apiAccessToken') ?
-        `Token ${Cookies.get('apiAccessToken')}`
-        : null
-  }
-});
+export const get = getWithConfig();
+
+export const authenticatedGet = getWithConfig(authorizationHeaders);
 
 const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
   types,
