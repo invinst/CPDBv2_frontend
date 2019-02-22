@@ -1,6 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import styles from './editable-text-box.sass';
 import cx from 'classnames';
+import MinimalScrollBars from 'components/common/minimal-scroll-bars';
+
 
 export default class EditableTextBox extends Component {
   render() {
@@ -9,7 +11,13 @@ export default class EditableTextBox extends Component {
     return (
       <div className={ cx(styles.editableTextBox, className) }>
         <div className='editable-text-box-title'>{ title }</div>
-        <div className={ cx('editable-text-box-text', { multiline }) }>{ text }</div>
+        { multiline ? (
+          <MinimalScrollBars style={ { container: { height: 669 }, view: { backgroundColor: 'white' } } }>
+            <div className={ cx('editable-text-box-text', { multiline: true }) }>{ text }</div>
+          </MinimalScrollBars>
+        ) : (
+          <div className={ cx('editable-text-box-text', { multiline: false }) }>{ text }</div>
+        )}
       </div>
     );
   }

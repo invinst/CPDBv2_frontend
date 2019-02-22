@@ -1,5 +1,17 @@
 @import 'variables'
 
+%center-img
+  margin: auto
+  display: inline-block
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  max-width: 100%
+  max-height: 100%
+  width: auto
+  height: auto
 
 \:local(.document-page)
   .document-wrapper
@@ -20,17 +32,7 @@
         border: 1px solid $white-two-color
 
         img
-          margin: auto
-          display: inline-block
-          position: absolute
-          top: 0
-          left: 0
-          right: 0
-          bottom: 0
-          max-width: 100%
-          max-height: 100%
-          width: auto
-          height: auto
+          @extend %center-img
 
         .document-thumbnail-page-count
           display: inline-block
@@ -64,7 +66,11 @@
           vertical-align: top
           width: 40px
           height: 58px
+          border: 1px solid $white-two-color
+          position: relative
 
+          img
+            @extend %center-img
 
           &.linked-documents-more
             width: 40px
