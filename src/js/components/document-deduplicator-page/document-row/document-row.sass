@@ -1,23 +1,5 @@
 @import 'variables'
 
-%thumbnailCol
-  width: 84px
-
-%largeCol
-  min-width: 252px
-  width: calc((100% - 162px) * 0.3)
-
-%countsCol
-  min-width: 162px
-  width: calc((100% - 162px) * 0.2)
-
-%dateCol
-  min-width: 162px
-  width: calc((100% - 162px) * 0.2)
-
-%toggleCol
-  width: 52px
-
 %cell
   overflow: hidden
   display: inline-block
@@ -29,42 +11,47 @@
   background-color: $sugar-cane-color
   height: 80px
   width: 100%
+  min-width: 992px
   text-align: left
   margin-bottom: 2px
   cursor: pointer
   transition: background-color 0.2s ease-in-out
+  font-weight: 200
 
   &.document-faded
     background-color: $snow-color
 
   .document-thumbnail
     @extend %cell
-    @extend %thumbnailCol
+    width: 39px
     margin-top: 14px
-    margin-left: 13px
-    margin-right: 19px
+    margin-left: 19px
+    margin-right: 26px
     height: 52px
-    width: 52px
     background-position: center
     background-repeat: no-repeat
     background-size: contain
 
   .document-title
     @extend %cell
-    @extend %largeCol
+    min-width: 245px
+    width: calc((100% - 84px) * 0.2698237885462555)
     color: $soft-black-color
     height: 100%
     display: inline-flex
     flex-direction: column
     justify-content: center
     padding-right: 50px
+    font-weight: 400
+    color: $soft-black-color
 
     &.document-faded
       color: $light-grey-color
 
   .document-source
     @extend %cell
-    @extend %largeCol
+    min-width: 260px
+    width: calc((100% - 84px) * 0.28634361233480177)
     margin-top: 31px
     padding-right: 50px
 
@@ -73,7 +60,8 @@
 
   .document-counts
     @extend %cell
-    @extend %countsCol
+    min-width: 196px
+    width: calc((100% - 84px) * 0.21585903083700442)
     margin-top: 31px
     padding-right: 50px
 
@@ -82,7 +70,8 @@
 
   .document-date
     @extend %cell
-    @extend %dateCol
+    min-width: 130px
+    width: calc((100% - 84px) * 0.14317180616740088)
     margin-top: 31px
     padding-right: 50px
 
@@ -91,5 +80,6 @@
 
   .document-toggle
     @extend %cell
-    @extend %toggleCol
+    min-width: 77px
+    width: calc((100% - 84px) * 0.08480176211453745)
     margin-top: 31px

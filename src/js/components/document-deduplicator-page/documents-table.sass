@@ -1,12 +1,13 @@
 @import 'variables'
 
 \:local(.table)
-  width: calc(100% - 36px)
-  min-width: 989px
-  margin-left: 18px
-  margin-right: 18px
+  width: calc(100% - 32px)
+  min-width: 992px
+  margin-left: 16px
+  margin-right: 16px
   font-size: 14px
   color: $clay-gray
+  margin-bottom: 19px
 
 %headerCol
   font-weight: 300
@@ -14,24 +15,6 @@
   display: inline-block
   height: 100%
   vertical-align: top
-
-%thumbnailCol
-  width: 84px
-
-%largeCol
-  min-width: 252px
-  width: calc((100% - 162px) * 0.3)
-
-%countsCol
-  min-width: 162px
-  width: calc((100% - 162px) * 0.2)
-
-%dateCol
-  min-width: 162px
-  width: calc((100% - 162px) * 0.2)
-
-%toggleCol
-  width: 77px
 
 \:local(.headerRow)
   background-color: white
@@ -42,24 +25,29 @@
 
   .header-thumbnail
     @extend %headerCol
-    @extend %thumbnailCol
+    width: 84px
 
   .header-title
     @extend %headerCol
-    @extend %largeCol
+    min-width: 245px
+    width: calc((100% - 84px) * 0.2698237885462555)
 
   .header-source
     @extend %headerCol
-    @extend %largeCol
+    min-width: 260px
+    width: calc((100% - 84px) * 0.28634361233480177)
 
   .header-counts
     @extend %headerCol
-    @extend %countsCol
+    min-width: 196px
+    width: calc((100% - 84px) * 0.21585903083700442)
 
   .header-date
     @extend %headerCol
-    @extend %dateCol
+    min-width: 130px
+    width: calc((100% - 84px) * 0.14317180616740088)
 
   .header-toggle
     @extend %headerCol
-    @extend %toggleCol
+    min-width: 77px
+    width: calc((100% - 84px) * 0.08480176211453745)
