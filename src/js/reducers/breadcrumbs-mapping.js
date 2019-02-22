@@ -20,6 +20,10 @@ const breadcrumbMapping = handleActions({
     ...state,
     [`/unit/${action.payload['unit_name']}/`]: `${action.payload['unit_name']} ${action.payload['description']}`
   }),
+  [constants.DOCUMENT_REQUEST_SUCCESS]: (state, action) => ({
+    ...state,
+    [`/document/${action.payload['id']}/`]: action.payload['title']
+  }),
 }, {});
 
 export default breadcrumbMapping;
