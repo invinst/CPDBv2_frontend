@@ -203,6 +203,10 @@ describe('store', function () {
       },
       embed: {
         officers: []
+      },
+      crawlersPage: {
+        crawlers: [],
+        pagination: {}
       }
     });
   });

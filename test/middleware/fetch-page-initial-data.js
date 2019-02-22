@@ -18,6 +18,7 @@ import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
+import { requestCrawlers } from 'actions/crawlers-page';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -226,5 +227,14 @@ describe('fetchPageInitialData middleware', function () {
 
     store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
     store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
+  });
+
+  it('should dispatch requestCrawlers', function () {
+    const action = createLocationChangeAction('/crawlers/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(requestCrawlers()).should.be.true();
   });
 });

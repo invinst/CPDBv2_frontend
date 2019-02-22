@@ -31,6 +31,7 @@ export const STANDALONE_CR_PATH = 'complaint/:crid';
 export const CR_PATH_SUFFIX = ':officerId';
 export const TTR_PATH = 'trr/:trrId';
 export const UNIT_PROFILE_PATH = 'unit/:unitName';
+export const CRAWLERS_PATH = 'crawlers/';
 export const EMBED_MAP_PATH = 'embed/map';
 export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
 export const EMBED_OFFICERS_PATH = 'embed/officers';
@@ -83,6 +84,7 @@ export const SEARCH_TERMS_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categ
 export const CITY_SUMMARY_API_URL = `${V2_ROOT_PATH}city-summary/`;
 export const TRR_URL = `${V2_ROOT_PATH}trr/`;
 export const POPUP_API_URL = `${V2_ROOT_PATH}popup/`;
+export const CRAWLERS_API_URL = `${V2_ROOT_PATH}document-crawlers/`;
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';
 export const OFFICER_SUMMARY_REQUEST_SUCCESS = 'OFFICER_SUMMARY_REQUEST_SUCCESS';
@@ -105,6 +107,10 @@ export const CR_REQUEST_DOC_START = 'CR_REQUEST_DOC_START';
 export const TRR_REQUEST_START = 'TRR_REQUEST_START';
 export const TRR_REQUEST_SUCCESS = 'TRR_REQUEST_SUCCESS';
 export const TRR_REQUEST_FAILURE = 'TRR_REQUEST_FAILURE';
+
+export const CRAWLERS_REQUEST_START = 'CRAWLERS_REQUEST_START';
+export const CRAWLERS_REQUEST_SUCCESS = 'CRAWLERS_REQUEST_SUCCESS';
+export const CRAWLERS_REQUEST_FAILURE = 'CRAWLERS_REQUEST_FAILURE';
 
 export const TRR_REQUEST_DOC_REQUEST_FAILURE = 'TRR_REQUEST_DOC_REQUEST_FAILURE';
 export const TRR_REQUEST_DOC_REQUEST_SUCCESS = 'TRR_REQUEST_DOC_REQUEST_SUCCESS';
