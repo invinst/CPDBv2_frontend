@@ -1,16 +1,26 @@
 import { handleActions } from 'redux-actions';
+import * as _ from 'lodash';
 
 import * as constants from 'utils/constants';
 
-export default handleActions({
-  [constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS]:
-    (state, action) => {
-      let docsDict = {};
-      for (let i = 0; i < action.payload.results.length; i++) {
-        const doc = action.payload.results[i];
-        docsDict[doc.id] = doc;
-      }
+const mergeResults = (state, action) => {
+  const matchVal = _.get(action.request.params, 'match', '');
+  const newRows = {};
+  for (let row of action.payload.results) {
+    newRows[row.id] = row;
+  }
 
-      return { ...state, ...docsDict };
-    }
-}, {});
+  if (state.match === matchVal) {
+    return { data: { ...state.data, ...newRows }, match: matchVal };
+  } else {
+    return {
+      data: newRows,
+      match: matchVal
+    };
+  }
+};
+
+export default handleActions({
+  [constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS]: mergeResults,
+  [constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS]: mergeResults
+}, { data: {}, match: '' });

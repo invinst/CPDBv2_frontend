@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import cx from 'classnames';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import styles from './search-bar.sass';
@@ -38,5 +37,6 @@ SearchBar.propTypes = {
 };
 
 SearchBar.defaultProps = {
-  onChange: () => {}
+  onChange: () => {},
+  value: ''
 };

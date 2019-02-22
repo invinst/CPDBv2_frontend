@@ -1,10 +1,10 @@
 @import 'variables'
 
 \:local(.table)
-  width: calc(100% - 36px)
-  min-width: 989px
-  margin-left: 18px
-  margin-right: 18px
+  width: calc(100% - 32px)
+  min-width: 992px
+  margin-left: 16px
+  margin-right: 16px
   font-size: 14px
   color: $clay-gray
 
@@ -14,24 +14,15 @@
   display: inline-block
   height: 100%
   vertical-align: top
-
-%thumbnailCol
-  width: 84px
-
-%largeCol
-  min-width: 252px
-  width: calc((100% - 162px) * 0.3)
+  box-sizing: border-box
 
 %countsCol
-  min-width: 185px
-  width: calc((100% - 162px) * 0.2)
+  min-width: 183px
+  width: calc((100% - 81px) * 0.20819112627986347)
 
 %dateCol
-  min-width: 139px
-  width: calc((100% - 162px) * 0.2)
-
-%toggleCol
-  width: 77px
+  min-width: 60px
+  width: calc((100% - 81px) * 0.06825938566552901)
 
 \:local(.headerRow)
   background-color: white
@@ -39,27 +30,52 @@
   height: 69px
   box-sizing: border-box
   padding-top: 26px
+  position: relative
+  padding-left: 16px
+  padding-right: 16px
 
   .header-thumbnail
     @extend %headerCol
-    @extend %thumbnailCol
+    width: 81px
 
   .header-title
     @extend %headerCol
-    @extend %largeCol
+    min-width: 242px
+    width: calc((100% - 81px) * 0.2753128555176337)
+
+  .header-crid-uid
+    @extend %headerCol
+    min-width: 149px
+    width: calc((100% - 81px) * 0.1695108077360637)
 
   .header-source
     @extend %headerCol
-    @extend %largeCol
+    min-width: 245px
+    width: calc((100% - 81px) * 0.2787258248009101)
 
   .header-counts
     @extend %headerCol
-    @extend %countsCol
+    min-width: 183px
+    width: calc((100% - 81px) * 0.20819112627986347)
 
   .header-date
     @extend %headerCol
-    @extend %dateCol
+    min-width: 60px
+    width: calc((100% - 81px) * 0.06825938566552901)
+    padding-right: 15px
+    text-align: right
 
-  .header-toggle
-    @extend %headerCol
-    @extend %toggleCol
+
+\:local(.rowsWrapper)
+  background-color: $sugar-cane-color
+  border: 1.25px solid $white-two-color
+  border-radius: 5px
+  margin-top: 1.25px
+  margin-bottom: 20px
+  padding-bottom: 33px
+
+  .month-separator:first-child
+    height: 64px
+    padding-top: 23px
+    background-color: transparent
+

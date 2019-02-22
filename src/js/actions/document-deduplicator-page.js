@@ -7,9 +7,9 @@ import {
   DOCUMENT_VISIBILITY_TOGGLE_REQUEST_FAILURE,
   DOCUMENTS_URL,
 } from 'utils/constants';
-import { get, authenticatedPatch } from 'actions/common/async-action';
+import { authenticatedGet, authenticatedPatch } from 'actions/common/async-action';
 
-export const fetchDocumentsByCRID = (crid) => (get(
+export const fetchDocumentsByCRID = (crid) => (authenticatedGet(
   DOCUMENTS_URL,
   [
     DOCUMENT_DEDUPLICATOR_REQUEST_START,

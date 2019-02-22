@@ -13,6 +13,7 @@ export default class DocumentRow extends Component {
 
   render() {
     const { id, show, thumbnail, title, source, date, setDocumentShow, viewsCount, downloadsCount } = this.props;
+    const { editModeOn } = this.context;
     return (
       <div
         onClick={ this.handleClick.bind(this, id) }
@@ -37,11 +38,15 @@ export default class DocumentRow extends Component {
           { date }
         </span>
         <span className='document-toggle'>
-          <Toggle
-            on={ show }
-            onChange={ visible => setDocumentShow(id, !visible) }>
-            { show ? 'show' : 'hide' }
-          </Toggle>
+          {
+            editModeOn ? (
+              <Toggle
+                on={ show }
+                onChange={ visible => setDocumentShow(id, !visible) }>
+                { show ? 'show' : 'hide' }
+              </Toggle>
+            ) : null
+          }
         </span>
       </div>
     );
@@ -58,4 +63,8 @@ DocumentRow.propTypes = {
   setDocumentShow: PropTypes.func,
   viewsCount: PropTypes.number,
   downloadsCount: PropTypes.number
+};
+
+DocumentRow.contextTypes = {
+  editModeOn: PropTypes.bool
 };

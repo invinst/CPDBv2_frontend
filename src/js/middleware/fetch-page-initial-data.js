@@ -1,5 +1,5 @@
 import { Promise } from 'es6-promise';
-import { every } from 'lodash';
+import { every, get } from 'lodash';
 
 import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID } from 'utils/constants';
 import { getOfficerId, getCRID, getTRRId, getUnitName, getDocDedupCRID } from 'utils/location';
@@ -27,6 +27,8 @@ import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
+import { fetchDocuments } from 'actions/documents-overview-page';
+import { cancelledByUser } from 'utils/axios-client';
 
 let prevPathname = '';
 
@@ -137,9 +139,18 @@ export default store => next => action => {
     }
   }
 
-  else if (action.payload.pathname.match(/\/doc-deduplicator\//)) {
+  else if (action.payload.pathname.match(/\/documents\/crid\//)) {
     const crid = getDocDedupCRID(action.payload.pathname);
     dispatches.push(store.dispatch(fetchDocumentsByCRID(crid)));
+  }
+
+  else if (action.payload.pathname.match(/\/documents\//)) {
+    const crid = get(action.payload.query, 'crid', null);
+    if (crid === null) {
+      dispatches.push(store.dispatch(fetchDocuments()).catch(cancelledByUser));
+    } else {
+      dispatches.push(store.dispatch(fetchDocuments({ crid: crid })).catch(cancelledByUser));
+    }
   }
 
   if (dispatches.length > 0) {

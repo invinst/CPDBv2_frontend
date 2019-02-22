@@ -24,7 +24,7 @@ const breadcrumbMapping = handleActions({
     const crid = action.request.params.crid;
     return {
       ...state,
-      [`/doc-deduplicator/${crid}/`]: `#${crid} document deduplicator`
+      [`/documents/crid/${crid}/`]: `#${crid} document deduplicator`
     };
   }
 }, {});

@@ -55,7 +55,7 @@ export const officerPath = (subPath, pathname) => {
 };
 
 export function getDocDedupCRID(url) {
-  const crPattern = /.*doc-deduplicator\/(\w+).*/;
+  const crPattern = /.*documents\/crid\/(\w+).*/;
   if (url === undefined || !url.match(crPattern)) {
     return null;
   }
