@@ -535,3 +535,9 @@ export const DOCUMENT_SOURCE_MAP = {
   COPA: 'https://www.chicagocopa.org/',
   COPA_DOCUMENTCLOUD: 'https://www.chicagocopa.org/',
 };
+
+export const SHAREABLE_HEADER_BUTTON_TYPE = {
+  NONE: 'none',
+  MENU: 'menu',
+  LINK: 'link',
+};

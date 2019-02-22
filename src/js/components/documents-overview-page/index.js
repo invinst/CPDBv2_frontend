@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
+import * as constants from 'utils/constants';
 import DocumentsTable from './documents-table';
 import SearchBar from './search-bar';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
@@ -29,7 +30,10 @@ export default class DocumentDeduplicatorPage extends Component {
 
     return (
       <div>
-        <ShareableHeaderContainer/>
+        <ShareableHeaderContainer
+          buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK }
+          buttonText='Crawlers'
+          link='/crawlers/' />
         <SearchBar
           value={ this.state.searchText }
           onChange={ this.handleSearchChange.bind(this) }/>

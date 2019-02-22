@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
+import * as constants from 'utils/constants';
 import BreadcrumbsItemRendererContainer from 'containers/headers/shareable-header/breadcrumbs-item-renderer-container';
 import HeaderButton from 'components/headers/shareable-header/header-button';
+import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
 import { calculatePosition } from 'utils/dom';
 import styles from './shareable-header.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
@@ -37,7 +39,7 @@ export default class ShareableHeader extends Component {
   }
 
   render() {
-    const { location, routes, params, Menu, buttonText, hasHeaderButton } = this.props;
+    const { location, routes, params, Menu, buttonText, buttonType, link } = this.props;
 
     const separatorRenderer = <li className='shareable-header-breadcrumb-separator'/>;
 
@@ -51,10 +53,13 @@ export default class ShareableHeader extends Component {
               ref={ el => { this.placeholderElement = el; } }
             >
               {
-                hasHeaderButton ?
+                buttonType === constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU ?
                   <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
                   :
-                  null
+                buttonType === constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK ?
+                  <LinkHeaderButton buttonText={ buttonText } link={ link } />
+                  :
+                null
               }
 
               <Breadcrumbs
@@ -84,6 +89,8 @@ ShareableHeader.propTypes = {
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   buttonText: PropTypes.string,
   hasHeaderButton: PropTypes.bool,
+  buttonType: PropTypes.string,
+  link: PropTypes.string,
 };
 
 ShareableHeader.defaultProps = {
@@ -93,4 +100,5 @@ ShareableHeader.defaultProps = {
   },
   routes: [],
   hasHeaderButton: true,
+  buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU,
 };
