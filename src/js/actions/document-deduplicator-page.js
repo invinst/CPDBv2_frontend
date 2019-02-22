@@ -9,14 +9,14 @@ import {
 } from 'utils/constants';
 import { authenticatedGet, authenticatedPatch } from 'actions/common/async-action';
 
-export const fetchDocumentsByCRID = (crid) => (authenticatedGet(
+export const fetchDocumentsByCRID = ({ crid, limit, offset }) => (authenticatedGet(
   DOCUMENTS_URL,
   [
     DOCUMENT_DEDUPLICATOR_REQUEST_START,
     DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
     DOCUMENT_DEDUPLICATOR_REQUEST_FAILURE
   ]
-)({ crid, limit: 100 }));
+)({ crid, limit, offset }));
 
 export const setDocumentShow = (pk, show) => authenticatedPatch(
   `${DOCUMENTS_URL}${pk}/`,

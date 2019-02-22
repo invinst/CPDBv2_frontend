@@ -141,7 +141,7 @@ export default store => next => action => {
 
   else if (action.payload.pathname.match(/\/documents\/crid\//)) {
     const crid = getDocDedupCRID(action.payload.pathname);
-    dispatches.push(store.dispatch(fetchDocumentsByCRID(crid)));
+    dispatches.push(store.dispatch(fetchDocumentsByCRID({ crid })));
   }
 
   else if (action.payload.pathname.match(/\/documents\//)) {
@@ -149,7 +149,7 @@ export default store => next => action => {
     if (crid === null) {
       dispatches.push(store.dispatch(fetchDocuments()).catch(cancelledByUser));
     } else {
-      dispatches.push(store.dispatch(fetchDocuments({ crid: crid })).catch(cancelledByUser));
+      dispatches.push(store.dispatch(fetchDocuments({ crid })).catch(cancelledByUser));
     }
   }
 

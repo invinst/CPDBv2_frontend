@@ -1,21 +1,23 @@
 import { handleActions } from 'redux-actions';
-import * as _ from 'lodash';
 
 import * as constants from 'utils/constants';
 
 export default handleActions({
   [constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS]:
     (state, action) => {
-      return action.payload.results;
+      const newRows = {};
+      for (let row of action.payload.results) {
+        newRows[row.id] = row;
+      }
+
+      return { ...state, ...newRows };
     },
   [constants.DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS]:
     (state, action) => {
       const id = parseInt(action.request.url.replace(/.+attachments\/(\d+).*/, '$1'));
-      _.each(state, doc => {
-        if (doc.id === id) {
-          doc.show = action.payload.show;
-        }
-      });
-      return state.slice();
+      if (id in state) {
+        state[id]['show'] = action.payload.show;
+      }
+      return { ...state };
     }
-}, []);
+}, {});

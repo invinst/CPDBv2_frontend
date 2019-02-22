@@ -9,7 +9,10 @@ export default class DocumentDeduplicatorPage extends Component {
   render() {
     const {
       documents,
-      setDocumentShow
+      setDocumentShow,
+      hasMore,
+      nextParams,
+      fetchDocumentsByCRID
     } = this.props;
 
     return (
@@ -17,7 +20,10 @@ export default class DocumentDeduplicatorPage extends Component {
         <ShareableHeaderContainer buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE }/>
         <DocumentsTable
           rows={ documents }
-          setDocumentShow={ setDocumentShow }/>
+          setDocumentShow={ setDocumentShow }
+          hasMore={ hasMore }
+          nextParams={ nextParams }
+          fetchDocumentsByCRID={ fetchDocumentsByCRID }/>
       </div>
     );
   }
@@ -25,5 +31,8 @@ export default class DocumentDeduplicatorPage extends Component {
 
 DocumentDeduplicatorPage.propTypes = {
   documents: PropTypes.array,
-  setDocumentShow: PropTypes.func
+  setDocumentShow: PropTypes.func,
+  hasMore: PropTypes.bool,
+  nextParams: PropTypes.object,
+  fetchDocumentsByCRID: PropTypes.func
 };
