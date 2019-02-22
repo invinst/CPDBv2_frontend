@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import moment from 'moment';
 
 
 const getData = state => state.documentPage.data;
@@ -18,13 +19,16 @@ export const documentSelector = createSelector(
     viewCount: data['views_count'],
     notificationCount: data['notifications_count'],
     pageCount: data['pages_count'] || 0,
-    createdAt: data['created_at'],
+    createdAt: moment(data['created_at']).format('MMM D, YYYY'),
     linkedDocuments: (data['linked_documents'] || []).map(
       linkedDocument => ({
         id: linkedDocument.id,
         previewImageUrl: linkedDocument['preview_image_url'],
       })
     ),
-    lastEditedDateTime: data['updated_at'],
+    lastEditedDateTime: (
+      `at ${moment(data['updated_at']).format('hh:mmA')} 
+      on ${moment(data['updated_at']).format('MMM D, YYYY')}`
+    ),
   })
 );

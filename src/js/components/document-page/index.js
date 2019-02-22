@@ -86,8 +86,8 @@ export default class DocumentPage extends Component {
                 className='main-section-full-text' title='Full-text OCR' text={ fullText } multiline={ true }
               />
               <div className='main-section-last-edited'>
-                This document was last edited by
-                <span className='last-edited-highlight'> { lastEditedUser } at { lastEditedDateTime }</span>
+                This document was last edited { lastEditedUser ? 'by' : ''}
+                <span className='last-edited-highlight'> { lastEditedUser } { lastEditedDateTime }</span>
               </div>
             </div>
           </div>
