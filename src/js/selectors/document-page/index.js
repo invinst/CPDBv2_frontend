@@ -3,6 +3,8 @@ import moment from 'moment';
 
 
 const getData = state => state.documentPage.data;
+export const getTitleEditModeOn = state => state.documentPage.titleEditModeOn;
+export const getTextContentEditModeOn = state => state.documentPage.textContentEditModeOn;
 
 export const documentSelector = createSelector(
   [getData],

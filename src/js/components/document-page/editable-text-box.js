@@ -1,13 +1,16 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './editable-text-box.sass';
 import cx from 'classnames';
+
+import styles from './editable-text-box.sass';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
+import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import SimpleTextEditable from 'components/inline-editable/editable-section/simple-text-editable';
 
 
 export default class EditableTextBox extends Component {
   render() {
-    const { className, title, text, multiline } = this.props;
-
+    const { className, title, text, multiline, editWrapperStateProps } = this.props;
     return (
       <div className={ cx(styles.editableTextBox, className) }>
         <div className='editable-text-box-title'>{ title }</div>
@@ -16,7 +19,15 @@ export default class EditableTextBox extends Component {
             <div className={ cx('editable-text-box-text', { multiline: true }) }>{ text }</div>
           </MinimalScrollBars>
         ) : (
-          <div className={ cx('editable-text-box-text', { multiline: false }) }>{ text }</div>
+          <EditWrapperStateProvider { ...editWrapperStateProps } simple={ true }>
+            <HoverableEditWrapper>
+              <SimpleTextEditable
+                className={ cx('editable-text-box-text', { multiline: false }) }
+                placeholder='Title'
+                fieldname='title'
+              />
+            </HoverableEditWrapper>
+          </EditWrapperStateProvider>
         )}
       </div>
     );
@@ -28,6 +39,7 @@ EditableTextBox.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
   multiline: PropTypes.bool,
+  editWrapperStateProps: PropTypes.object,
 };
 
 EditableTextBox.defaultProps = {

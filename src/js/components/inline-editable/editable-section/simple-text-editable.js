@@ -2,54 +2,57 @@ import React, { Component, PropTypes } from 'react';
 import { get } from 'lodash';
 
 import Editable from 'components/inline-editable/editable';
-import RichTextEditor from 'components/inline-editable/rich-text-editor';
 
 
-class RichTextEditable extends Component {
+export default class SimpleTextEditable extends Component {
 
   getEditorProps() {
     const { editModeOn, value, onChange, fieldname } = this.props;
-    const fieldContext = get(this.context.fieldContexts, fieldname, {});
+    const { fieldContexts } = this.context;
+    // const fieldContext = get(this.context.fieldContexts, fieldname, '');
+    console.warn('fieldContexts', fieldContexts)
     return {
-      editModeOn: editModeOn || fieldContext.editModeOn,
-      value: value || fieldContext.value || fieldContext,
-      onChange: onChange || fieldContext.onChange
+      editModeOn: fieldContexts.editModeOn,
+      value: get(fieldContexts.value, fieldname, ''),
+      onChange: fieldContexts.onChange,
     };
   }
 
   render() {
     const {
-      style, placeholder, className, lastBlockChild
+      style, placeholder, className, lastBlockChild, fieldname
     } = this.props;
 
     const { editModeOn, value, onChange } = this.getEditorProps();
+    console.log('onChange', onChange)
 
     return (
       <Editable
         editModeOn={ editModeOn }
         editorElement={
-          <RichTextEditor
+          <textarea rows='1'
             className={ className }
             style={ style }
-            onChange={ onChange }
-            editorState={ value }
+            onChange={ e => onChange(fieldname, e.target.value) }
             placeholder={ placeholder }
-          />
+          >
+            { value }
+          </textarea>
         }
         presenterElement={
-          <RichTextEditor
+          <div
             className={ className }
             style={ style }
-            editorState={ value }
-            readOnly={ true }
-            lastBlockChild={ lastBlockChild }
-          />
+            placeholder={ placeholder }
+          >
+            { value }
+          </div>
         }/>
     );
   }
 }
 
-RichTextEditable.propTypes = {
+SimpleTextEditable.propTypes = {
   className: PropTypes.string,
   value: PropTypes.object,
   style: PropTypes.object,
@@ -60,8 +63,6 @@ RichTextEditable.propTypes = {
   lastBlockChild: PropTypes.node
 };
 
-RichTextEditable.contextTypes = {
+SimpleTextEditable.contextTypes = {
   fieldContexts: PropTypes.object
 };
-
-export default RichTextEditable;

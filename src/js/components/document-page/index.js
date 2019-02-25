@@ -30,6 +30,7 @@ export default class DocumentPage extends Component {
       linkedDocuments,
       lastEditedUser,
       lastEditedDateTime,
+      editWrapperStateProps,
     } = this.props;
 
     const infoItems = [
@@ -81,7 +82,12 @@ export default class DocumentPage extends Component {
               </div>
             </div>
             <div className='main-section'>
-              <EditableTextBox className='main-section-title' title='Document Title' text={ title }/>
+              <EditableTextBox
+                className='main-section-title'
+                title='Document Title'
+                text={ title }
+                editWrapperStateProps={ editWrapperStateProps }
+              />
               <EditableTextBox
                 className='main-section-full-text' title='Full-text OCR' text={ fullText } multiline={ true }
               />
@@ -116,6 +122,7 @@ DocumentPage.propTypes = {
   linkedDocuments: PropTypes.array,
   lastEditedUser: PropTypes.string,
   lastEditedDateTime: PropTypes.string,
+  editWrapperStateProps: PropTypes.object,
 };
 
 DocumentPage.contextTypes = {
