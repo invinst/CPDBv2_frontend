@@ -4,6 +4,7 @@ import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
   findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
   Simulate,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
