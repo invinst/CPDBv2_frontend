@@ -583,6 +583,38 @@ describe('search page results selector', function () {
       groups[0].header.should.equal('CO-ACCUSED');
     });
 
+    it('should should only one group when contentType is not null', function () {
+      const groups = searchResultGroupsSelector({
+        searchPage: {
+          contentType: 'CO-ACCUSED',
+          tags: ['OFFICER', 'CO-ACCUSED'],
+          suggestionGroups: {
+            'OFFICER': RawOfficerSuggestion.buildList(10),
+            'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
+          }
+        }
+      });
+
+      groups.length.should.equal(1);
+      groups[0].header.should.equal('CO-ACCUSED');
+    });
+
+    it('should not limit items if there is only one tag', function () {
+      const [officerGroup] = searchResultGroupsSelector({
+        searchPage: {
+          tags: ['OFFICER'],
+          suggestionGroups: {
+            'OFFICER': RawOfficerSuggestion.buildList(10),
+          },
+          contentType: null
+        }
+      });
+
+      officerGroup.header.should.equal('OFFICER');
+      officerGroup.items.should.have.length(10);
+      officerGroup.canLoadMore.should.be.false();
+    });
+
     it('should give correct item format for COMMUNITY', function () {
       const groups = searchResultGroupsSelector({
         searchPage: {

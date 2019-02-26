@@ -1,6 +1,5 @@
-import { SELECT_TAG } from 'utils/constants';
+import { SELECT_TAG, LOCATION_CHANGE } from 'utils/constants';
 import contentType from 'reducers/search-page/content-type';
-import { LOCATION_CHANGE } from 'utils/constants';
 
 
 describe('searchPage.contentType reducer', function () {
@@ -14,14 +13,26 @@ describe('searchPage.contentType reducer', function () {
       payload: 'a'
     }).should.equal('a');
   });
-  it('should handle LOCATION_CHANGE', function () {
+
+  it('should handle LOCATION_CHANGE with correct contentType', function () {
     contentType(undefined, {
       type: LOCATION_CHANGE,
       payload: {
         query: {
-          type: 'community'
+          type: 'COMMUNITY'
         }
       }
-    }).should.eql('community');
+    }).should.eql('COMMUNITY');
+  });
+
+  it('should handle LOCATION_CHANGE with wrong contentType', function () {
+    contentType(undefined, {
+      type: LOCATION_CHANGE,
+      payload: {
+        query: {
+          type: 'COMMUNITY'
+        }
+      }
+    }).should.eql('COMMUNITY');
   });
 });
