@@ -13,9 +13,10 @@ export default class DocumentCard extends React.Component {
   }
 
   handleClick() {
-    const { crid, pathname } = this.props;
+    const { crid, pathname, onTrackingAttachment, id } = this.props;
     const url = `/complaint/${crid}/`;
     GATracking.trackAttachmentClick(pathname, url);
+    onTrackingAttachment({ attachmentId: id, sourcePage: 'Landing Page', app: 'Frontend' });
   }
 
   render() {
@@ -43,4 +44,10 @@ DocumentCard.propTypes = {
   url: PropTypes.string,
   crid: PropTypes.string,
   pathname: PropTypes.string,
+  onTrackingAttachment: PropTypes.func,
+  id: PropTypes.string,
+};
+
+DocumentCard.defaultProps = {
+  onTrackingAttachment: () => {},
 };

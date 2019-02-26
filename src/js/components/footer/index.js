@@ -22,10 +22,6 @@ class Footer extends React.Component {
         externalHref: 'https://github.com/invinst/'
       },
       {
-        name: 'Roadmap',
-        externalHref: 'http://roadmap.cpdp.co/'
-      },
-      {
         name: 'Contact',
         onClick: () => { showIntercomMessages(true); }
       }

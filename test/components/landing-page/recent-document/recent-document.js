@@ -84,4 +84,28 @@ describe('Recent Document components', function () {
     );
     stubTrackAttachmentClick.restore();
   });
+
+  it('should track attachment click event', function () {
+    const stubOnTrackingAttachment = stub();
+    const data = [{
+      'crid': '123456',
+      'title': 'CR document 1',
+      'id': '789',
+      'numDocuments': 2,
+    }];
+    const recentDocument = () => (
+      <RecentDocument cards={ data } pathname='/' onTrackingAttachment={ stubOnTrackingAttachment } />
+    );
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ recentDocument } />
+      </Router>
+    );
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--document-card'));
+    stubOnTrackingAttachment.should.be.calledWith({
+      attachmentId: '789',
+      sourcePage: 'Landing Page',
+      app: 'Frontend'
+    });
+  });
 });

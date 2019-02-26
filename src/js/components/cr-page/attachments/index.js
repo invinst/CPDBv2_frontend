@@ -16,6 +16,7 @@ export default class Attachments extends Component {
       alreadyRequested,
       pathname,
       noAttachmentTextEditWrapperStateProps,
+      onTrackingAttachment,
     } = this.props;
 
     const { printMode } = this.context;
@@ -47,7 +48,12 @@ export default class Attachments extends Component {
             <div className='attachments'>
               {
                 items.map((item, ind) => (
-                  <AttachmentItem key={ ind } { ...item } pathname={ pathname } />
+                  <AttachmentItem
+                    key={ ind }
+                    { ...item }
+                    pathname={ pathname }
+                    onTrackingAttachment={ onTrackingAttachment }
+                  />
                 ))
               }
             </div>
@@ -68,6 +74,7 @@ Attachments.propTypes = {
   alreadyRequested: PropTypes.bool,
   pathname: PropTypes.string,
   noAttachmentTextEditWrapperStateProps: PropTypes.object,
+  onTrackingAttachment: PropTypes.func,
 };
 
 Attachments.contextTypes = {

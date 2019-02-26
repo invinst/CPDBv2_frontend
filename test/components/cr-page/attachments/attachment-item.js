@@ -62,4 +62,20 @@ describe('AttachmentItem component', function () {
     const thumbnail = findRenderedDOMComponentWithClass(instance, 'attachment-card-thumbnail');
     thumbnail.style.backgroundImage.should.containEql('http://url/image');
   });
+
+  it('should track attachment click event', function () {
+    const stubOnTrackingAttachment = stub();
+    const instance = renderIntoDocument(
+      <AttachmentItem
+        onTrackingAttachment={ stubOnTrackingAttachment }
+        id={ '123456' }
+      />
+    );
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--attachment-card'));
+    stubOnTrackingAttachment.should.be.calledWith({
+      attachmentId: '123456',
+      sourcePage: 'CR Page',
+      app: 'Frontend'
+    });
+  });
 });
