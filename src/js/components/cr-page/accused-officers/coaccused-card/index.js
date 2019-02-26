@@ -36,7 +36,7 @@ export class CoaccusedCard extends Component {
     const outcomeDisciplined = printMode && disciplined ? 'Disciplined' : null;
 
     const complaintString = () => {
-      const complaint = `${complaintCount} ${pluralize('allegation', complaintCount, true)}`;
+      const complaint = pluralize('allegation', complaintCount, true);
       const sustained = `${sustainedCount} sustained`;
       return (
         <span className='test--officer-card-metric'>

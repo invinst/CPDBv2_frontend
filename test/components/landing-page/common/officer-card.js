@@ -10,7 +10,6 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 
 import OfficerCard from 'components/common/officer-card';
-import { getThisYear } from 'utils/date';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 
 
@@ -54,8 +53,7 @@ describe('OfficerCard component', function () {
     text.should.containEql('5 Sustained');
     text.should.containEql('More than 20% of other officers');
 
-    const age = getThisYear() - 1980 - 1;
-    text.should.containEql(`${age}-year-old white male`);
+    text.should.containEql('36-year-old white male');
   });
 
   it('should show NoDataRadarChart when no percentile', () => {
