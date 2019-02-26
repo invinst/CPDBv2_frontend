@@ -4,10 +4,12 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
+  findRenderedComponentWithType
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 
 import SearchMainPanel from 'components/search-page/search-main-panel';
+import SearchTags from 'components/search-page/search-tags';
 import { unmountComponentSuppressError } from 'utils/test';
 
 describe('SearchMainPanel component', function () {
@@ -28,6 +30,26 @@ describe('SearchMainPanel component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
+  });
+
+  it('should render SearchTags', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchMainPanel
+          editModeOn={ true }
+          aliasEditModeOn={ true }
+          query='ke'
+          tags={ ['tag'] }
+          contentType='OFFICER'
+          isRequesting={ true }
+        />
+      </Provider>
+    );
+
+    const searchTags = findRenderedComponentWithType(instance, SearchTags);
+    searchTags.props.tags.should.eql(['tag']);
+    searchTags.props.selected.should.equal('OFFICER');
+    searchTags.props.isRequesting.should.be.true();
   });
 
   context('in edit mode', function () {
