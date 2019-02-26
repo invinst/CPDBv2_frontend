@@ -23,7 +23,6 @@ describe('Landing Page to Search Page', function () {
 });
 
 describe('Search Page', function () {
-
   beforeEach(function () {
     searchPage.open();
   });
@@ -66,6 +65,21 @@ describe('Search Page', function () {
     searchPage.trrResultsSection.secondResultSubText.getText().should.equal('TRR # 456');
   });
 
+  it('should able to show INVESTIGATOR > CR results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Kelly');
+
+    searchPage.suggestionTags.waitForVisible();
+    searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
+
+    searchPage.investigatorCRResultsSection.results.count.should.equal(2);
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
+      'an officer named Kelly caught the victim'
+    );
+    searchPage.investigatorCRResultsSection.secondResultText.getText().should.equal('CR # CR654321');
+    searchPage.investigatorCRResultsSection.secondResultSubText.getText().should.equal('');
+  });
 
   it('should able to show date > trr and date > cr results', function () {
     searchPage.input.waitForVisible();
@@ -114,6 +128,23 @@ describe('Search Page', function () {
     searchPage.rankResultsSection.results.count.should.equal(2);
     searchPage.rankResultsSection.firstResultText.getText().should.equal('Officer');
     searchPage.rankResultsSection.secondResultText.getText().should.equal('Chief');
+  });
+
+  it('should able to show SEARCH-TERMS results', function () {
+    searchPage.input.waitForVisible();
+    searchPage.input.setValue('Geography');
+
+    searchPage.suggestionTags.waitForVisible();
+
+    searchPage.searchTermsResultsSection.results.count.should.equal(1);
+    searchPage.searchTermsResultsSection.firstResultText.getText().should.equal('Geography - Communities');
+    searchPage.searchTermsResultsSection.firstResultText.click();
+    searchPage.searchTermsResultsSection.previewPaneTitle.getText().should.containEql('Communities');
+    searchPage.searchTermsResultsSection.previewPaneButton.getText().should.containEql('View ALL Communities');
+    searchPage.searchTermsResultsSection.previewPaneButton.click();
+    browser.pause(600);
+    browser.getUrl().should.containEql('/search/?terms=community&type=COMMUNITY');
+    searchPage.searchCommunityResultsSection.firstResultText.getText().should.equal('Austin');
   });
 
   it('should show filtered result when user clicks "Show more results"', function () {
@@ -461,7 +492,6 @@ describe('Search Page', function () {
 });
 
 describe('Search Page in edit mode', function () {
-
   beforeEach(function () {
     searchPage.openWithEditMode();
     searchPage.loginScreen.login();
@@ -475,5 +505,20 @@ describe('Search Page in edit mode', function () {
     searchPage.firstAliasButton.waitForVisible();
     searchPage.firstAliasButton.click();
     browser.getUrl().should.match(/\/edit\/search\/alias\/form\/$/);
+  });
+});
+
+describe('Search Page with query parameter', function () {
+  it('should able to show INVESTIGATOR > CR results via query parameter', function () {
+    searchPage.open('Kelly');
+    searchPage.investigatorCRResultsSection.results.waitForVisible();
+    searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
+    searchPage.investigatorCRResultsSection.results.count.should.equal(2);
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
+      'an officer named Kelly caught the victim'
+    );
+    searchPage.investigatorCRResultsSection.secondResultText.getText().should.equal('CR # CR654321');
+    searchPage.investigatorCRResultsSection.secondResultSubText.getText().should.equal('');
   });
 });

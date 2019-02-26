@@ -3,7 +3,8 @@ import {
   metricsSelector,
   summarySelector,
   getCurrentTab,
-  getEditModeOn
+  getEditModeOn,
+  getZipFileUrl
 } from 'selectors/officer-page';
 
 
@@ -30,6 +31,26 @@ describe('officer page selectors', function () {
       getEditModeOn({
         officerPage: { editModeOn: { a: true } }
       }).should.eql({ a: true });
+    });
+  });
+
+  describe('getZipFileUrl', function () {
+    it('should return empty in case of missing', function () {
+      getZipFileUrl({ officerPage: { zipFileUrl: {} } }).should.be.eql('');
+      getZipFileUrl({ officerPage: { zipFileUrl: {} } }, true).should.be.eql('');
+    });
+
+    it('should return zip file url without docs by default', function () {
+      getZipFileUrl({
+        officerPage: { zipFileUrl: { withDocs: '', withoutDocs: 'lvh.me/without-docs.zip' } }
+      }).should.be.eql('lvh.me/without-docs.zip');
+    });
+
+    it('should able to return zip file url with docs', function () {
+      getZipFileUrl(
+        { officerPage: { zipFileUrl: { withDocs: 'lvh.me/with-docs.zip', withoutDocs: 'lvh.me/without-docs.zip' } } },
+        true
+      ).should.be.eql('lvh.me/with-docs.zip');
     });
   });
 

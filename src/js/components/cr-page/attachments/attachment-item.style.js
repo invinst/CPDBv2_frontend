@@ -5,8 +5,8 @@ const fileTypeSpecificThumbnailStyle = {
   audio: () => ({
     backgroundImage: `url(${imgUrl('ic-audio.svg')})`
   }),
-  video: () => ({
-    backgroundImage: `url(${imgUrl('ic-video.svg')})`
+  video: (imageUrl) => ({
+    backgroundImage: imageUrl ? `url(${imageUrl})` : `url(${imgUrl('ic-video.svg')})`
   }),
   document: (imageUrl) => ({
     backgroundImage: `url(${imageUrl})`

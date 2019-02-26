@@ -1,0 +1,27 @@
+@import 'variables'
+
+\:local(.breadcrumbs-item)
+  display: inline-block
+  font-weight: 500
+  line-height: 40px
+  padding-right: 8px
+  color: $clay-gray
+
+  &.bottom
+    color: $soft-black-color
+
+  .breadcrumbs-item-link
+    display: inline-block
+    font-weight: 500
+    line-height: 40px
+    color: $clay-gray
+    text-decoration: none
+
+    &:hover
+      color: $accent-color
+
+    &.bottom
+      color: $accent-color
+
+      &:hover
+        color: $soft-black-color

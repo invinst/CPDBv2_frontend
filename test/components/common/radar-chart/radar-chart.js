@@ -13,7 +13,7 @@ import RadarLegend from 'components/common/radar-chart/radar-legend';
 import RadarAxis from 'components/common/radar-chart/radar-axis';
 import RadarSpineLine from 'components/common/radar-chart/radar-spine-line';
 import RadarGrid from 'components/common/radar-chart/radar-grid';
-import { reRender } from '../../../../src/js/utils/test';
+import { reRender } from 'utils/test';
 
 
 describe('RadarChart component', function () {

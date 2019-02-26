@@ -1,0 +1,43 @@
+@import 'variables'
+
+$button-height: 28px
+$border-width: 1px
+
+\:local(.header-button)
+  position: relative
+
+  .button
+    float: right
+    cursor: pointer
+    line-height: $button-height
+    border-radius: 2px
+    padding: 0 8px
+    border: solid $border-width $white-two-color
+    margin-top: calc((#{$shareable-header-height} - #{$button-height} - #{$border-width} * 2) / 2)
+
+    &.top
+      color: $accent-color
+      background-color: $hawkes-blue
+
+      &:hover
+        color: white
+        background-color: $accent-color
+
+    &.middle
+      color: $clay-gray
+      background-color: $sugar-cane-color
+
+      &:hover
+        color: white
+        background-color: $accent-color
+
+    &.bottom
+      color: white
+      background-color: $accent-color
+
+      &:hover
+        background-color: $soft-black-color
+
+    &.focus
+      color: white
+      background-color: $soft-black-color

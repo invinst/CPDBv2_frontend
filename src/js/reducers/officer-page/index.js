@@ -10,6 +10,7 @@ import breadcrumbCachedFullName from './breadcrumb-cached-full-name';
 import coaccusals from './coaccusals';
 import currentTab from './currentTab';
 import editModeOn from './edit-mode-on';
+import zipFileUrl from './zip-file-url';
 
 
 export default combineReducers({
@@ -22,5 +23,6 @@ export default combineReducers({
   breadcrumbCachedFullName,
   coaccusals,
   currentTab,
-  editModeOn
+  editModeOn,
+  zipFileUrl,
 });

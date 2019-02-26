@@ -59,7 +59,11 @@ export default () => ComplaintFactory.build({
       'badge': 'CPD',
       'officer_id': 1
     }),
-    InvestigatorFactory.build({ 'officer_id': 2 }),
+    InvestigatorFactory.build({
+      'full_name': 'Edward May',
+      'badge': 'CPD',
+      'officer_id': null
+    }),
     PoliceWitnessFactory.build({
       'full_name': 'Raymond Piwinicki',
       'allegation_count': 3,

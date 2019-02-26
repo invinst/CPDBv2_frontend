@@ -5,6 +5,7 @@ import {
   RawTRRSuggestion,
   RawRankSuggestion,
 } from 'utils/test/factories/suggestion';
+import { SearchTermCategoryItem } from 'utils/test/factories/search-terms';
 
 
 export const groupedSuggestions = {
@@ -180,6 +181,59 @@ export const groupedSuggestions = {
         {
           name: 'Chief',
           'active_officers_count': 3,
+        }
+      ),
+    ]
+  },
+  'Geography': {
+    'SEARCH-TERMS': [
+      SearchTermCategoryItem.build(
+        {
+          name: 'Communities',
+          'category_name': 'Geography',
+          description: 'Whatever [SomeLink](http://www.somelink.lvh.me)',
+          'call_to_action_type': 'view_all',
+          id: 'community'
+        }
+      )
+    ],
+  },
+  'Kelly': {
+    'OFFICER': [
+      RawOfficerSuggestion.build(
+        {
+          id: '1',
+          name: 'Bernadette Kelly',
+          to: '/officer/1/bernadette-kelly/',
+          'allegation_count': 10,
+          'sustained_count': 2,
+          'birth_year': 1972,
+          race: 'White',
+          gender: 'Male'
+        }
+      )
+    ],
+    'INVESTIGATOR > CR': [
+      RawCRSuggestion.build(
+        {
+          id: '1',
+          crid: 'CR123456',
+          to: '/complaint/CR123456/',
+          category: 'Lockup Procedures',
+          'incident_date': '2004-04-23',
+          highlight: {
+            summary: ['an officer named Kelly caught the victim']
+          }
+        }
+      ),
+      RawCRSuggestion.build(
+        {
+          id: '2',
+          crid: 'CR654321',
+          to: '/complaint/CR654321/',
+          category: null,
+          'incident_date': null,
+          highlight: {}
         }
       ),
     ]

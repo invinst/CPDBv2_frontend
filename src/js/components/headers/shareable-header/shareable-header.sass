@@ -1,0 +1,37 @@
+@import 'variables'
+
+\:local(.shareable-header)
+  .shareable-header-header-placeholder
+    height: $shareable-header-height
+    position: relative
+
+  .shareable-header-outer
+    background-color: $sugar-cane-color
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    z-index: 3
+    box-shadow: 0 1px 1px 0 $gainsboro-color
+
+    .shareable-header-nav-bar
+      height: $shareable-header-height
+      line-height: 22px
+      color: $clay-gray
+      padding: 0 16px
+      font-size: 14px
+      font-weight: 400
+
+      .breadcrumbs
+        margin: 0
+        padding: 0
+
+      .shareable-header-breadcrumb-separator
+        padding: 2px 8px 0 0
+        height: 12px
+        width: 7.4px
+        background: url('/img/disclosure-indicator.svg') no-repeat scroll
+        vertical-align: middle
+        display: inline-block
+        font-weight: 500
+        line-height: 40px

@@ -1,18 +1,20 @@
 import React from 'react';
-import ShareableHeader from 'components/headers/shareable-header';
-import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import { Provider } from 'react-redux';
 import {
   renderIntoDocument,
-  findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
 import Breadcrumbs from 'redux-breadcrumb-trail';
-
 import { unmountComponentSuppressError } from 'utils/test';
 import { stub } from 'sinon';
 import * as domUtils from 'utils/dom';
+
+import ShareableHeader from 'components/headers/shareable-header';
+import HeaderButton from 'components/headers/shareable-header/header-button';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+
 
 describe('ShareableHeader component', function () {
   let element;
@@ -24,10 +26,16 @@ describe('ShareableHeader component', function () {
     }
   });
 
+  class CustomMenu extends React.Component {
+    render() {
+      return <div/>;
+    }
+  }
+
   beforeEach (function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <ShareableHeaderContainer />
+        <ShareableHeaderContainer Menu={ CustomMenu }/>
       </Provider>
     );
     element = findRenderedComponentWithType(instance, ShareableHeader);
@@ -37,12 +45,15 @@ describe('ShareableHeader component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render Share link', function () {
-    findRenderedDOMComponentWithClass(element, 'test--shareable-header--share-link');
-  });
+  it('should render HeaderButton, breadCrumbs and other contents', function () {
+    const headerButton = findRenderedComponentWithType(element, HeaderButton);
+    headerButton.props.Menu.should.eql(CustomMenu);
 
-  it('should render the breadCrumbs', function () {
-    findRenderedComponentWithType(element, Breadcrumbs);
+    const breadcrumbs = findRenderedComponentWithType(element, Breadcrumbs);
+    breadcrumbs.props.className.should.eql('breadcrumbs');
+
+    findRenderedDOMComponentWithClass(element, 'shareable-header-header-placeholder');
+    findRenderedDOMComponentWithClass(element, 'shareable-header-nav-bar');
   });
 
   describe('handleScroll', function () {

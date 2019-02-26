@@ -15,6 +15,8 @@ import TabbedPaneSection from 'components/officer-page/tabbed-pane-section';
 import OfficerRadarChart from 'components/officer-page/radar-chart';
 import { OFFICER_EDIT_TYPES } from 'utils/constants';
 import PrintNotes from 'components/common/print-notes';
+import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
 
 
 describe('OfficerPage component', function () {
@@ -87,6 +89,26 @@ describe('OfficerPage component', function () {
       'Officer Shaun Frank of the Chicago Police Department has ' +
       '5 complaints, 10 use of force reports, and 3 original documents available.'
     );
+  });
+
+  it('should render ShareableHeader with custom props', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer' } }
+          officerMetrics={ {
+            allegationCount: 5,
+            useOfForceCount: 10,
+          } }
+          numAttachments={ 3 }
+        />
+      </Provider>
+    );
+
+    const shareableHeader = findRenderedComponentWithType(instance, ShareableHeaderContainer);
+    shareableHeader.props.Menu.should.eql(DownloadMenuContainer);
+    shareableHeader.props.buttonText.should.eql('Download');
   });
 
   it('should add badge number into document description if officer name is not unique and badge is not Unknown',

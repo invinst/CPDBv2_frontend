@@ -36,6 +36,7 @@ import getTRRData from './trr-page/get-data';
 import getSearchTermsData from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
+import { getCommunity } from './community';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -119,6 +120,9 @@ axiosMockClient.onGet(`${SLUG_PAGE_API_URL}landing-page/`).reply(200, landingPag
 axiosMockClient.onGet(`${SLUG_PAGE_API_URL}officer-page/`).reply(200, officerPageCMSFields);
 
 axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup());
+
+axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'community', contentType: 'COMMUNITY' } })
+  .reply(() => { return [200, getCommunity()]; });
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

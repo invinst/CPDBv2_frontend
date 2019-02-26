@@ -27,6 +27,30 @@ describe('search page transforms', function () {
         recentText: 'CR # 123 - July 2, 2012',
       });
     });
+
+    it('should transform search term data correctly', function () {
+      searchResultItemTransform({
+        type: 'SEARCH-TERMS',
+        id: '1234abcd',
+        name: 'Communities',
+        description: 'This is community description',
+        'category_name': 'Geography',
+        'call_to_action_type': 'view_all',
+      }).should.deepEqual({
+        type: 'SEARCH-TERMS',
+        id: '1234abcd',
+        to: '/search/?terms=1234abcd&type=1234ABCD',
+        url: '',
+        uniqueKey: 'SEARCH-TERMS-1234-abcd',
+        name: 'Communities',
+        tags: [],
+        itemIndex: 1,
+        description: 'This is community description',
+        callToActionType: 'view_all',
+        text: 'Geography - Communities',
+        recentText: 'Geography - Communities',
+      });
+    });
   });
 
   describe('previewPaneTransform', function () {
@@ -68,6 +92,29 @@ describe('search page transforms', function () {
           },
           policeHQ: '22nd'
         }
+      });
+    });
+
+    it('should transform SEARCH-TERMS data correctly', function () {
+      previewPaneTransform({
+        type: 'SEARCH-TERMS',
+        name: 'Communities',
+        description: 'This is community description',
+        id: '123456abcd',
+        'call_to_action_type': 'view_all',
+        link: '/url-mediator/session-builder?community=<name>',
+      }).should.deepEqual({
+        data: {
+          id: '123456abcd',
+          name: 'Communities',
+          description: 'This is community description',
+          callToActionType: 'view_all',
+          to: '/search/?terms=123456abcd&type=123456ABCD',
+          url: '',
+          type: 'SEARCH-TERMS',
+          uniqueKey: 'SEARCH-TERMS-123456-abcd'
+        },
+        type: 'SEARCH-TERMS'
       });
     });
 

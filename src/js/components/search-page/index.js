@@ -55,7 +55,8 @@ export default class SearchPage extends Component {
   componentWillReceiveProps(nextProps) {
     const { location, params, routes, pushBreadcrumbs, query, selectTag, getSuggestion } = nextProps;
     pushBreadcrumbs({ location, params, routes });
-    if (this.props.location.pathname !== location.pathname && query && query.length > 2) {
+    if ((this.props.location.pathname !== location.pathname || this.props.contentType !== nextProps.contentType)
+      && query && query.length > 2) {
       setTimeout(() => { this.sendSearchRequest(query); }, 500);  // TODO; need refactor
     }
 
