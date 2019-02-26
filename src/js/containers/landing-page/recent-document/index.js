@@ -5,6 +5,7 @@ import RecentDocument from 'components/landing-page/recent-document';
 import * as constants from 'utils/constants';
 import { getCMSFields } from 'selectors/cms';
 import { updatePage } from 'actions/cms';
+import { trackingClickAttachment } from 'actions/common/analytic';
 import { mergeEditWrapperStateProps } from 'utils/container';
 import {
   turnOnCarouselDocumentHeaderEditMode,
@@ -24,7 +25,8 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   onSaveForm: updatePage(constants.LANDING_PAGE_ID),
   turnOnSectionEditMode: turnOnCarouselDocumentHeaderEditMode,
-  turnOffSectionEditMode: turnOffCarouselDocumentHeaderEditMode
+  turnOffSectionEditMode: turnOffCarouselDocumentHeaderEditMode,
+  onTrackingAttachment: trackingClickAttachment,
 };
 
 export default connect(
