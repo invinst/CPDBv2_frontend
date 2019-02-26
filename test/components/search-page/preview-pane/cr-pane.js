@@ -12,7 +12,7 @@ import Demographics from 'components/common/demographics';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
-describe.only('CRPane component', () => {
+describe('CRPane component', () => {
   let instance;
 
   afterEach(function () {
