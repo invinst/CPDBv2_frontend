@@ -36,7 +36,7 @@ export class CoaccusedCard extends Component {
     const outcomeDisciplined = printMode && disciplined ? 'Disciplined' : null;
 
     const complaintString = () => {
-      const complaint = `${complaintCount} ${pluralize('allegation', complaintCount)}`;
+      const complaint = `${complaintCount} ${pluralize('allegation', complaintCount, true)}`;
       const sustained = `${sustainedCount} sustained`;
       return (
         <span className='test--officer-card-metric'>
@@ -84,7 +84,7 @@ export class CoaccusedCard extends Component {
     return (
       <Link
         to={ `/officer/${officerId}/${officerSlug}/` }
-        style={ { ...style } }
+        style={ style }
         target={ openCardInNewPage ? '_blank' : null }
         className={ cx(styles.coaccusedCard, className) }
       >
@@ -111,7 +111,7 @@ export class CoaccusedCard extends Component {
           <div className='accused-card-category'>{ category }</div>
           <div
             className={
-              cx('accused-card-outcome', { 'sustained': finding === 'Sustained', 'disciplined': disciplined })
+              cx('accused-card-outcome', { 'sustained': finding === 'Sustained', disciplined })
             }
           >
             <div className='finding-outcome-mix'>{ join(compact([findingOutcomeMix, outcomeDisciplined]), ', ') }</div>

@@ -10,7 +10,7 @@ import { getThisYear } from '../../../../src/js/utils/date';
 import { Link } from 'react-router';
 import { findDOMNode } from 'react-dom';
 import should from 'should';
-import RadarChart from '../../../../src/js/components/common/radar-chart/radar-chart';
+import RadarChart from 'components/common/radar-chart/radar-chart';
 
 
 describe('CoaccusedCard component', function () {
