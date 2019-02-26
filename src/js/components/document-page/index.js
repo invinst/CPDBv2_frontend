@@ -60,25 +60,27 @@ export default class DocumentPage extends Component {
           <div className='document-wrapper'>
             <div className='document-side-bar'>
               <a className='document-thumbnail' href={ url }>
-                <img src={ previewImageUrl }/>
+                <img src={ previewImageUrl } alt='thumbnail'/>
                 <span className='document-thumbnail-page-count'>{ pageCount.toLocaleString() } pages</span>
               </a>
               <div className='document-vote'/>
               <SimpleListWidget className='document-info' items={ infoItems }/>
               <div className='linked-documents'>
                 <div className='linked-documents-title'>Linked Documents ({ linkedDocuments.length })</div>
-                {
-                  displayedDocuments.map(document => (
-                    <Link key={ document.id } className='linked-documents-thumbnail' to={ `/document/${document.id}/` }>
-                      <img src={ document.previewImageUrl } width='40'/>
-                    </Link>
-                  ))
-                }
-                {
-                  restDocumentsCount > 0 ? (
-                    <span className='linked-documents-thumbnail linked-documents-more'>+{ restDocumentsCount }</span>
-                  ) : null
-                }
+                <Link className='linked-documents-content' to={ `/documents?CRID=${crid}` }>
+                  {
+                    displayedDocuments.map(document => (
+                      <div key={ document.id } className='linked-documents-thumbnail'>
+                        <img src={ document.previewImageUrl } width='40' alt='thumbnail'/>
+                      </div>
+                    ))
+                  }
+                  {
+                    restDocumentsCount > 0 ? (
+                      <span className='linked-documents-thumbnail linked-documents-more'>+{ restDocumentsCount }</span>
+                    ) : null
+                  }
+                </Link>
               </div>
             </div>
             <div className='main-section'>
