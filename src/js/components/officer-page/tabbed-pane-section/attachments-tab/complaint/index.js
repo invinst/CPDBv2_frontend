@@ -11,14 +11,14 @@ export default class Complaint extends Component {
   }
 
   render() {
-    const { complaint } = this.props;
+    const { complaint, onTrackingAttachment } = this.props;
     return (
       <div className={ styles.complaint }>
         <Heading complaint={ complaint } />
         <div>
           {
             complaint.attachments.map((attachment, index) =>
-              <Attachment attachment={ attachment } key={ index }/>
+              <Attachment attachment={ attachment } key={ index } onTrackingAttachment={ onTrackingAttachment }/>
             )
           }
         </div>
@@ -29,4 +29,5 @@ export default class Complaint extends Component {
 
 Complaint.propTypes = {
   complaint: PropTypes.object,
+  onTrackingAttachment: PropTypes.func
 };
