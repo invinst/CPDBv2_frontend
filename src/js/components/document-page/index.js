@@ -16,7 +16,6 @@ export default class DocumentPage extends Component {
   render() {
     const {
       title,
-      fullText,
       url,
       previewImageUrl,
       crid,
@@ -30,7 +29,8 @@ export default class DocumentPage extends Component {
       linkedDocuments,
       lastEditedUser,
       lastEditedDateTime,
-      editWrapperStateProps,
+      titleEditWrapperStateProps,
+      textContentEditWrapperStateProps,
     } = this.props;
 
     const infoItems = [
@@ -85,11 +85,15 @@ export default class DocumentPage extends Component {
               <EditableTextBox
                 className='main-section-title'
                 title='Document Title'
-                text={ title }
-                editWrapperStateProps={ editWrapperStateProps }
+                fieldName='title'
+                editWrapperStateProps={ titleEditWrapperStateProps }
               />
               <EditableTextBox
-                className='main-section-full-text' title='Full-text OCR' text={ fullText } multiline={ true }
+                className='main-section-full-text'
+                title='Full-text OCR'
+                fieldName='text_content'
+                multiline={ true }
+                editWrapperStateProps={ textContentEditWrapperStateProps }
               />
               <div className='main-section-last-edited'>
                 This document was last edited { lastEditedUser ? 'by' : ''}
@@ -122,7 +126,8 @@ DocumentPage.propTypes = {
   linkedDocuments: PropTypes.array,
   lastEditedUser: PropTypes.string,
   lastEditedDateTime: PropTypes.string,
-  editWrapperStateProps: PropTypes.object,
+  titleEditWrapperStateProps: PropTypes.object,
+  textContentEditWrapperStateProps: PropTypes.object,
 };
 
 DocumentPage.contextTypes = {

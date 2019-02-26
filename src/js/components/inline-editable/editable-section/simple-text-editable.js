@@ -1,39 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import { get } from 'lodash';
+import cx from 'classnames';
 
 import Editable from 'components/inline-editable/editable';
+import styles from './simple-text-editable.sass';
 
 
 export default class SimpleTextEditable extends Component {
-
-  getEditorProps() {
-    const { editModeOn, value, onChange, fieldname } = this.props;
-    const { fieldContexts } = this.context;
-    // const fieldContext = get(this.context.fieldContexts, fieldname, '');
-    console.warn('fieldContexts', fieldContexts)
-    return {
-      editModeOn: fieldContexts.editModeOn,
-      value: get(fieldContexts.value, fieldname, ''),
-      onChange: fieldContexts.onChange,
-    };
-  }
-
   render() {
-    const {
-      style, placeholder, className, lastBlockChild, fieldname
-    } = this.props;
-
-    const { editModeOn, value, onChange } = this.getEditorProps();
-    console.log('onChange', onChange)
-
+    const { placeholder, className, fieldName } = this.props;
+    const { editModeOn, value, onChange } = get(this.context.fieldContexts, fieldName, {});
     return (
       <Editable
         editModeOn={ editModeOn }
         editorElement={
-          <textarea rows='1'
-            className={ className }
-            style={ style }
-            onChange={ e => onChange(fieldname, e.target.value) }
+          <textarea
+            className={ cx(styles.simpleTextEditableEditor, className) }
+            onChange={ e => onChange(e.target.value) }
             placeholder={ placeholder }
           >
             { value }
@@ -42,7 +25,6 @@ export default class SimpleTextEditable extends Component {
         presenterElement={
           <div
             className={ className }
-            style={ style }
             placeholder={ placeholder }
           >
             { value }
@@ -54,12 +36,8 @@ export default class SimpleTextEditable extends Component {
 
 SimpleTextEditable.propTypes = {
   className: PropTypes.string,
-  value: PropTypes.object,
-  style: PropTypes.object,
-  onChange: PropTypes.func,
-  editModeOn: PropTypes.bool,
   placeholder: PropTypes.string,
-  fieldname: PropTypes.string,
+  fieldName: PropTypes.string,
   lastBlockChild: PropTypes.node
 };
 

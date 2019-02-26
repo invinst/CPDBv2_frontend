@@ -4,31 +4,39 @@ import cx from 'classnames';
 import styles from './editable-text-box.sass';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
-import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
+import SimpleEditWrapperStateProvider from 'components/inline-editable/simple-edit-wrapper-state-provider';
 import SimpleTextEditable from 'components/inline-editable/editable-section/simple-text-editable';
 
 
 export default class EditableTextBox extends Component {
   render() {
-    const { className, title, text, multiline, editWrapperStateProps } = this.props;
+    const { className, title, multiline, editWrapperStateProps, fieldName } = this.props;
+    const { sectionEditModeOn } = editWrapperStateProps;
     return (
       <div className={ cx(styles.editableTextBox, className) }>
         <div className='editable-text-box-title'>{ title }</div>
-        { multiline ? (
-          <MinimalScrollBars style={ { container: { height: 669 }, view: { backgroundColor: 'white' } } }>
-            <div className={ cx('editable-text-box-text', { multiline: true }) }>{ text }</div>
-          </MinimalScrollBars>
-        ) : (
-          <EditWrapperStateProvider { ...editWrapperStateProps } simple={ true }>
-            <HoverableEditWrapper>
+        <SimpleEditWrapperStateProvider { ...editWrapperStateProps }>
+          <HoverableEditWrapper>
+            { multiline ? (
+              <MinimalScrollBars
+                showThumb={ !sectionEditModeOn }
+                style={ { container: { height: 669 }, view: { backgroundColor: 'white' } } }
+              >
+                <SimpleTextEditable
+                  className='editable-text-box-text-multiline'
+                  placeholder='Title'
+                  fieldName={ fieldName }
+                />
+              </MinimalScrollBars>
+            ) : (
               <SimpleTextEditable
-                className={ cx('editable-text-box-text', { multiline: false }) }
+                className='editable-text-box-text'
                 placeholder='Title'
-                fieldname='title'
+                fieldName={ fieldName }
               />
-            </HoverableEditWrapper>
-          </EditWrapperStateProvider>
-        )}
+            )}
+          </HoverableEditWrapper>
+        </SimpleEditWrapperStateProvider>
       </div>
     );
   }
@@ -39,6 +47,7 @@ EditableTextBox.propTypes = {
   title: PropTypes.string,
   text: PropTypes.string,
   multiline: PropTypes.bool,
+  fieldName: PropTypes.string,
   editWrapperStateProps: PropTypes.object,
 };
 
