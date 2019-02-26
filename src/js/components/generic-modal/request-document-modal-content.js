@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 
 import ConfiguredRadium from 'utils/configured-radium';
+import { updateIntercomEmail } from 'utils/intercom';
 import style from './request-document-modal-content.sass';
 import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
@@ -18,8 +19,10 @@ class RequestDocumentModalContent extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const { onRequestDocument, id, closeModal } = this.props;
+    const email = this.refs.email.value;
 
-    return onRequestDocument({ id, email: this.refs.email.value }).then(() => {
+    return onRequestDocument({ id, email }).then((action) => {
+      updateIntercomEmail(email);
       this.setState({ warning: false });
       setTimeout(closeModal, 1500);  // auto close modal if success
     }).catch(e => {

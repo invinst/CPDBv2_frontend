@@ -1,5 +1,5 @@
 import { spy } from 'sinon';
-import { showIntercomLauncher, showIntercomMessages } from 'utils/intercom';
+import { showIntercomLauncher, showIntercomMessages, updateIntercomEmail } from 'utils/intercom';
 
 
 describe('Intercom utils', function () {
@@ -11,18 +11,29 @@ describe('Intercom utils', function () {
     window.Intercom.restore();
   });
 
-  it('showIntercomLauncher should call Intercom correctly', function () {
-    showIntercomLauncher(true);
-    window.Intercom.calledWith('update', { 'hide_default_launcher': false }).should.be.true();
+  describe('showIntercomLauncher', function () {
+    it('should call Intercom correctly', function () {
+      showIntercomLauncher(true);
+      window.Intercom.calledWith('update', { 'hide_default_launcher': false }).should.be.true();
+    });
   });
 
-  it('showIntercomMessages should call Intercom correctly', function () {
-    showIntercomMessages(true);
-    window.Intercom.calledWith('show').should.be.true();
+  describe('showIntercomMessages', function () {
+    it('should call Intercom correctly', function () {
+      showIntercomMessages(true);
+      window.Intercom.calledWith('show').should.be.true();
 
-    window.Intercom.resetHistory();
+      window.Intercom.resetHistory();
 
-    showIntercomMessages(false);
-    window.Intercom.calledWith('hide').should.be.true();
+      showIntercomMessages(false);
+      window.Intercom.calledWith('hide').should.be.true();
+    });
+  });
+
+  describe('updateIntercomEmail', function () {
+    it('should update Intercom user email', function () {
+      updateIntercomEmail('abc@gmail.com');
+      window.Intercom.calledWith('update', { email: 'abc@gmail.com' }).should.be.true();
+    });
   });
 });
