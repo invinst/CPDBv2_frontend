@@ -11,7 +11,7 @@ export default class SearchMainPanel extends Component {
   render() {
     const {
       tags, contentType, recentSuggestions, query, editModeOn,
-      officerCards, requestActivityGrid, aliasEditModeOn, handleSelect
+      officerCards, requestActivityGrid, aliasEditModeOn, handleSelect, isRequesting
     } = this.props;
 
     return (
@@ -21,6 +21,7 @@ export default class SearchMainPanel extends Component {
             tags={ tags }
             onSelect={ handleSelect }
             selected={ contentType }
+            isRequesting={ isRequesting }
           />
         </div>
 
@@ -53,7 +54,7 @@ SearchMainPanel.propTypes = {
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   handleSelect: PropTypes.func,
-  pathname: PropTypes.string,
+  isRequesting: PropTypes.bool,
 };
 
 SearchMainPanel.defaultProps = {

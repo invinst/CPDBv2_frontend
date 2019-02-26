@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { debounce, isEmpty, isEqual } from 'lodash';
+import { debounce, isEmpty } from 'lodash';
 import { Promise } from 'es6-promise';
 import DocumentMeta from 'react-document-meta';
 
@@ -39,37 +39,49 @@ export default class SearchPage extends Component {
   }
 
   componentDidMount() {
-    const { query, location, params, routes, pushBreadcrumbs } = this.props;
+    const { query, location, params, routes, pushBreadcrumbs, contentType } = this.props;
     pushBreadcrumbs({ location, params, routes });
 
     LayeredKeyBinding.bind('esc', this.handleGoBack);
     LayeredKeyBinding.bind('enter', this.handleViewItem);
-    if (query && query.length >= 2) {
-      setTimeout(() => { this.sendSearchRequest(query); }, 500);
-    }
+
+    this.sendSearchQuery(query, contentType);
 
     IntercomTracking.trackSearchPage();
     showIntercomLauncher(false);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { location, params, routes, pushBreadcrumbs, query, selectTag, getSuggestion } = nextProps;
+    const {
+      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType, selectTag
+    } = nextProps;
     pushBreadcrumbs({ location, params, routes });
-    if ((this.props.location.pathname !== location.pathname || this.props.contentType !== nextProps.contentType)
-      && query && query.length > 2) {
-      setTimeout(() => { this.sendSearchRequest(query); }, 500);  // TODO; need refactor
+
+    const queryChanged = query !== this.props.query;
+    const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;
+
+    if (!isRequesting && (queryChanged || suggestionGroupsEmpty)) {
+      this.sendSearchQuery(query, contentType);
     }
 
-    if (!isEqual(this.props.suggestionGroups, nextProps.suggestionGroups) && nextProps.suggestionGroups.length == 0) {
+    if (!isRequesting && suggestionGroupsEmpty)
       selectTag(null);
-      getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
-    }
   }
 
   componentWillUnmount() {
     LayeredKeyBinding.unbind('esc');
     LayeredKeyBinding.unbind('enter');
     showIntercomLauncher(true);
+  }
+
+  sendSearchQuery(query, contentType) {
+    if (query) {
+      if (contentType) {
+        this.getSuggestionWithContentType(query, { contentType });
+      } else {
+        this.getSuggestion(query, { limit: DEFAULT_SUGGESTION_LIMIT });
+      }
+    }
   }
 
   goToItem(item) {
@@ -83,30 +95,12 @@ export default class SearchPage extends Component {
     const { focusedItem, firstItem } = this.props;
 
     // handle the case where user focuses on nothing
-    if (focusedItem.type == undefined) {
+    if (typeof focusedItem.type === 'undefined') {
       this.goToItem(firstItem);
     } else if (focusedItem.type === MORE_BUTTON) {
       this.handleSelect(focusedItem.id);
     } else {
       this.goToItem(focusedItem);
-    }
-  }
-
-  sendSearchRequest(query) {
-    const { contentType, changeSearchQuery } = this.props;
-    const limit = contentType ? null : DEFAULT_SUGGESTION_LIMIT;
-    changeSearchQuery(query);
-
-    if (query) {
-      if (contentType) {
-        this.props.getSuggestionWithContentType(query, { contentType }).catch(() => {
-        });
-      } else {
-        this.props.getSuggestion(query, { contentType, limit }).catch(() => {
-        });
-      }
-    } else {
-      this.props.selectTag(null);
     }
   }
 
@@ -117,10 +111,17 @@ export default class SearchPage extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
-    if (!this.props.searchTermsHidden) {
+    const { changeSearchQuery, selectTag, searchTermsHidden } = this.props;
+
+    if (!searchTermsHidden) {
       browserHistory.push(`/${constants.SEARCH_PATH}`);
     }
-    this.sendSearchRequest(value);
+    changeSearchQuery(value);
+    selectTag(null);
+
+    if (value) {
+      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
+    }
   }
 
   handleGoBack(e) {
@@ -130,16 +131,14 @@ export default class SearchPage extends Component {
   }
 
   handleSelect(newContentType) {
-    const { contentType, query, selectTag } = this.props;
+    const { contentType, selectTag } = this.props;
 
     if (newContentType === RECENT_CONTENT_TYPE) {
       return;
     } else if (newContentType === contentType) {
       selectTag(null);
-      this.getSuggestion(query, { limit: 9 });
     } else {
       selectTag(newContentType);
-      this.getSuggestionWithContentType(this.props.query, { contentType: newContentType });
     }
     this.resetNavigation();
   }
@@ -149,7 +148,7 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
       editModeOn, officerCards, requestActivityGrid,
-      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion
+      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, isRequesting
     } = this.props;
 
     return (
@@ -191,6 +190,7 @@ export default class SearchPage extends Component {
                   requestActivityGrid={ requestActivityGrid }
                   searchTermsHidden={ searchTermsHidden }
                   handleSelect={ this.handleSelect }
+                  isRequesting={ isRequesting }
                 />
             }
           </div>
@@ -205,7 +205,6 @@ SearchPage.propTypes = {
     pathname: PropTypes.string
   }),
   focusedItem: PropTypes.object,
-  suggestionGroups: PropTypes.array,
   tags: PropTypes.array,
   recentSuggestions: PropTypes.array,
   getSuggestion: PropTypes.func,
@@ -222,6 +221,7 @@ SearchPage.propTypes = {
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   searchTermsHidden: PropTypes.bool,
+  isRequesting: PropTypes.bool,
   params: PropTypes.object,
   routes: PropTypes.array,
   pushBreadcrumbs: PropTypes.func,
@@ -232,15 +232,11 @@ SearchPage.propTypes = {
 
 /* istanbul ignore next */
 SearchPage.defaultProps = {
-  suggestionGroups: [],
   contentType: null,
   focusedItem: {},
   getSuggestion: () => new Promise(() => {}),
   getSuggestionWithContentType: () => new Promise(() => {}),
   trackRecentSuggestion: () => {},
-  router: {
-    goBack: () => {}
-  },
   changeSearchQuery: () => {},
   location: {
     pathname: '/'
