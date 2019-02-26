@@ -40,7 +40,7 @@ const mapStateToProps = (state, ownProps) => {
 const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
   let editType, turnOnSectionEditMode, turnOffSectionEditMode;
   if (stateProps.hasData) {
-    editType = CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS;
+    editType = CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION;
     turnOnSectionEditMode = dispatchProps.turnOnNewDocumentNotificationEditMode;
     turnOffSectionEditMode = dispatchProps.turnOffNewDocumentNotificationEditMode;
   } else {

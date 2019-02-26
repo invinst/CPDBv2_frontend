@@ -41,9 +41,9 @@ export const turnOffDocumentRequestInstructionEditMode = createChangeEditModeAct
 );
 
 export const turnOnNewDocumentNotificationEditMode = createChangeEditModeAction(
-  CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS, true
+  CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, true
 );
 export const turnOffNewDocumentNotificationEditMode = createChangeEditModeAction(
-  CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS, false
+  CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, false
 );
 

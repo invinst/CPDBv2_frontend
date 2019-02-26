@@ -95,7 +95,7 @@ describe('CRPage actions', function () {
     it('should return correct action', function () {
       turnOnNewDocumentNotificationEditMode().should.eql({
         type: CR_EDIT_MODE,
-        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS, mode: true }
+        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, mode: true }
       });
     });
   });
@@ -104,7 +104,7 @@ describe('CRPage actions', function () {
     it('should return correct action', function () {
       turnOffNewDocumentNotificationEditMode().should.eql({
         type: CR_EDIT_MODE,
-        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS, mode: false }
+        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, mode: false }
       });
     });
   });
