@@ -12,6 +12,7 @@ import {
   turnOffNoAttachmentTextEditMode,
 } from 'actions/cr-page';
 import { updatePage } from 'actions/cms';
+import { trackingClickAttachment } from 'actions/common/analytic';
 import { getCMSFields } from 'selectors/cms';
 import { getEditModeOn } from 'selectors/cr-page';
 
@@ -36,6 +37,7 @@ const mapDispatchToProps = {
   onSaveForm: updatePage(CR_PAGE_ID),
   turnOnNoAttachmentTextEditMode,
   turnOffNoAttachmentTextEditMode,
+  onTrackingAttachment: trackingClickAttachment,
 };
 
 const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {

@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { omit } from 'lodash';
 
 import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';
@@ -17,7 +16,7 @@ export default function withCarousel(
     }
 
     render() {
-      const { cards, editWrapperStateProps, pathname, openCardInNewPage } = this.props;
+      const { cards, editWrapperStateProps, pathname, openCardInNewPage, onTrackingAttachment } = this.props;
 
       const slideElements = cards.map((card, index) => {
         return (
@@ -26,10 +25,11 @@ export default function withCarousel(
             style={ itemStyle(itemWidth) }
             className='test--carousel--item'>
             <CardComponent
-              { ...omit(card, 'id') }
+              { ...card }
               { ...extraCardAttr }
               openCardInNewPage={ openCardInNewPage }
               pathname={ pathname }
+              onTrackingAttachment={ onTrackingAttachment }
             />
           </div>
         );
@@ -59,6 +59,7 @@ export default function withCarousel(
     pathname: PropTypes.string,
     editWrapperStateProps: PropTypes.object,
     openCardInNewPage: PropTypes.bool,
+    onTrackingAttachment: PropTypes.func,
   };
 
   Wrapper.defaultProps = {
