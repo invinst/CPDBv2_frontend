@@ -16,10 +16,11 @@ export default class Attachments extends Component {
   }
 
   handleClick() {
-    const { pathname, attachments } = this.props;
+    const { pathname, attachments, onTrackingAttachment } = this.props;
     const [firstAttachment] = attachments;
-    const { url } = firstAttachment;
+    const { url, id } = firstAttachment;
     GATracking.trackAttachmentClick(pathname, url);
+    onTrackingAttachment({ attachmentId: id, sourcePage: 'Officer Page - Timeline Tab', app: 'Frontend' });
   }
 
   render() {
@@ -68,4 +69,9 @@ Attachments.propTypes = {
   attachments: PropTypes.array,
   changeOfficerTab: PropTypes.func,
   pathname: PropTypes.string,
+  onTrackingAttachment: PropTypes.func
+};
+
+Attachments.defaultProps = {
+  onTrackingAttachment: () => {},
 };

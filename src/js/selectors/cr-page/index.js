@@ -178,7 +178,8 @@ export const contentSelector = createSelector(
       title: attachment.title,
       url: attachment.url,
       previewImageUrl: attachment['preview_image_url'],
-      fileType: attachment['file_type']
+      fileType: attachment['file_type'],
+      id: attachment['id'],
     }))
   })
 );
