@@ -22,6 +22,7 @@ export const documentSelector = createSelector(
     notificationCount: data['notifications_count'],
     pageCount: data['pages'] || 0,
     createdAt: moment(data['created_at']).format('MMM D, YYYY'),
+    lastUpdatedBy: data['last_updated_by'],
     linkedDocuments: (data['linked_documents'] || []).map(
       linkedDocument => ({
         id: linkedDocument.id,

@@ -27,7 +27,7 @@ export default class DocumentPage extends Component {
       notificationCount,
       pageCount,
       linkedDocuments,
-      lastEditedUser,
+      lastUpdatedBy,
       lastEditedDateTime,
       titleEditWrapperStateProps,
       textContentEditWrapperStateProps,
@@ -98,8 +98,8 @@ export default class DocumentPage extends Component {
                 editWrapperStateProps={ textContentEditWrapperStateProps }
               />
               <div className='main-section-last-edited'>
-                This document was last edited { lastEditedUser ? 'by' : ''}
-                <span className='last-edited-highlight'> { lastEditedUser } { lastEditedDateTime }</span>
+                This document was last edited { lastUpdatedBy ? 'by' : ''}
+                <span className='last-edited-highlight'> { lastUpdatedBy } { lastEditedDateTime }</span>
               </div>
             </div>
           </div>
@@ -126,7 +126,7 @@ DocumentPage.propTypes = {
   notificationCount: PropTypes.number,
   pageCount: PropTypes.number,
   linkedDocuments: PropTypes.array,
-  lastEditedUser: PropTypes.string,
+  lastUpdatedBy: PropTypes.string,
   lastEditedDateTime: PropTypes.string,
   titleEditWrapperStateProps: PropTypes.object,
   textContentEditWrapperStateProps: PropTypes.object,
