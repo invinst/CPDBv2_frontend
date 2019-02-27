@@ -145,12 +145,7 @@ export default store => next => action => {
   }
 
   else if (action.payload.pathname.match(/\/documents\//)) {
-    const crid = get(action.payload.query, 'crid', null);
-    if (crid === null) {
-      dispatches.push(store.dispatch(fetchDocuments()).catch(cancelledByUser));
-    } else {
-      dispatches.push(store.dispatch(fetchDocuments({ crid })).catch(cancelledByUser));
-    }
+    dispatches.push(store.dispatch(fetchDocuments()).catch(cancelledByUser));
   }
 
   if (dispatches.length > 0) {
