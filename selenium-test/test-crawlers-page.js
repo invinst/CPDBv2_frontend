@@ -3,6 +3,7 @@
 require('should');
 
 import crawlersPage from './page-objects/crawlers-page';
+import { switchToRecentTab } from './utils';
 
 
 describe('Crawlers Page', function () {
@@ -20,6 +21,15 @@ describe('Crawlers Page', function () {
     crawlersPage.tableSection.firstRecentRunAt.getText().should.equal('2019-02-20');
     crawlersPage.tableSection.firstNumNewDocuments.getText().should.equal('0');
     crawlersPage.tableSection.firstNumDocuments.getText().should.equal('284');
+  });
+
+  it('should go to new download window when click on crawler row', function () {
+    crawlersPage.tableSection.crawlerRow.click();
+
+    switchToRecentTab();
+    browser.getUrl().should.equal(
+      'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
+    );
   });
 
   it('should able to scroll', function () {

@@ -15,6 +15,7 @@ class TableSection extends Section {
       lastRecentRunAt: '(//span[contains(@class, "recent-run")])[last()]',
       lastNumNewDocuments: '(//span[contains(@class, "num-new-documents")])[last()]',
       lastNumDocuments: '(//span[contains(@class, "num-documents")])[last()]',
+      crawlerRow: '(//a[contains(@class, "crawler-row")])',
 
       crawlerNameHeader: '.header-col.crawler-header',
       recentRunAtHeader: '(//*[@class="header-col"])[1]',

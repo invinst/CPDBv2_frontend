@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
@@ -25,6 +26,7 @@ describe('CrawlerRow component', function () {
         numNewDocuments={ 5 }
         recentRunAt='2019-02-20'
         numSuccessfulRun={ 2 }
+        logUrl='https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
       />
     );
 
@@ -50,6 +52,7 @@ describe('CrawlerRow component', function () {
         numNewDocuments={ 5 }
         recentRunAt='2019-02-20'
         numSuccessfulRun={ 2 }
+        logUrl='https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
       />
     );
 
@@ -58,11 +61,15 @@ describe('CrawlerRow component', function () {
     const numNewDocuments = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[2];
     const numDocuments = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[3];
     const numSuccessfulRun = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[4];
+    const crawlerRow = findDOMNode(instance);
 
     crawlerName.textContent.should.eql('PORTAL_COPA');
     recentRunAt.textContent.should.eql('2019-02-20');
     numNewDocuments.textContent.should.eql('5');
     numDocuments.textContent.should.eql('10');
     numSuccessfulRun.textContent.should.eql('2');
+    crawlerRow.getAttribute('href').should.eql(
+      'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
+    );
   });
 });

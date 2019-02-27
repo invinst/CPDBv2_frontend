@@ -12,6 +12,7 @@ export const crawlerTransform = crawler => ({
   numNewDocuments: crawler['num_new_documents'],
   recentRunAt: crawler['recent_run_at'],
   numSuccessfulRun: crawler['num_successful_run'],
+  logUrl: crawler['log_url']
 });
 
 export const crawlersSelector = createSelector(

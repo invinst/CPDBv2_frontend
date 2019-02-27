@@ -5,7 +5,8 @@ export default () => ({
       'crawler_name': 'SUMMARY_REPORTS_COPA',
       'num_documents': 284,
       'num_new_documents': 0,
-      'recent_run_at': '2019-02-20'
+      'recent_run_at': '2019-02-20',
+      'log_url': 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
     },
     {
       'id': 110,

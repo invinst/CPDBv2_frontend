@@ -11,7 +11,8 @@ describe('Crawler page selectors', function () {
         'num_documents': 15,
         'num_new_documents': 6,
         'recent_run_at': '2019-02-20',
-        'num_successful_run': 1
+        'num_successful_run': 1,
+        'log_url': 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
       };
       crawlerTransform(crawler).should.eql({
         id: 111,
@@ -20,7 +21,8 @@ describe('Crawler page selectors', function () {
         numDocuments: 15,
         numNewDocuments: 6,
         recentRunAt: '2019-02-20',
-        numSuccessfulRun: 1
+        numSuccessfulRun: 1,
+        logUrl: 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
       });
     });
   });
@@ -36,7 +38,8 @@ describe('Crawler page selectors', function () {
             'num_documents': 5,
             'num_new_documents': 1,
             'recent_run_at': '2019-02-19',
-            'num_successful_run': 0
+            'num_successful_run': 0,
+            'log_url': 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
           }, {
             'id': 110,
             'crawler_name': 'SUMMARY_REPORTS_COPA',
@@ -44,7 +47,8 @@ describe('Crawler page selectors', function () {
             'num_documents': 7,
             'num_new_documents': 2,
             'recent_run_at': '2019-02-20',
-            'num_successful_run': 1
+            'num_successful_run': 1,
+            'log_url': 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100331.txt'
           }, {
             'id': 111,
             'crawler_name': 'PORTAL_COPA',
@@ -52,7 +56,8 @@ describe('Crawler page selectors', function () {
             'num_documents': 15,
             'num_new_documents': 6,
             'recent_run_at': '2019-02-20',
-            'num_successful_run': 1
+            'num_successful_run': 1,
+            'log_url': 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100332.txt'
           }]
         }
       };
@@ -63,7 +68,8 @@ describe('Crawler page selectors', function () {
         numDocuments: 5,
         numNewDocuments: 1,
         recentRunAt: '2019-02-19',
-        numSuccessfulRun: 0
+        numSuccessfulRun: 0,
+        logUrl: 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
       }, {
         id: 110,
         crawlerName: 'SUMMARY_REPORTS_COPA',
@@ -71,7 +77,8 @@ describe('Crawler page selectors', function () {
         numDocuments: 7,
         numNewDocuments: 2,
         recentRunAt: '2019-02-20',
-        numSuccessfulRun: 1
+        numSuccessfulRun: 1,
+        logUrl: 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100331.txt'
       }, {
         id: 111,
         crawlerName: 'PORTAL_COPA',
@@ -79,7 +86,8 @@ describe('Crawler page selectors', function () {
         numDocuments: 15,
         numNewDocuments: 6,
         recentRunAt: '2019-02-20',
-        numSuccessfulRun: 1
+        numSuccessfulRun: 1,
+        logUrl: 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100332.txt'
       }]);
     });
   });
