@@ -15,7 +15,7 @@ const rowMap = {
 
 export default class DocumentsTable extends Component {
   render() {
-    const { rows, hasMore, nextParams, fetchDocuments } = this.props;
+    const { rows, hasMore, nextParams, fetchDocuments, onCRLinkClick } = this.props;
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
         <div className={ styles.table }>
@@ -34,7 +34,9 @@ export default class DocumentsTable extends Component {
               hasMore={ hasMore }
               useWindow={ true }>
               {
-                map(rows, row => createElement(rowMap[row.kind], { ...row, key: row.id }))
+                map(rows, row => createElement(
+                  rowMap[row.kind],
+                  { ...row, key: row.id, onCRLinkClick: onCRLinkClick }))
               }
             </InfiniteScroll>
           </div>
@@ -48,5 +50,6 @@ DocumentsTable.propTypes = {
   rows: PropTypes.array,
   hasMore: PropTypes.bool,
   nextParams: PropTypes.object,
-  fetchDocuments: PropTypes.func
+  fetchDocuments: PropTypes.func,
+  onCRLinkClick: PropTypes.func
 };

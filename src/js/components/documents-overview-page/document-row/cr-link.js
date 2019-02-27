@@ -1,12 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 
-import styles from './cr-document.sass';
+import styles from './cr-link.sass';
 
 
-export default class CRDocument extends Component {
+export default class CRLink extends Component {
   handleClick(crid, event) {
+    const { onCRLinkClick } = this.props;
     event.stopPropagation();
-    window.open(`/documents/?crid=${crid}`, '_blank');
+    onCRLinkClick(crid);
   }
 
   render() {
@@ -26,7 +27,8 @@ export default class CRDocument extends Component {
   }
 }
 
-CRDocument.propTypes = {
+CRLink.propTypes = {
   crid: PropTypes.string,
-  documentsCount: PropTypes.number
+  documentsCount: PropTypes.number,
+  onCRLinkClick: PropTypes.func
 };

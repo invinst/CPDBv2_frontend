@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 
 import Counter from './counter';
-import CRDocument from './cr-document';
+import CRLink from './cr-link';
 import styles from './document-row.sass';
 
 export default class DocumentRow extends Component {
@@ -20,7 +20,8 @@ export default class DocumentRow extends Component {
       viewsCount,
       downloadsCount,
       crid,
-      documentsCount
+      documentsCount,
+      onCRLinkClick
     } = this.props;
 
     return (
@@ -36,9 +37,10 @@ export default class DocumentRow extends Component {
           { title }
         </span>
         <span className='document-crid-uid'>
-          <CRDocument
+          <CRLink
             crid={ crid }
             documentsCount={ documentsCount }
+            onCRLinkClick={ onCRLinkClick }
           />
         </span>
         <span className='document-source'>
@@ -59,7 +61,6 @@ export default class DocumentRow extends Component {
 
 DocumentRow.propTypes = {
   id: PropTypes.number,
-  show: PropTypes.bool,
   thumbnail: PropTypes.string,
   title: PropTypes.string,
   source: PropTypes.string,
@@ -67,5 +68,6 @@ DocumentRow.propTypes = {
   viewsCount: PropTypes.number,
   downloadsCount: PropTypes.number,
   crid: PropTypes.string,
-  documentsCount: PropTypes.number
+  documentsCount: PropTypes.number,
+  onCRLinkClick: PropTypes.func
 };

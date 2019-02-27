@@ -7,7 +7,7 @@ import ShareableHeaderContainer from 'containers/headers/shareable-header/sharea
 import { cancelledByUser } from 'utils/axios-client';
 
 
-export default class DocumentDeduplicatorPage extends Component {
+export default class DocumentsOverviewPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,6 +16,8 @@ export default class DocumentDeduplicatorPage extends Component {
   }
 
   handleSearchChange(text) {
+    if (this.state.searchText === text)
+      return;
     this.setState({ searchText: text });
     this.props.searchDocuments(text).catch(cancelledByUser);
   }
@@ -33,7 +35,7 @@ export default class DocumentDeduplicatorPage extends Component {
         <ShareableHeaderContainer
           buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK }
           buttonText='Crawlers'
-          link='/crawlers/' />
+          to='/crawlers/' />
         <SearchBar
           value={ this.state.searchText }
           onChange={ this.handleSearchChange.bind(this) }/>
@@ -41,13 +43,14 @@ export default class DocumentDeduplicatorPage extends Component {
           rows={ documents }
           hasMore={ hasMore }
           nextParams={ nextParams }
-          fetchDocuments={ fetchDocuments }/>
+          fetchDocuments={ fetchDocuments }
+          onCRLinkClick={ this.handleSearchChange.bind(this) }/>
       </div>
     );
   }
 }
 
-DocumentDeduplicatorPage.propTypes = {
+DocumentsOverviewPage.propTypes = {
   documents: PropTypes.array,
   hasMore: PropTypes.bool,
   nextParams: PropTypes.object,
