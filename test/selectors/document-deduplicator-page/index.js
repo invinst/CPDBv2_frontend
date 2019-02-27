@@ -10,27 +10,31 @@ describe('Document deduplicator page selectors', function () {
     it('should return doc with correct format', function () {
       const state = {
         documentDeduplicatorPage: {
-          documentsOrder: [1, 4677],
+          documentsOrder: {
+            data: [1, 4677]
+          },
           documents: {
-            '4677': {
-              id: 4677,
-              'created_at': '2017-01-14T06:00:01-06:00',
-              title: 'CRID 1051117 CR',
-              'source_type': 'DOCUMENTCLOUD',
-              'preview_image_url': 'https://example.com/doc.jpg',
-              'views_count': 1,
-              'downloads_count': 1,
-              show: true
-            },
-            '1': {
-              id: 1,
-              'created_at': '2017-01-14T06:00:01-06:00',
-              title: 'CRID 1051117 CR',
-              'source_type': 'DOCUMENTCLOUD',
-              'preview_image_url': 'https://example.com/doc.jpg',
-              'views_count': 1,
-              'downloads_count': 1,
-              show: true
+            data: {
+              '4677': {
+                id: 4677,
+                'created_at': '2017-01-14T06:00:01-06:00',
+                title: 'CRID 1051117 CR',
+                'source_type': 'DOCUMENTCLOUD',
+                'preview_image_url': 'https://example.com/doc.jpg',
+                'views_count': 1,
+                'downloads_count': 1,
+                show: true
+              },
+              '1': {
+                id: 1,
+                'created_at': '2017-01-14T06:00:01-06:00',
+                title: 'CRID 1051117 CR',
+                'source_type': 'DOCUMENTCLOUD',
+                'preview_image_url': 'https://example.com/doc.jpg',
+                'views_count': 1,
+                'downloads_count': 1,
+                show: true
+              }
             }
           }
         }

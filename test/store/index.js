@@ -216,8 +216,14 @@ describe('store', function () {
         pagination: {}
       },
       documentDeduplicatorPage: {
-        documents: {},
-        documentsOrder: [],
+        documents: {
+          data: {},
+          crid: ''
+        },
+        documentsOrder: {
+          data: [],
+          crid: ''
+        },
         pagination: {}
       }
     });

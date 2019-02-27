@@ -4,101 +4,112 @@ import * as constants from 'utils/constants';
 
 describe('Document deduplicator page documents reducer', function () {
   it('should have initial state', function () {
-    documents(undefined, {}).should.deepEqual({});
+    documents(undefined, {}).should.deepEqual({ data: {}, crid: '' });
   });
 
   it('should handle DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS', function () {
-    documents(
-      {
+    documents({
+      data: {
         '1': {
-          'id': 1,
-          'created_at': '2017-01-14T06:00:01-06:00',
-          'title': 'CRID 1051117 CR',
-          'source_type': 'DOCUMENTCLOUD',
-          'preview_image_url': 'https://assets.documentcloud.org/documents/4769596/pages/CRID-1051117-CR-p1-normal.gif',
-          'views_count': 1,
-          'downloads_count': 1,
-          'show': true
-        }
-      },
-      {
-        type: constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
-        payload: {
-          results: [
-            {
-              'id': 2,
-              'created_at': '2017-01-14T06:00:01-06:00',
-              'title': 'CRID 1064593 CR',
-              'source_type': 'DOCUMENTCLOUD',
-              'preview_image_url': 'https://assets.documentcloud.org/documents/4769386/pages/CRID-1064593-CR-p1-normal.gif',
-              'views_count': 2,
-              'downloads_count': 1,
-              'show': false
-            }
-          ]
+          id: 1
         },
-        request: {
-          url: 'http://localhost/api/v2/attachments/?crid=1000000&limit=200'
+        '3': {
+          id: 3
+        }
+      },
+      crid: '1000000'
+    }, {
+      type: constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
+      payload: {
+        results: [{
+          id: 1
+        }, {
+          id: 2
+        }]
+      },
+      request: {
+        params: {
+          crid: '1000000'
         }
       }
+    }
     ).should.deepEqual({
-      '1': {
-        'id': 1,
-        'created_at': '2017-01-14T06:00:01-06:00',
-        'title': 'CRID 1051117 CR',
-        'source_type': 'DOCUMENTCLOUD',
-        'preview_image_url': 'https://assets.documentcloud.org/documents/4769596/pages/CRID-1051117-CR-p1-normal.gif',
-        'views_count': 1,
-        'downloads_count': 1,
-        'show': true
+      data: {
+        '1': {
+          id: 1
+        },
+        '2': {
+          id: 2
+        },
+        '3': {
+          id: 3
+        }
       },
-      '2': {
-        'id': 2,
-        'created_at': '2017-01-14T06:00:01-06:00',
-        'title': 'CRID 1064593 CR',
-        'source_type': 'DOCUMENTCLOUD',
-        'preview_image_url': 'https://assets.documentcloud.org/documents/4769386/pages/CRID-1064593-CR-p1-normal.gif',
-        'views_count': 2,
-        'downloads_count': 1,
-        'show': false
+      crid: '1000000'
+    });
+
+    documents({
+      data: {
+        '1': {
+          id: 1
+        },
+        '3': {
+          id: 3
+        }
+      },
+      crid: '1000000'
+    }, {
+      type: constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
+      payload: {
+        results: [{
+          id: 1
+        }, {
+          id: 2
+        }]
+      },
+      request: {
+        params: {}
       }
+    }
+    ).should.deepEqual({
+      data: {
+        '1': {
+          id: 1
+        },
+        '2': {
+          id: 2
+        }
+      },
+      crid: ''
     });
   });
 
   it('should handle DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS', function () {
-    documents(
-      {
+    documents({
+      data: {
         '1': {
-          'id': 1,
-          'created_at': '2017-01-14T06:00:01-06:00',
-          'title': 'CRID 1051117 CR',
-          'source_type': 'DOCUMENTCLOUD',
-          'preview_image_url': 'https://assets.documentcloud.org/documents/4769596/pages/CRID-1051117-CR-p1-normal.gif',
-          'views_count': 1,
-          'downloads_count': 1,
-          'show': true
+          id: 1,
+          show: true
         }
       },
-      {
-        type: constants.DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS,
-        payload: {
-          'show': false
-        },
-        request: {
-          url: 'http://localhost/api/v2/attachments/1/'
-        }
+      crid: '1000000'
+    }, {
+      type: constants.DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS,
+      payload: {
+        show: false
+      },
+      request: {
+        url: 'http://localhost/api/v2/attachments/1/'
       }
+    }
     ).should.deepEqual({
-      '1': {
-        'id': 1,
-        'created_at': '2017-01-14T06:00:01-06:00',
-        'title': 'CRID 1051117 CR',
-        'source_type': 'DOCUMENTCLOUD',
-        'preview_image_url': 'https://assets.documentcloud.org/documents/4769596/pages/CRID-1051117-CR-p1-normal.gif',
-        'views_count': 1,
-        'downloads_count': 1,
-        'show': false
-      }
+      data: {
+        '1': {
+          id: 1,
+          show: false
+        }
+      },
+      crid: '1000000'
     });
   });
 });

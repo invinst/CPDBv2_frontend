@@ -20,14 +20,12 @@ import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import * as docOverviewPageActions from 'actions/documents-overview-page';
-import extractQuery from 'utils/extract-query';
 
 
 const createLocationChangeAction = (pathname) => ({
   type: '@@router/LOCATION_CHANGE',
   payload: {
-    pathname: pathname,
-    query: extractQuery(pathname)
+    pathname: pathname
   }
 });
 
