@@ -24,18 +24,23 @@ class RecentActivityCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-activity"]//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[@class="test--landing-carousel-activity"]//*[contains(@class, "test--carousel-arrow-right")]',
-      officerCards: '//div[@class="test--landing-carousel-activity"]//a[contains(@class, "officer-card")]',
-      pairCards: '//div[@class="test--landing-carousel-activity"]//div[contains(@class, "pairing-card__pairing-card")]',
+      leftArrow: '//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
+        '//*[contains(@class, "test--carousel-arrow-left")]',
+      rightArrow: '//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
+        '//*[contains(@class, "test--carousel-arrow-right")]',
+      officerCards: '//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
+        '//a[contains(@class, "officer-card")]',
+      pairCards: '//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
+        '//div[contains(@class, "pairing-card__pairing-card")]',
       firstPairCard:
-        '(//div[@class="test--landing-carousel-activity"]//div[contains(@class, "pairing-card__pairing-card")])[1]',
+        '(//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
+        '//div[contains(@class, "pairing-card__pairing-card")])[1]',
       firstPairCardLeftHalf: '' +
-        '((//div[@class="test--landing-carousel-activity"]' +
+        '((//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
         '//div[contains(@class, "pairing-card__pairing-card")])[1]' +
         '//a[contains(@class, "half-pane")])[1]',
       firstPairCardRightHalf: '' +
-        '((//div[@class="test--landing-carousel-activity"]' +
+        '((//div[@class="test--landing-carousel-activity landing-page-carousel"]' +
         '//div[contains(@class, "pairing-card__pairing-card")])[1]' +
         '//a[contains(@class, "half-pane")])[2]',
     });
@@ -46,10 +51,12 @@ class OfficersByAllegationCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-allegation"]//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[@class="test--landing-carousel-allegation"]' +
+      leftArrow: '//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
+        '//*[contains(@class, "test--carousel-arrow-left")]',
+      rightArrow: '//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
         '//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--landing-carousel-allegation"]//a[contains(@class, "officer-card")]'
+      cards: '//div[@class="test--landing-carousel-allegation landing-page-carousel"]' +
+        '//a[contains(@class, "officer-card")]'
     });
   }
 }
@@ -58,9 +65,12 @@ class RecentDocumentCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-document"]//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[@class="test--landing-carousel-document"]//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--landing-carousel-document"]//a[@class="test--document-card"]'
+      leftArrow: '//div[@class="test--landing-carousel-document landing-page-carousel"]' +
+        '//*[contains(@class, "test--carousel-arrow-left")]',
+      rightArrow: '//div[@class="test--landing-carousel-document landing-page-carousel"]' +
+        '//*[contains(@class, "test--carousel-arrow-right")]',
+      cards: '//div[@class="test--landing-carousel-document landing-page-carousel"]' +
+        '//a[contains(@class, "document-card__document-card")]'
     });
   }
 }
@@ -69,9 +79,12 @@ class ComplaintSummariesCarouselSection extends Section {
   constructor() {
     super();
     this.prepareElementGetters({
-      leftArrow: '//div[@class="test--landing-carousel-complaint"]//*[contains(@class, "test--carousel-arrow-left")]',
-      rightArrow: '//div[@class="test--landing-carousel-complaint"]//*[contains(@class, "test--carousel-arrow-right")]',
-      cards: '//div[@class="test--landing-carousel-complaint"]//a[@class="test--complaint-summary-card"]'
+      leftArrow: '//div[@class="test--landing-carousel-complaint landing-page-carousel"]' +
+        '//*[contains(@class, "test--carousel-arrow-left")]',
+      rightArrow: '//div[@class="test--landing-carousel-complaint landing-page-carousel"]' +
+        '//*[contains(@class, "test--carousel-arrow-right")]',
+      cards: '//div[@class="test--landing-carousel-complaint landing-page-carousel"]' +
+        '//a[contains(@class, "complaint-summary-card")]'
     });
   }
 }

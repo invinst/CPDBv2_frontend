@@ -8,7 +8,7 @@ import * as GATracking from 'utils/google_analytics_tracking';
 
 
 export default function withCarousel(
-  CardComponent, type = '', extraCardAttr = {}, itemWidth = 232
+  CardComponentMap, type = '', extraCardAttr = {}
 ) {
   class Wrapper extends Component {
     handleNavigate(direction) {
@@ -16,9 +16,10 @@ export default function withCarousel(
     }
 
     render() {
-      const { cards, editWrapperStateProps, pathname, openCardInNewPage, onTrackingAttachment } = this.props;
+      const { className, cards, editWrapperStateProps, pathname, openCardInNewPage, onTrackingAttachment } = this.props;
 
       const slideElements = cards.map((card, index) => {
+        const { CardComponent, itemWidth } = CardComponentMap[card.kind || type];
         return (
           <div
             key={ index }
@@ -36,7 +37,7 @@ export default function withCarousel(
       });
 
       return (
-        <div className={ `test--landing-carousel-${(type.key || type).toLowerCase()}` }>
+        <div className={ `test--landing-carousel-${(type.key || type).toLowerCase()} ${className}` }>
           <EditModeProvider
             pathname={ pathname }
             className='test--carousel--header'
@@ -45,7 +46,7 @@ export default function withCarousel(
           </EditModeProvider>
           <Carousel
             style={ carouselStyle }
-            childWidth={ itemWidth }
+            childWidth={ 232 }
             onNavigate={ this.handleNavigate.bind(this) }>
             { slideElements }
           </Carousel>
@@ -60,6 +61,7 @@ export default function withCarousel(
     editWrapperStateProps: PropTypes.object,
     openCardInNewPage: PropTypes.bool,
     onTrackingAttachment: PropTypes.func,
+    className: PropTypes.string
   };
 
   Wrapper.defaultProps = {
