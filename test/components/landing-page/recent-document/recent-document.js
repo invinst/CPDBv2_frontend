@@ -2,7 +2,9 @@ import React from 'react';
 import { Router, Route, createMemoryHistory } from 'react-router';
 import {
   renderIntoDocument,
-  scryRenderedComponentsWithType, Simulate, findRenderedDOMComponentWithClass
+  scryRenderedComponentsWithType,
+  findRenderedComponentWithType,
+  Simulate,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
@@ -48,14 +50,14 @@ describe('Recent Document components', function () {
     recentDocumentCards.should.have.length(2);
     const recentDocumentCard1 = findDOMNode(recentDocumentCards[0]);
     recentDocumentCard1.textContent.should.containEql('2 new attachments added to CR 111');
-    const images = recentDocumentCard1.querySelectorAll('.test--document-card--thumbnail');
+    const images = recentDocumentCard1.querySelectorAll('.document-card-thumbnail-img');
 
     images.length.should.eql(1);
     images[0].getAttribute('src').should.eql('http://preview.com/url');
 
     const recentDocumentCard2 = findDOMNode(recentDocumentCards[1]);
     recentDocumentCard2.textContent.should.containEql('1 new attachment added to CR 112');
-    const images2 = recentDocumentCard2.querySelectorAll('.test--document-card--thumbnail');
+    const images2 = recentDocumentCard2.querySelectorAll('.document-card-thumbnail-img');
     images2.should.have.length(1);
     images2[0].getAttribute('src').should.eql('http://preview.com/url3');
   });
@@ -75,7 +77,7 @@ describe('Recent Document components', function () {
         <Route path='/' component={ recentDocument } />
       </Router>
     );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--document-card'));
+    Simulate.click(findDOMNode(findRenderedComponentWithType(instance, DocumentCard)));
     stubTrackAttachmentClick.should.be.calledWith(
       '/',
       '/complaint/123456/'
@@ -99,7 +101,7 @@ describe('Recent Document components', function () {
         <Route path='/' component={ recentDocument } />
       </Router>
     );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--document-card'));
+    Simulate.click(findDOMNode(findRenderedComponentWithType(instance, DocumentCard)));
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '789',
       sourcePage: 'Landing Page',

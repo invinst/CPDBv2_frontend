@@ -4,40 +4,29 @@ import { Link } from 'react-router';
 import moment from 'moment';
 import _ from 'lodash';
 
-import Hoverable from 'components/common/higher-order/hoverable';
-import {
-  complaintSummaryCardStyle,
-  categoryStyle,
-  contentStyle,
-  dateStyle,
-  summaryWrapperStyle,
-  titleWrapperStyle
-} from './complaint-summary-card.style';
+import styles from './complaint-summary-card.sass';
 
-class ComplaintSummaryCard extends React.Component {
+export default class ComplaintSummaryCard extends React.Component {
   render() {
-    const { hovering, summary, incidentDate, categoryNames, crid } = this.props;
+    const { summary, incidentDate, categoryNames, crid } = this.props;
 
     const categories = _.join(categoryNames, ', ');
 
     return (
-      <div style={ complaintSummaryCardStyle(hovering) }>
-        <Link
-          style={ { textDecoration: 'none' } }
-          to={ `/complaint/${crid}/` }
-          className='test--complaint-summary-card'
-        >
-          <div style={ titleWrapperStyle }>
-            <div style={ dateStyle(hovering) }>{ moment(incidentDate, 'YYYY-MM-DD').format('ll') }</div>
-            <div style={ categoryStyle(hovering) }>{ categories }</div>
+      <Link
+        to={ `/complaint/${crid}/` }
+        className={ styles.complaintSummaryCard }
+      >
+        <div className='complaint-summary-card-title'>
+          <div className='complaint-summary-card-title-date'>
+            { moment(incidentDate, 'YYYY-MM-DD').format('ll') }
           </div>
-          <div style={ summaryWrapperStyle(hovering) }>
-            <div style={ contentStyle(hovering) }>
-              { _.truncate(summary, { 'length': 280, 'separator': ' ' }) }
-            </div>
-          </div>
-        </Link>
-      </div>
+          <div className='complaint-summary-card-title-category'>{ categories }</div>
+        </div>
+        <div className='complaint-summary-card-summary'>
+          { _.truncate(summary, { 'length': 280, 'separator': ' ' }) }
+        </div>
+      </Link>
     );
   }
 }
@@ -47,7 +36,4 @@ ComplaintSummaryCard.propTypes = {
   summary: PropTypes.string,
   incidentDate: PropTypes.string,
   categoryNames: PropTypes.array,
-  hovering: PropTypes.bool
 };
-
-export default Hoverable(ComplaintSummaryCard);

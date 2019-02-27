@@ -2,17 +2,11 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import pluralize from 'pluralize';
 
-import {
-  documentCardWrapperStyle,
-  thumbnailDocumentStyle,
-  imageDocumentStyle,
-  descriptionDocumentStyle
-} from './document-card.style';
-import Hoverable from 'components/common/higher-order/hoverable';
+import styles from './document-card.sass';
 import * as GATracking from 'utils/google_analytics_tracking';
 
 
-class DocumentCard extends React.Component {
+export default class DocumentCard extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -26,24 +20,20 @@ class DocumentCard extends React.Component {
   }
 
   render() {
-    const { numDocuments, previewImageUrl, crid, hovering } = this.props;
+    const { numDocuments, previewImageUrl, crid } = this.props;
     return (
-      <div style={ documentCardWrapperStyle(hovering) } onClick={ this.handleClick }>
-        <Link
-          style={ { textDecoration: 'none' } }
-          to={ `/complaint/${crid}/` }
-          className='test--document-card'
-        >
-          <div style={ thumbnailDocumentStyle }>
-            <img className='test--document-card--thumbnail' style={ imageDocumentStyle } src={ previewImageUrl }/>
-          </div>
-          <div>
-            <div style={ descriptionDocumentStyle(hovering) }>
-              { pluralize('new attachment', numDocuments, true) } added to CR { crid }
-            </div>
-          </div>
-        </Link>
-      </div>
+      <Link
+        className={ styles.documentCard }
+        to={ `/complaint/${crid}/` }
+        onClick={ this.handleClick }
+      >
+        <div className='document-card-thumbnail'>
+          <img className='document-card-thumbnail-img' src={ previewImageUrl } alt='Document preview image'/>
+        </div>
+        <div className='document-card-description'>
+          { pluralize('new attachment', numDocuments, true) } added to CR { crid }
+        </div>
+      </Link>
     );
   }
 }
@@ -53,7 +43,6 @@ DocumentCard.propTypes = {
   previewImageUrl: PropTypes.string,
   url: PropTypes.string,
   crid: PropTypes.string,
-  hovering: PropTypes.bool,
   pathname: PropTypes.string,
   onTrackingAttachment: PropTypes.func,
   id: PropTypes.string,
@@ -62,5 +51,3 @@ DocumentCard.propTypes = {
 DocumentCard.defaultProps = {
   onTrackingAttachment: () => {},
 };
-
-export default Hoverable(DocumentCard);
