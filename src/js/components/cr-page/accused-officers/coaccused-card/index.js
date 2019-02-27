@@ -4,23 +4,53 @@ import pluralize from 'pluralize';
 import { compact, join, kebabCase } from 'lodash';
 import cx from 'classnames';
 
-import { getThisYear } from 'utils/date';
+import { getCurrentAge } from 'utils/date';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import styles from './coaccused-card.sass';
 
 
 export class CoaccusedCard extends Component {
+  renderExtraInfo() {
+    const { birthYear, race, gender, } = this.props;
+    const age = getCurrentAge(birthYear);
+    const ageString = age ? `${age}-year-old` : '';
+    const extraInfo = `${ageString} ${race} ${gender}`;
+
+    return <p className='extra-info'>{ extraInfo }</p>;
+  }
+
+  renderComplaintInfo() {
+    const { complaintCount, sustainedCount } = this.props;
+    const complaint = pluralize('allegation', complaintCount, true);
+    const sustained = `${sustainedCount} sustained`;
+    return (
+      <span className='test--officer-card-metric'>
+        <span className='coaccused-card-allegation'>{ complaint }</span>&nbsp;
+        <span className={ cx('coaccused-card-sustained', { 'unsustained': sustainedCount === 0 }) }>
+          { sustained }
+        </span>
+      </span>
+    );
+  }
+
+  renderComplaintPercentile() {
+    const { complaintPercentile } = this.props;
+    if (complaintPercentile) {
+      const complaintFormat = roundedPercentile(complaintPercentile);
+      return (
+        <p className='light-text no-print test--officer-card-percentile'>
+          More than { complaintFormat }% of other officers
+        </p>
+      );
+    }
+    return null;
+  }
+
   render() {
     const {
       officerId,
       fullName,
-      complaintCount,
-      sustainedCount,
-      birthYear,
-      complaintPercentile,
-      race,
-      gender,
       style,
       percentile,
       openCardInNewPage,
@@ -34,44 +64,6 @@ export class CoaccusedCard extends Component {
     const officerSlug = kebabCase(fullName);
     const { printMode } = this.context;
     const outcomeDisciplined = printMode && disciplined ? 'Disciplined' : null;
-
-    const complaintString = () => {
-      const complaint = pluralize('allegation', complaintCount, true);
-      const sustained = `${sustainedCount} sustained`;
-      return (
-        <span className='test--officer-card-metric'>
-          <span className='coaccused-card-allegation'>{ complaint }</span>&nbsp;
-          <span className={ cx('coaccused-card-sustained', { 'unsustained': sustainedCount === 0 }) }>
-            { sustained }
-          </span>
-        </span>
-      );
-    };
-
-    const ageString = () => {
-      if (!birthYear) {
-        return '';
-      }
-      const age = getThisYear() - birthYear - 1;
-      return `${age}-year-old`;
-    };
-
-    const extraInfo = () => {
-      return `${ageString()} ${race} ${gender}`;
-    };
-
-    const complaintPercentileString = () => {
-      if (complaintPercentile) {
-        const complaintFormat = roundedPercentile(complaintPercentile);
-        return (
-          <p className='light-text no-print test--officer-card-percentile'>
-            More than { complaintFormat }% of other officers
-          </p>
-        );
-      }
-      return '';
-    };
-
     const chartData = percentile && percentile.items;
 
     const radarConfig = {
@@ -100,12 +92,10 @@ export class CoaccusedCard extends Component {
             <div className='clearfix'/>
           </div>
           <div className='coaccused-card-section'>
-            <p className='bold-text'>{ complaintString() }</p>
-            { complaintPercentileString() }
+            <p className='bold-text'>{ this.renderComplaintInfo() }</p>
+            { this.renderComplaintPercentile() }
           </div>
-          <div className='coaccused-card-section test--officer-card-demographic'>
-            <p className='extra-info'>{ extraInfo() }</p>
-          </div>
+          <div className='coaccused-card-section test--officer-card-demographic'>{ this.renderExtraInfo() }</div>
         </div>
         <div className='coaccused-card-footer'>
           <div className='accused-card-category'>{ category }</div>

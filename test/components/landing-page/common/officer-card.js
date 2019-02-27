@@ -7,8 +7,8 @@ import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
 
+import { unmountComponentSuppressError } from 'utils/test';
 import OfficerCard from 'components/common/officer-card';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 
@@ -53,7 +53,7 @@ describe('OfficerCard component', function () {
     text.should.containEql('5 Sustained');
     text.should.containEql('More than 20% of other officers');
 
-    text.should.containEql('36-year-old white male');
+    text.should.containEql('37-year-old white male');
   });
 
   it('should show NoDataRadarChart when no percentile', () => {

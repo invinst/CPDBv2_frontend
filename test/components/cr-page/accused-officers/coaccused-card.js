@@ -1,14 +1,15 @@
 import React from 'react';
+import should from 'should';
+import { Link } from 'react-router';
+import { findDOMNode } from 'react-dom';
 import {
-  renderIntoDocument, findRenderedDOMComponentWithClass,
+  renderIntoDocument,
+  findRenderedDOMComponentWithClass,
   findRenderedComponentWithType
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
-import { Link } from 'react-router';
-import { findDOMNode } from 'react-dom';
-import should from 'should';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 
 
@@ -52,7 +53,7 @@ describe('CoaccusedCard component', function () {
     text.should.containEql('5 sustained');
     text.should.containEql('More than 20% of other officers');
 
-    text.should.containEql('36-year-old white male');
+    text.should.containEql('37-year-old white male');
   });
 
   it('should show NoDataRadarChart when no percentile', () => {
