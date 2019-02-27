@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, compact, sortBy, kebabCase, isNil } from 'lodash';
+import { map, get, reduce, defaults, compact, sortBy, kebabCase, isNil, isEmpty } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
@@ -35,7 +35,7 @@ const getInvolvements = state => {
   return !state.crs[crid] ? [] : state.crs[crid].involvements;
 };
 
-export const getAttachments = state => {
+const getAttachments = state => {
   const crid = state.crPage.crid;
   return !state.crs[crid] ? [] : state.crs[crid].attachments;
 };
@@ -183,3 +183,5 @@ export const contentSelector = createSelector(
     }))
   })
 );
+
+export const hasAttachmentsSelector = state => !isEmpty(getAttachments(state));

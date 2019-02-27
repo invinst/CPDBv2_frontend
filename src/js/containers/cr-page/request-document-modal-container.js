@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { omit, isEmpty } from 'lodash';
+import { omit } from 'lodash';
 
 import { requestDocument } from 'actions/cr-page';
 import { getCRID } from 'utils/location';
@@ -14,7 +14,7 @@ import {
 } from 'actions/cr-page';
 import { updatePage } from 'actions/cms';
 import { getCMSFields } from 'selectors/cms';
-import { getEditModeOn, getAttachments } from 'selectors/cr-page';
+import { getEditModeOn, hasAttachmentsSelector } from 'selectors/cr-page';
 
 
 const mapDispatchToProps = {
@@ -33,7 +33,7 @@ const mapStateToProps = (state, ownProps) => {
     isRequested: state.crPage.attachmentRequest.request.isRequested,
     editableFields: getCMSFields(CR_PAGE_ID)(state),
     editModeOn: getEditModeOn(state),
-    hasData: !isEmpty(getAttachments(state)),
+    hasData: hasAttachmentsSelector(state),
   };
 };
 
