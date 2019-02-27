@@ -21,9 +21,9 @@ export default class RecentActivity extends Component {
 
     const slideElements = cards.map((card, index) => {
       let itemWidth;
-      if (card.type === ACTIVITY_GRID_CARD_TYPES.OFFICER) {
+      if (card.kind === ACTIVITY_GRID_CARD_TYPES.OFFICER) {
         itemWidth = 232;
-      } else if (card.type === ACTIVITY_GRID_CARD_TYPES.PAIR) {
+      } else if (card.kind === ACTIVITY_GRID_CARD_TYPES.PAIR) {
         itemWidth = 464;
       }
       return (
@@ -32,11 +32,11 @@ export default class RecentActivity extends Component {
           style={ itemStyle(itemWidth) }
           className='test--carousel--item'>
           {
-            card.type === ACTIVITY_GRID_CARD_TYPES.OFFICER ? (
+            card.kind === ACTIVITY_GRID_CARD_TYPES.OFFICER ? (
               <OfficerCard
                 { ...omit(card, 'id') }
               />
-            ) : card.type === ACTIVITY_GRID_CARD_TYPES.PAIR ? (
+            ) : card.kind === ACTIVITY_GRID_CARD_TYPES.PAIR ? (
               <PairingCard
                 { ...card }
               />
