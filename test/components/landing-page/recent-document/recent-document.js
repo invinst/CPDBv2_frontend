@@ -4,7 +4,6 @@ import {
   renderIntoDocument,
   scryRenderedComponentsWithType,
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
   Simulate,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
@@ -102,7 +101,7 @@ describe('Recent Document components', function () {
         <Route path='/' component={ recentDocument } />
       </Router>
     );
-    Simulate.click(findRenderedDOMComponentWithClass(instance, 'test--document-card'));
+    Simulate.click(findDOMNode(findRenderedComponentWithType(instance, DocumentCard)));
     stubOnTrackingAttachment.should.be.calledWith({
       attachmentId: '789',
       sourcePage: 'Landing Page',
