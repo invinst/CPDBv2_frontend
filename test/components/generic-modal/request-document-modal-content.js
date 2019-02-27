@@ -12,6 +12,7 @@ import {
 } from 'react-addons-test-utils';
 import { spy, stub, useFakeTimers } from 'sinon';
 import { StyleRoot } from 'radium';
+import * as intercomUtils from 'utils/intercom';
 
 import RequestDocumentModalContent from 'components/generic-modal/request-document-modal-content';
 import { RawContentStateFactory } from 'utils/test/factories/draft';
@@ -101,6 +102,7 @@ describe('RequestDocumentModalContent component', function () {
 
     beforeEach(function () {
       clock = useFakeTimers();
+      stub(intercomUtils, 'updateIntercomEmail');
     });
 
     afterEach(function () {
@@ -108,6 +110,7 @@ describe('RequestDocumentModalContent component', function () {
       if (instance) {
         unmountComponentSuppressError(instance);
       }
+      intercomUtils.updateIntercomEmail.restore();
     });
 
     function submitRequestDocumentTest(assertInCallbackTest, done, fail=false) {
@@ -160,6 +163,7 @@ describe('RequestDocumentModalContent component', function () {
 
         const messageBoxElement = findRenderedDOMComponentWithClass(requestForm, 'request-document-message-box');
         messageBoxElement.textContent.should.be.eql('Default message');
+        intercomUtils.updateIntercomEmail.called.should.be.false();
       };
       submitRequestDocumentTest(assertInCallbackTest, done, true);
     });
@@ -170,6 +174,7 @@ describe('RequestDocumentModalContent component', function () {
         requestForm.props.closeModal.called.should.be.false();
         clock.tick(1550);
         requestForm.props.closeModal.calledOnce.should.be.true();
+        intercomUtils.updateIntercomEmail.calledWith('abc@xyz.com').should.be.true();
       };
       submitRequestDocumentTest(assertInCallbackTest, done);
     });

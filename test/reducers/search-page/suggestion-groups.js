@@ -63,12 +63,16 @@ describe('searchPage.suggestionGroups reducer', function () {
     });
   });
 
-  it('should handle SUGGESTION_SINGLE_REQUEST_SUCCESS when url is unchanged', function () {
+  it('should handle SUGGESTION_SINGLE_REQUEST_SUCCESS', function () {
     suggestionGroups({
       meta: {
         url: 'example.com'
       },
       officers: [{
+        id: 1,
+        a: 'b'
+      }],
+      cr: [{
         id: 1,
         a: 'b'
       }]
@@ -87,7 +91,7 @@ describe('searchPage.suggestionGroups reducer', function () {
         params: {
           contentType: 'officers'
         },
-        url: 'example.com'
+        url: 'new.example.com'
       }
     }).should.deepEqual({
       officers: [{
@@ -97,43 +101,21 @@ describe('searchPage.suggestionGroups reducer', function () {
         id: 2,
         c: 'd'
       }],
+      cr: [{
+        id: 1,
+        a: 'b'
+      }],
       meta: {
-        url: 'example.com'
+        url: 'new.example.com'
       }
     });
   });
 
-  it('should handle SUGGESTION_SINGLE_REQUEST_SUCCESS when url is changed', function () {
-    suggestionGroups({
-      meta: {
-        url: 'example.com'
-      },
-      officers: [{
-        id: 1,
-        a: 'b'
-      }]
-    }, {
-      type: constants.SUGGESTION_SINGLE_REQUEST_SUCCESS,
-      payload: {
-        results: [{
-          id: 2,
-          c: 'd'
-        }]
-      },
-      request: {
-        params: {
-          contentType: 'officers'
-        },
-        url: 'example.com/1'
-      }
+  it('should handle LOCATION_CHANGE', function () {
+    suggestionGroups(undefined, {
+      type: constants.LOCATION_CHANGE
     }).should.deepEqual({
-      officers: [{
-        id: 2,
-        c: 'd'
-      }],
-      meta: {
-        url: 'example.com/1'
-      }
+      meta: {}
     });
   });
 });

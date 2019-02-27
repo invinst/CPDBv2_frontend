@@ -2,9 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import pluralize from 'pluralize';
 import cx from 'classnames';
 
-import OfficerCard from 'components/common/officer-card';
+import CoaccusedCard from './coaccused-card';
 import Popup from 'components/common/popup';
-import CoaccusedCardFooter from './coaccused-card-footer';
 import style from './accused-officers.sass';
 import CoaccusedPopup from './coaccused-popup';
 
@@ -45,17 +44,7 @@ export default class AccusedOfficers extends Component {
                   outcome={ officer.outcome }
                   recommendedOutcome={ officer.recommendedOutcome }
                 />
-                <OfficerCard
-                  { ...officer }
-                  footer={
-                    <CoaccusedCardFooter
-                      finding={ officer.finding }
-                      disciplined={ officer.disciplined }
-                      category={ officer.category }
-                      findingOutcomeMix={ officer.findingOutcomeMix }
-                    />
-                  }
-                />
+                <CoaccusedCard { ...officer } />
               </div>
             ))
           }
@@ -63,10 +52,10 @@ export default class AccusedOfficers extends Component {
         {
           !expanded
             ? (
-              <div
-                className='show-more-button no-print'
-                onClick={ this.handleExpandList.bind(this) }>
-                Show all accused officers
+              <div className='show-more-button-container no-print'>
+                <span onClick={ this.handleExpandList.bind(this) } className='show-more-button'>
+                  Show all accused officers
+                </span>
               </div>
             )
             : null
