@@ -60,7 +60,7 @@ export default class Timeline extends Component {
   }
 
   renderItems() {
-    const { items, officerId, changeOfficerTab, pathname } = this.props;
+    const { items, officerId, changeOfficerTab, pathname, onTrackingAttachment } = this.props;
 
     return (
       <div>
@@ -73,6 +73,7 @@ export default class Timeline extends Component {
                 officerId={ officerId }
                 changeOfficerTab={ changeOfficerTab }
                 pathname={ pathname }
+                onTrackingAttachment={ onTrackingAttachment }
               />
             );
           })
@@ -99,6 +100,7 @@ Timeline.propTypes = {
   popup: PropTypes.object,
   filterCount: PropTypes.object,
   pathname: PropTypes.string,
+  onTrackingAttachment: PropTypes.func
 };
 
 Timeline.defaultProps = {

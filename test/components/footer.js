@@ -53,14 +53,7 @@ describe('Footer component', function () {
     intercomUtils.showIntercomMessages.calledWith(true).should.be.true();
   });
 
-  it('should render Roadmap link', function () {
-    element = renderIntoDocument(<Footer />);
-    const links = scryRenderedComponentsWithType(element, FooterNavLink);
-    const githubLink = links.filter(link => link.props.name === 'Roadmap')[0];
-    githubLink.props.externalHref.should.eql('http://roadmap.cpdp.co/');
-  });
-
-  it('should render Roadmap link', function () {
+  it('should render Invisible Institute link', function () {
     element = renderIntoDocument(<Footer />);
     const links = findRenderedDOMComponentWithClass(element, 'test--footer-invinst-logo');
     links.getAttribute('href').should.eql('https://invisible.institute/cpdp');

@@ -21,9 +21,19 @@ describe('searchPage.isRequesting reducer', function () {
     }).should.be.false();
   });
 
-  it('should handle SUGGESTION_REQUEST_FAILURE', function () {
+  it('should handle SUGGESTION_REQUEST_FAILURE with cancel message', function () {
     isRequesting(undefined, {
-      type: SUGGESTION_REQUEST_FAILURE
+      type: SUGGESTION_REQUEST_FAILURE,
+      payload: {
+        message: 'Cancelled by user'
+      }
+    }).should.be.true();
+  });
+
+  it('should handle SUGGESTION_REQUEST_FAILURE without cancel message', function () {
+    isRequesting(undefined, {
+      type: SUGGESTION_REQUEST_FAILURE,
+      payload: {}
     }).should.be.false();
   });
 });

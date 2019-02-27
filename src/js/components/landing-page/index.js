@@ -11,7 +11,7 @@ import HeatMap from 'containers/landing-page/heat-map';
 import RecentActivityContainer from 'containers/landing-page/recent-activity';
 import RecentDocumentContainer from 'containers/landing-page/recent-document';
 import OfficersByAllegationContainer from 'containers/landing-page/officers-by-allegation';
-import { carouselsWrapperStyle, carouselStyle } from './landing-page.style';
+import styles from './landing-page.sass';
 
 
 class LandingPage extends Component {
@@ -24,22 +24,14 @@ class LandingPage extends Component {
   renderWithResponsiveStyle(style) {
     const { pathname } = this.props;
     return (
-      <div>
+      <div className={ styles.landingPage }>
         <SlimHeader pathname={ pathname } />
         <HeatMap/>
-        <div style={ carouselsWrapperStyle }>
-          <div style={ carouselStyle }>
-            <OfficersByAllegationContainer pathname={ pathname }/>
-          </div>
-          <div style={ carouselStyle }>
-            <RecentActivityContainer pathname={ pathname }/>
-          </div>
-          <div style={ carouselStyle }>
-            <RecentDocumentContainer pathname={ pathname }/>
-          </div>
-          <div style={ carouselStyle }>
-            <ComplaintSummariesContainer pathname={ pathname }/>
-          </div>
+        <div className='landing-page-carousel-wrapper'>
+          <OfficersByAllegationContainer className='landing-page-carousel' pathname={ pathname }/>
+          <RecentActivityContainer className='landing-page-carousel' pathname={ pathname }/>
+          <RecentDocumentContainer className='landing-page-carousel' pathname={ pathname }/>
+          <ComplaintSummariesContainer className='landing-page-carousel' pathname={ pathname }/>
         </div>
         <FooterContainer/>
       </div>

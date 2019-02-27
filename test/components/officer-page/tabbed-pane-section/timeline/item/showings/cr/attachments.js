@@ -108,4 +108,27 @@ describe('Attachments component', function () {
     instance = renderIntoDocument(<Attachments attachments={ [] }/>);
     scryRenderedDOMComponentsWithClass(instance, styles.attachments).should.have.length(1);
   });
+
+  it('should track attachment click event', function () {
+    const stubOnTrackingAttachment = stub();
+    const attachment = [{
+      url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html',
+      previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
+      fileType: 'document',
+      id: '123456',
+    }];
+
+    instance = renderIntoDocument(
+      <Attachments
+        attachments={ attachment }
+        onTrackingAttachment={ stubOnTrackingAttachment }
+      />
+    );
+    Simulate.click(findRenderedDOMComponentWithClass(instance, 'attachment-image-href'));
+    stubOnTrackingAttachment.should.be.calledWith({
+      attachmentId: '123456',
+      sourcePage: 'Officer Page - Timeline Tab',
+      app: 'Frontend'
+    });
+  });
 });

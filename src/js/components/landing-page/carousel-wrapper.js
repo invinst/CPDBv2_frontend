@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { omit } from 'lodash';
 
 import Carousel from 'components/common/carousel';
 import EditModeProvider from 'components/edit-mode-provider';
@@ -9,7 +8,7 @@ import * as GATracking from 'utils/google_analytics_tracking';
 
 
 export default function withCarousel(
-  CardComponent, type = '', extraCardAttr = {}, itemWidth = 232
+  CardComponentMap, type = '', extraCardAttr = {}
 ) {
   class Wrapper extends Component {
     handleNavigate(direction) {
@@ -17,26 +16,28 @@ export default function withCarousel(
     }
 
     render() {
-      const { cards, editWrapperStateProps, pathname, openCardInNewPage } = this.props;
+      const { className, cards, editWrapperStateProps, pathname, openCardInNewPage, onTrackingAttachment } = this.props;
 
       const slideElements = cards.map((card, index) => {
+        const { CardComponent, itemWidth } = CardComponentMap[card.kind || type];
         return (
           <div
             key={ index }
             style={ itemStyle(itemWidth) }
             className='test--carousel--item'>
             <CardComponent
-              { ...omit(card, 'id') }
+              { ...card }
               { ...extraCardAttr }
               openCardInNewPage={ openCardInNewPage }
               pathname={ pathname }
+              onTrackingAttachment={ onTrackingAttachment }
             />
           </div>
         );
       });
 
       return (
-        <div className={ `test--landing-carousel-${(type.key || type).toLowerCase()}` }>
+        <div className={ `test--landing-carousel-${(type.key || type).toLowerCase()} ${className}` }>
           <EditModeProvider
             pathname={ pathname }
             className='test--carousel--header'
@@ -45,7 +46,7 @@ export default function withCarousel(
           </EditModeProvider>
           <Carousel
             style={ carouselStyle }
-            childWidth={ itemWidth }
+            childWidth={ 232 }
             onNavigate={ this.handleNavigate.bind(this) }>
             { slideElements }
           </Carousel>
@@ -59,6 +60,8 @@ export default function withCarousel(
     pathname: PropTypes.string,
     editWrapperStateProps: PropTypes.object,
     openCardInNewPage: PropTypes.bool,
+    onTrackingAttachment: PropTypes.func,
+    className: PropTypes.string
   };
 
   Wrapper.defaultProps = {

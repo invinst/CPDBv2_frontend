@@ -7,12 +7,12 @@ class AccusedOfficerCard extends Section {
   constructor() {
     super();
 
-    const firstCardSelector = '(//*[contains(@class, "officer-card__officer-card")])[1]';
+    const firstCardSelector = '(//*[contains(@class, "coaccused-card__coaccused-card")])[1]';
 
     this.prepareElementGetters({
       element: firstCardSelector,
-      rank: `${firstCardSelector}//p[contains(@class, "officer-card-rank")]`,
-      name: `${firstCardSelector}//p[contains(@class, "officer-card-name")]`,
+      rank: `${firstCardSelector}//p[contains(@class, "coaccused-card-rank")]`,
+      name: `${firstCardSelector}//p[contains(@class, "coaccused-card-name")]`,
       metric: `${firstCardSelector}//span[@class="test--officer-card-metric"]`,
       percentile: `${firstCardSelector}//p[contains(@class, "test--officer-card-percentile")]`,
       demographic: `${firstCardSelector}//div[contains(@class, "test--officer-card-demographic")]`,
@@ -30,8 +30,8 @@ class AccusedOfficerSection extends Section {
 
     this.prepareElementGetters({
       title: '.accused-officer-title',
-      lastCard: '(//*[contains(@class, "officer-card")])[last()]',
-      showMoreButton: '.show-more-button',
+      lastCard: '(//*[contains(@class, "coaccused-card")])[last()]',
+      showMoreButton: '.show-more-button-container',
       popup: '.test--accused-officer .popup',
       popupButton: '.test--accused-officer .popup-button',
       popupTitle: '.test--accused-officer .tooltip-title',
@@ -41,7 +41,7 @@ class AccusedOfficerSection extends Section {
   }
 
   cardCount() {
-    return browser.elements('//a[contains(@class, "officer-card")]').value.length;
+    return browser.elements('//a[contains(@class, "coaccused-card")]').value.length;
   }
 }
 

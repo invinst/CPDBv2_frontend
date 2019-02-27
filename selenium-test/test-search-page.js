@@ -48,7 +48,7 @@ describe('Search Page', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Ke');
 
-    searchPage.suggestionTags.waitForVisible();
+    searchPage.crResultsSection.results.waitForVisible();
     searchPage.suggestionTags.getText().should.containEql('CR');
     searchPage.suggestionTags.getText().should.containEql('TRR');
 
@@ -69,7 +69,7 @@ describe('Search Page', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Kelly');
 
-    searchPage.suggestionTags.waitForVisible();
+    searchPage.investigatorCRResultsSection.results.waitForVisible();
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
 
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
@@ -87,7 +87,7 @@ describe('Search Page', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('2004/04/23');
 
-    searchPage.suggestionTags.waitForVisible();
+    searchPage.dateCRResultsSection.results.waitForVisible();
     searchPage.suggestionTags.getText().should.containEql('DATE > CR');
     searchPage.suggestionTags.getText().should.containEql('DATE > TRR');
 
@@ -109,8 +109,9 @@ describe('Search Page', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('2004/04/23');
 
-    searchPage.suggestionTags.waitForVisible();
+    searchPage.dateOfficerResultsSection.results.waitForVisible();
     searchPage.suggestionTags.getText().should.containEql('DATE > OFFICERS');
+
     searchPage.dateOfficerResultsSection.results.count.should.equal(2);
     searchPage.dateOfficerResultsSection.firstResultText.getText().should.equal('Jerome Finnigan');
     searchPage.dateOfficerResultsSection.firstResultSubText.getText().should.containEql('42 year old, White, Male,');
@@ -127,8 +128,9 @@ describe('Search Page', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('rank');
 
-    searchPage.suggestionTags.waitForVisible();
+    searchPage.rankResultsSection.results.waitForVisible();
     searchPage.rankResultsSection.results.count.should.equal(2);
+
     searchPage.rankResultsSection.firstResultText.getText().should.equal('Officer');
     searchPage.rankResultsSection.secondResultText.getText().should.equal('Chief');
   });
@@ -137,7 +139,7 @@ describe('Search Page', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Geography');
 
-    searchPage.suggestionTags.waitForVisible();
+    searchPage.searchTermsResultsSection.results.waitForVisible();
 
     searchPage.searchTermsResultsSection.results.count.should.equal(1);
     searchPage.searchTermsResultsSection.firstResultText.getText().should.equal('Geography - Communities');
