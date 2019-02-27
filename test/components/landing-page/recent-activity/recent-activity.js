@@ -30,7 +30,7 @@ describe('Recent Activity components', function () {
     'race': 'Hispanic',
     'gender': 'Male',
     'rank': 'Police Officer',
-    'type': 'single_officer',
+    'kind': 'single_officer',
   }, {
     'id': 2,
     'fullName': 'Jerome Finnagan',
@@ -41,10 +41,10 @@ describe('Recent Activity components', function () {
     'race': 'White',
     'gender': 'Male',
     'rank': 'Police Officer',
-    'type': 'single_officer',
+    'kind': 'single_officer',
   }];
   const pairCardData = [{
-    'type': 'coaccused_pair',
+    'kind': 'coaccused_pair',
     'coaccusalCount': 23,
     'officer1': {
       'id': 8562,
@@ -127,9 +127,9 @@ describe('Recent Activity components', function () {
     stub(GATracking, 'trackSwipeLanddingPageCarousel');
     instance = renderIntoDocument(
       <RecentActivity cards={ [
-        OfficerCardFactory.build({ type: 'single_officer' }),
-        OfficerCardFactory.build({ type: 'single_officer' }),
-        OfficerCardFactory.build({ type: 'single_officer' })
+        OfficerCardFactory.build({ kind: 'single_officer' }),
+        OfficerCardFactory.build({ kind: 'single_officer' }),
+        OfficerCardFactory.build({ kind: 'single_officer' })
       ] }/>
     );
     const carousel = findRenderedComponentWithType(instance, Carousel);

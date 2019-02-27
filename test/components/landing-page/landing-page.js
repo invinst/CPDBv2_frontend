@@ -30,9 +30,9 @@ const store = mockStore({
     },
     officersByAllegation: {
       cards: [
-        RawOfficerCardFactory.build({ type: '' }),
-        RawOfficerCardFactory.build({ type: '' }),
-        RawOfficerCardFactory.build({ type: '' }),
+        RawOfficerCardFactory.build({ kind: '' }),
+        RawOfficerCardFactory.build({ kind: '' }),
+        RawOfficerCardFactory.build({ kind: '' }),
       ],
       headerEditModeOn: false
     },

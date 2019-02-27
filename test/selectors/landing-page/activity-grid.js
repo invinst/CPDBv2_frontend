@@ -34,7 +34,7 @@ describe('activity-grid selectors', function () {
         race: 'Black',
         rank: 'Police Officer',
         gender: 'Female',
-        type: 'single_officer',
+        kind: 'single_officer',
       }];
       cardsSelector(state).should.eql([{
         id: '1',
@@ -48,7 +48,7 @@ describe('activity-grid selectors', function () {
         rank: 'Police Officer',
         gender: 'female',
         percentile: null,
-        type: 'single_officer',
+        kind: 'single_officer',
       }]);
     });
 
@@ -91,7 +91,7 @@ describe('activity-grid selectors', function () {
         race: 'Black',
         rank: 'Police Officer',
         gender: 'Female',
-        type: 'single_officer',
+        kind: 'single_officer',
       }];
       singleCardsSelector(state).should.eql([{
         id: '1',
@@ -105,7 +105,7 @@ describe('activity-grid selectors', function () {
         rank: 'Police Officer',
         gender: 'female',
         percentile: null,
-        type: 'single_officer',
+        kind: 'single_officer',
       }]);
     });
   });

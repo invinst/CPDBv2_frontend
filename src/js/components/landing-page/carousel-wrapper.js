@@ -19,7 +19,7 @@ export default function withCarousel(
       const { className, cards, editWrapperStateProps, pathname, openCardInNewPage, onTrackingAttachment } = this.props;
 
       const slideElements = cards.map((card, index) => {
-        const { CardComponent, itemWidth } = CardComponentMap[card.type || type];
+        const { CardComponent, itemWidth } = CardComponentMap[card.kind || type];
         return (
           <div
             key={ index }

@@ -17,7 +17,7 @@ export const OfficerCardFactory = Factory.define('OfficerCardFactory')
   .attr('complaintCount', random.number)
   .attr('visualTokenBackgroundColor', internet.color)
   .attr('complaintPercentile', () => (random.number({ min: 10, max: 1000 }) / 10.0))
-  .attr('type', '');
+  .attr('kind', '');
 
 export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
   .sequence('id')
@@ -26,7 +26,7 @@ export const RawOfficerCardFactory = Factory.define('RawOfficerCardFactory')
   .attr('visual_token_background_color', internet.color)
   .attr('complaint_percentile', () => (random.number({ min: 10, max: 1000 }) / 10.0))
   .attr('percentile', () => RawOfficerPercentileFactory.build())
-  .attr('type', 'single_officer');
+  .attr('kind', 'single_officer');
 
 /* istanbul ignore next */
 const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
@@ -39,7 +39,7 @@ const RawPairCardOfficerFactory = Factory.define('RawPairCardOfficerFactory')
 
 /* istanbul ignore next */
 export const RawOfficersPairCardFactory = Factory.define('RawOfficersPairCardFactory')
-  .attr('type', 'coaccused_pair')
+  .attr('kind', 'coaccused_pair')
   .attr('coaccusal_count', () => random.number({ min: 0, max: 50 }))
   .attr('officer1', () => RawPairCardOfficerFactory.build())
   .attr('officer2', () => RawPairCardOfficerFactory.build());
