@@ -7,7 +7,7 @@ import Toggle from 'components/document-deduplicator-page/document-row/toggle';
 
 import { unmountComponentSuppressError } from 'utils/test';
 
-describe('Toggle component', function () {
+describe('DocumentDeduplicatorPage Toggle component', function () {
   let instance;
 
   afterEach(function () {

@@ -18,12 +18,16 @@ import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
+import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
+import * as docOverviewPageActions from 'actions/documents-overview-page';
+import extractQuery from 'utils/extract-query';
 
 
 const createLocationChangeAction = (pathname) => ({
   type: '@@router/LOCATION_CHANGE',
   payload: {
-    pathname: pathname
+    pathname: pathname,
+    query: extractQuery(pathname)
   }
 });
 
@@ -55,6 +59,22 @@ describe('fetchPageInitialData middleware', function () {
         },
         faqPage: {
           faqsRequested: false
+        },
+        documentDeduplicatorPage: {
+          documents: {},
+          pagination: {},
+          documentsOrder: []
+        },
+        documentsOverviewPage: {
+          documents: {
+            data: {},
+            match: ''
+          },
+          pagination: {},
+          documentsOrder: {
+            data: [],
+            match: ''
+          }
         }
       };
     },
@@ -226,5 +246,25 @@ describe('fetchPageInitialData middleware', function () {
 
     store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
     store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
+  });
+
+  it('should dispatch fetch documents data by crid for document deduplicator page', function () {
+    const action = createLocationChangeAction('/documents/crid/1000000/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocumentsByCRID({ crid: '1000000' })).should.be.true();
+  });
+
+  it('should dispatch fetch documents data for documents overview page', function () {
+    const action = createLocationChangeAction('/documents/');
+    let dispatched;
+    const fetchDocuments = stub(docOverviewPageActions, 'fetchDocuments');
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocuments()).should.be.true();
+    fetchDocuments.restore();
   });
 });

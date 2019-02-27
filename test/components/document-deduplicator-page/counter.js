@@ -7,7 +7,7 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import Counter from 'components/document-deduplicator-page/document-row/counter';
 
-describe('Counter component', function () {
+describe('DocumentDeduplicatorPage Counter component', function () {
   let instance;
 
   afterEach(function () {

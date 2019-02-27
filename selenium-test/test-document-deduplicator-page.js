@@ -6,11 +6,10 @@ import docDedupPage from './page-objects/document-deduplicator-page';
 
 
 describe('Document Deduplicator page', function () {
-  beforeEach(function () {
-    docDedupPage.open();
-  });
-
   it('should display all documents related to a CRID', function () {
+    docDedupPage.open(true);
+    docDedupPage.loginScreen.login();
+
     docDedupPage.lastBreadcrumbs.getText().should.equal('#1000000 document deduplicator');
 
     docDedupPage.firstDocTitle.getText().should.equal('CRID #1000000 DOCUMENT CLOUD');
@@ -29,6 +28,9 @@ describe('Document Deduplicator page', function () {
   });
 
   it('should make the document row faded when its toggle button is clicked', function () {
+    docDedupPage.open(true);
+    docDedupPage.loginScreen.login();
+
     docDedupPage.firstDocRow.getAttribute('class').should.not.containEql('document-faded');
     docDedupPage.firstDocToggleText.getText().should.equal('SHOW');
 

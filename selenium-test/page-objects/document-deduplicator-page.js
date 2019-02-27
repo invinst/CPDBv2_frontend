@@ -25,8 +25,12 @@ class DocumentDeduplicatorPage extends Page {
     });
   }
 
-  open() {
-    super.open('/doc-deduplicator/1000000/');
+  open(editModeOn) {
+    let path = '/documents/crid/1000000/';
+    if (editModeOn) {
+      path = `/edit${path}`;
+    }
+    super.open(path);
     browser.element('body').waitForVisible();
   }
 }

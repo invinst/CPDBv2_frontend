@@ -2,22 +2,29 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
+  scryRenderedComponentsWithType,
+  Simulate
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
-import { spy } from 'sinon';
+import { spy, stub } from 'sinon';
+import { browserHistory } from 'react-router';
 
-import { unmountComponentSuppressError } from 'utils/test';
-
+import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import DocumentRow from 'components/document-deduplicator-page/document-row';
 import Toggle from 'components/document-deduplicator-page/document-row/toggle';
 import Counter from 'components/document-deduplicator-page/document-row/counter';
 
-describe('Document-row component', function () {
+describe('DocumentDeduplicatorPage DocumentRow component', function () {
   let instance;
+
+  beforeEach(function () {
+    this.browserHistoryPush = stub(browserHistory, 'push');
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
+    this.browserHistoryPush.restore();
   });
 
   it('should display thumbnail if there is one', function () {
@@ -88,7 +95,8 @@ describe('Document-row component', function () {
 
   it('should pass correct prop into Toggle', function () {
     const setDocumentShow = spy();
-    instance = renderIntoDocument(
+    instance = renderWithContext(
+      { editModeOn: true },
       <DocumentRow id={ 1 } show={ true } setDocumentShow={ setDocumentShow }/>
     );
 
@@ -99,5 +107,22 @@ describe('Document-row component', function () {
     });
     toggle.props.onChange(false);
     setDocumentShow.calledOnceWith(1, true).should.be.true();
+  });
+
+  it('should not render Toggle component if editModeOn is false', function () {
+    instance = renderWithContext(
+      { editModeOn: false },
+      <DocumentRow id={ 1 } show={ true }/>
+    );
+    scryRenderedComponentsWithType(instance, Toggle).should.have.length(0);
+  });
+
+  it('should call browserHistory.push when clicked on', function () {
+    instance = renderIntoDocument(
+      <DocumentRow id={ 1 } show={ true }/>
+    );
+    const div = findDOMNode(instance);
+    Simulate.click(div);
+    this.browserHistoryPush.calledWith('/tracker/document/1/').should.be.true();
   });
 });

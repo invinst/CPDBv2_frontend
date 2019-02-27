@@ -205,12 +205,20 @@ describe('store', function () {
         officers: []
       },
       documentsOverviewPage: {
-        documents: {},
-        documentsOrder: [],
+        documents: {
+          data: {},
+          match: ''
+        },
+        documentsOrder: {
+          data: [],
+          match: ''
+        },
         pagination: {}
       },
       documentDeduplicatorPage: {
-        documents: []
+        documents: {},
+        documentsOrder: [],
+        pagination: {}
       }
     });
   });

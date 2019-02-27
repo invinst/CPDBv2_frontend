@@ -8,7 +8,8 @@ import * as constants from 'utils/constants';
 describe('document decuplicator page actions', function () {
   describe('fetchDocumentsByCRID', function () {
     it('should return correct action', function () {
-      fetchDocumentsByCRID(1).should.deepEqual({
+      stub(Cookies, 'get').returns('authenticated_token');
+      fetchDocumentsByCRID({ crid: 1 }).should.deepEqual({
         types: [
           constants.DOCUMENT_DEDUPLICATOR_REQUEST_START,
           constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
@@ -16,11 +17,16 @@ describe('document decuplicator page actions', function () {
         payload: {
           request: {
             url: constants.DOCUMENTS_URL,
-            params: { crid: 1, limit: 100 },
-            adapter: null
+            params: { crid: 1, limit: undefined, offset: undefined },
+            adapter: null,
+            cancelToken: undefined,
+            headers: {
+              Authorization: 'Token authenticated_token'
+            }
           }
         }
       });
+      Cookies.get.restore();
     });
   });
 

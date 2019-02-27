@@ -11,7 +11,9 @@ export default () => ({
       'preview_image_url': 'https://example.com/doc1.jpg',
       'views_count': 1000,
       'downloads_count': 2000,
-      'show': true
+      'show': true,
+      'crid': '1000000',
+      'documents_count': '1'
     },
     {
       'id': 2,
@@ -21,7 +23,9 @@ export default () => ({
       'preview_image_url': null,
       'views_count': 2000,
       'downloads_count': 1000,
-      'show': false
+      'show': false,
+      'crid': '1000000',
+      'documents_count': '2'
     }
   ]
 });
