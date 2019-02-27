@@ -19,7 +19,8 @@ describe('async-action', function () {
           request: {
             url,
             params: undefined,
-            adapter: null
+            adapter: null,
+            cancelToken: undefined
           }
         }
       });
@@ -40,6 +41,7 @@ describe('async-action', function () {
             url,
             params,
             adapter: null,
+            cancelToken: undefined,
             headers: {
               Authorization: 'Token authenticated_token'
             }
@@ -53,6 +55,7 @@ describe('async-action', function () {
       const url = '/url';
       const types = ['a', 'b', 'c'];
       const params = { limit: '100' };
+      stub(Cookies, 'get').returns(null);
 
       authenticatedGet(url, types)(params).should.eql({
         types,
@@ -61,10 +64,12 @@ describe('async-action', function () {
             url,
             params,
             adapter: null,
+            cancelToken: undefined,
             headers: {}
           }
         }
       });
+      Cookies.get.restore();
     });
   });
 

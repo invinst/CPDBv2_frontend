@@ -22,6 +22,7 @@ describe('officer coaccusals actions', function () {
             url: `${OFFICER_URL}123/coaccusals/`,
             params: undefined,
             adapter: null,
+            cancelToken: undefined
           }
         }
       });
