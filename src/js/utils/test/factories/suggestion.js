@@ -37,7 +37,11 @@ export const RawCRSuggestion = Factory.define('RawCRSuggestion')
   .attr('to', '')
   .attr('url', '')
   .attr('tags', [])
+  .attr('victims', [])
+  .attr('coaccused', [])
   .attr('category', lorem.words)
+  .attr('sub_category', lorem.words)
+  .attr('address', lorem.words)
   .attr('incident_date', '1999-12-13')
   .attr('highlight', {
     summary: [String(lorem.sentence)]
