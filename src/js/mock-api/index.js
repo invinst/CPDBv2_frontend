@@ -38,7 +38,9 @@ import getSearchTermsData from './search-terms-page';
 import getUnitSummaryData from './unit-profile-page/get-summary';
 import { getCRPopup } from './popup';
 import { getCommunity } from './community';
-import getDocumentsByCRIDData from './document-deduplicator-page/get-documents-by-crid';
+import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
+import searchDocuments from './documents-overview-page/search-documents';
+import fetchDocuments from './/documents-overview-page/fetch-documents';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -126,9 +128,14 @@ axiosMockClient.onGet(`${POPUP_API_URL}?page=complaint`).reply(200, getCRPopup()
 axiosMockClient.onGet(SEARCH_SINGLE_API_URL, { params: { term: 'community', contentType: 'COMMUNITY' } })
   .reply(() => { return [200, getCommunity()]; });
 
-axiosMockClient.onGet(DOCUMENTS_URL).reply(200, getDocumentsByCRIDData());
+axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { crid: '1000000', limit: undefined, offset: undefined } })
+  .reply(200, fetchDocumentsByCRID());
+
+axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { match: '123457' } }).reply(200, searchDocuments());
 
 axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`).reply(200, { show: false });
+
+axiosMockClient.onGet(`${DOCUMENTS_URL}`).reply(200, fetchDocuments());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

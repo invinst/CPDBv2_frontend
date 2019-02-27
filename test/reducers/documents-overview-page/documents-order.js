@@ -2,14 +2,17 @@ import documentsOrder from 'reducers/documents-overview-page/documents-order';
 import * as constants from 'utils/constants';
 
 
-describe('documentsOrder reducer', function () {
+describe('DocumentsOverviewPage documentsOrder reducer', function () {
   it('should have initial state', function () {
-    documentsOrder(undefined, {}).should.deepEqual([]);
+    documentsOrder(undefined, {}).should.deepEqual({ data: [], match: '' });
   });
 
   it('should handle DOCUMENT_OVERVIEW_REQUEST_SUCCESS', function () {
     documentsOrder(
-      [1],
+      {
+        data: [1],
+        match: 'term',
+      },
       {
         type: constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
         payload: {
@@ -21,8 +24,86 @@ describe('documentsOrder reducer', function () {
               id: 2
             }
           ]
+        },
+        request: {
+          params: {
+            match: 'term'
+          }
         }
       }
-    ).should.deepEqual([1, 3, 2]);
+    ).should.deepEqual({ data: [1, 3, 2], match: 'term' });
+
+    documentsOrder(
+      {
+        data: [1],
+        match: 'term',
+      },
+      {
+        type: constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
+        payload: {
+          results: [
+            {
+              id: 3
+            },
+            {
+              id: 2
+            }
+          ]
+        },
+        request: {
+          params: {}
+        }
+      }
+    ).should.deepEqual({ data: [3, 2], match: '' });
+  });
+
+  it('should handle DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS', function () {
+    documentsOrder(
+      {
+        data: [1],
+        match: 'term',
+      },
+      {
+        type: constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS,
+        payload: {
+          results: [
+            {
+              id: 3
+            },
+            {
+              id: 2
+            }
+          ]
+        },
+        request: {
+          params: {
+            match: 'term'
+          }
+        }
+      }
+    ).should.deepEqual({ data: [1, 3, 2], match: 'term' });
+
+    documentsOrder(
+      {
+        data: [1],
+        match: 'term',
+      },
+      {
+        type: constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS,
+        payload: {
+          results: [
+            {
+              id: 3
+            },
+            {
+              id: 2
+            }
+          ]
+        },
+        request: {
+          params: {}
+        }
+      }
+    ).should.deepEqual({ data: [3, 2], match: '' });
   });
 });

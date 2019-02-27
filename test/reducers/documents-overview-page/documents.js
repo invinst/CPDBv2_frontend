@@ -2,68 +2,162 @@ import documents from 'reducers/documents-overview-page/documents';
 import * as constants from 'utils/constants';
 
 
-describe('documents reducer', function () {
+describe('DocumentsOverviewPage documents reducer', function () {
   it('should have initial state', function () {
-    documents(undefined, {}).should.deepEqual({});
+    documents(undefined, {}).should.deepEqual({ data: {}, match: '' });
   });
 
   it('should handle DOCUMENT_OVERVIEW_REQUEST_SUCCESS', function () {
     documents({
-      '1': {
-        id: 1,
-        'created_at': '2017-01-14T06:00:01-06:00',
-        title: 'CRID 1051117 CR',
-        'source_type': 'DOCUMENTCLOUD',
-        'preview_image_url': 'https://example.com/pic1.jpg',
-        'views_count': 1,
-        'downloads_count': 1,
-        show: true
-      }
+      data: {
+        '1': {
+          id: 1
+        },
+        '3': {
+          id: 3
+        }
+      },
+      match: 'term'
     }, {
       type: constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
       payload: {
         results: [{
-          id: 1,
-          'created_at': '2017-01-14T06:00:01-06:00',
-          title: 'CRID 1051117 CR',
-          'source_type': 'DOCUMENTCLOUD',
-          'preview_image_url': 'https://example.com/pic1.jpg',
-          'views_count': 1,
-          'downloads_count': 1,
-          show: true
+          id: 1
         }, {
-          id: 2,
-          'created_at': '2017-01-14T06:00:01-06:00',
-          title: 'CRID 1064593 CR',
-          'source_type': 'DOCUMENTCLOUD',
-          'preview_image_url': 'https://example.com/pic2.jpg',
-          'views_count': 2,
-          'downloads_count': 1,
-          show: false
+          id: 2
         }]
+      },
+      request: {
+        params: {
+          match: 'term'
+        }
       }
     }
     ).should.deepEqual({
-      '1': {
-        id: 1,
-        'created_at': '2017-01-14T06:00:01-06:00',
-        title: 'CRID 1051117 CR',
-        'source_type': 'DOCUMENTCLOUD',
-        'preview_image_url': 'https://example.com/pic1.jpg',
-        'views_count': 1,
-        'downloads_count': 1,
-        show: true
+      data: {
+        '1': {
+          id: 1
+        },
+        '2': {
+          id: 2
+        },
+        '3': {
+          id: 3
+        }
       },
-      '2': {
-        id: 2,
-        'created_at': '2017-01-14T06:00:01-06:00',
-        title: 'CRID 1064593 CR',
-        'source_type': 'DOCUMENTCLOUD',
-        'preview_image_url': 'https://example.com/pic2.jpg',
-        'views_count': 2,
-        'downloads_count': 1,
-        show: false
+      match: 'term'
+    });
+
+    documents({
+      data: {
+        '1': {
+          id: 1
+        },
+        '3': {
+          id: 3
+        }
+      },
+      match: 'term'
+    }, {
+      type: constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
+      payload: {
+        results: [{
+          id: 1
+        }, {
+          id: 2
+        }]
+      },
+      request: {
+        params: {}
       }
+    }
+    ).should.deepEqual({
+      data: {
+        '1': {
+          id: 1
+        },
+        '2': {
+          id: 2
+        }
+      },
+      match: ''
+    });
+  });
+
+  it('should handle DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS', function () {
+    documents({
+      data: {
+        '1': {
+          id: 1
+        },
+        '3': {
+          id: 3
+        }
+      },
+      match: 'term'
+    }, {
+      type: constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS,
+      payload: {
+        results: [{
+          id: 1
+        }, {
+          id: 2
+        }]
+      },
+      request: {
+        params: {
+          match: 'term'
+        }
+      }
+    }
+    ).should.deepEqual({
+      data: {
+        '1': {
+          id: 1
+        },
+        '2': {
+          id: 2
+        },
+        '3': {
+          id: 3
+        }
+      },
+      match: 'term'
+    });
+
+    documents({
+      data: {
+        '1': {
+          id: 1
+        },
+        '3': {
+          id: 3
+        }
+      },
+      match: 'term'
+    }, {
+      type: constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS,
+      payload: {
+        results: [{
+          id: 1
+        }, {
+          id: 2
+        }]
+      },
+      request: {
+        params: {}
+      }
+    }
+    ).should.deepEqual({
+      data: {
+        '1': {
+          id: 1
+        },
+        '2': {
+          id: 2
+        }
+      },
+      match: ''
     });
   });
 });

@@ -1,12 +1,18 @@
 import docOverviewPageReducer from 'reducers/documents-overview-page';
 
 
-describe('Documents overview page reducer', function () {
+describe('DocumentsOverviewPage reducer', function () {
   it('should have initial state', function () {
     docOverviewPageReducer(undefined, {}).should.deepEqual({
-      documents: {},
+      documents: {
+        data: {},
+        match: ''
+      },
       pagination: {},
-      documentsOrder: [],
+      documentsOrder: {
+        data: [],
+        match: ''
+      },
     });
   });
 });
