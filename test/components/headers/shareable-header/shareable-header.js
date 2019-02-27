@@ -15,6 +15,8 @@ import * as domUtils from 'utils/dom';
 import ShareableHeader from 'components/headers/shareable-header';
 import HeaderButton from 'components/headers/shareable-header/header-button';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
+import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
+import * as constants from 'utils/constants';
 
 
 describe('ShareableHeader component', function () {
@@ -86,8 +88,7 @@ describe('ShareableHeader component', function () {
   });
 });
 
-describe('ShareableHeader component no HeaderButton', function () {
-  let element;
+describe('ShareableHeader component with button components', function () {
   let instance;
   const mockStore = MockStore();
   const store = mockStore({
@@ -96,22 +97,37 @@ describe('ShareableHeader component no HeaderButton', function () {
     }
   });
 
-  beforeEach (function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <ShareableHeaderContainer hasHeaderButton={ false }/>
-      </Provider>
-    );
-    element = findRenderedComponentWithType(instance, ShareableHeader);
-  });
-
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should not render HeaderButton if hasHeaderButton is False', function () {
-    const headerButtons = scryRenderedComponentsWithType(element, HeaderButton);
-    headerButtons.length.should.eql(0);
+  it('should render LinkHeaderButton component if buttonType is LINK', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <ShareableHeaderContainer buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK }/>
+      </Provider>
+    );
+    findRenderedComponentWithType(instance, LinkHeaderButton).should.be.ok();
+  });
+
+  it('should render HeaderButton component if buttonType is MENU', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <ShareableHeaderContainer buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU }/>
+      </Provider>
+    );
+    findRenderedComponentWithType(instance, HeaderButton).should.be.ok();
+  });
+
+  it('should not render button if buttonType is NONE', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <ShareableHeaderContainer buttonType={ constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE }/>
+      </Provider>
+    );
+
+    scryRenderedComponentsWithType(instance, LinkHeaderButton).length.should.equal(0);
+    scryRenderedComponentsWithType(instance, HeaderButton).length.should.equal(0);
   });
 });
 

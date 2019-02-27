@@ -1,25 +1,21 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import styles from './link-header-button.sass';
 
 
 export default class LinkHeaderButton extends React.Component {
-  handleClick() {
-    const { link } = this.props;
-    window.open(link, '_blank');
-  }
-
   render() {
-    const { buttonText } = this.props;
+    const { buttonText, to } = this.props;
 
     return (
       <div className={ styles.linkHeaderButton }>
-        <span
+        <Link
+          to={ to }
           className='button'
-          onClick={ this.handleClick.bind(this) }
         >
           { buttonText }
-        </span>
+        </Link>
       </div>
     );
   }
@@ -27,10 +23,10 @@ export default class LinkHeaderButton extends React.Component {
 
 LinkHeaderButton.propTypes = {
   buttonText: PropTypes.string,
-  link: PropTypes.string
+  to: PropTypes.string
 };
 
 LinkHeaderButton.defaultProps = {
   buttonText: 'Click',
-  link: '/'
+  to: ''
 };
