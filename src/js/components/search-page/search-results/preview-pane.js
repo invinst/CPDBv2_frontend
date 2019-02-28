@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { isEmpty, get } from 'lodash';
-import SlideMotion from 'components/animation/slide-motion';
 
+import SlideMotion from 'components/animation/slide-motion';
 import {
   OfficerPane,
   CommunityPane,
@@ -11,10 +11,9 @@ import {
   PoliceDistrictPane,
   SchoolGroundPane,
   RankPane,
-  SearchTermItemPane
+  SearchTermItemPane,
+  CRPane
 } from 'components/search-page/preview-pane';
-
-
 import { wrapperStyle } from './preview-pane.style';
 
 
@@ -27,6 +26,7 @@ export default class PreviewPane extends Component {
   renderPane() {
     const { data, type } = this.props;
     const officerPaneFunc = () => <OfficerPane { ...data }/>;
+    const crPaneFunc = () => <CRPane { ...data }/>;
 
     const paneTypes = {
       'SEARCH-TERMS': () => <SearchTermItemPane { ...data } />,
@@ -40,6 +40,9 @@ export default class PreviewPane extends Component {
       'POLICE-DISTRICT': () => <PoliceDistrictPane { ...data } />,
       'SCHOOL-GROUND': () => <SchoolGroundPane { ...data } />,
       RANK: () => <RankPane { ...data } />,
+      CR: crPaneFunc,
+      'DATE > CR': crPaneFunc,
+      'INVESTIGATOR > CR': crPaneFunc,
     };
     return get(paneTypes, type, () => null)();
   }

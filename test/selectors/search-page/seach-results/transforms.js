@@ -13,7 +13,38 @@ describe('search page transforms', function () {
         'incident_date': '2012-07-02',
         highlight: {
           summary: ['the officer pointed a gun at the victim']
-        }
+        },
+        category: 'Use Of Force',
+        'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        'victims': [
+          { 'gender': 'Female', 'race': 'Hispanic' },
+          { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 }
+        ],
+        'coaccused': [
+          {
+            'id': 16567,
+            'full_name': 'Baudilio Lopez',
+            'percentile': {
+              'id': 180838,
+              'percentile_trr': '72.1094',
+              'percentile_allegation_civilian': '98.5549',
+              'percentile_allegation_internal': '61.1521'
+            },
+            'allegation_count': 93
+          },
+          {
+            'id': 7544,
+            'full_name': 'Dominique Dunigan',
+            'percentile': {
+              'id': 180839,
+              'percentile_trr': '0.0000',
+              'percentile_allegation_civilian': '24.1180',
+              'percentile_allegation_internal': '0.0000'
+            },
+            'allegation_count': 1
+          }
+        ]
       }).should.deepEqual({
         type: 'CR',
         id: 1,
@@ -25,6 +56,34 @@ describe('search page transforms', function () {
         text: 'CR # 123 - July 2, 2012',
         subText: 'the officer pointed a gun at the victim',
         recentText: 'CR # 123 - July 2, 2012',
+        incidentDate: 'JUL 2, 2012',
+        category: 'Use Of Force',
+        subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
+        coaccused: [{
+          id: 16567,
+          name: 'Baudilio Lopez',
+          url: '/officer/16567/baudilio-lopez/',
+          radarAxes: [
+            { axis: 'Use of Force Reports', value: 72.1094 },
+            { axis: 'Officer Allegations', value: 61.1521 },
+            { axis: 'Civilian Allegations', value: 98.5549 }
+          ],
+          radarColor: '#f0201e',
+          count: 93
+        }, {
+          id: 7544,
+          name: 'Dominique Dunigan',
+          url: '/officer/7544/dominique-dunigan/',
+          radarAxes: [
+            { axis: 'Use of Force Reports', value: 0 },
+            { axis: 'Officer Allegations', value: 0 },
+            { axis: 'Civilian Allegations', value: 24.118 }
+          ],
+          radarColor: '#f5c5a2',
+          count: 1
+        }],
       });
     });
 

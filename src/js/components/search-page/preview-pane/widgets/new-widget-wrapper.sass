@@ -1,0 +1,24 @@
+@import 'variables'
+
+\:local(.new-widget-wrapper)
+  color: $soft-black-color
+  font-size: 14px
+  padding: 15px 16px 0 16px
+  border-left: 1px solid $white-two-color
+  height: 100%
+
+  .widget-wrapper-responsive-container
+    max-height: calc(100% - 50px)
+    overflow: hidden
+    position: relative
+    width: 100%
+    left: -8px
+    padding: 0 8px
+
+  .widget-wrapper-gradient
+    position: absolute
+    height: 150px
+    width: 100%
+    bottom: 0
+    left: 0
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(245, 244, 244, 1) 90%)

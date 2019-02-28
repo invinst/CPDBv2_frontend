@@ -14,6 +14,7 @@ import RecentActivity from 'components/landing-page/recent-activity';
 import PairingCard from 'components/landing-page/common/pairing-card';
 import Carousel from 'components/common/carousel';
 import * as GATracking from 'utils/google_analytics_tracking';
+import { OfficerCardFactory } from 'utils/test/factories/activity-grid';
 
 
 describe('Recent Activity components', function () {
@@ -29,7 +30,7 @@ describe('Recent Activity components', function () {
     'race': 'Hispanic',
     'gender': 'Male',
     'rank': 'Police Officer',
-    'type': 'single_officer',
+    'kind': 'single_officer',
   }, {
     'id': 2,
     'fullName': 'Jerome Finnagan',
@@ -40,10 +41,10 @@ describe('Recent Activity components', function () {
     'race': 'White',
     'gender': 'Male',
     'rank': 'Police Officer',
-    'type': 'single_officer',
+    'kind': 'single_officer',
   }];
   const pairCardData = [{
-    'type': 'coaccused_pair',
+    'kind': 'coaccused_pair',
     'coaccusalCount': 23,
     'officer1': {
       'id': 8562,
@@ -125,7 +126,11 @@ describe('Recent Activity components', function () {
   it('should send ga event when navigate on carousel', function () {
     stub(GATracking, 'trackSwipeLanddingPageCarousel');
     instance = renderIntoDocument(
-      <RecentActivity cards={ [1, 2, 3] } />
+      <RecentActivity cards={ [
+        OfficerCardFactory.build({ kind: 'single_officer' }),
+        OfficerCardFactory.build({ kind: 'single_officer' }),
+        OfficerCardFactory.build({ kind: 'single_officer' })
+      ] }/>
     );
     const carousel = findRenderedComponentWithType(instance, Carousel);
     carousel.props.onNavigate('left');
