@@ -3,13 +3,14 @@ import React, { Component, PropTypes } from 'react';
 import CrawlersTable from './crawlers-table';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 
+
 export default class CrawlersPage extends Component {
   render() {
     const { crawlers, requestCrawlers, nextParams } = this.props;
 
     return (
       <div>
-        <ShareableHeaderContainer/>
+        <ShareableHeaderContainer headerButtonLink='/documents/' buttonText='Documents'/>
         <CrawlersTable
           rows={ crawlers } nextParams={ nextParams } requestCrawlers={ requestCrawlers }/>
       </div>

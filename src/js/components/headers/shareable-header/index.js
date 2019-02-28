@@ -3,6 +3,7 @@ import Breadcrumbs from 'redux-breadcrumb-trail';
 
 import BreadcrumbsItemRendererContainer from 'containers/headers/shareable-header/breadcrumbs-item-renderer-container';
 import HeaderButton from 'components/headers/shareable-header/header-button';
+import NavigationHeaderButton from 'components/headers/shareable-header/navigation-header-button';
 import { calculatePosition } from 'utils/dom';
 import styles from './shareable-header.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
@@ -37,9 +38,10 @@ export default class ShareableHeader extends Component {
   }
 
   render() {
-    const { location, routes, params, Menu, buttonText } = this.props;
+    const { location, routes, params, headerButtonLink, Menu, buttonText } = this.props;
 
     const separatorRenderer = <li className='shareable-header-breadcrumb-separator'/>;
+
 
     return (
       <div className={ `${styles.shareableHeader} no-print` }>
@@ -50,7 +52,15 @@ export default class ShareableHeader extends Component {
               className='shareable-header-nav-bar'
               ref={ el => { this.placeholderElement = el; } }
             >
-              <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
+              {headerButtonLink ? (
+                <NavigationHeaderButton
+                  scrollPosition={ this.state.position }
+                  navigationLink={ headerButtonLink }
+                  buttonText={ buttonText }/>
+              ) : (
+                <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText }/>
+              )}
+
               <Breadcrumbs
                 className='breadcrumbs'
                 routes={ routes }
@@ -77,6 +87,7 @@ ShareableHeader.propTypes = {
   updateShareablePageScrollPosition: PropTypes.func,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   buttonText: PropTypes.string,
+  headerButtonLink: PropTypes.string,
 };
 
 ShareableHeader.defaultProps = {

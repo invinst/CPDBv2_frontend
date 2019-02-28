@@ -11,7 +11,7 @@ describe('Crawlers Page', function () {
     crawlersPage.open();
   });
 
-  it('should render crawler table', function () {
+  it('should render crawler table and breadcrumb', function () {
     crawlersPage.tableSection.crawlerNameHeader.getText().should.equal('CRAWLER');
     crawlersPage.tableSection.recentRunAtHeader.getText().should.equal('RECENT RUN');
     crawlersPage.tableSection.numNewDocumentsHeader.getText().should.equal('NEW DOCUMENTS');
@@ -21,10 +21,12 @@ describe('Crawlers Page', function () {
     crawlersPage.tableSection.firstRecentRunAt.getText().should.equal('2019-02-20');
     crawlersPage.tableSection.firstNumNewDocuments.getText().should.equal('0');
     crawlersPage.tableSection.firstNumDocuments.getText().should.equal('284');
+
+    crawlersPage.tableSection.breadcrumbsItem.getText().should.equal('Crawler Tracker');
   });
 
   it('should go to new download window when click on crawler row', function () {
-    crawlersPage.tableSection.crawlerRow.click();
+    crawlersPage.tableSection.firstCrawlerRow.click();
 
     switchToRecentTab();
     browser.getUrl().should.equal(

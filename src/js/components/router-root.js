@@ -93,7 +93,8 @@ export default class RouterRoot extends Component {
               component={ InlineAliasAdminContainer }/>
             <Route
               path={ CRAWLERS_PATH }
-              component={ CrawlersContainer }/>
+              component={ CrawlersContainer }
+              breadcrumb='Crawler Tracker'/>
             <Route
               path={ EMBED_MAP_PATH }
               component={ HeatMapContainer }/>

@@ -24,7 +24,7 @@ describe('HeaderButton component', function () {
   });
 
   it('should be render contents', function () {
-    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'button');
+    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'test--button');
     shareButtonDOMElement.textContent.should.eql('Header button');
     shareButtonDOMElement.className.should.containEql('top');
     scryRenderedComponentsWithType(element, ShareMenu).should.have.length(0);
@@ -36,7 +36,7 @@ describe('HeaderButton component', function () {
   });
 
   it('should toggle menu when being clicked', function () {
-    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'button');
+    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'test--button');
     scryRenderedComponentsWithType(element, ShareMenu).should.have.length(0);
     Simulate.click(shareButtonDOMElement);
     findRenderedComponentWithType(element, ShareMenu);
@@ -45,9 +45,9 @@ describe('HeaderButton component', function () {
   });
 
   it('should add focus class name when shareMenuIsOpen', function () {
-    Simulate.click(findRenderedDOMComponentWithClass(element, 'button'));
+    Simulate.click(findRenderedDOMComponentWithClass(element, 'test--button'));
 
-    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'button');
+    const shareButtonDOMElement = findRenderedDOMComponentWithClass(element, 'test--button');
     shareButtonDOMElement.className.should.containEql('focus');
     shareButtonDOMElement.className.should.not.containEql('top');
   });
@@ -63,7 +63,7 @@ describe('HeaderButton component', function () {
       <HeaderButton scrollPosition='top' buttonText='Header button' Menu={ CustomMenu }/>
     );
 
-    Simulate.click(findRenderedDOMComponentWithClass(element, 'button'));
+    Simulate.click(findRenderedDOMComponentWithClass(element, 'test--button'));
 
     findRenderedComponentWithType(element, CustomMenu);
   });
