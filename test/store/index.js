@@ -186,6 +186,12 @@ describe('store', function () {
         isRequesting: false,
         summary: {}
       },
+      documentPage: {
+        data: {},
+        isRequesting: false,
+        textContentEditModeOn: false,
+        titleEditModeOn: false,
+      },
       genericModal: {
         activeModal: null
       },

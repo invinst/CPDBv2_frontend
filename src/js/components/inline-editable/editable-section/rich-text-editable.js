@@ -12,7 +12,7 @@ class RichTextEditable extends Component {
     const fieldContext = get(this.context.fieldContexts, fieldname, {});
     return {
       editModeOn: editModeOn || fieldContext.editModeOn,
-      value: value || fieldContext.value || fieldContext,
+      value: value || fieldContext.value,
       onChange: onChange || fieldContext.onChange
     };
   }
