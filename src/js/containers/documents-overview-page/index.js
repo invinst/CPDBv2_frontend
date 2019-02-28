@@ -6,7 +6,7 @@ import {
   nextParamsSelector,
 
 } from 'selectors/documents-overview-page';
-import { fetchDocuments, searchDocuments } from 'actions/documents-overview-page';
+import { fetchDocuments } from 'actions/documents-overview-page';
 import DocumentsPage from 'components/documents-overview-page';
 
 function mapStateToProps(state, ownProps) {
@@ -19,8 +19,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  fetchDocuments,
-  searchDocuments
+  fetchDocuments
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocumentsPage);

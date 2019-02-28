@@ -21,7 +21,7 @@ export default class DocumentsTable extends Component {
             <span className='header-toggle'/>
           </div>
           <InfiniteScroll
-            loadMore={ () => fetchDocumentsByCRID({ ...nextParams }) }
+            loadMore={ () => hasMore ? fetchDocumentsByCRID({ ...nextParams }) : null }
             initialLoad={ false }
             hasMore={ hasMore }
             useWindow={ true }>

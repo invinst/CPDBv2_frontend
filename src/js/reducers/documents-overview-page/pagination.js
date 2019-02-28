@@ -6,6 +6,6 @@ import * as constants from 'utils/constants';
 export default handleActions({
   [constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS]:
     (state, { payload: { next } }) => ({ next }),
-  [constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS]:
-    (state, { payload: { next } }) => ({ next })
+  [constants.DOCUMENT_OVERVIEW_REQUEST_START]:
+    (state, { payload: { next } }) => ({}),
 }, {});

@@ -13,23 +13,21 @@ describe('DocumentsOverviewPage pagination reducer', function () {
     }, {
       type: constants.DOCUMENT_OVERVIEW_REQUEST_SUCCESS,
       payload: {
-        next: 'https://api.com/docs/?limit=20&&offset=60'
+        next: 'https://api.com/docs/?limit=20&offset=60'
       }
     }).should.deepEqual({
-      next: 'https://api.com/docs/?limit=20&&offset=60'
+      next: 'https://api.com/docs/?limit=20&offset=60'
     });
   });
 
-  it('should handle DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS', function () {
+  it('should handle DOCUMENT_OVERVIEW_REQUEST_START', function () {
     pagination({
       next: 'https://api.com/docs/?limit=20&offset=40'
     }, {
-      type: constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS,
+      type: constants.DOCUMENT_OVERVIEW_REQUEST_START,
       payload: {
-        next: 'https://api.com/docs/?limit=20&&offset=60'
+        next: 'https://api.com/docs/?limit=20&offset=60'
       }
-    }).should.deepEqual({
-      next: 'https://api.com/docs/?limit=20&&offset=60'
-    });
+    }).should.deepEqual({});
   });
 });

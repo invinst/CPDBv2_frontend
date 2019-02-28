@@ -1,5 +1,7 @@
 'use strict';
 
+import * as _ from 'lodash';
+
 import Page from './page';
 
 
@@ -7,6 +9,7 @@ class DocumentsOverviewPage extends Page {
   constructor() {
     super();
     this.prepareElementGetters({
+      docTable: '(//div[starts-with(@class, "documents-table")])[1]',
       lastBreadcrumbs: '//ul[@class="breadcrumbs"]/li[last()]',
       firstMonthSeparator: '(//div[contains(@class, "month-separator")])[1]',
       secondMonthSeparator: '(//div[contains(@class, "month-separator")])[2]',
@@ -31,8 +34,13 @@ class DocumentsOverviewPage extends Page {
     });
   }
 
-  open(editModeOn) {
-    super.open('/documents/');
+  open(queryParams) {
+    let queries = '?' + _.map(_.toPairs(queryParams), ([key, val]) => `${key}=${val}`).join('&');
+    let url = '/documents/';
+    if (queries !== '?') {
+      url = url + queries;
+    }
+    super.open(url);
     browser.element('body').waitForVisible();
   }
 }

@@ -14,7 +14,6 @@ const cancelOldRequest = (newRequest) => (...args) => {
   return newRequest(...args);
 };
 
-
 export const fetchDocuments = cancelOldRequest(
   params => get(
     constants.DOCUMENTS_URL,
@@ -25,17 +24,5 @@ export const fetchDocuments = cancelOldRequest(
     ],
     source.token
   )({ ...params })
-);
-
-export const searchDocuments = cancelOldRequest(
-  (match, params, adapter) => get(
-    constants.DOCUMENTS_URL,
-    [
-      constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_START,
-      constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_SUCCESS,
-      constants.DOCUMENT_OVERVIEW_SEARCH_REQUEST_FAILURE
-    ],
-    source.token
-  )({ match, ...params }, adapter)
 );
 

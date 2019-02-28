@@ -7,7 +7,8 @@ import {
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { spy, stub } from 'sinon';
+import { spy } from 'sinon';
+import { browserHistory } from 'react-router';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import DocumentsTable from 'components/documents-overview-page/documents-table';
@@ -84,23 +85,11 @@ describe('DocumentsOverviewPage component', function () {
     });
   });
 
-  it('should dispatch searchDocuments action if search text is changed', function () {
-    const documents = [
-      {
-        id: '01-2019',
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
-        text: 'Jan 2019'
-      },
-      {
-        id: 1,
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT
-      }
-    ];
-    const searchDocuments = stub().returns({ catch: stub() });
-
+  it('should change url if search text is changed', function () {
+    spy(browserHistory, 'push');
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <DocumentsOverviewPage documents={ documents } searchDocuments={ searchDocuments }/>
+        <DocumentsOverviewPage/>
       </Provider>
     );
 
@@ -110,35 +99,48 @@ describe('DocumentsOverviewPage component', function () {
 
     const documentsOverviewPage = findRenderedComponentWithType(instance, DocumentsOverviewPage);
     documentsOverviewPage.state.searchText.should.eql('term');
-    searchDocuments.calledWith('term').should.be.true();
+
+    browserHistory.push.calledWith('/documents/?match=term').should.be.true();
+    browserHistory.push.restore();
   });
 
-  it('should not dispatch searchDocuments action is search text is changed with old value', function () {
-    const documents = [
-      {
-        id: '01-2019',
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
-        text: 'Jan 2019'
-      },
-      {
-        id: 1,
-        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT
-      }
-    ];
-    const searchDocuments = stub().returns({ catch: stub() });
-
+  it('should not change url if search text hasnt changed', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <DocumentsOverviewPage documents={ documents } searchDocuments={ searchDocuments }/>
+        <DocumentsOverviewPage/>
       </Provider>
     );
+    const documentsOverviewPage = findRenderedComponentWithType(instance, DocumentsOverviewPage);
+    documentsOverviewPage.setState({ searchText: 'abc' });
+    spy(browserHistory, 'push');
+
+    const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
+    inputElement.value = 'abc';
+    Simulate.change(inputElement);
+
+    documentsOverviewPage.state.searchText.should.eql('abc');
+
+    browserHistory.push.called.should.be.false();
+    browserHistory.push.restore();
+  });
+
+  it('should not include match param in url when search text is empty', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <DocumentsOverviewPage/>
+      </Provider>
+    );
+    const documentsOverviewPage = findRenderedComponentWithType(instance, DocumentsOverviewPage);
+    documentsOverviewPage.setState({ searchText: 'abc' });
+    spy(browserHistory, 'push');
 
     const inputElement = findRenderedDOMComponentWithTag(instance, 'input');
     inputElement.value = '';
     Simulate.change(inputElement);
 
-    const documentsOverviewPage = findRenderedComponentWithType(instance, DocumentsOverviewPage);
     documentsOverviewPage.state.searchText.should.eql('');
-    searchDocuments.called.should.be.false();
+
+    browserHistory.push.calledWith('/documents/').should.be.true();
+    browserHistory.push.restore();
   });
 });

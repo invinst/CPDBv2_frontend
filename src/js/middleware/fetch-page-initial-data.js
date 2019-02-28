@@ -10,6 +10,8 @@ import { hasCards as hasOfficerByAllegationData } from 'selectors/landing-page/o
 import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activity-grid';
 import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
 import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
+import { getMatchParamater, getDocumentsOrder } from 'selectors/documents-overview-page';
+import { getCRIDParameter } from 'selectors/document-deduplicator-page';
 import { getCitySummary } from 'actions/landing-page/city-summary';
 import { fetchOfficerSummary, changeOfficerId, requestCreateOfficerZipFile } from 'actions/officer-page';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
@@ -140,12 +142,29 @@ export default store => next => action => {
   }
 
   else if (action.payload.pathname.match(/\/documents\/crid\//)) {
-    const crid = getDocDedupCRID(action.payload.pathname);
-    dispatches.push(store.dispatch(fetchDocumentsByCRID({ crid })));
+    const previousCRID = getCRIDParameter(state);
+    const currentCRID = getDocDedupCRID(action.payload.pathname);
+    if (currentCRID !== previousCRID) {
+      dispatches.push(store.dispatch(fetchDocumentsByCRID({ crid: currentCRID })));
+    }
   }
 
   else if (action.payload.pathname.match(/\/documents\//)) {
-    dispatches.push(store.dispatch(fetchDocuments()).catch(cancelledByUser));
+    const previousMatch = getMatchParamater(state);
+    const currentMatch = get(action.payload.query, 'match', '');
+    const previousDataOrders = getDocumentsOrder(state);
+    let params = {};
+
+    if (currentMatch !== '') {
+      params = { match: currentMatch };
+    }
+
+    if (
+        currentMatch !== previousMatch ||
+        (currentMatch === '' && previousDataOrders.length === 0)
+    ) {
+      dispatches.push(store.dispatch(fetchDocuments(params)).catch(cancelledByUser));
+    }
   }
 
   if (dispatches.length > 0) {

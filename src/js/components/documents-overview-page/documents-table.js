@@ -1,5 +1,5 @@
 import React, { Component, PropTypes, createElement } from 'react';
-import { map } from 'lodash';
+import * as _ from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
@@ -14,6 +14,15 @@ const rowMap = {
 };
 
 export default class DocumentsTable extends Component {
+  shouldComponentUpdate(nextProps) {
+    const { hasMore, nextParams, rows } = this.props;
+    return (
+      hasMore !== nextProps.hasMore ||
+      !_.isEqual(nextParams, nextProps.nextParams) ||
+      !_.isEqual(_.map(rows, 'id'), _.map(nextProps.rows, 'id'))
+    );
+  }
+
   render() {
     const { rows, hasMore, nextParams, fetchDocuments, onCRLinkClick } = this.props;
     return (
@@ -29,12 +38,12 @@ export default class DocumentsTable extends Component {
           </div>
           <div className={ styles.rowsWrapper }>
             <InfiniteScroll
-              loadMore={ () => fetchDocuments({ ...nextParams }) }
+              loadMore={ () => hasMore ? fetchDocuments(nextParams) : null }
               initialLoad={ false }
               hasMore={ hasMore }
               useWindow={ true }>
               {
-                map(rows, row => createElement(
+                _.map(rows, row => createElement(
                   rowMap[row.kind],
                   { ...row, key: row.id, onCRLinkClick: onCRLinkClick }))
               }
@@ -52,4 +61,8 @@ DocumentsTable.propTypes = {
   nextParams: PropTypes.object,
   fetchDocuments: PropTypes.func,
   onCRLinkClick: PropTypes.func
+};
+
+DocumentsTable.defaultProps = {
+  rows: []
 };

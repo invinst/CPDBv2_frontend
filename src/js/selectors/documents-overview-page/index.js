@@ -7,7 +7,8 @@ import extractQuery from 'utils/extract-query';
 
 const getTrackerDocuments = state => state.documentsOverviewPage.documents.data;
 const getPagination = state => state.documentsOverviewPage.pagination;
-const getDocumentsOrder = state => state.documentsOverviewPage.documentsOrder.data;
+export const getDocumentsOrder = state => state.documentsOverviewPage.documentsOrder.data;
+export const getMatchParamater = state => state.documentsOverviewPage.documents.match;
 
 export const documentsSelector = createSelector(
   getTrackerDocuments,

@@ -8,6 +8,7 @@ import extractQuery from 'utils/extract-query';
 const getTrackerDocuments = state => state.documentDeduplicatorPage.documents.data;
 const getPagination = state => state.documentDeduplicatorPage.pagination;
 const getDocumentsOrder = state => state.documentDeduplicatorPage.documentsOrder.data;
+export const getCRIDParameter = state => state.documentDeduplicatorPage.documents.crid;
 
 export const documentsSelector = createSelector(
   getTrackerDocuments,
