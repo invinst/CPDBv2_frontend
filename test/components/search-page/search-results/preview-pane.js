@@ -17,7 +17,8 @@ import {
   SchoolGroundPane,
   OfficerPane,
   RankPane,
-  SearchTermItemPane
+  SearchTermItemPane,
+  CRPane
 } from 'components/search-page/preview-pane';
 
 
@@ -116,6 +117,60 @@ describe('PreviewPane component', function () {
       />
     );
     findRenderedComponentWithType(instance, SearchTermItemPane);
+  });
+
+  it('should render CRPane', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='CR'
+        data={ {
+          to: '/complaint/123/',
+          category: 'Use Of Force',
+          subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+          incidentDate: 'JUL 2, 2012',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
+          coaccused: []
+        } }
+      />
+    );
+    findRenderedComponentWithType(instance, CRPane);
+  });
+
+  it('should render CRPane for Date > CR', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='DATE > CR'
+        data={ {
+          to: '/complaint/123/',
+          category: 'Use Of Force',
+          subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+          incidentDate: 'JUL 2, 2012',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
+          coaccused: []
+        } }
+      />
+    );
+    findRenderedComponentWithType(instance, CRPane);
+  });
+
+  it('should render CRPane for INVESTIGATOR > CR', function () {
+    instance = renderIntoDocument(
+      <PreviewPane
+        type='INVESTIGATOR > CR'
+        data={ {
+          to: '/complaint/123/',
+          category: 'Use Of Force',
+          subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+          incidentDate: 'JUL 2, 2012',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
+          coaccused: []
+        } }
+      />
+    );
+    findRenderedComponentWithType(instance, CRPane);
   });
 
   it('should not display any component if the data is empty', function () {

@@ -14,8 +14,9 @@ class AttachmentItem extends Component {
   }
 
   handleClick() {
-    const { pathname, url } = this.props;
+    const { pathname, url, onTrackingAttachment, id } = this.props;
     GATracking.trackAttachmentClick(pathname, url);
+    onTrackingAttachment({ attachmentId: id, sourcePage: 'CR Page', app: 'Frontend' });
   }
 
   render() {
@@ -42,10 +43,13 @@ AttachmentItem.propTypes = {
   title: PropTypes.string,
   fileType: PropTypes.string,
   pathname: PropTypes.string,
+  onTrackingAttachment: PropTypes.func,
+  id: PropTypes.string,
 };
 
 AttachmentItem.defaultProps = {
-  fileType: 'audio'
+  fileType: 'audio',
+  onTrackingAttachment: () => {},
 };
 
 export default AttachmentItem;

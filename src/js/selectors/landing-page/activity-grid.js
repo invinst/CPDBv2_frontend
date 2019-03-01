@@ -14,7 +14,7 @@ export const hasCards = createSelector(
 );
 
 const processCard = (cards, cardType) => {
-  const filteredCards = cardType ? filter(cards, ['type', cardType]) : cards;
+  const filteredCards = cardType ? filter(cards, ['kind', cardType]) : cards;
   const upperHalf = shuffle(filteredCards.slice(0, 12));
   const lowerHalf = shuffle(filteredCards.slice(12));
   return upperHalf.concat(lowerHalf).map(cardTransform);
