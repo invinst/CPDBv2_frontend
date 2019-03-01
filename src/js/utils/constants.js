@@ -532,9 +532,11 @@ export const CALL_TO_ACTION_TYPES = {
 export const FULL_MONTH_DATE_FORMAT = 'MMMM D, YYYY';
 
 export const DOCUMENT_SOURCE_MAP = {
+  PORTAL_COPA: 'https://www.chicagocopa.org/',
+  SUMMARY_REPORTS_COPA: 'https://www.chicagocopa.org/',
   DOCUMENTCLOUD: 'https://www.documentcloud.org/',
-  COPA: 'https://www.chicagocopa.org/',
-  COPA_DOCUMENTCLOUD: 'https://www.chicagocopa.org/',
+  PORTAL_COPA_DOCUMENTCLOUD: 'https://www.chicagocopa.org/',
+  SUMMARY_REPORTS_COPA_DOCUMENTCLOUD: 'https://www.chicagocopa.org/',
 };
 
 export const SHAREABLE_HEADER_BUTTON_TYPE = {
