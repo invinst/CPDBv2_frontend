@@ -30,7 +30,7 @@ describe('DocumentsOverviewPage selectors', function () {
                 id: 2,
                 'created_at': '2017-01-14T06:00:01-06:00',
                 title: 'CRID 1064593 CR',
-                'source_type': 'COPA',
+                'source_type': 'PORTAL_COPA',
                 'preview_image_url': 'https://example.com/pic2.jpg',
                 'views_count': 2,
                 'downloads_count': 1,
