@@ -10,6 +10,7 @@ import {
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { omit, findIndex, slice } from 'lodash';
+import moment from 'moment-timezone';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import DocumentPageContainer from 'containers/document-page';
@@ -110,7 +111,12 @@ describe('DocumentPage component', function () {
 
   const store = MockStore()(state);
 
+  beforeEach(function () {
+    moment.tz.setDefault('America/Chicago');
+  });
+
   afterEach(function () {
+    moment.tz.setDefault();
     unmountComponentSuppressError(instance);
   });
 
@@ -219,7 +225,7 @@ describe('DocumentPage component', function () {
     });
 
     const lastEdited = findRenderedDOMComponentWithClass(instance, 'main-section-last-edited');
-    lastEdited.textContent.should.eql('This document was last edited by John Doe at 09:50AM on Mar 1, 2019');
+    lastEdited.textContent.should.eql('This document was last edited by John Doe at 08:50PM on Feb 28, 2019');
   });
 
   it('should not pass counts to SimpleListWidget when not available', function () {
@@ -263,6 +269,6 @@ describe('DocumentPage component', function () {
     );
 
     const lastEdited = findRenderedDOMComponentWithClass(instance, 'main-section-last-edited');
-    lastEdited.textContent.should.eql('This document was last edited at 09:50AM on Mar 1, 2019');
+    lastEdited.textContent.should.eql('This document was last edited at 08:50PM on Feb 28, 2019');
   });
 });

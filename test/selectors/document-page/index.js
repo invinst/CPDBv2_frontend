@@ -1,4 +1,5 @@
 import { getTitleEditModeOn, getTextContentEditModeOn, documentSelector } from 'selectors/document-page';
+import moment from 'moment-timezone';
 
 
 describe('Document selectors', function () {
@@ -23,6 +24,14 @@ describe('Document selectors', function () {
   });
 
   describe('documentSelector', function () {
+    beforeEach(function () {
+      moment.tz.setDefault('America/Chicago');
+    });
+
+    afterEach(function () {
+      moment.tz.setDefault();
+    });
+
     const state = {
       documentPage: {
         isRequesting: false,
@@ -77,7 +86,7 @@ describe('Document selectors', function () {
           id: 14188,
           previewImageUrl: 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
         }],
-        lastEditedDateTime: 'at 09:50AM on Mar 1, 2019',
+        lastEditedDateTime: 'at 08:50PM on Feb 28, 2019',
       });
     });
   });
