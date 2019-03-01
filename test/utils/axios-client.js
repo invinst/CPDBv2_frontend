@@ -15,8 +15,12 @@ describe('axios-client', function () {
       let spyFunc = spy(cancelledByUser);
       try {
         spyFunc(reason);
-      } catch (e) {}
-      spyFunc.threw(reason).should.be.true();
+      } catch (e) {
+        // The assertion of throwing error should be in
+        // the finally block.
+      } finally {
+        spyFunc.threw(reason).should.be.true();
+      }
     });
 
     it('should not throw error when the message is "Cancelled by user"', function () {

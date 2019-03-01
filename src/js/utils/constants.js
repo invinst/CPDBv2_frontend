@@ -35,7 +35,7 @@ export const EMBED_MAP_PATH = 'embed/map';
 export const EMBED_TOP_OFFICERS_PATH = 'embed/top-officers-page';
 export const EMBED_OFFICERS_PATH = 'embed/officers';
 export const TRACKER_ALL_DOCUMENTS_PATH = 'documents/crid/:crid';
-export const TRACKER_DOCUMENTS_OVERVIEW_PATH = 'documents/'
+export const TRACKER_DOCUMENTS_OVERVIEW_PATH = 'documents/';
 
 export const ROOT_EDIT_REGEX = /^\/(?:edit\/)?$/;
 
