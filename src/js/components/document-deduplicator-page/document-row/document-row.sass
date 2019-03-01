@@ -7,6 +7,8 @@
   box-sizing: border-box
   transition: color 0.2s ease-in-out
 
+$row-fixed-width: 84px
+
 \:local(.row)
   background-color: $sugar-cane-color
   height: 80px
@@ -35,7 +37,7 @@
   .document-title
     @extend %cell
     min-width: 245px
-    width: calc((100% - 84px) * 0.2698237885462555)
+    width: calc((100% - $row-fixed-width) * 0.2698237885462555)
     color: $soft-black-color
     height: 100%
     display: inline-flex
@@ -51,7 +53,7 @@
   .document-source
     @extend %cell
     min-width: 260px
-    width: calc((100% - 84px) * 0.28634361233480177)
+    width: calc((100% - $row-fixed-width) * 0.28634361233480177)
     margin-top: 31px
     padding-right: 50px
 
@@ -61,7 +63,7 @@
   .document-counts
     @extend %cell
     min-width: 196px
-    width: calc((100% - 84px) * 0.21585903083700442)
+    width: calc((100% - $row-fixed-width) * 0.21585903083700442)
     margin-top: 31px
     padding-right: 50px
 
@@ -71,7 +73,7 @@
   .document-date
     @extend %cell
     min-width: 130px
-    width: calc((100% - 84px) * 0.14317180616740088)
+    width: calc((100% - $row-fixed-width) * 0.14317180616740088)
     margin-top: 31px
     padding-right: 50px
 
@@ -81,5 +83,5 @@
   .document-toggle
     @extend %cell
     min-width: 77px
-    width: calc((100% - 84px) * 0.08480176211453745)
+    width: calc((100% - $row-fixed-width) * 0.08480176211453745)
     margin-top: 31px

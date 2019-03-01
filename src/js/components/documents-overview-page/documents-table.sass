@@ -16,13 +16,7 @@
   vertical-align: top
   box-sizing: border-box
 
-%countsCol
-  min-width: 183px
-  width: calc((100% - 81px) * 0.20819112627986347)
-
-%dateCol
-  min-width: 60px
-  width: calc((100% - 81px) * 0.06825938566552901)
+$header-fixed-width: 81px
 
 \:local(.headerRow)
   background-color: white
@@ -36,32 +30,32 @@
 
   .header-thumbnail
     @extend %headerCol
-    width: 81px
+    width: $header-fixed-width
 
   .header-title
     @extend %headerCol
     min-width: 242px
-    width: calc((100% - 81px) * 0.2753128555176337)
+    width: calc((100% - $header-fixed-width) * 0.2753128555176337)
 
   .header-crid-uid
     @extend %headerCol
     min-width: 149px
-    width: calc((100% - 81px) * 0.1695108077360637)
+    width: calc((100% - $header-fixed-width) * 0.1695108077360637)
 
   .header-source
     @extend %headerCol
     min-width: 245px
-    width: calc((100% - 81px) * 0.2787258248009101)
+    width: calc((100% - $header-fixed-width) * 0.2787258248009101)
 
   .header-counts
     @extend %headerCol
     min-width: 183px
-    width: calc((100% - 81px) * 0.20819112627986347)
+    width: calc((100% - $header-fixed-width) * 0.20819112627986347)
 
   .header-date
     @extend %headerCol
     min-width: 60px
-    width: calc((100% - 81px) * 0.06825938566552901)
+    width: calc((100% - $header-fixed-width) * 0.06825938566552901)
     padding-right: 15px
     text-align: right
 

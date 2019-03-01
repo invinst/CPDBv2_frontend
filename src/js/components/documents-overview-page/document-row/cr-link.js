@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import pluralize from 'pluralize';
 
 import styles from './cr-link.sass';
 
@@ -20,7 +21,9 @@ export default class CRLink extends Component {
         <span className='document-crid'>{ `CR ${crid}` }</span>
         <span className='document-count-wrapper'>
           <span className='link-icon' />
-          <span className='documents-count'>{ `${documentsCount} documents` }</span>
+          <span className='documents-count'>
+            { `${documentsCount} ${pluralize('document', documentsCount)}` }
+          </span>
         </span>
       </span>
     );
