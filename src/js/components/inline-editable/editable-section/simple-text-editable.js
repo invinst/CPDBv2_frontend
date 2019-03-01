@@ -29,7 +29,8 @@ export default class SimpleTextEditable extends Component {
           >
             { value }
           </div>
-        }/>
+        }
+      />
     );
   }
 }
@@ -38,7 +39,6 @@ SimpleTextEditable.propTypes = {
   className: PropTypes.string,
   placeholder: PropTypes.string,
   fieldName: PropTypes.string,
-  lastBlockChild: PropTypes.node
 };
 
 SimpleTextEditable.contextTypes = {

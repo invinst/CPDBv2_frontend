@@ -45,4 +45,24 @@ describe('breadcrumbsMapping', function () {
       }
     }).should.eql({ '/trr/123/': 'TRR 123' });
   });
+
+  it('should store document breadcrumb text when successfully requesting document', function () {
+    breadcrumbsMapping({}, {
+      type: constants.DOCUMENT_REQUEST_SUCCESS,
+      payload: {
+        id: '1234',
+        title: 'CRID 1083633 Report',
+      }
+    }).should.eql({ '/document/1234/': 'CRID 1083633 Report' });
+  });
+
+  it('should store document breadcrumb text when successfully updating document page', function () {
+    breadcrumbsMapping({}, {
+      type: constants.UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
+      payload: {
+        id: '1234',
+        title: 'CRID 1083633 Report',
+      }
+    }).should.eql({ '/document/1234/': 'CRID 1083633 Report' });
+  });
 });

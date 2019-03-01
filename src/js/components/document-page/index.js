@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import DocumentMeta from 'react-document-meta';
 import { Link } from 'react-router';
+import pluralize from 'pluralize';
 
 import { slice, isUndefined } from 'lodash';
 
@@ -60,10 +61,9 @@ export default class DocumentPage extends Component {
           <div className='document-wrapper'>
             <div className='document-side-bar'>
               <a className='document-thumbnail' href={ url }>
-                <img src={ previewImageUrl } alt='thumbnail'/>
-                <span className='document-thumbnail-page-count'>{ pageCount.toLocaleString() } pages</span>
+                <img className='document-thumbnail-img' src={ previewImageUrl } alt='thumbnail'/>
+                <span className='document-thumbnail-page-count'>{ `${pluralize('page', pageCount, true)}` }</span>
               </a>
-              <div className='document-vote'/>
               <SimpleListWidget className='document-info' items={ infoItems }/>
               <div className='linked-documents'>
                 <div className='linked-documents-title'>Linked Documents ({ linkedDocuments.length })</div>
@@ -71,7 +71,12 @@ export default class DocumentPage extends Component {
                   {
                     displayedDocuments.map(document => (
                       <div key={ document.id } className='linked-documents-thumbnail'>
-                        <img src={ document.previewImageUrl } width='40' alt='thumbnail'/>
+                        <img
+                          className='linked-documents-thumbnail-img'
+                          src={ document.previewImageUrl }
+                          width='40'
+                          alt='thumbnail'
+                        />
                       </div>
                     ))
                   }
@@ -98,8 +103,8 @@ export default class DocumentPage extends Component {
                 editWrapperStateProps={ textContentEditWrapperStateProps }
               />
               <div className='main-section-last-edited'>
-                This document was last edited { lastUpdatedBy ? 'by' : ''}
-                <span className='last-edited-highlight'> { lastUpdatedBy } { lastEditedDateTime }</span>
+                This document was last edited{ lastUpdatedBy ? ' by ' : ''}
+                <span className='last-edited-highlight'>{ lastUpdatedBy } { lastEditedDateTime }</span>
               </div>
             </div>
           </div>

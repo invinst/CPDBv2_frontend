@@ -6,8 +6,8 @@ import {
   DOCUMENT_REQUEST_START,
   DOCUMENT_REQUEST_SUCCESS,
   DOCUMENT_REQUEST_FAILURE,
-  TURN_ON_DOCUMENT_PAGE_TITLE_EDIT_MODE,
-  TURN_OFF_DOCUMENT_PAGE_TITLE_EDIT_MODE,
+  TURN_ON_DOCUMENT_TITLE_EDIT_MODE,
+  TURN_OFF_DOCUMENT_TITLE_EDIT_MODE,
   TURN_ON_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
   TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE,
   UPDATE_DOCUMENT_PAGE_REQUEST_START,
@@ -21,9 +21,9 @@ export const fetchDocument = documentId => (authenticatedGet(
   [DOCUMENT_REQUEST_START, DOCUMENT_REQUEST_SUCCESS, DOCUMENT_REQUEST_FAILURE]
 )());
 
-export const turnOnDocumentPageTitleEditMode = createAction(TURN_ON_DOCUMENT_PAGE_TITLE_EDIT_MODE, () => {});
+export const turnOnDocumentPageTitleEditMode = createAction(TURN_ON_DOCUMENT_TITLE_EDIT_MODE, () => {});
 
-export const turnOffDocumentPageTitleEditMode = createAction(TURN_OFF_DOCUMENT_PAGE_TITLE_EDIT_MODE, () => {});
+export const turnOffDocumentPageTitleEditMode = createAction(TURN_OFF_DOCUMENT_TITLE_EDIT_MODE, () => {});
 
 export const turnOnDocumentTextContentEditMode = createAction(TURN_ON_DOCUMENT_TEXT_CONTENT_EDIT_MODE, () => {});
 

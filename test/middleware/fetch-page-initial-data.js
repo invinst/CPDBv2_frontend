@@ -18,6 +18,7 @@ import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
+import { fetchDocument } from 'actions/document-page';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -205,6 +206,15 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+  });
+
+  it('should dispatch fetchDocument', function () {
+    const action = createLocationChangeAction('/document/1234/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
   });
 
   it('should dispatch getCommunities, getClusterGeoJson and getCitySummary', function () {

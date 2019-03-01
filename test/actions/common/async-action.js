@@ -3,7 +3,7 @@ import { stub } from 'sinon';
 
 import {
   get, post, patch, put,
-  authenticatedPost, authenticatedPatch, authenticatedPut
+  authenticatedGet, authenticatedPost, authenticatedPatch, authenticatedPut,
 } from 'actions/common/async-action';
 
 
@@ -20,6 +20,27 @@ describe('async-action', function () {
             url,
             params: undefined,
             adapter: null
+          }
+        }
+      });
+    });
+  });
+
+  describe('authenticatedGet', function () {
+    it('should return the right action', function () {
+      const url = '/url';
+      const types = ['a', 'b', 'c'];
+
+      authenticatedGet(url, types)().should.eql({
+        types,
+        payload: {
+          request: {
+            url,
+            params: undefined,
+            adapter: null,
+            headers: {
+              Authorization: null
+            }
           }
         }
       });

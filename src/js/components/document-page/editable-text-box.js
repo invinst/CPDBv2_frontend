@@ -18,20 +18,22 @@ export default class EditableTextBox extends Component {
         <SimpleEditWrapperStateProvider { ...editWrapperStateProps }>
           <HoverableEditWrapper>
             { multiline ? (
-              <MinimalScrollBars
-                showThumb={ !sectionEditModeOn }
-                style={ { container: { height: 669 }, view: { backgroundColor: 'white' } } }
-              >
-                <SimpleTextEditable
-                  className='editable-text-box-text-multiline'
-                  placeholder='Title'
-                  fieldName={ fieldName }
-                />
-              </MinimalScrollBars>
+              <div className='editable-text-box-scroll-container'>
+                <MinimalScrollBars
+                  showThumb={ !sectionEditModeOn }
+                  viewClassName='editable-text-box-scroll-view'
+                >
+                  <SimpleTextEditable
+                    className='editable-text-box-text-multiline'
+                    placeholder={ title }
+                    fieldName={ fieldName }
+                  />
+                </MinimalScrollBars>
+              </div>
             ) : (
               <SimpleTextEditable
                 className='editable-text-box-text'
-                placeholder='Title'
+                placeholder={ title }
                 fieldName={ fieldName }
               />
             )}
@@ -45,7 +47,6 @@ export default class EditableTextBox extends Component {
 EditableTextBox.propTypes = {
   className: PropTypes.string,
   title: PropTypes.string,
-  text: PropTypes.string,
   multiline: PropTypes.bool,
   fieldName: PropTypes.string,
   editWrapperStateProps: PropTypes.object,

@@ -30,8 +30,7 @@ export const documentSelector = createSelector(
       })
     ),
     lastEditedDateTime: (
-      `at ${moment(data['updated_at']).format('hh:mmA')} 
-      on ${moment(data['updated_at']).format('MMM D, YYYY')}`
+      `at ${moment(data['updated_at']).format('hh:mmA')} on ${moment(data['updated_at']).format('MMM D, YYYY')}`
     ),
   })
 );

@@ -3,7 +3,8 @@ import { Provider } from 'react-redux';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
+  scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import Breadcrumbs from 'redux-breadcrumb-trail';
@@ -54,6 +55,17 @@ describe('ShareableHeader component', function () {
 
     findRenderedDOMComponentWithClass(element, 'shareable-header-header-placeholder');
     findRenderedDOMComponentWithClass(element, 'shareable-header-nav-bar');
+  });
+
+  it('should not render HeaderButton when shouldDisplayButton is false', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <ShareableHeaderContainer Menu={ CustomMenu } shouldDisplayButton={ false }/>
+      </Provider>
+    );
+    element = findRenderedComponentWithType(instance, ShareableHeader);
+
+    scryRenderedComponentsWithType(element, HeaderButton).should.have.length(0);
   });
 
   describe('handleScroll', function () {

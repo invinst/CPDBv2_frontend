@@ -4,8 +4,6 @@ import { DOCUMENT_REQUEST_SUCCESS, UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS } from '
 
 
 export default handleActions({
-  [DOCUMENT_REQUEST_SUCCESS]: (state, action) => (
-    action.payload
-  ),
+  [DOCUMENT_REQUEST_SUCCESS]: (state, action) => action.payload,
   [UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS]: (state, action) => ({ ...state, ...action.payload }),
 }, {});

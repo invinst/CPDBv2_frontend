@@ -188,7 +188,6 @@ describe('store', function () {
       },
       documentPage: {
         data: {},
-        isRequesting: false,
         textContentEditModeOn: false,
         titleEditModeOn: false,
       },

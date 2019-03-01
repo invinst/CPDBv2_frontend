@@ -24,13 +24,17 @@ export default class MinimalScrollBars extends Component {
 
   renderThumb({ style, ...props }) {
     return (
-      <div style={ { ...style, ...thumbStyle } } { ...props } />
+      <div className='test--minimal-scrollbars-vertical-thumb' style={ { ...style, ...thumbStyle } } { ...props } />
     );
   }
 
   renderView({ style }) {
+    const { viewClassName } = this.props;
     return (
-      <div style={ { ...style, ...this.props.style.view } } />
+      <div
+        style={ { ...style, ...this.props.style.view } }
+        className={ viewClassName }
+      />
     );
   }
 
@@ -41,7 +45,10 @@ export default class MinimalScrollBars extends Component {
 
   render() {
     const { showThumb } = this.props;
-    const rest = omit(this.props, ['onScrollerRef', 'style', 'scrollTop', 'scrollLeft', 'showThumb']);
+    const rest = omit(
+      this.props,
+      ['onScrollerRef', 'style', 'scrollTop', 'scrollLeft', 'showThumb', 'viewClassName']
+    );
     return (
       <Scrollbars
         thumbSize={ 120 }
@@ -57,12 +64,14 @@ export default class MinimalScrollBars extends Component {
 
 MinimalScrollBars.defaultProps = {
   onScrollerRef: () => {},
-  style: {}
+  style: {},
+  showThumb: true,
 };
 
 MinimalScrollBars.propTypes = {
   onScrollerRef: PropTypes.func,
   style: PropTypes.object,
   scrollTop: PropTypes.number,
-  scrollLeft: PropTypes.number
+  scrollLeft: PropTypes.number,
+  viewClassName: PropTypes.string,
 };

@@ -17,7 +17,7 @@ import { fetchCoaccusals } from 'actions/officer-page/coaccusals';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
 import { fetchCR } from 'actions/cr-page';
 import { fetchTRR } from 'actions/trr-page';
-import { fetchDocument } from 'actions/document-pape';
+import { fetchDocument } from 'actions/document-page';
 import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { fetchPage } from 'actions/cms';
 import { requestOfficersByAllegation } from 'actions/landing-page/officers-by-allegation';

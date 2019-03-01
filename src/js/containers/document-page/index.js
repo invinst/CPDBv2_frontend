@@ -2,13 +2,13 @@ import { connect } from 'react-redux';
 
 import DocumentPage from 'components/document-page';
 import { documentSelector, getTitleEditModeOn, getTextContentEditModeOn } from 'selectors/document-page';
-import { updateDocument } from 'actions/document-pape';
+import { updateDocument } from 'actions/document-page';
 import {
   turnOnDocumentPageTitleEditMode,
   turnOffDocumentPageTitleEditMode,
   turnOnDocumentTextContentEditMode,
   turnOffDocumentTextContentEditMode
-} from 'actions/document-pape';
+} from 'actions/document-page';
 import { omit } from 'lodash';
 
 
