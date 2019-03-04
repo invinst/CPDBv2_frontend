@@ -12,6 +12,7 @@ import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
 import TRRPageContainer from 'containers/trr-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
+import CrawlersContainer from 'containers/crawlers-page';
 import HeatMapContainer from 'containers/embeddable-heat-map';
 import EmbedTopOfficersPage from 'components/landing-page/embed/top-officers-page';
 import EmbedOfficersContainer from 'containers/embed/officers';
@@ -28,6 +29,7 @@ import {
   SEARCH_ALIAS_EDIT_PATH,
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
   STANDALONE_CR_PATH,
+  CRAWLERS_PATH,
   EMBED_MAP_PATH,
   EMBED_TOP_OFFICERS_PATH,
   EMBED_OFFICERS_PATH,
@@ -93,6 +95,10 @@ export default class RouterRoot extends Component {
             <Route
               path={ INLINE_SEARCH_ALIAS_ADMIN_PATH }
               component={ InlineAliasAdminContainer }/>
+            <Route
+              path={ CRAWLERS_PATH }
+              component={ CrawlersContainer }
+              breadcrumb='Crawler Tracker'/>
             <Route
               path={ EMBED_MAP_PATH }
               component={ HeatMapContainer }/>

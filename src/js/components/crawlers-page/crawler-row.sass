@@ -1,0 +1,29 @@
+@import 'variables'
+
+\:local(.crawlerRow)
+  font-size: 14px
+  border-radius: 2px
+  margin-bottom: 3px
+  padding-left: 22px
+  background-color: $sugar-cane-color
+  display: block
+  color: $clay-gray
+
+  &.no-log-file
+    cursor: default
+
+  .crawler-col
+    display: inline-block
+    width: 20%
+    line-height: 18px
+    padding: 15px 0 16px 0
+    font-weight: 300
+    text-align: center
+
+    &.crawler-name
+      color: $soft-black-color
+      text-align: left
+
+    &.recent-run
+      &.failed
+        color: $boston-red
