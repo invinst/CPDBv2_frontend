@@ -23,6 +23,7 @@ describe('officer new timeline actions', function () {
             url: `${OFFICER_URL}123/new-timeline-items/`,
             params: undefined,
             adapter: null,
+            cancelToken: undefined
           }
         }
       });

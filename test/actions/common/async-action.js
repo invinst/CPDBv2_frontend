@@ -2,7 +2,7 @@ import Cookies from 'js-cookie';
 import { stub } from 'sinon';
 
 import {
-  get, post, patch, put,
+  get, post, patch, put, authenticatedGet,
   authenticatedPost, authenticatedPatch, authenticatedPut
 } from 'actions/common/async-action';
 
@@ -19,10 +19,57 @@ describe('async-action', function () {
           request: {
             url,
             params: undefined,
-            adapter: null
+            adapter: null,
+            cancelToken: undefined
           }
         }
       });
+    });
+  });
+
+  describe('authenticatedGet', function () {
+    it('should include Authorization header when apiAccessToken cookie exist', function () {
+      const url = '/url';
+      const types = ['a', 'b', 'c'];
+      const params = { limit: '100' };
+      stub(Cookies, 'get').returns('authenticated_token');
+
+      authenticatedGet(url, types)(params).should.eql({
+        types,
+        payload: {
+          request: {
+            url,
+            params,
+            adapter: null,
+            cancelToken: undefined,
+            headers: {
+              Authorization: 'Token authenticated_token'
+            }
+          }
+        }
+      });
+      Cookies.get.restore();
+    });
+
+    it('should not include Authorization header when apiAccessToken cookie is not set', function () {
+      const url = '/url';
+      const types = ['a', 'b', 'c'];
+      const params = { limit: '100' };
+      stub(Cookies, 'get').returns(null);
+
+      authenticatedGet(url, types)(params).should.eql({
+        types,
+        payload: {
+          request: {
+            url,
+            params,
+            adapter: null,
+            cancelToken: undefined,
+            headers: {}
+          }
+        }
+      });
+      Cookies.get.restore();
     });
   });
 
@@ -51,6 +98,7 @@ describe('async-action', function () {
       const url = '/url';
       const types = ['a', 'b', 'c'];
       const data = { data: 'data' };
+      stub(Cookies, 'get').returns('authenticated_token');
 
       authenticatedPost(url, types)(data).should.eql({
         types,
@@ -61,11 +109,13 @@ describe('async-action', function () {
             data,
             adapter: null,
             headers: {
-              Authorization: null
+              Authorization: 'Token authenticated_token'
             }
           }
         }
       });
+
+      Cookies.get.restore();
     });
   });
 
@@ -94,6 +144,7 @@ describe('async-action', function () {
       const url = '/url';
       const types = ['a', 'b', 'c'];
       const data = { data: 'data' };
+      stub(Cookies, 'get').returns('authenticated_token');
 
       authenticatedPatch(url, types)(data).should.eql({
         types,
@@ -104,11 +155,13 @@ describe('async-action', function () {
             data,
             adapter: null,
             headers: {
-              Authorization: null
+              Authorization: 'Token authenticated_token'
             }
           }
         }
       });
+
+      Cookies.get.restore();
     });
   });
 

@@ -16,7 +16,8 @@ describe('crawlersPage actions', function () {
           request: {
             url: CRAWLERS_API_URL,
             params: { limit: '20', offset: '20' },
-            adapter: null
+            adapter: null,
+            cancelToken: undefined,
           }
         }
       });

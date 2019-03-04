@@ -1,0 +1,76 @@
+@import 'variables'
+
+%cell
+  overflow: hidden
+  display: inline-block
+  vertical-align: top
+  box-sizing: border-box
+  transition: color 0.2s ease-in-out
+
+$row-fixed-width: 81px
+
+\:local(.row)
+  background-color: $snow-color
+  height: 80px
+  margin-left: 16px
+  margin-right: 16px
+  min-width: 960px
+  text-align: left
+  margin-bottom: 2px
+  cursor: pointer
+  transition: background-color 0.2s ease-in-out
+  font-weight: 200
+
+  .document-thumbnail
+    @extend %cell
+    width: 39px
+    margin-top: 14px
+    margin-left: 16px
+    margin-right: 26px
+    height: 52px
+    background-position: center
+    background-repeat: no-repeat
+    background-size: contain
+
+  .document-title
+    @extend %cell
+    min-width: 242px
+    width: calc((100% - #{$row-fixed-width}) * 0.2753128555176337)
+    height: 100%
+    display: inline-flex
+    flex-direction: column
+    justify-content: center
+    padding-right: 50px
+    font-weight: 400
+    color: $soft-black-color
+
+  .document-crid-uid
+    @extend %cell
+    min-width: 149px
+    width: calc((100% - #{$row-fixed-width}) * 0.1695108077360637)
+    margin-top: 25px
+    padding-right: 50px
+
+  .document-source
+    @extend %cell
+    min-width: 245px
+    width: calc((100% - #{$row-fixed-width}) * 0.2787258248009101)
+    margin-top: 31px
+    padding-right: 50px
+
+  .document-counts
+    @extend %cell
+    min-width: 183px
+    width: calc((100% - #{$row-fixed-width}) * 0.20819112627986347)
+    margin-top: 31px
+    padding-right: 50px
+
+  .document-date
+    @extend %cell
+    min-width: 60px
+    width: calc((100% - #{$row-fixed-width}) * 0.06825938566552901)
+    margin-top: 31px
+    padding-right: calc((100% - #{$row-fixed-width}) * 0.017064846416382253)
+    text-align: right
+
+

@@ -2,30 +2,31 @@ import Cookies from 'js-cookie';
 import { getMockAdapter } from 'mock-api';
 
 
-export const get = (url, types, cancelToken) => ((params, adapter=getMockAdapter()) => {
-  const request = {
-    url,
-    params,
-    adapter
-  };
-
-  if (cancelToken) {
-    request.cancelToken = cancelToken;
+const authorizationHeaders = () => {
+  const apiAccessToken = Cookies.get('apiAccessToken');
+  const headers = {};
+  if (apiAccessToken) {
+    headers['Authorization'] = `Token ${apiAccessToken}`;
   }
+  return { headers };
+};
 
-  return {
-    types,
-    payload: { request }
-  };
-});
-
-const authorizationHeaders = () => ({
-  headers: {
-    'Authorization': Cookies.get('apiAccessToken') ?
-        `Token ${Cookies.get('apiAccessToken')}`
-        : null
+const getWithConfig = (config=() => ({})) => (url, types, cancelToken) => ((params, adapter=getMockAdapter()) => ({
+  types,
+  payload: {
+    request: {
+      url,
+      params,
+      adapter,
+      cancelToken,
+      ...config()
+    }
   }
-});
+}));
+
+export const get = getWithConfig();
+
+export const authenticatedGet = getWithConfig(authorizationHeaders);
 
 const postWithConfig = (config=() => ({})) => (url, types) => ((data, adapter=getMockAdapter()) => ({
   types,

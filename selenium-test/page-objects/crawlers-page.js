@@ -17,7 +17,7 @@ class TableSection extends Section {
       lastNumDocuments: '(//span[contains(@class, "num-documents")])[last()]',
       firstCrawlerRow: '(//a[contains(@class, "crawler-row")])[1]',
       breadcrumbsItem: '(//li[contains(@class, "breadcrumbs-item")])[2]',
-      documentsButton: '(//a[contains(@class, "header-button")])',
+      documentsButton: '(//a[contains(@class, "button")])',
 
       crawlerNameHeader: '.header-col.crawler-header',
       recentRunAtHeader: '(//*[@class="header-col"])[1]',

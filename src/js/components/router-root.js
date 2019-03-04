@@ -16,6 +16,8 @@ import CrawlersContainer from 'containers/crawlers-page';
 import HeatMapContainer from 'containers/embeddable-heat-map';
 import EmbedTopOfficersPage from 'components/landing-page/embed/top-officers-page';
 import EmbedOfficersContainer from 'containers/embed/officers';
+import DocumentDeduplicatorContainer from 'containers/document-deduplicator-page';
+import DocumentsOverviewContainer from 'containers/documents-overview-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
@@ -31,6 +33,8 @@ import {
   EMBED_MAP_PATH,
   EMBED_TOP_OFFICERS_PATH,
   EMBED_OFFICERS_PATH,
+  TRACKER_ALL_DOCUMENTS_PATH,
+  TRACKER_DOCUMENTS_OVERVIEW_PATH
 } from 'utils/constants';
 import configureStore from 'store';
 import history from 'utils/history';
@@ -104,6 +108,14 @@ export default class RouterRoot extends Component {
             <Route
               path={ EMBED_OFFICERS_PATH }
               component={ EmbedOfficersContainer }/>
+            <Route
+              path={ TRACKER_ALL_DOCUMENTS_PATH }
+              component={ DocumentDeduplicatorContainer }
+              breadcrumb={ BreadcrumbItemContainer }/>
+            <Route
+              path={ TRACKER_DOCUMENTS_OVERVIEW_PATH }
+              component={ DocumentsOverviewContainer }
+              breadcrumb='Documents Overview'/>
             <Redirect from='*' to='/'/>
           </Route>
         </Router>

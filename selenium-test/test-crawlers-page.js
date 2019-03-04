@@ -34,6 +34,11 @@ describe('Crawlers Page', function () {
     );
   });
 
+  it('should go to document page when click on Documents button', function () {
+    crawlersPage.tableSection.documentsButton.click();
+    browser.getUrl().should.containEql('/documents/');
+  });
+
   it('should able to scroll', function () {
     browser.scroll(0, 99999);
     browser.pause(1000);

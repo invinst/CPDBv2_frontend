@@ -204,6 +204,28 @@ describe('store', function () {
       embed: {
         officers: []
       },
+      documentsOverviewPage: {
+        documents: {
+          data: {},
+          match: ''
+        },
+        documentsOrder: {
+          data: [],
+          match: ''
+        },
+        pagination: {}
+      },
+      documentDeduplicatorPage: {
+        documents: {
+          data: {},
+          crid: ''
+        },
+        documentsOrder: {
+          data: [],
+          crid: ''
+        },
+        pagination: {}
+      },
       crawlersPage: {
         crawlers: [],
         pagination: {}

@@ -27,6 +27,7 @@ describe('authenticationApiAccessToken reducer', function () {
     authenticationApiAccessToken(undefined, {
       type: RECEIVE_TOKEN_FROM_COOKIE
     }).should.eql('apiAccessToken');
+    Cookies.get.restore();
   });
 
   it('should return null on LOG_OUT', function () {
