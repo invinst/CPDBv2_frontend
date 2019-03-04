@@ -8,7 +8,7 @@ import docOverviewPage from './page-objects/documents-overview-page';
 describe('Documents Overview page', function () {
 
   it('should display documents separated by month and year', function () {
-    docOverviewPage.open();
+    docOverviewPage.open({}, true);
     docOverviewPage.docTable.waitForVisible();
 
     docOverviewPage.firstMonthSeparator.getText().should.equal('JAN 2019');
@@ -30,6 +30,17 @@ describe('Documents Overview page', function () {
     docOverviewPage.secondDocViews.getText().should.equal('2,000');
     docOverviewPage.secondDocDownloads.getText().should.equal('1,000');
     docOverviewPage.secondDocDate.getText().should.equal('Feb 10');
+  });
+
+  it('should not display document counts if in non-admin mode', function () {
+    docOverviewPage.open({}, false);
+    docOverviewPage.docTable.waitForVisible();
+
+    docOverviewPage.firstDocViews.waitForVisible(undefined, true);
+    docOverviewPage.firstDocDownloads.waitForVisible(undefined, true);
+
+    docOverviewPage.secondDocViews.waitForVisible(undefined, true);
+    docOverviewPage.secondDocDownloads.waitForVisible(undefined, true);
   });
 
   it('should display documents whose title or crid match the searched text', function () {

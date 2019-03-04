@@ -49,7 +49,7 @@ describe('DocumentsOverviewPage DocumentRow component', function () {
 
   it('should pass correct prop into Counter', function () {
     instance = renderIntoDocument(
-      <DocumentRow viewsCount={ 20 } downloadsCount={ 30 }/>
+      <DocumentRow viewsCount={ 20 } downloadsCount={ 30 } editModeOn={ true }/>
     );
 
     let counter = findRenderedComponentWithType(instance, Counter);
@@ -78,5 +78,13 @@ describe('DocumentsOverviewPage DocumentRow component', function () {
     const div = findDOMNode(instance);
     Simulate.click(div);
     this.browserHistoryPush.calledWith('/tracker/document/1/').should.be.true();
+  });
+
+  it('shoud be assigned "edit-mode" class if editModeOn is true', function () {
+    instance = renderIntoDocument(
+      <DocumentRow crid='1' editModeOn={ true }/>
+    );
+    const div = findDOMNode(instance);
+    div.classList.contains('edit-mode').should.be.true();
   });
 });

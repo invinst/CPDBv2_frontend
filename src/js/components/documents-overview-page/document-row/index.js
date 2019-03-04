@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
+import cx from 'classnames';
 
 import Counter from './counter';
 import CRLink from './cr-link';
@@ -21,13 +22,14 @@ export default class DocumentRow extends Component {
       downloadsCount,
       crid,
       documentsCount,
-      onCRLinkClick
+      onCRLinkClick,
+      editModeOn
     } = this.props;
 
     return (
       <div
         onClick={ this.handleClick.bind(this, id) }
-        className={ styles.row }>
+        className={ cx(styles.row, { 'edit-mode': editModeOn }) }>
         <span
           className='document-thumbnail'
           style={ thumbnail ? {
@@ -69,5 +71,6 @@ DocumentRow.propTypes = {
   downloadsCount: PropTypes.number,
   crid: PropTypes.string,
   documentsCount: PropTypes.number,
-  onCRLinkClick: PropTypes.func
+  onCRLinkClick: PropTypes.func,
+  editModeOn: PropTypes.bool
 };
