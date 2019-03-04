@@ -8,15 +8,15 @@ import { officerCardTransform } from 'selectors/common/officer-card';
 
 export const singleCardTransform = card => ({
   ...officerCardTransform(card),
-  type: card['type'],
+  kind: card['kind'],
 });
 
 export const cardTransform = card => {
-  if (!card['type']) {
+  if (!card['kind']) {
     return singleCardTransform(card);
-  } else if (card['type'] === ACTIVITY_GRID_CARD_TYPES.OFFICER) {
+  } else if (card['kind'] === ACTIVITY_GRID_CARD_TYPES.OFFICER) {
     return singleCardTransform(card);
-  } else if (card['type'] === ACTIVITY_GRID_CARD_TYPES.PAIR) {
+  } else if (card['kind'] === ACTIVITY_GRID_CARD_TYPES.PAIR) {
     return pairingCardTransform(card);
   }
 };
@@ -48,7 +48,7 @@ export const simpleOfficerTransform = officer => {
 };
 
 export const pairingCardTransform = card => ({
-  type: card['type'],
+  kind: card['kind'],
   coaccusalCount: card['coaccusal_count'],
   officer1: simpleOfficerTransform(card['officer1']),
   officer2: simpleOfficerTransform(card['officer2'])

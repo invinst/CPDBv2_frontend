@@ -1,0 +1,75 @@
+@import 'variables'
+
+\:local(.table)
+  width: calc(100% - 32px)
+  min-width: 992px
+  margin-left: 16px
+  margin-right: 16px
+  font-size: 14px
+  color: $clay-gray
+
+%headerCol
+  font-weight: 300
+  text-align: left
+  display: inline-block
+  height: 100%
+  vertical-align: top
+  box-sizing: border-box
+
+$header-fixed-width: 81px
+
+\:local(.headerRow)
+  background-color: white
+  text-transform: uppercase
+  height: 69px
+  box-sizing: border-box
+  padding-top: 26px
+  position: relative
+  padding-left: 16px
+  padding-right: 16px
+
+  .header-thumbnail
+    @extend %headerCol
+    width: 81px
+
+  .header-title
+    @extend %headerCol
+    min-width: 242px
+    width: calc((100% - #{$header-fixed-width}) * 0.2753128555176337)
+
+  .header-crid-uid
+    @extend %headerCol
+    min-width: 149px
+    width: calc((100% - #{$header-fixed-width}) * 0.1695108077360637)
+
+  .header-source
+    @extend %headerCol
+    min-width: 245px
+    width: calc((100% - #{$header-fixed-width}) * 0.2787258248009101)
+
+  .header-counts
+    @extend %headerCol
+    min-width: 183px
+    width: calc((100% - #{$header-fixed-width}) * 0.20819112627986347)
+
+  .header-date
+    @extend %headerCol
+    min-width: 60px
+    width: calc((100% - #{$header-fixed-width}) * 0.06825938566552901)
+    padding-right: 15px
+    text-align: right
+
+
+\:local(.rowsWrapper)
+  background-color: $sugar-cane-color
+  border: 1.25px solid $white-two-color
+  border-radius: 3px
+  margin-top: 1.25px
+  margin-bottom: 20px
+  padding-bottom: 33px
+
+  .month-separator:first-child
+    height: 64px
+    padding-top: 23px
+    background-color: transparent
+

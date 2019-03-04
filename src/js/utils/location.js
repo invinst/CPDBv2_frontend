@@ -53,3 +53,11 @@ export const officerPath = (subPath, pathname) => {
   }
   return pathname.replace(/(\d+).*/, '$1/');
 };
+
+export function getDocDedupCRID(url) {
+  const crPattern = /.*documents\/crid\/(\w+).*/;
+  if (url === undefined || !url.match(crPattern)) {
+    return null;
+  }
+  return url.replace(crPattern, '$1');
+}

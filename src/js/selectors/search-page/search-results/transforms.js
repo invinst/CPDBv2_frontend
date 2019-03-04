@@ -5,6 +5,7 @@ import { extractPercentile } from 'selectors/common/percentile';
 import { getCurrentAge, formatDate } from 'utils/date';
 import { roundedPercentile } from 'utils/calculations';
 import { FULL_MONTH_DATE_FORMAT } from 'utils/constants';
+import { getDemographicString } from 'utils/victims';
 import {
   navigationItemTransform as searchTermNavigationItemTransform
 } from 'selectors/search-page/search-terms/transforms';
@@ -44,8 +45,7 @@ const officerMostComplaintTransform = officer => {
 
 const areaTransform = (item) => {
   const population = sumBy(item['race_count'], 'count');
-  const officersMostComplaint = get(item, 'officers_most_complaint', []);
-  const transformedOfficersMostComplaint = officersMostComplaint.map(officer => officerMostComplaintTransform(officer));
+  const transformedOfficersMostComplaint = map(item['officers_most_complaint'], officerMostComplaintTransform);
   return {
     name: item['name'] || 'Unknown',
     allegationCount: item['allegation_count'] || 0,
@@ -60,7 +60,7 @@ const areaTransform = (item) => {
       const racePercentile = population ? item['count'] / population * 100 : 0;
       result['count'] = `${racePercentile.toFixed(1)}%`;
       return result;
-    }) || [],
+    }),
     alderman: item['alderman'],
     districtCommander: item.commander ? {
       'id': item.commander['id'],
@@ -73,9 +73,7 @@ const areaTransform = (item) => {
 };
 
 const rankTransform = item => {
-  const officersMostComplaints = get(
-    item, 'officers_most_complaints', []
-  ).map(officer => officerMostComplaintTransform(officer));
+  const officersMostComplaints = map(item['officers_most_complaints'], officerMostComplaintTransform);
   return {
     name: item.name,
     activeOfficersCount: item['active_officers_count'],
@@ -83,13 +81,30 @@ const rankTransform = item => {
   };
 };
 
-const crTransform = (item) => {
-  let subText = '';
-  if (item.highlight && item.highlight.summary) {
-    subText = item.highlight.summary[0];
-  }
+const accusedTransform = coaccused => {
+  const percentile = extractPercentile(coaccused.percentile);
   return {
-    subText: subText
+    id: coaccused.id,
+    name: coaccused['full_name'],
+    url: `/officer/${coaccused.id}/${kebabCase(coaccused['full_name'])}/`,
+    count: coaccused['allegation_count'],
+    radarAxes: percentile.items,
+    radarColor: percentile.visualTokenBackground,
+  };
+};
+
+const crTransform = (item) => {
+  const subText = (item.highlight && item.highlight.summary) ? item.highlight.summary[0] : '';
+  const coaccused = map(item.coaccused, accusedTransform);
+  return {
+    subText,
+    coaccused,
+    victims: map(item.victims, getDemographicString),
+    address: item.address,
+    category: item.category,
+    subCategory: item['sub_category'],
+    incidentDate: formatDate(item['incident_date']),
+    to: item.to,
   };
 };
 

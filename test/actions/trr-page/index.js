@@ -28,7 +28,8 @@ describe('TRRPage actions', function () {
           request: {
             url: `${TRR_URL}123/`,
             params: undefined,
-            adapter: null
+            adapter: null,
+            cancelToken: undefined
           }
         }
       });

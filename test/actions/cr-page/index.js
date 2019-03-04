@@ -30,7 +30,8 @@ describe('CRPage actions', function () {
           request: {
             url: `${CR_URL}123/`,
             params: undefined,
-            adapter: null
+            adapter: null,
+            cancelToken: undefined
           }
         }
       });

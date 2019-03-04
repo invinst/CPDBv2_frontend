@@ -1,0 +1,200 @@
+@import 'variables'
+
+\:local(.coaccused-card)
+  display: inline-block
+  margin: 0
+  box-sizing: border-box
+  text-decoration: none
+  border: solid 1px $white-two-color
+  border-radius: 2px
+  width: 234px
+
+  @media print
+    page-break-inside: avoid
+    display: block
+    width: 100%
+    border: none
+    border-bottom: solid 1px $white-two-color
+    padding: 4px 0
+
+  .coaccused-card-info
+    padding-bottom: 4px
+
+    @media print
+      display: inline-block
+      width: 40%
+
+  .coaccused-card-header
+    padding: 8px 16px
+
+    @media print
+      width: 40%
+      height: auto
+      padding: 0
+
+    .radar-chart-wrapper
+      width: 38px
+      height: 38px
+      border-radius: 2px
+      overflow: hidden
+      float: left
+
+    .coaccused-card-header-info
+      float: left
+      margin: 2px 0 0 8px
+      width: 154px
+
+      @media print
+        margin: 0
+        width: auto
+
+      .coaccused-card-rank, .coaccused-card-name
+        @media print
+          display: inline
+          font-size: 12px
+          font-weight: 500
+          padding-right: 5px
+
+  .coaccused-card-section
+    padding: 11px 0 11px 16px
+    border-bottom: solid 1px $white-two-color
+    height: 54px
+    box-sizing: border-box
+
+    @media print
+      border-bottom: none
+      margin: 0
+      padding: 0
+      height: auto
+
+    &:last-child
+      border-bottom: none
+
+  .light-text
+    font-size: 12px
+    line-height: 14px
+    color: $boulder-color
+    margin-top: 0
+    margin-bottom: 0
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  .bold-text
+    line-height: 18px
+    font-size: 14px
+    color: $soft-black-color
+    margin-top: 0
+    margin-bottom: 0
+
+  .extra-info
+    font-size: 14px
+    line-height: 18px
+    margin: 0
+    color: $boulder-color
+
+  .coaccused-card-sustained
+    color: $bright-orange-two-color
+    white-space: nowrap
+
+    &.unsustained
+      color: $boulder-color
+
+  .coaccused-card-allegation
+    font-size: 14px
+    color: $soft-black-color
+
+  .extra-info, .coaccused-card-sustained, .coaccused-card-allegation
+    @media print
+      font-size: 10px
+
+  .coaccused-card-footer
+    padding: 11px 16px 4px
+    background-color: white
+
+    @media print
+      padding: 0
+      display: inline-block
+      width: 60%
+      vertical-align: top
+
+    .accused-card-category
+      font-size: 14px
+      font-weight: 500
+      color: $soft-black-color
+      border-bottom: 1px solid $white-two-color
+      height: 47px
+      overflow: hidden
+
+      @media print
+        height: auto
+        overflow: auto
+        display: inline-block
+        border-bottom: none
+        width: 50%
+        font-size: 12px
+        font-weight: normal
+        vertical-align: top
+
+    .accused-card-outcome
+      background-color: transparent
+      display: inline-block
+      border: 1px solid $champagne-color
+      overflow: hidden
+      height: 21px
+      margin-top: 8px
+      max-width: 100%
+      border-radius: 2px
+
+      @media print
+        height: auto
+        border: none
+        overflow: auto
+        width: 50%
+        text-align: right
+        margin-top: 0
+
+      &.sustained
+        background-color: $champagne-color
+
+        @media print
+          background-color: transparent
+
+        &.disciplined
+          background-color: $azalea-color
+          border: 1px solid $azalea-color
+
+          @media print
+            background-color: transparent
+            border: none
+
+      .finding-outcome-mix
+        height: 21px
+        font-size: 14px
+        color: $soft-black-color
+        padding: 0 10px 16px
+        line-height: 21px
+        display: inline-block
+        overflow-x: scroll
+        overflow-y: hidden
+        white-space: nowrap
+        box-sizing: content-box
+        max-width: calc(100% - 20px)
+
+        @media print
+          overflow-x: auto
+          overflow-y: auto
+          font-size: 12px
+          font-weight: normal
+          vertical-align: top
+
+  &:hover
+    border: solid 1px $accent-color
+
+    .coaccused-card-header-info
+      .coaccused-card-name
+        color: $accent-color
+
+    .coaccused-card-footer
+      .accused-card-category
+        color: $accent-color

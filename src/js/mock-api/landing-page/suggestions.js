@@ -67,10 +67,37 @@ export const groupedSuggestions = {
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
+          'sub_category': 'Reports',
           'incident_date': '2004-04-23',
           highlight: {
             summary: ['an officer named Kelly caught the victim']
-          }
+          },
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [
+            { 'gender': 'Female', 'race': 'Hispanic' },
+            { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 }
+          ],
+          'coaccused': [{
+            'id': 16567,
+            'full_name': 'Baudilio Lopez',
+            'percentile': {
+              'id': 16567,
+              'percentile_trr': '72.1094',
+              'percentile_allegation_civilian': '98.5549',
+              'percentile_allegation_internal': '61.1521'
+            },
+            'allegation_count': 93
+          }, {
+            'id': 16568,
+            'full_name': 'Baudilio Lopez',
+            'percentile': {
+              'id': 16568,
+              'percentile_trr': '72.1094',
+              'percentile_allegation_civilian': '98.5549',
+              'percentile_allegation_internal': '61.1521'
+            },
+            'allegation_count': 93
+          }],
         }
       ),
       RawCRSuggestion.build(
@@ -78,9 +105,39 @@ export const groupedSuggestions = {
           id: '2',
           crid: 'CR456',
           to: '/complaint/CR456/',
-          category: null,
-          'incident_date': null,
-          highlight: {}
+          highlight: {},
+          'incident_date': '2006-11-12',
+          category: 'Operation/Personnel Violations',
+          'sub_category': 'Reports',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [
+              { 'gender': 'Female', 'race': 'Hispanic' },
+              { 'gender': 'Female', 'race': 'Hispanic' }
+          ],
+          'coaccused': [
+            {
+              'id': 16567,
+              'full_name': 'Baudilio Lopez',
+              'percentile': {
+                'id': 180838,
+                'percentile_trr': '72.1094',
+                'percentile_allegation_civilian': '98.5549',
+                'percentile_allegation_internal': '61.1521'
+              },
+              'allegation_count': 93
+            },
+            {
+              'id': 7544,
+              'full_name': 'Dominique Dunigan',
+              'percentile': {
+                'id': 180839,
+                'percentile_trr': '0.0000',
+                'percentile_allegation_civilian': '24.1180',
+                'percentile_allegation_internal': '0.0000'
+              },
+              'allegation_count': 1
+            }
+          ],
         }
       ),
     ],
@@ -117,8 +174,12 @@ export const groupedSuggestions = {
           crid: 'CR123',
           to: '/complaint/CR123/',
           category: 'Lockup Procedures',
+          'sub_category': 'Reports',
           'incident_date': '2004-04-23',
-          highlight: {}
+          highlight: {},
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [],
+          'coaccused': [],
         }
       ),
       RawCRSuggestion.build(
@@ -126,9 +187,39 @@ export const groupedSuggestions = {
           id: '2',
           crid: 'CR456',
           to: '/complaint/CR456/',
-          category: null,
           'incident_date': '2004-04-23',
-          highlight: {}
+          highlight: {},
+          category: 'Operation/Personnel Violations',
+          'sub_category': 'Reports',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [
+              { 'gender': 'Female', 'race': 'Hispanic' },
+              { 'gender': 'Female', 'race': 'Hispanic' }
+          ],
+          'coaccused': [
+            {
+              'id': 16567,
+              'full_name': 'Baudilio Lopez',
+              'percentile': {
+                'id': 180838,
+                'percentile_trr': '72.1094',
+                'percentile_allegation_civilian': '98.5549',
+                'percentile_allegation_internal': '61.1521'
+              },
+              'allegation_count': 93
+            },
+            {
+              'id': 7544,
+              'full_name': 'Dominique Dunigan',
+              'percentile': {
+                'id': 180839,
+                'percentile_trr': '0.0000',
+                'percentile_allegation_civilian': '24.1180',
+                'percentile_allegation_internal': '0.0000'
+              },
+              'allegation_count': 1
+            }
+          ],
         }
       ),
     ],
@@ -220,10 +311,14 @@ export const groupedSuggestions = {
           crid: 'CR123456',
           to: '/complaint/CR123456/',
           category: 'Lockup Procedures',
+          'sub_category': 'Reports',
           'incident_date': '2004-04-23',
           highlight: {
             summary: ['an officer named Kelly caught the victim']
-          }
+          },
+          address: '15XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [],
+          'coaccused': [],
         }
       ),
       RawCRSuggestion.build(
@@ -231,9 +326,122 @@ export const groupedSuggestions = {
           id: '2',
           crid: 'CR654321',
           to: '/complaint/CR654321/',
-          category: null,
+          category: 'Operation/Personnel Violations',
+          'sub_category': 'Reports',
           'incident_date': null,
-          highlight: {}
+          highlight: {},
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [
+              { 'gender': 'Female', 'race': 'Hispanic' },
+              { 'gender': 'Female', 'race': 'Hispanic' }
+          ],
+          'coaccused': [
+            {
+              'id': 16567,
+              'full_name': 'Baudilio Lopez',
+              'percentile': {
+                'id': 180838,
+                'percentile_trr': '72.1094',
+                'percentile_allegation_civilian': '98.5549',
+                'percentile_allegation_internal': '61.1521'
+              },
+              'allegation_count': 93
+            },
+            {
+              'id': 7544,
+              'full_name': 'Dominique Dunigan',
+              'percentile': {
+                'id': 180839,
+                'percentile_trr': '0.0000',
+                'percentile_allegation_civilian': '24.1180',
+                'percentile_allegation_internal': '0.0000'
+              },
+              'allegation_count': 1
+            }
+          ],
+        },
+      ),
+    ]
+  },
+  'CR only': {
+    'CR': [
+      RawCRSuggestion.build(
+        {
+          id: '1',
+          crid: 'CR123',
+          to: '/complaint/CR123/',
+          category: 'Lockup Procedures',
+          'sub_category': 'Reports',
+          'incident_date': '2004-04-23',
+          highlight: {
+            summary: ['an officer named Kelly caught the victim']
+          },
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [
+            { 'gender': 'Female', 'race': 'Hispanic' },
+            { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 }
+          ],
+          'coaccused': [{
+            'id': 16567,
+            'full_name': 'Baudilio Lopez',
+            'percentile': {
+              'id': 16567,
+              'percentile_trr': '72.1094',
+              'percentile_allegation_civilian': '98.5549',
+              'percentile_allegation_internal': '61.1521'
+            },
+            'allegation_count': 93
+          }, {
+            'id': 16568,
+            'full_name': 'Baudilio Lopez',
+            'percentile': {
+              'id': 16568,
+              'percentile_trr': '72.1094',
+              'percentile_allegation_civilian': '98.5549',
+              'percentile_allegation_internal': '61.1521'
+            },
+            'allegation_count': 93
+          }],
+        }
+      ),
+      RawCRSuggestion.build(
+        {
+          id: '2',
+          crid: 'CR456',
+          to: '/complaint/CR456/',
+          highlight: {},
+          'incident_date': '2006-11-12',
+          category: 'Operation/Personnel Violations',
+          'sub_category': 'Reports',
+          address: '14XX W 63RD ST, CHICAGO IL 60636',
+          'victims': [
+              { 'gender': 'Female', 'race': 'Hispanic' },
+              { 'gender': 'Female', 'race': 'Hispanic' }
+          ],
+          'coaccused': [
+            {
+              'id': 16567,
+              'full_name': 'Baudilio Lopez',
+              'percentile': {
+                'id': 180838,
+                'percentile_trr': '72.1094',
+                'percentile_allegation_civilian': '98.5549',
+                'percentile_allegation_internal': '61.1521'
+              },
+              'allegation_count': 93
+            },
+            {
+              'id': 7544,
+              'full_name': 'Dominique Dunigan',
+              'percentile': {
+                'id': 180839,
+                'percentile_trr': '0.0000',
+                'percentile_allegation_civilian': '24.1180',
+                'percentile_allegation_internal': '0.0000'
+              },
+              'allegation_count': 1
+            }
+          ],
         }
       ),
     ]

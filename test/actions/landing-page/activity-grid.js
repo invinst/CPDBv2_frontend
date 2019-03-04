@@ -18,7 +18,8 @@ describe('requestActivityGrid action', function () {
         request: {
           url: constants.ACTIVITY_GRID_API_URL,
           adapter: null,
-          params: undefined
+          params: undefined,
+          cancelToken: undefined
         }
       }
     });
