@@ -67,7 +67,7 @@ export default class DocumentPage extends Component {
               <SimpleListWidget className='document-info' items={ infoItems }/>
               <div className='linked-documents'>
                 <div className='linked-documents-title'>Linked Documents ({ linkedDocuments.length })</div>
-                <Link className='linked-documents-content' to={ `/documents?CRID=${crid}` }>
+                <Link className='linked-documents-content' to={ `/documents/?match=${crid}` }>
                   {
                     displayedDocuments.map(document => (
                       <div key={ document.id } className='linked-documents-thumbnail'>
