@@ -20,6 +20,8 @@ import pageLoading from './page-loading';
 import popups from './popups';
 import embed from './embed';
 import pathname from './pathname';
+import documentsOverviewPage from './documents-overview-page';
+import documentDeduplicatorPage from './document-deduplicator-page';
 
 
 export default combineReducers({
@@ -43,4 +45,6 @@ export default combineReducers({
   popups,
   embed,
   pathname,
+  documentsOverviewPage,
+  documentDeduplicatorPage
 });

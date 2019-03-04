@@ -1,0 +1,28 @@
+import {
+  DOCUMENT_DEDUPLICATOR_REQUEST_FAILURE,
+  DOCUMENT_DEDUPLICATOR_REQUEST_START,
+  DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
+  DOCUMENT_VISIBILITY_TOGGLE_REQUEST_START,
+  DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS,
+  DOCUMENT_VISIBILITY_TOGGLE_REQUEST_FAILURE,
+  DOCUMENTS_URL,
+} from 'utils/constants';
+import { authenticatedGet, authenticatedPatch } from 'actions/common/async-action';
+
+export const fetchDocumentsByCRID = ({ crid, limit, offset }) => (authenticatedGet(
+  DOCUMENTS_URL,
+  [
+    DOCUMENT_DEDUPLICATOR_REQUEST_START,
+    DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
+    DOCUMENT_DEDUPLICATOR_REQUEST_FAILURE
+  ]
+)({ crid, limit, offset }));
+
+export const setDocumentShow = (pk, show) => authenticatedPatch(
+  `${DOCUMENTS_URL}${pk}/`,
+  [
+    DOCUMENT_VISIBILITY_TOGGLE_REQUEST_START,
+    DOCUMENT_VISIBILITY_TOGGLE_REQUEST_SUCCESS,
+    DOCUMENT_VISIBILITY_TOGGLE_REQUEST_FAILURE
+  ]
+)({ show });

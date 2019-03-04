@@ -8,7 +8,8 @@ import {
   getOfficerActiveTab,
   serializeFilterParams,
   officerPath,
-  getUnitName
+  getUnitName,
+  getDocDedupCRID
 } from 'utils/location';
 
 
@@ -99,6 +100,16 @@ describe('location utils', function () {
 
     it('should return unit name', function () {
       getUnitName('/unit/123/').should.eql('123');
+    });
+  });
+
+  describe('getDocDedupCRID', function () {
+    it('should return null when url is undefined', function () {
+      should(getDocDedupCRID(undefined)).eql(null);
+    });
+
+    it('should return crid', function () {
+      getDocDedupCRID('/documents/crid/1000000/').should.eql('1000000');
     });
   });
 });

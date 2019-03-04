@@ -18,7 +18,8 @@ describe('requestOfficersByAllegation action', function () {
         request: {
           url: constants.OFFICERS_BY_ALLEGATION_API_URL,
           adapter: null,
-          params: undefined
+          params: undefined,
+          cancelToken: undefined
         }
       }
     });

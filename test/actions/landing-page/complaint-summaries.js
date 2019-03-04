@@ -18,7 +18,8 @@ describe('getComplaintSummaries action', function () {
         request: {
           url: constants.RECENT_COMPLAINT_SUMMARIES_URL,
           adapter: null,
-          params: undefined
+          params: undefined,
+          cancelToken: undefined
         }
       }
     });
