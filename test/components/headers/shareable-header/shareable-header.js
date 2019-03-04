@@ -14,7 +14,6 @@ import * as domUtils from 'utils/dom';
 import ShareableHeader from 'components/headers/shareable-header';
 import HeaderButton from 'components/headers/shareable-header/header-button';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
-import NavigationHeaderButton from 'components/headers/shareable-header/navigation-header-button';
 
 
 describe('ShareableHeader component', function () {
@@ -162,36 +161,5 @@ describe('ShareableHeader global scroll listener', function () {
   });
 });
 
-describe('ShareableHeader component with NavigationHeaderButton', function () {
-  let element;
-  let instance;
-  const mockStore = MockStore();
-  const store = mockStore({
-    breadcrumb: {
-      breadcrumbs: []
-    }
-  });
 
-  beforeEach(function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <ShareableHeaderContainer headerButtonLink='/documents/' buttonText='Documents'/>
-      </Provider>
-    );
-    element = findRenderedComponentWithType(instance, ShareableHeader);
-  });
 
-  afterEach(function () {
-    unmountComponentSuppressError(instance);
-  });
-
-  it('should render NavigationHeaderButton component', function () {
-    const navigationLinkButton = findRenderedComponentWithType(element, NavigationHeaderButton);
-    navigationLinkButton.props.navigationLink.should.eql('/documents/');
-    navigationLinkButton.props.buttonText.should.eql('Documents');
-
-    const breadcrumbs = findRenderedComponentWithType(element, Breadcrumbs);
-    breadcrumbs.props.className.should.eql('breadcrumbs');
-  });
-
-});

@@ -32,9 +32,9 @@ export default class HeaderButton extends React.Component {
     const shareButtonHandler = shareMenuIsOpen ? this.closeShareMenu : this.openShareMenu;
 
     return (
-      <div className={ styles.headerButtonWrapper }>
+      <div className={ styles.headerButton }>
         <span
-          className={ cx(styles.headerButton, shareMenuIsOpen ? 'focus' : scrollPosition, 'test--button') }
+          className={ cx('button', shareMenuIsOpen ? 'focus' : scrollPosition) }
           onClick={ shareButtonHandler }
         >
           { buttonText }
