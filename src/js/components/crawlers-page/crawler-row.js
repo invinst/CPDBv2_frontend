@@ -13,7 +13,7 @@ export default class CrawlerRow extends Component {
         <span className={ cx('crawler-col recent-run', { failed: status == 'Failed' }) }>{ recentRunAt }</span>
         <span className='crawler-col num-new-documents'>{ numNewDocuments }</span>
         <span className='crawler-col num-documents' >{ numDocuments }</span>
-        <span className='crawler-col' >{ numSuccessfulRun }</span>
+        <span className='crawler-col num-successful-runs' >{ numSuccessfulRun }</span>
       </a>
     );
   }

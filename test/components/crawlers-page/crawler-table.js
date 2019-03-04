@@ -92,7 +92,7 @@ describe('CrawlerTable component', function () {
         requestCrawlers={ requestCrawlersStub }/>
     );
     findRenderedComponentWithType(instance, InfiniteScroll).props.loadMore();
-    requestCrawlersStub.calledWith({ ...nextParams }).should.be.true();
+    requestCrawlersStub.calledWith(nextParams).should.be.true();
   });
 
 });

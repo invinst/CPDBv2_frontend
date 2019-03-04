@@ -16,7 +16,7 @@ export const crawlerTransform = crawler => ({
 });
 
 export const crawlersSelector = createSelector(
-  [getCrawlers],
+  getCrawlers,
   crawlers => crawlers.map(crawlerTransform)
 );
 

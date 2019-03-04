@@ -12,7 +12,7 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  requestCrawlers: requestCrawlers
+  requestCrawlers
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CrawlersPage);

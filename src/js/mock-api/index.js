@@ -42,7 +42,7 @@ import { getCommunity } from './community';
 import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './/documents-overview-page/fetch-documents';
-import getCrawlersData from './crawlers-page/crawlers-page';
+import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -139,7 +139,9 @@ axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`).reply(200, { show: false });
 
 axiosMockClient.onGet(`${DOCUMENTS_URL}`).reply(200, fetchDocuments());
 
-axiosMockClient.onGet(CRAWLERS_API_URL).reply(200, getCrawlersData());
+axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
+  return [200, (config.params && config.params.offset === '20') ? getNextCrawlersData() : getCrawlersData()];
+});
 
 /*istanbul ignore next*/
 export function getMockAdapter() {
