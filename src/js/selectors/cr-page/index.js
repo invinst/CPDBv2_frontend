@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, sortBy, kebabCase, isNil } from 'lodash';
+import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
@@ -181,3 +181,5 @@ export const contentSelector = createSelector(
     }))
   })
 );
+
+export const hasAttachmentsSelector = state => !isEmpty(getAttachments(state));

@@ -7,7 +7,8 @@ describe('edit-mode-on reducer', function () {
   it('should have initial state', function () {
     editModeOn(undefined, {}).should.eql({
       [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+      [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false
     });
   });
 
@@ -15,7 +16,8 @@ describe('edit-mode-on reducer', function () {
     editModeOn(
       {
         [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+        [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false
       },
       {
         type: CR_EDIT_MODE,
@@ -23,13 +25,15 @@ describe('edit-mode-on reducer', function () {
       }
     ).should.eql( {
       [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+      [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false
     });
 
     editModeOn(
       {
         [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+        [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false
       },
       {
         type: CR_EDIT_MODE,
@@ -37,7 +41,40 @@ describe('edit-mode-on reducer', function () {
       }
     ).should.eql( {
       [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+      [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false
+    });
+
+    editModeOn(
+      {
+        [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true,
+        [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false
+      },
+      {
+        type: CR_EDIT_MODE,
+        payload: { editType: CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: false }
+      }
+    ).should.eql( {
+      [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+      [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false
+    });
+
+    editModeOn(
+      {
+        [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+        [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: true
+      },
+      {
+        type: CR_EDIT_MODE,
+        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, mode: false }
+      }
+    ).should.eql( {
+      [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+      [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false
     });
   });
 
@@ -45,7 +82,8 @@ describe('edit-mode-on reducer', function () {
     editModeOn(
       {
         [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true
+        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true,
+        [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: true
       },
       {
         type: LOCATION_CHANGE,
@@ -53,13 +91,15 @@ describe('edit-mode-on reducer', function () {
       }
     ).should.eql({
       [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false
+      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+      [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false
     });
 
     editModeOn(
       {
         [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true
+        [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true,
+        [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: true
       },
       {
         type: LOCATION_CHANGE,
@@ -67,7 +107,8 @@ describe('edit-mode-on reducer', function () {
       }
     ).should.eql({
       [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: true,
-      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true
+      [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: true,
+      [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: true
     });
   });
 });

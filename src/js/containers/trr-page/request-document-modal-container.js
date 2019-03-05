@@ -28,6 +28,7 @@ const mapStateToProps = (state, ownProps) => ({
   isRequested: state.trrPage.attachmentRequest.request.isRequested,
   editableFields: getCMSFields(TRR_PAGE_ID)(state),
   editModeOn: getEditModeOn(state),
+  hasData: false,
 });
 
 const editWrapperStateProps = (stateProps, dispatchProps, ownProps) => {
