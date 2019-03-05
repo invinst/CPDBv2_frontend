@@ -56,7 +56,7 @@ describe('nginx config', () => {
 
   const notRedirect = (path) => Object.assign({}, empty, {
     path,
-    title: `Not redirect from ${path}`,
+    title: `not redirect from ${path}`,
     expectedCode: 200
   });
 
@@ -75,7 +75,6 @@ describe('nginx config', () => {
     mobileRedirect('/embed/top-officers-page/'),
     mobileNotRedirect('/fonts/Minion_Pro_Regular.ttf'),
     mobileNotRedirect('/img/arrow.svg'),
-    redirect('/officer/robbin-parker/21860/', '/officer/21860/robbin-parker/'),
     redirect('/officer/robbin-parker/21860/', '/officer/21860/robbin-parker/'),
     redirect('/documents', '/documents/'),
     redirect('/documents?match=abc', '/documents/?match=abc'),
