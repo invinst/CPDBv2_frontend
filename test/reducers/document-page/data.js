@@ -1,5 +1,5 @@
 import dataReducer from 'reducers/document-page/data';
-import { DOCUMENT_REQUEST_SUCCESS } from 'utils/constants';
+import { DOCUMENT_REQUEST_SUCCESS, UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('officersReducer', function () {
@@ -24,7 +24,7 @@ describe('officersReducer', function () {
     dataReducer({
       'text_content': 'Old content',
     }, {
-      type: DOCUMENT_REQUEST_SUCCESS,
+      type: UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
       payload: {
         id: '1234',
         'text_content': 'New content',

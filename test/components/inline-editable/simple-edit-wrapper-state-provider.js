@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { renderIntoDocument } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import SimpleEditWrapperStateProvider from 'components/inline-editable/simple-edit-wrapper-state-provider';
 
 
@@ -115,4 +115,24 @@ describe('SimpleEditWrapperStateProvider component', function () {
     instance.state.fields['navbar_title'].should.equal('changed value');
   });
 
+  it('should update fields when receiving new props', function () {
+    instance = renderIntoDocument(
+      <SimpleEditWrapperStateProvider>
+        <div>abc123</div>
+      </SimpleEditWrapperStateProvider>
+    );
+    instance.setState({
+      fields: {
+        'navbar_title': 'old value'
+      }
+    });
+
+    reRender((
+      <SimpleEditWrapperStateProvider fields={ { 'navbar_title': 'new value' } }>
+        <div>abc123</div>
+      </SimpleEditWrapperStateProvider>
+    ), instance);
+
+    instance.state.fields.should.eql({ 'navbar_title': 'new value' });
+  });
 });

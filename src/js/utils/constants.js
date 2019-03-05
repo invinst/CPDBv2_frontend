@@ -86,7 +86,6 @@ export const ACTIVITY_GRID_API_URL = `${V2_ROOT_PATH}activity-grid/`;
 export const SEARCH_TERMS_CATEGORIES_API_URL = `${V2_ROOT_PATH}search-term-categories/`;
 export const CITY_SUMMARY_API_URL = `${V2_ROOT_PATH}city-summary/`;
 export const TRR_URL = `${V2_ROOT_PATH}trr/`;
-export const DOCUMENT_URL = `${V2_ROOT_PATH}attachments/`;
 export const POPUP_API_URL = `${V2_ROOT_PATH}popup/`;
 export const DOCUMENTS_URL = `${V2_ROOT_PATH}attachments/`;
 export const CRAWLERS_API_URL = `${V2_ROOT_PATH}document-crawlers/`;

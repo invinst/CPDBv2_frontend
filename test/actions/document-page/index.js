@@ -7,7 +7,7 @@ import {
   updateDocument,
 } from 'actions/document-page';
 import {
-  DOCUMENT_URL,
+  DOCUMENTS_URL,
   DOCUMENT_REQUEST_START,
   DOCUMENT_REQUEST_SUCCESS,
   DOCUMENT_REQUEST_FAILURE,
@@ -28,7 +28,7 @@ describe('DocumentPage actions', function () {
         types: [DOCUMENT_REQUEST_START, DOCUMENT_REQUEST_SUCCESS, DOCUMENT_REQUEST_FAILURE],
         payload: {
           request: {
-            url: `${ DOCUMENT_URL }123/`,
+            url: `${ DOCUMENTS_URL }123/`,
             params: undefined,
             adapter: null,
             headers: {},
@@ -52,7 +52,7 @@ describe('DocumentPage actions', function () {
         ],
         payload: {
           request: {
-            url: `${ DOCUMENT_URL }123/`,
+            url: `${ DOCUMENTS_URL }123/`,
             data: {
               title: 'new title',
               attachmentId: '123',

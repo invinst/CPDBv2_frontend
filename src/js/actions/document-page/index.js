@@ -2,7 +2,7 @@ import { createAction } from 'redux-actions';
 
 import { authenticatedGet, authenticatedPatch } from 'actions/common/async-action';
 import {
-  DOCUMENT_URL,
+  DOCUMENTS_URL,
   DOCUMENT_REQUEST_START,
   DOCUMENT_REQUEST_SUCCESS,
   DOCUMENT_REQUEST_FAILURE,
@@ -17,7 +17,7 @@ import {
 
 
 export const fetchDocument = documentId => (authenticatedGet(
-  `${DOCUMENT_URL}${documentId}/`,
+  `${DOCUMENTS_URL}${documentId}/`,
   [DOCUMENT_REQUEST_START, DOCUMENT_REQUEST_SUCCESS, DOCUMENT_REQUEST_FAILURE]
 )());
 
@@ -30,7 +30,7 @@ export const turnOnDocumentTextContentEditMode = createAction(TURN_ON_DOCUMENT_T
 export const turnOffDocumentTextContentEditMode = createAction(TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE, () => {});
 
 export const updateDocument = data => authenticatedPatch(
-  `${DOCUMENT_URL}${data.attachmentId}/`,
+  `${DOCUMENTS_URL}${data.attachmentId}/`,
   [
     UPDATE_DOCUMENT_PAGE_REQUEST_START,
     UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
