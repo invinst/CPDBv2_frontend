@@ -123,6 +123,6 @@ describe('DocumentDeduplicatorPage DocumentRow component', function () {
     );
     const div = findDOMNode(instance);
     Simulate.click(div);
-    this.browserHistoryPush.calledWith('/tracker/document/1/').should.be.true();
+    this.browserHistoryPush.calledWith('/document/1/').should.be.true();
   });
 });

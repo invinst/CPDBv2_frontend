@@ -7,7 +7,7 @@ import styles from './document-row.sass';
 
 export default class DocumentRow extends Component {
   handleClick(id) {
-    browserHistory.push(`/tracker/document/${id}/`);
+    browserHistory.push(`/document/${id}/`);
   }
 
   render() {
