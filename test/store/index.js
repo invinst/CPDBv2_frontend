@@ -225,6 +225,10 @@ describe('store', function () {
           crid: ''
         },
         pagination: {}
+      },
+      crawlersPage: {
+        crawlers: [],
+        pagination: {}
       }
     });
   });

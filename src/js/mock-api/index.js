@@ -16,7 +16,8 @@ import {
   UNIT_PROFILE_URL,
   TRR_URL,
   POPUP_API_URL,
-  DOCUMENTS_URL
+  DOCUMENTS_URL,
+  CRAWLERS_API_URL,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -41,6 +42,7 @@ import { getCommunity } from './community';
 import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './/documents-overview-page/fetch-documents';
+import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -136,6 +138,10 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { match: '123457' } }).reply
 axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`).reply(200, { show: false });
 
 axiosMockClient.onGet(`${DOCUMENTS_URL}`).reply(200, fetchDocuments());
+
+axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
+  return [200, (config.params && config.params.offset === '20') ? getNextCrawlersData() : getCrawlersData()];
+});
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

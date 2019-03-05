@@ -22,6 +22,7 @@ import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import * as docOverviewPageActions from 'actions/documents-overview-page';
+import { requestCrawlers } from 'actions/crawlers-page';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -311,5 +312,14 @@ describe('fetchPageInitialData middleware', function () {
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchDocuments({ match: '1000000' })).should.be.false();
     fetchDocuments.restore();
+  });
+
+  it('should dispatch requestCrawlers', function () {
+    const action = createLocationChangeAction('/crawlers/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(requestCrawlers()).should.be.true();
   });
 });
