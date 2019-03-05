@@ -136,6 +136,7 @@ describe('store', function () {
         editModeOn: {
           [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
           [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+          [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false,
         }
       },
       trrPage: {
@@ -224,6 +225,10 @@ describe('store', function () {
           data: [],
           crid: ''
         },
+        pagination: {}
+      },
+      crawlersPage: {
+        crawlers: [],
         pagination: {}
       }
     });

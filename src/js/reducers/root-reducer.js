@@ -22,6 +22,7 @@ import embed from './embed';
 import pathname from './pathname';
 import documentsOverviewPage from './documents-overview-page';
 import documentDeduplicatorPage from './document-deduplicator-page';
+import crawlersPage from './crawlers-page';
 
 
 export default combineReducers({
@@ -46,5 +47,6 @@ export default combineReducers({
   embed,
   pathname,
   documentsOverviewPage,
-  documentDeduplicatorPage
+  documentDeduplicatorPage,
+  crawlersPage
 });

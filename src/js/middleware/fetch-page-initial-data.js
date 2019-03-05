@@ -31,6 +31,7 @@ import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import { fetchDocuments } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
+import { requestCrawlers } from 'actions/crawlers-page';
 
 let prevPathname = '';
 
@@ -165,6 +166,10 @@ export default store => next => action => {
     ) {
       dispatches.push(store.dispatch(fetchDocuments(params)).catch(cancelledByUser));
     }
+  }
+
+  else if (action.payload.pathname.match(/\/crawlers\//)) {
+    dispatches.push(store.dispatch(requestCrawlers()));
   }
 
   if (dispatches.length > 0) {
