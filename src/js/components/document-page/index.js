@@ -76,7 +76,6 @@ export default class DocumentPage extends Component {
                           className='linked-documents-thumbnail-img'
                           src={ document.previewImageUrl }
                           width='40'
-                          alt='thumbnail'
                         />
                       </div>
                     ))
