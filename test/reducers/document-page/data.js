@@ -34,4 +34,15 @@ describe('officersReducer', function () {
       id: '1234',
     });
   });
+
+  it('should handle @@router/LOCATION_CHANGE', function () {
+    const action = {
+      type: '@@router/LOCATION_CHANGE',
+      payload: {
+        pathname: '/officer/1/timeline/'
+      }
+    };
+
+    dataReducer('some state', action).should.eql({});
+  });
 });

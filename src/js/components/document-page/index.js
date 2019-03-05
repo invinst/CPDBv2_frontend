@@ -33,6 +33,7 @@ export default class DocumentPage extends Component {
       lastEditedDateTime,
       titleEditWrapperStateProps,
       textContentEditWrapperStateProps,
+      isSignedIn,
     } = this.props;
 
     const infoItems = [
@@ -68,7 +69,10 @@ export default class DocumentPage extends Component {
               <SimpleListWidget className='document-info' items={ infoItems }/>
               <div className='linked-documents'>
                 <div className='linked-documents-title'>Linked Documents ({ linkedDocuments.length })</div>
-                <Link className='linked-documents-content' to={ `/documents/?match=${crid}` }>
+                <Link
+                  className='linked-documents-content'
+                  to={ isSignedIn ? `/documents/crid/${crid}` : `/documents/?match=${crid}` }
+                >
                   {
                     displayedDocuments.map(document => (
                       <div key={ document.id } className='linked-documents-thumbnail'>
@@ -135,8 +139,5 @@ DocumentPage.propTypes = {
   lastEditedDateTime: PropTypes.string,
   titleEditWrapperStateProps: PropTypes.object,
   textContentEditWrapperStateProps: PropTypes.object,
-};
-
-DocumentPage.contextTypes = {
-  printMode: PropTypes.bool,
+  isSignedIn: PropTypes.bool,
 };

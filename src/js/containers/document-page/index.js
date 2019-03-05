@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import DocumentPage from 'components/document-page';
 import { documentSelector, getTitleEditModeOn, getTextContentEditModeOn } from 'selectors/document-page';
 import { updateDocument } from 'actions/document-page';
+import { isSignedIn } from 'selectors/log-out';
 import {
   turnOnDocumentPageTitleEditMode,
   turnOffDocumentPageTitleEditMode,
@@ -24,6 +25,7 @@ function mapStateToProps(state, ownProps) {
     },
     titleEditModeOn: getTitleEditModeOn(state),
     textContentEditModeOn: getTextContentEditModeOn(state),
+    isSignedIn: isSignedIn(state),
   };
 }
 

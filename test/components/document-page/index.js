@@ -9,7 +9,7 @@ import {
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import { omit, findIndex, slice } from 'lodash';
+import { omit, findIndex, slice, cloneDeep, set } from 'lodash';
 import moment from 'moment-timezone';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -267,5 +267,26 @@ describe('DocumentPage component', function () {
 
     const lastEdited = findRenderedDOMComponentWithClass(instance, 'main-section-last-edited');
     lastEdited.textContent.should.eql('This document was last edited at 08:50PM on Feb 28, 2019');
+  });
+
+  it('should link linked documents to dedup page if user is authenticated', function () {
+    const newState = cloneDeep(state);
+    set(newState, 'authentication.apiAccessToken', '123456');
+    const newStore = MockStore()(newState);
+
+    const recentDocument = () => (
+      <Provider store={ newStore }>
+        <DocumentPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ recentDocument } />
+      </Router>
+    );
+
+    const linkDocumentsContent = findRenderedDOMComponentWithClass(instance, 'linked-documents-content');
+    linkDocumentsContent.getAttribute('href').should.eql('/documents/crid/1083633');
   });
 });

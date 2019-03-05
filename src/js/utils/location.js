@@ -24,6 +24,7 @@ export function getDocumentId(url) {
   if (!url) {
     return NaN;
   }
+
   return parseInt(url.replace(/.*document?\/(\d+).*/, '$1'));
 }
 
