@@ -54,23 +54,32 @@ describe('nginx config', () => {
     expectedHeaders: { 'location': `http://${process.env.FRONTEND_DOMAIN}${toPath}` }
   });
 
+  const notRedirect = (path) => Object.assign({}, empty, {
+    path,
+    title: `Not redirect from ${path}`,
+    expectedCode: 200
+  });
+
   const testCases = [
     preventIframe('/'),
-    preventIframe('/officer/123/jerome-finnigan'),
+    preventIframe('/officer/123/jerome-finnigan/'),
     preventIframe('/cr/123/'),
     preventIframe('/trr/123/'),
     allowIframe('/embed/map/'),
     allowIframe('/embed/top-officers-page/'),
     mobileRedirect('/'),
-    mobileRedirect('/officer/123/jerome-finnigan'),
+    mobileRedirect('/officer/123/jerome-finnigan/'),
     mobileRedirect('/cr/123/'),
     mobileRedirect('/trr/123/'),
     mobileNotRedirect('/embed/map/'),
     mobileRedirect('/embed/top-officers-page/'),
     mobileNotRedirect('/fonts/Minion_Pro_Regular.ttf'),
     mobileNotRedirect('/img/arrow.svg'),
-    redirect('/officer/robbin-parker/21860', '/officer/21860/robbin-parker/'),
-    redirect('/officer/robbin-parker/21860/', '/officer/21860/robbin-parker/')
+    redirect('/officer/robbin-parker/21860/', '/officer/21860/robbin-parker/'),
+    redirect('/officer/robbin-parker/21860/', '/officer/21860/robbin-parker/'),
+    redirect('/documents', '/documents/'),
+    redirect('/documents?match=abc', '/documents/?match=abc'),
+    notRedirect('/documents/abc.pdf'),
   ];
 
   const func = testCase => done => {
