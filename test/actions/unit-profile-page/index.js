@@ -19,7 +19,8 @@ describe('unitProfilePage actions', function () {
           request: {
             url: `${UNIT_PROFILE_URL}123/summary/`,
             params: undefined,
-            adapter: null
+            adapter: null,
+            cancelToken: undefined
           }
         }
       });

@@ -1,8 +1,8 @@
 import { Promise } from 'es6-promise';
-import { every } from 'lodash';
+import { every, get } from 'lodash';
 
 import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID } from 'utils/constants';
-import { getOfficerId, getCRID, getTRRId, getUnitName, getDocumentId } from 'utils/location';
+import { getOfficerId, getCRID, getTRRId, getUnitName, getDocDedupCRID, getDocumentId } from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
 import { hasCMSContent } from 'selectors/cms';
@@ -10,6 +10,8 @@ import { hasCards as hasOfficerByAllegationData } from 'selectors/landing-page/o
 import { hasCards as hasRecentActivityData } from 'selectors/landing-page/activity-grid';
 import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent-document';
 import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
+import { getMatchParamater, getDocumentsOrder } from 'selectors/documents-overview-page';
+import { getCRIDParameter } from 'selectors/document-deduplicator-page';
 import { getCitySummary } from 'actions/landing-page/city-summary';
 import { fetchOfficerSummary, changeOfficerId, requestCreateOfficerZipFile } from 'actions/officer-page';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
@@ -27,6 +29,10 @@ import { getComplaintSummaries } from 'actions/landing-page/complaint-summaries'
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
+import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
+import { fetchDocuments } from 'actions/documents-overview-page';
+import { cancelledByUser } from 'utils/axios-client';
+import { requestCrawlers } from 'actions/crawlers-page';
 
 let prevPathname = '';
 
@@ -140,6 +146,36 @@ export default store => next => action => {
     if (!hasCitySummarySelector(state)) {
       dispatches.push(store.dispatch(getCitySummary()));
     }
+  }
+
+  else if (action.payload.pathname.match(/\/documents\/crid\//)) {
+    const previousCRID = getCRIDParameter(state);
+    const currentCRID = getDocDedupCRID(action.payload.pathname);
+    if (currentCRID !== previousCRID) {
+      dispatches.push(store.dispatch(fetchDocumentsByCRID({ crid: currentCRID })));
+    }
+  }
+
+  else if (action.payload.pathname.match(/\/documents\//)) {
+    const previousMatch = getMatchParamater(state);
+    const currentMatch = get(action.payload.query, 'match', '');
+    const previousDataOrders = getDocumentsOrder(state);
+    let params = {};
+
+    if (currentMatch !== '') {
+      params = { match: currentMatch };
+    }
+
+    if (
+        currentMatch !== previousMatch ||
+        (currentMatch === '' && previousDataOrders.length === 0)
+    ) {
+      dispatches.push(store.dispatch(fetchDocuments(params)).catch(cancelledByUser));
+    }
+  }
+
+  else if (action.payload.pathname.match(/\/crawlers\//)) {
+    dispatches.push(store.dispatch(requestCrawlers()));
   }
 
   if (dispatches.length > 0) {

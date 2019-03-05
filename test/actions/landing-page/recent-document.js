@@ -18,7 +18,8 @@ describe('getRecentDocument action', function () {
         request: {
           url: constants.RECENT_DOCUMENT_URL,
           adapter: null,
-          params: undefined
+          params: undefined,
+          cancelToken: undefined
         }
       }
     });

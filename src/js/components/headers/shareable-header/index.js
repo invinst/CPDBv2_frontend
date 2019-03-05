@@ -1,12 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import Breadcrumbs from 'redux-breadcrumb-trail';
 
+import * as constants from 'utils/constants';
 import BreadcrumbsItemRendererContainer from 'containers/headers/shareable-header/breadcrumbs-item-renderer-container';
 import HeaderButton from 'components/headers/shareable-header/header-button';
+import LinkHeaderButton from 'components/headers/shareable-header/link-header-button';
 import { calculatePosition } from 'utils/dom';
 import styles from './shareable-header.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 
+const getHeaderButton = (type, state, props) => {
+  switch (type) {
+    case constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU:
+      return <HeaderButton scrollPosition={ state.position } Menu={ props.Menu } buttonText={ props.buttonText }/>;
+    case constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK:
+      return <LinkHeaderButton buttonText={ props.buttonText } to={ props.to } />;
+    case constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE:
+    default:
+      return null;
+  }
+};
 
 export default class ShareableHeader extends Component {
   constructor(props) {
@@ -37,7 +50,7 @@ export default class ShareableHeader extends Component {
   }
 
   render() {
-    const { location, routes, params, Menu, buttonText, shouldDisplayButton } = this.props;
+    const { location, routes, params, buttonType } = this.props;
 
     const separatorRenderer = <li className='shareable-header-breadcrumb-separator'/>;
 
@@ -51,9 +64,7 @@ export default class ShareableHeader extends Component {
               ref={ el => { this.placeholderElement = el; } }
             >
               {
-                shouldDisplayButton ? (
-                  <HeaderButton scrollPosition={ this.state.position } Menu={ Menu } buttonText={ buttonText } />
-                ) : null
+                getHeaderButton(buttonType, this.state, this.props)
               }
               <Breadcrumbs
                 className='breadcrumbs'
@@ -81,7 +92,9 @@ ShareableHeader.propTypes = {
   updateShareablePageScrollPosition: PropTypes.func,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
   buttonText: PropTypes.string,
-  shouldDisplayButton: PropTypes.bool,
+  hasHeaderButton: PropTypes.bool,
+  buttonType: PropTypes.string,
+  to: PropTypes.string,
 };
 
 ShareableHeader.defaultProps = {
@@ -90,5 +103,6 @@ ShareableHeader.defaultProps = {
     pathname: ''
   },
   routes: [],
-  shouldDisplayButton: true,
+  hasHeaderButton: true,
+  buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU,
 };

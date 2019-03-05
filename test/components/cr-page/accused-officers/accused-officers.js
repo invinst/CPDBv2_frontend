@@ -12,7 +12,7 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import { CoaccusedFactory } from 'utils/test/factories/officer';
 import AccusedOfficers from 'components/cr-page/accused-officers';
-import OfficerCard from 'components/common/officer-card';
+import CoaccusedCard from 'components/cr-page/accused-officers/coaccused-card';
 import Popup from 'components/common/popup';
 import CoaccusedPopup from 'components/cr-page/accused-officers/coaccused-popup';
 
@@ -24,9 +24,9 @@ describe('AccusedOfficers component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render OfficerCard', function () {
+  it('should render CoaccusedCard', function () {
     instance = renderIntoDocument(<AccusedOfficers officers={ CoaccusedFactory.buildList(3) } />);
-    scryRenderedComponentsWithType(instance, OfficerCard).should.have.length(3);
+    scryRenderedComponentsWithType(instance, CoaccusedCard).should.have.length(3);
     scryRenderedDOMComponentsWithClass(instance, 'accused-officer-card').should.have.length(3);
   });
 

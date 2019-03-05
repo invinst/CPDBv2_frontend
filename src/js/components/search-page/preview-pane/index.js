@@ -9,3 +9,4 @@ export { default as WardPane } from './ward-pane';
 export { default as ZipCodePane } from './zip-code-pane';
 export { default as NeighborhoodPane } from './neighborhood-pane';
 export { default as SearchTermItemPane } from './search-term-item-pane';
+export { default as CRPane } from './cr-pane';

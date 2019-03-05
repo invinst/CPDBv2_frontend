@@ -134,7 +134,7 @@ describe('DocumentPage component', function () {
     );
 
     const header = findRenderedComponentWithType(instance, ShareableHeader);
-    header.props.shouldDisplayButton.should.eql(false);
+    header.props.buttonType.should.eql('none');
 
     findRenderedComponentWithType(instance, FooterContainer);
     findRenderedDOMComponentWithClass(instance, 'document-side-bar');

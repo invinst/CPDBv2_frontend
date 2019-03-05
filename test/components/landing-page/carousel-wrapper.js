@@ -13,7 +13,10 @@ import * as GATracking from 'utils/google_analytics_tracking';
 describe('CarouselWrapper component', function () {
   let instance;
 
-  const CarouselComponent = withCarousel('div', 'abc');
+  const CarouselComponent = withCarousel(
+    { 'abc': { CardComponent: 'div', itemWidth: 232 } },
+    'abc'
+  );
 
   afterEach(function () {
     unmountComponentSuppressError(instance);

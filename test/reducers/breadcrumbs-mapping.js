@@ -46,6 +46,17 @@ describe('breadcrumbsMapping', function () {
     }).should.eql({ '/trr/123/': 'TRR 123' });
   });
 
+  it('should store document crid text', function () {
+    breadcrumbsMapping({}, {
+      type: constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS,
+      request: {
+        params: {
+          crid: 1000000
+        }
+      }
+    }).should.eql({ '/documents/crid/1000000/': '#1000000 document deduplicator' });
+  });
+
   it('should store document breadcrumb text when successfully requesting document', function () {
     breadcrumbsMapping({}, {
       type: constants.DOCUMENT_REQUEST_SUCCESS,

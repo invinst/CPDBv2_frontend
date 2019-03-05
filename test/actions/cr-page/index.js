@@ -28,7 +28,8 @@ describe('CRPage actions', function () {
           request: {
             url: `${CR_URL}123/`,
             params: undefined,
-            adapter: null
+            adapter: null,
+            cancelToken: undefined
           }
         }
       });
@@ -36,7 +37,7 @@ describe('CRPage actions', function () {
   });
 
   describe('requestDocument', function () {
-    it('shoulr return right action', function () {
+    it('should return right action', function () {
       requestDocument({ id: 123, email: 'valid@email.com' }).should.eql({
         types: [CR_REQUEST_DOC_START, CR_REQUEST_DOC_SUCCESS, CR_REQUEST_DOC_FAILURE],
         payload: {

@@ -1,6 +1,7 @@
+---
 repos:
--   repo: git://github.com/pre-commit/mirrors-eslint
+  - repo: git://github.com/pre-commit/mirrors-eslint
     sha: v4.8.0
     hooks:
-    -   id: eslint
+      - id: eslint
         additional_dependencies: ["eslint@3.19.0", "eslint-plugin-react@5.0.1", "babel-eslint@6.0.3"]

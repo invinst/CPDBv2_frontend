@@ -4,23 +4,51 @@ import pluralize from 'pluralize';
 import { kebabCase } from 'lodash';
 import cx from 'classnames';
 
-import { getThisYear } from 'utils/date';
+import { getCurrentAge } from 'utils/date';
 import StaticRadarChart from 'components/common/radar-chart';
 import { roundedPercentile } from 'utils/calculations';
 import styles from './officer-card.sass';
 
 
 export class OfficerCard extends Component {
+  renderExtraInfo() {
+    const { birthYear, race, gender, } = this.props;
+    const age = getCurrentAge(birthYear);
+    const ageString = age ? `${age}-year-old` : '';
+    const extraInfo = `${ageString} ${race} ${gender}`;
+
+    return <p className='extra-info'>{ extraInfo }</p>;
+  }
+
+  renderComplaintInfo() {
+    const { complaintCount, sustainedCount } = this.props;
+    const complaint = `${complaintCount} ${pluralize('Allegation', complaintCount)}`;
+    const sustained = `${sustainedCount} Sustained`;
+    return (
+      <span className='test--officer-card-metric'>
+        <span className='officer-card-allegation'>{ complaint }</span>&nbsp;
+        <span className='officer-card-sustained'>{ sustained }</span>
+      </span>
+    );
+  }
+
+  renderComplaintPercentile() {
+    const { complaintPercentile } = this.props;
+    if (complaintPercentile) {
+      const complaintFormat = roundedPercentile(complaintPercentile);
+      return (
+        <p className='light-text no-print test--officer-card-percentile'>
+          More than { complaintFormat }% of other officers
+        </p>
+      );
+    }
+    return null;
+  }
+
   render() {
     const {
       officerId,
       fullName,
-      complaintCount,
-      sustainedCount,
-      birthYear,
-      complaintPercentile,
-      race,
-      gender,
       style,
       percentile,
       openCardInNewPage,
@@ -29,42 +57,6 @@ export class OfficerCard extends Component {
       className,
     } = this.props;
     const officerSlug = kebabCase(fullName);
-
-    const complaintString = () => {
-      const complaint = `${complaintCount} ${pluralize('Allegation', complaintCount)}`;
-      const sustained = `${sustainedCount} Sustained`;
-      return (
-        <span className='test--officer-card-metric'>
-          <span className='officer-card-allegation'>{ complaint }</span>&nbsp;
-          <span className='officer-card-sustained'>{ sustained }</span>
-        </span>
-      );
-    };
-
-    const ageString = () => {
-      if (!birthYear) {
-        return '';
-      }
-      const age = getThisYear() - birthYear - 1;
-      return `${age}-year-old`;
-    };
-
-    const extraInfo = () => {
-      return `${ageString()} ${race} ${gender}`;
-    };
-
-    const complaintPercentileString = () => {
-      if (complaintPercentile) {
-        const complaintFormat = roundedPercentile(complaintPercentile);
-        return (
-          <p className='light-text no-print test--officer-card-percentile'>
-            More than { complaintFormat }% of other officers
-          </p>
-        );
-      }
-      return '';
-    };
-
     const chartData = percentile && percentile.items;
 
     const radarConfig = {
@@ -91,11 +83,11 @@ export class OfficerCard extends Component {
               <p className='bold-text officer-card-name'>{ fullName }</p>
             </div>
             <div className='officer-card-section'>
-              <p className='bold-text'>{ complaintString() }</p>
-              { complaintPercentileString() }
+              <p className='bold-text'>{ this.renderComplaintInfo() }</p>
+              { this.renderComplaintPercentile() }
             </div>
             <div className='officer-card-section test--officer-card-demographic'>
-              <p className='extra-info'>{ extraInfo() }</p>
+              <p className='extra-info'>{ this.renderExtraInfo() }</p>
             </div>
           </div>
         </div>

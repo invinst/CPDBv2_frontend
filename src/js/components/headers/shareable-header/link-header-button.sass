@@ -1,0 +1,22 @@
+@import 'variables'
+
+$button-height: 28px
+$border-width: 1px
+
+\:local(.link-header-button)
+  position: relative
+
+  .button
+    float: right
+    cursor: pointer
+    line-height: $button-height
+    border-radius: 2px
+    padding: 0 8px
+    border: solid $border-width $white-two-color
+    margin-top: calc((#{$shareable-header-height} - #{$button-height} - #{$border-width} * 2) / 2)
+    color: $accent-color
+    background-color: $hawkes-blue
+
+    &:hover
+        color: white
+        background-color: $accent-color

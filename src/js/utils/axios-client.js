@@ -25,4 +25,10 @@ client.interceptors.request.use(function (config) {
   return config;
 });
 
+export const cancelledByUser = reason => {
+  if (reason.payload.message !== 'Cancelled by user') {
+    throw reason;
+  }
+};
+
 export default client;

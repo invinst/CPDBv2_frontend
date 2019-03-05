@@ -53,8 +53,9 @@ export const isShowingSingleContentTypeSelector = createSelector(
 export const slicedSuggestionGroupsSelector = createSelector(
   getSuggestionGroups,
   isShowingSingleContentTypeSelector,
-  (suggestionGroups, isSingle) => {
-    let groups = pick(omitBy(suggestionGroups, isEmpty), constants.SEARCH_CATEGORIES);
+  getSuggestionContentType,
+  (suggestionGroups, isSingle, contentType) => {
+    let groups = pick(omitBy(suggestionGroups, isEmpty), contentType || constants.SEARCH_CATEGORIES);
 
     let lastIndex = 1;
     return keys(groups).map((key) => {

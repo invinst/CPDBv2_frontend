@@ -1,15 +1,16 @@
 import React, { PropTypes, Component } from 'react';
 
 import styles from './demographic.sass';
-import cx from 'classnames';
 
 export default class Demographics extends Component {
   render() {
+    const { persons, className } = this.props;
+
     return (
-      <div>
+      <div className={ className }>
         {
-          this.props.persons.map((person, ind) => (
-            <div key={ ind } className={ cx(styles.demographic, 'test--person-demographic') }>
+          persons.map((person, ind) => (
+            <div key={ ind } className={ styles.demographic }>
               { person }
             </div>
           ))
@@ -20,7 +21,8 @@ export default class Demographics extends Component {
 }
 
 Demographics.propTypes = {
-  persons: PropTypes.array
+  persons: PropTypes.array,
+  className: PropTypes.string
 };
 
 Demographics.defaultProps = {

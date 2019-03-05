@@ -25,7 +25,7 @@ describe('common selectors', function () {
       year: 2018,
       'officer_id': 8562,
     },
-    type: 'single_officer'
+    kind: 'single_officer'
   };
   const undefinedSingleOfficerCard = {
     id: '8562',
@@ -48,7 +48,7 @@ describe('common selectors', function () {
   };
   const pairOfficerCard = {
     'coaccusal_count': 23,
-    type: 'coaccused_pair',
+    kind: 'coaccused_pair',
     officer2: {
       id: 3454,
       'full_name': 'John Burzinski',
@@ -145,7 +145,7 @@ describe('common selectors', function () {
           visualTokenBackground: '#f0201e',
           year: 2018
         },
-        type: 'single_officer'
+        kind: 'single_officer'
       });
     });
   });
@@ -191,7 +191,7 @@ describe('common selectors', function () {
   describe('pairingCardTransform', function () {
     it('should return the information of the two officers in the pairing card', function () {
       pairingCardTransform(pairOfficerCard).should.eql({
-        type: 'coaccused_pair',
+        kind: 'coaccused_pair',
         coaccusalCount: 23,
         officer1: {
           id: 8562,
@@ -228,7 +228,7 @@ describe('common selectors', function () {
   });
 
   describe('cardTransform', function () {
-    it('should return the information of a single officer when the type is undefined', function () {
+    it('should return the information of a single officer when the kind is undefined', function () {
       cardTransform(undefinedSingleOfficerCard).should.eql({
         id: '8562',
         officerId: '8562',
@@ -260,7 +260,7 @@ describe('common selectors', function () {
           visualTokenBackground: '#f0201e',
           year: 2018
         },
-        type: undefined
+        kind: undefined
       });
     });
 
@@ -296,13 +296,13 @@ describe('common selectors', function () {
           visualTokenBackground: '#f0201e',
           year: 2018
         },
-        type: 'single_officer'
+        kind: 'single_officer'
       });
     });
 
     it('should return the information of the two officers in the pairing card', function () {
       cardTransform(pairOfficerCard).should.eql({
-        type: 'coaccused_pair',
+        kind: 'coaccused_pair',
         coaccusalCount: 23,
         officer1: {
           id: 8562,

@@ -16,6 +16,7 @@ import Printable from 'components/common/higher-order/printable';
 import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
+import FooterContainer from 'containers/footer-container';
 
 
 class OfficerPage extends Component {
@@ -90,6 +91,7 @@ class OfficerPage extends Component {
             hasCoaccusal={ hasCoaccusal }
           />
           { printMode ? <PrintNotes notes={ timelineNotes } /> : null }
+          <FooterContainer className={ styles.officerPageFooter }/>
           <PrintPreloadFonts/>
         </div>
       </DocumentMeta>

@@ -31,9 +31,8 @@ describe('DocumentPage actions', function () {
             url: `${ DOCUMENT_URL }123/`,
             params: undefined,
             adapter: null,
-            headers: {
-              'Authorization': null
-            },
+            headers: {},
+            cancelToken: undefined,
           }
         }
       });
@@ -60,9 +59,7 @@ describe('DocumentPage actions', function () {
             },
             method: 'patch',
             adapter: null,
-            headers: {
-              'Authorization': null
-            },
+            headers: {},
           }
         }
       });

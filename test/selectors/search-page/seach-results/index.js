@@ -130,11 +130,15 @@ describe('search page results selector', function () {
             'CR': [RawCRSuggestion.build({
               id: '1001',
               crid: '1234',
-              category: 'Lorem',
               'incident_date': '2004-04-23',
               highlight: {
                 summary: ['the officer pointed a gun at the victim']
-              }
+              },
+              category: 'Use Of Force',
+              'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+              address: '14XX W 63RD ST, CHICAGO IL 60636',
+              victims: [],
+              coaccused: []
             })]
           }
         }
@@ -148,6 +152,12 @@ describe('search page results selector', function () {
             text: 'CR # 1234 - April 23, 2004',
             recentText: 'CR # 1234 - April 23, 2004',
             subText: 'the officer pointed a gun at the victim',
+            category: 'Use Of Force',
+            subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            incidentDate: 'APR 23, 2004',
+            victims: [],
+            coaccused: [],
             to: '',
             url: '',
             tags: [],
@@ -166,9 +176,13 @@ describe('search page results selector', function () {
             'CR': [RawCRSuggestion.build({
               id: '1001',
               crid: '1234',
-              category: null,
               'incident_date': null,
-              highlight: {}
+              highlight: {},
+              category: 'Use Of Force',
+              'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+              address: '14XX W 63RD ST, CHICAGO IL 60636',
+              victims: [],
+              coaccused: []
             })]
           }
         }
@@ -187,6 +201,12 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'CR-1001',
             itemIndex: 1,
+            incidentDate: null,
+            category: 'Use Of Force',
+            subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            victims: [],
+            coaccused: [],
           }]
         }
       ]);
@@ -200,11 +220,15 @@ describe('search page results selector', function () {
             'DATE > CR': [RawCRSuggestion.build({
               id: '1001',
               crid: '1234',
-              category: 'Lorem',
               'incident_date': '2004-04-23',
               highlight: {
                 summary: ['the police pointed a knife at the victim']
-              }
+              },
+              category: 'Use Of Force',
+              'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+              address: '14XX W 63RD ST, CHICAGO IL 60636',
+              victims: [],
+              coaccused: []
             })]
           }
         }
@@ -223,6 +247,12 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'DATE-CR-1001',
             itemIndex: 1,
+            incidentDate: 'APR 23, 2004',
+            category: 'Use Of Force',
+            subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            victims: [],
+            coaccused: [],
           }]
         }
       ]);
@@ -236,11 +266,15 @@ describe('search page results selector', function () {
             'DATE > CR': [RawCRSuggestion.build({
               id: '1001',
               crid: '1234',
-              category: null,
               'incident_date': null,
               highlight: {
                 summary: ['the police pointed a knife at the victim']
-              }
+              },
+              category: 'Use Of Force',
+              'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+              address: '14XX W 63RD ST, CHICAGO IL 60636',
+              victims: [],
+              coaccused: []
             })]
           }
         }
@@ -259,6 +293,12 @@ describe('search page results selector', function () {
             tags: [],
             uniqueKey: 'DATE-CR-1001',
             itemIndex: 1,
+            incidentDate: null,
+            category: 'Use Of Force',
+            subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+            address: '14XX W 63RD ST, CHICAGO IL 60636',
+            victims: [],
+            coaccused: [],
           }]
         }
       ]);
@@ -581,6 +621,38 @@ describe('search page results selector', function () {
 
       groups.length.should.equal(1);
       groups[0].header.should.equal('CO-ACCUSED');
+    });
+
+    it('should should only one group when contentType is not null', function () {
+      const groups = searchResultGroupsSelector({
+        searchPage: {
+          contentType: 'CO-ACCUSED',
+          tags: ['OFFICER', 'CO-ACCUSED'],
+          suggestionGroups: {
+            'OFFICER': RawOfficerSuggestion.buildList(10),
+            'CO-ACCUSED': RawOfficerSuggestion.buildList(3)
+          }
+        }
+      });
+
+      groups.length.should.equal(1);
+      groups[0].header.should.equal('CO-ACCUSED');
+    });
+
+    it('should not limit items if there is only one tag', function () {
+      const [officerGroup] = searchResultGroupsSelector({
+        searchPage: {
+          tags: ['OFFICER'],
+          suggestionGroups: {
+            'OFFICER': RawOfficerSuggestion.buildList(10),
+          },
+          contentType: null
+        }
+      });
+
+      officerGroup.header.should.equal('OFFICER');
+      officerGroup.items.should.have.length(10);
+      officerGroup.canLoadMore.should.be.false();
     });
 
     it('should give correct item format for COMMUNITY', function () {

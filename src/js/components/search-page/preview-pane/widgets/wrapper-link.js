@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 
-import { linkStyle } from './wrapper-link.style';
+import styles from './wrapper-link.sass';
 import OutboundLink from 'components/common/outbound-link';
 
 
@@ -10,8 +10,8 @@ export default class WrapperLink extends Component {
     const { url, to, children } = this.props;
     return (
       to
-      ? <Link style={ linkStyle } to={ to }>{ children }</Link>
-      : <OutboundLink style={ linkStyle } href={ url }>{ children }</OutboundLink>
+      ? <Link className={ styles.wrapperLink } to={ to }>{ children }</Link>
+      : <OutboundLink className={ styles.wrapperLink } href={ url }>{ children }</OutboundLink>
     );
   }
 }

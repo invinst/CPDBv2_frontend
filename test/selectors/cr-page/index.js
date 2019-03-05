@@ -332,7 +332,13 @@ describe('CR page selectors', function () {
     });
 
     it('should return list of attachments', function () {
-      const doc = { title: 'abc', url: 'def', 'preview_image_url': 'pre', 'file_type': 'document' };
+      const doc = {
+        title: 'abc',
+        url: 'def',
+        'preview_image_url': 'pre',
+        'file_type': 'document',
+        'id': '123456'
+      };
       const state = buildState({
         crs: {
           '123': ComplaintFactory.build({
@@ -346,7 +352,8 @@ describe('CR page selectors', function () {
         title: 'abc',
         url: 'def',
         previewImageUrl: 'pre',
-        fileType: 'document'
+        fileType: 'document',
+        id: '123456'
       }]);
     });
 

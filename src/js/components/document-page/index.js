@@ -10,6 +10,7 @@ import styles from './document-page.sass';
 import SimpleListWidget from './simple-list-widget';
 import EditableTextBox from './editable-text-box';
 import FooterContainer from 'containers/footer-container';
+import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 
 
 
@@ -57,7 +58,7 @@ export default class DocumentPage extends Component {
     return (
       <DocumentMeta title={ title } description={ title }>
         <div className={ styles.documentPage }>
-          <ShareableHeaderContainer shouldDisplayButton={ false }/>
+          <ShareableHeaderContainer buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.NONE }/>
           <div className='document-wrapper'>
             <div className='document-side-bar'>
               <a className='document-thumbnail' href={ url }>
