@@ -73,5 +73,23 @@ describe('crawlers reducer', function () {
       'recent_run_at': '2019-02-20'
     }]);
   });
+
+  it('should handle LOCATION_CHANGE', function () {
+    crawlers([{
+      'id': 109,
+      'crawler_name': 'SUMMARY_REPORTS_COPA',
+      'num_documents': 5,
+      'num_new_documents': 1,
+      'recent_run_at': '2019-02-20'
+    }, {
+      'id': 110,
+      'crawler_name': 'SUMMARY_REPORTS_COPA',
+      'num_documents': 7,
+      'num_new_documents': 2,
+      'recent_run_at': '2019-02-20'
+    }], {
+      type: '@@router/LOCATION_CHANGE'
+    }).should.eql([]);
+  });
 });
 
