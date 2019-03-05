@@ -5,10 +5,16 @@ import { browserHistory } from 'react-router';
 import Counter from './counter';
 import Toggle from './toggle';
 import styles from './document-row.sass';
+import { ATTACHMENT_TYPES } from 'utils/constants';
+import { trackOutboundLink } from 'utils/google_analytics_tracking';
 
 export default class DocumentRow extends Component {
-  handleClick(id) {
-    browserHistory.push(`/document/${id}/`);
+  handleClick() {
+    const { id, fileType, url } = this.props;
+    if (fileType === ATTACHMENT_TYPES.DOCUMENT)
+      browserHistory.push(`/document/${id}/`);
+    else
+      trackOutboundLink(url, '_blank');
   }
 
   render() {
@@ -16,7 +22,7 @@ export default class DocumentRow extends Component {
     const { editModeOn } = this.context;
     return (
       <div
-        onClick={ this.handleClick.bind(this, id) }
+        onClick={ this.handleClick.bind(this) }
         className={ cx(styles.row, { 'document-faded': !show }) }>
         <span
           className='document-thumbnail'
@@ -62,7 +68,9 @@ DocumentRow.propTypes = {
   date: PropTypes.string,
   setDocumentShow: PropTypes.func,
   viewsCount: PropTypes.number,
-  downloadsCount: PropTypes.number
+  downloadsCount: PropTypes.number,
+  fileType: PropTypes.string,
+  url: PropTypes.string,
 };
 
 DocumentRow.contextTypes = {

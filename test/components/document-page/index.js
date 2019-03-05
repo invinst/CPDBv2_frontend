@@ -184,19 +184,16 @@ describe('DocumentPage component', function () {
       'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
     );
     linkDisplayDocumentsThumbnailImgs[0].width.should.eql(40);
-    linkDisplayDocumentsThumbnailImgs[0].alt.should.eql('thumbnail');
 
     linkDisplayDocumentsThumbnailImgs[5].src.should.eql(
       'https://assets.documentcloud.org/documents/5670367/pages/CRID-1083633.gif'
     );
     linkDisplayDocumentsThumbnailImgs[5].width.should.eql(40);
-    linkDisplayDocumentsThumbnailImgs[5].alt.should.eql('thumbnail');
 
     linkDisplayDocumentsThumbnailImgs[10].src.should.eql(
       'https://assets.documentcloud.org/documents/5670369/pages/CRID-1083633.gif'
     );
     linkDisplayDocumentsThumbnailImgs[10].width.should.eql(40);
-    linkDisplayDocumentsThumbnailImgs[10].alt.should.eql('thumbnail');
 
     const linkDocumentsMore = findRenderedDOMComponentWithClass(instance, 'linked-documents-more');
     linkDocumentsMore.textContent.should.eql('+3');
