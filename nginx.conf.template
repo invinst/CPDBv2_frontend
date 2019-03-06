@@ -30,6 +30,8 @@ http {
         server_name _;
         root /usr/share/nginx/html;
 
+        rewrite ^([^.]*[^/])$ $1/ permanent;
+
         if ($request_uri ~ '^\/embed\/map') {
             set $is_embedded_map M;
         }
