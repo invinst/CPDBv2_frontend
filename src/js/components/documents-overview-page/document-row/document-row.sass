@@ -1,5 +1,8 @@
 @import 'variables'
 
+$row-fixed-width: 81
+$table-min-width: 960
+
 %cell
   overflow: hidden
   display: inline-block
@@ -7,14 +10,15 @@
   box-sizing: border-box
   transition: color 0.2s ease-in-out
 
-$row-fixed-width: 81px
+@function flexible-column($min-width)
+  @return calc((100% - #{$row-fixed-width}px) * (#{$min-width} / (#{$table-min-width} - #{$row-fixed-width})))
 
 \:local(.row)
   background-color: $snow-color
   height: 80px
   margin-left: 16px
   margin-right: 16px
-  min-width: 960px
+  min-width: #{$table-min-width}px
   text-align: left
   margin-bottom: 2px
   cursor: pointer
@@ -34,8 +38,6 @@ $row-fixed-width: 81px
 
   .document-title
     @extend %cell
-    min-width: 242px
-    width: calc((100% - #{$row-fixed-width}) * 0.2753128555176337)
     height: 100%
     display: inline-flex
     flex-direction: column
@@ -43,34 +45,55 @@ $row-fixed-width: 81px
     padding-right: 50px
     font-weight: 400
     color: $soft-black-color
+    min-width: 306px
+    width: flexible-column(306)
 
   .document-crid-uid
     @extend %cell
-    min-width: 149px
-    width: calc((100% - #{$row-fixed-width}) * 0.1695108077360637)
     margin-top: 25px
     padding-right: 50px
+    min-width: 188px
+    width: flexible-column(188)
 
   .document-source
     @extend %cell
-    min-width: 245px
-    width: calc((100% - #{$row-fixed-width}) * 0.2787258248009101)
     margin-top: 31px
     padding-right: 50px
+    min-width: 309px
+    width: flexible-column(309)
 
   .document-counts
     @extend %cell
-    min-width: 183px
-    width: calc((100% - #{$row-fixed-width}) * 0.20819112627986347)
     margin-top: 31px
     padding-right: 50px
+    display: none
 
   .document-date
     @extend %cell
-    min-width: 60px
-    width: calc((100% - #{$row-fixed-width}) * 0.06825938566552901)
     margin-top: 31px
-    padding-right: calc((100% - #{$row-fixed-width}) * 0.017064846416382253)
     text-align: right
+    min-width: 76px
+    width: flexible-column(76)
+    padding-right: 15px
 
+  &.edit-mode
+    .document-title
+      min-width: 242px
+      width: flexible-column(242)
 
+    .document-crid-uid
+      min-width: 149px
+      width: flexible-column(149)
+
+    .document-source
+      min-width: 245px
+      width: flexible-column(245)
+
+    .document-counts
+      display: inline-block
+      min-width: 183px
+      width: flexible-column(183)
+
+    .document-date
+      min-width: 60px
+      width: flexible-column(60)
