@@ -23,6 +23,8 @@ describe('Document deduplicator page selectors', function () {
                 'preview_image_url': 'https://example.com/doc.jpg',
                 'views_count': 1,
                 'downloads_count': 1,
+                'file_type': 'document',
+                'url': 'http://document/link/4677',
                 show: true
               },
               '1': {
@@ -33,6 +35,8 @@ describe('Document deduplicator page selectors', function () {
                 'preview_image_url': 'https://example.com/doc.jpg',
                 'views_count': 1,
                 'downloads_count': 1,
+                'file_type': 'document',
+                'url': 'http://document/link/1',
                 show: true
               }
             }
@@ -49,6 +53,8 @@ describe('Document deduplicator page selectors', function () {
           date: 'Jan 14, 2017',
           viewsCount: 1,
           downloadsCount: 1,
+          fileType: 'document',
+          url: 'http://document/link/1',
           show: true
         },
         {
@@ -59,6 +65,8 @@ describe('Document deduplicator page selectors', function () {
           date: 'Jan 14, 2017',
           viewsCount: 1,
           downloadsCount: 1,
+          fileType: 'document',
+          url: 'http://document/link/4677',
           show: true
         }
       ]);

@@ -11,6 +11,7 @@ import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
 import TRRPageContainer from 'containers/trr-page';
+import DocumentPageContainer from 'containers/document-page';
 import InlineAliasAdminContainer from 'containers/inline-alias-admin-container';
 import CrawlersContainer from 'containers/crawlers-page';
 import HeatMapContainer from 'containers/embeddable-heat-map';
@@ -30,6 +31,7 @@ import {
   INLINE_SEARCH_ALIAS_ADMIN_PATH,
   STANDALONE_CR_PATH,
   CRAWLERS_PATH,
+  DOCUMENT_PATH,
   EMBED_MAP_PATH,
   EMBED_TOP_OFFICERS_PATH,
   EMBED_OFFICERS_PATH,
@@ -81,6 +83,10 @@ export default class RouterRoot extends Component {
                 component={ CRPageContainer }
                 useParentBreadcrumb={ true }/>
             </Route>
+            <Route
+              path={ DOCUMENT_PATH }
+              component={ DocumentPageContainer }
+              breadcrumb={ BreadcrumbItemContainer }/>
             <Route
               path={ TTR_PATH }
               component={ TRRPageContainer }

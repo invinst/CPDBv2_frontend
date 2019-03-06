@@ -24,7 +24,9 @@ describe('DocumentsOverviewPage selectors', function () {
                 'downloads_count': 1,
                 show: true,
                 crid: '1051117',
-                'documents_count': 1
+                'documents_count': 1,
+                'file_type': 'document',
+                'url': 'http://document/link/1',
               },
               '2': {
                 id: 2,
@@ -36,7 +38,9 @@ describe('DocumentsOverviewPage selectors', function () {
                 'downloads_count': 1,
                 show: false,
                 crid: '1064593',
-                'documents_count': 2
+                'documents_count': 2,
+                'file_type': 'document',
+                'url': 'http://document/link/2',
               }
             }
           },
@@ -62,7 +66,9 @@ describe('DocumentsOverviewPage selectors', function () {
           viewsCount: 2,
           downloadsCount: 1,
           crid: '1064593',
-          documentsCount: 1
+          documentsCount: 1,
+          fileType: 'document',
+          url: 'http://document/link/2',
         },
         {
           kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
@@ -79,7 +85,9 @@ describe('DocumentsOverviewPage selectors', function () {
           viewsCount: 1,
           downloadsCount: 1,
           crid: '1051117',
-          documentsCount: 0
+          documentsCount: 0,
+          fileType: 'document',
+          url: 'http://document/link/1',
         }
       ]);
     });

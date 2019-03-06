@@ -20,6 +20,14 @@ export function getCRID(url) {
   return url.replace(crPattern, '$1');
 }
 
+export function getDocumentId(url) {
+  if (!url) {
+    return NaN;
+  }
+
+  return parseInt(url.replace(/.*document?\/(\d+).*/, '$1'));
+}
+
 export function getUnitName(url) {
   if (url === undefined) {
     return null;

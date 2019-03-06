@@ -23,7 +23,9 @@ export const documentsSelector = createSelector(
       date: moment(doc['created_at']).format('MMM D, YYYY'),
       viewsCount: doc['views_count'],
       downloadsCount: doc['downloads_count'],
-      show: doc.show
+      show: doc.show,
+      fileType: doc['file_type'],
+      url: doc['url'],
     };
   })
 );

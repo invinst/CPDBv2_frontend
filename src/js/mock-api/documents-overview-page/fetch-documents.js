@@ -13,7 +13,9 @@ export default () => ({
       'downloads_count': 2000,
       'show': true,
       'crid': '123456',
-      'documents_count': '1'
+      'documents_count': '1',
+      'file_type': 'document',
+      'url': 'http://document/link/1',
     },
     {
       'id': 2,
@@ -25,7 +27,9 @@ export default () => ({
       'downloads_count': 1000,
       'show': false,
       'crid': '123457',
-      'documents_count': '2'
+      'documents_count': '2',
+      'file_type': 'document',
+      'url': 'http://document/link/2',
     }
   ]
 });

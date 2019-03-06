@@ -5,7 +5,7 @@ import extractQuery from 'utils/extract-query';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary, requestCreateOfficerZipFile } from 'actions/officer-page';
-import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID } from 'utils/constants';
+import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, SIGNIN_REQUEST_SUCCESS } from 'utils/constants';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { fetchPage } from 'actions/cms';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
@@ -23,6 +23,7 @@ import { requestSearchTermCategories } from 'actions/search-page/search-terms';
 import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import * as docOverviewPageActions from 'actions/documents-overview-page';
 import { requestCrawlers } from 'actions/crawlers-page';
+import { fetchDocument } from 'actions/document-page';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -31,6 +32,11 @@ const createLocationChangeAction = (pathname) => ({
     pathname: pathname,
     query: extractQuery(pathname)
   }
+});
+
+const createSignInRequestSuccessAction = () => ({
+  type: SIGNIN_REQUEST_SUCCESS,
+  payload: {}
 });
 
 const buildStore = () => ({
@@ -236,6 +242,26 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
+  });
+
+  it('should dispatch fetchDocument when location changes', function () {
+    const action = createLocationChangeAction('/document/1234/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
+  });
+
+  it('should dispatch fetchDocument when signing in successfully', function () {
+    const store = buildStore();
+    _.set(store._state, 'pathname', '/document/1234/');
+    const action = createSignInRequestSuccessAction();
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
   });
 
   it('should dispatch getCommunities, getClusterGeoJson and getCitySummary', function () {

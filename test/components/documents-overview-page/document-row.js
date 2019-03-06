@@ -13,6 +13,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import DocumentRow from 'components/documents-overview-page/document-row';
 import Counter from 'components/documents-overview-page/document-row/counter';
 import CRLink from 'components/documents-overview-page/document-row/cr-link';
+import * as GAUtils from 'utils/google_analytics_tracking';
 
 
 describe('DocumentsOverviewPage DocumentRow component', function () {
@@ -20,11 +21,13 @@ describe('DocumentsOverviewPage DocumentRow component', function () {
 
   beforeEach(function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
+    this.trackOutboundLink = stub(GAUtils, 'trackOutboundLink');
   });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
     this.browserHistoryPush.restore();
+    this.trackOutboundLink.restore();
   });
 
   it('should display thumbnail if there is one', function () {
@@ -71,12 +74,24 @@ describe('DocumentsOverviewPage DocumentRow component', function () {
     });
   });
 
-  it('should call browserHistory.push when clicked on', function () {
+
+  it('should call browserHistory.push when clicked on if fileType is document', function () {
     instance = renderIntoDocument(
-      <DocumentRow id={ 1 } show={ true }/>
+      <DocumentRow id={ 1 } show={ true } fileType='document' />
     );
     const div = findDOMNode(instance);
     Simulate.click(div);
-    this.browserHistoryPush.calledWith('/tracker/document/1/').should.be.true();
+    this.browserHistoryPush.calledWith('/document/1/').should.be.true();
+    this.trackOutboundLink.called.should.be.false();
+  });
+
+  it('should call browserHistory.push when clicked on if fileType is not document', function () {
+    instance = renderIntoDocument(
+      <DocumentRow id={ 1 } show={ true } url='http://audio/link/1' fileType='audio' />
+    );
+    const div = findDOMNode(instance);
+    Simulate.click(div);
+    this.browserHistoryPush.calledWith('http://audio/link/1').should.be.false();
+    this.trackOutboundLink.calledWith('http://audio/link/1', '_blank').should.be.true();
   });
 });
