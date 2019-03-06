@@ -20,6 +20,21 @@ const breadcrumbMapping = handleActions({
     ...state,
     [`/unit/${action.payload['unit_name']}/`]: `${action.payload['unit_name']} ${action.payload['description']}`
   }),
+  [constants.DOCUMENT_DEDUPLICATOR_REQUEST_SUCCESS]: (state, action) => {
+    const crid = action.request.params.crid;
+    return {
+      ...state,
+      [`/documents/crid/${crid}/`]: `#${crid} document deduplicator`
+    };
+  },
+  [constants.DOCUMENT_REQUEST_SUCCESS]: (state, action) => ({
+    ...state,
+    [`/document/${action.payload['id']}/`]: action.payload['title']
+  }),
+  [constants.UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS]: (state, action) => ({
+    ...state,
+    [`/document/${action.payload['id']}/`]: action.payload['title']
+  }),
 }, {});
 
 export default breadcrumbMapping;

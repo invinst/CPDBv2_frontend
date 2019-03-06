@@ -16,7 +16,8 @@ describe('heatmap actions', function () {
           request: {
             url: clusterGeoJSONPath,
             params: undefined,
-            adapter: null
+            adapter: null,
+            cancelToken: undefined
           }
         }
       });
@@ -35,7 +36,8 @@ describe('heatmap actions', function () {
           request: {
             url: communityGeoJSONPath,
             params: undefined,
-            adapter: null
+            adapter: null,
+            cancelToken: undefined
           }
         }
       });

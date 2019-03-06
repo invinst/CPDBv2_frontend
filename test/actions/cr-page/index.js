@@ -4,7 +4,9 @@ import {
   turnOnNoAttachmentTextEditMode,
   turnOffNoAttachmentTextEditMode,
   turnOnDocumentRequestInstructionEditMode,
-  turnOffDocumentRequestInstructionEditMode
+  turnOffDocumentRequestInstructionEditMode,
+  turnOnNewDocumentNotificationEditMode,
+  turnOffNewDocumentNotificationEditMode,
 } from 'actions/cr-page';
 import {
   CR_URL,
@@ -28,7 +30,8 @@ describe('CRPage actions', function () {
           request: {
             url: `${CR_URL}123/`,
             params: undefined,
-            adapter: null
+            adapter: null,
+            cancelToken: undefined
           }
         }
       });
@@ -62,7 +65,7 @@ describe('CRPage actions', function () {
     });
   });
 
-  describe('turnOffTriangleExplainEditMode action', function () {
+  describe('turnOffNoAttachmentTextEditMode action', function () {
     it('should return correct action', function () {
       turnOffNoAttachmentTextEditMode().should.eql({
         type: CR_EDIT_MODE,
@@ -85,6 +88,24 @@ describe('CRPage actions', function () {
       turnOffDocumentRequestInstructionEditMode().should.eql({
         type: CR_EDIT_MODE,
         payload: { editType: CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION, mode: false }
+      });
+    });
+  });
+
+  describe('turnOnNewDocumentNotificationEditMode action', function () {
+    it('should return correct action', function () {
+      turnOnNewDocumentNotificationEditMode().should.eql({
+        type: CR_EDIT_MODE,
+        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, mode: true }
+      });
+    });
+  });
+
+  describe('turnOffNewDocumentNotificationEditMode action', function () {
+    it('should return correct action', function () {
+      turnOffNewDocumentNotificationEditMode().should.eql({
+        type: CR_EDIT_MODE,
+        payload: { editType: CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION, mode: false }
       });
     });
   });

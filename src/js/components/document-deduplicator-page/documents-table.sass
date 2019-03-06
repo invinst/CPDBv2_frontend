@@ -1,0 +1,55 @@
+@import 'variables'
+
+\:local(.table)
+  width: calc(100% - 32px)
+  min-width: 992px
+  margin-left: 16px
+  margin-right: 16px
+  font-size: 14px
+  color: $clay-gray
+  margin-bottom: 19px
+
+%headerCol
+  font-weight: 300
+  text-align: left
+  display: inline-block
+  height: 100%
+  vertical-align: top
+
+$header-fixed-width: 84px
+
+\:local(.headerRow)
+  background-color: white
+  text-transform: uppercase
+  height: 69px
+  box-sizing: border-box
+  padding-top: 26px
+
+  .header-thumbnail
+    @extend %headerCol
+    width: 84px
+
+  .header-title
+    @extend %headerCol
+    min-width: 245px
+    width: calc((100% - #{$header-fixed-width}) * 0.2698237885462555)
+
+  .header-source
+    @extend %headerCol
+    min-width: 260px
+    width: calc((100% - #{$header-fixed-width}) * 0.28634361233480177)
+
+  .header-counts
+    @extend %headerCol
+    min-width: 196px
+    width: calc((100% - #{$header-fixed-width}) * 0.21585903083700442)
+
+  .header-date
+    @extend %headerCol
+    min-width: 130px
+    width: calc((100% - #{$header-fixed-width}) * 0.14317180616740088)
+
+  .header-toggle
+    @extend %headerCol
+    min-width: 77px
+    width: calc((100% - #{$header-fixed-width}) * 0.08480176211453745)

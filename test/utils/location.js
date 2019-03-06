@@ -4,11 +4,13 @@ import {
   getOfficerId,
   getCRID,
   getTRRId,
+  getDocumentId,
   getComplaintOfficerId,
   getOfficerActiveTab,
   serializeFilterParams,
   officerPath,
-  getUnitName
+  getUnitName,
+  getDocDedupCRID
 } from 'utils/location';
 
 
@@ -56,6 +58,16 @@ describe('location utils', function () {
     });
   });
 
+  describe('getDocumentId', function () {
+    it('should return NaN when url is undefined', function () {
+      getDocumentId(undefined).should.be.NaN();
+    });
+
+    it('should return document id', function () {
+      getDocumentId('/document/1234/').should.eql(1234);
+    });
+  });
+
   describe('getComplaintOfficerId', function () {
     it('should return NaN when url is undefined', function () {
       getComplaintOfficerId(undefined).should.be.NaN();
@@ -99,6 +111,16 @@ describe('location utils', function () {
 
     it('should return unit name', function () {
       getUnitName('/unit/123/').should.eql('123');
+    });
+  });
+
+  describe('getDocDedupCRID', function () {
+    it('should return null when url is undefined', function () {
+      should(getDocDedupCRID(undefined)).eql(null);
+    });
+
+    it('should return crid', function () {
+      getDocDedupCRID('/documents/crid/1000000/').should.eql('1000000');
     });
   });
 });

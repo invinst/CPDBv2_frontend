@@ -1,9 +1,10 @@
 import { createSelector } from 'reselect';
+import { get } from 'lodash';
 
 import editModeOnSelector from 'selectors/edit-mode-on';
 
 
-const isSignedIn = state => !!state.authentication.apiAccessToken;
+export const isSignedIn = state => !!get(state, 'authentication.apiAccessToken', false);
 
 export const showLogOutButton = createSelector(
   editModeOnSelector,

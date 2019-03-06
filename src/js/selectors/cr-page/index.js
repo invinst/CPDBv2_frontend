@@ -1,11 +1,12 @@
 import { createSelector } from 'reselect';
-import { map, get, reduce, defaults, compact, sortBy, kebabCase, isNil } from 'lodash';
+import { map, get, reduce, defaults, sortBy, kebabCase, isNil, isEmpty } from 'lodash';
 import pluralize from 'pluralize';
 
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
 import { getBreadcrumb } from '../breadcrumbs';
 import { getFindingOutcomeMix } from './finding-outcome-mix';
 import { officerCardTransform } from 'selectors/common/officer-card';
+import { getDemographicString } from 'utils/victims';
 
 
 export const getEditModeOn = state => state.crPage.editModeOn;
@@ -49,9 +50,6 @@ export const getDocumentAlreadyRequested = state => {
     state, `crPage.attachmentRequest.subscribedCRIDs[${crid}]`, undefined
   ));
 };
-
-const getDemographicString = ({ race, gender, age }) =>
-  compact([race, gender, age ? `Age ${age}` : null]).join(', ');
 
 const getComplainantStringSelector = createSelector(
   getComplainants,
@@ -183,3 +181,5 @@ export const contentSelector = createSelector(
     }))
   })
 );
+
+export const hasAttachmentsSelector = state => !isEmpty(getAttachments(state));

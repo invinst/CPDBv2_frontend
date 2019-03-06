@@ -20,6 +20,14 @@ export function getCRID(url) {
   return url.replace(crPattern, '$1');
 }
 
+export function getDocumentId(url) {
+  if (!url) {
+    return NaN;
+  }
+
+  return parseInt(url.replace(/.*document?\/(\d+).*/, '$1'));
+}
+
 export function getUnitName(url) {
   if (url === undefined) {
     return null;
@@ -53,3 +61,11 @@ export const officerPath = (subPath, pathname) => {
   }
   return pathname.replace(/(\d+).*/, '$1/');
 };
+
+export function getDocDedupCRID(url) {
+  const crPattern = /.*documents\/crid\/(\w+).*/;
+  if (url === undefined || !url.match(crPattern)) {
+    return null;
+  }
+  return url.replace(crPattern, '$1');
+}

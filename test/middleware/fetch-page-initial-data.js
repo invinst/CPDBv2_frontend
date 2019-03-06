@@ -1,9 +1,11 @@
 import { Promise } from 'es6-promise';
 import { stub } from 'sinon';
+import * as _ from 'lodash';
+import extractQuery from 'utils/extract-query';
 
 import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import { changeOfficerId, fetchOfficerSummary, requestCreateOfficerZipFile } from 'actions/officer-page';
-import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID } from 'utils/constants';
+import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, SIGNIN_REQUEST_SUCCESS } from 'utils/constants';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
 import { fetchPage } from 'actions/cms';
 import { getCommunities, getClusterGeoJson } from 'actions/landing-page/heat-map';
@@ -18,48 +20,83 @@ import { fetchUnitProfileSummary } from 'actions/unit-profile-page';
 import { pageLoadFinish, pageLoadStart } from 'actions/page-loading';
 import { fetchPopup } from 'actions/popup';
 import { requestSearchTermCategories } from 'actions/search-page/search-terms';
+import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
+import * as docOverviewPageActions from 'actions/documents-overview-page';
+import { requestCrawlers } from 'actions/crawlers-page';
+import { fetchDocument } from 'actions/document-page';
 
 
 const createLocationChangeAction = (pathname) => ({
   type: '@@router/LOCATION_CHANGE',
   payload: {
-    pathname: pathname
+    pathname: pathname,
+    query: extractQuery(pathname)
   }
 });
 
-describe('fetchPageInitialData middleware', function () {
-  const store = {
-    getState() {
-      return {
-        cms: {
-          pages: {},
-        },
-        landingPage: {
-          heatMap: {
-            communities: null,
-            citySummary: {},
-            clusterGeoJson: null
-          },
-          officersByAllegation: {
-            cards: []
-          },
-          recentDocument: {
-            cards: []
-          },
-          complaintSummaries: {
-            cards: []
-          },
-          activityGrid: {
-            cards: []
-          }
-        },
-        faqPage: {
-          faqsRequested: false
-        }
-      };
+const createSignInRequestSuccessAction = () => ({
+  type: SIGNIN_REQUEST_SUCCESS,
+  payload: {}
+});
+
+const buildStore = () => ({
+  _state: {
+    cms: {
+      pages: {},
     },
-    dispatch: stub().usingPromise(Promise).resolves('abc')
-  };
+    landingPage: {
+      heatMap: {
+        communities: null,
+        citySummary: {},
+        clusterGeoJson: null
+      },
+      officersByAllegation: {
+        cards: []
+      },
+      recentDocument: {
+        cards: []
+      },
+      complaintSummaries: {
+        cards: []
+      },
+      activityGrid: {
+        cards: []
+      }
+    },
+    faqPage: {
+      faqsRequested: false
+    },
+    documentDeduplicatorPage: {
+      documents: {
+        data: {},
+        crid: ''
+      },
+      pagination: {},
+      documentsOrder: {
+        data: [],
+        crid: ''
+      }
+    },
+    documentsOverviewPage: {
+      documents: {
+        data: {},
+        match: ''
+      },
+      pagination: {},
+      documentsOrder: {
+        data: [],
+        match: ''
+      }
+    }
+  },
+  getState() {
+    return this._state;
+  },
+  dispatch: stub().usingPromise(Promise).resolves('abc')
+});
+
+describe('fetchPageInitialData middleware', function () {
+  const store = buildStore();
 
   beforeEach(function () {
     const action = createLocationChangeAction('');
@@ -207,6 +244,26 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(requestSearchTermCategories()).should.be.true();
   });
 
+  it('should dispatch fetchDocument when location changes', function () {
+    const action = createLocationChangeAction('/document/1234/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
+  });
+
+  it('should dispatch fetchDocument when signing in successfully', function () {
+    const store = buildStore();
+    _.set(store._state, 'pathname', '/document/1234/');
+    const action = createSignInRequestSuccessAction();
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocument(1234)).should.be.true();
+  });
+
   it('should dispatch getCommunities, getClusterGeoJson and getCitySummary', function () {
     const action = createLocationChangeAction('/embed/map/');
     let dispatched;
@@ -226,5 +283,69 @@ describe('fetchPageInitialData middleware', function () {
 
     store.dispatch.calledWith(fetchPage(LANDING_PAGE_ID)()).should.be.true();
     store.dispatch.calledWith(requestOfficersByAllegation()).should.be.true();
+  });
+
+  it('should dispatch fetchDocumentsByCRID', function () {
+    const action = createLocationChangeAction('/documents/crid/1000000/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocumentsByCRID({ crid: '1000000' })).should.be.true();
+  });
+
+  it('should not dispatch fetchDocumentsByCRID when crid hasnt changed', function () {
+    const store = buildStore();
+    _.set(store._state, 'documentDeduplicatorPage.documents.crid', '123');
+    const action = createLocationChangeAction('/documents/crid/123/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocumentsByCRID({ crid: '123' })).should.be.false();
+  });
+
+  it('should dispatch fetchDocuments', function () {
+    const action = createLocationChangeAction('/documents/');
+    let dispatched;
+    const fetchDocuments = stub(docOverviewPageActions, 'fetchDocuments');
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocuments()).should.be.true();
+    fetchDocuments.restore();
+  });
+
+  it('should dispatch fetchDocuments with match params page', function () {
+    const action = createLocationChangeAction('/documents/?match=1000000');
+    let dispatched;
+    const fetchDocuments = stub(docOverviewPageActions, 'fetchDocuments');
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocuments({ match: '1000000' })).should.be.true();
+    fetchDocuments.restore();
+  });
+
+  it('should not dispatch fetchDocuments when match is not empty and hasnt changed ', function () {
+    const store = buildStore();
+    _.set(store._state, 'documentsOverviewPage.documents.match', '1000000');
+    const action = createLocationChangeAction('/documents/?match=1000000');
+    let dispatched;
+    const fetchDocuments = stub(docOverviewPageActions, 'fetchDocuments');
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchDocuments({ match: '1000000' })).should.be.false();
+    fetchDocuments.restore();
+  });
+
+  it('should dispatch requestCrawlers', function () {
+    const action = createLocationChangeAction('/crawlers/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(requestCrawlers()).should.be.true();
   });
 });

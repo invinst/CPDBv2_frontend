@@ -10,6 +10,7 @@ import crs from './crs';
 import officerPage from './officer-page';
 import crPage from './cr-page';
 import trrPage from './trr-page';
+import documentPage from './document-page';
 import unitProfilePage from './unit-profile-page';
 import inlineAliasAdminPage from './inline-alias-admin-page';
 import genericModal from './generic-modal';
@@ -20,6 +21,9 @@ import pageLoading from './page-loading';
 import popups from './popups';
 import embed from './embed';
 import pathname from './pathname';
+import documentsOverviewPage from './documents-overview-page';
+import documentDeduplicatorPage from './document-deduplicator-page';
+import crawlersPage from './crawlers-page';
 
 
 export default combineReducers({
@@ -32,6 +36,7 @@ export default combineReducers({
   officerPage,
   crPage,
   trrPage,
+  documentPage,
   unitProfilePage,
   inlineAliasAdminPage,
   genericModal,
@@ -43,4 +48,7 @@ export default combineReducers({
   popups,
   embed,
   pathname,
+  documentsOverviewPage,
+  documentDeduplicatorPage,
+  crawlersPage
 });

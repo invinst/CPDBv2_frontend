@@ -55,7 +55,7 @@ describe('Search Page', function () {
     searchPage.crResultsSection.results.count.should.equal(2);
     searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
     searchPage.crResultsSection.firstResultSubText.getText().should.equal('an officer named Kelly caught the victim');
-    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456');
+    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 - November 12, 2006');
     searchPage.crResultsSection.secondResultSubText.getText().should.equal('');
 
     searchPage.trrResultsSection.results.count.should.equal(2);
@@ -79,6 +79,8 @@ describe('Search Page', function () {
     );
     searchPage.investigatorCRResultsSection.secondResultText.getText().should.equal('CR # CR654321');
     searchPage.investigatorCRResultsSection.secondResultSubText.getText().should.equal('');
+    searchPage.investigatorCRResultsSection.firstResultText.click();
+    searchPage.crPreviewPaneSection.callToAction.getText().should.eql('View Complaint Record');
   });
 
   it('should able to show date > trr and date > cr results', function () {
@@ -94,6 +96,7 @@ describe('Search Page', function () {
     searchPage.dateCRResultsSection.firstResultSubText.getText().should.equal('');
     searchPage.dateCRResultsSection.secondResultText.getText().should.equal('CR # CR456 - April 23, 2004');
     searchPage.dateCRResultsSection.secondResultSubText.getText().should.equal('');
+    searchPage.crPreviewPaneSection.callToAction.getText().should.eql('View Complaint Record');
 
     searchPage.dateTRRResultsSection.results.count.should.equal(2);
     searchPage.dateTRRResultsSection.firstResultText.getText().should.equal('Member Presence');
@@ -488,6 +491,47 @@ describe('Search Page', function () {
       searchPage.rankPreviewPaneSection.previewPane.waitForVisible();
       searchPage.rankPreviewPaneSection.listMostOfficers.count.should.eql(2);
       searchPage.rankPreviewPaneSection.listMostOfficers.click();
+      browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
+    });
+  });
+
+  describe('CRPreviewPane', function () {
+    beforeEach(function () {
+      searchPage.input.waitForVisible();
+      searchPage.input.setValue('CR only');
+      searchPage.crResultsSection.firstResultText.waitForVisible();
+      searchPage.crPreviewPaneSection.wrapper.waitForVisible();
+    });
+
+    it('should render enough content', function () {
+      searchPage.crPreviewPaneSection.callToAction.getText().should.eql('View Complaint Record');
+      searchPage.crPreviewPaneSection.title.getText().should.eql('Lockup Procedures');
+      searchPage.crPreviewPaneSection.subtitle.getText().should.eql('Reports');
+      searchPage.crPreviewPaneSection.incidentDate.getText().should.eql('APR 23, 2004');
+      searchPage.crPreviewPaneSection.address.getText().should.eql('14XX W 63RD ST, CHICAGO IL 60636');
+      searchPage.crPreviewPaneSection.victimText.getText().should.eql('VICTIMS');
+      searchPage.crPreviewPaneSection.victims.count.should.eql(2);
+      searchPage.crPreviewPaneSection.firstVictim.getText().should.eql('Hispanic, Female');
+      searchPage.crPreviewPaneSection.secondVictim.getText().should.eql('Hispanic, Female, Age 48');
+      searchPage.crPreviewPaneSection.accusedText.getText().should.eql('ACCUSED OFFICERS');
+      searchPage.crPreviewPaneSection.accusedOfficers.count.should.eql(2);
+    });
+
+    it('should display gradient when window height is small', function () {
+      browser.setViewportSize({
+        width: 1000,
+        height: 500
+      });
+      searchPage.crPreviewPaneSection.gradient.waitForVisible();
+    });
+
+    it('should go to cr page when being clicked', function () {
+      searchPage.crPreviewPaneSection.title.click();
+      browser.getUrl().should.match(/\/complaint\/\w+\/$/);
+    });
+
+    it('should redirect to officer profile when clicking on officer item', function () {
+      searchPage.crPreviewPaneSection.accusedOfficers.click();
       browser.getUrl().should.match(/\/officer\/\d+\/[\-a-z]+\/$/);
     });
   });
