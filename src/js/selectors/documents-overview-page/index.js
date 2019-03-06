@@ -37,7 +37,9 @@ export const documentsSelector = createSelector(
         viewsCount: doc['views_count'],
         downloadsCount: doc['downloads_count'],
         documentsCount: parseInt(doc['documents_count']) - 1,
-        crid: doc['crid']
+        crid: doc['crid'],
+        fileType: doc['file_type'],
+        url: doc['url'],
       });
     });
     return results;

@@ -41,7 +41,7 @@ import { getCRPopup } from './popup';
 import { getCommunity } from './community';
 import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
 import searchDocuments from './documents-overview-page/search-documents';
-import fetchDocuments from './/documents-overview-page/fetch-documents';
+import fetchDocuments from './documents-overview-page/fetch-documents';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 
 

@@ -10,6 +10,7 @@ import crs from './crs';
 import officerPage from './officer-page';
 import crPage from './cr-page';
 import trrPage from './trr-page';
+import documentPage from './document-page';
 import unitProfilePage from './unit-profile-page';
 import inlineAliasAdminPage from './inline-alias-admin-page';
 import genericModal from './generic-modal';
@@ -35,6 +36,7 @@ export default combineReducers({
   officerPage,
   crPage,
   trrPage,
+  documentPage,
   unitProfilePage,
   inlineAliasAdminPage,
   genericModal,

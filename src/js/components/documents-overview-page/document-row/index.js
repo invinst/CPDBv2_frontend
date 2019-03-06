@@ -5,15 +5,20 @@ import cx from 'classnames';
 import Counter from './counter';
 import CRLink from './cr-link';
 import styles from './document-row.sass';
+import { ATTACHMENT_TYPES } from 'utils/constants';
+import { trackOutboundLink } from 'utils/google_analytics_tracking';
 
 export default class DocumentRow extends Component {
-  handleClick(id) {
-    browserHistory.push(`/tracker/document/${id}/`);
+  handleClick() {
+    const { id, fileType, url } = this.props;
+    if (fileType === ATTACHMENT_TYPES.DOCUMENT)
+      browserHistory.push(`/document/${id}/`);
+    else
+      trackOutboundLink(url, '_blank');
   }
 
   render() {
     const {
-      id,
       thumbnail,
       title,
       source,
@@ -28,7 +33,7 @@ export default class DocumentRow extends Component {
 
     return (
       <div
-        onClick={ this.handleClick.bind(this, id) }
+        onClick={ this.handleClick.bind(this) }
         className={ cx(styles.row, { 'edit-mode': editModeOn }) }>
         <span
           className='document-thumbnail'
@@ -73,4 +78,6 @@ DocumentRow.propTypes = {
   documentsCount: PropTypes.number,
   onCRLinkClick: PropTypes.func,
   editModeOn: PropTypes.bool
+  fileType: PropTypes.string,
+  url: PropTypes.string,
 };

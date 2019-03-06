@@ -14,17 +14,20 @@ import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import DocumentRow from 'components/document-deduplicator-page/document-row';
 import Toggle from 'components/document-deduplicator-page/document-row/toggle';
 import Counter from 'components/document-deduplicator-page/document-row/counter';
+import * as GAUtils from 'utils/google_analytics_tracking';
 
 describe('DocumentDeduplicatorPage DocumentRow component', function () {
   let instance;
 
   beforeEach(function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
+    this.trackOutboundLink = stub(GAUtils, 'trackOutboundLink');
   });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
     this.browserHistoryPush.restore();
+    this.trackOutboundLink.restore();
   });
 
   it('should display thumbnail if there is one', function () {
@@ -117,12 +120,23 @@ describe('DocumentDeduplicatorPage DocumentRow component', function () {
     scryRenderedComponentsWithType(instance, Toggle).should.have.length(0);
   });
 
-  it('should call browserHistory.push when clicked on', function () {
+  it('should call browserHistory.push when clicked on if fileType is document', function () {
     instance = renderIntoDocument(
-      <DocumentRow id={ 1 } show={ true }/>
+      <DocumentRow id={ 1 } show={ true } fileType='document'/>
     );
     const div = findDOMNode(instance);
     Simulate.click(div);
-    this.browserHistoryPush.calledWith('/tracker/document/1/').should.be.true();
+    this.browserHistoryPush.calledWith('/document/1/').should.be.true();
+    this.trackOutboundLink.called.should.be.false();
+  });
+
+  it('should call browserHistory.push when clicked on if fileType is not document', function () {
+    instance = renderIntoDocument(
+      <DocumentRow id={ 1 } show={ true } url='http://audio/link/1' fileType='audio'/>
+    );
+    const div = findDOMNode(instance);
+    Simulate.click(div);
+    this.browserHistoryPush.calledWith('http://audio/link/1').should.be.false();
+    this.trackOutboundLink .calledWith('http://audio/link/1', '_blank').should.be.true();
   });
 });
