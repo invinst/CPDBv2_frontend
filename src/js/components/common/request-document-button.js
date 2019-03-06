@@ -31,7 +31,7 @@ export class RequestDocumentButton extends Component {
       >
         {
           !alreadyRequested
-            ? 'Request Documents'
+            ? (hasData ? 'New Document Notifications' : 'Request Documents')
             : <span>Documents Requested &nbsp; <span>✔</span></span>
         }
       </div>

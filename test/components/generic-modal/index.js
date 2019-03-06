@@ -16,7 +16,7 @@ import LegalDisclaimerModalContent from 'components/generic-modal/legal-disclaim
 import GenericModal from 'components/generic-modal';
 import RequestDocumentModalContent from 'containers/cr-page/request-document-modal-container';
 import RequestTRRDocumentModalContent from 'containers/trr-page/request-document-modal-container';
-import { CR_EDIT_TYPES, TRR_EDIT_TYPES } from 'utils/constants';
+import { CR_EDIT_TYPES } from 'utils/constants';
 
 
 describe('GenericModal component', function () {
@@ -45,19 +45,67 @@ describe('GenericModal component', function () {
     findRenderedComponentWithType(element, LegalDisclaimerModalContent).props.closeModal.should.equal(closeModal);
   });
 
-  it('should render RequestDocumentModalContent when activeModal matches', function () {
+  it('should render RequestDocumentModalContent for DOCUMENT_REQUEST when activeModal matches', function () {
     const store = MockStore()({
       cms: { pages: {} },
       breadcrumb: {
         breadcrumbs: []
       },
       crPage: {
+        crid: '123456',
         attachmentRequest: {
           request: {}
         },
         editModeOn: {
-          [TRR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
-          [TRR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+          [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+          [CR_EDIT_TYPES.DOCUMENT_REQUEST_INSTRUCTION]: false,
+        }
+      },
+      crs: {
+        '123456': {
+          attachments: []
+        }
+      }
+    });
+    const closeModal = () => {};
+
+    element = renderIntoDocument(
+      <Provider store={ store }>
+        <GenericModal
+          location={ { pathname: '/complaint/123/' } }
+          activeModal='REQUEST_DOCUMENT'
+          closeModal={ closeModal }
+        />
+      </Provider>
+    );
+
+    findRenderedComponentWithType(element, RequestDocumentModalContent).props.closeModal.should.equal(closeModal);
+  });
+
+  it('should render RequestDocumentModalContent for NEW_DOCUMENT_NOTIFICATIONS when activeModal matches', function () {
+    const store = MockStore()({
+      cms: { pages: {} },
+      breadcrumb: {
+        breadcrumbs: []
+      },
+      crPage: {
+        crid: '123456',
+        attachmentRequest: {
+          request: {}
+        },
+        editModeOn: {
+          [CR_EDIT_TYPES.NO_ATTACHMENT_TEXT]: false,
+          [CR_EDIT_TYPES.NEW_DOCUMENT_NOTIFICATIONS_INSTRUCTION]: false,
+        }
+      },
+      crs: {
+        '123456': {
+          attachments: [{
+            url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html',
+            previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
+            fileType: 'document',
+            id: '123',
+          }]
         }
       }
     });

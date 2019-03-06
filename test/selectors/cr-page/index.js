@@ -6,7 +6,8 @@ import {
   getCRID,
   getEditModeOn,
   getOfficerId,
-  getDocumentAlreadyRequested
+  getDocumentAlreadyRequested,
+  hasAttachmentsSelector
 } from 'selectors/cr-page';
 import {
   InvestigatorFactory,
@@ -442,6 +443,37 @@ describe('CR page selectors', function () {
       getEditModeOn({
         crPage: { editModeOn: { a: true } }
       }).should.eql({ a: true });
+    });
+  });
+
+  describe('hasAttachmentsSelector', function () {
+    it('should return false if we have no attachment', function () {
+      const state = {
+        crPage: {
+          crid: 123,
+        },
+        crs: {}
+      };
+      hasAttachmentsSelector(state).should.be.false();
+    });
+
+    it('should return true if we have attachments', function () {
+      const state = {
+        crPage: {
+          crid: 123,
+        },
+        crs: {
+          123: {
+            attachments: [{
+              url: 'https://www.documentcloud.org/documents/3108232-CRID-1071970-OCIR-3-of-3.html',
+              previewImageUrl: 'https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p1-normal.gif',
+              fileType: 'document',
+              id: '123456',
+            }]
+          }
+        }
+      };
+      hasAttachmentsSelector(state).should.be.true();
     });
   });
 });
