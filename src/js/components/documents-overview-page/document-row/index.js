@@ -77,7 +77,7 @@ DocumentRow.propTypes = {
   crid: PropTypes.string,
   documentsCount: PropTypes.number,
   onCRLinkClick: PropTypes.func,
-  editModeOn: PropTypes.bool
+  editModeOn: PropTypes.bool,
   fileType: PropTypes.string,
   url: PropTypes.string,
 };
