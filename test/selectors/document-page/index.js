@@ -1,6 +1,7 @@
-import { getTitleEditModeOn, getTextContentEditModeOn, documentSelector } from 'selectors/document-page';
 import moment from 'moment-timezone';
 
+import { getTitleEditModeOn, getTextContentEditModeOn, documentSelector } from 'selectors/document-page';
+import { omit } from 'lodash';
 
 describe('Document selectors', function () {
   describe('getTitleEditModeOn', function () {
@@ -71,14 +72,8 @@ describe('Document selectors', function () {
         url: 'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf',
         previewImageUrl: 'https://assets.documentcloud.org/documents/5680384/pages/CRID-1083633.gif',
         crid: '1083633',
-        source: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
-        crawlerName: 'Chicago COPA',
-        downloadCount: 100,
-        viewCount: 1000,
-        notificationCount: 10,
         pageCount: 5,
         lastUpdatedBy: 'John Doe',
-        createdAt: 'Jan 9, 2019',
         linkedDocuments: [{
           id: 14192,
           previewImageUrl: 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
@@ -87,6 +82,54 @@ describe('Document selectors', function () {
           previewImageUrl: 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
         }],
         lastEditedDateTime: 'at 08:50PM on Feb 28, 2019',
+        infoItems: [
+          { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
+          {
+            name: 'Source',
+            value: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
+            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
+          },
+          { name: 'Crawler', value: 'Chicago COPA' },
+          { name: 'Date', value: 'Jan 9, 2019' },
+          { name: 'Views', value: '1,000' },
+          { name: 'Downloads', value: '100' },
+          { name: 'Notifications', value: '10' },
+        ],
+      });
+    });
+
+    it('should omit views, downloads, notifications if undefined', function () {
+      const newState = omit(state, [
+        'documentPage.data.views_count', 'documentPage.data.downloads_count', 'documentPage.data.notifications_count']
+      );
+
+      documentSelector(newState).should.eql({
+        attachmentId: 14193,
+        title: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+        fullText: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
+        url: 'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf',
+        previewImageUrl: 'https://assets.documentcloud.org/documents/5680384/pages/CRID-1083633.gif',
+        crid: '1083633',
+        pageCount: 5,
+        lastUpdatedBy: 'John Doe',
+        linkedDocuments: [{
+          id: 14192,
+          previewImageUrl: 'https://assets.documentcloud.org/documents/5680385/pages/CRID-1083633.gif'
+        }, {
+          id: 14188,
+          previewImageUrl: 'https://assets.documentcloud.org/documents/5680389/pages/CRID-1083633.gif'
+        }],
+        lastEditedDateTime: 'at 08:50PM on Feb 28, 2019',
+        infoItems: [
+          { name: 'CRID / UID', value: 'CR 1083633', to: '/complaint/1083633/' },
+          {
+            name: 'Source',
+            value: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf',
+            url: 'https://www.chicagocopa.org/wp-content/uploads/2017/03/TRR-HOSPITAL-REDACTED.pdf'
+          },
+          { name: 'Crawler', value: 'Chicago COPA' },
+          { name: 'Date', value: 'Jan 9, 2019' },
+        ],
       });
     });
   });

@@ -3,7 +3,7 @@ import DocumentMeta from 'react-document-meta';
 import { Link } from 'react-router';
 import pluralize from 'pluralize';
 
-import { slice, isUndefined } from 'lodash';
+import { slice } from 'lodash';
 
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import styles from './document-page.sass';
@@ -13,45 +13,22 @@ import FooterContainer from 'containers/footer-container';
 import { SHAREABLE_HEADER_BUTTON_TYPE } from 'utils/constants';
 
 
-
 export default class DocumentPage extends Component {
   render() {
     const {
       title,
       url,
       previewImageUrl,
-      crid,
-      source,
-      crawlerName,
-      createdAt,
-      downloadCount,
-      viewCount,
-      notificationCount,
       pageCount,
+      crid,
       linkedDocuments,
       lastUpdatedBy,
       lastEditedDateTime,
       titleEditWrapperStateProps,
       textContentEditWrapperStateProps,
       isSignedIn,
+      infoItems,
     } = this.props;
-
-    const infoItems = [
-      { name: 'CRID / UID', value: `CR ${ crid }`, to: `/complaint/${crid}/` },
-      { name: 'Source', value: source, url: source },
-      { name: 'Crawler', value: crawlerName },
-      { name: 'Date', value: createdAt },
-    ];
-
-    if (!isUndefined(viewCount)) {
-      infoItems.push({ name: 'Views', value: viewCount.toLocaleString() });
-    }
-    if (!isUndefined(downloadCount)) {
-      infoItems.push({ name: 'Downloads', value: downloadCount.toLocaleString() });
-    }
-    if (!isUndefined(notificationCount)) {
-      infoItems.push({ name: 'Notifications', value: notificationCount.toLocaleString() });
-    }
 
     const displayedDocuments = slice(linkedDocuments, 0, 11);
     const restDocumentsCount = linkedDocuments.length - displayedDocuments.length;
@@ -127,12 +104,6 @@ DocumentPage.propTypes = {
   url: PropTypes.string,
   previewImageUrl: PropTypes.string,
   crid: PropTypes.string,
-  source: PropTypes.string,
-  crawlerName: PropTypes.string,
-  createdAt: PropTypes.string,
-  downloadCount: PropTypes.number,
-  viewCount: PropTypes.number,
-  notificationCount: PropTypes.number,
   pageCount: PropTypes.number,
   linkedDocuments: PropTypes.array,
   lastUpdatedBy: PropTypes.string,
@@ -140,4 +111,5 @@ DocumentPage.propTypes = {
   titleEditWrapperStateProps: PropTypes.object,
   textContentEditWrapperStateProps: PropTypes.object,
   isSignedIn: PropTypes.bool,
+  infoItems: PropTypes.array,
 };
