@@ -1,10 +1,14 @@
 @import 'variables'
 
+$header-fixed-width: 81
+$table-min-width: 960
+$horizontal-margin: 32px
+
 \:local(.table)
-  width: calc(100% - 32px)
-  min-width: 992px
-  margin-left: 16px
-  margin-right: 16px
+  width: calc(100% - $horizontal-margin)
+  min-width: calc(#{$table-min-width}px + #{$horizontal-margin})
+  margin-left: calc(#{$horizontal-margin} / 2)
+  margin-right: calc(#{$horizontal-margin} / 2)
   font-size: 14px
   color: $clay-gray
 
@@ -16,7 +20,8 @@
   vertical-align: top
   box-sizing: border-box
 
-$header-fixed-width: 81px
+@function flexible-column($min-width)
+  @return calc((100% - #{$header-fixed-width}px) * (#{$min-width} / (#{$table-min-width} - #{$header-fixed-width})))
 
 \:local(.headerRow)
   background-color: white
@@ -34,31 +39,51 @@ $header-fixed-width: 81px
 
   .header-title
     @extend %headerCol
-    min-width: 242px
-    width: calc((100% - #{$header-fixed-width}) * 0.2753128555176337)
+    min-width: 306px
+    width: flexible-column(306)
 
   .header-crid-uid
     @extend %headerCol
-    min-width: 149px
-    width: calc((100% - #{$header-fixed-width}) * 0.1695108077360637)
+    min-width: 188px
+    width: flexible-column(188)
 
   .header-source
     @extend %headerCol
-    min-width: 245px
-    width: calc((100% - #{$header-fixed-width}) * 0.2787258248009101)
+    min-width: 309px
+    width: flexible-column(309)
 
   .header-counts
     @extend %headerCol
-    min-width: 183px
-    width: calc((100% - #{$header-fixed-width}) * 0.20819112627986347)
+    display: none
 
   .header-date
     @extend %headerCol
-    min-width: 60px
-    width: calc((100% - #{$header-fixed-width}) * 0.06825938566552901)
-    padding-right: 15px
     text-align: right
+    padding-right: 15px
+    min-width: 76px
+    width: flexible-column(76)
 
+  &.edit-mode
+    .header-title
+      min-width: 242px
+      width: flexible-column(242)
+
+    .header-crid-uid
+      min-width: 149px
+      width: flexible-column(149)
+
+    .header-source
+      min-width: 245px
+      width: flexible-column(245)
+
+    .header-counts
+      display: inline-block
+      min-width: 183px
+      width: flexible-column(183)
+
+    .header-date
+      min-width: 60px
+      width: flexible-column(60)
 
 \:local(.rowsWrapper)
   background-color: $sugar-cane-color

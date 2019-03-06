@@ -34,12 +34,18 @@ class DocumentsOverviewPage extends Page {
     });
   }
 
-  open(queryParams) {
-    let queries = '?' + _.map(_.toPairs(queryParams), ([key, val]) => `${key}=${val}`).join('&');
+  open(queryParams, editModeOn) {
     let url = '/documents/';
+
+    let queries = '?' + _.map(_.toPairs(queryParams), ([key, val]) => `${key}=${val}`).join('&');
     if (queries !== '?') {
       url = url + queries;
     }
+
+    if (editModeOn) {
+      url = `/edit${url}`;
+    }
+
     super.open(url);
     browser.element('body').waitForVisible();
   }

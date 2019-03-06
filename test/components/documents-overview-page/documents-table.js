@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   renderIntoDocument,
-  findRenderedComponentWithType
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
 import InfiniteScroll from 'react-infinite-scroller';
 import { spy, stub } from 'sinon';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import DocumentsTable from 'components/documents-overview-page/documents-table';
 import DocumentRow from 'components/documents-overview-page/document-row';
 import MonthSeparator from 'components/documents-overview-page/month-separator';
@@ -42,7 +42,8 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
       }
     ];
     const onCRLinkClick = spy();
-    instance = renderIntoDocument(
+    instance = renderWithContext(
+      { editModeOn: true },
       <DocumentsTable rows={ rows } onCRLinkClick={ onCRLinkClick }/>
     );
 
@@ -50,7 +51,8 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
     row.props.should.containEql({
       id: 1,
       kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT,
-      onCRLinkClick: onCRLinkClick
+      onCRLinkClick: onCRLinkClick,
+      editModeOn: true
     });
   });
 
