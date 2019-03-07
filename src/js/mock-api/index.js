@@ -42,6 +42,7 @@ import { getCommunity } from './community';
 import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
+import fetchDocumentsAuthenticated from './documents-overview-page/fetch-documents-authenticated';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 
 
@@ -136,6 +137,11 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { crid: '1000000', limit: un
 axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { match: '123457' } }).reply(200, searchDocuments());
 
 axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`).reply(200, { show: false });
+
+axiosMockClient.onGet(
+  `${DOCUMENTS_URL}`,
+  { headers: { 'Authorization': 'Token 055a5575c1832e9123cd546fe0cfdc8607f8680c' } }
+).reply(200, fetchDocumentsAuthenticated());
 
 axiosMockClient.onGet(`${DOCUMENTS_URL}`).reply(200, fetchDocuments());
 

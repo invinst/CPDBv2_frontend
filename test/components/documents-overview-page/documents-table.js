@@ -104,4 +104,34 @@ describe('DocumentsOverviewPage DocumentsTable component', function () {
     findRenderedComponentWithType(instance, InfiniteScroll).props.loadMore();
     fetchDocuments.calledWith({ ...nextParams }).should.be.true();
   });
+
+  it('should call fetchDocumentsAuthenticated if editModeOn is True on load more', function () {
+    const rows = [
+      {
+        id: '01-2019',
+        kind: constants.DOCUMENTS_SEARCH_ITEMS.MONTH_SEPARATOR,
+        text: 'Jan 2019'
+      },
+      {
+        id: 1,
+        kind: constants.DOCUMENTS_SEARCH_ITEMS.DOCUMENT
+      }
+    ];
+    const nextParams = {
+      limit: 1,
+      offset: 1
+    };
+    const fetchDocumentsAuthenticated = stub().returns({ catch: stub() });
+
+    instance = renderWithContext(
+      { editModeOn: true },
+      <DocumentsTable
+        rows={ rows }
+        hasMore={ true }
+        nextParams={ nextParams }
+        fetchDocumentsAuthenticated={ fetchDocumentsAuthenticated }/>
+    );
+    findRenderedComponentWithType(instance, InfiniteScroll).props.loadMore();
+    fetchDocumentsAuthenticated.calledWith({ ...nextParams }).should.be.true();
+  });
 });

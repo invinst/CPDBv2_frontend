@@ -27,8 +27,9 @@ export default class DocumentsTable extends Component {
   }
 
   render() {
-    const { rows, hasMore, nextParams, fetchDocuments, onCRLinkClick } = this.props;
+    const { rows, hasMore, nextParams, fetchDocuments, fetchDocumentsAuthenticated, onCRLinkClick } = this.props;
     const { editModeOn } = this.context;
+    const fetch = editModeOn ? fetchDocumentsAuthenticated : fetchDocuments;
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
         <div className={ styles.table }>
@@ -42,7 +43,7 @@ export default class DocumentsTable extends Component {
           </div>
           <div className={ styles.rowsWrapper }>
             <InfiniteScroll
-              loadMore={ () => hasMore ? fetchDocuments(nextParams) : null }
+              loadMore={ () => hasMore ? fetch(nextParams) : null }
               initialLoad={ false }
               hasMore={ hasMore }
               useWindow={ true }>
@@ -65,7 +66,8 @@ DocumentsTable.propTypes = {
   hasMore: PropTypes.bool,
   nextParams: PropTypes.object,
   fetchDocuments: PropTypes.func,
-  onCRLinkClick: PropTypes.func
+  fetchDocumentsAuthenticated: PropTypes.func,
+  onCRLinkClick: PropTypes.func,
 };
 
 DocumentsTable.defaultProps = {
