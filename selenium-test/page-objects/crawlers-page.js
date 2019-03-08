@@ -17,9 +17,10 @@ class TableSection extends Section {
       lastNumNewDocuments: '(//span[contains(@class, "num-new-documents")])[last()]',
       lastNumDocuments: '(//span[contains(@class, "num-documents")])[last()]',
       lastSuccessfulRuns: '(//span[contains(@class, "num-successful-runs")])[last()]',
-      firstCrawlerRow: '(//a[contains(@class, "crawler-row")])[1]',
+      firstCrawlerRow: '(//div[contains(@class, "crawler-row")])[1]',
       breadcrumbsItem: '(//li[contains(@class, "breadcrumbs-item")])[2]',
       documentsButton: '(//a[contains(@class, "button")])',
+      logFileModal: '(//div[contains(@class, "log-file-modal")])',
 
       crawlerNameHeader: '.header-col.crawler-header',
       recentRunAtHeader: '(//*[@class="header-col"])[1]',
@@ -31,7 +32,7 @@ class TableSection extends Section {
 
   rowCount() {
     return browser.elements(
-      '(//a[contains(@class, "crawler-row")])'
+      '(//div[contains(@class, "crawler-row")])'
     ).value.length;
   }
 }

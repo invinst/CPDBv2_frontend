@@ -3,8 +3,10 @@ import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
-  findRenderedDOMComponentWithClass
+  findRenderedDOMComponentWithClass,
+  Simulate
 } from 'react-addons-test-utils';
+import { stub } from 'sinon';
 
 import CrawlerRow from 'components/crawlers-page/crawler-row';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -61,15 +63,24 @@ describe('CrawlerRow component', function () {
     const numNewDocuments = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[2];
     const numDocuments = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[3];
     const numSuccessfulRun = scryRenderedDOMComponentsWithClass(instance, 'crawler-col')[4];
-    const crawlerRow = findDOMNode(instance);
 
     crawlerName.textContent.should.eql('PORTAL_COPA');
     recentRunAt.textContent.should.eql('2019-02-20');
     numNewDocuments.textContent.should.eql('5');
     numDocuments.textContent.should.eql('10');
     numSuccessfulRun.textContent.should.eql('2');
-    crawlerRow.getAttribute('href').should.eql(
-      'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
+  });
+
+  it('should call openLogFileModal action when click', function () {
+    const openLogFileStub = stub();
+    instance = renderIntoDocument(
+      <CrawlerRow
+        id={ 123 }
+        openLogFileModal={ openLogFileStub }
+      />
     );
+    const crawlerRow = findDOMNode(instance);
+    Simulate.click(crawlerRow);
+    openLogFileStub.calledWith(123).should.be.true();
   });
 });

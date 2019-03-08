@@ -234,6 +234,7 @@ describe('store', function () {
       },
       crawlersPage: {
         crawlers: [],
+        id: '',
         pagination: {}
       }
     });

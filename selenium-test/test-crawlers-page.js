@@ -1,12 +1,8 @@
 'use strict';
 
-import crPage from './page-objects/cr-page';
-
-
 require('should');
 
 import crawlersPage from './page-objects/crawlers-page';
-import { switchToRecentTab } from './utils';
 
 
 describe('Crawlers Page', function () {
@@ -30,13 +26,9 @@ describe('Crawlers Page', function () {
     crawlersPage.tableSection.breadcrumbsItem.getText().should.equal('Crawler Tracker');
   });
 
-  it('should go to new download window when click on crawler row', function () {
+  it('should open log file modal when click on crawler row', function () {
     crawlersPage.tableSection.firstCrawlerRow.click();
-
-    switchToRecentTab();
-    browser.getUrl().should.equal(
-      'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100330.txt'
-    );
+    crawlersPage.tableSection.logFileModal.waitForVisible();
   });
 
   it('should go to document page when click on Documents button', function () {
