@@ -11,15 +11,17 @@ export default class CrawlerRow extends Component {
   }
 
   handleClick() {
-    const { openLogFileModal, id } = this.props;
-    openLogFileModal(id);
+    const { openLogFileModal, id, logUrl } = this.props;
+    if (logUrl) {
+      openLogFileModal(id);
+    }
   }
 
   render() {
     const { crawlerName, status, recentRunAt, numNewDocuments, numDocuments, numSuccessfulRun, logUrl } = this.props;
     return (
       <div
-        className={ cx(styles.crawlerRow, { 'no-log-file': isEmpty(logUrl) }) }
+        className={ cx(styles.crawlerRow, { 'has-log-file': !isEmpty(logUrl) }) }
         onClick={ this.handleClick }
       >
         <span className='crawler-col crawler-name'>{ crawlerName }</span>

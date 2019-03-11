@@ -7,8 +7,6 @@ import {
 import LogFileModalContent from 'components/generic-modal/log-file-modal-content';
 
 
-
-
 describe('LogFileModalContent component', function () {
   it('should render log file content', function () {
     const crawler = {

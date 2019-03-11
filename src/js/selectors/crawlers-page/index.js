@@ -27,5 +27,5 @@ export const nextParamsSelector = createSelector(
 
 export const currentCrawler = state => {
   const crawlers = crawlersSelector(state);
-  return crawlers.filter(crawler => crawler['id'] === state.crawlersPage.id)[0];
+  return crawlers.filter(crawler => crawler['id'] === state.crawlersPage.currentCrawlerId)[0];
 };

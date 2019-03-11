@@ -2,11 +2,11 @@ import { combineReducers } from 'redux';
 
 import crawlers from './crawlers';
 import pagination from './pagination';
-import id from './id';
+import currentCrawlerId from './current-crawler-id';
 
 
 export default combineReducers({
   crawlers,
   pagination,
-  id
+  currentCrawlerId,
 });

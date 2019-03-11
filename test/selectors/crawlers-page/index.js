@@ -142,7 +142,7 @@ describe('Crawler page selectors', function () {
             'num_successful_run': 1,
             'log_url': 'https://lvh.me/cpdp-crawler-logs-develop/summary_reports_copa-2019-02-27-100332.txt'
           }],
-          id: 111
+          currentCrawlerId: 111
         }
       };
       currentCrawler(state).should.eql({

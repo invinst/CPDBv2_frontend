@@ -76,11 +76,25 @@ describe('CrawlerRow component', function () {
     instance = renderIntoDocument(
       <CrawlerRow
         id={ 123 }
+        logUrl='https://lvh.me/log'
         openLogFileModal={ openLogFileStub }
       />
     );
     const crawlerRow = findDOMNode(instance);
     Simulate.click(crawlerRow);
     openLogFileStub.calledWith(123).should.be.true();
+  });
+
+  it('should not call openLogFileModal action when click if logUrl is empty', function () {
+    const openLogFileStub = stub();
+    instance = renderIntoDocument(
+      <CrawlerRow
+        id={ 123 }
+        openLogFileModal={ openLogFileStub }
+      />
+    );
+    const crawlerRow = findDOMNode(instance);
+    Simulate.click(crawlerRow);
+    openLogFileStub.should.not.be.called();
   });
 });
