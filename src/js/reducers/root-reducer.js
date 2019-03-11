@@ -24,6 +24,7 @@ import pathname from './pathname';
 import documentsOverviewPage from './documents-overview-page';
 import documentDeduplicatorPage from './document-deduplicator-page';
 import crawlersPage from './crawlers-page';
+import socialGraphPage from './social-graph-page';
 
 
 export default combineReducers({
@@ -50,5 +51,6 @@ export default combineReducers({
   pathname,
   documentsOverviewPage,
   documentDeduplicatorPage,
-  crawlersPage
+  crawlersPage,
+  socialGraphPage,
 });
