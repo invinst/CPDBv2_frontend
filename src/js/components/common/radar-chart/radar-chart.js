@@ -72,6 +72,7 @@ export default class RadarChart extends Component {
       boundaryAreaColor,
       strokeWidth,
       radarMainAreaOpacity,
+      outerGridOnly
     } = this.props;
 
     const transformData = this.embedComputedPosition();
@@ -117,6 +118,7 @@ export default class RadarChart extends Component {
           />
           { showGrid && (
             <RadarGrid
+              outerGridOnly={ outerGridOnly }
               opacity={ gridOpacity }
               numAxis={ this.getNumMetrics() }
               radius={ radius }
@@ -144,6 +146,7 @@ RadarChart.defaultProps = {
   showArea: false,
   axisTitleFontSize: 14,
   showGrid: false,
+  outerGridOnly: false,
   gridOpacity: 1,
   showSpineLine: true,
   showSpineLinePoint: false,
@@ -174,6 +177,7 @@ RadarChart.propTypes = {
   showGrid: PropTypes.bool,
   gridOpacity: PropTypes.number,
   gridColor: PropTypes.string,
+  outerGridOnly: PropTypes.bool,
   showSpineLine: PropTypes.bool,
   showSpineLinePoint: PropTypes.bool,
   legendText: PropTypes.oneOfType([
