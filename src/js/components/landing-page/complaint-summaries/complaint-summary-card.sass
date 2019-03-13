@@ -2,9 +2,7 @@
 
 \:local(.complaint-summary-card)
   display: block
-  height: 266px
   border-radius: 2px
-  padding: 11px 12px
   box-sizing: border-box
   border: solid 1px $white-two-color
   font-weight: 300
@@ -13,7 +11,9 @@
     border: solid 1px $accent-color
 
   .complaint-summary-card-title
-    height: 61px
+    height: 70px
+    padding: 11px 12px
+    box-sizing: border-box
 
     .complaint-summary-card-title-date
       line-height: 14px
@@ -37,12 +37,14 @@
 
   .complaint-summary-card-summary
     box-sizing: border-box
-    padding-top: 11px
+    padding: 11px 12px
     border-top: solid 1px $white-two-color
     font-size: 14px
     color: $clay-gray
     font-weight: 200
     position: relative
+    height: 196px
+    overflow: hidden
 
     &:hover
       border-top: solid 1px $accent-color
