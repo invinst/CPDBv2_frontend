@@ -170,7 +170,7 @@ describe('DocumentPage component', function () {
     linkDocumentsTitle.textContent.should.eql('Linked Documents (14)');
 
     const linkDocumentsContent = findRenderedDOMComponentWithClass(instance, 'linked-documents-content');
-    linkDocumentsContent.getAttribute('href').should.eql('/documents/?match=1083633');
+    linkDocumentsContent.getAttribute('href').should.eql('/documents/?match=1083633/');
 
     const linkDisplayDocumentsThumbnails = scryRenderedDOMComponentsWithClass(instance, 'linked-documents-thumbnail');
     linkDisplayDocumentsThumbnails.should.have.length(12);
@@ -311,6 +311,6 @@ describe('DocumentPage component', function () {
     );
 
     const linkDocumentsContent = findRenderedDOMComponentWithClass(instance, 'linked-documents-content');
-    linkDocumentsContent.getAttribute('href').should.eql('/documents/crid/1083633');
+    linkDocumentsContent.getAttribute('href').should.eql('/documents/crid/1083633/');
   });
 });
