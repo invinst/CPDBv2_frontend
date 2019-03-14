@@ -5,12 +5,23 @@ import { compact, isEmpty } from 'lodash';
 import cx from 'classnames';
 
 import SuggestionItemBase from './base';
+import PinboardAddButton from './pinboard-add-button';
 import styles from './officer.sass';
 
 
 class OfficerItem extends SuggestionItemBase {
   getExtraInnerWrapperClassName() {
     return styles.innerWrapper;
+  }
+
+  renderPinboardAddButton() {
+    const { suggestion, addItemToPinboard } = this.props;
+    return (
+      <PinboardAddButton
+        addItemToPinboard={ addItemToPinboard }
+        suggestion={ suggestion }
+      />
+    );
   }
 
   renderSecondRow() {
@@ -51,7 +62,8 @@ OfficerItem.propTypes = {
     gender: PropTypes.string,
     complaintCount: PropTypes.number,
   }),
-  isFocused: PropTypes.bool
+  isFocused: PropTypes.bool,
+  addItemToPinboard: PropTypes.func,
 };
 
 OfficerItem.defaultProps = {

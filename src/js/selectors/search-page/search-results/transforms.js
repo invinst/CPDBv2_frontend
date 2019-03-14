@@ -208,13 +208,14 @@ const baseItemTransform = (item) => ({
   to: get(item, 'to'),
   url: get(item, 'url'),
   uniqueKey: get(item, 'uniqueKey', `${uniqueKeyMap[item.type] || item.type}-${item.id}`),
-  ...get(textsMap, item.type, getBaseTexts)(item)
+  ...get(textsMap, item.type, getBaseTexts)(item),
 });
 
 export const searchResultItemTransform = (item) => ({
   ...baseItemTransform(item),
   tags: get(item, 'tags', []),
   itemIndex: item.itemIndex || 1,
+  isPinned: item.isPinned,
   ...get(searchResultTransformMap, item.type, () => {})(item)
 });
 

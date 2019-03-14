@@ -56,6 +56,7 @@ export default class SuggestionResults extends Component {
       singleContent,
       nextParams,
       setSearchNavigation,
+      addItemToPinboard,
     } = this.props;
 
     if (isEmpty) {
@@ -80,7 +81,8 @@ export default class SuggestionResults extends Component {
         hasMore={ hasMore }
         searchText={ searchText }
         nextParams={ nextParams }
-        singleContent={ singleContent }/>
+        singleContent={ singleContent }
+        addItemToPinboard={ addItemToPinboard }/>
     ));
   }
 
@@ -169,6 +171,7 @@ SuggestionResults.propTypes = {
   move: PropTypes.func,
   totalItemCount: PropTypes.number,
   setSearchNavigation: PropTypes.func,
+  addItemToPinboard: PropTypes.func,
 };
 
 SuggestionResults.defaultProps = {

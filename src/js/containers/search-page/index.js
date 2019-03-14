@@ -23,6 +23,7 @@ import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import editModeOnSelector from 'selectors/edit-mode-on';
+import { countPinnedItems } from 'selectors/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -44,7 +45,8 @@ function mapStateToProps(state, ownProps) {
     officerCards: singleCardsSelector(state),
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
-    firstItem: firstItemSelector(state)
+    firstItem: firstItemSelector(state),
+    pinnedItemsCount: countPinnedItems(state),
   };
 }
 

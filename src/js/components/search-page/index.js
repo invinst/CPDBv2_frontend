@@ -20,6 +20,7 @@ import {
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
+import PinboardBar from './pinboard-bar';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -148,7 +149,8 @@ export default class SearchPage extends Component {
     const {
       query, searchTermsHidden, tags, contentType, recentSuggestions,
       editModeOn, officerCards, requestActivityGrid,
-      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, isRequesting
+      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, isRequesting,
+      pinnedItemsCount,
     } = this.props;
 
     return (
@@ -174,6 +176,9 @@ export default class SearchPage extends Component {
               className='searchbar__button--back'>
               Cancel
             </HoverableButton>
+          </div>
+          <div>
+            <PinboardBar itemsCount={ pinnedItemsCount } />
           </div>
           <div>
             {
@@ -227,7 +232,8 @@ SearchPage.propTypes = {
   pushBreadcrumbs: PropTypes.func,
   resetSearchResultNavigation: PropTypes.func,
   resetSearchTermNavigation: PropTypes.func,
-  firstItem: PropTypes.object
+  firstItem: PropTypes.object,
+  pinnedItemsCount: PropTypes.number,
 };
 
 /* istanbul ignore next */

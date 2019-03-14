@@ -4,6 +4,8 @@ import Cookies from 'js-cookie';
 import { V1_ROOT_PATH, BASE_PATH } from 'utils/constants';
 
 
+axios.defaults.withCredentials = true;
+
 export const clientConfig = {
   baseURL: V1_ROOT_PATH,
   responseType: 'json',

@@ -70,6 +70,10 @@ export default class SuggestionItemBase extends Component {
     );
   }
 
+  renderPinboardAddButton() {
+    return null;
+  }
+
   getExtraInnerWrapperClassName() {
     return null;
   }
@@ -82,6 +86,7 @@ export default class SuggestionItemBase extends Component {
         <JumpyMotion isActive={ isFocused }>
           { this.renderFirstRow() }
           { this.renderSecondRow() }
+          { this.renderPinboardAddButton() }
         </JumpyMotion>
       </div>
     );

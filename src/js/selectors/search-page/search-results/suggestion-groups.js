@@ -5,6 +5,7 @@ import * as constants from 'utils/constants';
 import { searchResultItemTransform } from './transforms';
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
+import { pinboardItemsSelector } from 'selectors/pinboard';
 
 
 const itemsPerCategory = 5;
@@ -77,6 +78,14 @@ export const slicedSuggestionGroupsSelector = createSelector(
   }
 );
 
+const pinItem = (item, pinboardItems) => {
+  item.isPinned =
+    (pinboardItems.hasOwnProperty(item.type)) &&
+    (pinboardItems[item.type].indexOf(item.id) !== -1);
+
+  return item;
+};
+
 export const isEmptySelector = createSelector(
   slicedSuggestionGroupsSelector,
   suggestionGroups => !suggestionGroups.length
@@ -84,10 +93,11 @@ export const isEmptySelector = createSelector(
 
 export const searchResultGroupsSelector = createSelector(
   slicedSuggestionGroupsSelector,
-  groups => map(groups, ({ header, items, canLoadMore }) => ({
+  pinboardItemsSelector,
+  (groups, pinboardItems) => map(groups, ({ header, items, canLoadMore }) => ({
     header,
     canLoadMore,
-    items: map(items, item => searchResultItemTransform(item))
+    items: map(items, item => searchResultItemTransform(pinItem(item, pinboardItems)))
   }))
 );
 

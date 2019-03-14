@@ -13,6 +13,7 @@ import fetchPageInitialData from 'middleware/fetch-page-initial-data';
 import redirectOfficerAlias from 'middleware/redirect-officer-alias';
 import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
+import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
 import config from 'config';
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
@@ -27,7 +28,7 @@ function configureStore(initialState) {
       thunk, configuredAxiosMiddleware, searchPath, tracking,
       routerMiddleware(browserHistory), fetchPageInitialData,
       redirectOfficerAlias, updatePathName,
-      retryOfficerDownloadMiddleware
+      retryOfficerDownloadMiddleware, createOrUpdatePinboard,
     ),
     persistState(()=>{}, localStorageConfig)
   ];

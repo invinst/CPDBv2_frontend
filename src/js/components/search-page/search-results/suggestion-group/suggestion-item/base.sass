@@ -18,16 +18,29 @@
   &:hover
     background-color: white
 
-  &:hover
     \:local(.black-text)
       color: $accent-color
 
+    .pinboardbtn
+      background-color: $sugar-cane-color
+      background-image: url('/img/ic-plus_bold.svg')
+      border: 1px solid $white-two-color
+
+%overflow-text
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
 \:local(.gray-text)
+  @extend %overflow-text
+  width: calc(100% - #{$pinboard-btn-right-span})
   color: $clay-gray
   font-size: 12px
   font-weight: 300
 
 \:local(.black-text)
+  @extend %overflow-text
+  width: calc(100% - #{$pinboard-btn-right-span})
   color: $soft-black-color
   font-size: 14px
   font-weight: 300

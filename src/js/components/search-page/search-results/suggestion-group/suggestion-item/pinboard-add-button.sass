@@ -1,0 +1,25 @@
+@import 'variables'
+
+\:local(.wrapper)
+  width: 36px
+  height: 26px
+  background-position: center
+  background-repeat: no-repeat
+  background-size: contain
+  background-image: url('/img/ic-plus_light.svg')
+  background-size: 12px 12px
+  background-color: $snow-color
+  box-sizing: border-box
+  display: inline-block
+  position: absolute
+  top: 3px
+  right: 16px
+
+  &:hover
+    background-color: $hawkes-blue !important
+    border: 1px solid $hawkes-blue !important
+    background-image: url('/img/ic-plus_blue.svg') !important
+
+  &.is-pinned
+    background-color: #499C21
+

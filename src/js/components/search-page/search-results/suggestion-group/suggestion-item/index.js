@@ -18,7 +18,8 @@ export default class SuggestionItem extends Component {
     const keys = [
       'isFocused',
       'aliasEditModeOn',
-      'suggestion.uniqueKey'
+      'suggestion.uniqueKey',
+      'suggestion.isPinned',
     ];
 
     return reduce(keys, (memo, key) => (
@@ -29,7 +30,6 @@ export default class SuggestionItem extends Component {
   render() {
     const { type } = this.props.suggestion;
     const ComponentType = get(COMPONENT_MAP, type, SuggestionItemBase);
-
     return (
       <ComponentType { ...this.props }/>
     );
