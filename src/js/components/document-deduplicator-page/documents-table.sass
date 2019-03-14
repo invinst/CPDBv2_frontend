@@ -1,5 +1,11 @@
 @import 'variables'
 
+$table-min-width: 992
+$header-fixed-width: 84
+
+@function flexible-column($min-width)
+  @return calc((100% - #{$header-fixed-width}px) * (#{$min-width} / (#{$table-min-width} - #{$header-fixed-width})))
+
 \:local(.table)
   width: calc(100% - 32px)
   min-width: 992px
@@ -16,8 +22,6 @@
   height: 100%
   vertical-align: top
 
-$header-fixed-width: 84px
-
 \:local(.headerRow)
   background-color: white
   text-transform: uppercase
@@ -32,24 +36,24 @@ $header-fixed-width: 84px
   .header-title
     @extend %headerCol
     min-width: 245px
-    width: calc((100% - #{$header-fixed-width}) * 0.2698237885462555)
+    width: flexible-column(245)
 
   .header-source
     @extend %headerCol
     min-width: 260px
-    width: calc((100% - #{$header-fixed-width}) * 0.28634361233480177)
+    width: flexible-column(260)
 
   .header-counts
     @extend %headerCol
     min-width: 196px
-    width: calc((100% - #{$header-fixed-width}) * 0.21585903083700442)
+    width: flexible-column(196)
 
   .header-date
     @extend %headerCol
     min-width: 130px
-    width: calc((100% - #{$header-fixed-width}) * 0.14317180616740088)
+    width: flexible-column(130)
 
   .header-toggle
     @extend %headerCol
     min-width: 77px
-    width: calc((100% - #{$header-fixed-width}) * 0.08480176211453745)
+    width: flexible-column(77)

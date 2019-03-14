@@ -1,6 +1,7 @@
-import React, { Component, PropTypes, createElement } from 'react';
+import React, { Component, PropTypes } from 'react';
 import * as _ from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
+import cx from 'classnames';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import DocumentRow from './document-row';
@@ -14,10 +15,12 @@ const rowMap = {
 };
 
 export default class DocumentsTable extends Component {
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState, nextContext) {
     const { hasMore, nextParams, rows } = this.props;
+    const { editModeOn } = this.context;
     return (
       hasMore !== nextProps.hasMore ||
+      editModeOn !== nextContext.editModeOn ||
       !_.isEqual(nextParams, nextProps.nextParams) ||
       !_.isEqual(_.map(rows, 'id'), _.map(nextProps.rows, 'id'))
     );
@@ -25,10 +28,11 @@ export default class DocumentsTable extends Component {
 
   render() {
     const { rows, hasMore, nextParams, fetchDocuments, onCRLinkClick } = this.props;
+    const { editModeOn } = this.context;
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
         <div className={ styles.table }>
-          <div className={ styles.headerRow }>
+          <div className={ cx(styles.headerRow, { 'edit-mode': editModeOn }) }>
             <span className='header-thumbnail'/>
             <span className='header-title'>Document</span>
             <span className='header-crid-uid'>CRID / UID</span>
@@ -43,9 +47,10 @@ export default class DocumentsTable extends Component {
               hasMore={ hasMore }
               useWindow={ true }>
               {
-                _.map(rows, row => createElement(
-                  rowMap[row.kind],
-                  { ...row, key: row.id, onCRLinkClick: onCRLinkClick }))
+                _.map(rows, row => {
+                  const Element = rowMap[row.kind];
+                  return <Element key={ row.id } onCRLinkClick={ onCRLinkClick } { ...row } editModeOn={ editModeOn }/>;
+                })
               }
             </InfiniteScroll>
           </div>
@@ -65,4 +70,8 @@ DocumentsTable.propTypes = {
 
 DocumentsTable.defaultProps = {
   rows: []
+};
+
+DocumentsTable.contextTypes = {
+  editModeOn: PropTypes.bool
 };
