@@ -10,7 +10,6 @@ class DocumentPage extends Page {
   constructor() {
     super();
 
-
     this.loginScreen = new LoginScreen();
     this.prepareElementGetters({
       crid: getInfoItemSelector('CRID / UID'),

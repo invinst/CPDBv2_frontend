@@ -12,7 +12,6 @@ describe('Document page', function () {
       documentPage.open();
     });
 
-
     it('should display all document info without views, notifications, downloads', function () {
       const createdAt = moment('2019-01-09T03:11:27.441718-06:00').format('MMM D, YYYY');
       const updatedAt = '2019-02-28T20:50:10.161395-06:00';
