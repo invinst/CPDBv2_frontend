@@ -206,19 +206,43 @@ describe('DocumentPage component', function () {
     editableTitle.props.title.should.eql('Document Title');
     editableTitle.props.fieldName.should.eql('title');
     editableTitle.props.editWrapperStateProps.fields.should.eql({
-      'attachmentId': 14193,
-      'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
-      'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
+      attachmentId: {
+        type: 'number',
+        key: 'id',
+        value: 14193
+      },
+      title: {
+        type: 'string',
+        key: 'title',
+        value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
+      },
+      textContent: {
+        type: 'string',
+        key: 'text_content',
+        value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE'
+      }
     });
 
     const editableTextContent = editableTextBoxes[1];
     editableTextContent.props.className.should.eql('main-section-full-text');
     editableTextContent.props.title.should.eql('Full-text OCR');
-    editableTextContent.props.fieldName.should.eql('text_content');
+    editableTextContent.props.fieldName.should.eql('textContent');
     editableTextContent.props.editWrapperStateProps.fields.should.eql({
-      'attachmentId': 14193,
-      'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
-      'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
+      attachmentId: {
+        type: 'number',
+        key: 'id',
+        value: 14193
+      },
+      title: {
+        type: 'string',
+        key: 'title',
+        value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
+      },
+      textContent: {
+        type: 'string',
+        key: 'text_content',
+        value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE'
+      }
     });
 
     const lastEdited = findRenderedDOMComponentWithClass(instance, 'main-section-last-edited');

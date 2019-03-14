@@ -1,7 +1,13 @@
 import { connect } from 'react-redux';
+import { omit } from 'lodash';
 
 import DocumentPage from 'components/document-page';
-import { documentSelector, getTitleEditModeOn, getTextContentEditModeOn } from 'selectors/document-page';
+import {
+  documentSelector,
+  getTitleEditModeOn,
+  getTextContentEditModeOn,
+  documentEditableFieldsSelector
+} from 'selectors/document-page';
 import { updateDocument } from 'actions/document-page';
 import { isSignedIn } from 'selectors/log-out';
 import {
@@ -10,7 +16,6 @@ import {
   turnOnDocumentTextContentEditMode,
   turnOffDocumentTextContentEditMode
 } from 'actions/document-page';
-import { omit } from 'lodash';
 
 
 function mapStateToProps(state, ownProps) {
@@ -18,11 +23,7 @@ function mapStateToProps(state, ownProps) {
   return {
     ...ownProps,
     ...documentAttrs,
-    editableFields: {
-      attachmentId: documentAttrs.attachmentId,
-      title: documentAttrs.title || '',
-      'text_content': documentAttrs.fullText || '',
-    },
+    editableFields: documentEditableFieldsSelector(state),
     titleEditModeOn: getTitleEditModeOn(state),
     textContentEditModeOn: getTextContentEditModeOn(state),
     isSignedIn: isSignedIn(state),
