@@ -83,7 +83,7 @@ export default class DocumentPage extends Component {
               <EditableTextBox
                 className='main-section-full-text'
                 title='Full-text OCR'
-                fieldName='text_content'
+                fieldName='textContent'
                 multiline={ true }
                 editWrapperStateProps={ textContentEditWrapperStateProps }
               />
