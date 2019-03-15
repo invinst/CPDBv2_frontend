@@ -1,51 +1,47 @@
 @import 'variables'
 
-$content-width: 208px
-
 \:local(.officer-info)
   display: inline-block
   cursor: pointer
+  width: 50%
 
   &.left-officer
     text-align: left
-    padding: 8px 8px
 
   &.right-officer
     text-align: right
     float: right
-    padding: 8px 8px
 
-  .officer-info-text
-    font-weight: 300
-    font-size: 12px
-    color: $boulder-color
-    width: $content-width
-    height: 14px
-    padding: 0 4px
+  .officer-info-upper
+    height: 53px
+    padding: 11px 12px 13px 12px
     box-sizing: border-box
 
-  .officer-info-name
-    font-weight: 300
-    font-size: 14px
-    color: $soft-black-color
-    width: $content-width
-    height: 18px
-    padding: 0 4px
-    box-sizing: border-box
+    .officer-info-text
+      font-weight: 300
+      font-size: 12px
+      color: $boulder-color
+      height: 14px
+      box-sizing: border-box
+
+    .officer-info-name
+      font-weight: 300
+      font-size: 14px
+      color: $soft-black-color
+      height: 18px
+      box-sizing: border-box
 
   .officer-info-personal-info
     font-weight: 300
     font-size: 14px
     color: $boulder-color
-    width: $content-width
-    height: 36px
-    padding: 11px 4px 0 4px
+    height: 58px
+    padding: 11px 12px 13px 12px
     box-sizing: border-box
 
   .officer-info-row-divider
-    width: 208px
+    margin: 0 12px
     border-bottom: solid 1px $white-two-color
-    margin: 11px 0
 
 .officer-info-left-hover-sibling:hover ~ .pairing-card-content .left-officer
   .officer-info-name
