@@ -97,6 +97,8 @@ class SearchPage extends Page {
       searchTermsToggle: '.test--toggle-button',
       clearSearchButton: '.test--search-close-button',
       firstOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-1',
+      firstOfficerPinButton:
+        '//a[contains(@class, "suggestion-item-OFFICER-1")]//span[starts-with(@class, "item-pin-button")]',
       secondOfficerResult: '.test--suggestion-group .suggestion-item-OFFICER-2',
       firstNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-1',
       secondNeighborhoodResult: '.test--suggestion-group .suggestion-item-NEIGHBORHOOD-2',
@@ -107,6 +109,7 @@ class SearchPage extends Page {
       secondLoadMoreButton: '(//div[contains(@class, "test--load-more-button")])[2]',
       plusSign: '(//div[contains(@class, "test--plus-sign")])',
       firstAliasButton: '(//a[contains(@class, "test--create-alias-link")])[1]',
+      pinboardButton: '.test--pinboard-button',
     });
   }
 

@@ -2,7 +2,10 @@ import { Promise } from 'es6-promise';
 import { every, get } from 'lodash';
 
 import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, SIGNIN_REQUEST_SUCCESS } from 'utils/constants';
-import { getOfficerId, getCRID, getTRRId, getUnitName, getDocDedupCRID, getDocumentId } from 'utils/location';
+import {
+  getOfficerId, getCRID, getTRRId, getUnitName,
+  getDocDedupCRID, getDocumentId, getPinboardID
+} from 'utils/location';
 import { hasCommunitiesSelector, hasClusterGeoJsonData } from 'selectors/landing-page/heat-map';
 import { hasCitySummarySelector } from 'selectors/landing-page/city-summary';
 import { hasCMSContent } from 'selectors/cms';
@@ -33,6 +36,7 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import { fetchDocuments } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
+import { fetchPinboard } from 'actions/pinboard';
 
 let prevPathname = '';
 
@@ -184,6 +188,14 @@ export default store => next => action => {
 
     else if (action.payload.pathname.match(/\/crawlers\//)) {
       dispatches.push(store.dispatch(requestCrawlers()));
+    }
+
+    else if (action.payload.pathname.match(/\/pinboard\/\d+\//)) {
+      const statePinboardID = get(state, 'pinboard.id', null);
+      const pinboardID = getPinboardID(action.payload.pathname);
+      if (statePinboardID === null || pinboardID !== statePinboardID) {
+        dispatches.push(store.dispatch(fetchPinboard(pinboardID)));
+      }
     }
 
     prevPathname = action.payload.pathname;

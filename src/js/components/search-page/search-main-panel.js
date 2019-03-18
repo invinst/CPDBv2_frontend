@@ -11,7 +11,8 @@ export default class SearchMainPanel extends Component {
   render() {
     const {
       tags, contentType, recentSuggestions, query, editModeOn,
-      officerCards, requestActivityGrid, aliasEditModeOn, handleSelect, isRequesting
+      officerCards, requestActivityGrid, aliasEditModeOn, handleSelect, isRequesting,
+      pinboard,
     } = this.props;
 
     return (
@@ -22,9 +23,9 @@ export default class SearchMainPanel extends Component {
             onSelect={ handleSelect }
             selected={ contentType }
             isRequesting={ isRequesting }
+            pinboard={ pinboard }
           />
         </div>
-
         {
           query ?
             <SearchResultsContainer
@@ -55,6 +56,7 @@ SearchMainPanel.propTypes = {
   requestActivityGrid: PropTypes.func,
   handleSelect: PropTypes.func,
   isRequesting: PropTypes.bool,
+  pinboard: PropTypes.object,
 };
 
 SearchMainPanel.defaultProps = {

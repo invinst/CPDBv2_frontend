@@ -235,7 +235,8 @@ describe('store', function () {
       crawlersPage: {
         crawlers: [],
         pagination: {}
-      }
+      },
+      pinboard: null,
     });
   });
 });

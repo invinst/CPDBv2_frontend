@@ -5,7 +5,7 @@ import { compact, isEmpty } from 'lodash';
 import cx from 'classnames';
 
 import SuggestionItemBase from './base';
-import PinboardAddButton from './pinboard-add-button';
+import PinboardAddButton from './item-pin-button';
 import styles from './officer.sass';
 
 

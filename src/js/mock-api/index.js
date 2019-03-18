@@ -18,6 +18,7 @@ import {
   POPUP_API_URL,
   DOCUMENTS_URL,
   CRAWLERS_API_URL,
+  PINBOARDS_URL,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -43,6 +44,7 @@ import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-b
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
+import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -142,6 +144,12 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}`).reply(200, fetchDocuments());
 axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
   return [200, (config.params && config.params.offset === '20') ? getNextCrawlersData() : getCrawlersData()];
 });
+
+axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}1/`).reply(200, fetchPinboard());
+
+axiosMockClient.onPut(`${PINBOARDS_URL}1/`).reply(200, updatePinboard());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

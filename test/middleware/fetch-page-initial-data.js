@@ -24,6 +24,7 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import * as docOverviewPageActions from 'actions/documents-overview-page';
 import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchDocument } from 'actions/document-page';
+import { fetchPinboard } from 'actions/pinboard';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -87,7 +88,8 @@ const buildStore = () => ({
         data: [],
         match: ''
       }
-    }
+    },
+    pinboard: null,
   },
   getState() {
     return this._state;
@@ -347,5 +349,38 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(requestCrawlers()).should.be.true();
+  });
+
+  it('should dispatch fetchPinboard when store is empty', function () {
+    const store = buildStore();
+    _.set(store._state, 'pinboard.id', null);
+    const action = createLocationChangeAction('/pinboard/1/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchPinboard('1')).should.be.true();
+  });
+
+  it('should dispatch fetchPinboard if requested pinboard is different from the current one', function () {
+    const store = buildStore();
+    _.set(store._state, 'pinboard.id', '2');
+    const action = createLocationChangeAction('/pinboard/1/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchPinboard('1')).should.be.true();
+  });
+
+  it('should not dispatch fetchPinboard if requested pinboard is the same as the current one', function () {
+    const store = buildStore();
+    _.set(store._state, 'pinboard.id', '1');
+    const action = createLocationChangeAction('/pinboard/1/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchPinboard('1')).should.be.false();
   });
 });

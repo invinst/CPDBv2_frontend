@@ -69,3 +69,11 @@ export function getDocDedupCRID(url) {
   }
   return url.replace(crPattern, '$1');
 }
+
+export function getPinboardID(url) {
+  const pinboardPattern = /.*pinboard\/(\d+).*/;
+  if (url === undefined || !url.match(pinboardPattern)) {
+    return null;
+  }
+  return url.replace(pinboardPattern, '$1');
+}

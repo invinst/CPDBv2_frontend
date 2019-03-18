@@ -29,10 +29,11 @@ export default store => next => action => {
 
     if (pinboard.id === null) {
       store.dispatch(createPinboard(addItem(pinboard, item)));
-    } else if (item.isPinned) {
-      store.dispatch(updatePinboard(removeItem(pinboard, item)));
     } else {
-      store.dispatch(updatePinboard(addItem(pinboard, item)));
+      const newPinboard = item.isPinned ? removeItem(pinboard, item) : addItem(pinboard, item);
+      const pinboardAction = pinboard.ownedByCurrentUser ? updatePinboard : createPinboard;
+
+      store.dispatch(pinboardAction(newPinboard));
     }
   }
   return next(action);

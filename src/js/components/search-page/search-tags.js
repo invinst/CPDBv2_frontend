@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { map, isEmpty } from 'lodash';
 
 import { tagStyle, tagsWrapperStyle, dataToolTagStyle } from './search-tags.style';
+import PinboardButton from './pinboard-button';
 
 
 class SearchTags extends Component {
@@ -22,9 +23,11 @@ class SearchTags extends Component {
   }
 
   render() {
+    const { pinboard } = this.props;
     return (
       <div style={ tagsWrapperStyle } className='suggestion-tags' >
         { this.renderTags() }
+        <PinboardButton pinboard={ pinboard }/>
       </div>
     );
   }
@@ -35,6 +38,7 @@ SearchTags.propTypes = {
   selected: PropTypes.string,
   onSelect: PropTypes.func,
   isRequesting: PropTypes.bool,
+  pinboard: PropTypes.object,
 };
 
 export default SearchTags;

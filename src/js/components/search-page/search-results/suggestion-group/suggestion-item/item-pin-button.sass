@@ -1,5 +1,10 @@
 @import 'variables'
 
+%pinned-style
+  background-color: $pudding-matcha !important
+  border: 1px solid $pudding-matcha !important
+  background-image: url('/img/ic-plus_green.svg') !important
+
 \:local(.wrapper)
   width: 36px
   height: 26px
@@ -15,11 +20,5 @@
   top: 3px
   right: 16px
 
-  &:hover
-    background-color: $hawkes-blue !important
-    border: 1px solid $hawkes-blue !important
-    background-image: url('/img/ic-plus_blue.svg') !important
-
-  &.is-pinned
-    background-color: #499C21
-
+  &:hover, &.is-pinned
+    @extend %pinned-style

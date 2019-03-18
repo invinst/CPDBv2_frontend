@@ -568,3 +568,29 @@ describe('Search Page with query parameter', function () {
     searchPage.investigatorCRResultsSection.secondResultSubText.getText().should.equal('');
   });
 });
+
+describe('Search Page with pinboard functionalities', function () {
+  it('should display pinboard button with correct text when items are added/removed', function () {
+    searchPage.open('Ke');
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.pinboardButton.getText().should.eql('(1) Pinboard');
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
+  });
+
+  it('should display pinboard button that links to pinboard page when pinboard is not empty', function () {
+    searchPage.open('Ke');
+    searchPage.suggestionGroup.waitForVisible();
+
+    searchPage.pinboardButton.click();
+    browser.getUrl().should.match(/\/search\//);
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.pinboardButton.click();
+    browser.getUrl().should.match(/pinboard\/1\/untitled-pinboard\/$/);
+  });
+});

@@ -8,6 +8,7 @@ describe('search page transforms', function () {
       searchResultItemTransform({
         type: 'CR',
         id: 1,
+        isPinned: true,
         crid: 123,
         to: '/complaint/123/',
         'incident_date': '2012-07-02',
@@ -48,6 +49,7 @@ describe('search page transforms', function () {
       }).should.deepEqual({
         type: 'CR',
         id: 1,
+        isPinned: true,
         to: '/complaint/123/',
         url: undefined,
         uniqueKey: 'CR-1',
@@ -91,6 +93,7 @@ describe('search page transforms', function () {
       searchResultItemTransform({
         type: 'SEARCH-TERMS',
         id: '1234abcd',
+        isPinned: false,
         name: 'Communities',
         description: 'This is community description',
         'category_name': 'Geography',
@@ -98,6 +101,7 @@ describe('search page transforms', function () {
       }).should.deepEqual({
         type: 'SEARCH-TERMS',
         id: '1234abcd',
+        isPinned: false,
         to: '/search/?terms=1234abcd&type=1234ABCD',
         url: '',
         uniqueKey: 'SEARCH-TERMS-1234-abcd',

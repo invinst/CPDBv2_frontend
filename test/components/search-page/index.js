@@ -39,7 +39,8 @@ describe('SearchPage component', function () {
         }
       },
       pagination: {}
-    }
+    },
+    pinboard: null,
   });
 
   beforeEach(function () {
@@ -57,7 +58,7 @@ describe('SearchPage component', function () {
   it('should call get suggestion api when change search input', function () {
     const getSuggestion = stub().returns({ catch: spy() });
     instance = renderIntoDocument(
-      <SearchPage getSuggestion={ getSuggestion }/>
+      <SearchPage getSuggestion={ getSuggestion } />
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = 'a';

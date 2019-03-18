@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 
-import styles from './pinboard-add-button.sass';
+import styles from './item-pin-button.sass';
 
 
-export default class PinboardAddButton extends Component {
+export default class ItemPinButton extends Component {
   handlePinboardButtonClick(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -25,13 +25,13 @@ export default class PinboardAddButton extends Component {
     return (
       <span
         onClick={ this.handlePinboardButtonClick.bind(this) }
-        className={ cx(styles.wrapper, 'pinboardbtn', { 'is-pinned': isPinned }) }
+        className={ cx(styles.wrapper, 'item-pin-btn', { 'is-pinned': isPinned }) }
       />
     );
   }
 }
 
-PinboardAddButton.propTypes = {
+ItemPinButton.propTypes = {
   suggestion: PropTypes.shape({
     type: PropTypes.string,
     id: PropTypes.string,

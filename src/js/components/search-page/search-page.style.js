@@ -5,6 +5,7 @@ import {
   accentColor,
   softBlackColor,
   clayGray,
+  whiteTwoColor,
 } from 'utils/styles';
 
 
@@ -23,6 +24,7 @@ export const searchBoxStyle = (aliasEditModeOn) => ({
   backgroundColor: aliasEditModeOn ? girlyPink : 'white',
   padding: `${searchBoxPadding}px 0 9px 0`,
   margin: '0 16px',
+  borderBottom: `1px solid ${whiteTwoColor}`,
 });
 
 const _cancelButtonStyle = (searchTermsHidden) => ({

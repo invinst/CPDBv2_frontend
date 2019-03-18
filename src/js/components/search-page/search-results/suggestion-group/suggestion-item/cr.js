@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 
 import SuggestionItemBase from './base';
-import PinboardAddButton from './pinboard-add-button';
+import PinboardAddButton from './item-pin-button';
 import styles from './cr.sass';
 
 
