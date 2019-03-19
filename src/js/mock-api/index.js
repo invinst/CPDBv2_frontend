@@ -43,6 +43,7 @@ import { getCommunity } from './community';
 import fetchDocumentsByCRID from './document-deduplicator-page/fetch-documents-by-crid';
 import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
+import fetchDocumentByID from './document-page/fetch-document-by-id';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
 
@@ -140,6 +141,11 @@ axiosMockClient.onGet(`${DOCUMENTS_URL}`, { params: { match: '123457' } }).reply
 axiosMockClient.onPatch(`${DOCUMENTS_URL}1/`).reply(200, { show: false });
 
 axiosMockClient.onGet(`${DOCUMENTS_URL}`).reply(200, fetchDocuments());
+
+axiosMockClient.onGet(`${DOCUMENTS_URL}1/`).reply(function (config) {
+  const authenticated = config.headers['Authorization'] === 'Token 055a5575c1832e9123cd546fe0cfdc8607f8680c';
+  return [200, fetchDocumentByID(authenticated)];
+});
 
 axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
   return [200, (config.params && config.params.offset === '20') ? getNextCrawlersData() : getCrawlersData()];

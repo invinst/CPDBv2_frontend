@@ -36,19 +36,23 @@ export default class DocumentPage extends Component {
     return (
       <DocumentMeta title={ title } description={ title }>
         <div className={ styles.documentPage }>
-          <ShareableHeaderContainer buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.NONE }/>
+          <ShareableHeaderContainer buttonType={ SHAREABLE_HEADER_BUTTON_TYPE.NONE } />
           <div className='document-wrapper'>
             <div className='document-side-bar'>
               <a className='document-thumbnail' href={ url }>
-                <img className='document-thumbnail-img' src={ previewImageUrl } alt='thumbnail'/>
-                <span className='document-thumbnail-page-count'>{ `${pluralize('page', pageCount, true)}` }</span>
+                <img className='document-thumbnail-img' src={ previewImageUrl } alt='thumbnail' />
+                {
+                  pageCount !== 0 ? (
+                    <span className='document-thumbnail-page-count'>{ `${ pluralize('page', pageCount, true) }` }</span>
+                  ) : null
+                }
               </a>
-              <SimpleListWidget className='document-info' items={ infoItems }/>
+              <SimpleListWidget className='document-info' items={ infoItems } />
               <div className='linked-documents'>
                 <div className='linked-documents-title'>Linked Documents ({ linkedDocuments.length })</div>
                 <Link
                   className='linked-documents-content'
-                  to={ isSignedIn ? `/documents/crid/${crid}` : `/documents/?match=${crid}` }
+                  to={ isSignedIn ? `/documents/crid/${ crid }/` : `/documents/?match=${ crid }/` }
                 >
                   {
                     displayedDocuments.map(document => (
@@ -79,17 +83,17 @@ export default class DocumentPage extends Component {
               <EditableTextBox
                 className='main-section-full-text'
                 title='Full-text OCR'
-                fieldName='text_content'
+                fieldName='textContent'
                 multiline={ true }
                 editWrapperStateProps={ textContentEditWrapperStateProps }
               />
               <div className='main-section-last-edited'>
-                This document was last edited{ lastUpdatedBy ? ' by ' : ''}
+                This document was last edited{ lastUpdatedBy ? ' by ' : '' }
                 <span className='last-edited-highlight'>{ lastUpdatedBy } { lastEditedDateTime }</span>
               </div>
             </div>
           </div>
-          <FooterContainer className={ styles.crPageFooter }/>
+          <FooterContainer className={ styles.crPageFooter } />
         </div>
       </DocumentMeta>
     );

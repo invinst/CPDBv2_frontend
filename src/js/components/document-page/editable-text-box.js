@@ -4,7 +4,7 @@ import cx from 'classnames';
 import styles from './editable-text-box.sass';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
-import SimpleEditWrapperStateProvider from 'components/inline-editable/simple-edit-wrapper-state-provider';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import SimpleTextEditable from 'components/inline-editable/editable-section/simple-text-editable';
 
 
@@ -15,7 +15,7 @@ export default class EditableTextBox extends Component {
     return (
       <div className={ cx(styles.editableTextBox, className) }>
         <div className='editable-text-box-title'>{ title }</div>
-        <SimpleEditWrapperStateProvider { ...editWrapperStateProps }>
+        <EditWrapperStateProvider { ...editWrapperStateProps }>
           <HoverableEditWrapper>
             { multiline ? (
               <div className='editable-text-box-scroll-container'>
@@ -38,7 +38,7 @@ export default class EditableTextBox extends Component {
               />
             )}
           </HoverableEditWrapper>
-        </SimpleEditWrapperStateProvider>
+        </EditWrapperStateProvider>
       </div>
     );
   }

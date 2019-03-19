@@ -49,3 +49,24 @@ export const documentSelector = createSelector(
     };
   }
 );
+
+export const documentEditableFieldsSelector = createSelector(
+  documentSelector,
+  documentAttrs => ({
+    attachmentId: {
+      type: 'number',
+      key: 'id',
+      value: documentAttrs.attachmentId
+    },
+    title: {
+      type: 'string',
+      key: 'title',
+      value: documentAttrs.title || ''
+    },
+    textContent: {
+      type: 'string',
+      key: 'text_content',
+      value: documentAttrs.fullText || ''
+    }
+  })
+);
