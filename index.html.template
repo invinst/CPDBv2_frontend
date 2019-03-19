@@ -22,6 +22,10 @@
     ga('create', GA_TRACKING_ID, 'auto');
     </script>
     <!-- End Google Analytics -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/img/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="/img/favicon-64x64.png">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/pure/0.6.0/pure-min.css'>
     <link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.1.0/css/swiper.min.css'>
