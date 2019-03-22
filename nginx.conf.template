@@ -36,7 +36,7 @@ http {
             set $is_embedded_map M;
         }
 
-        if ($request_uri ~ '^/(fonts|img)/') {
+        if ($request_uri ~ '^/(fonts|img|static)/') {
             set $is_assets F;
         }
 
@@ -68,7 +68,7 @@ http {
             alias /usr/share/nginx/html/;
         }
 
-        location ~* ^/(img|fonts) {
+        location ~* ^/(img|fonts|static) {
             expires 1h;
             add_header Cache-Control "public";
             try_files $uri /index.html;
