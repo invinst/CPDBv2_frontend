@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CrawlersPage from 'components/crawlers-page';
 import { crawlersSelector, nextParamsSelector } from 'selectors/crawlers-page';
 import { requestCrawlers } from 'actions/crawlers-page';
+import { openLogFileModal } from 'actions/generic-modal';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -12,7 +13,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  requestCrawlers
+  requestCrawlers,
+  openLogFileModal,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CrawlersPage);

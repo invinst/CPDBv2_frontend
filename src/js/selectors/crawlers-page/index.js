@@ -24,3 +24,8 @@ export const nextParamsSelector = createSelector(
   getPagination,
   ({ next }) => (extractQuery(next))
 );
+
+export const currentCrawler = state => {
+  const crawlers = crawlersSelector(state);
+  return crawlers.filter(crawler => crawler['id'] === state.crawlersPage.currentCrawlerId)[0];
+};
