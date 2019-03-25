@@ -496,34 +496,20 @@ describe('SocialGraph', function () {
         collideNodes={ true }
       />
     );
+
+    instance.connectedNodes({ index: 12 });
+
     let graphNodes = findDOMNode(instance).getElementsByClassName('node');
+    let hideGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '0.1');
+    let visibleGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '1');
+    hideGraphNodes.should.have.length(12);
+    visibleGraphNodes.should.have.length(8);
 
-    const groups = {};
-    forEach(graphNodes, graphNode => {
-      const groupColor = graphNode.style.fill;
-      if (!groups[groupColor])
-        groups[groupColor] = [];
-      groups[groupColor].push(graphNode);
-    });
-    const communityColor = findKey(groups, groupNodes => groupNodes.length === 4);
+    instance.connectedNodes({ index: 12 });
 
-    // let results = [];
-    // forEach(groups[communityColor], graphNode => {
-    //   results.push(graphNode.getAttribute('r'));
-    // });
-    // results.should.eql([]);
-
-    const maxNodeInCommunity = find(groups[communityColor], graphNode => graphNode.getAttribute('r') === '3.5');
-
-    Simulate.doubleClick(maxNodeInCommunity);
-    // console.log(findDOMNode(instance).innerHTML);
-    // findDOMNode(instance).innerHTML.should.eql('');
-
-    // graphNodes = findDOMNode(instance).getElementsByClassName('node');
-    //
-    // const hideGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '0.1');
-    // const visibleGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '1');
-    // hideGraphNodes.should.have.length(16);
-    // visibleGraphNodes.should.have.length(4);
+    hideGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '0.1');
+    visibleGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '1');
+    hideGraphNodes.should.have.length(0);
+    visibleGraphNodes.should.have.length(20);
   });
 });

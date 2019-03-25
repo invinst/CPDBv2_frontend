@@ -19,17 +19,16 @@ class AnimatedSocialGraphSection extends Section {
         '//div[contains(@class, "coaccusals-threshold-slider")])',
       timelineSlider: '(//div[contains(@class, "test--timeline-slider")])',
       showCivilComplaintOnlyCheckbox: '(//label[contains(@class, "test--show-civil-complaint-checkbox")])',
-      graphNodes: '(//*[@class="node"])',
       firstSearchResultSuggestion: '(//div[@class="graph-search-input-container"]//div//div)',
     });
   }
 
-  nodeCount() {
-    return browser.elements('(//*[@class="node"])').value.length;
+  graphNodes() {
+    return browser.elements('(//*[@class="node"])').value;
   }
 
-  linkCount() {
-    return browser.elements('(//*[@class="link"])').value.length;
+  graphLinks() {
+    return browser.elements('(//*[@class="link"])').value;
   }
 }
 
