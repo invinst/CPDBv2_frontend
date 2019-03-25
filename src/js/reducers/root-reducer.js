@@ -26,6 +26,7 @@ import documentDeduplicatorPage from './document-deduplicator-page';
 import crawlersPage from './crawlers-page';
 import socialGraphPage from './social-graph-page';
 import pinboard from './pinboard';
+import pinboardPage from './pinboard-page';
 
 
 export default combineReducers({
@@ -55,4 +56,5 @@ export default combineReducers({
   crawlersPage,
   socialGraphPage,
   pinboard,
+  pinboardPage,
 });

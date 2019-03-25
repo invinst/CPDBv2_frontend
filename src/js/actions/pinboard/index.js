@@ -32,3 +32,12 @@ export const fetchPinboard = id => get(
     constants.PINBOARD_FETCH_REQUEST_FAILURE,
   ]
 )();
+
+export const fetchPinboardSocialGraph = id => get(
+  `${constants.PINBOARDS_URL}${id}/social-graph/`,
+  [
+    constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_START,
+    constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
+  ]
+)();

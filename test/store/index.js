@@ -241,6 +241,7 @@ describe('store', function () {
         graphData: {}
       },
       pinboard: null,
+      pinboardPage: { graphData: {} },
     });
   });
 });

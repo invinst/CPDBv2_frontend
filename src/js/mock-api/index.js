@@ -52,6 +52,7 @@ import {
   getThresholdThreeSocialGraphData
 } from './social-graph-page/social-graph-page';
 import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
+import { getSocialGraphData } from './pinboard-page/social-graph';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -174,9 +175,11 @@ axiosMockClient.onGet(
 
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
-axiosMockClient.onGet(`${PINBOARDS_URL}1/`).reply(200, fetchPinboard());
+axiosMockClient.onGet(`${PINBOARDS_URL}123/`).reply(200, fetchPinboard());
 
-axiosMockClient.onPut(`${PINBOARDS_URL}1/`).reply(200, updatePinboard());
+axiosMockClient.onPut(`${PINBOARDS_URL}123/`).reply(200, updatePinboard());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}123/social-graph/`).reply(200, getSocialGraphData());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {
