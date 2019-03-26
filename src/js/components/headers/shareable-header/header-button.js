@@ -17,12 +17,16 @@ export default class HeaderButton extends React.Component {
 
   closeShareMenu(e) {
     if (this.state.shareMenuIsOpen) {
+      const { onClose } = this.props;
+      onClose();
       this.setState({ shareMenuIsOpen: false });
       e.stopPropagation();
     }
   }
 
   openShareMenu() {
+    const { onOpen } = this.props;
+    onOpen();
     this.setState({ shareMenuIsOpen: true });
   }
 
@@ -49,10 +53,14 @@ HeaderButton.propTypes = {
   scrollPosition: PropTypes.string,
   buttonText: PropTypes.string,
   Menu: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 HeaderButton.defaultProps = {
   scrollPosition: 'top',
   buttonText: 'Share',
   Menu: ShareMenu,
+  onOpen: () => {},
+  onClose: () => {},
 };

@@ -168,10 +168,22 @@ describe('GATracking utils', function () {
       GATracking.trackOfficerDownload(8562, 'download', 'without_docs');
       global.ga.should.be.calledWith('send', {
         hitType: 'event',
-        eventCategory: 'officer_page_download',
+        eventCategory: 'officer_data',
         eventAction: 'download',
         eventValue: 8562,
         eventLabel: 'without_docs',
+      });
+    });
+  });
+
+  describe('trackOfficerDownloadMenu', function () {
+    it('should send event analytic', function () {
+      GATracking.trackOfficerDownloadMenu(8562, 'open');
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'officer_download_menu',
+        eventAction: 'open',
+        eventValue: 8562,
       });
     });
   });
