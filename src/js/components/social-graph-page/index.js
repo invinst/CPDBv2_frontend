@@ -6,7 +6,7 @@ import 'rc-slider/assets/index.css';
 import cx from 'classnames';
 import styles from './social-graph-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-import AnimatedSocialGraph from './animated-social-graph';
+import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
 

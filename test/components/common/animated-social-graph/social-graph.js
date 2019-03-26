@@ -1,11 +1,11 @@
 import React from 'react';
 import { stub } from 'sinon';
-import { renderIntoDocument, Simulate } from 'react-addons-test-utils';
+import { renderIntoDocument } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
-import { forOwn, find, forIn, filter, values, countBy, map, forEach, findKey } from 'lodash';
+import { forOwn, find, forIn, filter } from 'lodash';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
-import SocialGraph from 'components/social-graph-page/social-graph';
+import { unmountComponentSuppressError, reRender } from 'utils/test/index';
+import SocialGraph from 'components/common/animated-social-graph/social-graph';
 
 
 describe('SocialGraph', function () {

@@ -18,7 +18,7 @@ class AnimatedSocialGraphSection extends Section {
       coaccusalsThresholdSlider: '(//div[@class="coaccusals-threshold-slider-container"]' +
         '//div[contains(@class, "coaccusals-threshold-slider")])',
       timelineSlider: '(//div[contains(@class, "test--timeline-slider")])',
-      showCivilComplaintOnlyCheckbox: '(//label[contains(@class, "test--show-civil-complaint-checkbox")])',
+      showCivilComplaintOnlyCheckbox: '(//input[@class="test--show-civil-complaint-checkbox"])',
       firstSearchResultSuggestion: '(//div[@class="graph-search-input-container"]//div//div)',
     });
   }

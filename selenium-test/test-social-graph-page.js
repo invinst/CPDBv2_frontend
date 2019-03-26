@@ -2,7 +2,7 @@
 
 require('should');
 
-import { map, countBy, values, findKey, find, forEach, filter } from 'lodash';
+import { map, countBy, values, find, filter } from 'lodash';
 
 import socialGraphPage from './page-objects/social-graph-page';
 
@@ -23,8 +23,8 @@ describe('Social Graph Page', function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
     }, 15000, 'expected timeline reaches end date after 15s');
 
-    const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes;
-    const graphLinks = socialGraphPage.animatedSocialGraphSection.graphLinks;
+    const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
+    const graphLinks = socialGraphPage.animatedSocialGraphSection.graphLinks();
 
     graphNodes.should.have.length(20);
     graphLinks.should.have.length(37);
@@ -98,7 +98,7 @@ describe('Social Graph Page', function () {
     browser.buttonPress();
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(18);
-    const graphNodes = browser.elements(socialGraphPage.animatedSocialGraphSection.graphNodes.selector).value;
+    const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const groupsColors = map(
       graphNodes,
       (graphNode) => graphNode.getCssProperty('fill').value

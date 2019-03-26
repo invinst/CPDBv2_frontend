@@ -11,9 +11,9 @@ import {
 import Slider from 'rc-slider';
 import Autocomplete from 'react-autocomplete';
 
-import { unmountComponentSuppressError } from 'utils/test';
-import AnimatedSocialGraph from 'components/social-graph-page/animated-social-graph';
-import SocialGraph from 'components/social-graph-page/social-graph';
+import { unmountComponentSuppressError } from 'utils/test/index';
+import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import SocialGraph from 'components/common/animated-social-graph/social-graph';
 import should from 'should';
 
 

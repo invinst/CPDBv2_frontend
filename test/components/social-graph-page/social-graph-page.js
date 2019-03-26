@@ -11,7 +11,7 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import SocialGraphPage from 'components/social-graph-page';
-import AnimatedSocialGraph from 'components/social-graph-page/animated-social-graph';
+import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import * as intercomUtils from 'utils/intercom';
 
 
