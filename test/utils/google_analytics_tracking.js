@@ -162,4 +162,17 @@ describe('GATracking utils', function () {
       });
     });
   });
+
+  describe('trackOfficerDownload', function () {
+    it('should send event analytic', function () {
+      GATracking.trackOfficerDownload(8562, 'download', 'without_docs');
+      global.ga.should.be.calledWith('send', {
+        hitType: 'event',
+        eventCategory: 'officer_page_download',
+        eventAction: 'download',
+        eventValue: 8562,
+        eventLabel: 'without_docs',
+      });
+    });
+  });
 });

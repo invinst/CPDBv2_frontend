@@ -566,3 +566,13 @@ export const SHAREABLE_HEADER_BUTTON_TYPE = {
   MENU: 'menu',
   LINK: 'link',
 };
+
+export const OFFICER_DOWNLOAD_KINDS = {
+  WITHOUT_DOCS: 'without_docs',
+  WITH_DOCS: 'with_docs'
+};
+
+export const OFFICER_DOWNLOAD_TRACKING_ACTIONS = {
+  DOWNLOAD: 'download',
+  REQUEST_DOWNLOAD_URLS: 'request_download_urls'
+};
