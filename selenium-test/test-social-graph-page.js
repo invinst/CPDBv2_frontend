@@ -2,7 +2,7 @@
 
 require('should');
 
-import { map, countBy, values, find, filter } from 'lodash';
+import { map, countBy, values, filter } from 'lodash';
 
 import socialGraphPage from './page-objects/social-graph-page';
 
@@ -45,7 +45,7 @@ describe('Social Graph Page', function () {
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const graphLinks = socialGraphPage.animatedSocialGraphSection.graphLinks();
 
-    const biggestNode = find(graphNodes, graphNode => graphNode.getAttribute('r') === '7');
+    const biggestNode = socialGraphPage.animatedSocialGraphSection.biggestGraphNode;
     biggestNode.doubleClick();
 
     let hideGraphNodes = filter(graphNodes, graphNode => graphNode.getCssProperty('opacity').value === 0.1);
@@ -69,6 +69,15 @@ describe('Social Graph Page', function () {
     visibleGraphLinks = filter(graphLinks, graphLink => graphLink.getCssProperty('opacity').value === 1);
     hideGraphLinks.should.have.length(0);
     visibleGraphLinks.should.have.length(37);
+  });
+
+  it('should show tooltip when hover a node', function () {
+    browser.waitUntil(function () {
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
+    }, 15000, 'expected timeline reaches end date after 15s');
+
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.biggestGraphNode.selector);
+    socialGraphPage.animatedSocialGraphSection.tooltip.getText().should.equal('Donnell Calhoun');
   });
 
   it('should pause timeline when click on toggle timeline button', function () {

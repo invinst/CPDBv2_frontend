@@ -176,6 +176,7 @@ describe('AnimatedSocialGraph component', function () {
     Simulate.click(toggleTimelineButton);
     instance.state.timelineIdx.should.equal(0);
     instance.state.refreshIntervalId.should.not.be.null();
+    clock.restore();
   });
 
   it('should update timelineIdx value when click on specific part of the timeline ', function () {
@@ -212,6 +213,7 @@ describe('AnimatedSocialGraph component', function () {
     instance.state.timelineIdx.should.equal(0);
     instance.state.refreshIntervalId.should.not.be.null();
     instance.state.refreshIntervalId.should.not.eql(oldRefreshInterval);
+    clock.restore();
   });
 
   it('should update refreshIntervalId value when stop timeline ', function () {
@@ -232,9 +234,10 @@ describe('AnimatedSocialGraph component', function () {
     socialGraph.props.stopTimeline();
     should(instance.state.refreshIntervalId).be.null();
     instance.state.timelineIdx.should.equal(1);
+    clock.restore();
   });
 
-  it('should', function () {
+  it('should render officer name with correct style', function () {
     instance = renderIntoDocument(
       <AnimatedSocialGraph
         officers={ officers }

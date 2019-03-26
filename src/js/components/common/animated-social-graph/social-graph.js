@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import { filter, isEmpty } from 'lodash';
 import moment from 'moment';
 import * as d3 from 'd3';
-import * as jLouvain from 'jLouvain';
+import * as jLouvain from 'jlouvain';
 import d3Tip from 'd3-tip';
 import 'rc-slider/assets/index.css';
 import { countBy, indexOf } from 'lodash';
+import cx from 'classnames';
 
 import { imgUrl } from 'utils/static-assets';
 import styles from './social-graph.sass';
@@ -15,8 +16,9 @@ const DEFAULT_GRAPH_WIDTH = 800;
 const DEFAULT_GRAPH_HEIGHT = 500;
 const RADIUS = 10;
 const DEFAULT_PADDING = 1.5;
-const DEFAULT_CLISTER_PADDING = 6;
+const DEFAULT_CLUSTER_PADDING = 6;
 const MAX_RADIUS = 12;
+const COLLIDE_ALPHA = 0.5;
 
 
 export default class SocialGraph extends Component {
@@ -30,6 +32,7 @@ export default class SocialGraph extends Component {
     this.resizeGraph = this.resizeGraph.bind(this);
     this.tick = this.tick.bind(this);
     this.connectedNodes = this.connectedNodes.bind(this);
+    this.collide = this.collide.bind(this);
   }
 
   componentDidMount() {
@@ -38,11 +41,9 @@ export default class SocialGraph extends Component {
     this.link = this.svg.selectAll('.link');
     this.fill = d3.scale.category20();
     this.tip = d3Tip()
-      .attr('class', styles.socialGraphTip)
+      .attr('class', cx(styles.socialGraphTip, 'test--graph-tooltip'))
       .offset([-5, 0])
-      .html(function (d) {
-        return '<span> ' + d.fname + ' </span>';
-      });
+      .html(this.graphTooltip);
     this.svg.call(this.tip);
     this.drawGraph();
   }
@@ -60,6 +61,10 @@ export default class SocialGraph extends Component {
         this.highlightNode();
       }
     }
+  }
+
+  graphTooltip(graphNode) {
+    return `<span>${graphNode.fname}</span>`;
   }
 
   setInitialData() {
@@ -265,7 +270,7 @@ export default class SocialGraph extends Component {
 
     if (this.props.collideNodes) {
       this.node.each(this.cluster(60 * e.alpha * e.alpha))
-        .each(this.collide(0.5));
+        .each(this.collide());
     }
 
     this.link.attr('x1', function (d) {
@@ -311,7 +316,6 @@ export default class SocialGraph extends Component {
     this.restart();
   }
 
-  // Move d to be adjacent to the cluster node.
   cluster(alpha) {
     const maxNodeInCommunities = this.data.maxNodeInCommunities;
     return (d) => {
@@ -323,7 +327,7 @@ export default class SocialGraph extends Component {
         l = Math.sqrt(x * x + y * y),
         r = (d.degree + cluster.degree) / 2 + 4;
 
-      if (l !== r) {
+      if (l && r && l !== r) {
         l = (l - r) / l * alpha;
         d.x -= x *= l;
         d.y -= y *= l;
@@ -333,11 +337,10 @@ export default class SocialGraph extends Component {
     };
   }
 
-  // Resolves collisions between d and all other circles.
-  collide(alpha) {
+  collide() {
     const quadtree = d3.geom.quadtree(this.data.nodes);
     return (d) => {
-      let r = (d.degree / 2 + 2) + MAX_RADIUS + Math.max(DEFAULT_PADDING, DEFAULT_CLISTER_PADDING),
+      let r = (d.degree / 2 + 2) + MAX_RADIUS + DEFAULT_CLUSTER_PADDING,
         nx1 = d.x - r,
         nx2 = d.x + r,
         ny1 = d.y - r,
@@ -348,9 +351,9 @@ export default class SocialGraph extends Component {
             y = d.y - quad.point.y,
             l = Math.sqrt(x * x + y * y),
             r = (d.degree / 2 + 3) + (quad.point.degree / 2 + 3) +
-              (d.group === quad.point.group ? DEFAULT_PADDING : DEFAULT_CLISTER_PADDING);
-          if (l < r) {
-            l = (l - r) / l * alpha;
+              (d.group === quad.point.group ? DEFAULT_PADDING : DEFAULT_CLUSTER_PADDING);
+          if (l && r && l < r) {
+            l = (l - r) / l * COLLIDE_ALPHA;
             d.x -= x *= l;
             d.y -= y *= l;
             quad.point.x += x;

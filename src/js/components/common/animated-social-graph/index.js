@@ -3,11 +3,12 @@ import moment from 'moment';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Autocomplete from 'react-autocomplete';
+import { isEmpty } from 'lodash';
+import cx from 'classnames';
 
 import SocialGraph from './social-graph';
 import styles from './animated-social-graph.sass';
 import sliderStyles from 'components/common/slider.sass';
-import cx from 'classnames';
 
 const AMINATE_SPEED = 150;
 
@@ -29,6 +30,10 @@ export default class AnimatedSocialGraph extends Component {
     this.handleHighlightNodeUidChange = this.handleHighlightNodeUidChange.bind(this);
     this.handleHighlightNodeUidSelect = this.handleHighlightNodeUidSelect.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.stopTimeline();
   }
 
   startTimeline() {
@@ -186,17 +191,19 @@ export default class AnimatedSocialGraph extends Component {
 
     return (
       <div className={ styles.animatedSocialGraph }>
-        <SocialGraph
-          officers={ officers }
-          coaccusedData={ coaccusedData }
-          listEvent={ listEvent }
-          timelineIdx={ timelineIdx }
-          startTimelineFromBeginning={ this.startTimelineFromBeginning }
-          collideNodes={ !refreshIntervalId }
-          stopTimeline={ this.stopTimeline }
-          searchText={ searchInputText }
-          clickSearchState={ clickSearchState }
-        />
+        {
+          !isEmpty(officers) && <SocialGraph
+            officers={ officers }
+            coaccusedData={ coaccusedData }
+            listEvent={ listEvent }
+            timelineIdx={ timelineIdx }
+            startTimelineFromBeginning={ this.startTimelineFromBeginning }
+            collideNodes={ !refreshIntervalId }
+            stopTimeline={ this.stopTimeline }
+            searchText={ searchInputText }
+            clickSearchState={ clickSearchState }
+          />
+        }
         { this.graphControlPanel() }
       </div>
     );

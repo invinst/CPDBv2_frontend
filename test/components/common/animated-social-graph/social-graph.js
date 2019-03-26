@@ -2,7 +2,8 @@ import React from 'react';
 import { stub } from 'sinon';
 import { renderIntoDocument } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
-import { forOwn, find, forIn, filter } from 'lodash';
+import { forOwn, find, forIn, filter, round } from 'lodash';
+import should from 'should';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test/index';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
@@ -461,7 +462,6 @@ describe('SocialGraph', function () {
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        collideNodes={ true }
       />
     );
 
@@ -470,7 +470,6 @@ describe('SocialGraph', function () {
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
-        collideNodes={ true }
         searchText='Thomas Kampenga'
         clickSearchState={ true }
       />,
@@ -485,6 +484,17 @@ describe('SocialGraph', function () {
     otherNodes.should.have.length(19);
     currentNode.should.have.length(1);
     currentNode[0].getAttribute('r').should.eql('20');
+  });
+
+  it('should return tooltip info when call graphTooltip', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    instance.graphTooltip({ fname: 'Donnell Calhoun' }).should.eql('<span>Donnell Calhoun</span>');
   });
 
   it('should show connected nodes when click on node', function () {
@@ -511,5 +521,102 @@ describe('SocialGraph', function () {
     visibleGraphNodes = filter(graphNodes, graphNode => graphNode.style.opacity === '1');
     hideGraphNodes.should.have.length(0);
     visibleGraphNodes.should.have.length(20);
+  });
+
+  it('should move d to be adjacent to the cluster node when call cluster', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    const graphNode = { id: 11, fname: 'David Portis', uid: 22861, degree: 3, group: 6, x: 40, y: 60 };
+    const cluster = instance.data.maxNodeInCommunities[graphNode.group];
+    cluster.x = 10;
+    cluster.y = 20;
+
+    instance.cluster(0.5)(graphNode);
+
+    round(graphNode.x, 2).should.eql(27.55);
+    round(graphNode.y, 2).should.eql(43.4);
+    round(cluster.x, 2).should.eql(22.45);
+    round(cluster.y, 2).should.eql(36.6);
+  });
+
+  it('should resolves collisions between d and all other circles when call collide', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+
+    const graphNode1 = { id: 7, fname: 'Gilbert Cobb', uid: 4881, degree: 5, group: 5, x: 390, y: 405 };
+    const graphNode2 = { id: 12, fname: 'Eugene Offett', uid: 21194, degree: 7, group: 5, x: 387, y: 418 };
+
+    const graphNodes = [graphNode1, graphNode2];
+    instance.data.nodes = graphNodes;
+
+    instance.collide()(graphNode2);
+
+    round(graphNode1.x, 2).should.eql(390.02);
+    round(graphNode1.y, 2).should.eql(404.92);
+    round(graphNode2.x, 2).should.eql(386.98);
+    round(graphNode2.y, 2).should.eql(418.08);
+  });
+
+  it('should call drawGraph again when componentDidUpdate', function () {
+    const smallCoaccusedData = [
+      { officerId1: 2675, officerId2: 24157, incidentDate: '1990-01-09T00:00:00Z', accussedCount: 2 },
+      { officerId1: 11580, officerId2: 30466, incidentDate: '1991-02-20T00:00:00Z', accussedCount: 2 },
+      { officerId1: 22861, officerId2: 30466, incidentDate: '1991-02-20T00:00:00Z', accussedCount: 2 },
+      { officerId1: 11580, officerId2: 22861, incidentDate: '1991-02-20T00:00:00Z', accussedCount: 2 },
+      { officerId1: 11580, officerId2: 22861, incidentDate: '1991-07-06T00:00:00Z', accussedCount: 3 },
+      { officerId1: 22861, officerId2: 30466, incidentDate: '1991-08-07T00:00:00Z', accussedCount: 3 },
+      { officerId1: 11580, officerId2: 22861, incidentDate: '1991-08-07T00:00:00Z', accussedCount: 4 },
+      { officerId1: 11580, officerId2: 30466, incidentDate: '1991-08-07T00:00:00Z', accussedCount: 3 },
+      { officerId1: 11580, officerId2: 22861, incidentDate: '1992-03-08T00:00:00Z', accussedCount: 5 },
+      { officerId1: 12176, officerId2: 28805, incidentDate: '1992-07-18T00:00:00Z', accussedCount: 2 },
+      { officerId1: 11580, officerId2: 30466, incidentDate: '1993-02-15T00:00:00Z', accussedCount: 4 },
+      { officerId1: 3663, officerId2: 21194, incidentDate: '1993-03-28T00:00:00Z', accussedCount: 2 },
+    ];
+
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ smallCoaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+
+    instance.data.nodes.should.have.length(20);
+    instance.data.links.should.have.length(6);
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />,
+      instance
+    );
+
+    instance.data.nodes.should.have.length(20);
+    instance.data.links.should.have.length(37);
+  });
+
+  it('should not draw graph when officers is empty', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ {} }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+
+    should(instance.data.nodes).be.undefined();
+    should(instance.data.links).be.undefined();
   });
 });

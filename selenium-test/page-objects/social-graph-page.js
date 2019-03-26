@@ -20,6 +20,8 @@ class AnimatedSocialGraphSection extends Section {
       timelineSlider: '(//div[contains(@class, "test--timeline-slider")])',
       showCivilComplaintOnlyCheckbox: '(//input[@class="test--show-civil-complaint-checkbox"])',
       firstSearchResultSuggestion: '(//div[@class="graph-search-input-container"]//div//div)',
+      tooltip: '(//div[contains(@class, "test--graph-tooltip")]//span)',
+      biggestGraphNode: '(//*[@r="7"])',
     });
   }
 
