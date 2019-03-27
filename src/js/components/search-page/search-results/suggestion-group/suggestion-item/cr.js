@@ -3,15 +3,15 @@ import React, { PropTypes } from 'react';
 import cx from 'classnames';
 
 import SuggestionItemBase from './base';
-import PinboardAddButton from './item-pin-button';
+import ItemPinButton from './item-pin-button';
 import styles from './cr.sass';
 
 
 class CRItem extends SuggestionItemBase {
-  renderPinboardAddButton() {
+  renderItemPinButton() {
     const { suggestion, addItemToPinboard } = this.props;
     return (
-      <PinboardAddButton
+      <ItemPinButton
         addItemToPinboard={ addItemToPinboard }
         suggestion={ suggestion }
       />

@@ -5,7 +5,7 @@ import { compact, isEmpty } from 'lodash';
 import cx from 'classnames';
 
 import SuggestionItemBase from './base';
-import PinboardAddButton from './item-pin-button';
+import ItemPinButton from './item-pin-button';
 import styles from './officer.sass';
 
 
@@ -14,10 +14,10 @@ class OfficerItem extends SuggestionItemBase {
     return styles.innerWrapper;
   }
 
-  renderPinboardAddButton() {
+  renderItemPinButton() {
     const { suggestion, addItemToPinboard } = this.props;
     return (
-      <PinboardAddButton
+      <ItemPinButton
         addItemToPinboard={ addItemToPinboard }
         suggestion={ suggestion }
       />
