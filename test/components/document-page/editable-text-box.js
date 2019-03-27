@@ -9,7 +9,7 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 import HoverableEditWrapper from 'components/inline-editable/hoverable-edit-wrapper';
-import SimpleEditWrapperStateProvider from 'components/inline-editable/simple-edit-wrapper-state-provider';
+import EditWrapperStateProvider from 'components/inline-editable/edit-wrapper-state-provider';
 import SimpleTextEditable from 'components/inline-editable/editable-section/simple-text-editable';
 import EditableTextBox from 'components/document-page/editable-text-box';
 
@@ -34,10 +34,10 @@ describe('EditableTextBox component', function () {
     const title = findRenderedDOMComponentWithClass(instance, 'editable-text-box-title');
     title.textContent.should.eql('Some title');
 
-    const simpleEditWrapperStateProvider = findRenderedComponentWithType(instance, SimpleEditWrapperStateProvider);
-    simpleEditWrapperStateProvider.props.should.containEql({ someProp: 'some prop' });
+    const editWrapperStateProvider = findRenderedComponentWithType(instance, EditWrapperStateProvider);
+    editWrapperStateProvider.props.should.containEql({ someProp: 'some prop' });
 
-    const hoverableEditWrapper = findRenderedComponentWithType(simpleEditWrapperStateProvider, HoverableEditWrapper);
+    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
 
     const simpleTextEditable = findRenderedComponentWithType(hoverableEditWrapper, SimpleTextEditable);
     simpleTextEditable.props.className.should.eql('editable-text-box-text');
@@ -62,13 +62,13 @@ describe('EditableTextBox component', function () {
     const title = findRenderedDOMComponentWithClass(instance, 'editable-text-box-title');
     title.textContent.should.eql('Some title');
 
-    const simpleEditWrapperStateProvider = findRenderedComponentWithType(instance, SimpleEditWrapperStateProvider);
-    simpleEditWrapperStateProvider.props.should.containEql({
+    const editWrapperStateProvider = findRenderedComponentWithType(instance, EditWrapperStateProvider);
+    editWrapperStateProvider.props.should.containEql({
       someProp: 'some prop',
       sectionEditModeOn: false,
     });
 
-    const hoverableEditWrapper = findRenderedComponentWithType(simpleEditWrapperStateProvider, HoverableEditWrapper);
+    const hoverableEditWrapper = findRenderedComponentWithType(editWrapperStateProvider, HoverableEditWrapper);
 
     const minimalScrollBar = findRenderedComponentWithType(hoverableEditWrapper, MinimalScrollBars);
     minimalScrollBar.props.showThumb.should.be.true();

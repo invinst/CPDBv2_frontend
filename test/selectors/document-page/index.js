@@ -1,6 +1,11 @@
 import moment from 'moment-timezone';
 
-import { getTitleEditModeOn, getTextContentEditModeOn, documentSelector } from 'selectors/document-page';
+import {
+  getTitleEditModeOn,
+  getTextContentEditModeOn,
+  documentSelector,
+  documentEditableFieldsSelector
+} from 'selectors/document-page';
 import { omit } from 'lodash';
 
 describe('Document selectors', function () {
@@ -130,6 +135,68 @@ describe('Document selectors', function () {
           { name: 'Crawler', value: 'Chicago COPA' },
           { name: 'Date', value: 'Jan 9, 2019' },
         ],
+      });
+    });
+  });
+
+  describe('documentEditableFieldsSelector', function () {
+    it('should return correct result', function () {
+      documentEditableFieldsSelector({
+        documentPage: {
+          isRequesting: false,
+          data: {
+            'id': 14193,
+            'title': 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)',
+            'text_content': 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE',
+          },
+          titleEditModeOn: false,
+          textContentEditModeOn: false
+        },
+      }).should.eql({
+        attachmentId: {
+          type: 'number',
+          key: 'id',
+          value: 14193
+        },
+        title: {
+          type: 'string',
+          key: 'title',
+          value: 'CRID 1083633 CR CRID 1083633 CR Tactical Response Report 2 (Glim)'
+        },
+        textContent: {
+          type: 'string',
+          key: 'text_content',
+          value: 'TACTICAL RESPONSE Police Department\n1. DATE OF INCIDENT TIME 2. ADDRESS OF OCCURRENCE'
+        }
+      });
+    });
+
+    it('should handle undefined cases', function () {
+      documentEditableFieldsSelector({
+        documentPage: {
+          isRequesting: false,
+          data: {
+            'id': 14193,
+          },
+          titleEditModeOn: false,
+          textContentEditModeOn: false
+        },
+      }).should.eql({
+        attachmentId: {
+          type: 'number',
+          key: 'id',
+          value: 14193
+        },
+        title: {
+          type: 'string',
+          key: 'title',
+          value: ''
+        },
+        textContent: {
+          type: 'string',
+          key: 'text_content',
+          value: ''
+        }
       });
     });
   });
