@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   renderIntoDocument,
-  scryRenderedComponentsWithType
+  scryRenderedComponentsWithType,
+  findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
@@ -46,10 +47,12 @@ describe('Complaint Summaries components', function () {
     complaintSummaryCard1.textContent.should.containEql('Illegal Search');
     complaintSummaryCard1.textContent.should.containEql('Jul 6, 2017');
     complaintSummaryCard1.textContent.should.containEql('This is summary 1');
+    findRenderedDOMComponentWithClass(complaintSummaryCards[0], 'complaint-summary-card-summary-gradient');
 
     const complaintSummaryCard2 = findDOMNode(complaintSummaryCards[1]);
     complaintSummaryCard2.textContent.should.containEql('Use of Force');
     complaintSummaryCard2.textContent.should.containEql('Feb 6, 2017');
     complaintSummaryCard2.textContent.should.containEql('This is summary 2');
+    findRenderedDOMComponentWithClass(complaintSummaryCards[1], 'complaint-summary-card-summary-gradient');
   });
 });

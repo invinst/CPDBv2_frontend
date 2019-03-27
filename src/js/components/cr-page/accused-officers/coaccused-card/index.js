@@ -95,7 +95,7 @@ export class CoaccusedCard extends Component {
             <p className='bold-text'>{ this.renderComplaintInfo() }</p>
             { this.renderComplaintPercentile() }
           </div>
-          <div className='coaccused-card-section test--officer-card-demographic'>{ this.renderExtraInfo() }</div>
+          <div className='coaccused-card-section officer-card-demographic'>{ this.renderExtraInfo() }</div>
         </div>
         <div className='coaccused-card-footer'>
           <div className='accused-card-category'>{ category }</div>
