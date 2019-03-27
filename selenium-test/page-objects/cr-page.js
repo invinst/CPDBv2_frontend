@@ -15,7 +15,7 @@ class AccusedOfficerCard extends Section {
       name: `${firstCardSelector}//p[contains(@class, "coaccused-card-name")]`,
       metric: `${firstCardSelector}//span[@class="test--officer-card-metric"]`,
       percentile: `${firstCardSelector}//p[contains(@class, "test--officer-card-percentile")]`,
-      demographic: `${firstCardSelector}//div[contains(@class, "test--officer-card-demographic")]`,
+      demographic: `${firstCardSelector}//div[contains(@class, "officer-card-demographic")]`,
       category: `${firstCardSelector}//div[@class="accused-card-category"]`,
       outcome: `${firstCardSelector}//div[contains(@class, "accused-card-outcome")]`,
     });
