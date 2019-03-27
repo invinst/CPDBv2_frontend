@@ -26,6 +26,33 @@ describe('createOrUpdatePinboard middleware', function () {
     }
   });
 
+  const shouldDispatchWithType = (type) => {
+    const itemId = '1';
+    const action = createAddItemToPinboardAction({
+      id: itemId,
+      type: type,
+      isPinned: false,
+    });
+    const store = createStore(PinboardFactory.build());
+    let dispatched;
+
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    const officerIds = (type.endsWith('OFFICER') || type.endsWith('OFFICERS')) ? [itemId] : [];
+    const crids = type.endsWith('CR') ? [itemId] : [];
+    store.dispatch.calledWith(createPinboard({
+      id: null,
+      title: '',
+      officerIds: officerIds,
+      crids: crids,
+      description: '',
+      url: '',
+      itemsCount: 0,
+      ownedByCurrentUser: false,
+    })).should.be.true();
+  };
+
   it('should not dispatch any action if action is not ADD_ITEM_TO_PINBOARD', function () {
     const action = {
       type: 'other action'
@@ -38,50 +65,15 @@ describe('createOrUpdatePinboard middleware', function () {
     store.dispatch.called.should.be.false();
   });
 
-  it('should dispatch createPinboard action if a first CR item is added to pinboard', function () {
-    const action = createAddItemToPinboardAction({
-      id: '1',
-      type: 'CR',
-      isPinned: false,
-    });
-    const store = createStore(PinboardFactory.build());
-    let dispatched;
+  it('should dispatch createPinboard action if type is of cr or officer', function () {
+    const typesCanBePinned = [
+      'CR', 'DATE > CR', 'INVESTIGATOR > CR',
+      'OFFICER', 'UNIT > OFFICERS', 'DATE > OFFICERS'
+    ];
 
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.calledWith(createPinboard({
-      id: null,
-      title: '',
-      officerIds: [],
-      crids: ['1'],
-      description: '',
-      url: '',
-      itemsCount: 0,
-      ownedByCurrentUser: false,
-    })).should.be.true();
-  });
-
-  it('should dispatch createPinboard action if a first OFFICER item is added to pinboard', function () {
-    const action = createAddItemToPinboardAction({
-      id: '1',
-      type: 'OFFICER',
-      isPinned: false,
-    });
-    const store = createStore(PinboardFactory.build());
-    let dispatched;
-
-    createOrUpdatePinboard(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.calledWith(createPinboard({
-      id: null,
-      title: '',
-      officerIds: ['1'],
-      crids: [],
-      description: '',
-      url: '',
-      itemsCount: 0,
-      ownedByCurrentUser: false,
-    })).should.be.true();
+    for (let i = 0; i < typesCanBePinned.length; i++) {
+      shouldDispatchWithType(typesCanBePinned[i]);
+    }
   });
 
   context('when an item is added', function () {

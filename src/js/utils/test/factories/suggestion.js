@@ -78,7 +78,7 @@ export const RawRankSuggestion = Factory.define('RankSuggestion')
   ]);
 
 /* istanbul ignore next */
-export const OfficerSuggestion = Factory.define('OfficerSuggestion')
+export const OfficerSuggestionBase = Factory.define('OfficerSuggestionBase')
   .attr('id', () => String(random.number()))
   .attr('type', 'OFFICER')
   .attr('text', lorem.words)
@@ -92,6 +92,21 @@ export const OfficerSuggestion = Factory.define('OfficerSuggestion')
   .attr('complaintCount', 20)
   .attr('sustainedCount', 0);
 
+/* istanbul ignore next */
+export const OfficerSuggestion = Factory.define('OfficerSuggestion')
+  .extend('OfficerSuggestionBase')
+  .attr('type', 'OFFICER');
+
+/* istanbul ignore next */
+export const DateOfficersSuggestion = Factory.define('DateOfficersSuggestion')
+  .extend('OfficerSuggestionBase')
+  .attr('type', 'DATE > OFFICERS');
+
+/* istanbul ignore next */
+export const UnitOfficersSuggestion = Factory.define('UnitOfficersSuggestion')
+  .extend('OfficerSuggestionBase')
+  .attr('type', 'UNIT > OFFICERS');
+
 export const NavigationItem = Factory.define('NavigationItem')
   .attr('id', () => String(random.number()))
   .attr('type', 'OFFICER')
@@ -100,9 +115,8 @@ export const NavigationItem = Factory.define('NavigationItem')
   .attr('uniqueKey', ['type', 'id'], (type, id) => `${type}-${id}`);
 
 /* istanbul ignore next */
-export const CRSuggestion = Factory.define('CRSuggestion')
+export const CRSuggestionBase = Factory.define('CRSuggestionBase')
   .attr('id', () => String(random.number()))
-  .attr('type', 'CR')
   .attr('crid', () => String(random.number()))
   .attr('to', '')
   .attr('url', '')
@@ -112,5 +126,20 @@ export const CRSuggestion = Factory.define('CRSuggestion')
   .attr('highlight', {
     summary: [String(lorem.sentence)]
   });
+
+/* istanbul ignore next */
+export const CRSuggestion = Factory.define('CRSuggestion')
+  .extend('CRSuggestionBase')
+  .attr('type', 'CR');
+
+/* istanbul ignore next */
+export const DateCRSuggestion = Factory.define('DateCRSuggestion')
+  .extend('CRSuggestionBase')
+  .attr('type', 'DATE > CR');
+
+/* istanbul ignore next */
+export const InvestigatorCRSuggestion = Factory.define('InvestigatorCRSuggestion')
+  .extend('CRSuggestionBase')
+  .attr('type', 'INVESTIGATOR > CR');
 
 

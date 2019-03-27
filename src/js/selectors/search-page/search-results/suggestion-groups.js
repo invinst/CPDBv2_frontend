@@ -78,11 +78,20 @@ export const slicedSuggestionGroupsSelector = createSelector(
   }
 );
 
-const pinItem = (item, pinboardItems) => {
-  item.isPinned =
-    (pinboardItems.hasOwnProperty(item.type)) &&
-    (pinboardItems[item.type].indexOf(item.id) !== -1);
+const pinnedItemTypeMap = {
+  'CR': 'CR',
+  'DATE > CR': 'CR',
+  'INVESTIGATOR > CR': 'CR',
+  'OFFICER': 'OFFICER',
+  'UNIT > OFFICERS': 'OFFICER',
+  'DATE > OFFICERS': 'OFFICER',
+};
 
+const pinItem = (item, pinboardItems) => {
+  const pinnedItemType = pinnedItemTypeMap[item.type];
+  item.isPinned =
+    (pinboardItems.hasOwnProperty(pinnedItemType)) &&
+    (pinboardItems[pinnedItemType].indexOf(item.id) !== -1);
   return item;
 };
 

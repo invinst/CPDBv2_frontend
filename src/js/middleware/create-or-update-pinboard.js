@@ -6,7 +6,11 @@ import { createPinboard, updatePinboard } from 'actions/pinboard';
 
 const PINBOARD_ATTR_MAP = {
   'CR': 'crids',
-  'OFFICER': 'officerIds'
+  'DATE > CR': 'crids',
+  'INVESTIGATOR > CR': 'crids',
+  'OFFICER': 'officerIds',
+  'UNIT > OFFICERS': 'officerIds',
+  'DATE > OFFICERS': 'officerIds',
 };
 
 

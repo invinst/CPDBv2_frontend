@@ -11,6 +11,8 @@ const COMPONENT_MAP = {
   'DATE > OFFICERS': OfficerItem,
   'UNIT > OFFICERS': OfficerItem,
   CR: CRItem,
+  'DATE > CR': CRItem,
+  'INVESTIGATOR > CR': CRItem,
 };
 
 export default class SuggestionItem extends Component {
