@@ -7,7 +7,7 @@ import * as constants from 'utils/constants';
 
 export default class CrawlersPage extends Component {
   render() {
-    const { crawlers, requestCrawlers, nextParams } = this.props;
+    const { crawlers, requestCrawlers, nextParams, openLogFileModal } = this.props;
 
     return (
       <div>
@@ -16,7 +16,11 @@ export default class CrawlersPage extends Component {
           buttonText='Documents'
           to='/documents/' />
         <CrawlersTable
-          rows={ crawlers } nextParams={ nextParams } requestCrawlers={ requestCrawlers }/>
+          rows={ crawlers }
+          nextParams={ nextParams }
+          requestCrawlers={ requestCrawlers }
+          openLogFileModal={ openLogFileModal }
+        />
       </div>
     );
   }
@@ -25,7 +29,8 @@ export default class CrawlersPage extends Component {
 CrawlersPage.propTypes = {
   crawlers: PropTypes.array,
   nextParams: PropTypes.object,
-  requestCrawlers: PropTypes.func
+  requestCrawlers: PropTypes.func,
+  openLogFileModal: PropTypes.func,
 };
 
 CrawlersPage.defaultProps = {
