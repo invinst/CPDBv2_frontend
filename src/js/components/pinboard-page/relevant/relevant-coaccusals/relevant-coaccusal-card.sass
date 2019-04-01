@@ -1,0 +1,56 @@
+@import 'variables'
+
+\:local(.relevant-coaccusal-card)
+  display: inline-block
+  box-sizing: border-box
+  text-decoration: none
+  border: solid 1px $mine-shaft-color
+  border-radius: 2px
+  width: 148px
+  margin-right: 8px
+
+  &:last-of-type
+    margin-right: 0
+
+  .radar-chart-wrapper
+    height: 60px
+    width: 148px
+
+  .officer-card-section
+    padding: 12px 8px
+    background-color: $soft-black-color
+    height: 48px
+
+    .light-text
+      margin: 0
+      font-size: 12px
+      line-height: 1.17
+      font-weight: 300
+      color: $greyish-color
+      height: 14px
+      white-space: nowrap
+      overflow: hidden
+      text-overflow: ellipsis
+
+    .bold-text
+      margin: 0
+      line-height: 16px
+      font-size: 14px
+      font-weight: 300
+      color: white
+
+  .coaccusal-count
+    padding: 12px 8px 16px 8px
+    color: white
+    font-size: 14px
+    background-color: $mine-shaft-color
+
+  &:hover
+    border: solid 1px $accent-color
+
+    .officer-card-section
+      .light-text
+        color: $lighter-accent-color
+
+      .bold-text
+        color: $accent-color

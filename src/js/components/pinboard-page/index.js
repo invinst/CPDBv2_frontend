@@ -1,14 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import cx from 'classnames';
+import { get } from 'lodash';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import styles from './pinboard-page.sass';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import RelevantCoaccusals from './relevant/relevant-coaccusals';
 
 export default class PinboardPage extends Component {
   render() {
     const { pinboard, graphData } = this.props;
+    const relevantCoaccusals = get(pinboard, 'relevantCoaccusals');
     return (
       <div className={ cx(responsiveContainerStyles.responsiveContainer, styles.pinboardPage) }>
         <Link to='/search/'>Back to search page</Link>
@@ -26,6 +29,8 @@ export default class PinboardPage extends Component {
             />
           </div>
         </div>
+        <div>Relevant</div>
+        <RelevantCoaccusals coaccusals={ relevantCoaccusals }/>
       </div>
     );
   }

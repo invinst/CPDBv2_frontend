@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { createSelector } from 'reselect';
+import { extractPercentile } from 'selectors/common/percentile';
 
 const generatePinboardUrl = pinboard => {
   if (pinboard === null || pinboard['id'] === null) {
@@ -17,6 +18,14 @@ const countPinnedItems = pinboard => {
   return pinboard['officer_ids'].length + pinboard['crids'].length + pinboard['trr_ids'].length;
 };
 
+const getRelevantCoaccusal = coaccusal => ({
+  id: coaccusal.id,
+  rank: coaccusal.rank,
+  fullName: coaccusal['full_name'],
+  coaccusalCount: coaccusal['coaccusal_count'],
+  percentile: extractPercentile(coaccusal.percentile),
+});
+
 export const getPinboard = createSelector(
   state => state.pinboard,
   pinboard => ({
@@ -29,6 +38,7 @@ export const getPinboard = createSelector(
     url: generatePinboardUrl(pinboard),
     itemsCount: countPinnedItems(pinboard),
     ownedByCurrentUser: _.get(pinboard, 'ownedByCurrentUser', false),
+    relevantCoaccusals: _.map(_.get(pinboard, 'relevant_coaccusals', []), getRelevantCoaccusal),
   })
 );
 
