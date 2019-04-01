@@ -11,7 +11,12 @@ export default class RelevantInfiniteCarousel extends Component {
     return (
       <div className={ styles.relevantInfiniteCarousel }>
         <div className='relevant-infinite-carousel-title'>{ title }</div>
-        <Carousel childWidth={ childWidth } hasMore={ hasMore } loadMore={ loadMore }>
+        <Carousel
+          childWidth={ childWidth }
+          hasMore={ hasMore }
+          loadMore={ loadMore }
+          arrowClassName='relevant-carousel-arrow'
+        >
           { children }
         </Carousel>
       </div>
