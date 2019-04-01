@@ -6,12 +6,12 @@ import styles from './relevant-infinite-carousel.sass';
 
 export default class RelevantInfiniteCarousel extends Component {
   render() {
-    const { children, childWidth, title } = this.props;
+    const { children, childWidth, title, hasMore, loadMore } = this.props;
 
     return (
       <div className={ styles.relevantInfiniteCarousel }>
         <div className='relevant-infinite-carousel-title'>{ title }</div>
-        <Carousel childWidth={ childWidth }>
+        <Carousel childWidth={ childWidth } hasMore={ hasMore } loadMore={ loadMore }>
           { children }
         </Carousel>
       </div>
@@ -23,4 +23,6 @@ RelevantInfiniteCarousel.propTypes = {
   children: PropTypes.node,
   childWidth: PropTypes.number,
   title: PropTypes.string,
+  hasMore: PropTypes.bool,
+  loadMore: PropTypes.func,
 };

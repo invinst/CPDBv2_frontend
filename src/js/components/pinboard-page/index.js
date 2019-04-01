@@ -5,12 +5,12 @@ import cx from 'classnames';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import styles from './pinboard-page.sass';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
-import RelevantCoaccusals from './relevant/relevant-coaccusals';
+import RelevantCoaccusalsContainer from 'containers/pinboard-page/relevant/relevant-coaccusals';
 
 
 export default class PinboardPage extends Component {
   render() {
-    const { pinboard, graphData, relevantCoaccusals } = this.props;
+    const { pinboard, graphData } = this.props;
     return (
       <div className={ cx(responsiveContainerStyles.responsiveContainer, styles.pinboardPage) }>
         <Link to='/search/'>Back to search page</Link>
@@ -29,7 +29,7 @@ export default class PinboardPage extends Component {
           </div>
         </div>
         <div>Relevant</div>
-        <RelevantCoaccusals coaccusals={ relevantCoaccusals }/>
+        <RelevantCoaccusalsContainer/>
       </div>
     );
   }
@@ -38,5 +38,4 @@ export default class PinboardPage extends Component {
 PinboardPage.propTypes = {
   pinboard: PropTypes.object,
   graphData: PropTypes.object,
-  relevantCoaccusals: PropTypes.array,
 };

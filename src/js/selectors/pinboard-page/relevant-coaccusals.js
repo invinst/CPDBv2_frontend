@@ -1,8 +1,9 @@
 import { createSelector } from 'reselect';
 
 import { extractPercentile } from 'selectors/common/percentile';
+import extractQuery from 'utils/extract-query';
 
-const getRelevantCoaccusals = state => state.pinboardPage.relevantCoaccusals || [];
+const getRelevantCoaccusalsPagination = state => state.pinboardPage.relevantCoaccusals;
 
 const relevantCoaccusalTransform = coaccusal => ({
   id: coaccusal.id,
@@ -13,6 +14,25 @@ const relevantCoaccusalTransform = coaccusal => ({
 });
 
 export const relevantCoaccusalsSelector = createSelector(
-  getRelevantCoaccusals,
-  coaccusals => coaccusals.map(relevantCoaccusalTransform)
+  getRelevantCoaccusalsPagination,
+  ({ coaccusals }) => coaccusals.items.map(relevantCoaccusalTransform)
+);
+
+const relevantCoaccusalsCountSelector = createSelector(
+  getRelevantCoaccusalsPagination,
+  ({ count }) => count
+);
+
+
+export const relevantCoaccusalsNextParamsSelector = createSelector(
+  getRelevantCoaccusalsPagination,
+  ({ pagination }) => {
+    return extractQuery(pagination.next);
+  }
+);
+
+export const relevantCoaccusalsHasMoreSelector = createSelector(
+  relevantCoaccusalsCountSelector,
+  relevantCoaccusalsSelector,
+  (count, coaccusals) => coaccusals.length < count
 );

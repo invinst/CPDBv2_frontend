@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 
 import { get, post, put } from 'actions/common/async-action';
 import * as constants from 'utils/constants';
+import { map, entries } from 'lodash';
 
 
 export const addItemToPinboard = createAction(constants.ADD_ITEM_TO_PINBOARD, item => item);
@@ -42,11 +43,16 @@ export const fetchPinboardSocialGraph = id => get(
   ]
 )();
 
-export const fetchPinboardRelevantCoaccusals = id => get(
-  `${constants.PINBOARDS_URL}${id}/relevant-coaccusals/`,
-  [
-    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
-    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
-    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
-  ]
-)();
+export const fetchPinboardRelevantCoaccusals = (id, params) => {
+  const queryString = map(entries(params), ([key, val]) => `${key}=${val}`).join('&');
+  const url = `${constants.PINBOARDS_URL}${id}/relevant-coaccusals/?${queryString}`;
+
+  return get(
+    url,
+    [
+      constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
+      constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
+      constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+    ]
+  )();
+};
