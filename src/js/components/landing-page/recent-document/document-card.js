@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
-import pluralize from 'pluralize';
 
 import styles from './document-card.sass';
 import * as GATracking from 'utils/google_analytics_tracking';
@@ -20,7 +19,7 @@ export default class DocumentCard extends React.Component {
   }
 
   render() {
-    const { numDocuments, previewImageUrl, crid } = this.props;
+    const { previewImageUrl, crid, incidentDate, category } = this.props;
     return (
       <Link
         className={ styles.documentCard }
@@ -31,7 +30,8 @@ export default class DocumentCard extends React.Component {
           <img className='document-card-thumbnail-img' src={ previewImageUrl } alt='Document preview image'/>
         </div>
         <div className='document-card-description'>
-          { pluralize('new attachment', numDocuments, true) } added to CR { crid }
+          <div className='document-card-description-incident-date'>{ incidentDate }</div>
+          <div className='document-card-description-category'>{ category }</div>
         </div>
       </Link>
     );
@@ -39,11 +39,12 @@ export default class DocumentCard extends React.Component {
 }
 
 DocumentCard.propTypes = {
-  numDocuments: PropTypes.number,
   previewImageUrl: PropTypes.string,
   url: PropTypes.string,
   crid: PropTypes.string,
   pathname: PropTypes.string,
+  incidentDate: PropTypes.string,
+  category: PropTypes.string,
   onTrackingAttachment: PropTypes.func,
   id: PropTypes.string,
 };
