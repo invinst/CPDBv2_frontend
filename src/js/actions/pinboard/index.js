@@ -41,3 +41,12 @@ export const fetchPinboardSocialGraph = id => get(
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
   ]
 )();
+
+export const fetchPinboardRelevantCoaccusals = id => get(
+  `${constants.PINBOARDS_URL}${id}/relevant-coaccusals/`,
+  [
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+  ]
+)();

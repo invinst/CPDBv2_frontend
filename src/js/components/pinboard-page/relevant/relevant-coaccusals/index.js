@@ -6,7 +6,6 @@ import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/relevant
 export default class RelevantCoaccusals extends Component {
   render() {
     const { coaccusals } = this.props;
-    console.warn('coaccusals', coaccusals);
     if (!coaccusals)
       return null;
 
