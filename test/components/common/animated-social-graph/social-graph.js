@@ -610,7 +610,7 @@ describe('SocialGraph', function () {
   it('should not draw graph when officers is empty', function () {
     instance = renderIntoDocument(
       <SocialGraph
-        officers={ {} }
+        officers={ [] }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
       />

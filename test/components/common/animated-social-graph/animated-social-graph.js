@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFakeTimers } from 'sinon';
+import { useFakeTimers, spy } from 'sinon';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
@@ -10,11 +10,11 @@ import {
 } from 'react-addons-test-utils';
 import Slider from 'rc-slider';
 import Autocomplete from 'react-autocomplete';
+import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test/index';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
-import should from 'should';
 
 
 describe('AnimatedSocialGraph component', function () {
@@ -290,5 +290,19 @@ describe('AnimatedSocialGraph component', function () {
 
     const graphSearchInput = findRenderedComponentWithType(instance, Autocomplete);
     graphSearchInput.props.getItemValue({ fullName: 'Jerome Finnigan', id: 123 }).should.eql('Jerome Finnigan');
+  });
+
+  it('should call stopTimeline when componentWillUnmount', function () {
+    instance = renderIntoDocument(
+      <AnimatedSocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+
+    const stopTimelineSpy = spy(instance, 'stopTimeline');
+    unmountComponentSuppressError(instance);
+    stopTimelineSpy.called.should.be.true();
   });
 });
