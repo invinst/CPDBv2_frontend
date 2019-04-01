@@ -190,7 +190,7 @@ export default store => next => action => {
       dispatches.push(store.dispatch(requestCrawlers()));
     }
 
-    else if (action.payload.pathname.match(/\/pinboard\/\d+\//)) {
+    else if (action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//)) {
       const statePinboardID = get(state, 'pinboard.id', null);
       const pinboardID = getPinboardID(action.payload.pathname);
       if (statePinboardID === null || pinboardID !== statePinboardID) {

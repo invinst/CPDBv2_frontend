@@ -71,7 +71,7 @@ export function getDocDedupCRID(url) {
 }
 
 export function getPinboardID(url) {
-  const pinboardPattern = /.*pinboard\/(\d+).*/;
+  const pinboardPattern = /.*pinboard\/([a-fA-F0-9]+).*/;
   if (url === undefined || !url.match(pinboardPattern)) {
     return null;
   }
