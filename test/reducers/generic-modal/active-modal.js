@@ -4,6 +4,7 @@ import {
   CLOSE_MODAL,
   OPEN_LEGAL_DISCLAIMER_MODAL,
   OPEN_REQUEST_TRR_DOCUMENT_MODAL,
+  OPEN_LOG_FILE_MODAL,
 } from 'actions/generic-modal';
 import activeModal from 'reducers/generic-modal/active-modal';
 
@@ -19,6 +20,10 @@ describe('activeModal reducer', function () {
 
   it('should handle OPEN_REQUEST_TRR_DOCUMENT_MODAL', function () {
     activeModal(null, { type: OPEN_REQUEST_TRR_DOCUMENT_MODAL }).should.eql('REQUEST_TRR_DOCUMENT');
+  });
+
+  it('should handle OPEN_LOG_FILE_MODAL', function () {
+    activeModal(null, { type: OPEN_LOG_FILE_MODAL }).should.eql('LOG_FILE');
   });
 
   it('should handle OPEN_LEGAL_DISCLAIMER_MODAL', function () {

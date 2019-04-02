@@ -86,7 +86,7 @@ export class OfficerCard extends Component {
               <p className='bold-text'>{ this.renderComplaintInfo() }</p>
               { this.renderComplaintPercentile() }
             </div>
-            <div className='officer-card-section test--officer-card-demographic'>
+            <div className='officer-card-section officer-card-demographic'>
               <p className='extra-info'>{ this.renderExtraInfo() }</p>
             </div>
           </div>

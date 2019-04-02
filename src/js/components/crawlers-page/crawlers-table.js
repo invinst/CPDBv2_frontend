@@ -8,7 +8,7 @@ import styles from './crawlers-table.sass';
 
 export default class CrawlersTable extends Component {
   render() {
-    const { rows, requestCrawlers, nextParams } = this.props;
+    const { rows, requestCrawlers, nextParams, openLogFileModal } = this.props;
     return (
       <div className={ responsiveContainerStyles.responsiveContainer }>
         <div className={ styles.table }>
@@ -26,7 +26,11 @@ export default class CrawlersTable extends Component {
             useWindow={ true }>
             {
               map(rows, row => (
-                <CrawlerRow { ...row } key={ row.id }/>
+                <CrawlerRow
+                  { ...row }
+                  key={ row.id }
+                  openLogFileModal={ openLogFileModal }
+                />
               ))
             }
           </InfiniteScroll>
@@ -39,5 +43,6 @@ export default class CrawlersTable extends Component {
 CrawlersTable.propTypes = {
   rows: PropTypes.array,
   requestCrawlers: PropTypes.func,
-  nextParams: PropTypes.object
+  nextParams: PropTypes.object,
+  openLogFileModal: PropTypes.func,
 };

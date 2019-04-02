@@ -96,7 +96,7 @@ describe('redirectOfficerAliasMiddleware', function () {
 
     const documentsTabStore = createStore('/officer/123/peter-parker/documents/');
     redirectOfficerAliasMiddleware(documentsTabStore)(action => action)(summaryRequestAction);
-    documentsTabStore.dispatch.should.be.calledWith(changeOfficerTab('ATTACHMENTS'));
+    documentsTabStore.dispatch.should.be.calledWith(changeOfficerTab('DOCUMENTS'));
 
     const coaccusalsTabStoreWithoutOfficerName = createStore('/officer/123/coaccusals/');
     redirectOfficerAliasMiddleware(coaccusalsTabStoreWithoutOfficerName)(action => action)(summaryRequestAction);
@@ -107,14 +107,14 @@ describe('redirectOfficerAliasMiddleware', function () {
 
     const documentsTabStoreWithoutOfficerName = createStore('/officer/123/documents/');
     redirectOfficerAliasMiddleware(documentsTabStoreWithoutOfficerName)(action => action)(summaryRequestAction);
-    documentsTabStoreWithoutOfficerName.dispatch.should.be.calledWith(changeOfficerTab('ATTACHMENTS'));
+    documentsTabStoreWithoutOfficerName.dispatch.should.be.calledWith(changeOfficerTab('DOCUMENTS'));
     documentsTabStoreWithoutOfficerName.dispatch.should.be.calledWith(
       updatePathName('/officer/123/peter-parker/documents/')
     );
 
     const documentsTabStoreWithWrongOfficerName = createStore('/officer/123/peter-/documents/');
     redirectOfficerAliasMiddleware(documentsTabStoreWithWrongOfficerName)(action => action)(summaryRequestAction);
-    documentsTabStoreWithWrongOfficerName.dispatch.should.be.calledWith(changeOfficerTab('ATTACHMENTS'));
+    documentsTabStoreWithWrongOfficerName.dispatch.should.be.calledWith(changeOfficerTab('DOCUMENTS'));
     documentsTabStoreWithWrongOfficerName.dispatch.should.be.calledWith(
       updatePathName('/officer/123/peter-parker/documents/')
     );
@@ -139,7 +139,7 @@ describe('redirectOfficerAliasMiddleware', function () {
   it('should handle CHANGE_OFFICER_TAB action to add tab name to url', function () {
     const changeOfficeTabAction = {
       type: CHANGE_OFFICER_TAB,
-      payload: 'ATTACHMENTS'
+      payload: 'DOCUMENTS'
     };
 
     const storeWithoutTabName = createStore('/officer/123/peter-parker/');
