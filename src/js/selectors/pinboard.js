@@ -14,7 +14,7 @@ const countPinnedItems = pinboard => {
   if (pinboard === null) {
     return 0;
   }
-  return pinboard['officer_ids'].length + pinboard['crids'].length;
+  return pinboard['officer_ids'].length + pinboard['crids'].length + pinboard['trr_ids'].length;
 };
 
 export const getPinboard = createSelector(
@@ -24,6 +24,7 @@ export const getPinboard = createSelector(
     title: _.get(pinboard, 'title', ''),
     officerIds: _.map(_.get(pinboard, 'officer_ids', []), (id) => (id.toString())),
     crids: _.get(pinboard, 'crids', []),
+    trrIds: _.map(_.get(pinboard, 'trr_ids', []), (id) => (id.toString())),
     description: _.get(pinboard, 'description', ''),
     url: generatePinboardUrl(pinboard),
     itemsCount: countPinnedItems(pinboard),
@@ -33,8 +34,9 @@ export const getPinboard = createSelector(
 
 export const pinboardItemsSelector = createSelector(
   getPinboard,
-  ({ officerIds, crids }) => ({
+  ({ officerIds, crids, trrIds }) => ({
     'OFFICER': officerIds,
     'CR': crids,
+    'TRR': trrIds,
   })
 );

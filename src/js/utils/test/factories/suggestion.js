@@ -80,8 +80,6 @@ export const RawRankSuggestion = Factory.define('RankSuggestion')
 /* istanbul ignore next */
 export const OfficerSuggestionBase = Factory.define('OfficerSuggestionBase')
   .attr('id', () => String(random.number()))
-  .attr('type', 'OFFICER')
-  .attr('text', lorem.words)
   .attr('to', '')
   .attr('url', '')
   .attr('tags', [])
@@ -117,15 +115,12 @@ export const NavigationItem = Factory.define('NavigationItem')
 /* istanbul ignore next */
 export const CRSuggestionBase = Factory.define('CRSuggestionBase')
   .attr('id', () => String(random.number()))
-  .attr('crid', () => String(random.number()))
   .attr('to', '')
   .attr('url', '')
   .attr('tags', [])
+  .attr('uniqueKey', ['type', 'id'], (type, id) => `${type}-${id}`)
   .attr('category', lorem.words)
-  .attr('incident_date', '1999-12-13')
-  .attr('highlight', {
-    summary: [String(lorem.sentence)]
-  });
+  .attr('incidentDate', '1999-12-13');
 
 /* istanbul ignore next */
 export const CRSuggestion = Factory.define('CRSuggestion')
@@ -142,4 +137,21 @@ export const InvestigatorCRSuggestion = Factory.define('InvestigatorCRSuggestion
   .extend('CRSuggestionBase')
   .attr('type', 'INVESTIGATOR > CR');
 
+/* istanbul ignore next */
+export const TRRSuggestionBase = Factory.define('TRRSuggestionBase')
+  .attr('id', () => String(random.number()))
+  .attr('to', '')
+  .attr('url', '')
+  .attr('tags', [])
+  .attr('uniqueKey', ['type', 'id'], (type, id) => `${type}-${id}`)
+  .attr('subText', ['id'], (id) => `TRR # ${id}`);
 
+/* istanbul ignore next */
+export const TRRSuggestion = Factory.define('TRRSuggestion')
+  .extend('TRRSuggestionBase')
+  .attr('type', 'TRR');
+
+/* istanbul ignore next */
+export const DateTRRSuggestion = Factory.define('DateTRRSuggestion')
+  .extend('TRRSuggestionBase')
+  .attr('type', 'DATE > TRR');

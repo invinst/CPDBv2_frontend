@@ -1,8 +1,14 @@
 import React from 'react';
 import {
-  renderIntoDocument, scryRenderedDOMComponentsWithClass, findRenderedDOMComponentWithClass
+  renderIntoDocument,
+  scryRenderedDOMComponentsWithClass,
+  findRenderedDOMComponentWithClass,
+  findRenderedComponentWithType,
 } from 'react-addons-test-utils';
+import { stub } from 'sinon';
 
+import ItemPinButton from
+  'components/search-page/search-results/suggestion-group/suggestion-item/item-pin-button';
 import CRItem from 'components/search-page/search-results/suggestion-group/suggestion-item/cr';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -12,6 +18,21 @@ describe('CRItem component', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
+  });
+
+  it('should render ItemPinButton with correct passed props', function () {
+    const suggestion = { 'type': 'CR' };
+    const addItemToPinboard = stub();
+    instance = renderIntoDocument(<CRItem
+      suggestion={ suggestion }
+      addItemToPinboard={ addItemToPinboard }
+    />);
+
+    const itemPinButton = findRenderedComponentWithType(instance, ItemPinButton);
+    itemPinButton.props.should.containEql({
+      'suggestion': suggestion,
+      'addItemToPinboard': addItemToPinboard,
+    });
   });
 
   it('should render nothing when theres no subtext', function () {

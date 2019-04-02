@@ -11,6 +11,7 @@ describe('Pinboard selectors', function () {
         title: '',
         officerIds: [],
         crids: [],
+        trrIds: [],
         description: '',
         url: '',
         itemsCount: 0,
@@ -25,6 +26,7 @@ describe('Pinboard selectors', function () {
           title: 'Pinboard Title',
           'officer_ids': [12],
           crids: ['abc'],
+          'trr_ids': [1],
           description: 'Description',
           ownedByCurrentUser: true,
         }),
@@ -35,9 +37,10 @@ describe('Pinboard selectors', function () {
         title: 'Pinboard Title',
         officerIds: ['12'],
         crids: ['abc'],
+        trrIds: ['1'],
         description: 'Description',
         url: '/pinboard/1/pinboard-title/',
-        itemsCount: 2,
+        itemsCount: 3,
         ownedByCurrentUser: true,
       });
     });
@@ -49,6 +52,7 @@ describe('Pinboard selectors', function () {
           title: '',
           'officer_ids': [12],
           crids: ['abc'],
+          'trr_ids': [1],
           description: 'Description',
           ownedByCurrentUser: true,
         }),
@@ -59,9 +63,10 @@ describe('Pinboard selectors', function () {
         title: '',
         officerIds: ['12'],
         crids: ['abc'],
+        trrIds: ['1'],
         description: 'Description',
         url: '/pinboard/1/untitled-pinboard/',
-        itemsCount: 2,
+        itemsCount: 3,
         ownedByCurrentUser: true,
       });
     });
@@ -73,12 +78,14 @@ describe('Pinboard selectors', function () {
         pinboard: PinboardFactory.build({
           'officer_ids': [12],
           crids: ['abc'],
+          'trr_ids': [1],
         })
       };
 
       pinboardItemsSelector(state).should.eql({
         'OFFICER': ['12'],
         'CR': ['abc'],
+        'TRR': ['1'],
       });
     });
   });

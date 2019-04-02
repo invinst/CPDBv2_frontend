@@ -6,23 +6,23 @@ import * as constants from 'utils/constants';
 
 export const addItemToPinboard = createAction(constants.ADD_ITEM_TO_PINBOARD, item => item);
 
-export const createPinboard = ({ officerIds, crids }) => post(
+export const createPinboard = ({ officerIds, crids, trrIds }) => post(
   constants.PINBOARDS_URL,
   [
     constants.PINBOARD_CREATE_REQUEST_START,
     constants.PINBOARD_CREATE_REQUEST_SUCCESS,
     constants.PINBOARD_CREATE_REQUEST_FAILURE,
   ]
-)({ 'officer_ids': officerIds, crids: crids });
+)({ 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds });
 
-export const updatePinboard = ({ id, title, officerIds, crids }) => put(
+export const updatePinboard = ({ id, title, officerIds, crids, trrIds }) => put(
   `${constants.PINBOARDS_URL}${id}/`,
   [
     constants.PINBOARD_UPDATE_REQUEST_START,
     constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
     constants.PINBOARD_UPDATE_REQUEST_FAILURE,
   ]
-)({ title: title, 'officer_ids': officerIds, crids: crids });
+)({ title: title, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds });
 
 export const fetchPinboard = id => get(
   `${constants.PINBOARDS_URL}${id}/`,

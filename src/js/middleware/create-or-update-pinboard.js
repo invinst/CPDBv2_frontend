@@ -11,6 +11,8 @@ const PINBOARD_ATTR_MAP = {
   'OFFICER': 'officerIds',
   'UNIT > OFFICERS': 'officerIds',
   'DATE > OFFICERS': 'officerIds',
+  'TRR': 'trrIds',
+  'DATE > TRR': 'trrIds',
 };
 
 

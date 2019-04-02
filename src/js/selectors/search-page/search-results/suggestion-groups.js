@@ -85,6 +85,8 @@ const pinnedItemTypeMap = {
   'OFFICER': 'OFFICER',
   'UNIT > OFFICERS': 'OFFICER',
   'DATE > OFFICERS': 'OFFICER',
+  'TRR': 'TRR',
+  'DATE > TRR': 'TRR',
 };
 
 const pinItem = (item, pinboardItems) => {
