@@ -67,7 +67,7 @@ describe('officer page', function () {
     tabbedPaneMenuText.should.containEql('TIMELINE');
     tabbedPaneMenuText.should.containEql('MAP');
     tabbedPaneMenuText.should.containEql('COACCUSALS');
-    tabbedPaneMenuText.should.containEql('ATTACHMENTS');
+    tabbedPaneMenuText.should.containEql('DOCUMENTS');
 
     officerPage.tabbedPaneSection.timelineTabName.getAttribute('class').should.containEql('active');
 
