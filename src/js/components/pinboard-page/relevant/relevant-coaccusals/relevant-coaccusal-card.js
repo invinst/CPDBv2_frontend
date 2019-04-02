@@ -52,7 +52,4 @@ RelevantCoaccusalCard.propTypes = {
   coaccusalCount: PropTypes.number,
 };
 
-RelevantCoaccusalCard.defaultProps = {
-};
-
 export default RelevantCoaccusalCard;

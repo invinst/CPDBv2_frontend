@@ -39,7 +39,13 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import { fetchDocuments } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
-import { fetchPinboard, fetchPinboardSocialGraph, fetchPinboardRelevantCoaccusals } from 'actions/pinboard';
+import {
+  fetchPinboard,
+  fetchPinboardSocialGraph,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
+} from 'actions/pinboard';
 
 let prevPathname = '';
 
@@ -198,7 +204,9 @@ export default store => next => action => {
       if (pinboardID.length == PINBOARD_HEX_ID_LENGTH) {
         dispatches.push(store.dispatch(fetchPinboard(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardSocialGraph(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardRelevantDocuments(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardRelevantCoaccusals(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardRelevantComplaints(pinboardID)));
       }
     }
 

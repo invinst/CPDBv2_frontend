@@ -43,16 +43,35 @@ export const fetchPinboardSocialGraph = id => get(
   ]
 )();
 
-export const fetchPinboardRelevantCoaccusals = (id, params) => {
-  const queryString = map(entries(params), ([key, val]) => `${key}=${val}`).join('&');
-  const url = `${constants.PINBOARDS_URL}${id}/relevant-coaccusals/?${queryString}`;
 
-  return get(
-    url,
-    [
-      constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
-      constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
-      constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
-    ]
-  )();
+const getWithPaginate = (pinboardRelevantAPI, types) => (id, params) => {
+  const queryString = map(entries(params), ([key, val]) => `${key}=${val}`).join('&');
+  const url = `${constants.PINBOARDS_URL}${id}/${pinboardRelevantAPI}/?${queryString}`;
+
+  return get(url, types)();
 };
+
+export const fetchPinboardRelevantDocuments = getWithPaginate(
+  'relevant-documents',
+  [
+    constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_START,
+    constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
+  ]
+);
+export const fetchPinboardRelevantCoaccusals = getWithPaginate(
+  'relevant-coaccusals',
+  [
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+  ]
+);
+export const fetchPinboardRelevantComplaints = getWithPaginate(
+  'relevant-complaints',
+  [
+    constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_START,
+    constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_FAILURE,
+  ]
+);

@@ -6,6 +6,7 @@ import responsiveContainerStyles from 'components/common/responsive-container.sa
 import styles from './pinboard-page.sass';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import RelevantCoaccusalsContainer from 'containers/pinboard-page/relevant/relevant-coaccusals';
+import RelevantDocumentsContainer from 'containers/pinboard-page/relevant/relevant-documents';
 
 
 export default class PinboardPage extends Component {
