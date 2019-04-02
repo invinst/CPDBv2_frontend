@@ -11,7 +11,7 @@ const officerTransform = officer => ({
 const allegationTransform = allegation => ({
   crid: allegation.crid,
   category: allegation.category,
-  incidentDate: formatDate(allegation['incident_date']),
+  incidentDate: formatDate(allegation['incident_date'], false),
   officers: (allegation.officers || []).map(officerTransform)
 });
 
