@@ -2,8 +2,9 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import { take, slice } from 'lodash';
 
-import styles from 'components/pinboard-page/relevant/base-complaint-card.sass';
+import styles from './base-complaint-card.sass';
 import MiniVisualToken from './mini-officer-visual-token';
+import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 
 
 export class BaseComplaintCard extends Component {
@@ -46,6 +47,7 @@ export class BaseComplaintCard extends Component {
                 : null
             }
           </div>
+          <PlusButton/>
         </Link>
       </div>
     );

@@ -5,6 +5,7 @@ import { kebabCase } from 'lodash';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import styles from './relevant-coaccusal-card.sass';
+import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 
 
 export class RelevantCoaccusalCard extends Component {
@@ -39,6 +40,7 @@ export class RelevantCoaccusalCard extends Component {
           <p className='bold-text officer-card-name'>{ fullName }</p>
         </div>
         <div className='coaccusal-count'>{ pluralize('coaccusal', coaccusalCount, true) }</div>
+        <PlusButton/>
       </Link>
     );
   }

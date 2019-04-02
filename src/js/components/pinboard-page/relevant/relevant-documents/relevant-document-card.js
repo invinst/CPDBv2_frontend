@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 
 import styles from './relevant-document-card.sass';
-import BaseComplaintCard from 'components/pinboard-page/relevant/base-complaint-card';
+import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
 
 
 export class RelevantDocumentCard extends Component {

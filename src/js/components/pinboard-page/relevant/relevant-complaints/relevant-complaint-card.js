@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 
 import styles from './relevant-complaint-card.sass';
-import BaseComplaintCard from 'components/pinboard-page/relevant/base-complaint-card';
+import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
 import { getComplaintMapUrl } from 'utils/mapbox';
 
 

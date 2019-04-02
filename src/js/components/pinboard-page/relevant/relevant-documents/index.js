@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import RelevantDocumentCard from './relevant-document-card';
-import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/relevant-infinite-carousel';
+import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 
 
 export default class RelevantDocuments extends Component {
