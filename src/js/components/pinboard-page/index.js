@@ -14,26 +14,28 @@ export default class PinboardPage extends Component {
   render() {
     const { pinboard, graphData } = this.props;
     return (
-      <div className={ cx(responsiveContainerStyles.responsiveContainer, styles.pinboardPage) }>
-        <Link to='/search/'>Back to search page</Link>
-        <div className='pinboard-info'>
-          <div className='pinboard-title'>{ pinboard.title }</div>
-          <div className='pinboard-description'>{ pinboard.description }</div>
-        </div>
-        <div className='data-visualizations'>
-          <div className='pinboard-social-graph'>
-            <AnimatedSocialGraph
-              officers={ graphData.officers }
-              coaccusedData={ graphData.coaccusedData }
-              listEvent={ graphData.listEvent }
-              hasIntercom={ true }
-            />
+      <div className={ styles.pinboardPage }>
+        <div className={ cx(responsiveContainerStyles.responsiveContainer) }>
+          <Link to='/search/'>Back to search page</Link>
+          <div className='pinboard-info'>
+            <div className='pinboard-title'>{ pinboard.title }</div>
+            <div className='pinboard-description'>{ pinboard.description }</div>
+          </div>
+          <div className='data-visualizations'>
+            <div className='pinboard-social-graph'>
+              <AnimatedSocialGraph
+                officers={ graphData.officers }
+                coaccusedData={ graphData.coaccusedData }
+                listEvent={ graphData.listEvent }
+                hasIntercom={ true }
+              />
+            </div>
           </div>
         </div>
         <div className='relevant-title'>Relevant</div>
-        <RelevantDocumentsContainer/>
-        <RelevantCoaccusalsContainer/>
-        <RelevantComplaintsContainer/>
+        <RelevantDocumentsContainer />
+        <RelevantCoaccusalsContainer />
+        <RelevantComplaintsContainer />
       </div>
     );
   }

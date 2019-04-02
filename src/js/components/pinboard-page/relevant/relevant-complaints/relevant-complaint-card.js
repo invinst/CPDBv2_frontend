@@ -16,15 +16,15 @@ export class RelevantComplaintCard extends Component {
       point
     } = this.props;
 
-    const leftChild = point ? (
+    const leftChild = (
       <Link
         to={ `/complaint/${crid}/` }
         className={ styles.relevantComplaintMap }
-        style={ {
+        style={ point ? {
           background: `url("${getComplaintMapUrl(point.lat, point.lon, 130, 176)}") no-repeat center/cover`
-        } }
+        }: null }
       />
-    ) : null;
+    );
 
     return (
       <BaseComplaintCard
