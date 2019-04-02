@@ -7,6 +7,7 @@ import styles from './pinboard-page.sass';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import RelevantCoaccusalsContainer from 'containers/pinboard-page/relevant/relevant-coaccusals';
 import RelevantDocumentsContainer from 'containers/pinboard-page/relevant/relevant-documents';
+import RelevantComplaintsContainer from 'containers/pinboard-page/relevant/relevant-complaints';
 
 
 export default class PinboardPage extends Component {
@@ -29,9 +30,10 @@ export default class PinboardPage extends Component {
             />
           </div>
         </div>
-        <div>Relevant</div>
+        <div className='relevant-title'>Relevant</div>
         <RelevantDocumentsContainer/>
         <RelevantCoaccusalsContainer/>
+        <RelevantComplaintsContainer/>
       </div>
     );
   }
