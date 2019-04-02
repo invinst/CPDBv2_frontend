@@ -37,7 +37,7 @@ export class RelevantDocumentCard extends Component {
             { topOfficers.map(officer =>
               <div className='top-officer-row' key={ officer.id }>
                 <div className='top-officer-row-token'><MiniVisualToken percentile={ officer.percentile }/></div>
-                <div className='top-officer-row-officer-name'>{ officer.fullName }</div>
+                <div className='top-officer-row-officer-name'>{ officer.shortName }</div>
               </div>
             ) }
           </div>

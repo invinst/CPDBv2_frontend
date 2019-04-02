@@ -1,12 +1,20 @@
+import { first, last } from 'lodash';
+
 import { extractPercentile } from 'selectors/common/percentile';
 import { formatDate } from 'utils/date';
 
 
-const officerTransform = officer => ({
-  id: officer.id,
-  fullName: officer['full_name'],
-  percentile: extractPercentile(officer.percentile),
-});
+const officerTransform = officer => {
+  const names = officer['full_name'].match(/\w+/g);
+  const shortName = `${first(names)[0]}. ${last(names)}`;
+
+  return {
+    id: officer.id,
+    fullName: officer['full_name'],
+    shortName,
+    percentile: extractPercentile(officer.percentile),
+  };
+};
 
 const allegationTransform = allegation => ({
   crid: allegation.crid,
