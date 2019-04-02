@@ -10,7 +10,7 @@ export default class PairingChart extends Component {
     const { coaccusalCount, background1, background2 } = this.props;
     return (
       <div className={ style.pairingChart }>
-        <VennDiagram coaccusalCount={ coaccusalCount } background1={ background1 } background2={ background2 } />
+        <VennDiagram background1={ background1 } background2={ background2 } />
         <div className='pairing-chart-coaccused-text'>
           Coaccused { coaccusalCount } { pluralize('time', coaccusalCount) }
         </div>

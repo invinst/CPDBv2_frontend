@@ -77,7 +77,7 @@ describe('Attachments component', function () {
     const moreAttachmentEl = findRenderedDOMComponentWithClass(instance, 'more-attachment');
     Simulate.click(moreAttachmentEl);
 
-    stubChangeOfficerTab.should.be.calledWith('ATTACHMENTS');
+    stubChangeOfficerTab.should.be.calledWith('DOCUMENTS');
     stubScrollToElement.should.be.calledWith('.tabbed-pane-section', true, -40);
 
     stubScrollToElement.restore();
