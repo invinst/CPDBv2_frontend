@@ -19,20 +19,20 @@ export class RelevantCoaccusalCard extends Component {
     const officerSlug = kebabCase(fullName);
     const chartData = percentile && percentile.items;
 
-    const radarConfig = {
-      width: 148,
-      height: 60,
-      radius: 24,
-      backgroundColor: percentile ? percentile.visualTokenBackground : undefined,
-    };
-
     return (
       <Link
         to={ `/officer/${id}/${officerSlug}/` }
         className={ styles.relevantCoaccusalCard }
       >
         <div className='no-print radar-chart-wrapper'>
-          <StaticRadarChart data={ chartData } { ...radarConfig } />
+          <StaticRadarChart
+            data={ chartData }
+            width={ 148 }
+            height={ 60 }
+            radius={ 28 }
+            offsetTop={ 2 }
+            backgroundColor={ percentile ? percentile.visualTokenBackground : undefined }
+          />
         </div>
         <div className='officer-card-section'>
           <p className='light-text officer-card-rank'>{ rank }</p>

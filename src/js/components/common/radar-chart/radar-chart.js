@@ -155,6 +155,7 @@ RadarChart.defaultProps = {
   axisTitleFontWeight: 400,
   numMetrics: 3,
   strokeWidth: 0.5,
+  offsetTop: 0,
 };
 
 RadarChart.propTypes = {

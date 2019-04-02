@@ -31,6 +31,7 @@ export default class PinboardPage extends Component {
         </div>
         <div>Relevant</div>
         <RelevantCoaccusalsContainer/>
+        <RelevantDocumentsContainer/>
       </div>
     );
   }
