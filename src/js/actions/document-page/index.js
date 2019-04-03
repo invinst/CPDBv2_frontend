@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import { chain } from 'lodash';
 
 import { authenticatedGet, authenticatedPatch } from 'actions/common/async-action';
 import {
@@ -29,11 +30,18 @@ export const turnOnDocumentTextContentEditMode = createAction(TURN_ON_DOCUMENT_T
 
 export const turnOffDocumentTextContentEditMode = createAction(TURN_OFF_DOCUMENT_TEXT_CONTENT_EDIT_MODE, () => {});
 
-export const updateDocument = data => authenticatedPatch(
-  `${DOCUMENTS_URL}${data.attachmentId}/`,
-  [
-    UPDATE_DOCUMENT_PAGE_REQUEST_START,
-    UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
-    UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE
-  ]
-)(data);
+export const updateDocument = obj => {
+  const data = chain(obj.fields)
+    .keyBy('key')
+    .mapValues('value')
+    .value();
+
+  return authenticatedPatch(
+    `${DOCUMENTS_URL}${data.id}/`,
+    [
+      UPDATE_DOCUMENT_PAGE_REQUEST_START,
+      UPDATE_DOCUMENT_PAGE_REQUEST_SUCCESS,
+      UPDATE_DOCUMENT_PAGE_REQUEST_FAILURE
+    ]
+  )(data);
+};

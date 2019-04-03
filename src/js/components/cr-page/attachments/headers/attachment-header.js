@@ -11,7 +11,7 @@ export default class AttachmentHeader extends Component {
     return (
       <div className={ styles.attachmentHeader }>
         <div className='attachment-message'>
-          <span className='attachment-title'>ATTACHMENTS</span>
+          <span className='attachment-title'>DOCUMENTS</span>
           <span className='attachment-subtitle no-print'>MAY CONTAIN GRAPHIC CONTENT</span>
         </div>
         <div className='attachment-request-button no-print'>

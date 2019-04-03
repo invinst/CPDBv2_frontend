@@ -21,10 +21,7 @@ export class RequestDocumentButton extends Component {
           cx(
             styles.requestDocumentButton,
             'test--attachment-request',
-            {
-              'has-data': hasData,
-              'already-requested': alreadyRequested
-            }
+            { 'already-requested': alreadyRequested }
           )
         }
         onClick={ this.handleClick.bind(this) }

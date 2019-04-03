@@ -42,8 +42,10 @@ describe('DocumentPage actions', function () {
   describe('updateDocument', function () {
     it('should return right action', function () {
       updateDocument({
-        title: 'new title',
-        attachmentId: '123',
+        fields: [
+          { type: 'number', key: 'id', value: 123 },
+          { type: 'string', key: 'title', value: 'new title' },
+        ]
       }).should.eql({
         types: [
           UPDATE_DOCUMENT_PAGE_REQUEST_START,
@@ -55,7 +57,7 @@ describe('DocumentPage actions', function () {
             url: `${ DOCUMENTS_URL }123/`,
             data: {
               title: 'new title',
-              attachmentId: '123',
+              id: 123,
             },
             method: 'patch',
             adapter: null,
