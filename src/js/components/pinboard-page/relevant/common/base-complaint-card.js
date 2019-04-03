@@ -8,13 +8,24 @@ import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 
 
 export class BaseComplaintCard extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    const { crid, addItemToPinboard } = this.props;
+    e.preventDefault();
+    addItemToPinboard({ type: 'CR', id: crid, isPinned: false });
+  }
+
   render() {
     const {
       crid,
       incidentDate,
       category,
       officers,
-      leftChild
+      leftChild,
     } = this.props;
 
     const topOfficers = take(officers, 2);
@@ -47,7 +58,7 @@ export class BaseComplaintCard extends Component {
                 : null
             }
           </div>
-          <PlusButton/>
+          <PlusButton onClick={ this.handleClick }/>
         </Link>
       </div>
     );
@@ -62,6 +73,7 @@ BaseComplaintCard.propTypes = {
   incidentDate: PropTypes.string,
   category: PropTypes.string,
   officers: PropTypes.arrayOf(PropTypes.object),
+  addItemToPinboard: PropTypes.func,
 };
 
 export default BaseComplaintCard;

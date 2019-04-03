@@ -9,6 +9,17 @@ import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 
 
 export class RelevantCoaccusalCard extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    const { id, addItemToPinboard } = this.props;
+    e.preventDefault();
+    addItemToPinboard({ type: 'OFFICER', id, isPinned: false });
+  }
+
   render() {
     const {
       id,
@@ -40,7 +51,7 @@ export class RelevantCoaccusalCard extends Component {
           <p className='bold-text officer-card-name'>{ fullName }</p>
         </div>
         <div className='coaccusal-count'>{ pluralize('coaccusal', coaccusalCount, true) }</div>
-        <PlusButton/>
+        <PlusButton onClick={ this.handleClick }/>
       </Link>
     );
   }
@@ -52,6 +63,7 @@ RelevantCoaccusalCard.propTypes = {
   percentile: PropTypes.object,
   rank: PropTypes.string,
   coaccusalCount: PropTypes.number,
+  addItemToPinboard: PropTypes.func,
 };
 
 export default RelevantCoaccusalCard;

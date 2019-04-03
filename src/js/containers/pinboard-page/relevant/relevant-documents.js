@@ -8,6 +8,7 @@ import {
 } from 'selectors/pinboard-page/relevant-documents';
 import { fetchPinboardRelevantDocuments } from 'actions/pinboard';
 import { getPinboardID } from 'utils/location';
+import { addItemToPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -21,7 +22,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 const mapDispatchToProps = {
-  fetchPinboardRelevantDocuments
+  fetchPinboardRelevantDocuments,
+  addItemToPinboard
 };
 
 export default connect(

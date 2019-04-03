@@ -10,6 +10,7 @@ export class RelevantDocumentCard extends Component {
       allegation,
       url,
       previewImageUrl,
+      addItemToPinboard,
     } = this.props;
 
     const leftChild = (
@@ -22,7 +23,7 @@ export class RelevantDocumentCard extends Component {
       </a>
     );
 
-    return <BaseComplaintCard { ...allegation } leftChild={ leftChild } />;
+    return <BaseComplaintCard { ...allegation } leftChild={ leftChild } addItemToPinboard={ addItemToPinboard }/>;
   }
 }
 
@@ -30,6 +31,7 @@ RelevantDocumentCard.propTypes = {
   url: PropTypes.string,
   previewImageUrl: PropTypes.string,
   allegation: PropTypes.object,
+  addItemToPinboard: PropTypes.func,
 };
 
 export default RelevantDocumentCard;

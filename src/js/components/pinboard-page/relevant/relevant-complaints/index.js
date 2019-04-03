@@ -11,7 +11,7 @@ export default class RelevantComplaints extends Component {
   }
 
   render() {
-    const { complaints, hasMore } = this.props;
+    const { complaints, hasMore, addItemToPinboard } = this.props;
     return (
       <RelevantInfiniteCarousel
         title='COMPLAINTS'
@@ -22,7 +22,7 @@ export default class RelevantComplaints extends Component {
         {
           complaints.map((complaint, index) =>
             <div key={ index } style={ { width: '306px' } }>
-              <RelevantComplaintCard { ...complaint }/>
+              <RelevantComplaintCard { ...complaint } addItemToPinboard={ addItemToPinboard }/>
             </div>
           )
         }
@@ -36,6 +36,7 @@ RelevantComplaints.propTypes = {
   fetchPinboardRelevantComplaints: PropTypes.func,
   hasMore: PropTypes.bool,
   pinboardId: PropTypes.string,
+  addItemToPinboard: PropTypes.func,
 };
 
 RelevantComplaints.defaultProps = {

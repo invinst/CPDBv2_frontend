@@ -13,7 +13,8 @@ export class RelevantComplaintCard extends Component {
       incidentDate,
       category,
       officers,
-      point
+      point,
+      addItemToPinboard,
     } = this.props;
 
     const leftChild = (
@@ -33,6 +34,7 @@ export class RelevantComplaintCard extends Component {
         category={ category }
         officers={ officers }
         leftChild={ leftChild }
+        addItemToPinboard={ addItemToPinboard }
       />
     );
   }
@@ -46,7 +48,8 @@ RelevantComplaintCard.propTypes = {
   point: PropTypes.shape({
     lat: PropTypes.number,
     lon: PropTypes.number
-  })
+  }),
+  addItemToPinboard: PropTypes.func,
 };
 
 export default RelevantComplaintCard;
