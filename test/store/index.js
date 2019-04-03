@@ -237,6 +237,9 @@ describe('store', function () {
         currentCrawlerId: null,
         pagination: {}
       },
+      socialGraphPage: {
+        graphData: {}
+      },
       pinboard: null,
     });
   });
