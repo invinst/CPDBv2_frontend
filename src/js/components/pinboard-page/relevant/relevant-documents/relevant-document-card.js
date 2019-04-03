@@ -11,6 +11,7 @@ export class RelevantDocumentCard extends Component {
       url,
       previewImageUrl,
       addItemToPinboard,
+      pinned,
     } = this.props;
 
     const leftChild = (
@@ -23,7 +24,14 @@ export class RelevantDocumentCard extends Component {
       </a>
     );
 
-    return <BaseComplaintCard { ...allegation } leftChild={ leftChild } addItemToPinboard={ addItemToPinboard }/>;
+    return (
+      <BaseComplaintCard
+        { ...allegation }
+        leftChild={ leftChild }
+        addItemToPinboard={ pinned ? addItemToPinboard : null }
+        pinned={ pinned }
+      />
+    );
   }
 }
 
@@ -32,6 +40,7 @@ RelevantDocumentCard.propTypes = {
   previewImageUrl: PropTypes.string,
   allegation: PropTypes.object,
   addItemToPinboard: PropTypes.func,
+  pinned: PropTypes.bool,
 };
 
 export default RelevantDocumentCard;

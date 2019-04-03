@@ -2,12 +2,14 @@ import { createSelector } from 'reselect';
 
 import extractQuery from 'utils/extract-query';
 import { relevantDocumentTransform } from './transform';
+import { pinboardICRIDsSelector } from 'selectors/pinboard';
 
 const getRelevantDocumentsPagination = state => state.pinboardPage.relevantDocuments;
 
 export const relevantDocumentsSelector = createSelector(
   getRelevantDocumentsPagination,
-  ({ items }) => items.map(relevantDocumentTransform)
+  pinboardICRIDsSelector,
+  ({ items }, crids) => items.map(item => relevantDocumentTransform(item, crids))
 );
 
 const relevantDocumentsCountSelector = createSelector(

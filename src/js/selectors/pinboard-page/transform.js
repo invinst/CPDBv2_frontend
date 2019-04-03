@@ -1,4 +1,4 @@
-import { first, last } from 'lodash';
+import { first, last, includes } from 'lodash';
 
 import { extractPercentile } from 'selectors/common/percentile';
 import { formatDate } from 'utils/date';
@@ -23,10 +23,11 @@ const allegationTransform = allegation => ({
   officers: (allegation.officers || []).map(officerTransform)
 });
 
-export const relevantDocumentTransform = document => ({
+export const relevantDocumentTransform = (document, crids) => ({
   previewImageUrl: document['preview_image_url'],
   url: document.url,
-  allegation: allegationTransform(document.allegation)
+  allegation: allegationTransform(document.allegation),
+  pinned: includes(crids, document.allegation.crid),
 });
 
 export const relevantCoaccusalTransform = coaccusal => ({

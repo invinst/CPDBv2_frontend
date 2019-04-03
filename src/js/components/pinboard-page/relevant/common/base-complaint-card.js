@@ -26,6 +26,7 @@ export class BaseComplaintCard extends Component {
       category,
       officers,
       leftChild,
+      pinned,
     } = this.props;
 
     const topOfficers = take(officers, 2);
@@ -58,7 +59,7 @@ export class BaseComplaintCard extends Component {
                 : null
             }
           </div>
-          <PlusButton onClick={ this.handleClick }/>
+          { pinned ? null : <PlusButton onClick={ this.handleClick }/> }
         </Link>
       </div>
     );
@@ -74,6 +75,7 @@ BaseComplaintCard.propTypes = {
   category: PropTypes.string,
   officers: PropTypes.arrayOf(PropTypes.object),
   addItemToPinboard: PropTypes.func,
+  pinned: PropTypes.bool,
 };
 
 export default BaseComplaintCard;
