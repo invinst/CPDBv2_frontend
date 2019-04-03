@@ -7,7 +7,7 @@ const getRelevantComplaintsPagination = state => state.pinboardPage.relevantComp
 
 export const relevantComplaintsSelector = createSelector(
   getRelevantComplaintsPagination,
-  ({ items }) => items.items.map(relevantComplaintTransform)
+  ({ items }) => items.map(relevantComplaintTransform)
 );
 
 const relevantComplaintsCountSelector = createSelector(

@@ -7,7 +7,7 @@ const getRelevantCoaccusalsPagination = state => state.pinboardPage.relevantCoac
 
 export const relevantCoaccusalsSelector = createSelector(
   getRelevantCoaccusalsPagination,
-  ({ items }) => items.items.map(relevantCoaccusalTransform)
+  ({ items }) => items.map(relevantCoaccusalTransform)
 );
 
 const relevantCoaccusalsCountSelector = createSelector(

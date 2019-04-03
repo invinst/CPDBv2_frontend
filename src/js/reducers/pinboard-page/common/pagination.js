@@ -1,29 +1,18 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 
-import { getPinboardID } from 'utils/location';
-
 
 const paginateReducer = (state, action) => {
-  const pinboardId = getPinboardID(action.request.url);
-  if (pinboardId === state.meta.pinboardId) {
-    return {
-      meta: { pinboardId },
-      items: [...state.items, ...action.payload.results]
-    };
+  if (action.payload.previous) {
+    return [...state, ...action.payload.results];
   } else {
-    return {
-      meta: { pinboardId },
-      items: action.payload.results
-    };
+    return action.payload.results;
   }
 };
 
-const defaultPagination = { meta: { pinboardId: null }, items: [] };
-
 const createItemsReducer = (successType) => handleActions(
   { [successType]: paginateReducer },
-  defaultPagination
+  []
 );
 
 const createCountReducer = (successType) =>handleActions({

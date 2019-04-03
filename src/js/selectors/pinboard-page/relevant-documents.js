@@ -7,7 +7,7 @@ const getRelevantDocumentsPagination = state => state.pinboardPage.relevantDocum
 
 export const relevantDocumentsSelector = createSelector(
   getRelevantDocumentsPagination,
-  ({ items }) => items.items.map(relevantDocumentTransform)
+  ({ items }) => items.map(relevantDocumentTransform)
 );
 
 const relevantDocumentsCountSelector = createSelector(

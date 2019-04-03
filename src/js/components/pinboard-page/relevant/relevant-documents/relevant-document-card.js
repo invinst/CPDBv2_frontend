@@ -19,7 +19,7 @@ export class RelevantDocumentCard extends Component {
         href={ url }
         target='_blank'
       >
-        <img className='document-card-thumbnail-img' src={ previewImageUrl } alt='Document preview image'/>
+        <img className='document-card-thumbnail-img' src={ previewImageUrl }/>
       </a>
     );
 

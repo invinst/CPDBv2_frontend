@@ -17,7 +17,7 @@ export class RelevantCoaccusalCard extends Component {
   handleClick(e) {
     const { id, addItemToPinboard } = this.props;
     e.preventDefault();
-    addItemToPinboard({ type: 'OFFICER', id, isPinned: false });
+    addItemToPinboard({ type: 'OFFICER', id: id.toString(), isPinned: false });
   }
 
   render() {
