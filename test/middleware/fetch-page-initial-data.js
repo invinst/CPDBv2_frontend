@@ -351,36 +351,25 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(requestCrawlers()).should.be.true();
   });
 
-  it('should dispatch fetchPinboard when store is empty', function () {
+  it('should dispatch fetchPinboard if requested ID is valid', function () {
     const store = buildStore();
     _.set(store._state, 'pinboard.id', null);
-    const action = createLocationChangeAction('/pinboard/1/');
+    const action = createLocationChangeAction('/pinboard/1234ABCD/');
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
-    store.dispatch.calledWith(fetchPinboard('1')).should.be.true();
+    store.dispatch.calledWith(fetchPinboard('1234ABCD')).should.be.true();
   });
 
-  it('should dispatch fetchPinboard if requested pinboard is different from the current one', function () {
+  it('should not dispatch fetchPinboard if requested ID is not valid', function () {
     const store = buildStore();
-    _.set(store._state, 'pinboard.id', '2');
-    const action = createLocationChangeAction('/pinboard/1/');
+    _.set(store._state, 'pinboard.id', null);
+    const action = createLocationChangeAction('/pinboard/123ABCD/');  // Not enough 8 characters
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
-    store.dispatch.calledWith(fetchPinboard('1')).should.be.true();
-  });
-
-  it('should not dispatch fetchPinboard if requested pinboard is the same as the current one', function () {
-    const store = buildStore();
-    _.set(store._state, 'pinboard.id', '1');
-    const action = createLocationChangeAction('/pinboard/1/');
-    let dispatched;
-
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.calledWith(fetchPinboard('1')).should.be.false();
+    store.dispatch.calledWith(fetchPinboard('123ABCD')).should.be.false();
   });
 });
