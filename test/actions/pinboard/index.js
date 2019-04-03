@@ -5,7 +5,7 @@ import * as constants from 'utils/constants';
 describe('pinboard actions', function () {
   describe('createPinboard', function () {
     it('should return correct action', function () {
-      createPinboard({ officerIds: [], crids: ['abc'] }).should.deepEqual({
+      createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
         types: [
           constants.PINBOARD_CREATE_REQUEST_START,
           constants.PINBOARD_CREATE_REQUEST_SUCCESS,
@@ -18,7 +18,8 @@ describe('pinboard actions', function () {
             adapter: null,
             data: {
               'officer_ids': [],
-              crids: ['abc']
+              crids: ['abc'],
+              'trr_ids': [1],
             }
           }
         }
@@ -32,7 +33,8 @@ describe('pinboard actions', function () {
         id: '1',
         title: 'Title',
         officerIds: ['1'],
-        crids: []
+        crids: [],
+        trrIds: ['1'],
       };
       updatePinboard(pinboard).should.deepEqual({
         types: [
@@ -48,7 +50,8 @@ describe('pinboard actions', function () {
             data: {
               title: 'Title',
               'officer_ids': ['1'],
-              crids: []
+              crids: [],
+              'trr_ids': ['1'],
             }
           }
         }

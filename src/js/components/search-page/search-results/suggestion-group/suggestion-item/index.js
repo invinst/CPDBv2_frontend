@@ -3,6 +3,7 @@ import { get, reduce } from 'lodash';
 
 import OfficerItem from './officer';
 import CRItem from './cr';
+import TRRItem from './trr';
 import SuggestionItemBase from './base';
 
 
@@ -13,6 +14,8 @@ const COMPONENT_MAP = {
   CR: CRItem,
   'DATE > CR': CRItem,
   'INVESTIGATOR > CR': CRItem,
+  'TRR': TRRItem,
+  'DATE > TRR': TRRItem,
 };
 
 export default class SuggestionItem extends Component {

@@ -41,11 +41,13 @@ describe('createOrUpdatePinboard middleware', function () {
 
     const officerIds = (type.endsWith('OFFICER') || type.endsWith('OFFICERS')) ? [itemId] : [];
     const crids = type.endsWith('CR') ? [itemId] : [];
+    const trrIds = type.endsWith('TRR') ? [itemId] : [];
     store.dispatch.calledWith(createPinboard({
       id: null,
       title: '',
       officerIds: officerIds,
       crids: crids,
+      trrIds: trrIds,
       description: '',
       url: '',
       itemsCount: 0,
@@ -65,10 +67,11 @@ describe('createOrUpdatePinboard middleware', function () {
     store.dispatch.called.should.be.false();
   });
 
-  it('should dispatch createPinboard action if type is of cr or officer', function () {
+  it('should dispatch createPinboard action if type is of cr or officer or trr', function () {
     const typesCanBePinned = [
       'CR', 'DATE > CR', 'INVESTIGATOR > CR',
-      'OFFICER', 'UNIT > OFFICERS', 'DATE > OFFICERS'
+      'OFFICER', 'UNIT > OFFICERS', 'DATE > OFFICERS',
+      'TRR', 'DATE > TRR',
     ];
 
     for (let i = 0; i < typesCanBePinned.length; i++) {
@@ -97,6 +100,7 @@ describe('createOrUpdatePinboard middleware', function () {
         title: '',
         crids: ['2', '1'],
         officerIds: [],
+        trrIds: [],
         description: '',
         url: '',
         itemsCount: 1,
@@ -125,6 +129,7 @@ describe('createOrUpdatePinboard middleware', function () {
         description: '',
         crids: [],
         officerIds: ['2', '1'],
+        trrIds: [],
         url: '',
         itemsCount: 1,
         ownedByCurrentUser: false,
@@ -143,6 +148,7 @@ describe('createOrUpdatePinboard middleware', function () {
         id: '99',
         crids: ['2', '1'],
         'officer_ids': ['a'],
+        'trr_ids': ['1'],
         ownedByCurrentUser: true,
       }));
       let dispatched;
@@ -155,6 +161,7 @@ describe('createOrUpdatePinboard middleware', function () {
         description: '',
         crids: ['2'],
         officerIds: ['a'],
+        trrIds: ['1'],
         url: '',
         itemsCount: 3,
         ownedByCurrentUser: true,
@@ -171,6 +178,7 @@ describe('createOrUpdatePinboard middleware', function () {
         id: '99',
         crids: ['1'],
         'officer_ids': ['a'],
+        'trr_ids': ['1'],
         ownedByCurrentUser: false,
       }));
       let dispatched;
@@ -183,6 +191,7 @@ describe('createOrUpdatePinboard middleware', function () {
         description: '',
         crids: ['1'],
         officerIds: ['a'],
+        trrIds: ['1'],
         url: '',
         itemsCount: 2,
         ownedByCurrentUser: false,

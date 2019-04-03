@@ -147,6 +147,7 @@ describe('search page results selector', function () {
         pinboard: {
           'officer_ids': [],
           crids: ['1001'],
+          'trr_ids': [],
         },
       }).should.deepEqual([
         {
@@ -421,6 +422,7 @@ describe('search page results selector', function () {
         pinboard: {
           'officer_ids': ['1001'],
           crids: ['1001'],
+          'trr_ids': ['1001'],
         },
       }).should.deepEqual([
         {
@@ -429,7 +431,7 @@ describe('search page results selector', function () {
           items: [{
             type: 'TRR',
             id: '1001',
-            isPinned: false,
+            isPinned: true,
             text: 'Unknown',
             recentText: '1001',
             subText: 'TRR # 1001',
@@ -456,6 +458,7 @@ describe('search page results selector', function () {
         pinboard: {
           'officer_ids': ['1001'],
           crids: ['1001'],
+          'trr_ids': [],
         },
       }).should.deepEqual([
         {
@@ -491,6 +494,7 @@ describe('search page results selector', function () {
         pinboard: {
           'officer_ids': ['1001'],
           crids: ['1001'],
+          'trr_ids': ['1001'],
         },
       }).should.deepEqual([
         {
@@ -498,7 +502,7 @@ describe('search page results selector', function () {
           canLoadMore: false,
           items: [{
             type: 'DATE > TRR',
-            isPinned: false,
+            isPinned: true,
             id: '1001',
             text: 'Unknown',
             recentText: '1001',
@@ -523,7 +527,11 @@ describe('search page results selector', function () {
             )]
           }
         },
-        pinboard: null,
+        pinboard: {
+          'officer_ids': ['1001'],
+          crids: ['1001'],
+          'trr_ids': ['1002'],
+        },
       }).should.deepEqual([
         {
           header: 'DATE > TRR',
@@ -558,6 +566,7 @@ describe('search page results selector', function () {
         pinboard: {
           'officer_ids': ['1001'],
           crids: ['1001'],
+          'trr_ids': ['1001'],
         },
       }).should.deepEqual([
         {
@@ -592,6 +601,7 @@ describe('search page results selector', function () {
         pinboard: {
           'officer_ids': ['1001'],
           crids: ['1001'],
+          'trr_ids': ['1001'],
         },
       }).should.deepEqual([
         {
@@ -749,6 +759,7 @@ describe('search page results selector', function () {
         pinboard: {
           'officer_ids': ['317'],
           crids: ['317'],
+          'trr_ids': ['317'],
         }
       });
       groups.should.eql([{

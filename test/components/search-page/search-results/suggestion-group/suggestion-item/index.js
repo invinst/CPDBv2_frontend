@@ -5,10 +5,12 @@ import { unmountComponentSuppressError } from 'utils/test';
 import SuggestionItem from 'components/search-page/search-results/suggestion-group/suggestion-item';
 import OfficerItem from 'components/search-page/search-results/suggestion-group/suggestion-item/officer';
 import CRItem from 'components/search-page/search-results/suggestion-group/suggestion-item/cr';
+import TRRItem from 'components/search-page/search-results/suggestion-group/suggestion-item/trr';
 import SuggestionItemBase from 'components/search-page/search-results/suggestion-group/suggestion-item/base';
 import {
   OfficerSuggestion, CRSuggestion, DateOfficersSuggestion,
-  UnitOfficersSuggestion, DateCRSuggestion, InvestigatorCRSuggestion
+  UnitOfficersSuggestion, DateCRSuggestion, InvestigatorCRSuggestion,
+  TRRSuggestion, DateTRRSuggestion,
 } from 'utils/test/factories/suggestion';
 
 
@@ -47,6 +49,16 @@ describe('SuggestionItem component', function () {
   it('should render CRItem if type is INVESTIGATOR > CR', function () {
     instance = renderIntoDocument(<SuggestionItem suggestion={ InvestigatorCRSuggestion.build() }/>);
     findRenderedComponentWithType(instance, CRItem).should.be.ok();
+  });
+
+  it('should render TRRItem if type is TRR', function () {
+    instance = renderIntoDocument(<SuggestionItem suggestion={ TRRSuggestion.build() }/>);
+    findRenderedComponentWithType(instance, TRRItem).should.be.ok();
+  });
+
+  it('should render TRRItem if type is DATE > TRR', function () {
+    instance = renderIntoDocument(<SuggestionItem suggestion={ DateTRRSuggestion.build() }/>);
+    findRenderedComponentWithType(instance, TRRItem).should.be.ok();
   });
 
   it('should render SuggestionItemBase otherwise', function () {
