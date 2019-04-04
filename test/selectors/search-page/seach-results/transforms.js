@@ -93,6 +93,7 @@ describe('search page transforms', function () {
       searchResultItemTransform({
         type: 'CR',
         id: 1,
+        isPinned: false,
         crid: 123,
         to: '/complaint/123/',
         'incident_date': '2012-07-02',
@@ -104,6 +105,7 @@ describe('search page transforms', function () {
       }).should.deepEqual({
         type: 'CR',
         id: 1,
+        isPinned: false,
         to: '/complaint/123/',
         url: undefined,
         uniqueKey: 'CR-1',
@@ -125,6 +127,7 @@ describe('search page transforms', function () {
       searchResultItemTransform({
         type: 'CR',
         id: 1,
+        isPinned: false,
         crid: 123,
         to: '/complaint/123/',
         'incident_date': '2012-07-02',
@@ -139,6 +142,7 @@ describe('search page transforms', function () {
       }).should.deepEqual({
         type: 'CR',
         id: 1,
+        isPinned: false,
         to: '/complaint/123/',
         url: undefined,
         uniqueKey: 'CR-1',
@@ -160,6 +164,7 @@ describe('search page transforms', function () {
       searchResultItemTransform({
         type: 'CR',
         id: 1,
+        isPinned: false,
         crid: 123,
         to: '/complaint/123/',
         'incident_date': '2012-07-02',
@@ -175,6 +180,7 @@ describe('search page transforms', function () {
       }).should.deepEqual({
         type: 'CR',
         id: 1,
+        isPinned: false,
         to: '/complaint/123/',
         url: undefined,
         uniqueKey: 'CR-1',
