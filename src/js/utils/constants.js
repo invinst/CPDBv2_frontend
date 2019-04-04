@@ -582,3 +582,5 @@ export const SHAREABLE_HEADER_BUTTON_TYPE = {
   MENU: 'menu',
   LINK: 'link',
 };
+
+export const PINBOARD_HEX_ID_LENGTH = 8;

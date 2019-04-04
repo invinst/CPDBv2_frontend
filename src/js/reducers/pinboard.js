@@ -1,3 +1,4 @@
+import { get } from 'lodash';
 import { handleActions } from 'redux-actions';
 
 import * as constants from 'utils/constants';
@@ -13,6 +14,8 @@ export default handleActions({
   }),
   [constants.PINBOARD_FETCH_REQUEST_SUCCESS]: (state, action) => ({
     ...action.payload,
-    ownedByCurrentUser: false
+    ownedByCurrentUser:
+      get(state, 'ownedByCurrentUser', false) &&
+      get(state, 'id', null) === action.payload.id,
   })
 }, null);
