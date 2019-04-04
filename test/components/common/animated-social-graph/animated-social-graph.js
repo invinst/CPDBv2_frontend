@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFakeTimers, spy } from 'sinon';
+import { useFakeTimers, spy, stub } from 'sinon';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
@@ -15,6 +15,8 @@ import should from 'should';
 import { unmountComponentSuppressError } from 'utils/test/index';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
+import * as intercomUtils from 'utils/intercom';
+import { findDOMNode } from 'react-dom';
 
 
 describe('AnimatedSocialGraph component', function () {
@@ -160,14 +162,17 @@ describe('AnimatedSocialGraph component', function () {
     instance.state.timelineIdx.should.equal(0);
     clock.tick(150);
     instance.state.timelineIdx.should.equal(1);
+    toggleTimelineButton.className.should.containEql('pause-icon');
 
     Simulate.click(toggleTimelineButton);
     should(instance.state.refreshIntervalId).be.null();
     instance.state.timelineIdx.should.equal(1);
+    toggleTimelineButton.className.should.containEql('play-icon');
 
     Simulate.click(toggleTimelineButton);
     instance.state.refreshIntervalId.should.not.be.null();
     instance.state.timelineIdx.should.equal(1);
+    toggleTimelineButton.className.should.containEql('pause-icon');
 
     clock.tick(1350);
     instance.state.timelineIdx.should.equal(9);
@@ -304,5 +309,31 @@ describe('AnimatedSocialGraph component', function () {
     const stopTimelineSpy = spy(instance, 'stopTimeline');
     unmountComponentSuppressError(instance);
     stopTimelineSpy.called.should.be.true();
+  });
+
+  it('should call toggleFullscreen when click on fullscreen button', function () {
+    stub(intercomUtils, 'showIntercomLauncher');
+    instance = renderIntoDocument(
+      <AnimatedSocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        hasIntercom={ true }
+      />
+    );
+
+    const fullscreenButton = findRenderedDOMComponentWithClass(instance, 'fullscreen-btn');
+    fullscreenButton.className.should.containEql('expand-icon');
+    instance.state.fullscreen.should.be.false();
+    Simulate.click(fullscreenButton);
+
+    fullscreenButton.className.should.containEql('compress-icon');
+    intercomUtils.showIntercomLauncher.calledWith(false).should.be.true();
+    instance.state.fullscreen.should.be.true();
+    Simulate.click(fullscreenButton);
+
+    fullscreenButton.className.should.containEql('expand-icon');
+    intercomUtils.showIntercomLauncher.calledWith(true).should.be.true();
+    instance.state.fullscreen.should.be.false();
   });
 });

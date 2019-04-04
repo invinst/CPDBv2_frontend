@@ -49,7 +49,7 @@ export default class SocialGraph extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { coaccusedData, timelineIdx, clickSearchState } = this.props;
+    const { coaccusedData, timelineIdx, clickSearchState, fullscreen } = this.props;
 
     if (prevProps.coaccusedData !== coaccusedData) {
       this.drawGraph();
@@ -59,6 +59,9 @@ export default class SocialGraph extends Component {
       }
       if (prevProps.clickSearchState !== clickSearchState) {
         this.highlightNode();
+      }
+      if (prevProps.fullscreen !== fullscreen) {
+        this.resizeGraph();
       }
     }
   }
@@ -121,6 +124,7 @@ export default class SocialGraph extends Component {
     this.height = chartDiv.clientHeight;
     this.svg.attr('width', this.width).attr('height', this.height);
     this.force.size([this.width, this.height]);
+    this.force.start();
   }
 
   recalculateNodeLinks(curDate) {
@@ -415,6 +419,7 @@ SocialGraph.propTypes = {
   stopTimeline: PropTypes.func,
   searchText: PropTypes.string,
   clickSearchState: PropTypes.bool,
+  fullscreen: PropTypes.bool,
 };
 
 SocialGraph.defaultProps = {

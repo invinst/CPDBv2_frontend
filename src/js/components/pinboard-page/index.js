@@ -22,6 +22,7 @@ export default class PinboardPage extends Component {
               officers={ graphData.officers }
               coaccusedData={ graphData.coaccusedData }
               listEvent={ graphData.listEvent }
+              hasIntercom={ true }
             />
           </div>
         </div>

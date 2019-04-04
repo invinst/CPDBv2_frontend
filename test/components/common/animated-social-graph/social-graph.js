@@ -1,5 +1,5 @@
 import React from 'react';
-import { stub } from 'sinon';
+import { spy, stub } from 'sinon';
 import { renderIntoDocument } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
 import { forOwn, find, forIn, filter, round } from 'lodash';
@@ -618,5 +618,26 @@ describe('SocialGraph', function () {
 
     should(instance.data.nodes).be.undefined();
     should(instance.data.links).be.undefined();
+  });
+
+  it('should call resizeGraph when fullscreen is changed', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    const resizeGraphSpy = spy(instance, 'resizeGraph');
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        fullscreen={ true }
+      />,
+      instance
+    );
+    resizeGraphSpy.called.should.be.true();
   });
 });

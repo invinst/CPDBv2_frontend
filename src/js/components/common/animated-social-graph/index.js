@@ -9,6 +9,8 @@ import cx from 'classnames';
 import SocialGraph from './social-graph';
 import styles from './animated-social-graph.sass';
 import sliderStyles from 'components/common/slider.sass';
+import { showIntercomLauncher } from 'utils/intercom';
+import { imgUrl } from 'utils/static-assets';
 
 const AMINATE_SPEED = 150;
 
@@ -19,11 +21,13 @@ export default class AnimatedSocialGraph extends Component {
     this.state = {
       timelineIdx: 0,
       searchInputText: '',
-      refreshIntervalId: null
+      refreshIntervalId: null,
+      fullscreen: false,
     };
 
     this.startTimelineFromBeginning = this.startTimelineFromBeginning.bind(this);
     this.toggleTimeline = this.toggleTimeline.bind(this);
+    this.toggleFullscreen = this.toggleFullscreen.bind(this);
     this.stopTimeline = this.stopTimeline.bind(this);
     this.intervalTickTimeline = this.intervalTickTimeline.bind(this);
     this.handleDateSliderChange = this.handleDateSliderChange.bind(this);
@@ -66,6 +70,15 @@ export default class AnimatedSocialGraph extends Component {
     }
   }
 
+  toggleFullscreen() {
+    this.setState((state) => {
+      if (this.props.hasIntercom) {
+        showIntercomLauncher(state.fullscreen);
+      }
+      return { fullscreen: !state.fullscreen };
+    });
+  }
+
   intervalTickTimeline() {
     const { timelineIdx } = this.state;
     if (timelineIdx < this.props.listEvent.length - 1) {
@@ -102,7 +115,7 @@ export default class AnimatedSocialGraph extends Component {
 
   graphControlPanel() {
     const { listEvent } = this.props;
-    const { timelineIdx, refreshIntervalId } = this.state;
+    const { timelineIdx, refreshIntervalId, fullscreen } = this.state;
     if (listEvent) {
       const numOfEvents = listEvent.length;
 
@@ -128,10 +141,15 @@ export default class AnimatedSocialGraph extends Component {
               className={ cx(sliderStyles.slider, 'test--timeline-slider') }
             />
             <div className='graph-actions'>
-              <button className='toggle-timeline-btn' onClick={ this.toggleTimeline }>
-                <div className={ refreshIntervalId ? 'pause-icon' : 'play-icon' }/>
-              </button>
+              <button
+                className={ cx('toggle-timeline-btn', refreshIntervalId ? 'pause-icon' : 'play-icon') }
+                onClick={ this.toggleTimeline }
+              />
               <span className='current-date-label'>{ currentDateString }</span>
+              <button
+                className={ cx('fullscreen-btn', fullscreen ? 'compress-icon' : 'expand-icon') }
+                onClick={ this.toggleFullscreen }
+              />
               { this.searchForm() }
               <div className='clearfix'/>
             </div>
@@ -187,10 +205,10 @@ export default class AnimatedSocialGraph extends Component {
 
   render() {
     const { officers, coaccusedData, listEvent } = this.props;
-    const { timelineIdx, searchInputText, refreshIntervalId, clickSearchState } = this.state;
+    const { timelineIdx, searchInputText, refreshIntervalId, clickSearchState, fullscreen } = this.state;
 
     return (
-      <div className={ styles.animatedSocialGraph }>
+      <div className={ cx(styles.animatedSocialGraph, { fullscreen }) }>
         {
           !isEmpty(officers) && <SocialGraph
             officers={ officers }
@@ -202,6 +220,7 @@ export default class AnimatedSocialGraph extends Component {
             stopTimeline={ this.stopTimeline }
             searchText={ searchInputText }
             clickSearchState={ clickSearchState }
+            fullscreen={ fullscreen }
           />
         }
         { this.graphControlPanel() }
@@ -214,4 +233,5 @@ AnimatedSocialGraph.propTypes = {
   officers: PropTypes.array,
   coaccusedData: PropTypes.array,
   listEvent: PropTypes.array,
+  hasIntercom: PropTypes.bool,
 };
