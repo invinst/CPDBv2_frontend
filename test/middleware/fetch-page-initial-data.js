@@ -24,7 +24,7 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import * as docOverviewPageActions from 'actions/documents-overview-page';
 import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchDocument } from 'actions/document-page';
-import { fetchPinboard } from 'actions/pinboard';
+import { fetchPinboard, fetchPinboardGeographicData, fetchPinboardSocialGraph } from 'actions/pinboard';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -371,5 +371,27 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchPinboard('123ABCD')).should.be.false();
+  });
+
+  it('should dispatch fetchPinboardSocialGraph when store is empty', function () {
+    const store = buildStore();
+    _.set(store._state, 'pinboard.id', null);
+    const action = createLocationChangeAction('/pinboard/268a5e58/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchPinboardSocialGraph('268a5e58')).should.be.true();
+  });
+
+  it('should dispatch fetchPinboardGeographicData when store is empty', function () {
+    const store = buildStore();
+    _.set(store._state, 'pinboard.id', null);
+    const action = createLocationChangeAction('/pinboard/268a5e58/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchPinboardGeographicData('268a5e58')).should.be.true();
   });
 });

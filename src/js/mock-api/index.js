@@ -53,6 +53,7 @@ import {
 } from './social-graph-page/social-graph-page';
 import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
 import { getSocialGraphData } from './pinboard-page/social-graph';
+import { getGeographicData } from './pinboard-page/geographic-data';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -180,6 +181,7 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, fetchPinboard());
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(200, updatePinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/social-graph/`).reply(200, getSocialGraphData());
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/geographic-data/`).reply(200, getGeographicData());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

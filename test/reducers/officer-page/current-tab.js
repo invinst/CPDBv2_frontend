@@ -1,4 +1,4 @@
-import currentTab from 'reducers/officer-page/currentTab';
+import currentTab from 'reducers/officer-page/current-tab';
 
 import { CHANGE_OFFICER_TAB, CHANGE_OFFICER_ID } from 'utils/constants';
 

@@ -4,8 +4,8 @@ import {
   findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 
-import Row from 'components/officer-page/tabbed-pane-section/map/legend/row';
-import { unmountComponentSuppressError } from 'utils/test';
+import Row from 'components/common/allegations-map/legend/row';
+import { unmountComponentSuppressError } from 'utils/test/index';
 
 
 describe('Row component', function () {

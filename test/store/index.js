@@ -241,7 +241,11 @@ describe('store', function () {
         graphData: {}
       },
       pinboard: null,
-      pinboardPage: { graphData: {} },
+      pinboardPage: {
+        graphData: {},
+        geographicData: [],
+        currentTab: 'NETWORK'
+      },
     });
   });
 });

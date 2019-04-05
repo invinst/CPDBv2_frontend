@@ -1,12 +1,12 @@
 import React from 'react';
 
-import MarkerTooltip from 'components/officer-page/tabbed-pane-section/map/marker-tooltip';
+import MarkerTooltip from 'components/common/allegations-map/marker-tooltip';
 import {
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test/index';
 
 
 describe('MarkerTooltip component', function () {

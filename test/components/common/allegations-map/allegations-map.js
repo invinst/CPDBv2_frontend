@@ -1,10 +1,10 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
-import { unmountComponentSuppressError, reRender } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test/index';
 
-import Map from 'components/officer-page/tabbed-pane-section/map';
-import mapStyles from 'components/officer-page/tabbed-pane-section/map/map.sass';
-import legendStyles from 'components/officer-page/tabbed-pane-section/map/legend/legend.sass';
+import AllegationsMap from 'components/common/allegations-map';
+import mapStyles from 'components/common/allegations-map/allegations-map.sass';
+import legendStyles from 'components/common/allegations-map/legend/legend.sass';
 
 
 describe('Map component', function () {
@@ -59,17 +59,17 @@ describe('Map component', function () {
   });
 
   it('should render officer map and legend', function () {
-    instance = renderIntoDocument(<Map legend={ legend } markers={ markers } />);
+    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
   });
 
   it('should rerender', function () {
-    instance = renderIntoDocument(<Map legend={ legend } markers={ markers } />);
+    instance = renderIntoDocument(<AllegationsMap legend={ legend } markers={ markers } />);
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
 
-    instance = reRender(<Map legend={ legend } markers={ markers } />, instance);
+    instance = reRender(<AllegationsMap legend={ legend } markers={ markers } />, instance);
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
   });
