@@ -241,7 +241,24 @@ describe('store', function () {
         graphData: {}
       },
       pinboard: null,
-      pinboardPage: { graphData: {} },
+      pinboardPage: {
+        graphData: {},
+        relevantDocuments: {
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null }
+        },
+        relevantCoaccusals: {
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null }
+        },
+        relevantComplaints: {
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null }
+        },
+      },
     });
   });
 });
