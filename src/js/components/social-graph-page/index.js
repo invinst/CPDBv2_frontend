@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { isEmpty } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-
 import cx from 'classnames';
+
 import styles from './social-graph-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';

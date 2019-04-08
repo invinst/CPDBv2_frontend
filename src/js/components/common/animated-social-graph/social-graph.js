@@ -1,16 +1,16 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { filter, isEmpty } from 'lodash';
+import { filter, isEmpty, countBy, indexOf } from 'lodash';
 import moment from 'moment';
 import * as d3 from 'd3';
 import * as jLouvain from 'jlouvain';
 import d3Tip from 'd3-tip';
 import 'rc-slider/assets/index.css';
-import { countBy, indexOf } from 'lodash';
 import cx from 'classnames';
 
 import { imgUrl } from 'utils/static-assets';
 import styles from './social-graph.sass';
+import { bostonRed, smokeGray } from 'utils/styles';
 
 const DEFAULT_GRAPH_WIDTH = 800;
 const DEFAULT_GRAPH_HEIGHT = 500;
@@ -19,6 +19,7 @@ const DEFAULT_PADDING = 1.5;
 const DEFAULT_CLUSTER_PADDING = 6;
 const MAX_RADIUS = 12;
 const COLLIDE_ALPHA = 0.5;
+const MIN_MEMBERS_IN_COMMUNITY = 3;
 
 
 export default class SocialGraph extends Component {
@@ -123,13 +124,12 @@ export default class SocialGraph extends Component {
     this.force.size([this.width, this.height]);
   }
 
-  recalculateNodeLinks(curDate) {
-    let index = 0;
-    const { officers, coaccusedData } = this.props;
+  _resetNodes() {
+    const { officers } = this.props;
     if (!this.data.nodes) {
       let nodes = [];
       let officerHash = {};
-      officers.forEach((officer) => {
+      officers.forEach((officer, index) => {
         const officerData = {
           id: index,
           uid: officer.id,
@@ -138,7 +138,6 @@ export default class SocialGraph extends Component {
         };
         nodes.push(officerData);
         officerHash[officer.id] = index;
-        index = index + 1;
       });
 
       this.data.nodes = nodes;
@@ -148,42 +147,54 @@ export default class SocialGraph extends Component {
         graphNode.degree = 0;
       });
     }
+  }
 
+  _recalculateLinks(curDate) {
+    const { coaccusedData } = this.props;
     let nodesData = {};
     coaccusedData.forEach((row) => {
-      const rowDate = moment(row['incidentDate'], 'YYYY-MM-DD').toDate();
+      const rowDate = moment(row.incidentDate, 'YYYY-MM-DD').toDate();
       if (rowDate <= curDate) {
-        const objKey = row['officerId1'] + '_' + row['officerId2'];
+        const objKey = row.officerId1 + '_' + row.officerId2;
         if (nodesData[objKey]) {
-          nodesData[objKey].weight = row['accussedCount'];
+          nodesData[objKey].weight = row.accussedCount;
         } else {
-          const officerIndex1 = this.data.officerHash[row['officerId1']];
-          const officerIndex2 = this.data.officerHash[row['officerId2']];
+          const officerIndex1 = this.data.officerHash[row.officerId1];
+          const officerIndex2 = this.data.officerHash[row.officerId2];
           nodesData[objKey] = {
             source: officerIndex1,
             target: officerIndex2,
-            weight: row['accussedCount']
+            weight: row.accussedCount
           };
         }
-        nodesData[objKey]['color'] = (rowDate.getTime() === curDate.getTime()) ? 'red' : '#999';
+        nodesData[objKey]['color'] = (rowDate.getTime() === curDate.getTime()) ? bostonRed : smokeGray;
       }
     });
 
-    const links = Object.values(nodesData);
+    this.data.links = Object.values(nodesData);
+  }
 
-    links.forEach((link) => {
+  _recalculateNodeDegreesAndMaxWeight() {
+    this.data.maxWeight = 0;
+    this.data.links.forEach((link) => {
       this.data.nodes[link.source].degree += 1;
       this.data.nodes[link.target].degree += 1;
-    });
 
-    const communityPartition = jLouvain.jLouvain().nodes(Object.values(this.data.officerHash)).edges(links)();
+      if (this.data.maxWeight < link.weight) {
+        this.data.maxWeight = link.weight;
+      }
+    });
+  }
+
+  _recalculateNodeGroups() {
+    const communityPartition = jLouvain.jLouvain().nodes(Object.values(this.data.officerHash)).edges(this.data.links)();
 
     const memberCountInCommunity = countBy(communityPartition);
 
     let groupIds = [];
 
     for (const groupId in memberCountInCommunity) {
-      if (memberCountInCommunity[groupId] >= 3) {
+      if (memberCountInCommunity[groupId] >= MIN_MEMBERS_IN_COMMUNITY) {
         groupIds.push(parseInt(groupId));
       }
     }
@@ -206,21 +217,24 @@ export default class SocialGraph extends Component {
         this.data.maxNodeInCommunities[graphNode.group] = graphNode;
       }
     });
-
-    this.data.maxWeight = 0;
-    links.forEach((link) => {
-      link.source = this.data.nodes[link.source];
-      link.target = this.data.nodes[link.target];
-
-      if (this.data.maxWeight < link.weight) {
-        this.data.maxWeight = link.weight;
-      }
-    });
-
-    this.data.links = links;
   }
 
-  restart() {
+  _updateLinkSourceAndTarget() {
+    this.data.links.forEach((link) => {
+      link.source = this.data.nodes[link.source];
+      link.target = this.data.nodes[link.target];
+    });
+  }
+
+  recalculateNodeLinks(curDate) {
+    this._resetNodes();
+    this._recalculateLinks(curDate);
+    this._recalculateNodeDegreesAndMaxWeight();
+    this._recalculateNodeGroups();
+    this._updateLinkSourceAndTarget();
+  }
+
+  _restartNodes() {
     this.toggleNode = 0;
     this.node = this.node.data(this.data.nodes);
     this.node.enter().insert('circle', '.cursor')
@@ -237,7 +251,9 @@ export default class SocialGraph extends Component {
     });
 
     this.node.exit().remove();
+  }
 
+  _restartLinks() {
     this.force.links(this.data.links)
       .linkStrength((d) => {
         return ((d.weight + 1) / (this.data.maxWeight + 1));
@@ -246,7 +262,6 @@ export default class SocialGraph extends Component {
 
     this.link.enter().insert('line', '.node').attr('class', 'link');
 
-    // update the weights to new data
     this.link.attr('stroke-width', (d) => {
       return Math.ceil(Math.sqrt(d.weight));
     })
@@ -255,7 +270,11 @@ export default class SocialGraph extends Component {
       });
 
     this.link.exit().remove();
+  }
 
+  restart() {
+    this._restartNodes();
+    this._restartLinks();
     this.force.start();
   }
 
@@ -273,15 +292,10 @@ export default class SocialGraph extends Component {
         .each(this.collide());
     }
 
-    this.link.attr('x1', function (d) {
-      return d.source.x;
-    }).attr('y1', function (d) {
-      return d.source.y;
-    }).attr('x2', function (d) {
-      return d.target.x;
-    }).attr('y2', function (d) {
-      return d.target.y;
-    });
+    this.link.attr('x1', (d) => d.source.x)
+      .attr('y1', (d) => d.source.y)
+      .attr('x2', (d) => d.target.x)
+      .attr('y2', (d) => d.target.y);
   }
 
   connectedNodes(currentNode) {
@@ -318,44 +332,46 @@ export default class SocialGraph extends Component {
 
   cluster(alpha) {
     const maxNodeInCommunities = this.data.maxNodeInCommunities;
-    return (d) => {
-      const cluster = maxNodeInCommunities[d.group];
-      if (typeof cluster === 'undefined' || cluster === d || d.group === 0)
+    return (currentNode) => {
+      const cluster = maxNodeInCommunities[currentNode.group];
+      if (typeof cluster === 'undefined' || cluster === currentNode || currentNode.group === 0)
         return;
-      let x = d.x - cluster.x,
-        y = d.y - cluster.y,
-        l = Math.sqrt(x * x + y * y),
-        r = (d.degree + cluster.degree) / 2 + 4;
+      const xDistance = currentNode.x - cluster.x,
+        yDistance = currentNode.y - cluster.y,
+        distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance),
+        minDistance = (currentNode.degree + cluster.degree) / 2 + 4;
 
-      if (l && r && l !== r) {
-        l = (l - r) / l * alpha;
-        d.x -= x *= l;
-        d.y -= y *= l;
-        cluster.x += x;
-        cluster.y += y;
+      if (distance && minDistance && distance !== minDistance) {
+        const percentage = (distance - minDistance) / distance * alpha;
+        const xAdjust = xDistance * percentage;
+        const yAdjust = yDistance * percentage;
+        currentNode.x -= xAdjust;
+        currentNode.y -= yAdjust;
+        cluster.x += xAdjust;
+        cluster.y += yAdjust;
       }
     };
   }
 
   collide() {
     const quadtree = d3.geom.quadtree(this.data.nodes);
-    return (d) => {
-      let r = (d.degree / 2 + 2) + MAX_RADIUS + DEFAULT_CLUSTER_PADDING,
-        nx1 = d.x - r,
-        nx2 = d.x + r,
-        ny1 = d.y - r,
-        ny2 = d.y + r;
+    return (currentNode) => {
+      let r = (currentNode.degree / 2 + 2) + MAX_RADIUS + DEFAULT_CLUSTER_PADDING,
+        nx1 = currentNode.x - r,
+        nx2 = currentNode.x + r,
+        ny1 = currentNode.y - r,
+        ny2 = currentNode.y + r;
       quadtree.visit((quad, x1, y1, x2, y2) => {
-        if (quad.point && (quad.point !== d)) {
-          let x = d.x - quad.point.x,
-            y = d.y - quad.point.y,
+        if (quad.point && (quad.point !== currentNode)) {
+          let x = currentNode.x - quad.point.x,
+            y = currentNode.y - quad.point.y,
             l = Math.sqrt(x * x + y * y),
-            r = (d.degree / 2 + 3) + (quad.point.degree / 2 + 3) +
-              (d.group === quad.point.group ? DEFAULT_PADDING : DEFAULT_CLUSTER_PADDING);
+            r = (currentNode.degree / 2 + 3) + (quad.point.degree / 2 + 3) +
+              (currentNode.group === quad.point.group ? DEFAULT_PADDING : DEFAULT_CLUSTER_PADDING);
           if (l && r && l < r) {
             l = (l - r) / l * COLLIDE_ALPHA;
-            d.x -= x *= l;
-            d.y -= y *= l;
+            currentNode.x -= x *= l;
+            currentNode.y -= y *= l;
             quad.point.x += x;
             quad.point.y += y;
           }
