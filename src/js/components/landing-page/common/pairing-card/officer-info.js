@@ -13,8 +13,10 @@ class OfficerInfo extends Component {
         className={ `${style.officerInfo} ${rightOfficer ? 'right-officer': 'left-officer'}` }
         onClick={ this.handleClick }
       >
-        <div className='officer-info-text'>{ rank }</div>
-        <div className='officer-info-name'>{ fullName }</div>
+        <div className='officer-info-upper'>
+          <div className='officer-info-text'>{ rank }</div>
+          <div className='officer-info-name'>{ fullName }</div>
+        </div>
         <div className='officer-info-row-divider'/>
         <div className='officer-info-personal-info'>
           { age }-year-old { race } { gender }

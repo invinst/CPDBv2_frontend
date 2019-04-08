@@ -23,13 +23,15 @@ describe('Recent Document components', function () {
     'title': 'CR document 1',
     'url': 'http://cr-document.com/1',
     'previewImageUrl': 'http://preview.com/url',
-    'numDocuments': 2
+    'incidentDate': 'Dec 31, 1999',
+    'category': 'Operations/Personnel Violation',
   }, {
     'crid': '112',
     'title': 'CR document 3',
     'url': 'http://cr-document.com/3',
     'previewImageUrl': 'http://preview.com/url3',
-    'numDocuments': 1
+    'incidentDate': 'Jan 1, 2010',
+    'category': 'Conduct Unbecoming (Off- Duty)',
   }];
 
   beforeEach(function () {
@@ -49,14 +51,16 @@ describe('Recent Document components', function () {
     const recentDocumentCards = scryRenderedComponentsWithType(instance, DocumentCard);
     recentDocumentCards.should.have.length(2);
     const recentDocumentCard1 = findDOMNode(recentDocumentCards[0]);
-    recentDocumentCard1.textContent.should.containEql('2 new attachments added to CR 111');
+    recentDocumentCard1.textContent.should.containEql('Dec 31, 1999');
+    recentDocumentCard1.textContent.should.containEql('Operations/Personnel Violation');
     const images = recentDocumentCard1.querySelectorAll('.document-card-thumbnail-img');
 
     images.length.should.eql(1);
     images[0].getAttribute('src').should.eql('http://preview.com/url');
 
     const recentDocumentCard2 = findDOMNode(recentDocumentCards[1]);
-    recentDocumentCard2.textContent.should.containEql('1 new attachment added to CR 112');
+    recentDocumentCard2.textContent.should.containEql('Jan 1, 2010');
+    recentDocumentCard2.textContent.should.containEql('Conduct Unbecoming (Off- Duty)');
     const images2 = recentDocumentCard2.querySelectorAll('.document-card-thumbnail-img');
     images2.should.have.length(1);
     images2[0].getAttribute('src').should.eql('http://preview.com/url3');
@@ -67,7 +71,8 @@ describe('Recent Document components', function () {
     const data = [{
       'crid': '123456',
       'title': 'CR document 1',
-      'numDocuments': 2,
+      'incidentDate': 'Jan 1, 2010',
+      'category': 'Conduct Unbecoming (Off- Duty)',
     }];
     const recentDocument = () => (
       <RecentDocument cards={ data } pathname='/' />
@@ -91,7 +96,8 @@ describe('Recent Document components', function () {
       'crid': '123456',
       'title': 'CR document 1',
       'id': '789',
-      'numDocuments': 2,
+      'incidentDate': 'Jan 1, 2010',
+      'category': 'Conduct Unbecoming (Off- Duty)',
     }];
     const recentDocument = () => (
       <RecentDocument cards={ data } pathname='/' onTrackingAttachment={ stubOnTrackingAttachment } />

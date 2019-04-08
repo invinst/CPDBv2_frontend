@@ -2,6 +2,8 @@ import React from 'react';
 import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithTag,
+  findRenderedDOMComponentWithTag,
+  findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 
 import RadarGrid from 'components/common/radar-chart/radar-grid';
@@ -27,5 +29,14 @@ describe('RadarGrid components', function () {
     );
 
     scryRenderedDOMComponentsWithTag(instance, 'path').should.have.length(5);
+  });
+
+  it('should render 1 outer triangle if outerGridOnly is true', function () {
+    instance = renderIntoDocument(
+      <RadarGrid radius={ 100 } numAxis={ 3 } maxValue={ 100 } strokeWidth={ 1 } outerGridOnly={ true }/>
+    );
+
+    findRenderedDOMComponentWithTag(instance, 'path');
+    findRenderedDOMComponentWithClass(instance, 'test--radar-grid-5');
   });
 });
