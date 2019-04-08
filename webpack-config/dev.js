@@ -30,7 +30,8 @@ const config = Object.assign({}, baseConfig, {
     ...baseConfig.plugins,
     new CopyWebpackPlugin([
       { from: 'src/fonts', to: 'fonts' },
-      { from: 'src/img', to: 'img' }
+      { from: 'src/img', to: 'img' },
+      { from: 'src/static', to: 'static' }
     ]),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

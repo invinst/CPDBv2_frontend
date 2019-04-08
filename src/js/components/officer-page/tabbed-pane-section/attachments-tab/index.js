@@ -13,7 +13,7 @@ export default class AttachmentsTab extends Component {
         <div className='attachments-tab-title'>
           <div className='title-text'>
             <span className='attachments-text'>
-              ATTACHMENTS &nbsp;
+              DOCUMENTS &nbsp;
             </span>
             <span className='graphic-content-text'>
               MAY CONTAIN GRAPHIC CONTENT

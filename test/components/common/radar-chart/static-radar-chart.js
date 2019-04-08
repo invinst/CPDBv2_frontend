@@ -6,6 +6,7 @@ import { unmountComponentSuppressError, renderWithContext } from 'utils/test';
 import StaticRadarChart from 'components/common/radar-chart';
 import RadarChart from 'components/common/radar-chart/radar-chart';
 import RadarArea from 'components/common/radar-chart/radar-area';
+import RadarGrid from 'components/common/radar-chart/radar-grid';
 
 
 describe('StaticRadarChart component', function () {
@@ -71,7 +72,19 @@ describe('StaticRadarChart component', function () {
 
     const noDataRadarChart = findRenderedComponentWithType(instance, RadarChart);
     should(noDataRadarChart.props.data).be.undefined();
+    noDataRadarChart.props.numMetrics.should.equal(3);
+    noDataRadarChart.props.backgroundColor.should.equal('#ADADAD');
+    noDataRadarChart.props.showGrid.should.be.true();
+    noDataRadarChart.props.outerGridOnly.should.be.true();
+    noDataRadarChart.props.gridColor.should.equal('#8F8F8F');
+    noDataRadarChart.props.strokeWidth.should.equal(0.6);
+    noDataRadarChart.props.boundaryAreaColor.should.equal('#ADADAD');
+
     findRenderedComponentWithType(instance, RadarArea);
+    const radarGrid = findRenderedComponentWithType(instance, RadarGrid);
+    radarGrid.props.outerGridOnly.should.be.true();
+    radarGrid.props.strokeColor.should.equal('#8F8F8F');
+    radarGrid.props.strokeWidth.should.equal(0.6);
   });
 
   it('should render RadarChart with more props in print mode', function () {
