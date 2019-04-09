@@ -40,6 +40,5 @@ export const relevantCoaccusalTransform = coaccusal => ({
 
 export const relevantComplaintTransform = allegation => ({
   ...allegationTransform(allegation),
-  to: allegation['v2_to'],
   point: allegation.point,
 });

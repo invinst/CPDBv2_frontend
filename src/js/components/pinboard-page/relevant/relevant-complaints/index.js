@@ -33,6 +33,7 @@ export default class RelevantComplaints extends Component {
 
 RelevantComplaints.propTypes = {
   complaints: PropTypes.arrayOf(PropTypes.object),
+  nextParams: PropTypes.object,
   fetchPinboardRelevantComplaints: PropTypes.func,
   hasMore: PropTypes.bool,
   pinboardId: PropTypes.string,

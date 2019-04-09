@@ -317,7 +317,6 @@ describe('search page transforms', function () {
           civilianComplimentCount: 4,
           gender: 'Male',
           lastPercentile: {
-            officerId: undefined,
             year: undefined,
             items: [
               { axis: 'Use of Force Reports', value: 90 },

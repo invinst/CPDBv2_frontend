@@ -30,7 +30,6 @@ describe('BaseComplaintCard component', function () {
       id: 1,
       shortName: 'R. Sullivan',
       percentile: {
-        officerId: 1,
         year: 2015,
         items: [
           { axis: 'Use of Force Reports', value: 20.6, },
@@ -43,26 +42,26 @@ describe('BaseComplaintCard component', function () {
     }, {
       id: 2,
       shortName: 'E. May',
-      percentile: { officerId: 2, year: 2015, items: [] }
+      percentile: { year: 2015, items: [] }
     }, {
       id: 3,
       shortName: 'B. Lopez',
-      percentile: { officerId: 3, year: 2015, items: [] }
+      percentile: { year: 2015, items: [] }
     }, {
       id: 4,
-      percentile: { officerId: 4, year: 2015, items: [] }
+      percentile: { year: 2015, items: [] }
     }, {
       id: 5,
-      percentile: { officerId: 5, year: 2015, items: [] }
+      percentile: { year: 2015, items: [] }
     }, {
       id: 6,
-      percentile: { officerId: 6, year: 2015, items: [] }
+      percentile: { year: 2015, items: [] }
     }, {
       id: 7,
-      percentile: { officerId: 7, year: 2015, items: [] }
+      percentile: { year: 2015, items: [] }
     }, {
       id: 8,
-      percentile: { officerId: 8, year: 2015, items: [] }
+      percentile: { year: 2015, items: [] }
     }];
     const addItemToPinboard = stub();
     instance = renderIntoDocument(
@@ -98,7 +97,6 @@ describe('BaseComplaintCard component', function () {
     topOfficerNames[1].textContent.should.eql('E. May');
     miniVisualTokens[0].props.className.should.eql('top-officer-row-token');
     miniVisualTokens[0].props.percentile.should.eql({
-      officerId: 1,
       year: 2015,
       items: [
         { axis: 'Use of Force Reports', value: 20.6, },
@@ -109,18 +107,18 @@ describe('BaseComplaintCard component', function () {
       textColor: OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT.DARK_COLOR,
     });
     miniVisualTokens[1].props.className.should.eql('top-officer-row-token');
-    miniVisualTokens[1].props.percentile.should.eql({ officerId: 2, year: 2015, items: [] });
+    miniVisualTokens[1].props.percentile.should.eql({ year: 2015, items: [] });
 
     miniVisualTokens[2].props.className.should.eql('remaining-officer');
-    miniVisualTokens[2].props.percentile.should.eql({ officerId: 3, year: 2015, items: [] });
+    miniVisualTokens[2].props.percentile.should.eql({ year: 2015, items: [] });
     miniVisualTokens[3].props.className.should.eql('remaining-officer');
-    miniVisualTokens[3].props.percentile.should.eql({ officerId: 4, year: 2015, items: [] });
+    miniVisualTokens[3].props.percentile.should.eql({ year: 2015, items: [] });
     miniVisualTokens[4].props.className.should.eql('remaining-officer');
-    miniVisualTokens[4].props.percentile.should.eql({ officerId: 5, year: 2015, items: [] });
+    miniVisualTokens[4].props.percentile.should.eql({ year: 2015, items: [] });
     miniVisualTokens[5].props.className.should.eql('remaining-officer');
-    miniVisualTokens[5].props.percentile.should.eql({ officerId: 6, year: 2015, items: [] });
+    miniVisualTokens[5].props.percentile.should.eql({ year: 2015, items: [] });
     miniVisualTokens[6].props.className.should.eql('remaining-officer');
-    miniVisualTokens[6].props.percentile.should.eql({ officerId: 7, year: 2015, items: [] });
+    miniVisualTokens[6].props.percentile.should.eql({ year: 2015, items: [] });
 
     findRenderedDOMComponentWithClass(rightHalf, 'not-showing-officer-count').textContent.should.eql('1+');
 
