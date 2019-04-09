@@ -1,4 +1,12 @@
-import { createPinboard, updatePinboard, fetchPinboard, fetchPinboardSocialGraph } from 'actions/pinboard';
+import {
+  createPinboard,
+  updatePinboard,
+  fetchPinboard,
+  fetchPinboardSocialGraph,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
+} from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
 
@@ -90,6 +98,129 @@ describe('pinboard actions', function () {
         payload: {
           request: {
             url: `${constants.PINBOARDS_URL}1/social-graph/`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardRelevantDocuments', function () {
+    it('shoud return correct action', function () {
+      fetchPinboardRelevantDocuments('66ef1560').should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-documents/?`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+
+    it('shoud return correct action with params', function () {
+      fetchPinboardRelevantDocuments(
+        '66ef1560',
+        { limit: '20', offset: '20' }
+      ).should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-documents/?limit=20&offset=20`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardRelevantCoaccusals', function () {
+    it('shoud return correct action', function () {
+      fetchPinboardRelevantCoaccusals('66ef1560').should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-coaccusals/?`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+
+    it('shoud return correct action with params', function () {
+      fetchPinboardRelevantCoaccusals(
+        '66ef1560',
+        { limit: '20', offset: '20' }
+      ).should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-coaccusals/?limit=20&offset=20`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardRelevantComplaints', function () {
+    it('shoud return correct action', function () {
+      fetchPinboardRelevantComplaints('66ef1560').should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-complaints/?`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+
+    it('shoud return correct action with params', function () {
+      fetchPinboardRelevantComplaints(
+        '66ef1560',
+        { limit: '20', offset: '20' }
+      ).should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-complaints/?limit=20&offset=20`,
             params: undefined,
             adapter: null,
             cancelToken: undefined,

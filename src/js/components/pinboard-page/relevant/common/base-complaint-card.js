@@ -44,7 +44,7 @@ export class BaseComplaintCard extends Component {
           <div className='top-officers'>
             { topOfficers.map(officer =>
               <div className='top-officer-row' key={ officer.id }>
-                <div className='top-officer-row-token'><MiniVisualToken percentile={ officer.percentile }/></div>
+                <MiniVisualToken className='top-officer-row-token' percentile={ officer.percentile }/>
                 <div className='top-officer-row-officer-name'>{ officer.shortName }</div>
               </div>
             ) }

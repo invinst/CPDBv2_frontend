@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions';
+import { map, entries } from 'lodash';
 
 import { get, post, put } from 'actions/common/async-action';
 import * as constants from 'utils/constants';
-import { map, entries } from 'lodash';
 
 
 export const addItemToPinboard = createAction(constants.ADD_ITEM_TO_PINBOARD, item => item);

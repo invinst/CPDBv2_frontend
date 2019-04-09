@@ -21,7 +21,7 @@ export default class RelevantCoaccusals extends Component {
       >
         {
           coaccusals.map(coaccusal =>
-            <div key={ coaccusal.id } style={ { width: '148px' } }>
+            <div className='test--coaccusal-card-wrapper' key={ coaccusal.id } style={ { width: '148px' } }>
               <RelevantCoaccusalCard { ...coaccusal } addItemToPinboard={ addItemToPinboard }/>
             </div>
           )
@@ -33,6 +33,7 @@ export default class RelevantCoaccusals extends Component {
 
 RelevantCoaccusals.propTypes = {
   coaccusals: PropTypes.arrayOf(PropTypes.object),
+  nextParams: PropTypes.object,
   fetchPinboardRelevantCoaccusals: PropTypes.func,
   addItemToPinboard: PropTypes.func,
   hasMore: PropTypes.bool,

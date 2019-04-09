@@ -92,7 +92,10 @@ export default class RadarChart extends Component {
         height='100%'
         viewBox={ `0 0 ${width} ${height}` }
       >
-        <g transform={ `translate(${Math.floor(width / 2)} ${Math.floor(height * 0.34) + offsetTop})` }>
+        <g
+          transform={ `translate(${Math.floor(width / 2)} ${Math.floor(height * 0.34) + offsetTop})` }
+          className='test--radar-chart-transform'
+        >
           {
             (data && (showAxisTitle || showAxisValue)) && (
               <RadarAxis
