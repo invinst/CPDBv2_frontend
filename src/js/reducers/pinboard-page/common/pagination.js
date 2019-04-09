@@ -15,7 +15,7 @@ const createItemsReducer = (successType) => handleActions(
   []
 );
 
-const createCountReducer = (successType) =>handleActions({
+const createCountReducer = (successType) => handleActions({
   [successType]: (state, action) => (action.payload.count)
 }, 0);
 
