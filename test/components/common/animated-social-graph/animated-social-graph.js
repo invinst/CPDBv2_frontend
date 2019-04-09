@@ -16,7 +16,6 @@ import { unmountComponentSuppressError } from 'utils/test/index';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
 import * as intercomUtils from 'utils/intercom';
-import { findDOMNode } from 'react-dom';
 
 
 describe('AnimatedSocialGraph component', function () {

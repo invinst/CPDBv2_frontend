@@ -34,7 +34,7 @@ describe('Social Graph Page', function () {
       (graphNode) => graphNode.getCssProperty('fill').value
     );
     const groupsCount = values(countBy(groupsColors));
-    groupsCount.sort((a, b) => a - b).should.eql([3, 3, 3, 4, 7]);
+    groupsCount.sort((a, b) => a - b).should.eql([3, 5, 6, 6]);
   });
 
   it('should show connected nodes when double click on a node', function () {
@@ -82,11 +82,11 @@ describe('Social Graph Page', function () {
 
   it('should pause timeline when click on toggle timeline button', function () {
     browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1994-01-09';
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1994-01-10';
     }, 10000, 'expected timeline reaches specific date after 10s', 50);
     socialGraphPage.animatedSocialGraphSection.toggleTimelineButton.click();
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(8);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(10);
 
     socialGraphPage.animatedSocialGraphSection.toggleTimelineButton.click();
     browser.waitUntil(function () {
@@ -106,14 +106,14 @@ describe('Social Graph Page', function () {
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
     browser.buttonPress();
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(18);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const groupsColors = map(
       graphNodes,
       (graphNode) => graphNode.getCssProperty('fill').value
     );
     const groupsCount = values(countBy(groupsColors));
-    groupsCount.sort((a, b) => a - b).should.eql([3, 6, 11]);
+    groupsCount.sort((a, b) => a - b).should.eql([3, 3, 3, 11]);
   });
 
   it('should load new data when change threshold and showCivilOnly', function () {
@@ -128,7 +128,7 @@ describe('Social Graph Page', function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
     }, 15000, 'expected timeline reaches end date after 15s');
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(31);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
 
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdSlider.selector, 140, 7);
     browser.buttonPress();
@@ -136,7 +136,7 @@ describe('Social Graph Page', function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
     }, 15000, 'expected timeline reaches end date after 15s');
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(16);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(15);
   });
 
   it('should be able to search', function () {

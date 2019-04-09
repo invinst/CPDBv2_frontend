@@ -10,7 +10,6 @@ import SocialGraph from './social-graph';
 import styles from './animated-social-graph.sass';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
-import { imgUrl } from 'utils/static-assets';
 
 const AMINATE_SPEED = 150;
 

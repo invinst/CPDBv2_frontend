@@ -140,8 +140,6 @@ export const SOCIAL_GRAPH_REQUEST_START = 'SOCIAL_GRAPH_REQUEST_START';
 export const SOCIAL_GRAPH_REQUEST_SUCCESS = 'SOCIAL_GRAPH_REQUEST_SUCCESS';
 export const SOCIAL_GRAPH_REQUEST_FAILURE = 'SOCIAL_GRAPH_REQUEST_FAILURE';
 
-
-
 export const ALPHA_NUMBERIC = [
   'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
   'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
@@ -592,3 +590,5 @@ export const SHAREABLE_HEADER_BUTTON_TYPE = {
   MENU: 'menu',
   LINK: 'link',
 };
+
+export const PINBOARD_HEX_ID_LENGTH = 8;

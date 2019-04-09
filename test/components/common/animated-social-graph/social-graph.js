@@ -7,6 +7,7 @@ import should from 'should';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test/index';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
+import { bostonRed, smokeGray } from 'utils/styles';
 
 
 describe('SocialGraph', function () {
@@ -253,43 +254,43 @@ describe('SocialGraph', function () {
     ];
 
     const expectedLinks = [
-      { sourceUid: 2675, targetUid: 24157, weight: 2, color: '#999' },
-      { sourceUid: 22861, targetUid: 30466, weight: 3, color: '#999' },
-      { sourceUid: 11580, targetUid: 22861, weight: 5, color: '#999' },
-      { sourceUid: 14045, targetUid: 22861, weight: 2, color: '#999' },
-      { sourceUid: 14045, targetUid: 28805, weight: 10, color: '#999' },
-      { sourceUid: 12176, targetUid: 21194, weight: 2, color: '#999' },
-      { sourceUid: 12176, targetUid: 14045, weight: 4, color: '#999' },
-      { sourceUid: 3663, targetUid: 14045, weight: 3, color: '#999' },
-      { sourceUid: 3663, targetUid: 12176, weight: 2, color: '#999' },
-      { sourceUid: 3663, targetUid: 4881, weight: 2, color: '#999' },
-      { sourceUid: 12176, targetUid: 28805, weight: 8, color: '#999' },
-      { sourceUid: 14045, targetUid: 21194, weight: 2, color: '#999' },
-      { sourceUid: 4881, targetUid: 14045, weight: 2, color: '#999' },
-      { sourceUid: 21194, targetUid: 28805, weight: 4, color: '#999' },
-      { sourceUid: 4269, targetUid: 30209, weight: 2, color: '#999' },
-      { sourceUid: 3663, targetUid: 21194, weight: 9, color: '#999' },
-      { sourceUid: 11580, targetUid: 30466, weight: 6, color: '#999' },
-      { sourceUid: 3663, targetUid: 28805, weight: 8, color: '#999' },
-      { sourceUid: 8138, targetUid: 31945, weight: 7, color: '#999' },
-      { sourceUid: 3663, targetUid: 8138, weight: 2, color: '#999' },
-      { sourceUid: 8138, targetUid: 30466, weight: 2, color: '#999' },
-      { sourceUid: 3663, targetUid: 30209, weight: 2, color: '#999' },
-      { sourceUid: 30466, targetUid: 31945, weight: 2, color: '#999' },
-      { sourceUid: 30209, targetUid: 31945, weight: 2, color: '#999' },
-      { sourceUid: 30209, targetUid: 30466, weight: 2, color: '#999' },
-      { sourceUid: 3663, targetUid: 30466, weight: 2, color: '#999' },
-      { sourceUid: 2671, targetUid: 4269, weight: 3, color: '#999' },
-      { sourceUid: 4269, targetUid: 15956, weight: 3, color: '#999' },
-      { sourceUid: 4881, targetUid: 31945, weight: 2, color: '#999' },
-      { sourceUid: 4881, targetUid: 21194, weight: 3, color: '#999' },
-      { sourceUid: 4269, targetUid: 4881, weight: 2, color: '#999' },
-      { sourceUid: 21194, targetUid: 31945, weight: 2, color: '#999' },
-      { sourceUid: 4269, targetUid: 21194, weight: 2, color: '#999' },
-      { sourceUid: 3663, targetUid: 31945, weight: 5, color: '#999' },
-      { sourceUid: 4269, targetUid: 31945, weight: 5, color: '#999' },
-      { sourceUid: 3663, targetUid: 4269, weight: 3, color: '#999' },
-      { sourceUid: 2671, targetUid: 15956, weight: 18, color: 'red' }
+      { sourceUid: 2675, targetUid: 24157, weight: 2, color: smokeGray },
+      { sourceUid: 22861, targetUid: 30466, weight: 3, color: smokeGray },
+      { sourceUid: 11580, targetUid: 22861, weight: 5, color: smokeGray },
+      { sourceUid: 14045, targetUid: 22861, weight: 2, color: smokeGray },
+      { sourceUid: 14045, targetUid: 28805, weight: 10, color: smokeGray },
+      { sourceUid: 12176, targetUid: 21194, weight: 2, color: smokeGray },
+      { sourceUid: 12176, targetUid: 14045, weight: 4, color: smokeGray },
+      { sourceUid: 3663, targetUid: 14045, weight: 3, color: smokeGray },
+      { sourceUid: 3663, targetUid: 12176, weight: 2, color: smokeGray },
+      { sourceUid: 3663, targetUid: 4881, weight: 2, color: smokeGray },
+      { sourceUid: 12176, targetUid: 28805, weight: 8, color: smokeGray },
+      { sourceUid: 14045, targetUid: 21194, weight: 2, color: smokeGray },
+      { sourceUid: 4881, targetUid: 14045, weight: 2, color: smokeGray },
+      { sourceUid: 21194, targetUid: 28805, weight: 4, color: smokeGray },
+      { sourceUid: 4269, targetUid: 30209, weight: 2, color: smokeGray },
+      { sourceUid: 3663, targetUid: 21194, weight: 9, color: smokeGray },
+      { sourceUid: 11580, targetUid: 30466, weight: 6, color: smokeGray },
+      { sourceUid: 3663, targetUid: 28805, weight: 8, color: smokeGray },
+      { sourceUid: 8138, targetUid: 31945, weight: 7, color: smokeGray },
+      { sourceUid: 3663, targetUid: 8138, weight: 2, color: smokeGray },
+      { sourceUid: 8138, targetUid: 30466, weight: 2, color: smokeGray },
+      { sourceUid: 3663, targetUid: 30209, weight: 2, color: smokeGray },
+      { sourceUid: 30466, targetUid: 31945, weight: 2, color: smokeGray },
+      { sourceUid: 30209, targetUid: 31945, weight: 2, color: smokeGray },
+      { sourceUid: 30209, targetUid: 30466, weight: 2, color: smokeGray },
+      { sourceUid: 3663, targetUid: 30466, weight: 2, color: smokeGray },
+      { sourceUid: 2671, targetUid: 4269, weight: 3, color: smokeGray },
+      { sourceUid: 4269, targetUid: 15956, weight: 3, color: smokeGray },
+      { sourceUid: 4881, targetUid: 31945, weight: 2, color: smokeGray },
+      { sourceUid: 4881, targetUid: 21194, weight: 3, color: smokeGray },
+      { sourceUid: 4269, targetUid: 4881, weight: 2, color: smokeGray },
+      { sourceUid: 21194, targetUid: 31945, weight: 2, color: smokeGray },
+      { sourceUid: 4269, targetUid: 21194, weight: 2, color: smokeGray },
+      { sourceUid: 3663, targetUid: 31945, weight: 5, color: smokeGray },
+      { sourceUid: 4269, targetUid: 31945, weight: 5, color: smokeGray },
+      { sourceUid: 3663, targetUid: 4269, weight: 3, color: smokeGray },
+      { sourceUid: 2671, targetUid: 15956, weight: 18, color: bostonRed }
     ];
 
     const expectedLinkedByIndex = {
@@ -393,14 +394,14 @@ describe('SocialGraph', function () {
     ];
 
     const expectedLinks = [
-      { sourceUid: 2675, targetUid: 24157, weight: 2, color: '#999' },
-      { sourceUid: 22861, targetUid: 30466, weight: 3, color: '#999' },
-      { sourceUid: 11580, targetUid: 22861, weight: 5, color: '#999' },
-      { sourceUid: 14045, targetUid: 22861, weight: 2, color: '#999' },
-      { sourceUid: 14045, targetUid: 28805, weight: 3, color: '#999' },
-      { sourceUid: 3663, targetUid: 21194, weight: 3, color: '#999' },
-      { sourceUid: 12176, targetUid: 28805, weight: 4, color: '#999' },
-      { sourceUid: 11580, targetUid: 30466, weight: 5, color: 'red' },
+      { sourceUid: 2675, targetUid: 24157, weight: 2, color: smokeGray },
+      { sourceUid: 22861, targetUid: 30466, weight: 3, color: smokeGray },
+      { sourceUid: 11580, targetUid: 22861, weight: 5, color: smokeGray },
+      { sourceUid: 14045, targetUid: 22861, weight: 2, color: smokeGray },
+      { sourceUid: 14045, targetUid: 28805, weight: 3, color: smokeGray },
+      { sourceUid: 3663, targetUid: 21194, weight: 3, color: smokeGray },
+      { sourceUid: 12176, targetUid: 28805, weight: 4, color: smokeGray },
+      { sourceUid: 11580, targetUid: 30466, weight: 5, color: bostonRed },
     ];
 
     const expectedMaxNodeInCommunities = {

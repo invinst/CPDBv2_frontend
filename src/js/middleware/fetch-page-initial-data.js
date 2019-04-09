@@ -1,7 +1,10 @@
 import { Promise } from 'es6-promise';
 import { every, get } from 'lodash';
 
-import { LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID, SIGNIN_REQUEST_SUCCESS } from 'utils/constants';
+import {
+  LANDING_PAGE_ID, OFFICER_PAGE_ID, CR_PAGE_ID, TRR_PAGE_ID,
+  SIGNIN_REQUEST_SUCCESS, PINBOARD_HEX_ID_LENGTH,
+} from 'utils/constants';
 import {
   getOfficerId, getCRID, getTRRId, getUnitName,
   getDocDedupCRID, getDocumentId, getPinboardID
@@ -191,9 +194,8 @@ export default store => next => action => {
     }
 
     else if (action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//)) {
-      const statePinboardID = get(state, 'pinboard.id', null);
       const pinboardID = getPinboardID(action.payload.pathname);
-      if (statePinboardID === null || pinboardID !== statePinboardID) {
+      if (pinboardID.length == PINBOARD_HEX_ID_LENGTH) {
         dispatches.push(store.dispatch(fetchPinboard(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardSocialGraph(pinboardID)));
       }
