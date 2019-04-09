@@ -10,7 +10,6 @@ import cx from 'classnames';
 
 import { imgUrl } from 'utils/static-assets';
 import styles from './social-graph.sass';
-import { bostonRed, smokeGray } from 'utils/styles';
 
 const DEFAULT_GRAPH_WIDTH = 800;
 const DEFAULT_GRAPH_HEIGHT = 500;
@@ -171,7 +170,7 @@ export default class SocialGraph extends Component {
             weight: row.accussedCount
           };
         }
-        nodesData[objKey]['color'] = (rowDate.getTime() === curDate.getTime()) ? bostonRed : smokeGray;
+        nodesData[objKey]['className'] = (rowDate.getTime() === curDate.getTime()) ? 'current-link' : '';
       }
     });
 
@@ -268,10 +267,9 @@ export default class SocialGraph extends Component {
 
     this.link.attr('stroke-width', (d) => {
       return Math.ceil(Math.sqrt(d.weight));
-    })
-      .style('stroke', (d) => {
-        return d.color;
-      });
+    }).attr('class', (d) => {
+      return `link ${d.className}`;
+    });
 
     this.link.exit().remove();
   }

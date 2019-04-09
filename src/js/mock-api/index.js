@@ -175,11 +175,11 @@ axiosMockClient.onGet(
 
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
-axiosMockClient.onGet(`${PINBOARDS_URL}123/`).reply(200, fetchPinboard());
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, fetchPinboard());
 
-axiosMockClient.onPut(`${PINBOARDS_URL}123/`).reply(200, updatePinboard());
+axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(200, updatePinboard());
 
-axiosMockClient.onGet(`${PINBOARDS_URL}123/social-graph/`).reply(200, getSocialGraphData());
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/social-graph/`).reply(200, getSocialGraphData());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

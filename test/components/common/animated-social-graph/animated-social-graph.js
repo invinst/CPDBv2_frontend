@@ -334,5 +334,6 @@ describe('AnimatedSocialGraph component', function () {
     fullscreenButton.className.should.containEql('expand-icon');
     intercomUtils.showIntercomLauncher.calledWith(true).should.be.true();
     instance.state.fullscreen.should.be.false();
+    intercomUtils.showIntercomLauncher.restore();
   });
 });

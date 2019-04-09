@@ -26,7 +26,7 @@ class AnimatedSocialGraphSection extends Section {
   }
 
   graphLinks() {
-    return browser.elements('(//*[@class="link"])').value;
+    return browser.elements('(//*[contains(@class, "link")])').value;
   }
 }
 
@@ -46,7 +46,7 @@ class PinboardPage extends Page {
   pinboardSection = new PinboardSection();
 
   open() {
-    super.open('/pinboard/123/pinboard-title/');
+    super.open('/pinboard/5cd06f2b/pinboard-title/');
     browser.element('body').waitForVisible();
   }
 }

@@ -1,5 +1,5 @@
 export const createPinboard = () => ({
-  'id': 123,
+  'id': '5cd06f2b',
   'title': 'Pinboard Title',
   'officer_ids': [1],
   'crids': [],
@@ -8,7 +8,7 @@ export const createPinboard = () => ({
 });
 
 export const fetchPinboard = () => ({
-  'id': 123,
+  'id': '5cd06f2b',
   'title': 'Pinboard Title',
   'officer_ids': [1],
   'crids': [],
@@ -17,7 +17,7 @@ export const fetchPinboard = () => ({
 });
 
 export const updatePinboard = () => ({
-  'id': 123,
+  'id': '5cd06f2b',
   'title': 'Pinboard Title',
   'officer_ids': [],
   'crids': [],

@@ -30,7 +30,7 @@ class AnimatedSocialGraphSection extends Section {
   }
 
   graphLinks() {
-    return browser.elements('(//*[@class="link"])').value;
+    return browser.elements('(//*[contains(@class, "link")])').value;
   }
 }
 
