@@ -11,7 +11,7 @@ import RelevantDocumentCard from 'components/pinboard-page/relevant/relevant-doc
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
 
 
-describe.only('RelevantDocumentCard component', function () {
+describe('RelevantDocumentCard component', function () {
   let instance;
 
   afterEach(function () {

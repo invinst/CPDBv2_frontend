@@ -57,13 +57,13 @@ export default store => next => action => {
   }
   if (action.type === PINBOARD_CREATE_REQUEST_SUCCESS) {
     const state = store.getState();
-    if (state.pathname.match(/pinboard\/[\w\d]+/)) {
+    if (state.pathname.match(/\/pinboard\/[\w\d]+/)) {
       browserHistory.push(`/pinboard/${action.payload.id}/`);
     }
   }
   if (action.type === PINBOARD_UPDATE_REQUEST_SUCCESS) {
     const state = store.getState();
-    if (state.pathname.match(/pinboard\/[\w\d]+/)) {
+    if (state.pathname.match(/\/pinboard\/[\w\d]+/)) {
       const pinboardID = action.payload.id;
       store.dispatch(fetchPinboard(pinboardID));
       store.dispatch(fetchPinboardSocialGraph(pinboardID));
