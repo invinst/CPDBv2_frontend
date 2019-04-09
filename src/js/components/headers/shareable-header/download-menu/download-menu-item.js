@@ -70,6 +70,3 @@ DownloadMenuItem.propTypes = {
   zipFileUrl: PropTypes.string,
   officerId: PropTypes.number,
 };
-
-DownloadMenuItem.defaultProps = {
-};
