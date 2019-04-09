@@ -28,7 +28,7 @@ export class RelevantDocumentCard extends Component {
       <BaseComplaintCard
         { ...allegation }
         leftChild={ leftChild }
-        addItemToPinboard={ pinned ? addItemToPinboard : null }
+        addItemToPinboard={ pinned ? null : addItemToPinboard }
         pinned={ pinned }
       />
     );

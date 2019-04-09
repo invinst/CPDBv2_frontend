@@ -33,6 +33,7 @@ export default class RelevantDocuments extends Component {
 
 RelevantDocuments.propTypes = {
   documents: PropTypes.arrayOf(PropTypes.object),
+  nextParams: PropTypes.object,
   fetchPinboardRelevantDocuments: PropTypes.func,
   hasMore: PropTypes.bool,
   pinboardId: PropTypes.string,
