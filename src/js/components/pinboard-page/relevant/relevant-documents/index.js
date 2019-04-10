@@ -18,6 +18,7 @@ export default class RelevantDocuments extends Component {
         childWidth={ 306 }
         hasMore={ hasMore }
         loadMore={ this.loadMore.bind(this) }
+        className='relevant-documents'
       >
         {
           documents.map((document, index) =>

@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
 import Carousel from 'components/common/carousel';
 import styles from './relevant-infinite-carousel.sass';
@@ -6,10 +7,10 @@ import styles from './relevant-infinite-carousel.sass';
 
 export default class RelevantInfiniteCarousel extends Component {
   render() {
-    const { children, childWidth, title, hasMore, loadMore } = this.props;
+    const { children, childWidth, title, hasMore, loadMore, className } = this.props;
 
     return (
-      <div className={ styles.relevantInfiniteCarousel }>
+      <div className={ cx(className, styles.relevantInfiniteCarousel) }>
         <div className='relevant-infinite-carousel-title'>{ title }</div>
         <Carousel
           childWidth={ childWidth }
@@ -30,4 +31,5 @@ RelevantInfiniteCarousel.propTypes = {
   title: PropTypes.string,
   hasMore: PropTypes.bool,
   loadMore: PropTypes.func,
+  className: PropTypes.string,
 };
