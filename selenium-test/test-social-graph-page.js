@@ -85,11 +85,11 @@ describe('Social Graph Page', function () {
     const toggleTimelineButton = socialGraphPage.animatedSocialGraphSection.toggleTimelineButton;
     socialGraphPage.animatedSocialGraphSection.currentDate.waitForVisible();
     browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1994-01-10';
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1999-02-08';
     }, 2000, 'expected timeline reaches specific date after 0.9s', 50);
     toggleTimelineButton.click();
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(10);
+    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(32);
 
     toggleTimelineButton.click();
     browser.waitUntil(function () {

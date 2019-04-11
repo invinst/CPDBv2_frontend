@@ -78,11 +78,11 @@ describe('Pinboard Page', function () {
 
     it('should pause timeline when click on toggle timeline button', function () {
       browser.waitUntil(function () {
-        return pinboardPage.animatedSocialGraphSection.currentDate.getText() === '1994-01-10';
+        return pinboardPage.animatedSocialGraphSection.currentDate.getText() === '1999-02-08';
       }, 2000, 'expected timeline reaches specific date after 0.9s', 50);
       pinboardPage.animatedSocialGraphSection.toggleTimelineButton.click();
       pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-      pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(10);
+      pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(32);
 
       pinboardPage.animatedSocialGraphSection.toggleTimelineButton.click();
       browser.waitUntil(function () {
