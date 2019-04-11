@@ -83,7 +83,15 @@ describe('Social Graph Page', function () {
 
   it('should pause timeline when click on toggle timeline button', function () {
     const toggleTimelineButton = socialGraphPage.animatedSocialGraphSection.toggleTimelineButton;
-    socialGraphPage.animatedSocialGraphSection.currentDate.waitForVisible();
+
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+
+    browser.waitUntil(function () {
+      return toggleTimelineButton.getAttribute('class') === 'toggle-timeline-btn play-icon';
+    });
+
+    toggleTimelineButton.click();
+
     browser.waitUntil(function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1999-02-08';
     }, 2000, 'expected timeline reaches specific date after 0.9s', 50);
