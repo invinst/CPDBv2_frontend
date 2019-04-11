@@ -32,85 +32,92 @@ class AnimatedSocialGraphSection extends Section {
 
 
 class BaseComplaintCardSection extends Section {
-  constructor(parent) {
+  constructor(baseSelector) {
     super();
 
-    this.rootSelector = `//div[contains(@class, "${parent}")]`;
-    this.mainElementSelector = `(${this.rootSelector}//div[contains(@class, "base-complaint-card")])`;
+    this.mainElementSelector = `${baseSelector}//div[contains(@class, "base-complaint-card")]`;
 
     this.prepareElementGetters({
       mainElement: this.mainElementSelector,
-      leftHalf: `(${this.mainElementSelector}//div[contains(@class, "left-half")])`,
-      rightHalf: `(${this.mainElementSelector}//div[contains(@class, "right-half")])`,
-      thumbnail: `(${this.mainElementSelector}//div[contains(@class, "document-card-thumbnail")])`,
-      plusButton: `(${this.mainElementSelector}//div[contains(@class, "plus-button")])`,
-      incidentDate: `(${this.mainElementSelector}//div[contains(@class, "incident-date")])`,
-      category: `(${this.mainElementSelector}//div[contains(@class, "category")])`,
-      topOfficers: `(${this.mainElementSelector}//div[contains(@class, "top-officers")])`,
-      remainingOfficers: `(${this.mainElementSelector}//div[contains(@class, "remaining-officers")])`,
-      remainingOfficerToken: `(${this.mainElementSelector}//div[contains(@class, "mini-officer-visual-token")])`,
-      notShowingOfficerCount: `(${this.mainElementSelector}//div[contains(@class, "not-showing-officer-count")])`,
+      leftHalf: `${this.mainElementSelector}//div[contains(@class, "left-half")]`,
+      rightHalf: `${this.mainElementSelector}//a[contains(@class, "right-half")]`,
+      thumbnail: `${this.mainElementSelector}//div[contains(@class, "document-card-thumbnail")]`,
+      plusButton: `${this.mainElementSelector}//div[contains(@class, "plus-button")]`,
+      incidentDate: `${this.mainElementSelector}//div[contains(@class, "incident-date")]`,
+      category: `${this.mainElementSelector}//div[contains(@class, "category")]`,
+      topOfficers: `${this.mainElementSelector}//div[contains(@class, "top-officers")]`,
+      firstTopOfficerName: `${this.mainElementSelector}//div[@class="top-officer-row-officer-name"]`,
+      secondTopOfficerName: `(${this.mainElementSelector}//div[@class="top-officer-row-officer-name"])[2]`,
+      remainingOfficers: `${this.mainElementSelector}//div[contains(@class, "remaining-officers")]`,
+      miniOfficerToken: `${this.mainElementSelector}//div[contains(@class, "mini-officer-visual-token")]`,
+      notShowingOfficerCount: `${this.mainElementSelector}//div[contains(@class, "not-showing-officer-count")]`,
     });
   }
 }
 
 class CoaccusalCardSection extends Section {
-  constructor(parent) {
+  constructor(baseSelector) {
     super();
 
-    this.rootSelector = `//div[contains(@class, "${parent}")]`;
-    this.mainElementSelector = `(${this.rootSelector}//div[contains(@class, "relevant-coaccusal-card")])`;
+    this.mainElementSelector = `${baseSelector}//a[contains(@class, "relevant-coaccusal-card")]`;
 
     this.prepareElementGetters({
       mainElement: this.mainElementSelector,
-      plusButton: `(${this.mainElementSelector}//div[contains(@class, "plus-button")])`,
-      radarChart: `(${this.mainElementSelector}//div[contains(@class, "radar-chart-wrapper")])`,
-      officerRank: `(${this.mainElementSelector}//div[contains(@class, "officer-card-rank")])`,
-      officerName: `(${this.mainElementSelector}//div[contains(@class, "officer-card-name")])`,
-      coaccusalCount: `(${this.mainElementSelector}//div[contains(@class, "coaccusal-count")])`,
+      plusButton: `${this.mainElementSelector}//div[contains(@class, "plus-button")]`,
+      radarChart: `${this.mainElementSelector}//div[contains(@class, "radar-chart-wrapper")]`,
+      nameWrapper: `${this.mainElementSelector}//div[contains(@class, "officer-name-wrapper")]`,
+      officerRank: `${this.mainElementSelector}//p[contains(@class, "officer-card-rank")]`,
+      officerName: `${this.mainElementSelector}//p[contains(@class, "officer-card-name")]`,
+      coaccusalCount: `${this.mainElementSelector}//div[contains(@class, "coaccusal-count")]`,
+    });
+  }
+}
+
+class BaseRelevantSection extends Section {
+  constructor(baseSelector) {
+    super();
+    this.prepareElementGetters({
+      title: `${baseSelector}//div[contains(@class, "relevant-infinite-carousel-title")]`,
+      leftArrow: `${baseSelector}//button[contains(@class, "left relevant-carousel-arrow")]`,
+      rightArrow: `${baseSelector}//button[contains(@class, "right relevant-carousel-arrow")]`,
     });
   }
 }
 
 
-class RelevantDocumentsSection extends Section {
-  documentCardSection = new BaseComplaintCardSection('relevant-documents');
-
+class RelevantDocumentsSection extends BaseRelevantSection {
   constructor() {
-    super();
+    const baseSelector = '//div[contains(@class, "relevant-documents")]';
+    super(baseSelector);
+    this.documentCardSection = new BaseComplaintCardSection(baseSelector);
+  }
 
-    this.prepareElementGetters({
-      title: '(//div[contains(@class, "relevant-documents")]' +
-        '//div[contains(@class, "relevant-infinite-carousel-title")])',
-    });
+  documentCards() {
+    return browser.elements(this.documentCardSection.mainElementSelector).value;
   }
 }
 
-class RelevantComplaintsSection extends Section {
-  complaintCardSection = new BaseComplaintCardSection('.relevant-complaints');
-
+class RelevantComplaintsSection extends BaseRelevantSection {
   constructor() {
-    super();
+    const baseSelector = '//div[contains(@class, "relevant-complaints")]';
+    super(baseSelector);
+    this.complaintCardSection = new BaseComplaintCardSection(baseSelector);
+  }
 
-    this.prepareElementGetters({
-      title: '(//div[contains(@class, "relevant-complaints")]' +
-        '//div[contains(@class, "relevant-infinite-carousel-title")])',
-    });
+  complaintCards() {
+    return browser.elements(this.complaintCardSection.mainElementSelector).value;
   }
 }
 
-
-
-class RelevantCoaccusalsSection extends Section {
-  coaccusalCardSection = new CoaccusalCardSection('relevant-coaccusals');
-
+class RelevantCoaccusalsSection extends BaseRelevantSection {
   constructor() {
-    super();
+    const baseSelector = '//div[contains(@class, "relevant-coaccusals")]';
+    super(baseSelector);
+    this.coaccusalCardSection = new CoaccusalCardSection(baseSelector);
+  }
 
-    this.prepareElementGetters({
-      title: '(//div[contains(@class, "relevant-coaccusals")]' +
-        '//div[contains(@class, "relevant-infinite-carousel-title")])',
-    });
+  coaccusalCards() {
+    return browser.elements(this.coaccusalCardSection.mainElementSelector).value;
   }
 }
 

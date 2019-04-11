@@ -18,6 +18,7 @@ export default class RelevantCoaccusals extends Component {
         childWidth={ 148 }
         hasMore={ hasMore }
         loadMore={ this.loadMore.bind(this) }
+        className='relevant-coaccusals'
       >
         {
           coaccusals.map(coaccusal =>

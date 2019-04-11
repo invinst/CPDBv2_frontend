@@ -46,7 +46,7 @@ export class RelevantCoaccusalCard extends Component {
             backgroundColor={ percentile ? percentile.visualTokenBackground : undefined }
           />
         </div>
-        <div className='officer-card-section'>
+        <div className='officer-name-wrapper'>
           <p className='light-text officer-card-rank'>{ rank }</p>
           <p className='bold-text officer-card-name'>{ fullName }</p>
         </div>
