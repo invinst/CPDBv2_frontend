@@ -3,6 +3,7 @@ import {
   findRenderedComponentWithType,
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
+  findRenderedDOMComponentWithClass,
   Simulate,
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
@@ -41,10 +42,31 @@ describe('PinboardPaneSection component', function () {
     );
 
     const tabNames = scryRenderedDOMComponentsWithClass(instance, 'pinboard-pane-tab-name');
-
     tabNames.should.have.length(2);
     tabNames[0].textContent.should.be.eql('NETWORK');
     tabNames[1].textContent.should.be.eql('GEOGRAPHIC');
+
+    const activeTab = findRenderedDOMComponentWithClass(instance, 'active');
+    activeTab.textContent.should.be.eql('NETWORK');
+  });
+
+  it('should render correct active tab', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <PinboardPaneSection
+          currentTab='GEOGRAPHIC'
+          hasMapMarker={ true }
+        />
+      </Provider>
+    );
+
+    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'pinboard-pane-tab-name');
+    tabNames.should.have.length(2);
+    tabNames[0].textContent.should.be.eql('NETWORK');
+    tabNames[1].textContent.should.be.eql('GEOGRAPHIC');
+
+    const activeTab = findRenderedDOMComponentWithClass(instance, 'active');
+    activeTab.textContent.should.be.eql('GEOGRAPHIC');
   });
 
   it('should hide the tabs with no data', function () {
