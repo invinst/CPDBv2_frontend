@@ -1,4 +1,11 @@
-import { createPinboard, updatePinboard, fetchPinboard } from 'actions/pinboard';
+import {
+  createPinboard,
+  updatePinboard,
+  fetchPinboard,
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardTRRs,
+} from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
 
@@ -70,6 +77,66 @@ describe('pinboard actions', function () {
         payload: {
           request: {
             url: `${constants.PINBOARDS_URL}1/`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardComplaints', function () {
+    it('should return correct action', function () {
+      fetchPinboardComplaints('1').should.deepEqual({
+        types: [
+          constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_START,
+          constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}1/complaints/`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardOfficers', function () {
+    it('should return correct action', function () {
+      fetchPinboardOfficers('1').should.deepEqual({
+        types: [
+          constants.PINBOARD_OFFICERS_FETCH_REQUEST_START,
+          constants.PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_OFFICERS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}1/officers/`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardTRRs', function () {
+    it('should return correct action', function () {
+      fetchPinboardTRRs('1').should.deepEqual({
+        types: [
+          constants.PINBOARD_TRRS_FETCH_REQUEST_START,
+          constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_TRRS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}1/trrs/`,
             params: undefined,
             adapter: null,
             cancelToken: undefined,

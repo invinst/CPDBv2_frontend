@@ -45,7 +45,16 @@ import searchDocuments from './documents-overview-page/search-documents';
 import fetchDocuments from './documents-overview-page/fetch-documents';
 import fetchDocumentByID from './document-page/fetch-document-by-id';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
-import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
+import {
+  createPinboard,
+  fetchPinboard,
+  updatePinboard,
+} from './pinboard';
+import {
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardTRRs,
+} from './pinboard-page/fetch-pinned-items';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -153,9 +162,15 @@ axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
 
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
-axiosMockClient.onGet(`${PINBOARDS_URL}1/`).reply(200, fetchPinboard());
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, fetchPinboard());
 
-axiosMockClient.onPut(`${PINBOARDS_URL}1/`).reply(200, updatePinboard());
+axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(200, updatePinboard());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/complaints/`).reply(200, fetchPinboardComplaints());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/officers/`).reply(200, fetchPinboardOfficers());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboardTRRs());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

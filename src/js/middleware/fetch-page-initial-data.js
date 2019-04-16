@@ -39,7 +39,10 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import { fetchDocuments } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
-import { fetchPinboard } from 'actions/pinboard';
+import {
+  fetchPinboard, fetchPinboardComplaints,
+  fetchPinboardOfficers, fetchPinboardTRRs }
+from 'actions/pinboard';
 
 let prevPathname = '';
 
@@ -195,8 +198,11 @@ export default store => next => action => {
 
     else if (action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//)) {
       const pinboardID = getPinboardID(action.payload.pathname);
-      if (pinboardID.length == PINBOARD_HEX_ID_LENGTH) {
+      if (pinboardID.length === PINBOARD_HEX_ID_LENGTH) {
         dispatches.push(store.dispatch(fetchPinboard(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardComplaints(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardOfficers(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardTRRs(pinboardID)));
       }
     }
 

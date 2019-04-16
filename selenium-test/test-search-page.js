@@ -569,7 +569,7 @@ describe('Search Page with query parameter', function () {
   });
 });
 
-describe('Search Page with pinboard functionalities', function () {
+describe.only('Search Page with pinboard functionalities', function () {
   it('should display pinboard button with correct text when items are added/removed', function () {
     searchPage.open('Ke');
     searchPage.suggestionGroup.waitForVisible();
@@ -591,6 +591,6 @@ describe('Search Page with pinboard functionalities', function () {
 
     searchPage.firstOfficerPinButton.click();
     searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/1\/untitled-pinboard\/$/);
+    browser.getUrl().should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/);
   });
 });

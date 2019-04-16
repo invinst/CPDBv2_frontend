@@ -1,16 +1,28 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
+
+import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import PinnedSection from './pinned-section';
 
 
 export default class PinboardPage extends Component {
+  componentDidUpdate(prevProps) {
+    const prevID = prevProps.pinboard.id;
+    const currID = this.props.pinboard.id;
+
+    if (prevID !== currID) {
+      browserHistory.replace(`/pinboard/${currID}/`);
+    }
+  }
+
   render() {
-    const { pinboard } = this.props;
+    const { itemsByTypes, removeItemInPinboardPage } = this.props;
     return (
-      <div>
+      <div className={ responsiveContainerStyles.responsiveContainer }>
         <Link to='/search/'>Back to search page</Link>
-        <div>
-          { JSON.stringify(pinboard) }
-        </div>
+        <PinnedSection
+          itemsByTypes={ itemsByTypes }
+          removeItemInPinboardPage={ removeItemInPinboardPage }/>
       </div>
     );
   }
@@ -18,4 +30,10 @@ export default class PinboardPage extends Component {
 
 PinboardPage.propTypes = {
   pinboard: PropTypes.object,
+  itemsByTypes: PropTypes.object,
+  removeItemInPinboardPage: PropTypes.func,
+};
+
+PinboardPage.defaultProps = {
+  itemsByTypes: {},
 };
