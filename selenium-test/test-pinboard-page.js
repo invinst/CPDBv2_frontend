@@ -3,7 +3,6 @@
 require('should');
 import { map, countBy, values, filter, times } from 'lodash';
 
-import { switchToRecentTab } from './utils';
 import pinboardPage from './page-objects/pinboard-page';
 
 
@@ -165,12 +164,15 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000, true);
     });
 
-    it('should go to officer page when clicking on a coaccusal card', function () {
+    it('should go to officer page when clicking on officer name section', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.nameWrapper.click();
+      browser.pause(500);
       browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
+    });
 
-      pinboardPage.open();
+    it('should go to officer page when clicking on coaccusal cont section', function () {
       pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.coaccusalCount.click();
+      browser.pause(500);
       browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
     });
   });
@@ -212,27 +214,6 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantDocumentsSection.documentCards().should.have.length(50);
       pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000, true);
     });
-
-    it('should go to complaint page when clicking on right half of a document card', function () {
-      pinboardPage.relevantDocumentsSection.documentCardSection.remainingOfficers.click();
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
-
-      pinboardPage.open();
-      pinboardPage.relevantDocumentsSection.documentCardSection.topOfficers.click();
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
-
-      pinboardPage.open();
-      pinboardPage.relevantDocumentsSection.documentCardSection.incidentDate.click();
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
-    });
-
-    it('should go to document pdf link in new tab when clicking on left half of a document card', function () {
-      pinboardPage.relevantDocumentsSection.documentCardSection.leftHalf.click();
-      switchToRecentTab();
-      browser.getUrl().should.eql(
-        'https://assets.documentcloud.org/documents/5680384/CRID-1083633-CR-CRID-1083633-CR-Tactical.pdf'
-      );
-    });
   });
 
   context('relevant complaints section', function () {
@@ -273,21 +254,27 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000, true);
     });
 
-    it('should go to complaint page when clicking on right half of a complaint card', function () {
-      pinboardPage.relevantComplaintsSection.complaintCardSection.remainingOfficers.click();
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
-
-      pinboardPage.open();
-      pinboardPage.relevantComplaintsSection.complaintCardSection.topOfficers.click();
-      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
-
-      pinboardPage.open();
+    it('should go to complaint page when clicking on incident date', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+    });
+
+    it('should go to complaint page when clicking on top officers', function () {
+      pinboardPage.relevantComplaintsSection.complaintCardSection.topOfficers.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+    });
+
+    it('should go to complaint page when clicking on remaining officers', function () {
+      pinboardPage.relevantComplaintsSection.complaintCardSection.remainingOfficers.click();
+      browser.pause(500);
       browser.getUrl().should.match(/\/complaint\/1071234\/$/);
     });
 
     it('should go to complaint page when clicking on left half of a complaint card', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
+      browser.pause(500);
       browser.getUrl().should.match(/\/complaint\/1071234\/$/);
     });
   });
