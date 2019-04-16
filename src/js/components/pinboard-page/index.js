@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import PinnedSection from './pinned-section';
+import SearchBar from './search-bar';
 
 
 export default class PinboardPage extends Component {
@@ -18,11 +19,15 @@ export default class PinboardPage extends Component {
   render() {
     const { itemsByTypes, removeItemInPinboardPage } = this.props;
     return (
-      <div className={ responsiveContainerStyles.responsiveContainer }>
-        <Link to='/search/'>Back to search page</Link>
-        <PinnedSection
-          itemsByTypes={ itemsByTypes }
-          removeItemInPinboardPage={ removeItemInPinboardPage }/>
+      <div>
+        <div className='pinboard-header'>
+          <SearchBar />
+        </div>
+        <div className={ responsiveContainerStyles.responsiveContainer }>
+          <PinnedSection
+            itemsByTypes={ itemsByTypes }
+            removeItemInPinboardPage={ removeItemInPinboardPage }/>
+        </div>
       </div>
     );
   }

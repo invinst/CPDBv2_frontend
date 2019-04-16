@@ -64,6 +64,14 @@ class PinboardPinnedSection extends Section {
 class PinboardPage extends Page {
   pinnedSection = new PinboardPinnedSection();
 
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      searchBar: '.test--search-bar'
+    });
+  }
+
   open() {
     super.open('/pinboard/5cd06f2b/pinboard-title/');
     browser.element('body').waitForVisible();

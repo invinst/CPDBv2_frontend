@@ -9,6 +9,7 @@ import * as ReactRouter from 'react-router';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinboardPage from 'components/pinboard-page';
 import PinnedSection from 'components/pinboard-page/pinned-section';
+import SearchBar from 'components/pinboard-page/search-bar';
 
 
 describe('PinboardPage component', function () {
@@ -42,5 +43,11 @@ describe('PinboardPage component', function () {
     instance = renderIntoDocument(<PinboardPage />);
 
     findRenderedComponentWithType(instance, PinnedSection).should.be.ok();
+  });
+
+  it('should render SearchBar component', function () {
+    instance = renderIntoDocument(<PinboardPage />);
+
+    findRenderedComponentWithType(instance, SearchBar).should.be.ok();
   });
 });
