@@ -8,6 +8,7 @@ import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section'
 import RelevantCoaccusalsContainer from 'containers/pinboard-page/relevant/relevant-coaccusals';
 import RelevantDocumentsContainer from 'containers/pinboard-page/relevant/relevant-documents';
 import RelevantComplaintsContainer from 'containers/pinboard-page/relevant/relevant-complaints';
+import FooterContainer from 'containers/footer-container';
 
 
 export default class PinboardPage extends Component {
@@ -33,6 +34,7 @@ export default class PinboardPage extends Component {
         <RelevantDocumentsContainer />
         <RelevantCoaccusalsContainer />
         <RelevantComplaintsContainer />
+        <FooterContainer className='footer'/>
       </div>
     );
   }

@@ -13,6 +13,7 @@ import RelevantDocumentsContainer from 'containers/pinboard-page/relevant/releva
 import RelevantComplaintsContainer from 'containers/pinboard-page/relevant/relevant-complaints';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import { unmountComponentSuppressError } from 'utils/test';
+import FooterContainer from 'containers/footer-container';
 
 
 describe('PinboardPage component', function () {
@@ -63,5 +64,7 @@ describe('PinboardPage component', function () {
     findRenderedComponentWithType(instance, RelevantCoaccusalsContainer);
     findRenderedComponentWithType(instance, RelevantDocumentsContainer);
     findRenderedComponentWithType(instance, RelevantComplaintsContainer);
+    const footer = findRenderedComponentWithType(instance, FooterContainer);
+    footer.props.className.should.eql('footer');
   });
 });
