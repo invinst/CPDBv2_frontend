@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import { MAP_INFO, MAP_ITEMS, MAPBOX_STYLE } from 'utils/constants';
 import { mapboxgl } from 'utils/vendors';
-import Legend from './legend/index';
+import Legend from './legend';
 import MarkerTooltip from './marker-tooltip';
 import SimpleMarkerTooltip from './simple-marker-tooltip';
 import Marker from './marker';

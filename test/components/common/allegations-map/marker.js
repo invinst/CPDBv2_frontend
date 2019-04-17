@@ -4,7 +4,7 @@ import { renderIntoDocument, scryRenderedDOMComponentsWithClass, Simulate } from
 import { browserHistory } from 'react-router';
 import { findDOMNode } from 'react-dom';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test/index';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import HoverableMarker, { Marker } from 'components/common/allegations-map/marker';
 import styles from 'components/common/allegations-map/marker.sass';
 

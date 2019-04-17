@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
-import { unmountComponentSuppressError, reRender } from 'utils/test/index';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 
 import AllegationsMap from 'components/common/allegations-map';
 import mapStyles from 'components/common/allegations-map/allegations-map.sass';

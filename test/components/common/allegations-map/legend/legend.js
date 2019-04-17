@@ -1,8 +1,9 @@
-import Legend from 'components/common/allegations-map/legend';
-import Row from 'components/common/allegations-map/legend/row';
 import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
+
 import { unmountComponentSuppressError } from 'utils/test/index';
+import Legend from 'components/common/allegations-map/legend';
+import Row from 'components/common/allegations-map/legend/row';
 
 
 describe('Legend component', function () {
