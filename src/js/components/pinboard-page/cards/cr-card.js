@@ -24,7 +24,7 @@ export default class CRCard extends Component {
           removeItemInPinboardPage={ removeItemInPinboardPage } />
         {
         (point === null) ?
-          <div className='cr-card-map' />
+          <div className='cr-card-map empty-map' />
           :
           <div
             className='cr-card-map'
