@@ -24,7 +24,7 @@ export default class TRRCard extends Component {
           removeItemInPinboardPage={ removeItemInPinboardPage } />
         {
         (point === null) ?
-          <div className='trr-card-map' />
+          <div className='trr-card-map empty-map' />
           :
           <div
             className='trr-card-map'

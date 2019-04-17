@@ -3,6 +3,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -33,15 +34,15 @@ describe('TRRCard component', function () {
     const item = { point: { 'lat': 1.0, 'lon': 1.0 } };
     instance = renderIntoDocument(<TRRCard item={ item }/>);
 
-    const map = findRenderedDOMComponentWithClass(instance, 'trr-card-map');
-    map.style.should.have.key('background');
+    findRenderedDOMComponentWithClass(instance, 'trr-card-map').should.be.ok();
+    scryRenderedDOMComponentsWithClass(instance, 'empty-map').should.have.length(0);
   });
 
   it('should not render card map with style if point of item is null', function () {
     const item = { point: null };
     instance = renderIntoDocument(<TRRCard item={ item }/>);
 
-    const map = findRenderedDOMComponentWithClass(instance, 'trr-card-map');
-    map.style.background.should.eql('');
+    findRenderedDOMComponentWithClass(instance, 'trr-card-map').should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'empty-map').should.be.ok();
   });
 });
