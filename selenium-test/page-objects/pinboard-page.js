@@ -158,7 +158,6 @@ class PinboardPage extends Page {
 
   open() {
     super.open('/pinboard/5cd06f2b/pinboard-title/');
-    browser.element('body').waitForVisible();
   }
 }
 

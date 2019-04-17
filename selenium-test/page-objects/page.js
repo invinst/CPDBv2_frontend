@@ -15,6 +15,7 @@ export default class Page extends Section {
   open(path) {
     browser.deleteCookie();
     browser.url(path);
+    browser.element('body').waitForVisible();
   }
 
   get currentBasePath() {

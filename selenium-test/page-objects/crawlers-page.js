@@ -46,7 +46,6 @@ class CrawlersPage extends Page {
 
   open() {
     super.open('/crawlers/');
-    browser.element('body').waitForVisible();
   }
 }
 

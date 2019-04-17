@@ -31,7 +31,6 @@ class DocumentDeduplicatorPage extends Page {
       path = `/edit${path}`;
     }
     super.open(path);
-    browser.element('body').waitForVisible();
   }
 }
 
