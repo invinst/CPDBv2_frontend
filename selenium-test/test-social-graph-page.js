@@ -85,26 +85,33 @@ describe('Social Graph Page', function () {
     const toggleTimelineButton = socialGraphPage.animatedSocialGraphSection.toggleTimelineButton;
 
     waitForGraphAnimationEnd(browser, socialGraphPage);
-
     browser.waitUntil(function () {
       return toggleTimelineButton.getAttribute('class') === 'toggle-timeline-btn play-icon';
     });
 
     toggleTimelineButton.click();
 
+    const middleDays = [
+      '1992-03-08',
+      '1994-01-10',
+      '1994-03-07',
+      '1994-03-12',
+      '1994-04-17',
+      '1998-11-17',
+      '1999-02-08',
+      '1999-07-22',
+      '2006-03-15'
+    ];
+    toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn pause-icon');
     browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1999-02-08';
-    }, 2000, 'expected timeline reaches specific date after 0.9s', 50);
-    toggleTimelineButton.click();
-    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(32);
+      return middleDays.indexOf(socialGraphPage.animatedSocialGraphSection.currentDate.getText()) !== -1;
+    });
 
     toggleTimelineButton.click();
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 2000, 'expected timeline reaches end date after 0.75s start from middle');
-    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
+    toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn play-icon');
+
+    toggleTimelineButton.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
   });
 
   it('should change the graph when click on specific part of the timeline', function () {

@@ -78,28 +78,35 @@ describe('Pinboard Page', function () {
 
     it('should pause timeline when click on toggle timeline button', function () {
       const toggleTimelineButton = pinboardPage.animatedSocialGraphSection.toggleTimelineButton;
-      waitForGraphAnimationEnd(browser, pinboardPage);
 
+      waitForGraphAnimationEnd(browser, pinboardPage);
       browser.waitUntil(function () {
         return toggleTimelineButton.getAttribute('class') === 'toggle-timeline-btn play-icon';
       });
 
       toggleTimelineButton.click();
 
+      const middleDays = [
+        '1992-03-08',
+        '1994-01-10',
+        '1994-03-07',
+        '1994-03-12',
+        '1994-04-17',
+        '1998-11-17',
+        '1999-02-08',
+        '1999-07-22',
+        '2006-03-15'
+      ];
+      toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn pause-icon');
       browser.waitUntil(function () {
-        return pinboardPage.animatedSocialGraphSection.currentDate.getText() === '1994-04-17';
-      }, 2000, 'expected timeline reaches specific date after 0.9s', 50);
-      toggleTimelineButton.click();
-
-      pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-      pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
+        return middleDays.indexOf(pinboardPage.animatedSocialGraphSection.currentDate.getText()) !== -1;
+      });
 
       toggleTimelineButton.click();
-      browser.waitUntil(function () {
-        return pinboardPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-      }, 2000, 'expected timeline reaches end date after 0.75s start from middle');
-      pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-      pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
+      toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn play-icon');
+
+      toggleTimelineButton.click();
+      waitForGraphAnimationEnd(browser, pinboardPage);
     });
 
     it('should change the graph when click on specific part of the timeline', function () {
