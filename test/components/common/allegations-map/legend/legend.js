@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 import Legend from 'components/common/allegations-map/legend';
 import Row from 'components/common/allegations-map/legend/row';
 

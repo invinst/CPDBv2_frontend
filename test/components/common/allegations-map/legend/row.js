@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 
 import Row from 'components/common/allegations-map/legend/row';
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('Row component', function () {

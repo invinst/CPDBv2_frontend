@@ -6,7 +6,7 @@ import {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 
 
 describe('MarkerTooltip component', function () {
