@@ -21,6 +21,10 @@ describe('Pinboard Page', function () {
     it('should render correctly', function () {
       pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      const pinboardPaneMenuText = pinboardPage.pinboardSection.pinboardPaneMenu.getText();
+      pinboardPaneMenuText.should.containEql('NETWORK');
+      pinboardPaneMenuText.should.containEql('GEOGRAPHIC');
     });
   });
 
@@ -131,6 +135,26 @@ describe('Pinboard Page', function () {
       pinboardPage.animatedSocialGraphSection.searchInput.setValue('Tho');
       pinboardPage.animatedSocialGraphSection.firstSearchResultSuggestion.click();
       pinboardPage.animatedSocialGraphSection.searchInput.getValue().should.equal('Thomas Kampenga');
+    });
+
+    it('should render geographic section', function () {
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      pinboardPage.pinboardSection.geographicPaneName.click();
+      pinboardPage.geographicSection.complaintText.getText().should.eql('Complaint');
+      pinboardPage.geographicSection.complaintNumber.getText().should.eql('5');
+      pinboardPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
+      pinboardPage.geographicSection.trrNumber.getText().should.eql('2');
+    });
+  });
+
+  context('Geographic section', function () {
+    it('should render geographic section', function () {
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      pinboardPage.pinboardSection.geographicPaneName.click();
+      pinboardPage.geographicSection.complaintText.getText().should.eql('Complaint');
+      pinboardPage.geographicSection.complaintNumber.getText().should.eql('5');
+      pinboardPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
+      pinboardPage.geographicSection.trrNumber.getText().should.eql('2');
     });
   });
 });

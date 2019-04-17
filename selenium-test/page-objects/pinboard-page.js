@@ -37,12 +37,29 @@ class PinboardSection extends Section {
     this.prepareElementGetters({
       title: '(//div[contains(@class, "pinboard-title")])',
       description: '(//div[contains(@class, "pinboard-description")])',
+      pinboardPaneMenu: '(//div[contains(@class, "pinboard-pane-section-menu")])',
+      networkPaneName: '//span[contains(@class, "pinboard-pane-tab-name")][1]',
+      geographicPaneName: '//span[contains(@class, "pinboard-pane-tab-name")][2]',
+    });
+  }
+}
+
+class GeoGraphicSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      complaintText: '//div[contains(@class, "legend__legend")]//div[1]//span[contains(@class, "legend-row-text")]',
+      trrText: '//div[contains(@class, "legend__legend")]//div[2]//span[contains(@class, "legend-row-text")]',
+      complaintNumber: '//div[contains(@class, "legend__legend")]//div[1]//span[contains(@class, "legend-row-number")]',
+      trrNumber: '//div[contains(@class, "legend__legend")]//div[2]//span[contains(@class, "legend-row-number")]',
     });
   }
 }
 
 class PinboardPage extends Page {
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
+  geographicSection = new GeoGraphicSection();
   pinboardSection = new PinboardSection();
 
   open() {

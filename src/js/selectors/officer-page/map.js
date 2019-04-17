@@ -9,9 +9,9 @@ import { MAP_ITEMS } from 'utils/constants';
 export const mapLegendSelector = createSelector(
   getOfficerInfo,
   info => ({
-    unsustainedCount: get(info, 'unsustained_count'),
-    sustainedCount: get(info, 'sustained_count'),
-    useOfForceCount: get(info, 'trr_count'),
+    unsustainedCount: get(info, 'unsustained_count', 0),
+    sustainedCount: get(info, 'sustained_count', 0),
+    useOfForceCount: get(info, 'trr_count', 0),
   })
 );
 
