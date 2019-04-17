@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import PinnedSection from './pinned-section';
 import SearchBar from './search-bar';
+import Header from './header';
 
 
 export default class PinboardPage extends Component {
@@ -21,6 +22,7 @@ export default class PinboardPage extends Component {
     return (
       <div>
         <div className='pinboard-header'>
+          <Header />
           <SearchBar />
         </div>
         <div className={ responsiveContainerStyles.responsiveContainer }>
