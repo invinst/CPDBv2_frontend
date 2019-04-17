@@ -10,7 +10,6 @@ import cx from 'classnames';
 
 import { imgUrl } from 'utils/static-assets';
 import styles from './social-graph.sass';
-import { bostonRed, smokeGray } from 'utils/styles';
 
 const DEFAULT_GRAPH_WIDTH = 800;
 const DEFAULT_GRAPH_HEIGHT = 500;
@@ -50,7 +49,7 @@ export default class SocialGraph extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { coaccusedData, timelineIdx, clickSearchState } = this.props;
+    const { coaccusedData, timelineIdx, clickSearchState, fullscreen } = this.props;
 
     if (prevProps.coaccusedData !== coaccusedData) {
       this.drawGraph();
@@ -60,6 +59,9 @@ export default class SocialGraph extends Component {
       }
       if (prevProps.clickSearchState !== clickSearchState) {
         this.highlightNode();
+      }
+      if (prevProps.fullscreen !== fullscreen) {
+        this.resizeGraph();
       }
     }
   }
@@ -122,6 +124,7 @@ export default class SocialGraph extends Component {
     this.height = chartDiv.clientHeight;
     this.svg.attr('width', this.width).attr('height', this.height);
     this.force.size([this.width, this.height]);
+    this.force.start();
   }
 
   _resetNodes() {
@@ -167,7 +170,7 @@ export default class SocialGraph extends Component {
             weight: row.accussedCount
           };
         }
-        nodesData[objKey]['color'] = (rowDate.getTime() === curDate.getTime()) ? bostonRed : smokeGray;
+        nodesData[objKey]['className'] = (rowDate.getTime() === curDate.getTime()) ? 'current-link' : '';
       }
     });
 
@@ -264,10 +267,9 @@ export default class SocialGraph extends Component {
 
     this.link.attr('stroke-width', (d) => {
       return Math.ceil(Math.sqrt(d.weight));
-    })
-      .style('stroke', (d) => {
-        return d.color;
-      });
+    }).attr('class', (d) => {
+      return `link ${d.className}`;
+    });
 
     this.link.exit().remove();
   }
@@ -431,6 +433,7 @@ SocialGraph.propTypes = {
   stopTimeline: PropTypes.func,
   searchText: PropTypes.string,
   clickSearchState: PropTypes.bool,
+  fullscreen: PropTypes.bool,
 };
 
 SocialGraph.defaultProps = {

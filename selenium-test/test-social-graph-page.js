@@ -1,11 +1,18 @@
 'use strict';
 
+
 require('should');
 
 import { map, countBy, values, filter } from 'lodash';
 
 import socialGraphPage from './page-objects/social-graph-page';
 
+
+function waitForGraphAnimationEnd(browser, socialGraphPage) {
+  browser.waitUntil(function () {
+    return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
+  }, 3000, 'expected timeline reaches end date after 1.65s');
+}
 
 describe('Social Graph Page', function () {
   beforeEach(function () {
@@ -19,9 +26,7 @@ describe('Social Graph Page', function () {
     );
     socialGraphPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
     socialGraphPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 15000, 'expected timeline reaches end date after 15s');
+    waitForGraphAnimationEnd(browser, socialGraphPage);
 
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const graphLinks = socialGraphPage.animatedSocialGraphSection.graphLinks();
@@ -38,9 +43,7 @@ describe('Social Graph Page', function () {
   });
 
   it('should show connected nodes when double click on a node', function () {
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 15000, 'expected timeline reaches end date after 15s');
+    waitForGraphAnimationEnd(browser, socialGraphPage);
 
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const graphLinks = socialGraphPage.animatedSocialGraphSection.graphLinks();
@@ -72,34 +75,47 @@ describe('Social Graph Page', function () {
   });
 
   it('should show tooltip when hover a node', function () {
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 15000, 'expected timeline reaches end date after 15s');
+    waitForGraphAnimationEnd(browser, socialGraphPage);
 
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.biggestGraphNode.selector);
     socialGraphPage.animatedSocialGraphSection.tooltip.getText().should.equal('Donnell Calhoun');
   });
 
   it('should pause timeline when click on toggle timeline button', function () {
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1994-01-10';
-    }, 10000, 'expected timeline reaches specific date after 10s', 50);
-    socialGraphPage.animatedSocialGraphSection.toggleTimelineButton.click();
-    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(10);
+    const toggleTimelineButton = socialGraphPage.animatedSocialGraphSection.toggleTimelineButton;
 
-    socialGraphPage.animatedSocialGraphSection.toggleTimelineButton.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
     browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 15000, 'expected timeline reaches specific date after 15s');
-    socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
-    socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
+      return toggleTimelineButton.getAttribute('class') === 'toggle-timeline-btn play-icon';
+    });
+
+    toggleTimelineButton.click();
+
+    const middleDays = [
+      '1992-03-08',
+      '1994-01-10',
+      '1994-03-07',
+      '1994-03-12',
+      '1994-04-17',
+      '1998-11-17',
+      '1999-02-08',
+      '1999-07-22',
+      '2006-03-15'
+    ];
+    toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn pause-icon');
+    browser.waitUntil(function () {
+      return middleDays.indexOf(socialGraphPage.animatedSocialGraphSection.currentDate.getText()) !== -1;
+    });
+
+    toggleTimelineButton.click();
+    toggleTimelineButton.getAttribute('class').should.equal('toggle-timeline-btn play-icon');
+
+    toggleTimelineButton.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
   });
 
   it('should change the graph when click on specific part of the timeline', function () {
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 15000, 'expected timeline reaches specific date after 15s');
+    waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
 
@@ -117,24 +133,18 @@ describe('Social Graph Page', function () {
   });
 
   it('should load new data when change threshold and showCivilOnly', function () {
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 15000, 'expected timeline reaches end date after 15s');
+    waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
 
     socialGraphPage.animatedSocialGraphSection.showCivilComplaintOnlyCheckbox.click();
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 15000, 'expected timeline reaches end date after 15s');
+    waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(38);
 
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.coaccusalsThresholdSlider.selector, 140, 7);
     browser.buttonPress();
-    browser.waitUntil(function () {
-      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
-    }, 15000, 'expected timeline reaches end date after 15s');
+    waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(15);
   });

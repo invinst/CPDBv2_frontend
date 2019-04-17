@@ -13,6 +13,9 @@
     stroke: $smoke-gray
     stroke-opacity: .6
 
+    &.current-link
+      stroke: $boston-red
+
   .loading-img
     position: absolute
     top: 50%
@@ -26,3 +29,11 @@
   color: white
   font-size: 14px
   font-weight: 300
+
+.pinboard-social-graph
+  \:local(.socialGraph)
+    height: 360px
+
+  .fullscreen
+    \:local(.socialGraph)
+      height: calc(100vh - 93px)

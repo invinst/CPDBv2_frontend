@@ -15,12 +15,8 @@ class AnimatedSocialGraphSection extends Section {
       startDate: '(//div[contains(@class, "start-date-label")])',
       endDate: '(//div[contains(@class, "end-date-label")])',
       currentDate: '(//span[contains(@class, "current-date-label")])',
-      coaccusalsThresholdSlider: '(//div[@class="coaccusals-threshold-slider-container"]' +
-        '//div[contains(@class, "coaccusals-threshold-slider")])',
       timelineSlider: '(//div[contains(@class, "test--timeline-slider")])',
-      showCivilComplaintOnlyCheckbox: '(//input[@class="test--show-civil-complaint-checkbox"])',
       firstSearchResultSuggestion: '(//div[@class="graph-search-input-container"]//div//div)',
-      tooltip: '(//div[contains(@class, "test--graph-tooltip")]//span)',
       biggestGraphNode: '(//*[@r="7"])',
     });
   }
@@ -34,13 +30,25 @@ class AnimatedSocialGraphSection extends Section {
   }
 }
 
-class SocialGraphPage extends Page {
+class PinboardSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      title: '(//div[contains(@class, "pinboard-title")])',
+      description: '(//div[contains(@class, "pinboard-description")])',
+    });
+  }
+}
+
+class PinboardPage extends Page {
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
+  pinboardSection = new PinboardSection();
 
   open() {
-    super.open('/social-graph/?unit_id=123&title=Live test social graph title');
+    super.open('/pinboard/5cd06f2b/pinboard-title/');
     browser.element('body').waitForVisible();
   }
 }
 
-module.exports = new SocialGraphPage();
+module.exports = new PinboardPage();
