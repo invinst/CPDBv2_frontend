@@ -42,6 +42,7 @@ import { requestCrawlers } from 'actions/crawlers-page';
 import {
   fetchPinboard,
   fetchPinboardSocialGraph,
+  fetchPinboardGeographicData,
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
@@ -204,6 +205,7 @@ export default store => next => action => {
       if (pinboardID.length == PINBOARD_HEX_ID_LENGTH) {
         dispatches.push(store.dispatch(fetchPinboard(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardSocialGraph(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardGeographicData(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardRelevantDocuments(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardRelevantCoaccusals(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardRelevantComplaints(pinboardID)));

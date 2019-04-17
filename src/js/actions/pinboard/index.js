@@ -43,6 +43,16 @@ export const fetchPinboardSocialGraph = id => get(
   ]
 )();
 
+export const fetchPinboardGeographicData = id => get(
+  `${constants.PINBOARDS_URL}${id}/geographic-data/`,
+  [
+    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_START,
+    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_FAILURE,
+  ]
+)();
+
+export const changePinboardTab = createAction(constants.CHANGE_PINBOARD_TAB);
 
 const getWithPaginate = (pinboardRelevantAPI, types) => (id, params) => {
   const queryString = map(entries(params), ([key, val]) => `${key}=${val}`).join('&');

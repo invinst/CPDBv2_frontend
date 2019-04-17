@@ -243,6 +243,8 @@ describe('store', function () {
       pinboard: null,
       pinboardPage: {
         graphData: {},
+        geographicData: [],
+        currentTab: 'NETWORK',
         relevantDocuments: {
           items: [],
           count: 0,

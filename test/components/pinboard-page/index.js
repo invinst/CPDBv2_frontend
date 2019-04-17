@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import {
@@ -12,7 +11,7 @@ import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantCoaccusalsContainer from 'containers/pinboard-page/relevant/relevant-coaccusals';
 import RelevantDocumentsContainer from 'containers/pinboard-page/relevant/relevant-documents';
 import RelevantComplaintsContainer from 'containers/pinboard-page/relevant/relevant-complaints';
-import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import { unmountComponentSuppressError } from 'utils/test';
 
 
@@ -32,38 +31,9 @@ describe('PinboardPage component', function () {
       'trr_ids': [],
     },
     pinboardPage: {
-      graphData: {
-        officers: [
-          {
-            'full_name': 'Jerome Finnigan',
-            id: 1
-          },
-          {
-            'full_name': 'Edward May',
-            id: 2
-          }
-        ],
-        'coaccused_data': [
-          {
-            'officer_id_1': 1,
-            'officer_id_2': 2,
-            'incident_date': '1988-10-03T00:00:00Z',
-            'accussed_count': 1,
-          }
-        ],
-        'list_event': [
-          '1988-10-03 00:00:00+00:00',
-          '1989-12-11 00:00:00+00:00',
-          '1990-01-09 00:00:00+00:00',
-          '1990-12-13 00:00:00+00:00',
-          '1991-01-02 00:00:00+00:00',
-          '1991-01-06 00:00:00+00:00',
-          '1991-01-15 00:00:00+00:00',
-          '1991-02-18 00:00:00+00:00',
-          '1991-02-20 00:00:00+00:00',
-          '1991-03-06 00:00:00+00:00'
-        ],
-      },
+      graphData: {},
+      geographicData: [],
+      currentTab: 'NETWORK',
       relevantDocuments: defaultPaginationState,
       relevantCoaccusals: defaultPaginationState,
       relevantComplaints: defaultPaginationState,
@@ -81,15 +51,13 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AnimatedSocialGraph);
+    findRenderedComponentWithType(instance, PinboardPaneSection);
     findRenderedDOMComponentWithClass(instance, 'pinboard-title').textContent.should.eql(
       'This is pinboard title'
     );
     findRenderedDOMComponentWithClass(instance, 'pinboard-description').textContent.should.eql(
       'This is pinboard description'
     );
-    const linkButton = findRenderedComponentWithType(instance, Link);
-    linkButton.props.to.should.eql('/search/');
 
     findRenderedDOMComponentWithClass(instance, 'relevant-title').textContent.should.eql('Relevant');
     findRenderedComponentWithType(instance, RelevantCoaccusalsContainer);

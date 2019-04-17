@@ -6,6 +6,7 @@ import {
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
+  fetchPinboardGeographicData,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -68,7 +69,7 @@ describe('pinboard actions', function () {
   });
 
   describe('fetchPinboard', function () {
-    it('shoud return correct action', function () {
+    it('should return correct action', function () {
       fetchPinboard('1').should.deepEqual({
         types: [
           constants.PINBOARD_FETCH_REQUEST_START,
@@ -88,7 +89,7 @@ describe('pinboard actions', function () {
   });
 
   describe('fetchPinboardSocialGraph', function () {
-    it('shoud return correct action', function () {
+    it('should return correct action', function () {
       fetchPinboardSocialGraph('1').should.deepEqual({
         types: [
           constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_START,
@@ -98,6 +99,26 @@ describe('pinboard actions', function () {
         payload: {
           request: {
             url: `${constants.PINBOARDS_URL}1/social-graph/`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardGeographicData', function () {
+    it('should return correct action', function () {
+      fetchPinboardGeographicData('268a5e58').should.deepEqual({
+        types: [
+          constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_START,
+          constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}268a5e58/geographic-data/`,
             params: undefined,
             adapter: null,
             cancelToken: undefined,

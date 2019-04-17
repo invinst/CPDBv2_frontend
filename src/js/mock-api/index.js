@@ -53,6 +53,7 @@ import {
 } from './social-graph-page/social-graph-page';
 import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
 import { getSocialGraphData } from './pinboard-page/social-graph';
+import { getGeographicData } from './pinboard-page/geographic-data';
 import getRelevantCoaccusals, { getFirstRelevantCoaccusals } from 'mock-api/pinboard-page/relevant-coaccusals';
 import getRelevantDocuments, { getFirstRelevantDocuments } from 'mock-api/pinboard-page/relevant-documents';
 import getRelevantComplaints, { getFirstRelevantComplaints } from 'mock-api/pinboard-page/relevant-complaints';
@@ -183,6 +184,7 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, fetchPinboard());
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(200, updatePinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/social-graph/`).reply(200, getSocialGraphData());
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/geographic-data/`).reply(200, getGeographicData());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?`).reply(
   200, getFirstRelevantCoaccusals('5cd06f2b', 50)

@@ -5,7 +5,7 @@ import { findDOMNode } from 'react-dom';
 import { forOwn, find, forIn, filter, round } from 'lodash';
 import should from 'should';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test/index';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
 
 

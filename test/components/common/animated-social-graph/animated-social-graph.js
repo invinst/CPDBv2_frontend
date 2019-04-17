@@ -12,7 +12,7 @@ import Slider from 'rc-slider';
 import Autocomplete from 'react-autocomplete';
 import should from 'should';
 
-import { unmountComponentSuppressError } from 'utils/test/index';
+import { unmountComponentSuppressError } from 'utils/test';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
 import * as intercomUtils from 'utils/intercom';
