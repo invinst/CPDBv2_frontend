@@ -41,7 +41,7 @@ describe('PinboardPage component', function () {
   });
 
   it('should render PinnedSection component', function () {
-    instance = renderIntoDocument(<PinboardPage />);
+    instance = renderIntoDocument(<PinboardPage pinboard={ {} }/>);
 
     findRenderedComponentWithType(instance, PinnedSection).should.be.ok();
   });
