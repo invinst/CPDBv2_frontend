@@ -5,9 +5,7 @@ import cx from 'classnames';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import styles from './pinboard-page.sass';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
-import RelevantCoaccusalsContainer from 'containers/pinboard-page/relevant/relevant-coaccusals';
-import RelevantDocumentsContainer from 'containers/pinboard-page/relevant/relevant-documents';
-import RelevantComplaintsContainer from 'containers/pinboard-page/relevant/relevant-complaints';
+import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 
 
 export default class PinboardPage extends Component {
@@ -29,10 +27,7 @@ export default class PinboardPage extends Component {
             />
           </div>
         </div>
-        <div className='relevant-title'>Relevant</div>
-        <RelevantDocumentsContainer />
-        <RelevantCoaccusalsContainer />
-        <RelevantComplaintsContainer />
+        <RelevantSectionContainer />
       </div>
     );
   }

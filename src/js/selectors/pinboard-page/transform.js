@@ -3,10 +3,20 @@ import { first, last, includes } from 'lodash';
 import { extractPercentile } from 'selectors/common/percentile';
 import { formatDate } from 'utils/date';
 
+const SHORT_NAME_MAX_LEN = 16;
 
 const officerTransform = officer => {
-  const names = officer['full_name'].match(/\w+/g);
-  const shortName = `${first(names)[0]}. ${last(names)}`;
+  const fullName = officer['full_name'];
+  const names = fullName.split(' ');
+  const lastName = last(names);
+
+  let shortName = fullName.replace(/(\w)\w+ /, '$1. ');
+  if (shortName.length > SHORT_NAME_MAX_LEN) {
+    shortName = `${first(names)[0]}. ${lastName}`;
+    if (shortName.length > SHORT_NAME_MAX_LEN) {
+      shortName = lastName;
+    }
+  }
 
   return {
     id: officer.id,

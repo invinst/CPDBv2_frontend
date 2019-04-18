@@ -8,9 +8,7 @@ import {
 } from 'react-addons-test-utils';
 
 import PinboardPageContainer from 'containers/pinboard-page';
-import RelevantCoaccusalsContainer from 'containers/pinboard-page/relevant/relevant-coaccusals';
-import RelevantDocumentsContainer from 'containers/pinboard-page/relevant/relevant-documents';
-import RelevantComplaintsContainer from 'containers/pinboard-page/relevant/relevant-complaints';
+import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import { unmountComponentSuppressError } from 'utils/test';
 
@@ -59,9 +57,6 @@ describe('PinboardPage component', function () {
       'This is pinboard description'
     );
 
-    findRenderedDOMComponentWithClass(instance, 'relevant-title').textContent.should.eql('Relevant');
-    findRenderedComponentWithType(instance, RelevantCoaccusalsContainer);
-    findRenderedComponentWithType(instance, RelevantDocumentsContainer);
-    findRenderedComponentWithType(instance, RelevantComplaintsContainer);
+    findRenderedComponentWithType(instance, RelevantSectionContainer);
   });
 });

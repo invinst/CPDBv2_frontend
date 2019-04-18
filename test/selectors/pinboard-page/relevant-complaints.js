@@ -78,7 +78,7 @@ describe('RelevantComplaints selectors', function () {
         officers: [{
           id: 21098,
           fullName: 'Daniel O Toole',
-          shortName: 'D. Toole',
+          shortName: 'D. O Toole',
           percentile: {
             year: 2016,
             items: [

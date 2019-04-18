@@ -110,6 +110,76 @@ describe('Pinboard Page transform selectors', function () {
         pinned: true,
       });
     });
+
+    it('should shorten officer name', function () {
+      const document = {
+        'id': 16316,
+        'preview_image_url': 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
+        'url': 'https://www.documentcloud.org/documents/3037807/CRID-1074534-TRR-Stegmiller.pdf',
+        'allegation': {
+          'crid': '1074534',
+          'category': 'Unknown',
+          'incident_date': '2015-04-04',
+          'officers': [{
+            'id': 31859,
+            'rank': 'Sergeant of Police',
+            'full_name': 'Short Name',
+            'coaccusal_count': null,
+            'percentile': null
+          }, {
+            'id': 32020,
+            'rank': 'Police Officer',
+            'full_name': 'Short Three Names',
+            'coaccusal_count': null,
+            'percentile': null
+          }, {
+            'id': 32022,
+            'rank': 'Police Officer',
+            'full_name': 'Long Three Nameeeeeeee',
+            'coaccusal_count': null,
+            'percentile': null
+          }, {
+            'id': 32024,
+            'rank': 'Police Officer',
+            'full_name': 'Long LastNameeeeeeeeeeeeeee',
+            'coaccusal_count': null,
+            'percentile': null
+          }]
+        }
+      };
+
+      relevantDocumentTransform(document, []).should.eql({
+        previewImageUrl: 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
+        url: 'https://www.documentcloud.org/documents/3037807/CRID-1074534-TRR-Stegmiller.pdf',
+        allegation: {
+          crid: '1074534',
+          category: 'Unknown',
+          incidentDate: 'Apr 4, 2015',
+          officers: [{
+            id: 31859,
+            fullName: 'Short Name',
+            shortName: 'S. Name',
+            percentile: null,
+          }, {
+            id: 32020,
+            fullName: 'Short Three Names',
+            shortName: 'S. Three Names',
+            percentile: null,
+          }, {
+            id: 32022,
+            fullName: 'Long Three Nameeeeeeee',
+            shortName: 'L. Nameeeeeeee',
+            percentile: null,
+          }, {
+            id: 32024,
+            fullName: 'Long LastNameeeeeeeeeeeeeee',
+            shortName: 'LastNameeeeeeeeeeeeeee',
+            percentile: null,
+          }],
+        },
+        pinned: false,
+      });
+    });
   });
 
   describe('relevantCoaccusalTransform', function () {
@@ -148,7 +218,7 @@ describe('Pinboard Page transform selectors', function () {
   });
 
   describe('relevantComplaintTransform', function () {
-    it('should format coaccusal correctly', function () {
+    it('should format complaint correctly', function () {
       const complaint = {
         'crid': '1085121',
         'category': 'Money / Property',
@@ -177,7 +247,7 @@ describe('Pinboard Page transform selectors', function () {
         officers: [{
           id: 21098,
           fullName: 'Daniel O Toole',
-          shortName: 'D. Toole',
+          shortName: 'D. O Toole',
           percentile: {
             year: 2016,
             items: [
