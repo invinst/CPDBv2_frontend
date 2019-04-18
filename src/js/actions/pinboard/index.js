@@ -35,6 +35,26 @@ export const fetchPinboard = id => get(
   ]
 )();
 
+export const fetchPinboardSocialGraph = id => get(
+  `${constants.PINBOARDS_URL}${id}/social-graph/`,
+  [
+    constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_START,
+    constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
+  ]
+)();
+
+export const fetchPinboardGeographicData = id => get(
+  `${constants.PINBOARDS_URL}${id}/geographic-data/`,
+  [
+    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_START,
+    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_FAILURE,
+  ]
+)();
+
+export const changePinboardTab = createAction(constants.CHANGE_PINBOARD_TAB);
+
 export const fetchPinboardComplaints = id => get(
   `${constants.PINBOARDS_URL}${id}/complaints/`,
   [

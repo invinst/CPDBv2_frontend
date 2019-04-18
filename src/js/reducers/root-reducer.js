@@ -24,7 +24,9 @@ import pathname from './pathname';
 import documentsOverviewPage from './documents-overview-page';
 import documentDeduplicatorPage from './document-deduplicator-page';
 import crawlersPage from './crawlers-page';
+import socialGraphPage from './social-graph-page';
 import pinboard from './pinboard';
+import pinboardPage from './pinboard-page';
 
 
 export default combineReducers({
@@ -52,5 +54,7 @@ export default combineReducers({
   documentsOverviewPage,
   documentDeduplicatorPage,
   crawlersPage,
+  socialGraphPage,
   pinboard,
+  pinboardPage,
 });

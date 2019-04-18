@@ -12,7 +12,8 @@ module.exports = Object.assign({}, baseConfig, {
     ...baseConfig.plugins,
     new CopyWebpackPlugin([
       { from: 'src/fonts', to: 'fonts' },
-      { from: 'src/img', to: 'img' }
+      { from: 'src/img', to: 'img' },
+      { from: 'src/static', to: 'static' }
     ]),
     new HtmlWebpackPlugin({
       template: 'index.html.template',

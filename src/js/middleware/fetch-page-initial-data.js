@@ -40,9 +40,13 @@ import { fetchDocuments } from 'actions/documents-overview-page';
 import { cancelledByUser } from 'utils/axios-client';
 import { requestCrawlers } from 'actions/crawlers-page';
 import {
-  fetchPinboard, fetchPinboardComplaints,
-  fetchPinboardOfficers, fetchPinboardTRRs }
-from 'actions/pinboard';
+  fetchPinboard,
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardTRRs,
+  fetchPinboardSocialGraph,
+  fetchPinboardGeographicData,
+} from 'actions/pinboard';
 
 let prevPathname = '';
 
@@ -203,6 +207,8 @@ export default store => next => action => {
         dispatches.push(store.dispatch(fetchPinboardComplaints(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardOfficers(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardTRRs(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardSocialGraph(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardGeographicData(pinboardID)));
       }
     }
 

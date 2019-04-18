@@ -1,0 +1,40 @@
+@import 'variables'
+
+\:local(.socialGraph)
+  width: 100%
+  height: calc(100vh - 93px)
+  position: relative
+
+  circle.node
+    stroke: white
+    stroke-width: 1.5px
+
+  line.link
+    stroke: $smoke-gray
+    stroke-opacity: .6
+
+    &.current-link
+      stroke: $boston-red
+
+  .loading-img
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+
+\:local(.socialGraphTip)
+  padding: 4px 6px
+  background-color: $darker-grey-color
+  border-radius: 6px
+  color: white
+  font-size: 14px
+  font-weight: 300
+
+.pinboard-page
+  \:local(.socialGraph)
+    height: 360px
+    border-top: 1px solid $white-two-color
+
+  .fullscreen
+    \:local(.socialGraph)
+      height: calc(100vh - 93px)

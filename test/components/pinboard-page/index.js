@@ -2,6 +2,7 @@ import React from 'react';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
+  findRenderedDOMComponentWithClass,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 import * as ReactRouter from 'react-router';
@@ -9,6 +10,7 @@ import * as ReactRouter from 'react-router';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinboardPage from 'components/pinboard-page';
 import PinnedSection from 'components/pinboard-page/pinned-section';
+import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 
 
 describe('PinboardPage component', function () {
@@ -42,5 +44,22 @@ describe('PinboardPage component', function () {
     instance = renderIntoDocument(<PinboardPage />);
 
     findRenderedComponentWithType(instance, PinnedSection).should.be.ok();
+  });
+
+  it('should render pinboard page correctly', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description'
+    };
+
+    instance = renderIntoDocument(<PinboardPage pinboard={ pinboard } />);
+
+    findRenderedComponentWithType(instance, PinboardPaneSection);
+    findRenderedDOMComponentWithClass(instance, 'pinboard-title').textContent.should.eql(
+      'This is pinboard title'
+    );
+    findRenderedDOMComponentWithClass(instance, 'pinboard-description').textContent.should.eql(
+      'This is pinboard description'
+    );
   });
 });
