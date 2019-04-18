@@ -68,9 +68,11 @@ export default class Header extends Component {
       <div className={ styles.wrapper } >
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'inner-wrapper') }>
           <div className='header-parent'>
-            <div className='header-title'>
+            <Link
+              className='header-title'
+              to='/'>
               cpdp
-            </div>
+            </Link>
             { this.renderRightMenu() }
           </div>
         </div>

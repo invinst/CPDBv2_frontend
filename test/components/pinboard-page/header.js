@@ -20,11 +20,12 @@ describe('Pinboard Header component', function () {
     instance = renderIntoDocument(<Header />);
 
     const anchors = scryRenderedDOMComponentsWithTag(instance, 'a');
-    anchors.should.have.length(4);
-    anchors[0].textContent.should.eql('Data');
-    anchors[1].textContent.should.eql('Q&A');
-    anchors[2].textContent.should.eql('Documents');
-    anchors[3].textContent.should.eql('Pinboard');
+    anchors.should.have.length(5);
+    anchors[0].textContent.should.eql('cpdp');
+    anchors[1].textContent.should.eql('Data');
+    anchors[2].textContent.should.eql('Q&A');
+    anchors[3].textContent.should.eql('Documents');
+    anchors[4].textContent.should.eql('Pinboard');
   });
 
   it('should highlight correct item', function () {
