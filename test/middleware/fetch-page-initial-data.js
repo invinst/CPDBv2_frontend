@@ -24,7 +24,14 @@ import { fetchDocumentsByCRID } from 'actions/document-deduplicator-page';
 import * as docOverviewPageActions from 'actions/documents-overview-page';
 import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchDocument } from 'actions/document-page';
-import { fetchPinboard, fetchPinboardGeographicData, fetchPinboardSocialGraph } from 'actions/pinboard';
+import {
+  fetchPinboard,
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardTRRs,
+  fetchPinboardGeographicData,
+  fetchPinboardSocialGraph,
+} from 'actions/pinboard';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -360,6 +367,9 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchPinboard('1234ABCD')).should.be.true();
+    store.dispatch.calledWith(fetchPinboardComplaints('1234ABCD')).should.be.true();
+    store.dispatch.calledWith(fetchPinboardOfficers('1234ABCD')).should.be.true();
+    store.dispatch.calledWith(fetchPinboardTRRs('1234ABCD')).should.be.true();
   });
 
   it('should not dispatch fetchPinboard if requested ID is not valid', function () {
@@ -371,6 +381,9 @@ describe('fetchPageInitialData middleware', function () {
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.calledWith(fetchPinboard('123ABCD')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardComplaints('123ABCD')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardOfficers('123ABCD')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardTRRs('123ABCD')).should.be.false();
   });
 
   it('should dispatch fetchPinboardSocialGraph when store is empty', function () {
