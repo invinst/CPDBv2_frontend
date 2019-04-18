@@ -569,7 +569,7 @@ describe('Search Page with query parameter', function () {
   });
 });
 
-describe.only('Search Page with pinboard functionalities', function () {
+describe('Search Page with pinboard functionalities', function () {
   it('should display pinboard button with correct text when items are added/removed', function () {
     searchPage.open('Ke');
     searchPage.suggestionGroup.waitForVisible();
