@@ -10,9 +10,9 @@ export const createPinboard = () => ({
 export const fetchPinboard = () => ({
   'id': '5cd06f2b',
   'title': 'Pinboard Title',
-  'officer_ids': [1],
-  'crids': [],
-  'trr_ids': [],
+  'officer_ids': [1234],
+  'crids': ['1234567'],
+  'trr_ids': [1234],
   'description': 'Pinboard Description',
 });
 

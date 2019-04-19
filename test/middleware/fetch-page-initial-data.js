@@ -26,6 +26,9 @@ import { requestCrawlers } from 'actions/crawlers-page';
 import { fetchDocument } from 'actions/document-page';
 import {
   fetchPinboard,
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardTRRs,
   fetchPinboardGeographicData,
   fetchPinboardSocialGraph,
   fetchPinboardRelevantDocuments,
@@ -371,6 +374,9 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('1234ABCD'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('1234ABCD'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('1234ABCD'));
+    store.dispatch.calledWith(fetchPinboardComplaints('1234ABCD')).should.be.true();
+    store.dispatch.calledWith(fetchPinboardOfficers('1234ABCD')).should.be.true();
+    store.dispatch.calledWith(fetchPinboardTRRs('1234ABCD')).should.be.true();
   });
 
   it('should not dispatch fetchPinboard if requested ID is not valid', function () {
@@ -401,6 +407,9 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantDocuments('123ABCD'));
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('123ABCD'));
     store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('123ABCD'));
+    store.dispatch.calledWith(fetchPinboardComplaints('123ABCD')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardOfficers('123ABCD')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardTRRs('123ABCD')).should.be.false();
   });
 
   it('should dispatch fetchPinboardSocialGraph when store is empty', function () {

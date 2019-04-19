@@ -1,0 +1,41 @@
+@import 'variables'
+
+\:local(.wrapper)
+  position: relative
+  width: 148px
+  height: 176px
+  color: $soft-black-color
+  box-sizing: border-box
+  border: 1px solid $white-two-color
+  border-radius: 2px
+  margin: 0 8px 8px 0
+  font-size: 14px
+  font-weight: 300
+
+  .radar-chart-wrapper
+    height: 60px
+
+  .officer-info
+    height: 72px
+    background-color: $sugar-cane-color
+    box-sizing: border-box
+    padding: 8px 8px 10px 8px
+
+    .officer-rank
+      font-size: 12px
+      color: $boulder-color
+      overflow: hidden
+      white-space: nowrap
+
+    .officer-name
+      overflow-wrap: break-word
+      overflow: hidden
+      line-height: 16px
+      max-height: 32px
+      margin-top: 4px
+
+  .officer-complaints-count
+    height: 44px
+    line-height: 44px
+    box-sizing: border-box
+    padding-left: 8px

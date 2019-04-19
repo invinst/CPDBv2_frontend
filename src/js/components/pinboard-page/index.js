@@ -1,16 +1,33 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
-import cx from 'classnames';
+import { Link, browserHistory } from 'react-router';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import PinnedSection from './pinned-section';
+import cx from 'classnames';
 import styles from './pinboard-page.sass';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 
 
 export default class PinboardPage extends Component {
+  componentDidUpdate(prevProps) {
+    const prevID = prevProps.pinboard.id;
+    const currID = this.props.pinboard.id;
+
+    if (prevID !== currID) {
+      browserHistory.replace(`/pinboard/${currID}/`);
+    }
+  }
+
   render() {
-    const { pinboard, changePinboardTab, currentTab, hasMapMarker } = this.props;
+    const {
+      pinboard,
+      changePinboardTab,
+      currentTab,
+      hasMapMarker,
+      itemsByTypes,
+      removeItemInPinboardPage,
+    } = this.props;
     return (
       <div className={ styles.pinboardPage }>
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
@@ -27,6 +44,9 @@ export default class PinboardPage extends Component {
             />
           </div>
         </div>
+        <PinnedSection
+          itemsByTypes={ itemsByTypes }
+          removeItemInPinboardPage={ removeItemInPinboardPage }/>
         <RelevantSectionContainer />
       </div>
     );
@@ -35,7 +55,13 @@ export default class PinboardPage extends Component {
 
 PinboardPage.propTypes = {
   pinboard: PropTypes.object,
+  itemsByTypes: PropTypes.object,
+  removeItemInPinboardPage: PropTypes.func,
   changePinboardTab: PropTypes.func,
   currentTab: PropTypes.string,
   hasMapMarker: PropTypes.bool,
+};
+
+PinboardPage.defaultProps = {
+  itemsByTypes: {},
 };
