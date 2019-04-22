@@ -7,6 +7,7 @@ import cx from 'classnames';
 import styles from './pinboard-page.sass';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
+import FooterContainer from 'containers/footer-container';
 
 
 export default class PinboardPage extends Component {
@@ -48,6 +49,7 @@ export default class PinboardPage extends Component {
           itemsByTypes={ itemsByTypes }
           removeItemInPinboardPage={ removeItemInPinboardPage }/>
         <RelevantSectionContainer />
+        <FooterContainer className='footer'/>
       </div>
     );
   }

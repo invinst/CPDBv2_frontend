@@ -16,6 +16,7 @@ import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RootReducer from 'reducers/root-reducer';
+import FooterContainer from 'containers/footer-container';
 
 
 describe('PinboardPage component', function () {
@@ -148,6 +149,8 @@ describe('PinboardPage component', function () {
     );
 
     findRenderedComponentWithType(instance, RelevantSectionContainer);
+    const footer = findRenderedComponentWithType(instance, FooterContainer);
+    footer.props.className.should.eql('footer');
   });
 });
 
