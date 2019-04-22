@@ -18,6 +18,7 @@ import {
   POPUP_API_URL,
   DOCUMENTS_URL,
   CRAWLERS_API_URL,
+  SOCIAL_GRAPH_API_URL,
   PINBOARDS_URL,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
@@ -46,15 +47,18 @@ import fetchDocuments from './documents-overview-page/fetch-documents';
 import fetchDocumentByID from './document-page/fetch-document-by-id';
 import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-page';
 import {
-  createPinboard,
-  fetchPinboard,
-  updatePinboard,
-} from './pinboard';
+  getDefaultSocialGraphData,
+  getOfficerComplaintSocialGraphData,
+  getThresholdThreeSocialGraphData
+} from './social-graph-page/social-graph-page';
+import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
 import {
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
 } from './pinboard-page/fetch-pinned-items';
+import { getSocialGraphData } from './pinboard-page/social-graph';
+import { getGeographicData } from './pinboard-page/geographic-data';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -160,6 +164,21 @@ axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
   return [200, (config.params && config.params.offset === '20') ? getNextCrawlersData() : getCrawlersData()];
 });
 
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_API_URL,
+  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+).reply(200, getDefaultSocialGraphData());
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_API_URL,
+  { params: { 'threshold': 2, 'show_civil_only': false, 'unit_id': '123' } }
+).reply(200, getOfficerComplaintSocialGraphData());
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_API_URL,
+  { params: { 'threshold': 3, 'show_civil_only': false, 'unit_id': '123' } }
+).reply(200, getThresholdThreeSocialGraphData());
+
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, fetchPinboard());
@@ -171,6 +190,9 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/complaints/`).reply(200, fetchPi
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/officers/`).reply(200, fetchPinboardOfficers());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboardTRRs());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/social-graph/`).reply(200, getSocialGraphData());
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/geographic-data/`).reply(200, getGeographicData());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

@@ -237,7 +237,15 @@ describe('store', function () {
         currentCrawlerId: null,
         pagination: {}
       },
+      socialGraphPage: {
+        graphData: {}
+      },
       pinboard: null,
+      pinboardPage: {
+        graphData: {},
+        geographicData: [],
+        currentTab: 'NETWORK'
+      },
     });
   });
 });

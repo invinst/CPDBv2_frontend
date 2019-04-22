@@ -89,6 +89,115 @@ describe('search page transforms', function () {
       });
     });
 
+    it('should transform cr with no highlight', function () {
+      searchResultItemTransform({
+        type: 'CR',
+        id: 1,
+        isPinned: false,
+        crid: 123,
+        to: '/complaint/123/',
+        'incident_date': '2012-07-02',
+        category: 'Use Of Force',
+        'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        'victims': [],
+        'coaccused': []
+      }).should.deepEqual({
+        type: 'CR',
+        id: 1,
+        isPinned: false,
+        to: '/complaint/123/',
+        url: undefined,
+        uniqueKey: 'CR-1',
+        tags: [],
+        itemIndex: 1,
+        text: 'CR # 123 - July 2, 2012',
+        subText: '',
+        recentText: 'CR # 123 - July 2, 2012',
+        incidentDate: 'JUL 2, 2012',
+        category: 'Use Of Force',
+        subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        victims: [],
+        coaccused: [],
+      });
+    });
+
+    it('should transform cr with text content highlight', function () {
+      searchResultItemTransform({
+        type: 'CR',
+        id: 1,
+        isPinned: false,
+        crid: 123,
+        to: '/complaint/123/',
+        'incident_date': '2012-07-02',
+        category: 'Use Of Force',
+        'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        'victims': [],
+        'coaccused': [],
+        highlight: {
+          'text_content': ['first text orc match', 'second orc text match'],
+        }
+      }).should.deepEqual({
+        type: 'CR',
+        id: 1,
+        isPinned: false,
+        to: '/complaint/123/',
+        url: undefined,
+        uniqueKey: 'CR-1',
+        tags: [],
+        itemIndex: 1,
+        text: 'CR # 123 - July 2, 2012',
+        subText: 'first text orc match',
+        recentText: 'CR # 123 - July 2, 2012',
+        incidentDate: 'JUL 2, 2012',
+        category: 'Use Of Force',
+        subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        victims: [],
+        coaccused: [],
+      });
+    });
+
+    it('should transform cr with summary and text content highlight', function () {
+      searchResultItemTransform({
+        type: 'CR',
+        id: 1,
+        isPinned: false,
+        crid: 123,
+        to: '/complaint/123/',
+        'incident_date': '2012-07-02',
+        category: 'Use Of Force',
+        'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        'victims': [],
+        'coaccused': [],
+        highlight: {
+          summary: ['the officer pointed a gun at the victim', 'second match'],
+          'text_content': ['first text orc match', 'second orc text match'],
+        }
+      }).should.deepEqual({
+        type: 'CR',
+        id: 1,
+        isPinned: false,
+        to: '/complaint/123/',
+        url: undefined,
+        uniqueKey: 'CR-1',
+        tags: [],
+        itemIndex: 1,
+        text: 'CR # 123 - July 2, 2012',
+        subText: 'the officer pointed a gun at the victim',
+        recentText: 'CR # 123 - July 2, 2012',
+        incidentDate: 'JUL 2, 2012',
+        category: 'Use Of Force',
+        subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        victims: [],
+        coaccused: [],
+      });
+    });
+
     it('should transform search term data correctly', function () {
       searchResultItemTransform({
         type: 'SEARCH-TERMS',
