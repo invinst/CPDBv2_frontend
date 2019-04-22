@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
+import cx from 'classnames';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import PinnedSection from './pinned-section';
-import cx from 'classnames';
+import SearchBar from './search-bar';
+import Header from './header';
 import styles from './pinboard-page.sass';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 
@@ -28,22 +30,27 @@ export default class PinboardPage extends Component {
       removeItemInPinboardPage,
     } = this.props;
     return (
-      <div className={ cx(responsiveContainerStyles.responsiveContainer, styles.pinboardPage, 'pinboard-page') }>
-        <Link to='/search/'>Back to search page</Link>
-        <div className='pinboard-info'>
-          <div className='pinboard-title'>{ pinboard.title }</div>
-          <div className='pinboard-description'>{ pinboard.description }</div>
+      <div>
+        <div className='pinboard-header'>
+          <Header />
+          <SearchBar />
         </div>
-        <div className='data-visualizations'>
-          <PinboardPaneSection
-            changePinboardTab={ changePinboardTab }
-            currentTab={ currentTab }
-            hasMapMarker={ hasMapMarker }
-          />
+        <div className={ cx(responsiveContainerStyles.responsiveContainer, styles.pinboardPage, 'pinboard-page') }>
+          <div className='pinboard-info'>
+            <div className='pinboard-title'>{ pinboard.title }</div>
+            <div className='pinboard-description'>{ pinboard.description }</div>
+          </div>
+          <div className='data-visualizations'>
+            <PinboardPaneSection
+              changePinboardTab={ changePinboardTab }
+              currentTab={ currentTab }
+              hasMapMarker={ hasMapMarker }
+            />
+          </div>
+          <PinnedSection
+            itemsByTypes={ itemsByTypes }
+            removeItemInPinboardPage={ removeItemInPinboardPage }/>
         </div>
-        <PinnedSection
-          itemsByTypes={ itemsByTypes }
-          removeItemInPinboardPage={ removeItemInPinboardPage }/>
       </div>
     );
   }

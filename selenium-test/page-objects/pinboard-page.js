@@ -122,6 +122,14 @@ class PinboardPage extends Page {
   geographicSection = new GeoGraphicSection();
   pinboardSection = new PinboardSection();
 
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      searchBar: '//div[starts-with(@class, "search-bar")]'
+    });
+  }
+
   open() {
     super.open('/pinboard/5cd06f2b/pinboard-title/');
     browser.element('body').waitForVisible();
