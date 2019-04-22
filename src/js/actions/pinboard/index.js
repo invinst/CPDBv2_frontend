@@ -7,6 +7,8 @@ import * as constants from 'utils/constants';
 
 export const addItemToPinboard = createAction(constants.ADD_ITEM_TO_PINBOARD, item => item);
 
+export const removeItemInPinboardPage = createAction(constants.REMOVE_ITEM_IN_PINBOARD_PAGE);
+
 export const createPinboard = ({ officerIds, crids, trrIds }) => post(
   constants.PINBOARDS_URL,
   [
@@ -53,6 +55,33 @@ export const fetchPinboardGeographicData = id => get(
 )();
 
 export const changePinboardTab = createAction(constants.CHANGE_PINBOARD_TAB);
+
+export const fetchPinboardComplaints = id => get(
+  `${constants.PINBOARDS_URL}${id}/complaints/`,
+  [
+    constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_START,
+    constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_FAILURE,
+  ]
+)();
+
+export const fetchPinboardOfficers = id => get(
+  `${constants.PINBOARDS_URL}${id}/officers/`,
+  [
+    constants.PINBOARD_OFFICERS_FETCH_REQUEST_START,
+    constants.PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_OFFICERS_FETCH_REQUEST_FAILURE,
+  ]
+)();
+
+export const fetchPinboardTRRs = id => get(
+  `${constants.PINBOARDS_URL}${id}/trrs/`,
+  [
+    constants.PINBOARD_TRRS_FETCH_REQUEST_START,
+    constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_TRRS_FETCH_REQUEST_FAILURE,
+  ]
+)();
 
 const getWithPaginate = (pinboardRelevantAPI, types) => (id, params) => {
   const queryString = map(entries(params), ([key, val]) => `${key}=${val}`).join('&');

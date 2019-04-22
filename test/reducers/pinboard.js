@@ -17,6 +17,7 @@ describe('Pinboard reducer', function () {
         description: 'Description 2',
         'officer_ids': [2],
         crids: [],
+        'trr_ids': [],
         ownedByCurrentUser: false,
       },
       {
@@ -27,6 +28,7 @@ describe('Pinboard reducer', function () {
           description: 'Description',
           'officer_ids': [1],
           crids: ['abc'],
+          'trr_ids': [1],
         }
       }
     ).should.deepEqual({
@@ -35,6 +37,7 @@ describe('Pinboard reducer', function () {
       description: 'Description',
       'officer_ids': [1],
       crids: ['abc'],
+      'trr_ids': [1],
       ownedByCurrentUser: true,
     });
   });
@@ -52,6 +55,7 @@ describe('Pinboard reducer', function () {
           description: 'Description',
           'officer_ids': [1],
           crids: ['abc'],
+          'trr_ids': [1],
         }
       }
     ).should.deepEqual({
@@ -60,6 +64,7 @@ describe('Pinboard reducer', function () {
       description: 'Description',
       'officer_ids': [1],
       crids: ['abc'],
+      'trr_ids': [1],
       ownedByCurrentUser: false,
     });
   });
@@ -137,6 +142,60 @@ describe('Pinboard reducer', function () {
           ownedByCurrentUser: false
         });
       });
+    });
+  });
+
+  it('should handle PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS', function () {
+    pinboardReducer(
+      {
+        id: 1,
+        crItems: [{ id: 1 }],
+      },
+      {
+        type: constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS,
+        payload: [
+          { id: 2 }, { id: 3 },
+        ]
+      }
+    ).should.deepEqual({
+      id: 1,
+      crItems: [{ id: 2 }, { id: 3 }],
+    });
+  });
+
+  it('should handle PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS', function () {
+    pinboardReducer(
+      {
+        id: 1,
+        officerItems: [{ id: 1 }],
+      },
+      {
+        type: constants.PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS,
+        payload: [
+          { id: 2 }, { id: 3 },
+        ]
+      }
+    ).should.deepEqual({
+      id: 1,
+      officerItems: [{ id: 2 }, { id: 3 }],
+    });
+  });
+
+  it('should handle PINBOARD_TRRS_FETCH_REQUEST_SUCCESS', function () {
+    pinboardReducer(
+      {
+        id: 1,
+        trrItems: [{ id: 1 }],
+      },
+      {
+        type: constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
+        payload: [
+          { id: 2 }, { id: 3 },
+        ]
+      }
+    ).should.deepEqual({
+      id: 1,
+      trrItems: [{ id: 2 }, { id: 3 }],
     });
   });
 });

@@ -12,6 +12,9 @@ import {
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardComplaints,
+  fetchPinboardTRRs,
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import { PINBOARD_CREATE_REQUEST_SUCCESS, PINBOARD_UPDATE_REQUEST_SUCCESS } from 'utils/constants';
@@ -30,6 +33,15 @@ describe('createOrUpdatePinboard middleware', function () {
 
   const createAddItemToPinboardAction = (item) => ({
     type: constants.ADD_ITEM_TO_PINBOARD,
+    payload: {
+      id: item.id,
+      type: item.type,
+      isPinned: item.isPinned,
+    }
+  });
+
+  const createRemoveItemInPinboardPageAction = (item) => ({
+    type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
     payload: {
       id: item.id,
       type: item.type,
@@ -63,10 +75,13 @@ describe('createOrUpdatePinboard middleware', function () {
       url: '',
       itemsCount: 0,
       ownedByCurrentUser: false,
+      crItems: [],
+      officerItems: [],
+      trrItems: [],
     })).should.be.true();
   };
 
-  it('should not dispatch any action if action is not ADD_ITEM_TO_PINBOARD', function () {
+  it('should not dispatch any action if action is not adding or removing items', function () {
     const action = {
       type: 'other action'
     };
@@ -122,6 +137,9 @@ describe('createOrUpdatePinboard middleware', function () {
     store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('def456'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('def456'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardOfficers('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardComplaints('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardTRRs('def456'));
   });
 
   it('should not handle PINBOARD_UPDATE_REQUEST_SUCCESS when not on pinboard page', function () {
@@ -252,4 +270,67 @@ describe('createOrUpdatePinboard middleware', function () {
       })).should.be.true();
     });
   });
+
+  context('when an item is removed from pinboard page', function () {
+    it('should dispatch updatePinboard if user owns the pinboard', function () {
+      const action = createRemoveItemInPinboardPageAction({
+        id: '1',
+        type: 'CR',
+        isPinned: true,
+      });
+      const store = createStore(PinboardFactory.build({
+        id: '99',
+        crids: ['2', '1'],
+        'officer_ids': ['a'],
+        'trr_ids': ['1'],
+        ownedByCurrentUser: true,
+      }));
+      let dispatched;
+
+      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      dispatched.should.eql(action);
+      store.dispatch.calledWith(updatePinboard({
+        id: '99',
+        title: '',
+        description: '',
+        crids: ['2'],
+        officerIds: ['a'],
+        trrIds: ['1'],
+        url: '',
+        itemsCount: 3,
+        ownedByCurrentUser: true,
+      })).should.be.true();
+    });
+
+    it('should dispatch createPinboard if user does not own the pinboard', function () {
+      const action = createRemoveItemInPinboardPageAction({
+        id: 'b',
+        type: 'OFFICER',
+        isPinned: true,
+      });
+      const store = createStore(PinboardFactory.build({
+        id: '99',
+        crids: ['1'],
+        'officer_ids': ['a'],
+        'trr_ids': ['1'],
+        ownedByCurrentUser: false,
+      }));
+      let dispatched;
+
+      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      dispatched.should.eql(action);
+      store.dispatch.calledWith(createPinboard({
+        id: '99',
+        title: '',
+        description: '',
+        crids: ['1'],
+        officerIds: ['a'],
+        trrIds: ['1'],
+        url: '',
+        itemsCount: 2,
+        ownedByCurrentUser: false,
+      })).should.be.true();
+    });
+  });
+
 });

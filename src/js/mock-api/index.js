@@ -52,6 +52,11 @@ import {
   getThresholdThreeSocialGraphData
 } from './social-graph-page/social-graph-page';
 import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
+import {
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardTRRs,
+} from './pinboard-page/fetch-pinned-items';
 import { getSocialGraphData } from './pinboard-page/social-graph';
 import { getGeographicData } from './pinboard-page/geographic-data';
 import getRelevantCoaccusals, { getFirstRelevantCoaccusals } from 'mock-api/pinboard-page/relevant-coaccusals';
@@ -182,6 +187,12 @@ axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, fetchPinboard());
 
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(200, updatePinboard());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/complaints/`).reply(200, fetchPinboardComplaints());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/officers/`).reply(200, fetchPinboardOfficers());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboardTRRs());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/social-graph/`).reply(200, getSocialGraphData());
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/geographic-data/`).reply(200, getGeographicData());

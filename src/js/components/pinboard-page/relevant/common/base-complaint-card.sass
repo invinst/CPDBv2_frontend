@@ -18,11 +18,13 @@
 
   .left-half
     display: inline-block
+    height: 176px
 
   .right-half
     display: inline-block
     position: relative
     width: calc(100% - 130px)
+    height: 176px
     vertical-align: top
     color: white
     font-size: 14px
@@ -56,6 +58,11 @@
 
     .top-officer-row-officer-name
       display: inline-block
+      text-overflow: ellipsis
+      white-space: nowrap
+      overflow: hidden
+      width: calc(100% - 28px)
+      vertical-align: top
 
     .remaining-officers
       height: 44px

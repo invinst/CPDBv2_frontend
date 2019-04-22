@@ -3,6 +3,7 @@ import {
   renderIntoDocument,
   findRenderedDOMComponentWithClass,
   findRenderedComponentWithType,
+  scryRenderedDOMComponentsWithTag,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 
@@ -43,5 +44,19 @@ describe('RelevantInfiniteCarousel component', function () {
 
     findRenderedDOMComponentWithClass(carousel, 'test--child-1');
     findRenderedDOMComponentWithClass(carousel, 'test--child-2');
+  });
+
+  it('should render nothing if there is no child', function () {
+    const loadMoreStub = stub();
+    instance = renderIntoDocument(
+      <RelevantInfiniteCarousel
+        childWidth={ 128 }
+        title='RelevantInfiniteCarousel Title'
+        hasMore={ true }
+        loadMore={ loadMoreStub }
+      />
+    );
+
+    scryRenderedDOMComponentsWithTag(instance, 'div').should.have.length(0);
   });
 });

@@ -9,6 +9,9 @@ export default class RelevantInfiniteCarousel extends Component {
   render() {
     const { children, childWidth, title, hasMore, loadMore, className } = this.props;
 
+    if (!children || children.length < 1)
+      return null;
+
     return (
       <div className={ cx(className, styles.relevantInfiniteCarousel) }>
         <div className='relevant-infinite-carousel-title'>{ title }</div>
