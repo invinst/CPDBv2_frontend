@@ -12,6 +12,9 @@ import {
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardComplaints,
+  fetchPinboardTRRs,
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 import { PINBOARD_CREATE_REQUEST_SUCCESS, PINBOARD_UPDATE_REQUEST_SUCCESS } from 'utils/constants';
@@ -134,6 +137,9 @@ describe('createOrUpdatePinboard middleware', function () {
     store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('def456'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('def456'));
     store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardOfficers('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardComplaints('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardTRRs('def456'));
   });
 
   it('should not handle PINBOARD_UPDATE_REQUEST_SUCCESS when not on pinboard page', function () {

@@ -98,6 +98,9 @@ export default store => next => action => {
       store.dispatch(fetchPinboardRelevantDocuments(pinboardID));
       store.dispatch(fetchPinboardRelevantCoaccusals(pinboardID));
       store.dispatch(fetchPinboardRelevantComplaints(pinboardID));
+      store.dispatch(fetchPinboardOfficers(pinboardID));
+      store.dispatch(fetchPinboardComplaints(pinboardID));
+      store.dispatch(fetchPinboardTRRs(pinboardID));
     }
   }
 
