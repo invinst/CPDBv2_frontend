@@ -5,8 +5,17 @@ import StaticRadarChart from 'components/common/radar-chart';
 import ItemUnpinButton from '../item-unpin-button';
 import styles from './officer-card.sass';
 
-
 export default class OfficerCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.el.classList.add('fade-out');
+  }
+
   render() {
     const { item, removeItemInPinboardPage } = this.props;
     const { percentile, complaintCount, fullName, rank } = item;
@@ -20,10 +29,12 @@ export default class OfficerCard extends Component {
     };
 
     return (
-      <div className={ styles.wrapper }>
+      <div className={ styles.wrapper } ref={ el => this.el = el }>
         <ItemUnpinButton
           item={ item }
-          removeItemInPinboardPage={ removeItemInPinboardPage } />
+          removeItemInPinboardPage={ removeItemInPinboardPage }
+          onClick={ this.handleClick }
+        />
         <div className='radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
         </div>

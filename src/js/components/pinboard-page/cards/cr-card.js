@@ -6,6 +6,16 @@ import ItemUnpinButton from '../item-unpin-button';
 import styles from './cr-card.sass';
 
 export default class CRCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.el.classList.add('fade-out');
+  }
+
   render() {
     const { removeItemInPinboardPage, item } = this.props;
     const { incidentDate, point, category } = item;
@@ -18,10 +28,12 @@ export default class CRCard extends Component {
     };
 
     return (
-      <div className={ styles.wrapper }>
+      <div className={ styles.wrapper } ref={ el => this.el = el }>
         <ItemUnpinButton
           item={ item }
-          removeItemInPinboardPage={ removeItemInPinboardPage } />
+          removeItemInPinboardPage={ removeItemInPinboardPage }
+          onClick={ this.handleClick }
+        />
         {
         (point === null) ?
           <div className='cr-card-map empty-map' />
