@@ -19,7 +19,7 @@ describe('Pinboard Page', function () {
 
   it('should go to search page when the search bar is clicked', function () {
     pinboardPage.searchBar.click();
-    browser.element('body').waitForVisible();
+    browser.element('.search-page').waitForVisible();
     browser.getUrl().should.endWith('/search/');
   });
 

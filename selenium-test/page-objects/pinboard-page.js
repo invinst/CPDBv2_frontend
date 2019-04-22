@@ -126,7 +126,7 @@ class PinboardPage extends Page {
     super();
 
     this.prepareElementGetters({
-      searchBar: '.test--search-bar'
+      searchBar: '//div[starts-with(@class, "search-bar")]'
     });
   }
 

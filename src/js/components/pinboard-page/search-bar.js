@@ -59,7 +59,7 @@ export default class SearchBar extends Component {
     return (
       <div
         onClick={ this.goToSearchPage }
-        className={ cx(styles.wrapper, 'test--search-bar') }>
+        className={ styles.wrapper }>
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'inner-wrapper') }>
           <div className='search-box-parent'>
             <div className='search-icon' />
