@@ -48,7 +48,7 @@ describe('PinboardPage component', function () {
   });
 
   it('should render SearchBar component', function () {
-    instance = renderIntoDocument(<PinboardPage />);
+    instance = renderIntoDocument(<PinboardPage pinboard={ {} }/>);
 
     findRenderedComponentWithType(instance, SearchBar);
   });
