@@ -42,12 +42,12 @@ describe('PinboardPage component', function () {
   it('should render PinnedSection component', function () {
     instance = renderIntoDocument(<PinboardPage />);
 
-    findRenderedComponentWithType(instance, PinnedSection).should.be.ok();
+    findRenderedComponentWithType(instance, PinnedSection);
   });
 
   it('should render SearchBar component', function () {
     instance = renderIntoDocument(<PinboardPage />);
 
-    findRenderedComponentWithType(instance, SearchBar).should.be.ok();
+    findRenderedComponentWithType(instance, SearchBar);
   });
 });

@@ -37,7 +37,7 @@ describe('SearchBar component', function () {
     instance = renderIntoDocument(<SearchBar />);
 
     Simulate.click(findRenderedDOMComponentWithClass(instance, 'share-button'));
-    findRenderedDOMComponentWithClass(instance, 'share-menu').should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'share-menu');
   });
 
   it('should hide share menu if share button is cliked twice', function () {
