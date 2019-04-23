@@ -11,10 +11,18 @@
   font-size: 14px
   margin: 0 8px 8px 0
   font-weight: 300
+  opacity: 1
+
+  &.hide
+    opacity: 0
 
   &.fade-out
     transition: opacity 1s ease-in-out
     opacity: 0
+
+  &.fade-in
+    transition: opacity 1s ease-in-out
+    opacity: 1
 
   .cr-card-map
     width: 100%
