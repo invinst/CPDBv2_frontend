@@ -17,12 +17,15 @@ describe('ItemUnpinButton component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should call removeItemInPinboardPage action when cliked on', function () {
+  it('should call removeItemInPinboardPage action and onClick when cliked on', function () {
     const removeItemInPinboardPage = stub();
+    const onClick = stub();
     instance = renderIntoDocument(
       <ItemUnpinButton
         removeItemInPinboardPage={ removeItemInPinboardPage }
-        item={ { isPinned: true, type: 'CR', id: '1' } } />
+        item={ { isPinned: true, type: 'CR', id: '1' } }
+        onClick={ onClick }
+      />
     );
     Simulate.click(findDOMNode(instance));
     removeItemInPinboardPage.calledWith({
@@ -30,5 +33,6 @@ describe('ItemUnpinButton component', function () {
       id: '1',
       isPinned: true,
     }).should.be.true();
+    onClick.should.be.calledOnce();
   });
 });

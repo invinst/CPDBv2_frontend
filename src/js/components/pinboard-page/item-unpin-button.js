@@ -34,4 +34,5 @@ ItemUnpinButton.propTypes = {
 
 ItemUnpinButton.defaultProps = {
   onClick: () => {},
+  removeItemInPinboardPage: () => {},
 };
