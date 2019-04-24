@@ -44,10 +44,10 @@ export default class PinboardPage extends Component {
               hasMapMarker={ hasMapMarker }
             />
           </div>
+          <PinnedSection
+            itemsByTypes={ itemsByTypes }
+            removeItemInPinboardPage={ removeItemInPinboardPage }/>
         </div>
-        <PinnedSection
-          itemsByTypes={ itemsByTypes }
-          removeItemInPinboardPage={ removeItemInPinboardPage }/>
         <RelevantSectionContainer />
         <FooterContainer className='footer'/>
       </div>
