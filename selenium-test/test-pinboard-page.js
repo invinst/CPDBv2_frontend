@@ -17,6 +17,12 @@ describe('Pinboard Page', function () {
     pinboardPage.open();
   });
 
+  it('should go to search page when the search bar is clicked', function () {
+    pinboardPage.searchBar.click();
+    browser.element('.search-page').waitForVisible();
+    browser.getUrl().should.endWith('/search/');
+  });
+
   context('pinboard pinned section', function () {
     it('should render the pinned cards correctly', function () {
       const officers = pinboardPage.pinnedSection.officers;

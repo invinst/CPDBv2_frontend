@@ -12,6 +12,7 @@ import should from 'should';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinboardPage from 'components/pinboard-page';
 import PinnedSection from 'components/pinboard-page/pinned-section';
+import SearchBar from 'components/pinboard-page/search-bar';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 
 
@@ -62,7 +63,13 @@ describe('PinboardPage component', function () {
   it('should render PinnedSection component', function () {
     instance = renderIntoDocument(<PinboardPage pinboard={ {} }/>);
 
-    findRenderedComponentWithType(instance, PinnedSection).should.be.ok();
+    findRenderedComponentWithType(instance, PinnedSection);
+  });
+
+  it('should render SearchBar component', function () {
+    instance = renderIntoDocument(<PinboardPage pinboard={ {} }/>);
+
+    findRenderedComponentWithType(instance, SearchBar);
   });
 
   it('should render pinboard page correctly', function () {
