@@ -1,11 +1,13 @@
 import { connect } from 'react-redux';
 
 import SocialGraphPage from 'components/social-graph-page';
-import { requestSocialGraph } from 'actions/social-graph-page';
+import { requestSocialGraph, changeSocialGraphTab } from 'actions/social-graph-page';
 import {
   officersSelector,
   coaccusedDataSelector,
   getListEvent,
+  getCurrentTab,
+  hasComplaintSelector
 } from 'selectors/social-graph-page';
 
 function mapStateToProps(state, ownProps) {
@@ -16,11 +18,14 @@ function mapStateToProps(state, ownProps) {
     officers: officersSelector(state),
     coaccusedData: coaccusedDataSelector(state),
     listEvent: getListEvent(state),
+    currentTab: getCurrentTab(state),
+    hasComplaint: hasComplaintSelector(state),
   };
 }
 
 const mapDispatchToProps = {
-  requestSocialGraph
+  requestSocialGraph,
+  changeSocialGraphTab
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SocialGraphPage);

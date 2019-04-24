@@ -616,3 +616,10 @@ export const PINBOARD_PAGE_TAB_NAMES = {
 };
 
 export const CHANGE_PINBOARD_TAB = 'CHANGE_PINBOARD_TAB';
+
+export const CHANGE_SOCIAL_GRAPH_TAB = 'CHANGE_SOCIAL_GRAPH_TAB';
+
+export const SOCIAL_GRAPH_PAGE_TAB_NAMES = {
+  OFFICERS: 'Officers',
+  TIMELINE: 'Timeline',
+};

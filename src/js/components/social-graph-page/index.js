@@ -7,6 +7,7 @@ import cx from 'classnames';
 import styles from './social-graph-page.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import SocialGraphPaneSection from 'components/social-graph-page/social-graph-pane-section';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
 
@@ -66,13 +67,21 @@ export default class SocialGraphPage extends Component {
   }
 
   render() {
-    const { officers, coaccusedData, listEvent, title } = this.props;
+    const {
+      officers,
+      coaccusedData,
+      listEvent,
+      title,
+      changeSocialGraphTab,
+      currentTab,
+      hasComplaint
+    } = this.props;
 
     return (
       <div className={ styles.socialGraphPage }>
         <div className={ responsiveContainerStyles.responsiveContainer }>
-          <div className='sidenav'>
-            <div className='sidenav-title'>{ title }</div>
+          <div className='left-section'>
+            <div className='social-graph-title'>{ title }</div>
             <div className='coaccusals-threshold-slider-container'>
               <p className='coaccusals-threshold-text'>Minimum Coaccusal Threshold</p>
               <Slider
@@ -103,6 +112,13 @@ export default class SocialGraphPage extends Component {
               listEvent={ listEvent }
             />
           </div>
+          <div className='right-section'>
+            <SocialGraphPaneSection
+              changeSocialGraphTab={ changeSocialGraphTab }
+              currentTab={ currentTab }
+              hasComplaint={ hasComplaint }
+            />
+          </div>
           <div className='clearfix'/>
         </div>
       </div>
@@ -118,10 +134,14 @@ SocialGraphPage.propTypes = {
   title: PropTypes.string,
   coaccusedData: PropTypes.array,
   listEvent: PropTypes.array,
+  changeSocialGraphTab: PropTypes.func,
+  hasComplaint: PropTypes.bool,
+  currentTab: PropTypes.string,
 };
 
 SocialGraphPage.defaultProps = {
   requestSocialGraph: () => {},
+  changeSocialGraphTab: () => {},
   officers: [],
   coaccusedData: [],
   listEvent: [],

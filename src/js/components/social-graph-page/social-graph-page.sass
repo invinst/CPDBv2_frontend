@@ -5,7 +5,7 @@ $social-graph-sidebar-width: 244px
 \:local(.socialGraphPage)
   background-color: $sugar-cane-color
 
-  .sidenav
+  .left-section
     width: $social-graph-sidebar-width
     height: 100vh
     padding: 39px 28px 39px 12px
@@ -15,7 +15,7 @@ $social-graph-sidebar-width: 244px
     color: $boulder-color
     font-weight: 300
 
-    .sidenav-title
+    .social-graph-title
       color: $soft-black-color
       font-weight: normal
       margin-bottom: 9px
@@ -41,8 +41,17 @@ $social-graph-sidebar-width: 244px
             font-size: 14px
             color: white
 
+  .right-section
+    width: $social-graph-sidebar-width
+    height: 100vh
+    box-sizing: border-box
+    float: left
+    font-size: 14px
+    color: $boulder-color
+    font-weight: 300
+
   .graph-container
-    width: calc(100% - #{$social-graph-sidebar-width})
+    width: calc(100% - 2 * #{$social-graph-sidebar-width})
     height: 100vh
     float: left
     background-color: white

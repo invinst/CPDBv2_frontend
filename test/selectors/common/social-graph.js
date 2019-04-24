@@ -1,17 +1,47 @@
-import { officersTransform, coaccusedDataTransform } from 'selectors/common/social-graph';
+import { officerTransform, coaccusedDataTransform, officerDetailTransform } from 'selectors/common/social-graph';
 
 
 describe('Social Graph page selectors', function () {
-  describe('officersTransform', function () {
+  describe('officerTransform', function () {
     it('should return officer correctly', function () {
       const officer = {
         'full_name': 'Jerome Finnigan',
         'id': 111,
       };
-      officersTransform(officer).should.eql({
+      officerTransform(officer).should.eql({
         fullName: 'Jerome Finnigan',
         id: 111,
       });
+    });
+  });
+
+  it('should return officer detail correctly', function () {
+    const officer = {
+      'full_name': 'Jerome Finnigan',
+      'id': 111,
+      'percentile': {
+        'officer_id': 111,
+        'year': 2007,
+        'percentile_allegation': '91.5',
+        'percentile_allegation_civilian': '97.0',
+        'percentile_allegation_internal': '82.0',
+        'percentile_trr': '92.3'
+      },
+    };
+    officerDetailTransform(officer).should.eql({
+      fullName: 'Jerome Finnigan',
+      id: 111,
+      percentile: {
+        officerId: 111,
+        year: 2007,
+        items: [
+          { axis: 'Use of Force Reports', value: 92.3 },
+          { axis: 'Officer Allegations', value: 82 },
+          { axis: 'Civilian Allegations', value: 97 }
+        ],
+        visualTokenBackground: '#f52524',
+        textColor: '#DFDFDF'
+      }
     });
   });
 

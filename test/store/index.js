@@ -238,6 +238,7 @@ describe('store', function () {
         pagination: {}
       },
       socialGraphPage: {
+        currentTab: 'Officers',
         graphData: {}
       },
       pinboard: null,

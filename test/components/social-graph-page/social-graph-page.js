@@ -12,6 +12,7 @@ import {
 import { unmountComponentSuppressError } from 'utils/test';
 import SocialGraphPage from 'components/social-graph-page';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import SocialGraphPaneSection from 'components/social-graph-page/social-graph-pane-section';
 import * as intercomUtils from 'utils/intercom';
 
 
@@ -25,13 +26,14 @@ describe('SocialGraphPage component', function () {
   it('should render all sections correctly', function () {
     instance = renderIntoDocument(<SocialGraphPage unitId='232' title='This is a Social Graph title.'/>);
 
-    findRenderedDOMComponentWithClass(instance, 'sidenav-title').textContent.should.eql(
+    findRenderedDOMComponentWithClass(instance, 'social-graph-title').textContent.should.eql(
       'This is a Social Graph title.'
     );
     findRenderedDOMComponentWithClass(instance, 'coaccusals-threshold-text').textContent.should.eql(
       'Minimum Coaccusal Threshold'
     );
     scryRenderedComponentsWithType(instance, AnimatedSocialGraph).should.have.length(1);
+    scryRenderedComponentsWithType(instance, SocialGraphPaneSection).should.have.length(1);
     const slider = findRenderedComponentWithType(instance, Slider);
     slider.props.step.should.eql(1);
     slider.props.min.should.eql(1);
