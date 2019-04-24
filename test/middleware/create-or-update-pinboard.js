@@ -60,7 +60,6 @@ describe('createOrUpdatePinboard middleware', function () {
       description: '',
       url: '',
       itemsCount: 0,
-      ownedByCurrentUser: false,
       crItems: [],
       officerItems: [],
       trrItems: [],
@@ -79,20 +78,20 @@ describe('createOrUpdatePinboard middleware', function () {
     store.dispatch.called.should.be.false();
   });
 
-  it('should dispatch createPinboard action if type is of cr or officer or trr', function () {
-    const typesCanBePinned = [
-      'CR', 'DATE > CR', 'INVESTIGATOR > CR',
-      'OFFICER', 'UNIT > OFFICERS', 'DATE > OFFICERS',
-      'TRR', 'DATE > TRR',
-    ];
+  context('handling ADD_ITEM_TO_PINBOARD action', function () {
+    it('should dispatch createPinboard when a first item is added', function () {
+      const typesCanBePinned = [
+        'CR', 'DATE > CR', 'INVESTIGATOR > CR',
+        'OFFICER', 'UNIT > OFFICERS', 'DATE > OFFICERS',
+        'TRR', 'DATE > TRR',
+      ];
 
-    for (let i = 0; i < typesCanBePinned.length; i++) {
-      shouldDispatchWithType(typesCanBePinned[i]);
-    }
-  });
+      for (let i = 0; i < typesCanBePinned.length; i++) {
+        shouldDispatchWithType(typesCanBePinned[i]);
+      }
+    });
 
-  context('when an item is added', function () {
-    it('should dispatch updatePinboard if user owns the pinboard', function () {
+    it('should dispatch updatePinboard if successive items are added', function () {
       const action = createAddItemToPinboardAction({
         id: '1',
         type: 'CR',
@@ -101,7 +100,6 @@ describe('createOrUpdatePinboard middleware', function () {
       const store = createStore(PinboardFactory.build({
         id: '99',
         crids: ['2'],
-        ownedByCurrentUser: true,
       }));
       let dispatched;
 
@@ -116,41 +114,10 @@ describe('createOrUpdatePinboard middleware', function () {
         description: '',
         url: '',
         itemsCount: 1,
-        ownedByCurrentUser: true,
       })).should.be.true();
     });
 
-    it('should dispatch createPinboard if user does not own the pinboard', function () {
-      const action = createAddItemToPinboardAction({
-        id: '1',
-        type: 'OFFICER',
-        isPinned: false,
-      });
-      const store = createStore(PinboardFactory.build({
-        id: '99',
-        'officer_ids': ['2'],
-        ownedByCurrentUser: false,
-      }));
-      let dispatched;
-
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-      store.dispatch.calledWith(createPinboard({
-        id: '99',
-        title: '',
-        description: '',
-        crids: [],
-        officerIds: ['2', '1'],
-        trrIds: [],
-        url: '',
-        itemsCount: 1,
-        ownedByCurrentUser: false,
-      })).should.be.true();
-    });
-  });
-
-  context('when an item is removed', function () {
-    it('should dispatch updatePinboard if user owns the pinboard', function () {
+    it('should dispatch updatePinboard if an item is removed', function () {
       const action = createAddItemToPinboardAction({
         id: '1',
         type: 'CR',
@@ -161,7 +128,6 @@ describe('createOrUpdatePinboard middleware', function () {
         crids: ['2', '1'],
         'officer_ids': ['a'],
         'trr_ids': ['1'],
-        ownedByCurrentUser: true,
       }));
       let dispatched;
 
@@ -176,43 +142,12 @@ describe('createOrUpdatePinboard middleware', function () {
         trrIds: ['1'],
         url: '',
         itemsCount: 3,
-        ownedByCurrentUser: true,
-      })).should.be.true();
-    });
-
-    it('should dispatch createPinboard if user does not own the pinboard', function () {
-      const action = createAddItemToPinboardAction({
-        id: 'b',
-        type: 'OFFICER',
-        isPinned: true,
-      });
-      const store = createStore(PinboardFactory.build({
-        id: '99',
-        crids: ['1'],
-        'officer_ids': ['a'],
-        'trr_ids': ['1'],
-        ownedByCurrentUser: false,
-      }));
-      let dispatched;
-
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-      store.dispatch.calledWith(createPinboard({
-        id: '99',
-        title: '',
-        description: '',
-        crids: ['1'],
-        officerIds: ['a'],
-        trrIds: ['1'],
-        url: '',
-        itemsCount: 2,
-        ownedByCurrentUser: false,
       })).should.be.true();
     });
   });
 
-  context('when an item is removed from pinboard page', function () {
-    it('should dispatch updatePinboard if user owns the pinboard', function () {
+  context('handling REMOVE_ITEM_IN_PINBOARD_PAGE ', function () {
+    it('should dispatch updatePinboard if an item is removed', function () {
       const action = createRemoveItemInPinboardPageAction({
         id: '1',
         type: 'CR',
@@ -223,7 +158,6 @@ describe('createOrUpdatePinboard middleware', function () {
         crids: ['2', '1'],
         'officer_ids': ['a'],
         'trr_ids': ['1'],
-        ownedByCurrentUser: true,
       }));
       let dispatched;
 
@@ -238,39 +172,7 @@ describe('createOrUpdatePinboard middleware', function () {
         trrIds: ['1'],
         url: '',
         itemsCount: 3,
-        ownedByCurrentUser: true,
-      })).should.be.true();
-    });
-
-    it('should dispatch createPinboard if user does not own the pinboard', function () {
-      const action = createRemoveItemInPinboardPageAction({
-        id: 'b',
-        type: 'OFFICER',
-        isPinned: true,
-      });
-      const store = createStore(PinboardFactory.build({
-        id: '99',
-        crids: ['1'],
-        'officer_ids': ['a'],
-        'trr_ids': ['1'],
-        ownedByCurrentUser: false,
-      }));
-      let dispatched;
-
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-      store.dispatch.calledWith(createPinboard({
-        id: '99',
-        title: '',
-        description: '',
-        crids: ['1'],
-        officerIds: ['a'],
-        trrIds: ['1'],
-        url: '',
-        itemsCount: 2,
-        ownedByCurrentUser: false,
       })).should.be.true();
     });
   });
-
 });

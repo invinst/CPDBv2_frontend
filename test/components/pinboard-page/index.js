@@ -1,4 +1,5 @@
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
@@ -6,6 +7,7 @@ import {
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 import * as ReactRouter from 'react-router';
+import should from 'should';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinboardPage from 'components/pinboard-page';
@@ -20,21 +22,38 @@ describe('PinboardPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should replace url on id change', function () {
+  it('should render nothing when isInitiallyLoading is true', function () {
+    instance = renderIntoDocument(
+      <PinboardPage isInitiallyLoading={ true } />
+    );
+
+    should(findDOMNode(instance)).be.null();
+  });
+
+  it('should replace url when shouldRedirect is True after updating', function () {
     const replaceStub = stub(ReactRouter.browserHistory, 'replace');
 
-    instance = renderIntoDocument(<PinboardPage pinboard={ { 'id': '1' } } />);
-    reRender(<PinboardPage pinboard={ { 'id': '2' } } />, instance);
+    instance = renderIntoDocument(
+      <PinboardPage pinboard={ { } } shouldRedirect={ true } />
+    );
+    reRender(
+      <PinboardPage pinboard={ { url: '/pinboard/5cd06f2b/' } } shouldRedirect={ true } />,
+      instance,
+    );
 
-    replaceStub.calledWith('/pinboard/2/').should.be.true();
+    replaceStub.calledWith('/pinboard/5cd06f2b/').should.be.true();
     replaceStub.restore();
   });
 
-  it('should not replace url if id is not changed', function () {
+  it('should not replace url when pinboard url is empty', function () {
     const replaceStub = stub(ReactRouter.browserHistory, 'replace');
 
-    instance = renderIntoDocument(<PinboardPage pinboard={ { 'id': '1' } } />);
-    reRender(<PinboardPage pinboard={ { 'id': '1' } } />, instance);
+    instance = renderIntoDocument(<PinboardPage
+      pinboard={ { url: '/pinboard/5cd06f2b/' } } shouldRedirect={ true } />);
+    reRender(
+      <PinboardPage pinboard={ { url: '' } } shouldRedirect={ true } />,
+      instance
+    );
 
     replaceStub.called.should.be.false();
     replaceStub.restore();

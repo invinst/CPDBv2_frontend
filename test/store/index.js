@@ -244,7 +244,8 @@ describe('store', function () {
       pinboardPage: {
         graphData: {},
         geographicData: [],
-        currentTab: 'NETWORK'
+        currentTab: 'NETWORK',
+        redirection: null,
       },
     });
   });
