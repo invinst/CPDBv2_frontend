@@ -82,6 +82,46 @@ describe('SocialGraphPage component', function () {
     requestSocialGraphStub.should.not.be.called();
   });
 
+  it('should call requestSocialGraphAllegations with correct unitId when componentDidMount', function () {
+    const requestSocialGraphAllegationsStub = stub();
+    instance = renderIntoDocument(
+      <SocialGraphPage
+        requestSocialGraphAllegations={ requestSocialGraphAllegationsStub }
+        unitId='232'
+      />
+    );
+    requestSocialGraphAllegationsStub.calledWith({
+      'unit_id': '232',
+      'threshold': 2,
+      'show_civil_only': true
+    }).should.be.true();
+  });
+
+  it('should call requestSocialGraphAllegations with correct officerIds when componentDidMount', function () {
+    const requestSocialGraphAllegationsStub = stub();
+    instance = renderIntoDocument(
+      <SocialGraphPage
+        requestSocialGraphAllegations={ requestSocialGraphAllegationsStub }
+        officerIds='123,456,789'
+      />
+    );
+    requestSocialGraphAllegationsStub.calledWith({
+      'officer_ids': '123,456,789',
+      'threshold': 2,
+      'show_civil_only': true
+    }).should.be.true();
+  });
+
+  it('should not call requestSocialGraphAllegations if both unitId and officerIds are missing', function () {
+    const requestSocialGraphAllegationsStub = stub();
+    instance = renderIntoDocument(
+      <SocialGraphPage
+        requestSocialGraphAllegations={ requestSocialGraphAllegationsStub }
+      />
+    );
+    requestSocialGraphAllegationsStub.should.not.be.called();
+  });
+
   it('should hide Intercom launcher when componentDidMounted', function () {
     stub(intercomUtils, 'showIntercomLauncher');
 

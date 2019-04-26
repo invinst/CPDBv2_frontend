@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import SocialGraphPage from 'components/social-graph-page';
-import { requestSocialGraph, changeSocialGraphTab } from 'actions/social-graph-page';
+import { requestSocialGraph, requestSocialGraphAllegations, changeSocialGraphTab } from 'actions/social-graph-page';
 import {
   officersSelector,
   coaccusedDataSelector,
@@ -25,6 +25,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   requestSocialGraph,
+  requestSocialGraphAllegations,
   changeSocialGraphTab
 };
 

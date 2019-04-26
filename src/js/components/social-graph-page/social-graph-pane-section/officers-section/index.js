@@ -21,3 +21,7 @@ export default class OfficersSection extends Component {
 OfficersSection.propTypes = {
   officers: PropTypes.array,
 };
+
+OfficersSection.defaultProps = {
+  officers: [],
+};

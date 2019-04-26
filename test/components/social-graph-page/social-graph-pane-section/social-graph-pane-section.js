@@ -21,7 +21,10 @@ describe('SocialGraphPaneSection component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     socialGraphPage: {
-      graphData: {},
+      graphData: {
+        officers: []
+      },
+      graphAllegations: [],
       currentTab: undefined,
     },
   });

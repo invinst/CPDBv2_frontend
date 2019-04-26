@@ -239,7 +239,8 @@ describe('store', function () {
       },
       socialGraphPage: {
         currentTab: 'Officers',
-        graphData: {}
+        graphData: {},
+        graphAllegations: [],
       },
       pinboard: null,
       pinboardPage: {

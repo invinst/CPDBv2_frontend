@@ -12,4 +12,13 @@ export const requestSocialGraph = (params) => get(
   ]
 )(params);
 
+export const requestSocialGraphAllegations = (params) => get(
+  constants.SOCIAL_GRAPH_ALLGEATIONS_API_URL,
+  [
+    constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_START,
+    constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
+    constants.SOCIAL_GRAPH_ALLEGATIONS_REQUEST_FAILURE
+  ]
+)(params);
+
 export const changeSocialGraphTab = createAction(constants.CHANGE_SOCIAL_GRAPH_TAB);

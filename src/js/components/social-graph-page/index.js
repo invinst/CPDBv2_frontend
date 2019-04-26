@@ -40,7 +40,7 @@ export default class SocialGraphPage extends Component {
   }
 
   fetchGraphData() {
-    const { requestSocialGraph, officerIds, unitId } = this.props;
+    const { requestSocialGraph, requestSocialGraphAllegations, officerIds, unitId } = this.props;
     const { showCivilComplaintOnly, thresholdValue } = this.state;
     let requestParams;
     if (!isEmpty(unitId)) {
@@ -55,6 +55,7 @@ export default class SocialGraphPage extends Component {
 
     if (requestParams) {
       requestSocialGraph(requestParams);
+      requestSocialGraphAllegations(requestParams);
     }
   }
 
@@ -128,6 +129,7 @@ export default class SocialGraphPage extends Component {
 
 SocialGraphPage.propTypes = {
   requestSocialGraph: PropTypes.func,
+  requestSocialGraphAllegations: PropTypes.func,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
   officers: PropTypes.array,
@@ -141,6 +143,7 @@ SocialGraphPage.propTypes = {
 
 SocialGraphPage.defaultProps = {
   requestSocialGraph: () => {},
+  requestSocialGraphAllegations: () => {},
   changeSocialGraphTab: () => {},
   officers: [],
   coaccusedData: [],
