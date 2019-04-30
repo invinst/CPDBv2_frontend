@@ -7,7 +7,7 @@ class AnimatedSocialGraphSection extends Section {
     super();
 
     this.prepareElementGetters({
-      title: '(//div[contains(@class, "sidenav-title")])',
+      title: '(//div[contains(@class, "social-graph-title")])',
       coaccusalsThresholdText: '(//p[contains(@class, "coaccusals-threshold-text")])',
       toggleTimelineButton: '(//button[contains(@class, "toggle-timeline-btn")])',
       searchInput: '(//input[contains(@class, "graph-search-input")])',
@@ -22,6 +22,9 @@ class AnimatedSocialGraphSection extends Section {
       firstSearchResultSuggestion: '(//div[@class="graph-search-input-container"]//div//div)',
       tooltip: '(//div[contains(@class, "test--graph-tooltip")]//span)',
       biggestGraphNode: '(//*[@r="7"])',
+      mainTabs: '(//div[contains(@class, "main-tabs")])',
+      geographicTab: '(//div[contains(@class, "geographic-btn")])',
+      networkTab: '(//div[contains(@class, "social-graph-btn")])',
     });
   }
 
@@ -34,8 +37,22 @@ class AnimatedSocialGraphSection extends Section {
   }
 }
 
+class GeographicSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      complaintText: '//div[contains(@class, "legend__legend")]//div[1]//span[contains(@class, "legend-row-text")]',
+      trrText: '//div[contains(@class, "legend__legend")]//div[2]//span[contains(@class, "legend-row-text")]',
+      complaintNumber: '//div[contains(@class, "legend__legend")]//div[1]//span[contains(@class, "legend-row-number")]',
+      trrNumber: '//div[contains(@class, "legend__legend")]//div[2]//span[contains(@class, "legend-row-number")]',
+    });
+  }
+}
+
 class SocialGraphPage extends Page {
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
+  geographicSection = new GeographicSection();
 
   open() {
     super.open('/social-graph/?unit_id=123&title=Live test social graph title');

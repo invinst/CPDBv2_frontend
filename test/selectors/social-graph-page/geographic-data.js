@@ -1,16 +1,11 @@
-import {
-  mapLegendSelector,
-  mapMarkersSelector,
-  hasMapMarkersSelector,
-  getCurrentTab
-} from 'selectors/pinboard-page/geographic-data';
+import { mapLegendSelector, mapMarkersSelector } from 'selectors/social-graph-page/geographic-data';
 
 
 describe('GeographicData selectors', function () {
   describe('mapLegendSelector', function () {
     it('should return correct legend info', function () {
       const state = {
-        pinboardPage: {
+        socialGraphPage: {
           geographicData: [
             {
               category: 'Illegal Search',
@@ -93,7 +88,7 @@ describe('GeographicData selectors', function () {
         },
       };
       const state = {
-        pinboardPage: {
+        socialGraphPage: {
           geographicData: [firstCr, secondCr, trr]
         }
       };
@@ -130,42 +125,6 @@ describe('GeographicData selectors', function () {
         id: '123456',
         category: 'Firearm',
       }]);
-    });
-  });
-
-  describe('hasMapMarkersSelector', function () {
-    it('should return false if there is no marker', function () {
-      const state = {
-        pinboardPage: {
-          geographicData: []
-        }
-      };
-      hasMapMarkersSelector(state).should.be.false();
-    });
-
-    it('should return true if have marker', function () {
-      const state = {
-        pinboardPage: {
-          geographicData: [{
-            category: 'Illegal Search',
-            kind: 'CR',
-            crid: '1045343',
-            'coaccused_count': 6,
-          }]
-        }
-      };
-      hasMapMarkersSelector(state).should.be.true();
-    });
-  });
-
-  describe('getCurrentTab', function () {
-    it('should return current tab', function () {
-      const state = {
-        pinboardPage: {
-          currentTab: 'GEOGRAPHIC'
-        }
-      };
-      getCurrentTab(state).should.eql('GEOGRAPHIC');
     });
   });
 });

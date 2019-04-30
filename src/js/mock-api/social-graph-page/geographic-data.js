@@ -1,4 +1,4 @@
-export const getPinboardGeographicData = () => ([
+export const getSocialGraphGeographicData = () => ([
   {
     'date': '2008-05-27',
     'crid': '1016899',

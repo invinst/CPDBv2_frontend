@@ -1,11 +1,11 @@
-import { get, isEmpty, filter } from 'lodash';
+import { get, filter } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/geographic';
 import { MAP_ITEMS } from 'utils/constants';
 
 
-const getGeographicData = state => get(state, 'pinboardPage.geographicData', []);
+const getGeographicData = state => get(state, 'socialGraphPage.geographicData', []);
 
 export const mapLegendSelector = createSelector(
   getGeographicData,
@@ -13,11 +13,6 @@ export const mapLegendSelector = createSelector(
     allegationCount: filter(geographicData, geographicDatum => geographicDatum.kind === MAP_ITEMS.CR).length,
     useOfForceCount: filter(geographicData, geographicDatum => geographicDatum.kind === MAP_ITEMS.FORCE).length,
   })
-);
-
-export const hasMapMarkersSelector = createSelector(
-  getGeographicData,
-  geographicData => !isEmpty(geographicData)
 );
 
 export const mapMarkersSelector = createSelector(
@@ -30,5 +25,3 @@ export const mapMarkersSelector = createSelector(
     }
   })
 );
-
-export const getCurrentTab = state => state.pinboardPage.currentTab;

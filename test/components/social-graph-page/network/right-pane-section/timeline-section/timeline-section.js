@@ -2,8 +2,8 @@ import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import TimelineSection from 'components/social-graph-page/social-graph-pane-section/timeline-section';
-import AllegationRow from 'components/social-graph-page/social-graph-pane-section/timeline-section/allegation-row';
+import TimelineSection from 'components/social-graph-page/network/right-pane-section/timeline-section';
+import AllegationRow from 'components/social-graph-page/network/right-pane-section/timeline-section/allegation-row';
 
 
 describe('TimelineSection component', function () {

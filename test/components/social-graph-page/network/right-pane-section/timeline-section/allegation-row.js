@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import AllegationRow from 'components/social-graph-page/social-graph-pane-section/timeline-section/allegation-row';
+import AllegationRow from 'components/social-graph-page/network/right-pane-section/timeline-section/allegation-row';
 
 
 describe('AllegationRow component', function () {

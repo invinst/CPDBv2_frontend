@@ -103,7 +103,7 @@ class PinboardPinnedSection extends Section {
   }
 }
 
-class GeoGraphicSection extends Section {
+class GeographicSection extends Section {
   constructor() {
     super();
 
@@ -119,7 +119,7 @@ class GeoGraphicSection extends Section {
 class PinboardPage extends Page {
   pinnedSection = new PinboardPinnedSection();
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
-  geographicSection = new GeoGraphicSection();
+  geographicSection = new GeographicSection();
   pinboardSection = new PinboardSection();
 
   constructor() {

@@ -6,7 +6,7 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import OfficerRow from 'components/social-graph-page/social-graph-pane-section/officers-section/officer-row';
+import OfficerRow from 'components/social-graph-page/network/right-pane-section/officers-section/officer-row';
 import StaticRadarChart from 'components/common/radar-chart';
 
 

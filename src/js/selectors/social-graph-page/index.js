@@ -32,4 +32,5 @@ export const coaccusedDataSelector = createSelector(
 
 export const hasComplaintSelector = () => true;
 
-export const getCurrentTab = state => state.socialGraphPage.currentTab;
+export const getCurrentMainTab = state => state.socialGraphPage.currentMainTab;
+export const getCurrentNetworkTab = state => state.socialGraphPage.currentNetworkTab;

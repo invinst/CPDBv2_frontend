@@ -2,8 +2,8 @@ import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import OfficersSection from 'components/social-graph-page/social-graph-pane-section/officers-section';
-import OfficerRow from 'components/social-graph-page/social-graph-pane-section/officers-section/officer-row';
+import OfficersSection from 'components/social-graph-page/network/right-pane-section/officers-section';
+import OfficerRow from 'components/social-graph-page/network/right-pane-section/officers-section/officer-row';
 
 
 describe('OfficersSection component', function () {

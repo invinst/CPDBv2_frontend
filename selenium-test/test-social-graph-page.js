@@ -154,6 +154,16 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.firstSearchResultSuggestion.click();
     socialGraphPage.animatedSocialGraphSection.searchInput.getValue().should.equal('Thomas Kampenga');
   });
+
+  it('should render geographic section when clicking on geographic button', function () {
+    socialGraphPage.animatedSocialGraphSection.mainTabs.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.geographicTab.click();
+    socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
+    socialGraphPage.geographicSection.complaintNumber.getText().should.eql('5');
+    socialGraphPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
+    socialGraphPage.geographicSection.trrNumber.getText().should.eql('2');
+
+    socialGraphPage.animatedSocialGraphSection.networkTab.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+  });
 });
-
-
