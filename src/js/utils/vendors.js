@@ -81,12 +81,14 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
 
   const muuriAdd = spy();
   const muuriRemove = spy();
+  const muuriDestroy = spy();
   const muuriOn = spy();
   class MuuriClass {
     constructor() {
       this.add = muuriAdd;
       this.remove = muuriRemove;
       this.on = muuriOn;
+      this.destroy = muuriDestroy;
     }
   }
 

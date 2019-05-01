@@ -11,7 +11,9 @@ import * as ReactRouter from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import PinnedSection from 'components/pinboard-page/pinned-section';
+import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
+import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
+import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
@@ -122,7 +124,10 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, PinnedSection).should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'pinned-section');
+    findRenderedComponentWithType(instance, PinnedOfficersContainer);
+    findRenderedComponentWithType(instance, PinnedCRsContainer);
+    findRenderedComponentWithType(instance, PinnedTRRsContainer);
   });
 
   it('should render pinboard page correctly', function () {

@@ -21,16 +21,4 @@ export default handleActions({
       get(state, 'ownedByCurrentUser', false) &&
       get(state, 'id', null) === action.payload.id,
   }),
-  [constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS]: (state, action) => ({
-    ...state,
-    'crItems': action.payload,
-  }),
-  [constants.PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS]: (state, action) => ({
-    ...state,
-    'officerItems': action.payload,
-  }),
-  [constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS]: (state, action) => ({
-    ...state,
-    'trrItems': action.payload,
-  })
 }, null);

@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, browserHistory } from 'react-router';
+import cx from 'classnames';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-import PinnedSection from './pinned-section';
-import cx from 'classnames';
 import styles from './pinboard-page.sass';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
+import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
+import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
+import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import FooterContainer from 'containers/footer-container';
 
 
@@ -26,9 +28,6 @@ export default class PinboardPage extends Component {
       changePinboardTab,
       currentTab,
       hasMapMarker,
-      itemsByTypes,
-      removeItemInPinboardPage,
-      orderPinboard,
     } = this.props;
     return (
       <div className={ styles.pinboardPage }>
@@ -45,11 +44,11 @@ export default class PinboardPage extends Component {
               hasMapMarker={ hasMapMarker }
             />
           </div>
-          <PinnedSection
-            itemsByTypes={ itemsByTypes }
-            removeItemInPinboardPage={ removeItemInPinboardPage }
-            orderPinboard={ orderPinboard }
-          />
+          <div className='pinned-section'>
+            <PinnedOfficersContainer/>
+            <PinnedCRsContainer/>
+            <PinnedTRRsContainer/>
+          </div>
         </div>
         <RelevantSectionContainer />
         <FooterContainer className='footer'/>
@@ -60,14 +59,8 @@ export default class PinboardPage extends Component {
 
 PinboardPage.propTypes = {
   pinboard: PropTypes.object,
-  itemsByTypes: PropTypes.object,
-  removeItemInPinboardPage: PropTypes.func,
-  orderPinboard: PropTypes.func,
   changePinboardTab: PropTypes.func,
   currentTab: PropTypes.string,
   hasMapMarker: PropTypes.bool,
 };
 
-PinboardPage.defaultProps = {
-  itemsByTypes: {},
-};

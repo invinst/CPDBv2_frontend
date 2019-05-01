@@ -28,12 +28,7 @@ export default class PinnedType extends Component {
   }
 
   componentDidMount() {
-    this.gridMuuri = new Muuri(this.grid, {
-      itemClass: 'pinned-grid-item',
-      dragEnabled: true,
-    });
-
-    this.gridMuuri.on('dragEnd', this.updateOrder);
+    this.initGrid();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,7 +42,17 @@ export default class PinnedType extends Component {
   }
 
   componentDidUpdate() {
-    this.addedItem && this.gridMuuri.add(this.itemElements[this.addedItem.id]);
+    this.gridMuuri && this.gridMuuri.destroy();
+    this.initGrid();
+  }
+
+  initGrid() {
+    this.gridMuuri = new Muuri(this.grid, {
+      itemClass: 'pinned-grid-item',
+      dragEnabled: true,
+    });
+
+    this.gridMuuri.on('dragEnd', this.updateOrder);
   }
 
   updateOrder() {
@@ -63,6 +68,10 @@ export default class PinnedType extends Component {
 
   render() {
     const { type, title, items } = this.props;
+    if (items.length < 1) {
+      return null;
+    }
+
     const Card = CARD_MAP[type];
     this.itemElements = {};
 
@@ -102,4 +111,8 @@ PinnedType.propTypes = {
   items: PropTypes.array,
   removeItemInPinboardPage: PropTypes.func,
   orderPinboard: PropTypes.func,
+};
+
+PinnedType.defaultProps = {
+  items: []
 };
