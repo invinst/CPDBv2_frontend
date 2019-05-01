@@ -9,6 +9,8 @@ export const addItemToPinboard = createAction(constants.ADD_ITEM_TO_PINBOARD, it
 
 export const removeItemInPinboardPage = createAction(constants.REMOVE_ITEM_IN_PINBOARD_PAGE);
 
+export const orderPinboard = createAction(constants.ORDER_PINBOARD);
+
 export const createPinboard = ({ officerIds, crids, trrIds }) => post(
   constants.PINBOARDS_URL,
   [
@@ -24,6 +26,16 @@ export const updatePinboard = ({ id, title, officerIds, crids, trrIds }) => put(
     constants.PINBOARD_UPDATE_REQUEST_START,
     constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
     constants.PINBOARD_UPDATE_REQUEST_FAILURE,
+  ]
+)({ title: title, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds });
+
+
+export const updatePinboardOrder = ({ id, title, officerIds, crids, trrIds }) => put(
+  `${constants.PINBOARDS_URL}${id}/`,
+  [
+    constants.PINBOARD_UPDATE_ORDER_REQUEST_START,
+    constants.PINBOARD_UPDATE_ORDER_REQUEST_SUCCESS,
+    constants.PINBOARD_UPDATE_ORDER_REQUEST_FAILURE,
   ]
 )({ title: title, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds });
 

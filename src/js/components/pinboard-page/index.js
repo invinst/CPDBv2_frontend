@@ -28,6 +28,7 @@ export default class PinboardPage extends Component {
       hasMapMarker,
       itemsByTypes,
       removeItemInPinboardPage,
+      orderPinboard,
     } = this.props;
     return (
       <div className={ styles.pinboardPage }>
@@ -46,7 +47,9 @@ export default class PinboardPage extends Component {
           </div>
           <PinnedSection
             itemsByTypes={ itemsByTypes }
-            removeItemInPinboardPage={ removeItemInPinboardPage }/>
+            removeItemInPinboardPage={ removeItemInPinboardPage }
+            orderPinboard={ orderPinboard }
+          />
         </div>
         <RelevantSectionContainer />
         <FooterContainer className='footer'/>
@@ -59,6 +62,7 @@ PinboardPage.propTypes = {
   pinboard: PropTypes.object,
   itemsByTypes: PropTypes.object,
   removeItemInPinboardPage: PropTypes.func,
+  orderPinboard: PropTypes.func,
   changePinboardTab: PropTypes.func,
   currentTab: PropTypes.string,
   hasMapMarker: PropTypes.bool,

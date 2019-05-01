@@ -3,7 +3,7 @@ import { get } from 'lodash';
 import cx from 'classnames';
 
 import { mapStyle } from 'components/cr-page/related-complaints/complaint-card.style';
-import ItemUnpinButton from '../item-unpin-button';
+import ItemUnpinButton from './item-unpin-button';
 import styles from './cr-card.sass';
 import { startAnimation } from 'utils/animation';
 
@@ -12,7 +12,7 @@ export default class CRCard extends Component {
   constructor(props) {
     super(props);
 
-    this.handleClick = this.handleClick.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   componentDidMount() {
@@ -22,12 +22,20 @@ export default class CRCard extends Component {
     }
   }
 
-  handleClick() {
+  removeItem() {
     this.el.classList.add('fade-out');
+
+    const { item, removeItemInPinboardPage } = this.props;
+    const { type, id, isPinned } = item;
+
+    setTimeout(
+      () => removeItemInPinboardPage({ type, id, isPinned }),
+      1000
+    );
   }
 
   render() {
-    const { removeItemInPinboardPage, item, isAdded } = this.props;
+    const { item, isAdded } = this.props;
     const { incidentDate, point, category } = item;
 
     const cardMapConfig = {
@@ -39,11 +47,7 @@ export default class CRCard extends Component {
 
     return (
       <div className={ cx(styles.wrapper, { hide: isAdded }) } ref={ el => this.el = el }>
-        <ItemUnpinButton
-          item={ item }
-          removeItemInPinboardPage={ removeItemInPinboardPage }
-          onClick={ this.handleClick }
-        />
+        <ItemUnpinButton onClick={ this.removeItem }/>
         {
         (point === null) ?
           <div className='cr-card-map empty-map' />

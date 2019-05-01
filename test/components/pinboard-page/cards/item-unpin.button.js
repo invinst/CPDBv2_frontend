@@ -7,7 +7,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import ItemUnpinButton from 'components/pinboard-page/item-unpin-button';
+import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 
 
 describe('ItemUnpinButton component', function () {

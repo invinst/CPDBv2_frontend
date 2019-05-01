@@ -12,11 +12,9 @@ const TYPE_TITLE_MAP = {
   'TRR': 'TACTICAL RESPONSE REPORTS',
 };
 
-
 export default class PinnedSection extends Component {
   render() {
-    const { itemsByTypes, removeItemInPinboardPage } = this.props;
-
+    const { itemsByTypes, removeItemInPinboardPage, orderPinboard } = this.props;
     return (
       <div className={ styles.wrapper }>
         {
@@ -27,6 +25,7 @@ export default class PinnedSection extends Component {
               key={ type } type={ type }
               title={ TYPE_TITLE_MAP[type] }
               items={ itemsByTypes[type] }
+              orderPinboard={ orderPinboard }
               removeItemInPinboardPage={ removeItemInPinboardPage }/>)
           ))
         }
@@ -38,4 +37,5 @@ export default class PinnedSection extends Component {
 PinnedSection.propTypes = {
   itemsByTypes: PropTypes.object,
   removeItemInPinboardPage: PropTypes.func,
+  orderPinboard: PropTypes.func,
 };

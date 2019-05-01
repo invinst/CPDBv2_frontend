@@ -4,7 +4,9 @@ import {
   ADD_ITEM_TO_PINBOARD,
   PINBOARD_CREATE_REQUEST_SUCCESS,
   PINBOARD_UPDATE_REQUEST_SUCCESS,
+  PINBOARD_UPDATE_ORDER_REQUEST_SUCCESS,
   REMOVE_ITEM_IN_PINBOARD_PAGE,
+  ORDER_PINBOARD,
 } from 'utils/constants';
 import { getPinboard } from 'selectors/pinboard';
 import {
@@ -18,6 +20,7 @@ import {
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
+  updatePinboardOrder,
 } from 'actions/pinboard';
 import { browserHistory } from 'react-router';
 
@@ -38,6 +41,14 @@ const PINBOARD_FETCH_SELECTED_MAP = {
   'TRR': fetchPinboardTRRs,
 };
 
+const debouncedReorderOrCreatePinboard = _.debounce(
+  (store, payload) => {
+    const pinboard = getPinboard(store.getState());
+    const pinboardAction = pinboard.ownedByCurrentUser ? updatePinboardOrder : createPinboard;
+    store.dispatch(pinboardAction({ ...pinboard, ...payload }));
+  },
+  100
+);
 
 const addItem = (pinboard, item) => {
   const key = PINBOARD_ATTR_MAP[item.type];
@@ -83,6 +94,19 @@ export default store => next => action => {
       });
     }
   }
+
+  if (action.type === ORDER_PINBOARD) {
+    debouncedReorderOrCreatePinboard(store, action.payload);
+  }
+
+  if (action.type === PINBOARD_UPDATE_ORDER_REQUEST_SUCCESS) {
+    const state = store.getState();
+    if (state.pathname.match(/\/pinboard\/[\w\d]+/)) {
+      const pinboardID = action.payload.id;
+      store.dispatch(fetchPinboard(pinboardID));
+    }
+  }
+
   if (action.type === PINBOARD_CREATE_REQUEST_SUCCESS) {
     const state = store.getState();
     if (state.pathname.match(/\/pinboard\/[\w\d]+/)) {

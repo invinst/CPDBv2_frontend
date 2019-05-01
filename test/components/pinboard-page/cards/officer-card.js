@@ -8,7 +8,7 @@ import {
 
 import { unmountComponentSuppressError } from 'utils/test';
 import OfficerCard from 'components/pinboard-page/cards/officer-card';
-import ItemUnpinButton from 'components/pinboard-page/item-unpin-button';
+import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 import StaticRadarChart from 'components/common/radar-chart';
 import { findDOMNode } from 'react-dom';
 

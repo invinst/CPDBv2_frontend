@@ -9,7 +9,7 @@ import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import TRRCard from 'components/pinboard-page/cards/trr-card';
-import ItemUnpinButton from 'components/pinboard-page/item-unpin-button';
+import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 
 
 describe('TRRCard component', function () {
