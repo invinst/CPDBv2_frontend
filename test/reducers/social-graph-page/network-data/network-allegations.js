@@ -1,11 +1,11 @@
-import graphAllegations from 'reducers/social-graph-page/graph-allegations';
+import networkAllegations from 'reducers/social-graph-page/network-data/network-allegations';
 
 import { SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS } from 'utils/constants';
 
 
-describe('graphAllegations reducer', function () {
+describe('networkAllegations reducer', function () {
   it('should return initial state', function () {
-    graphAllegations(undefined, {}).should.eql([]);
+    networkAllegations(undefined, {}).should.eql([]);
   });
 
   it('should handle SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS', function () {
@@ -27,7 +27,7 @@ describe('graphAllegations reducer', function () {
       }
     ];
 
-    graphAllegations([], {
+    networkAllegations([], {
       type: SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
       payload: graphAllegationsData
     }).should.eql(graphAllegationsData);

@@ -21,11 +21,14 @@ describe('RightPaneSection component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     socialGraphPage: {
-      graphData: {
-        officers: []
+      networkData: {
+        graphData: {
+          officers: []
+        },
+        networkAllegations: [],
+        networkOfficers: [],
       },
-      graphAllegations: [],
-      currentTab: undefined,
+      currentMainTab: undefined,
     },
   });
   let instance;

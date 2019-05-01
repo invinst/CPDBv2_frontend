@@ -14,6 +14,7 @@ export default class RightPaneSection extends Component {
       currentTab,
       changeNetworkTab,
       hasComplaint,
+      updateOfficerId
     } = this.props;
     const rightPaneMap = {
       [NETWORK_TAB_NAMES.OFFICERS]: {
@@ -44,7 +45,7 @@ export default class RightPaneSection extends Component {
           }
           <div className='clearfix' />
         </div>
-        { CurrentComponent && <CurrentComponent /> }
+        { CurrentComponent && <CurrentComponent updateOfficerId={ updateOfficerId }/> }
       </div>
     );
   }
@@ -54,4 +55,5 @@ RightPaneSection.propTypes = {
   currentTab: PropTypes.string,
   changeNetworkTab: PropTypes.func,
   hasComplaint: PropTypes.bool,
+  updateOfficerId: PropTypes.func,
 };

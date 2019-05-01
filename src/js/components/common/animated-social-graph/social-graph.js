@@ -33,6 +33,7 @@ export default class SocialGraph extends Component {
     this.tick = this.tick.bind(this);
     this.connectedNodes = this.connectedNodes.bind(this);
     this.collide = this.collide.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -64,6 +65,11 @@ export default class SocialGraph extends Component {
         this.resizeGraph();
       }
     }
+  }
+
+  handleClick(currentNode) {
+    const { updateOfficerId } = this.props;
+    updateOfficerId(currentNode.uid);
   }
 
   graphTooltip(graphNode) {
@@ -241,11 +247,12 @@ export default class SocialGraph extends Component {
     this.toggleNode = 0;
     this.node = this.node.data(this.data.nodes);
     this.node.enter().insert('circle', '.cursor')
-      .attr('class', 'node')
+      .attr('class', 'node officer-preview-link')
       .call(this.force.drag)
       .on('mouseover', this.tip.show)
       .on('mouseout', this.tip.hide)
-      .on('dblclick', this.connectedNodes);
+      .on('dblclick', this.connectedNodes)
+      .on('click', this.handleClick);
 
     this.node.attr('r', (d) => {
       return (d.degree / 2 + 2);
@@ -434,6 +441,7 @@ SocialGraph.propTypes = {
   searchText: PropTypes.string,
   clickSearchState: PropTypes.bool,
   fullscreen: PropTypes.bool,
+  updateOfficerId: PropTypes.func,
 };
 
 SocialGraph.defaultProps = {

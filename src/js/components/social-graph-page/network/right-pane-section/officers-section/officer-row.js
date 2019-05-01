@@ -1,10 +1,21 @@
 import React, { Component, PropTypes } from 'react';
+import cx from 'classnames';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import styles from './officer-row.sass';
 
 
 export default class OfficerRow extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    const { officer, updateOfficerId } = this.props;
+    updateOfficerId(officer.id);
+  }
+
   render() {
     const { officer } = this.props;
 
@@ -19,7 +30,7 @@ export default class OfficerRow extends Component {
     };
 
     return (
-      <div className={ styles.officerRow }>
+      <div className={ cx(styles.officerRow, 'officer-preview-link') } onClick={ this.handleClick }>
         <div className='radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
         </div>
@@ -32,4 +43,5 @@ export default class OfficerRow extends Component {
 
 OfficerRow.propTypes = {
   officer: PropTypes.object,
+  updateOfficerId: PropTypes.func,
 };

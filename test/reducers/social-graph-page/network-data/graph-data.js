@@ -1,6 +1,6 @@
-import graphData from 'reducers/social-graph-page/graph-data';
+import graphData from 'reducers/social-graph-page/network-data/graph-data';
 
-import { SOCIAL_GRAPH_REQUEST_SUCCESS } from 'utils/constants';
+import { SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('graphData reducer', function () {
@@ -8,9 +8,9 @@ describe('graphData reducer', function () {
     graphData(undefined, {}).should.eql({});
   });
 
-  it('should handle SOCIAL_GRAPH_REQUEST_SUCCESS', function () {
+  it('should handle SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS', function () {
     graphData([], {
-      type: SOCIAL_GRAPH_REQUEST_SUCCESS,
+      type: SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS,
       payload: {
         officers: [{
           'full_name': 'Jerome Finnigan',

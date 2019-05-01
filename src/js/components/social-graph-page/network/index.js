@@ -10,6 +10,7 @@ import RightPaneSection from 'components/social-graph-page/network/right-pane-se
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
 import MainTabs from 'components/social-graph-page/main-tabs';
+import PreviewPane from 'components/social-graph-page/network/right-pane-section/officers-section/preview-pane';
 
 
 export default class NetworkGraph extends Component {
@@ -21,11 +22,13 @@ export default class NetworkGraph extends Component {
     };
     this.handleCheckShowCivilOnly = this.handleCheckShowCivilOnly.bind(this);
     this.handleChangeThresholdValue = this.handleChangeThresholdValue.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   componentDidMount() {
     showIntercomLauncher(false);
     this.fetchGraphData();
+    window.addEventListener('mousedown', this.handleClickOutside);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -37,10 +40,24 @@ export default class NetworkGraph extends Component {
 
   componentWillUnmount() {
     showIntercomLauncher(true);
+    window.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  handleClickOutside(event) {
+    const { updateOfficerId } = this.props;
+    if (!event.target.closest('.officer-preview-link')) {
+      updateOfficerId(null);
+    }
   }
 
   fetchGraphData() {
-    const { requestSocialGraph, requestSocialGraphAllegations, officerIds, unitId } = this.props;
+    const {
+      requestSocialGraphNetwork,
+      requestSocialGraphAllegations,
+      requestSocialGraphOfficers,
+      officerIds,
+      unitId
+    } = this.props;
     const { showCivilComplaintOnly, thresholdValue } = this.state;
     let requestParams;
     if (!isEmpty(unitId)) {
@@ -54,8 +71,9 @@ export default class NetworkGraph extends Component {
     }
 
     if (requestParams) {
-      requestSocialGraph(requestParams);
+      requestSocialGraphNetwork(requestParams);
       requestSocialGraphAllegations(requestParams);
+      requestSocialGraphOfficers(requestParams);
     }
   }
 
@@ -77,7 +95,9 @@ export default class NetworkGraph extends Component {
       currentMainTab,
       currentNetworkTab,
       hasComplaint,
-      changeMainTab
+      changeMainTab,
+      officer,
+      updateOfficerId
     } = this.props;
 
     return (
@@ -113,14 +133,22 @@ export default class NetworkGraph extends Component {
             officers={ officers }
             coaccusedData={ coaccusedData }
             listEvent={ listEvent }
+            updateOfficerId={ updateOfficerId }
           />
         </div>
         <div className='right-section'>
-          <RightPaneSection
-            changeNetworkTab={ changeNetworkTab }
-            currentTab={ currentNetworkTab }
-            hasComplaint={ hasComplaint }
-          />
+          {
+            !isEmpty(officer) ? (
+              <PreviewPane data={ officer } />
+            ) : (
+              <RightPaneSection
+                changeNetworkTab={ changeNetworkTab }
+                currentTab={ currentNetworkTab }
+                hasComplaint={ hasComplaint }
+                updateOfficerId={ updateOfficerId }
+              />
+            )
+          }
         </div>
         <div className='clearfix'/>
       </div>
@@ -129,8 +157,9 @@ export default class NetworkGraph extends Component {
 }
 
 NetworkGraph.propTypes = {
-  requestSocialGraph: PropTypes.func,
+  requestSocialGraphNetwork: PropTypes.func,
   requestSocialGraphAllegations: PropTypes.func,
+  requestSocialGraphOfficers: PropTypes.func,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
   officers: PropTypes.array,
@@ -142,12 +171,14 @@ NetworkGraph.propTypes = {
   hasComplaint: PropTypes.bool,
   currentMainTab: PropTypes.string,
   currentNetworkTab: PropTypes.string,
+  officer: PropTypes.object,
+  updateOfficerId: PropTypes.func,
 };
 
 NetworkGraph.defaultProps = {
-  requestSocialGraph: () => {},
+  requestSocialGraphNetwork: () => {},
   requestSocialGraphAllegations: () => {},
-  changeNetworkTab: () => {},
+  requestSocialGraphOfficers: () => {},
   officers: [],
   coaccusedData: [],
   listEvent: [],

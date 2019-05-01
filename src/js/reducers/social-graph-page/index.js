@@ -1,16 +1,12 @@
 import { combineReducers } from 'redux';
 
-import graphData from './graph-data';
+import networkData from './network-data';
 import geographicData from './geographic-data';
-import graphAllegations from './graph-allegations';
 import currentMainTab from './current-main-tab';
-import currentNetworkTab from './current-network-tab';
 
 
 export default combineReducers({
-  graphData,
+  networkData,
   geographicData,
-  graphAllegations,
   currentMainTab,
-  currentNetworkTab,
 });

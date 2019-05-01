@@ -640,4 +640,19 @@ describe('SocialGraph', function () {
     );
     resizeGraphSpy.called.should.be.true();
   });
+
+  it('should call updateOfficerId when clicking on a graph node', function () {
+    const updateOfficerIdStub = stub();
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        updateOfficerId={ updateOfficerIdStub }
+      />
+    );
+    const graphNode = instance.data.nodes[0];
+    instance.handleClick(graphNode);
+    updateOfficerIdStub.should.be.calledWith(graphNode.uid);
+  });
 });

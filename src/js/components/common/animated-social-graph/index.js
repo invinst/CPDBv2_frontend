@@ -203,7 +203,7 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   render() {
-    const { officers, coaccusedData, listEvent } = this.props;
+    const { officers, coaccusedData, listEvent, updateOfficerId } = this.props;
     const { timelineIdx, searchInputText, refreshIntervalId, clickSearchState, fullscreen } = this.state;
 
     return (
@@ -220,6 +220,7 @@ export default class AnimatedSocialGraph extends Component {
             searchText={ searchInputText }
             clickSearchState={ clickSearchState }
             fullscreen={ fullscreen }
+            updateOfficerId={ updateOfficerId }
           />
         }
         { this.graphControlPanel() }
@@ -233,4 +234,5 @@ AnimatedSocialGraph.propTypes = {
   coaccusedData: PropTypes.array,
   listEvent: PropTypes.array,
   hasIntercom: PropTypes.bool,
+  updateOfficerId: PropTypes.func,
 };

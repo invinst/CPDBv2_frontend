@@ -18,7 +18,7 @@ import {
   POPUP_API_URL,
   DOCUMENTS_URL,
   CRAWLERS_API_URL,
-  SOCIAL_GRAPH_API_URL,
+  SOCIAL_GRAPH_NETWORK_API_URL,
   PINBOARDS_URL,
   SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
 } from 'utils/constants';
@@ -167,17 +167,17 @@ axiosMockClient.onGet(CRAWLERS_API_URL).reply(function (config) {
 });
 
 axiosMockClient.onGet(
-  SOCIAL_GRAPH_API_URL,
+  SOCIAL_GRAPH_NETWORK_API_URL,
   { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
 ).reply(200, getDefaultSocialGraphData());
 
 axiosMockClient.onGet(
-  SOCIAL_GRAPH_API_URL,
+  SOCIAL_GRAPH_NETWORK_API_URL,
   { params: { 'threshold': 2, 'show_civil_only': false, 'unit_id': '123' } }
 ).reply(200, getOfficerComplaintSocialGraphData());
 
 axiosMockClient.onGet(
-  SOCIAL_GRAPH_API_URL,
+  SOCIAL_GRAPH_NETWORK_API_URL,
   { params: { 'threshold': 3, 'show_civil_only': false, 'unit_id': '123' } }
 ).reply(200, getThresholdThreeSocialGraphData());
 

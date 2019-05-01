@@ -14,7 +14,9 @@ describe('SocialGraphPage component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     socialGraphPage: {
-      graphData: {},
+      networkData: {
+        graphData: {},
+      },
       geographicData: [],
     },
   });

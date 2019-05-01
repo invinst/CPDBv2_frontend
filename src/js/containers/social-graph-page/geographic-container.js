@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import GeographicMap from 'components/social-graph-page/geographic';
 import { mapLegendSelector, mapMarkersSelector } from 'selectors/social-graph-page/geographic-data';
 import { getCurrentMainTab } from 'selectors/social-graph-page';
-import { changeMainTab, requestGeographic } from 'actions/social-graph-page';
+import { changeMainTab, requestSocialGraphGeographic } from 'actions/social-graph-page';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -19,7 +19,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   changeMainTab,
-  requestGeographic
+  requestSocialGraphGeographic
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GeographicMap));

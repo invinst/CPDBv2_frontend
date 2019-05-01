@@ -2,19 +2,26 @@ import { connect } from 'react-redux';
 
 import NetworkGraph from 'components/social-graph-page/network';
 import {
-  requestSocialGraph,
+  requestSocialGraphNetwork,
   requestSocialGraphAllegations,
+  requestSocialGraphOfficers,
   changeMainTab,
-  changeNetworkTab
+  changeNetworkTab,
+  updateOfficerId
 } from 'actions/social-graph-page';
+
 import {
-  officersSelector,
-  coaccusedDataSelector,
-  getListEvent,
   hasComplaintSelector,
   getCurrentMainTab,
   getCurrentNetworkTab,
 } from 'selectors/social-graph-page';
+
+import {
+  officersSelector,
+  coaccusedDataSelector,
+  getListEvent,
+  networkOfficerSelector
+} from 'selectors/social-graph-page/network';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -27,14 +34,17 @@ function mapStateToProps(state, ownProps) {
     hasComplaint: hasComplaintSelector(state),
     currentMainTab: getCurrentMainTab(state),
     currentNetworkTab: getCurrentNetworkTab(state),
+    officer: networkOfficerSelector(state),
   };
 }
 
 const mapDispatchToProps = {
-  requestSocialGraph,
+  requestSocialGraphNetwork,
   requestSocialGraphAllegations,
+  requestSocialGraphOfficers,
   changeMainTab,
-  changeNetworkTab
+  changeNetworkTab,
+  updateOfficerId
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NetworkGraph);

@@ -6,12 +6,18 @@ import OfficerRow from './officer-row';
 
 export default class OfficersSection extends Component {
   render() {
-    const { officers } = this.props;
+    const { officers, updateOfficerId } = this.props;
 
     return (
       <div className={ styles.officersSection }>
         {
-          officers.map((officer) => (<OfficerRow key={ officer.id } officer={ officer } />))
+          officers.map((officer) => (
+            <OfficerRow
+              key={ officer.id }
+              officer={ officer }
+              updateOfficerId={ updateOfficerId }
+            />
+          ))
         }
       </div>
     );
@@ -20,6 +26,8 @@ export default class OfficersSection extends Component {
 
 OfficersSection.propTypes = {
   officers: PropTypes.array,
+  officer: PropTypes.object,
+  updateOfficerId: PropTypes.func,
 };
 
 OfficersSection.defaultProps = {

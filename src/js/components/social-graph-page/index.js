@@ -24,7 +24,12 @@ export default class SocialGraphPage extends Component {
     const CurrentComponent = get(tabbedPaneMap, `${currentTab}.component`, null);
     return (
       <div className={ styles.socialGraphPage }>
-        { CurrentComponent && <CurrentComponent location={ location }/> }
+        {
+          CurrentComponent &&
+          <CurrentComponent
+            location={ location }
+          />
+        }
       </div>
     );
   }

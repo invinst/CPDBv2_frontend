@@ -28,7 +28,7 @@ describe('GeographicMap component', function () {
     const requestGeographicStub = stub();
     instance = renderIntoDocument(
       <GeographicMap
-        requestGeographic={ requestGeographicStub }
+        requestSocialGraphGeographic={ requestGeographicStub }
         unitId='123'
       />
     );
@@ -39,7 +39,7 @@ describe('GeographicMap component', function () {
     const requestGeographicStub = stub();
     instance = renderIntoDocument(
       <GeographicMap
-        requestGeographic={ requestGeographicStub }
+        requestSocialGraphGeographic={ requestGeographicStub }
         officerIds='123,456,789'
       />
     );

@@ -1,4 +1,4 @@
-import currentNetworkTab from 'reducers/social-graph-page/current-network-tab';
+import currentNetworkTab from 'reducers/social-graph-page/network-data/current-network-tab';
 import { CHANGE_NETWORK_TAB } from 'utils/constants';
 
 

@@ -17,7 +17,7 @@ export default class GeographicMap extends Component {
   }
 
   fetchGeographicData() {
-    const { requestGeographic, officerIds, unitId } = this.props;
+    const { requestSocialGraphGeographic, officerIds, unitId } = this.props;
     let requestParams;
     if (!isEmpty(unitId)) {
       requestParams = { 'unit_id': unitId };
@@ -28,7 +28,7 @@ export default class GeographicMap extends Component {
     }
 
     if (requestParams) {
-      requestGeographic(requestParams);
+      requestSocialGraphGeographic(requestParams);
     }
   }
 
@@ -60,7 +60,7 @@ GeographicMap.propTypes = {
   legend: PropTypes.object,
   markers: PropTypes.array,
   changeMainTab: PropTypes.func,
-  requestGeographic: PropTypes.func,
+  requestSocialGraphGeographic: PropTypes.func,
   currentMainTab: PropTypes.string,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,

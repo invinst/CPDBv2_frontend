@@ -1,5 +1,5 @@
 import geographicData from 'reducers/social-graph-page/geographic-data';
-import { GEOGRAPHIC_REQUEST_SUCCESS } from 'utils/constants';
+import { SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('geographicData reducer', function () {
@@ -7,9 +7,9 @@ describe('geographicData reducer', function () {
     geographicData(undefined, {}).should.eql([]);
   });
 
-  it('should handle GEOGRAPHIC_REQUEST_SUCCESS', function () {
+  it('should handle SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS', function () {
     geographicData([], {
-      type: GEOGRAPHIC_REQUEST_SUCCESS,
+      type: SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS,
       payload: [
         {
           'date': '2007-04-25',

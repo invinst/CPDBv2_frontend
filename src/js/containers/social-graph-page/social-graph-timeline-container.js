@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import TimelineSection from 'components/social-graph-page/network/right-pane-section/timeline-section';
-import { allegationsSelector } from 'selectors/social-graph-page';
+import { allegationsSelector } from 'selectors/social-graph-page/network-timeline';
 
 function mapStateToProps(state, ownProps) {
   return {

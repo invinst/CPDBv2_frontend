@@ -1,12 +1,13 @@
 @import 'variables'
 
-$social-graph-sidebar-width: 244px
+$social-graph-main-sidebar-width: 244px
+$network-right-sidebar-width: 351px
 
 \:local(.networkGraph)
   background-color: $sugar-cane-color
 
   .left-section
-    width: $social-graph-sidebar-width
+    width: $social-graph-main-sidebar-width
     height: 100vh
     padding: 39px 28px 39px 12px
     box-sizing: border-box
@@ -43,7 +44,7 @@ $social-graph-sidebar-width: 244px
             color: white
 
   .right-section
-    width: $social-graph-sidebar-width
+    width: $network-right-sidebar-width
     height: 100vh
     box-sizing: border-box
     float: left
@@ -51,8 +52,9 @@ $social-graph-sidebar-width: 244px
     color: $boulder-color
     font-weight: 300
 
+
   .graph-container
-    width: calc(100% - 2 * #{$social-graph-sidebar-width})
+    width: calc(100% - #{$social-graph-main-sidebar-width + $network-right-sidebar-width})
     height: 100vh
     float: left
     background-color: white

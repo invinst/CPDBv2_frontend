@@ -1,4 +1,4 @@
-import { softBlackColor, sugarCaneColor, whiteTwoColor } from 'utils/styles';
+import { softBlackColor, sugarCaneColor } from 'utils/styles';
 
 
 export const wrapperStyle = {
@@ -6,7 +6,6 @@ export const wrapperStyle = {
   backgroundColor: sugarCaneColor,
   fontSize: '14px',
   padding: '0 8px 0',
-  borderLeft: `1px solid ${whiteTwoColor}`,
   height: '100%',
 };
 
