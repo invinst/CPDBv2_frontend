@@ -73,4 +73,5 @@ OfficerCard.propTypes = {
 
 OfficerCard.defaultProps = {
   isAdded: false,
+  removeItemInPinboardPage: () => {},
 };

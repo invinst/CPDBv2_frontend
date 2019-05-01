@@ -77,4 +77,5 @@ TRRCard.propTypes = {
 
 TRRCard.defaultProps = {
   isAdded: false,
+  removeItemInPinboardPage: () => {},
 };

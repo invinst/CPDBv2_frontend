@@ -6,6 +6,7 @@ import {
   scryRenderedDOMComponentsWithClass, Simulate,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
+import { spy, useFakeTimers } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import TRRCard from 'components/pinboard-page/cards/trr-card';
@@ -59,17 +60,40 @@ describe('TRRCard component', function () {
     instanceDom.className.should.containEql('fade-in');
   });
 
-  it('should fade out when removed', function () {
+  it('should fade out when removed and invoke removeItemInPinboardPage after 1s', function () {
+    const clock = useFakeTimers();
+    const removeItemInPinboardPage = spy();
+
     const item = {
+      type: 'TRR',
+      isPinned: false,
+      id: 123,
       trrDate: '10-10-2010',
       category: 'Use Of Force',
     };
-    instance = renderIntoDocument(<TRRCard item={ item }/>);
+    instance = renderIntoDocument(
+      <TRRCard
+        item={ item }
+        removeItemInPinboardPage={ removeItemInPinboardPage }
+      />
+    );
     const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
 
     Simulate.click(findDOMNode(unpinButton));
 
     const instanceDom = findDOMNode(instance);
     instanceDom.className.should.containEql('fade-out');
+    removeItemInPinboardPage.should.not.be.called();
+
+    clock.tick(1050);
+
+    removeItemInPinboardPage.should.be.calledOnce();
+    removeItemInPinboardPage.should.be.calledWith({
+      type: 'TRR',
+      isPinned: false,
+      id: 123
+    });
+
+    clock.restore();
   });
 });

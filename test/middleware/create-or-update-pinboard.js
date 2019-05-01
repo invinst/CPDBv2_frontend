@@ -1,9 +1,10 @@
 import { Promise } from 'es6-promise';
-import { stub, spy } from 'sinon';
+import { stub, spy, useFakeTimers } from 'sinon';
 import { browserHistory } from 'react-router';
 
 import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
 import * as constants from 'utils/constants';
+import { PINBOARD_CREATE_REQUEST_SUCCESS, PINBOARD_UPDATE_REQUEST_SUCCESS } from 'utils/constants';
 import {
   createPinboard,
   updatePinboard,
@@ -15,9 +16,9 @@ import {
   fetchPinboardOfficers,
   fetchPinboardComplaints,
   fetchPinboardTRRs,
+  updatePinboardOrder,
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
-import { PINBOARD_CREATE_REQUEST_SUCCESS, PINBOARD_UPDATE_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('createOrUpdatePinboard middleware', function () {
@@ -150,6 +151,131 @@ describe('createOrUpdatePinboard middleware', function () {
     store.dispatch.should.not.be.called();
   });
 
+  it('should handle ORDER_PINBOARD and dispatch createPinboard when ownedByCurrentUser is false', function (done) {
+    const action = {
+      type: constants.ORDER_PINBOARD,
+      payload: {
+        officerIds: [123, 789, 456]
+      }
+    };
+
+    const store = createStore(PinboardFactory.build({
+      id: '99',
+      'officer_ids': [2],
+      'crids': ['2', '9'],
+      ownedByCurrentUser: false,
+    }));
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    setTimeout(
+      () => {
+        store.dispatch.should.be.calledWith(createPinboard({
+          id: '99',
+          title: '',
+          description: '',
+          officerIds: [123, 789, 456],
+          crids: ['2', '9'],
+          trrIds: [],
+        }));
+        done();
+      },
+      100
+    );
+  });
+
+  it('should handle ORDER_PINBOARD and dispatch updatePinboardOrder when ownedByCurrentUser is true', function (done) {
+    const action = {
+      type: constants.ORDER_PINBOARD,
+      payload: {
+        officerIds: [123, 789, 456]
+      }
+    };
+
+    const store = createStore(PinboardFactory.build({
+      id: '99',
+      'officer_ids': [2],
+      'crids': ['2', '9'],
+      ownedByCurrentUser: true,
+    }));
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    setTimeout(
+      () => {
+        store.dispatch.should.be.calledWith(updatePinboardOrder({
+          id: '99',
+          title: '',
+          description: '',
+          officerIds: [123, 789, 456],
+          crids: ['2', '9'],
+          trrIds: [],
+        }));
+        done();
+      },
+      100
+    );
+  });
+
+  it('should handle ORDER_PINBOARD actions with debounced mode', function (done) {
+    const clock = useFakeTimers();
+
+    const action1 = {
+      type: constants.ORDER_PINBOARD,
+      payload: {
+        officerIds: [123, 789, 456]
+      }
+    };
+
+    const action2 = {
+      type: constants.ORDER_PINBOARD,
+      payload: {
+        officerIds: [123, 789, 456]
+      }
+    };
+
+    const action3 = {
+      type: constants.ORDER_PINBOARD,
+      payload: {
+        officerIds: [123, 456, 789]
+      }
+    };
+
+    const store = createStore(PinboardFactory.build({
+      id: '99',
+      'officer_ids': [2],
+      'crids': ['2', '9'],
+      ownedByCurrentUser: true,
+    }));
+
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action1);
+    clock.tick(80);
+    createOrUpdatePinboard(store)(action => dispatched = action)(action2);
+    clock.tick(80);
+    createOrUpdatePinboard(store)(action => dispatched = action)(action3);
+    clock.tick(200);
+    dispatched.should.eql(action3);
+    clock.restore();
+
+    setTimeout(() => {
+      store.dispatch.should.be.calledOnce();
+      store.dispatch.should.be.calledWith(updatePinboardOrder({
+        id: '99',
+        title: '',
+        description: '',
+        officerIds: [123, 456, 789],
+        crids: ['2', '9'],
+        trrIds: [],
+      }));
+      done();
+    },
+    200);
+  });
 
   context('when an item is added', function () {
     it('should dispatch updatePinboard if user owns the pinboard', function () {

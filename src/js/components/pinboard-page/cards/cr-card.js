@@ -77,4 +77,5 @@ CRCard.propTypes = {
 
 CRCard.defaultProps = {
   isAdded: false,
+  removeItemInPinboardPage: () => {},
 };

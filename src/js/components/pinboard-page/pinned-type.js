@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { map, differenceBy, first, get } from 'lodash';
 import cx from 'classnames';
-import Muuri from 'muuri';
+import { Muuri } from 'utils/vendors';
 
 import OfficerCard from './cards/officer-card';
 import CRCard from './cards/cr-card';
