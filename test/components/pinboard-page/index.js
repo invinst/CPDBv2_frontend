@@ -14,6 +14,7 @@ import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinnedSection from 'components/pinboard-page/pinned-section';
 import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
+import SearchBar from 'components/pinboard-page/search-bar';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
@@ -108,7 +109,7 @@ describe('PinboardPage component', function () {
     replaceStub.restore();
   });
 
-  it('should render PinnedSection component', function () {
+  it('should render PinnedSection component and SearchBar component', function () {
     const pinboard = {
       'id': '1',
       'officer_ids': [1, 2],
@@ -122,7 +123,8 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, PinnedSection).should.be.ok();
+    findRenderedComponentWithType(instance, PinnedSection);
+    findRenderedComponentWithType(instance, SearchBar);
   });
 
   it('should render pinboard page correctly', function () {
@@ -153,5 +155,3 @@ describe('PinboardPage component', function () {
     footer.props.className.should.eql('footer');
   });
 });
-
-

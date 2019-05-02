@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
+import cx from 'classnames';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import PinnedSection from './pinned-section';
-import cx from 'classnames';
+import SearchBar from './search-bar';
+import Header from './header';
 import styles from './pinboard-page.sass';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
@@ -31,8 +33,11 @@ export default class PinboardPage extends Component {
     } = this.props;
     return (
       <div className={ styles.pinboardPage }>
+        <div className='pinboard-header'>
+          <Header />
+          <SearchBar />
+        </div>
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
-          <Link to='/search/'>Back to search page</Link>
           <div className='pinboard-info'>
             <div className='pinboard-title'>{ pinboard.title }</div>
             <div className='pinboard-description'>{ pinboard.description }</div>

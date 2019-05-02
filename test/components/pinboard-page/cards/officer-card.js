@@ -28,8 +28,8 @@ describe('OfficerCard component', function () {
     };
     instance = renderIntoDocument(<OfficerCard item={ item } />);
 
-    findRenderedComponentWithType(instance, ItemUnpinButton).should.be.ok();
-    findRenderedComponentWithType(instance, StaticRadarChart).should.be.ok();
+    findRenderedComponentWithType(instance, ItemUnpinButton);
+    findRenderedComponentWithType(instance, StaticRadarChart);
 
     findRenderedDOMComponentWithClass(instance, 'officer-rank').textContent.should.eql('Officer as Detective');
     findRenderedDOMComponentWithClass(instance, 'officer-name').textContent.should.eql('James David');

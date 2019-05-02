@@ -26,7 +26,7 @@ describe('TRRCard component', function () {
     };
     instance = renderIntoDocument(<TRRCard item={ item }/>);
 
-    findRenderedComponentWithType(instance, ItemUnpinButton).should.be.ok();
+    findRenderedComponentWithType(instance, ItemUnpinButton);
     findRenderedDOMComponentWithClass(instance, 'trr-date').textContent.should.eql('10-10-2010');
     findRenderedDOMComponentWithClass(instance, 'trr-category').textContent.should.eql('Use Of Force');
   });
@@ -35,7 +35,7 @@ describe('TRRCard component', function () {
     const item = { point: { 'lat': 1.0, 'lon': 1.0 } };
     instance = renderIntoDocument(<TRRCard item={ item }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'trr-card-map').should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'trr-card-map');
     scryRenderedDOMComponentsWithClass(instance, 'empty-map').should.have.length(0);
   });
 
@@ -43,8 +43,8 @@ describe('TRRCard component', function () {
     const item = { point: null };
     instance = renderIntoDocument(<TRRCard item={ item }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'trr-card-map').should.be.ok();
-    findRenderedDOMComponentWithClass(instance, 'empty-map').should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'trr-card-map');
+    findRenderedDOMComponentWithClass(instance, 'empty-map');
   });
 
   it('should fade in when added', function () {
