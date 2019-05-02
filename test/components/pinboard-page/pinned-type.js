@@ -137,7 +137,7 @@ describe('PinnedType component', function () {
     trrCards[2].props.isAdded.should.be.true();
   });
 
-  it('should init Muuri grid when mount', function () {
+  it('should init Muuri grid', function () {
     const onMuuriStub = stub();
     const MuuriStub = stub(vendors, 'Muuri').callsFake(() => ({ 'on': onMuuriStub }));
 

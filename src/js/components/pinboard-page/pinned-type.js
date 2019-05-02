@@ -47,12 +47,14 @@ export default class PinnedType extends Component {
   }
 
   initGrid() {
-    this.gridMuuri = new Muuri(this.grid, {
-      itemClass: 'pinned-grid-item',
-      dragEnabled: true,
-    });
+    if (this.grid) {
+      this.gridMuuri = new Muuri(this.grid, {
+        itemClass: 'pinned-grid-item',
+        dragEnabled: true,
+      });
 
-    this.gridMuuri.on('dragEnd', this.updateOrder);
+      this.gridMuuri.on('dragEnd', this.updateOrder);
+    }
   }
 
   updateOrder() {
