@@ -4,9 +4,10 @@ import { get, post, put } from 'actions/common/async-action';
 import * as constants from 'utils/constants';
 
 
-export const addItemToPinboard = createAction(constants.ADD_ITEM_TO_PINBOARD, item => item);
+export const addItemToPinboard = createAction(constants.ADD_ITEM_TO_PINBOARD);
 
-export const removeItemInPinboardPage = createAction(constants.REMOVE_ITEM_IN_PINBOARD_PAGE);
+export const removeItemInPinboardPage = createAction(constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+  item => ({ ...item, isPinned: true }));
 
 export const createPinboard = ({ officerIds, crids, trrIds }) => post(
   constants.PINBOARDS_URL,

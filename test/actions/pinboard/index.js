@@ -7,11 +7,28 @@ import {
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
   fetchPinboardGeographicData,
+  removeItemInPinboardPage,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
 
 describe('pinboard actions', function () {
+  describe('removeItemInPinboardPage', function () {
+    it('should return correct action', function () {
+      removeItemInPinboardPage({
+        id: '1234',
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          id: '1234',
+          type: 'OFFICER',
+          isPinned: true,
+        },
+      });
+    });
+  });
+
   describe('createPinboard', function () {
     it('should return correct action', function () {
       createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
