@@ -90,4 +90,16 @@ describe('RadarChart component', function () {
     findRenderedDOMComponentWithClass(instance, 'test--radar').getAttribute('style')
       .should.containEql('background-color: red');
   });
+
+  it('should position radar chart with offsetTop', function () {
+    const config = {
+      width: 232,
+      height: 100,
+      radius: 164,
+    };
+    instance = renderIntoDocument(<RadarChart data={ data } offsetTop={ 3 } { ...config }/>);
+
+    findRenderedDOMComponentWithClass(instance, 'test--radar-chart-transform').getAttribute('transform')
+      .should.containEql('translate(116 37)');
+  });
 });

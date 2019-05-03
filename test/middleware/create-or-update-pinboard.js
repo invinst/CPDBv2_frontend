@@ -1,17 +1,31 @@
 import { Promise } from 'es6-promise';
-import { stub } from 'sinon';
+import { stub, spy } from 'sinon';
+import { browserHistory } from 'react-router';
 
 import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
 import * as constants from 'utils/constants';
-import { createPinboard, updatePinboard } from 'actions/pinboard';
+import {
+  createPinboard,
+  updatePinboard,
+  fetchPinboard,
+  fetchPinboardSocialGraph,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
+  fetchPinboardOfficers,
+  fetchPinboardComplaints,
+  fetchPinboardTRRs,
+} from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
+import { PINBOARD_CREATE_REQUEST_SUCCESS, PINBOARD_UPDATE_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('createOrUpdatePinboard middleware', function () {
-  const createStore = (pinboard) => ({
+  const createStore = (pinboard, pathname='') => ({
     getState: () => {
       return {
-        pinboard
+        pinboard,
+        pathname,
       };
     },
     dispatch: stub().usingPromise(Promise).resolves('abc')
@@ -90,6 +104,52 @@ describe('createOrUpdatePinboard middleware', function () {
       shouldDispatchWithType(typesCanBePinned[i]);
     }
   });
+
+  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS when on pinboard page', function () {
+    spy(browserHistory, 'push');
+
+    const store = createStore(PinboardFactory.build(), '/pinboard/abc123/');
+    const action = { type: PINBOARD_CREATE_REQUEST_SUCCESS, payload: { id: 'def456' } };
+    createOrUpdatePinboard(store)(() => {})(action);
+    browserHistory.push.should.be.calledWith('/pinboard/def456/');
+
+    browserHistory.push.restore();
+  });
+
+  it('should not handle PINBOARD_CREATE_REQUEST_SUCCESS when not on pinboard page', function () {
+    spy(browserHistory, 'push');
+
+    const store = createStore(PinboardFactory.build(), '/not-pinboard/abc123/');
+    const action = { type: PINBOARD_CREATE_REQUEST_SUCCESS, payload: { id: 'def456' } };
+    createOrUpdatePinboard(store)(() => {})(action);
+    browserHistory.push.should.not.be.called();
+
+    browserHistory.push.restore();
+  });
+
+  it('should handle PINBOARD_UPDATE_REQUEST_SUCCESS when on pinboard page', function () {
+    const store = createStore(PinboardFactory.build(), '/pinboard/abc123/');
+    const action = { type: PINBOARD_UPDATE_REQUEST_SUCCESS, payload: { id: 'def456' } };
+    createOrUpdatePinboard(store)(() => {})(action);
+
+    store.dispatch.should.be.calledWith(fetchPinboard('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardOfficers('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardComplaints('def456'));
+    store.dispatch.should.be.calledWith(fetchPinboardTRRs('def456'));
+  });
+
+  it('should not handle PINBOARD_UPDATE_REQUEST_SUCCESS when not on pinboard page', function () {
+    const store = createStore(PinboardFactory.build(), '/not-pinboard/abc123/');
+    const action = { type: PINBOARD_UPDATE_REQUEST_SUCCESS, payload: { id: 'def456' } };
+    createOrUpdatePinboard(store)(() => {})(action);
+
+    store.dispatch.should.not.be.called();
+  });
+
 
   context('when an item is added', function () {
     it('should dispatch updatePinboard if user owns the pinboard', function () {

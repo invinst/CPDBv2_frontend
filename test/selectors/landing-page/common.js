@@ -23,7 +23,6 @@ describe('common selectors', function () {
       'percentile_allegation': '99.987',
       'percentile_allegation_internal': '99.675',
       year: 2018,
-      'officer_id': 8562,
     },
     kind: 'single_officer'
   };
@@ -43,7 +42,6 @@ describe('common selectors', function () {
       'percentile_allegation': '99.987',
       'percentile_allegation_internal': '99.675',
       year: 2018,
-      'officer_id': 8562,
     },
   };
   const pairOfficerCard = {
@@ -62,7 +60,6 @@ describe('common selectors', function () {
         'percentile_allegation': '99.924',
         'percentile_allegation_internal': '99.566',
         year: 2018,
-        'officer_id': 3454,
       }
     },
     officer1: {
@@ -77,7 +74,6 @@ describe('common selectors', function () {
         'percentile_allegation_civilian': '99.984',
         'percentile_allegation': '99.987',
         'percentile_allegation_internal': '99.675',
-        'officer_id': 8562,
         year: 2018,
       }
     }
@@ -95,7 +91,6 @@ describe('common selectors', function () {
       'percentile_allegation': '99.987',
       'percentile_allegation_internal': '99.675',
       year: 2018,
-      'officer_id': 8562,
     },
   };
   const missingOfficerInfo = {
@@ -108,7 +103,6 @@ describe('common selectors', function () {
       'percentile_allegation': '99.987',
       'percentile_allegation_internal': '99.675',
       year: 2018,
-      'officer_id': 8562,
     },
   };
 
@@ -140,7 +134,6 @@ describe('common selectors', function () {
               'value': 99.984
             }
           ],
-          officerId: 8562,
           textColor: '#DFDFDF',
           visualTokenBackground: '#f0201e',
           year: 2018
@@ -255,7 +248,6 @@ describe('common selectors', function () {
               'value': 99.984
             }
           ],
-          officerId: 8562,
           textColor: '#DFDFDF',
           visualTokenBackground: '#f0201e',
           year: 2018
@@ -291,7 +283,6 @@ describe('common selectors', function () {
               'value': 99.984
             }
           ],
-          officerId: 8562,
           textColor: '#DFDFDF',
           visualTokenBackground: '#f0201e',
           year: 2018

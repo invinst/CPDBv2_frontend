@@ -11,6 +11,18 @@
   margin: 0 8px 8px 0
   font-size: 14px
   font-weight: 300
+  opacity: 1
+
+  &.hide
+    opacity: 0
+
+  &.fade-out
+    transition: opacity $pinboard-fade-animation-duration ease-in-out
+    opacity: 0
+
+  &.fade-in
+    transition: opacity $pinboard-fade-animation-duration ease-in-out
+    opacity: 1
 
   .radar-chart-wrapper
     height: 60px

@@ -8,6 +8,8 @@ import SearchBar from './search-bar';
 import Header from './header';
 import styles from './pinboard-page.sass';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
+import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
+import FooterContainer from 'containers/footer-container';
 
 
 export default class PinboardPage extends Component {
@@ -30,12 +32,12 @@ export default class PinboardPage extends Component {
       removeItemInPinboardPage,
     } = this.props;
     return (
-      <div>
+      <div className={ styles.pinboardPage }>
         <div className='pinboard-header'>
           <Header />
           <SearchBar />
         </div>
-        <div className={ cx(responsiveContainerStyles.responsiveContainer, styles.pinboardPage, 'pinboard-page') }>
+        <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
           <div className='pinboard-info'>
             <div className='pinboard-title'>{ pinboard.title }</div>
             <div className='pinboard-description'>{ pinboard.description }</div>
@@ -51,6 +53,8 @@ export default class PinboardPage extends Component {
             itemsByTypes={ itemsByTypes }
             removeItemInPinboardPage={ removeItemInPinboardPage }/>
         </div>
+        <RelevantSectionContainer />
+        <FooterContainer className='footer'/>
       </div>
     );
   }

@@ -4,7 +4,7 @@ import {
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinnedType from 'components/pinboard-page/pinned-type';
 import CRCard from 'components/pinboard-page/cards/cr-card';
 import OfficerCard from 'components/pinboard-page/cards/officer-card';
@@ -46,5 +46,21 @@ describe('PinnedType component', function () {
     trrCards.should.have.length(2);
     trrCards[0].props.item.id.should.eql('1');
     trrCards[1].props.item.id.should.eql('2');
+  });
+
+  it('should render newly added item with correct props', function () {
+    const items = [{ 'id': '1' }, { 'id': '2' }];
+    instance = renderIntoDocument(<PinnedType type='TRR' items={ items } />);
+    const newItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
+    instance = reRender(<PinnedType type='TRR' items={ newItems } />, instance);
+
+    const trrCards = scryRenderedComponentsWithType(instance, TRRCard);
+    trrCards.should.have.length(3);
+    trrCards[0].props.item.id.should.eql('1');
+    trrCards[0].props.isAdded.should.be.false();
+    trrCards[1].props.item.id.should.eql('2');
+    trrCards[1].props.isAdded.should.be.false();
+    trrCards[2].props.item.id.should.eql('3');
+    trrCards[2].props.isAdded.should.be.true();
   });
 });

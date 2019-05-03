@@ -46,6 +46,9 @@ import {
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
   fetchPinboardGeographicData,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
 
 let prevPathname = '';
@@ -209,6 +212,9 @@ export default store => next => action => {
         dispatches.push(store.dispatch(fetchPinboardTRRs(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardSocialGraph(pinboardID)));
         dispatches.push(store.dispatch(fetchPinboardGeographicData(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardRelevantDocuments(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardRelevantCoaccusals(pinboardID)));
+        dispatches.push(store.dispatch(fetchPinboardRelevantComplaints(pinboardID)));
       }
     }
 

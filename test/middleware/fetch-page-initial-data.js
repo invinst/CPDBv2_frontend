@@ -31,6 +31,9 @@ import {
   fetchPinboardTRRs,
   fetchPinboardGeographicData,
   fetchPinboardSocialGraph,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
 
 
@@ -366,7 +369,11 @@ describe('fetchPageInitialData middleware', function () {
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
-    store.dispatch.calledWith(fetchPinboard('1234ABCD')).should.be.true();
+    store.dispatch.should.be.calledWith(fetchPinboard('1234ABCD'));
+    store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('1234ABCD'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('1234ABCD'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('1234ABCD'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('1234ABCD'));
     store.dispatch.calledWith(fetchPinboardComplaints('1234ABCD')).should.be.true();
     store.dispatch.calledWith(fetchPinboardOfficers('1234ABCD')).should.be.true();
     store.dispatch.calledWith(fetchPinboardTRRs('1234ABCD')).should.be.true();
@@ -380,7 +387,29 @@ describe('fetchPageInitialData middleware', function () {
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
-    store.dispatch.calledWith(fetchPinboard('123ABCD')).should.be.false();
+    store.dispatch.should.not.be.calledWith(fetchPinboard('123ABCD'));
+    store.dispatch.calledWith(fetchPinboardComplaints('123ABCD')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardOfficers('123ABCD')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardTRRs('123ABCD')).should.be.false();
+    store.dispatch.should.not.be.calledWith(fetchPinboardSocialGraph('123ABCD'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantDocuments('123ABCD'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('123ABCD'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('123ABCD'));
+  });
+
+  it('should not dispatch fetchPinboard if requested pinboard is the same as the current one', function () {
+    const store = buildStore();
+    _.set(store._state, 'pinboard.id', '123ABCD');
+    const action = createLocationChangeAction('/pinboard/123ABCD/');
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.should.not.be.calledWith(fetchPinboard('123ABCD'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardSocialGraph('123ABCD'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantDocuments('123ABCD'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('123ABCD'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('123ABCD'));
     store.dispatch.calledWith(fetchPinboardComplaints('123ABCD')).should.be.false();
     store.dispatch.calledWith(fetchPinboardOfficers('123ABCD')).should.be.false();
     store.dispatch.calledWith(fetchPinboardTRRs('123ABCD')).should.be.false();

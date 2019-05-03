@@ -59,6 +59,9 @@ import {
 } from './pinboard-page/fetch-pinned-items';
 import { getSocialGraphData } from './pinboard-page/social-graph';
 import { getGeographicData } from './pinboard-page/geographic-data';
+import getRelevantCoaccusals, { getFirstRelevantCoaccusals } from 'mock-api/pinboard-page/relevant-coaccusals';
+import getRelevantDocuments, { getFirstRelevantDocuments } from 'mock-api/pinboard-page/relevant-documents';
+import getRelevantComplaints, { getFirstRelevantComplaints } from 'mock-api/pinboard-page/relevant-complaints';
 
 
 const SEARCH_API_URL = /^suggestion\/$/;
@@ -193,6 +196,36 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboard
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/social-graph/`).reply(200, getSocialGraphData());
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/geographic-data/`).reply(200, getGeographicData());
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?`).reply(
+  200, getFirstRelevantCoaccusals('5cd06f2b', 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?limit=20&offset=20`).reply(
+  200, getRelevantCoaccusals('5cd06f2b', 20, 20, 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-coaccusals/?limit=20&offset=40`).reply(
+  200, getRelevantCoaccusals('5cd06f2b', 20, 40, 50)
+);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-documents/?`).reply(
+  200, getFirstRelevantDocuments('5cd06f2b', 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-documents/?limit=20&offset=20`).reply(
+  200, getRelevantDocuments('5cd06f2b', 20, 20, 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-documents/?limit=20&offset=40`).reply(
+  200, getRelevantDocuments('5cd06f2b', 20, 40, 50)
+);
+
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?`).reply(
+  200, getFirstRelevantComplaints('5cd06f2b', 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&offset=20`).reply(
+  200, getRelevantComplaints('5cd06f2b', 20, 20, 50)
+);
+axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&offset=40`).reply(
+  200, getRelevantComplaints('5cd06f2b', 20, 40, 50)
+);
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

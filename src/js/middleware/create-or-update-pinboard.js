@@ -1,12 +1,25 @@
 import * as _ from 'lodash';
 
-import { ADD_ITEM_TO_PINBOARD, REMOVE_ITEM_IN_PINBOARD_PAGE } from 'utils/constants';
+import {
+  ADD_ITEM_TO_PINBOARD,
+  PINBOARD_CREATE_REQUEST_SUCCESS,
+  PINBOARD_UPDATE_REQUEST_SUCCESS,
+  REMOVE_ITEM_IN_PINBOARD_PAGE,
+} from 'utils/constants';
 import { getPinboard } from 'selectors/pinboard';
 import {
-  createPinboard, updatePinboard,
-  fetchPinboardComplaints, fetchPinboardOfficers,
+  createPinboard,
+  updatePinboard,
+  fetchPinboard,
+  fetchPinboardSocialGraph,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
+  fetchPinboardComplaints,
+  fetchPinboardOfficers,
   fetchPinboardTRRs,
 } from 'actions/pinboard';
+import { browserHistory } from 'react-router';
 
 const PINBOARD_ATTR_MAP = {
   'CR': 'crids',
@@ -68,6 +81,26 @@ export default store => next => action => {
 
         store.dispatch(pinboardFetchSelected(pinboardID));
       });
+    }
+  }
+  if (action.type === PINBOARD_CREATE_REQUEST_SUCCESS) {
+    const state = store.getState();
+    if (state.pathname.match(/\/pinboard\/[\w\d]+/)) {
+      browserHistory.push(`/pinboard/${action.payload.id}/`);
+    }
+  }
+  if (action.type === PINBOARD_UPDATE_REQUEST_SUCCESS) {
+    const state = store.getState();
+    if (state.pathname.match(/\/pinboard\/[\w\d]+/)) {
+      const pinboardID = action.payload.id;
+      store.dispatch(fetchPinboard(pinboardID));
+      store.dispatch(fetchPinboardSocialGraph(pinboardID));
+      store.dispatch(fetchPinboardRelevantDocuments(pinboardID));
+      store.dispatch(fetchPinboardRelevantCoaccusals(pinboardID));
+      store.dispatch(fetchPinboardRelevantComplaints(pinboardID));
+      store.dispatch(fetchPinboardOfficers(pinboardID));
+      store.dispatch(fetchPinboardComplaints(pinboardID));
+      store.dispatch(fetchPinboardTRRs(pinboardID));
     }
   }
 

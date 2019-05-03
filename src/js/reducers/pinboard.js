@@ -1,5 +1,5 @@
-import { get } from 'lodash';
 import { handleActions } from 'redux-actions';
+import { get } from 'lodash';
 
 import * as constants from 'utils/constants';
 

@@ -72,7 +72,8 @@ export default class RadarChart extends Component {
       boundaryAreaColor,
       strokeWidth,
       radarMainAreaOpacity,
-      outerGridOnly
+      outerGridOnly,
+      offsetTop,
     } = this.props;
 
     const transformData = this.embedComputedPosition();
@@ -91,7 +92,10 @@ export default class RadarChart extends Component {
         height='100%'
         viewBox={ `0 0 ${width} ${height}` }
       >
-        <g transform={ `translate(${Math.floor(width / 2)} ${Math.floor(height * 0.34)})` }>
+        <g
+          transform={ `translate(${Math.floor(width / 2)} ${Math.floor(height * 0.34) + offsetTop})` }
+          className='test--radar-chart-transform'
+        >
           {
             (data && (showAxisTitle || showAxisValue)) && (
               <RadarAxis
@@ -154,6 +158,7 @@ RadarChart.defaultProps = {
   axisTitleFontWeight: 400,
   numMetrics: 3,
   strokeWidth: 0.5,
+  offsetTop: 0,
 };
 
 RadarChart.propTypes = {
@@ -190,5 +195,6 @@ RadarChart.propTypes = {
   boundaryAreaColor: PropTypes.string,
   numMetrics: PropTypes.number,
   radarMainAreaOpacity: PropTypes.number,
+  offsetTop: PropTypes.number,
 };
 

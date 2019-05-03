@@ -203,7 +203,6 @@ class CRPage extends Page {
 
   open(id = 1000000) {
     super.open(`/complaint/${id}/1/`);
-    browser.element('body').waitForVisible();
   }
 }
 
