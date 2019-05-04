@@ -21,15 +21,10 @@ export default function removable(CardComponent) {
     }
 
     removeItem() {
-      this.el.classList.add('fade-out');
-
       const { item, removeItemInPinboardPage } = this.props;
       const { type, id, isPinned } = item;
 
-      setTimeout(
-        () => removeItemInPinboardPage({ type, id, isPinned }),
-        1000
-      );
+      removeItemInPinboardPage({ type, id, isPinned });
     }
 
     render() {

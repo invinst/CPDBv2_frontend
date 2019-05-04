@@ -5,7 +5,7 @@ import {
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass, Simulate,
 } from 'react-addons-test-utils';
-import { spy, useFakeTimers } from 'sinon';
+import { spy } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import LocationCard from 'components/pinboard-page/cards/location-card';
@@ -60,8 +60,7 @@ describe('LocationCard component', function () {
     instanceDom.className.should.containEql('fade-in');
   });
 
-  it('should fade out when removed', function () {
-    const clock = useFakeTimers();
+  it('should removeItemInPinboardPage when clicking on ItemUnpinButton', function () {
     const removeItemInPinboardPage = spy();
 
     const item = {
@@ -82,19 +81,11 @@ describe('LocationCard component', function () {
 
     Simulate.click(findDOMNode(unpinButton));
 
-    const instanceDom = findDOMNode(instance);
-    instanceDom.className.should.containEql('fade-out');
-    removeItemInPinboardPage.should.not.be.called();
-
-    clock.tick(1050);
-
     removeItemInPinboardPage.should.be.calledOnce();
     removeItemInPinboardPage.should.be.calledWith({
       type: 'CR',
       isPinned: false,
       id: '123'
     });
-
-    clock.restore();
   });
 });
