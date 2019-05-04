@@ -225,5 +225,4 @@ describe('pinboard actions', function () {
       });
     });
   });
-
 });

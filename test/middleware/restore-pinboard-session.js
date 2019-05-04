@@ -2,7 +2,7 @@ import { Promise } from 'es6-promise';
 import { stub } from 'sinon';
 import extractQuery from 'utils/extract-query';
 
-import restoreSessionPinboard from 'middleware/restore-session-pinboard';
+import restorePinboardSession from 'middleware/restore-pinboard-session';
 import { fetchLatestRetrievedPinboard } from 'actions/pinboard';
 
 
@@ -41,7 +41,7 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
     };
     let dispatched;
 
-    restoreSessionPinboard(store)(action => dispatched = action)(action);
+    restorePinboardSession(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.called.should.be.false();
@@ -51,7 +51,7 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
     const action = createLocationChangeAction('/pinboard/5cd06f2b/');
 
     let dispatched;
-    restoreSessionPinboard(store)(action => dispatched = action)(action);
+    restorePinboardSession(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.called.should.be.false();
@@ -62,7 +62,7 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
     const action = createLocationChangeAction('');
 
     let dispatched;
-    restoreSessionPinboard(store)(action => dispatched = action)(action);
+    restorePinboardSession(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.called.should.be.false();
@@ -72,7 +72,7 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
     const action = createLocationChangeAction('');
 
     let dispatched;
-    restoreSessionPinboard(store)(action => dispatched = action)(action);
+    restorePinboardSession(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
 
     store.dispatch.calledWith(fetchLatestRetrievedPinboard()).should.be.true();
