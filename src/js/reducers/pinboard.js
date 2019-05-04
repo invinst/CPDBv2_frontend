@@ -27,4 +27,9 @@ export default handleActions({
     ...state,
     trrItems: action.payload,
   }),
+  [constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS]: (state, action) => ({
+    ...action.payload,
+    ...state,
+    isPinboardRestored: true,
+  }),
 }, null);

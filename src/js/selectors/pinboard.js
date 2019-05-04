@@ -36,6 +36,7 @@ export const getPinboard = createSelector(
     crItems: _.get(pinboard, 'crItems', []),
     officerItems: _.get(pinboard, 'officerItems', []),
     trrItems: _.get(pinboard, 'trrItems', []),
+    isPinboardRestored: _.get(pinboard, 'isPinboardRestored', false),
   })
 );
 

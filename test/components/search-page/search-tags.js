@@ -34,7 +34,10 @@ describe('SearchTags component', function () {
   });
 
   it('should render PinboardButton', function () {
-    instance = renderIntoDocument(<SearchTags pinboard={ { itemsCount: 0 } }/>);
+    instance = renderIntoDocument(<SearchTags pinboard={ {
+      itemsCount: 0,
+      isPinboardRestored: true,
+    } }/>);
     findDOMNode(instance).textContent.should.containEql('Your pinboard is empty');
   });
 });

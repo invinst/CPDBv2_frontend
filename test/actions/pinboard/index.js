@@ -8,6 +8,7 @@ import {
   fetchPinboardSocialGraph,
   fetchPinboardGeographicData,
   removeItemInPinboardPage,
+  fetchLatestRetrievedPinboard,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
@@ -204,4 +205,25 @@ describe('pinboard actions', function () {
       });
     });
   });
+
+  describe('fetchLatestRetrievedPinboard', function () {
+    it('should return correct action', function () {
+      fetchLatestRetrievedPinboard().should.deepEqual({
+        types: [
+          constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_START,
+          constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}latest-retrieved-pinboard/`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
 });
