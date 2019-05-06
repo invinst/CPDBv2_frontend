@@ -125,6 +125,75 @@ describe('BaseComplaintCard component', function () {
     findRenderedComponentWithType(rightHalf, PlusButton);
   });
 
+  it('should fade out when clicked on PlusButton', function () {
+    const addItemInPinboardPage = stub();
+    const preventDefaultStub = stub();
+
+    instance = renderIntoDocument(
+      <BaseComplaintCard
+        leftChild={ <div className='test--left-child'/> }
+        url='lvh.me'
+        previewImageUrl='img.lvh.me'
+        crid='123'
+        incidentDate='Apr 4, 2015'
+        category='Unknown'
+        officers={ [] }
+        addItemInPinboardPage={ addItemInPinboardPage }
+        pinned={ true }
+      />
+    );
+
+    instance.state.fade.should.be.false();
+    findDOMNode(instance).className.should.not.containEql('fade-out');
+
+    instance.handleClick({ preventDefault: preventDefaultStub });
+
+    preventDefaultStub.should.be.calledOnce();
+    instance.state.fade.should.be.true();
+    addItemInPinboardPage.should.be.calledOnce();
+    findDOMNode(instance).className.should.containEql('fade-out');
+
+    preventDefaultStub.reset();
+    addItemInPinboardPage.reset();
+    instance.handleClick({ preventDefault: preventDefaultStub });
+
+
+    preventDefaultStub.should.be.calledOnce();
+    instance.state.fade.should.be.true();
+    addItemInPinboardPage.should.not.be.called();
+  });
+
+  it('should fade out PlusButton only if fadePlusButtonOnly is true', function () {
+    const addItemInPinboardPage = stub();
+    const preventDefaultStub = stub();
+
+    instance = renderIntoDocument(
+      <BaseComplaintCard
+        leftChild={ <div className='test--left-child'/> }
+        url='lvh.me'
+        previewImageUrl='img.lvh.me'
+        crid='123'
+        incidentDate='Apr 4, 2015'
+        category='Unknown'
+        officers={ [] }
+        addItemInPinboardPage={ addItemInPinboardPage }
+        pinned={ false }
+        fadePlusButtonOnly={ true }
+      />
+    );
+
+    instance.state.fade.should.be.false();
+    findDOMNode(instance).className.should.not.containEql('fade-out');
+
+    instance.handleClick({ preventDefault: preventDefaultStub });
+
+    preventDefaultStub.should.be.calledOnce();
+    instance.state.fade.should.be.true();
+    findDOMNode(instance).className.should.not.containEql('fade-out');
+
+    findDOMNode(findRenderedComponentWithType(instance, PlusButton)).className.should.containEql('fade-out');
+  });
+
   it('should hide PlusButton if pinned', function () {
     const addItemInPinboardPage = stub();
     instance = renderIntoDocument(

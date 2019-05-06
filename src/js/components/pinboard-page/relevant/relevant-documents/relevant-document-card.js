@@ -30,6 +30,7 @@ export class RelevantDocumentCard extends Component {
         leftChild={ leftChild }
         addItemInPinboardPage={ pinned ? null : addItemInPinboardPage }
         pinned={ pinned }
+        fadePlusButtonOnly={ true }
       />
     );
   }
