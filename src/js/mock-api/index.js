@@ -194,6 +194,8 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboard
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/social-graph/`).reply(200, getSocialGraphData());
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/geographic-data/`).reply(200, getGeographicData());
 
+axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`).reply(200, {});
+
 /*istanbul ignore next*/
 export function getMockAdapter() {
   if (config.appEnv === 'live-test') {

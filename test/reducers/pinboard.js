@@ -148,4 +148,19 @@ describe('Pinboard reducer', function () {
       trrItems: [{ id: 2 }, { id: 3 }],
     });
   });
+
+  it('should handle PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS', function () {
+    pinboardReducer(
+      {},
+      {
+        type: constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
+        payload: {
+          id: 1,
+        }
+      }
+    ).should.deepEqual({
+      id: 1,
+      isPinboardRestored: true,
+    });
+  });
 });
