@@ -38,7 +38,7 @@ export default class RelevantSection extends Component {
           nextParams={ documentNextParams }
           hasMore={ documentHasMore }
           fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocuments }
-          addItemToPinboard={ addItemInPinboardPage }
+          addItemInPinboardPage={ addItemInPinboardPage }
         />
         <RelevantCoaccusals
           pinboardId={ pinboardId }
@@ -46,7 +46,7 @@ export default class RelevantSection extends Component {
           nextParams={ coaccusalNextParams }
           hasMore={ coaccusalHasMore }
           fetchPinboardRelevantCoaccusals={ fetchPinboardRelevantCoaccusals }
-          addItemToPinboard={ addItemInPinboardPage }
+          addItemInPinboardPage={ addItemInPinboardPage }
         />
         <RelevantComplaints
           pinboardId={ pinboardId }
@@ -54,7 +54,7 @@ export default class RelevantSection extends Component {
           nextParams={ complaintNextParams }
           hasMore={ complaintHasMore }
           fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaints }
-          addItemToPinboard={ addItemInPinboardPage }
+          addItemInPinboardPage={ addItemInPinboardPage }
         />
       </div>
     );

@@ -101,7 +101,7 @@ describe('RelevantSection component', function () {
     relevantDocuments.props.nextParams.should.eql({ limit: 19, offset: 20 });
     relevantDocuments.props.hasMore.should.be.true();
     relevantDocuments.props.fetchPinboardRelevantDocuments.should.equal(fetchPinboardRelevantDocuments);
-    relevantDocuments.props.addItemToPinboard.should.equal(addItemInPinboardPage);
+    relevantDocuments.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
 
     const relevantCoaccusals = findRenderedComponentWithType(instance, RelevantCoaccusals);
     relevantCoaccusals.props.pinboardId.should.equal('66ef1560');
@@ -109,7 +109,7 @@ describe('RelevantSection component', function () {
     relevantCoaccusals.props.nextParams.should.eql({ limit: 21, offset: 22 });
     relevantCoaccusals.props.hasMore.should.be.true();
     relevantCoaccusals.props.fetchPinboardRelevantCoaccusals.should.equal(fetchPinboardRelevantCoaccusals);
-    relevantCoaccusals.props.addItemToPinboard.should.equal(addItemInPinboardPage);
+    relevantCoaccusals.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
 
     const relevantComplaints = findRenderedComponentWithType(instance, RelevantComplaints);
     relevantComplaints.props.pinboardId.should.equal('66ef1560');
@@ -117,6 +117,6 @@ describe('RelevantSection component', function () {
     relevantComplaints.props.nextParams.should.eql({ limit: 23, offset: 24 });
     relevantComplaints.props.hasMore.should.be.true();
     relevantComplaints.props.fetchPinboardRelevantComplaints.should.equal(fetchPinboardRelevantComplaints);
-    relevantComplaints.props.addItemToPinboard.should.equal(addItemInPinboardPage);
+    relevantComplaints.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
   });
 });

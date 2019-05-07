@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 
 import {
-  ADD_ITEM_TO_PINBOARD,
+  ADD_OR_REMOVE_ITEM_IN_PINBOARD,
   REMOVE_ITEM_IN_PINBOARD_PAGE,
   ADD_ITEM_IN_PINBOARD_PAGE,
 } from 'utils/constants';
@@ -56,7 +56,7 @@ export default store => next => action => {
   let pinboard = null;
   let item = null;
 
-  if (action.type === ADD_ITEM_TO_PINBOARD ||
+  if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD ||
     action.type === REMOVE_ITEM_IN_PINBOARD_PAGE ||
     action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
     pinboard = getPinboard(store.getState());
@@ -65,7 +65,7 @@ export default store => next => action => {
     item.isPinned ? removeItem(pinboard, item) : addItem(pinboard, item);
   }
 
-  if (action.type === ADD_ITEM_TO_PINBOARD) {
+  if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD) {
     if (pinboard.id === null) {
       store.dispatch(createPinboard(pinboard));
     } else {

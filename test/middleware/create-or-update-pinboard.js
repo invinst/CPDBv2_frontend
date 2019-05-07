@@ -21,8 +21,8 @@ describe('createOrUpdatePinboard middleware', function () {
     dispatch: stub().usingPromise(Promise).resolves('abc')
   });
 
-  const createAddItemToPinboardAction = (item) => ({
-    type: constants.ADD_ITEM_TO_PINBOARD,
+  const createAddOrRemoveItemInPinboardAction = (item) => ({
+    type: constants.ADD_OR_REMOVE_ITEM_IN_PINBOARD,
     payload: {
       id: item.id,
       type: item.type,
@@ -50,7 +50,7 @@ describe('createOrUpdatePinboard middleware', function () {
 
   const shouldDispatchWithType = (type) => {
     const itemId = '1';
-    const action = createAddItemToPinboardAction({
+    const action = createAddOrRemoveItemInPinboardAction({
       id: itemId,
       type: type,
       isPinned: false,
@@ -91,7 +91,7 @@ describe('createOrUpdatePinboard middleware', function () {
     store.dispatch.called.should.be.false();
   });
 
-  context('handling ADD_ITEM_TO_PINBOARD action', function () {
+  context('handling ADD_OR_REMOVE_ITEM_IN_PINBOARD action', function () {
     it('should dispatch createPinboard when a first item is added', function () {
       const typesCanBePinned = [
         'CR', 'DATE > CR', 'INVESTIGATOR > CR',
@@ -105,7 +105,7 @@ describe('createOrUpdatePinboard middleware', function () {
     });
 
     it('should dispatch updatePinboard if successive items are added', function () {
-      const action = createAddItemToPinboardAction({
+      const action = createAddOrRemoveItemInPinboardAction({
         id: '1',
         type: 'CR',
         isPinned: false,
@@ -131,7 +131,7 @@ describe('createOrUpdatePinboard middleware', function () {
     });
 
     it('should dispatch updatePinboard if an item is removed', function () {
-      const action = createAddItemToPinboardAction({
+      const action = createAddOrRemoveItemInPinboardAction({
         id: '1',
         type: 'CR',
         isPinned: true,

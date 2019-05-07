@@ -20,7 +20,7 @@ import {
   totalItemCountSelector
 } from 'selectors/search-page/search-results/navigation';
 import { getFocusedItem } from 'selectors/search-page';
-import { addItemToPinboard } from 'actions/pinboard';
+import { addOrRemoveItemInPinboard } from 'actions/pinboard';
 
 
 function mapStateToProps(state, ownProps) {
@@ -51,7 +51,7 @@ const mapDispatchToProps = {
   getSuggestionWithContentType,
   move,
   setSearchNavigation,
-  addItemToPinboard,
+  addOrRemoveItemInPinboard,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchResults);

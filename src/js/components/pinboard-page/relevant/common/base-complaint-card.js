@@ -14,9 +14,9 @@ export class BaseComplaintCard extends Component {
   }
 
   handleClick(e) {
-    const { crid, addItemToPinboard } = this.props;
+    const { crid, addItemInPinboardPage } = this.props;
     e.preventDefault();
-    addItemToPinboard({ type: 'CR', id: crid });
+    addItemInPinboardPage({ type: 'CR', id: crid });
   }
 
   render() {
@@ -74,7 +74,7 @@ BaseComplaintCard.propTypes = {
   incidentDate: PropTypes.string,
   category: PropTypes.string,
   officers: PropTypes.arrayOf(PropTypes.object),
-  addItemToPinboard: PropTypes.func,
+  addItemInPinboardPage: PropTypes.func,
   pinned: PropTypes.bool,
 };
 
