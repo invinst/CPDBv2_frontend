@@ -9,10 +9,10 @@ import styles from './cr.sass';
 
 class CRItem extends SuggestionItemBase {
   renderItemPinButton() {
-    const { suggestion, addItemToPinboard } = this.props;
+    const { suggestion, addOrRemoveItemInPinboard } = this.props;
     return (
       <ItemPinButton
-        addItemToPinboard={ addItemToPinboard }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
         suggestion={ suggestion }
       />
     );
@@ -35,7 +35,7 @@ CRItem.propTypes = {
   suggestion: PropTypes.shape({
     subText: PropTypes.string,
   }),
-  addItemToPinboard: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 CRItem.defaultProps = {

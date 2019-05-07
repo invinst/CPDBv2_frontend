@@ -17,6 +17,12 @@ describe('Pinboard Page', function () {
     pinboardPage.open();
   });
 
+  it('should go to search page when the search bar is clicked', function () {
+    pinboardPage.searchBar.click();
+    browser.element('.search-page').waitForVisible();
+    browser.getUrl().should.endWith('/search/');
+  });
+
   context('pinboard pinned section', function () {
     it('should render the pinned cards correctly', function () {
       const officers = pinboardPage.pinnedSection.officers;
@@ -160,10 +166,10 @@ describe('Pinboard Page', function () {
     it('should render geographic section', function () {
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.geographicPaneName.click();
-      pinboardPage.geographicSection.complaintText.getText().should.eql('Complaint');
-      pinboardPage.geographicSection.complaintNumber.getText().should.eql('5');
-      pinboardPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
-      pinboardPage.geographicSection.trrNumber.getText().should.eql('2');
+      pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
+      pinboardPage.geographicSection.complaintNumber.getText().should.equal('5');
+      pinboardPage.geographicSection.trrText.getText().should.equal('Use of Force Report');
+      pinboardPage.geographicSection.trrNumber.getText().should.equal('2');
     });
   });
 
@@ -171,10 +177,10 @@ describe('Pinboard Page', function () {
     it('should render geographic section', function () {
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.geographicPaneName.click();
-      pinboardPage.geographicSection.complaintText.getText().should.eql('Complaint');
-      pinboardPage.geographicSection.complaintNumber.getText().should.eql('5');
-      pinboardPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
-      pinboardPage.geographicSection.trrNumber.getText().should.eql('2');
+      pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
+      pinboardPage.geographicSection.complaintNumber.getText().should.equal('5');
+      pinboardPage.geographicSection.trrText.getText().should.equal('Use of Force Report');
+      pinboardPage.geographicSection.trrNumber.getText().should.equal('2');
     });
   });
 
@@ -242,7 +248,7 @@ describe('Pinboard Page', function () {
       firstDocumentCard.category.getText().should.equal('Lockup Procedures');
       firstDocumentCard.firstTopOfficerName.getText().should.equal('R. Sullivan');
       firstDocumentCard.secondTopOfficerName.getText().should.equal('B. Lopez');
-      firstDocumentCard.notShowingOfficerCount.getText().should.eql('3+');
+      firstDocumentCard.notShowingOfficerCount.getText().should.equal('3+');
     });
 
     it('should request more when clicking on right arrow', function () {
@@ -281,7 +287,7 @@ describe('Pinboard Page', function () {
       firstComplaintCard.category.getText().should.equal('Lockup Procedures');
       firstComplaintCard.firstTopOfficerName.getText().should.equal('R. Sullivan');
       firstComplaintCard.secondTopOfficerName.getText().should.equal('B. Lopez');
-      firstComplaintCard.notShowingOfficerCount.getText().should.eql('3+');
+      firstComplaintCard.notShowingOfficerCount.getText().should.equal('3+');
     });
 
     it('should request more when clicking on right arrow', function () {

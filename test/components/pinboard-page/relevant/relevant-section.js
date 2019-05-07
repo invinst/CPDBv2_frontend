@@ -38,7 +38,7 @@ describe('RelevantSection component', function () {
     const fetchPinboardRelevantDocuments = spy();
     const fetchPinboardRelevantCoaccusals = spy();
     const fetchPinboardRelevantComplaints = spy();
-    const addItemToPinboard = spy();
+    const addItemInPinboardPage = spy();
     const documents = [{
       previewImageUrl: 'https://www.documentcloud.org/documents/CRID-1074534-TRR-Stegmiller-p1-normal.gif',
       url: 'https://www.documentcloud.org/documents/3037807/CRID-1074534-TRR-Stegmiller.pdf',
@@ -80,7 +80,7 @@ describe('RelevantSection component', function () {
         fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocuments }
         fetchPinboardRelevantCoaccusals={ fetchPinboardRelevantCoaccusals }
         fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaints }
-        addItemToPinboard={ addItemToPinboard }
+        addItemInPinboardPage={ addItemInPinboardPage }
         documents={ documents }
         coaccusals={ coaccusals }
         complaints={ complaints }
@@ -101,7 +101,7 @@ describe('RelevantSection component', function () {
     relevantDocuments.props.nextParams.should.eql({ limit: 19, offset: 20 });
     relevantDocuments.props.hasMore.should.be.true();
     relevantDocuments.props.fetchPinboardRelevantDocuments.should.equal(fetchPinboardRelevantDocuments);
-    relevantDocuments.props.addItemToPinboard.should.equal(addItemToPinboard);
+    relevantDocuments.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
 
     const relevantCoaccusals = findRenderedComponentWithType(instance, RelevantCoaccusals);
     relevantCoaccusals.props.pinboardId.should.equal('66ef1560');
@@ -109,7 +109,7 @@ describe('RelevantSection component', function () {
     relevantCoaccusals.props.nextParams.should.eql({ limit: 21, offset: 22 });
     relevantCoaccusals.props.hasMore.should.be.true();
     relevantCoaccusals.props.fetchPinboardRelevantCoaccusals.should.equal(fetchPinboardRelevantCoaccusals);
-    relevantCoaccusals.props.addItemToPinboard.should.equal(addItemToPinboard);
+    relevantCoaccusals.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
 
     const relevantComplaints = findRenderedComponentWithType(instance, RelevantComplaints);
     relevantComplaints.props.pinboardId.should.equal('66ef1560');
@@ -117,6 +117,6 @@ describe('RelevantSection component', function () {
     relevantComplaints.props.nextParams.should.eql({ limit: 23, offset: 24 });
     relevantComplaints.props.hasMore.should.be.true();
     relevantComplaints.props.fetchPinboardRelevantComplaints.should.equal(fetchPinboardRelevantComplaints);
-    relevantComplaints.props.addItemToPinboard.should.equal(addItemToPinboard);
+    relevantComplaints.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
   });
 });

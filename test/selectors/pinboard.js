@@ -15,7 +15,7 @@ describe('Pinboard selectors', function () {
         description: '',
         url: '',
         itemsCount: 0,
-        ownedByCurrentUser: false,
+        isPinboardRestored: false,
       });
     });
 
@@ -28,7 +28,7 @@ describe('Pinboard selectors', function () {
           crids: ['abc'],
           'trr_ids': [1],
           description: 'Description',
-          ownedByCurrentUser: true,
+          isPinboardRestored: false,
         }),
       };
 
@@ -41,7 +41,7 @@ describe('Pinboard selectors', function () {
         description: 'Description',
         url: '/pinboard/1/pinboard-title/',
         itemsCount: 3,
-        ownedByCurrentUser: true,
+        isPinboardRestored: false,
       });
     });
 
@@ -54,7 +54,7 @@ describe('Pinboard selectors', function () {
           crids: ['abc'],
           'trr_ids': [1],
           description: 'Description',
-          ownedByCurrentUser: true,
+          isPinboardRestored: false,
         }),
       };
 
@@ -67,7 +67,7 @@ describe('Pinboard selectors', function () {
         description: 'Description',
         url: '/pinboard/1/untitled-pinboard/',
         itemsCount: 3,
-        ownedByCurrentUser: true,
+        isPinboardRestored: false,
       });
     });
   });

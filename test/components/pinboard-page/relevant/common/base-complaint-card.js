@@ -63,7 +63,7 @@ describe('BaseComplaintCard component', function () {
       id: 8,
       percentile: { year: 2015, items: [] }
     }];
-    const addItemToPinboard = stub();
+    const addItemInPinboardPage = stub();
     instance = renderIntoDocument(
       <BaseComplaintCard
         leftChild={ <div className='test--left-child'/> }
@@ -73,7 +73,7 @@ describe('BaseComplaintCard component', function () {
         incidentDate='Apr 4, 2015'
         category='Unknown'
         officers={ officers }
-        addItemToPinboard={ addItemToPinboard }
+        addItemInPinboardPage={ addItemInPinboardPage }
         pinned={ false }
       />
     );
@@ -126,7 +126,7 @@ describe('BaseComplaintCard component', function () {
   });
 
   it('should hide PlusButton if pinned', function () {
-    const addItemToPinboard = stub();
+    const addItemInPinboardPage = stub();
     instance = renderIntoDocument(
       <BaseComplaintCard
         leftChild={ <div className='test--left-child'/> }
@@ -136,7 +136,7 @@ describe('BaseComplaintCard component', function () {
         incidentDate='Apr 4, 2015'
         category='Unknown'
         officers={ [] }
-        addItemToPinboard={ addItemToPinboard }
+        addItemInPinboardPage={ addItemInPinboardPage }
         pinned={ true }
       />
     );
@@ -144,8 +144,8 @@ describe('BaseComplaintCard component', function () {
     scryRenderedComponentsWithType(rightHalf, PlusButton).should.have.length(0);
   });
 
-  it('should call addItemToPinboard when clicking on PlusButton', function () {
-    const addItemToPinboard = stub();
+  it('should call addItemInPinboardPage when clicking on PlusButton', function () {
+    const addItemInPinboardPage = stub();
     instance = renderIntoDocument(
       <BaseComplaintCard
         leftChild={ <div className='test--left-child'/> }
@@ -155,13 +155,13 @@ describe('BaseComplaintCard component', function () {
         incidentDate='Apr 4, 2015'
         category='Unknown'
         officers={ [] }
-        addItemToPinboard={ addItemToPinboard }
+        addItemInPinboardPage={ addItemInPinboardPage }
         pinned={ false }
       />
     );
     const rightHalf = findRenderedComponentWithType(instance, Link);
     const plusButton = findRenderedComponentWithType(rightHalf, PlusButton);
     Simulate.click(findDOMNode(plusButton));
-    addItemToPinboard.should.be.calledWith({ type: 'CR', id: '123', isPinned: false });
+    addItemInPinboardPage.should.be.calledWith({ type: 'CR', id: '123' });
   });
 });

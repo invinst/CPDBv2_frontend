@@ -15,9 +15,9 @@ export class RelevantCoaccusalCard extends Component {
   }
 
   handleClick(e) {
-    const { id, addItemToPinboard } = this.props;
+    const { id, addItemInPinboardPage } = this.props;
     e.preventDefault();
-    addItemToPinboard({ type: 'OFFICER', id: id.toString(), isPinned: false });
+    addItemInPinboardPage({ type: 'OFFICER', id: id.toString() });
   }
 
   render() {
@@ -63,7 +63,7 @@ RelevantCoaccusalCard.propTypes = {
   percentile: PropTypes.object,
   rank: PropTypes.string,
   coaccusalCount: PropTypes.number,
-  addItemToPinboard: PropTypes.func,
+  addItemInPinboardPage: PropTypes.func,
 };
 
 export default RelevantCoaccusalCard;

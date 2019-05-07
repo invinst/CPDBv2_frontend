@@ -1,8 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import cx from 'classnames';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import SearchBar from './search-bar';
+import Header from './header';
 import styles from './pinboard-page.sass';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
@@ -13,12 +15,10 @@ import FooterContainer from 'containers/footer-container';
 
 
 export default class PinboardPage extends Component {
-  componentDidUpdate(prevProps) {
-    const prevID = prevProps.pinboard.id;
-    const currID = this.props.pinboard.id;
-
-    if (prevID !== currID) {
-      browserHistory.replace(`/pinboard/${currID}/`);
+  componentDidUpdate(prevProps, prevState) {
+    const { shouldRedirect, pinboard } = this.props;
+    if (shouldRedirect && pinboard.url !== '') {
+      browserHistory.replace(pinboard.url);
     }
   }
 
@@ -28,11 +28,20 @@ export default class PinboardPage extends Component {
       changePinboardTab,
       currentTab,
       hasMapMarker,
+      isInitiallyLoading,
     } = this.props;
+
+    if (isInitiallyLoading) {
+      return null;
+    }
+
     return (
       <div className={ styles.pinboardPage }>
+        <div className='pinboard-header'>
+          <Header />
+          <SearchBar />
+        </div>
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
-          <Link to='/search/'>Back to search page</Link>
           <div className='pinboard-info'>
             <div className='pinboard-title'>{ pinboard.title }</div>
             <div className='pinboard-description'>{ pinboard.description }</div>
@@ -59,8 +68,11 @@ export default class PinboardPage extends Component {
 
 PinboardPage.propTypes = {
   pinboard: PropTypes.object,
+  params: PropTypes.object,
   changePinboardTab: PropTypes.func,
   currentTab: PropTypes.string,
   hasMapMarker: PropTypes.bool,
+  shouldRedirect: PropTypes.bool,
+  isInitiallyLoading: PropTypes.bool,
 };
 

@@ -27,7 +27,7 @@ describe('CRCard component', function () {
     };
     instance = renderIntoDocument(<CRCard item={ item }/>);
 
-    findRenderedComponentWithType(instance, ItemUnpinButton).should.be.ok();
+    findRenderedComponentWithType(instance, ItemUnpinButton);
     findRenderedDOMComponentWithClass(instance, 'cr-incident-date').textContent.should.eql('10-10-2010');
     findRenderedDOMComponentWithClass(instance, 'cr-category').textContent.should.eql('Use Of Force');
   });
@@ -36,7 +36,7 @@ describe('CRCard component', function () {
     const item = { point: { 'lat': 1.0, 'lon': 1.0 } };
     instance = renderIntoDocument(<CRCard item={ item }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'cr-card-map').should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'cr-card-map');
     scryRenderedDOMComponentsWithClass(instance, 'empty-map').should.have.length(0);
   });
 
@@ -44,8 +44,8 @@ describe('CRCard component', function () {
     const item = { point: null };
     instance = renderIntoDocument(<CRCard item={ item }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'cr-card-map').should.be.ok();
-    findRenderedDOMComponentWithClass(instance, 'empty-map').should.be.ok();
+    findRenderedDOMComponentWithClass(instance, 'cr-card-map');
+    findRenderedDOMComponentWithClass(instance, 'empty-map');
   });
 
   it('should fade in when added', function () {

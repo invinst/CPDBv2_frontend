@@ -216,6 +216,14 @@ class PinboardPage extends Page {
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();
   relevantComplaintsSection = new RelevantComplaintsSection();
 
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      searchBar: '//div[starts-with(@class, "search-bar")]'
+    });
+  }
+
   open() {
     super.open('/pinboard/5cd06f2b/pinboard-title/');
   }

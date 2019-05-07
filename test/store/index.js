@@ -260,6 +260,7 @@ describe('store', function () {
           count: 0,
           pagination: { next: null, previous: null }
         },
+        redirection: null,
         officerItems: [],
         crItems: [],
         trrItems: [],
