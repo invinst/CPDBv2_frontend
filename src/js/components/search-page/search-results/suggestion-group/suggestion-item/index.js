@@ -1,11 +1,15 @@
 import React, { PropTypes, Component } from 'react';
+
 import { get, reduce } from 'lodash';
 
-import OfficerItem from './officer';
-import CRItem from './cr';
-import TRRItem from './trr';
-import SuggestionItemBase from './base';
+import withPinnableItem from './with-pinnable-item';
+import { getOfficerSecondRowContent, getCRSecondRowContent } from './item-second-row';
 
+
+export const OfficerItem = withPinnableItem(true, null, getOfficerSecondRowContent);
+export const CRItem = withPinnableItem(true, null, getCRSecondRowContent);
+export const TRRItem = withPinnableItem(true);
+export const UnpinnableItem = withPinnableItem(false);
 
 const COMPONENT_MAP = {
   OFFICER: OfficerItem,
@@ -34,7 +38,7 @@ export default class SuggestionItem extends Component {
 
   render() {
     const { type } = this.props.suggestion;
-    const ComponentType = get(COMPONENT_MAP, type, SuggestionItemBase);
+    const ComponentType = get(COMPONENT_MAP, type, UnpinnableItem);
     return (
       <ComponentType { ...this.props }/>
     );

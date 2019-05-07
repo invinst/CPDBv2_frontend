@@ -1,0 +1,22 @@
+@import 'variables'
+
+%pin-action-hint
+  display: inline-block
+  float: right
+
+\:local(.pin-action-hint-text)
+  @extend %pin-action-hint
+  font-size: 12px
+  font-weight: 500
+  line-height: 1.17
+  text-align: right
+  color: $boulder-color
+
+\:local(.ic-pinned-item)
+  @extend %pin-action-hint
+  background-position: center
+  background-repeat: no-repeat
+  background-size: contain
+  background-image: url('/img/ic-pin.svg')
+  height: 16px
+  width: 12px

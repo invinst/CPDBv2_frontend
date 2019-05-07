@@ -1,0 +1,69 @@
+@import 'variables'
+
+\:local(.suggestion-item)
+  display: block
+  text-decoration: none
+  background-color: transparent
+  font-family: $san-francisco-text-family
+  height: 54px
+  box-sizing: border-box
+  padding: 0 16px
+
+  &.active
+    background-color: $gin-fizz
+
+    &:hover
+      background-color: $gin-fizz
+
+  &:hover
+    background-color: white
+
+    \:local(.black-text)
+      color: $blue-ribbon
+
+\:local(.inner-wrapper)
+  height: 100%
+  padding: 11px 0
+  box-sizing: border-box
+
+  em
+    font-weight: 600
+    font-style: normal
+
+\:local(.two-rows-wrapper)
+  display: inline-block
+  min-height: 34px
+  padding: 1px 0
+  width: calc(100% - 100px)
+
+\:local(.alias-link)
+  color: $ultra-girly-pink
+  text-decoration: none
+  margin-left: 14px
+
+\:local(.item-pin-button)
+  display: inline-block
+  float: left
+  margin-top: 3px
+  margin-right: 8px
+
+\:local(.pin-action-hint-wrapper)
+  margin-right: 16px
+  margin-top: 9px
+  text-align: right
+
+%overflow-text
+  font-weight: 400
+  white-space: nowrap
+  overflow: hidden
+  text-overflow: ellipsis
+
+\:local(.gray-text)
+  %overflow-text
+  color: $clay-gray
+  font-size: 12px
+
+\:local(.black-text)
+  @extend %overflow-text
+  color: $soft-black-color
+  font-size: 14px
