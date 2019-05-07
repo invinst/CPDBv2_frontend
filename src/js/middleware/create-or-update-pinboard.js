@@ -18,7 +18,6 @@ import {
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
-  updatePinboardOrder,
 } from 'actions/pinboard';
 
 const PINBOARD_ATTR_MAP = {
@@ -46,9 +45,9 @@ const PINBOARD_FETCH_SELECTED_MAP = {
 const debouncedReorderOrCreatePinboard = _.debounce(
   (store, payload) => {
     const pinboard = getPinboard(store.getState());
-    const pinboardAction = (pinboard.id === null) ? createPinboard : updatePinboardOrder;
+    const pinboardAction = (pinboard.id === null) ? createPinboard : updatePinboard;
     store.dispatch(pinboardAction({
-      ..._.pick(pinboard, ['id', 'title', 'description', 'officerIds', 'crids', 'trrIds']),
+      ..._.pick(pinboard, ['id', 'title', 'officerIds', 'crids', 'trrIds']),
       ...payload
     }));
   },

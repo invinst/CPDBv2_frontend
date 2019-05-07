@@ -6,7 +6,6 @@ import * as constants from 'utils/constants';
 import {
   createPinboard,
   updatePinboard,
-  updatePinboardOrder,
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
@@ -126,7 +125,7 @@ describe('createOrUpdatePinboard middleware', function () {
     );
   });
 
-  it('should handle ORDER_PINBOARD and dispatch updatePinboardOrder', function (done) {
+  it('should handle ORDER_PINBOARD and dispatch updatePinboard', function (done) {
     const action = {
       type: constants.ORDER_PINBOARD,
       payload: {
@@ -146,10 +145,9 @@ describe('createOrUpdatePinboard middleware', function () {
 
     setTimeout(
       () => {
-        store.dispatch.should.be.calledWith(updatePinboardOrder({
+        store.dispatch.should.be.calledWith(updatePinboard({
           id: '99',
           title: '',
-          description: '',
           officerIds: [123, 789, 456],
           crids: ['2', '9'],
           trrIds: [],
@@ -202,10 +200,9 @@ describe('createOrUpdatePinboard middleware', function () {
 
     setTimeout(() => {
       store.dispatch.should.be.calledOnce();
-      store.dispatch.should.be.calledWith(updatePinboardOrder({
+      store.dispatch.should.be.calledWith(updatePinboard({
         id: '99',
         title: '',
-        description: '',
         officerIds: [123, 456, 789],
         crids: ['2', '9'],
         trrIds: [],

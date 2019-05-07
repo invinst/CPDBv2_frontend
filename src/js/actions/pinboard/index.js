@@ -33,16 +33,6 @@ export const updatePinboard = ({ id, title, officerIds, crids, trrIds }) => put(
   ]
 )({ title: title, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds });
 
-
-export const updatePinboardOrder = ({ id, title, description, officerIds, crids, trrIds }) => put(
-  `${constants.PINBOARDS_URL}${id}/`,
-  [
-    constants.PINBOARD_UPDATE_ORDER_REQUEST_START,
-    constants.PINBOARD_UPDATE_ORDER_REQUEST_SUCCESS,
-    constants.PINBOARD_UPDATE_ORDER_REQUEST_FAILURE,
-  ]
-)({ title, description, 'officer_ids': officerIds, crids, 'trr_ids': trrIds });
-
 export const fetchPinboard = id => get(
   `${constants.PINBOARDS_URL}${id}/`,
   [

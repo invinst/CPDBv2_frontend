@@ -1,7 +1,6 @@
 import {
   createPinboard,
   updatePinboard,
-  updatePinboardOrder,
   fetchPinboard,
   fetchPinboardComplaints,
   fetchPinboardOfficers,
@@ -98,40 +97,6 @@ describe('pinboard actions', function () {
             data: {
               title: 'Title',
               'officer_ids': ['1'],
-              crids: [],
-              'trr_ids': ['1'],
-            }
-          }
-        }
-      });
-    });
-  });
-
-  describe('updatePinboardOrder', function () {
-    it('should return correct action', function () {
-      const pinboard = {
-        id: '5cd06f2b',
-        title: 'Title',
-        description: 'Description',
-        officerIds: ['1', '3', '2'],
-        crids: [],
-        trrIds: ['1'],
-      };
-      updatePinboardOrder(pinboard).should.deepEqual({
-        types: [
-          constants.PINBOARD_UPDATE_ORDER_REQUEST_START,
-          constants.PINBOARD_UPDATE_ORDER_REQUEST_SUCCESS,
-          constants.PINBOARD_UPDATE_ORDER_REQUEST_FAILURE,
-        ],
-        payload: {
-          request: {
-            url: `${constants.PINBOARDS_URL}5cd06f2b/`,
-            method: 'put',
-            adapter: null,
-            data: {
-              title: 'Title',
-              description: 'Description',
-              'officer_ids': ['1', '3', '2'],
               crids: [],
               'trr_ids': ['1'],
             }
