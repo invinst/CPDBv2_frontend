@@ -1,9 +1,9 @@
 import { Promise } from 'es6-promise';
 import { stub } from 'sinon';
-import extractQuery from 'utils/extract-query';
 
 import restorePinboardSession from 'middleware/restore-pinboard-session';
 import { fetchLatestRetrievedPinboard } from 'actions/pinboard';
+import extractQuery from 'utils/extract-query';
 
 
 const createLocationChangeAction = (pathname) => ({
