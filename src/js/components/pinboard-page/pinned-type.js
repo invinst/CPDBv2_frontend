@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { map } from 'lodash';
+import { map, differenceBy, first, get } from 'lodash';
 import cx from 'classnames';
 
 import OfficerCard from './cards/officer-card';
@@ -13,8 +13,17 @@ const CARD_MAP = {
   'TRR': TRRCard,
 };
 
-
 export default class PinnedType extends Component {
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.items.length > 0
+      && this.props.items.length > 0
+      && nextProps.items.length > this.props.items.length
+    ) {
+      this.addedItem = first(differenceBy(nextProps.items, this.props.items, 'id'));
+    }
+  }
+
   render() {
     const { type, title, items, removeItemInPinboardPage } = this.props;
     const Card = CARD_MAP[type];
@@ -29,7 +38,9 @@ export default class PinnedType extends Component {
             map(items, item => (
               <Card
                 key={ item.id } item={ item }
-                removeItemInPinboardPage={ removeItemInPinboardPage }/>
+                removeItemInPinboardPage={ removeItemInPinboardPage }
+                isAdded={ get(this.addedItem, 'id') === get(item, 'id') }
+              />
             ))
           }
         </div>

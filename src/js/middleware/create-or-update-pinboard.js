@@ -1,10 +1,19 @@
 import * as _ from 'lodash';
 
-import { ADD_ITEM_TO_PINBOARD, REMOVE_ITEM_IN_PINBOARD_PAGE } from 'utils/constants';
+import {
+  ADD_ITEM_TO_PINBOARD,
+  REMOVE_ITEM_IN_PINBOARD_PAGE,
+  ADD_ITEM_IN_PINBOARD_PAGE,
+} from 'utils/constants';
 import { getPinboard } from 'selectors/pinboard';
 import {
   createPinboard,
   updatePinboard,
+  fetchPinboardSocialGraph,
+  fetchPinboardGeographicData,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
   fetchPinboardComplaints,
   fetchPinboardOfficers,
   fetchPinboardTRRs,
@@ -47,7 +56,9 @@ export default store => next => action => {
   let pinboard = null;
   let item = null;
 
-  if (action.type === ADD_ITEM_TO_PINBOARD || action.type === REMOVE_ITEM_IN_PINBOARD_PAGE) {
+  if (action.type === ADD_ITEM_TO_PINBOARD ||
+    action.type === REMOVE_ITEM_IN_PINBOARD_PAGE ||
+    action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
     pinboard = getPinboard(store.getState());
     item = action.payload;
 
@@ -61,7 +72,8 @@ export default store => next => action => {
       store.dispatch(updatePinboard(pinboard));
     }
   }
-  else if (action.type === REMOVE_ITEM_IN_PINBOARD_PAGE) {
+  else if (action.type === REMOVE_ITEM_IN_PINBOARD_PAGE ||
+    action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
     // TODO: test this async function
     /* istanbul ignore next */
     store.dispatch(updatePinboard(pinboard)).then(response => {
@@ -69,6 +81,11 @@ export default store => next => action => {
       const pinboardFetchSelected = PINBOARD_FETCH_SELECTED_MAP[item.type];
 
       store.dispatch(pinboardFetchSelected(pinboardID));
+      store.dispatch(fetchPinboardSocialGraph(pinboardID));
+      store.dispatch(fetchPinboardGeographicData(pinboardID));
+      store.dispatch(fetchPinboardRelevantDocuments(pinboardID));
+      store.dispatch(fetchPinboardRelevantCoaccusals(pinboardID));
+      store.dispatch(fetchPinboardRelevantComplaints(pinboardID));
     });
   }
 

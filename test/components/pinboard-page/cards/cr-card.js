@@ -3,12 +3,13 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
-  scryRenderedDOMComponentsWithClass,
+  scryRenderedDOMComponentsWithClass, Simulate,
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import CRCard from 'components/pinboard-page/cards/cr-card';
 import ItemUnpinButton from 'components/pinboard-page/item-unpin-button';
+import { findDOMNode } from 'react-dom';
 
 
 describe('CRCard component', function () {
@@ -44,5 +45,31 @@ describe('CRCard component', function () {
 
     findRenderedDOMComponentWithClass(instance, 'cr-card-map');
     findRenderedDOMComponentWithClass(instance, 'empty-map');
+  });
+
+  it('should fade in when added', function () {
+    const item = {
+      incidentDate: '10-10-2010',
+      category: 'Use Of Force',
+    };
+    instance = renderIntoDocument(<CRCard item={ item } isAdded={ true }/>);
+
+    const instanceDom = findDOMNode(instance);
+    instanceDom.className.should.containEql('hide');
+    instanceDom.className.should.containEql('fade-in');
+  });
+
+  it('should fade out when removed', function () {
+    const item = {
+      incidentDate: '10-10-2010',
+      category: 'Use Of Force',
+    };
+    instance = renderIntoDocument(<CRCard item={ item }/>);
+    const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
+
+    Simulate.click(findDOMNode(unpinButton));
+
+    const instanceDom = findDOMNode(instance);
+    instanceDom.className.should.containEql('fade-out');
   });
 });

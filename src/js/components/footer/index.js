@@ -29,23 +29,21 @@ class Footer extends React.Component {
 
     return (
       <div className={ cx(styles.footer, className, 'no-print') }>
-        <div className='footer-wrapper'>
-          <div className={ cx(responsiveContainerStyles.responsiveContainer, 'responsive-fixed-width-inner') }>
-            { links.map((link, ind) => (
-              <FooterNavLink
-                className='footer-nav-link'
-                key={ ind }
-                { ...link }
-              />
-            )) }
-          </div>
-          <div className='invist-wrapper'>
-            <div className={ responsiveContainerStyles.responsiveContainer }>
-              <OutboundLink
-                className='invist-logo test--footer-invinst-logo'
-                href={ INVISIBLE_INSTITUTE_URL }
-              />
-            </div>
+        <div className={ cx(responsiveContainerStyles.responsiveContainer, 'nav-links-wrapper') }>
+          { links.map((link, ind) => (
+            <FooterNavLink
+              className='footer-nav-link'
+              key={ ind }
+              { ...link }
+            />
+          )) }
+        </div>
+        <div className='invist-wrapper'>
+          <div className={ responsiveContainerStyles.responsiveContainer }>
+            <OutboundLink
+              className='invist-logo test--footer-invinst-logo'
+              href={ INVISIBLE_INSTITUTE_URL }
+            />
           </div>
         </div>
       </div>

@@ -14,7 +14,6 @@ export const extractPercentile = (percentile) => {
     trrPercentile
   );
   return {
-    officerId: percentile['officer_id'],
     year: percentile['year'],
     items: [
       { axis: 'Use of Force Reports', value: trrPercentile },

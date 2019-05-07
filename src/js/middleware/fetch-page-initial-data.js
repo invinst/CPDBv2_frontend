@@ -47,6 +47,9 @@ import {
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
   fetchPinboardGeographicData,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
 import {
   initialLoading,
@@ -218,6 +221,9 @@ export default store => next => action => {
             store.dispatch(fetchPinboardTRRs(idOnPath)),
             store.dispatch(fetchPinboardSocialGraph(idOnPath)),
             store.dispatch(fetchPinboardGeographicData(idOnPath)),
+            store.dispatch(fetchPinboardRelevantDocuments(idOnPath)),
+            store.dispatch(fetchPinboardRelevantCoaccusals(idOnPath)),
+            store.dispatch(fetchPinboardRelevantComplaints(idOnPath)),
           ];
           dispatches.concat(pinboardPromises);
 

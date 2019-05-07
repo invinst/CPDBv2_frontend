@@ -85,7 +85,6 @@ class SearchTermsPage extends Page {
 
   open() {
     super.open('/search/terms/');
-    browser.element('body').waitForVisible();
   }
 }
 

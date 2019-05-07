@@ -1,7 +1,7 @@
 'use strict';
 
 require('should');
-import { map, countBy, values, filter } from 'lodash';
+import { map, countBy, values, filter, times } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
 
@@ -166,10 +166,10 @@ describe('Pinboard Page', function () {
     it('should render geographic section', function () {
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.geographicPaneName.click();
-      pinboardPage.geographicSection.complaintText.getText().should.eql('Complaint');
-      pinboardPage.geographicSection.complaintNumber.getText().should.eql('5');
-      pinboardPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
-      pinboardPage.geographicSection.trrNumber.getText().should.eql('2');
+      pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
+      pinboardPage.geographicSection.complaintNumber.getText().should.equal('5');
+      pinboardPage.geographicSection.trrText.getText().should.equal('Use of Force Report');
+      pinboardPage.geographicSection.trrNumber.getText().should.equal('2');
     });
   });
 
@@ -177,10 +177,162 @@ describe('Pinboard Page', function () {
     it('should render geographic section', function () {
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.geographicPaneName.click();
-      pinboardPage.geographicSection.complaintText.getText().should.eql('Complaint');
-      pinboardPage.geographicSection.complaintNumber.getText().should.eql('5');
-      pinboardPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
-      pinboardPage.geographicSection.trrNumber.getText().should.eql('2');
+      pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
+      pinboardPage.geographicSection.complaintNumber.getText().should.equal('5');
+      pinboardPage.geographicSection.trrText.getText().should.equal('Use of Force Report');
+      pinboardPage.geographicSection.trrNumber.getText().should.equal('2');
+    });
+  });
+
+  context('relevant coaccusals section', function () {
+    it('should render coaccusal cards', function () {
+      pinboardPage.relevantCoaccusalsSection.title.getText().should.equal('COACCUSALS');
+
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
+      pinboardPage.relevantCoaccusalsSection.leftArrow.waitForExist(1000, true);
+      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000);
+
+      const firstCoaccusalCard = pinboardPage.relevantCoaccusalsSection.coaccusalCardSection;
+      firstCoaccusalCard.plusButton.waitForExist(1000);
+      firstCoaccusalCard.radarChart.waitForExist(1000);
+      firstCoaccusalCard.officerRank.getText().should.equal('Detective');
+      firstCoaccusalCard.officerName.getText().should.equal('Richard Sullivan');
+      firstCoaccusalCard.coaccusalCount.getText().should.equal('53 coaccusals');
+    });
+
+    it('should request more when clicking on right arrow', function () {
+      pinboardPage.relevantCoaccusalsSection.leftArrow.waitForExist(1000, true);
+      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000);
+
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(20);
+
+      pinboardPage.relevantCoaccusalsSection.rightArrow.click();
+      pinboardPage.relevantCoaccusalsSection.leftArrow.waitForExist(1000);
+
+      pinboardPage.relevantCoaccusalsSection.leftArrow.click();
+      pinboardPage.relevantCoaccusalsSection.leftArrow.waitForExist(1000, true);
+
+      times(5, () => pinboardPage.relevantCoaccusalsSection.rightArrow.click());
+      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(40);
+
+      times(4, () => pinboardPage.relevantCoaccusalsSection.rightArrow.click());
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(50);
+      pinboardPage.relevantCoaccusalsSection.rightArrow.waitForExist(1000, true);
+    });
+
+    it('should go to officer page when clicking on officer name section', function () {
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.nameWrapper.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
+    });
+
+    it('should go to officer page when clicking on coaccusal cont section', function () {
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.coaccusalCount.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
+    });
+  });
+
+  context('relevant documents section', function () {
+    it('should render document cards', function () {
+      pinboardPage.relevantDocumentsSection.title.getText().should.equal('DOCUMENTS');
+
+      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
+      pinboardPage.relevantDocumentsSection.leftArrow.waitForExist(1000, true);
+      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000);
+
+      const firstDocumentCard = pinboardPage.relevantDocumentsSection.documentCardSection;
+      firstDocumentCard.plusButton.waitForExist(1000);
+      firstDocumentCard.incidentDate.getText().should.equal('Apr 23, 2004');
+      firstDocumentCard.category.getText().should.equal('Lockup Procedures');
+      firstDocumentCard.firstTopOfficerName.getText().should.equal('R. Sullivan');
+      firstDocumentCard.secondTopOfficerName.getText().should.equal('B. Lopez');
+      firstDocumentCard.notShowingOfficerCount.getText().should.equal('3+');
+    });
+
+    it('should request more when clicking on right arrow', function () {
+      pinboardPage.relevantDocumentsSection.leftArrow.waitForExist(1000, true);
+      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000);
+
+      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
+
+      pinboardPage.relevantDocumentsSection.rightArrow.click();
+      pinboardPage.relevantDocumentsSection.leftArrow.waitForExist(1000);
+
+      pinboardPage.relevantDocumentsSection.leftArrow.click();
+      pinboardPage.relevantDocumentsSection.leftArrow.waitForExist(1000, true);
+
+      times(12, () => pinboardPage.relevantDocumentsSection.rightArrow.click());
+      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000);
+      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(40);
+
+      times(12, () => pinboardPage.relevantDocumentsSection.rightArrow.click());
+      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(50);
+      pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000, true);
+    });
+  });
+
+  context('relevant complaints section', function () {
+    it('should render complaint cards', function () {
+      pinboardPage.relevantComplaintsSection.title.getText().should.equal('COMPLAINTS');
+
+      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(20);
+      pinboardPage.relevantComplaintsSection.leftArrow.waitForExist(1000, true);
+      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000);
+
+      const firstComplaintCard = pinboardPage.relevantComplaintsSection.complaintCardSection;
+      firstComplaintCard.plusButton.waitForExist(1000);
+      firstComplaintCard.incidentDate.getText().should.equal('Apr 23, 2004');
+      firstComplaintCard.category.getText().should.equal('Lockup Procedures');
+      firstComplaintCard.firstTopOfficerName.getText().should.equal('R. Sullivan');
+      firstComplaintCard.secondTopOfficerName.getText().should.equal('B. Lopez');
+      firstComplaintCard.notShowingOfficerCount.getText().should.equal('3+');
+    });
+
+    it('should request more when clicking on right arrow', function () {
+      pinboardPage.relevantComplaintsSection.leftArrow.waitForExist(1000, true);
+      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000);
+
+      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(20);
+
+      pinboardPage.relevantComplaintsSection.rightArrow.click();
+      pinboardPage.relevantComplaintsSection.leftArrow.waitForExist(1000);
+
+      pinboardPage.relevantComplaintsSection.leftArrow.click();
+      pinboardPage.relevantComplaintsSection.leftArrow.waitForExist(1000, true);
+
+      times(12, () => pinboardPage.relevantComplaintsSection.rightArrow.click());
+      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000);
+      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(40);
+
+      times(12, () => pinboardPage.relevantComplaintsSection.rightArrow.click());
+      pinboardPage.relevantComplaintsSection.complaintCards().should.have.length(50);
+      pinboardPage.relevantComplaintsSection.rightArrow.waitForExist(1000, true);
+    });
+
+    it('should go to complaint page when clicking on incident date', function () {
+      pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+    });
+
+    it('should go to complaint page when clicking on top officers', function () {
+      pinboardPage.relevantComplaintsSection.complaintCardSection.topOfficers.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+    });
+
+    it('should go to complaint page when clicking on remaining officers', function () {
+      pinboardPage.relevantComplaintsSection.complaintCardSection.remainingOfficers.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+    });
+
+    it('should go to complaint page when clicking on left half of a complaint card', function () {
+      pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
     });
   });
 });

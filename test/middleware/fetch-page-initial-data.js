@@ -31,6 +31,9 @@ import {
   fetchPinboardTRRs,
   fetchPinboardGeographicData,
   fetchPinboardSocialGraph,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
 import {
   redirect,
@@ -376,6 +379,9 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchPinboardTRRs('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardSocialGraph('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardGeographicData('268a5e58')).should.be.true();
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('268a5e58'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e58'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('268a5e58'));
   });
 
   it('should dispatch redirect, fetchPinboard if requesting does not equal ID in state', function () {
@@ -402,5 +408,9 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(fetchPinboardComplaints('268a5e5')).should.be.false();
     store.dispatch.calledWith(fetchPinboardOfficers('268a5e5')).should.be.false();
     store.dispatch.calledWith(fetchPinboardTRRs('268a5e5')).should.be.false();
+    store.dispatch.should.not.be.calledWith(fetchPinboardSocialGraph('268a5e5'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantDocuments('268a5e5'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e5'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('268a5e5'));
   });
 });

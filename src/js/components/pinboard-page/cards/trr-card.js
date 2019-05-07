@@ -1,13 +1,33 @@
 import React, { Component, PropTypes } from 'react';
 import { get } from 'lodash';
+import cx from 'classnames';
 
 import { mapStyle } from 'components/cr-page/related-complaints/complaint-card.style';
 import ItemUnpinButton from '../item-unpin-button';
 import styles from './trr-card.sass';
+import { startAnimation } from 'utils/animation';
+
 
 export default class TRRCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { isAdded } = this.props;
+    if (isAdded) {
+      startAnimation(() => this.el.classList.add('fade-in'));
+    }
+  }
+
+  handleClick() {
+    this.el.classList.add('fade-out');
+  }
+
   render() {
-    const { removeItemInPinboardPage, item } = this.props;
+    const { removeItemInPinboardPage, item, isAdded } = this.props;
     const { trrDate, point, category } = item;
 
     const cardMapConfig = {
@@ -18,10 +38,12 @@ export default class TRRCard extends Component {
     };
 
     return (
-      <div className={ styles.wrapper }>
+      <div className={ cx(styles.wrapper, { hide: isAdded }) } ref={ el => this.el = el }>
         <ItemUnpinButton
           item={ item }
-          removeItemInPinboardPage={ removeItemInPinboardPage } />
+          removeItemInPinboardPage={ removeItemInPinboardPage }
+          onClick={ this.handleClick }
+        />
         {
         (point === null) ?
           <div className='trr-card-map empty-map' />
@@ -46,4 +68,9 @@ export default class TRRCard extends Component {
 TRRCard.propTypes = {
   item: PropTypes.object,
   removeItemInPinboardPage: PropTypes.func,
+  isAdded: PropTypes.bool,
+};
+
+TRRCard.defaultProps = {
+  isAdded: false,
 };

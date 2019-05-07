@@ -3,15 +3,19 @@ import { stub } from 'sinon';
 
 import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
 import * as constants from 'utils/constants';
-import { createPinboard, updatePinboard } from 'actions/pinboard';
+import {
+  createPinboard,
+  updatePinboard,
+} from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
 
 describe('createOrUpdatePinboard middleware', function () {
-  const createStore = (pinboard) => ({
+  const createStore = (pinboard, pathname='') => ({
     getState: () => {
       return {
-        pinboard
+        pinboard,
+        pathname,
       };
     },
     dispatch: stub().usingPromise(Promise).resolves('abc')
@@ -28,6 +32,15 @@ describe('createOrUpdatePinboard middleware', function () {
 
   const createRemoveItemInPinboardPageAction = (item) => ({
     type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+    payload: {
+      id: item.id,
+      type: item.type,
+      isPinned: item.isPinned,
+    }
+  });
+
+  const createAddItemInPinboardPageAction = (item) => ({
+    type: constants.ADD_ITEM_IN_PINBOARD_PAGE,
     payload: {
       id: item.id,
       type: item.type,
@@ -168,6 +181,36 @@ describe('createOrUpdatePinboard middleware', function () {
         title: '',
         description: '',
         crids: ['2'],
+        officerIds: ['a'],
+        trrIds: ['1'],
+        url: '',
+        itemsCount: 3,
+      })).should.be.true();
+    });
+  });
+
+  context('handling ADD_ITEM_IN_PINBOARD_PAGE', function () {
+    it('should dispatch updatePinboard if an item is removed', function () {
+      const action = createAddItemInPinboardPageAction({
+        id: '1',
+        type: 'CR',
+        isPinned: false,
+      });
+      const store = createStore(PinboardFactory.build({
+        id: '99',
+        crids: ['2'],
+        'officer_ids': ['a'],
+        'trr_ids': ['1'],
+      }));
+      let dispatched;
+
+      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      dispatched.should.eql(action);
+      store.dispatch.calledWith(updatePinboard({
+        id: '99',
+        title: '',
+        description: '',
+        crids: ['2', '1'],
         officerIds: ['a'],
         trrIds: ['1'],
         url: '',

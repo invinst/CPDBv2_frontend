@@ -39,7 +39,6 @@ class SocialGraphPage extends Page {
 
   open() {
     super.open('/social-graph/?unit_id=123&title=Live test social graph title');
-    browser.element('body').waitForVisible();
   }
 }
 
