@@ -6,6 +6,7 @@ import currentTab from './current-tab';
 import relevantDocuments from './relevant-documents';
 import relevantCoaccusals from './relevant-coaccusals';
 import relevantComplaints from './relevant-complaints';
+import redirection from './redirection';
 
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
   relevantDocuments,
   relevantCoaccusals,
   relevantComplaints,
+  redirection,
 });

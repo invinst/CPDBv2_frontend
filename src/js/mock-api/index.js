@@ -227,6 +227,8 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
   200, getRelevantComplaints('5cd06f2b', 20, 40, 50)
 );
 
+axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`).reply(200, {});
+
 /*istanbul ignore next*/
 export function getMockAdapter() {
   if (config.appEnv === 'live-test') {

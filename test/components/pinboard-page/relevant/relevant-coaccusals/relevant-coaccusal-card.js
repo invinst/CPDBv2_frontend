@@ -24,11 +24,11 @@ describe('RelevantCoaccusalCard component', function () {
   });
 
   it('should render enough content correctly', function () {
-    const addItemToPinboardStub = stub();
+    const addItemInPinboardPageStub = stub();
 
     instance = renderIntoDocument(
       <RelevantCoaccusalCard
-        addItemToPinboard={ addItemToPinboardStub }
+        addItemInPinboardPage={ addItemInPinboardPageStub }
         id={ 123 }
         fullName='Jerome Finnigan'
         rank='Officer'
@@ -70,16 +70,16 @@ describe('RelevantCoaccusalCard component', function () {
     const plusButton = findRenderedComponentWithType(instance, PlusButton);
     Simulate.click(findDOMNode(plusButton));
 
-    addItemToPinboardStub.should.calledOnce();
-    addItemToPinboardStub.should.calledWith({ type: 'OFFICER', id: '123', isPinned: false });
+    addItemInPinboardPageStub.should.calledOnce();
+    addItemInPinboardPageStub.should.calledWith({ type: 'OFFICER', id: '123' });
   });
 
   it('should render pluralize coaccusalCount and handle no percentile data', function () {
-    const addItemToPinboardStub = stub();
+    const addItemInPinboardPageStub = stub();
 
     instance = renderIntoDocument(
       <RelevantCoaccusalCard
-        addItemToPinboard={ addItemToPinboardStub }
+        addItemInPinboardPage={ addItemInPinboardPageStub }
         id={ 123 }
         fullName='Jerome Finnigan'
         rank='Officer'

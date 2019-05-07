@@ -20,7 +20,7 @@ import {
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
-  addItemToPinboard,
+  addItemInPinboardPage,
 } from 'actions/pinboard';
 import { getPinboardID } from 'utils/location';
 
@@ -45,7 +45,7 @@ const mapDispatchToProps = {
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
-  addItemToPinboard,
+  addItemInPinboardPage,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RelevantSection);

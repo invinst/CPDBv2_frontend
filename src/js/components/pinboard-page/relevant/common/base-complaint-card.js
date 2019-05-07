@@ -14,9 +14,9 @@ export class BaseComplaintCard extends Component {
   }
 
   handleClick(e) {
-    const { crid, addItemToPinboard } = this.props;
+    const { crid, addItemInPinboardPage } = this.props;
     e.preventDefault();
-    addItemToPinboard({ type: 'CR', id: crid, isPinned: false });
+    addItemInPinboardPage({ type: 'CR', id: crid });
   }
 
   render() {
@@ -52,7 +52,7 @@ export class BaseComplaintCard extends Component {
           <div className='remaining-officers'>
             { otherOfficers.map(officer =>
               <MiniVisualToken className='remaining-officer' key={ officer.id } percentile={ officer.percentile }/>
-            )}
+            ) }
             {
               notShowingOfficerCount > 0 ?
                 <div className='not-showing-officer-count'>{ `${ notShowingOfficerCount }+` }</div>
@@ -74,7 +74,7 @@ BaseComplaintCard.propTypes = {
   incidentDate: PropTypes.string,
   category: PropTypes.string,
   officers: PropTypes.arrayOf(PropTypes.object),
-  addItemToPinboard: PropTypes.func,
+  addItemInPinboardPage: PropTypes.func,
   pinned: PropTypes.bool,
 };
 

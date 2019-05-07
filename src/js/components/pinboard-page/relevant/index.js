@@ -23,7 +23,7 @@ export default class RelevantSection extends Component {
       fetchPinboardRelevantDocuments,
       fetchPinboardRelevantCoaccusals,
       fetchPinboardRelevantComplaints,
-      addItemToPinboard,
+      addItemInPinboardPage,
     } = this.props;
 
     if (isEmpty(documents) && isEmpty(coaccusals) && isEmpty(complaints))
@@ -38,7 +38,7 @@ export default class RelevantSection extends Component {
           nextParams={ documentNextParams }
           hasMore={ documentHasMore }
           fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocuments }
-          addItemToPinboard={ addItemToPinboard }
+          addItemInPinboardPage={ addItemInPinboardPage }
         />
         <RelevantCoaccusals
           pinboardId={ pinboardId }
@@ -46,7 +46,7 @@ export default class RelevantSection extends Component {
           nextParams={ coaccusalNextParams }
           hasMore={ coaccusalHasMore }
           fetchPinboardRelevantCoaccusals={ fetchPinboardRelevantCoaccusals }
-          addItemToPinboard={ addItemToPinboard }
+          addItemInPinboardPage={ addItemInPinboardPage }
         />
         <RelevantComplaints
           pinboardId={ pinboardId }
@@ -54,7 +54,7 @@ export default class RelevantSection extends Component {
           nextParams={ complaintNextParams }
           hasMore={ complaintHasMore }
           fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaints }
-          addItemToPinboard={ addItemToPinboard }
+          addItemInPinboardPage={ addItemInPinboardPage }
         />
       </div>
     );
@@ -75,7 +75,7 @@ RelevantSection.propTypes = {
   fetchPinboardRelevantDocuments: PropTypes.func,
   fetchPinboardRelevantCoaccusals: PropTypes.func,
   fetchPinboardRelevantComplaints: PropTypes.func,
-  addItemToPinboard: PropTypes.func,
+  addItemInPinboardPage: PropTypes.func,
 };
 
 RelevantSection.defaultProps = {

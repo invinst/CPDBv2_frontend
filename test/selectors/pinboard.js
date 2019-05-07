@@ -15,10 +15,10 @@ describe('Pinboard selectors', function () {
         description: '',
         url: '',
         itemsCount: 0,
-        ownedByCurrentUser: false,
         crItems: [],
         officerItems: [],
         trrItems: [],
+        isPinboardRestored: false,
       });
     });
 
@@ -31,10 +31,10 @@ describe('Pinboard selectors', function () {
           crids: ['abc'],
           'trr_ids': [1],
           description: 'Description',
-          ownedByCurrentUser: true,
           crItems: [{ crid: 'abc' }],
           officerItems: [{ id: 12 }],
           trrItems: [{ id: 1 }],
+          isPinboardRestored: false,
         }),
       };
 
@@ -47,10 +47,10 @@ describe('Pinboard selectors', function () {
         description: 'Description',
         url: '/pinboard/1/pinboard-title/',
         itemsCount: 3,
-        ownedByCurrentUser: true,
         crItems: [{ crid: 'abc' }],
         officerItems: [{ id: 12 }],
         trrItems: [{ id: 1 }],
+        isPinboardRestored: false,
       });
     });
 
@@ -63,10 +63,10 @@ describe('Pinboard selectors', function () {
           crids: ['abc'],
           'trr_ids': [1],
           description: 'Description',
-          ownedByCurrentUser: true,
           crItems: [{ crid: 'abc' }],
           officerItems: [{ id: 12 }],
           trrItems: [{ id: 1 }],
+          isPinboardRestored: false,
         }),
       };
 
@@ -79,10 +79,10 @@ describe('Pinboard selectors', function () {
         description: 'Description',
         url: '/pinboard/1/untitled-pinboard/',
         itemsCount: 3,
-        ownedByCurrentUser: true,
         crItems: [{ crid: 'abc' }],
         officerItems: [{ id: 12 }],
         trrItems: [{ id: 1 }],
+        isPinboardRestored: false,
       });
     });
   });

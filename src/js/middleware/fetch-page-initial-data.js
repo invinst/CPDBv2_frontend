@@ -18,6 +18,7 @@ import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent
 import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
 import { getMatchParamater, getDocumentsOrder } from 'selectors/documents-overview-page';
 import { getCRIDParameter } from 'selectors/document-deduplicator-page';
+import { getPinboard } from 'selectors/pinboard';
 import { getCitySummary } from 'actions/landing-page/city-summary';
 import { fetchOfficerSummary, changeOfficerId, requestCreateOfficerZipFile } from 'actions/officer-page';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
@@ -50,6 +51,10 @@ import {
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
+import {
+  initialLoading,
+  redirect,
+} from 'actions/pinboard-page';
 
 let prevPathname = '';
 
@@ -204,17 +209,31 @@ export default store => next => action => {
     }
 
     else if (action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//)) {
-      const pinboardID = getPinboardID(action.payload.pathname);
-      if (pinboardID.length === PINBOARD_HEX_ID_LENGTH) {
-        dispatches.push(store.dispatch(fetchPinboard(pinboardID)));
-        dispatches.push(store.dispatch(fetchPinboardComplaints(pinboardID)));
-        dispatches.push(store.dispatch(fetchPinboardOfficers(pinboardID)));
-        dispatches.push(store.dispatch(fetchPinboardTRRs(pinboardID)));
-        dispatches.push(store.dispatch(fetchPinboardSocialGraph(pinboardID)));
-        dispatches.push(store.dispatch(fetchPinboardGeographicData(pinboardID)));
-        dispatches.push(store.dispatch(fetchPinboardRelevantDocuments(pinboardID)));
-        dispatches.push(store.dispatch(fetchPinboardRelevantCoaccusals(pinboardID)));
-        dispatches.push(store.dispatch(fetchPinboardRelevantComplaints(pinboardID)));
+      const idOnPath = getPinboardID(action.payload.pathname);
+      const idInStore = getPinboard(state).id;
+      if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
+        if (idOnPath === idInStore) {
+          dispatches.push(store.dispatch(redirect(false)));
+          const pinboardPromises = [
+            store.dispatch(fetchPinboard(idOnPath)),
+            store.dispatch(fetchPinboardComplaints(idOnPath)),
+            store.dispatch(fetchPinboardOfficers(idOnPath)),
+            store.dispatch(fetchPinboardTRRs(idOnPath)),
+            store.dispatch(fetchPinboardSocialGraph(idOnPath)),
+            store.dispatch(fetchPinboardGeographicData(idOnPath)),
+            store.dispatch(fetchPinboardRelevantDocuments(idOnPath)),
+            store.dispatch(fetchPinboardRelevantCoaccusals(idOnPath)),
+            store.dispatch(fetchPinboardRelevantComplaints(idOnPath)),
+          ];
+          dispatches.concat(pinboardPromises);
+
+          Promise.all(pinboardPromises).finally(() => {
+            store.dispatch(initialLoading(false));
+          });
+        } else {
+          dispatches.push(store.dispatch(redirect(true)));
+          dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
+        }
       }
     }
 

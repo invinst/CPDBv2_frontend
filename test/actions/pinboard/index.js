@@ -10,11 +10,46 @@ import {
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
   fetchPinboardGeographicData,
+  removeItemInPinboardPage,
+  addItemInPinboardPage,
+  fetchLatestRetrievedPinboard,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
 
 describe('pinboard actions', function () {
+  describe('removeItemInPinboardPage', function () {
+    it('should return correct action', function () {
+      removeItemInPinboardPage({
+        id: '1234',
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          id: '1234',
+          type: 'OFFICER',
+          isPinned: true,
+        },
+      });
+    });
+  });
+
+  describe('addItemInPinboardPage', function () {
+    it('should return correct action', function () {
+      addItemInPinboardPage({
+        id: '1234',
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.ADD_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          id: '1234',
+          type: 'OFFICER',
+          isPinned: false,
+        },
+      });
+    });
+  });
+
   describe('createPinboard', function () {
     it('should return correct action', function () {
       createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
@@ -305,6 +340,26 @@ describe('pinboard actions', function () {
         payload: {
           request: {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-complaints/?limit=20&offset=20`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchLatestRetrievedPinboard', function () {
+    it('should return correct action', function () {
+      fetchLatestRetrievedPinboard().should.deepEqual({
+        types: [
+          constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_START,
+          constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}latest-retrieved-pinboard/`,
             params: undefined,
             adapter: null,
             cancelToken: undefined,

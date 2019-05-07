@@ -15,10 +15,10 @@ class OfficerItem extends SuggestionItemBase {
   }
 
   renderItemPinButton() {
-    const { suggestion, addItemToPinboard } = this.props;
+    const { suggestion, addOrRemoveItemInPinboard } = this.props;
     return (
       <ItemPinButton
-        addItemToPinboard={ addItemToPinboard }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
         suggestion={ suggestion }
       />
     );
@@ -63,7 +63,7 @@ OfficerItem.propTypes = {
     complaintCount: PropTypes.number,
   }),
   isFocused: PropTypes.bool,
-  addItemToPinboard: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 OfficerItem.defaultProps = {

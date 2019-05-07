@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
+import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
@@ -9,15 +10,17 @@ import {
 import { stub } from 'sinon';
 import * as ReactRouter from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
+import should from 'should';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
-import PinnedSection from 'components/pinboard-page/pinned-section';
+import { unmountComponentSuppressError } from 'utils/test';
 import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import SearchBar from 'components/pinboard-page/search-bar';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
+import PinnedSection from 'components/pinboard-page/pinned-section';
+import { PINBOARD_PAGE_REDIRECT, PINBOARD_PAGE_INITIAL_LOADING } from 'utils/constants';
 
 
 describe('PinboardPage component', function () {
@@ -35,6 +38,10 @@ describe('PinboardPage component', function () {
     relevantDocuments: defaultPaginationState,
     relevantCoaccusals: defaultPaginationState,
     relevantComplaints: defaultPaginationState,
+    redirection: {
+      redirect: false,
+      initialLoading: false,
+    }
   };
 
   const createStore = pinboard => MockStore()({
@@ -46,28 +53,18 @@ describe('PinboardPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should replace url on id change', function () {
-    const replaceStub = stub(ReactRouter.browserHistory, 'replace');
+  it('should render nothing if isInitiallyLoading is true', function () {
     const pinboard = {
-      'id': '1',
-      'officer_ids': [1, 2],
-      'crids': [],
-      'trr_ids': [],
-    };
-    const newPinboard = {
-      'id': '2',
-      'officer_ids': [3, 4],
-      'crids': [],
-      'trr_ids': [],
+      'id': '5cd06f2b',
+      'title': 'Pinboard title',
     };
 
     const state = {
       pinboard,
       pinboardPage,
-      pathname: 'pinboard/abc123',
+      pathname: 'pinboard/5cd06f2b',
     };
 
-    //We cannot use `rerender` together with `redux-mock-store` here as an existing store cannot be modified on the fly.
     const store = ReduxCreateStore(RootReducer, state);
 
     instance = renderIntoDocument(
@@ -77,44 +74,47 @@ describe('PinboardPage component', function () {
     );
 
     store.dispatch({
-      type: 'PINBOARD_FETCH_REQUEST_SUCCESS',
-      payload: newPinboard,
+      type: PINBOARD_PAGE_INITIAL_LOADING,
+      payload: true,
     });
 
-    replaceStub.calledWith('/pinboard/2/').should.be.true();
-    replaceStub.restore();
+    should(findDOMNode(instance)).be.null();
   });
 
-  it('should not replace url if id is not changed', function () {
+  it('should replace url when shouldRedirect is True after updating', function () {
     const replaceStub = stub(ReactRouter.browserHistory, 'replace');
+
     const pinboard = {
-      'id': '1',
-      'officer_ids': [1, 2],
-      'crids': [],
-      'trr_ids': [],
+      'id': '5cd06f2b',
+      'title': 'Pinboard title',
     };
 
+    const state = {
+      pinboard,
+      pinboardPage,
+      pathname: 'pinboard/5cd06f2b',
+    };
+
+    const store = ReduxCreateStore(RootReducer, state);
+
     instance = renderIntoDocument(
-      <Provider store={ createStore(pinboard) }>
+      <Provider store={ store }>
         <PinboardPageContainer />
       </Provider>
     );
-    reRender(
-      <Provider store={ createStore(pinboard) }>
-        <PinboardPageContainer />
-      </Provider>, instance
-    );
 
-    replaceStub.called.should.be.false();
+    store.dispatch({
+      type: PINBOARD_PAGE_REDIRECT,
+      payload: true,
+    });
+
+    replaceStub.calledWith('/pinboard/5cd06f2b/pinboard-title/').should.be.true();
     replaceStub.restore();
   });
 
   it('should render PinnedSection component and SearchBar component', function () {
     const pinboard = {
-      'id': '1',
-      'officer_ids': [1, 2],
-      'crids': [],
-      'trr_ids': [],
+      'id': '5cd06f2b',
     };
 
     instance = renderIntoDocument(
@@ -131,9 +131,6 @@ describe('PinboardPage component', function () {
     const pinboard = {
       title: 'This is pinboard title',
       description: 'This is pinboard description',
-      'officer_ids': [1, 2],
-      'crids': [],
-      'trr_ids': [],
     };
 
     instance = renderIntoDocument(

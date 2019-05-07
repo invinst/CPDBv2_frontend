@@ -14,6 +14,7 @@ import redirectOfficerAlias from 'middleware/redirect-officer-alias';
 import updatePathName from 'middleware/path-name';
 import retryOfficerDownloadMiddleware from 'middleware/retry-officer-downloads';
 import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
+import restorePinboardSession from 'middleware/restore-pinboard-session';
 import config from 'config';
 
 const localStorageVersion = localStorage.getItem('CPDB_LOCALSTORAGE_VERSION', null);
@@ -29,6 +30,7 @@ function configureStore(initialState) {
       routerMiddleware(browserHistory), fetchPageInitialData,
       redirectOfficerAlias, updatePathName,
       retryOfficerDownloadMiddleware, createOrUpdatePinboard,
+      restorePinboardSession,
     ),
     persistState(()=>{}, localStorageConfig)
   ];

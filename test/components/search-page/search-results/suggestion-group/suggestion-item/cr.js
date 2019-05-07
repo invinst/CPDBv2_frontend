@@ -22,16 +22,16 @@ describe('CRItem component', function () {
 
   it('should render ItemPinButton with correct passed props', function () {
     const suggestion = { 'type': 'CR' };
-    const addItemToPinboard = stub();
+    const addOrRemoveItemInPinboard = stub();
     instance = renderIntoDocument(<CRItem
       suggestion={ suggestion }
-      addItemToPinboard={ addItemToPinboard }
+      addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
     />);
 
     const itemPinButton = findRenderedComponentWithType(instance, ItemPinButton);
     itemPinButton.props.should.containEql({
       'suggestion': suggestion,
-      'addItemToPinboard': addItemToPinboard,
+      'addOrRemoveItemInPinboard': addOrRemoveItemInPinboard,
     });
   });
 

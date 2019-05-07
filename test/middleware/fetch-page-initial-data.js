@@ -35,6 +35,9 @@ import {
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
+import {
+  redirect,
+} from 'actions/pinboard-page';
 
 
 const createLocationChangeAction = (pathname) => ({
@@ -361,79 +364,53 @@ describe('fetchPageInitialData middleware', function () {
     store.dispatch.calledWith(requestCrawlers()).should.be.true();
   });
 
-  it('should dispatch fetchPinboard if requested ID is valid', function () {
+  it('should get all pinboard data if requesting ID equals ID in state', function () {
     const store = buildStore();
-    _.set(store._state, 'pinboard.id', null);
-    const action = createLocationChangeAction('/pinboard/1234ABCD/');
-    let dispatched;
-
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.should.be.calledWith(fetchPinboard('1234ABCD'));
-    store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('1234ABCD'));
-    store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('1234ABCD'));
-    store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('1234ABCD'));
-    store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('1234ABCD'));
-    store.dispatch.calledWith(fetchPinboardComplaints('1234ABCD')).should.be.true();
-    store.dispatch.calledWith(fetchPinboardOfficers('1234ABCD')).should.be.true();
-    store.dispatch.calledWith(fetchPinboardTRRs('1234ABCD')).should.be.true();
-  });
-
-  it('should not dispatch fetchPinboard if requested ID is not valid', function () {
-    const store = buildStore();
-    _.set(store._state, 'pinboard.id', null);
-    const action = createLocationChangeAction('/pinboard/123ABCD/');  // Not enough 8 characters
-    let dispatched;
-
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.should.not.be.calledWith(fetchPinboard('123ABCD'));
-    store.dispatch.calledWith(fetchPinboardComplaints('123ABCD')).should.be.false();
-    store.dispatch.calledWith(fetchPinboardOfficers('123ABCD')).should.be.false();
-    store.dispatch.calledWith(fetchPinboardTRRs('123ABCD')).should.be.false();
-    store.dispatch.should.not.be.calledWith(fetchPinboardSocialGraph('123ABCD'));
-    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantDocuments('123ABCD'));
-    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('123ABCD'));
-    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('123ABCD'));
-  });
-
-  it('should not dispatch fetchPinboard if requested pinboard is the same as the current one', function () {
-    const store = buildStore();
-    _.set(store._state, 'pinboard.id', '123ABCD');
-    const action = createLocationChangeAction('/pinboard/123ABCD/');
-    let dispatched;
-
-    fetchPageInitialData(store)(action => dispatched = action)(action);
-    dispatched.should.eql(action);
-    store.dispatch.should.not.be.calledWith(fetchPinboard('123ABCD'));
-    store.dispatch.should.not.be.calledWith(fetchPinboardSocialGraph('123ABCD'));
-    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantDocuments('123ABCD'));
-    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('123ABCD'));
-    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('123ABCD'));
-    store.dispatch.calledWith(fetchPinboardComplaints('123ABCD')).should.be.false();
-    store.dispatch.calledWith(fetchPinboardOfficers('123ABCD')).should.be.false();
-    store.dispatch.calledWith(fetchPinboardTRRs('123ABCD')).should.be.false();
-  });
-
-  it('should dispatch fetchPinboardSocialGraph when store is empty', function () {
-    const store = buildStore();
-    _.set(store._state, 'pinboard.id', null);
+    _.set(store._state, 'pinboard.id', '268a5e58');
     const action = createLocationChangeAction('/pinboard/268a5e58/');
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
+    store.dispatch.calledWith(redirect(false)).should.be.true();
+    store.dispatch.calledWith(fetchPinboard('268a5e58')).should.be.true();
+    store.dispatch.calledWith(fetchPinboardComplaints('268a5e58')).should.be.true();
+    store.dispatch.calledWith(fetchPinboardOfficers('268a5e58')).should.be.true();
+    store.dispatch.calledWith(fetchPinboardTRRs('268a5e58')).should.be.true();
     store.dispatch.calledWith(fetchPinboardSocialGraph('268a5e58')).should.be.true();
+    store.dispatch.calledWith(fetchPinboardGeographicData('268a5e58')).should.be.true();
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('268a5e58'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e58'));
+    store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('268a5e58'));
   });
 
-  it('should dispatch fetchPinboardGeographicData when store is empty', function () {
+  it('should dispatch redirect, fetchPinboard if requesting does not equal ID in state', function () {
     const store = buildStore();
-    _.set(store._state, 'pinboard.id', null);
-    const action = createLocationChangeAction('/pinboard/268a5e58/');
+    _.set(store._state, 'pinboard.id', '268a5e58');
+    const action = createLocationChangeAction('/pinboard/5cd06f2b/');
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
-    store.dispatch.calledWith(fetchPinboardGeographicData('268a5e58')).should.be.true();
+    store.dispatch.calledWith(redirect(true)).should.be.true();
+    store.dispatch.calledWith(fetchPinboard('5cd06f2b')).should.be.true();
+  });
+
+  it('should not dispatch fetchPinboard if requesting ID is not valid', function () {
+    const store = buildStore();
+    _.set(store._state, 'pinboard.id', null);
+    const action = createLocationChangeAction('/pinboard/268a5e5/');  // Not enough 8 characters
+    let dispatched;
+
+    fetchPageInitialData(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+    store.dispatch.calledWith(fetchPinboard('268a5e5')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardComplaints('268a5e5')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardOfficers('268a5e5')).should.be.false();
+    store.dispatch.calledWith(fetchPinboardTRRs('268a5e5')).should.be.false();
+    store.dispatch.should.not.be.calledWith(fetchPinboardSocialGraph('268a5e5'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantDocuments('268a5e5'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantCoaccusals('268a5e5'));
+    store.dispatch.should.not.be.calledWith(fetchPinboardRelevantComplaints('268a5e5'));
   });
 });

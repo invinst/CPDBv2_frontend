@@ -11,7 +11,7 @@ export default class RelevantDocuments extends Component {
   }
 
   render() {
-    const { documents, hasMore, addItemToPinboard } = this.props;
+    const { documents, hasMore, addItemInPinboardPage } = this.props;
     return (
       <RelevantInfiniteCarousel
         title='DOCUMENTS'
@@ -23,7 +23,7 @@ export default class RelevantDocuments extends Component {
         {
           documents.map((document, index) =>
             <div key={ index } style={ { width: '306px' } }>
-              <RelevantDocumentCard { ...document } addItemToPinboard={ addItemToPinboard }/>
+              <RelevantDocumentCard { ...document } addItemInPinboardPage={ addItemInPinboardPage }/>
             </div>
           )
         }
@@ -38,7 +38,7 @@ RelevantDocuments.propTypes = {
   fetchPinboardRelevantDocuments: PropTypes.func,
   hasMore: PropTypes.bool,
   pinboardId: PropTypes.string,
-  addItemToPinboard: PropTypes.func,
+  addItemInPinboardPage: PropTypes.func,
 };
 
 RelevantDocuments.defaultProps = {

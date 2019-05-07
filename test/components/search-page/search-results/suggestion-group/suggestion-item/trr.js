@@ -17,16 +17,16 @@ describe('TRR component', function () {
 
   it('should render ItemPinButton with correct passed props', function () {
     const suggestion = { 'type': 'TRR' };
-    const addItemToPinboard = stub();
+    const addOrRemoveItemInPinboard = stub();
     instance = renderIntoDocument(<TRRItem
       suggestion={ suggestion }
-      addItemToPinboard={ addItemToPinboard }
+      addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
     />);
 
     const itemPinButton = findRenderedComponentWithType(instance, ItemPinButton);
     itemPinButton.props.should.containEql({
       'suggestion': suggestion,
-      'addItemToPinboard': addItemToPinboard,
+      'addOrRemoveItemInPinboard': addOrRemoveItemInPinboard,
     });
   });
 });

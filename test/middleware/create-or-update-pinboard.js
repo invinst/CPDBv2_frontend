@@ -1,23 +1,13 @@
 import { Promise } from 'es6-promise';
-import { stub, spy } from 'sinon';
-import { browserHistory } from 'react-router';
+import { stub } from 'sinon';
 
 import createOrUpdatePinboard from 'middleware/create-or-update-pinboard';
 import * as constants from 'utils/constants';
 import {
   createPinboard,
   updatePinboard,
-  fetchPinboard,
-  fetchPinboardSocialGraph,
-  fetchPinboardRelevantDocuments,
-  fetchPinboardRelevantCoaccusals,
-  fetchPinboardRelevantComplaints,
-  fetchPinboardOfficers,
-  fetchPinboardComplaints,
-  fetchPinboardTRRs,
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
-import { PINBOARD_CREATE_REQUEST_SUCCESS, PINBOARD_UPDATE_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('createOrUpdatePinboard middleware', function () {
@@ -31,8 +21,8 @@ describe('createOrUpdatePinboard middleware', function () {
     dispatch: stub().usingPromise(Promise).resolves('abc')
   });
 
-  const createAddItemToPinboardAction = (item) => ({
-    type: constants.ADD_ITEM_TO_PINBOARD,
+  const createAddOrRemoveItemInPinboardAction = (item) => ({
+    type: constants.ADD_OR_REMOVE_ITEM_IN_PINBOARD,
     payload: {
       id: item.id,
       type: item.type,
@@ -49,9 +39,18 @@ describe('createOrUpdatePinboard middleware', function () {
     }
   });
 
+  const createAddItemInPinboardPageAction = (item) => ({
+    type: constants.ADD_ITEM_IN_PINBOARD_PAGE,
+    payload: {
+      id: item.id,
+      type: item.type,
+      isPinned: item.isPinned,
+    }
+  });
+
   const shouldDispatchWithType = (type) => {
     const itemId = '1';
-    const action = createAddItemToPinboardAction({
+    const action = createAddOrRemoveItemInPinboardAction({
       id: itemId,
       type: type,
       isPinned: false,
@@ -74,7 +73,6 @@ describe('createOrUpdatePinboard middleware', function () {
       description: '',
       url: '',
       itemsCount: 0,
-      ownedByCurrentUser: false,
       crItems: [],
       officerItems: [],
       trrItems: [],
@@ -93,67 +91,21 @@ describe('createOrUpdatePinboard middleware', function () {
     store.dispatch.called.should.be.false();
   });
 
-  it('should dispatch createPinboard action if type is of cr or officer or trr', function () {
-    const typesCanBePinned = [
-      'CR', 'DATE > CR', 'INVESTIGATOR > CR',
-      'OFFICER', 'UNIT > OFFICERS', 'DATE > OFFICERS',
-      'TRR', 'DATE > TRR',
-    ];
+  context('handling ADD_OR_REMOVE_ITEM_IN_PINBOARD action', function () {
+    it('should dispatch createPinboard when a first item is added', function () {
+      const typesCanBePinned = [
+        'CR', 'DATE > CR', 'INVESTIGATOR > CR',
+        'OFFICER', 'UNIT > OFFICERS', 'DATE > OFFICERS',
+        'TRR', 'DATE > TRR',
+      ];
 
-    for (let i = 0; i < typesCanBePinned.length; i++) {
-      shouldDispatchWithType(typesCanBePinned[i]);
-    }
-  });
+      for (let i = 0; i < typesCanBePinned.length; i++) {
+        shouldDispatchWithType(typesCanBePinned[i]);
+      }
+    });
 
-  it('should handle PINBOARD_CREATE_REQUEST_SUCCESS when on pinboard page', function () {
-    spy(browserHistory, 'push');
-
-    const store = createStore(PinboardFactory.build(), '/pinboard/abc123/');
-    const action = { type: PINBOARD_CREATE_REQUEST_SUCCESS, payload: { id: 'def456' } };
-    createOrUpdatePinboard(store)(() => {})(action);
-    browserHistory.push.should.be.calledWith('/pinboard/def456/');
-
-    browserHistory.push.restore();
-  });
-
-  it('should not handle PINBOARD_CREATE_REQUEST_SUCCESS when not on pinboard page', function () {
-    spy(browserHistory, 'push');
-
-    const store = createStore(PinboardFactory.build(), '/not-pinboard/abc123/');
-    const action = { type: PINBOARD_CREATE_REQUEST_SUCCESS, payload: { id: 'def456' } };
-    createOrUpdatePinboard(store)(() => {})(action);
-    browserHistory.push.should.not.be.called();
-
-    browserHistory.push.restore();
-  });
-
-  it('should handle PINBOARD_UPDATE_REQUEST_SUCCESS when on pinboard page', function () {
-    const store = createStore(PinboardFactory.build(), '/pinboard/abc123/');
-    const action = { type: PINBOARD_UPDATE_REQUEST_SUCCESS, payload: { id: 'def456' } };
-    createOrUpdatePinboard(store)(() => {})(action);
-
-    store.dispatch.should.be.calledWith(fetchPinboard('def456'));
-    store.dispatch.should.be.calledWith(fetchPinboardSocialGraph('def456'));
-    store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('def456'));
-    store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('def456'));
-    store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('def456'));
-    store.dispatch.should.be.calledWith(fetchPinboardOfficers('def456'));
-    store.dispatch.should.be.calledWith(fetchPinboardComplaints('def456'));
-    store.dispatch.should.be.calledWith(fetchPinboardTRRs('def456'));
-  });
-
-  it('should not handle PINBOARD_UPDATE_REQUEST_SUCCESS when not on pinboard page', function () {
-    const store = createStore(PinboardFactory.build(), '/not-pinboard/abc123/');
-    const action = { type: PINBOARD_UPDATE_REQUEST_SUCCESS, payload: { id: 'def456' } };
-    createOrUpdatePinboard(store)(() => {})(action);
-
-    store.dispatch.should.not.be.called();
-  });
-
-
-  context('when an item is added', function () {
-    it('should dispatch updatePinboard if user owns the pinboard', function () {
-      const action = createAddItemToPinboardAction({
+    it('should dispatch updatePinboard if successive items are added', function () {
+      const action = createAddOrRemoveItemInPinboardAction({
         id: '1',
         type: 'CR',
         isPinned: false,
@@ -161,7 +113,6 @@ describe('createOrUpdatePinboard middleware', function () {
       const store = createStore(PinboardFactory.build({
         id: '99',
         crids: ['2'],
-        ownedByCurrentUser: true,
       }));
       let dispatched;
 
@@ -176,52 +127,80 @@ describe('createOrUpdatePinboard middleware', function () {
         description: '',
         url: '',
         itemsCount: 1,
-        ownedByCurrentUser: true,
       })).should.be.true();
     });
 
-    it('should dispatch createPinboard if user does not own the pinboard', function () {
-      const action = createAddItemToPinboardAction({
+    it('should dispatch updatePinboard if an item is removed', function () {
+      const action = createAddOrRemoveItemInPinboardAction({
         id: '1',
-        type: 'OFFICER',
+        type: 'CR',
+        isPinned: true,
+      });
+      const store = createStore(PinboardFactory.build({
+        id: '99',
+        crids: ['2', '1'],
+        'officer_ids': ['a'],
+        'trr_ids': ['1'],
+      }));
+      let dispatched;
+
+      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      dispatched.should.eql(action);
+      store.dispatch.calledWith(updatePinboard({
+        id: '99',
+        title: '',
+        description: '',
+        crids: ['2'],
+        officerIds: ['a'],
+        trrIds: ['1'],
+        url: '',
+        itemsCount: 3,
+      })).should.be.true();
+    });
+  });
+
+  context('handling REMOVE_ITEM_IN_PINBOARD_PAGE ', function () {
+    it('should dispatch updatePinboard if an item is removed', function () {
+      const action = createRemoveItemInPinboardPageAction({
+        id: '1',
+        type: 'CR',
+        isPinned: true,
+      });
+      const store = createStore(PinboardFactory.build({
+        id: '99',
+        crids: ['2', '1'],
+        'officer_ids': ['a'],
+        'trr_ids': ['1'],
+      }));
+      let dispatched;
+
+      createOrUpdatePinboard(store)(action => dispatched = action)(action);
+      dispatched.should.eql(action);
+      store.dispatch.calledWith(updatePinboard({
+        id: '99',
+        title: '',
+        description: '',
+        crids: ['2'],
+        officerIds: ['a'],
+        trrIds: ['1'],
+        url: '',
+        itemsCount: 3,
+      })).should.be.true();
+    });
+  });
+
+  context('handling ADD_ITEM_IN_PINBOARD_PAGE', function () {
+    it('should dispatch updatePinboard if an item is removed', function () {
+      const action = createAddItemInPinboardPageAction({
+        id: '1',
+        type: 'CR',
         isPinned: false,
       });
       const store = createStore(PinboardFactory.build({
         id: '99',
-        'officer_ids': ['2'],
-        ownedByCurrentUser: false,
-      }));
-      let dispatched;
-
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-      store.dispatch.calledWith(createPinboard({
-        id: '99',
-        title: '',
-        description: '',
-        crids: [],
-        officerIds: ['2', '1'],
-        trrIds: [],
-        url: '',
-        itemsCount: 1,
-        ownedByCurrentUser: false,
-      })).should.be.true();
-    });
-  });
-
-  context('when an item is removed', function () {
-    it('should dispatch updatePinboard if user owns the pinboard', function () {
-      const action = createAddItemToPinboardAction({
-        id: '1',
-        type: 'CR',
-        isPinned: true,
-      });
-      const store = createStore(PinboardFactory.build({
-        id: '99',
-        crids: ['2', '1'],
+        crids: ['2'],
         'officer_ids': ['a'],
         'trr_ids': ['1'],
-        ownedByCurrentUser: true,
       }));
       let dispatched;
 
@@ -231,106 +210,12 @@ describe('createOrUpdatePinboard middleware', function () {
         id: '99',
         title: '',
         description: '',
-        crids: ['2'],
-        officerIds: ['a'],
-        trrIds: ['1'],
-        url: '',
-        itemsCount: 3,
-        ownedByCurrentUser: true,
-      })).should.be.true();
-    });
-
-    it('should dispatch createPinboard if user does not own the pinboard', function () {
-      const action = createAddItemToPinboardAction({
-        id: 'b',
-        type: 'OFFICER',
-        isPinned: true,
-      });
-      const store = createStore(PinboardFactory.build({
-        id: '99',
-        crids: ['1'],
-        'officer_ids': ['a'],
-        'trr_ids': ['1'],
-        ownedByCurrentUser: false,
-      }));
-      let dispatched;
-
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-      store.dispatch.calledWith(createPinboard({
-        id: '99',
-        title: '',
-        description: '',
-        crids: ['1'],
-        officerIds: ['a'],
-        trrIds: ['1'],
-        url: '',
-        itemsCount: 2,
-        ownedByCurrentUser: false,
-      })).should.be.true();
-    });
-  });
-
-  context('when an item is removed from pinboard page', function () {
-    it('should dispatch updatePinboard if user owns the pinboard', function () {
-      const action = createRemoveItemInPinboardPageAction({
-        id: '1',
-        type: 'CR',
-        isPinned: true,
-      });
-      const store = createStore(PinboardFactory.build({
-        id: '99',
         crids: ['2', '1'],
-        'officer_ids': ['a'],
-        'trr_ids': ['1'],
-        ownedByCurrentUser: true,
-      }));
-      let dispatched;
-
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-      store.dispatch.calledWith(updatePinboard({
-        id: '99',
-        title: '',
-        description: '',
-        crids: ['2'],
         officerIds: ['a'],
         trrIds: ['1'],
         url: '',
         itemsCount: 3,
-        ownedByCurrentUser: true,
-      })).should.be.true();
-    });
-
-    it('should dispatch createPinboard if user does not own the pinboard', function () {
-      const action = createRemoveItemInPinboardPageAction({
-        id: 'b',
-        type: 'OFFICER',
-        isPinned: true,
-      });
-      const store = createStore(PinboardFactory.build({
-        id: '99',
-        crids: ['1'],
-        'officer_ids': ['a'],
-        'trr_ids': ['1'],
-        ownedByCurrentUser: false,
-      }));
-      let dispatched;
-
-      createOrUpdatePinboard(store)(action => dispatched = action)(action);
-      dispatched.should.eql(action);
-      store.dispatch.calledWith(createPinboard({
-        id: '99',
-        title: '',
-        description: '',
-        crids: ['1'],
-        officerIds: ['a'],
-        trrIds: ['1'],
-        url: '',
-        itemsCount: 2,
-        ownedByCurrentUser: false,
       })).should.be.true();
     });
   });
-
 });
