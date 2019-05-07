@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import OfficersSection from 'components/social-graph-page/network/right-pane-section/officers-section';
+import Officers from 'components/social-graph-page/network/right-pane-section/officers';
 import { networkOfficersSelector } from 'selectors/social-graph-page/network-officers';
 
 function mapStateToProps(state, ownProps) {
@@ -10,4 +10,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps)(OfficersSection);
+export default connect(mapStateToProps)(Officers);

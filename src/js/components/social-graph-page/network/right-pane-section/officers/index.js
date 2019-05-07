@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 
-import styles from './officers-section.sass';
+import styles from './officers.sass';
 import OfficerRow from './officer-row';
 
 
-export default class OfficersSection extends Component {
+export default class Officers extends Component {
   render() {
     const { officers, updateOfficerId } = this.props;
 
@@ -24,12 +24,12 @@ export default class OfficersSection extends Component {
   }
 }
 
-OfficersSection.propTypes = {
+Officers.propTypes = {
   officers: PropTypes.array,
   officer: PropTypes.object,
   updateOfficerId: PropTypes.func,
 };
 
-OfficersSection.defaultProps = {
+Officers.defaultProps = {
   officers: [],
 };

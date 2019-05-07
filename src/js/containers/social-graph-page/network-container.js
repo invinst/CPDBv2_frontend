@@ -35,6 +35,7 @@ function mapStateToProps(state, ownProps) {
     currentMainTab: getCurrentMainTab(state),
     currentNetworkTab: getCurrentNetworkTab(state),
     officer: networkOfficerSelector(state),
+    location: ownProps.location,
   };
 }
 

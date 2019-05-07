@@ -2,7 +2,7 @@ import React from 'react';
 import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import PreviewPane from 'components/social-graph-page/network/right-pane-section/officers-section/preview-pane';
+import PreviewPane from 'components/social-graph-page/network/right-pane-section/officers/preview-pane';
 import OfficerPane from 'components/common/preview-pane/officer-pane';
 
 

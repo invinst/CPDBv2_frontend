@@ -10,7 +10,7 @@ import RightPaneSection from 'components/social-graph-page/network/right-pane-se
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
 import MainTabs from 'components/social-graph-page/main-tabs';
-import PreviewPane from 'components/social-graph-page/network/right-pane-section/officers-section/preview-pane';
+import PreviewPane from 'components/social-graph-page/network/right-pane-section/officers/preview-pane';
 
 
 export default class NetworkGraph extends Component {
@@ -97,7 +97,8 @@ export default class NetworkGraph extends Component {
       hasComplaint,
       changeMainTab,
       officer,
-      updateOfficerId
+      updateOfficerId,
+      location
     } = this.props;
 
     return (
@@ -146,6 +147,7 @@ export default class NetworkGraph extends Component {
                 currentTab={ currentNetworkTab }
                 hasComplaint={ hasComplaint }
                 updateOfficerId={ updateOfficerId }
+                location={ location }
               />
             )
           }
@@ -173,6 +175,7 @@ NetworkGraph.propTypes = {
   currentNetworkTab: PropTypes.string,
   officer: PropTypes.object,
   updateOfficerId: PropTypes.func,
+  location: PropTypes.object,
 };
 
 NetworkGraph.defaultProps = {

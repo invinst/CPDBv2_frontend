@@ -13,8 +13,8 @@ import { stub } from 'sinon';
 import { NETWORK_TAB_NAMES } from 'utils/constants';
 import { unmountComponentSuppressError } from 'utils/test';
 import RightPaneSection from 'components/social-graph-page/network/right-pane-section';
-import OfficersSection from 'components/social-graph-page/network/right-pane-section/officers-section';
-import TimelineSection from 'components/social-graph-page/network/right-pane-section/timeline-section';
+import Officers from 'components/social-graph-page/network/right-pane-section/officers';
+import Timeline from 'components/social-graph-page/network/right-pane-section/timeline';
 
 
 describe('RightPaneSection component', function () {
@@ -62,6 +62,7 @@ describe('RightPaneSection component', function () {
         <RightPaneSection
           currentTab='Timeline'
           hasComplaint={ true }
+          location={ { pathname: '/social-graph/' } }
         />
       </Provider>
     );
@@ -82,17 +83,20 @@ describe('RightPaneSection component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, OfficersSection).should.be.ok();
+    findRenderedComponentWithType(instance, Officers).should.be.ok();
   });
 
   it('should render timeline tab', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <RightPaneSection currentTab={ NETWORK_TAB_NAMES.TIMELINE }/>
+        <RightPaneSection
+          currentTab={ NETWORK_TAB_NAMES.TIMELINE }
+          location={ { pathname: '/social-graph/' } }
+        />
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, TimelineSection).should.be.ok();
+    findRenderedComponentWithType(instance, Timeline).should.be.ok();
   });
 
   it('should call changeNetworkTab when clicking tab name', function () {

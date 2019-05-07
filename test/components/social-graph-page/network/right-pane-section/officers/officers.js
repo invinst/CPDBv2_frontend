@@ -2,11 +2,11 @@ import React from 'react';
 import { renderIntoDocument, scryRenderedComponentsWithType } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import OfficersSection from 'components/social-graph-page/network/right-pane-section/officers-section';
-import OfficerRow from 'components/social-graph-page/network/right-pane-section/officers-section/officer-row';
+import Officers from 'components/social-graph-page/network/right-pane-section/officers';
+import OfficerRow from 'components/social-graph-page/network/right-pane-section/officers/officer-row';
 
 
-describe('OfficersSection component', function () {
+describe('Officers component', function () {
   let instance;
 
   afterEach(function () {
@@ -46,7 +46,7 @@ describe('OfficersSection component', function () {
         }
       }
     ];
-    instance = renderIntoDocument(<OfficersSection officers={ officers }/>);
+    instance = renderIntoDocument(<Officers officers={ officers }/>);
     const officerRows = scryRenderedComponentsWithType(instance, OfficerRow);
     officerRows.should.have.length(2);
   });

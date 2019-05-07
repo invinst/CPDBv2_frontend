@@ -25,10 +25,7 @@ export default class SocialGraphPage extends Component {
     return (
       <div className={ styles.socialGraphPage }>
         {
-          CurrentComponent &&
-          <CurrentComponent
-            location={ location }
-          />
+          CurrentComponent && <CurrentComponent location={ location }/>
         }
       </div>
     );
