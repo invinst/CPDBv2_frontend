@@ -74,7 +74,6 @@ describe('OfficerCard component', function () {
     removeItemInPinboardPage.should.be.calledOnce();
     removeItemInPinboardPage.should.be.calledWith({
       type: 'OFFICER',
-      isPinned: false,
       id: 123
     });
   });

@@ -83,7 +83,6 @@ describe('TRRCard component', function () {
     removeItemInPinboardPage.should.be.calledOnce();
     removeItemInPinboardPage.should.be.calledWith({
       type: 'TRR',
-      isPinned: false,
       id: 123
     });
   });

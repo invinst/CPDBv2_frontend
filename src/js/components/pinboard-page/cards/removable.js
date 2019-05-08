@@ -22,9 +22,9 @@ export default function removable(CardComponent) {
 
     removeItem() {
       const { item, removeItemInPinboardPage } = this.props;
-      const { type, id, isPinned } = item;
+      const { type, id } = item;
 
-      removeItemInPinboardPage({ type, id, isPinned });
+      removeItemInPinboardPage({ type, id });
     }
 
     render() {

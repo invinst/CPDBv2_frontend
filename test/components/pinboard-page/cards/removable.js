@@ -56,7 +56,6 @@ describe('BaseCard component', function () {
     removeItemInPinboardPage.should.be.calledOnce();
     removeItemInPinboardPage.should.be.calledWith({
       type: 'CR',
-      isPinned: false,
       id: '123'
     });
   });
