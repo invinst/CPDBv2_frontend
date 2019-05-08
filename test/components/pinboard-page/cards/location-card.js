@@ -8,12 +8,12 @@ import {
 import { spy, useFakeTimers } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import CRCard from 'components/pinboard-page/cards/cr-card';
+import LocationCard from 'components/pinboard-page/cards/location-card';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 import { findDOMNode } from 'react-dom';
 
 
-describe('CRCard component', function () {
+describe('LocationCard component', function () {
   let instance;
 
   afterEach(function () {
@@ -22,10 +22,10 @@ describe('CRCard component', function () {
 
   it('should render ItemUnpinButton component and body correctly', function () {
     const item = {
-      incidentDate: '10-10-2010',
+      dateKey: '10-10-2010',
       category: 'Use Of Force',
     };
-    instance = renderIntoDocument(<CRCard item={ item }/>);
+    instance = renderIntoDocument(<LocationCard item={ item } dateKey='dateKey'/>);
 
     findRenderedComponentWithType(instance, ItemUnpinButton);
     findRenderedDOMComponentWithClass(instance, 'location-card-date').textContent.should.eql('10-10-2010');
@@ -34,7 +34,7 @@ describe('CRCard component', function () {
 
   it('should render card map with style if point of item is not null', function () {
     const item = { point: { 'lat': 1.0, 'lon': 1.0 } };
-    instance = renderIntoDocument(<CRCard item={ item }/>);
+    instance = renderIntoDocument(<LocationCard item={ item }/>);
 
     findRenderedDOMComponentWithClass(instance, 'location-card-map');
     scryRenderedDOMComponentsWithClass(instance, 'empty-map').should.have.length(0);
@@ -42,7 +42,7 @@ describe('CRCard component', function () {
 
   it('should not render card map with style if point of item is null', function () {
     const item = { point: null };
-    instance = renderIntoDocument(<CRCard item={ item }/>);
+    instance = renderIntoDocument(<LocationCard item={ item }/>);
 
     findRenderedDOMComponentWithClass(instance, 'location-card-map');
     findRenderedDOMComponentWithClass(instance, 'empty-map');
@@ -53,7 +53,7 @@ describe('CRCard component', function () {
       incidentDate: '10-10-2010',
       category: 'Use Of Force',
     };
-    instance = renderIntoDocument(<CRCard item={ item } isAdded={ true }/>);
+    instance = renderIntoDocument(<LocationCard item={ item } isAdded={ true } dateKey='incidentDate'/>);
 
     const instanceDom = findDOMNode(instance);
     instanceDom.className.should.containEql('hide');
@@ -72,9 +72,10 @@ describe('CRCard component', function () {
       category: 'Use Of Force',
     };
     instance = renderIntoDocument(
-      <CRCard
+      <LocationCard
         item={ item }
         removeItemInPinboardPage={ removeItemInPinboardPage }
+        dateKey='incidentDate'
       />
     );
     const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);

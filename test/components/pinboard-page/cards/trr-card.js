@@ -28,15 +28,15 @@ describe('TRRCard component', function () {
     instance = renderIntoDocument(<TRRCard item={ item }/>);
 
     findRenderedComponentWithType(instance, ItemUnpinButton);
-    findRenderedDOMComponentWithClass(instance, 'trr-date').textContent.should.eql('10-10-2010');
-    findRenderedDOMComponentWithClass(instance, 'trr-category').textContent.should.eql('Use Of Force');
+    findRenderedDOMComponentWithClass(instance, 'location-card-date').textContent.should.eql('10-10-2010');
+    findRenderedDOMComponentWithClass(instance, 'location-card-category').textContent.should.eql('Use Of Force');
   });
 
   it('should render card map with style if point of item is not null', function () {
     const item = { point: { 'lat': 1.0, 'lon': 1.0 } };
     instance = renderIntoDocument(<TRRCard item={ item }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'trr-card-map');
+    findRenderedDOMComponentWithClass(instance, 'location-card-map');
     scryRenderedDOMComponentsWithClass(instance, 'empty-map').should.have.length(0);
   });
 
@@ -44,7 +44,7 @@ describe('TRRCard component', function () {
     const item = { point: null };
     instance = renderIntoDocument(<TRRCard item={ item }/>);
 
-    findRenderedDOMComponentWithClass(instance, 'trr-card-map');
+    findRenderedDOMComponentWithClass(instance, 'location-card-map');
     findRenderedDOMComponentWithClass(instance, 'empty-map');
   });
 

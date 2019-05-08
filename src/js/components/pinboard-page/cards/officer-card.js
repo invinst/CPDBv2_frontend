@@ -1,40 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import React, { PropTypes } from 'react';
 import pluralize from 'pluralize';
-import cx from 'classnames';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import ItemUnpinButton from './item-unpin-button';
+import BaseCard from './base-card';
 import styles from './officer-card.sass';
-import { startAnimation } from 'utils/animation';
 
 
-export default class OfficerCard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.removeItem = this.removeItem.bind(this);
-  }
-
-  componentDidMount() {
-    const { isAdded } = this.props;
-    if (isAdded) {
-      startAnimation(() => this.el.classList.add('fade-in'));
-    }
-  }
-
-  removeItem() {
-    this.el.classList.add('fade-out');
-    const { item, removeItemInPinboardPage } = this.props;
-    const { type, id, isPinned } = item;
-
-    setTimeout(
-      () => removeItemInPinboardPage({ type, id, isPinned }),
-      1000
-    );
-  }
-
-  render() {
-    const { item, isAdded } = this.props;
+export default class OfficerCard extends BaseCard {
+  renderContent() {
+    const { item } = this.props;
     const { percentile, complaintCount, fullName, rank } = item;
     const chartData = percentile && percentile.items;
 
@@ -46,7 +21,7 @@ export default class OfficerCard extends Component {
     };
 
     return (
-      <div className={ cx(styles.wrapper, { hide: isAdded }) } ref={ el => this.el = el }>
+      <div className={ styles.officerCard }>
         <ItemUnpinButton onClick={ this.removeItem }/>
         <div className='radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
