@@ -1,6 +1,6 @@
 @import 'variables'
 
-\:local(.wrapper)
+\:local(.officer-card)
   position: relative
   width: 148px
   height: 176px
@@ -11,18 +11,6 @@
   margin: 0 8px 8px 0
   font-size: 14px
   font-weight: 300
-  opacity: 1
-
-  &.hide
-    opacity: 0
-
-  &.fade-out
-    transition: opacity $pinboard-fade-animation-duration ease-in-out
-    opacity: 0
-
-  &.fade-in
-    transition: opacity $pinboard-fade-animation-duration ease-in-out
-    opacity: 1
 
   .radar-chart-wrapper
     height: 60px
@@ -47,7 +35,8 @@
       margin-top: 4px
 
   .officer-complaints-count
-    height: 44px
-    line-height: 44px
+    height: 42px
+    line-height: 42px
     box-sizing: border-box
     padding-left: 8px
+    background-color: white

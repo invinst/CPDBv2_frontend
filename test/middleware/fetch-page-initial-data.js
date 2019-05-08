@@ -247,7 +247,7 @@ describe('fetchPageInitialData middleware', function () {
     setTimeout(() => {
       store.dispatch.calledWith(pageLoadFinish()).should.be.true();
       done();
-    }, 0);
+    }, 100);
   });
 
   it('should dispatch requestSearchTermCategories', function () {

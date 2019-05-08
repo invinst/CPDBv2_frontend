@@ -29,8 +29,8 @@ class PinnedCRs extends Section {
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
       firstCardUnpinBtn: `${firstCardSelector}/span[starts-with(@class, "item-unpin-button")]`,
-      firstCardDate: `${firstCardSelector}//span[@class="cr-incident-date"]`,
-      firstCardCategory: `${firstCardSelector}//span[@class="cr-category"]`,
+      firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
+      firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,
     });
   }
 }
@@ -45,8 +45,8 @@ class PinnedTRRs extends Section {
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
       firstCardUnpinBtn: `${firstCardSelector}/span[starts-with(@class, "item-unpin-button")]`,
-      firstCardDate: `${firstCardSelector}//span[@class="trr-date"]`,
-      firstCardCategory: `${firstCardSelector}//span[@class="trr-category"]`,
+      firstCardDate: `${firstCardSelector}//span[@class="location-card-date"]`,
+      firstCardCategory: `${firstCardSelector}//span[@class="location-card-category"]`,
     });
   }
 }

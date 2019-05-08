@@ -4,6 +4,7 @@ import {
   ADD_OR_REMOVE_ITEM_IN_PINBOARD,
   REMOVE_ITEM_IN_PINBOARD_PAGE,
   ADD_ITEM_IN_PINBOARD_PAGE,
+  ORDER_PINBOARD,
 } from 'utils/constants';
 import { getPinboard } from 'selectors/pinboard';
 import {
@@ -41,6 +42,17 @@ const PINBOARD_FETCH_SELECTED_MAP = {
   'DATE > TRR': fetchPinboardTRRs,
 };
 
+const debouncedReorderOrCreatePinboard = _.debounce(
+  (store, payload) => {
+    const pinboard = getPinboard(store.getState());
+    const pinboardAction = (pinboard.id === null) ? createPinboard : updatePinboard;
+    store.dispatch(pinboardAction({
+      ..._.pick(pinboard, ['id', 'title', 'officerIds', 'crids', 'trrIds']),
+      ...payload
+    }));
+  },
+  100
+);
 
 const addItem = (pinboard, item) => {
   const key = PINBOARD_ATTR_MAP[item.type];
@@ -87,6 +99,10 @@ export default store => next => action => {
       store.dispatch(fetchPinboardRelevantCoaccusals(pinboardID));
       store.dispatch(fetchPinboardRelevantComplaints(pinboardID));
     });
+  }
+
+  if (action.type === ORDER_PINBOARD) {
+    debouncedReorderOrCreatePinboard(store, action.payload);
   }
 
   return next(action);

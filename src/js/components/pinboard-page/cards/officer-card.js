@@ -1,33 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
-import cx from 'classnames';
 
 import StaticRadarChart from 'components/common/radar-chart';
-import ItemUnpinButton from '../item-unpin-button';
+import ItemUnpinButton from './item-unpin-button';
+import Removable from './removable';
 import styles from './officer-card.sass';
-import { startAnimation } from 'utils/animation';
 
 
-export default class OfficerCard extends Component {
-  constructor(props) {
-    super(props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  componentDidMount() {
-    const { isAdded } = this.props;
-    if (isAdded) {
-      startAnimation(() => this.el.classList.add('fade-in'));
-    }
-  }
-
-  handleClick() {
-    this.el.classList.add('fade-out');
-  }
-
+class OfficerCard extends Component {
   render() {
-    const { item, removeItemInPinboardPage, isAdded } = this.props;
+    const { item, removeItem } = this.props;
     const { percentile, complaintCount, fullName, rank } = item;
     const chartData = percentile && percentile.items;
 
@@ -39,12 +21,8 @@ export default class OfficerCard extends Component {
     };
 
     return (
-      <div className={ cx(styles.wrapper, { hide: isAdded }) } ref={ el => this.el = el }>
-        <ItemUnpinButton
-          item={ item }
-          removeItemInPinboardPage={ removeItemInPinboardPage }
-          onClick={ this.handleClick }
-        />
+      <div className={ styles.officerCard }>
+        <ItemUnpinButton onClick={ removeItem }/>
         <div className='radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
         </div>
@@ -64,10 +42,11 @@ export default class OfficerCard extends Component {
 
 OfficerCard.propTypes = {
   item: PropTypes.object,
-  removeItemInPinboardPage: PropTypes.func,
-  isAdded: PropTypes.bool,
+  removeItem: PropTypes.func,
 };
 
 OfficerCard.defaultProps = {
-  isAdded: false,
+  removeItem: () => {},
 };
+
+export default Removable(OfficerCard);

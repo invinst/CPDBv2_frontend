@@ -9,7 +9,4 @@ export default Factory.define('pinboard')
   .attr('crids', () => [])
   .attr('trr_ids', () => [])
   .attr('description', '')
-  .attr('crItems', () => [])
-  .attr('officerItems', () => [])
-  .attr('trrItems', () => [])
   .attr('isPinboardRestored', () => false);

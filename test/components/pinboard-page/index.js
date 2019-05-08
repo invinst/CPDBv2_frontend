@@ -13,13 +13,15 @@ import { createStore as ReduxCreateStore } from 'redux';
 import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test';
+import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
+import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
+import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import PinboardPageContainer from 'containers/pinboard-page';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import SearchBar from 'components/pinboard-page/search-bar';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
-import PinnedSection from 'components/pinboard-page/pinned-section';
 import { PINBOARD_PAGE_REDIRECT, PINBOARD_PAGE_INITIAL_LOADING } from 'utils/constants';
 
 
@@ -123,7 +125,10 @@ describe('PinboardPage component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, PinnedSection);
+    findRenderedDOMComponentWithClass(instance, 'pinned-section');
+    findRenderedComponentWithType(instance, PinnedOfficersContainer);
+    findRenderedComponentWithType(instance, PinnedCRsContainer);
+    findRenderedComponentWithType(instance, PinnedTRRsContainer);
     findRenderedComponentWithType(instance, SearchBar);
   });
 

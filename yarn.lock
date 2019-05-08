@@ -4658,6 +4658,11 @@ growl@1.10.5:
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.10.5.tgz#f2735dc2283674fa67478b10181059355c369e5e"
   integrity sha512-qBr4OuELkhPenW6goKVXiv47US3clb3/IbuWF9KNKEijAy9oeHxU9IgzjvJhHkUzhaj7rOUD7+YGWqUjLp5oSA==
 
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
+  integrity sha1-BO93hiz/K7edMPdpIJWTAiK/YPE=
+
 handle-thing@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/handle-thing/-/handle-thing-1.2.5.tgz#fd7aad726bf1a5fd16dfc29b2f7a6601d27139c4"
@@ -6719,6 +6724,11 @@ mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
   integrity sha1-MHXOk7whuPq0PhvE2n6BFe0ee6s=
+
+muuri@^0.7.1:
+  version "0.7.1"
+  resolved "https://registry.yarnpkg.com/muuri/-/muuri-0.7.1.tgz#775858c81c1cc753fbe9f6e1cd2bfd08d9ba1509"
+  integrity sha512-p4G7QdQIZtyDXjrs2hdiUeDkeWZODHmqsO0IWq6ZpmS/sCgUCJe5onKHAopaMOYYVAvTGT46psxJF6hZ0QnJrg==
 
 nan@^2.10.0, nan@^2.9.2:
   version "2.11.1"
@@ -10700,6 +10710,11 @@ wdio-sync@0.7.1:
     babel-runtime "6.26.0"
     fibers "~2.0.0"
     object.assign "^4.0.3"
+
+web-animations-js@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/web-animations-js/-/web-animations-js-2.3.1.tgz#3a6d9bc15196377a90f8e2803fa5262165b04510"
+  integrity sha1-Om2bwVGWN3qQ+OKAP6UmIWWwRRA=
 
 webdriverio@4.14.4:
   version "4.14.4"

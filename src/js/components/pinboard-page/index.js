@@ -3,12 +3,14 @@ import { browserHistory } from 'react-router';
 import cx from 'classnames';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-import PinnedSection from './pinned-section';
 import SearchBar from './search-bar';
 import Header from './header';
 import styles from './pinboard-page.sass';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
+import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
+import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
+import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import FooterContainer from 'containers/footer-container';
 
 
@@ -26,8 +28,6 @@ export default class PinboardPage extends Component {
       changePinboardTab,
       currentTab,
       hasMapMarker,
-      itemsByTypes,
-      removeItemInPinboardPage,
       isInitiallyLoading,
     } = this.props;
 
@@ -53,9 +53,11 @@ export default class PinboardPage extends Component {
               hasMapMarker={ hasMapMarker }
             />
           </div>
-          <PinnedSection
-            itemsByTypes={ itemsByTypes }
-            removeItemInPinboardPage={ removeItemInPinboardPage }/>
+          <div className='pinned-section'>
+            <PinnedOfficersContainer/>
+            <PinnedCRsContainer/>
+            <PinnedTRRsContainer/>
+          </div>
         </div>
         <RelevantSectionContainer />
         <FooterContainer className='footer'/>
@@ -67,8 +69,6 @@ export default class PinboardPage extends Component {
 PinboardPage.propTypes = {
   pinboard: PropTypes.object,
   params: PropTypes.object,
-  itemsByTypes: PropTypes.object,
-  removeItemInPinboardPage: PropTypes.func,
   changePinboardTab: PropTypes.func,
   currentTab: PropTypes.string,
   hasMapMarker: PropTypes.bool,
@@ -76,6 +76,3 @@ PinboardPage.propTypes = {
   isInitiallyLoading: PropTypes.bool,
 };
 
-PinboardPage.defaultProps = {
-  itemsByTypes: {},
-};

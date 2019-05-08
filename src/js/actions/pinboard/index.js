@@ -13,6 +13,8 @@ export const removeItemInPinboardPage = createAction(constants.REMOVE_ITEM_IN_PI
 export const addItemInPinboardPage = createAction(constants.ADD_ITEM_IN_PINBOARD_PAGE,
   item => ({ ...item, isPinned: false }));
 
+export const orderPinboard = createAction(constants.ORDER_PINBOARD);
+
 export const createPinboard = ({ officerIds, crids, trrIds }) => post(
   constants.PINBOARDS_URL,
   [

@@ -261,6 +261,9 @@ describe('store', function () {
           pagination: { next: null, previous: null }
         },
         redirection: null,
+        officerItems: [],
+        crItems: [],
+        trrItems: [],
       },
     });
   });

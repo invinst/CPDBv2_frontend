@@ -15,18 +15,6 @@ export default handleActions({
     ...state,
     ...action.payload,
   }),
-  [constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS]: (state, action) => ({
-    ...state,
-    crItems: action.payload,
-  }),
-  [constants.PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS]: (state, action) => ({
-    ...state,
-    officerItems: action.payload,
-  }),
-  [constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS]: (state, action) => ({
-    ...state,
-    trrItems: action.payload,
-  }),
   [constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS]: (state, action) => ({
     ...action.payload,
     ...state,
