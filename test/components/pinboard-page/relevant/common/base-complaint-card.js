@@ -157,7 +157,6 @@ describe('BaseComplaintCard component', function () {
     addItemInPinboardPage.reset();
     instance.handleClick({ preventDefault: preventDefaultStub });
 
-
     preventDefaultStub.should.be.calledOnce();
     instance.state.fade.should.be.true();
     addItemInPinboardPage.should.not.be.called();

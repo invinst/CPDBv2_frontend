@@ -161,7 +161,6 @@ describe('PinnedType component', function () {
     removeItemInPinboardPage.should.be.calledWith({ 'id': '1' });
   });
 
-
   it('should maintain component items state', function () {
     const items = [{ 'id': '1' }, { 'id': '2' }];
     instance = renderIntoDocument(<PinnedType type='TRR' items={ items } />);
