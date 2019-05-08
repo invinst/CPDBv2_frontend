@@ -6,7 +6,7 @@ import {
   scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
-import CRPane from 'components/common/preview-pane/cr-pane';
+import CRPane from 'components/common/preview-pane';
 import { NewWidgetWrapper, ListWidget } from 'components/common/preview-pane/widgets';
 import Demographics from 'components/common/demographics';
 import { unmountComponentSuppressError } from 'utils/test';

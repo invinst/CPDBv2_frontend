@@ -31,7 +31,11 @@ export class Marker extends Component {
 
   handleClick() {
     // This is a work-around as Mapbox does not support react-router's Link.
-    const { id, kind } = this.props;
+    const { id, kind, handleClickMarker } = this.props;
+    if (handleClickMarker) {
+      handleClickMarker(id);
+      return;
+    }
     if (kind === MAP_ITEMS.CR) {
       browserHistory.push(`/complaint/${id}/`);
     } else if (kind === MAP_ITEMS.FORCE) {
@@ -46,6 +50,7 @@ export class Marker extends Component {
       <div
         className={ cx(
           styles.marker,
+          'geographic-preview-link',
           {
             'force': kind === MAP_ITEMS.FORCE,
             'complaint': kind === MAP_ITEMS.CR,
@@ -64,6 +69,7 @@ Marker.propTypes = {
   finding: PropTypes.string,
   mapboxMarker: PropTypes.object,
   hovering: PropTypes.bool,
+  handleClickMarker: PropTypes.func,
 };
 
 export default Hoverable(Marker);

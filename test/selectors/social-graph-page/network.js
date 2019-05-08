@@ -206,6 +206,7 @@ describe('Social Graph page selectors', function () {
       });
     });
   });
+
   describe('networkOfficerSelector', function () {
     it('should return network officer correctly', function () {
       const state = {

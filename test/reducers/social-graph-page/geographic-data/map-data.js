@@ -1,14 +1,14 @@
-import geographicData from 'reducers/social-graph-page/geographic-data';
+import mapData from 'reducers/social-graph-page/geographic-data/map-data';
 import { SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS } from 'utils/constants';
 
 
-describe('geographicData reducer', function () {
+describe('mapData reducer', function () {
   it('should have initial state', function () {
-    geographicData(undefined, {}).should.eql([]);
+    mapData(undefined, {}).should.eql([]);
   });
 
   it('should handle SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS', function () {
-    geographicData([], {
+    mapData([], {
       type: SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_SUCCESS,
       payload: [
         {

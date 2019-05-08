@@ -327,7 +327,7 @@ describe('NetworkGraph component', function () {
     networkGraph.state.thresholdValue.should.equal(3);
   });
 
-  it('should render officer preview-pane if there is officer', function () {
+  it('should render officer OfficerPane if there is officer', function () {
     const officer = {
       id: '123',
       fullName: 'Jerome Finnigan',

@@ -1,11 +1,15 @@
-import { get, filter, compact } from 'lodash';
+import { get, filter, find, isEmpty, compact } from 'lodash';
 import { createSelector } from 'reselect';
 
-import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/geographic';
+import {
+  crMapMarkersTransform,
+  trrMapMarkerTransform,
+  geographicAllegationTransform
+} from 'selectors/common/geographic';
 import { MAP_ITEMS } from 'utils/constants';
 
 
-const getGeographicData = state => get(state, 'socialGraphPage.geographicData', []);
+const getGeographicData = state => get(state, 'socialGraphPage.geographicData.mapData', []);
 
 export const mapLegendSelector = createSelector(
   getGeographicData,
@@ -26,4 +30,17 @@ export const mapMarkersSelector = createSelector(
       }
     })
   )
+);
+
+const getGeographicAllegation = state => {
+  const crid = state.socialGraphPage.geographicData.crid;
+  if (crid) {
+    const allegations = get(state, 'socialGraphPage.geographicData.mapData', []);
+    return find(allegations, allegation => allegation.crid === crid);
+  }
+};
+
+export const geographicAllegationSelector = createSelector(
+  getGeographicAllegation,
+  allegation => !isEmpty(allegation) ? geographicAllegationTransform(allegation) : undefined
 );

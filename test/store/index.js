@@ -250,7 +250,10 @@ describe('store', function () {
           timelineIdxTriggerChange: 0,
         },
         currentMainTab: 'NETWORK',
-        geographicData: [],
+        geographicData: {
+          mapData: [],
+          crid: null
+        },
       },
       pinboardPage: {
         pinboard: {

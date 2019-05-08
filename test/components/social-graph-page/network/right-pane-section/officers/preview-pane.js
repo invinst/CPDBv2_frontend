@@ -14,7 +14,7 @@ describe('PreviewPane component', function () {
   });
 
   it('should render OfficerPane', function () {
-    instance = renderIntoDocument(<PreviewPane data={ { name: 'Officer' } }/>);
+    instance = renderIntoDocument(<PreviewPane data={ { name: 'Officer' } } />);
     findRenderedComponentWithType(instance, OfficerPane).should.be.ok();
   });
 });

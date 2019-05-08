@@ -52,3 +52,5 @@ export const updateSocialGraphTimelineIdxFromTimelineTab = createAction(
 );
 
 export const updateSocialGraphRefreshIntervalId = createAction(constants.UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID);
+
+export const updateGeographicCrid = createAction(constants.UPDATE_GEOGRAPHIC_CRID);

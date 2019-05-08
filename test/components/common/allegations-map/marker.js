@@ -57,6 +57,19 @@ describe('Marker component', function () {
     stubPush.restore();
   });
 
+  it('should call handClickMarker if there is handClickMarker', function () {
+    const handleClickMarkerStub = stub();
+    instance = renderIntoDocument(
+      <Marker
+        id='123'
+        kind='CR'
+        handleClickMarker={ handleClickMarkerStub }
+      />
+    );
+    Simulate.click(findDOMNode(instance));
+    handleClickMarkerStub.should.be.calledWith('123');
+  });
+
   it('should toggle popup and set zIndex when hovering', function () {
     const stubMapboxMarker = {
       getPopup: stub().returns({

@@ -142,7 +142,7 @@ export default class NetworkGraph extends Component {
         <div className='right-section'>
           {
             !isEmpty(officer) ? (
-              <PreviewPane data={ officer } />
+              <PreviewPane data={ officer }/>
             ) : (
               <RightPaneSection
                 changeNetworkTab={ changeNetworkTab }

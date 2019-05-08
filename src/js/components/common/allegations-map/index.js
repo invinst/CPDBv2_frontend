@@ -29,6 +29,11 @@ export default class AllegationsMap extends Component {
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const { legend, markers } = this.props;
+    return legend !== nextProps.legend || markers !== nextProps.markers;
+  }
+
   gotRef(el) {
     if (el && !this.map) {
       this.map = new mapboxgl.Map({
@@ -74,6 +79,7 @@ export default class AllegationsMap extends Component {
   }
 
   addMarker(marker) {
+    const { handleClickMarker } = this.props;
     const popup = this.createPopup(marker);
 
     const markerEl = document.createElement('div');
@@ -89,6 +95,7 @@ export default class AllegationsMap extends Component {
         kind={ marker.kind }
         finding={ marker.finding }
         mapboxMarker={ this.marker }
+        handleClickMarker={ handleClickMarker }
       />,
       markerEl
     );
@@ -146,7 +153,8 @@ AllegationsMap.propTypes = {
         category: PropTypes.string,
       })
     ),
-  ])
+  ]),
+  handleClickMarker: PropTypes.func,
 };
 
 AllegationsMap.defaultProps = {
