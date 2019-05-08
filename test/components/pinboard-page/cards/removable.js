@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { renderIntoDocument } from 'react-addons-test-utils';
 import { spy, useFakeTimers } from 'sinon';
 import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import BaseCard from 'components/pinboard-page/cards/base-card';
+import Removable from 'components/pinboard-page/cards/removable';
 
 
 describe('BaseCard component', function () {
   let instance;
+
+  class EmptyCard extends Component {
+    render() {
+      return <div/>;
+    }
+  }
+
+  const RemovableEmptyCard = Removable(EmptyCard);
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
@@ -19,7 +27,7 @@ describe('BaseCard component', function () {
       incidentDate: '10-10-2010',
       category: 'Use Of Force',
     };
-    instance = renderIntoDocument(<BaseCard item={ item } isAdded={ true }/>);
+    instance = renderIntoDocument(<RemovableEmptyCard item={ item } isAdded={ true }/>);
 
     const instanceDom = findDOMNode(instance);
     instanceDom.className.should.containEql('hide');
@@ -38,7 +46,7 @@ describe('BaseCard component', function () {
       category: 'Use Of Force',
     };
     instance = renderIntoDocument(
-      <BaseCard
+      <RemovableEmptyCard
         item={ item }
         removeItemInPinboardPage={ removeItemInPinboardPage }
       />

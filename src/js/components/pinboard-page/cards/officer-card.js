@@ -1,15 +1,15 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import ItemUnpinButton from './item-unpin-button';
-import BaseCard from './base-card';
+import Removable from './removable';
 import styles from './officer-card.sass';
 
 
-export default class OfficerCard extends BaseCard {
-  renderContent() {
-    const { item } = this.props;
+class OfficerCard extends Component {
+  render() {
+    const { item, removeItem } = this.props;
     const { percentile, complaintCount, fullName, rank } = item;
     const chartData = percentile && percentile.items;
 
@@ -22,7 +22,7 @@ export default class OfficerCard extends BaseCard {
 
     return (
       <div className={ styles.officerCard }>
-        <ItemUnpinButton onClick={ this.removeItem }/>
+        <ItemUnpinButton onClick={ removeItem }/>
         <div className='radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
         </div>
@@ -42,11 +42,11 @@ export default class OfficerCard extends BaseCard {
 
 OfficerCard.propTypes = {
   item: PropTypes.object,
-  removeItemInPinboardPage: PropTypes.func,
-  isAdded: PropTypes.bool,
+  removeItem: PropTypes.func,
 };
 
 OfficerCard.defaultProps = {
-  isAdded: false,
-  removeItemInPinboardPage: () => {},
+  removeItem: () => {},
 };
+
+export default Removable(OfficerCard);
