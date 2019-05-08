@@ -21,8 +21,8 @@ export default class RelevantComplaints extends Component {
         className='relevant-complaints'
       >
         {
-          complaints.map((complaint, index) =>
-            <div key={ index } style={ { width: '306px' } }>
+          complaints.map(complaint =>
+            <div key={ complaint.crid } style={ { width: '306px' } }>
               <RelevantComplaintCard { ...complaint } addItemInPinboardPage={ addItemInPinboardPage }/>
             </div>
           )

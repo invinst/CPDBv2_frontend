@@ -91,6 +91,7 @@ describe('RelevantDocumentCard component', function () {
     baseComplaintCard.props.leftChild.props.href.should.eql(
       'https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf'
     );
+    baseComplaintCard.props.fadePlusButtonOnly.should.be.true();
     baseComplaintCard.props.leftChild.props.target.should.eql('_blank');
     baseComplaintCard.props.leftChild.type.should.be.eql('a');
 

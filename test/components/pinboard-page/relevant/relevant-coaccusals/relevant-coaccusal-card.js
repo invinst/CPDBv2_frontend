@@ -105,4 +105,40 @@ describe('RelevantCoaccusalCard component', function () {
     ).textContent.should.eql('Jerome Finnigan');
     findRenderedDOMComponentWithClass(instance, 'coaccusal-count').textContent.should.eql('1 coaccusal');
   });
+
+  it('should fade out when clicked on PlusButton', function () {
+    const addItemInPinboardPageStub = stub();
+    const preventDefaultStub = stub();
+
+    instance = renderIntoDocument(
+      <RelevantCoaccusalCard
+        addItemInPinboardPage={ addItemInPinboardPageStub }
+        id={ 123 }
+        fullName='Jerome Finnigan'
+        rank='Officer'
+        coaccusalCount={ 1 }
+        percentile={ {} }
+      />
+    );
+
+    const link = findRenderedComponentWithType(instance, Link);
+
+    instance.state.fade.should.be.false();
+    findDOMNode(link).className.should.not.containEql('fade-out');
+
+    instance.handleClick({ preventDefault: preventDefaultStub });
+
+    preventDefaultStub.should.be.calledOnce();
+    instance.state.fade.should.be.true();
+    addItemInPinboardPageStub.should.be.calledOnce();
+    findDOMNode(link).className.should.containEql('fade-out');
+
+    preventDefaultStub.resetHistory();
+    addItemInPinboardPageStub.resetHistory();
+    instance.handleClick({ preventDefault: preventDefaultStub });
+
+    preventDefaultStub.should.be.calledOnce();
+    instance.state.fade.should.be.true();
+    addItemInPinboardPageStub.should.not.be.called();
+  });
 });
