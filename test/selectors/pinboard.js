@@ -1,4 +1,4 @@
-import { getPinboard, pinboardItemsSelector, pinboardICRIDsSelector } from 'selectors/pinboard';
+import { getPinboard, pinboardItemsSelector, pinboardICRIDsSelector } from 'selectors/pinboard-page/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
 

@@ -366,7 +366,7 @@ describe('fetchPageInitialData middleware', function () {
 
   it('should get all pinboard data if requesting ID equals ID in state', function () {
     const store = buildStore();
-    _.set(store._state, 'pinboard.id', '268a5e58');
+    _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
     const action = createLocationChangeAction('/pinboard/268a5e58/');
     let dispatched;
 
@@ -386,7 +386,7 @@ describe('fetchPageInitialData middleware', function () {
 
   it('should dispatch redirect, fetchPinboard if requesting does not equal ID in state', function () {
     const store = buildStore();
-    _.set(store._state, 'pinboard.id', '268a5e58');
+    _.set(store._state, 'pinboardPage.pinboard.id', '268a5e58');
     const action = createLocationChangeAction('/pinboard/5cd06f2b/');
     let dispatched;
 
@@ -398,7 +398,7 @@ describe('fetchPageInitialData middleware', function () {
 
   it('should not dispatch fetchPinboard if requesting ID is not valid', function () {
     const store = buildStore();
-    _.set(store._state, 'pinboard.id', null);
+    _.set(store._state, 'pinboardPage.pinboard.id', null);
     const action = createLocationChangeAction('/pinboard/268a5e5/');  // Not enough 8 characters
     let dispatched;
 

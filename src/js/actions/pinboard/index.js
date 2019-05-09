@@ -15,6 +15,11 @@ export const addItemInPinboardPage = createAction(constants.ADD_ITEM_IN_PINBOARD
 
 export const orderPinboard = createAction(constants.ORDER_PINBOARD);
 
+export const addItemToPinboardState = createAction(constants.ADD_ITEM_TO_PINBOARD_STATE);
+export const removeItemFromPinboardState = createAction(constants.REMOVE_ITEM_FROM_PINBOARD_STATE);
+export const orderPinboardState = createAction(constants.ORDER_PINBOARD_STATE);
+export const savePinboard = createAction(constants.SAVE_PINBOARD);
+
 export const createPinboard = ({ officerIds, crids, trrIds }) => post(
   constants.PINBOARDS_URL,
   [
