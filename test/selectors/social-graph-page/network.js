@@ -135,7 +135,6 @@ describe('Social Graph page selectors', function () {
         'major_award_count': 15,
         'honorable_mention_count': 12,
         'percentile': {
-          'officer_id': 123,
           'year': 2017,
           'percentile_allegation': '95',
           'percentile_trr': '90',
@@ -171,7 +170,6 @@ describe('Social Graph page selectors', function () {
         trrPercentile: 90,
         complaintPercentile: 95,
         lastPercentile: {
-          officerId: 123,
           year: 2017,
           items: [
             { axis: 'Use of Force Reports', value: 90 },
@@ -214,7 +212,6 @@ describe('Social Graph page selectors', function () {
                 'major_award_count': 15,
                 'honorable_mention_count': 12,
                 'percentile': {
-                  'officer_id': 123,
                   'year': 2017,
                   'percentile_allegation': '95',
                   'percentile_trr': '90',
@@ -255,7 +252,6 @@ describe('Social Graph page selectors', function () {
         trrPercentile: 90,
         complaintPercentile: 95,
         lastPercentile: {
-          officerId: 123,
           year: 2017,
           items: [
             { axis: 'Use of Force Reports', value: 90 },

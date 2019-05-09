@@ -28,15 +28,15 @@ describe('ItemPinButton component', function () {
     findDOMNode(instance).classList.contains('is-pinned').should.be.false();
   });
 
-  it('should call addItemToPinboard action when cliked on', function () {
-    const addItemToPinboard = stub();
+  it('should call addOrRemoveItemInPinboard action when cliked on', function () {
+    const addOrRemoveItemInPinboard = stub();
     instance = renderIntoDocument(
       <ItemPinButton
-        addItemToPinboard={ addItemToPinboard }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
         suggestion={ { isPinned: false, type: 'CR', id: '1' } } />
     );
     Simulate.click(findDOMNode(instance));
-    addItemToPinboard.calledWith({
+    addOrRemoveItemInPinboard.calledWith({
       type: 'CR',
       id: '1',
       isPinned: false,

@@ -18,7 +18,6 @@ describe('Pinboard reducer', function () {
         'officer_ids': [2],
         crids: [],
         'trr_ids': [],
-        ownedByCurrentUser: false,
       },
       {
         type: constants.PINBOARD_CREATE_REQUEST_SUCCESS,
@@ -38,15 +37,12 @@ describe('Pinboard reducer', function () {
       'officer_ids': [1],
       crids: ['abc'],
       'trr_ids': [1],
-      ownedByCurrentUser: true,
     });
   });
 
   it('should handle PINBOARD_UPDATE_REQUEST_SUCCESS', function () {
     pinboardReducer(
-      {
-        ownedByCurrentUser: false,
-      },
+      {},
       {
         type: constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
         payload: {
@@ -65,137 +61,52 @@ describe('Pinboard reducer', function () {
       'officer_ids': [1],
       crids: ['abc'],
       'trr_ids': [1],
-      ownedByCurrentUser: false,
     });
   });
 
-  context('handling PINBOARD_FETCH_REQUEST_SUCCESS', function () {
-    it('should set ownedByCurrentUser as False if current pinboard is null', function () {
-      pinboardReducer(
-        {
-          id: null,
-          ownedByCurrentUser: false,
-        },
-        {
-          type: constants.PINBOARD_FETCH_REQUEST_SUCCESS,
-          payload: {
-            id: 1,
-          }
-        }
-      ).should.deepEqual({
-        id: 1,
-        ownedByCurrentUser: false
-      });
-    });
-
-    it('should set ownedByCurrentUser as False if fetched and current pinboard are not alike', function () {
-      pinboardReducer(
-        {
-          id: 1,
-          ownedByCurrentUser: true,
-        },
-        {
-          type: constants.PINBOARD_FETCH_REQUEST_SUCCESS,
-          payload: {
-            id: 2,
-          }
-        }
-      ).should.deepEqual({
+  it('should handle PINBOARD_FETCH_REQUEST_SUCCESS', function () {
+    pinboardReducer(
+      {
         id: 2,
-        ownedByCurrentUser: false
-      });
-    });
-
-    context('when fetched and current pinboard are like', function () {
-      it('should set ownedByCurrentUser as True if ownedByCurrentUser is True', function () {
-        pinboardReducer(
-          {
-            id: 1,
-            ownedByCurrentUser: true,
-          },
-          {
-            type: constants.PINBOARD_FETCH_REQUEST_SUCCESS,
-            payload: {
-              id: 1,
-            }
-          }
-        ).should.deepEqual({
+        title: 'Title 2',
+        description: 'Description 2',
+        'officer_ids': [2],
+        crids: [],
+        'trr_ids': [],
+      },
+      {
+        type: constants.PINBOARD_FETCH_REQUEST_SUCCESS,
+        payload: {
           id: 1,
-          ownedByCurrentUser: true
-        });
-      });
+          title: 'Title',
+          description: 'Description',
+          'officer_ids': [1],
+          crids: ['abc'],
+          'trr_ids': [1],
+        }
+      }
+    ).should.deepEqual({
+      id: 1,
+      title: 'Title',
+      description: 'Description',
+      'officer_ids': [1],
+      crids: ['abc'],
+      'trr_ids': [1],
+    });
+  });
 
-      it('should set ownedByCurrentUser as False if ownedByCurrentUser is False', function () {
-        pinboardReducer(
-          {
-            id: 1,
-            ownedByCurrentUser: false,
-          },
-          {
-            type: constants.PINBOARD_FETCH_REQUEST_SUCCESS,
-            payload: {
-              id: 1,
-            }
-          }
-        ).should.deepEqual({
+  it('should handle PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS', function () {
+    pinboardReducer(
+      {},
+      {
+        type: constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
+        payload: {
           id: 1,
-          ownedByCurrentUser: false
-        });
-      });
-    });
-  });
-
-  it('should handle PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS', function () {
-    pinboardReducer(
-      {
-        id: 1,
-        crItems: [{ id: 1 }],
-      },
-      {
-        type: constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS,
-        payload: [
-          { id: 2 }, { id: 3 },
-        ]
+        }
       }
     ).should.deepEqual({
       id: 1,
-      crItems: [{ id: 2 }, { id: 3 }],
-    });
-  });
-
-  it('should handle PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS', function () {
-    pinboardReducer(
-      {
-        id: 1,
-        officerItems: [{ id: 1 }],
-      },
-      {
-        type: constants.PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS,
-        payload: [
-          { id: 2 }, { id: 3 },
-        ]
-      }
-    ).should.deepEqual({
-      id: 1,
-      officerItems: [{ id: 2 }, { id: 3 }],
-    });
-  });
-
-  it('should handle PINBOARD_TRRS_FETCH_REQUEST_SUCCESS', function () {
-    pinboardReducer(
-      {
-        id: 1,
-        trrItems: [{ id: 1 }],
-      },
-      {
-        type: constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
-        payload: [
-          { id: 2 }, { id: 3 },
-        ]
-      }
-    ).should.deepEqual({
-      id: 1,
-      trrItems: [{ id: 2 }, { id: 3 }],
+      isPinboardRestored: true,
     });
   });
 });

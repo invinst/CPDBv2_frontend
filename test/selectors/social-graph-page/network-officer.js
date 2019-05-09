@@ -41,7 +41,6 @@ describe('Social Graph page selectors', function () {
         id: 123,
         fullName: 'Jerome Finnigan',
         percentile: {
-          officerId: 123,
           year: 2017,
           items: [
             { axis: 'Use of Force Reports', value: 90 },
@@ -102,7 +101,6 @@ describe('Social Graph page selectors', function () {
         id: 123,
         fullName: 'Jerome Finnigan',
         percentile: {
-          officerId: 123,
           year: 2017,
           items: [
             { axis: 'Use of Force Reports', value: 90 },

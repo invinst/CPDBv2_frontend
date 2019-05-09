@@ -6,10 +6,10 @@ import ItemPinButton from './item-pin-button';
 
 class TRRItem extends SuggestionItemBase {
   renderItemPinButton() {
-    const { suggestion, addItemToPinboard } = this.props;
+    const { suggestion, addOrRemoveItemInPinboard } = this.props;
     return (
       <ItemPinButton
-        addItemToPinboard={ addItemToPinboard }
+        addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
         suggestion={ suggestion }
       />
     );
@@ -20,7 +20,7 @@ TRRItem.propTypes = {
   suggestion: PropTypes.shape({
     subText: PropTypes.string,
   }),
-  addItemToPinboard: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 TRRItem.defaultProps = {

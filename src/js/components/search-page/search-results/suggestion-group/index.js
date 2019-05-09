@@ -31,7 +31,7 @@ export default class SuggestionGroup extends Component {
       nextParams,
       getSuggestionWithContentType,
       setSearchNavigation,
-      addItemToPinboard,
+      addOrRemoveItemInPinboard,
     } = this.props;
 
     return (
@@ -49,7 +49,7 @@ export default class SuggestionGroup extends Component {
               setAliasAdminPageContent={ setAliasAdminPageContent }
               suggestion={ suggestion }
               isFocused={ focusedItem.uniqueKey === suggestion.uniqueKey }
-              addItemToPinboard={ addItemToPinboard }/>
+              addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }/>
           ))
         }
       </InfiniteScroll>
@@ -114,7 +114,7 @@ SuggestionGroup.propTypes = {
   nextParams: PropTypes.object,
   singleContent: PropTypes.bool,
   setSearchNavigation: PropTypes.func,
-  addItemToPinboard: PropTypes.func,
+  addOrRemoveItemInPinboard: PropTypes.func,
 };
 
 SuggestionGroup.defaultProps = {
