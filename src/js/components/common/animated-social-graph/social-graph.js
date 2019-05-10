@@ -40,7 +40,6 @@ export default class SocialGraph extends Component {
     this.svg = d3.select(ReactDOM.findDOMNode(this.refs.chart)).append('svg:svg');
     this.node = this.svg.selectAll('.node');
     this.link = this.svg.selectAll('.link');
-    this.fill = d3.scale.category20();
     this.tip = d3Tip()
       .attr('class', cx(styles.socialGraphTip, 'test--graph-tooltip'))
       .offset([-5, 0])
@@ -143,6 +142,7 @@ export default class SocialGraph extends Component {
           id: index,
           uid: officer.id,
           fname: officer.fullName,
+          color: officer.visualTokenBackground,
           degree: 0
         };
         nodes.push(officerData);
@@ -257,7 +257,7 @@ export default class SocialGraph extends Component {
     this.node.attr('r', (d) => {
       return (d.degree / 2 + 2);
     }).style('fill', (d) => {
-      return this.fill(d.group);
+      return d.color;
     });
 
     this.node.exit().remove();

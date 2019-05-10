@@ -18,10 +18,20 @@ describe('Social Graph page selectors', function () {
                 {
                   'full_name': 'Jerome Finnigan',
                   'id': 1,
+                  'percentile': {
+                    'percentile_trr': '78.2707',
+                    'percentile_allegation_civilian': '97.8772',
+                    'percentile_allegation_internal': '61.1521'
+                  },
                 },
                 {
                   'full_name': 'Edward May',
                   'id': 2,
+                  'percentile': {
+                    'percentile_trr': '80',
+                    'percentile_allegation_civilian': '85',
+                    'percentile_allegation_internal': '90'
+                  },
                 }
               ]
             }
@@ -29,7 +39,20 @@ describe('Social Graph page selectors', function () {
         }
       };
 
-      officersSelector(state).should.eql([{ fullName: 'Jerome Finnigan', id: 1 }, { fullName: 'Edward May', id: 2 }]);
+      officersSelector(state).should.eql(
+        [
+          {
+            fullName: 'Jerome Finnigan',
+            id: 1,
+            visualTokenBackground: '#f0201e'
+          },
+          {
+            fullName: 'Edward May',
+            id: 2,
+            visualTokenBackground: '#f0201e'
+          }
+        ]
+      );
     });
   });
 

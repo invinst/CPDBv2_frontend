@@ -11,10 +11,20 @@ describe('PinboardPage selectors', function () {
               {
                 'full_name': 'Jerome Finnigan',
                 'id': 1,
+                'percentile': {
+                  'percentile_trr': '78.2707',
+                  'percentile_allegation_civilian': '97.8772',
+                  'percentile_allegation_internal': '61.1521'
+                },
               },
               {
                 'full_name': 'Edward May',
-                'id': 2
+                'id': 2,
+                'percentile': {
+                  'percentile_trr': '80',
+                  'percentile_allegation_civilian': '85',
+                  'percentile_allegation_internal': '90'
+                },
               }
             ],
             'coaccused_data': [
@@ -52,10 +62,12 @@ describe('PinboardPage selectors', function () {
           {
             fullName: 'Jerome Finnigan',
             id: 1,
+            visualTokenBackground: '#f0201e'
           },
           {
             fullName: 'Edward May',
-            id: 2
+            id: 2,
+            visualTokenBackground: '#f0201e'
           }
         ],
         coaccusedData: [

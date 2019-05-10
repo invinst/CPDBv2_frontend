@@ -71,7 +71,7 @@ describe('Pinboard Page', function () {
         (graphNode) => graphNode.getCssProperty('fill').value
       );
       const groupsCount = values(countBy(groupsColors));
-      groupsCount.sort((a, b) => a - b).should.eql([3, 5, 6, 6]);
+      groupsCount.sort((a, b) => a - b).should.eql([1, 1, 1, 5, 6, 6]);
     });
 
     it('should show connected nodes when double click on a node', function () {
@@ -154,7 +154,7 @@ describe('Pinboard Page', function () {
         (graphNode) => graphNode.getCssProperty('fill').value
       );
       const groupsCount = values(countBy(groupsColors));
-      groupsCount.sort((a, b) => a - b).should.eql([3, 3, 3, 11]);
+      groupsCount.sort((a, b) => a - b).should.eql([1, 1, 1, 5, 6, 6]);
     });
 
     it('should be able to search', function () {

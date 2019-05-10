@@ -29,11 +29,11 @@ class AnimatedSocialGraphSection extends Section {
   }
 
   graphNodes() {
-    return browser.elements('(//*[@class="node"])').value;
+    return browser.elements('(//*[name()="circle" and contains(@class, "node")])').value;
   }
 
   graphLinks() {
-    return browser.elements('(//*[contains(@class, "link")])').value;
+    return browser.elements('(//*[name()="line" and contains(@class, "link")])').value;
   }
 }
 

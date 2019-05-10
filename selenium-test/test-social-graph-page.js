@@ -39,7 +39,7 @@ describe('Social Graph Page', function () {
       (graphNode) => graphNode.getCssProperty('fill').value
     );
     const groupsCount = values(countBy(groupsColors));
-    groupsCount.sort((a, b) => a - b).should.eql([3, 5, 6, 6]);
+    groupsCount.sort((a, b) => a - b).should.eql([1, 1, 1, 5, 6, 6]);
   });
 
   it('should show connected nodes when double click on a node', function () {
@@ -129,7 +129,7 @@ describe('Social Graph Page', function () {
       (graphNode) => graphNode.getCssProperty('fill').value
     );
     const groupsCount = values(countBy(groupsColors));
-    groupsCount.sort((a, b) => a - b).should.eql([3, 3, 3, 11]);
+    groupsCount.sort((a, b) => a - b).should.eql([1, 1, 1, 5, 6, 6]);
   });
 
   it('should load new data when change threshold and showCivilOnly', function () {
