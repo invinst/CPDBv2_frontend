@@ -5,7 +5,7 @@ import PinboardFactory from 'utils/test/factories/pinboard';
 describe('Pinboard selectors', function () {
   describe('getPinboard', function () {
     it('should return correct format of null pinboard', function () {
-      const state = { pinboard: null };
+      const state = { pinboardPage: { pinboard: null } };
       getPinboard(state).should.eql({
         id: null,
         title: '',
@@ -21,15 +21,17 @@ describe('Pinboard selectors', function () {
 
     it('should return pinboard with correct format', function () {
       const state = {
-        pinboard: PinboardFactory.build({
-          id: 1,
-          title: 'Pinboard Title',
-          'officer_ids': [12],
-          crids: ['abc'],
-          'trr_ids': [1],
-          description: 'Description',
-          isPinboardRestored: false,
-        }),
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            id: 1,
+            title: 'Pinboard Title',
+            'officer_ids': [12],
+            crids: ['abc'],
+            'trr_ids': [1],
+            description: 'Description',
+            isPinboardRestored: false,
+          })
+        },
       };
 
       getPinboard(state).should.eql({
@@ -47,15 +49,17 @@ describe('Pinboard selectors', function () {
 
     it('should return correct format of pinboard whose title is empty', function () {
       const state = {
-        pinboard: PinboardFactory.build({
-          id: 1,
-          title: '',
-          'officer_ids': [12],
-          crids: ['abc'],
-          'trr_ids': [1],
-          description: 'Description',
-          isPinboardRestored: false,
-        }),
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            id: 1,
+            title: '',
+            'officer_ids': [12],
+            crids: ['abc'],
+            'trr_ids': [1],
+            description: 'Description',
+            isPinboardRestored: false,
+          })
+        },
       };
 
       getPinboard(state).should.eql({
@@ -75,11 +79,13 @@ describe('Pinboard selectors', function () {
   describe('pinboardItemsSelector', function () {
     it('should return ids of items by types', function () {
       const state = {
-        pinboard: PinboardFactory.build({
-          'officer_ids': [12],
-          crids: ['abc'],
-          'trr_ids': [1],
-        })
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            'officer_ids': [12],
+            crids: ['abc'],
+            'trr_ids': [1],
+          })
+        }
       };
 
       pinboardItemsSelector(state).should.eql({
@@ -93,11 +99,13 @@ describe('Pinboard selectors', function () {
   describe('pinboardICRIDsSelector', function () {
     it('should return pined crids', function () {
       const state = {
-        pinboard: PinboardFactory.build({
-          'officer_ids': [12],
-          crids: ['abc', 'def'],
-          'trr_ids': [1],
-        })
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            'officer_ids': [12],
+            crids: ['abc', 'def'],
+            'trr_ids': [1],
+          })
+        }
       };
 
       pinboardICRIDsSelector(state).should.eql(['abc', 'def']);

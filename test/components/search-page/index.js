@@ -40,7 +40,9 @@ describe('SearchPage component', function () {
       },
       pagination: {}
     },
-    pinboard: null,
+    pinboardPage: {
+      pinboard: null,
+    },
   });
 
   beforeEach(function () {

@@ -69,7 +69,9 @@ describe('App component', function () {
       }
     },
     popups: [],
-    pinboard: null,
+    pinboardPage: {
+      pinboard: null,
+    }
   });
   const location = { pathname: '/', search: '/', action: 'POP' };
 

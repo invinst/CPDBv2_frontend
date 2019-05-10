@@ -13,6 +13,7 @@ describe('RelevantCoaccusals selectors', function () {
         'rank': 'Police Officer',
         'full_name': 'Johnny Patterson',
         'coaccusal_count': 24,
+        'allegation_count': 42,
         'percentile': {
           'year': 2006,
           'percentile_trr': '0.0000',
@@ -26,6 +27,7 @@ describe('RelevantCoaccusals selectors', function () {
         'rank': 'Police Officer',
         'full_name': 'Darren Borum',
         'coaccusal_count': 18,
+        'allegation_count': 81,
         'percentile': {
           'year': 2016,
           'percentile_trr': '38.9028',
@@ -36,6 +38,7 @@ describe('RelevantCoaccusals selectors', function () {
       }];
       const state = {
         pinboardPage: {
+          pinboard: {},
           relevantCoaccusals: {
             items: coaccusals,
             count: 444,
@@ -52,6 +55,7 @@ describe('RelevantCoaccusals selectors', function () {
         rank: 'Police Officer',
         fullName: 'Johnny Patterson',
         coaccusalCount: 24,
+        complaintCount: 42,
         percentile: {
           year: 2006,
           items: [
@@ -67,6 +71,7 @@ describe('RelevantCoaccusals selectors', function () {
         rank: 'Police Officer',
         fullName: 'Darren Borum',
         coaccusalCount: 18,
+        complaintCount: 81,
         percentile: {
           year: 2016,
           items: [

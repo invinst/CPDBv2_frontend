@@ -17,8 +17,10 @@ const createLocationChangeAction = (pathname) => ({
 
 const buildStore = () => ({
   _state: {
-    pinboard: {
-      id: 'id'
+    pinboardPage: {
+      pinboard: {
+        id: 'id'
+      }
     }
   },
   getState() {
@@ -58,7 +60,7 @@ describe('fetchLatestRetrievedPinboard middleware', () => {
   });
 
   it('should not dispatch if pinboard is restored', () => {
-    store.getState().pinboard.isPinboardRestored = true;
+    store.getState().pinboardPage.pinboard.isPinboardRestored = true;
     const action = createLocationChangeAction('');
 
     let dispatched;

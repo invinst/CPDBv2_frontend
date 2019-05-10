@@ -1,6 +1,11 @@
 import {
   createPinboard,
   updatePinboard,
+  addItemToPinboardState,
+  removeItemFromPinboardState,
+  orderPinboardState,
+  savePinboard,
+  orderPinboard,
   fetchPinboard,
   fetchPinboardComplaints,
   fetchPinboardOfficers,
@@ -105,6 +110,92 @@ describe('pinboard actions', function () {
       });
     });
   });
+
+  describe('addItemToPinboardState', function () {
+    it('should return correct action', function () {
+      addItemToPinboardState({
+        id: '1234',
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.ADD_ITEM_TO_PINBOARD_STATE,
+        payload: {
+          id: '1234',
+          type: 'OFFICER',
+        },
+      });
+    });
+  });
+
+  describe('removeItemFromPinboardState', function () {
+    it('should return correct action', function () {
+      removeItemFromPinboardState({
+        id: '1234',
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.REMOVE_ITEM_FROM_PINBOARD_STATE,
+        payload: {
+          id: '1234',
+          type: 'OFFICER',
+        },
+      });
+    });
+  });
+
+  describe('orderPinboardState', function () {
+    it('should return correct action', function () {
+      orderPinboardState({
+        ids: ['1234', '456'],
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.ORDER_PINBOARD_STATE,
+        payload: {
+          ids: ['1234', '456'],
+          type: 'OFFICER',
+        },
+      });
+    });
+  });
+
+  describe('savePinboard', function () {
+    it('should return correct action', function () {
+      savePinboard({
+        id: 1,
+        title: 'Pinboard Title',
+        'officer_ids': [12],
+        crids: ['abc'],
+        'trr_ids': [1],
+        description: 'Description',
+        isPinboardRestored: false,
+      }).should.deepEqual({
+        type: constants.SAVE_PINBOARD,
+        payload: {
+          id: 1,
+          title: 'Pinboard Title',
+          'officer_ids': [12],
+          crids: ['abc'],
+          'trr_ids': [1],
+          description: 'Description',
+          isPinboardRestored: false,
+        },
+      });
+    });
+  });
+
+  describe('orderPinboard', function () {
+    it('should return correct action', function () {
+      orderPinboard({
+        ids: ['1234', '456'],
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.ORDER_PINBOARD,
+        payload: {
+          ids: ['1234', '456'],
+          type: 'OFFICER',
+        },
+      });
+    });
+  });
+
 
   describe('fetchPinboard', function () {
     it('shoud return correct action', function () {
