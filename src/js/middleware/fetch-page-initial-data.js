@@ -156,7 +156,7 @@ export default store => next => action => {
       handleFetchingDocumentPage(dispatches, store, action.payload.pathname);
     }
 
-    else if (action.payload.pathname.match(/search\/terms/)) {
+    else if (action.payload.pathname.match(/search/)) {
       dispatches.push(store.dispatch(requestSearchTermCategories()));
     }
 

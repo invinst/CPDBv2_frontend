@@ -5,7 +5,7 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import RecentSuggestionItem from 'components/search-page/search-no-input/recent-suggestion/recent-suggestion-item';
+import RecentSuggestionItem from 'components/search-page/search-results/recent-suggestion/recent-suggestion-item';
 import recentSuggestionFactory from 'utils/test/factories/recent-suggestion';
 import Row from 'components/common/row';
 

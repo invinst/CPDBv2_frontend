@@ -34,7 +34,22 @@ describe('App component', function () {
       tags: [],
       navigation: {},
       searchTerms: {
-        hidden: true
+        hidden: true,
+        navigation: {
+          itemIndex: 0,
+        },
+        categories: [{
+          name: 'Geography',
+          items: [
+            {
+              id: 'community',
+              name: 'Communities',
+              description: 'Chicago is divided.',
+              callToActionType: 'view_all',
+              link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>'
+            }
+          ]
+        }],
       }
     },
     cms: {

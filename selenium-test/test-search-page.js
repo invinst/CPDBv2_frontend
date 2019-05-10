@@ -138,10 +138,9 @@ describe('Search Page', function () {
   it('should able to show SEARCH-TERMS results', function () {
     searchPage.input.waitForVisible();
     searchPage.input.setValue('Geography');
-
     searchPage.searchTermsResultsSection.results.waitForVisible();
-
     searchPage.searchTermsResultsSection.results.count.should.equal(1);
+
     searchPage.searchTermsResultsSection.firstResultText.getText().should.equal('Geography - Communities');
     searchPage.searchTermsResultsSection.firstResultText.click();
     searchPage.searchTermsResultsSection.previewPaneTitle.getText().should.containEql('Communities');
@@ -314,6 +313,7 @@ describe('Search Page', function () {
     landingPage.open();
     searchPage.open();
     browser.keys('Escape');
+    browser.pause(500);
 
     landingPage.currentBasePath.should.equal('/');
   });
@@ -415,16 +415,6 @@ describe('Search Page', function () {
 
       searchPage.clearSearchButton.click();
       searchPage.input.getValue().should.containEql('');
-    });
-
-    it('should open search terms page when clicked', function () {
-      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
-      searchPage.searchTermsToggle.click();
-      searchPage.searchTermsToggle.getText().should.equal('Hide Search terms');
-      browser.getUrl().should.match(/\/search\/terms\/$/);
-      searchPage.searchTermsToggle.click();
-      searchPage.searchTermsToggle.getText().should.equal('What can I search?');
-      browser.getUrl().should.not.match(/\/search\/terms\/$/);
     });
   });
 
@@ -576,7 +566,7 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
 
     searchPage.firstOfficerPinButton.click();
-    searchPage.pinboardButton.getText().should.eql('(1) Pinboard');
+    searchPage.pinboardButton.getText().should.eql('Pinboard (1)');
 
     searchPage.firstOfficerPinButton.click();
     searchPage.pinboardButton.getText().should.eql('Your pinboard is empty');
@@ -592,5 +582,14 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.firstOfficerPinButton.click();
     searchPage.pinboardButton.click();
     browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
+  });
+
+  it('should display pinboard tip bar when not search', function () {
+    const tip = 'Create collections of officers, complaint records, and tactical reponse reports using search.';
+    searchPage.open('');
+    searchPage.pinboardBar.waitForVisible();
+    searchPage.pinboardBar.getText().should.containEql(tip);
+
+    searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
   });
 });

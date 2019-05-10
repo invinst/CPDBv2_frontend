@@ -2,11 +2,12 @@ import React from 'react';
 import { spy, stub } from 'sinon';
 import {
   findRenderedComponentWithType,
-  findRenderedDOMComponentWithClass,
- findRenderedDOMComponentWithTag, renderIntoDocument,
-  Simulate
+  scryRenderedComponentsWithType,
+  renderIntoDocument,
 } from 'react-addons-test-utils';
 import Mousetrap from 'mousetrap';
+import { Provider } from 'react-redux';
+import MockStore from 'redux-mock-store';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import SearchTerms from 'components/search-page/search-terms';
@@ -17,43 +18,32 @@ import {
   minimumStyle
 } from 'components/search-page/search-terms/search-terms.style';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
-import SearchTermItemPane from 'components/search-page/preview-pane/search-term-item-pane';
 import { SearchTermCategory } from 'utils/test/factories/search-terms';
-import * as domUtils from 'utils/dom';
 import CategoryColumn from 'components/search-page/search-terms/category-column';
 import MinimalScrollBars from 'components/common/minimal-scroll-bars';
 import * as IntercomTracking from 'utils/intercom-tracking';
+import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
+import ScrollIntoView from 'components/common/scroll-into-view';
+import { scrollIntoViewStyle } from 'components/search-page/search-terms/search-terms.style.js';
+import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
 
 
 describe('SearchTerms component', function () {
   let instance;
-  const categories = [
-    {
-      name: 'Geography',
-      items: [
-        {
-          id: 'community',
-          name: 'Communities',
-          description: 'Chicago is divided.',
-          callToActionType: 'view_all',
-          link: 'https://data.cpdp.co/url-mediator/session-builder?community=<name>'
-        }
-      ]
-    }
-  ];
-  const navigationKeys = ['category-Geography', 'Geography-Communities'];
+
+  const store = MockStore()({
+    pinboard: null,
+  });
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should renderable', function () {
-    SearchTerms.should.be.renderable();
-  });
-
   it('should be able to render CategoryColumn', function () {
     instance = renderIntoDocument(
-      <SearchTerms categories={ SearchTermCategory.buildList(1) } />
+      <Provider store={ store }>
+        <SearchTerms categories={ SearchTermCategory.buildList(1) } />
+      </Provider>
     );
     const categoryColumn = findRenderedComponentWithType(instance, CategoryColumn);
     categoryColumn.should.be.ok();
@@ -61,14 +51,42 @@ describe('SearchTerms component', function () {
 
   it('should render MinimalScrollBars', function () {
     instance = renderIntoDocument(
-      <SearchTerms categories={ SearchTermCategory.buildList(1) } />
+      <Provider store={ store }>
+        <SearchTerms categories={ SearchTermCategory.buildList(1) } />
+      </Provider>
     );
     findRenderedComponentWithType(instance, MinimalScrollBars).should.be.ok();
   });
 
+  it('should render ScrollIntoView', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchTerms
+          focusedItem={ { uniqueKey: 'community' } }
+        />
+      </Provider>
+    );
+
+    const scrollIntoView = findRenderedComponentWithType(instance, ScrollIntoView);
+    scrollIntoView.props.style.should.eql(scrollIntoViewStyle);
+    scrollIntoView.props.focusedClassName.should.eql('term-item-community');
+  });
+
+  it('should render PinboardBar', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchTerms />
+      </Provider>
+    );
+
+    findRenderedComponentWithType(instance, PinboardBar);
+  });
+
   it('should render ResponsiveFluidWidthComponent with correct props', function () {
     instance = renderIntoDocument(
-      <SearchTerms />
+      <Provider store={ store }>
+        <SearchTerms />
+      </Provider>
     );
     const responsiveComponent = findRenderedComponentWithType(instance, ResponsiveFluidWidthComponent);
     responsiveComponent.props.style.should.eql(contentWrapperStyle);
@@ -84,7 +102,9 @@ describe('SearchTerms component', function () {
     const totalItemCount = 3;
     const direction = 'up';
     instance = renderIntoDocument(
-      <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+      <Provider store={ store }>
+        <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+      </Provider>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
@@ -95,69 +115,52 @@ describe('SearchTerms component', function () {
     const totalItemCount = 3;
     const direction = 'down';
     instance = renderIntoDocument(
-      <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+      <Provider store={ store }>
+        <SearchTerms move={ move } totalItemCount={ totalItemCount } />
+      </Provider>
     );
     Mousetrap.trigger(direction);
     move.calledWith(direction, totalItemCount).should.be.true();
   });
 
-  it('should trigger setNavigation when click on a search term item', function () {
-    const setNavigation = spy();
-
-    instance = renderIntoDocument(
-      <SearchTerms setNavigation={ setNavigation } categories={ categories } navigationKeys={ navigationKeys }/>
-    );
-
-    const searchTerms = findRenderedComponentWithType(instance, SearchTerms);
-
-    Simulate.click(findRenderedDOMComponentWithClass(searchTerms, 'test--category-item'));
-    setNavigation.calledWith({ navigationKeys, uniqueKey: 'Geography-community' }).should.be.true();
-  });
-
   it('should resetNavigation to 0 when unmounted', function () {
     const resetNavigation = spy();
     instance = renderIntoDocument(
-      <SearchTerms resetNavigation={ resetNavigation }/>
+      <Provider store={ store }>
+        <SearchTerms resetNavigation={ resetNavigation }/>
+      </Provider>
     );
     unmountComponentSuppressError(instance);
 
     resetNavigation.calledWith(0).should.be.true();
   });
 
-  describe('after keyboard navigation', function () {
-    beforeEach(function () {
-      this.scrollToElementStub = stub(domUtils, 'scrollToElement');
+  describe('RecentSuggestion component', function () {
+    it('should render RecentSuggestion component if recentSuggestions is not null', function () {
+      const recentSuggestions = [{
+        contentType: 'OFFICER',
+        text: 'Mark Farmer',
+        to: '/officer/8257/mark-farmer/',
+      }];
+
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchTerms recentSuggestions={ recentSuggestions }/>
+        </Provider>
+      );
+
+      const recentSuggestionsComp = findRenderedComponentWithType(instance, RecentSuggestion);
+      recentSuggestionsComp.props.recentSuggestions.should.eql(recentSuggestions);
     });
 
-    afterEach(function () {
-      this.scrollToElementStub.restore();
-    });
+    it('should not render RecentSuggestion component if recentSuggestions is null', function () {
+      instance = renderIntoDocument(
+        <Provider store={ store }>
+          <SearchTerms recentSuggestions={ [] }/>
+        </Provider>
+      );
 
-    it('should render preview pane for the focused item', function () {
-      const focusedItem = {
-        id: 'category',
-        name: 'Some item',
-        description: 'This is item for testing',
-        uniqueKey: 'category-some-item'
-      };
-
-      instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
-      const previewPane = findRenderedComponentWithType(instance, SearchTermItemPane);
-      previewPane.should.be.ok();
-    });
-
-    it('should render preview pane with markdown link', function () {
-      const focusedItem = {
-        id: 'category',
-        name: 'Some item',
-        description: 'This is item for testing. [Google](http://www.google.com)',
-        uniqueKey: 'category-some-item'
-      };
-
-      instance = renderIntoDocument(<SearchTerms focusedItem={ focusedItem } />);
-      const previewPaneDescription = findRenderedComponentWithType(instance, SearchTermItemPane);
-      const description = findRenderedDOMComponentWithTag(previewPaneDescription, 'a');
-      description.getAttribute('href').should.containEql('http://www.google.com');
+      scryRenderedComponentsWithType(instance, RecentSuggestion).should.have.length(0);
     });
   });
 
@@ -172,7 +175,9 @@ describe('SearchTerms component', function () {
 
     it('should track Intercom with search page', function () {
       instance = renderIntoDocument(
-        <SearchTerms/>
+        <Provider store={ store }>
+          <SearchTerms/>
+        </Provider>
       );
       IntercomTracking.trackSearchTerms.called.should.be.true();
     });

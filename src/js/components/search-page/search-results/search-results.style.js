@@ -79,3 +79,7 @@ export const loadingStyle = {
   paddingLeft: '16px',
   fontSize: '14px'
 };
+
+export const searchResultsWrapperStyle = {
+  height: '100%'
+};

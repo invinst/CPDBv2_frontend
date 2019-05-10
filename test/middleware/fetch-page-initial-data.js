@@ -251,7 +251,7 @@ describe('fetchPageInitialData middleware', function () {
   });
 
   it('should dispatch requestSearchTermCategories', function () {
-    const action = createLocationChangeAction('/search/terms/');
+    const action = createLocationChangeAction('/search/');
     let dispatched;
 
     fetchPageInitialData(store)(action => dispatched = action)(action);

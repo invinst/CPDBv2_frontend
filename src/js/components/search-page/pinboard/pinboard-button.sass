@@ -1,16 +1,19 @@
 @import 'variables'
 
 %pinboard-btn
-  display: inline-block
-  float: right
-  height: 32px
-  font-weight: 200
+  display: block
+  height: 40px
+  font-weight: 300
   font-size: 14px
   text-align: center
   box-sizing: border-box
-  padding-top: 7px
-  margin-top: -5px
+  margin-top: 7px
   border-radius: 2px
+  line-height: 40px
+  position: absolute
+  right: 16px
+  top: 0
+  z-index: 1
 
 \:local(.pinboard-no-item)
   @extend %pinboard-btn
@@ -21,8 +24,8 @@
 \:local(.pinboard-has-items)
   @extend %pinboard-btn
   width: 109px
-  color: $cash-green-color
-  background-color: $pudding-matcha
+  color: $japanese-laurel
+  background-color: $sprout
 
   &:visited
     color: $cash-green-color

@@ -9,8 +9,10 @@ import {
 import MockStore from 'redux-mock-store';
 
 import SearchMainPanel from 'components/search-page/search-main-panel';
-import SearchTags from 'components/search-page/search-tags';
 import { unmountComponentSuppressError } from 'utils/test';
+import SearchResults from 'components/search-page/search-results';
+import SearchTerms from 'components/search-page/search-terms';
+
 
 describe('SearchMainPanel component', function () {
   let instance;
@@ -33,24 +35,24 @@ describe('SearchMainPanel component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render SearchTags', function () {
+  it('should render SearchResults component if query is not null', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <SearchMainPanel
-          editModeOn={ true }
-          aliasEditModeOn={ true }
-          query='ke'
-          tags={ ['tag'] }
-          contentType='OFFICER'
-          isRequesting={ true }
-        />
+        <SearchMainPanel query='ke' />
       </Provider>
     );
 
-    const searchTags = findRenderedComponentWithType(instance, SearchTags);
-    searchTags.props.tags.should.eql(['tag']);
-    searchTags.props.selected.should.equal('OFFICER');
-    searchTags.props.isRequesting.should.be.true();
+    findRenderedComponentWithType(instance, SearchResults);
+  });
+
+  it('should render SearchTerm component if query is null', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchMainPanel query='' />
+      </Provider>
+    );
+
+    findRenderedComponentWithType(instance, SearchTerms);
   });
 
   context('in edit mode', function () {

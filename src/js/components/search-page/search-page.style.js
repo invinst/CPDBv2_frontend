@@ -20,12 +20,19 @@ export const searchContentWrapperStyle = (aliasEditModeOn) => ({
   overflow: 'hidden',
 });
 
-export const searchBoxStyle = (aliasEditModeOn) => ({
-  backgroundColor: aliasEditModeOn ? girlyPink : 'white',
-  padding: `${searchBoxPadding}px 0 9px 0`,
-  margin: '0 16px',
-  borderBottom: `1px solid ${whiteTwoColor}`,
-});
+export const searchBoxStyle = (aliasEditModeOn, hasBottomBorder) => {
+  let style = {
+    backgroundColor: aliasEditModeOn ? girlyPink : 'white',
+    padding: `${searchBoxPadding}px 0 9px 0`,
+    margin: '0 16px',
+  };
+
+  if (hasBottomBorder) {
+    style['borderBottom'] = `1px solid ${whiteTwoColor}`;
+  }
+
+  return style;
+};
 
 const _cancelButtonStyle = (searchTermsHidden) => ({
   display: 'inline-block',

@@ -58,7 +58,9 @@ describe('SearchPage component', function () {
   it('should call get suggestion api when change search input', function () {
     const getSuggestion = stub().returns({ catch: spy() });
     instance = renderIntoDocument(
-      <SearchPage getSuggestion={ getSuggestion } />
+      <Provider store={ store }>
+        <SearchPage getSuggestion={ getSuggestion } />
+      </Provider>
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = 'a';
@@ -120,7 +122,9 @@ describe('SearchPage component', function () {
   it('should clear all tags when user remove all text', function () {
     const selectTag = spy();
     instance = renderIntoDocument(
-      <SearchPage selectTag={ selectTag } />
+      <Provider store={ store }>
+        <SearchPage selectTag={ selectTag } />
+      </Provider>
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = '';
@@ -130,7 +134,9 @@ describe('SearchPage component', function () {
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
     instance = renderIntoDocument(
-      <SearchPage />
+      <Provider store={ store }>
+        <SearchPage />
+      </Provider>
     );
 
     const backButton = findRenderedDOMComponentWithClass(instance, 'searchbar__button--back');
@@ -140,7 +146,9 @@ describe('SearchPage component', function () {
 
   it('should call router.goBack when user hit ESCAPE', function () {
     instance = renderIntoDocument(
-      <SearchPage />
+      <Provider store={ store }>
+        <SearchPage />
+      </Provider>
     );
 
     Mousetrap.trigger('esc');
@@ -161,9 +169,9 @@ describe('SearchPage component', function () {
   describe('handleViewItem', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       instance = renderIntoDocument(
-        <SearchPage focusedItem={ NavigationItem.build({ to: '/dummy/url' }) }
-
-        />
+        <Provider store={ store }>
+          <SearchPage focusedItem={ NavigationItem.build({ to: '/dummy/url' }) } />
+        </Provider>
       );
       Mousetrap.trigger('enter');
       this.browserHistoryPush.calledWith('/dummy/url').should.be.true();
@@ -172,9 +180,11 @@ describe('SearchPage component', function () {
     it('should call handleSelect to show more suggestion items when entering on More button', function () {
       const handleSelectStub = stub(SearchPage.prototype, 'handleSelect');
       instance = renderIntoDocument(
-        <SearchPage
-          focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
-          />
+        <Provider store={ store }>
+          <SearchPage
+            focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
+            />
+        </Provider>
       );
       Mousetrap.trigger('enter');
       handleSelectStub.calledWith('OFFICER');
@@ -489,14 +499,18 @@ describe('SearchPage component', function () {
 
       it('should hide intercom launcher when mounted', function () {
         instance = renderIntoDocument(
-          <SearchPage/>
+          <Provider store={ store }>
+            <SearchPage/>
+          </Provider>
         );
         intercomUtils.showIntercomLauncher.calledWith(false).should.be.true();
       });
 
       it('should show intercom launcher again when unmounted', function () {
         instance = renderIntoDocument(
-          <SearchPage/>
+          <Provider store={ store }>
+            <SearchPage/>
+          </Provider>
         );
         intercomUtils.showIntercomLauncher.resetHistory();
         unmountComponentSuppressError(instance);
@@ -515,7 +529,9 @@ describe('SearchPage component', function () {
 
       it('should track Intercom with search page', function () {
         instance = renderIntoDocument(
-          <SearchPage/>
+          <Provider store={ store }>
+            <SearchPage/>
+          </Provider>
         );
         IntercomTracking.trackSearchPage.called.should.be.true();
       });

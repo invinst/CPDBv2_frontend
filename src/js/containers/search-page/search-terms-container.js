@@ -12,6 +12,7 @@ import { categoriesSelector } from 'selectors/search-page/search-terms/categorie
 
 function mapStateToProps(state, ownProps) {
   return {
+    recentSuggestions: state.searchPage.recentSuggestions,
     categories: categoriesSelector(state),
     focusedItem: focusedSearchTermItemSelector(state),
     totalItemCount: totalItemCountSelector(state),

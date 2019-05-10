@@ -84,7 +84,7 @@ class SearchTermsPage extends Page {
   }
 
   open() {
-    super.open('/search/terms/');
+    super.open('/search/');
   }
 }
 

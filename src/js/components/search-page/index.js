@@ -146,10 +146,9 @@ export default class SearchPage extends Component {
   render() {
     const aliasEditModeOn = this.props.location.pathname.startsWith(`/edit/${SEARCH_ALIAS_EDIT_PATH}`);
     const {
-      query, searchTermsHidden, tags, contentType, recentSuggestions,
+      query, searchTermsHidden, contentType, tags,
       editModeOn, officerCards, requestActivityGrid,
-      children, changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion, isRequesting,
-      pinboard
+      changeSearchQuery, focusedItem, firstItem, trackRecentSuggestion,
     } = this.props;
 
     return (
@@ -157,7 +156,7 @@ export default class SearchPage extends Component {
         <div
           className='search-page'
           style={ searchContentWrapperStyle(aliasEditModeOn) }>
-          <div style={ searchBoxStyle(aliasEditModeOn) }>
+          <div style={ searchBoxStyle(aliasEditModeOn, query !== '') }>
             <SearchBox
               onEscape={ this.handleGoBack }
               onChange={ this.handleChange }
@@ -177,24 +176,17 @@ export default class SearchPage extends Component {
             </HoverableButton>
           </div>
           <div>
-            {
-              children ?
-                children :
-                <SearchMainPanel
-                  tags={ tags }
-                  contentType={ contentType }
-                  recentSuggestions={ recentSuggestions }
-                  query={ query }
-                  editModeOn={ editModeOn }
-                  aliasEditModeOn={ aliasEditModeOn }
-                  officerCards={ officerCards }
-                  requestActivityGrid={ requestActivityGrid }
-                  searchTermsHidden={ searchTermsHidden }
-                  handleSelect={ this.handleSelect }
-                  isRequesting={ isRequesting }
-                  pinboard={ pinboard }
-                />
-            }
+            <SearchMainPanel
+              contentType={ contentType }
+              query={ query }
+              editModeOn={ editModeOn }
+              aliasEditModeOn={ aliasEditModeOn }
+              officerCards={ officerCards }
+              requestActivityGrid={ requestActivityGrid }
+              searchTermsHidden={ searchTermsHidden }
+              handleSelect={ this.handleSelect }
+              tags={ tags }
+            />
           </div>
         </div>
       </DocumentMeta>
@@ -207,8 +199,6 @@ SearchPage.propTypes = {
     pathname: PropTypes.string
   }),
   focusedItem: PropTypes.object,
-  tags: PropTypes.array,
-  recentSuggestions: PropTypes.array,
   getSuggestion: PropTypes.func,
   getSuggestionWithContentType: PropTypes.func,
   selectTag: PropTypes.func,
@@ -223,14 +213,14 @@ SearchPage.propTypes = {
   officerCards: PropTypes.array,
   requestActivityGrid: PropTypes.func,
   searchTermsHidden: PropTypes.bool,
-  isRequesting: PropTypes.bool,
   params: PropTypes.object,
   routes: PropTypes.array,
   pushBreadcrumbs: PropTypes.func,
   resetSearchResultNavigation: PropTypes.func,
   resetSearchTermNavigation: PropTypes.func,
   firstItem: PropTypes.object,
-  pinboard: PropTypes.object,
+  tags: PropTypes.array,
+  isRequesting: PropTypes.bool,
 };
 
 /* istanbul ignore next */

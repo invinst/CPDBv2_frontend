@@ -8,8 +8,6 @@ import BlockTitle from 'components/common/block-title';
 export default class RecentSuggestion extends Component {
   render() {
     const { recentSuggestions } = this.props;
-
-    const maxIndex = recentSuggestions.length - 1;
     return (
       <div
         style={ suggestionGroupStyle }
@@ -17,10 +15,10 @@ export default class RecentSuggestion extends Component {
         <BlockTitle>RECENT</BlockTitle>
         <div>
           {
-          recentSuggestions.map((entry, index) => (
-            <RecentSuggestionItem key={ index } entry={ entry } isLast={ index === maxIndex }/>
-          ))
-        }
+            recentSuggestions.map((entry, index) => (
+              <RecentSuggestionItem key={ index } entry={ entry } />
+            ))
+          }
         </div>
       </div>
     );

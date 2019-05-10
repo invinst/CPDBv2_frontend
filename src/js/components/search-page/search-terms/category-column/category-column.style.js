@@ -1,4 +1,4 @@
-import { softBlackColor, concreteColor } from 'utils/styles';
+import { softBlackColor } from 'utils/styles';
 
 export const columnWrapperStyle = {
   verticalAlign: 'top'
@@ -15,5 +15,4 @@ export const headerStyle = {
   padding: '34px 16px 10px 16px',
   textTransform: 'uppercase',
   boxSizing: 'border-box',
-  background: concreteColor,
 };

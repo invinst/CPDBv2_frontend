@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map } from 'lodash';
+import { map, isEmpty } from 'lodash';
 
 
 import CategoryColumn from './category-column';
@@ -12,23 +12,19 @@ import {
   mediumStyle,
   minimumStyle,
   searchTermTitleStyle,
+  scrollIntoViewStyle,
   wrapperStyle,
 } from './search-terms.style.js';
 import { ROOT_PATH, SEARCH_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import SearchTermItemPane from '../preview-pane/search-term-item-pane';
 import ScrollIntoView from 'components/common/scroll-into-view';
 import * as IntercomTracking from 'utils/intercom-tracking';
+import RecentSuggestion from 'components/search-page/search-results/recent-suggestion';
+import PinboardBar from 'components/search-page/pinboard/pinboard-bar';
 
 
 export default class SearchTerms extends Component {
-
-  constructor(props) {
-    super(props);
-    this.handleItemClick = this.handleItemClick.bind(this);
-  }
-
   componentDidMount() {
     const { move } = this.props;
     SEARCH_TERMS_NAVIGATION_KEYS.map((direction) => (LayeredKeyBinding.bind(
@@ -47,11 +43,6 @@ export default class SearchTerms extends Component {
     this.props.resetNavigation(0);
   }
 
-  handleItemClick(uniqueKey) {
-    const { setNavigation, navigationKeys } = this.props;
-    setNavigation({ navigationKeys, uniqueKey });
-  }
-
   renderColumns() {
     const { categories, focusedItem } = this.props;
 
@@ -62,49 +53,69 @@ export default class SearchTerms extends Component {
           name={ name }
           items={ items }
           focusedItem={ focusedItem }
-          handleItemClick={ this.handleItemClick }
         />
       ))
     );
   }
 
+  renderRecentSuggestion() {
+    const { recentSuggestions } = this.props;
+
+    if (!isEmpty(recentSuggestions)) {
+      return (
+        <RecentSuggestion recentSuggestions={ recentSuggestions }/>
+      );
+    }
+
+    return null;
+  }
+
   render() {
     const { focusedItem } = this.props;
     return (
-      <div>
+      <div style={ wrapperStyle }>
+        <PinboardBar />
         <ScrollIntoView
-          style={ wrapperStyle }
+          style={ scrollIntoViewStyle }
           focusedClassName={ `term-item-${focusedItem.uniqueKey.replace(' ', '-')}` }
           >
-          <ResponsiveFluidWidthComponent
-            style={ contentWrapperStyle }
-            minimumStyle={ minimumStyle }
-            mediumStyle={ mediumStyle }
-            maximumStyle={ maximumStyle }
-            minWidthThreshold={ 1020 }
-            maxWidthThreshold={ 1760 }
-          >
-            <div>
-              <div style={ searchTermTitleStyle } className='test--search-term-title'>Search terms</div>
-              { this.renderColumns() }
-              <div style={ bottomLinksWrapperStyle }>
-                <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
-                  Back to Front Page
-                </Link>
-                <Link style={ bottomLinkStyle } to={ SEARCH_PATH } className='test--search-term-back-search-page-link'>
-                  Search
-                </Link>
+          { this.renderRecentSuggestion() }
+          <div>
+            <ResponsiveFluidWidthComponent
+              style={ contentWrapperStyle }
+              minimumStyle={ minimumStyle }
+              mediumStyle={ mediumStyle }
+              maximumStyle={ maximumStyle }
+              minWidthThreshold={ 1020 }
+              maxWidthThreshold={ 1760 }
+            >
+              <div>
+                <div style={ searchTermTitleStyle } className='test--search-term-title'>
+                  Search terms
+                </div>
+                { this.renderColumns() }
+                <div style={ bottomLinksWrapperStyle }>
+                  <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
+                    Back to Front Page
+                  </Link>
+                  <Link
+                    style={ bottomLinkStyle }
+                    to={ SEARCH_PATH }
+                    className='test--search-term-back-search-page-link'>
+                    Search
+                  </Link>
+                </div>
               </div>
-            </div>
-          </ResponsiveFluidWidthComponent>
+            </ResponsiveFluidWidthComponent>
+          </div>
         </ScrollIntoView>
-        <SearchTermItemPane { ...focusedItem } />
       </div>
     );
   }
 }
 
 SearchTerms.propTypes = {
+  left: PropTypes.object,
   move: PropTypes.func,
   categories: PropTypes.array,
   focusedItem: PropTypes.object,
@@ -112,6 +123,7 @@ SearchTerms.propTypes = {
   resetNavigation: PropTypes.func,
   setNavigation: PropTypes.func,
   navigationKeys: PropTypes.array,
+  recentSuggestions: PropTypes.array,
 };
 
 SearchTerms.defaultProps = {
