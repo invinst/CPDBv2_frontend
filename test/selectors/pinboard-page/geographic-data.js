@@ -247,7 +247,54 @@ describe('GeographicData selectors', function () {
     it('should return current tab', function () {
       const state = {
         pinboardPage: {
+          graphData: {
+            'coaccused_data': [{
+              'officer_id_1': 1,
+              'officer_id_2': 2,
+              'incident_date': '1988-10-03T00:00:00Z',
+              'accussed_count': 1
+            }]
+          },
+          geographicData: [{
+            'date': '2006-09-26',
+            'crid': '1000018',
+            'category': 'Operation/Personnel Violations',
+            'coaccused_count': 1,
+            'kind': 'CR'
+          }],
           currentTab: 'GEOGRAPHIC'
+        }
+      };
+      getCurrentTab(state).should.eql('GEOGRAPHIC');
+    });
+
+    it('should return NETWORK if both coaccused_data and geographic data are empty', function () {
+      const state = {
+        pinboardPage: {
+          graphData: {
+            'coaccused_data': []
+          },
+          geographicData: [],
+          currentTab: undefined
+        }
+      };
+      getCurrentTab(state).should.eql('NETWORK');
+    });
+
+    it('should return GEOGRAPHIC if both coaccused_data are empty', function () {
+      const state = {
+        pinboardPage: {
+          graphData: {
+            'coaccused_data': []
+          },
+          geographicData: [{
+            'date': '2006-09-26',
+            'crid': '1000018',
+            'category': 'Operation/Personnel Violations',
+            'coaccused_count': 1,
+            'kind': 'CR'
+          }],
+          currentTab: undefined
         }
       };
       getCurrentTab(state).should.eql('GEOGRAPHIC');

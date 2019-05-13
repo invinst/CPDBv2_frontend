@@ -244,7 +244,26 @@ describe('store', function () {
       pinboardPage: {
         graphData: {},
         geographicData: [],
-        currentTab: 'NETWORK'
+        currentTab: 'NETWORK',
+        relevantDocuments: {
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null }
+        },
+        relevantCoaccusals: {
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null }
+        },
+        relevantComplaints: {
+          items: [],
+          count: 0,
+          pagination: { next: null, previous: null }
+        },
+        redirection: null,
+        officerItems: [],
+        crItems: [],
+        trrItems: [],
       },
     });
   });

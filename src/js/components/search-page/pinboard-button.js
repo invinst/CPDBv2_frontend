@@ -8,6 +8,11 @@ import styles from './pinboard-button.sass';
 export default class PinboardButton extends Component {
   render() {
     const { pinboard } = this.props;
+
+    if (!pinboard.isPinboardRestored) {
+      return null;
+    }
+
     if (pinboard.itemsCount === 0) {
       return (
         <span className={ cx('test--pinboard-button', styles.pinboardNoItem) }>

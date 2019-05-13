@@ -1,12 +1,19 @@
 import { createAction } from 'redux-actions';
+import { map, entries } from 'lodash';
 
 import { get, post, put } from 'actions/common/async-action';
 import * as constants from 'utils/constants';
 
 
-export const addItemToPinboard = createAction(constants.ADD_ITEM_TO_PINBOARD, item => item);
+export const addOrRemoveItemInPinboard = createAction(constants.ADD_OR_REMOVE_ITEM_IN_PINBOARD);
 
-export const removeItemInPinboardPage = createAction(constants.REMOVE_ITEM_IN_PINBOARD_PAGE);
+export const removeItemInPinboardPage = createAction(constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+  item => ({ ...item, isPinned: true }));
+
+export const addItemInPinboardPage = createAction(constants.ADD_ITEM_IN_PINBOARD_PAGE,
+  item => ({ ...item, isPinned: false }));
+
+export const orderPinboard = createAction(constants.ORDER_PINBOARD);
 
 export const createPinboard = ({ officerIds, crids, trrIds }) => post(
   constants.PINBOARDS_URL,
@@ -79,5 +86,46 @@ export const fetchPinboardTRRs = id => get(
     constants.PINBOARD_TRRS_FETCH_REQUEST_START,
     constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_TRRS_FETCH_REQUEST_FAILURE,
+  ]
+)();
+
+const getWithPaginate = (pinboardRelevantAPI, types) => (id, params) => {
+  const queryString = map(entries(params), ([key, val]) => `${key}=${val}`).join('&');
+  const url = `${constants.PINBOARDS_URL}${id}/${pinboardRelevantAPI}/?${queryString}`;
+
+  return get(url, types)();
+};
+
+export const fetchPinboardRelevantDocuments = getWithPaginate(
+  'relevant-documents',
+  [
+    constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_START,
+    constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
+  ]
+);
+export const fetchPinboardRelevantCoaccusals = getWithPaginate(
+  'relevant-coaccusals',
+  [
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+  ]
+);
+export const fetchPinboardRelevantComplaints = getWithPaginate(
+  'relevant-complaints',
+  [
+    constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_START,
+    constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_FAILURE,
+  ]
+);
+
+export const fetchLatestRetrievedPinboard = () => get(
+  `${constants.PINBOARDS_URL}latest-retrieved-pinboard/`,
+  [
+    constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_START,
+    constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
+    constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_FAILURE,
   ]
 )();

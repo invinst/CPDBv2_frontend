@@ -6,12 +6,50 @@ import {
   fetchPinboardOfficers,
   fetchPinboardTRRs,
   fetchPinboardSocialGraph,
+  fetchPinboardRelevantDocuments,
+  fetchPinboardRelevantCoaccusals,
+  fetchPinboardRelevantComplaints,
   fetchPinboardGeographicData,
+  removeItemInPinboardPage,
+  addItemInPinboardPage,
+  fetchLatestRetrievedPinboard,
 } from 'actions/pinboard';
 import * as constants from 'utils/constants';
 
 
 describe('pinboard actions', function () {
+  describe('removeItemInPinboardPage', function () {
+    it('should return correct action', function () {
+      removeItemInPinboardPage({
+        id: '1234',
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.REMOVE_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          id: '1234',
+          type: 'OFFICER',
+          isPinned: true,
+        },
+      });
+    });
+  });
+
+  describe('addItemInPinboardPage', function () {
+    it('should return correct action', function () {
+      addItemInPinboardPage({
+        id: '1234',
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.ADD_ITEM_IN_PINBOARD_PAGE,
+        payload: {
+          id: '1234',
+          type: 'OFFICER',
+          isPinned: false,
+        },
+      });
+    });
+  });
+
   describe('createPinboard', function () {
     it('should return correct action', function () {
       createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] }).should.deepEqual({
@@ -179,6 +217,149 @@ describe('pinboard actions', function () {
         payload: {
           request: {
             url: `${constants.PINBOARDS_URL}268a5e58/geographic-data/`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardRelevantDocuments', function () {
+    it('shoud return correct action', function () {
+      fetchPinboardRelevantDocuments('66ef1560').should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-documents/?`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+
+    it('shoud return correct action with params', function () {
+      fetchPinboardRelevantDocuments(
+        '66ef1560',
+        { limit: '20', offset: '20' }
+      ).should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-documents/?limit=20&offset=20`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardRelevantCoaccusals', function () {
+    it('shoud return correct action', function () {
+      fetchPinboardRelevantCoaccusals('66ef1560').should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-coaccusals/?`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+
+    it('shoud return correct action with params', function () {
+      fetchPinboardRelevantCoaccusals(
+        '66ef1560',
+        { limit: '20', offset: '20' }
+      ).should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-coaccusals/?limit=20&offset=20`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchPinboardRelevantComplaints', function () {
+    it('shoud return correct action', function () {
+      fetchPinboardRelevantComplaints('66ef1560').should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-complaints/?`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+
+    it('shoud return correct action with params', function () {
+      fetchPinboardRelevantComplaints(
+        '66ef1560',
+        { limit: '20', offset: '20' }
+      ).should.deepEqual({
+        types: [
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_START,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}66ef1560/relevant-complaints/?limit=20&offset=20`,
+            params: undefined,
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('fetchLatestRetrievedPinboard', function () {
+    it('should return correct action', function () {
+      fetchLatestRetrievedPinboard().should.deepEqual({
+        types: [
+          constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_START,
+          constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_SUCCESS,
+          constants.PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_FAILURE,
+        ],
+        payload: {
+          request: {
+            url: `${constants.PINBOARDS_URL}latest-retrieved-pinboard/`,
             params: undefined,
             adapter: null,
             cancelToken: undefined,

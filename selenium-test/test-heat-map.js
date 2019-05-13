@@ -45,6 +45,7 @@ describe('Heat map', function () {
 
     context('dropdown revealed', function () {
       beforeEach(function () {
+        landingPage.heatMapSection.dropdownPlaceholder.waitForVisible();
         landingPage.heatMapSection.dropdownPlaceholder.click();
         landingPage.heatMapSection.dropdown.dropdownItems.waitForVisible();
         landingPage.heatMapSection.dropdownPlaceholder.waitForVisible(1000, true);
