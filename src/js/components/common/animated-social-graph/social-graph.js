@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { filter, isEmpty, countBy, indexOf } from 'lodash';
+import { filter, isEmpty, countBy, indexOf, orderBy } from 'lodash';
 import moment from 'moment';
 import * as d3 from 'd3';
 import * as jLouvain from 'jlouvain';
@@ -19,6 +19,7 @@ const DEFAULT_CLUSTER_PADDING = 6;
 const MAX_RADIUS = 12;
 const COLLIDE_ALPHA = 0.5;
 const MIN_MEMBERS_IN_COMMUNITY = 3;
+const NUMBER_OF_TOP_NODES = 5;
 
 
 export default class SocialGraph extends Component {
@@ -40,9 +41,9 @@ export default class SocialGraph extends Component {
     this.svg = d3.select(ReactDOM.findDOMNode(this.refs.chart)).append('svg:svg');
     this.node = this.svg.selectAll('.node');
     this.link = this.svg.selectAll('.link');
+    this.label = this.svg.selectAll('.label');
     this.tip = d3Tip()
       .attr('class', cx(styles.socialGraphTip, 'test--graph-tooltip'))
-      .offset([-5, 0])
       .html(this.graphTooltip);
     this.svg.call(this.tip);
     this.drawGraph();
@@ -79,7 +80,8 @@ export default class SocialGraph extends Component {
     this.data = {
       maxWeight: 0,
       linkedByIndex: {},
-      maxNodeInCommunities: {}
+      maxNodeInCommunities: {},
+      topNodes: [],
     };
   }
 
@@ -193,6 +195,8 @@ export default class SocialGraph extends Component {
         this.data.maxWeight = link.weight;
       }
     });
+
+    this.data.topNodes = orderBy(this.data.nodes, ['degree', 'uid'], ['desc', 'asc']).slice(0, NUMBER_OF_TOP_NODES);
   }
 
   _recalculateNodeGroups() {
@@ -260,6 +264,14 @@ export default class SocialGraph extends Component {
       return d.color;
     });
 
+    this.label = this.label.data(this.data.topNodes);
+
+    this.label.enter()
+      .append('text')
+      .text(function (d) { return d.fname; })
+      .attr('class', 'node-label');
+
+    this.label.exit().remove();
     this.node.exit().remove();
   }
 
@@ -295,6 +307,9 @@ export default class SocialGraph extends Component {
     .attr('cy', (d) => {
       return d.y = Math.max(RADIUS, Math.min(this.height - RADIUS, d.y || 0));
     });
+
+    this.label.attr('x', (d) => { return d.x + (d.degree / 2 + 2); })
+      .attr('y', (d) => { return d.y; });
 
     if (this.props.collideNodes) {
       this.node.each(this.cluster(60 * e.alpha * e.alpha))

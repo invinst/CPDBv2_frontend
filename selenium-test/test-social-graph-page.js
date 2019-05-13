@@ -30,9 +30,11 @@ describe('Social Graph Page', function () {
 
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const graphLinks = socialGraphPage.animatedSocialGraphSection.graphLinks();
+    const graphLabels = socialGraphPage.animatedSocialGraphSection.graphLabels();
 
     graphNodes.should.have.length(20);
     graphLinks.should.have.length(37);
+    graphLabels.should.have.length(5);
 
     const groupsColors = map(
       graphNodes,
@@ -40,6 +42,21 @@ describe('Social Graph Page', function () {
     );
     const groupsCount = values(countBy(groupsColors));
     groupsCount.sort((a, b) => a - b).should.eql([1, 1, 1, 5, 6, 6]);
+
+    const graphLabelTexts = map(
+      graphLabels,
+      (graphLabel) => graphLabel.getText()
+    );
+
+    const expectedGraphLabelTexts = [
+      'Donnell Calhoun',
+      'Eugene Offett',
+      'Johnny Cavers',
+      'Melvin Ector',
+      'Thomas Kampenga'
+    ];
+
+    graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);
   });
 
   it('should show connected nodes when double click on a node', function () {

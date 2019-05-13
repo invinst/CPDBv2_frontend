@@ -9,6 +9,11 @@
     stroke: white
     stroke-width: 1.5px
 
+  text.node-label
+    font-size: 13px
+    font-weight: 300
+    color: $mine-shaft-color
+
   line.link
     stroke: $smoke-gray
     stroke-opacity: .6
@@ -23,12 +28,14 @@
     transform: translate(-50%, -50%)
 
 \:local(.socialGraphTip)
-  padding: 4px 6px
-  background-color: $darker-grey-color
-  border-radius: 6px
-  color: white
-  font-size: 14px
+  padding: 2px 4px
+  background-color: $corn-silk-color
+  color: $soft-black-color
+  border-radius: 2px
+  font-size: 13px
   font-weight: 300
+  line-height: 15px
+  border: 1px solid $white-two-color
 
 .pinboard-page
   \:local(.socialGraph)

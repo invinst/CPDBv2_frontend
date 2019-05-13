@@ -310,6 +310,14 @@ describe('SocialGraph', function () {
       '6': { uid: 30466 },
     };
 
+    const expectedTopNodes = [
+      { uid: 3663 },
+      { uid: 4269 },
+      { uid: 21194 },
+      { uid: 31945 },
+      { uid: 14045 },
+    ];
+
     const graphNodes = instance.data.nodes;
 
     graphNodes.length.should.eql(expectedNodes.length);
@@ -341,10 +349,18 @@ describe('SocialGraph', function () {
       maxNode.uid.should.eql(expectedMaxNodeInCommunities[group].uid);
     });
 
+    const topNodes = instance.data.topNodes;
+    topNodes.length.should.eql(expectedTopNodes.length);
+
+    topNodes.forEach((topNode, index) => {
+      topNode.uid.should.eql(expectedTopNodes[index].uid);
+    });
+
     instance.data.maxWeight.should.eql(18);
 
     findDOMNode(instance).getElementsByClassName('node').length.should.eql(expectedNodes.length);
     findDOMNode(instance).getElementsByClassName('link').length.should.eql(expectedLinks.length);
+    findDOMNode(instance).getElementsByClassName('node-label').length.should.eql(expectedTopNodes.length);
 
     startTimelineFromBeginningStub.called.should.be.true();
     stopTimelineStub.called.should.be.true();
@@ -409,6 +425,14 @@ describe('SocialGraph', function () {
       '9': { uid: 22861 },
     };
 
+    const expectedTopNodes = [
+      { uid: 22861 },
+      { uid: 11580 },
+      { uid: 14045 },
+      { uid: 28805 },
+      { uid: 30466 },
+    ];
+
     const expectedLinkedByIndex = {
       '0,0': 1, '0,18': 1, '0,3': 1, '1,1': 1, '10,10': 1, '10,12': 1, '10,14': 1, '10,2': 1,
       '11,11': 1, '11,18': 1, '12,12': 1, '12,14': 1, '12,3': 1, '13,13': 1, '14,14': 1, '15,15': 1,
@@ -450,10 +474,18 @@ describe('SocialGraph', function () {
       maxNode.uid.should.eql(expectedMaxNodeInCommunities[group].uid);
     });
 
+    const topNodes = instance.data.topNodes;
+    topNodes.length.should.eql(expectedTopNodes.length);
+
+    topNodes.forEach((topNode, index) => {
+      topNode.uid.should.eql(expectedTopNodes[index].uid);
+    });
+
     instance.data.maxWeight.should.eql(5);
 
     findDOMNode(instance).getElementsByClassName('node').length.should.eql(expectedNodes.length);
     findDOMNode(instance).getElementsByClassName('link').length.should.eql(expectedLinks.length);
+    findDOMNode(instance).getElementsByClassName('node-label').length.should.eql(expectedTopNodes.length);
   });
 
   it('should highlight node when clickSearchState changes', function () {
