@@ -1,7 +1,4 @@
-import { isEmpty } from 'lodash';
-
 import { getVisualTokenOIGBackground } from 'utils/visual-token';
-import { greyishColor } from 'utils/styles';
 
 
 export const extractPercentile = (percentile) => {
@@ -29,7 +26,7 @@ export const extractPercentile = (percentile) => {
 };
 
 export const visualTokenBackground = (percentile) => {
-  if (isEmpty(percentile)) return null;
+  if (!percentile) return null;
 
   const internalPercentile = parseFloat(percentile['percentile_allegation_internal']);
   const civilianPercentile = parseFloat(percentile['percentile_allegation_civilian']);
@@ -41,5 +38,5 @@ export const visualTokenBackground = (percentile) => {
     trrPercentile
   );
 
-  return backgroundColor || greyishColor;
+  return backgroundColor;
 };

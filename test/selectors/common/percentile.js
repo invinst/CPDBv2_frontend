@@ -2,7 +2,6 @@ import should from 'should';
 
 import { extractPercentile, visualTokenBackground } from 'selectors/common/percentile';
 import { OIG_VISUAL_TOKEN_COLOR_SCHEME_TEXT } from 'utils/constants';
-import { greyishColor } from 'utils/styles';
 
 
 describe('extractPercentile', () => {
@@ -51,16 +50,7 @@ describe('visualTokenBackground', function () {
     visualTokenBackground(percentile).should.eql('#dc2c30');
   });
 
-  it('should return default greyishColor', function () {
-    const percentile = {
-      'percentile_allegation_civilian': null,
-      'percentile_allegation_internal': null,
-      'percentile_trr': null
-    };
-    visualTokenBackground(percentile).should.eql(greyishColor);
-  });
-
-  it('should return null if percentile is empty', function () {
-    should(visualTokenBackground({})).be.null();
+  it('should return null if percentile is undefined', function () {
+    should(visualTokenBackground(undefined)).be.null();
   });
 });

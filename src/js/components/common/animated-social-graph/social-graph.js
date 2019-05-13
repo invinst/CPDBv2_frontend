@@ -10,6 +10,7 @@ import cx from 'classnames';
 
 import { imgUrl } from 'utils/static-assets';
 import styles from './social-graph.sass';
+import { greyishColor } from 'utils/styles';
 
 const DEFAULT_GRAPH_WIDTH = 800;
 const DEFAULT_GRAPH_HEIGHT = 500;
@@ -20,6 +21,7 @@ const MAX_RADIUS = 12;
 const COLLIDE_ALPHA = 0.5;
 const MIN_MEMBERS_IN_COMMUNITY = 3;
 const NUMBER_OF_TOP_NODES = 5;
+const NUMBER_OF_LINK_GROUP_COLORS = 6
 
 
 export default class SocialGraph extends Component {
@@ -187,13 +189,19 @@ export default class SocialGraph extends Component {
 
   _recalculateNodeDegreesAndMaxWeight() {
     this.data.maxWeight = 0;
-    this.data.links.forEach((link) => {
+
+    const orderedLinks = orderBy(this.data.links, ['weight'], ['asc']);
+    const linksCount = this.data.links.length;
+
+    orderedLinks.forEach((link, index) => {
       this.data.nodes[link.source].degree += 1;
       this.data.nodes[link.target].degree += 1;
 
       if (this.data.maxWeight < link.weight) {
         this.data.maxWeight = link.weight;
       }
+
+      link.colorGroup = Math.ceil((index + 1) * NUMBER_OF_LINK_GROUP_COLORS / linksCount);
     });
 
     this.data.topNodes = orderBy(this.data.nodes, ['degree', 'uid'], ['desc', 'asc']).slice(0, NUMBER_OF_TOP_NODES);
@@ -261,7 +269,7 @@ export default class SocialGraph extends Component {
     this.node.attr('r', (d) => {
       return (d.degree / 2 + 2);
     }).style('fill', (d) => {
-      return d.color;
+      return d.color || greyishColor;
     });
 
     this.label = this.label.data(this.data.topNodes);
@@ -284,10 +292,8 @@ export default class SocialGraph extends Component {
 
     this.link.enter().insert('line', '.node').attr('class', 'link');
 
-    this.link.attr('stroke-width', (d) => {
-      return Math.ceil(Math.sqrt(d.weight));
-    }).attr('class', (d) => {
-      return `link ${d.className}`;
+    this.link.attr('class', (d) => {
+      return `link link-group-color-${d.colorGroup} ${d.className}`;
     });
 
     this.link.exit().remove();

@@ -36,12 +36,35 @@ describe('Social Graph Page', function () {
     graphLinks.should.have.length(37);
     graphLabels.should.have.length(5);
 
-    const groupsColors = map(
+    const nodeGroupColors = countBy(map(
       graphNodes,
       (graphNode) => graphNode.getCssProperty('fill').value
-    );
-    const groupsCount = values(countBy(groupsColors));
-    groupsCount.sort((a, b) => a - b).should.eql([1, 1, 1, 5, 6, 6]);
+    ));
+    const expectedNodeGroupColors = {
+      'rgb(253,94,76)': 6,
+      'rgb(244,162,152)': 6,
+      'rgb(249,211,195)': 5,
+      'rgb(243,42,41)': 1,
+      'rgb(255,80,80)': 1,
+      'rgb(243,173,173)': 1,
+    };
+    nodeGroupColors.should.eql(expectedNodeGroupColors);
+
+    const linkGroupColors = countBy(map(
+      graphLinks,
+      (graphLink) => graphLink.getAttribute('class').match(/link-group-color-[\d]/)
+    ));
+
+    const expectedlinkGroupColors = {
+      'link-group-color-1': 6,
+      'link-group-color-2': 6,
+      'link-group-color-3': 6,
+      'link-group-color-4': 6,
+      'link-group-color-5': 6,
+      'link-group-color-6': 7,
+    };
+
+    linkGroupColors.should.eql(expectedlinkGroupColors);
 
     const graphLabelTexts = map(
       graphLabels,
@@ -141,12 +164,19 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
-    const groupsColors = map(
+    const groupsColors = countBy(map(
       graphNodes,
       (graphNode) => graphNode.getCssProperty('fill').value
-    );
-    const groupsCount = values(countBy(groupsColors));
-    groupsCount.sort((a, b) => a - b).should.eql([1, 1, 1, 5, 6, 6]);
+    ));
+    const expectedGroupsColors = {
+      'rgb(253,94,76)': 6,
+      'rgb(244,162,152)': 6,
+      'rgb(249,211,195)': 5,
+      'rgb(243,42,41)': 1,
+      'rgb(255,80,80)': 1,
+      'rgb(243,173,173)': 1,
+    };
+    groupsColors.should.eql(expectedGroupsColors);
   });
 
   it('should load new data when change threshold and showCivilOnly', function () {
