@@ -111,6 +111,7 @@ class SearchPage extends Page {
       firstAliasButton: '(//a[contains(@class, "test--create-alias-link")])[1]',
       pinboardButton: '.test--pinboard-button',
       pinboardBar: '//div[starts-with(@class, "pinboard-bar")]',
+      toast: '.Toastify__toast-body',
     });
   }
 

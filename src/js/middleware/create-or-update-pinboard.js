@@ -19,6 +19,7 @@ import {
   fetchPinboardOfficers,
   fetchPinboardTRRs,
 } from 'actions/pinboard';
+import { showToast } from 'actions/toast';
 
 const PINBOARD_ATTR_MAP = {
   'CR': 'crids',
@@ -78,11 +79,13 @@ export default store => next => action => {
   }
 
   if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD) {
-    if (pinboard.id === null) {
-      store.dispatch(createPinboard(pinboard));
-    } else {
-      store.dispatch(updatePinboard(pinboard));
-    }
+    const pinboardAction = pinboard.id === null ? createPinboard : updatePinboard;
+
+    // TODO: test this async function
+    /* istanbul ignore next */
+    store.dispatch(pinboardAction(pinboard)).then(response => {
+      store.dispatch(showToast(item));
+    });
   }
   else if (action.type === REMOVE_ITEM_IN_PINBOARD_PAGE ||
     action.type === ADD_ITEM_IN_PINBOARD_PAGE) {

@@ -9,6 +9,7 @@ import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
 import MockStore from 'redux-mock-store';
 import { spy } from 'sinon';
+import { ToastContainer } from 'react-toastify';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import App from 'components/app';
@@ -85,6 +86,7 @@ describe('App component', function () {
     },
     popups: [],
     pinboard: null,
+    toast: {},
   });
   const location = { pathname: '/', search: '/', action: 'POP' };
 
@@ -190,5 +192,20 @@ describe('App component', function () {
     );
     scryRenderedComponentsWithType(instance, SlimHeader).length.should.eql(0);
     findRenderedComponentWithType(instance, ShareableHeader);
+  });
+
+  it('should render ToastContainer', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <App
+          location={ location }
+          appContent='/'
+        >
+          <OfficerPageContainer location={ { query: {}, pathname: '/' } } />
+        </App>
+      </Provider>
+    );
+
+    findRenderedComponentWithType(instance, ToastContainer).should.be.ok();
   });
 });

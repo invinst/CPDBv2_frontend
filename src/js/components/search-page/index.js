@@ -3,12 +3,16 @@ import { browserHistory } from 'react-router';
 import { debounce, isEmpty } from 'lodash';
 import { Promise } from 'es6-promise';
 import DocumentMeta from 'react-document-meta';
+import { toast, cssTransition } from 'react-toastify';
+import { css } from 'glamor';
 
 import SearchBox from './search-box';
 import {
   cancelButtonStyle,
   searchBoxStyle,
-  searchContentWrapperStyle
+  searchContentWrapperStyle,
+  toastWrapperStyle,
+  toastBodyStyle,
 } from './search-page.style.js';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as constants from 'utils/constants';
@@ -20,6 +24,7 @@ import {
 } from 'utils/constants';
 import { showIntercomLauncher } from 'utils/intercom';
 import * as IntercomTracking from 'utils/intercom-tracking';
+import 'toast.css';
 
 
 const DEFAULT_SUGGESTION_LIMIT = 9;
@@ -53,7 +58,7 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType, selectTag
+      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType, selectTag,
     } = nextProps;
     pushBreadcrumbs({ location, params, routes });
 
@@ -66,12 +71,38 @@ export default class SearchPage extends Component {
 
     if (!isRequesting && suggestionGroupsEmpty)
       selectTag(null);
+
+
+    this.handleToastChange(nextProps);
   }
 
   componentWillUnmount() {
     LayeredKeyBinding.unbind('esc');
     LayeredKeyBinding.unbind('enter');
     showIntercomLauncher(true);
+  }
+
+  handleToastChange(nextProps) {
+    if (this.props.toast !== nextProps.toast) {
+      const { type, actionType } = nextProps.toast;
+
+      this.showToast(`${type} ${actionType}`);
+    }
+  }
+
+  showToast(message) {
+    const TopRightTransition = cssTransition({
+      enter: 'toast-enter',
+      exit: 'toast-exit',
+      duration: 500,
+      appendPosition: true,
+    });
+
+    toast(message, {
+      className: css(toastWrapperStyle),
+      bodyClassName: css(toastBodyStyle),
+      transition: TopRightTransition,
+    });
   }
 
   sendSearchQuery(query, contentType) {
@@ -221,6 +252,7 @@ SearchPage.propTypes = {
   firstItem: PropTypes.object,
   tags: PropTypes.array,
   isRequesting: PropTypes.bool,
+  toast: PropTypes.object,
 };
 
 /* istanbul ignore next */
@@ -239,5 +271,6 @@ SearchPage.defaultProps = {
   pushBreadcrumbs: (...args) => {},
   resetSearchResultNavigation: () => {},
   resetSearchTermNavigation: () => {},
-  firstItem: {}
+  firstItem: {},
+  toast: {},
 };
