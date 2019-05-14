@@ -5,12 +5,12 @@ import 'rc-slider/assets/index.css';
 import cx from 'classnames';
 
 import styles from './network.sass';
-import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import RightPaneSection from 'components/social-graph-page/network/right-pane-section';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
 import MainTabs from 'components/social-graph-page/main-tabs';
 import PreviewPane from 'components/social-graph-page/network/right-pane-section/officers/preview-pane';
+import AnimatedSocialGraphContainer from 'containers/social-graph-page/animated-social-graph-container';
 
 
 export default class NetworkGraph extends Component {
@@ -92,9 +92,6 @@ export default class NetworkGraph extends Component {
 
   render() {
     const {
-      officers,
-      coaccusedData,
-      listEvent,
       title,
       changeNetworkTab,
       currentMainTab,
@@ -102,7 +99,6 @@ export default class NetworkGraph extends Component {
       hasComplaint,
       changeMainTab,
       officer,
-      updateOfficerId,
       location,
       pinboardId,
     } = this.props;
@@ -112,7 +108,7 @@ export default class NetworkGraph extends Component {
         <div className='left-section'>
           {
             pinboardId && (
-              <a className='back-to-pinboard-link' href={ `/pinboard/${pinboardId}/` }>←  Back to pinboard</a>
+              <a className='back-to-pinboard-link' href={ `/pinboard/${pinboardId}/` }>← Back to pinboard</a>
             )
           }
           <MainTabs changeTab={ changeMainTab } currentTab={ currentMainTab }/>
@@ -141,12 +137,7 @@ export default class NetworkGraph extends Component {
 
         </div>
         <div className='graph-container'>
-          <AnimatedSocialGraph
-            officers={ officers }
-            coaccusedData={ coaccusedData }
-            listEvent={ listEvent }
-            updateOfficerId={ updateOfficerId }
-          />
+          <AnimatedSocialGraphContainer/>
         </div>
         <div className='right-section'>
           {
@@ -157,7 +148,6 @@ export default class NetworkGraph extends Component {
                 changeNetworkTab={ changeNetworkTab }
                 currentTab={ currentNetworkTab }
                 hasComplaint={ hasComplaint }
-                updateOfficerId={ updateOfficerId }
                 location={ location }
               />
             )
@@ -176,10 +166,7 @@ NetworkGraph.propTypes = {
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
   pinboardId: PropTypes.string,
-  officers: PropTypes.array,
   title: PropTypes.string,
-  coaccusedData: PropTypes.array,
-  listEvent: PropTypes.array,
   changeNetworkTab: PropTypes.func,
   changeMainTab: PropTypes.func,
   hasComplaint: PropTypes.bool,
@@ -194,7 +181,4 @@ NetworkGraph.defaultProps = {
   requestSocialGraphNetwork: () => {},
   requestSocialGraphAllegations: () => {},
   requestSocialGraphOfficers: () => {},
-  officers: [],
-  coaccusedData: [],
-  listEvent: [],
 };

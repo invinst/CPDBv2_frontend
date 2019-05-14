@@ -3,6 +3,9 @@ import {
   requestSocialGraphAllegations,
   requestSocialGraphGeographic,
   requestSocialGraphOfficers,
+  updateSocialGraphTimelineIdx,
+  updateSocialGraphTimelineIdxFromTimelineTab,
+  updateSocialGraphRefreshIntervalId,
 } from 'actions/social-graph-page';
 import {
   SOCIAL_GRAPH_NETWORK_API_URL,
@@ -20,8 +23,10 @@ import {
   SOCIAL_GRAPH_GEOGRAPHIC_REQUEST_FAILURE,
   SOCIAL_GRAPH_OFFICERS_REQUEST_START,
   SOCIAL_GRAPH_OFFICERS_REQUEST_SUCCESS,
-  SOCIAL_GRAPH_OFFICERS_REQUEST_FAILURE
-
+  SOCIAL_GRAPH_OFFICERS_REQUEST_FAILURE,
+  UPDATE_SOCIAL_GRAPH_TIMELINE_IDX,
+  UPDATE_SOCIAL_GRAPH_TIMELINE_IDX_FROM_TIMELINE_TAB,
+  UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID,
 } from 'utils/constants';
 
 
@@ -102,6 +107,33 @@ describe('socialGraph actions', function () {
             cancelToken: undefined,
           }
         }
+      });
+    });
+  });
+
+  describe('updateSocialGraphTimelineIdx', function () {
+    it('should return correct payload', function () {
+      updateSocialGraphTimelineIdx(20).should.eql({
+        type: UPDATE_SOCIAL_GRAPH_TIMELINE_IDX,
+        payload: 20
+      });
+    });
+  });
+
+  describe('updateSocialGraphTimelineIdxFromTimelineTab', function () {
+    it('should return correct payload', function () {
+      updateSocialGraphTimelineIdxFromTimelineTab(20).should.eql({
+        type: UPDATE_SOCIAL_GRAPH_TIMELINE_IDX_FROM_TIMELINE_TAB,
+        payload: 20
+      });
+    });
+  });
+
+  describe('updateSocialGraphRefreshIntervalId', function () {
+    it('should return correct payload', function () {
+      updateSocialGraphRefreshIntervalId(1234).should.eql({
+        type: UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID,
+        payload: 1234
       });
     });
   });

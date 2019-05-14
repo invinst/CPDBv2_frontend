@@ -76,15 +76,15 @@ class TimelineSection extends Section {
     super();
 
     this.prepareElementGetters({
-      firstAllegationYear: '//div[contains(@class, "timeline-item")][1]//div[@class="date"]',
-      firstAllegationCategory: '//a[contains(@class, "timeline-item")][1]//div[@class="category"]',
-      firstAllegationSubcategory: '//a[contains(@class, "timeline-item")][1]//div[@class="subcategory"]',
-      firstAllegationDate: '//a[contains(@class, "timeline-item")][1]//span[@class="date"]',
+      firstAllegationYear: '//div[contains(@class, "test--timeline-item")][1]//div[@class="date"]',
+      firstAllegationCategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="category"]',
+      firstAllegationSubcategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="subcategory"]',
+      firstAllegationDate: '//a[contains(@class, "test--timeline-item")][1]//span[@class="date"]',
     });
   }
 
   allegationRowCount() {
-    return browser.elements('//a[contains(@class, "timeline-item")]').value.length;
+    return browser.elements('//a[contains(@class, "test--timeline-item")]').value.length;
   }
 }
 

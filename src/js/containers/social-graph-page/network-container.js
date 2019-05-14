@@ -7,7 +7,7 @@ import {
   requestSocialGraphOfficers,
   changeMainTab,
   changeNetworkTab,
-  updateOfficerId
+  updateOfficerId,
 } from 'actions/social-graph-page';
 
 import {
@@ -16,12 +16,7 @@ import {
   getCurrentNetworkTab,
 } from 'selectors/social-graph-page';
 
-import {
-  officersSelector,
-  coaccusedDataSelector,
-  getListEvent,
-  networkOfficerSelector
-} from 'selectors/social-graph-page/network';
+import { networkOfficerSelector } from 'selectors/social-graph-page/network';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -29,9 +24,6 @@ function mapStateToProps(state, ownProps) {
     unitId: ownProps.location.query['unit_id'],
     pinboardId: ownProps.location.query['pinboard_id'],
     title: ownProps.location.query['title'],
-    officers: officersSelector(state),
-    coaccusedData: coaccusedDataSelector(state),
-    listEvent: getListEvent(state),
     hasComplaint: hasComplaintSelector(state),
     currentMainTab: getCurrentMainTab(state),
     currentNetworkTab: getCurrentNetworkTab(state),
@@ -46,7 +38,7 @@ const mapDispatchToProps = {
   requestSocialGraphOfficers,
   changeMainTab,
   changeNetworkTab,
-  updateOfficerId
+  updateOfficerId,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NetworkGraph);

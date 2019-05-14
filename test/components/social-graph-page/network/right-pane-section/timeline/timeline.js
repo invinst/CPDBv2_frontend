@@ -4,9 +4,10 @@ import {
   scryRenderedComponentsWithType,
 } from 'react-addons-test-utils';
 
+
 import { unmountComponentSuppressError } from 'utils/test';
 import Timeline from 'components/social-graph-page/network/right-pane-section/timeline';
-import Items from 'components/social-graph-page/network/right-pane-section/timeline/item';
+import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
 
 
 describe('Timeline component', function () {
@@ -16,7 +17,7 @@ describe('Timeline component', function () {
       kind: 'YEAR',
       year: 2005,
       hasData: true,
-      key: '123456'
+      key: '12345'
     },
     {
       kind: 'CR',
@@ -25,8 +26,8 @@ describe('Timeline component', function () {
       year: 2006,
       category: 'Use of Force',
       attachments: [],
-      key: '123456'
-
+      key: '123456',
+      timelineIdx: 0,
     }
   ];
 
@@ -41,7 +42,7 @@ describe('Timeline component', function () {
         pathname='/social-graph/'
       />
     );
-    const timelineItems = scryRenderedComponentsWithType(instance, Items);
+    const timelineItems = scryRenderedComponentsWithType(instance, Item);
     timelineItems.should.have.length(2);
   });
 });

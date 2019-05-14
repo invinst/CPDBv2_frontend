@@ -11,6 +11,8 @@ import crItems from './cr-items';
 import trrItems from './trr-items';
 import redirection from './redirection';
 import pinboard from './pinboard';
+import timelineIdx from './timeline_idx';
+import refreshIntervalId from './refresh-interval-id';
 
 
 export default combineReducers({
@@ -25,4 +27,6 @@ export default combineReducers({
   trrItems,
   redirection,
   pinboard,
+  timelineIdx,
+  refreshIntervalId,
 });

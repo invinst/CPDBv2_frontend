@@ -243,7 +243,10 @@ describe('store', function () {
           graphData: {},
           networkAllegations: [],
           networkOfficers: [],
-          officerId: null
+          officerId: null,
+          timelineIdx: 0,
+          refreshIntervalId: null,
+          timelineIdxTriggerChange: 0,
         },
         currentMainTab: 'NETWORK',
         geographicData: [],
@@ -281,6 +284,8 @@ describe('store', function () {
         officerItems: [],
         crItems: [],
         trrItems: [],
+        timelineIdx: 0,
+        refreshIntervalId: null,
       },
       toast: {},
     });

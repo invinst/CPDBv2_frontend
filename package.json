@@ -158,6 +158,7 @@
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.0.1",
     "reselect": "^2.5.1",
+    "scrollmagic": "^2.0.6",
     "shallow-equals": "^1.0.0",
     "swiper": "^4.4.1",
     "titleize": "^1.0.0",
