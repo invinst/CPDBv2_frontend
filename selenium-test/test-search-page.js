@@ -593,3 +593,23 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
   });
 });
+
+describe('Search Page toast', function () {
+  it('should display toast in few seconds when items are added/removed', function () {
+    searchPage.open('Ke');
+
+    searchPage.suggestionGroup.waitForVisible();
+    searchPage.firstOfficerPinButton.click();
+
+    searchPage.toast.waitForVisible();
+    searchPage.toast.getText().should.be.eql('Officer added');
+
+    browser.waitUntil(function () {
+      return searchPage.toast.isVisible() === false;
+    }, 5000, 'Toast is not removed properly');
+
+    searchPage.firstOfficerPinButton.click();
+    searchPage.toast.waitForVisible();
+    searchPage.toast.getText().should.be.eql('Officer removed');
+  });
+});

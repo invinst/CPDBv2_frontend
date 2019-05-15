@@ -27,6 +27,7 @@ import crawlersPage from './crawlers-page';
 import socialGraphPage from './social-graph-page';
 import pinboard from './pinboard';
 import pinboardPage from './pinboard-page';
+import toast from './toast';
 
 
 export default combineReducers({
@@ -57,4 +58,5 @@ export default combineReducers({
   socialGraphPage,
   pinboard,
   pinboardPage,
+  toast
 });

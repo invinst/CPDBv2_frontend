@@ -6,6 +6,8 @@ import {
   softBlackColor,
   clayGray,
   whiteTwoColor,
+  sproutColor,
+  japaneseLaurelColor
 } from 'utils/styles';
 
 
@@ -51,3 +53,20 @@ export const cancelButtonStyle = (searchTermsHidden) => ({
     color: softBlackColor
   }
 });
+
+export const toastWrapperStyle = {
+  backgroundColor: sproutColor,
+  borderRadius: '2px',
+  color: japaneseLaurelColor,
+  lineHeight: '40px',
+  minHeight: '40px',
+  padding: 0,
+  textAlign: 'center',
+  width: 'auto',
+};
+
+export const toastBodyStyle = {
+  fontFamily: sanFranciscoTextFamily,
+  fontWeight: 300,
+  fontSize: '14px',
+};
