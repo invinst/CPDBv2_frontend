@@ -36,7 +36,7 @@ const MAX_RETRIES = 60;
 const RETRY_DELAY = 1000;
 let retries = 0;
 
-function updateOrCreatePinboard(store, currentPinboard) {
+function dispatchUpdateOrCreatePinboard(store, currentPinboard) {
   const updateOrCreatePinboard = (currentPinboard.id === null) ? createPinboard : updatePinboard;
   store.dispatch(updateOrCreatePinboard(currentPinboard)).then(result => {
     retries = 0;
@@ -80,7 +80,7 @@ export default store => next => action => {
       const savedPinboard = getRequestPinboard(action.payload);
 
       if (_.isEmpty(action.payload) || !_.isEqual(currentPinboard, savedPinboard)) {
-        updateOrCreatePinboard(store, currentPinboard);
+        dispatchUpdateOrCreatePinboard(store, currentPinboard);
       } else {
         if (_.startsWith(state.pathname, '/pinboard/') && pinboardId) {
           store.dispatch(fetchPinboardSocialGraph(pinboardId));
@@ -98,7 +98,7 @@ export default store => next => action => {
     const pinboard = state.pinboardPage.pinboard;
     if (pinboard.saving) {
       const currentPinboard = getRequestPinboard(pinboard);
-      updateOrCreatePinboard(store, currentPinboard);
+      dispatchUpdateOrCreatePinboard(store, currentPinboard);
     }
   }
 
