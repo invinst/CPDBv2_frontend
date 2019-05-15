@@ -81,7 +81,7 @@ export default function withPinnableItem(
     }
 
     renderContent() {
-      const { isFocused, suggestion, addItemToPinboard } = this.props;
+      const { isFocused, suggestion, addOrRemoveItemInPinboard } = this.props;
       const { isPinned } = this.props.suggestion;
       const isPinButtonHovered = get(this.state, 'isPinButtonHovered');
 
@@ -94,7 +94,7 @@ export default function withPinnableItem(
                   isPinButtonHovered: isHovering
                 }) }
                 className={ styles.itemPinButton }
-                addItemToPinboard={ addItemToPinboard }
+                addOrRemoveItemInPinboard={ addOrRemoveItemInPinboard }
                 suggestion={ suggestion }
               />
             }
@@ -136,7 +136,7 @@ export default function withPinnableItem(
   _Base.propTypes = {
     isFocused: PropTypes.bool,
     suggestion: PropTypes.object,
-    addItemToPinboard: PropTypes.func,
+    addOrRemoveItemInPinboard: PropTypes.func,
     aliasEditModeOn: PropTypes.bool,
     setAliasAdminPageContent: PropTypes.func,
     selectItem: PropTypes.func,
