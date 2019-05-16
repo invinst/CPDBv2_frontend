@@ -26,7 +26,9 @@ describe('SearchMainPanel component', function () {
       },
       pagination: {}
     },
-    pinboard: null,
+    pinboardPage: {
+      pinboard: null,
+    }
   });
 
   afterEach(function () {

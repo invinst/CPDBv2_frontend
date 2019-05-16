@@ -10,6 +10,7 @@ import officerItems from './officer-items';
 import crItems from './cr-items';
 import trrItems from './trr-items';
 import redirection from './redirection';
+import pinboard from './pinboard';
 
 
 export default combineReducers({
@@ -23,4 +24,5 @@ export default combineReducers({
   crItems,
   trrItems,
   redirection,
+  pinboard,
 });

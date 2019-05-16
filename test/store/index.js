@@ -240,8 +240,17 @@ describe('store', function () {
       socialGraphPage: {
         graphData: {}
       },
-      pinboard: null,
       pinboardPage: {
+        pinboard: {
+          crids: [],
+          description: '',
+          id: null,
+          isPinboardRestored: false,
+          'officer_ids': [],
+          saving: false,
+          title: '',
+          'trr_ids': [],
+        },
         graphData: {},
         geographicData: [],
         currentTab: 'NETWORK',

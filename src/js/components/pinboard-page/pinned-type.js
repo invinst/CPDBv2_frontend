@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { map, differenceBy, first, get, isEqual, reject, sortBy, indexOf } from 'lodash';
+import { map, differenceBy, first, get, isEqual } from 'lodash';
 import cx from 'classnames';
 import { Muuri } from 'utils/vendors';
 
@@ -14,19 +14,9 @@ const CARD_MAP = {
   'TRR': TRRCard,
 };
 
-const KEY_MAP = {
-  'OFFICER': 'officerIds',
-  'CR': 'crids',
-  'TRR': 'trrIds',
-};
-
 export default class PinnedType extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      items: props.items,
-    };
 
     this.updateOrder = this.updateOrder.bind(this);
     this.removeItemInPinboardPage = this.removeItemInPinboardPage.bind(this);
@@ -39,16 +29,11 @@ export default class PinnedType extends Component {
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.items.length > 0
-      && this.state.items.length > 0
-      && nextProps.items.length > this.state.items.length
+      && this.props.items.length > 0
+      && nextProps.items.length > this.props.items.length
     ) {
-      this.addedItem = first(differenceBy(nextProps.items, this.state.items, 'id'));
+      this.addedItem = first(differenceBy(nextProps.items, this.props.items, 'id'));
     }
-    this.setState({ items: nextProps.items });
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return !isEqual(this.state.items, nextProps.items);
   }
 
   componentDidUpdate() {
@@ -68,31 +53,27 @@ export default class PinnedType extends Component {
   }
 
   updateOrder() {
-    const { orderPinboard, type } = this.props;
-    const { items } = this.state;
-
+    const { orderPinboard, type, items } = this.props;
     const newIds = this.gridMuuri.getItems().map(item => item.getElement().getAttribute('data-id'));
 
-    const stateIds = map(items, item => item.id);
+    const currentIds = map(items, item => item.id);
 
-    if (!isEqual(newIds, stateIds)) {
-      this.setState({ items: sortBy(items, item => indexOf(newIds, item.id)) });
-      orderPinboard({ [KEY_MAP[type]]: newIds });
+    if (!isEqual(newIds, currentIds)) {
+      orderPinboard({ type, ids: newIds });
     }
   }
 
   removeItemInPinboardPage(item) {
     this.gridMuuri.remove(this.itemElements[item.id]);
-    this.setState({
-      items: reject(this.state.items, { id: item.id }),
-    });
 
-    this.props.removeItemInPinboardPage(item);
+    setTimeout(
+      () => this.props.removeItemInPinboardPage(item),
+      200
+    );
   }
 
   render() {
-    const { type, title } = this.props;
-    const { items } = this.state;
+    const { type, title, items } = this.props;
 
     if (items.length < 1) {
       return null;

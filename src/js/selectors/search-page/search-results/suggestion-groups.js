@@ -5,7 +5,7 @@ import * as constants from 'utils/constants';
 import { searchResultItemTransform } from './transforms';
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
-import { pinboardItemsSelector } from 'selectors/pinboard';
+import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 
 
 const itemsPerCategory = 5;

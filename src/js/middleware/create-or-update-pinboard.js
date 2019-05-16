@@ -1,3 +1,4 @@
+import { Promise } from 'es6-promise';
 import * as _ from 'lodash';
 
 import {
@@ -5,8 +6,8 @@ import {
   REMOVE_ITEM_IN_PINBOARD_PAGE,
   ADD_ITEM_IN_PINBOARD_PAGE,
   ORDER_PINBOARD,
+  SAVE_PINBOARD,
 } from 'utils/constants';
-import { getPinboard } from 'selectors/pinboard';
 import {
   createPinboard,
   updatePinboard,
@@ -15,94 +16,90 @@ import {
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
-  fetchPinboardComplaints,
-  fetchPinboardOfficers,
-  fetchPinboardTRRs,
+  addItemToPinboardState,
+  removeItemFromPinboardState,
+  orderPinboardState,
+  savePinboard,
 } from 'actions/pinboard';
 
-const PINBOARD_ATTR_MAP = {
-  'CR': 'crids',
-  'DATE > CR': 'crids',
-  'INVESTIGATOR > CR': 'crids',
-  'OFFICER': 'officerIds',
-  'UNIT > OFFICERS': 'officerIds',
-  'DATE > OFFICERS': 'officerIds',
-  'TRR': 'trrIds',
-  'DATE > TRR': 'trrIds',
-};
 
-const PINBOARD_FETCH_SELECTED_MAP = {
-  'CR': fetchPinboardComplaints,
-  'DATE > CR': fetchPinboardComplaints,
-  'INVESTIGATOR > CR': fetchPinboardComplaints,
-  'OFFICER': fetchPinboardOfficers,
-  'UNIT > OFFICERS': fetchPinboardOfficers,
-  'DATE > OFFICERS': fetchPinboardOfficers,
-  'TRR': fetchPinboardTRRs,
-  'DATE > TRR': fetchPinboardTRRs,
-};
+const getRequestPinboard = pinboard => ({
+  id: _.get(pinboard, 'id', null),
+  title: _.get(pinboard, 'title', ''),
+  officerIds: _.map(_.get(pinboard, 'officer_ids', []), id => (id.toString())),
+  crids: _.get(pinboard, 'crids', []),
+  trrIds: _.map(_.get(pinboard, 'trr_ids', []), id => (id.toString())),
+  description: _.get(pinboard, 'description', ''),
+});
 
-const debouncedReorderOrCreatePinboard = _.debounce(
-  (store, payload) => {
-    const pinboard = getPinboard(store.getState());
-    const pinboardAction = (pinboard.id === null) ? createPinboard : updatePinboard;
-    store.dispatch(pinboardAction({
-      ..._.pick(pinboard, ['id', 'title', 'officerIds', 'crids', 'trrIds']),
-      ...payload
-    }));
-  },
-  100
-);
+const MAX_RETRIES = 60;
+const RETRY_DELAY = 1000;
+let retries = 0;
 
-const addItem = (pinboard, item) => {
-  const key = PINBOARD_ATTR_MAP[item.type];
-  pinboard[key].push(item.id);
-};
-
-const removeItem = (pinboard, item) => {
-  const key = PINBOARD_ATTR_MAP[item.type];
-  _.remove(pinboard[key], (id) => (id === item.id));
-};
+function dispatchUpdateOrCreatePinboard(store, currentPinboard) {
+  const updateOrCreatePinboard = (currentPinboard.id === null) ? createPinboard : updatePinboard;
+  store.dispatch(updateOrCreatePinboard(currentPinboard)).then(result => {
+    retries = 0;
+    store.dispatch(savePinboard(result.payload));
+  }).catch(() => {
+    if (retries < MAX_RETRIES) {
+      retries += 1;
+      setTimeout(() => store.dispatch(savePinboard()), RETRY_DELAY);
+    }
+  });
+}
 
 export default store => next => action => {
-  let pinboard = null;
-  let item = null;
+  if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD || action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
+    const addOrRemove = action.payload.isPinned ? removeItemFromPinboardState : addItemToPinboardState;
 
-  if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD ||
-    action.type === REMOVE_ITEM_IN_PINBOARD_PAGE ||
-    action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
-    pinboard = getPinboard(store.getState());
-    item = action.payload;
-
-    item.isPinned ? removeItem(pinboard, item) : addItem(pinboard, item);
+    Promise.all([store.dispatch(addOrRemove(action.payload))]).finally(() => {
+      store.dispatch(savePinboard());
+    });
   }
 
-  if (action.type === ADD_OR_REMOVE_ITEM_IN_PINBOARD) {
-    if (pinboard.id === null) {
-      store.dispatch(createPinboard(pinboard));
-    } else {
-      store.dispatch(updatePinboard(pinboard));
-    }
-  }
-  else if (action.type === REMOVE_ITEM_IN_PINBOARD_PAGE ||
-    action.type === ADD_ITEM_IN_PINBOARD_PAGE) {
-    // TODO: test this async function
-    /* istanbul ignore next */
-    store.dispatch(updatePinboard(pinboard)).then(response => {
-      const pinboardID = response.payload.id;
-      const pinboardFetchSelected = PINBOARD_FETCH_SELECTED_MAP[item.type];
-
-      store.dispatch(pinboardFetchSelected(pinboardID));
-      store.dispatch(fetchPinboardSocialGraph(pinboardID));
-      store.dispatch(fetchPinboardGeographicData(pinboardID));
-      store.dispatch(fetchPinboardRelevantDocuments(pinboardID));
-      store.dispatch(fetchPinboardRelevantCoaccusals(pinboardID));
-      store.dispatch(fetchPinboardRelevantComplaints(pinboardID));
+  if (action.type === REMOVE_ITEM_IN_PINBOARD_PAGE) {
+    Promise.all([store.dispatch(removeItemFromPinboardState(action.payload))]).finally(() => {
+      store.dispatch(savePinboard());
     });
   }
 
   if (action.type === ORDER_PINBOARD) {
-    debouncedReorderOrCreatePinboard(store, action.payload);
+    Promise.all([store.dispatch(orderPinboardState(action.payload))]).finally(() => {
+      store.dispatch(savePinboard());
+    });
+  }
+
+  if (action.type === SAVE_PINBOARD) {
+    const state = store.getState();
+    const pinboard = state.pinboardPage.pinboard;
+    const currentPinboard = getRequestPinboard(pinboard);
+    const pinboardId = currentPinboard.id;
+
+    if (!pinboard.saving) {
+      const savedPinboard = getRequestPinboard(action.payload);
+
+      if (_.isEmpty(action.payload) || !_.isEqual(currentPinboard, savedPinboard)) {
+        dispatchUpdateOrCreatePinboard(store, currentPinboard);
+      } else {
+        if (_.startsWith(state.pathname, '/pinboard/') && pinboardId) {
+          store.dispatch(fetchPinboardSocialGraph(pinboardId));
+          store.dispatch(fetchPinboardGeographicData(pinboardId));
+          store.dispatch(fetchPinboardRelevantDocuments(pinboardId));
+          store.dispatch(fetchPinboardRelevantCoaccusals(pinboardId));
+          store.dispatch(fetchPinboardRelevantComplaints(pinboardId));
+        }
+      }
+    }
+  }
+
+  if (action.type === '@@router/LOCATION_CHANGE') {
+    const state = store.getState();
+    const pinboard = state.pinboardPage.pinboard;
+    if (pinboard.saving) {
+      const currentPinboard = getRequestPinboard(pinboard);
+      dispatchUpdateOrCreatePinboard(store, currentPinboard);
+    }
   }
 
   return next(action);
