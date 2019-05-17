@@ -10,7 +10,7 @@ export const itemsWrapperStyle = {
 
 export const headerStyle = {
   fontSize: '14px',
-  fontWeight: 500,
+  fontWeight: 400,
   color: softBlackColor,
   padding: '34px 16px 10px 16px',
   textTransform: 'uppercase',

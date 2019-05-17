@@ -91,7 +91,7 @@ export default class SearchTerms extends Component {
             >
               <div>
                 <div style={ searchTermTitleStyle } className='test--search-term-title'>
-                  Search terms
+                  Search Terms
                 </div>
                 { this.renderColumns() }
                 <div style={ bottomLinksWrapperStyle }>

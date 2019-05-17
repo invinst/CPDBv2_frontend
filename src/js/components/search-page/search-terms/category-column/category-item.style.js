@@ -1,9 +1,9 @@
-import { greyishColor, accentColor } from 'utils/styles';
+import { boulderColor, accentColor } from 'utils/styles';
 
 
 export const itemStyle = (isFocused) => ({
   fontSize: '14px',
-  fontWeight: 300,
+  fontWeight: 200,
   padding: '0 16px',
 });
 
@@ -14,7 +14,7 @@ export const nameStyle = (isFocused, hovering) => {
   else if (isFocused)
     color = accentColor;
   else
-    color = greyishColor;
+    color = boulderColor;
 
   return {
     color,
