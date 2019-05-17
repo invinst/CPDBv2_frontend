@@ -43,7 +43,7 @@ export const fetchPinboard = id => get(
 )();
 
 export const fetchPinboardSocialGraph = id => get(
-  `${constants.PINBOARDS_URL}${id}/social-graph/`,
+  `${constants.SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=${id}`,
   [
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_START,
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
@@ -52,7 +52,7 @@ export const fetchPinboardSocialGraph = id => get(
 )();
 
 export const fetchPinboardGeographicData = id => get(
-  `${constants.PINBOARDS_URL}${id}/geographic-data/`,
+  `${constants.SOCIAL_GRAPH_GEOGRAPHIC_API_URL}?pinboard_id=${id}`,
   [
     constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_START,
     constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS,

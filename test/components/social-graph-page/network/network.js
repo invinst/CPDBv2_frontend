@@ -74,6 +74,22 @@ describe('NetworkGraph component', function () {
     }).should.be.true();
   });
 
+
+  it('should call requestSocialGraphNetwork with correct pinboardId when componentDidMount', function () {
+    const requestSocialGraphNetworkStub = stub();
+    instance = renderIntoDocument(
+      <NetworkGraph
+        requestSocialGraphNetwork={ requestSocialGraphNetworkStub }
+        pinboardId='5cd06f2b'
+      />
+    );
+    requestSocialGraphNetworkStub.calledWith({
+      'pinboard_id': '5cd06f2b',
+      'threshold': 2,
+      'show_civil_only': true
+    }).should.be.true();
+  });
+
   it('should not call requestSocialGraphNetwork if both unitId and officerIds are missing', function () {
     const requestSocialGraphNetworkStub = stub();
     instance = renderIntoDocument(

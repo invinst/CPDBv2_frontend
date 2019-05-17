@@ -17,9 +17,11 @@ export default class GeographicMap extends Component {
   }
 
   fetchGeographicData() {
-    const { requestSocialGraphGeographic, officerIds, unitId } = this.props;
+    const { requestSocialGraphGeographic, officerIds, unitId, pinboardId } = this.props;
     let requestParams;
-    if (!isEmpty(unitId)) {
+    if (!isEmpty(pinboardId)) {
+      requestParams = { 'pinboard_id': pinboardId };
+    } else if (!isEmpty(unitId)) {
       requestParams = { 'unit_id': unitId };
     } else if (!isEmpty(officerIds)) {
       requestParams = {
@@ -64,4 +66,5 @@ GeographicMap.propTypes = {
   currentMainTab: PropTypes.string,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
+  pinboardId: PropTypes.string,
 };

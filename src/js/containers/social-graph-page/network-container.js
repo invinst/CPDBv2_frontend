@@ -27,6 +27,7 @@ function mapStateToProps(state, ownProps) {
   return {
     officerIds: ownProps.location.query['officer_ids'],
     unitId: ownProps.location.query['unit_id'],
+    pinboardId: ownProps.location.query['pinboard_id'],
     title: ownProps.location.query['title'],
     officers: officersSelector(state),
     coaccusedData: coaccusedDataSelector(state),

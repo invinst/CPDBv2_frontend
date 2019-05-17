@@ -104,9 +104,27 @@ export default class AnimatedSocialGraph extends Component {
     });
   }
 
+  fullscreenButton() {
+    const { expandedLink } = this.props;
+    const { fullscreen } = this.state;
+
+    if (expandedLink) {
+      return (
+        <a href={ expandedLink } className='fullscreen-btn expand-icon' />
+      );
+    } else {
+      return (
+        <button
+          className={ cx('fullscreen-btn', fullscreen ? 'compress-icon' : 'expand-icon') }
+          onClick={ this.toggleFullscreen }
+        />
+      );
+    }
+  }
+
   graphControlPanel() {
     const { listEvent } = this.props;
-    const { timelineIdx, refreshIntervalId, fullscreen } = this.state;
+    const { timelineIdx, refreshIntervalId } = this.state;
     if (listEvent) {
       const numOfEvents = listEvent.length;
 
@@ -137,10 +155,7 @@ export default class AnimatedSocialGraph extends Component {
                 onClick={ this.toggleTimeline }
               />
               <span className='current-date-label'>{ currentDateString }</span>
-              <button
-                className={ cx('fullscreen-btn', fullscreen ? 'compress-icon' : 'expand-icon') }
-                onClick={ this.toggleFullscreen }
-              />
+              { this.fullscreenButton() }
               { this.searchForm() }
               <div className='clearfix'/>
             </div>
@@ -227,4 +242,5 @@ AnimatedSocialGraph.propTypes = {
   listEvent: PropTypes.array,
   hasIntercom: PropTypes.bool,
   updateOfficerId: PropTypes.func,
+  expandedLink: PropTypes.string,
 };

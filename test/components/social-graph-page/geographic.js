@@ -24,7 +24,7 @@ describe('GeographicMap component', function () {
     scryRenderedComponentsWithType(instance, AllegationsMap).should.have.length(1);
   });
 
-  it('should fetch geographic data with unit_id when componentDidMount', function () {
+  it('should fetch geographic data with unitId when componentDidMount', function () {
     const requestGeographicStub = stub();
     instance = renderIntoDocument(
       <GeographicMap
@@ -35,7 +35,7 @@ describe('GeographicMap component', function () {
     requestGeographicStub.should.be.calledWith({ 'unit_id': '123' });
   });
 
-  it('should fetch geographic data with officer_ids when componentDidMount', function () {
+  it('should fetch geographic data with officerIds when componentDidMount', function () {
     const requestGeographicStub = stub();
     instance = renderIntoDocument(
       <GeographicMap
@@ -44,5 +44,16 @@ describe('GeographicMap component', function () {
       />
     );
     requestGeographicStub.should.be.calledWith({ 'officer_ids': '123,456,789' });
+  });
+
+  it('should fetch geographic data with pinboardId when componentDidMount', function () {
+    const requestGeographicStub = stub();
+    instance = renderIntoDocument(
+      <GeographicMap
+        requestSocialGraphGeographic={ requestGeographicStub }
+        pinboardId='5cd06f2b'
+      />
+    );
+    requestGeographicStub.should.be.calledWith({ 'pinboard_id': '5cd06f2b' });
   });
 });

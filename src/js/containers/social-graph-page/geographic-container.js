@@ -14,6 +14,7 @@ function mapStateToProps(state, ownProps) {
     currentMainTab: getCurrentMainTab(state),
     officerIds: ownProps.location.query['officer_ids'],
     unitId: ownProps.location.query['unit_id'],
+    pinboardId: ownProps.location.query['pinboard_id'],
   };
 }
 

@@ -336,4 +336,18 @@ describe('AnimatedSocialGraph component', function () {
     instance.state.fullscreen.should.be.false();
     intercomUtils.showIntercomLauncher.restore();
   });
+
+  it('should render fullscreen-btn with a link when expandedLink is present', function () {
+    instance = renderIntoDocument(
+      <AnimatedSocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        expandedLink={ 'expanded_link' }
+      />
+    );
+
+    const fullscreenButton = findRenderedDOMComponentWithClass(instance, 'fullscreen-btn');
+    fullscreenButton.getAttribute('href').should.eql('expanded_link');
+  });
 });

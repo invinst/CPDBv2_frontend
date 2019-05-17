@@ -93,8 +93,8 @@ export const DOCUMENTS_URL = `${V2_ROOT_PATH}attachments/`;
 export const CRAWLERS_API_URL = `${V2_ROOT_PATH}document-crawlers/`;
 export const SOCIAL_GRAPH_NETWORK_API_URL = `${V2_ROOT_PATH}social-graph/network/`;
 export const SOCIAL_GRAPH_ALLEGATIONS_API_URL = `${V2_ROOT_PATH}social-graph/allegations/`;
-export const SOCIAL_GRAPH_GEOGRAPHIC_API_URL = `${V2_ROOT_PATH}social-graph/geographic/`;
 export const SOCIAL_GRAPH_OFFICERS_API_URL = `${V2_ROOT_PATH}social-graph/officers/`;
+export const SOCIAL_GRAPH_GEOGRAPHIC_API_URL = `${V2_ROOT_PATH}social-graph/geographic/`;
 export const PINBOARDS_URL = `${V2_ROOT_PATH}pinboards/`;
 
 export const OFFICER_SUMMARY_REQUEST_START = 'OFFICER_SUMMARY_REQUEST_START';

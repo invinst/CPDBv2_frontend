@@ -56,11 +56,16 @@ export default class NetworkGraph extends Component {
       requestSocialGraphAllegations,
       requestSocialGraphOfficers,
       officerIds,
-      unitId
+      unitId,
+      pinboardId,
     } = this.props;
     const { showCivilComplaintOnly, thresholdValue } = this.state;
     let requestParams;
-    if (!isEmpty(unitId)) {
+    if (!isEmpty(pinboardId)) {
+      requestParams = {
+        'pinboard_id': pinboardId, 'threshold': thresholdValue, 'show_civil_only': showCivilComplaintOnly
+      };
+    } else if (!isEmpty(unitId)) {
       requestParams = { 'unit_id': unitId, 'threshold': thresholdValue, 'show_civil_only': showCivilComplaintOnly };
     } else if (!isEmpty(officerIds)) {
       requestParams = {
@@ -98,12 +103,18 @@ export default class NetworkGraph extends Component {
       changeMainTab,
       officer,
       updateOfficerId,
-      location
+      location,
+      pinboardId,
     } = this.props;
 
     return (
       <div className={ styles.networkGraph }>
         <div className='left-section'>
+          {
+            pinboardId && (
+              <a className='back-to-pinboard-link' href={ `/pinboard/${pinboardId}/` }>←  Back to pinboard</a>
+            )
+          }
           <MainTabs changeTab={ changeMainTab } currentTab={ currentMainTab }/>
           <div className='social-graph-title'>{ title }</div>
           <div className='coaccusals-threshold-slider-container'>
@@ -164,6 +175,7 @@ NetworkGraph.propTypes = {
   requestSocialGraphOfficers: PropTypes.func,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
+  pinboardId: PropTypes.string,
   officers: PropTypes.array,
   title: PropTypes.string,
   coaccusedData: PropTypes.array,

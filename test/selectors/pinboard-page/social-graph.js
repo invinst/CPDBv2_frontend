@@ -1,4 +1,4 @@
-import { graphDataSelector } from 'selectors/pinboard-page/social-graph';
+import { graphDataSelector, expandedLinkSelector } from 'selectors/pinboard-page/social-graph';
 
 
 describe('PinboardPage selectors', function () {
@@ -97,6 +97,12 @@ describe('PinboardPage selectors', function () {
           '1991-03-06'
         ]
       });
+    });
+  });
+
+  describe('expandedLinkSelector', function () {
+    it('should url correctly', function () {
+      expandedLinkSelector('/pinboard/123/').should.eql('/social-graph/?pinboard_id=123');
     });
   });
 });

@@ -200,8 +200,10 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/officers/`).reply(200, fetchPinb
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/trrs/`).reply(200, fetchPinboardTRRs());
 
-axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/social-graph/`).reply(200, getSocialGraphData());
-axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/geographic-data/`).reply(200, getPinboardGeographicData());
+axiosMockClient.onGet(`${SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=5cd06f2b`).reply(200, getSocialGraphData());
+axiosMockClient.onGet(
+  `${SOCIAL_GRAPH_GEOGRAPHIC_API_URL}?pinboard_id=5cd06f2b`
+).reply(200, getPinboardGeographicData());
 
 axiosMockClient.onGet(
   SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
