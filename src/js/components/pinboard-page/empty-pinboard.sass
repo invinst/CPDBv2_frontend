@@ -1,0 +1,74 @@
+@import 'variables'
+
+\:local(.empty-pinboard)
+  width: 288px
+  height: 374px
+  padding: 26px 0 0 0
+  font-size: 14px
+  border: 1px solid $white-two-color
+  background-color: white
+  font-weight: 300
+  box-sizing: border-box
+  margin: 54px 0 376px 16px
+  position: relative
+
+  .empty-pinboard-title
+    font-size: 20px
+    line-height: 24px
+    color: $mine-shaft-color
+    margin: 0 0 8px 16px
+
+  .empty-pinboard-description
+    line-height: 14px
+    margin: 0 32px 32px 16px
+    color: $mine-shaft-color
+
+  .helper-row
+    margin: 0 8px 4px 8px
+    padding: 16px 0 16px 12px
+    border: 1px solid $white-two-color
+    cursor: pointer
+
+    &:hover
+      .helper-header
+        color: $soft-black-color
+
+  .helper-row-wrapper
+    display: inline-block
+    vertical-align: middle
+    width: calc(100% - 25px)
+
+    .helper-header
+      color: $accent-color
+      line-height: 16px
+      margin-bottom: 2px
+
+    .helper-text
+      color: $boulder-color
+      font-size: 12px
+
+  .helper-arrow
+    background: url('/img/disclosure-indicator.svg') 0 0 no-repeat scroll
+    display: inline-block
+    vertical-align: middle
+    width: 8px
+    height: 12px
+    margin: 0 8px 0 9px
+
+  .arrow-shaft
+    position: absolute
+    left: 21px
+    top: -41px
+    width: 2px
+    height: 25px
+    background-color: $soft-grey-color
+
+  .arrow-head
+    position: absolute
+    left: 17px
+    top: -43px
+    width: 0
+    height: 0
+    border-left: 5px solid transparent
+    border-right: 5px solid transparent
+    border-bottom: 10px solid $soft-grey-color
