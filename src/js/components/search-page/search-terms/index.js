@@ -109,24 +109,19 @@ export default class SearchTerms extends Component {
 }
 
 SearchTerms.propTypes = {
-  left: PropTypes.object,
   move: PropTypes.func,
   categories: PropTypes.array,
   focusedItem: PropTypes.object,
   totalItemCount: PropTypes.number,
   resetNavigation: PropTypes.func,
-  setNavigation: PropTypes.func,
-  navigationKeys: PropTypes.array,
   recentSuggestions: PropTypes.array,
 };
 
 SearchTerms.defaultProps = {
   move: () => {},
   resetNavigation: () => {},
-  setNavigation: () => {},
   focusedItem: {
     uniqueKey: ''
   },
-  navigationKeys: [],
   categories: [],
 };
