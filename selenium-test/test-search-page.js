@@ -584,7 +584,7 @@ describe('Search Page with pinboard functionalities', function () {
     browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
   });
 
-  it('should display pinboard tip bar when not search', function () {
+  it('should display pinboard tooltip bar when not search', function () {
     const tip = 'Create collections of officers, complaint records, and tactical reponse reports using search.';
     searchPage.open('');
     searchPage.pinboardBar.waitForVisible();
