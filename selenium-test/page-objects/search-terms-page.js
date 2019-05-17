@@ -43,6 +43,7 @@ class CategoryMainPanelSection extends Section {
         //div[contains(@class, 'test--category-column')][${columnIndex + 1}]
         //div[contains(@class, 'test--category-item')]
       )[${itemIndex + 1}]
+        //div[contains(@class, 'link--transition')]
     `);
   }
 

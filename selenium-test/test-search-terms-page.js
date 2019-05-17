@@ -42,4 +42,44 @@ describe('Search terms page', function () {
 
     searchTermsPage.categoryMainPanel.focusedItem.waitForVisible(2000, true);
   });
+
+  it('should navigates between the result when user press the navigation keys', function () {
+    const focusedColor = 'color: rgb(0, 94, 244)';
+    const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
+    const firstTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 0);
+    const secondTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 1);
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedColor);
+    firstTerm.getAttribute('style').should.not.containEql(focusedColor);
+    secondTerm.getAttribute('style').should.not.containEql(focusedColor);
+
+    browser.keys('ArrowDown');
+
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedColor);
+    firstTerm.getAttribute('style').should.containEql(focusedColor);
+    secondTerm.getAttribute('style').should.not.containEql(focusedColor);
+
+    browser.keys('ArrowDown');
+
+    firstTerm.getAttribute('style').should.not.containEql(focusedColor);
+    secondTerm.getAttribute('style').should.containEql(focusedColor);
+  });
+
+  it('should search for terms when user press Enter', function () {
+    const focusedColor = 'color: rgb(0, 94, 244)';
+    const firstCategoryHeader = searchTermsPage.categoryMainPanel.getCategoryHeader(0);
+    const firstTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 0);
+    const secondTerm = searchTermsPage.categoryMainPanel.getItemInColumn(0, 1);
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedColor);
+    firstTerm.getAttribute('style').should.not.containEql(focusedColor);
+    secondTerm.getAttribute('style').should.not.containEql(focusedColor);
+
+    browser.keys('ArrowDown');
+
+    firstCategoryHeader.getAttribute('style').should.not.containEql(focusedColor);
+    firstTerm.getAttribute('style').should.containEql(focusedColor);
+    secondTerm.getAttribute('style').should.not.containEql(focusedColor);
+
+    browser.keys('Enter');
+    browser.getUrl().should.match(/\/search\/\?terms=community&type=COMMUNITY$/);
+  });
 });
