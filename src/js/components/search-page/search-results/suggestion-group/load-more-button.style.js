@@ -10,7 +10,7 @@ import {
 
 export const loadMoreButtonStyle = (hovering, isFocused) => ({
   backgroundColor: isFocused ? glitterColor : (hovering ? 'white' : sugarCaneColor),
-  padding: '0 16px',
+  margin: '0 16px',
   height: '40px',
   boxSizing: 'border-box',
   cursor: 'pointer',
