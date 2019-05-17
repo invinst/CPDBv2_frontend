@@ -213,4 +213,39 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.networkTab.click();
     waitForGraphAnimationEnd(browser, socialGraphPage);
   });
+
+  it('should render officer preview pane when clicking on the officer row', function () {
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.officersSection.firstOfficerRow.click();
+    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
+    socialGraphPage.officersSection.officerName.getText().should.eql('Bennie Watson');
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+    socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);
+  });
+
+  it('should render officer preview pane when clicking on the officer node', function () {
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
+    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
+    socialGraphPage.officersSection.officerName.getText().should.eql('Donnell Calhoun');
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+    socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);
+  });
+
+  it('should render timeline section when clicking on timeline tab', function () {
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
+    socialGraphPage.timelineSection.allegationRowCount().should.eql(64);
+
+    socialGraphPage.timelineSection.firstAllegationYear.getText().should.eql('1990');
+    socialGraphPage.timelineSection.firstAllegationCategory.getText().should.eql('Use Of Force');
+    socialGraphPage.timelineSection.firstAllegationSubcategory.getText().should.eql(
+      'Excessive Force / On Duty - Injury'
+    );
+    socialGraphPage.timelineSection.firstAllegationDate.getText().should.eql('JAN 9');
+  });
 });

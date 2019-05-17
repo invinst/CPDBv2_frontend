@@ -25,6 +25,10 @@ class AnimatedSocialGraphSection extends Section {
       mainTabs: '(//div[contains(@class, "main-tabs")])',
       geographicTab: '(//div[contains(@class, "geographic-btn")])',
       networkTab: '(//div[contains(@class, "social-graph-btn")])',
+      leftSection: '(//div[contains(@class, "left-section")])',
+      officerTab: '(//span[contains(@class, "right-pane-tab-name")])[1]',
+      timelineTab: '(//span[contains(@class, "right-pane-tab-name")])[2]',
+
     });
   }
 
@@ -54,9 +58,44 @@ class GeographicSection extends Section {
   }
 }
 
+class OfficersSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      firstOfficerRow: '//div[contains(@class, "officer-row")][1]',
+      officerPreviewPane: '//div[contains(@class, "test--preview-pane")]',
+      officerName: '//h1[contains(@class, "test--officer-name")]',
+    });
+  }
+
+  officerRowCount() {
+    return browser.elements('//div[contains(@class, "officer-row")]').value.length;
+  }
+}
+
+class TimelineSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      firstAllegationYear: '//div[contains(@class, "timeline-item")][1]//div[@class="date"]',
+      firstAllegationCategory: '//a[contains(@class, "timeline-item")][1]//div[@class="category"]',
+      firstAllegationSubcategory: '//a[contains(@class, "timeline-item")][1]//div[@class="subcategory"]',
+      firstAllegationDate: '//a[contains(@class, "timeline-item")][1]//span[@class="date"]',
+    });
+  }
+
+  allegationRowCount() {
+    return browser.elements('//a[contains(@class, "timeline-item")]').value.length;
+  }
+}
+
 class SocialGraphPage extends Page {
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
   geographicSection = new GeographicSection();
+  officersSection = new OfficersSection();
+  timelineSection = new TimelineSection();
 
   open() {
     super.open('/social-graph/?unit_id=123&title=Live test social graph title');

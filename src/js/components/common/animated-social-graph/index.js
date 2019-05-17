@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import moment from 'moment';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Autocomplete from 'react-autocomplete';
@@ -105,13 +104,6 @@ export default class AnimatedSocialGraph extends Component {
     });
   }
 
-  formatDate(dateIndex) {
-    const { listEvent } = this.props;
-    const dateString = listEvent[dateIndex];
-    if (dateString)
-      return moment(dateString, 'YYYY-MM-DD').format('YYYY-MM-DD');
-  }
-
   graphControlPanel() {
     const { listEvent } = this.props;
     const { timelineIdx, refreshIntervalId, fullscreen } = this.state;
@@ -119,9 +111,9 @@ export default class AnimatedSocialGraph extends Component {
       const numOfEvents = listEvent.length;
 
       if (numOfEvents > 1) {
-        const currentDateString = this.formatDate(timelineIdx);
-        let startDateLabel = this.formatDate(0);
-        let endDateLabel = this.formatDate(numOfEvents - 1);
+        const currentDateString = listEvent[timelineIdx];
+        let startDateLabel = listEvent[0];
+        let endDateLabel = listEvent[numOfEvents - 1];
 
         return (
           <div className='graph-control-panel'>

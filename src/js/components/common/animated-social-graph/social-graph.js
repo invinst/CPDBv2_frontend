@@ -21,7 +21,7 @@ const MAX_RADIUS = 12;
 const COLLIDE_ALPHA = 0.5;
 const MIN_MEMBERS_IN_COMMUNITY = 3;
 const NUMBER_OF_TOP_NODES = 5;
-const NUMBER_OF_LINK_GROUP_COLORS = 6
+const NUMBER_OF_LINK_GROUP_COLORS = 6;
 
 
 export default class SocialGraph extends Component {
@@ -258,6 +258,16 @@ export default class SocialGraph extends Component {
   _restartNodes() {
     this.toggleNode = 0;
     this.node = this.node.data(this.data.nodes);
+
+    this.label = this.label.data(this.data.topNodes);
+
+    this.label.enter()
+      .append('text')
+      .text(function (d) { return d.fname; })
+      .attr('class', 'node-label');
+
+    this.label.exit().remove();
+
     this.node.enter().insert('circle', '.cursor')
       .attr('class', 'node officer-preview-link')
       .call(this.force.drag)
@@ -272,14 +282,6 @@ export default class SocialGraph extends Component {
       return d.color || greyishColor;
     });
 
-    this.label = this.label.data(this.data.topNodes);
-
-    this.label.enter()
-      .append('text')
-      .text(function (d) { return d.fname; })
-      .attr('class', 'node-label');
-
-    this.label.exit().remove();
     this.node.exit().remove();
   }
 

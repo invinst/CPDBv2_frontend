@@ -22,11 +22,11 @@ describe('graphData reducer', function () {
         'coaccused_data': [{
           'officer_id_1': 13759,
           'officer_id_2': 27557,
-          'incident_date': '1988-10-03T00:00:00Z',
+          'incident_date': '1988-10-03',
           'accussed_count': 1
         }],
         'list_event': [
-          '1988-10-03 00:00:00+00:00',
+          '1988-10-03',
         ],
       }
     }).should.eql({
@@ -40,11 +40,11 @@ describe('graphData reducer', function () {
       'coaccused_data': [{
         'officer_id_1': 13759,
         'officer_id_2': 27557,
-        'incident_date': '1988-10-03T00:00:00Z',
+        'incident_date': '1988-10-03',
         'accussed_count': 1
       }],
       'list_event': [
-        '1988-10-03 00:00:00+00:00',
+        '1988-10-03',
       ],
     });
   });

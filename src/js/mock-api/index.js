@@ -21,6 +21,8 @@ import {
   SOCIAL_GRAPH_NETWORK_API_URL,
   PINBOARDS_URL,
   SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
+  SOCIAL_GRAPH_OFFICERS_API_URL,
+  SOCIAL_GRAPH_ALLEGATIONS_API_URL,
 } from 'utils/constants';
 import { communityGeoJSONPath } from 'utils/static-assets';
 import getCRData from './cr-page/get-data';
@@ -50,8 +52,10 @@ import { getCrawlersData, getNextCrawlersData } from './crawlers-page/crawlers-p
 import {
   getDefaultSocialGraphData,
   getOfficerComplaintSocialGraphData,
-  getThresholdThreeSocialGraphData
+  getThresholdThreeSocialGraphData,
 } from './social-graph-page/social-graph-page';
+import { getDefaultSocialGraphOfficersData } from './social-graph-page/officers-data';
+import { getDefaultSocialGraphAllegationsData } from './social-graph-page/allegations-data';
 import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
 import {
   fetchPinboardComplaints,
@@ -235,6 +239,16 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
 );
 
 axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`).reply(200, {});
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_OFFICERS_API_URL,
+  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+).reply(200, getDefaultSocialGraphOfficersData());
+
+axiosMockClient.onGet(
+  SOCIAL_GRAPH_ALLEGATIONS_API_URL,
+  { params: { 'threshold': 2, 'show_civil_only': true, 'unit_id': '123' } }
+).reply(200, getDefaultSocialGraphAllegationsData());
 
 /*istanbul ignore next*/
 export function getMockAdapter() {

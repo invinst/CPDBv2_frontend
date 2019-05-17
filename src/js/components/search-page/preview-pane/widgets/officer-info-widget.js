@@ -57,7 +57,7 @@ export default class OfficerInfoWidget extends Component {
 
     return (
       <div style={ wrapperStyle }>
-        <h1 style={ titleStyle }>{ fullName }</h1>
+        <h1 className='test--officer-name' style={ titleStyle }>{ fullName }</h1>
         <ul style={ listStyle }>
           {
             map(listInfo, (metric) => metric.value ? (

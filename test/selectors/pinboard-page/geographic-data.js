@@ -166,7 +166,7 @@ describe('GeographicData selectors', function () {
             'coaccused_data': [{
               'officer_id_1': 1,
               'officer_id_2': 2,
-              'incident_date': '1988-10-03T00:00:00Z',
+              'incident_date': '1988-10-03',
               'accussed_count': 1
             }]
           },
