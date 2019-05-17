@@ -23,6 +23,8 @@ import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import editModeOnSelector from 'selectors/edit-mode-on';
+import { getPinboard } from 'selectors/pinboard';
+import { getToast } from 'selectors/toast';
 
 
 function mapStateToProps(state, ownProps) {
@@ -44,6 +46,8 @@ function mapStateToProps(state, ownProps) {
     editModeOn: editModeOnSelector(state, ownProps),
     searchTermsHidden: hiddenSelector(state),
     firstItem: firstItemSelector(state),
+    pinboard: getPinboard(state),
+    toast: getToast(state),
   };
 }
 

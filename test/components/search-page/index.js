@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Router, createMemoryHistory, Route } from 'react-router';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
@@ -13,8 +14,11 @@ import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
 import MockStore from 'redux-mock-store';
+import RootReducer from 'reducers/root-reducer';
+import { createStore } from 'redux';
 
 import * as navigateUtils from 'utils/navigate-to-search-item';
+import SearchPageContainer from 'containers/search-page';
 import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import * as intercomUtils from 'utils/intercom';
@@ -23,11 +27,12 @@ import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
 import { MORE_BUTTON, RECENT_CONTENT_TYPE } from 'utils/constants';
 import * as IntercomTracking from 'utils/intercom-tracking';
+import { showToast } from 'actions/toast';
 
 
 describe('SearchPage component', function () {
   let instance;
-  const store = MockStore()({
+  const state = {
     searchPage: {
       tags: [],
       navigation: {},
@@ -38,10 +43,12 @@ describe('SearchPage component', function () {
           itemIndex: 0,
         }
       },
-      pagination: {}
+      pagination: {},
     },
     pinboard: null,
-  });
+    toast: {}
+  };
+  const store = MockStore()(state);
 
   beforeEach(function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
@@ -536,5 +543,30 @@ describe('SearchPage component', function () {
         IntercomTracking.trackSearchPage.called.should.be.true();
       });
     });
+  });
+
+  it('should show toast on toast prop change', function () {
+    const showToastStub = spy(SearchPage.prototype, 'showToast');
+
+    const store = createStore(RootReducer, state);
+
+    const searchPage = () => (
+      <Provider store={ store }>
+        <SearchPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ searchPage } />
+      </Router>
+    );
+
+    store.dispatch(showToast({
+      isPinned: true,
+      type: 'CR',
+    }));
+
+    showToastStub.should.be.called();
   });
 });

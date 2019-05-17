@@ -1,6 +1,8 @@
 import { StyleRoot } from 'radium';
 import { locationShape } from 'react-router/lib/PropTypes';
 import React, { PropTypes, cloneElement } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getMockAdapter } from 'mock-api';
 import EditModeProvider from 'components/edit-mode-provider';
@@ -8,8 +10,9 @@ import LoginModalContainer from 'containers/login-modal-container';
 import GenericModalContainer from 'containers/generic-modal-container';
 import RouteTransition from 'containers/animation/route-transition';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-
 import { ALPHA_NUMBERIC } from 'utils/constants';
+
+toast.configure();
 
 
 export default class App extends React.Component {
@@ -65,6 +68,12 @@ export default class App extends React.Component {
           <LoginModalContainer location={ location }/>
           <GenericModalContainer location={ location }/>
         </EditModeProvider>
+        <ToastContainer
+          pauseOnFocusLoss={ false }
+          closeButton={ false }
+          hideProgressBar={ true }
+          autoClose={ 3000 }
+        />
       </StyleRoot>
     );
   }
