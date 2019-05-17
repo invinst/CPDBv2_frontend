@@ -1,4 +1,4 @@
-import { accentColor, softBlackColor, whiteTwoColor, searchPreviewPaneWidth } from 'utils/styles';
+import { accentColor, softBlackColor, searchPreviewPaneWidth } from 'utils/styles';
 
 
 export const contentWrapperStyle = {
@@ -23,7 +23,6 @@ export const bottomLinkStyle = {
   fontSize: '14px',
   fontWeight: 300,
   color: accentColor,
-  borderTop: `1px solid ${whiteTwoColor}`,
   display: 'block',
   textDecoration: 'none',
 };

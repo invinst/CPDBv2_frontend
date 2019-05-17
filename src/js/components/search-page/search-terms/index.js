@@ -15,7 +15,7 @@ import {
   scrollIntoViewStyle,
   wrapperStyle,
 } from './search-terms.style.js';
-import { ROOT_PATH, SEARCH_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
+import { ROOT_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import ScrollIntoView from 'components/common/scroll-into-view';
@@ -97,12 +97,6 @@ export default class SearchTerms extends Component {
                 <div style={ bottomLinksWrapperStyle }>
                   <Link style={ bottomLinkStyle } to={ ROOT_PATH } className='test--search-term-back-front-page-link'>
                     Back to Front Page
-                  </Link>
-                  <Link
-                    style={ bottomLinkStyle }
-                    to={ SEARCH_PATH }
-                    className='test--search-term-back-search-page-link'>
-                    Search
                   </Link>
                 </div>
               </div>

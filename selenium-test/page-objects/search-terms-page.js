@@ -64,7 +64,6 @@ class BottomLinksSection extends Section {
     super();
     this.prepareElementGetters({
       backToFrontPageLink: '.test--search-term-back-front-page-link',
-      backToSearchPageLink: '.test--search-term-back-search-page-link',
     });
   }
 }
