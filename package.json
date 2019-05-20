@@ -133,7 +133,6 @@
     "radium": "^0.18.1",
     "rc-slider": "^8.6.6",
     "react": "^15.5.2",
-    "react-autocomplete": "^1.8.1",
     "react-autosuggest": "^8.0.0",
     "react-clipboard.js": "^1.1.2",
     "react-custom-scrollbars": "^4.2.1",

@@ -488,36 +488,6 @@ describe('SocialGraph', function () {
     findDOMNode(instance).getElementsByClassName('node-label').length.should.eql(expectedTopNodes.length);
   });
 
-  it('should highlight node when clickSearchState changes', function () {
-    instance = renderIntoDocument(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />
-    );
-
-    instance = reRender(
-      <SocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        searchText='Thomas Kampenga'
-        clickSearchState={ true }
-      />,
-      instance
-    );
-
-    const socialGraph = findDOMNode(instance);
-    let graphNodes = socialGraph.getElementsByClassName('node');
-    const currentNode = filter(graphNodes, node => node.style.opacity !== '0');
-    const otherNodes = filter(graphNodes, node => node.style.opacity === '0');
-    graphNodes.should.have.length(20);
-    otherNodes.should.have.length(19);
-    currentNode.should.have.length(1);
-    currentNode[0].getAttribute('r').should.eql('20');
-  });
-
   it('should return tooltip info when call graphTooltip', function () {
     instance = renderIntoDocument(
       <SocialGraph

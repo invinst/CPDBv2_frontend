@@ -196,12 +196,6 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(15);
   });
 
-  it('should be able to search', function () {
-    socialGraphPage.animatedSocialGraphSection.searchInput.setValue('Tho');
-    socialGraphPage.animatedSocialGraphSection.firstSearchResultSuggestion.click();
-    socialGraphPage.animatedSocialGraphSection.searchInput.getValue().should.equal('Thomas Kampenga');
-  });
-
   it('should render geographic section when clicking on geographic button', function () {
     socialGraphPage.animatedSocialGraphSection.mainTabs.waitForVisible();
     socialGraphPage.animatedSocialGraphSection.geographicTab.click();

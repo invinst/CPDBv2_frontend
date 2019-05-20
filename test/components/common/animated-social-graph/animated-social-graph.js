@@ -9,7 +9,6 @@ import {
   Simulate
 } from 'react-addons-test-utils';
 import Slider from 'rc-slider';
-import Autocomplete from 'react-autocomplete';
 import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -81,68 +80,11 @@ describe('AnimatedSocialGraph component', function () {
     instance.setState({ timelineIdx: 1 });
     currentDate.textContent.should.eql('1989-12-11');
     slider.props.value.should.eql(1);
-
-    const searchForm = findRenderedComponentWithType(instance, Autocomplete);
-    searchForm.props.items.should.eql(officers);
-    searchForm.props.inputProps.should.eql({ placeholder: 'Search', className: 'graph-search-input' });
-    searchForm.props.value.should.eql('');
-    instance.setState({ searchInputText: 'Jerome Finnigan' });
-    searchForm.props.value.should.eql('Jerome Finnigan');
   });
 
   it('should not render graph control panel if there is no event', function () {
     instance = renderIntoDocument(<AnimatedSocialGraph/>);
     scryRenderedDOMComponentsWithClass(instance, 'graph-control-panel').should.have.length(0);
-    scryRenderedComponentsWithType(instance, Autocomplete).should.have.length(0);
-  });
-
-  it('should not render search form if there is no officer', function () {
-    instance = renderIntoDocument(<AnimatedSocialGraph listEvent={ listEvent }/>);
-    scryRenderedComponentsWithType(instance, Autocomplete).should.have.length(0);
-  });
-
-  it('should update clickSearchState value when click on search button', function () {
-    instance = renderIntoDocument(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />
-    );
-
-    const searchButton = findRenderedDOMComponentWithClass(instance, 'graph-search-btn');
-    Simulate.click(searchButton);
-    instance.state.clickSearchState.should.be.true();
-  });
-
-  it('should update searchInputText value when input new officer', function () {
-    instance = renderIntoDocument(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />
-    );
-
-    instance.state.searchInputText.should.equal('');
-    const searchInput = findRenderedComponentWithType(instance, Autocomplete);
-    searchInput.props.onChange({ target: { value: 'Jerome' } });
-    instance.state.searchInputText.should.equal('Jerome');
-  });
-
-  it('should update searchInputText value when click on the result in suggestion list', function () {
-    instance = renderIntoDocument(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />
-    );
-
-    instance.state.searchInputText.should.equal('');
-    const searchInput = findRenderedComponentWithType(instance, Autocomplete);
-    searchInput.props.onSelect('Jerome Finnigan');
-    instance.state.searchInputText.should.equal('Jerome Finnigan');
   });
 
   it('should call toggle timeline', function () {
@@ -239,61 +181,6 @@ describe('AnimatedSocialGraph component', function () {
     should(instance.state.refreshIntervalId).be.null();
     instance.state.timelineIdx.should.equal(1);
     clock.restore();
-  });
-
-  it('should render officer name with correct style', function () {
-    instance = renderIntoDocument(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />
-    );
-
-    const graphSearchInput = findRenderedComponentWithType(instance, Autocomplete);
-    let renderItem = graphSearchInput.props.renderItem({ fullName: 'Jerome Finnigan', id: 123 }, true);
-    renderItem.props.children.should.equal('Jerome Finnigan');
-    renderItem.props.style.should.eql({ background: 'lightgray' });
-
-    renderItem = graphSearchInput.props.renderItem({ fullName: 'Jerome Finnigan', id: 123 }, false);
-    renderItem.props.children.should.equal('Jerome Finnigan');
-    renderItem.props.style.should.eql({ background: 'white' });
-  });
-
-  it('should return render item render result for autocomplete', function () {
-    instance = renderIntoDocument(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />
-    );
-
-    const graphSearchInput = findRenderedComponentWithType(instance, Autocomplete);
-    let shouldItemRenderResult = graphSearchInput.props.shouldItemRender(
-      { fullName: 'Jerome Finnigan', id: 123 }
-      , 'Jerome'
-    );
-    shouldItemRenderResult.should.be.true();
-
-    shouldItemRenderResult = graphSearchInput.props.shouldItemRender(
-      { fullName: 'Jerome Finnigan', id: 123 }
-      , 'Tho'
-    );
-    shouldItemRenderResult.should.be.false();
-  });
-
-  it('should return item value for autocomplete', function () {
-    instance = renderIntoDocument(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-      />
-    );
-
-    const graphSearchInput = findRenderedComponentWithType(instance, Autocomplete);
-    graphSearchInput.props.getItemValue({ fullName: 'Jerome Finnigan', id: 123 }).should.eql('Jerome Finnigan');
   });
 
   it('should call stopTimeline when componentWillUnmount', function () {

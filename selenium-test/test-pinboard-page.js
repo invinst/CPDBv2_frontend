@@ -204,12 +204,6 @@ describe('Pinboard Page', function () {
       groupsColors.should.eql(expectedGroupsColors);
     });
 
-    it('should be able to search', function () {
-      pinboardPage.animatedSocialGraphSection.searchInput.setValue('Tho');
-      pinboardPage.animatedSocialGraphSection.firstSearchResultSuggestion.click();
-      pinboardPage.animatedSocialGraphSection.searchInput.getValue().should.equal('Thomas Kampenga');
-    });
-
     it('should render geographic section', function () {
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.geographicPaneName.click();
