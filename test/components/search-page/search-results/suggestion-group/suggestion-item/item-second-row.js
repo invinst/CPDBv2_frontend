@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithTag } from 'react-addons-test-utils';
+import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import {
@@ -40,6 +41,14 @@ describe('getCRSecondRowContent', function () {
 
   afterEach(function () {
     unmountComponentSuppressError(instance);
+  });
+
+  it('should return null if subText is empty', function () {
+    const params = {
+      suggestion: {}
+    };
+
+    should(getCRSecondRowContent(params)).be.null();
   });
 
   it('should return span with dangerouslySetInnerHTML setting', function () {

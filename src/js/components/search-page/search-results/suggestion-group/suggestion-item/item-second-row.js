@@ -23,6 +23,10 @@ export const getOfficerSecondRowContent = function (params) {
 export const getCRSecondRowContent = function (params) {
   const { subText } = params.suggestion;
 
+  if (isEmpty(subText)) {
+    return null;
+  }
+
   return (
     <span dangerouslySetInnerHTML={ { __html: subText } }/>
   );
