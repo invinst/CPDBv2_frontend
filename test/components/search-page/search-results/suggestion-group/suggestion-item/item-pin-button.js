@@ -5,11 +5,11 @@ import {
   scryRenderedDOMComponentsWithClass
 }
 from 'react-addons-test-utils';
-import { unmountComponentSuppressError, reRender } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
 import { stub } from 'sinon';
 
-import { ItemPinButton } from
+import ItemPinButton from
   'components/search-page/search-results/suggestion-group/suggestion-item/item-pin-button';
 
 
@@ -45,27 +45,5 @@ describe('ItemPinButton component', function () {
       id: '1',
       isPinned: false,
     }).should.be.true();
-  });
-
-  it('should trigger action on hovering', function () {
-    const addItemToPinboard = stub();
-    const onPinButtonHoverToggle = stub();
-
-    instance = renderIntoDocument(
-      <ItemPinButton
-        addItemToPinboard={ addItemToPinboard }
-        onPinButtonHoverToggle={ onPinButtonHoverToggle }
-        hovering={ false }
-        suggestion={ { isPinned: false, type: 'CR', id: '1' } } />
-    );
-    instance = reRender(
-      <ItemPinButton
-        addItemToPinboard={ addItemToPinboard }
-        onPinButtonHoverToggle={ onPinButtonHoverToggle }
-        hovering={ true }
-        suggestion={ { isPinned: false, type: 'CR', id: '1' } } />, instance
-    );
-
-    onPinButtonHoverToggle.calledWith(true).should.be.true();
   });
 });

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { findDOMNode } from 'react-dom';
 import { noop } from 'lodash';
 import {
   renderIntoDocument, Simulate,
@@ -17,7 +16,6 @@ import TextWithInlineSearchAlias
   from 'components/search-page/search-results/suggestion-group/suggestion-item/text-with-inline-search-alias';
 import EditModeItem from 'components/search-page/search-results/suggestion-group/suggestion-item/edit-mode-item';
 import ItemPinButton from 'components/search-page/search-results/suggestion-group/suggestion-item/item-pin-button';
-import PinActionHint from 'components/search-page/search-results/suggestion-group/suggestion-item/pin-action-hint';
 
 
 describe('withPinnableItem component', function () {
@@ -147,27 +145,6 @@ describe('withPinnableItem component', function () {
       instance = renderIntoDocument(<ComponentType { ...props } />);
 
       findRenderedComponentWithType(instance, ItemPinButton).should.be.ok();
-    });
-
-    it('should render pin action hint', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
-
-      findRenderedComponentWithType(instance, PinActionHint).should.be.ok();
-    });
-
-    it('should rerender if hover state change', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
-
-      instance.shouldComponentUpdate(props, { isPinButtonHovered: true }).should.be.true();
-    });
-
-    it('should update hover state if item pin button is hovered', function () {
-      instance = renderIntoDocument(<ComponentType { ...props } />);
-      const itemPinButton = findRenderedComponentWithType(instance, ItemPinButton);
-
-      Simulate.mouseOver(findDOMNode(itemPinButton));
-
-      instance.state.isPinButtonHovered.should.be.true();
     });
   });
 });
