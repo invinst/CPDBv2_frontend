@@ -162,7 +162,7 @@ describe('SearchPage component', function () {
     this.browserHistoryPush.calledWith('/').should.be.true();
   });
 
-  it('should change to search path when user type in search box', function () {
+  it('should not change the current search path when user type in search box', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage searchTermsHidden={ false }/>
@@ -170,7 +170,7 @@ describe('SearchPage component', function () {
     );
     const searchBox = findRenderedComponentWithType(instance, SearchBox);
     searchBox.props.onChange({ currentTarget: { value: 'jer' } });
-    this.browserHistoryPush.calledWith('/search/').should.be.true();
+    this.browserHistoryPush.called.should.be.false();
   });
 
   describe('handleViewItem', function () {

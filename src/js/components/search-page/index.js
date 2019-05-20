@@ -15,7 +15,6 @@ import {
   toastBodyStyle,
 } from './search-page.style.js';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
-import * as constants from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button';
@@ -142,11 +141,8 @@ export default class SearchPage extends Component {
   }
 
   handleChange({ currentTarget: { value } }) {
-    const { changeSearchQuery, selectTag, searchTermsHidden } = this.props;
+    const { changeSearchQuery, selectTag } = this.props;
 
-    if (!searchTermsHidden) {
-      browserHistory.push(`/${constants.SEARCH_PATH}`);
-    }
     changeSearchQuery(value);
     selectTag(null);
 
