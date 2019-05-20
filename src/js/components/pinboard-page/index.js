@@ -38,7 +38,7 @@ export default class PinboardPage extends Component {
 
     return (
       <div>
-        <div className={ responsiveContainerStyles.responsiveContainer }>
+        <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
           <div className='pinboard-info'>
             <div className='pinboard-title'>{ pinboard.title }</div>
             <div className='pinboard-description'>{ pinboard.description }</div>
