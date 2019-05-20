@@ -72,7 +72,7 @@ export default class PinboardPage extends Component {
       <div className={ cx(styles.pinboardPage, { 'empty': isEmptyPinboard } ) }>
         <div className='pinboard-header'>
           <Header />
-          <SearchBar short={ isEmptyPinboard }/>
+          <SearchBar shareable={ !isEmptyPinboard }/>
         </div>
         { this.renderContent() }
         <FooterContainer className='footer' />

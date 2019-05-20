@@ -69,11 +69,8 @@ describe('SearchBar component', function () {
     pushPathStub.restore();
   });
 
-  it('should not render share button in short mode', function () {
-    instance = renderIntoDocument(<SearchBar short={ true }/>);
-
-    const searchBoxParent = findRenderedDOMComponentWithClass(instance, 'search-box-parent');
-    searchBoxParent.className.should.containEql('short');
+  it('should not render share button in unsharable mode', function () {
+    instance = renderIntoDocument(<SearchBar shareable={ false }/>);
 
     scryRenderedDOMComponentsWithClass(instance, 'share-button').should.have.length(0);
   });

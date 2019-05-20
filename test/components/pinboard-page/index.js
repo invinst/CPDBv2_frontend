@@ -179,7 +179,7 @@ describe('PinboardPage component', function () {
     scryRenderedDOMComponentsWithClass(instance, 'pinboard-description').should.have.length(0);
     scryRenderedComponentsWithType(instance, RelevantSectionContainer).should.have.length(0);
 
-    findRenderedComponentWithType(instance, SearchBar).props.short.should.be.true();
+    findRenderedComponentWithType(instance, SearchBar).props.shareable.should.be.false();
     findRenderedDOMComponentWithClass(instance, 'empty-pinboard-title').textContent.should.equal('Add');
     findRenderedDOMComponentWithClass(instance, 'empty-pinboard-description').textContent.should.containEql(
       'Add officers, or complaint records through search.'
