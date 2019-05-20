@@ -23,7 +23,7 @@ import { hiddenSelector } from 'selectors/search-page/search-terms';
 import { singleCardsSelector } from 'selectors/landing-page/activity-grid';
 import { requestActivityGrid } from 'actions/landing-page/activity-grid';
 import editModeOnSelector from 'selectors/edit-mode-on';
-import { getPinboard } from 'selectors/pinboard';
+import { getPinboard } from 'selectors/pinboard-page/pinboard';
 import { getToast } from 'selectors/toast';
 
 

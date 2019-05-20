@@ -1,4 +1,4 @@
-import { getPinboard } from 'selectors/pinboard';
+import { getPinboard } from 'selectors/pinboard-page/pinboard';
 import { fetchLatestRetrievedPinboard } from 'actions/pinboard';
 
 

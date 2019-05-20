@@ -436,7 +436,7 @@ describe('Search Page', function () {
     it('should not display gradient when content is fully shown', function () {
       browser.setViewportSize({
         width: 1000,
-        height: 1200
+        height: 2400
       });
       searchPage.input.waitForVisible();
       searchPage.input.setValue('Ke');
@@ -581,7 +581,7 @@ describe('Search Page with pinboard functionalities', function () {
 
     searchPage.firstOfficerPinButton.click();
     searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
+    browser.getUrl().should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/);
   });
 
   it('should display pinboard tooltip bar when not search', function () {

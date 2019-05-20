@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { getPinboard } from 'selectors/pinboard';
+import { getPinboard } from 'selectors/pinboard-page/pinboard';
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
 
 

@@ -20,7 +20,7 @@ describe('PinboardBar component', function () {
   });
 
   it('should render correctly', function () {
-    const store = MockStore()({ pinboard: {} });
+    const store = MockStore()({ pinboardPage: { pinboard: {} } });
 
     instance = renderIntoDocument(
       <Provider store={ store }>

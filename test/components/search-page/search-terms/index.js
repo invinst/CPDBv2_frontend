@@ -32,7 +32,9 @@ describe('SearchTerms component', function () {
   let instance;
 
   const store = MockStore()({
-    pinboard: null,
+    pinboardPage: {
+      pinboard: null,
+    },
   });
 
   afterEach(function () {

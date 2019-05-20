@@ -33,7 +33,7 @@ describe('PinboardPage component', function () {
     pagination: { next: null, previous: null }
   };
 
-  const pinboardPage = {
+  const createPinboardPage = pinboard => ({
     graphData: {},
     geographicData: [],
     currentTab: 'NETWORK',
@@ -43,12 +43,12 @@ describe('PinboardPage component', function () {
     redirection: {
       redirect: false,
       initialLoading: false,
-    }
-  };
+    },
+    pinboard
+  });
 
   const createStore = pinboard => MockStore()({
-    pinboard,
-    pinboardPage,
+    pinboardPage: createPinboardPage(pinboard),
   });
 
   afterEach(function () {
@@ -62,8 +62,7 @@ describe('PinboardPage component', function () {
     };
 
     const state = {
-      pinboard,
-      pinboardPage,
+      pinboardPage: createPinboardPage(pinboard),
       pathname: 'pinboard/5cd06f2b',
     };
 
@@ -92,8 +91,7 @@ describe('PinboardPage component', function () {
     };
 
     const state = {
-      pinboard,
-      pinboardPage,
+      pinboardPage: createPinboardPage(pinboard),
       pathname: 'pinboard/5cd06f2b',
     };
 

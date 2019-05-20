@@ -45,7 +45,9 @@ describe('SearchPage component', function () {
       },
       pagination: {},
     },
-    pinboard: null,
+    pinboardPage: {
+      pinboard: null,
+    },
     toast: {}
   };
   const store = MockStore()(state);

@@ -29,7 +29,9 @@ describe('SearchResults component', function () {
   });
 
   const store = MockStore()({
-    pinboard: null,
+    pinboardPage: {
+      pinboard: null,
+    }
   });
 
   it('should render Loading when isRequesting', function () {
