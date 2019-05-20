@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-
 import { isEqual } from 'lodash';
 import { trigger } from 'mousetrap';
 import cx from 'classnames';
@@ -16,6 +15,8 @@ export default function withPinnableItem(
   class _Base extends Component {
     constructor(props) {
       super(props);
+
+      this.handleClick = this.handleClick.bind(this);
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -107,7 +108,7 @@ export default function withPinnableItem(
           `suggestion-item-${uniqueKey}`,
           { 'test--focused': isFocused }
         ),
-        onClick: this.handleClick.bind(this),
+        onClick: this.handleClick,
         redirectLink,
         redirectUrl
       };

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { compact, isEmpty } from 'lodash';
 import pluralize from 'pluralize';
 

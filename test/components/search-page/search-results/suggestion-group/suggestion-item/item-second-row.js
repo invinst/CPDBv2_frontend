@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import { renderIntoDocument, findRenderedDOMComponentWithTag } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';

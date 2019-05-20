@@ -1,5 +1,4 @@
 import React, { PropTypes, Component } from 'react';
-
 import { get, reduce } from 'lodash';
 
 import withPinnableItem from './with-pinnable-item';

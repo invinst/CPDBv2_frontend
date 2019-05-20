@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Link, Router, Route, createMemoryHistory } from 'react-router';
 import {
   renderIntoDocument, Simulate, findRenderedDOMComponentWithClass, findRenderedComponentWithType
