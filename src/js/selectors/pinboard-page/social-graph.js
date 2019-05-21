@@ -6,7 +6,7 @@ import { getPinboardID } from 'utils/location';
 const getOfficers = state => state.pinboardPage.graphData['officers'] || [];
 const getCoaccusedData = state => state.pinboardPage.graphData['coaccused_data'] || [];
 const getListEvent = state => state.pinboardPage.graphData['list_event'] || [];
-export const expandedLinkSelector = (url) => `/social-graph/?pinboard_id=${getPinboardID(url)}`;
+export const getExpandedLink = (url) => `/social-graph/?pinboard_id=${getPinboardID(url)}`;
 
 const officersSelector = createSelector(
   [getOfficers],

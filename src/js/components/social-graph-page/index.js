@@ -14,14 +14,10 @@ export default class SocialGraphPage extends Component {
       location,
     } = this.props;
     const tabbedPaneMap = {
-      [SOCIAL_GRAPH_MAIN_TAB_NAMES.NETWORK]: {
-        component: NetworkContainer,
-      },
-      [SOCIAL_GRAPH_MAIN_TAB_NAMES.GEOGRAPHIC]: {
-        component: GeographicContainer,
-      },
+      [SOCIAL_GRAPH_MAIN_TAB_NAMES.NETWORK]: NetworkContainer,
+      [SOCIAL_GRAPH_MAIN_TAB_NAMES.GEOGRAPHIC]: GeographicContainer,
     };
-    const CurrentComponent = get(tabbedPaneMap, `${currentTab}.component`, null);
+    const CurrentComponent = get(tabbedPaneMap, currentTab, null);
     return (
       <div className={ styles.socialGraphPage }>
         {

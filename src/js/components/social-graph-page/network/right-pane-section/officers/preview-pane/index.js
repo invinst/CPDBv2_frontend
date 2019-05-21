@@ -13,7 +13,7 @@ export default class PreviewPane extends Component {
 
     return (
       <SlideMotion show={ !isEmpty(data) } offsetX={ 100 }>
-        <div className={ cx(styles.previewPane, 'test--preview-pane', 'officer-preview-link') }>
+        <div className={ cx(styles.previewPane, 'officer-preview-link', 'test--preview-pane') }>
           <OfficerPane { ...data }/>
         </div>
       </SlideMotion>

@@ -32,8 +32,8 @@ describe('socialGraph actions', function () {
         types: [
           SOCIAL_GRAPH_NETWORK_REQUEST_START,
           SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS,
-          SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE]
-        ,
+          SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE
+        ],
         payload: {
           request: {
             url: SOCIAL_GRAPH_NETWORK_API_URL,

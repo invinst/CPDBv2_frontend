@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { keys } from 'lodash';
+import cx from 'classnames';
 
 import styles from './main-tabs.sass';
 import { SOCIAL_GRAPH_MAIN_TAB_NAMES } from 'utils/constants';
-import cx from 'classnames';
 
 
 export default class MainTabs extends Component {
@@ -11,12 +11,8 @@ export default class MainTabs extends Component {
     const { currentTab, changeTab } = this.props;
 
     const tabsMap = {
-      [SOCIAL_GRAPH_MAIN_TAB_NAMES.NETWORK]: {
-        className: 'social-graph-btn',
-      },
-      [SOCIAL_GRAPH_MAIN_TAB_NAMES.GEOGRAPHIC]: {
-        className: 'geographic-btn',
-      },
+      [SOCIAL_GRAPH_MAIN_TAB_NAMES.NETWORK]: 'social-graph-btn',
+      [SOCIAL_GRAPH_MAIN_TAB_NAMES.GEOGRAPHIC]: 'geographic-btn',
     };
 
     return (
@@ -25,7 +21,7 @@ export default class MainTabs extends Component {
           keys(tabsMap).map(tabName => (
             <div
               key={ tabName }
-              className={ cx(tabsMap[tabName].className, { 'active': currentTab === tabName }) }
+              className={ cx(tabsMap[tabName], { 'active': currentTab === tabName }) }
               onClick={ () => changeTab(tabName) }
             />
           ))

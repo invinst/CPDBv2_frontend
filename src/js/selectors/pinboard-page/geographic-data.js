@@ -1,4 +1,4 @@
-import { get, isEmpty, filter } from 'lodash';
+import { get, isEmpty, filter, compact } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/geographic';
@@ -22,13 +22,15 @@ export const hasMapMarkersSelector = createSelector(
 
 export const mapMarkersSelector = createSelector(
   getGeographicData,
-  markers => markers.map(marker => {
-    if (marker.kind === MAP_ITEMS.CR) {
-      return crMapMarkersTransform(marker);
-    } else if (marker.kind === MAP_ITEMS.FORCE) {
-      return trrMapMarkerTransform(marker);
-    }
-  })
+  markers => compact(
+    markers.map(marker => {
+      if (marker.kind === MAP_ITEMS.CR) {
+        return crMapMarkersTransform(marker);
+      } else if (marker.kind === MAP_ITEMS.FORCE) {
+        return trrMapMarkerTransform(marker);
+      }
+    })
+  )
 );
 
 export const getCurrentTab = state => {

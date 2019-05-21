@@ -115,4 +115,19 @@ describe('RightPaneSection component', function () {
 
     changeNetworkTabStub.should.be.calledWith('Timeline');
   });
+
+  it('should not render timeline tab if hasComplaint is false', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <RightPaneSection
+          currentTab='Officers'
+          hasComplaint={ false }
+        />
+      </Provider>
+    );
+
+    const tabNames = scryRenderedDOMComponentsWithClass(instance, 'right-pane-tab-name');
+    tabNames.should.have.length(1);
+    tabNames[0].textContent.should.be.eql('Officers');
+  });
 });

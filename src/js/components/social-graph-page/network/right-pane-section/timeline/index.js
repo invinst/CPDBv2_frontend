@@ -6,31 +6,21 @@ import Item from './item';
 
 
 export default class Timeline extends Component {
-  renderItems() {
-
-    const { items, pathname, onTrackingAttachment } = this.props;
-    return (
-      <div>
-        {
-          items.map((item, index) => {
-            return (
-              <Item
-                item={ item }
-                key={ index }
-                pathname={ pathname }
-                onTrackingAttachment={ onTrackingAttachment }
-              />
-            );
-          })
-        }
-      </div>
-    );
-  }
-
   render() {
+    const { items, pathname, onTrackingAttachment } = this.props;
+
     return (
       <div className={ cx(style.officerTimeline, 'test--officer-timeline') }>
-        { this.renderItems() }
+        {
+          items.map((item, index) => (
+            <Item
+              item={ item }
+              key={ index }
+              pathname={ pathname }
+              onTrackingAttachment={ onTrackingAttachment }
+            />
+          ))
+        }
       </div>
     );
   }

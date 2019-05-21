@@ -1,4 +1,4 @@
-import { graphDataSelector, expandedLinkSelector } from 'selectors/pinboard-page/social-graph';
+import { graphDataSelector, getExpandedLink } from 'selectors/pinboard-page/social-graph';
 
 
 describe('PinboardPage selectors', function () {
@@ -100,9 +100,9 @@ describe('PinboardPage selectors', function () {
     });
   });
 
-  describe('expandedLinkSelector', function () {
+  describe('getExpandedLink', function () {
     it('should url correctly', function () {
-      expandedLinkSelector('/pinboard/123/').should.eql('/social-graph/?pinboard_id=123');
+      getExpandedLink('/pinboard/123/').should.eql('/social-graph/?pinboard_id=123');
     });
   });
 });

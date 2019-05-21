@@ -314,7 +314,7 @@ export default class SocialGraph extends Component {
     });
 
     this.label.attr('x', (d) => { return d.x + (d.degree / 2 + 2); })
-      .attr('y', (d) => { return d.y; });
+      .attr('y', (d) => d.y);
 
     if (this.props.collideNodes) {
       this.node.each(this.cluster(60 * e.alpha * e.alpha))

@@ -1,4 +1,4 @@
-import { getCurrentMainTab, getCurrentNetworkTab } from 'selectors/social-graph-page';
+import { getCurrentMainTab, getCurrentNetworkTab, hasComplaintSelector } from 'selectors/social-graph-page';
 
 
 describe('Social Graph page selectors', function () {
@@ -23,6 +23,39 @@ describe('Social Graph page selectors', function () {
         }
       };
       getCurrentNetworkTab(state).should.eql('Timeline');
+    });
+  });
+
+  describe('hasComplaintSelector', function () {
+    it('should return true if there are networkAllegations', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            networkAllegations: [
+              {
+                'most_common_category': {
+                  category: 'Criminal Misconduct',
+                  'allegation_name': 'Theft'
+                },
+                crid: '260131',
+                'incident_date': '2003-02-17',
+              },
+            ]
+          }
+        }
+      };
+      hasComplaintSelector(state).should.be.true();
+    });
+
+    it('should return false if networkAllegations is empty', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            networkAllegations: []
+          }
+        }
+      };
+      hasComplaintSelector(state).should.be.false();
     });
   });
 });

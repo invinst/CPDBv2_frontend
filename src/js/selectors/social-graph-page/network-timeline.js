@@ -59,12 +59,10 @@ export const fillYears = (items) => {
 };
 
 export const getSocialGraphTimelineItems = (state) => {
-  // Do not change the order of these processors
-  const processors = [fillYears];
   const items = state.socialGraphPage.networkData.networkAllegations;
   const transformedItems = compact(items.map(allegationTransform));
   if (isEmpty(transformedItems)) {
     return [];
   }
-  return processors.reduce((accItems, processor) => processor(accItems), transformedItems);
+  return fillYears(transformedItems);
 };

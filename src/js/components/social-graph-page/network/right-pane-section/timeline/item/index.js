@@ -6,20 +6,15 @@ import { NEW_TIMELINE_ITEMS } from 'utils/constants';
 
 
 export default class Item extends Component {
-  constructor(props) {
-    super(props);
-    const { item } = props;
+  render() {
+    const { item } = this.props;
 
     const componentMap = {
       [NEW_TIMELINE_ITEMS.CR]: Cr,
       [NEW_TIMELINE_ITEMS.YEAR]: Year
     };
     const ItemComponent = componentMap[item.kind];
-    this.component = <ItemComponent { ...this.props }/>;
-  }
-
-  render() {
-    return this.component;
+    return <ItemComponent { ...this.props }/>;
   }
 }
 

@@ -1,4 +1,4 @@
-import { get, filter } from 'lodash';
+import { get, filter, compact } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/geographic';
@@ -17,11 +17,13 @@ export const mapLegendSelector = createSelector(
 
 export const mapMarkersSelector = createSelector(
   getGeographicData,
-  markers => markers.map(marker => {
-    if (marker.kind === MAP_ITEMS.CR) {
-      return crMapMarkersTransform(marker);
-    } else if (marker.kind === MAP_ITEMS.FORCE) {
-      return trrMapMarkerTransform(marker);
-    }
-  })
+  markers => compact(
+    markers.map(marker => {
+      if (marker.kind === MAP_ITEMS.CR) {
+        return crMapMarkersTransform(marker);
+      } else if (marker.kind === MAP_ITEMS.FORCE) {
+        return trrMapMarkerTransform(marker);
+      }
+    })
+  )
 );
