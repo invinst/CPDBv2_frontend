@@ -176,7 +176,7 @@ const searchResultTransformMap = {
 
 const getBaseTexts = (item) => ({ text: item.name, recentText: item.name });
 const getCRTexts = (item) => {
-  const dateText = item['incident_date'] ? ` - ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
+  const dateText = item['incident_date'] ? ` • ${moment(item['incident_date']).format(FULL_MONTH_DATE_FORMAT)}` : '';
   return {
     text: `CR # ${item.crid}${dateText}`,
     recentText: `CR # ${item.crid}${dateText}`
