@@ -3,6 +3,7 @@ import { map, differenceBy, first, get, isEqual } from 'lodash';
 import cx from 'classnames';
 import { Muuri } from 'utils/vendors';
 
+import * as constants from 'utils/constants';
 import OfficerCardComponent from './cards/officer-card';
 import CRCardComponent from './cards/cr-card';
 import TRRCardComponent from './cards/trr-card';
@@ -12,11 +13,11 @@ import styles from './pinned-type.sass';
 
 export const OfficerCard = withUndoCard(
   OfficerCardComponent,
-  1000,
+  constants.UNDO_CARD_VISIBLE_TIME,
   props => `${get(props, 'item.fullName', '')} removed.`
 );
-export const CRCard = withUndoCard(CRCardComponent, 1000, () => 'CR removed.');
-export const TRRCard = withUndoCard(TRRCardComponent, 1000, () => 'TRR removed.');
+export const CRCard = withUndoCard(CRCardComponent, constants.UNDO_CARD_VISIBLE_TIME, () => 'CR removed.');
+export const TRRCard = withUndoCard(TRRCardComponent, constants.UNDO_CARD_VISIBLE_TIME, () => 'TRR removed.');
 
 
 const CARD_MAP = {

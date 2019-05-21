@@ -11,6 +11,7 @@ import { renderIntoDocument,
 import { spy, useFakeTimers } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
+import * as constants from 'utils/constants';
 import OfficerCardComponent from 'components/pinboard-page/cards/officer-card';
 import { OfficerCard } from 'components/pinboard-page/pinned-type';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
@@ -72,7 +73,7 @@ describe('withUndoCard higher-order component', function () {
       const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
       Simulate.click(findDOMNode(unpinButton));
 
-      clock.tick(1050);
+      clock.tick(constants.UNDO_CARD_VISIBLE_TIME);
 
       scryRenderedComponentsWithType(instance, OfficerCardComponent).should.have.length(0);
       scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(0);
@@ -88,7 +89,7 @@ describe('withUndoCard higher-order component', function () {
       const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
       Simulate.click(findDOMNode(unpinButton));
 
-      clock.tick(1050);
+      clock.tick(constants.UNDO_CARD_VISIBLE_TIME);
 
       removeItemInPinboardPage.should.be.calledWith({
         type: 'OFFICER',
@@ -109,7 +110,7 @@ describe('withUndoCard higher-order component', function () {
       const undoButton = findRenderedDOMComponentWithClass(instance, 'undo-button');
       Simulate.click(undoButton);
 
-      clock.tick(1050);
+      clock.tick(constants.UNDO_CARD_VISIBLE_TIME);
 
       removeItemInPinboardPage.should.not.be.called();
     });
