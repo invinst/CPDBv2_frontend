@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from 'react';
-
 import { noop } from 'lodash';
-import cx from 'classnames';
 
-import styles from './with-undo-card.sass';
+import './with-undo-card.sass';
 
 
 export default function withUndoCard(
@@ -64,7 +62,7 @@ export default function withUndoCard(
 
       if (state === REMOVING) {
         return (
-          <div className={ cx(styles.undoCard, 'test--undo-card') }>
+          <div className='undo-card'>
             <span className='text'>{ getText(this.props) }</span>
             <button className='undo-button' onClick={ this.undo }>Undo</button>
           </div>

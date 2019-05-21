@@ -8,7 +8,7 @@ import { renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
-import { spy } from 'sinon';
+import { spy, useFakeTimers } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import OfficerCardComponent from 'components/pinboard-page/cards/officer-card';
@@ -37,7 +37,7 @@ describe('withUndoCard higher-order component', function () {
     );
 
     scryRenderedComponentsWithType(instance, OfficerCardComponent).should.have.length(1);
-    scryRenderedDOMComponentsWithClass(instance, 'test--undo-card').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(0);
   });
 
   it('should render undo card when user click remove', function () {
@@ -48,61 +48,70 @@ describe('withUndoCard higher-order component', function () {
     const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
     Simulate.click(findDOMNode(unpinButton));
 
-    scryRenderedDOMComponentsWithClass(instance, 'test--undo-card').should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(1);
     scryRenderedComponentsWithType(instance, OfficerCardComponent).should.have.length(0);
   });
 
-  it('should render nothing when user click unpin but not undo', function (done) {
-    const removeItemInPinboardPage = spy();
-    instance = renderIntoDocument(
-      <OfficerCard item={ item } removeItemInPinboardPage={ removeItemInPinboardPage }/>
-    );
+  context('animation', function () {
+    let clock;
 
-    const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
-    Simulate.click(findDOMNode(unpinButton));
+    beforeEach(function () {
+      clock = useFakeTimers();
+    });
 
-    setTimeout(() => {
+    afterEach(function () {
+      clock.restore();
+    });
+
+    it('should render nothing when user click unpin but not undo', function () {
+      const removeItemInPinboardPage = spy();
+      instance = renderIntoDocument(
+        <OfficerCard item={ item } removeItemInPinboardPage={ removeItemInPinboardPage }/>
+      );
+
+      const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
+      Simulate.click(findDOMNode(unpinButton));
+
+      clock.tick(1050);
+
       scryRenderedComponentsWithType(instance, OfficerCardComponent).should.have.length(0);
-      scryRenderedDOMComponentsWithClass(instance, 'test--undo-card').should.have.length(0);
-      done();
-    }, 1050);
-  });
+      scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(0);
+    });
 
-  it('should trigger to remove item 1s after click on remove button', function (done) {
-    const removeItemInPinboardPage = spy();
+    it('should trigger to remove item 1s after click on remove button', function () {
+      const removeItemInPinboardPage = spy();
 
-    instance = renderIntoDocument(
-      <OfficerCard item={ item } removeItemInPinboardPage={ removeItemInPinboardPage } />
-    );
+      instance = renderIntoDocument(
+        <OfficerCard item={ item } removeItemInPinboardPage={ removeItemInPinboardPage } />
+      );
 
-    const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
-    Simulate.click(findDOMNode(unpinButton));
+      const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
+      Simulate.click(findDOMNode(unpinButton));
 
-    setTimeout(() => {
+      clock.tick(1050);
+
       removeItemInPinboardPage.should.be.calledWith({
         type: 'OFFICER',
         id: 123
       });
-      done();
-    }, 1050);
-  });
+    });
 
-  it('should cancel remove item if click on undo button', function (done) {
-    const removeItemInPinboardPage = spy();
+    it('should cancel remove item if click on undo button', function () {
+      const removeItemInPinboardPage = spy();
 
-    instance = renderIntoDocument(
-      <OfficerCard item={ item } removeItemInPinboardPage={ removeItemInPinboardPage } />
-    );
+      instance = renderIntoDocument(
+        <OfficerCard item={ item } removeItemInPinboardPage={ removeItemInPinboardPage } />
+      );
 
-    const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
-    Simulate.click(findDOMNode(unpinButton));
+      const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
+      Simulate.click(findDOMNode(unpinButton));
 
-    const undoButton = findRenderedDOMComponentWithClass(instance, 'undo-button');
-    Simulate.click(undoButton);
+      const undoButton = findRenderedDOMComponentWithClass(instance, 'undo-button');
+      Simulate.click(undoButton);
 
-    setTimeout(() => {
+      clock.tick(1050);
+
       removeItemInPinboardPage.should.not.be.called();
-      done();
-    }, 1050);
+    });
   });
 });
