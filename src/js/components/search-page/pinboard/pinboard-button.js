@@ -7,24 +7,25 @@ import styles from './pinboard-button.sass';
 
 export default class PinboardButton extends Component {
   render() {
-    const { pinboard } = this.props;
+    const { pinboard, emptyText } = this.props;
 
     if (!pinboard.isPinboardRestored) {
       return null;
     }
 
-    if (pinboard.itemsCount === 0) {
+    if (pinboard.itemsCount === 0 && emptyText) {
       return (
         <span className={ cx('test--pinboard-button', styles.pinboardNoItem) }>
           Your pinboard is empty
         </span>
       );
     }
+
     return (
       <Link
         className={ cx('test--pinboard-button', styles.pinboardHasItems) }
         to={ pinboard.url }>
-        { `(${pinboard.itemsCount}) Pinboard` }
+        { `Pinboard (${pinboard.itemsCount})` }
       </Link>
     );
   }
@@ -32,8 +33,10 @@ export default class PinboardButton extends Component {
 
 PinboardButton.propTypes = {
   pinboard: PropTypes.object,
+  emptyText: PropTypes.bool,
 };
 
 PinboardButton.defaultProps = {
   pinboard: {},
+  emptyText: false,
 };

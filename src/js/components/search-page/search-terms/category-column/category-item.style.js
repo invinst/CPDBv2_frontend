@@ -1,14 +1,10 @@
-import {
-  greyishColor, accentColor, whiteTwoColor, concreteColor,
-  fadedAccentColor
-} from 'utils/styles';
+import { boulderColor, accentColor } from 'utils/styles';
 
 
 export const itemStyle = (isFocused) => ({
   fontSize: '14px',
-  fontWeight: 300,
+  fontWeight: 200,
   padding: '0 16px',
-  background: isFocused ? fadedAccentColor : concreteColor,
 });
 
 export const nameStyle = (isFocused, hovering) => {
@@ -18,13 +14,12 @@ export const nameStyle = (isFocused, hovering) => {
   else if (isFocused)
     color = accentColor;
   else
-    color = greyishColor;
+    color = boulderColor;
 
   return {
     color,
     cursor: 'pointer',
     padding: '11px 0',
     lineHeight: '18px',
-    borderBottom: `1px solid ${whiteTwoColor}`,
   };
 };

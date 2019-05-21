@@ -274,6 +274,7 @@ describe('store', function () {
         crItems: [],
         trrItems: [],
       },
+      toast: {},
     });
   });
 });

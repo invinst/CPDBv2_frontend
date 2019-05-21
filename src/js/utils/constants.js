@@ -23,7 +23,6 @@ export const TABLET = 'tablet';
 export const ROOT_PATH = '/';
 export const COLLAB_PATH = 'collaborate/';
 export const SEARCH_PATH = 'search/';
-export const SEARCH_TERMS_PATH = 'terms/';
 export const SEARCH_ALIAS_EDIT_PATH = `${SEARCH_PATH}alias/`;
 export const INLINE_SEARCH_ALIAS_ADMIN_PATH = `${SEARCH_ALIAS_EDIT_PATH}form/`;
 export const OFFICER_PATH = 'officer/:officerId(/:fullName)(/:tab)';
@@ -338,6 +337,8 @@ export const PINBOARD_LATEST_RETRIEVED_FETCH_REQUEST_FAILURE = 'PINBOARD_LATEST_
 
 export const ADD_OR_REMOVE_ITEM_IN_PINBOARD = 'ADD_OR_REMOVE_ITEM_IN_PINBOARD';
 export const ADD_ITEM_IN_PINBOARD_PAGE = 'ADD_ITEM_IN_PINBOARD_PAGE';
+export const SHOW_TOAST = 'SHOW_TOAST';
+
 export const REMOVE_ITEM_IN_PINBOARD_PAGE = 'REMOVE_ITEM_IN_PINBOARD_PAGE';
 export const ORDER_PINBOARD = 'ORDER_PINBOARD';
 

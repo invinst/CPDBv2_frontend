@@ -6,6 +6,8 @@ import {
   softBlackColor,
   clayGray,
   whiteTwoColor,
+  sproutColor,
+  japaneseLaurelColor
 } from 'utils/styles';
 
 
@@ -20,12 +22,19 @@ export const searchContentWrapperStyle = (aliasEditModeOn) => ({
   overflow: 'hidden',
 });
 
-export const searchBoxStyle = (aliasEditModeOn) => ({
-  backgroundColor: aliasEditModeOn ? girlyPink : 'white',
-  padding: `${searchBoxPadding}px 0 9px 0`,
-  margin: '0 16px',
-  borderBottom: `1px solid ${whiteTwoColor}`,
-});
+export const searchBoxStyle = (aliasEditModeOn, hasBottomBorder) => {
+  let style = {
+    backgroundColor: aliasEditModeOn ? girlyPink : 'white',
+    padding: `${searchBoxPadding}px 0 9px 0`,
+    margin: '0 16px',
+  };
+
+  if (hasBottomBorder) {
+    style['borderBottom'] = `1px solid ${whiteTwoColor}`;
+  }
+
+  return style;
+};
 
 const _cancelButtonStyle = (searchTermsHidden) => ({
   display: 'inline-block',
@@ -44,3 +53,20 @@ export const cancelButtonStyle = (searchTermsHidden) => ({
     color: softBlackColor
   }
 });
+
+export const toastWrapperStyle = {
+  backgroundColor: sproutColor,
+  borderRadius: '2px',
+  color: japaneseLaurelColor,
+  lineHeight: '40px',
+  minHeight: '40px',
+  padding: 0,
+  textAlign: 'center',
+  width: 'auto',
+};
+
+export const toastBodyStyle = {
+  fontFamily: sanFranciscoTextFamily,
+  fontWeight: 300,
+  fontSize: '14px',
+};

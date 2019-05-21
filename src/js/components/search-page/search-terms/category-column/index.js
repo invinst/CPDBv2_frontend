@@ -36,7 +36,7 @@ export default class CategoryColumn extends Component {
   }
 
   renderItems() {
-    const { items, focusedItem, name, handleItemClick } = this.props;
+    const { items, focusedItem, name } = this.props;
 
     return (
       <div style={ itemsWrapperStyle } ref={ this.onGetRef.bind(this) }>
@@ -50,7 +50,6 @@ export default class CategoryColumn extends Component {
                 item={ item }
                 itemUniqueKey={ uniqueKey }
                 isFocused={ isFocused }
-                handleItemClick={ handleItemClick }
               />
             );
           })
@@ -81,7 +80,6 @@ CategoryColumn.propTypes = {
   name: PropTypes.string,
   index: PropTypes.number,
   focusedItem: PropTypes.object,
-  handleItemClick: PropTypes.func,
 };
 
 CategoryColumn.defaultProps = {
