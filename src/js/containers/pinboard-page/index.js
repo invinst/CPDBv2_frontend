@@ -1,4 +1,6 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { push as pushBreadcrumbs } from 'redux-breadcrumb-trail';
 
 import { getPinboard } from 'selectors/pinboard-page/pinboard';
 import PinboardPage from 'components/pinboard-page';
@@ -19,6 +21,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   changePinboardTab,
+  pushBreadcrumbs,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PinboardPage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PinboardPage));

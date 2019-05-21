@@ -57,9 +57,8 @@ export default class SearchPage extends Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      location, params, routes, pushBreadcrumbs, query, isRequesting, isEmpty, contentType, selectTag,
+      query, isRequesting, isEmpty, contentType, selectTag,
     } = nextProps;
-    pushBreadcrumbs({ location, params, routes });
 
     const queryChanged = query !== this.props.query;
     const suggestionGroupsEmpty = !this.props.isEmpty && isEmpty;

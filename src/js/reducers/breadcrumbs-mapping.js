@@ -35,6 +35,14 @@ const breadcrumbMapping = handleActions({
     ...state,
     [`/document/${action.payload['id']}/`]: action.payload['title']
   }),
+  [constants.PINBOARD_FETCH_REQUEST_SUCCESS]: (state, action) => ({
+    ...state,
+    [`/pinboard/${action.payload['id']}/`]: action.payload['title'] || 'Pinboard'
+  }),
+  [constants.PINBOARD_UPDATE_REQUEST_SUCCESS]: (state, action) => ({
+    ...state,
+    [`/pinboard/${action.payload['id']}/`]: action.payload['title'] || 'Pinboard'
+  }),
 }, {});
 
 export default breadcrumbMapping;
