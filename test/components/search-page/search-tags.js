@@ -32,12 +32,4 @@ describe('SearchTags component', function () {
     instance = renderIntoDocument(<SearchTags tags={ [] } isRequesting={ true }/>);
     findDOMNode(instance).textContent.should.not.containEql('Data Tool');
   });
-
-  it('should render PinboardButton', function () {
-    instance = renderIntoDocument(<SearchTags pinboard={ {
-      itemsCount: 0,
-      isPinboardRestored: true,
-    } }/>);
-    findDOMNode(instance).textContent.should.containEql('Your pinboard is empty');
-  });
 });

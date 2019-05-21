@@ -17,7 +17,7 @@ const labelMapping = {
 
 class RecentSuggestionItem extends Component {
   render() {
-    const { entry, hovering, isLast } = this.props;
+    const { entry, hovering } = this.props;
 
     const labelText = labelMapping[entry.contentType] || capitalize(entry.contentType);
 
@@ -27,7 +27,7 @@ class RecentSuggestionItem extends Component {
         labelWidth={ 115 }
         content={ entry.text }
         contentWidth={ 900 }
-        hasBorderBottom={ !isLast }
+        hasBorderBottom={ false }
         hovering={ hovering }
       />
     );
@@ -55,7 +55,6 @@ RecentSuggestionItem.defaultProps = {
 RecentSuggestionItem.propTypes = {
   entry: PropTypes.object,
   hovering: PropTypes.bool,
-  isLast: PropTypes.bool
 };
 
 export default Hoverable(RecentSuggestionItem);

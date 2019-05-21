@@ -78,6 +78,7 @@ describe('RelevantComplaintCard component', function () {
     baseComplaintCard.props.incidentDate.should.eql('Feb 1, 2018');
     baseComplaintCard.props.category.should.eql('False Arrest');
     baseComplaintCard.props.officers.should.eql(officers);
+    baseComplaintCard.props.point.should.eql({ lat: 41.7924183, lon: -87.668458 });
     baseComplaintCard.props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
     baseComplaintCard.props.leftChild.props.to.should.eql('/complaint/123/');
     baseComplaintCard.props.leftChild.props.style.should.eql({
@@ -99,6 +100,7 @@ describe('RelevantComplaintCard component', function () {
         incidentDate='Feb 1, 2018'
         category='False Arrest'
         officers={ [] }
+        point={ null }
         addItemInPinboardPage={ addItemInPinboardPageStub }
       />
     );
@@ -108,6 +110,7 @@ describe('RelevantComplaintCard component', function () {
     baseComplaintCard.props.incidentDate.should.eql('Feb 1, 2018');
     baseComplaintCard.props.category.should.eql('False Arrest');
     baseComplaintCard.props.officers.should.eql([]);
+    should(baseComplaintCard.props.point).be.null();
     baseComplaintCard.props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
     baseComplaintCard.props.leftChild.props.to.should.eql('/complaint/123/');
     should(baseComplaintCard.props.leftChild.props.style).be.null();

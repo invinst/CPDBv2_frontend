@@ -6,7 +6,7 @@ import {
   scryRenderedComponentsWithType,
   scryRenderedDOMComponentsWithTag,
 } from 'react-addons-test-utils';
-import { stub, spy } from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinnedType from 'components/pinboard-page/pinned-type';
@@ -137,58 +137,6 @@ describe('PinnedType component', function () {
     trrCards[2].props.isAdded.should.be.true();
   });
 
-  it('should update component items state when removeItemInPinboardPage is called', function () {
-    const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(<PinnedType type='TRR' items={ items } />);
-    instance.state.items.should.eql(items);
-  });
-
-  it('should update component items state when removeItemInPinboardPage is called', function () {
-    const removeItemInPinboardPage = stub();
-
-    const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(
-      <PinnedType
-        type='OFFICER'
-        items={ items }
-        removeItemInPinboardPage={ removeItemInPinboardPage }
-      />
-    );
-
-    instance.removeItemInPinboardPage({ 'id': '1' });
-
-    instance.state.items.should.eql([{ 'id': '2' }]);
-    removeItemInPinboardPage.should.be.calledWith({ 'id': '1' });
-  });
-
-  it('should maintain component items state', function () {
-    const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(<PinnedType type='TRR' items={ items } />);
-    instance.state.items.should.eql(items);
-
-    const newItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
-    instance = reRender(<PinnedType type='TRR' items={ newItems } />, instance);
-    instance.state.items.should.eql(newItems);
-  });
-
-  it('should not re-render if new prop items and state equal', function () {
-    const renderSpy = spy(PinnedType.prototype, 'render');
-
-    const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(<PinnedType type='TRR' items={ items } />);
-
-    instance.state.items.should.eql([{ 'id': '1' }, { 'id': '2' }]);
-
-    instance.setState({ items: [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }] });
-
-    const newItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
-    instance = reRender(<PinnedType type='TRR' items={ newItems } />, instance);
-
-    renderSpy.should.be.calledOnce();
-
-    renderSpy.restore();
-  });
-
   it('should init Muuri grid', function () {
     const onMuuriStub = stub();
     const MuuriStub = stub(vendors, 'Muuri').callsFake(() => ({ 'on': onMuuriStub }));
@@ -229,12 +177,12 @@ describe('PinnedType component', function () {
     });
     destroyMuuriStub.should.be.calledOnce();
     onMuuriStub.should.be.calledWith('dragEnd', instance.updateOrder);
-    onMuuriStub.should.be.calledWith('dragEnd', instance.updateOrder);
 
     MuuriStub.restore();
   });
 
   it('should remove item from the grid when removeItemInPinboardPage is called', function () {
+    const clock = useFakeTimers();
     const muuri = new vendors.Muuri();
     muuri.remove.resetHistory();
 
@@ -252,9 +200,14 @@ describe('PinnedType component', function () {
     instance.removeItemInPinboardPage({ 'id': '1' });
 
     muuri.remove.should.be.calledWith(instance.itemElements['1']);
+    removeItemInPinboardPage.should.not.be.called();
+
+    clock.tick(250);
+
     removeItemInPinboardPage.should.be.calledWith({ 'id': '1' });
 
     muuri.remove.resetHistory();
+    clock.restore();
   });
 
   it('should invoke orderPinboard with type OFFICER when dragEnd', function () {
@@ -281,7 +234,7 @@ describe('PinnedType component', function () {
 
     instance.updateOrder();
 
-    orderPinboard.should.be.calledWith({ 'officerIds': [2, 1] });
+    orderPinboard.should.be.calledWith({ type: 'OFFICER', 'ids': [2, 1] });
   });
 
   it('should not invoke orderPinboard when no change', function () {
@@ -333,7 +286,7 @@ describe('PinnedType component', function () {
     muuri.on.should.be.calledWith('dragEnd', instance.updateOrder);
     instance.updateOrder();
 
-    orderPinboard.should.be.calledWith({ 'crids': ['2', '1'] });
+    orderPinboard.should.be.calledWith({ type: 'CR', 'ids': ['2', '1'] });
   });
 
   it('should invoke orderPinboard with type TRR when dragEnd', function () {
@@ -359,6 +312,6 @@ describe('PinnedType component', function () {
     muuri.on.should.be.calledWith('dragEnd', instance.updateOrder);
     instance.updateOrder();
 
-    orderPinboard.should.be.calledWith({ 'trrIds': [2, 1] });
+    orderPinboard.should.be.calledWith({ type: 'TRR', 'ids': [2, 1] });
   });
 });

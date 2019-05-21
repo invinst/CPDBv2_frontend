@@ -32,6 +32,7 @@ export class RelevantComplaintCard extends Component {
         crid={ crid }
         incidentDate={ incidentDate }
         category={ category }
+        point={ point }
         officers={ officers }
         leftChild={ leftChild }
         addItemInPinboardPage={ addItemInPinboardPage }

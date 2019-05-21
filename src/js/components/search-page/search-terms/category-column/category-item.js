@@ -1,9 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import classnames from 'classnames';
 import { reduce, get } from 'lodash';
+import { browserHistory } from 'react-router';
 
 import Hoverable from 'components/common/higher-order/hoverable';
 import { itemStyle, nameStyle } from './category-item.style';
+import { navigationItemTransform } from 'selectors/search-page/search-terms/transforms';
+import { CALL_TO_ACTION_TYPES } from 'utils/constants';
+import { trackOutboundLink } from 'utils/google_analytics_tracking';
 
 
 export class CategoryItem extends Component {
@@ -20,8 +24,17 @@ export class CategoryItem extends Component {
     ), false);
   }
 
+  handleItemClick(item) {
+    item = navigationItemTransform(item);
+    if (item.callToActionType === CALL_TO_ACTION_TYPES.VIEW_ALL) {
+      browserHistory.push(item.to);
+    } else if (item.callToActionType === CALL_TO_ACTION_TYPES.LINK) {
+      trackOutboundLink(item.url, '_blank');
+    }
+  }
+
   render() {
-    const { item, hovering, isFocused, handleItemClick, itemUniqueKey } = this.props;
+    const { item, hovering, isFocused, itemUniqueKey } = this.props;
     const className = classnames(
       `term-item-${itemUniqueKey.replace(' ', '-')}`,
       'test--category-item'
@@ -32,7 +45,7 @@ export class CategoryItem extends Component {
         <div
           style={ itemStyle(isFocused) }
           className={ className }
-          onClick={ () => handleItemClick(itemUniqueKey) }
+          onClick={ this.handleItemClick.bind(this, item) }
         >
           <div
             style={ nameStyle(isFocused, hovering) }
@@ -49,7 +62,6 @@ CategoryItem.propTypes = {
   item: PropTypes.object,
   hovering: PropTypes.bool,
   isFocused: PropTypes.bool,
-  handleItemClick: PropTypes.func,
   itemUniqueKey: PropTypes.string
 };
 

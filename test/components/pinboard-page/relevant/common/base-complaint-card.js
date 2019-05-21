@@ -230,6 +230,12 @@ describe('BaseComplaintCard component', function () {
     const rightHalf = findRenderedComponentWithType(instance, Link);
     const plusButton = findRenderedComponentWithType(rightHalf, PlusButton);
     Simulate.click(findDOMNode(plusButton));
-    addItemInPinboardPage.should.be.calledWith({ type: 'CR', id: '123' });
+    addItemInPinboardPage.should.be.calledWith({
+      type: 'CR',
+      id: '123',
+      category: 'Unknown',
+      incidentDate: 'Apr 4, 2015',
+      point: undefined
+    });
   });
 });

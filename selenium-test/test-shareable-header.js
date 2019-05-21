@@ -30,7 +30,6 @@ describe('shareableHeader', function () {
 
     it('should show breadcrumbs correctly when entering the Search Terms page first', function () {
       searchTermsPage.open();
-      searchTermsPage.searchTermsToggle.click();
       searchPage.input.waitForVisible();
       browser.keys('ke');
       searchPage.firstOfficerResult.waitForVisible();
