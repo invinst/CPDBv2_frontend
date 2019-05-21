@@ -643,3 +643,5 @@ export const PINBOARD_PAGE_TAB_NAMES = {
 };
 
 export const CHANGE_PINBOARD_TAB = 'CHANGE_PINBOARD_TAB';
+
+export const UNDO_CARD_VISIBLE_TIME = 1000;
