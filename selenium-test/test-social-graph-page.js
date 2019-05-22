@@ -4,6 +4,7 @@
 require('should');
 
 import { map, countBy, values, filter } from 'lodash';
+import moment from 'moment/moment';
 
 import socialGraphPage from './page-objects/social-graph-page';
 
@@ -241,5 +242,45 @@ describe('Social Graph Page', function () {
       'Excessive Force / On Duty - Injury'
     );
     socialGraphPage.timelineSection.firstAllegationDate.getText().should.eql('JAN 9');
+  });
+
+  it('should scroll to last timeline item(s) when slider reach the end', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    const formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('JAN 11');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+  });
+
+  it('should scroll to specific timeline item(s) when click on slider', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
+    browser.buttonPress();
+    const formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('APR 17');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+  });
+
+  it('should go to corresponding slider event when scroll to specific timeline item(s)', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    browser.moveToObject(socialGraphPage.timelineSection.firstAllegationItem.selector);
+    browser.scroll(0, -500);
+    browser.waitUntil(function () {
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1992-03-08';
+    }, 3000);
+    const formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('MAR 8');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
   });
 });
