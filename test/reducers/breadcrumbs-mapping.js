@@ -84,7 +84,7 @@ describe('breadcrumbsMapping', function () {
         id: 'b3380b9b',
         title: 'My pinboard',
       }
-    }).should.eql({ '/pinboard/b3380b9b/': 'My pinboard' });
+    }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard - My pinboard' });
   });
 
   it('should store pinboard breadcrumb text when successfully fetch pinboard page but without title', function () {
@@ -104,7 +104,7 @@ describe('breadcrumbsMapping', function () {
         id: 'b3380b9b',
         title: 'My pinboard',
       }
-    }).should.eql({ '/pinboard/b3380b9b/': 'My pinboard' });
+    }).should.eql({ '/pinboard/b3380b9b/': 'Pinboard - My pinboard' });
   });
 
   it('should store pinboard breadcrumb text when successfully update pinboard page but without title', function () {
