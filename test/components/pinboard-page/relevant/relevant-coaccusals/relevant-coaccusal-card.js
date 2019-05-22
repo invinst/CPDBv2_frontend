@@ -11,7 +11,8 @@ import { stub } from 'sinon';
 import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import RelevantCoaccusalCard from 'components/pinboard-page/relevant/relevant-coaccusals/relevant-coaccusal-card';
+import RelevantCoaccusalCard, { RelevantCoaccusalCardWithUndo }
+  from 'components/pinboard-page/relevant/relevant-coaccusals/relevant-coaccusal-card';
 import StaticRadarChart from 'components/common/radar-chart';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
 
@@ -123,9 +124,8 @@ describe('RelevantCoaccusalCard component', function () {
     findRenderedDOMComponentWithClass(instance, 'coaccusal-count').textContent.should.eql('1 coaccusal');
   });
 
-  it('should fade out when clicked on PlusButton', function () {
+  it('should trigger addItemInPinboardPage when clicked on PlusButton', function () {
     const addItemInPinboardPageStub = stub();
-    const preventDefaultStub = stub();
 
     instance = renderIntoDocument(
       <RelevantCoaccusalCard
@@ -138,24 +138,36 @@ describe('RelevantCoaccusalCard component', function () {
       />
     );
 
-    const link = findRenderedComponentWithType(instance, Link);
+    const plusButton = findRenderedComponentWithType(instance, PlusButton);
+    Simulate.click(findDOMNode(plusButton));
 
-    instance.state.fade.should.be.false();
-    findDOMNode(link).className.should.not.containEql('fade-out');
+    addItemInPinboardPageStub.calledWith({
+      type: 'OFFICER',
+      id: '123',
+      fullName: 'Jerome Finnigan',
+      percentile: {},
+      complaintCount: 1,
+      rank: 'Officer'
+    });
+  });
 
-    instance.handleClick({ preventDefault: preventDefaultStub });
+  describe('RelevantCoaccusalCardWithUndo component', function () {
+    it('should render remove text correctly', function () {
+      instance = renderIntoDocument(
+        <RelevantCoaccusalCardWithUndo
+          addItemInPinboardPage={ stub() }
+          id={ 123 }
+          fullName='Jerome Finnigan'
+          rank='Officer'
+          coaccusalCount={ 1 }
+          percentile={ {} }
+        />
+      );
+      const plusButton = findRenderedComponentWithType(instance, PlusButton);
 
-    preventDefaultStub.should.be.calledOnce();
-    instance.state.fade.should.be.true();
-    addItemInPinboardPageStub.should.be.calledOnce();
-    findDOMNode(link).className.should.containEql('fade-out');
+      Simulate.click(findDOMNode(plusButton));
 
-    preventDefaultStub.resetHistory();
-    addItemInPinboardPageStub.resetHistory();
-    instance.handleClick({ preventDefault: preventDefaultStub });
-
-    preventDefaultStub.should.be.calledOnce();
-    instance.state.fade.should.be.true();
-    addItemInPinboardPageStub.should.not.be.called();
+      findRenderedDOMComponentWithClass(instance, 'text').textContent.should.eql('Jerome Finnigan added.');
+    });
   });
 });

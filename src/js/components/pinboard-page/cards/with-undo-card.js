@@ -1,18 +1,21 @@
-import React, { Component, PropTypes } from 'react';
-import { noop } from 'lodash';
+import React, { Component } from 'react';
+import { get, noop } from 'lodash';
 
+import * as constants from 'utils/constants';
 import './with-undo-card.sass';
 
 
 export default function withUndoCard(
   WrappedComponent,
-  countdown,
-  getText) {
+  getText,
+  actionName,
+  style=null,
+  keepVisible=false) {
   const DISPLAY = 'DISPLAY';
   const REMOVING = 'REMOVING';
   const REMOVED = 'REMOVED';
 
-  class _Base extends Component {
+  return class extends Component {
     constructor(props) {
       super(props);
 
@@ -20,7 +23,7 @@ export default function withUndoCard(
         state: DISPLAY
       };
 
-      this.removeItem = this.removeItem.bind(this);
+      this.action = this.action.bind(this);
       this.undo = this.undo.bind(this);
       this.countdown = undefined;
     }
@@ -29,7 +32,7 @@ export default function withUndoCard(
       clearTimeout(this.countdown);
     }
 
-    removeItem(item) {
+    action(item) {
       this.setState({
         state: REMOVING
       });
@@ -39,10 +42,8 @@ export default function withUndoCard(
           state: REMOVED
         });
 
-        const { removeItemInPinboardPage } = this.props;
-
-        removeItemInPinboardPage(item);
-      }, countdown);
+        get(this.props, actionName, noop)(item);
+      }, constants.UNDO_CARD_VISIBLE_TIME);
     }
 
     undo() {
@@ -56,30 +57,20 @@ export default function withUndoCard(
     render() {
       const { state } = this.state;
 
-      if (state === REMOVED) {
+      if (state === REMOVED && !keepVisible) {
         return null;
       }
 
       if (state === REMOVING) {
         return (
-          <div className='undo-card'>
+          <div className='undo-card' style={ style }>
             <span className='text'>{ getText(this.props) }</span>
             <button className='undo-button' onClick={ this.undo }>Undo</button>
           </div>
         );
       }
 
-      return <WrappedComponent { ...this.props } removeItemInPinboardPage={ this.removeItem }/>;
+      return <WrappedComponent { ...this.props } { ...{ [actionName]: this.action } }/>;
     }
-  }
-
-  _Base.propTypes = {
-    removeItemInPinboardPage: PropTypes.func,
   };
-
-  _Base.defaultProps = {
-    removeItemInPinboardPage: noop
-  };
-
-  return _Base;
 }
