@@ -3,12 +3,12 @@ import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-
 import { findDOMNode } from 'react-dom';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import { OfficerPane } from 'components/search-page/preview-pane';
+import { OfficerPane } from 'components/common/preview-pane';
 import {
   VisualTokenWidget,
   OfficerInfoWidget,
   MetricWidget,
-} from 'components/search-page/preview-pane/widgets';
+} from 'components/common/preview-pane/widgets';
 
 
 describe('OfficerPane component', () => {

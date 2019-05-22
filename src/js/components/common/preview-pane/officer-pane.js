@@ -5,7 +5,7 @@ import WidgetWrapper, {
   VisualTokenWidget,
   OfficerInfoWidget,
   MetricWidget,
-} from 'components/search-page/preview-pane/widgets';
+} from './widgets';
 
 
 export default class OfficerPane extends Component {

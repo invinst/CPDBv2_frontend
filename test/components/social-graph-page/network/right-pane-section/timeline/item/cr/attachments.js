@@ -5,10 +5,9 @@ import {
   scryRenderedDOMComponentsWithClass,
   Simulate
 } from 'react-addons-test-utils';
-
 import { stub } from 'sinon';
-import * as GATracking from 'utils/google_analytics_tracking';
 
+import * as GATracking from 'utils/google_analytics_tracking';
 import Attachments from 'components/social-graph-page/network/right-pane-section/timeline/item/cr/attachments';
 
 

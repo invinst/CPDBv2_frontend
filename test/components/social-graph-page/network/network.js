@@ -52,11 +52,11 @@ describe('NetworkGraph component', function () {
         unitId='232'
       />
     );
-    requestSocialGraphNetworkStub.calledWith({
+    requestSocialGraphNetworkStub.should.be.calledWith({
       'unit_id': '232',
       'threshold': 2,
       'show_civil_only': true
-    }).should.be.true();
+    });
   });
 
   it('should call requestSocialGraphNetwork with correct officerIds when componentDidMount', function () {
@@ -67,11 +67,11 @@ describe('NetworkGraph component', function () {
         officerIds='123,456,789'
       />
     );
-    requestSocialGraphNetworkStub.calledWith({
+    requestSocialGraphNetworkStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
       'show_civil_only': true
-    }).should.be.true();
+    });
   });
 
 
@@ -83,11 +83,11 @@ describe('NetworkGraph component', function () {
         pinboardId='5cd06f2b'
       />
     );
-    requestSocialGraphNetworkStub.calledWith({
+    requestSocialGraphNetworkStub.should.be.calledWith({
       'pinboard_id': '5cd06f2b',
       'threshold': 2,
       'show_civil_only': true
-    }).should.be.true();
+    });
   });
 
   it('should not call requestSocialGraphNetwork if both unitId and officerIds are missing', function () {
@@ -108,11 +108,11 @@ describe('NetworkGraph component', function () {
         unitId='232'
       />
     );
-    requestSocialGraphAllegationsStub.calledWith({
+    requestSocialGraphAllegationsStub.should.be.calledWith({
       'unit_id': '232',
       'threshold': 2,
       'show_civil_only': true
-    }).should.be.true();
+    });
   });
 
   it('should call requestSocialGraphAllegations with correct officerIds when componentDidMount', function () {
@@ -123,11 +123,11 @@ describe('NetworkGraph component', function () {
         officerIds='123,456,789'
       />
     );
-    requestSocialGraphAllegationsStub.calledWith({
+    requestSocialGraphAllegationsStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
       'show_civil_only': true
-    }).should.be.true();
+    });
   });
 
   it('should not call requestSocialGraphAllegations if both unitId and officerIds are missing', function () {
@@ -149,11 +149,11 @@ describe('NetworkGraph component', function () {
         officerIds='123,456,789'
       />
     );
-    requestSocialGraphOfficersStub.calledWith({
+    requestSocialGraphOfficersStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
       'show_civil_only': true
-    }).should.be.true();
+    });
   });
 
   it('should call requestSocialGraphOfficer with correct unitId when componentDidMount', function () {
@@ -164,11 +164,11 @@ describe('NetworkGraph component', function () {
         unitId='232'
       />
     );
-    requestSocialGraphOfficersStub.calledWith({
+    requestSocialGraphOfficersStub.should.be.calledWith({
       'unit_id': '232',
       'threshold': 2,
       'show_civil_only': true
-    }).should.be.true();
+    });
   });
 
   it('should not call requestSocialGraphOfficer if both unitId and officerIds are missing', function () {
@@ -185,7 +185,7 @@ describe('NetworkGraph component', function () {
     stub(intercomUtils, 'showIntercomLauncher');
 
     instance = renderIntoDocument(<NetworkGraph/>);
-    intercomUtils.showIntercomLauncher.calledWith(false).should.be.true();
+    intercomUtils.showIntercomLauncher.should.be.calledWith(false);
 
     intercomUtils.showIntercomLauncher.restore();
   });
@@ -203,7 +203,7 @@ describe('NetworkGraph component', function () {
     instance = renderIntoDocument(<NetworkGraph/>);
     intercomUtils.showIntercomLauncher.resetHistory();
     unmountComponentSuppressError(instance);
-    intercomUtils.showIntercomLauncher.calledWith(true).should.be.true();
+    intercomUtils.showIntercomLauncher.should.be.calledWith(true);
 
     intercomUtils.showIntercomLauncher.restore();
   });
@@ -225,19 +225,19 @@ describe('NetworkGraph component', function () {
       />
     );
 
-    requestSocialGraphNetworkStub.calledWith({
+    requestSocialGraphNetworkStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
       'show_civil_only': true
-    }).should.be.true();
+    });
 
     instance.setState({ 'showCivilComplaintOnly': false, thresholdValue: 3 });
 
-    requestSocialGraphNetworkStub.calledWith({
+    requestSocialGraphNetworkStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 3,
       'show_civil_only': false
-    }).should.be.true();
+    });
   });
 
   it('should update value when click on show civil only checkbox', function () {

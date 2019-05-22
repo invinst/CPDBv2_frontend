@@ -260,7 +260,7 @@ export default class SocialGraph extends Component {
 
     this.label.enter()
       .append('text')
-      .text(function (d) { return d.fname; })
+      .text((d) => d.fname)
       .attr('class', 'node-label');
 
     this.label.exit().remove();
@@ -273,27 +273,20 @@ export default class SocialGraph extends Component {
       .on('dblclick', this.connectedNodes)
       .on('click', this.handleClick);
 
-    this.node.attr('r', (d) => {
-      return (d.degree / 2 + 2);
-    }).style('fill', (d) => {
-      return d.color || greyishColor;
-    });
+    this.node.attr('r', (d) => (d.degree / 2 + 2))
+      .style('fill', (d) => d.color || greyishColor);
 
     this.node.exit().remove();
   }
 
   _restartLinks() {
     this.force.links(this.data.links)
-      .linkStrength((d) => {
-        return ((d.weight + 1) / (this.data.maxWeight + 1));
-      });
+      .linkStrength((d) => ((d.weight + 1) / (this.data.maxWeight + 1)));
     this.link = this.link.data(this.data.links);
 
     this.link.enter().insert('line', '.node').attr('class', 'link');
 
-    this.link.attr('class', (d) => {
-      return `link link-group-color-${d.colorGroup} ${d.className}`;
-    });
+    this.link.attr('class', (d) => `link link-group-color-${d.colorGroup} ${d.className}`);
 
     this.link.exit().remove();
   }
@@ -306,14 +299,10 @@ export default class SocialGraph extends Component {
 
   tick(e) {
     // bounded graph
-    this.node.attr('cx', (d) => {
-      return d.x = Math.max(RADIUS, Math.min(this.width - RADIUS, d.x || 0));
-    })
-    .attr('cy', (d) => {
-      return d.y = Math.max(RADIUS, Math.min(this.height - RADIUS, d.y || 0));
-    });
+    this.node.attr('cx', (d) => d.x = Math.max(RADIUS, Math.min(this.width - RADIUS, d.x || 0)))
+    .attr('cy', (d) => d.y = Math.max(RADIUS, Math.min(this.height - RADIUS, d.y || 0)));
 
-    this.label.attr('x', (d) => { return d.x + (d.degree / 2 + 2); })
+    this.label.attr('x', (d) => d.x + (d.degree / 2 + 2))
       .attr('y', (d) => d.y);
 
     if (this.props.collideNodes) {
@@ -328,9 +317,7 @@ export default class SocialGraph extends Component {
   }
 
   connectedNodes(currentNode) {
-    const neighboring = (a, b) => {
-      return this.data.linkedByIndex[a.index + ',' + b.index];
-    };
+    const neighboring = (a, b) => this.data.linkedByIndex[a.index + ',' + b.index];
 
     if (this.toggleNode === 0) {
       //Reduce the opacity of all but the neighbouring nodes

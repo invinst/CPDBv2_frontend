@@ -61,7 +61,7 @@ class OfficersSection extends Section {
 
     this.prepareElementGetters({
       firstOfficerRow: '//div[contains(@class, "officer-row")][1]',
-      officerPreviewPane: '//div[contains(@class, "test--preview-pane")]',
+      officerPreviewPane: '//div[contains(@class, "preview-pane")]',
       officerName: '//h1[contains(@class, "test--officer-name")]',
     });
   }

@@ -17,7 +17,7 @@ import {
 import { ROOT_PATH, SEARCH_PATH, SEARCH_TERMS_NAVIGATION_KEYS } from 'utils/constants';
 import ResponsiveFluidWidthComponent from 'components/responsive/responsive-fluid-width-component';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
-import SearchTermItemPane from '../preview-pane/search-term-item-pane';
+import SearchTermItemPane from 'components/common/preview-pane/search-term-item-pane';
 import ScrollIntoView from 'components/common/scroll-into-view';
 import * as IntercomTracking from 'utils/intercom-tracking';
 
