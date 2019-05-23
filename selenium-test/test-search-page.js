@@ -53,9 +53,9 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('TRR');
 
     searchPage.crResultsSection.results.count.should.equal(2);
-    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.crResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
     searchPage.crResultsSection.firstResultSubText.getText().should.equal('an officer named Kelly caught the victim');
-    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 - November 12, 2006');
+    searchPage.crResultsSection.secondResultText.getText().should.equal('CR # CR456 • November 12, 2006');
     searchPage.crResultsSection.secondResultSubText.getText().should.equal('');
 
     searchPage.trrResultsSection.results.count.should.equal(2);
@@ -73,7 +73,7 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
 
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
-    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 • April 23, 2004');
     searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
       'an officer named Kelly caught the victim'
     );
@@ -92,9 +92,9 @@ describe('Search Page', function () {
     searchPage.suggestionTags.getText().should.containEql('DATE > TRR');
 
     searchPage.dateCRResultsSection.results.count.should.equal(2);
-    searchPage.dateCRResultsSection.firstResultText.getText().should.equal('CR # CR123 - April 23, 2004');
+    searchPage.dateCRResultsSection.firstResultText.getText().should.equal('CR # CR123 • April 23, 2004');
     searchPage.dateCRResultsSection.firstResultSubText.getText().should.equal('');
-    searchPage.dateCRResultsSection.secondResultText.getText().should.equal('CR # CR456 - April 23, 2004');
+    searchPage.dateCRResultsSection.secondResultText.getText().should.equal('CR # CR456 • April 23, 2004');
     searchPage.dateCRResultsSection.secondResultSubText.getText().should.equal('');
     searchPage.crPreviewPaneSection.callToAction.getText().should.eql('View Complaint Record');
 
@@ -550,7 +550,7 @@ describe('Search Page with query parameter', function () {
     searchPage.investigatorCRResultsSection.results.waitForVisible();
     searchPage.suggestionTags.getText().should.containEql('INVESTIGATOR > CR');
     searchPage.investigatorCRResultsSection.results.count.should.equal(2);
-    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 - April 23, 2004');
+    searchPage.investigatorCRResultsSection.firstResultText.getText().should.equal('CR # CR123456 • April 23, 2004');
     searchPage.investigatorCRResultsSection.firstResultSubText.getText().should.equal(
       'an officer named Kelly caught the victim'
     );

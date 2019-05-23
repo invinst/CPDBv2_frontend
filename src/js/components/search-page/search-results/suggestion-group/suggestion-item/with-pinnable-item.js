@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEqual } from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import { trigger } from 'mousetrap';
 import cx from 'classnames';
 
@@ -31,10 +31,17 @@ export default function withPinnableItem(
       const { text, id, type, subText, tags } = this.props.suggestion;
       const firstRowText = getFirstRowContent !== null ?
         getFirstRowContent(this.props) : text;
+      const secondRowText = getSecondRowContent !== null ?
+        getSecondRowContent(this.props) : subText;
 
       return (
         <TextWithInlineSearchAlias
-          textClassName={ cx(styles.blackText, { 'active': isFocused }, 'test--first-row') }
+          textClassName={ cx(
+            styles.blackText,
+            { 'active': isFocused },
+            { 'without-summary': isEmpty(secondRowText) },
+            'test--first-row'
+          ) }
           aliasClassName={ cx(styles.aliasLink, 'test--create-alias-link') }
           text={ firstRowText }
           aliasEditModeOn={ aliasEditModeOn }
