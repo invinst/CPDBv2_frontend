@@ -7,6 +7,7 @@ import StaticRadarChart from 'components/common/radar-chart';
 import styles from './relevant-coaccusal-card.sass';
 import withUndoCard from 'components/pinboard-page/cards/with-undo-card';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
+import * as constants from 'utils/constants';
 
 
 export default class RelevantCoaccusalCard extends Component {
@@ -88,5 +89,6 @@ RelevantCoaccusalCard.propTypes = {
 export const RelevantCoaccusalCardWithUndo = withUndoCard(
   RelevantCoaccusalCard,
   props => `${get(props, 'fullName', '')} added.`,
-  'addItemInPinboardPage'
+  'addItemInPinboardPage',
+  { theme: constants.UNDO_CARD_THEMES.DARK }
 );

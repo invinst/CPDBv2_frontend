@@ -37,7 +37,7 @@ describe('withUndoCard higher-order component', function () {
     );
 
     scryRenderedComponentsWithType(instance, OfficerCard).should.have.length(1);
-    scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'undo-card-light').should.have.length(0);
   });
 
   it('should render undo card when user click remove', function () {
@@ -48,7 +48,7 @@ describe('withUndoCard higher-order component', function () {
     const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
     Simulate.click(findDOMNode(unpinButton));
 
-    scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, 'undo-card-light').should.have.length(1);
     scryRenderedComponentsWithType(instance, OfficerCard).should.have.length(0);
   });
 
@@ -75,7 +75,7 @@ describe('withUndoCard higher-order component', function () {
       clock.tick(constants.UNDO_CARD_VISIBLE_TIME);
 
       scryRenderedComponentsWithType(instance, OfficerCard).should.have.length(0);
-      scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(0);
+      scryRenderedDOMComponentsWithClass(instance, 'undo-card-light').should.have.length(0);
     });
 
     it('should trigger to remove item 1s after click on remove button', function () {

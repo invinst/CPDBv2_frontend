@@ -9,8 +9,11 @@ export default function withUndoCard(
   WrappedComponent,
   getText,
   actionName,
-  style=null,
-  keepVisible=false) {
+  style={
+    theme: constants.UNDO_CARD_THEMES.LIGHT,
+    wrapperStyle: null,
+    keepVisible: false
+  }) {
   const DISPLAY = 'DISPLAY';
   const REMOVING = 'REMOVING';
   const REMOVED = 'REMOVED';
@@ -56,14 +59,17 @@ export default function withUndoCard(
 
     render() {
       const { state } = this.state;
+      const { keepVisible } = style;
 
       if (state === REMOVED && !keepVisible) {
         return null;
       }
 
       if (state === REMOVING) {
+        const { theme, wrapperStyle } = style;
+
         return (
-          <div className='undo-card' style={ style }>
+          <div className={ `undo-card-${theme}` } style={ wrapperStyle }>
             <span className='text'>{ getText(this.props) }</span>
             <button className='undo-button' onClick={ this.undo }>Undo</button>
           </div>

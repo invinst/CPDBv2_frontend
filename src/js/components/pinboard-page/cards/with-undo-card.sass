@@ -3,7 +3,8 @@
 
 %card
   box-sizing: border-box
-  border: 1px solid $white-two-color
+  border-width: 1px
+  border-style: solid
   border-radius: 2px
   font-size: 14px
   font-weight: 300
@@ -11,33 +12,62 @@
   position: relative
   width: 148px
 
-.undo-card
+%undo-card-text
+  display: block
+  margin: 40px 8px 32px 8px
+  padding: 0 20px
+  min-height: 48px
+  text-align: center
+
+%undo-card-button
+  border-radius: 2px
+  font-family: $san-francisco-text-family
+  font-size: 14px
+  font-weight: 300
+  margin: 0 28px 16px 28px
+  outline: none
+  padding: 0
+  text-align: center
+  width: calc(100% - 56px)
+  height: 40px
+
+.undo-card-light
   @extend %card
   background-color: $wild-sand
+  border-color: $white-two-color
   animation: fadeOut 1s ease-in-out forwards
   
   .text
+    @extend %undo-card-text
     color: $mine-shaft-color
-    display: block
-    margin: 40px 8px 32px 8px
-    padding: 0 20px
-    min-height: 48px
-    text-align: center
 
   .undo-button
-    border: solid 1px $alto-color
+    @extend %undo-card-button
     background-color: transparent
+    border: solid 1px $alto-color
     color: $soft-black-color
-    font-family: $san-francisco-text-family
-    font-size: 14px
-    font-weight: 300
-    margin: 0 28px 16px 28px
-    outline: none
-    padding: 0
-    text-align: center
-    width: calc(100% - 56px)
-    height: 40px
 
     &:hover
       background-color: white
       color: $cash-green-color
+
+
+.undo-card-dark
+  @extend %card
+  animation: fadeOut 1s ease-in-out forwards
+  background-color: $soft-black-color
+  border-color: $mine-shaft-color
+  
+  .text
+    @extend %undo-card-text
+    color: $white-two-color
+
+  .undo-button
+    @extend %undo-card-button
+    background-color: $mine-shaft-color
+    border: none
+    color: $white-two-color
+
+    &:hover
+      background-color: $boulder-color
+      color: white
