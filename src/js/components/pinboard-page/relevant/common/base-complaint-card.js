@@ -24,8 +24,8 @@ export class BaseComplaintCard extends Component {
 
     this.setState({ fade: true });
 
-    const { crid, addItemInPinboardPage } = this.props;
-    addItemInPinboardPage({ type: 'CR', id: crid });
+    const { crid, addItemInPinboardPage, incidentDate, category, point } = this.props;
+    addItemInPinboardPage({ type: 'CR', id: crid, incidentDate, category, point });
   }
 
   render() {
@@ -89,6 +89,7 @@ BaseComplaintCard.propTypes = {
   crid: PropTypes.string,
   incidentDate: PropTypes.string,
   category: PropTypes.string,
+  point: PropTypes.object,
   officers: PropTypes.arrayOf(PropTypes.object),
   addItemInPinboardPage: PropTypes.func,
   pinned: PropTypes.bool,

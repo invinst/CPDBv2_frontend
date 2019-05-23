@@ -206,11 +206,11 @@ describe('landing page', function () {
 
     it('should go to search term page when clicking anywhere in the search box', function () {
       landingPage.searchSection.sectionSearchBox.click();
-      browser.getUrl().should.containEql('/search/terms/');
+      browser.getUrl().should.containEql('/search/');
 
       landingPage.open();
       landingPage.searchSection.sectionSearchTerm.click();
-      browser.getUrl().should.containEql('/search/terms/');
+      browser.getUrl().should.containEql('/search/');
     });
   });
 });

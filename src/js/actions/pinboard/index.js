@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { map, entries } from 'lodash';
+import { CancelToken } from 'axios';
 
 import { get, post, put } from 'actions/common/async-action';
 import * as constants from 'utils/constants';
@@ -15,23 +16,41 @@ export const addItemInPinboardPage = createAction(constants.ADD_ITEM_IN_PINBOARD
 
 export const orderPinboard = createAction(constants.ORDER_PINBOARD);
 
-export const createPinboard = ({ officerIds, crids, trrIds }) => post(
-  constants.PINBOARDS_URL,
-  [
-    constants.PINBOARD_CREATE_REQUEST_START,
-    constants.PINBOARD_CREATE_REQUEST_SUCCESS,
-    constants.PINBOARD_CREATE_REQUEST_FAILURE,
-  ]
-)({ 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds });
+export const addItemToPinboardState = createAction(constants.ADD_ITEM_TO_PINBOARD_STATE);
+export const removeItemFromPinboardState = createAction(constants.REMOVE_ITEM_FROM_PINBOARD_STATE);
+export const orderPinboardState = createAction(constants.ORDER_PINBOARD_STATE);
+export const savePinboard = createAction(constants.SAVE_PINBOARD);
 
-export const updatePinboard = ({ id, title, officerIds, crids, trrIds }) => put(
-  `${constants.PINBOARDS_URL}${id}/`,
-  [
-    constants.PINBOARD_UPDATE_REQUEST_START,
-    constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
-    constants.PINBOARD_UPDATE_REQUEST_FAILURE,
-  ]
-)({ title: title, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds });
+let pinboardSource;
+const cancelFetchRequests = (newRequest) => (...args) => {
+  if (pinboardSource)
+    pinboardSource.cancel(constants.SUGGESTION_REQUEST_CANCEL_MESSAGE);
+
+  pinboardSource = CancelToken.source();
+  return newRequest(...args);
+};
+
+export const createPinboard = cancelFetchRequests(
+  ({ officerIds, crids, trrIds }) => post(
+    constants.PINBOARDS_URL,
+    [
+      constants.PINBOARD_CREATE_REQUEST_START,
+      constants.PINBOARD_CREATE_REQUEST_SUCCESS,
+      constants.PINBOARD_CREATE_REQUEST_FAILURE,
+    ]
+  )({ 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds })
+);
+
+export const updatePinboard = cancelFetchRequests(
+  ({ id, title, officerIds, crids, trrIds }) => put(
+    `${constants.PINBOARDS_URL}${id}/`,
+    [
+      constants.PINBOARD_UPDATE_REQUEST_START,
+      constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
+      constants.PINBOARD_UPDATE_REQUEST_FAILURE,
+    ]
+  )({ title: title, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds })
+);
 
 export const fetchPinboard = id => get(
   `${constants.PINBOARDS_URL}${id}/`,
@@ -48,7 +67,8 @@ export const fetchPinboardSocialGraph = id => get(
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_START,
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_FAILURE,
-  ]
+  ],
+  pinboardSource && pinboardSource.token
 )();
 
 export const fetchPinboardGeographicData = id => get(
@@ -57,7 +77,8 @@ export const fetchPinboardGeographicData = id => get(
     constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_START,
     constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_FAILURE,
-  ]
+  ],
+  pinboardSource && pinboardSource.token
 )();
 
 export const changePinboardTab = createAction(constants.CHANGE_PINBOARD_TAB);
@@ -68,7 +89,8 @@ export const fetchPinboardComplaints = id => get(
     constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_START,
     constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_COMPLAINTS_FETCH_REQUEST_FAILURE,
-  ]
+  ],
+  pinboardSource && pinboardSource.token
 )();
 
 export const fetchPinboardOfficers = id => get(
@@ -77,7 +99,8 @@ export const fetchPinboardOfficers = id => get(
     constants.PINBOARD_OFFICERS_FETCH_REQUEST_START,
     constants.PINBOARD_OFFICERS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_OFFICERS_FETCH_REQUEST_FAILURE,
-  ]
+  ],
+  pinboardSource && pinboardSource.token
 )();
 
 export const fetchPinboardTRRs = id => get(
@@ -86,14 +109,14 @@ export const fetchPinboardTRRs = id => get(
     constants.PINBOARD_TRRS_FETCH_REQUEST_START,
     constants.PINBOARD_TRRS_FETCH_REQUEST_SUCCESS,
     constants.PINBOARD_TRRS_FETCH_REQUEST_FAILURE,
-  ]
+  ],
+  pinboardSource && pinboardSource.token
 )();
 
 const getWithPaginate = (pinboardRelevantAPI, types) => (id, params) => {
   const queryString = map(entries(params), ([key, val]) => `${key}=${val}`).join('&');
   const url = `${constants.PINBOARDS_URL}${id}/${pinboardRelevantAPI}/?${queryString}`;
-
-  return get(url, types)();
+  return get(url, types, pinboardSource && pinboardSource.token)();
 };
 
 export const fetchPinboardRelevantDocuments = getWithPaginate(

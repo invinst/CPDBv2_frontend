@@ -26,17 +26,18 @@ const officerTransform = officer => {
   };
 };
 
-const allegationTransform = allegation => ({
+export const relevantComplaintTransform = allegation => ({
   crid: allegation.crid,
   category: allegation.category,
   incidentDate: formatDate(allegation['incident_date'], false),
-  officers: (allegation.officers || []).map(officerTransform)
+  officers: (allegation.officers || []).map(officerTransform),
+  point: allegation.point,
 });
 
 export const relevantDocumentTransform = (document, crids) => ({
   previewImageUrl: document['preview_image_url'],
   url: document.url,
-  allegation: allegationTransform(document.allegation),
+  allegation: relevantComplaintTransform(document.allegation),
   pinned: includes(crids, document.allegation.crid),
 });
 
@@ -45,10 +46,6 @@ export const relevantCoaccusalTransform = coaccusal => ({
   rank: coaccusal.rank,
   fullName: coaccusal['full_name'],
   coaccusalCount: coaccusal['coaccusal_count'],
+  complaintCount: coaccusal['allegation_count'],
   percentile: extractPercentile(coaccusal.percentile),
-});
-
-export const relevantComplaintTransform = allegation => ({
-  ...allegationTransform(allegation),
-  point: allegation.point,
 });

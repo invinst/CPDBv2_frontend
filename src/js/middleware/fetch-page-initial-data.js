@@ -18,7 +18,7 @@ import { hasCards as hasRecentDocumentData } from 'selectors/landing-page/recent
 import { hasCards as hasComplaintSummaryData } from 'selectors/landing-page/complaint-summaries';
 import { getMatchParamater, getDocumentsOrder } from 'selectors/documents-overview-page';
 import { getCRIDParameter } from 'selectors/document-deduplicator-page';
-import { getPinboard } from 'selectors/pinboard';
+import { getPinboard } from 'selectors/pinboard-page/pinboard';
 import { getCitySummary } from 'actions/landing-page/city-summary';
 import { fetchOfficerSummary, changeOfficerId, requestCreateOfficerZipFile } from 'actions/officer-page';
 import { fetchNewTimelineItems } from 'actions/officer-page/new-timeline';
@@ -156,7 +156,7 @@ export default store => next => action => {
       handleFetchingDocumentPage(dispatches, store, action.payload.pathname);
     }
 
-    else if (action.payload.pathname.match(/search\/terms/)) {
+    else if (action.payload.pathname.match(/search/)) {
       dispatches.push(store.dispatch(requestSearchTermCategories()));
     }
 

@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import extractQuery from 'utils/extract-query';
 import { relevantDocumentTransform } from './transform';
-import { pinboardICRIDsSelector } from 'selectors/pinboard';
+import { pinboardICRIDsSelector } from 'selectors/pinboard-page/pinboard';
 
 const getRelevantDocumentsPagination = state => state.pinboardPage.relevantDocuments;
 

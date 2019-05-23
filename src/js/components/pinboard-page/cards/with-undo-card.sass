@@ -1,0 +1,44 @@
+@import 'variables'
+@import 'animations'
+
+%card
+  box-sizing: border-box
+  border: 1px solid $white-two-color
+  border-radius: 2px
+  font-size: 14px
+  font-weight: 300
+  height: 176px
+  margin: 0 8px 8px 0
+  position: relative
+  width: 148px
+
+.undo-card
+  @extend %card
+  background-color: $wild-sand
+  animation: fadeOut 1s ease-in-out forwards
+  
+  .text
+    color: $mine-shaft-color
+    display: block
+    margin: 40px 8px 32px 8px
+    padding: 0 20px
+    min-height: 48px
+    text-align: center
+
+  .undo-button
+    border: solid 1px $alto-color
+    background-color: transparent
+    color: $soft-black-color
+    font-family: $san-francisco-text-family
+    font-size: 14px
+    font-weight: 300
+    margin: 0 28px 16px 28px
+    outline: none
+    padding: 0
+    text-align: center
+    width: 88px
+    height: 40px
+
+    &:hover
+      background-color: white
+      color: $cash-green-color

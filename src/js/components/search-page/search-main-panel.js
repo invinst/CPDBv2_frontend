@@ -1,62 +1,46 @@
 import React, { PropTypes, Component } from 'react';
 
-import SearchTags from './search-tags';
 import SearchResultsContainer from 'containers/search-page/search-results-container';
-import SearchNoInput from './search-no-input';
-import { buttonsWrapperStyle, searchMainPanelStyle } from './search-main-panel.style';
+import { searchMainPanelStyle } from './search-main-panel.style';
+import SearchTermsContainer from 'containers/search-page/search-terms-container';
 
 
 export default class SearchMainPanel extends Component {
 
   render() {
     const {
-      tags, contentType, recentSuggestions, query, editModeOn,
-      officerCards, requestActivityGrid, aliasEditModeOn, handleSelect, isRequesting,
-      pinboard,
+      contentType, query, editModeOn,
+      aliasEditModeOn, handleSelect,
+      tags,
     } = this.props;
 
     return (
       <div style={ searchMainPanelStyle }>
-        <div style={ buttonsWrapperStyle }>
-          <SearchTags
-            tags={ tags }
-            onSelect={ handleSelect }
-            selected={ contentType }
-            isRequesting={ isRequesting }
-            pinboard={ pinboard }
-          />
-        </div>
         {
           query ?
             <SearchResultsContainer
               onLoadMore={ handleSelect }
+              onSelect={ handleSelect }
               editModeOn={ editModeOn }
               aliasEditModeOn={ aliasEditModeOn }
+              contentType={ contentType }
+              tags={ tags }
             /> :
-            <SearchNoInput
-              recentSuggestions={ recentSuggestions }
-              officerCards={ officerCards }
-              requestActivityGrid={ requestActivityGrid }
-            />
+            <SearchTermsContainer />
         }
-
       </div>
     );
   }
 }
 
 SearchMainPanel.propTypes = {
-  tags: PropTypes.array,
   contentType: PropTypes.string,
   recentSuggestions: PropTypes.array,
   query: PropTypes.string,
   editModeOn: PropTypes.bool,
   aliasEditModeOn: PropTypes.bool,
-  officerCards: PropTypes.array,
-  requestActivityGrid: PropTypes.func,
   handleSelect: PropTypes.func,
-  isRequesting: PropTypes.bool,
-  pinboard: PropTypes.object,
+  tags: PropTypes.array,
 };
 
 SearchMainPanel.defaultProps = {

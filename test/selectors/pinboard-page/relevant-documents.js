@@ -16,11 +16,13 @@ describe('RelevantDocuments selectors', function () {
           'crid': '1074534',
           'category': 'Unknown',
           'incident_date': '2015-04-04',
+          'point': { 'lon': -87.6427175, 'lat': 41.7756769 },
           'officers': [{
             'id': 31859,
             'rank': 'Sergeant of Police',
             'full_name': 'Eric Cato',
             'coaccusal_count': null,
+            'allegation_count': 12,
             'percentile': {
               'year': 2016,
               'percentile_trr': '72.1094',
@@ -33,6 +35,7 @@ describe('RelevantDocuments selectors', function () {
             'rank': 'Police Officer',
             'full_name': 'Scott Hall',
             'coaccusal_count': null,
+            'allegation_count': 44,
             'percentile': {
               'year': 2016,
               'percentile_trr': '78.2707',
@@ -48,6 +51,7 @@ describe('RelevantDocuments selectors', function () {
         'preview_image_url': null,
         'url': 'https://w.soundcloud.com/player/?url=https%3A/s=false&amp;visual=true',
         'allegation': {
+          'point': null,
           'crid': '1074535',
           'category': 'Unknown',
           'incident_date': '2015-04-04',
@@ -55,12 +59,12 @@ describe('RelevantDocuments selectors', function () {
         }
       }];
       const state = {
-        pinboard: {
-          'officer_ids': [],
-          crids: ['1074535'],
-          'trr_ids': [],
-        },
         pinboardPage: {
+          pinboard: {
+            'officer_ids': [],
+            crids: ['1074535'],
+            'trr_ids': [],
+          },
           relevantDocuments: {
             items: documents,
             count: 444,
@@ -79,6 +83,7 @@ describe('RelevantDocuments selectors', function () {
           crid: '1074534',
           category: 'Unknown',
           incidentDate: 'Apr 4, 2015',
+          point: { 'lon': -87.6427175, 'lat': 41.7756769 },
           officers: [{
             id: 31859,
             fullName: 'Eric Cato',
@@ -119,6 +124,7 @@ describe('RelevantDocuments selectors', function () {
           category: 'Unknown',
           incidentDate: 'Apr 4, 2015',
           officers: [],
+          point: null,
         },
         pinned: true,
       }]);
@@ -193,12 +199,12 @@ describe('RelevantDocuments selectors', function () {
         }
       }];
       const state = {
-        pinboard: {
-          'officer_ids': [],
-          crids: ['1074535'],
-          'trr_ids': [],
-        },
         pinboardPage: {
+          pinboard: {
+            'officer_ids': [],
+            crids: ['1074535'],
+            'trr_ids': [],
+          },
           relevantDocuments: {
             items: documents,
             count: 444,
@@ -261,12 +267,12 @@ describe('RelevantDocuments selectors', function () {
         }
       }];
       const state = {
-        pinboard: {
-          'officer_ids': [],
-          crids: ['1074535'],
-          'trr_ids': [],
-        },
         pinboardPage: {
+          pinboard: {
+            'officer_ids': [],
+            crids: ['1074535'],
+            'trr_ids': [],
+          },
           relevantDocuments: {
             items: documents,
             count: 2,

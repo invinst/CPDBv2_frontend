@@ -1,6 +1,14 @@
+import { CancelToken } from 'axios';
+import { spy, stub } from 'sinon';
+
 import {
   createPinboard,
   updatePinboard,
+  addItemToPinboardState,
+  removeItemFromPinboardState,
+  orderPinboardState,
+  savePinboard,
+  orderPinboard,
   fetchPinboard,
   fetchPinboardComplaints,
   fetchPinboardOfficers,
@@ -18,6 +26,20 @@ import * as constants from 'utils/constants';
 
 
 describe('pinboard actions', function () {
+  let cancel;
+
+  beforeEach(function () {
+    cancel = spy();
+    stub(CancelToken, 'source').returns({
+      token: 'token',
+      cancel
+    });
+  });
+
+  afterEach(function () {
+    CancelToken.source.restore();
+  });
+
   describe('removeItemInPinboardPage', function () {
     it('should return correct action', function () {
       removeItemInPinboardPage({
@@ -72,6 +94,12 @@ describe('pinboard actions', function () {
         }
       });
     });
+
+    it('should cancel old fetch requests if new request is called', function () {
+      createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] });
+      createPinboard({ officerIds: [], crids: ['abc'], trrIds: [1] });
+      cancel.called.should.be.true();
+    });
   });
 
   describe('updatePinboard', function () {
@@ -104,7 +132,106 @@ describe('pinboard actions', function () {
         }
       });
     });
+
+    it('should cancel old fetch requests if new request is called', function () {
+      const pinboard = {
+        id: '5cd06f2b',
+        title: 'Title',
+        officerIds: ['1'],
+        crids: [],
+        trrIds: ['1'],
+      };
+      updatePinboard(pinboard);
+      updatePinboard(pinboard);
+      cancel.called.should.be.true();
+    });
   });
+
+  describe('addItemToPinboardState', function () {
+    it('should return correct action', function () {
+      addItemToPinboardState({
+        id: '1234',
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.ADD_ITEM_TO_PINBOARD_STATE,
+        payload: {
+          id: '1234',
+          type: 'OFFICER',
+        },
+      });
+    });
+  });
+
+  describe('removeItemFromPinboardState', function () {
+    it('should return correct action', function () {
+      removeItemFromPinboardState({
+        id: '1234',
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.REMOVE_ITEM_FROM_PINBOARD_STATE,
+        payload: {
+          id: '1234',
+          type: 'OFFICER',
+        },
+      });
+    });
+  });
+
+  describe('orderPinboardState', function () {
+    it('should return correct action', function () {
+      orderPinboardState({
+        ids: ['1234', '456'],
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.ORDER_PINBOARD_STATE,
+        payload: {
+          ids: ['1234', '456'],
+          type: 'OFFICER',
+        },
+      });
+    });
+  });
+
+  describe('savePinboard', function () {
+    it('should return correct action', function () {
+      savePinboard({
+        id: 1,
+        title: 'Pinboard Title',
+        'officer_ids': [12],
+        crids: ['abc'],
+        'trr_ids': [1],
+        description: 'Description',
+        isPinboardRestored: false,
+      }).should.deepEqual({
+        type: constants.SAVE_PINBOARD,
+        payload: {
+          id: 1,
+          title: 'Pinboard Title',
+          'officer_ids': [12],
+          crids: ['abc'],
+          'trr_ids': [1],
+          description: 'Description',
+          isPinboardRestored: false,
+        },
+      });
+    });
+  });
+
+  describe('orderPinboard', function () {
+    it('should return correct action', function () {
+      orderPinboard({
+        ids: ['1234', '456'],
+        type: 'OFFICER',
+      }).should.deepEqual({
+        type: constants.ORDER_PINBOARD,
+        payload: {
+          ids: ['1234', '456'],
+          type: 'OFFICER',
+        },
+      });
+    });
+  });
+
 
   describe('fetchPinboard', function () {
     it('shoud return correct action', function () {
@@ -139,7 +266,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}5cd06f2b/complaints/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -159,7 +286,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}5cd06f2b/officers/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -179,7 +306,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}5cd06f2b/trrs/`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -199,7 +326,7 @@ describe('pinboard actions', function () {
             url: `${constants.SOCIAL_GRAPH_NETWORK_API_URL}?pinboard_id=268a5e58`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -219,7 +346,7 @@ describe('pinboard actions', function () {
             url: `${constants.SOCIAL_GRAPH_GEOGRAPHIC_API_URL}?pinboard_id=268a5e58`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -239,7 +366,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-documents/?`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -260,7 +387,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-documents/?limit=20&offset=20`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -280,7 +407,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-coaccusals/?`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -301,7 +428,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-coaccusals/?limit=20&offset=20`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -321,7 +448,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-complaints/?`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });
@@ -342,7 +469,7 @@ describe('pinboard actions', function () {
             url: `${constants.PINBOARDS_URL}66ef1560/relevant-complaints/?limit=20&offset=20`,
             params: undefined,
             adapter: null,
-            cancelToken: undefined,
+            cancelToken: 'token',
           }
         }
       });

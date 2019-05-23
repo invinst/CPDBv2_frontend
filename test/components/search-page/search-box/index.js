@@ -4,6 +4,7 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithTag,
+  findRenderedDOMComponentWithClass,
   Simulate
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
@@ -11,6 +12,7 @@ import { spy, stub } from 'sinon';
 import TextInput from 'components/common/input';
 import SearchBox from 'components/search-page/search-box';
 import { unmountComponentSuppressError } from 'utils/test';
+import * as PathEditor from 'utils/edit-path';
 
 
 describe('SearchBox component', function () {
@@ -85,6 +87,33 @@ describe('SearchBox component', function () {
 
     const input = findRenderedDOMComponentWithTag(instance, 'input');
     input.getAttribute('spellcheck').should.eql('false');
+  });
+
+  it('should render close button when there is a search query', function () {
+    instance = renderIntoDocument(
+      <SearchBox value='sa'/>
+    );
+    findRenderedDOMComponentWithClass(instance, 'test--search-close-button');
+  });
+
+  it('should changeSearchQuery to empty and go to search page on click close button', function () {
+    const changeSearchQuery = spy();
+    const pushPathPreserveEditMode = stub(PathEditor, 'pushPathPreserveEditMode');
+
+    instance = renderIntoDocument(
+      <SearchBox
+        value='sa'
+        changeSearchQuery={ changeSearchQuery }
+      />
+    );
+
+    const closeButton = findRenderedDOMComponentWithClass(instance, 'test--search-close-button');
+    Simulate.click(closeButton);
+
+    changeSearchQuery.calledWith('').should.be.true();
+    pushPathPreserveEditMode.calledWith('search/').should.be.true();
+
+    pushPathPreserveEditMode.restore();
   });
 
   describe('Enter event handler', function () {

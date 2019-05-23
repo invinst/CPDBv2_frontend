@@ -248,8 +248,17 @@ describe('store', function () {
         currentMainTab: 'NETWORK',
         geographicData: [],
       },
-      pinboard: null,
       pinboardPage: {
+        pinboard: {
+          crids: [],
+          description: '',
+          id: null,
+          isPinboardRestored: false,
+          'officer_ids': [],
+          saving: false,
+          title: '',
+          'trr_ids': [],
+        },
         graphData: {},
         geographicData: [],
         currentTab: 'NETWORK',
@@ -273,6 +282,7 @@ describe('store', function () {
         crItems: [],
         trrItems: [],
       },
+      toast: {},
     });
   });
 });

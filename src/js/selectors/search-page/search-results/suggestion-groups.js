@@ -5,7 +5,7 @@ import * as constants from 'utils/constants';
 import { searchResultItemTransform } from './transforms';
 import extractQuery from 'utils/extract-query';
 import { dataToolSearchUrl } from 'utils/v1-url';
-import { pinboardItemsSelector } from 'selectors/pinboard';
+import { pinboardItemsSelector } from 'selectors/pinboard-page/pinboard';
 
 
 const itemsPerCategory = 5;
@@ -13,7 +13,7 @@ const itemsPerCategory = 5;
 const getSuggestionGroups = state => state.searchPage.suggestionGroups;
 const getSuggestionTags = state => state.searchPage.tags;
 const getSuggestionContentType = state => state.searchPage.contentType;
-const getQuery = state => state.searchPage.query;
+export const getQuery = state => state.searchPage.query;
 const getPagination = state => state.searchPage.pagination;
 
 export const suggestionTagsSelector = createSelector(

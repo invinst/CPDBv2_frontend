@@ -6,7 +6,6 @@ import AppContainer from 'containers/app-container';
 import LandingPageContainer from 'containers/landing-page';
 import CollaborationPage from 'components/collaboration-page/collaboration-page';
 import SearchPageContainer from 'containers/search-page';
-import SearchTermsContainer from 'containers/search-page/search-terms-container';
 import OfficerPageContainer from 'containers/officer-page';
 import UnitProfilePageContainer from 'containers/unit-profile-page';
 import CRPageContainer from 'containers/cr-page';
@@ -24,7 +23,6 @@ import PinboardPageContainer from 'containers/pinboard-page';
 import {
   COLLAB_PATH,
   SEARCH_PATH,
-  SEARCH_TERMS_PATH,
   OFFICER_PATH,
   CR_PATH_SUFFIX,
   TTR_PATH,
@@ -72,12 +70,7 @@ export default class RouterRoot extends Component {
             <Route
               path={ SEARCH_PATH }
               component={ SearchPageContainer }
-              breadcrumb='Search'>
-              <Route
-                path={ SEARCH_TERMS_PATH }
-                component={ SearchTermsContainer }
-                useParentBreadcrumb={ true }/>
-            </Route>
+              breadcrumb='Search' />
             <Route
               path={ STANDALONE_CR_PATH }
               component={ CRPageContainer }

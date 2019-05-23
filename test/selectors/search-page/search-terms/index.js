@@ -18,8 +18,14 @@ describe('search terms selectors', function () {
   };
 
   describe('hiddenSelector', function () {
-    it('should return hidden state', function () {
-      hiddenSelector(state).should.be.false();
+    it('should return hidden state based on the query', function () {
+      hiddenSelector({
+        searchPage: { query: '' }
+      }).should.be.false();
+
+      hiddenSelector({
+        searchPage: { query: 'Ke' }
+      }).should.be.true();
     });
   });
 
