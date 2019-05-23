@@ -96,7 +96,7 @@ export default class NetworkGraph extends Component {
       changeNetworkTab,
       currentMainTab,
       currentNetworkTab,
-      hasComplaint,
+      showTimelineTab,
       changeMainTab,
       officer,
       location,
@@ -147,7 +147,7 @@ export default class NetworkGraph extends Component {
               <RightPaneSection
                 changeNetworkTab={ changeNetworkTab }
                 currentTab={ currentNetworkTab }
-                hasComplaint={ hasComplaint }
+                showTimelineTab={ showTimelineTab }
                 location={ location }
               />
             )
@@ -169,7 +169,7 @@ NetworkGraph.propTypes = {
   title: PropTypes.string,
   changeNetworkTab: PropTypes.func,
   changeMainTab: PropTypes.func,
-  hasComplaint: PropTypes.bool,
+  showTimelineTab: PropTypes.bool,
   currentMainTab: PropTypes.string,
   currentNetworkTab: PropTypes.string,
   officer: PropTypes.object,

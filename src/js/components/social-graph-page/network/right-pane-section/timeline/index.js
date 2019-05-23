@@ -7,6 +7,7 @@ import { throttle } from 'lodash';
 import style from './timeline.sass';
 import Item from './item';
 import ReactDOM from 'react-dom';
+import { imgUrl } from 'utils/static-assets';
 
 const SCROLL_THROTTLE_THRESHOLD = 150;
 
@@ -86,9 +87,9 @@ export default class Timeline extends Component {
 
   render() {
     const { items, pathname, onTrackingAttachment, timelineIdx } = this.props;
-
     return (
       <div ref='scrollContainer' className={ cx(style.officerTimeline, 'test--officer-timeline') }>
+        { isEmpty(items) && (<img className='loading-img' src={ imgUrl('loading.svg') } />) }
         {
           items.map((item) => {
             return (

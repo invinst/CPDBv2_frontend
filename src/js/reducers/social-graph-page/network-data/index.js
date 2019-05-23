@@ -8,6 +8,7 @@ import officerId from './officer-id';
 import timelineIdx from './timeline-idx';
 import refreshIntervalId from './refresh-interval-id';
 import timelineIdxTriggerChange from './timeline-idx-trigger-change';
+import showTimelineTab from './show-timeline-tab';
 
 
 export default combineReducers({
@@ -18,5 +19,6 @@ export default combineReducers({
   officerId,
   timelineIdx,
   refreshIntervalId,
-  timelineIdxTriggerChange
+  timelineIdxTriggerChange,
+  showTimelineTab
 });

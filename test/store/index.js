@@ -239,7 +239,8 @@ describe('store', function () {
       },
       socialGraphPage: {
         networkData: {
-          currentNetworkTab: 'Officers',
+          currentNetworkTab: 'Timeline',
+          showTimelineTab: true,
           graphData: {},
           networkAllegations: [],
           networkOfficers: [],

@@ -211,6 +211,7 @@ describe('Social Graph Page', function () {
 
   it('should render officer preview pane when clicking on the officer row', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.officerTab.click();
     socialGraphPage.officersSection.officerRowCount().should.eql(20);
     socialGraphPage.officersSection.firstOfficerRow.click();
     socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
@@ -222,6 +223,7 @@ describe('Social Graph Page', function () {
 
   it('should render officer preview pane when clicking on the officer node', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.officerTab.click();
     socialGraphPage.officersSection.officerRowCount().should.eql(20);
     socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
     socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
@@ -233,7 +235,6 @@ describe('Social Graph Page', function () {
 
   it('should render timeline section when clicking on timeline tab', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
-    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
     socialGraphPage.timelineSection.allegationRowCount().should.eql(64);
 
     socialGraphPage.timelineSection.firstAllegationYear.getText().should.eql('1990');
@@ -246,7 +247,6 @@ describe('Social Graph Page', function () {
 
   it('should scroll to last timeline item(s) when slider reach the end', function () {
     socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
-    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
     waitForGraphAnimationEnd(browser, socialGraphPage);
     const formattedCurrentDate = moment(
       socialGraphPage.animatedSocialGraphSection.currentDate.getText()
@@ -257,7 +257,6 @@ describe('Social Graph Page', function () {
 
   it('should scroll to specific timeline item(s) when click on slider', function () {
     socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
-    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
     waitForGraphAnimationEnd(browser, socialGraphPage);
     browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
     browser.buttonPress();
@@ -270,7 +269,6 @@ describe('Social Graph Page', function () {
 
   it('should go to corresponding slider event when scroll to specific timeline item(s)', function () {
     socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
-    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
     waitForGraphAnimationEnd(browser, socialGraphPage);
     browser.moveToObject(socialGraphPage.timelineSection.firstAllegationItem.selector);
     browser.scroll(0, -500);

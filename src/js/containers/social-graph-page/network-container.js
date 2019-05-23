@@ -11,7 +11,7 @@ import {
 } from 'actions/social-graph-page';
 
 import {
-  hasComplaintSelector,
+  getShowTimelineTab,
   getCurrentMainTab,
   getCurrentNetworkTab,
 } from 'selectors/social-graph-page';
@@ -24,7 +24,7 @@ function mapStateToProps(state, ownProps) {
     unitId: ownProps.location.query['unit_id'],
     pinboardId: ownProps.location.query['pinboard_id'],
     title: ownProps.location.query['title'],
-    hasComplaint: hasComplaintSelector(state),
+    showTimelineTab: getShowTimelineTab(state),
     currentMainTab: getCurrentMainTab(state),
     currentNetworkTab: getCurrentNetworkTab(state),
     officer: networkOfficerSelector(state),
