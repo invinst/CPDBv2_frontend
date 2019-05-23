@@ -30,16 +30,56 @@ describe('Social Graph Page', function () {
 
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
     const graphLinks = socialGraphPage.animatedSocialGraphSection.graphLinks();
+    const graphLabels = socialGraphPage.animatedSocialGraphSection.graphLabels();
 
     graphNodes.should.have.length(20);
     graphLinks.should.have.length(37);
+    graphLabels.should.have.length(5);
 
-    const groupsColors = map(
+    const nodeGroupColors = countBy(map(
       graphNodes,
       (graphNode) => graphNode.getCssProperty('fill').value
+    ));
+    const expectedNodeGroupColors = {
+      'rgb(253,94,76)': 6,
+      'rgb(244,162,152)': 6,
+      'rgb(249,211,195)': 5,
+      'rgb(243,42,41)': 1,
+      'rgb(255,80,80)': 1,
+      'rgb(243,173,173)': 1,
+    };
+    nodeGroupColors.should.eql(expectedNodeGroupColors);
+
+    const linkGroupColors = countBy(map(
+      graphLinks,
+      (graphLink) => graphLink.getAttribute('class').match(/link-group-color-[\d]/)
+    ));
+
+    const expectedlinkGroupColors = {
+      'link-group-color-1': 6,
+      'link-group-color-2': 6,
+      'link-group-color-3': 6,
+      'link-group-color-4': 6,
+      'link-group-color-5': 6,
+      'link-group-color-6': 7,
+    };
+
+    linkGroupColors.should.eql(expectedlinkGroupColors);
+
+    const graphLabelTexts = map(
+      graphLabels,
+      (graphLabel) => graphLabel.getText()
     );
-    const groupsCount = values(countBy(groupsColors));
-    groupsCount.sort((a, b) => a - b).should.eql([3, 5, 6, 6]);
+
+    const expectedGraphLabelTexts = [
+      'Donnell Calhoun',
+      'Eugene Offett',
+      'Johnny Cavers',
+      'Melvin Ector',
+      'Thomas Kampenga'
+    ];
+
+    graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);
   });
 
   it('should show connected nodes when double click on a node', function () {
@@ -124,12 +164,19 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
     const graphNodes = socialGraphPage.animatedSocialGraphSection.graphNodes();
-    const groupsColors = map(
+    const groupsColors = countBy(map(
       graphNodes,
       (graphNode) => graphNode.getCssProperty('fill').value
-    );
-    const groupsCount = values(countBy(groupsColors));
-    groupsCount.sort((a, b) => a - b).should.eql([3, 3, 3, 11]);
+    ));
+    const expectedGroupsColors = {
+      'rgb(253,94,76)': 6,
+      'rgb(244,162,152)': 6,
+      'rgb(249,211,195)': 5,
+      'rgb(243,42,41)': 1,
+      'rgb(255,80,80)': 1,
+      'rgb(243,173,173)': 1,
+    };
+    groupsColors.should.eql(expectedGroupsColors);
   });
 
   it('should load new data when change threshold and showCivilOnly', function () {
@@ -149,11 +196,50 @@ describe('Social Graph Page', function () {
     socialGraphPage.animatedSocialGraphSection.graphLinks().should.have.length(15);
   });
 
-  it('should be able to search', function () {
-    socialGraphPage.animatedSocialGraphSection.searchInput.setValue('Tho');
-    socialGraphPage.animatedSocialGraphSection.firstSearchResultSuggestion.click();
-    socialGraphPage.animatedSocialGraphSection.searchInput.getValue().should.equal('Thomas Kampenga');
+  it('should render geographic section when clicking on geographic button', function () {
+    socialGraphPage.animatedSocialGraphSection.mainTabs.waitForVisible();
+    socialGraphPage.animatedSocialGraphSection.geographicTab.click();
+    socialGraphPage.geographicSection.complaintText.getText().should.eql('Complaint');
+    socialGraphPage.geographicSection.complaintNumber.getText().should.eql('5');
+    socialGraphPage.geographicSection.trrText.getText().should.eql('Use of Force Report');
+    socialGraphPage.geographicSection.trrNumber.getText().should.eql('2');
+
+    socialGraphPage.animatedSocialGraphSection.networkTab.click();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+  });
+
+  it('should render officer preview pane when clicking on the officer row', function () {
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.officersSection.firstOfficerRow.click();
+    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
+    socialGraphPage.officersSection.officerName.getText().should.eql('Bennie Watson');
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+    socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);
+  });
+
+  it('should render officer preview pane when clicking on the officer node', function () {
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+    socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
+    socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
+    socialGraphPage.officersSection.officerName.getText().should.eql('Donnell Calhoun');
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+    socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);
+  });
+
+  it('should render timeline section when clicking on timeline tab', function () {
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
+    socialGraphPage.timelineSection.allegationRowCount().should.eql(64);
+
+    socialGraphPage.timelineSection.firstAllegationYear.getText().should.eql('1990');
+    socialGraphPage.timelineSection.firstAllegationCategory.getText().should.eql('Use Of Force');
+    socialGraphPage.timelineSection.firstAllegationSubcategory.getText().should.eql(
+      'Excessive Force / On Duty - Injury'
+    );
+    socialGraphPage.timelineSection.firstAllegationDate.getText().should.eql('JAN 9');
   });
 });
-
-
