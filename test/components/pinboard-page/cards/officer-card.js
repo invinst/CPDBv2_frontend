@@ -66,7 +66,6 @@ describe('OfficerCard component', function () {
   });
 });
 
-
 describe('OfficerCardWithUndo component', function () {
   let instance;
 

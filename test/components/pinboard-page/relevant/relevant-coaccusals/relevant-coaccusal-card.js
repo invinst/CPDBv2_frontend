@@ -155,7 +155,6 @@ describe('RelevantCoaccusalCard component', function () {
     it('should render remove text correctly', function () {
       instance = renderIntoDocument(
         <RelevantCoaccusalCardWithUndo
-          addItemInPinboardPage={ stub() }
           id={ 123 }
           fullName='Jerome Finnigan'
           rank='Officer'
