@@ -346,3 +346,13 @@ describe('Pinboard Page', function () {
     });
   });
 });
+
+describe('Empty Pinboard Page', function () {
+  beforeEach(function () {
+    pinboardPage.open('abcd1234');
+  });
+
+  it('should render when there is no content', function () {
+    pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
+  });
+});

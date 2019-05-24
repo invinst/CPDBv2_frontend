@@ -51,7 +51,7 @@ import {
   getOfficerComplaintSocialGraphData,
   getThresholdThreeSocialGraphData
 } from './social-graph-page/social-graph-page';
-import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
+import { createPinboard, fetchPinboard, updatePinboard, fetchEmptyPinboard } from './pinboard';
 import {
   fetchPinboardComplaints,
   fetchPinboardOfficers,
@@ -226,6 +226,8 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&offset=40`).reply(
   200, getRelevantComplaints('5cd06f2b', 20, 40, 50)
 );
+
+axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, fetchEmptyPinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`).reply(200, {});
 

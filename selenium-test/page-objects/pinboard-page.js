@@ -207,6 +207,16 @@ class GeoGraphicSection extends Section {
   }
 }
 
+class EmptyPinboardSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      mainElement: '//div[contains(@class, "empty-pinboard__empty-pinboard")]',
+    });
+  }
+}
+
 class PinboardPage extends Page {
   pinnedSection = new PinboardPinnedSection();
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
@@ -215,6 +225,7 @@ class PinboardPage extends Page {
   relevantDocumentsSection = new RelevantDocumentsSection();
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();
   relevantComplaintsSection = new RelevantComplaintsSection();
+  emptyPinboardSection = new EmptyPinboardSection();
 
   constructor() {
     super();
@@ -227,8 +238,8 @@ class PinboardPage extends Page {
     });
   }
 
-  open() {
-    super.open('/pinboard/5cd06f2b/pinboard-title/');
+  open(id='5cd06f2b') {
+    super.open(`/pinboard/${id}/`);
   }
 }
 
