@@ -14,6 +14,8 @@
     text-decoration: none
     background-color: $sugar-cane-color
     color: $boulder-color
+    border-radius: 2px 2px 0 0
+    box-shadow: inset 0 -2px 2px 0 rgba(0, 0, 0, 0.1)
 
     &:visited, &:link
       color: inherit
@@ -34,7 +36,6 @@
     width: calc(100% - 28px)
     margin: 0 14px
     min-width: 305px
-    border-radius: 2px 2px 0 0
     cursor: pointer
 
   .right-menu
@@ -58,19 +59,21 @@
       &:hover
         color: $soft-black-color
 
-    .menu-item:last-child
-      margin-right: 16px
-      color: $soft-black-color
-      position: relative
-      cursor: default
+      &:last-child
+        margin-right: 16px
 
-      &::after
-        content: ""
-        position: absolute
-        width: 8px
-        height: 8px
-        border-radius: 50%
-        background-color: $mine-shaft-color
-        display: inline-block
-        bottom: -5px
-        left: calc(50% - 4px)
+      &.highlight
+        color: $soft-black-color
+        position: relative
+        cursor: default
+
+        &::after
+          content: ""
+          position: absolute
+          width: 8px
+          height: 8px
+          border-radius: 50%
+          background-color: $mine-shaft-color
+          display: inline-block
+          bottom: -3px
+          left: calc(50% - 4px)

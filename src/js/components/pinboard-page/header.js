@@ -29,19 +29,21 @@ const MENU_ITEMS = [
 
 
 export default class Header extends Component {
+  handleItemClick(e, item) {
+    e.preventDefault();
+    if (item.to) {
+      pushPathPreserveEditMode(item.to);
+    } else if (item.url) {
+      trackOutboundLink(item.url);
+    }
+  }
+
   renderRightMenu() {
     const items = MENU_ITEMS.map((item) => (
       <div
         key={ item.name }
-        className='menu-item'
-        onClick={ (e) => {
-          e.preventDefault();
-          if (item.to) {
-            pushPathPreserveEditMode(item.to);
-          } else if (item.url) {
-            trackOutboundLink(item.url);
-          }
-        } }
+        className={ cx('menu-item', { 'highlight': item.name === 'Pinboard' }) }
+        onClick={ e => this.handleItemClick(e, item) }
       >
         { item.name }
       </div>
