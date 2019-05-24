@@ -143,12 +143,6 @@ describe('PinboardPage component', function () {
     );
 
     findRenderedComponentWithType(instance, PinboardPaneSection);
-    findRenderedDOMComponentWithClass(instance, 'pinboard-title').textContent.should.eql(
-      'This is pinboard title'
-    );
-    findRenderedDOMComponentWithClass(instance, 'pinboard-description').textContent.should.eql(
-      'This is pinboard description'
-    );
 
     findRenderedComponentWithType(instance, RelevantSectionContainer);
     const footer = findRenderedComponentWithType(instance, FooterContainer);
