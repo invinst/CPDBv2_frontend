@@ -220,7 +220,10 @@ class PinboardPage extends Page {
     super();
 
     this.prepareElementGetters({
-      searchBar: '//div[starts-with(@class, "search-bar")]'
+      searchBar: '//div[@class="pinboard-header"]//div[starts-with(@class, "search-bar")]',
+      header: '.pinboard-header .header-parent',
+      headerTitle: '.pinboard-header .header-title',
+      headerQALink: '//div[@class="pinboard-header"]//div[@class="menu-item" and text()="Q&A"]',
     });
   }
 
