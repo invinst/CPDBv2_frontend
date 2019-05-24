@@ -46,6 +46,8 @@ export default class SocialGraph extends Component {
     this.label = this.svg.selectAll('.label');
     this.tip = d3Tip()
       .attr('class', cx(styles.socialGraphTip, 'test--graph-tooltip'))
+      .direction('e')
+      .offset([0, 2])
       .html(this.graphTooltip);
     this.svg.call(this.tip);
     this.drawGraph();
@@ -270,8 +272,11 @@ export default class SocialGraph extends Component {
       .call(this.force.drag)
       .on('mouseover', this.tip.show)
       .on('mouseout', this.tip.hide)
-      .on('dblclick', this.connectedNodes)
-      .on('click', this.handleClick);
+      .on('dblclick', this.connectedNodes);
+
+    if (this.props.updateOfficerId) {
+      this.node.on('click', this.handleClick);
+    }
 
     this.node.attr('r', (d) => (d.degree / 2 + 2))
       .style('fill', (d) => d.color || greyishColor);
