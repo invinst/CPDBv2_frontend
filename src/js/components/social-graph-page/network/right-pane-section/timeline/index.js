@@ -19,18 +19,19 @@ export default class Timeline extends Component {
   }
 
   componentDidMount() {
+    const { timelineIdx } = this.props;
     this.addScrollEvents();
+    this.performScrollToTimelineIdx(timelineIdx);
   }
 
   componentDidUpdate(prevProps) {
     const { timelineIdx, items, timelineIdxTriggerChange } = this.props;
+    this.externalUpdate = timelineIdxTriggerChange !== prevProps.timelineIdxTriggerChange;
+    const scrollToTimelineIdx = this.externalUpdate && timelineIdx !== prevProps.timelineIdx ? timelineIdx : undefined;
     if (!isEqual(items, prevProps.items)) {
       this.addScrollEvents();
     }
-    this.externalUpdate = timelineIdxTriggerChange !== prevProps.timelineIdxTriggerChange;
-    if (this.externalUpdate && timelineIdx !== prevProps.timelineIdx) {
-      this.scrollController.scrollTo(`#trigger-${ timelineIdx > 1 ? timelineIdx - 1 : 0 }`);
-    }
+    this.performScrollToTimelineIdx(scrollToTimelineIdx);
   }
 
   componentWillUnmount() {
@@ -64,6 +65,12 @@ export default class Timeline extends Component {
         }).addTo(this.scrollController);
       }
     });
+  }
+
+  performScrollToTimelineIdx(scrollToTimelineIdx) {
+    if (scrollToTimelineIdx) {
+      this.scrollController.scrollTo(`#trigger-${scrollToTimelineIdx}`);
+    }
   }
 
   destroyScrollEvents() {

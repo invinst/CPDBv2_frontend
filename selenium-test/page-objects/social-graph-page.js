@@ -24,6 +24,7 @@ class AnimatedSocialGraphSection extends Section {
       networkTab: '(//div[contains(@class, "social-graph-btn")])',
       leftSection: '(//div[contains(@class, "left-section")])',
       rightPaneSectionMenu: '(//div[@class="right-pane-section-menu"])',
+      timelineTab: '(//span[contains(@class, "right-pane-tab-name")])[1]',
       officerTab: '(//span[contains(@class, "right-pane-tab-name")])[2]',
       officerTimelineSection: '(//div[contains(@class, "test--officer-timeline")])',
 

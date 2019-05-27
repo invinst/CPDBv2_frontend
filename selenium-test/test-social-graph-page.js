@@ -3,7 +3,7 @@
 
 require('should');
 
-import { map, countBy, values, filter } from 'lodash';
+import { map, countBy, filter } from 'lodash';
 import moment from 'moment/moment';
 
 import socialGraphPage from './page-objects/social-graph-page';
@@ -276,6 +276,36 @@ describe('Social Graph Page', function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1992-03-08';
     }, 3000);
     const formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('MAR 8');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+  });
+
+  it('should go to corresponding slider event when scroll after switch back from OfficerTab ', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+
+    socialGraphPage.animatedSocialGraphSection.officerTab.click();
+    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+
+    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
+    browser.waitUntil(function () {
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
+    }, 3000);
+    let formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('JAN 11');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+
+    browser.moveToObject(socialGraphPage.timelineSection.firstAllegationItem.selector);
+    browser.scroll(0, -500);
+
+    browser.waitUntil(function () {
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1992-03-08';
+    }, 3000);
+    formattedCurrentDate = moment(
       socialGraphPage.animatedSocialGraphSection.currentDate.getText()
     ).format('MMM D').toUpperCase();
     formattedCurrentDate.should.eql('MAR 8');
