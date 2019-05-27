@@ -25,12 +25,20 @@ const createPaginationReducer = (successType, failureType) => handleActions({
 }, { next: null, previous: null });
 
 
-export default (successType, failureType) => {
+const createRequestingReducer = (startType, successType, failureType) => handleActions({
+  [startType]: (state, action) => true,
+  [successType]: (state, action) => false,
+  [failureType]: (state, action) => false,
+}, false);
+
+export default (startType, successType, failureType) => {
   const items = createItemsReducer(successType);
   const count = createCountReducer(successType);
   const pagination = createPaginationReducer(successType, failureType);
+  const requesting = createRequestingReducer(startType, successType, failureType);
 
   return combineReducers({
+    requesting,
     items,
     count,
     pagination,

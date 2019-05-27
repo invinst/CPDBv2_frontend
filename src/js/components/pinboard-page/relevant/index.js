@@ -24,10 +24,13 @@ export default class RelevantSection extends Component {
       fetchPinboardRelevantCoaccusals,
       fetchPinboardRelevantComplaints,
       addItemInPinboardPage,
+      isRequestingDocuments,
+      isRequestingCoaccusals,
+      isRequestingComplaints,
     } = this.props;
 
-    if (isEmpty(documents) && isEmpty(coaccusals) && isEmpty(complaints))
-      return null;
+    // if (isEmpty(documents) && isEmpty(coaccusals) && isEmpty(complaints))
+    //   return null;
 
     return (
       <div className={ styles.relevantSection }>
@@ -39,6 +42,7 @@ export default class RelevantSection extends Component {
           hasMore={ documentHasMore }
           fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocuments }
           addItemInPinboardPage={ addItemInPinboardPage }
+          requesting={ isRequestingDocuments }
         />
         <RelevantCoaccusals
           pinboardId={ pinboardId }
@@ -47,6 +51,7 @@ export default class RelevantSection extends Component {
           hasMore={ coaccusalHasMore }
           fetchPinboardRelevantCoaccusals={ fetchPinboardRelevantCoaccusals }
           addItemInPinboardPage={ addItemInPinboardPage }
+          requesting={ isRequestingCoaccusals }
         />
         <RelevantComplaints
           pinboardId={ pinboardId }
@@ -55,6 +60,7 @@ export default class RelevantSection extends Component {
           hasMore={ complaintHasMore }
           fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaints }
           addItemInPinboardPage={ addItemInPinboardPage }
+          requesting={ isRequestingComplaints }
         />
       </div>
     );
@@ -76,6 +82,9 @@ RelevantSection.propTypes = {
   fetchPinboardRelevantCoaccusals: PropTypes.func,
   fetchPinboardRelevantComplaints: PropTypes.func,
   addItemInPinboardPage: PropTypes.func,
+  isRequestingDocuments: PropTypes.bool,
+  isRequestingCoaccusals: PropTypes.bool,
+  isRequestingComplaints: PropTypes.bool,
 };
 
 RelevantSection.defaultProps = {
