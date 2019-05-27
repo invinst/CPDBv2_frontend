@@ -67,7 +67,7 @@ describe('Social Graph Page', function () {
 
     linkGroupColors.should.eql(expectedlinkGroupColors);
 
-    const graphLabelTexts = map(
+    let graphLabelTexts = map(
       graphLabels,
       (graphLabel) => graphLabel.getText()
     );
@@ -80,7 +80,24 @@ describe('Social Graph Page', function () {
       'Thomas Kampenga'
     ];
 
+    const updatedExpectedGraphLabelTexts = [
+      'Charles Toussas',
+      'David Portis',
+      'Donnell Calhoun',
+      'John Hart',
+      'Thomas Kampenga',
+    ];
+
     graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);
+
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
+    browser.buttonPress();
+
+    graphLabelTexts = map(
+      graphLabels,
+      (graphLabel) => graphLabel.getText()
+    );
+    graphLabelTexts.sort().should.eql(updatedExpectedGraphLabelTexts);
   });
 
   it('should show connected nodes when double click on a node', function () {
@@ -209,6 +226,26 @@ describe('Social Graph Page', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
   });
 
+  it('should render officer name when hovering on officer node', function () {
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.biggestGraphNode.selector);
+    socialGraphPage.animatedSocialGraphSection.officerTip.getText().should.eql('Donnell Calhoun');
+
+    socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
+    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.getText().should.eql('Donnell Calhoun');
+    socialGraphPage.animatedSocialGraphSection.officerTip.waitForVisible(1000, true);
+
+    socialGraphPage.animatedSocialGraphSection.anotherGraphNode.click();
+    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.getText().should.eql('William Roberison');
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.biggestGraphNode.selector);
+    socialGraphPage.animatedSocialGraphSection.officerTip.getText().should.eql('Donnell Calhoun');
+
+    socialGraphPage.animatedSocialGraphSection.leftSection.click();
+    socialGraphPage.animatedSocialGraphSection.selectedNodeLabel.waitForVisible(1000, true);
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.anotherGraphNode.selector);
+    socialGraphPage.animatedSocialGraphSection.officerTip.getText().should.eql('William Roberison');
+  });
+
   it('should render officer preview pane when clicking on the officer row', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
@@ -221,13 +258,12 @@ describe('Social Graph Page', function () {
     socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);
   });
 
-  it('should render officer preview pane when clicking on the officer node', function () {
+  it('should render officer preview pane and officer name when clicking on the officer node', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
     socialGraphPage.animatedSocialGraphSection.officerTab.click();
     socialGraphPage.officersSection.officerRowCount().should.eql(20);
     socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
     socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
-    socialGraphPage.officersSection.officerName.getText().should.eql('Donnell Calhoun');
 
     socialGraphPage.animatedSocialGraphSection.leftSection.click();
     socialGraphPage.officersSection.officerPreviewPane.waitForVisible(1000, true);

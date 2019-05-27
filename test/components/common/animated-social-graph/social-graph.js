@@ -657,4 +657,66 @@ describe('SocialGraph', function () {
     instance.handleClick(graphNode);
     updateOfficerIdStub.should.be.calledWith(graphNode.uid);
   });
+
+  it('should call _updateSelectedNode when componentDidUpdate', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        officer={ { fullName: 'John Hart', id: 11580 } }
+      />,
+      instance
+    );
+
+    instance.selectedLabelBox.should.have.length(1);
+    const selectedNodeLabel = findDOMNode(instance).getElementsByClassName('selected-node-label')[0];
+    findDOMNode(selectedNodeLabel).textContent.should.eql('John Hart');
+
+    instance = reRender(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        officer={ { fullName: 'Glenn Evans', id: 8138 } }
+      />,
+      instance
+    );
+
+    findDOMNode(selectedNodeLabel).textContent.should.eql('Glenn Evans');
+  });
+
+  it('should call this.tip.show if isSelectedNode is false', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    const showTipStub = stub(instance.tip, 'show');
+    instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138 });
+    showTipStub.should.be.called();
+  });
+
+  it('should not call this.tip.show if isSelectedNode is true', function () {
+    instance = renderIntoDocument(
+      <SocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+      />
+    );
+    const showTipStub = stub(instance.tip, 'show');
+    instance.handleMouseover({ fullName: 'Glenn Evans', id: 8138, isSelectedNode: true });
+    showTipStub.should.not.be.called();
+  });
 });

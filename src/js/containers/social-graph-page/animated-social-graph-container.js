@@ -14,6 +14,7 @@ import {
   officersSelector,
   coaccusedDataSelector,
   getListEvent,
+  networkOfficerSelector,
 } from 'selectors/social-graph-page/network';
 
 
@@ -24,6 +25,7 @@ function mapStateToProps(state, ownProps) {
     listEvent: getListEvent(state),
     timelineIdx: getSocialGraphTimelineIdx(state),
     refreshIntervalId: getSocialGraphRefreshIntervalId(state),
+    officer: networkOfficerSelector(state),
   };
 }
 
