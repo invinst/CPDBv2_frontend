@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { noop } from 'lodash';
 
 import SearchResultsContainer from 'containers/search-page/search-results-container';
 import { searchMainPanelStyle } from './search-main-panel.style';
@@ -9,9 +10,8 @@ export default class SearchMainPanel extends Component {
 
   render() {
     const {
-      contentType, query, editModeOn,
-      aliasEditModeOn, handleSelect,
-      tags,
+      contentType, query, editModeOn, aliasEditModeOn,
+      handleSelect, tags, onEmptyPinboardButtonClick
     } = this.props;
 
     return (
@@ -25,8 +25,11 @@ export default class SearchMainPanel extends Component {
               aliasEditModeOn={ aliasEditModeOn }
               contentType={ contentType }
               tags={ tags }
+              onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
             /> :
-            <SearchTermsContainer />
+            <SearchTermsContainer
+              onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
+            />
         }
       </div>
     );
@@ -41,8 +44,10 @@ SearchMainPanel.propTypes = {
   aliasEditModeOn: PropTypes.bool,
   handleSelect: PropTypes.func,
   tags: PropTypes.array,
+  onEmptyPinboardButtonClick: PropTypes.func,
 };
 
 SearchMainPanel.defaultProps = {
-  handleSelect: () => {}
+  handleSelect: noop,
+  onEmptyPinboardButtonClick: noop,
 };

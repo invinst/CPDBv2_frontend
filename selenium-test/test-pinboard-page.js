@@ -1,7 +1,7 @@
 'use strict';
 
 require('should');
-import { map, countBy, values, filter, times } from 'lodash';
+import { map, countBy, filter, times } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
 

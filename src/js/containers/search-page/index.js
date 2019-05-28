@@ -12,6 +12,7 @@ import {
   changeSearchQuery,
   getSuggestionWithContentType
 } from 'actions/search-page';
+import { createPinboard } from 'actions/pinboard';
 import {
   requestSearchTermCategories, resetNavigation as resetSearchTermNavigation
 } from 'actions/search-page/search-terms';
@@ -62,7 +63,8 @@ const mapDispatchToProps = {
   requestActivityGrid,
   requestSearchTermCategories,
   pushBreadcrumbs,
-  resetSearchTermNavigation
+  resetSearchTermNavigation,
+  createPinboard,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SearchPage));

@@ -1,15 +1,8 @@
 import * as _ from 'lodash';
 import { createSelector } from 'reselect';
 
+import { generatePinboardUrl } from 'utils/pinboard';
 
-const generatePinboardUrl = pinboard => {
-  if (pinboard === null || pinboard['id'] === null) {
-    return '';
-  }
-
-  const title = (pinboard['title'] !== '') ? pinboard['title'] : 'Untitled Pinboard';
-  return `/pinboard/${pinboard.id}/${_.kebabCase(title)}/`;
-};
 
 const countPinnedItems = pinboard => {
   if (pinboard === null) {
