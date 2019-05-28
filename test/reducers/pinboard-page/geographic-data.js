@@ -1,4 +1,4 @@
-import geographicData from 'reducers/pinboard-page/geographic-data';
+import geographicData from 'reducers/pinboard-page/geographic-data/data';
 import { PINBOARD_GEOGRAPHIC_DATA_FETCH_REQUEST_SUCCESS } from 'utils/constants';
 
 

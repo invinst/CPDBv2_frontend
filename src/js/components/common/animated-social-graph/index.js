@@ -8,6 +8,7 @@ import SocialGraph from './social-graph';
 import styles from './animated-social-graph.sass';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 const AMINATE_SPEED = 150;
 
@@ -146,25 +147,30 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   render() {
-    const { officers, coaccusedData, listEvent, updateOfficerId } = this.props;
+    const { officers, coaccusedData, listEvent, updateOfficerId, requesting } = this.props;
     const { timelineIdx, refreshIntervalId, fullscreen } = this.state;
 
     return (
       <div className={ cx(styles.animatedSocialGraph, { fullscreen }) }>
         {
-          !isEmpty(officers) && <SocialGraph
-            officers={ officers }
-            coaccusedData={ coaccusedData }
-            listEvent={ listEvent }
-            timelineIdx={ timelineIdx }
-            startTimelineFromBeginning={ this.startTimelineFromBeginning }
-            collideNodes={ !refreshIntervalId }
-            stopTimeline={ this.stopTimeline }
-            fullscreen={ fullscreen }
-            updateOfficerId={ updateOfficerId }
-          />
+          (requesting) ?
+            <LoadingSpinner className='social-graph-loading'/>
+          :
+            isEmpty(officers) || (
+              <SocialGraph
+                officers={ officers }
+                coaccusedData={ coaccusedData }
+                listEvent={ listEvent }
+                timelineIdx={ timelineIdx }
+                startTimelineFromBeginning={ this.startTimelineFromBeginning }
+                collideNodes={ !refreshIntervalId }
+                stopTimeline={ this.stopTimeline }
+                fullscreen={ fullscreen }
+                updateOfficerId={ updateOfficerId }
+              />
+            )
         }
-        { this.graphControlPanel() }
+        { requesting || this.graphControlPanel() }
       </div>
     );
   }
@@ -177,4 +183,5 @@ AnimatedSocialGraph.propTypes = {
   hasIntercom: PropTypes.bool,
   updateOfficerId: PropTypes.func,
   expandedLink: PropTypes.string,
+  requesting: PropTypes.bool,
 };

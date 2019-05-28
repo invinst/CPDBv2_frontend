@@ -5,7 +5,8 @@ import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/g
 import { MAP_ITEMS, PINBOARD_PAGE_TAB_NAMES } from 'utils/constants';
 
 
-const getGeographicData = state => get(state, 'pinboardPage.geographicData', []);
+const getGeographicData = state => get(state, 'pinboardPage.geographicData.data', []);
+export const getGeographicDataRequesting = state => get(state, 'pinboardPage.geographicData.requesting', false);
 
 export const mapLegendSelector = createSelector(
   getGeographicData,
@@ -34,9 +35,12 @@ export const mapMarkersSelector = createSelector(
 );
 
 export const getCurrentTab = state => {
-  if (isEmpty(state.pinboardPage.graphData['coaccused_data']) && isEmpty(state.pinboardPage.geographicData)) {
+  if (
+    isEmpty(state.pinboardPage.graphData.data['coaccused_data'])
+    && isEmpty(state.pinboardPage.geographicData.data)
+  ) {
     return PINBOARD_PAGE_TAB_NAMES.NETWORK;
-  } else if (isEmpty(state.pinboardPage.graphData['coaccused_data'])) {
+  } else if (isEmpty(state.pinboardPage.graphData.data['coaccused_data'])) {
     return PINBOARD_PAGE_TAB_NAMES.GEOGRAPHIC;
   }
   return state.pinboardPage.currentTab;
