@@ -19,6 +19,7 @@ export default class AnimatedSocialGraph extends Component {
       timelineIdx: 0,
       refreshIntervalId: null,
       fullscreen: false,
+      isFirstTime: true,
     };
 
     this.startTimelineFromBeginning = this.startTimelineFromBeginning.bind(this);
@@ -27,6 +28,24 @@ export default class AnimatedSocialGraph extends Component {
     this.stopTimeline = this.stopTimeline.bind(this);
     this.intervalTickTimeline = this.intervalTickTimeline.bind(this);
     this.handleDateSliderChange = this.handleDateSliderChange.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { isVisible } = nextProps;
+    if (!this.state.isFirstTime) {
+      if (isVisible) {
+        this.startTimeline();
+      } else {
+        this.stopTimeline();
+      }
+    } else {
+      this.setState({ isFirstTime: false });
+    }
+  }
+
+  shouldComponentUpdate(nextState) {
+    const { isFirstTime } = this.state;
+    return isFirstTime !== nextState.isFirstTime;
   }
 
   componentWillUnmount() {
@@ -177,4 +196,9 @@ AnimatedSocialGraph.propTypes = {
   hasIntercom: PropTypes.bool,
   updateOfficerId: PropTypes.func,
   expandedLink: PropTypes.string,
+  isVisible: PropTypes.bool,
+};
+
+AnimatedSocialGraph.defaultProps = {
+  isVisible: true,
 };

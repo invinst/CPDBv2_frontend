@@ -10,6 +10,7 @@ function mapStateToProps(state, ownProps) {
     listEvent: graphDataSelector(state).listEvent,
     hasIntercom: true,
     expandedLink: getExpandedLink(state.pathname),
+    isVisible: ownProps.isVisible
   };
 }
 

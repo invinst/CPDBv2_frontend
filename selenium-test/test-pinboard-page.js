@@ -212,6 +212,18 @@ describe('Pinboard Page', function () {
       pinboardPage.geographicSection.trrText.getText().should.equal('Use of Force Report');
       pinboardPage.geographicSection.trrNumber.getText().should.equal('2');
     });
+
+    it('should pause the timeline when invisible and continue to play when visible', function () {
+      waitForGraphAnimationEnd(browser, pinboardPage);
+      pinboardPage.animatedSocialGraphSection.toggleTimelineButton.click();
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(100, true);
+
+      browser.scroll(pinboardPage.relevantCoaccusalsSection.title.selector);
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000);
+
+      browser.scroll(pinboardPage.pinboardSection.title.selector);
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(100, true);
+    });
   });
 
   context('Geographic section', function () {
