@@ -35,7 +35,11 @@ export default class PinboardPage extends Component {
       currentTab,
       hasMapMarker,
       isEmptyPinboard,
+      isInitiallyLoading,
     } = this.props;
+
+    if (isInitiallyLoading)
+      return null;
 
     if (isEmptyPinboard) {
       return EmptyPinboard;
