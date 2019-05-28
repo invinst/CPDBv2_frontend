@@ -90,5 +90,9 @@ export const RelevantCoaccusalCardWithUndo = withUndoCard(
   RelevantCoaccusalCard,
   props => `${get(props, 'fullName', '')} added.`,
   'addItemInPinboardPage',
-  { theme: constants.UNDO_CARD_THEMES.DARK }
+  {
+    theme: constants.UNDO_CARD_THEMES.DARK,
+    keepVisible: false,
+    hasWrapper: false,
+  }
 );

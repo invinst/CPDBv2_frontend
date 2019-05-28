@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { get, noop } from 'lodash';
+import cx from 'classnames';
 
-import * as constants from 'utils/constants';
-import './with-undo-card.sass';
+import { UNDO_CARD_THEMES, UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
+import styles from './with-undo-card.sass';
 
 
 export default function withUndoCard(
   WrappedComponent,
   getText,
   actionName,
-  style={
-    theme: constants.UNDO_CARD_THEMES.LIGHT,
-    wrapperStyle: null,
-    keepVisible: false
+  settings={
+    theme: UNDO_CARD_THEMES.LIGHT,
+    keepVisible: false,
+    hasWrapper: false
   }) {
   const DISPLAY = 'DISPLAY';
   const REMOVING = 'REMOVING';
@@ -23,7 +24,7 @@ export default function withUndoCard(
       super(props);
 
       this.state = {
-        state: DISPLAY
+        status: DISPLAY
       };
 
       this.action = this.action.bind(this);
@@ -37,39 +38,44 @@ export default function withUndoCard(
 
     action(item) {
       this.setState({
-        state: REMOVING
+        status: REMOVING
       });
 
       this.countdown = setTimeout(() => {
         this.setState({
-          state: REMOVED
+          status: REMOVED
         });
 
         get(this.props, actionName, noop)(item);
-      }, constants.UNDO_CARD_VISIBLE_TIME);
+      }, UNDO_CARD_VISIBLE_TIME);
     }
 
     undo() {
       clearTimeout(this.countdown);
 
       this.setState({
-        state: DISPLAY
+        status: DISPLAY
       });
     }
 
     render() {
-      const { state } = this.state;
-      const { keepVisible } = style;
+      const { status } = this.state;
+      const { theme, keepVisible, hasWrapper } = settings;
 
-      if (state === REMOVED && !keepVisible) {
+      if (status === REMOVED && !keepVisible) {
         return null;
       }
 
-      if (state === REMOVING) {
-        const { theme, wrapperStyle } = style;
+      if (status === REMOVING) {
+        const wrapperStyle = cx(
+          { [styles.undoCardLight]: theme === UNDO_CARD_THEMES.LIGHT },
+          { [styles.undoCardDark]: theme === UNDO_CARD_THEMES.DARK },
+          { [styles.wrapper]: hasWrapper },
+          'test--undo-card'
+        );
 
         return (
-          <div className={ `undo-card-${theme}` } style={ wrapperStyle }>
+          <div className={ wrapperStyle }>
             <span className='text'>{ getText(this.props) }</span>
             <button className='undo-button' onClick={ this.undo }>Undo</button>
           </div>

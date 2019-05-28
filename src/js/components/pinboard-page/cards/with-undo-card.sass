@@ -30,7 +30,7 @@
   width: calc(100% - 56px)
   height: 40px
 
-.undo-card-light
+\:local(.undo-card-light)
   @extend %card
   background-color: $wild-sand
   border-color: $white-two-color
@@ -51,7 +51,7 @@
       color: $cash-green-color
 
 
-.undo-card-dark
+\:local(.undo-card-dark)
   @extend %card
   animation: fadeOut 1s ease-in-out forwards
   background-color: $soft-black-color
@@ -70,3 +70,6 @@
     &:hover
       background-color: $boulder-color
       color: white
+
+\:local(.wrapper)
+  width: 306px

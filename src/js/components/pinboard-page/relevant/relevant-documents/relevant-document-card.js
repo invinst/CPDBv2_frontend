@@ -3,7 +3,7 @@ import React, { PropTypes, Component } from 'react';
 import styles from './relevant-document-card.sass';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
 import withUndoCard from 'components/pinboard-page/cards/with-undo-card';
-import * as constants from 'utils/constants';
+import { UNDO_CARD_THEMES } from 'utils/constants';
 
 
 export default class RelevantDocumentCard extends Component {
@@ -49,5 +49,9 @@ export const RelevantDocumentCardWithUndo = withUndoCard(
   RelevantDocumentCard,
   () => 'Document added.',
   'addItemInPinboardPage',
-  { wrapperStyle: { width: '306px' }, theme: constants.UNDO_CARD_THEMES.DARK, keepVisible: true },
+  {
+    theme: UNDO_CARD_THEMES.DARK,
+    keepVislbe: true,
+    hasWrapper: true,
+  },
 );
