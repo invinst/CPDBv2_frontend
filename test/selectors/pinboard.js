@@ -47,31 +47,61 @@ describe('Pinboard selectors', function () {
       });
     });
 
-    it('should return correct format of pinboard whose title is empty', function () {
-      const state = {
-        pinboardPage: {
-          pinboard: PinboardFactory.build({
-            id: 1,
-            title: '',
-            'officer_ids': [12],
-            crids: ['abc'],
-            'trr_ids': [1],
-            description: 'Description',
-            isPinboardRestored: false,
-          })
-        },
-      };
+    context('pinboard title generation', function () {
+      it('should return correct format of pinboard whose title is empty', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: 1,
+              title: '',
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+            })
+          },
+        };
 
-      getPinboard(state).should.eql({
-        id: '1',
-        title: '',
-        officerIds: ['12'],
-        crids: ['abc'],
-        trrIds: ['1'],
-        description: 'Description',
-        url: '/pinboard/1/untitled-pinboard/',
-        itemsCount: 3,
-        isPinboardRestored: false,
+        getPinboard(state).should.eql({
+          id: '1',
+          title: '',
+          officerIds: ['12'],
+          crids: ['abc'],
+          trrIds: ['1'],
+          description: 'Description',
+          url: '/pinboard/1/untitled-pinboard/',
+          itemsCount: 3,
+          isPinboardRestored: false,
+        });
+      });
+
+      it('should return correct format of pinboard whose title is undefined', function () {
+        const state = {
+          pinboardPage: {
+            pinboard: PinboardFactory.build({
+              id: 1,
+              title: undefined,
+              'officer_ids': [12],
+              crids: ['abc'],
+              'trr_ids': [1],
+              description: 'Description',
+              isPinboardRestored: false,
+            })
+          },
+        };
+
+        getPinboard(state).should.eql({
+          id: '1',
+          title: '',
+          officerIds: ['12'],
+          crids: ['abc'],
+          trrIds: ['1'],
+          description: 'Description',
+          url: '/pinboard/1/untitled-pinboard/',
+          itemsCount: 3,
+          isPinboardRestored: false,
+        });
       });
     });
   });
