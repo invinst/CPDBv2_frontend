@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, every } from 'lodash';
 
 import styles from './relevant-section.sass';
 import RelevantDocuments from './relevant-documents';
@@ -29,8 +29,11 @@ export default class RelevantSection extends Component {
       isRequestingComplaints,
     } = this.props;
 
-    // if (isEmpty(documents) && isEmpty(coaccusals) && isEmpty(complaints))
-    //   return null;
+    if (
+      every([!isRequestingDocuments, !isRequestingCoaccusals, !isRequestingComplaints]) &&
+      every([documents, coaccusals, complaints].map(isEmpty))
+    )
+      return null;
 
     return (
       <div className={ styles.relevantSection }>
