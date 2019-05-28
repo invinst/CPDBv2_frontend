@@ -1,6 +1,6 @@
 import should from 'should';
 
-import trrItemsReducer from 'reducers/pinboard-page/trr-items';
+import trrItemsReducer from 'reducers/pinboard-page/trr-items/trr-items';
 import * as constants from 'utils/constants';
 
 

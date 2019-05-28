@@ -7,6 +7,7 @@ import { OfficerCardWithUndo as OfficerCard } from './cards/officer-card';
 import { CRCardWithUndo as CRCard } from './cards/cr-card';
 import { TRRCardWithUndo as TRRCard } from './cards/trr-card';
 import styles from './pinned-type.sass';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 
 const CARD_MAP = {
@@ -73,41 +74,53 @@ export default class PinnedType extends Component {
     );
   }
 
-  render() {
-    const { type, title, items } = this.props;
-
-    if (items.length < 1) {
-      return null;
-    }
-
+  renderGrid() {
+    const { type, items } = this.props;
     const Card = CARD_MAP[type];
     this.itemElements = {};
 
+    return (
+      <div className='type-cards' ref={ grid => this.grid = grid }>
+        {
+          map(items, item => (
+            <div
+              key={ item.id }
+              className='pinned-grid-item'
+              data-id={ item.id }
+              ref={ element => this.itemElements[item.id] = element }
+            >
+              <div className='item-content'>
+                <Card
+                  item={ item }
+                  removeItemInPinboardPage={ this.removeItemInPinboardPage }
+                  isAdded={ get(this.addedItem, 'id') === get(item, 'id') }
+                />
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    );
+  }
+
+  render() {
+    const { type, title, items, requesting } = this.props;
+    const noItems = items.length < 1;
+
+    if (!requesting && noItems) {
+      return null;
+    }
     return (
       <div className={ cx(styles.wrapper, `test--${type}-section` ) }>
         <div className='type-title'>
           { title }
         </div>
-        <div className='type-cards' ref={ grid => this.grid = grid }>
-          {
-            map(items, item => (
-              <div
-                key={ item.id }
-                className='pinned-grid-item'
-                data-id={ item.id }
-                ref={ element => this.itemElements[item.id] = element }
-              >
-                <div className='item-content'>
-                  <Card
-                    item={ item }
-                    removeItemInPinboardPage={ this.removeItemInPinboardPage }
-                    isAdded={ get(this.addedItem, 'id') === get(item, 'id') }
-                  />
-                </div>
-              </div>
-            ))
-          }
-        </div>
+        {
+          (requesting && noItems) ?
+            <LoadingSpinner className='type-cards-loading'/>
+          :
+            this.renderGrid()
+        }
       </div>
     );
   }
@@ -119,6 +132,7 @@ PinnedType.propTypes = {
   items: PropTypes.array,
   removeItemInPinboardPage: PropTypes.func,
   orderPinboard: PropTypes.func,
+  requesting: PropTypes.bool,
 };
 
 PinnedType.defaultProps = {

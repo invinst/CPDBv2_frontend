@@ -32,16 +32,20 @@ const trrPinnedTransform = (trr) => ({
 });
 
 export const pinnedOfficersSelector = createSelector(
-  state => state.pinboardPage.officerItems,
-  officers => map(officers, officerPinnedTransform)
+  state => state.pinboardPage.officerItems.items,
+  officers => map(officers, officerPinnedTransform),
 );
 
 export const pinnedCRsSelector = createSelector(
-  state => state.pinboardPage.crItems,
-  crs => map(crs, crPinnedTransform)
+  state => state.pinboardPage.crItems.items,
+  crs => map(crs, crPinnedTransform),
 );
 
 export const pinnedTRRsSelector = createSelector(
-  state => state.pinboardPage.trrItems,
-  trrs => map(trrs, trrPinnedTransform)
+  state => state.pinboardPage.trrItems.items,
+  trrs => map(trrs, trrPinnedTransform),
 );
+
+export const getPinnedOfficersRequesting = state => state.pinboardPage.officerItems.requesting;
+export const getPinnedCRsRequesting = state => state.pinboardPage.crItems.requesting;
+export const getPinnedTRRsRequesting = state => state.pinboardPage.trrItems.requesting;

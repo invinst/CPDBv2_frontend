@@ -9,14 +9,15 @@ import LoadingSpinner from 'components/common/loading-spinner';
 export default class RelevantInfiniteCarousel extends Component {
   render() {
     const { children, childWidth, title, hasMore, loadMore, className, requesting } = this.props;
+    const noChild = !children || children.length < 1;
 
-    if (!requesting && (!children || children.length < 1))
+    if (!requesting && noChild)
       return null;
 
     return (
       <div className={ cx(className, styles.relevantInfiniteCarousel) }>
         <div className='relevant-infinite-carousel-title'>{ title }</div>
-        { requesting ? (
+        { (requesting && noChild) ? (
           <LoadingSpinner className='relevant-carousel-loading' fill='white' />
         ) : (
           <Carousel

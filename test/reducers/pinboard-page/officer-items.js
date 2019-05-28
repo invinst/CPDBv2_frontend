@@ -1,6 +1,6 @@
 import should from 'should';
 
-import officerItemsReducer from 'reducers/pinboard-page/officer-items';
+import officerItemsReducer from 'reducers/pinboard-page/officer-items/officer-items';
 import * as constants from 'utils/constants';
 
 
