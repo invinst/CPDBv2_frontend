@@ -12,8 +12,7 @@ import { spy, useFakeTimers } from 'sinon';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import * as constants from 'utils/constants';
-import OfficerCardComponent from 'components/pinboard-page/cards/officer-card';
-import { OfficerCard } from 'components/pinboard-page/pinned-type';
+import OfficerCard, { OfficerCardWithUndo } from 'components/pinboard-page/cards/officer-card';
 import ItemUnpinButton from 'components/pinboard-page/cards/item-unpin-button';
 
 
@@ -34,23 +33,23 @@ describe('withUndoCard higher-order component', function () {
 
   it('should render wrapped component', function () {
     instance = renderIntoDocument(
-      <OfficerCard item={ item } />
+      <OfficerCardWithUndo item={ item } />
     );
 
-    scryRenderedComponentsWithType(instance, OfficerCardComponent).should.have.length(1);
-    scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(0);
+    scryRenderedComponentsWithType(instance, OfficerCard).should.have.length(1);
+    scryRenderedDOMComponentsWithClass(instance, 'test--undo-card').should.have.length(0);
   });
 
   it('should render undo card when user click remove', function () {
     instance = renderIntoDocument(
-      <OfficerCard item={ item } />
+      <OfficerCardWithUndo item={ item } />
     );
 
     const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
     Simulate.click(findDOMNode(unpinButton));
 
-    scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(1);
-    scryRenderedComponentsWithType(instance, OfficerCardComponent).should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'test--undo-card').should.have.length(1);
+    scryRenderedComponentsWithType(instance, OfficerCard).should.have.length(0);
   });
 
   context('animation', function () {
@@ -67,7 +66,7 @@ describe('withUndoCard higher-order component', function () {
     it('should render nothing when user click unpin but not undo', function () {
       const removeItemInPinboardPage = spy();
       instance = renderIntoDocument(
-        <OfficerCard item={ item } removeItemInPinboardPage={ removeItemInPinboardPage }/>
+        <OfficerCardWithUndo item={ item } removeItemInPinboardPage={ removeItemInPinboardPage }/>
       );
 
       const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
@@ -75,15 +74,15 @@ describe('withUndoCard higher-order component', function () {
 
       clock.tick(constants.UNDO_CARD_VISIBLE_TIME);
 
-      scryRenderedComponentsWithType(instance, OfficerCardComponent).should.have.length(0);
-      scryRenderedDOMComponentsWithClass(instance, 'undo-card').should.have.length(0);
+      scryRenderedComponentsWithType(instance, OfficerCard).should.have.length(0);
+      scryRenderedDOMComponentsWithClass(instance, 'undo-card-light').should.have.length(0);
     });
 
     it('should trigger to remove item 1s after click on remove button', function () {
       const removeItemInPinboardPage = spy();
 
       instance = renderIntoDocument(
-        <OfficerCard item={ item } removeItemInPinboardPage={ removeItemInPinboardPage } />
+        <OfficerCardWithUndo item={ item } removeItemInPinboardPage={ removeItemInPinboardPage } />
       );
 
       const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);
@@ -101,7 +100,7 @@ describe('withUndoCard higher-order component', function () {
       const removeItemInPinboardPage = spy();
 
       instance = renderIntoDocument(
-        <OfficerCard item={ item } removeItemInPinboardPage={ removeItemInPinboardPage } />
+        <OfficerCardWithUndo item={ item } removeItemInPinboardPage={ removeItemInPinboardPage } />
       );
 
       const unpinButton = findRenderedComponentWithType(instance, ItemUnpinButton);

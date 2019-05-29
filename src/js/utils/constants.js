@@ -676,3 +676,8 @@ export const SOCIAL_GRAPH_MAIN_TAB_NAMES = {
 export const CHANGE_SOCIAL_GRAPH_MAIN_TAB = 'CHANGE_SOCIAL_GRAPH_MAIN_TAB';
 
 export const UPDATE_OFFICER_ID = 'UPDATE_OFFICER_ID';
+
+export const UNDO_CARD_THEMES = {
+  LIGHT: 'light',
+  DARK: 'dark',
+};

@@ -1,29 +1,24 @@
 import React, { PropTypes, Component } from 'react';
 import { Link } from 'react-router';
 import pluralize from 'pluralize';
-import { kebabCase } from 'lodash';
-import cx from 'classnames';
+import { kebabCase, get } from 'lodash';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import styles from './relevant-coaccusal-card.sass';
+import withUndoCard from 'components/pinboard-page/cards/with-undo-card';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
+import * as constants from 'utils/constants';
 
 
-export class RelevantCoaccusalCard extends Component {
+export default class RelevantCoaccusalCard extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
 
-    this.state = { fade: false };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
     e.preventDefault();
-
-    if (this.state.fade)
-      return;
-
-    this.setState({ fade: true });
 
     const {
       id,
@@ -57,7 +52,7 @@ export class RelevantCoaccusalCard extends Component {
     return (
       <Link
         to={ `/officer/${id}/${officerSlug}/` }
-        className={ cx(styles.relevantCoaccusalCard, { 'fade-out': this.state.fade }) }
+        className={ styles.relevantCoaccusalCard }
       >
         <div className='no-print radar-chart-wrapper'>
           <StaticRadarChart
@@ -90,4 +85,14 @@ RelevantCoaccusalCard.propTypes = {
   addItemInPinboardPage: PropTypes.func,
 };
 
-export default RelevantCoaccusalCard;
+
+export const RelevantCoaccusalCardWithUndo = withUndoCard(
+  RelevantCoaccusalCard,
+  props => `${get(props, 'fullName', '')} added.`,
+  'addItemInPinboardPage',
+  {
+    theme: constants.UNDO_CARD_THEMES.DARK,
+    keepVisible: false,
+    hasWrapper: false,
+  }
+);

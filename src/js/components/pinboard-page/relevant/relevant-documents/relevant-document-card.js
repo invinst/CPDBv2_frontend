@@ -2,9 +2,11 @@ import React, { PropTypes, Component } from 'react';
 
 import styles from './relevant-document-card.sass';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
+import withUndoCard from 'components/pinboard-page/cards/with-undo-card';
+import { UNDO_CARD_THEMES } from 'utils/constants';
 
 
-export class RelevantDocumentCard extends Component {
+export default class RelevantDocumentCard extends Component {
   render() {
     const {
       allegation,
@@ -30,7 +32,6 @@ export class RelevantDocumentCard extends Component {
         leftChild={ leftChild }
         addItemInPinboardPage={ pinned ? null : addItemInPinboardPage }
         pinned={ pinned }
-        fadePlusButtonOnly={ true }
       />
     );
   }
@@ -44,4 +45,13 @@ RelevantDocumentCard.propTypes = {
   pinned: PropTypes.bool,
 };
 
-export default RelevantDocumentCard;
+export const RelevantDocumentCardWithUndo = withUndoCard(
+  RelevantDocumentCard,
+  () => 'Document added.',
+  'addItemInPinboardPage',
+  {
+    theme: UNDO_CARD_THEMES.DARK,
+    keepVislbe: true,
+    hasWrapper: true,
+  },
+);

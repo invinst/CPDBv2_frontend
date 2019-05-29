@@ -48,18 +48,6 @@ describe('LocationCard component', function () {
     findRenderedDOMComponentWithClass(instance, 'empty-map');
   });
 
-  it('should fade in when added', function () {
-    const item = {
-      incidentDate: '10-10-2010',
-      category: 'Use Of Force',
-    };
-    instance = renderIntoDocument(<LocationCard item={ item } isAdded={ true } dateKey='incidentDate'/>);
-
-    const instanceDom = findDOMNode(instance);
-    instanceDom.className.should.containEql('hide');
-    instanceDom.className.should.containEql('fade-in');
-  });
-
   it('should removeItemInPinboardPage when clicking on ItemUnpinButton', function () {
     const removeItemInPinboardPage = spy();
 

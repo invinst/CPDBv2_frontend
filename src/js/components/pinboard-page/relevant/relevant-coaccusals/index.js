@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import RelevantCoaccusalCard from './relevant-coaccusal-card';
+import { RelevantCoaccusalCardWithUndo as RelevantCoaccusalCard } from './relevant-coaccusal-card';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 
 
