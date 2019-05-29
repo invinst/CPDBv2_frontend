@@ -51,10 +51,7 @@ import {
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
-import {
-  initialLoading,
-  redirect,
-} from 'actions/pinboard-page';
+import { redirect } from 'actions/pinboard-page';
 
 let prevPathname = '';
 
@@ -214,14 +211,7 @@ export default store => next => action => {
       if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
         if (idOnPath === idInStore) {
           dispatches.push(store.dispatch(redirect(false)));
-          const pinboardPromises = [
-            store.dispatch(fetchPinboard(idOnPath)),
-          ];
-          dispatches.concat(pinboardPromises);
-
-          Promise.all(pinboardPromises).finally(() => {
-            store.dispatch(initialLoading(false));
-          });
+          dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
 
           store.dispatch(fetchPinboardComplaints(idOnPath));
           store.dispatch(fetchPinboardOfficers(idOnPath));
