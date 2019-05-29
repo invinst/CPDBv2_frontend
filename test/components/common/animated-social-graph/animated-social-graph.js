@@ -15,6 +15,7 @@ import { unmountComponentSuppressError } from 'utils/test';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
 import * as intercomUtils from 'utils/intercom';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 
 describe('AnimatedSocialGraph component', function () {
@@ -85,6 +86,23 @@ describe('AnimatedSocialGraph component', function () {
   it('should not render graph control panel if there is no event', function () {
     instance = renderIntoDocument(<AnimatedSocialGraph/>);
     scryRenderedDOMComponentsWithClass(instance, 'graph-control-panel').should.have.length(0);
+  });
+
+  it('should render LoadingSpinner only if requesting is true', function () {
+    instance = renderIntoDocument(
+      <AnimatedSocialGraph
+        officers={ officers }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        requesting={ true }
+      />
+    );
+
+    scryRenderedComponentsWithType(instance, SocialGraph).should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'graph-control-panel').should.have.length(0);
+
+    const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
+    loadingSpinner.props.className.should.equal('social-graph-loading');
   });
 
   it('should call toggle timeline', function () {

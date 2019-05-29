@@ -21,8 +21,8 @@ describe('PinboardPaneSection component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     pinboardPage: {
-      graphData: [],
-      geographicData: [],
+      graphData: { requesting: false, data: {} },
+      geographicData: { requesting: false, data: [] },
     },
   });
   let instance;
