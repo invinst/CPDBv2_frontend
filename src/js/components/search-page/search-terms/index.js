@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map, isEmpty } from 'lodash';
+import { map, isEmpty, noop } from 'lodash';
 
 
 import CategoryColumn from './category-column';
@@ -71,10 +71,10 @@ export default class SearchTerms extends Component {
   }
 
   render() {
-    const { focusedItem } = this.props;
+    const { focusedItem, onEmptyPinboardButtonClick } = this.props;
     return (
       <div style={ wrapperStyle }>
-        <PinboardBar />
+        <PinboardBar onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick } />
         <ScrollIntoView
           style={ scrollIntoViewStyle }
           focusedClassName={ `term-item-${focusedItem.uniqueKey.replace(' ', '-')}` }
@@ -115,13 +115,15 @@ SearchTerms.propTypes = {
   totalItemCount: PropTypes.number,
   resetNavigation: PropTypes.func,
   recentSuggestions: PropTypes.array,
+  onEmptyPinboardButtonClick: PropTypes.func,
 };
 
 SearchTerms.defaultProps = {
-  move: () => {},
-  resetNavigation: () => {},
+  move: noop,
+  resetNavigation: noop,
   focusedItem: {
     uniqueKey: ''
   },
   categories: [],
+  onEmptyPinboardButtonClick: noop,
 };

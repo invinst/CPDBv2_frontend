@@ -1,7 +1,9 @@
 import React from 'react';
 import {
-  renderIntoDocument,
-  Simulate, }
+  renderIntoDocument, Simulate,
+  findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass
+}
 from 'react-addons-test-utils';
 import { unmountComponentSuppressError } from 'utils/test';
 import { findDOMNode } from 'react-dom';
@@ -20,12 +22,14 @@ describe('ItemPinButton component', function () {
 
   it('should have class is-pinned if suggestion.isPinned is true', function () {
     instance = renderIntoDocument(<ItemPinButton suggestion={ { isPinned: true } } />);
-    findDOMNode(instance).classList.contains('is-pinned').should.be.true();
+
+    findRenderedDOMComponentWithClass(instance, 'is-pinned').should.be.ok();
   });
 
   it('should not have class is-pinned if suggesion.isPinned is false', function () {
     instance = renderIntoDocument(<ItemPinButton suggestion={ { isPinned: false } } />);
-    findDOMNode(instance).classList.contains('is-pinned').should.be.false();
+
+    scryRenderedDOMComponentsWithClass(instance, 'is-pinned').length.should.be.equal(0);
   });
 
   it('should call addOrRemoveItemInPinboard action when cliked on', function () {
