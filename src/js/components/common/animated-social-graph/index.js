@@ -32,8 +32,9 @@ export default class AnimatedSocialGraph extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { isVisible } = nextProps;
-    if (!this.state.isFirstTime) {
-      if (isVisible) {
+    const { refreshIntervalId, isFirstTime } = this.state;
+    if (!isFirstTime) {
+      if (isVisible && !refreshIntervalId) {
         this.startTimeline();
       } else {
         this.stopTimeline();
