@@ -11,7 +11,7 @@ import {
 import Slider from 'rc-slider';
 import should from 'should';
 
-import { unmountComponentSuppressError, reRender } from 'utils/test';
+import { unmountComponentSuppressError } from 'utils/test';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
 import * as intercomUtils from 'utils/intercom';
@@ -236,59 +236,5 @@ describe('AnimatedSocialGraph component', function () {
 
     const fullscreenButton = findRenderedDOMComponentWithClass(instance, 'fullscreen-btn');
     fullscreenButton.getAttribute('href').should.eql('expanded_link');
-  });
-
-  it('should called startTimeline when visible', function () {
-    instance = renderIntoDocument(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        expandedLink={ 'expanded_link' }
-      />
-    );
-
-    const startTimelineSpy = spy(instance, 'startTimeline');
-
-    instance.setState({ isFirstTime: false });
-    instance = reRender(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        expandedLink={ 'expanded_link' }
-        isVisible={ true }
-      />,
-      instance
-    );
-
-    startTimelineSpy.should.be.called();
-  });
-
-  it('should called stopTimeline when invisible', function () {
-    instance = renderIntoDocument(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        expandedLink={ 'expanded_link' }
-      />
-    );
-
-    const stopTimelineSpy = spy(instance, 'stopTimeline');
-
-    instance.setState({ isFirstTime: false });
-    instance = reRender(
-      <AnimatedSocialGraph
-        officers={ officers }
-        coaccusedData={ coaccusedData }
-        listEvent={ listEvent }
-        expandedLink={ 'expanded_link' }
-        isVisible={ false }
-      />,
-      instance
-    );
-
-    stopTimelineSpy.should.be.called();
   });
 });
