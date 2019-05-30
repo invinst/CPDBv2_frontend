@@ -1,11 +1,12 @@
 import React from 'react';
 import should from 'should';
-import { stub } from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 import { Link } from 'react-router';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  scryRenderedComponentsWithType,
   Simulate
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
@@ -15,6 +16,7 @@ import RelevantComplaintCard, { RelevantComplaintCardWithUndo }
   from 'components/pinboard-page/relevant/relevant-complaints/relevant-complaint-card';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
+import { UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
 
 
 describe('RelevantComplaintCard component', function () {
@@ -125,6 +127,16 @@ describe('RelevantComplaintCard component', function () {
   });
 
   describe('RelevantComplaintCardWithUndo component', function () {
+    let clock;
+
+    beforeEach(function () {
+      clock = useFakeTimers();
+    });
+
+    afterEach(function () {
+      clock.restore();
+    });
+
     it('should render remove text correctly', function () {
       instance = renderIntoDocument(
         <RelevantComplaintCardWithUndo
@@ -141,6 +153,27 @@ describe('RelevantComplaintCard component', function () {
       Simulate.click(findDOMNode(plusButton));
 
       findRenderedDOMComponentWithClass(instance, 'text').textContent.should.eql('Complaint added.');
+    });
+
+    it('should not be reversed after the undo card disappears', function () {
+      instance = renderIntoDocument(
+        <RelevantComplaintCardWithUndo
+          crid='123'
+          incidentDate='Feb 1, 2018'
+          category='False Arrest'
+          officers={ officers }
+          point={ { lat: 41.7924183, lon: -87.668458 } }
+          addItemInPinboardPage={ addItemInPinboardPageStub }
+        />
+      );
+
+      const plusButton = findRenderedComponentWithType(instance, PlusButton);
+
+      Simulate.click(findDOMNode(plusButton));
+
+      clock.tick(UNDO_CARD_VISIBLE_TIME + 50);
+
+      scryRenderedComponentsWithType(instance, RelevantComplaintCard).should.have.length(0);
     });
   });
 });
