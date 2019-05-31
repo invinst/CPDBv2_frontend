@@ -1,5 +1,5 @@
 import React from 'react';
-import { stub } from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
@@ -14,6 +14,7 @@ import RelevantDocumentCard, { RelevantDocumentCardWithUndo }
   from 'components/pinboard-page/relevant/relevant-documents/relevant-document-card';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
+import { UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
 
 
 describe('RelevantDocumentCard component', function () {
@@ -106,6 +107,16 @@ describe('RelevantDocumentCard component', function () {
   });
 
   describe('RelevantDocumentCardWithUndo component', function () {
+    let clock;
+
+    beforeEach(function () {
+      clock = useFakeTimers();
+    });
+
+    afterEach(function () {
+      clock.restore();
+    });
+
     it('should render remove text correctly', function () {
       instance = renderIntoDocument(
         <RelevantDocumentCardWithUndo
@@ -121,6 +132,26 @@ describe('RelevantDocumentCard component', function () {
       Simulate.click(findDOMNode(plusButton));
 
       findRenderedDOMComponentWithClass(instance, 'text').textContent.should.eql('Document added.');
+    });
+
+    it('should be reversed after the undo card disappears', function () {
+      instance = renderIntoDocument(
+        <RelevantDocumentCardWithUndo
+          url='https://www.documentcloud.org/documents/3108640/CRID-1078616-TRR-Rialmo.pdf'
+          previewImageUrl='https://assets.documentcloud.org/documents/3518954/pages/CRID-299780-CR-p2-normal.gif'
+          allegation={ allegation }
+          addItemInPinboardPage={ addItemInPinboardPageStub }
+          pinned={ false }
+        />
+      );
+
+      const plusButton = findRenderedComponentWithType(instance, PlusButton);
+
+      Simulate.click(findDOMNode(plusButton));
+
+      clock.tick(UNDO_CARD_VISIBLE_TIME + 50);
+
+      findRenderedComponentWithType(instance, RelevantDocumentCard);
     });
   });
 });

@@ -4,10 +4,11 @@ import {
   renderIntoDocument,
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
+  scryRenderedComponentsWithType,
   Simulate,
 } from 'react-addons-test-utils';
 import { Link } from 'react-router';
-import { stub } from 'sinon';
+import { stub, useFakeTimers } from 'sinon';
 import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -15,6 +16,7 @@ import RelevantCoaccusalCard, { RelevantCoaccusalCardWithUndo }
   from 'components/pinboard-page/relevant/relevant-coaccusals/relevant-coaccusal-card';
 import StaticRadarChart from 'components/common/radar-chart';
 import PlusButton from 'components/pinboard-page/relevant/common/plus-button';
+import { UNDO_CARD_VISIBLE_TIME } from 'utils/constants';
 
 
 describe('RelevantCoaccusalCard component', function () {
@@ -152,6 +154,16 @@ describe('RelevantCoaccusalCard component', function () {
   });
 
   describe('RelevantCoaccusalCardWithUndo component', function () {
+    let clock;
+
+    beforeEach(function () {
+      clock = useFakeTimers();
+    });
+
+    afterEach(function () {
+      clock.restore();
+    });
+
     it('should render remove text correctly', function () {
       instance = renderIntoDocument(
         <RelevantCoaccusalCardWithUndo
@@ -167,6 +179,26 @@ describe('RelevantCoaccusalCard component', function () {
       Simulate.click(findDOMNode(plusButton));
 
       findRenderedDOMComponentWithClass(instance, 'text').textContent.should.eql('Jerome Finnigan added.');
+    });
+
+    it('should not be reversed after the undo card disappears', function () {
+      instance = renderIntoDocument(
+        <RelevantCoaccusalCardWithUndo
+          id={ 123 }
+          fullName='Jerome Finnigan'
+          rank='Officer'
+          coaccusalCount={ 1 }
+          percentile={ {} }
+        />
+      );
+
+      const plusButton = findRenderedComponentWithType(instance, PlusButton);
+
+      Simulate.click(findDOMNode(plusButton));
+
+      clock.tick(UNDO_CARD_VISIBLE_TIME + 50);
+
+      scryRenderedComponentsWithType(instance, RelevantCoaccusalCard).should.have.length(0);
     });
   });
 });

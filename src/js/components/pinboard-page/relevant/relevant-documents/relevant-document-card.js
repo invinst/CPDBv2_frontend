@@ -51,7 +51,7 @@ export const RelevantDocumentCardWithUndo = withUndoCard(
   'addItemInPinboardPage',
   {
     theme: UNDO_CARD_THEMES.DARK,
-    keepVislbe: true,
+    keepVisible: true,
     hasWrapper: true,
   },
 );
