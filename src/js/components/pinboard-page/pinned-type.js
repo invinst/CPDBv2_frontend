@@ -20,6 +20,7 @@ export default class PinnedType extends Component {
   constructor(props) {
     super(props);
 
+    this.rendered = false;
     this.updateOrder = this.updateOrder.bind(this);
     this.removeItemInPinboardPage = this.removeItemInPinboardPage.bind(this);
   }
@@ -36,13 +37,14 @@ export default class PinnedType extends Component {
     ) {
       this.addedItem = first(differenceBy(nextProps.items, this.props.items, 'id'));
     }
-    this.bottomOffset = getPageYBottomOffset();
+    this.bottomOffset = this.rendered ? getPageYBottomOffset() : null;
+    this.rendered = true;
   }
 
   componentDidUpdate() {
     this.gridMuuri && this.gridMuuri.destroy();
     this.initGrid();
-    scrollByBottomOffset(this.bottomOffset);
+    this.bottomOffset && scrollByBottomOffset(this.bottomOffset);
   }
 
   initGrid() {

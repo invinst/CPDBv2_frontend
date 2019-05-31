@@ -138,17 +138,31 @@ describe('PinnedType component', function () {
     trrCards[2].props.isAdded.should.be.true();
   });
 
-  it('should maintain the scroll position', function () {
+  it('should maintain the scroll position since second rerender', function () {
     stub(navigation, 'getPageYBottomOffset').returns(700);
     stub(navigation, 'scrollByBottomOffset');
 
+    instance = renderIntoDocument(<PinnedType type='TRR' items={ [{ 'id': '1' }] } />);
+
     const items = [{ 'id': '1' }, { 'id': '2' }];
-    instance = renderIntoDocument(<PinnedType type='TRR' items={ items } />);
+    instance = reRender(<PinnedType type='TRR' items={ items } />, instance);
 
-    const newItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
-    instance = reRender(<PinnedType type='TRR' items={ newItems } />, instance);
+    navigation.scrollByBottomOffset.should.not.be.called();
 
+    const otherItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
+    instance = reRender(<PinnedType type='TRR' items={ otherItems } />, instance);
+
+    navigation.scrollByBottomOffset.should.be.calledOnce();
     navigation.scrollByBottomOffset.should.be.calledWith(700);
+
+    navigation.scrollByBottomOffset.resetHistory();
+    navigation.getPageYBottomOffset.restore();
+    stub(navigation, 'getPageYBottomOffset').returns(400);
+
+    instance = reRender(<PinnedType type='TRR' items={ [] } />, instance);
+
+    navigation.scrollByBottomOffset.should.be.calledOnce();
+    navigation.scrollByBottomOffset.should.be.calledWith(400);
 
     navigation.getPageYBottomOffset.restore();
     navigation.scrollByBottomOffset.restore();
