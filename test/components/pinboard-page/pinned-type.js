@@ -17,6 +17,7 @@ import CRCard from 'components/pinboard-page/cards/cr-card';
 import OfficerCard from 'components/pinboard-page/cards/officer-card';
 import TRRCard from 'components/pinboard-page/cards/trr-card';
 import * as vendors from 'utils/vendors';
+import * as navigation from 'utils/navigation';
 
 
 describe('PinnedType component', function () {
@@ -135,6 +136,22 @@ describe('PinnedType component', function () {
     trrCards[1].props.isAdded.should.be.false();
     trrCards[2].props.item.id.should.eql('3');
     trrCards[2].props.isAdded.should.be.true();
+  });
+
+  it('should maintain the scroll position', function () {
+    stub(navigation, 'getPageYBottomOffset').returns(700);
+    stub(navigation, 'scrollByBottomOffset');
+
+    const items = [{ 'id': '1' }, { 'id': '2' }];
+    instance = renderIntoDocument(<PinnedType type='TRR' items={ items } />);
+
+    const newItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
+    instance = reRender(<PinnedType type='TRR' items={ newItems } />, instance);
+
+    navigation.scrollByBottomOffset.should.be.calledWith(700);
+
+    navigation.getPageYBottomOffset.restore();
+    navigation.scrollByBottomOffset.restore();
   });
 
   it('should init Muuri grid', function () {
