@@ -43,6 +43,7 @@ class CategoryMainPanelSection extends Section {
         //div[contains(@class, 'test--category-column')][${columnIndex + 1}]
         //div[contains(@class, 'test--category-item')]
       )[${itemIndex + 1}]
+        //div[contains(@class, 'link--transition')]
     `);
   }
 
@@ -64,7 +65,6 @@ class BottomLinksSection extends Section {
     super();
     this.prepareElementGetters({
       backToFrontPageLink: '.test--search-term-back-front-page-link',
-      backToSearchPageLink: '.test--search-term-back-search-page-link',
     });
   }
 }
@@ -84,7 +84,7 @@ class SearchTermsPage extends Page {
   }
 
   open() {
-    super.open('/search/terms/');
+    super.open('/search/');
   }
 }
 

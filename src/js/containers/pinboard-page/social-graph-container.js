@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { graphDataSelector } from 'selectors/pinboard-page/social-graph';
+import { graphDataSelector, getExpandedLink } from 'selectors/pinboard-page/social-graph';
 import AnimatedSocialGraph from 'components/common/animated-social-graph';
 
 function mapStateToProps(state, ownProps) {
@@ -8,7 +8,8 @@ function mapStateToProps(state, ownProps) {
     officers: graphDataSelector(state).officers,
     coaccusedData: graphDataSelector(state).coaccusedData,
     listEvent: graphDataSelector(state).listEvent,
-    hasIntercom: true
+    hasIntercom: true,
+    expandedLink: getExpandedLink(state.pathname),
   };
 }
 

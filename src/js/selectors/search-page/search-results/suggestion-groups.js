@@ -13,7 +13,7 @@ const itemsPerCategory = 5;
 const getSuggestionGroups = state => state.searchPage.suggestionGroups;
 const getSuggestionTags = state => state.searchPage.tags;
 const getSuggestionContentType = state => state.searchPage.contentType;
-const getQuery = state => state.searchPage.query;
+export const getQuery = state => state.searchPage.query;
 const getPagination = state => state.searchPage.pagination;
 
 export const suggestionTagsSelector = createSelector(

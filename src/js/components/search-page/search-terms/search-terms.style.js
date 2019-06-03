@@ -1,17 +1,17 @@
-import { accentColor, concreteColor, softBlackColor, whiteTwoColor } from 'utils/styles';
+import { accentColor, softBlackColor, searchPreviewPaneWidth } from 'utils/styles';
 
 
 export const contentWrapperStyle = {
   boxSizing: 'border-box',
   whiteSpace: 'nowrap',
   position: 'relative',
-  width: '100%',
-  background: concreteColor,
+  width: `calc(100% - ${searchPreviewPaneWidth}px)`,
+  display: 'inline-block',
 };
 
 export const searchTermTitleStyle = {
   fontSize: '26px',
-  padding: '48px 0 16px 0',
+  padding: '48px 0 22px 0',
   margin: '0 16px',
   fontWeight: 300,
   color: softBlackColor,
@@ -23,7 +23,6 @@ export const bottomLinkStyle = {
   fontSize: '14px',
   fontWeight: 300,
   color: accentColor,
-  borderTop: `1px solid ${whiteTwoColor}`,
   display: 'block',
   textDecoration: 'none',
 };
@@ -44,10 +43,10 @@ export const maximumStyle = {
   maxWidth: '1440px',
 };
 
-export const wrapperStyle = {
+export const scrollIntoViewStyle = {
   container: {
-    height: 'calc(100vh - 54px)',
-    width: 'calc(100% - 320px)',
+    height: 'calc(100vh - 110px)',
+    width: '100%',
     display: 'inline-block'
   },
   view: {
@@ -55,4 +54,10 @@ export const wrapperStyle = {
     overflowX: 'hidden',
     marginBottom: 0
   }
+};
+
+export const wrapperStyle = {
+  boxSizing: 'border-box',
+  width: 'calc(100vw - 16px)',
+  height: 'calc(100% - 45px)'
 };

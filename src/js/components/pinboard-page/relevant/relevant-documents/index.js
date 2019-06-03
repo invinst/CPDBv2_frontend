@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import RelevantDocumentCard from './relevant-document-card';
+import { RelevantDocumentCardWithUndo as RelevantDocumentCard } from './relevant-document-card';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 
 
@@ -12,6 +12,7 @@ export default class RelevantDocuments extends Component {
 
   render() {
     const { documents, hasMore, addItemInPinboardPage } = this.props;
+
     return (
       <RelevantInfiniteCarousel
         title='DOCUMENTS'

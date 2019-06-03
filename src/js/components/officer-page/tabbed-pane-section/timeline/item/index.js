@@ -18,8 +18,10 @@ export default class Item extends Component {
   constructor(props) {
     super(props);
     this.renderChange = this.renderChange.bind(this);
+  }
 
-    const { item } = props;
+  componentInfo() {
+    const { item } = this.props;
 
     const componentInfoMap = {
       [NEW_TIMELINE_ITEMS.CR]: {
@@ -53,7 +55,7 @@ export default class Item extends Component {
       },
     };
 
-    this.componentInfo = get(componentInfoMap, item.kind, {});
+    return get(componentInfoMap, item.kind, {});
   }
 
   renderChange(changeKind, current, display, text, isAfterChange) {
@@ -79,7 +81,7 @@ export default class Item extends Component {
   }
 
   render() {
-    const { className, component } = this.componentInfo;
+    const { className, component } = this.componentInfo();
     const {
       isCurrentUnit,
       isCurrentRank,

@@ -1,6 +1,7 @@
-import { get, isEmpty, filter } from 'lodash';
+import { get, isEmpty, filter, compact } from 'lodash';
 import { createSelector } from 'reselect';
 
+import { crMapMarkersTransform, trrMapMarkerTransform } from 'selectors/common/geographic';
 import { MAP_ITEMS, PINBOARD_PAGE_TAB_NAMES } from 'utils/constants';
 
 
@@ -19,35 +20,17 @@ export const hasMapMarkersSelector = createSelector(
   geographicData => !isEmpty(geographicData)
 );
 
-export const crMapMarkersTransform = geographicDatum => ({
-  point: get(geographicDatum, 'point', {
-    lon: 0, lat: 0
-  }),
-  kind: geographicDatum.kind,
-  id: geographicDatum.crid,
-  category: geographicDatum.category,
-  victims: geographicDatum.victims,
-  coaccused: geographicDatum['coaccused_count'],
-});
-
-export const trrMapMarkerTransform = geographicDatum => ({
-  point: get(geographicDatum, 'point', {
-    lon: 0, lat: 0
-  }),
-  kind: geographicDatum.kind,
-  id: geographicDatum.trr_id.toString(),
-  category: geographicDatum['firearm_used'] ? 'Firearm' : geographicDatum.taser ? 'Taser' : 'Use of Force Report',
-});
-
 export const mapMarkersSelector = createSelector(
   getGeographicData,
-  markers => markers.map(marker => {
-    if (marker.kind === MAP_ITEMS.CR) {
-      return crMapMarkersTransform(marker);
-    } else if (marker.kind === MAP_ITEMS.FORCE) {
-      return trrMapMarkerTransform(marker);
-    }
-  })
+  markers => compact(
+    markers.map(marker => {
+      if (marker.kind === MAP_ITEMS.CR) {
+        return crMapMarkersTransform(marker);
+      } else if (marker.kind === MAP_ITEMS.FORCE) {
+        return trrMapMarkerTransform(marker);
+      }
+    })
+  )
 );
 
 export const getCurrentTab = state => {

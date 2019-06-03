@@ -3,10 +3,11 @@ import { map, differenceBy, first, get, isEqual } from 'lodash';
 import cx from 'classnames';
 import { Muuri } from 'utils/vendors';
 
-import OfficerCard from './cards/officer-card';
-import CRCard from './cards/cr-card';
-import TRRCard from './cards/trr-card';
+import { OfficerCardWithUndo as OfficerCard } from './cards/officer-card';
+import { CRCardWithUndo as CRCard } from './cards/cr-card';
+import { TRRCardWithUndo as TRRCard } from './cards/trr-card';
 import styles from './pinned-type.sass';
+
 
 const CARD_MAP = {
   'OFFICER': OfficerCard,

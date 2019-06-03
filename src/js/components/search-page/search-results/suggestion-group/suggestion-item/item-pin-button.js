@@ -20,12 +20,13 @@ export default class ItemPinButton extends Component {
   }
 
   render() {
+    const { className } = this.props;
     const { isPinned } = this.props.suggestion;
 
     return (
       <span
         onClick={ this.handlePinboardButtonClick.bind(this) }
-        className={ cx(styles.wrapper, 'item-pin-btn', { 'is-pinned': isPinned }) }
+        className={ cx(styles.wrapper, { 'is-pinned': isPinned }, className) }
       />
     );
   }
@@ -39,4 +40,5 @@ ItemPinButton.propTypes = {
   }),
   onClick: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
+  className: PropTypes.string,
 };

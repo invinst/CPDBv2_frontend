@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map } from 'lodash';
+import { map, noop } from 'lodash';
 
 import {
+  searchResultsWrapperStyle,
   actionBarStyle,
   cancelButtonStyle,
   columnWrapperStyle,
@@ -19,6 +20,9 @@ import * as constants from 'utils/constants';
 import { SEARCH_PAGE_NAVIGATION_KEYS } from 'utils/constants';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
 import ScrollIntoView from 'components/common/scroll-into-view';
+import SearchTags from 'components/search-page/search-tags';
+import { buttonsWrapperStyle } from 'components/search-page/search-main-panel.style';
+import PinboardButtonContainer from 'containers/search-page/pinboard-button-container';
 
 
 export default class SuggestionResults extends Component {
@@ -132,20 +136,42 @@ export default class SuggestionResults extends Component {
   }
 
   render() {
-    const { isRequesting, aliasEditModeOn, previewPaneInfo } = this.props;
+    const {
+      isRequesting,
+      aliasEditModeOn,
+      previewPaneInfo,
+      tags,
+      onSelect,
+      contentType,
+      onEmptyPinboardButtonClick,
+    } = this.props;
 
     return (
-      <div style={ suggestionResultsStyle(aliasEditModeOn) }>
-        {
-          isRequesting ?
-            <div style={ loadingStyle }>
-              Loading...
-            </div> :
-            <div style={ resultWrapperStyle }>
-              { this.renderContent() }
-            </div>
-        }
-        <PreviewPane { ...previewPaneInfo }/>
+      <div style={ searchResultsWrapperStyle }>
+        <div style={ buttonsWrapperStyle }>
+          <SearchTags
+            tags={ tags }
+            onSelect={ onSelect }
+            selected={ contentType }
+            isRequesting={ isRequesting }
+          />
+          <PinboardButtonContainer
+            emptyText={ true }
+            onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
+          />
+        </div>
+        <div style={ suggestionResultsStyle(aliasEditModeOn) }>
+          {
+            isRequesting ?
+              <div style={ loadingStyle }>
+                Loading...
+              </div> :
+              <div style={ resultWrapperStyle }>
+                { this.renderContent() }
+              </div>
+          }
+          <PreviewPane { ...previewPaneInfo }/>
+        </div>
       </div>
     );
   }
@@ -158,6 +184,7 @@ SuggestionResults.propTypes = {
   isRequesting: PropTypes.bool,
   editModeOn: PropTypes.bool,
   onLoadMore: PropTypes.func,
+  onSelect: PropTypes.func,
   resetNavigation: PropTypes.func,
   setAliasAdminPageContent: PropTypes.func,
   isEmpty: PropTypes.bool,
@@ -172,11 +199,15 @@ SuggestionResults.propTypes = {
   totalItemCount: PropTypes.number,
   setSearchNavigation: PropTypes.func,
   addOrRemoveItemInPinboard: PropTypes.func,
+  tags: PropTypes.array,
+  contentType: PropTypes.string,
+  onEmptyPinboardButtonClick: PropTypes.func,
 };
 
 SuggestionResults.defaultProps = {
   previewPaneInfo: {},
   focusedItem: {},
-  getSuggestionWithContentType: () => {},
-  resetNavigation: () => {},
+  getSuggestionWithContentType: noop,
+  resetNavigation: noop,
+  onEmptyPinboardButtonClick: noop,
 };

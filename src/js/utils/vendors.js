@@ -64,6 +64,7 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
       this.setLngLat = setLngLatSpy;
       this.addTo = addToSpy;
       this.setPopup = setPopupSpy;
+      this.remove = removeSpy;
     }
   }
 

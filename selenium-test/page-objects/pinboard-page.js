@@ -59,13 +59,10 @@ class AnimatedSocialGraphSection extends Section {
       title: '(//div[contains(@class, "sidenav-title")])',
       coaccusalsThresholdText: '(//p[contains(@class, "coaccusals-threshold-text")])',
       toggleTimelineButton: '(//button[contains(@class, "toggle-timeline-btn")])',
-      searchInput: '(//input[contains(@class, "graph-search-input")])',
-      searchButton: '(//button[contains(@class, "graph-search-btn")])',
       startDate: '(//div[contains(@class, "start-date-label")])',
       endDate: '(//div[contains(@class, "end-date-label")])',
       currentDate: '(//span[contains(@class, "current-date-label")])',
       timelineSlider: '(//div[contains(@class, "test--timeline-slider")])',
-      firstSearchResultSuggestion: '(//div[@class="graph-search-input-container"]//div//div)',
       biggestGraphNode: '(//*[@r="7"])',
     });
   }
@@ -76,6 +73,10 @@ class AnimatedSocialGraphSection extends Section {
 
   graphLinks() {
     return browser.elements('(//*[name()="line" and contains(@class, "link")])').value;
+  }
+
+  graphLabels() {
+    return browser.elements('(//*[name()="text" and @class="node-label"])').value;
   }
 }
 
@@ -194,7 +195,7 @@ class PinboardPinnedSection extends Section {
   }
 }
 
-class GeoGraphicSection extends Section {
+class GeographicSection extends Section {
   constructor() {
     super();
 
@@ -220,7 +221,7 @@ class EmptyPinboardSection extends Section {
 class PinboardPage extends Page {
   pinnedSection = new PinboardPinnedSection();
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
-  geographicSection = new GeoGraphicSection();
+  geographicSection = new GeographicSection();
   pinboardSection = new PinboardSection();
   relevantDocumentsSection = new RelevantDocumentsSection();
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();

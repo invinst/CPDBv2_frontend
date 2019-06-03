@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { Router, createMemoryHistory, Route, browserHistory } from 'react-router';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
@@ -9,12 +10,15 @@ import {
   Simulate
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
-import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
 import MockStore from 'redux-mock-store';
+import RootReducer from 'reducers/root-reducer';
+import { createStore } from 'redux';
+import { Promise } from 'es6-promise';
 
 import * as navigateUtils from 'utils/navigate-to-search-item';
+import SearchPageContainer from 'containers/search-page';
 import SearchPage from 'components/search-page';
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import * as intercomUtils from 'utils/intercom';
@@ -23,11 +27,12 @@ import SearchTags from 'components/search-page/search-tags';
 import SearchBox from 'components/search-page/search-box';
 import { MORE_BUTTON, RECENT_CONTENT_TYPE } from 'utils/constants';
 import * as IntercomTracking from 'utils/intercom-tracking';
+import { showToast } from 'actions/toast';
 
 
 describe('SearchPage component', function () {
   let instance;
-  const store = MockStore()({
+  const state = {
     searchPage: {
       tags: [],
       navigation: {},
@@ -38,12 +43,14 @@ describe('SearchPage component', function () {
           itemIndex: 0,
         }
       },
-      pagination: {}
+      pagination: {},
     },
     pinboardPage: {
       pinboard: null,
     },
-  });
+    toast: {}
+  };
+  const store = MockStore()(state);
 
   beforeEach(function () {
     this.browserHistoryPush = stub(browserHistory, 'push');
@@ -60,7 +67,9 @@ describe('SearchPage component', function () {
   it('should call get suggestion api when change search input', function () {
     const getSuggestion = stub().returns({ catch: spy() });
     instance = renderIntoDocument(
-      <SearchPage getSuggestion={ getSuggestion } />
+      <Provider store={ store }>
+        <SearchPage getSuggestion={ getSuggestion } />
+      </Provider>
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = 'a';
@@ -122,7 +131,9 @@ describe('SearchPage component', function () {
   it('should clear all tags when user remove all text', function () {
     const selectTag = spy();
     instance = renderIntoDocument(
-      <SearchPage selectTag={ selectTag } />
+      <Provider store={ store }>
+        <SearchPage selectTag={ selectTag } />
+      </Provider>
     );
     const searchInput = findRenderedDOMComponentWithTag(instance, 'input');
     searchInput.value = '';
@@ -132,7 +143,9 @@ describe('SearchPage component', function () {
 
   it('should call browserHistory.push when user click on searchbar__button--back', function () {
     instance = renderIntoDocument(
-      <SearchPage />
+      <Provider store={ store }>
+        <SearchPage />
+      </Provider>
     );
 
     const backButton = findRenderedDOMComponentWithClass(instance, 'searchbar__button--back');
@@ -142,14 +155,16 @@ describe('SearchPage component', function () {
 
   it('should call router.goBack when user hit ESCAPE', function () {
     instance = renderIntoDocument(
-      <SearchPage />
+      <Provider store={ store }>
+        <SearchPage />
+      </Provider>
     );
 
     Mousetrap.trigger('esc');
     this.browserHistoryPush.calledWith('/').should.be.true();
   });
 
-  it('should change to search path when user type in search box', function () {
+  it('should not change the current search path when user type in search box', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <SearchPage searchTermsHidden={ false }/>
@@ -157,15 +172,15 @@ describe('SearchPage component', function () {
     );
     const searchBox = findRenderedComponentWithType(instance, SearchBox);
     searchBox.props.onChange({ currentTarget: { value: 'jer' } });
-    this.browserHistoryPush.calledWith('/search/').should.be.true();
+    this.browserHistoryPush.called.should.be.false();
   });
 
   describe('handleViewItem', function () {
     it('should use browserHistory.push() if visiting focused item with internal link', function () {
       instance = renderIntoDocument(
-        <SearchPage focusedItem={ NavigationItem.build({ to: '/dummy/url' }) }
-
-        />
+        <Provider store={ store }>
+          <SearchPage focusedItem={ NavigationItem.build({ to: '/dummy/url' }) } />
+        </Provider>
       );
       Mousetrap.trigger('enter');
       this.browserHistoryPush.calledWith('/dummy/url').should.be.true();
@@ -174,9 +189,11 @@ describe('SearchPage component', function () {
     it('should call handleSelect to show more suggestion items when entering on More button', function () {
       const handleSelectStub = stub(SearchPage.prototype, 'handleSelect');
       instance = renderIntoDocument(
-        <SearchPage
-          focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
-          />
+        <Provider store={ store }>
+          <SearchPage
+            focusedItem={ NavigationItem.build({ id: 'OFFICER', 'type': MORE_BUTTON }) }
+            />
+        </Provider>
       );
       Mousetrap.trigger('enter');
       handleSelectStub.calledWith('OFFICER');
@@ -491,14 +508,18 @@ describe('SearchPage component', function () {
 
       it('should hide intercom launcher when mounted', function () {
         instance = renderIntoDocument(
-          <SearchPage/>
+          <Provider store={ store }>
+            <SearchPage/>
+          </Provider>
         );
         intercomUtils.showIntercomLauncher.calledWith(false).should.be.true();
       });
 
       it('should show intercom launcher again when unmounted', function () {
         instance = renderIntoDocument(
-          <SearchPage/>
+          <Provider store={ store }>
+            <SearchPage/>
+          </Provider>
         );
         intercomUtils.showIntercomLauncher.resetHistory();
         unmountComponentSuppressError(instance);
@@ -517,10 +538,65 @@ describe('SearchPage component', function () {
 
       it('should track Intercom with search page', function () {
         instance = renderIntoDocument(
-          <SearchPage/>
+          <Provider store={ store }>
+            <SearchPage/>
+          </Provider>
         );
         IntercomTracking.trackSearchPage.called.should.be.true();
       });
     });
+  });
+
+  it('should show toast on toast prop change', function () {
+    const showToastStub = spy(SearchPage.prototype, 'showToast');
+
+    const store = createStore(RootReducer, state);
+
+    const searchPage = () => (
+      <Provider store={ store }>
+        <SearchPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ searchPage } />
+      </Router>
+    );
+
+    store.dispatch(showToast({
+      isPinned: true,
+      type: 'CR',
+    }));
+
+    showToastStub.should.be.called();
+  });
+
+  it('should handle when click on pinboard button if pinboard is not exist', function (done) {
+    const store = createStore(RootReducer, state);
+    const createPinboard = stub().usingPromise(Promise).resolves({
+      payload: {
+        id: '5cd06f2b',
+        url: '/pinboard/5cd06f2b/'
+      }
+    });
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage
+          createPinboard={ createPinboard }
+        />
+      </Provider>
+    );
+
+    const searchPage = findRenderedComponentWithType(instance, SearchPage);
+    searchPage.handleEmptyPinboardButtonClick();
+
+    createPinboard.calledWith({ officerIds: [], trrIds: [], crids: [] }).should.be.true();
+
+    setTimeout(() => {
+      this.browserHistoryPush.called.should.be.true();
+      done();
+    }, 50);
   });
 });

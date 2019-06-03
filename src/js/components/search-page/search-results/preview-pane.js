@@ -13,7 +13,7 @@ import {
   RankPane,
   SearchTermItemPane,
   CRPane
-} from 'components/search-page/preview-pane';
+} from 'components/common/preview-pane';
 import { wrapperStyle } from './preview-pane.style';
 
 

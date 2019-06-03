@@ -1,16 +1,12 @@
 @import 'variables'
+@import './with-undo-card'
+
 
 \:local(.location-card)
-  position: relative
-  width: 148px
-  height: 176px
+  @extend %card
+  border-color: $white-two-color
   color: $soft-black-color
-  box-sizing: border-box
-  border: 1px solid $white-two-color
-  border-radius: 2px
-  font-size: 14px
   margin: 0 8px 8px 0
-  font-weight: 300
 
   .location-card-map
     width: 100%
