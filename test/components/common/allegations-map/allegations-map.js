@@ -10,7 +10,7 @@ import {
 import { mapboxgl } from 'utils/vendors';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
-import AllegationsMap from 'components/common/allegations-map';
+import AllegationsMap, { AllegationsMapWithSpinner } from 'components/common/allegations-map';
 import Legend from 'components/common/allegations-map/legend';
 import mapStyles from 'components/common/allegations-map/allegations-map.sass';
 import legendStyles from 'components/common/allegations-map/legend/legend.sass';
@@ -76,14 +76,17 @@ describe('Map component', function () {
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
   });
 
-  it('should render only loading spinner if requesting is true ', function () {
-    instance = renderIntoDocument(<AllegationsMap legend={ legend } requesting={ true } />);
+  context('WithSpinner', function () {
+    it('should render only loading spinner if requesting is true ', function () {
+      instance = renderIntoDocument(<AllegationsMapWithSpinner legend={ legend } requesting={ true } />);
 
-    const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
-    loadingSpinner.props.className.should.equal('allegation-map-loading');
+      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
+      loadingSpinner.props.className.should.equal(mapStyles.allegationMapLoading);
 
-    scryRenderedComponentsWithType(instance, Legend).should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'map-tab').should.have.length(0);
+      scryRenderedComponentsWithType(instance, AllegationsMap).should.have.length(0);
+      scryRenderedComponentsWithType(instance, Legend).should.have.length(0);
+      scryRenderedDOMComponentsWithClass(instance, 'map-tab').should.have.length(0);
+    });
   });
 
   it('should rerender', function () {

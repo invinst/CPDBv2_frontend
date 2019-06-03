@@ -77,5 +77,16 @@ export const switchToRecentTab = () => {
   const handles = browser.getTabIds();
   const oldUrl = browser.getUrl();
   browser.switchTab(handles[handles.length - 1]);
-  browser.waitUntil(() => browser.getUrl() !== oldUrl, 5000, 'Cannot switch to the recent tab.');
+  browser.waitUntil(
+    () => {
+      try {
+        return browser.getUrl() !== oldUrl;
+      }
+      catch (err) {
+        return false;
+      }
+    },
+    5000,
+    'Cannot switch to the recent tab.'
+  );
 };

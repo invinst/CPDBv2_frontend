@@ -13,8 +13,8 @@ import { stub } from 'sinon';
 import { PINBOARD_PAGE_TAB_NAMES } from 'utils/constants';
 import { unmountComponentSuppressError } from 'utils/test';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
-import AnimatedSocialGraph from 'components/common/animated-social-graph';
-import AllegationsMap from 'components/common/allegations-map';
+import { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
+import { AllegationsMapWithSpinner } from 'components/common/allegations-map';
 
 
 describe('PinboardPaneSection component', function () {
@@ -92,7 +92,7 @@ describe('PinboardPaneSection component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AnimatedSocialGraph).should.be.ok();
+    findRenderedComponentWithType(instance, AnimatedSocialGraphWithSpinner).should.be.ok();
   });
 
   it('should render geographic tab', function () {
@@ -102,7 +102,7 @@ describe('PinboardPaneSection component', function () {
       </Provider>
     );
 
-    findRenderedComponentWithType(instance, AllegationsMap).should.be.ok();
+    findRenderedComponentWithType(instance, AllegationsMapWithSpinner).should.be.ok();
   });
 
   it('should call changePinboardTab when clicking tab name', function () {

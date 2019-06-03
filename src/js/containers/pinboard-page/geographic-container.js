@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import AllegationsMap from 'components/common/allegations-map';
+import { AllegationsMapWithSpinner } from 'components/common/allegations-map';
 import {
   mapLegendSelector,
   mapMarkersSelector,
@@ -17,4 +17,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default withRouter(connect(mapStateToProps)(AllegationsMap));
+export default withRouter(connect(mapStateToProps)(AllegationsMapWithSpinner));

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { graphDataSelector, getRequesting, getExpandedLink } from 'selectors/pinboard-page/social-graph';
-import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -14,4 +14,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps)(AnimatedSocialGraph);
+export default connect(mapStateToProps)(AnimatedSocialGraphWithSpinner);
