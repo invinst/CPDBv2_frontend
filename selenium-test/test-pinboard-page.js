@@ -23,6 +23,16 @@ describe('Pinboard Page', function () {
     browser.getUrl().should.endWith('/search/');
   });
 
+  it('should go to landing page when header is clicked', function () {
+    pinboardPage.headerTitle.click();
+    browser.getUrl().replace(/https?:\/\/[^/]+/, '').should.equal('/');
+  });
+
+  it('should go to Q&A url when clicking on Q&A link', function () {
+    pinboardPage.headerQALink.click();
+    browser.getUrl().should.equal('http://how.cpdp.works/');
+  });
+
   context('pinboard pinned section', function () {
     it('should render the pinned cards correctly', function () {
       const officers = pinboardPage.pinnedSection.officers;
@@ -375,5 +385,15 @@ describe('Pinboard Page', function () {
       browser.pause(500);
       browser.getUrl().should.match(/\/complaint\/1071234\/$/);
     });
+  });
+});
+
+describe('Empty Pinboard Page', function () {
+  beforeEach(function () {
+    pinboardPage.open('abcd1234');
+  });
+
+  it('should render when there is no content', function () {
+    pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
   });
 });

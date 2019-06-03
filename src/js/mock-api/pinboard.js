@@ -16,6 +16,15 @@ export const fetchPinboard = () => ({
   'description': 'Pinboard Description',
 });
 
+export const fetchEmptyPinboard = () => ({
+  'id': 'abcd1234',
+  'title': '',
+  'officer_ids': [],
+  'crids': [],
+  'trr_ids': [],
+  'description': '',
+});
+
 export const updatePinboard = () => ({
   'id': '5cd06f2b',
   'title': '',
