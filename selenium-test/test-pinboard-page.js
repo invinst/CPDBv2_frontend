@@ -55,6 +55,7 @@ describe('Pinboard Page', function () {
     it('should update title and description after editing and out focusing them', function () {
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
+      browser.getUrl().should.containEql('/pinboard-title/');
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.title.click();
       pinboardPage.pinboardSection.title.setValue('Updated Title');
@@ -63,6 +64,7 @@ describe('Pinboard Page', function () {
       pinboardPage.pinboardSection.networkPaneName.click();
       pinboardPage.pinboardSection.title.getValue().should.equal('Updated Title');
       pinboardPage.pinboardSection.description.getValue().should.equal('Updated Description');
+      browser.getUrl().should.containEql('/updated-title/');
     });
   });
 

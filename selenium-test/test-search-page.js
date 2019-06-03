@@ -581,7 +581,7 @@ describe('Search Page with pinboard functionalities', function () {
 
     searchPage.firstOfficerPinButton.click();
     searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/);
+    browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
   });
 
   it('should display pinboard tooltip bar when not search', function () {

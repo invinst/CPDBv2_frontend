@@ -5,6 +5,7 @@ import PinboardPage from 'components/pinboard-page';
 import { hasMapMarkersSelector, getCurrentTab } from 'selectors/pinboard-page/geographic-data';
 import { isInitiallyLoading, shouldRedirect } from 'selectors/pinboard-page/redirection';
 import { changePinboardTab } from 'actions/pinboard';
+import { updatePathName } from 'actions/path-name';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -19,6 +20,7 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   changePinboardTab,
+  updatePathName
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PinboardPage);

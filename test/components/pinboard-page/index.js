@@ -12,7 +12,7 @@ import * as ReactRouter from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
 import should from 'should';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
@@ -22,6 +22,7 @@ import SearchBar from 'components/pinboard-page/search-bar';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
+import PinboardPage from 'components/pinboard-page';
 import { PINBOARD_PAGE_REDIRECT, PINBOARD_PAGE_INITIAL_LOADING } from 'utils/constants';
 
 
@@ -110,6 +111,40 @@ describe('PinboardPage component', function () {
 
     replaceStub.calledWith('/pinboard/5cd06f2b/pinboard-title/').should.be.true();
     replaceStub.restore();
+  });
+
+  it('should called updatePathName when componentDidUpdate if title is updated', function () {
+    const updatePathNameStub = stub();
+    const pinboard = {
+      'id': '5cd06f2b',
+      'title': 'Pinboard title',
+      'url': '/pinboard/5cd06f2b/pinboard-title/'
+    };
+    const updatedPinboard = {
+      'id': '5cd06f2b',
+      'title': 'Pinboard title',
+      'url': '/pinboard/5cd06f2b/updated-title/'
+    };
+    const state = {
+      pinboardPage: createPinboardPage(pinboard),
+      pathname: 'pinboard/5cd06f2b',
+    };
+    const store = ReduxCreateStore(RootReducer, state);
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard }/>
+      </Provider>
+    );
+
+    instance = reRender(
+      <Provider store={ store }>
+        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard }/>
+      </Provider>,
+      instance
+    );
+
+    updatePathNameStub.should.be.calledWith('/pinboard/5cd06f2b/updated-title/');
   });
 
   it('should render PinnedSection component and SearchBar component', function () {

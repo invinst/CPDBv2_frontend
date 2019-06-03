@@ -16,10 +16,16 @@ import FooterContainer from 'containers/footer-container';
 
 
 export default class PinboardPage extends Component {
-  componentDidUpdate(prevProps, prevState) {
-    const { shouldRedirect, pinboard } = this.props;
-    if (shouldRedirect && pinboard.url !== '') {
-      browserHistory.replace(pinboard.url);
+  componentDidUpdate(prevProps) {
+    const { pinboard } = prevProps;
+    const { pinboard: currentPinboard, shouldRedirect, updatePathName } = this.props;
+
+    if (currentPinboard.url !== '') {
+      if (shouldRedirect) {
+        browserHistory.replace(currentPinboard.url);
+      } else if (currentPinboard.url !== pinboard.url) {
+        updatePathName(currentPinboard.url);
+      }
     }
   }
 
@@ -71,5 +77,6 @@ PinboardPage.propTypes = {
   hasMapMarker: PropTypes.bool,
   shouldRedirect: PropTypes.bool,
   isInitiallyLoading: PropTypes.bool,
+  updatePathName: PropTypes.func,
 };
 
