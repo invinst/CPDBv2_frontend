@@ -396,4 +396,14 @@ describe('Empty Pinboard Page', function () {
   it('should render when there is no content', function () {
     pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
   });
+
+  it('should go to Watts Crew pinboard page when clicking on Repeaters row', function () {
+    pinboardPage.emptyPinboardSection.repeatersRow.click();
+    browser.getUrl().should.match(/pinboard\/b20c2c36\//);
+  });
+
+  it('should go to Skullcap Crew pinboard page when clicking on Skullcap Crew row', function () {
+    pinboardPage.emptyPinboardSection.skullcapCrewRow.click();
+    browser.getUrl().should.match(/pinboard\/22e66085\//);
+  });
 });

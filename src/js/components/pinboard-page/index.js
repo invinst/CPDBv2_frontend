@@ -18,7 +18,7 @@ import EmptyPinboard from './empty-pinboard';
 export default class PinboardPage extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { shouldRedirect, pinboard } = this.props;
-    if (shouldRedirect && pinboard.url !== '') {
+    if (shouldRedirect && prevProps.pinboard.id !== pinboard.id && pinboard.url !== '') {
       browserHistory.replace(pinboard.url);
     }
   }
