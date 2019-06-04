@@ -35,11 +35,7 @@ export default class PinboardPage extends Component {
       currentTab,
       hasMapMarker,
       isEmptyPinboard,
-      initialRequested,
     } = this.props;
-
-    if (!initialRequested)
-      return null;
 
     if (isEmptyPinboard) {
       return EmptyPinboard;
@@ -71,9 +67,9 @@ export default class PinboardPage extends Component {
   }
 
   render() {
-    const { isInitiallyLoading, isEmptyPinboard } = this.props;
+    const { initialRequested, isEmptyPinboard } = this.props;
 
-    if (isInitiallyLoading) {
+    if (!initialRequested) {
       return null;
     }
 
