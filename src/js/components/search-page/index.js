@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
-import { debounce, isEmpty } from 'lodash';
+import { debounce, isEmpty, noop } from 'lodash';
 import { Promise } from 'es6-promise';
 import DocumentMeta from 'react-document-meta';
 import { toast, cssTransition } from 'react-toastify';
@@ -16,6 +16,7 @@ import {
 } from './search-page.style.js';
 import { navigateToSearchItem } from 'utils/navigate-to-search-item';
 import * as LayeredKeyBinding from 'utils/layered-key-binding';
+import { generatePinboardUrl } from 'utils/pinboard';
 import SearchMainPanel from './search-main-panel';
 import HoverableButton from 'components/common/hoverable-button';
 import {
@@ -40,6 +41,7 @@ export default class SearchPage extends Component {
 
     this.getSuggestion = debounce(this.props.getSuggestion, 100);
     this.getSuggestionWithContentType = debounce(this.props.getSuggestionWithContentType, 100);
+    this.handleEmptyPinboardButtonClick = this.handleEmptyPinboardButtonClick.bind(this);
   }
 
   componentDidMount() {
@@ -146,7 +148,7 @@ export default class SearchPage extends Component {
     selectTag(null);
 
     if (value) {
-      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(() => {});
+      this.getSuggestion(value, { limit: DEFAULT_SUGGESTION_LIMIT }).catch(noop);
     }
   }
 
@@ -167,6 +169,19 @@ export default class SearchPage extends Component {
       selectTag(newContentType);
     }
     this.resetNavigation();
+  }
+
+  handleEmptyPinboardButtonClick() {
+    const { createPinboard } = this.props;
+
+    createPinboard({ 'officerIds': [], crids: [], 'trrIds': [] }).then(response => {
+      const pinboard = response.payload;
+      const url = generatePinboardUrl(pinboard);
+
+      if (!isEmpty(url)) {
+        browserHistory.push(url);
+      }
+    });
   }
 
   render() {
@@ -212,6 +227,7 @@ export default class SearchPage extends Component {
               searchTermsHidden={ searchTermsHidden }
               handleSelect={ this.handleSelect }
               tags={ tags }
+              onEmptyPinboardButtonClick={ this.handleEmptyPinboardButtonClick }
             />
           </div>
         </div>
@@ -248,24 +264,26 @@ SearchPage.propTypes = {
   tags: PropTypes.array,
   isRequesting: PropTypes.bool,
   toast: PropTypes.object,
+  createPinboard: PropTypes.func,
 };
 
 /* istanbul ignore next */
 SearchPage.defaultProps = {
   contentType: null,
   focusedItem: {},
-  getSuggestion: () => new Promise(() => {}),
-  getSuggestionWithContentType: () => new Promise(() => {}),
-  trackRecentSuggestion: () => {},
-  changeSearchQuery: () => {},
+  getSuggestion: () => new Promise(noop),
+  getSuggestionWithContentType: () => new Promise(noop),
+  trackRecentSuggestion: noop,
+  changeSearchQuery: noop,
   location: {
     pathname: '/'
   },
   searchTermsHidden: true,
   selectTag: (...args) => {},
   pushBreadcrumbs: (...args) => {},
-  resetSearchResultNavigation: () => {},
-  resetSearchTermNavigation: () => {},
+  resetSearchResultNavigation: noop,
+  resetSearchTermNavigation: noop,
   firstItem: {},
   toast: {},
+  createPinboard: noop
 };

@@ -1,4 +1,4 @@
-import { get, isUndefined } from 'lodash';
+import { get, isUndefined, compact } from 'lodash';
 import { createSelector } from 'reselect';
 
 import { getOfficerInfo } from 'selectors/officer-page';
@@ -53,12 +53,14 @@ export const trrMapMarkerTransform = item => ({
 
 export const mapMarkersSelector = createSelector(
   rawMapMarkersSelector,
-  markers => markers.map(marker => {
-    if (marker.kind === MAP_ITEMS.CR) {
-      return crMapMarkersTransform(marker);
-    }
-    if (marker.kind === MAP_ITEMS.FORCE) {
-      return trrMapMarkerTransform(marker);
-    }
-  })
+  markers => compact(
+    markers.map(marker => {
+      if (marker.kind === MAP_ITEMS.CR) {
+        return crMapMarkersTransform(marker);
+      }
+      if (marker.kind === MAP_ITEMS.FORCE) {
+        return trrMapMarkerTransform(marker);
+      }
+    })
+  )
 );

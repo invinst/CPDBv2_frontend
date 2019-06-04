@@ -54,13 +54,11 @@ describe('RelevantCoaccusals component', function () {
 
     const relevantCoaccusalCards = scryRenderedComponentsWithType(relevantInfiniteCarousel, RelevantCoaccusalCard);
     relevantCoaccusalCards.should.have.length(2);
-    relevantCoaccusalCards[0].props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
     relevantCoaccusalCards[0].props.id.should.eql(123);
     relevantCoaccusalCards[0].props.fullName.should.eql('Jerome Finnigan');
     relevantCoaccusalCards[0].props.percentile.should.eql({});
     relevantCoaccusalCards[0].props.rank.should.eql('Officer');
     relevantCoaccusalCards[0].props.coaccusalCount.should.eql(11);
-    relevantCoaccusalCards[1].props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
     relevantCoaccusalCards[1].props.id.should.eql(456);
     relevantCoaccusalCards[1].props.fullName.should.eql('Jerome Turbyville');
     relevantCoaccusalCards[1].props.percentile.should.eql({});

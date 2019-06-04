@@ -7,17 +7,22 @@
   font-size: 14px
 
   .header-title
+    display: block
     box-sizing: border-box
-    display: inline-block
-    width: 48px
     padding-left: 16px
-    height: 100%
     line-height: 40px
     text-decoration: none
-    color: inherit
+    background-color: $sugar-cane-color
+    color: $boulder-color
+    border-radius: 2px 2px 0 0
+    box-shadow: inset 0 -2px 2px 0 rgba(0, 0, 0, 0.1)
 
     &:visited, &:link
       color: inherit
+
+    &:hover
+      background-color: $white-two-color
+      color: $soft-black-color
 
   .inner-wrapper
     position: relative
@@ -27,42 +32,48 @@
   .header-parent
     position: absolute
     bottom: 0
-    background-color: $sugar-cane-color
     height: 40px
     width: calc(100% - 28px)
     margin: 0 14px
     min-width: 305px
+    cursor: pointer
 
   .right-menu
     float: right
     height: 100%
-    width: calc(100% - 48px)
-    display: inline-block
+    width: 100%
     text-align: right
+    position: relative
+    top: -40px
+    z-index: 1
+    pointer-events: none
 
     .menu-item
       display: inline-block
       height: 100%
       line-height: 40px
       margin-right: 5.38%
+      color: $boulder-color
+      pointer-events: auto
 
-      &:visited, &:link
-        color: $boulder-color
+      &:hover
+        color: $soft-black-color
 
-    .menu-item:last-child
-      margin-right: 16px
+      &:last-child
+        margin-right: 16px
 
-    .highlight
-      color: $soft-black-color
-      position: relative
+      &.highlight
+        color: $soft-black-color
+        position: relative
+        cursor: default
 
-    .highlight::after
-      content: ""
-      position: absolute
-      width: 8px
-      height: 8px
-      border-radius: 50%
-      background-color: $mine-shaft-color
-      display: inline-block
-      bottom: -5px
-      left: calc(50% - 4px)
+        &::after
+          content: ""
+          position: absolute
+          width: 8px
+          height: 8px
+          border-radius: 50%
+          background-color: $mine-shaft-color
+          display: inline-block
+          bottom: -3px
+          left: calc(50% - 4px)

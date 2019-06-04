@@ -7,7 +7,7 @@ class PinnedOfficers extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--OFFICER-section")]';
-    const firstCardSelector = `(${sectionSelector}/div[@class="type-cards"]/div)[1]`;
+    const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
@@ -24,7 +24,7 @@ class PinnedCRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--CR-section")]';
-    const firstCardSelector = `(${sectionSelector}/div[@class="type-cards"]/div)[1]`;
+    const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
@@ -40,7 +40,7 @@ class PinnedTRRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--TRR-section")]';
-    const firstCardSelector = `(${sectionSelector}/div[@class="type-cards"]/div)[1]`;
+    const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
@@ -59,13 +59,10 @@ class AnimatedSocialGraphSection extends Section {
       title: '(//div[contains(@class, "sidenav-title")])',
       coaccusalsThresholdText: '(//p[contains(@class, "coaccusals-threshold-text")])',
       toggleTimelineButton: '(//button[contains(@class, "toggle-timeline-btn")])',
-      searchInput: '(//input[contains(@class, "graph-search-input")])',
-      searchButton: '(//button[contains(@class, "graph-search-btn")])',
       startDate: '(//div[contains(@class, "start-date-label")])',
       endDate: '(//div[contains(@class, "end-date-label")])',
       currentDate: '(//span[contains(@class, "current-date-label")])',
       timelineSlider: '(//div[contains(@class, "test--timeline-slider")])',
-      firstSearchResultSuggestion: '(//div[@class="graph-search-input-container"]//div//div)',
       biggestGraphNode: '(//*[@r="7"])',
     });
   }
@@ -76,6 +73,10 @@ class AnimatedSocialGraphSection extends Section {
 
   graphLinks() {
     return browser.elements('(//*[name()="line" and contains(@class, "link")])').value;
+  }
+
+  graphLabels() {
+    return browser.elements('(//*[name()="text" and @class="node-label"])').value;
   }
 }
 
@@ -194,7 +195,7 @@ class PinboardPinnedSection extends Section {
   }
 }
 
-class GeoGraphicSection extends Section {
+class GeographicSection extends Section {
   constructor() {
     super();
 
@@ -207,25 +208,39 @@ class GeoGraphicSection extends Section {
   }
 }
 
+class EmptyPinboardSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      mainElement: '//div[contains(@class, "empty-pinboard__empty-pinboard")]',
+    });
+  }
+}
+
 class PinboardPage extends Page {
   pinnedSection = new PinboardPinnedSection();
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
-  geographicSection = new GeoGraphicSection();
+  geographicSection = new GeographicSection();
   pinboardSection = new PinboardSection();
   relevantDocumentsSection = new RelevantDocumentsSection();
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();
   relevantComplaintsSection = new RelevantComplaintsSection();
+  emptyPinboardSection = new EmptyPinboardSection();
 
   constructor() {
     super();
 
     this.prepareElementGetters({
-      searchBar: '//div[starts-with(@class, "search-bar")]'
+      searchBar: '//div[@class="pinboard-header"]//div[starts-with(@class, "search-bar")]',
+      header: '.pinboard-header .header-parent',
+      headerTitle: '.pinboard-header .header-title',
+      headerQALink: '//div[@class="pinboard-header"]//div[@class="menu-item" and text()="Q&A"]',
     });
   }
 
-  open() {
-    super.open('/pinboard/5cd06f2b/pinboard-title/');
+  open(id='5cd06f2b') {
+    super.open(`/pinboard/${id}/`);
   }
 }
 

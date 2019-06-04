@@ -1,60 +1,53 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import cx from 'classnames';
 import config from 'config';
 import { Link } from 'react-router';
 
 import { QA_LINK } from 'utils/constants';
+import { pushPathPreserveEditMode } from 'utils/edit-path';
 import styles from './header.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
+import { trackOutboundLink } from 'utils/google_analytics_tracking';
 
 const MENU_ITEMS = [
   {
     name: 'Data',
-    internal: false,
-    link: config.v1Url,
+    url: config.v1Url,
   },
   {
     name: 'Q&A',
-    internal: false,
-    link: QA_LINK,
+    url: QA_LINK,
   },
   {
     name: 'Documents',
-    internal: true,
-    link: '/documents/',
+    to: '/documents/',
   },
   {
     name: 'Pinboard',
-    internal: true,
-    link: '/',
   },
 ];
 
 
 export default class Header extends Component {
-  renderRightMenu() {
-    const { choice } = this.props;
+  handleItemClick(e, item) {
+    e.preventDefault();
+    if (item.to) {
+      pushPathPreserveEditMode(item.to);
+    } else if (item.url) {
+      trackOutboundLink(item.url);
+    }
+  }
 
-    const items = MENU_ITEMS.map((item) => {
-      if (item.internal) {
-        return (
-          <Link
-            key={ item.name }
-            className={ cx('menu-item', { 'highlight': choice === item.name }) }
-            to={ choice !== item.name ? item.link : null }>
-            { item.name }
-          </Link>
-        );
-      }
-      return (
-        <a
-          key={ item.name }
-          className={ cx('menu-item', { 'highlight': choice === item.name }) }
-          href={ choice !== item.name ? item.link : null }>
-          { item.name }
-        </a>
-      );
-    });
+  renderRightMenu() {
+    const items = MENU_ITEMS.map((item) => (
+      <div
+        key={ item.name }
+        className={ cx('menu-item', { 'highlight': item.name === 'Pinboard' }) }
+        onClick={ e => this.handleItemClick(e, item) }
+      >
+        { item.name }
+      </div>
+    ));
 
     return (
       <div className='right-menu'>
@@ -68,9 +61,7 @@ export default class Header extends Component {
       <div className={ styles.wrapper } >
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'inner-wrapper') }>
           <div className='header-parent'>
-            <Link
-              className='header-title'
-              to='/'>
+            <Link className='header-title' to='/'>
               cpdp
             </Link>
             { this.renderRightMenu() }
@@ -80,11 +71,3 @@ export default class Header extends Component {
     );
   }
 }
-
-Header.propTypes = {
-  choice: PropTypes.string,
-};
-
-Header.defaultProps = {
-  choice: MENU_ITEMS[3].name,
-};

@@ -1,7 +1,7 @@
 'use strict';
 
 require('should');
-import { map, countBy, values, filter, times } from 'lodash';
+import { map, countBy, filter, times } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
 
@@ -21,6 +21,16 @@ describe('Pinboard Page', function () {
     pinboardPage.searchBar.click();
     browser.element('.search-page').waitForVisible();
     browser.getUrl().should.endWith('/search/');
+  });
+
+  it('should go to landing page when header is clicked', function () {
+    pinboardPage.headerTitle.click();
+    browser.getUrl().replace(/https?:\/\/[^/]+/, '').should.equal('/');
+  });
+
+  it('should go to Q&A url when clicking on Q&A link', function () {
+    pinboardPage.headerQALink.click();
+    browser.getUrl().should.equal('http://how.cpdp.works/');
   });
 
   context('pinboard pinned section', function () {
@@ -62,16 +72,56 @@ describe('Pinboard Page', function () {
 
       const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
       const graphLinks = pinboardPage.animatedSocialGraphSection.graphLinks();
+      const graphLabels = pinboardPage.animatedSocialGraphSection.graphLabels();
 
       graphNodes.should.have.length(20);
       graphLinks.should.have.length(37);
+      graphLabels.should.have.length(5);
 
-      const groupsColors = map(
+      const nodeGroupColors = countBy(map(
         graphNodes,
         (graphNode) => graphNode.getCssProperty('fill').value
+      ));
+      const expectedNodeGroupColors = {
+        'rgb(253,94,76)': 6,
+        'rgb(244,162,152)': 6,
+        'rgb(249,211,195)': 5,
+        'rgb(243,42,41)': 1,
+        'rgb(255,80,80)': 1,
+        'rgb(243,173,173)': 1,
+      };
+      nodeGroupColors.should.eql(expectedNodeGroupColors);
+
+      const linkGroupColors = countBy(map(
+        graphLinks,
+        (graphLink) => graphLink.getAttribute('class').match(/link-group-color-[\d]/)
+      ));
+
+      const expectedlinkGroupColors = {
+        'link-group-color-1': 6,
+        'link-group-color-2': 6,
+        'link-group-color-3': 6,
+        'link-group-color-4': 6,
+        'link-group-color-5': 6,
+        'link-group-color-6': 7,
+      };
+
+      linkGroupColors.should.eql(expectedlinkGroupColors);
+
+      const graphLabelTexts = map(
+        graphLabels,
+        (graphLabel) => graphLabel.getText()
       );
-      const groupsCount = values(countBy(groupsColors));
-      groupsCount.sort((a, b) => a - b).should.eql([3, 5, 6, 6]);
+
+      const expectedGraphLabelTexts = [
+        'Donnell Calhoun',
+        'Eugene Offett',
+        'Johnny Cavers',
+        'Melvin Ector',
+        'Thomas Kampenga'
+      ];
+
+      graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);
     });
 
     it('should show connected nodes when double click on a node', function () {
@@ -149,18 +199,19 @@ describe('Pinboard Page', function () {
       pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
       pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(14);
       const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
-      const groupsColors = map(
+      const groupsColors = countBy(map(
         graphNodes,
         (graphNode) => graphNode.getCssProperty('fill').value
-      );
-      const groupsCount = values(countBy(groupsColors));
-      groupsCount.sort((a, b) => a - b).should.eql([3, 3, 3, 11]);
-    });
-
-    it('should be able to search', function () {
-      pinboardPage.animatedSocialGraphSection.searchInput.setValue('Tho');
-      pinboardPage.animatedSocialGraphSection.firstSearchResultSuggestion.click();
-      pinboardPage.animatedSocialGraphSection.searchInput.getValue().should.equal('Thomas Kampenga');
+      ));
+      const expectedGroupsColors = {
+        'rgb(253,94,76)': 6,
+        'rgb(244,162,152)': 6,
+        'rgb(249,211,195)': 5,
+        'rgb(243,42,41)': 1,
+        'rgb(255,80,80)': 1,
+        'rgb(243,173,173)': 1,
+      };
+      groupsColors.should.eql(expectedGroupsColors);
     });
 
     it('should render geographic section', function () {
@@ -334,5 +385,15 @@ describe('Pinboard Page', function () {
       browser.pause(500);
       browser.getUrl().should.match(/\/complaint\/1071234\/$/);
     });
+  });
+});
+
+describe('Empty Pinboard Page', function () {
+  beforeEach(function () {
+    pinboardPage.open('abcd1234');
+  });
+
+  it('should render when there is no content', function () {
+    pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
   });
 });

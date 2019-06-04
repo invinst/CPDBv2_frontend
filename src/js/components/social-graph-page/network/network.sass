@@ -1,0 +1,66 @@
+@import 'variables'
+
+$social-graph-main-sidebar-width: 244px
+$network-right-sidebar-width: 351px
+
+\:local(.networkGraph)
+  background-color: $sugar-cane-color
+
+  .left-section
+    width: $social-graph-main-sidebar-width
+    height: 100vh
+    padding: 12px 28px 39px 12px
+    box-sizing: border-box
+    float: left
+    font-size: 14px
+    color: $boulder-color
+    font-weight: 300
+    box-shadow: 0 1px 2px 0 $black15-color
+
+    .back-to-pinboard-link
+      color: $soft-black-color
+      display: block
+      width: 100%
+      margin-bottom: 20px
+
+    .social-graph-title
+      color: $soft-black-color
+      font-weight: normal
+      margin-bottom: 9px
+
+    .coaccusals-threshold-slider-container
+      margin-bottom: 7px
+
+      .coaccusals-threshold-slider
+        margin: 8px 0
+
+        .rc-slider-handle
+          width: 48px
+          height: 24px
+          margin-top: -12px
+          margin-left: -20px
+          background-color: $accent-color
+          border-radius: 100px
+          text-align: center
+
+          &::after
+            content: attr(aria-valuenow)
+            line-height: 24px
+            font-size: 14px
+            color: white
+
+  .right-section
+    width: $network-right-sidebar-width
+    height: 100vh
+    box-sizing: border-box
+    float: left
+    font-size: 14px
+    color: $boulder-color
+    font-weight: 300
+
+
+  .graph-container
+    width: calc(100% - #{$social-graph-main-sidebar-width + $network-right-sidebar-width})
+    height: 100vh
+    float: left
+    background-color: white

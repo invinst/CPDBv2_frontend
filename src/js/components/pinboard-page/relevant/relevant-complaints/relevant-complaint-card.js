@@ -3,10 +3,12 @@ import { Link } from 'react-router';
 
 import styles from './relevant-complaint-card.sass';
 import BaseComplaintCard from 'components/pinboard-page/relevant/common/base-complaint-card';
+import withUndoCard from 'components/pinboard-page/cards/with-undo-card';
 import { getComplaintMapUrl } from 'utils/mapbox';
+import { UNDO_CARD_THEMES } from 'utils/constants';
 
 
-export class RelevantComplaintCard extends Component {
+export default class RelevantComplaintCard extends Component {
   render() {
     const {
       crid,
@@ -53,4 +55,14 @@ RelevantComplaintCard.propTypes = {
   addItemInPinboardPage: PropTypes.func,
 };
 
-export default RelevantComplaintCard;
+
+export const RelevantComplaintCardWithUndo = withUndoCard(
+  RelevantComplaintCard,
+  () => 'Complaint added.',
+  'addItemInPinboardPage',
+  {
+    theme: UNDO_CARD_THEMES.DARK,
+    keepVisible: false,
+    hasWrapper: true,
+  }
+);

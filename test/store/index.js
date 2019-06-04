@@ -238,7 +238,15 @@ describe('store', function () {
         pagination: {}
       },
       socialGraphPage: {
-        graphData: {}
+        networkData: {
+          currentNetworkTab: 'Officers',
+          graphData: {},
+          networkAllegations: [],
+          networkOfficers: [],
+          officerId: null
+        },
+        currentMainTab: 'NETWORK',
+        geographicData: [],
       },
       pinboardPage: {
         pinboard: {
