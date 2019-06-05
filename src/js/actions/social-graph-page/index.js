@@ -30,6 +30,15 @@ export const requestSocialGraphGeographic = (params) => get(
   ]
 )(params);
 
+export const requestSocialGraphGeographicPreviewPane = (params) => get(
+  constants.SOCIAL_GRAPH_DETAIL_GEOGRAPHIC_API_URL,
+  [
+    constants.SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_START,
+    constants.SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_SUCCESS,
+    constants.SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_FAILURE
+  ]
+)(params);
+
 export const requestSocialGraphOfficers = (params) => get(
   constants.SOCIAL_GRAPH_OFFICERS_API_URL,
   [
@@ -54,3 +63,5 @@ export const updateSocialGraphTimelineIdxFromTimelineTab = createAction(
 export const updateSocialGraphRefreshIntervalId = createAction(constants.UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID);
 
 export const updateGeographicCrid = createAction(constants.UPDATE_GEOGRAPHIC_CRID);
+
+export const updateGeographicTrrId = createAction(constants.UPDATE_GEOGRAPHIC_TRR_ID);

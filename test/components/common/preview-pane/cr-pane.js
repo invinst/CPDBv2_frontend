@@ -6,7 +6,7 @@ import {
   scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
 
-import CRPane from 'components/common/preview-pane';
+import CRPane from 'components/common/preview-pane/cr-pane';
 import { NewWidgetWrapper, ListWidget } from 'components/common/preview-pane/widgets';
 import Demographics from 'components/common/demographics';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -81,7 +81,7 @@ describe('CRPane component', () => {
     accused.props.typeName.should.eql('allegation');
     accused.props.title.should.eql('ACCUSED OFFICERS');
     accused.props.items.should.eql(accusedOfficers);
-    accused.props.showItemArrow.should.be.true();
+    accused.props.showItemArrow.should.be.false();
     accused.props.wrapperClassName.should.eql('cr-preview-pane-accused');
   });
 

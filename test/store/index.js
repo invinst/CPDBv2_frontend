@@ -252,7 +252,9 @@ describe('store', function () {
         currentMainTab: 'NETWORK',
         geographicData: {
           mapData: [],
-          crid: null
+          previewPaneData: [],
+          crid: null,
+          trrId: null,
         },
       },
       pinboardPage: {

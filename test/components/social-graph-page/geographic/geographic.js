@@ -11,7 +11,7 @@ import GeographicMap from 'components/social-graph-page/geographic/index';
 import MainTabs from 'components/social-graph-page/main-tabs/index';
 import AllegationsMap from 'components/common/allegations-map/index';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
-import CRPane from 'components/common/preview-pane';
+import CRPane from 'components/common/preview-pane/cr-pane';
 
 
 describe('GeographicMap component', function () {
@@ -29,24 +29,30 @@ describe('GeographicMap component', function () {
 
   it('should fetch geographic data with unit_id when componentDidMount', function () {
     const requestGeographicStub = stub();
+    const requestSocialGraphGeographicPreviewPaneStub = stub();
     instance = renderIntoDocument(
       <GeographicMap
         requestSocialGraphGeographic={ requestGeographicStub }
+        requestSocialGraphGeographicPreviewPane={ requestSocialGraphGeographicPreviewPaneStub }
         unitId='123'
       />
     );
     requestGeographicStub.should.be.calledWith({ 'unit_id': '123' });
+    requestSocialGraphGeographicPreviewPaneStub.should.be.calledWith({ 'unit_id': '123' });
   });
 
   it('should fetch geographic data with officer_ids when componentDidMount', function () {
     const requestGeographicStub = stub();
+    const requestSocialGraphGeographicPreviewPaneStub = stub();
     instance = renderIntoDocument(
       <GeographicMap
         requestSocialGraphGeographic={ requestGeographicStub }
+        requestSocialGraphGeographicPreviewPane={ requestSocialGraphGeographicPreviewPaneStub }
         officerIds='123,456,789'
       />
     );
     requestGeographicStub.should.be.calledWith({ 'officer_ids': '123,456,789' });
+    requestSocialGraphGeographicPreviewPaneStub.should.be.calledWith({ 'officer_ids': '123,456,789' });
   });
 
   it('should add mousedown event when componentDidMounted', function () {
@@ -86,12 +92,39 @@ describe('GeographicMap component', function () {
     updateGeographicCridStub.should.not.be.called();
   });
 
-  it('should call updateGeographicCrid when clicking outside of preview-pane or marker', function () {
+  it('should call updateGeographicCrid when clicking outside and allegation exists', function () {
     const updateGeographicCridStub = stub();
-    instance = renderIntoDocument(<GeographicMap updateGeographicCrid={ updateGeographicCridStub }/>);
+    const allegation = {
+      category: 'Operation/Personnel Violations',
+      subCategory: 'Inadequate / Failure To Provide Service',
+      incidentDate: '2006-10-24',
+      address: '66XX S HALSTED ST, CHICAGO IL',
+      victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
+      coaccused: 2,
+      to: '/complaint/123456/'
+    };
+    instance = renderIntoDocument(
+      <GeographicMap updateGeographicCrid={ updateGeographicCridStub } allegation={ allegation } />
+    );
     const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
     instance.handleClickOutside({ target: findDOMNode(leftSection) });
     updateGeographicCridStub.should.be.calledWith(null);
+  });
+
+  it('should call updateGeographicCrid when clicking outside and allegation exists', function () {
+    const updateGeographicTrrIdStub = stub();
+    const trr = {
+      category: 'Firearm',
+      incidentDate: '2006-10-24',
+      address: '66XX S HALSTED ST, CHICAGO IL',
+      to: '/trr/123456/'
+    };
+    instance = renderIntoDocument(
+      <GeographicMap updateGeographicTrrId={ updateGeographicTrrIdStub } trr={ trr } />
+    );
+    const leftSection = findRenderedDOMComponentWithClass(instance, 'left-section');
+    instance.handleClickOutside({ target: findDOMNode(leftSection) });
+    updateGeographicTrrIdStub.should.be.calledWith(null);
   });
 
   it('should render CRPane if there is allegation', function () {
@@ -108,14 +141,25 @@ describe('GeographicMap component', function () {
     scryRenderedComponentsWithType(instance, CRPane).should.have.length(1);
   });
 
-  it('should call updateGeographicCrid when clicking on a marker', function () {
+  it('should call updateGeographicCrid when clicking on a CR marker', function () {
     const updateGeographicCridStub = stub();
     instance = renderIntoDocument(
       <GeographicMap
         updateGeographicCrid={ updateGeographicCridStub }
       />
     );
-    instance.handleClickMarker('123456');
+    instance.handleClickCRMarker('123456');
     updateGeographicCridStub.should.be.calledWith('123456');
+  });
+
+  it('should call updateGeographicTrrId when clicking on a TRR marker', function () {
+    const updateGeographicTrrIdStub = stub();
+    instance = renderIntoDocument(
+      <GeographicMap
+        updateGeographicTrrId={ updateGeographicTrrIdStub }
+      />
+    );
+    instance.handleClickTRRMarker('123456');
+    updateGeographicTrrIdStub.should.be.calledWith('123456');
   });
 });

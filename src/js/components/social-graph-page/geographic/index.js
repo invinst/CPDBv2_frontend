@@ -13,7 +13,9 @@ export default class GeographicMap extends Component {
     super(props);
     this.fetchGeographicData = this.fetchGeographicData.bind(this);
     this.handleClickOutside = this.handleClickOutside.bind(this);
-    this.handleClickMarker = this.handleClickMarker.bind(this);
+    this.handleClickCRMarker = this.handleClickCRMarker.bind(this);
+    this.handleClickTRRMarker = this.handleClickTRRMarker.bind(this);
+    this.renderPreviewPane = this.renderPreviewPane.bind(this);
   }
 
   componentDidMount() {
@@ -26,7 +28,13 @@ export default class GeographicMap extends Component {
   }
 
   fetchGeographicData() {
-    const { requestSocialGraphGeographic, officerIds, unitId, pinboardId } = this.props;
+    const {
+      requestSocialGraphGeographic,
+      requestSocialGraphGeographicPreviewPane,
+      officerIds,
+      unitId,
+      pinboardId
+    } = this.props;
     let requestParams;
     if (!isEmpty(pinboardId)) {
       requestParams = { 'pinboard_id': pinboardId };
@@ -40,29 +48,59 @@ export default class GeographicMap extends Component {
 
     if (requestParams) {
       requestSocialGraphGeographic(requestParams);
+      requestSocialGraphGeographicPreviewPane(requestParams);
     }
   }
 
   handleClickOutside(event) {
-    const { updateGeographicCrid } = this.props;
+    const { updateGeographicCrid, updateGeographicTrrId, allegation, trr } = this.props;
     if (!event.target.closest('.geographic-preview-link')) {
-      updateGeographicCrid(null);
+      if (allegation) {
+        updateGeographicCrid(null);
+      } else if (trr) {
+        updateGeographicTrrId(null);
+      }
     }
   }
 
-  handleClickMarker(id) {
+  handleClickCRMarker(id) {
     const { updateGeographicCrid } = this.props;
     updateGeographicCrid(id);
   }
 
+  handleClickTRRMarker(id) {
+    const { updateGeographicTrrId } = this.props;
+    updateGeographicTrrId(id);
+  }
+
+  renderPreviewPane() {
+    const { allegation, trr } = this.props;
+
+    if (!isEmpty(allegation)) {
+      return (
+        <div className='right-section'>
+          <PreviewPane data={ allegation } type='CR'/>
+        </div>
+      );
+    } else if (!isEmpty(trr)) {
+      return (
+        <div className='right-section'>
+          <PreviewPane data={ trr } type='FORCE'/>
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
+
   render() {
     const {
-      mapCustomClassName,
       legend,
       markers,
       changeMainTab,
       currentMainTab,
-      allegation
+      allegation,
+      trr,
     } = this.props;
 
     return (
@@ -70,21 +108,17 @@ export default class GeographicMap extends Component {
         <div className='left-section'>
           <MainTabs changeTab={ changeMainTab } currentTab={ currentMainTab }/>
         </div>
-        <div className={ cx('main-content', { 'show-right-pane': !isEmpty(allegation) }) }>
+        <div className={ cx('main-content', { 'show-right-pane': !isEmpty(allegation) || !isEmpty(trr) }) }>
           <AllegationsMap
-            mapCustomClassName={ mapCustomClassName }
+            mapCustomClassName='social-graph-map'
             legend={ legend }
             markers={ markers }
-            handleClickMarker={ this.handleClickMarker }
-
+            handleClickCRMarker={ this.handleClickCRMarker }
+            handleClickTRRMarker={ this.handleClickTRRMarker }
           />
         </div>
         {
-          !isEmpty(allegation) ?
-            <div className='right-section'>
-              <PreviewPane data={ allegation }/>
-            </div>
-          : null
+          this.renderPreviewPane()
         }
         <div className='clearfix' />
       </div>
@@ -93,15 +127,17 @@ export default class GeographicMap extends Component {
 }
 
 GeographicMap.propTypes = {
-  mapCustomClassName: PropTypes.string,
   legend: PropTypes.object,
   markers: PropTypes.array,
   changeMainTab: PropTypes.func,
   requestSocialGraphGeographic: PropTypes.func,
+  requestSocialGraphGeographicPreviewPane: PropTypes.func,
   currentMainTab: PropTypes.string,
   officerIds: PropTypes.string,
   unitId: PropTypes.string,
   updateGeographicCrid: PropTypes.func,
+  updateGeographicTrrId: PropTypes.func,
   allegation: PropTypes.object,
+  trr: PropTypes.object,
   pinboardId: PropTypes.string,
 };

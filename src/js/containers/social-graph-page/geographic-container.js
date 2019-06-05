@@ -5,20 +5,27 @@ import GeographicMap from 'components/social-graph-page/geographic';
 import {
   mapLegendSelector,
   mapMarkersSelector,
-  geographicAllegationSelector
+  geographicAllegationSelector,
+  geographicTRRSelector,
 } from 'selectors/social-graph-page/geographic-data';
 import { getCurrentMainTab } from 'selectors/social-graph-page';
-import { changeMainTab, requestSocialGraphGeographic, updateGeographicCrid } from 'actions/social-graph-page';
+import {
+  changeMainTab,
+  requestSocialGraphGeographic,
+  requestSocialGraphGeographicPreviewPane,
+  updateGeographicCrid,
+  updateGeographicTrrId,
+} from 'actions/social-graph-page';
 
 function mapStateToProps(state, ownProps) {
   return {
-    mapCustomClassName: 'social-graph-map',
     legend: mapLegendSelector(state),
     markers: mapMarkersSelector(state),
     currentMainTab: getCurrentMainTab(state),
     officerIds: ownProps.location.query['officer_ids'],
     unitId: ownProps.location.query['unit_id'],
     allegation: geographicAllegationSelector(state),
+    trr: geographicTRRSelector(state),
     pinboardId: ownProps.location.query['pinboard_id'],
   };
 }
@@ -26,7 +33,9 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   changeMainTab,
   requestSocialGraphGeographic,
-  updateGeographicCrid
+  requestSocialGraphGeographicPreviewPane,
+  updateGeographicCrid,
+  updateGeographicTrrId,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(GeographicMap));

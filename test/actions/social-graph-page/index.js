@@ -6,12 +6,14 @@ import {
   updateSocialGraphTimelineIdx,
   updateSocialGraphTimelineIdxFromTimelineTab,
   updateSocialGraphRefreshIntervalId,
+  requestSocialGraphGeographicPreviewPane,
 } from 'actions/social-graph-page';
 import {
   SOCIAL_GRAPH_NETWORK_API_URL,
   SOCIAL_GRAPH_ALLEGATIONS_API_URL,
   SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
   SOCIAL_GRAPH_OFFICERS_API_URL,
+  SOCIAL_GRAPH_DETAIL_GEOGRAPHIC_API_URL,
   SOCIAL_GRAPH_NETWORK_REQUEST_START,
   SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS,
   SOCIAL_GRAPH_NETWORK_REQUEST_FAILURE,
@@ -27,6 +29,9 @@ import {
   UPDATE_SOCIAL_GRAPH_TIMELINE_IDX,
   UPDATE_SOCIAL_GRAPH_TIMELINE_IDX_FROM_TIMELINE_TAB,
   UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID,
+  SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_START,
+  SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_SUCCESS,
+  SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_FAILURE,
 } from 'utils/constants';
 
 
@@ -82,6 +87,26 @@ describe('socialGraph actions', function () {
         payload: {
           request: {
             url: SOCIAL_GRAPH_GEOGRAPHIC_API_URL,
+            params: { 'unit_id': 123 },
+            adapter: null,
+            cancelToken: undefined,
+          }
+        }
+      });
+    });
+  });
+
+  describe('requestSocialGraphGeographicPreviewPane', function () {
+    it('should return the right action', function () {
+      requestSocialGraphGeographicPreviewPane({ 'unit_id': 123 }).should.eql({
+        types: [
+          SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_START,
+          SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_SUCCESS,
+          SOCIAL_GRAPH_GEOGRAPHIC_PREVIEW_PANE_REQUEST_FAILURE
+        ],
+        payload: {
+          request: {
+            url: SOCIAL_GRAPH_DETAIL_GEOGRAPHIC_API_URL,
             params: { 'unit_id': 123 },
             adapter: null,
             cancelToken: undefined,

@@ -3,7 +3,7 @@ import { renderIntoDocument, findRenderedComponentWithType } from 'react-addons-
 
 import { unmountComponentSuppressError } from 'utils/test';
 import PreviewPane from 'components/social-graph-page/geographic/preview-pane';
-import CRPane from 'components/common/preview-pane';
+import CRPane from 'components/common/preview-pane/cr-pane';
 
 
 describe('PreviewPane component', function () {

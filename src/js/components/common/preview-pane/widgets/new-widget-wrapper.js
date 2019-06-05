@@ -38,7 +38,12 @@ export default class NewWidgetWrapper extends Component {
     return (
       <WrapperLink url={ url } to={ to }>
         <div className={ `${styles.newWidgetWrapper} ${className}` }>
-          { url || to ? <NewCallToActionWidget text={ text }/> : null }
+          { url || to ? (
+            <div className='new-call-to-action-widget-container'>
+              <NewCallToActionWidget text={ text }/>
+            </div>
+            ) : null
+          }
           <div
             className='widget-wrapper-responsive-container'
             ref={ el => this.element = el }

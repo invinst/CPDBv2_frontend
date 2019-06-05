@@ -1,7 +1,8 @@
 import {
   mapLegendSelector,
   mapMarkersSelector,
-  geographicAllegationSelector
+  geographicAllegationSelector,
+  geographicTRRSelector,
 } from 'selectors/social-graph-page/geographic-data';
 
 
@@ -141,7 +142,7 @@ describe('GeographicData selectors', function () {
       const state = {
         socialGraphPage: {
           geographicData: {
-            mapData: [
+            previewPaneData: [
               {
                 'date': '2006-10-24',
                 'crid': '123456',
@@ -214,6 +215,57 @@ describe('GeographicData selectors', function () {
           count: 93
         }],
         to: '/complaint/123456/'
+      });
+    });
+  });
+
+  describe('geographicTRRSelector', function () {
+    it('should return trr data correctly', function () {
+      const state = {
+        socialGraphPage: {
+          geographicData: {
+            previewPaneData: [
+              {
+                'date': '2006-10-24',
+                'trr_id': 123456,
+                'firearm_used': true,
+                'officer': {
+                  'id': 16567,
+                  'full_name': 'Baudilio Lopez',
+                  'percentile': {
+                    'id': 180838,
+                    'percentile_trr': '72.1094',
+                    'percentile_allegation_civilian': '98.5549',
+                    'percentile_allegation_internal': '61.1521'
+                  },
+                  'allegation_count': 93
+                },
+                'kind': 'FORCE',
+                'to': '/trr/123456/',
+                'address': '66XX S HALSTED ST, CHICAGO IL'
+              },
+            ],
+            trrId: '123456',
+          }
+        }
+      };
+      geographicTRRSelector(state).should.eql({
+        category: 'Firearm',
+        incidentDate: '2006-10-24',
+        address: '66XX S HALSTED ST, CHICAGO IL',
+        officer: {
+          id: 16567,
+          name: 'Baudilio Lopez',
+          url: '/officer/16567/baudilio-lopez/',
+          radarAxes: [
+            { axis: 'Use of Force Reports', value: 72.1094 },
+            { axis: 'Officer Allegations', value: 61.1521 },
+            { axis: 'Civilian Allegations', value: 98.5549 }
+          ],
+          radarColor: '#f0201e',
+          count: 93
+        },
+        to: '/trr/123456/'
       });
     });
   });

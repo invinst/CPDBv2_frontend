@@ -57,17 +57,36 @@ describe('Marker component', function () {
     stubPush.restore();
   });
 
-  it('should call handClickMarker if there is handClickMarker', function () {
-    const handleClickMarkerStub = stub();
+  it('should call handClickCRMarker if kind is CR', function () {
+    const handleClickCRMarkerStub = stub();
+    const handleClickTRRMarkerStub = stub();
     instance = renderIntoDocument(
       <Marker
         id='123'
         kind='CR'
-        handleClickMarker={ handleClickMarkerStub }
+        handleClickCRMarker={ handleClickCRMarkerStub }
+        handleClickTRRMarker={ handleClickTRRMarkerStub }
       />
     );
     Simulate.click(findDOMNode(instance));
-    handleClickMarkerStub.should.be.calledWith('123');
+    handleClickCRMarkerStub.should.be.calledWith('123');
+    handleClickTRRMarkerStub.should.be.calledWith(null);
+  });
+
+  it('should call handClickTRRMarker if kind is FORCE', function () {
+    const handleClickCRMarkerStub = stub();
+    const handleClickTRRMarkerStub = stub();
+    instance = renderIntoDocument(
+      <Marker
+        id='123'
+        kind='FORCE'
+        handleClickCRMarker={ handleClickCRMarkerStub }
+        handleClickTRRMarker={ handleClickTRRMarkerStub }
+      />
+    );
+    Simulate.click(findDOMNode(instance));
+    handleClickTRRMarkerStub.should.be.calledWith('123');
+    handleClickCRMarkerStub.should.be.calledWith(null);
   });
 
   it('should toggle popup and set zIndex when hovering', function () {

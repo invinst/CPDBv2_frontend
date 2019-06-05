@@ -31,14 +31,20 @@ export class Marker extends Component {
 
   handleClick() {
     // This is a work-around as Mapbox does not support react-router's Link.
-    const { id, kind, handleClickMarker } = this.props;
-    if (handleClickMarker) {
-      handleClickMarker(id);
-      return;
-    }
+    const { id, kind, handleClickCRMarker, handleClickTRRMarker } = this.props;
     if (kind === MAP_ITEMS.CR) {
+      if (handleClickCRMarker) {
+        handleClickCRMarker(id);
+        handleClickTRRMarker(null);
+        return;
+      }
       browserHistory.push(`/complaint/${id}/`);
     } else if (kind === MAP_ITEMS.FORCE) {
+      if (handleClickTRRMarker) {
+        handleClickTRRMarker(id);
+        handleClickCRMarker(null);
+        return;
+      }
       browserHistory.push(`/trr/${id}/`);
     }
   }
@@ -69,7 +75,8 @@ Marker.propTypes = {
   finding: PropTypes.string,
   mapboxMarker: PropTypes.object,
   hovering: PropTypes.bool,
-  handleClickMarker: PropTypes.func,
+  handleClickCRMarker: PropTypes.func,
+  handleClickTRRMarker: PropTypes.func,
 };
 
 export default Hoverable(Marker);

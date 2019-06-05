@@ -1,7 +1,6 @@
 import {
   crMapMarkersTransform,
   trrMapMarkerTransform,
-  geographicAllegationTransform
 } from 'selectors/common/geographic';
 
 
@@ -85,60 +84,6 @@ describe('GeographicData selectors', function () {
         kind: 'FORCE',
         id: '56789',
         category: 'Taser',
-      });
-    });
-  });
-
-  describe('geographicAllegationTransform', function () {
-    it('should return correct item', function () {
-      const allegation = {
-        category: 'Use of Force',
-        subcategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
-        date: '2017-02-03',
-        address: '14XX W 63RD ST, CHICAGO IL 60636',
-        victims: [
-          {
-            gender: 'Male',
-            race: 'Black',
-            age: 53
-          }
-        ],
-        coaccused: [
-          {
-            'id': 16567,
-            'full_name': 'Baudilio Lopez',
-            'percentile': {
-              'id': 180838,
-              'percentile_trr': '72.1094',
-              'percentile_allegation_civilian': '98.5549',
-              'percentile_allegation_internal': '61.1521'
-            },
-            'allegation_count': 93
-          }
-        ],
-        to: '/complaint/123456/'
-      };
-      geographicAllegationTransform(allegation).should.eql({
-        category: 'Use of Force',
-        subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
-        incidentDate: '2017-02-03',
-        address: '14XX W 63RD ST, CHICAGO IL 60636',
-        victims: ['Black, Male, Age 53'],
-        coaccused: [
-          {
-            id: 16567,
-            name: 'Baudilio Lopez',
-            url: '/officer/16567/baudilio-lopez/',
-            radarAxes: [
-              { axis: 'Use of Force Reports', value: 72.1094 },
-              { axis: 'Officer Allegations', value: 61.1521 },
-              { axis: 'Civilian Allegations', value: 98.5549 }
-            ],
-            radarColor: '#f0201e',
-            count: 93
-          }
-        ],
-        to: '/complaint/123456/'
       });
     });
   });

@@ -22,25 +22,27 @@ export default class CRPane extends Component {
     return (
       <NewWidgetWrapper callToAction={ { to, text: 'View Complaint Record' } }>
         <div className={ styles.crPane }>
-          <div className='cr-preview-pane-title'>
-            <div className='cr-preview-pane-title-title'>{ category }</div>
-            <div className='cr-preview-pane-title-subtitle'>{ subCategory }</div>
+          <div className='cr-preview-pane-info-wrapper'>
+            <div className='cr-preview-pane-title'>
+              <div className='cr-preview-pane-title-title'>{ category }</div>
+              <div className='cr-preview-pane-title-subtitle'>{ subCategory }</div>
+            </div>
+            <div className='cr-preview-pane-info-row'>{ incidentDate }</div>
+            <div className='cr-preview-pane-info-row'>{ address }</div>
+            {
+              !isEmpty(victims) ? (
+                <div>
+                  <div className='cr-preview-pane-victims-text'>{ pluralize('VICTIM', victims.length) }</div>
+                  <Demographics className='cr-preview-pane-victims' persons={ victims } />
+                </div>
+              ): <div/>
+            }
           </div>
-          <div className='cr-preview-pane-info-row'>{ incidentDate }</div>
-          <div className='cr-preview-pane-info-row'>{ address }</div>
-          {
-            !isEmpty(victims) ? (
-              <div>
-                <div className='cr-preview-pane-victims-text'>{ pluralize('VICTIM', victims.length) }</div>
-                <Demographics className='cr-preview-pane-victims' persons={ victims } />
-              </div>
-            ): <div/>
-          }
           <ListWidget
             typeName='allegation'
             title={ pluralize('ACCUSED OFFICER', coaccused.length) }
+            showItemArrow={ false }
             items={ coaccused }
-            showItemArrow={ true }
             wrapperClassName='cr-preview-pane-accused'
           />
         </div>

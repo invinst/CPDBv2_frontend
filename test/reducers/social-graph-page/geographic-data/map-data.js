@@ -21,28 +21,6 @@ describe('mapData reducer', function () {
             'lon': -87,
             'lat': 35
           },
-          'victims': [
-            {
-              'gender': 'Male',
-              'race': ''
-            },
-            {
-              'gender': 'Male',
-              'race': ''
-            },
-            {
-              'gender': 'Male',
-              'race': ''
-            },
-            {
-              'gender': 'Male',
-              'race': 'Black'
-            },
-            {
-              'gender': 'Male',
-              'race': ''
-            }
-          ]
         }
       ]
     }).should.eql([
@@ -56,28 +34,6 @@ describe('mapData reducer', function () {
           'lon': -87,
           'lat': 35
         },
-        'victims': [
-          {
-            'gender': 'Male',
-            'race': ''
-          },
-          {
-            'gender': 'Male',
-            'race': ''
-          },
-          {
-            'gender': 'Male',
-            'race': ''
-          },
-          {
-            'gender': 'Male',
-            'race': 'Black'
-          },
-          {
-            'gender': 'Male',
-            'race': ''
-          }
-        ]
       }
     ]);
   });

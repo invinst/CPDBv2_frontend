@@ -79,7 +79,7 @@ export default class AllegationsMap extends Component {
   }
 
   addMarker(marker) {
-    const { handleClickMarker } = this.props;
+    const { handleClickCRMarker, handleClickTRRMarker } = this.props;
     const popup = this.createPopup(marker);
 
     const markerEl = document.createElement('div');
@@ -95,7 +95,8 @@ export default class AllegationsMap extends Component {
         kind={ marker.kind }
         finding={ marker.finding }
         mapboxMarker={ this.marker }
-        handleClickMarker={ handleClickMarker }
+        handleClickCRMarker={ handleClickCRMarker }
+        handleClickTRRMarker={ handleClickTRRMarker }
       />,
       markerEl
     );
@@ -154,7 +155,8 @@ AllegationsMap.propTypes = {
       })
     ),
   ]),
-  handleClickMarker: PropTypes.func,
+  handleClickCRMarker: PropTypes.func,
+  handleClickTRRMarker: PropTypes.func,
 };
 
 AllegationsMap.defaultProps = {
