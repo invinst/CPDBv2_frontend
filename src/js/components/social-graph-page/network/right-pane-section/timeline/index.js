@@ -21,7 +21,9 @@ export default class Timeline extends Component {
   componentDidMount() {
     const { timelineIdx } = this.props;
     this.addScrollEvents();
-    this.performScrollToTimelineIdx(timelineIdx);
+    if (timelineIdx !== 0) {
+      this.performScrollToTimelineIdx(timelineIdx);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -68,7 +70,7 @@ export default class Timeline extends Component {
   }
 
   performScrollToTimelineIdx(scrollToTimelineIdx) {
-    if (scrollToTimelineIdx) {
+    if (scrollToTimelineIdx && this.scrollController) {
       this.scrollController.scrollTo(`#trigger-${scrollToTimelineIdx}`);
     }
   }
