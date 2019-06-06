@@ -48,7 +48,7 @@ export default class PinboardPage extends Component {
             <div className='pinboard-description'>{ pinboard.description }</div>
           </div>
           <div className='data-visualizations'>
-            <TrackVisibility partialVisibility>
+            <TrackVisibility partialVisibility={ true }>
               <PinboardPaneSection
                 changePinboardTab={ changePinboardTab }
                 currentTab={ currentTab }

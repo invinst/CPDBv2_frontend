@@ -1,7 +1,7 @@
 'use strict';
 
 require('should');
-import { map, countBy, values, filter, times } from 'lodash';
+import { map, countBy, filter, times } from 'lodash';
 
 import pinboardPage from './page-objects/pinboard-page';
 
@@ -13,11 +13,8 @@ function waitForGraphAnimationEnd(browser, pinboardPage) {
 }
 
 describe('Pinboard Page', function () {
-  beforeEach(function () {
-    pinboardPage.open();
-  });
-
   it('should go to search page when the search bar is clicked', function () {
+    pinboardPage.open();
     pinboardPage.searchBar.click();
     browser.element('.search-page').waitForVisible();
     browser.getUrl().should.endWith('/search/');
@@ -25,6 +22,7 @@ describe('Pinboard Page', function () {
 
   context('pinboard pinned section', function () {
     it('should render the pinned cards correctly', function () {
+      pinboardPage.open();
       const officers = pinboardPage.pinnedSection.officers;
       officers.title.getText().should.equal('OFFICERS');
       officers.firstCardRank.getText().should.equal('Police Officer');
@@ -45,6 +43,7 @@ describe('Pinboard Page', function () {
 
   context('pinboard section', function () {
     it('should render correctly', function () {
+      pinboardPage.open();
       pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
@@ -56,6 +55,7 @@ describe('Pinboard Page', function () {
 
   context('social graph section', function () {
     it('should render correctly', function () {
+      pinboardPage.open();
       pinboardPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
       pinboardPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
       waitForGraphAnimationEnd(browser, pinboardPage);
@@ -115,6 +115,7 @@ describe('Pinboard Page', function () {
     });
 
     it('should show connected nodes when double click on a node', function () {
+      pinboardPage.open();
       waitForGraphAnimationEnd(browser, pinboardPage);
 
       const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
@@ -147,6 +148,7 @@ describe('Pinboard Page', function () {
     });
 
     it('should pause timeline when click on toggle timeline button', function () {
+      pinboardPage.open();
       const toggleTimelineButton = pinboardPage.animatedSocialGraphSection.toggleTimelineButton;
 
       waitForGraphAnimationEnd(browser, pinboardPage);
@@ -180,6 +182,7 @@ describe('Pinboard Page', function () {
     });
 
     it('should change the graph when click on specific part of the timeline', function () {
+      pinboardPage.open();
       waitForGraphAnimationEnd(browser, pinboardPage);
       pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
       pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
@@ -205,6 +208,7 @@ describe('Pinboard Page', function () {
     });
 
     it('should render geographic section', function () {
+      pinboardPage.open();
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.geographicPaneName.click();
       pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
@@ -214,20 +218,20 @@ describe('Pinboard Page', function () {
     });
 
     it('should pause the timeline when invisible and continue to play when visible', function () {
-      waitForGraphAnimationEnd(browser, pinboardPage);
-      pinboardPage.animatedSocialGraphSection.toggleTimelineButton.click();
-      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(100, true);
+      pinboardPage.open('3664a7ea');
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(200, true);
 
       browser.scroll(pinboardPage.relevantCoaccusalsSection.title.selector);
       pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000);
 
       browser.scroll(pinboardPage.pinboardSection.title.selector);
-      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(100, true);
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000, true);
     });
   });
 
   context('Geographic section', function () {
     it('should render geographic section', function () {
+      pinboardPage.open();
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.geographicPaneName.click();
       pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
@@ -238,6 +242,10 @@ describe('Pinboard Page', function () {
   });
 
   context('relevant coaccusals section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render coaccusal cards', function () {
       pinboardPage.relevantCoaccusalsSection.title.getText().should.equal('COACCUSALS');
 
@@ -288,6 +296,10 @@ describe('Pinboard Page', function () {
   });
 
   context('relevant documents section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render document cards', function () {
       pinboardPage.relevantDocumentsSection.title.getText().should.equal('DOCUMENTS');
 
@@ -327,6 +339,10 @@ describe('Pinboard Page', function () {
   });
 
   context('relevant complaints section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render complaint cards', function () {
       pinboardPage.relevantComplaintsSection.title.getText().should.equal('COMPLAINTS');
 

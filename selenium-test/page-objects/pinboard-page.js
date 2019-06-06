@@ -225,8 +225,8 @@ class PinboardPage extends Page {
     });
   }
 
-  open() {
-    super.open('/pinboard/5cd06f2b/pinboard-title/');
+  open(id='5cd06f2b') {
+    super.open(`/pinboard/${id}/pinboard-title/`);
   }
 }
 
