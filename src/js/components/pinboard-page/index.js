@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import cx from 'classnames';
+import { isEmpty, noop } from 'lodash';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import SearchBar from './search-bar';
@@ -13,14 +14,35 @@ import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
 import FooterContainer from 'containers/footer-container';
 import EmptyPinboard from './empty-pinboard';
+import PreviewPane from 'components/search-page/search-results/preview-pane';
 
 
 export default class PinboardPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.handleOverlayClick = this.handleOverlayClick.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (isEmpty(nextProps.focusedItem)) {
+      document.body.classList.remove('body-not-scrollable');
+      document.body.classList.add('body-scrollable');
+    } else {
+      document.body.classList.add('body-not-scrollable');
+      document.body.classList.remove('body-scrollable');
+    }
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { shouldRedirect, pinboard } = this.props;
     if (shouldRedirect && pinboard.url !== '') {
       browserHistory.replace(pinboard.url);
     }
+  }
+
+  handleOverlayClick() {
+    this.props.focusItem({});
   }
 
   renderContent() {
@@ -30,6 +52,7 @@ export default class PinboardPage extends Component {
       currentTab,
       hasMapMarker,
       isEmptyPinboard,
+      focusedItem,
     } = this.props;
 
     if (isEmptyPinboard) {
@@ -57,6 +80,18 @@ export default class PinboardPage extends Component {
           </div>
         </div>
         <RelevantSectionContainer />
+
+        <div
+          className='overlay'
+          aria-hidden={ isEmpty(focusedItem) }
+          onClick={ this.handleOverlayClick }
+        />
+
+        <PreviewPane
+          customClass='preview-pane'
+          yScrollable={ true }
+          { ...focusedItem }
+        />
       </div>
     );
   }
@@ -90,5 +125,11 @@ PinboardPage.propTypes = {
   shouldRedirect: PropTypes.bool,
   isInitiallyLoading: PropTypes.bool,
   isEmptyPinboard: PropTypes.bool,
+  focusedItem: PropTypes.object,
+  focusItem: PropTypes.func,
 };
 
+PinboardPage.defaultProps = {
+  focusedItem: {},
+  focusItem: noop,
+};

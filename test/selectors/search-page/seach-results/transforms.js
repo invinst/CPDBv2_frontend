@@ -89,6 +89,91 @@ describe('search page transforms', function () {
       });
     });
 
+    it('should transform cr data correctly', function () {
+      searchResultItemTransform({
+        type: 'CR',
+        id: 1,
+        isPinned: true,
+        crid: 123,
+        to: '/complaint/123/',
+        'incident_date': '2012-07-02',
+        highlight: {
+          summary: ['the officer pointed a gun at the victim']
+        },
+        category: 'Use Of Force',
+        'sub_category': 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        'victims': [
+          { 'gender': 'Female', 'race': 'Hispanic' },
+          { 'gender': 'Female', 'race': 'Hispanic', 'age': 48 }
+        ],
+        'coaccused': [
+          {
+            'id': 16567,
+            'full_name': 'Baudilio Lopez',
+            'percentile': {
+              'id': 180838,
+              'percentile_trr': '72.1094',
+              'percentile_allegation_civilian': '98.5549',
+              'percentile_allegation_internal': '61.1521'
+            },
+            'allegation_count': 93
+          },
+          {
+            'id': 7544,
+            'full_name': 'Dominique Dunigan',
+            'percentile': {
+              'id': 180839,
+              'percentile_trr': '0.0000',
+              'percentile_allegation_civilian': '24.1180',
+              'percentile_allegation_internal': '0.0000'
+            },
+            'allegation_count': 1
+          }
+        ]
+      }).should.deepEqual({
+        type: 'CR',
+        id: 1,
+        isPinned: true,
+        to: '/complaint/123/',
+        url: undefined,
+        uniqueKey: 'CR-1',
+        tags: [],
+        itemIndex: 1,
+        text: 'CR # 123 • July 2, 2012',
+        subText: 'the officer pointed a gun at the victim',
+        recentText: 'CR # 123 • July 2, 2012',
+        incidentDate: 'JUL 2, 2012',
+        category: 'Use Of Force',
+        subCategory: 'Excessive Force - Use Of Firearm / Off Duty - No Injury',
+        address: '14XX W 63RD ST, CHICAGO IL 60636',
+        victims: ['Hispanic, Female', 'Hispanic, Female, Age 48'],
+        coaccused: [{
+          id: 16567,
+          name: 'Baudilio Lopez',
+          url: '/officer/16567/baudilio-lopez/',
+          radarAxes: [
+            { axis: 'Use of Force Reports', value: 72.1094 },
+            { axis: 'Officer Allegations', value: 61.1521 },
+            { axis: 'Civilian Allegations', value: 98.5549 }
+          ],
+          radarColor: '#f0201e',
+          count: 93
+        }, {
+          id: 7544,
+          name: 'Dominique Dunigan',
+          url: '/officer/7544/dominique-dunigan/',
+          radarAxes: [
+            { axis: 'Use of Force Reports', value: 0 },
+            { axis: 'Officer Allegations', value: 0 },
+            { axis: 'Civilian Allegations', value: 24.118 }
+          ],
+          radarColor: '#f5c5a2',
+          count: 1
+        }],
+      });
+    });
+
     it('should transform cr with no highlight', function () {
       searchResultItemTransform({
         type: 'CR',
@@ -288,6 +373,68 @@ describe('search page transforms', function () {
         },
         type: 'SEARCH-TERMS'
       });
+    });
+
+    it('should transform OFFICER full name correctly', function () {
+      const focusedSuggestion = RawOfficerSuggestion.build({
+        id: '29033',
+        name: undefined,
+        'full_name': 'Jerome Turbyville',
+        race: 'White',
+        sex: 'Male',
+        'birth_year': 1969,
+        to: '/officer/29033/',
+        'allegation_count': 10,
+        'sustained_count': 2,
+        unit: {
+          id: 1,
+          'unit_name': '018',
+          description: 'District 018',
+        },
+      });
+      const info = {
+        data: {
+          fullName: 'Jerome Turbyville',
+          age: 48,
+          appointedDate: 'DEC 13, 1999',
+          badge: '5922',
+          complaintCount: 10,
+          complaintPercentile: 93,
+          civilianComplimentCount: 4,
+          gender: 'Male',
+          lastPercentile: {
+            year: undefined,
+            items: [
+              { axis: 'Use of Force Reports', value: 90 },
+              { axis: 'Officer Allegations', value: 91 },
+              { axis: 'Civilian Allegations', value: 92 }
+            ],
+            visualTokenBackground: '#f52524',
+            textColor: '#DFDFDF'
+          },
+          race: 'White',
+          rank: 'Police Officer',
+          resignationDate: null,
+          sustainedCount: 2,
+          disciplineCount: 1,
+          honorableMentionCount: 0,
+          majorAwardCount: 0,
+          honorableMentionPercentile: 10,
+          unit: {
+            id: 1,
+            unitName: '018',
+            description: 'District 018',
+          },
+          trrCount: undefined,
+          trrPercentile: 90,
+          to: '/officer/29033/',
+        },
+        type: 'OFFICER',
+      };
+      previewPaneTransform({
+        type: 'OFFICER',
+        ...focusedSuggestion
+      }).should.deepEqual(info);
     });
 
     it('should transform UNIT > OFFICERS data correctly', function () {

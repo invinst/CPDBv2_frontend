@@ -1,6 +1,35 @@
 @import 'variables'
 
+html
+  width: 100vw
+
+.body-scrollable
+  overflow-y: scroll
+  height: 100%
+
+.body-not-scrollable
+  overflow: hidden
+  height: 100vh
+
 \:local(.pinboardPage)
+  [aria-hidden="true"]
+    // display: none
+    opacity: 0
+    transition: opacity 0.25s, z-index 0s 0.25s
+    z-index: -1
+
+  [aria-hidden="false"]
+    display: block
+    opacity: 0.8
+    transition: opacity 0.8s
+    z-index: 1000
+
+  .preview-pane
+    position: fixed
+    top: 0
+    right: 0
+    z-index: 1001
+
   &.empty
     background-color: $sugar-cane-color
 
@@ -26,10 +55,19 @@
 
   .pinned-section
     margin: 16px 14px 0 14px
-    overflow: auto
+    overflow: hidden auto
 
   .footer
     background-color: $soft-black-color
 
     .nav-links-wrapper
       background-color: $soft-black-color
+
+  .overlay
+    position: fixed
+    top: 0 
+    left: 0
+    width: 100%
+    height: 100%
+    background-color: $greyish-color
+    cursor: pointer

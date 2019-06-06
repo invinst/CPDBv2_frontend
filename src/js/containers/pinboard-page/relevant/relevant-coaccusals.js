@@ -8,6 +8,7 @@ import {
 } from 'selectors/pinboard-page/relevant-coaccusals';
 import { fetchPinboardRelevantCoaccusals, addItemInPinboardPage } from 'actions/pinboard';
 import { getPinboardID } from 'utils/location';
+import { focusItem } from 'actions/pinboard-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -22,7 +23,8 @@ function mapStateToProps(state, ownProps) {
 
 const mapDispatchToProps = {
   fetchPinboardRelevantCoaccusals,
-  addItemInPinboardPage
+  addItemInPinboardPage,
+  focusItem,
 };
 
 export default connect(

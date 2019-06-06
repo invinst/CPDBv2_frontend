@@ -11,6 +11,7 @@ import crItems from './cr-items';
 import trrItems from './trr-items';
 import redirection from './redirection';
 import pinboard from './pinboard';
+import focusedItem from './focused-item';
 
 
 export default combineReducers({
@@ -25,4 +26,5 @@ export default combineReducers({
   trrItems,
   redirection,
   pinboard,
+  focusedItem,
 });

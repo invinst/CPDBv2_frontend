@@ -8,11 +8,13 @@ import {
   scryRenderedComponentsWithType,
   findRenderedDOMComponentWithClass,
   scryRenderedDOMComponentsWithClass,
+  Simulate,
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 import * as ReactRouter from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
 import should from 'should';
+import { set } from 'lodash';
 
 import { unmountComponentSuppressError } from 'utils/test';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
@@ -24,8 +26,13 @@ import SearchBar from 'components/pinboard-page/search-bar';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
-import { PINBOARD_PAGE_REDIRECT, PINBOARD_PAGE_INITIAL_LOADING } from 'utils/constants';
+import {
+  PINBOARD_PAGE_REDIRECT,
+  PINBOARD_PAGE_INITIAL_LOADING,
+  PINBOARD_PAGE_FOCUS_ITEM,
+} from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
+import PreviewPane from 'components/search-page/search-results/preview-pane';
 
 
 describe('PinboardPage component', function () {
@@ -40,6 +47,9 @@ describe('PinboardPage component', function () {
     graphData: {},
     geographicData: [],
     currentTab: 'NETWORK',
+    crItems: [],
+    trrItems: [],
+    officerItems: [],
     relevantDocuments: defaultPaginationState,
     relevantCoaccusals: defaultPaginationState,
     relevantComplaints: defaultPaginationState,
@@ -47,7 +57,8 @@ describe('PinboardPage component', function () {
       redirect: false,
       initialLoading: false,
     },
-    pinboard
+    pinboard,
+    focusedItem: {},
   });
 
   const createStore = pinboard => MockStore()({
@@ -206,5 +217,138 @@ describe('PinboardPage component', function () {
     findRenderedDOMComponentWithClass(instance, 'arrow-shaft');
 
     findRenderedComponentWithType(instance, FooterContainer);
+  });
+
+  it('should contain overlay and preview pane', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      crids: ['123'],
+    };
+
+    instance = renderIntoDocument(
+      <Provider store={ createStore(pinboard) }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    findRenderedDOMComponentWithClass(instance, 'overlay').should.be.ok();
+    findRenderedComponentWithType(instance, PreviewPane).should.be.ok();
+  });
+
+  it('should hide overlay if there is no focused item by default', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      crids: ['123'],
+    };
+
+    const pinboardPage = createPinboardPage(pinboard);
+    set(pinboardPage, 'crItems', [{ 'crid': '123' }]);
+
+    const state = {
+      pinboardPage,
+      pathname: 'pinboard/5cd06f2b',
+    };
+
+    const store = ReduxCreateStore(RootReducer, state);
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    store.dispatch({
+      type: PINBOARD_PAGE_FOCUS_ITEM,
+      payload: {},
+    });
+
+    const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
+    overlay.getAttribute('aria-hidden').should.equal('true');
+
+    document.body.classList.should.have.length(1);
+    document.body.classList[0].should.equal('body-scrollable');
+  });
+
+  it('should display overlay if there is focused item', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      crids: ['123'],
+    };
+
+    const pinboardPage = createPinboardPage(pinboard);
+    set(pinboardPage, 'crItems', [{ 'crid': '123' }]);
+
+    const state = {
+      pinboardPage,
+      pathname: 'pinboard/5cd06f2b',
+    };
+
+    const store = ReduxCreateStore(RootReducer, state);
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    store.dispatch({
+      type: PINBOARD_PAGE_FOCUS_ITEM,
+      payload: {
+        type: 'CR',
+        id: '123',
+      },
+    });
+
+    const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
+    overlay.getAttribute('aria-hidden').should.equal('false');
+
+    document.body.classList.should.have.length(1);
+    document.body.classList[0].should.equal('body-not-scrollable');
+  });
+
+  it('should handle on overlay click', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+      crids: ['123'],
+    };
+
+    const pinboardPage = createPinboardPage(pinboard);
+    set(pinboardPage, 'crItems', [{ 'crid': '123' }]);
+
+    const state = {
+      pinboardPage,
+      pathname: 'pinboard/5cd06f2b',
+    };
+
+    const store = ReduxCreateStore(RootReducer, state);
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    store.dispatch({
+      type: PINBOARD_PAGE_FOCUS_ITEM,
+      payload: {
+        type: 'CR',
+        id: '123',
+      },
+    });
+
+    const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
+    overlay.getAttribute('aria-hidden').should.equal('false');
+    document.body.classList.should.have.length(1);
+    document.body.classList[0].should.equal('body-not-scrollable');
+
+    Simulate.click(overlay);
+
+    overlay.getAttribute('aria-hidden').should.equal('true');
+    document.body.classList.should.have.length(1);
+    document.body.classList[0].should.equal('body-scrollable');
   });
 });

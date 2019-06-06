@@ -109,7 +109,7 @@ const crTransform = (item) => {
     coaccused,
     victims: map(item.victims, getDemographicString),
     address: item.address,
-    category: item.category,
+    category: item.category || item['most_common_category'],
     subCategory: item['sub_category'],
     incidentDate: formatDate(item['incident_date']),
     to: item.to,
@@ -127,7 +127,7 @@ const officerTransform = (item) => {
   const race = item['race'] === 'Unknown' ? null : item['race'];
   const lastPercentile = last(item['percentiles']);
   return {
-    fullName: item['name'],
+    fullName: item['name'] || item['full_name'],
     appointedDate: formatDate(item['appointed_date']),
     resignationDate: formatDate(item['resignation_date']),
     badge: item['badge'],

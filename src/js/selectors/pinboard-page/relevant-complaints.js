@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 import extractQuery from 'utils/extract-query';
 import { relevantComplaintTransform } from './transform';
 
-const getRelevantComplaintsPagination = state => state.pinboardPage.relevantComplaints;
+export const getRelevantComplaintsPagination = state => state.pinboardPage.relevantComplaints;
 
 export const relevantComplaintsSelector = createSelector(
   getRelevantComplaintsPagination,

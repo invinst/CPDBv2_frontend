@@ -74,7 +74,7 @@ export default class PinnedType extends Component {
   }
 
   render() {
-    const { type, title, items } = this.props;
+    const { type, title, items, focusItem } = this.props;
 
     if (items.length < 1) {
       return null;
@@ -102,6 +102,7 @@ export default class PinnedType extends Component {
                     item={ item }
                     removeItemInPinboardPage={ this.removeItemInPinboardPage }
                     isAdded={ get(this.addedItem, 'id') === get(item, 'id') }
+                    focusItem={ focusItem }
                   />
                 </div>
               </div>
@@ -119,6 +120,7 @@ PinnedType.propTypes = {
   items: PropTypes.array,
   removeItemInPinboardPage: PropTypes.func,
   orderPinboard: PropTypes.func,
+  focusItem: PropTypes.func,
 };
 
 PinnedType.defaultProps = {

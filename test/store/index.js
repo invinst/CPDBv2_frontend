@@ -281,6 +281,7 @@ describe('store', function () {
         officerItems: [],
         crItems: [],
         trrItems: [],
+        focusedItem: {},
       },
       toast: {},
     });
