@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import cx from 'classnames';
+import { noop } from 'lodash';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
 import SearchBar from './search-bar';
 import Header from './header';
 import styles from './pinboard-page.sass';
+import PinboardInfoContainer from 'containers/pinboard-page/pinboard-info';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
@@ -21,16 +23,21 @@ export default class PinboardPage extends Component {
     pushBreadcrumbs({ location, params, routes });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { shouldRedirect, pinboard } = this.props;
-    if (shouldRedirect && pinboard.url !== '') {
-      browserHistory.replace(pinboard.url);
+  componentDidUpdate(prevProps) {
+    const { pinboard } = prevProps;
+    const { pinboard: currentPinboard, shouldRedirect, updatePathName } = this.props;
+
+    if (currentPinboard.url !== '') {
+      if (shouldRedirect) {
+        browserHistory.replace(currentPinboard.url);
+      } else if (currentPinboard.url !== pinboard.url) {
+        updatePathName(currentPinboard.url);
+      }
     }
   }
 
   renderContent() {
     const {
-      pinboard,
       changePinboardTab,
       currentTab,
       hasMapMarker,
@@ -44,10 +51,7 @@ export default class PinboardPage extends Component {
     return (
       <div>
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
-          <div className='pinboard-info'>
-            <div className='pinboard-title'>{ pinboard.title }</div>
-            <div className='pinboard-description'>{ pinboard.description }</div>
-          </div>
+          <PinboardInfoContainer />
           <div className='data-visualizations'>
             <PinboardPaneSection
               changePinboardTab={ changePinboardTab }
@@ -100,4 +104,9 @@ PinboardPage.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string
   }),
+  updatePathName: PropTypes.func,
+};
+
+PinboardPage.defaultProps = {
+  pushBreadcrumbs: noop,
 };

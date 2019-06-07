@@ -57,4 +57,27 @@ describe('OfficerRow component', function () {
     Simulate.click(officerRow);
     updateOfficerIdStub.should.be.calledWith(123);
   });
+
+  describe('shouldComponentUpdate', function () {
+    it('should return true if officer is changed', function () {
+      instance = renderIntoDocument(
+        <OfficerRow
+          officer={ officer }
+        />
+      );
+
+      instance.shouldComponentUpdate({ officer: { fullName: 'Jane' } }).should.be.true();
+    });
+
+    it('should return false if officer is not changed', function () {
+      instance = renderIntoDocument(
+        <OfficerRow
+          officer={ officer }
+        />
+      );
+
+      instance.shouldComponentUpdate({ officer: officer }).should.be.false();
+    });
+  });
+
 });

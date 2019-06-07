@@ -73,6 +73,12 @@ export default handleActions({
     ...state,
     saving: true,
   }),
+  [constants.UPDATE_PINBOARD_INFO_STATE]: (state, action) => {
+    return {
+      ...state,
+      [action.payload.attr]: action.payload.value,
+    };
+  },
   [constants.ADD_ITEM_TO_PINBOARD_STATE]: (state, action) => {
     const attr = PINBOARD_ATTR_MAP[action.payload.type];
     const ids = state[attr] || [];
@@ -81,6 +87,7 @@ export default handleActions({
     return {
       ...state,
       [attr]: _.includes(ids, newId) ? ids : ids.concat(newId),
+      needRefreshData: true,
     };
   },
   [constants.REMOVE_ITEM_FROM_PINBOARD_STATE]: (state, action) => {
@@ -91,6 +98,7 @@ export default handleActions({
     return {
       ...state,
       [attr]: _.reject(ids, id => id === format(action.payload.id)),
+      needRefreshData: true,
     };
   },
   [constants.ORDER_PINBOARD_STATE]: (state, action) => {
@@ -101,6 +109,12 @@ export default handleActions({
     return {
       ...state,
       [attr]: _.map(ids, format),
+    };
+  },
+  [constants.PERFORM_FETCH_PINBOARD_RELATED_DATA]: (state, action) => {
+    return {
+      ...state,
+      needRefreshData: false,
     };
   },
 }, defaultState);

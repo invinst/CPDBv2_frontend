@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 
 import Officers from 'components/social-graph-page/network/right-pane-section/officers';
 import { networkOfficersSelector } from 'selectors/social-graph-page/network-officers';
+import { updateOfficerId } from 'actions/social-graph-page';
+
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -10,4 +12,8 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps)(Officers);
+const mapDispatchToProps = {
+  updateOfficerId,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Officers);

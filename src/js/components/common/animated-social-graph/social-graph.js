@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import { isEmpty, countBy, indexOf, orderBy } from 'lodash';
+import { isEmpty, countBy, indexOf, orderBy, isEqual } from 'lodash';
 import moment from 'moment';
 import * as d3 from 'd3';
 import * as jLouvain from 'jlouvain';
@@ -54,7 +54,7 @@ export default class SocialGraph extends Component {
   componentDidUpdate(prevProps) {
     const { coaccusedData, timelineIdx, fullscreen } = this.props;
 
-    if (prevProps.coaccusedData !== coaccusedData) {
+    if (!isEqual(prevProps.coaccusedData, coaccusedData)) {
       this.drawGraph();
     } else {
       if (prevProps.timelineIdx !== timelineIdx) {

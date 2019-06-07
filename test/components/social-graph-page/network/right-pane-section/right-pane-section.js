@@ -31,6 +31,10 @@ describe('RightPaneSection component', function () {
       currentMainTab: undefined,
     },
   });
+  const location = {
+    'pathname': '/social-graph/',
+    'search': '?unit_id=123'
+  };
   let instance;
 
   afterEach(function () {
@@ -41,62 +45,42 @@ describe('RightPaneSection component', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <RightPaneSection
-          currentTab='Officers'
-          hasComplaint={ true }
+          currentTab={ NETWORK_TAB_NAMES.TIMELINE }
+          showTimelineTab={ true }
+          location={ location }
         />
       </Provider>
     );
 
     const tabNames = scryRenderedDOMComponentsWithClass(instance, 'right-pane-tab-name');
     tabNames.should.have.length(2);
-    tabNames[0].textContent.should.be.eql('Officers');
-    tabNames[1].textContent.should.be.eql('Timeline');
+    tabNames[0].textContent.should.be.eql('Timeline');
+    tabNames[1].textContent.should.be.eql('Officers');
 
     const activeTab = findRenderedDOMComponentWithClass(instance, 'active');
-    activeTab.textContent.should.be.eql('Officers');
+    activeTab.textContent.should.be.eql('Timeline');
+    findRenderedComponentWithType(instance, Timeline).should.be.ok();
   });
 
   it('should render correct active tab', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <RightPaneSection
-          currentTab='Timeline'
-          hasComplaint={ true }
-          location={ { pathname: '/social-graph/' } }
+          currentTab={ NETWORK_TAB_NAMES.OFFICERS }
+          showTimelineTab={ true }
+          location={ location }
         />
       </Provider>
     );
 
     const tabNames = scryRenderedDOMComponentsWithClass(instance, 'right-pane-tab-name');
     tabNames.should.have.length(2);
-    tabNames[0].textContent.should.be.eql('Officers');
-    tabNames[1].textContent.should.be.eql('Timeline');
+    tabNames[0].textContent.should.be.eql('Timeline');
+    tabNames[1].textContent.should.be.eql('Officers');
 
     const activeTab = findRenderedDOMComponentWithClass(instance, 'active');
-    activeTab.textContent.should.be.eql('Timeline');
-  });
-
-  it('should render officers tab', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <RightPaneSection currentTab={ NETWORK_TAB_NAMES.OFFICERS }/>
-      </Provider>
-    );
-
+    activeTab.textContent.should.be.eql('Officers');
     findRenderedComponentWithType(instance, Officers).should.be.ok();
-  });
-
-  it('should render timeline tab', function () {
-    instance = renderIntoDocument(
-      <Provider store={ store }>
-        <RightPaneSection
-          currentTab={ NETWORK_TAB_NAMES.TIMELINE }
-          location={ { pathname: '/social-graph/' } }
-        />
-      </Provider>
-    );
-
-    findRenderedComponentWithType(instance, Timeline).should.be.ok();
   });
 
   it('should call changeNetworkTab when clicking tab name', function () {
@@ -105,23 +89,23 @@ describe('RightPaneSection component', function () {
       <Provider store={ store }>
         <RightPaneSection
           changeNetworkTab={ changeNetworkTabStub }
-          hasComplaint={ true }
+          showTimelineTab={ true }
         />
       </Provider>
     );
 
-    const timelineTab = scryRenderedDOMComponentsWithClass(instance, 'right-pane-tab-name')[1];
-    Simulate.click(timelineTab);
+    const officersTab = scryRenderedDOMComponentsWithClass(instance, 'right-pane-tab-name')[1];
+    Simulate.click(officersTab);
 
-    changeNetworkTabStub.should.be.calledWith('Timeline');
+    changeNetworkTabStub.should.be.calledWith('Officers');
   });
 
-  it('should not render timeline tab if hasComplaint is false', function () {
+  it('should not render timeline tab if showTimelineTab is false', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <RightPaneSection
           currentTab='Officers'
-          hasComplaint={ false }
+          showTimelineTab={ false }
         />
       </Provider>
     );

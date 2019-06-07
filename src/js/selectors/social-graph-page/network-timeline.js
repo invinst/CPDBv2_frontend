@@ -1,4 +1,4 @@
-import { get, slice, rangeRight, isEmpty, compact } from 'lodash';
+import { get, slice, rangeRight, isEmpty, compact, indexOf } from 'lodash';
 import moment from 'moment';
 
 import { NEW_TIMELINE_ITEMS } from 'utils/constants';
@@ -20,7 +20,8 @@ export const allegationTransform = item => {
     category: get(item, 'most_common_category.category') || 'Unknown',
     subcategory: get(item, 'most_common_category.allegation_name') || 'Unknown',
     attachments: get(item, 'attachments', []).map(attachmentTransform),
-    key: item['crid']
+    key: item['crid'],
+    timelineIdx: item['timelineIdx'],
   };
 };
 
@@ -42,7 +43,7 @@ export const fillYears = (items) => {
   let newItems = [];
   newItems.push(yearItem(items[0], items[0].year, true));
 
-  items.map((currentItem, index) => {
+  items.forEach((currentItem, index) => {
     newItems.push(currentItem);
 
     if (index < items.length - 1) {
@@ -60,9 +61,25 @@ export const fillYears = (items) => {
 
 export const getSocialGraphTimelineItems = (state) => {
   const items = state.socialGraphPage.networkData.networkAllegations;
-  const transformedItems = compact(items.map(allegationTransform));
-  if (isEmpty(transformedItems)) {
+
+  if (isEmpty(items)) {
     return [];
   }
+
+  const listEvents = state.socialGraphPage.networkData.graphData.list_event || [];
+  items.forEach((item) => {
+    const itemTimelineIdx = indexOf(listEvents, item.incident_date);
+    if (itemTimelineIdx !== -1) {
+      item.timelineIdx = itemTimelineIdx;
+    }
+  });
+
+  const transformedItems = compact(items.map(allegationTransform));
   return fillYears(transformedItems);
 };
+
+export const getSocialGraphTimelineIdx = state => state.socialGraphPage.networkData.timelineIdx;
+
+export const getSocialGraphRefreshIntervalId = state => state.socialGraphPage.networkData.refreshIntervalId;
+
+export const getTimelineIdxTriggerChange = state => state.socialGraphPage.networkData.timelineIdxTriggerChange;

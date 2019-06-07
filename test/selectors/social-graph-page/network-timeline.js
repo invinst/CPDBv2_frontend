@@ -5,6 +5,9 @@ import {
   fillYears,
   gapYearItems,
   getSocialGraphTimelineItems,
+  getSocialGraphTimelineIdx,
+  getSocialGraphRefreshIntervalId,
+  getTimelineIdxTriggerChange,
 } from 'selectors/social-graph-page/network-timeline';
 
 
@@ -19,6 +22,7 @@ describe('Social Graph page selectors', function () {
           'allegation_name': 'Subcategory',
         },
         'attachments': [],
+        'timelineIdx': 1,
       };
       allegationTransform(allegation).should.eql({
         crid: '123456',
@@ -28,7 +32,8 @@ describe('Social Graph page selectors', function () {
         category: 'Use of Force',
         subcategory: 'Subcategory',
         attachments: [],
-        key: '123456'
+        key: '123456',
+        timelineIdx: 1,
       });
     });
   });
@@ -209,6 +214,14 @@ describe('Social Graph page selectors', function () {
             networkAllegations: [
               {
                 'most_common_category': {
+                  category: 'Criminal Misconduct',
+                  'allegation_name': 'Theft'
+                },
+                crid: '260131',
+                'incident_date': '2003-02-17',
+              },
+              {
+                'most_common_category': {
                   category: 'Illegal Search',
                   'allegation_name': 'Search Of Premise Without Warrant'
                 },
@@ -225,16 +238,12 @@ describe('Social Graph page selectors', function () {
                   }
                 ]
               },
-              {
-                'most_common_category': {
-                  category: 'Criminal Misconduct',
-                  'allegation_name': 'Theft'
-                },
-                crid: '260131',
-                'incident_date': '2003-02-17',
-              },
-            ]
-          }
+            ],
+            graphData: {
+              'list_event': ['2003-02-17', '2003-11-26']
+            }
+          },
+
         }
       };
 
@@ -242,8 +251,19 @@ describe('Social Graph page selectors', function () {
         {
           date: 2003,
           hasData: true,
-          key: '294088-YEAR-2003',
+          key: '260131-YEAR-2003',
           kind: 'YEAR'
+        },
+        {
+          attachments: [],
+          category: 'Criminal Misconduct',
+          crid: '260131',
+          incidentDate: 'FEB 17',
+          key: '260131',
+          kind: 'CR',
+          subcategory: 'Theft',
+          year: 2003,
+          timelineIdx: 0,
         },
         {
           category: 'Illegal Search',
@@ -261,20 +281,50 @@ describe('Social Graph page selectors', function () {
               title: 'CRID 294088 CR',
               url: 'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html'
             }
-          ]
+          ],
+          timelineIdx: 1,
         },
-        {
-          attachments: [],
-          category: 'Criminal Misconduct',
-          crid: '260131',
-          incidentDate: 'FEB 17',
-          key: '260131',
-          kind: 'CR',
-          subcategory: 'Theft',
-          year: 2003
-        }
       ])
       ;
+    });
+  });
+
+  describe('getSocialGraphTimelineIdx', function () {
+    it('should return correct status', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            timelineIdx: 20,
+          },
+        }
+      };
+      getSocialGraphTimelineIdx(state).should.eql(20);
+    });
+  });
+
+  describe('getSocialGraphRefreshIntervalId', function () {
+    it('should return correct status', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            refreshIntervalId: 1234,
+          },
+        }
+      };
+      getSocialGraphRefreshIntervalId(state).should.eql(1234);
+    });
+  });
+
+  describe('getTimelineIdxTriggerChange', function () {
+    it('should return correct status', function () {
+      const state = {
+        socialGraphPage: {
+          networkData: {
+            timelineIdxTriggerChange: 1,
+          },
+        }
+      };
+      getTimelineIdxTriggerChange(state).should.eql(1);
     });
   });
 });
