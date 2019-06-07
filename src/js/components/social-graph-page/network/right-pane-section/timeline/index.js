@@ -59,7 +59,7 @@ export default class Timeline extends Component {
       if (!isUndefined(item.timelineIdx)) {
         new ScrollMagic.Scene({
           triggerElement: `#trigger-${item.timelineIdx}`,
-          offset: -65,
+          offset: -50,
           triggerHook: 0,
           duration: 57
         }).on('enter', (event) => {
