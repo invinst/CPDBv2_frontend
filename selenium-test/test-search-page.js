@@ -594,7 +594,7 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.suggestionGroup.waitForVisible();
 
     searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/);
+    browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
   });
 });
 
