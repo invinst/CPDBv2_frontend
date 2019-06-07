@@ -267,4 +267,188 @@ describe('relevantComplaints reducer', function () {
       pagination: { next: null, previous: null },
     });
   });
+
+  it('should handle ADD_ITEM_TO_PINBOARD_STATE and remove item', function () {
+    const existingComplaints = [{
+      'crid': '1085121',
+      'category': 'Money / Property',
+      'incident_date': '2017-04-04',
+      'officers': [{
+        'id': 21098,
+        'rank': 'Sergeant of Police',
+        'full_name': 'Daniel O Toole',
+        'coaccusal_count': null,
+        'percentile': {
+          'year': 2016,
+          'percentile_trr': '83.0024',
+          'percentile_allegation': '99.2282',
+          'percentile_allegation_civilian': '99.1579',
+          'percentile_allegation_internal': '70.0568'
+        }
+      }],
+      'point': { 'lon': -87.6427175, 'lat': 41.7756769 }
+    }, {
+      'crid': '1082207',
+      'category': 'Operation/Personnel Violations',
+      'incident_date': '2016-09-11',
+      'officers': [{
+        'id': 19131,
+        'rank': 'Police Officer',
+        'full_name': 'Michael Miller',
+        'coaccusal_count': null,
+        'percentile': {
+          'year': 2016,
+          'percentile_trr': '0.0000',
+          'percentile_allegation': '87.2187',
+          'percentile_allegation_civilian': '74.8804',
+          'percentile_allegation_internal': '61.1521'
+        }
+      }, {
+        'id': 26640,
+        'rank': 'Police Officer',
+        'full_name': 'Brian Sloyan',
+        'coaccusal_count': null,
+        'percentile': {
+          'year': 2016,
+          'percentile_trr': '56.6663',
+          'percentile_allegation': '68.2549',
+          'percentile_allegation_civilian': '72.3141',
+          'percentile_allegation_internal': '0.0000'
+        }
+      }],
+      'point': { 'lon': -87.6097074, 'lat': 41.6600254 }
+    }];
+
+    const currentState = {
+      items: existingComplaints,
+      count: 444,
+      pagination: {
+        next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=40',
+        previous: '/pinboards/66ef1560/relevant-complaints/?',
+      }
+    };
+
+    relevantComplaints(currentState, {
+      type: constants.ADD_ITEM_TO_PINBOARD_STATE,
+      payload: {
+        type: 'CR',
+        id: '1085121',
+      }
+    }).should.eql({
+      items: [
+        {
+          'crid': '1082207',
+          'category': 'Operation/Personnel Violations',
+          'incident_date': '2016-09-11',
+          'officers': [{
+            'id': 19131,
+            'rank': 'Police Officer',
+            'full_name': 'Michael Miller',
+            'coaccusal_count': null,
+            'percentile': {
+              'year': 2016,
+              'percentile_trr': '0.0000',
+              'percentile_allegation': '87.2187',
+              'percentile_allegation_civilian': '74.8804',
+              'percentile_allegation_internal': '61.1521'
+            }
+          }, {
+            'id': 26640,
+            'rank': 'Police Officer',
+            'full_name': 'Brian Sloyan',
+            'coaccusal_count': null,
+            'percentile': {
+              'year': 2016,
+              'percentile_trr': '56.6663',
+              'percentile_allegation': '68.2549',
+              'percentile_allegation_civilian': '72.3141',
+              'percentile_allegation_internal': '0.0000'
+            }
+          }],
+          'point': { 'lon': -87.6097074, 'lat': 41.6600254 }
+        }
+      ],
+      count: 444,
+      pagination: {
+        next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=40',
+        previous: '/pinboards/66ef1560/relevant-complaints/?',
+      },
+    });
+  });
+
+  it('should ignore ADD_ITEM_TO_PINBOARD_STATE with type is not CR', function () {
+    const existingComplaints = [{
+      'crid': '1085121',
+      'category': 'Money / Property',
+      'incident_date': '2017-04-04',
+      'officers': [{
+        'id': 21098,
+        'rank': 'Sergeant of Police',
+        'full_name': 'Daniel O Toole',
+        'coaccusal_count': null,
+        'percentile': {
+          'year': 2016,
+          'percentile_trr': '83.0024',
+          'percentile_allegation': '99.2282',
+          'percentile_allegation_civilian': '99.1579',
+          'percentile_allegation_internal': '70.0568'
+        }
+      }],
+      'point': { 'lon': -87.6427175, 'lat': 41.7756769 }
+    }, {
+      'crid': '1082207',
+      'category': 'Operation/Personnel Violations',
+      'incident_date': '2016-09-11',
+      'officers': [{
+        'id': 19131,
+        'rank': 'Police Officer',
+        'full_name': 'Michael Miller',
+        'coaccusal_count': null,
+        'percentile': {
+          'year': 2016,
+          'percentile_trr': '0.0000',
+          'percentile_allegation': '87.2187',
+          'percentile_allegation_civilian': '74.8804',
+          'percentile_allegation_internal': '61.1521'
+        }
+      }, {
+        'id': 26640,
+        'rank': 'Police Officer',
+        'full_name': 'Brian Sloyan',
+        'coaccusal_count': null,
+        'percentile': {
+          'year': 2016,
+          'percentile_trr': '56.6663',
+          'percentile_allegation': '68.2549',
+          'percentile_allegation_civilian': '72.3141',
+          'percentile_allegation_internal': '0.0000'
+        }
+      }],
+      'point': { 'lon': -87.6097074, 'lat': 41.6600254 }
+    }];
+
+    const currentState = {
+      items: existingComplaints,
+      count: 444,
+      pagination: {
+        next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=40',
+        previous: '/pinboards/66ef1560/relevant-complaints/?',
+      }
+    };
+
+    relevantComplaints(currentState, {
+      type: constants.ADD_ITEM_TO_PINBOARD_STATE,
+      payload: {
+        type: 'OFFICER',
+        id: '1085121',
+      }
+    }).should.eql({
+      items: existingComplaints,
+      count: 444,
+      pagination: {
+        next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=40',
+        previous: '/pinboards/66ef1560/relevant-complaints/?',
+      },
+    });
+  });
 });
