@@ -5,10 +5,13 @@ import { findDOMNode } from 'react-dom';
 import {
   renderIntoDocument,
   findRenderedComponentWithType,
+  scryRenderedComponentsWithType,
   findRenderedDOMComponentWithClass,
+  scryRenderedDOMComponentsWithClass,
 } from 'react-addons-test-utils';
-import { stub } from 'sinon';
 import * as ReactRouter from 'react-router';
+import { Router, createMemoryHistory, Route } from 'react-router';
+import { stub } from 'sinon';
 import { createStore as ReduxCreateStore } from 'redux';
 import should from 'should';
 
@@ -69,10 +72,16 @@ describe('PinboardPage component', function () {
 
     const store = ReduxCreateStore(RootReducer, state);
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ store }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     store.dispatch({
@@ -98,10 +107,16 @@ describe('PinboardPage component', function () {
 
     const store = ReduxCreateStore(RootReducer, state);
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ store }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     store.dispatch({
@@ -150,12 +165,19 @@ describe('PinboardPage component', function () {
   it('should render PinnedSection component and SearchBar component', function () {
     const pinboard = {
       'id': '5cd06f2b',
+      'crids': ['123']
     };
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ createStore(pinboard) }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     findRenderedDOMComponentWithClass(instance, 'pinned-section');
@@ -169,12 +191,19 @@ describe('PinboardPage component', function () {
     const pinboard = {
       title: 'This is pinboard title',
       description: 'This is pinboard description',
+      crids: ['123'],
     };
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ createStore(pinboard) }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     findRenderedComponentWithType(instance, PinboardPaneSection);
@@ -182,5 +211,83 @@ describe('PinboardPage component', function () {
     findRenderedComponentWithType(instance, RelevantSectionContainer);
     const footer = findRenderedComponentWithType(instance, FooterContainer);
     footer.props.className.should.eql('footer');
+  });
+
+  it('should render EmptyPinboard instead of pinboard contents if pinboard is empty', function () {
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+    };
+
+    const pinboardPage = () => (
+      <Provider store={ createStore(pinboard) }>
+        <PinboardPageContainer />
+      </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
+    );
+
+    findDOMNode(findRenderedComponentWithType(instance, PinboardPage)).className.should.containEql('empty');
+
+    scryRenderedComponentsWithType(instance, PinboardPaneSection).should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'pinboard-title').should.have.length(0);
+    scryRenderedDOMComponentsWithClass(instance, 'pinboard-description').should.have.length(0);
+    scryRenderedComponentsWithType(instance, RelevantSectionContainer).should.have.length(0);
+
+    findRenderedComponentWithType(instance, SearchBar).props.shareable.should.be.false();
+    findRenderedDOMComponentWithClass(instance, 'empty-pinboard-title').textContent.should.equal('Add');
+    findRenderedDOMComponentWithClass(instance, 'empty-pinboard-description').textContent.should.containEql(
+      'Add officers, or complaint records through search.'
+    ).and.containEql('Or use an example pinboard as a baseline to get started.');
+
+    scryRenderedDOMComponentsWithClass(instance, 'helper-row').should.have.length(2);
+    const helperHeaders = scryRenderedDOMComponentsWithClass(instance, 'helper-header');
+    const helperTexts = scryRenderedDOMComponentsWithClass(instance, 'helper-text');
+    const helperArrows = scryRenderedDOMComponentsWithClass(instance, 'helper-arrow');
+    helperHeaders.should.have.length(2);
+    helperTexts.should.have.length(2);
+    helperArrows.should.have.length(2);
+
+    helperHeaders[0].textContent.should.equal('Repeaters');
+    helperHeaders[1].textContent.should.equal('Skullcap crew');
+    helperTexts[0].textContent.should.equal(
+      'Officers with at least 10 complaints against them generate 64% of all complaints.'
+    );
+    helperTexts[1].textContent.should.equal(
+      'Dogged by allegations of abuse, members of the group have been named in more than 20 federal lawsuits – yet h…'
+    );
+
+    findRenderedDOMComponentWithClass(instance, 'arrow-head');
+    findRenderedDOMComponentWithClass(instance, 'arrow-shaft');
+
+    findRenderedComponentWithType(instance, FooterContainer);
+  });
+
+  it('should push pinboard into breadcrumbs', function () {
+    const location = { pathname: '/pinboard/66ef1560/' };
+    const params = {};
+    const routes = [];
+    const stubPushBreadcrumbs = stub();
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+    };
+
+    instance = renderIntoDocument(
+      <Provider store={ createStore(pinboard) }>
+        <PinboardPage
+          pinboard={ pinboard }
+          location={ location }
+          params={ params }
+          routes={ routes }
+          pushBreadcrumbs={ stubPushBreadcrumbs }
+        />
+      </Provider>
+    );
+    stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
   });
 });

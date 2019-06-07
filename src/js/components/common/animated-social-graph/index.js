@@ -9,7 +9,7 @@ import styles from './animated-social-graph.sass';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
 
-const AMINATE_SPEED = 150;
+const ANIMATE_SPEED = 150;
 
 
 export default class AnimatedSocialGraph extends Component {
@@ -34,7 +34,7 @@ export default class AnimatedSocialGraph extends Component {
 
   startTimeline() {
     const { updateRefreshIntervalId } = this.props;
-    updateRefreshIntervalId(setInterval(this.intervalTickTimeline, AMINATE_SPEED));
+    updateRefreshIntervalId(setInterval(this.intervalTickTimeline, ANIMATE_SPEED));
   }
 
   stopTimeline() {

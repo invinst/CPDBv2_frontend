@@ -23,6 +23,9 @@ describe('SearchBar component', function () {
   it('should render correctly', function () {
     instance = renderIntoDocument(<SearchBar />);
 
+    const searchBoxParent = findRenderedDOMComponentWithClass(instance, 'search-box-parent');
+    searchBoxParent.className.should.not.containEql('short');
+
     findRenderedDOMComponentWithClass(instance, 'search-term').textContent.should.eql('Search');
     findRenderedDOMComponentWithClass(instance, 'share-button').textContent.should.eql('Share');
   });
@@ -64,5 +67,11 @@ describe('SearchBar component', function () {
     Simulate.click(searchBar);
     pushPathStub.calledWith('/search/').should.be.true();
     pushPathStub.restore();
+  });
+
+  it('should not render share button in unsharable mode', function () {
+    instance = renderIntoDocument(<SearchBar shareable={ false }/>);
+
+    scryRenderedDOMComponentsWithClass(instance, 'share-button').should.have.length(0);
   });
 });

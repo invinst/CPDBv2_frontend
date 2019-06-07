@@ -3,21 +3,10 @@ import { map, differenceBy, first, get, isEqual } from 'lodash';
 import cx from 'classnames';
 import { Muuri } from 'utils/vendors';
 
-import * as constants from 'utils/constants';
-import OfficerCardComponent from './cards/officer-card';
-import CRCardComponent from './cards/cr-card';
-import TRRCardComponent from './cards/trr-card';
-import withUndoCard from './cards/with-undo-card';
+import { OfficerCardWithUndo as OfficerCard } from './cards/officer-card';
+import { CRCardWithUndo as CRCard } from './cards/cr-card';
+import { TRRCardWithUndo as TRRCard } from './cards/trr-card';
 import styles from './pinned-type.sass';
-
-
-export const OfficerCard = withUndoCard(
-  OfficerCardComponent,
-  constants.UNDO_CARD_VISIBLE_TIME,
-  props => `${get(props, 'item.fullName', '')} removed.`
-);
-export const CRCard = withUndoCard(CRCardComponent, constants.UNDO_CARD_VISIBLE_TIME, () => 'CR removed.');
-export const TRRCard = withUndoCard(TRRCardComponent, constants.UNDO_CARD_VISIBLE_TIME, () => 'TRR removed.');
 
 
 const CARD_MAP = {

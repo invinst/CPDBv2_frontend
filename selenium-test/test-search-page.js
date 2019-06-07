@@ -575,10 +575,6 @@ describe('Search Page with pinboard functionalities', function () {
   it('should display pinboard button that links to pinboard page when pinboard is not empty', function () {
     searchPage.open('Ke');
     searchPage.suggestionGroup.waitForVisible();
-
-    searchPage.pinboardButton.click();
-    browser.getUrl().should.match(/\/search\//);
-
     searchPage.firstOfficerPinButton.click();
     searchPage.pinboardButton.click();
     browser.getUrl().should.match(/pinboard\/5cd06f2b\/pinboard-title\/$/);
@@ -591,6 +587,14 @@ describe('Search Page with pinboard functionalities', function () {
     searchPage.pinboardBar.getText().should.containEql(tip);
 
     searchPage.pinboardButton.getText().should.eql('Pinboard (0)');
+  });
+
+  it('should redirect to Pinboard page when click on pinboard button', function () {
+    searchPage.open('Ke');
+    searchPage.suggestionGroup.waitForVisible();
+
+    searchPage.pinboardButton.click();
+    browser.getUrl().should.match(/pinboard\/5cd06f2b\/untitled-pinboard\/$/);
   });
 });
 

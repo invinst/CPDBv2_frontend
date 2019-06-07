@@ -8,6 +8,7 @@ import searchTermsPage from './page-objects/search-terms-page';
 import trrPage from './page-objects/trr-page';
 import header from './page-objects/shareable-header';
 import officerPage from './page-objects/officer-page';
+import pinboardPage from './page-objects/pinboard-page';
 
 
 describe('shareableHeader', function () {
@@ -65,5 +66,18 @@ describe('shareableHeader', function () {
         header.breadcrumbs.mainElement.getText().should.eql('cpdpBernadette KellyTRR 1');
       }
     );
+
+    it('should show pinboard breadcrumb', function () {
+      pinboardPage.open();
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+
+      pinboardPage.relevantComplaintsSection.complaintCardSection.incidentDate.click();
+      browser.pause(500);
+      browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+
+      const BreadcrumbsItems = header.breadcrumbs.items;
+      BreadcrumbsItems.count.should.eql(3);
+      header.breadcrumbs.mainElement.getText().should.containEql('cpdp').and.containEql('Pinboard');
+    });
   });
 });

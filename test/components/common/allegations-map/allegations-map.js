@@ -1,7 +1,8 @@
 import React from 'react';
 import { renderIntoDocument, findRenderedDOMComponentWithClass } from 'react-addons-test-utils';
-import { unmountComponentSuppressError, reRender } from 'utils/test';
+import { mapboxgl } from 'utils/vendors';
 
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import AllegationsMap from 'components/common/allegations-map';
 import mapStyles from 'components/common/allegations-map/allegations-map.sass';
 import legendStyles from 'components/common/allegations-map/legend/legend.sass';
@@ -69,8 +70,11 @@ describe('Map component', function () {
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
 
+    instance.currentMarkers.should.have.length(3);
     instance = reRender(<AllegationsMap legend={ legend } markers={ markers } />, instance);
     findRenderedDOMComponentWithClass(instance, mapStyles.map);
     findRenderedDOMComponentWithClass(instance, legendStyles.legend);
+    const marker = new mapboxgl.Marker();
+    marker.remove.callCount.should.equal(3);
   });
 });

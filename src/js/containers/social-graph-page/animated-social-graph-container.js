@@ -33,5 +33,4 @@ const mapDispatchToProps = {
   updateRefreshIntervalId: updateSocialGraphRefreshIntervalId,
 };
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(AnimatedSocialGraph);
