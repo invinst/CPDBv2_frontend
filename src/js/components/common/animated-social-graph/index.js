@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { isEmpty } from 'lodash';
+import { isEmpty, noop } from 'lodash';
 import cx from 'classnames';
 
 import SocialGraph from './social-graph';
@@ -185,6 +185,6 @@ AnimatedSocialGraph.propTypes = {
 };
 
 AnimatedSocialGraph.defaultProps = {
-  updateTimelineIdx: () => {},
-  updateRefreshIntervalId: () => {},
+  updateTimelineIdx: noop,
+  updateRefreshIntervalId: noop,
 };
