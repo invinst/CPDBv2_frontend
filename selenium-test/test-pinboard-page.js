@@ -36,17 +36,20 @@ describe('Pinboard Page', function () {
   context('pinboard pinned section', function () {
     it('should render the pinned cards correctly', function () {
       const officers = pinboardPage.pinnedSection.officers;
+      officers.officerCards().should.have.length(1);
       officers.title.getText().should.equal('OFFICERS');
       officers.firstCardRank.getText().should.equal('Police Officer');
       officers.firstCardName.getText().should.equal('Daryl Mack');
       officers.firstCardCRsCount.getText().should.equal('10 complaints');
 
       const crs = pinboardPage.pinnedSection.crs;
+      crs.crCards().should.have.length(1);
       crs.title.getText().should.equal('COMPLAINTS');
       crs.firstCardDate.getText().should.equal('2010-01-01');
       crs.firstCardCategory.getText().should.equal('Use Of Force');
 
       const trrs = pinboardPage.pinnedSection.trrs;
+      trrs.trrCards().should.have.length(1);
       trrs.title.getText().should.equal('TACTICAL RESPONSE REPORTS');
       trrs.firstCardDate.getText().should.equal('2012-01-01');
       trrs.firstCardCategory.getText().should.equal('Impact Weapon');
@@ -297,6 +300,22 @@ describe('Pinboard Page', function () {
       browser.pause(500);
       browser.getUrl().should.match(/\/officer\/123\/richard-sullivan\/$/);
     });
+
+    it('should remove officer from the row and add to the pinned officers section', function () {
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(1);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.getAttribute(
+        'href'
+      ).should.match(/\/officer\/123\/richard-sullivan\/$/);
+
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.plusButton.click();
+      browser.pause(1050);
+
+      pinboardPage.relevantCoaccusalsSection.coaccusalCards().should.have.length(19);
+      pinboardPage.pinnedSection.officers.officerCards().should.have.length(2);
+      pinboardPage.relevantCoaccusalsSection.coaccusalCardSection.mainElement.getAttribute(
+        'href'
+      ).should.not.match(/\/officer\/123\/richard-sullivan\/$/);
+    });
   });
 
   context('relevant documents section', function () {
@@ -335,6 +354,15 @@ describe('Pinboard Page', function () {
       times(12, () => pinboardPage.relevantDocumentsSection.rightArrow.click());
       pinboardPage.relevantDocumentsSection.documentCards().should.have.length(50);
       pinboardPage.relevantDocumentsSection.rightArrow.waitForExist(1000, true);
+    });
+
+    it('should add cr to the pinned crs section', function () {
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
+      pinboardPage.relevantDocumentsSection.documentCardSection.plusButton.click();
+      browser.pause(1500);
+
+      pinboardPage.relevantDocumentsSection.documentCards().should.have.length(20);
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
     });
   });
 
@@ -398,6 +426,20 @@ describe('Pinboard Page', function () {
       pinboardPage.relevantComplaintsSection.complaintCardSection.leftHalf.click();
       browser.pause(500);
       browser.getUrl().should.match(/\/complaint\/1071234\/$/);
+    });
+
+    it('should remove cr from the row and add to the pinned crs section', function () {
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(1);
+      pinboardPage.relevantComplaintsSection.complaintCardSection.rightHalf.getAttribute(
+        'href'
+      ).should.match(/\/complaint\/1071234\/$/);
+      pinboardPage.relevantComplaintsSection.complaintCardSection.plusButton.click();
+      browser.pause(1050);
+
+      pinboardPage.pinnedSection.crs.crCards().should.have.length(2);
+      pinboardPage.relevantComplaintsSection.complaintCardSection.rightHalf.getAttribute(
+        'href'
+      ).should.not.match(/\/complaint\/1071234\/$/);
     });
   });
 });

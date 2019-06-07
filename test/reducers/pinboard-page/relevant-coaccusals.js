@@ -234,7 +234,8 @@ describe('relevantCoaccusals reducer', function () {
       pagination: {
         next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=40',
         previous: '/pinboards/66ef1560/relevant-coaccusals/?',
-      }
+      },
+      requesting: false,
     };
 
     relevantCoaccusals(currentState, {
@@ -264,6 +265,7 @@ describe('relevantCoaccusals reducer', function () {
         next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=40',
         previous: '/pinboards/66ef1560/relevant-coaccusals/?',
       },
+      requesting: false,
     });
   });
 
@@ -303,7 +305,8 @@ describe('relevantCoaccusals reducer', function () {
       pagination: {
         next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=40',
         previous: '/pinboards/66ef1560/relevant-coaccusals/?',
-      }
+      },
+      requesting: false,
     };
 
     relevantCoaccusals(currentState, {
@@ -319,6 +322,7 @@ describe('relevantCoaccusals reducer', function () {
         next: '/pinboards/66ef1560/relevant-coaccusals/?limit=20&offset=40',
         previous: '/pinboards/66ef1560/relevant-coaccusals/?',
       },
+      requesting: false,
     });
   });
 });

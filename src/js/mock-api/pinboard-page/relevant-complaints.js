@@ -1,6 +1,7 @@
 import RawRelevantComplaintFactory from 'utils/test/factories/pinboard-page/raw-relevant-complaint';
 import { paginationResponse } from 'mock-api/pinboard-page/common';
 import RawRelevantCoaccusalFactory from 'utils/test/factories/pinboard-page/raw-officer';
+import { get, filter, includes } from 'lodash';
 
 
 const generateComplaints = paginationResponse('relevant-complaints', RawRelevantComplaintFactory);
@@ -36,6 +37,13 @@ export const getFirstRelevantComplaints = (pinboardId, count) => {
     }),
   ];
   complaints.results = fixedComplaints.concat(complaints.results).slice(0, 20);
+  return complaints;
+};
+
+
+export const filterPinnedComplaints = (complaints, currentPinboard={}) => {
+  const pinnedCrids = get(currentPinboard, 'crids', []);
+  complaints.results = filter(complaints.results, cr => !includes(pinnedCrids, cr.crid));
   return complaints;
 };
 

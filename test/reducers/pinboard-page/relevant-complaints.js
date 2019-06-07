@@ -325,7 +325,8 @@ describe('relevantComplaints reducer', function () {
       pagination: {
         next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=40',
         previous: '/pinboards/66ef1560/relevant-complaints/?',
-      }
+      },
+      requesting: false,
     };
 
     relevantComplaints(currentState, {
@@ -373,6 +374,7 @@ describe('relevantComplaints reducer', function () {
         next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=40',
         previous: '/pinboards/66ef1560/relevant-complaints/?',
       },
+      requesting: false,
     });
   });
 
@@ -433,7 +435,8 @@ describe('relevantComplaints reducer', function () {
       pagination: {
         next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=40',
         previous: '/pinboards/66ef1560/relevant-complaints/?',
-      }
+      },
+      requesting: false,
     };
 
     relevantComplaints(currentState, {
@@ -449,6 +452,7 @@ describe('relevantComplaints reducer', function () {
         next: '/pinboards/66ef1560/relevant-complaints/?limit=20&offset=40',
         previous: '/pinboards/66ef1560/relevant-complaints/?',
       },
+      requesting: false,
     });
   });
 });
