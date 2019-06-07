@@ -3,6 +3,14 @@ import { handleActions } from 'redux-actions';
 import * as constants from 'utils/constants';
 
 
+const buildPinboardBreadcrumbs = (state, action) => {
+  const title = action.payload['title'];
+  return {
+    ...state,
+    [`/pinboard/${action.payload['id']}/`]: title ? `Pinboard - ${title}` : 'Pinboard',
+  };
+};
+
 const breadcrumbMapping = handleActions({
   [constants.CR_REQUEST_SUCCESS]: (state, action) => ({
     ...state,
@@ -35,6 +43,8 @@ const breadcrumbMapping = handleActions({
     ...state,
     [`/document/${action.payload['id']}/`]: action.payload['title']
   }),
+  [constants.PINBOARD_FETCH_REQUEST_SUCCESS]: buildPinboardBreadcrumbs,
+  [constants.PINBOARD_UPDATE_REQUEST_SUCCESS]: buildPinboardBreadcrumbs,
 }, {});
 
 export default breadcrumbMapping;

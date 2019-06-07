@@ -24,6 +24,11 @@ export default class PinboardPage extends Component {
     this.handleOverlayClick = this.handleOverlayClick.bind(this);
   }
 
+  componentDidMount() {
+    const { location, params, routes, pushBreadcrumbs } = this.props;
+    pushBreadcrumbs({ location, params, routes });
+  }
+
   componentWillReceiveProps(nextProps) {
     if (isEmpty(nextProps.focusedItem)) {
       document.body.classList.remove('body-not-scrollable');
@@ -33,7 +38,6 @@ export default class PinboardPage extends Component {
       document.body.classList.remove('body-scrollable');
     }
   }
-
   componentDidUpdate(prevProps, prevState) {
     const { shouldRedirect, pinboard } = this.props;
     if (shouldRedirect && pinboard.url !== '') {
@@ -127,6 +131,11 @@ PinboardPage.propTypes = {
   isEmptyPinboard: PropTypes.bool,
   focusedItem: PropTypes.object,
   focusItem: PropTypes.func,
+  routes: PropTypes.array,
+  pushBreadcrumbs: PropTypes.func,
+  location: PropTypes.shape({
+    pathname: PropTypes.string
+  }),
 };
 
 PinboardPage.defaultProps = {

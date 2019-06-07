@@ -12,6 +12,7 @@ import {
 } from 'react-addons-test-utils';
 import { stub } from 'sinon';
 import * as ReactRouter from 'react-router';
+import { Router, createMemoryHistory, Route } from 'react-router';
 import { createStore as ReduxCreateStore } from 'redux';
 import should from 'should';
 import { set } from 'lodash';
@@ -82,10 +83,16 @@ describe('PinboardPage component', function () {
 
     const store = ReduxCreateStore(RootReducer, state);
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ store }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     store.dispatch({
@@ -111,10 +118,16 @@ describe('PinboardPage component', function () {
 
     const store = ReduxCreateStore(RootReducer, state);
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ store }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     store.dispatch({
@@ -132,10 +145,16 @@ describe('PinboardPage component', function () {
       'crids': ['123']
     };
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ createStore(pinboard) }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     findRenderedDOMComponentWithClass(instance, 'pinned-section');
@@ -152,10 +171,16 @@ describe('PinboardPage component', function () {
       crids: ['123'],
     };
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ createStore(pinboard) }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     findRenderedComponentWithType(instance, PinboardPaneSection);
@@ -177,10 +202,16 @@ describe('PinboardPage component', function () {
       description: 'This is pinboard description',
     };
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ createStore(pinboard) }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     findDOMNode(findRenderedComponentWithType(instance, PinboardPage)).className.should.containEql('empty');
@@ -219,6 +250,30 @@ describe('PinboardPage component', function () {
     findRenderedComponentWithType(instance, FooterContainer);
   });
 
+  it('should push pinboard into breadcrumbs', function () {
+    const location = { pathname: '/pinboard/66ef1560/' };
+    const params = {};
+    const routes = [];
+    const stubPushBreadcrumbs = stub();
+    const pinboard = {
+      title: 'This is pinboard title',
+      description: 'This is pinboard description',
+    };
+
+    instance = renderIntoDocument(
+      <Provider store={ createStore(pinboard) }>
+        <PinboardPage
+          pinboard={ pinboard }
+          location={ location }
+          params={ params }
+          routes={ routes }
+          pushBreadcrumbs={ stubPushBreadcrumbs }
+        />
+      </Provider>
+    );
+    stubPushBreadcrumbs.calledWith({ location, params, routes }).should.be.true();
+  });
+
   it('should contain overlay and preview pane', function () {
     const pinboard = {
       title: 'This is pinboard title',
@@ -226,10 +281,16 @@ describe('PinboardPage component', function () {
       crids: ['123'],
     };
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ createStore(pinboard) }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     findRenderedDOMComponentWithClass(instance, 'overlay').should.be.ok();
@@ -243,20 +304,26 @@ describe('PinboardPage component', function () {
       crids: ['123'],
     };
 
-    const pinboardPage = createPinboardPage(pinboard);
-    set(pinboardPage, 'crItems', [{ 'crid': '123' }]);
+    const pinboardPageData = createPinboardPage(pinboard);
+    set(pinboardPageData, 'crItems', [{ 'crid': '123' }]);
 
     const state = {
-      pinboardPage,
+      pinboardPage: pinboardPageData,
       pathname: 'pinboard/5cd06f2b',
     };
 
     const store = ReduxCreateStore(RootReducer, state);
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ store }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     store.dispatch({
@@ -278,20 +345,26 @@ describe('PinboardPage component', function () {
       crids: ['123'],
     };
 
-    const pinboardPage = createPinboardPage(pinboard);
-    set(pinboardPage, 'crItems', [{ 'crid': '123' }]);
+    const pinboardPageData = createPinboardPage(pinboard);
+    set(pinboardPageData, 'crItems', [{ 'crid': '123' }]);
 
     const state = {
-      pinboardPage,
+      pinboardPage: pinboardPageData,
       pathname: 'pinboard/5cd06f2b',
     };
 
     const store = ReduxCreateStore(RootReducer, state);
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ store }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     store.dispatch({
@@ -316,20 +389,26 @@ describe('PinboardPage component', function () {
       crids: ['123'],
     };
 
-    const pinboardPage = createPinboardPage(pinboard);
-    set(pinboardPage, 'crItems', [{ 'crid': '123' }]);
+    const pinboardPageData = createPinboardPage(pinboard);
+    set(pinboardPageData, 'crItems', [{ 'crid': '123' }]);
 
     const state = {
-      pinboardPage,
+      pinboardPage: pinboardPageData,
       pathname: 'pinboard/5cd06f2b',
     };
 
     const store = ReduxCreateStore(RootReducer, state);
 
-    instance = renderIntoDocument(
+    const pinboardPage = () => (
       <Provider store={ store }>
         <PinboardPageContainer />
       </Provider>
+    );
+
+    instance = renderIntoDocument(
+      <Router history={ createMemoryHistory() }>
+        <Route path='/' component={ pinboardPage } />
+      </Router>
     );
 
     store.dispatch({
