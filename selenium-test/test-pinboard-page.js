@@ -54,8 +54,11 @@ describe('Pinboard Page', function () {
   });
 
   context('social graph section', function () {
-    it('should render correctly', function () {
+    beforeEach(function () {
       pinboardPage.open();
+    });
+
+    it('should render correctly', function () {
       pinboardPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
       pinboardPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
       waitForGraphAnimationEnd(browser, pinboardPage);
@@ -115,7 +118,6 @@ describe('Pinboard Page', function () {
     });
 
     it('should show connected nodes when double click on a node', function () {
-      pinboardPage.open();
       waitForGraphAnimationEnd(browser, pinboardPage);
 
       const graphNodes = pinboardPage.animatedSocialGraphSection.graphNodes();
@@ -148,7 +150,6 @@ describe('Pinboard Page', function () {
     });
 
     it('should pause timeline when click on toggle timeline button', function () {
-      pinboardPage.open();
       const toggleTimelineButton = pinboardPage.animatedSocialGraphSection.toggleTimelineButton;
 
       waitForGraphAnimationEnd(browser, pinboardPage);
@@ -182,7 +183,6 @@ describe('Pinboard Page', function () {
     });
 
     it('should change the graph when click on specific part of the timeline', function () {
-      pinboardPage.open();
       waitForGraphAnimationEnd(browser, pinboardPage);
       pinboardPage.animatedSocialGraphSection.graphNodes().should.have.length(20);
       pinboardPage.animatedSocialGraphSection.graphLinks().should.have.length(37);
@@ -206,17 +206,9 @@ describe('Pinboard Page', function () {
       };
       groupsColors.should.eql(expectedGroupsColors);
     });
+  });
 
-    it('should render geographic section', function () {
-      pinboardPage.open();
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
-      pinboardPage.pinboardSection.geographicPaneName.click();
-      pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
-      pinboardPage.geographicSection.complaintNumber.getText().should.equal('5');
-      pinboardPage.geographicSection.trrText.getText().should.equal('Use of Force Report');
-      pinboardPage.geographicSection.trrNumber.getText().should.equal('2');
-    });
-
+  context('animatedSocialgraph off screen feature', function () {
     it('should pause the timeline when invisible and continue to play when visible', function () {
       pinboardPage.open('3664a7ea');
       pinboardPage.animatedSocialGraphSection.playButton.waitForExist(200, true);
