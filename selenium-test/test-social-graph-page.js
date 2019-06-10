@@ -270,8 +270,7 @@ describe('Social Graph Page', function () {
   it('should go to corresponding slider event when scroll to specific timeline item(s)', function () {
     socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
     waitForGraphAnimationEnd(browser, socialGraphPage);
-    browser.moveToObject(socialGraphPage.timelineSection.firstAllegationItem.selector);
-    browser.scroll(0, -500);
+    browser.moveToObject(socialGraphPage.timelineSection.allegationItem.selector);
     browser.waitUntil(function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1992-03-08';
     }, 3000);
@@ -282,7 +281,7 @@ describe('Social Graph Page', function () {
     socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
   });
 
-  it('should go to corresponding slider event when scroll after switch back from OfficerTab ', function () {
+  it('should go to corresponding slider event when scroll after switch back from OfficerTab', function () {
     socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
     waitForGraphAnimationEnd(browser, socialGraphPage);
 
@@ -299,8 +298,7 @@ describe('Social Graph Page', function () {
     formattedCurrentDate.should.eql('JAN 11');
     socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
 
-    browser.moveToObject(socialGraphPage.timelineSection.firstAllegationItem.selector);
-    browser.scroll(0, -500);
+    browser.moveToObject(socialGraphPage.timelineSection.allegationItem.selector);
 
     browser.waitUntil(function () {
       return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1992-03-08';

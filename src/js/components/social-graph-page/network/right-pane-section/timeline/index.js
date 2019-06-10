@@ -33,7 +33,9 @@ export default class Timeline extends Component {
     if (!isEqual(items, prevProps.items)) {
       this.addScrollEvents();
     }
-    this.performScrollToTimelineIdx(scrollToTimelineIdx);
+    if (scrollToTimelineIdx) {
+      this.performScrollToTimelineIdx(scrollToTimelineIdx);
+    }
   }
 
   componentWillUnmount() {

@@ -78,7 +78,7 @@ class TimelineSection extends Section {
     super();
 
     this.prepareElementGetters({
-      firstAllegationItem: '//a[contains(@class, "test--timeline-item")][1]',
+      allegationItem: '//div[contains(@class, "item__item")][7]',
       firstAllegationYear: '//div[contains(@class, "test--timeline-item")][1]//div[@class="date"]',
       firstAllegationCategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="category"]',
       firstAllegationSubcategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="subcategory"]',
