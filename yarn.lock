@@ -9008,6 +9008,11 @@ schema-utils@^1.0.0:
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
 
+scrollmagic@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/scrollmagic/-/scrollmagic-2.0.6.tgz#518bdf85a1755af819fe109ee8517b8e798c4e9a"
+  integrity sha512-uH4Z/NggT50MD3iOTOa6/B9n9+WkMpKGrVj3NuRRg2WoKaaZXCXx8EgKJBmH3SzRKHYHbZ3NJDPQ2AOhXlsTuw==
+
 scss-tokenizer@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/scss-tokenizer/-/scss-tokenizer-0.2.3.tgz#8eb06db9a9723333824d3f5530641149847ce5d1"

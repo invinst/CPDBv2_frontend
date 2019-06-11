@@ -17,7 +17,7 @@ import { createStore as ReduxCreateStore } from 'redux';
 import should from 'should';
 import { set } from 'lodash';
 
-import { unmountComponentSuppressError } from 'utils/test';
+import { unmountComponentSuppressError, reRender } from 'utils/test';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
 import PinnedCRsContainer from 'containers/pinboard-page/pinned-crs';
 import PinnedTRRsContainer from 'containers/pinboard-page/pinned-trrs';
@@ -139,6 +139,40 @@ describe('PinboardPage component', function () {
     replaceStub.restore();
   });
 
+  it('should called updatePathName when componentDidUpdate if title is updated', function () {
+    const updatePathNameStub = stub();
+    const pinboard = {
+      'id': '5cd06f2b',
+      'title': 'Pinboard title',
+      'url': '/pinboard/5cd06f2b/pinboard-title/'
+    };
+    const updatedPinboard = {
+      'id': '5cd06f2b',
+      'title': 'Pinboard title',
+      'url': '/pinboard/5cd06f2b/updated-title/'
+    };
+    const state = {
+      pinboardPage: createPinboardPage(pinboard),
+      pathname: 'pinboard/5cd06f2b',
+    };
+    const store = ReduxCreateStore(RootReducer, state);
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard }/>
+      </Provider>
+    );
+
+    instance = reRender(
+      <Provider store={ store }>
+        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard }/>
+      </Provider>,
+      instance
+    );
+
+    updatePathNameStub.should.be.calledWith('/pinboard/5cd06f2b/updated-title/');
+  });
+
   it('should render PinnedSection component and SearchBar component', function () {
     const pinboard = {
       'id': '5cd06f2b',
@@ -184,12 +218,6 @@ describe('PinboardPage component', function () {
     );
 
     findRenderedComponentWithType(instance, PinboardPaneSection);
-    findRenderedDOMComponentWithClass(instance, 'pinboard-title').textContent.should.eql(
-      'This is pinboard title'
-    );
-    findRenderedDOMComponentWithClass(instance, 'pinboard-description').textContent.should.eql(
-      'This is pinboard description'
-    );
 
     findRenderedComponentWithType(instance, RelevantSectionContainer);
     const footer = findRenderedComponentWithType(instance, FooterContainer);

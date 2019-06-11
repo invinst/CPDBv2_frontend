@@ -12,6 +12,8 @@ import trrItems from './trr-items';
 import redirection from './redirection';
 import pinboard from './pinboard';
 import focusedItem from './focused-item';
+import timelineIdx from './timeline_idx';
+import refreshIntervalId from './refresh-interval-id';
 
 
 export default combineReducers({
@@ -27,4 +29,6 @@ export default combineReducers({
   redirection,
   pinboard,
   focusedItem,
+  timelineIdx,
+  refreshIntervalId,
 });

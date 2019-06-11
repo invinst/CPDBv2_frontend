@@ -9,7 +9,7 @@ import { isInitiallyLoading, shouldRedirect } from 'selectors/pinboard-page/redi
 import { focusedItemSelector } from 'selectors/pinboard-page/focused-item';
 import { changePinboardTab } from 'actions/pinboard';
 import { focusItem } from 'actions/pinboard-page';
-
+import { updatePathName } from 'actions/path-name';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -28,6 +28,7 @@ const mapDispatchToProps = {
   changePinboardTab,
   focusItem,
   pushBreadcrumbs,
+  updatePathName,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PinboardPage));

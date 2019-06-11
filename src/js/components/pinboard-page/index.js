@@ -7,6 +7,7 @@ import responsiveContainerStyles from 'components/common/responsive-container.sa
 import SearchBar from './search-bar';
 import Header from './header';
 import styles from './pinboard-page.sass';
+import PinboardInfoContainer from 'containers/pinboard-page/pinboard-info';
 import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section';
 import RelevantSectionContainer from 'containers/pinboard-page/relevant-section';
 import PinnedOfficersContainer from 'containers/pinboard-page/pinned-officers';
@@ -39,10 +40,17 @@ export default class PinboardPage extends Component {
       document.body.classList.remove('body-scrollable');
     }
   }
-  componentDidUpdate(prevProps, prevState) {
-    const { shouldRedirect, pinboard } = this.props;
-    if (shouldRedirect && pinboard.url !== '') {
-      browserHistory.replace(pinboard.url);
+
+  componentDidUpdate(prevProps) {
+    const { pinboard } = prevProps;
+    const { pinboard: currentPinboard, shouldRedirect, updatePathName } = this.props;
+
+    if (currentPinboard.url !== '') {
+      if (shouldRedirect) {
+        browserHistory.replace(currentPinboard.url);
+      } else if (currentPinboard.url !== pinboard.url) {
+        updatePathName(currentPinboard.url);
+      }
     }
   }
 
@@ -56,7 +64,6 @@ export default class PinboardPage extends Component {
 
   renderContent() {
     const {
-      pinboard,
       changePinboardTab,
       currentTab,
       hasMapMarker,
@@ -71,10 +78,7 @@ export default class PinboardPage extends Component {
     return (
       <div>
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
-          <div className='pinboard-info'>
-            <div className='pinboard-title'>{ pinboard.title }</div>
-            <div className='pinboard-description'>{ pinboard.description }</div>
-          </div>
+          <PinboardInfoContainer />
           <div className='data-visualizations'>
             <PinboardPaneSection
               changePinboardTab={ changePinboardTab }
@@ -141,9 +145,12 @@ PinboardPage.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string
   }),
+  updatePathName: PropTypes.func,
 };
 
 PinboardPage.defaultProps = {
   focusedItem: {},
   focusItem: noop,
+  pushBreadcrumbs: noop,
 };
+

@@ -239,11 +239,15 @@ describe('store', function () {
       },
       socialGraphPage: {
         networkData: {
-          currentNetworkTab: 'Officers',
+          currentNetworkTab: 'Timeline',
+          showTimelineTab: true,
           graphData: {},
           networkAllegations: [],
           networkOfficers: [],
-          officerId: null
+          officerId: null,
+          timelineIdx: 0,
+          refreshIntervalId: null,
+          timelineIdxTriggerChange: 0,
         },
         currentMainTab: 'NETWORK',
         geographicData: [],
@@ -282,6 +286,8 @@ describe('store', function () {
         crItems: [],
         trrItems: [],
         focusedItem: {},
+        timelineIdx: 0,
+        refreshIntervalId: null,
       },
       toast: {},
     });
