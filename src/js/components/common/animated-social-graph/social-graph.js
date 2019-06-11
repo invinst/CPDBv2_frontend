@@ -7,6 +7,7 @@ import * as jLouvain from 'jlouvain';
 import d3Tip from 'd3-tip';
 import 'rc-slider/assets/index.css';
 import cx from 'classnames';
+import pluralize from 'pluralize';
 
 import { imgUrl } from 'utils/static-assets';
 import styles from './social-graph.sass';
@@ -38,8 +39,11 @@ export default class SocialGraph extends Component {
     this.tick = this.tick.bind(this);
     this.connectedNodes = this.connectedNodes.bind(this);
     this.collide = this.collide.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleNodeClick = this.handleNodeClick.bind(this);
+    this.handleEdgeClick = this.handleEdgeClick.bind(this);
     this.handleMouseover = this.handleMouseover.bind(this);
+    this.handleEdgeMouseover = this.handleEdgeMouseover.bind(this);
+    this.handleEdgeMouseout = this.handleEdgeMouseout.bind(this);
   }
 
   componentDidMount() {
@@ -47,8 +51,14 @@ export default class SocialGraph extends Component {
     this.node = this.svg.selectAll('.node');
     this.link = this.svg.selectAll('.link');
     this.label = this.svg.selectAll('.node-label');
-    this.selectedLabel = this.svg.selectAll('.selected-node-label');
-    this.selectedLabelBox = this.svg.selectAll('.selected-node-label-box');
+    this.selectedNodeLabel = {
+      labelText: this.svg.selectAll('.selected-node-label'),
+      box: this.svg.selectAll('.selected-node-label-box'),
+    };
+    this.selectedEdgeLabel = {
+      labelText: this.svg.selectAll('.selected-edge-label'),
+      box: this.svg.selectAll('.selected-edge-label-box'),
+    };
     this.tip = d3Tip()
       .attr('class', cx(styles.socialGraphTip, 'test--graph-tooltip'))
       .direction('e')
@@ -59,7 +69,7 @@ export default class SocialGraph extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { coaccusedData, timelineIdx, fullscreen, officer } = this.props;
+    const { coaccusedData, timelineIdx, fullscreen, selectedOfficerId, selectedEdge } = this.props;
 
     if (!isEqual(prevProps.coaccusedData, coaccusedData)) {
       this.drawGraph();
@@ -70,17 +80,27 @@ export default class SocialGraph extends Component {
       if (prevProps.fullscreen !== fullscreen) {
         this.resizeGraph();
       }
-      if (!isEqual(prevProps.officer, officer)) {
+      if (prevProps.selectedOfficerId !== selectedOfficerId) {
         this._updateSelectedNode();
+      }
+      if (prevProps.selectedEdge !== selectedEdge) {
+        this._updateSelectedEdge();
       }
     }
   }
 
-  handleClick(currentNode) {
-    const { updateOfficerId } = this.props;
-    if (updateOfficerId) {
+  handleNodeClick(currentNode) {
+    const { updateSelectedOfficerId } = this.props;
+    if (updateSelectedOfficerId) {
       this.tip.hide(currentNode);
-      updateOfficerId(currentNode.uid);
+      updateSelectedOfficerId(currentNode.uid);
+    }
+  }
+
+  handleEdgeClick(currentEdge) {
+    const { updateSelectedEdge } = this.props;
+    if (updateSelectedEdge) {
+      updateSelectedEdge({ sourceUid: currentEdge.source.uid, targetUid: currentEdge.target.uid });
     }
   }
 
@@ -88,6 +108,18 @@ export default class SocialGraph extends Component {
     if (!currentNode.isSelectedNode) {
       this.tip.show(currentNode);
     }
+  }
+
+  handleEdgeMouseover(currentEdge) {
+    this.node.classed('edge-hover', function (graphNode) {
+      return graphNode === currentEdge.source || graphNode === currentEdge.target;
+    });
+    this.link.classed('edge-hover', (graphLink) => currentEdge === graphLink);
+  }
+
+  handleEdgeMouseout() {
+    this.node.classed('edge-hover', false);
+    this.link.classed('edge-hover', false);
   }
 
   graphTooltip(graphNode) {
@@ -208,7 +240,7 @@ export default class SocialGraph extends Component {
   _recalculateNodeDegreesAndMaxWeight() {
     this.data.maxWeight = 0;
 
-    const orderedLinks = orderBy(this.data.links, ['weight'], ['asc']);
+    const orderedLinks = orderBy(this.data.links, ['weight', 'source', 'target']);
     const linksCount = this.data.links.length;
 
     orderedLinks.forEach((link, index) => {
@@ -265,46 +297,89 @@ export default class SocialGraph extends Component {
     });
   }
 
-  _updateSelectedNode() {
-    const { officer } = this.props;
+  _drawSelectedLabel(selectedLabel, data, className, textFunc) {
+    selectedLabel.box = selectedLabel.box.data(data);
+    selectedLabel.labelText = selectedLabel.labelText.data(data);
 
-    this.force.stop();
+    selectedLabel.box.exit().remove();
+    selectedLabel.labelText.exit().remove();
+
+    selectedLabel.box.enter()
+      .append('rect')
+      .attr('class', `${className}-box`)
+      .attr('rx', '4')
+      .attr('ry', '4');
+
+    selectedLabel.labelText.enter()
+      .append('text')
+      .attr('class', className);
+
+    selectedLabel.labelText.text(textFunc);
+
+    selectedLabel.labelText.each(function (d) { d.bb = this.getBBox(); });
+
+    selectedLabel.box
+      .attr('width', function (d) { return d.bb.width + LABEL_PADDING_LEFT_RIGHT; })
+      .attr('height', function (d) { return d.bb.height + LABEL_PADDING_TOP_BOTTOM; });
+  }
+
+  _updateSelectedNode() {
+    const { selectedOfficerId } = this.props;
+
     this.data.selectedNodes.forEach((d) => {
       d.isSelectedNode = false;
     });
     this.data.selectedNodes = [];
-    if (officer) {
-      this.data.selectedNodes = filter(this.data.nodes, { uid: officer.id });
+    if (selectedOfficerId) {
+      this.data.selectedNodes = filter(this.data.nodes, { uid: selectedOfficerId });
       this.data.selectedNodes.forEach((d) => {
         d.isSelectedNode = true;
       });
     }
 
-    this.selectedLabelBox = this.selectedLabelBox.data(this.data.selectedNodes);
-    this.selectedLabel = this.selectedLabel.data(this.data.selectedNodes);
+    this._drawSelectedLabel(this.selectedNodeLabel, this.data.selectedNodes, 'selected-node-label', (d) => d.fname);
+    this._updateSelectedNodePosition();
+  }
 
-    this.selectedLabelBox.enter()
-      .append('rect')
-      .attr('class', 'selected-node-label-box')
-      .attr('rx', '4')
-      .attr('ry', '4');
+  _updateSelectedNodePosition() {
+    this.selectedNodeLabel.labelText
+      .attr('x', (d) => d.x + (d.degree / 2 + 2) + LABEL_PADDING_LEFT_RIGHT / 2 )
+      .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 + 2);
 
-    this.selectedLabel.enter()
-      .append('text')
-      .attr('class', 'selected-node-label');
+    this.selectedNodeLabel.box
+      .attr('x', (d) => d.x + (d.degree / 2 + 2))
+      .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 - d.bb.height + 2);
+  }
 
-    this.selectedLabel.text((d) => d.fname);
 
-    this.selectedLabel.each(function (d) { d.bb = this.getBBox(); });
+  _updateSelectedEdge() {
+    const { selectedEdge } = this.props;
 
-    this.selectedLabelBox
-      .attr('width', function (d) { return d.bb.width + LABEL_PADDING_LEFT_RIGHT; })
-      .attr('height', function (d) { return d.bb.height + LABEL_PADDING_TOP_BOTTOM; });
+    this.data.selectedEdges = [];
+    if (selectedEdge) {
+      this.data.selectedEdges = filter(
+        this.data.links,
+        { source: { uid: selectedEdge.sourceUid }, target: { uid: selectedEdge.targetUid } }
+      );
+    }
 
-    this.selectedLabelBox.exit().remove();
-    this.selectedLabel.exit().remove();
+    this._drawSelectedLabel(
+      this.selectedEdgeLabel,
+      this.data.selectedEdges,
+      'selected-edge-label',
+      () => `${selectedEdge.coaccusedCount} ${pluralize('coaccusal', selectedEdge.coaccusedCount)}`
+    );
+    this._updateSelectedEdgePosition();
+  }
 
-    this.force.start();
+  _updateSelectedEdgePosition() {
+    this.selectedEdgeLabel.labelText
+      .attr('x', (d) => (d.source.x + d.target.x) / 2 + LABEL_PADDING_LEFT_RIGHT / 2)
+      .attr('y', (d) => (d.source.y + d.target.y) / 2 + LABEL_PADDING_TOP_BOTTOM / 2 + 2);
+
+    this.selectedEdgeLabel.box
+      .attr('x', (d) => (d.source.x + d.target.x) / 2)
+      .attr('y', (d) => (d.source.y + d.target.y) / 2 + LABEL_PADDING_TOP_BOTTOM / 2 - d.bb.height + 2);
   }
 
   recalculateNodeLinks(curDate) {
@@ -337,8 +412,8 @@ export default class SocialGraph extends Component {
       .on('mouseout', this.tip.hide)
       .on('dblclick', this.connectedNodes);
 
-    if (this.props.updateOfficerId) {
-      this.node.on('click', this.handleClick);
+    if (this.props.updateSelectedOfficerId) {
+      this.node.on('click', this.handleNodeClick);
     }
 
     this.node.attr('r', (d) => (d.degree / 2 + 2))
@@ -352,9 +427,16 @@ export default class SocialGraph extends Component {
       .linkStrength((d) => ((d.weight + 1) / (this.data.maxWeight + 1)));
     this.link = this.link.data(this.data.links);
 
-    this.link.enter().insert('line', '.node').attr('class', 'link');
+    this.link.enter().insert('line', '.node')
+      .attr('class', 'link edge-coaccusals-preview-link')
+      .on('mouseover', this.handleEdgeMouseover)
+      .on('mouseout', this.handleEdgeMouseout);
 
-    this.link.attr('class', (d) => `link link-group-color-${d.colorGroup} ${d.className}`);
+    if (this.props.updateSelectedEdge) {
+      this.link.on('click', this.handleEdgeClick);
+    }
+
+    this.link.attr('class', (d) => `link edge-coaccusals-preview-link link-group-color-${d.colorGroup} ${d.className}`);
 
     this.link.exit().remove();
   }
@@ -373,14 +455,6 @@ export default class SocialGraph extends Component {
     this.label.attr('x', (d) => d.x + (d.degree / 2 + 2))
       .attr('y', (d) => d.y);
 
-    this.selectedLabel
-      .attr('x', (d) => d.x + (d.degree / 2 + 2) + LABEL_PADDING_LEFT_RIGHT / 2 )
-      .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 + 2);
-
-    this.selectedLabelBox
-      .attr('x', (d) => d.x + (d.degree / 2 + 2))
-      .attr('y', (d) => d.y + LABEL_PADDING_TOP_BOTTOM / 2 - d.bb.height + 2);
-
     if (this.props.collideNodes) {
       this.node.each(this.cluster(60 * e.alpha * e.alpha))
         .each(this.collide());
@@ -390,6 +464,9 @@ export default class SocialGraph extends Component {
       .attr('y1', (d) => d.source.y)
       .attr('x2', (d) => d.target.x)
       .attr('y2', (d) => d.target.y);
+
+    this._updateSelectedNodePosition();
+    this._updateSelectedEdgePosition();
   }
 
   connectedNodes(currentNode) {
@@ -492,8 +569,10 @@ SocialGraph.propTypes = {
   startTimelineFromBeginning: PropTypes.func,
   stopTimeline: PropTypes.func,
   fullscreen: PropTypes.bool,
-  updateOfficerId: PropTypes.func,
-  officer: PropTypes.object,
+  selectedOfficerId: PropTypes.number,
+  updateSelectedOfficerId: PropTypes.func,
+  selectedEdge: PropTypes.object,
+  updateSelectedEdge: PropTypes.func,
 };
 
 SocialGraph.defaultProps = {
