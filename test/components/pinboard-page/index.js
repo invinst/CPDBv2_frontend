@@ -334,8 +334,8 @@ describe('PinboardPage component', function () {
     const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
     overlay.getAttribute('aria-hidden').should.equal('true');
 
-    document.body.classList.should.have.length(1);
-    document.body.classList[0].should.equal('body-scrollable');
+    document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-scrollable').should.be.true();
   });
 
   it('should display overlay if there is focused item', function () {
@@ -378,8 +378,8 @@ describe('PinboardPage component', function () {
     const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
     overlay.getAttribute('aria-hidden').should.equal('false');
 
-    document.body.classList.should.have.length(1);
-    document.body.classList[0].should.equal('body-not-scrollable');
+    document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-not-scrollable').should.be.true();
   });
 
   it('should handle on overlay click', function () {
@@ -421,13 +421,13 @@ describe('PinboardPage component', function () {
 
     const overlay = findRenderedDOMComponentWithClass(instance, 'overlay');
     overlay.getAttribute('aria-hidden').should.equal('false');
-    document.body.classList.should.have.length(1);
-    document.body.classList[0].should.equal('body-not-scrollable');
+    document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-not-scrollable').should.be.true();
 
     Simulate.click(overlay);
 
     overlay.getAttribute('aria-hidden').should.equal('true');
-    document.body.classList.should.have.length(1);
-    document.body.classList[0].should.equal('body-scrollable');
+    document.body.classList.should.have.length(2);
+    document.body.classList.contains('body-scrollable').should.be.true();
   });
 });

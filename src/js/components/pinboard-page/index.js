@@ -27,6 +27,7 @@ export default class PinboardPage extends Component {
   componentDidMount() {
     const { location, params, routes, pushBreadcrumbs } = this.props;
     pushBreadcrumbs({ location, params, routes });
+    document.body.classList.add('body-fixed-viewport');
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,6 +44,10 @@ export default class PinboardPage extends Component {
     if (shouldRedirect && pinboard.url !== '') {
       browserHistory.replace(pinboard.url);
     }
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('body-fixed-viewport');
   }
 
   handleOverlayClick() {
