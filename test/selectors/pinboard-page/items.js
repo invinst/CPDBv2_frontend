@@ -72,21 +72,21 @@ describe('Pinboard items selectors', function () {
           officerItems: [{
             id: 1,
             'full_name': 'Daryl Mack',
-            'complaint_count': 0,
+            'allegation_count': 0,
             'sustained_count': 0,
             'birth_year': 1975,
             'complaint_percentile': 99.3450,
             race: 'White',
             gender: 'Male',
             rank: 'Police Officer',
-            percentiles: [{
+            percentile: {
               'percentile_trr': '12.0000',
               'percentile_allegation': '99.3450',
               'percentile_allegation_civilian': '98.4344',
               'percentile_allegation_internal': '99.7840',
               year: 2016,
               id: 1,
-            }]
+            }
           }],
         }
       }).should.eql([{
@@ -131,7 +131,7 @@ describe('Pinboard items selectors', function () {
             crid: '1000001',
             'incident_date': '2010-01-01',
             point: { 'lon': 1.0, 'lat': 1.0 },
-            'most_common_category': 'Use Of Force',
+            'category': 'Use Of Force',
           }],
         }
       };

@@ -90,7 +90,7 @@ class BaseComplaintCardSection extends Section {
     this.prepareElementGetters({
       mainElement: this.mainElementSelector,
       leftHalf: `${this.mainElementSelector}//div[contains(@class, "left-half")]`,
-      rightHalf: `${this.mainElementSelector}//a[contains(@class, "right-half")]`,
+      rightHalf: `${this.mainElementSelector}//div[contains(@class, "right-half")]`,
       thumbnail: `${this.mainElementSelector}//div[contains(@class, "document-card-thumbnail")]`,
       plusButton: `${this.mainElementSelector}//div[contains(@class, "plus-button")]`,
       incidentDate: `${this.mainElementSelector}//div[contains(@class, "incident-date")]`,
@@ -109,7 +109,7 @@ class CoaccusalCardSection extends Section {
   constructor(baseSelector) {
     super();
 
-    this.mainElementSelector = `${baseSelector}//a[contains(@class, "relevant-coaccusal-card")]`;
+    this.mainElementSelector = `${baseSelector}//div[contains(@class, "relevant-coaccusal-card")]`;
 
     this.prepareElementGetters({
       mainElement: this.mainElementSelector,
@@ -218,6 +218,16 @@ class EmptyPinboardSection extends Section {
   }
 }
 
+class PreviewPane extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      mainElement: '//div[contains(@class, "test--preview-pane")]',
+    });
+  }
+}
+
 class PinboardPage extends Page {
   pinnedSection = new PinboardPinnedSection();
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
@@ -227,6 +237,7 @@ class PinboardPage extends Page {
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();
   relevantComplaintsSection = new RelevantComplaintsSection();
   emptyPinboardSection = new EmptyPinboardSection();
+  previewPane = new PreviewPane();
 
   constructor() {
     super();

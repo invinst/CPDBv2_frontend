@@ -23,6 +23,7 @@ import {
   addItemInPinboardPage,
 } from 'actions/pinboard';
 import { getPinboardID } from 'utils/location';
+import { focusItem } from 'actions/pinboard-page';
 
 
 function mapStateToProps(state, ownProps) {
@@ -46,6 +47,7 @@ const mapDispatchToProps = {
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
   addItemInPinboardPage,
+  focusItem,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RelevantSection);

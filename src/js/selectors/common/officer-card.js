@@ -7,7 +7,10 @@ export const officerCardTransform = card => ({
   id: card['id'],
   officerId: card['id'],
   fullName: card['full_name'],
-  complaintCount: card['complaint_count'],
+  complaintCount:
+    has(card, 'complaint_count') ? card['complaint_count'] :
+    has(card, 'allegation_count') ? card['allegation_count'] :
+    0,
   sustainedCount: card['sustained_count'],
   complaintPercentile: parseFloat(card['complaint_percentile']),
   birthYear: card['birth_year'],

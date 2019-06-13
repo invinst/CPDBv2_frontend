@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { noop } from 'lodash';
 
 import { RelevantComplaintCardWithUndo as RelevantComplaintCard } from './relevant-complaint-card';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
@@ -11,7 +12,7 @@ export default class RelevantComplaints extends Component {
   }
 
   render() {
-    const { complaints, hasMore, addItemInPinboardPage } = this.props;
+    const { complaints, hasMore, addItemInPinboardPage, focusItem } = this.props;
     return (
       <RelevantInfiniteCarousel
         title='COMPLAINTS'
@@ -23,7 +24,11 @@ export default class RelevantComplaints extends Component {
         {
           complaints.map(complaint =>
             <div key={ complaint.crid } style={ { width: '306px' } }>
-              <RelevantComplaintCard { ...complaint } addItemInPinboardPage={ addItemInPinboardPage }/>
+              <RelevantComplaintCard
+                { ...complaint }
+                addItemInPinboardPage={ addItemInPinboardPage }
+                focusItem={ focusItem }
+              />
             </div>
           )
         }
@@ -39,8 +44,10 @@ RelevantComplaints.propTypes = {
   hasMore: PropTypes.bool,
   pinboardId: PropTypes.string,
   addItemInPinboardPage: PropTypes.func,
+  focusItem: PropTypes.func,
 };
 
 RelevantComplaints.defaultProps = {
-  complaints: []
+  complaints: [],
+  focusItem: noop,
 };

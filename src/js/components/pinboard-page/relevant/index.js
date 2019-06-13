@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, noop } from 'lodash';
 
 import styles from './relevant-section.sass';
 import RelevantDocuments from './relevant-documents';
@@ -24,6 +24,7 @@ export default class RelevantSection extends Component {
       fetchPinboardRelevantCoaccusals,
       fetchPinboardRelevantComplaints,
       addItemInPinboardPage,
+      focusItem,
     } = this.props;
 
     if (isEmpty(documents) && isEmpty(coaccusals) && isEmpty(complaints))
@@ -47,6 +48,7 @@ export default class RelevantSection extends Component {
           hasMore={ coaccusalHasMore }
           fetchPinboardRelevantCoaccusals={ fetchPinboardRelevantCoaccusals }
           addItemInPinboardPage={ addItemInPinboardPage }
+          focusItem={ focusItem }
         />
         <RelevantComplaints
           pinboardId={ pinboardId }
@@ -55,6 +57,7 @@ export default class RelevantSection extends Component {
           hasMore={ complaintHasMore }
           fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaints }
           addItemInPinboardPage={ addItemInPinboardPage }
+          focusItem={ focusItem }
         />
       </div>
     );
@@ -76,11 +79,13 @@ RelevantSection.propTypes = {
   fetchPinboardRelevantCoaccusals: PropTypes.func,
   fetchPinboardRelevantComplaints: PropTypes.func,
   addItemInPinboardPage: PropTypes.func,
+  focusItem: PropTypes.func,
 };
 
 RelevantSection.defaultProps = {
-  fetchPinboardRelevantDocuments: () => {},
-  fetchPinboardRelevantCoaccusals: () => {},
-  fetchPinboardRelevantComplaints: () => {},
+  fetchPinboardRelevantDocuments: noop,
+  fetchPinboardRelevantCoaccusals: noop,
+  fetchPinboardRelevantComplaints: noop,
+  focusItem: noop,
 };
 
