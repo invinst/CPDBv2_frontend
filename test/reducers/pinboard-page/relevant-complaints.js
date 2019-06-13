@@ -23,7 +23,6 @@ describe('relevantComplaints reducer', function () {
     });
   });
 
-
   it('should handle PINBOARD_RELEVANT_COMPLAINTS_FETCH_REQUEST_SUCCESS', function () {
     const complaints = [{
       'crid': '1085121',

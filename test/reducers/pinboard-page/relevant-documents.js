@@ -23,7 +23,6 @@ describe('relevantDocuments reducer', function () {
     });
   });
 
-
   it('should handle PINBOARD_RELEVANT_DOCUMENTS_FETCH_REQUEST_SUCCESS', function () {
     const documents = [{
       'id': 16316,
