@@ -96,7 +96,7 @@
   },
   "dependencies": {
     "array.prototype.find": "^2.0.0",
-    "axios": "^0.17.1",
+    "axios": "^0.18.0",
     "axios-mock-adapter": "1.8.1",
     "babel-plugin-transform-exponentiation-operator": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
@@ -158,6 +158,7 @@
     "redux-localstorage": "^0.4.1",
     "redux-thunk": "^2.0.1",
     "reselect": "^2.5.1",
+    "scrollmagic": "^2.0.6",
     "shallow-equals": "^1.0.0",
     "swiper": "^4.4.1",
     "titleize": "^1.0.0",

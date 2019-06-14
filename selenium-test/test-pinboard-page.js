@@ -55,12 +55,26 @@ describe('Pinboard Page', function () {
 
   context('pinboard section', function () {
     it('should render correctly', function () {
-      pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
-      pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
+      pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
       const pinboardPaneMenuText = pinboardPage.pinboardSection.pinboardPaneMenu.getText();
       pinboardPaneMenuText.should.containEql('NETWORK');
       pinboardPaneMenuText.should.containEql('GEOGRAPHIC');
+    });
+
+    it('should update title and description after editing and out focusing them', function () {
+      pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
+      pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
+      browser.getUrl().should.containEql('/pinboard-title/');
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      pinboardPage.pinboardSection.title.click();
+      pinboardPage.pinboardSection.title.setValue('Updated Title');
+      pinboardPage.pinboardSection.description.click();
+      pinboardPage.pinboardSection.description.setValue('Updated Description');
+      pinboardPage.pinboardSection.networkPaneName.click();
+      pinboardPage.pinboardSection.title.getValue().should.equal('Updated Title');
+      pinboardPage.pinboardSection.description.getValue().should.equal('Updated Description');
+      browser.getUrl().should.containEql('/updated-title/');
     });
   });
 

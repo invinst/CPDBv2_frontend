@@ -5,12 +5,12 @@ import {
 } from 'react-addons-test-utils';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import Items from 'components/social-graph-page/network/right-pane-section/timeline/item';
+import Item from 'components/social-graph-page/network/right-pane-section/timeline/item';
 import Cr from 'components/social-graph-page/network/right-pane-section/timeline/item/cr';
 import Year from 'components/social-graph-page/network/right-pane-section/timeline/item/year';
 
 
-describe('Items component', function () {
+describe('Item component', function () {
   let instance;
   const allegationItem = {
     kind: 'CR',
@@ -19,13 +19,14 @@ describe('Items component', function () {
     year: 2006,
     category: 'Use of Force',
     attachments: [],
-    key: '123456'
+    key: '123456',
+    timelineIdx: 0,
   };
   const yearItem = {
     kind: 'YEAR',
     year: 2005,
     hasData: true,
-    key: '123456'
+    key: '123456',
   };
 
   afterEach(function () {
@@ -34,7 +35,7 @@ describe('Items component', function () {
 
   it('should render allegation item correctly', function () {
     instance = renderIntoDocument(
-      <Items
+      <Item
         item={ allegationItem }
       />
     );
@@ -44,11 +45,62 @@ describe('Items component', function () {
 
   it('should render year item correctly', function () {
     instance = renderIntoDocument(
-      <Items
+      <Item
         item={ yearItem }
       />
     );
     const yearRow = scryRenderedComponentsWithType(instance, Year);
     yearRow.should.have.length(1);
+  });
+
+  describe('shouldComponentUpdate', function () {
+    it('should return true if item is changed', function () {
+      instance = renderIntoDocument(
+        <Item
+          item={ allegationItem }
+        />
+      );
+      instance.shouldComponentUpdate({ item: yearItem }).should.be.true();
+    });
+
+    it('should return true if timelineIdx is changed and item is active', function () {
+      instance = renderIntoDocument(
+        <Item
+          item={ allegationItem }
+          timelineIdx={ 0 }
+        />
+      );
+      instance.shouldComponentUpdate({ item: allegationItem, timelineIdx: 1 }).should.be.true();
+    });
+
+    it('should return true if timelineIdx is changed and item will be active', function () {
+      instance = renderIntoDocument(
+        <Item
+          item={ allegationItem }
+          timelineIdx={ 1 }
+        />
+      );
+      instance.shouldComponentUpdate({ item: allegationItem, timelineIdx: 0 }).should.be.true();
+    });
+
+    it('should return false if item and timelineIdx is not changed', function () {
+      instance = renderIntoDocument(
+        <Item
+          item={ allegationItem }
+          timelineIdx={ 1 }
+        />
+      );
+      instance.shouldComponentUpdate({ item: allegationItem, timelineIdx: 1 }).should.be.false();
+    });
+
+    it('should return false if timelineIdx is changed and item is not active and will not be active', function () {
+      instance = renderIntoDocument(
+        <Item
+          item={ allegationItem }
+          timelineIdx={ 1 }
+        />
+      );
+      instance.shouldComponentUpdate({ item: allegationItem, timelineIdx: 2 }).should.be.false();
+    });
   });
 });

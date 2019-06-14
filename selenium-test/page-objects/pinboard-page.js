@@ -176,8 +176,8 @@ class PinboardSection extends Section {
     super();
 
     this.prepareElementGetters({
-      title: '(//div[contains(@class, "pinboard-title")])',
-      description: '(//div[contains(@class, "pinboard-description")])',
+      title: '.pinboard-title',
+      description: '.pinboard-description',
       pinboardPaneMenu: '(//div[contains(@class, "pinboard-pane-section-menu")])',
       networkPaneName: '//span[contains(@class, "pinboard-pane-tab-name")][1]',
       geographicPaneName: '//span[contains(@class, "pinboard-pane-tab-name")][2]',

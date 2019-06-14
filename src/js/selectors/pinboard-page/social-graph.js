@@ -25,3 +25,7 @@ export const graphDataSelector = (state) => {
     listEvent: getListEvent(state),
   };
 };
+
+export const getPinboardTimelineIdx = state => state.pinboardPage.timelineIdx;
+
+export const getPinboardRefreshIntervalId = state => state.pinboardPage.refreshIntervalId;

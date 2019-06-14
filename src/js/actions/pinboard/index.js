@@ -16,10 +16,15 @@ export const addItemInPinboardPage = createAction(constants.ADD_ITEM_IN_PINBOARD
 
 export const orderPinboard = createAction(constants.ORDER_PINBOARD);
 
+export const updatePinboardInfo = createAction(constants.UPDATE_PINBOARD_INFO);
+
 export const addItemToPinboardState = createAction(constants.ADD_ITEM_TO_PINBOARD_STATE);
 export const removeItemFromPinboardState = createAction(constants.REMOVE_ITEM_FROM_PINBOARD_STATE);
 export const orderPinboardState = createAction(constants.ORDER_PINBOARD_STATE);
+export const updatePinboardInfoState = createAction(constants.UPDATE_PINBOARD_INFO_STATE);
 export const savePinboard = createAction(constants.SAVE_PINBOARD);
+
+export const performFetchPinboardRelatedData = createAction(constants.PERFORM_FETCH_PINBOARD_RELATED_DATA);
 
 let pinboardSource;
 const cancelFetchRequests = (newRequest) => (...args) => {
@@ -42,14 +47,14 @@ export const createPinboard = cancelFetchRequests(
 );
 
 export const updatePinboard = cancelFetchRequests(
-  ({ id, title, officerIds, crids, trrIds }) => put(
+  ({ id, title, description, officerIds, crids, trrIds }) => put(
     `${constants.PINBOARDS_URL}${id}/`,
     [
       constants.PINBOARD_UPDATE_REQUEST_START,
       constants.PINBOARD_UPDATE_REQUEST_SUCCESS,
       constants.PINBOARD_UPDATE_REQUEST_FAILURE,
     ]
-  )({ title: title, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds })
+  )({ title: title, description: description, 'officer_ids': officerIds, crids: crids, 'trr_ids': trrIds })
 );
 
 export const fetchPinboard = id => get(
