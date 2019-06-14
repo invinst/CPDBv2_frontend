@@ -2,7 +2,8 @@ import {
   mapLegendSelector,
   mapMarkersSelector,
   hasMapMarkersSelector,
-  getCurrentTab
+  getCurrentTab,
+  getGeographicDataRequesting,
 } from 'selectors/pinboard-page/geographic-data';
 
 
@@ -11,41 +12,35 @@ describe('GeographicData selectors', function () {
     it('should return correct legend info', function () {
       const state = {
         pinboardPage: {
-          geographicData: [
-            {
+          geographicData: {
+            requesting: false,
+            data: [{
               category: 'Illegal Search',
               kind: 'CR',
-
               crid: '294619',
               'coaccused_count': 9,
-            },
-            {
+            }, {
               category: 'Illegal Search',
               kind: 'CR',
-
               crid: '294620',
               'coaccused_count': 10,
-            },
-            {
+            }, {
               category: 'Illegal Search',
               kind: 'CR',
-
               crid: '294621',
               'coaccused_count': 11,
-            },
-            {
+            }, {
               'trr_id': '123456',
               kind: 'FORCE',
               taser: false,
               'firearm_used': true,
-            },
-            {
+            }, {
               'trr_id': '654321',
               kind: 'FORCE',
               taser: true,
               'firearm_used': false,
-            }
-          ]
+            }],
+          }
         }
       };
       mapLegendSelector(state).should.eql({
@@ -94,7 +89,10 @@ describe('GeographicData selectors', function () {
       };
       const state = {
         pinboardPage: {
-          geographicData: [firstCr, secondCr, trr]
+          geographicData: {
+            requesting: false,
+            data: [firstCr, secondCr, trr]
+          }
         }
       };
       mapMarkersSelector(state).should.eql([{
@@ -146,15 +144,33 @@ describe('GeographicData selectors', function () {
     it('should return true if have marker', function () {
       const state = {
         pinboardPage: {
-          geographicData: [{
-            category: 'Illegal Search',
-            kind: 'CR',
-            crid: '1045343',
-            'coaccused_count': 6,
-          }]
+          geographicData: {
+            requesting: false,
+            data: [{
+              category: 'Illegal Search',
+              kind: 'CR',
+              crid: '1045343',
+              'coaccused_count': 6,
+            }]
+          }
         }
       };
       hasMapMarkersSelector(state).should.be.true();
+    });
+  });
+
+  describe('getGeographicDataRequesting', function () {
+    it('should return requesting status', function () {
+      getGeographicDataRequesting({
+        pinboardPage: {
+          geographicData: { requesting: false, data: [] },
+        }
+      }).should.be.false();
+      getGeographicDataRequesting({
+        pinboardPage: {
+          geographicData: { requesting: true, data: [] },
+        }
+      }).should.be.true();
     });
   });
 
@@ -163,20 +179,26 @@ describe('GeographicData selectors', function () {
       const state = {
         pinboardPage: {
           graphData: {
-            'coaccused_data': [{
-              'officer_id_1': 1,
-              'officer_id_2': 2,
-              'incident_date': '1988-10-03',
-              'accussed_count': 1
-            }]
+            requesting: false,
+            data: {
+              'coaccused_data': [{
+                'officer_id_1': 1,
+                'officer_id_2': 2,
+                'incident_date': '1988-10-03',
+                'accussed_count': 1
+              }]
+            },
           },
-          geographicData: [{
-            'date': '2006-09-26',
-            'crid': '1000018',
-            'category': 'Operation/Personnel Violations',
-            'coaccused_count': 1,
-            'kind': 'CR'
-          }],
+          geographicData: {
+            requesting: false,
+            data: [{
+              'date': '2006-09-26',
+              'crid': '1000018',
+              'category': 'Operation/Personnel Violations',
+              'coaccused_count': 1,
+              'kind': 'CR'
+            }],
+          },
           currentTab: 'GEOGRAPHIC'
         }
       };
@@ -187,9 +209,15 @@ describe('GeographicData selectors', function () {
       const state = {
         pinboardPage: {
           graphData: {
-            'coaccused_data': []
+            requesting: false,
+            data: {
+              'coaccused_data': []
+            }
           },
-          geographicData: [],
+          geographicData: {
+            requesting: false,
+            data: [],
+          },
           currentTab: undefined
         }
       };
@@ -200,15 +228,21 @@ describe('GeographicData selectors', function () {
       const state = {
         pinboardPage: {
           graphData: {
-            'coaccused_data': []
+            requesting: false,
+            data: {
+              'coaccused_data': []
+            }
           },
-          geographicData: [{
-            'date': '2006-09-26',
-            'crid': '1000018',
-            'category': 'Operation/Personnel Violations',
-            'coaccused_count': 1,
-            'kind': 'CR'
-          }],
+          geographicData: {
+            requesting: false,
+            data: [{
+              'date': '2006-09-26',
+              'crid': '1000018',
+              'category': 'Operation/Personnel Violations',
+              'coaccused_count': 1,
+              'kind': 'CR'
+            }],
+          },
           currentTab: undefined
         }
       };

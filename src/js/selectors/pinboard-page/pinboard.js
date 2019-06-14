@@ -42,6 +42,8 @@ export const pinboardICRIDsSelector = createSelector(
   ({ crids }) => crids
 );
 
+export const getInitialRequested = state => get(state, 'pinboardPage.initialRequested', false);
+
 export const isEmptyPinboardSelector = createSelector(
   getPinboard,
   ({ officerIds, crids, trrIds }) => every([officerIds, crids, trrIds], isEmpty)

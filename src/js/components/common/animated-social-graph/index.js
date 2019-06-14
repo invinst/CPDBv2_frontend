@@ -8,6 +8,7 @@ import SocialGraph from './social-graph';
 import styles from './animated-social-graph.sass';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
+import withLoadingSpinner from 'components/common/with-loading-spinner';
 
 const ANIMATE_SPEED = 150;
 
@@ -151,19 +152,21 @@ export default class AnimatedSocialGraph extends Component {
     const { fullscreen } = this.state;
 
     return (
-      <div className={ cx(styles.animatedSocialGraph, { fullscreen }) }>
+      <div className={ cx(styles.animatedSocialGraph, 'conmeo', { fullscreen }) }>
         {
-          !isEmpty(officers) && <SocialGraph
-            officers={ officers }
-            coaccusedData={ coaccusedData }
-            listEvent={ listEvent }
-            timelineIdx={ timelineIdx }
-            startTimelineFromBeginning={ this.startTimelineFromBeginning }
-            collideNodes={ !refreshIntervalId }
-            stopTimeline={ this.stopTimeline }
-            fullscreen={ fullscreen }
-            updateOfficerId={ updateOfficerId }
-          />
+          isEmpty(officers) || (
+            <SocialGraph
+              officers={ officers }
+              coaccusedData={ coaccusedData }
+              listEvent={ listEvent }
+              timelineIdx={ timelineIdx }
+              startTimelineFromBeginning={ this.startTimelineFromBeginning }
+              collideNodes={ !refreshIntervalId }
+              stopTimeline={ this.stopTimeline }
+              fullscreen={ fullscreen }
+              updateOfficerId={ updateOfficerId }
+            />
+          )
         }
         { this.graphControlPanel() }
       </div>
@@ -188,3 +191,5 @@ AnimatedSocialGraph.defaultProps = {
   updateTimelineIdx: noop,
   updateRefreshIntervalId: noop,
 };
+
+export const AnimatedSocialGraphWithSpinner = withLoadingSpinner(AnimatedSocialGraph, styles.socialGraphLoading);

@@ -12,7 +12,7 @@ export default class RelevantComplaints extends Component {
   }
 
   render() {
-    const { complaints, hasMore, addItemInPinboardPage, focusItem } = this.props;
+    const { complaints, hasMore, addItemInPinboardPage, requesting, focusItem } = this.props;
     return (
       <RelevantInfiniteCarousel
         title='COMPLAINTS'
@@ -20,6 +20,7 @@ export default class RelevantComplaints extends Component {
         hasMore={ hasMore }
         loadMore={ this.loadMore.bind(this) }
         className='relevant-complaints'
+        requesting={ requesting }
       >
         {
           complaints.map(complaint =>
@@ -44,6 +45,7 @@ RelevantComplaints.propTypes = {
   hasMore: PropTypes.bool,
   pinboardId: PropTypes.string,
   addItemInPinboardPage: PropTypes.func,
+  requesting: PropTypes.bool,
   focusItem: PropTypes.func,
 };
 

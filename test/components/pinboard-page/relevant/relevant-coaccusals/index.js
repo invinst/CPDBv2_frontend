@@ -38,6 +38,7 @@ describe('RelevantCoaccusals component', function () {
 
     instance = renderIntoDocument(
       <RelevantCoaccusals
+        requesting={ false }
         addItemInPinboardPage={ addItemInPinboardPageStub }
         fetchPinboardRelevantCoaccusals={ fetchPinboardRelevantCoaccusalsStub }
         coaccusals={ coaccusals }
@@ -51,6 +52,7 @@ describe('RelevantCoaccusals component', function () {
     relevantInfiniteCarousel.props.title.should.eql('COACCUSALS');
     relevantInfiniteCarousel.props.childWidth.should.eql(148);
     relevantInfiniteCarousel.props.hasMore.should.be.true();
+    relevantInfiniteCarousel.props.requesting.should.be.false();
 
     const relevantCoaccusalCards = scryRenderedComponentsWithType(relevantInfiniteCarousel, RelevantCoaccusalCard);
     relevantCoaccusalCards.should.have.length(2);

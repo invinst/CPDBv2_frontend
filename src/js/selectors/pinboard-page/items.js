@@ -3,9 +3,9 @@ import { map } from 'lodash';
 
 import { officerCardTransform } from 'selectors/common/officer-card';
 
-export const getPinnedCRs = state => state.pinboardPage.crItems;
-export const getPinnedTRRs = state => state.pinboardPage.trrItems;
-export const getPinnedOfficers = state => state.pinboardPage.officerItems;
+export const getPinnedCRs = state => state.pinboardPage.crItems.items;
+export const getPinnedTRRs = state => state.pinboardPage.trrItems.items;
+export const getPinnedOfficers = state => state.pinboardPage.officerItems.items;
 
 const officerPinnedTransform = (officer) => {
   officer = {
@@ -49,3 +49,7 @@ export const pinnedTRRsSelector = createSelector(
   getPinnedTRRs,
   trrs => map(trrs, trrPinnedTransform)
 );
+
+export const getPinnedOfficersRequesting = state => state.pinboardPage.officerItems.requesting;
+export const getPinnedCRsRequesting = state => state.pinboardPage.crItems.requesting;
+export const getPinnedTRRsRequesting = state => state.pinboardPage.trrItems.requesting;

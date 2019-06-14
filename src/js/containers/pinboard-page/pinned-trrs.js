@@ -2,9 +2,8 @@ import { connect } from 'react-redux';
 
 import { removeItemInPinboardPage, orderPinboard } from 'actions/pinboard';
 import PinnedType from 'components/pinboard-page/pinned-type';
-import { pinnedTRRsSelector } from 'selectors/pinboard-page/items';
+import { pinnedTRRsSelector, getPinnedTRRsRequesting } from 'selectors/pinboard-page/items';
 import { focusItem } from 'actions/pinboard-page';
-
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -12,6 +11,7 @@ function mapStateToProps(state, ownProps) {
     type: 'TRR',
     title: 'TACTICAL RESPONSE REPORTS',
     items: pinnedTRRsSelector(state),
+    requesting: getPinnedTRRsRequesting(state),
   };
 }
 

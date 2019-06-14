@@ -5,6 +5,9 @@ import {
   getPinnedCRs,
   getPinnedTRRs,
   getPinnedOfficers,
+  getPinnedCRsRequesting,
+  getPinnedOfficersRequesting,
+  getPinnedTRRsRequesting,
 } from 'selectors/pinboard-page/items';
 
 
@@ -13,25 +16,28 @@ describe('Pinboard items selectors', function () {
     it('should return transformed officers', function () {
       pinnedOfficersSelector({
         pinboardPage: {
-          officerItems: [{
-            id: 1,
-            'full_name': 'Daryl Mack',
-            'complaint_count': 0,
-            'sustained_count': 0,
-            'birth_year': 1975,
-            'complaint_percentile': 99.3450,
-            race: 'White',
-            gender: 'Male',
-            rank: 'Police Officer',
-            percentile: {
-              'percentile_trr': '12.0000',
-              'percentile_allegation': '99.3450',
-              'percentile_allegation_civilian': '98.4344',
-              'percentile_allegation_internal': '99.7840',
-              year: 2016,
+          officerItems: {
+            requesting: false,
+            items: [{
               id: 1,
-            }
-          }],
+              'full_name': 'Daryl Mack',
+              'complaint_count': 0,
+              'sustained_count': 0,
+              'birth_year': 1975,
+              'complaint_percentile': 99.3450,
+              race: 'White',
+              gender: 'Male',
+              rank: 'Police Officer',
+              percentile: {
+                'percentile_trr': '12.0000',
+                'percentile_allegation': '99.3450',
+                'percentile_allegation_civilian': '98.4344',
+                'percentile_allegation_internal': '99.7840',
+                year: 2016,
+                id: 1,
+              }
+            }],
+          },
         }
       }).should.eql([{
         id: '1',
@@ -69,25 +75,28 @@ describe('Pinboard items selectors', function () {
 
       pinnedOfficersSelector({
         pinboardPage: {
-          officerItems: [{
-            id: 1,
-            'full_name': 'Daryl Mack',
-            'allegation_count': 0,
-            'sustained_count': 0,
-            'birth_year': 1975,
-            'complaint_percentile': 99.3450,
-            race: 'White',
-            gender: 'Male',
-            rank: 'Police Officer',
-            percentile: {
-              'percentile_trr': '12.0000',
-              'percentile_allegation': '99.3450',
-              'percentile_allegation_civilian': '98.4344',
-              'percentile_allegation_internal': '99.7840',
-              year: 2016,
+          officerItems: {
+            requesting: false,
+            items: [{
               id: 1,
-            }
-          }],
+              'full_name': 'Daryl Mack',
+              'complaint_count': 0,
+              'sustained_count': 0,
+              'birth_year': 1975,
+              'complaint_percentile': 99.3450,
+              race: 'White',
+              gender: 'Male',
+              rank: 'Police Officer',
+              percentile: {
+                'percentile_trr': '12.0000',
+                'percentile_allegation': '99.3450',
+                'percentile_allegation_civilian': '98.4344',
+                'percentile_allegation_internal': '99.7840',
+                year: 2016,
+                id: 1,
+              }
+            }]
+          },
         }
       }).should.eql([{
         id: '1',
@@ -127,12 +136,15 @@ describe('Pinboard items selectors', function () {
     it('should return transformed CRs', function () {
       const state = {
         pinboardPage: {
-          crItems: [{
-            crid: '1000001',
-            'incident_date': '2010-01-01',
-            point: { 'lon': 1.0, 'lat': 1.0 },
-            'category': 'Use Of Force',
-          }],
+          crItems: {
+            requesting: false,
+            items: [{
+              crid: '1000001',
+              'incident_date': '2010-01-01',
+              point: { 'lon': 1.0, 'lat': 1.0 },
+              category: 'Use Of Force',
+            }],
+          },
         }
       };
 
@@ -149,12 +161,15 @@ describe('Pinboard items selectors', function () {
     it('should return transformed TRRs', function () {
       const state = {
         pinboardPage: {
-          trrItems: [{
-            id: 1,
-            'trr_datetime': '2012-01-01',
-            category: 'Impact Weapon',
-            point: { 'lon': 1.0, 'lat': 1.0 },
-          }],
+          trrItems: {
+            requesting: false,
+            items: [{
+              id: 1,
+              'trr_datetime': '2012-01-01',
+              category: 'Impact Weapon',
+              point: { 'lon': 1.0, 'lat': 1.0 },
+            }],
+          },
         }
       };
 
@@ -169,89 +184,170 @@ describe('Pinboard items selectors', function () {
     });
   });
 
-  describe('getPinnedCRs', function () {
-    const state = {
-      pinboardPage: {
-        crItems: [{
-          crid: '1000001',
-          'incident_date': '2010-01-01',
-          point: { 'lon': 1.0, 'lat': 1.0 },
-          'most_common_category': 'Use Of Force',
-        }],
-      }
-    };
+  describe('getPinnedCRsRequesting', function () {
+    it('should return requesting status', function () {
+      getPinnedCRsRequesting({
+        pinboardPage: {
+          crItems: {
+            requesting: true,
+            items: [],
+          },
+        }
+      }).should.be.true();
 
-    getPinnedCRs(state).should.eql([{
-      crid: '1000001',
-      'incident_date': '2010-01-01',
-      point: { 'lon': 1.0, 'lat': 1.0 },
-      'most_common_category': 'Use Of Force',
-    }]);
+      getPinnedCRsRequesting({
+        pinboardPage: {
+          crItems: {
+            requesting: false,
+            items: [],
+          },
+        }
+      }).should.be.false();
+    });
+  });
+
+  describe('getPinnedOfficersRequesting', function () {
+    it('should return requesting status', function () {
+      getPinnedOfficersRequesting({
+        pinboardPage: {
+          officerItems: {
+            requesting: true,
+            items: [],
+          },
+        }
+      }).should.be.true();
+
+      getPinnedOfficersRequesting({
+        pinboardPage: {
+          officerItems: {
+            requesting: false,
+            items: [],
+          },
+        }
+      }).should.be.false();
+    });
+  });
+
+  describe('getPinnedTRRsRequesting', function () {
+    it('should return requesting status', function () {
+      getPinnedTRRsRequesting({
+        pinboardPage: {
+          trrItems: {
+            requesting: true,
+            items: [],
+          },
+        }
+      }).should.be.true();
+
+      getPinnedTRRsRequesting({
+        pinboardPage: {
+          trrItems: {
+            requesting: false,
+            items: [],
+          },
+        }
+      }).should.be.false();
+    });
+  });
+
+  describe('getPinnedCRs', function () {
+    it('should return pinned CRs correctly', function () {
+      const state = {
+        pinboardPage: {
+          crItems: {
+            requesting: false,
+            items: [{
+              crid: '1000001',
+              'incident_date': '2010-01-01',
+              point: { 'lon': 1.0, 'lat': 1.0 },
+              'most_common_category': 'Use Of Force',
+            }]
+          },
+        }
+      };
+
+      getPinnedCRs(state).should.eql([{
+        crid: '1000001',
+        'incident_date': '2010-01-01',
+        point: { 'lon': 1.0, 'lat': 1.0 },
+        'most_common_category': 'Use Of Force',
+      }]);
+    });
   });
 
   describe('getPinnedTRRs', function () {
-    const state = {
-      pinboardPage: {
-        trrItems: [{
-          id: 1,
-          'trr_datetime': '2012-01-01',
-          category: 'Impact Weapon',
-          point: { 'lon': 1.0, 'lat': 1.0 },
-        }],
-      }
-    };
+    it('should return pinned TRRs correctly', function () {
+      const state = {
+        pinboardPage: {
+          trrItems: {
+            requesting: false,
+            items: [{
+              id: 1,
+              'trr_datetime': '2012-01-01',
+              category: 'Impact Weapon',
+              point: { 'lon': 1.0, 'lat': 1.0 },
+            }]
+          },
+        }
+      };
 
-    getPinnedTRRs(state).should.eql([{
-      id: 1,
-      'trr_datetime': '2012-01-01',
-      category: 'Impact Weapon',
-      point: { 'lon': 1.0, 'lat': 1.0 },
-    }]);
+      getPinnedTRRs(state).should.eql([{
+        id: 1,
+        'trr_datetime': '2012-01-01',
+        category: 'Impact Weapon',
+        point: { 'lon': 1.0, 'lat': 1.0 },
+      }]);
+    });
   });
 
   describe('getPinnedOfficers', function () {
-    const state = {
-      pinboardPage: {
-        officerItems: [{
-          id: 1,
-          'full_name': 'Daryl Mack',
-          'complaint_count': 0,
-          'sustained_count': 0,
-          'birth_year': 1975,
-          'complaint_percentile': 99.3450,
-          race: 'White',
-          gender: 'Male',
-          rank: 'Police Officer',
-          percentile: {
-            'percentile_trr': '12.0000',
-            'percentile_allegation': '99.3450',
-            'percentile_allegation_civilian': '98.4344',
-            'percentile_allegation_internal': '99.7840',
-            year: 2016,
-            id: 1,
-          }
-        }],
-      }
-    };
+    it('should return pinned officers correctly', function () {
+      const state = {
+        pinboardPage: {
+          officerItems: {
+            requesting: false,
+            items: [{
+              id: 1,
+              'full_name': 'Daryl Mack',
+              'complaint_count': 0,
+              'sustained_count': 0,
+              'birth_year': 1975,
+              'complaint_percentile': 99.3450,
+              race: 'White',
+              gender: 'Male',
+              rank: 'Police Officer',
+              percentile: {
+                'percentile_trr': '12.0000',
+                'percentile_allegation': '99.3450',
+                'percentile_allegation_civilian': '98.4344',
+                'percentile_allegation_internal': '99.7840',
+                year: 2016,
+                id: 1,
+              }
+            }]
+          },
+        }
+      };
 
-    getPinnedOfficers(state).should.eql([{
-      id: 1,
-      'full_name': 'Daryl Mack',
-      'complaint_count': 0,
-      'sustained_count': 0,
-      'birth_year': 1975,
-      'complaint_percentile': 99.3450,
-      race: 'White',
-      gender: 'Male',
-      rank: 'Police Officer',
-      percentile: {
-        'percentile_trr': '12.0000',
-        'percentile_allegation': '99.3450',
-        'percentile_allegation_civilian': '98.4344',
-        'percentile_allegation_internal': '99.7840',
-        year: 2016,
+      getPinnedOfficers(state).should.eql([{
         id: 1,
-      }
-    }]);
+        'full_name': 'Daryl Mack',
+        'complaint_count': 0,
+        'sustained_count': 0,
+        'birth_year': 1975,
+        'complaint_percentile': 99.3450,
+        race: 'White',
+        gender: 'Male',
+        rank: 'Police Officer',
+        percentile: {
+          'percentile_trr': '12.0000',
+          'percentile_allegation': '99.3450',
+          'percentile_allegation_civilian': '98.4344',
+          'percentile_allegation_internal': '99.7840',
+          year: 2016,
+          id: 1,
+        }
+      }]);
+    });
   });
 });

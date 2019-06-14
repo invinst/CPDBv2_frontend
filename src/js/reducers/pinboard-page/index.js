@@ -9,11 +9,12 @@ import relevantComplaints from './relevant-complaints';
 import officerItems from './officer-items';
 import crItems from './cr-items';
 import trrItems from './trr-items';
-import redirection from './redirection';
+import redirect from './redirect';
 import pinboard from './pinboard';
 import focusedItem from './focused-item';
 import timelineIdx from './timeline_idx';
 import refreshIntervalId from './refresh-interval-id';
+import initialRequested from './initial-requested';
 
 
 export default combineReducers({
@@ -26,9 +27,10 @@ export default combineReducers({
   officerItems,
   crItems,
   trrItems,
-  redirection,
+  redirect,
   pinboard,
   focusedItem,
   timelineIdx,
   refreshIntervalId,
+  initialRequested,
 });

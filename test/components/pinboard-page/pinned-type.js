@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import MockStore from 'redux-mock-store';
 import {
   renderIntoDocument,
+  findRenderedComponentWithType,
   scryRenderedComponentsWithType,
   scryRenderedDOMComponentsWithTag,
 } from 'react-addons-test-utils';
@@ -17,6 +18,8 @@ import CRCard from 'components/pinboard-page/cards/cr-card';
 import OfficerCard from 'components/pinboard-page/cards/officer-card';
 import TRRCard from 'components/pinboard-page/cards/trr-card';
 import * as vendors from 'utils/vendors';
+import * as navigation from 'utils/navigation';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 
 describe('PinnedType component', function () {
@@ -24,51 +27,60 @@ describe('PinnedType component', function () {
   const mockStore = MockStore();
   const store = mockStore({
     pinboardPage: {
-      officerItems: [{
-        id: 1,
-        'full_name': 'Daryl Mack',
-        'complaint_count': 0,
-        'sustained_count': 0,
-        'birth_year': 1975,
-        'complaint_percentile': 99.3450,
-        race: 'White',
-        gender: 'Male',
-        rank: 'Police Officer',
-        percentile: {}
-      }, {
-        id: 2,
-        'full_name': 'Daryl Mack',
-        'complaint_count': 0,
-        'sustained_count': 0,
-        'birth_year': 1975,
-        'complaint_percentile': 99.3450,
-        race: 'White',
-        gender: 'Male',
-        rank: 'Police Officer',
-        percentile: {}
-      }],
-      crItems: [{
-        crid: '1000001',
-        'incident_date': '2010-01-01',
-        point: { 'lon': 1.0, 'lat': 1.0 },
-        'most_common_category': 'Use Of Force',
-      }, {
-        crid: '1000002',
-        'incident_date': '2010-01-01',
-        point: { 'lon': 1.0, 'lat': 1.0 },
-        'most_common_category': 'Use Of Force',
-      }],
-      trrItems: [{
-        id: 1,
-        'trr_datetime': '2012-01-01',
-        category: 'Impact Weapon',
-        point: { 'lon': 1.0, 'lat': 1.0 },
-      }, {
-        id: 2,
-        'trr_datetime': '2012-01-01',
-        category: 'Impact Weapon',
-        point: { 'lon': 1.0, 'lat': 1.0 },
-      }],
+      officerItems: {
+        requesting: false,
+        items: [{
+          id: 1,
+          'full_name': 'Daryl Mack',
+          'complaint_count': 0,
+          'sustained_count': 0,
+          'birth_year': 1975,
+          'complaint_percentile': 99.3450,
+          race: 'White',
+          gender: 'Male',
+          rank: 'Police Officer',
+          percentile: {}
+        }, {
+          id: 2,
+          'full_name': 'Daryl Mack',
+          'complaint_count': 0,
+          'sustained_count': 0,
+          'birth_year': 1975,
+          'complaint_percentile': 99.3450,
+          race: 'White',
+          gender: 'Male',
+          rank: 'Police Officer',
+          percentile: {}
+        }],
+      },
+      crItems: {
+        requesting: false,
+        items: [{
+          crid: '1000001',
+          'incident_date': '2010-01-01',
+          point: { 'lon': 1.0, 'lat': 1.0 },
+          'most_common_category': 'Use Of Force',
+        }, {
+          crid: '1000002',
+          'incident_date': '2010-01-01',
+          point: { 'lon': 1.0, 'lat': 1.0 },
+          'most_common_category': 'Use Of Force',
+        }],
+      },
+      trrItems: {
+        requesting: false,
+        items: [{
+          id: 1,
+          'trr_datetime': '2012-01-01',
+          category: 'Impact Weapon',
+          point: { 'lon': 1.0, 'lat': 1.0 },
+        }, {
+          id: 2,
+          'trr_datetime': '2012-01-01',
+          category: 'Impact Weapon',
+          point: { 'lon': 1.0, 'lat': 1.0 },
+        }],
+      },
     }
   });
 
@@ -76,10 +88,17 @@ describe('PinnedType component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render nothing if items is empty', function () {
-    instance = renderIntoDocument(<PinnedType type='CR' items={ [] } />);
+  it('should render nothing if request completed but items is empty', function () {
+    instance = renderIntoDocument(<PinnedType type='CR' items={ [] } requesting={ false }/>);
 
     scryRenderedDOMComponentsWithTag(instance, 'div').should.have.length(0);
+  });
+
+  it('should render LoadingSpinner if requesting', function () {
+    instance = renderIntoDocument(<PinnedType type='CR' items={ [] } requesting={ true }/>);
+
+    const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
+    loadingSpinner.props.className.should.equal('type-cards-loading');
   });
 
   it('should render CR cards', function () {
@@ -135,6 +154,36 @@ describe('PinnedType component', function () {
     trrCards[1].props.isAdded.should.be.false();
     trrCards[2].props.item.id.should.eql('3');
     trrCards[2].props.isAdded.should.be.true();
+  });
+
+  it('should maintain the scroll position since second rerender', function () {
+    stub(navigation, 'getPageYBottomOffset').returns(700);
+    stub(navigation, 'scrollByBottomOffset');
+
+    instance = renderIntoDocument(<PinnedType type='TRR' items={ [{ 'id': '1' }] } />);
+
+    const items = [{ 'id': '1' }, { 'id': '2' }];
+    instance = reRender(<PinnedType type='TRR' items={ items } />, instance);
+
+    navigation.scrollByBottomOffset.should.not.be.called();
+
+    const otherItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
+    instance = reRender(<PinnedType type='TRR' items={ otherItems } />, instance);
+
+    navigation.scrollByBottomOffset.should.be.calledOnce();
+    navigation.scrollByBottomOffset.should.be.calledWith(700);
+
+    navigation.scrollByBottomOffset.resetHistory();
+    navigation.getPageYBottomOffset.restore();
+    stub(navigation, 'getPageYBottomOffset').returns(400);
+
+    instance = reRender(<PinnedType type='TRR' items={ [] } />, instance);
+
+    navigation.scrollByBottomOffset.should.be.calledOnce();
+    navigation.scrollByBottomOffset.should.be.calledWith(400);
+
+    navigation.getPageYBottomOffset.restore();
+    navigation.scrollByBottomOffset.restore();
   });
 
   it('should init Muuri grid', function () {

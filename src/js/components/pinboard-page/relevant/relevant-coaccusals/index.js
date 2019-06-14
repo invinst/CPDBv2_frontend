@@ -12,7 +12,7 @@ export default class RelevantCoaccusals extends Component {
   }
 
   render() {
-    const { coaccusals, hasMore, addItemInPinboardPage, focusItem } = this.props;
+    const { coaccusals, hasMore, addItemInPinboardPage, requesting, focusItem } = this.props;
     return (
       <RelevantInfiniteCarousel
         title='COACCUSALS'
@@ -20,6 +20,7 @@ export default class RelevantCoaccusals extends Component {
         hasMore={ hasMore }
         loadMore={ this.loadMore.bind(this) }
         className='relevant-coaccusals'
+        requesting={ requesting }
       >
         {
           coaccusals.map(coaccusal =>
@@ -44,6 +45,7 @@ RelevantCoaccusals.propTypes = {
   addItemInPinboardPage: PropTypes.func,
   hasMore: PropTypes.bool,
   pinboardId: PropTypes.string,
+  requesting: PropTypes.bool,
   focusItem: PropTypes.func,
 };
 

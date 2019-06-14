@@ -10,6 +10,7 @@ import { stub } from 'sinon';
 import { unmountComponentSuppressError } from 'utils/test';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 import Carousel from 'components/common/carousel';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 
 describe('RelevantInfiniteCarousel component', function () {
@@ -27,6 +28,7 @@ describe('RelevantInfiniteCarousel component', function () {
         title='RelevantInfiniteCarousel Title'
         hasMore={ true }
         loadMore={ loadMoreStub }
+        requesting={ false }
       >
         <div className='test--child-1'/>
         <div className='test--child-2'/>
@@ -54,9 +56,27 @@ describe('RelevantInfiniteCarousel component', function () {
         title='RelevantInfiniteCarousel Title'
         hasMore={ true }
         loadMore={ loadMoreStub }
+        requesting={ false }
       />
     );
 
     scryRenderedDOMComponentsWithTag(instance, 'div').should.have.length(0);
+  });
+
+  it('should render LoadingSpinner if there is no child and questing is true', function () {
+    const loadMoreStub = stub();
+    instance = renderIntoDocument(
+      <RelevantInfiniteCarousel
+        childWidth={ 128 }
+        title='RelevantInfiniteCarousel Title'
+        hasMore={ true }
+        loadMore={ loadMoreStub }
+        requesting={ true }
+      />
+    );
+
+    const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
+    loadingSpinner.props.className.should.containEql('relevant-carousel-loading');
+    loadingSpinner.props.fill.should.equal('white');
   });
 });

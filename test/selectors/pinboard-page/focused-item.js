@@ -25,21 +25,30 @@ describe('focusedItem selectors', function () {
           id: '29033',
           type: 'OFFICER',
         },
-        officerItems: [
-          officerItem
-        ],
-        crItems: [{
-          crid: '1000001',
-          'incident_date': '2010-01-01',
-          point: { 'lon': 1.0, 'lat': 1.0 },
-          'most_common_category': 'Use Of Force',
-        }],
-        trrItems: [{
-          id: 1,
-          'trr_datetime': '2012-01-01',
-          category: 'Impact Weapon',
-          point: { 'lon': 1.0, 'lat': 1.0 },
-        }],
+        officerItems: {
+          requesting: false,
+          items: [
+            officerItem
+          ]
+        },
+        crItems: {
+          requesting: false,
+          items: [{
+            crid: '1000001',
+            'incident_date': '2010-01-01',
+            point: { 'lon': 1.0, 'lat': 1.0 },
+            'most_common_category': 'Use Of Force',
+          }]
+        },
+        trrItems: {
+          requesting: false,
+          items: [{
+            id: 1,
+            'trr_datetime': '2012-01-01',
+            category: 'Impact Weapon',
+            point: { 'lon': 1.0, 'lat': 1.0 },
+          }]
+        },
         relevantComplaints: {
           items: [],
         },

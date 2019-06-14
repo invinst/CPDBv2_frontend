@@ -4,6 +4,7 @@ import { throttle } from 'lodash';
 
 import style from './download-menu-item.sass';
 import { imgUrl } from 'utils/static-assets';
+import LoadingSpinner from 'components/common/loading-spinner';
 
 
 export default class DownloadMenuItem extends React.Component {
@@ -41,7 +42,7 @@ export default class DownloadMenuItem extends React.Component {
         <div className='request-download'>{ this.props.text }</div>
         {
           this.state.requested ? (
-            <img className='download-menu-item-img' src={ imgUrl('loading.svg') } alt='downloading' />
+            <LoadingSpinner className='download-menu-item-img'/>
           ) : (
             <img className='download-menu-item-img' src={ imgUrl('download.svg') } alt='download' />
           )
