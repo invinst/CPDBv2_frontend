@@ -9,13 +9,14 @@ import {
   changeNetworkTab,
   updateSelectedOfficerId,
   updateSocialGraphSelectedEdge,
+  updateSocialGraphSelectedCrid,
 } from 'actions/social-graph-page';
 import {
   getShowTimelineTab,
   getCurrentMainTab,
   getCurrentNetworkTab,
 } from 'selectors/social-graph-page';
-import { getSelectedEdge, getSelectedOfficerId } from 'selectors/social-graph-page/network';
+import { getSelectedEdge, getSelectedOfficerId, getSelectedCrid } from 'selectors/social-graph-page/network';
 import { getNetworkPreviewPaneData } from 'selectors/social-graph-page/network-preview-pane';
 import { trackingClickAttachment } from 'actions/common/analytic';
 
@@ -32,6 +33,7 @@ function mapStateToProps(state, ownProps) {
     selectedEdge: getSelectedEdge(state),
     location: ownProps.location,
     networkPreviewPaneData: getNetworkPreviewPaneData(state),
+    selectedCrid: getSelectedCrid(state),
   };
 }
 
@@ -44,6 +46,7 @@ const mapDispatchToProps = {
   updateSelectedOfficerId,
   updateSelectedEdge: updateSocialGraphSelectedEdge,
   onTrackingAttachment: trackingClickAttachment,
+  updateSelectedCrid: updateSocialGraphSelectedCrid,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NetworkGraph);

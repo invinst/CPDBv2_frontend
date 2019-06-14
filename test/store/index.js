@@ -249,6 +249,7 @@ describe('store', function () {
           refreshIntervalId: null,
           timelineIdxTriggerChange: 0,
           selectedEdge: null,
+          selectedCrid: null,
         },
         currentMainTab: 'NETWORK',
         geographicData: [],

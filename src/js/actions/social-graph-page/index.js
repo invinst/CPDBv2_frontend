@@ -54,3 +54,5 @@ export const updateSocialGraphTimelineIdxFromTimelineTab = createAction(
 export const updateSocialGraphRefreshIntervalId = createAction(constants.UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID);
 
 export const updateSocialGraphSelectedEdge = createAction(constants.UPDATE_SOCIAL_GRAPH_SELECTED_EDGE);
+
+export const updateSocialGraphSelectedCrid = createAction(constants.UPDATE_SOCIAL_GRAPH_SELECTED_CRID);

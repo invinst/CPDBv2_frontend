@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, noop } from 'lodash';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import cx from 'classnames';
@@ -45,13 +45,24 @@ export default class NetworkGraph extends Component {
   }
 
   handleClickOutside(event) {
-    const { updateSelectedOfficerId, updateSelectedEdge, selectedOfficerId, selectedEdge } = this.props;
-    if (!event.target.closest('.officer-preview-link') && !event.target.closest('.edge-coaccusals-preview-link')) {
+    const {
+      updateSelectedOfficerId,
+      updateSelectedEdge,
+      updateSelectedCrid,
+      selectedOfficerId,
+      selectedEdge,
+      selectedCrid,
+    } = this.props;
+    if (!event.target.closest('.officer-preview-link, .edge-coaccusals-preview-link, .cr-preview-link')) {
       if (selectedOfficerId) {
         updateSelectedOfficerId(null);
       }
-      if (selectedEdge) {
-        updateSelectedEdge(null);
+      if (selectedCrid) {
+        updateSelectedCrid(null);
+      } else {
+        if (selectedEdge) {
+          updateSelectedEdge(null);
+        }
       }
     }
   }
@@ -104,6 +115,7 @@ export default class NetworkGraph extends Component {
       showTimelineTab,
       location,
       onTrackingAttachment,
+      updateSelectedCrid,
     } = this.props;
 
     if (!isEmpty(networkPreviewPaneData)) {
@@ -112,6 +124,7 @@ export default class NetworkGraph extends Component {
           { ...networkPreviewPaneData }
           location={ location }
           onTrackingAttachment={ onTrackingAttachment }
+          updateSelectedCrid={ updateSelectedCrid }
         />
       );
     } else {
@@ -196,10 +209,15 @@ NetworkGraph.propTypes = {
   location: PropTypes.object,
   networkPreviewPaneData: PropTypes.object,
   onTrackingAttachment: PropTypes.func,
+  updateSelectedCrid: PropTypes.func,
+  selectedCrid: PropTypes.string,
 };
 
 NetworkGraph.defaultProps = {
-  requestSocialGraphNetwork: () => {},
-  requestSocialGraphAllegations: () => {},
-  requestSocialGraphOfficers: () => {},
+  requestSocialGraphNetwork: noop,
+  requestSocialGraphAllegations: noop,
+  requestSocialGraphOfficers: noop,
+  updateSelectedOfficerId: noop,
+  updateSelectedEdge: noop,
+  updateSelectedCrid: noop,
 };

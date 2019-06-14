@@ -4,13 +4,14 @@ import cx from 'classnames';
 
 import { NETWORK_PREVIEW_PANE } from 'utils/constants';
 import OfficerPane from 'components/common/preview-pane/officer-pane';
-import styles from './preview-pane.sass';
 import EdgeCoaccusalsPane from './edge-coaccusals-pane';
+import CRPane from 'components/common/preview-pane/cr-pane';
+import styles from './preview-pane.sass';
 
 
 export default class PreviewPane extends Component {
   render() {
-    const { data, type, location, onTrackingAttachment } = this.props;
+    const { data, type } = this.props;
 
     const paneTypes = {
       [NETWORK_PREVIEW_PANE.OFFICER]: {
@@ -20,16 +21,22 @@ export default class PreviewPane extends Component {
       [NETWORK_PREVIEW_PANE.EDGE_COACCUSALS]: {
         component: EdgeCoaccusalsPane,
         customClassName: 'edge-coaccusals-preview-pane edge-coaccusals-preview-link',
-        hasTracking: true
-      }
+        customProps: ['location', 'onTrackingAttachment', 'updateSelectedCrid']
+      },
+      [NETWORK_PREVIEW_PANE.CR]: {
+        component: CRPane,
+        customClassName: 'cr-preview-pane cr-preview-link',
+      },
     };
 
     const itemComponent = get(paneTypes, type, {});
     const ItemComponent = itemComponent.component;
 
     let itemData = data;
-    if (itemComponent.hasTracking) {
-      itemData = { ...data, location, onTrackingAttachment };
+    if (itemComponent.customProps) {
+      itemComponent.customProps.forEach((propName) => {
+        itemData[propName] = this.props[propName];
+      });
     }
 
     return (
@@ -47,6 +54,7 @@ PreviewPane.propTypes = {
   type: PropTypes.string,
   location: PropTypes.object,
   onTrackingAttachment: PropTypes.func,
+  updateSelectedCrid: PropTypes.func,
 };
 
 PreviewPane.defaultProps = {
