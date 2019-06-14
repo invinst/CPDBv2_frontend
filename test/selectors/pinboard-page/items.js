@@ -10,7 +10,7 @@ import {
 
 describe('Pinboard items selectors', function () {
   describe('pinnedOfficersSelector selector', function () {
-    it.only('should return transformed officers', function () {
+    it('should return transformed officers', function () {
       pinnedOfficersSelector({
         pinboardPage: {
           officerItems: [{
