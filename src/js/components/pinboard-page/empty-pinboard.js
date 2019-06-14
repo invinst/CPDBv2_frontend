@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 import config from 'config';
 import styles from './empty-pinboard.sass';
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
-import { Link } from 'react-router';
 
 const helpers = {
   add: (
