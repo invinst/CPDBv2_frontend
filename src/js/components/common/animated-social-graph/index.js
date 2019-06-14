@@ -152,21 +152,21 @@ export default class AnimatedSocialGraph extends Component {
     const { fullscreen } = this.state;
 
     return (
-      <div className={ cx(styles.animatedSocialGraph, { fullscreen }) }>
+      <div className={ cx(styles.animatedSocialGraph, 'conmeo', { fullscreen }) }>
         {
-            isEmpty(officers) || (
-              <SocialGraph
-                officers={ officers }
-                coaccusedData={ coaccusedData }
-                listEvent={ listEvent }
-                timelineIdx={ timelineIdx }
-                startTimelineFromBeginning={ this.startTimelineFromBeginning }
-                collideNodes={ !refreshIntervalId }
-                stopTimeline={ this.stopTimeline }
-                fullscreen={ fullscreen }
-                updateOfficerId={ updateOfficerId }
-              />
-            )
+          isEmpty(officers) || (
+            <SocialGraph
+              officers={ officers }
+              coaccusedData={ coaccusedData }
+              listEvent={ listEvent }
+              timelineIdx={ timelineIdx }
+              startTimelineFromBeginning={ this.startTimelineFromBeginning }
+              collideNodes={ !refreshIntervalId }
+              stopTimeline={ this.stopTimeline }
+              fullscreen={ fullscreen }
+              updateOfficerId={ updateOfficerId }
+            />
+          )
         }
         { this.graphControlPanel() }
       </div>

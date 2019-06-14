@@ -1,5 +1,4 @@
 import {
-  initialLoading,
   redirect,
   updatePinboardTimelineIdx,
   updatePinboardRefreshIntervalId,
@@ -8,15 +7,6 @@ import * as constants from 'utils/constants';
 
 
 describe('pinboard-page actions', function () {
-  describe('initialLoading', function () {
-    it('should return correct payload', function () {
-      initialLoading(true).should.eql({
-        type: constants.PINBOARD_PAGE_INITIAL_LOADING,
-        payload: true
-      });
-    });
-  });
-
   describe('redirect', function () {
     it('should return correct payload', function () {
       redirect(false).should.eql({

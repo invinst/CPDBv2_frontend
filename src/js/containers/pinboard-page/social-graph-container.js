@@ -7,7 +7,7 @@ import {
   getExpandedLink,
   getRequesting,
 } from 'selectors/pinboard-page/social-graph';
-import AnimatedSocialGraphWithSpinner from 'components/common/animated-social-graph';
+import { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
 import { updatePinboardTimelineIdx, updatePinboardRefreshIntervalId } from 'actions/pinboard-page';
 
 

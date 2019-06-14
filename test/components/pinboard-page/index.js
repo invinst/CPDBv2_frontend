@@ -146,13 +146,13 @@ describe('PinboardPage component', function () {
 
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard }/>
+        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard } initialRequested={ true }/>
       </Provider>
     );
 
     instance = reRender(
       <Provider store={ store }>
-        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard }/>
+        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard } initialRequested={ true }/>
       </Provider>,
       instance
     );
