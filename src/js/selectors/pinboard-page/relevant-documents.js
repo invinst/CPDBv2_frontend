@@ -6,6 +6,8 @@ import { pinboardICRIDsSelector } from 'selectors/pinboard-page/pinboard';
 
 const getRelevantDocumentsPagination = state => state.pinboardPage.relevantDocuments;
 
+export const getRequesting = state => state.pinboardPage.relevantDocuments.requesting;
+
 export const relevantDocumentsSelector = createSelector(
   getRelevantDocumentsPagination,
   pinboardICRIDsSelector,

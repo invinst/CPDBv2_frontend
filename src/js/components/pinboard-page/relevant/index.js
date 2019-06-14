@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { isEmpty } from 'lodash';
+import { isEmpty, every } from 'lodash';
 
 import styles from './relevant-section.sass';
 import RelevantDocuments from './relevant-documents';
@@ -24,9 +24,15 @@ export default class RelevantSection extends Component {
       fetchPinboardRelevantCoaccusals,
       fetchPinboardRelevantComplaints,
       addItemInPinboardPage,
+      isRequestingDocuments,
+      isRequestingCoaccusals,
+      isRequestingComplaints,
     } = this.props;
 
-    if (isEmpty(documents) && isEmpty(coaccusals) && isEmpty(complaints))
+    if (
+      every([!isRequestingDocuments, !isRequestingCoaccusals, !isRequestingComplaints]) &&
+      every([documents, coaccusals, complaints].map(isEmpty))
+    )
       return null;
 
     return (
@@ -39,6 +45,7 @@ export default class RelevantSection extends Component {
           hasMore={ documentHasMore }
           fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocuments }
           addItemInPinboardPage={ addItemInPinboardPage }
+          requesting={ isRequestingDocuments }
         />
         <RelevantCoaccusals
           pinboardId={ pinboardId }
@@ -47,6 +54,7 @@ export default class RelevantSection extends Component {
           hasMore={ coaccusalHasMore }
           fetchPinboardRelevantCoaccusals={ fetchPinboardRelevantCoaccusals }
           addItemInPinboardPage={ addItemInPinboardPage }
+          requesting={ isRequestingCoaccusals }
         />
         <RelevantComplaints
           pinboardId={ pinboardId }
@@ -55,6 +63,7 @@ export default class RelevantSection extends Component {
           hasMore={ complaintHasMore }
           fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaints }
           addItemInPinboardPage={ addItemInPinboardPage }
+          requesting={ isRequestingComplaints }
         />
       </div>
     );
@@ -76,6 +85,9 @@ RelevantSection.propTypes = {
   fetchPinboardRelevantCoaccusals: PropTypes.func,
   fetchPinboardRelevantComplaints: PropTypes.func,
   addItemInPinboardPage: PropTypes.func,
+  isRequestingDocuments: PropTypes.bool,
+  isRequestingCoaccusals: PropTypes.bool,
+  isRequestingComplaints: PropTypes.bool,
 };
 
 RelevantSection.defaultProps = {

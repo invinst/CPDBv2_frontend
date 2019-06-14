@@ -5,16 +5,19 @@ import {
   relevantDocumentsSelector,
   relevantDocumentsNextParamsSelector,
   relevantDocumentsHasMoreSelector,
+  getRequesting as getRequestingRelevantDocuments,
 } from 'selectors/pinboard-page/relevant-documents';
 import {
   relevantCoaccusalsSelector,
   relevantCoaccusalsNextParamsSelector,
   relevantCoaccusalsHasMoreSelector,
+  getRequesting as getRequestingRelevantCoaccusals,
 } from 'selectors/pinboard-page/relevant-coaccusals';
 import {
   relevantComplaintsSelector,
   relevantComplaintsNextParamsSelector,
   relevantComplaintsHasMoreSelector,
+  getRequesting as isRequestingRelevantComplaints,
 } from 'selectors/pinboard-page/relevant-complaints';
 import {
   fetchPinboardRelevantDocuments,
@@ -38,6 +41,9 @@ function mapStateToProps(state, ownProps) {
     complaints: relevantComplaintsSelector(state, ownProps),
     complaintHasMore: relevantComplaintsHasMoreSelector(state, ownProps),
     complaintNextParams: relevantComplaintsNextParamsSelector(state, ownProps),
+    isRequestingDocuments: getRequestingRelevantDocuments(state),
+    isRequestingCoaccusals: getRequestingRelevantCoaccusals(state),
+    isRequestingComplaints: isRequestingRelevantComplaints(state),
   };
 }
 
