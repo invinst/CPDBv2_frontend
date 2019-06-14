@@ -19,17 +19,22 @@ export default class Timeline extends Component {
   }
 
   componentDidMount() {
+    const { timelineIdx } = this.props;
     this.addScrollEvents();
+    if (timelineIdx !== 0) {
+      this.performScrollToTimelineIdx(timelineIdx);
+    }
   }
 
   componentDidUpdate(prevProps) {
     const { timelineIdx, items, timelineIdxTriggerChange } = this.props;
+    this.externalUpdate = timelineIdxTriggerChange !== prevProps.timelineIdxTriggerChange;
+    const scrollToTimelineIdx = this.externalUpdate && timelineIdx !== prevProps.timelineIdx ? timelineIdx : undefined;
     if (!isEqual(items, prevProps.items)) {
       this.addScrollEvents();
     }
-    this.externalUpdate = timelineIdxTriggerChange !== prevProps.timelineIdxTriggerChange;
-    if (this.externalUpdate && timelineIdx !== prevProps.timelineIdx) {
-      this.scrollController.scrollTo(`#trigger-${ timelineIdx > 1 ? timelineIdx - 1 : 0 }`);
+    if (scrollToTimelineIdx) {
+      this.performScrollToTimelineIdx(scrollToTimelineIdx);
     }
   }
 
@@ -56,7 +61,7 @@ export default class Timeline extends Component {
       if (!isUndefined(item.timelineIdx)) {
         new ScrollMagic.Scene({
           triggerElement: `#trigger-${item.timelineIdx}`,
-          offset: -65,
+          offset: -50,
           triggerHook: 0,
           duration: 57
         }).on('enter', (event) => {
@@ -64,6 +69,12 @@ export default class Timeline extends Component {
         }).addTo(this.scrollController);
       }
     });
+  }
+
+  performScrollToTimelineIdx(scrollToTimelineIdx) {
+    if (scrollToTimelineIdx && this.scrollController) {
+      this.scrollController.scrollTo(`#trigger-${scrollToTimelineIdx}`);
+    }
   }
 
   destroyScrollEvents() {
