@@ -1,4 +1,4 @@
-import graphData from 'reducers/pinboard-page/graph-data';
+import graphData from 'reducers/pinboard-page/graph-data/data';
 import { PINBOARD_SOCIAL_GRAPH_FETCH_REQUEST_SUCCESS } from 'utils/constants';
 
 

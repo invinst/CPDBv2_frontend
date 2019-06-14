@@ -29,7 +29,6 @@ import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
 import {
   PINBOARD_PAGE_REDIRECT,
-  PINBOARD_PAGE_INITIAL_LOADING,
   PINBOARD_PAGE_FOCUS_ITEM,
 } from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
@@ -39,27 +38,26 @@ import PreviewPane from 'components/search-page/search-results/preview-pane';
 describe('PinboardPage component', function () {
   let instance;
   const defaultPaginationState = {
+    requesting: false,
     items: [],
     count: 0,
     pagination: { next: null, previous: null }
   };
 
   const createPinboardPage = pinboard => ({
-    graphData: {},
-    geographicData: [],
+    graphData: { requesting: false, data: {} },
+    geographicData: { requesting: false, data: [] },
     currentTab: 'NETWORK',
-    crItems: [],
-    trrItems: [],
-    officerItems: [],
     relevantDocuments: defaultPaginationState,
     relevantCoaccusals: defaultPaginationState,
     relevantComplaints: defaultPaginationState,
-    redirection: {
-      redirect: false,
-      initialLoading: false,
-    },
-    pinboard,
+    crItems: { requesting: false, items: [] },
+    officerItems: { requesting: false, items: [] },
+    trrItems: { requesting: false, items: [] },
+    redirect: false,
+    initialRequested: true,
     focusedItem: {},
+    pinboard
   });
 
   const createStore = pinboard => MockStore()({
@@ -70,7 +68,7 @@ describe('PinboardPage component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should render nothing if isInitiallyLoading is true', function () {
+  it('should render nothing if initialRequested is false', function () {
     const pinboard = {
       'id': '5cd06f2b',
       'title': 'Pinboard title',
@@ -80,6 +78,7 @@ describe('PinboardPage component', function () {
       pinboardPage: createPinboardPage(pinboard),
       pathname: 'pinboard/5cd06f2b',
     };
+    state.pinboardPage.initialRequested = false;
 
     const store = ReduxCreateStore(RootReducer, state);
 
@@ -94,11 +93,6 @@ describe('PinboardPage component', function () {
         <Route path='/' component={ pinboardPage } />
       </Router>
     );
-
-    store.dispatch({
-      type: PINBOARD_PAGE_INITIAL_LOADING,
-      payload: true,
-    });
 
     should(findDOMNode(instance)).be.null();
   });
@@ -159,13 +153,13 @@ describe('PinboardPage component', function () {
 
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard }/>
+        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ pinboard } initialRequested={ true }/>
       </Provider>
     );
 
     instance = reRender(
       <Provider store={ store }>
-        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard }/>
+        <PinboardPage updatePathName={ updatePathNameStub } pinboard={ updatedPinboard } initialRequested={ true }/>
       </Provider>,
       instance
     );
@@ -374,7 +368,7 @@ describe('PinboardPage component', function () {
     };
 
     const pinboardPageData = createPinboardPage(pinboard);
-    set(pinboardPageData, 'crItems', [{ 'crid': '123' }]);
+    set(pinboardPageData, 'crItems', { requesting: false, items: [{ 'crid': '123' }] });
 
     const state = {
       pinboardPage: pinboardPageData,
@@ -418,7 +412,7 @@ describe('PinboardPage component', function () {
     };
 
     const pinboardPageData = createPinboardPage(pinboard);
-    set(pinboardPageData, 'crItems', [{ 'crid': '123' }]);
+    set(pinboardPageData, 'crItems', { requesting: false, items: [{ 'crid': '123' }] });
 
     const state = {
       pinboardPage: pinboardPageData,
