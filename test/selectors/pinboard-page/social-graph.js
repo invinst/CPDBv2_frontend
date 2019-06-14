@@ -1,5 +1,7 @@
 import {
   graphDataSelector,
+  getPinboardTimelineIdx,
+  getPinboardRefreshIntervalId,
   getExpandedLink,
   getRequesting,
 } from 'selectors/pinboard-page/social-graph';
@@ -104,6 +106,28 @@ describe('PinboardPage selectors', function () {
           '1991-03-06'
         ]
       });
+    });
+  });
+
+  describe('getPinboardTimelineIdx', function () {
+    it('should return correct status', function () {
+      const state = {
+        pinboardPage: {
+          timelineIdx: 20,
+        },
+      };
+      getPinboardTimelineIdx(state).should.eql(20);
+    });
+  });
+
+  describe('getPinboardRefreshIntervalId', function () {
+    it('should return correct status', function () {
+      const state = {
+        pinboardPage: {
+          refreshIntervalId: 1234,
+        },
+      };
+      getPinboardRefreshIntervalId(state).should.eql(1234);
     });
   });
 

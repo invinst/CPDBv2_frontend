@@ -9,7 +9,7 @@ export default class Year extends Component {
     const { date, hasData } = this.props.item;
 
     return (
-      <div className={ cx(styles.wrapper, 'timeline-item', 'test--timeline-year-item') }>
+      <div className={ cx(styles.wrapper, 'test--timeline-item') }>
         <div className={ cx('content', { 'no-data': !hasData }) }>
           <div className='date'>{ date }</div>
         </div>

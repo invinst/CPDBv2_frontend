@@ -18,6 +18,7 @@ import CRCard from 'components/pinboard-page/cards/cr-card';
 import OfficerCard from 'components/pinboard-page/cards/officer-card';
 import TRRCard from 'components/pinboard-page/cards/trr-card';
 import * as vendors from 'utils/vendors';
+import * as navigation from 'utils/navigation';
 import LoadingSpinner from 'components/common/loading-spinner';
 
 
@@ -153,6 +154,36 @@ describe('PinnedType component', function () {
     trrCards[1].props.isAdded.should.be.false();
     trrCards[2].props.item.id.should.eql('3');
     trrCards[2].props.isAdded.should.be.true();
+  });
+
+  it('should maintain the scroll position since second rerender', function () {
+    stub(navigation, 'getPageYBottomOffset').returns(700);
+    stub(navigation, 'scrollByBottomOffset');
+
+    instance = renderIntoDocument(<PinnedType type='TRR' items={ [{ 'id': '1' }] } />);
+
+    const items = [{ 'id': '1' }, { 'id': '2' }];
+    instance = reRender(<PinnedType type='TRR' items={ items } />, instance);
+
+    navigation.scrollByBottomOffset.should.not.be.called();
+
+    const otherItems = [{ 'id': '1' }, { 'id': '2' }, { 'id': '3' }];
+    instance = reRender(<PinnedType type='TRR' items={ otherItems } />, instance);
+
+    navigation.scrollByBottomOffset.should.be.calledOnce();
+    navigation.scrollByBottomOffset.should.be.calledWith(700);
+
+    navigation.scrollByBottomOffset.resetHistory();
+    navigation.getPageYBottomOffset.restore();
+    stub(navigation, 'getPageYBottomOffset').returns(400);
+
+    instance = reRender(<PinnedType type='TRR' items={ [] } />, instance);
+
+    navigation.scrollByBottomOffset.should.be.calledOnce();
+    navigation.scrollByBottomOffset.should.be.calledWith(400);
+
+    navigation.getPageYBottomOffset.restore();
+    navigation.scrollByBottomOffset.restore();
   });
 
   it('should init Muuri grid', function () {

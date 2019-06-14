@@ -8,6 +8,7 @@ import { hasMapMarkersSelector, getCurrentTab } from 'selectors/pinboard-page/ge
 import { shouldRedirect } from 'selectors/pinboard-page/redirect';
 import { getInitialRequested } from 'selectors/pinboard-page/pinboard';
 import { changePinboardTab } from 'actions/pinboard';
+import { updatePathName } from 'actions/path-name';
 
 function mapStateToProps(state, ownProps) {
   return {
@@ -24,6 +25,7 @@ function mapStateToProps(state, ownProps) {
 const mapDispatchToProps = {
   changePinboardTab,
   pushBreadcrumbs,
+  updatePathName,
 };
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PinboardPage));

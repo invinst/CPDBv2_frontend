@@ -56,7 +56,16 @@ import {
 } from './social-graph-page/social-graph-page';
 import { getDefaultSocialGraphOfficersData } from './social-graph-page/officers-data';
 import { getDefaultSocialGraphAllegationsData } from './social-graph-page/allegations-data';
-import { createPinboard, fetchPinboard, updatePinboard, fetchEmptyPinboard } from './pinboard';
+import {
+  createPinboard,
+  fetchPinboard,
+  updatePinboard,
+  fetchEmptyPinboard,
+  updatePinboardTitleParams,
+  updatedPinboardTitle,
+  updatePinboardDescriptionParams,
+  updatedPinboardDescription,
+} from './pinboard';
 import {
   fetchPinboardComplaints,
   fetchPinboardOfficers,
@@ -191,6 +200,12 @@ axiosMockClient.onGet(
 axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, fetchPinboard());
+
+axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`, updatePinboardTitleParams()).reply(200, updatedPinboardTitle());
+
+axiosMockClient.onPut(
+  `${PINBOARDS_URL}5cd06f2b/`, updatePinboardDescriptionParams()
+).reply(200, updatedPinboardDescription());
 
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(200, updatePinboard());
 

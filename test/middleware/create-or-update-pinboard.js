@@ -15,6 +15,8 @@ import {
   fetchPinboardRelevantDocuments,
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
+  performFetchPinboardRelatedData,
+  updatePinboardInfoState
 } from 'actions/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
@@ -42,6 +44,35 @@ describe('createOrUpdatePinboard middleware', function () {
     createOrUpdatePinboard(store)(action => dispatched = action)(action);
     dispatched.should.eql(action);
     store.dispatch.called.should.be.false();
+  });
+
+  it('should handle UPDATE_PINBOARD_INFO and dispatch updatePinboardInfoState', function (done) {
+    const action = {
+      type: constants.UPDATE_PINBOARD_INFO,
+      payload: {
+        'title': 'Updated Title',
+        'description': 'Updated Description',
+        'unit_id': '123',
+      }
+    };
+    const store = createStore(PinboardFactory.build());
+    let dispatched;
+    createOrUpdatePinboard(store)(action => dispatched = action)(action);
+    dispatched.should.eql(action);
+
+    store.dispatch.should.be.calledWith(updatePinboardInfoState({
+      'title': 'Updated Title',
+      'description': 'Updated Description',
+      'unit_id': '123',
+    }));
+
+    setTimeout(
+      () => {
+        store.dispatch.should.be.calledWith(savePinboard());
+        done();
+      },
+      50
+    );
   });
 
   it('should handle ORDER_PINBOARD and dispatch orderPinboardState', function (done) {
@@ -345,6 +376,7 @@ describe('createOrUpdatePinboard middleware', function () {
           'id': '66ef1560',
           'officer_ids': [123, 456],
           'saving': false,
+          'needRefreshData': true,
         }),
         '/pinboard/66ef1560/'
       );
@@ -358,6 +390,7 @@ describe('createOrUpdatePinboard middleware', function () {
       store.dispatch.should.be.calledWith(fetchPinboardRelevantDocuments('66ef1560'));
       store.dispatch.should.be.calledWith(fetchPinboardRelevantCoaccusals('66ef1560'));
       store.dispatch.should.be.calledWith(fetchPinboardRelevantComplaints('66ef1560'));
+      store.dispatch.should.be.calledWith(performFetchPinboardRelatedData());
     });
 
     it('should retry saving on failure after 1 second', function (done) {
