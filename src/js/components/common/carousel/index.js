@@ -29,7 +29,7 @@ export default class Carousel extends Component {
   componentWillReceiveProps(nextProps) {
     const { children } = this.props;
     if (
-      children.length >= nextProps.children.length ||
+      children.length > nextProps.children.length ||
       !isEqual(children, nextProps.children.slice(0, children.length))
     ) {
       this.slideTo(0);

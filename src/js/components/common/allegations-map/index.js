@@ -11,6 +11,7 @@ import MarkerTooltip from './marker-tooltip';
 import SimpleMarkerTooltip from './simple-marker-tooltip';
 import Marker from './marker';
 import styles from './allegations-map.sass';
+import withLoadingSpinner from 'components/common/with-loading-spinner';
 
 export default class AllegationsMap extends Component {
   constructor(props) {
@@ -95,6 +96,7 @@ export default class AllegationsMap extends Component {
 
   render() {
     const { mapCustomClassName, legend } = this.props;
+
     return (
       <div className={ cx(styles.map, mapCustomClassName) }>
         <div ref={ this.gotRef.bind(this) } className='map-tab'/>
@@ -151,3 +153,4 @@ AllegationsMap.defaultProps = {
   legend: {},
   markers: []
 };
+export const AllegationsMapWithSpinner = withLoadingSpinner(AllegationsMap, styles.allegationMapLoading);

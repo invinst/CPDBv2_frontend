@@ -87,6 +87,7 @@ describe('RelevantComplaints component', function () {
 
     instance = renderIntoDocument(
       <RelevantComplaints
+        requesting={ false }
         addItemInPinboardPage={ addItemInPinboardPageStub }
         fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaintsStub }
         complaints={ complaints }
@@ -100,6 +101,7 @@ describe('RelevantComplaints component', function () {
     relevantInfiniteCarousel.props.title.should.eql('COMPLAINTS');
     relevantInfiniteCarousel.props.childWidth.should.eql(306);
     relevantInfiniteCarousel.props.hasMore.should.be.true();
+    relevantInfiniteCarousel.props.requesting.should.be.false();
 
     const RelevantComplaintCards = scryRenderedComponentsWithType(relevantInfiniteCarousel, RelevantComplaintCard);
     RelevantComplaintCards.should.have.length(2);

@@ -2,11 +2,25 @@ import relevantCoaccusals from 'reducers/pinboard-page/relevant-coaccusals';
 import * as constants from 'utils/constants';
 
 
-const defaultState = { items: [], count: 0, pagination: { next: null, previous: null } };
+const defaultState = { requesting: false, items: [], count: 0, pagination: { next: null, previous: null } };
 
 describe('relevantCoaccusals reducer', function () {
   it('should have initial state', function () {
     relevantCoaccusals(undefined, {}).should.eql(defaultState);
+  });
+
+  it('should handle PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START', function () {
+    relevantCoaccusals(defaultState, {
+      type: constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_START,
+    }).should.eql({
+      requesting: true,
+      items: [],
+      count: 0,
+      pagination: {
+        next: null,
+        previous: null
+      },
+    });
   });
 
   it('should handle PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_SUCCESS', function () {
@@ -46,6 +60,7 @@ describe('relevantCoaccusals reducer', function () {
         results: coaccusals,
       }
     }).should.eql({
+      requesting: false,
       items: coaccusals,
       count: 444,
       pagination: {
@@ -125,6 +140,7 @@ describe('relevantCoaccusals reducer', function () {
         results: newCoaccusals,
       }
     }).should.eql({
+      requesting: false,
       items: existingCoaccusals.concat(newCoaccusals),
       count: 444,
       pagination: {
@@ -175,6 +191,7 @@ describe('relevantCoaccusals reducer', function () {
       type: constants.PINBOARD_RELEVANT_COACCUSALS_FETCH_REQUEST_FAILURE,
       payload: {}
     }).should.eql({
+      requesting: false,
       items: existingCoaccusals,
       count: 444,
       pagination: { next: null, previous: null },

@@ -1,35 +1,11 @@
-import {
-  isInitiallyLoading,
-  shouldRedirect,
-} from 'selectors/pinboard-page/redirection';
+import { shouldRedirect } from 'selectors/pinboard-page/redirect';
 
 
-describe('Redirection selectors', function () {
-  describe('isInitiallyLoading', function () {
-    it('should return correct status', function () {
-      const state = {
-        pinboardPage: {
-          redirection: {
-            initialLoading: false,
-            redirect: false,
-          }
-        },
-      };
-      isInitiallyLoading(state).should.eql(false);
-    });
-  });
-
+describe('Redirect selectors', function () {
   describe('shouldRedirect', function () {
     it('should return correct status', function () {
-      const state = {
-        pinboardPage: {
-          redirection: {
-            initialLoading: false,
-            redirect: false,
-          }
-        },
-      };
-      shouldRedirect(state).should.eql(false);
+      shouldRedirect({ pinboardPage: { redirect: false } }).should.be.false();
+      shouldRedirect({ pinboardPage: { redirect: true } }).should.be.true();
     });
   });
 });
