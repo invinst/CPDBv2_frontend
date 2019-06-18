@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { isEmpty, get } from 'lodash';
+import cx from 'classnames';
 
 import SlideMotion from 'components/animation/slide-motion';
 import {
@@ -14,7 +15,7 @@ import {
   SearchTermItemPane,
   CRPane
 } from 'components/common/preview-pane';
-import { wrapperStyle } from './preview-pane.style';
+import style from './preview-pane.sass';
 
 
 export default class PreviewPane extends Component {
@@ -53,7 +54,7 @@ export default class PreviewPane extends Component {
 
     return (
       <SlideMotion show={ !isEmpty(data) } offsetX={ 100 }>
-        <div className='test--preview-pane' style={ wrapperStyle }>
+        <div className={ cx('test--preview-pane', style.previewPane) }>
           {
             this.renderPane()
           }

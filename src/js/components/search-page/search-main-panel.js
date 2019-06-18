@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { noop } from 'lodash';
 
 import SearchResultsContainer from 'containers/search-page/search-results-container';
-import { searchMainPanelStyle } from './search-main-panel.style';
 import SearchTermsContainer from 'containers/search-page/search-terms-container';
+import './search-main-panel.sass';
 
 
 export default class SearchMainPanel extends Component {
@@ -15,7 +15,7 @@ export default class SearchMainPanel extends Component {
     } = this.props;
 
     return (
-      <div style={ searchMainPanelStyle }>
+      <div className='search-main-panel'>
         {
           query ?
             <SearchResultsContainer
@@ -29,6 +29,7 @@ export default class SearchMainPanel extends Component {
             /> :
             <SearchTermsContainer
               onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
+              aliasEditModeOn={ aliasEditModeOn }
             />
         }
       </div>

@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { map } from 'lodash';
+import { map, get, noop } from 'lodash';
 import InfiniteScroll from 'react-infinite-scroller';
 
-import { groupHeaderStyle, scrollerStyle, wrapperStyle } from './suggestion-group.style';
+import { groupHeaderStyle, wrapperStyle } from './suggestion-group.style';
 import SuggestionItem from './suggestion-item';
 import LoadMoreButton from './load-more-button';
 import { MORE_BUTTON } from 'utils/constants';
@@ -12,7 +12,7 @@ export default class SuggestionGroup extends Component {
   componentDidMount() {
     const { getSuggestionWithContentType, searchText, singleContent, header } = this.props;
     if (singleContent) {
-      getSuggestionWithContentType(searchText, { contentType: header }).catch(() => {});
+      getSuggestionWithContentType(searchText, { contentType: header }).catch(noop);
     }
   }
 
@@ -79,9 +79,7 @@ export default class SuggestionGroup extends Component {
     if (singleContent) {
       return (
         <div className='test--suggestion-group' style={ wrapperStyle(singleContent) }>
-          <ScrollIntoView
-            style={ scrollerStyle }
-            focusedClassName={ `suggestion-item-${focusedItem.uniqueKey}` }>
+          <ScrollIntoView focusedItemClassName={ `suggestion-item-${get(focusedItem, 'uniqueKey', '')}` }>
             { this.renderHeader() }
             { this.renderResults() }
           </ScrollIntoView>
@@ -122,6 +120,6 @@ SuggestionGroup.defaultProps = {
   focusedItem: {},
   header: '',
   getSuggestionWithContentType: () => ({
-    catch: () => {}
+    catch: noop
   })
 };

@@ -69,7 +69,7 @@ describe('SearchMainPanel component', function () {
         </Provider>
       );
 
-      findRenderedDOMComponentWithClass(instance, 'test--cancel-alias-button');
+      findRenderedDOMComponentWithClass(instance, 'cancel-alias-button');
     });
 
     it('should not render "cancel" button when not aliasEditModeOn', function () {
@@ -82,7 +82,7 @@ describe('SearchMainPanel component', function () {
           />
         </Provider>
       );
-      scryRenderedDOMComponentsWithClass(instance, 'test--cancel-alias-button').should.have.length(0);
+      scryRenderedDOMComponentsWithClass(instance, 'cancel-alias-button').should.have.length(0);
     });
   });
 });
