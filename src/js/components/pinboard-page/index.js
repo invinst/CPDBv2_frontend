@@ -28,7 +28,7 @@ export default class PinboardPage extends Component {
     const { pinboard: currentPinboard, shouldRedirect, updatePathName } = this.props;
 
     if (currentPinboard.url !== '') {
-      if (shouldRedirect) {
+      if (shouldRedirect && pinboard.id !== currentPinboard.id) {
         browserHistory.replace(currentPinboard.url);
       } else if (currentPinboard.url !== pinboard.url) {
         updatePathName(currentPinboard.url);
