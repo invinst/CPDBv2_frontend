@@ -42,10 +42,11 @@ export default class PinboardPage extends Component {
       currentTab,
       hasMapMarker,
       isEmptyPinboard,
+      examplePinboards,
     } = this.props;
 
     if (isEmptyPinboard) {
-      return EmptyPinboard;
+      return <EmptyPinboard examplePinboards={ examplePinboards } />;
     }
 
     return (
@@ -105,6 +106,7 @@ PinboardPage.propTypes = {
     pathname: PropTypes.string
   }),
   updatePathName: PropTypes.func,
+  examplePinboards: PropTypes.array,
 };
 
 PinboardPage.defaultProps = {
