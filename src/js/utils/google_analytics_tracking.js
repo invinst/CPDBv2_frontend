@@ -75,6 +75,25 @@ export const trackOpenExplainer = (officerId) => {
   });
 };
 
+export const trackOfficerDownload = (officerId, action, label) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: 'officer_data',
+    eventAction: action,
+    eventValue: officerId,
+    eventLabel: label,
+  });
+};
+
+export const trackOfficerDownloadMenu = (officerId, action) => {
+  global.ga('send', {
+    hitType: 'event',
+    eventCategory: 'officer_download_menu',
+    eventAction: action,
+    eventValue: officerId,
+  });
+};
+
 export const trackRelatedByCategoryClick = (sourceCRID, targetCRID) => {
   global.ga('send', {
     hitType: 'event',
