@@ -24,6 +24,7 @@ function mapStateToProps(state, ownProps) {
     listEvent: getListEvent(state),
     timelineIdx: getSocialGraphTimelineIdx(state),
     refreshIntervalId: getSocialGraphRefreshIntervalId(state),
+    updateSortedOfficerIds: ownProps.updateSortedOfficerIds,
   };
 }
 

@@ -27,7 +27,6 @@ class AnimatedSocialGraphSection extends Section {
       timelineTab: '(//span[contains(@class, "right-pane-tab-name")])[1]',
       officerTab: '(//span[contains(@class, "right-pane-tab-name")])[2]',
       officerTimelineSection: '(//div[contains(@class, "test--officer-timeline")])',
-
     });
   }
 
@@ -68,8 +67,8 @@ class OfficersSection extends Section {
     });
   }
 
-  officerRowCount() {
-    return browser.elements('//div[contains(@class, "officer-row")]').value.length;
+  officerRows() {
+    return browser.elements('//div[contains(@class, "officer-row")]').value;
   }
 }
 

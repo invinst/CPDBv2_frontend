@@ -130,9 +130,9 @@ describe('Pinboard Page', function () {
       const expectedGraphLabelTexts = [
         'Donnell Calhoun',
         'Eugene Offett',
+        'Hardy White',
         'Johnny Cavers',
         'Melvin Ector',
-        'Thomas Kampenga'
       ];
 
       graphLabelTexts.sort().should.eql(expectedGraphLabelTexts);

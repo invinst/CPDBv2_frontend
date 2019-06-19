@@ -148,7 +148,15 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   render() {
-    const { officers, coaccusedData, listEvent, updateOfficerId, timelineIdx, refreshIntervalId } = this.props;
+    const {
+      officers,
+      coaccusedData,
+      listEvent,
+      updateOfficerId,
+      timelineIdx,
+      refreshIntervalId,
+      updateSortedOfficerIds
+    } = this.props;
     const { fullscreen } = this.state;
 
     return (
@@ -165,6 +173,7 @@ export default class AnimatedSocialGraph extends Component {
               stopTimeline={ this.stopTimeline }
               fullscreen={ fullscreen }
               updateOfficerId={ updateOfficerId }
+              updateSortedOfficerIds={ updateSortedOfficerIds }
             />
           )
         }
@@ -185,6 +194,7 @@ AnimatedSocialGraph.propTypes = {
   updateRefreshIntervalId: PropTypes.func,
   timelineIdx: PropTypes.number,
   refreshIntervalId: PropTypes.number,
+  updateSortedOfficerIds: PropTypes.func,
 };
 
 AnimatedSocialGraph.defaultProps = {
