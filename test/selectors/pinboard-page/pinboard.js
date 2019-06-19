@@ -3,6 +3,7 @@ import {
   pinboardItemsSelector,
   pinboardICRIDsSelector,
   isEmptyPinboardSelector,
+  examplePinboardsSelector,
 } from 'selectors/pinboard-page/pinboard';
 import PinboardFactory from 'utils/test/factories/pinboard';
 
@@ -202,6 +203,53 @@ describe('Pinboard selectors', function () {
       };
 
       isEmptyPinboardSelector(state).should.be.true();
+    });
+  });
+
+  describe('examplePinboardsSelector', function () {
+    it('should return example pinboards with id, title and description', function () {
+      const state = {
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            'officer_ids': [],
+            crids: [],
+            'trr_ids': [],
+            'example_pinboards': [{
+              id: '66ef1561',
+              title: 'Pinboard 1',
+              description: 'Description 1'
+            }, {
+              id: '66ef1562',
+              title: 'Pinboard 2',
+              description: 'Description 2'
+            }]
+          })
+        }
+      };
+
+      examplePinboardsSelector(state).should.eql([{
+        id: '66ef1561',
+        title: 'Pinboard 1',
+        description: 'Description 1'
+      }, {
+        id: '66ef1562',
+        title: 'Pinboard 2',
+        description: 'Description 2'
+      }]);
+    });
+
+    it('should return empty if no data', function () {
+      const state = {
+        pinboardPage: {
+          pinboard: PinboardFactory.build({
+            'officer_ids': [],
+            crids: [],
+            'trr_ids': [],
+          })
+        }
+      };
+
+      examplePinboardsSelector(state).should.eql([]);
     });
   });
 });
