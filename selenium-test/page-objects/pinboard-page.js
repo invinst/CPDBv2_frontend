@@ -214,8 +214,8 @@ class EmptyPinboardSection extends Section {
 
     this.prepareElementGetters({
       mainElement: '//div[contains(@class, "empty-pinboard__empty-pinboard")]',
-      repeatersRow: '//a[@class="helper-row"][1]',
-      skullcapCrewRow: '//a[@class="helper-row"][2]',
+      firstExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][1]',
+      secondExample: '//a[contains(@class, "example-pinboard-link__example-pinboard-link")][2]',
     });
   }
 }
