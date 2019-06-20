@@ -21,11 +21,13 @@ describe('Pinboard Page', function () {
   });
 
   it('should go to landing page when header is clicked', function () {
+    pinboardPage.open();
     pinboardPage.headerTitle.click();
     browser.getUrl().replace(/https?:\/\/[^/]+/, '').should.equal('/');
   });
 
   it('should go to Q&A url when clicking on Q&A link', function () {
+    pinboardPage.open();
     pinboardPage.headerQALink.click();
     browser.getUrl().should.equal('http://how.cpdp.works/');
   });
@@ -52,10 +54,13 @@ describe('Pinboard Page', function () {
   });
 
   context('pinboard section', function () {
-    it('should render correctly', function () {
+    beforeEach(function () {
       pinboardPage.open();
-      pinboardPage.pinboardSection.title.getText().should.equal('Pinboard Title');
-      pinboardPage.pinboardSection.description.getText().should.equal('Pinboard Description');
+    });
+
+    it('should render correctly', function () {
+      pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
+      pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       const pinboardPaneMenuText = pinboardPage.pinboardSection.pinboardPaneMenu.getText();
       pinboardPaneMenuText.should.containEql('NETWORK');
