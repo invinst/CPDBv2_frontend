@@ -16,6 +16,15 @@ export const fetchPinboard = (id='5cd06f2b') => ({
   'description': 'Pinboard Description',
 });
 
+export const fetchEmptyPinboard = () => ({
+  'id': 'abcd1234',
+  'title': '',
+  'officer_ids': [],
+  'crids': [],
+  'trr_ids': [],
+  'description': '',
+});
+
 export const updatePinboard = () => ({
   'id': '5cd06f2b',
   'title': '',
@@ -23,4 +32,30 @@ export const updatePinboard = () => ({
   'crids': [],
   'trr_ids': [],
   'description': '',
+});
+
+export const updatePinboardTitleParams = () => ({
+  'title': 'Updated Title',
+  'officer_ids': ['1234'],
+  'crids': ['1234567'],
+  'trr_ids': ['1234'],
+  'description': 'Pinboard Description',
+});
+
+export const updatedPinboardTitle = () => ({
+  'id': '5cd06f2b',
+  ...updatePinboardTitleParams()
+});
+
+export const updatePinboardDescriptionParams = () => ({
+  'title': 'Updated Title',
+  'officer_ids': ['1234'],
+  'crids': ['1234567'],
+  'trr_ids': ['1234'],
+  'description': 'Updated Description',
+});
+
+export const updatedPinboardDescription = () => ({
+  'id': '5cd06f2b',
+  ...updatePinboardDescriptionParams()
 });

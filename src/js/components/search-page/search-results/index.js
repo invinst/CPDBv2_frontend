@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
-import { map } from 'lodash';
+import { map, noop } from 'lodash';
 
 import {
   searchResultsWrapperStyle,
@@ -143,6 +143,7 @@ export default class SuggestionResults extends Component {
       tags,
       onSelect,
       contentType,
+      onEmptyPinboardButtonClick,
     } = this.props;
 
     return (
@@ -154,7 +155,10 @@ export default class SuggestionResults extends Component {
             selected={ contentType }
             isRequesting={ isRequesting }
           />
-          <PinboardButtonContainer emptyText={ true } />
+          <PinboardButtonContainer
+            emptyText={ true }
+            onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
+          />
         </div>
         <div style={ suggestionResultsStyle(aliasEditModeOn) }>
           {
@@ -197,11 +201,13 @@ SuggestionResults.propTypes = {
   addOrRemoveItemInPinboard: PropTypes.func,
   tags: PropTypes.array,
   contentType: PropTypes.string,
+  onEmptyPinboardButtonClick: PropTypes.func,
 };
 
 SuggestionResults.defaultProps = {
   previewPaneInfo: {},
   focusedItem: {},
-  getSuggestionWithContentType: () => {},
-  resetNavigation: () => {},
+  getSuggestionWithContentType: noop,
+  resetNavigation: noop,
+  onEmptyPinboardButtonClick: noop,
 };

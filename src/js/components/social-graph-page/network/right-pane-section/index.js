@@ -13,18 +13,17 @@ export default class RightPaneSection extends Component {
     const {
       currentTab,
       changeNetworkTab,
-      hasComplaint,
-      updateOfficerId,
+      showTimelineTab,
       location
     } = this.props;
     const rightPaneMap = {
+      [NETWORK_TAB_NAMES.TIMELINE]: {
+        component: SocialGraphTimelineContainer,
+        show: showTimelineTab,
+      },
       [NETWORK_TAB_NAMES.OFFICERS]: {
         component: SocialGraphOfficersContainer,
         show: true,
-      },
-      [NETWORK_TAB_NAMES.TIMELINE]: {
-        component: SocialGraphTimelineContainer,
-        show: hasComplaint,
       },
     };
     const CurrentComponent = get(rightPaneMap, `${currentTab}.component`, null);
@@ -46,7 +45,7 @@ export default class RightPaneSection extends Component {
           }
           <div className='clearfix' />
         </div>
-        { CurrentComponent && <CurrentComponent updateOfficerId={ updateOfficerId } location={ location }/> }
+        { CurrentComponent && <CurrentComponent location={ location }/> }
       </div>
     );
   }
@@ -55,7 +54,6 @@ export default class RightPaneSection extends Component {
 RightPaneSection.propTypes = {
   currentTab: PropTypes.string,
   changeNetworkTab: PropTypes.func,
-  hasComplaint: PropTypes.bool,
-  updateOfficerId: PropTypes.func,
+  showTimelineTab: PropTypes.bool,
   location: PropTypes.object,
 };

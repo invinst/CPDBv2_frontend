@@ -5,6 +5,8 @@ import { relevantComplaintTransform } from './transform';
 
 const getRelevantComplaintsPagination = state => state.pinboardPage.relevantComplaints;
 
+export const getRequesting = state => state.pinboardPage.relevantComplaints.requesting;
+
 export const relevantComplaintsSelector = createSelector(
   getRelevantComplaintsPagination,
   ({ items }) => items.map(relevantComplaintTransform)

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import style from './download-menu.sass';
 import DownloadMenuItem from './download-menu-item';
+import { OFFICER_DOWNLOAD_KINDS } from 'utils/constants';
 
 
 export default class DownloadMenu extends React.Component {
@@ -14,14 +15,14 @@ export default class DownloadMenu extends React.Component {
     return (
       <div className={ style.downloadMenu }>
         <DownloadMenuItem
-          text='Data + docs'
+          kind={ OFFICER_DOWNLOAD_KINDS.WITH_DOCS }
           fetchOfficerZipFileUrl={ fetchOfficerZipWithDocsFileUrl }
           officerId={ officerId }
           zipFileUrl={ zipFileUrlWithDocs }
         />
 
         <DownloadMenuItem
-          text='Data only'
+          kind={ OFFICER_DOWNLOAD_KINDS.WITHOUT_DOCS }
           fetchOfficerZipFileUrl={ fetchOfficerZipFileUrl }
           officerId={ officerId }
           zipFileUrl={ zipFileUrl }

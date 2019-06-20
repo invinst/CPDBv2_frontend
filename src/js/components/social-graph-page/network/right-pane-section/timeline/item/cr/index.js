@@ -12,7 +12,7 @@ export default class Cr extends Component {
 
     return (
       <Link
-        className={ cx(styles.wrapper, 'timeline-item') }
+        className={ cx(styles.wrapper, 'test--timeline-item') }
         to={ `/complaint/${item.crid}/` }
       >
         <div className='content'>

@@ -20,6 +20,16 @@ describe('Pinboard Page', function () {
     browser.getUrl().should.endWith('/search/');
   });
 
+  it('should go to landing page when header is clicked', function () {
+    pinboardPage.headerTitle.click();
+    browser.getUrl().replace(/https?:\/\/[^/]+/, '').should.equal('/');
+  });
+
+  it('should go to Q&A url when clicking on Q&A link', function () {
+    pinboardPage.headerQALink.click();
+    browser.getUrl().should.equal('http://how.cpdp.works/');
+  });
+
   context('pinboard pinned section', function () {
     it('should render the pinned cards correctly', function () {
       pinboardPage.open();
@@ -50,6 +60,21 @@ describe('Pinboard Page', function () {
       const pinboardPaneMenuText = pinboardPage.pinboardSection.pinboardPaneMenu.getText();
       pinboardPaneMenuText.should.containEql('NETWORK');
       pinboardPaneMenuText.should.containEql('GEOGRAPHIC');
+    });
+
+    it('should update title and description after editing and out focusing them', function () {
+      pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
+      pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
+      browser.getUrl().should.containEql('/pinboard-title/');
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
+      pinboardPage.pinboardSection.title.click();
+      pinboardPage.pinboardSection.title.setValue('Updated Title');
+      pinboardPage.pinboardSection.description.click();
+      pinboardPage.pinboardSection.description.setValue('Updated Description');
+      pinboardPage.pinboardSection.networkPaneName.click();
+      pinboardPage.pinboardSection.title.getValue().should.equal('Updated Title');
+      pinboardPage.pinboardSection.description.getValue().should.equal('Updated Description');
+      browser.getUrl().should.containEql('/updated-title/');
     });
   });
 
@@ -395,5 +420,25 @@ describe('Pinboard Page', function () {
       browser.pause(500);
       browser.getUrl().should.match(/\/complaint\/1071234\/$/);
     });
+  });
+});
+
+describe('Empty Pinboard Page', function () {
+  beforeEach(function () {
+    pinboardPage.open('abcd1234');
+  });
+
+  it('should render when there is no content', function () {
+    pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
+  });
+
+  it('should go to Watts Crew pinboard page when clicking on Repeaters row', function () {
+    pinboardPage.emptyPinboardSection.repeatersRow.click();
+    browser.getUrl().should.match(/pinboard\/b20c2c36\//);
+  });
+
+  it('should go to Skullcap Crew pinboard page when clicking on Skullcap Crew row', function () {
+    pinboardPage.emptyPinboardSection.skullcapCrewRow.click();
+    browser.getUrl().should.match(/pinboard\/22e66085\//);
   });
 });

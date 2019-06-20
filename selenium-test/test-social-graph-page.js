@@ -3,7 +3,8 @@
 
 require('should');
 
-import { map, countBy, values, filter } from 'lodash';
+import { map, countBy, filter } from 'lodash';
+import moment from 'moment/moment';
 
 import socialGraphPage from './page-objects/social-graph-page';
 
@@ -210,6 +211,7 @@ describe('Social Graph Page', function () {
 
   it('should render officer preview pane when clicking on the officer row', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.officerTab.click();
     socialGraphPage.officersSection.officerRowCount().should.eql(20);
     socialGraphPage.officersSection.firstOfficerRow.click();
     socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
@@ -221,6 +223,7 @@ describe('Social Graph Page', function () {
 
   it('should render officer preview pane when clicking on the officer node', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
+    socialGraphPage.animatedSocialGraphSection.officerTab.click();
     socialGraphPage.officersSection.officerRowCount().should.eql(20);
     socialGraphPage.animatedSocialGraphSection.biggestGraphNode.click();
     socialGraphPage.officersSection.officerPreviewPane.waitForVisible();
@@ -232,7 +235,6 @@ describe('Social Graph Page', function () {
 
   it('should render timeline section when clicking on timeline tab', function () {
     waitForGraphAnimationEnd(browser, socialGraphPage);
-    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
     socialGraphPage.timelineSection.allegationRowCount().should.eql(64);
 
     socialGraphPage.timelineSection.firstAllegationYear.getText().should.eql('1990');
@@ -241,5 +243,70 @@ describe('Social Graph Page', function () {
       'Excessive Force / On Duty - Injury'
     );
     socialGraphPage.timelineSection.firstAllegationDate.getText().should.eql('JAN 9');
+  });
+
+  it('should scroll to last timeline item(s) when slider reach the end', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    const formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('JAN 11');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+  });
+
+  it('should scroll to specific timeline item(s) when click on slider', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    browser.moveToObject(socialGraphPage.animatedSocialGraphSection.timelineSlider.selector);
+    browser.buttonPress();
+    const formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('APR 17');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+  });
+
+  it('should go to corresponding slider event when scroll to specific timeline item(s)', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+    browser.moveToObject(socialGraphPage.timelineSection.allegationItem.selector);
+    browser.waitUntil(function () {
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1992-03-08';
+    }, 3000);
+    const formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('MAR 8');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+  });
+
+  it('should go to corresponding slider event when scroll after switch back from OfficerTab', function () {
+    socialGraphPage.animatedSocialGraphSection.rightPaneSectionMenu.waitForVisible();
+    waitForGraphAnimationEnd(browser, socialGraphPage);
+
+    socialGraphPage.animatedSocialGraphSection.officerTab.click();
+    socialGraphPage.officersSection.officerRowCount().should.eql(20);
+
+    socialGraphPage.animatedSocialGraphSection.timelineTab.click();
+    browser.waitUntil(function () {
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '2008-01-11';
+    }, 3000);
+    let formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('JAN 11');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
+
+    browser.moveToObject(socialGraphPage.timelineSection.allegationItem.selector);
+
+    browser.waitUntil(function () {
+      return socialGraphPage.animatedSocialGraphSection.currentDate.getText() === '1992-03-08';
+    }, 3000);
+    formattedCurrentDate = moment(
+      socialGraphPage.animatedSocialGraphSection.currentDate.getText()
+    ).format('MMM D').toUpperCase();
+    formattedCurrentDate.should.eql('MAR 8');
+    socialGraphPage.timelineSection.timelineItemDateActive.getText().should.eql(formattedCurrentDate);
   });
 });

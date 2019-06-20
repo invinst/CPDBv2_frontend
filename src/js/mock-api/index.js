@@ -56,7 +56,16 @@ import {
 } from './social-graph-page/social-graph-page';
 import { getDefaultSocialGraphOfficersData } from './social-graph-page/officers-data';
 import { getDefaultSocialGraphAllegationsData } from './social-graph-page/allegations-data';
-import { createPinboard, fetchPinboard, updatePinboard } from './pinboard';
+import {
+  createPinboard,
+  fetchPinboard,
+  updatePinboard,
+  fetchEmptyPinboard,
+  updatePinboardTitleParams,
+  updatedPinboardTitle,
+  updatePinboardDescriptionParams,
+  updatedPinboardDescription,
+} from './pinboard';
 import {
   fetchPinboardComplaints,
   fetchPinboardOfficers,
@@ -193,6 +202,12 @@ axiosMockClient.onPost(`${PINBOARDS_URL}`).reply(201, createPinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/`).reply(200, fetchPinboard());
 
+axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`, updatePinboardTitleParams()).reply(200, updatedPinboardTitle());
+
+axiosMockClient.onPut(
+  `${PINBOARDS_URL}5cd06f2b/`, updatePinboardDescriptionParams()
+).reply(200, updatedPinboardDescription());
+
 axiosMockClient.onPut(`${PINBOARDS_URL}5cd06f2b/`).reply(200, updatePinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/complaints/`).reply(200, fetchPinboardComplaints());
@@ -240,6 +255,8 @@ axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&of
 axiosMockClient.onGet(`${PINBOARDS_URL}5cd06f2b/relevant-complaints/?limit=20&offset=40`).reply(
   200, getRelevantComplaints('5cd06f2b', 20, 40, 50)
 );
+
+axiosMockClient.onGet(`${PINBOARDS_URL}abcd1234/`).reply(200, fetchEmptyPinboard());
 
 axiosMockClient.onGet(`${PINBOARDS_URL}latest-retrieved-pinboard/`).reply(200, {});
 

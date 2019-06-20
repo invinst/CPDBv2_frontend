@@ -99,6 +99,7 @@ describe('RelevantDocuments component', function () {
 
     instance = renderIntoDocument(
       <RelevantDocuments
+        requesting={ false }
         addItemInPinboardPage={ addItemInPinboardPageStub }
         fetchPinboardRelevantDocuments={ fetchPinboardRelevantDocumentsStub }
         documents={ documents }
@@ -112,6 +113,7 @@ describe('RelevantDocuments component', function () {
     relevantInfiniteCarousel.props.title.should.eql('DOCUMENTS');
     relevantInfiniteCarousel.props.childWidth.should.eql(306);
     relevantInfiniteCarousel.props.hasMore.should.be.true();
+    relevantInfiniteCarousel.props.requesting.should.be.false();
 
     const relevantDocumentCards = scryRenderedComponentsWithType(relevantInfiniteCarousel, RelevantDocumentCard);
     relevantDocumentCards.should.have.length(2);
@@ -124,7 +126,6 @@ describe('RelevantDocuments component', function () {
     );
     relevantDocumentCards[0].props.allegation.should.eql(firstAllegation);
     relevantDocumentCards[0].props.pinned.should.be.true();
-    relevantDocumentCards[0].props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
 
     relevantDocumentCards[1].props.url.should.eql(
       'https://www.documentcloud.org/documents/3518950-CRID-294088-CR.html'
@@ -134,7 +135,6 @@ describe('RelevantDocuments component', function () {
     );
     relevantDocumentCards[1].props.allegation.should.eql(secondAllegation);
     relevantDocumentCards[1].props.pinned.should.be.false();
-    relevantDocumentCards[1].props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
 
     relevantInfiniteCarousel.props.loadMore();
     fetchPinboardRelevantDocumentsStub.should.be.calledOnce();

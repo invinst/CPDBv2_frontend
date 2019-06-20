@@ -1,23 +1,23 @@
 import React, { Component, PropTypes } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
-import { isEmpty } from 'lodash';
+import { isEmpty, noop } from 'lodash';
 import cx from 'classnames';
 
 import SocialGraph from './social-graph';
 import styles from './animated-social-graph.sass';
 import sliderStyles from 'components/common/slider.sass';
 import { showIntercomLauncher } from 'utils/intercom';
+import withLoadingSpinner from 'components/common/with-loading-spinner';
 
-const AMINATE_SPEED = 150;
+const ANIMATE_SPEED = 150;
 
 
 export default class AnimatedSocialGraph extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      timelineIdx: 0,
-      refreshIntervalId: null,
+      searchInputText: '',
       fullscreen: false,
     };
 
@@ -34,30 +34,32 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   startTimeline() {
-    this.setState({ refreshIntervalId: setInterval(this.intervalTickTimeline, AMINATE_SPEED) });
+    const { updateRefreshIntervalId } = this.props;
+    updateRefreshIntervalId(setInterval(this.intervalTickTimeline, ANIMATE_SPEED));
   }
 
   stopTimeline() {
-    const { refreshIntervalId } = this.state;
+    const { refreshIntervalId, updateRefreshIntervalId } = this.props;
     if (refreshIntervalId) {
       clearInterval(refreshIntervalId);
-      this.setState({ refreshIntervalId: null });
+      updateRefreshIntervalId(null);
     }
   }
 
   startTimelineFromBeginning() {
+    const { updateTimelineIdx } = this.props;
     this.stopTimeline();
-    this.setState({ timelineIdx: 0 });
+    updateTimelineIdx(0);
     this.startTimeline();
   }
 
   toggleTimeline() {
-    const { timelineIdx } = this.state;
-    if (this.state.refreshIntervalId) {
+    const { timelineIdx, updateTimelineIdx, refreshIntervalId } = this.props;
+    if (refreshIntervalId) {
       this.stopTimeline();
     } else {
       if (timelineIdx === this.props.listEvent.length - 1) {
-        this.setState({ timelineIdx: 0 });
+        updateTimelineIdx(0);
       }
       this.startTimeline();
     }
@@ -73,11 +75,10 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   intervalTickTimeline() {
-    const { isVisible } = this.props;
-    const { timelineIdx } = this.state;
+    const { timelineIdx, isVisible, updateTimelineIdx } = this.props;
     if (isVisible) {
       if (timelineIdx < this.props.listEvent.length - 1) {
-        this.setState({ timelineIdx: timelineIdx + 1 });
+        updateTimelineIdx(timelineIdx + 1);
       } else {
         this.stopTimeline();
       }
@@ -85,7 +86,8 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   handleDateSliderChange(value) {
-    this.setState({ timelineIdx: value });
+    const { updateTimelineIdx } = this.props;
+    updateTimelineIdx(value);
   }
 
   fullscreenButton() {
@@ -107,8 +109,7 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   graphControlPanel() {
-    const { listEvent, isVisible } = this.props;
-    const { timelineIdx, refreshIntervalId } = this.state;
+    const { listEvent, isVisible, timelineIdx, refreshIntervalId } = this.props;
     if (listEvent) {
       const numOfEvents = listEvent.length;
 
@@ -149,23 +150,25 @@ export default class AnimatedSocialGraph extends Component {
   }
 
   render() {
-    const { officers, coaccusedData, listEvent, updateOfficerId } = this.props;
-    const { timelineIdx, refreshIntervalId, fullscreen } = this.state;
+    const { officers, coaccusedData, listEvent, updateOfficerId, timelineIdx, refreshIntervalId } = this.props;
+    const { fullscreen } = this.state;
 
     return (
       <div className={ cx(styles.animatedSocialGraph, { fullscreen }) }>
         {
-          !isEmpty(officers) && <SocialGraph
-            officers={ officers }
-            coaccusedData={ coaccusedData }
-            listEvent={ listEvent }
-            timelineIdx={ timelineIdx }
-            startTimelineFromBeginning={ this.startTimelineFromBeginning }
-            collideNodes={ !refreshIntervalId }
-            stopTimeline={ this.stopTimeline }
-            fullscreen={ fullscreen }
-            updateOfficerId={ updateOfficerId }
-          />
+          isEmpty(officers) || (
+            <SocialGraph
+              officers={ officers }
+              coaccusedData={ coaccusedData }
+              listEvent={ listEvent }
+              timelineIdx={ timelineIdx }
+              startTimelineFromBeginning={ this.startTimelineFromBeginning }
+              collideNodes={ !refreshIntervalId }
+              stopTimeline={ this.stopTimeline }
+              fullscreen={ fullscreen }
+              updateOfficerId={ updateOfficerId }
+            />
+          )
         }
         { this.graphControlPanel() }
       </div>
@@ -180,9 +183,17 @@ AnimatedSocialGraph.propTypes = {
   hasIntercom: PropTypes.bool,
   updateOfficerId: PropTypes.func,
   expandedLink: PropTypes.string,
+  updateTimelineIdx: PropTypes.func,
+  updateRefreshIntervalId: PropTypes.func,
+  timelineIdx: PropTypes.number,
+  refreshIntervalId: PropTypes.number,
   isVisible: PropTypes.bool,
 };
 
 AnimatedSocialGraph.defaultProps = {
+  updateTimelineIdx: noop,
+  updateRefreshIntervalId: noop,
   isVisible: true,
 };
+
+export const AnimatedSocialGraphWithSpinner = withLoadingSpinner(AnimatedSocialGraph, styles.socialGraphLoading);

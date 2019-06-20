@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router, createMemoryHistory, Route } from 'react-router';
+import { Router, createMemoryHistory, Route, browserHistory } from 'react-router';
 import {
   findRenderedComponentWithType,
   findRenderedDOMComponentWithClass,
@@ -10,12 +10,12 @@ import {
   Simulate
 } from 'react-addons-test-utils';
 import { spy, stub } from 'sinon';
-import { browserHistory } from 'react-router';
 import Mousetrap from 'mousetrap';
 import lodash from 'lodash';
 import MockStore from 'redux-mock-store';
 import RootReducer from 'reducers/root-reducer';
 import { createStore } from 'redux';
+import { Promise } from 'es6-promise';
 
 import * as navigateUtils from 'utils/navigate-to-search-item';
 import SearchPageContainer from 'containers/search-page';
@@ -570,5 +570,33 @@ describe('SearchPage component', function () {
     }));
 
     showToastStub.should.be.called();
+  });
+
+  it('should handle when click on pinboard button if pinboard is not exist', function (done) {
+    const store = createStore(RootReducer, state);
+    const createPinboard = stub().usingPromise(Promise).resolves({
+      payload: {
+        id: '5cd06f2b',
+        url: '/pinboard/5cd06f2b/'
+      }
+    });
+
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <SearchPage
+          createPinboard={ createPinboard }
+        />
+      </Provider>
+    );
+
+    const searchPage = findRenderedComponentWithType(instance, SearchPage);
+    searchPage.handleEmptyPinboardButtonClick();
+
+    createPinboard.calledWith({ officerIds: [], trrIds: [], crids: [] }).should.be.true();
+
+    setTimeout(() => {
+      this.browserHistoryPush.called.should.be.true();
+      done();
+    }, 50);
   });
 });

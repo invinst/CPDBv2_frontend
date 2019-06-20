@@ -87,6 +87,7 @@ describe('RelevantComplaints component', function () {
 
     instance = renderIntoDocument(
       <RelevantComplaints
+        requesting={ false }
         addItemInPinboardPage={ addItemInPinboardPageStub }
         fetchPinboardRelevantComplaints={ fetchPinboardRelevantComplaintsStub }
         complaints={ complaints }
@@ -100,6 +101,7 @@ describe('RelevantComplaints component', function () {
     relevantInfiniteCarousel.props.title.should.eql('COMPLAINTS');
     relevantInfiniteCarousel.props.childWidth.should.eql(306);
     relevantInfiniteCarousel.props.hasMore.should.be.true();
+    relevantInfiniteCarousel.props.requesting.should.be.false();
 
     const RelevantComplaintCards = scryRenderedComponentsWithType(relevantInfiniteCarousel, RelevantComplaintCard);
     RelevantComplaintCards.should.have.length(2);
@@ -109,14 +111,12 @@ describe('RelevantComplaints component', function () {
     RelevantComplaintCards[0].props.category.should.eql('False Arrest');
     RelevantComplaintCards[0].props.officers.should.eql(firstOfficers);
     RelevantComplaintCards[0].props.point.should.eql({ lat: 41.7924183, lon: -87.668458 });
-    RelevantComplaintCards[0].props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
 
     RelevantComplaintCards[1].props.crid.should.eql('1085255');
     RelevantComplaintCards[1].props.incidentDate.should.eql('May 18, 2017');
     RelevantComplaintCards[1].props.category.should.eql('Unknown');
     RelevantComplaintCards[1].props.officers.should.eql([]);
     RelevantComplaintCards[1].props.point.should.eql({ lat: 41.800831, lon: -87.6222052 });
-    RelevantComplaintCards[1].props.addItemInPinboardPage.should.eql(addItemInPinboardPageStub);
 
     relevantInfiniteCarousel.props.loadMore();
     fetchPinboardRelevantComplaintsStub.should.be.calledOnce();

@@ -44,3 +44,11 @@ export const changeNetworkTab = createAction(constants.CHANGE_NETWORK_TAB);
 export const changeMainTab = createAction(constants.CHANGE_SOCIAL_GRAPH_MAIN_TAB);
 
 export const updateOfficerId = createAction(constants.UPDATE_OFFICER_ID);
+
+export const updateSocialGraphTimelineIdx = createAction(constants.UPDATE_SOCIAL_GRAPH_TIMELINE_IDX);
+
+export const updateSocialGraphTimelineIdxFromTimelineTab = createAction(
+  constants.UPDATE_SOCIAL_GRAPH_TIMELINE_IDX_FROM_TIMELINE_TAB
+);
+
+export const updateSocialGraphRefreshIntervalId = createAction(constants.UPDATE_SOCIAL_GRAPH_REFRESH_INTERVAL_ID);

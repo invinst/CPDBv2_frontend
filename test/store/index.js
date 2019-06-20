@@ -239,11 +239,15 @@ describe('store', function () {
       },
       socialGraphPage: {
         networkData: {
-          currentNetworkTab: 'Officers',
+          currentNetworkTab: 'Timeline',
+          showTimelineTab: true,
           graphData: {},
           networkAllegations: [],
           networkOfficers: [],
-          officerId: null
+          officerId: null,
+          timelineIdx: 0,
+          refreshIntervalId: null,
+          timelineIdxTriggerChange: 0,
         },
         currentMainTab: 'NETWORK',
         geographicData: [],
@@ -259,28 +263,34 @@ describe('store', function () {
           title: '',
           'trr_ids': [],
         },
-        graphData: {},
-        geographicData: [],
+        graphData: { requesting: false, data: {} },
+        geographicData: { requesting: false, data: [] },
         currentTab: 'NETWORK',
         relevantDocuments: {
+          requesting: false,
           items: [],
           count: 0,
           pagination: { next: null, previous: null }
         },
         relevantCoaccusals: {
+          requesting: false,
           items: [],
           count: 0,
           pagination: { next: null, previous: null }
         },
         relevantComplaints: {
+          requesting: false,
           items: [],
           count: 0,
           pagination: { next: null, previous: null }
         },
-        redirection: null,
-        officerItems: [],
-        crItems: [],
-        trrItems: [],
+        redirect: false,
+        initialRequested: false,
+        officerItems: { requesting: false, items: [] },
+        crItems: { requesting: false, items: [] },
+        trrItems: { requesting: false, items: [] },
+        timelineIdx: 0,
+        refreshIntervalId: null,
       },
       toast: {},
     });

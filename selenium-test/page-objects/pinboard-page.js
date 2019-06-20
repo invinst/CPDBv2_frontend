@@ -7,7 +7,7 @@ class PinnedOfficers extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--OFFICER-section")]';
-    const firstCardSelector = `(${sectionSelector}/div[@class="type-cards"]/div)[1]`;
+    const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
@@ -24,7 +24,7 @@ class PinnedCRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--CR-section")]';
-    const firstCardSelector = `(${sectionSelector}/div[@class="type-cards"]/div)[1]`;
+    const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
@@ -40,7 +40,7 @@ class PinnedTRRs extends Section {
     super();
 
     const sectionSelector = '//div[contains(@class, "test--TRR-section")]';
-    const firstCardSelector = `(${sectionSelector}/div[@class="type-cards"]/div)[1]`;
+    const firstCardSelector = `(${sectionSelector}/div[contains(@class, "type-cards")]/div)[1]`;
 
     this.prepareElementGetters({
       title: `${sectionSelector}/div[@class="type-title"]`,
@@ -176,8 +176,8 @@ class PinboardSection extends Section {
     super();
 
     this.prepareElementGetters({
-      title: '(//div[contains(@class, "pinboard-title")])',
-      description: '(//div[contains(@class, "pinboard-description")])',
+      title: '.pinboard-title',
+      description: '.pinboard-description',
       pinboardPaneMenu: '(//div[contains(@class, "pinboard-pane-section-menu")])',
       networkPaneName: '//span[contains(@class, "pinboard-pane-tab-name")][1]',
       geographicPaneName: '//span[contains(@class, "pinboard-pane-tab-name")][2]',
@@ -208,6 +208,18 @@ class GeographicSection extends Section {
   }
 }
 
+class EmptyPinboardSection extends Section {
+  constructor() {
+    super();
+
+    this.prepareElementGetters({
+      mainElement: '//div[contains(@class, "empty-pinboard__empty-pinboard")]',
+      repeatersRow: '//a[@class="helper-row"][1]',
+      skullcapCrewRow: '//a[@class="helper-row"][2]',
+    });
+  }
+}
+
 class PinboardPage extends Page {
   pinnedSection = new PinboardPinnedSection();
   animatedSocialGraphSection = new AnimatedSocialGraphSection();
@@ -216,12 +228,16 @@ class PinboardPage extends Page {
   relevantDocumentsSection = new RelevantDocumentsSection();
   relevantCoaccusalsSection = new RelevantCoaccusalsSection();
   relevantComplaintsSection = new RelevantComplaintsSection();
+  emptyPinboardSection = new EmptyPinboardSection();
 
   constructor() {
     super();
 
     this.prepareElementGetters({
-      searchBar: '//div[starts-with(@class, "search-bar")]'
+      searchBar: '//div[@class="pinboard-header"]//div[starts-with(@class, "search-bar")]',
+      header: '.pinboard-header .header-parent',
+      headerTitle: '.pinboard-header .header-title',
+      headerQALink: '//div[@class="pinboard-header"]//div[@class="menu-item" and text()="Q&A"]',
     });
   }
 

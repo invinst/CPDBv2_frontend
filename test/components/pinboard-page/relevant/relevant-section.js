@@ -90,6 +90,9 @@ describe('RelevantSection component', function () {
         documentNextParams={ { limit: 19, offset: 20 } }
         coaccusalNextParams={ { limit: 21, offset: 22 } }
         complaintNextParams={ { limit: 23, offset: 24 } }
+        isRequestingDocuments={ false }
+        isRequestingCoaccusals={ false }
+        isRequestingComplaints={ false }
       />
     );
 
@@ -100,6 +103,7 @@ describe('RelevantSection component', function () {
     relevantDocuments.props.documents.should.eql(documents);
     relevantDocuments.props.nextParams.should.eql({ limit: 19, offset: 20 });
     relevantDocuments.props.hasMore.should.be.true();
+    relevantDocuments.props.requesting.should.be.false();
     relevantDocuments.props.fetchPinboardRelevantDocuments.should.equal(fetchPinboardRelevantDocuments);
     relevantDocuments.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
 
@@ -108,6 +112,7 @@ describe('RelevantSection component', function () {
     relevantCoaccusals.props.coaccusals.should.eql(coaccusals);
     relevantCoaccusals.props.nextParams.should.eql({ limit: 21, offset: 22 });
     relevantCoaccusals.props.hasMore.should.be.true();
+    relevantCoaccusals.props.requesting.should.be.false();
     relevantCoaccusals.props.fetchPinboardRelevantCoaccusals.should.equal(fetchPinboardRelevantCoaccusals);
     relevantCoaccusals.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
 
@@ -116,6 +121,7 @@ describe('RelevantSection component', function () {
     relevantComplaints.props.complaints.should.eql(complaints);
     relevantComplaints.props.nextParams.should.eql({ limit: 23, offset: 24 });
     relevantComplaints.props.hasMore.should.be.true();
+    relevantComplaints.props.requesting.should.be.false();
     relevantComplaints.props.fetchPinboardRelevantComplaints.should.equal(fetchPinboardRelevantComplaints);
     relevantComplaints.props.addItemInPinboardPage.should.equal(addItemInPinboardPage);
   });

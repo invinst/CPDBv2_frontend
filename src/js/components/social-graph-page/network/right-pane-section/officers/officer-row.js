@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
+import { isEqual } from 'lodash';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import styles from './officer-row.sass';
@@ -9,6 +10,11 @@ export default class OfficerRow extends Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const { officer } = this.props;
+    return !isEqual(officer, nextProps.officer);
   }
 
   handleClick() {

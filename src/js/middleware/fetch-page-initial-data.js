@@ -51,10 +51,7 @@ import {
   fetchPinboardRelevantCoaccusals,
   fetchPinboardRelevantComplaints,
 } from 'actions/pinboard';
-import {
-  initialLoading,
-  redirect,
-} from 'actions/pinboard-page';
+import { redirect } from 'actions/pinboard-page';
 
 let prevPathname = '';
 
@@ -214,22 +211,16 @@ export default store => next => action => {
       if (idOnPath.length === PINBOARD_HEX_ID_LENGTH) {
         if (idOnPath === idInStore) {
           dispatches.push(store.dispatch(redirect(false)));
-          const pinboardPromises = [
-            store.dispatch(fetchPinboard(idOnPath)),
-            store.dispatch(fetchPinboardComplaints(idOnPath)),
-            store.dispatch(fetchPinboardOfficers(idOnPath)),
-            store.dispatch(fetchPinboardTRRs(idOnPath)),
-            store.dispatch(fetchPinboardSocialGraph(idOnPath)),
-            store.dispatch(fetchPinboardGeographicData(idOnPath)),
-            store.dispatch(fetchPinboardRelevantDocuments(idOnPath)),
-            store.dispatch(fetchPinboardRelevantCoaccusals(idOnPath)),
-            store.dispatch(fetchPinboardRelevantComplaints(idOnPath)),
-          ];
-          dispatches.concat(pinboardPromises);
+          dispatches.push(store.dispatch(fetchPinboard(idOnPath)));
 
-          Promise.all(pinboardPromises).finally(() => {
-            store.dispatch(initialLoading(false));
-          });
+          store.dispatch(fetchPinboardComplaints(idOnPath));
+          store.dispatch(fetchPinboardOfficers(idOnPath));
+          store.dispatch(fetchPinboardTRRs(idOnPath));
+          store.dispatch(fetchPinboardSocialGraph(idOnPath));
+          store.dispatch(fetchPinboardGeographicData(idOnPath));
+          store.dispatch(fetchPinboardRelevantDocuments(idOnPath));
+          store.dispatch(fetchPinboardRelevantCoaccusals(idOnPath));
+          store.dispatch(fetchPinboardRelevantComplaints(idOnPath));
         } else {
           dispatches.push(store.dispatch(redirect(true)));
           dispatches.push(store.dispatch(fetchPinboard(idOnPath)));

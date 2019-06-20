@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-import RelevantCoaccusalCard from './relevant-coaccusal-card';
+import { RelevantCoaccusalCardWithUndo as RelevantCoaccusalCard } from './relevant-coaccusal-card';
 import RelevantInfiniteCarousel from 'components/pinboard-page/relevant/common/relevant-infinite-carousel';
 
 
@@ -11,7 +11,7 @@ export default class RelevantCoaccusals extends Component {
   }
 
   render() {
-    const { coaccusals, hasMore, addItemInPinboardPage } = this.props;
+    const { coaccusals, hasMore, addItemInPinboardPage, requesting } = this.props;
     return (
       <RelevantInfiniteCarousel
         title='COACCUSALS'
@@ -19,6 +19,7 @@ export default class RelevantCoaccusals extends Component {
         hasMore={ hasMore }
         loadMore={ this.loadMore.bind(this) }
         className='relevant-coaccusals'
+        requesting={ requesting }
       >
         {
           coaccusals.map(coaccusal =>
@@ -39,6 +40,7 @@ RelevantCoaccusals.propTypes = {
   addItemInPinboardPage: PropTypes.func,
   hasMore: PropTypes.bool,
   pinboardId: PropTypes.string,
+  requesting: PropTypes.bool,
 };
 
 RelevantCoaccusals.defaultProps = {

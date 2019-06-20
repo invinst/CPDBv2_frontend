@@ -3,13 +3,25 @@ import { get } from 'lodash';
 
 import { mapStyle } from 'components/cr-page/related-complaints/complaint-card.style';
 import ItemUnpinButton from './item-unpin-button';
-import Removable from './removable';
 import styles from './location-card.sass';
 
 
-class LocationCard extends Component {
+export default class LocationCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.removeItem = this.removeItem.bind(this);
+  }
+
+  removeItem() {
+    const { item, removeItemInPinboardPage } = this.props;
+    const { type, id } = item;
+
+    removeItemInPinboardPage({ type, id });
+  }
+
   render() {
-    const { item, dateKey, removeItem } = this.props;
+    const { item, dateKey } = this.props;
     const { point, category } = item;
 
 
@@ -22,7 +34,7 @@ class LocationCard extends Component {
 
     return (
       <div className={ styles.locationCard }>
-        <ItemUnpinButton onClick={ removeItem }/>
+        <ItemUnpinButton onClick={ this.removeItem }/>
         {
         (point === null) ?
           <div className='location-card-map empty-map' />
@@ -47,12 +59,9 @@ class LocationCard extends Component {
 LocationCard.propTypes = {
   item: PropTypes.object,
   dateKey: PropTypes.string,
-  removeItem: PropTypes.func,
+  removeItemInPinboardPage: PropTypes.func,
 };
 
 LocationCard.defaultProps = {
-  isAdded: false,
-  removeItem: () => {},
+  removeItemInPinboardPage: () => {},
 };
-
-export default Removable(LocationCard);

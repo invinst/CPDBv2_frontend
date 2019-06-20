@@ -64,6 +64,7 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
       this.setLngLat = setLngLatSpy;
       this.addTo = addToSpy;
       this.setPopup = setPopupSpy;
+      this.remove = removeSpy;
     }
   }
 
@@ -77,8 +78,9 @@ if (config.appEnv === 'live-test' || global.mocha !== undefined) {
   _mapboxgl._addControlSpy = addControlSpy;
   _mapboxgl._removeSpy = removeSpy;
   _mapboxgl.NavigationControl = navigationControlSpy;
+}
 
-
+if (global.mocha !== undefined) {
   const muuriAdd = spy();
   const muuriRemove = spy();
   const muuriDestroy = spy();

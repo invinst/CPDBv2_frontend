@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import ReactDOMServer from 'react-dom/server';
 import ReactDOM from 'react-dom';
 import cx from 'classnames';
+import { isEmpty } from 'lodash';
 
 import { MAP_INFO, MAP_ITEMS, MAPBOX_STYLE } from 'utils/constants';
 import { mapboxgl } from 'utils/vendors';
@@ -10,9 +11,19 @@ import MarkerTooltip from './marker-tooltip';
 import SimpleMarkerTooltip from './simple-marker-tooltip';
 import Marker from './marker';
 import styles from './allegations-map.sass';
+import withLoadingSpinner from 'components/common/with-loading-spinner';
 
 export default class AllegationsMap extends Component {
+  constructor(props) {
+    super(props);
+    this.currentMarkers = [];
+  }
+
   componentWillReceiveProps(nextProps, nextState) {
+    if (!isEmpty(this.currentMarkers)) {
+      this.currentMarkers.map(currentMarker => currentMarker.remove());
+    }
+    this.currentMarkers = [];
     nextProps.markers.map(marker => {
       this.addMarker(marker);
     });
@@ -70,6 +81,7 @@ export default class AllegationsMap extends Component {
     this.marker.setLngLat([marker.point.lon, marker.point.lat]);
     this.marker.setPopup(popup);
     this.marker.addTo(this.map);
+    this.currentMarkers.push(this.marker);
 
     ReactDOM.render(
       <Marker
@@ -84,6 +96,7 @@ export default class AllegationsMap extends Component {
 
   render() {
     const { mapCustomClassName, legend } = this.props;
+
     return (
       <div className={ cx(styles.map, mapCustomClassName) }>
         <div ref={ this.gotRef.bind(this) } className='map-tab'/>
@@ -140,3 +153,4 @@ AllegationsMap.defaultProps = {
   legend: {},
   markers: []
 };
+export const AllegationsMapWithSpinner = withLoadingSpinner(AllegationsMap, styles.allegationMapLoading);

@@ -1,15 +1,29 @@
 import React, { Component, PropTypes } from 'react';
 import pluralize from 'pluralize';
+import { get } from 'lodash';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import ItemUnpinButton from './item-unpin-button';
-import Removable from './removable';
+import withUndoCard from './with-undo-card';
 import styles from './officer-card.sass';
 
 
-class OfficerCard extends Component {
+export default class OfficerCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.removeItem = this.removeItem.bind(this);
+  }
+
+  removeItem() {
+    const { item, removeItemInPinboardPage } = this.props;
+    const { type, id } = item;
+
+    removeItemInPinboardPage({ type, id });
+  }
+
   render() {
-    const { item, removeItem } = this.props;
+    const { item } = this.props;
     const { percentile, complaintCount, fullName, rank } = item;
     const chartData = percentile && percentile.items;
 
@@ -22,7 +36,7 @@ class OfficerCard extends Component {
 
     return (
       <div className={ styles.officerCard }>
-        <ItemUnpinButton onClick={ removeItem }/>
+        <ItemUnpinButton onClick={ this.removeItem }/>
         <div className='radar-chart-wrapper'>
           <StaticRadarChart data={ chartData } { ...radarConfig } />
         </div>
@@ -42,11 +56,16 @@ class OfficerCard extends Component {
 
 OfficerCard.propTypes = {
   item: PropTypes.object,
-  removeItem: PropTypes.func,
+  removeItemInPinboardPage: PropTypes.func,
 };
 
 OfficerCard.defaultProps = {
-  removeItem: () => {},
+  removeItemInPinboardPage: () => {},
 };
 
-export default Removable(OfficerCard);
+
+export const OfficerCardWithUndo = withUndoCard(
+  OfficerCard,
+  props => `${get(props, 'item.fullName', '')} removed.`,
+  'removeItemInPinboardPage'
+);

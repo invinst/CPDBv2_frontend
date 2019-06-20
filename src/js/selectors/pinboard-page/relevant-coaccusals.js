@@ -5,6 +5,8 @@ import extractQuery from 'utils/extract-query';
 
 const getRelevantCoaccusalsPagination = state => state.pinboardPage.relevantCoaccusals;
 
+export const getRequesting = state => state.pinboardPage.relevantCoaccusals.requesting;
+
 export const relevantCoaccusalsSelector = createSelector(
   getRelevantCoaccusalsPagination,
   ({ items }) => items.map(relevantCoaccusalTransform)

@@ -3,6 +3,8 @@ import { fetchLatestRetrievedPinboard } from 'actions/pinboard';
 
 
 export default store => next => action => {
+  const result = next(action);
+
   if (action.type === '@@router/LOCATION_CHANGE' &&
     !action.payload.pathname.match(/\/pinboard\/[a-fA-F0-9]+\//)) {
     const state = store.getState();
@@ -12,5 +14,5 @@ export default store => next => action => {
     }
   }
 
-  return next(action);
+  return result;
 };

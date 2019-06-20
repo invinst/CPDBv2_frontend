@@ -23,8 +23,10 @@ class AnimatedSocialGraphSection extends Section {
       geographicTab: '(//div[contains(@class, "geographic-btn")])',
       networkTab: '(//div[contains(@class, "social-graph-btn")])',
       leftSection: '(//div[contains(@class, "left-section")])',
-      officerTab: '(//span[contains(@class, "right-pane-tab-name")])[1]',
-      timelineTab: '(//span[contains(@class, "right-pane-tab-name")])[2]',
+      rightPaneSectionMenu: '(//div[@class="right-pane-section-menu"])',
+      timelineTab: '(//span[contains(@class, "right-pane-tab-name")])[1]',
+      officerTab: '(//span[contains(@class, "right-pane-tab-name")])[2]',
+      officerTimelineSection: '(//div[contains(@class, "test--officer-timeline")])',
 
     });
   }
@@ -76,15 +78,18 @@ class TimelineSection extends Section {
     super();
 
     this.prepareElementGetters({
-      firstAllegationYear: '//div[contains(@class, "timeline-item")][1]//div[@class="date"]',
-      firstAllegationCategory: '//a[contains(@class, "timeline-item")][1]//div[@class="category"]',
-      firstAllegationSubcategory: '//a[contains(@class, "timeline-item")][1]//div[@class="subcategory"]',
-      firstAllegationDate: '//a[contains(@class, "timeline-item")][1]//span[@class="date"]',
+      allegationItem: '//div[contains(@class, "item__item")][7]',
+      firstAllegationYear: '//div[contains(@class, "test--timeline-item")][1]//div[@class="date"]',
+      firstAllegationCategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="category"]',
+      firstAllegationSubcategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="subcategory"]',
+      firstAllegationDate: '//a[contains(@class, "test--timeline-item")][1]//span[@class="date"]',
+      timelineItemDateActive: '//div[contains(@class, "test--officer-timeline")]//div[contains(@class, "active")]' +
+        '//a[contains(@class, "test--timeline-item")][1]//span[@class="date"]',
     });
   }
 
   allegationRowCount() {
-    return browser.elements('//a[contains(@class, "timeline-item")]').value.length;
+    return browser.elements('//a[contains(@class, "test--timeline-item")]').value.length;
   }
 }
 

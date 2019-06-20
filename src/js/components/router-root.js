@@ -125,6 +125,7 @@ export default class RouterRoot extends Component {
             <Route
               path={ PINBOARD_PATH }
               component={ PinboardPageContainer }
+              breadcrumb={ BreadcrumbItemContainer }
             />
             <Redirect from='*' to='/'/>
           </Route>

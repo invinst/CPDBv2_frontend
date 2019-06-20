@@ -9,12 +9,13 @@ import {
   Simulate
 } from 'react-addons-test-utils';
 import Slider from 'rc-slider';
-import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test';
-import AnimatedSocialGraph from 'components/common/animated-social-graph';
+import AnimatedSocialGraph, { AnimatedSocialGraphWithSpinner } from 'components/common/animated-social-graph';
 import SocialGraph from 'components/common/animated-social-graph/social-graph';
 import * as intercomUtils from 'utils/intercom';
+import LoadingSpinner from 'components/common/loading-spinner';
+import graphStyles from 'components/common/animated-social-graph/animated-social-graph.sass';
 
 
 describe('AnimatedSocialGraph component', function () {
@@ -58,6 +59,7 @@ describe('AnimatedSocialGraph component', function () {
   it('should render all sections correctly', function () {
     instance = renderIntoDocument(
       <AnimatedSocialGraph
+        timelineIdx={ 1 }
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
@@ -70,16 +72,32 @@ describe('AnimatedSocialGraph component', function () {
     const currentDate = findRenderedDOMComponentWithClass(instance, 'current-date-label');
     findRenderedDOMComponentWithClass(instance, 'start-date-label').textContent.should.eql('1988-10-03');
     findRenderedDOMComponentWithClass(instance, 'end-date-label').textContent.should.eql('1991-03-06');
-    currentDate.textContent.should.eql('1988-10-03');
+    currentDate.textContent.should.eql('1989-12-11');
     slider.props.step.should.eql(1);
     slider.props.min.should.eql(0);
     slider.props.max.should.eql(9);
     slider.props.defaultValue.should.eql(0);
-    slider.props.value.should.eql(0);
-
-    instance.setState({ timelineIdx: 1 });
-    currentDate.textContent.should.eql('1989-12-11');
     slider.props.value.should.eql(1);
+  });
+
+  it('should start timeline from beginning when mounted', function () {
+    const clock = useFakeTimers();
+    const updateTimelineIdxSpy = spy();
+    instance = renderIntoDocument(
+      <AnimatedSocialGraph
+        officers={ officers }
+        timelineIdx={ 0 }
+        refreshIntervalId={ null }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        isVisible={ true }
+        updateTimelineIdx={ updateTimelineIdxSpy }
+      />
+    );
+
+    clock.tick(150);
+    updateTimelineIdxSpy.calledWith(1).should.be.true();
+    clock.restore();
   });
 
   it('should not render graph control panel if there is no event', function () {
@@ -87,100 +105,147 @@ describe('AnimatedSocialGraph component', function () {
     scryRenderedDOMComponentsWithClass(instance, 'graph-control-panel').should.have.length(0);
   });
 
-  it('should call toggle timeline', function () {
-    const clock = useFakeTimers();
+  context('withLoadingSpinner', function () {
+    it('should render LoadingSpinner only if requesting is true', function () {
+      instance = renderIntoDocument(
+        <AnimatedSocialGraphWithSpinner
+          officers={ officers }
+          coaccusedData={ coaccusedData }
+          listEvent={ listEvent }
+          requesting={ true }
+        />
+      );
+
+      scryRenderedComponentsWithType(instance, SocialGraph).should.have.length(0);
+      scryRenderedDOMComponentsWithClass(instance, 'graph-control-panel').should.have.length(0);
+
+      const loadingSpinner = findRenderedComponentWithType(instance, LoadingSpinner);
+      loadingSpinner.props.className.should.equal(graphStyles.socialGraphLoading);
+    });
+  });
+
+  it('should pause timeline when click on toggle timeline button when timeline is running', function () {
+    const updateRefreshIntervalIdSpy = spy();
     instance = renderIntoDocument(
       <AnimatedSocialGraph
         officers={ officers }
+        timelineIdx={ 1 }
+        refreshIntervalId={ 1234 }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
+        updateRefreshIntervalId={ updateRefreshIntervalIdSpy }
       />
     );
 
     const toggleTimelineButton = findRenderedDOMComponentWithClass(instance, 'toggle-timeline-btn');
 
-    instance.state.refreshIntervalId.should.not.be.null();
-    instance.state.timelineIdx.should.equal(0);
-    clock.tick(150);
-    instance.state.timelineIdx.should.equal(1);
     toggleTimelineButton.className.should.containEql('pause-icon');
 
     Simulate.click(toggleTimelineButton);
-    should(instance.state.refreshIntervalId).be.null();
-    instance.state.timelineIdx.should.equal(1);
+    updateRefreshIntervalIdSpy.calledWith(null).should.be.true();
+  });
+
+  it('should start timeline when click on toggle timeline button when timeline is not running', function () {
+    const updateRefreshIntervalIdSpy = spy();
+    instance = renderIntoDocument(
+      <AnimatedSocialGraph
+        officers={ officers }
+        timelineIdx={ 1 }
+        refreshIntervalId={ null }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        updateRefreshIntervalId={ updateRefreshIntervalIdSpy }
+      />
+    );
+
+    const toggleTimelineButton = findRenderedDOMComponentWithClass(instance, 'toggle-timeline-btn');
+
     toggleTimelineButton.className.should.containEql('play-icon');
 
     Simulate.click(toggleTimelineButton);
-    instance.state.refreshIntervalId.should.not.be.null();
-    instance.state.timelineIdx.should.equal(1);
-    toggleTimelineButton.className.should.containEql('pause-icon');
+    updateRefreshIntervalIdSpy.called.should.be.true();
+    updateRefreshIntervalIdSpy.args[0][0].should.not.be.null();
+  });
 
-    clock.tick(1350);
-    instance.state.timelineIdx.should.equal(9);
-    should(instance.state.refreshIntervalId).be.null();
+  it('should start timeline from beginning when click on toggle timeline button at the end of timeline', function () {
+    const updateTimelineIdxSpy = spy();
+    const updateRefreshIntervalIdSpy = spy();
+    instance = renderIntoDocument(
+      <AnimatedSocialGraph
+        officers={ officers }
+        timelineIdx={ listEvent.length - 1 }
+        refreshIntervalId={ null }
+        coaccusedData={ coaccusedData }
+        listEvent={ listEvent }
+        updateTimelineIdx={ updateTimelineIdxSpy }
+        updateRefreshIntervalId={ updateRefreshIntervalIdSpy }
+      />
+    );
+
+    const toggleTimelineButton = findRenderedDOMComponentWithClass(instance, 'toggle-timeline-btn');
+
+    toggleTimelineButton.className.should.containEql('play-icon');
 
     Simulate.click(toggleTimelineButton);
-    instance.state.timelineIdx.should.equal(0);
-    instance.state.refreshIntervalId.should.not.be.null();
-    clock.restore();
+    updateTimelineIdxSpy.calledWith(0).should.be.true();
+    updateRefreshIntervalIdSpy.called.should.be.true();
+    updateRefreshIntervalIdSpy.args[0][0].should.not.be.null();
   });
 
   it('should update timelineIdx value when click on specific part of the timeline ', function () {
+    const updateTimelineIdxSpy = spy();
     instance = renderIntoDocument(
       <AnimatedSocialGraph
         officers={ officers }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
+        updateTimelineIdx={ updateTimelineIdxSpy }
       />
     );
 
-    instance.state.timelineIdx.should.equal(0);
     const coaccusalsThresholdSlider = findRenderedComponentWithType(instance, Slider);
     coaccusalsThresholdSlider.props.onChange(5);
-    instance.state.timelineIdx.should.equal(5);
+    updateTimelineIdxSpy.calledWith(5).should.be.true();
   });
 
   it('should update refreshIntervalId and timelineIdx values when startTimelineFromBeginning', function () {
-    const clock = useFakeTimers();
+    const updateTimelineIdxSpy = spy();
+    const updateRefreshIntervalIdSpy = spy();
     instance = renderIntoDocument(
       <AnimatedSocialGraph
         officers={ officers }
+        timelineIdx={ 1 }
+        refreshIntervalId={ 1234 }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
+        updateTimelineIdx={ updateTimelineIdxSpy }
+        updateRefreshIntervalId={ updateRefreshIntervalIdSpy }
       />
     );
 
     const socialGraph = findRenderedComponentWithType(instance, SocialGraph);
-    clock.tick(150);
-    instance.state.timelineIdx.should.equal(1);
-    const oldRefreshInterval = instance.state.refreshIntervalId;
     socialGraph.props.startTimelineFromBeginning();
 
-    instance.state.timelineIdx.should.equal(0);
-    instance.state.refreshIntervalId.should.not.be.null();
-    instance.state.refreshIntervalId.should.not.eql(oldRefreshInterval);
-    clock.restore();
+    updateTimelineIdxSpy.calledWith(0).should.be.true();
+    updateRefreshIntervalIdSpy.called.should.be.true();
   });
 
   it('should update refreshIntervalId value when stop timeline ', function () {
-    const clock = useFakeTimers();
+    const updateRefreshIntervalIdSpy = spy();
     instance = renderIntoDocument(
       <AnimatedSocialGraph
         officers={ officers }
+        refreshIntervalId={ 1234 }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
+        updateRefreshIntervalId={ updateRefreshIntervalIdSpy }
       />
     );
 
     const socialGraph = findRenderedComponentWithType(instance, SocialGraph);
 
-    clock.tick(150);
-    instance.state.timelineIdx.should.equal(1);
-
     socialGraph.props.stopTimeline();
-    should(instance.state.refreshIntervalId).be.null();
-    instance.state.timelineIdx.should.equal(1);
-    clock.restore();
+    updateRefreshIntervalIdSpy.calledWith(null).should.be.true();
   });
 
   it('should call stopTimeline when componentWillUnmount', function () {

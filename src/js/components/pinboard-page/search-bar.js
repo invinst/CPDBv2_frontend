@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import cx from 'classnames';
 import ClipboardButton from 'react-clipboard.js/dist/react-clipboard';
 
@@ -56,6 +56,7 @@ export default class SearchBar extends Component {
   }
 
   render() {
+    const { shareable } = this.props;
     return (
       <div
         onClick={ this.goToSearchPage }
@@ -66,15 +67,25 @@ export default class SearchBar extends Component {
             <div className='search-term'>
               Search
             </div>
-            <div
-              className='share-button'
-              onClick={ this.handleShareButtonClick }>
-              Share
-              { this.renderShareMenu() }
-            </div>
+            { !shareable ? null : (
+              <div
+                className='share-button'
+                onClick={ this.handleShareButtonClick }>
+                Share
+                { this.renderShareMenu() }
+              </div>
+            ) }
           </div>
         </div>
       </div>
     );
   }
 }
+
+SearchBar.propTypes = {
+  shareable: PropTypes.bool,
+};
+
+SearchBar.defaultProps = {
+  shareable: true,
+};

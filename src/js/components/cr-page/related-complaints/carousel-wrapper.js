@@ -17,8 +17,9 @@ export default class CarouselWrapper extends Component {
   componentWillReceiveProps(nextProps) {
     const { crid, distance, match, fetchRelatedComplaints } = nextProps;
 
-    if (this.props.distance != distance) {
+    if (this.props.distance !== distance) {
       fetchRelatedComplaints(crid, { match, distance });
+      this.carousel && this.carousel.slideTo(0);
     }
   }
 
@@ -37,6 +38,7 @@ export default class CarouselWrapper extends Component {
           <span className='carousel-wrapper-title'>{ title }</span>
         </div>
         <Carousel
+          ref={ carousel => this.carousel = carousel }
           loadMore={ this.loadMore.bind(this) }
           hasMore={ hasMore }
           childWidth={ itemWidth }

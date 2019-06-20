@@ -1,11 +1,12 @@
 import React from 'react';
 import { findDOMNode } from 'react-dom';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import {
   renderIntoDocument,
-  scryRenderedComponentsWithType
+  Simulate,
 } from 'react-addons-test-utils';
 import should from 'should';
+import { spy, stub } from 'sinon';
 
 import PinboardButton from 'components/search-page/pinboard/pinboard-button';
 import { unmountComponentSuppressError } from 'utils/test';
@@ -18,7 +19,7 @@ describe('PinboardButton component', function () {
     unmountComponentSuppressError(instance);
   });
 
-  it('should not display a Link component when there is no pinned item', function () {
+  it('should not display "Your pinboard is empty" when there is no pinned item and emptyText is true', function () {
     instance = renderIntoDocument(
       <PinboardButton pinboard={ {
         itemsCount: 0,
@@ -28,11 +29,10 @@ describe('PinboardButton component', function () {
       />
     );
 
-    scryRenderedComponentsWithType(instance, Link).should.have.length(0);
     findDOMNode(instance).textContent.should.eql('Your pinboard is empty');
   });
 
-  it('should display a Link component when there are pinned items', function () {
+  it('should display "Pinboard (count)" when there are pinned items', function () {
     instance = renderIntoDocument(
       <PinboardButton pinboard={ {
         itemsCount: 2,
@@ -41,11 +41,7 @@ describe('PinboardButton component', function () {
       } } />
     );
 
-    const links = scryRenderedComponentsWithType(instance, Link);
-    links.should.have.length(1);
-    const link = links[0];
-    link.props.to.should.eql('/pinboard/1/title/');
-    link.props.children.should.eql('Pinboard (2)');
+    findDOMNode(instance).textContent.should.eql('Pinboard (2)');
   });
 
   it('should not render if isPinboardRestored is false', function () {
@@ -53,5 +49,36 @@ describe('PinboardButton component', function () {
       <PinboardButton pinboard={ { isPinboardRestored: false } } />
     );
     should(findDOMNode(instance)).be.null();
+  });
+
+  it('should call onEmptyPinboardButtonClick if we click on the button when pinboard id is null', function () {
+    const onEmptyPinboardButtonClick = spy();
+
+    instance = renderIntoDocument(
+      <PinboardButton
+        onEmptyPinboardButtonClick={ onEmptyPinboardButtonClick }
+      />
+    );
+
+    Simulate.click(findDOMNode(instance));
+    onEmptyPinboardButtonClick.called.should.be.true();
+  });
+
+  it('should redirect if we click on the button when pinboard is exist', function () {
+    const browserHistoryPush = stub(browserHistory, 'push');
+
+    instance = renderIntoDocument(
+      <PinboardButton pinboard={ {
+        id: '5cd06f2b',
+        itemsCount: 2,
+        url: '/pinboard/1/title/',
+        isPinboardRestored: true,
+      } }/>
+    );
+
+    Simulate.click(findDOMNode(instance));
+    browserHistoryPush.called.should.be.true();
+
+    browserHistoryPush.restore();
   });
 });
