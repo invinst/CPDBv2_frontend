@@ -13,28 +13,28 @@ function waitForGraphAnimationEnd(browser, pinboardPage) {
 }
 
 describe('Pinboard Page', function () {
-  beforeEach(function () {
-    pinboardPage.open();
-  });
-
   it('should go to search page when the search bar is clicked', function () {
+    pinboardPage.open();
     pinboardPage.searchBar.click();
     browser.element('.search-page').waitForVisible();
     browser.getUrl().should.endWith('/search/');
   });
 
   it('should go to landing page when header is clicked', function () {
+    pinboardPage.open();
     pinboardPage.headerTitle.click();
     browser.getUrl().replace(/https?:\/\/[^/]+/, '').should.equal('/');
   });
 
   it('should go to Q&A url when clicking on Q&A link', function () {
+    pinboardPage.open();
     pinboardPage.headerQALink.click();
     browser.getUrl().should.equal('http://how.cpdp.works/');
   });
 
   context('pinboard pinned section', function () {
     it('should render the pinned cards correctly', function () {
+      pinboardPage.open();
       const officers = pinboardPage.pinnedSection.officers;
       officers.officerCards().should.have.length(1);
       officers.title.getText().should.equal('OFFICERS');
@@ -57,9 +57,14 @@ describe('Pinboard Page', function () {
   });
 
   context('pinboard section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render correctly', function () {
       pinboardPage.pinboardSection.title.getValue().should.equal('Pinboard Title');
       pinboardPage.pinboardSection.description.getValue().should.equal('Pinboard Description');
+      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       const pinboardPaneMenuText = pinboardPage.pinboardSection.pinboardPaneMenu.getText();
       pinboardPaneMenuText.should.containEql('NETWORK');
       pinboardPaneMenuText.should.containEql('GEOGRAPHIC');
@@ -82,6 +87,10 @@ describe('Pinboard Page', function () {
   });
 
   context('social graph section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render correctly', function () {
       pinboardPage.animatedSocialGraphSection.startDate.getText().should.equal('1990-01-09');
       pinboardPage.animatedSocialGraphSection.endDate.getText().should.equal('2008-01-11');
@@ -230,19 +239,24 @@ describe('Pinboard Page', function () {
       };
       groupsColors.should.eql(expectedGroupsColors);
     });
+  });
 
-    it('should render geographic section', function () {
-      pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
-      pinboardPage.pinboardSection.geographicPaneName.click();
-      pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
-      pinboardPage.geographicSection.complaintNumber.getText().should.equal('5');
-      pinboardPage.geographicSection.trrText.getText().should.equal('Use of Force Report');
-      pinboardPage.geographicSection.trrNumber.getText().should.equal('2');
+  context('animatedSocialgraph off screen feature', function () {
+    it('should pause the timeline when invisible and continue to play when visible', function () {
+      pinboardPage.open('3664a7ea');
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(200, true);
+
+      browser.scroll(pinboardPage.relevantCoaccusalsSection.title.selector);
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000);
+
+      browser.scroll(pinboardPage.pinboardSection.title.selector);
+      pinboardPage.animatedSocialGraphSection.playButton.waitForExist(1000, true);
     });
   });
 
   context('Geographic section', function () {
     it('should render geographic section', function () {
+      pinboardPage.open();
       pinboardPage.pinboardSection.pinboardPaneMenu.waitForVisible();
       pinboardPage.pinboardSection.geographicPaneName.click();
       pinboardPage.geographicSection.complaintText.getText().should.equal('Complaint');
@@ -253,6 +267,10 @@ describe('Pinboard Page', function () {
   });
 
   context('relevant coaccusals section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render coaccusal cards', function () {
       pinboardPage.relevantCoaccusalsSection.title.getText().should.equal('COACCUSALS');
 
@@ -319,6 +337,10 @@ describe('Pinboard Page', function () {
   });
 
   context('relevant documents section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render document cards', function () {
       pinboardPage.relevantDocumentsSection.title.getText().should.equal('DOCUMENTS');
 
@@ -367,6 +389,10 @@ describe('Pinboard Page', function () {
   });
 
   context('relevant complaints section', function () {
+    beforeEach(function () {
+      pinboardPage.open();
+    });
+
     it('should render complaint cards', function () {
       pinboardPage.relevantComplaintsSection.title.getText().should.equal('COMPLAINTS');
 
@@ -451,5 +477,15 @@ describe('Empty Pinboard Page', function () {
 
   it('should render when there is no content', function () {
     pinboardPage.emptyPinboardSection.mainElement.waitForVisible();
+  });
+
+  it('should go to Watts Crew pinboard page when clicking on Repeaters row', function () {
+    pinboardPage.emptyPinboardSection.repeatersRow.click();
+    browser.getUrl().should.match(/pinboard\/b20c2c36\//);
+  });
+
+  it('should go to Skullcap Crew pinboard page when clicking on Skullcap Crew row', function () {
+    pinboardPage.emptyPinboardSection.skullcapCrewRow.click();
+    browser.getUrl().should.match(/pinboard\/22e66085\//);
   });
 });

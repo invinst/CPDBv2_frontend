@@ -17,10 +17,18 @@ const pinboards = {
     'crids': ['1234567'],
     'trr_ids': [1234],
     'description': 'Pinboard Description',
+  },
+  '3664a7ea': {
+    'id': '3664a7ea',
+    'title': 'Pinboard Title',
+    'officer_ids': [1234],
+    'crids': ['1234567'],
+    'trr_ids': [1234],
+    'description': 'Pinboard Description',
   }
 };
 
-export function getOrCreateEmptyPinboard(pinboardId) {
+export function getOrCreateEmptyPinboard(pinboardId='5cd06f2b') {
   if (!has(pinboards, pinboardId)) {
     pinboards[pinboardId] = {
       'id': pinboardId,

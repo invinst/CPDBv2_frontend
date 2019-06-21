@@ -26,7 +26,7 @@ import PinboardPaneSection from 'components/pinboard-page/pinboard-pane-section'
 import RootReducer from 'reducers/root-reducer';
 import FooterContainer from 'containers/footer-container';
 import PinboardPage from 'components/pinboard-page';
-import { PINBOARD_PAGE_REDIRECT } from 'utils/constants';
+import { PINBOARD_PAGE_REDIRECT, PINBOARD_FETCH_REQUEST_SUCCESS } from 'utils/constants';
 
 
 describe('PinboardPage component', function () {
@@ -122,7 +122,21 @@ describe('PinboardPage component', function () {
       payload: true,
     });
 
-    replaceStub.calledWith('/pinboard/5cd06f2b/pinboard-title/').should.be.true();
+    replaceStub.should.not.be.called();
+
+    store.dispatch({
+      type: PINBOARD_FETCH_REQUEST_SUCCESS,
+      payload: {
+        id: '66ef1560',
+        title: 'Title',
+        description: 'Description',
+        'officer_ids': [1],
+        crids: ['abc'],
+        'trr_ids': [1],
+      }
+    });
+
+    replaceStub.should.be.calledWith('/pinboard/66ef1560/title/');
     replaceStub.restore();
   });
 
