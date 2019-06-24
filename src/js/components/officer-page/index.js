@@ -1,4 +1,4 @@
-import 'officer-page.css';
+import 'custom-mapbox-gl.css';
 
 import React, { Component, PropTypes } from 'react';
 import { compact, get } from 'lodash';

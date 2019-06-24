@@ -15,24 +15,7 @@ describe('GeographicData selectors', function () {
           lon: -87.62355
         },
         crid: '1002787',
-        'coaccused_count': 1,
-        victims: [
-          {
-            gender: 'Male',
-            age: null,
-            race: 'Hispanic'
-          },
-          {
-            gender: 'Female',
-            age: null,
-            race: 'White'
-          },
-          {
-            gender: 'Male',
-            age: 46,
-            race: 'Hispanic'
-          }
-        ]
+        date: 'MAR 17, 2012',
       };
       crMapMarkersTransform(crItem).should.eql({
         point: {
@@ -42,24 +25,7 @@ describe('GeographicData selectors', function () {
         kind: 'CR',
         id: '1002787',
         category: 'Conduct Unbecoming (Off-Duty)',
-        victims: [
-          {
-            gender: 'Male',
-            age: null,
-            race: 'Hispanic'
-          },
-          {
-            gender: 'Female',
-            age: null,
-            race: 'White'
-          },
-          {
-            gender: 'Male',
-            age: 46,
-            race: 'Hispanic'
-          },
-        ],
-        coaccused: 1,
+        date: 'MAR 17, 2012',
       });
     });
   });
@@ -74,7 +40,8 @@ describe('GeographicData selectors', function () {
         point: {
           lat: 50,
           lon: -87
-        }
+        },
+        date: 'MAR 17, 2012',
       };
       trrMapMarkerTransform(trrItem).should.eql({
         point: {
@@ -84,6 +51,7 @@ describe('GeographicData selectors', function () {
         kind: 'FORCE',
         id: '56789',
         category: 'Taser',
+        date: 'MAR 17, 2012',
       });
     });
   });

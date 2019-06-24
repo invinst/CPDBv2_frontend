@@ -67,12 +67,7 @@ describe('GeographicData selectors', function () {
           lon: -87.73173299999999
         },
         crid: '1045343',
-        'coaccused_count': 6,
-        victims: [{
-          gender: 'Male',
-          race: 'White',
-          age: 35
-        }]
+        date: 'MAR 17, 2012',
       };
       const secondCr = {
         category: 'Illegal Search',
@@ -82,7 +77,7 @@ describe('GeographicData selectors', function () {
           lon: -87.67122688239999
         },
         crid: '294619',
-        'coaccused_count': 9,
+        date: 'MAR 20, 2013',
       };
       const trr = {
         'trr_id': '123456',
@@ -93,6 +88,7 @@ describe('GeographicData selectors', function () {
           lat: 35.3,
           lon: 50.5
         },
+        date: 'MAY 12, 2015',
       };
       const state = {
         socialGraphPage: {
@@ -109,12 +105,7 @@ describe('GeographicData selectors', function () {
         kind: 'CR',
         id: '1045343',
         category: 'Illegal Search',
-        victims: [{
-          gender: 'Male',
-          race: 'White',
-          age: 35
-        }],
-        coaccused: 6,
+        date: 'MAR 17, 2012',
       }, {
         category: 'Illegal Search',
         kind: 'CR',
@@ -123,8 +114,7 @@ describe('GeographicData selectors', function () {
           lon: -87.67122688239999
         },
         id: '294619',
-        coaccused: 9,
-        victims: undefined,
+        date: 'MAR 20, 2013',
       }, {
         point: {
           lat: 35.3,
@@ -133,6 +123,7 @@ describe('GeographicData selectors', function () {
         kind: 'FORCE',
         id: '123456',
         category: 'Firearm',
+        date: 'MAY 12, 2015',
       }]);
     });
   });
