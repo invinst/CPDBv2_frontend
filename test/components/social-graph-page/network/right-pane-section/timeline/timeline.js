@@ -96,7 +96,7 @@ describe('Timeline component', function () {
       />,
       instance
     );
-    scrollControllerScrollToSpy.should.be.calledWith('#trigger-1');
+    scrollControllerScrollToSpy.should.be.calledWith('#trigger-2');
   });
 
   it('should destroy scrollController when componentWillUnmount', function () {

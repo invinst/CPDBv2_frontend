@@ -36,9 +36,11 @@ describe('ShareableHeader component', function () {
   }
 
   beforeEach (function () {
+    this.stubOnOpen = stub();
+    this.stubOnClose = stub();
     instance = renderIntoDocument(
       <Provider store={ store }>
-        <ShareableHeaderContainer Menu={ CustomMenu }/>
+        <ShareableHeaderContainer Menu={ CustomMenu } onOpen={ this.stubOnOpen } onClose={ this.stubOnClose }/>
       </Provider>
     );
     element = findRenderedComponentWithType(instance, ShareableHeader);
@@ -51,6 +53,8 @@ describe('ShareableHeader component', function () {
   it('should render HeaderButton, breadCrumbs and other contents', function () {
     const headerButton = findRenderedComponentWithType(element, HeaderButton);
     headerButton.props.Menu.should.eql(CustomMenu);
+    headerButton.props.onOpen.should.eql(this.stubOnOpen);
+    headerButton.props.onClose.should.eql(this.stubOnClose);
 
     const breadcrumbs = findRenderedComponentWithType(element, Breadcrumbs);
     breadcrumbs.props.className.should.eql('breadcrumbs');

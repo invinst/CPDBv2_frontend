@@ -11,8 +11,19 @@ import responsiveContainerStyles from 'components/common/responsive-container.sa
 
 const getHeaderButton = (type, state, props) => {
   switch (type) {
-    case constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU:
-      return <HeaderButton scrollPosition={ state.position } Menu={ props.Menu } buttonText={ props.buttonText }/>;
+    case constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU: {
+      const { onOpen, onClose, Menu, buttonText } = props;
+      const { position } = state;
+      return (
+        <HeaderButton
+          scrollPosition={ position }
+          Menu={ Menu }
+          buttonText={ buttonText }
+          onOpen={ onOpen }
+          onClose={ onClose }
+        />
+      );
+    }
     case constants.SHAREABLE_HEADER_BUTTON_TYPE.LINK:
       return <LinkHeaderButton buttonText={ props.buttonText } to={ props.to } />;
     case constants.SHAREABLE_HEADER_BUTTON_TYPE.NONE:
@@ -95,6 +106,8 @@ ShareableHeader.propTypes = {
   hasHeaderButton: PropTypes.bool,
   buttonType: PropTypes.string,
   to: PropTypes.string,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 ShareableHeader.defaultProps = {
@@ -105,4 +118,6 @@ ShareableHeader.defaultProps = {
   routes: [],
   hasHeaderButton: true,
   buttonType: constants.SHAREABLE_HEADER_BUTTON_TYPE.MENU,
+  onOpen: () => {},
+  onClose: () => {},
 };

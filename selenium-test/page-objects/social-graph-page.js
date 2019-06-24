@@ -24,6 +24,7 @@ class AnimatedSocialGraphSection extends Section {
       networkTab: '(//div[contains(@class, "social-graph-btn")])',
       leftSection: '(//div[contains(@class, "left-section")])',
       rightPaneSectionMenu: '(//div[@class="right-pane-section-menu"])',
+      timelineTab: '(//span[contains(@class, "right-pane-tab-name")])[1]',
       officerTab: '(//span[contains(@class, "right-pane-tab-name")])[2]',
       officerTimelineSection: '(//div[contains(@class, "test--officer-timeline")])',
 
@@ -77,7 +78,7 @@ class TimelineSection extends Section {
     super();
 
     this.prepareElementGetters({
-      firstAllegationItem: '//a[contains(@class, "test--timeline-item")][1]',
+      allegationItem: '//div[contains(@class, "item__item")][7]',
       firstAllegationYear: '//div[contains(@class, "test--timeline-item")][1]//div[@class="date"]',
       firstAllegationCategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="category"]',
       firstAllegationSubcategory: '//a[contains(@class, "test--timeline-item")][1]//div[@class="subcategory"]',
