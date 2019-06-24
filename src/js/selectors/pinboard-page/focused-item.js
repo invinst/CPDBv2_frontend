@@ -6,23 +6,24 @@ import {
   getPinnedTRRs,
   getPinnedOfficers,
 } from './items';
-import { getRelevantComplaintsPagination } from './relevant-complaints';
-import { getRelevantCoaccusalsPagination } from './relevant-coaccusals';
-import { previewPaneTransform } from 'selectors/search-page/search-results/transforms';
+import { previewPaneTransform } from 'selectors/common/preview-pane-transforms';
 
 
 const focusedItem = state => state.pinboardPage.focusedItem;
+
+const getRelevantComplaints = state => state.pinboardPage.relevantComplaints.items;
+const getRelevantCoaccusals = state => state.pinboardPage.relevantCoaccusals.items;
 
 const allItemsSelector = createSelector(
   getPinnedCRs,
   getPinnedTRRs,
   getPinnedOfficers,
-  getRelevantComplaintsPagination,
-  getRelevantCoaccusalsPagination,
+  getRelevantComplaints,
+  getRelevantCoaccusals,
   (pinnedCRs, pinnedTRRs, pinnedOfficers, relevantCRs, relevantOfficers) => ({
-    'CR': keyBy(concat(pinnedCRs, relevantCRs.items), item => item.crid),
+    'CR': keyBy(concat(pinnedCRs, relevantCRs), item => item.crid),
     'TRR': keyBy(pinnedTRRs, item => item.id.toString()),
-    'OFFICER': keyBy(concat(pinnedOfficers, relevantOfficers.items), item => item.id.toString()),
+    'OFFICER': keyBy(concat(pinnedOfficers, relevantOfficers), item => item.id.toString()),
   })
 );
 

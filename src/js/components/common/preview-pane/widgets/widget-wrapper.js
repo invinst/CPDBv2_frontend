@@ -17,7 +17,7 @@ export default class WidgetWrapper extends Component {
         <div className={ cx(className, styles.wrapper) }>
           <div
             className={ cx(
-              { 'y-scrollable': yScrollable },
+              'responsive-container-common',
               { 'not-y-scrollable': !yScrollable })
             } >
             { children }

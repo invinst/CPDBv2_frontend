@@ -12,14 +12,9 @@
     width: 100%
     left: -8px
     padding: 0 8px
-
-  .y-scrollable
-    @extend %responsive-container-common
-    height: 100%
+    max-height: calc(100% - 50px)
   
   .y-not-scrollable
-    @extend %responsive-container-common
-    max-height: calc(100% - 50px)
     overflow: hidden
   
   .gradient

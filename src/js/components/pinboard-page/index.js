@@ -156,4 +156,3 @@ PinboardPage.defaultProps = {
   focusItem: noop,
   pushBreadcrumbs: noop,
 };
-

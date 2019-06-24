@@ -1,4 +1,4 @@
-import { previewPaneTransform, searchResultItemTransform } from 'selectors/search-page/search-results/transforms';
+import { previewPaneTransform, searchResultItemTransform } from 'selectors/common/preview-pane-transforms';
 import { RawOfficerSuggestion, RawRankSuggestion } from 'utils/test/factories/suggestion';
 
 

@@ -1,4 +1,4 @@
-import { toLower, last, has } from 'lodash';
+import { toLower, last } from 'lodash';
 
 import { extractPercentile } from 'selectors/common/percentile';
 
@@ -13,6 +13,6 @@ export const officerCardTransform = card => ({
   birthYear: card['birth_year'],
   race: card['race'] ? toLower(card['race']) : 'N/A',
   gender: card['gender'] ? toLower(card['gender']) : 'N/A',
-  percentile: extractPercentile(has(card, 'percentile') ? card['percentile'] : last(card['percentiles'])),
+  percentile: extractPercentile(card['percentile'] || last(card['percentiles'])),
   rank: card['rank'],
 });
