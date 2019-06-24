@@ -180,5 +180,11 @@ describe('BaseComplaintCard component', function () {
     const rightHalf = findRenderedDOMComponentWithClass(instance, 'right-half');
     Simulate.click(rightHalf);
     focusItem.calledWith({ type: 'CR', 'id': '123' }).should.be.true();
+
+    focusItem.resetHistory();
+
+    const leftHalf = findRenderedDOMComponentWithClass(instance, 'left-half');
+    Simulate.click(leftHalf);
+    focusItem.calledWith({ type: 'CR', 'id': '123' }).should.be.true();
   });
 });
