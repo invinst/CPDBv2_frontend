@@ -7,8 +7,7 @@ import {
   scryRenderedComponentsWithType,
   Simulate,
 } from 'react-addons-test-utils';
-import { Link } from 'react-router';
-import { stub, useFakeTimers } from 'sinon';
+import { stub, useFakeTimers, spy } from 'sinon';
 import should from 'should';
 
 import { unmountComponentSuppressError } from 'utils/test';
@@ -49,9 +48,6 @@ describe('RelevantCoaccusalCard component', function () {
         } }
       />
     );
-
-    const link = findRenderedComponentWithType(instance, Link);
-    link.props.to.should.eql('/officer/123/jerome-finnigan/');
 
     const radarChart = findRenderedComponentWithType(instance, StaticRadarChart);
     radarChart.props.data.should.eql([
@@ -107,9 +103,6 @@ describe('RelevantCoaccusalCard component', function () {
         percentile={ {} }
       />
     );
-
-    const link = findRenderedComponentWithType(instance, Link);
-    link.props.to.should.eql('/officer/123/jerome-finnigan/');
 
     const radarChart = findRenderedComponentWithType(instance, StaticRadarChart);
     should(radarChart.props.data).be.undefined();
@@ -200,5 +193,22 @@ describe('RelevantCoaccusalCard component', function () {
 
       scryRenderedComponentsWithType(instance, RelevantCoaccusalCard).should.have.length(0);
     });
+  });
+
+  it('should handle on focus', function () {
+    const focusItem = spy();
+
+    instance = renderIntoDocument(
+      <RelevantCoaccusalCardWithUndo
+        id={ 123 }
+        focusItem={ focusItem }
+      />
+    );
+
+    const div = findRenderedDOMComponentWithClass(instance, 'officer-name-wrapper');
+
+    Simulate.click(div);
+
+    focusItem.calledWith({ type: 'OFFICER', 'id': 123 }).should.be.true();
   });
 });

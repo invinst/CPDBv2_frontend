@@ -1,3 +1,5 @@
+import { set } from 'lodash';
+
 import { previewPaneTransform, searchResultItemTransform } from 'selectors/common/preview-pane-transforms';
 import { RawOfficerSuggestion, RawRankSuggestion } from 'utils/test/factories/suggestion';
 
@@ -87,9 +89,7 @@ describe('search page transforms', function () {
           count: 1
         }],
       });
-    });
 
-    it('should transform cr data correctly', function () {
       searchResultItemTransform({
         type: 'CR',
         id: 1,
@@ -435,6 +435,73 @@ describe('search page transforms', function () {
         type: 'OFFICER',
         ...focusedSuggestion
       }).should.deepEqual(info);
+    });
+
+    it('should transform OFFICER percentile correctly', function () {
+      const focusedSuggestion = RawOfficerSuggestion.build({
+        id: '29033',
+        name: undefined,
+        'full_name': 'Jerome Turbyville',
+        race: 'White',
+        sex: 'Male',
+        'birth_year': 1969,
+        to: '/officer/29033/',
+        'allegation_count': 10,
+        'sustained_count': 2,
+        unit: {
+          id: 1,
+          'unit_name': '018',
+          description: 'District 018',
+        },
+      });
+
+      const percentile = focusedSuggestion['percentiles'][0];
+      delete focusedSuggestion['percentiles'];
+      set(focusedSuggestion, 'percentile', percentile);
+
+
+      previewPaneTransform({
+        type: 'OFFICER',
+        ...focusedSuggestion
+      }).should.deepEqual({
+        data: {
+          fullName: 'Jerome Turbyville',
+          age: 48,
+          appointedDate: 'DEC 13, 1999',
+          badge: '5922',
+          complaintCount: 10,
+          complaintPercentile: 93,
+          civilianComplimentCount: 4,
+          gender: 'Male',
+          lastPercentile: {
+            year: undefined,
+            items: [
+              { axis: 'Use of Force Reports', value: 90 },
+              { axis: 'Officer Allegations', value: 91 },
+              { axis: 'Civilian Allegations', value: 92 }
+            ],
+            visualTokenBackground: '#f52524',
+            textColor: '#DFDFDF'
+          },
+          race: 'White',
+          rank: 'Police Officer',
+          resignationDate: null,
+          sustainedCount: 2,
+          disciplineCount: 1,
+          honorableMentionCount: 0,
+          majorAwardCount: 0,
+          honorableMentionPercentile: 10,
+          unit: {
+            id: 1,
+            unitName: '018',
+            description: 'District 018',
+          },
+          trrCount: undefined,
+          trrPercentile: 90,
+          to: '/officer/29033/',
+        },
+        type: 'OFFICER',
+      });
     });
 
     it('should transform UNIT > OFFICERS data correctly', function () {

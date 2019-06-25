@@ -87,14 +87,14 @@ describe('Pinboard items selectors', function () {
               race: 'White',
               gender: 'Male',
               rank: 'Police Officer',
-              percentiles: [{
+              percentile: {
                 'percentile_trr': '12.0000',
                 'percentile_allegation': '99.3450',
                 'percentile_allegation_civilian': '98.4344',
                 'percentile_allegation_internal': '99.7840',
                 year: 2016,
                 id: 1,
-              }]
+              }
             }]
           },
         }
@@ -142,7 +142,7 @@ describe('Pinboard items selectors', function () {
               crid: '1000001',
               'incident_date': '2010-01-01',
               point: { 'lon': 1.0, 'lat': 1.0 },
-              'most_common_category': 'Use Of Force',
+              category: 'Use Of Force',
             }],
           },
         }

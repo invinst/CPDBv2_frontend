@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { Link } from 'react-router';
 import pluralize from 'pluralize';
-import { kebabCase, get } from 'lodash';
+import { get, noop } from 'lodash';
 
 import StaticRadarChart from 'components/common/radar-chart';
 import styles from './relevant-coaccusal-card.sass';
@@ -15,6 +14,7 @@ export default class RelevantCoaccusalCard extends Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
   }
 
   handleClick(e) {
@@ -38,39 +38,41 @@ export default class RelevantCoaccusalCard extends Component {
     });
   }
 
+  handleFocus() {
+    const { id, focusItem } = this.props;
+    focusItem({ type: 'OFFICER', id });
+  }
+
   render() {
     const {
-      id,
       fullName,
       percentile,
       rank,
       coaccusalCount,
     } = this.props;
-    const officerSlug = kebabCase(fullName);
     const chartData = percentile && percentile.items;
 
     return (
-      <Link
-        to={ `/officer/${id}/${officerSlug}/` }
-        className={ styles.relevantCoaccusalCard }
-      >
-        <div className='no-print radar-chart-wrapper'>
-          <StaticRadarChart
-            data={ chartData }
-            width={ 148 }
-            height={ 60 }
-            radius={ 28 }
-            offsetTop={ 2 }
-            backgroundColor={ percentile ? percentile.visualTokenBackground : undefined }
-          />
+      <div className={ styles.relevantCoaccusalCard }>
+        <div onClick={ this.handleFocus }>
+          <div className='no-print radar-chart-wrapper'>
+            <StaticRadarChart
+              data={ chartData }
+              width={ 148 }
+              height={ 60 }
+              radius={ 28 }
+              offsetTop={ 2 }
+              backgroundColor={ percentile ? percentile.visualTokenBackground : undefined }
+            />
+          </div>
+          <div className='officer-name-wrapper'>
+            <p className='light-text officer-card-rank'>{ rank }</p>
+            <p className='bold-text officer-card-name'>{ fullName }</p>
+          </div>
+          <div className='coaccusal-count'>{ pluralize('coaccusal', coaccusalCount, true) }</div>
         </div>
-        <div className='officer-name-wrapper'>
-          <p className='light-text officer-card-rank'>{ rank }</p>
-          <p className='bold-text officer-card-name'>{ fullName }</p>
-        </div>
-        <div className='coaccusal-count'>{ pluralize('coaccusal', coaccusalCount, true) }</div>
         <PlusButton onClick={ this.handleClick }/>
-      </Link>
+      </div>
     );
   }
 }
@@ -83,6 +85,11 @@ RelevantCoaccusalCard.propTypes = {
   coaccusalCount: PropTypes.number,
   complaintCount: PropTypes.number,
   addItemInPinboardPage: PropTypes.func,
+  focusItem: PropTypes.func,
+};
+
+RelevantCoaccusalCard.defaultProps = {
+  focusItem: noop,
 };
 
 

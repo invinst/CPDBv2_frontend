@@ -1,4 +1,4 @@
-import { get, sumBy, map, last, kebabCase } from 'lodash';
+import { get, sumBy, map, last, kebabCase, has } from 'lodash';
 import moment from 'moment';
 
 import { extractPercentile } from 'selectors/common/percentile';
@@ -87,7 +87,10 @@ const accusedTransform = coaccused => {
     id: coaccused.id,
     name: coaccused['full_name'],
     url: `/officer/${coaccused.id}/${kebabCase(coaccused['full_name'])}/`,
-    count: coaccused['allegation_count'],
+    count:
+      has(coaccused, 'allegation_count') ? coaccused['allegation_count'] :
+      has(coaccused, 'complaint_count') ? coaccused['complaint_count'] :
+      0,
     radarAxes: percentile.items,
     radarColor: percentile.visualTokenBackground,
   };
@@ -125,7 +128,11 @@ const trrTransform = (item) => {
 
 const officerTransform = (item) => {
   const race = item['race'] === 'Unknown' ? null : item['race'];
-  const lastPercentile = last(item['percentiles']);
+  const lastPercentile =
+    has(item, 'percentile') ? item['percentile'] :
+    has(item, 'percentiles') ? last(item['percentiles']) :
+    {};
+
   return {
     fullName: item['name'] || item['full_name'],
     appointedDate: formatDate(item['appointed_date']),
