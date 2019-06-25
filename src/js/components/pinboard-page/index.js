@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { browserHistory } from 'react-router';
 import cx from 'classnames';
+import TrackVisibility from 'react-on-screen';
 import { isEmpty, noop } from 'lodash';
 
 import responsiveContainerStyles from 'components/common/responsive-container.sass';
@@ -46,7 +47,7 @@ export default class PinboardPage extends Component {
     const { pinboard: currentPinboard, shouldRedirect, updatePathName } = this.props;
 
     if (currentPinboard.url !== '') {
-      if (shouldRedirect) {
+      if (shouldRedirect && pinboard.id !== currentPinboard.id) {
         browserHistory.replace(currentPinboard.url);
       } else if (currentPinboard.url !== pinboard.url) {
         updatePathName(currentPinboard.url);
@@ -80,11 +81,13 @@ export default class PinboardPage extends Component {
         <div className={ cx(responsiveContainerStyles.responsiveContainer, 'pinboard-page') }>
           <PinboardInfoContainer />
           <div className='data-visualizations'>
-            <PinboardPaneSection
-              changePinboardTab={ changePinboardTab }
-              currentTab={ currentTab }
-              hasMapMarker={ hasMapMarker }
-            />
+            <TrackVisibility partialVisibility={ true }>
+              <PinboardPaneSection
+                changePinboardTab={ changePinboardTab }
+                currentTab={ currentTab }
+                hasMapMarker={ hasMapMarker }
+              />
+            </TrackVisibility>
           </div>
           <div className='pinned-section'>
             <PinnedOfficersContainer/>
@@ -153,4 +156,3 @@ PinboardPage.defaultProps = {
   focusItem: noop,
   pushBreadcrumbs: noop,
 };
-

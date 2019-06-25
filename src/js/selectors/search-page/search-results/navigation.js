@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { flatten, concat } from 'lodash';
 
 import * as constants from 'utils/constants';
-import { navigationItemTransform, previewPaneTransform } from './transforms';
+import { navigationItemTransform, previewPaneTransform } from 'selectors/common/preview-pane-transforms';
 import { slicedSuggestionGroupsSelector } from './suggestion-groups';
 
 

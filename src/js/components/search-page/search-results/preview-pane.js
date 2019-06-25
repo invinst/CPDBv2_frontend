@@ -54,7 +54,7 @@ export default class PreviewPane extends Component {
 
     return (
       <SlideMotion show={ !isEmpty(data) } offsetX={ 100 }>
-        <div className={ cx(styles.wrapper, 'test--preview-pane', customClass, { [styles.yScrollable]: yScrollable }) }>
+        <div className={ cx(styles.previewPaneWrapper, customClass, { [styles.yScrollable]: yScrollable }) }>
           {
             this.renderPane()
           }

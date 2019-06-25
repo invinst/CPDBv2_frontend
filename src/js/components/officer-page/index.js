@@ -17,6 +17,7 @@ import PrintNotes from 'components/common/print-notes';
 import PrintPreloadFonts from 'components/common/print-preload-fonts';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
 import FooterContainer from 'containers/footer-container';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 class OfficerPage extends Component {
@@ -63,7 +64,11 @@ class OfficerPage extends Component {
     return (
       <DocumentMeta title={ pageTitle } description={ pageDescription }>
         <div className={ styles.officerPage }>
-          <ShareableHeaderContainer Menu={ DownloadMenuContainer } buttonText='Download' />
+          <ShareableHeaderContainer
+            Menu={ DownloadMenuContainer }
+            buttonText='Download'
+            onOpen={ () => GATracking.trackOfficerDownloadMenu(officerId, 'open') }
+          />
           <div className='page-wrapper'>
             <AnimatedRadarChart
               officerId={ officerId }

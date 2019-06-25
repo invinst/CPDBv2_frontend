@@ -1,6 +1,6 @@
 import { set } from 'lodash';
 
-import { previewPaneTransform, searchResultItemTransform } from 'selectors/search-page/search-results/transforms';
+import { previewPaneTransform, searchResultItemTransform } from 'selectors/common/preview-pane-transforms';
 import { RawOfficerSuggestion, RawRankSuggestion } from 'utils/test/factories/suggestion';
 
 
@@ -117,7 +117,7 @@ describe('search page transforms', function () {
               'percentile_allegation_civilian': '98.5549',
               'percentile_allegation_internal': '61.1521'
             },
-            'complaint_count': 93
+            'allegation_count': 93
           },
           {
             'id': 7544,
@@ -128,7 +128,7 @@ describe('search page transforms', function () {
               'percentile_allegation_civilian': '24.1180',
               'percentile_allegation_internal': '0.0000'
             },
-            'complaint_count': 1
+            'allegation_count': 1
           }
         ]
       }).should.deepEqual({

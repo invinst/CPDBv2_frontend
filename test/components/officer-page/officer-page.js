@@ -1,11 +1,12 @@
 import React from 'react';
 import {
   findRenderedComponentWithType, renderIntoDocument,
-  scryRenderedComponentsWithType,
+  scryRenderedComponentsWithType, Simulate, findRenderedDOMComponentWithClass
 } from 'react-addons-test-utils';
 import MockStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import DocumentMeta from 'react-document-meta';
+import { stub } from 'sinon';
 
 import { unmountComponentSuppressError, reRender } from 'utils/test';
 import OfficerPage from 'components/officer-page';
@@ -17,6 +18,7 @@ import { OFFICER_EDIT_TYPES } from 'utils/constants';
 import PrintNotes from 'components/common/print-notes';
 import ShareableHeaderContainer from 'containers/headers/shareable-header/shareable-header-container';
 import DownloadMenuContainer from 'containers/headers/shareable-header/download-menu-container';
+import * as GATracking from 'utils/google_analytics_tracking';
 
 
 describe('OfficerPage component', function () {
@@ -39,7 +41,12 @@ describe('OfficerPage component', function () {
   });
   let instance;
 
+  beforeEach(function () {
+    this.stubTrackOfficerDownloadMenu = stub(GATracking, 'trackOfficerDownloadMenu');
+  });
+
   afterEach(function () {
+    this.stubTrackOfficerDownloadMenu.restore();
     unmountComponentSuppressError(instance);
   });
 
@@ -209,5 +216,20 @@ describe('OfficerPage component', function () {
     );
     findRenderedComponentWithType(instance, OfficerPage).setState({ printMode: true });
     scryRenderedComponentsWithType(instance, PrintNotes).should.have.length(2);
+  });
+
+  it('should call trackOfficerDownloadMenu when clicking on HeaderButton', function () {
+    instance = renderIntoDocument(
+      <Provider store={ store }>
+        <OfficerPage
+          officerId={ 1234 }
+          officerName='Shaun Frank'
+          officerSummary={ { rank: 'Officer' } }
+        />
+      </Provider>
+    );
+    const headerButton = findRenderedDOMComponentWithClass(instance, 'button');
+    Simulate.click(headerButton);
+    this.stubTrackOfficerDownloadMenu.should.be.calledWith(1234, 'open');
   });
 });

@@ -7,8 +7,8 @@ export const createPinboard = () => ({
   'description': '',
 });
 
-export const fetchPinboard = () => ({
-  'id': '5cd06f2b',
+export const fetchPinboard = (id='5cd06f2b') => ({
+  'id': id,
   'title': 'Pinboard Title',
   'officer_ids': [1234],
   'crids': ['1234567'],

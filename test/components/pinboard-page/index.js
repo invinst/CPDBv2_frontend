@@ -30,6 +30,7 @@ import FooterContainer from 'containers/footer-container';
 import {
   PINBOARD_PAGE_REDIRECT,
   PINBOARD_PAGE_FOCUS_ITEM,
+  PINBOARD_FETCH_REQUEST_SUCCESS,
 } from 'utils/constants';
 import PinboardPage from 'components/pinboard-page';
 import PreviewPane from 'components/search-page/search-results/preview-pane';
@@ -129,7 +130,21 @@ describe('PinboardPage component', function () {
       payload: true,
     });
 
-    replaceStub.calledWith('/pinboard/5cd06f2b/pinboard-title/').should.be.true();
+    replaceStub.should.not.be.called();
+
+    store.dispatch({
+      type: PINBOARD_FETCH_REQUEST_SUCCESS,
+      payload: {
+        id: '66ef1560',
+        title: 'Title',
+        description: 'Description',
+        'officer_ids': [1],
+        crids: ['abc'],
+        'trr_ids': [1],
+      }
+    });
+
+    replaceStub.should.be.calledWith('/pinboard/66ef1560/title/');
     replaceStub.restore();
   });
 

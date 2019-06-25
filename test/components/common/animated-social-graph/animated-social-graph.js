@@ -90,6 +90,7 @@ describe('AnimatedSocialGraph component', function () {
         refreshIntervalId={ null }
         coaccusedData={ coaccusedData }
         listEvent={ listEvent }
+        isVisible={ true }
         updateTimelineIdx={ updateTimelineIdxSpy }
       />
     );

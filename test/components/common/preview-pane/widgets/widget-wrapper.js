@@ -57,7 +57,6 @@ describe('WidgetWrapper component', () => {
       </WidgetWrapper>
     );
 
-    scryRenderedDOMComponentsWithClass(instance, 'y-scrollable').should.have.length(0);
     scryRenderedDOMComponentsWithClass(instance, 'not-y-scrollable').should.have.length(1);
 
     reRender(
@@ -67,7 +66,6 @@ describe('WidgetWrapper component', () => {
       instance
     );
 
-    scryRenderedDOMComponentsWithClass(instance, 'y-scrollable').should.have.length(1);
     scryRenderedDOMComponentsWithClass(instance, 'not-y-scrollable').should.have.length(0);
   });
 });

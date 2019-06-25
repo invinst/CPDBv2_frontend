@@ -44,7 +44,6 @@ export default class NewWidgetWrapper extends Component {
             className={ cx(
               'widget-wrapper-responsive-container',
               { 'y-scrollable': yScrollable },
-              { 'not-y-scrollable': !yScrollable },
             ) }
             ref={ el => this.element = el }
           >

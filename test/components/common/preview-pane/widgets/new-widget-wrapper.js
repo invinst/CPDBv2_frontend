@@ -49,7 +49,6 @@ describe('NewWidgetWrapper component', () => {
     );
 
     scryRenderedDOMComponentsWithClass(instance, 'y-scrollable').should.have.length(0);
-    scryRenderedDOMComponentsWithClass(instance, 'not-y-scrollable').should.have.length(1);
 
     reRender(
       <NewWidgetWrapper yScrollable={ true }>
@@ -59,7 +58,6 @@ describe('NewWidgetWrapper component', () => {
     );
 
     scryRenderedDOMComponentsWithClass(instance, 'y-scrollable').should.have.length(1);
-    scryRenderedDOMComponentsWithClass(instance, 'not-y-scrollable').should.have.length(0);
   });
 
   it('should not display overlay gradient if scrollable', function () {

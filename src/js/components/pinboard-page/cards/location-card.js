@@ -68,7 +68,7 @@ export default class LocationCard extends Component {
         <ItemUnpinButton onClick={ this.removeItem }/>
         {
           focusable ? (
-            <ShortPress action={ focusable ? this.focusItem : noop }>
+            <ShortPress action={ this.focusItem }>
               { this.renderContent() }
             </ShortPress>
           ) : this.renderContent()
