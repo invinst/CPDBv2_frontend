@@ -6,6 +6,7 @@ import {
   findRenderedDOMComponentWithClass,
   renderIntoDocument,
   scryRenderedComponentsWithType,
+  scryRenderedDOMComponentsWithClass,
   Simulate,
 } from 'react-addons-test-utils';
 import { findDOMNode } from 'react-dom';
@@ -71,7 +72,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphNetworkStub.should.be.calledWith({
       'unit_id': '232',
       'threshold': 2,
-      'show_civil_only': true
+      'complaint_origin': 'CIVILIAN'
     });
   });
 
@@ -88,7 +89,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphNetworkStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'show_civil_only': true
+      'complaint_origin': 'CIVILIAN'
     });
   });
 
@@ -106,7 +107,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphNetworkStub.should.be.calledWith({
       'pinboard_id': '5cd06f2b',
       'threshold': 2,
-      'show_civil_only': true
+      'complaint_origin': 'CIVILIAN'
     });
   });
 
@@ -135,7 +136,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphAllegationsStub.should.be.calledWith({
       'unit_id': '232',
       'threshold': 2,
-      'show_civil_only': true
+      'complaint_origin': 'CIVILIAN'
     });
   });
 
@@ -152,7 +153,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphAllegationsStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'show_civil_only': true
+      'complaint_origin': 'CIVILIAN'
     });
   });
 
@@ -182,7 +183,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphOfficersStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'show_civil_only': true
+      'complaint_origin': 'CIVILIAN'
     });
   });
 
@@ -199,7 +200,7 @@ describe('NetworkGraph component', function () {
     requestSocialGraphOfficersStub.should.be.calledWith({
       'unit_id': '232',
       'threshold': 2,
-      'show_civil_only': true
+      'complaint_origin': 'CIVILIAN'
     });
   });
 
@@ -285,31 +286,33 @@ describe('NetworkGraph component', function () {
     requestSocialGraphNetworkStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 2,
-      'show_civil_only': true
+      'complaint_origin': 'CIVILIAN'
     });
 
     const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    networkGraph.setState({ 'showCivilComplaintOnly': false, thresholdValue: 3 });
+    networkGraph.setState({ complaintOrigin: 'ALL', thresholdValue: 3 });
 
     requestSocialGraphNetworkStub.should.be.calledWith({
       'officer_ids': '123,456,789',
       'threshold': 3,
-      'show_civil_only': false
+      'complaint_origin': 'ALL'
     });
   });
 
-  it('should update value when click on show civil only checkbox', function () {
+  it('should update complaint origin value when click on complaint origin label', function () {
     instance = renderIntoDocument(
       <Provider store={ store }>
         <NetworkGraph officerIds='123,456,789'/>
       </Provider>
     );
     const networkGraph = findRenderedComponentWithType(instance, NetworkGraph);
-    const showCivilOnlyCheckBox = findRenderedDOMComponentWithClass(instance, 'test--show-civil-complaint-checkbox');
-    networkGraph.state.showCivilComplaintOnly.should.be.true();
-
-    Simulate.change(showCivilOnlyCheckBox, { target: { checked: false } });
-    networkGraph.state.showCivilComplaintOnly.should.be.false();
+    const complaintOriginAll= scryRenderedDOMComponentsWithClass(networkGraph, 'complaint-origin-option')[0];
+    const complaintOriginOfficer = scryRenderedDOMComponentsWithClass(networkGraph, 'complaint-origin-option')[2];
+    networkGraph.state.complaintOrigin.should.eql('CIVILIAN');
+    Simulate.click(complaintOriginAll);
+    networkGraph.state.complaintOrigin.should.eql('ALL');
+    Simulate.click(complaintOriginOfficer);
+    networkGraph.state.complaintOrigin.should.eql('OFFICER');
   });
 
   it('should update value when click on coaccusals threshold slider', function () {

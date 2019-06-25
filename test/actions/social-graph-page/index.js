@@ -33,7 +33,7 @@ import {
 describe('socialGraph actions', function () {
   describe('requestSocialGraphNetwork', function () {
     it('should return the right action', function () {
-      requestSocialGraphNetwork({ 'unit_id': 123, 'threshold': 2, 'show_civil_only': true }).should.eql({
+      requestSocialGraphNetwork({ 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' }).should.eql({
         types: [
           SOCIAL_GRAPH_NETWORK_REQUEST_START,
           SOCIAL_GRAPH_NETWORK_REQUEST_SUCCESS,
@@ -42,7 +42,7 @@ describe('socialGraph actions', function () {
         payload: {
           request: {
             url: SOCIAL_GRAPH_NETWORK_API_URL,
-            params: { 'unit_id': 123, 'threshold': 2, 'show_civil_only': true },
+            params: { 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' },
             adapter: null,
             cancelToken: undefined,
           }
@@ -53,7 +53,7 @@ describe('socialGraph actions', function () {
 
   describe('requestSocialGraphAllegations', function () {
     it('should return the right action', function () {
-      requestSocialGraphAllegations({ 'unit_id': 123, 'threshold': 2, 'show_civil_only': true }).should.eql({
+      requestSocialGraphAllegations({ 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' }).should.eql({
         types: [
           SOCIAL_GRAPH_ALLEGATIONS_REQUEST_START,
           SOCIAL_GRAPH_ALLEGATIONS_REQUEST_SUCCESS,
@@ -62,7 +62,7 @@ describe('socialGraph actions', function () {
         payload: {
           request: {
             url: SOCIAL_GRAPH_ALLEGATIONS_API_URL,
-            params: { 'unit_id': 123, 'threshold': 2, 'show_civil_only': true },
+            params: { 'unit_id': 123, 'threshold': 2, 'complaint_origin': 'CIVILIAN' },
             adapter: null,
             cancelToken: undefined,
           }

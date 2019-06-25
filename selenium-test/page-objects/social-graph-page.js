@@ -16,7 +16,10 @@ class AnimatedSocialGraphSection extends Section {
       coaccusalsThresholdSlider: '(//div[@class="coaccusals-threshold-slider-container"]' +
         '//div[contains(@class, "coaccusals-threshold-slider")])',
       timelineSlider: '(//div[contains(@class, "test--timeline-slider")])',
-      showCivilComplaintOnlyCheckbox: '(//input[@class="test--show-civil-complaint-checkbox"])',
+      complaintOriginAll: '(//div[contains(@class, "complaint-origin-all")]//a)',
+      complaintOriginOfficer: '(//div[contains(@class, "complaint-origin-officer")]//a)',
+      complaintOriginCivilian: '(//div[contains(@class, "complaint-origin-civilian")]//a)',
+      complaintOriginSelected: '(//a[contains(@class, "complaint-origin-option selected")])',
       tooltip: '(//div[contains(@class, "test--graph-tooltip")]//span)',
       biggestGraphNode: '(//*[@r="7"])',
       mainTabs: '(//div[contains(@class, "main-tabs")])',
