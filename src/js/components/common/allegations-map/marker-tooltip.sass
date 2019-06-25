@@ -1,5 +1,29 @@
 @import 'variables'
 
+.mapboxgl-popup-anchor-bottom
+  .mapboxgl-popup-tip
+    border-top: 8px solid $hawkes-blue
+    margin-top: -12px
+
+    &, &::after
+      content: ''
+      position: absolute
+      border-left: 8px solid transparent
+      border-right: 8px solid transparent
+      top: 100%
+      left: 50%
+      margin-left: -8px
+
+    &::after
+      border-top: 8px solid white
+      margin-top: -9px
+      z-index: 10
+
+.mapboxgl-popup-content
+    background-color: transparent
+    box-shadow: none
+    padding: 0
+
 \:local(.marker-tooltip)
   width: 188px
   border-radius: 2px
@@ -8,25 +32,6 @@
   box-sizing: border-box
   padding: 12px 16px 16px 16px
   margin-bottom: 12px
-
-  &::before, &::after
-    content: ''
-    position: absolute
-    border-left: 8px solid transparent
-    border-right: 8px solid transparent
-    top: 100%
-    left: 50%
-    margin-left: -8px
-
-  &::before
-    border-top: 8px solid $hawkes-blue
-    margin-top: -12px
-
-  &::after
-    border-top: 8px solid white
-    margin-top: -13px
-    z-index: 10
-
 
   .marker-tooltip-date
     font-size: 12px

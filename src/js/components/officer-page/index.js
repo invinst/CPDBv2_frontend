@@ -1,5 +1,3 @@
-import 'custom-mapbox-gl.css';
-
 import React, { Component, PropTypes } from 'react';
 import { compact, get } from 'lodash';
 import DocumentMeta from 'react-document-meta';
